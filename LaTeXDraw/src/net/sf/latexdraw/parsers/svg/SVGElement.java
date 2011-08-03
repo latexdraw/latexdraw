@@ -922,6 +922,66 @@ public abstract class SVGElement implements Element, Cloneable {
 	}
 
 
+	/**
+	 * Sets the line cap of the stroke of the SVG shape.
+	 * @param svgLineCap The line cap to set. Must be SVG_LINECAP_VALUE_BUTT or SVG_LINECAP_VALUE_ROUND
+	 * or SVG_LINECAP_VALUE_SQUARE.
+	 * @since 0.2
+	 */
+	public void setStrokeLineCap(final String svgLineCap) {
+		if(svgLineCap!=null && (svgLineCap==SVGAttributes.SVG_LINECAP_VALUE_BUTT || svgLineCap==SVGAttributes.SVG_LINECAP_VALUE_ROUND ||
+		   svgLineCap==SVGAttributes.SVG_LINECAP_VALUE_SQUARE))
+			setAttribute(getUsablePrefix()+SVGAttributes.SVG_STROKE_LINECAP, svgLineCap);
+	}
+
+
+	/**
+	 * Sets the miter level of the stroke.
+	 * @param miterLevel The miter level to set. Must be greater than or equal to 1.
+	 * @since 0.2
+	 */
+	public void setStrokeMiterLevel(final double miterLevel) {
+		if(miterLevel>=1)
+			setAttribute(SVGAttributes.SVG_STROKE_MITERLIMIT, String.valueOf(miterLevel));
+	}
+
+
+	/**
+	 * Sets the dash offset of the stroke.
+	 * @param dashOffset The dash offset to set.
+	 * @since 0.2
+	 */
+	public void setStrokeDashOffset(final double dashOffset) {
+		setAttribute(SVGAttributes.SVG_STROKE_DASHOFFSET, String.valueOf(dashOffset));
+	}
+
+
+
+	/**
+	 * Sets the dash array of the stroke.
+	 * @param dashArray The dash array to set. Must not be null.
+	 * @since 0.2
+	 */
+	public void setStrokeDashArray(final String dashArray) {
+		if(dashArray!=null)
+			setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, dashArray);
+	}
+
+
+
+	/**
+	 * Sets the line join of the stroke of the SVG shape.
+	 * @param svgLineJoin The line join to set. Must be SVG_LINEJOIN_VALUE_BEVEL or SVG_LINEJOIN_VALUE_MITER
+	 * or SVG_LINEJOIN_VALUE_ROUND.
+	 * @since 0.2
+	 */
+	public void setStrokeLineJoin(final String svgLineJoin) {
+		if(svgLineJoin!=null && (svgLineJoin==SVGAttributes.SVG_LINEJOIN_VALUE_BEVEL || svgLineJoin==SVGAttributes.SVG_LINEJOIN_VALUE_MITER ||
+		   svgLineJoin==SVGAttributes.SVG_LINEJOIN_VALUE_ROUND))
+				setAttribute(getUsablePrefix()+SVGAttributes.SVG_STROKE_LINEJOIN, svgLineJoin);
+	}
+
+
 
 	/**
 	 * @return The stroke width of the element (if it is possible) or 1.

@@ -24,7 +24,7 @@ public final class SVGAttributes {
 	private SVGAttributes() {
 		super();
 	}
-	
+
 	public static final String SVG_X 						= "x";								//$NON-NLS-1$
 	public static final String SVG_Y 						= "y";								//$NON-NLS-1$
 	public static final String SVG_X1 						= "x1";								//$NON-NLS-1$
@@ -49,6 +49,7 @@ public final class SVGAttributes {
 	public static final String SVG_STROKE_LINECAP			= "stroke-linecap";					//$NON-NLS-1$
 	public static final String SVG_STROKE_LINEJOIN			= "stroke-linejoin";				//$NON-NLS-1$
 	public static final String SVG_STROKE_MITERLIMIT		= "stroke-miterlimit";				//$NON-NLS-1$
+	public static final String SVG_STROKE_DASHOFFSET		= "stroke-dashoffset";				//$NON-NLS-1$
 	public static final String SVG_POINTS					= "points";							//$NON-NLS-1$
 	public static final String SVG_MARKER_END				= "marker-end";						//$NON-NLS-1$
 	public static final String SVG_MARKER_START				= "marker-start";					//$NON-NLS-1$
@@ -274,7 +275,6 @@ public final class SVGAttributes {
 //	public static final String SVG_STITCH_TILES				= "stitchTiles";					//$NON-NLS-1$
 //	public static final String SVG_STRIKETHROUGH_POSITION	= "strikethrough-position";			//$NON-NLS-1$
 //	public static final String SVG_STRIKETHROUGH_THICKNESS	= "strikethrough-thickness";		//$NON-NLS-1$
-//	public static final String SVG_STROKE_DASHOFFSET		= "stroke-dashoffset";				//$NON-NLS-1$
 //	public static final String SVG_STROKE_OPACITY			= "stroke-opacity";					//$NON-NLS-1$
 //	public static final String SVG_SURFACE_SCALE			= "surfaceScale";					//$NON-NLS-1$
 //	public static final String SVG_SYSTEM_LANGUAGE			= "systemLanguage";					//$NON-NLS-1$

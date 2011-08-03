@@ -6,8 +6,6 @@ import java.awt.FontMetrics;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import sun.font.FontDesignMetrics;
-
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
@@ -25,6 +23,7 @@ import net.sf.latexdraw.parsers.svg.SVGTransform;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
+import sun.font.FontDesignMetrics;
 
 /**
  * Defines a SVG generator for a grid.<br>
