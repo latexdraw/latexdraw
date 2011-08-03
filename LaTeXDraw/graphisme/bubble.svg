@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.44.1"
+   inkscape:export-filename="C:\Documents and Settings\Tristelune\Mes documents\Programmation\TexDraw\site\images\bubble.jpg"
+   inkscape:export-xdpi="80"
+   inkscape:export-ydpi="80"
+   sodipodi:docbase="C:\Documents and Settings\Tristelune\Mes documents\Programmation\TexDraw\graphisme"
+   sodipodi:docname="bubble.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient9879">
+      <stop
+         style="stop-color:#a82222;stop-opacity:1;"
+         offset="0"
+         id="stop9881" />
+      <stop
+         style="stop-color:white;stop-opacity:0;"
+         offset="1"
+         id="stop9883" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient7203">
+      <stop
+         style="stop-color:#a00514;stop-opacity:1;"
+         offset="0"
+         id="stop7205" />
+      <stop
+         style="stop-color:#a00514;stop-opacity:0;"
+         offset="1"
+         id="stop7207" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6310">
+      <stop
+         style="stop-color:black;stop-opacity:1;"
+         offset="0"
+         id="stop6312" />
+      <stop
+         style="stop-color:white;stop-opacity:0;"
+         offset="1"
+         id="stop6314" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient9879"
+       id="linearGradient9885"
+       x1="629.02338"
+       y1="534.1264"
+       x2="-21.408987"
+       y2="-16.151485"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.091047,0,0,0.562118,-18.82802,68.71297)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="453.18613"
+     inkscape:cy="875.76253"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1024"
+     inkscape:window-height="712"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient9885);stroke-width:69.03296661;stroke-linejoin:round;stroke-miterlimit:10.80000019;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 92.560955,169.19159 L 92.560955,189.05896 L 636.07237,189.05896 L 636.07237,169.19159 L 92.560955,169.19159 z M 92.254096,194.68013 L 92.254096,214.54751 L 92.526857,214.54751 L 92.526857,220.30922 L 636.07237,220.30922 L 636.07237,200.45941 L 635.7996,200.45941 L 635.7996,194.68013 L 92.254096,194.68013 z M 92.254096,225.93039 L 92.254096,245.79776 L 635.7996,245.79776 L 635.7996,225.93039 L 92.254096,225.93039 z "
+       id="rect1872"
+       inkscape:export-filename="C:\Documents and Settings\Tristelune\Mes documents\Programmation\TexDraw\site\images\bubble.jpg"
+       inkscape:export-xdpi="80"
+       inkscape:export-ydpi="80" />
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+Brazilian Portuguese: Emerson Vinicius, José Humberto Melo, Matheus de Araújo, Eugênio F
+English-UK: Arnaud Blouin, Malcolm Parsons
+French: Arnaud Blouin, Thibault Liebert
+German: Lukas Woodtli, Data, maar7, mm, Sebastian Schlatow, Sebastian Lipp, Flosen, xlazarus, ah8982
+Hungarian: Máté Nagy, Griechisch Erika
+Italian: Andrea Burattin, Guybrush88, Franco Buratti, Omar Inverso, Luca Martini, Martino Barbon, Simone Sandri
+Japanese: uji
+Spanish: Ruben Agapito, Juan Pablo García, Manel Velasco, Luis J. Claros, Hector A. Mantellini
+Turkish: kosti
+Vietnamese: Nguyen Quang Chien
+
+We need you for the translations!
+See: https://translations.launchpad.net/latexdraw

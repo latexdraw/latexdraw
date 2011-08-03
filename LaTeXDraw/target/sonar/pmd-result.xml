@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="4.2.5" timestamp="2011-08-01T19:01:47.162">
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/fr/eseo/malai/interaction/library/DnD.java">
+<violation beginline="84" endline="84" begincolumn="33" endcolumn="79" rule="IdempotentOperations" ruleset="Design Rules" package="fr.eseo.malai.interaction.library" class="DnD" method="action" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#IdempotentOperations" priority="3">
+Avoid idempotent operations (like assigning a variable to itself).
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/fr/eseo/malai/widget/MComboBox.java">
+<violation beginline="61" endline="61" begincolumn="32" endcolumn="40" rule="LooseCoupling" ruleset="Coupling Rules" package="fr.eseo.malai.widget" class="MComboBox" externalInfoUrl="http://pmd.sourceforge.net/rules/coupling.html#LooseCoupling" priority="3">
+Avoid using implementation types like 'Vector'; use the interface instead
+</violation>
+<violation beginline="61" endline="61" begincolumn="32" endcolumn="40" rule="ReplaceVectorWithList" ruleset="Migration Rules" package="fr.eseo.malai.widget" class="MComboBox" externalInfoUrl="http://pmd.sourceforge.net/rules/migrating.html#ReplaceVectorWithList" priority="3">
+Consider replacing this Vector with the newer java.util.List
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/actions/ModifyPencilParameter.java">
+<violation beginline="89" endline="182" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.actions" class="ModifyPencilParameter" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method applyValue() has an NCSS line count of 89
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/actions/ModifyShapeProperty.java">
+<violation beginline="90" endline="209" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.actions" class="ModifyShapeProperty" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method applyValue() has an NCSS line count of 117
+</violation>
+<violation beginline="231" endline="266" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.actions" class="ModifyShapeProperty" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method isPropertySupported() has an NCSS line count of 62
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/generators/svg/IShapeSVGFactory.java">
+<violation beginline="66" endline="155" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.generators.svg" class="IShapeSVGFactory" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createShape() has an NCSS line count of 101
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/generators/svg/LAxeSVGGenerator.java">
+<violation beginline="61" endline="165" begincolumn="16" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="net.sf.latexdraw.generators.svg" class="LAxeSVGGenerator" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'withTransformation'.
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/generators/svg/LDotSVGGenerator.java">
+<violation beginline="48" endline="82" begincolumn="16" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="net.sf.latexdraw.generators.svg" class="LDotSVGGenerator" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'elt'.
+</violation>
+<violation beginline="48" endline="82" begincolumn="16" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="net.sf.latexdraw.generators.svg" class="LDotSVGGenerator" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'withTransformation'.
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/generators/svg/LGridSVGGenerator.java">
+<violation beginline="9" endline="9" begincolumn="1" endcolumn="34" rule="DontImportSun" ruleset="Controversial Rules" package="net.sf.latexdraw.generators.svg" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DontImportSun" priority="4">
+Avoid importing anything from the 'sun.*' packages
+</violation>
+<violation beginline="476" endline="536" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.generators.svg" class="LGridSVGGenerator" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createSVGGrid() has an NCSS line count of 50
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/generators/svg/LShapeSVGGenerator.java">
+<violation beginline="546" endline="658" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.generators.svg" class="LShapeSVGGenerator" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method setSVGAttributes() has an NCSS line count of 80
+</violation>
+<violation beginline="697" endline="768" begincolumn="17" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.generators.svg" class="LShapeSVGGenerator" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method getSVGHatchingsPath2() has an NCSS line count of 56
+</violation>
+<violation beginline="780" endline="851" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.generators.svg" class="LShapeSVGGenerator" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method getGradientPoints() has an NCSS line count of 52
+</violation>
+<violation beginline="875" endline="941" begincolumn="23" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.generators.svg" class="LShapeSVGGenerator" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method setFill() has an NCSS line count of 50
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/models/impl/LArc.java">
+<violation beginline="49" endline="58" begincolumn="19" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="net.sf.latexdraw.glib.models.impl" class="LArc" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'a'.
+</violation>
+<violation beginline="49" endline="58" begincolumn="19" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="net.sf.latexdraw.glib.models.impl" class="LArc" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'b'.
+</violation>
+<violation beginline="49" endline="58" begincolumn="19" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="net.sf.latexdraw.glib.models.impl" class="LArc" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'pt'.
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/models/impl/LArrow.java">
+<violation beginline="44" endline="48" begincolumn="19" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="net.sf.latexdraw.glib.models.impl" class="LArrow" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'owner'.
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/models/impl/LDot.java">
+<violation beginline="305" endline="390" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.models.impl" class="LDot" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method getTopLeftBottomRightPoints() has an NCSS line count of 80
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/models/impl/LFreehand.java">
+<violation beginline="36" endline="46" begincolumn="19" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="net.sf.latexdraw.glib.models.impl" class="LFreehand" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'pt'.
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/models/impl/LPicture.java">
+<violation beginline="37" endline="39" begincolumn="19" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="net.sf.latexdraw.glib.models.impl" class="LPicture" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'pathSource'.
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/models/interfaces/GLibUtilities.java">
+<violation beginline="108" endline="173" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.models.interfaces" class="GLibUtilities" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method getBezierCurveMinMax() has an NCSS line count of 55
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/Java2D/LArcView.java">
+<violation beginline="46" endline="49" begincolumn="19" endcolumn="9" rule="UselessOverridingMethod" ruleset="Basic Rules" package="net.sf.latexdraw.glib.views.Java2D" class="LArcView" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UselessOverridingMethod" priority="3">
+Overriding method merely calls super
+</violation>
+<violation beginline="54" endline="57" begincolumn="19" endcolumn="9" rule="UselessOverridingMethod" ruleset="Basic Rules" package="net.sf.latexdraw.glib.views.Java2D" class="LArcView" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UselessOverridingMethod" priority="3">
+Overriding method merely calls super
+</violation>
+<violation beginline="62" endline="65" begincolumn="19" endcolumn="9" rule="UselessOverridingMethod" ruleset="Basic Rules" package="net.sf.latexdraw.glib.views.Java2D" class="LArcView" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UselessOverridingMethod" priority="3">
+Overriding method merely calls super
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/Java2D/LShapeView.java">
+<violation beginline="284" endline="401" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.Java2D" class="LShapeView" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method paintFilling() has an NCSS line count of 85
+</violation>
+<violation beginline="565" endline="644" begincolumn="17" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.Java2D" class="LShapeView" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method paintHatchings2() has an NCSS line count of 58
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/Java2D/LStandardGridView.java">
+<violation beginline="16" endline="16" begincolumn="1" endcolumn="34" rule="DontImportSun" ruleset="Controversial Rules" package="net.sf.latexdraw.glib.views.Java2D" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#DontImportSun" priority="4">
+Avoid importing anything from the 'sun.*' packages
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/Java2D/LTextView.java">
+<violation beginline="178" endline="253" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.Java2D" class="LTextView" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createImage() has an NCSS line count of 62
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/Java2D/LViewsFactory.java">
+<violation beginline="40" endline="83" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.Java2D" class="LViewsFactory" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method generateView() has an NCSS line count of 58
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/latex/DviPsColors.java">
+<violation beginline="220" endline="308" begincolumn="17" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.latex" class="DviPsColors" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createColourHashTable() has an NCSS line count of 88
+</violation>
+<violation beginline="316" endline="390" begincolumn="17" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.latex" class="DviPsColors" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createNameColourHashTable() has an NCSS line count of 74
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/latex/LaTeXGenerator.java">
+<violation beginline="181" endline="181" begincolumn="90" endcolumn="105" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer Rules" package="net.sf.latexdraw.glib.views.latex" class="LaTeXGenerator" method="getCommentsWithoutTag" externalInfoUrl="http://pmd.sourceforge.net/rules/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;line.separator&quot; appears 6 times in this file; the first occurrence is on line 181
+</violation>
+<violation beginline="350" endline="350" begincolumn="17" endcolumn="33" rule="InefficientStringBuffering" ruleset="String and StringBuffer Rules" package="net.sf.latexdraw.glib.views.latex" class="LaTeXGenerator" method="getLatexDocument" externalInfoUrl="http://pmd.sourceforge.net/rules/strings.html#InefficientStringBuffering" priority="3">
+Avoid concatenating nonliterals in a StringBuffer constructor or append().
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/pst/PSTAxesView.java">
+<violation beginline="43" endline="227" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.pst" class="PSTAxesView" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method updateCache() has an NCSS line count of 133
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/pst/PSTBezierCurveView.java">
+<violation beginline="44" endline="117" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.pst" class="PSTBezierCurveView" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method updateCache() has an NCSS line count of 57
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/pst/PSTDotView.java">
+<violation beginline="44" endline="136" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.pst" class="PSTDotView" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method updateCache() has an NCSS line count of 68
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/pst/PSTFreeHandView.java">
+<violation beginline="46" endline="165" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.pst" class="PSTFreeHandView" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method updateCache() has an NCSS line count of 92
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/pst/PSTViewsFactory.java">
+<violation beginline="55" endline="96" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.glib.views.pst" class="PSTViewsFactory" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method generateView() has an NCSS line count of 55
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/glib/views/pst/PSTricksConstants.java">
+<violation beginline="69" endline="69" begincolumn="67" endcolumn="72" rule="AvoidDuplicateLiterals" ruleset="String and StringBuffer Rules" package="net.sf.latexdraw.glib.views.pst" class="PSTricksConstants" externalInfoUrl="http://pmd.sourceforge.net/rules/strings.html#AvoidDuplicateLiterals" priority="3">
+The String literal &quot;none&quot; appears 5 times in this file; the first occurrence is on line 69
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/installer/InstallerUI.java">
+<violation beginline="665" endline="665" begincolumn="36" endcolumn="78" rule="AssignmentInOperand" ruleset="Controversial Rules" package="net.sf.latexdraw.installer" class="InstallerUI" method="copy" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#AssignmentInOperand" priority="3">
+Avoid assignments in operands
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/instruments/PencilCustomiser.java">
+<violation beginline="106" endline="164" begincolumn="23" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.instruments" class="PencilCustomiser" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createLeftArrowStyleList() has an NCSS line count of 56
+</violation>
+<violation beginline="172" endline="230" begincolumn="23" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.instruments" class="PencilCustomiser" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createRightArrowStyleList() has an NCSS line count of 56
+</violation>
+<violation beginline="237" endline="292" begincolumn="23" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.instruments" class="PencilCustomiser" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createDotStyleChoice() has an NCSS line count of 53
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/instruments/PreferencesSetter.java">
+<violation beginline="200" endline="283" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.instruments" class="PreferencesSetter" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method initialiseWidgets() has an NCSS line count of 72
+</violation>
+<violation beginline="502" endline="649" begincolumn="17" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.instruments" class="PreferencesSetter" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method processXMLDataPreference() has an NCSS line count of 121
+</violation>
+<violation beginline="708" endline="864" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.instruments" class="PreferencesSetter" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method writeXMLPreferences() has an NCSS line count of 111
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/CSSColors.java">
+<violation beginline="342" endline="490" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.parsers.svg" class="CSSColors" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createColourHashTable() has an NCSS line count of 148
+</violation>
+<violation beginline="494" endline="633" begincolumn="19" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.parsers.svg" class="CSSColors" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createNameColourHashTable() has an NCSS line count of 139
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/SVGDocument.java">
+<violation beginline="103" endline="103" begincolumn="25" endcolumn="57" rule="PreserveStackTrace" ruleset="Design Rules" package="net.sf.latexdraw.parsers.svg" class="SVGDocument" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#PreserveStackTrace" priority="3">
+New exception is thrown in catch block, original stack trace may be lost
+</violation>
+<violation beginline="107" endline="107" begincolumn="25" endcolumn="57" rule="PreserveStackTrace" ruleset="Design Rules" package="net.sf.latexdraw.parsers.svg" class="SVGDocument" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#PreserveStackTrace" priority="3">
+New exception is thrown in catch block, original stack trace may be lost
+</violation>
+<violation beginline="111" endline="111" begincolumn="25" endcolumn="57" rule="PreserveStackTrace" ruleset="Design Rules" package="net.sf.latexdraw.parsers.svg" class="SVGDocument" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#PreserveStackTrace" priority="3">
+New exception is thrown in catch block, original stack trace may be lost
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/SVGElementsFactory.java">
+<violation beginline="45" endline="114" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.parsers.svg" class="SVGElementsFactory" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method createSVGElement() has an NCSS line count of 76
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/SVGNamedNodeMap.java">
+<violation beginline="129" endline="141" begincolumn="16" endcolumn="9" rule="CloneThrowsCloneNotSupportedException" ruleset="Clone Implementation Rules" package="net.sf.latexdraw.parsers.svg" class="SVGNamedNodeMap" externalInfoUrl="http://pmd.sourceforge.net/rules/clone.html#CloneThrowsCloneNotSupportedException" priority="3">
+clone() method should throw CloneNotSupportedException
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/SVGPathElement.java">
+<violation beginline="152" endline="152" begincolumn="43" endcolumn="126" rule="PreserveStackTrace" ruleset="Design Rules" package="net.sf.latexdraw.parsers.svg" class="SVGPathElement" method="getSegList" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#PreserveStackTrace" priority="3">
+New exception is thrown in catch block, original stack trace may be lost
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/SVGTransform.java">
+<violation beginline="75" endline="213" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.parsers.svg" class="SVGTransform" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method setTransformation() has an NCSS line count of 102
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/parsers/SVGLength.java">
+<violation beginline="50" endline="50" begincolumn="41" endcolumn="77" rule="PreserveStackTrace" ruleset="Design Rules" package="net.sf.latexdraw.parsers.svg.parsers" class="SVGLength" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#PreserveStackTrace" priority="3">
+New exception is thrown in catch block, original stack trace may be lost
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/parsers/SVGLengthParser.java">
+<violation beginline="190" endline="268" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.parsers.svg.parsers" class="SVGLengthParser" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method parseLength() has an NCSS line count of 58
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/parsers/SVGNumberParser.java">
+<violation beginline="112" endline="112" begincolumn="50" endcolumn="108" rule="PreserveStackTrace" ruleset="Design Rules" package="net.sf.latexdraw.parsers.svg.parsers" class="SVGNumberParser" method="parseNumberAsString" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#PreserveStackTrace" priority="3">
+New exception is thrown in catch block, original stack trace may be lost
+</violation>
+<violation beginline="130" endline="130" begincolumn="50" endcolumn="108" rule="PreserveStackTrace" ruleset="Design Rules" package="net.sf.latexdraw.parsers.svg.parsers" class="SVGNumberParser" method="parseNumber" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#PreserveStackTrace" priority="3">
+New exception is thrown in catch block, original stack trace may be lost
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/parsers/SVGPathParser.java">
+<violation beginline="46" endline="143" begincolumn="16" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.parsers.svg.parsers" class="SVGPathParser" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method parse() has an NCSS line count of 71
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/parsers/SVGPointsParser.java">
+<violation beginline="139" endline="139" begincolumn="19" endcolumn="114" rule="PreserveStackTrace" ruleset="Design Rules" package="net.sf.latexdraw.parsers.svg.parsers" class="SVGPointsParser" method="readNumber" externalInfoUrl="http://pmd.sourceforge.net/rules/design.html#PreserveStackTrace" priority="3">
+New exception is thrown in catch block, original stack trace may be lost
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/parsers/svg/path/SVGPathSegArc.java">
+<violation beginline="78" endline="149" begincolumn="12" endcolumn="9" rule="NcssMethodCount" ruleset="Code Size Rules" package="net.sf.latexdraw.parsers.svg.path" class="SVGPathSegArc" externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#NcssMethodCount" priority="3">
+The method getArc2D() has an NCSS line count of 52
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/ui/LCodePanel.java">
+<violation beginline="79" endline="82" begincolumn="16" endcolumn="9" rule="UselessOverridingMethod" ruleset="Basic Rules" package="net.sf.latexdraw.ui" class="LCodePanel" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#UselessOverridingMethod" priority="3">
+Overriding method merely calls super
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/ui/LUIComposer.java">
+<violation beginline="46" endline="53" begincolumn="16" endcolumn="9" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="net.sf.latexdraw.ui" class="LUIComposer" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'progressBar'.
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/util/LCommandLine.java">
+<violation beginline="158" endline="158" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging Rules" package="net.sf.latexdraw.util" class="LCommandLine" method="displayHelp" externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="159" endline="159" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging Rules" package="net.sf.latexdraw.util" class="LCommandLine" method="displayHelp" externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="160" endline="160" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging Rules" package="net.sf.latexdraw.util" class="LCommandLine" method="displayHelp" externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="161" endline="161" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging Rules" package="net.sf.latexdraw.util" class="LCommandLine" method="displayHelp" externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="163" endline="163" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging Rules" package="net.sf.latexdraw.util" class="LCommandLine" method="displayHelp" externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="164" endline="164" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging Rules" package="net.sf.latexdraw.util" class="LCommandLine" method="displayHelp" externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="165" endline="165" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging Rules" package="net.sf.latexdraw.util" class="LCommandLine" method="displayHelp" externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="166" endline="166" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging Rules" package="net.sf.latexdraw.util" class="LCommandLine" method="displayHelp" externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="167" endline="167" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging Rules" package="net.sf.latexdraw.util" class="LCommandLine" method="displayHelp" externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+<violation beginline="168" endline="168" begincolumn="17" endcolumn="34" rule="SystemPrintln" ruleset="Java Logging Rules" package="net.sf.latexdraw.util" class="LCommandLine" method="displayHelp" externalInfoUrl="http://pmd.sourceforge.net/rules/logging-java.html#SystemPrintln" priority="3">
+System.out.print is used
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/util/LFileUtils.java">
+<violation beginline="121" endline="121" begincolumn="24" endcolumn="55" rule="AssignmentInOperand" ruleset="Controversial Rules" package="net.sf.latexdraw.util" class="LFileUtils" method="copy" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#AssignmentInOperand" priority="3">
+Avoid assignments in operands
+</violation>
+</file>
+<file name="/home/ablouin/latexdraw/LaTeXDraw/src/net/sf/latexdraw/util/StreamExecReader.java">
+<violation beginline="62" endline="62" begincolumn="27" endcolumn="56" rule="AssignmentInOperand" ruleset="Controversial Rules" package="net.sf.latexdraw.util" class="StreamExecReader" method="run" externalInfoUrl="http://pmd.sourceforge.net/rules/controversial.html#AssignmentInOperand" priority="3">
+Avoid assignments in operands
+</violation>
+</file>
+</pmd>

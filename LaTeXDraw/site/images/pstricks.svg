@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="50"
+   height="50"
+   id="svg5455"
+   sodipodi:version="0.32"
+   inkscape:version="0.44.1"
+   sodipodi:docbase="C:\Documents and Settings\Tristelune\Mes documents\Programmation\TexDraw\site\images"
+   sodipodi:docname="pstricks.svg"
+   version="1.0">
+  <defs
+     id="defs5457">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4549">
+      <stop
+         style="stop-color:#a5a6a5;stop-opacity:1;"
+         offset="0"
+         id="stop4551" />
+      <stop
+         style="stop-color:#a5a6a5;stop-opacity:0;"
+         offset="1"
+         id="stop4553" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient2766">
+      <stop
+         style="stop-color:#03a684;stop-opacity:1;"
+         offset="0"
+         id="stop2768" />
+      <stop
+         style="stop-color:#03a684;stop-opacity:0;"
+         offset="1"
+         id="stop2770" />
+    </linearGradient>
+    <marker
+       inkscape:stockid="Arrow2Sstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Sstart"
+       style="overflow:visible">
+      <path
+         id="path6503"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.97309,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="matrix(0.3,0,0,0.3,-0.69,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lstart"
+       style="overflow:visible">
+      <path
+         id="path6515"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.97309,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="matrix(1.1,0,0,1.1,1.1,0)" />
+    </marker>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2766"
+       id="linearGradient2772"
+       x1="49.368908"
+       y1="34.443649"
+       x2="23.398806"
+       y2="8.9878063"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.025891,0,0,1.104997,-50.96822,-2.929306)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4549"
+       id="linearGradient4555"
+       x1="12.700292"
+       y1="33.387505"
+       x2="-7.0909095"
+       y2="3.090909"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4549"
+       id="linearGradient4561"
+       gradientUnits="userSpaceOnUse"
+       x1="12.700292"
+       y1="33.387505"
+       x2="-7.0909095"
+       y2="3.090909" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2766"
+       id="linearGradient1900"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.025891,0,0,1.104997,-13.49336,-7.591263)"
+       x1="49.368908"
+       y1="34.443649"
+       x2="23.398806"
+       y2="8.9878063" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4549"
+       id="linearGradient1902"
+       gradientUnits="userSpaceOnUse"
+       x1="12.700292"
+       y1="33.387505"
+       x2="-7.0909095"
+       y2="3.090909" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.48613591"
+     inkscape:cx="-617.63492"
+     inkscape:cy="-141.96444"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     inkscape:window-width="1024"
+     inkscape:window-height="712"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     width="50px"
+     height="50px" />
+  <metadata
+     id="metadata5460">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <g
+       id="g4557"
+       transform="matrix(-2.915939,0,0,3.295023,45.01098,-60.62806)">
+      <path
+         sodipodi:nodetypes="ccccccc"
+         id="rect2774"
+         d="M 1.49673,19.355515 L 8.9995405,19.355515 L 9.0134473,22.858907 L 12.51684,22.872815 L 12.51684,33.204053 L 1.49673,33.204053 L 1.49673,19.355515 z "
+         style="fill:url(#linearGradient4561);fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:0.36690313;stroke-linejoin:round;stroke-miterlimit:0;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         id="path3662"
+         d="M 8.9428703,19.330126 L 12.526157,22.912494"
+         style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:29.78542709px;font-style:normal;font-weight:normal;fill:black;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="0.88912046"
+       y="38.419567"
+       id="text1899"
+       transform="scale(0.863141,1.15856)"><tspan
+         sodipodi:role="line"
+         id="tspan1901"
+         x="0.88912046"
+         y="38.419567">TeX</tspan></text>
+  </g>
+</svg>

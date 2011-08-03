@@ -1,0 +1,541 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+
+  <meta http-equiv="CONTENT-TYPE" content="TEXT/HTML; charset=iso-8859-1"/>
+
+  <link href="style.css" rel="stylesheet" type="text/css"/>
+
+  <link rel="alternate" type="application/rss+xml" title="RSS - News" href="LaTeXDraw-news.rss"/>
+  <link href="images/LaTeXDrawIcon.gif" rel="icon" type="image/png" />
+  <meta name="keywords" content="LaTeXDraw, PSTricks, pstricks, code, generator, generation, LaTeX, latex, code generator, code generation, java, jar, graphical, editor, graphical editor, free, gnu, opensource, gpl, TeX, tex, pstrick, PSTrick, open source"/>
+
+  <meta name="Description" content="The LaTeXDraw Manual, help, manual"/>
+  <title>The LaTeXDraw Manual</title>
+
+
+</head>
+
+
+<body>
+
+<table border="0" cellpadding="23" cellspacing="23" width="100%">
+
+  <tbody>
+
+    <tr>
+
+      <td class="MenuColumn" valign="top">
+      <table border="0" cellpadding="2" cellspacing="0">
+
+        <tbody>
+<tr><td style="height: 100px;"></td></tr>
+          <tr>
+
+            <td><a class="MenuLink" href="index.html">home</a></td>
+
+          </tr>
+
+          <tr>
+
+            <td><a class="MenuLink" href="download.html">Download</a></td>
+
+          </tr>
+
+          <tr>
+
+            <td><a class="MenuLink" href="generalFeatures.html">Features</a></td>
+
+          </tr>
+          <tr>
+
+            <td><a class="MenuLink" href="helpUs.html">Help Us</a></td>
+
+          </tr>
+          <tr>
+
+            <td><a class="MenuLink" href="helpIndex.html">Manual</a></td>
+
+          </tr>
+	<tr><td><hr /></td></tr>
+          <tr>
+
+            <td><a class="MenuLink" href="sysReq.html">System<br/>&nbsp;&nbsp;requirements</a></td>
+
+          </tr>
+          <tr>
+            <td><a class="MenuLink" href="license.html">License</a></td>
+          </tr>
+         <tr>
+            <td><a class="MenuLink" href="features.html">Features</a></td>
+          </tr>
+<tr> <td><a class="MenuLink" href="2.0.html">LaTeXDraw 2.0</a></td>
+          <tr>
+	    <td><span class="SubMenu1Current">Shapes</span></td>
+          </tr>
+          <tr>
+	    <td><a class="SubMenu1" href="graphFeat.html">Graphicals Features</a></td>
+          </tr>
+          <tr>
+	    <td><a class="SubMenu1" href="export.html">Exportation</a></td>
+          </tr>
+          <tr>
+	    <td><a class="SubMenu1" href="drawProp.html">Drawing properties</a></td>
+          </tr>
+<tr> <td><a class="SubMenu1" href="import.html">Insert/import</a></td> </tr> 
+          <tr>
+	    <td><a class="SubMenu1" href="template.html">Template</a></td>
+          </tr>
+          <tr>
+	    <td><a class="SubMenu1" href="check.html">Check Version</a></td>
+          </tr>
+
+          <tr>
+            <td><a class="MenuLink" href="start.html">How to start</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      </td>
+
+      <td valign="top" width="75%">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+	    
+           <h1>Shapes</h1>
+  <br /><br />
+<h2>The Shapes</h2>
+<ul>
+    <li><a href="#Rectangle">Rectangle & Square</a></li>
+    <li><a href="#Line">Line</a></li>
+    <li><a href="#Ellipse">Ellipse & Circle</a></li>
+    <li><a href="#Bezier">Bézier curve</a></li>
+    <li><a href="#Polygon">Polygon</a></li>
+    <li><a href="#Triangle">Triangle & Rhombus</a></li>
+    <li><a href="#Grid">Grid</a></li>
+    <li><a href="#Arc">Arc</a></li>
+    <li><a href="#Point">Point</a></li>
+    <li><a href="#Akin">Akin Points</a></li>
+    <li><a href="#Text">Text</a></li>
+<li><a href="#JoinedLines">Joined Lines</a></li>
+</ul>
+<br />
+<br />
+<h2>The Parameters of the Shapes</h2>
+<br />You can modify a shape by using the parameters frame that you can display by double clicking on the shape or by clicking on this button :<img alt="paramsIcon" title="paramsIcon" src="./images/Palette.gif" />.
+<br /><br />Then, the following frame must be displayed :
+<br /><br /><br />
+<img alt="paramsFrame" title="paramsFrame" src="./images/paramsFrame.jpg" />
+<br /><br /><br />
+You can also modify a figure with the toolbar of LaTeXDraw :
+<br /><br /><br />
+<img alt="toolbar" title="toolbar" src="./images/toolbar.jpg" />
+
+<br /><br /><br />
+You can especially modify :
+<br />
+<ul>
+    <li><a href="#PositionBorder">The position of the borders</a></li>
+    <li><a href="#Colors">The colors</a></li>
+    <li><a href="#Filled">Filled/hatched</a></li>
+    <li><a href="#Arrows">The Arrows</a></li>
+    <li><a href="#Thickness">The thickness</a></li>
+    <li><a href="#KindBorders">The kind of the borders</a></li>
+    <li><a href="#DbleBorders">The double borders</a></li>
+    <li><a href="#Shadow">Shadow</a></li>
+    <li><a href="#Shifting">Colours shifting</a></li>
+</ul>
+<br /><br /><br /><br />
+<a name="Rectangle"> 
+<h2>Rectangle & Square</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="rectangle" title="rectangle" src="./images/rectangle.jpg" /><br />
+<br />To create a rectangle or a square use these button : <img alt="rectButton"
+ title="rectButton" src="./images/rectangleMenu.jpg" />. Press the left button and drag the mouse to enlarge the rectangle.
+<br /><br />
+<ul>
+<li>You can create a <b>round</b> rectangle/square by selecting the checkbox "is Round ?" in the parameters frame.</li>
+
+<li>You can <a href="#PositionBorder">change the position of the borders</a> of the rectangle/square and <a href="#DbleBorders">create doubles borders</a>.</li>
+
+<li>A rectangle/square can be <a href="#Filled">filled and hatched</a>.</li>
+
+<li>Like most of the shapes, you can change the <a href="#Thickness">thickness</a>, the 
+<a href="#Colors">colors</a>, as well as the <a href="#kindBorders">kind of the borders.</a></li>
+</ul>
+</div>
+
+
+<br /><br />
+<a name="Line"> 
+<h2>Line</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="line" title="line" src="./images/line.jpg" /><br />
+<br />To create a line, press the left button and drag the mouse to enlarge the line.
+<br /><br />
+<ul>
+<li>You can add <a href="#Arrows">arrows</a> to a line.</li>
+
+<li>You can convert the line into <a href="#DbleBorders">doubles lines</a>.</li>
+
+<li>Like most of the shapes, you can change the <a href="#Thickness">thickness</a>, the 
+<a href="#Colors">color</a>, as well as the <a href="#kindBorders">kind of the line.</a></li>
+</ul>
+</div>
+
+
+
+<br /><br />
+<a name="Ellipse"> 
+<h2>Ellipse & Circle</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="ellipse" title="ellipse" src="./images/ellipse.jpg" /><br />
+<br />To create an ellipse/circle, press the left button and drag the mouse to enlarge the shape.
+<br /><br />
+<ul>
+<li>You can <a href="#PositionBorder">change the position of the borders</a> of the ellipse/circle and <a href="#DbleBorders">create doubles borders</a>.</li>
+
+<li>A ellipse/circle can be <a href="#Filled">filled and hatched</a>.</li>
+
+<li>Like most of the shapes, you can change the <a href="#Thickness">thickness</a>, the 
+<a href="#Colors">colors</a>, as well as the <a href="#kindBorders">kind of the borders.</a></li>
+</ul>
+</div>
+
+<br /><br />
+<a name="Bezier"> 
+<h2>Bézier Curve</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="Bézier curve" title="Bézier curve" src="./images/bezier.jpg" /><br />
+<br />To create a Bézier Curve, press the left button and drag the mouse to enlarge the shape.
+<br /><br />
+You can move the points of references by selecting the figure and move the delimitors.
+<br /><br />
+Like most of the shapes, you can change the <a href="#Thickness">thickness</a> and the 
+<a href="#Colors">colors</a>.
+</div>
+
+
+
+<br /><br />
+<a name="Polygon"> 
+<h2>Polygon</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="polygon" title="polygon" src="./images/polygon.jpg" /><br />
+<br />To create an polygon, click with the rigth button and drag the mouse then click to create an other point, etc.
+<br /><br />
+<ul>
+<li>A polygon can be <a href="#Filled">filled and hatched</a>;</li>
+<li>it can have <a href="#DbleBorders">double borders</a>;
+<li>Like most of the shapes, you can change the <a href="#Thickness">thickness</a>, the 
+<a href="#Colors">colors</a>, as well as the <a href="#kindBorders">kind of the borders.</a></li>
+</ul>
+</div>
+
+
+
+
+<br /><br />
+<a name="Triangle"> 
+<h2>Triangle & Rhombus</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="triangle" title="triangle" src="./images/triangle.jpg" /><br />
+<br />To create a triangle/Rhombus, press the left button and drag the mouse to enlarge the shape.
+<br /><br />
+<ul>
+<li>You can <a href="#PositionBorder">change the position of the borders</a> of the triangle/Rhombus and <a href="#DbleBorders">create doubles borders</a>.</li>
+
+<li>A triangle/Rhombus can be <a href="#Filled">filled and hatched</a>.</li>
+
+<li>Like most of the shapes, you can change the <a href="#Thickness">thickness</a>, the 
+<a href="#Colors">colors</a>, as well as the <a href="#kindBorders">kind of the borders.</a></li>
+</ul>
+</div>
+
+
+
+<br /><br />
+<a name="Grid"> 
+<h2>Grid</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="grid" title="grid" src="./images/grid.jpg" /><br />
+<br />To create a grid, do a right click in the draw panel; a frame of the parameters of the grid must appeared. A grid has a lots of parameters that you can change in this frame.
+<br /><br />
+A grid can not be resized with its delimitors, but you can change the parameters "unit" to enlarge each box of the grid.
+</div>
+
+
+
+<br /><br />
+<a name="Arc"> 
+<h2>Arc</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="arc" title="arc" src="./images/arc.jpg" /><br />
+<br />To create an arc, press the left button and drag the mouse to enlarge the shape.
+<br /><br />
+There is three kind of arcs :
+<ul>
+<li>Arc, which can have <a href="#Arrows">arrows</a></li>
+<li>Chord</li>
+<li>Wedge</li>
+</ul>
+
+<ul>
+<li>All kind of arcs can be <a href="#Filled">filled and hatched</a>.</li>
+
+<li>Like most of the shapes, you can change the <a href="#Thickness">thickness</a>, the 
+<a href="#Colors">colors</a>, as well as the <a href="#kindBorders">kind of the borders.</a></li>
+</ul>
+</div>
+
+
+
+
+<br /><br />
+<a name="Point"> 
+<h2>Point</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="point" title="point" src="./images/point.jpg" /><br />
+<br />To create a point, do a right click in the draw panel. It exists a lots of kind of point (crossed dot, square, bar, ...) that you can change in the list "dot style".
+<br /><br />
+<ul>
+<li>Some kind of points can be <a href="#Filled">filled</a> like pentagon.
+<li>Like most of the shapes, you can change the <a href="#Thickness">size</a> and the 
+<a href="#Colors">colors</a>.</a></li>
+</ul>
+</div>
+
+
+
+
+
+<br /><br />
+<a name="Akin"> 
+<h2>Akin Points</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="akinPoints" title="akinPoints" src="./images/akinPoints.jpg" /><br />
+<br />To create akin points, press the left button and drag the mouse to create points.
+<br /><br />
+Like most of the shapes, you can change the <a href="#Thickness">thickness</a>, the 
+<a href="#Colors">colors</a>, as well as the <a href="#kindBorders">kind of the borders.
+</div>
+
+
+
+<br /><br />
+<a name="Text"> 
+<h2>Text</h2>
+</a>
+
+<div style="text-align: justify;">
+<img alt="text" title="text" src="./images/text.jpg"><br /><br />To
+create a text, do a right click in the draw panel; a frame of the
+parameters of the text must appeared. You can enter the text in the
+field. The text can be bold, in italic and can use severals fonts and
+size.
+<br /><br />
+<ul>
+<li>A text can not be resized with its delimitors.</li>
+<li>To create several text chunks contained in rectangle of the same size you must: create your text; create you rectangle; center your text with your rectangle as illustrated in the following figure.<br/>
+<img alt="text" title="text" src="./images/textRect1.png"><br/>
+Then, you can copy and paste the rectangle and the text to create an other boxed text, as illustrated in the following figure.<br />
+<img alt="text" title="text" src="./images/textRect2.png"><br/>
+</li>
+
+<li>A text can be opaque and you can define the colour of the opacity.</li>
+</ul>
+<br /><br />
+<b>A text can be boxed by one or several boxes</b>; a box can be a rectangle, an oval, an circle,
+an diamond or a triangle.<br /><br />
+<img alt="FramedBox" title="FramedBox" src="./images/framedBox.jpg"><br />
+The <b>frameSep</b> parameter define the separation between the figure and the box.<br />
+<b>A box can be edited</b>	 like every shape with the button "edit".<br />
+The <b>boxSep</b> parameter is used for several boxes; it define if the size of the current box must be considered
+during the definition of the position and the size of the boxes.<br />
+For several boxes: 
+<ul>
+<li>you can add a box by clicking on the button "add" and by selecting the part of the text you want to box.
+ If the message "Invalid box, ..." occurred, it means that the box can be created because the box you want to create
+overlap another box.</li>
+<li>you can remove or modify a the boxed text by selecting the box in the list; then
+you can delete or modify the selected box;</li>
+</ul>
+<img alt="text2" title="text" src="./images/text2.jpg">
+
+<br />
+
+
+<br /><br />
+<a name="PositionBorder"> 
+<h2>The position of the borders</h2>
+</a>
+
+<div style="text-align: justify;">
+You can change the position of the borders of some figures :
+<ul>
+<li>outer</li>
+<li>middle</li>
+<li>inner</li>
+</ul>
+Like show in this picture :<br /><br />
+<img alt="text" title="text" src="./images/borderPos.jpg" /><br />
+</div>
+
+
+
+<br /><br />
+<a name="Colors"> 
+<h2>The colors</h2>
+</a>
+<div style="text-align: justify;">
+You can change the color of the borders, the interior of the figure, the hatching or of the double seperation with
+the parametres frame or with the toolbar :<br /><br />
+<img alt="text" title="text" src="./images/toolbar.jpg" /><br />
+</div>
+
+
+
+
+
+<br /><br />
+<a name="Filled"> 
+<h2>Filled/hatched</h2>
+</a>
+<div style="text-align: justify;">
+Some shapes can be filled or hatched, like rectangle, rhombus, ... To fill a shape, selected the checkbox "filled", the button to change the color of the interior of the shape must appeared.<br /><br />
+To hatch a figure, select a kind of hatching in the list in the toolbar or in the parameters frame. LaTeXDraw do not manage to angle of the hatching so, by default, the angle is 0.
+<br /><br />
+<img alt="text" title="text" src="./images/toolbar.jpg" /><br />
+</div>
+
+
+
+
+<br /><br />
+<a name="Arrows"> 
+<h2>The Arrows</h2>
+</a>
+<div style="text-align: justify;">
+Lines ans arcs can have arrows ; there are a lots of kind of arrows listed is the field like shown in the following pictures :
+<br /><br />
+<img alt="text" title="text" src="./images/arrowToolbar.jpg" /><br />
+</div>
+
+
+
+
+<br /><br />
+<a name="Thickness"> 
+<h2>The thickness</h2>
+</a>
+<div style="text-align: justify;">
+You can change the thickness of a figure with the field "thickness :" of the toolbar or of the parameters frame. However, points do not have thickness but size which can be changed in the same field.
+</div>
+
+
+
+
+
+<br /><br />
+<a name="KindBorders"> 
+<h2>The kind of the borders</h2>
+</a>
+<div style="text-align: justify;">
+There is 3 kind of borders :
+<ul>
+<li>Full</li>
+<li>Dotted</li>
+<li>Dashed</li>
+</ul>
+<br />
+Like show in the following picture :
+<br /><br />
+<img alt="text" title="text" src="./images/kindLines.jpg" /><br />
+</div>
+
+
+
+<br /><br />
+<a name="DbleBorders"> 
+<h2>The double borders</h2>
+</a>
+<div style="text-align: justify;">
+Some figures can have double borders like rectangle, circle, ... For that, select the checkbox "dle bound.". The double borders are, in general, <a href="#PositionBorder">movable</a> (inner, outer, middle).
+<br /><br />
+<img alt="text" title="text" src="./images/dbleBord.jpg" /><br />
+
+
+<a name="Shadow"> <h2>Shadow</h2>
+</a>
+Now, a shape can have a shadow; a shape is defined by:
+<ul>
+<li>its color;</li>
+<li>its size;</li>
+<li>its angle.</li>
+</ul>
+<img alt="Shadow" title="Shadow" src="./images/shadow.jpg">
+
+
+
+<a name="Shifting"> <h2>Colours shifting</h2>
+</a>
+Two colours can be used to fill a shape; the shifting is defined by:
+<ul>
+<li>its angle;</li>
+<li>its position.</li>
+</ul>
+
+<img alt="Shifting" title="Shifting" src="./images/shifting.jpg">
+<br /> <br />
+</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br />
+
+
+      <hr />
+      <table class="footer" cellpadding="2" cellspacing="3">
+
+        <tbody>
+          <tr>
+            <td align="left"><small>Copyright(c) 2005-2011 - arno_b - last changes: July 13 2006</small></td>
+          </tr>
+          <tr>
+            <td align="left"><small>LaTeXDraw, a PSTricks generator or PSTricks editor for LaTeX</small></td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>
+
+
+

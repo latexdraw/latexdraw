@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<project name="Template Buildfile" default="jar" basedir=".">
+	<property name="dir.out" value="out"/>
+	 <property name="jar.junit" value="/opt/eclipse/plugins/org.junit4_4.3.1/junit.jar"/>
+	
+	<!-- Creates the output directories -->
+	<target name="prepare">
+	<mkdir dir="${dir.out}"/>
+	</target>
+		
+	<!-- Creates the jar -->
+	<target name="jar" description="Generates installer.jar">
+		
+		<jar jarfile="${dir.out}/installer.jar" manifest="META-INF/MANIFEST.MF">
+			<!-- Creates the manifest -->
+			<manifest>
+				<attribute name="Main-Class" value="latexDraw.installer.InstallerUI"/>
+			</manifest>
+			
+		 <!-- Filters the files -->
+		 <fileset dir=""
+			 includes="latexDraw/installer/*.class ; latexDraw/ui/listeners/InstallerListener.class ; latexDraw/util/LaTeXDrawPath.class ; res/LaTeXDrawIcon.png"
+		 />
+		</jar>
+	</target>
+	
+</project>
+
+
+
+
+
+
+
+
+
+

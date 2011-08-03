@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.48.0 r9654"
+   width="20"
+   height="20"
+   sodipodi:docname="test.svg"
+   inkscape:export-filename="/home/ablouin/Bureau/roundness.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1482"
+     inkscape:window-height="981"
+     id="namedview21"
+     showgrid="false"
+     inkscape:zoom="7.8148"
+     inkscape:cx="22.814168"
+     inkscape:cy="-14.244825"
+     inkscape:window-x="302"
+     inkscape:window-y="100"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4" />
+  <g
+     id="g15"
+     latexdraw:type="rectangle"
+     transform="matrix(0.28167117,0,0,0.22490474,-118.80051,-98.096988)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:30"
+       d="m 473.8,459 278.4,0 c 49.97853,15.13723 48.07478,120.54818 0,122 l -278.4,0 C 454.5208,581 439,565.4792 439,546.2 l 0,-52.4 c 0,-19.2792 15.5208,-34.8 34.8,-34.8 z"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sccssss"
+       id="rect17" />
+  </g>
+  <metadata
+     id="metadata19">
+    <latexdraw:metadata>
+      <latexdraw:dividerPosition>0.7</latexdraw:dividerPosition>
+      <latexdraw:displayCodePanel>true</latexdraw:displayCodePanel>
+      <latexdraw:latexIncludes />
+      <latexdraw:zoom>1.0</latexdraw:zoom>
+    </latexdraw:metadata>
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

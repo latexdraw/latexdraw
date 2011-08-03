@@ -1,0 +1,5 @@
+To compile you need at least the Sun jdk 1.5 (in order to have the javac program).
+
+Just run ./compile to launch the compilation. The warnings come from the libraries, not from the LaTeXDraw sources ... ;)
+
+The most efficient way to use the sources, is to use eclipse 3.3 (www.eclipse.org) and to import the LaTeXDraw project (with the file .project)

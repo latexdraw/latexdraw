@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<meta http-equiv="CONTENT-TYPE" content="TEXT/HTML; charset=iso-8859-1"> <link href="style.css" rel="stylesheet" type="text/css">
+<meta name="Author" content="arnaud blouin"><title>The
+LaTeXDraw Project Manual</title> </head>
+
+<body><table border="0" cellpadding="23" cellspacing="23" width="100%"> <tbody> <tr>
+<td class="MenuColumn" valign="top"> <table style="z-index: 100; left: 30px; position: absolute; top: 121px;" border="0" cellpadding="2" cellspacing="0"> <tbody>
+<tr> <td><a class="MenuLink" href="index.html">LaTeXDraw
+Manual</a></td> </tr> <tr><td><hr></td></tr>
+<tr> <td><a class="MenuLink" href="sysReq.html">System<br>&nbsp;&nbsp;requirements</a></td>
+</tr> <tr> <td><a class="MenuLink" href="license.html">License</a></td> </tr>
+<tr> <td><a class="MenuLink" href="features.html">Features</a></td>
+<tr> <td><a class="MenuLink" href="1.9.html">LaTeXDraw 1.9</a></td>
+</tr> 
+</tr> <tr> <td><a class="SubMenu1" href="shapes.html">Shapes</a></td> </tr> <tr>
+<td><a class="SubMenu1" href="graphFeat.html">Graphicals
+Features</a></td> </tr> 
+<tr> <td><a class="SubMenu1" href="export.html">Exportation</a></td></tr>
+<tr> <td><span class="SubMenu1Current">Insert/import</span></td> </tr> 
+<tr> <td><a class="SubMenu1" href="drawProp.html">Drawing properties</a></td> </tr> 
+<tr> <td><a class="SubMenu1" href="convert.html">Convert Pictures</a></td> </tr> 
+<tr> <td><a class="SubMenu1" href="template.html">Template</a></td>
+</tr> <tr> <td><a class="SubMenu1" href="check.html">Check Version</a></td> </tr>
+<tr> <td><a class="MenuLink" href="start.html">How
+to start</a></td> </tr> </tbody> </table>
+</td> <td valign="top"> <table> <tbody>
+
+<tr> <td>  <h1>Import/Insert</h1> <br><br>
+
+<h4>Import</h4><br>
+LaTeXDraw can import a PSTricks file : PSTricks commands are translated in figures in a drawing.<br>
+To insert a PSTricks drawing, the PSTricks code must be tagged by :<br><br>
+\begin{pspicture}(..)(..)<br>
+..<br>
+\end{pspicture}<br><br>
+
+If there is no pspicture tag, the code will not be imported.<br>
+<br>
+This is the first release of the PSTricks parser, so only a few commands are managed :
+psframe, psellipse, psarc, pswedge, pscircle, psdot, psdots, psgrid, rput, degrees, radians, psline, 
+pspolygon, psbezier, psdoamond, pstriangle and several latex commands.<br>
+<br>
+<b>Important PSTricks commands like uput, specialCoor, ... are yet not managed.</b>
+<br><br>
+<b>When you want to parse a text or a framed box, it must be boxed by the command rput;</b> for instance:
+<br>\psframebox{coucou} mus be inserted as rput(0,0){\psframebox{coucou}}<br>
+Because a text or a framed box has not coordinate and when you insert a text without rput, the drawing is badly
+drawn. So you must use the command rput which define a coordinate for these shapes.
+
+
+
+<br><br><br>
+<h4>Insert a picture</h4><br>
+To insert a picture in a drawing, select the picture with the "Insert->Picture" frame.<br><br>
+<img alt="line" title="line" src="./images/insertP.jpg"><br> 
+A picture can be rotated.<br>
+An eps picture cannot be import but pstricks works only with eps files; so, when you include a jpeg picture, 
+an eps picture is created in order to make the pstricks compilable.<br>
+When you load a latexdraw file with a picture inside, the path of the jpeg, bmp, ... picture is used to load
+the picture NOT THE PATH OF THE EPS PICTURE.
+<br>
+<br>
+<br>
+<br>
+<h4>Insert PSTricks code</h4><br>
+Instead of import PSTricks code, you can insert PSTricks code in a drawing : no new drawing is created, the
+PSTricks figures are included in the current drawing.
+<br>
+<br>
+<img alt="line" title="line" src="./images/insertC.jpg"><br> 
+<br><br><br><br><br>
+</td> </tr> </tbody> </table> <br> <hr>
+<table class="footer" cellpadding="2" cellspacing="3">
+<tbody> <tr> <td align="left"><small>Copyright(c)
+2005-2006 - Arnaud BLOUIN - last changes : April 25 2006</small></td>
+</tr> </tbody> </table> </td> </tr> </tbody>
+</table></body></html>
+
+
+

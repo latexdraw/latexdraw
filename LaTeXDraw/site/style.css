@@ -1,0 +1,327 @@
+body, th, td
+{
+	font: normal 14px verdana,arial,'Bitstream Vera Sans',helvetica,sans-serif;
+}
+  
+
+body 
+{ 
+	color: black;
+    	background-color: white;
+    	font-family: verdana,arial,'Bitstream Vera Sans',helvetica,sans-serif
+    	font-size: 0.9em;
+}
+
+  .right 
+  { font-size: 1.5em;
+    text-align: right;
+  }
+
+  th 
+  { 
+	font-size: 100%;
+	font-family: verdana,arial,'Bitstream Vera Sans',helvetica,sans-serif;
+  }
+
+  td
+  { 
+	font-size: 100%;
+	font-family: verdana,arial,'Bitstream Vera Sans',helvetica,sans-serif;
+  }
+
+  h1 
+  {
+	text-align: center;
+    	font-size: 140%;
+    	font-family: verdana,arial,'Bitstream Vera Sans',helvetica,sans-serif;
+   }
+
+  h2 
+  { text-align: center;
+    font-size: 120%;
+    font-family: verdana,arial,'Bitstream Vera Sans',helvetica,sans-serif;
+   }
+
+  h4 
+  { 
+	font-size: 100%;
+    font-family: verdana,arial,'Bitstream Vera Sans',helvetica,sans-serif;;
+  }
+
+  a.SubMenu1 
+  { 
+	background: inherit inherit inherit inherit inherit;
+    font-family: inherit;
+    text-align: left;
+    font-weight: bold;
+    color: green;
+    font-size: 80%;
+    text-decoration: none;
+  }
+
+  a.MenuLink 
+  { 
+	background: transparent inherit inherit inherit inherit;
+    font-family: inherit;
+    text-align: left;
+    font-weight: bold;
+    color: blue;
+    text-decoration: none;
+  }
+
+  a:hover 
+  { 
+	font-family: inherit;
+    color: red;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  a.download 
+  {
+	background: transparent inherit inherit inherit inherit;
+    font-family: inherit;
+    text-align: left;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+
+  a:link 
+  { 
+	text-decoration: none;
+    background-color: transparent;
+  }
+
+  a:visited
+  {
+  	text-decoration: none;
+    background-color: transparent;
+ }
+  
+  
+  .MenuCurrent 
+  { 
+	text-align: left;
+    font-weight: bold;
+  }
+
+  .SubMenu1Current 
+  { 
+	text-align: left;
+    font-weight: bold;
+    font-size: 80%;
+  }
+
+  td.MenuColumn 
+  { 
+	background-color: rgb(224, 224, 224);
+    width: 120px;
+    font-size: 100%;
+  }
+
+  td.Layout 
+  { 
+	background-color: white;
+    font-size: 100%;
+  }
+
+  th.Title 
+  { 
+	font-size: 100%;
+    background-image: url(images/tab.jpg);
+    background-position: center;
+    background-repeat: repeat-x;
+  }
+
+  td.Item 
+  { 
+	background-color: rgb(232, 232, 232);
+    font-size: 100%;
+  }
+  
+  
+  td.version
+  {
+	background-color: rgb(232, 232, 232);
+	color:rgb(200, 65, 70);
+	font-size: 100%;
+	font-weight: bold;
+  }
+
+  td.SubItem
+  { 
+	background-color: rgb(255, 255, 255);
+    font-size: 100%;
+  }
+
+  span.date 
+  { 
+	color: rgb(117, 129, 138);
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 10px;
+   }
+
+  span.summary 
+  { 
+	display: none;
+  }
+
+  div.download span 
+  { 
+	position: relative;
+    top: -8px;
+    margin-right: 5px;
+  }
+
+  div.download 
+  { 
+	margin: 0px 0px 0px 220px;
+    padding: 0px 27px 0px 0px;
+    font-size: 1.2em;
+    text-align: right;
+    height: 30px;
+  }
+
+  img 
+  {
+	border: 0px none ;
+  }
+
+
+
+  div.bubble
+  {
+	background-repeat: no-repeat;
+    background-position: left top;
+	background-image: url(images/bubble.jpg);
+  }
+  
+  bubbleText
+  {
+		margin:10px;
+  }
+
+
+
+td.feature
+{
+  background-color:transparent;
+  border-style:none;
+  width:33%;
+  height:150px;
+  text-align:left;
+  vertical-align:top;
+}
+
+
+center.title
+{
+    font-size: 80%;
+	font-style: italic;
+}
+
+
+
+div.post 
+{
+	background: #fff url(images/post/bubble-left.png) left repeat-y;
+	margin-left: 10px;
+}
+
+
+div.post2 
+{
+	background: url(images/post/bubble-right.png) right repeat-y;
+}
+
+
+div.post-header 
+{
+	background: url(images/post/bubble-top.png) top repeat-x;
+}
+
+
+
+h4.post-title, div.post-title 
+{
+	background: url(images/post/bubble-top-left.png) top left no-repeat;
+	margin: 1em 0 0 0;
+}
+
+h4.post-title p, div.post-title span 
+{
+	display: block;
+	background: url(images/post/bubble-top-right.png) top right no-repeat;
+	padding: 22px 25px 0 25px;
+	font-weight: normal;
+	font-size: 140%;
+	text-decoration: none;
+}
+
+
+
+div.post-contents 
+{
+	padding: 0 25px 0 25px;
+	margin-right: 10px;
+}
+
+div.post-contents p 
+{
+	line-height: 140%;
+	margin-top: 1em!important;
+}
+
+div.post-contents blockquote 
+{
+	color: #666;
+	line-height: 150%;
+}
+
+div.post-contents:after 
+{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+
+div.post-footer 
+{
+	background: url(images/post/bubble-bottom.png) bottom repeat-x;
+}
+
+div.post-footer p 
+{
+	background: url(images/post/bubble-bottom-left.png) bottom left no-repeat;
+	margin: 0;
+}
+
+div.post-footer p a
+{
+	display: block;
+	background: url(images/post/bubble-bottom-right.png) bottom right no-repeat;
+	padding: 15px 20px 20px 25px;
+	text-align: right;
+	font-size: 85%;
+	color: #999;
+	text-decoration: none;
+}
+
+div.post-footer p a:hover 
+{
+	color: inherit;
+	text-decoration: underline;
+}
+
+
+div.entry 
+{
+	clear: both;
+	margin-bottom: 1em;
+	margin-right: 1em;
+}
+
+
+

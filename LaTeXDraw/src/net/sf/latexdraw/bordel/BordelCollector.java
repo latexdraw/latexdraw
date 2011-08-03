@@ -1,0 +1,127 @@
+package net.sf.latexdraw.bordel;
+
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.eseo.malai.error.ErrorCatcher;
+import fr.eseo.malai.error.ErrorNotifier;
+
+/**
+ * Defines an error collector.<br>
+ * <br>
+ * This file is part of LaTeXDraw.<br>
+ * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
+ * <br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.<br>
+ * <br>
+ * 02/18/2008<br>
+ * @author Arnaud BLOUIN
+ * @version 3.0
+ * @since 3.0
+ */
+public final class BordelCollector extends ArrayList<Throwable> implements UncaughtExceptionHandler, ErrorNotifier {
+	private static final long serialVersionUID = 1L;
+
+	/** The singleton. */
+	public static final BordelCollector INSTANCE = new BordelCollector();
+
+
+	/** Contains objects that want to be aware of the manager activities. */
+	private List<BordelHandler> handlers;
+
+
+	/**
+	 * Creates an empty collector.
+	 */
+	private BordelCollector() {
+		super();
+		handlers = new ArrayList<BordelHandler>();
+		Thread.setDefaultUncaughtExceptionHandler(this);
+		ErrorCatcher.INSTANCE.setNotifier(this);
+	}
+
+
+	/**
+	 * Adds a handler to the manager.
+	 * @param handler The handler to add. Must not be null.
+	 * @since 3.0
+	 */
+	public void addHandler(final BordelHandler handler) {
+		if(handler!=null) {
+			handlers.add(handler);
+
+			// If there is events, the hander is notified.
+			if(!INSTANCE.isEmpty())
+				handler.notifyEvents();
+		}
+	}
+
+
+	/**
+	 * Removes the given handler of the manager.
+	 * @param handler The handler to remove.
+	 * @since 3.0
+	 */
+	public void removeHandler(final BordelHandler handler) {
+		if(handler!=null)
+			handlers.remove(handler);
+	}
+
+
+	/**
+	 * Notifies the handlers that an event occurred.
+	 * @since 3.0
+	 */
+	protected void notifyHandlers(final Throwable error) {
+		for(final BordelHandler handler : handlers)
+			handler.notifyEvent(error);
+	}
+
+
+	@Override
+	public boolean add(final Throwable ex) {
+		if(ex==null || !super.add(ex))
+			return false;
+
+		notifyHandlers(ex);
+		return true;
+	}
+
+
+	@Override
+	public Throwable set(final int pos, final Throwable ex) {
+		if(ex==null || super.set(pos, ex)==null)
+			return null;
+
+		notifyHandlers(ex);
+		return ex;
+	}
+
+
+	@Override
+	public void add(final int index, final Throwable ex) {
+		if(ex!=null) {
+			super.add(index, ex);
+			notifyHandlers(ex);
+		}
+	}
+
+
+	@Override
+	public void uncaughtException(final Thread t, final Throwable e) {
+		add(e);
+	}
+
+
+	@Override
+	public void onMalaiException(final Exception exception) {
+		add(exception);
+	}
+}

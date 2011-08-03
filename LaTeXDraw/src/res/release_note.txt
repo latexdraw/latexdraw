@@ -1,0 +1,29 @@
+Version 3.0 beta 1
+
+- improvement: no more dialogue boxes to change shapes properties. They can be changed using the toolbar which has been widely improved.
+- improvement: when selecting a kind of shape, the corresponding widgets dedicated to the selected kind of shape are displayed to customise shapes.
+- improvement: the graphical library has been totally rewritten:
+   - better shapes movement
+   - less memory consumption
+   - can change the roundness of the corners of a rectangle/square using a handler
+   - arcs are ellipse-based instead of circle-based
+   - the text is now compiled in LaTeX and imported
+   - no more button to create a line; you can create a line using the button 'joined lines'
+   - better use of handlers to resize and rotate shapes
+- improvement: the undo/redo manager has been totally rewritten:
+   - less memory consumption
+   - more stable and efficient
+   - more actions can be undone
+   - more informations about the undoable actions (the undo/redo messages are more precise)
+- improvement: the error manager has been totally rewritten:
+   - the manager can be accessed by the menu 'help' -> 'Error console'
+   - the error window displays all the errors, not a single one
+- improvement: the widgets of the bottom tool bar now appear and disappear more accurately
+- improvement: the selected shapes are no more unselected when selecting the pencil.
+- improvement: can undo/redo change of unit (cm or inch).
+
+- change: the change of unit (cm or inch) can be now performed throw menu items in the "Drawing" menu.
+- change: the ldp format, that was the default format for 1.9.* and older versions, is no more supported. 
+- change: no more button 'default' in the properties panel since we think there are useless.
+- change: the type of magnetic grid can be changed using the grid toolbar.
+- change: the magnetic grid cannot be magnetic anymore when it is not visible.
