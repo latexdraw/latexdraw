@@ -8,8 +8,6 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LNumber;
 
-
-
 /**
  * Defines a model of a dot.<br>
  * <br>
@@ -25,7 +23,6 @@ import net.sf.latexdraw.util.LNumber;
  * General Public License for more details.<br>
  * <br>
  * 07/05/2009<br>
- *
  * @author Arnaud BLOUIN
  * @version 3.0
  * @since 3.0
@@ -38,12 +35,9 @@ class LDot extends LPositionShape implements IDot {
 	protected double radius;
 
 
-
 	/**
-	 * @param isUniqueID
-	 *            True: the shape will have a unique ID.
-	 * @param pt
-	 *            The centre of the dot.
+	 * @param isUniqueID True: the shape will have a unique ID.
+	 * @param pt The centre of the dot.
 	 */
 	protected LDot(final IPoint pt, final boolean isUniqueID) {
 		super(isUniqueID, pt);
@@ -55,24 +49,19 @@ class LDot extends LPositionShape implements IDot {
 	}
 
 
-
 	@Override
 	public Color getFillingCol() {
 		return isFillable() ? super.getFillingCol() : Color.BLACK;
 	}
 
 
-
 	/**
 	 * Initialises a dot using a centre point.
-	 *
-	 * @param pt
-	 *            The centre of the dot.
+	 * @param pt The centre of the dot.
 	 */
 	public LDot(final IPoint pt) {
 		this(pt, false);
 	}
-
 
 
 	@Override
@@ -81,12 +70,10 @@ class LDot extends LPositionShape implements IDot {
 	}
 
 
-
 	@Override
 	public double getRadius() {
 		return radius;
 	}
-
 
 
 	@Override
@@ -96,7 +83,6 @@ class LDot extends LPositionShape implements IDot {
 	}
 
 
-
 	@Override
 	public void setRadius(final double radius) {
 		if(radius > 0. && GLibUtilities.INSTANCE.isValidCoordinate(radius))
@@ -104,16 +90,10 @@ class LDot extends LPositionShape implements IDot {
 	}
 
 
-
 	/**
-	 * Returns the radius computed using a new position (value) and an axe
-	 * (isX).
-	 *
-	 * @param value
-	 *            The new X or Y coordinate of the extremity of the dot.
-	 * @param isX
-	 *            True: the value will be considered on the X-axe. Otherwise, on
-	 *            the Y-axe.
+	 * Returns the radius computed using a new position (value) and an axe (isX).
+	 * @param value The new X or Y coordinate of the extremity of the dot.
+	 * @param isX  True: the value will be considered on the X-axe. Otherwise, on the Y-axe.
 	 * @return The new radius.
 	 * @since 3.0
 	 */
@@ -315,13 +295,9 @@ class LDot extends LPositionShape implements IDot {
 	/**
 	 * Gives the top-left point and the bottom-right point of the dot
 	 * considering its current style.
-	 *
-	 * @param tl
-	 *            The top-left point to set. Must not be null.
-	 * @param br
-	 *            The bottom-right point to set. Must not be null.
-	 * @throws NullPointerException
-	 *             If tl or br is null.
+	 * @param tl The top-left point to set. Must not be null.
+	 * @param br The bottom-right point to set. Must not be null.
+	 * @throws NullPointerException If tl or br is null.
 	 * @since 3.0
 	 */
 	protected void getTopLeftBottomRightPoints(final IPoint tl, final IPoint br) {
