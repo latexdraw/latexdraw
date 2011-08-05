@@ -164,13 +164,6 @@ public interface IArrow {
 
 	/**
 	 * Defines the style of the arrow.
-	 * @param string The new style of the arrow.
-	 * @since 3.0
-	 */
-	void setArrowStyle(final String string);
-
-	/**
-	 * Defines the style of the arrow.
 	 * @param arrowStyle The new style of the arrow.
 	 * @since 3.0
 	 */
@@ -258,7 +251,7 @@ public interface IArrow {
 	void setArrowSizeNum(final double arrowSizeNum);
 
 	/**
-	 * Defines inset of the arrow.
+	 * Defines the inset of the arrow.
 	 * @param inset The new inset.
 	 * @since 3.0
 	 */
@@ -338,8 +331,38 @@ public interface IArrow {
 
 	/**
 	 * Defines the shape that contains the arrow.
-	 * @param shape The new shape.
+	 * @param shape The new shape. Cannot be null.
 	 * @since 3.0
 	 */
 	void setShape(final IShape shape);
+	
+	/**
+	 * @return The line that can be used to locate the arrow.
+	 * @since 3.0
+	 */
+	ILine getArrowLine();
+	
+	/**
+	 * @return The radius of the rounded arrow styles.
+	 * @since 3.0
+	 */
+	double getRoundShapedArrowRadius();
+	
+	/**
+	 * @return The width of the bar arrow styles.
+	 * @since 3.0
+	 */
+	double getBarShapedArrowWidth();
+	
+	/**
+	 * @return The length of the brackets of bracket arrow styles.
+	 * @since 3.0
+	 */
+	double getBracketShapedArrowLength();
+	
+	/**
+	 * @return The width of arrow styles.
+	 * @since 3.0
+	 */
+	double getArrowShapedWidth();
 }

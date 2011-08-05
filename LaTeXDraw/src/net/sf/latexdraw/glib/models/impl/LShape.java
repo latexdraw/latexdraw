@@ -4,15 +4,15 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eseo.malai.mapping.MappingRegistry;
-
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LNumber;
+import fr.eseo.malai.mapping.MappingRegistry;
 
 /**
  * Defines a model of a shape.<br>
@@ -129,7 +129,7 @@ abstract class LShape implements IShape {
 
 	/** The points of the shape. */
 	protected List<IPoint> points;
-	
+
 	/** Defined if the shape has been modified. */
 	protected boolean modified;
 
@@ -1281,8 +1281,8 @@ abstract class LShape implements IShape {
 		}
 		this.modified = modified;
 	}
-	
-	
+
+
 	@Override
 	public boolean isModified() {
 		return modified;
@@ -1294,6 +1294,11 @@ abstract class LShape implements IShape {
 		//TODO
 	}
 
+
+	@Override
+	public ILine getArrowLine(final IArrow arrow) {
+		return null;
+	}
 
 
 	@Override

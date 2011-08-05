@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
@@ -24,6 +25,58 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @since 3.0
  */
 class LArrow implements IArrow {
+	/** The style of the arrow. */
+	protected ArrowStyle style;
+
+	/** The latex parameter arrowSize num. */
+	protected double arrowSizeDim;
+
+	/** The latex parameter arrowSize num. */
+	protected double arrowSizeNum;
+
+	/** The length of the arrow. */
+	protected double arrowLength;
+
+	/** The inset of the arrow. */
+	protected double arrowInset;
+
+	/** The latex parameter dotsize dim. */
+	protected double dotSizeDim;
+
+	/** The latex parameter dotsize num. */
+	protected double dotSizeNum;
+
+	/** The latex parameter tbarsize num. */
+	protected double tBarSizeDim;
+
+	/** The latex parameter tbarsize num. */
+	protected double tBarSizeNum;
+
+	/** The latex parameter bracket num. */
+	protected double bracketNum;
+
+	/** The latex parameter rbracket num. */
+	protected double rBracketNum;
+
+	/** The owner of the arrow. */
+	protected IShape owner;
+
+
+
+	/**
+	 * Creates an arrow.
+	 * @param owner The shape that contains the arrow.
+	 */
+	protected LArrow(final IShape owner) {
+		super();
+
+		if(owner==null)
+			throw new IllegalArgumentException();
+
+		this.owner = owner;
+	}
+
+
 	/**
 	 * Creates an arrow from an other arrow.
 	 * @param arrow The arrow to copy.
@@ -34,65 +87,102 @@ class LArrow implements IArrow {
 
 		if(arrow==null)
 			throw new IllegalArgumentException();
+
+		copy(arrow);
+		owner = arrow.getShape();
 	}
 
 
 	/**
-	 * Creates an arrow.
-	 * @param owner The shape that contains the arrow.
+	 * Copies the parameters of the given arrow to the current arrow.
+	 * The owner of the arrow to copy is not copied to the current arrow.
+	 * @param model The arrow to copy. Cannot be null.
+	 * @since 3.0
 	 */
-	protected LArrow(final IShape owner) {
-		super();
+	public void copy(final IArrow model) {
+		if(model!=null) {
+			arrowInset 		= model.getArrowInset();
+			arrowLength 	= model.getArrowLength();
+			arrowSizeDim 	= model.getArrowSizeDim();
+			arrowSizeNum 	= model.getArrowSizeNum();
+			bracketNum 		= model.getBracketNum();
+			dotSizeDim 		= model.getDotSizeDim();
+			dotSizeNum 		= model.getDotSizeNum();
+			rBracketNum 	= model.getRBracketNum();
+			style 			= model.getArrowStyle();
+			tBarSizeDim 	= model.getTBarSizeDim();
+			tBarSizeNum 	= model.getTBarSizeNum();
+		}
+	}
 
-		// TODO Auto-generated constructor stub
+
+	@Override
+	public double getRoundShapedArrowRadius() {
+		return (dotSizeDim+dotSizeNum*owner.getThickness())/2.;
+	}
+
+
+	@Override
+	public double getBarShapedArrowWidth() {
+		return tBarSizeDim + tBarSizeNum*owner.getThickness();
+	}
+
+
+	@Override
+	public double getBracketShapedArrowLength() {
+		return bracketNum*owner.getThickness();
+	}
+
+
+	@Override
+	public double getArrowShapedWidth() {
+		return arrowSizeNum*owner.getThickness()+arrowSizeDim;
+	}
+
+
+	@Override
+	public ILine getArrowLine() {
+		return owner.getArrowLine(this);
 	}
 
 	@Override
 	public double getArrowInset() {
-		// TODO Auto-generated method stub
-		return 0;
+		return arrowInset;
 	}
 
 	@Override
 	public double getArrowLength() {
-		// TODO Auto-generated method stub
-		return 0;
+		return arrowLength;
 	}
 
 	@Override
 	public double getArrowSizeDim() {
-		// TODO Auto-generated method stub
-		return 0;
+		return arrowSizeDim;
 	}
 
 	@Override
 	public double getArrowSizeNum() {
-		// TODO Auto-generated method stub
-		return 0;
+		return arrowSizeNum;
 	}
 
 	@Override
 	public ArrowStyle getArrowStyle() {
-		// TODO Auto-generated method stub
-		return null;
+		return style;
 	}
 
 	@Override
 	public double getBracketNum() {
-		// TODO Auto-generated method stub
-		return 0;
+		return bracketNum;
 	}
 
 	@Override
 	public double getDotSizeDim() {
-		// TODO Auto-generated method stub
-		return 0;
+		return dotSizeDim;
 	}
 
 	@Override
 	public double getDotSizeNum() {
-		// TODO Auto-generated method stub
-		return 0;
+		return dotSizeNum;
 	}
 
 	@Override
@@ -103,26 +193,22 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getRBracketNum() {
-		// TODO Auto-generated method stub
-		return 0;
+		return rBracketNum;
 	}
 
 	@Override
 	public IShape getShape() {
-		// TODO Auto-generated method stub
-		return null;
+		return owner;
 	}
 
 	@Override
 	public double getTBarSizeDim() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tBarSizeDim;
 	}
 
 	@Override
 	public double getTBarSizeNum() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tBarSizeNum;
 	}
 
 	@Override
@@ -139,85 +225,79 @@ class LArrow implements IArrow {
 
 	@Override
 	public boolean isWithoutStyle() {
-		// TODO Auto-generated method stub
-		return false;
+		return style==ArrowStyle.NONE;
 	}
 
 	@Override
 	public void setArrowInset(final double inset) {
-		// TODO Auto-generated method stub
-
+		if(inset>=0)
+			arrowInset = inset;
 	}
 
 	@Override
 	public void setArrowLength(final double lgth) {
-		// TODO Auto-generated method stub
-
+		if(lgth>=0)
+			arrowLength = lgth;
 	}
 
 	@Override
 	public void setArrowSizeDim(final double arrowSizeDim) {
-		// TODO Auto-generated method stub
-
+		if(arrowSizeDim>=0.)
+			this.arrowSizeDim = arrowSizeDim;
 	}
 
 	@Override
 	public void setArrowSizeNum(final double arrowSizeNum) {
-		// TODO Auto-generated method stub
-
+		if(arrowSizeNum>0.)
+			this.arrowSizeNum = arrowSizeNum;
 	}
 
-	@Override
-	public void setArrowStyle(final String string) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void setArrowStyle(final ArrowStyle arrowStyle) {
-		// TODO Auto-generated method stub
-
+		if(arrowStyle!=null)
+			style = arrowStyle;
 	}
 
 	@Override
 	public void setBracketNum(final double bracketNum) {
-		// TODO Auto-generated method stub
-
+		if(bracketNum>0.)
+			this.bracketNum = bracketNum;
 	}
 
 	@Override
 	public void setDotSizeDim(final double dotSizeDim) {
-		// TODO Auto-generated method stub
-
+		if(dotSizeDim>=0.)
+			this.dotSizeDim = dotSizeDim;
 	}
 
 	@Override
 	public void setDotSizeNum(final double dotSizeNum) {
-		// TODO Auto-generated method stub
-
+		if(dotSizeNum>=0.1)
+			this.dotSizeNum = dotSizeNum;
 	}
 
 	@Override
 	public void setRBracketNum(final double rBracketNum) {
-		// TODO Auto-generated method stub
-
+		if(rBracketNum>0.)
+			this.rBracketNum = rBracketNum;
 	}
 
 	@Override
 	public void setTBarSizeDim(final double tbarSizeDim) {
-		// TODO Auto-generated method stub
-
+		if(tbarSizeDim>=0.)
+			tBarSizeDim = tbarSizeDim;
 	}
 
 	@Override
-	public void setTBarSizeNum(final double tbarSizeNum) {
-		// TODO Auto-generated method stub
-
+	public void setTBarSizeNum(final double tBarSizeNum) {
+		if(tBarSizeNum>=0.1)
+			this.tBarSizeNum = tBarSizeNum;
 	}
 
 	@Override
 	public void setShape(final IShape shape) {
-		// TODO Auto-generated method stub
-
+		if(shape!=null)
+			owner = shape;
 	}
 }

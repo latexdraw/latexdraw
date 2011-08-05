@@ -813,6 +813,13 @@ public interface IShape extends Modifiable {
 	List<IArrow> getArrows();
 
 	/**
+	 * @param arrow The arrow to analyse.
+	 * @return The line that will be used to place the arrow.
+	 * @since 3.0
+	 */
+	ILine getArrowLine(final IArrow arrow);
+
+	/**
 	 * @param position The position of the wanted arrow (-1 for the last arrow).
 	 * @return The arrow at the given position or null if the position is not valid.
 	 * @since 3.0

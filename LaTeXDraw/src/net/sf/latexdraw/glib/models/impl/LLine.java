@@ -434,4 +434,10 @@ class LLine extends Line2D.Double implements ILine {
 		if(GLibUtilities.INSTANCE.isValidCoordinate(y2))
 			this.y2 = y2;
 	}
+
+
+	@Override
+	public double getLineAngle() {
+		return Math.atan(getA());
+	}
 }

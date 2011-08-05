@@ -3,12 +3,12 @@ package net.sf.latexdraw.glib.models.impl;
 import java.util.ArrayList;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
 
-
 /**
- * Defines a model of a polyline.<br>
+ * Defines a view of a polyline.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -35,8 +35,8 @@ class LPolyline extends LPolygon implements IPolyline {
 		super(uniqueID);
 
 		arrows = new ArrayList<IArrow>();
-//		arrows.add(new LArrow());
-//		arrows.add(new LArrow());
+		arrows.add(new LArrow(this));
+		arrows.add(new LArrow(this));
 
 		update();
 	}
@@ -58,6 +58,21 @@ class LPolyline extends LPolygon implements IPolyline {
 		update();
 	}
 
+
+	@Override
+	public ILine getArrowLine(final IArrow arrow) {
+		final int index = arrows.indexOf(arrow);
+		final ILine line;
+
+		switch(index) {
+			case 0: line = new LLine(points.get(0), points.get(1)); break;
+			case 1: line = new LLine(points.get(points.size()-1), points.get(points.size()-2)); break;
+			case -1 :
+			default : line = null;
+		}
+
+		return line;
+	}
 
 
 	@Override

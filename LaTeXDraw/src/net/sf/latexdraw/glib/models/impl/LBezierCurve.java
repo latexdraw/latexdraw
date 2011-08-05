@@ -40,6 +40,8 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 
 		closeType	= CloseType.CURVE;
 		arrows		= new ArrayList<IArrow>();
+		arrows.add(new LArrow(this));
+		arrows.add(new LArrow(this));
 		update();
 	}
 

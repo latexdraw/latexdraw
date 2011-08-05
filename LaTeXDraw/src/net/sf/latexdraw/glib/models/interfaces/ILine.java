@@ -23,6 +23,13 @@ import java.awt.geom.Point2D;
  */
 public interface ILine {
 	/**
+	 * Computes the angle of the line.
+	 * @return The angle of the line.
+	 * @since 3.0
+	 */
+	double getLineAngle();
+
+	/**
 	 * @return The x coordinate of the first point.
 	 * @since 3.0
 	 */
