@@ -11,6 +11,7 @@ import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
+import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import fr.eseo.malai.mapping.ActiveArrayList;
 
 /**
@@ -1182,5 +1183,23 @@ class LGroup extends LShape implements IGroup {
 			shape.setModified(modified);
 
 		super.setModified(modified);
+	}
+	
+	@Override
+	public void setArrowStyle(final ArrowStyle style, final int position) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setArrowStyle(style, position);
+	}
+
+	@Override
+	public ArrowStyle getArrowStyle(final int position) {
+		ArrowStyle style=null;
+
+		for(int i=0, size=shapes.size(); i<size && style==null; i++)
+			if(shapes.get(i).isArrowable())
+				style = shapes.get(i).getArrowStyle(position);
+			
+		return style;
 	}
 }

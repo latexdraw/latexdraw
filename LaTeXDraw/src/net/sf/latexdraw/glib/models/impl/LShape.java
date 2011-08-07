@@ -7,6 +7,7 @@ import java.util.List;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -1472,5 +1473,28 @@ abstract class LShape implements IShape {
 	@Override
 	public double getRBracketNum() {
 		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getRBracketNum() : Double.NaN;
+	}
+
+
+	@Override
+	public void setArrowStyle(final ArrowStyle style, final int position) {
+		if(isArrowable() && style!=null) {
+			final IArrow arrow = getArrowAt(position);
+			
+			if(arrow!=null)
+				arrow.setArrowStyle(style);
+		}
+	}
+
+	@Override
+	public ArrowStyle getArrowStyle(final int position) {
+		final ArrowStyle style;
+
+		if(isArrowable()) {
+			final IArrow arrow = getArrowAt(position);
+			style = arrow==null ? null : arrow.getArrowStyle();
+		} else style = null;
+		
+		return style;
 	}
 }
