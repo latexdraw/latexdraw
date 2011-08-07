@@ -32,7 +32,7 @@ public final class LResources {
 	private LResources() {
 		super();
 	}
-	
+
 	/** The label of the arc choice */
 	public static final String LABEL_ARC_CHOICE = LangTool.LANG.getStringOthers("Arc.arcType"); //$NON-NLS-1$
 
@@ -137,6 +137,7 @@ public final class LResources {
 
 	public static final String LABEL_UPDATE_TO_GRID = LangTool.LANG.getString19("DrawPanel.0"); //$NON-NLS-1$
 
+	public final static ImageIcon ARROW_ICON;
 	public final static ImageIcon TEXTPOS_T;
 	public final static ImageIcon TEXTPOS_TL;
 	public final static ImageIcon TEXTPOS_TR;
@@ -252,6 +253,7 @@ public final class LResources {
 		HATCH_F_HORIZ_ICON= loadImageIcon("/res/hatch/hatchf.horiz.png");//$NON-NLS-1$
 		HATCH_F_CROSS_ICON= loadImageIcon("/res/hatch/hatchf.cross.png");//$NON-NLS-1$
 
+		ARROW_ICON				= loadImageIcon("/res/arrowStyles/arrowIcon.png");//$NON-NLS-1$
 		ARROW_STYLE_ARC_L_ICON = loadImageIcon("/res/arrowStyles/line.arc.left.png");//$NON-NLS-1$
 		ARROW_STYLE_ARC_R_ICON = loadImageIcon("/res/arrowStyles/line.arc.right.png");//$NON-NLS-1$
 		ARROW_STYLE_ARC_LR_ICON = loadImageIcon("/res/arrowStyles/line.arc.r.left.png");//$NON-NLS-1$

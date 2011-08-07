@@ -10,7 +10,6 @@ import javax.swing.SpinnerNumberModel;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 import fr.eseo.malai.instrument.Instrument;
@@ -46,12 +45,6 @@ public class PencilCustomiser extends Instrument {
 	/** Allows the selection of a dot shape. */
 	protected MComboBox dotCB;
 
-	/** Allows to change the style of the left-end of the shape. */
-	protected MComboBox arrowLeftCB;
-
-	/** Allows to change the style of the right-end of the shape. */
-	protected MComboBox arrowRightCB;
-
 
 	/**
 	 * Creates a pencil customiser.
@@ -75,14 +68,6 @@ public class PencilCustomiser extends Instrument {
      	dotCB.setPreferredSize(new Dimension(55,30));
      	dotCB.setMaximumSize(new Dimension(55,30));
 
-     	arrowLeftCB = createLeftArrowStyleList();
-     	arrowLeftCB.setPreferredSize(new Dimension(80,30));
-     	arrowLeftCB.setMaximumSize(new Dimension(80,30));
-
-     	arrowRightCB = createRightArrowStyleList();
-     	arrowRightCB.setPreferredSize(new Dimension(80,30));
-     	arrowRightCB.setMaximumSize(new Dimension(80,30));
-
         updateValues();
         initialiseLinks();
 	}
@@ -96,138 +81,6 @@ public class PencilCustomiser extends Instrument {
 		updateVisibility();
 	}
 
-
-
-
-	/**
-	 * Creates a list of the different styles of arrowhead (left).
-	 * @return The created list.
-	 */
-	public static MComboBox createLeftArrowStyleList() {
-		MComboBox lineArrowLChoice = new MComboBox();
-
-		lineArrowLChoice.setRenderer(new LabelListCellRenderer());
-		JLabel label = new JLabel(PSTricksConstants.NONEARROW_STYLE);//TODO Maybe it should be the name of the Enum.
-		label.setIcon(LResources.ARROW_STYLE_NONE_L_ICON);
-     	lineArrowLChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.BARIN_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_BAR_IN_L_ICON);
-     	lineArrowLChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.BAREND_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_BAR_END_L_ICON);
-		lineArrowLChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.CIRCLEEND_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_CIRCLE_END_L_ICON);
-     	lineArrowLChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.CIRCLEIN_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_CIRCLE_IN_L_ICON);
-     	lineArrowLChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.DISKEND_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_DISK_END_L_ICON);
-     	lineArrowLChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.DISKIN_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_DISK_IN_L_ICON);
-		lineArrowLChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.LARROW_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_ARROW_L_ICON);
-     	lineArrowLChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.RARROW_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_R_ARROW_L_ICON);
-		lineArrowLChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.LRBRACKET_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_ARC_L_ICON);
-		lineArrowLChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.RRBRACKET_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_ARC_LR_ICON);
-		lineArrowLChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.LSBRACKET_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_BRACK_L_ICON);
-		lineArrowLChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.RSBRACKET_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_BRACK_LR_ICON);
-		lineArrowLChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.DLARROW_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_DBLE_ARROW_L_ICON);
-		lineArrowLChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.DRARROW_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_R_DBLE_ARROW_L_ICON);
-		lineArrowLChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.ROUNDIN_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_ROUND_IN_L_ICON);
-     	lineArrowLChoice.addItem(label);
-     	lineArrowLChoice.setPreferredSize(new Dimension(75, 30));
-     	lineArrowLChoice.setSize(new Dimension(75, 30));
-     	lineArrowLChoice.setMaximumSize(new Dimension(75, 30));
-     	lineArrowLChoice.setMinimumSize(new Dimension(75, 30));
-
-		return lineArrowLChoice;
-	}
-
-
-
-	/**
-	 * Creates a list of the different styles of arrowhead (right).
-	 * @return The created list.
-	 */
-	public static MComboBox createRightArrowStyleList() {
-		MComboBox lineArrowRChoice = new MComboBox();
-
-		lineArrowRChoice.setRenderer(new LabelListCellRenderer());
-		JLabel label = new JLabel(PSTricksConstants.NONEARROW_STYLE);
-		label.setIcon(LResources.ARROW_STYLE_NONE_R_ICON);
-		lineArrowRChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.BARIN_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_BAR_IN_R_ICON);
-     	lineArrowRChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.BAREND_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_BAR_END_R_ICON);
-     	lineArrowRChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.CIRCLEEND_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_CIRCLE_END_R_ICON);
-     	lineArrowRChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.CIRCLEIN_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_CIRCLE_IN_R_ICON);
-     	lineArrowRChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.DISKEND_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_DISK_END_R_ICON);
-     	lineArrowRChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.DISKIN_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_DISK_IN_R_ICON);
-     	lineArrowRChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.RARROW_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_ARROW_R_ICON);
-     	lineArrowRChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.LARROW_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_R_ARROW_R_ICON);
-     	lineArrowRChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.RRBRACKET_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_ARC_R_ICON);
-     	lineArrowRChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.LRBRACKET_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_ARC_RR_ICON);
-     	lineArrowRChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.RSBRACKET_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_BRACK_R_ICON);
-     	lineArrowRChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.LSBRACKET_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_BRACK_RR_ICON);
-     	lineArrowRChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.DRARROW_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_DBLE_ARROW_R_ICON);
-     	lineArrowRChoice.addItem(label);
-		label = new JLabel(PSTricksConstants.DLARROW_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_R_DBLE_ARROW_R_ICON);
-     	lineArrowRChoice.addItem(label);
-     	label = new JLabel(PSTricksConstants.ROUNDIN_STYLE);
-     	label.setIcon(LResources.ARROW_STYLE_ROUND_IN_R_ICON);
-     	lineArrowRChoice.addItem(label);
-     	lineArrowRChoice.setPreferredSize(new Dimension(75, 30));
-     	lineArrowRChoice.setSize(new Dimension(75, 30));
-     	lineArrowRChoice.setMaximumSize(new Dimension(75, 30));
-     	lineArrowRChoice.setMinimumSize(new Dimension(75, 30));
-
-     	return lineArrowRChoice;
-	}
 
 
 	/**
@@ -327,24 +180,6 @@ public class PencilCustomiser extends Instrument {
 
 
 	/**
-	 * @return The left arrow style combo box.
-	 * @since 3.0
-	 */
-	public MComboBox getArrowLeftCB() {
-		return arrowLeftCB;
-	}
-
-	/**
-	 * @return The right arrow style combo box.
-	 * @since 3.0
-	 */
-	public MComboBox getArrowRightCB() {
-		return arrowRightCB;
-	}
-
-
-
-	/**
 	 * Updates the value of the widgets.
 	 * @since 3.0
 	 */
@@ -357,7 +192,6 @@ public class PencilCustomiser extends Instrument {
 	 * Updates the visibility of the widgets.
 	 * @since 3.0
 	 */
-	@SuppressWarnings("null")
 	protected void updateVisibility() {
 		final IShape tmpShape 		= pencil.createShapeInstance();
 		final boolean shapeNotNull 	= tmpShape!=null;
@@ -365,8 +199,6 @@ public class PencilCustomiser extends Instrument {
 
 		dotSizeField.setVisible(activated && shapeNotNull && isDotShape);
 		dotCB.setVisible(activated && shapeNotNull && isDotShape);
-		arrowLeftCB.setVisible(activated && shapeNotNull && tmpShape.isArrowable());
-		arrowRightCB.setVisible(activated && shapeNotNull && tmpShape.isArrowable());
 	}
 
 

@@ -175,6 +175,12 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case ROTATION_ANGLE:
 				// The pencil does not perform rotation.
 				break;
+			case ARROW1_STYLE:
+				pencil.setArrowLeftStyle((ArrowStyle)value);
+				break;
+			case ARROW2_STYLE:
+				pencil.setArrowRightStyle((ArrowStyle)value);
+				break;
 		}
 
 		// Update of the pencil.

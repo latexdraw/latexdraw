@@ -191,6 +191,10 @@ public class Pencil extends Instrument {
 
 		shape.setLineColour(lineStylable.getLineColour());
 
+		if(shape.isArrowable()) {
+			shape.setArrowStyle(arrowLeftStyle, 0);
+			shape.setArrowStyle(arrowRightStyle, 1);
+		}
 		if(shape.isThicknessable())
 			shape.setThickness(lineStylable.getThickness());
 		if(shape.isBordersMovable())

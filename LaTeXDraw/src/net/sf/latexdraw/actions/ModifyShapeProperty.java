@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions;
 
 import java.awt.Color;
 
+import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
@@ -202,6 +203,14 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				oldValue = shape.getRotationAngle();
 				shape.setRotationAngle((Double)obj);
 				break;
+			case ARROW1_STYLE:
+				oldValue = shape.getArrowStyle(0);
+				shape.setArrowStyle((ArrowStyle)obj, 0);
+				break;
+			case ARROW2_STYLE:
+				oldValue = shape.getArrowStyle(1);
+				shape.setArrowStyle((ArrowStyle)obj, 1);
+				break;
 		}
 
 		shape.setModified(true);
@@ -260,6 +269,8 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case HATCHINGS_WIDTH:	return shape.isInteriorStylable();
 				case TEXT_POSITION:		return shape instanceof IText;
 				case ROTATION_ANGLE:	return true;
+				case ARROW1_STYLE:		return shape.isArrowable();
+				case ARROW2_STYLE:		return shape.isArrowable();
 			}
 
 		return false;

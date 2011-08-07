@@ -28,6 +28,28 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
  * @since 3.0
  */
 public enum ShapeProperties {
+	ARROW2_STYLE {
+		@Override
+		public String getMessage() {
+			return "second arrow style";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof ArrowStyle;
+		}
+	},
+	ARROW1_STYLE {
+		@Override
+		public String getMessage() {
+			return "first arrow style";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof ArrowStyle;
+		}
+	},
 	ROTATION_ANGLE {
 		@Override
 		public String getMessage() {

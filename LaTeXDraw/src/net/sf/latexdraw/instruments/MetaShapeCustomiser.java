@@ -41,6 +41,10 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument customises the rotation angle. */
 	protected ShapeRotationCustomiser rotationCustomiser;
 
+	/** This instrument customises the arrows. */
+	protected ShapeArrowCustomiser arrowCustomiser;
+
+
 
 	/**
 	 * Creates the instrument.
@@ -58,6 +62,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		fillingCustomiser		= new ShapeFillingCustomiser(hand, pencil);
 		textCustomiser			= new TextCustomiser(hand, pencil);
 		rotationCustomiser		= new ShapeRotationCustomiser(hand, pencil);
+		arrowCustomiser			= new ShapeArrowCustomiser(hand, pencil);
 	}
 
 
@@ -69,6 +74,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		fillingCustomiser.addEventable(eventable);
 		textCustomiser.addEventable(eventable);
 		rotationCustomiser.addEventable(eventable);
+		arrowCustomiser.addEventable(eventable);
 	}
 
 
@@ -82,6 +88,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		fillingCustomiser.setActivated(activated);
 		textCustomiser.setActivated(activated);
 		rotationCustomiser.setActivated(activated);
+		arrowCustomiser.setActivated(activated);
 	}
 
 
@@ -93,6 +100,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		fillingCustomiser.update(shape);
 		textCustomiser.update(shape);
 		rotationCustomiser.update(shape);
+		arrowCustomiser.update(shape);
 	}
 
 
@@ -106,6 +114,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		fillingCustomiser.update();
 		textCustomiser.update();
 		rotationCustomiser.update();
+		arrowCustomiser.update();
 	}
 
 
@@ -160,6 +169,15 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeRotationCustomiser getRotationCustomiser() {
 		return rotationCustomiser;
+	}
+
+
+	/**
+	 * @return The instrument that customises the arrows.
+	 * @since 3.0
+	 */
+	public ShapeArrowCustomiser getArrowCustomiser() {
+		return arrowCustomiser;
 	}
 
 

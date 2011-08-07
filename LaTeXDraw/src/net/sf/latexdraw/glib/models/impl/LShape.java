@@ -214,15 +214,14 @@ abstract class LShape implements IShape {
 		opacity			= s.getOpacity();
 
 		copyPoints(s);
-		copyArrows(s);
+
+		if(isArrowable() && s.isArrowable())
+			copyArrows(s);
 	}
 
 
 
 	protected void copyArrows(final IShape s) {
-		if(s==null || !s.isArrowable())
-			return ;
-
 		List<IArrow> arrs = s.getArrows();
 
 		if(arrows==null)
@@ -1480,7 +1479,7 @@ abstract class LShape implements IShape {
 	public void setArrowStyle(final ArrowStyle style, final int position) {
 		if(isArrowable() && style!=null) {
 			final IArrow arrow = getArrowAt(position);
-			
+
 			if(arrow!=null)
 				arrow.setArrowStyle(style);
 		}
@@ -1494,7 +1493,7 @@ abstract class LShape implements IShape {
 			final IArrow arrow = getArrowAt(position);
 			style = arrow==null ? null : arrow.getArrowStyle();
 		} else style = null;
-		
+
 		return style;
 	}
 }
