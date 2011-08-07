@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 /**
  * Defines a model of an arrow.<br>
@@ -73,7 +74,18 @@ class LArrow implements IArrow {
 		if(owner==null)
 			throw new IllegalArgumentException();
 
-		this.owner = owner;
+		this.owner 	 = owner;
+		style		 = ArrowStyle.NONE;
+		arrowInset   = PSTricksConstants.DEFAULT_ARROW_INSET;
+		arrowLength  = PSTricksConstants.DEFAULT_ARROW_LENGTH;
+		arrowSizeDim = PSTricksConstants.DEFAULT_ARROW_SIZE_DIM*IShape.PPC;
+		arrowSizeNum = PSTricksConstants.DEFAULT_ARROW_SIZE_NUM;
+		dotSizeDim   = PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM*IShape.PPC;
+		dotSizeNum   = PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM;
+		tBarSizeDim  = PSTricksConstants.DEFAULT_ARROW_TBARSIZE_DIM*IShape.PPC;
+		tBarSizeNum  = PSTricksConstants.DEFAULT_ARROW_TBARSIZE_NUM;
+		bracketNum   = PSTricksConstants.DEFAULT_ARROW_BRACKET_LGTH;
+		rBracketNum  = PSTricksConstants.DEFAULT_ARROW_RBRACKET_LGTH;
 	}
 
 
