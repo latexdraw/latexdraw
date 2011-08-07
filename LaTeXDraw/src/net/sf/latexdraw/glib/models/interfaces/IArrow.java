@@ -21,7 +21,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
  * @version 3.0
  * @since 3.0
  */
-public interface IArrow {
+public interface IArrow extends IArrowable {
 	public static enum ArrowStyle {
 		NONE {
 			@Override
@@ -92,7 +92,7 @@ public interface IArrow {
 		public boolean isBar() {
 			return this==BAR_END || this==BAR_IN;
 		}
-		
+
 		/**
 		 * @return True if the style is an arrow.
 		 * @since 3.0
@@ -100,7 +100,7 @@ public interface IArrow {
 		public boolean isArrow() {
 			return this==LEFT_ARROW || this==RIGHT_ARROW || this==RIGHT_DBLE_ARROW || this== LEFT_DBLE_ARROW;
 		}
-		
+
 		/**
 		 * @return True if the style is a round bracket.
 		 * @since 3.0
@@ -108,7 +108,7 @@ public interface IArrow {
 		public boolean isRoundBracket() {
 			return this==LEFT_ROUND_BRACKET || this==RIGHT_ROUND_BRACKET;
 		}
-		
+
 		/**
 		 * @return True if the style is a square bracket.
 		 * @since 3.0
@@ -116,7 +116,7 @@ public interface IArrow {
 		public boolean isSquareBracket() {
 			return this==LEFT_SQUARE_BRACKET || this==RIGHT_SQUARE_BRACKET;
 		}
-		
+
 		/**
 		 * @return True if the style is a circle or a disk.
 		 * @since 3.0
@@ -124,7 +124,7 @@ public interface IArrow {
 		public boolean isCircleDisk() {
 			return this==CIRCLE_END || this==CIRCLE_IN || this==DISK_END || this==DISK_IN;
 		}
-		
+
 
 		/**
 		 * @return The arrow style corresponding to the given PST token or the style name (or null).
@@ -170,92 +170,10 @@ public interface IArrow {
 	void setArrowStyle(final ArrowStyle arrowStyle);
 
 	/**
-	 * Sets the latex parameter dotsize dim.
-	 * @param dotSizeDim The new dotsize dim.
-	 * @since 3.0
-	 */
-	void setDotSizeDim(final double dotSizeDim);
-
-	/**
-	 * Sets the latex parameter dotsize num.
-	 * @param dotSizeNum The new dotsize num.
-	 * @since 3.0
-	 */
-	void setDotSizeNum(final double dotSizeNum);
-
-	/**
 	 * @return The position of the arrow head.
 	 * @since 3.0
 	 */
 	IPoint getPosition();
-
-	/**
-	 * Sets the latex parameter tbarsize num.
-	 * @param tbarSizeNum The new tbarsize num.
-	 * @since 3.0
-	 */
-	void setTBarSizeNum(final double tbarSizeNum);
-
-	/**
-	 * Sets the latex parameter tbarsize num.
-	 * @param tbarSizeDim The new tbarsize num.
-	 * @since 3.0
-	 */
-	void setTBarSizeDim(final double tbarSizeDim);
-
-	/**
-	 * @return The tbarsize dim parameter.
-	 * @since 3.0
-	 */
-	double getTBarSizeDim();
-
-	/**
-	 * @return The tbarsize num parameter.
-	 * @since 3.0
-	 */
-	double getTBarSizeNum();
-
-	/**
-	 * Sets the latex parameter rbracket num.
-	 * @param rBracketNum The new rbracket num.
-	 * @since 3.0
-	 */
-	void setRBracketNum(final double rBracketNum);
-
-	/**
-	 * Sets the latex parameter bracket num.
-	 * @param bracketNum The new bracket num.
-	 * @since 3.0
-	 */
-	void setBracketNum(final double bracketNum);
-
-	/**
-	 * Defines the length of the arrow.
-	 * @param lgth The new length of the arrow.
-	 * @since 3.0
-	 */
-	void setArrowLength(final double lgth);
-
-	/**
-	 * Sets the latex parameter arrowSize num.
-	 * @param arrowSizeDim The new arrowSize num.
-	 * @since 3.0
-	 */
-	void setArrowSizeDim(final double arrowSizeDim);
-
-	/**
-	 * Sets the latex parameter arrowSize num.
-	 * @param arrowSizeNum The new arrowSize num.
-	 * @since 3.0
-	 */
-	void setArrowSizeNum(final double arrowSizeNum);
-
-	/**
-	 * Defines the inset of the arrow.
-	 * @param inset The new inset.
-	 * @since 3.0
-	 */
-	void setArrowInset(final double inset);
 
 	/**
 	 * @return The style of the arrow.
@@ -264,64 +182,16 @@ public interface IArrow {
 	ArrowStyle getArrowStyle();
 
 	/**
-	 * @return The dotsize dim parameter.
-	 * @since 3.0
-	 */
-	double getDotSizeDim();
-
-	/**
-	 * @return The dotsize num parameter.
-	 * @since 3.0
-	 */
-	double getDotSizeNum();
-
-	/**
 	 * @return True if the arrow is the left arrow of its shape.
 	 * @since 3.0
 	 */
 	boolean isLeftArrow();
 
 	/**
-	 * @return The bracket num parameter.
-	 * @since 3.0
-	 */
-	double getBracketNum();
-
-	/**
 	 * @return True if the arrow if inverted in its shape.
 	 * @since 3.0
 	 */
 	boolean isInverted();
-
-	/**
-	 * @return The arrowsize num parameter.
-	 * @since 3.0
-	 */
-	double getArrowSizeNum();
-
-	/**
-	 * @return The arrowsize dim parameter.
-	 * @since 3.0
-	 */
-	double getArrowSizeDim();
-
-	/**
-	 * @return The inset of the arrow.
-	 * @since 3.0
-	 */
-	double getArrowInset();
-
-	/**
-	 * @return The length of the arrow.
-	 * @since 3.0
-	 */
-	double getArrowLength();
-
-	/**
-	 * @return The rbracket parameter.
-	 * @since 3.0
-	 */
-	double getRBracketNum();
 
 	/**
 	 * @return The shape that contains the arrow.
@@ -335,31 +205,31 @@ public interface IArrow {
 	 * @since 3.0
 	 */
 	void setShape(final IShape shape);
-	
+
 	/**
 	 * @return The line that can be used to locate the arrow.
 	 * @since 3.0
 	 */
 	ILine getArrowLine();
-	
+
 	/**
 	 * @return The radius of the rounded arrow styles.
 	 * @since 3.0
 	 */
 	double getRoundShapedArrowRadius();
-	
+
 	/**
 	 * @return The width of the bar arrow styles.
 	 * @since 3.0
 	 */
 	double getBarShapedArrowWidth();
-	
+
 	/**
 	 * @return The length of the brackets of bracket arrow styles.
 	 * @since 3.0
 	 */
 	double getBracketShapedArrowLength();
-	
+
 	/**
 	 * @return The width of arrow styles.
 	 * @since 3.0

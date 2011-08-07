@@ -27,7 +27,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
  * @version 3.0
  * @since 3.0
  */
-public interface IShape extends Modifiable {
+public interface IShape extends Modifiable, IArrowable {
 	/** The number of pixels per centimetre by default. */
 	int PPC = 50;
 

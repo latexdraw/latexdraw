@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -689,8 +691,209 @@ class LGroup extends LShape implements IGroup {
 
 	@Override
 	public boolean isArrowable() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean arrowable = false;
+
+		for(int i=0, size=shapes.size(); i<size && !arrowable; i++)
+			arrowable = shapes.get(i).isArrowable();
+
+		return arrowable;
+	}
+
+
+	@Override
+	public IArrow getArrowAt(final int position) {
+		IArrow arrow = null;
+
+		for(int i=0, size=shapes.size(); i<size && arrow==null; i++)
+			if(shapes.get(i).isArrowable())
+				arrow = shapes.get(i).getArrowAt(position);
+
+		return arrow;
+	}
+
+
+	@Override
+	public List<IArrow> getArrows() {
+		List<IArrow> shapeArrows = null;
+
+		for(int i=0, size=shapes.size(); i<size && shapeArrows==null; i++)
+			if(shapes.get(i).isArrowable())
+				shapeArrows = shapes.get(i).getArrows();
+
+		return shapeArrows;
+	}
+
+
+	@Override
+	public ILine getArrowLine(final IArrow arrow) {
+		ILine arrowLine = null;
+
+		for(int i=0, size=shapes.size(); i<size && arrowLine==null; i++)
+			if(shapes.get(i).isArrowable())
+				arrowLine = shapes.get(i).getArrowLine(arrow);
+
+		return arrowLine;
+	}
+
+
+	@Override
+	public void setDotSizeDim(final double dotSizeDim) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setDotSizeDim(dotSizeDim);
+	}
+
+	@Override
+	public void setDotSizeNum(final double dotSizeNum) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setDotSizeNum(dotSizeNum);
+	}
+
+	@Override
+	public void setTBarSizeNum(final double tbarSizeNum) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setTBarSizeNum(tbarSizeNum);
+	}
+
+	@Override
+	public void setTBarSizeDim(final double tbarSizeDim) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setTBarSizeDim(tbarSizeDim);
+	}
+
+	@Override
+	public double getTBarSizeDim() {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				return sh.getTBarSizeDim();
+
+		return Double.NaN;
+	}
+
+	@Override
+	public double getTBarSizeNum() {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				return sh.getTBarSizeNum();
+
+		return Double.NaN;
+	}
+
+	@Override
+	public void setRBracketNum(final double rBracketNum) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setRBracketNum(rBracketNum);
+	}
+
+	@Override
+	public void setBracketNum(final double bracketNum) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setBracketNum(bracketNum);
+	}
+
+	@Override
+	public void setArrowLength(final double lgth) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setArrowLength(lgth);
+	}
+
+	@Override
+	public void setArrowSizeDim(final double arrowSizeDim) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setArrowSizeDim(arrowSizeDim);
+	}
+
+	@Override
+	public void setArrowSizeNum(final double arrowSizeNum) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setArrowSizeNum(arrowSizeNum);
+	}
+
+	@Override
+	public void setArrowInset(final double inset) {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				sh.setArrowInset(inset);
+	}
+
+	@Override
+	public double getDotSizeDim() {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				return sh.getDotSizeDim();
+
+		return Double.NaN;
+	}
+
+	@Override
+	public double getDotSizeNum() {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				return sh.getDotSizeNum();
+
+		return Double.NaN;
+	}
+
+	@Override
+	public double getBracketNum() {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				return sh.getBracketNum();
+
+		return Double.NaN;
+	}
+
+	@Override
+	public double getArrowSizeNum() {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				return sh.getArrowSizeNum();
+
+		return Double.NaN;
+	}
+
+	@Override
+	public double getArrowSizeDim() {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				return sh.getArrowSizeNum();
+
+		return Double.NaN;
+	}
+
+	@Override
+	public double getArrowInset() {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				return sh.getArrowSizeNum();
+
+		return Double.NaN;
+	}
+
+	@Override
+	public double getArrowLength() {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				return sh.getArrowLength();
+
+		return Double.NaN;
+	}
+
+	@Override
+	public double getRBracketNum() {
+		for(final IShape sh : shapes)
+			if(sh.isArrowable())
+				return sh.getRBracketNum();
+
+		return Double.NaN;
 	}
 
 
@@ -859,7 +1062,7 @@ class LGroup extends LShape implements IGroup {
 			x = Double.MIN_VALUE;
 			y = Double.MIN_VALUE;
 			IPoint br;
-	
+
 			for(final IShape sh : shapes) {
 				br = sh.getBottomRightPoint();
 				if(br.getX()>x)
@@ -868,7 +1071,7 @@ class LGroup extends LShape implements IGroup {
 					y = br.getY();
 			}
 		}
-		
+
 		return new LPoint(x, y);
 	}
 
@@ -885,7 +1088,7 @@ class LGroup extends LShape implements IGroup {
 			x = Double.MAX_VALUE;
 			y = Double.MIN_VALUE;
 			IPoint bl;
-	
+
 			for(final IShape sh : shapes) {
 				bl = sh.getBottomLeftPoint();
 				if(bl.getX()<x)
@@ -894,7 +1097,7 @@ class LGroup extends LShape implements IGroup {
 					y = bl.getY();
 			}
 		}
-		
+
 		return new LPoint(x, y);
 	}
 
@@ -911,7 +1114,7 @@ class LGroup extends LShape implements IGroup {
 			x = Double.MAX_VALUE;
 			y = Double.MAX_VALUE;
 			IPoint tl;
-	
+
 			for(final IShape sh : shapes) {
 				tl = sh.getTopLeftPoint();
 				if(tl.getX()<x)
@@ -920,7 +1123,7 @@ class LGroup extends LShape implements IGroup {
 					y = tl.getY();
 			}
 		}
-		
+
 		return new LPoint(x, y);
 	}
 
@@ -937,7 +1140,7 @@ class LGroup extends LShape implements IGroup {
 			x = Double.MIN_VALUE;
 			y = Double.MAX_VALUE;
 			IPoint tr;
-	
+
 			for(final IShape sh : shapes) {
 				tr = sh.getTopRightPoint();
 				if(tr.getX()>x)
@@ -946,7 +1149,7 @@ class LGroup extends LShape implements IGroup {
 					y = tr.getY();
 			}
 		}
-		
+
 		return new LPoint(x, y);
 	}
 
@@ -960,24 +1163,24 @@ class LGroup extends LShape implements IGroup {
 
 		return has;
 	}
-	
-	
+
+
 	@Override
 	public boolean hasGradient() {
 		boolean has = false;
-		
+
 		for(int i=0, size=shapes.size(); i<size && !has; i++)
 			has = shapes.get(i).hasGradient();
-		
+
 		return has;
 	}
-	
-	
+
+
 	@Override
 	public void setModified(final boolean modified) {
 		for(final IShape shape : shapes)
 			shape.setModified(modified);
-				
+
 		super.setModified(modified);
 	}
 }

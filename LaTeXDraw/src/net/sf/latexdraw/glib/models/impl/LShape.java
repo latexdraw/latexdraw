@@ -1353,4 +1353,124 @@ abstract class LShape implements IShape {
 	public boolean isThicknessable() {
 		return false;
 	}
+
+	@Override
+	public void setDotSizeDim(final double dotSizeDim) {
+		if(isArrowable())
+			for(final IArrow arrow : arrows)
+				arrow.setDotSizeDim(dotSizeDim);
+	}
+
+	@Override
+	public void setDotSizeNum(final double dotSizeNum) {
+		if(isArrowable())
+			for(final IArrow arrow : arrows)
+				arrow.setDotSizeNum(dotSizeNum);
+	}
+
+	@Override
+	public void setTBarSizeNum(final double tbarSizeNum) {
+		if(isArrowable())
+			for(final IArrow arrow : arrows)
+				arrow.setTBarSizeNum(tbarSizeNum);
+	}
+
+	@Override
+	public void setTBarSizeDim(final double tbarSizeDim) {
+		if(isArrowable())
+			for(final IArrow arrow : arrows)
+				arrow.setTBarSizeDim(tbarSizeDim);
+	}
+
+	@Override
+	public double getTBarSizeDim() {
+		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getTBarSizeDim() : Double.NaN;
+	}
+
+	@Override
+	public double getTBarSizeNum() {
+		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getTBarSizeNum() : Double.NaN;
+	}
+
+	@Override
+	public void setRBracketNum(final double rBracketNum) {
+		if(isArrowable())
+			for(final IArrow arrow : arrows)
+				arrow.setRBracketNum(rBracketNum);
+	}
+
+	@Override
+	public void setBracketNum(final double bracketNum) {
+		if(isArrowable())
+			for(final IArrow arrow : arrows)
+				arrow.setBracketNum(bracketNum);
+	}
+
+	@Override
+	public void setArrowLength(final double lgth) {
+		if(isArrowable())
+			for(final IArrow arrow : arrows)
+				arrow.setArrowLength(lgth);
+	}
+
+	@Override
+	public void setArrowSizeDim(final double arrowSizeDim) {
+		if(isArrowable())
+			for(final IArrow arrow : arrows)
+				arrow.setArrowSizeDim(arrowSizeDim);
+	}
+
+	@Override
+	public void setArrowSizeNum(final double arrowSizeNum) {
+		if(isArrowable())
+			for(final IArrow arrow : arrows)
+				arrow.setArrowSizeNum(arrowSizeNum);
+	}
+
+	@Override
+	public void setArrowInset(final double inset) {
+		if(isArrowable())
+			for(final IArrow arrow : arrows)
+				arrow.setArrowInset(inset);
+	}
+
+	@Override
+	public double getDotSizeDim() {
+		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getDotSizeDim() : Double.NaN;
+	}
+
+	@Override
+	public double getDotSizeNum() {
+		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getDotSizeNum() : Double.NaN;
+	}
+
+	@Override
+	public double getBracketNum() {
+		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getBracketNum() : Double.NaN;
+	}
+
+	@Override
+	public double getArrowSizeNum() {
+		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getArrowSizeNum() : Double.NaN;
+	}
+
+	@Override
+	public double getArrowSizeDim() {
+		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getArrowSizeDim() : Double.NaN;
+	}
+
+	@Override
+	public double getArrowInset() {
+		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getArrowInset() : Double.NaN;
+	}
+
+	@Override
+	public double getArrowLength() {
+		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getArrowLength() : Double.NaN;
+	}
+
+	@Override
+	public double getRBracketNum() {
+		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getRBracketNum() : Double.NaN;
+	}
 }
