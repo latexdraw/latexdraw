@@ -173,13 +173,8 @@ class CheckBox2PencilShadow extends CheckBoxForCustomiser<ModifyPencilParameter,
 	@Override
 	public void initAction() {
 		super.initAction();
-
-		if(interaction.getCheckBox()==instrument.shadowCB) {
-			action.setProperty(ShapeProperties.SHADOW);
-			action.setPencil(instrument.pencil);
-		}
-		else
-			action = null;
+		action.setProperty(ShapeProperties.SHADOW);
+		action.setPencil(instrument.pencil);
 	}
 
 	@Override
@@ -203,13 +198,8 @@ class CheckBox2SelectionShadow extends CheckBoxForCustomiser<ModifyShapeProperty
 	@Override
 	public void initAction() {
 		super.initAction();
-
-		if(interaction.getCheckBox()==instrument.shadowCB) {
-			action.setShape(instrument.drawing.getSelection().duplicate());
-			action.setProperty(ShapeProperties.SHADOW);
-		}
-		else
-			action = null;
+		action.setShape(instrument.drawing.getSelection().duplicate());
+		action.setProperty(ShapeProperties.SHADOW);
 	}
 
 	@Override
@@ -239,13 +229,10 @@ class Spinner2SelectionShadow extends SpinnerForCustomiser<ModifyShapeProperty, 
 
 		if(spinner==instrument.shadowSizeField)
 			action.setProperty(ShapeProperties.SHADOW_SIZE);
-		else
-			if(spinner==instrument.shadowAngleField) {
-				action.setProperty(ShapeProperties.SHADOW_ANGLE);
-				action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
-			}
-			else
-				action = null;
+		else {
+			action.setProperty(ShapeProperties.SHADOW_ANGLE);
+			action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
+		}
 	}
 
 	@Override
@@ -278,10 +265,8 @@ class Spinner2PencilShadow extends SpinnerForCustomiser<ModifyPencilParameter, S
 		if(spinner==instrument.shadowAngleField) {
 			action.setProperty(ShapeProperties.SHADOW_ANGLE);
 			action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
-		} else if(spinner==instrument.shadowSizeField)
+		}
 			action.setProperty(ShapeProperties.SHADOW_SIZE);
-		else
-			action = null;
 	}
 
 	@Override
@@ -306,7 +291,6 @@ class ColourButton2PencilShadow extends ColourButtonForCustomiser<ModifyPencilPa
 	@Override
 	public void initAction() {
 		super.initAction();
-
 		action.setProperty(ShapeProperties.COLOUR_SHADOW);
 		action.setPencil(instrument.pencil);
 	}
@@ -332,7 +316,6 @@ class ColourButton2SelectionShadow extends ColourButtonForCustomiser<ModifyShape
 	@Override
 	public void initAction() {
 		super.initAction();
-
 		action.setProperty(ShapeProperties.COLOUR_SHADOW);
 		action.setShape(instrument.drawing.getSelection().duplicate());
 	}

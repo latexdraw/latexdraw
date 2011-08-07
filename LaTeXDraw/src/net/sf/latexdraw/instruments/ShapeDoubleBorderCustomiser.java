@@ -158,13 +158,8 @@ class CheckBox2PencilDoubleBorder extends CheckBoxForCustomiser<ModifyPencilPara
 	@Override
 	public void initAction() {
 		super.initAction();
-
-		if(interaction.getCheckBox()==instrument.dbleBoundCB) {
-			action.setProperty(ShapeProperties.DBLE_BORDERS);
-			action.setPencil(instrument.pencil);
-		}
-		else
-			action = null;
+		action.setProperty(ShapeProperties.DBLE_BORDERS);
+		action.setPencil(instrument.pencil);
 	}
 
 	@Override
@@ -189,13 +184,8 @@ class CheckBox2SelectionDoubleBorder extends CheckBoxForCustomiser<ModifyShapePr
 	@Override
 	public void initAction() {
 		super.initAction();
-
-		if(getInteraction().getCheckBox()==instrument.dbleBoundCB) {
-			action.setShape(instrument.drawing.getSelection().duplicate());
-			action.setProperty(ShapeProperties.DBLE_BORDERS);
-		}
-		else
-			action = null;
+		action.setShape(instrument.drawing.getSelection().duplicate());
+		action.setProperty(ShapeProperties.DBLE_BORDERS);
 	}
 
 	@Override
@@ -219,7 +209,6 @@ class ColourButton2PencilDoubleBorder extends ColourButtonForCustomiser<ModifyPe
 	@Override
 	public void initAction() {
 		super.initAction();
-
 		action.setProperty(ShapeProperties.COLOUR_DBLE_BORD);
 		action.setPencil(instrument.pencil);
 	}
@@ -246,7 +235,6 @@ class ColourButton2SelectionDoubleBorder extends ColourButtonForCustomiser<Modif
 	@Override
 	public void initAction() {
 		super.initAction();
-
 		action.setProperty(ShapeProperties.COLOUR_DBLE_BORD);
 		action.setShape(instrument.drawing.getSelection().duplicate());
 	}
@@ -272,13 +260,8 @@ class Spinner2SelectionDoubleBorder extends SpinnerForCustomiser<ModifyShapeProp
 	@Override
 	public void initAction() {
 		super.initAction();
-
-		if(interaction.getSpinner()==instrument.dbleSepField) {
-			action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
-			action.setShape(instrument.drawing.getSelection().duplicate());
-		}
-		else
-			action = null;
+		action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
+		action.setShape(instrument.drawing.getSelection().duplicate());
 	}
 
 	@Override
@@ -303,13 +286,8 @@ class Spinner2PencilDoubleBorder extends SpinnerForCustomiser<ModifyPencilParame
 	@Override
 	public void initAction() {
 		super.initAction();
-
-		if(interaction.getSpinner()==instrument.dbleSepField) {
-			action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
-			action.setPencil(instrument.pencil);
-		}
-		else
-			action = null;
+		action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
+		action.setPencil(instrument.pencil);
 	}
 
 	@Override

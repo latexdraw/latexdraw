@@ -334,14 +334,9 @@ class List2PencilFilling extends ListForCustomiser<ModifyPencilParameter, ShapeF
 	@Override
 	public void initAction() {
 		super.initAction();
-
 		action.setPencil(instrument.pencil);
-
-		if(interaction.getList()==instrument.fillStyleCB) {
-			action.setProperty(ShapeProperties.FILLING_STYLE);
-			action.setValue(FillingStyle.getStyle(getLabelText()));
-		}
-		else action = null;
+		action.setProperty(ShapeProperties.FILLING_STYLE);
+		action.setValue(FillingStyle.getStyle(getLabelText()));
 	}
 
 	@Override
@@ -367,14 +362,9 @@ class List2SelectionFilling extends ListForCustomiser<ModifyShapeProperty, Shape
 	@Override
 	public void initAction() {
 		super.initAction();
-
 		action.setShape(instrument.drawing.getSelection().duplicate());
-
-		if(getInteraction().getList()==instrument.fillStyleCB) {
-			action.setProperty(ShapeProperties.FILLING_STYLE);
-			action.setValue(FillingStyle.getStyle(getLabelText()));
-		}
-		else action = null;
+		action.setProperty(ShapeProperties.FILLING_STYLE);
+		action.setValue(FillingStyle.getStyle(getLabelText()));
 	}
 
 	@Override

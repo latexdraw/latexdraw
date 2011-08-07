@@ -285,12 +285,10 @@ class List2SelectionBorder extends ListForCustomiser<ModifyShapeProperty, ShapeB
 		if(is==instrument.bordersPosCB) {
 			action.setProperty(ShapeProperties.BORDER_POS);
 			action.setValue(BorderPos.getStyle(getLabelText()));
-		}
-		else if(is==instrument.lineCB) {
+		}else {
 			action.setProperty(ShapeProperties.LINE_STYLE);
 			action.setValue(LineStyle.getStyle(getLabelText()));
 		}
-		else action = null;
 	}
 }
 
@@ -317,12 +315,10 @@ class List2PencilBorder extends ListForCustomiser<ModifyPencilParameter, ShapeBo
 		if(is==instrument.bordersPosCB) {
 			action.setProperty(ShapeProperties.BORDER_POS);
 			action.setValue(BorderPos.getStyle(getLabelText()));
-		}
-		else if(is==instrument.lineCB) {
+		} else {
 			action.setProperty(ShapeProperties.LINE_STYLE);
 			action.setValue(LineStyle.getStyle(getLabelText()));
 		}
-		else action = null;
 	}
 
 	@Override
@@ -354,13 +350,9 @@ class Spinner2SelectionBorder extends SpinnerForCustomiser<ModifyShapeProperty, 
 		if(spinner==instrument.thicknessField)
 			action.setProperty(ShapeProperties.LINE_THICKNESS);
 		else
-			if(spinner==instrument.frameArcField)
-				action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
-		else
-			action = null;
+			action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
 
-		if(action!=null)
-			action.setShape(instrument.drawing.getSelection().duplicate());
+		action.setShape(instrument.drawing.getSelection().duplicate());
 	}
 
 	@Override
@@ -392,13 +384,9 @@ class Spinner2PencilBorder extends SpinnerForCustomiser<ModifyPencilParameter, S
 		if(spinner==instrument.thicknessField)
 			action.setProperty(ShapeProperties.LINE_THICKNESS);
 		else
-			if(spinner==instrument.frameArcField)
-				action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
-		else
-			action = null;
+			action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
 
-		if(action!=null)
-			action.setPencil(instrument.pencil);
+		action.setPencil(instrument.pencil);
 	}
 
 	@Override
@@ -423,13 +411,8 @@ class CheckBox2PencilBorder extends CheckBoxForCustomiser<ModifyPencilParameter,
 	@Override
 	public void initAction() {
 		super.initAction();
-
-		if(interaction.getCheckBox()==instrument.isRound) {
-			action.setProperty(ShapeProperties.ROUND_CORNER);
-			action.setPencil(instrument.pencil);
-		}
-		else
-			action = null;
+		action.setProperty(ShapeProperties.ROUND_CORNER);
+		action.setPencil(instrument.pencil);
 	}
 
 	@Override
@@ -454,13 +437,8 @@ class CheckBox2SelectionBorder extends CheckBoxForCustomiser<ModifyShapeProperty
 	@Override
 	public void initAction() {
 		super.initAction();
-
-		if(interaction.getCheckBox()==instrument.isRound) {
-			action.setProperty(ShapeProperties.ROUND_CORNER);
-			action.setShape(instrument.drawing.getSelection().duplicate());
-		}
-		else
-			action = null;
+		action.setProperty(ShapeProperties.ROUND_CORNER);
+		action.setShape(instrument.drawing.getSelection().duplicate());
 	}
 
 	@Override
