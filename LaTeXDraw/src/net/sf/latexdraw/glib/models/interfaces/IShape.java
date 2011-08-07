@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.eseo.malai.properties.Modifiable;
 
+import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 
@@ -811,6 +812,21 @@ public interface IShape extends Modifiable, IArrowable {
 	 * @return the arrows.
 	 */
 	List<IArrow> getArrows();
+	
+	/**
+	 * Sets the style of the arrow at the given position.
+	 * @param style The style to set.
+	 * @param position The position of the arrow to modify.
+	 * @since 3.0
+	 */
+	void setArrowStyle(final ArrowStyle style, final int position);
+	
+	/**
+	 * @param position The position of the arrow to use.
+	 * @return The style of the arrow at the given position.
+	 * @since 3.0
+	 */
+	ArrowStyle getArrowStyle(final int position);
 
 	/**
 	 * @param arrow The arrow to analyse.
