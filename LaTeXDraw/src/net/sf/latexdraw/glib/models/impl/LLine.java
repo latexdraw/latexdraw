@@ -446,4 +446,11 @@ class LLine extends Line2D.Double implements ILine {
 
 		return Math.atan(getA());
 	}
+
+
+
+	@Override
+	public boolean isDot() {
+		return isVerticalLine() && isHorizontalLine();
+	}
 }

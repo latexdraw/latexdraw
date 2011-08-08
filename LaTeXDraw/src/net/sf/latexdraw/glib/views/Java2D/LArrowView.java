@@ -372,7 +372,7 @@ public class LArrowView {
 
 		path.reset();
 
-		if(LNumber.INSTANCE.equals(Math.abs(lineAngle), Math.PI/2.)) {
+		if(LNumber.INSTANCE.equals(Math.abs(lineAngle), Math.PI/2.) || LNumber.INSTANCE.equals(Math.abs(lineAngle), 0.)) {
 			yRot = pt1.getY();
 			xRot = pt1.getX();
 		} else {

@@ -81,6 +81,12 @@ public interface ILine {
 
 
 	/**
+	 * @return True if the two points of the line are equals meaning this is not a line but a 'dot'.
+	 * @since 3.0
+	 */
+	boolean isDot();
+
+	/**
 	 * Sets the position of the line. Do nothing if one of the given parameter
 	 * is not valid.
 	 * @param x1 The x coordinate of the first point.
