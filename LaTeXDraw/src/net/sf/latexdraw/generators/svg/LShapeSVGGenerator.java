@@ -189,6 +189,22 @@ public abstract class LShapeSVGGenerator<S extends IShape> {
 
 
 
+
+	protected void setSVGArrow(final SVGElement parent, final int arrowPos, final boolean isShadow, final SVGDocument doc, final SVGDefsElement defs) {
+		final IArrow arrow = shape.getArrowAt(arrowPos);
+
+		if(arrow.getArrowStyle()!=ArrowStyle.NONE) {
+			String arrowName 	= "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.getId();
+			SVGElement arrowSVG = new LArrowHeadSVGGenerator(arrow).toSVG(doc, isShadow);
+
+			arrowSVG.setAttribute(SVGAttributes.SVG_ID, arrowName);
+			defs.appendChild(arrowSVG);
+			parent.setAttribute(arrowPos==0 ? SVGAttributes.SVG_MARKER_START : SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrowName + ')');
+		}
+	}
+
+
+
 	/**
 	 * Copies the parameters of the first arrow to the second arrow (only
 	 * the parameters of the current style are copied).
