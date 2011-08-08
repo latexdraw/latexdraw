@@ -8,7 +8,6 @@ import fr.eseo.malai.properties.Modifiable;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
-
 /**
  * Defines an interface that classes defining an abstract shape should implement.<br>
  * <br>
@@ -35,7 +34,6 @@ public interface IShape extends Modifiable, IArrowable {
 
 	/** Corresponds to the golden angle (Useful for golden diamond). */
 	double GOLDEN_ANGLE = 0.553574;
-
 
 
 	/** The different cardinal points. */
@@ -93,8 +91,7 @@ public interface IShape extends Modifiable, IArrowable {
 
 
 	/** The different positions of the border. */
-	public static enum BorderPos
-	{
+	public static enum BorderPos {
 		INTO {
 			@Override
 			public String getLatexToken() { return PSTricksConstants.BORDERS_INSIDE; }
@@ -121,7 +118,6 @@ public interface IShape extends Modifiable, IArrowable {
 		}
 
 
-
 		/**
 		 * @return The latex token corresponding to the BorderPos.
 		 * @since 3.0
@@ -131,8 +127,7 @@ public interface IShape extends Modifiable, IArrowable {
 
 
 	/** The different styles of the lines. */
-	public static enum LineStyle
-	{
+	public static enum LineStyle {
 		NONE{
 			@Override
 			public String getLatexToken() { return PSTricksConstants.LINE_NONE_STYLE; }
