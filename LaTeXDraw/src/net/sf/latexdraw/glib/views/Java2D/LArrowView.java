@@ -80,14 +80,14 @@ public class LArrowView {
 			c3y  = Math.sin(-lineAngle)*-c2x + Math.cos(-lineAngle)*(lineB-c2y);
 		}
 
-		if(LNumber.INSTANCE.equals(lineAngle%(Math.PI*2.),0.)) {
+		if(!LNumber.INSTANCE.equals(lineAngle%(Math.PI*2.),0.)) {
 			g.rotate(lineAngle);
 			g.translate(c3x,c3y);
 		}
 
 		paintArrow(g, fColour, asShadow);
 
-		if(LNumber.INSTANCE.equals(lineAngle%(Math.PI*2.),0.)) {
+		if(!LNumber.INSTANCE.equals(lineAngle%(Math.PI*2.),0.)) {
 			g.translate(-c3x,-c3y);
 			g.rotate(-lineAngle);
 		}
