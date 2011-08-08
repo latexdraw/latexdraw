@@ -11,9 +11,12 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -46,11 +49,14 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 	/** The Java2D path used to draw the shape. */
 	protected Path2D path;
 
+	/** The view of the arrows of the shape. */
+	protected List<LArrowView> arrows;
+
 	/**
 	 * The border of the shape. This attribute must be used to compute
 	 * 'intersects', 'contains' operations, etc. operations.
 	 */
-	protected Rectangle2D.Double border;
+	protected Rectangle2D border;
 
 
 
@@ -64,6 +70,15 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 
 		path  	= new Path2D.Double();
 		border 	= new Rectangle2D.Double();
+
+		// Creation of the views of the arrows of the shape.
+		if(model.isArrowable()) {
+			arrows = new ArrayList<LArrowView>();
+
+			for(final IArrow arrow : shape.getArrows())
+				arrows.add(new LArrowView(arrow));
+		}
+		else arrows = null;
 	}
 
 
@@ -135,35 +150,34 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 		if(shape.isBordersMovable())
 			if(shape.isDbleBorderable() && shape.hasDbleBord())
 				switch(shape.getBordersPosition()) {
-				case INTO:
-					updateDblePathInside();
-					break;
-				case MID:
-					updateDblePathMiddle();
-					break;
-				case OUT:
-					updateDblePathOutside();
-					break;
+					case INTO	: updateDblePathInside(); break;
+					case MID	: updateDblePathMiddle(); break;
+					case OUT	: updateDblePathOutside(); break;
 				}
 			else
 				switch(shape.getBordersPosition()) {
-					case INTO:
-						updateGeneralPathInside();
-						break;
-					case MID:
-						updateGeneralPathMiddle();
-						break;
-					case OUT:
-						updateGeneralPathOutside();
-						break;
+					case INTO	: updateGeneralPathInside(); break;
+					case MID	: updateGeneralPathMiddle(); break;
+					case OUT	: updateGeneralPathOutside(); break;
 				}
 		else
 			if(shape.isDbleBorderable() && shape.hasDbleBord())
 				updateDblePathMiddle();
 			else
 				updateGeneralPathMiddle();
+
+		updatePathArrows();
 	}
 
+
+	/**
+	 * Updates the path of the view of the arrows.
+	 */
+	protected void updatePathArrows() {
+		if(shape.isArrowable())
+			for(final LArrowView arrView : arrows)
+				arrView.updatePath();
+	}
 
 
 
@@ -458,10 +472,18 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 		if(shape.isShadowable())
 			paintShadow(g);
 
+		// Painting the arrows of the shadow.
+		if(shape.isArrowable())
+			paintArrows(g, true);
+
 		if(shape.isFillable())
 			paintFilling(g);
 
 		paintBorders(g);
+
+		// Painting the arrows of the shape.
+		if(shape.isArrowable())
+			paintArrows(g, false);
 
 		// Dots of the show points option must be drawn after all.
 		if(isShowPts)
@@ -471,6 +493,17 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 		if(vectorTrans!=null)
 			endRotation(g, vectorTrans);
 	}
+
+
+	/**
+	 * Paints the arrows of the shape.
+	 * @since 3.0
+	 */
+	protected void paintArrows(final Graphics2D g, final boolean asShadow) {
+		for(final LArrowView arrow : arrows)
+			arrow.paint(g, asShadow ? shape.getShadowCol() : shape.getFillingCol(), asShadow);
+	}
+
 
 
 	@Override
@@ -483,7 +516,6 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 		else
 			paintBordersSimple(g);
 	}
-
 
 
 
@@ -503,7 +535,6 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 
 
 
-
 	/**
 	 * Draws the simple border (not with double borders).
 	 * @param g The graphics to print into.
@@ -514,7 +545,6 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 		g.setStroke(getStroke());
 		g.draw(path);
 	}
-
 
 
 
@@ -552,7 +582,6 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 	public void paintShowPointsDots(final Graphics2D g) {
 		// TODO Auto-generated method stub
 	}
-
 
 
 
@@ -645,7 +674,6 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 
 
 
-
 	@Override
 	public BasicStroke getStroke() {
 		final float strokeTh  = (float) getStrokeThickness();
@@ -693,7 +721,6 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 
 
 
-
 	/**
 	 * Begins the rotation by modifying the Graphics2D using the rotation angle.
 	 * @param g The graphics to modify to draw rotated views.
@@ -723,7 +750,6 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 
 		return p;
 	}
-
 
 
 
@@ -793,15 +819,6 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 //
 //		shape.addToRotationAngle(angle);
 //		update();
-//	}
-//
-//
-//	/**
-//	 * @return The gravity centre of the view.
-//	 * @since 3.0
-//	 */
-//	public IPoint getGravityCentre() {
-//		return shape.getGravityCentre();
 //	}
 //
 //
