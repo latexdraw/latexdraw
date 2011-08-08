@@ -560,7 +560,9 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 			g.translate(dx, dy);
 			g.setColor(shape.getShadowCol());
 			g.draw(path);
-			g.fill(path);
+
+			if(shape.shadowFillsShape())
+				g.fill(path);
 
 			// Painting the arrows of the shadow.
 			if(shape.isArrowable())

@@ -129,4 +129,10 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 	public boolean isThicknessable() {
 		return true;
 	}
+
+
+	@Override
+	public boolean shadowFillsShape() {
+		return false;
+	}
 }

@@ -79,4 +79,10 @@ class LPolyline extends LPolygon implements IPolyline {
 	public boolean isArrowable() {
 		return true;
 	}
+
+
+	@Override
+	public boolean shadowFillsShape() {
+		return false;
+	}
 }
