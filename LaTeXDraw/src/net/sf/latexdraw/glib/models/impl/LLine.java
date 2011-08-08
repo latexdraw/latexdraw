@@ -438,6 +438,12 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public double getLineAngle() {
+		if(isHorizontalLine())
+			return 0.;
+
+		if(isVerticalLine())
+			return Math.PI/2.;
+
 		return Math.atan(getA());
 	}
 }
