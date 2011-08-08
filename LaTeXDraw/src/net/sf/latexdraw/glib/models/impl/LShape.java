@@ -229,7 +229,7 @@ abstract class LShape implements IShape {
 		else arrows.clear();
 
 		for(IArrow arr : arrs)
-			arrows.add(new LArrow(arr));
+			arrows.add(new LArrow(arr, this));
 	}
 
 

@@ -79,8 +79,8 @@ public class LShapeFactory implements IShapeFactory {
 	}
 
 	@Override
-	public IArrow createArrow(final IArrow arrow) {
-		return new LArrow(arrow);
+	public IArrow createArrow(final IArrow arrow, final IShape owner) {
+		return new LArrow(arrow, owner);
 	}
 
 	@Override

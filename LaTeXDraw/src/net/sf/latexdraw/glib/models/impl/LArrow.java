@@ -94,14 +94,13 @@ class LArrow implements IArrow {
 	 * @param arrow The arrow to copy.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	protected LArrow(final IArrow arrow) {
-		super();
+	protected LArrow(final IArrow arrow, final IShape owner) {
+		this(owner);
 
 		if(arrow==null)
 			throw new IllegalArgumentException();
 
 		copy(arrow);
-		owner = arrow.getShape();
 	}
 
 

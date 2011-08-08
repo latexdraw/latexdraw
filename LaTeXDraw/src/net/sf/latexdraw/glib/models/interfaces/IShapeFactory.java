@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.interfaces;
 
 import net.sf.latexdraw.glib.models.interfaces.IArc.ArcType;
 
-
 /**
  * Defines an interface to implement an abstract factory.<br>
  * <br>
@@ -39,9 +38,10 @@ public interface IShapeFactory {
 	/**
 	 * Creates an arrow from an other arrow.
 	 * @param arrow The arrow to copy.
+	 * @param owner The shape that contains the arrow.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	IArrow createArrow(final IArrow arrow);
+	IArrow createArrow(final IArrow arrow, final IShape owner);
 
 	/**
 	 * Creates an arrow.
@@ -326,8 +326,8 @@ public interface IShapeFactory {
 	 * @since 3.0
 	 */
 	ISquare createSquare(final IPoint pos, final double width, final boolean uniqueID);
-	
-	
+
+
 	/**
 	 * Creates a round arc.
 	 * @param pt The centre of the arc.
@@ -337,8 +337,8 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If the radius is not valid.
 	 */
 	ICircleArc createCircleArc(final IPoint pt, final double radius, final ArcType type, final boolean isUniqueID);
-	
-	
+
+
 	/**
 	 * Creates a circle arc with a 1 radius.
 	 * @param isUniqueID True: the model will have a unique ID.
@@ -346,7 +346,7 @@ public interface IShapeFactory {
 	 */
 	ICircleArc createCircleArc(final boolean isUniqueID);
 
-	
+
 	/**
 	 * Duplicates the given shape.
 	 * @param shape The shape to duplicate
