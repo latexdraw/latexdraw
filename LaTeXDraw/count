@@ -1,3 +1,0 @@
-#tar -c latexDraw/ --exclude=*.class --exclude=CVS | grep -ac [\ -\~] 
-find latexDraw/ -name "*.java" -exec cat {} \; | grep -ac [\ -\~]
-
