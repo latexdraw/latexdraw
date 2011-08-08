@@ -9,6 +9,8 @@ import fr.eseo.malai.interaction.PressureTransition;
 import fr.eseo.malai.interaction.ReleaseTransition;
 import fr.eseo.malai.interaction.TerminalState;
 import fr.eseo.malai.picking.Pickable;
+import fr.eseo.malai.stateMachine.SourceableState;
+import fr.eseo.malai.stateMachine.TargetableState;
 
 /**
  * A DnD interaction is a Drag-And-Drop: press-drag-release.<br>
@@ -77,6 +79,7 @@ public class DnD extends Interaction {
 			public void action() {
 				super.action();
 
+				setLastHIDUsed(this.hid);
 				DnD.this.startPt 	 = new Point(this.x, this.y);
 				DnD.this.endPt	 	 = new Point(this.x, this.y);
 				DnD.this.button  	 = this.button;
@@ -85,27 +88,10 @@ public class DnD extends Interaction {
 			}
 		};
 
-		new MoveTransition(pressed, dragged) {
-			@Override
-			public void action() {
-				super.action();
-				DnD.this.endPt.setLocation(x, y);
-				DnD.this.endObject = Interaction.getPickableAt(this.x, this.y, this.source);
-			}
-		};
-
-
-		new MoveTransition(dragged, dragged) {
-			@Override
-			public void action() {
-				super.action();
-				DnD.this.endPt.setLocation(x, y);
-				DnD.this.endObject = Interaction.getPickableAt(this.x, this.y, this.source);
-			}
-		};
-
-		new ReleaseTransition(dragged, released);
-		new ReleaseTransition(pressed, released);
+		new Move4DnD(pressed, dragged);
+		new Move4DnD(dragged, dragged);
+		new Release4DnD(dragged, released);
+		new Release4DnD(pressed, released);
 	}
 
 
@@ -163,5 +149,33 @@ public class DnD extends Interaction {
 	 */
 	public Pickable getEndObjet() {
 		return endObject;
+	}
+
+
+	class Release4DnD extends ReleaseTransition {
+		public Release4DnD(final SourceableState inputState, final TargetableState outputState) {
+			super(inputState, outputState);
+		}
+		@Override
+		public boolean isGuardRespected() {
+			return DnD.this.button==this.button && DnD.this.getLastHIDUsed()==this.hid;
+		}
+	}
+
+
+	class Move4DnD extends MoveTransition {
+		protected Move4DnD(final SourceableState inputState, final TargetableState outputState) {
+			super(inputState, outputState);
+		}
+		@Override
+		public void action() {
+			super.action();
+			DnD.this.endPt.setLocation(x, y);
+			DnD.this.endObject = Interaction.getPickableAt(this.x, this.y, this.source);
+		}
+		@Override
+		public boolean isGuardRespected() {
+			return DnD.this.getLastHIDUsed()==this.hid;
+		}
 	}
 }

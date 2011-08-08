@@ -33,45 +33,45 @@ public class AbortableDnD extends DnD {
 	public AbortableDnD() {
 		super();
 	}
-	
-	
+
+
 	@SuppressWarnings("unused")
 	@Override
 	protected void initStateMachine() {
 		super.initStateMachine();
-		
+
 		AbortingState aborted = new AbortingState("aborted"); //$NON-NLS-1$
 		addState(aborted);
-		
+
 		new KeyPressureTransition(pressed, aborted) {
 			@Override
 			public boolean isGuardRespected() {
 				return key==KeyEvent.VK_ESCAPE;
 			}
 		};
-		
+
 		new KeyPressureTransition(dragged, aborted) {
 			@Override
 			public boolean isGuardRespected() {
 				return key==KeyEvent.VK_ESCAPE;
 			}
 		};
-		
+
 		List<ITransition> ts = pressed.getTransitions();
 		boolean ok = false;
 		int i=0, size = ts.size();
 		ITransition t;
-		
+
 		while(!ok && i<size) {
 			t = ts.get(i);
-			
+
 			if(t instanceof ReleaseTransition && t.getOutputState()==released) {
 				ok = true;
 				ts.remove(t);
 			}
 			else i++;
 		}
-		
-		new ReleaseTransition(pressed, aborted);
+
+		new Release4DnD(pressed, aborted);
 	}
 }
