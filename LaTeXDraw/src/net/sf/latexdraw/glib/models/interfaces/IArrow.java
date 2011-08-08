@@ -25,7 +25,7 @@ public interface IArrow extends IArrowable {
 	public static enum ArrowStyle {
 		NONE {
 			@Override
-			public String getPSTToken() { return PSTricksConstants.NONEARROW_STYLE; }
+			public String getPSTToken() { return ""; }
 		}, LEFT_ARROW {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.LARROW_STYLE; }
@@ -127,13 +127,24 @@ public interface IArrow extends IArrowable {
 
 
 		/**
+		 * @param style The style to test.
+		 * @return True if the given style and the calling style are of the same kind (e.g. both are circles or disks).
+		 * @since 3.0
+		 */
+		public boolean isSameKind(final ArrowStyle style) {
+			return style!=null && ((isArrow() && style.isArrow()) || (isBar() && style.isBar()) || (isCircleDisk() && style.isCircleDisk()) ||
+								   (isRoundBracket() && style.isRoundBracket()) || (isSquareBracket() && style.isSquareBracket()));
+		}
+
+
+		/**
 		 * @return The arrow style corresponding to the given PST token or the style name (or null).
 		 * @param token The PST token or the name of the style to get (e.g. NONE.toString()).
 		 * @since 3.0
 		 */
 		public static ArrowStyle getArrowStyle(final String token) {
 			if(token==null) return null;
-			if(PSTricksConstants.NONEARROW_STYLE.equals(token) || NONE.toString().equals(token)) return NONE;
+			if(token.length()==0 || NONE.toString().equals(token)) return NONE;
 			if(PSTricksConstants.LARROW_STYLE.equals(token) || LEFT_ARROW.toString().equals(token)) return LEFT_ARROW;
 			if(PSTricksConstants.RARROW_STYLE.equals(token) || RIGHT_ARROW.toString().equals(token)) return RIGHT_ARROW;
 			if(PSTricksConstants.DRARROW_STYLE.equals(token) || RIGHT_DBLE_ARROW.toString().equals(token)) return RIGHT_DBLE_ARROW;

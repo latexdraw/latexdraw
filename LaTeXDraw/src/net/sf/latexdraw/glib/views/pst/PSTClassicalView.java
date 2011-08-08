@@ -46,6 +46,7 @@ public abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S>
 		addCode(params, getBorderPositionCode());
 		addCode(params, getDoubleBorderCode(ppc));
 		addCode(params, getShowPointsCode());
+		addCode(params, getArrowsParametersCode());
 
 		return params;
 	}

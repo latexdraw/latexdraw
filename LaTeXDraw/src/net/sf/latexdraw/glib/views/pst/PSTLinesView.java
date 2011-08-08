@@ -43,10 +43,10 @@ public class PSTLinesView extends PSTPolygonView {
 			return ;
 
 		emptyCache();
-		//TODO arrows
 
-		StringBuilder points   = getPointsCode(position, ppc);
-		StringBuilder rotation = getRotationHeaderCode(ppc, position);
+		StringBuilder points   		= getPointsCode(position, ppc);
+		StringBuilder rotation 		= getRotationHeaderCode(ppc, position);
+		StringBuilder arrowsStyle 	= getArrowsStyleCode();
 
 		if(rotation!=null)
 			cache.append(rotation);
@@ -54,6 +54,8 @@ public class PSTLinesView extends PSTPolygonView {
 		cache.append("\\psline["); //$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc));
 		cache.append(']');
+		if(arrowsStyle!=null)
+			cache.append(arrowsStyle);
 		cache.append(points);
 	}
 }

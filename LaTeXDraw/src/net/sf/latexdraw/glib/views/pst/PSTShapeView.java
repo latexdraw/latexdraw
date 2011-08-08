@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.views.AbstractCodeView;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
@@ -75,6 +77,94 @@ public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S>
 	 * @since 3.0
 	 */
 	public abstract void updateCache(final IPoint origin, final float ppc);
+
+
+
+
+	/**
+	 * @return The PST code corresponding to the arrow parameters of the shape. Or null if no arrow.
+	 * @since 3.0
+	 */
+	protected StringBuilder getArrowsParametersCode() {
+		StringBuilder code = null;
+
+		if(shape.isArrowable()) {
+			final ArrowStyle style1 = shape.getArrowStyle(0);
+			final ArrowStyle style2 = shape.getArrowStyle(1);
+
+			if(style1==ArrowStyle.NONE) {
+				if(style2!=ArrowStyle.NONE)
+					code = getArrowParametersCode(shape.getArrowAt(1));
+			} else
+				if(style2==ArrowStyle.NONE)
+					code = getArrowParametersCode(shape.getArrowAt(0));
+				else
+					if(style1.isSameKind(style2))
+						code = getArrowParametersCode(shape.getArrowAt(0));
+					else {
+						code = getArrowParametersCode(shape.getArrowAt(0));
+						code.append(',').append(getArrowParametersCode(shape.getArrowAt(1)));
+					}
+		}
+
+		return code;
+	}
+
+
+
+	/**
+	 * @return The PST code corresponding to the parameter of the style of the given arrow. The style of the
+	 * given arrow must not be NONE.
+	 */
+	private StringBuilder getArrowParametersCode(final IArrow arrow) {
+		StringBuilder code = new StringBuilder();
+		final ArrowStyle style = arrow.getArrowStyle();
+
+		if(style.isBar() || style.isRoundBracket() || style.isSquareBracket()) {
+			code.append("tbarsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getTBarSizeDim()/IShape.PPC)).append("cm ").
+			append(LNumber.INSTANCE.getCutNumber(arrow.getTBarSizeNum()));
+
+			if(style.isSquareBracket())
+				code.append(",bracketlength=").append(LNumber.INSTANCE.getCutNumber(arrow.getBracketNum()));
+			else if(style.isRoundBracket())
+				code.append(",rbracketlength=").append(LNumber.INSTANCE.getCutNumber(arrow.getRBracketNum()));
+		}
+		else if(style.isArrow())
+			code.append("arrowsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getArrowSizeDim()/IShape.PPC)).append("cm ").
+				 append(LNumber.INSTANCE.getCutNumber(arrow.getArrowSizeNum())).append(",arrowlength=").
+				 append(LNumber.INSTANCE.getCutNumber(arrow.getArrowLength())).append(",arrowinset=").append(LNumber.INSTANCE.getCutNumber(arrow.getArrowInset()));
+		else
+			code.append("dotsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getDotSizeDim()/IShape.PPC)).append("cm ").
+				 append(LNumber.INSTANCE.getCutNumber(arrow.getDotSizeNum()));
+
+		return code;
+	}
+
+
+
+	/**
+	 * @return The PST code corresponding to the style of the arrows (e.g. {|->}).
+	 * @since 3.0
+	 */
+	protected StringBuilder getArrowsStyleCode() {
+		StringBuilder code;
+
+		if(shape.isArrowable()) {
+			final ArrowStyle style1 = shape.getArrowStyle(0);
+			final ArrowStyle style2 = shape.getArrowStyle(1);
+
+			if(style1==ArrowStyle.NONE && style2==ArrowStyle.NONE)
+				code = null;
+			else
+				code = new StringBuilder().append('{').append(style1.getPSTToken()).append('-').append(style2.getPSTToken()).append('}');
+		}
+		else code = null;
+
+		return code;
+	}
+
+
+
 
 
 

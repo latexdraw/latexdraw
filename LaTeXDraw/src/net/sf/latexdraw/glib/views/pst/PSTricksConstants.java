@@ -456,7 +456,6 @@ public abstract class PSTricksConstants {
 	/** The angle of the hatching by default */
 	public static final double DEFAULT_HATCH_ANGLE = 45;
 
-	public static final String NONEARROW_STYLE = "-"; //$NON-NLS-1$
 	public static final String LARROW_STYLE    = "<"; //$NON-NLS-1$
 	public static final String RARROW_STYLE    = ">"; //$NON-NLS-1$
 	public static final String DLARROW_STYLE   = "<<";//$NON-NLS-1$
@@ -474,9 +473,6 @@ public abstract class PSTricksConstants {
 	public static final String ROUNDEND_STYLE  = "c";//$NON-NLS-1$
 	public static final String ROUNDIN_STYLE   = "cc";//$NON-NLS-1$
 	public static final String SQUAREEND_STYLE = "C";//$NON-NLS-1$
-
-	/** The style of the arrow by default */
-	public static final String DEFAULT_ARROW_STYLE = NONEARROW_STYLE;
 
 	/** Width of arrowheads, in cm */
 	public static final double DEFAULT_ARROW_SIZE_DIM = 1.5/CM_VAL_PT;
@@ -563,30 +559,6 @@ public abstract class PSTricksConstants {
 	}
 
 
-	/**
-	 * Allows to check if the style is possible
-	 * @param style The style to check
-	 * @return True if the style is valid
-	 */
-	public static boolean isValidArrowStyle(final String style) {
-		if(style==null)
-			return false;
-
-		if( style.equals(NONEARROW_STYLE) || style.equals(RARROW_STYLE)    ||
-			style.equals(RRBRACKET_STYLE) || style.equals(RSBRACKET_STYLE) ||
-			style.equals(LARROW_STYLE)    || style.equals(LRBRACKET_STYLE) ||
-			style.equals(LSBRACKET_STYLE) || style.equals(SQUAREEND_STYLE) ||
-			style.equals(ROUNDIN_STYLE)   || style.equals(ROUNDEND_STYLE)  ||
-			style.equals(BARIN_STYLE)     || style.equals(CIRCLEEND_STYLE) ||
-			style.equals(CIRCLEIN_STYLE)  || style.equals(DISKEND_STYLE)   ||
-			style.equals(DLARROW_STYLE)  || style.equals(DRARROW_STYLE)   ||
-			style.equals(DISKIN_STYLE)    || style.equals(BAREND_STYLE))
-			return true;
-
-		return false;
-	}
-	
-	
 	private PSTricksConstants() {
 		super();
 	}
