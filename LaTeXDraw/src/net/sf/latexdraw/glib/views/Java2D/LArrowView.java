@@ -189,17 +189,20 @@ public class LArrowView {
 
 
 	protected void updatePathRightLeftSquaredBracket(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
+		final boolean invert	= model.isInverted();
 		final double[] xs 		= new double[2];
 		final double[] ys 		= new double[2];
 		final double lineWidth	= model.getShape().getThickness();
-		final double lgth 		= isArrowInPositiveDirection(pt1, pt2) ? model.getBracketShapedArrowLength() : -model.getBracketShapedArrowLength();
-		final double x3;
-		final double x4;
+		double lgth 			= model.getBracketShapedArrowLength();
+		double x				= xRot;
 
-		updatePathBarIn(xRot, yRot, pt1, pt2, xs, ys);
+		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert))
+			lgth *= -1.;
 
-		x3 = xs[0]+lgth;
-		x4 = xs[1]+lgth;
+		updatePathBarIn(x, yRot, pt1, pt2, xs, ys);
+
+		final double x3 = xs[0]+lgth;
+		final double x4 = xs[1]+lgth;
 
 		path.moveTo(xs[0], ys[0]+lineWidth/2.);
 		path.lineTo(x3, ys[0]+lineWidth/2.);
@@ -242,15 +245,22 @@ public class LArrowView {
 	}
 
 
-	protected void updatePathRightLeftArrow(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
+	protected void updatePathRightLeftArrow(final double xRot, double yRot, final IPoint pt1, final IPoint pt2) {
+		final boolean invert= model.isInverted();
 		final double width  = model.getArrowShapedWidth();
-		final double length = model.getArrowLength()*width;
-		final double inset  = model.getArrowInset()*length;
+		double length 		= model.getArrowLength()*width;
+		double inset  		= model.getArrowInset()*length;
+		double x			= xRot;
 
-		if(isArrowInPositiveDirection(pt1, pt2))
-			updatePathArrow(xRot, yRot, xRot+length, yRot-width/2., xRot+length-inset, yRot, xRot+length, yRot+width/2.);
-		else
-			updatePathArrow(xRot, yRot, xRot-length, yRot-width/2., xRot-length+inset, yRot, xRot-length, yRot+width/2.);
+		if(invert)
+			x += isArrowInPositiveDirection(pt1, pt2) ? length : -length;
+
+		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert)) {
+			length *= -1.;
+			inset *= -1.;
+		}
+
+		updatePathArrow(x, yRot, x+length, yRot-width/2., x+length-inset, yRot, x+length, yRot+width/2.);
 	}
 
 
@@ -286,23 +296,24 @@ public class LArrowView {
 
 
 	protected void updatePathDoubleLeftRightArrow(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
+		final boolean invert= model.isInverted();
 		final double width  = model.getArrowShapedWidth();
-		final double length = model.getArrowLength()*width;
-		final double inset  = model.getArrowInset()*length;
-		final double x2;
-		final double x2bis;
+		double length = model.getArrowLength()*width;
+		double inset  = model.getArrowInset()*length;
+		double x = xRot;
 
-		if(isArrowInPositiveDirection(pt1, pt2)) {
-			updatePathArrow(xRot, yRot, xRot+length, yRot-width/2., xRot+length-inset, yRot, xRot+length, yRot+width/2.);
-			updatePathArrow(xRot+length, yRot, xRot+2*length, yRot-width/2., xRot+2*length-inset, yRot, xRot+2*length, yRot+width/2.);
-			x2 	  = xRot+length-inset;
-			x2bis = xRot+2*length-inset;
-		}else{
-			updatePathArrow(xRot, yRot, xRot-length, yRot-width/2., xRot-length+inset, yRot, xRot-length, yRot+width/2.);
-			updatePathArrow(xRot-length, yRot, xRot-2*length, yRot-width/2., xRot-2*length+inset, yRot, xRot-2*length, yRot+width/2.);
-			x2 	  = xRot-length+inset;
-			x2bis = xRot-2*length+inset;
+		if(invert)
+			x += isArrowInPositiveDirection(pt1, pt2) ? 2.*length : -2.*length;
+
+		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert)) {
+			length *= -1.;
+			inset *= -1.;
 		}
+
+		updatePathArrow(x, yRot, x+length, yRot-width/2., x+length-inset, yRot, x+length, yRot+width/2.);
+		updatePathArrow(x+length, yRot, x+2*length, yRot-width/2., x+2*length-inset, yRot, x+2*length, yRot+width/2.);
+		final double x2 	= x+length-inset;
+		final double x2bis 	= x+2*length-inset;
 
 		path.lineTo(x2, yRot);
 		path.moveTo(x2bis, yRot);

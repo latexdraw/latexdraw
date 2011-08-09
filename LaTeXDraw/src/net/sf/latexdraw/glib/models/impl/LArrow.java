@@ -224,14 +224,14 @@ class LArrow implements IArrow {
 
 	@Override
 	public boolean isInverted() {
-		// TODO Auto-generated method stub
-		return false;
+		final boolean isLeft = isLeftArrow();
+		final boolean isRightStyle = style.isRightStyle();
+		return (isLeft && isRightStyle)  || (!isLeft && !isRightStyle);
 	}
 
 	@Override
 	public boolean isLeftArrow() {
-		// TODO Auto-generated method stub
-		return false;
+		return owner.getArrows().indexOf(this)==0;
 	}
 
 	@Override

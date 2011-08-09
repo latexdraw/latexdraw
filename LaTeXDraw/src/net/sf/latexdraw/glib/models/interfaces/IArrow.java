@@ -127,6 +127,15 @@ public interface IArrow extends IArrowable {
 
 
 		/**
+		 * @return True if the style is a style for right arrows.
+		 * @since 3.0
+		 */
+		public boolean isRightStyle() {
+			return this==RIGHT_ARROW || this==RIGHT_DBLE_ARROW || this==RIGHT_ROUND_BRACKET || this==RIGHT_SQUARE_BRACKET;
+		}
+
+
+		/**
 		 * @param style The style to test.
 		 * @return True if the given style and the calling style are of the same kind (e.g. both are circles or disks).
 		 * @since 3.0
