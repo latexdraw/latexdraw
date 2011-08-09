@@ -468,6 +468,7 @@ class Menu2SaveAsLink extends Interaction2SaveLink<MenuItemPressed> {
 		action.setFileChooser(instrument.getDialog(true));
 		action.setSaveAs(true);
 		action.setSaveOnClose(false);
+		action.setFile(null);
 	}
 
 	@Override
