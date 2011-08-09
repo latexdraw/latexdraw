@@ -246,7 +246,7 @@ public class LFrame extends UI {
      		progressBar.addToProgressBar(10);
 
 		setIconImage(LResources.LATEXDRAW_ICON.getImage());
-		reinit();
+		setTitle(LResources.LABEL_APP);
 
 		try { prefSetters.readXMLPreferences(); }
 		catch(Exception ex) { BordelCollector.INSTANCE.add(ex); }
@@ -300,21 +300,19 @@ public class LFrame extends UI {
 		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
 		try { exporter		= new Exporter(canvas, drawing, statusBar); }
 		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
-		try { fileLoader	= new FileLoaderSaver(this, statusBar); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
 		try { paster		= new CopierCutterPaster(drawing); }
 		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
 		prefSetters			= new PreferencesSetter(this);
 		try { prefActivator	= new PreferencesActivator(prefSetters); }
 		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		try { fileLoader	= new FileLoaderSaver(this, statusBar, prefSetters); }
+		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
 	}
 
 
-	/**
-	 * Reinitialises the frame.
-	 * @since 3.0
-	 */
+	@Override
 	public void reinit() {
+		super.reinit();
 		setTitle(LResources.LABEL_APP);
 	}
 

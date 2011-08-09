@@ -246,7 +246,8 @@ public class LToolbar extends MToolBar {
 		final LCanvas canvas = frame.getCanvas();
 		AbstractButton button;
 
-		// Adding open/save buttons
+		// Adding new/open/save buttons
+		add(frame.fileLoader.getNewButton());
 		add(frame.fileLoader.getLoadButton());
 		add(frame.fileLoader.getSaveButton());
 		addSeparator();

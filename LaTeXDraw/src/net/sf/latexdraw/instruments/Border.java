@@ -58,6 +58,12 @@ public class Border extends Instrument {
 
 
 	@Override
+	public void reinit() {
+		selection.clear();
+		border.setFrame(0., 0., 1., 1.);
+	}
+
+	@Override
 	public boolean isActivated() {
 		return super.isActivated() && selection.size()>0;
 	}

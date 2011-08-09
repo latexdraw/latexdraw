@@ -10,6 +10,7 @@ import fr.eseo.malai.presentation.AbstractPresentation;
 import fr.eseo.malai.presentation.ConcretePresentation;
 import fr.eseo.malai.presentation.Presentation;
 import fr.eseo.malai.properties.Modifiable;
+import fr.eseo.malai.properties.Reinitialisable;
 import fr.eseo.malai.widget.MFrame;
 
 /**
@@ -29,7 +30,7 @@ import fr.eseo.malai.widget.MFrame;
  * @since 0.1
  * @version 0.2
  */
-public abstract class UI extends MFrame implements Modifiable {
+public abstract class UI extends MFrame implements Modifiable, Reinitialisable {
 	private static final long serialVersionUID = 1L;
 
 	/** The presentations of the interactive system. */
@@ -143,5 +144,21 @@ public abstract class UI extends MFrame implements Modifiable {
 	 */
 	public List<Presentation<?,?>> getPresentations() {
 		return presentations;
+	}
+
+
+	/**
+	 * Reinitialises the UI and its instruments, presentations and so on.
+	 * @since 0.2
+	 */
+	@Override
+	public void reinit() {
+		for(final Presentation<?,?> presentation : presentations)
+			presentation.reinit();
+
+		for(final Instrument ins : getInstruments())
+			ins.reinit();
+
+		setModified(false);
 	}
 }

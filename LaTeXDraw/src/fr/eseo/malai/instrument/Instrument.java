@@ -10,6 +10,7 @@ import fr.eseo.malai.action.Action;
 import fr.eseo.malai.interaction.Eventable;
 import fr.eseo.malai.preferences.Preferenciable;
 import fr.eseo.malai.properties.Modifiable;
+import fr.eseo.malai.properties.Reinitialisable;
 
 /**
  * Defines an abstract model of an instrument.<br>
@@ -30,7 +31,7 @@ import fr.eseo.malai.properties.Modifiable;
  * @since 0.1
  * @version 0.2
  */
-public abstract class Instrument implements Preferenciable, Modifiable {
+public abstract class Instrument implements Preferenciable, Modifiable, Reinitialisable {
 	/**  Defines if the instrument is activated or not. */
 	protected boolean activated;
 
@@ -172,5 +173,11 @@ public abstract class Instrument implements Preferenciable, Modifiable {
 	@Override
 	public boolean isModified() {
 		return modified;
+	}
+
+
+	@Override
+	public void reinit() {
+		// Should be overridden.
 	}
 }

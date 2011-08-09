@@ -91,9 +91,9 @@ public final class LResources {
 	public final static String LABEL_UNDO = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.23"); //$NON-NLS-1$
 
 	public final static String LABEL_RECENT_FILES = LangTool.LANG.getString19("LaTeXDrawFrame.0"); //$NON-NLS-1$
-
+//FIXME: to remove: LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.28")
 	/** The label of the newMenu item */
-	public final static String LABEL_NEW = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.28"); //$NON-NLS-1$
+	public final static String LABEL_NEW = "New drawing";
 
 	public final static String LABEL_NEW_WITH_SEL =LangTool.LANG.getStringLaTeXDrawFrame("LRes.0"); //$NON-NLS-1$
 

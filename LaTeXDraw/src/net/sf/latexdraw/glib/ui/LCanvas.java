@@ -110,7 +110,7 @@ public class LCanvas extends MPanel implements ICanvas {
 		border				= new Rectangle2D.Double();
 		views 				= new ArrayList<IShapeView<?>>();
 		tempView			= new ActiveSingleton<IShapeView<?>>();
-		zoom				= new ActiveSingleton<Double>();
+		zoom				= new ActiveSingleton<Double>(1.);
 
 		ActionsRegistry.INSTANCE.addHandler(this);
 
@@ -128,7 +128,7 @@ public class LCanvas extends MPanel implements ICanvas {
             }
         });
 
-		reinit();
+		update();
 	}
 
 
@@ -136,7 +136,6 @@ public class LCanvas extends MPanel implements ICanvas {
 	@Override
 	public void reinit() {
 		views.clear();
-		views = new ArrayList<IShapeView<?>>();
 		zoom.setValue(1.);
 		update();
 	}

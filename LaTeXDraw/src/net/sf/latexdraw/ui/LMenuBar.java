@@ -70,6 +70,7 @@ public class LMenuBar extends JMenuBar {
 
 		add(drawingMenu);
 
+		drawingMenu.add(frame.fileLoader.getNewMenu());
 		drawingMenu.add(frame.fileLoader.getLoadMenu());
 		drawingMenu.add(frame.fileLoader.getSaveMenu());
 		drawingMenu.add(frame.fileLoader.getSaveAsMenu());

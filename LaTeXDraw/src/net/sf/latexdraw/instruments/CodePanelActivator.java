@@ -71,15 +71,20 @@ public class CodePanelActivator extends Instrument {
 		if(codePanel==null || splitPane==null)
 			throw new IllegalArgumentException();
 
-		dividerPosition	= 0.7;
 		this.splitPane	= splitPane;
 		this.codePanel 	= codePanel;
 		closeButton		= new CloseButton();
 		closeMenuItem	= new MCheckBoxMenuItem(LResources.LABEL_DISPLAY_CODE_PANEL, LResources.EMPTY_ICON);
 
+		reinit();
 		initialiseLinks();
 	}
 
+
+	@Override
+	public void reinit() {
+		dividerPosition	= 0.7;
+	}
 
 
 	@Override

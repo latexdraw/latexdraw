@@ -163,4 +163,10 @@ public class LCodePanel extends MPanel implements ConcretePresentation, ActionHa
 	public boolean isModified() {
 		return pstGenerator.isModified();
 	}
+
+
+	@Override
+	public void reinit() {
+		// TODO Auto-generated method stub
+	}
 }

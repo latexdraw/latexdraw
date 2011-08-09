@@ -152,7 +152,6 @@ public class Exporter extends Instrument {
 			throw new IllegalArgumentException();
 
 		defaultPackages		= ""; //$NON-NLS-1$
-		packages			= ""; //$NON-NLS-1$
 		latexPathDistrib	= ""; //$NON-NLS-1$
 		compressionRate		= 0.9f;
 		this.statusBar		= statusBar;
@@ -177,7 +176,14 @@ public class Exporter extends Instrument {
 		exportMenu.add(menuItemEPSLatex);
 		exportMenu.add(menuItemPDFcrop);
 
+		reinit();
 		initialiseLinks();
+	}
+
+
+	@Override
+	public void reinit() {
+		packages = ""; //$NON-NLS-1$
 	}
 
 

@@ -2,6 +2,7 @@ package fr.eseo.malai.presentation;
 
 import fr.eseo.malai.preferences.Preferenciable;
 import fr.eseo.malai.properties.Modifiable;
+import fr.eseo.malai.properties.Reinitialisable;
 
 /**
  * The concrete presentation is the representation of the abstract presentation.<br>
@@ -21,7 +22,7 @@ import fr.eseo.malai.properties.Modifiable;
  * @since 0.1
  * @version 0.1
  */
-public interface ConcretePresentation extends Preferenciable, Modifiable {
+public interface ConcretePresentation extends Preferenciable, Modifiable, Reinitialisable {
 	/**
 	 * Updates the concrete presentation.
 	 * @since 0.2

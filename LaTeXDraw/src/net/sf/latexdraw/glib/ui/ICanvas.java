@@ -63,12 +63,6 @@ public interface ICanvas extends Zoomable, ConcretePresentation, Scrollable, Eve
 	 */
 	void setAlphaInterpolation(final Object alphaInterpolValue);
 
-	/**
-	 * Reinitialises the canvas.
-	 * @since 3.0
-	 */
-	void reinit();
-
 
 	/**
 	 * Paints the shapes.

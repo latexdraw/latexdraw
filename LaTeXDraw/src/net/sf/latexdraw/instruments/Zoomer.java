@@ -69,13 +69,18 @@ public class Zoomer extends Instrument {
 		zoomDefaultButton 			= new MButton(LResources.ZOOM_DEFAULT_ICON);
 		zoomDefaultButton.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.113")); //$NON-NLS-1$
 
-		zoomSpinner					= new MSpinner(new SpinnerNumberModel(100, Zoomable.MIN_ZOOM*100, Zoomable.MAX_ZOOM*100, Zoomable.ZOOM_INCREMENT*100), null);
+		zoomSpinner					= new MSpinner(new SpinnerNumberModel(zoomable.getZoom()*100, Zoomable.MIN_ZOOM*100, Zoomable.MAX_ZOOM*100, Zoomable.ZOOM_INCREMENT*100), null);
 		zoomSpinner.setMaximumSize(new Dimension(55, 28));
 		zoomSpinner.setToolTipText(LangTool.LANG.getString19("ShortcutsFrame.30"));//$NON-NLS-1$
 
 		initialiseLinks();
 	}
 
+
+	@Override
+	public void reinit() {
+		zoomSpinner.setValue(zoomable.getZoom()*100);
+	}
 
 
 	/**

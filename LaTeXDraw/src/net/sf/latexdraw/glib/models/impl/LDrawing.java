@@ -130,15 +130,21 @@ class LDrawing extends LGroup implements IDrawing {
 		this.tempShape.setValue(tempShape);
 	}
 
-	
+
 	@Override
 	public boolean isModified() {
 		boolean ok = super.isModified();
-		
+
 		for(int i=0, size=shapes.size(); i<size && !ok; i++)
 			if(shapes.get(i).isModified())
 				ok = true;
-		
+
 		return ok;
+	}
+
+
+	@Override
+	public void reinit() {
+		clear();
 	}
 }

@@ -1,6 +1,7 @@
 package fr.eseo.malai.presentation;
 
 import fr.eseo.malai.properties.Modifiable;
+import fr.eseo.malai.properties.Reinitialisable;
 
 /**
  * A presentation contains an abstract presentation and a concrete presentation.
@@ -22,7 +23,7 @@ import fr.eseo.malai.properties.Modifiable;
  * @since 0.1
  * @version 0.1
  */
-public class Presentation<A extends AbstractPresentation, C extends ConcretePresentation> implements Modifiable {
+public class Presentation<A extends AbstractPresentation, C extends ConcretePresentation> implements Modifiable, Reinitialisable {
 	/** The abstract presentation, i.e. the manipulated data model. */
 	protected A abstractPresentation;
 
@@ -83,5 +84,16 @@ public class Presentation<A extends AbstractPresentation, C extends ConcretePres
 	 */
 	public void update() {
 		concretePresentation.update();
+	}
+
+
+	/**
+	 * Reinitialises the presentation (its concrete and abstract presentations).
+	 * @since 0.2
+	 */
+	@Override
+	public void reinit() {
+		abstractPresentation.reinit();
+		concretePresentation.reinit();
 	}
 }

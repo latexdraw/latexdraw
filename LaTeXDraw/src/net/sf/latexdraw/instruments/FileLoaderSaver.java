@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 
 import net.sf.latexdraw.actions.LoadDrawing;
+import net.sf.latexdraw.actions.NewDrawing;
 import net.sf.latexdraw.actions.SaveDrawing;
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.filters.SVGFilter;
@@ -71,6 +72,9 @@ public class FileLoaderSaver extends Instrument {
 	/** The button used to load documents. */
 	protected MButton loadButton;
 
+	/** The button used to create a new document. */
+	protected MButton newButton;
+
 	/** The menu item used to save as a document. */
 	protected MMenuItem saveAsMenu;
 
@@ -79,6 +83,9 @@ public class FileLoaderSaver extends Instrument {
 
 	/** The menu used to load documents. */
 	protected MMenuItem loadMenu;
+
+	/** The menu used to create a new document. */
+	protected MMenuItem newMenu;
 
     /** The fileChooser used to save drawings. */
     protected JFileChooser fileChooser;
@@ -89,24 +96,34 @@ public class FileLoaderSaver extends Instrument {
 	/** The field where messages are displayed. */
 	protected JTextField statusBar;
 
+	/** The instrument used to manage preferences. */
+	protected PreferencesSetter prefSetter;
+
 
 	/**
 	 * Creates the file loader/saver.
 	 * @param ui The user interface that contains the presentations and the instruments to save/load.
 	 * @param statusBar The status bar where messages are displayed.
+	 * @param prefSetter The instrument used to manage preferences.
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public FileLoaderSaver(final UI ui, final JTextField statusBar) {
+	public FileLoaderSaver(final UI ui, final JTextField statusBar, final PreferencesSetter prefSetter) {
 		super();
 
-		if(ui==null || statusBar==null)
+		if(ui==null || statusBar==null || prefSetter==null)
 			throw new IllegalArgumentException();
 
 		this.statusBar	= statusBar;
 		this.ui			= ui;
-		pathSave 		= "/home/arno/Bureau"; //FIXME when preferences will be managed.
-		currentFile		= null;
+		this.prefSetter = prefSetter;
+
+		newMenu	= new MMenuItem(LResources.LABEL_NEW, KeyEvent.VK_N);
+		newMenu.setIcon(LResources.NEW_ICON);
+
+		newButton = new MButton(LResources.NEW_ICON);
+		newButton.setMargin(LResources.INSET_BUTTON);// FIXME: remove LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.108")
+		newButton.setToolTipText("Creation of a new drawing.");
 
 		loadButton = new MButton(LResources.OPEN_ICON);
 		loadButton.setMargin(LResources.INSET_BUTTON);
@@ -125,7 +142,18 @@ public class FileLoaderSaver extends Instrument {
         saveAsMenu = new MMenuItem(LABEL_SAVE_AS, KeyEvent.VK_A);
         saveAsMenu.setIcon(LResources.SAVE_AS_ICON);
 
+        reinit();
 		initialiseLinks();
+	}
+
+
+	@Override
+	public void reinit() {
+		if(fileChooser!=null)
+			fileChooser.setSelectedFile(null);
+
+		currentFile	= null;
+		pathSave 	= "/home/arno/Bureau"; //FIXME when preferences will be managed.
 	}
 
 
@@ -151,13 +179,15 @@ public class FileLoaderSaver extends Instrument {
 			links.add(new Menu2LoadLink(this));
 			links.add(new Button2LoadLink(this));
 			links.add(new Shortcut2LoadLink(this));
+			links.add(new Menu2NewLink(this));
+			links.add(new Button2NewLink(this));
+			links.add(new ShortCut2NewLink(this));
 		}catch(InstantiationException e){
 			BordelCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
 			BordelCollector.INSTANCE.add(e);
 		}
 	}
-
 
 
 	/**
@@ -190,7 +220,6 @@ public class FileLoaderSaver extends Instrument {
 	}
 
 
-
 	/**
 	 * Sets the current file loaded or saved.
 	 * @param currentFile The current file loaded or saved.
@@ -202,7 +231,6 @@ public class FileLoaderSaver extends Instrument {
 	}
 
 
-
 	/**
 	 * @return The button used to save documents.
 	 * @since 3.0
@@ -210,7 +238,6 @@ public class FileLoaderSaver extends Instrument {
 	public MButton getSaveButton() {
 		return saveButton;
 	}
-
 
 
 	/**
@@ -265,7 +292,6 @@ public class FileLoaderSaver extends Instrument {
 	}
 
 
-
 	/**
 	 * @return The menu item used to save as a document.
 	 * @since 3.0
@@ -273,7 +299,6 @@ public class FileLoaderSaver extends Instrument {
 	public MMenuItem getSaveAsMenu() {
 		return saveAsMenu;
 	}
-
 
 
 	/**
@@ -285,13 +310,82 @@ public class FileLoaderSaver extends Instrument {
 	}
 
 
-
 	/**
 	 * @return The menu item used to load a document.
 	 * @since 3.0
 	 */
 	public MMenuItem getLoadMenu() {
 		return loadMenu;
+	}
+
+	/**
+	 * @return The button used to create a new document.
+	 */
+	public MButton getNewButton() {
+		return newButton;
+	}
+
+	/**
+	 * @return The menu used to create a new document.
+	 */
+	public MMenuItem getNewMenu() {
+		return newMenu;
+	}
+}
+
+
+abstract class Interaction2NewLink<I extends Interaction> extends Link<NewDrawing, I, FileLoaderSaver> {
+	protected Interaction2NewLink(final FileLoaderSaver ins, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
+		super(ins, false, NewDrawing.class, interaction);
+	}
+
+	@Override
+	public void initAction() {
+		action.setPrefSetter(instrument.prefSetter);
+		action.setUi(instrument.ui);
+		action.setOpenSaveManager(SVGDocumentGenerator.SVG_GENERATOR);
+		action.setFileChooser(instrument.getDialog(false));
+	}
+}
+
+
+
+class Button2NewLink extends Interaction2NewLink<ButtonPressed> {
+	protected Button2NewLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+		super(fileLoader, ButtonPressed.class);
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return getInteraction().getButton()==instrument.newButton;
+	}
+}
+
+
+
+class Menu2NewLink extends Interaction2NewLink<MenuItemPressed> {
+	protected Menu2NewLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+		super(fileLoader, MenuItemPressed.class);
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return interaction.getMenuItem()==instrument.newMenu;
+	}
+}
+
+
+
+class ShortCut2NewLink extends Interaction2NewLink<KeysPressure> {
+	protected ShortCut2NewLink(final FileLoaderSaver ins) throws InstantiationException, IllegalAccessException {
+		super(ins, KeysPressure.class);
+	}
+
+
+	@Override
+	public boolean isConditionRespected() {
+		final List<Integer> keys = getInteraction().getKeys();
+		return keys.size()==2 && keys.contains(KeyEvent.VK_N) && keys.contains(KeyEvent.VK_CONTROL);
 	}
 }
 
@@ -327,7 +421,7 @@ class ShortCut2SaveLink extends Interaction2SaveLink<KeysPressure> {
 
 
 /**
- * This link maps a the close button of the main frame to an action that saves the drawing.
+ * This link maps the close button of the main frame to an action that saves the drawing.
  */
 class ButtonClose2SaveLink extends Interaction2SaveLink<WindowClosed> {
 	/**
