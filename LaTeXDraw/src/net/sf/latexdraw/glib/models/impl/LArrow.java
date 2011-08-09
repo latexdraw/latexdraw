@@ -235,8 +235,8 @@ class LArrow implements IArrow {
 	}
 
 	@Override
-	public boolean isWithoutStyle() {
-		return style==ArrowStyle.NONE;
+	public boolean hasStyle() {
+		return style!=ArrowStyle.NONE;
 	}
 
 	@Override

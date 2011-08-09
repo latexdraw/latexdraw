@@ -168,10 +168,10 @@ public interface IArrow extends IArrowable {
 
 
 	/**
-	 * @return True if the current arrow has no style.
+	 * @return True if the current arrow has a style.
 	 * @since 3.0
 	 */
-	boolean isWithoutStyle();
+	boolean hasStyle();
 
 	/**
 	 * Defines the style of the arrow.

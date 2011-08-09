@@ -3,10 +3,12 @@ package net.sf.latexdraw.generators.svg;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
+import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
@@ -113,22 +115,16 @@ public class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline
 		if(elt==null || !(elt2 instanceof SVGPolyLineElement))//TODO must manage SVGLineElement
 			throw new IllegalArgumentException();
 
-//		IArrow arrowHead1 	= l.getArrowAt(0);
-//		IArrow arrowHead2 	= l.getArrowAt(1);
+		IArrow arrow1 	= shape.getArrowAt(0);
+		IArrow arrow2 	= shape.getArrowAt(1);
 		SVGPolyLineElement main = (SVGPolyLineElement)elt2;
 		setSVGLatexdrawParameters(elt);
 		setSVGModifiablePointsParameters(main);
 		shape.update();
-//		arrowHead1.setPosition(l.getPoint(0));
-//		arrowHead1.setLine(new Line(l.getPoint(0), l.getPoint(1), false));
-//		arrowHead1.setFigure(l);
-//		arrowHead2.setPosition(l.getPoint(-1));
-//		arrowHead2.setLine(new Line(l.getPoint(-1), l.getPoint(l.getNbPoints()-2), false));
-//		arrowHead2.setFigure(l);
 
-//		setSVGArrow(arrowHead1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main);
-//		setSVGArrow(arrowHead2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main);
-//		homogeniseArrows(arrowHead1, arrowHead2);
+		setSVGArrow(arrow1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main);
+		setSVGArrow(arrow2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main);
+		homogeniseArrows(arrow1, arrow2);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 
@@ -144,47 +140,13 @@ public class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline
 			return null;
 
         final SVGElement root 		= new SVGGElement(doc);
-//        final int number 			= shape.getId();
-//		final SVGDefsElement defs 	= doc.getFirstChild().getDefs();
+		final SVGDefsElement defs 	= doc.getFirstChild().getDefs();
 		final StringBuilder points 	= new StringBuilder();
 		final List<IPoint> pts		= shape.getPoints();
 		SVGElement elt;
-//		IArrow arrowHead1 = shape.getArrowAt(0);
-//		IArrow arrowHead2 = shape.getArrowAt(1);
 
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_JOINED_LINES);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
-//		SVGElement arrow1 = null, arrow2 = null, arrow1Shad = null, arrow2Shad = null;
-//		String arrow1Name = "arrow1-" + number;//$NON-NLS-1$
-//		String arrow2Name = "arrow2-" + number;//$NON-NLS-1$
-//		String arrow1ShadName = "arrow1Shad-" + number;//$NON-NLS-1$
-//		String arrow2ShadName = "arrow2Shad-" + number;//$NON-NLS-1$
-
-//		if(!arrowHead1.isWithoutStyle()) {
-//			arrow1     = new LArrowHeadSVGGenerator(arrowHead1).toSVG(doc, false);
-//			arrow1Shad = new LArrowHeadSVGGenerator(arrowHead1).toSVG(doc, true);
-//
-//			arrow1.setAttribute(SVGAttributes.SVG_ID, arrow1Name);
-//			defs.appendChild(arrow1);
-//
-//			if(shape.hasShadow()) {
-//				arrow1Shad.setAttribute(SVGAttributes.SVG_ID, arrow1ShadName);
-//				defs.appendChild(arrow1Shad);
-//			}
-//		}
-//
-//		if(!arrowHead2.isWithoutStyle()) {
-//			arrow2     = new LArrowHeadSVGGenerator(arrowHead2).toSVG(doc, false);
-//			arrow2Shad = new LArrowHeadSVGGenerator(arrowHead2).toSVG(doc, true);
-//
-//			arrow2.setAttribute(SVGAttributes.SVG_ID, arrow2Name);
-//			defs.appendChild(arrow2);
-//
-//			if(shape.hasShadow()) {
-//				arrow2Shad.setAttribute(SVGAttributes.SVG_ID, arrow2ShadName);
-//				defs.appendChild(arrow2Shad);
-//			}
-//		}
 
 		for(IPoint pt : pts)
 			points.append(pt.getX()).append(',').append(pt.getY()).append(' ');
@@ -197,12 +159,8 @@ public class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline
 			shad.setAttribute(SVGAttributes.SVG_POINTS, pointsStr);
 			setSVGShadowAttributes(shad, false);
 			root.appendChild(shad);
-
-//			if(arrow1Shad != null)
-//				shad.setAttribute(SVGAttributes.SVG_MARKER_START, SVG_URL_TOKEN_BEGIN + arrow1ShadName + ')');
-//
-//			if(arrow2Shad != null)
-//				shad.setAttribute(SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrow2ShadName + ')');
+			setSVGArrow(shad, 0, true, doc, defs);
+			setSVGArrow(shad, 1, true, doc, defs);
 		}
 
         if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE) && shape.isFilled()) {
@@ -227,11 +185,8 @@ public class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline
 		setSVGAttributes(doc, elt, false);
 		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
-//		if(arrow1 != null)
-//			elt.setAttribute(SVGAttributes.SVG_MARKER_START, SVG_URL_TOKEN_BEGIN + arrow1Name + ')');
-//
-//		if(arrow2 != null)
-//			elt.setAttribute(SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrow2Name + ')');
+		setSVGArrow(elt, 0, false, doc, defs);
+		setSVGArrow(elt, 1, false, doc, defs);
 
 		return root;
 	}
