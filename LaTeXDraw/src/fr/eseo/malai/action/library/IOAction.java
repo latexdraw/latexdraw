@@ -65,12 +65,6 @@ public abstract class IOAction extends Action {
 
 
 	@Override
-	protected void doActionBody() {
-		ok = openSaveManager.save(file.getPath(), ui);
-	}
-
-
-	@Override
 	public boolean canDo() {
 		return file!=null && ui!=null && openSaveManager!=null;
 	}
