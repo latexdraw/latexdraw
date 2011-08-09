@@ -188,23 +188,18 @@ public class LArrowView {
 
 
 
-	protected void updatePathRightLeftSquaredBracket(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2, final boolean isLeft) {
-		final double[] xs = new double[2];
-		final double[] ys = new double[2];
+	protected void updatePathRightLeftSquaredBracket(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
+		final double[] xs 		= new double[2];
+		final double[] ys 		= new double[2];
 		final double lineWidth	= model.getShape().getThickness();
-		final double lgth = model.getBracketShapedArrowLength();
+		final double lgth 		= isArrowInPositiveDirection(pt1, pt2) ? model.getBracketShapedArrowLength() : -model.getBracketShapedArrowLength();
 		final double x3;
 		final double x4;
 
 		updatePathBarIn(xRot, yRot, pt1, pt2, xs, ys);
 
-		if((pt1.getX()<pt2.getX() && isLeft) || (pt1.getX()>=pt2.getX() && !isLeft)) {
-			x3 = xs[0]+lgth;
-			x4 = xs[1]+lgth;
-		}else {
-			x3 = xs[0]-lgth;
-			x4 = xs[1]-lgth;
-		}
+		x3 = xs[0]+lgth;
+		x4 = xs[1]+lgth;
 
 		path.moveTo(xs[0], ys[0]+lineWidth/2.);
 		path.lineTo(x3, ys[0]+lineWidth/2.);
@@ -369,11 +364,11 @@ public class LArrowView {
 			case LEFT_ARROW			: updatePathRightLeftArrow(xRot, yRot, pt1, pt2); break;
 			case LEFT_DBLE_ARROW	: updatePathDoubleLeftRightArrow(xRot, yRot, pt1, pt2); break;
 			case LEFT_ROUND_BRACKET	: /*TODO*/ break;
-			case LEFT_SQUARE_BRACKET: updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2, true); break;
+			case LEFT_SQUARE_BRACKET: updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2); break;
 			case RIGHT_ARROW		: updatePathRightLeftArrow(xRot, yRot, pt1, pt2); break;
 			case RIGHT_DBLE_ARROW	: updatePathDoubleLeftRightArrow(xRot, yRot, pt1, pt2); break;
 			case RIGHT_ROUND_BRACKET: /*TODO*/ break;
-			case RIGHT_SQUARE_BRACKET: updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2, false); break;
+			case RIGHT_SQUARE_BRACKET: updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2); break;
 			case SQUARE_END			:
 			case ROUND_END			: updatePathSquareRoundEnd(xRot, yRot, pt1, pt2); break;
 			case ROUND_IN			: updatePathRoundIn(xRot, yRot, pt1, pt2); break;

@@ -141,7 +141,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getBracketShapedArrowLength() {
-		return bracketNum*owner.getThickness();
+		return bracketNum*getBarShapedArrowWidth();
 	}
 
 
