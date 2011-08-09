@@ -2,6 +2,7 @@ Version 3.0 beta 1
 
 Added:
 - new localisations: Brazilian Portuguese, Hungarian, Japanese, Turkish, Vietnamese
+- Can place texts at different positions: bottom-left, bottom-middle, top-right, etc. This feature produces PSTricks code based on the rput command.
 
 Improvements:
 - Native support of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
@@ -25,7 +26,7 @@ Improvements:
 - the error manager has been totally rewritten:
    - the manager can be accessed by the menu 'help' -> 'Error console'
    - the error window displays all the errors, not a single one
-- the widgets of the bottom tool bar now appear and disappear more accurately
+- the widgets of the parameters toolbar now appear and disappear more accurately
 - the selected shapes are no more unselected when selecting the pencil.
 - can undo/redo change of unit (cm or inch).
 
