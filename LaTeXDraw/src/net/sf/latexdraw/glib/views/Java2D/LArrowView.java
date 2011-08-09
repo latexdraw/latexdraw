@@ -329,20 +329,11 @@ public class LArrowView {
 
 
 	protected void updatePathRoundIn(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
-		final double x1;
-		final double x2;
-		final double lineWidth = model.getShape().getThickness();
+		final double lineWidth 	= isArrowInPositiveDirection(pt1, pt2) ? model.getShape().getThickness() : -model.getShape().getThickness();
+		final double x 			= xRot+lineWidth/2.;
 
-		if(pt1.getX()<pt2.getX()) {
-			x1 = xRot+lineWidth/2.;
-			x2 = xRot+lineWidth/2.;
-		} else {
-			x1 = xRot-lineWidth/2.;
-			x2 = xRot-lineWidth/2.;
-		}
-
-		path.lineTo(x1, yRot);
-		path.moveTo(x2, yRot);
+		path.moveTo(x, yRot);
+		path.lineTo(x, yRot);
 	}
 
 
