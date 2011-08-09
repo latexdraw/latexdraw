@@ -125,15 +125,13 @@ public class Scrolling extends Interaction {
 	 * This scroll transition modifies the scrolling interaction.
 	 */
 	class ScrollingScrollTransition extends ScrollTransition {
-		/**
-		 * Creates the transition.
-		 */
-		public ScrollingScrollTransition(final SourceableState inputState, final TargetableState outputState) {
+		protected ScrollingScrollTransition(final SourceableState inputState, final TargetableState outputState) {
 			super(inputState, outputState);
 		}
 
 		@Override
 		public void action() {
+			Scrolling.this.setLastHIDUsed(this.hid);
 			Scrolling.this.numberUp  	= Scrolling.this.numberUp + (this.direction>0 ? -1 : 1);
 			Scrolling.this.increment  	= Scrolling.this.increment + (this.direction>0 ? -this.amount : this.amount);
 			Scrolling.this.px			= this.x;
