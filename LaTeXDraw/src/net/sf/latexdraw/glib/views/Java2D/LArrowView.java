@@ -268,7 +268,7 @@ public class LArrowView {
 			if(pt1.getX()<pt2.getX())
 				updatePathArrow(xRot+length, yRot, xRot, yRot-width/2., xRot+inset, yRot, xRot, yRot+width/2.);
 			else
-				updatePathArrow(xRot-length, yRot, xRot, yRot-width/2., xRot, yRot+width/2., xRot-inset, yRot);
+				updatePathArrow(xRot-length, yRot, xRot, yRot-width/2., xRot-inset, yRot, xRot, yRot+width/2.);
 	}
 
 
@@ -373,8 +373,8 @@ public class LArrowView {
 		path.reset();
 
 		if(LNumber.INSTANCE.equals(Math.abs(lineAngle), Math.PI/2.) || LNumber.INSTANCE.equals(Math.abs(lineAngle), 0.)) {
-			yRot = pt1.getY();
 			xRot = pt1.getX();
+			yRot = pt1.getY();
 		} else {
 			xRot = Math.cos(-lineAngle)*pt1.getX()-Math.sin(-lineAngle)*(pt1.getY()-lineB);
 			yRot = Math.sin(-lineAngle)*pt1.getX()+Math.cos(-lineAngle)*(pt1.getY()-lineB)+lineB;
