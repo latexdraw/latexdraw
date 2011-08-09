@@ -178,10 +178,10 @@ public class LArrowView {
 	protected void updatePathDiskCircleIn(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
 		final double arrowRadius = model.getRoundShapedArrowRadius();
 		final double lineWidth	 = model.getShape().getThickness();
-		final double x;
+		double x			 	 = xRot+lineWidth/2.;
 
-		if(pt1.getX()<pt2.getX()) x = xRot+lineWidth/2.;
-		else x = xRot-2*arrowRadius+lineWidth/2.;
+		if(!isArrowInPositiveDirection(pt1, pt2))
+			x -=2*arrowRadius;
 
 		LEllipseView.setEllipsePath(path, x, yRot-arrowRadius+lineWidth/2., arrowRadius*2-lineWidth, arrowRadius*2-lineWidth);
 	}
@@ -217,18 +217,11 @@ public class LArrowView {
 	protected void updatePathBarIn(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2, final double[] xs, final double[] ys) {
 		final double width 		= model.getBarShapedArrowWidth();
 		final double lineWidth	= model.getShape().getThickness();
-		xs[0] = xRot;
-		xs[1] = xRot;
+		final double dec		= isArrowInPositiveDirection(pt1, pt2) ? lineWidth/2. : -lineWidth/2.;
+		xs[0] = xRot+dec;
+		xs[1] = xRot+dec;
 		ys[0] = yRot-width/2.;
 		ys[1] = yRot+width/2.;
-
-		if(pt1.getX()<pt2.getX()) {
-			xs[0] += lineWidth/2.;
-			xs[1] += lineWidth/2.;
-		} else {
-			xs[0] -= lineWidth/2.;
-			xs[1] -= lineWidth/2.;
-		}
 
 		path.moveTo(xs[0], ys[0]);
 		path.lineTo(xs[1], ys[1]);
@@ -254,23 +247,22 @@ public class LArrowView {
 	}
 
 
-	protected void updatePathRightLeftArrow(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2, final boolean isLeft) {
+	protected void updatePathRightLeftArrow(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
 		final double width  = model.getArrowShapedWidth();
 		final double length = model.getArrowLength()*width;
 		final double inset  = model.getArrowInset()*length;
 
-		if(isLeft)
-			if(pt1.getX()<pt2.getX())
-				updatePathArrow(xRot, yRot, xRot+length, yRot-width/2., xRot+length-inset, yRot, xRot+length, yRot+width/2.);
-			else
-				updatePathArrow(xRot, yRot, xRot-length, yRot-width/2., xRot-length+inset, yRot, xRot-length, yRot+width/2.);
+		if(isArrowInPositiveDirection(pt1, pt2))
+			updatePathArrow(xRot, yRot, xRot+length, yRot-width/2., xRot+length-inset, yRot, xRot+length, yRot+width/2.);
 		else
-			if(pt1.getX()<pt2.getX())
-				updatePathArrow(xRot+length, yRot, xRot, yRot-width/2., xRot+inset, yRot, xRot, yRot+width/2.);
-			else
-				updatePathArrow(xRot-length, yRot, xRot, yRot-width/2., xRot-inset, yRot, xRot, yRot+width/2.);
+			updatePathArrow(xRot, yRot, xRot-length, yRot-width/2., xRot-length+inset, yRot, xRot-length, yRot+width/2.);
 	}
 
+
+
+	private boolean isArrowInPositiveDirection(final IPoint pt1, final IPoint pt2) {
+		return pt1.getX()<pt2.getX() || (pt1.getX()==pt2.getX() && pt1.getY()<pt2.getY());
+	}
 
 
 //	protected void updatePathRoundLeftRightBracket(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2, final boolean isLeft) {
@@ -298,37 +290,24 @@ public class LArrowView {
 
 
 
-	protected void updatePathDoubleLeftRightArrow(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2, final boolean isLeft) {
+	protected void updatePathDoubleLeftRightArrow(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
 		final double width  = model.getArrowShapedWidth();
 		final double length = model.getArrowLength()*width;
 		final double inset  = model.getArrowInset()*length;
 		final double x2;
 		final double x2bis;
 
-		if(isLeft)
-			if(pt1.getX()<pt2.getX()) {
-				updatePathArrow(xRot, yRot, xRot+length, yRot-width/2., xRot+length-inset, yRot, xRot+length, yRot+width/2.);
-				updatePathArrow(xRot+length, yRot, xRot+2*length, yRot-width/2., xRot+2*length-inset, yRot, xRot+2*length, yRot+width/2.);
-				x2 	  = xRot+length-inset;
-				x2bis = xRot+2*length-inset;
-			}else{
-				updatePathArrow(xRot, yRot, xRot-length, yRot-width/2., xRot-length+inset, yRot, xRot-length, yRot+width/2.);
-				updatePathArrow(xRot-length, yRot, xRot-2*length, yRot-width/2., xRot-2*length+inset, yRot, xRot-2*length, yRot+width/2.);
-				x2 	  = xRot-length+inset;
-				x2bis = xRot-2*length+inset;
-			}
-		else
-			if(pt1.getX()<pt2.getX()) {
-				updatePathArrow(xRot+length, yRot, xRot, yRot-width/2., xRot+inset, yRot, xRot, yRot+width/2.);
-				updatePathArrow(xRot+2*length, yRot, xRot+length, yRot-width/2., xRot+length+inset, yRot, xRot+length, yRot+width/2.);
-				x2 	  = xRot+inset;
-				x2bis = xRot+length+inset;
-			}else{
-				updatePathArrow(xRot-length, yRot, xRot, yRot-width/2., xRot-inset, yRot, xRot, yRot+width/2.);
-				updatePathArrow(xRot-2*length, yRot, xRot-length, yRot-width/2., xRot-length-inset, yRot, xRot-length, yRot+width/2.);
-				x2 	  = xRot-inset;
-				x2bis = xRot-length-inset;
-			}
+		if(isArrowInPositiveDirection(pt1, pt2)) {
+			updatePathArrow(xRot, yRot, xRot+length, yRot-width/2., xRot+length-inset, yRot, xRot+length, yRot+width/2.);
+			updatePathArrow(xRot+length, yRot, xRot+2*length, yRot-width/2., xRot+2*length-inset, yRot, xRot+2*length, yRot+width/2.);
+			x2 	  = xRot+length-inset;
+			x2bis = xRot+2*length-inset;
+		}else{
+			updatePathArrow(xRot, yRot, xRot-length, yRot-width/2., xRot-length+inset, yRot, xRot-length, yRot+width/2.);
+			updatePathArrow(xRot-length, yRot, xRot-2*length, yRot-width/2., xRot-2*length+inset, yRot, xRot-2*length, yRot+width/2.);
+			x2 	  = xRot-length+inset;
+			x2bis = xRot-2*length+inset;
+		}
 
 		path.lineTo(x2, yRot);
 		path.moveTo(x2bis, yRot);
@@ -387,12 +366,12 @@ public class LArrowView {
 			case DISK_END			: updatePathDiskCircleEnd(xRot, yRot); break;
 			case CIRCLE_IN			:
 			case DISK_IN			: updatePathDiskCircleIn(xRot, yRot, pt1, pt2); break;
-			case LEFT_ARROW			: updatePathRightLeftArrow(xRot, yRot, pt1, pt2, true); break;
-			case LEFT_DBLE_ARROW	: updatePathDoubleLeftRightArrow(xRot, yRot, pt1, pt2, true); break;
+			case LEFT_ARROW			: updatePathRightLeftArrow(xRot, yRot, pt1, pt2); break;
+			case LEFT_DBLE_ARROW	: updatePathDoubleLeftRightArrow(xRot, yRot, pt1, pt2); break;
 			case LEFT_ROUND_BRACKET	: /*TODO*/ break;
 			case LEFT_SQUARE_BRACKET: updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2, true); break;
-			case RIGHT_ARROW		: updatePathRightLeftArrow(xRot, yRot, pt1, pt2, false); break;
-			case RIGHT_DBLE_ARROW	: updatePathDoubleLeftRightArrow(xRot, yRot, pt1, pt2, false); break;
+			case RIGHT_ARROW		: updatePathRightLeftArrow(xRot, yRot, pt1, pt2); break;
+			case RIGHT_DBLE_ARROW	: updatePathDoubleLeftRightArrow(xRot, yRot, pt1, pt2); break;
 			case RIGHT_ROUND_BRACKET: /*TODO*/ break;
 			case RIGHT_SQUARE_BRACKET: updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2, false); break;
 			case SQUARE_END			:
