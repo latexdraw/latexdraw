@@ -44,6 +44,9 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument customises the arrows. */
 	protected ShapeArrowCustomiser arrowCustomiser;
 
+	/** This instrument customises the dot parameters. */
+	protected ShapeDotCustomiser dotCustomiser;
+
 
 
 	/**
@@ -63,6 +66,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		textCustomiser			= new TextCustomiser(hand, pencil);
 		rotationCustomiser		= new ShapeRotationCustomiser(hand, pencil);
 		arrowCustomiser			= new ShapeArrowCustomiser(hand, pencil);
+		dotCustomiser			= new ShapeDotCustomiser(hand, pencil);
 	}
 
 
@@ -75,6 +79,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		textCustomiser.addEventable(eventable);
 		rotationCustomiser.addEventable(eventable);
 		arrowCustomiser.addEventable(eventable);
+		dotCustomiser.addEventable(eventable);
 	}
 
 
@@ -89,6 +94,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		textCustomiser.setActivated(activated);
 		rotationCustomiser.setActivated(activated);
 		arrowCustomiser.setActivated(activated);
+		dotCustomiser.setActivated(activated);
 	}
 
 
@@ -101,6 +107,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		textCustomiser.update(shape);
 		rotationCustomiser.update(shape);
 		arrowCustomiser.update(shape);
+		dotCustomiser.update(shape);
 	}
 
 
@@ -115,6 +122,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		textCustomiser.update();
 		rotationCustomiser.update();
 		arrowCustomiser.update();
+		dotCustomiser.update();
 	}
 
 
@@ -178,6 +186,15 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeArrowCustomiser getArrowCustomiser() {
 		return arrowCustomiser;
+	}
+
+
+	/**
+	 * @return The instrument that customises the dots.
+	 * @since 3.0
+	 */
+	public ShapeDotCustomiser getDotCustomiser() {
+		return dotCustomiser;
 	}
 
 

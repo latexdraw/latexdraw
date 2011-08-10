@@ -10,6 +10,7 @@ import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
+import net.sf.latexdraw.instruments.ShapeDotCustomiser;
 import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
 import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
@@ -86,6 +87,7 @@ public class LPropertiesToolbar extends MPanel {
 		add(createShadowPropertiesPanel(metaShapeCustomiser.getShadowCustomiser(), frame, canvas));
 		add(createFillingPanel(metaShapeCustomiser.getFillingCustomiser(), frame, canvas));
 		add(createArrowToolbar(metaShapeCustomiser.getArrowCustomiser(), frame, canvas));
+		add(createDotToolbar(metaShapeCustomiser.getDotCustomiser(), frame, canvas));
 		addTextWidgets(metaShapeCustomiser.getTextCustomiser(), frame, canvas);
 	}
 
@@ -113,6 +115,20 @@ public class LPropertiesToolbar extends MPanel {
 		list.addComponent(spinner);
 	}
 
+
+	protected JComponent createDotToolbar(final ShapeDotCustomiser ins, final LFrame frame, final LCanvas canvas) {
+		ListToggleButton list = new ListToggleButton(frame, LResources.DOT_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		list.setToolTipText("Customises the dots.");
+
+		list.addComponent(ins.getDotCB());
+		list.addComponent(ins.getDotSizeField());
+		list.addSeparator();
+
+        ins.addEventable(list.getToolbar());
+        ins.setWidgetContainer(list);
+
+		return list;
+	}
 
 
 	protected JComponent createArrowToolbar(final ShapeArrowCustomiser ins, final LFrame frame, final LCanvas canvas) {

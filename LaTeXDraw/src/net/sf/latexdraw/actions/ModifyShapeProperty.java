@@ -2,8 +2,8 @@ package net.sf.latexdraw.actions;
 
 import java.awt.Color;
 
+import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -131,12 +131,12 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				shape.setHasDbleBord((Boolean)obj);
 				break;
 			case DOT_SIZE:
-				oldValue = ((IDot)shape).getRadius();
-				((IDot)shape).setRadius((Double)obj);
+				oldValue = ((Dottable)shape).getRadius();
+				((Dottable)shape).setRadius((Double)obj);
 				break;
 			case DOT_STYLE:
-				oldValue = ((IDot)shape).getDotStyle();
-				((IDot)shape).setDotStyle((DotStyle)obj);
+				oldValue = ((Dottable)shape).getDotStyle();
+				((Dottable)shape).setDotStyle((DotStyle)obj);
 				break;
 			case FILLING_STYLE:
 				oldValue = shape.getFillingStyle();
@@ -251,8 +251,8 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case COLOUR_LINE:		return true;
 				case COLOUR_SHADOW:		return shape.isShadowable();
 				case DBLE_BORDERS:		return shape.isDbleBorderable();
-				case DOT_SIZE:			return shape instanceof IDot;
-				case DOT_STYLE:			return shape instanceof IDot;
+				case DOT_SIZE:			return shape instanceof Dottable;
+				case DOT_STYLE:			return shape instanceof Dottable;
 				case FILLING_STYLE:		return shape.isInteriorStylable();
 				case LINE_STYLE:		return shape.isLineStylable();
 				case LINE_THICKNESS:	return shape.isThicknessable();

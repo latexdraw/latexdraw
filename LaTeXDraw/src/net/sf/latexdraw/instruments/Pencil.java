@@ -7,11 +7,10 @@ import java.util.List;
 import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.SetTextSetterPosition;
 import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
-import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
@@ -86,17 +85,14 @@ public class Pencil extends Instrument {
 	/** A shape that supports move of its border. Used to get and set border positions. */
 	protected IShape borderMoveable;
 
+	/** The style of the created dots. */
+	protected Dottable dottable;
+
 	/** A shape that supports filling customisation. Used to get and set filling properties. */
 	protected IShape fillingable;
 
 	/** The zoomer that is used to give the zoom level to compute coordinates of the created shapes. */
 	protected Zoomer zoomer;
-
-	/** The size of the created dots. */
-	protected double dotSize;
-
-	/** The style of the created dots. */
-	protected DotStyle dotStyle;
 
 	/** The style of the left arrows. */
 	protected ArrowStyle arrowLeftStyle;
@@ -131,13 +127,12 @@ public class Pencil extends Instrument {
 		shadowable		= lineStylable;
 		dbleBorderable	= lineStylable;
 		roundable		= (ILineArcShape)lineStylable;
+		dottable		= factory.createDot(factory.createPoint(), false);
 		borderMoveable	= lineStylable;
 		fillingable		= lineStylable;
 		textable		= factory.createText(false);
 		arrowLeftStyle	= ArrowStyle.NONE;
 		arrowRightStyle	= ArrowStyle.NONE;
-		dotSize			= 10.;
-		dotStyle		= DotStyle.DOT;
 
 		initialiseLinks();
 	}
@@ -222,8 +217,10 @@ public class Pencil extends Instrument {
 			shape.setShadowAngle(shadowable.getShadowAngle());
 			shape.setShadowSize(shadowable.getShadowSize());
 		}
-		if(shape instanceof IDot)
-			((IDot)shape).setDotStyle(dotStyle);
+		if(shape instanceof Dottable) {
+			((Dottable)shape).setDotStyle(dottable.getDotStyle());
+			((Dottable)shape).setRadius(dottable.getRadius());
+		}
 		if(shape.isLineStylable())
 			shape.setLineStyle(lineStylable.getLineStyle());
 		// Setting the corner roundness.
@@ -300,8 +297,7 @@ public class Pencil extends Instrument {
 	 * @since 3.0
 	 */
 	public void setDotSize(final double dotSize) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(dotSize) && dotSize>0)
-			this.dotSize = dotSize;
+		dottable.setRadius(dotSize);
 	}
 
 
@@ -401,8 +397,7 @@ public class Pencil extends Instrument {
 	 * @since 3.0
 	 */
 	public void setDotStyle(final DotStyle dotStyle) {
-		if(dotStyle!=null)
-			this.dotStyle = dotStyle;
+		dottable.setDotStyle(dotStyle);
 	}
 
 
