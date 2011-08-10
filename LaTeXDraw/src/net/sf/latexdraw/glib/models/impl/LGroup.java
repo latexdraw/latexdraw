@@ -5,6 +5,8 @@ import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
@@ -1184,12 +1186,13 @@ class LGroup extends LShape implements IGroup {
 
 		super.setModified(modified);
 	}
-	
+
 	@Override
 	public void setArrowStyle(final ArrowStyle style, final int position) {
-		for(final IShape sh : shapes)
-			if(sh.isArrowable())
-				sh.setArrowStyle(style, position);
+		if(style!=null)
+			for(final IShape sh : shapes)
+				if(sh.isArrowable())
+					sh.setArrowStyle(style, position);
 	}
 
 	@Override
@@ -1199,7 +1202,46 @@ class LGroup extends LShape implements IGroup {
 		for(int i=0, size=shapes.size(); i<size && style==null; i++)
 			if(shapes.get(i).isArrowable())
 				style = shapes.get(i).getArrowStyle(position);
-			
+
 		return style;
+	}
+
+
+	@Override
+	public DotStyle getDotStyle() {
+		DotStyle style=null;
+
+		for(int i=0, size=shapes.size(); i<size && style==null; i++)
+			if(shapes.get(i) instanceof Dottable)
+				style = ((Dottable)shapes.get(i)).getDotStyle();
+
+		return style;
+	}
+
+
+	@Override
+	public void setDotStyle(final DotStyle style) {
+		if(style!=null)
+			for(final IShape sh : shapes)
+				if(sh instanceof Dottable)
+					((Dottable)sh).setDotStyle(style);
+	}
+
+
+	@Override
+	public double getRadius() {
+		for(final IShape sh : shapes)
+			if(sh instanceof Dottable)
+				return ((Dottable)sh).getRadius();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setRadius(final double radius) {
+		for(final IShape sh : shapes)
+			if(sh instanceof Dottable)
+				((Dottable)sh).setRadius(radius);
 	}
 }

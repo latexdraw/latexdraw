@@ -1,8 +1,9 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
+import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 
 /**
- * Defines an interface that classes defining a group of shapes should implement.<br>
+ * Defines an interface for shapes that support dot styles and dot radius.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -20,24 +21,30 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable {
+public interface Dottable {
 	/**
-	 * @return True if one of the shape of the group supports rounded corners.
+	 * @return The style of the dot.
 	 * @since 3.0
 	 */
-	boolean containsRoundables();
+	DotStyle getDotStyle();
 
 	/**
-	 * @return True if one of the shape of the group is a text.
+	 * Defines the style of the dot.
+	 * @param style The new style.
 	 * @since 3.0
 	 */
-	boolean containsTexts();
+	void setDotStyle(final DotStyle style);
 
 	/**
-	 * Duplicates the group of shapes.
-	 * @param duplicateShapes True: the shapes will be duplicated as well.
-	 * @return The duplicated group of shapes.
+	 * @return the radius of the dot.
 	 * @since 3.0
 	 */
-	IGroup duplicate(final boolean duplicateShapes);
+	double getRadius();
+
+	/**
+	 * Defines the radius of the dot.
+	 * @param radius the radius to set. Must be greater than 0.
+	 * @since 3.0
+	 */
+	void setRadius(final double radius);
 }

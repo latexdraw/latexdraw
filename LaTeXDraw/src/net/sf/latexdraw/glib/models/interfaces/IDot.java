@@ -21,7 +21,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
  * @version 3.0
  * @since 3.0
  */
-public interface IDot extends IPositionShape {
+public interface IDot extends IPositionShape, Dottable {
 	/** Useful to calculate the thickness of dot with the o style. */
 	double THICKNESS_O_STYLE_FACTOR = 16.;
 
@@ -167,33 +167,6 @@ public interface IDot extends IPositionShape {
 			return null;
 		}
 	}
-
-	/**
-	 * @return The style of the dot.
-	 * @since 3.0
-	 */
-	DotStyle getDotStyle();
-
-	/**
-	 * Defines the style of the dot.
-	 * @param style The new style.
-	 * @since 3.0
-	 */
-	void setDotStyle(final DotStyle style);
-
-	/**
-	 * @return the radius of the dot.
-	 * @since 3.0
-	 */
-	double getRadius();
-
-	/**
-	 * Defines the radius of the dot.
-	 * @param radius the radius to set. Must be greater than 0.
-	 * @since 3.0
-	 */
-	void setRadius(final double radius);
-
 
 	/**
 	 * While getTopLeftPoint takes care about the current shape of the dot to compute the top left point,
