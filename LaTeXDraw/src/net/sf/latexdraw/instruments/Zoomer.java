@@ -169,7 +169,7 @@ class Scroll2Zoom extends Link<Zoom, KeysScrolling, Zoomer> {
 
 	@Override
 	public void updateAction() {
-		action.setZoomLevel(instrument.zoomable.getZoom() + interaction.getNumberUp()*Zoomable.ZOOM_INCREMENT);
+		action.setZoomLevel(instrument.zoomable.getZoom() + Zoomable.ZOOM_INCREMENT);
 	}
 
 	@Override

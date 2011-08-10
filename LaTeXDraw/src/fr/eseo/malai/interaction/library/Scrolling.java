@@ -36,9 +36,6 @@ public class Scrolling extends Interaction {
 	/** The Y-coordinate of the scroll position. */
  	protected double py;
 
- 	/** The number of scroll up (i.e. moving the scroll from the user to the screen) that has been performed. */
- 	protected int numberUp;
-
  	/** The total increment of the scrolling. */
  	protected int increment;
 
@@ -59,7 +56,6 @@ public class Scrolling extends Interaction {
 		scrollTarget = null;
 		px = 0.;
 		py = 0.;
-		numberUp  = 0;
 		increment = 0;
 	}
 
@@ -104,15 +100,6 @@ public class Scrolling extends Interaction {
 
 
 	/**
-	 * @return The number of scroll up (i.e. moving the scroll from the user to the screen) that has been performed.
-	 * @since 0.2
-	 */
-	public int getNumberUp() {
-		return numberUp;
-	}
-
-
-	/**
 	 * @return The total increment of the scrolling.
 	 * @since 0.2
 	 */
@@ -132,7 +119,6 @@ public class Scrolling extends Interaction {
 		@Override
 		public void action() {
 			Scrolling.this.setLastHIDUsed(this.hid);
-			Scrolling.this.numberUp  	= Scrolling.this.numberUp + (this.direction>0 ? -1 : 1);
 			Scrolling.this.increment  	= Scrolling.this.increment + (this.direction>0 ? -this.amount : this.amount);
 			Scrolling.this.px			= this.x;
 			Scrolling.this.py        	= this.y;
