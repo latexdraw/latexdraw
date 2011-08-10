@@ -447,7 +447,7 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public double getCrossGap() {
-		return radius / 160.;
+		return radius / 10.;
 	}
 
 
