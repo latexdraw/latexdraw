@@ -32,6 +32,8 @@ public class KeysScrolling extends Scrolling {
 	/** The keys pressed while scrolling. */
 	protected List<Integer> keys;
 
+	/** The id of the hid used for the keyboard events. */
+	protected int keyHIDUsed;
 
 	/**
 	 * Creates the interaction.
@@ -44,6 +46,8 @@ public class KeysScrolling extends Scrolling {
 	@Override
 	public void reinit() {
 		super.reinit();
+
+		keyHIDUsed = -1;
 
 		if(keys==null)
 			keys = new ArrayList<Integer>();
@@ -69,6 +73,7 @@ public class KeysScrolling extends Scrolling {
 			@Override
 			public void action() {
 				KeysScrolling.this.keys.add(getKey());
+				KeysScrolling.this.setKeyHIDUsed(hid);
 			}
 		};
 
@@ -77,19 +82,26 @@ public class KeysScrolling extends Scrolling {
 			public void action() {
 				KeysScrolling.this.keys.add(getKey());
 			}
+
+			@Override
+			public boolean isGuardRespected() {
+				return super.isGuardRespected() && this.hid==KeysScrolling.this.getKeyHIDUsed();
+			}
 		};
 
 		new KeyReleaseTransition(keyPressed, keyReleased) {
 			@Override
 			public boolean isGuardRespected() {
-				return super.isGuardRespected() && KeysScrolling.this.keys.size()==1;
+				return super.isGuardRespected() && KeysScrolling.this.keys.size()==1 &&
+						this.hid==KeysScrolling.this.getKeyHIDUsed() && KeysScrolling.this.keys.contains(this.key);
 			}
 		};
 
 		new KeyReleaseTransition(keyPressed, keyPressed) {
 			@Override
 			public boolean isGuardRespected() {
-				return super.isGuardRespected() && KeysScrolling.this.keys.size()>1;
+				return super.isGuardRespected() && KeysScrolling.this.keys.size()>1 &&
+						this.hid==KeysScrolling.this.getKeyHIDUsed() && KeysScrolling.this.keys.contains(this.key);
 			}
 
 			@Override
@@ -108,5 +120,23 @@ public class KeysScrolling extends Scrolling {
 	 */
 	public List<Integer> getKeys() {
 		return keys;
+	}
+
+
+	/**
+	 * @return the The id of the hid used for the keyboard events.
+	 * @since 0.2
+	 */
+	public int getKeyHIDUsed() {
+		return keyHIDUsed;
+	}
+
+
+	/**
+	 * @param keyHIDUsed The id of the hid used for the keyboard events.
+	 * @since 0.2
+	 */
+	protected void setKeyHIDUsed(int keyHIDUsed) {
+		this.keyHIDUsed = keyHIDUsed;
 	}
 }
