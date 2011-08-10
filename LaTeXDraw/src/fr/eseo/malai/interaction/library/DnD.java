@@ -153,7 +153,7 @@ public class DnD extends Interaction {
 
 
 	class Release4DnD extends ReleaseTransition {
-		public Release4DnD(final SourceableState inputState, final TargetableState outputState) {
+		protected Release4DnD(final SourceableState inputState, final TargetableState outputState) {
 			super(inputState, outputState);
 		}
 		@Override

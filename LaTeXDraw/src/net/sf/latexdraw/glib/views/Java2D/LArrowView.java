@@ -56,6 +56,13 @@ public class LArrowView {
 	}
 
 
+	/**
+	 * Paints the arrow.
+	 * @param g The graphics into which the arrow will be painted.
+	 * @param fColour The colour of the filling of the arrow.
+	 * @param asShadow True: it is the shadow of a shape.
+	 * @since 3.0
+	 */
 	public void paint(final Graphics2D g, final Color fColour, final boolean asShadow) {
 		if(model.getArrowStyle()==ArrowStyle.NONE) return ;
 
@@ -337,7 +344,10 @@ public class LArrowView {
 	}
 
 
-
+	/**
+	 * Updates the path of the arrow.
+	 * @since 3.0
+	 */
 	public void updatePath() {
 		double xRot, yRot;
 		final ILine arrowLine 	= model.getArrowLine();

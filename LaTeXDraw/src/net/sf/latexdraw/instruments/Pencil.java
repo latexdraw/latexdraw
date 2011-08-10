@@ -794,7 +794,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 
 
 class Press2AddShape extends PencilLink<Press> {
-	public Press2AddShape(final Pencil ins) throws InstantiationException, IllegalAccessException {
+	protected Press2AddShape(final Pencil ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, Press.class);
 	}
 
