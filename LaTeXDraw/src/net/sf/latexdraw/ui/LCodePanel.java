@@ -18,7 +18,6 @@ import org.malai.widget.MPanel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
 /**
  * Defines the panel which contains the code generated from the drawing.<br>
  * <br>
@@ -167,6 +166,6 @@ public class LCodePanel extends MPanel implements ConcretePresentation, ActionHa
 
 	@Override
 	public void reinit() {
-		// TODO Auto-generated method stub
+		update();
 	}
 }
