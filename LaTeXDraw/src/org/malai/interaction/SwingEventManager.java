@@ -19,7 +19,6 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -191,9 +190,6 @@ public class SwingEventManager implements MouseListener, KeyListener, MouseMotio
 		final int x			= e.getX();
 		final int y			= e.getY();
 		final int button	= e.getButton();
-
-		if(src instanceof JComponent)
-			((JComponent) src).grabFocus();
 
 		for(EventHandler handler : handlers)
 			handler.onRelease(button, x, y, ID_MOUSE, src);
