@@ -97,6 +97,10 @@ public class LMenuBar extends JMenuBar {
 
 	protected void initialiseHelpMenu(final LFrame frame) {
 		helpMenu = new MMenu(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.93"), true); //$NON-NLS-1$
+		helpMenu.add(frame.helper.getReportBugItem());
+		helpMenu.add(frame.helper.getForumItem());
+		helpMenu.add(frame.helper.getDonateItem());
+		helpMenu.addSeparator();
 		helpMenu.add(frame.helper.getAboutItem());
 		add(helpMenu);
 	}

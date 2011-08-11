@@ -2,11 +2,14 @@ package net.sf.latexdraw.instruments;
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.ui.dialog.AboutDialogueBox;
 import net.sf.latexdraw.util.LResources;
 import fr.eseo.malai.instrument.Instrument;
+import fr.eseo.malai.instrument.library.MenuItem2OpenWebPageLink;
 import fr.eseo.malai.instrument.library.MenuItem2ShowComponentLink;
 import fr.eseo.malai.widget.MMenuItem;
 
@@ -33,6 +36,15 @@ public class Helper extends Instrument {
 	/** This menu item shows the "About latexdraw" panel. */
 	protected MMenuItem aboutItem;
 
+	/** This menu opens the web page used to report bugs. */
+	protected MMenuItem reportBugItem;
+
+	/** This menu opens the web page used to donate to the latexdraw project. */
+	protected MMenuItem donateItem;
+
+	/** This menu opens the latexdraw forum. */
+	protected MMenuItem forumItem;
+
 	/** The dialogue box that gives information on latexdraw. */
 	protected AboutDialogueBox aboutFrame;
 
@@ -43,12 +55,25 @@ public class Helper extends Instrument {
 	 */
 	public Helper() {
 		super();
+		initialiseWidgets();
+		initialiseLinks();
+	}
 
+
+	protected void initialiseWidgets() {
 		aboutFrame= null;
 		aboutItem = new MMenuItem(LResources.LABEL_ABOUT, KeyEvent.VK_A);
 		aboutItem.setIcon(LResources.ABOUT_ICON);
 
-		initialiseLinks();
+		donateItem = new MMenuItem("Donate", KeyEvent.VK_D);
+		donateItem.setIcon(LResources.ABOUT_ICON);
+
+		reportBugItem = new MMenuItem("Report bugs", KeyEvent.VK_B);
+		reportBugItem.setIcon(LResources.ERR_ICON);
+
+		forumItem = new MMenuItem("Go to forums", KeyEvent.VK_F);
+		forumItem.setIcon(LResources.ABOUT_ICON);
+
 	}
 
 
@@ -56,9 +81,14 @@ public class Helper extends Instrument {
 	protected void initialiseLinks() {
 		try{
 			links.add(new MenuItem2AboutFrame(this, aboutFrame, aboutItem));
+			links.add(new MenuItem2OpenWebPageLink(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523")));
+			links.add(new MenuItem2OpenWebPageLink(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums")));
+			links.add(new MenuItem2OpenWebPageLink(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
 		}catch(InstantiationException e){
 			BordelCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
+			BordelCollector.INSTANCE.add(e);
+		}catch(URISyntaxException e){
 			BordelCollector.INSTANCE.add(e);
 		}
 	}
@@ -70,6 +100,33 @@ public class Helper extends Instrument {
 	 */
 	public MMenuItem getAboutItem() {
 		return aboutItem;
+	}
+
+
+	/**
+	 * @return The menu that opens the web page used to report bugs.
+	 * @since 3.0
+	 */
+	public MMenuItem getReportBugItem() {
+		return reportBugItem;
+	}
+
+
+	/**
+	 * @return The menu that opens the web page used to donate to the latexdraw project.
+	 * @since 3.0
+	 */
+	public MMenuItem getDonateItem() {
+		return donateItem;
+	}
+
+
+	/**
+	 * @return the menu that opens the latexdraw forum.
+	 * @since 3.0
+	 */
+	public MMenuItem getForumItem() {
+		return forumItem;
 	}
 
 
