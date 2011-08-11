@@ -15,7 +15,7 @@ import org.malai.widget.MSpinner;
 
 import net.sf.latexdraw.actions.ModifyMagneticGrid;
 import net.sf.latexdraw.actions.ModifyMagneticGrid.GridProperties;
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
 import net.sf.latexdraw.lang.LangTool;

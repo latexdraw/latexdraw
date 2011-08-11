@@ -17,7 +17,7 @@ import org.malai.properties.Zoomable;
 import org.malai.widget.MButton;
 import org.malai.widget.MSpinner;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.lang.LangTool;

@@ -10,7 +10,7 @@ import org.malai.instrument.library.MenuItem2OpenWebPageLink;
 import org.malai.instrument.library.MenuItem2ShowComponentLink;
 import org.malai.widget.MMenuItem;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.ui.dialog.AboutDialogueBox;
 import net.sf.latexdraw.util.LResources;
 

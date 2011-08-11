@@ -1,6 +1,6 @@
 package net.sf.latexdraw.generators.svg;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;

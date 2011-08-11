@@ -1,4 +1,4 @@
-package net.sf.latexdraw.bordel;
+package net.sf.latexdraw.badaboom;
 
 /**
  * Defines a 'Bordel !' handler. A object that wants to be aware of the

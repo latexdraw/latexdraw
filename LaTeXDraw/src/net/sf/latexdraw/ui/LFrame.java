@@ -18,7 +18,7 @@ import org.malai.ui.UIManager;
 import org.malai.widget.MLayeredPane;
 import org.malai.widget.MPanel;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;

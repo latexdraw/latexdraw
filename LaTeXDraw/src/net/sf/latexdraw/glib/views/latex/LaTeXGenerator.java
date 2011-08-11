@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import org.malai.properties.Modifiable;
 
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.filters.PDFFilter;
 import net.sf.latexdraw.filters.PSFilter;
 import net.sf.latexdraw.filters.TeXFilter;

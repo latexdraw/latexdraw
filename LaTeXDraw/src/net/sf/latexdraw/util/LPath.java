@@ -4,7 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 
 /**
  * This class defines paths used in LaTeXDraw.<br>

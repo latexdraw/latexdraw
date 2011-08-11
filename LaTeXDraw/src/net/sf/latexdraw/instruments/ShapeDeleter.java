@@ -13,7 +13,7 @@ import org.malai.widget.MButton;
 
 import net.sf.latexdraw.actions.DeleteShape;
 import net.sf.latexdraw.actions.SelectShapes;
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;

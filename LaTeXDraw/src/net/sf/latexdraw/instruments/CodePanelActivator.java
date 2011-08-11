@@ -3,7 +3,7 @@ package net.sf.latexdraw.instruments;
 import javax.swing.JSplitPane;
 
 import net.sf.latexdraw.actions.ShowHideCodePanel;
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.ui.CloseButton;
 import net.sf.latexdraw.ui.LCodePanel;
 import net.sf.latexdraw.util.LNamespace;

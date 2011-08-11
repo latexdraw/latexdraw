@@ -1,4 +1,4 @@
-package net.sf.latexdraw.bordel;
+package net.sf.latexdraw.badaboom;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JEditorPane;

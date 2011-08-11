@@ -13,7 +13,7 @@ import javax.swing.UIManager;
 
 import org.malai.ui.IProgressBar;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 
 /**
  * This class defines a splash screen displayed during the start of the program with a progress

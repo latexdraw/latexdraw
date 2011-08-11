@@ -6,7 +6,7 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.lang.LangTool;
 
 /**

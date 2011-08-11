@@ -11,7 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 
 import org.w3c.dom.*;
 import org.xml.sax.EntityResolver;

@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
 
 import net.sf.latexdraw.actions.SetUnit;
 import net.sf.latexdraw.actions.ShowHideScaleRuler;
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;

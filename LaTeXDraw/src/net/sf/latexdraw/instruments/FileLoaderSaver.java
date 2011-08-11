@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import net.sf.latexdraw.actions.LoadDrawing;
 import net.sf.latexdraw.actions.NewDrawing;
 import net.sf.latexdraw.actions.SaveDrawing;
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.lang.LangTool;

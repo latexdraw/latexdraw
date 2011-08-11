@@ -20,7 +20,7 @@ import java.io.OutputStreamWriter;
 
 import javax.imageio.ImageIO;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.filters.PDFFilter;
 import net.sf.latexdraw.filters.PNGFilter;
 import net.sf.latexdraw.filters.PSFilter;

@@ -3,7 +3,7 @@ package net.sf.latexdraw.parsers.svg;
 import java.awt.Color;
 import java.text.ParseException;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.parsers.svg.parsers.CSSStyleParser;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
 

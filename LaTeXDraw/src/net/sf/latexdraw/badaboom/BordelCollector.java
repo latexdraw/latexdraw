@@ -1,4 +1,4 @@
-package net.sf.latexdraw.bordel;
+package net.sf.latexdraw.badaboom;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;

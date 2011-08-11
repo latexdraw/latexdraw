@@ -6,9 +6,9 @@ import org.malai.instrument.Link;
 import org.malai.interaction.library.ButtonPressed;
 import org.malai.widget.MButton;
 
-import net.sf.latexdraw.bordel.BordelCollector;
-import net.sf.latexdraw.bordel.BordelHandler;
-import net.sf.latexdraw.bordel.BordelManager;
+import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelHandler;
+import net.sf.latexdraw.badaboom.BordelManager;
 import net.sf.latexdraw.util.LResources;
 
 /**

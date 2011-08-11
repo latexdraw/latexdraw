@@ -15,7 +15,7 @@ import org.malai.stateMachine.MustAbortStateMachineException;
 
 import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.SetTextSetterPosition;
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;

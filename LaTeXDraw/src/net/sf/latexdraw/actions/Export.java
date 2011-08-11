@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileFilter;
 import org.malai.action.Action;
 import org.malai.mapping.MappingRegistry;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.filters.BMPFilter;
 import net.sf.latexdraw.filters.JPGFilter;
 import net.sf.latexdraw.filters.PDFFilter;

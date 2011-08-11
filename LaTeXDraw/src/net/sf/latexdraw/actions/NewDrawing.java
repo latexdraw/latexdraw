@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 import org.malai.action.library.IOAction;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 
 /**

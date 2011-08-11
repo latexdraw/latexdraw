@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.text.ParseException;
 import java.util.List;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 
 import org.w3c.dom.Node;

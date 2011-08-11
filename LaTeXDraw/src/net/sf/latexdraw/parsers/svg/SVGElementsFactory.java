@@ -2,7 +2,7 @@ package net.sf.latexdraw.parsers.svg;
 
 import java.text.ParseException;
 
-import net.sf.latexdraw.bordel.BordelCollector;
+import net.sf.latexdraw.badaboom.BordelCollector;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
