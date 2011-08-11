@@ -48,8 +48,8 @@ public class UndoRedoManager extends Instrument implements UndoHandler {
 	public UndoRedoManager() {
 		super();
 
-		undoB = new MButton(new ImageIcon("src/fr/eseo/malai/res/Undo.png")); //$NON-NLS-1$
-		redoB = new MButton(new ImageIcon("src/fr/eseo/malai/res/Redo.png")); //$NON-NLS-1$
+		undoB = new MButton(new ImageIcon("src/org/malai/res/Undo.png")); //$NON-NLS-1$
+		redoB = new MButton(new ImageIcon("src/org/malai/res/Redo.png")); //$NON-NLS-1$
 
 		initialiseLinks();
 		UndoCollector.INSTANCE.addHandler(this);
