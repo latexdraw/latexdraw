@@ -3,7 +3,7 @@ package net.sf.latexdraw.generators.svg;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
@@ -157,7 +157,7 @@ public class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes>
 					shape.getArrowAt(1).setArrowStyle(la.getArrowAt(0).getArrowStyle());
 				}
 			}
-			catch(IllegalArgumentException e) { BordelCollector.INSTANCE.add(e); }
+			catch(IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		homogeniseArrows(shape.getArrowAt(0), shape.getArrowAt(1));
 		shape.update();

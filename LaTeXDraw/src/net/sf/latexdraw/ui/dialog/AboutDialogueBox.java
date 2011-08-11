@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.DisplayCanvas;
 import net.sf.latexdraw.util.LResources;
@@ -77,7 +77,7 @@ public class AboutDialogueBox extends JFrame {
 			JEditorPane editorPane = new JEditorPane(getClass().getResource("/res/license.txt"));//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.LANG.getString18("LaTeXDrawFrame.28"), new JScrollPane(editorPane)); //$NON-NLS-1$
-		}catch(Exception e) { BordelCollector.INSTANCE.add(e); }
+		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -86,7 +86,7 @@ public class AboutDialogueBox extends JFrame {
 			JEditorPane editorPane = new JEditorPane(getClass().getResource("/res/release_note.txt"));//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.LANG.getString18("LaTeXDrawFrame.27"), new JScrollPane(editorPane)); //$NON-NLS-1$
-		}catch(Exception e) { BordelCollector.INSTANCE.add(e); }
+		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -95,7 +95,7 @@ public class AboutDialogueBox extends JFrame {
 			JEditorPane editorPane = new JEditorPane(getClass().getResource("/res/translators.txt"));//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.LANG.getString18("LaTeXDrawFrame.26"), new JScrollPane(editorPane)); //$NON-NLS-1$
-		}catch(Exception e) { BordelCollector.INSTANCE.add(e); }
+		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -105,7 +105,7 @@ public class AboutDialogueBox extends JFrame {
 			MediaTracker tracker = new MediaTracker(this);
 		    tracker.addImage(i,0);
 		    try { tracker.waitForID(0); }
-		    catch(InterruptedException e) { BordelCollector.INSTANCE.add(e); }
+		    catch(InterruptedException e) { BadaboomCollector.INSTANCE.add(e); }
 
 			JPanel panel 			= new JPanel();
 			JEditorPane editorPane 	= new JEditorPane();
@@ -124,7 +124,7 @@ public class AboutDialogueBox extends JFrame {
 			panel.add(new DisplayCanvas(i), BorderLayout.NORTH);
 			panel.add(new JScrollPane(editorPane), BorderLayout.SOUTH);
 			tabbedPane.add(LangTool.LANG.getStringDialogFrame("PreferencesFrame.general"), panel); //$NON-NLS-1$
-		}catch(Exception e) { BordelCollector.INSTANCE.add(e); }
+		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 

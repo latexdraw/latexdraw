@@ -10,7 +10,7 @@ import org.malai.instrument.library.MenuItem2ShowComponentLink;
 import org.malai.interaction.library.MenuItemPressed;
 import org.malai.widget.MMenuItem;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.PreferencesFrame;
 import net.sf.latexdraw.util.LResources;
@@ -71,9 +71,9 @@ public class PreferencesActivator extends Instrument {
 			links.add(new MenuItem2ActivateSetterLink(this));
 			links.add(new MenuItem2ShowPreferencesLink(this, null, showPreferencesMenu));
 		}catch(InstantiationException ex){
-			BordelCollector.INSTANCE.add(ex);
+			BadaboomCollector.INSTANCE.add(ex);
 		}catch(IllegalAccessException ex){
-			BordelCollector.INSTANCE.add(ex);
+			BadaboomCollector.INSTANCE.add(ex);
 		}
 	}
 

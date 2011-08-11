@@ -2,7 +2,7 @@ package net.sf.latexdraw.parsers.svg;
 
 import java.text.ParseException;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -107,8 +107,8 @@ public final class SVGElementsFactory {
 			else
 				return new OtherNSElement(src, parent);
 		}
-		catch(MalformedSVGDocument ex) { BordelCollector.INSTANCE.add(ex); return null; }
-		catch(ParseException       ex) { BordelCollector.INSTANCE.add(ex); return null; }
+		catch(MalformedSVGDocument ex) { BadaboomCollector.INSTANCE.add(ex); return null; }
+		catch(ParseException       ex) { BadaboomCollector.INSTANCE.add(ex); return null; }
 
 		return null;
 	}

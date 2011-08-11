@@ -6,7 +6,7 @@ import java.util.List;
 import org.malai.mapping.MappingRegistry;
 
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
@@ -77,11 +77,11 @@ public class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		SVGElement main = getLaTeXDrawElement(elt, null);
 
 		try { shape.setDotStyle(DotStyle.getStyle(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_DOT_SHAPE))); }
-		catch(IllegalArgumentException e) { BordelCollector.INSTANCE.add(e); }
+		catch(IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		if(v!=null)
 			try { shape.setRadius(Double.valueOf(v).doubleValue()); }
-			catch(NumberFormatException e) { BordelCollector.INSTANCE.add(e); }
+			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		v = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_POSITION);
 

@@ -17,7 +17,7 @@ import org.malai.properties.Zoomable;
 import org.malai.widget.MButton;
 import org.malai.widget.MSpinner;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.lang.LangTool;
@@ -120,9 +120,9 @@ public class Zoomer extends Instrument {
 			links.add(new Spinner2Zoom(this));
 			links.add(new Button2Zoom(this));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

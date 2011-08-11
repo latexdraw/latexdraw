@@ -9,7 +9,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.util.LNumber;
@@ -60,7 +60,7 @@ public abstract class LStandardGridView<S extends IStandardGrid> extends LShapeV
 		if(LNumber.INSTANCE.equals(angle, 0.))
 			border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
 		else {
-			BordelCollector.INSTANCE.add(new IllegalAccessException());
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
 			//TODO
 		}
 	}

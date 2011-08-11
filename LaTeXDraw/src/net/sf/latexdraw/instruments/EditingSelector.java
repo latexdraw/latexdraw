@@ -13,7 +13,7 @@ import org.malai.widget.MToggleButton;
 
 import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.util.LResources;
 
@@ -284,9 +284,9 @@ public class EditingSelector extends Instrument {
 			links.add(new ButtonPressed2DefineStylePencil(this));
 			links.add(new ButtonPressed2ActivateIns(this));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

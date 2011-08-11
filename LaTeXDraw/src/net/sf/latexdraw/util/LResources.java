@@ -6,7 +6,7 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 
 /**
@@ -424,7 +424,7 @@ public final class LResources {
 			return new ImageIcon(url);
 		}
 		catch(final Exception e) {
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 			return null;
 		}
 	}

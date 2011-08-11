@@ -4,7 +4,7 @@ import java.io.File;
 import java.net.URI;
 import java.util.List;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
@@ -261,7 +261,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 			return true;
 
 		}catch(final Exception e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 			return false;
 		}
 	}
@@ -287,7 +287,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 					for(final Instrument instrument : instruments)
 						instrument.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, elt);
 				}
-				catch(final Exception e) { BordelCollector.INSTANCE.add(e); }
+				catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 		}
 	}
 }

@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniser;
@@ -59,7 +59,7 @@ public class PSTViewsSynchroniser extends ViewsSynchroniser {
 			}
 
 		if(viewsCode.size()<drawing.size())
-			BordelCollector.INSTANCE.add(new ArrayIndexOutOfBoundsException("Error during the synchronisation.")); //$NON-NLS-1$
+			BadaboomCollector.INSTANCE.add(new ArrayIndexOutOfBoundsException("Error during the synchronisation.")); //$NON-NLS-1$
 	}
 
 

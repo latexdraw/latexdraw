@@ -11,7 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 import org.w3c.dom.*;
 import org.xml.sax.EntityResolver;
@@ -99,15 +99,15 @@ public class SVGDocument implements Document {
 			}
 		}
 		catch(final SAXException e) {
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 			throw new MalformedSVGDocument();
 		}
 		catch(final IOException e) {
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 			throw new MalformedSVGDocument();
 		}
 		catch(final ParserConfigurationException e) {
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 			throw new MalformedSVGDocument();
 		}
 	}

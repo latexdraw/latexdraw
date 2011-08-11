@@ -24,9 +24,9 @@ import javax.swing.event.ListSelectionListener;
  * @version 3.0
  * @since 3.0
  */
-public class BordelListener implements ListSelectionListener {
+public class BadaboomListener implements ListSelectionListener {
 	/** The manager to listen. */
-	protected BordelManager manager;
+	protected BadaboomManager manager;
 
 
 	/**
@@ -34,7 +34,7 @@ public class BordelListener implements ListSelectionListener {
 	 * @param bordelManager The manager to listen.
 	 * @throws IllegalArgumentException If the given manager is null.
 	 */
-	public BordelListener(final BordelManager bordelManager) {
+	public BadaboomListener(final BadaboomManager bordelManager) {
 		super();
 
 		if(bordelManager==null)
@@ -50,10 +50,10 @@ public class BordelListener implements ListSelectionListener {
 						((DefaultListSelectionModel)e.getSource()).getMinSelectionIndex() : -1;
 		final JEditorPane desc = manager.description;
 
-		if(index<0 || index>=BordelCollector.INSTANCE.size())
+		if(index<0 || index>=BadaboomCollector.INSTANCE.size())
 			desc.setText("");//$NON-NLS-1$
 		else {
-			final Throwable ex				= BordelCollector.INSTANCE.get(index);
+			final Throwable ex				= BadaboomCollector.INSTANCE.get(index);
 			final StackTraceElement[] stack = ex.getStackTrace();
 			int i;
 			final int size 					= stack.length;
@@ -72,7 +72,7 @@ public class BordelListener implements ListSelectionListener {
 	/**
 	 * @return the manager.
 	 */
-	public BordelManager getManager() {
+	public BadaboomManager getManager() {
 		return manager;
 	}
 }

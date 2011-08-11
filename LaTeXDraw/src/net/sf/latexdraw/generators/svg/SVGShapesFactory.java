@@ -1,6 +1,6 @@
 package net.sf.latexdraw.generators.svg;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
@@ -94,7 +94,7 @@ public final class SVGShapesFactory {
 				else if(shape instanceof IPolygon)
 					elt = new LPolygonSVGGenerator((IPolygon)shape).toSVG(doc);
 			}
-			catch(final Exception e) { BordelCollector.INSTANCE.add(e); }
+			catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 
 		return elt;
 	}

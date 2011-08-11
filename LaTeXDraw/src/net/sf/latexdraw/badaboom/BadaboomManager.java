@@ -30,7 +30,7 @@ import javax.swing.JTable;
  * @version 3.0
  * @since 3.0
  */
-public class BordelManager extends JFrame {
+public class BadaboomManager extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	/** Contains the description of the selected exception. */
@@ -43,18 +43,18 @@ public class BordelManager extends JFrame {
 	/**
 	 * Creates an initialises an exception manager.
 	 */
-	public BordelManager() {
+	public BadaboomManager() {
 		super();
 
 		description 					= new JEditorPane();
 		final JScrollPane scrollerDesc	= new JScrollPane();
 		final JScrollPane scrollerTable	= new JScrollPane();
 	 	final JPanel panel 				= new JPanel();
-	 	final BordelTableModel model	= new BordelTableModel(BordelCollector.INSTANCE);
+	 	final BadaboomTableModel model	= new BadaboomTableModel(BadaboomCollector.INSTANCE);
 		table							= new JTable(model);
 		final Dimension dim 			= Toolkit.getDefaultToolkit().getScreenSize();
 
-		table.getSelectionModel().addListSelectionListener(new BordelListener(this));
+		table.getSelectionModel().addListSelectionListener(new BadaboomListener(this));
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		description.setEditable(false);
 		scrollerDesc.getViewport().add(description);

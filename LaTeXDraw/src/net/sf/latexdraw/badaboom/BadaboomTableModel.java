@@ -21,7 +21,7 @@ import javax.swing.table.AbstractTableModel;
  * @version 3.0
  * @since 3.0
  */
-public class BordelTableModel extends AbstractTableModel {
+public class BadaboomTableModel extends AbstractTableModel {
 	private static final long serialVersionUID 	= 1L;
 
 	protected static final String NAME_COL1		= "Name";
@@ -31,7 +31,7 @@ public class BordelTableModel extends AbstractTableModel {
 	protected static final String NAME_COL3		= "Location";
 
 	/** The table data. */
-	protected BordelCollector collector;
+	protected BadaboomCollector collector;
 
 
 
@@ -40,7 +40,7 @@ public class BordelTableModel extends AbstractTableModel {
 	 * @param collector The exceptions collector.
 	 * @throws IllegalArgumentException If the given collector is null.
 	 */
-	public BordelTableModel(final BordelCollector collector) {
+	public BadaboomTableModel(final BadaboomCollector collector) {
 		super();
 
 		if(collector==null)

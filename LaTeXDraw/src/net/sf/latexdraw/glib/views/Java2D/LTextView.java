@@ -20,7 +20,7 @@ import java.io.OutputStreamWriter;
 
 import javax.imageio.ImageIO;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PDFFilter;
 import net.sf.latexdraw.filters.PNGFilter;
 import net.sf.latexdraw.filters.PSFilter;
@@ -229,8 +229,8 @@ public class LTextView extends LShapeView<IText> {
 					else bi = null;
 				}catch(final IOException ex) {
 					bi = null;
-					try { fos.flush(); } catch(final IOException ex2) { BordelCollector.INSTANCE.add(ex2); }
-					try { osw.flush(); } catch(final IOException ex2) { BordelCollector.INSTANCE.add(ex2); }
+					try { fos.flush(); } catch(final IOException ex2) { BadaboomCollector.INSTANCE.add(ex2); }
+					try { osw.flush(); } catch(final IOException ex2) { BadaboomCollector.INSTANCE.add(ex2); }
 					LFileUtils.INSTANCE.closeStream(fos);
 					LFileUtils.INSTANCE.closeStream(osw);
 				}
@@ -247,7 +247,7 @@ public class LTextView extends LShapeView<IText> {
 			new File(pathPic + ".dvi").delete(); //$NON-NLS-1$
 			new File(pathPic + ".aux").delete(); //$NON-NLS-1$
 			new File(pathPic + ".log").delete(); //$NON-NLS-1$
-			BordelCollector.INSTANCE.add(new FileNotFoundException(log+e.getMessage()));
+			BadaboomCollector.INSTANCE.add(new FileNotFoundException(log+e.getMessage()));
 			return null;
 		}
 	}

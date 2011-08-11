@@ -6,9 +6,9 @@ import org.malai.instrument.Link;
 import org.malai.interaction.library.ButtonPressed;
 import org.malai.widget.MButton;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
-import net.sf.latexdraw.badaboom.BordelHandler;
-import net.sf.latexdraw.badaboom.BordelManager;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.badaboom.BadaboomHandler;
+import net.sf.latexdraw.badaboom.BadaboomManager;
 import net.sf.latexdraw.util.LResources;
 
 /**
@@ -30,12 +30,12 @@ import net.sf.latexdraw.util.LResources;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class ExceptionsManager extends Instrument implements BordelHandler {
+public class ExceptionsManager extends Instrument implements BadaboomHandler {
 	/** The button used to shows the panel of exceptions. */
 	protected MButton exceptionB;
 
 	/** The frame to show when exceptions occur. */
-	protected BordelManager frame;
+	protected BadaboomManager frame;
 
 
 	/**
@@ -45,11 +45,11 @@ public class ExceptionsManager extends Instrument implements BordelHandler {
 	public ExceptionsManager() {
 		super();
 
-		frame		= new BordelManager();
+		frame		= new BadaboomManager();
 		exceptionB 	= new MButton(LResources.ERR_ICON);
 		initialiseLinks();
 		setActivated(false);
-		BordelCollector.INSTANCE.addHandler(this);
+		BadaboomCollector.INSTANCE.addHandler(this);
 	}
 
 
@@ -58,9 +58,9 @@ public class ExceptionsManager extends Instrument implements BordelHandler {
 		try{
 			links.add(new ButtonPress2ShowExceptionFrame(this));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

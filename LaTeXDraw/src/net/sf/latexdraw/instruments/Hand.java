@@ -11,7 +11,7 @@ import org.malai.mapping.MappingRegistry;
 
 import net.sf.latexdraw.actions.SelectShapes;
 import net.sf.latexdraw.actions.TranslateShape;
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -77,9 +77,9 @@ public class Hand extends Instrument {
 			links.add(new DnD2Select(this, true));
 			links.add(new DnD2Translate(this, true));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

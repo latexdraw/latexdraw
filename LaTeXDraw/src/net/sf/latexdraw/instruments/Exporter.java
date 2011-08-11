@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 
 import net.sf.latexdraw.actions.Export;
 import net.sf.latexdraw.actions.Export.ExportFormat;
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.lang.LangTool;
@@ -245,9 +245,9 @@ public class Exporter extends Instrument {
 			links.add(new ButtonPressed2Export(this));
 			links.add(new MenuPressed2Export(this));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

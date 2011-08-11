@@ -11,7 +11,7 @@ import org.malai.interaction.library.KeyTyped;
 import org.malai.widget.MLayeredPane;
 
 import net.sf.latexdraw.actions.AddShape;
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -92,9 +92,9 @@ public class TextSetter extends Instrument {
 			links.add(new Enter2AddText(this));
 			links.add(new KeyPress2Desactivate(this));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

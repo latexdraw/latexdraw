@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 
@@ -417,9 +417,9 @@ public final class LangTool {
 	            }
 			}
 		}
-		catch(final ParserConfigurationException e) { BordelCollector.INSTANCE.add(e); }
-		catch(final IOException e)  				{ BordelCollector.INSTANCE.add(e); }
-		catch(final SAXException e) 				{ BordelCollector.INSTANCE.add(e); }
+		catch(final ParserConfigurationException e) { BadaboomCollector.INSTANCE.add(e); }
+		catch(final IOException e)  				{ BadaboomCollector.INSTANCE.add(e); }
+		catch(final SAXException e) 				{ BadaboomCollector.INSTANCE.add(e); }
 
 		return Lang.getSystemLanguage();
 	}

@@ -8,7 +8,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -67,7 +67,7 @@ public final class Theme {
 			lookAndFeel = Theme.INSTANCE.readTheme();
      		UIManager.setLookAndFeel(lookAndFeel);
 		}
-		catch(final Exception ex) { BordelCollector.INSTANCE.add(ex); }
+		catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 	}
 
 

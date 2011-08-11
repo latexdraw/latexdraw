@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.text.ParseException;
 import java.util.List;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 
 import org.w3c.dom.Node;
@@ -55,7 +55,7 @@ public abstract class AbstractPointsElement extends SVGElement {
 		super(doc);
 
 		try { setPoints("0,0 1,1"); }//$NON-NLS-1$
-		catch(final ParseException e) { BordelCollector.INSTANCE.add(e); }
+		catch(final ParseException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 

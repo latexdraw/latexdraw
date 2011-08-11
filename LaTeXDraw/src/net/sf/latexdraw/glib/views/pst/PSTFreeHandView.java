@@ -2,7 +2,7 @@ package net.sf.latexdraw.glib.views.pst;
 
 import java.util.List;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -146,7 +146,7 @@ public class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 				break;
 
 			default:
-				BordelCollector.INSTANCE.add(new IllegalArgumentException());
+				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
 				break;
 		}
 

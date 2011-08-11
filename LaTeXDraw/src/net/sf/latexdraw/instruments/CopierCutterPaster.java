@@ -16,7 +16,7 @@ import net.sf.latexdraw.actions.CopyShapes;
 import net.sf.latexdraw.actions.CutShapes;
 import net.sf.latexdraw.actions.PasteShapes;
 import net.sf.latexdraw.actions.SelectShapes;
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.util.LResources;
 
@@ -99,9 +99,9 @@ public class CopierCutterPaster extends Instrument implements ActionHandler {
 			links.add(new MenuItem2CutShapes(this));
 			links.add(new Shortcut2CutShapes(this));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

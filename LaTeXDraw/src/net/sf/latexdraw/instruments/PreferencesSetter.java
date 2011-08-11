@@ -22,7 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.latexdraw.actions.WritePreferences;
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.ui.LCanvas;
@@ -308,9 +308,9 @@ public class PreferencesSetter extends Instrument {
 		try{
 			links.add(new CloseFrame2SavePreferences(this));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 
@@ -860,7 +860,7 @@ public class PreferencesSetter extends Instrument {
 	        xmls = new XMLSerializer(fos, of);
 	        xmls.serialize(root);
 			fos.close();
-		}catch(Exception e) { BordelCollector.INSTANCE.add(e); }
+		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 

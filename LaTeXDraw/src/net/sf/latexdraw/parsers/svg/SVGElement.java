@@ -3,7 +3,7 @@ package net.sf.latexdraw.parsers.svg;
 import java.awt.Color;
 import java.text.ParseException;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.parsers.svg.parsers.CSSStyleParser;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
 
@@ -139,7 +139,7 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(v!=null) {
 			stylesCSS = new CSSStyleList();
 			try { new CSSStyleParser(v, stylesCSS).parse(); }
-			catch(ParseException e) { BordelCollector.INSTANCE.add(e); }
+			catch(ParseException e) { BadaboomCollector.INSTANCE.add(e); }
 		}
 
 		if(!checkAttributes())

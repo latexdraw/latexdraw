@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
 
 import net.sf.latexdraw.actions.SetUnit;
 import net.sf.latexdraw.actions.ShowHideScaleRuler;
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
@@ -109,9 +109,9 @@ public class ScaleRulersCustomiser extends Instrument {
 			links.add(new MenuItem2ShowHideCodeScaleRuler(this));
 			links.add(new MenuItem2SetUnit(this));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

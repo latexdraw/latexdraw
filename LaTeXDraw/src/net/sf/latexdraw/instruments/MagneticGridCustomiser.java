@@ -15,7 +15,7 @@ import org.malai.widget.MSpinner;
 
 import net.sf.latexdraw.actions.ModifyMagneticGrid;
 import net.sf.latexdraw.actions.ModifyMagneticGrid.GridProperties;
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
 import net.sf.latexdraw.lang.LangTool;
@@ -121,9 +121,9 @@ public class MagneticGridCustomiser extends WidgetContainerInstrument {
 			links.add(new Spinner2GridSpacing(this));
 			links.add(new CheckBox2MagneticGrid(this));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

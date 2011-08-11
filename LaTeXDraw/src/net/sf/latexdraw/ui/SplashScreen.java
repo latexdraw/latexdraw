@@ -13,7 +13,7 @@ import javax.swing.UIManager;
 
 import org.malai.ui.IProgressBar;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * This class defines a splash screen displayed during the start of the program with a progress
@@ -58,7 +58,7 @@ public class SplashScreen extends JWindow implements IProgressBar {
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 			else
 				UIManager.setLookAndFeel(lookAndFeel);
-		}catch(final Exception ex) { BordelCollector.INSTANCE.add(ex); }
+		}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		Dimension dim 	= Toolkit.getDefaultToolkit().getScreenSize();
 		progressBar 	= new JProgressBar(0, 100);
@@ -68,7 +68,7 @@ public class SplashScreen extends JWindow implements IProgressBar {
 		tracker.addImage(img,0);
 
 		try { tracker.waitForID(0); }
-		catch(InterruptedException e) { BordelCollector.INSTANCE.add(e); }
+		catch(InterruptedException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		canvas = new DisplayCanvas(img);
 
@@ -98,7 +98,7 @@ public class SplashScreen extends JWindow implements IProgressBar {
 				SwingUtilities.invokeAndWait(new Runnable() {
 				@Override
 				public void run() {updateBar(cpt);} });
-			}catch(Exception e) { BordelCollector.INSTANCE.add(e); }
+			}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 

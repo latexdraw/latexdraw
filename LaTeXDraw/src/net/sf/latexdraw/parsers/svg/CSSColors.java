@@ -7,7 +7,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * Defines colours used in CSS2.<br>
@@ -771,7 +771,7 @@ public final class CSSColors {
 
 			return new Color(Integer.valueOf(r, 16).intValue(), Integer.valueOf(g, 16).intValue(), Integer.valueOf(b, 16).intValue());
 		}
-		catch(Exception e) { BordelCollector.INSTANCE.add(e); }
+		catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 		return null;
 	}
 

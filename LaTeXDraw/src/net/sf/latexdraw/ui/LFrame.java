@@ -18,7 +18,7 @@ import org.malai.ui.UIManager;
 import org.malai.widget.MLayeredPane;
 import org.malai.widget.MPanel;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
@@ -250,7 +250,7 @@ public class LFrame extends UI {
 		setTitle(LResources.LABEL_APP);
 
 		try { prefSetters.readXMLPreferences(); }
-		catch(Exception ex) { BordelCollector.INSTANCE.add(ex); }
+		catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		UIManager.INSTANCE.registerUI(this);
@@ -278,36 +278,36 @@ public class LFrame extends UI {
 		exceptionsManager	= new ExceptionsManager();
 		helper				= new Helper();
 		try { gridCustomiser= new MagneticGridCustomiser(canvas.getMagneticGrid()); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scaleRulersCustomiser = new ScaleRulersCustomiser(xScaleRuler, yScaleRuler); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scroller		= new Scroller(canvas); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { zoomer		= new Zoomer(canvas); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { hand 			= new Hand(canvas, canvas.getMagneticGrid(), zoomer); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { textSetter	= new TextSetter(layeredPanel); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { pencil 		= new Pencil(drawing, zoomer, canvas.getMagneticGrid(), textSetter); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { metaShapeCustomiser = new MetaShapeCustomiser(hand, pencil); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		deleter				= new ShapeDeleter();
 		try { editingSelector = new EditingSelector(pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager();
 		try { codePanelActivator = new CodePanelActivator(codePanel, splitPane); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { exporter		= new Exporter(canvas, drawing, statusBar); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { paster		= new CopierCutterPaster(drawing); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		prefSetters			= new PreferencesSetter(this);
 		try { prefActivator	= new PreferencesActivator(prefSetters); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { fileLoader	= new FileLoaderSaver(this, statusBar, prefSetters); }
-		catch(IllegalArgumentException ex) {BordelCollector.INSTANCE.add(ex); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 	}
 
 

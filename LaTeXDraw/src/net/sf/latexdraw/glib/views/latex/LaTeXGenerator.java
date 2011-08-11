@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import org.malai.properties.Modifiable;
 
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PDFFilter;
 import net.sf.latexdraw.filters.PSFilter;
 import net.sf.latexdraw.filters.TeXFilter;
@@ -431,7 +431,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		File tmpDir2		= tmpDir==null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
 
 		if(tmpDir2==null) {
-			BordelCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
+			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
 			return null;
 		}
 
@@ -464,7 +464,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		finalPS = new File(pathExportPs);
 
 		if(!finalPS.exists()) {
-			BordelCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, packages) + System.getProperty("line.separator") + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, packages) + System.getProperty("line.separator") + log));
 			finalPS = null;
 		}
 
@@ -496,7 +496,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		File tmpDir		= LFileUtils.INSTANCE.createTempDir();
 
 		if(tmpDir==null) {
-			BordelCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
+			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
 			return null;
 		}
 
@@ -532,7 +532,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		psFile.delete();
 
 		if(!pdfFile.exists()) {
-			BordelCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, packages) + System.getProperty("line.separator") + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, packages) + System.getProperty("line.separator") + log));
 			pdfFile = null;
 		}
 
@@ -558,7 +558,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 			return err.getLog() + System.getProperty("line.separator") + inp.getLog(); //$NON-NLS-1$
 		} catch(Exception e) {
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 			return ""; //$NON-NLS-1$
 		}
 	}

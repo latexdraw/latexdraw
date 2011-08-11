@@ -11,7 +11,7 @@ import java.net.URL;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 
 /**
@@ -123,7 +123,7 @@ public class VersionChecker extends Thread {
 		}
 		catch(final MalformedURLException ex) {
 			// That not normal so we launch the crash reporter.
-			BordelCollector.INSTANCE.add(ex);
+			BadaboomCollector.INSTANCE.add(ex);
 			ok = false;
 		}
 

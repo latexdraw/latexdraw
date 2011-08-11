@@ -3,7 +3,7 @@ package net.sf.latexdraw.instruments;
 import javax.swing.JSplitPane;
 
 import net.sf.latexdraw.actions.ShowHideCodePanel;
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.ui.CloseButton;
 import net.sf.latexdraw.ui.LCodePanel;
 import net.sf.latexdraw.util.LNamespace;
@@ -93,9 +93,9 @@ public class CodePanelActivator extends Instrument {
 			links.add(new ButtonPressed2CloseCodePanel(this));
 			links.add(new MenuItem2ShowHideCodePanel(this));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

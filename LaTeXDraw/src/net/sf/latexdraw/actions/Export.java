@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileFilter;
 import org.malai.action.Action;
 import org.malai.mapping.MappingRegistry;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.BMPFilter;
 import net.sf.latexdraw.filters.JPGFilter;
 import net.sf.latexdraw.filters.PDFFilter;
@@ -288,7 +288,7 @@ public class Export extends Action {
 			ImageIO.write(rendImage, "png", file);  //$NON-NLS-1$
 			return true;
 		}
-		catch(IOException e) { BordelCollector.INSTANCE.add(e); }
+		catch(IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		return false;
 	}
 
@@ -315,7 +315,7 @@ public class Export extends Action {
 
 			return true;
 	    }
-		catch(IOException e) { BordelCollector.INSTANCE.add(e); }
+		catch(IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		return false;
 	}
 
@@ -334,7 +334,7 @@ public class Export extends Action {
 													latexDistribPath, file.getAbsolutePath(), canvas, packages);
 		}
 		catch(final Exception e) {
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 			psFile = null;
 		}
 
@@ -355,7 +355,7 @@ public class Export extends Action {
 			pdfFile = LaTeXGenerator.createPDFFile(MappingRegistry.REGISTRY.getSourceFromTarget(canvas, IDrawing.class),
 												latexDistribPath, file.getAbsolutePath(), canvas, packages, format==ExportFormat.PDF);
 		} catch(final Exception e) {
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 			pdfFile = null;
 		}
 
@@ -383,7 +383,7 @@ public class Export extends Action {
 			ok = true;
 		}
 		catch(final IOException e) {
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 			ok = false;
 		}
 
@@ -415,7 +415,7 @@ public class Export extends Action {
 
 			return true;
 	    }
-		catch(final IOException e) { BordelCollector.INSTANCE.add(e); }
+		catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		return false;
 	}
 

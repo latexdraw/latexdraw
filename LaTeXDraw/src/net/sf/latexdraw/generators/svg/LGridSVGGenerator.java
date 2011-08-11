@@ -6,7 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -151,7 +151,7 @@ public class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 
 			if(val!=null)
 				try { shape.setLabelsSize(Double.valueOf(val).intValue()); }
-				catch(NumberFormatException e) { BordelCollector.INSTANCE.add(e); }
+				catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 			shape.setGridLabelsColour(labelElt.getStroke());
 		}
@@ -171,7 +171,7 @@ public class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 				shape.setGridDots(Double.valueOf(val).intValue());
 				isGridDotted = shape.getGridDots()>0;
 			}
-			catch(NumberFormatException e) { BordelCollector.INSTANCE.add(e); }
+			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		val = mainGridElt.getAttribute(prefix+LNamespace.XML_GRID_WIDTH);
 
@@ -188,7 +188,7 @@ public class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		}
 		else
 			try{ shape.setGridWidth(Double.valueOf(val).floatValue());  }
-			catch(NumberFormatException e) { BordelCollector.INSTANCE.add(e); }
+			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -205,13 +205,13 @@ public class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 				shape.setSubGridDots(Double.valueOf(val).intValue());
 				isGridDotted = shape.getSubGridDots()>0;
 			}
-			catch(NumberFormatException e) { BordelCollector.INSTANCE.add(e); }
+			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		val = subGridElt.getAttribute(prefix+LNamespace.XML_GRID_SUB_DIV);
 
 		if(val!=null)
 			try{ shape.setSubGridDiv(Double.valueOf(val).intValue());  }
-			catch(NumberFormatException e) { BordelCollector.INSTANCE.add(e); }
+			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		val = subGridElt.getAttribute(prefix+LNamespace.XML_GRID_WIDTH);
 
@@ -228,7 +228,7 @@ public class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		}
 		else
 			try{ shape.setSubGridWidth(Double.valueOf(val).floatValue());  }
-			catch(NumberFormatException e) { BordelCollector.INSTANCE.add(e); }
+			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 

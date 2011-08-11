@@ -27,23 +27,23 @@ import org.malai.error.ErrorNotifier;
  * @version 3.0
  * @since 3.0
  */
-public final class BordelCollector extends ArrayList<Throwable> implements UncaughtExceptionHandler, ErrorNotifier {
+public final class BadaboomCollector extends ArrayList<Throwable> implements UncaughtExceptionHandler, ErrorNotifier {
 	private static final long serialVersionUID = 1L;
 
 	/** The singleton. */
-	public static final BordelCollector INSTANCE = new BordelCollector();
+	public static final BadaboomCollector INSTANCE = new BadaboomCollector();
 
 
 	/** Contains objects that want to be aware of the manager activities. */
-	private List<BordelHandler> handlers;
+	private List<BadaboomHandler> handlers;
 
 
 	/**
 	 * Creates an empty collector.
 	 */
-	private BordelCollector() {
+	private BadaboomCollector() {
 		super();
-		handlers = new ArrayList<BordelHandler>();
+		handlers = new ArrayList<BadaboomHandler>();
 		Thread.setDefaultUncaughtExceptionHandler(this);
 		ErrorCatcher.INSTANCE.setNotifier(this);
 	}
@@ -54,7 +54,7 @@ public final class BordelCollector extends ArrayList<Throwable> implements Uncau
 	 * @param handler The handler to add. Must not be null.
 	 * @since 3.0
 	 */
-	public void addHandler(final BordelHandler handler) {
+	public void addHandler(final BadaboomHandler handler) {
 		if(handler!=null) {
 			handlers.add(handler);
 
@@ -70,7 +70,7 @@ public final class BordelCollector extends ArrayList<Throwable> implements Uncau
 	 * @param handler The handler to remove.
 	 * @since 3.0
 	 */
-	public void removeHandler(final BordelHandler handler) {
+	public void removeHandler(final BadaboomHandler handler) {
 		if(handler!=null)
 			handlers.remove(handler);
 	}
@@ -81,7 +81,7 @@ public final class BordelCollector extends ArrayList<Throwable> implements Uncau
 	 * @since 3.0
 	 */
 	protected void notifyHandlers(final Throwable error) {
-		for(final BordelHandler handler : handlers)
+		for(final BadaboomHandler handler : handlers)
 			handler.notifyEvent(error);
 	}
 

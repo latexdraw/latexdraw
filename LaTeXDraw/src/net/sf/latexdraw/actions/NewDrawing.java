@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 import org.malai.action.library.IOAction;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 
 /**
@@ -64,7 +64,7 @@ public class NewDrawing extends IOAction {
 	protected void newDrawing() {
 		ui.reinit();
 		try{ prefSetter.readXMLPreferences(); }
-		catch(Exception exception){ BordelCollector.INSTANCE.add(exception); }
+		catch(Exception exception){ BadaboomCollector.INSTANCE.add(exception); }
 	}
 
 

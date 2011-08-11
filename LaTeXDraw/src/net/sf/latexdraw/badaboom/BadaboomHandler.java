@@ -20,7 +20,7 @@ package net.sf.latexdraw.badaboom;
  * @version 3.0
  * @since 3.0
  */
-public interface BordelHandler {
+public interface BadaboomHandler {
 	/**
 	 * Actions to do when an exception is received by the manager.
 	 * @param e The received exception.

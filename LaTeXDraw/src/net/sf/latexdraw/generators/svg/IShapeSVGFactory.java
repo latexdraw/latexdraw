@@ -1,6 +1,6 @@
 package net.sf.latexdraw.generators.svg;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.parsers.svg.SVGCircleElement;
@@ -149,7 +149,7 @@ public final class IShapeSVGFactory {
 						return new LPictureSVGGenerator((SVGGElement)elt, withTransformations).getShape();
 				}
 		}
-		catch(final Exception ex) { BordelCollector.INSTANCE.add(ex); }
+		catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		return null;
 	}

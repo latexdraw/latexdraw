@@ -1,6 +1,6 @@
 package net.sf.latexdraw.generators.svg;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
@@ -119,7 +119,7 @@ public class LArrowSVGGenerator {
 		else
 			try { dotSizeNum = Double.valueOf(dotSizeNumStr); }
 			catch(NumberFormatException e) {
-				BordelCollector.INSTANCE.add(e);
+				BadaboomCollector.INSTANCE.add(e);
 				dotSizeNum = 1;
 			}
 
@@ -153,7 +153,7 @@ public class LArrowSVGGenerator {
 		else
 			try { tbarNum = Double.valueOf(tbarNumStr); }
 			catch(NumberFormatException e) {
-				BordelCollector.INSTANCE.add(e);
+				BadaboomCollector.INSTANCE.add(e);
 				tbarNum = 1;
 			}
 
@@ -198,7 +198,7 @@ public class LArrowSVGGenerator {
 			else
 				try { arrNum = Double.valueOf(arrNumStr); }
 				catch(NumberFormatException e) {
-					BordelCollector.INSTANCE.add(e);
+					BadaboomCollector.INSTANCE.add(e);
 					arrNum = 1;
 				}
 

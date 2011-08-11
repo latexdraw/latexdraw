@@ -15,7 +15,7 @@ import org.malai.stateMachine.MustAbortStateMachineException;
 
 import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.SetTextSetterPosition;
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
@@ -156,9 +156,9 @@ public class Pencil extends Instrument {
 			links.add(new Press2ActivateTextSetter(this, false));
 			links.add(new Press2LocateTextSetter(this, false));
 		}catch(InstantiationException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

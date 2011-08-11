@@ -4,7 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * This class defines paths used in LaTeXDraw.<br>
@@ -137,7 +137,7 @@ public final class LPath {
 			(new File(PATH_SHARED)).mkdirs();
 			(new File(PATH_TEMPLATES_SHARED)).mkdirs();
 		}
-		catch(SecurityException e) { BordelCollector.INSTANCE.add(e); }
+		catch(SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -152,7 +152,7 @@ public final class LPath {
 			(new File(PATH_CACHE_DIR)).mkdirs();
 			(new File(PATH_CACHE_SHARE_DIR)).mkdirs();
 		}
-		catch(SecurityException e) { BordelCollector.INSTANCE.add(e); }
+		catch(SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -190,7 +190,7 @@ public final class LPath {
 		    return path;
 
 		}catch(Exception e) {
-			BordelCollector.INSTANCE.add(e);
+			BadaboomCollector.INSTANCE.add(e);
 			return null;
 		}
 	}

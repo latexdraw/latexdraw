@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -121,7 +121,7 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 				break;
 
 			default:
-				BordelCollector.INSTANCE.add(new IllegalArgumentException());
+				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
 				break;
 		}
 
@@ -141,7 +141,7 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 				break;
 
 			default:
-				BordelCollector.INSTANCE.add(new IllegalArgumentException());
+				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
 				break;
 		}
 
@@ -165,7 +165,7 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 				break;
 
 			default:
-				BordelCollector.INSTANCE.add(new IllegalArgumentException());
+				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
 				break;
 		}
 
@@ -189,7 +189,7 @@ public class PSTAxesView extends PSTShapeView<IAxes> {
 				break;
 
 			default:
-				BordelCollector.INSTANCE.add(new IllegalArgumentException());
+				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
 				break;
 		}
 

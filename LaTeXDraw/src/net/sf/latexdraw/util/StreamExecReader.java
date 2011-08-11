@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * Defines a thread for managing command execution. While the process is running,
@@ -62,15 +62,15 @@ public class StreamExecReader extends Thread {
 	            while((line = br.readLine()) != null)
 	                log += line;
 			}
-        }catch(IOException ioe) { BordelCollector.INSTANCE.add(ioe); }
+        }catch(IOException ioe) { BadaboomCollector.INSTANCE.add(ioe); }
         try {
         	if(br!=null)
         		br.close();
-        }catch(IOException ioe) { BordelCollector.INSTANCE.add(ioe); }
+        }catch(IOException ioe) { BadaboomCollector.INSTANCE.add(ioe); }
         try {
         	if(isr!=null)
         		isr.close();
-        }catch(IOException ioe) { BordelCollector.INSTANCE.add(ioe); }
+        }catch(IOException ioe) { BadaboomCollector.INSTANCE.add(ioe); }
 	}
 
 

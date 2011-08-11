@@ -7,7 +7,7 @@ import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.text.ParseException;
 
-import net.sf.latexdraw.badaboom.BordelCollector;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
@@ -165,7 +165,7 @@ public abstract class LShapeSVGGenerator<S extends IShape> {
 					break;
 
 				default:
-					BordelCollector.INSTANCE.add(new IllegalArgumentException("Bad transformation type: " + t.getType())); //$NON-NLS-1$
+					BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Bad transformation type: " + t.getType())); //$NON-NLS-1$
 			}
 	}
 
@@ -448,7 +448,7 @@ public abstract class LShapeSVGGenerator<S extends IShape> {
 
 		if(stroke==null || !stroke.equals(SVGAttributes.SVG_VALUE_NONE))
 			try{ shape.setThickness((float)new SVGLengthParser(strokeWidth).parseLength().getValue()); }
-			catch(final ParseException e){ BordelCollector.INSTANCE.add(e); }
+			catch(final ParseException e){ BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
