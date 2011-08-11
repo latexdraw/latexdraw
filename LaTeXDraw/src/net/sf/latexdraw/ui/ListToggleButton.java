@@ -27,12 +27,13 @@ import javax.swing.JWindow;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import fr.eseo.malai.interaction.Eventable;
-import fr.eseo.malai.interaction.SwingEventManager;
-import fr.eseo.malai.picking.Pickable;
-import fr.eseo.malai.picking.Picker;
-import fr.eseo.malai.widget.MToolBar;
-import fr.eseo.malai.widget.WidgetUtilities;
+import org.malai.interaction.Eventable;
+import org.malai.interaction.SwingEventManager;
+import org.malai.picking.Pickable;
+import org.malai.picking.Picker;
+import org.malai.widget.MToolBar;
+import org.malai.widget.WidgetUtilities;
+
 
 /**
  * This class defines a button which displays a frame containing

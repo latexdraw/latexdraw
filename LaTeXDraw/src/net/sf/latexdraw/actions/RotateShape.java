@@ -1,7 +1,8 @@
 package net.sf.latexdraw.actions;
 
+import org.malai.undo.Undoable;
+
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
-import fr.eseo.malai.undo.Undoable;
 
 /**
  * This action increments to rotation angle of shapes.<br>

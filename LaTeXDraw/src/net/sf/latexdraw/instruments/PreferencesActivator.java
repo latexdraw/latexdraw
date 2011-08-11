@@ -3,16 +3,17 @@ package net.sf.latexdraw.instruments;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 
+import org.malai.action.library.ActivateInstrument;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.instrument.library.MenuItem2ShowComponentLink;
+import org.malai.interaction.library.MenuItemPressed;
+import org.malai.widget.MMenuItem;
+
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.PreferencesFrame;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.action.library.ActivateInstrument;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.instrument.library.MenuItem2ShowComponentLink;
-import fr.eseo.malai.interaction.library.MenuItemPressed;
-import fr.eseo.malai.widget.MMenuItem;
 
 /**
  * This instrument activates the preferences setter and shows the preferences frame.<br>

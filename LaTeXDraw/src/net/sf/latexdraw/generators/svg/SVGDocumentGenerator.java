@@ -21,15 +21,15 @@ import net.sf.latexdraw.parsers.svg.SVGMetadataElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
 
+import org.malai.instrument.Instrument;
+import org.malai.presentation.AbstractPresentation;
+import org.malai.presentation.Presentation;
+import org.malai.ui.ISOpenSaver;
+import org.malai.ui.UI;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.presentation.AbstractPresentation;
-import fr.eseo.malai.presentation.Presentation;
-import fr.eseo.malai.ui.ISOpenSaver;
-import fr.eseo.malai.ui.UI;
 
 /**
  * Defines a generator that creates SVG documents from drawings.<br>

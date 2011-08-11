@@ -20,19 +20,19 @@ import net.sf.latexdraw.glib.views.Java2D.IShapeView;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.util.LNamespace;
 
+import org.malai.action.Action;
+import org.malai.action.ActionsRegistry;
+import org.malai.mapping.ActiveSingleton;
+import org.malai.mapping.ISingleton;
+import org.malai.picking.Pickable;
+import org.malai.picking.Picker;
+import org.malai.properties.Zoomable;
+import org.malai.widget.MPanel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import fr.eseo.malai.action.Action;
-import fr.eseo.malai.action.ActionsRegistry;
-import fr.eseo.malai.mapping.ActiveSingleton;
-import fr.eseo.malai.mapping.ISingleton;
-import fr.eseo.malai.picking.Pickable;
-import fr.eseo.malai.picking.Picker;
-import fr.eseo.malai.properties.Zoomable;
-import fr.eseo.malai.widget.MPanel;
 
 /**
  * Defines a canvas that draw the drawing and manages the selected shapes.<br>

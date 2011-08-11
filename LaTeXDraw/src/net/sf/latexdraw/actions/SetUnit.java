@@ -1,9 +1,10 @@
 package net.sf.latexdraw.actions;
 
+import org.malai.action.Action;
+import org.malai.undo.Undoable;
+
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
-import fr.eseo.malai.action.Action;
-import fr.eseo.malai.undo.Undoable;
 
 /**
  * This action allows to modify the unit.<br>

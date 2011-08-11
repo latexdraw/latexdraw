@@ -2,6 +2,8 @@ package net.sf.latexdraw.instruments;
 
 import javax.swing.AbstractButton;
 
+import org.malai.widget.MToggleButton;
+
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
@@ -11,7 +13,6 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.widget.MToggleButton;
 
 /**
  * This instrument modifies texts.<br>

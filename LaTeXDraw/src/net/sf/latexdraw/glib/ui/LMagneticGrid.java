@@ -6,11 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Line2D;
 
+import org.malai.preferences.Preferenciable;
+import org.malai.properties.Modifiable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import fr.eseo.malai.preferences.Preferenciable;
-import fr.eseo.malai.properties.Modifiable;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;

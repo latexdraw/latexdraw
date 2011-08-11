@@ -19,17 +19,17 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
 
+import org.malai.action.Action;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.library.ButtonPressed;
+import org.malai.interaction.library.MenuItemPressed;
+import org.malai.widget.MButton;
+import org.malai.widget.MMenu;
+import org.malai.widget.MMenuItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import fr.eseo.malai.action.Action;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.interaction.library.ButtonPressed;
-import fr.eseo.malai.interaction.library.MenuItemPressed;
-import fr.eseo.malai.widget.MButton;
-import fr.eseo.malai.widget.MMenu;
-import fr.eseo.malai.widget.MMenuItem;
 
 /**
  * This instrument exports a drawing in different formats.<br>

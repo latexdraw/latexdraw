@@ -7,20 +7,21 @@ import java.util.List;
 
 import javax.swing.SpinnerNumberModel;
 
+import org.malai.action.library.Zoom;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.library.ButtonPressed;
+import org.malai.interaction.library.KeysScrolling;
+import org.malai.interaction.library.SpinnerModified;
+import org.malai.properties.Zoomable;
+import org.malai.widget.MButton;
+import org.malai.widget.MSpinner;
+
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.action.library.Zoom;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.interaction.library.ButtonPressed;
-import fr.eseo.malai.interaction.library.KeysScrolling;
-import fr.eseo.malai.interaction.library.SpinnerModified;
-import fr.eseo.malai.properties.Zoomable;
-import fr.eseo.malai.widget.MButton;
-import fr.eseo.malai.widget.MSpinner;
 
 /**
  * This instrument allows to zoom on the canvas.<br>

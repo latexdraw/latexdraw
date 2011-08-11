@@ -1,8 +1,9 @@
 package net.sf.latexdraw.mapping;
 
+import org.malai.mapping.Object2ObjectMapping;
+
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
-import fr.eseo.malai.mapping.Object2ObjectMapping;
 
 /**
  * Defines a mapping that link an IDrawing to a ICanvas.<br>

@@ -5,7 +5,8 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import fr.eseo.malai.action.library.Load;
+import org.malai.action.library.Load;
+
 
 /**
  * This action loads an SVG document into the app.

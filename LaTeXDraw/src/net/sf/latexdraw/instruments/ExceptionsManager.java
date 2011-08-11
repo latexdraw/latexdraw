@@ -1,14 +1,15 @@
 package net.sf.latexdraw.instruments;
 
+import org.malai.action.library.ShowWidget;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.library.ButtonPressed;
+import org.malai.widget.MButton;
+
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.bordel.BordelHandler;
 import net.sf.latexdraw.bordel.BordelManager;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.action.library.ShowWidget;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.interaction.library.ButtonPressed;
-import fr.eseo.malai.widget.MButton;
 
 /**
  * This instrument allows to see exceptions launched during the exection of the program.<br>

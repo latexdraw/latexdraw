@@ -6,10 +6,11 @@ import java.awt.Shape;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
+import org.malai.picking.Pickable;
+
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.IAbstractView;
-import fr.eseo.malai.picking.Pickable;
 
 /**
  * This interface defines a view of a shape.<br>

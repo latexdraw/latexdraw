@@ -2,10 +2,11 @@ package net.sf.latexdraw.mapping;
 
 import java.util.List;
 
+import org.malai.mapping.MappingRegistry;
+
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.Java2D.IShapeView;
 import net.sf.latexdraw.instruments.Border;
-import fr.eseo.malai.mapping.MappingRegistry;
 
 /**
  * This mapping maps the selected shapes of the drawing to the Border instrument that manages

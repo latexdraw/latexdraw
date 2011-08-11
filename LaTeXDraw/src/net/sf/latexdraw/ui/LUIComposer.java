@@ -3,9 +3,10 @@ package net.sf.latexdraw.ui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
-import fr.eseo.malai.ui.IProgressBar;
-import fr.eseo.malai.ui.UIComposer;
-import fr.eseo.malai.widget.MPanel;
+import org.malai.ui.IProgressBar;
+import org.malai.ui.UIComposer;
+import org.malai.widget.MPanel;
+
 
 /**
  * This composer composes the latexdraw user interface.<br>

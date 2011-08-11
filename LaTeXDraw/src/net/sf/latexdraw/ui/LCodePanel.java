@@ -6,18 +6,18 @@ import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 
+import org.malai.action.Action;
+import org.malai.action.ActionHandler;
+import org.malai.action.ActionsRegistry;
+import org.malai.presentation.ConcretePresentation;
+import org.malai.undo.UndoCollector;
+import org.malai.undo.UndoHandler;
+import org.malai.undo.Undoable;
+import org.malai.widget.MEditorPane;
+import org.malai.widget.MPanel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import fr.eseo.malai.action.Action;
-import fr.eseo.malai.action.ActionHandler;
-import fr.eseo.malai.action.ActionsRegistry;
-import fr.eseo.malai.presentation.ConcretePresentation;
-import fr.eseo.malai.undo.UndoCollector;
-import fr.eseo.malai.undo.UndoHandler;
-import fr.eseo.malai.undo.Undoable;
-import fr.eseo.malai.widget.MEditorPane;
-import fr.eseo.malai.widget.MPanel;
 
 /**
  * Defines the panel which contains the code generated from the drawing.<br>

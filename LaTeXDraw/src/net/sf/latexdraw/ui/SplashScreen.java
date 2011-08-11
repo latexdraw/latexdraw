@@ -11,8 +11,9 @@ import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.malai.ui.IProgressBar;
+
 import net.sf.latexdraw.bordel.BordelCollector;
-import fr.eseo.malai.ui.IProgressBar;
 
 /**
  * This class defines a splash screen displayed during the start of the program with a progress

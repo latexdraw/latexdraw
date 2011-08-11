@@ -3,10 +3,11 @@ package net.sf.latexdraw.actions;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.malai.undo.Undoable;
+
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.undo.Undoable;
 
 /**
  * This action cuts the selected shapes.<br>

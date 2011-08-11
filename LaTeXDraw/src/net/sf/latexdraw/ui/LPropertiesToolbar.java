@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 import javax.swing.Box;
 import javax.swing.JComponent;
 
+import org.malai.widget.MPanel;
+import org.malai.widget.MSpinner;
+
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
@@ -18,8 +21,6 @@ import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
 import net.sf.latexdraw.instruments.TextCustomiser;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.widget.MPanel;
-import fr.eseo.malai.widget.MSpinner;
 
 /**
  * Defines a tool bar that contains fields that manipulate the shapes properties.<br>

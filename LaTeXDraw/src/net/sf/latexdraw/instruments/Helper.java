@@ -5,13 +5,14 @@ import java.awt.event.KeyEvent;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.malai.instrument.Instrument;
+import org.malai.instrument.library.MenuItem2OpenWebPageLink;
+import org.malai.instrument.library.MenuItem2ShowComponentLink;
+import org.malai.widget.MMenuItem;
+
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.ui.dialog.AboutDialogueBox;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.library.MenuItem2OpenWebPageLink;
-import fr.eseo.malai.instrument.library.MenuItem2ShowComponentLink;
-import fr.eseo.malai.widget.MMenuItem;
 
 /**
  * This instrument manages help features.<br>

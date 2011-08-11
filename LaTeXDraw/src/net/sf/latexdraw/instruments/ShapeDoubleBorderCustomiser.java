@@ -4,6 +4,11 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+import org.malai.widget.MButtonIcon;
+import org.malai.widget.MCheckBox;
+import org.malai.widget.MColorButton;
+import org.malai.widget.MSpinner;
+
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
@@ -11,10 +16,6 @@ import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.widget.MButtonIcon;
-import fr.eseo.malai.widget.MCheckBox;
-import fr.eseo.malai.widget.MColorButton;
-import fr.eseo.malai.widget.MSpinner;
 
 /**
  * This instrument modifies double border properties of shapes or the pencil.<br>

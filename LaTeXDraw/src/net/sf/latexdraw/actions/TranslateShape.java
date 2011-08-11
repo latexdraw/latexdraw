@@ -1,11 +1,12 @@
 package net.sf.latexdraw.actions;
 
+import org.malai.undo.Undoable;
+
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LNumber;
-import fr.eseo.malai.undo.Undoable;
 
 /**
  * This action translates shapes.<br>

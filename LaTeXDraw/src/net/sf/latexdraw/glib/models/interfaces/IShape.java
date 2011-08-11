@@ -3,7 +3,8 @@ package net.sf.latexdraw.glib.models.interfaces;
 import java.awt.Color;
 import java.util.List;
 
-import fr.eseo.malai.properties.Modifiable;
+import org.malai.properties.Modifiable;
+
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;

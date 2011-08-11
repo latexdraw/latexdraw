@@ -7,11 +7,12 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.malai.instrument.Instrument;
+import org.malai.mapping.MappingRegistry;
+
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.Java2D.IShapeView;
 import net.sf.latexdraw.mapping.Shape2BorderMapping;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.mapping.MappingRegistry;
 
 /**
  * This instrument manages the selected views.<br>

@@ -4,6 +4,15 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+import org.malai.instrument.Link;
+import org.malai.instrument.library.WidgetContainerInstrument;
+import org.malai.interaction.library.CheckBoxModified;
+import org.malai.interaction.library.ListSelectionModified;
+import org.malai.interaction.library.SpinnerModified;
+import org.malai.widget.MCheckBox;
+import org.malai.widget.MComboBox;
+import org.malai.widget.MSpinner;
+
 import net.sf.latexdraw.actions.ModifyMagneticGrid;
 import net.sf.latexdraw.actions.ModifyMagneticGrid.GridProperties;
 import net.sf.latexdraw.bordel.BordelCollector;
@@ -11,14 +20,6 @@ import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.instrument.library.WidgetContainerInstrument;
-import fr.eseo.malai.interaction.library.CheckBoxModified;
-import fr.eseo.malai.interaction.library.ListSelectionModified;
-import fr.eseo.malai.interaction.library.SpinnerModified;
-import fr.eseo.malai.widget.MCheckBox;
-import fr.eseo.malai.widget.MComboBox;
-import fr.eseo.malai.widget.MSpinner;
 
 /**
  * This instrument customises the magnetic grid.<br>

@@ -7,6 +7,17 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import org.malai.instrument.Instrument;
+import org.malai.instrument.library.Scroller;
+import org.malai.instrument.library.UndoRedoManager;
+import org.malai.mapping.MappingRegistry;
+import org.malai.presentation.Presentation;
+import org.malai.ui.IProgressBar;
+import org.malai.ui.UI;
+import org.malai.ui.UIManager;
+import org.malai.widget.MLayeredPane;
+import org.malai.widget.MPanel;
+
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
@@ -39,16 +50,6 @@ import net.sf.latexdraw.mapping.TempShape2TempViewMapping;
 import net.sf.latexdraw.mapping.Unit2ScaleRuler;
 import net.sf.latexdraw.mapping.Zoom2ScaleRuler;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.library.Scroller;
-import fr.eseo.malai.instrument.library.UndoRedoManager;
-import fr.eseo.malai.mapping.MappingRegistry;
-import fr.eseo.malai.presentation.Presentation;
-import fr.eseo.malai.ui.IProgressBar;
-import fr.eseo.malai.ui.UI;
-import fr.eseo.malai.ui.UIManager;
-import fr.eseo.malai.widget.MLayeredPane;
-import fr.eseo.malai.widget.MPanel;
 
 /**
  * This class contains all the elements of the graphical user interface.<br>

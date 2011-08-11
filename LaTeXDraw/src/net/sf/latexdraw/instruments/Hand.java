@@ -4,6 +4,11 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.library.DnD;
+import org.malai.mapping.MappingRegistry;
+
 import net.sf.latexdraw.actions.SelectShapes;
 import net.sf.latexdraw.actions.TranslateShape;
 import net.sf.latexdraw.bordel.BordelCollector;
@@ -13,10 +18,6 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.views.Java2D.IShapeView;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.interaction.library.DnD;
-import fr.eseo.malai.mapping.MappingRegistry;
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>

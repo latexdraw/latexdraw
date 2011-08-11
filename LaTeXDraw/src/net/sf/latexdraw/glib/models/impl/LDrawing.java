@@ -2,11 +2,12 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.util.List;
 
+import org.malai.mapping.ActiveSingleton;
+import org.malai.mapping.ISingleton;
+
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import fr.eseo.malai.mapping.ActiveSingleton;
-import fr.eseo.malai.mapping.ISingleton;
 
 /**
  * Defines a drawing that contains a set of shapes and

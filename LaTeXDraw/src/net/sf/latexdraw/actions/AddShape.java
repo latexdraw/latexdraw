@@ -1,8 +1,9 @@
 package net.sf.latexdraw.actions;
 
+import org.malai.undo.Undoable;
+
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.lang.LangTool;
-import fr.eseo.malai.undo.Undoable;
 
 /**
  * This action adds a shape to a drawing.<br>

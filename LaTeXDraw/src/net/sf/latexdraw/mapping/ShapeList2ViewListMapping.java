@@ -2,11 +2,12 @@ package net.sf.latexdraw.mapping;
 
 import java.util.List;
 
+import org.malai.mapping.MappingRegistry;
+import org.malai.mapping.SymmetricList2ListMapping;
+
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.Java2D.IShapeView;
 import net.sf.latexdraw.glib.views.Java2D.LViewsFactory;
-import fr.eseo.malai.mapping.MappingRegistry;
-import fr.eseo.malai.mapping.SymmetricList2ListMapping;
 
 /**
  * Defines a mapping that link a list of IShape to a list of IShapeView.<br>

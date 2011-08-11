@@ -4,8 +4,9 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eseo.malai.error.ErrorCatcher;
-import fr.eseo.malai.error.ErrorNotifier;
+import org.malai.error.ErrorCatcher;
+import org.malai.error.ErrorNotifier;
+
 
 /**
  * Defines an error collector.<br>

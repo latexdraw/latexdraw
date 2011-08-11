@@ -22,6 +22,9 @@ import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.filechooser.FileFilter;
 
+import org.malai.action.Action;
+import org.malai.mapping.MappingRegistry;
+
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.filters.BMPFilter;
 import net.sf.latexdraw.filters.JPGFilter;
@@ -34,8 +37,6 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.views.Java2D.IShapeView;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
-import fr.eseo.malai.action.Action;
-import fr.eseo.malai.mapping.MappingRegistry;
 
 /**
  * This action allows to export a drawing in different formats.

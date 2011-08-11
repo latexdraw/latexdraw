@@ -1,6 +1,6 @@
 package net.sf.latexdraw.actions;
 
-import fr.eseo.malai.action.Action;
+import org.malai.action.Action;
 
 /**
  * This abstract action modifies the visibility of an object.<br>

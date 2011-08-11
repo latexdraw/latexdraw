@@ -2,9 +2,10 @@ package net.sf.latexdraw.mapping;
 
 import java.util.List;
 
+import org.malai.mapping.IMapping;
+import org.malai.mapping.ISingleton;
+
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import fr.eseo.malai.mapping.IMapping;
-import fr.eseo.malai.mapping.ISingleton;
 
 /**
  * This abstract mapping maps the selected shapes of the drawing to something.<br>

@@ -2,6 +2,11 @@ package net.sf.latexdraw;
 
 import java.io.File;
 
+import org.malai.action.ActionsRegistry;
+import org.malai.mapping.MappingRegistry;
+import org.malai.ui.UIComposer;
+import org.malai.undo.UndoCollector;
+
 import net.sf.latexdraw.actions.LoadDrawing;
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
@@ -12,10 +17,6 @@ import net.sf.latexdraw.ui.SplashScreen;
 import net.sf.latexdraw.util.LCommandLine;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.Theme;
-import fr.eseo.malai.action.ActionsRegistry;
-import fr.eseo.malai.mapping.MappingRegistry;
-import fr.eseo.malai.ui.UIComposer;
-import fr.eseo.malai.undo.UndoCollector;
 
 /**
  * The main class of the project.<br>

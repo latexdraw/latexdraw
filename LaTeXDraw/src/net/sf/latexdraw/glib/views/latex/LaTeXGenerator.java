@@ -6,7 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import fr.eseo.malai.properties.Modifiable;
+import org.malai.properties.Modifiable;
+
 
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.filters.PDFFilter;

@@ -5,16 +5,17 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
+import org.malai.action.ActionHandler;
+import org.malai.interaction.Eventable;
+import org.malai.picking.Pickable;
+import org.malai.picking.Picker;
+import org.malai.presentation.ConcretePresentation;
+import org.malai.properties.Zoomable;
+import org.malai.widget.Scrollable;
+
 import net.sf.latexdraw.glib.views.Java2D.IShapeView;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.instruments.Border;
-import fr.eseo.malai.action.ActionHandler;
-import fr.eseo.malai.interaction.Eventable;
-import fr.eseo.malai.picking.Pickable;
-import fr.eseo.malai.picking.Picker;
-import fr.eseo.malai.presentation.ConcretePresentation;
-import fr.eseo.malai.properties.Zoomable;
-import fr.eseo.malai.widget.Scrollable;
 
 /**
  * Defines an interface for a canvas that draw the drawing and manages the selected shapes.<br>

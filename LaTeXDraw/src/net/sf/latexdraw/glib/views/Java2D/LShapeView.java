@@ -14,6 +14,8 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.malai.picking.Picker;
+
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
@@ -25,7 +27,6 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.views.AbstractView;
 import net.sf.latexdraw.util.LNumber;
-import fr.eseo.malai.picking.Picker;
 
 /**
  * Defines a view of the LShape model.<br>

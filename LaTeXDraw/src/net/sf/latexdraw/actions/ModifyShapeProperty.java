@@ -2,6 +2,8 @@ package net.sf.latexdraw.actions;
 
 import java.awt.Color;
 
+import org.malai.undo.Undoable;
+
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
@@ -12,7 +14,6 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
-import fr.eseo.malai.undo.Undoable;
 
 /**
  * This action modifies a shape property of the given shape.<br>

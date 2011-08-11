@@ -1,11 +1,12 @@
 package net.sf.latexdraw.mapping;
 
+import org.malai.mapping.ISingleton;
+import org.malai.mapping.MappingRegistry;
+import org.malai.mapping.Singleton2SingletonMapping;
+
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.Java2D.IShapeView;
 import net.sf.latexdraw.glib.views.Java2D.LViewsFactory;
-import fr.eseo.malai.mapping.ISingleton;
-import fr.eseo.malai.mapping.MappingRegistry;
-import fr.eseo.malai.mapping.Singleton2SingletonMapping;
 
 /**
  * Defines a mapping that link the temporary shape of the drawing to the

@@ -10,14 +10,14 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
 
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.library.ButtonPressed;
+import org.malai.interaction.library.MenuItemPressed;
+import org.malai.widget.MCheckBoxMenuItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.interaction.library.ButtonPressed;
-import fr.eseo.malai.interaction.library.MenuItemPressed;
-import fr.eseo.malai.widget.MCheckBoxMenuItem;
 
 /**
  * This instrument activates the code panel.<br>

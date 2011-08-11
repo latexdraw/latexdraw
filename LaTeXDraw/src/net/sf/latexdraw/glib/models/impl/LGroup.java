@@ -3,6 +3,8 @@ package net.sf.latexdraw.glib.models.impl;
 import java.awt.Color;
 import java.util.List;
 
+import org.malai.mapping.ActiveArrayList;
+
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
@@ -14,7 +16,6 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
-import fr.eseo.malai.mapping.ActiveArrayList;
 
 /**
  * A Group is a group of IShape.<br>

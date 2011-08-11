@@ -2,8 +2,9 @@ package net.sf.latexdraw.glib.models.interfaces;
 
 import java.util.List;
 
-import fr.eseo.malai.mapping.ISingleton;
-import fr.eseo.malai.presentation.AbstractPresentation;
+import org.malai.mapping.ISingleton;
+import org.malai.presentation.AbstractPresentation;
+
 
 
 /**

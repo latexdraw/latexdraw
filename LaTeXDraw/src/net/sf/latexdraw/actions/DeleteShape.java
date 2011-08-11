@@ -2,8 +2,9 @@ package net.sf.latexdraw.actions;
 
 import java.util.List;
 
+import org.malai.undo.Undoable;
+
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import fr.eseo.malai.undo.Undoable;
 
 /**
  * This action deletes shapes.<br>

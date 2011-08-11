@@ -1,7 +1,8 @@
 package net.sf.latexdraw.actions;
 
+import org.malai.action.Action;
+
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import fr.eseo.malai.action.Action;
 
 /**
  * This abstract action uses a drawing.<br>

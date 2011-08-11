@@ -5,10 +5,11 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import org.malai.action.library.Save;
+import org.malai.ui.UI;
+
 import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.lang.LangTool;
-import fr.eseo.malai.action.library.Save;
-import fr.eseo.malai.ui.UI;
 
 /**
  * This action saves the given drawing into an SVG document.

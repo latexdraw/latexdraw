@@ -17,20 +17,20 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
 
+import org.malai.action.Action;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.Interaction;
+import org.malai.interaction.library.ButtonPressed;
+import org.malai.interaction.library.KeysPressure;
+import org.malai.interaction.library.MenuItemPressed;
+import org.malai.interaction.library.WindowClosed;
+import org.malai.ui.UI;
+import org.malai.widget.MButton;
+import org.malai.widget.MMenuItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import fr.eseo.malai.action.Action;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.interaction.Interaction;
-import fr.eseo.malai.interaction.library.ButtonPressed;
-import fr.eseo.malai.interaction.library.KeysPressure;
-import fr.eseo.malai.interaction.library.MenuItemPressed;
-import fr.eseo.malai.interaction.library.WindowClosed;
-import fr.eseo.malai.ui.UI;
-import fr.eseo.malai.widget.MButton;
-import fr.eseo.malai.widget.MMenuItem;
 
 /**
  * This instrument saves and loads documents.<br>

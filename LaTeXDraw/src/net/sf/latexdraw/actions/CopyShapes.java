@@ -3,9 +3,10 @@ package net.sf.latexdraw.actions;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.malai.action.Action;
+
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import fr.eseo.malai.action.Action;
 
 /**
  * This action copies the selected shapes.<br>

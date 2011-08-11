@@ -2,7 +2,8 @@ package net.sf.latexdraw.actions;
 
 import java.util.List;
 
-import fr.eseo.malai.action.Action;
+import org.malai.action.Action;
+
 
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;

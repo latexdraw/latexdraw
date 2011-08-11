@@ -4,6 +4,15 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.List;
 
+import org.malai.action.library.ActivateInstrument;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.Interaction;
+import org.malai.interaction.library.AbortableDnD;
+import org.malai.interaction.library.MultiClick;
+import org.malai.interaction.library.Press;
+import org.malai.stateMachine.MustAbortStateMachineException;
+
 import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.SetTextSetterPosition;
 import net.sf.latexdraw.bordel.BordelCollector;
@@ -26,14 +35,6 @@ import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
-import fr.eseo.malai.action.library.ActivateInstrument;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.interaction.Interaction;
-import fr.eseo.malai.interaction.library.AbortableDnD;
-import fr.eseo.malai.interaction.library.MultiClick;
-import fr.eseo.malai.interaction.library.Press;
-import fr.eseo.malai.stateMachine.MustAbortStateMachineException;
 
 /**
  * This instrument allows to draw shapes.<br>

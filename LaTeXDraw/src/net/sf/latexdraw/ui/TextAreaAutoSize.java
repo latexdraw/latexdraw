@@ -9,9 +9,10 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.KeyStroke;
 import javax.swing.text.DefaultEditorKit;
 
-import fr.eseo.malai.interaction.Eventable;
-import fr.eseo.malai.interaction.SwingEventManager;
-import fr.eseo.malai.widget.MTextArea;
+import org.malai.interaction.Eventable;
+import org.malai.interaction.SwingEventManager;
+import org.malai.widget.MTextArea;
+
 
 /**
  * This widgets is a text area which automatically resizes is width and height

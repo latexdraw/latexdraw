@@ -3,7 +3,8 @@ package net.sf.latexdraw.generators.svg;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import fr.eseo.malai.mapping.MappingRegistry;
+import org.malai.mapping.MappingRegistry;
+
 
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;

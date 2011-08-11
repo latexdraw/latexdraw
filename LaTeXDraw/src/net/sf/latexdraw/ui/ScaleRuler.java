@@ -8,16 +8,17 @@ import java.awt.RenderingHints;
 
 import javax.swing.JComponent;
 
+import org.malai.interaction.Eventable;
+import org.malai.interaction.SwingEventManager;
+import org.malai.mapping.ActiveSingleton;
+import org.malai.mapping.ISingleton;
+import org.malai.picking.Pickable;
+import org.malai.picking.Picker;
+import org.malai.widget.WidgetUtilities;
+
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.lang.LangTool;
-import fr.eseo.malai.interaction.Eventable;
-import fr.eseo.malai.interaction.SwingEventManager;
-import fr.eseo.malai.mapping.ActiveSingleton;
-import fr.eseo.malai.mapping.ISingleton;
-import fr.eseo.malai.picking.Pickable;
-import fr.eseo.malai.picking.Picker;
-import fr.eseo.malai.widget.WidgetUtilities;
 
 /**
  * This class defines an abstract scale ruler.<br>

@@ -3,19 +3,20 @@ package net.sf.latexdraw.instruments;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+import org.malai.action.ActionsRegistry;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.Interaction;
+import org.malai.interaction.library.ButtonPressed;
+import org.malai.interaction.library.KeyPressure;
+import org.malai.widget.MButton;
+
 import net.sf.latexdraw.actions.DeleteShape;
 import net.sf.latexdraw.actions.SelectShapes;
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.action.ActionsRegistry;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.interaction.Interaction;
-import fr.eseo.malai.interaction.library.ButtonPressed;
-import fr.eseo.malai.interaction.library.KeyPressure;
-import fr.eseo.malai.widget.MButton;
 
 /**
  * This instrument deletes the selected shapes.<br>

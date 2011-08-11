@@ -5,16 +5,17 @@ import java.util.Map;
 
 import javax.swing.AbstractButton;
 
+import org.malai.action.library.ActivateInactivateInstruments;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.library.ButtonPressed;
+import org.malai.widget.MToggleButton;
+
 import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.action.library.ActivateInactivateInstruments;
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.interaction.library.ButtonPressed;
-import fr.eseo.malai.widget.MToggleButton;
 
 /**
  * This instrument selects the pencil or the hand.<br>

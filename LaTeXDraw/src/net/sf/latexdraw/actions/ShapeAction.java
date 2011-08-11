@@ -1,7 +1,8 @@
 package net.sf.latexdraw.actions;
 
+import org.malai.action.Action;
+
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import fr.eseo.malai.action.Action;
 
 /**
  * This abstract action allows the definition of actions related with spaes.<br>

@@ -1,8 +1,9 @@
 package net.sf.latexdraw.mapping;
 
+import org.malai.mapping.Object2ObjectMapping;
+
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.instruments.Border;
-import fr.eseo.malai.mapping.Object2ObjectMapping;
 
 /**
  * This mapping is used to link a selected shape to the border instrument.

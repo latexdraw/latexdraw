@@ -1,9 +1,10 @@
 package net.sf.latexdraw.mapping;
 
+import org.malai.mapping.ISingleton;
+import org.malai.mapping.Object2ObjectMapping;
+
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
-import fr.eseo.malai.mapping.ISingleton;
-import fr.eseo.malai.mapping.Object2ObjectMapping;
 
 /**
  * Creates a mapping between the unit value and a scale ruler.<br>

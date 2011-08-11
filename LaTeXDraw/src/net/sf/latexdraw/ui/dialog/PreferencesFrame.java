@@ -15,11 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import org.malai.widget.MFrame;
+
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.VersionChecker;
-import fr.eseo.malai.widget.MFrame;
 
 /**
  * This frame allows the user to set his preferences concerning the program and its components.<br>

@@ -6,9 +6,10 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
 
+import org.malai.widget.MCheckBoxMenuItem;
+import org.malai.widget.MMenu;
+
 import net.sf.latexdraw.lang.LangTool;
-import fr.eseo.malai.widget.MCheckBoxMenuItem;
-import fr.eseo.malai.widget.MMenu;
 
 /**
  * This class defines the menu bar of the interactive system.<br>

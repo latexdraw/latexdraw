@@ -1,9 +1,10 @@
 package net.sf.latexdraw.actions;
 
+import org.malai.action.Action;
+
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.instruments.TextSetter;
-import fr.eseo.malai.action.Action;
 
 /**
  * This action moves the text setter to a given position.<br>

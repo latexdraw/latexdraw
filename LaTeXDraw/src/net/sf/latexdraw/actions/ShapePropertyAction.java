@@ -1,7 +1,8 @@
 package net.sf.latexdraw.actions;
 
+import org.malai.action.library.ModifyValue;
+
 import net.sf.latexdraw.instruments.ShapePropertyCustomiser;
-import fr.eseo.malai.action.library.ModifyValue;
 
 /**
  * This action modifies a shape property of an object.<br>

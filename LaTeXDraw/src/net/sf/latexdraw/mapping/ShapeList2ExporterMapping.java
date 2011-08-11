@@ -2,10 +2,11 @@ package net.sf.latexdraw.mapping;
 
 import java.util.List;
 
+import org.malai.mapping.IMapping;
+import org.malai.mapping.ISingleton;
+
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.instruments.Exporter;
-import fr.eseo.malai.mapping.IMapping;
-import fr.eseo.malai.mapping.ISingleton;
 
 /**
  * Creates a mapping between a list of shapes and the instrument exporter.<br>

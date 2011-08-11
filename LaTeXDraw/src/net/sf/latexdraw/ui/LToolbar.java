@@ -5,11 +5,12 @@ import java.awt.Dimension;
 import javax.swing.AbstractButton;
 import javax.swing.Box;
 
+import org.malai.widget.MSpinner;
+import org.malai.widget.MToolBar;
+
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.widget.MSpinner;
-import fr.eseo.malai.widget.MToolBar;
 
 /**
  * Defines the top panel that contains a set of widgets to handle drawings.<br>

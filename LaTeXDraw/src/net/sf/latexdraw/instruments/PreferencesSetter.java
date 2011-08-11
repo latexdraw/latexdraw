@@ -35,6 +35,15 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.VersionChecker;
 
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.library.WindowClosed;
+import org.malai.widget.MCheckBox;
+import org.malai.widget.MComboBox;
+import org.malai.widget.MRadioButton;
+import org.malai.widget.MSpinner;
+import org.malai.widget.MTextArea;
+import org.malai.widget.MTextField;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -46,15 +55,6 @@ import org.xml.sax.SAXException;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
-import fr.eseo.malai.instrument.Instrument;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.interaction.library.WindowClosed;
-import fr.eseo.malai.widget.MCheckBox;
-import fr.eseo.malai.widget.MComboBox;
-import fr.eseo.malai.widget.MRadioButton;
-import fr.eseo.malai.widget.MSpinner;
-import fr.eseo.malai.widget.MTextArea;
-import fr.eseo.malai.widget.MTextField;
 
 /**
  * This instrument modifies the preferences.<br>

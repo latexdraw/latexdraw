@@ -5,17 +5,18 @@ import java.awt.ItemSelectable;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 
+import org.malai.instrument.Link;
+import org.malai.instrument.library.WidgetContainerInstrument;
+import org.malai.interaction.library.ButtonPressed;
+import org.malai.interaction.library.CheckBoxModified;
+import org.malai.interaction.library.ListSelectionModified;
+import org.malai.interaction.library.SpinnerModified;
+import org.malai.mapping.MappingRegistry;
+import org.malai.widget.MColorButton;
+
 import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import fr.eseo.malai.instrument.Link;
-import fr.eseo.malai.instrument.library.WidgetContainerInstrument;
-import fr.eseo.malai.interaction.library.ButtonPressed;
-import fr.eseo.malai.interaction.library.CheckBoxModified;
-import fr.eseo.malai.interaction.library.ListSelectionModified;
-import fr.eseo.malai.interaction.library.SpinnerModified;
-import fr.eseo.malai.mapping.MappingRegistry;
-import fr.eseo.malai.widget.MColorButton;
 
 /**
  * This abstract instrument defines the base definition of instruments that customise

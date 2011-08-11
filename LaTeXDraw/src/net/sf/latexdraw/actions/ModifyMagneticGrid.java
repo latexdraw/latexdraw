@@ -1,9 +1,10 @@
 package net.sf.latexdraw.actions;
 
+import org.malai.action.library.ModifyValue;
+import org.malai.undo.Undoable;
+
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
-import fr.eseo.malai.action.library.ModifyValue;
-import fr.eseo.malai.undo.Undoable;
 
 /**
  * This action modifies a property of the magnetic grid.<br>

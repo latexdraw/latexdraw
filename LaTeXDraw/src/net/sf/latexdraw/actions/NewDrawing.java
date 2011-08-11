@@ -5,9 +5,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import org.malai.action.library.IOAction;
+
 import net.sf.latexdraw.bordel.BordelCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
-import fr.eseo.malai.action.library.IOAction;
 
 /**
  * This action permits to create a new drawing and initialises the application as required.<br>

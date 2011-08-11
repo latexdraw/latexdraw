@@ -1,9 +1,10 @@
 package net.sf.latexdraw.actions;
 
+import org.malai.undo.Undoable;
+
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LResources;
-import fr.eseo.malai.undo.Undoable;
 
 /**
  * This action pastes the copied or cut shapes.<br>
