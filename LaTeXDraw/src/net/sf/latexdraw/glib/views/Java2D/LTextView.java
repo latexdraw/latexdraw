@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
@@ -35,6 +34,7 @@ import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LNumber;
+import sun.font.FontDesignMetrics;
 
 /**
  * Defines a view of the IText model.<br>
@@ -75,20 +75,7 @@ public class LTextView extends LShapeView<IText> {
 
 	public static final Font FONT = new Font("Times New Roman", Font.PLAIN, 18); //$NON-NLS-1$
 
-	public static final FontMetrics FONT_METRICS;
-
-	static {
-		BufferedImage bufferImage = new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB);
-		Graphics2D g = bufferImage.createGraphics();
-
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setFont(FONT);
-
-		FONT_METRICS = g.getFontMetrics();
-
-		bufferImage.flush();
-	}
-
+	public static final FontMetrics FONT_METRICS = FontDesignMetrics.getMetrics(FONT);
 
 
 	/**
