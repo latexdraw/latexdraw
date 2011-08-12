@@ -14,6 +14,15 @@
   <description>A graphical PSTricks code generator/editor</description>
 </image>
   <item>
+    <title>Native support of LaTeX text</title>
+    <author>arno_b</author>
+    <pubDate>Fri, 12 August 2011 08:00:00 GMT</pubDate>
+    <link>http://latexdraw.sourceforge.net/index.html#NEWS36</link>
+    <description>More than one year without any release and post... Shame on me. LaTeXDraw 3.0 in on the road and a first beta should be released before the end of this year. This release takes a lot of time because I am completely rewritting LaTeXDraw: the code of 2.0 is really awful and I wanted to integrate the results of my PhD into LaTeXDraw in order to improve this last. The most important feature of LaTeXDraw 3.0 will be the native support of LaTeX text. It means that you will be able to write LaTeX text as in your favourite LaTeX editor. The text will be rendered in LaTeXDraw as in your final pdf or ps document. For example, in the following screen-shot I added a text in the drawing and it typed a formula. Once typed, the text is compiled in LaTeX to be rendered in LaTeXDraw. This idea is strongly inspired by Lyx ;). Of course, if you want to use LaTeX commands coming from various packages, you can add \usepackage{} commands as it is already possible in LaTeXDraw 2.0. You can also discover in the screen-shots others new features; but I will speak about them in next posts soon.</description>
+  </item>
+
+
+  <item>
     <title>latexdraw 2.0.8 available</title>
     <author>arno_b</author>
     <pubDate>Mon, 15 March 2010 08:00:00 GMT</pubDate>
