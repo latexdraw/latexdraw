@@ -291,6 +291,8 @@ public class LFrame extends UI {
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { pencil 		= new Pencil(drawing, zoomer, canvas.getMagneticGrid(), textSetter); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		try { exporter		= new Exporter(canvas, drawing, statusBar); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { metaShapeCustomiser = new MetaShapeCustomiser(hand, pencil); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		deleter				= new ShapeDeleter();
@@ -298,8 +300,6 @@ public class LFrame extends UI {
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager();
 		try { codePanelActivator = new CodePanelActivator(codePanel, splitPane); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { exporter		= new Exporter(canvas, drawing, statusBar); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { paster		= new CopierCutterPaster(drawing); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }

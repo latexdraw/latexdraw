@@ -187,9 +187,6 @@ public class Export extends Action {
 	/** The canvas that contains views. */
 	protected ICanvas canvas;
 
-	/** The latex packages used to export as PDF and EPS using latex. */
-	protected String packages;
-
 	/** The path where the latex binaries are located. */
 	protected String latexDistribPath;
 
@@ -213,7 +210,6 @@ public class Export extends Action {
 	public void flush() {
 		super.flush();
 		canvas 			= null;
-		packages 		= null;
 		latexDistribPath= null;
 		format 			= null;
 		file 			= null;
@@ -262,8 +258,7 @@ public class Export extends Action {
 		// Testing the export as jpg.
 		ok = ok && (format!=ExportFormat.JPG || (compressionRate>0f && compressionRate<=1f));
 		// Testing the export as PS/PDF using latex.
-		ok = ok && ((format!=ExportFormat.EPS_LATEX && format!=ExportFormat.PDF && format!=ExportFormat.PDF_CROP) ||
-				(latexDistribPath!=null && packages!=null));
+		ok = ok && ((format!=ExportFormat.EPS_LATEX && format!=ExportFormat.PDF && format!=ExportFormat.PDF_CROP) || latexDistribPath!=null);
 
 		return ok;
 	}
@@ -331,7 +326,7 @@ public class Export extends Action {
 
 		try{
 			psFile = LaTeXGenerator.createPSFile(MappingRegistry.REGISTRY.getSourceFromTarget(canvas, IDrawing.class),
-													latexDistribPath, file.getAbsolutePath(), canvas, packages);
+													latexDistribPath, file.getAbsolutePath(), canvas);
 		}
 		catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
@@ -353,7 +348,7 @@ public class Export extends Action {
 
 		try{
 			pdfFile = LaTeXGenerator.createPDFFile(MappingRegistry.REGISTRY.getSourceFromTarget(canvas, IDrawing.class),
-												latexDistribPath, file.getAbsolutePath(), canvas, packages, format==ExportFormat.PDF);
+												latexDistribPath, file.getAbsolutePath(), canvas, format==ExportFormat.PDF);
 		} catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
 			pdfFile = null;
@@ -376,7 +371,7 @@ public class Export extends Action {
 			final BufferedWriter bw = new BufferedWriter(fw);
 			out  					= new PrintWriter(bw);
 
-			out.println(LaTeXGenerator.getLatexDocument(MappingRegistry.REGISTRY.getSourceFromTarget(canvas, IDrawing.class), canvas, packages));
+			out.println(LaTeXGenerator.getLatexDocument(MappingRegistry.REGISTRY.getSourceFromTarget(canvas, IDrawing.class), canvas));
 			out.close();
 			bw.close();
 			fw.close();
@@ -475,16 +470,6 @@ public class Export extends Action {
 	 */
 	public void setCompressionRate(final float compressionRate) {
 		this.compressionRate = compressionRate;
-	}
-
-
-
-	/**
-	 * @param packages The latex packages used during latex export.
-	 * @since 3.0
-	 */
-	public void setPackages(final String packages) {
-		this.packages = packages;
 	}
 
 

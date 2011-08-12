@@ -1,8 +1,10 @@
 package net.sf.latexdraw.instruments;
 
-import javax.swing.AbstractButton;
+import java.awt.Font;
 
-import org.malai.widget.MToggleButton;
+import javax.swing.AbstractButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
@@ -12,7 +14,11 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
+import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.widget.MTextArea;
+import org.malai.widget.MToggleButton;
 
 /**
  * This instrument modifies texts.<br>
@@ -51,6 +57,15 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	/** The button that selects the top-right text position. */
 	protected MToggleButton trButton;
 
+	/** The label used to explain the goal of the package text field. */
+	protected JLabel packagesLabel;
+
+	/** This text field permits to add latex packages that will be used during compilation. */
+	protected MTextArea packagesField;
+
+	/** The widget used to group the widgets dedicated to the support of packages. */
+	protected JComponent mainPackageWidget;
+
 
 	/**
 	 * Creates the instrument.
@@ -70,6 +85,14 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initWidgets() {
+		packagesLabel = new JLabel("Packages:");
+		packagesField = new MTextArea();
+		Font font = packagesField.getFont();
+		packagesField.setToolTipText("Contains the LaTeX packages that will be used to compile the text.");
+		packagesField.setFont(new Font(font.getName(), font.getStyle(), Math.max(10, font.getSize()-4)));
+		packagesField.setColumns(20);
+		packagesField.setRows(5);
+
 		blButton = new MToggleButton(LResources.TEXTPOS_BL);
 		blButton.setMargin(LResources.INSET_BUTTON);
 		blButton.setToolTipText("The position point is the bottom-left point.");
@@ -96,9 +119,13 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	protected void update(final IShape shape) {
 		final boolean isText = shape instanceof IText;
 		final boolean isGroup = shape instanceof IGroup;
+		final boolean visible = isText && (!isGroup || (isGroup && ((IGroup)shape).containsTexts()));
 
 		if(widgetContainer!=null)
-			widgetContainer.setVisible(isText && (!isGroup || (isGroup && ((IGroup)shape).containsTexts())));
+			widgetContainer.setVisible(visible);
+
+		if(mainPackageWidget!=null)
+			mainPackageWidget.setVisible(visible);
 
 		if(isText) {
 			final TextPosition tp = ((IText)shape).getTextPosition();
@@ -109,6 +136,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 			tButton.setSelected(tp==TextPosition.TOP);
 			trButton.setSelected(tp==TextPosition.TOP_RIGHT);
 			tlButton.setSelected(tp==TextPosition.TOP_LEFT);
+			packagesField.setText(LaTeXGenerator.getPackages());
 		}
 	}
 
@@ -172,6 +200,36 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	 */
 	public MToggleButton getTrButton() {
 		return trButton;
+	}
+
+
+
+	/**
+	 * @return the packagesLabel.
+	 * @since 3.0
+	 */
+	public JLabel getPackagesLabel() {
+		return packagesLabel;
+	}
+
+
+
+	/**
+	 * @return the packagesField.
+	 * @since 3.0
+	 */
+	public MTextArea getPackagesField() {
+		return packagesField;
+	}
+
+
+
+	/**
+	 * @param mainPackageWidget the mainPackageWidget to set.
+	 * @since 3.0
+	 */
+	public void setMainPackageWidget(JComponent mainPackageWidget) {
+		this.mainPackageWidget = mainPackageWidget;
 	}
 }
 

@@ -1,8 +1,8 @@
 package net.sf.latexdraw.instruments;
 
-import org.malai.interaction.Eventable;
-
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+
+import org.malai.interaction.Eventable;
 
 /**
  * This meta-instrument manages the instruments that customises shape properties.<br>

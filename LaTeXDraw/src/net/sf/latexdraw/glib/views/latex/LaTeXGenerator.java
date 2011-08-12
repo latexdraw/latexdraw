@@ -6,9 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import org.malai.properties.Modifiable;
-
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PDFFilter;
 import net.sf.latexdraw.filters.PSFilter;
@@ -19,6 +16,8 @@ import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.StreamExecReader;
+
+import org.malai.properties.Modifiable;
 
 /**
  * Defines an abstract LaTeX generator.<br>
@@ -43,6 +42,33 @@ public abstract class LaTeXGenerator implements Modifiable {
 	/** Defines the number of characters added at the beginning
 	 * of each lines of the comment (these characters are "% "). */
 	public static final int LGTH_START_LINE_COMMENT = 2;
+
+	/**
+	 * The latex packages used when exporting using latex.
+	 * These packages are defined for the current document bu not for all documents.
+	 * These packages can be defined using packages defined by default for all document: {@link #defaultPackages}
+	 */
+	protected static String packages = "";
+
+
+
+	/**
+	 * @param packages the packages to set.
+	 * @since 3.0
+	 */
+	public static void setPackages(final String packages) {
+		if(packages!=null)
+			LaTeXGenerator.packages = packages;
+	}
+
+
+	/**
+	 * @return the packages.
+	 * @since 3.0
+	 */
+	public static String getPackages() {
+		return packages;
+	}
 
 
 	/**
@@ -329,11 +355,10 @@ public abstract class LaTeXGenerator implements Modifiable {
 	/**
 	 * Generates a latex document that contains the pstricks code of the given canvas.
 	 * @param drawing The shapes to export.
-	 * @param packages The extra packages needed to compile the document.
 	 * @return The latex document or an empty string.
 	 * @since 3.0
 	 */
-	public static String getLatexDocument(final IDrawing drawing, final ViewsSynchroniserHandler synchronizer, final String packages) {
+	public static String getLatexDocument(final IDrawing drawing, final ViewsSynchroniserHandler synchronizer) {
 		if(drawing==null || synchronizer==null)
 			return ""; //$NON-NLS-1$
 
@@ -365,18 +390,16 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * Creates a latex file that contains the pstricks code of the given canvas.
 	 * @param drawing The shapes to export.
 	 * @param pathExportTex The location where the file must be created.
-	 * @param packages The extra packages needed to compile the document.
 	 * @return The latex file or null.
 	 * @since 3.0
 	 */
-	public static File createLatexFile(final IDrawing drawing, final String pathExportTex, final ViewsSynchroniserHandler synchronizer,
-										final String packages) {
+	public static File createLatexFile(final IDrawing drawing, final String pathExportTex, final ViewsSynchroniserHandler synchronizer) {
 		if(drawing==null || pathExportTex==null)
 			return null;
 
 		boolean ok = true;
 
-		final String doc 				= getLatexDocument(drawing, synchronizer, packages);
+		final String doc 				= getLatexDocument(drawing, synchronizer);
 		final FileOutputStream fos;
 		try { fos = new FileOutputStream(pathExportTex); } catch(final IOException ex) { return null; }
 		final OutputStreamWriter osw 	= new OutputStreamWriter(fos);
@@ -397,14 +420,13 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * the pstricks drawing.
 	 * @param drawing The shapes to export.
 	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
-	 * @param packages The extra packages needed to compile the document.
 	 * @param latexDistribPath The path of the folder that contains the latex binaries (may be null or empty)
 	 * @return The create file or null.
 	 * @since 3.0
 	 */
 	public static File createPSFile(final IDrawing drawing, final String latexDistribPath, final String pathExportPs,
-									final ViewsSynchroniserHandler synchronizer, final String packages){
-		return createPSFile(drawing, latexDistribPath, pathExportPs, synchronizer, packages, null);
+									final ViewsSynchroniserHandler synchronizer){
+		return createPSFile(drawing, latexDistribPath, pathExportPs, synchronizer, null);
 	}
 
 
@@ -414,13 +436,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * the pstricks drawing.
 	 * @param drawing The shapes to export.
 	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
-	 * @param packages The extra packages needed to compile the document.
 	 * @param latexDistribPath The path of the folder that contains the latex binaries (may be null or empty)
 	 * @return The create file or null.
 	 * @since 3.0
 	 */
 	public static File createPSFile(final IDrawing drawing, final String latexDistribPath, final String pathExportPs,
-									final ViewsSynchroniserHandler synchronizer, final String packages, final File tmpDir) {
+									final ViewsSynchroniserHandler synchronizer, final File tmpDir) {
 		if(pathExportPs==null)
 			return null;
 
@@ -436,7 +457,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		String path		= tmpDir2.getAbsolutePath() + sep;
-		File texFile    = createLatexFile(drawing, path + name + TeXFilter.TEX_EXTENSION, synchronizer, packages);
+		File texFile    = createLatexFile(drawing, path + name + TeXFilter.TEX_EXTENSION, synchronizer);
 		String log;
 		File finalPS;
 		IPoint tr		= synchronizer.getTopRightDrawingPoint();
@@ -464,7 +485,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		finalPS = new File(pathExportPs);
 
 		if(!finalPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, packages) + System.getProperty("line.separator") + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer) + System.getProperty("line.separator") + log));
 			finalPS = null;
 		}
 
@@ -481,14 +502,13 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * the pstricks drawing.
 	 * @param drawing The shapes to export.
 	 * @param pathExportPdf The path of the .pdf file to create (MUST ends with .pdf).
-	 * @param packages The extra packages needed to compile the document.
 	 * @param latexDistribPath The path of the folder that contains the latex binaries (may be null or empty)
 	 * @return The create file or null.
 	 * @param crop if true, the output document will be cropped.
 	 * @since 3.0
 	 */
 	public static File createPDFFile(final IDrawing drawing, final String latexDistribPath, final String pathExportPdf,
-									final ViewsSynchroniserHandler synchronizer, final String packages, final boolean crop) {
+									final ViewsSynchroniserHandler synchronizer, final boolean crop) {
 		if(pathExportPdf==null)
 			return null;
 
@@ -503,7 +523,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		String sep		= System.getProperty("file.separator");	//$NON-NLS-1$
 		String name		= pathExportPdf.substring(pathExportPdf.lastIndexOf(sep)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
 		File psFile 	= createPSFile(drawing, latexDistribPath, tmpDir.getAbsolutePath() + sep + name + PSFilter.PS_EXTENSION,
-										synchronizer, packages, tmpDir);
+										synchronizer, tmpDir);
 		String log;
 		File pdfFile;
 
@@ -532,7 +552,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		psFile.delete();
 
 		if(!pdfFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, packages) + System.getProperty("line.separator") + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer) + System.getProperty("line.separator") + log));
 			pdfFile = null;
 		}
 

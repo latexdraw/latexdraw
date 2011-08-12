@@ -31,6 +31,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LNumber;
@@ -308,7 +309,6 @@ public class LTextView extends LShapeView<IText> {
 	public String getLaTeXDocument() {
 		final String code		= shape.getText();
 		final StringBuffer doc 	= new StringBuffer();
-		final String packages	= ""; //$NON-NLS-1$ //TODO latex includes
 		final Color textColour	= shape.getLineColour();
 		final boolean coloured;
 
@@ -317,7 +317,8 @@ public class LTextView extends LShapeView<IText> {
 		final double scale = IShape.PPC*PSTricksConstants.INCH_VAL_CM/PSTricksConstants.INCH_VAL_PT;
 
 		doc.append("\\documentclass[10pt]{article}\\usepackage[usenames,dvipsnames]{pstricks}"); //$NON-NLS-1$
-		doc.append(packages);
+		doc.append(LaTeXGenerator.getPackages());
+		doc.append("\\usepackage[left=0cm,top=0.1cm,right=0cm,nohead,nofoot,paperwidth=100cm,paperheight=100cm]{geometry}");
 		doc.append("\\pagestyle{empty}\\begin{document}\\psscalebox{"); //$NON-NLS-1$
 		doc.append((float)LNumber.INSTANCE.getCutNumber(scale)).append(' ');
 		doc.append((float)LNumber.INSTANCE.getCutNumber(scale)).append('}').append('{');

@@ -13,6 +13,7 @@ import net.sf.latexdraw.actions.Export.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
+import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.ExportDialog;
 import net.sf.latexdraw.util.LNamespace;
@@ -125,13 +126,6 @@ public class Exporter extends Instrument {
 	 */
 	protected String defaultPackages;
 
-	/**
-	 * The latex packages used when exporting using latex.
-	 * These packages are defined for the current document bu not for all documents.
-	 * These packages can be defined using packages defined by default for all document: {@link #defaultPackages}
-	 */
-	protected String packages;
-
 	/** The field where messages are displayed. */
 	protected JTextField statusBar;
 
@@ -183,7 +177,7 @@ public class Exporter extends Instrument {
 
 	@Override
 	public void reinit() {
-		packages = ""; //$NON-NLS-1$
+		LaTeXGenerator.setPackages(defaultPackages);
 	}
 
 
@@ -194,7 +188,7 @@ public class Exporter extends Instrument {
 		String name = root.getNodeName();
 
 		if(name.endsWith(LNamespace.XML_LATEX_INCLUDES))
-			packages = root.getTextContent();
+			LaTeXGenerator.setPackages(root.getTextContent());
 	}
 
 
@@ -223,7 +217,7 @@ public class Exporter extends Instrument {
 			final String ns = LPath.INSTANCE.getNormaliseNamespaceURI(nsURI);
 
 			elt = document.createElement(ns + LNamespace.XML_LATEX_INCLUDES);
-			elt.appendChild(document.createCDATASection(packages));
+			elt.appendChild(document.createCDATASection(LaTeXGenerator.getPackages()));
 			root.appendChild(elt);
 		}
 	}
@@ -359,20 +353,12 @@ public class Exporter extends Instrument {
 	 * @since 3.0
 	 */
 	public void setDefaultPackages(final String defaultPackages) {
-		if(defaultPackages!=null)
+		if(defaultPackages!=null) {
+			if(this.defaultPackages=="")
+				LaTeXGenerator.setPackages(defaultPackages + System.getProperty("line.separator")+LaTeXGenerator.getPackages());
 			this.defaultPackages = defaultPackages;
+		}
 	}
-
-
-
-	/**
-	 * @return The latex packages used when exporting using latex.
-	 * @since 3.0
-	 */
-	public String getPackages() {
-		return packages;
-	}
-
 
 
 	/**
@@ -383,7 +369,7 @@ public class Exporter extends Instrument {
 	 */
 	public void setPackages(final String packages) {
 		if(packages!=null) {
-			this.packages = packages;
+			LaTeXGenerator.setPackages(packages);
 			setModified(true);
 		}
 	}
@@ -468,7 +454,6 @@ class MenuPressed2Export extends Link<Export, MenuItemPressed, Exporter> {
 			action.setFile(instrument.currentFile);
 			action.setLatexDistribPath(instrument.latexPathDistrib);
 			action.setCompressionRate(instrument.compressionRate);
-			action.setPackages(instrument.packages);
 		}
 		else
 			action = null;
@@ -507,7 +492,6 @@ class ButtonPressed2Export extends Link<Export, ButtonPressed, Exporter> {
 			action.setFormat(ExportFormat.PDF);
 			action.setFile(instrument.currentFile);
 			action.setLatexDistribPath(instrument.latexPathDistrib);
-			action.setPackages(instrument.packages);
 		}
 		else action = null;
 	}

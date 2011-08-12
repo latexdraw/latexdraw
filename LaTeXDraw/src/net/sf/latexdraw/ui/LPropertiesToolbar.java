@@ -5,9 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.Box;
 import javax.swing.JComponent;
-
-import org.malai.widget.MPanel;
-import org.malai.widget.MSpinner;
+import javax.swing.JScrollPane;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
@@ -21,6 +19,9 @@ import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
 import net.sf.latexdraw.instruments.TextCustomiser;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.widget.MPanel;
+import org.malai.widget.MSpinner;
 
 /**
  * Defines a tool bar that contains fields that manipulate the shapes properties.<br>
@@ -89,11 +90,26 @@ public class LPropertiesToolbar extends MPanel {
 		add(createFillingPanel(metaShapeCustomiser.getFillingCustomiser(), frame, canvas));
 		add(createArrowToolbar(metaShapeCustomiser.getArrowCustomiser(), frame, canvas));
 		add(createDotToolbar(metaShapeCustomiser.getDotCustomiser(), frame, canvas));
-		addTextWidgets(metaShapeCustomiser.getTextCustomiser(), frame, canvas);
+		addTextPositionWidgets(metaShapeCustomiser.getTextCustomiser(), frame, canvas);
+		addTextPropertiesWidgets(metaShapeCustomiser.getTextCustomiser(), frame, canvas);
 	}
 
 
-	protected void addTextWidgets(final TextCustomiser textCustomiser, final LFrame frame, final LCanvas canvas) {
+	protected void addTextPropertiesWidgets(final TextCustomiser textCustomiser, final LFrame frame, final LCanvas canvas) {
+		ListToggleButton list = new ListToggleButton(frame, LResources.TEXT_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		list.setToolTipText("Modifies the properties of the text.");
+
+		list.addComponent(textCustomiser.getPackagesLabel());
+		list.addComponent(new JScrollPane(textCustomiser.getPackagesField()));
+
+		list.addSeparator();
+		textCustomiser.setMainPackageWidget(list);
+		textCustomiser.addEventable(list.getToolbar());
+		add(list);
+	}
+
+
+	protected void addTextPositionWidgets(final TextCustomiser textCustomiser, final LFrame frame, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.TEXTPOS_BL, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the position of the text.");
 		list.addComponent(textCustomiser.getBlButton());
