@@ -12,15 +12,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-
-import org.malai.widget.MFrame;
 
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.VersionChecker;
+
+import org.malai.widget.MFrame;
 
 /**
  * This frame allows the user to set his preferences concerning the program and its components.<br>
@@ -94,15 +93,14 @@ public class PreferencesFrame extends MFrame {
 		pLatex.setLayout(new BoxLayout(pLatex, BoxLayout.Y_AXIS));
 		pLatexDistrib.setLayout(new BoxLayout(pLatexDistrib, BoxLayout.X_AXIS));
 
-  		JButton bChooseLatex   = new JButton(LResources.OPEN_ICON);
-  		JScrollPane scrollPane = new JScrollPane(prefSetter.getLatexIncludes());
+  		JButton bChooseLatex = new JButton(LResources.OPEN_ICON);
 
   		pLatexDistrib.add(prefSetter.getPathLatexDistribField());
   		pLatexDistrib.add(bChooseLatex);
   		pLatex.add(new JLabel("The path of the latex binaires:"));
   		pLatex.add(pLatexDistrib);
   		pLatex.add(new JLabel("Packages included during latex compilations:"));
-  		pLatex.add(scrollPane);
+  		pLatex.add(prefSetter.getLatexIncludes().getScrollpane());
 
 		return pLatex;
 	}

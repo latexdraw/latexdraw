@@ -17,6 +17,8 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.util.LResources;
 
+import org.malai.instrument.Link;
+import org.malai.interaction.library.KeysTyped;
 import org.malai.widget.MTextArea;
 import org.malai.widget.MToggleButton;
 
@@ -86,7 +88,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initWidgets() {
 		packagesLabel = new JLabel("Packages:");
-		packagesField = new MTextArea();
+		packagesField = new MTextArea(true);
 		Font font = packagesField.getFont();
 		packagesField.setToolTipText("Contains the LaTeX packages that will be used to compile the text.");
 		packagesField.setFont(new Font(font.getName(), font.getStyle(), Math.max(10, font.getSize()-4)));
@@ -144,6 +146,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
+//			links.add(new KeysTyped2ChangePackages(this));
 			links.add(new ButtonPressed2ChangeTextPosition(this));
 			links.add(new ButtonPressed2ChangePencil(this));
 		}catch(InstantiationException e){
@@ -232,6 +235,26 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		this.mainPackageWidget = mainPackageWidget;
 	}
 }
+
+
+
+class KeysTyped2ChangePackages extends Link<ModifyShapeProperty, KeysTyped, TextCustomiser> {
+	protected KeysTyped2ChangePackages(final TextCustomiser ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, ModifyShapeProperty.class, KeysTyped.class);
+	}
+
+	@Override
+	public void initAction() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return true;
+	}
+}
+
 
 
 /**

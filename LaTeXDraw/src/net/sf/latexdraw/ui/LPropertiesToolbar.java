@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 
 import javax.swing.Box;
 import javax.swing.JComponent;
-import javax.swing.JScrollPane;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
@@ -100,7 +99,7 @@ public class LPropertiesToolbar extends MPanel {
 		list.setToolTipText("Modifies the properties of the text.");
 
 		list.addComponent(textCustomiser.getPackagesLabel());
-		list.addComponent(new JScrollPane(textCustomiser.getPackagesField()));
+		list.addComponent(textCustomiser.getPackagesField().getScrollpane());
 
 		list.addSeparator();
 		textCustomiser.setMainPackageWidget(list);

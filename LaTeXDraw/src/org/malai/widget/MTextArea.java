@@ -1,11 +1,11 @@
 package org.malai.widget;
 
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.Document;
 
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-
 
 /**
  * This widgets is based on a JTextArea. It allows to be used in the Malai framework for picking.<br>
@@ -26,14 +26,25 @@ import org.malai.picking.Picker;
  * @version 0.2
  * @since 0.2
  */
-public class MTextArea extends JTextArea implements Pickable {
+public class MTextArea extends JTextArea implements Pickable, Scrollable {
 	private static final long serialVersionUID = 1L;
+
+	/** The possible scrollpane that contains the text area. */
+	protected JScrollPane scrollpane;
+
 
 	/**
 	 * {@link JTextArea}
+	 * @param withScrollPane True: a scrollpane will be created and will contain the text area.
+	 * @since 0.2
 	 */
-	public MTextArea() {
+	public MTextArea(final boolean withScrollPane) {
 		super();
+
+		if(withScrollPane) {
+			scrollpane = new JScrollPane();
+			scrollpane.getViewport().add(this);
+		}
 	}
 
 	/**
@@ -70,6 +81,19 @@ public class MTextArea extends JTextArea implements Pickable {
 	public MTextArea(final Document doc, final String text, final int rows, final int columns) {
 		super(doc, text, rows, columns);
 	}
+
+
+	@Override
+	public JScrollPane getScrollpane() {
+		return scrollpane;
+	}
+
+
+	@Override
+	public boolean hasScrollPane() {
+		return scrollpane!=null;
+	}
+
 
 	@Override
 	public Picker getPicker() {
