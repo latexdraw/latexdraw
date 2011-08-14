@@ -73,6 +73,15 @@ public class TimeoutTransition extends Transition {
 	}
 
 
+	/**
+	 * @param timeout The timeout in ms. Must be greater than 0.
+	 * @since 0.2
+	 */
+	public void setTimeout(int timeout) {
+		if(timeout>0)
+			this.timeout = timeout;
+	}
+
 
 	/**
 	 * @return The timeout in ms.
