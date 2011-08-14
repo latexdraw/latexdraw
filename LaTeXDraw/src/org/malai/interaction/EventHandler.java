@@ -10,7 +10,6 @@ import javax.swing.text.JTextComponent;
 
 import org.malai.widget.MFrame;
 
-
 /**
  * This interface can be used for object that want to gather events (mouse pressed, etc.) produced by HIDs.<br>
  * <br>
@@ -76,17 +75,19 @@ public interface EventHandler {
 	 * Defines actions to do when a key of a keyboard is pressed.
 	 * @param key The pressed key code.
 	 * @param idHID The identifier of the HID that produced the event.
-	 * @since 0.1
+	 * @param source The object that produces the event.
+	 * @since 0.2
 	 */
-	void onKeyPressure(final int key, final int idHID);
+	void onKeyPressure(final int key, final int idHID, final Object source);
 
 	/**
 	 * Defines actions to do when a key of a keyboard is released.
 	 * @param key The released key code.
 	 * @param idHID The identifier of the HID that produced the event.
-	 * @since 0.1
+	 * @param source The object that produces the event.
+	 * @since 0.2
 	 */
-	void onKeyRelease(final int key, final int idHID);
+	void onKeyRelease(final int key, final int idHID, final Object source);
 
 	/**
 	 * Defines actions to do when a button is activated.

@@ -3,7 +3,6 @@ package org.malai.interaction;
 import org.malai.stateMachine.SourceableState;
 import org.malai.stateMachine.TargetableState;
 
-
 /**
  * This abstract transition is used a model for transition based on keyboard events.<br>
  * <br>
@@ -25,6 +24,10 @@ import org.malai.stateMachine.TargetableState;
 public abstract class KeyboardTransition extends Transition {
 	/** The pressed key. */
 	protected int key;
+
+	/** The object that produced the event. */
+	protected Object source;
+
 
 	/**
 	 * {@link Transition#Transition(SourceableState, TargetableState)}
@@ -52,5 +55,23 @@ public abstract class KeyboardTransition extends Transition {
 	 */
 	public void setKey(final int key) {
 		this.key = key;
+	}
+
+
+	/**
+	 * @return The object that produced the event.
+	 * @since 0.2
+	 */
+	public Object getSource() {
+		return source;
+	}
+
+
+	/**
+	 * @param source The object that produced the event.
+	 * @since 0.2
+	 */
+	public void setSource(final Object source) {
+		this.source = source;
 	}
 }

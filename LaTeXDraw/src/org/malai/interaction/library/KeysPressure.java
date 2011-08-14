@@ -11,7 +11,6 @@ import org.malai.interaction.TerminalState;
 import org.malai.stateMachine.SourceableState;
 import org.malai.stateMachine.TargetableState;
 
-
 /**
  * This interaction permits to define combo a key pressed that can be used to define
  * shortcuts, etc.<br>
@@ -35,6 +34,9 @@ public class KeysPressure extends Interaction {
 	/** The list of the keys pressed. */
 	protected List<Integer> keys;
 
+	/** The object that produced the interaction. */
+	protected Object object;
+
 
 	/**
 	 * Creates the interaction.
@@ -52,6 +54,7 @@ public class KeysPressure extends Interaction {
 
 		if(keys!=null)
 			keys.clear();
+		object = null;
 	}
 
 
@@ -97,6 +100,7 @@ public class KeysPressure extends Interaction {
 
 		@Override
 		public void action() {
+			KeysPressure.this.object = this.source;
 			KeysPressure.this.keys.add(this.key);
 			KeysPressure.this.setLastHIDUsed(this.hid);
 		}
@@ -109,6 +113,15 @@ public class KeysPressure extends Interaction {
 	 */
 	public List<Integer> getKeys() {
 		return keys;
+	}
+
+
+	/**
+	 * @return The object that produced the interaction.
+	 * @since 0.2
+	 */
+	public Object getObject() {
+		return object;
 	}
 }
 

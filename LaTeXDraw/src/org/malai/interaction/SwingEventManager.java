@@ -28,7 +28,6 @@ import javax.swing.text.JTextComponent;
 
 import org.malai.widget.MFrame;
 
-
 /**
  * A Swing event manager gathers Swing events produces by widgets and tranfers them handlers.<br>
  * <br>
@@ -202,7 +201,7 @@ public class SwingEventManager implements MouseListener, KeyListener, MouseMotio
 		if(e==null) return;
 
 		for(EventHandler handler : handlers)
-			handler.onKeyPressure(e.getKeyCode(), ID_KB);
+			handler.onKeyPressure(e.getKeyCode(), ID_KB, e.getSource());
 	}
 
 
@@ -212,7 +211,7 @@ public class SwingEventManager implements MouseListener, KeyListener, MouseMotio
 		if(e==null) return;
 
 		for(EventHandler handler : handlers)
-			handler.onKeyRelease(e.getKeyCode(), ID_KB);
+			handler.onKeyRelease(e.getKeyCode(), ID_KB, e.getSource());
 	}
 
 

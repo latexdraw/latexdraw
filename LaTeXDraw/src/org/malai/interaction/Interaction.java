@@ -18,7 +18,6 @@ import org.malai.stateMachine.ITransition;
 import org.malai.stateMachine.MustAbortStateMachineException;
 import org.malai.widget.MFrame;
 
-
 /**
  * Defines an interaction as defined in the Malai model.<br>
  * An interaction is a state machine and a class.<br>
@@ -465,7 +464,7 @@ public abstract class Interaction implements IStateMachine, EventHandler {
 
 
 	@Override
-	public void onKeyPressure(final int key, final int idHID) {
+	public void onKeyPressure(final int key, final int idHID, final Object object) {
 		if(!activated) return ;
 
 		boolean again = true;
@@ -475,14 +474,16 @@ public abstract class Interaction implements IStateMachine, EventHandler {
 			t = currentState.getTransition(i);
 
 			if(t instanceof KeyPressureTransition) {
-				((KeyPressureTransition)t).setKey(key);
-				t.setHid(idHID);
+				final KeyPressureTransition kpt = (KeyPressureTransition)t;
+				kpt.setKey(key);
+				kpt.setSource(object);
+				kpt.setHid(idHID);
 
 				again = !checkTransition(t);
 
 				if(!again)
 					// Adding an event 'still in process'
-					addEvent(new KeyPressEvent(idHID, key));
+					addEvent(new KeyPressEvent(idHID, key, object));
 			}
 		}
 	}
@@ -490,7 +491,7 @@ public abstract class Interaction implements IStateMachine, EventHandler {
 
 
 	@Override
-	public void onKeyRelease(final int key, final int idHID) {
+	public void onKeyRelease(final int key, final int idHID, final Object object) {
 		boolean again = true;
 
 		if(activated) {
@@ -500,8 +501,10 @@ public abstract class Interaction implements IStateMachine, EventHandler {
 				t = currentState.getTransition(i);
 
 				if(t instanceof KeyReleaseTransition) {
-					((KeyReleaseTransition)t).setKey(key);
-					t.setHid(idHID);
+					final KeyReleaseTransition krt = (KeyReleaseTransition)t;
+					krt.setKey(key);
+					krt.setHid(idHID);
+					krt.setSource(object);
 
 					if(t.isGuardRespected()) {
 						// Removing from the 'still in process' list
@@ -710,7 +713,7 @@ public abstract class Interaction implements IStateMachine, EventHandler {
 					onPressure(press.button, press.x, press.y, press.idHID, press.source);
 				} else if(event instanceof KeyPressEvent) {
 					KeyPressEvent key = (KeyPressEvent)event;
-					onKeyPressure(key.keyCode, key.idHID);
+					onKeyPressure(key.keyCode, key.idHID, key.source);
 				}
 			}
 		}
@@ -806,15 +809,21 @@ class KeyPressEvent extends Event {
 	/** The code of the key pressed. */
 	protected int keyCode;
 
+	/** The object that produced the key event. */
+	protected Object source;
+
+
 	/**
 	 * Creates the event.
 	 * @param idHID The identifier of the HID.
 	 * @param keyCode The key code.
+	 * @param source The object that produced the event.
 	 * @since 0.2
 	 */
-	public KeyPressEvent(final int idHID, final int keyCode) {
+	public KeyPressEvent(final int idHID, final int keyCode, final Object source) {
 		super(idHID);
 		this.keyCode = keyCode;
+		this.source  = source;
 	}
 }
 

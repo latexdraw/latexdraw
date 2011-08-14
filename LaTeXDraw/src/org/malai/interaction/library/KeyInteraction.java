@@ -27,6 +27,9 @@ public abstract class KeyInteraction extends Interaction {
 	/** The key pressed. */
 	protected int key;
 
+	/** The object that produced the interaction. */
+	protected Object object;
+
 
 	/**
 	 * Creates the interaction.
@@ -40,7 +43,8 @@ public abstract class KeyInteraction extends Interaction {
 	@Override
 	public void reinit() {
 		super.reinit();
-		key = -1;
+		key 	= -1;
+		object 	= null;
 	}
 
 
@@ -66,7 +70,8 @@ public abstract class KeyInteraction extends Interaction {
 
 		@Override
 		public void action() {
-			KeyInteraction.this.key = this.key;
+			KeyInteraction.this.object 	= this.source;
+			KeyInteraction.this.key 	= this.key;
 			KeyInteraction.this.setLastHIDUsed(this.hid);
 		}
 	}

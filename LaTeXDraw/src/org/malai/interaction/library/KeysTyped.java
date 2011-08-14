@@ -35,6 +35,9 @@ public class KeysTyped extends Interaction {
 	/** The timeout transition. Used to set the timeout value. */
 	protected TimeoutTransition timeoutTransition;
 
+	/** The object that produced the interaction. */
+	protected Object object;
+
 
 	/**
 	 * Creates the interaction.
@@ -53,6 +56,7 @@ public class KeysTyped extends Interaction {
 		if(keys==null)
 			keys = new ArrayList<Integer>();
 		keys.clear();
+		object = null;
 	}
 
 
@@ -68,17 +72,17 @@ public class KeysTyped extends Interaction {
 		new KeyPressureTransition(initState, pressed) {
 			@Override
 			public void action() {
+				KeysTyped.this.object = this.source;
 				KeysTyped.this.setLastHIDUsed(this.hid);
 				KeysTyped.this.keys.add(this.key);
-				System.out.println("key pressed init");
 			}
 		};
 
 		new KeyPressureTransition(pressed, pressed) {
 			@Override
 			public void action() {
+				KeysTyped.this.object = this.source;
 				KeysTyped.this.keys.add(this.key);
-				System.out.println("key pressed");
 			}
 
 			@Override
@@ -90,8 +94,8 @@ public class KeysTyped extends Interaction {
 		new KeyReleaseTransition(pressed, pressed) {
 			@Override
 			public void action() {
+				KeysTyped.this.object = this.source;
 				KeysTyped.this.keys.remove((Integer)this.key);
-				System.out.println("key released");
 			}
 
 			@Override
@@ -100,12 +104,7 @@ public class KeysTyped extends Interaction {
 			}
 		};
 
-		timeoutTransition = new TimeoutTransition(pressed, ended, 1000) {
-			@Override
-			public void action() {
-				System.out.println("ended");
-			}
-		};
+		timeoutTransition = new TimeoutTransition(pressed, ended, 1000);
 	}
 
 
@@ -134,5 +133,14 @@ public class KeysTyped extends Interaction {
 	public void setTimeout(int timeout) {
 		if(timeout>0)
 			timeoutTransition.setTimeout(timeout);
+	}
+
+
+	/**
+	 * @return The object that produced the interaction.
+	 * @since 0.2
+	 */
+	public Object getObject() {
+		return object;
 	}
 }
