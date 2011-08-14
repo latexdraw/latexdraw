@@ -202,7 +202,7 @@ public class PreferencesSetter extends Instrument {
   		pathLatexDistribField = new MTextField();
   		pathLatexDistribField.setMaximumSize(new Dimension(700, height));
 
-  		latexIncludes = new MTextArea(true);
+  		latexIncludes = new MTextArea(true, false);
   		latexIncludes.setToolTipText("<html>Include in this list the latex packages you regularly use in your drawing, e.g. :<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>");
   		pathTexEditorField = new MTextField();
   		pathTexEditorField.setMaximumSize(new Dimension(700, height));

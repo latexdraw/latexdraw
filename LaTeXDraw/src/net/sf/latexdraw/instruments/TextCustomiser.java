@@ -88,7 +88,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initWidgets() {
 		packagesLabel = new JLabel("Packages:");
-		packagesField = new MTextArea(true);
+		packagesField = new MTextArea(true, true);
 		Font font = packagesField.getFont();
 		packagesField.setToolTipText("Contains the LaTeX packages that will be used to compile the text.");
 		packagesField.setFont(new Font(font.getName(), font.getStyle(), Math.max(10, font.getSize()-4)));
@@ -146,7 +146,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-//			links.add(new KeysTyped2ChangePackages(this));
+			links.add(new KeysTyped2ChangePackages(this));
 			links.add(new ButtonPressed2ChangeTextPosition(this));
 			links.add(new ButtonPressed2ChangePencil(this));
 		}catch(InstantiationException e){
@@ -251,7 +251,7 @@ class KeysTyped2ChangePackages extends Link<ModifyShapeProperty, KeysTyped, Text
 
 	@Override
 	public boolean isConditionRespected() {
-		return true;
+		return interaction.getObject()==instrument.packagesField;
 	}
 }
 

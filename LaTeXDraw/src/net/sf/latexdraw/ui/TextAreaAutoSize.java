@@ -9,10 +9,8 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.KeyStroke;
 import javax.swing.text.DefaultEditorKit;
 
-import org.malai.interaction.Eventable;
 import org.malai.interaction.SwingEventManager;
 import org.malai.widget.MTextArea;
-
 
 /**
  * This widgets is a text area which automatically resizes is width and height
@@ -33,19 +31,18 @@ import org.malai.widget.MTextArea;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class TextAreaAutoSize extends MTextArea implements Eventable {
+public class TextAreaAutoSize extends MTextArea {
 	private static final long serialVersionUID = 1L;
-
-	/** The event manager that listens to key events used by this widget. */
-	protected SwingEventManager eventManager;
 
 
 	/**
 	 * Creates the widget.
 	 */
 	public TextAreaAutoSize() {
-		super(1, 1);
+		super(false, true);
 
+		setRows(1);
+		setColumns(1);
 		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.SHIFT_MASK), "insertBreakLD"); //$NON-NLS-1$
 		getActionMap().put("insertBreakLD", new DefaultEditorKit.InsertBreakAction()); //$NON-NLS-1$
 		addKeyListener(new TextAreaKeyListener());
@@ -110,17 +107,5 @@ public class TextAreaAutoSize extends MTextArea implements Eventable {
 			if(e.getKeyCode()==KeyEvent.VK_ENTER && e.getModifiers()==0)
 				e.consume();
 		}
-	}
-
-
-	@Override
-	public boolean hasEventManager() {
-		return true;
-	}
-
-
-	@Override
-	public SwingEventManager getEventManager() {
-		return eventManager;
 	}
 }
