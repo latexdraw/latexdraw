@@ -6,6 +6,8 @@ import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
+import net.sf.latexdraw.actions.ModifyLatexProperties;
+import net.sf.latexdraw.actions.ModifyLatexProperties.LatexProperties;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
@@ -205,8 +207,6 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		return trButton;
 	}
 
-
-
 	/**
 	 * @return the packagesLabel.
 	 * @since 3.0
@@ -215,8 +215,6 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		return packagesLabel;
 	}
 
-
-
 	/**
 	 * @return the packagesField.
 	 * @since 3.0
@@ -224,8 +222,6 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	public MTextArea getPackagesField() {
 		return packagesField;
 	}
-
-
 
 	/**
 	 * @param mainPackageWidget the mainPackageWidget to set.
@@ -238,15 +234,16 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 
 
-class KeysTyped2ChangePackages extends Link<ModifyShapeProperty, KeysTyped, TextCustomiser> {
+class KeysTyped2ChangePackages extends Link<ModifyLatexProperties, KeysTyped, TextCustomiser> {
 	protected KeysTyped2ChangePackages(final TextCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, ModifyShapeProperty.class, KeysTyped.class);
+		super(ins, false, ModifyLatexProperties.class, KeysTyped.class);
 	}
 
 	@Override
 	public void initAction() {
-		// TODO Auto-generated method stub
-
+		action.setGenerator(null);
+		action.setProperty(LatexProperties.PACKAGES);
+		action.setValue(instrument.getPackagesField().getText());
 	}
 
 	@Override
