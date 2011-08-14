@@ -4,6 +4,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.Document;
 
+import org.malai.interaction.Eventable;
+import org.malai.interaction.SwingEventManager;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 
@@ -26,8 +28,11 @@ import org.malai.picking.Picker;
  * @version 0.2
  * @since 0.2
  */
-public class MTextArea extends JTextArea implements Pickable, Scrollable {
+public class MTextArea extends JTextArea implements Pickable, Scrollable, Eventable {
 	private static final long serialVersionUID = 1L;
+
+	/** The event manager that listens events produced by the text area. May be null. */
+	protected SwingEventManager eventManager;
 
 	/** The possible scrollpane that contains the text area. */
 	protected JScrollPane scrollpane;
@@ -36,10 +41,16 @@ public class MTextArea extends JTextArea implements Pickable, Scrollable {
 	/**
 	 * {@link JTextArea}
 	 * @param withScrollPane True: a scrollpane will be created and will contain the text area.
+	 * @param withEvtManager True: the text area will have an event manager.
 	 * @since 0.2
 	 */
-	public MTextArea(final boolean withScrollPane) {
+	public MTextArea(final boolean withScrollPane, final boolean withEvtManager) {
 		super();
+
+		if(withEvtManager) {
+			eventManager = new SwingEventManager();
+			eventManager.attachTo(this);
+		}
 
 		if(withScrollPane) {
 			scrollpane = new JScrollPane();
@@ -82,6 +93,17 @@ public class MTextArea extends JTextArea implements Pickable, Scrollable {
 		super(doc, text, rows, columns);
 	}
 
+
+	@Override
+	public boolean hasEventManager() {
+		return eventManager!=null;
+	}
+
+
+	@Override
+	public SwingEventManager getEventManager() {
+		return eventManager;
+	}
 
 	@Override
 	public JScrollPane getScrollpane() {
