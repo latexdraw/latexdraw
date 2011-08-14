@@ -5,13 +5,11 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 
 import org.malai.interaction.Eventable;
 import org.malai.interaction.SwingEventManager;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-
 
 /**
  * Extends the Java JPanel to conform malai requirements.<br>
@@ -36,7 +34,7 @@ public class MPanel extends JPanel implements Picker, Eventable, Scrollable {
 	private static final long	serialVersionUID	= 1L;
 
 	/** The possible scrollpane that contains the panel. */
-	protected JScrollPane scrollpane;
+	protected MScrollPane scrollpane;
 
 	/** The event manager that listens events produced by the panel. May be null. */
 	protected SwingEventManager eventManager;
@@ -53,7 +51,7 @@ public class MPanel extends JPanel implements Picker, Eventable, Scrollable {
 		super();
 
 		if(withScrollPane) {
-			scrollpane = new JScrollPane();
+			scrollpane = new MScrollPane();
 			scrollpane.getViewport().add(this);
 		}
 
@@ -95,7 +93,7 @@ public class MPanel extends JPanel implements Picker, Eventable, Scrollable {
 
 
 	@Override
-	public JScrollPane getScrollpane() {
+	public MScrollPane getScrollpane() {
 		return scrollpane;
 	}
 

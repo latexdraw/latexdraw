@@ -10,13 +10,11 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
 import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 
 import org.malai.interaction.Eventable;
 import org.malai.interaction.SwingEventManager;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-
 
 /**
  * Overrides the widget JLayeredPane to be used within Malai.<br>
@@ -41,7 +39,7 @@ public class MLayeredPane extends JLayeredPane implements Picker, Eventable, Scr
 	private static final long serialVersionUID = 1L;
 
 	/** The possible scrollpane that contains the panel. */
-	protected JScrollPane scrollpane;
+	protected MScrollPane scrollpane;
 
 	/** The event manager that listens events produced by the panel. May be null. */
 	protected SwingEventManager eventManager;
@@ -60,7 +58,7 @@ public class MLayeredPane extends JLayeredPane implements Picker, Eventable, Scr
 		super();
 
 		if(withScrollPane) {
-			scrollpane = new JScrollPane();
+			scrollpane = new MScrollPane();
 			scrollpane.getViewport().add(this);
 		}
 
@@ -138,7 +136,7 @@ public class MLayeredPane extends JLayeredPane implements Picker, Eventable, Scr
 
 
 	@Override
-	public JScrollPane getScrollpane() {
+	public MScrollPane getScrollpane() {
 		return scrollpane;
 	}
 

@@ -1,11 +1,9 @@
 package org.malai.widget;
 
 import javax.swing.JEditorPane;
-import javax.swing.JScrollPane;
 
 import org.malai.interaction.Eventable;
 import org.malai.interaction.SwingEventManager;
-
 
 /**
  * This widgets is based on a JEditorPane. It allows to be used in the Malai framework for picking.<br>
@@ -30,7 +28,7 @@ public class MEditorPane extends JEditorPane implements Scrollable, Eventable {
 	private static final long serialVersionUID = 1L;
 
 	/** The possible scrollpane that contains the panel. */
-	protected JScrollPane scrollpane;
+	protected MScrollPane scrollpane;
 
 	/** The event manager that listens events produced by the panel. May be null. */
 	protected SwingEventManager eventManager;
@@ -47,7 +45,7 @@ public class MEditorPane extends JEditorPane implements Scrollable, Eventable {
 		super();
 
 		if(withScrollPane) {
-			scrollpane = new JScrollPane();
+			scrollpane = new MScrollPane();
 			scrollpane.getViewport().add(this);
 		}
 
@@ -66,7 +64,7 @@ public class MEditorPane extends JEditorPane implements Scrollable, Eventable {
 
 
 	@Override
-	public JScrollPane getScrollpane() {
+	public MScrollPane getScrollpane() {
 		return scrollpane;
 	}
 

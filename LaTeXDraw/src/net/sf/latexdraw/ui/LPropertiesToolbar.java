@@ -103,7 +103,7 @@ public class LPropertiesToolbar extends MPanel {
 
 		list.addSeparator();
 		textCustomiser.setMainPackageWidget(list);
-		textCustomiser.addEventable(list.getToolbar());
+		textCustomiser.addEventable(textCustomiser.getPackagesField());
 		add(list);
 	}
 

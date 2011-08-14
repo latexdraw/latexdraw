@@ -1,6 +1,5 @@
 package org.malai.widget;
 
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.Document;
 
@@ -35,7 +34,7 @@ public class MTextArea extends JTextArea implements Pickable, Scrollable, Eventa
 	protected SwingEventManager eventManager;
 
 	/** The possible scrollpane that contains the text area. */
-	protected JScrollPane scrollpane;
+	protected MScrollPane scrollpane;
 
 
 	/**
@@ -53,7 +52,7 @@ public class MTextArea extends JTextArea implements Pickable, Scrollable, Eventa
 		}
 
 		if(withScrollPane) {
-			scrollpane = new JScrollPane();
+			scrollpane = new MScrollPane();
 			scrollpane.getViewport().add(this);
 		}
 	}
@@ -106,7 +105,7 @@ public class MTextArea extends JTextArea implements Pickable, Scrollable, Eventa
 	}
 
 	@Override
-	public JScrollPane getScrollpane() {
+	public MScrollPane getScrollpane() {
 		return scrollpane;
 	}
 
