@@ -97,7 +97,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		final IDrawing drawing	= synchro.getDrawing();
 		StringBuffer code;
 		final String eol 		= System.getProperty("line.separator");//$NON-NLS-1$
-		String pkg 				= ""; //$NON-NLS-1$ //TODO add latex includes
+		String pkg 				= LaTeXGenerator.getPackages();
 		PSTShapeView<?> pstView;
 		final ViewsSynchroniserHandler handler = synchro.getHandler();
 		final IPoint origin 	= handler.getOriginDrawingPoint();
