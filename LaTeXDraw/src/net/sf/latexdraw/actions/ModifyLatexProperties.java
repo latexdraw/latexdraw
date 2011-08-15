@@ -65,7 +65,7 @@ public class ModifyLatexProperties extends Action implements Undoable {
 				return value instanceof Boolean;
 			}
 		};
-		
+
 		/**
 		 * @param value The value to test.
 		 * @return True: the given value corresponds to the excepted value of the property.
@@ -73,19 +73,19 @@ public class ModifyLatexProperties extends Action implements Undoable {
 		 */
 		public abstract boolean isValueSupported(final Object value);
 	}
-	
+
 	/** The new value to set. */
 	protected Object value;
-	
+
 	/** The saved value used for undo/redo. */
 	protected Object oldValue;
-	
+
 	/** The property to modify. */
 	protected LatexProperties property;
-	
+
 	/** The LaTeX generator to modify. */
 	protected LaTeXGenerator generator;
-	
+
 
 	@Override
 	public boolean isRegisterable() {
@@ -103,11 +103,11 @@ public class ModifyLatexProperties extends Action implements Undoable {
 			case POSITION_HORIZONTAL: oldValue = generator.isPositionHoriCentre(); break;
 			case POSITION_VERTICAL 	: oldValue = generator.getPositionVertToken(); break;
 		}
-		
+
 		applyValue(value);
 	}
 
-	
+
 	private void applyValue(final Object object) {
 		switch(property) {
 			case CAPTION 			: generator.setCaption((String)object); break;
@@ -118,7 +118,7 @@ public class ModifyLatexProperties extends Action implements Undoable {
 			case POSITION_VERTICAL 	: generator.setPositionHoriCentre((Boolean)object); break;
 		}
 	}
-	
+
 
 	@Override
 	public boolean canDo() {
@@ -129,13 +129,13 @@ public class ModifyLatexProperties extends Action implements Undoable {
 
 	@Override
 	public void undo() {
-		applyValue(oldValue);		
+		applyValue(oldValue);
 	}
 
 
 	@Override
 	public void redo() {
-		applyValue(value);		
+		applyValue(value);
 	}
 
 

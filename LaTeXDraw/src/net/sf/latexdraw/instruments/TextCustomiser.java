@@ -241,8 +241,11 @@ class KeysTyped2ChangePackages extends Link<ModifyLatexProperties, KeysTyped, Te
 
 	@Override
 	public void initAction() {
-		action.setGenerator(null);
 		action.setProperty(LatexProperties.PACKAGES);
+	}
+
+	@Override
+	public void updateAction() {
 		action.setValue(instrument.getPackagesField().getText());
 	}
 
