@@ -227,7 +227,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	 * @param mainPackageWidget the mainPackageWidget to set.
 	 * @since 3.0
 	 */
-	public void setMainPackageWidget(JComponent mainPackageWidget) {
+	public void setMainPackageWidget(final JComponent mainPackageWidget) {
 		this.mainPackageWidget = mainPackageWidget;
 	}
 }
