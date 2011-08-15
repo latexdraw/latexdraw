@@ -34,7 +34,6 @@ import org.malai.picking.Picker;
 import org.malai.widget.MToolBar;
 import org.malai.widget.WidgetUtilities;
 
-
 /**
  * This class defines a button which displays a frame containing
  * others buttons; a kind of menu with buttons.<br>
@@ -137,7 +136,7 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 	 */
 	protected void intializing(final JFrame frame, final int locate) {
 		try{ setLocation(locate); }
-		catch(final IllegalArgumentException e) {location = LOCATION_SOUTH; }
+		catch(final IllegalArgumentException e) {location = LOCATION_SOUTH;}
 
 		toolbar = new MToolBar(true);
 		final JPanel buttonsPanel = new JPanel();
@@ -395,8 +394,8 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 
 	@Override
 	public void windowLostFocus(final WindowEvent e) {
-//		if(e.getOppositeWindow()!=null)
-		setButtonsFrameVisible(false);
+		if(e.getOppositeWindow()==null)
+			buttonsFrame.setVisible(false);
 	}
 
 
