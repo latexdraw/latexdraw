@@ -49,8 +49,6 @@ public class SelectShapes extends MultiShapesAction {
 
 		for(IShape sh : shapes)
 			sel.add(sh);
-
-		selection.setModified(true);
 	}
 
 
