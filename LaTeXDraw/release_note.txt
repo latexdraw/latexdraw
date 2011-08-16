@@ -1,11 +1,12 @@
 Version 3.0 beta 1
 
 Added:
-- new localisations: Brazilian Portuguese, Hungarian, Japanese, Turkish, Vietnamese
+- Native support of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
 - Can place texts at different positions: bottom-left, bottom-middle, top-right, etc. This feature produces PSTricks code based on the rput command.
+- new localisations: Brazilian Portuguese, Hungarian, Japanese, Turkish, Vietnamese.
+- A system tab in the "About LaTeXDraw" dialogue box to give some information about the system.
 
 Improvements:
-- Native support of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
 - Can add/modify texts directly into the drawing using an integrated text field (no more dialogue box).
 - no more dialogue boxes to change shapes properties. They can be changed using the toolbar which has been widely improved.
 - when selecting a kind of shape, the corresponding widgets dedicated to the selected kind of shape are displayed to customise shapes.
@@ -29,13 +30,14 @@ Improvements:
 - the widgets of the parameters toolbar now appear and disappear more accurately
 - the selected shapes are no more unselected when selecting the pencil.
 - can undo/redo change of unit (cm or inch).
+- the lime and teal colours are now supported.
 
 Changes:
 - the PPC (point per centimetre) cannot be changed anymore.
 - the PPM export is no more supported
 - the basic EPS export is no more supported (the LaTeX EPS export is still supported).
+- the ldp format, that was the default format for 1.9.* and older versions, is no more supported.
 - the change of unit (cm or inch) can be now performed throw menu items in the "Drawing" menu.
-- the ldp format, that was the default format for 1.9.* and older versions, is no more supported. 
-- no more button 'default' in the properties panel since we think there are useless.
 - the type of magnetic grid can be changed using the grid toolbar.
 - the magnetic grid cannot be magnetic when it is not visible.
+- no more button 'default' in all the dialogue boxes.

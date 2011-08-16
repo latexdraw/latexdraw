@@ -28,6 +28,8 @@ import java.util.Map;
 public final class DviPsColors  {
 	public static final double MAX = 255.;
 
+	public final static Color TEAL			 = new Color(0f, 0.5f, 0.5f);
+	public final static Color LIME			 = new Color(0.75f, 1f, 0f);
 	public final static Color GREEN_YELLOW   = new Color(216,255, 79);
 	public final static Color YELLOW         = new Color(255,255,  0);
 	public final static Color GOLDEN_ROD     = new Color(255,229, 40);
@@ -100,6 +102,8 @@ public final class DviPsColors  {
 	public final static Color OLIVE          = new Color(0.5f, 0.5f, 0f);
 
 
+	public final static String N_LIME		    = "lime"; //$NON-NLS-1$
+	public final static String N_TEAL		    = "teal"; //$NON-NLS-1$
 	public final static String N_GREEN_YELLOW   = "GreenYellow"; //$NON-NLS-1$
 	public final static String N_YELLOW         = "Yellow"; //$NON-NLS-1$
 	public final static String N_GOLDEN_ROD     = "Goldenrod"; //$NON-NLS-1$
@@ -219,6 +223,8 @@ public final class DviPsColors  {
 	 */
 	private void createColourHashTable() {
 		colourHT.clear();
+		colourHT.put(N_LIME, LIME);
+		colourHT.put(N_TEAL, TEAL);
 		colourHT.put(N_OLIVE, OLIVE);
 		colourHT.put(N_CYAN_2, CYAN);
 		colourHT.put(N_GRAY_2, GRAY);
@@ -315,6 +321,8 @@ public final class DviPsColors  {
 	 */
 	private void createNameColourHashTable() {
 		nameColourHT.clear();
+		nameColourHT.put(LIME, N_LIME);
+		nameColourHT.put(TEAL, N_TEAL);
 		nameColourHT.put(OLIVE, N_OLIVE);
 		nameColourHT.put(GRAY, N_GRAY_2);
 		nameColourHT.put(BLACK, N_BLACK_2);
