@@ -20,6 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
+import javax.swing.SwingUtilities;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PDFFilter;
@@ -448,7 +449,7 @@ public class LTextView extends LShapeView<IText> {
 		if(image==null) {
 			TextLayout tl = new TextLayout(shape.getText(), FONT, FONT_METRICS.getFontRenderContext());
 			Rectangle2D bounds = tl.getBounds();
-			border.setFrame(position.getX(), position.getY(), bounds.getWidth(), bounds.getHeight());
+			border.setFrame(position.getX(), position.getY()-bounds.getHeight(), bounds.getWidth(), bounds.getHeight());
 		}
 		else {
 			final double height = image.getHeight(null);
