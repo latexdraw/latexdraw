@@ -115,8 +115,10 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 
 		cache.append(PACKAGE_PSTRICKS);
 
-		if(pkg.length()>0)
+		if(pkg.length()>0) {
+			pkg = "% User Packages:" + eol + "% " + pkg.replace(eol, eol + "% ");
 			cache.append(pkg).append(eol);
+		}
 
 		if(withLatexParams && positionVertToken!=VerticalPosition.NONE)
 			cache.append("\\begin{figure}[").append(positionVertToken.getToken()).append(']').append(eol);//$NON-NLS-1$
