@@ -10,6 +10,7 @@ import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LNumber;
+import net.sf.latexdraw.util.LResources;
 
 /**
  * Defines a PSTricks generator; it manages the PSTricks views and the latex additional code.
@@ -96,7 +97,6 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 
 		final IDrawing drawing	= synchro.getDrawing();
 		StringBuffer code;
-		final String eol 		= System.getProperty("line.separator");//$NON-NLS-1$
 		String pkg 				= LaTeXGenerator.getPackages();
 		PSTShapeView<?> pstView;
 		final ViewsSynchroniserHandler handler = synchro.getHandler();
@@ -116,22 +116,22 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		cache.append(PACKAGE_PSTRICKS);
 
 		if(pkg.length()>0) {
-			pkg = "% User Packages:" + eol + "% " + pkg.replace(eol, eol + "% ");
-			cache.append(pkg).append(eol);
+			pkg = "% User Packages:" + LResources.EOL + "% " + pkg.replace(LResources.EOL, LResources.EOL + "% ");
+			cache.append(pkg).append(LResources.EOL);
 		}
 
 		if(withLatexParams && positionVertToken!=VerticalPosition.NONE)
-			cache.append("\\begin{figure}[").append(positionVertToken.getToken()).append(']').append(eol);//$NON-NLS-1$
+			cache.append("\\begin{figure}[").append(positionVertToken.getToken()).append(']').append(LResources.EOL);//$NON-NLS-1$
 
 		if(withLatexParams && positionHoriCentre)
-			cache.append("\\begin{center}").append(eol);//$NON-NLS-1$
+			cache.append("\\begin{center}").append(LResources.EOL);//$NON-NLS-1$
 
 		cache.append("\\psscalebox{1 1} % Change this value to rescale the drawing.");//$NON-NLS-1$
-		cache.append(eol).append('{').append(eol);
+		cache.append(LResources.EOL).append('{').append(LResources.EOL);
 		cache.append("\\begin{pspicture}("); //$NON-NLS-1$
 		cache.append(0).append(',').append((float)LNumber.INSTANCE.getCutNumber((origin.getY()-br.getY())/ppc)).append(')').append('(');
 		cache.append((float)LNumber.INSTANCE.getCutNumber((tl.getX()-origin.getX())/ppc)).append(',').append((float)LNumber.INSTANCE.getCutNumber((origin.getY()-tl.getY())/ppc));
-		cache.append(')').append(eol);
+		cache.append(')').append(LResources.EOL);
 
 		for(IShape shape : drawing.getShapes()) {
 			pstView = synchro.getView(shape);
@@ -140,17 +140,17 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 				code = pstView.getCache();
 
 				if(code!=null)
-					shapeCode.append(code).append(eol);
+					shapeCode.append(code).append(LResources.EOL);
 
 				generateColourCode(pstView, addedColours);
 			}
 		}
 
-		cache.append(shapeCode).append("\\end{pspicture}").append(eol).append('}').append(eol); //$NON-NLS-1$
+		cache.append(shapeCode).append("\\end{pspicture}").append(LResources.EOL).append('}').append(LResources.EOL); //$NON-NLS-1$
 
 		if(withLatexParams) {
 			if(positionHoriCentre)
-				cache.append("\\end{center}").append(eol);//$NON-NLS-1$
+				cache.append("\\end{center}").append(LResources.EOL);//$NON-NLS-1$
 
 			if(label.length()>0)
 				cache.append("\\label{").append(label).append('}');//$NON-NLS-1$

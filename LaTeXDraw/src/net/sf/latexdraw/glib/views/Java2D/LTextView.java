@@ -37,6 +37,7 @@ import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LNumber;
+import net.sf.latexdraw.util.LResources;
 import sun.font.FontDesignMetrics;
 
 /**
@@ -174,9 +175,8 @@ public class LTextView extends LShapeView<IText> {
 
 			if(code!=null && !code.isEmpty()) {
 				File tmpDir 			= LFileUtils.INSTANCE.createTempDir();
-				final String sep		= System.getProperty("file.separator"); //$NON-NLS-1$
 				final String doc      	= getLaTeXDocument();
-				pathPic					= tmpDir.getAbsolutePath() + sep + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
+				pathPic					= tmpDir.getAbsolutePath() + LResources.EOL + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
 				final String pathTex  	= pathPic + TeXFilter.TEX_EXTENSION;
 				final FileOutputStream fos = new FileOutputStream(pathTex);
 				final OutputStreamWriter osw = new OutputStreamWriter(fos);
@@ -243,7 +243,6 @@ public class LTextView extends LShapeView<IText> {
 	 */
 	public String getLatexErrorMessageFromLog() {
 		final Matcher matcher = Pattern.compile(".*\r?\n").matcher(log); //$NON-NLS-1$
-		final String eol	  = System.getProperty("file.separator"); //$NON-NLS-1$
 		String line;
 		String errors = ""; //$NON-NLS-1$
 
@@ -259,7 +258,7 @@ public class LTextView extends LShapeView<IText> {
 					if(line.startsWith("l.")) //$NON-NLS-1$
 						ok = false;
 					else
-						errors += eol + line + eol;
+						errors += LResources.EOL + line + LResources.EOL;
 				}
 			}
 		}
@@ -284,7 +283,6 @@ public class LTextView extends LShapeView<IText> {
 			Process process;
 			process = runtime.exec(cmd);
 
-			String eol		= System.getProperty("line.separator"); //$NON-NLS-1$
 			boolean ok 		= true;
 			int cpt    		= 1;
 			int exit   		= 0;
@@ -307,7 +305,7 @@ public class LTextView extends LShapeView<IText> {
 			String line = br.readLine();
 
 			while(line!=null) {
-				log.append(line).append(eol);
+				log.append(line).append(LResources.EOL);
 				line = br.readLine();
 			}
 

@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LResources;
 
 /**
  * Defines a PSTricks view of the LPicture model.<br>
@@ -54,8 +55,7 @@ public class PSTPictureView extends PSTShapeView<IPicture> {
 		path = path.replaceAll("\\\\", "/");//$NON-NLS-1$ //$NON-NLS-2$
 
 		if(path.contains(" "))//$NON-NLS-1$
-			start.append(LangTool.LANG.getString16("Picture.0")).append( //$NON-NLS-1$
-							System.getProperty("line.separator").charAt(0));//$NON-NLS-1$
+			start.append(LangTool.LANG.getString16("Picture.0")).append(LResources.EOL);
 
 		if(rot!=null)
 			cache.append(rot);

@@ -15,6 +15,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LFileUtils;
+import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.StreamExecReader;
 
 import org.malai.properties.Modifiable;
@@ -205,7 +206,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		String str = String.valueOf(buffer, 0, j);
 
-		return str.length()>1 ? str.substring(0, str.length()-System.getProperty("line.separator").length()) : str;//$NON-NLS-1$
+		return str.length()>1 ? str.substring(0, str.length()-LResources.EOL.length()) : str;
 	}
 
 
@@ -244,7 +245,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			}
 
 			comment = String.valueOf(buffer, 0, j);
-			comment+=System.getProperty("line.separator");//$NON-NLS-1$
+			comment+=LResources.EOL;
 			setModified(true);
 		}
 	}
@@ -362,7 +363,6 @@ public abstract class LaTeXGenerator implements Modifiable {
 		if(drawing==null || synchronizer==null)
 			return ""; //$NON-NLS-1$
 
-		final String eol 				= System.getProperty("line.separator");//$NON-NLS-1$
 		final PSTCodeGenerator pstGen 	= new PSTCodeGenerator(drawing, synchronizer, false, false);
 		final StringBuffer doc 			= new StringBuffer();
 		final IPoint bl					= synchronizer.getBottomLeftDrawingPoint();
@@ -370,16 +370,16 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final float ppc					= synchronizer.getPPCDrawing();
 
 		pstGen.update();
-		doc.append("\\documentclass{article}").append(eol).append("\\pagestyle{empty}").append(eol).append(packages).append(eol).append( //$NON-NLS-1$ //$NON-NLS-2$
+		doc.append("\\documentclass{article}").append(LResources.EOL).append("\\pagestyle{empty}").append(LResources.EOL).append(packages).append(LResources.EOL).append( //$NON-NLS-1$ //$NON-NLS-2$
 		"\\usepackage[left=0cm,top=0.1cm,right=0cm,nohead,nofoot,paperwidth=").append( //$NON-NLS-1$
 		tr.getX()/ppc).append("cm,paperheight=").append( //$NON-NLS-1$
 		bl.getY()/ppc+0.3).append("cm]{geometry}").append( //$NON-NLS-1$
-		eol).append("\\usepackage[usenames,dvipsnames]{pstricks}").append(//$NON-NLS-1$
-		eol).append("\\usepackage{pstricks-add}").append(eol).append("\\usepackage{epsfig}").append(//$NON-NLS-1$//$NON-NLS-2$
-		eol).append("\\usepackage{pst-grad}").append(eol).append("\\usepackage{pst-plot}").append(eol).append(//$NON-NLS-1$//$NON-NLS-2$
-		 "\\begin{document}").append(eol).append( //$NON-NLS-1$
-		"\\addtolength{\\oddsidemargin}{-0.2in}").append(eol).append("\\addtolength{\\evensidemargin}{-0.2in}").append( //$NON-NLS-1$ //$NON-NLS-2$
-		eol).append(pstGen.getCache()).append(eol).append("\\end{document}");//$NON-NLS-1$
+		LResources.EOL).append("\\usepackage[usenames,dvipsnames]{pstricks}").append(//$NON-NLS-1$
+		LResources.EOL).append("\\usepackage{pstricks-add}").append(LResources.EOL).append("\\usepackage{epsfig}").append(//$NON-NLS-1$//$NON-NLS-2$
+		LResources.EOL).append("\\usepackage{pst-grad}").append(LResources.EOL).append("\\usepackage{pst-plot}").append(LResources.EOL).append(//$NON-NLS-1$//$NON-NLS-2$
+		"\\begin{document}").append(LResources.EOL).append( //$NON-NLS-1$
+		"\\addtolength{\\oddsidemargin}{-0.2in}").append(LResources.EOL).append("\\addtolength{\\evensidemargin}{-0.2in}").append( //$NON-NLS-1$ //$NON-NLS-2$
+		LResources.EOL).append(pstGen.getCache()).append(LResources.EOL).append("\\end{document}");//$NON-NLS-1$
 
 		return doc.toString();
 	}
@@ -446,8 +446,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return null;
 
 		String dirBin   	= latexDistribPath;
-		final String sep	= System.getProperty("file.separator");		//$NON-NLS-1$
-		int lastSep			= pathExportPs.lastIndexOf(sep)+1;
+		int lastSep			= pathExportPs.lastIndexOf(LResources.EOL)+1;
 		String name			= pathExportPs.substring(lastSep==-1 ? 0 : lastSep, pathExportPs.lastIndexOf(PSFilter.PS_EXTENSION));
 		File tmpDir2		= tmpDir==null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
 
@@ -456,7 +455,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return null;
 		}
 
-		String path		= tmpDir2.getAbsolutePath() + sep;
+		String path		= tmpDir2.getAbsolutePath() + LResources.EOL;
 		File texFile    = createLatexFile(drawing, path + name + TeXFilter.TEX_EXTENSION, synchronizer);
 		String log;
 		File finalPS;
@@ -471,8 +470,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 		String[] paramsLatex = new String[] {dirBin+"latex", "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 				texFile.getAbsolutePath()};
 		log    = execute(paramsLatex, tmpDir2);
-		File dviFile = new File(tmpDir2.getAbsolutePath() + sep + name + ".dvi"); //$NON-NLS-1$
-		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + sep + name));
+		File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.EOL + name + ".dvi"); //$NON-NLS-1$
+		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.EOL + name));
 		String[] paramsDvi = new String[] {dirBin+"dvips", "-Pdownload35", "-T", ((tr.getX()-bl.getX())/ppc+dec)+"cm,"+((bl.getY()-tr.getY())/ppc+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 						name, "-o", pathExportPs}; //$NON-NLS-1$
 		log   += execute(paramsDvi, tmpDir2);
@@ -485,7 +484,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		finalPS = new File(pathExportPs);
 
 		if(!finalPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer) + System.getProperty("line.separator") + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer) + LResources.EOL + log));
 			finalPS = null;
 		}
 
@@ -520,9 +519,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return null;
 		}
 
-		String sep		= System.getProperty("file.separator");	//$NON-NLS-1$
-		String name		= pathExportPdf.substring(pathExportPdf.lastIndexOf(sep)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
-		File psFile 	= createPSFile(drawing, latexDistribPath, tmpDir.getAbsolutePath() + sep + name + PSFilter.PS_EXTENSION,
+		String name		= pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.EOL)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
+		File psFile 	= createPSFile(drawing, latexDistribPath, tmpDir.getAbsolutePath() + LResources.EOL + name + PSFilter.PS_EXTENSION,
 										synchronizer, tmpDir);
 		String log;
 		File pdfFile;
@@ -534,12 +532,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
 		String optionEmbed = "-dEmbedAllFonts" + (System.getProperty("os.name").toLowerCase().contains("win") ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
-		dirBin  = dirBin==null ? "" : dirBin.endsWith(sep) || dirBin.length()==0 ? dirBin : dirBin + sep; //$NON-NLS-1$
+		dirBin  = dirBin==null ? "" : dirBin.endsWith(LResources.EOL) || dirBin.length()==0 ? dirBin : dirBin + LResources.EOL; //$NON-NLS-1$
 		log 	= execute(new String[] {dirBin + "ps2pdf", optionEmbed, psFile.getAbsolutePath(), //$NON-NLS-1$
 							crop ? name + PDFFilter.PDF_EXTENSION : pathExportPdf}, tmpDir);
 
 		if(crop) {
-			pdfFile = new File(tmpDir.getAbsolutePath() + sep + name + PDFFilter.PDF_EXTENSION);
+			pdfFile = new File(tmpDir.getAbsolutePath() + LResources.EOL + name + PDFFilter.PDF_EXTENSION);
 			log 	= execute(new String[] {dirBin + "pdfcrop", pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir); //$NON-NLS-1$
 			// JAVA7: test pdfFile.toPath().move(pathExportPdf)
 			// the renameto method is weak and fails sometimes.
@@ -576,7 +574,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 			process.waitFor();// Waiting for the end of the process.
 
-			return err.getLog() + System.getProperty("line.separator") + inp.getLog(); //$NON-NLS-1$
+			return err.getLog() + LResources.EOL + inp.getLog();
 		} catch(Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
 			return ""; //$NON-NLS-1$

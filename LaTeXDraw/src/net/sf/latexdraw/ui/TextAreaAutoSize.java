@@ -9,6 +9,8 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.KeyStroke;
 import javax.swing.text.DefaultEditorKit;
 
+import net.sf.latexdraw.util.LResources;
+
 import org.malai.interaction.SwingEventManager;
 import org.malai.widget.MTextArea;
 
@@ -66,7 +68,7 @@ public class TextAreaAutoSize extends MTextArea {
 	public void updateDimension() {
 		// A space is added at the end of the text to consider all the \n characters.
 		final String text = getText() + ' ';
-		final String[] textSplited = text.split(System.getProperty("line.separator"));
+		final String[] textSplited = text.split(LResources.EOL);
 		Rectangle2D rec;
 		double width 	= 0.;
 		double height 	= 0.;

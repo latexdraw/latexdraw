@@ -76,11 +76,10 @@ public class AboutDialogueBox extends JFrame {
 	protected void createSystemPanel(final JTabbedPane tabbedPane) {
 		JEditorPane editorPane = new JEditorPane();
 		StringBuilder builder = new StringBuilder();
-		String endLine = System.getProperty("line.separator");
 		editorPane.setEditable(false);
 
 		for(final Entry<Object, Object> entry : System.getProperties().entrySet())
-			builder.append(entry.getKey().toString()).append(':').append(' ').append(entry.getValue().toString()).append(endLine);
+			builder.append(entry.getKey().toString()).append(':').append(' ').append(entry.getValue().toString()).append(LResources.EOL);
 
 		editorPane.setText(builder.toString());
 		tabbedPane.add("System", new JScrollPane(editorPane));
