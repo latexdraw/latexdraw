@@ -1,15 +1,22 @@
 package net.sf.latexdraw.ui;
 
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
@@ -24,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
 import javax.swing.JWindow;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -61,7 +69,7 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 	protected SwingEventManager eventManager;
 
 	/** The frame which displays the toolbar */
-	protected JWindow buttonsFrame;
+	protected WindowWidgets buttonsFrame;
 
 	/** The toolbar which contains the buttons */
 	protected MToolBar toolbar;
@@ -139,23 +147,20 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 		catch(final IllegalArgumentException e) {location = LOCATION_SOUTH;}
 
 		toolbar = new MToolBar(true);
-		final JPanel buttonsPanel = new JPanel();
-
 		toolbar.setFloatable(false);
 
-		buttonsFrame = new JWindow(frame);
-		buttonsFrame.setVisible(false);
-		buttonsFrame.setAlwaysOnTop(true);
-
+		final JPanel buttonsPanel = new JPanel();
 		buttonsPanel.add(toolbar);
 		buttonsPanel.setBorder(BorderFactory.createEtchedBorder());
-		buttonsFrame.add(buttonsPanel);
-		buttonsFrame.pack();
-		buttonsFrame.addWindowFocusListener(this);
+
+		buttonsFrame = new WindowWidgets(frame, buttonsPanel, this);
 
 		addActionListener(this);
 		setMargin(new Insets(1,1,1,1));
 		addComponent(new CloseButton());
+
+		// The mini-toolbar must disappear when a click or a press occurs somewhere else.
+		Toolkit.getDefaultToolkit().addAWTEventListener( new ListToggleButtonAWTEventListener(), AWTEvent.MOUSE_EVENT_MASK);
 	}
 
 
@@ -486,5 +491,89 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 			buttonsFrame.pack();
 
 		super.repaint();
+	}
+
+
+	class ListToggleButtonAWTEventListener implements AWTEventListener {
+		protected ListToggleButtonAWTEventListener() {
+			super();
+		}
+
+		@Override
+		public void eventDispatched(final AWTEvent event) {
+	    	// Only if the toolbar is visible and the event is a mouse event.
+	    	if(buttonsFrame.isVisible() && (event.getID()==MouseEvent.MOUSE_PRESSED || event.getID()==MouseEvent.MOUSE_CLICKED) &&
+    		   event.getSource() instanceof Component) {
+	    		final MouseEvent me 	= (MouseEvent)event;
+	    		final Component comp 	= (Component)me.getSource();
+	    		final Point pt 			= new Point(me.getPoint());
+
+	    		// Converting the mouse event point into a screen point.
+	    		SwingUtilities.convertPointToScreen(pt, comp);
+
+	    		// The toolbar is hidden if:
+	    		// - the button of the toolbar does not contain the point of the event.
+	    		// - the toolbar does not contain the point of the event.
+	    		// - the widget concerned by the event is not a widget of the toolbar (necessary to manage widgets
+	    		// which size is not contained into the toolbar such as ComboBoxes).
+		    	if(!new Rectangle(buttonsFrame.getLocationOnScreen(), buttonsFrame.getSize()).contains(pt) &&
+		    		!new Rectangle(ListToggleButton.this.getLocationOnScreen(), ListToggleButton.this.getSize()).contains(pt) &&
+		    		SwingUtilities.getAncestorOfClass(WindowWidgets.class, comp)!=buttonsFrame)
+		    		ListToggleButton.this.buttonsFrame.setVisible(false);
+		    	}
+		}
+
+	}
+
+
+	class WindowWidgets extends JWindow implements WindowListener {
+		private static final long serialVersionUID = 1L;
+
+		protected WindowWidgets(final JFrame owner, final JPanel buttonsPanel, final ListToggleButton list) {
+			super(owner);
+
+			setVisible(false);
+			setAlwaysOnTop(true);
+			add(buttonsPanel);
+			pack();
+			addWindowFocusListener(list);
+			owner.addWindowListener(this);
+		}
+
+		@Override
+		public void windowOpened(final WindowEvent e) {
+			// Nothing to do.
+		}
+
+		@Override
+		public void windowClosing(final WindowEvent e) {
+			// Nothing to do.
+		}
+
+		@Override
+		public void windowClosed(final WindowEvent e) {
+			// Nothing to do.
+		}
+
+		@Override
+		public void windowIconified(final WindowEvent e) {
+			// Nothing to do.
+		}
+
+		@Override
+		public void windowDeiconified(final WindowEvent e) {
+			// Nothing to do.
+		}
+
+		@Override
+		public void windowActivated(final WindowEvent e) {
+			// Nothing to do.
+		}
+
+		@Override
+		public void windowDeactivated(final WindowEvent e) {
+			// Need to hide the window when the main frame is no more visible.
+			setVisible(false);
+		}
 	}
 }
