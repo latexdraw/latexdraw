@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
+import java.util.Map.Entry;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -60,15 +61,29 @@ public class AboutDialogueBox extends JFrame {
 		setLocation((dim.width-width)/2, (dim.height-height)/2);
 
 		createMainPanel(tabbedPane);
-		createTranslatorsPanel(tabbedPane);
 		createReleaseNotePanel(tabbedPane);
+		createTranslatorsPanel(tabbedPane);
+		createSystemPanel(tabbedPane);
 		createLicensePanel(tabbedPane);
 
-		tabbedPane.setPreferredSize(new Dimension(490, 290));
+		tabbedPane.setPreferredSize(new Dimension(510, 290));
  		setIconImage(LResources.ABOUT_ICON.getImage());
  		getContentPane().add(tabbedPane);
 
  		setSize(width, height);
+	}
+
+	protected void createSystemPanel(final JTabbedPane tabbedPane) {
+		JEditorPane editorPane = new JEditorPane();
+		StringBuilder builder = new StringBuilder();
+		String endLine = System.getProperty("line.separator");
+		editorPane.setEditable(false);
+
+		for(final Entry<Object, Object> entry : System.getProperties().entrySet())
+			builder.append(entry.getKey().toString()).append(':').append(' ').append(entry.getValue().toString()).append(endLine);
+
+		editorPane.setText(builder.toString());
+		tabbedPane.add("System", new JScrollPane(editorPane));
 	}
 
 
