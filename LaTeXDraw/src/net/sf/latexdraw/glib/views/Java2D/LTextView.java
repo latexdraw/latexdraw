@@ -16,6 +16,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
@@ -234,6 +236,36 @@ public class LTextView extends LShapeView<IText> {
 		return bi;
 	}
 
+
+	/**
+	 * @return The precise latex error messages that the latex compilation produced.
+	 * @since 3.0
+	 */
+	public String getLatexErrorMessageFromLog() {
+		final Matcher matcher = Pattern.compile(".*\r?\n").matcher(log); //$NON-NLS-1$
+		final String eol	  = System.getProperty("file.separator"); //$NON-NLS-1$
+		String line;
+		String errors = ""; //$NON-NLS-1$
+
+		while(matcher.find()) {
+			line = matcher.group();
+
+			if(line.startsWith("!")) { //$NON-NLS-1$
+				errors += line.substring(2, line.length());
+				boolean ok = true;
+				while(ok && matcher.find()) {
+					line = matcher.group();
+
+					if(line.startsWith("l.")) //$NON-NLS-1$
+						ok = false;
+					else
+						errors += eol + line + eol;
+				}
+			}
+		}
+
+		return errors;
+	}
 
 
 	/**
