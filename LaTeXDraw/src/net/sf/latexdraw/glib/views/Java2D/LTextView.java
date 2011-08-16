@@ -164,10 +164,10 @@ public class LTextView extends LShapeView<IText> {
 	 * @since 3.0
 	 */
 	protected Image createImage() {
+		BufferedImage bi = null;
 		log = ""; //$NON-NLS-1$
 
 		try {
-			Image img   	  = null;
 			final String code = shape.getText();
 
 			if(code!=null && !code.isEmpty()) {
@@ -178,7 +178,6 @@ public class LTextView extends LShapeView<IText> {
 				final String pathTex  	= pathPic + TeXFilter.TEX_EXTENSION;
 				final FileOutputStream fos = new FileOutputStream(pathTex);
 				final OutputStreamWriter osw = new OutputStreamWriter(fos);
-				BufferedImage bi;
 
 				try {
 					osw.append(doc);
@@ -214,19 +213,13 @@ public class LTextView extends LShapeView<IText> {
 						picFile.deleteOnExit();
 						bi = ImageIO.read(picFile);
 					}
-					else bi = null;
 				}catch(final IOException ex) {
-					bi = null;
 					try { fos.flush(); } catch(final IOException ex2) { BadaboomCollector.INSTANCE.add(ex2); }
 					try { osw.flush(); } catch(final IOException ex2) { BadaboomCollector.INSTANCE.add(ex2); }
 					LFileUtils.INSTANCE.closeStream(fos);
 					LFileUtils.INSTANCE.closeStream(osw);
 				}
-
-				return bi;
 			}
-
-			return img;
 		}
 		catch(Exception e) {
 			new File(pathPic + TeXFilter.TEX_EXTENSION).delete();
@@ -236,8 +229,9 @@ public class LTextView extends LShapeView<IText> {
 			new File(pathPic + ".aux").delete(); //$NON-NLS-1$
 			new File(pathPic + ".log").delete(); //$NON-NLS-1$
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException(log+e.getMessage()));
-			return null;
 		}
+
+		return bi;
 	}
 
 
