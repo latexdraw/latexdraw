@@ -20,7 +20,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
-import javax.swing.SwingUtilities;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PDFFilter;
@@ -92,6 +91,7 @@ public class LTextView extends LShapeView<IText> {
 	public LTextView(final IText model) {
 		super(model);
 
+		log			= ""; //$NON-NLS-1$
 		lastText 	= ""; //$NON-NLS-1$
 		lastColour 	= null;
 		lastTextPos	= null;
@@ -101,7 +101,7 @@ public class LTextView extends LShapeView<IText> {
 
 	@Override
 	public void update() {
-		if(image==null || !lastText.equals(shape.getText()) ||
+		if((image==null && log.length()==0) || !lastText.equals(shape.getText()) ||
 			lastColour==null || !lastColour.equals(shape.getLineColour()) ||
 			lastTextPos==null || lastTextPos!=shape.getTextPosition()) {
 			updateImage();
