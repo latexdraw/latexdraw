@@ -2,12 +2,15 @@ package net.sf.latexdraw.mapping;
 
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.IText;
+import net.sf.latexdraw.glib.views.Java2D.IShapeView;
+import net.sf.latexdraw.glib.views.Java2D.LTextView;
+import net.sf.latexdraw.glib.views.Java2D.LViewsFactory;
+import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
+
 import org.malai.mapping.MappingRegistry;
 import org.malai.mapping.SymmetricList2ListMapping;
-
-import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
-import net.sf.latexdraw.glib.views.Java2D.LViewsFactory;
 
 /**
  * Defines a mapping that link a list of IShape to a list of IShapeView.<br>
@@ -50,8 +53,14 @@ public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape,
 	public void onObjectAdded(final Object list, final Object object, final int index) {
 		super.onObjectAdded(list, object, index);
 
-		if(object instanceof IShape)
+		if(object instanceof IShape) {
 			MappingRegistry.REGISTRY.addMapping(new Shape2ViewMapping((IShape)object, index==-1 ? target.get(target.size()-1) : target.get(index)));
+
+			// If the shape is a text, a special mapping must be added.
+			if(object instanceof IText)
+				MappingRegistry.REGISTRY.addMapping(new Package2TextViewMapping(
+						LaTeXGenerator.getPackagesSingleton(), (LTextView)(index==-1 ? target.get(target.size()-1) : target.get(index))));
+		}
 	}
 
 
@@ -63,6 +72,10 @@ public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape,
 		view.flush();
 		super.onObjectRemoved(list, object, index);
 		MappingRegistry.REGISTRY.removeMappingsUsingSource(object, Shape2ViewMapping.class);
+
+		// If the shape is a text, the special mapping previously added must be removed.
+		if(object instanceof IText)
+			MappingRegistry.REGISTRY.removeMappingsUsingTarget(view, Package2TextViewMapping.class);
 	}
 
 

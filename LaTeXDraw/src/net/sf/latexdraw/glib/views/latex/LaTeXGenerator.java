@@ -18,6 +18,8 @@ import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.StreamExecReader;
 
+import org.malai.mapping.ActiveSingleton;
+import org.malai.mapping.ISingleton;
 import org.malai.properties.Modifiable;
 
 /**
@@ -49,7 +51,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * These packages are defined for the current document bu not for all documents.
 	 * These packages can be defined using packages defined by default for all document: {@link #defaultPackages}
 	 */
-	protected static String packages = "";
+	protected static ISingleton<String> packages = new ActiveSingleton<String>("");
 
 
 
@@ -58,8 +60,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @since 3.0
 	 */
 	public static void setPackages(final String packages) {
-		if(packages!=null)
-			LaTeXGenerator.packages = packages;
+		if(packages!=null && !packages.equals(getPackages()))
+			LaTeXGenerator.packages.setValue(packages);
 	}
 
 
@@ -68,6 +70,15 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @since 3.0
 	 */
 	public static String getPackages() {
+		return packages.getValue();
+	}
+
+
+	/**
+	 * @return The singleton that contains the packages value.
+	 * @since 3.0
+	 */
+	public static ISingleton<String> getPackagesSingleton() {
 		return packages;
 	}
 
