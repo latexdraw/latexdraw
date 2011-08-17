@@ -234,7 +234,7 @@ abstract class SpinnerForCustomiser<A extends ShapePropertyAction, N extends Sha
 	 * Creates the link.
 	 */
 	public SpinnerForCustomiser(final N ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-		super(ins, true, clazzAction, SpinnerModified.class);
+		super(ins, false, clazzAction, SpinnerModified.class);
 	}
 
 
