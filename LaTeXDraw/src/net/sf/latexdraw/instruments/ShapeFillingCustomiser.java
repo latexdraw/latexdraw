@@ -471,11 +471,8 @@ class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty,
 	@Override
 	public void initAction() {
 		super.initAction();
-
 		action.setShape(instrument.drawing.getSelection().duplicate());
-
-		if(!setProperty(interaction.getSpinner(), instrument, action))
-			action = null;
+		setProperty(interaction.getSpinner(), instrument, action);
 	}
 
 	@Override
@@ -485,7 +482,7 @@ class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty,
 				spinner==instrument.hatchAngleField || spinner==instrument.hatchSepField || spinner==instrument.hatchWidthField);
 	}
 
-	protected static boolean setProperty(final JSpinner spinner, final ShapeFillingCustomiser sfc, final ShapePropertyAction act) {
+	protected static void setProperty(final JSpinner spinner, final ShapeFillingCustomiser sfc, final ShapePropertyAction act) {
 		if(spinner==sfc.gradAngleField) {
 			act.setProperty(ShapeProperties.GRAD_ANGLE);
 			act.setValue(Math.toRadians(Double.valueOf(spinner.getValue().toString())));
@@ -500,8 +497,8 @@ class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty,
 			act.setProperty(ShapeProperties.HATCHINGS_SEP);
 		else if(spinner==sfc.hatchWidthField)
 			act.setProperty(ShapeProperties.HATCHINGS_WIDTH);
-		else return false;
-		return true;
+		else
+			act.setProperty(null);
 	}
 }
 
@@ -520,10 +517,8 @@ class Spinner2PencilFilling extends SpinnerForCustomiser<ModifyPencilParameter, 
 	@Override
 	public void initAction() {
 		super.initAction();
-
 		action.setPencil(instrument.pencil);
-		if(!Spinner2SelectionFilling.setProperty(interaction.getSpinner(), instrument, action))
-			action = null;
+		Spinner2SelectionFilling.setProperty(interaction.getSpinner(), instrument, action);
 	}
 
 	@Override
