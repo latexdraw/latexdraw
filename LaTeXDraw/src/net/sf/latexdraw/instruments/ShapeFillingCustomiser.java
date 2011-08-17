@@ -9,11 +9,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import org.malai.widget.MButtonIcon;
-import org.malai.widget.MColorButton;
-import org.malai.widget.MComboBox;
-import org.malai.widget.MSpinner;
-
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
@@ -24,6 +19,11 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.widget.MButtonIcon;
+import org.malai.widget.MColorButton;
+import org.malai.widget.MComboBox;
+import org.malai.widget.MSpinner;
 
 /**
  * This instrument modifies filling properties of shapes or the pencil.<br>
@@ -475,6 +475,13 @@ class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty,
 		setProperty(interaction.getSpinner(), instrument, action);
 	}
 
+
+	@Override
+	public void updateAction() {
+		setValue(interaction.getSpinner(), instrument, action);
+	}
+
+
 	@Override
 	public boolean isConditionRespected() {
 		final JSpinner spinner = getInteraction().getSpinner();
@@ -483,22 +490,26 @@ class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty,
 	}
 
 	protected static void setProperty(final JSpinner spinner, final ShapeFillingCustomiser sfc, final ShapePropertyAction act) {
-		if(spinner==sfc.gradAngleField) {
+		if(spinner==sfc.gradAngleField)
 			act.setProperty(ShapeProperties.GRAD_ANGLE);
-			act.setValue(Math.toRadians(Double.valueOf(spinner.getValue().toString())));
-		}
 		else if(spinner==sfc.gradMidPtField)
 			act.setProperty(ShapeProperties.GRAD_MID_POINT);
-		else if(spinner==sfc.hatchAngleField) {
+		else if(spinner==sfc.hatchAngleField)
 			act.setProperty(ShapeProperties.HATCHINGS_ANGLE);
-			act.setValue(Math.toRadians(Double.valueOf(spinner.getValue().toString())));
-		}
 		else if(spinner==sfc.hatchSepField)
 			act.setProperty(ShapeProperties.HATCHINGS_SEP);
 		else if(spinner==sfc.hatchWidthField)
 			act.setProperty(ShapeProperties.HATCHINGS_WIDTH);
 		else
 			act.setProperty(null);
+	}
+
+
+	protected static void setValue(final JSpinner spinner, final ShapeFillingCustomiser sfc, final ShapePropertyAction act) {
+		if(spinner==sfc.hatchAngleField || spinner==sfc.gradAngleField)
+			act.setValue(Math.toRadians(Double.valueOf(spinner.getValue().toString())));
+		else
+			act.setValue(Double.valueOf(spinner.getValue().toString()));
 	}
 }
 
@@ -519,6 +530,11 @@ class Spinner2PencilFilling extends SpinnerForCustomiser<ModifyPencilParameter, 
 		super.initAction();
 		action.setPencil(instrument.pencil);
 		Spinner2SelectionFilling.setProperty(interaction.getSpinner(), instrument, action);
+	}
+
+	@Override
+	public void updateAction() {
+		Spinner2SelectionFilling.setValue(interaction.getSpinner(), instrument, action);
 	}
 
 	@Override

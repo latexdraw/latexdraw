@@ -230,10 +230,16 @@ class Spinner2SelectionShadow extends SpinnerForCustomiser<ModifyShapeProperty, 
 
 		if(spinner==instrument.shadowSizeField)
 			action.setProperty(ShapeProperties.SHADOW_SIZE);
-		else {
+		else
 			action.setProperty(ShapeProperties.SHADOW_ANGLE);
+	}
+
+	@Override
+	public void updateAction() {
+		if(interaction.getSpinner()==instrument.shadowAngleField)
 			action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
-		}
+		else
+			super.updateAction();
 	}
 
 	@Override
@@ -263,11 +269,18 @@ class Spinner2PencilShadow extends SpinnerForCustomiser<ModifyPencilParameter, S
 		final JSpinner spinner = getInteraction().getSpinner();
 		action.setPencil(instrument.pencil);
 
-		if(spinner==instrument.shadowAngleField) {
+		if(spinner==instrument.shadowAngleField)
 			action.setProperty(ShapeProperties.SHADOW_ANGLE);
-			action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
-		}
+		else
 			action.setProperty(ShapeProperties.SHADOW_SIZE);
+	}
+
+	@Override
+	public void updateAction() {
+		if(interaction.getSpinner()==instrument.shadowAngleField)
+			action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
+		else
+			super.updateAction();
 	}
 
 	@Override
