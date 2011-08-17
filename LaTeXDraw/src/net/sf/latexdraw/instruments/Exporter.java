@@ -31,7 +31,6 @@ import org.malai.widget.MMenuItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
 /**
  * This instrument exports a drawing in different formats.<br>
  * <br>

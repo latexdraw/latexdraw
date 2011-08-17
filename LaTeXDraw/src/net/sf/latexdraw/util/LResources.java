@@ -33,8 +33,11 @@ public final class LResources {
 		super();
 	}
 	
-	/** The end of line string of the current system. */
-	public static final String EOL = System.getProperty("file.separator");
+	/** The line separator of the current system. */
+	public static final String EOL = System.getProperty("line.separator");
+	
+	/** The file separator of the current system. */
+	public static final String FILE_SEP = System.getProperty("file.separator");
 
 	/** The label of the arc choice */
 	public static final String LABEL_ARC_CHOICE = LangTool.LANG.getStringOthers("Arc.arcType"); //$NON-NLS-1$

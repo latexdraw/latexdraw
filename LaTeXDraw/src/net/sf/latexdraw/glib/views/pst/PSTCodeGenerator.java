@@ -31,8 +31,9 @@ import net.sf.latexdraw.util.LResources;
  * @since 3.0
  */
 public class PSTCodeGenerator extends LaTeXGenerator {
-	public static final String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}\n% \\usepackage{epsfig}\n% \\usepackage{pst-grad} % For gradients\n% \\usepackage{pst-plot} % For axes\n"; //$NON-NLS-1$
-
+	public static final String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + LResources.EOL +//$NON-NLS-1$
+										"% \\usepackage{epsfig}" + LResources.EOL + "% \\usepackage{pst-grad} % For gradients" +//$NON-NLS-1$//$NON-NLS-2$
+										LResources.EOL + "% \\usepackage{pst-plot} % For axes" + LResources.EOL; //$NON-NLS-1$
 
 	/** The PSTricks views. */
 	protected PSTViewsSynchroniser synchro;

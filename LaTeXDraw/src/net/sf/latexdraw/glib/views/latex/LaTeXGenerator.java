@@ -457,7 +457,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return null;
 
 		String dirBin   	= latexDistribPath;
-		int lastSep			= pathExportPs.lastIndexOf(LResources.EOL)+1;
+		int lastSep			= pathExportPs.lastIndexOf(LResources.FILE_SEP)+1;
 		String name			= pathExportPs.substring(lastSep==-1 ? 0 : lastSep, pathExportPs.lastIndexOf(PSFilter.PS_EXTENSION));
 		File tmpDir2		= tmpDir==null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
 
@@ -466,7 +466,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return null;
 		}
 
-		String path		= tmpDir2.getAbsolutePath() + LResources.EOL;
+		String path		= tmpDir2.getAbsolutePath() + LResources.FILE_SEP;
 		File texFile    = createLatexFile(drawing, path + name + TeXFilter.TEX_EXTENSION, synchronizer);
 		String log;
 		File finalPS;
@@ -481,8 +481,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 		String[] paramsLatex = new String[] {dirBin+"latex", "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 				texFile.getAbsolutePath()};
 		log    = execute(paramsLatex, tmpDir2);
-		File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.EOL + name + ".dvi"); //$NON-NLS-1$
-		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.EOL + name));
+		File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
+		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
 		String[] paramsDvi = new String[] {dirBin+"dvips", "-Pdownload35", "-T", ((tr.getX()-bl.getX())/ppc+dec)+"cm,"+((bl.getY()-tr.getY())/ppc+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 						name, "-o", pathExportPs}; //$NON-NLS-1$
 		log   += execute(paramsDvi, tmpDir2);
@@ -530,8 +530,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return null;
 		}
 
-		String name		= pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.EOL)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
-		File psFile 	= createPSFile(drawing, latexDistribPath, tmpDir.getAbsolutePath() + LResources.EOL + name + PSFilter.PS_EXTENSION,
+		String name		= pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
+		File psFile 	= createPSFile(drawing, latexDistribPath, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PSFilter.PS_EXTENSION,
 										synchronizer, tmpDir);
 		String log;
 		File pdfFile;
@@ -543,12 +543,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
 		String optionEmbed = "-dEmbedAllFonts" + (System.getProperty("os.name").toLowerCase().contains("win") ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
-		dirBin  = dirBin==null ? "" : dirBin.endsWith(LResources.EOL) || dirBin.length()==0 ? dirBin : dirBin + LResources.EOL; //$NON-NLS-1$
+		dirBin  = dirBin==null ? "" : dirBin.endsWith(LResources.FILE_SEP) || dirBin.length()==0 ? dirBin : dirBin + LResources.FILE_SEP; //$NON-NLS-1$
 		log 	= execute(new String[] {dirBin + "ps2pdf", optionEmbed, psFile.getAbsolutePath(), //$NON-NLS-1$
 							crop ? name + PDFFilter.PDF_EXTENSION : pathExportPdf}, tmpDir);
 
 		if(crop) {
-			pdfFile = new File(tmpDir.getAbsolutePath() + LResources.EOL + name + PDFFilter.PDF_EXTENSION);
+			pdfFile = new File(tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PDFFilter.PDF_EXTENSION);
 			log 	= execute(new String[] {dirBin + "pdfcrop", pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir); //$NON-NLS-1$
 			// JAVA7: test pdfFile.toPath().move(pathExportPdf)
 			// the renameto method is weak and fails sometimes.
@@ -561,7 +561,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		psFile.delete();
 
 		if(!pdfFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer) + System.getProperty("line.separator") + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer) + LResources.EOL + log));
 			pdfFile = null;
 		}
 

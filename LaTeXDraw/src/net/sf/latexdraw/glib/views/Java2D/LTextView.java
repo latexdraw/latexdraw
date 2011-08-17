@@ -177,7 +177,7 @@ public class LTextView extends LShapeView<IText> {
 			if(code!=null && !code.isEmpty()) {
 				File tmpDir 			= LFileUtils.INSTANCE.createTempDir();
 				final String doc      	= getLaTeXDocument();
-				pathPic					= tmpDir.getAbsolutePath() + LResources.EOL + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
+				pathPic					= tmpDir.getAbsolutePath() + LResources.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
 				final String pathTex  	= pathPic + TeXFilter.TEX_EXTENSION;
 				final FileOutputStream fos = new FileOutputStream(pathTex);
 				final OutputStreamWriter osw = new OutputStreamWriter(fos);
