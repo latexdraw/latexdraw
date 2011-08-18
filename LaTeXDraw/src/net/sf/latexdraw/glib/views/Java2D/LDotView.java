@@ -239,7 +239,7 @@ public class LDotView extends LShapeView<IDot> {
 		path.reset();
 		path.moveTo(xCenter, tl.getY()+width/10.-dec);
 		path.lineTo(xCenter, br.getY()-width/10.+dec);
-		path.moveTo((Math.cos(Math.PI/6.)*radius+xCenter), radius/2. + yCenter);
+		path.moveTo(Math.cos(Math.PI/6.)*radius+xCenter, radius/2. + yCenter);
 		path.lineTo(Math.cos(7*Math.PI/6.)*radius+xCenter, Math.sin(7*Math.PI/6.)*radius+yCenter);
 		path.moveTo(Math.cos(5*Math.PI/6.)*radius+xCenter, Math.sin(5*Math.PI/6.)*radius+yCenter);
 		path.lineTo(Math.cos(11*Math.PI/6.)*radius+xCenter, Math.sin(11*Math.PI/6.)*radius+yCenter);
@@ -257,7 +257,7 @@ public class LDotView extends LShapeView<IDot> {
 		// This diamond is a golden diamond
 		// cf. http://mathworld.wolfram.com/GoldenRhombus.html
 		final double midY 	= (tl.getY()+br.getY())/2;
-		final double a 		= Math.abs((tl.getX()-br.getX()))/(2.*Math.sin(IShape.GOLDEN_ANGLE));
+		final double a 		= Math.abs(tl.getX()-br.getX())/(2.*Math.sin(IShape.GOLDEN_ANGLE));
 		final double p 		= 2.*a*Math.cos(IShape.GOLDEN_ANGLE);
 		final double x1 	= br.getX()-dec-.5*dec;
 		final double x3 	= tl.getX()+dec+.5*dec;
