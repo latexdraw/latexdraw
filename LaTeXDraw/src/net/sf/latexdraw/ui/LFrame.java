@@ -285,9 +285,9 @@ public class LFrame extends UI {
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { zoomer		= new Zoomer(canvas); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { hand 			= new Hand(canvas, canvas.getMagneticGrid(), zoomer); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { textSetter	= new TextSetter(layeredPanel); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		try { hand 			= new Hand(canvas, canvas.getMagneticGrid(), zoomer, textSetter); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { pencil 		= new Pencil(drawing, zoomer, canvas.getMagneticGrid(), textSetter); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }

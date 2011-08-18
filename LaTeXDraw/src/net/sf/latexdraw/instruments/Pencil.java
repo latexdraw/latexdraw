@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.util.List;
 
 import net.sf.latexdraw.actions.AddShape;
-import net.sf.latexdraw.actions.SetTextSetterPosition;
+import net.sf.latexdraw.actions.InitTextSetter;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
@@ -152,7 +152,7 @@ public class Pencil extends Instrument {
 			links.add(new Press2AddText(this, false));
 			links.add(new DnD2AddShape(this, false));
 			links.add(new MultiClic2AddShape(this, false));
-			links.add(new Press2ActivateTextSetter(this));
+			links.add(new Press2InitTextSetter(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -849,16 +849,19 @@ class Press2AddText extends Link<AddShape, Press, Pencil> {
  * This link maps a press interaction to activate the instrument
  * that allows to add and modify some texts.
  */
-class Press2ActivateTextSetter extends Link<SetTextSetterPosition, Press, Pencil> {
-	protected Press2ActivateTextSetter(final Pencil ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, SetTextSetterPosition.class, Press.class);
+class Press2InitTextSetter extends Link<InitTextSetter, Press, Pencil> {
+	protected Press2InitTextSetter(final Pencil ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, InitTextSetter.class, Press.class);
 	}
 
 	@Override
 	public void initAction() {
-		action.setInstrument(instrument.textSetter);
 		final IPoint adaptedPt = instrument.getAdaptedPoint(interaction.getPoint());
 		final double zoom = instrument.zoomer.zoomable.getZoom();
+
+		action.setText("");
+		action.setTextShape(null);
+		action.setInstrument(instrument.textSetter);
 		action.setTextSetter(instrument.textSetter);
 		action.setAbsolutePoint(DrawingTK.getFactory().createPoint(adaptedPt.getX()*zoom, adaptedPt.getY()*zoom));
 		action.setRelativePoint(adaptedPt);

@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.instruments.TextSetter;
 
 import org.malai.action.library.ActivateInstrument;
@@ -24,9 +25,12 @@ import org.malai.action.library.ActivateInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class SetTextSetterPosition extends ActivateInstrument {
+public class InitTextSetter extends ActivateInstrument {
 	/** The text setter to move. */
 	protected TextSetter setter;
+
+	/** The text to set to the setter. */
+	protected String text;
 
 	/** The position that takes account of the zoom. */
 	protected IPoint relativePoint;
@@ -34,27 +38,39 @@ public class SetTextSetterPosition extends ActivateInstrument {
 	/** The position that does not taks account of the zoom (for the text field). */
 	protected IPoint absolutePoint;
 
-
-	/**
-	 * Creates the action.
-	 */
-	public SetTextSetterPosition() {
-		super();
-
-		relativePoint = null;
-		absolutePoint = null;
-	}
+	/** The text (shape) to modify throw the setter. Can be null. */
+	protected IText textShape;
 
 
 	@Override
 	public void flush() {
 		super.flush();
+		text		  = null;
+		textShape	  = null;
 		setter 		  = null;
 		relativePoint = null;
 		absolutePoint = null;
 	}
 
 
+	/**
+	 * Sets the text shape to modify.
+	 * @param textShape The text (shape) to modify throw the setter. Can be null.
+	 * @since 3.0
+	 */
+	public void setTextShape(final IText textShape) {
+		this.textShape = textShape;
+	}
+
+
+	/**
+	 * Sets the text to display into the text setter.
+	 * @param text The text to set.
+	 * @since 3.0
+	 */
+	public void setText(final String text) {
+		this.text = text;
+	}
 
 	/**
 	 * @param textSetter the textSetter to set.
@@ -91,7 +107,7 @@ public class SetTextSetterPosition extends ActivateInstrument {
 	@Override
 	public boolean canDo() {
 		return super.canDo() && GLibUtilities.INSTANCE.isValidPoint(absolutePoint) &&
-				GLibUtilities.INSTANCE.isValidPoint(relativePoint) && setter!=null;
+				GLibUtilities.INSTANCE.isValidPoint(relativePoint) && setter!=null && (text!=null || textShape!=null);
 	}
 
 
@@ -100,5 +116,7 @@ public class SetTextSetterPosition extends ActivateInstrument {
 		super.doActionBody();
 		setter.getTextField().setLocation((int)absolutePoint.getX(), (int)absolutePoint.getY()-setter.getTextField().getHeight());
 		setter.setRelativePoint(relativePoint);
+		setter.getTextField().setText(text);
+		setter.setText(textShape);
 	}
 }

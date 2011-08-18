@@ -70,6 +70,16 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof IText.TextPosition;
 		}
+	}, TEXT {
+		@Override
+		public String getMessage() {
+			return "text";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof String;
+		}
 	}, HATCHINGS_ANGLE {
 		@Override
 		public String getMessage() {

@@ -62,6 +62,13 @@ public class TextAreaAutoSize extends MTextArea {
 	}
 
 
+	@Override
+	public void setText(final String text) {
+		super.setText(text);
+		updateDimension();
+	}
+
+
 	/**
 	 * Updates the size of the widget according to its text.
 	 */

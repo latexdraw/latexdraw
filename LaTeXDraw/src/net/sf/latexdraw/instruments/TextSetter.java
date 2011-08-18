@@ -4,19 +4,21 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JLayeredPane;
 
-import org.malai.action.library.ActivateInactivateInstruments;
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
-import org.malai.interaction.library.KeyTyped;
-import org.malai.widget.MLayeredPane;
-
 import net.sf.latexdraw.actions.AddShape;
+import net.sf.latexdraw.actions.ModifyShapeProperty;
+import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
+
+import org.malai.action.library.ActivateInactivateInstruments;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.library.KeyTyped;
+import org.malai.widget.MLayeredPane;
 
 /**
  * This instrument allows to add and modify texts to the drawing.<br>
@@ -53,6 +55,9 @@ public class TextSetter extends Instrument {
 	 */
 	protected IPoint relativePoint;
 
+	/** The text to modify throw this instrument. If it is not set, a new text will be created. */
+	protected IText text;
+
 
 	/**
 	 * Creates the instrument.
@@ -66,14 +71,27 @@ public class TextSetter extends Instrument {
 		if(overlayedPanel==null)
 			throw new IllegalArgumentException();
 
+		text			= null;
 		layeredPanel 	= overlayedPanel;
 		textField 		= new TextAreaAutoSize();
 		layeredPanel.add(textField, JLayeredPane.PALETTE_LAYER);
 		textField.setVisible(false);
 
 		initialiseLinks();
-
 		addEventable(textField);
+	}
+
+
+	/**
+	 * Sets the text to modify throw this instrument.
+	 * @param text The text to modify. Can be null (a new text will be created).
+	 * @since 3.0
+	 */
+	public void setText(final IText text) {
+		this.text = text;
+
+		if(text!=null)
+			textField.setText(text.getText());
 	}
 
 
@@ -89,6 +107,7 @@ public class TextSetter extends Instrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
+			links.add(new Enter2SetText(this));
 			links.add(new Enter2AddText(this));
 			links.add(new KeyPress2Desactivate(this));
 		}catch(InstantiationException e){
@@ -114,10 +133,8 @@ public class TextSetter extends Instrument {
 			textField.setVisible(activated);
 		}
 
-		if(activated) {
-			textField.setText(""); //$NON-NLS-1$
+		if(activated)
 			textField.requestFocusInWindow();
-		}
 	}
 
 
@@ -168,6 +185,25 @@ class KeyPress2Desactivate extends Link<ActivateInactivateInstruments, KeyTyped,
 }
 
 
+class Enter2SetText extends Link<ModifyShapeProperty, KeyTyped, TextSetter> {
+	protected Enter2SetText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, ModifyShapeProperty.class, KeyTyped.class);
+	}
+
+	@Override
+	public void initAction() {
+		action.setShape(instrument.text);
+		action.setProperty(ShapeProperties.TEXT);
+		action.setValue(instrument.textField.getText());
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return instrument.text!=null && instrument.textField.getText().length()>0 && interaction.getKey()==KeyEvent.VK_ENTER;
+	}
+}
+
+
 /**
  * This links maps a key press interaction to an action that adds a text to the drawing.
  */
@@ -196,6 +232,6 @@ class Enter2AddText extends Link<AddShape, KeyTyped, TextSetter> {
 
 	@Override
 	public boolean isConditionRespected() {
-		return instrument.textField.getText().length()>0 && interaction.getKey()==KeyEvent.VK_ENTER;
+		return instrument.text==null && instrument.textField.getText().length()>0 && interaction.getKey()==KeyEvent.VK_ENTER;
 	}
 }

@@ -212,6 +212,11 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				oldValue = shape.getArrowStyle(1);
 				shape.setArrowStyle((ArrowStyle)obj, 1);
 				break;
+			case TEXT:
+				final IText textShape = (IText)shape;
+				oldValue = textShape.getText();
+				textShape.setText((String)obj);
+				break;
 		}
 
 		shape.setModified(true);
@@ -271,6 +276,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case ROTATION_ANGLE:	return true;
 				case ARROW1_STYLE:		return shape.isArrowable();
 				case ARROW2_STYLE:		return shape.isArrowable();
+				case TEXT:				return shape instanceof IText;
 			}
 
 		return false;

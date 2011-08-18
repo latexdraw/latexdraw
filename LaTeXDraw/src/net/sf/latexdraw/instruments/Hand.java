@@ -4,20 +4,25 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
-import org.malai.interaction.library.DnD;
-import org.malai.mapping.MappingRegistry;
-
 import net.sf.latexdraw.actions.SelectShapes;
+import net.sf.latexdraw.actions.InitTextSetter;
 import net.sf.latexdraw.actions.TranslateShape;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.views.Java2D.IShapeView;
+import net.sf.latexdraw.glib.views.Java2D.LTextView;
+
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.library.DnD;
+import org.malai.interaction.library.DoubleClick;
+import org.malai.mapping.MappingRegistry;
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -48,6 +53,9 @@ public class Hand extends Instrument {
 	/** The zoomer that is used to give the zoom level to compute coordinates of the created shapes. */
 	protected Zoomer zoomer;
 
+	/** The instrument used to edit texts. */
+	protected TextSetter textSetter;
+
 
 	/**
 	 * Creates the Hand instrument.
@@ -57,15 +65,16 @@ public class Hand extends Instrument {
 	 * @throws IllegalArgumentException If on of the given argument is null.
 	 * @since 3.0
 	 */
-	public Hand(final ICanvas canvas, final LMagneticGrid grid, final Zoomer zoomer) {
+	public Hand(final ICanvas canvas, final LMagneticGrid grid, final Zoomer zoomer, final TextSetter textSetter) {
 		super();
 
-		if(canvas==null || grid==null || zoomer==null)
+		if(canvas==null || grid==null || zoomer==null || textSetter==null)
 			throw new IllegalArgumentException();
 
-		this.zoomer	= zoomer;
-		this.grid	= grid;
-		this.canvas = canvas;
+		this.textSetter = textSetter;
+		this.zoomer		= zoomer;
+		this.grid		= grid;
+		this.canvas 	= canvas;
 		initialiseLinks();
 	}
 
@@ -76,6 +85,7 @@ public class Hand extends Instrument {
 		try{
 			links.add(new DnD2Select(this, true));
 			links.add(new DnD2Translate(this, true));
+			links.add(new DoubleClick2InitTextSetter(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -90,6 +100,33 @@ public class Hand extends Instrument {
 		canvas.setTempUserSelectionBorder(null);
 	}
 }
+
+
+
+class DoubleClick2InitTextSetter extends Link<InitTextSetter, DoubleClick, Hand> {
+	protected DoubleClick2InitTextSetter(final Hand ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, InitTextSetter.class, DoubleClick.class);
+	}
+
+	@Override
+	public void initAction() {
+		final IText text		= ((LTextView)interaction.getTarget()).getShape();
+		final IPoint position 	= text.getPosition();
+		final double zoom 		= instrument.zoomer.zoomable.getZoom();
+
+		action.setTextShape(text);
+		action.setInstrument(instrument.textSetter);
+		action.setTextSetter(instrument.textSetter);
+		action.setAbsolutePoint(DrawingTK.getFactory().createPoint(position.getX()*zoom, position.getY()*zoom));
+		action.setRelativePoint(DrawingTK.getFactory().createPoint(position));
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return interaction.getTarget() instanceof LTextView;
+	}
+}
+
 
 
 /**
