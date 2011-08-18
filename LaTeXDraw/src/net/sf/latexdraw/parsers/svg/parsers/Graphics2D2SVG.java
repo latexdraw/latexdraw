@@ -409,7 +409,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 
 	@Override
-	public void transform(final AffineTransform Tx) {
+	public void transform(final AffineTransform tx) {
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -417,7 +417,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 
 	@Override
-	public void setTransform(final AffineTransform Tx) {
+	public void setTransform(final AffineTransform tx) {
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}

@@ -243,15 +243,15 @@ public class LTextView extends LShapeView<IText> {
 	 * @since 3.0
 	 */
 	public String getLatexErrorMessageFromLog() {
-		final Matcher matcher = Pattern.compile(".*\r?\n").matcher(log); //$NON-NLS-1$
+		final Matcher matcher 		= Pattern.compile(".*\r?\n").matcher(log); //$NON-NLS-1$
+		final StringBuilder errors 	= new StringBuilder();
 		String line;
-		String errors = ""; //$NON-NLS-1$
 
 		while(matcher.find()) {
 			line = matcher.group();
 
 			if(line.startsWith("!")) { //$NON-NLS-1$
-				errors += line.substring(2, line.length());
+				errors.append(line.substring(2, line.length()));
 				boolean ok = true;
 				while(ok && matcher.find()) {
 					line = matcher.group();
@@ -259,12 +259,12 @@ public class LTextView extends LShapeView<IText> {
 					if(line.startsWith("l.")) //$NON-NLS-1$
 						ok = false;
 					else
-						errors += LResources.EOL + line + LResources.EOL;
+						errors.append(LResources.EOL).append(line).append(LResources.EOL);
 				}
 			}
 		}
 
-		return errors;
+		return errors.toString();
 	}
 
 

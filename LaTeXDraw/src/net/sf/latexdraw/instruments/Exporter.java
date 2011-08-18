@@ -351,7 +351,7 @@ public class Exporter extends Instrument {
 	 */
 	public void setDefaultPackages(final String defaultPackages) {
 		if(defaultPackages!=null) {
-			if(this.defaultPackages=="")
+			if(this.defaultPackages.length()==0)
 				LaTeXGenerator.setPackages(defaultPackages +LResources.EOL+LaTeXGenerator.getPackages());
 			this.defaultPackages = defaultPackages;
 		}

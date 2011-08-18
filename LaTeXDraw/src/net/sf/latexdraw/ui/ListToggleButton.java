@@ -503,7 +503,7 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 		public void eventDispatched(final AWTEvent event) {
 	    	// Only if the toolbar is visible and the event is a mouse event.
 	    	if(buttonsFrame.isVisible() && (event.getID()==MouseEvent.MOUSE_PRESSED || event.getID()==MouseEvent.MOUSE_CLICKED) &&
-    		   event.getSource() instanceof Component) {
+    		   event.getSource() instanceof Component && event instanceof MouseEvent) {
 	    		final MouseEvent me 	= (MouseEvent)event;
 	    		final Component comp 	= (Component)me.getSource();
 	    		final Point pt 			= new Point(me.getPoint());

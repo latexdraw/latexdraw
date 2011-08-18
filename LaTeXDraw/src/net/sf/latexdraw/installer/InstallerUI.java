@@ -650,7 +650,7 @@ public final class InstallerUI extends JFrame implements Runnable {
 
         final FileInputStream sourceFile;
         final FileOutputStream destinationFile;
-        boolean ok = false;
+        boolean ok;
 
 	    try {
 	    	ok 			= destination.createNewFile();
