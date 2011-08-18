@@ -1,13 +1,13 @@
 package net.sf.latexdraw.actions;
 
-import org.malai.action.Action;
-
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.instruments.TextSetter;
 
+import org.malai.action.library.ActivateInstrument;
+
 /**
- * This action moves the text setter to a given position.<br>
+ * This action activates and moves the text setter to a given position.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -24,7 +24,7 @@ import net.sf.latexdraw.instruments.TextSetter;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class SetTextSetterPosition extends Action {
+public class SetTextSetterPosition extends ActivateInstrument {
 	/** The text setter to move. */
 	protected TextSetter setter;
 
@@ -90,12 +90,14 @@ public class SetTextSetterPosition extends Action {
 
 	@Override
 	public boolean canDo() {
-		return GLibUtilities.INSTANCE.isValidPoint(absolutePoint) && GLibUtilities.INSTANCE.isValidPoint(relativePoint) && setter!=null;
+		return super.canDo() && GLibUtilities.INSTANCE.isValidPoint(absolutePoint) &&
+				GLibUtilities.INSTANCE.isValidPoint(relativePoint) && setter!=null;
 	}
 
 
 	@Override
 	protected void doActionBody() {
+		super.doActionBody();
 		setter.getTextField().setLocation((int)absolutePoint.getX(), (int)absolutePoint.getY()-setter.getTextField().getHeight());
 		setter.setRelativePoint(relativePoint);
 	}

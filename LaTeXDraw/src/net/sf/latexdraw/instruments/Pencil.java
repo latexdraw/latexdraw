@@ -4,15 +4,6 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.List;
 
-import org.malai.action.library.ActivateInstrument;
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
-import org.malai.interaction.Interaction;
-import org.malai.interaction.library.AbortableDnD;
-import org.malai.interaction.library.MultiClick;
-import org.malai.interaction.library.Press;
-import org.malai.stateMachine.MustAbortStateMachineException;
-
 import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.SetTextSetterPosition;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -35,6 +26,14 @@ import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
+
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.Interaction;
+import org.malai.interaction.library.AbortableDnD;
+import org.malai.interaction.library.MultiClick;
+import org.malai.interaction.library.Press;
+import org.malai.stateMachine.MustAbortStateMachineException;
 
 /**
  * This instrument allows to draw shapes.<br>
@@ -153,8 +152,7 @@ public class Pencil extends Instrument {
 			links.add(new Press2AddText(this, false));
 			links.add(new DnD2AddShape(this, false));
 			links.add(new MultiClic2AddShape(this, false));
-			links.add(new Press2ActivateTextSetter(this, false));
-			links.add(new Press2LocateTextSetter(this, false));
+			links.add(new Press2ActivateTextSetter(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -848,47 +846,22 @@ class Press2AddText extends Link<AddShape, Press, Pencil> {
 
 
 /**
- * This link maps a press interaction to move the text setter text field.
- */
-class Press2LocateTextSetter extends Link<SetTextSetterPosition, Press, Pencil> {
-	/**
-	 * Creates the link.
-	 */
-	public Press2LocateTextSetter(final Pencil ins, final boolean exec) throws InstantiationException, IllegalAccessException {
-		super(ins, exec, SetTextSetterPosition.class, Press.class);
-	}
-
-	@Override
-	public void initAction() {
-		final IPoint adaptedPt = instrument.getAdaptedPoint(interaction.getPoint());
-		final double zoom = instrument.zoomer.zoomable.getZoom();
-		action.setTextSetter(instrument.textSetter);
-		action.setAbsolutePoint(DrawingTK.getFactory().createPoint(adaptedPt.getX()*zoom, adaptedPt.getY()*zoom));
-		action.setRelativePoint(adaptedPt);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return instrument.currentChoice==EditionChoice.TEXT;
-	}
-}
-
-
-/**
  * This link maps a press interaction to activate the instrument
  * that allows to add and modify some texts.
  */
-class Press2ActivateTextSetter extends Link<ActivateInstrument, Press, Pencil> {
-	/**
-	 * Creates the link.
-	 */
-	public Press2ActivateTextSetter(final Pencil ins, final boolean exec) throws InstantiationException, IllegalAccessException {
-		super(ins, exec, ActivateInstrument.class, Press.class);
+class Press2ActivateTextSetter extends Link<SetTextSetterPosition, Press, Pencil> {
+	protected Press2ActivateTextSetter(final Pencil ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, SetTextSetterPosition.class, Press.class);
 	}
 
 	@Override
 	public void initAction() {
 		action.setInstrument(instrument.textSetter);
+		final IPoint adaptedPt = instrument.getAdaptedPoint(interaction.getPoint());
+		final double zoom = instrument.zoomer.zoomable.getZoom();
+		action.setTextSetter(instrument.textSetter);
+		action.setAbsolutePoint(DrawingTK.getFactory().createPoint(adaptedPt.getX()*zoom, adaptedPt.getY()*zoom));
+		action.setRelativePoint(adaptedPt);
 	}
 
 	@Override
