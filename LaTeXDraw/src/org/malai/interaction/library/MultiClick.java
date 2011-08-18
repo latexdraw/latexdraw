@@ -1,7 +1,6 @@
 package org.malai.interaction.library;
 
 import java.awt.Point;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +8,10 @@ import java.util.List;
 import org.malai.interaction.AbortingState;
 import org.malai.interaction.Interaction;
 import org.malai.interaction.IntermediaryState;
-import org.malai.interaction.KeyPressureTransition;
 import org.malai.interaction.MoveTransition;
 import org.malai.interaction.PressureTransition;
 import org.malai.interaction.ReleaseTransition;
 import org.malai.interaction.TerminalState;
-
 
 /**
  * This interaction allows to performed several clicks using button 1. If a click
@@ -128,12 +125,7 @@ public class MultiClick extends Interaction {
 			}
 		};
 
-		new KeyPressureTransition(pressed, aborted) {
-			@Override
-			public boolean isGuardRespected() {
-				return key==KeyEvent.VK_ESCAPE;
-			}
-		};
+		new EscapeKeyPressureTransition(pressed, aborted);
 
 		new MoveTransition(released, released) {
 			@Override
@@ -147,13 +139,7 @@ public class MultiClick extends Interaction {
 			}
 		};
 
-
-		new KeyPressureTransition(released, aborted) {
-			@Override
-			public boolean isGuardRespected() {
-				return key==KeyEvent.VK_ESCAPE;
-			}
-		};
+		new EscapeKeyPressureTransition(released, aborted);
 
 		new PressureTransition(released, ended) {
 			@Override

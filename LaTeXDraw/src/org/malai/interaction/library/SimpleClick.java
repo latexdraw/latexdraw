@@ -1,14 +1,10 @@
 package org.malai.interaction.library;
 
-import java.awt.event.KeyEvent;
-
 import org.malai.interaction.AbortingState;
 import org.malai.interaction.IntermediaryState;
-import org.malai.interaction.KeyPressureTransition;
 import org.malai.interaction.MoveTransition;
 import org.malai.interaction.ReleaseTransition;
 import org.malai.interaction.TerminalState;
-
 
 /**
  * This interaction defines a simple click. The interaction is aborted if the user move the pointing
@@ -58,11 +54,6 @@ public class SimpleClick extends PointInteraction {
 			}
 		};
 		new MoveTransition(pressed, aborted);
-		new KeyPressureTransition(pressed, aborted) {
-			@Override
-			public boolean isGuardRespected() {
-				return this.key==KeyEvent.VK_ESCAPE;
-			}
-		};
+		new EscapeKeyPressureTransition(pressed, aborted);
 	}
 }

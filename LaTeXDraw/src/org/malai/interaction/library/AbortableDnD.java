@@ -1,13 +1,10 @@
 package org.malai.interaction.library;
 
-import java.awt.event.KeyEvent;
 import java.util.List;
 
 import org.malai.interaction.AbortingState;
-import org.malai.interaction.KeyPressureTransition;
 import org.malai.interaction.ReleaseTransition;
 import org.malai.stateMachine.ITransition;
-
 
 /**
  * This interaction defines a drag-and-drop which can be aborted.
@@ -44,19 +41,8 @@ public class AbortableDnD extends DnD {
 		AbortingState aborted = new AbortingState("aborted"); //$NON-NLS-1$
 		addState(aborted);
 
-		new KeyPressureTransition(pressed, aborted) {
-			@Override
-			public boolean isGuardRespected() {
-				return key==KeyEvent.VK_ESCAPE;
-			}
-		};
-
-		new KeyPressureTransition(dragged, aborted) {
-			@Override
-			public boolean isGuardRespected() {
-				return key==KeyEvent.VK_ESCAPE;
-			}
-		};
+		new EscapeKeyPressureTransition(pressed, aborted);
+		new EscapeKeyPressureTransition(dragged, aborted);
 
 		List<ITransition> ts = pressed.getTransitions();
 		boolean ok = false;
