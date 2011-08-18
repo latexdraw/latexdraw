@@ -203,7 +203,6 @@ class List2PencilDotStyle extends ListForCustomiser<ModifyPencilParameter, Shape
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		action.setPencil(instrument.pencil);
 		action.setProperty(ShapeProperties.DOT_STYLE);
 		action.setValue(DotStyle.getStyle(getLabelText()));
@@ -227,7 +226,6 @@ class List2SelectionDotStyle extends ListForCustomiser<ModifyShapeProperty, Shap
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		action.setShape(instrument.drawing.getSelection().duplicate());
 		action.setProperty(ShapeProperties.DOT_STYLE);
 		action.setValue(DotStyle.getStyle(getLabelText()));
@@ -252,7 +250,6 @@ class Spinner2SelectionDotSize extends SpinnerForCustomiser<ModifyShapeProperty,
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		action.setProperty(ShapeProperties.DOT_SIZE);
 		action.setShape(instrument.drawing.getSelection().duplicate());
 	}
@@ -274,7 +271,6 @@ class Spinner2PencilDotSize extends SpinnerForCustomiser<ModifyPencilParameter, 
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		action.setProperty(ShapeProperties.DOT_SIZE);
 		action.setPencil(instrument.pencil);
 	}

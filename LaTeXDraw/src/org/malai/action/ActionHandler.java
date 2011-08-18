@@ -1,5 +1,7 @@
 package org.malai.action;
 
+import org.malai.undo.UndoHandler;
+
 /**
  * This interface allows to create a bridge between an action and an
  * object that want to be aware about events on actions (such as creation or
@@ -18,25 +20,32 @@ package org.malai.action;
  * @author Arnaud Blouin
  * @since 0.1
  */
-public interface ActionHandler {
-	/** Corresponds to events that happen to actions. */
-	enum ActionEvent {
-		EVT_CANCEL, EVT_ADD, EVT_ABORT;
-	}
-
-
+public interface ActionHandler extends UndoHandler {
 	/**
-	 * This method is called when an event on action occurred.
-	 * @param action The concerned action.
-	 * @param evt The kind of event.
-	 * @since 0.1
+	 * Notifies the handler when the given action is cancelled.
+	 * @param action The cancelled action.
+	 * @since 0.2
 	 */
-	void onAction(final Action action, final ActionEvent evt);
+	void onActionCancelled(final Action action);
 
 	/**
-	 * Called when an action is executed.
+	 * Notifies the handler when the given action is added to the registry.
+	 * @param action The added action.
+	 * @since 0.2
+	 */
+	void onActionAdded(final Action action);
+
+	/**
+	 * Notifies the handler when the given action is aborted.
+	 * @param action The aborted action.
+	 * @since 0.2
+	 */
+	void onActionAborted(final Action action);
+
+	/**
+	 * Notifies the handler when the given action is executed.
 	 * @param action The executed action.
-	 * @since 0.5
+	 * @since 0.2
 	 */
 	void onActionExecuted(final Action action);
 }

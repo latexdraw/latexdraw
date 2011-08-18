@@ -9,10 +9,8 @@ import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
 import org.malai.interaction.library.ButtonPressed;
 import org.malai.undo.UndoCollector;
-import org.malai.undo.UndoHandler;
 import org.malai.undo.Undoable;
 import org.malai.widget.MButton;
-
 
 /**
  * This instrument allows to undo and redo saved actions.<br>
@@ -33,7 +31,7 @@ import org.malai.widget.MButton;
  * @since 0.1
  * @version 0.2
  */
-public class UndoRedoManager extends Instrument implements UndoHandler {
+public class UndoRedoManager extends Instrument {
 	/** The button used to undo actions. */
 	protected MButton undoB;
 

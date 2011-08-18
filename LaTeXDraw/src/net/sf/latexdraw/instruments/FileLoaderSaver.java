@@ -31,7 +31,6 @@ import org.malai.widget.MMenuItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
 /**
  * This instrument saves and loads documents.<br>
  * <br>
@@ -272,9 +271,7 @@ public class FileLoaderSaver extends Instrument {
 
 
 	@Override
-	public void onActionDone(final Link<?, ?, ?> link, final Action action) {
-		super.onActionDone(link, action);
-
+	public void onActionExecuted(final Action action) {
 		statusBar.setText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.191")); //$NON-NLS-1$
 	}
 

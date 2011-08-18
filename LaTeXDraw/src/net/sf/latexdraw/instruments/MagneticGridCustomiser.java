@@ -9,6 +9,7 @@ import org.malai.instrument.library.WidgetContainerInstrument;
 import org.malai.interaction.library.CheckBoxModified;
 import org.malai.interaction.library.ListSelectionModified;
 import org.malai.interaction.library.SpinnerModified;
+import org.malai.undo.Undoable;
 import org.malai.widget.MCheckBox;
 import org.malai.widget.MComboBox;
 import org.malai.widget.MSpinner;
@@ -94,10 +95,29 @@ public class MagneticGridCustomiser extends WidgetContainerInstrument {
 
 
 	@Override
+	public void onUndoableUndo(final Undoable undoable) {
+		super.onUndoableUndo(undoable);
+		update();
+	}
+
+
+	@Override
+	public void onUndoableRedo(final Undoable undoable) {
+		super.onUndoableRedo(undoable);
+		update();
+	}
+
+
+	@Override
 	public void interimFeedback() {
 		super.interimFeedback();
-		final GridStyle style 	= grid.getStyle();
-		final boolean visible	= style!=GridStyle.NONE;
+		update();
+	}
+
+
+	protected void update() {
+		final GridStyle style = grid.getStyle();
+		final boolean visible = style!=GridStyle.NONE;
 
 		gridSpacing.setVisible(visible && style==GridStyle.CUSTOMISED);
 		magneticCB.setVisible(visible);
@@ -192,7 +212,7 @@ class Spinner2GridSpacing extends Link<ModifyMagneticGrid, SpinnerModified, Magn
 	 * @since 3.0
 	 */
 	public Spinner2GridSpacing(final MagneticGridCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, true, ModifyMagneticGrid.class, SpinnerModified.class);
+		super(ins, false, ModifyMagneticGrid.class, SpinnerModified.class);
 	}
 
 	@Override

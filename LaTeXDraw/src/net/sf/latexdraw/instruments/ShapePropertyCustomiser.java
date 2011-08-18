@@ -5,6 +5,11 @@ import java.awt.ItemSelectable;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 
+import net.sf.latexdraw.actions.ShapePropertyAction;
+import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
+
+import org.malai.action.Action;
 import org.malai.instrument.Link;
 import org.malai.instrument.library.WidgetContainerInstrument;
 import org.malai.interaction.library.ButtonPressed;
@@ -12,11 +17,8 @@ import org.malai.interaction.library.CheckBoxModified;
 import org.malai.interaction.library.ListSelectionModified;
 import org.malai.interaction.library.SpinnerModified;
 import org.malai.mapping.MappingRegistry;
+import org.malai.undo.Undoable;
 import org.malai.widget.MColorButton;
-
-import net.sf.latexdraw.actions.ShapePropertyAction;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
  * This abstract instrument defines the base definition of instruments that customise
@@ -78,6 +80,22 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 	 * @since 3.0
 	 */
 	protected abstract void initWidgets();
+
+
+	@Override
+	public void onActionExecuted(final Action action) {
+		update();
+	}
+
+	@Override
+	public void onUndoableUndo(final Undoable undoable) {
+		update();
+	}
+
+	@Override
+	public void onUndoableRedo(final Undoable undoable) {
+		update();
+	}
 
 
 	/**
@@ -155,11 +173,6 @@ abstract class ListForCustomiser<A extends ShapePropertyAction, N extends ShapeP
 
 		return selection.length!=1 && ! (selection[0] instanceof JLabel) ? null : ((JLabel)selection[0]).getText();
 	}
-
-	@Override
-	public void initAction() {
-		action.setShapePropertyCustomiser(instrument);
-	}
 }
 
 
@@ -178,8 +191,6 @@ abstract class ColourButtonForCustomiser<A extends ShapePropertyAction, N extend
 	@Override
 	public void initAction() {
 		final MColorButton button = (MColorButton)interaction.getButton();
-
-		action.setShapePropertyCustomiser(instrument);
 		action.setValue(JColorChooser.showDialog(button, "", button.getColor())); //$NON-NLS-1$
 	}
 }
@@ -200,7 +211,6 @@ abstract class CheckBoxForCustomiser<A extends ShapePropertyAction, N extends Sh
 
 	@Override
 	public void initAction() {
-		action.setShapePropertyCustomiser(instrument);
 		action.setValue(interaction.getCheckBox().isSelected());
 	}
 }
@@ -216,12 +226,6 @@ abstract class ButtonPressedForCustomiser<A extends ShapePropertyAction, N exten
 	public ButtonPressedForCustomiser(final N ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, clazzAction, ButtonPressed.class);
 	}
-
-
-	@Override
-	public void initAction() {
-		action.setShapePropertyCustomiser(instrument);
-	}
 }
 
 
@@ -236,13 +240,6 @@ abstract class SpinnerForCustomiser<A extends ShapePropertyAction, N extends Sha
 	public SpinnerForCustomiser(final N ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, clazzAction, SpinnerModified.class);
 	}
-
-
-	@Override
-	public void initAction() {
-		action.setShapePropertyCustomiser(instrument);
-	}
-
 
 	@Override
 	public void updateAction() {

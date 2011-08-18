@@ -11,7 +11,6 @@ import org.malai.action.ActionHandler;
 import org.malai.action.ActionsRegistry;
 import org.malai.presentation.ConcretePresentation;
 import org.malai.undo.UndoCollector;
-import org.malai.undo.UndoHandler;
 import org.malai.undo.Undoable;
 import org.malai.widget.MEditorPane;
 import org.malai.widget.MPanel;
@@ -37,7 +36,7 @@ import org.w3c.dom.Element;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LCodePanel extends MPanel implements ConcretePresentation, ActionHandler, UndoHandler {
+public class LCodePanel extends MPanel implements ConcretePresentation, ActionHandler {
 	private static final long serialVersionUID = 1L;
 
 	/** The editor that contains the code. */
@@ -79,25 +78,6 @@ public class LCodePanel extends MPanel implements ConcretePresentation, ActionHa
 		super.setVisible(show);
 		//TODO (des-)activate its instruments.
 	}
-
-
-
-	@Override
-	public void onAction(final Action action, final ActionEvent evt) {
-		if(action!=null) {
-			//TODO only updates the modified shape(s) for some actions.
-			pstGenerator.updateFull();
-			editorPane.setText(pstGenerator.getCache().toString());
-		}
-	}
-
-
-
-	@Override
-	public void onActionExecuted(final Action action) {
-		// Nothing to do.
-	}
-
 
 
 	@Override
@@ -167,5 +147,30 @@ public class LCodePanel extends MPanel implements ConcretePresentation, ActionHa
 	@Override
 	public void reinit() {
 		update();
+	}
+
+
+	@Override
+	public void onActionCancelled(final Action action) {
+		// Nothing to do.
+	}
+
+	@Override
+	public void onActionAdded(final Action action) {
+		// Nothing to do.
+	}
+
+	@Override
+	public void onActionAborted(final Action action) {
+		// Nothing to do.
+	}
+
+	@Override
+	public void onActionExecuted(final Action action) {
+		if(action!=null) {
+			//TODO only updates the modified shape(s) for some actions.
+			pstGenerator.updateFull();
+			editorPane.setText(pstGenerator.getCache().toString());
+		}
 	}
 }

@@ -327,9 +327,7 @@ public class Exporter extends Instrument {
 
 
 	@Override
-	public void onActionDone(final Link<?,?,?> link, final Action action) {
-		super.onActionDone(link, action);
-
+	public void onActionExecuted(final Action action) {
 		statusBar.setText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.184")); //$NON-NLS-1$
 	}
 

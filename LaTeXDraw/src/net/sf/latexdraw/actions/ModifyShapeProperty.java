@@ -215,7 +215,6 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 		}
 
 		shape.setModified(true);
-		customiser.update();
 	}
 
 

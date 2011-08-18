@@ -182,8 +182,5 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 				pencil.setArrowRightStyle((ArrowStyle)value);
 				break;
 		}
-
-		// Update of the pencil.
-		customiser.update();
 	}
 }

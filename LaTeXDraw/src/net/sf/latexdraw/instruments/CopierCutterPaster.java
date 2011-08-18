@@ -2,16 +2,6 @@ package net.sf.latexdraw.instruments;
 
 import java.awt.event.KeyEvent;
 
-import org.malai.action.Action;
-import org.malai.action.ActionHandler;
-import org.malai.action.ActionsRegistry;
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
-import org.malai.interaction.Interaction;
-import org.malai.interaction.library.KeysPressure;
-import org.malai.interaction.library.MenuItemPressed;
-import org.malai.widget.MMenuItem;
-
 import net.sf.latexdraw.actions.CopyShapes;
 import net.sf.latexdraw.actions.CutShapes;
 import net.sf.latexdraw.actions.PasteShapes;
@@ -19,6 +9,15 @@ import net.sf.latexdraw.actions.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.action.Action;
+import org.malai.action.ActionsRegistry;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.Interaction;
+import org.malai.interaction.library.KeysPressure;
+import org.malai.interaction.library.MenuItemPressed;
+import org.malai.widget.MMenuItem;
 
 /**
  * This instrument permits to copy, cut and paste the selected shapes.<br>
@@ -38,7 +37,7 @@ import net.sf.latexdraw.util.LResources;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class CopierCutterPaster extends Instrument implements ActionHandler {
+public class CopierCutterPaster extends Instrument {
 	/** The menu item to copy the shapes. */
 	protected MMenuItem copyMenu;
 
@@ -130,12 +129,6 @@ public class CopierCutterPaster extends Instrument implements ActionHandler {
 	 */
 	public MMenuItem getCutMenu() {
 		return cutMenu;
-	}
-
-
-	@Override
-	public void onAction(final Action action, final ActionEvent evt) {
-		//
 	}
 
 

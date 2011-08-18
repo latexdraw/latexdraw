@@ -2,8 +2,6 @@ package net.sf.latexdraw.actions;
 
 import org.malai.action.library.ModifyValue;
 
-import net.sf.latexdraw.instruments.ShapePropertyCustomiser;
-
 /**
  * This action modifies a shape property of an object.<br>
  * <br>
@@ -23,9 +21,6 @@ import net.sf.latexdraw.instruments.ShapePropertyCustomiser;
  * @since 3.0
  */
 public abstract class ShapePropertyAction extends ModifyValue {
-	/** The instrument to update when the pencil is modified. */
-	protected ShapePropertyCustomiser customiser;
-
 	/** The property to set. */
 	protected ShapeProperties property;
 
@@ -42,14 +37,13 @@ public abstract class ShapePropertyAction extends ModifyValue {
 	@Override
 	public void flush() {
 		super.flush();
-		customiser 	= null;
-		property	= null;
+		property = null;
 	}
 
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && customiser!=null;
+		return super.canDo();
 	}
 
 
@@ -65,16 +59,6 @@ public abstract class ShapePropertyAction extends ModifyValue {
 	 */
 	protected boolean isPropertySupported() {
 		return property!=null;
-	}
-
-
-	/**
-	 * Defines the pencil customiser to update.
-	 * @param customiser The instrument to update.
-	 * @since 3.0
-	 */
-	public void setShapePropertyCustomiser(final ShapePropertyCustomiser customiser) {
-		this.customiser = customiser;
 	}
 
 

@@ -334,7 +334,6 @@ class List2PencilFilling extends ListForCustomiser<ModifyPencilParameter, ShapeF
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		action.setPencil(instrument.pencil);
 		action.setProperty(ShapeProperties.FILLING_STYLE);
 		action.setValue(FillingStyle.getStyle(getLabelText()));
@@ -362,7 +361,6 @@ class List2SelectionFilling extends ListForCustomiser<ModifyShapeProperty, Shape
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		action.setShape(instrument.drawing.getSelection().duplicate());
 		action.setProperty(ShapeProperties.FILLING_STYLE);
 		action.setValue(FillingStyle.getStyle(getLabelText()));
@@ -470,7 +468,6 @@ class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty,
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		action.setShape(instrument.drawing.getSelection().duplicate());
 		setProperty(interaction.getSpinner(), instrument, action);
 	}
@@ -527,7 +524,6 @@ class Spinner2PencilFilling extends SpinnerForCustomiser<ModifyPencilParameter, 
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		action.setPencil(instrument.pencil);
 		Spinner2SelectionFilling.setProperty(interaction.getSpinner(), instrument, action);
 	}

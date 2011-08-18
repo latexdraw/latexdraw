@@ -263,8 +263,6 @@ class List2PencilArrowStyle extends ListForCustomiser<ModifyPencilParameter, Sha
 
 	@Override
 	public void initAction() {
-		super.initAction();
-
 		if(getInteraction().getList()==instrument.arrowLeftCB)
 			action.setProperty(ShapeProperties.ARROW1_STYLE);
 		else
@@ -296,8 +294,6 @@ class List2ShapeArrowStyle extends ListForCustomiser<ModifyShapeProperty, ShapeA
 
 	@Override
 	public void initAction() {
-		super.initAction();
-
 		if(getInteraction().getList()==instrument.arrowLeftCB)
 			action.setProperty(ShapeProperties.ARROW1_STYLE);
 		else

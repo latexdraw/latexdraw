@@ -27,12 +27,12 @@ import org.malai.mapping.ISingleton;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.properties.Zoomable;
+import org.malai.undo.Undoable;
 import org.malai.widget.MPanel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 
 /**
  * Defines a canvas that draw the drawing and manages the selected shapes.<br>
@@ -353,21 +353,6 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 
-
-	@Override
-	public void onAction(final Action action, final ActionEvent evt) {
-		update();
-	}
-
-
-
-	@Override
-	public void onActionExecuted(final Action action) {
-		update();
-	}
-
-
-
 	@Override
 	public IPoint getTopRightDrawingPoint() {
 		return DrawingTK.getFactory().createPoint(border.getMaxX(), border.getMinY());
@@ -549,5 +534,41 @@ public class LCanvas extends MPanel implements ICanvas {
 	public void setModified(final boolean modified) {
 		this.modified = modified;
 		magneticGrid.setModified(modified);
+	}
+
+
+	@Override
+	public void onActionCancelled(final Action action) {
+		// Nothing to do.
+	}
+
+	@Override
+	public void onActionAdded(final Action action) {
+		// Nothing to do.
+	}
+
+	@Override
+	public void onActionAborted(final Action action) {
+		// Nothing to do.
+	}
+
+	@Override
+	public void onActionExecuted(final Action action) {
+		update();
+	}
+
+	@Override
+	public void onUndoableAdded(final Undoable undoable) {
+		// Nothing to do.
+	}
+
+	@Override
+	public void onUndoableUndo(final Undoable undoable) {
+		// Nothing to do.
+	}
+
+	@Override
+	public void onUndoableRedo(final Undoable undoable) {
+		// Nothing to do.
 	}
 }

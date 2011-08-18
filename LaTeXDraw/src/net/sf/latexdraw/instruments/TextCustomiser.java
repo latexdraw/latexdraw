@@ -270,7 +270,6 @@ class ButtonPressed2ChangePencil extends ButtonPressedForCustomiser<ModifyPencil
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		final AbstractButton ab = interaction.getButton();
 
 		action.setProperty(ShapeProperties.TEXT_POSITION);
@@ -306,7 +305,6 @@ class ButtonPressed2ChangeTextPosition extends ButtonPressedForCustomiser<Modify
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		final AbstractButton ab = interaction.getButton();
 
 		action.setShape(instrument.drawing.getSelection().duplicate());

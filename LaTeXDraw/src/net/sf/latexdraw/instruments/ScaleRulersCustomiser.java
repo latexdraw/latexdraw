@@ -5,6 +5,7 @@ import javax.swing.JMenuItem;
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
 import org.malai.interaction.library.MenuItemPressed;
+import org.malai.undo.Undoable;
 import org.malai.widget.MCheckBoxMenuItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -98,6 +99,25 @@ public class ScaleRulersCustomiser extends Instrument {
 
 	@Override
 	public void interimFeedback() {
+		update();
+	}
+
+
+	@Override
+	public void onUndoableUndo(final Undoable undoable) {
+		super.onUndoableUndo(undoable);
+		update();
+	}
+
+
+	@Override
+	public void onUndoableRedo(final Undoable undoable) {
+		super.onUndoableRedo(undoable);
+		update();
+	}
+
+
+	protected void update() {
 		unitCmItem.setSelected(ScaleRuler.getUnit()==Unit.CM);
 		unitInchItem.setSelected(!unitCmItem.isSelected());
 	}

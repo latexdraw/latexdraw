@@ -27,14 +27,19 @@ public final class UndoCollector {
 	/** The label display when there is no redo possible */
 	public static final String EMPTY_REDO = "redo";
 
-	/** The label display when there is no undo action */
+	/** The label display when there is no undo possible */
 	public static final String EMPTY_UNDO = "undo";
 
+	/** Contains the handlers of each undoable of the undo stack */
+	private Stack<UndoHandler> undoHandlers;
 
-	/** Contains the undoable actions. */
+	/** Contains the handlers of each undoable of the redo stack */
+	private Stack<UndoHandler> redoHandlers;
+
+	/** Contains the undoable objects. */
 	private Stack<Undoable> undo;
 
-	/** Contains the redoable actions. */
+	/** Contains the redoable objects. */
 	private Stack<Undoable> redo;
 
 	/** The maximal number of undo. */
@@ -54,6 +59,8 @@ public final class UndoCollector {
 		handlers = new ArrayList<UndoHandler>();
 		undo 	 = new Stack<Undoable>();
 		redo 	 = new Stack<Undoable>();
+		undoHandlers = new Stack<UndoHandler>();
+		redoHandlers = new Stack<UndoHandler>();
 		sizeMax  = 30;
 	}
 
@@ -81,25 +88,32 @@ public final class UndoCollector {
 
 
 	/**
-	 * Removes all the actions of the collector.
+	 * Removes all the undoable objects of the collector.
 	 */
 	public void clear() {
 		undo.clear();
 		redo.clear();
+		undoHandlers.clear();
+		redoHandlers.clear();
 	}
 
 
 	/**
 	 * Adds an undoable object to the collector.
 	 * @param undoable The undoable object to add.
+	 * @param undoHandler The handler that produced or is associated to the undoable object.
 	 */
-	public void add(final Undoable undoable) {
+	public void add(final Undoable undoable, final UndoHandler undoHandler) {
 		if(undoable!=null && sizeMax>0) {
-			if(undo.size()==sizeMax)
+			if(undo.size()==sizeMax) {
 				undo.remove(0);
+				undoHandlers.remove(0);
+			}
 
 			undo.push(undoable);
-			redo.clear(); /* The redoable actions must be removed. */
+			undoHandlers.push(undoHandler);
+			redo.clear(); /* The redoable objects must be removed. */
+			redoHandlers.clear();
 
 			for(UndoHandler handler : handlers)
 				handler.onUndoableAdded(undoable);
@@ -108,13 +122,17 @@ public final class UndoCollector {
 
 
 	/**
-	 * Undoes the last action.
+	 * Undoes the last undoable object.
 	 */
 	public void undo() {
 		if(!undo.isEmpty()) {
-			final Undoable undoable = undo.pop();
+			final Undoable undoable 		= undo.pop();
+			final UndoHandler undoHandler 	= undoHandlers.pop();
+
 			undoable.undo();
 			redo.push(undoable);
+			redoHandlers.push(undoHandler);
+			undoHandler.onUndoableUndo(undoable);
 
 			for(UndoHandler handler : handlers)
 				handler.onUndoableUndo(undoable);
@@ -123,22 +141,26 @@ public final class UndoCollector {
 
 
 	/**
-	 * Redoes the last action.
+	 * Redoes the last undoable object.
 	 */
 	public void redo() {
 		if(!redo.isEmpty()) {
-			final Undoable action = redo.pop();
-			action.redo();
-			undo.push(action);
+			final Undoable undoable 		= redo.pop();
+			final UndoHandler redoHandler 	= redoHandlers.pop();
+
+			undoable.redo();
+			undo.push(undoable);
+			undoHandlers.push(redoHandler);
+			redoHandler.onUndoableRedo(undoable);
 
 			for(UndoHandler handler : handlers)
-				handler.onUndoableRedo(action);
+				handler.onUndoableRedo(undoable);
 		}
 	}
 
 
 	/**
-	 * @return The last undoable action name.
+	 * @return The last undoable object name.
 	 */
 	public String getLastUndoMessage() {
 		return undo.isEmpty() ? null : undo.peek().getUndoName();
@@ -146,7 +168,7 @@ public final class UndoCollector {
 
 
 	/**
-	 * @return The last redoable action name.
+	 * @return The last redoable object name.
 	 */
 	public String getLastRedoMessage() {
 		return redo.isEmpty() ? null : redo.peek().getUndoName();
@@ -154,7 +176,7 @@ public final class UndoCollector {
 
 
 	/**
-	 * @return The last undoable action.
+	 * @return The last undoable object.
 	 */
 	public Undoable getLastUndo() {
 		return undo.isEmpty() ? null : undo.peek();
@@ -162,7 +184,7 @@ public final class UndoCollector {
 
 
 	/**
-	 * @return The last redoable action.
+	 * @return The last redoable object.
 	 */
 	public Undoable getLastRedo() {
 		return redo.isEmpty() ? null : redo.peek();
@@ -182,8 +204,10 @@ public final class UndoCollector {
 	 */
 	public void setSizeMax(final int max) {
 		if(max>=0) {
-			for(int i=0, nb=undo.size()-max; i<nb; i++)
+			for(int i=0, nb=undo.size()-max; i<nb; i++) {
 				undo.remove(0);
+				undoHandlers.remove(0);
+			}
 			this.sizeMax = max;
 		}
 	}
@@ -191,7 +215,7 @@ public final class UndoCollector {
 
 	/**
 	 * @return The stack of saved undoable objects.
-	 * @since 3.0
+	 * @since 0.1
 	 */
 	public Stack<Undoable> getUndo() {
 		return undo;
@@ -200,7 +224,7 @@ public final class UndoCollector {
 
 	/**
 	 * @return The stack of saved redoable objects
-	 * @since 3.0
+	 * @since 0.1
 	 */
 	public Stack<Undoable> getRedo() {
 		return redo;

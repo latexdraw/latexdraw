@@ -278,8 +278,6 @@ class List2SelectionBorder extends ListForCustomiser<ModifyShapeProperty, ShapeB
 
 	@Override
 	public void initAction() {
-		super.initAction();
-
 		final ItemSelectable is	= interaction.getList();
 		action.setShape(instrument.drawing.getSelection().duplicate());
 
@@ -308,8 +306,6 @@ class List2PencilBorder extends ListForCustomiser<ModifyPencilParameter, ShapeBo
 
 	@Override
 	public void initAction() {
-		super.initAction();
-
 		final ItemSelectable is	= interaction.getList();
 		action.setPencil(instrument.pencil);
 
@@ -344,8 +340,6 @@ class Spinner2SelectionBorder extends SpinnerForCustomiser<ModifyShapeProperty, 
 
 	@Override
 	public void initAction() {
-		super.initAction();
-
 		final JSpinner spinner = interaction.getSpinner();
 
 		if(spinner==instrument.thicknessField)
@@ -378,8 +372,6 @@ class Spinner2PencilBorder extends SpinnerForCustomiser<ModifyPencilParameter, S
 
 	@Override
 	public void initAction() {
-		super.initAction();
-
 		final JSpinner spinner = interaction.getSpinner();
 
 		if(spinner==instrument.thicknessField)

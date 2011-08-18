@@ -260,7 +260,6 @@ class Spinner2SelectionDoubleBorder extends SpinnerForCustomiser<ModifyShapeProp
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
 		action.setShape(instrument.drawing.getSelection().duplicate());
 	}
@@ -286,7 +285,6 @@ class Spinner2PencilDoubleBorder extends SpinnerForCustomiser<ModifyPencilParame
 
 	@Override
 	public void initAction() {
-		super.initAction();
 		action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
 		action.setPencil(instrument.pencil);
 	}

@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.malai.action.Action;
+import org.malai.action.ActionHandler;
 import org.malai.interaction.Eventable;
 import org.malai.preferences.Preferenciable;
 import org.malai.properties.Modifiable;
 import org.malai.properties.Reinitialisable;
+import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 
 /**
  * Defines an abstract model of an instrument.<br>
@@ -31,7 +32,7 @@ import org.w3c.dom.Element;
  * @since 0.1
  * @version 0.2
  */
-public abstract class Instrument implements Preferenciable, Modifiable, Reinitialisable {
+public abstract class Instrument implements Preferenciable, Modifiable, Reinitialisable, ActionHandler {
 	/**  Defines if the instrument is activated or not. */
 	protected boolean activated;
 
@@ -116,32 +117,6 @@ public abstract class Instrument implements Preferenciable, Modifiable, Reinitia
 
 
 	/**
-	 * This method is called when an action managed by a link of the instrument is aborted.
-	 * This method can be used to provide users with information about the result of the action.
-	 * @param link The link of the instrument that managed the aborted action.
-	 * @param action The aborted action.
-	 * @since 0.2
-	 */
-	public void onActionAborted(final Link<?,?,?> link, final Action action) {
-		// Should be overridden.
-	}
-
-
-	/**
-	 * This method is called when an action managed by a link of the instrument is done.
-	 * This method can be used to provide users with information about the result of the action.
-	 * @param link The link of the instrument that managed the done action.
-	 * @param action The done action.
-	 * @since 0.2
-	 */
-	public void onActionDone(final Link<?,?,?> link, final Action action) {
-		// Should be overridden.
-	}
-
-
-
-
-	/**
 	 * Reinitialises the interim feedback of the instrument.
 	 * Must be overridden.
 	 */
@@ -178,6 +153,42 @@ public abstract class Instrument implements Preferenciable, Modifiable, Reinitia
 
 	@Override
 	public void reinit() {
+		// Should be overridden.
+	}
+
+
+	@Override
+	public void onUndoableAdded(final Undoable undoable) {
+		// Should be overridden.
+	}
+
+	@Override
+	public void onUndoableUndo(final Undoable undoable) {
+		// Should be overridden.
+	}
+
+	@Override
+	public void onUndoableRedo(final Undoable undoable) {
+		// Should be overridden.
+	}
+
+	@Override
+	public void onActionCancelled(final Action action) {
+		// Should be overridden.
+	}
+
+	@Override
+	public void onActionAdded(final Action action) {
+		// Should be overridden.
+	}
+
+	@Override
+	public void onActionAborted(final Action action) {
+		// Should be overridden.
+	}
+
+	@Override
+	public void onActionExecuted(final Action action) {
 		// Should be overridden.
 	}
 }

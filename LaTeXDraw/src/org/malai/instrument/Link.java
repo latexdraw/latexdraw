@@ -194,7 +194,7 @@ public abstract class Link<A extends Action, I extends Interaction, N extends In
 			action.abort();
 
 			// The instrument is notified about the aborting of the action.
-			instrument.onActionAborted(this, action);
+			instrument.onActionAborted(action);
 
 			if(isExecute())
 				if(action instanceof Undoable)
@@ -227,22 +227,27 @@ public abstract class Link<A extends Action, I extends Interaction, N extends In
     			if(!execute)
     				updateAction();
 
-    			if(action.doIt())
+    			if(action.doIt()) {
     				action.done();
+    				instrument.onActionExecuted(action);
+    			}
 
     			if(action.hadEffect()) {
-    				if(action.isRegisterable())
-    					 ActionsRegistry.INSTANCE.addAction(action);
-    				else ActionsRegistry.INSTANCE.cancelActions(action);
-
-    				// The instrument is notified about the end of the action.
-    				instrument.onActionDone(this, action);
+    				if(action.isRegisterable()) {
+    					 ActionsRegistry.INSTANCE.addAction(action, instrument);
+    					 instrument.onActionAdded(action);
+    				}
+    				else {
+    					ActionsRegistry.INSTANCE.cancelActions(action);
+    					instrument.onActionCancelled(action);
+    				}
     			}
 
     			action = null;
 			}
 			else {
 				action.abort();
+				instrument.onActionAborted(action);
 				action = null;
 			}
 			instrument.interimFeedback();
@@ -260,8 +265,10 @@ public abstract class Link<A extends Action, I extends Interaction, N extends In
 
 			updateAction();
 
-			if(execute && action.canDo())
+			if(execute && action.canDo()) {
 				action.doIt();
+				instrument.onActionExecuted(action);
+			}
 
 			interimFeedback();
 		}

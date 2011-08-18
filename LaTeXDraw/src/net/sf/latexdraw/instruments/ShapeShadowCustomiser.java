@@ -223,8 +223,6 @@ class Spinner2SelectionShadow extends SpinnerForCustomiser<ModifyShapeProperty, 
 
 	@Override
 	public void initAction() {
-		super.initAction();
-
 		final JSpinner spinner = interaction.getSpinner();
 		action.setShape(instrument.drawing.getSelection().duplicate());
 
@@ -264,8 +262,6 @@ class Spinner2PencilShadow extends SpinnerForCustomiser<ModifyPencilParameter, S
 
 	@Override
 	public void initAction() {
-		super.initAction();
-
 		final JSpinner spinner = getInteraction().getSpinner();
 		action.setPencil(instrument.pencil);
 

@@ -3,10 +3,8 @@ package org.malai.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.malai.action.ActionHandler.ActionEvent;
 import org.malai.undo.UndoCollector;
 import org.malai.undo.Undoable;
-
 
 /**
  * A register of actions.<br>
@@ -89,7 +87,10 @@ public final class ActionsRegistry {
 		while(i<actions.size())
 			if(actions.get(i).cancelledBy(action)) {
 				Action act = actions.remove(i);
-				notifyHandlers(act, ActionEvent.EVT_CANCEL);
+
+				for(ActionHandler handler : handlers)
+					handler.onActionCancelled(action);
+
 				act.flush();
 			}
 			else
@@ -101,9 +102,10 @@ public final class ActionsRegistry {
 	/**
 	 * Adds an action to the register.
 	 * @param action The action to add.
-	 * @since 0.1
+	 * @param actionHanndler The handler that produced or is associated to the action.
+	 * @since 0.2
 	 */
-	public void addAction(final Action action) {
+	public void addAction(final Action action, final ActionHandler actionHanndler) {
 		if(action==null || actions.contains(action))
 			return;
 
@@ -114,16 +116,18 @@ public final class ActionsRegistry {
 			actions.remove(0).flush();
 
 		actions.add(action);
-		notifyHandlers(action, ActionEvent.EVT_ADD);
+
+		for(ActionHandler handler : handlers)
+			handler.onActionAdded(action);
 
 		if(action instanceof Undoable)
-			UndoCollector.INSTANCE.add((Undoable)action);
+			UndoCollector.INSTANCE.add((Undoable)action, actionHanndler);
 	}
 
 
 
 	/**
-	 * Removes the action from the register and then notify the handlers.
+	 * Removes the action from the register.
 	 * The action is then flushes.
 	 * @param action The action to remove.
 	 * @since 0.1
@@ -133,7 +137,6 @@ public final class ActionsRegistry {
 			return;
 
 		actions.remove(action);
-		notifyHandlers(action, ActionEvent.EVT_CANCEL);
 		action.flush();
 		//TODO must remove action that depends of 'action' too.
 	}
@@ -148,20 +151,6 @@ public final class ActionsRegistry {
 	public void addHandler(final ActionHandler handler) {
 		if(handler!=null)
 			handlers.add(handler);
-	}
-
-
-
-	/**
-	 * Notifies handlers that a event on actions occurred.
-	 * @param action The concerned action.
-	 * @param evt The kind of event that occurred.
-	 * @since 0.1
-	 */
-	protected void notifyHandlers(final Action action, final ActionEvent evt) {
-		if(action!=null)
-			for(ActionHandler handler : handlers)
-				handler.onAction(action, evt);
 	}
 
 
@@ -194,7 +183,10 @@ public final class ActionsRegistry {
 		if(action!=null) {
 			action.abort();
 			actions.remove(action);
-			notifyHandlers(action, ActionEvent.EVT_ABORT);
+
+			for(ActionHandler handler : handlers)
+				handler.onActionAborted(action);
+
 			action.flush();
 		}
 	}
