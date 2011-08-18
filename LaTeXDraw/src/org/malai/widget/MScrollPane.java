@@ -40,7 +40,7 @@ public class MScrollPane extends JScrollPane implements Picker {
 	/**
 	 * {@link JScrollPane#JScrollPane(Component, int, int)}
 	 */
-	public MScrollPane(Component view, int vsbPolicy, int hsbPolicy) {
+	public MScrollPane(final Component view, final int vsbPolicy, final int hsbPolicy) {
 		super(view, vsbPolicy, hsbPolicy);
 	}
 

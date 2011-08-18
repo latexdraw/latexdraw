@@ -252,7 +252,7 @@ public class LArrowView {
 	}
 
 
-	protected void updatePathRightLeftArrow(final double xRot, double yRot, final IPoint pt1, final IPoint pt2) {
+	protected void updatePathRightLeftArrow(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
 		final boolean invert= model.isInverted();
 		final double width  = model.getArrowShapedWidth();
 		double length 		= model.getArrowLength()*width;

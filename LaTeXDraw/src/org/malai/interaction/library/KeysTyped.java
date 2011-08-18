@@ -130,7 +130,7 @@ public class KeysTyped extends Interaction {
 	 * @param timeout the timeout to set. Must be greater than 0.
 	 * @since 0.2
 	 */
-	public void setTimeout(int timeout) {
+	public void setTimeout(final int timeout) {
 		if(timeout>0)
 			timeoutTransition.setTimeout(timeout);
 	}

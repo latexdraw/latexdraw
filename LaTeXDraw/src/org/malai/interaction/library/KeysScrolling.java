@@ -137,7 +137,7 @@ public class KeysScrolling extends Scrolling {
 	 * @param keyHIDUsed The id of the hid used for the keyboard events.
 	 * @since 0.2
 	 */
-	protected void setKeyHIDUsed(int keyHIDUsed) {
+	protected void setKeyHIDUsed(final int keyHIDUsed) {
 		this.keyHIDUsed = keyHIDUsed;
 	}
 }
