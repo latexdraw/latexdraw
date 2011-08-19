@@ -57,6 +57,9 @@ public class Hand extends Instrument {
 
 	/** The instrument used to edit texts. */
 	protected TextSetter textSetter;
+	
+	/** The model of the canvas. Computed attribute. */
+	protected IDrawing drawing;
 
 
 	/**
@@ -77,6 +80,7 @@ public class Hand extends Instrument {
 		this.zoomer		= zoomer;
 		this.grid		= grid;
 		this.canvas 	= canvas;
+		drawing			= MappingRegistry.REGISTRY.getSourceFromTarget(this.canvas, IDrawing.class);
 		initialiseLinks();
 	}
 
@@ -147,7 +151,7 @@ class DnD2Translate extends Link<TranslateShape, DnD, Hand> {
 
 	@Override
 	public void initAction() {
-		action.setDrawing(MappingRegistry.REGISTRY.getSourceFromTarget(instrument.canvas, IDrawing.class));
+		action.setDrawing(instrument.drawing);
 	}
 
 	@Override
@@ -162,7 +166,10 @@ class DnD2Translate extends Link<TranslateShape, DnD, Hand> {
 	@Override
 	public boolean isConditionRespected() {
 		final Object startObject = interaction.getStartObject();
-		return (startObject==instrument.canvas || startObject instanceof IShapeView) && interaction.getButton()==MouseEvent.BUTTON3;
+		final int button 		 = interaction.getButton();
+		return  !instrument.drawing.getSelection().isEmpty() && 
+				((startObject==instrument.canvas && button==MouseEvent.BUTTON3) || 
+				 (startObject instanceof IShapeView<?> && (button==MouseEvent.BUTTON1 || button==MouseEvent.BUTTON3)));
 	}
 }
 
@@ -175,7 +182,7 @@ class Press2Select extends Link<SelectShapes, Press, Hand> {
 
 	@Override
 	public void initAction() {
-		action.setDrawing(MappingRegistry.REGISTRY.getSourceFromTarget(instrument.canvas, IDrawing.class));		
+		action.setDrawing(instrument.drawing);		
 	}
 	
 	@Override
@@ -214,7 +221,7 @@ class DnD2Select extends Link<SelectShapes, DnD, Hand> {
 
 	@Override
 	public void initAction() {
-		action.setDrawing(MappingRegistry.REGISTRY.getSourceFromTarget(instrument.canvas, IDrawing.class));
+		action.setDrawing(instrument.drawing);
 	}
 
 
