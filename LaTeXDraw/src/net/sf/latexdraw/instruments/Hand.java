@@ -24,7 +24,6 @@ import org.malai.interaction.library.DnD;
 import org.malai.interaction.library.DoubleClick;
 import org.malai.interaction.library.Press;
 import org.malai.mapping.MappingRegistry;
-import org.malai.picking.Pickable;
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -187,15 +186,17 @@ class Press2Select extends Link<SelectShapes, Press, Hand> {
 	
 	@Override
 	public void updateAction() {
-		final Pickable pickable = interaction.getTarget();
+		final Object target = interaction.getTarget();
 		
-		if(pickable instanceof IShapeView<?>)
-			action.setShape(MappingRegistry.REGISTRY.getSourceFromTarget(pickable, IShape.class));
+		if(target instanceof IShapeView<?>)
+			action.setShape(MappingRegistry.REGISTRY.getSourceFromTarget(target, IShape.class));
 	}
 
 	@Override
 	public boolean isConditionRespected() {
-		return interaction.getTarget() instanceof IShapeView<?>;
+		final Object target = interaction.getTarget();
+		return interaction.getTarget() instanceof IShapeView<?> && 
+			   !instrument.drawing.getSelection().contains((MappingRegistry.REGISTRY.getSourceFromTarget(target, IShape.class)));
 	}
 }
 
