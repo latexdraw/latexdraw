@@ -423,16 +423,13 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 		if(!border.contains(x, y))
 			return false;
 
-		// If the shape is filled, we test if the point is into the general path.
-		if(!shape.isFilled() || !path.contains(x, y)) {
-			final BasicStroke bc = getStroke();
+		if(shape.isFilled() && path.contains(x, y))
+			return true;
+		
+		final BasicStroke bc = getStroke();
 
-			// We test if the point is on the shape.
-			if(bc!=null)
-				return bc.createStrokedShape(path).contains(x, y);
-		}
-
-		return false;
+		// We test if the point is on the shape.
+		return bc==null ? false : bc.createStrokedShape(path).contains(x, y);
 	}
 
 

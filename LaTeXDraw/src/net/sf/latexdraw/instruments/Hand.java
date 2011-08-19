@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.actions.SelectShapes;
 import net.sf.latexdraw.actions.InitTextSetter;
+import net.sf.latexdraw.actions.SelectShapes;
 import net.sf.latexdraw.actions.TranslateShape;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
@@ -22,7 +22,9 @@ import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
 import org.malai.interaction.library.DnD;
 import org.malai.interaction.library.DoubleClick;
+import org.malai.interaction.library.Press;
 import org.malai.mapping.MappingRegistry;
+import org.malai.picking.Pickable;
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -83,6 +85,7 @@ public class Hand extends Instrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
+			links.add(new Press2Select(this));
 			links.add(new DnD2Select(this, true));
 			links.add(new DnD2Translate(this, true));
 			links.add(new DoubleClick2InitTextSetter(this));
@@ -165,6 +168,32 @@ class DnD2Translate extends Link<TranslateShape, DnD, Hand> {
 
 
 
+class Press2Select extends Link<SelectShapes, Press, Hand> {
+	protected Press2Select(final Hand ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, SelectShapes.class, Press.class);
+	}
+
+	@Override
+	public void initAction() {
+		action.setDrawing(MappingRegistry.REGISTRY.getSourceFromTarget(instrument.canvas, IDrawing.class));		
+	}
+	
+	@Override
+	public void updateAction() {
+		final Pickable pickable = interaction.getTarget();
+		
+		if(pickable instanceof IShapeView<?>)
+			action.setShape(MappingRegistry.REGISTRY.getSourceFromTarget(pickable, IShape.class));
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return interaction.getTarget() instanceof IShapeView<?>;
+	}
+}
+
+
+
 /**
  * This link allows to select several shapes.
  */
@@ -204,10 +233,11 @@ class DnD2Select extends Link<SelectShapes, DnD, Hand> {
 		// Cleaning the selected shapes in the action.
 		action.setShape(null);
 
-		for(IShapeView<?> view : instrument.canvas.getViews())
-			if(view.intersects(selectionBorder))
-				// Taking the shape in function of the view.
-				action.addShape(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class));
+		if(!selectionBorder.isEmpty())
+			for(IShapeView<?> view : instrument.canvas.getViews())
+				if(view.intersects(selectionBorder))
+					// Taking the shape in function of the view.
+					action.addShape(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class));
 	}
 
 	@Override
