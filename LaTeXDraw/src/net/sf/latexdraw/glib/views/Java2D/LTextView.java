@@ -428,7 +428,6 @@ public class LTextView extends LShapeView<IText> {
 		final IPoint position = image==null ? getTextPositionText() : getTextPositionImage();
 
 		if(image==null) {
-			System.out.println(position);
 			g.setColor(shape.getLineColour());
 			g.setFont(FONT);
 			g.drawString(shape.getText(), (int)position.getX(), (int)position.getY());
