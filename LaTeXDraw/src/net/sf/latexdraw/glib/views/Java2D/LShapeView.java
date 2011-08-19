@@ -425,7 +425,7 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 
 		if(shape.isFilled() && path.contains(x, y))
 			return true;
-		
+
 		final BasicStroke bc = getStroke();
 
 		// We test if the point is on the shape.
@@ -735,8 +735,8 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 		final double rotationAngle = shape.getRotationAngle();
 		IPoint p = null;
 
-		if(Math.abs(rotationAngle%(Math.PI*2.))>0.00001  && g!=null) {
-			final IPoint tl = shape.getTopLeftPoint();
+		if(!LNumber.INSTANCE.equals(rotationAngle%(Math.PI*2.), 0.) && g!=null) {
+			final IPoint tl = shape.getTopLeftPoint();//FIXME: should be border?
 			final IPoint br = shape.getBottomRightPoint();
 			final double cx = (tl.getX() + br.getX()) / 2., cy = (tl.getY() + br.getY()) / 2.;
 			final double c2x = Math.cos(rotationAngle) * cx - Math.sin(rotationAngle)* cy;

@@ -29,7 +29,6 @@ import net.sf.latexdraw.filters.TeXFilter;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
@@ -429,6 +428,7 @@ public class LTextView extends LShapeView<IText> {
 		final IPoint position = image==null ? getTextPositionText() : getTextPositionImage();
 
 		if(image==null) {
+			System.out.println(position);
 			g.setColor(shape.getLineColour());
 			g.setFont(FONT);
 			g.drawString(shape.getText(), (int)position.getX(), (int)position.getY());
@@ -455,31 +455,6 @@ public class LTextView extends LShapeView<IText> {
 			final double height = image.getHeight(null);
 			border.setFrame(position.getX(), position.getY(), image.getWidth(null), height);
 		}
-	}
-
-
-
-	@Override
-	protected IPoint beginRotation(final Graphics2D g) {//TODO To change to remove duplicate code.
-		final double rotationAngle 	= shape.getRotationAngle();
-		IPoint p 			 		= null;
-
-		if(Math.abs(rotationAngle%(Math.PI*2.))>0.00001  && g!=null) {
-			IShapeFactory factory = DrawingTK.getFactory();
-			IPoint tl = factory.createPoint(border.getMinX(), border.getMinY());
-			IPoint br = factory.createPoint(border.getMaxX(), border.getMaxY());
-			double cx = (tl.getX() + br.getX()) / 2., cy = (tl.getY() + br.getY()) / 2.;
-			double c2x = Math.cos(rotationAngle) * cx - Math.sin(rotationAngle)* cy;
-			double c2y = Math.sin(rotationAngle) * cx + Math.cos(rotationAngle)* cy;
-			double c3x = Math.cos(-rotationAngle) * (cx - c2x)- Math.sin(-rotationAngle) * (cy - c2y);
-			double c3y = Math.sin(-rotationAngle) * (cx - c2x)+ Math.cos(-rotationAngle) * (cy - c2y);
-
-			g.rotate(rotationAngle);
-			g.translate(c3x, c3y);
-			p = factory.createPoint(c3x, c3y);
-		}
-
-		return p;
 	}
 
 
