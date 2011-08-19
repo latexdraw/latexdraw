@@ -278,11 +278,13 @@ public class LCanvas extends MPanel implements ICanvas {
 		if(!GLibUtilities.INSTANCE.isValidPoint(x, y))
 			return null;
 
+		final double x2 = x/getZoom();
+		final double y2 = y/getZoom();
 		IShapeView<?> view = null;
 		int i=views.size()-1;
 
 		while(i>=0 && view==null)
-			if(views.get(i).contains(x, y))
+			if(views.get(i).contains(x2, y2))
 				view = views.get(i);
 			else
 				i--;
