@@ -279,7 +279,7 @@ public class EditingSelector extends Instrument {
 	 * @since 3.0
 	 */
 	public boolean isWidget(final Object ab) {
-		return ab!=null && button2EditingChoiceMap.get(ab)!=null;
+		return ab!=null && (button2EditingChoiceMap.get(ab)!=null || ab==handB);
 	}
 
 
