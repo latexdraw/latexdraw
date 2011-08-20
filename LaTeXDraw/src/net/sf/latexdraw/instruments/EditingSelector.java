@@ -527,7 +527,8 @@ class ButtonPressed2ActivateIns extends Link<ActivateInactivateInstruments, Butt
 		if(ab==instrument.handB) {
 			action.addInstrumentToActivate(instrument.hand);
 			action.addInstrumentToActivate(instrument.border);
-			action.addInstrumentToActivate(instrument.deleter);
+			if(!instrument.border.getSelection().isEmpty())
+				action.addInstrumentToActivate(instrument.deleter);
 			action.addInstrumentToInactivate(instrument.pencil);
 
 			if(instrument.border.getSelection().isEmpty())
