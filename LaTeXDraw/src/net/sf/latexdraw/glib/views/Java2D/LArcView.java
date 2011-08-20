@@ -1,5 +1,8 @@
 package net.sf.latexdraw.glib.views.Java2D;
 
+import java.awt.geom.Arc2D;
+import java.awt.geom.Path2D;
+
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 
 /**
@@ -21,14 +24,6 @@ import net.sf.latexdraw.glib.models.interfaces.IArc;
  * @since 3.0
  */
 public class LArcView extends LEllipseView<IArc> {
-//	/** This handler helps to change the starting angle. */
-//	protected ArcAngleHandler startHandler;
-//
-//	/** This handler helps to change the ending angle. */
-//	protected ArcAngleHandler endHandler;
-
-
-
 	/**
 	 * Creates an initialises the Java view of a LArc.
 	 * @param model The model to view.
@@ -36,34 +31,36 @@ public class LArcView extends LEllipseView<IArc> {
 	 */
 	public LArcView(final IArc model) {
 		super(model);
-
 		update();
 	}
 
 
 
 	@Override
-	protected void updateGeneralPathInside() {
-		// TODO Auto-generated method stub
-		super.updateGeneralPathInside();
+	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
+		setArcPath(path, tlx, tly, width, height, shape.getAngleStart(), shape.getAngleEnd());
 	}
 
 
 
-	@Override
-	protected void updateGeneralPathMiddle() {
-		// TODO Auto-generated method stub
-		super.updateGeneralPathMiddle();
+	/**
+	 * Appends an arc to the given path.
+	 * @param path The path to fill.
+	 * @param tlx The top-left point of the arc.
+	 * @param tly The bottom right point of the arc.
+	 * @param width The width of the arc.
+	 * @param height The height of the arc.
+	 * @param startAngle The start angle of the arc.
+	 * @param endAngle The end angle of the arc.
+	 * @since 3.0
+	 */
+	public static void setArcPath(final Path2D path, final double tlx, final double tly, final double width, final double height, final double startAngle, final double endAngle) {
+		if(path!=null) {
+			final double sAngle = Math.toDegrees(startAngle%(Math.PI*2.));
+			final double eAngle = Math.toDegrees(endAngle%(Math.PI*2.));
+			path.append(new Arc2D.Double(tlx, tly, width, height, sAngle<eAngle ? sAngle : eAngle, eAngle>sAngle ? eAngle : sAngle, Arc2D.OPEN), false);
+		}
 	}
-
-
-
-	@Override
-	protected void updateGeneralPathOutside() {
-		// TODO Auto-generated method stub
-		super.updateGeneralPathOutside();
-	}
-
 
 
 //	@Override
@@ -95,101 +92,6 @@ public class LArcView extends LEllipseView<IArc> {
 //				endRotation(g, p);
 //		}
 //	}
-//
-//
-//
-//	@Override
-//	public Shape createShape2D() {
-//		return createMiddleShape2D();
-//	}
-//
-//
-//	@Override
-//	public Shape createInsideShape2D() {
-//		return createMiddleShape2D();
-//	}
-//
-//
-//	@Override
-//	public Shape createOutsideShape2D() {
-//		return createMiddleShape2D();
-//	}
-//
-//
-//	@Override
-//	public Shape createMiddleShape2D() {
-//		IArc arc 	= (IArc)shape;
-//		IPoint tl 	= shape.getTopLeftPoint();
-//		double startAngle 	= arc.getAngleStart();
-//		double endAngle 	= arc.getAngleEnd();
-//		double start = Math.toDegrees(arc.getAngleStart());
-//		double end   = startAngle > endAngle ? Math.toDegrees(2*Math.PI - startAngle+endAngle) :
-//											   Math.toDegrees(endAngle - startAngle);
-//
-//		return new Arc2D.Double(tl.getX(), tl.getY(), arc.getA()*2., arc.getB()*2., start, end, getType(arc));
-//	}
-//
-//
-//
-//	/**
-//	 * @return The Java2D type of the arc: open, chord or pie.
-//	 * @since 3.0
-//	 */
-//	public static int getType(final IArc arc) {
-//		if(arc == null)
-//			return Arc2D.OPEN;
-//
-//		switch(arc.getType()) {
-//			default:
-//			case ARC:
-//				return Arc2D.OPEN;
-//
-//			case CHORD:
-//				return Arc2D.CHORD;
-//
-//			case WEDGE:
-//				return Arc2D.PIE;
-//		}
-//	}
-//
-//
-//
-//	@Override
-//	public Shape[] createDbleBorderOutside(Shape classicBord) {
-//		return null;
-//	}
-//
-//
-//	@Override
-//	public Shape[] createDbleBorderInside(Shape classicBord) {
-//		return null;
-//	}
-//
-//
-//	@Override
-//	public Shape[] createDbleBorderMiddle(Shape classicBord) {
-//		return null;
-//	}
-//
-//
-//
-//	@Override
-//	public AbstractHandler getHandler(IPoint pt) {
-//		AbstractHandler handler = super.getHandler(pt);
-//
-//		if(handler==null) {
-//			IPoint p_ = pt.rotatePoint(getGravityCentre(), -shape.getRotationAngle());
-//
-//			if(startHandler.isIn(p_))
-//				handler = startHandler;
-//			else
-//				if(endHandler.isIn(p_))
-//					handler = endHandler;
-//		}
-//
-//		return handler;
-//	}
-//
 //
 //
 //	/**

@@ -6,6 +6,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArc.ArcType;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
@@ -191,7 +192,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 			return shape;
 		}
 	},
-	ARC {
+	CIRCLE_ARC {
 		@Override
 		public String getLabel() {
 			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.35"); //$NON-NLS-1$
@@ -199,8 +200,8 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 
 		@Override
 		public IShape createShapeInstance() {
-			final IShape shape = DrawingTK.getFactory().newShape(IArc.class);
-			((IArc)shape).setType(ArcType.ARC);
+			final IShape shape = DrawingTK.getFactory().newShape(ICircleArc.class);
+			((ICircleArc)shape).setType(ArcType.ARC);
 			return shape;
 		}
 	},

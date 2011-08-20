@@ -687,7 +687,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 			IPoint pt = instrument.getAdaptedPoint(interaction.getStartPt());
 
 			// For squares and circles, the centre of the shape is the reference point during the creation.
-			if((ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE) && shape instanceof IRectangularShape) {
+			if((ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE || ec==EditionChoice.CIRCLE_ARC) && shape instanceof IRectangularShape) {
 				final IRectangularShape recShape = (IRectangularShape)shape;
 
 				recShape.setPosition(pt.getX()-1, pt.getY()-1);
@@ -708,7 +708,8 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 	public boolean isConditionRespected() {
 		final EditionChoice ec = instrument.getCurrentChoice();
 		return ec==EditionChoice.RECT || ec==EditionChoice.ELLIPSE || ec==EditionChoice.SQUARE ||
-			   ec==EditionChoice.CIRCLE || ec==EditionChoice.RHOMBUS || ec==EditionChoice.TRIANGLE;
+			   ec==EditionChoice.CIRCLE || ec==EditionChoice.RHOMBUS || ec==EditionChoice.TRIANGLE  ||
+			   ec==EditionChoice.CIRCLE_ARC;
 	}
 
 
@@ -720,7 +721,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 		final IPoint startPt= instrument.getAdaptedPoint(interaction.getStartPt());
 		final IPoint endPt	= instrument.getAdaptedPoint(interaction.getEndPt());
 
-		if(ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE)
+		if(ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE  || ec==EditionChoice.CIRCLE_ARC)
 			updateShapeFromCentre(shape, startPt, endPt.getX());
 		else
 			updateShapeFromDiag(shape, startPt, endPt);

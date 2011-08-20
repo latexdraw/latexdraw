@@ -87,12 +87,6 @@ public class EditingSelector extends Instrument {
 	/** The button that allows to select the instrument Pencil to add arcs. */
 	protected MToggleButton arcB;
 
-	/** The button that allows to select the instrument Pencil to add chords. */
-	protected MToggleButton chordB;
-
-	/** The button that allows to select the instrument Pencil to add wedges. */
-	protected MToggleButton wedgeB;
-
 	/** The instrument Hand. */
 	protected Hand hand;
 
@@ -104,7 +98,7 @@ public class EditingSelector extends Instrument {
 
 	/** The instrument that manages selected shapes. */
 	protected Border border;
-	
+
 	/** The insturment used to delete shapes. */
 	protected ShapeDeleter deleter;
 
@@ -121,7 +115,7 @@ public class EditingSelector extends Instrument {
 	 * @throws IllegalArgumentException If one of the given parameter is null.
 	 * @since 3.0
 	 */
-	public EditingSelector(final Pencil pencil, final Hand hand, final MetaShapeCustomiser metaShapeCustomiser, 
+	public EditingSelector(final Pencil pencil, final Hand hand, final MetaShapeCustomiser metaShapeCustomiser,
 							final Border border, final ShapeDeleter deleter) {
 		super();
 
@@ -149,11 +143,10 @@ public class EditingSelector extends Instrument {
 		button2EditingChoiceMap.put(dotB, EditionChoice.DOT);
 		button2EditingChoiceMap.put(textB, EditionChoice.TEXT);
 		button2EditingChoiceMap.put(freeHandB, EditionChoice.FREE_HAND);
-		button2EditingChoiceMap.put(arcB, EditionChoice.ARC);
+		button2EditingChoiceMap.put(arcB, EditionChoice.CIRCLE_ARC);
 		button2EditingChoiceMap.put(axesB, EditionChoice.AXES);
 		button2EditingChoiceMap.put(bezierB, EditionChoice.BEZIER_CURVE);
 		button2EditingChoiceMap.put(bezierClosedB, EditionChoice.BEZIER_CURVE_CLOSED);
-		button2EditingChoiceMap.put(chordB, EditionChoice.CHORD);
 		button2EditingChoiceMap.put(circleB, EditionChoice.CIRCLE);
 		button2EditingChoiceMap.put(ellipseB, EditionChoice.ELLIPSE);
 		button2EditingChoiceMap.put(gridB, EditionChoice.GRID);
@@ -163,7 +156,6 @@ public class EditingSelector extends Instrument {
 		button2EditingChoiceMap.put(rhombusB, EditionChoice.RHOMBUS);
 		button2EditingChoiceMap.put(squareB, EditionChoice.SQUARE);
 		button2EditingChoiceMap.put(triangleB, EditionChoice.TRIANGLE);
-		button2EditingChoiceMap.put(wedgeB, EditionChoice.WEDGE);
 	}
 
 
@@ -205,14 +197,8 @@ public class EditingSelector extends Instrument {
 		bezierClosedB = new MToggleButton(LResources.CLOSED_BEZIER_ICON);
 		bezierClosedB.setMargin(LResources.INSET_BUTTON);
 
-		chordB = new MToggleButton(LResources.CHORD_ICON);
-		chordB.setMargin(LResources.INSET_BUTTON);
-
 		arcB = new MToggleButton(LResources.ARC_ICON);
 		arcB.setMargin(LResources.INSET_BUTTON);
-
-		wedgeB = new MToggleButton(LResources.WEDGE_ICON);
-		wedgeB.setMargin(LResources.INSET_BUTTON);
 
 		triangleB = new MToggleButton(LResources.TRIANGLE_ICON);
 		triangleB.setMargin(LResources.INSET_BUTTON);
@@ -229,7 +215,7 @@ public class EditingSelector extends Instrument {
 
 
 	@Override
-	public void interimFeedback() {//FIXME This method is called twice since there exists two links using the same interaction.
+	public void interimFeedback() {
 		if(hand.isActivated()) {
 			handB.setSelected(true);
 			textB.setSelected(false);
@@ -237,8 +223,6 @@ public class EditingSelector extends Instrument {
 			recB.setSelected(false);
 			squareB.setSelected(false);
 			ellipseB.setSelected(false);
-			chordB.setSelected(false);
-			wedgeB.setSelected(false);
 			arcB.setSelected(false);
 			circleB.setSelected(false);
 			axesB.setSelected(false);
@@ -256,9 +240,7 @@ public class EditingSelector extends Instrument {
 			recB.setSelected(ec==EditionChoice.RECT);
 			squareB.setSelected(ec==EditionChoice.SQUARE);
 			ellipseB.setSelected(ec==EditionChoice.ELLIPSE);
-			chordB.setSelected(ec==EditionChoice.CHORD);
-			wedgeB.setSelected(ec==EditionChoice.WEDGE);
-			arcB.setSelected(ec==EditionChoice.ARC);
+			arcB.setSelected(ec==EditionChoice.CIRCLE_ARC);
 			circleB.setSelected(ec==EditionChoice.CIRCLE);
 			axesB.setSelected(ec==EditionChoice.AXES);
 			gridB.setSelected(ec==EditionChoice.GRID);
@@ -297,10 +279,7 @@ public class EditingSelector extends Instrument {
 	 * @since 3.0
 	 */
 	public boolean isWidget(final Object ab) {
-		return ab!=null && (ab==recB || ab==textB || ab==polygonB || ab==linesB || ab==ellipseB ||
-							ab==arcB || ab==axesB || ab==bezierB || ab==bezierClosedB || ab==chordB ||
-							ab==circleB || ab==gridB || ab==rhombusB || ab==squareB || ab==triangleB ||
-							ab==wedgeB || ab==dotB || ab==freeHandB || ab==handB);
+		return ab!=null && button2EditingChoiceMap.get(ab)!=null;
 	}
 
 
@@ -459,24 +438,6 @@ public class EditingSelector extends Instrument {
 
 
 	/**
-	 * @return The button that allows the select instrument Pencil to draw chords.
-	 * @since 3.0
-	 */
-	public MToggleButton getChordB() {
-		return chordB;
-	}
-
-
-	/**
-	 * @return The button that allows the select instrument Pencil to draw wedges.
-	 * @since 3.0
-	 */
-	public MToggleButton getWedgeB() {
-		return wedgeB;
-	}
-
-
-	/**
 	 * @return The hand.
 	 * @since 3.0
 	 */
@@ -499,16 +460,9 @@ public class EditingSelector extends Instrument {
 
 /**
  * This link allows the modify the link of shape the pencil will create using a ButtonPressed interaction.
- * @author Arnaud Blouin
- * @since 3.0
  */
 class ButtonPressed2DefineStylePencil extends Link<ModifyPencilStyle, ButtonPressed, EditingSelector> {
-	/**
-	 * The default constructor.
-	 * @param ins The editing selector instruments.
-	 * @since 3.0
-	 */
-	public ButtonPressed2DefineStylePencil(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
+	protected ButtonPressed2DefineStylePencil(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ModifyPencilStyle.class, ButtonPressed.class);
 	}
 
@@ -521,12 +475,7 @@ class ButtonPressed2DefineStylePencil extends Link<ModifyPencilStyle, ButtonPres
 
 	@Override
 	public boolean isConditionRespected() {
-		final AbstractButton ab = interaction.getButton();
-
-		return ab==instrument.recB || ab==instrument.textB || ab==instrument.polygonB || ab==instrument.linesB || ab==instrument.ellipseB ||
-				ab==instrument.arcB || ab==instrument.axesB || ab==instrument.bezierB || ab==instrument.bezierClosedB || ab==instrument.chordB ||
-				ab==instrument.circleB || ab==instrument.gridB || ab==instrument.rhombusB || ab==instrument.squareB || ab==instrument.triangleB ||
-				ab==instrument.wedgeB || ab==instrument.dotB || ab==instrument.freeHandB;
+		return instrument.button2EditingChoiceMap.get(interaction.getButton())!=null;
 	}
 }
 
@@ -536,10 +485,7 @@ class ButtonPressed2DefineStylePencil extends Link<ModifyPencilStyle, ButtonPres
  * selects another kind of editing, the typed text must be added to the canvas.
  */
 class ButtonPressed2AddText extends Link<AddShape, ButtonPressed, EditingSelector> {
-	/**
-	 * Creates the link.
-	 */
-	public ButtonPressed2AddText(final EditingSelector ins, final boolean exec) throws InstantiationException, IllegalAccessException {
+	protected ButtonPressed2AddText(final EditingSelector ins, final boolean exec) throws InstantiationException, IllegalAccessException {
 		super(ins, exec, AddShape.class, ButtonPressed.class);
 	}
 
@@ -563,12 +509,7 @@ class ButtonPressed2AddText extends Link<AddShape, ButtonPressed, EditingSelecto
  * This link maps a ButtonPressed interaction to an action that activates/desactivates instruments.
  */
 class ButtonPressed2ActivateIns extends Link<ActivateInactivateInstruments, ButtonPressed, EditingSelector> {
-	/**
-	 * Creates a link that maps a ButtonPressed interaction to an action that activates/desactivates instruments.
-	 * @param ins The instrument that contains the link.
-	 * @since 3.0
-	 */
-	public ButtonPressed2ActivateIns(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
+	protected ButtonPressed2ActivateIns(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ActivateInactivateInstruments.class, ButtonPressed.class);
 	}
 

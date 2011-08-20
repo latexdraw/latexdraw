@@ -22,36 +22,31 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
  * @version 3.0
  * @since 3.0
  */
-class LCircleArc extends LArc implements ICircleArc {//TODO add to factory.
+class LCircleArc extends LArc implements ICircleArc {
 	/**
-	 * Creates a round arc.
-	 * @param pt The centre of the arc.
-	 * @param radius The radius.
-	 * @param type The kind of arc.
-	 * @param isUniqueID True: the model will have a unique ID.
-	 * @throws IllegalArgumentException If the radius is not valid.
-	 */
-	protected LCircleArc(final IPoint pt, final double radius, final ArcType type, final boolean isUniqueID) {
-		super(pt, radius, radius, type, isUniqueID);
-
-		update();
-	}
-
-
-	/**
-	 * Creates a circle arc with a 1 radius.
+	 * Creates a circled arc with radius 1.
 	 * @param isUniqueID True: the model will have a unique ID.
 	 * @since 3.0
 	 */
 	protected LCircleArc(final boolean isUniqueID) {
-		this(new LPoint(), 1, null, isUniqueID);
+		this(new LPoint(10, 10), new LPoint(20, 20), isUniqueID);
+	}
+
+
+	/**
+	 * Creates a circled arc.
+	 * @param tl The top-left point of the arc.
+	 * @param br The bottom-right point of the arc.
+	 * @param isUniqueID True: the circled arc will have a unique ID.
+	 * @throws IllegalArgumentException If a or b is not valid.
+	 */
+	protected LCircleArc(final IPoint tl, final IPoint br, final boolean isUniqueID) {
+		super(tl, br, isUniqueID);
 	}
 
 
 	@Override
 	public double getRadius() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getWidth();
 	}
-
 }

@@ -331,7 +331,6 @@ public class LFrame extends UI {
 		editingSelector.addEventable(toolbar.polygonListB.getToolbar());
 		editingSelector.addEventable(toolbar.ellipseListB.getToolbar());
 		editingSelector.addEventable(toolbar.gridListB.getToolbar());
-		editingSelector.addEventable(toolbar.arcListB.getToolbar());
 		editingSelector.addEventable(toolbar.bezierListB.getToolbar());
 		hand.addEventable(canvas);
 		pencil.addEventable(canvas);

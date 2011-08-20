@@ -18,8 +18,6 @@ import net.sf.latexdraw.instruments.FileLoaderSaver;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-
-
 /**
  * This class defines a frame containing the shortcuts of the program.<br>
  *<br>
@@ -40,16 +38,14 @@ import net.sf.latexdraw.util.LResources;
  * @version 2.0.0<br>
  * @since 1.9<br>
  */
-public class ShortcutsFrame extends JFrame
-{
+public class ShortcutsFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 
 	/**
 	 * The constructor creates a frame containing a table with all the shortcuts.
 	 */
-	public ShortcutsFrame()
-	{
+	public ShortcutsFrame() {
 		super(LangTool.LANG.getString19("LaTeXDrawFrame.3")); //$NON-NLS-1$
 
 		setIconImage(LResources.LATEXDRAW_ICON.getImage());
@@ -76,8 +72,7 @@ public class ShortcutsFrame extends JFrame
 		final String st2 = LangTool.LANG.getString19("ShortcutsFrame.10"); //$NON-NLS-1$
 		final String st3 = LangTool.LANG.getString19("ShortcutsFrame.11"); //$NON-NLS-1$
 		final String st4 = LangTool.LANG.getString19("ShortcutsFrame.12"); //$NON-NLS-1$
-		final Object[][] data =
-		{
+		final Object[][] data = {
 			{ctrl+"+C", LResources.LABEL_COPY, catEdit},//$NON-NLS-1$
 			{ctrl+"+V", LResources.LABEL_PASTE, catEdit},//$NON-NLS-1$
 			{ctrl+"+X", LResources.LABEL_CUT, catEdit},//$NON-NLS-1$
@@ -101,7 +96,7 @@ public class ShortcutsFrame extends JFrame
 			{'T', EditionChoice.TRIANGLE.getLabel(), catDraw},
 			{'E', EditionChoice.ELLIPSE.getLabel(), catDraw},
 			{'C', EditionChoice.CIRCLE.getLabel(), catDraw},
-			{'A', EditionChoice.ARC.getLabel(),	catDraw},
+			{'A', EditionChoice.CIRCLE_ARC.getLabel(),	catDraw},
 			{'W', EditionChoice.WEDGE.getLabel(), catDraw},
 			{'O', EditionChoice.CHORD.getLabel(), catDraw},
 			{'B', EditionChoice.BEZIER_CURVE.getLabel(), catDraw},
@@ -168,11 +163,9 @@ public class ShortcutsFrame extends JFrame
  		JViewport vp = scrollPane.getViewport();
 	 	vp.add(table);
 
-		okB.addActionListener(new ActionListener()
-		{
+		okB.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(final ActionEvent e)
-			{
+			public void actionPerformed(final ActionEvent e) {
 				setVisible(false);
 			}
 		});

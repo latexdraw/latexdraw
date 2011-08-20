@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 
@@ -22,8 +23,15 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
  * @version 3.0
  * @since 3.0
  */
-class LArc extends LEllipse implements IArc {//TODO add to the factory.
+class LArc extends LEllipse implements IArc {
+	/** The type of the arc. */
 	protected ArcType type;
+
+	/** The start angle of the arc. In radian. */
+	protected double startAngle;
+
+	/** The end angle of the arc. In radian. */
+	protected double endAngle;
 
 
 	/**
@@ -32,57 +40,49 @@ class LArc extends LEllipse implements IArc {//TODO add to the factory.
 	 * @since 3.0
 	 */
 	protected LArc(final boolean isUniqueID) {
-		this(new LPoint(), 1, 1, null, isUniqueID);
+		this(new LPoint(10, 10), new LPoint(20, 20), isUniqueID);
 	}
 
 
 	/**
-	 * The main constructor.
-	 * @param pt The centre of the elliptic arc.
-	 * @param a The horizontal radius.
-	 * @param b The vertical radius.
-	 * @param type The kind of arc.
-	 * @param isUniqueID True: the model will have a unique ID.
+	 * Creates an arc.
+	 * @param tl The top-left point of the arc.
+	 * @param br The bottom-right point of the arc.
+	 * @param isUniqueID True: the arc will have a unique ID.
 	 * @throws IllegalArgumentException If a or b is not valid.
-	 * @since 3.0
 	 */
-	protected LArc(final IPoint pt, final double a, final double b, final ArcType type, final boolean isUniqueID) {
-		super(isUniqueID);
-//		super(pt, a, b, isUniqueID);
-//
-//		angleStart	= 0;
-//		angleEnd	= 3.*Math.PI/2.;
-		this.type	= type==null ? ArcType.ARC : type;
-//
-//		update();
+	protected LArc(final IPoint tl, final IPoint br, final boolean isUniqueID) {
+		super(tl, br, isUniqueID);
+
+		startAngle 	= 3*Math.PI/2.;
+		endAngle	= 0.;
+		type		= ArcType.ARC;
+
+		update();
 	}
 
 
 	@Override
 	public double getAngleEnd() {
-		// TODO Auto-generated method stub
-		return 0;
+		return endAngle;
 	}
 
 
 	@Override
 	public double getAngleStart() {
-		// TODO Auto-generated method stub
-		return 0;
+		return startAngle;
 	}
 
 
 	@Override
 	public IPoint getEndPoint() {
-		// TODO Auto-generated method stub
-		return null;
+		return new LPoint(gravityCentre.getX()+Math.cos(endAngle)*getWidth(), gravityCentre.getY()-Math.sin(endAngle)*getHeight());
 	}
 
 
 	@Override
 	public IPoint getStartPoint() {
-		// TODO Auto-generated method stub
-		return null;
+		return new LPoint(gravityCentre.getX()+Math.cos(startAngle)*getWidth(), gravityCentre.getY()-Math.sin(startAngle)*getHeight());
 	}
 
 
@@ -94,15 +94,15 @@ class LArc extends LEllipse implements IArc {//TODO add to the factory.
 
 	@Override
 	public void setAngleEnd(final double angleEnd) {
-		// TODO Auto-generated method stub
-
+		if(GLibUtilities.INSTANCE.isValidCoordinate(angleEnd))
+			this.endAngle = angleEnd;
 	}
 
 
 	@Override
 	public void setAngleStart(final double angleStart) {
-		// TODO Auto-generated method stub
-
+		if(GLibUtilities.INSTANCE.isValidCoordinate(angleStart))
+			this.startAngle = angleStart;
 	}
 
 
@@ -115,6 +115,6 @@ class LArc extends LEllipse implements IArc {//TODO add to the factory.
 
 	@Override
 	public boolean isArrowable() {
-		return getType()==ArcType.ARC;
+		return false; //TODO getType()==ArcType.ARC;
 	}
 }

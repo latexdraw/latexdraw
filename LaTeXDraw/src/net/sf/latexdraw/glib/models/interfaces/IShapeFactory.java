@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IArc.ArcType;
 
 /**
  * Defines an interface to implement an abstract factory.<br>
@@ -329,18 +328,18 @@ public interface IShapeFactory {
 
 
 	/**
-	 * Creates a round arc.
-	 * @param pt The centre of the arc.
-	 * @param radius The radius.
-	 * @param type The kind of arc.
-	 * @param isUniqueID True: the model will have a unique ID.
-	 * @throws IllegalArgumentException If the radius is not valid.
+	 * Creates a circled arc.
+	 * @param tl The top left point of the circled arc.
+	 * @param br The bottom right point of the circled arc.
+	 * @param uniqueID True: the circled arc will have a unique ID.
+	 * @return The created circled arc.
+	 * @since 3.0
 	 */
-	ICircleArc createCircleArc(final IPoint pt, final double radius, final ArcType type, final boolean isUniqueID);
+	ICircleArc createCircleArc(final IPoint tl, final IPoint br, final boolean uniqueID);
 
 
 	/**
-	 * Creates a circle arc with a 1 radius.
+	 * Creates a circled circle arc with a 1 radius.
 	 * @param isUniqueID True: the model will have a unique ID.
 	 * @since 3.0
 	 */

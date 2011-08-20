@@ -25,7 +25,7 @@ import net.sf.latexdraw.glib.models.interfaces.*;
 public final class LViewsFactory {
 	/** The singleton. */
 	public static final LViewsFactory INSTANCE = new LViewsFactory();
-	
+
 	private LViewsFactory() {
 		super();
 	}
@@ -52,6 +52,8 @@ public final class LViewsFactory {
 			view = new LRectangleView((IRectangle)shape);
 		else if(shape instanceof ICircle)
 			view = new LCircleView((ICircle)shape);
+		else if(shape instanceof ICircleArc)
+			view = new LCircleArcView((ICircleArc)shape);
 		else if(shape instanceof IArc)
 			view = new LArcView((IArc)shape);
 		else if(shape instanceof IEllipse)
