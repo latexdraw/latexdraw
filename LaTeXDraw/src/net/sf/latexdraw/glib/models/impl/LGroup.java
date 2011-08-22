@@ -8,6 +8,7 @@ import org.malai.mapping.ActiveArrayList;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.Arcable;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
@@ -1244,5 +1245,59 @@ class LGroup extends LShape implements IGroup {
 		for(final IShape sh : shapes)
 			if(sh instanceof Dottable)
 				((Dottable)sh).setRadius(radius);
+	}
+
+
+	@Override
+	public ArcStyle getArcStyle() {
+		for(final IShape sh : shapes)
+			if(sh instanceof Arcable)
+				return ((Arcable)sh).getArcStyle();
+
+		return null;
+	}
+
+
+	@Override
+	public void setArcStyle(final ArcStyle type) {
+		for(final IShape sh : shapes)
+			if(sh instanceof Arcable)
+				((Arcable)sh).setArcStyle(type);
+	}
+
+
+	@Override
+	public double getAngleStart() {
+		for(final IShape sh : shapes)
+			if(sh instanceof Arcable)
+				return ((Arcable)sh).getAngleStart();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setAngleStart(final double angleStart) {
+		for(final IShape sh : shapes)
+			if(sh instanceof Arcable)
+				((Arcable)sh).setAngleStart(angleStart);
+	}
+
+
+	@Override
+	public double getAngleEnd() {
+		for(final IShape sh : shapes)
+			if(sh instanceof Arcable)
+				return ((Arcable)sh).getAngleEnd();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setAngleEnd(final double angleEnd) {
+		for(final IShape sh : shapes)
+			if(sh instanceof Arcable)
+				((Arcable)sh).setAngleEnd(angleEnd);
 	}
 }

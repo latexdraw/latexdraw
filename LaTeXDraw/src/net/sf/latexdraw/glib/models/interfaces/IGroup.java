@@ -20,7 +20,7 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable {
+public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable {
 	/**
 	 * @return True if one of the shape of the group supports rounded corners.
 	 * @since 3.0

@@ -68,7 +68,7 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 		if(rotation!=null)
 			start.append(rotation);
 
-		switch(shape.getType()) {
+		switch(shape.getArcStyle()) {
 			case ARC:
 				start.append("\\psarc"); //$NON-NLS-1$
 				break;

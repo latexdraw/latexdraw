@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.models.impl;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
  * Defines a model of an arc.<br>
@@ -24,8 +25,8 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
  * @since 3.0
  */
 class LArc extends LEllipse implements IArc {
-	/** The type of the arc. */
-	protected ArcType type;
+	/** The style of the arc. */
+	protected ArcStyle style;
 
 	/** The start angle of the arc. In radian. */
 	protected double startAngle;
@@ -56,10 +57,24 @@ class LArc extends LEllipse implements IArc {
 
 		startAngle 	= 3*Math.PI/2.;
 		endAngle	= 0.;
-		type		= ArcType.ARC;
+		style		= ArcStyle.ARC;
 
 		update();
 	}
+
+
+	@Override
+	public void copy(final IShape sh) {
+		super.copy(sh);
+
+		if(sh instanceof IArc) {
+			final IArc arc 	= (IArc)sh;
+			startAngle 		= arc.getAngleStart();
+			endAngle 		= arc.getAngleEnd();
+			style			= arc.getArcStyle();
+		}
+	}
+
 
 
 	@Override
@@ -87,8 +102,8 @@ class LArc extends LEllipse implements IArc {
 
 
 	@Override
-	public ArcType getType() {
-		return type;
+	public ArcStyle getArcStyle() {
+		return style;
 	}
 
 
@@ -107,9 +122,9 @@ class LArc extends LEllipse implements IArc {
 
 
 	@Override
-	public void setType(final ArcType type) {
+	public void setArcStyle(final ArcStyle type) {
 		if(type!=null)
-			this.type = type;
+			this.style = type;
 	}
 
 

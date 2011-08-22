@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions;
 
 import java.awt.Color;
 
+import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
@@ -28,6 +29,37 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
  * @since 3.0
  */
 public enum ShapeProperties {
+	ARC_START_ANGLE {
+		@Override
+		public String getMessage() {
+			return "Arc start angle";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	}, ARC_END_ANGLE {
+		@Override
+		public String getMessage() {
+			return "Arc end angle";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	}, ARC_STYLE {
+		@Override
+		public String getMessage() {
+			return "Arc style";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof ArcStyle;
+		}
+	},
 	ARROW2_STYLE {
 		@Override
 		public String getMessage() {

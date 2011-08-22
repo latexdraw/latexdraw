@@ -2,8 +2,8 @@ package net.sf.latexdraw.actions;
 
 import java.awt.Color;
 
-import org.malai.undo.Undoable;
-
+import net.sf.latexdraw.glib.models.interfaces.Arcable;
+import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
@@ -14,6 +14,8 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
+
+import org.malai.undo.Undoable;
 
 /**
  * This action modifies a shape property of the given shape.<br>
@@ -217,6 +219,21 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				oldValue = textShape.getText();
 				textShape.setText((String)obj);
 				break;
+			case ARC_END_ANGLE:
+				Arcable arc = (Arcable)shape;
+				oldValue = arc.getAngleEnd();
+				arc.setAngleEnd((Double)obj);
+				break;
+			case ARC_START_ANGLE:
+				arc = (Arcable)shape;
+				oldValue = arc.getAngleStart();
+				arc.setAngleStart((Double)obj);
+				break;
+			case ARC_STYLE:
+				arc = (Arcable)shape;
+				oldValue = arc.getArcStyle();
+				arc.setArcStyle((ArcStyle)obj);
+				break;
 		}
 
 		shape.setModified(true);
@@ -277,6 +294,9 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case ARROW1_STYLE:		return shape.isArrowable();
 				case ARROW2_STYLE:		return shape.isArrowable();
 				case TEXT:				return shape instanceof IText;
+				case ARC_END_ANGLE:
+				case ARC_START_ANGLE:
+				case ARC_STYLE:			return shape instanceof Arcable;
 			}
 
 		return false;

@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions;
 
 import java.awt.Color;
 
+import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
@@ -185,6 +186,9 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case TEXT:
 				// The pencil does not set text values.
 				break;
+			case ARC_END_ANGLE	: pencil.setArcEndAngle((Double)value); 	break;
+			case ARC_START_ANGLE: pencil.setArcStartAngle((Double)value);	break;
+			case ARC_STYLE		: pencil.setArcStyle((ArcStyle)value);		break;
 		}
 	}
 }

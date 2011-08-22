@@ -1,9 +1,11 @@
 package net.sf.latexdraw.glib.views.Java2D;
 
+import java.awt.Shape;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a view of the IArc model.<br>
@@ -38,9 +40,25 @@ public class LArcView extends LEllipseView<IArc> {
 
 	@Override
 	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
-		setArcPath(path, tlx, tly, width, height, shape.getAngleStart(), shape.getAngleEnd());
+		setArcPath(path, tlx, tly, width, height, shape.getAngleStart(), shape.getAngleEnd(), getJava2DArcStyle());
 	}
 
+
+	@Override
+	public void updateBorder() {
+		final Shape sh = LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.) ? path : getRotatedShape2D();
+		border.setFrame(getStroke().createStrokedShape(sh).getBounds2D());
+	}
+
+
+	protected int getJava2DArcStyle() {
+		switch(shape.getArcStyle()) {
+			case ARC	: return Arc2D.OPEN;
+			case CHORD	: return Arc2D.CHORD;
+			case WEDGE	: return Arc2D.PIE;
+		}
+		return -1;
+	}
 
 
 	/**
@@ -52,13 +70,19 @@ public class LArcView extends LEllipseView<IArc> {
 	 * @param height The height of the arc.
 	 * @param startAngle The start angle of the arc.
 	 * @param endAngle The end angle of the arc.
+	 * @param style The style of the arc. See Arc2D.OPEN etc.
 	 * @since 3.0
 	 */
-	public static void setArcPath(final Path2D path, final double tlx, final double tly, final double width, final double height, final double startAngle, final double endAngle) {
+	public static void setArcPath(final Path2D path, final double tlx, final double tly, final double width, final double height, final double startAngle,
+									final double endAngle, final int style) {
 		if(path!=null) {
-			final double sAngle = Math.toDegrees(startAngle%(Math.PI*2.));
-			final double eAngle = Math.toDegrees(endAngle%(Math.PI*2.));
-			path.append(new Arc2D.Double(tlx, tly, width, height, sAngle<eAngle ? sAngle : eAngle, eAngle>sAngle ? eAngle-sAngle : sAngle-eAngle, Arc2D.OPEN), false);
+			double sAngle = Math.toDegrees(startAngle%(Math.PI*2.));
+			double eAngle = Math.toDegrees(endAngle%(Math.PI*2.));
+
+			if(LNumber.INSTANCE.equals(sAngle, eAngle))
+				eAngle += 0.1;
+
+			path.append(new Arc2D.Double(tlx, tly, width, height, sAngle<eAngle ? sAngle : eAngle, eAngle>sAngle ? eAngle-sAngle : sAngle-eAngle, style), false);
 		}
 	}
 

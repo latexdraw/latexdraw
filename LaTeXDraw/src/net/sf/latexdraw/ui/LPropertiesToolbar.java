@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
+import net.sf.latexdraw.instruments.ShapeArcCustomiser;
 import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
@@ -91,7 +92,9 @@ public class LPropertiesToolbar extends MPanel {
 		add(createDotToolbar(metaShapeCustomiser.getDotCustomiser(), frame, canvas));
 		addTextPositionWidgets(metaShapeCustomiser.getTextCustomiser(), frame, canvas);
 		addTextPropertiesWidgets(metaShapeCustomiser.getTextCustomiser(), frame, canvas);
+		add(createArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), frame, canvas));
 	}
+
 
 
 	protected void addTextPropertiesWidgets(final TextCustomiser textCustomiser, final LFrame frame, final LCanvas canvas) {
@@ -129,6 +132,24 @@ public class LPropertiesToolbar extends MPanel {
 		if(label)
 			list.addComponent(spinner.getLabel());
 		list.addComponent(spinner);
+	}
+
+
+	protected JComponent createArcPropertiesWidgets(final ShapeArcCustomiser ins, final LFrame frame, final LCanvas canvas) {
+		ListToggleButton list = new ListToggleButton(frame, LResources.ARC_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		list.setToolTipText("Customises the arcs.");
+
+		list.addComponent(ins.getArcB());
+		list.addComponent(ins.getChordB());
+		list.addComponent(ins.getWedgeB());
+		addSpinner(list, ins.getStartAngleS(), true, 70);
+		addSpinner(list, ins.getEndAngleS(), true, 70);
+		list.addSeparator();
+
+        ins.addEventable(list.getToolbar());
+        ins.setWidgetContainer(list);
+
+		return list;
 	}
 
 

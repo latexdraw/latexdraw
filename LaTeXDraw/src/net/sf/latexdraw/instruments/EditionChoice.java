@@ -1,8 +1,8 @@
 package net.sf.latexdraw.instruments;
 
+import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
-import net.sf.latexdraw.glib.models.interfaces.IArc.ArcType;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
@@ -188,7 +188,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 		@Override
 		public IShape createShapeInstance() {
 			final IShape shape = DrawingTK.getFactory().newShape(IArc.class);
-			((IArc)shape).setType(ArcType.WEDGE);
+			((IArc)shape).setArcStyle(ArcStyle.WEDGE);
 			return shape;
 		}
 	},
@@ -201,7 +201,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 		@Override
 		public IShape createShapeInstance() {
 			final IShape shape = DrawingTK.getFactory().newShape(ICircleArc.class);
-			((ICircleArc)shape).setType(ArcType.ARC);
+			((ICircleArc)shape).setArcStyle(ArcStyle.ARC);
 			return shape;
 		}
 	},
@@ -214,7 +214,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 		@Override
 		public IShape createShapeInstance() {
 			final IShape shape = DrawingTK.getFactory().newShape(IArc.class);
-			((IArc)shape).setType(ArcType.CHORD);
+			((IArc)shape).setArcStyle(ArcStyle.CHORD);
 			return shape;
 		}
 	},

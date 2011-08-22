@@ -7,6 +7,8 @@ import java.util.List;
 import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.InitTextSetter;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.Arcable;
+import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
@@ -88,6 +90,9 @@ public class Pencil extends Instrument {
 	/** The style of the created dots. */
 	protected Dottable dottable;
 
+	/** The style of the created arcs. */
+	protected Arcable arcable;
+
 	/** A shape that supports filling customisation. Used to get and set filling properties. */
 	protected IShape fillingable;
 
@@ -131,6 +136,7 @@ public class Pencil extends Instrument {
 		borderMoveable	= lineStylable;
 		fillingable		= lineStylable;
 		textable		= factory.createText(false);
+		arcable			= factory.createCircleArc(false);
 		arrowLeftStyle	= ArrowStyle.NONE;
 		arrowRightStyle	= ArrowStyle.NONE;
 
@@ -219,6 +225,12 @@ public class Pencil extends Instrument {
 		if(shape instanceof Dottable) {
 			((Dottable)shape).setDotStyle(dottable.getDotStyle());
 			((Dottable)shape).setRadius(dottable.getRadius());
+		}
+		if(shape instanceof Arcable) {
+			final Arcable arc = (Arcable)shape;
+			arc.setAngleStart(arcable.getAngleStart());
+			arc.setAngleEnd(arcable.getAngleEnd());
+			arc.setArcStyle(arcable.getArcStyle());
 		}
 		if(shape.isLineStylable())
 			shape.setLineStyle(lineStylable.getLineStyle());
@@ -397,6 +409,33 @@ public class Pencil extends Instrument {
 	 */
 	public void setDotStyle(final DotStyle dotStyle) {
 		dottable.setDotStyle(dotStyle);
+	}
+
+	/**
+	 * Sets the style of the created arcs.
+	 * @param arcStyle The style of the created arcs.
+	 * @since 3.0
+	 */
+	public void setArcStyle(final ArcStyle arcStyle) {
+		arcable.setArcStyle(arcStyle);
+	}
+
+	/**
+	 * Sets the start angle of the created arcs.
+	 * @param startAngle The start angle of the created arcs.
+	 * @since 3.0
+	 */
+	public void setArcStartAngle(final double startAngle) {
+		arcable.setAngleStart(startAngle);
+	}
+
+	/**
+	 * Sets the end angle of the created arcs.
+	 * @param endAngle The end angle of the created arcs.
+	 * @since 3.0
+	 */
+	public void setArcEndAngle(final double endAngle) {
+		arcable.setAngleEnd(endAngle);
 	}
 
 
