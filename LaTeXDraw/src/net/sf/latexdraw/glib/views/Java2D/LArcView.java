@@ -58,41 +58,10 @@ public class LArcView extends LEllipseView<IArc> {
 		if(path!=null) {
 			final double sAngle = Math.toDegrees(startAngle%(Math.PI*2.));
 			final double eAngle = Math.toDegrees(endAngle%(Math.PI*2.));
-			path.append(new Arc2D.Double(tlx, tly, width, height, sAngle<eAngle ? sAngle : eAngle, eAngle>sAngle ? eAngle : sAngle, Arc2D.OPEN), false);
+			path.append(new Arc2D.Double(tlx, tly, width, height, sAngle<eAngle ? sAngle : eAngle, eAngle>sAngle ? eAngle-sAngle : sAngle-eAngle, Arc2D.OPEN), false);
 		}
 	}
 
-
-//	@Override
-//	public void update() {
-//		super.update();
-//
-//		IArc arc  = (IArc)shape;
-//		IPoint gc = arc.getGravityCentre();
-//		IPoint pt = arc.getStartPoint();
-//
-//		startHandler.setCentre((gc.getX()+pt.getX())/2.,(gc.getY()+pt.getY())/2.);
-//		pt = arc.getEndPoint();
-//		endHandler.setCentre((gc.getX()+pt.getX())/2.,(gc.getY()+pt.getY())/2.);
-//	}
-//
-//
-//
-//	@Override
-//	public void paint(Graphics2D g) {
-//		super.paint(g);
-//
-//		if(isSelected) {
-//			IPoint p = beginRotation(g);
-//
-//			startHandler.paint(g);
-//			endHandler.paint(g);
-//
-//			if(p!=null)
-//				endRotation(g, p);
-//		}
-//	}
-//
 //
 //	/**
 //	 * Sets the starting or ending angle of the arc.
