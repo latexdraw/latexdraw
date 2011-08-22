@@ -4,6 +4,7 @@ Added:
 - Native support of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
 - Can place texts at different positions: bottom-left, bottom-middle, top-right, etc. This feature produces PSTricks code based on the rput command.
 - new localisations: Brazilian Portuguese, Hungarian, Japanese, Turkish, Vietnamese.
+- double borders supported for arcs.
 - A system tab in the "About LaTeXDraw" dialogue box to give some information about the system.
 
 Improvements:

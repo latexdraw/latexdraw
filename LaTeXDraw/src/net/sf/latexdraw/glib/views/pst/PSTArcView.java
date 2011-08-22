@@ -5,6 +5,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.util.LNumber;
+import net.sf.latexdraw.util.LResources;
 
 /**
  * Defines a PSTricks view of the LArc model.<br>
@@ -33,7 +34,6 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 	 */
 	public PSTArcView(final IArc model) {
 		super(model);
-
 		update();
 	}
 
@@ -45,23 +45,29 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 
 		emptyCache();//TODO arrows
 
-		double x 			= shape.getX() - origin.getX();
-		double y 			= origin.getY() - shape.getY();
 		double radiusX 		= shape.getA();
 		double radiusY 		= shape.getB();
+		double x 			= shape.getX()+radiusX - origin.getX();
+		double y 			= origin.getY() - shape.getY()+radiusY;
 		double startAngle 	= shape.getAngleStart();
 		double endAngle	  	= shape.getAngleEnd();
-		float yunit 		= (float)(radiusY/radiusX);
-		StringBuilder start = new StringBuilder();//getRotationHeaderCode(ppc, d);
+		double yunit 		= radiusY/radiusX;
+		StringBuilder start = new StringBuilder();
 		StringBuilder end 	= new StringBuilder();
 		StringBuilder params = getPropertiesCode(ppc);
 		StringBuilder rotation = getRotationHeaderCode(ppc, origin);
 
+		if(startAngle>endAngle) {
+			double tmp 	= startAngle;
+			startAngle 	= endAngle;
+			endAngle 	= tmp;
+		}
+
 		if(rotation!=null)
 			end.append('}');
 
-		if(yunit!=1f) {
-			start.append("\\psscalebox{1 ").append(yunit).append("}{"); //$NON-NLS-1$ //$NON-NLS-2$
+		if(!LNumber.INSTANCE.equals(yunit, 1.)) {
+			start.append("\\psscalebox{1 ").append((float)LNumber.INSTANCE.getCutNumber(yunit)).append("}{"); //$NON-NLS-1$ //$NON-NLS-2$
 			end.append('}');
 		}
 
@@ -74,13 +80,15 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 				break;
 
 			case CHORD:
-				end.append("\\psarc"); //$NON-NLS-1$
-				end.append("\n\\psline[").append(params).append(']').append('('); //$NON-NLS-1$
-				end.append((float)LNumber.INSTANCE.getCutNumber((x+Math.cos(startAngle)*radiusX)/ppc)).append(',');
-				end.append((float)LNumber.INSTANCE.getCutNumber((y+Math.sin(startAngle)*radiusY)/ppc)).append(')').append('(');
-				end.append((float)LNumber.INSTANCE.getCutNumber((x+Math.cos(endAngle)*radiusX)/ppc)).append(',');
-				end.append((float)LNumber.INSTANCE.getCutNumber((y+Math.sin(endAngle)*radiusY)/ppc)).append(')');
+				final IPoint startPt= shape.getStartPoint();
+				final IPoint endPt 	= shape.getEndPoint();
 
+				start.append("\\psarc"); //$NON-NLS-1$
+				end.append(LResources.EOL).append("\\psline[").append(params).append(']').append('('); //$NON-NLS-1$
+				end.append((float)LNumber.INSTANCE.getCutNumber(startPt.getX()/ppc)).append(',');
+				end.append((float)LNumber.INSTANCE.getCutNumber(startPt.getY()/ppc)).append(')').append('(');
+				end.append((float)LNumber.INSTANCE.getCutNumber(endPt.getX()/ppc)).append(',');
+				end.append((float)LNumber.INSTANCE.getCutNumber(endPt.getY()/ppc)).append(')');
 				break;
 
 			case WEDGE:
