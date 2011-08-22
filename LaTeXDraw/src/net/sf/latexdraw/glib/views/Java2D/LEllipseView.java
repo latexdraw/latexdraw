@@ -3,7 +3,6 @@ package net.sf.latexdraw.glib.views.Java2D;
 import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a view of the IEllipse model.<br>
@@ -44,15 +43,6 @@ public class LEllipseView<S extends IEllipse> extends LRectangularView<S> {
 	public LEllipseView(final S model) {
 		super(model);
 		update();
-	}
-
-
-	@Override
-	public void updateBorder() {
-		if(LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.))
-			super.updateBorder();
-		else
-			border.setFrame(getStroke().createStrokedShape(getRotatedShape2D()).getBounds2D());
 	}
 
 
