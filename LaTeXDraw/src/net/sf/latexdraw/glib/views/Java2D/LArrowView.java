@@ -3,6 +3,9 @@ package net.sf.latexdraw.glib.views.Java2D;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
@@ -277,28 +280,26 @@ public class LArrowView {
 	}
 
 
-//	protected void updatePathRoundLeftRightBracket(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2, final boolean isLeft) {
-//		final double width 		= model.getBarShapedArrowWidth();
-//		final double lgth  		= model.getRBracketNum()*width;
-//		final double xarc  		= model.isInverted() ? xRot : xRot+model.getShape().getThickness()/2.;//FIXME isInverted.
-//		final double widtharc 	= lgth*2 + (model.isInverted() ? model.getShape().getThickness()/2. : 0.);
-//		Shape s = new Arc2D.Double(xarc, yRot-width/2., widtharc, width, 130, 100, Arc2D.OPEN);
+	protected void updatePathRoundLeftRightBracket(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
+		final boolean invert	= model.isInverted();
+		final double width 		= model.getBarShapedArrowWidth();
+		final double lgth  		= model.getRBracketNum()*width;
+		final double xarc  		= model.isInverted() ? xRot : xRot+model.getShape().getThickness()/2.;
+		final double widtharc 	= lgth*2 + (invert ? model.getShape().getThickness()/2. : 0.);
+		Shape s = new Arc2D.Double(xarc, yRot-width/2., widtharc, width, 130, 100, Arc2D.OPEN);
 
-		//FIXME
-//		if( (position==pt1 && pt1.x<pt2.x && currentArrowStyle.equals(PSTricksConstants.RRBRACKET_STYLE)) ||
-//			(position==pt1 && pt1.x>=pt2.x && currentArrowStyle.equals(PSTricksConstants.LRBRACKET_STYLE)) ||
-//			(position==pt2 && pt2.x<=pt1.x && currentArrowStyle.equals(PSTricksConstants.LRBRACKET_STYLE)) ||
-//			(position==pt2 && pt2.x>pt1.x && currentArrowStyle.equals(PSTricksConstants.RRBRACKET_STYLE)))
-//		{
-//			double cx = xRot, cy = yRot;
-//			double rotX = Math.cos(Math.PI)*cx - Math.sin(Math.PI)*cy;
-//			double rotY = Math.sin(Math.PI)*cx + Math.cos(Math.PI)*cy;
-//
-//			AffineTransform at = AffineTransform.getTranslateInstance(cx-rotX, cy-rotY);
-//			at.rotate(Math.PI);
-//			s = at.createTransformedShape(s);
-//		}
-//	}
+		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert)) {
+			double cx = xRot, cy = yRot;
+			double rotX = Math.cos(Math.PI)*cx - Math.sin(Math.PI)*cy;
+			double rotY = Math.sin(Math.PI)*cx + Math.cos(Math.PI)*cy;
+
+			AffineTransform at = AffineTransform.getTranslateInstance(cx-rotX, cy-rotY);
+			at.rotate(Math.PI);
+			s = at.createTransformedShape(s);
+		}
+
+		path.append(s, false);
+	}
 
 
 
@@ -373,14 +374,14 @@ public class LArrowView {
 			case DISK_END			: updatePathDiskCircleEnd(xRot, yRot); break;
 			case CIRCLE_IN			:
 			case DISK_IN			: updatePathDiskCircleIn(xRot, yRot, pt1, pt2); break;
+			case RIGHT_ARROW		:
 			case LEFT_ARROW			: updatePathRightLeftArrow(xRot, yRot, pt1, pt2); break;
+			case RIGHT_DBLE_ARROW	:
 			case LEFT_DBLE_ARROW	: updatePathDoubleLeftRightArrow(xRot, yRot, pt1, pt2); break;
-			case LEFT_ROUND_BRACKET	: /*TODO*/ break;
-			case LEFT_SQUARE_BRACKET: updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2); break;
-			case RIGHT_ARROW		: updatePathRightLeftArrow(xRot, yRot, pt1, pt2); break;
-			case RIGHT_DBLE_ARROW	: updatePathDoubleLeftRightArrow(xRot, yRot, pt1, pt2); break;
-			case RIGHT_ROUND_BRACKET: /*TODO*/ break;
-			case RIGHT_SQUARE_BRACKET: updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2); break;
+			case RIGHT_ROUND_BRACKET:
+			case LEFT_ROUND_BRACKET	: updatePathRoundLeftRightBracket(xRot, yRot, pt1, pt2); break;
+			case LEFT_SQUARE_BRACKET:
+			case RIGHT_SQUARE_BRACKET:updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2); break;
 			case SQUARE_END			:
 			case ROUND_END			: updatePathSquareRoundEnd(xRot, yRot, pt1, pt2); break;
 			case ROUND_IN			: updatePathRoundIn(xRot, yRot, pt1, pt2); break;
