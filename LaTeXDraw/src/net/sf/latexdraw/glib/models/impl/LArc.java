@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a model of an arc.<br>
@@ -131,5 +132,17 @@ class LArc extends LEllipse implements IArc {
 	@Override
 	public boolean isArrowable() {
 		return false; //TODO getType()==ArcType.ARC;
+	}
+
+
+	@Override
+	public boolean isParametersEquals(final IShape sh, final boolean considerShadow) {
+		boolean ok = super.isParametersEquals(sh, considerShadow);
+		
+		if(ok && sh instanceof IArc) {
+			final IArc arc = (IArc)sh;
+			ok = ok && LNumber.INSTANCE.equals(startAngle, arc.getAngleStart()) && LNumber.INSTANCE.equals(endAngle, arc.getAngleEnd()) && style==arc.getArcStyle();
+		}
+		return ok;
 	}
 }

@@ -45,8 +45,8 @@ public class PSTArcView extends PSTClassicalView<IArc> {
 
 		emptyCache();//TODO arrows
 
-		double radiusX 		= shape.getA();
-		double radiusY 		= shape.getB();
+		double radiusX 		= shape.getRx();
+		double radiusY 		= shape.getRy();
 		double x 			= shape.getX()+radiusX - origin.getX();
 		double y 			= origin.getY() - shape.getY()+radiusY;
 		double startAngle 	= shape.getAngleStart();

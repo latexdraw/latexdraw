@@ -105,13 +105,13 @@ class LEllipse extends LRectangularShape implements IEllipse {
 
 	@Override
 	public double getRx() {
-		return (getTopRightPoint().getX() - getTopLeftPoint().getX())/2.;
+		return getWidth()/2.;
 	}
 
 
 	@Override
 	public double getRy() {
-		return (getBottomLeftPoint().getY() - getTopLeftPoint().getY())/2.;
+		return getHeight()/2.;
 	}
 
 
