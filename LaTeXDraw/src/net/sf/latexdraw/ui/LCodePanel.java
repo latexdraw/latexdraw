@@ -127,8 +127,10 @@ public class LCodePanel extends MPanel implements ConcretePresentation, ActionHa
 
 	@Override
 	public void update() {
-		pstGenerator.updateFull();
-		editorPane.setText(pstGenerator.getCache().toString());
+		if(isVisible()) {
+			pstGenerator.updateFull();
+			editorPane.setText(pstGenerator.getCache().toString());
+		}
 	}
 
 
@@ -167,10 +169,8 @@ public class LCodePanel extends MPanel implements ConcretePresentation, ActionHa
 
 	@Override
 	public void onActionExecuted(final Action action) {
-		if(action!=null) {
+		if(action!=null)
 			//TODO only updates the modified shape(s) for some actions.
-			pstGenerator.updateFull();
-			editorPane.setText(pstGenerator.getCache().toString());
-		}
+			update();
 	}
 }
