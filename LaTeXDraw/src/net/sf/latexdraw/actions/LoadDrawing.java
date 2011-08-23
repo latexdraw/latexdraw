@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 
 import org.malai.action.library.Load;
 
-
 /**
  * This action loads an SVG document into the app.
  * <br>
@@ -27,7 +26,7 @@ import org.malai.action.library.Load;
  * @date 06/09/2011
  * @since 3.0
  */
-public class LoadDrawing extends Load {
+public class LoadDrawing extends Load implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
 

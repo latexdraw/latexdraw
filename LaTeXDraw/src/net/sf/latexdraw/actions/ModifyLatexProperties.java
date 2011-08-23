@@ -24,7 +24,7 @@ import org.malai.undo.Undoable;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ModifyLatexProperties extends Action implements Undoable {
+public class ModifyLatexProperties extends Action implements Undoable, Modifying {
 	/**
 	 * This enumeration defines the different LaTeX properties that can be modified.
 	 */

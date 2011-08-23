@@ -35,7 +35,7 @@ import org.malai.undo.Undoable;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ModifyShapeProperty extends ShapePropertyAction implements Undoable {
+public class ModifyShapeProperty extends ShapePropertyAction implements Undoable, Modifying {
 	/** The shape to modify. */
 	protected IShape shape;
 

@@ -22,7 +22,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class RotateShape extends ShapeAction implements Undoable {
+public class RotateShape extends ShapeAction implements Undoable, Modifying {
 	/** The increment to add to the rotation angle of the shape. */
 	protected double rotationAngleIncrement;
 

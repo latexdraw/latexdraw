@@ -24,10 +24,10 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class DeleteShape extends MultiShapesAction implements Undoable {
+public class DeleteShape extends MultiShapesAction implements Undoable, Modifying {
 	/** The index of the deleted shapes into the original list. */
 	protected int[] positionShapes;
-	
+
 	/**
 	 * Creates the action.
 	 * @since 3.0
@@ -47,16 +47,16 @@ public class DeleteShape extends MultiShapesAction implements Undoable {
 	protected void doActionBody() {
 		positionShapes = new int[shapes.size()];
 		List<IShape> drawingSh = drawing.getShapes();
-		
+
 		for(int i=0, size=shapes.size(); i<size; i++)
 			positionShapes[i] = drawingSh.indexOf(shapes.get(i));
 
 		deleteShapes();
 	}
-	
-	
+
+
 	/**
-	 * Delete the shapes from the drawing. 
+	 * Delete the shapes from the drawing.
 	 * @since 3.0
 	 */
 	private void deleteShapes() {
@@ -65,17 +65,17 @@ public class DeleteShape extends MultiShapesAction implements Undoable {
 		drawing.setModified(true);
 	}
 
-	
+
 	@Override
 	public boolean canDo() {
 		return super.canDo() && !shapes.isEmpty();
 	}
-	
+
 
 	@Override
 	public void undo() {
 		for(int i=0; i<positionShapes.length; i++)
-			drawing.addShape(shapes.get(i), positionShapes[i]);	
+			drawing.addShape(shapes.get(i), positionShapes[i]);
 		drawing.setModified(true);
 	}
 

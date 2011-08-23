@@ -28,7 +28,7 @@ import net.sf.latexdraw.instruments.PreferencesSetter;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class NewDrawing extends IOAction {
+public class NewDrawing extends IOAction implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
 

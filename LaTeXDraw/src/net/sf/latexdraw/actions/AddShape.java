@@ -23,7 +23,7 @@ import net.sf.latexdraw.lang.LangTool;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class AddShape extends ShapeAction implements Undoable {
+public class AddShape extends ShapeAction implements Undoable, Modifying {
 	/** The drawing in which the shape will be added. */
 	protected IDrawing drawing;
 

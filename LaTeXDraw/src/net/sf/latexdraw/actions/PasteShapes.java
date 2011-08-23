@@ -24,7 +24,7 @@ import net.sf.latexdraw.util.LResources;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PasteShapes extends DrawingAction implements Undoable {
+public class PasteShapes extends DrawingAction implements Undoable, Modifying {
 	/** The cut or copy action. */
 	protected CopyShapes copy;
 

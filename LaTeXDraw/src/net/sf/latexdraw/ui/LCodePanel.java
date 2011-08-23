@@ -2,6 +2,8 @@ package net.sf.latexdraw.ui;
 
 import java.awt.BorderLayout;
 
+import net.sf.latexdraw.actions.Modifying;
+import net.sf.latexdraw.actions.ShowHideCodePanel;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
@@ -9,6 +11,8 @@ import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import org.malai.action.Action;
 import org.malai.action.ActionHandler;
 import org.malai.action.ActionsRegistry;
+import org.malai.action.library.Redo;
+import org.malai.action.library.Undo;
 import org.malai.presentation.ConcretePresentation;
 import org.malai.undo.UndoCollector;
 import org.malai.undo.Undoable;
@@ -169,8 +173,7 @@ public class LCodePanel extends MPanel implements ConcretePresentation, ActionHa
 
 	@Override
 	public void onActionExecuted(final Action action) {
-		if(action!=null)
-			//TODO only updates the modified shape(s) for some actions.
+		if(action instanceof Modifying || action instanceof Undo || action instanceof Redo || action instanceof ShowHideCodePanel)
 			update();
 	}
 }

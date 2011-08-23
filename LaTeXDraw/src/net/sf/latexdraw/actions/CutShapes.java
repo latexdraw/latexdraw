@@ -27,7 +27,7 @@ import net.sf.latexdraw.util.LResources;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class CutShapes extends CopyShapes implements Undoable {
+public class CutShapes extends CopyShapes implements Undoable, Modifying {
 	/** The index of the cut shapes. */
 	protected int[] positionShapes;
 

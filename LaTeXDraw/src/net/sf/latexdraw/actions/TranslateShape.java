@@ -26,7 +26,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class TranslateShape extends DrawingAction implements Undoable {
+public class TranslateShape extends DrawingAction implements Undoable, Modifying {
 	/** The x vector translation. */
 	protected double tx;
 
@@ -40,7 +40,7 @@ public class TranslateShape extends DrawingAction implements Undoable {
 	/** The y vector translation that has been already performed. This attribute is needed since
 	 * this action can be executed several times. */
 	private double performedTy;
-	
+
 	private IShape shape;
 
 
@@ -102,16 +102,16 @@ public class TranslateShape extends DrawingAction implements Undoable {
 		return "Translation";
 	}
 
-	
+
 	@Override
 	public void setDrawing(final IDrawing drawing) {
 		super.setDrawing(drawing);
-		
+
 		if(drawing!=null)
 			shape = drawing.getSelection().duplicate();
 	}
 
-	
+
 	/**
 	 * @param tx The x vector translation.
 	 * @since 3.0
