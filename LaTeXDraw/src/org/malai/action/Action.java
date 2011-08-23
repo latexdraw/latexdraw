@@ -63,9 +63,9 @@ public abstract class Action {
 	 * @return True if the execution is successful. False otherwise.
 	 */
 	public boolean doIt() {
-		boolean ok;
+		final boolean ok;
 
-		if(canDo()) {
+		if((status==ActionStatus.CREATED || status==ActionStatus.EXECUTED) && canDo()) {
 			ok = true;
 			doActionBody();
 			status = ActionStatus.EXECUTED;
@@ -120,8 +120,10 @@ public abstract class Action {
 	 * @since 0.1
 	 */
 	public void done() {
-		status = ActionStatus.DONE;
-		ActionsRegistry.INSTANCE.onActionDone(this);
+		if(status==ActionStatus.CREATED || status==ActionStatus.EXECUTED) {
+			status = ActionStatus.DONE;
+			ActionsRegistry.INSTANCE.onActionDone(this);
+		}
 	}
 
 
