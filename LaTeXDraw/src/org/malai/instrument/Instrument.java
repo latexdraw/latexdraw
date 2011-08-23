@@ -191,4 +191,9 @@ public abstract class Instrument implements Preferenciable, Modifiable, Reinitia
 	public void onActionExecuted(final Action action) {
 		// Should be overridden.
 	}
+
+	@Override
+	public void onActionDone(final Action action) {
+		// Should be overridden.
+	}
 }

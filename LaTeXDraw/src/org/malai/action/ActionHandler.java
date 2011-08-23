@@ -48,4 +48,11 @@ public interface ActionHandler extends UndoHandler {
 	 * @since 0.2
 	 */
 	void onActionExecuted(final Action action);
+
+	/**
+	 * Notifies the handler when the given action is done.
+	 * @param action The action that ends.
+	 * @since 0.2
+	 */
+	void onActionDone(final Action action);
 }

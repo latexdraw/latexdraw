@@ -64,6 +64,19 @@ public final class ActionsRegistry {
 
 
 	/**
+	 * Notifies handlers that an action ends.
+	 * @param action The action that ends.
+	 * @since 0.2
+	 */
+	public void onActionDone(final Action action) {
+		if(action!=null)
+			for(ActionHandler handler : handlers)
+				handler.onActionDone(action);
+	}
+
+
+
+	/**
 	 * @return The stored actions.
 	 * @since 0.1
 	 */

@@ -228,8 +228,9 @@ public abstract class Link<A extends Action, I extends Interaction, N extends In
     				updateAction();
 
     			if(action.doIt()) {
-    				action.done();
     				instrument.onActionExecuted(action);
+    				action.done();
+    				instrument.onActionDone(action);
     			}
 
     			if(action.hadEffect()) {

@@ -20,12 +20,11 @@ package org.malai.action;
  * @since 0.2
  */
 public abstract class Action {
-	/** Defines if the action is done. */
-	protected boolean done;
+	/** Defines the different state of the action. @since 0.2 */
+	public static enum ActionStatus { CREATED, EXECUTED, ABORTED, DONE, FLUSHED }
 
-	/** Defines if the action has started. */
-	protected boolean isStarted;
-
+	/** Provides the state of the action. */
+	protected ActionStatus status;
 
 
 	/**
@@ -33,8 +32,7 @@ public abstract class Action {
 	 */
 	public Action() {
 		super();
-		done 		= false;
-		isStarted 	= false;
+		status = ActionStatus.CREATED;
 	}
 
 
@@ -44,7 +42,7 @@ public abstract class Action {
 	 * @since 0.2
 	 */
 	public void flush() {
-		// Should be overridden.
+		status = ActionStatus.FLUSHED;
 	}
 
 
@@ -68,10 +66,9 @@ public abstract class Action {
 		boolean ok;
 
 		if(canDo()) {
-			isStarted = true;
 			ok = true;
-
 			doActionBody();
+			status = ActionStatus.EXECUTED;
 			ActionsRegistry.INSTANCE.onActionExecuted(this);
 		}
 		else ok = false;
@@ -123,7 +120,8 @@ public abstract class Action {
 	 * @since 0.1
 	 */
 	public void done() {
-		done = true;
+		status = ActionStatus.DONE;
+		ActionsRegistry.INSTANCE.onActionDone(this);
 	}
 
 
@@ -133,8 +131,9 @@ public abstract class Action {
 	 * @since 0.1
 	 */
 	public boolean isDone() {
-		return done;
+		return status==ActionStatus.DONE;
 	}
+
 
 
 	@Override
@@ -149,7 +148,7 @@ public abstract class Action {
 	 * @since 0.1
 	 */
 	public void abort() {
-		done();
+		status = ActionStatus.ABORTED;
 	}
 
 
@@ -158,16 +157,17 @@ public abstract class Action {
 	 * @since 0.1
 	 */
 	public boolean isStarted() {
-		return isStarted;
+		return status!=ActionStatus.CREATED;
 	}
 
 
+
 	/**
-	 * Defines if the action has started or not.
-	 * @param isStarted The new value of isStarted.
-	 * @since 0.1
+	 * Provides the state of the action.
+	 * @return The state of the action.
+	 * @since 0.2
 	 */
-	public void setStarted(final boolean isStarted) {
-		this.isStarted = isStarted;
+	public ActionStatus getStatus() {
+		return status;
 	}
 }

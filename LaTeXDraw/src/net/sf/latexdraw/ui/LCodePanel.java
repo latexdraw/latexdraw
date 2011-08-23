@@ -173,6 +173,11 @@ public class LCodePanel extends MPanel implements ConcretePresentation, ActionHa
 
 	@Override
 	public void onActionExecuted(final Action action) {
+		// Nothing to do.
+	}
+
+	@Override
+	public void onActionDone(final Action action) {
 		if(action instanceof Modifying || action instanceof Undo || action instanceof Redo || action instanceof ShowHideCodePanel)
 			update();
 	}

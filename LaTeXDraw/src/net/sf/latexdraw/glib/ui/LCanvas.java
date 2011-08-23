@@ -573,4 +573,9 @@ public class LCanvas extends MPanel implements ICanvas {
 	public void onUndoableRedo(final Undoable undoable) {
 		// Nothing to do.
 	}
+
+	@Override
+	public void onActionDone(final Action action) {
+		// Nothing to do.
+	}
 }
