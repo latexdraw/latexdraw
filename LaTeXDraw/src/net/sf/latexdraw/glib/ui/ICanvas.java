@@ -163,4 +163,10 @@ public interface ICanvas extends Zoomable, ConcretePresentation, Scrollable, Eve
 	 * @since 3.0
 	 */
 	LMagneticGrid getMagneticGrid();
+
+	/**
+	 * Requests the focus to the canvas.
+	 * @since 3.0
+	 */
+	void requestFocus();
 }

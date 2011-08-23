@@ -5,17 +5,18 @@ import java.util.Map;
 
 import javax.swing.AbstractButton;
 
-import org.malai.action.library.ActivateInactivateInstruments;
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
-import org.malai.interaction.library.ButtonPressed;
-import org.malai.widget.MToggleButton;
-
 import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.action.Action;
+import org.malai.action.library.ActivateInactivateInstruments;
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.library.ButtonPressed;
+import org.malai.widget.MToggleButton;
 
 /**
  * This instrument selects the pencil or the hand.<br>
@@ -452,6 +453,13 @@ public class EditingSelector extends Instrument {
 	 */
 	public Pencil getPencil() {
 		return pencil;
+	}
+
+
+	@Override
+	public void onActionDone(final Action action) {
+		super.onActionDone(action);
+		hand.canvas.requestFocus();
 	}
 }
 
