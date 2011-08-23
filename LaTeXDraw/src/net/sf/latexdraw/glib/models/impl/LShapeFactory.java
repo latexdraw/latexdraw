@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
@@ -59,6 +60,8 @@ public class LShapeFactory implements IShapeFactory {
 			return null;
 		if(shapeClass.equals(ICircleArc.class) || shapeClass.equals(LCircleArc.class))
 			return shapeClass.cast(createCircleArc(true));
+		if(shapeClass.equals(IArc.class) || shapeClass.equals(LArc.class))
+			return shapeClass.cast(createArc(true));
 		if(shapeClass.equals(ICircle.class) || shapeClass.equals(LCircle.class))
 			return shapeClass.cast(createCircle(true));
 		if(shapeClass.equals(IEllipse.class) || shapeClass.equals(LEllipse.class))
@@ -284,6 +287,18 @@ public class LShapeFactory implements IShapeFactory {
 	@Override
 	public ICircleArc createCircleArc(final boolean isUniqueID) {
 		return new LCircleArc(isUniqueID);
+	}
+
+
+	@Override
+	public IArc createArc(final IPoint tl, final IPoint br, final boolean uniqueID) {
+		return new LArc(tl, br, uniqueID);
+	}
+
+
+	@Override
+	public IArc createArc(final boolean isUniqueID) {
+		return new LArc(isUniqueID);
 	}
 
 

@@ -339,11 +339,30 @@ public interface IShapeFactory {
 
 
 	/**
-	 * Creates a circled circle arc with a 1 radius.
+	 * Creates a circled arc with a 1 radius.
 	 * @param isUniqueID True: the model will have a unique ID.
 	 * @since 3.0
 	 */
 	ICircleArc createCircleArc(final boolean isUniqueID);
+
+
+	/**
+	 * Creates an arc.
+	 * @param tl The top left point of the arc.
+	 * @param br The bottom right point of the arc.
+	 * @param uniqueID True: the arc will have a unique ID.
+	 * @return The created arc.
+	 * @since 3.0
+	 */
+	IArc createArc(final IPoint tl, final IPoint br, final boolean uniqueID);
+
+
+	/**
+	 * Creates a circled arc with a 1 radius.
+	 * @param isUniqueID True: the model will have a unique ID.
+	 * @since 3.0
+	 */
+	IArc createArc(final boolean isUniqueID);
 
 
 	/**
