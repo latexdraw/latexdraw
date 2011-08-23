@@ -108,6 +108,14 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 		else
 			update(drawing.getSelection());
 
+		repaintWidgetContainer();
+	}
+
+
+	/**
+	 * Repaints the container of all the widgets of the instrument.
+	 */
+	protected void repaintWidgetContainer() {
 		if(widgetContainer!=null)
 			widgetContainer.repaint();
 	}
@@ -127,8 +135,6 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 
 		if(widgetContainer!=null)
 			widgetContainer.setVisible(isActivated());
-
-		update();
 	}
 
 

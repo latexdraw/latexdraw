@@ -102,6 +102,8 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arrowCustomiser.setActivated(activated);
 		dotCustomiser.setActivated(activated);
 		arcCustomiser.setActivated(activated);
+
+		update();
 	}
 
 
@@ -120,19 +122,34 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	public void update() {
-		super.update();
+	protected void repaintWidgetContainer() {
+		super.repaintWidgetContainer();
 
-		borderCustomiser.update();
-		doubleBorderCustomiser.update();
-		shadowCustomiser.update();
-		fillingCustomiser.update();
-		textCustomiser.update();
-		rotationCustomiser.update();
-		arrowCustomiser.update();
-		dotCustomiser.update();
-		arcCustomiser.update();
+		borderCustomiser.repaintWidgetContainer();
+		doubleBorderCustomiser.repaintWidgetContainer();
+		shadowCustomiser.repaintWidgetContainer();
+		fillingCustomiser.repaintWidgetContainer();
+		textCustomiser.repaintWidgetContainer();
+		rotationCustomiser.repaintWidgetContainer();
+		arrowCustomiser.repaintWidgetContainer();
+		dotCustomiser.repaintWidgetContainer();
+		arcCustomiser.repaintWidgetContainer();
 	}
+
+//	@Override
+//	public void update() {
+//		super.update();
+//
+//		borderCustomiser.update();
+//		doubleBorderCustomiser.update();
+//		shadowCustomiser.update();
+//		fillingCustomiser.update();
+//		textCustomiser.update();
+//		rotationCustomiser.update();
+//		arrowCustomiser.update();
+//		dotCustomiser.update();
+//		arcCustomiser.update();
+//	}
 
 
 	/**
