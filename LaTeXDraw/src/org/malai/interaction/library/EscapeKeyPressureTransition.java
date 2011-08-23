@@ -2,7 +2,7 @@ package org.malai.interaction.library;
 
 import java.awt.event.KeyEvent;
 
-import org.malai.interaction.KeyboardTransition;
+import org.malai.interaction.KeyPressureTransition;
 import org.malai.stateMachine.SourceableState;
 import org.malai.stateMachine.TargetableState;
 
@@ -24,7 +24,7 @@ import org.malai.stateMachine.TargetableState;
  * @author Arnaud BLOUIN
  * @since 0.2
  */
-public class EscapeKeyPressureTransition extends KeyboardTransition {
+public class EscapeKeyPressureTransition extends KeyPressureTransition {
 	/**
 	 * Creates the transition.
 	 * @param inputState The source state.
