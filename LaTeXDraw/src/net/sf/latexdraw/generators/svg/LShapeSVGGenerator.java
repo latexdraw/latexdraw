@@ -632,10 +632,8 @@ public abstract class LShapeSVGGenerator<S extends IShape> {
 
 		        			root.setAttribute(SVGAttributes.SVG_FILL, SVG_URL_TOKEN_BEGIN + id + ')');
 		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, shape.getFillingStyle().getLatexToken());
-		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ROTATION,
-		        								String.valueOf(shape.getHatchingsAngle()));
-		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_SIZE,
-		        					String.valueOf(shape.getHatchingsSep()));
+		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ROTATION, String.valueOf(shape.getHatchingsAngle()));
+		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_SIZE, String.valueOf(shape.getHatchingsSep()));
 		        			hatch.setAttribute(SVGAttributes.SVG_PATTERN_UNITS, SVGAttributes.SVG_UNITS_VALUE_USR);
 		        			hatch.setAttribute(SVGAttributes.SVG_ID, id);
 		        			hatch.setAttribute(SVGAttributes.SVG_X, "0"); //$NON-NLS-1$
@@ -916,7 +914,7 @@ public abstract class LShapeSVGGenerator<S extends IShape> {
 						catch(final Exception e) { sep = 0.; }
 
 					if(PSTricksConstants.isValidFillStyle(str))
-						shape.setFillingStyle(FillingStyle.getStyle(str));
+						shape.setFillingStyle(FillingStyle.getStyleFromLatex(str));
 
 					if(!Double.isNaN(angle))
 						shape.setHatchingsAngle(angle);
@@ -969,9 +967,9 @@ public abstract class LShapeSVGGenerator<S extends IShape> {
 
 		if(!dashArray.equals(SVGAttributes.SVG_VALUE_NONE))
 			if(linecap!=null && SVGAttributes.SVG_LINECAP_VALUE_ROUND.equals(linecap))
-				shape.setLineStyle(LineStyle.getStyle(PSTricksConstants.LINE_DOTTED_STYLE));
+				shape.setLineStyle(LineStyle.DOTTED);
 			else
-				shape.setLineStyle(LineStyle.getStyle(PSTricksConstants.LINE_DASHED_STYLE));
+				shape.setLineStyle(LineStyle.DASHED);
 	}
 
 
