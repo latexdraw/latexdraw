@@ -1,11 +1,25 @@
 package net.sf.latexdraw.generators.svg;
 
+import java.awt.geom.Arc2D;
+
+import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.parsers.svg.SVGAttributes;
+import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.parsers.svg.SVGPathElement;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegArc;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
-
 
 /**
  * Defines a SVG generator for an arc.<br>
@@ -26,14 +40,24 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LArcSVGGenerator extends LEllipseSVGGenerator<IArc>
-{
+public class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
+	/**
+	 * Creates a generator of SVG arc.
+	 * @param shape The arc shape used for the generation.
+	 * @throws IllegalArgumentException If arc is null.
+	 * @since 2.0
+	 */
 	public LArcSVGGenerator(final IArc shape)	{
 		super(shape);
 	}
 
 
-
+	/**
+	 * Creates an arc from a G SVG element.
+	 * @param elt The G SVG element used for the creation of an arc.
+	 * @throws IllegalArgumentException If the given element is null.
+	 * @since 2.0
+	 */
 	public LArcSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
@@ -46,55 +70,51 @@ public class LArcSVGGenerator extends LEllipseSVGGenerator<IArc>
 	 * @param withTransformation If true, the SVG transformations will be applied.
 	 * @since 2.0.0
 	 */
-	public LArcSVGGenerator(final SVGGElement elt, final boolean withTransformation)
-	{
-		this((IArc)null);
+	public LArcSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+		this(DrawingTK.getFactory().createArc(true));
 
-//		IArc a 			= (IArc)getShape();
-//		SVGElement elt2 = getLaTeXDrawElement(elt, null);
-//		IArrow ah1 		= a.getArrowAt(0);
-//		IArrow ah2 		= a.getArrowAt(1);
-//
-//		if(elt==null || elt2==null || !(elt2 instanceof SVGPathElement))
-//			throw new IllegalArgumentException();
-//
-//		SVGPathElement main = (SVGPathElement)elt2;
-//		SVGPathSegList l = main.getSegList();
-//		double sx, sy;
-//		IRectangle borders = a.getBorders();
-//
-//		if(l.size()<2 && !(l.get(0) instanceof SVGPathSegMoveto) && !(l.get(1) instanceof SVGPathSegArc))
-//			throw new IllegalArgumentException();
-//
-//		sx = ((SVGPathSegMoveto)l.get(0)).getX();
-//		sy = ((SVGPathSegMoveto)l.get(0)).getY();
-//		Arc2D arc = ((SVGPathSegArc)l.get(1)).getArc2D(sx, sy);
-//
-//		a.setAngleStart(Math.toRadians(arc.getAngleStart())%(Math.PI*2));
-//		a.setAngleEnd(Math.toRadians(arc.getAngleExtent()+arc.getAngleStart())%(Math.PI*2));
-//		borders.getPoint(0).setLocation(arc.getMinX(), arc.getMinY());
-//		borders.getPoint(1).setLocation(arc.getMaxX(), arc.getMinY());
-//		borders.getPoint(2).setLocation(arc.getMinX(), arc.getMaxY());
-//		borders.getPoint(3).setLocation(arc.getMaxX(), arc.getMaxY());
-//
-//		if(l.size()>2)
-//			if(l.get(2) instanceof SVGPathSegClosePath)
-//				a.setType(Arc2D.CHORD);
-//			else
-//				if(l.size()==4 && l.get(2) instanceof SVGPathSegLineto && l.get(3) instanceof SVGPathSegClosePath)
-//					a.setType(Arc2D.PIE);
-//
-//		a.setShowPts(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHOW_PTS)!=null);
-//		a.update();
-//		a.updateGravityCentre();
-//		setNumber(elt);
-//		setSVGParameters(elt);
-//		setSVGParameters(main);
-//		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
-//		a.updateCenterStartEndDelimitors();
-//		setSVGArrow(ah1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main);
-//		setSVGArrow(ah2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main);
-//		homogeniseArrows(ah1, ah2);
+		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		IArrow arr1	= shape.getArrowAt(0);
+		IArrow arr2	= shape.getArrowAt(1);
+
+		if(elt==null || elt2==null || !(elt2 instanceof SVGPathElement))
+			throw new IllegalArgumentException();
+
+		SVGPathElement main = (SVGPathElement)elt2;
+		SVGPathSegList l = main.getSegList();
+		double sx, sy;
+
+		if(l.size()<2 && !(l.get(0) instanceof SVGPathSegMoveto) && !(l.get(1) instanceof SVGPathSegArc))
+			throw new IllegalArgumentException();
+
+		sx = ((SVGPathSegMoveto)l.get(0)).getX();
+		sy = ((SVGPathSegMoveto)l.get(0)).getY();
+		Arc2D arc = ((SVGPathSegArc)l.get(1)).getArc2D(sx, sy);
+
+		shape.setAngleStart(Math.toRadians(arc.getAngleStart())%(Math.PI*2));
+		shape.setAngleEnd(Math.toRadians(arc.getAngleExtent()+arc.getAngleStart())%(Math.PI*2));
+		shape.setPosition(arc.getMinX(), arc.getMaxY());
+		shape.setWidth(arc.getMaxX()-arc.getMinX());
+		shape.setHeight(arc.getMaxY()-arc.getMinY());
+
+		if(l.size()>2)
+			if(l.get(2) instanceof SVGPathSegClosePath)
+				shape.setArcStyle(ArcStyle.CHORD);
+			else
+				if(l.size()==4 && l.get(2) instanceof SVGPathSegLineto && l.get(3) instanceof SVGPathSegClosePath)
+					shape.setArcStyle(ArcStyle.WEDGE);
+
+		shape.setShowPts(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHOW_PTS)!=null);
+		shape.update();
+
+		setNumber(elt);
+		setSVGParameters(main);
+		setSVGArrow(arr1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main);
+		setSVGArrow(arr2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main);
+		homogeniseArrows(arr1, arr2);
+		setSVGLatexdrawParameters(elt);
+		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
+		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 
 		if(withTransformation)
 			applyTransformations(elt);
@@ -102,119 +122,71 @@ public class LArcSVGGenerator extends LEllipseSVGGenerator<IArc>
 
 
 	@Override
-	public SVGElement toSVG(final SVGDocument doc)
-	{
+	public SVGElement toSVG(final SVGDocument doc) {
 		if(doc==null || doc.getFirstChild().getDefs()==null)
 			return null;
 
-//		IArc arc 			 = (IArc)shape;
-//		SVGDefsElement defs  = doc.getFirstChild().getDefs();
-//		double rotationAngle = shape.getRotationAngle();
-//		IArrow arrowHead1 	 = arc.getArrowAt(0);
-//		IArrow arrowHead2 	 = arc.getArrowAt(1);
-//		double startAngle    =  arc.getAngleStart();
-//		double endAngle      =  arc.getAngleEnd();
-//		int type 			 =  arc.getType();
-//		IPoint gravityCenter = shape.getGravityCentre();
-        SVGElement root = new SVGGElement(doc);
-//        SVGElement elt;
-//        int number 		= shape.getId();
-//        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_ARC);
-//        root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
-//        IPoint start = arc.getStartPoint(), end = arc.getEndPoint();
-//        double radius = arc.getRadius();
-//        boolean largeArcFlag;
-//        SVGElement arrow1 = null, arrow2 = null, arrow1Shad = null, arrow2Shad = null;
-//        String arrow1Name = "arrow1-" + number; //$NON-NLS-1$
-// 	   	String arrow2Name = "arrow2-" + number;//$NON-NLS-1$
-// 	   	String arrow1ShadName = "arrow1Shad-" + number;//$NON-NLS-1$
-// 	   	String arrow2ShadName = "arrow2Shad-" + number;//$NON-NLS-1$
-//
-// 	   	startAngle%=2.*Math.PI;
-// 	   	endAngle%=2.*Math.PI;
-//
-//        if(!arrowHead1.isWithoutStyle()) {
-// 			arrow1 		= new LArrowHeadSVGGenerator(arrowHead1).toSVG(doc, false);
-// 			arrow1Shad 	= new LArrowHeadSVGGenerator(arrowHead1).toSVG(doc, true);
-//
-// 			arrow1.setAttribute(SVGAttributes.SVG_ID, arrow1Name);
-// 			defs.appendChild(arrow1);
-//
-// 			if(shape.hasShadow()) {
-// 				arrow1Shad.setAttribute(SVGAttributes.SVG_ID, arrow1ShadName);
-// 				defs.appendChild(arrow1Shad);
-// 			}
-//        }
-//
-//        if(!arrowHead2.isWithoutStyle()) {
-//     	   arrow2 		= new LArrowHeadSVGGenerator(arrowHead2).toSVG(doc, false);
-//     	   arrow2Shad 	= new LArrowHeadSVGGenerator(arrowHead2).toSVG(doc, true);
-//
-//     	   arrow2.setAttribute(SVGAttributes.SVG_ID, arrow2Name);
-//     	   defs.appendChild(arrow2);
-//
-// 			if(shape.hasShadow()) {
-// 	    	   arrow2Shad.setAttribute(SVGAttributes.SVG_ID, arrow2ShadName);
-// 	    	   defs.appendChild(arrow2Shad);
-// 			}
-//        }
-//
-//        largeArcFlag = startAngle>endAngle ? 2.*Math.PI-startAngle+endAngle>=Math.PI : endAngle-startAngle>Math.PI;
-//
-//        SVGPathSegList path = new SVGPathSegList();
-//
-//        path.add(new SVGPathSegMoveto(start.getX(), start.getY(), false));
-//        path.add(new SVGPathSegArc(end.getX(), end.getY(), radius, radius, 0, largeArcFlag, false, false));
-//
-//        if(type==Arc2D.CHORD)
-//        	path.add(new SVGPathSegClosePath());
-//        else
-//        	if(type==Arc2D.PIE) {
-//        		path.add(new SVGPathSegLineto(gravityCenter.getX(), gravityCenter.getY(), false));
-//        		path.add(new SVGPathSegClosePath());
-//        	}
-//
-//        if(shape.hasShadow())  {
-//     	   SVGElement shad = new SVGPathElement(doc);
-//
-//     	   shad.setAttribute(SVGAttributes.SVG_D, path.toString());
-//     	   setSVGShadowAttributes(shad, true);
-//     	   root.appendChild(shad);
-//
-//           if(arrow1Shad!=null)
-//        	   shad.setAttribute(SVGAttributes.SVG_MARKER_START, SVG_URL_TOKEN_BEGIN + arrow1ShadName + ')');
-//
-//           if(arrow2Shad!=null)
-//        	   shad.setAttribute(SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrow2ShadName + ')');
-//        }
-//
-//        if(shape.hasShadow() && !shape.getLineStyle().equals(PSTricksConstants.LINE_NONE_STYLE))
-//        {// The background of the borders must be filled is there is a shadow.
-//            elt = new SVGPathElement(doc);
-//            elt.setAttribute(SVGAttributes.SVG_D, path.toString());
-//            setSVGBorderBackground(elt, root);
-//        }
-//
-//        elt = new SVGPathElement(doc);
-//        elt.setAttribute(SVGAttributes.SVG_D, path.toString());
-//        root.appendChild(elt);
-//
-//        setSVGRotationAttribute(root);
-//        setSVGAttributes(doc, elt, true);
-//        elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE +':'+ LNamespace.XML_ROTATION, String.valueOf(rotationAngle));
-//
-//        if(arrow1!=null)
-//     	   elt.setAttribute(SVGAttributes.SVG_MARKER_START, SVG_URL_TOKEN_BEGIN + arrow1Name + ')');
-//
-//        if(arrow2!=null)
-//     	   elt.setAttribute(SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrow2Name + ')');
-//
-//        if(arc.isShowPts())
-//        	root.appendChild(getShowPointsElement(doc));
+		SVGDefsElement defs  = doc.getFirstChild().getDefs();
+		double rotationAngle = shape.getRotationAngle();
+		double startAngle    = shape.getAngleStart()%(2.*Math.PI);
+		double endAngle      = shape.getAngleEnd()%(2.*Math.PI);
+		ArcStyle type 		 = shape.getArcStyle();
+        SVGElement root 	 = new SVGGElement(doc);
+        IPoint start 		 = shape.getStartPoint();
+        IPoint end 			 = shape.getEndPoint();
+        double radius 		 = shape.getRx();
+        boolean largeArcFlag = startAngle>endAngle ? startAngle-endAngle>=Math.PI : endAngle-startAngle>Math.PI;
+        SVGPathSegList path  = new SVGPathSegList();
+        SVGElement elt;
+
+        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_ARC);
+        root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
+
+        path.add(new SVGPathSegMoveto(start.getX(), start.getY(), false));
+        path.add(new SVGPathSegArc(end.getX(), end.getY(), radius, radius, 0, largeArcFlag, startAngle>endAngle, false));
+
+        if(type==ArcStyle.CHORD)
+        	path.add(new SVGPathSegClosePath());
+        else
+        	if(type==ArcStyle.WEDGE) {
+        		final IPoint gravityCenter = shape.getGravityCentre();
+        		path.add(new SVGPathSegLineto(gravityCenter.getX(), gravityCenter.getY(), false));
+        		path.add(new SVGPathSegClosePath());
+        	}
+
+        if(shape.hasShadow())  {
+        	SVGElement shad = new SVGPathElement(doc);
+
+        	shad.setAttribute(SVGAttributes.SVG_D, path.toString());
+        	setSVGShadowAttributes(shad, true);
+        	root.appendChild(shad);
+        	setSVGArrow(shad, 0, true, doc, defs);
+			setSVGArrow(shad, 1, true, doc, defs);
+        }
+
+        // The background of the borders must be filled is there is a shadow.
+        if(shape.hasShadow() && !shape.getLineStyle().equals(PSTricksConstants.LINE_NONE_STYLE)) {
+            elt = new SVGPathElement(doc);
+            elt.setAttribute(SVGAttributes.SVG_D, path.toString());
+            setSVGBorderBackground(elt, root);
+        }
+
+        elt = new SVGPathElement(doc);
+        elt.setAttribute(SVGAttributes.SVG_D, path.toString());
+        root.appendChild(elt);
+
+        setSVGRotationAttribute(root);
+        setSVGAttributes(doc, elt, true);
+        elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE +':'+ LNamespace.XML_ROTATION, String.valueOf(rotationAngle));
+
+		setSVGArrow(elt, 0, false, doc, defs);
+		setSVGArrow(elt, 1, false, doc, defs);
+
+        if(shape.isShowPts())
+        	root.appendChild(getShowPointsElement(doc));
 
         return root;
 	}
-
 
 
 	/**
@@ -228,15 +200,15 @@ public class LArcSVGGenerator extends LEllipseSVGGenerator<IArc>
 			return null;
 
 		SVGGElement showPts = new SVGGElement(doc);
-//		double thickness	= arc.getThickness()/2.;
+		double thickness	= shape.getThickness()/2.;
 
 		showPts.setAttribute(new StringBuffer(LNamespace.LATEXDRAW_NAMESPACE).append(':').append(
 				LNamespace.XML_TYPE).toString(), LNamespace.XML_TYPE_SHOW_PTS);
 
-//		showPts.appendChild(getShowPointsLine(doc, thickness, arc.getLineColour(), arc.getGravityCentre(),
-//				arc.getNonRotatedStartPoint(), arc.getDashSepBlack(), arc.getDashSepWhite(), false, 1));
-//		showPts.appendChild(getShowPointsLine(doc, thickness, arc.getLineColour(), arc.getGravityCentre(),
-//				arc.getNonRotatedEndPoint(), arc.getDashSepBlack(), arc.getDashSepWhite(), false, 1));
+		showPts.appendChild(getShowPointsLine(doc, thickness, shape.getLineColour(), shape.getGravityCentre(),
+				shape.getStartPoint(), shape.getDashSepBlack(), shape.getDashSepWhite(), false, 1, 0));
+		showPts.appendChild(getShowPointsLine(doc, thickness, shape.getLineColour(), shape.getGravityCentre(),
+				shape.getEndPoint(), shape.getDashSepBlack(), shape.getDashSepWhite(), false, 1, 0));
 
 		return showPts;
 	}

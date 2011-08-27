@@ -4,6 +4,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
@@ -79,8 +80,8 @@ public final class SVGShapesFactory {
 					elt = new LDotSVGGenerator((IDot)shape).toSVG(doc);
 //				else if(shape instanceof IFreehand)
 //					elt = new LFreeHandSVGGenerator((IFreehand)shape).toSVG(doc);
-//				else if(shape instanceof IArc)
-//					elt = new LArcSVGGenerator((IArc)shape).toSVG(doc);
+				else if(shape instanceof ICircleArc)
+					elt = new LArcSVGGenerator((ICircleArc)shape).toSVG(doc);
 				else if(shape instanceof ICircle)
 					elt = new LCircleSVGGenerator((ICircle)shape).toSVG(doc);
 				else if(shape instanceof IEllipse)
