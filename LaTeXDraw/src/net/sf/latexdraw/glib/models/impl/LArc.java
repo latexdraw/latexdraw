@@ -1,7 +1,10 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import java.util.ArrayList;
+
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LNumber;
@@ -56,9 +59,12 @@ class LArc extends LEllipse implements IArc {
 	protected LArc(final IPoint tl, final IPoint br, final boolean isUniqueID) {
 		super(tl, br, isUniqueID);
 
-		startAngle 	= 3*Math.PI/2.;
-		endAngle	= 0.;
+		startAngle 	= 0.;
+		endAngle	= 3*Math.PI/2.;
 		style		= ArcStyle.ARC;
+		arrows 		= new ArrayList<IArrow>();
+		arrows.add(new LArrow(this));
+		arrows.add(new LArrow(this));
 
 		update();
 	}
@@ -92,13 +98,13 @@ class LArc extends LEllipse implements IArc {
 
 	@Override
 	public IPoint getEndPoint() {
-		return new LPoint(gravityCentre.getX()+Math.cos(endAngle)*getWidth(), gravityCentre.getY()-Math.sin(endAngle)*getHeight());
+		return new LPoint(gravityCentre.getX()+Math.cos(endAngle)*getRy(), gravityCentre.getY()-Math.sin(endAngle)*getRy());
 	}
 
 
 	@Override
 	public IPoint getStartPoint() {
-		return new LPoint(gravityCentre.getX()+Math.cos(startAngle)*getWidth(), gravityCentre.getY()-Math.sin(startAngle)*getHeight());
+		return new LPoint(gravityCentre.getX()+Math.cos(startAngle)*getRx(), gravityCentre.getY()-Math.sin(startAngle)*getRx());
 	}
 
 
@@ -138,7 +144,7 @@ class LArc extends LEllipse implements IArc {
 	@Override
 	public boolean isParametersEquals(final IShape sh, final boolean considerShadow) {
 		boolean ok = super.isParametersEquals(sh, considerShadow);
-		
+
 		if(ok && sh instanceof IArc) {
 			final IArc arc = (IArc)sh;
 			ok = ok && LNumber.INSTANCE.equals(startAngle, arc.getAngleStart()) && LNumber.INSTANCE.equals(endAngle, arc.getAngleEnd()) && style==arc.getArcStyle();
