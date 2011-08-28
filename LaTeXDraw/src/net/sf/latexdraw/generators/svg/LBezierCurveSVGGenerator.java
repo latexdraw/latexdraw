@@ -3,12 +3,14 @@ package net.sf.latexdraw.generators.svg;
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
+import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
@@ -75,8 +77,8 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 			throw new IllegalArgumentException();
 
 		SVGPathElement main = (SVGPathElement)elt2;
-//		IArrow arrowHead1 	= shape.getArrowAt(0);
-//		IArrow arrowHead2 	= shape.getArrowAt(1);
+		IArrow arrow1 		= shape.getArrowAt(0);
+		IArrow arrow2 		= shape.getArrowAt(1);
 
 		setPath(main.getSegList());
 		setNumber(elt);
@@ -84,19 +86,9 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 
-//		IPoint pt1 = DrawingTK.getFactory().createPoint(bc.getPtAt(0));
-//		IPoint pt2 = DrawingTK.getFactory().createPoint(bc.getPtAt(-1));
-
-//		arrowHead1.setPosition(pt1);
-//		arrowHead1.setLine(new LLine(pt1, bc.getFirstCtrlPtAt(0)));
-//		arrowHead1.setShape(bc);
-//		arrowHead2.setPosition(pt2);
-//		arrowHead2.setLine(new LLine(pt2, bc.getFirstCtrlPtAt(-1)));
-//		arrowHead2.setShape(bc);
-
-//		setSVGArrow(arrowHead1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main);//TODO
-//		setSVGArrow(arrowHead2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main);
-//		homogeniseArrows(arrowHead1, arrowHead2);
+		setSVGArrow(arrow1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main);
+		setSVGArrow(arrow2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main);
+		homogeniseArrows(arrow1, arrow2);
 
 		shape.setShowPts(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHOW_PTS)!=null);
 		shape.update();
@@ -196,45 +188,12 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		if(doc==null || doc.getFirstChild().getDefs()==null)
 			return null;
 
-//		SVGDefsElement defs 	= doc.getFirstChild().getDefs();
-		SVGElement root 		= new SVGGElement(doc), elt;
-//		IArrow arrowHead1 		= shape.getArrowAt(0);//TODO
-//		IArrow arrowHead2 		= shape.getArrowAt(1);
-		String path 			= getPathSegList().toString();
-//		SVGElement arrow1 		= null, arrow2 = null, arrow1Shad = null, arrow2Shad = null;
-//		String arrow1Name 		= "arrow1-" + shape.getId();//$NON-NLS-1$
-//		String arrow2Name 		= "arrow2-" + shape.getId();//$NON-NLS-1$
-//		String arrow1ShadName 	= "arrow1Shad-" + shape.getId();//$NON-NLS-1$
-//		String arrow2ShadName 	= "arrow2Shad-" + shape.getId();//$NON-NLS-1$
+		SVGDefsElement defs = doc.getFirstChild().getDefs();
+		SVGElement root 	= new SVGGElement(doc), elt;
+		String path 		= getPathSegList().toString();
 
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_BEZIER_CURVE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
-
-//		if(!arrowHead1.isWithoutStyle()) {
-//			arrow1     = new LArrowHeadSVGGenerator(arrowHead1).toSVG(doc, false);
-//			arrow1Shad = new LArrowHeadSVGGenerator(arrowHead1).toSVG(doc, true);
-//
-//			arrow1.setAttribute(SVGAttributes.SVG_ID, arrow1Name);
-//			defs.appendChild(arrow1);
-//
-//			if(shape.hasShadow()) {
-//				arrow1Shad.setAttribute(SVGAttributes.SVG_ID, arrow1ShadName);
-//				defs.appendChild(arrow1Shad);
-//			}
-//		}
-//
-//		if(!arrowHead2.isWithoutStyle() && !shape.isClosed()) {
-//			arrow2     = new LArrowHeadSVGGenerator(arrowHead2).toSVG(doc, false);
-//			arrow2Shad = new LArrowHeadSVGGenerator(arrowHead2).toSVG(doc, true);
-//
-//			arrow2.setAttribute(SVGAttributes.SVG_ID, arrow2Name);
-//			defs.appendChild(arrow2);
-//
-//			if(shape.hasShadow()) {
-//				arrow2Shad.setAttribute(SVGAttributes.SVG_ID, arrow2ShadName);
-//				defs.appendChild(arrow2Shad);
-//			}
-//		}
 
        	if(shape.hasShadow()) {
        		SVGElement shad = new SVGPathElement(doc);
@@ -243,11 +202,10 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 			setSVGShadowAttributes(shad, false);
 			root.appendChild(shad);
 
-//			if(arrow1Shad != null)
-//				shad.setAttribute(SVGAttributes.SVG_MARKER_START, SVG_URL_TOKEN_BEGIN + arrow1ShadName + ')');
-//
-//			if(arrow2Shad != null)
-//				shad.setAttribute(SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrow2ShadName + ')');
+			if(!shape.isClosed()) {
+				setSVGArrow(shad, 0, true, doc, defs);
+				setSVGArrow(shad, 1, true, doc, defs);
+			}
 		}
 
         if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE) && shape.isFilled()) {
@@ -271,11 +229,10 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		setSVGAttributes(doc, elt, false);
 		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE +':'+ LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
-//		if(arrow1 != null)
-//			elt.setAttribute(SVGAttributes.SVG_MARKER_START, SVG_URL_TOKEN_BEGIN + arrow1Name + ')');
-//
-//		if(arrow2 != null)
-//			elt.setAttribute(SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrow2Name + ')');
+		if(!shape.isClosed()) {
+			setSVGArrow(elt, 0, false, doc, defs);
+			setSVGArrow(elt, 1, false, doc, defs);
+		}
 
 		if(shape.isShowPts())
 			root.appendChild(getShowPointsElement(doc));
@@ -295,19 +252,19 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		if(!shape.isShowPts() || doc==null)
 			return null;
 
-		double blackDash  = shape.getDashSepBlack();
-		double whiteDash  = shape.getDashSepWhite();
-		boolean hasDble   = shape.hasDbleBord();
-		Color col         = shape.getLineColour();
-		boolean isClosed  = shape.isClosed();
-		SVGGElement showPts  = new SVGGElement(doc);
-//		IArrow arrowHead1 = shape.getArrowAt(0);
-//		IArrow arrowHead2 = shape.getArrowAt(1);
+		double blackDash  	= shape.getDashSepBlack();
+		double whiteDash  	= shape.getDashSepWhite();
+		boolean hasDble   	= shape.hasDbleBord();
+		Color col         	= shape.getLineColour();
+		boolean isClosed  	= shape.isClosed();
+		SVGGElement showPts = new SVGGElement(doc);
+		IArrow arrow1 		= shape.getArrowAt(0);
+		IArrow arrow2 		= shape.getArrowAt(1);
 		final double doubleSep = shape.getDbleBordSep();
 		double thick = (hasDble ? shape.getDbleBordSep()+shape.getThickness()*2. : shape.getThickness())/2.;
 		double rad   = (PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM*IShape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM*thick*2.)/2.;
 		int i = 0, size = shape.getNbPoints();
-//
+
 		showPts.setAttribute(new StringBuffer(LNamespace.LATEXDRAW_NAMESPACE).append(':').append(
 											LNamespace.XML_TYPE).toString(), LNamespace.XML_TYPE_SHOW_PTS);
 
@@ -347,10 +304,10 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 							blackDash, whiteDash, hasDble, 1., doubleSep));
 
 		// Plotting the dots.
-//		if(arrowHead1.isWithoutStyle() || (!isOpen && closeType==BezierCurve.CLOSE_TYPE_CURVE))
+		if(!arrow1.hasStyle() || isClosed)
 			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getPtAt(0), col));
 
-//		if(arrowHead2.isWithoutStyle() || (!isOpen && closeType==BezierCurve.CLOSE_TYPE_CURVE))
+		if(!arrow2.hasStyle() || isClosed)
 			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getPtAt(-1), col));
 
 		for(i=1; i<size-1; i++) {
