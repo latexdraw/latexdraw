@@ -6,6 +6,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 
@@ -29,10 +30,6 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
  * @version 3.0
  */
 public class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> {
-//	protected List<CtrlPointHandler> firstCtrlHandlers;
-//
-//	protected List<CtrlPointHandler> secondCtrlHandlers;
-
 	public static final BasicStroke STROKE_CTRL_LINES = new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.f, new float[]{5f, 3f}, 0f);
 
 
@@ -43,30 +40,30 @@ public class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> {
 	 */
 	public LBezierCurveView(final IBezierCurve model) {
 		super(model);
-
-//		firstCtrlHandlers 	= new ArrrayList<CtrlPointHandler>();
-//		secondCtrlHandlers 	= new ArrrayList<CtrlPointHandler>();
-
 		update();
 	}
 
 
 	@Override
-	public void paintShowPointsDots(final Graphics2D g) {
+	public void paintShowPointsDots(final Graphics2D g) {//FIXME to add into the path not into the graphics
+		final boolean isClosed		= shape.isClosed();
+		final IArrow arr1			= shape.getArrowAt(0);
+		boolean arrow1Drawable 		= arr1.hasStyle() && shape.getNbPoints()>1;
+		boolean arrow2Drawable 		= shape.getArrowAt(1).hasStyle() && shape.getNbPoints()>1 && !isClosed;
 		final int size 				= shape.getNbPoints();
 		final List<IPoint> pts 		= shape.getPoints();
 		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
 		final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
-		final double width 			= 3.*shape.getThickness(); //(float)(arrowHead1.getDotSizeDim() + arrowHead1.getDotSizeNum()*thick); FIXME
+		final double width 			= arr1.getDotSizeDim() + arr1.getDotSizeNum()*shape.getThickness();
 		Ellipse2D.Double d 			= new Ellipse2D.Double(0, 0, width, width);
 		int i;
 
 		g.setColor(shape.getLineColour());
 
-		if(shape.isClosed()) //(!arrow1Drawable || (!open && closeType==CLOSE_TYPE_CURVE))//TODO
+		if(!arrow1Drawable || isClosed)
 			fillCircle(d, pts.get(0), width, g);
 
-		if(shape.isClosed()) //!arrow2Drawable || (!open && closeType==CLOSE_TYPE_CURVE))
+		if(!arrow2Drawable || isClosed)
 			fillCircle(d, pts.get(size-1), width, g);
 
 		for(i=1; i<size-1; i++) {
@@ -247,36 +244,11 @@ public class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> {
 //	}
 
 
-//
-//	@Override
-//	public AbstractHandler getHandler(IPoint pt) {
-//		AbstractHandler handler = super.getHandler(pt);
-//
-//		if(handler==null) {
-//			IPoint p_ = pt.rotatePoint(getGravityCentre(), -shape.getRotationAngle());
-//			int i=0, size = firstCtrlHandlers.size();
-//
-//			while(i<size && handler==null)
-//				if(firstCtrlHandlers.elementAt(i).isIn(p_))
-//					handler = firstCtrlHandlers.elementAt(i);
-//				else
-//					if(secondCtrlHandlers.elementAt(i).isIn(p_))
-//						handler = secondCtrlHandlers.elementAt(i);
-//					else
-//						i++;
-//		}
-//
-//		return handler;
-//	}
-
-
 	@Override
 	protected void setPath(final boolean close) {
 		final List<IPoint> pts 		= shape.getPoints();
 		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
 		final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
-		final int size 				= pts.size();
-		int i;
 		IPoint ctrl1;
 
 		path.reset();
@@ -285,7 +257,7 @@ public class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> {
 				   ctrlPts1.get(1).getX(), ctrlPts1.get(1).getY(),
 				   pts.get(1).getX(), pts.get(1).getY());
 
-		for(i=2; i<size; i++) {
+		for(int i=2, size=pts.size(); i<size; i++) {
 			ctrl1 = ctrlPts2.get(i-1);
 			path.curveTo(ctrl1.getX(), ctrl1.getY(),
 					   ctrlPts1.get(i).getX(), ctrlPts1.get(i).getY(),
@@ -295,9 +267,7 @@ public class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> {
 		if(shape.isClosed()) {
 			IPoint ctrl1b = ctrlPts1.get(0).centralSymmetry(pts.get(0));
 			IPoint ctrl2b = ctrlPts1.get(ctrlPts1.size()-1).centralSymmetry(pts.get(pts.size()-1));
-
-			path.curveTo(ctrl2b.getX(), ctrl2b.getY(), ctrl1b.getX(),
-						ctrl1b.getY(), pts.get(0).getX(), pts.get(0).getY());
+			path.curveTo(ctrl2b.getX(), ctrl2b.getY(), ctrl1b.getX(), ctrl1b.getY(), pts.get(0).getX(), pts.get(0).getY());
 			path.closePath();
 		}
 	}

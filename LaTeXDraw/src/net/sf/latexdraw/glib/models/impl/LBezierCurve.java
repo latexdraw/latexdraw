@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
+import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
@@ -58,6 +59,21 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 		addPoint(point);
 		addPoint(point2);
 		update();
+	}
+
+
+	@Override
+	public ILine getArrowLine(final IArrow arrow) {
+		final int index = arrows.indexOf(arrow);
+		final ILine line;
+
+		switch(index) {
+			case 0:		line = new LLine(points.get(0), firstCtrlPts.get(0)); break;
+			case 1:		line = new LLine(points.get(points.size()-1), firstCtrlPts.get(points.size()-1)); break;
+			default:	line = null; break;
+		}
+
+		return line;
 	}
 
 
