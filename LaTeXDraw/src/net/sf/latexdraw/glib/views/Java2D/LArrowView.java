@@ -350,14 +350,16 @@ public class LArrowView {
 	 * @since 3.0
 	 */
 	public void updatePath() {
+		path.reset();
+
+		if(model.getArrowStyle()==ArrowStyle.NONE) return;
+
 		double xRot, yRot;
 		final ILine arrowLine 	= model.getArrowLine();
 		final double lineAngle	= arrowLine.getLineAngle();
 		final IPoint pt1 		= arrowLine.getPoint1();
 		final IPoint pt2 		= arrowLine.getPoint2();
 		final double lineB	  	= arrowLine.getB();
-
-		path.reset();
 
 		if(LNumber.INSTANCE.equals(Math.abs(lineAngle), Math.PI/2.) || LNumber.INSTANCE.equals(Math.abs(lineAngle), 0.)) {
 			xRot = pt1.getX();
@@ -385,7 +387,7 @@ public class LArrowView {
 			case SQUARE_END			:
 			case ROUND_END			: updatePathSquareRoundEnd(xRot, yRot, pt1, pt2); break;
 			case ROUND_IN			: updatePathRoundIn(xRot, yRot, pt1, pt2); break;
-			case NONE: break;
+			case NONE				: break;
 		}
 	}
 }
