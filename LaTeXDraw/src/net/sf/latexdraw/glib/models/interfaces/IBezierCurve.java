@@ -20,27 +20,15 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @since 3.0
  */
 public interface IBezierCurve extends IControlPointShape {
-	/** The type of close that a Bézier curve can have. */
-	static enum CloseType {
-		CURVE, LINE, NONE;
-	}
-
-
 	/**
 	 * @return the isClosed.
 	 */
 	boolean isClosed();
-
-
+	
 	/**
-	 * @return The close type of the curve.
+	 * Defines if the shape is closed.
+	 * @param isClosed True: the shape will be closed.
 	 * @since 3.0
 	 */
-	CloseType getCloseType();
-
-
-	/**
-	 * @param isClosed the isClosed to set.
-	 */
-	void setClosed(final CloseType closeType);
+	void setIsClosed(final boolean isClosed);
 }

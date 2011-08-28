@@ -6,7 +6,6 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
  * Defines a model of a Bezier curve.<br>
@@ -28,8 +27,8 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @since 3.0
  */
 class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
-	/** Define the shape of the closing path. */
-	protected CloseType closeType;
+	/** Defines if the curve is closed. */
+	protected boolean isClosed;
 
 
 	/**
@@ -39,8 +38,7 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 	protected LBezierCurve(final boolean uniqueID) {
 		super(uniqueID);
 
-		closeType	= CloseType.CURVE;
-		arrows		= new ArrayList<IArrow>();
+		arrows = new ArrayList<IArrow>();
 		arrows.add(new LArrow(this));
 		arrows.add(new LArrow(this));
 		update();
@@ -79,14 +77,13 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 
 	@Override
 	public boolean isClosed() {
-		return closeType!=CloseType.NONE;
+		return isClosed;
 	}
 
 
 	@Override
-	public void setClosed(final CloseType closeType) {
-		if(closeType!=null)
-			this.closeType = closeType;
+	public void setIsClosed(final boolean isClosed) {
+		this.isClosed = isClosed;
 	}
 
 
@@ -103,12 +100,6 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 
 
 	@Override
-	public CloseType getCloseType() {
-		return closeType;
-	}
-
-
-	@Override
 	public boolean isFillable() {
 		return true;
 	}
@@ -117,15 +108,6 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 	@Override
 	public boolean isInteriorStylable() {
 		return true;
-	}
-
-
-	@Override
-	public void copy(final IShape sh) {
-		super.copy(sh);
-
-		if(sh instanceof IBezierCurve)
-			closeType = ((IBezierCurve)sh).getCloseType();
 	}
 
 

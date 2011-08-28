@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
-import net.sf.latexdraw.glib.models.interfaces.IBezierCurve.CloseType;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
@@ -141,13 +140,13 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 
 		if(shape.getPtAt(-1).equals(shape.getPtAt(0), 0.00001)) {// We set the shape as closed
 			shape.removePoint(-1);
-			shape.setClosed(IBezierCurve.CloseType.CURVE);
+			shape.setIsClosed(true);
 		}
 		else
 			if(i<size && list.get(i) instanceof SVGPathSegClosePath)// There is something else at the end of the path.
-				shape.setClosed(IBezierCurve.CloseType.LINE);
+				shape.setIsClosed(true);
 			else
-				shape.setClosed(IBezierCurve.CloseType.NONE);
+				shape.setIsClosed(false);
 
 		shape.updateSecondControlPoints();
 		shape.update();
@@ -177,7 +176,7 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 												shape.getFirstCtrlPtAt(i).getX(), shape.getFirstCtrlPtAt(i).getY(), false));
 
 		if(shape.isClosed()) {
-			if(shape.getCloseType()==CloseType.CURVE) {
+			if(shape.isClosed()) {
 				IPoint ctrl1b = shape.getFirstCtrlPtAt(0).centralSymmetry(shape.getPtAt(0));
 				IPoint ctrl2b = shape.getFirstCtrlPtAt(-1).centralSymmetry(shape.getPtAt(-1));
 
@@ -300,8 +299,7 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		double whiteDash  = shape.getDashSepWhite();
 		boolean hasDble   = shape.hasDbleBord();
 		Color col         = shape.getLineColour();
-		boolean isOpen    = !shape.isClosed();
-		CloseType closeType = shape.getCloseType();
+		boolean isClosed  = shape.isClosed();
 		SVGGElement showPts  = new SVGGElement(doc);
 //		IArrow arrowHead1 = shape.getArrowAt(0);
 //		IArrow arrowHead2 = shape.getArrowAt(1);
@@ -332,7 +330,7 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 					  			blackDash, whiteDash, hasDble, 1., doubleSep));
 		}
 
-		if(!isOpen && closeType==CloseType.CURVE) {
+		if(isClosed) {
 			showPts.appendChild(getShowPointsLine(doc, thick, col, shape.getPtAt(-1), shape.getSecondCtrlPtAt(-1),
 								blackDash, whiteDash, hasDble, 1., doubleSep));
 			showPts.appendChild(getShowPointsLine(doc, thick, col, shape.getSecondCtrlPtAt(-1), shape.getSecondCtrlPtAt(0),
@@ -363,7 +361,7 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		for(i=0; i<size; i++)
 			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getFirstCtrlPtAt(i), col));
 
-		if(!isOpen && closeType==CloseType.CURVE) {
+		if(isClosed) {
 			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(-1), col));
 			showPts.appendChild(LShapeSVGGenerator.getShowPointsDot(doc, rad, shape.getSecondCtrlPtAt(0), col));
 		}

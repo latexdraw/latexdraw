@@ -227,7 +227,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 		@Override
 		public IShape createShapeInstance() {
 			final IShape shape = DrawingTK.getFactory().newShape(IBezierCurve.class);
-			((IBezierCurve)shape).setClosed(IBezierCurve.CloseType.NONE);
+			((IBezierCurve)shape).setIsClosed(false);
 			return shape;
 		}
 	},
@@ -240,7 +240,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 		@Override
 		public IShape createShapeInstance() {
 			final IShape shape = DrawingTK.getFactory().newShape(IBezierCurve.class);
-			((IBezierCurve)shape).setClosed(IBezierCurve.CloseType.CURVE);
+			((IBezierCurve)shape).setIsClosed(true);
 			return shape;
 		}
 	},

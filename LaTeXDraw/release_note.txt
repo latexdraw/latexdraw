@@ -34,6 +34,8 @@ Improvements:
 - the lime and teal colours are now supported.
 
 Changes:
+- there is no more the choice between line and curve to close a Bezier curve. Only curve is supported. That because in a 
+  future release, every segment of a Bezier curve will be either a line or a curve.
 - the PPC (point per centimetre) cannot be changed anymore.
 - the PPM export is no more supported
 - the basic EPS export is no more supported (the LaTeX EPS export is still supported).
