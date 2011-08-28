@@ -6,6 +6,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
  * Defines a model of a Bezier curve.<br>
@@ -108,6 +109,15 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 	@Override
 	public boolean isInteriorStylable() {
 		return true;
+	}
+
+
+	@Override
+	public void copy(final IShape sh) {
+		super.copy(sh);
+
+		if(sh instanceof IBezierCurve)
+			isClosed = ((IBezierCurve)sh).isClosed();
 	}
 
 
