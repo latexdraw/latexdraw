@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.handlers;
 
+import java.awt.Shape;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
@@ -147,23 +148,21 @@ public class ScaleHandler extends Handler<Path2D> {
 	}
 
 
-	/**
-	 * Sets the location using the given frame and the current position of the handler.
-	 * @param frame
-	 * @since 3.0
-	 */
-	public void setCentreFromFrame(final Rectangle2D frame) {
-		if(frame==null) return;
+	@Override
+	public void updateFromShape(final Shape sh) {
+		if(sh instanceof Rectangle2D) {
+			final Rectangle2D frame = (Rectangle2D)sh;
 
-		switch(position) {
-			case EAST:	setPoint(frame.getMaxX(), frame.getCenterY()); break;
-			case NE:	setPoint(frame.getMaxX(), frame.getMinY()); 	break;
-			case NORTH:	setPoint(frame.getCenterX(), frame.getMinY()); break;
-			case NW:	setPoint(frame.getMinX(), frame.getMinY()); break;
-			case SE:	setPoint(frame.getMaxX(), frame.getMaxY()); break;
-			case SOUTH:	setPoint(frame.getCenterX(), frame.getMaxY()); break;
-			case SW:	setPoint(frame.getMinX(), frame.getMaxY()); break;
-			case WEST:	setPoint(frame.getMinX(), frame.getCenterY()); break;
+			switch(position) {
+				case EAST:	setPoint(frame.getMaxX(), frame.getCenterY()); break;
+				case NE:	setPoint(frame.getMaxX(), frame.getMinY()); 	break;
+				case NORTH:	setPoint(frame.getCenterX(), frame.getMinY()); break;
+				case NW:	setPoint(frame.getMinX(), frame.getMinY()); break;
+				case SE:	setPoint(frame.getMaxX(), frame.getMaxY()); break;
+				case SOUTH:	setPoint(frame.getCenterX(), frame.getMaxY()); break;
+				case SW:	setPoint(frame.getMinX(), frame.getMaxY()); break;
+				case WEST:	setPoint(frame.getMinX(), frame.getCenterY()); break;
+			}
 		}
 	}
 }

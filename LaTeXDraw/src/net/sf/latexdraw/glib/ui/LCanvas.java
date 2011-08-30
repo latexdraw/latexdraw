@@ -296,7 +296,12 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public Pickable getPickableAt(final double x, final double y){
-		final Pickable pickable = getViewAt(x, y);
+		final double x2 = x/getZoom();
+		final double y2 = y/getZoom();
+		Pickable pickable = borderIns.getPickableAt(x2, y2);
+
+		if(pickable==null)
+			pickable = getViewAt(x, y);
 
 		return pickable==null ? contains((int)x, (int)y) ? this : null : pickable;
 	}

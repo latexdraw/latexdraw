@@ -3,12 +3,14 @@ package net.sf.latexdraw.instruments;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.latexdraw.glib.handlers.ArcAngleHandler;
 import net.sf.latexdraw.glib.handlers.FrameArcHandler;
+import net.sf.latexdraw.glib.handlers.IHandler;
 import net.sf.latexdraw.glib.handlers.MovePtHandler;
 import net.sf.latexdraw.glib.handlers.RotationHandler;
 import net.sf.latexdraw.glib.handlers.ScaleHandler;
@@ -27,6 +29,8 @@ import net.sf.latexdraw.mapping.Shape2BorderMapping;
 
 import org.malai.instrument.Instrument;
 import org.malai.mapping.MappingRegistry;
+import org.malai.picking.Pickable;
+import org.malai.picking.Picker;
 
 /**
  * This instrument manages the selected views.<br>
@@ -47,7 +51,7 @@ import org.malai.mapping.MappingRegistry;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class Border extends Instrument {
+public class Border extends Instrument implements Picker {
 	/** The stroke uses by the border to display its bounding rectangle. */
 	public static final BasicStroke STROKE = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f, new float[] { 7f, 7f}, 0);
 
@@ -58,19 +62,19 @@ public class Border extends Instrument {
 	protected Rectangle2D border;
 
 	/** The handlers that scale shapes. */
-	protected List<ScaleHandler> scaleHandlers;
+	protected List<IHandler> scaleHandlers;
 
 	/** The handlers that move points. */
-	protected List<MovePtHandler> mvPtHandlers;
+	protected List<IHandler> mvPtHandlers;
 
 	/** The handlers that move first control points. */
-	protected List<MovePtHandler> ctrlPt1Handlers;
+	protected List<IHandler> ctrlPt1Handlers;
 
 	/** The handlers that move second control points. */
-	protected List<MovePtHandler> ctrlPt2Handlers;
+	protected List<IHandler> ctrlPt2Handlers;
 
 	/** The handler that sets the arc frame. */
-	protected FrameArcHandler frameArcHandler;
+	protected IHandler frameArcHandler;
 
 	/** The handler that sets the start angle of an arc. */
 	protected ArcAngleHandler arcHandlerStart;
@@ -79,7 +83,7 @@ public class Border extends Instrument {
 	protected ArcAngleHandler arcHandlerEnd;
 
 	/** The handler that rotates shapes. */
-	protected RotationHandler rotHandler;
+	protected IHandler rotHandler;
 
 
 
@@ -92,7 +96,7 @@ public class Border extends Instrument {
 
 		selection 		= new ArrayList<IShapeView<?>>();
 		border	  		= new Rectangle2D.Double();
-		scaleHandlers  	= new ArrayList<ScaleHandler>();
+		scaleHandlers  	= new ArrayList<IHandler>();
 
 		// Initialisation of the handlers that are always used.
 		scaleHandlers.add(new ScaleHandler(Position.NW));
@@ -158,15 +162,15 @@ public class Border extends Instrument {
 	 * @since 3.0
 	 */
 	private void updateHandlersPosition() {
-		for(final ScaleHandler handler : scaleHandlers)
-			handler.setCentreFromFrame(border);
+		for(final IHandler handler : scaleHandlers)
+			handler.updateFromShape(border);
 
 		rotHandler.setPoint(border.getMaxX(), border.getMinY());
 
 		if(isFrameArcHandlerShowable()) {
 			if(frameArcHandler==null)
 				frameArcHandler	= new FrameArcHandler();
-			frameArcHandler.updateUsingFrame(((LRectangleView)selection.get(0)).getShape(), border.getMinX(), border.getMinY());
+			frameArcHandler.updateFromShape(border);
 		}
 
 		updateArcHandlers();
@@ -205,8 +209,8 @@ public class Border extends Instrument {
 
 			// Lazy initialisation
 			if(ctrlPt1Handlers==null) {
-				ctrlPt1Handlers = new ArrayList<MovePtHandler>();
-				ctrlPt2Handlers = new ArrayList<MovePtHandler>();
+				ctrlPt1Handlers = new ArrayList<IHandler>();
+				ctrlPt2Handlers = new ArrayList<IHandler>();
 			}
 
 			// Adding missing handlers.
@@ -244,7 +248,7 @@ public class Border extends Instrument {
 			IPoint pt;
 
 			if(mvPtHandlers==null)
-				mvPtHandlers = new ArrayList<MovePtHandler>();
+				mvPtHandlers = new ArrayList<IHandler>();
 
 			if(mvPtHandlers.size()<nbPts)
 				for(int i=mvPtHandlers.size(); i<nbPts; i++)
@@ -281,7 +285,7 @@ public class Border extends Instrument {
 	 * Paints the required handlers.
 	 */
 	private void paintHandlers(final Graphics2D g) {
-		for(final ScaleHandler handler : scaleHandlers)
+		for(final IHandler handler : scaleHandlers)
 			handler.paint(g);
 
 		rotHandler.paint(g);
@@ -295,7 +299,7 @@ public class Border extends Instrument {
 		}
 
 		if(isPtMvHandlersShowable()) {
-			for(final MovePtHandler mvHandler : mvPtHandlers)
+			for(final IHandler mvHandler : mvPtHandlers)
 				mvHandler.paint(g);
 
 			if(isCtrlPtMvHandlersShowable())
@@ -402,5 +406,68 @@ public class Border extends Instrument {
 			if(isActivated())
 				update();
 		}
+	}
+
+
+	@Override
+	public Pickable getPickableAt(final double x, final double y) {
+		Pickable pickable = getHandlerAt(x, y, scaleHandlers);
+
+//		for(final ScaleHandler scaleHandler : scaleHandlers)
+//			if(scaleHandler.contains(x, y))
+//				return scaleHandler;
+
+		if(pickable==null && rotHandler.contains(x, y))
+			pickable = rotHandler;
+
+		if(pickable==null)
+			pickable = getHandlerAt(x, y, mvPtHandlers);
+
+		if(pickable==null)
+			pickable = getHandlerAt(x, y, ctrlPt1Handlers);
+
+		if(pickable==null)
+			pickable = getHandlerAt(x, y, ctrlPt2Handlers);
+
+		if(pickable==null && frameArcHandler!=null && frameArcHandler.contains(x, y))
+			pickable = frameArcHandler;
+
+		if(pickable==null && arcHandlerStart!=null && arcHandlerStart.contains(x, y))
+			pickable = arcHandlerStart;
+		if(pickable==null && arcHandlerEnd!=null && arcHandlerEnd.contains(x, y))
+			pickable = arcHandlerEnd;
+
+		return pickable;
+	}
+
+
+
+	private IHandler getHandlerAt(final double x, final double y, final List<IHandler> handlers)  {
+		if(handlers!=null)
+			for(final IHandler handler : handlers)
+				if(handler.contains(x, y))
+					return handler;
+
+		return null;
+	}
+
+
+	@Override
+	public Picker getPickerAt(final double x, final double y) {
+		// No picker for the border.
+		return null;
+	}
+
+
+	@Override
+	public Point2D getRelativePoint(final double x, final double y, final Object o) {
+		return new Point2D.Double(x, y);
+	}
+
+
+	@Override
+	public boolean contains(final Object obj) {
+		// Supposing that there is no handler outside the border.
+		return obj instanceof IHandler;
 	}
 }

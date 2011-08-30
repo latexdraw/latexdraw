@@ -62,7 +62,6 @@ public class RotationHandler extends Handler<Path2D> {
 
 	@Override
 	public boolean contains(final double x, final double y) {
-		// TODO Auto-generated method stub
-		return super.contains(x, y);
+		return super.contains(x, y) || STROKE.createStrokedShape(shape).contains(x, y);
 	}
 }

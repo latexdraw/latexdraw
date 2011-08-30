@@ -1,8 +1,8 @@
 package net.sf.latexdraw.glib.handlers;
 
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
-
-import net.sf.latexdraw.glib.models.interfaces.IRectangle;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Defines a handler to change the frame arc attribute.<br>
@@ -40,17 +40,15 @@ public class FrameArcHandler extends Handler<Ellipse2D> {
 	}
 
 
-	/**
-	 * Updates the handler using the given rectangle.
-	 * @param frame The rectangle to use to update the handler.
-	 * @since 3.0
-	 */
-	public void updateUsingFrame(final IRectangle frame, final double x, final double y) {
-		if(frame==null) return ;
+	@Override
+	public void updateFromShape(final Shape sh) {
+		if(sh instanceof Rectangle2D) {
+			final Rectangle2D rec = (Rectangle2D)sh;
 
-		if(frame.getHeight()>frame.getWidth())
-			setPoint(x-size, y+size);
-		else
-			setPoint(x, y);
+			if(rec.getHeight()>rec.getWidth())
+				setPoint(rec.getMinX()-size, rec.getMinY()+size);
+			else
+				setPoint(rec.getMinX(), rec.getMinY());
+		}
 	}
 }

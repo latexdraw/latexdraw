@@ -4,12 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 
-import org.malai.picking.Pickable;
-import org.malai.picking.Picker;
-
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+
+import org.malai.picking.Picker;
 
 /**
  * A handler helps to manipulate and to delimit a shape view.<br>
@@ -30,7 +29,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
  * @author Arnaud BLOUIN<br>
  * @version 3.0<br>
  */
-public abstract class Handler<T extends Shape> implements Pickable {
+abstract class Handler<T extends Shape> implements IHandler {
 	/** The coordinates of the centre of the delimiter. */
 	protected IPoint point;
 
@@ -38,7 +37,7 @@ public abstract class Handler<T extends Shape> implements Pickable {
 	protected double size = 16.;
 
 	/** The opacity of the delimiters. Can be changed. */
-	protected static int opacity = 100;
+	protected int opacity = 100;
 
 	/** The colour of the handler. */
 	protected Color colour;
@@ -62,6 +61,7 @@ public abstract class Handler<T extends Shape> implements Pickable {
 	 * @param x The new X coordinate.
 	 * @param y The new Y coordinate.
 	 */
+	@Override
 	public void setPoint(final double x, final double y) {
 		if(GLibUtilities.INSTANCE.isValidPoint(x, y)) {
 			point.setPoint(x, y);
@@ -74,6 +74,7 @@ public abstract class Handler<T extends Shape> implements Pickable {
 	 * Sets the width of the handler.
 	 * @param size Its new width. Must be greater than 0.
 	 */
+	@Override
 	public void setDim(final double size) {
 		if(size>0)
 			this.size = size;
@@ -83,6 +84,7 @@ public abstract class Handler<T extends Shape> implements Pickable {
 	/**
 	 * @return The X-coordinate of the handler.
 	 */
+	@Override
 	public double getX() {
 		return point.getX();
 	}
@@ -91,6 +93,7 @@ public abstract class Handler<T extends Shape> implements Pickable {
 	/**
 	 * @return The centre of the handler.
 	 */
+	@Override
 	public IPoint getCentre() {
 		return point;
 	}
@@ -99,6 +102,7 @@ public abstract class Handler<T extends Shape> implements Pickable {
 	/**
 	 * @return The Y-coordinate of the handler.
 	 */
+	@Override
 	public double getY() {
 		return point.getY();
 	}
@@ -107,6 +111,7 @@ public abstract class Handler<T extends Shape> implements Pickable {
 	/**
 	 * paint the handler.
 	 */
+	@Override
 	public void paint(final Graphics2D g) {
 		if(g==null) return ;
 
@@ -118,6 +123,7 @@ public abstract class Handler<T extends Shape> implements Pickable {
 	/**
 	 * Updates the handler.
 	 */
+	@Override
 	public void update() {
 		if(opacity!=colour.getTransparency())
 			colour = new Color(colour.getRed(), colour.getGreen(),colour.getBlue(), opacity);
@@ -144,34 +150,34 @@ public abstract class Handler<T extends Shape> implements Pickable {
 	/**
 	 * @return the size of the handler.
 	 */
+	@Override
 	public double getSize() {
 		return size;
 	}
 
 
-	/**
-	 * @return The opacity of the handler.
-	 */
-	public static int getOpacity() {
+	@Override
+	public int getOpacity() {
 		return opacity;
 	}
 
 
-	/**
-	 * @param opacity the opacity to set.
-	 */
-	public static void setOpacity(final int opacity) {
+	@Override
+	public void setOpacity(final int opacity) {
 		if(opacity>=0 && opacity<=255)
-			Handler.opacity = opacity;
+			this.opacity = opacity;
 	}
 
 
-	/**
-	 * @return The colour of the handler.
-	 * @since 3.0
-	 */
+	@Override
 	public Color getColour() {
 		return colour;
+	}
+
+
+	@Override
+	public void updateFromShape(final Shape sh) {
+		updateShape();
 	}
 
 
