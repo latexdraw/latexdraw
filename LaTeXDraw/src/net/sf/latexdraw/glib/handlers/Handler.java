@@ -34,10 +34,10 @@ abstract class Handler<T extends Shape> implements IHandler {
 	protected IPoint point;
 
 	/** The size of the handler. */
-	protected double size = 16.;
+	protected double size;
 
 	/** The opacity of the delimiters. Can be changed. */
-	protected int opacity = 100;
+	protected int opacity;
 
 	/** The colour of the handler. */
 	protected Color colour;
@@ -51,8 +51,10 @@ abstract class Handler<T extends Shape> implements IHandler {
 	 */
 	public Handler() {
 		super();
-		colour = new Color(0, 0, 0, opacity);
-		point  = DrawingTK.getFactory().createPoint();
+		opacity	= 100;
+		size   	= DEFAULT_SIZE;
+		colour 	= new Color(0, 0, 0, opacity);
+		point  	= DrawingTK.getFactory().createPoint();
 	}
 
 
@@ -71,13 +73,15 @@ abstract class Handler<T extends Shape> implements IHandler {
 
 
 	/**
-	 * Sets the width of the handler.
+	 * Sets the width of the handler and updates the shape.
 	 * @param size Its new width. Must be greater than 0.
 	 */
 	@Override
-	public void setDim(final double size) {
-		if(size>0)
+	public void setSize(final double size) {
+		if(size>0) {
 			this.size = size;
+			updateShape();
+		}
 	}
 
 

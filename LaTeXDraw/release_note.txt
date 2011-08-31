@@ -29,6 +29,7 @@ Improvements:
 - the error manager has been totally rewritten:
    - the manager can be accessed by the menu 'help' -> 'Error console'
    - the error window displays all the errors, not a single one
+- the shape handlers are no more zoomed when zooming in/out.
 - the widgets of the parameters toolbar now appear and disappear more accurately
 - the selected shapes are no more unselected when selecting the pencil.
 - can undo/redo change of unit (cm or inch).

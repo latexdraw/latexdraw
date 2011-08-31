@@ -126,6 +126,14 @@ public interface IPoint {
 	IPoint rotatePoint(final IPoint gravityC, final double theta);
 
 	/**
+	 * Creates a new point zoomed using the calling points.
+	 * @param zoomLevel The zoom level.
+	 * @return The zoomed point.
+	 * @since 3.0
+	 */
+	IPoint zoom(final double zoomLevel);
+
+	/**
 	 * Translates the point. If one of the given coordinate is not valid (NaN, infinite,...), then
 	 * the translation does not occur.
 	 * @param tx The X translation.

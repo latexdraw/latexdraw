@@ -31,6 +31,7 @@ import org.malai.instrument.Instrument;
 import org.malai.mapping.MappingRegistry;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
+import org.malai.properties.Zoomable;
 
 /**
  * This instrument manages the selected views.<br>
@@ -85,15 +86,22 @@ public class Border extends Instrument implements Picker {
 	/** The handler that rotates shapes. */
 	protected IHandler rotHandler;
 
+	/** The object that contain the zoom used to display shapes and thus the border. */
+	protected Zoomable zoomable;
+
 
 
 	/**
 	 * Creates and initialises the border.
 	 * @since 3.0
 	 */
-	public Border() {
+	public Border(final Zoomable zoomable) {
 		super();
 
+		if(zoomable==null)
+			throw new IllegalArgumentException();
+
+		this.zoomable	= zoomable;
 		selection 		= new ArrayList<IShapeView<?>>();
 		border	  		= new Rectangle2D.Double();
 		scaleHandlers  	= new ArrayList<IHandler>();
@@ -128,11 +136,11 @@ public class Border extends Instrument implements Picker {
 	 * @since 3.0
 	 */
 	public void update() {
+		final double zoomLevel = zoomable.getZoom();
 		double minX = Double.MAX_VALUE;
 		double minY = Double.MAX_VALUE;
 		double maxX = Double.MIN_VALUE;
 		double maxY = Double.MIN_VALUE;
-
 		Rectangle2D bounds;
 
 		for(final IShapeView<?> view : selection) {
@@ -151,8 +159,7 @@ public class Border extends Instrument implements Picker {
 				maxY = bounds.getMaxY();
 		}
 
-		border.setFrame(minX, minY, maxX-minX, maxY-minY);
-
+		border.setFrame(minX*zoomLevel, minY*zoomLevel, (maxX-minX)*zoomLevel, (maxY-minY)*zoomLevel);
 		updateHandlersPosition();
 	}
 
@@ -191,8 +198,8 @@ public class Border extends Instrument implements Picker {
 			}
 
 			final IArc arc = ((LArcView)selection.get(0)).getShape();
-			arcHandlerStart.updateFromArc(arc);
-			arcHandlerEnd.updateFromArc(arc);
+			arcHandlerStart.updateFromArc(arc, zoomable.getZoom());
+			arcHandlerEnd.updateFromArc(arc, zoomable.getZoom());
 		}
 	}
 
@@ -203,8 +210,9 @@ public class Border extends Instrument implements Picker {
 	 */
 	private void updateCtrlMvHandlers() {
 		if(isCtrlPtMvHandlersShowable()) {
+			final double zoom	  = zoomable.getZoom();
 			final IBezierCurve bc = ((LBezierCurveView)selection.get(0)).getShape();
-			final int nbPts 				 = bc.getNbPoints();
+			final int nbPts 	  = bc.getNbPoints();
 			IPoint pt;
 
 			// Lazy initialisation
@@ -227,11 +235,11 @@ public class Border extends Instrument implements Picker {
 				}
 
 			// Updating handlers.
-			for(int i=0, size=mvPtHandlers.size(); i<size; i++) {
+			for(int i=0, size=ctrlPt1Handlers.size(); i<size; i++) {
 				pt = bc.getFirstCtrlPtAt(i);
-				ctrlPt1Handlers.get(i).setPoint(pt.getX(), pt.getY());
+				ctrlPt1Handlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
 				pt = bc.getSecondCtrlPtAt(i);
-				ctrlPt2Handlers.get(i).setPoint(pt.getX(), pt.getY());
+				ctrlPt2Handlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
 			}
 		}
 	}
@@ -245,6 +253,7 @@ public class Border extends Instrument implements Picker {
 		if(isPtMvHandlersShowable()) {
 			final IModifiablePointsShape pts = ((LModifiablePointsShapeView<IModifiablePointsShape>)selection.get(0)).getShape();
 			final int nbPts 				 = pts.getNbPoints();
+			final double zoom	  			 = zoomable.getZoom();
 			IPoint pt;
 
 			if(mvPtHandlers==null)
@@ -259,7 +268,7 @@ public class Border extends Instrument implements Picker {
 
 			for(int i=0, size=mvPtHandlers.size(); i<size; i++) {
 				pt = pts.getPtAt(i);
-				mvPtHandlers.get(i).setPoint(pt.getX(), pt.getY());
+				mvPtHandlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
 			}
 
 		}
@@ -411,30 +420,30 @@ public class Border extends Instrument implements Picker {
 
 	@Override
 	public Pickable getPickableAt(final double x, final double y) {
-		Pickable pickable = getHandlerAt(x, y, scaleHandlers);
+		final double zoom = zoomable.getZoom();
+		final double x2 = x*zoom;
+		final double y2 = y*zoom;
+		Pickable pickable = getHandlerAt(x2, y2, scaleHandlers);
 
-//		for(final ScaleHandler scaleHandler : scaleHandlers)
-//			if(scaleHandler.contains(x, y))
-//				return scaleHandler;
-
-		if(pickable==null && rotHandler.contains(x, y))
+		if(pickable==null && rotHandler.contains(x2, y2))
 			pickable = rotHandler;
 
 		if(pickable==null)
-			pickable = getHandlerAt(x, y, mvPtHandlers);
+			pickable = getHandlerAt(x2, y2, mvPtHandlers);
 
 		if(pickable==null)
-			pickable = getHandlerAt(x, y, ctrlPt1Handlers);
+			pickable = getHandlerAt(x2, y2, ctrlPt1Handlers);
 
 		if(pickable==null)
-			pickable = getHandlerAt(x, y, ctrlPt2Handlers);
+			pickable = getHandlerAt(x2, y2, ctrlPt2Handlers);
 
-		if(pickable==null && frameArcHandler!=null && frameArcHandler.contains(x, y))
+		if(pickable==null && frameArcHandler!=null && frameArcHandler.contains(x2, y2))
 			pickable = frameArcHandler;
 
-		if(pickable==null && arcHandlerStart!=null && arcHandlerStart.contains(x, y))
+		if(pickable==null && arcHandlerStart!=null && arcHandlerStart.contains(x2, y2))
 			pickable = arcHandlerStart;
-		if(pickable==null && arcHandlerEnd!=null && arcHandlerEnd.contains(x, y))
+
+		if(pickable==null && arcHandlerEnd!=null && arcHandlerEnd.contains(x2, y2))
 			pickable = arcHandlerEnd;
 
 		return pickable;

@@ -88,6 +88,12 @@ class LPoint extends Point2D.Double implements IPoint {
 
 
 	@Override
+	public IPoint zoom(final double zoomLevel) {
+		return new LPoint(x*zoomLevel, y*zoomLevel);
+	}
+
+
+	@Override
 	public double computeRotationAngle(final IPoint pt1, final IPoint pt2) {
 		if(!GLibUtilities.INSTANCE.isValidPoint(pt1) || !GLibUtilities.INSTANCE.isValidPoint(pt2))
 			return java.lang.Double.NaN;

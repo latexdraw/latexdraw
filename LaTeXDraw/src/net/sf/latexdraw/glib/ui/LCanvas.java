@@ -19,6 +19,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.Java2D.IShapeView;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.util.LNumber;
 
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
@@ -106,7 +107,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 		modified			= false;
 		userSelectionBorder	= null;
-		borderIns			= new Border();
+		borderIns			= new Border(this);
 		border				= new Rectangle2D.Double();
 		views 				= new ArrayList<IShapeView<?>>();
 		tempView			= new ActiveSingleton<IShapeView<?>>();
@@ -159,6 +160,8 @@ public class LCanvas extends MPanel implements ICanvas {
 	@Override
 	public void paintViews(final Graphics2D g, final boolean withZoom, final boolean withGrid) {
 		final IShapeView<?> temp = getTempView();
+		final double zoomValue = getZoom();
+		final boolean mustZoom = withZoom && !LNumber.INSTANCE.equals(zoomValue, 1.);
 
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, alphaInterpolValue);
 		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 	   colorRenderingValue);
@@ -166,21 +169,11 @@ public class LCanvas extends MPanel implements ICanvas {
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, 		   renderingValue);
 
 		// Displaying the magnetic grid.
-		if(withGrid && magneticGrid.isGridDisplayed()) {
-			// Updating the dimension of the grid.
-//			int height = getHeight();
-//			int width  = getWidth();
-//
-//    		if(magneticGrid.getHeight()<height || magneticGrid.getWidth()<width)
-//    			magneticGrid.setSize(width, height);
-
+		if(withGrid && magneticGrid.isGridDisplayed())
     		magneticGrid.paint(g);
-		}
 
-		if(withZoom) {
-			final double zoomValue = getZoom();
+		if(mustZoom)
 			g.scale(zoomValue, zoomValue);
-		}
 
 		for(IShapeView<?> view : views)
     		view.paint(g);
@@ -193,6 +186,9 @@ public class LCanvas extends MPanel implements ICanvas {
     		g.setColor(Color.GRAY);
     		g.draw(userSelectionBorder);
     	}
+
+		if(mustZoom)
+			g.scale(1/zoomValue, 1/zoomValue);
 
     	borderIns.paint(g);
 	}
@@ -324,6 +320,7 @@ public class LCanvas extends MPanel implements ICanvas {
 	public void setZoom(final double x, final double y, final double z) {
 		if(z<=Zoomable.MAX_ZOOM && z>=Zoomable.MIN_ZOOM) {
 			zoom.setValue(z);
+			borderIns.update();
 			update();
 			setModified(true);
 		}
