@@ -34,7 +34,7 @@ public final class LNumber {
 
 
 	/**
-	 * Compares two double values to know if they are approximatively equal.
+	 * Compares two double values to know if they are approximately equal.
 	 * @param a The first double value.
 	 * @param b The second double value.
 	 * @return True if both values are approximatively equal using a threshold approximation value.
