@@ -37,7 +37,17 @@ import org.xml.sax.SAXException;
  */
 public final class LangTool {
 	public static enum Lang {
-		HU {
+		SR {
+			@Override
+			public String getName() {
+				return "\u0441\u0440\u043f\u0441\u043a\u0438";//$NON-NLS-1$
+			}
+
+			@Override
+			public String getToken() {
+				return "lang.sr";//$NON-NLS-1$
+			}
+		}, HU {
 			@Override
 			public String getName() {
 				return "Magyar";//$NON-NLS-1$
@@ -50,7 +60,7 @@ public final class LangTool {
 		}, VI {
 			@Override
 			public String getName() {
-				return "Tiếng Việt";//$NON-NLS-1$
+				return "Ti\u1ebfng Vi\u1ec7t";//$NON-NLS-1$
 			}
 
 			@Override
@@ -60,7 +70,7 @@ public final class LangTool {
 		}, PT_BR {
 			@Override
 			public String getName() {
-				return "Português Brasileiro";//$NON-NLS-1$
+				return "Portugu\u00eas Brasileiro";//$NON-NLS-1$
 			}
 
 			@Override
@@ -70,18 +80,18 @@ public final class LangTool {
 		}, JA {
 			@Override
 			public String getName() {
-				return "日本語";//$NON-NLS-1$
+				return "\u65e5\u672c\u8a9e";//$NON-NLS-1$
 			}
 
 			@Override
 			public String getToken() {
 				return "lang.ja";//$NON-NLS-1$
 			}
-			
+
 		}, TR {
 			@Override
 			public String getName() {
-				return "Türkçe";//$NON-NLS-1$
+				return "T\u00fcrk\u00e7e";//$NON-NLS-1$
 			}
 			@Override
 			public String getToken() {
@@ -110,7 +120,7 @@ public final class LangTool {
 		}, FR {
 			@Override
 			public String getName() {
-				return "Français";//$NON-NLS-1$
+				return "Fran\u00e7ais";//$NON-NLS-1$
 			}
 
 			@Override
@@ -120,7 +130,7 @@ public final class LangTool {
 		}, ES {
 			@Override
 			public String getName() {
-				return "Español";//$NON-NLS-1$
+				return "Espa\u00f1ol";//$NON-NLS-1$
 			}
 
 			@Override
@@ -150,7 +160,7 @@ public final class LangTool {
 		}, PL {
 			@Override
 			public String getName() {
-				return "Język polski";//$NON-NLS-1$
+				return "J\u0119zyk polski";//$NON-NLS-1$
 			}
 
 			@Override
@@ -211,6 +221,8 @@ public final class LangTool {
 				lang = HU;
 			else if(name.equals(PT_BR.getName()))
 				lang = PT_BR;
+			else if(name.equals(SR.getName()))
+				lang = SR;
 			else lang = EN_BR;
 
 			return lang;
@@ -245,6 +257,8 @@ public final class LangTool {
 				language = Lang.HU;
 			else if(userLang.equals("pt-BR")) //$NON-NLS-1$
 				language = Lang.PT_BR;
+			else if(userLang.equals("sr")) //$NON-NLS-1$
+				language = Lang.SR;
 			else language = Lang.getDefaultLanguage();
 
 			return language;

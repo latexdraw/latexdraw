@@ -5,6 +5,7 @@ German: Lukas Woodtli, Data, maar7, mm, Sebastian Schlatow, Sebastian Lipp, Flos
 Hungarian: Máté Nagy, Griechisch Erika
 Italian: Andrea Burattin, Guybrush88, Franco Buratti, Omar Inverso, Luca Martini, Martino Barbon, Simone Sandri
 Japanese: uji
+Serbian: Мирослав Николић
 Spanish: Ruben Agapito, Juan Pablo García, Manel Velasco, Luis J. Claros, Hector A. Mantellini
 Turkish: kosti
 Vietnamese: Nguyen Quang Chien

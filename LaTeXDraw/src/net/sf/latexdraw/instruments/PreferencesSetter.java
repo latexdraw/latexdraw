@@ -55,7 +55,6 @@ import org.xml.sax.SAXException;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
-
 /**
  * This instrument modifies the preferences.<br>
  * <br>
@@ -224,6 +223,7 @@ public class PreferencesSetter extends Instrument {
   		langList.addItem(LangTool.Lang.PT_BR.getName());
   		langList.addItem(LangTool.Lang.VI.getName());
   		langList.addItem(LangTool.Lang.TR.getName());
+  		langList.addItem(LangTool.Lang.SR.getName());
   		langList.setMaximumSize(new Dimension(250, height));
 
   		SpinnerModel model = new SpinnerNumberModel(5, 0, 20, 1);
