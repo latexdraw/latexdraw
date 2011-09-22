@@ -59,7 +59,7 @@
 			
 			 <!-- Filters the files -->
 			 <fileset dir="bin/"
-				 includes="net/sf/latexdraw/**/*.class ; fr/eseo/malai/**/*.class ; res/**/* ; lang/**/*"
+				 includes="net/sf/latexdraw/**/*.class ; org/malai/**/*.class ; res/**/* ; lang/**/*"
 				 excludes="net/sf/latexdraw/installer/*"
 			 />
 			 <fileset dir="" includes="res/**/* ; lang/**/*" />

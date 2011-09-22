@@ -14,12 +14,12 @@
 		<jar jarfile="${dir.out}/installer.jar" manifest="META-INF/MANIFEST.MF">
 			<!-- Creates the manifest -->
 			<manifest>
-				<attribute name="Main-Class" value="latexDraw.installer.InstallerUI"/>
+				<attribute name="Main-Class" value="net.sf.latexdraw.installer.InstallerUI"/>
 			</manifest>
 			
 		 <!-- Filters the files -->
-		 <fileset dir=""
-			 includes="latexDraw/installer/*.class ; latexDraw/ui/listeners/InstallerListener.class ; latexDraw/util/LaTeXDrawPath.class ; res/LaTeXDrawIcon.png"
+		 <fileset dir="bin"
+			 includes="net/sf/latexdraw/installer/*.class ; net/sf/latexdraw/ui/listeners/InstallerListener.class ; net/sf/latexdraw/util/LSystem.class ; net/sf/latexdraw/util/LSystem$$OperatingSystem.class; net/sf/latexdraw/util/LPath.class ; res/LaTeXDrawIcon.png"
 		 />
 		</jar>
 	</target>
