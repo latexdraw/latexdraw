@@ -48,7 +48,7 @@ public class TempShape2TempViewMapping extends Singleton2SingletonMapping<IShape
 
 	@Override
 	public void onObjectReplaced(final ISingleton<?> object, final Object replacedObject) {
-		targetObject.setValue(View2DTK.getFactory().generateView(sourceObject.getValue()));
+		targetObject.setValue(View2DTK.getFactory().createView(sourceObject.getValue()));
 
 		if(replacedObject!=null)
 			MappingRegistry.REGISTRY.removeMappingsUsingSource(replacedObject);

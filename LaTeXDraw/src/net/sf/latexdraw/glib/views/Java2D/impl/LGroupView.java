@@ -56,7 +56,7 @@ class LGroupView extends LShapeView<IGroup> {
 		views = new ArrayList<IViewShape<?>>();
 
 		for(IShape s : model.getShapes())
-			views.add(View2DTK.getFactory().generateView(s));
+			views.add(View2DTK.getFactory().createView(s));
 
 		updateBorder();
 	}

@@ -38,7 +38,7 @@ public class LViewsFactory implements IViewsFactory {
 	
 	
 	@Override
-	public IViewShape<?> generateView(final IShape shape) {
+	public IViewShape<?> createView(final IShape shape) {
 		return shape==null ? null : createCmd.execute(shape);
 	}
 	

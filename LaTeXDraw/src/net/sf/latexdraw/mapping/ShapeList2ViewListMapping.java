@@ -44,7 +44,7 @@ public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape,
 
 	@Override
 	protected IViewShape<?> createTargetObject(final Object sourceObject) {
-		return sourceObject instanceof IShape ? View2DTK.getFactory().generateView((IShape)sourceObject) : null;
+		return sourceObject instanceof IShape ? View2DTK.getFactory().createView((IShape)sourceObject) : null;
 	}
 
 

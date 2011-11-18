@@ -27,5 +27,5 @@ public interface IViewsFactory {
 	 * @return The created view or null.
 	 * @since 3.0
 	 */
-	IViewShape<?> generateView(final IShape shape);
+	IViewShape<?> createView(final IShape shape);
 }

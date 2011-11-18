@@ -112,7 +112,7 @@ public class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		IViewShape<?> view = MappingRegistry.REGISTRY.getTargetFromSource(shape, IViewDot.class);
 
 		if(view==null)
-			view =  View2DTK.getFactory().generateView(shape);
+			view =  View2DTK.getFactory().createView(shape);
 
         view.paint(graphics);
         root = graphics.getElement();
