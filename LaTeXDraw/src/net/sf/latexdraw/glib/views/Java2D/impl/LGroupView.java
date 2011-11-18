@@ -30,7 +30,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LGroupView extends LShapeView<IGroup> {
+class LGroupView extends LShapeView<IGroup> {
 	/** The view that contains the drawing. */
 	protected List<IViewShape<?>> views;
 
@@ -39,7 +39,7 @@ public class LGroupView extends LShapeView<IGroup> {
 	 * Creates an initialises a drawing view.
 	 * @since 3.0
 	 */
-	public LGroupView() {
+	protected LGroupView() {
 		this(DrawingTK.getFactory().createGroup(false));
 	}
 
@@ -50,7 +50,7 @@ public class LGroupView extends LShapeView<IGroup> {
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	public LGroupView(final IGroup model) {
+	protected LGroupView(final IGroup model) {
 		super(model);
 
 		views = new ArrayList<IViewShape<?>>();
