@@ -20,13 +20,13 @@ import net.sf.latexdraw.glib.models.interfaces.IFreehand;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LFreeHandView extends LShapeView<IFreehand> {
+class LFreeHandView extends LShapeView<IFreehand> {
 	/**
 	 * Creates and initialises a view of a free hand model.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	public LFreeHandView(final IFreehand model) {
+	protected LFreeHandView(final IFreehand model) {
 		super(model);
 
 		update();

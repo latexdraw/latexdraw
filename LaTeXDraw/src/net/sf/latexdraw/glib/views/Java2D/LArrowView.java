@@ -13,6 +13,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArrow;
 import net.sf.latexdraw.util.LNumber;
 
 /**
@@ -34,7 +35,7 @@ import net.sf.latexdraw.util.LNumber;
  * @version 3.0
  * @since 3.0
  */
-public class LArrowView {
+class LArrowView implements IViewArrow {
 	/** The arrow model to view. */
 	protected IArrow model;
 
@@ -48,7 +49,7 @@ public class LArrowView {
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 * @since 3.0
 	 */
-	public LArrowView(final IArrow model) {
+	protected LArrowView(final IArrow model) {
 		super();
 
 		if(model==null)
@@ -66,6 +67,7 @@ public class LArrowView {
 	 * @param asShadow True: it is the shadow of a shape.
 	 * @since 3.0
 	 */
+	@Override
 	public void paint(final Graphics2D g, final Color fColour, final boolean asShadow) {
 		if(model.getArrowStyle()==ArrowStyle.NONE) return ;
 
@@ -349,6 +351,7 @@ public class LArrowView {
 	 * Updates the path of the arrow.
 	 * @since 3.0
 	 */
+	@Override
 	public void updatePath() {
 		path.reset();
 

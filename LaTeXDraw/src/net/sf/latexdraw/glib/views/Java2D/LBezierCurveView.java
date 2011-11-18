@@ -9,6 +9,7 @@ import java.util.List;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
 
 /**
  * Defines a view of the model IBeziershape.<br>
@@ -29,7 +30,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> {
+class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implements IViewBezierCurve {
 	public static final BasicStroke STROKE_CTRL_LINES = new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.f, new float[]{5f, 3f}, 0f);
 
 
@@ -38,7 +39,7 @@ public class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> {
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	public LBezierCurveView(final IBezierCurve model) {
+	protected LBezierCurveView(final IBezierCurve model) {
 		super(model);
 		update();
 	}

@@ -9,6 +9,7 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewDot;
 import net.sf.latexdraw.util.LNumber;
 
 /**
@@ -29,13 +30,13 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LDotView extends LShapeView<IDot> {
+class LDotView extends LShapeView<IDot> implements IViewDot {
 	/**
 	 * Initialises the view of the dot.
 	 * @param model The dot model.
 	 * @since 3.0
 	 */
-	public LDotView(final IDot model) {
+	protected LDotView(final IDot model) {
 		super(model);
 
 		update();

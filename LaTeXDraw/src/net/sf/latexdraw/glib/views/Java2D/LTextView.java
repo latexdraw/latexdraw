@@ -31,6 +31,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -57,7 +58,7 @@ import sun.font.FontDesignMetrics;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LTextView extends LShapeView<IText> {
+class LTextView extends LShapeView<IText> implements IViewText {
 	/** The picture. */
 	protected Image image;
 
@@ -87,7 +88,7 @@ public class LTextView extends LShapeView<IText> {
 	 * @throws IllegalArgumentException If the given model is null.
 	 * @since 3.0
 	 */
-	public LTextView(final IText model) {
+	protected LTextView(final IText model) {
 		super(model);
 
 		log			= ""; //$NON-NLS-1$
@@ -145,6 +146,7 @@ public class LTextView extends LShapeView<IText> {
 	 * Updates the image.
 	 * @since 3.0
 	 */
+	@Override
 	public void updateImage() {
 		flush();
 		image = createImage();
@@ -156,6 +158,7 @@ public class LTextView extends LShapeView<IText> {
 	 * @return the image.
 	 * @since 3.0
 	 */
+	@Override
 	public Image getImage() {
 		return image;
 	}
@@ -241,6 +244,7 @@ public class LTextView extends LShapeView<IText> {
 	 * @return The precise latex error messages that the latex compilation produced.
 	 * @since 3.0
 	 */
+	@Override
 	public String getLatexErrorMessageFromLog() {
 		final Matcher matcher 		= Pattern.compile(".*\r?\n").matcher(log); //$NON-NLS-1$
 		final StringBuilder errors 	= new StringBuilder();
@@ -330,6 +334,7 @@ public class LTextView extends LShapeView<IText> {
 	 * @return The LaTeX document that will be compiled in order to get the picture of the text.
 	 * @since 3.0
 	 */
+	@Override
 	public String getLaTeXDocument() {
 		final String code		= shape.getText();
 		final StringBuffer doc 	= new StringBuffer();

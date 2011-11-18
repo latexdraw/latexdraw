@@ -4,6 +4,7 @@ import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewRectangle;
 
 /**
  * Defines a view of the IRectangle model.<br>
@@ -23,13 +24,13 @@ import net.sf.latexdraw.glib.models.interfaces.IRectangle;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LRectangleView extends LRectangularView<IRectangle> {
+class LRectangleView extends LRectangularView<IRectangle> implements IViewRectangle {
 	/**
 	 * Creates an initialises the Java view of a LRect.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	public LRectangleView(final IRectangle model) {
+	protected LRectangleView(final IRectangle model) {
 		super(model);
 
 		update();

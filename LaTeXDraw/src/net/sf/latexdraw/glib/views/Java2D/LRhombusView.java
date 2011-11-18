@@ -22,13 +22,13 @@ import net.sf.latexdraw.glib.models.interfaces.IRhombus;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LRhombusView extends LRectangularView<IRhombus> {
+class LRhombusView extends LRectangularView<IRhombus> {
 	/**
 	 * Creates an initialises the Java view of a LRhombus.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	public LRhombusView(final IRhombus model) {
+	protected LRhombusView(final IRhombus model) {
 		super(model);
 		update();
 	}

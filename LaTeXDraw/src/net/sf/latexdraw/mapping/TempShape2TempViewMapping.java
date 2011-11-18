@@ -1,12 +1,12 @@
 package net.sf.latexdraw.mapping;
 
+import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
+
 import org.malai.mapping.ISingleton;
 import org.malai.mapping.MappingRegistry;
 import org.malai.mapping.Singleton2SingletonMapping;
-
-import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
-import net.sf.latexdraw.glib.views.Java2D.LViewsFactory;
 
 /**
  * Defines a mapping that link the temporary shape of the drawing to the
@@ -29,11 +29,11 @@ import net.sf.latexdraw.glib.views.Java2D.LViewsFactory;
  * @since 3.0
  * @version 3.0
  */
-public class TempShape2TempViewMapping extends Singleton2SingletonMapping<IShape, IShapeView<?>> {
+public class TempShape2TempViewMapping extends Singleton2SingletonMapping<IShape, IViewShape<?>> {
 	/**
 	 * {@link Singleton2SingletonMapping#Singleton2SingletonMapping(ISingleton, ISingleton)}
 	 */
-	public TempShape2TempViewMapping(final ISingleton<IShape> source, final ISingleton<IShapeView<?>> target) {
+	public TempShape2TempViewMapping(final ISingleton<IShape> source, final ISingleton<IViewShape<?>> target) {
 		super(source, target);
 	}
 
@@ -48,7 +48,7 @@ public class TempShape2TempViewMapping extends Singleton2SingletonMapping<IShape
 
 	@Override
 	public void onObjectReplaced(final ISingleton<?> object, final Object replacedObject) {
-		targetObject.setValue(LViewsFactory.INSTANCE.generateView(sourceObject.getValue()));
+		targetObject.setValue(View2DTK.getFactory().generateView(sourceObject.getValue()));
 
 		if(replacedObject!=null)
 			MappingRegistry.REGISTRY.removeMappingsUsingSource(replacedObject);

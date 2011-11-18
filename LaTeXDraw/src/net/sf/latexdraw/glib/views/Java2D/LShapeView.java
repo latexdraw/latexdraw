@@ -26,6 +26,8 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.views.AbstractView;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArrow;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.util.LNumber;
 
 /**
@@ -46,7 +48,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public abstract class LShapeView<S extends IShape> extends AbstractView<S> implements IShapeView<S> {
+abstract class LShapeView<S extends IShape> extends AbstractView<S> implements IViewShape<S> {
 	/** The Java2D path used to draw the shape. */
 	protected Path2D path;
 
@@ -66,7 +68,7 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 	 * @param model The shape model.
 	 * @throws IllegalArgumentException If <code>model</code> is null.
 	 */
-	public LShapeView(final S model) {
+	protected LShapeView(final S model) {
 		super(model);
 
 		path  	= new Path2D.Double();
@@ -176,7 +178,7 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 	 */
 	protected void updatePathArrows() {
 		if(shape.isArrowable())
-			for(final LArrowView arrView : arrows)
+			for(final IViewArrow arrView : arrows)
 				arrView.updatePath();
 	}
 
@@ -494,7 +496,7 @@ public abstract class LShapeView<S extends IShape> extends AbstractView<S> imple
 	 * @since 3.0
 	 */
 	protected void paintArrows(final Graphics2D g, final boolean asShadow) {
-		for(final LArrowView arrow : arrows)
+		for(final IViewArrow arrow : arrows)
 			arrow.paint(g, asShadow ? shape.getShadowCol() : shape.getFillingCol(), asShadow);
 	}
 

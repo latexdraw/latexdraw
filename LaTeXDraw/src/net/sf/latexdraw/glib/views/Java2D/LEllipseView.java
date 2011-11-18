@@ -22,7 +22,7 @@ import net.sf.latexdraw.glib.models.interfaces.IEllipse;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LEllipseView<S extends IEllipse> extends LRectangularView<S> {
+class LEllipseView<S extends IEllipse> extends LRectangularView<S> {
 	/** Used to compute the drawing of an ellipse. */
 	public static final double U = 2./3.*(Math.sqrt(2.)-1.);
 
@@ -40,7 +40,7 @@ public class LEllipseView<S extends IEllipse> extends LRectangularView<S> {
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	public LEllipseView(final S model) {
+	protected LEllipseView(final S model) {
 		super(model);
 		update();
 	}

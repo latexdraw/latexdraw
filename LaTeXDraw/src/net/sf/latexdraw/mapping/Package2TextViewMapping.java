@@ -1,6 +1,6 @@
 package net.sf.latexdraw.mapping;
 
-import net.sf.latexdraw.glib.views.Java2D.LTextView;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 
 import org.malai.mapping.ISingleton;
 import org.malai.mapping.Object2ObjectMapping;
@@ -25,7 +25,7 @@ import org.malai.mapping.Object2ObjectMapping;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class Package2TextViewMapping extends Object2ObjectMapping<ISingleton<String>, LTextView> {
+public class Package2TextViewMapping extends Object2ObjectMapping<ISingleton<String>, IViewText> {
 	/**
 	 * Creates the mapping.
 	 * @param packages The LaTeX packages to listen.
@@ -33,7 +33,7 @@ public class Package2TextViewMapping extends Object2ObjectMapping<ISingleton<Str
 	 * @throws IllegalArgumentException If one of the given arguments is null or if they are the same object.
 	 * @since 3.0
 	 */
-	public Package2TextViewMapping(final ISingleton<String> packages, final LTextView textView) {
+	public Package2TextViewMapping(final ISingleton<String> packages, final IViewText textView) {
 		super(packages, textView);
 	}
 

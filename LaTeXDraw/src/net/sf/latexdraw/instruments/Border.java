@@ -20,11 +20,11 @@ import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
-import net.sf.latexdraw.glib.views.Java2D.LArcView;
-import net.sf.latexdraw.glib.views.Java2D.LBezierCurveView;
-import net.sf.latexdraw.glib.views.Java2D.LModifiablePointsShapeView;
-import net.sf.latexdraw.glib.views.Java2D.LRectangleView;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewRectangle;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.mapping.Shape2BorderMapping;
 
 import org.malai.instrument.Instrument;
@@ -57,7 +57,7 @@ public class Border extends Instrument implements Picker {
 	public static final BasicStroke STROKE = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f, new float[] { 7f, 7f}, 0);
 
 	/** The selected views. */
-	protected List<IShapeView<?>> selection;
+	protected List<IViewShape<?>> selection;
 
 	/** The rectangle uses to show the selection. */
 	protected Rectangle2D border;
@@ -102,7 +102,7 @@ public class Border extends Instrument implements Picker {
 			throw new IllegalArgumentException();
 
 		this.zoomable	= zoomable;
-		selection 		= new ArrayList<IShapeView<?>>();
+		selection 		= new ArrayList<IViewShape<?>>();
 		border	  		= new Rectangle2D.Double();
 		scaleHandlers  	= new ArrayList<IHandler>();
 
@@ -143,7 +143,7 @@ public class Border extends Instrument implements Picker {
 		double maxY = Double.MIN_VALUE;
 		Rectangle2D bounds;
 
-		for(final IShapeView<?> view : selection) {
+		for(final IViewShape<?> view : selection) {
 			bounds = view.getBorder();
 
 			if(bounds.getMinX()<minX)
@@ -197,7 +197,7 @@ public class Border extends Instrument implements Picker {
 				arcHandlerEnd 	= new ArcAngleHandler(false);
 			}
 
-			final IArc arc = ((LArcView)selection.get(0)).getShape();
+			final IArc arc = ((IViewArc)selection.get(0)).getShape();
 			arcHandlerStart.updateFromArc(arc, zoomable.getZoom());
 			arcHandlerEnd.updateFromArc(arc, zoomable.getZoom());
 		}
@@ -211,7 +211,7 @@ public class Border extends Instrument implements Picker {
 	private void updateCtrlMvHandlers() {
 		if(isCtrlPtMvHandlersShowable()) {
 			final double zoom	  = zoomable.getZoom();
-			final IBezierCurve bc = ((LBezierCurveView)selection.get(0)).getShape();
+			final IBezierCurve bc = ((IViewBezierCurve)selection.get(0)).getShape();
 			final int nbPts 	  = bc.getNbPoints();
 			IPoint pt;
 
@@ -251,7 +251,7 @@ public class Border extends Instrument implements Picker {
 	 */
 	private void updateMvHandlers() {
 		if(isPtMvHandlersShowable()) {
-			final IModifiablePointsShape pts = ((LModifiablePointsShapeView<IModifiablePointsShape>)selection.get(0)).getShape();
+			final IModifiablePointsShape pts = ((IViewModifiablePtsShape<IModifiablePointsShape>)selection.get(0)).getShape();
 			final int nbPts 				 = pts.getNbPoints();
 			final double zoom	  			 = zoomable.getZoom();
 			IPoint pt;
@@ -325,7 +325,7 @@ public class Border extends Instrument implements Picker {
 	 * @return True if the control move point handlers can be painted.
 	 */
 	protected boolean isCtrlPtMvHandlersShowable() {
-		return selection.size()==1 && selection.get(0) instanceof LBezierCurveView;
+		return selection.size()==1 && selection.get(0) instanceof IViewBezierCurve;
 	}
 
 
@@ -333,7 +333,7 @@ public class Border extends Instrument implements Picker {
 	 * @return True if the move point handlers can be painted.
 	 */
 	protected boolean isPtMvHandlersShowable() {
-		return selection.size()==1 && selection.get(0) instanceof LModifiablePointsShapeView;
+		return selection.size()==1 && selection.get(0) instanceof IViewModifiablePtsShape<?>;
 	}
 
 
@@ -341,7 +341,7 @@ public class Border extends Instrument implements Picker {
 	 * @return True if the arc handlers can be painted.
 	 */
 	protected boolean isArcHandlerShowable() {
-		return selection.size()==1 && selection.get(0) instanceof LArcView;
+		return selection.size()==1 && selection.get(0) instanceof IViewArc;
 	}
 
 
@@ -349,7 +349,7 @@ public class Border extends Instrument implements Picker {
 	 * @return True if the frame arc handler can be painted.
 	 */
 	protected boolean isFrameArcHandlerShowable() {
-		return selection.size()==1 && selection.get(0) instanceof LRectangleView;
+		return selection.size()==1 && selection.get(0) instanceof IViewRectangle;
 	}
 
 
@@ -360,7 +360,7 @@ public class Border extends Instrument implements Picker {
 	 * @param view The view to add. If null, nothing is done.
 	 * @since 3.0
 	 */
-	public void add(final IShapeView<?> view) {
+	public void add(final IViewShape<?> view) {
 		if(view!=null && selection.add(view) && isActivated()) {
 			// The border is updated only if the view has been added and
 			// the border is activated.
@@ -378,7 +378,7 @@ public class Border extends Instrument implements Picker {
 	 * already in the selection, nothing is performed.
 	 * @since 3.0
 	 */
-	public void remove(final IShapeView<?> view) {
+	public void remove(final IViewShape<?> view) {
 		if(view!=null && isActivated() && selection.remove(view)) {
 			MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class);
 			update();
@@ -390,7 +390,7 @@ public class Border extends Instrument implements Picker {
 	 * @return the selected views. Cannot be null.
 	 * @since 3.0
 	 */
-	public List<IShapeView<?>> getSelection() {
+	public List<IViewShape<?>> getSelection() {
 		return selection;
 	}
 
@@ -407,7 +407,7 @@ public class Border extends Instrument implements Picker {
 	 */
 	public void clear() {
 		if(!selection.isEmpty()) {
-			for(IShapeView<?> view : selection)
+			for(IViewShape<?> view : selection)
 				MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class);
 
 			selection.clear();

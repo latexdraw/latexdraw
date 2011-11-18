@@ -1,9 +1,11 @@
 package net.sf.latexdraw.glib.views.Java2D;
 
 import net.sf.latexdraw.glib.models.interfaces.*;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewsFactory;
 
 /**
- * Defines a generator that generates views from given models.<br>
+ * The factory that creates views from given models.<br>
  *<br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -22,11 +24,8 @@ import net.sf.latexdraw.glib.models.interfaces.*;
  * @since 3.0
  * @version 3.0
  */
-public final class LViewsFactory {
-	/** The singleton. */
-	public static final LViewsFactory INSTANCE = new LViewsFactory();
-
-	private LViewsFactory() {
+public class LViewsFactory implements IViewsFactory {
+	public LViewsFactory() {
 		super();
 	}
 
@@ -37,8 +36,9 @@ public final class LViewsFactory {
 	 * @return The created view or null.
 	 * @since 3.0
 	 */
-	public IShapeView<?> generateView(final IShape shape) {
-		IShapeView<?> view;
+	@Override
+	public IViewShape<?> generateView(final IShape shape) {
+		IViewShape<?> view;
 
 		if(shape==null)
 			view = null;

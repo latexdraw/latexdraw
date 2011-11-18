@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.views.Java2D;
+package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
@@ -30,7 +30,7 @@ import net.sf.latexdraw.glib.views.IAbstractView;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public interface IShapeView<S extends IShape> extends IAbstractView<S>, Pickable {
+public interface IViewShape<S extends IShape> extends IAbstractView<S>, Pickable {
 	/**
 	 * Draws the shape within a Java2D graphics.
 	 * @param g The graphics where the shape must be drawn.

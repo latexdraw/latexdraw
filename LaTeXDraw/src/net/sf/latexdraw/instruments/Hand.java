@@ -15,8 +15,8 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
-import net.sf.latexdraw.glib.views.Java2D.LTextView;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
@@ -116,7 +116,7 @@ class DoubleClick2InitTextSetter extends Link<InitTextSetter, DoubleClick, Hand>
 
 	@Override
 	public void initAction() {
-		final IText text		= ((LTextView)interaction.getTarget()).getShape();
+		final IText text		= ((IViewText)interaction.getTarget()).getShape();
 		final IPoint position 	= text.getPosition();
 		final double zoom 		= instrument.zoomer.zoomable.getZoom();
 
@@ -129,7 +129,7 @@ class DoubleClick2InitTextSetter extends Link<InitTextSetter, DoubleClick, Hand>
 
 	@Override
 	public boolean isConditionRespected() {
-		return interaction.getTarget() instanceof LTextView;
+		return interaction.getTarget() instanceof IViewText;
 	}
 }
 
@@ -168,7 +168,7 @@ class DnD2Translate extends Link<TranslateShape, DnD, Hand> {
 		final int button 		 = interaction.getButton();
 		return  !instrument.drawing.getSelection().isEmpty() && 
 				((startObject==instrument.canvas && button==MouseEvent.BUTTON3) || 
-				 (startObject instanceof IShapeView<?> && (button==MouseEvent.BUTTON1 || button==MouseEvent.BUTTON3)));
+				 (startObject instanceof IViewShape<?> && (button==MouseEvent.BUTTON1 || button==MouseEvent.BUTTON3)));
 	}
 }
 
@@ -188,14 +188,14 @@ class Press2Select extends Link<SelectShapes, Press, Hand> {
 	public void updateAction() {
 		final Object target = interaction.getTarget();
 		
-		if(target instanceof IShapeView<?>)
+		if(target instanceof IViewShape<?>)
 			action.setShape(MappingRegistry.REGISTRY.getSourceFromTarget(target, IShape.class));
 	}
 
 	@Override
 	public boolean isConditionRespected() {
 		final Object target = interaction.getTarget();
-		return interaction.getTarget() instanceof IShapeView<?> && 
+		return interaction.getTarget() instanceof IViewShape<?> && 
 			   !instrument.drawing.getSelection().contains((MappingRegistry.REGISTRY.getSourceFromTarget(target, IShape.class)));
 	}
 }
@@ -242,7 +242,7 @@ class DnD2Select extends Link<SelectShapes, DnD, Hand> {
 		action.setShape(null);
 
 		if(!selectionBorder.isEmpty())
-			for(IShapeView<?> view : instrument.canvas.getViews())
+			for(IViewShape<?> view : instrument.canvas.getViews())
 				if(view.intersects(selectionBorder))
 					// Taking the shape in function of the view.
 					action.addShape(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class));

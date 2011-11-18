@@ -3,7 +3,7 @@ package net.sf.latexdraw.mapping;
 import org.malai.mapping.Object2ObjectMapping;
 
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 
 /**
  * Defines a mapping that link an IShape to a IShapeView.<br>
@@ -25,11 +25,11 @@ import net.sf.latexdraw.glib.views.Java2D.IShapeView;
  * @since 3.0
  * @version 3.0
  */
-public class Shape2ViewMapping extends Object2ObjectMapping<IShape, IShapeView<?>> {
+public class Shape2ViewMapping extends Object2ObjectMapping<IShape, IViewShape<?>> {
 	/**
 	 * {@link Object2ObjectMapping#Object2ObjectMapping(Object, Object)}
 	 */
-	public Shape2ViewMapping(final IShape source, final IShapeView<?> target) {
+	public Shape2ViewMapping(final IShape source, final IViewShape<?> target) {
 		super(source, target);
 	}
 

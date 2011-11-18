@@ -20,12 +20,12 @@ import net.sf.latexdraw.glib.models.interfaces.IAxes;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LAxesView extends LStandardGridView<IAxes> {
+class LAxesView extends LStandardGridView<IAxes> {
 	/** The interval between the labels and the axes. */
 	public static final double GAP_LABEL = 5.;
 
 
-	public LAxesView(final IAxes model) {
+	protected LAxesView(final IAxes model) {
 		super(model);
 		update();
 	}

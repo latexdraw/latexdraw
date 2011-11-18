@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.views.Java2D;
 
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 
-
 /**
  * Defines a view of the ICircle model.<br>
  * <br>
@@ -21,13 +20,13 @@ import net.sf.latexdraw.glib.models.interfaces.ICircle;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LCircleView extends LEllipseView<ICircle> {
+class LCircleView extends LEllipseView<ICircle> {
 	/**
 	 * Creates an initialises the Java view of a LCircle.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	public LCircleView(final ICircle model) {
+	protected LCircleView(final ICircle model) {
 		super(model);
 
 		update();

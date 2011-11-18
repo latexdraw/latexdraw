@@ -4,9 +4,9 @@ import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
-import net.sf.latexdraw.glib.views.Java2D.LTextView;
-import net.sf.latexdraw.glib.views.Java2D.LViewsFactory;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 
 import org.malai.mapping.MappingRegistry;
@@ -32,19 +32,19 @@ import org.malai.mapping.SymmetricList2ListMapping;
  * @since 3.0
  * @version 3.0
  */
-public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape, IShapeView<?>> {
+public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape, IViewShape<?>> {
 	/**
 	 * {@link SymmetricList2ListMapping#SymmetricList2ListMapping(List, List)}
 	 */
-	public ShapeList2ViewListMapping(final List<IShape> source, final List<IShapeView<?>> target) {
+	public ShapeList2ViewListMapping(final List<IShape> source, final List<IViewShape<?>> target) {
 		super(source, target);
 	}
 
 
 
 	@Override
-	protected IShapeView<?> createTargetObject(final Object sourceObject) {
-		return sourceObject instanceof IShape ? LViewsFactory.INSTANCE.generateView((IShape)sourceObject) : null;
+	protected IViewShape<?> createTargetObject(final Object sourceObject) {
+		return sourceObject instanceof IShape ? View2DTK.getFactory().generateView((IShape)sourceObject) : null;
 	}
 
 
@@ -59,7 +59,7 @@ public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape,
 			// If the shape is a text, a special mapping must be added.
 			if(object instanceof IText)
 				MappingRegistry.REGISTRY.addMapping(new Package2TextViewMapping(
-						LaTeXGenerator.getPackagesSingleton(), (LTextView)(index==-1 ? target.get(target.size()-1) : target.get(index))));
+						LaTeXGenerator.getPackagesSingleton(), (IViewText)(index==-1 ? target.get(target.size()-1) : target.get(index))));
 		}
 	}
 
@@ -67,7 +67,7 @@ public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape,
 
 	@Override
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
-		IShapeView<?> view = index==-1 ? target.get(target.size()-1) : target.get(index);
+		IViewShape<?> view = index==-1 ? target.get(target.size()-1) : target.get(index);
 
 		view.flush();
 		super.onObjectRemoved(list, object, index);

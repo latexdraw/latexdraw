@@ -1,9 +1,9 @@
-package net.sf.latexdraw.glib.views.Java2D;
+package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
+import net.sf.latexdraw.glib.models.interfaces.IArc;
 
 /**
- * Defines a view of the IPolygon model.<br>
+ * This interface defines a view of an arc.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -16,18 +16,10 @@ import net.sf.latexdraw.glib.models.interfaces.IPolygon;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 03/18/2008<br>
+ * 11/18/2011<br>
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LPolygonView extends LModifiablePointsShapeView<IPolygon> {
-	/**
-	 * Creates an initialises the Java view of a LPolygon.
-	 * @param model The model to view.
-	 * @since 3.0
-	 */
-	protected LPolygonView(final IPolygon model) {
-		super(model);
-		update();
-	}
+public interface IViewArc extends IViewShape<IArc>{
+	// Nothing more.
 }

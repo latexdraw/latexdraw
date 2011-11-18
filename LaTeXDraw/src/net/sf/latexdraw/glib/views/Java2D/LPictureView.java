@@ -24,13 +24,13 @@ import net.sf.latexdraw.glib.models.interfaces.IPicture;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LPictureView extends LShapeView<IPicture> {
+class LPictureView extends LShapeView<IPicture> {
 	/**
 	 * Initialises a view of a picture.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	public LPictureView(final IPicture model) {
+	protected LPictureView(final IPicture model) {
 		super(model);
 
 		update();

@@ -3,16 +3,13 @@ package net.sf.latexdraw.generators.svg;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import org.malai.mapping.MappingRegistry;
-
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
-import net.sf.latexdraw.glib.views.Java2D.LDotView;
-import net.sf.latexdraw.glib.views.Java2D.LViewsFactory;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewDot;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -21,6 +18,8 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.parsers.Graphics2D2SVG;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
+
+import org.malai.mapping.MappingRegistry;
 
 /**
  * Defines a SVG generator for a dot.<br>
@@ -110,10 +109,10 @@ public class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		final Graphics2D2SVG graphics = new Graphics2D2SVG(doc);
         final SVGElement root;
         // Instead of creating a view, its is gathered from the Java view of the application.
-		IShapeView<?> view = MappingRegistry.REGISTRY.getTargetFromSource(shape, LDotView.class);
+		IViewShape<?> view = MappingRegistry.REGISTRY.getTargetFromSource(shape, IViewDot.class);
 
 		if(view==null)
-			view =  LViewsFactory.INSTANCE.generateView(shape);
+			view =  View2DTK.getFactory().generateView(shape);
 
         view.paint(graphics);
         root = graphics.getElement();

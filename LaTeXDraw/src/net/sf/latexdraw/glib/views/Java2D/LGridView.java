@@ -29,7 +29,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LGridView extends LStandardGridView<IGrid> {
+class LGridView extends LStandardGridView<IGrid> {
 	/** The Java2D path used to draw the sub-grid. */
 	protected Path2D pathSubGrid;
 
@@ -39,7 +39,7 @@ public class LGridView extends LStandardGridView<IGrid> {
 	 * @param grid The model of the grid.
 	 * @since 3.0
 	 */
-	public LGridView(final IGrid grid) {
+	protected LGridView(final IGrid grid) {
 		super(grid);
 		pathSubGrid = new Path2D.Double();
 		update();

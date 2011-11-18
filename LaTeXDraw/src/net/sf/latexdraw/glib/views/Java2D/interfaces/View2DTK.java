@@ -1,9 +1,7 @@
-package net.sf.latexdraw.glib.views.Java2D;
-
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
+package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
 /**
- * Defines a view of the IPolygon model.<br>
+ * This class permits the access to the current view factory.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -16,18 +14,28 @@ import net.sf.latexdraw.glib.models.interfaces.IPolygon;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 03/18/2008<br>
+ * 11/18/2011<br>
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LPolygonView extends LModifiablePointsShapeView<IPolygon> {
+public class View2DTK {
+	/** The current view factory. */
+	protected static IViewsFactory factory = null;
+	
 	/**
-	 * Creates an initialises the Java view of a LPolygon.
-	 * @param model The model to view.
+	 * Sets the view factory.
+	 * @param factory The new factory. Can be null.
 	 * @since 3.0
 	 */
-	protected LPolygonView(final IPolygon model) {
-		super(model);
-		update();
+	public static void setFactory(final IViewsFactory factory) {
+		View2DTK.factory = factory;
+	}
+	
+	/**
+	 * @return The current factory. Can be null.
+	 * @since 3.0
+	 */
+	public static IViewsFactory getFactory() {
+		return factory;
 	}
 }

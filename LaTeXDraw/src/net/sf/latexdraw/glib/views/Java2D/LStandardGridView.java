@@ -33,7 +33,7 @@ import sun.font.FontDesignMetrics;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> {
+abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> {
 	/** The current font metrics of the text */
 	protected FontMetrics fontMetrics;
 
@@ -46,7 +46,7 @@ public abstract class LStandardGridView<S extends IStandardGrid> extends LShapeV
 	 * @param grid The abstract grid to view.
 	 * @since 3.0
 	 */
-	public LStandardGridView(final S grid) {
+	protected LStandardGridView(final S grid) {
 		super(grid);
 		pathLabels  = new Path2D.Double();
 	}

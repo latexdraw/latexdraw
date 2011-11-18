@@ -35,7 +35,7 @@ import net.sf.latexdraw.filters.TeXFilter;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.ui.ICanvas;
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 
 /**
@@ -432,7 +432,7 @@ public class Export extends Action {
 		graphic.setColor(Color.WHITE);
 		graphic.fillRect(0, 0, (int)(tr.getX()+dec), (int)(bl.getY()+dec));
 
-		for(IShapeView<?> view : canvas.getViews())
+		for(IViewShape<?> view : canvas.getViews())
 			view.paint(graphic);
 
 		// To delete the empty whitespace, we do a translation to

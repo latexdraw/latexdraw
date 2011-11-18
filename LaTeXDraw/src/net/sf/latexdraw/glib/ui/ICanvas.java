@@ -13,7 +13,7 @@ import org.malai.presentation.ConcretePresentation;
 import org.malai.properties.Zoomable;
 import org.malai.widget.Scrollable;
 
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.instruments.Border;
 
@@ -110,14 +110,14 @@ public interface ICanvas extends Zoomable, ConcretePresentation, Scrollable, Eve
 	 * @return The view at the given point or null.
 	 * @since 3.0
 	 */
-	IShapeView<?> getViewAt(final double x, final double y);
+	IViewShape<?> getViewAt(final double x, final double y);
 
 
 	/**
 	 * @return The list of views.
 	 * @since 3.0
 	 */
-	List<IShapeView<?>> getViews();
+	List<IViewShape<?>> getViews();
 
 
 
@@ -126,14 +126,14 @@ public interface ICanvas extends Zoomable, ConcretePresentation, Scrollable, Eve
 	 * @param view The new temporary view.
 	 * @since 3.0
 	 */
-	void setTempView(final IShapeView<?> view);
+	void setTempView(final IViewShape<?> view);
 
 
 	/**
 	 * @return The temporary view contained by the canvas.
 	 * @since 3.0
 	 */
-	IShapeView<?> getTempView();
+	IViewShape<?> getTempView();
 
 
 	/**

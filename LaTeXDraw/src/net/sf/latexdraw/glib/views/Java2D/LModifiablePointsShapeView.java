@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape;
 import net.sf.latexdraw.util.LNumber;
 
 /**
@@ -25,11 +26,11 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> extends LShapeView<S> {
+abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> extends LShapeView<S> implements IViewModifiablePtsShape<S> {
 	/**
 	 * Initialises the view of a IModifiablePointsShape.
 	 */
-	public LModifiablePointsShapeView(final S model) {
+	protected LModifiablePointsShapeView(final S model) {
 		super(model);
 	}
 

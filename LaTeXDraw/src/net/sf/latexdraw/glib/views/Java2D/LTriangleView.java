@@ -22,13 +22,13 @@ import net.sf.latexdraw.glib.models.interfaces.ITriangle;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LTriangleView extends LRectangularView<ITriangle> {
+class LTriangleView extends LRectangularView<ITriangle> {
 	/**
 	 * Creates an initialises the Java view of a LTriangle.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	public LTriangleView(final ITriangle model) {
+	protected LTriangleView(final ITriangle model) {
 		super(model);
 		update();
 	}

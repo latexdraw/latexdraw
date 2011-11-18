@@ -11,6 +11,8 @@ import net.sf.latexdraw.actions.LoadDrawing;
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.views.Java2D.LViewsFactory;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.ui.LFrame;
 import net.sf.latexdraw.ui.LUIComposer;
 import net.sf.latexdraw.ui.SplashScreen;
@@ -54,8 +56,9 @@ public final class LaTeXDraw {
 		// Settings the theme.
 		Theme.INSTANCE.setTheme();
 
-		// Settings the shape factory.
+		// Settings the factories.
 		DrawingTK.setFactory(new LShapeFactory());
+		View2DTK.setFactory(new LViewsFactory());
 	}
 
 

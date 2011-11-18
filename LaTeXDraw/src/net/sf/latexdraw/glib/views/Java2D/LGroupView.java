@@ -9,6 +9,8 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 
 /**
  * Defines a view of the IGroup model.<br>
@@ -30,7 +32,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  */
 public class LGroupView extends LShapeView<IGroup> {
 	/** The view that contains the drawing. */
-	protected List<IShapeView<?>> views;
+	protected List<IViewShape<?>> views;
 
 
 	/**
@@ -51,10 +53,10 @@ public class LGroupView extends LShapeView<IGroup> {
 	public LGroupView(final IGroup model) {
 		super(model);
 
-		views = new ArrayList<IShapeView<?>>();
+		views = new ArrayList<IViewShape<?>>();
 
 		for(IShape s : model.getShapes())
-			views.add(LViewsFactory.INSTANCE.generateView(s));
+			views.add(View2DTK.getFactory().generateView(s));
 
 		updateBorder();
 	}
@@ -62,7 +64,7 @@ public class LGroupView extends LShapeView<IGroup> {
 
 	@Override
 	public void update() {
-		for(IShapeView<?> view : views)
+		for(IViewShape<?> view : views)
 			view.update();
 
 		super.update();
@@ -75,7 +77,7 @@ public class LGroupView extends LShapeView<IGroup> {
 	 * @return The view at the given position.
 	 * @since 3.0
 	 */
-	public IShapeView<?> getViewAt(final int i) {
+	public IViewShape<?> getViewAt(final int i) {
 		if(i>=0 && i<views.size())
 			return views.get(i);
 
@@ -139,7 +141,7 @@ public class LGroupView extends LShapeView<IGroup> {
 
 	@Override
 	public void paint(final Graphics2D g) {
-		for(IShapeView<?> view : views)
+		for(IViewShape<?> view : views)
 			view.paint(g);
 
 //		if(isSelected && views.size()>1)
@@ -173,7 +175,7 @@ public class LGroupView extends LShapeView<IGroup> {
 	 * @return the views.
 	 * @since 3.0
 	 */
-	public List<IShapeView<?>> getViews() {
+	public List<IViewShape<?>> getViews() {
 		return views;
 	}
 

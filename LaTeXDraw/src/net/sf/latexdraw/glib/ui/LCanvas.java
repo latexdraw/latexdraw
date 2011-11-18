@@ -16,7 +16,7 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
@@ -61,10 +61,10 @@ public class LCanvas extends MPanel implements ICanvas {
 	private static final long serialVersionUID = 1L;
 
 	/** The shapes of the canvas. */
-	protected List<IShapeView<?>> views;
+	protected List<IViewShape<?>> views;
 
 	/** The temporary view that the canvas may contain. */
-	protected ISingleton<IShapeView<?>> tempView;
+	protected ISingleton<IViewShape<?>> tempView;
 
 	/** The border of the drawing. */
 	protected Rectangle2D border;
@@ -109,8 +109,8 @@ public class LCanvas extends MPanel implements ICanvas {
 		userSelectionBorder	= null;
 		borderIns			= new Border(this);
 		border				= new Rectangle2D.Double();
-		views 				= new ArrayList<IShapeView<?>>();
-		tempView			= new ActiveSingleton<IShapeView<?>>();
+		views 				= new ArrayList<IViewShape<?>>();
+		tempView			= new ActiveSingleton<IViewShape<?>>();
 		zoom				= new ActiveSingleton<Double>(1.);
 
 		ActionsRegistry.INSTANCE.addHandler(this);
@@ -159,7 +159,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public void paintViews(final Graphics2D g, final boolean withZoom, final boolean withGrid) {
-		final IShapeView<?> temp = getTempView();
+		final IViewShape<?> temp = getTempView();
 		final double zoomValue = getZoom();
 		final boolean mustZoom = withZoom && !LNumber.INSTANCE.equals(zoomValue, 1.);
 
@@ -175,7 +175,7 @@ public class LCanvas extends MPanel implements ICanvas {
 		if(mustZoom)
 			g.scale(zoomValue, zoomValue);
 
-		for(IShapeView<?> view : views)
+		for(IViewShape<?> view : views)
     		view.paint(g);
 
     	if(temp!=null)
@@ -209,7 +209,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public void updateBorder() {
-		final IShapeView<?> temp = getTempView();
+		final IViewShape<?> temp = getTempView();
 
 		if(views.isEmpty() && temp==null)
 			border.setFrame(0., 0., 0., 0.);
@@ -221,7 +221,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 			Rectangle2D bounds;
 
-			for(IShapeView<?> view : views) {
+			for(IViewShape<?> view : views) {
 				bounds = view.getBorder();
 
 				if(bounds.getMinX()<minX)
@@ -270,13 +270,13 @@ public class LCanvas extends MPanel implements ICanvas {
 
 
 	@Override
-	public IShapeView<?> getViewAt(final double x, final double y) {
+	public IViewShape<?> getViewAt(final double x, final double y) {
 		if(!GLibUtilities.INSTANCE.isValidPoint(x, y))
 			return null;
 
 		final double x2 = x/getZoom();
 		final double y2 = y/getZoom();
-		IShapeView<?> view = null;
+		IViewShape<?> view = null;
 		int i=views.size()-1;
 
 		while(i>=0 && view==null)
@@ -329,21 +329,21 @@ public class LCanvas extends MPanel implements ICanvas {
 
 
 	@Override
-	public List<IShapeView<?>> getViews() {
+	public List<IViewShape<?>> getViews() {
 		return views;
 	}
 
 
 
 	@Override
-	public IShapeView<?> getTempView() {
+	public IViewShape<?> getTempView() {
 		return tempView.getValue();
 	}
 
 
 
 	@Override
-	public void setTempView(final IShapeView<?> view) {
+	public void setTempView(final IViewShape<?> view) {
 		tempView.setValue(view);
 	}
 
@@ -352,7 +352,7 @@ public class LCanvas extends MPanel implements ICanvas {
 	 * @return The singleton that contains the temporary view.
 	 * @since 3.0
 	 */
-	public ISingleton<IShapeView<?>> getSingletonTempView() {
+	public ISingleton<IViewShape<?>> getSingletonTempView() {
 		return tempView;
 	}
 

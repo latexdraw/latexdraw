@@ -5,7 +5,7 @@ import java.util.List;
 import org.malai.mapping.MappingRegistry;
 
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.views.Java2D.IShapeView;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.instruments.Border;
 
 /**
@@ -58,7 +58,7 @@ public class Selection2BorderMapping extends SelectionMapping {
 
 	@Override
 	public void onObjectAdded(final Object list, final Object object, final int index) {
-		final IShapeView<?> view = MappingRegistry.REGISTRY.getTargetFromSource(object, IShapeView.class);
+		final IViewShape<?> view = MappingRegistry.REGISTRY.getTargetFromSource(object, IViewShape.class);
 
 		if(view!=null)
 			border.add(view);
@@ -66,7 +66,7 @@ public class Selection2BorderMapping extends SelectionMapping {
 
 	@Override
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
-		final IShapeView<?> view = MappingRegistry.REGISTRY.getTargetFromSource(object, IShapeView.class);
+		final IViewShape<?> view = MappingRegistry.REGISTRY.getTargetFromSource(object, IViewShape.class);
 
 		if(view!=null)
 			border.remove(view);

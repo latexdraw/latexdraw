@@ -26,13 +26,13 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public abstract class LRectangularView<S extends IRectangularShape> extends LShapeView<S> {
+abstract class LRectangularView<S extends IRectangularShape> extends LShapeView<S> {
 	/**
 	 * Initialises a rectangular view.
 	 * @param model The rectangular model.
 	 * @since 3.0
 	 */
-	public LRectangularView(final S model) {
+	protected LRectangularView(final S model) {
 		super(model);
 	}
 

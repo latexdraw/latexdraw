@@ -5,6 +5,7 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc;
 import net.sf.latexdraw.util.LNumber;
 
 /**
@@ -25,13 +26,13 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LArcView extends LEllipseView<IArc> {
+class LArcView extends LEllipseView<IArc> implements IViewArc {
 	/**
 	 * Creates an initialises the Java view of a LArc.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	public LArcView(final IArc model) {
+	protected LArcView(final IArc model) {
 		super(model);
 		update();
 	}
