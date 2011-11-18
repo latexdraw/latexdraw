@@ -1,9 +1,9 @@
-package net.sf.latexdraw.glib.views.Java2D;
+package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.IPolygon;
 
 /**
- * Defines a view of the IPolyline model.<br>
+ * Defines a view of the IPolygon model.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -20,19 +20,14 @@ import net.sf.latexdraw.glib.models.interfaces.IPolyline;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LPolylineView extends LPolygonView {
+class LPolygonView extends LModifiablePointsShapeView<IPolygon> {
 	/**
-	 * Creates an initialises the Java view of a LLines.
+	 * Creates an initialises the Java view of a LPolygon.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	protected LPolylineView(final IPolyline model) {
+	protected LPolygonView(final IPolygon model) {
 		super(model);
-	}
-
-
-	@Override
-	protected void updateGeneralPathMiddle() {
-		setPath(false);
+		update();
 	}
 }

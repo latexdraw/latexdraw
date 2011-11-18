@@ -1,11 +1,9 @@
-package net.sf.latexdraw.glib.views.Java2D;
+package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import java.awt.geom.Path2D;
-
-import net.sf.latexdraw.glib.models.interfaces.IRhombus;
+import net.sf.latexdraw.glib.models.interfaces.ICircle;
 
 /**
- * Defines a view of the IRhombus model.<br>
+ * Defines a view of the ICircle model.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -18,28 +16,29 @@ import net.sf.latexdraw.glib.models.interfaces.IRhombus;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 03/19/2008<br>
+ * 03/12/2008<br>
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LRhombusView extends LRectangularView<IRhombus> {
+class LCircleView extends LEllipseView<ICircle> {
 	/**
-	 * Creates an initialises the Java view of a LRhombus.
+	 * Creates an initialises the Java view of a LCircle.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	protected LRhombusView(final IRhombus model) {
+	protected LCircleView(final ICircle model) {
 		super(model);
+
 		update();
 	}
 
 
 	@Override
-	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
-		path.moveTo(tlx+width/2., tly);
-		path.lineTo(tlx+width, tly+height/2.);
-		path.lineTo(tlx+width/2., tly+height);
-		path.lineTo(tlx		 , tly+height/2.);
-		path.closePath();
+	public void updateBorder() {
+		final double gap 	= getBorderGap();
+		final double radius = shape.getRadius()*2.;
+		final double width 	= Math.max(radius+gap*2., shape.getThickness());
+
+		border.setFrame(shape.getX()-gap, shape.getY()-radius-gap, width, width);
 	}
 }

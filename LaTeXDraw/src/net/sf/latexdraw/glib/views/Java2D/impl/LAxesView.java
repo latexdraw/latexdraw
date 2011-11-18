@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.views.Java2D;
+package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 

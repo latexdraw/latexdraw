@@ -1,9 +1,9 @@
-package net.sf.latexdraw.glib.views.Java2D;
+package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.ISquare;
 
 /**
- * Defines a view of the ICircle model.<br>
+ * Defines a view of the LSquare model.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -20,25 +20,13 @@ import net.sf.latexdraw.glib.models.interfaces.ICircle;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LCircleView extends LEllipseView<ICircle> {
-	/**
-	 * Creates an initialises the Java view of a LCircle.
+class LSquareView extends LRectangleView {
+        /**
+	 * Creates an initialises the Java view of a LSquare.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	protected LCircleView(final ICircle model) {
-		super(model);
-
-		update();
-	}
-
-
-	@Override
-	public void updateBorder() {
-		final double gap 	= getBorderGap();
-		final double radius = shape.getRadius()*2.;
-		final double width 	= Math.max(radius+gap*2., shape.getThickness());
-
-		border.setFrame(shape.getX()-gap, shape.getY()-radius-gap, width, width);
-	}
+	protected LSquareView(final ISquare model) {
+            super(model);
+    }
 }

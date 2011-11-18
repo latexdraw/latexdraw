@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.views.Java2D;
+package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.Shape;
 import java.awt.geom.Arc2D;

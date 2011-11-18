@@ -1,9 +1,9 @@
-package net.sf.latexdraw.glib.views.Java2D;
+package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
+import net.sf.latexdraw.glib.models.interfaces.IPolyline;
 
 /**
- * Defines a view of the LCircleArc model.<br>
+ * Defines a view of the IPolyline model.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -16,12 +16,23 @@ import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 03/02/2010<br>
+ * 03/18/2008<br>
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LCircleArcView extends LArcView {
-	protected LCircleArcView(final ICircleArc model) {
+class LPolylineView extends LPolygonView {
+	/**
+	 * Creates an initialises the Java view of a LLines.
+	 * @param model The model to view.
+	 * @since 3.0
+	 */
+	protected LPolylineView(final IPolyline model) {
 		super(model);
+	}
+
+
+	@Override
+	protected void updateGeneralPathMiddle() {
+		setPath(false);
 	}
 }

@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.views.Java2D;
+package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
