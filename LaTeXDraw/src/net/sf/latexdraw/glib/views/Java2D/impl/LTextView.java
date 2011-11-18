@@ -141,11 +141,6 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	}
 
 
-
-	/**
-	 * Updates the image.
-	 * @since 3.0
-	 */
 	@Override
 	public void updateImage() {
 		flush();
@@ -153,11 +148,6 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	}
 
 
-
-	/**
-	 * @return the image.
-	 * @since 3.0
-	 */
 	@Override
 	public Image getImage() {
 		return image;
@@ -240,10 +230,6 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	}
 
 
-	/**
-	 * @return The precise latex error messages that the latex compilation produced.
-	 * @since 3.0
-	 */
 	@Override
 	public String getLatexErrorMessageFromLog() {
 		final Matcher matcher 		= Pattern.compile(".*\r?\n").matcher(log); //$NON-NLS-1$
@@ -329,11 +315,6 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	}
 
 
-
-	/**
-	 * @return The LaTeX document that will be compiled in order to get the picture of the text.
-	 * @since 3.0
-	 */
 	@Override
 	public String getLaTeXDocument() {
 		final String code		= shape.getText();

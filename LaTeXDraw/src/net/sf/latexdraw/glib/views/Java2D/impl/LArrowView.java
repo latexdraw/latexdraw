@@ -60,13 +60,6 @@ class LArrowView implements IViewArrow {
 	}
 
 
-	/**
-	 * Paints the arrow.
-	 * @param g The graphics into which the arrow will be painted.
-	 * @param fColour The colour of the filling of the arrow.
-	 * @param asShadow True: it is the shadow of a shape.
-	 * @since 3.0
-	 */
 	@Override
 	public void paint(final Graphics2D g, final Color fColour, final boolean asShadow) {
 		if(model.getArrowStyle()==ArrowStyle.NONE) return ;
