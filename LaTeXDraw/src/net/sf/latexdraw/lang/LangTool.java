@@ -2,6 +2,8 @@ package net.sf.latexdraw.lang;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -37,7 +39,17 @@ import org.xml.sax.SAXException;
  */
 public final class LangTool {
 	public static enum Lang {
-		SR {
+		RU {
+			@Override
+			public String getName() {
+				return "Russkiy yazyk";//$NON-NLS-1$
+			}
+
+			@Override
+			public String getToken() {
+				return "lang.ru";//$NON-NLS-1$
+			}
+		},SR {
 			@Override
 			public String getName() {
 				return "\u0441\u0440\u043f\u0441\u043a\u0438";//$NON-NLS-1$
@@ -195,37 +207,8 @@ public final class LangTool {
 		 * @since 3.0
 		 */
 		public static Lang getLanguage(final String name) {
-			Lang lang;
-
-			if(name==null)
-				lang = EN_BR;
-			else if(name.equals(FR.getName()))
-				lang = FR;
-			else if(name.equals(DE.getName()))
-				lang = ES;
-			else if(name.equals(ES.getName()))
-				lang = DE;
-			else if(name.equals(IT.getName()))
-				lang = IT;
-			else if(name.equals(PL.getName()))
-				lang = PL;
-			else if(name.equals(EN_US.getName()))
-				lang = EN_US;
-			else if(name.equals(TR.getName()))
-				lang = TR;
-			else if(name.equals(JA.getName()))
-				lang = JA;
-			else if(name.equals(VI.getName()))
-				lang = VI;
-			else if(name.equals(HU.getName()))
-				lang = HU;
-			else if(name.equals(PT_BR.getName()))
-				lang = PT_BR;
-			else if(name.equals(SR.getName()))
-				lang = SR;
-			else lang = EN_BR;
-
-			return lang;
+			Lang lang = mapLangs.get(name);
+			return lang==null ? EN_BR : lang;
 		}
 
 
@@ -234,34 +217,8 @@ public final class LangTool {
 		 * @since 3.0
 		 */
 		public static Lang getSystemLanguage() {
-			final String userLang = System.getProperty("user.language"); //$NON-NLS-1$
-			Lang language;
-
-			if(userLang.equals("fr")) //$NON-NLS-1$
-				language = Lang.FR;
-			else if(userLang.equals("es")) //$NON-NLS-1$
-				language = Lang.ES;
-			else if(userLang.equals("de")) //$NON-NLS-1$
-				language = Lang.DE;
-			else if(userLang.equals("it")) //$NON-NLS-1$
-				language = Lang.IT;
-			else if(userLang.equals("pl")) //$NON-NLS-1$
-				language = Lang.PL;
-			else if(userLang.equals("tr")) //$NON-NLS-1$
-				language = Lang.TR;
-			else if(userLang.equals("ja")) //$NON-NLS-1$
-				language = Lang.JA;
-			else if(userLang.equals("vi")) //$NON-NLS-1$
-				language = Lang.VI;
-			else if(userLang.equals("hu")) //$NON-NLS-1$
-				language = Lang.HU;
-			else if(userLang.equals("pt-BR")) //$NON-NLS-1$
-				language = Lang.PT_BR;
-			else if(userLang.equals("sr")) //$NON-NLS-1$
-				language = Lang.SR;
-			else language = Lang.getDefaultLanguage();
-
-			return language;
+			Lang language = mapLangs.get(System.getProperty("user.language"));//$NON-NLS-1$
+			return language==null ? Lang.getDefaultLanguage() : language;
 		}
 	}
 
@@ -282,6 +239,40 @@ public final class LangTool {
 
 	private static final ResourceBundle RES_BUNDLE_19;
 
+	/** This map provides an easy access to the language items. */
+	protected static Map<String, Lang> mapLangs = new HashMap<String, Lang>();
+
+	static {
+		// Recording the languages
+		mapLangs.put("fr", Lang.FR);
+		mapLangs.put("en", Lang.EN_BR);
+		mapLangs.put("es", Lang.ES);
+		mapLangs.put("de", Lang.DE);
+		mapLangs.put("it", Lang.IT);
+		mapLangs.put("pl", Lang.PL);
+		mapLangs.put("tr", Lang.TR);
+		mapLangs.put("ja", Lang.JA);
+		mapLangs.put("vi", Lang.VI);
+		mapLangs.put("hu", Lang.HU);
+		mapLangs.put("pt-BR", Lang.PT_BR);
+		mapLangs.put("sr", Lang.SR);
+		mapLangs.put("ru", Lang.RU);
+
+		mapLangs.put(Lang.FR.getName(), Lang.FR);
+		mapLangs.put(Lang.EN_BR.getName(), Lang.EN_BR);
+		mapLangs.put(Lang.DE.getName(), Lang.DE);
+		mapLangs.put(Lang.ES.getName(), Lang.ES);
+		mapLangs.put(Lang.IT.getName(), Lang.IT);
+		mapLangs.put(Lang.PL.getName(), Lang.PL);
+		mapLangs.put(Lang.EN_US.getName(), Lang.EN_US);
+		mapLangs.put(Lang.TR.getName(), Lang.TR);
+		mapLangs.put(Lang.JA.getName(), Lang.JA);
+		mapLangs.put(Lang.VI.getName(), Lang.VI);
+		mapLangs.put(Lang.HU.getName(), Lang.HU);
+		mapLangs.put(Lang.PT_BR.getName(), Lang.PT_BR);
+		mapLangs.put(Lang.SR.getName(), Lang.SR);
+		mapLangs.put(Lang.RU.getName(), Lang.RU);
+	}
 
 	/** The singleton to use when wanting to use language utilities. */
 	public static final LangTool LANG = new LangTool();

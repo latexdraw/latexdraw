@@ -222,6 +222,7 @@ public class PreferencesSetter extends Instrument {
   		langList.addItem(LangTool.Lang.PL.getName());
   		langList.addItem(LangTool.Lang.PT_BR.getName());
   		langList.addItem(LangTool.Lang.VI.getName());
+  		langList.addItem(LangTool.Lang.RU.getName());
   		langList.addItem(LangTool.Lang.TR.getName());
   		langList.addItem(LangTool.Lang.SR.getName());
   		langList.setMaximumSize(new Dimension(250, height));
