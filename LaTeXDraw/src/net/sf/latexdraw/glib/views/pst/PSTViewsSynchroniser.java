@@ -50,7 +50,7 @@ public class PSTViewsSynchroniser extends ViewsSynchroniser {
 
 		for(IShape shape : drawing.getShapes())
 			if(getView(shape)==null) {
-				pstView = PSTViewsFactory.INSTANCE.generateView(shape);
+				pstView = PSTViewsFactory.INSTANCE.createView(shape);
 
 				if(pstView!=null) {
 					pstView.updateCache(handler.getOriginDrawingPoint(), handler.getPPCDrawing());

@@ -1,7 +1,6 @@
 package net.sf.latexdraw.glib.views.pst;
 
 import net.sf.latexdraw.glib.models.interfaces.IArc;
-import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
@@ -17,6 +16,7 @@ import net.sf.latexdraw.glib.models.interfaces.IRhombus;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.ITriangle;
+import net.sf.latexdraw.glib.views.CreateViewCmd;
 
 /**
  * Defines a generator that generates PSTricks views from given models.<br>
@@ -42,8 +42,12 @@ public final class PSTViewsFactory {
 	/** The singleton. */
 	public static final PSTViewsFactory INSTANCE = new PSTViewsFactory();
 
+	/** The chain of responsibility used to reduce the complexity of the factory. */
+	private CreateViewPSTCmd createCmd;
+
 	private PSTViewsFactory() {
 		super();
+		initCommands();
 	}
 
 	/**
@@ -52,46 +56,48 @@ public final class PSTViewsFactory {
 	 * @return The created view or null.
 	 * @since 3.0
 	 */
-	public PSTShapeView<?> generateView(final IShape shape) {
-		PSTShapeView<?> view;
+	public PSTShapeView<?> createView(final IShape shape) {
+		return shape==null ? null : createCmd.execute(shape);
+	}
 
-		if(shape==null)
-			view = null;
-		else if(shape instanceof ITriangle)
-			view = new PSTTriangleView((ITriangle)shape);
-		else if(shape instanceof IRhombus)
-			view = new PSTRhombusView((IRhombus)shape);
-		else if(shape instanceof IRectangle)
-			view = new PSTRectView((IRectangle)shape);
-		else if(shape instanceof IArc)
-			view = new PSTArcView((IArc)shape);
-		else if(shape instanceof ICircle)
-			view = new PSTCircleView((ICircle)shape);
-		else if(shape instanceof IEllipse)
-			view = new PSTEllipseView((IEllipse)shape);
-		else if(shape instanceof IGroup)
-			view = new PSTGroupView((IGroup)shape);
-		else if(shape instanceof IPolyline)
-			view = new PSTLinesView((IPolyline)shape);
-		else if(shape instanceof IPolygon)
-			view = new PSTPolygonView((IPolygon)shape);
-		else if(shape instanceof IBezierCurve)
-			view = new PSTBezierCurveView((IBezierCurve)shape);
-		else if(shape instanceof IGrid)
-			view = new PSTGridView((IGrid)shape);
-		else if(shape instanceof IAxes)
-			view = new PSTAxesView((IAxes)shape);
-		else if(shape instanceof IDot)
-			view = new PSTDotView((IDot)shape);
-		else if(shape instanceof IFreehand)
-			view = new PSTFreeHandView((IFreehand)shape);
-		else if(shape instanceof IText)
-			view = new PSTTextView((IText)shape);
-		else if(shape instanceof IPicture)
-			view = new PSTPictureView((IPicture)shape);
-		else
-			view = null;
 
-		return view;
+	/**
+	 * Initialises the chain of responsibility.
+	 */
+	private void initCommands() {
+		CreateViewPSTCmd cmd = new CreateViewPSTCmd(null, IPicture.class) { @Override public PSTShapeView<?> create(final IShape shape) { return new PSTPictureView((IPicture)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IText.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTTextView((IText)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IFreehand.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTFreeHandView((IFreehand)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IDot.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTDotView((IDot)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IGrid.class)		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTGridView((IGrid)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IBezierCurve.class){ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTBezierCurveView((IBezierCurve)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IPolygon.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTPolygonView((IPolygon)shape); } };
+		// All the commands of the chain of responsibility are chained together.
+		cmd = new CreateViewPSTCmd(cmd, IPolyline.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTLinesView((IPolyline)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IRhombus.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTRhombusView((IRhombus)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, ITriangle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTTriangleView((ITriangle)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IGroup.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTGroupView((IGroup)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IEllipse.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTEllipseView((IEllipse)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IArc.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTArcView((IArc)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, ICircle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTCircleView((ICircle)shape); } };
+		// The last created command is the first element of the chain.
+		createCmd = new CreateViewPSTCmd(cmd, IRectangle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTRectView((IRectangle)shape); } };
+	}
+
+
+	/**
+	 * This class is a mix of the design patterns Command and Chain of responsibility.
+	 * The goal is to find the command which can create the PST view of the given shape.
+	 */
+	private abstract class CreateViewPSTCmd extends CreateViewCmd<IShape, PSTShapeView<?>, CreateViewPSTCmd> {
+		/**
+		 * Creates the command.
+		 * @param next The next command in the chain of responsibility. Can be null.
+		 * @param classShape The type of the shape supported by the command.
+		 * @since 3.0
+		 */
+		public CreateViewPSTCmd(final CreateViewPSTCmd next, final Class<? extends IShape> classShape) {
+			super(next, classShape);
+		}
 	}
 }

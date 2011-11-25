@@ -50,12 +50,12 @@ class PSTGroupView extends PSTShapeView<IGroup> {
 
 		if(size>0) {
 			for(i=0; i<size; i++) {
-				pstView = PSTViewsFactory.INSTANCE.generateView(shape.getShapeAt(i));
+				pstView = PSTViewsFactory.INSTANCE.createView(shape.getShapeAt(i));
 				pstView.updateCache(origin, ppc);
 				cache.append(pstView.getCache()).append('\n');
 			}
 
-			pstView = PSTViewsFactory.INSTANCE.generateView(shape.getShapeAt(i));
+			pstView = PSTViewsFactory.INSTANCE.createView(shape.getShapeAt(i));
 			pstView.updateCache(origin, ppc);
 			cache.append(pstView.getCache());
 		}
