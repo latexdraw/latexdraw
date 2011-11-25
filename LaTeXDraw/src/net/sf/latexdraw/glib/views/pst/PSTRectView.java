@@ -23,14 +23,14 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTRectView extends PSTClassicalView<IRectangle> {
+class PSTRectView extends PSTClassicalView<IRectangle> {
 	/**
 	 * Creates and initialises a LRect PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTRectView(final IRectangle model) {
+	protected PSTRectView(final IRectangle model) {
 		super(model);
 
 		update();

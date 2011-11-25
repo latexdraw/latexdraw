@@ -20,14 +20,14 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
+abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
 	/**
 	 * Creates and initialises an abstract PSTricks view for classical model.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTClassicalView(final S model) {
+	protected PSTClassicalView(final S model) {
 		super(model);
 	}
 

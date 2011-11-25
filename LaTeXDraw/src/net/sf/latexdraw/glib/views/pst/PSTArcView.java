@@ -25,14 +25,14 @@ import net.sf.latexdraw.util.LResources;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTArcView extends PSTClassicalView<IArc> {
+class PSTArcView extends PSTClassicalView<IArc> {
 	/**
 	 * Creates and initialises a LArc PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTArcView(final IArc model) {
+	protected PSTArcView(final IArc model) {
 		super(model);
 		update();
 	}

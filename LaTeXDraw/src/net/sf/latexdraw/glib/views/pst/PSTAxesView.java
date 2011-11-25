@@ -24,14 +24,14 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTAxesView extends PSTShapeView<IAxes> {
+class PSTAxesView extends PSTShapeView<IAxes> {
 	/**
 	 * Creates and initialises a LAxes PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTAxesView(final IAxes model) {
+	protected PSTAxesView(final IAxes model) {
 		super(model);
 
 		update();

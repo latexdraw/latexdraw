@@ -31,14 +31,14 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator<S> {
+class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator<S> {
 	/**
 	 * Creates a generator of SVG ellipse.
 	 * @param ellipse The ellipse shape used for the generation.
 	 * @throws IllegalArgumentException If ellipse is null.
 	 * @since 2.0
 	 */
-	public LEllipseSVGGenerator(final S ellipse) {
+	protected LEllipseSVGGenerator(final S ellipse) {
 		super(ellipse);
 	}
 
@@ -49,7 +49,7 @@ public class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LEllipseSVGGenerator(final SVGEllipseElement elt) {
+	protected LEllipseSVGGenerator(final SVGEllipseElement elt) {
 		this((S)DrawingTK.getFactory().createEllipse(true));
 
 		setEllipseParameters(elt, 0.);
@@ -64,7 +64,7 @@ public class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator
 	 * @throws IllegalArgumentException If the given element is null.
 	 * @since 2.0
 	 */
-	public LEllipseSVGGenerator(final SVGGElement elt) {
+	protected LEllipseSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -75,7 +75,7 @@ public class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LEllipseSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LEllipseSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this((S)DrawingTK.getFactory().createEllipse(false));
 
 		setNumber(elt);

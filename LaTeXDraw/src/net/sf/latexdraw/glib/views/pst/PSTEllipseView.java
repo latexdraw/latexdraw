@@ -23,14 +23,14 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTEllipseView extends PSTClassicalView<IEllipse> {
+class PSTEllipseView extends PSTClassicalView<IEllipse> {
 	/**
 	 * Creates and initialises a LEllipse PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTEllipseView(final IEllipse model) {
+	protected PSTEllipseView(final IEllipse model) {
 		super(model);
 
 		update();

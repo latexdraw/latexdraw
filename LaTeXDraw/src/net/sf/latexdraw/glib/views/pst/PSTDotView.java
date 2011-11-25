@@ -23,14 +23,14 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTDotView extends PSTClassicalView<IDot> {
+class PSTDotView extends PSTClassicalView<IDot> {
 	/**
 	 * Creates and initialises a LDot PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTDotView(final IDot model) {
+	protected PSTDotView(final IDot model) {
 		super(model);
 
 		update();

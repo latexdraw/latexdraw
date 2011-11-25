@@ -24,16 +24,16 @@ import net.sf.latexdraw.parsers.svg.SVGDefsElement;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public final class CSSStylesGenerator {
+final class CSSStylesGenerator {
 	/** The singleton. */
 	public static final CSSStylesGenerator INSTANCE = new CSSStylesGenerator();
-	
-	
+
+
 	private CSSStylesGenerator() {
 		super();
 	}
-	
-	
+
+
 	/**
 	 * Sets the CSS styles of the given list to the given LaTeXDraw shape.
 	 * @param shape The shape to set.

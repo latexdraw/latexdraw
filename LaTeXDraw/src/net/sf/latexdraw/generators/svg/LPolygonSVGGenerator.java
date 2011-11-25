@@ -31,12 +31,12 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
+class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	/**
 	 * Creates a generator for IPolygon.
 	 * @param polygon The source polygon used to generate the SVG element.
 	 */
-	public LPolygonSVGGenerator(final IPolygon polygon) {
+	protected LPolygonSVGGenerator(final IPolygon polygon) {
 		super(polygon);
 	}
 
@@ -47,7 +47,7 @@ public class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @throws IllegalArgumentException If the given SVG element is not valid.
 	 * @since 3.0
 	 */
-	public LPolygonSVGGenerator(final SVGPathElement elt) {
+	protected LPolygonSVGGenerator(final SVGPathElement elt) {
 		super(DrawingTK.getFactory().createPolygon(true));
 
 		if(elt==null)
@@ -63,7 +63,7 @@ public class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LPolygonSVGGenerator(final SVGPolygonElement elt) {
+	protected LPolygonSVGGenerator(final SVGPolygonElement elt) {
 		this(DrawingTK.getFactory().createPolygon(true));
 
 		setSVGModifiablePointsParameters(elt);
@@ -78,7 +78,7 @@ public class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @param elt The latexdraw-SVG element to convert as a latexdraw shape.
 	 * @since 3.0
 	 */
-	public LPolygonSVGGenerator(final SVGGElement elt) {
+	protected LPolygonSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -90,7 +90,7 @@ public class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LPolygonSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LPolygonSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createPolygon(true));
 
 		setNumber(elt);

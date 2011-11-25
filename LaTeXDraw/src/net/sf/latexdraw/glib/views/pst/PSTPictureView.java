@@ -24,14 +24,14 @@ import net.sf.latexdraw.util.LResources;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTPictureView extends PSTShapeView<IPicture> {
+class PSTPictureView extends PSTShapeView<IPicture> {
 	/**
 	 * Creates and initialises a LPicture PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTPictureView(final IPicture model) {
+	protected PSTPictureView(final IPicture model) {
 		super(model);
 
 		update();

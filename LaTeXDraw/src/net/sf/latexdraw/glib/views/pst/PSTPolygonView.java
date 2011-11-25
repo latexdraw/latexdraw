@@ -23,14 +23,14 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTPolygonView extends PSTClassicalView<IPolygon> {
+class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	/**
 	 * Creates and initialises a LRect PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTPolygonView(final IPolygon model) {
+	protected PSTPolygonView(final IPolygon model) {
 		super(model);
 		update();
 	}

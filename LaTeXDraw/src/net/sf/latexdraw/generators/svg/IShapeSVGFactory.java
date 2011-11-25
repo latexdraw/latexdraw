@@ -35,16 +35,16 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public final class IShapeSVGFactory {
+final class IShapeSVGFactory {
 	/** The singleton. */
 	public static final IShapeSVGFactory INSTANCE = new IShapeSVGFactory();
-	
-	
+
+
 	private IShapeSVGFactory() {
 		super();
 	}
-	
-	
+
+
 	/**
 	 * Creates a IShape instance using the given SVGElement.
 	 * @param elt The SVGElement to parse.

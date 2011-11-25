@@ -31,14 +31,14 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
+class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	/**
 	 * Creates a generator of SVG circle.
 	 * @param circle The circle shape used for the generation.
 	 * @throws IllegalArgumentException If circle is null.
 	 * @since 2.0
 	 */
-	public LCircleSVGGenerator(final ICircle circle) {
+	protected LCircleSVGGenerator(final ICircle circle) {
 		super(circle);
 	}
 
@@ -48,7 +48,7 @@ public class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LCircleSVGGenerator(final SVGCircleElement elt) {
+	protected LCircleSVGGenerator(final SVGCircleElement elt) {
 		this(DrawingTK.getFactory().createCircle(true));
 
 		setCircleParameters(elt, 0.);
@@ -63,7 +63,7 @@ public class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	 * @throws IllegalArgumentException If the given element is null.
 	 * @since 2.0
 	 */
-	public LCircleSVGGenerator(final SVGGElement elt) {
+	protected LCircleSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -73,7 +73,7 @@ public class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LCircleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LCircleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createCircle(false));
 
 		setNumber(elt);

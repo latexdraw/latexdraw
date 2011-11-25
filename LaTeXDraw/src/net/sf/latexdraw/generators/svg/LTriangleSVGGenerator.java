@@ -36,14 +36,14 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
+class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	/**
 	 * Creates a generator of SVG triangle.
 	 * @param triangle The triangle used for the generation.
 	 * @throws IllegalArgumentException If the given triangle is null.
 	 * @since 2.0
 	 */
-	public LTriangleSVGGenerator(final ITriangle triangle) {
+	protected LTriangleSVGGenerator(final ITriangle triangle) {
 		super(triangle);
 	}
 
@@ -54,7 +54,7 @@ public class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	 * @throws IllegalArgumentException If the given element is null.
 	 * @since 2.0
 	 */
-	public LTriangleSVGGenerator(final SVGGElement elt) {
+	protected LTriangleSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -64,7 +64,7 @@ public class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LTriangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LTriangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createTriangle(true));
 
 		setNumber(elt);

@@ -43,7 +43,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LArrowSVGGenerator {
+class LArrowSVGGenerator {
 	/** The arrowhead generated or used to generate the SVG-arrow. */
 	protected IArrow arrow;
 
@@ -52,7 +52,7 @@ public class LArrowSVGGenerator {
 	 * Creates an SVG arrow generator.
 	 * @param arr The arrow. Must not be null.
 	 */
-	public LArrowSVGGenerator(final IArrow arr) {
+	protected LArrowSVGGenerator(final IArrow arr) {
 		super();
 
 		if(arr==null)

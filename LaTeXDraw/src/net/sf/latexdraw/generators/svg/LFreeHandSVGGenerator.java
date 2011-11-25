@@ -26,25 +26,20 @@ import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand>
-{
+class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
-	public LFreeHandSVGGenerator(final IFreehand f)
-	{
+	protected LFreeHandSVGGenerator(final IFreehand f) {
 		super(f);
 	}
 
 
-
-	public LFreeHandSVGGenerator(final SVGGElement elt)
-	{
+	protected LFreeHandSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
 
 
-	public LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation)
-	{
+	protected LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createFreeHand(DrawingTK.getFactory().createPoint(), false));
 
 //		LFreeHand ak = (LFreeHand)getShape();

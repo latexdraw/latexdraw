@@ -40,13 +40,13 @@ import org.malai.mapping.MappingRegistry;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
+class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 	/**
 	 * Creates a generator of SVG dot.
 	 * @param dot The dot used for the generation.
 	 * @throws IllegalArgumentException If dot is null.
 	 */
-	public LDotSVGGenerator(final IDot dot) {
+	protected LDotSVGGenerator(final IDot dot) {
 		super(dot);
 	}
 
@@ -56,7 +56,7 @@ public class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 	 * @param elt The G SVG element used for the creation of a dot.
 	 * @throws IllegalArgumentException If the given element is null.
 	 */
-	public LDotSVGGenerator(final SVGGElement elt) {
+	protected LDotSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -66,7 +66,7 @@ public class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LDotSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LDotSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(), true));
 
 		if(elt==null)

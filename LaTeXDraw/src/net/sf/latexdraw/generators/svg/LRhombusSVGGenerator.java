@@ -35,14 +35,14 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
+class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 	/**
 	 * Creates a generator of SVG rhombus.
 	 * @param rhombus The rhombus used for the generation.
 	 * @throws IllegalArgumentException If the given rhombus is null.
 	 * @since 2.0
 	 */
-	public LRhombusSVGGenerator(final IRhombus rhombus) {
+	protected LRhombusSVGGenerator(final IRhombus rhombus) {
 		super(rhombus);
 	}
 
@@ -53,7 +53,7 @@ public class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 	 * @throws IllegalArgumentException If the given element is null.
 	 * @since 2.0
 	 */
-	public LRhombusSVGGenerator(final SVGGElement elt) {
+	protected LRhombusSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -63,7 +63,7 @@ public class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LRhombusSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LRhombusSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createRhombus(true));
 
 		setNumber(elt);

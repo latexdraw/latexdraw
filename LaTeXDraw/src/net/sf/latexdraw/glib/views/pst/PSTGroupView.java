@@ -22,14 +22,14 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTGroupView extends PSTShapeView<IGroup> {
+class PSTGroupView extends PSTShapeView<IGroup> {
 	/**
 	 * Creates and initialises a LDrawing PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTGroupView(final IGroup model) {
+	protected PSTGroupView(final IGroup model) {
 		super(model);
 
 		update();

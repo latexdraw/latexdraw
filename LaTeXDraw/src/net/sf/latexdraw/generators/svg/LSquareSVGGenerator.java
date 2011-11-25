@@ -26,13 +26,13 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LSquareSVGGenerator extends LRectangleSVGGenerator {
+class LSquareSVGGenerator extends LRectangleSVGGenerator {
 	/**
 	 * Creates an SVG generator for squares.
 	 * @param square The source square to convert in SVG.
 	 * @since 3.0
 	 */
-	public LSquareSVGGenerator(final ISquare square) {
+	protected LSquareSVGGenerator(final ISquare square) {
 		super(square);
 	}
 
@@ -42,7 +42,7 @@ public class LSquareSVGGenerator extends LRectangleSVGGenerator {
 	 * @param elt The SVG element to convert in latexdraw.
 	 * @since 3.0
 	 */
-	public LSquareSVGGenerator(final SVGGElement elt) {
+	protected LSquareSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -53,7 +53,7 @@ public class LSquareSVGGenerator extends LRectangleSVGGenerator {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LSquareSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LSquareSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createSquare(false));
 		initRectangle(elt, withTransformation);
 	}

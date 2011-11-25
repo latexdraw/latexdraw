@@ -22,14 +22,14 @@ import net.sf.latexdraw.glib.models.interfaces.IPolyline;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTLinesView extends PSTPolygonView {
+class PSTLinesView extends PSTPolygonView {
 	/**
 	 * Creates and initialises a LLines PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTLinesView(final IPolyline model) {
+	protected PSTLinesView(final IPolyline model) {
 		super(model);
 
 		update();

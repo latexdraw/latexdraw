@@ -28,9 +28,8 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture>
-{
-	public LPictureSVGGenerator(final IPicture shape) {
+class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
+	protected LPictureSVGGenerator(final IPicture shape) {
 		super(shape);
 	}
 
@@ -41,7 +40,7 @@ public class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture>
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LPictureSVGGenerator(final SVGImageElement elt) {
+	protected LPictureSVGGenerator(final SVGImageElement elt) {
 		this(DrawingTK.getFactory().createPicture(true, DrawingTK.getFactory().createPoint(), elt.getURI()));
 
 //		IPicture p = (IPicture)getShape();
@@ -58,7 +57,7 @@ public class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture>
 
 
 
-	public LPictureSVGGenerator(final SVGGElement elt) {
+	protected LPictureSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -69,8 +68,7 @@ public class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture>
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LPictureSVGGenerator(final SVGGElement elt, final boolean withTransformation)
-	{
+	protected LPictureSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createPicture(true, DrawingTK.getFactory().createPoint(), "")); //$NON-NLS-1$
 
 		setNumber(elt);

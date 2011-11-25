@@ -25,14 +25,14 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
+class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 	/**
 	 * Creates and initialises a LBezierCurve PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTBezierCurveView(final IBezierCurve model) {
+	protected PSTBezierCurveView(final IBezierCurve model) {
 		super(model);
 
 		update();

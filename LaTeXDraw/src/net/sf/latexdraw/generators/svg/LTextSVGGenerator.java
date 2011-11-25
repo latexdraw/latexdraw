@@ -29,10 +29,9 @@ import net.sf.latexdraw.parsers.svg.SVGTextElement;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LTextSVGGenerator extends LShapeSVGGenerator<IText>
-{
+class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 
-	public LTextSVGGenerator(final IText f) {
+	protected LTextSVGGenerator(final IText f) {
 		super(f);
 	}
 
@@ -43,7 +42,7 @@ public class LTextSVGGenerator extends LShapeSVGGenerator<IText>
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LTextSVGGenerator(final SVGTextElement elt) {
+	protected LTextSVGGenerator(final SVGTextElement elt) {
 		this(DrawingTK.getFactory().createText(true));
 
 		if(elt==null)
@@ -62,7 +61,7 @@ public class LTextSVGGenerator extends LShapeSVGGenerator<IText>
 
 
 
-	public LTextSVGGenerator(final SVGGElement elt) {
+	protected LTextSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -73,7 +72,7 @@ public class LTextSVGGenerator extends LShapeSVGGenerator<IText>
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LTextSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LTextSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createText(true));
 
 		if(elt==null)

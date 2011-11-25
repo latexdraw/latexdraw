@@ -18,7 +18,6 @@ import net.sf.latexdraw.parsers.svg.SVGNodeList;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
 
-
 /**
  * Defines a SVG generator for an shape.<br>
  *<br>
@@ -38,16 +37,15 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes>
-{
+class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
-	public LAxeSVGGenerator(final IAxes shape) {
+	protected LAxeSVGGenerator(final IAxes shape) {
 		super(shape);
 	}
 
 
 
-	public LAxeSVGGenerator(final SVGGElement elt) {
+	protected LAxeSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -58,8 +56,7 @@ public class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes>
 	 * @param withTransformation If true, the SVG transformations will be applied.
 	 * @since 2.0.0
 	 */
-	public LAxeSVGGenerator(final SVGGElement elt, final boolean withTransformation)
-	{
+	protected LAxeSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createAxes(false, DrawingTK.getFactory().createPoint()));
 
 		if(elt==null)

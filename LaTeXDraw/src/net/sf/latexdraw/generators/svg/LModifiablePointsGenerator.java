@@ -31,12 +31,12 @@ import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> extends LShapeSVGGenerator<S> {
+abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> extends LShapeSVGGenerator<S> {
 	/**
 	 * Creates a generator for IModifiablePointsShape.
 	 * @param modShape The source shape used to generate the SVG element.
 	 */
-	public LModifiablePointsGenerator(final S modShape) {
+	protected LModifiablePointsGenerator(final S modShape) {
 		super(modShape);
 	}
 

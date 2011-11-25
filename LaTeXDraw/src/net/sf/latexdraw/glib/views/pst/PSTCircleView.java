@@ -23,13 +23,13 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTCircleView extends PSTEllipseView {
+class PSTCircleView extends PSTEllipseView {
 	/**
 	 * Creates an SVG generator for circles.
 	 * @param circle The circle used for the conversion in SVG.
 	 * @since 3.0
 	 */
-	public PSTCircleView(final ICircle circle) {
+	protected PSTCircleView(final ICircle circle) {
 		super(circle);
 
 		update();

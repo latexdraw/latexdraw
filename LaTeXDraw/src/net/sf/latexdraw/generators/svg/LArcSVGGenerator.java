@@ -40,14 +40,14 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
+class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
 	/**
 	 * Creates a generator of SVG arc.
 	 * @param shape The arc shape used for the generation.
 	 * @throws IllegalArgumentException If arc is null.
 	 * @since 2.0
 	 */
-	public LArcSVGGenerator(final IArc shape)	{
+	protected LArcSVGGenerator(final IArc shape)	{
 		super(shape);
 	}
 
@@ -58,7 +58,7 @@ public class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
 	 * @throws IllegalArgumentException If the given element is null.
 	 * @since 2.0
 	 */
-	public LArcSVGGenerator(final SVGGElement elt) {
+	protected LArcSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -70,7 +70,7 @@ public class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
 	 * @param withTransformation If true, the SVG transformations will be applied.
 	 * @since 2.0.0
 	 */
-	public LArcSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LArcSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createArc(true));
 
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);

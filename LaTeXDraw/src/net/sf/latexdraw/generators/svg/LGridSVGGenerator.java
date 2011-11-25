@@ -44,13 +44,13 @@ import sun.font.FontDesignMetrics;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
+class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 	/**
 	 * Creates a generator of SVG grids.
 	 * @param grid The grid used for the generation.
 	 * @throws IllegalArgumentException If grid is null.
 	 */
-	public LGridSVGGenerator(final IGrid grid) {
+	protected LGridSVGGenerator(final IGrid grid) {
 		super(grid);
 	}
 
@@ -60,7 +60,7 @@ public class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 	 * @param elt The G SVG element used for the creation of a grid.
 	 * @throws IllegalArgumentException If the given element is null.
 	 */
-	public LGridSVGGenerator(final SVGGElement elt) {
+	protected LGridSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -70,7 +70,7 @@ public class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LGridSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LGridSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createGrid(true, DrawingTK.getFactory().createPoint()));
 
 		if(elt==null)

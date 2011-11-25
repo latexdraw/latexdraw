@@ -40,14 +40,14 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
+class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 	/**
 	 * Creates a generator of SVG bezier curve.
 	 * @param bc The bezier curve used for the generation.
 	 * @throws IllegalArgumentException If bc is null.
 	 * @since 2.0
 	 */
-	public LBezierCurveSVGGenerator(final IBezierCurve bc){
+	protected LBezierCurveSVGGenerator(final IBezierCurve bc){
 		super(bc);
 	}
 
@@ -58,7 +58,7 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 	 * @throws IllegalArgumentException If the given element is null.
 	 * @since 2.0
 	 */
-	public LBezierCurveSVGGenerator(final SVGGElement elt) {
+	protected LBezierCurveSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -68,7 +68,7 @@ public class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LBezierCurveSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LBezierCurveSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createBezierCurve(false));
 
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);

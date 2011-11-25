@@ -65,7 +65,7 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public abstract class LShapeSVGGenerator<S extends IShape> {
+abstract class LShapeSVGGenerator<S extends IShape> {
 	/** The shape model use for the generation. */
 	protected S shape;
 
@@ -79,7 +79,7 @@ public abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @throws IllegalArgumentException If the given shape is null.
 	 * @since 2.0
 	 */
-	public LShapeSVGGenerator(final S sh) {
+	protected LShapeSVGGenerator(final S sh) {
 		if(sh==null)
 			throw new IllegalArgumentException();
 

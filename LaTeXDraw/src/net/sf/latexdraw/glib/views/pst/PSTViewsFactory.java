@@ -41,11 +41,11 @@ import net.sf.latexdraw.glib.models.interfaces.ITriangle;
 public final class PSTViewsFactory {
 	/** The singleton. */
 	public static final PSTViewsFactory INSTANCE = new PSTViewsFactory();
-	
+
 	private PSTViewsFactory() {
 		super();
 	}
-	
+
 	/**
 	 * Creates a view from a shape.
 	 * @param shape The shape used to create the view.

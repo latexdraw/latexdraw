@@ -25,14 +25,14 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTGridView extends PSTShapeView<IGrid> {
+class PSTGridView extends PSTShapeView<IGrid> {
 	/**
 	 * Creates and initialises a LGrid PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTGridView(final IGrid model) {
+	protected PSTGridView(final IGrid model) {
 		super(model);
 
 		update();

@@ -25,14 +25,14 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PSTTextView extends PSTShapeView<IText> {
+class PSTTextView extends PSTShapeView<IText> {
 	/**
 	 * Creates and initialises a LText PSTricks view.
 	 * @param model The model to view.
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTTextView(final IText model) {
+	protected PSTTextView(final IText model) {
 		super(model);
 
 		update();

@@ -36,12 +36,12 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
+class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	/**
 	 * Creates a generator for IPolyline.
 	 * @param polyline The source polyline used to generate the SVG element.
 	 */
-	public LPolylinesSVGGenerator(final IPolyline polyline) {
+	protected LPolylinesSVGGenerator(final IPolyline polyline) {
 		super(polyline);
 	}
 
@@ -50,7 +50,7 @@ public class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline
 	 * Creates some lines using a SVG path.
 	 * @param elt The SVG path.
 	 */
-	public LPolylinesSVGGenerator(final SVGPathElement elt) {
+	protected LPolylinesSVGGenerator(final SVGPathElement elt) {
 		super(DrawingTK.getFactory().createPolyline(true));
 
 		if(elt==null || !elt.isLines())
@@ -66,7 +66,7 @@ public class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LPolylinesSVGGenerator(final SVGPolyLineElement elt) {
+	protected LPolylinesSVGGenerator(final SVGPolyLineElement elt) {
 		this(DrawingTK.getFactory().createPolyline(true));
 
 		setSVGModifiablePointsParameters(elt);
@@ -80,7 +80,7 @@ public class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LPolylinesSVGGenerator(final SVGLineElement elt) {
+	protected LPolylinesSVGGenerator(final SVGLineElement elt) {
 		this(DrawingTK.getFactory().createPolyline(true));
 
 		//TODO
@@ -95,7 +95,7 @@ public class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline
 	 * @param elt The latexdraw-SVG element to convert as a latexdraw shape.
 	 * @since 3.0
 	 */
-	public LPolylinesSVGGenerator(final SVGGElement elt) {
+	protected LPolylinesSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -106,7 +106,7 @@ public class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline
 	 * @param elt The source element.
 	 * @since 2.0.0
 	 */
-	public LPolylinesSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LPolylinesSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createPolyline(true));
 
 		setNumber(elt);

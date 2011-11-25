@@ -31,14 +31,14 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
+class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	/**
 	 * Creates a generator of SVG rectangle.
 	 * @param rect The rectangle shape used for the generation.
 	 * @throws IllegalArgumentException If rect is null.
 	 * @since 2.0
 	 */
-	public LRectangleSVGGenerator(final IRectangle rect) {
+	protected LRectangleSVGGenerator(final IRectangle rect) {
 		super(rect);
 	}
 
@@ -50,7 +50,7 @@ public class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	 * @throws IllegalArgumentException If the given element is null.
 	 * @since 2.0.0
 	 */
-	public LRectangleSVGGenerator(final SVGRectElement elt) {
+	protected LRectangleSVGGenerator(final SVGRectElement elt) {
 		this(DrawingTK.getFactory().createRectangle(true));
 
 		setSVGRectParameters(elt);
@@ -65,7 +65,7 @@ public class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	 * @throws IllegalArgumentException If the given element is null.
 	 * @since 2.0
 	 */
-	public LRectangleSVGGenerator(final SVGGElement elt) {
+	protected LRectangleSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -77,7 +77,7 @@ public class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	 * @throws IllegalArgumentException If the given element is null or not valid.
 	 * @since 2.0.0
 	 */
-	public LRectangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	protected LRectangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createRectangle(false));
 		initRectangle(elt, withTransformation);
 	}

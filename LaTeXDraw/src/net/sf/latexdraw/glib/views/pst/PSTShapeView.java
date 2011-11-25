@@ -34,7 +34,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
+abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	/** The list of name of the colours added to the generated code. Useful when generating
 	 * the code to define the colours in the latex document. */
 	protected List<String> coloursName;
@@ -46,7 +46,7 @@ public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S>
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public PSTShapeView(final S model) {
+	protected PSTShapeView(final S model) {
 		super(model);
 	}
 

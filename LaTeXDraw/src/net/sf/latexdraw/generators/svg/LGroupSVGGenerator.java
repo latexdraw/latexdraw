@@ -32,13 +32,13 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
+class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
 	/**
 	 * Creates an SVG generator from IGroup instance.
 	 * @param group The group of shapes that will be converted.
 	 * @since 3.0
 	 */
-	public LGroupSVGGenerator(final IGroup group) {
+	protected LGroupSVGGenerator(final IGroup group) {
 		super(group);
 	}
 
@@ -50,7 +50,7 @@ public class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
 	 * information.
 	 * @since 3.0
 	 */
-	public LGroupSVGGenerator(final SVGGElement group) {
+	protected LGroupSVGGenerator(final SVGGElement group) {
 		this(group, true);
 	}
 
