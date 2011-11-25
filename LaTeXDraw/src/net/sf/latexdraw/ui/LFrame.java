@@ -160,7 +160,15 @@ public class LFrame extends UI {
 	 */
 	public LFrame(final IProgressBar progressBar) {
 		super();
-
+		buildFrame(progressBar);
+	}
+	
+	
+	/**
+	 * The builder of the frame.
+	 * @since 3.0
+	 */
+	private void buildFrame(final IProgressBar progressBar) {
 		final LCanvas canvas 		= getCanvas();
 		final IDrawing drawing		= getDrawing();
 		final LCodePanel codePanel	= getCodePanel();

@@ -26,10 +26,9 @@ import org.malai.widget.MPanel;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LUIComposer implements UIComposer {
+public class UIBuilder implements UIComposer {
 	/** The frame of the interactive system that contains
-	 *  the instruments and presentations to compose.
-	 */
+	 *  the instruments and presentations to compose. */
 	protected LFrame frame;
 
 	/** The progress bar used to show the progression of the construction of the frame. */
@@ -44,7 +43,7 @@ public class LUIComposer implements UIComposer {
 	 * @param progressBar The progress bar used to show the progression of the construction of the frame. Can be null.
 	 * @since 3.0
 	 */
-	public LUIComposer(final LFrame frame, final IProgressBar progressBar) {
+	public UIBuilder(final LFrame frame, final IProgressBar progressBar) {
 		super();
 
 		if(frame==null)

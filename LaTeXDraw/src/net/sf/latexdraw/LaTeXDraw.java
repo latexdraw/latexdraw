@@ -14,7 +14,7 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.ui.LFrame;
-import net.sf.latexdraw.ui.LUIComposer;
+import net.sf.latexdraw.ui.UIBuilder;
 import net.sf.latexdraw.ui.SplashScreen;
 import net.sf.latexdraw.util.LCommandLine;
 import net.sf.latexdraw.util.LPath;
@@ -97,7 +97,7 @@ public final class LaTeXDraw {
 		// Creation of the main frame.
     	LFrame frame = new LFrame(splashScreen);
     	// Creation of the UI composer.
-    	UIComposer composer = new LUIComposer(frame, splashScreen);
+    	UIComposer composer = new UIBuilder(frame, splashScreen);
     	// Composing the user interface.
     	composer.compose();
     	// Removing the splash screen.
