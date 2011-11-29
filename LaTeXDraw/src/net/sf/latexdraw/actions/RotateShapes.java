@@ -22,7 +22,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class RotateShape extends ShapeAction implements Undoable, Modifying {
+public class RotateShapes extends ShapeAction implements Undoable, Modifying {
 	/** The increment to add to the rotation angle of the shape. */
 	protected double rotationAngleIncrement;
 
@@ -33,7 +33,7 @@ public class RotateShape extends ShapeAction implements Undoable, Modifying {
 	/**
 	 * Creates the action.
 	 */
-	public RotateShape() {
+	public RotateShapes() {
 		super();
 
 		rotationAngleIncrement = Double.NaN;

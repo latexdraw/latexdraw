@@ -11,7 +11,7 @@ import org.malai.widget.MButton;
 import org.malai.widget.MSpinner;
 
 import net.sf.latexdraw.actions.ModifyShapeProperty;
-import net.sf.latexdraw.actions.RotateShape;
+import net.sf.latexdraw.actions.RotateShapes;
 import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -180,12 +180,12 @@ class Spinner2RotateShape extends SpinnerForCustomiser<ModifyShapeProperty, Shap
 /**
  * This link maps a button to an action that rotates the selected shapes.
  */
-class ButtonPress2RotateShape extends Link<RotateShape, ButtonPressed, ShapeRotationCustomiser> {
+class ButtonPress2RotateShape extends Link<RotateShapes, ButtonPressed, ShapeRotationCustomiser> {
 	/**
 	 * Creates the link.
 	 */
 	public ButtonPress2RotateShape(final ShapeRotationCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, RotateShape.class, ButtonPressed.class);
+		super(ins, false, RotateShapes.class, ButtonPressed.class);
 	}
 
 	@Override

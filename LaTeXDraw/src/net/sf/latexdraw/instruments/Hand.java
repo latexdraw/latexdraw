@@ -6,7 +6,7 @@ import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.actions.InitTextSetter;
 import net.sf.latexdraw.actions.SelectShapes;
-import net.sf.latexdraw.actions.TranslateShape;
+import net.sf.latexdraw.actions.TranslateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
@@ -138,14 +138,14 @@ class DoubleClick2InitTextSetter extends Link<InitTextSetter, DoubleClick, Hand>
 /**
  * This link allows to translate the selected shapes.
  */
-class DnD2Translate extends Link<TranslateShape, DnD, Hand> {
+class DnD2Translate extends Link<TranslateShapes, DnD, Hand> {
 	/**
 	 * Initialises the link.
 	 * @param hand The hand.
 	 * @param exec True: the action is executed at each update of the interaction.
 	 */
 	public DnD2Translate(final Hand hand, final boolean exec) throws InstantiationException, IllegalAccessException {
-		super(hand, exec, TranslateShape.class, DnD.class);
+		super(hand, exec, TranslateShapes.class, DnD.class);
 	}
 
 	@Override

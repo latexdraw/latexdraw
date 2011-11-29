@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class DeleteShape extends MultiShapesAction implements Undoable, Modifying {
+public class DeleteShapes extends MultiShapesAction implements Undoable, Modifying {
 	/** The index of the deleted shapes into the original list. */
 	protected int[] positionShapes;
 
@@ -32,7 +32,7 @@ public class DeleteShape extends MultiShapesAction implements Undoable, Modifyin
 	 * Creates the action.
 	 * @since 3.0
 	 */
-	public DeleteShape() {
+	public DeleteShapes() {
 		super();
 	}
 

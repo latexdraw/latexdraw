@@ -26,7 +26,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class TranslateShape extends DrawingAction implements Undoable, Modifying {
+public class TranslateShapes extends DrawingAction implements Undoable, Modifying {
 	/** The x vector translation. */
 	protected double tx;
 
@@ -48,7 +48,7 @@ public class TranslateShape extends DrawingAction implements Undoable, Modifying
 	 * Initialises the action.
 	 * @since 3.0
 	 */
-	public TranslateShape() {
+	public TranslateShapes() {
 		super();
 
 		tx = 0.;

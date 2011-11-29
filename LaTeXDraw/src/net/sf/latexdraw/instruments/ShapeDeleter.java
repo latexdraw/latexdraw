@@ -11,7 +11,7 @@ import org.malai.interaction.library.ButtonPressed;
 import org.malai.interaction.library.KeyPressure;
 import org.malai.widget.MButton;
 
-import net.sf.latexdraw.actions.DeleteShape;
+import net.sf.latexdraw.actions.DeleteShapes;
 import net.sf.latexdraw.actions.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -86,12 +86,12 @@ public class ShapeDeleter extends Instrument {
 /**
  * This abstract link maps an interaction to an action that delete shapes.
  */
-abstract class DeleteShapesLink<I extends Interaction> extends Link<DeleteShape, I, ShapeDeleter> {
+abstract class DeleteShapesLink<I extends Interaction> extends Link<DeleteShapes, I, ShapeDeleter> {
 	/**
 	 * Creates the link.
 	 */
 	public DeleteShapesLink(final ShapeDeleter ins, final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
-		super(ins, false, DeleteShape.class, clazzInteraction);
+		super(ins, false, DeleteShapes.class, clazzInteraction);
 	}
 	
 	
