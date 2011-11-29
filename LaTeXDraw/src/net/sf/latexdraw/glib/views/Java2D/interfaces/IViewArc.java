@@ -1,7 +1,5 @@
 package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IArc;
-
 /**
  * This interface defines a view of an arc.<br>
  * <br>
@@ -20,6 +18,6 @@ import net.sf.latexdraw.glib.models.interfaces.IArc;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public interface IViewArc extends IViewShape<IArc>{
+public interface IViewArc extends IViewShape{
 	// Nothing more.
 }

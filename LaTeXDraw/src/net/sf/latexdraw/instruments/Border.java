@@ -57,7 +57,7 @@ public class Border extends Instrument implements Picker {
 	public static final BasicStroke STROKE = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f, new float[] { 7f, 7f}, 0);
 
 	/** The selected views. */
-	protected List<IViewShape<?>> selection;
+	protected List<IViewShape> selection;
 
 	/** The rectangle uses to show the selection. */
 	protected Rectangle2D border;
@@ -102,7 +102,7 @@ public class Border extends Instrument implements Picker {
 			throw new IllegalArgumentException();
 
 		this.zoomable	= zoomable;
-		selection 		= new ArrayList<IViewShape<?>>();
+		selection 		= new ArrayList<IViewShape>();
 		border	  		= new Rectangle2D.Double();
 		scaleHandlers  	= new ArrayList<IHandler>();
 
@@ -143,7 +143,7 @@ public class Border extends Instrument implements Picker {
 		double maxY = Double.MIN_VALUE;
 		Rectangle2D bounds;
 
-		for(final IViewShape<?> view : selection) {
+		for(final IViewShape view : selection) {
 			bounds = view.getBorder();
 
 			if(bounds.getMinX()<minX)
@@ -197,9 +197,13 @@ public class Border extends Instrument implements Picker {
 				arcHandlerEnd 	= new ArcAngleHandler(false);
 			}
 
-			final IArc arc = ((IViewArc)selection.get(0)).getShape();
-			arcHandlerStart.updateFromArc(arc, zoomable.getZoom());
-			arcHandlerEnd.updateFromArc(arc, zoomable.getZoom());
+			final IShape sh = selection.get(0).getShape();
+			
+			if(sh instanceof IArc) {
+				final IArc arc = (IArc)sh;
+				arcHandlerStart.updateFromArc(arc, zoomable.getZoom());
+				arcHandlerEnd.updateFromArc(arc, zoomable.getZoom());
+			}
 		}
 	}
 
@@ -210,40 +214,48 @@ public class Border extends Instrument implements Picker {
 	 */
 	private void updateCtrlMvHandlers() {
 		if(isCtrlPtMvHandlersShowable()) {
-			final double zoom	  = zoomable.getZoom();
-			final IBezierCurve bc = ((IViewBezierCurve)selection.get(0)).getShape();
-			final int nbPts 	  = bc.getNbPoints();
-			IPoint pt;
+			final IShape sh = selection.get(0).getShape();
+			
+			if(sh instanceof IBezierCurve)
+				// Lazy initialisation
+				initialiseCtrlMvHandlers((IBezierCurve)sh);
+		}
+	}
+	
+	
+	private void initialiseCtrlMvHandlers(final IBezierCurve bc) {
+		final double zoom = zoomable.getZoom();
+		final int nbPts   = bc.getNbPoints();
+		IPoint pt;
+		
+		if(ctrlPt1Handlers==null) {
+			ctrlPt1Handlers = new ArrayList<IHandler>();
+			ctrlPt2Handlers = new ArrayList<IHandler>();
+		}
 
-			// Lazy initialisation
-			if(ctrlPt1Handlers==null) {
-				ctrlPt1Handlers = new ArrayList<IHandler>();
-				ctrlPt2Handlers = new ArrayList<IHandler>();
+		// Adding missing handlers.
+		if(ctrlPt1Handlers.size()<nbPts)
+			for(int i=ctrlPt1Handlers.size(); i<nbPts; i++) {
+				ctrlPt1Handlers.add(new MovePtHandler());
+				ctrlPt2Handlers.add(new MovePtHandler());
+			}
+		// Removing extra handlers.
+		else if(ctrlPt1Handlers.size()>nbPts)
+			while(ctrlPt1Handlers.size()>nbPts) {
+				ctrlPt1Handlers.remove(0);
+				ctrlPt2Handlers.remove(0);
 			}
 
-			// Adding missing handlers.
-			if(ctrlPt1Handlers.size()<nbPts)
-				for(int i=ctrlPt1Handlers.size(); i<nbPts; i++) {
-					ctrlPt1Handlers.add(new MovePtHandler());
-					ctrlPt2Handlers.add(new MovePtHandler());
-				}
-			// Removing extra handlers.
-			else if(ctrlPt1Handlers.size()>nbPts)
-				while(ctrlPt1Handlers.size()>nbPts) {
-					ctrlPt1Handlers.remove(0);
-					ctrlPt2Handlers.remove(0);
-				}
-
-			// Updating handlers.
-			for(int i=0, size=ctrlPt1Handlers.size(); i<size; i++) {
-				pt = bc.getFirstCtrlPtAt(i);
-				ctrlPt1Handlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
-				pt = bc.getSecondCtrlPtAt(i);
-				ctrlPt2Handlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
-			}
+		// Updating handlers.
+		for(int i=0, size=ctrlPt1Handlers.size(); i<size; i++) {
+			pt = bc.getFirstCtrlPtAt(i);
+			ctrlPt1Handlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
+			pt = bc.getSecondCtrlPtAt(i);
+			ctrlPt2Handlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
 		}
 	}
 
+	
 
 	/**
 	 * Updates the handlers that move points.
@@ -251,26 +263,29 @@ public class Border extends Instrument implements Picker {
 	 */
 	private void updateMvHandlers() {
 		if(isPtMvHandlersShowable()) {
-			final IModifiablePointsShape pts = ((IViewModifiablePtsShape<IModifiablePointsShape>)selection.get(0)).getShape();
-			final int nbPts 				 = pts.getNbPoints();
-			final double zoom	  			 = zoomable.getZoom();
-			IPoint pt;
+			final IShape sh = selection.get(0).getShape();
+			
+			if(sh instanceof IModifiablePointsShape) {
+				final IModifiablePointsShape pts = (IModifiablePointsShape)sh;
+				final int nbPts 				 = pts.getNbPoints();
+				final double zoom	  			 = zoomable.getZoom();
+				IPoint pt;
 
-			if(mvPtHandlers==null)
-				mvPtHandlers = new ArrayList<IHandler>();
+				if(mvPtHandlers==null)
+					mvPtHandlers = new ArrayList<IHandler>();
 
-			if(mvPtHandlers.size()<nbPts)
-				for(int i=mvPtHandlers.size(); i<nbPts; i++)
-					mvPtHandlers.add(new MovePtHandler());
-			else if(mvPtHandlers.size()>nbPts)
-					while(mvPtHandlers.size()>nbPts)
-						mvPtHandlers.remove(0);
+				if(mvPtHandlers.size()<nbPts)
+					for(int i=mvPtHandlers.size(); i<nbPts; i++)
+						mvPtHandlers.add(new MovePtHandler());
+				else if(mvPtHandlers.size()>nbPts)
+						while(mvPtHandlers.size()>nbPts)
+							mvPtHandlers.remove(0);
 
-			for(int i=0, size=mvPtHandlers.size(); i<size; i++) {
-				pt = pts.getPtAt(i);
-				mvPtHandlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
+				for(int i=0, size=mvPtHandlers.size(); i<size; i++) {
+					pt = pts.getPtAt(i);
+					mvPtHandlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
+				}
 			}
-
 		}
 	}
 
@@ -333,7 +348,7 @@ public class Border extends Instrument implements Picker {
 	 * @return True if the move point handlers can be painted.
 	 */
 	protected boolean isPtMvHandlersShowable() {
-		return selection.size()==1 && selection.get(0) instanceof IViewModifiablePtsShape<?>;
+		return selection.size()==1 && selection.get(0) instanceof IViewModifiablePtsShape;
 	}
 
 
@@ -360,7 +375,7 @@ public class Border extends Instrument implements Picker {
 	 * @param view The view to add. If null, nothing is done.
 	 * @since 3.0
 	 */
-	public void add(final IViewShape<?> view) {
+	public void add(final IViewShape view) {
 		if(view!=null && selection.add(view) && isActivated()) {
 			// The border is updated only if the view has been added and
 			// the border is activated.
@@ -378,7 +393,7 @@ public class Border extends Instrument implements Picker {
 	 * already in the selection, nothing is performed.
 	 * @since 3.0
 	 */
-	public void remove(final IViewShape<?> view) {
+	public void remove(final IViewShape view) {
 		if(view!=null && isActivated() && selection.remove(view)) {
 			MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class);
 			update();
@@ -390,7 +405,7 @@ public class Border extends Instrument implements Picker {
 	 * @return the selected views. Cannot be null.
 	 * @since 3.0
 	 */
-	public List<IViewShape<?>> getSelection() {
+	public List<IViewShape> getSelection() {
 		return selection;
 	}
 
@@ -407,7 +422,7 @@ public class Border extends Instrument implements Picker {
 	 */
 	public void clear() {
 		if(!selection.isEmpty()) {
-			for(IViewShape<?> view : selection)
+			for(IViewShape view : selection)
 				MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class);
 
 			selection.clear();

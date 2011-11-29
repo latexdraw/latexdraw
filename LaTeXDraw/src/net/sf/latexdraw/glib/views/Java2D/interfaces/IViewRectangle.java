@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 
 /**
  * This interface defines a view of a rectangle.<br>
@@ -20,6 +19,6 @@ import net.sf.latexdraw.glib.models.interfaces.IRectangle;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public interface IViewRectangle extends IViewShape<IRectangle> {
+public interface IViewRectangle extends IViewShape {
 	// Nothing more.
 }

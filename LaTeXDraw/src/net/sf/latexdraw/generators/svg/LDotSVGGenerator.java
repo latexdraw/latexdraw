@@ -109,7 +109,7 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		final Graphics2D2SVG graphics = new Graphics2D2SVG(doc);
         final SVGElement root;
         // Instead of creating a view, its is gathered from the Java view of the application.
-		IViewShape<?> view = MappingRegistry.REGISTRY.getTargetFromSource(shape, IViewDot.class);
+		IViewShape view = MappingRegistry.REGISTRY.getTargetFromSource(shape, IViewDot.class);
 
 		if(view==null)
 			view =  View2DTK.getFactory().createView(shape);

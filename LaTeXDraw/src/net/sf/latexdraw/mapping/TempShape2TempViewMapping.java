@@ -29,11 +29,11 @@ import org.malai.mapping.Singleton2SingletonMapping;
  * @since 3.0
  * @version 3.0
  */
-public class TempShape2TempViewMapping extends Singleton2SingletonMapping<IShape, IViewShape<?>> {
+public class TempShape2TempViewMapping extends Singleton2SingletonMapping<IShape, IViewShape> {
 	/**
 	 * {@link Singleton2SingletonMapping#Singleton2SingletonMapping(ISingleton, ISingleton)}
 	 */
-	public TempShape2TempViewMapping(final ISingleton<IShape> source, final ISingleton<IViewShape<?>> target) {
+	public TempShape2TempViewMapping(final ISingleton<IShape> source, final ISingleton<IViewShape> target) {
 		super(source, target);
 	}
 

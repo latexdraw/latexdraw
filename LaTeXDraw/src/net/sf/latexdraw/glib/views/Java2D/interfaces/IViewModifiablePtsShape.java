@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 
 /**
  * This interface defines a view of an shape which points can be modified.<br>
@@ -20,6 +19,6 @@ import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public interface IViewModifiablePtsShape<S extends IModifiablePointsShape> extends IViewShape<S> {
+public interface IViewModifiablePtsShape extends IViewShape {
 	// Nothing more.
 }

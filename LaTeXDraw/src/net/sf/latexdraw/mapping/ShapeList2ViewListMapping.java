@@ -32,18 +32,18 @@ import org.malai.mapping.SymmetricList2ListMapping;
  * @since 3.0
  * @version 3.0
  */
-public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape, IViewShape<?>> {
+public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape, IViewShape> {
 	/**
 	 * {@link SymmetricList2ListMapping#SymmetricList2ListMapping(List, List)}
 	 */
-	public ShapeList2ViewListMapping(final List<IShape> source, final List<IViewShape<?>> target) {
+	public ShapeList2ViewListMapping(final List<IShape> source, final List<IViewShape> target) {
 		super(source, target);
 	}
 
 
 
 	@Override
-	protected IViewShape<?> createTargetObject(final Object sourceObject) {
+	protected IViewShape createTargetObject(final Object sourceObject) {
 		return sourceObject instanceof IShape ? View2DTK.getFactory().createView((IShape)sourceObject) : null;
 	}
 
@@ -67,7 +67,7 @@ public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape,
 
 	@Override
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
-		IViewShape<?> view = index==-1 ? target.get(target.size()-1) : target.get(index);
+		IViewShape view = index==-1 ? target.get(target.size()-1) : target.get(index);
 
 		view.flush();
 		super.onObjectRemoved(list, object, index);

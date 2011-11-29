@@ -20,7 +20,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPolyline;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LPolylineView extends LPolygonView {
+class LPolylineView extends LPolygonView<IPolyline> {
 	/**
 	 * Creates an initialises the Java view of a LLines.
 	 * @param model The model to view.

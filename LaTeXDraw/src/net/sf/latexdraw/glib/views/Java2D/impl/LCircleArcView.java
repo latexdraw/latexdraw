@@ -20,7 +20,7 @@ import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LCircleArcView extends LArcView {
+class LCircleArcView extends LArcView<ICircleArc> {
 	protected LCircleArcView(final ICircleArc model) {
 		super(model);
 	}

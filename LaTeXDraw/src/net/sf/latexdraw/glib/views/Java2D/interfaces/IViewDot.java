@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IDot;
 
 /**
  * This interface defines a view of a dot.<br>
@@ -20,6 +19,6 @@ import net.sf.latexdraw.glib.models.interfaces.IDot;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public interface IViewDot extends IViewShape<IDot> {
+public interface IViewDot extends IViewShape {
 	// Nothing more.
 }

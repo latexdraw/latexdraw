@@ -432,7 +432,7 @@ public class Export extends Action {
 		graphic.setColor(Color.WHITE);
 		graphic.fillRect(0, 0, (int)(tr.getX()+dec), (int)(bl.getY()+dec));
 
-		for(IViewShape<?> view : canvas.getViews())
+		for(IViewShape view : canvas.getViews())
 			view.paint(graphic);
 
 		// To delete the empty whitespace, we do a translation to

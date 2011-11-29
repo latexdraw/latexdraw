@@ -20,12 +20,12 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public interface IAbstractView<S extends IShape> {
+public interface IAbstractView {
 	/**
 	 * @return the model of the view.
 	 * @since 3.0
 	 */
-	S getShape();
+	IShape getShape();
 
 
 	/**

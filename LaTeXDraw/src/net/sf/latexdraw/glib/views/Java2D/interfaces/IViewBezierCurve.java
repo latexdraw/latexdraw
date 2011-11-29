@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 
 /**
  * This interface defines a view of a Bezier curve.<br>
@@ -20,6 +19,6 @@ import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public interface IViewBezierCurve extends IViewShape<IBezierCurve>{
+public interface IViewBezierCurve extends IViewShape{
 	// Nothing more.
 }

@@ -48,7 +48,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-abstract class LShapeView<S extends IShape> extends AbstractView<S> implements IViewShape<S> {
+abstract class LShapeView<S extends IShape> extends AbstractView<S> implements IViewShape {
 	/** The Java2D path used to draw the shape. */
 	protected Path2D path;
 

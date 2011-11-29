@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewRectangle;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LRectangleView extends LRectangularView<IRectangle> implements IViewRectangle {
+class LRectangleView<M extends IRectangle> extends LRectangularView<IRectangle> implements IViewRectangle {
 	/**
 	 * Creates an initialises the Java view of a LRect.
 	 * @param model The model to view.

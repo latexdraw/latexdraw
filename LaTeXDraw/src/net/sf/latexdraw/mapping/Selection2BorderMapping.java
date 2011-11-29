@@ -58,7 +58,7 @@ public class Selection2BorderMapping extends SelectionMapping {
 
 	@Override
 	public void onObjectAdded(final Object list, final Object object, final int index) {
-		final IViewShape<?> view = MappingRegistry.REGISTRY.getTargetFromSource(object, IViewShape.class);
+		final IViewShape view = MappingRegistry.REGISTRY.getTargetFromSource(object, IViewShape.class);
 
 		if(view!=null)
 			border.add(view);
@@ -66,7 +66,7 @@ public class Selection2BorderMapping extends SelectionMapping {
 
 	@Override
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
-		final IViewShape<?> view = MappingRegistry.REGISTRY.getTargetFromSource(object, IViewShape.class);
+		final IViewShape view = MappingRegistry.REGISTRY.getTargetFromSource(object, IViewShape.class);
 
 		if(view!=null)
 			border.remove(view);

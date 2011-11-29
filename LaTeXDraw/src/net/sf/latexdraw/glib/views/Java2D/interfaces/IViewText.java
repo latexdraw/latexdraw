@@ -2,8 +2,6 @@ package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
 import java.awt.Image;
 
-import net.sf.latexdraw.glib.models.interfaces.IText;
-
 /**
  * This interface defines a view of a text.<br>
  * <br>
@@ -22,7 +20,7 @@ import net.sf.latexdraw.glib.models.interfaces.IText;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public interface IViewText extends IViewShape<IText> {
+public interface IViewText extends IViewShape {
 	/**
 	 * Updates the image.
 	 * @since 3.0

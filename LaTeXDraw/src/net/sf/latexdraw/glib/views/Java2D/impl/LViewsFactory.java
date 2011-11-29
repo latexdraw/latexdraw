@@ -39,7 +39,7 @@ public class LViewsFactory implements IViewsFactory {
 
 
 	@Override
-	public IViewShape<?> createView(final IShape shape) {
+	public IViewShape createView(final IShape shape) {
 		return shape==null ? null : createCmd.execute(shape);
 	}
 
@@ -48,25 +48,25 @@ public class LViewsFactory implements IViewsFactory {
 	 * Initialises the chain of responsibility.
 	 */
 	private void initCommands() {
-		CreateView2DCmd cmd = new CreateView2DCmd(null, IPicture.class) { @Override public IViewShape<?> create(final IShape shape) { return new LPictureView((IPicture)shape); } };
-		cmd = new CreateView2DCmd(cmd, IText.class) 		{ @Override public IViewShape<?> create(final IShape shape) { return new LTextView((IText)shape); } };
-		cmd = new CreateView2DCmd(cmd, IFreehand.class) 	{ @Override public IViewShape<?> create(final IShape shape) { return new LFreeHandView((IFreehand)shape); } };
-		cmd = new CreateView2DCmd(cmd, IDot.class) 		{ @Override public IViewShape<?> create(final IShape shape) { return new LDotView((IDot)shape); } };
-		cmd = new CreateView2DCmd(cmd, IGrid.class)		{ @Override public IViewShape<?> create(final IShape shape) { return new LGridView((IGrid)shape); } };
-		cmd = new CreateView2DCmd(cmd, IBezierCurve.class){ @Override public IViewShape<?> create(final IShape shape) { return new LBezierCurveView((IBezierCurve)shape); } };
-		cmd = new CreateView2DCmd(cmd, IPolygon.class) 	{ @Override public IViewShape<?> create(final IShape shape) { return new LPolygonView((IPolygon)shape); } };
+		CreateView2DCmd cmd = new CreateView2DCmd(null, IPicture.class) { @Override public IViewShape create(final IShape shape) { return new LPictureView((IPicture)shape); } };
+		cmd = new CreateView2DCmd(cmd, IText.class) 		{ @Override public IViewShape create(final IShape shape) { return new LTextView((IText)shape); } };
+		cmd = new CreateView2DCmd(cmd, IFreehand.class) 	{ @Override public IViewShape create(final IShape shape) { return new LFreeHandView((IFreehand)shape); } };
+		cmd = new CreateView2DCmd(cmd, IDot.class) 		{ @Override public IViewShape create(final IShape shape) { return new LDotView((IDot)shape); } };
+		cmd = new CreateView2DCmd(cmd, IGrid.class)		{ @Override public IViewShape create(final IShape shape) { return new LGridView((IGrid)shape); } };
+		cmd = new CreateView2DCmd(cmd, IBezierCurve.class){ @Override public IViewShape create(final IShape shape) { return new LBezierCurveView((IBezierCurve)shape); } };
+		cmd = new CreateView2DCmd(cmd, IPolygon.class) 	{ @Override public IViewShape create(final IShape shape) { return new LPolygonView<IPolygon>((IPolygon)shape); } };
 		// All the commands of the chain of responsibility are chained together.
-		cmd = new CreateView2DCmd(cmd, IPolyline.class) 	{ @Override public IViewShape<?> create(final IShape shape) { return new LPolylineView((IPolyline)shape); } };
-		cmd = new CreateView2DCmd(cmd, IRhombus.class) 	{ @Override public IViewShape<?> create(final IShape shape) { return new LRhombusView((IRhombus)shape); } };
-		cmd = new CreateView2DCmd(cmd, ITriangle.class) 	{ @Override public IViewShape<?> create(final IShape shape) { return new LTriangleView((ITriangle)shape); } };
-		cmd = new CreateView2DCmd(cmd, IGroup.class) 		{ @Override public IViewShape<?> create(final IShape shape) { return new LGroupView((IGroup)shape); } };
-		cmd = new CreateView2DCmd(cmd, IEllipse.class) 	{ @Override public IViewShape<?> create(final IShape shape) { return new LEllipseView<IEllipse>((IEllipse)shape); } };
-		cmd = new CreateView2DCmd(cmd, IArc.class) 		{ @Override public IViewShape<?> create(final IShape shape) { return new LArcView((IArc)shape); } };
-		cmd = new CreateView2DCmd(cmd, ICircleArc.class) 	{ @Override public IViewShape<?> create(final IShape shape) { return new LCircleArcView((ICircleArc)shape); } };
-		cmd = new CreateView2DCmd(cmd, ICircle.class) 	{ @Override public IViewShape<?> create(final IShape shape) { return new LCircleView((ICircle)shape); } };
-		cmd = new CreateView2DCmd(cmd, IRectangle.class) 	{ @Override public IViewShape<?> create(final IShape shape) { return new LRectangleView((IRectangle)shape); } };
+		cmd = new CreateView2DCmd(cmd, IPolyline.class) 	{ @Override public IViewShape create(final IShape shape) { return new LPolylineView((IPolyline)shape); } };
+		cmd = new CreateView2DCmd(cmd, IRhombus.class) 	{ @Override public IViewShape create(final IShape shape) { return new LRhombusView((IRhombus)shape); } };
+		cmd = new CreateView2DCmd(cmd, ITriangle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LTriangleView((ITriangle)shape); } };
+		cmd = new CreateView2DCmd(cmd, IGroup.class) 		{ @Override public IViewShape create(final IShape shape) { return new LGroupView((IGroup)shape); } };
+		cmd = new CreateView2DCmd(cmd, IEllipse.class) 	{ @Override public IViewShape create(final IShape shape) { return new LEllipseView<IEllipse>((IEllipse)shape); } };
+		cmd = new CreateView2DCmd(cmd, IArc.class) 		{ @Override public IViewShape create(final IShape shape) { return new LArcView<ICircleArc>((IArc)shape); } };
+		cmd = new CreateView2DCmd(cmd, ICircleArc.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleArcView((ICircleArc)shape); } };
+		cmd = new CreateView2DCmd(cmd, ICircle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleView((ICircle)shape); } };
+		cmd = new CreateView2DCmd(cmd, IRectangle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LRectangleView<ISquare>((IRectangle)shape); } };
 		// The last created command is the first element of the chain.
-		createCmd = new CreateView2DCmd(cmd, ISquare.class) { @Override public IViewShape<?> create(final IShape shape) { return new LSquareView((ISquare)shape); } };
+		createCmd = new CreateView2DCmd(cmd, ISquare.class) { @Override public IViewShape create(final IShape shape) { return new LSquareView((ISquare)shape); } };
 	}
 
 
@@ -74,7 +74,7 @@ public class LViewsFactory implements IViewsFactory {
 	 * This class is a mix of the design patterns Command and Chain of responsibility.
 	 * The goal is to find the command which can create the view of the given shape.
 	 */
-	private abstract class CreateView2DCmd extends CreateViewCmd<IShape, IViewShape<? extends IShape>, CreateView2DCmd> {
+	private abstract class CreateView2DCmd extends CreateViewCmd<IShape, IViewShape, CreateView2DCmd> {
 		/**
 		 * Creates the command.
 		 * @param next The next command in the chain of responsibility. Can be null.

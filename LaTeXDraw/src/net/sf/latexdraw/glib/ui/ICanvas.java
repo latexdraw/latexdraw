@@ -110,14 +110,14 @@ public interface ICanvas extends Zoomable, ConcretePresentation, Scrollable, Eve
 	 * @return The view at the given point or null.
 	 * @since 3.0
 	 */
-	IViewShape<?> getViewAt(final double x, final double y);
+	IViewShape getViewAt(final double x, final double y);
 
 
 	/**
 	 * @return The list of views.
 	 * @since 3.0
 	 */
-	List<IViewShape<?>> getViews();
+	List<IViewShape> getViews();
 
 
 
@@ -126,14 +126,14 @@ public interface ICanvas extends Zoomable, ConcretePresentation, Scrollable, Eve
 	 * @param view The new temporary view.
 	 * @since 3.0
 	 */
-	void setTempView(final IViewShape<?> view);
+	void setTempView(final IViewShape view);
 
 
 	/**
 	 * @return The temporary view contained by the canvas.
 	 * @since 3.0
 	 */
-	IViewShape<?> getTempView();
+	IViewShape getTempView();
 
 
 	/**

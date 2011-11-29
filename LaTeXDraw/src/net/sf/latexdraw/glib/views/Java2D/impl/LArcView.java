@@ -26,7 +26,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LArcView extends LEllipseView<IArc> implements IViewArc {
+class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 	/**
 	 * Creates an initialises the Java view of a LArc.
 	 * @param model The model to view.

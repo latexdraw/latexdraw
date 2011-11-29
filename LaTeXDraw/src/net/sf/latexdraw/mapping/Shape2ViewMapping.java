@@ -25,11 +25,11 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
  * @since 3.0
  * @version 3.0
  */
-public class Shape2ViewMapping extends Object2ObjectMapping<IShape, IViewShape<?>> {
+public class Shape2ViewMapping extends Object2ObjectMapping<IShape, IViewShape> {
 	/**
 	 * {@link Object2ObjectMapping#Object2ObjectMapping(Object, Object)}
 	 */
-	public Shape2ViewMapping(final IShape source, final IViewShape<?> target) {
+	public Shape2ViewMapping(final IShape source, final IViewShape target) {
 		super(source, target);
 	}
 

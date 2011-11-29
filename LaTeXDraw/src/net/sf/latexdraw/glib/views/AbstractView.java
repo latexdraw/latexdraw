@@ -21,7 +21,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public abstract class AbstractView<S extends IShape> implements IAbstractView<S> {
+public abstract class AbstractView<S extends IShape> implements IAbstractView {
 	/** The shape model. */
 	protected S shape;
 

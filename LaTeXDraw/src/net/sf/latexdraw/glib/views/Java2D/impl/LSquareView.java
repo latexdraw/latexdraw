@@ -20,7 +20,7 @@ import net.sf.latexdraw.glib.models.interfaces.ISquare;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LSquareView extends LRectangleView {
+class LSquareView extends LRectangleView<ISquare> {
         /**
 	 * Creates an initialises the Java view of a LSquare.
 	 * @param model The model to view.
