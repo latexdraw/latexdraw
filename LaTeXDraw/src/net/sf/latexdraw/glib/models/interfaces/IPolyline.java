@@ -20,5 +20,6 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @since 3.0
  */
 public interface IPolyline extends IPolygon {
-// Nothing more to define.
+	@Override
+	IPolyline duplicate();
 }

@@ -20,5 +20,6 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @since 3.0
  */
 public interface IPolygon extends IModifiablePointsShape, ILineArcShape {
-	//
+	@Override
+	IPolygon duplicate();
 }

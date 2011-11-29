@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.models.impl;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
  * Defines a model of a rounded arc.<br>
@@ -49,6 +50,13 @@ class LCircleArc extends LArc implements ICircleArc {
 	@Override
 	public double getRadius() {
 		return getWidth();
+	}
+	
+	
+	@Override
+	public ICircleArc duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof ICircleArc ? (ICircleArc)sh : null;
 	}
 	
 	

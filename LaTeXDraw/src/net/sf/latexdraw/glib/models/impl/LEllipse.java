@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LNumber;
 
 /**
@@ -48,6 +49,13 @@ class LEllipse extends LRectangularShape implements IEllipse {
 		update();
 	}
 
+	
+	@Override
+	public IEllipse duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof IEllipse ? (IEllipse)sh : null;
+	}
+	
 
 	@Override
 	public IPoint[] getIntersection(final ILine line) {

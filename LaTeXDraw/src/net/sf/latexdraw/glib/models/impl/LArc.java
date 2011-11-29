@@ -69,6 +69,13 @@ class LArc extends LEllipse implements IArc {
 		update();
 	}
 
+	
+	@Override
+	public IArc duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof IArc ? (IArc)sh : null;
+	}
+	
 
 	@Override
 	public void copy(final IShape sh) {

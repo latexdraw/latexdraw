@@ -20,5 +20,6 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @since 3.0
  */
 public interface ISquare extends IRectangle {
-// Nothing more to do for the moment.
+	@Override
+	ISquare duplicate();
 }

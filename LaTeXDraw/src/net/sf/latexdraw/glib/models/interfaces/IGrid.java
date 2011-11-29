@@ -22,6 +22,9 @@ import java.awt.Color;
  * @since 3.0
  */
 public interface IGrid extends IStandardGrid {
+	@Override
+	IGrid duplicate();
+	
 	/**
 	 * @return Returns the gridDots.
 	 */

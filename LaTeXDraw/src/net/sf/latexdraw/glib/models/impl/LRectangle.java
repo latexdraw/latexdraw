@@ -68,6 +68,13 @@ class LRectangle extends LRectangularShape implements IRectangle {
 		update();
 	}
 
+	
+	@Override
+	public IRectangle duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof IRectangle ? (IRectangle)sh : null;
+	}
+	
 
 	@Override
 	public double getLineArc() {

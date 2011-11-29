@@ -101,6 +101,12 @@ class LGrid extends LAbstractGrid implements IGrid {
 	}
 
 
+	@Override
+	public IGrid duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof IGrid ? (IGrid)sh : null;
+	}
+	
 
 	@Override
 	public boolean isParametersEquals(final IShape sh, final boolean considerShadow) {

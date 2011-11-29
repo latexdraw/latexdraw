@@ -48,6 +48,9 @@ public interface IFreehand extends IModifiablePointsShape {
 	 * @since 3.0
 	 */
 	void setType(final FreeHandType type);
+	
+	@Override
+	IFreehand duplicate();
 
 	/**
 	 * @return the open.

@@ -167,6 +167,11 @@ public interface IDot extends IPositionShape, Dottable {
 			return null;
 		}
 	}
+	
+	
+	@Override
+	IDot duplicate();
+	
 
 	/**
 	 * While getTopLeftPoint takes care about the current shape of the dot to compute the top left point,

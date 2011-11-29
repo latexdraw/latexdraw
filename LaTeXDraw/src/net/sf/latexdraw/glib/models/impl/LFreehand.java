@@ -96,9 +96,9 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 
 
 	@Override
-	public IShape duplicate() {
-		// TODO Auto-generated method stub
-		return null;
+	public IFreehand duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof IFreehand ? (IFreehand)sh : null;
 	}
 
 

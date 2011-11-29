@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.models.impl;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
  * Defines a model of a circle.<br>
@@ -48,6 +49,13 @@ class LCircle extends LEllipse implements ICircle {
 		update();
 	}
 
+    
+	@Override
+	public ICircle duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof ICircle ? (ICircle)sh : null;
+	}
+	
 
 	@Override
 	public void scale(final double sx, final double sy, final Position pos) {

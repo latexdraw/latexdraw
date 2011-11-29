@@ -55,6 +55,13 @@ class LText extends LPositionShape implements IText {
 		textPosition = TextPosition.BOT_LEFT;
 	}
 
+	
+	@Override
+	public IText duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof IText ? (IText)sh : null;
+	}
+	
 
 	@Override
 	public String getText() {

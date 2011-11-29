@@ -6,6 +6,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
  * Defines a view of a polyline.<br>
@@ -58,6 +59,13 @@ class LPolyline extends LPolygon implements IPolyline {
 		update();
 	}
 
+	
+	@Override
+	public IPolyline duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof IPolyline ? (IPolyline)sh : null;
+	}
+	
 
 	@Override
 	public ILine getArrowLine(final IArrow arrow) {

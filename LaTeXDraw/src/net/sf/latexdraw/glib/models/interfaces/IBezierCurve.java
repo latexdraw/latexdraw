@@ -31,4 +31,7 @@ public interface IBezierCurve extends IControlPointShape {
 	 * @since 3.0
 	 */
 	void setIsClosed(final boolean isClosed);
+	
+	@Override
+	IBezierCurve duplicate();
 }

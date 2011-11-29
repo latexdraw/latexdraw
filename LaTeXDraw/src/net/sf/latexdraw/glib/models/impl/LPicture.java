@@ -90,8 +90,8 @@ class LPicture extends LPositionShape implements IPicture {
 
 
 	@Override
-	public IShape duplicate() {
-		// TODO Auto-generated method stub
-		return null;
+	public IPicture duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof IPicture ? (IPicture)sh : null;
 	}
 }

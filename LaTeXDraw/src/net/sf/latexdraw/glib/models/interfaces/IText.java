@@ -63,6 +63,9 @@ public interface IText extends IPositionShape {
 		public abstract String getLatexToken();
 	}
 
+	
+	@Override
+	IText duplicate();
 
 	/**
 	 * @return The text position of the text (bottom-right, top-left, etc.).

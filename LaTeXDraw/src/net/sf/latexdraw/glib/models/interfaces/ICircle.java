@@ -33,4 +33,7 @@ public interface ICircle extends IEllipse {
 	 * @since 3.0
 	 */
 	double getRadius();
+	
+	@Override
+	ICircle duplicate();
 }

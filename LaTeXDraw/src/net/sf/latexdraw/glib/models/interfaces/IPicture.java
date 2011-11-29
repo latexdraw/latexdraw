@@ -22,6 +22,9 @@ import java.awt.Image;
  * @since 3.0
  */
 public interface IPicture extends IPositionShape {
+	@Override
+	IPicture duplicate();
+	
 	/**
 	 * Defines the image.
 	 * @param path The path of the image.

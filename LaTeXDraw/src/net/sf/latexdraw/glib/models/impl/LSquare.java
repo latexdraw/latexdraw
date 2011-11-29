@@ -138,7 +138,6 @@ class LSquare extends LRectangle implements ISquare {
 	}
 
 
-
 	@Override
 	public void setHeight(final double height) {
 		super.setHeight(height);
@@ -146,15 +145,9 @@ class LSquare extends LRectangle implements ISquare {
 	}
 
 
-
 	@Override
-	public IShape duplicate() {//TODO hum, why this method because there is no such method in LRectangle.
-		final ISquare sq = new LSquare(getPtAt(-1), getWidth(), true);
-
-		sq.copy(this);
-		sq.setRoundCorner(isCornerRound);
-		sq.setLineArc(frameArc);
-
-		return sq;
+	public ISquare duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof ISquare ? (ISquare)sh : null;
 	}
 }

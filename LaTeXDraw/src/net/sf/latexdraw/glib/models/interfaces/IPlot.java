@@ -20,6 +20,9 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @since 3.0
  */
 public interface IPlot extends IShape {
+	@Override
+	IPlot duplicate();
+	
 	/**
 	 * @return the interval
 	 */

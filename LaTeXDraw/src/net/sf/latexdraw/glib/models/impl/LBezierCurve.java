@@ -59,6 +59,13 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 		addPoint(point2);
 		update();
 	}
+	
+	
+	@Override
+	public IBezierCurve duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof IBezierCurve ? (IBezierCurve)sh : null;
+	}
 
 
 	@Override

@@ -25,4 +25,7 @@ public interface ICircleArc extends IArc {
 	 * @since 3.0
 	 */
 	double getRadius();
+	
+	@Override
+	ICircleArc duplicate();
 }

@@ -122,6 +122,13 @@ class LAxes extends LAbstractGrid implements IAxes {
 
 		return ok;
 	}
+	
+	
+	@Override
+	public IAxes duplicate() {
+		final IShape sh = super.duplicate();
+		return sh instanceof IAxes ? (IAxes)sh : null;
+	}
 
 
 	@Override

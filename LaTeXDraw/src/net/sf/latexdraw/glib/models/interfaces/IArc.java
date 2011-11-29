@@ -31,4 +31,7 @@ public interface IArc extends IEllipse, Arcable {
 	 * @since 1.9
 	 */
 	IPoint getEndPoint();
+	
+	@Override
+	IArc duplicate();
 }
