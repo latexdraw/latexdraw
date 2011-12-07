@@ -1,8 +1,9 @@
 package org.malai.undo;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Defines a collector of undone/redone objects.<br>
@@ -31,16 +32,16 @@ public final class UndoCollector {
 	public static final String EMPTY_UNDO = "undo";
 
 	/** Contains the handlers of each undoable of the undo stack */
-	private Stack<UndoHandler> undoHandlers;
+	private Deque<UndoHandler> undoHandlers;
 
 	/** Contains the handlers of each undoable of the redo stack */
-	private Stack<UndoHandler> redoHandlers;
+	private Deque<UndoHandler> redoHandlers;
 
 	/** Contains the undoable objects. */
-	private Stack<Undoable> undo;
+	private Deque<Undoable> undo;
 
 	/** Contains the redoable objects. */
-	private Stack<Undoable> redo;
+	private Deque<Undoable> redo;
 
 	/** The maximal number of undo. */
 	private int sizeMax;
@@ -57,10 +58,10 @@ public final class UndoCollector {
 		super();
 
 		handlers = new ArrayList<UndoHandler>();
-		undo 	 = new Stack<Undoable>();
-		redo 	 = new Stack<Undoable>();
-		undoHandlers = new Stack<UndoHandler>();
-		redoHandlers = new Stack<UndoHandler>();
+		undo 	 = new ArrayDeque<Undoable>();
+		redo 	 = new ArrayDeque<Undoable>();
+		undoHandlers = new ArrayDeque<UndoHandler>();
+		redoHandlers = new ArrayDeque<UndoHandler>();
 		sizeMax  = 30;
 	}
 
@@ -217,7 +218,7 @@ public final class UndoCollector {
 	 * @return The stack of saved undoable objects.
 	 * @since 0.1
 	 */
-	public Stack<Undoable> getUndo() {
+	public Deque<Undoable> getUndo() {
 		return undo;
 	}
 
@@ -226,7 +227,7 @@ public final class UndoCollector {
 	 * @return The stack of saved redoable objects
 	 * @since 0.1
 	 */
-	public Stack<Undoable> getRedo() {
+	public Deque<Undoable> getRedo() {
 		return redo;
 	}
 }

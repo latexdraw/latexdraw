@@ -1,6 +1,6 @@
 package net.sf.latexdraw.parsers.ps;
 
-import java.util.Stack;
+import java.util.Deque;
 
 /**
  * Defines the dup command.<br>
@@ -23,7 +23,7 @@ import java.util.Stack;
  */
 public class PSDupCommand extends PSArithemticCommand {
 	@Override
-	public void execute(final Stack<String> stack, final double x) throws InvalidFormatPSFunctionException {
+	public void execute(final Deque<String> stack, final double x) throws InvalidFormatPSFunctionException {
 		if(stack==null || stack.size()<1)
 			throw new InvalidFormatPSFunctionException();
 

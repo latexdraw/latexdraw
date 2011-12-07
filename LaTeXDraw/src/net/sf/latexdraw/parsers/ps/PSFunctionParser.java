@@ -1,8 +1,9 @@
 package net.sf.latexdraw.parsers.ps;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Defines a postscript function parser.<br>
@@ -76,7 +77,7 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 */
 	public double getY(final double x) throws InvalidFormatPSFunctionException {
-		Stack<String> stack = new Stack<String>();
+		Deque<String> stack = new ArrayDeque<String>();
 
 		for(PSArithemticCommand cmd : commands)
 			cmd.execute(stack, x);

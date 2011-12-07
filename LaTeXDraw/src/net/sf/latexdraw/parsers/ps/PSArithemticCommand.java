@@ -1,6 +1,6 @@
 package net.sf.latexdraw.parsers.ps;
 
-import java.util.Stack;
+import java.util.Deque;
 
 /**
  * Defines an abstract arithmetic command.<br>
@@ -29,5 +29,5 @@ public abstract class PSArithemticCommand {
 	 * @throws InvalidFormatPSFunctionException If the command format is not valid.
 	 * @since 3.0
 	 */
-	public abstract void execute(final Stack<String> stack, final double x) throws InvalidFormatPSFunctionException;
+	public abstract void execute(final Deque<String> stack, final double x) throws InvalidFormatPSFunctionException;
 }
