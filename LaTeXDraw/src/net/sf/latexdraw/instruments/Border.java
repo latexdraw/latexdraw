@@ -3,11 +3,14 @@ package net.sf.latexdraw.instruments;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.latexdraw.actions.ScaleShapes;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.handlers.ArcAngleHandler;
 import net.sf.latexdraw.glib.handlers.FrameArcHandler;
 import net.sf.latexdraw.glib.handlers.IHandler;
@@ -16,6 +19,7 @@ import net.sf.latexdraw.glib.handlers.RotationHandler;
 import net.sf.latexdraw.glib.handlers.ScaleHandler;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
+import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -28,6 +32,9 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.mapping.Shape2BorderMapping;
 
 import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.interaction.Interaction;
+import org.malai.interaction.library.DnD;
 import org.malai.mapping.MappingRegistry;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
@@ -88,6 +95,9 @@ public class Border extends Instrument implements Picker {
 
 	/** The object that contain the zoom used to display shapes and thus the border. */
 	protected Zoomable zoomable;
+	
+	/** The drawing containing the shapes to handle. */
+	protected IDrawing drawing;
 
 
 
@@ -95,13 +105,14 @@ public class Border extends Instrument implements Picker {
 	 * Creates and initialises the border.
 	 * @since 3.0
 	 */
-	public Border(final Zoomable zoomable) {
+	public Border(final Zoomable zoomable, final IDrawing drawing) {
 		super();
 
-		if(zoomable==null)
+		if(zoomable==null || drawing==null)
 			throw new IllegalArgumentException();
 
 		this.zoomable	= zoomable;
+		this.drawing	= drawing;
 		selection 		= new ArrayList<IViewShape>();
 		border	  		= new Rectangle2D.Double();
 		scaleHandlers  	= new ArrayList<IHandler>();
@@ -116,6 +127,8 @@ public class Border extends Instrument implements Picker {
 		scaleHandlers.add(new ScaleHandler(Position.SOUTH));
 		scaleHandlers.add(new ScaleHandler(Position.SE));
 		rotHandler 		= new RotationHandler();
+		
+		initialiseLinks();
 	}
 
 
@@ -412,7 +425,13 @@ public class Border extends Instrument implements Picker {
 
 	@Override
 	protected void initialiseLinks() {
-		// Nothing to do for the moment.
+		try{
+			links.add(new DnD2Scale(this));
+		}catch(InstantiationException e){
+			BadaboomCollector.INSTANCE.add(e);
+		}catch(IllegalAccessException e){
+			BadaboomCollector.INSTANCE.add(e);
+		}
 	}
 
 
@@ -493,5 +512,101 @@ public class Border extends Instrument implements Picker {
 	public boolean contains(final Object obj) {
 		// Supposing that there is no handler outside the border.
 		return obj instanceof IHandler;
+	}
+	
+	
+	/**
+	 * This link maps a DnD interaction on a scale handler to an action that scales the selection.
+	 */
+	private static class DnD2Scale extends Link<ScaleShapes, DnD, Border> {
+		/** The point corresponding to the 'press' position. */
+		protected Point p1;
+		
+		/** The initial width of the scaled selection. */
+		protected double width;
+		
+		/** The initial height of the scaled selection. */
+		protected double height;
+		
+		
+		protected DnD2Scale(final Border ins) throws InstantiationException, IllegalAccessException {
+			super(ins, true, ScaleShapes.class, DnD.class);
+			clear();
+		}
+		
+		private void clear() {
+			width 	= 0.;
+			height 	= 0.;
+			p1 		= null;
+		}
+
+		@Override
+		public void initAction() {
+			final IPoint br = instrument.drawing.getSelection().getBottomRightPoint();
+			final IPoint tl = instrument.drawing.getSelection().getTopLeftPoint();
+			
+			action.setDrawing(instrument.drawing);
+			action.setPosition(getScaleHandler().getPosition().getOpposite());
+			p1 		= interaction.getStartPt();
+			width  	= br.getX()-tl.getX();
+			height 	= br.getY()-tl.getY(); 
+		}
+		
+		
+		@Override
+		public void updateAction() {
+			super.updateAction();
+			
+			final Point pt = interaction.getEndPt();
+			final double x = pt.getX() - p1.getX();
+			final double y = p1.getY() - pt.getY();
+			double width2  = width;
+			double height2 = height;
+			final Position position = getScaleHandler().getPosition();
+			
+			if(position.isEast())
+				width2 += x;
+			else if (position.isWest())
+				width2 -= x;
+			
+			if(position.isNorth())
+				height2 += y;
+			else if(position.isSouth())
+				height2 -= y;
+				
+			action.setSx(width2/width);
+			action.setSy(height2/height);
+		}
+		
+
+		@Override
+		public boolean isConditionRespected() {
+			return getScaleHandler()!=null;
+		}
+		
+		
+		private ScaleHandler getScaleHandler() {
+			final Object obj = interaction.getStartObject();
+			ScaleHandler handler = null;
+			
+			if(obj instanceof ScaleHandler)
+				for(int i=0, size=instrument.scaleHandlers.size(); i<size && handler==null; i++)
+					if(instrument.scaleHandlers.get(i)==obj)
+						handler = (ScaleHandler)obj;
+			
+			return handler;
+		}
+
+		@Override
+		public void interactionAborts(final Interaction inter) {
+			super.interactionAborts(inter);
+			clear();
+		}
+
+		@Override
+		public void interactionStops(final Interaction inter) {
+			super.interactionStops(inter);
+			clear();
+		}
 	}
 }

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import java.awt.Point;
+
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
@@ -305,5 +307,11 @@ public class LShapeFactory implements IShapeFactory {
 	@Override
 	public IShape duplicate(final IShape shape) {
 		return shape==null ? null : shape.duplicate();
+	}
+
+
+	@Override
+	public IPoint createPoint(final Point pt) {
+		return pt==null ? null : createPoint(pt.getX(), pt.getY());
 	}
 }

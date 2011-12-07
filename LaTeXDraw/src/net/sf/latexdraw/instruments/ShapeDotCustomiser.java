@@ -226,7 +226,7 @@ class List2SelectionDotStyle extends ListForCustomiser<ModifyShapeProperty, Shap
 
 	@Override
 	public void initAction() {
-		action.setShape(instrument.drawing.getSelection().duplicate());
+		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
 		action.setProperty(ShapeProperties.DOT_STYLE);
 		action.setValue(DotStyle.getStyle(getLabelText()));
 	}
@@ -251,7 +251,7 @@ class Spinner2SelectionDotSize extends SpinnerForCustomiser<ModifyShapeProperty,
 	@Override
 	public void initAction() {
 		action.setProperty(ShapeProperties.DOT_SIZE);
-		action.setShape(instrument.drawing.getSelection().duplicate());
+		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
 	}
 
 	@Override

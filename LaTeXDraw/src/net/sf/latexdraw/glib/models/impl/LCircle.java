@@ -49,49 +49,20 @@ class LCircle extends LEllipse implements ICircle {
 		update();
 	}
 
-    
+
 	@Override
 	public ICircle duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof ICircle ? (ICircle)sh : null;
 	}
-	
+
 
 	@Override
 	public void scale(final double sx, final double sy, final Position pos) {
-		if(pos==null || sx<=0 || sy<=0 || !GLibUtilities.INSTANCE.isValidPoint(sx, sy))
+		if(pos==null || sx<=0 || !GLibUtilities.INSTANCE.isValidCoordinate(sx))
 			throw new IllegalArgumentException();
 
-		switch(pos) {
-			case EAST:
-				scaleX(sx, true);
-				break;
-			case WEST:
-				scaleX(sx, false);
-				break;
-			case NORTH:
-				scaleY(sy, false);
-				break;
-			case SOUTH:
-				scaleY(sy, true);
-				break;
-			case NE:
-				scaleY(sx, false);
-				scaleX(sx, true);
-				break;
-			case NW:
-				scaleY(sx, false);
-				scaleX(sx, false);
-				break;
-			case SE:
-				scaleY(sx, true);
-				scaleX(sx, true);
-				break;
-			case SW:
-				scaleY(sx, true);
-				scaleX(sx, false);
-				break;
-		}
+		scaleXY(getGravityCentre(), sx, sx);
 	}
 
 
@@ -100,13 +71,13 @@ class LCircle extends LEllipse implements ICircle {
 		super.setRx(rx);
 		super.setRy(rx);
 	}
-	
-	
+
+
 	@Override
 	public void setRy(final double rx) {
 		setRx(rx);
 	}
-	
+
 
 	@Override
 	public double getRadius() {

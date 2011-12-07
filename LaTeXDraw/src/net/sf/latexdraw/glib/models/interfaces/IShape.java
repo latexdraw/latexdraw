@@ -39,55 +39,81 @@ public interface IShape extends Modifiable, IArrowable {
 
 	/** The different cardinal points. */
 	public static enum Position {
-		NORTH, SOUTH, EAST, WEST, NE, NW, SE, SW;
+		NORTH {
+			@Override
+			public Position getOpposite() {
+				return SOUTH;
+			}
+		}, SOUTH {
+			@Override
+			public Position getOpposite() {
+				return NORTH;
+			}
+		}, EAST {
+			@Override
+			public Position getOpposite() {
+				return WEST;
+			}
+		}, WEST {
+			@Override
+			public Position getOpposite() {
+				return EAST;
+			}
+		}, NE {
+			@Override
+			public Position getOpposite() {
+				return SW;
+			}
+		}, NW {
+			@Override
+			public Position getOpposite() {
+				return SE;
+			}
+		}, SE {
+			@Override
+			public Position getOpposite() {
+				return NW;
+			}
+		}, SW {
+			@Override
+			public Position getOpposite() {
+				return NE;
+			}
+		};
 
 		/**
-		 * @param position The position to check.
 		 * @return True if the given position is south oriented.
 		 * @since 3.0
 		 */
-		public static boolean isSouth(final Position position) {
-			if(position==null)
-				return false;
-
-			return position==SOUTH || position==SE || position==SW;
+		public boolean isSouth() {
+			return this==SOUTH || this==SE || this==SW;
 		}
 
 		/**
-		 * @param position The position to check.
 		 * @return True if the given position is north oriented.
 		 * @since 3.0
 		 */
-		public static boolean isNorth(final Position position) {
-			if(position==null)
-				return false;
-
-			return position==NORTH || position==NE || position==NW;
+		public boolean isNorth() {
+			return this==NORTH || this==NE || this==NW;
 		}
 
 		/**
-		 * @param position The position to check.
 		 * @return True if the given position is east oriented.
 		 * @since 3.0
 		 */
-		public static boolean isEast(final Position position) {
-			if(position==null)
-				return false;
-
-			return position==EAST || position==NE || position==SE;
+		public boolean isEast() {
+			return this==EAST || this==NE || this==SE;
 		}
 
 		/**
-		 * @param position The position to check.
 		 * @return True if the given position is west oriented.
 		 * @since 3.0
 		 */
-		public static boolean isWest(final Position position) {
-			if(position==null)
-				return false;
-
-			return position==WEST || position==SW || position==NW;
+		public boolean isWest() {
+			return this==WEST || this==SW || this==NW;
 		}
+
+		public abstract Position getOpposite();
 	}
 
 
@@ -458,7 +484,7 @@ public interface IShape extends Modifiable, IArrowable {
 	 * @throws IllegalArgumentException If one of the parameter is not valid.
 	 * @since 3.0
 	 */
-	void scale(final double sx, final double sy, Position pos);
+	void scale(final double sx, final double sy, final Position pos);
 
 	/**
 	 * Sets the top point of the shape: this method should be used when we want to
@@ -808,7 +834,7 @@ public interface IShape extends Modifiable, IArrowable {
 	 * @return the arrows.
 	 */
 	List<IArrow> getArrows();
-	
+
 	/**
 	 * Sets the style of the arrow at the given position.
 	 * @param style The style to set.
@@ -816,7 +842,7 @@ public interface IShape extends Modifiable, IArrowable {
 	 * @since 3.0
 	 */
 	void setArrowStyle(final ArrowStyle style, final int position);
-	
+
 	/**
 	 * @param position The position of the arrow to use.
 	 * @return The style of the arrow at the given position.

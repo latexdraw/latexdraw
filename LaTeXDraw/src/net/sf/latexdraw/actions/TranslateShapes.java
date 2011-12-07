@@ -1,12 +1,9 @@
 package net.sf.latexdraw.actions;
 
-import org.malai.undo.Undoable;
-
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LNumber;
+
+import org.malai.undo.Undoable;
 
 /**
  * This action translates shapes.<br>
@@ -26,7 +23,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class TranslateShapes extends DrawingAction implements Undoable, Modifying {
+public class TranslateShapes extends DrawingSelectionAction implements Undoable, Modifying {
 	/** The x vector translation. */
 	protected double tx;
 
@@ -40,8 +37,6 @@ public class TranslateShapes extends DrawingAction implements Undoable, Modifyin
 	/** The y vector translation that has been already performed. This attribute is needed since
 	 * this action can be executed several times. */
 	private double performedTy;
-
-	private IShape shape;
 
 
 	/**
@@ -66,8 +61,8 @@ public class TranslateShapes extends DrawingAction implements Undoable, Modifyin
 
 	@Override
 	protected void doActionBody() {
-		shape.translate(tx-performedTx, ty-performedTy);
-		shape.setModified(true);
+		selection.translate(tx-performedTx, ty-performedTy);
+		selection.setModified(true);
 		drawing.setModified(true);
 		performedTx = tx;
 		performedTy = ty;
@@ -76,23 +71,23 @@ public class TranslateShapes extends DrawingAction implements Undoable, Modifyin
 
 	@Override
 	public boolean canDo() {
-		final boolean okShape = super.canDo() && shape instanceof IGroup ? !((IGroup)shape).isEmpty() : true;
-		return okShape && (!LNumber.INSTANCE.equals(tx, 0.) || !LNumber.INSTANCE.equals(ty, 0.)) && GLibUtilities.INSTANCE.isValidPoint(tx, ty);
+		final boolean okShape = super.canDo() && !selection.isEmpty() && GLibUtilities.INSTANCE.isValidPoint(tx, ty);
+		return okShape && (!LNumber.INSTANCE.equals(tx, 0.) || !LNumber.INSTANCE.equals(ty, 0.));
 	}
 
 
 	@Override
 	public void undo() {
-		shape.translate(-tx, -ty);
-		shape.setModified(true);
+		selection.translate(-tx, -ty);
+		selection.setModified(true);
 		drawing.setModified(true);
 	}
 
 
 	@Override
 	public void redo() {
-		shape.translate(tx, ty);
-		shape.setModified(true);
+		selection.translate(tx, ty);
+		selection.setModified(true);
 		drawing.setModified(true);
 	}
 
@@ -100,15 +95,6 @@ public class TranslateShapes extends DrawingAction implements Undoable, Modifyin
 	@Override
 	public String getUndoName() {
 		return "Translation";
-	}
-
-
-	@Override
-	public void setDrawing(final IDrawing drawing) {
-		super.setDrawing(drawing);
-
-		if(drawing!=null)
-			shape = drawing.getSelection().duplicate();
 	}
 
 

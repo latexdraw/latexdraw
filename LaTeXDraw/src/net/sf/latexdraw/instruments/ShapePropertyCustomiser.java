@@ -6,7 +6,6 @@ import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 
 import net.sf.latexdraw.actions.ShapePropertyAction;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 import org.malai.action.Action;
@@ -16,7 +15,6 @@ import org.malai.interaction.library.ButtonPressed;
 import org.malai.interaction.library.CheckBoxModified;
 import org.malai.interaction.library.ListSelectionModified;
 import org.malai.interaction.library.SpinnerModified;
-import org.malai.mapping.MappingRegistry;
 import org.malai.undo.Undoable;
 import org.malai.widget.MColorButton;
 
@@ -47,10 +45,6 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 	/** The Pencil instrument. */
 	protected Pencil pencil;
 
-	/** The drawing that contains the selection. Computed value. */
-	protected IDrawing drawing;
-
-
 
 	/**
 	 * Creates the instrument.
@@ -64,11 +58,6 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 
 		if(hand==null || pencil==null)
 			throw new IllegalArgumentException();
-
-		drawing = MappingRegistry.REGISTRY.getSourceFromTarget(hand.canvas, IDrawing.class);
-
-		if(drawing==null)
-			throw new IllegalArgumentException("Cannot get the drawing."); //$NON-NLS-1$
 
 		this.hand   = hand;
 		this.pencil = pencil;
@@ -106,7 +95,7 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 		if(pencil.isActivated())
 			update(pencil.createShapeInstance());
 		else
-			update(drawing.getSelection());
+			update(hand.canvas.getDrawing().getSelection());
 
 		repaintWidgetContainer();
 	}

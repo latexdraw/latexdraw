@@ -579,7 +579,6 @@ abstract class LShape implements IShape {
 
 
 
-
 	@Override
 	public void scale(final double sx, final double sy, final Position pos) {
 		if(pos==null || !GLibUtilities.INSTANCE.isValidPoint(sx, sy) || sx<=0 || sy<=0)
@@ -587,78 +586,56 @@ abstract class LShape implements IShape {
 
 		switch(pos) {
 			case EAST:
-				scaleX(sx, true);
+				scaleX(getBottomRightPoint().getX(), sx);
 				break;
 			case WEST:
-				scaleX(sx, false);
+				scaleX(getTopLeftPoint().getX(), sx);
 				break;
 			case NORTH:
-				scaleY(sy, false);
+				scaleY(getTopLeftPoint().getY(), sy);
 				break;
 			case SOUTH:
-				scaleY(sy, true);
+				scaleY(getBottomLeftPoint().getY(), sy);
 				break;
 			case NE:
-				scaleY(sy, false);
-				scaleX(sx, true);
+				scaleXY(getTopRightPoint(), sx, sy);
 				break;
 			case NW:
-				scaleY(sy, false);
-				scaleX(sx, false);
+				scaleXY(getTopLeftPoint(), sx, sy);
 				break;
 			case SE:
-				scaleY(sy, true);
-				scaleX(sx, true);
+				scaleXY(getBottomRightPoint(), sx, sy);
 				break;
 			case SW:
-				scaleY(sy, true);
-				scaleX(sx, false);
+				scaleXY(getBottomLeftPoint(), sx, sy);
 				break;
 		}
 	}
 
 
-	protected void scaleX(final double sx, final boolean onLeft) {
-		double x;
-
-		if(onLeft) {
-			final double brx = getBottomRightPoint().getX();
-
-			for(IPoint pt : points) {
-				x = pt.getX();
-				if(((float)x)!=((float)brx))
-					pt.setX(brx - (brx-x)*sx);
-			}
-		} else {
-			final double tlx = getTopLeftPoint().getX();
-
-			for(IPoint pt : points) {
-				x = pt.getX();
-				if(((float)x)!=((float)tlx))
-					pt.setX((x-tlx)*sx + tlx);
-			}
-		}
+	protected void scaleX(final double xRef, final double sx) {
+		for(final IPoint pt : points)
+			if(!LNumber.INSTANCE.equals(xRef, pt.getX()))
+				pt.setX(xRef+(pt.getX()-xRef)*sx);
 	}
 
-	protected void scaleY(final double sy, final boolean onNorth) {
-		double y;
 
-		if(onNorth) {
-			final double bry = getBottomRightPoint().getY();
+	protected void scaleY(final double yRef, final double sy) {
+		for(final IPoint pt : points)
+			if(!LNumber.INSTANCE.equals(yRef, pt.getY()))
+				pt.setY(yRef+(pt.getY()-yRef)*sy);
+	}
 
-			for(IPoint pt : points) {
-				y = pt.getY();
-				if(((float)y)!=((float)bry))
-					pt.setY(y + (bry-y)*(1-sy));
-			}
-		} else {
-			final double tly = getTopLeftPoint().getY();
 
-			for(IPoint pt : points) {
-				y = pt.getY();
-				if(((float)y)!=((float)tly))
-					pt.setY(y - (y-tly)*(1-sy));
-			}
+	protected void scaleXY(final IPoint ref, final double sx, final double sy) {
+		final double xRef = ref.getX();
+		final double yRef = ref.getY();
+
+		for(final IPoint pt : points) {
+			if(!LNumber.INSTANCE.equals(xRef, pt.getX()))
+				pt.setX(xRef+(pt.getX()-xRef)*sx);
+			if(!LNumber.INSTANCE.equals(yRef, pt.getY()))
+				pt.setY(yRef+(pt.getY()-yRef)*sy);
 		}
 	}
 

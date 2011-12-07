@@ -162,8 +162,8 @@ public class LFrame extends UI {
 		super();
 		buildFrame(progressBar);
 	}
-	
-	
+
+
 	/**
 	 * The builder of the frame.
 	 * @since 3.0
@@ -404,8 +404,8 @@ public class LFrame extends UI {
 
 	@Override
 	public void initialisePresentations() {
-		IDrawing drawing= DrawingTK.getFactory().createDrawing();
-		LCanvas canvas	= new LCanvas();
+		final IDrawing drawing	= DrawingTK.getFactory().createDrawing();
+		final LCanvas canvas	= new LCanvas(drawing);
 		presentations.add(new Presentation<IDrawing, ICanvas>(drawing, canvas));
 		presentations.add(new Presentation<IDrawing, LCodePanel>(drawing, new LCodePanel(drawing, canvas)));
 	}

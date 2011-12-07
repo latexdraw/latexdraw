@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
+import java.awt.Point;
+
 
 /**
  * Defines an interface to implement an abstract factory.<br>
@@ -217,6 +219,16 @@ public interface IShapeFactory {
 	 * @since 3.0
 	 */
 	IPoint createPoint(final double x, final double y);
+
+
+	/**
+	 * Creates a point from the java Point.
+	 * @param pt The java point.
+	 * @return The created point or null.
+	 * @since 3.0
+	 */
+	IPoint createPoint(final Point pt);
+
 
 	/**
 	 * Creates a Point2D with the specified coordinates.

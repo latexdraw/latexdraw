@@ -299,7 +299,7 @@ class List2ShapeArrowStyle extends ListForCustomiser<ModifyShapeProperty, ShapeA
 		else
 			action.setProperty(ShapeProperties.ARROW2_STYLE);
 
-		action.setShape(instrument.drawing.getSelection().duplicate());
+		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
 		action.setValue(ArrowStyle.getArrowStyle(getLabelText()));
 	}
 

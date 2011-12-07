@@ -14,6 +14,7 @@ import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
@@ -96,24 +97,29 @@ public class LCanvas extends MPanel implements ICanvas {
 	/** Defined if the canvas has been modified. */
 	protected boolean modified;
 
+	/** The model of the view. */
+	protected IDrawing drawing;
+
 
 
 	/**
 	 * Creates an initialises a canvas.
 	 * @since 3.0
 	 */
-	public LCanvas(){
+	public LCanvas(final IDrawing drawing){
 		super(true, true);
 
+		this.drawing		= drawing;
 		modified			= false;
 		userSelectionBorder	= null;
-		borderIns			= new Border(this);
+		borderIns			= new Border(this, drawing);
 		border				= new Rectangle2D.Double();
 		views 				= new ArrayList<IViewShape>();
 		tempView			= new ActiveSingleton<IViewShape>();
 		zoom				= new ActiveSingleton<Double>(1.);
 
 		ActionsRegistry.INSTANCE.addHandler(this);
+		borderIns.addEventable(this);
 
 		setFocusable(true);
 		setDoubleBuffered(true);
@@ -540,6 +546,11 @@ public class LCanvas extends MPanel implements ICanvas {
 		magneticGrid.setModified(modified);
 	}
 
+
+	@Override
+	public IDrawing getDrawing() {
+		return drawing;
+	}
 
 	@Override
 	public void onActionCancelled(final Action action) {

@@ -51,15 +51,15 @@ class LCircleArc extends LArc implements ICircleArc {
 	public double getRadius() {
 		return getWidth();
 	}
-	
-	
+
+
 	@Override
 	public ICircleArc duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof ICircleArc ? (ICircleArc)sh : null;
 	}
-	
-	
+
+
 	@Override
 	public boolean setRight(final double x) {
 		boolean ok = super.setRight(x);
@@ -69,8 +69,8 @@ class LCircleArc extends LArc implements ICircleArc {
 
 		return ok;
 	}
-	
-	
+
+
 	@Override
 	public boolean setLeft(final double x) {
 		boolean ok = super.setLeft(x);
@@ -80,8 +80,8 @@ class LCircleArc extends LArc implements ICircleArc {
 
 		return ok;
 	}
-	
-	
+
+
 	@Override
 	public boolean setTop(final double y) {
 		boolean ok = super.setTop(y);
@@ -117,42 +117,13 @@ class LCircleArc extends LArc implements ICircleArc {
 		super.setHeight(height);
 		super.setWidth(height);
 	}
-	
-	
+
+
 	@Override
 	public void scale(final double sx, final double sy, final Position pos) {
-		if(pos==null || sx<=0 || sy<=0 || !GLibUtilities.INSTANCE.isValidPoint(sx, sy))
+		if(pos==null || sx<=0 || !GLibUtilities.INSTANCE.isValidCoordinate(sx))
 			throw new IllegalArgumentException();
 
-		switch(pos) {
-			case EAST:
-				scaleX(sx, true);
-				break;
-			case WEST:
-				scaleX(sx, false);
-				break;
-			case NORTH:
-				scaleY(sy, false);
-				break;
-			case SOUTH:
-				scaleY(sy, true);
-				break;
-			case NE:
-				scaleY(sx, false);
-				scaleX(sx, true);
-				break;
-			case NW:
-				scaleY(sx, false);
-				scaleX(sx, false);
-				break;
-			case SE:
-				scaleY(sx, true);
-				scaleX(sx, true);
-				break;
-			case SW:
-				scaleY(sx, true);
-				scaleX(sx, false);
-				break;
-		}
+		scaleXY(getGravityCentre(), sx, sx);
 	}
 }

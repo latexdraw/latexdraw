@@ -48,13 +48,13 @@ class LDot extends LPositionShape implements IDot {
 		update();
 	}
 
-	
+
 	@Override
 	public IDot duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof IDot ? (IDot)sh : null;
 	}
-	
+
 
 	@Override
 	public Color getFillingCol() {
@@ -164,26 +164,27 @@ class LDot extends LPositionShape implements IDot {
 		if(sx <= 0 || sy <= 0 || pos == null || !GLibUtilities.INSTANCE.isValidPoint(sx, sy))
 			return;
 
-		switch(pos){
-		// A dot is a circle, so only sx or sy is allowed, not both
-		// at the same time.
-			case EAST:
-			case NE:
-			case SE:
-				scaleX(sx, false); // Only x.
-				break;
-			case NORTH:
-				scaleY(sy, true);
-				break;
-			case SOUTH:
-				scaleY(sy, false);
-				break;
-			case SW:
-			case NW:
-			case WEST:
-				scaleX(sx, true); // Only x.
-				break;
-		}
+		//TODO
+//		switch(pos){
+//		// A dot is a circle, so only sx or sy is allowed, not both
+//		// at the same time.
+//			case EAST:
+//			case NE:
+//			case SE:
+//				scaleX(sx, false); // Only x.
+//				break;
+//			case NORTH:
+//				scaleY(sy, true);
+//				break;
+//			case SOUTH:
+//				scaleY(sy, false);
+//				break;
+//			case SW:
+//			case NW:
+//			case WEST:
+//				scaleX(sx, true); // Only x.
+//				break;
+//		}
 	}
 
 
@@ -215,22 +216,22 @@ class LDot extends LPositionShape implements IDot {
 	}
 
 
-
-	@Override
-	protected void scaleX(final double sx, final boolean onLeft) {
-		// onLeft is useless since the position of the dot is its centre
-		// and only the radius is used to computed its size.
-		setRadius(radius * sx);
-	}
-
-
-
-	@Override
-	protected void scaleY(final double sy, final boolean onNorth) {
-		// onNorth is useless since the position of the dot is its centre
-		// and only the radius is used to computed its size.
-		setRadius(radius * sy);
-	}
+//
+//	@Override
+//	protected void scaleX(final double sx, final boolean onLeft) {
+//		// onLeft is useless since the position of the dot is its centre
+//		// and only the radius is used to computed its size.
+//		setRadius(radius * sx);
+//	}
+//
+//
+//
+//	@Override
+//	protected void scaleY(final double sy, final boolean onNorth) {
+//		// onNorth is useless since the position of the dot is its centre
+//		// and only the radius is used to computed its size.
+//		setRadius(radius * sy);
+//	}
 
 
 

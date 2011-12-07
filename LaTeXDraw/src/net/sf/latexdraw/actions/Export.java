@@ -22,9 +22,6 @@ import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.filechooser.FileFilter;
 
-import org.malai.action.Action;
-import org.malai.mapping.MappingRegistry;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.BMPFilter;
 import net.sf.latexdraw.filters.JPGFilter;
@@ -32,11 +29,12 @@ import net.sf.latexdraw.filters.PDFFilter;
 import net.sf.latexdraw.filters.PNGFilter;
 import net.sf.latexdraw.filters.PSFilter;
 import net.sf.latexdraw.filters.TeXFilter;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
+
+import org.malai.action.Action;
 
 /**
  * This action allows to export a drawing in different formats.
@@ -325,8 +323,7 @@ public class Export extends Action {
 		File psFile;
 
 		try{
-			psFile = LaTeXGenerator.createPSFile(MappingRegistry.REGISTRY.getSourceFromTarget(canvas, IDrawing.class),
-													latexDistribPath, file.getAbsolutePath(), canvas);
+			psFile = LaTeXGenerator.createPSFile(canvas.getDrawing(), latexDistribPath, file.getAbsolutePath(), canvas);
 		}
 		catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
@@ -347,8 +344,7 @@ public class Export extends Action {
 		File pdfFile;
 
 		try{
-			pdfFile = LaTeXGenerator.createPDFFile(MappingRegistry.REGISTRY.getSourceFromTarget(canvas, IDrawing.class),
-												latexDistribPath, file.getAbsolutePath(), canvas, format==ExportFormat.PDF);
+			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), latexDistribPath, file.getAbsolutePath(), canvas, format==ExportFormat.PDF);
 		} catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
 			pdfFile = null;
@@ -371,7 +367,7 @@ public class Export extends Action {
 			final BufferedWriter bw = new BufferedWriter(fw);
 			out  					= new PrintWriter(bw);
 
-			out.println(LaTeXGenerator.getLatexDocument(MappingRegistry.REGISTRY.getSourceFromTarget(canvas, IDrawing.class), canvas));
+			out.println(LaTeXGenerator.getLatexDocument(canvas.getDrawing(), canvas));
 			out.close();
 			bw.close();
 			fw.close();

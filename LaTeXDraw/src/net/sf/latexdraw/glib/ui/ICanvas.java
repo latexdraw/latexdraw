@@ -13,6 +13,7 @@ import org.malai.presentation.ConcretePresentation;
 import org.malai.properties.Zoomable;
 import org.malai.widget.Scrollable;
 
+import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.instruments.Border;
@@ -36,6 +37,12 @@ import net.sf.latexdraw.instruments.Border;
  * @since 3.0
  */
 public interface ICanvas extends Zoomable, ConcretePresentation, Scrollable, Eventable, ViewsSynchroniserHandler, ActionHandler, Picker, Pickable {
+	/**
+	 * @return The model of the canvas.
+	 * @since 3.0
+	 */
+	IDrawing getDrawing();
+
 	/**
 	 * Sets the anti aliasing value.
 	 * @param antiAliasingValue The new anti-aliasing value.

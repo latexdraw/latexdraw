@@ -9,7 +9,6 @@ import net.sf.latexdraw.actions.SelectShapes;
 import net.sf.latexdraw.actions.TranslateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
@@ -56,9 +55,6 @@ public class Hand extends Instrument {
 
 	/** The instrument used to edit texts. */
 	protected TextSetter textSetter;
-	
-	/** The model of the canvas. Computed attribute. */
-	protected IDrawing drawing;
 
 
 	/**
@@ -79,7 +75,6 @@ public class Hand extends Instrument {
 		this.zoomer		= zoomer;
 		this.grid		= grid;
 		this.canvas 	= canvas;
-		drawing			= MappingRegistry.REGISTRY.getSourceFromTarget(this.canvas, IDrawing.class);
 		initialiseLinks();
 	}
 
@@ -117,10 +112,10 @@ class DoubleClick2InitTextSetter extends Link<InitTextSetter, DoubleClick, Hand>
 	@Override
 	public void initAction() {
 		final Object o = interaction.getTarget();
-		
+
 		if(o instanceof IViewText) {
 			final IShape sh = ((IViewText)o).getShape();
-			
+
 			if(sh instanceof IText) {
 				final IText text		= (IText)sh;
 				final IPoint position 	= text.getPosition();
@@ -158,7 +153,7 @@ class DnD2Translate extends Link<TranslateShapes, DnD, Hand> {
 
 	@Override
 	public void initAction() {
-		action.setDrawing(instrument.drawing);
+		action.setDrawing(instrument.canvas.getDrawing());
 	}
 
 	@Override
@@ -174,8 +169,8 @@ class DnD2Translate extends Link<TranslateShapes, DnD, Hand> {
 	public boolean isConditionRespected() {
 		final Object startObject = interaction.getStartObject();
 		final int button 		 = interaction.getButton();
-		return  !instrument.drawing.getSelection().isEmpty() && 
-				((startObject==instrument.canvas && button==MouseEvent.BUTTON3) || 
+		return  !instrument.canvas.getDrawing().getSelection().isEmpty() &&
+				((startObject==instrument.canvas && button==MouseEvent.BUTTON3) ||
 				 (startObject instanceof IViewShape && (button==MouseEvent.BUTTON1 || button==MouseEvent.BUTTON3)));
 	}
 }
@@ -189,13 +184,13 @@ class Press2Select extends Link<SelectShapes, Press, Hand> {
 
 	@Override
 	public void initAction() {
-		action.setDrawing(instrument.drawing);		
+		action.setDrawing(instrument.canvas.getDrawing());
 	}
-	
+
 	@Override
 	public void updateAction() {
 		final Object target = interaction.getTarget();
-		
+
 		if(target instanceof IViewShape)
 			action.setShape(MappingRegistry.REGISTRY.getSourceFromTarget(target, IShape.class));
 	}
@@ -203,8 +198,8 @@ class Press2Select extends Link<SelectShapes, Press, Hand> {
 	@Override
 	public boolean isConditionRespected() {
 		final Object target = interaction.getTarget();
-		return interaction.getTarget() instanceof IViewShape && 
-			   !instrument.drawing.getSelection().contains((MappingRegistry.REGISTRY.getSourceFromTarget(target, IShape.class)));
+		return interaction.getTarget() instanceof IViewShape &&
+			   !instrument.canvas.getDrawing().getSelection().contains((MappingRegistry.REGISTRY.getSourceFromTarget(target, IShape.class)));
 	}
 }
 
@@ -230,7 +225,7 @@ class DnD2Select extends Link<SelectShapes, DnD, Hand> {
 
 	@Override
 	public void initAction() {
-		action.setDrawing(instrument.drawing);
+		action.setDrawing(instrument.canvas.getDrawing());
 	}
 
 
