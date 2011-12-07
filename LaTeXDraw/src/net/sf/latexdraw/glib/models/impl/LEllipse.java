@@ -33,7 +33,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	 * @since 3.0
 	 */
 	protected LEllipse(final boolean isUniqueID) {
-		this(new LPoint(10, 10), new LPoint(20, 20), isUniqueID);
+		this(new LPoint(), new LPoint(1, 1), isUniqueID);
 	}
 
 

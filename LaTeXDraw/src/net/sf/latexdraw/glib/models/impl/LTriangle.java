@@ -29,7 +29,7 @@ class LTriangle extends LRectangularShape implements ITriangle {
 	 * @param uniqueID True: the triangle will have a unique ID.
 	 */
 	protected LTriangle(final boolean uniqueID) {
-		this(new LPoint(), 10, 10, uniqueID);
+		this(new LPoint(), 1, 1, uniqueID);
 	}
 
 

@@ -733,12 +733,8 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 				recShape.setWidth(2.);
 				recShape.setHeight(2.);
 			}
-			else {
-				shape.setBottom(pt.getY()+1);
-				shape.setRight(pt.getX()+1);
-				shape.setTop(pt.getY());
-				shape.setLeft(pt.getX());
-			}
+			else
+				shape.translate(pt.getX(), pt.getY());
 		}
 	}
 

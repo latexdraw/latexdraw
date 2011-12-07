@@ -38,7 +38,7 @@ class LRectangle extends LRectangularShape implements IRectangle {
 	 * @param uniqueID True: the rectangle will have a unique ID.
 	 */
 	protected LRectangle(final boolean uniqueID) {
-		this(new LPoint(), new LPoint(10, 10), uniqueID);
+		this(new LPoint(), new LPoint(1, 1), uniqueID);
 	}
 
 

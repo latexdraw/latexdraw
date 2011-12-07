@@ -29,7 +29,7 @@ class LRhombus extends LRectangularShape implements IRhombus {
 	 * @param uniqueID True: the rhombus will have a unique ID.
 	 */
 	protected LRhombus(final boolean uniqueID) {
-		this(new LPoint(), 10, 10, uniqueID);
+		this(new LPoint(), 1, 1, uniqueID);
 	}
 
 

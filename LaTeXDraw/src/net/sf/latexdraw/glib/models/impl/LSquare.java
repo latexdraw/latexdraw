@@ -30,7 +30,7 @@ class LSquare extends LRectangle implements ISquare {
 	 * @param uniqueID True: the square will have a unique ID.
 	 */
 	protected LSquare(final boolean uniqueID) {
-		this(new LPoint(), 10, uniqueID);
+		this(new LPoint(), 1, uniqueID);
 	}
 
 
