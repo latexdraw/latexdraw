@@ -3,6 +3,8 @@ package net.sf.latexdraw.ui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
+import javax.swing.JTabbedPane;
+
 import org.malai.ui.IProgressBar;
 import org.malai.ui.UIComposer;
 import org.malai.widget.MPanel;
@@ -57,20 +59,26 @@ public class UIBuilder implements UIComposer {
 	@Override
 	public void compose() {
 		/* Organisation of the general layout of the user interface. */
-		final MPanel southPanel 	= new MPanel(false, false);
 		final Container contentPane = frame.getContentPane();
 
-		southPanel.setLayout(new BorderLayout());
-     	southPanel.add(frame.propertiesToolbar, BorderLayout.CENTER);
-     	southPanel.add(frame.statusBar, BorderLayout.SOUTH);
+		/* Creation of the drawing area composed of the canvas, the scales, etc. */
+		final MPanel drawingArea = new MPanel(false, false);
+		drawingArea.setLayout(new BorderLayout());
+		drawingArea.add(frame.xScaleRuler, BorderLayout.NORTH);
+		drawingArea.add(frame.yScaleRuler, BorderLayout.WEST);
+		drawingArea.add(frame.layeredPanel, BorderLayout.CENTER);
+		drawingArea.add(frame.propertiesToolbar, BorderLayout.SOUTH);
+
+		/* Creation of the tabbed pane. */
+		final JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.addTab("Drawing", drawingArea);
+		tabbedPane.addTab("PST", frame.getCodePanel());
 
 		contentPane.setLayout(new BorderLayout());
 		contentPane.add(frame.toolbar, BorderLayout.NORTH);
-		contentPane.add(frame.splitPane, BorderLayout.CENTER);
-		contentPane.add(southPanel, BorderLayout.SOUTH);
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
+		contentPane.add(frame.statusBar, BorderLayout.SOUTH);
 		frame.setJMenuBar(frame.menuBar);
-		// The call the interim feedback of some instruments.
-		frame.codePanelActivator.interimFeedback();
 		// Updating the concrete presentations.
 		frame.updatePresentations();
 

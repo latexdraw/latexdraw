@@ -100,6 +100,8 @@ public final class LaTeXDraw {
     	UIComposer composer = new UIBuilder(frame, splashScreen);
     	// Composing the user interface.
     	composer.compose();
+    	splashScreen.addToProgressBar(25);
+
     	// Removing the splash screen.
     	splashScreen.setVisible(false);
     	// Showing the user interface.

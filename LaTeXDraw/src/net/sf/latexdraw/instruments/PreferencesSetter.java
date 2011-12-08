@@ -657,7 +657,6 @@ public class PreferencesSetter extends Instrument {
 	private void applyValues() {
 		final Exporter exporter 				= frame.getExporter();
 		final MagneticGridCustomiser gridCust 	= frame.getGridCustomiser();
-		final CodePanelActivator codePanelActiv = frame.getCodePanelActivator();
 		final ScaleRulersCustomiser scaleCust 	= frame.getScaleRulersCustomiser();
 		final FileLoaderSaver saver 			= frame.getFileLoader();
 		final LCanvas canvas					= frame.getCanvas();
@@ -680,8 +679,6 @@ public class PreferencesSetter extends Instrument {
 		gridCust.gridSpacing.setValueSafely(persoGridGapField.getValue());
 		gridCust.magneticCB.setSelected(magneticGridCB.isSelected());
 		gridCust.styleList.setSelectedItemSafely(gridStyle.getLabel());
-		codePanelActiv.codePanel.setVisible(displayCodePanelCB.isSelected());
-		codePanelActiv.closeMenuItem.setSelected(displayCodePanelCB.isSelected());
 		scaleCust.xRuler.setVisible(displayXScaleCB.isSelected());
 		scaleCust.yRuler.setVisible(displayYScaleCB.isSelected());
 		scaleCust.xRulerItem.setSelected(displayXScaleCB.isSelected());

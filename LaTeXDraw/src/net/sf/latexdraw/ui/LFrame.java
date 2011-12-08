@@ -1,29 +1,14 @@
 package net.sf.latexdraw.ui;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JLayeredPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-
-import org.malai.instrument.Instrument;
-import org.malai.instrument.library.Scroller;
-import org.malai.instrument.library.UndoRedoManager;
-import org.malai.mapping.MappingRegistry;
-import org.malai.presentation.Presentation;
-import org.malai.ui.IProgressBar;
-import org.malai.ui.UI;
-import org.malai.ui.UIManager;
-import org.malai.widget.MLayeredPane;
-import org.malai.widget.MPanel;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.ui.LCanvas;
-import net.sf.latexdraw.instruments.CodePanelActivator;
 import net.sf.latexdraw.instruments.CopierCutterPaster;
 import net.sf.latexdraw.instruments.EditingSelector;
 import net.sf.latexdraw.instruments.ExceptionsManager;
@@ -50,6 +35,16 @@ import net.sf.latexdraw.mapping.TempShape2TempViewMapping;
 import net.sf.latexdraw.mapping.Unit2ScaleRuler;
 import net.sf.latexdraw.mapping.Zoom2ScaleRuler;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.instrument.Instrument;
+import org.malai.instrument.library.Scroller;
+import org.malai.instrument.library.UndoRedoManager;
+import org.malai.mapping.MappingRegistry;
+import org.malai.presentation.Presentation;
+import org.malai.ui.IProgressBar;
+import org.malai.ui.UI;
+import org.malai.ui.UIManager;
+import org.malai.widget.MLayeredPane;
 
 /**
  * This class contains all the elements of the graphical user interface.<br>
@@ -100,9 +95,6 @@ public class LFrame extends UI {
 	/** The instrument that saves and loads SVG documents. */
 	protected FileLoaderSaver fileLoader;
 
-	/** The instrument that (des-)activates the code panel. */
-	protected CodePanelActivator codePanelActivator;
-
 	/** The instrument that (des-)activates the scale rulers. */
 	protected ScaleRulersCustomiser scaleRulersCustomiser;
 
@@ -130,9 +122,6 @@ public class LFrame extends UI {
 	/** The bottom tool bar of the editor. */
 	protected LPropertiesToolbar propertiesToolbar;
 
-	/** The split pane that separates the drawing area from the code area. */
-	protected JSplitPane splitPane;
-
 	/** The menu bar of the interactive system. */
 	protected LMenuBar menuBar;
 
@@ -150,6 +139,9 @@ public class LFrame extends UI {
 
 	/** The instrument that copies, cuts and pastes selected shapes. */
 	protected CopierCutterPaster paster;
+
+	/** The layered panel used to display widgets upon shapes (e.g. text setters). */
+	protected MLayeredPane layeredPanel;
 
 
 
@@ -171,8 +163,8 @@ public class LFrame extends UI {
 	private void buildFrame(final IProgressBar progressBar) {
 		final LCanvas canvas 		= getCanvas();
 		final IDrawing drawing		= getDrawing();
-		final LCodePanel codePanel	= getCodePanel();
-		final MLayeredPane layeredPanel	= new MLayeredPane(false, false);
+
+		layeredPanel = new MLayeredPane(false, false);
 		layeredPanel.add(canvas.getScrollpane(), JLayeredPane.DEFAULT_LAYER);
 		layeredPanel.addComponentsToResize(canvas.getScrollpane());
 
@@ -196,28 +188,12 @@ public class LFrame extends UI {
 		if(progressBar!=null)
 			progressBar.addToProgressBar(10);
 
-		/* Creation of the drawing area composed of the canvas, the scales, etc. */
-		final MPanel drawingArea = new MPanel(false, false);
-		drawingArea.setLayout(new BorderLayout());
-		drawingArea.add(xScaleRuler, BorderLayout.NORTH);
-		drawingArea.add(yScaleRuler, BorderLayout.WEST);
-		drawingArea.add(layeredPanel, BorderLayout.CENTER);
-
-		/* Creation of the split pane. */
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, drawingArea, codePanel);
-    	splitPane.setContinuousLayout(true);
-     	splitPane.setOneTouchExpandable(true);
-     	splitPane.setDividerSize(6);
-
-		if(progressBar!=null)
-			progressBar.addToProgressBar(10);
-
-		// Initilisation of the status bar.
+		// Initialisation of the status bar.
 		statusBar = new JTextField("");//$NON-NLS-1$
 		statusBar.setEditable(false);
 
 		/* Creation of the instruments. */
-		instantiateInstruments(canvas, layeredPanel, drawing, codePanel);
+		instantiateInstruments(canvas, drawing);
 
 		textSetter.setPencil(pencil);
 		MappingRegistry.REGISTRY.addMapping(new ShapeList2ExporterMapping(drawing.getShapes(), exporter));
@@ -274,15 +250,13 @@ public class LFrame extends UI {
 		editingSelector.setActivated(true);
 		undoManager.setActivated(true);
 		zoomer.setActivated(true);
-		codePanelActivator.setActivated(true);
 		fileLoader.setActivated(true);
 		scaleRulersCustomiser.setActivated(true);
 		paster.setActivated(true);
 	}
 
 
-	private void instantiateInstruments(final LCanvas canvas, final MLayeredPane layeredPanel, final IDrawing drawing,
-										final LCodePanel codePanel) {
+	private void instantiateInstruments(final LCanvas canvas, final IDrawing drawing) {
 		exceptionsManager	= new ExceptionsManager();
 		helper				= new Helper();
 		try { gridCustomiser= new MagneticGridCustomiser(canvas.getMagneticGrid()); }
@@ -307,8 +281,6 @@ public class LFrame extends UI {
 		try { editingSelector = new EditingSelector(pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager();
-		try { codePanelActivator = new CodePanelActivator(codePanel, splitPane); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { paster		= new CopierCutterPaster(drawing); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		prefSetters			= new PreferencesSetter(this);
@@ -345,8 +317,6 @@ public class LFrame extends UI {
 		undoManager.addEventable(toolbar);
 		zoomer.addEventable(toolbar);
 		zoomer.addEventable(canvas);
-		codePanelActivator.addEventable(getCodePanel());
-		codePanelActivator.addEventable(menuBar.displayMenu);
 		exporter.addEventable(toolbar);
 		exporter.addEventable(exporter.getExportMenu());
 		scaleRulersCustomiser.addEventable(menuBar.displayMenu);
@@ -414,7 +384,7 @@ public class LFrame extends UI {
 
 	@Override
 	public Instrument[] getInstruments() {
-		return new Instrument[]{codePanelActivator, editingSelector, exporter, fileLoader, hand, pencil, metaShapeCustomiser, undoManager,
+		return new Instrument[]{editingSelector, exporter, fileLoader, hand, pencil, metaShapeCustomiser, undoManager,
 								zoomer, scaleRulersCustomiser, scroller, gridCustomiser, helper, textSetter, exceptionsManager,
 								deleter, prefActivator, prefSetters};
 	}
@@ -428,13 +398,6 @@ public class LFrame extends UI {
 		return fileLoader;
 	}
 
-	/**
-	 * @return The instrument that (des-)activates the code panel.
-	 * @since 3.0
-	 */
-	public CodePanelActivator getCodePanelActivator() {
-		return codePanelActivator;
-	}
 
 	/**
 	 * @return The instrument that exports drawings as picture or code.

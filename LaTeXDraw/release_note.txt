@@ -37,6 +37,7 @@ Improvements:
 - the lime and teal colours are now supported.
 
 Changes:
+- Tabs are used to replace the code panel.
 - there is no more the choice between line and curve to close a Bezier curve. Only curve is supported. That because in a 
   future release, every segment of a Bezier curve will be either a line or a curve.
 - the PPC (point per centimetre) cannot be changed anymore.

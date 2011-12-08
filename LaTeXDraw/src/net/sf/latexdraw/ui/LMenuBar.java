@@ -123,8 +123,6 @@ public class LMenuBar extends JMenuBar {
         menuCBItem = frame.scaleRulersCustomiser.getyRulerItem();
         menuCBItem.setSelected(true);
         displayMenu.add(menuCBItem);
-        menuCBItem = frame.codePanelActivator.getCloseMenuItem();
-        menuCBItem.setSelected(true);
         displayMenu.addSeparator();
         menuCBItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,InputEvent.CTRL_MASK));
         displayMenu.add(menuCBItem);
