@@ -149,6 +149,14 @@ public class Zoomer extends Instrument {
 	public MSpinner getZoomSpinner() {
 		return zoomSpinner;
 	}
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		zoomDefaultButton.setVisible(activated);
+		zoomSpinner.setVisible(activated);
+	}
 }
 
 
