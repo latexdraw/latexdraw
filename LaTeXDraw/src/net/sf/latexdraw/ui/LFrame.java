@@ -116,15 +116,6 @@ public class LFrame extends UI {
 	/** The instrument that removes shapes. */
 	protected ShapeDeleter deleter;
 
-	/** The top toolbar of the editor. */
-	protected LToolbar toolbar;
-
-	/** The bottom tool bar of the editor. */
-	protected LPropertiesToolbar propertiesToolbar;
-
-	/** The menu bar of the interactive system. */
-	protected LMenuBar menuBar;
-
 	/** The status-bar of the frame. */
 	protected JTextField statusBar;
 
@@ -152,6 +143,7 @@ public class LFrame extends UI {
 	 */
 	public LFrame(final IProgressBar progressBar) {
 		super();
+		composer = new UIBuilder(this);
 		buildFrame(progressBar);
 	}
 
@@ -161,19 +153,22 @@ public class LFrame extends UI {
 	 * @since 3.0
 	 */
 	private void buildFrame(final IProgressBar progressBar) {
-		final LCanvas canvas 		= getCanvas();
-		final IDrawing drawing		= getDrawing();
+		final LCanvas canvas 	= getCanvas();
+		final IDrawing drawing	= getDrawing();
 
 		layeredPanel = new MLayeredPane(false, false);
 		layeredPanel.add(canvas.getScrollpane(), JLayeredPane.DEFAULT_LAYER);
 		layeredPanel.addComponentsToResize(canvas.getScrollpane());
 
 		if(progressBar!=null)
-			progressBar.addToProgressBar(15);
+			progressBar.addToProgressBar(5);
 
 		/* Creation of the rulers. */
 		yScaleRuler = new YScaleRuler(canvas);
 		xScaleRuler = new XScaleRuler(canvas, yScaleRuler);
+
+		if(progressBar!=null)
+			progressBar.addToProgressBar(5);
 
 		/* Initialisation of the mapping between the model and the canvas. */
 		MappingRegistry.REGISTRY.addMapping(new ShapeList2ViewListMapping(drawing.getShapes(), canvas.getViews()));
@@ -186,7 +181,7 @@ public class LFrame extends UI {
 		MappingRegistry.REGISTRY.addMapping(new Unit2ScaleRuler(ScaleRuler.getUnitSingleton(), yScaleRuler));
 
 		if(progressBar!=null)
-			progressBar.addToProgressBar(10);
+			progressBar.addToProgressBar(5);
 
 		// Initialisation of the status bar.
 		statusBar = new JTextField("");//$NON-NLS-1$
@@ -195,64 +190,24 @@ public class LFrame extends UI {
 		/* Creation of the instruments. */
 		instantiateInstruments(canvas, drawing);
 
+		if(progressBar!=null)
+			progressBar.addToProgressBar(15);
+
 		textSetter.setPencil(pencil);
 		MappingRegistry.REGISTRY.addMapping(new ShapeList2ExporterMapping(drawing.getShapes(), exporter));
 		MappingRegistry.REGISTRY.addMapping(new Selection2MetaCustumiserMapping(drawing.getSelection().getShapes(), metaShapeCustomiser));
 		MappingRegistry.REGISTRY.addMapping(new Selection2DeleterMapping(drawing.getSelection().getShapes(), deleter));
 
 		if(progressBar!=null)
-			progressBar.addToProgressBar(15);
-
-		/* Creation of the menu bar. */
-		menuBar = new LMenuBar(this);
-
-		if(progressBar!=null)
 			progressBar.addToProgressBar(5);
-
-		/* Creation of the toolbar using the widgets of the instruments. */
-		toolbar = new LToolbar(this);
-
-		if(progressBar!=null)
-			progressBar.addToProgressBar(10);
-
-		/* Creation of the bottom tool bar that contains widgets to customise the pencil, to rotate shapes, etc. */
-		propertiesToolbar = new LPropertiesToolbar(metaShapeCustomiser, this);
-
-		if(progressBar!=null)
-			progressBar.addToProgressBar(10);
-
-		/* Mapping the instruments to the widgets that produce events they must listen. */
-		setEventableToInstruments(canvas);
-
-		/* Activating the instruments. */
-		initialiseInstrumentsActivation();
-
-     	if(progressBar!=null)
-     		progressBar.addToProgressBar(10);
 
 		setIconImage(LResources.LATEXDRAW_ICON.getImage());
 		setTitle(LResources.LABEL_APP);
-
-		try { prefSetters.readXMLPreferences(); }
-		catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
-
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		UIManager.INSTANCE.registerUI(this);
-	}
 
-
-	private void initialiseInstrumentsActivation() {
-		prefActivator.setActivated(true);
-		helper.setActivated(true);
-		gridCustomiser.setActivated(true);
-		scroller.setActivated(true);
-		exporter.setActivated(false);
-		editingSelector.setActivated(true);
-		undoManager.setActivated(true);
-		zoomer.setActivated(true);
-		fileLoader.setActivated(true);
-		scaleRulersCustomiser.setActivated(true);
-		paster.setActivated(true);
+     	if(progressBar!=null)
+     		progressBar.addToProgressBar(5);
 	}
 
 
@@ -278,7 +233,7 @@ public class LFrame extends UI {
 		try { metaShapeCustomiser = new MetaShapeCustomiser(hand, pencil); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		deleter				= new ShapeDeleter();
-		try { editingSelector = new EditingSelector(pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter); }
+		try { editingSelector = new EditingSelector(composer, pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager();
 		try { paster		= new CopierCutterPaster(drawing); }
@@ -298,51 +253,6 @@ public class LFrame extends UI {
 	}
 
 
-	/**
-	 * Sets the eventable objects to the instruments.
-	 * @since 3.0
-	 */
-	protected void setEventableToInstruments(final LCanvas canvas) {
-		prefActivator.addEventable(menuBar.editMenu);
-		exceptionsManager.addEventable(toolbar);
-		scroller.addEventable(canvas);
-		editingSelector.addEventable(toolbar);
-		editingSelector.addEventable(toolbar.recListB.getToolbar());
-		editingSelector.addEventable(toolbar.polygonListB.getToolbar());
-		editingSelector.addEventable(toolbar.ellipseListB.getToolbar());
-		editingSelector.addEventable(toolbar.gridListB.getToolbar());
-		editingSelector.addEventable(toolbar.bezierListB.getToolbar());
-		hand.addEventable(canvas);
-		pencil.addEventable(canvas);
-		undoManager.addEventable(toolbar);
-		zoomer.addEventable(toolbar);
-		zoomer.addEventable(canvas);
-		exporter.addEventable(toolbar);
-		exporter.addEventable(exporter.getExportMenu());
-		scaleRulersCustomiser.addEventable(menuBar.displayMenu);
-		scaleRulersCustomiser.addEventable(menuBar.unitMenu);
-		gridCustomiser.addEventable(toolbar.magneticGridB.getToolbar());
-		helper.addEventable(menuBar.helpMenu);
-		setGlobalShortcutEventable(deleter, canvas);
-		setGlobalShortcutEventable(paster, canvas);
-		setGlobalShortcutEventable(fileLoader, canvas);
-		fileLoader.addEventable(this);
-	}
-
-
-	protected void setGlobalShortcutEventable(final Instrument instrument, final LCanvas canvas) {
-		if(instrument!=null) {
-			instrument.addEventable(toolbar);
-			instrument.addEventable(propertiesToolbar);
-			instrument.addEventable(canvas);
-			instrument.addEventable(menuBar.displayMenu);
-			instrument.addEventable(menuBar.drawingMenu);
-			instrument.addEventable(menuBar.editMenu);
-			instrument.addEventable(menuBar.helpMenu);
-			instrument.addEventable(menuBar.unitMenu);
-		}
-	}
-
 
 	/**
 	 * @return The drawing that contains the shapes.
@@ -351,7 +261,6 @@ public class LFrame extends UI {
 	public IDrawing getDrawing() {
 		return getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
 	}
-
 
 
 	/**
@@ -421,6 +330,23 @@ public class LFrame extends UI {
 	 */
 	public ScaleRulersCustomiser getScaleRulersCustomiser() {
 		return scaleRulersCustomiser;
+	}
+
+	/**
+	 * @return The instrument that manages the preferences.
+	 * @since 3.0
+	 */
+	public PreferencesSetter getPrefSetters() {
+		return prefSetters;
+	}
+
+
+	/**
+	 * @return the metaShapeCustomiser.
+	 * @since 3.0
+	 */
+	public MetaShapeCustomiser getMetaShapeCustomiser() {
+		return metaShapeCustomiser;
 	}
 }
 

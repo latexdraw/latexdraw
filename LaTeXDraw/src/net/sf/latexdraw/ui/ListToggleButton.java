@@ -30,6 +30,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
+import javax.swing.JToolBar;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
@@ -163,6 +164,24 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 		Toolkit.getDefaultToolkit().addAWTEventListener( new ListToggleButtonAWTEventListener(), AWTEvent.MOUSE_EVENT_MASK);
 	}
 
+
+	/**
+	 * @return True if at least one of the widgets of the list is visible.
+	 * @since 3.0
+	 */
+	public boolean isContentVisible() {
+		boolean visible = false;
+		Component comp;
+
+		for(int i=0, size=toolbar.getComponentCount(); i<size && !visible; i++) {
+			comp = toolbar.getComponent(i);
+
+			if(!(comp instanceof JToolBar.Separator) && !(comp instanceof CloseButton))
+				visible = comp.isVisible();
+		}
+
+		return visible;
+	}
 
 
 	/**

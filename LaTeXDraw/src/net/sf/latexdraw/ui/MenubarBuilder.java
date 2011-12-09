@@ -6,13 +6,15 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
 
+import org.malai.ui.IProgressBar;
+import org.malai.ui.UIComposer;
 import org.malai.widget.MCheckBoxMenuItem;
 import org.malai.widget.MMenu;
 
 import net.sf.latexdraw.lang.LangTool;
 
 /**
- * This class defines the menu bar of the interactive system.<br>
+ * The composer that creates the menu bar of the application.<br>
  * <br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -26,12 +28,13 @@ import net.sf.latexdraw.lang.LangTool;
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *  PURPOSE. See the GNU General Public License for more details.<br>
  * <br>
- * 05/24/10<br>
+ * 12/08/11<br>
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LMenuBar extends JMenuBar {
-	private static final long serialVersionUID = 1L;
+public class MenubarBuilder extends UIComposer<JMenuBar> {
+	/** The main frame of the application. */
+	protected LFrame frame;
 
 	/** This menu contains the menu items related to the visibility of components. */
 	protected MMenu displayMenu;
@@ -55,21 +58,29 @@ public class LMenuBar extends JMenuBar {
 	 * @throws NullPointerException If one of the given arguments is null.
 	 * @since 3.0
 	 */
-	public LMenuBar(final LFrame frame) {
+	public MenubarBuilder(final LFrame frame) {
 		super();
-
-		initialiseDrawingMenu(frame);
-		initialiseEditMenu(frame);
-		initialiseDisplayMenu(frame);
-		initialiseHelpMenu(frame);
+		this.frame = frame;
 	}
 
 
-	protected void initialiseDrawingMenu(final LFrame frame) {
+	@Override
+	public void compose(final IProgressBar progressBar) {
+		widget = new JMenuBar();
+		composeDrawingMenu();
+		composeEditMenu();
+		if(progressBar!=null) progressBar.addToProgressBar(5);
+		composeDisplayMenu();
+		composeHelpMenu();
+		if(progressBar!=null) progressBar.addToProgressBar(5);
+	}
+
+
+	protected void composeDrawingMenu() {
 		drawingMenu = new MMenu(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.91"), true); //$NON-NLS-1$
 		unitMenu	= new MMenu("Unit", true);
 
-		add(drawingMenu);
+		widget.add(drawingMenu);
 
 		drawingMenu.add(frame.fileLoader.getNewMenu());
 		drawingMenu.add(frame.fileLoader.getLoadMenu());
@@ -84,7 +95,7 @@ public class LMenuBar extends JMenuBar {
 	}
 
 
-	protected void initialiseEditMenu(final LFrame frame) {
+	protected void composeEditMenu() {
 		editMenu = new MMenu(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.89"), true); //$NON-NLS-1$
 		editMenu.add(frame.paster.getCutMenu());
 		editMenu.add(frame.paster.getCopyMenu());
@@ -92,30 +103,29 @@ public class LMenuBar extends JMenuBar {
 		editMenu.addSeparator();
 		editMenu.add(frame.prefActivator.getShowPreferencesMenu());
 
-		add(editMenu);
+		widget.add(editMenu);
 	}
 
 
-	protected void initialiseHelpMenu(final LFrame frame) {
+	protected void composeHelpMenu() {
 		helpMenu = new MMenu(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.93"), true); //$NON-NLS-1$
 		helpMenu.add(frame.helper.getReportBugItem());
 		helpMenu.add(frame.helper.getForumItem());
 		helpMenu.add(frame.helper.getDonateItem());
 		helpMenu.addSeparator();
 		helpMenu.add(frame.helper.getAboutItem());
-		add(helpMenu);
+		widget.add(helpMenu);
 	}
 
 
 	/**
 	 * Initialises the menu "Display"
-	 * @param frame The frame that contains the instruments.
 	 * @since 3.0
 	 */
-	protected void initialiseDisplayMenu(final LFrame frame) {
+	protected void composeDisplayMenu() {
 		displayMenu = new MMenu(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.90"), true); //$NON-NLS-1$
 
-		add(displayMenu);
+		widget.add(displayMenu);
 
 		MCheckBoxMenuItem menuCBItem = frame.scaleRulersCustomiser.getxRulerItem();
 		menuCBItem.setSelected(true);

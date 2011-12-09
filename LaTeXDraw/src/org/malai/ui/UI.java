@@ -13,7 +13,6 @@ import org.malai.properties.Modifiable;
 import org.malai.properties.Reinitialisable;
 import org.malai.widget.MFrame;
 
-
 /**
  * Defines the concept of User Interface based on a JFrame.<br>
  * <br>
@@ -39,6 +38,9 @@ public abstract class UI extends MFrame implements Modifiable, Reinitialisable {
 
 	/** Defined if the UI has been modified. */
 	protected boolean modified;
+
+	/** The composer that composes the UI. */
+	protected UIComposer<?> composer;
 
 
 	/**
@@ -161,5 +163,14 @@ public abstract class UI extends MFrame implements Modifiable, Reinitialisable {
 			ins.reinit();
 
 		setModified(false);
+	}
+
+
+	/**
+	 * @return The composer that composes the UI.
+	 * @since 0.2
+	 */
+	public UIComposer<?> getComposer() {
+		return composer;
 	}
 }

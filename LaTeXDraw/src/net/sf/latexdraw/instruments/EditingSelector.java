@@ -13,9 +13,10 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.Action;
 import org.malai.action.library.ActivateInactivateInstruments;
-import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
+import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.library.ButtonPressed;
+import org.malai.ui.UIComposer;
 import org.malai.widget.MToggleButton;
 
 /**
@@ -36,7 +37,7 @@ import org.malai.widget.MToggleButton;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class EditingSelector extends Instrument {
+public class EditingSelector extends WidgetInstrument {
 	/** The button that allows to select the instrument Hand. */
 	protected MToggleButton handB;
 
@@ -109,6 +110,7 @@ public class EditingSelector extends Instrument {
 
 	/**
 	 * Creates the instruments selector.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param pencil The pencil to select.
 	 * @param hand The hand to select.
 	 * @param border The instrument that manages selected shapes.
@@ -116,9 +118,9 @@ public class EditingSelector extends Instrument {
 	 * @throws IllegalArgumentException If one of the given parameter is null.
 	 * @since 3.0
 	 */
-	public EditingSelector(final Pencil pencil, final Hand hand, final MetaShapeCustomiser metaShapeCustomiser,
+	public EditingSelector(final UIComposer<?> composer, final Pencil pencil, final Hand hand, final MetaShapeCustomiser metaShapeCustomiser,
 							final Border border, final ShapeDeleter deleter) {
-		super();
+		super(composer);
 
 		if(pencil==null || hand==null || metaShapeCustomiser==null || border==null || deleter==null)
 			throw new IllegalArgumentException();
@@ -160,7 +162,8 @@ public class EditingSelector extends Instrument {
 	}
 
 
-	private void initialiseWidgets() {
+	@Override
+	protected void initialiseWidgets() {
 		/* Creation of the widgets of the instrument. */
 		handB = new MToggleButton(LResources.SELECT_ICON);
 		handB.setMargin(LResources.INSET_BUTTON);
@@ -271,6 +274,30 @@ public class EditingSelector extends Instrument {
 		}catch(IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
+	}
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+
+		composer.setWidgetVisible(arcB, activated);
+		composer.setWidgetVisible(axesB, activated);
+		composer.setWidgetVisible(bezierB, activated);
+		composer.setWidgetVisible(bezierClosedB, activated);
+		composer.setWidgetVisible(circleB, activated);
+		composer.setWidgetVisible(recB, activated);
+		composer.setWidgetVisible(squareB, activated);
+		composer.setWidgetVisible(ellipseB, activated);
+		composer.setWidgetVisible(gridB, activated);
+		composer.setWidgetVisible(polygonB, activated);
+		composer.setWidgetVisible(dotB, activated);
+		composer.setWidgetVisible(linesB, activated);
+		composer.setWidgetVisible(rhombusB, activated);
+		composer.setWidgetVisible(triangleB, activated);
+		composer.setWidgetVisible(textB, activated);
+		composer.setWidgetVisible(freeHandB, activated);
+		composer.setWidgetVisible(handB, activated);
 	}
 
 

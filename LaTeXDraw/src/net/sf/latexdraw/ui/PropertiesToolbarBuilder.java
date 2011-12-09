@@ -20,11 +20,13 @@ import net.sf.latexdraw.instruments.TextCustomiser;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
+import org.malai.ui.IProgressBar;
+import org.malai.ui.UIComposer;
 import org.malai.widget.MPanel;
 import org.malai.widget.MSpinner;
 
 /**
- * Defines a tool bar that contains fields that manipulate the shapes properties.<br>
+ * The composer that creates the properties tool bar of the application.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -37,67 +39,61 @@ import org.malai.widget.MSpinner;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 05/16/2010<br>
+ * 12/08/11<br>
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class LPropertiesToolbar extends MPanel {
-	private static final long serialVersionUID = 1L;
-
+public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	/** The max height of the textfield widget. */
 	protected static final int HEIGHT_TEXTFIELD = 30;
 
 	/** The space added between widgets. */
 	protected static final int SEPARATION_WIDTH = 5;
 
+	/** The main frame of the application. */
+	protected LFrame frame;
+
 
 	/**
 	 * Creates the bottom panel that contains a set of widgets to modify shapes.
-	 * @param metaShapeCustomiser The meta instrument that contains the instruments containing the
-	 * widgets to put into the panel.
-	 * @param frame The frame that will contains the toolbar.
+	 * @param frame The frame that will contains the tool bar.
 	 * @throws IllegalArgumentException If the given instrument is null.
 	 * @since 3.0
 	 */
-	public LPropertiesToolbar(final MetaShapeCustomiser metaShapeCustomiser, final LFrame frame) {
-		super(false, true);
-
-		if(metaShapeCustomiser==null || frame==null)
-			throw new IllegalArgumentException();
-
-		createToolbar(metaShapeCustomiser, frame);
+	public PropertiesToolbarBuilder(final LFrame frame) {
+		super();
+		this.frame = frame;
 	}
 
 
-	/**
-	 * Initialises the toolbar.
-	 * @param metaShapeCustomiser The meta-instrument that contains all the instrument containing the widgets that
-	 * will compose the toolbar.
-	 * @param frame The main frame of the system.
-	 * @since 3.0
-	 */
-	protected void createToolbar(final MetaShapeCustomiser metaShapeCustomiser, final LFrame frame) {
-		setLayout(new FlowLayout(FlowLayout.LEFT));
-
+	@Override
+	public void compose(final IProgressBar progressBar) {
 		final LCanvas canvas = frame.getCanvas();
+		MetaShapeCustomiser metaShapeCustomiser = frame.getMetaShapeCustomiser();
+
+		widget = new MPanel(false, true);
+		widget.setLayout(new FlowLayout(FlowLayout.LEFT));
+
 		// this panel is now the component of the meta instrument.
-		metaShapeCustomiser.setWidgetContainer(this);
+		metaShapeCustomiser.setWidgetContainer(widget);
 		// Creation of the widgets layout of the shape properties instruments.
-		add(createRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), frame, canvas));
-		add(createBorderPropertiesPanel(metaShapeCustomiser.getBorderCustomiser(), frame, canvas));
-		add(createDoubleBorderPropertiesPanel(metaShapeCustomiser.getDoubleBorderCustomiser(), frame, canvas));
-		add(createShadowPropertiesPanel(metaShapeCustomiser.getShadowCustomiser(), frame, canvas));
-		add(createFillingPanel(metaShapeCustomiser.getFillingCustomiser(), frame, canvas));
-		add(createArrowToolbar(metaShapeCustomiser.getArrowCustomiser(), frame, canvas));
-		add(createDotToolbar(metaShapeCustomiser.getDotCustomiser(), frame, canvas));
-		addTextPositionWidgets(metaShapeCustomiser.getTextCustomiser(), frame, canvas);
-		addTextPropertiesWidgets(metaShapeCustomiser.getTextCustomiser(), frame, canvas);
-		add(createArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), frame, canvas));
+		widget.add(composeRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), canvas));
+		widget.add(composeBorderPropertiesPanel(metaShapeCustomiser.getBorderCustomiser(), canvas));
+		if(progressBar!=null) progressBar.addToProgressBar(5);
+		widget.add(composeDoubleBorderPropertiesPanel(metaShapeCustomiser.getDoubleBorderCustomiser(), canvas));
+		widget.add(composeShadowPropertiesPanel(metaShapeCustomiser.getShadowCustomiser(), canvas));
+		widget.add(composeFillingPanel(metaShapeCustomiser.getFillingCustomiser(), canvas));
+		if(progressBar!=null) progressBar.addToProgressBar(5);
+		widget.add(composeArrowToolbar(metaShapeCustomiser.getArrowCustomiser(), canvas));
+		widget.add(composeDotToolbar(metaShapeCustomiser.getDotCustomiser(), canvas));
+		addTextPositionWidgets(metaShapeCustomiser.getTextCustomiser(), canvas);
+		addTextPropertiesWidgets(metaShapeCustomiser.getTextCustomiser(), canvas);
+		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
+		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
 
 
-
-	protected void addTextPropertiesWidgets(final TextCustomiser textCustomiser, final LFrame frame, final LCanvas canvas) {
+	protected void addTextPropertiesWidgets(final TextCustomiser textCustomiser, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.TEXT_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of the text.");
 
@@ -107,11 +103,11 @@ public class LPropertiesToolbar extends MPanel {
 		list.addSeparator();
 		textCustomiser.setMainPackageWidget(list);
 		textCustomiser.addEventable(textCustomiser.getPackagesField());
-		add(list);
+		widget.add(list);
 	}
 
 
-	protected void addTextPositionWidgets(final TextCustomiser textCustomiser, final LFrame frame, final LCanvas canvas) {
+	protected void addTextPositionWidgets(final TextCustomiser textCustomiser, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.TEXTPOS_BL, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the position of the text.");
 		list.addComponent(textCustomiser.getBlButton());
@@ -123,7 +119,7 @@ public class LPropertiesToolbar extends MPanel {
 		list.addSeparator();
 		textCustomiser.setWidgetContainer(list);
 		textCustomiser.addEventable(list.getToolbar());
-		add(list);
+		widget.add(list);
 	}
 
 
@@ -135,7 +131,7 @@ public class LPropertiesToolbar extends MPanel {
 	}
 
 
-	protected JComponent createArcPropertiesWidgets(final ShapeArcCustomiser ins, final LFrame frame, final LCanvas canvas) {
+	protected JComponent composeArcPropertiesWidgets(final ShapeArcCustomiser ins, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.ARC_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the arcs.");
 
@@ -153,7 +149,7 @@ public class LPropertiesToolbar extends MPanel {
 	}
 
 
-	protected JComponent createDotToolbar(final ShapeDotCustomiser ins, final LFrame frame, final LCanvas canvas) {
+	protected JComponent composeDotToolbar(final ShapeDotCustomiser ins, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.DOT_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the dots.");
 
@@ -168,7 +164,7 @@ public class LPropertiesToolbar extends MPanel {
 	}
 
 
-	protected JComponent createArrowToolbar(final ShapeArrowCustomiser ins, final LFrame frame, final LCanvas canvas) {
+	protected JComponent composeArrowToolbar(final ShapeArrowCustomiser ins, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.ARROW_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the arrows.");
 
@@ -184,7 +180,7 @@ public class LPropertiesToolbar extends MPanel {
 
 
 
-	protected JComponent createRotationToolbar(final ShapeRotationCustomiser ins, final LFrame frame, final LCanvas canvas) {
+	protected JComponent composeRotationToolbar(final ShapeRotationCustomiser ins, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.ROTATE_ICON, ListToggleButton.LOCATION_NORTH, canvas);
         list.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.2")); //$NON-NLS-1$
 
@@ -204,11 +200,10 @@ public class LPropertiesToolbar extends MPanel {
 	/**
 	 * Creates the widget that contains the widgets dedicated to the modification of shapes filling properties.
 	 * @param fillingCustomiser The instrument that contains the widgets.
-	 * @param frame The main frame of the system.
 	 * @return The created widget. Cannot be null.
 	 * @since 3.0
 	 */
-	protected JComponent createFillingPanel(final ShapeFillingCustomiser fillingCustomiser, final LFrame frame, final LCanvas canvas) {
+	protected JComponent composeFillingPanel(final ShapeFillingCustomiser fillingCustomiser, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.FILLING_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the filling properties.");
 		list.addComponent(fillingCustomiser.getFillStyleCB());
@@ -240,12 +235,11 @@ public class LPropertiesToolbar extends MPanel {
 
 	/**
 	 * Creates the widget that contains the widgets dedicated to the modification of shapes double border properties.
-	 * @param borderCustomiser The instrument that contains the widgets.
-	 * @param frame The main frame of the system.
+	 * @param shadowCustomiser The instrument that contains the widgets.
 	 * @return The created widget. Cannot be null.
 	 * @since 3.0
 	 */
-	protected JComponent createShadowPropertiesPanel(final ShapeShadowCustomiser shadowCustomiser, final LFrame frame, final LCanvas canvas) {
+	protected JComponent composeShadowPropertiesPanel(final ShapeShadowCustomiser shadowCustomiser, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.SHADOW_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the shadow properties.");
 		list.addComponent(shadowCustomiser.getShadowCB());
@@ -265,12 +259,11 @@ public class LPropertiesToolbar extends MPanel {
 
 	/**
 	 * Creates the widget that contains the widgets dedicated to the modification of shapes double border properties.
-	 * @param borderCustomiser The instrument that contains the widgets.
-	 * @param frame The main frame of the system.
+	 * @param dbleBorderCustomiser The instrument that contains the widgets.
 	 * @return The created widget. Cannot be null.
 	 * @since 3.0
 	 */
-	protected JComponent createDoubleBorderPropertiesPanel(final ShapeDoubleBorderCustomiser dbleBorderCustomiser, final LFrame frame, final LCanvas canvas) {
+	protected JComponent composeDoubleBorderPropertiesPanel(final ShapeDoubleBorderCustomiser dbleBorderCustomiser, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.DOUBLE_BORDER_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the double border properties.");
 		list.addComponent(dbleBorderCustomiser.getDbleBoundCB());
@@ -289,11 +282,10 @@ public class LPropertiesToolbar extends MPanel {
 	/**
 	 * Creates the widget that contains the widgets dedicated to the modification of shapes border properties.
 	 * @param borderCustomiser The instrument that contains the widgets.
-	 * @param frame The main frame of the system.
 	 * @return The created widget. Cannot be null.
 	 * @since 3.0
 	 */
-	protected JComponent createBorderPropertiesPanel(final ShapeBorderCustomiser borderCustomiser, final LFrame frame, final LCanvas canvas) {
+	protected JComponent composeBorderPropertiesPanel(final ShapeBorderCustomiser borderCustomiser, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.BORDER_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the border properties.");
 

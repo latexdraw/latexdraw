@@ -1,4 +1,4 @@
-#Tue Aug 16 15:18:34 CEST 2011
+#Thu Dec 08 18:15:22 CET 2011
 eclipse.preferences.version=1
 org.eclipse.jdt.core.builder.cleanOutputFolder=clean
 org.eclipse.jdt.core.builder.duplicateResourceTask=warning
@@ -53,7 +53,7 @@ org.eclipse.jdt.core.compiler.problem.invalidJavadoc=warning
 org.eclipse.jdt.core.compiler.problem.invalidJavadocTags=enabled
 org.eclipse.jdt.core.compiler.problem.invalidJavadocTagsDeprecatedRef=enabled
 org.eclipse.jdt.core.compiler.problem.invalidJavadocTagsNotVisibleRef=enabled
-org.eclipse.jdt.core.compiler.problem.invalidJavadocTagsVisibility=public
+org.eclipse.jdt.core.compiler.problem.invalidJavadocTagsVisibility=private
 org.eclipse.jdt.core.compiler.problem.localVariableHiding=warning
 org.eclipse.jdt.core.compiler.problem.methodWithConstructorName=warning
 org.eclipse.jdt.core.compiler.problem.missingDeprecatedAnnotation=warning

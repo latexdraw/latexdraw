@@ -1,19 +1,24 @@
 package net.sf.latexdraw.ui;
 
+import java.awt.Component;
 import java.awt.Dimension;
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 import javax.swing.AbstractButton;
 import javax.swing.Box;
-
-import org.malai.widget.MSpinner;
-import org.malai.widget.MToolBar;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
+import org.malai.ui.IProgressBar;
+import org.malai.ui.UIComposer;
+import org.malai.widget.MSpinner;
+import org.malai.widget.MToolBar;
+
 /**
- * Defines the top panel that contains a set of widgets to handle drawings.<br>
+ * The composer that creates the tool bar of the application.<br>
  * <br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -27,13 +32,11 @@ import net.sf.latexdraw.util.LResources;
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *  PURPOSE. See the GNU General Public License for more details.<br>
  *<br>
- * 05/20/10<br>
+ * 12/08/11<br>
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LToolbar extends MToolBar {
-	private static final long serialVersionUID = 1L;
-
+public class ToolbarBuilder extends UIComposer<MToolBar> {
 	/** The main frame of the interactive system. */
 	protected LFrame frame;
 
@@ -55,6 +58,7 @@ public class LToolbar extends MToolBar {
 	/** The toolbar that contains the widgets to customise the magnetic grid. */
 	protected ListToggleButton magneticGridB;
 
+	protected Map<Component, ListToggleButton> mapContainers;
 
 
 	/**
@@ -63,33 +67,116 @@ public class LToolbar extends MToolBar {
 	 * @throws NullPointerException If frame is null.
 	 * @since 3.0
 	 */
-	public LToolbar(final LFrame frame) {
-		super(true);
-
-		this.frame = frame;
-		initialiseToolbar();
+	public ToolbarBuilder(final LFrame frame) {
+		super();
+		this.frame 		= frame;
+		mapContainers	= new IdentityHashMap<Component, ListToggleButton>();
 	}
 
+
+	@Override
+	public void compose(final IProgressBar progressBar) {//TODO: remove "LaTeXDrawFrame.116"?
+		widget = new MToolBar(true);
+
+		final LCanvas canvas = frame.getCanvas();
+		AbstractButton button;
+
+		// Adding new/open/save buttons
+		widget.add(frame.fileLoader.getNewButton());
+		widget.add(frame.fileLoader.getLoadButton());
+		widget.add(frame.fileLoader.getSaveButton());
+		widget.addSeparator();
+
+		// Adding the pdf button
+		widget.add(frame.exporter.getPdfButton());
+		widget.addSeparator();
+
+		// Adding the zoom buttons.
+		widget.add(frame.zoomer.getZoomSpinner());
+		widget.add(frame.zoomer.getZoomDefaultButton());
+		widget.addSeparator();
+
+		if(progressBar!=null) progressBar.addToProgressBar(5);
+
+		composeMagnticGridToolbar(canvas);
+
+		// Adding the undo/redo buttons.
+		widget.add(frame.undoManager.getUndoB());
+		widget.add(frame.undoManager.getRedoB());
+		widget.addSeparator();
+
+ 		//Adding a widget to select shape.
+		button = frame.editingSelector.getHandB();
+		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.136") + //$NON-NLS-1$
+				 				LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.137") + //$NON-NLS-1$
+				 				LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.138")); //$NON-NLS-1$
+		widget.add(button);
+		widget.add(frame.deleter.getDeleteB());
+		widget.addSeparator();
+
+		if(progressBar!=null) progressBar.addToProgressBar(5);
+
+ 		//Adding a widget to create lines.
+		button = frame.editingSelector.getLinesB();
+		button.setToolTipText("Draw a single or several joined lines.");
+		widget.add(button);
+
+		composeRectangleLikeToolbar(canvas);
+		composeEllipseLikeToolbar(canvas);
+		composePolygonLikeToolbar(canvas);
+
+		if(progressBar!=null) progressBar.addToProgressBar(5);
+
+		composeCurveLikeToolbar(canvas);
+		composeGridLikeToolbar(canvas);
+
+		// Adding a widget to create arcs.
+ 		button = frame.editingSelector.getArcB();
+ 		button.setMargin(LResources.INSET_BUTTON);
+ 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
+ 		widget.add(button);
+
+ 		//Adding a widget to create text shapes.
+		button = frame.editingSelector.getTextB();
+		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.60")); //$NON-NLS-1$
+		widget.add(button);
+
+ 		//Adding a widget to create free hand shapes.
+		button = frame.editingSelector.getFreeHandB();
+		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.7")); //$NON-NLS-1$
+		widget.add(button);
+
+ 		//Adding a widget to create dot shapes.
+		button = frame.editingSelector.getDotB();
+		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.117")); //$NON-NLS-1$
+		widget.add(button);
+
+		widget.add(frame.exceptionsManager.getExceptionB());
+
+		if(progressBar!=null) progressBar.addToProgressBar(5);
+	}
 
 
 	/**
 	 * Adds widgets to select the type of shape to create. Here rectangle/square shape.
 	 * @since 3.0
 	 */
-	protected void initialiseRectangleLikeToolbar(final LCanvas canvas) {
+	protected void composeRectangleLikeToolbar(final LCanvas canvas) {
 		recListB = new ListToggleButton(frame, LResources.RECT_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
 		recListB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.118")); //$NON-NLS-1$
- 		add(recListB);
+		widget.add(recListB);
 
  		AbstractButton button = frame.editingSelector.getRecB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.119")); //$NON-NLS-1$
  		recListB.addComponent(button);
+ 		mapContainers.put(button, recListB);
 
  		button = frame.editingSelector.getSquareB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.120")); //$NON-NLS-1$
  		recListB.addComponent(button);
+ 		mapContainers.put(button, recListB);
  		recListB.addSeparator();
 	}
 
@@ -98,20 +185,22 @@ public class LToolbar extends MToolBar {
 	 * Adds a widgets to create ellipse/circle shapes.
 	 * @since 3.0
 	 */
-	protected void initialiseEllipseLikeToolbar(final LCanvas canvas) {
+	protected void composeEllipseLikeToolbar(final LCanvas canvas) {
  		ellipseListB = new ListToggleButton(frame, LResources.ELLIPSE_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
  		ellipseListB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
- 		add(ellipseListB);
+ 		widget.add(ellipseListB);
 
  		AbstractButton button = frame.editingSelector.getEllipseB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
  		ellipseListB.addComponent(button);
+ 		mapContainers.put(button, ellipseListB);
 
  		button = frame.editingSelector.getCircleB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.127")); //$NON-NLS-1$
  		ellipseListB.addComponent(button);
+ 		mapContainers.put(button, ellipseListB);
  		ellipseListB.addSeparator();
 	}
 
@@ -121,25 +210,28 @@ public class LToolbar extends MToolBar {
 	 * Adds a widgets to create polygon/rhombus/triangle shapes.
 	 * @since 3.0
 	 */
-	protected void initialisePolygonLikeToolbar(final LCanvas canvas) {
+	protected void composePolygonLikeToolbar(final LCanvas canvas) {
  		polygonListB = new ListToggleButton(frame, LResources.POLYGON_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
  		polygonListB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
- 		add(polygonListB);
+ 		widget.add(polygonListB);
 
  		AbstractButton button = frame.editingSelector.getPolygonB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
  		polygonListB.addComponent(button);
+ 		mapContainers.put(button, polygonListB);
 
  		button = frame.editingSelector.getRhombusB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.123")); //$NON-NLS-1$
  		polygonListB.addComponent(button);
+ 		mapContainers.put(button, polygonListB);
 
  		button = frame.editingSelector.getTriangleB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.124")); //$NON-NLS-1$
  		polygonListB.addComponent(button);
+ 		mapContainers.put(button, polygonListB);
  		polygonListB.addSeparator();
 	}
 
@@ -148,20 +240,22 @@ public class LToolbar extends MToolBar {
 	 * Adds a widgets to create bezier curve shapes.
 	 * @since 3.0
 	 */
-	protected void initialiseCurveLikeToolbar(final LCanvas canvas) {
+	protected void composeCurveLikeToolbar(final LCanvas canvas) {
  		bezierListB = new ListToggleButton(frame, LResources.CLOSED_BEZIER_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
  		bezierListB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
- 		add(bezierListB);
+ 		widget.add(bezierListB);
 
  		AbstractButton button = frame.editingSelector.getBezierClosedB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getString19("LaTeXDrawFrame.11")); //$NON-NLS-1$
  		bezierListB.addComponent(button);
+ 		mapContainers.put(button, bezierListB);
 
  		button = frame.editingSelector.getBezierB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
  		bezierListB.addComponent(button);
+ 		mapContainers.put(button, bezierListB);
  		bezierListB.addSeparator();
 	}
 
@@ -170,7 +264,7 @@ public class LToolbar extends MToolBar {
 	 * Adds a widgets to create grid/axes shapes.
 	 * @since 3.0
 	 */
-	protected void initialiseGridLikeToolbar(final LCanvas canvas) {
+	protected void composeGridLikeToolbar(final LCanvas canvas) {
  		gridListB = new ListToggleButton(frame, LResources.GRID_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
  		gridListB.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.16")); //$NON-NLS-1$
 
@@ -178,27 +272,29 @@ public class LToolbar extends MToolBar {
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.133")); //$NON-NLS-1$
  		gridListB.addComponent(button);
+ 		mapContainers.put(button, gridListB);
 
  		button = frame.editingSelector.getAxesB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.17")); //$NON-NLS-1$
  		gridListB.addComponent(button);
+ 		mapContainers.put(button, gridListB);
  		gridListB.addSeparator();
- 		add(gridListB);
+ 		widget.add(gridListB);
 	}
 
 
-	protected void initialiseMagnticGridToolbar(final LCanvas canvas) {
+	protected void composeMagnticGridToolbar(final LCanvas canvas) {
 		magneticGridB = new ListToggleButton(frame, LResources.DISPLAY_GRID_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
 		magneticGridB.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.12")); //$NON-NLS-1$
-		add(magneticGridB);
+		widget.add(magneticGridB);
 
 		magneticGridB.addComponent(frame.gridCustomiser.getStyleList());
-		magneticGridB.addComponent(Box.createHorizontalStrut(LPropertiesToolbar.SEPARATION_WIDTH));
+		magneticGridB.addComponent(Box.createHorizontalStrut(PropertiesToolbarBuilder.SEPARATION_WIDTH));
 		magneticGridB.addComponent(frame.gridCustomiser.getMagneticCB());
-		magneticGridB.addComponent(Box.createHorizontalStrut(LPropertiesToolbar.SEPARATION_WIDTH));
+		magneticGridB.addComponent(Box.createHorizontalStrut(PropertiesToolbarBuilder.SEPARATION_WIDTH));
 		MSpinner spinner = frame.gridCustomiser.getGridSpacing();
-		spinner.setPreferredSize(new Dimension(65, LPropertiesToolbar.HEIGHT_TEXTFIELD));
+		spinner.setPreferredSize(new Dimension(65, PropertiesToolbarBuilder.HEIGHT_TEXTFIELD));
 		if(spinner.getLabel()!=null)
 			magneticGridB.addComponent(spinner.getLabel());
 		magneticGridB.addComponent(spinner);
@@ -206,81 +302,6 @@ public class LToolbar extends MToolBar {
 		frame.gridCustomiser.setWidgetContainer(magneticGridB);
 
 		magneticGridB.addSeparator();
-	}
-
-
-	/**
-	 * Initialise the toolbar using the widgets of the instruments.
-	 * @since 3.0
-	 */
-	protected void initialiseToolbar() {//TODO: remove "LaTeXDrawFrame.116"?
-		final LCanvas canvas = frame.getCanvas();
-		AbstractButton button;
-
-		// Adding new/open/save buttons
-		add(frame.fileLoader.getNewButton());
-		add(frame.fileLoader.getLoadButton());
-		add(frame.fileLoader.getSaveButton());
-		addSeparator();
-
-		// Adding the pdf button
-		add(frame.exporter.getPdfButton());
-		addSeparator();
-
-		// Adding the zoom buttons.
-		add(frame.zoomer.getZoomSpinner());
-		add(frame.zoomer.getZoomDefaultButton());
-		addSeparator();
-
-		initialiseMagnticGridToolbar(canvas);
-
-		// Adding the undo/redo buttons.
-		add(frame.undoManager.getUndoB());
-		add(frame.undoManager.getRedoB());
-		addSeparator();
-
- 		//Adding a widget to select shape.
-		button = frame.editingSelector.getHandB();
-		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.136") + //$NON-NLS-1$
-				 				LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.137") + //$NON-NLS-1$
-				 				LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.138")); //$NON-NLS-1$
- 		add(button);
- 		add(frame.deleter.getDeleteB());
- 		addSeparator();
-
- 		//Adding a widget to create lines.
-		button = frame.editingSelector.getLinesB();
-		button.setToolTipText("Draw a single or several joined lines.");
-		add(button);
-
-		initialiseRectangleLikeToolbar(canvas);
-		initialiseEllipseLikeToolbar(canvas);
-		initialisePolygonLikeToolbar(canvas);
-		initialiseCurveLikeToolbar(canvas);
-		initialiseGridLikeToolbar(canvas);
-
-		// Adding a widget to create arcs.
- 		button = frame.editingSelector.getArcB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
- 		add(button);
-
- 		//Adding a widget to create text shapes.
-		button = frame.editingSelector.getTextB();
-		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.60")); //$NON-NLS-1$
-		add(button);
-
- 		//Adding a widget to create free hand shapes.
-		button = frame.editingSelector.getFreeHandB();
-		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.7")); //$NON-NLS-1$
-		add(button);
-
- 		//Adding a widget to create dot shapes.
-		button = frame.editingSelector.getDotB();
-		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.117")); //$NON-NLS-1$
-		add(button);
-
-		add(frame.exceptionsManager.getExceptionB());
 	}
 }
 

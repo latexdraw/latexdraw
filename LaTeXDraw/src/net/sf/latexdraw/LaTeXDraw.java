@@ -2,23 +2,22 @@ package net.sf.latexdraw;
 
 import java.io.File;
 
-import org.malai.action.ActionsRegistry;
-import org.malai.mapping.MappingRegistry;
-import org.malai.ui.UIComposer;
-import org.malai.undo.UndoCollector;
-
 import net.sf.latexdraw.actions.LoadDrawing;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.ui.LFrame;
-import net.sf.latexdraw.ui.UIBuilder;
 import net.sf.latexdraw.ui.SplashScreen;
 import net.sf.latexdraw.util.LCommandLine;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.Theme;
+
+import org.malai.action.ActionsRegistry;
+import org.malai.mapping.MappingRegistry;
+import org.malai.undo.UndoCollector;
 
 /**
  * The main class of the project.<br>
@@ -92,15 +91,15 @@ public final class LaTeXDraw {
 
     private static void launchLatexdraw(final LCommandLine cmdLine) {
     	// Creation of the splash screen.
-		final SplashScreen splashScreen = new SplashScreen(Theme.INSTANCE.getLookAndFeel());
+		SplashScreen splashScreen = new SplashScreen(Theme.INSTANCE.getLookAndFeel());
 		splashScreen.setVisible(true);
 		// Creation of the main frame.
     	LFrame frame = new LFrame(splashScreen);
-    	// Creation of the UI composer.
-    	UIComposer composer = new UIBuilder(frame, splashScreen);
     	// Composing the user interface.
-    	composer.compose();
-    	splashScreen.addToProgressBar(25);
+    	frame.getComposer().compose(splashScreen);
+
+		try { frame.getPrefSetters().readXMLPreferences(); }
+		catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 
     	// Removing the splash screen.
     	splashScreen.setVisible(false);

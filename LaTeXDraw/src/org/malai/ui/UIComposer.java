@@ -1,5 +1,7 @@
 package org.malai.ui;
 
+import java.awt.Component;
+
 /**
  * A UI composer is a object that composes a user interface using instruments and presentations.<br>
  * <br>
@@ -19,9 +21,45 @@ package org.malai.ui;
  * @version 0.2
  * @since 0.2
  */
-public interface UIComposer {
-	/** This method composes the user interface using instruments and presentations
-	 *  of the interactive system. 
+public abstract class UIComposer<T extends Component> {
+	/** The widget composed by the composer. */
+	protected T widget;
+
+
+
+	/**
+	 * Creates the composer.
+	 * @since 0.2
 	 */
-	void compose();
+	public UIComposer() {
+		super();
+	}
+
+
+	/**
+	 * This method composes the user interface using instruments, presentations and widgets of the interactive system.
+	 * @param progressBar The progress bar that can be used to show the progress of the UI composition. Can be null.
+	 */
+	public abstract void compose(final IProgressBar progressBar);
+
+
+	/**
+	 * Changes the visibility of the given widget and may launch a process of recomposition/adaptation of the UI if needed.
+	 * @param widget The widget to change its visibility.
+	 * @param visible True: the widget will be visible.
+	 * @since 0.2
+	 */
+	public void setWidgetVisible(final Component widget, final boolean visible) {
+		if(widget!=null)
+			widget.setVisible(visible);
+	}
+
+
+	/**
+	 * @return The widget composed by the composer.
+	 * @since 0.2
+	 */
+	public T getWidget() {
+		return widget;
+	}
 }
