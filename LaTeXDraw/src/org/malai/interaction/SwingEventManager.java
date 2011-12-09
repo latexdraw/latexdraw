@@ -21,6 +21,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JMenuItem;
 import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -91,6 +92,9 @@ public class SwingEventManager implements MouseListener, KeyListener, MouseMotio
 
 			if(comp instanceof JSpinner)
 				((JSpinner)comp).addChangeListener(this);
+
+			if(comp instanceof JTabbedPane)
+				((JTabbedPane)comp).addChangeListener(this);
 		}
 	}
 
@@ -118,6 +122,9 @@ public class SwingEventManager implements MouseListener, KeyListener, MouseMotio
 
 			if(comp instanceof JSpinner)
 				((JSpinner)comp).removeChangeListener(this);
+
+			if(comp instanceof JTabbedPane)
+				((JTabbedPane)comp).removeChangeListener(this);
 		}
 	}
 
@@ -319,12 +326,19 @@ public class SwingEventManager implements MouseListener, KeyListener, MouseMotio
 	@Override
 	public void stateChanged(final ChangeEvent e) {
 		if(e==null) return;
+		final Object src = e.getSource();
 
-		if(e.getSource() instanceof JSpinner) {
-			final JSpinner spinner = (JSpinner) e.getSource();
+		if(src instanceof JSpinner) {
+			final JSpinner spinner = (JSpinner)src;
 
-    		for(EventHandler handler : handlers)
+    		for(final EventHandler handler : handlers)
 				handler.onSpinnerChanged(spinner);
+		}
+		else if(src instanceof JTabbedPane) {
+			final JTabbedPane tabbedPanel = (JTabbedPane)src;
+
+    		for(final EventHandler handler : handlers)
+				handler.onTabChanged(tabbedPanel);
 		}
 	}
 

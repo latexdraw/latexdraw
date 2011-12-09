@@ -5,8 +5,6 @@ import javax.swing.text.JTextComponent;
 import org.malai.stateMachine.SourceableState;
 import org.malai.stateMachine.TargetableState;
 
-
-
 /**
  * This transition corresponds to a change of the text of a text field.<br>
  * <br>

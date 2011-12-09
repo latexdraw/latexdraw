@@ -6,6 +6,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
 import javax.swing.JMenuItem;
 import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
 import javax.swing.text.JTextComponent;
 
 import org.malai.widget.MFrame;
@@ -151,4 +152,11 @@ public interface EventHandler {
 	 * @since 0.2
 	 */
 	void onWindowClosed(final MFrame frame);
+
+	/**
+	 * Defines actions to do when the selected tab of a tabbed panel has changed.
+	 * @param tabbedPanel The tabbed panel that produces the event.
+	 * @since 0.2
+	 */
+	void onTabChanged(final JTabbedPane tabbedPanel);
 }

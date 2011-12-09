@@ -8,6 +8,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
 import javax.swing.JMenuItem;
 import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
 import javax.swing.text.JTextComponent;
 
 import org.malai.picking.Pickable;
@@ -619,6 +620,26 @@ public abstract class Interaction implements IStateMachine, EventHandler {
 
 			if(transition instanceof WindowClosedTransition) {
 				((WindowClosedTransition)transition).setFrame(frame);
+
+				if(transition.isGuardRespected())
+					again = !checkTransition(transition);
+			}
+		}
+	}
+
+
+	@Override
+	public void onTabChanged(final JTabbedPane tabbedPanel) {
+		if(!activated) return ;
+
+		ITransition transition;
+		boolean again = true;
+
+		for(int i=0, j=currentState.getTransitions().size(); again && i<j; i++) {
+			transition = currentState.getTransition(i);
+
+			if(transition instanceof TabSelectedTransition) {
+				((TabSelectedTransition)transition).setTabbedPane(tabbedPanel);
 
 				if(transition.isGuardRespected())
 					again = !checkTransition(transition);
