@@ -331,7 +331,7 @@ public final class MappingRegistry implements IMappingRegistry {
 
 	/**
 	 * Idem than removeMappingsUsingTarget.
-	 * @param removeTargetMappings True: the standard hash maps will be cleaned too.
+	 * @param removeSourceMappings True: the standard hash maps will be cleaned too.
 	 * @since 0.2
 	 */
 	protected void removeMappingsUsingTarget(final Object target, final Class<? extends IMapping> clazz, final boolean removeSourceMappings) {

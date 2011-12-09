@@ -36,7 +36,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	/** Contains the second control points of each points; useful for closed curve. */
 	protected List<IPoint> secondCtrlPts;
 
-	/**  Define the gap between a control point and its point in pixel when using {@link #equilibrate()} method. */
+	/**  Define the gap between a control point and its point in pixel when using {@link #balance()} method. */
 	protected int balanceGap;
 
 

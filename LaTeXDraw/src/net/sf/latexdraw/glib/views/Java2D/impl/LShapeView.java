@@ -591,7 +591,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	/**
 	 * Paints the hatchings.
 	 * @param g The graphics to paint.
-	 * @param angle2 The angle of the hatchings (in radian).
+	 * @param angle The angle of the hatchings (in radian).
 	 * @param clip The clip box.
 	 */
 	private void paintHatchings2(final Graphics2D g, final double angle, final Rectangle2D clip) {

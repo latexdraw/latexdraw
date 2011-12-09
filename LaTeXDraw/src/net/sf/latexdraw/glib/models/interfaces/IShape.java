@@ -960,7 +960,7 @@ public interface IShape extends Modifiable, IArrowable {
 	/**
 	 * Rotates the shape.
 	 * @param point The rotation centre.
-	 * @param radians The angle of rotation in radians.
+	 * @param angle The angle of rotation in radians.
 	 * @since 3.0
 	 */
 	void rotate(final IPoint point, final double angle);

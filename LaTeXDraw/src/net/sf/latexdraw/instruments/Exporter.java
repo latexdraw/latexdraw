@@ -121,7 +121,6 @@ public class Exporter extends Instrument {
 	 * The latex packages that the interactive system saves by default.
 	 * These packages should by set by the user and must be general, i.e.
 	 * independent of any document.
-	 * Packages for a given document should by set to the attribute {@link #packages}
 	 */
 	protected String defaultPackages;
 

@@ -263,7 +263,6 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 
 
 	/**
-	 * @param ppc The number of pixels per centimetre.
 	 * @return The PSTricks code of the border position.
 	 * @since 3.0
 	 */

@@ -87,7 +87,7 @@ public interface IViewShape extends IAbstractView, Pickable {
 
 	/**
 	 * Allows to know if the point pt is in (or not) the shape.
-	 * @param p The point.
+	 * @param pt The point.
 	 * @return True if the point is in the shape.
 	 */
 	boolean contains(final IPoint pt);

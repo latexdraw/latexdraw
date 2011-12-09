@@ -208,7 +208,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	/**
 	 * Copies the parameters of the first arrow to the second arrow (only
 	 * the parameters of the current style are copied).
-	 * @see #homogeniseArrows(ArrowHead, ArrowHead)
+	 * @see #homogeniseArrows(IArrow, IArrow)
 	 * @param source The arrow that will be copied.
 	 * @param target The arrow that will be set.
 	 * @since 2.0.0
@@ -1052,7 +1052,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param p2 The second point of the line.
 	 * @param blackDash The black dash interval.
 	 * @param whiteDash The white dash interval.
-	 * @param lineStyle The style of the line.
 	 * @param hasDble Defines if the shape had double borders.
 	 * @param dotSep The dot interval.
 	 * @return The created SVG line or null.

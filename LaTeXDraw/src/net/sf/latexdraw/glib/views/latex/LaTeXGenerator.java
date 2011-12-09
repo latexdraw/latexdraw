@@ -48,8 +48,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * The latex packages used when exporting using latex.
-	 * These packages are defined for the current document bu not for all documents.
-	 * These packages can be defined using packages defined by default for all document: {@link #defaultPackages}
+	 * These packages are defined for the current document but not for all documents.
 	 */
 	protected static ISingleton<String> packages = new ActiveSingleton<String>("");
 

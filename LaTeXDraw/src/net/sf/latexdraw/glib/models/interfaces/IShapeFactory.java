@@ -65,7 +65,7 @@ public interface IShapeFactory {
 
 	/**
 	 * Creates a model with no point.
-	 * @param uniqueID True: the model will have a unique ID.
+	 * @param isUniqueID True: the model will have a unique ID.
 	 */
 	IBezierCurve createBezierCurve(final boolean isUniqueID);
 

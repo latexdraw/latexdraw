@@ -29,7 +29,6 @@ public interface IMappingRegistry {
 
 	/**
 	 * Adds a mapping to the registry.
-	 * @param source The key source object.
 	 * @param mapping The mapping to add.
 	 * @since 0.2
 	 */
@@ -113,7 +112,6 @@ public interface IMappingRegistry {
 	/**
 	 * Removes the mappings that use the given object as target.
 	 * @param target A target object of the mappings to remove.
-	 * @param clazz The type of the mappings to remove.
 	 * @since 0.2
 	 */
 	void removeMappingsUsingTarget(final Object target);
