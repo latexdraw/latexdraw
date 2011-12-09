@@ -95,7 +95,7 @@ public class Border extends Instrument implements Picker {
 
 	/** The object that contain the zoom used to display shapes and thus the border. */
 	protected Zoomable zoomable;
-	
+
 	/** The drawing containing the shapes to handle. */
 	protected IDrawing drawing;
 
@@ -127,7 +127,7 @@ public class Border extends Instrument implements Picker {
 		scaleHandlers.add(new ScaleHandler(Position.SOUTH));
 		scaleHandlers.add(new ScaleHandler(Position.SE));
 		rotHandler 		= new RotationHandler();
-		
+
 		initialiseLinks();
 	}
 
@@ -149,31 +149,35 @@ public class Border extends Instrument implements Picker {
 	 * @since 3.0
 	 */
 	public void update() {
-		final double zoomLevel = zoomable.getZoom();
-		double minX = Double.MAX_VALUE;
-		double minY = Double.MAX_VALUE;
-		double maxX = Double.MIN_VALUE;
-		double maxY = Double.MIN_VALUE;
-		Rectangle2D bounds;
+		if(selection.isEmpty())
+			border.setFrame(0, 0, 1, 1);
+		else {
+			final double zoomLevel = zoomable.getZoom();
+			double minX = Double.MAX_VALUE;
+			double minY = Double.MAX_VALUE;
+			double maxX = Double.MIN_VALUE;
+			double maxY = Double.MIN_VALUE;
+			Rectangle2D bounds;
 
-		for(final IViewShape view : selection) {
-			bounds = view.getBorder();
+			for(final IViewShape view : selection) {
+				bounds = view.getBorder();
 
-			if(bounds.getMinX()<minX)
-				minX = bounds.getMinX();
+				if(bounds.getMinX()<minX)
+					minX = bounds.getMinX();
 
-			if(bounds.getMinY()<minY)
-				minY = bounds.getMinY();
+				if(bounds.getMinY()<minY)
+					minY = bounds.getMinY();
 
-			if(bounds.getMaxX()>maxX)
-				maxX = bounds.getMaxX();
+				if(bounds.getMaxX()>maxX)
+					maxX = bounds.getMaxX();
 
-			if(bounds.getMaxY()>maxY)
-				maxY = bounds.getMaxY();
+				if(bounds.getMaxY()>maxY)
+					maxY = bounds.getMaxY();
+			}
+
+			border.setFrame(minX*zoomLevel, minY*zoomLevel, (maxX-minX)*zoomLevel, (maxY-minY)*zoomLevel);
+			updateHandlersPosition();
 		}
-
-		border.setFrame(minX*zoomLevel, minY*zoomLevel, (maxX-minX)*zoomLevel, (maxY-minY)*zoomLevel);
-		updateHandlersPosition();
 	}
 
 
@@ -211,7 +215,7 @@ public class Border extends Instrument implements Picker {
 			}
 
 			final IShape sh = selection.get(0).getShape();
-			
+
 			if(sh instanceof IArc) {
 				final IArc arc = (IArc)sh;
 				arcHandlerStart.updateFromArc(arc, zoomable.getZoom());
@@ -228,19 +232,19 @@ public class Border extends Instrument implements Picker {
 	private void updateCtrlMvHandlers() {
 		if(isCtrlPtMvHandlersShowable()) {
 			final IShape sh = selection.get(0).getShape();
-			
+
 			if(sh instanceof IBezierCurve)
 				// Lazy initialisation
 				initialiseCtrlMvHandlers((IBezierCurve)sh);
 		}
 	}
-	
-	
+
+
 	private void initialiseCtrlMvHandlers(final IBezierCurve bc) {
 		final double zoom = zoomable.getZoom();
 		final int nbPts   = bc.getNbPoints();
 		IPoint pt;
-		
+
 		if(ctrlPt1Handlers==null) {
 			ctrlPt1Handlers = new ArrayList<IHandler>();
 			ctrlPt2Handlers = new ArrayList<IHandler>();
@@ -268,7 +272,7 @@ public class Border extends Instrument implements Picker {
 		}
 	}
 
-	
+
 
 	/**
 	 * Updates the handlers that move points.
@@ -277,7 +281,7 @@ public class Border extends Instrument implements Picker {
 	private void updateMvHandlers() {
 		if(isPtMvHandlersShowable()) {
 			final IShape sh = selection.get(0).getShape();
-			
+
 			if(sh instanceof IModifiablePointsShape) {
 				final IModifiablePointsShape pts = (IModifiablePointsShape)sh;
 				final int nbPts 				 = pts.getNbPoints();
@@ -513,27 +517,27 @@ public class Border extends Instrument implements Picker {
 		// Supposing that there is no handler outside the border.
 		return obj instanceof IHandler;
 	}
-	
-	
+
+
 	/**
 	 * This link maps a DnD interaction on a scale handler to an action that scales the selection.
 	 */
 	private static class DnD2Scale extends Link<ScaleShapes, DnD, Border> {
 		/** The point corresponding to the 'press' position. */
 		protected Point p1;
-		
+
 		/** The initial width of the scaled selection. */
 		protected double width;
-		
+
 		/** The initial height of the scaled selection. */
 		protected double height;
-		
-		
+
+
 		protected DnD2Scale(final Border ins) throws InstantiationException, IllegalAccessException {
 			super(ins, true, ScaleShapes.class, DnD.class);
 			clear();
 		}
-		
+
 		private void clear() {
 			width 	= 0.;
 			height 	= 0.;
@@ -544,56 +548,56 @@ public class Border extends Instrument implements Picker {
 		public void initAction() {
 			final IPoint br = instrument.drawing.getSelection().getBottomRightPoint();
 			final IPoint tl = instrument.drawing.getSelection().getTopLeftPoint();
-			
+
 			action.setDrawing(instrument.drawing);
 			action.setPosition(getScaleHandler().getPosition().getOpposite());
 			p1 		= interaction.getStartPt();
 			width  	= br.getX()-tl.getX();
-			height 	= br.getY()-tl.getY(); 
+			height 	= br.getY()-tl.getY();
 		}
-		
-		
+
+
 		@Override
 		public void updateAction() {
 			super.updateAction();
-			
+
 			final Point pt = interaction.getEndPt();
 			final double x = pt.getX() - p1.getX();
 			final double y = p1.getY() - pt.getY();
 			double width2  = width;
 			double height2 = height;
 			final Position position = getScaleHandler().getPosition();
-			
+
 			if(position.isEast())
 				width2 += x;
 			else if (position.isWest())
 				width2 -= x;
-			
+
 			if(position.isNorth())
 				height2 += y;
 			else if(position.isSouth())
 				height2 -= y;
-				
+
 			action.setSx(width2/width);
 			action.setSy(height2/height);
 		}
-		
+
 
 		@Override
 		public boolean isConditionRespected() {
 			return getScaleHandler()!=null;
 		}
-		
-		
+
+
 		private ScaleHandler getScaleHandler() {
 			final Object obj = interaction.getStartObject();
 			ScaleHandler handler = null;
-			
+
 			if(obj instanceof ScaleHandler)
 				for(int i=0, size=instrument.scaleHandlers.size(); i<size && handler==null; i++)
 					if(instrument.scaleHandlers.get(i)==obj)
 						handler = (ScaleHandler)obj;
-			
+
 			return handler;
 		}
 
