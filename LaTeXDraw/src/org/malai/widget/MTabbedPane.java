@@ -42,6 +42,7 @@ public class MTabbedPane extends JTabbedPane implements Eventable {
 	/**
 	 * {@link JTabbedPane#JTabbedPane(int)}
 	 * @param withEvtManager True: the tabbed panel will have an event manager that gathers events produced using the editor pane (for picking).
+	 * @param tabPlacement the placement for the tabs relative to the content
 	 */
 	public MTabbedPane(final int tabPlacement, final boolean withEvtManager) {
 		this(tabPlacement, WRAP_TAB_LAYOUT, withEvtManager);
@@ -51,6 +52,8 @@ public class MTabbedPane extends JTabbedPane implements Eventable {
 	/**
 	 * {@link JTabbedPane#JTabbedPane(int, int)}
 	 * @param withEvtManager True: the tabbed panel will have an event manager that gathers events produced using the editor pane (for picking).
+	 * @param tabPlacement the placement for the tabs relative to the content
+     * @param tabLayoutPolicy the policy for laying out tabs when all tabs will not fit on one run
 	 */
 	public MTabbedPane(final int tabPlacement, final int tabLayoutPolicy, final boolean withEvtManager) {
 		super(tabPlacement, tabLayoutPolicy);

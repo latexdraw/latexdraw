@@ -23,6 +23,7 @@ import java.util.List;
  * @author Arnaud BLOUIN
  * @version 0.2
  * @since 0.2
+ * @param <E> The type of the elements contained in the list.
  */
 public class ActiveArrayList<E> extends ArrayList<E> implements IActiveList<E> {
 	private static final long serialVersionUID = 1L;
@@ -45,9 +46,10 @@ public class ActiveArrayList<E> extends ArrayList<E> implements IActiveList<E> {
 
 	/**
 	 * {@link ArrayList#ArrayList(Collection)}
+	 * @param coll The collection which elements will be added the the list.
 	 */
-	public ActiveArrayList(final Collection<E> c) {
-		super(c);
+	public ActiveArrayList(final Collection<E> coll) {
+		super(coll);
 	}
 
 

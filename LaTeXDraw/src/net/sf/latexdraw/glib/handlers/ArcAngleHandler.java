@@ -50,6 +50,7 @@ public class ArcAngleHandler extends Handler<Rectangle2D> {
 	/**
 	 * Updates the handler using the given arc as reference.
 	 * @param arc The arc that will be used as reference.
+	 * @param zoom The zoom level.
 	 * @since 3.0
 	 */
 	public void updateFromArc(final IArc arc, final double zoom) {

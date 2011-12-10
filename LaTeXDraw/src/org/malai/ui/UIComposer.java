@@ -20,6 +20,7 @@ import java.awt.Component;
  * @author Arnaud BLOUIN
  * @version 0.2
  * @since 0.2
+ * @param <T> The type of widget produced by the composer.
  */
 public abstract class UIComposer<T extends Component> {
 	/** The widget composed by the composer. */

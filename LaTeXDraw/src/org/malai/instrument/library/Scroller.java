@@ -69,6 +69,8 @@ class Scrolling2Scroll extends Link<Scroll, KeysScrolling, Scroller> {
 	/**
 	 * Creates a link ScrollInteraction -> ScrollAction
 	 * @param scroller The instrument.
+	 * @throws IllegalAccessException If no free-parameter constructor is available.
+	 * @throws InstantiationException If an error occurs during instantiation of the interaction/action.
 	 * @since 0.2
 	 */
 	public Scrolling2Scroll(final Scroller scroller) throws InstantiationException, IllegalAccessException {

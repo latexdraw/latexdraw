@@ -101,7 +101,7 @@ class ButtonPress2ShowExceptionFrame extends Link<ShowWidget, ButtonPressed, Exc
 	/**
 	 * Creates the link.
 	 */
-	public ButtonPress2ShowExceptionFrame(final ExceptionsManager ins) throws InstantiationException, IllegalAccessException {
+	protected ButtonPress2ShowExceptionFrame(final ExceptionsManager ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ShowWidget.class, ButtonPressed.class);
 	}
 

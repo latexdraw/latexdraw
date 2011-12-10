@@ -101,11 +101,10 @@ public class EditingSelector extends WidgetInstrument {
 	/** The instrument that manages selected shapes. */
 	protected Border border;
 
-	/** The insturment used to delete shapes. */
+	/** The instrument used to delete shapes. */
 	protected ShapeDeleter deleter;
 
 	protected Map<MToggleButton, EditionChoice> button2EditingChoiceMap;
-
 
 
 	/**
@@ -115,6 +114,7 @@ public class EditingSelector extends WidgetInstrument {
 	 * @param hand The hand to select.
 	 * @param border The instrument that manages selected shapes.
 	 * @param metaShapeCustomiser The instrument that manages instruments that customise shapes and the pencil.
+	 * @param deleter The instrument used to delete shapes.
 	 * @throws IllegalArgumentException If one of the given parameter is null.
 	 * @since 3.0
 	 */

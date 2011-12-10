@@ -59,6 +59,7 @@ public class MTextArea extends JTextArea implements Pickable, Scrollable, Eventa
 
 	/**
 	 * {@link JTextArea}
+	 * @param text the text to be displayed, or null
 	 */
 	public MTextArea(final String text) {
 		super(text);
@@ -66,6 +67,7 @@ public class MTextArea extends JTextArea implements Pickable, Scrollable, Eventa
 
 	/**
 	 * {@link JTextArea}
+	 * @param doc  the model to use
 	 */
 	public MTextArea(final Document doc) {
 		super(doc);
@@ -73,6 +75,8 @@ public class MTextArea extends JTextArea implements Pickable, Scrollable, Eventa
 
 	/**
 	 * {@link JTextArea}
+	 * @param rows the number of rows >= 0
+     * @param columns the number of columns >= 0
 	 */
 	public MTextArea(final int rows, final int columns) {
 		super(rows, columns);
@@ -80,6 +84,9 @@ public class MTextArea extends JTextArea implements Pickable, Scrollable, Eventa
 
 	/**
 	 * {@link JTextArea}
+	 * @param text the text to be displayed, or null
+     * @param rows the number of rows >= 0
+     * @param columns the number of columns >= 0
 	 */
 	public MTextArea(final String text, final int rows, final int columns) {
 		super(text, rows, columns);
@@ -87,6 +94,10 @@ public class MTextArea extends JTextArea implements Pickable, Scrollable, Eventa
 
 	/**
 	 * {@link JTextArea}
+	 * @param doc the model to use, or create a default one if null
+     * @param text the text to be displayed, null if none
+     * @param rows the number of rows >= 0
+     * @param columns the number of columns >= 0
 	 */
 	public MTextArea(final Document doc, final String text, final int rows, final int columns) {
 		super(doc, text, rows, columns);

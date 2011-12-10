@@ -104,6 +104,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	/**
 	 * Creates an initialises a canvas.
+	 * @param drawing The model of the canvas.
 	 * @since 3.0
 	 */
 	public LCanvas(final IDrawing drawing){

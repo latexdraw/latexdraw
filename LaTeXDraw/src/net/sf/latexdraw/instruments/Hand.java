@@ -62,6 +62,7 @@ public class Hand extends Instrument {
 	 * @param canvas The canvas that contains the shapes to handle.
 	 * @param grid The magnetic grid used to compute points.
 	 * @param zoomer The zommer used to computed points.
+	 * @param textSetter The instrument used to add texts.
 	 * @throws IllegalArgumentException If on of the given argument is null.
 	 * @since 3.0
 	 */
@@ -147,7 +148,7 @@ class DnD2Translate extends Link<TranslateShapes, DnD, Hand> {
 	 * @param hand The hand.
 	 * @param exec True: the action is executed at each update of the interaction.
 	 */
-	public DnD2Translate(final Hand hand, final boolean exec) throws InstantiationException, IllegalAccessException {
+	protected DnD2Translate(final Hand hand, final boolean exec) throws InstantiationException, IllegalAccessException {
 		super(hand, exec, TranslateShapes.class, DnD.class);
 	}
 
@@ -217,7 +218,7 @@ class DnD2Select extends Link<SelectShapes, DnD, Hand> {
 	 * @param hand The hand.
 	 * @param exec True: the action is executed at each update of the interaction.
 	 */
-	public DnD2Select(final Hand hand, final boolean exec) throws InstantiationException, IllegalAccessException {
+	protected DnD2Select(final Hand hand, final boolean exec) throws InstantiationException, IllegalAccessException {
 		super(hand, exec, SelectShapes.class, DnD.class);
 		selectionBorder = new Rectangle2D.Double();
 	}

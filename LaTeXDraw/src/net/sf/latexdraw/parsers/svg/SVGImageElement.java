@@ -32,6 +32,9 @@ import org.w3c.dom.Node;
 public class SVGImageElement extends SVGElement {
 	/**
 	 * {@link SVGImageElement#SVGImageElement(SVGDocument, String)}
+	 * @param n The node.
+	 * @param p The parent SVG element.
+	 * @throws MalformedSVGDocument If the element is not well formed.
 	 */
 	public SVGImageElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
 		super(n, p);

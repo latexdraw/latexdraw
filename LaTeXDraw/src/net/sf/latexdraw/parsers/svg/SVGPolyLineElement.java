@@ -37,6 +37,7 @@ public class SVGPolyLineElement extends AbstractPointsElement {
 
 	/**
 	 * {@link AbstractPointsElement#AbstractPointsElement(Node, SVGElement)}
+	 * @param doc The owner document.
 	 */
 	public SVGPolyLineElement(final SVGDocument doc) {
 		super(doc);

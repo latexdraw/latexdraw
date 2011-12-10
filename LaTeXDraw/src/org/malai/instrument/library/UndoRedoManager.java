@@ -42,6 +42,7 @@ public class UndoRedoManager extends WidgetInstrument {
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that compose the widgets provided by this instrument.
 	 * @since 0.1
 	 */
 	public UndoRedoManager(final UIComposer<?> composer) {
@@ -148,6 +149,9 @@ public class UndoRedoManager extends WidgetInstrument {
 class ButtonPressed2Redo extends Link<Redo, ButtonPressed, UndoRedoManager> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains this link.
+	 * @throws IllegalAccessException If no free-parameter constructor is available.
+	 * @throws InstantiationException If an error occurs during instantiation of the interaction/action.
 	 */
 	public ButtonPressed2Redo(final UndoRedoManager ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, Redo.class, ButtonPressed.class);
@@ -175,6 +179,9 @@ class ButtonPressed2Redo extends Link<Redo, ButtonPressed, UndoRedoManager> {
 class ButtonPressed2Undo extends Link<Undo, ButtonPressed, UndoRedoManager> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains this link.
+	 * @throws IllegalAccessException If no free-parameter constructor is available.
+	 * @throws InstantiationException If an error occurs during instantiation of the interaction/action.
 	 */
 	public ButtonPressed2Undo(final UndoRedoManager ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, Undo.class, ButtonPressed.class);

@@ -41,6 +41,8 @@ public class MenuItem2OpenWebPageLink extends Link<OpenWebPage, MenuItemPressed,
 	 * @param menuItem he menu item that will be uses to create the action.
 	 * @param uri The URI to open.
 	 * @throws IllegalArgumentException If one of the given parameters is null.
+	 * @throws IllegalAccessException If no free-parameter constructor is available.
+	 * @throws InstantiationException If an error occurs during instantiation of the interaction/action.
 	 * @since 0.2
 	 */
 	public MenuItem2OpenWebPageLink(final Instrument ins, final MMenuItem menuItem,

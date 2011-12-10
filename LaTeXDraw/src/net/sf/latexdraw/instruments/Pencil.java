@@ -594,7 +594,7 @@ abstract class PencilLink<I extends Interaction> extends Link<AddShape, I, Penci
 	 * @param exec True: the action will be executed each time the interaction is updated.
 	 * @since 3.0
 	 */
-	public PencilLink(final Pencil ins, final boolean exec, final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
+	protected PencilLink(final Pencil ins, final boolean exec, final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
 		super(ins, exec, AddShape.class, clazzInteraction);
 	}
 
@@ -626,7 +626,7 @@ class MultiClic2AddShape extends PencilLink<MultiClick> {
 	 * @param exec True: the action will be executed each time the interaction is updated.
 	 * @since 3.0
 	 */
-	public MultiClic2AddShape(final Pencil ins, final boolean exec) throws InstantiationException, IllegalAccessException {
+	protected MultiClic2AddShape(final Pencil ins, final boolean exec) throws InstantiationException, IllegalAccessException {
 		super(ins, exec, MultiClick.class);
 	}
 
@@ -710,7 +710,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 	 * @param exec True: the action will be executed each time the interaction is updated.
 	 * @since 3.0
 	 */
-	public DnD2AddShape(final Pencil ins, final boolean exec) throws InstantiationException, IllegalAccessException {
+	protected DnD2AddShape(final Pencil ins, final boolean exec) throws InstantiationException, IllegalAccessException {
 		super(ins, exec, AbortableDnD.class);
 	}
 
@@ -862,7 +862,7 @@ class Press2AddText extends Link<AddShape, Press, Pencil> {
 	/**
 	 * Creates the link.
 	 */
-	public Press2AddText(final Pencil ins, final boolean exec) throws InstantiationException, IllegalAccessException {
+	protected Press2AddText(final Pencil ins, final boolean exec) throws InstantiationException, IllegalAccessException {
 		super(ins, exec, AddShape.class, Press.class);
 	}
 

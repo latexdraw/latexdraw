@@ -58,6 +58,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 
 	/**
 	 * Initialises the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param grid The grid to customise.
 	 * @throws IllegalArgumentException If the given grid is null.
 	 * @since 3.0
@@ -201,7 +202,7 @@ class CheckBox2MagneticGrid extends Link<ModifyMagneticGrid, CheckBoxModified, M
 	 * Initialises the link.
 	 * @since 3.0
 	 */
-	public CheckBox2MagneticGrid(final MagneticGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+	protected CheckBox2MagneticGrid(final MagneticGridCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ModifyMagneticGrid.class, CheckBoxModified.class);
 	}
 
@@ -228,7 +229,7 @@ class Spinner2GridSpacing extends Link<ModifyMagneticGrid, SpinnerModified, Magn
 	 * Initialises the link.
 	 * @since 3.0
 	 */
-	public Spinner2GridSpacing(final MagneticGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+	protected Spinner2GridSpacing(final MagneticGridCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ModifyMagneticGrid.class, SpinnerModified.class);
 	}
 
@@ -261,7 +262,7 @@ class List2ChangeStyle extends Link<ModifyMagneticGrid, ListSelectionModified, M
 	 * Initialises the link.
 	 * @since 3.0
 	 */
-	public List2ChangeStyle(final MagneticGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+	protected List2ChangeStyle(final MagneticGridCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ModifyMagneticGrid.class, ListSelectionModified.class);
 	}
 

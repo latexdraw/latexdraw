@@ -166,7 +166,7 @@ class KeyPress2Desactivate extends Link<ActivateInactivateInstruments, KeyTyped,
 	/**
 	 * Creates the link.
 	 */
-	public KeyPress2Desactivate(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+	protected KeyPress2Desactivate(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ActivateInactivateInstruments.class, KeyTyped.class);
 	}
 
@@ -211,7 +211,7 @@ class Enter2AddText extends Link<AddShape, KeyTyped, TextSetter> {
 	/**
 	 * Creates the link.
 	 */
-	public Enter2AddText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+	protected Enter2AddText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, AddShape.class, KeyTyped.class);
 	}
 

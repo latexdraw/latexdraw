@@ -19,6 +19,7 @@ package org.malai.mapping;
  * @author Arnaud BLOUIN
  * @version 0.2
  * @since 0.2
+ * @param <T> The type of the element contained by the active 0-1 relation.
  */
 public class ActiveSingleton<T> implements ISingleton<T> {
 	/** The value of the singleton. */

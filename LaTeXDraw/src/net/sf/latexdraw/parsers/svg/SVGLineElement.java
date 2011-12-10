@@ -39,6 +39,10 @@ public class SVGLineElement extends SVGElement {
 	/**
 	 * Creates an SVGLine.
 	 * @param owner The owner document.
+	 * @param x1 The X-coordinate of the first point of the line.
+	 * @param x2 The X-coordinate of the second point of the line.
+	 * @param y1 The Y-coordinate of the first point of the line.
+	 * @param y2 The Y-coordinate of the second point of the line.
 	 * @throws MalformedSVGDocument If the given coordinates are not valid.
 	 * @since 0.1
 	 */

@@ -74,6 +74,8 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 
 	/**
 	 * Updates the cache.
+	 * @param origin The origin point of the PST drawing.
+	 * @param ppc The number of point per centimetre.
 	 * @since 3.0
 	 */
 	public abstract void updateCache(final IPoint origin, final float ppc);

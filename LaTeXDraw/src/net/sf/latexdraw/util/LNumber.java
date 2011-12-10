@@ -37,6 +37,7 @@ public final class LNumber {
 	 * Compares two double values to know if they are approximately equal.
 	 * @param a The first double value.
 	 * @param b The second double value.
+	 * @param threshold The threshold used to compare the given values.
 	 * @return True if both values are approximatively equal using a threshold approximation value.
 	 * @since 3.0
 	 */
@@ -59,8 +60,8 @@ public final class LNumber {
 
 
 	/**
-	 * See getCutNumber(float value, double threshold). The threshold is by default the constant
-	 * value THRESHOLD.
+	 * See getCutNumber(float value, double threshold). The threshold is by default the constant value THRESHOLD.
+	 * @param value The value to cut.
 	 * @return The cut or the intact number.
 	 * @since 3.0
 	 */
@@ -70,8 +71,8 @@ public final class LNumber {
 
 
 	/**
-	 * See getCutNumber(double value, double threshold). The threshold is by default the constant
-	 * value THRESHOLD.
+	 * See getCutNumber(double value, double threshold). The threshold is by default the constant value THRESHOLD.
+	 * @param value The value to cut.
 	 * @return The cut or the intact number.
 	 * @since 3.0
 	 */

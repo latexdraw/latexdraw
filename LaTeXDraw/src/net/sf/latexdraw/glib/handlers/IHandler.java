@@ -78,6 +78,7 @@ public interface IHandler extends Pickable {
 
 	/**
 	 * paint the handler.
+	 * @param g The object into which objects are painted.
 	 */
 	void paint(final Graphics2D g);
 

@@ -167,7 +167,7 @@ class Scroll2Zoom extends Link<Zoom, KeysScrolling, Zoomer> {
 	/**
 	 * Creates the action.
 	 */
-	public Scroll2Zoom(final Zoomer ins) throws InstantiationException, IllegalAccessException {
+	protected Scroll2Zoom(final Zoomer ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, Zoom.class, KeysScrolling.class);
 	}
 
@@ -198,7 +198,7 @@ class Button2Zoom extends Link<Zoom, ButtonPressed, Zoomer> {
 	 * Initialises the link.
 	 * @param ins The zoomer.
 	 */
-	public Button2Zoom(final Zoomer ins) throws InstantiationException, IllegalAccessException {
+	protected Button2Zoom(final Zoomer ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, Zoom.class, ButtonPressed.class);
 	}
 
@@ -226,7 +226,7 @@ class Spinner2Zoom extends Link<Zoom, SpinnerModified, Zoomer> {
 	 * Initialises the link.
 	 * @param ins The zoomer.
 	 */
-	public Spinner2Zoom(final Zoomer ins) throws InstantiationException, IllegalAccessException {
+	protected Spinner2Zoom(final Zoomer ins) throws InstantiationException, IllegalAccessException {
 		super(ins, true, Zoom.class, SpinnerModified.class);
 	}
 

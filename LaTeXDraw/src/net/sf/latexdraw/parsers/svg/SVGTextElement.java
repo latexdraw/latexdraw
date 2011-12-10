@@ -30,6 +30,7 @@ import org.w3c.dom.NodeList;
 public class SVGTextElement extends SVGElement {
 	/**
 	 * {@link SVGElement#SVGElement(Node, SVGElement)}
+	 * @param owner The owner document.
 	 */
 	public SVGTextElement(final SVGDocument owner) {
 		super(owner);

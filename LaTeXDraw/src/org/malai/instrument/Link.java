@@ -30,6 +30,9 @@ import org.malai.undo.Undoable;
  * @author Arnaud BLOUIN
  * @version 0.2
  * @since 0.2
+ * @param <A> The type of the action that will produce this link.
+ * @param <I> The type of the interaction that will use this link.
+ * @param <N> The type of the instrument that will contain this link.
  */
 public abstract class Link<A extends Action, I extends Interaction, N extends Instrument> implements InteractionHandler {
 
@@ -52,8 +55,10 @@ public abstract class Link<A extends Action, I extends Interaction, N extends In
 	 * Creates a link. This constructor must initialise the interaction.
 	 * @param ins The instrument that contains the link.
 	 * @param exec Specifies if the action must be execute or update on each evolution of the interaction.
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
+	 * @param clazzAction The type of the action that will be created. Used to instantiate the action by reflexivity.
+	 * @param clazzInteraction The type of the interaction that will be created. Used to instantiate the interaction by reflexivity.
+	 * @throws IllegalAccessException If no free-parameter constructor is available.
+	 * @throws InstantiationException If an error occurs during instantiation of the interaction/action.
 	 * @throws IllegalArgumentException If the given interaction or instrument is null.
 	 * @since 0.2
 	 */
@@ -153,6 +158,7 @@ public abstract class Link<A extends Action, I extends Interaction, N extends In
 	/**
 	* Indicates if the link can be run. To be run, no link, of the instrument, that produces the
 	* same type of action must be running.
+	* @return True: The link can be run.
 	*/
 	public boolean isRunnable() {
 		for(Link<?, ?, ?> link : instrument.links)

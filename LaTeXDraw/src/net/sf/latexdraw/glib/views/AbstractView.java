@@ -20,6 +20,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * 04/15/2008<br>
  * @author Arnaud BLOUIN
  * @since 3.0
+ * @param <S> The type of the observed model.
  */
 public abstract class AbstractView<S extends IShape> implements IAbstractView {
 	/** The shape model. */

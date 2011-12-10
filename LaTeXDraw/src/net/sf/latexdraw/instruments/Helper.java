@@ -53,6 +53,7 @@ public class Helper extends WidgetInstrument {
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @since 3.0
 	 */
 	public Helper(final UIComposer<?> composer) {
@@ -156,7 +157,7 @@ class MenuItem2AboutFrame extends MenuItem2ShowComponentLink<Helper> {
 	 * @param menuItem The menu item used to show/hide to component.
 	 * @since 3.0
 	 */
-	public MenuItem2AboutFrame(final Helper ins, final Component component, final MMenuItem menuItem) throws InstantiationException, IllegalAccessException {
+	protected MenuItem2AboutFrame(final Helper ins, final Component component, final MMenuItem menuItem) throws InstantiationException, IllegalAccessException {
 		super(ins, component, menuItem);
 	}
 

@@ -22,6 +22,8 @@ import org.malai.properties.Reinitialisable;
  * @date 05/24/10
  * @since 0.1
  * @version 0.1
+ * @param <A> The type of the abstract presentation.
+ * @param <C> The type of the concrecte presentation.
  */
 public class Presentation<A extends AbstractPresentation, C extends ConcretePresentation> implements Modifiable, Reinitialisable {
 	/** The abstract presentation, i.e. the manipulated data model. */

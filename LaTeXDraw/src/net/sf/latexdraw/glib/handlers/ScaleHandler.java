@@ -31,6 +31,8 @@ public class ScaleHandler extends Handler<Path2D> {
 
 	/**
 	 * The constructor by default.
+	 * @param position The position of the handler.
+	 * @see Position
 	 */
 	public ScaleHandler(final Position position) {
 		super();

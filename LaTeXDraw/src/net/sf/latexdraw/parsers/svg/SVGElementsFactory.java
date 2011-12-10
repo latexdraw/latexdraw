@@ -39,6 +39,7 @@ public final class SVGElementsFactory {
 	/**
 	 * This factory can be used in order to create an SVG element according to the given SVG node (tag).
 	 * @param src The node that will be used to create the SVG element.
+	 * @param parent The parent of the element to create.
 	 * @return The created SVG element.
 	 * @since 0.1
 	 */

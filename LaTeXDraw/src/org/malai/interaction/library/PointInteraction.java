@@ -88,7 +88,9 @@ public abstract class PointInteraction extends Interaction {
 	 */
 	class PointPressureTransition extends PressureTransition {
 		/**
-		 * The constructor.
+		 * Creates the transition.
+		 * @param inputState The source state of the transition.
+		 * @param outputState The target state of the transition.
 		 */
 		public PointPressureTransition(final SourceableState inputState, final TargetableState outputState) {
 			super(inputState, outputState);

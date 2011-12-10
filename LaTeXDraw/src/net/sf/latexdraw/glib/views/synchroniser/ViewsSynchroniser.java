@@ -68,6 +68,7 @@ public abstract class ViewsSynchroniser {
 	/**
 	 * Updates the code corresponding to the given shape.
 	 * @param shape The shape to updated.
+	 * @return True if the code has been updated.
 	 * @since 3.0
 	 */
 	public abstract boolean updateCode(final IShape shape);

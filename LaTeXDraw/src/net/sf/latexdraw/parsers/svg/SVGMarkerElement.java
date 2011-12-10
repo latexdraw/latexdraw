@@ -30,6 +30,7 @@ import org.w3c.dom.Node;
 public class SVGMarkerElement extends SVGElement {
 	/**
 	 * {@link SVGElement#SVGElement(Node, SVGElement)}
+	 * @param owner The owner document.
 	 */
 	public SVGMarkerElement(final SVGDocument owner) {
 		super(owner);

@@ -429,6 +429,7 @@ class LArrowSVGGenerator {
 	/**
 	 * Return the SVG tree of the arrowhead or null if this arrowhead has no style.
 	 * @param doc The document used to create elements.
+	 * @param isShadow True: this operation is call to create the SVG shadow of the shape.
 	 * @return The SVG tree of the arrowhead or null if doc is null.
 	 * @since 2.0.0
 	 */

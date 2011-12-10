@@ -103,6 +103,8 @@ public class Border extends Instrument implements Picker {
 
 	/**
 	 * Creates and initialises the border.
+	 * @param zoomable The object that manages the zoom.
+	 * @param drawing The drawing containing the model of the application.
 	 * @since 3.0
 	 */
 	public Border(final Zoomable zoomable, final IDrawing drawing) {

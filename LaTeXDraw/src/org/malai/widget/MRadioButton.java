@@ -1,12 +1,10 @@
 package org.malai.widget;
 
-import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JRadioButton;
 
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-
 
 /**
  * This widgets is based on a JRadioButton. It allows to be used in the Malai framework for picking.<br>
@@ -40,22 +38,17 @@ public class MRadioButton extends JRadioButton implements Pickable {
 
 	/**
 	 * {@link MRadioButton#MRadioButton(Icon)}
+	 * @param icon  the image that the button should display
 	 * @since 0.2
 	 */
 	public MRadioButton(final Icon icon) {
 		super(icon);
 	}
 
-	/**
-	 * {@link MRadioButton#MRadioButton(Action)}
-	 * @since 0.2
-	 */
-	public MRadioButton(final Action a) {
-		super(a);
-	}
 
 	/**
 	 * {@link MRadioButton#MRadioButton(String)}
+	 * @param text  the string displayed on the radio button
 	 * @since 0.2
 	 */
 	public MRadioButton(final String text) {
@@ -64,6 +57,8 @@ public class MRadioButton extends JRadioButton implements Pickable {
 
 	/**
 	 * {@link MRadioButton#MRadioButton(Icon,boolean)}
+	 * @param icon  the image that the button should display
+     * @param selected  if true, the button is initially selected; otherwise, the button is initially unselected
 	 * @since 0.2
 	 */
 	public MRadioButton(final Icon icon, final boolean selected) {
@@ -72,6 +67,9 @@ public class MRadioButton extends JRadioButton implements Pickable {
 
 	/**
 	 * {@link MRadioButton#MRadioButton(String,boolean)}
+	 * @param text  the string displayed on the radio button
+     * @param selected  if true, the button is initially selected;
+     *                  otherwise, the button is initially unselected
 	 * @since 0.2
 	 */
 	public MRadioButton(final String text, final boolean selected) {
@@ -80,6 +78,8 @@ public class MRadioButton extends JRadioButton implements Pickable {
 
 	/**
 	 * {@link MRadioButton#MRadioButton(String,Icon)}
+	 * @param text  the string displayed on the radio button 
+     * @param icon  the image that the button should display
 	 * @since 0.2
 	 */
 	public MRadioButton(final String text, final Icon icon) {
@@ -88,6 +88,9 @@ public class MRadioButton extends JRadioButton implements Pickable {
 
 	/**
 	 * {@link MRadioButton#MRadioButton(String,Icon,boolean)}
+	 * @param text  the string displayed on the radio button 
+     * @param icon  the image that the button should display
+     * @param selected True: the widget will be selected by default
 	 * @since 0.2
 	 */
 	public MRadioButton(final String text, final Icon icon, final boolean selected) {

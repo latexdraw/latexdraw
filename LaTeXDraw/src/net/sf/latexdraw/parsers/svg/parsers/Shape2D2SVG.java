@@ -24,6 +24,8 @@ import net.sf.latexdraw.parsers.svg.SVGElement;
  * 08/03/11<br>
  * @author Arnaud BLOUIN
  * @version 3.0
+ * @param <S> The type of the shape to convert.
+ * @param <T> The type of the SVG element to create.
  */
 public abstract class Shape2D2SVG<S extends Shape, T extends SVGElement> implements Parser {
 	/** The Java shape to convert. */
@@ -62,7 +64,8 @@ public abstract class Shape2D2SVG<S extends Shape, T extends SVGElement> impleme
 
 
 	/**
-	 * The SVG document that will be used to create SVG elements.
+	 * Sets the SVG document that will be used to create SVG elements.
+	 * @param document The new SVG document.
 	 * @since 3.0
 	 */
 	public void setDocument(final SVGDocument document) {

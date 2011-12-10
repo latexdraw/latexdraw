@@ -37,8 +37,10 @@ public class SVGPathSegArc extends SVGPathSeg {
 	/** The x-axis rotation angle. @since 2.0 */
 	protected double angle;
 
+	/** The value of the large-arc-flag parameter. */
 	protected boolean largeArcFlag;
 
+	/** The value of the sweep-flag parameter. */
 	protected boolean sweepFlag;
 
 
@@ -50,6 +52,8 @@ public class SVGPathSegArc extends SVGPathSeg {
 	 * @param ry The y radius of the arc.
 	 * @param angle The x-axis rotation angle.
 	 * @param isRelative True: the path segment is relative, false it is absolute.
+	 * @param largeArcFlag The value of the large-arc-flag parameter.
+	 * @param sweepFlag The value of the sweep-flag parameter.
 	 */
 	public SVGPathSegArc(final double x, final double y, final double rx, final double ry, final double angle,
 						final boolean largeArcFlag, final boolean sweepFlag, final boolean isRelative) {

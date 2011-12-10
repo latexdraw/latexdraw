@@ -366,6 +366,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	/**
 	 * Generates a latex document that contains the pstricks code of the given canvas.
 	 * @param drawing The shapes to export.
+	 * @param synchronizer The object that synchronises the view and the model.
 	 * @return The latex document or an empty string.
 	 * @since 3.0
 	 */
@@ -400,6 +401,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * Creates a latex file that contains the pstricks code of the given canvas.
 	 * @param drawing The shapes to export.
 	 * @param pathExportTex The location where the file must be created.
+	 * @param synchronizer The object that synchronises the view and the model.
 	 * @return The latex file or null.
 	 * @since 3.0
 	 */
@@ -431,6 +433,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param drawing The shapes to export.
 	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
 	 * @param latexDistribPath The path of the folder that contains the latex binaries (may be null or empty)
+	 * @param synchronizer The object that synchronises the view and the model.
 	 * @return The create file or null.
 	 * @since 3.0
 	 */
@@ -447,6 +450,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param drawing The shapes to export.
 	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
 	 * @param latexDistribPath The path of the folder that contains the latex binaries (may be null or empty)
+	 * @param synchronizer The object that synchronises the view and the model.
+	 * @param tmpDir The temporary directory used for the compilation.
 	 * @return The create file or null.
 	 * @since 3.0
 	 */
@@ -512,6 +517,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param drawing The shapes to export.
 	 * @param pathExportPdf The path of the .pdf file to create (MUST ends with .pdf).
 	 * @param latexDistribPath The path of the folder that contains the latex binaries (may be null or empty)
+	 * @param synchronizer The object that synchronises the view and the model.
 	 * @return The create file or null.
 	 * @param crop if true, the output document will be cropped.
 	 * @since 3.0

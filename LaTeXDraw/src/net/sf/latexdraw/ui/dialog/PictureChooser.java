@@ -19,8 +19,6 @@ import net.sf.latexdraw.filters.*;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-
-
 /**
  * This class defines a file chooser for pictures; some elements come from
  * the JavaSwing.jar demo code source Copyright (c) 2004 Sun Microsystems.<br>
@@ -59,6 +57,9 @@ public class PictureChooser extends JDialog implements ActionListener
 	/**
 	 * The constructor.
 	 * @param parent The parent of the frame.
+	 * @param msg The message displayed by the picture chooser.
+	 * @param preview True: a thumbnail of the picture will be displayed.
+	 * @param title The title of the chooser.
 	 */
 	public PictureChooser(final JFrame parent, final String msg, final boolean preview, final String title) {
 		super(parent, title, true);

@@ -20,16 +20,22 @@ package org.malai.stateMachine;
  * @since 0.2
  */
 public interface IStateMachine {
-	/** Terminates the state machine. */
+	/** Terminates the state machine. 
+	 * @throws MustAbortStateMachineException If something happens requiring the interaction to abort.
+	 * */
 	void onTerminating() throws MustAbortStateMachineException;
 
 	/** Aborts the state machine. */
 	void onAborting();
 
-	/** Starts the state machine. */
+	/** Starts the state machine. 
+	 * @throws MustAbortStateMachineException If something happens requiring the interaction to abort.
+	 * */
 	void onStarting() throws MustAbortStateMachineException;
 
-	/** Updates the state machine. */
+	/** Updates the state machine.
+	 * @throws MustAbortStateMachineException If something happens requiring the interaction to abort.
+	 * */
 	void onUpdating() throws MustAbortStateMachineException;
 
 	/**

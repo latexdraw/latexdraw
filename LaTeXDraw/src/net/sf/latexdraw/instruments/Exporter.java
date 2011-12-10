@@ -132,6 +132,7 @@ public class Exporter extends WidgetInstrument {
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param canvas The canvas that contains the views to export (for pictures).
 	 * @param drawing The drawing that contains the shapes to export (for latex and code).
 	 * @param statusBar The status bar where messages are displayed.
@@ -424,7 +425,7 @@ class MenuPressed2Export extends Link<Export, MenuItemPressed, Exporter> {
 	 * Initialises the link.
 	 * @param ins The exporter.
 	 */
-	public MenuPressed2Export(final Exporter ins) throws InstantiationException, IllegalAccessException {
+	protected MenuPressed2Export(final Exporter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, Export.class, MenuItemPressed.class);
 	}
 
@@ -482,7 +483,7 @@ class ButtonPressed2Export extends Link<Export, ButtonPressed, Exporter> {
 	 * Initialises the link.
 	 * @param ins The exporter.
 	 */
-	public ButtonPressed2Export(final Exporter ins) throws InstantiationException, IllegalAccessException {
+	protected ButtonPressed2Export(final Exporter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, Export.class, ButtonPressed.class);
 	}
 

@@ -20,6 +20,8 @@ import java.util.List;
  * @author Arnaud BLOUIN
  * @version 0.2
  * @since 0.2
+ * @param <E> The type of the source list of the mapping.
+ * @param <F> The type of the target list of the mapping.
  */
 public abstract class SymmetricList2ListMapping<E, F> extends List2ListMapping<E, F> {
 	/**

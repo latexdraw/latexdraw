@@ -26,6 +26,7 @@ import org.malai.widget.MMenuItem;
  * 11/20/2010<br>
  * @author Arnaud BLOUIN
  * @since 0.2
+ * @param <N> The type of the instrument that will contain this link.
  */
 public class MenuItem2ShowComponentLink<N extends Instrument> extends Link<ShowWidget, MenuItemPressed, N> {
 	/** The menu item used to shows the component. */
@@ -40,6 +41,8 @@ public class MenuItem2ShowComponentLink<N extends Instrument> extends Link<ShowW
 	 * @param ins The instrument that contains the link.
 	 * @param component The component to show/hide.
 	 * @param menuItem The menu item used to show/hide to component.
+	 * @throws IllegalAccessException If no free-parameter constructor is available.
+	 * @throws InstantiationException If an error occurs during instantiation of the interaction/action.
 	 * @since 0.2
 	 */
 	public MenuItem2ShowComponentLink(final N ins, final Component component, final MMenuItem menuItem) throws InstantiationException, IllegalAccessException {

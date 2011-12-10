@@ -25,6 +25,9 @@ package net.sf.latexdraw.glib.views;
  * @author Arnaud BLOUIN
  * @since 3.0
  * @version 3.0
+ * @param <M> The type of the model used to create the view.
+ * @param <V> The type of the view to create.
+ * @param <F> The type of the next command.
  */
 public abstract class CreateViewCmd<M, V, F extends CreateViewCmd<M,V,F>> {
 	/** The next command. */

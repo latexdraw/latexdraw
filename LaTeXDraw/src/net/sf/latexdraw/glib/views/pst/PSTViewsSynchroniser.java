@@ -29,6 +29,7 @@ public class PSTViewsSynchroniser extends ViewsSynchroniser {
 	/**
 	 * Creates and launches the synchronisation of the synchroniser.
 	 * @param drawing The shapes to synchronise.
+	 * @param h The object called for several operations needed by the synchroniser.
 	 * @since 3.0
 	 */
 	public PSTViewsSynchroniser(final ViewsSynchroniserHandler h, final IDrawing drawing) {

@@ -18,6 +18,8 @@ package org.malai.mapping;
  * @author Arnaud BLOUIN
  * @version 0.2
  * @since 0.2
+ * @param <S> The type of the source singleton of the mapping.
+ * @param <T> The type of the target singleton of the mapping.
  */
 public abstract class Singleton2SingletonMapping<S, T> implements IMapping {
 	/** The source singleton of the mapping. */

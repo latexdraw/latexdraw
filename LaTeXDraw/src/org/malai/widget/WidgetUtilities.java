@@ -8,7 +8,6 @@ import org.malai.interaction.SwingEventManager;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 
-
 /**
  * This singleton provides common methods for widgets.<br>
  * <br>
@@ -127,6 +126,7 @@ public class WidgetUtilities {
 
 	/**
 	 * @param component The concerned widget.
+	 * @param subComponents All the components that contains the given component.
 	 * @param x The x-coordinate of the position used to get the pickable object.
 	 * @param y The y-coordinate of the position used to get the pickable object.
 	 * @return The pickable object at the given position.

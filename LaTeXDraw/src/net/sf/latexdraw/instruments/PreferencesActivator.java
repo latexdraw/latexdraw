@@ -48,6 +48,7 @@ public class PreferencesActivator extends WidgetInstrument {
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param prefSetter The instrument that modifies the preferences.
 	 * @throws IllegalArgumentException If the given instrument is null.
 	 * @since 3.0

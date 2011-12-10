@@ -76,6 +76,7 @@ public interface IText extends IPositionShape {
 
 	/**
 	 * Sets the text position of the text.
+	 * @param textPosition The new text position of the text.
 	 * @since 3.0
 	 */
 	void setTextPosition(final TextPosition textPosition);

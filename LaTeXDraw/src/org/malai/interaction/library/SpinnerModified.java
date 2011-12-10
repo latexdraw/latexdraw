@@ -74,6 +74,8 @@ public class SpinnerModified extends Interaction {
 	class SpinnerModifiedSpinnerTransition extends SpinnerTransition {
 		/**
 		 * Creates the transition.
+		 * @param inputState The source state of the transition.
+		 * @param outputState The target state of the transition.
 		 */
 		public SpinnerModifiedSpinnerTransition(final SourceableState inputState, final TargetableState outputState) {
 			super(inputState, outputState);

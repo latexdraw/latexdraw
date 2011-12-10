@@ -37,6 +37,7 @@ public class SVGPolygonElement extends AbstractPointsElement {
 
 	/**
 	 * {@link AbstractPointsElement#AbstractPointsElement(Node, SVGElement)}
+	 * @param doc The owner document.
 	 */
 	public SVGPolygonElement(final SVGDocument doc) {
 		super(doc);

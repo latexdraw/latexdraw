@@ -1147,6 +1147,7 @@ public abstract class SVGElement implements Element, Cloneable {
 
 
 	/**
+	 * @param uri The URI that will be used parsed to extract a prefix.
 	 * @return The prefix followed by ':' if there is a prefix. An empty string is returned in the other case.
 	 * @since 0.1
 	 */

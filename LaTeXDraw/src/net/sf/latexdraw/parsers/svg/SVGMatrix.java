@@ -167,7 +167,12 @@ public class SVGMatrix {
 
 	/**
 	 * Sets the matrix with the given values.
-	 * @param a b c d e f The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
+	 * @param a The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
+	 * @param b The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
+	 * @param c The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
+	 * @param d The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
+	 * @param e The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
+	 * @param f The values of the matrix: [a, c, e, b, d, f, 0, 0, 1].
 	 * @since 0.1
 	 */
 	public void setMatrix(final double a, final double b, final double c, final double d, final double e, final double f) {

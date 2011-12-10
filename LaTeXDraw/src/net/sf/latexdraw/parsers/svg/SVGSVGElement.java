@@ -32,6 +32,7 @@ public class SVGSVGElement extends SVGElement {
 	/**
 	 * See {@link SVGElement#SVGElement()}
 	 * @param n The node.
+	 * @param owner The owner document.
 	 * @throws MalformedSVGDocument If the tag is not valid.
 	 */
 	public SVGSVGElement(final SVGDocument owner, final Node n) throws MalformedSVGDocument {

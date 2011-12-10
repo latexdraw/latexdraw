@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.interfaces;
 
 import java.awt.Point;
 
-
 /**
  * Defines an interface to implement an abstract factory.<br>
  * <br>
@@ -40,6 +39,7 @@ public interface IShapeFactory {
 	 * Creates an arrow from an other arrow.
 	 * @param arrow The arrow to copy.
 	 * @param owner The shape that contains the arrow.
+	 * @return The created arrow.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
 	IArrow createArrow(final IArrow arrow, final IShape owner);
@@ -47,6 +47,7 @@ public interface IShapeFactory {
 	/**
 	 * Creates an arrow.
 	 * @param owner The shape that contains the arrow.
+	 * @return The created arrow.
 	 */
 	IArrow createArrow(final IShape owner);
 
@@ -54,18 +55,21 @@ public interface IShapeFactory {
 	 * Creates axes with default values.
 	 * @param pt The bottom left position of the axes.
 	 * @param isUniqueID True: the model will have a unique ID.
+	 * @return The created axes.
 	 */
 	IAxes createAxes(final boolean isUniqueID, final IPoint pt);
 
 	/**
 	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The centre of the dot.
+	 * @return The created dot.
 	 */
 	IDot createDot(final IPoint pt, final boolean isUniqueID);
 
 	/**
 	 * Creates a model with no point.
 	 * @param isUniqueID True: the model will have a unique ID.
+	 * @return The created bezier curve.
 	 */
 	IBezierCurve createBezierCurve(final boolean isUniqueID);
 
@@ -74,6 +78,7 @@ public interface IShapeFactory {
 	 * @param point The first point of the curve.
 	 * @param point2 The second point of the curve.
 	 * @param uniqueID uniqueID True: the model will have a unique ID.
+	 * @return The created bezier curve.
 	 */
 	IBezierCurve createBezierCurve(final IPoint point, final IPoint point2, final boolean uniqueID);
 
@@ -132,6 +137,7 @@ public interface IShapeFactory {
 	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The position of the top-left point of the picture.
 	 * @param pathSource The path of the image to load.
+	 * @return The created picture.
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 */
 	IPicture createPicture(final boolean isUniqueID, final IPoint pt, final String pathSource);
@@ -140,6 +146,7 @@ public interface IShapeFactory {
 	 * Creates a grid with a predefined point.
 	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The position.
+	 * @return The created grid.
 	 */
 	IGrid createGrid(final boolean isUniqueID, final IPoint pt);
 
@@ -148,6 +155,7 @@ public interface IShapeFactory {
 	 * @param pt The first point.
 	 * @param uniqueID True: the model will have a unique ID.
 	 * @throws IllegalArgumentException If the given point is not valid.
+	 * @return The created freehand shape.
 	 * @since 3.0
 	 */
 	IFreehand createFreeHand(final IPoint pt, final boolean uniqueID);
@@ -216,6 +224,7 @@ public interface IShapeFactory {
 	 * Creates a Point2D with the specified coordinates.
 	 * @param x The X-coordinate to set.
 	 * @param y The Y-coordinate to set.
+	 * @return The created point.
 	 * @since 3.0
 	 */
 	IPoint createPoint(final double x, final double y);
@@ -233,6 +242,7 @@ public interface IShapeFactory {
 	/**
 	 * Creates a Point2D with the specified coordinates.
 	 * @param pt The IPoint, if null the default value (0,0) will be used.
+	 * @return The created point.
 	 * @since 3.0
 	 */
 	IPoint createPoint(final IPoint pt);
@@ -353,6 +363,7 @@ public interface IShapeFactory {
 	/**
 	 * Creates a circled arc with a 1 radius.
 	 * @param isUniqueID True: the model will have a unique ID.
+	 * @return The created circled arc.
 	 * @since 3.0
 	 */
 	ICircleArc createCircleArc(final boolean isUniqueID);
@@ -372,6 +383,7 @@ public interface IShapeFactory {
 	/**
 	 * Creates a circled arc with a 1 radius.
 	 * @param isUniqueID True: the model will have a unique ID.
+	 * @return The created arc.
 	 * @since 3.0
 	 */
 	IArc createArc(final boolean isUniqueID);

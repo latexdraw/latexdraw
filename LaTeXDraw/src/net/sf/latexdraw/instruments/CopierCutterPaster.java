@@ -55,6 +55,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 	/**
 	 * Creates the instrument.
 	 * @param drawing The drawing that contains the shapes.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @throws IllegalArgumentException If the given drawing is null.
 	 * @since 3.0
 	 */
@@ -173,7 +174,7 @@ abstract class Interaction2AbstractCopy<A extends CopyShapes, I extends Interact
 	/**
 	 * Creates the link.
 	 */
-	public Interaction2AbstractCopy(final CopierCutterPaster ins, final Class<A> classAction,
+	protected Interaction2AbstractCopy(final CopierCutterPaster ins, final Class<A> classAction,
 								 final Class<I> classInteraction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, classAction, classInteraction);
 	}
@@ -195,7 +196,7 @@ class Shortcut2CopyShapes extends Interaction2AbstractCopy<CopyShapes, KeysPress
 	/**
 	 * Creates the link.
 	 */
-	public Shortcut2CopyShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
+	protected Shortcut2CopyShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
 		super(ins, CopyShapes.class, KeysPressure.class);
 	}
 
@@ -214,7 +215,7 @@ class Shortcut2CutShapes extends Interaction2AbstractCopy<CutShapes, KeysPressur
 	/**
 	 * Creates the link.
 	 */
-	public Shortcut2CutShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
+	protected Shortcut2CutShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
 		super(ins, CutShapes.class, KeysPressure.class);
 	}
 
@@ -233,7 +234,7 @@ class MenuItem2CutShapes extends Interaction2AbstractCopy<CutShapes, MenuItemPre
 	/**
 	 * Creates the link.
 	 */
-	public MenuItem2CutShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
+	protected MenuItem2CutShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
 		super(ins, CutShapes.class, MenuItemPressed.class);
 	}
 
@@ -255,7 +256,7 @@ class MenuItem2CopyShapes extends Interaction2AbstractCopy<CopyShapes, MenuItemP
 	/**
 	 * Creates the link.
 	 */
-	public MenuItem2CopyShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
+	protected MenuItem2CopyShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
 		super(ins, CopyShapes.class, MenuItemPressed.class);
 	}
 
@@ -276,7 +277,7 @@ abstract class Interaction2PasteShapes<I extends Interaction> extends Link<Paste
 	/**
 	 * Creates the link.
 	 */
-	public Interaction2PasteShapes(final CopierCutterPaster ins, final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
+	protected Interaction2PasteShapes(final CopierCutterPaster ins, final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, PasteShapes.class, clazzInteraction);
 	}
 
@@ -302,7 +303,7 @@ class Shortcut2PasteShapes extends Interaction2PasteShapes<KeysPressure> {
 	/**
 	 * Creates the link.
 	 */
-	public Shortcut2PasteShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
+	protected Shortcut2PasteShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
 		super(ins, KeysPressure.class);
 	}
 
@@ -321,7 +322,7 @@ class MenuItem2PasteShapes extends Interaction2PasteShapes<MenuItemPressed> {
 	/**
 	 * Creates the link.
 	 */
-	public MenuItem2PasteShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
+	protected MenuItem2PasteShapes(final CopierCutterPaster ins) throws InstantiationException, IllegalAccessException {
 		super(ins, MenuItemPressed.class);
 	}
 

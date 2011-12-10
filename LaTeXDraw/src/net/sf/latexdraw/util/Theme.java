@@ -98,6 +98,9 @@ public final class Theme {
 	 * @since 3.0
 	 * @throws IllegalArgumentException If a problem occurs.
 	 * @return The class of the theme.
+	 * @throws IOException If any IO errors occur.
+     * @throws SAXException If any parse errors occur.
+	 * @throws ParserConfigurationException if a DocumentBuilder cannot be created which satisfies the configuration requested.
 	 */
 	public String readTheme() throws SAXException, IOException, ParserConfigurationException {
 		String laf 	= null;

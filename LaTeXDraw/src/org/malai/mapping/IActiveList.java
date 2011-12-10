@@ -20,6 +20,7 @@ import java.util.List;
  * @author Arnaud BLOUIN
  * @version 0.2
  * @since 0.2
+ * @param <E> The type of the elements contained in the active list.
  */
 public interface IActiveList<E> extends List<E> {
 	/**

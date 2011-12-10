@@ -224,7 +224,7 @@ class MenuItem2SetUnit extends Link<SetUnit, MenuItemPressed, ScaleRulersCustomi
 	 * Initialises the link.
 	 * @param ins The rulers activator.
 	 */
-	public MenuItem2SetUnit(final ScaleRulersCustomiser ins) throws InstantiationException, IllegalAccessException {
+	protected MenuItem2SetUnit(final ScaleRulersCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, SetUnit.class, MenuItemPressed.class);
 	}
 
@@ -249,7 +249,7 @@ class MenuItem2ShowHideCodeScaleRuler extends Link<ShowHideScaleRuler, MenuItemP
 	 * Initialises the link.
 	 * @param ins The rulers activator.
 	 */
-	public MenuItem2ShowHideCodeScaleRuler(final ScaleRulersCustomiser ins) throws InstantiationException, IllegalAccessException {
+	protected MenuItem2ShowHideCodeScaleRuler(final ScaleRulersCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ShowHideScaleRuler.class, MenuItemPressed.class);
 	}
 

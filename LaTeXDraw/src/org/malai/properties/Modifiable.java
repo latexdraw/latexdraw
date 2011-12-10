@@ -22,6 +22,7 @@ package org.malai.properties;
 public interface Modifiable {
 	/**
 	 * Sets the Modifiable object as modified.
+	 * @param modified True: the element is will tagged as modified.
 	 * @since 0.2
 	 */
 	void setModified(final boolean modified);

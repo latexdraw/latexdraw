@@ -265,7 +265,10 @@ public interface IShape extends Modifiable, IArrowable {
 		};
 
 
-		/** Allows to know if the style can be filled. */
+		/** 
+		 * Allows to know if the style can be filled.
+		 * @return True if the shape can be filled.
+		 */
 		public abstract boolean isFillable();
 
 		/**

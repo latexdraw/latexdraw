@@ -9,7 +9,6 @@ import org.malai.interaction.SwingEventManager;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 
-
 /**
  * This widgets is based on a JSpinner. It allows to be used in the Malai framework for picking.<br>
  * An improvement of MSpinner against JSpinner is that MSpinner can have a label (JLabel).
@@ -50,6 +49,7 @@ public class MSpinner extends JSpinner implements Pickable {
 	 * @param label The label used to describe the use of the spinner. Can be null. When
 	 * the spinner is added to a container, the label is not automatically added; it must be manually
 	 * added to the container.
+	 * @param model The data model of the widget.
 	 */
 	public MSpinner(final SpinnerModel model, final JLabel label) {
 		super(model);

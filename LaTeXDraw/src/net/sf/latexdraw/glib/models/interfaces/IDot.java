@@ -129,7 +129,10 @@ public interface IDot extends IPositionShape, Dottable {
 			}
 		};
 
-		/** Allows to know if the dot shape can be filled. */
+		/** 
+		 * Allows to know if the dot shape can be filled.
+		 * @return True if the dot can be filled.
+		 */
 		public boolean isFillable() { return false; }
 
 		/**

@@ -42,6 +42,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	/**
 	 * Creates the shape.
+	 * @param uniqueID True: the model will have a unique ID.
 	 */
 	public LAbstractCtrlPointShape(final boolean uniqueID) {
 		super(uniqueID);

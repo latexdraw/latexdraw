@@ -171,6 +171,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 	/**
 	 * Creates the instrument.
+	 * @param frame The frame that will be set while setting parameters.
 	 * @since 3.0
 	 */
 	public PreferencesSetter(final LFrame frame) {
@@ -865,6 +866,9 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	/**
 	 * Reads the preferences of latexdraw defined in XML.
 	 * @throws IllegalArgumentException If a problem occurs.
+	 * @throws IOException If any IO errors occur.
+     * @throws SAXException If any parse errors occur.
+	 * @throws ParserConfigurationException if a DocumentBuilder cannot be created which satisfies the configuration requested.
 	 * @since 3.0
 	 */
 	public void readXMLPreferences() throws SAXException, IOException, ParserConfigurationException {
@@ -909,7 +913,7 @@ class CloseFrame2SavePreferences extends Link<WritePreferences, WindowClosed, Pr
 	/**
 	 * Creates the link.
 	 */
-	public CloseFrame2SavePreferences(final PreferencesSetter ins) throws InstantiationException, IllegalAccessException {
+	protected CloseFrame2SavePreferences(final PreferencesSetter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, WritePreferences.class, WindowClosed.class);
 	}
 

@@ -40,7 +40,10 @@ public interface IAxes extends IStandardGrid {
 			public String getLabel() { return LangTool.LANG.getString18("Axe.0"); } //$NON-NLS-1$
 		};
 
-		/** The translated label of the style. */
+		/** 
+		 * The translated label of the style.
+		 * @return The label corresponding to the style. 
+		 */
 		public abstract String getLabel();
 
 
@@ -71,7 +74,10 @@ public interface IAxes extends IStandardGrid {
 			public String getLabel() { return LangTool.LANG.getString18("Axe.5"); }//$NON-NLS-1$
 		};
 
-		/** The translated label of the style. */
+		/** 
+		 * The translated label of the style. 
+		 * @return The label corresponding to the style. 
+		 */
 		public abstract String getLabel();
 
 

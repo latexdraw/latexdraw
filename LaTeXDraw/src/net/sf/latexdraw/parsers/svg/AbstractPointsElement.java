@@ -80,6 +80,7 @@ public abstract class AbstractPointsElement extends SVGElement {
 
 	/**
 	 * Parses and sets the points to the element.
+	 * @param points The string corresponding to the SVG points of this element.
 	 * @throws ParseException If the format of the points is not valid.
 	 * @since 2.0.3
 	 */

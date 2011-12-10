@@ -93,6 +93,8 @@ public class KeysPressure extends Interaction {
 	class KeysPressureKeyPressedTransition extends KeyPressureTransition {
 		/**
 		 * Creates the transition.
+		 * @param inputState The source state of the transition.
+		 * @param outputState The target state of the transition.
 		 */
 		public KeysPressureKeyPressedTransition(final SourceableState inputState, final TargetableState outputState) {
 			super(inputState, outputState);
