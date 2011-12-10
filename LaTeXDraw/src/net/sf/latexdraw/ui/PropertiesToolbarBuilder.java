@@ -1,7 +1,10 @@
 package net.sf.latexdraw.ui;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JComponent;
@@ -53,6 +56,9 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	/** The main frame of the application. */
 	protected LFrame frame;
 
+	/** The hash map used to map a widget to its container. */
+	protected Map<Component, ListToggleButton> mapContainers;
+
 
 	/**
 	 * Creates the bottom panel that contains a set of widgets to modify shapes.
@@ -62,7 +68,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	 */
 	public PropertiesToolbarBuilder(final LFrame frame) {
 		super();
-		this.frame = frame;
+		this.frame 		= frame;
+		mapContainers	= new IdentityHashMap<Component, ListToggleButton>();
 	}
 
 
@@ -74,8 +81,6 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget = new MPanel(false, true);
 		widget.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-		// this panel is now the component of the meta instrument.
-		metaShapeCustomiser.setWidgetContainer(widget);
 		// Creation of the widgets layout of the shape properties instruments.
 		widget.add(composeRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), canvas));
 		widget.add(composeBorderPropertiesPanel(metaShapeCustomiser.getBorderCustomiser(), canvas));
@@ -99,9 +104,11 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		list.addComponent(textCustomiser.getPackagesLabel());
 		list.addComponent(textCustomiser.getPackagesField().getScrollpane());
-
 		list.addSeparator();
-		textCustomiser.setMainPackageWidget(list);
+
+		mapContainers.put(textCustomiser.getPackagesLabel(), list);
+		mapContainers.put(textCustomiser.getPackagesField().getScrollpane(), list);
+
 		textCustomiser.addEventable(textCustomiser.getPackagesField());
 		widget.add(list);
 	}
@@ -116,8 +123,15 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(textCustomiser.getTlButton());
 		list.addComponent(textCustomiser.getTButton());
 		list.addComponent(textCustomiser.getTrButton());
+
+		mapContainers.put(textCustomiser.getBlButton(), list);
+		mapContainers.put(textCustomiser.getBButton(), list);
+		mapContainers.put(textCustomiser.getBrButton(), list);
+		mapContainers.put(textCustomiser.getTlButton(), list);
+		mapContainers.put(textCustomiser.getTButton(), list);
+		mapContainers.put(textCustomiser.getTrButton(), list);
+
 		list.addSeparator();
-		textCustomiser.setWidgetContainer(list);
 		textCustomiser.addEventable(list.getToolbar());
 		widget.add(list);
 	}
@@ -142,8 +156,13 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		addSpinner(list, ins.getEndAngleS(), true, 70);
 		list.addSeparator();
 
+		mapContainers.put(ins.getArcB(), list);
+		mapContainers.put(ins.getChordB(), list);
+		mapContainers.put(ins.getWedgeB(), list);
+		mapContainers.put(ins.getStartAngleS(), list);
+		mapContainers.put(ins.getEndAngleS(), list);
+
         ins.addEventable(list.getToolbar());
-        ins.setWidgetContainer(list);
 
 		return list;
 	}
@@ -157,8 +176,10 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(ins.getDotSizeField());
 		list.addSeparator();
 
+		mapContainers.put(ins.getDotCB(), list);
+		mapContainers.put(ins.getDotSizeField(), list);
+
         ins.addEventable(list.getToolbar());
-        ins.setWidgetContainer(list);
 
 		return list;
 	}
@@ -172,8 +193,10 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(ins.getArrowRightCB());
 		list.addSeparator();
 
+		mapContainers.put(ins.getArrowLeftCB(), list);
+		mapContainers.put(ins.getArrowRightCB(), list);
+
         ins.addEventable(list.getToolbar());
-        ins.setWidgetContainer(list);
 
 		return list;
 	}
@@ -190,8 +213,12 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
         list.addComponent(ins.getRotate270Button());
         list.addSeparator();
 
+        mapContainers.put(ins.getRotationField(), list);
+        mapContainers.put(ins.getRotate90Button(), list);
+        mapContainers.put(ins.getRotate180Button(), list);
+        mapContainers.put(ins.getRotate270Button(), list);
+
         ins.addEventable(list.getToolbar());
-        ins.setWidgetContainer(list);
 
 		return list;
 	}
@@ -226,7 +253,18 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		addSpinner(list, fillingCustomiser.getGradMidPtField(), true, 70);
 		list.addSeparator();
-		fillingCustomiser.setWidgetContainer(list);
+
+		mapContainers.put(fillingCustomiser.getFillStyleCB(), list);
+		mapContainers.put(fillingCustomiser.getFillColButton(), list);
+		mapContainers.put(fillingCustomiser.getHatchColButton(), list);
+		mapContainers.put(fillingCustomiser.getHatchAngleField(), list);
+		mapContainers.put(fillingCustomiser.getHatchWidthField(), list);
+		mapContainers.put(fillingCustomiser.getHatchSepField(), list);
+		mapContainers.put(fillingCustomiser.getGradStartColButton(), list);
+		mapContainers.put(fillingCustomiser.getGradEndColButton(), list);
+		mapContainers.put(fillingCustomiser.getGradAngleField(), list);
+		mapContainers.put(fillingCustomiser.getGradMidPtField(), list);
+
 		fillingCustomiser.addEventable(list.getToolbar());
 
 		return list;
@@ -250,7 +288,12 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		addSpinner(list, shadowCustomiser.getShadowAngleField(), true, 75);
 		list.addSeparator();
-		shadowCustomiser.setWidgetContainer(list);
+
+		mapContainers.put(shadowCustomiser.getShadowCB(), list);
+		mapContainers.put(shadowCustomiser.getShadowColB(), list);
+		mapContainers.put(shadowCustomiser.getShadowSizeField(), list);
+		mapContainers.put(shadowCustomiser.getShadowAngleField(), list);
+
 		shadowCustomiser.addEventable(list.getToolbar());
 
 		return list;
@@ -272,7 +315,11 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		addSpinner(list, dbleBorderCustomiser.getDbleSepField(), true, 55);
 		list.addSeparator();
-		dbleBorderCustomiser.setWidgetContainer(list);
+
+		mapContainers.put(dbleBorderCustomiser.getDbleBoundCB(), list);
+		mapContainers.put(dbleBorderCustomiser.getDbleBoundColB(), list);
+		mapContainers.put(dbleBorderCustomiser.getDbleSepField(), list);
+
 		dbleBorderCustomiser.addEventable(list.getToolbar());
 
 		return list;
@@ -301,7 +348,14 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		addSpinner(list, borderCustomiser.getFrameArcField(), true, 65);
 		list.addSeparator();
-		borderCustomiser.setWidgetContainer(list);
+
+		mapContainers.put(borderCustomiser.getThicknessField(), list);
+		mapContainers.put(borderCustomiser.getLineColButton(), list);
+		mapContainers.put(borderCustomiser.getLineCB(), list);
+		mapContainers.put(borderCustomiser.getBordersPosCB(), list);
+		mapContainers.put(borderCustomiser.getIsRound(), list);
+		mapContainers.put(borderCustomiser.getFrameArcField(), list);
+
 		borderCustomiser.addEventable(list.getToolbar());
 
 		return list;

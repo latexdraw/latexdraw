@@ -3,6 +3,7 @@ package net.sf.latexdraw.instruments;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 import org.malai.interaction.Eventable;
+import org.malai.ui.UIComposer;
 
 /**
  * This meta-instrument manages the instruments that customises shape properties.<br>
@@ -57,21 +58,22 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	 * Creates the instrument.
 	 * @param hand The Hand instrument.
 	 * @param pencil The Pencil instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public MetaShapeCustomiser(final Hand hand, final Pencil pencil) {
-		super(hand, pencil);
+	public MetaShapeCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+		super(composer, hand, pencil);
 
-		borderCustomiser 		= new ShapeBorderCustomiser(hand, pencil);
-		doubleBorderCustomiser	= new ShapeDoubleBorderCustomiser(hand, pencil);
-		shadowCustomiser		= new ShapeShadowCustomiser(hand, pencil);
-		fillingCustomiser		= new ShapeFillingCustomiser(hand, pencil);
-		textCustomiser			= new TextCustomiser(hand, pencil);
-		rotationCustomiser		= new ShapeRotationCustomiser(hand, pencil);
-		arrowCustomiser			= new ShapeArrowCustomiser(hand, pencil);
-		dotCustomiser			= new ShapeDotCustomiser(hand, pencil);
-		arcCustomiser			= new ShapeArcCustomiser(hand, pencil);
+		borderCustomiser 		= new ShapeBorderCustomiser(composer, hand, pencil);
+		doubleBorderCustomiser	= new ShapeDoubleBorderCustomiser(composer, hand, pencil);
+		shadowCustomiser		= new ShapeShadowCustomiser(composer, hand, pencil);
+		fillingCustomiser		= new ShapeFillingCustomiser(composer, hand, pencil);
+		textCustomiser			= new TextCustomiser(composer, hand, pencil);
+		rotationCustomiser		= new ShapeRotationCustomiser(composer, hand, pencil);
+		arrowCustomiser			= new ShapeArrowCustomiser(composer, hand, pencil);
+		dotCustomiser			= new ShapeDotCustomiser(composer, hand, pencil);
+		arcCustomiser			= new ShapeArcCustomiser(composer, hand, pencil);
 	}
 
 
@@ -121,20 +123,20 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-	@Override
-	protected void repaintWidgetContainer() {
-		super.repaintWidgetContainer();
-
-		borderCustomiser.repaintWidgetContainer();
-		doubleBorderCustomiser.repaintWidgetContainer();
-		shadowCustomiser.repaintWidgetContainer();
-		fillingCustomiser.repaintWidgetContainer();
-		textCustomiser.repaintWidgetContainer();
-		rotationCustomiser.repaintWidgetContainer();
-		arrowCustomiser.repaintWidgetContainer();
-		dotCustomiser.repaintWidgetContainer();
-		arcCustomiser.repaintWidgetContainer();
-	}
+//	@Override
+//	protected void repaintWidgetContainer() {
+//		super.repaintWidgetContainer();
+//
+//		borderCustomiser.repaintWidgetContainer();
+//		doubleBorderCustomiser.repaintWidgetContainer();
+//		shadowCustomiser.repaintWidgetContainer();
+//		fillingCustomiser.repaintWidgetContainer();
+//		textCustomiser.repaintWidgetContainer();
+//		rotationCustomiser.repaintWidgetContainer();
+//		arrowCustomiser.repaintWidgetContainer();
+//		dotCustomiser.repaintWidgetContainer();
+//		arcCustomiser.repaintWidgetContainer();
+//	}
 
 //	@Override
 //	public void update() {
@@ -240,7 +242,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initWidgets() {
+	protected void initialiseWidgets() {
 		// This instrument does not have any widget.
 	}
 }

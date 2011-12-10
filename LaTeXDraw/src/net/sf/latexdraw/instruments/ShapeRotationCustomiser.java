@@ -7,6 +7,7 @@ import javax.swing.SpinnerNumberModel;
 
 import org.malai.instrument.Link;
 import org.malai.interaction.library.ButtonPressed;
+import org.malai.ui.UIComposer;
 import org.malai.widget.MButton;
 import org.malai.widget.MSpinner;
 
@@ -52,21 +53,22 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param hand The Hand instrument.
 	 * @param pencil The Pencil instrument.
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public ShapeRotationCustomiser(final Hand hand, final Pencil pencil) {
-		super(hand, pencil);
+	public ShapeRotationCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+		super(composer, hand, pencil);
 
-		initWidgets();
+		initialiseWidgets();
 		initialiseLinks();
 	}
 
 
 	@Override
-	protected void initWidgets() {
+	protected void initialiseWidgets() {
      	rotate90Button = new MButton(LResources.ROTATE_90_ICON);
      	rotate90Button.setMargin(LResources.INSET_BUTTON);
      	rotate90Button.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.3")); //$NON-NLS-1$
@@ -90,6 +92,11 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 			super.setActivated(true);
 		else
 			super.setActivated(false);
+
+		composer.setWidgetVisible(rotate180Button, this.activated);
+		composer.setWidgetVisible(rotate270Button, this.activated);
+		composer.setWidgetVisible(rotate90Button, this.activated);
+		composer.setWidgetVisible(rotationField, this.activated);
 	}
 
 
@@ -157,6 +164,9 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 class Spinner2RotateShape extends SpinnerForCustomiser<ModifyShapeProperty, ShapeRotationCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public Spinner2RotateShape(final ShapeRotationCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyShapeProperty.class);
@@ -183,6 +193,9 @@ class Spinner2RotateShape extends SpinnerForCustomiser<ModifyShapeProperty, Shap
 class ButtonPress2RotateShape extends Link<RotateShapes, ButtonPressed, ShapeRotationCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public ButtonPress2RotateShape(final ShapeRotationCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, RotateShapes.class, ButtonPressed.class);

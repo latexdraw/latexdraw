@@ -3,7 +3,6 @@ package net.sf.latexdraw.instruments;
 import java.awt.Font;
 
 import javax.swing.AbstractButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 import net.sf.latexdraw.actions.ModifyLatexProperties;
@@ -21,6 +20,7 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.Link;
 import org.malai.interaction.library.KeysTyped;
+import org.malai.ui.UIComposer;
 import org.malai.widget.MTextArea;
 import org.malai.widget.MToggleButton;
 
@@ -67,28 +67,26 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	/** This text field permits to add latex packages that will be used during compilation. */
 	protected MTextArea packagesField;
 
-	/** The widget used to group the widgets dedicated to the support of packages. */
-	protected JComponent mainPackageWidget;
-
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param hand The Hand instrument.
 	 * @param pencil The Pencil instrument.
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public TextCustomiser(final Hand hand, final Pencil pencil) {
-		super(hand, pencil);
+	public TextCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+		super(composer, hand, pencil);
 
-		initWidgets();
+		initialiseWidgets();
 		initialiseLinks();
 	}
 
 
 
 	@Override
-	protected void initWidgets() {
+	protected void initialiseWidgets() {
 		packagesLabel = new JLabel("Packages:");
 		packagesField = new MTextArea(true, true);
 		Font font = packagesField.getFont();
@@ -120,18 +118,38 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		setWidgetsVisible(activated);
+	}
+
+
+	/**
+	 * Sets the widgets of the instrument visible or not.
+	 * @param visible True: they are visible.
+	 * @since 3.0
+	 */
+	protected void setWidgetsVisible(final boolean visible) {
+		composer.setWidgetVisible(blButton, visible);
+		composer.setWidgetVisible(bButton, visible);
+		composer.setWidgetVisible(brButton, visible);
+		composer.setWidgetVisible(tlButton, visible);
+		composer.setWidgetVisible(tButton, visible);
+		composer.setWidgetVisible(trButton, visible);
+		composer.setWidgetVisible(packagesLabel, visible);
+		composer.setWidgetVisible(packagesField, visible);
+	}
+
+
+	@Override
 	protected void update(final IShape shape) {
 		final boolean isText = shape instanceof IText;
 		final boolean isGroup = shape instanceof IGroup;
 		final boolean visible = isText && (!isGroup || (isGroup && ((IGroup)shape).containsTexts()));
 
-		if(widgetContainer!=null)
-			widgetContainer.setVisible(visible);
+		setWidgetsVisible(visible);
 
-		if(mainPackageWidget!=null)
-			mainPackageWidget.setVisible(visible);
-
-		if(isText) {
+		if(shape instanceof IText) {
 			final TextPosition tp = ((IText)shape).getTextPosition();
 
 			bButton.setSelected(tp==TextPosition.BOT);
@@ -222,14 +240,6 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	public MTextArea getPackagesField() {
 		return packagesField;
 	}
-
-	/**
-	 * @param mainPackageWidget the mainPackageWidget to set.
-	 * @since 3.0
-	 */
-	public void setMainPackageWidget(final JComponent mainPackageWidget) {
-		this.mainPackageWidget = mainPackageWidget;
-	}
 }
 
 
@@ -263,6 +273,9 @@ class KeysTyped2ChangePackages extends Link<ModifyLatexProperties, KeysTyped, Te
 class ButtonPressed2ChangePencil extends ButtonPressedForCustomiser<ModifyPencilParameter, TextCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public ButtonPressed2ChangePencil(final TextCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyPencilParameter.class);
@@ -298,6 +311,9 @@ class ButtonPressed2ChangePencil extends ButtonPressedForCustomiser<ModifyPencil
 class ButtonPressed2ChangeTextPosition extends ButtonPressedForCustomiser<ModifyShapeProperty, TextCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public ButtonPressed2ChangeTextPosition(final TextCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyShapeProperty.class);

@@ -5,6 +5,7 @@ import java.awt.ItemSelectable;
 
 import javax.swing.JLabel;
 
+import org.malai.ui.UIComposer;
 import org.malai.widget.MComboBox;
 
 import net.sf.latexdraw.actions.ModifyPencilParameter;
@@ -44,22 +45,23 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param hand The Hand instrument.
 	 * @param pencil The Pencil instrument.
 	 * @throws IllegalArgumentException If one of the given argument is null or if the drawing cannot
 	 * be accessed from the hand.
 	 * @since 3.0
 	 */
-	public ShapeArrowCustomiser(final Hand hand, final Pencil pencil) {
-		super(hand, pencil);
+	public ShapeArrowCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+		super(composer, hand, pencil);
 
 		initialiseLinks();
-		initWidgets();
+		initialiseWidgets();
 	}
 
 
 	@Override
-	protected void initWidgets() {
+	protected void initialiseWidgets() {
      	arrowLeftCB = createLeftArrowStyleList();
      	arrowLeftCB.setPreferredSize(new Dimension(80,30));
      	arrowLeftCB.setMaximumSize(new Dimension(80,30));
@@ -201,6 +203,23 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	}
 
 
+	/**
+	 * Sets the widgets of the instrument visible or not.
+	 * @param visible True: they are visible.
+	 * @since 3.0
+	 */
+	protected void setWidgetsVisible(final boolean visible) {
+		composer.setWidgetVisible(arrowLeftCB, visible);
+		composer.setWidgetVisible(arrowRightCB, visible);
+	}
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		setWidgetsVisible(activated);
+	}
+
 
 	@Override
 	protected void initialiseLinks() {
@@ -221,10 +240,9 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 		if(shape!=null) {
 			final boolean arrowable = shape.isArrowable();
 
-			if(widgetContainer!=null)
-				widgetContainer.setVisible(activated && arrowable);
+			setWidgetsVisible(activated && arrowable);
 
-			if(arrowable) {//TODO this code support that is arrowable, there is 2 arrows.
+			if(arrowable) {//TODO this code suppose that if arrowable, there are 2 arrows.
 				arrowLeftCB.setSelectedItemSafely(shape.getArrowStyle(0).name());
 				arrowRightCB.setSelectedItemSafely(shape.getArrowStyle(1).name());
 			}
@@ -256,8 +274,11 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 class List2PencilArrowStyle extends ListForCustomiser<ModifyPencilParameter, ShapeArrowCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public List2PencilArrowStyle(final ShapeArrowCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected List2PencilArrowStyle(final ShapeArrowCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyPencilParameter.class);
 	}
 
@@ -286,8 +307,11 @@ class List2PencilArrowStyle extends ListForCustomiser<ModifyPencilParameter, Sha
 class List2ShapeArrowStyle extends ListForCustomiser<ModifyShapeProperty, ShapeArrowCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public List2ShapeArrowStyle(final ShapeArrowCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected List2ShapeArrowStyle(final ShapeArrowCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyShapeProperty.class);
 	}
 

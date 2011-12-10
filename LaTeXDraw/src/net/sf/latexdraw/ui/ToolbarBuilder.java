@@ -58,6 +58,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	/** The toolbar that contains the widgets to customise the magnetic grid. */
 	protected ListToggleButton magneticGridB;
 
+	/** The hash map used to map a widget to its container. */
 	protected Map<Component, ListToggleButton> mapContainers;
 
 
@@ -298,9 +299,6 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 			magneticGridB.addComponent(spinner.getLabel());
 		magneticGridB.addComponent(spinner);
 		mapContainers.put(spinner, magneticGridB);
-		// The mini-toolbar is set to the instrument to be updated when some of its widgets are hidden.
-//		frame.gridCustomiser.setWidgetContainer(magneticGridB);
-
 		magneticGridB.addSeparator();
 	}
 }

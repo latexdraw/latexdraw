@@ -5,6 +5,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import org.malai.ui.UIComposer;
 import org.malai.widget.MButtonIcon;
 import org.malai.widget.MCheckBox;
 import org.malai.widget.MColorButton;
@@ -53,21 +54,22 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param hand The Hand instrument.
 	 * @param pencil The Pencil instrument.
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public ShapeShadowCustomiser(final Hand hand, final Pencil pencil) {
-		super(hand, pencil);
+	public ShapeShadowCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+		super(composer, hand, pencil);
 
-		initWidgets();
+		initialiseWidgets();
 		initialiseLinks();
 	}
 
 
 	@Override
-	protected void initWidgets() {
+	protected void initialiseWidgets() {
 		shadowCB = new MCheckBox(LangTool.LANG.getString17("LaTeXDrawFrame.0")); //$NON-NLS-1$
 		shadowCB.setMargin(LResources.INSET_BUTTON);
 		shadowCB.setToolTipText(LangTool.LANG.getString17("LaTeXDrawFrame.4")); //$NON-NLS-1$
@@ -87,19 +89,36 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		setWidgetsVisible(activated);
+	}
+
+
+	/**
+	 * Sets the widgets of the instrument visible or not.
+	 * @param visible True: they are visible.
+	 * @since 3.0
+	 */
+	protected void setWidgetsVisible(final boolean visible) {
+		composer.setWidgetVisible(shadowCB, visible);
+		composer.setWidgetVisible(shadowColB, visible);
+		composer.setWidgetVisible(shadowSizeField, visible);
+		composer.setWidgetVisible(shadowAngleField, visible);
+	}
+
+
+	@Override
 	protected void update(final IShape shape) {
 		if(shape!=null) {
 			boolean shadowable = shape.isShadowable();
 
-			if(widgetContainer!=null)
-				widgetContainer.setVisible(shadowable);
-
 			if(shadowable) {
 				boolean hasShadow = shape.hasShadow();
 				shadowCB.setSelected(hasShadow);
-				shadowColB.setVisible(hasShadow);
-				shadowSizeField.setVisible(hasShadow);
-				shadowAngleField.setVisible(hasShadow);
+				composer.setWidgetVisible(shadowColB, hasShadow);
+				composer.setWidgetVisible(shadowSizeField, hasShadow);
+				composer.setWidgetVisible(shadowAngleField, hasShadow);
 
 				if(hasShadow) {
 					shadowColB.setColor(shape.getShadowCol());
@@ -107,6 +126,8 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 					shadowSizeField.setValueSafely(shape.getShadowSize());
 				}
 			}
+
+			setWidgetsVisible(shadowable);
 		}
 	}
 
@@ -166,6 +187,9 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 class CheckBox2PencilShadow extends CheckBoxForCustomiser<ModifyPencilParameter, ShapeShadowCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public CheckBox2PencilShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyPencilParameter.class);
@@ -191,6 +215,9 @@ class CheckBox2PencilShadow extends CheckBoxForCustomiser<ModifyPencilParameter,
 class CheckBox2SelectionShadow extends CheckBoxForCustomiser<ModifyShapeProperty, ShapeShadowCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public CheckBox2SelectionShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyShapeProperty.class);
@@ -216,6 +243,9 @@ class CheckBox2SelectionShadow extends CheckBoxForCustomiser<ModifyShapeProperty
 class Spinner2SelectionShadow extends SpinnerForCustomiser<ModifyShapeProperty, ShapeShadowCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public Spinner2SelectionShadow(final ShapeShadowCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyShapeProperty.class);
@@ -254,6 +284,9 @@ class Spinner2SelectionShadow extends SpinnerForCustomiser<ModifyShapeProperty, 
 class Spinner2PencilShadow extends SpinnerForCustomiser<ModifyPencilParameter, ShapeShadowCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public Spinner2PencilShadow(final ShapeShadowCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyPencilParameter.class);
@@ -293,6 +326,9 @@ class Spinner2PencilShadow extends SpinnerForCustomiser<ModifyPencilParameter, S
 class ColourButton2PencilShadow extends ColourButtonForCustomiser<ModifyPencilParameter, ShapeShadowCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public ColourButton2PencilShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyPencilParameter.class);
@@ -318,6 +354,9 @@ class ColourButton2PencilShadow extends ColourButtonForCustomiser<ModifyPencilPa
 class ColourButton2SelectionShadow extends ColourButtonForCustomiser<ModifyShapeProperty, ShapeShadowCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public ColourButton2SelectionShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyShapeProperty.class);

@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+import org.malai.ui.UIComposer;
 import org.malai.widget.MButtonIcon;
 import org.malai.widget.MCheckBox;
 import org.malai.widget.MColorButton;
@@ -69,15 +70,16 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	/**
 	 * Creates the instrument.
 	 * @param hand The Hand instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param pencil The Pencil instrument.
 	 * @throws IllegalArgumentException If one of the given argument is null or if the drawing cannot
 	 * be accessed from the hand.
 	 * @since 3.0
 	 */
-	public ShapeBorderCustomiser(final Hand hand, final Pencil pencil) {
-		super(hand, pencil);
+	public ShapeBorderCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+		super(composer, hand, pencil);
 
-		initWidgets();
+		initialiseWidgets();
 		initialiseLinks();
 	}
 
@@ -132,7 +134,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initWidgets() {
+	protected void initialiseWidgets() {
      	thicknessField 		= new MSpinner(new SpinnerNumberModel(2, 0.1, 1000, 0.1), new JLabel(LResources.THICKNESS_ICON));
      	thicknessField.setEditor(new JSpinner.NumberEditor(thicknessField, "0.0"));//$NON-NLS-1$
      	thicknessField.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.65")); //$NON-NLS-1$
@@ -166,11 +168,11 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			boolean supportRound = shape instanceof IGroup ? ((IGroup)shape).containsRoundables() : shape instanceof ILineArcShape;
 			boolean rounded		 = supportRound && ((ILineArcShape)shape).isRoundCorner();
 
-			thicknessField.setVisible(isTh);
-			lineCB.setVisible(isStylable);
-			bordersPosCB.setVisible(isMvble);
-			isRound.setVisible(supportRound);
-			frameArcField.setVisible(rounded);
+			composer.setWidgetVisible(thicknessField, isTh);
+			composer.setWidgetVisible(lineCB, isStylable);
+			composer.setWidgetVisible(bordersPosCB, isMvble);
+			composer.setWidgetVisible(isRound, supportRound);
+			composer.setWidgetVisible(frameArcField, rounded);
 			lineColButton.setColor(shape.getLineColour());
 
 			if(isTh)
@@ -186,6 +188,19 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 					frameArcField.setValueSafely(((ILineArcShape)shape).getLineArc());
 			}
 		}
+	}
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+
+		composer.setWidgetVisible(bordersPosCB, activated);
+		composer.setWidgetVisible(thicknessField, activated);
+		composer.setWidgetVisible(lineColButton, activated);
+		composer.setWidgetVisible(lineCB, activated);
+		composer.setWidgetVisible(isRound, activated);
+		composer.setWidgetVisible(frameArcField, activated);
 	}
 
 
@@ -265,8 +280,11 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 class List2SelectionBorder extends ListForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public List2SelectionBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected List2SelectionBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyShapeProperty.class);
 	}
 
@@ -299,8 +317,11 @@ class List2SelectionBorder extends ListForCustomiser<ModifyShapeProperty, ShapeB
 class List2PencilBorder extends ListForCustomiser<ModifyPencilParameter, ShapeBorderCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public List2PencilBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected List2PencilBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyPencilParameter.class);
 	}
 
@@ -332,8 +353,11 @@ class List2PencilBorder extends ListForCustomiser<ModifyPencilParameter, ShapeBo
 class Spinner2SelectionBorder extends SpinnerForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param borderCustom The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public Spinner2SelectionBorder(final ShapeBorderCustomiser borderCustom) throws InstantiationException, IllegalAccessException {
+	protected Spinner2SelectionBorder(final ShapeBorderCustomiser borderCustom) throws InstantiationException, IllegalAccessException {
 		super(borderCustom, ModifyShapeProperty.class);
 	}
 
@@ -364,8 +388,11 @@ class Spinner2SelectionBorder extends SpinnerForCustomiser<ModifyShapeProperty, 
 class Spinner2PencilBorder extends SpinnerForCustomiser<ModifyPencilParameter, ShapeBorderCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param borderCustom The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public Spinner2PencilBorder(final ShapeBorderCustomiser borderCustom) throws InstantiationException, IllegalAccessException {
+	protected Spinner2PencilBorder(final ShapeBorderCustomiser borderCustom) throws InstantiationException, IllegalAccessException {
 		super(borderCustom, ModifyPencilParameter.class);
 	}
 
@@ -396,8 +423,11 @@ class Spinner2PencilBorder extends SpinnerForCustomiser<ModifyPencilParameter, S
 class CheckBox2PencilBorder extends CheckBoxForCustomiser<ModifyPencilParameter, ShapeBorderCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public CheckBox2PencilBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected CheckBox2PencilBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyPencilParameter.class);
 	}
 
@@ -422,8 +452,11 @@ class CheckBox2PencilBorder extends CheckBoxForCustomiser<ModifyPencilParameter,
 class CheckBox2SelectionBorder extends CheckBoxForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public CheckBox2SelectionBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected CheckBox2SelectionBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyShapeProperty.class);
 	}
 
@@ -447,8 +480,11 @@ class CheckBox2SelectionBorder extends CheckBoxForCustomiser<ModifyShapeProperty
 class ColourButton2PencilBorder extends ColourButtonForCustomiser<ModifyPencilParameter, ShapeBorderCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ColourButton2PencilBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected ColourButton2PencilBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyPencilParameter.class);
 	}
 
@@ -473,8 +509,11 @@ class ColourButton2PencilBorder extends ColourButtonForCustomiser<ModifyPencilPa
 class ColourButton2SelectionBorder extends ColourButtonForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ColourButton2SelectionBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected ColourButton2SelectionBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyShapeProperty.class);
 	}
 

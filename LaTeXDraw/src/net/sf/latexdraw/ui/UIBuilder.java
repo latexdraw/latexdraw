@@ -11,6 +11,7 @@ import org.malai.ui.IProgressBar;
 import org.malai.ui.UIComposer;
 import org.malai.widget.MPanel;
 import org.malai.widget.MToolBar;
+import org.malai.widget.Scrollable;
 
 /**
  * This composer composes the latexdraw user interface.<br>
@@ -57,12 +58,24 @@ public class UIBuilder extends UIComposer<LFrame> {
 
 	@Override
 	public void setWidgetVisible(final Component widget, final boolean visible) {
-		super.setWidgetVisible(widget, visible);
+		final Component comp;
 
-		ListToggleButton list = toolbarBuilder.mapContainers.get(widget);
+		// For widgets having a ScrollPane we must check their containing ScollPane.
+		if(widget instanceof Scrollable && ((Scrollable)widget).hasScrollPane())
+			comp = ((Scrollable)widget).getScrollpane();
+		else comp = widget;
 
-		if(list!=null)
+		super.setWidgetVisible(comp, visible);
+
+		ListToggleButton list = toolbarBuilder.mapContainers.get(comp);
+
+		if(list==null)
+			list = propToolbarBuilder.mapContainers.get(comp);
+
+		if(list!=null) {
 			list.setVisible(visible || list.isContentVisible());
+			list.repaint();
+		}
 	}
 
 

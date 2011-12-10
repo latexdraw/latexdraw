@@ -8,6 +8,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import org.malai.ui.UIComposer;
 import org.malai.widget.MComboBox;
 import org.malai.widget.MSpinner;
 
@@ -49,22 +50,23 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param hand The Hand instrument.
 	 * @param pencil The Pencil instrument.
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public ShapeDotCustomiser(final Hand hand, final Pencil pencil) {
-		super(hand, pencil);
+	public ShapeDotCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+		super(composer, hand, pencil);
 
-		initWidgets();
+		initialiseWidgets();
      	initialiseLinks();
 	}
 
 
 
 	@Override
-	protected void initWidgets() {
+	protected void initialiseWidgets() {
      	final SpinnerModel model = new SpinnerNumberModel(6, 0.1, 1000, 1);
      	dotSizeField = new MSpinner(model, new JLabel(LResources.DOT_STYLE_NONE_ICON));
      	dotSizeField.setEditor(new JSpinner.NumberEditor(dotSizeField, "0.0"));//$NON-NLS-1$
@@ -154,8 +156,25 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 			}
 		}
 
-		if(widgetContainer!=null)
-			widgetContainer.setVisible(widgetVisible);
+		setWidgetsVisible(widgetVisible);
+	}
+
+
+	/**
+	 * Sets the widgets of the instrument visible or not.
+	 * @param visible True: they are visible.
+	 * @since 3.0
+	 */
+	protected void setWidgetsVisible(final boolean visible) {
+		composer.setWidgetVisible(dotCB, visible);
+		composer.setWidgetVisible(dotSizeField, visible);
+	}
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		setWidgetsVisible(activated);
 	}
 
 

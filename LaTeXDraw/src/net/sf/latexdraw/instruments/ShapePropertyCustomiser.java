@@ -10,11 +10,12 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 import org.malai.action.Action;
 import org.malai.instrument.Link;
-import org.malai.instrument.library.WidgetContainerInstrument;
+import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.library.ButtonPressed;
 import org.malai.interaction.library.CheckBoxModified;
 import org.malai.interaction.library.ListSelectionModified;
 import org.malai.interaction.library.SpinnerModified;
+import org.malai.ui.UIComposer;
 import org.malai.undo.Undoable;
 import org.malai.widget.MColorButton;
 
@@ -38,7 +39,7 @@ import org.malai.widget.MColorButton;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument {
+public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 	/** The Hand instrument. */
 	protected Hand hand;
 
@@ -48,13 +49,14 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param hand The Hand instrument.
 	 * @param pencil The Pencil instrument.
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public ShapePropertyCustomiser(final Hand hand, final Pencil pencil) {
-		super();
+	public ShapePropertyCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+		super(composer);
 
 		if(hand==null || pencil==null)
 			throw new IllegalArgumentException();
@@ -62,13 +64,6 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 		this.hand   = hand;
 		this.pencil = pencil;
 	}
-
-
-	/**
-	 * Initialises the widgets of the instrument.
-	 * @since 3.0
-	 */
-	protected abstract void initWidgets();
 
 
 	@Override
@@ -96,17 +91,6 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 			update(pencil.createShapeInstance());
 		else
 			update(hand.canvas.getDrawing().getSelection());
-
-		repaintWidgetContainer();
-	}
-
-
-	/**
-	 * Repaints the container of all the widgets of the instrument.
-	 */
-	protected void repaintWidgetContainer() {
-		if(widgetContainer!=null)
-			widgetContainer.repaint();
 	}
 
 
@@ -116,15 +100,6 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 	 * @since 3.0
 	 */
 	protected abstract void update(final IShape shape);
-
-
-	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-
-		if(widgetContainer!=null)
-			widgetContainer.setVisible(isActivated());
-	}
 
 
 	/**
@@ -153,8 +128,12 @@ public abstract class ShapePropertyCustomiser extends WidgetContainerInstrument 
 abstract class ListForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends Link<A, ListSelectionModified, N> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @param clazzAction The class of the action to create.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ListForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+	protected ListForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 		super(instrument, false, clazzAction, ListSelectionModified.class);
 	}
 
@@ -178,8 +157,12 @@ abstract class ListForCustomiser<A extends ShapePropertyAction, N extends ShapeP
 abstract class ColourButtonForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends Link<A, ButtonPressed, N> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @param clazzAction The class of the action to create.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ColourButtonForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+	protected ColourButtonForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 		super(instrument, false, clazzAction, ButtonPressed.class);
 	}
 
@@ -199,8 +182,12 @@ abstract class ColourButtonForCustomiser<A extends ShapePropertyAction, N extend
 abstract class CheckBoxForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends Link<A, CheckBoxModified, N> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @param clazzAction The class of the action to create.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public CheckBoxForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+	protected CheckBoxForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 		super(instrument, false, clazzAction, CheckBoxModified.class);
 	}
 
@@ -217,8 +204,12 @@ abstract class CheckBoxForCustomiser<A extends ShapePropertyAction, N extends Sh
 abstract class ButtonPressedForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends Link<A, ButtonPressed, N> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @param clazzAction The class of the action to create.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ButtonPressedForCustomiser(final N ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+	protected ButtonPressedForCustomiser(final N ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, clazzAction, ButtonPressed.class);
 	}
 }
@@ -231,8 +222,12 @@ abstract class ButtonPressedForCustomiser<A extends ShapePropertyAction, N exten
 abstract class SpinnerForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends Link<A, SpinnerModified, N> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @param clazzAction The class of the action to create.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public SpinnerForCustomiser(final N ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+	protected SpinnerForCustomiser(final N ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, clazzAction, SpinnerModified.class);
 	}
 

@@ -20,6 +20,7 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
+import org.malai.ui.UIComposer;
 import org.malai.widget.MButtonIcon;
 import org.malai.widget.MColorButton;
 import org.malai.widget.MComboBox;
@@ -78,15 +79,16 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param hand The Hand instrument.
 	 * @param pencil The Pencil instrument.
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public ShapeFillingCustomiser(final Hand hand, final Pencil pencil) {
-		super(hand, pencil);
+	public ShapeFillingCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+		super(composer, hand, pencil);
 
-		initWidgets();
+		initialiseWidgets();
 		initialiseLinks();
 	}
 
@@ -133,7 +135,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initWidgets() {
+	protected void initialiseWidgets() {
 		// Creation of the filling widgets.
      	fillColButton = new MColorButton(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(pencil.fillingable.getFillingCol()));//$NON-NLS-1$
      	fillColButton.setMargin(LResources.INSET_BUTTON);
@@ -191,15 +193,15 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 			final boolean gradient		= style.isGradient();
 
 			// Updating the visibility of the widgets.
-			fillColButton.setVisible(isFillable);
-			hatchColButton.setVisible(hatchings);
-			hatchAngleField.setVisible(hatchings);
-			hatchSepField.setVisible(hatchings);
-			hatchWidthField.setVisible(hatchings);
-			gradStartColButton.setVisible(gradient);
-			gradEndColButton.setVisible(gradient);
-			gradAngleField.setVisible(gradient);
-			gradMidPtField.setVisible(gradient);
+			composer.setWidgetVisible(fillColButton, isFillable);
+			composer.setWidgetVisible(hatchColButton, hatchings);
+			composer.setWidgetVisible(hatchAngleField, hatchings);
+			composer.setWidgetVisible(hatchSepField, hatchings);
+			composer.setWidgetVisible(hatchWidthField, hatchings);
+			composer.setWidgetVisible(gradStartColButton, gradient);
+			composer.setWidgetVisible(gradEndColButton, gradient);
+			composer.setWidgetVisible(gradAngleField, gradient);
+			composer.setWidgetVisible(gradMidPtField, gradient);
 
 			fillStyleCB.setSelectedItemSafely(style.toString());
 			if(isFillable)
@@ -218,8 +220,33 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 			}
 		}
 
-		if(widgetContainer!=null)
-			widgetContainer.setVisible(isFillingCust);
+		setWidgetsVisible(isFillingCust);
+	}
+
+
+	/**
+	 * Sets the widgets of the instrument visible or not.
+	 * @param visible True: they are visible.
+	 * @since 3.0
+	 */
+	protected void setWidgetsVisible(final boolean visible) {
+		composer.setWidgetVisible(fillColButton, visible);
+		composer.setWidgetVisible(hatchColButton, visible);
+		composer.setWidgetVisible(gradStartColButton, visible);
+		composer.setWidgetVisible(gradEndColButton, visible);
+		composer.setWidgetVisible(fillStyleCB, visible);
+		composer.setWidgetVisible(gradMidPtField, visible);
+		composer.setWidgetVisible(gradAngleField, visible);
+		composer.setWidgetVisible(hatchSepField, visible);
+		composer.setWidgetVisible(hatchAngleField, visible);
+		composer.setWidgetVisible(hatchWidthField, visible);
+	}
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		setWidgetsVisible(activated);
 	}
 
 
@@ -327,8 +354,11 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 class List2PencilFilling extends ListForCustomiser<ModifyPencilParameter, ShapeFillingCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public List2PencilFilling(final ShapeFillingCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected List2PencilFilling(final ShapeFillingCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyPencilParameter.class);
 	}
 
@@ -354,8 +384,11 @@ class List2PencilFilling extends ListForCustomiser<ModifyPencilParameter, ShapeF
 class List2SelectionFilling extends ListForCustomiser<ModifyShapeProperty, ShapeFillingCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public List2SelectionFilling(final ShapeFillingCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected List2SelectionFilling(final ShapeFillingCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyShapeProperty.class);
 	}
 
@@ -381,8 +414,11 @@ class List2SelectionFilling extends ListForCustomiser<ModifyShapeProperty, Shape
 class ColourButton2PencilFilling extends ColourButtonForCustomiser<ModifyPencilParameter, ShapeFillingCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ColourButton2PencilFilling(final ShapeFillingCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected ColourButton2PencilFilling(final ShapeFillingCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyPencilParameter.class);
 	}
 
@@ -421,8 +457,11 @@ class ColourButton2PencilFilling extends ColourButtonForCustomiser<ModifyPencilP
 class ColourButton2SelectionFilling extends ColourButtonForCustomiser<ModifyShapeProperty, ShapeFillingCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param instrument The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ColourButton2SelectionFilling(final ShapeFillingCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	protected ColourButton2SelectionFilling(final ShapeFillingCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyShapeProperty.class);
 	}
 
@@ -461,8 +500,11 @@ class ColourButton2SelectionFilling extends ColourButtonForCustomiser<ModifyShap
 class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty, ShapeFillingCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public Spinner2SelectionFilling(final ShapeFillingCustomiser ins) throws InstantiationException, IllegalAccessException {
+	protected Spinner2SelectionFilling(final ShapeFillingCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyShapeProperty.class);
 	}
 
@@ -517,8 +559,11 @@ class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty,
 class Spinner2PencilFilling extends SpinnerForCustomiser<ModifyPencilParameter, ShapeFillingCustomiser> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public Spinner2PencilFilling(final ShapeFillingCustomiser ins) throws InstantiationException, IllegalAccessException {
+	protected Spinner2PencilFilling(final ShapeFillingCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyPencilParameter.class);
 	}
 

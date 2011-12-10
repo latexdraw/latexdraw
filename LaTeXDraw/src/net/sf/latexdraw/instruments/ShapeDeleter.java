@@ -44,6 +44,7 @@ public class ShapeDeleter extends WidgetInstrument {
 
 	/**
 	 * Creates the instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @since 3.0
 	 */
 	public ShapeDeleter(final UIComposer<?> composer) {
@@ -113,8 +114,12 @@ public class ShapeDeleter extends WidgetInstrument {
 abstract class DeleteShapesLink<I extends Interaction> extends Link<DeleteShapes, I, ShapeDeleter> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @param clazzInteraction The class of the interaction to create.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public DeleteShapesLink(final ShapeDeleter ins, final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
+	protected DeleteShapesLink(final ShapeDeleter ins, final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, DeleteShapes.class, clazzInteraction);
 	}
 
@@ -145,8 +150,11 @@ abstract class DeleteShapesLink<I extends Interaction> extends Link<DeleteShapes
 class KeyPressed2DeleteShapes extends DeleteShapesLink<KeyPressure> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public KeyPressed2DeleteShapes(final ShapeDeleter ins) throws InstantiationException, IllegalAccessException {
+	protected KeyPressed2DeleteShapes(final ShapeDeleter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, KeyPressure.class);
 	}
 
@@ -163,8 +171,11 @@ class KeyPressed2DeleteShapes extends DeleteShapesLink<KeyPressure> {
 class ButtonPressed2DeleteShapes extends DeleteShapesLink<ButtonPressed> {
 	/**
 	 * Creates the link.
+	 * @param ins The instrument that contains the link.
+	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ButtonPressed2DeleteShapes(final ShapeDeleter ins) throws InstantiationException, IllegalAccessException {
+	protected ButtonPressed2DeleteShapes(final ShapeDeleter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ButtonPressed.class);
 	}
 

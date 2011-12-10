@@ -14,6 +14,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
+import org.malai.ui.UIComposer;
 import org.malai.widget.MSpinner;
 import org.malai.widget.MToggleButton;
 
@@ -56,20 +57,21 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	 * Creates the instrument.
 	 * @param hand The Hand instrument.
 	 * @param pencil The Pencil instrument.
+	 * @param composer The composer that manages the widgets of the instrument.
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public ShapeArcCustomiser(final Hand hand, final Pencil pencil) {
-		super(hand, pencil);
+	public ShapeArcCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+		super(composer, hand, pencil);
 
-		initWidgets();
+		initialiseWidgets();
 		initialiseLinks();
 	}
 
 
 
 	@Override
-	protected void initWidgets() {
+	protected void initialiseWidgets() {
 		arcB = new MToggleButton(LResources.ARC_ICON);
 		arcB.setMargin(LResources.INSET_BUTTON);
 		arcB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
@@ -89,6 +91,27 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
      	endAngleS.setEditor(new MSpinner.NumberEditor(endAngleS, "0.0"));//$NON-NLS-1$
 	}
 
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		setWidgetsVisible(activated);
+	}
+
+
+	/**
+	 * Sets the widgets of the instrument visible or not.
+	 * @param visible True: they are visible.
+	 * @since 3.0
+	 */
+	protected void setWidgetsVisible(final boolean visible) {
+		composer.setWidgetVisible(arcB, visible);
+		composer.setWidgetVisible(wedgeB, visible);
+		composer.setWidgetVisible(chordB, visible);
+		composer.setWidgetVisible(startAngleS, visible);
+		composer.setWidgetVisible(endAngleS, visible);
+	}
 
 
 	@Override
@@ -112,8 +135,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 		}
 		else widgetsVisible = false;
 
-		if(widgetContainer!=null)
-			widgetContainer.setVisible(widgetsVisible);
+		setWidgetsVisible(widgetsVisible);
 	}
 
 
