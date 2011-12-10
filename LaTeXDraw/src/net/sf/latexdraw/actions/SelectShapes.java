@@ -39,8 +39,8 @@ public class SelectShapes extends MultiShapesAction {
 	public boolean isRegisterable() {
 		return true;
 	}
-	
-	
+
+
 	@Override
 	protected void doActionBody() {
 		final IGroup selection = drawing.getSelection();
@@ -54,6 +54,6 @@ public class SelectShapes extends MultiShapesAction {
 
 	@Override
 	public boolean cancelledBy(final Action action) {
-		return action instanceof SelectShapes;
+		return action instanceof SelectShapes || action instanceof CutShapes || action instanceof DeleteShapes;
 	}
 }

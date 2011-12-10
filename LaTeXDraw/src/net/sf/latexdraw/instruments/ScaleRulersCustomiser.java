@@ -98,6 +98,14 @@ public class ScaleRulersCustomiser extends Instrument {
 
 
 	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		unitCmItem.setEnabled(activated);
+		unitInchItem.setEnabled(activated);
+	}
+
+
+	@Override
 	public void interimFeedback() {
 		update();
 	}

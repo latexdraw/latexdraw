@@ -102,7 +102,7 @@ public abstract class Instrument implements Preferenciable, Modifiable, Reinitia
 
 
 	/**
-	 * Activates or desactivates the instrument.
+	 * Activates or deactivates the instrument.
 	 * @param activated True = activation.
 	 */
 	public void setActivated(final boolean activated) {

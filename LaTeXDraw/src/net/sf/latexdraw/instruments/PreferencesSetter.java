@@ -74,7 +74,7 @@ import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PreferencesSetter extends Instrument {
+public class PreferencesSetter extends Instrument {//TODO a composer for the preferences frame and WidgetInstrument inheritance
 	/** The file chooser of paths selection. */
 	protected JFileChooser fileChooser;
 

@@ -3,20 +3,21 @@ package net.sf.latexdraw.instruments;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-import org.malai.action.ActionsRegistry;
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
-import org.malai.interaction.Interaction;
-import org.malai.interaction.library.ButtonPressed;
-import org.malai.interaction.library.KeyPressure;
-import org.malai.widget.MButton;
-
 import net.sf.latexdraw.actions.DeleteShapes;
 import net.sf.latexdraw.actions.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.action.ActionsRegistry;
+import org.malai.instrument.Link;
+import org.malai.instrument.WidgetInstrument;
+import org.malai.interaction.Interaction;
+import org.malai.interaction.library.ButtonPressed;
+import org.malai.interaction.library.KeyPressure;
+import org.malai.ui.UIComposer;
+import org.malai.widget.MButton;
 
 /**
  * This instrument deletes the selected shapes.<br>
@@ -36,27 +37,50 @@ import net.sf.latexdraw.util.LResources;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeDeleter extends Instrument {
+public class ShapeDeleter extends WidgetInstrument {
 	/** The button used to remove the selected shapes. */
 	protected MButton deleteB;
-	
-	
+
+
 	/**
-	 * Creates the instrument. 
+	 * Creates the instrument.
 	 * @since 3.0
 	 */
-	public ShapeDeleter() {
-		super();
-		
-		deleteB = new MButton(LResources.DEL_ICON);
-		deleteB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.139")); //$NON-NLS-1$
+	public ShapeDeleter(final UIComposer<?> composer) {
+		super(composer);
+		initialiseWidgets();
 		initialiseLinks();
 	}
 
-	
+
+	@Override
+	protected void initialiseWidgets() {
+		deleteB = new MButton(LResources.DEL_ICON);
+		deleteB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.139")); //$NON-NLS-1$
+	}
+
+
+	@Override
+	public void setActivated(final boolean activated, final boolean hideWidgets) {
+		super.setActivated(activated, hideWidgets);
+		updateWidgets(hideWidgets);
+	}
+
+
 	@Override
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
+		updateWidgets(false);
+	}
+
+
+	/**
+	 * Updates the widgets of this instrument.
+	 * @param hideWidgets True: the widgets are hidden on deactivation.
+	 * @since 3.0
+	 */
+	protected void updateWidgets(final boolean hideWidgets) {
+		deleteB.setVisible(activated || !hideWidgets);
 		deleteB.setEnabled(activated);
 	}
 
@@ -93,20 +117,20 @@ abstract class DeleteShapesLink<I extends Interaction> extends Link<DeleteShapes
 	public DeleteShapesLink(final ShapeDeleter ins, final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, DeleteShapes.class, clazzInteraction);
 	}
-	
-	
+
+
 	@Override
 	public void initAction() {
 		final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
 		final List<IShape> shapes 	 = selection.getShapes();
-		
+
 		for(final IShape sh : shapes)
 			action.addShape(sh);
-		
+
 		action.setDrawing(selection.getDrawing());
 	}
-	
-	
+
+
 	@Override
 	public boolean isConditionRespected() {
 		final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);

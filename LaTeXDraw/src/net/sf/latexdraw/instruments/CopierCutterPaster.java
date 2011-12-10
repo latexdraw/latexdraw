@@ -12,11 +12,12 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
-import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
+import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.Interaction;
 import org.malai.interaction.library.KeysPressure;
 import org.malai.interaction.library.MenuItemPressed;
+import org.malai.ui.UIComposer;
 import org.malai.widget.MMenuItem;
 
 /**
@@ -37,7 +38,7 @@ import org.malai.widget.MMenuItem;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class CopierCutterPaster extends Instrument {
+public class CopierCutterPaster extends WidgetInstrument {
 	/** The menu item to copy the shapes. */
 	protected MMenuItem copyMenu;
 
@@ -57,24 +58,21 @@ public class CopierCutterPaster extends Instrument {
 	 * @throws IllegalArgumentException If the given drawing is null.
 	 * @since 3.0
 	 */
-	public CopierCutterPaster(final IDrawing drawing) {
-		super();
+	public CopierCutterPaster(final UIComposer<?> composer, final IDrawing drawing) {
+		super(composer);
 
 		if(drawing==null)
 			throw new IllegalArgumentException();
 
 		this.drawing = drawing;
-		initWidgets();
+		initialiseWidgets();
 		initialiseLinks();
 		ActionsRegistry.INSTANCE.addHandler(this);
 	}
 
 
-	/**
-	 * Initialises the widgets.
-	 * @since 3.0
-	 */
-	protected void initWidgets() {
+	@Override
+	protected void initialiseWidgets() {
 		copyMenu = new MMenuItem(LResources.LABEL_COPY, KeyEvent.VK_C);
 		copyMenu.setIcon(LResources.COPY_ICON);
 		copyMenu.setEnabled(false);
@@ -86,6 +84,35 @@ public class CopierCutterPaster extends Instrument {
 		pasteMenu.setEnabled(false);
 	}
 
+
+	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+		updateWidgets(null);
+	}
+
+
+	/**
+	 * Updates the widgets of the instrument.
+	 * @param executedAction The action currently executed. Can be null.
+	 * @since 3.0
+	 */
+	protected void updateWidgets(final Action executedAction) {
+		boolean validSelectAction = activated;
+
+//		if(activated)
+//			if(executedAction instanceof SelectShapes) {
+//				validSelectAction = !((SelectShapes)executedAction).getShapes().isEmpty();
+//			}else {
+				SelectShapes sa = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
+				validSelectAction = sa!=null && !sa.getShapes().isEmpty();
+//			}
+
+		copyMenu.setEnabled(activated && validSelectAction);
+		cutMenu.setEnabled(activated && copyMenu.isEnabled());
+		pasteMenu.setEnabled(activated && (executedAction instanceof CopyShapes ||
+							ActionsRegistry.INSTANCE.getAction(CopyShapes.class)!=null || ActionsRegistry.INSTANCE.getAction(CutShapes.class)!=null));
+	}
 
 
 	@Override
@@ -133,14 +160,8 @@ public class CopierCutterPaster extends Instrument {
 
 
 	@Override
-	public void onActionExecuted(final Action action) {
-		if(action instanceof CopyShapes)
-			pasteMenu.setEnabled(true);
-		else if(action instanceof SelectShapes) {
-			final boolean empty = ((SelectShapes)action).getShapes().isEmpty();
-			copyMenu.setEnabled(!empty);
-			cutMenu.setEnabled(!empty);
-		}
+	public void onActionAdded(final Action action) {
+		updateWidgets(action);
 	}
 }
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.malai.action.Action;
 import org.malai.instrument.Instrument;
+import org.malai.instrument.WidgetInstrument;
 
 
 /**
@@ -33,6 +34,10 @@ public class ActivateInactivateInstruments extends Action {
 	/** Defines the activations must be performed before the inactivations. */
 	protected boolean activateFirst;
 
+	/** Defines if the widgets of WidgetInstrument instances must be hidden during their deactivation. */
+	protected boolean hideWidgets;
+
+
 	/**
 	 * Creates and initialises the instrument.
 	 * @since 0.1
@@ -41,6 +46,7 @@ public class ActivateInactivateInstruments extends Action {
 		super();
 
 		activateFirst = true;
+		hideWidgets	  = false;
 	}
 
 
@@ -60,18 +66,21 @@ public class ActivateInactivateInstruments extends Action {
 	protected void doActionBody() {
 		if(activateFirst) {
 			activate();
-			inactivate();
+			deactivate();
 		} else {
-			inactivate();
+			deactivate();
 			activate();
 		}
 	}
 
 
-	protected void inactivate() {
+	protected void deactivate() {
 		if(insInactivate!=null)
 			for(Instrument ins : insInactivate)
-				ins.setActivated(false);
+				if(hideWidgets && ins instanceof WidgetInstrument)
+					((WidgetInstrument)ins).setActivated(false, true);
+				else
+					ins.setActivated(false);
 	}
 
 
@@ -94,6 +103,15 @@ public class ActivateInactivateInstruments extends Action {
 
 			insActivate.add(ins);
 		}
+	}
+
+
+	/**
+	 * @param hideWidgets Defines if the widgets of WidgetInstrument instances must be hidden during their deactivation.
+	 * @since 0.2
+	 */
+	public void setHideWidgets(boolean hideWidgets) {
+		this.hideWidgets = hideWidgets;
 	}
 
 

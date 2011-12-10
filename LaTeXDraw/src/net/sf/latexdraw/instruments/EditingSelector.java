@@ -238,7 +238,7 @@ public class EditingSelector extends WidgetInstrument {
 			triangleB.setSelected(false);
 			bezierB.setSelected(false);
 			bezierClosedB.setSelected(false);
-		} else {
+		} else if(pencil.isActivated()){
 			EditionChoice ec = pencil.getCurrentChoice();
 
 			recB.setSelected(ec==EditionChoice.RECT);
@@ -280,6 +280,12 @@ public class EditingSelector extends WidgetInstrument {
 	@Override
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
+
+		hand.setActivated(activated && handB.isSelected());
+		pencil.setActivated(activated && !handB.isSelected());
+		border.setActivated(activated && hand.isActivated());
+		deleter.setActivated(hand.isActivated() && !border.getSelection().isEmpty());
+		metaShapeCustomiser.setActivated(activated && (deleter.isActivated() || pencil.isActivated()));
 
 		composer.setWidgetVisible(arcB, activated);
 		composer.setWidgetVisible(axesB, activated);

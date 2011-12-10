@@ -23,6 +23,7 @@ import net.sf.latexdraw.instruments.PreferencesActivator;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.instruments.ScaleRulersCustomiser;
 import net.sf.latexdraw.instruments.ShapeDeleter;
+import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.instruments.Zoomer;
 import net.sf.latexdraw.mapping.Drawing2CanvasMapping;
@@ -45,6 +46,7 @@ import org.malai.ui.IProgressBar;
 import org.malai.ui.UI;
 import org.malai.ui.UIManager;
 import org.malai.widget.MLayeredPane;
+import org.malai.widget.MTabbedPane;
 
 /**
  * This class contains all the elements of the graphical user interface.<br>
@@ -131,8 +133,12 @@ public class LFrame extends UI {
 	/** The instrument that copies, cuts and pastes selected shapes. */
 	protected CopierCutterPaster paster;
 
+	protected TabSelector tabSelector;
+
 	/** The layered panel used to display widgets upon shapes (e.g. text setters). */
 	protected MLayeredPane layeredPanel;
+
+	protected MTabbedPane tabbedPanel;
 
 
 
@@ -155,6 +161,8 @@ public class LFrame extends UI {
 	private void buildFrame(final IProgressBar progressBar) {
 		final LCanvas canvas 	= getCanvas();
 		final IDrawing drawing	= getDrawing();
+
+		tabbedPanel = new MTabbedPane(true);
 
 		layeredPanel = new MLayeredPane(false, false);
 		layeredPanel.add(canvas.getScrollpane(), JLayeredPane.DEFAULT_LAYER);
@@ -213,8 +221,8 @@ public class LFrame extends UI {
 
 	private void instantiateInstruments(final LCanvas canvas, final IDrawing drawing) {
 		exceptionsManager	= new ExceptionsManager();
-		helper				= new Helper();
-		try { gridCustomiser= new MagneticGridCustomiser(canvas.getMagneticGrid()); }
+		helper				= new Helper(composer);
+		try { gridCustomiser= new MagneticGridCustomiser(composer, canvas.getMagneticGrid()); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scaleRulersCustomiser = new ScaleRulersCustomiser(xScaleRuler, yScaleRuler); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
@@ -228,20 +236,22 @@ public class LFrame extends UI {
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { pencil 		= new Pencil(drawing, zoomer, canvas.getMagneticGrid(), textSetter); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { exporter		= new Exporter(canvas, drawing, statusBar); }
+		try { exporter		= new Exporter(composer, canvas, drawing, statusBar); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { metaShapeCustomiser = new MetaShapeCustomiser(hand, pencil); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		deleter				= new ShapeDeleter();
+		deleter				= new ShapeDeleter(composer);
 		try { editingSelector = new EditingSelector(composer, pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		undoManager			= new UndoRedoManager();
-		try { paster		= new CopierCutterPaster(drawing); }
+		undoManager			= new UndoRedoManager(composer);
+		try { paster		= new CopierCutterPaster(composer, drawing); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		prefSetters			= new PreferencesSetter(this);
-		try { prefActivator	= new PreferencesActivator(prefSetters); }
+		try { prefActivator	= new PreferencesActivator(composer, prefSetters); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { fileLoader	= new FileLoaderSaver(this, statusBar, prefSetters); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		try { tabSelector	= new TabSelector(this); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 	}
 
@@ -347,6 +357,87 @@ public class LFrame extends UI {
 	 */
 	public MetaShapeCustomiser getMetaShapeCustomiser() {
 		return metaShapeCustomiser;
+	}
+
+
+	/**
+	 * @return the hand.
+	 * @since 3.0
+	 */
+	public Hand getHand() {
+		return hand;
+	}
+
+
+	/**
+	 * @return the pencil.
+	 * @since 3.0
+	 */
+	public Pencil getPencil() {
+		return pencil;
+	}
+
+
+	/**
+	 * @return the textSetter.
+	 * @since 3.0
+	 */
+	public TextSetter getTextSetter() {
+		return textSetter;
+	}
+
+
+	/**
+	 * @return the editingSelector.
+	 * @since 3.0
+	 */
+	public EditingSelector getEditingSelector() {
+		return editingSelector;
+	}
+
+
+	/**
+	 * @return the undoManager.
+	 * @since 3.0
+	 */
+	public UndoRedoManager getUndoManager() {
+		return undoManager;
+	}
+
+
+	/**
+	 * @return the zoomer.
+	 * @since 3.0
+	 */
+	public Zoomer getZoomer() {
+		return zoomer;
+	}
+
+
+	/**
+	 * @return the deleter.
+	 * @since 3.0
+	 */
+	public ShapeDeleter getDeleter() {
+		return deleter;
+	}
+
+
+	/**
+	 * @return the paster.
+	 * @since 3.0
+	 */
+	public CopierCutterPaster getPaster() {
+		return paster;
+	}
+
+
+	/**
+	 * @return the tabbedPanel.
+	 * @since 3.0
+	 */
+	public MTabbedPane getTabbedPanel() {
+		return tabbedPanel;
 	}
 }
 

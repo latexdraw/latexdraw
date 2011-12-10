@@ -94,16 +94,14 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		// Adding the zoom buttons.
 		widget.add(frame.zoomer.getZoomSpinner());
 		widget.add(frame.zoomer.getZoomDefaultButton());
-		widget.addSeparator();
 
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
-		composeMagnticGridToolbar(canvas);
+		composeMagneticGridToolbar(canvas);
 
 		// Adding the undo/redo buttons.
 		widget.add(frame.undoManager.getUndoB());
 		widget.add(frame.undoManager.getRedoB());
-		widget.addSeparator();
 
  		//Adding a widget to select shape.
 		button = frame.editingSelector.getHandB();
@@ -112,7 +110,6 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 				 				LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.138")); //$NON-NLS-1$
 		widget.add(button);
 		widget.add(frame.deleter.getDeleteB());
-		widget.addSeparator();
 
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
@@ -284,22 +281,25 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	}
 
 
-	protected void composeMagnticGridToolbar(final LCanvas canvas) {
+	protected void composeMagneticGridToolbar(final LCanvas canvas) {
 		magneticGridB = new ListToggleButton(frame, LResources.DISPLAY_GRID_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
 		magneticGridB.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.12")); //$NON-NLS-1$
 		widget.add(magneticGridB);
 
 		magneticGridB.addComponent(frame.gridCustomiser.getStyleList());
+		mapContainers.put(frame.gridCustomiser.getStyleList(), magneticGridB);
 		magneticGridB.addComponent(Box.createHorizontalStrut(PropertiesToolbarBuilder.SEPARATION_WIDTH));
 		magneticGridB.addComponent(frame.gridCustomiser.getMagneticCB());
+		mapContainers.put(frame.gridCustomiser.getMagneticCB(), magneticGridB);
 		magneticGridB.addComponent(Box.createHorizontalStrut(PropertiesToolbarBuilder.SEPARATION_WIDTH));
 		MSpinner spinner = frame.gridCustomiser.getGridSpacing();
 		spinner.setPreferredSize(new Dimension(65, PropertiesToolbarBuilder.HEIGHT_TEXTFIELD));
 		if(spinner.getLabel()!=null)
 			magneticGridB.addComponent(spinner.getLabel());
 		magneticGridB.addComponent(spinner);
+		mapContainers.put(spinner, magneticGridB);
 		// The mini-toolbar is set to the instrument to be updated when some of its widgets are hidden.
-		frame.gridCustomiser.setWidgetContainer(magneticGridB);
+//		frame.gridCustomiser.setWidgetContainer(magneticGridB);
 
 		magneticGridB.addSeparator();
 	}

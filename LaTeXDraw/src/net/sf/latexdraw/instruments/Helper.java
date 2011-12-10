@@ -5,14 +5,15 @@ import java.awt.event.KeyEvent;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.malai.instrument.Instrument;
-import org.malai.instrument.library.MenuItem2OpenWebPageLink;
-import org.malai.instrument.library.MenuItem2ShowComponentLink;
-import org.malai.widget.MMenuItem;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.ui.dialog.AboutDialogueBox;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.instrument.WidgetInstrument;
+import org.malai.instrument.library.MenuItem2OpenWebPageLink;
+import org.malai.instrument.library.MenuItem2ShowComponentLink;
+import org.malai.ui.UIComposer;
+import org.malai.widget.MMenuItem;
 
 /**
  * This instrument manages help features.<br>
@@ -33,7 +34,7 @@ import net.sf.latexdraw.util.LResources;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class Helper extends Instrument {
+public class Helper extends WidgetInstrument {
 	/** This menu item shows the "About latexdraw" panel. */
 	protected MMenuItem aboutItem;
 
@@ -54,13 +55,14 @@ public class Helper extends Instrument {
 	 * Creates the instrument.
 	 * @since 3.0
 	 */
-	public Helper() {
-		super();
+	public Helper(final UIComposer<?> composer) {
+		super(composer);
 		initialiseWidgets();
 		initialiseLinks();
 	}
 
 
+	@Override
 	protected void initialiseWidgets() {
 		aboutFrame= null;
 		aboutItem = new MMenuItem(LResources.LABEL_ABOUT, KeyEvent.VK_A);

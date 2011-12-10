@@ -18,8 +18,8 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.Action;
-import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
+import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.Interaction;
 import org.malai.interaction.library.ButtonPressed;
 import org.malai.interaction.library.KeysPressure;
@@ -49,7 +49,7 @@ import org.w3c.dom.Element;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class FileLoaderSaver extends Instrument {
+public class FileLoaderSaver extends WidgetInstrument {
 	/** The label of the saveMenu item */
 	public final static String LABEL_SAVE = "Save drawing";
 
@@ -105,42 +105,20 @@ public class FileLoaderSaver extends Instrument {
 	 * @param statusBar The status bar where messages are displayed.
 	 * @param prefSetter The instrument used to manage preferences.
 	 * @throws IllegalArgumentException If one of the given parameters is null.
+	 * @throws NullPointerException If the given UI is null.
 	 * @since 3.0
 	 */
 	public FileLoaderSaver(final UI ui, final JTextField statusBar, final PreferencesSetter prefSetter) {
-		super();
+		super(ui.getComposer());
 
-		if(ui==null || statusBar==null || prefSetter==null)
+		if(statusBar==null || prefSetter==null)
 			throw new IllegalArgumentException();
 
 		this.statusBar	= statusBar;
 		this.ui			= ui;
 		this.prefSetter = prefSetter;
 
-		newMenu	= new MMenuItem(LResources.LABEL_NEW, KeyEvent.VK_N);
-		newMenu.setIcon(LResources.NEW_ICON);
-
-		newButton = new MButton(LResources.NEW_ICON);
-		newButton.setMargin(LResources.INSET_BUTTON);// FIXME: remove LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.108")
-		newButton.setToolTipText("Creation of a new drawing.");
-
-		loadButton = new MButton(LResources.OPEN_ICON);
-		loadButton.setMargin(LResources.INSET_BUTTON);
-		loadButton.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.109")); //$NON-NLS-1$
-
-		saveButton = new MButton(LResources.SAVE_ICON);
-		saveButton.setMargin(LResources.INSET_BUTTON);
-		saveButton.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.110")); //$NON-NLS-1$
-
-		loadMenu = new MMenuItem(LABEL_OPEN, KeyEvent.VK_O);
-		loadMenu.setIcon(LResources.OPEN_ICON);
-
-        saveMenu = new MMenuItem(LABEL_SAVE, KeyEvent.VK_S);
-        saveMenu.setIcon(LResources.SAVE_ICON);
-
-        saveAsMenu = new MMenuItem(LABEL_SAVE_AS, KeyEvent.VK_A);
-        saveAsMenu.setIcon(LResources.SAVE_AS_ICON);
-
+		initialiseWidgets();
         reinit();
 		initialiseLinks();
 	}
@@ -164,6 +142,33 @@ public class FileLoaderSaver extends Instrument {
 			currentFile = file;
 	}
 
+
+	@Override
+	protected void initialiseWidgets() {
+		newMenu	= new MMenuItem(LResources.LABEL_NEW, KeyEvent.VK_N);
+		newMenu.setIcon(LResources.NEW_ICON);
+
+		newButton = new MButton(LResources.NEW_ICON);
+		newButton.setMargin(LResources.INSET_BUTTON);// FIXME: remove LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.108")
+		newButton.setToolTipText("Creation of a new drawing.");
+
+		loadButton = new MButton(LResources.OPEN_ICON);
+		loadButton.setMargin(LResources.INSET_BUTTON);
+		loadButton.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.109")); //$NON-NLS-1$
+
+		saveButton = new MButton(LResources.SAVE_ICON);
+		saveButton.setMargin(LResources.INSET_BUTTON);
+		saveButton.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.110")); //$NON-NLS-1$
+
+		loadMenu = new MMenuItem(LABEL_OPEN, KeyEvent.VK_O);
+		loadMenu.setIcon(LResources.OPEN_ICON);
+
+        saveMenu = new MMenuItem(LABEL_SAVE, KeyEvent.VK_S);
+        saveMenu.setIcon(LResources.SAVE_ICON);
+
+        saveAsMenu = new MMenuItem(LABEL_SAVE_AS, KeyEvent.VK_A);
+        saveAsMenu.setIcon(LResources.SAVE_AS_ICON);
+	}
 
 
 	@Override

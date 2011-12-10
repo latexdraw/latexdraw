@@ -21,10 +21,11 @@ import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.Action;
-import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
+import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.library.ButtonPressed;
 import org.malai.interaction.library.MenuItemPressed;
+import org.malai.ui.UIComposer;
 import org.malai.widget.MButton;
 import org.malai.widget.MMenu;
 import org.malai.widget.MMenuItem;
@@ -49,7 +50,7 @@ import org.w3c.dom.Element;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class Exporter extends Instrument {
+public class Exporter extends WidgetInstrument {
 	/** The title of the dialog box used to export drawings. */
 	public static final String TITLE_DIALOG_EXPORT = "Drawing export";
 
@@ -137,8 +138,8 @@ public class Exporter extends Instrument {
 	 * @throws IllegalArgumentException If one of the given arguments is null.
 	 * @since 3.0
 	 */
-	public Exporter(final ICanvas canvas, final IDrawing drawing, final JTextField statusBar) {
-		super();
+	public Exporter(final UIComposer<?> composer, final ICanvas canvas, final IDrawing drawing, final JTextField statusBar) {
+		super(composer);
 
 		if(canvas==null || drawing==null || statusBar==null)
 			throw new IllegalArgumentException();
@@ -150,16 +151,24 @@ public class Exporter extends Instrument {
 		this.drawing		= drawing;
 		this.canvas 		= canvas;
 
+		initialiseWidgets();
+		reinit();
+		initialiseLinks();
+	}
+
+
+	@Override
+	protected void initialiseWidgets() {
 		// Widgets initialisation
-		pdfButton 			= new MButton(LResources.PDF_ICON);
-		exportMenu			= new MMenu(LABEL_EXPORT_AS, true);
-		menuItemBMP			= new MMenuItem(LABEL_EXPORT_BMP, KeyEvent.VK_B);
-		menuItemEPSLatex	= new MMenuItem("eps (latex) picture", KeyEvent.VK_S);
-		menuItemJPG			= new MMenuItem(LABEL_EXPORT_JPG, KeyEvent.VK_J);
-		menuItemPDF			= new MMenuItem("pdf (latex) picture", KeyEvent.VK_F);
-		menuItemPDFcrop		= new MMenuItem("pdf (latex+pdfcrop) picture", KeyEvent.VK_C);
-		menuItemPNG			= new MMenuItem(LABEL_EXPORT_PNG, KeyEvent.VK_P);
-		menuItemPST			= new MMenuItem(LABEL_EXPORT_TRICKS, KeyEvent.VK_T);
+		pdfButton 		= new MButton(LResources.PDF_ICON);
+		exportMenu		= new MMenu(LABEL_EXPORT_AS, true);
+		menuItemBMP		= new MMenuItem(LABEL_EXPORT_BMP, KeyEvent.VK_B);
+		menuItemEPSLatex= new MMenuItem("eps (latex) picture", KeyEvent.VK_S);
+		menuItemJPG		= new MMenuItem(LABEL_EXPORT_JPG, KeyEvent.VK_J);
+		menuItemPDF		= new MMenuItem("pdf (latex) picture", KeyEvent.VK_F);
+		menuItemPDFcrop	= new MMenuItem("pdf (latex+pdfcrop) picture", KeyEvent.VK_C);
+		menuItemPNG		= new MMenuItem(LABEL_EXPORT_PNG, KeyEvent.VK_P);
+		menuItemPST		= new MMenuItem(LABEL_EXPORT_TRICKS, KeyEvent.VK_T);
 		exportMenu.add(menuItemPST);
 		exportMenu.add(menuItemJPG);
 		exportMenu.add(menuItemPNG);
@@ -167,9 +176,6 @@ public class Exporter extends Instrument {
 		exportMenu.add(menuItemPDF);
 		exportMenu.add(menuItemEPSLatex);
 		exportMenu.add(menuItemPDFcrop);
-
-		reinit();
-		initialiseLinks();
 	}
 
 

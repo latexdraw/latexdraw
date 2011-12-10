@@ -22,6 +22,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -176,7 +177,7 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 		for(int i=0, size=toolbar.getComponentCount(); i<size && !visible; i++) {
 			comp = toolbar.getComponent(i);
 
-			if(!(comp instanceof JToolBar.Separator) && !(comp instanceof CloseButton))
+			if(!(comp instanceof JToolBar.Separator) && !(comp instanceof CloseButton) && !(comp instanceof Box.Filler))
 				visible = comp.isVisible();
 		}
 

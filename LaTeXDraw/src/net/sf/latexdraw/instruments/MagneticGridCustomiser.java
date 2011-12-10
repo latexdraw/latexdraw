@@ -4,16 +4,6 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import org.malai.instrument.Link;
-import org.malai.instrument.library.WidgetContainerInstrument;
-import org.malai.interaction.library.CheckBoxModified;
-import org.malai.interaction.library.ListSelectionModified;
-import org.malai.interaction.library.SpinnerModified;
-import org.malai.undo.Undoable;
-import org.malai.widget.MCheckBox;
-import org.malai.widget.MComboBox;
-import org.malai.widget.MSpinner;
-
 import net.sf.latexdraw.actions.ModifyMagneticGrid;
 import net.sf.latexdraw.actions.ModifyMagneticGrid.GridProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -21,6 +11,17 @@ import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.instrument.Link;
+import org.malai.instrument.WidgetInstrument;
+import org.malai.interaction.library.CheckBoxModified;
+import org.malai.interaction.library.ListSelectionModified;
+import org.malai.interaction.library.SpinnerModified;
+import org.malai.ui.UIComposer;
+import org.malai.undo.Undoable;
+import org.malai.widget.MCheckBox;
+import org.malai.widget.MComboBox;
+import org.malai.widget.MSpinner;
 
 /**
  * This instrument customises the magnetic grid.<br>
@@ -41,7 +42,7 @@ import net.sf.latexdraw.util.LResources;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class MagneticGridCustomiser extends WidgetContainerInstrument {
+public class MagneticGridCustomiser extends WidgetInstrument {
 	/** The grid to customise. */
 	protected LMagneticGrid grid;
 
@@ -61,13 +62,20 @@ public class MagneticGridCustomiser extends WidgetContainerInstrument {
 	 * @throws IllegalArgumentException If the given grid is null.
 	 * @since 3.0
 	 */
-	public MagneticGridCustomiser(final LMagneticGrid grid) {
-		super();
+	public MagneticGridCustomiser(final UIComposer<?> composer, final LMagneticGrid grid) {
+		super(composer);
 
 		if(grid==null)
 			throw new IllegalArgumentException();
 
-		this.grid 				= grid;
+		this.grid = grid;
+		initialiseWidgets();
+		initialiseLinks();
+	}
+
+
+	@Override
+	protected void initialiseWidgets() {
 		styleList				= createStyleList();
 		SpinnerNumberModel model= new SpinnerNumberModel(10, 2, 100000, 1);
      	gridSpacing 			= new MSpinner(model, new JLabel(LResources.GRID_GAP_ICON));
@@ -75,7 +83,6 @@ public class MagneticGridCustomiser extends WidgetContainerInstrument {
      	gridSpacing.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.15")); //$NON-NLS-1$
  		magneticCB 				= new MCheckBox(LangTool.LANG.getString18("LaTeXDrawFrame.13")); //$NON-NLS-1$
  		magneticCB.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.14")); //$NON-NLS-1$
-		initialiseLinks();
 	}
 
 
@@ -129,8 +136,8 @@ public class MagneticGridCustomiser extends WidgetContainerInstrument {
 			magneticCB.setSelected(grid.isMagnetic());
 		}
 
-		if(widgetContainer!=null)
-			widgetContainer.repaint();
+//		if(widgetContainer!=null)
+//			widgetContainer.repaint();
 	}
 
 
@@ -145,6 +152,16 @@ public class MagneticGridCustomiser extends WidgetContainerInstrument {
 		}catch(IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
+	}
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+		super.setActivated(activated);
+
+		composer.setWidgetVisible(gridSpacing, activated);
+		composer.setWidgetVisible(magneticCB, activated);
+		composer.setWidgetVisible(styleList, activated);
 	}
 
 

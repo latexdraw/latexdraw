@@ -3,17 +3,18 @@ package net.sf.latexdraw.instruments;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 
-import org.malai.action.library.ActivateInstrument;
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
-import org.malai.instrument.library.MenuItem2ShowComponentLink;
-import org.malai.interaction.library.MenuItemPressed;
-import org.malai.widget.MMenuItem;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.PreferencesFrame;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.action.library.ActivateInstrument;
+import org.malai.instrument.Link;
+import org.malai.instrument.WidgetInstrument;
+import org.malai.instrument.library.MenuItem2ShowComponentLink;
+import org.malai.interaction.library.MenuItemPressed;
+import org.malai.ui.UIComposer;
+import org.malai.widget.MMenuItem;
 
 /**
  * This instrument activates the preferences setter and shows the preferences frame.<br>
@@ -34,7 +35,7 @@ import net.sf.latexdraw.util.LResources;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PreferencesActivator extends Instrument {
+public class PreferencesActivator extends WidgetInstrument {
 	/** The frame containing the widgets of the preferences setter. */
 	protected PreferencesFrame preferenceFrame;
 
@@ -51,17 +52,22 @@ public class PreferencesActivator extends Instrument {
 	 * @throws IllegalArgumentException If the given instrument is null.
 	 * @since 3.0
 	 */
-	public PreferencesActivator(final PreferencesSetter prefSetter) {
-		super();
+	public PreferencesActivator(final UIComposer<?> composer, final PreferencesSetter prefSetter) {
+		super(composer);
 
 		if(prefSetter==null)
 			throw new IllegalArgumentException();
 
+		this.prefSetter = prefSetter;
+		initialiseWidgets();
+		initialiseLinks();
+	}
+
+
+	@Override
+	protected void initialiseWidgets() {
 		showPreferencesMenu = new MMenuItem(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.56"), KeyEvent.VK_P); //$NON-NLS-1$
 		showPreferencesMenu.setIcon(LResources.PREFERENCES_ICON);
-		this.prefSetter = prefSetter;
-
-		initialiseLinks();
 	}
 
 

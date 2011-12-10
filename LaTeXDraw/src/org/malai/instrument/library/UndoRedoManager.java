@@ -5,9 +5,10 @@ import javax.swing.ImageIcon;
 import org.malai.action.library.Redo;
 import org.malai.action.library.Undo;
 import org.malai.error.ErrorCatcher;
-import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
+import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.library.ButtonPressed;
+import org.malai.ui.UIComposer;
 import org.malai.undo.UndoCollector;
 import org.malai.undo.Undoable;
 import org.malai.widget.MButton;
@@ -31,7 +32,7 @@ import org.malai.widget.MButton;
  * @since 0.1
  * @version 0.2
  */
-public class UndoRedoManager extends Instrument {
+public class UndoRedoManager extends WidgetInstrument {
 	/** The button used to undo actions. */
 	protected MButton undoB;
 
@@ -43,14 +44,19 @@ public class UndoRedoManager extends Instrument {
 	 * Creates the instrument.
 	 * @since 0.1
 	 */
-	public UndoRedoManager() {
-		super();
+	public UndoRedoManager(final UIComposer<?> composer) {
+		super(composer);
 
-		undoB = new MButton(new ImageIcon("src/org/malai/res/Undo.png")); //$NON-NLS-1$
-		redoB = new MButton(new ImageIcon("src/org/malai/res/Redo.png")); //$NON-NLS-1$
-
+		initialiseWidgets();
 		initialiseLinks();
 		UndoCollector.INSTANCE.addHandler(this);
+	}
+
+
+	@Override
+	protected void initialiseWidgets() {
+		undoB = new MButton(new ImageIcon("src/org/malai/res/Undo.png")); //$NON-NLS-1$
+		redoB = new MButton(new ImageIcon("src/org/malai/res/Redo.png")); //$NON-NLS-1$
 	}
 
 
@@ -107,12 +113,11 @@ public class UndoRedoManager extends Instrument {
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
 
+		undoB.setVisible(activated);
+		redoB.setVisible(activated);
+
 		if(activated)
 			updateWidgets();
-		else {
-    		undoB.setEnabled(false);
-    		redoB.setEnabled(false);
-		}
 	}
 
 

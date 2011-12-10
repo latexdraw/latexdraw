@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 
-import javax.swing.JTabbedPane;
-
 import net.sf.latexdraw.glib.ui.LCanvas;
 
 import org.malai.instrument.Instrument;
@@ -87,13 +85,12 @@ public class UIBuilder extends UIComposer<LFrame> {
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
 		/* Creation of the tabbed pane. */
-		final JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("Drawing", drawingArea);
-		tabbedPane.addTab("PST", widget.getCodePanel());
+		widget.tabbedPanel.addTab("Drawing", drawingArea);
+		widget.tabbedPanel.addTab("PST", widget.getCodePanel());
 
 		contentPane.setLayout(new BorderLayout());
 		contentPane.add(toolbarBuilder.getWidget(), BorderLayout.NORTH);
-		contentPane.add(tabbedPane, BorderLayout.CENTER);
+		contentPane.add(widget.tabbedPanel, BorderLayout.CENTER);
 		contentPane.add(widget.statusBar, BorderLayout.SOUTH);
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
@@ -140,6 +137,7 @@ public class UIBuilder extends UIComposer<LFrame> {
 		setGlobalShortcutEventable(widget.paster, canvas);
 		setGlobalShortcutEventable(widget.fileLoader, canvas);
 		widget.fileLoader.addEventable(widget);
+		widget.tabSelector.addEventable(widget.tabbedPanel);
 	}
 
 
@@ -148,6 +146,8 @@ public class UIBuilder extends UIComposer<LFrame> {
 			instrument.addEventable(toolbarBuilder.getWidget());
 			instrument.addEventable(propToolbarBuilder.getWidget());
 			instrument.addEventable(canvas);
+			instrument.addEventable(widget.getTabbedPanel());
+			instrument.addEventable(widget.getCodePanel());
 			instrument.addEventable(menubarBuilder.displayMenu);
 			instrument.addEventable(menubarBuilder.drawingMenu);
 			instrument.addEventable(menubarBuilder.editMenu);
@@ -169,5 +169,6 @@ public class UIBuilder extends UIComposer<LFrame> {
 		widget.fileLoader.setActivated(true);
 		widget.scaleRulersCustomiser.setActivated(true);
 		widget.paster.setActivated(true);
+		widget.tabSelector.setActivated(true);
 	}
 }
