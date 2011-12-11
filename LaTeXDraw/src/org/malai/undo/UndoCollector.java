@@ -107,8 +107,8 @@ public final class UndoCollector {
 	public void add(final Undoable undoable, final UndoHandler undoHandler) {
 		if(undoable!=null && sizeMax>0) {
 			if(undo.size()==sizeMax) {
-				undo.remove(0);
-				undoHandlers.remove(0);
+				undo.removeLast();
+				undoHandlers.removeLast();
 			}
 
 			undo.push(undoable);
@@ -206,8 +206,8 @@ public final class UndoCollector {
 	public void setSizeMax(final int max) {
 		if(max>=0) {
 			for(int i=0, nb=undo.size()-max; i<nb; i++) {
-				undo.remove(0);
-				undoHandlers.remove(0);
+				undo.removeLast();
+				undoHandlers.removeLast();
 			}
 			this.sizeMax = max;
 		}
