@@ -7,6 +7,7 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
@@ -165,7 +166,7 @@ class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
         }
 
         // The background of the borders must be filled is there is a shadow.
-        if(shape.hasShadow() && !shape.getLineStyle().equals(PSTricksConstants.LINE_NONE_STYLE)) {
+        if(shape.hasShadow() && !shape.getLineStyle().equals(LineStyle.NONE)) {
             elt = new SVGPathElement(doc);
             elt.setAttribute(SVGAttributes.SVG_D, path.toString());
             setSVGBorderBackground(elt, root);
