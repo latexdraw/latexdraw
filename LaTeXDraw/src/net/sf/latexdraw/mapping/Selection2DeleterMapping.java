@@ -27,8 +27,8 @@ import net.sf.latexdraw.instruments.ShapeDeleter;
 public class Selection2DeleterMapping extends SelectionMapping {
 	/** The instrument that removes shapes. */
 	protected ShapeDeleter deleter;
-	
-	
+
+
 	/**
 	 * Creates the mapping.
 	 * @param selection The list of selected shapes.
@@ -38,10 +38,10 @@ public class Selection2DeleterMapping extends SelectionMapping {
 	 */
 	public Selection2DeleterMapping(final List<IShape> selection, final ShapeDeleter deleter) {
 		super(selection);
-		
+
 		if(deleter==null)
 			throw new IllegalArgumentException();
-		
+
 		this.deleter = deleter;
 	}
 
@@ -49,7 +49,7 @@ public class Selection2DeleterMapping extends SelectionMapping {
 	public ShapeDeleter getTarget() {
 		return deleter;
 	}
-	
+
 
 	@Override
 	public void onObjectAdded(final Object list, final Object object, final int index) {
@@ -61,14 +61,15 @@ public class Selection2DeleterMapping extends SelectionMapping {
 		if(list instanceof List<?>)
 			deleter.setActivated(!((List<?>)list).isEmpty());
 	}
-	
-	
+
+
 	@Override
 	public void onListCleaned(final Object list) {
-		deleter.setActivated(false);
+		if(deleter.isActivated())
+			deleter.setActivated(false);
 	}
 
-	
+
 	@Override
 	public void clear() {
 		super.clear();

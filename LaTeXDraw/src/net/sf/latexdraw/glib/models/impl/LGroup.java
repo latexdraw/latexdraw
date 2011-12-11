@@ -72,7 +72,8 @@ class LGroup extends LShape implements IGroup {
 
 	@Override
 	public void clear() {
-		shapes.clear();
+		if(!shapes.isEmpty())
+			shapes.clear();
 	}
 
 

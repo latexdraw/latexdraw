@@ -28,8 +28,8 @@ import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 public class Selection2MetaCustumiserMapping extends SelectionMapping {
 	/** The instrument that manages the instruments customising the shapes and the pencil. */
 	protected MetaShapeCustomiser shapeCustomiser;
-	
-	
+
+
 	/**
 	 * Creates the mapping.
 	 * @param selection The list of selected shapes.
@@ -39,41 +39,41 @@ public class Selection2MetaCustumiserMapping extends SelectionMapping {
 	 */
 	public Selection2MetaCustumiserMapping(final List<IShape> selection, final MetaShapeCustomiser shapeCustomiser) {
 		super(selection);
-		
+
 		if(shapeCustomiser==null)
 			throw new IllegalArgumentException();
-		
+
 		this.shapeCustomiser = shapeCustomiser;
 	}
-	
-	
+
+
 	@Override
 	public MetaShapeCustomiser getTarget() {
 		return shapeCustomiser;
 	}
-	
-	
+
+
 	@Override
 	public void onObjectAdded(final Object list, final Object object, final int index) {
-		if(shapeCustomiser.getHand().isActivated())
+		if(!shapeCustomiser.isActivated() && shapeCustomiser.getHand().isActivated())
 			shapeCustomiser.setActivated(true);
 	}
 
-	
+
 	@Override
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
-		if(shapeCustomiser.getHand().isActivated())
+		if(shapeCustomiser.isActivated()==selection.isEmpty() && shapeCustomiser.getHand().isActivated())
 			shapeCustomiser.setActivated(!selection.isEmpty());
 	}
 
-	
+
 	@Override
 	public void onListCleaned(final Object list) {
-		if(shapeCustomiser.getHand().isActivated())
+		if(shapeCustomiser.isActivated() && shapeCustomiser.getHand().isActivated())
 			shapeCustomiser.setActivated(false);
 	}
-	
-	
+
+
 	@Override
 	public void clear() {
 		super.clear();

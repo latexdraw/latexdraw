@@ -1,12 +1,9 @@
 package net.sf.latexdraw.actions;
 
-import java.util.List;
-
-import org.malai.action.Action;
-
-
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+
+import org.malai.action.Action;
 
 /**
  * This action allows to (un-)select shapes.<br>
@@ -44,11 +41,21 @@ public class SelectShapes extends MultiShapesAction {
 	@Override
 	protected void doActionBody() {
 		final IGroup selection = drawing.getSelection();
-		final List<IShape> sel = selection.getShapes();
-		sel.clear();
 
-		for(IShape sh : shapes)
-			sel.add(sh);
+		if(shapes.isEmpty())
+			selection.clear();
+		else {
+			int i=selection.size()-1;
+			while(i>=0) {
+				if(!shapes.contains(selection.getShapeAt(i)))
+					selection.removeShape(i);
+				i--;
+			}
+
+			for(IShape sh : shapes)
+				if(!selection.contains(sh))
+					selection.addShape(sh);
+		}
 	}
 
 
