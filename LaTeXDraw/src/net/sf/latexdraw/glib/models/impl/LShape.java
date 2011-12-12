@@ -613,30 +613,43 @@ abstract class LShape implements IShape {
 	}
 
 
-	protected void scaleX(final double xRef, final double sx) {
-		for(final IPoint pt : points)
+	protected static void scaleX(final List<IPoint> list, final double xRef, final double sx) {
+		for(final IPoint pt : list)
 			if(!LNumber.INSTANCE.equals(xRef, pt.getX()))
 				pt.setX(xRef+(pt.getX()-xRef)*sx);
 	}
 
-
-	protected void scaleY(final double yRef, final double sy) {
-		for(final IPoint pt : points)
+	protected static void scaleY(final List<IPoint> list, final double yRef, final double sy) {
+		for(final IPoint pt : list)
 			if(!LNumber.INSTANCE.equals(yRef, pt.getY()))
 				pt.setY(yRef+(pt.getY()-yRef)*sy);
 	}
 
-
-	protected void scaleXY(final IPoint ref, final double sx, final double sy) {
+	protected static void scaleXY(final List<IPoint> list, final IPoint ref, final double sx, final double sy) {
 		final double xRef = ref.getX();
 		final double yRef = ref.getY();
 
-		for(final IPoint pt : points) {
+		for(final IPoint pt : list) {
 			if(!LNumber.INSTANCE.equals(xRef, pt.getX()))
 				pt.setX(xRef+(pt.getX()-xRef)*sx);
 			if(!LNumber.INSTANCE.equals(yRef, pt.getY()))
 				pt.setY(yRef+(pt.getY()-yRef)*sy);
 		}
+	}
+
+
+	protected void scaleX(final double xRef, final double sx) {
+		scaleX(points, xRef, sx);
+	}
+
+
+	protected void scaleY(final double yRef, final double sy) {
+		scaleY(points, yRef, sy);
+	}
+
+
+	protected void scaleXY(final IPoint ref, final double sx, final double sy) {
+		scaleXY(points, ref, sx, sy);
 	}
 
 

@@ -54,6 +54,30 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 
 	@Override
+	protected void scaleX(final double xRef, final double sx) {
+		super.scaleX(xRef, sx);
+		scaleX(firstCtrlPts, xRef, sx);
+		scaleX(secondCtrlPts, xRef, sx);
+	}
+
+
+	@Override
+	protected void scaleY(final double yRef, final double sy) {
+		super.scaleY(yRef, sy);
+		scaleY(firstCtrlPts, yRef, sy);
+		scaleY(secondCtrlPts, yRef, sy);
+	}
+
+
+	@Override
+	protected void scaleXY(final IPoint ref, final double sx, final double sy) {
+		super.scaleXY(ref, sx, sy);
+		scaleXY(firstCtrlPts, ref, sx, sy);
+		scaleXY(secondCtrlPts, ref, sx, sy);
+	}
+
+
+	@Override
 	public int getBalanceGap() {
 		return balanceGap;
 	}
