@@ -5,7 +5,7 @@
   <groupId>LaTeXDraw</groupId>
   <artifactId>LaTeXDraw</artifactId>
   <name>LaTeXDraw</name>
-  <version>3.0_20110819</version>
+  <version>3.0_20111212</version>
   <build>
         <sourceDirectory>src/</sourceDirectory>
         <outputDirectory>bin/</outputDirectory>
@@ -77,5 +77,11 @@
     <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
     <sonar.surefire.reportsPath>target/surefire-reports</sonar.surefire.reportsPath>
     <sonar.cobertura.reportsPath>target/site/cobertura</sonar.cobertura.reportsPath>
+    <sonar.jdbc.url>
+      jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8
+    </sonar.jdbc.url>
+    <sonar.jdbc.driverClassName>com.mysql.jdbc.Driver</sonar.jdbc.driverClassName>
+    <sonar.jdbc.username>sonar</sonar.jdbc.username>
+    <sonar.jdbc.password>sonar</sonar.jdbc.password>
   </properties>
 </project>
