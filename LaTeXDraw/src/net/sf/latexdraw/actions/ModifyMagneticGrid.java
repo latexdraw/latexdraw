@@ -29,18 +29,21 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 	 * The different properties of the magnetic grid that can be modified.
 	 */
 	public static enum GridProperties {
+		/** Modification of the style of the grid. */
 		STYLE {
 			@Override
 			public boolean isValidValue(final Object object) {
 				return object instanceof GridStyle;
 			}
 		},
+		/** Defines if the grid must be magnetic. */
 		MAGNETIC {
 			@Override
 			public boolean isValidValue(final Object object) {
 				return object instanceof Boolean;
 			}
 		},
+		/** Modification of the spacing between the lines of the grid. */
 		GRID_SPACING {
 			@Override
 			public boolean isValidValue(final Object object) {

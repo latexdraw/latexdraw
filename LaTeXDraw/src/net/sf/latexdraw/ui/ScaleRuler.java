@@ -46,12 +46,14 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	 * Defines the different possible units used by the rulers.
 	 */
 	public static enum Unit {
+		/** Centimetre */
 		CM {
 			@Override
 			public String getLabel() {
 				return LangTool.LANG.getStringOthers("XScale.cm"); //$NON-NLS-1$
 			}
 		},
+		/** Inch */
 		INCH {
 			@Override
 			public String getLabel() {

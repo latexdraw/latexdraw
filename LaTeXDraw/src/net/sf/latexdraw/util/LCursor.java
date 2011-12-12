@@ -34,7 +34,8 @@ public final class LCursor {
 	/** The singleton. */
 	public static final LCursor INSTANCE = new LCursor();
 	
-	public Cursor rotateCursor = getCursor("/res/cursors/RotCWDown.gif", "rotate");//$NON-NLS-1$//$NON-NLS-2$
+	/** The cursor that should be used during rotation. */
+	public static final Cursor CURSOR_ROTATE = INSTANCE.getCursor("/res/cursors/RotCWDown.gif", "rotate");//$NON-NLS-1$//$NON-NLS-2$
 
 	
 	private LCursor() {

@@ -208,7 +208,11 @@ class FilePreviewer extends JComponent implements PropertyChangeListener
 	ImageIcon thumbnail = null;
 
 
-
+	/**
+	 * Creates the file previewer.
+	 * @param fc The associated file chooser.
+	 * @since 3.0
+	 */
     public FilePreviewer(final JFileChooser fc) {
     	super();
 
@@ -218,6 +222,11 @@ class FilePreviewer extends JComponent implements PropertyChangeListener
     }
 
 
+    /**
+     * Loads the picture corresponding to the given file.
+     * @param f The file to load.
+     * @since 3.0
+     */
     public void loadImage(final File f)
     {
         if(f == null)

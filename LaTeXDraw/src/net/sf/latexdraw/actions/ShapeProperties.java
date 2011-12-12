@@ -29,6 +29,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** Modification of the start angle of arcs. */
 	ARC_START_ANGLE {
 		@Override
 		public String getMessage() {
@@ -39,7 +40,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, ARC_END_ANGLE {
+	},
+	/** Modification of the end angle of arcs. */
+	ARC_END_ANGLE {
 		@Override
 		public String getMessage() {
 			return "Arc end angle";
@@ -49,7 +52,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, ARC_STYLE {
+	},
+	/** Modification of the style of arcs. */
+	ARC_STYLE {
 		@Override
 		public String getMessage() {
 			return "Arc style";
@@ -60,6 +65,7 @@ public enum ShapeProperties {
 			return obj instanceof ArcStyle;
 		}
 	},
+	/** Defines if the shape has a second arrow. */
 	ARROW2_STYLE {
 		@Override
 		public String getMessage() {
@@ -71,6 +77,7 @@ public enum ShapeProperties {
 			return obj instanceof ArrowStyle;
 		}
 	},
+	/** Defines if the shape has a first arrow. */
 	ARROW1_STYLE {
 		@Override
 		public String getMessage() {
@@ -82,6 +89,7 @@ public enum ShapeProperties {
 			return obj instanceof ArrowStyle;
 		}
 	},
+	/** Modification of the rotation angle a shape. */
 	ROTATION_ANGLE {
 		@Override
 		public String getMessage() {
@@ -92,7 +100,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, TEXT_POSITION {
+	},
+	/** Modification of the position of texts. */
+	TEXT_POSITION {
 		@Override
 		public String getMessage() {
 			return "text position";
@@ -102,7 +112,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof IText.TextPosition;
 		}
-	}, TEXT {
+	},
+	/** Modification of the text. */
+	TEXT {
 		@Override
 		public String getMessage() {
 			return "text";
@@ -112,7 +124,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof String;
 		}
-	}, HATCHINGS_ANGLE {
+	},
+	/** Modification of the hatchings angle of shapes. */
+	HATCHINGS_ANGLE {
 		@Override
 		public String getMessage() {
 			return "hatchings angle";
@@ -122,7 +136,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, HATCHINGS_WIDTH {
+	},
+	/** Modification of the hatchings width a shape. */
+	HATCHINGS_WIDTH {
 		@Override
 		public String getMessage() {
 			return "hatchings width";
@@ -132,7 +148,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, HATCHINGS_SEP {
+	},
+	/** Modification of the hatching spacing a shape. */
+	HATCHINGS_SEP {
 		@Override
 		public String getMessage() {
 			return "hatchings spacing";
@@ -142,7 +160,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, GRAD_ANGLE {
+	},
+	/** Modification of the gradient angle a shape. */
+	GRAD_ANGLE {
 		@Override
 		public String getMessage() {
 			return "gradient angle";
@@ -152,7 +172,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, GRAD_MID_POINT {
+	},
+	/** Modification of the middle point of the gradient a shape. */
+	GRAD_MID_POINT {
 			@Override
 			public String getMessage() {
 				return "gradient middle point";
@@ -162,7 +184,9 @@ public enum ShapeProperties {
 			public boolean isValueValid(final Object obj) {
 				return obj instanceof Double;
 			}
-	}, ROUND_CORNER_VALUE {
+	},
+	/** Modification of the round corner value of a shape. */
+	ROUND_CORNER_VALUE {
 		@Override
 		public String getMessage() {
 			return "corner roundness";
@@ -172,7 +196,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, ROUND_CORNER {
+	},
+	/** Defines if a shape must have round corners. */
+	ROUND_CORNER {
 		@Override
 		public String getMessage() {
 			return "round corner";
@@ -182,7 +208,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Boolean;
 		}
-	}, COLOUR_FILLING {
+	},
+	/** Modification of the colour of the filling of a shape. */
+	COLOUR_FILLING {
 		@Override
 		public String getMessage() {
 			return "interior colour";
@@ -192,7 +220,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
-	}, COLOUR_LINE {
+	},
+	/** Modification of the colour of the borders of a shape. */
+	COLOUR_LINE {
 		@Override
 		public String getMessage() {
 			return "lines colour";
@@ -202,7 +232,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
-	}, COLOUR_HATCHINGS {
+	},
+	/** Modification of the colour of the hatchings of a shape. */
+	COLOUR_HATCHINGS {
 		@Override
 		public String getMessage() {
 			return "hatchings colour";
@@ -212,7 +244,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
-	}, DBLE_BORDERS {
+	},
+	/** Defines if a shape must have double borders. */
+	DBLE_BORDERS {
 		@Override
 		public String getMessage() {
 			return "double border";
@@ -222,7 +256,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Boolean;
 		}
-	}, DBLE_BORDERS_SIZE {
+	},
+	/** Modification of the size of the double borders of a shape. */
+	DBLE_BORDERS_SIZE {
 		@Override
 		public String getMessage() {
 			return "double border size";
@@ -232,7 +268,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, COLOUR_DBLE_BORD {
+	},
+	/** Modification of the colour of the double borders of a shape. */
+	COLOUR_DBLE_BORD {
 		@Override
 		public String getMessage() {
 			return "double border colour";
@@ -242,7 +280,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
-	}, SHADOW {
+	},
+	/** Defines if a shape must have a shadow. */
+	SHADOW {
 		@Override
 		public String getMessage() {
 			return "shadow";
@@ -252,7 +292,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Boolean;
 		}
-	}, SHADOW_SIZE {
+	},
+	/** Modification of the size of the shadow of a shape. */
+	SHADOW_SIZE {
 		@Override
 		public String getMessage() {
 			return "shadow size";
@@ -262,7 +304,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, SHADOW_ANGLE {
+	},
+	/** Modification of the angle of the shadow of a shape. */
+	SHADOW_ANGLE {
 		@Override
 		public String getMessage() {
 			return "shadow angle";
@@ -272,7 +316,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
-	}, COLOUR_SHADOW {
+	},
+	/** Modification of colour of the shadow of a shape. */
+	COLOUR_SHADOW {
 		@Override
 		public String getMessage() {
 			return "shadow colour";
@@ -282,7 +328,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
-	}, COLOUR_GRADIENT_START {
+	},
+	/** Modification of the colour of the start gradient of a shape. */
+	COLOUR_GRADIENT_START {
 		@Override
 		public String getMessage() {
 			return "gradient start colour";
@@ -292,7 +340,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
-	}, COLOUR_GRADIENT_END {
+	},
+	/** Modification of the colour of the end gradient of a shape. */
+	COLOUR_GRADIENT_END {
 		@Override
 		public String getMessage() {
 			return "gradient end colour";
@@ -302,7 +352,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
-	}, LINE_THICKNESS {
+	},
+	/** Modification of the thickness of the borders of a shape. */
+	LINE_THICKNESS {
 		@Override
 		public String getMessage() {
 			return "thickness";
@@ -312,7 +364,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Integer || obj instanceof Double || obj instanceof Float;
 		}
-	}, FILLING_STYLE {
+	},
+	/** Modification of the filling style of a shape. */
+	FILLING_STYLE {
 		@Override
 		public String getMessage() {
 			return "filling style";
@@ -322,7 +376,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof FillingStyle;
 		}
-	}, BORDER_POS {
+	},
+	/** Modification of the border position of a shape. */
+	BORDER_POS {
 		@Override
 		public String getMessage() {
 			return "border position";
@@ -332,7 +388,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof BorderPos;
 		}
-	}, LINE_STYLE {
+	},
+	/** Modification of the line style of a shape. */
+	LINE_STYLE {
 		@Override
 		public String getMessage() {
 			return "line style";
@@ -342,7 +400,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof LineStyle;
 		}
-	}, DOT_STYLE {
+	},
+	/** Modification of the style of a dot. */
+	DOT_STYLE {
 		@Override
 		public String getMessage() {
 			return "dot style";
@@ -352,7 +412,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof DotStyle;
 		}
-	}, DOT_SIZE {
+	},
+	/** Modification of the size of dots. */
+	DOT_SIZE {
 		@Override
 		public String getMessage() {
 			return "dot size";
@@ -362,7 +424,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Integer || obj instanceof Double || obj instanceof Float;
 		}
-	}, ARROW_START_STYLE {
+	},
+	/** Modification of the style of the first arrow of a shape. */
+	ARROW_START_STYLE {
 		@Override
 		public String getMessage() {
 			return "starting arrow style";
@@ -372,7 +436,9 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof ArrowStyle;
 		}
-	}, ARROW_END_STYLE {
+	},
+	/** Modification of the style of the second arrow of a shape. */
+	ARROW_END_STYLE {
 		@Override
 		public String getMessage() {
 			return "ending arrow style";

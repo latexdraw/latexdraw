@@ -29,36 +29,42 @@ public class ModifyLatexProperties extends Action implements Undoable, Modifying
 	 * This enumeration defines the different LaTeX properties that can be modified.
 	 */
 	public static enum LatexProperties {
+		/** Modification of the comments. */
 		COMMENT {
 			@Override
 			public boolean isValueSupported(final Object value) {
 				return value instanceof String;
 			}
 		},
+		/** Modification of the packages. */
 		PACKAGES {
 			@Override
 			public boolean isValueSupported(final Object value) {
 				return value instanceof String;
 			}
 		},
+		/** Modification of the caption. */
 		CAPTION {
 			@Override
 			public boolean isValueSupported(final Object value) {
 				return value instanceof String;
 			}
 		},
+		/** Modification of the label. */
 		LABEL {
 			@Override
 			public boolean isValueSupported(final Object value) {
 				return value instanceof String;
 			}
 		},
+		/** Modification of the vertical position. */
 		POSITION_VERTICAL {
 			@Override
 			public boolean isValueSupported(final Object value) {
 				return value instanceof VerticalPosition;
 			}
 		},
+		/** Modification of the horizontal position. */
 		POSITION_HORIZONTAL {
 			@Override
 			public boolean isValueSupported(final Object value) {

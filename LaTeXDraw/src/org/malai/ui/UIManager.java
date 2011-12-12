@@ -31,6 +31,7 @@ import org.malai.interaction.Interaction;
  * @since 0.2
  */
 public final class UIManager implements WindowFocusListener {
+	/** The singleton instance. */
 	public static final UIManager INSTANCE = new UIManager();
 
 	/** The UI registered. */

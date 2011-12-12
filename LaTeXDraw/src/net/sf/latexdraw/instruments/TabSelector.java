@@ -8,11 +8,35 @@ import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
 import org.malai.interaction.library.TabSelected;
 
+/**
+ * This instrument (de-)activates instruments while changing of tab (drawing tab, PST tab, etc.).<br>
+ * <br>
+ * This file is part of LaTeXDraw.<br>
+ * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
+ * <br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.<br>
+ * <br>
+ * 12/09/2011<br>
+ * @author Arnaud BLOUIN
+ * @since 3.0
+ */
 public class TabSelector extends Instrument {
-
+	/** The main frame of the system. */
 	protected LFrame frame;
 
 
+	/**
+	 * Creates the instrument.
+	 * @param frame The main frame of the system.
+	 * @throws IllegalArgumentException If the given argument is null.
+	 * @since 3.0
+	 */
 	public TabSelector(final LFrame frame) {
 		super();
 
@@ -38,8 +62,7 @@ public class TabSelector extends Instrument {
 
 
 	private static class TabSelected2ActivateInstruments extends Link<ActivateInactivateInstruments, TabSelected, TabSelector> {
-
-		public TabSelected2ActivateInstruments(TabSelector ins) throws InstantiationException, IllegalAccessException {
+		protected TabSelected2ActivateInstruments(TabSelector ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ActivateInactivateInstruments.class, TabSelected.class);
 		}
 
@@ -59,7 +82,7 @@ public class TabSelector extends Instrument {
 		}
 
 
-		public void initActionOnDrawingPanel() {
+		protected void initActionOnDrawingPanel() {
 			action.addInstrumentToActivate(instrument.frame.getEditingSelector());
 			action.addInstrumentToActivate(instrument.frame.getGridCustomiser());
 			action.addInstrumentToActivate(instrument.frame.getPaster());
@@ -69,7 +92,7 @@ public class TabSelector extends Instrument {
 		}
 
 
-		public void initActionOnPSTCodePanel() {
+		protected void initActionOnPSTCodePanel() {
 			action.addInstrumentToInactivate(instrument.frame.getEditingSelector());
 			action.addInstrumentToInactivate(instrument.frame.getGridCustomiser());
 			action.addInstrumentToInactivate(instrument.frame.getPaster());

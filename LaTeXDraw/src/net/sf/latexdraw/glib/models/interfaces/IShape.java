@@ -113,6 +113,10 @@ public interface IShape extends Modifiable, IArrowable {
 			return this==WEST || this==SW || this==NW;
 		}
 
+		/**
+		 * @return The opposite position of the current position.
+		 * @since 3.0
+		 */
 		public abstract Position getOpposite();
 	}
 
@@ -265,7 +269,7 @@ public interface IShape extends Modifiable, IArrowable {
 		};
 
 
-		/** 
+		/**
 		 * Allows to know if the style can be filled.
 		 * @return True if the shape can be filled.
 		 */

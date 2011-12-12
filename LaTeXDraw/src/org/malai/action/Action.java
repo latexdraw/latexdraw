@@ -21,7 +21,18 @@ package org.malai.action;
  */
 public abstract class Action {
 	/** Defines the different state of the action. @since 0.2 */
-	public static enum ActionStatus { CREATED, EXECUTED, ABORTED, DONE, FLUSHED }
+	public static enum ActionStatus {
+		/** When the action is created but not executed yet. */
+		CREATED,
+		/** When the action has been created and executed one time. */
+		EXECUTED,
+		/** When the action has been aborted. */
+		ABORTED,
+		/** When the action has been defined as done. */
+		DONE,
+		/** The the action has been flushed. In this case, the action cannot be used anymore. */
+		FLUSHED
+		}
 
 	/** Provides the state of the action. */
 	protected ActionStatus status;
