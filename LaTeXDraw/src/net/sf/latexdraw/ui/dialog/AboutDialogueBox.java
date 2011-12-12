@@ -90,7 +90,7 @@ public class AboutDialogueBox extends JFrame {
 		try {
 			JEditorPane editorPane = new JEditorPane(getClass().getResource("/res/license.txt"));//$NON-NLS-1$
 			initEditorPane(editorPane);
-			tabbedPane.add(LangTool.LANG.getString18("LaTeXDrawFrame.28"), new JScrollPane(editorPane)); //$NON-NLS-1$
+			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.28"), new JScrollPane(editorPane)); //$NON-NLS-1$
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
@@ -99,7 +99,7 @@ public class AboutDialogueBox extends JFrame {
 		try {
 			JEditorPane editorPane = new JEditorPane(getClass().getResource("/res/release_note.txt"));//$NON-NLS-1$
 			initEditorPane(editorPane);
-			tabbedPane.add(LangTool.LANG.getString18("LaTeXDrawFrame.27"), new JScrollPane(editorPane)); //$NON-NLS-1$
+			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.27"), new JScrollPane(editorPane)); //$NON-NLS-1$
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
@@ -108,7 +108,7 @@ public class AboutDialogueBox extends JFrame {
 		try {
 			JEditorPane editorPane = new JEditorPane(getClass().getResource("/res/translators.txt"));//$NON-NLS-1$
 			initEditorPane(editorPane);
-			tabbedPane.add(LangTool.LANG.getString18("LaTeXDrawFrame.26"), new JScrollPane(editorPane)); //$NON-NLS-1$
+			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.26"), new JScrollPane(editorPane)); //$NON-NLS-1$
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
@@ -128,16 +128,16 @@ public class AboutDialogueBox extends JFrame {
 			editorPane.setContentType("text/html");//$NON-NLS-1$
 			editorPane.setBackground(tabbedPane.getBackground());
 			editorPane.setText("<html><body><div style=\"text-align: center; \"><font size=\"-1\"><br>"+ //$NON-NLS-1$
-					LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.219")+ " " + //$NON-NLS-1$ //$NON-NLS-2$
+					LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.219")+ " " + //$NON-NLS-1$ //$NON-NLS-2$
 					VersionChecker.VERSION + (VersionChecker.VERSION_STABILITY.length()==0 ? "" : " " +VersionChecker.VERSION_STABILITY) + //$NON-NLS-1$ //$NON-NLS-2$
-					LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.220") + " " + VersionChecker.ID_BUILD+"<br><br>"+//$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
-					LResources.LABEL_APP+LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.221")+"<br>"+//$NON-NLS-1$//$NON-NLS-2$
+					LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.220") + " " + VersionChecker.ID_BUILD+"<br><br>"+//$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+					LResources.LABEL_APP+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.221")+"<br>"+//$NON-NLS-1$//$NON-NLS-2$
 					"Copyright(c) 2005-2011 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>"+//$NON-NLS-1$
 					"http://latexdraw.sourceforge.net/<br></div></body></html>");//$NON-NLS-1$
 
 			panel.add(new DisplayCanvas(i), BorderLayout.NORTH);
 			panel.add(new JScrollPane(editorPane), BorderLayout.SOUTH);
-			tabbedPane.add(LangTool.LANG.getStringDialogFrame("PreferencesFrame.general"), panel); //$NON-NLS-1$
+			tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.general"), panel); //$NON-NLS-1$
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 

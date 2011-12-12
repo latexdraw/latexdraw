@@ -205,7 +205,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 	protected JComponent composeRotationToolbar(final ShapeRotationCustomiser ins, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.ROTATE_ICON, ListToggleButton.LOCATION_NORTH, canvas);
-        list.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.2")); //$NON-NLS-1$
+        list.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.2")); //$NON-NLS-1$
 
         addSpinner(list, ins.getRotationField(), true, 65);
         list.addComponent(ins.getRotate90Button());

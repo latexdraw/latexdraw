@@ -137,47 +137,47 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseWidgets() {
 		// Creation of the filling widgets.
-     	fillColButton = new MColorButton(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(pencil.fillingable.getFillingCol()));//$NON-NLS-1$
+     	fillColButton = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(pencil.fillingable.getFillingCol()));//$NON-NLS-1$
      	fillColButton.setMargin(LResources.INSET_BUTTON);
-     	fillColButton.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.68")); //$NON-NLS-1$
+     	fillColButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.68")); //$NON-NLS-1$
 
      	fillStyleCB = createFillingChoice();
      	fillStyleCB.setPreferredSize(new Dimension(65,30));
      	fillStyleCB.setMaximumSize(new Dimension(65,30));
 
 		// Creation of the gradient widgets.
-        gradStartColButton = new MColorButton(LangTool.LANG.getString17("LaTeXDrawFrame.1"), new MButtonIcon(pencil.fillingable.getGradColStart()));
+        gradStartColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.1"), new MButtonIcon(pencil.fillingable.getGradColStart()));
         gradStartColButton.setMargin(LResources.INSET_BUTTON);
-        gradStartColButton.setToolTipText(LangTool.LANG.getString17("LaTeXDrawFrame.7")); //$NON-NLS-1$
+        gradStartColButton.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.7")); //$NON-NLS-1$
 
-        gradEndColButton = new MColorButton(LangTool.LANG.getString17("LaTeXDrawFrame.2"), new MButtonIcon(pencil.fillingable.getGradColEnd()));
+        gradEndColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.2"), new MButtonIcon(pencil.fillingable.getGradColEnd()));
         gradEndColButton.setMargin(LResources.INSET_BUTTON);
-        gradEndColButton.setToolTipText(LangTool.LANG.getString17("LaTeXDrawFrame.8")); //$NON-NLS-1$
+        gradEndColButton.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.8")); //$NON-NLS-1$
 
      	SpinnerModel model = new SpinnerNumberModel(0.5,0,1,0.01);
-     	gradMidPtField = new MSpinner(model, new JLabel(LangTool.LANG.getString17("AbstractParametersFrame.4"))); //$NON-NLS-1$
+     	gradMidPtField = new MSpinner(model, new JLabel(LangTool.INSTANCE.getString17("AbstractParametersFrame.4"))); //$NON-NLS-1$
      	gradMidPtField.setEditor(new JSpinner.NumberEditor(gradMidPtField, "0.000"));//$NON-NLS-1$
 
      	model = new SpinnerNumberModel(0, -360, 360,0.5);
-     	gradAngleField = new MSpinner(model, new JLabel(LangTool.LANG.getString17("AbstractParametersFrame.3"))); //$NON-NLS-1$
+     	gradAngleField = new MSpinner(model, new JLabel(LangTool.INSTANCE.getString17("AbstractParametersFrame.3"))); //$NON-NLS-1$
      	gradAngleField.setEditor(new JSpinner.NumberEditor(gradAngleField, "0.0"));//$NON-NLS-1$
 
 		// Creation of the hatchings widgets.
      	model = new SpinnerNumberModel(5, 0.1, 100,0.1);
-     	hatchWidthField = new MSpinner(model, new JLabel(LangTool.LANG.getStringDialogFrame("AbstractParametersFrame.11"))); //$NON-NLS-1$
+     	hatchWidthField = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.11"))); //$NON-NLS-1$
      	hatchWidthField.setEditor(new JSpinner.NumberEditor(hatchWidthField, "0.0"));//$NON-NLS-1$
 
      	model = new SpinnerNumberModel(2, 0.01, 1000,1);
-     	hatchSepField = new MSpinner(model, new JLabel(LangTool.LANG.getString18("AbstractParametersFrame.0"))); //$NON-NLS-1$
+     	hatchSepField = new MSpinner(model, new JLabel(LangTool.INSTANCE.getString18("AbstractParametersFrame.0"))); //$NON-NLS-1$
      	hatchSepField.setEditor(new JSpinner.NumberEditor(hatchSepField, "0.00"));//$NON-NLS-1$
 
      	model = new SpinnerNumberModel(0., -1000., 1000., 1.);
      	hatchAngleField = new MSpinner(model, new JLabel("angle:"));
      	hatchAngleField.setEditor(new JSpinner.NumberEditor(hatchAngleField, "0.00"));//$NON-NLS-1$
 
-     	hatchColButton = new MColorButton(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.49"), new MButtonIcon(pencil.fillingable.getHatchingsCol())); //$NON-NLS-1$
+     	hatchColButton = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.49"), new MButtonIcon(pencil.fillingable.getHatchingsCol())); //$NON-NLS-1$
      	hatchColButton.setMargin(LResources.INSET_BUTTON);
-     	hatchColButton.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.69")); //$NON-NLS-1$
+     	hatchColButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.69")); //$NON-NLS-1$
 	}
 
 

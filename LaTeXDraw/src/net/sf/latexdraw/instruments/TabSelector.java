@@ -62,7 +62,7 @@ public class TabSelector extends Instrument {
 
 
 	private static class TabSelected2ActivateInstruments extends Link<ActivateInactivateInstruments, TabSelected, TabSelector> {
-		protected TabSelected2ActivateInstruments(TabSelector ins) throws InstantiationException, IllegalAccessException {
+		protected TabSelected2ActivateInstruments(final TabSelector ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ActivateInactivateInstruments.class, TabSelected.class);
 		}
 

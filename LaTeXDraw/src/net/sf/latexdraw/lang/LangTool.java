@@ -207,7 +207,7 @@ public final class LangTool {
 		 * @since 3.0
 		 */
 		public static Lang getLanguage(final String name) {
-			Lang lang = mapLangs.get(name);
+			Lang lang = INSTANCE.getMapLangs().get(name);
 			return lang==null ? EN_BR : lang;
 		}
 
@@ -217,7 +217,7 @@ public final class LangTool {
 		 * @since 3.0
 		 */
 		public static Lang getSystemLanguage() {
-			Lang language = mapLangs.get(System.getProperty("user.language"));//$NON-NLS-1$
+			Lang language = INSTANCE.getMapLangs().get(System.getProperty("user.language"));//$NON-NLS-1$
 			return language==null ? Lang.getDefaultLanguage() : language;
 		}
 	}
@@ -239,10 +239,34 @@ public final class LangTool {
 
 	private static final ResourceBundle RES_BUNDLE_19;
 
+	/** The singleton to use when wanting to use language utilities. */
+	public static final LangTool INSTANCE = new LangTool();
+
+	private static final Lang LANG_CURRENT = INSTANCE.readLang();
+
 	/** This map provides an easy access to the language items. */
-	protected static Map<String, Lang> mapLangs = new HashMap<String, Lang>();
+	private Map<String, Lang> mapLangs = new HashMap<String, Lang>();
 
 	static {
+		final String token = LangTool.getCurrentLanguage().getToken();
+
+		RES_BUNDLE_LFRAME 		 = ResourceBundle.getBundle(token+".LaTeXDrawFrame");	//$NON-NLS-1$
+		RES_BUNDLE_DIALOG_FRAME	 = ResourceBundle.getBundle(token+".dialogFrames");		//$NON-NLS-1$
+		RES_BUNDLE_OTHERS 		 = ResourceBundle.getBundle(token+".others"); 			//$NON-NLS-1$
+		RES_BUNDLE_16 			 = ResourceBundle.getBundle(token+".1_6"); //$NON-NLS-1$
+		RES_BUNDLE_17 			 = ResourceBundle.getBundle(token+".1_7"); //$NON-NLS-1$
+		RES_BUNDLE_18 			 = ResourceBundle.getBundle(token+".1_8"); //$NON-NLS-1$
+		RES_BUNDLE_19 			 = ResourceBundle.getBundle(token+".1_9"); //$NON-NLS-1$
+	}
+
+
+	private LangTool() {
+		super();
+		initMap();
+	}
+
+
+	private void initMap() {
 		// Recording the languages
 		mapLangs.put("fr", Lang.FR);
 		mapLangs.put("en", Lang.EN_BR);
@@ -274,28 +298,14 @@ public final class LangTool {
 		mapLangs.put(Lang.RU.getName(), Lang.RU);
 	}
 
-	/** The singleton to use when wanting to use language utilities. */
-	public static final LangTool LANG = new LangTool();
 
-	private static final Lang LANG_CURRENT = LANG.readLang();
-
-	static {
-		final String token = LangTool.getCurrentLanguage().getToken();
-
-		RES_BUNDLE_LFRAME 		 = ResourceBundle.getBundle(token+".LaTeXDrawFrame");	//$NON-NLS-1$
-		RES_BUNDLE_DIALOG_FRAME	 = ResourceBundle.getBundle(token+".dialogFrames");		//$NON-NLS-1$
-		RES_BUNDLE_OTHERS 		 = ResourceBundle.getBundle(token+".others"); 			//$NON-NLS-1$
-		RES_BUNDLE_16 			 = ResourceBundle.getBundle(token+".1_6"); //$NON-NLS-1$
-		RES_BUNDLE_17 			 = ResourceBundle.getBundle(token+".1_7"); //$NON-NLS-1$
-		RES_BUNDLE_18 			 = ResourceBundle.getBundle(token+".1_8"); //$NON-NLS-1$
-		RES_BUNDLE_19 			 = ResourceBundle.getBundle(token+".1_9"); //$NON-NLS-1$
+	/**
+	 * @return the map containing mapping between name and languages.
+	 * @since 3.0
+	 */
+	public Map<String, Lang> getMapLangs() {
+		return mapLangs;
 	}
-
-
-	private LangTool() {
-		super();
-	}
-
 
 
 	/**

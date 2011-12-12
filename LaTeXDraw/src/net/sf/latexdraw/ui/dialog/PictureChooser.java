@@ -70,7 +70,7 @@ public class PictureChooser extends JDialog implements ActionListener
 			fileChooser.setAccessory(new FilePreviewer(fileChooser));
  		// remove the approve/cancel buttons
 		fileChooser.setControlButtonsAreShown(false);
- 		fileChooser.setApproveButtonText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.199")); //$NON-NLS-1$
+ 		fileChooser.setApproveButtonText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.199")); //$NON-NLS-1$
  		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
  		fileChooser.addChoosableFileFilter(new BMPFilter());
  		fileChooser.addChoosableFileFilter(new PNGFilter());

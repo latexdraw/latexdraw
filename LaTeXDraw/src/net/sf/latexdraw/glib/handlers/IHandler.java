@@ -29,7 +29,7 @@ import org.malai.picking.Pickable;
  */
 public interface IHandler extends Pickable {
 	/** The default size of a handler. */
-	static final int DEFAULT_SIZE = 16;
+	int DEFAULT_SIZE = 16;
 
 	/**
 	 * @return The opacity of the handler.

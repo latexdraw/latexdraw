@@ -110,7 +110,7 @@ public class ActivateInactivateInstruments extends Action {
 	 * @param hideWidgets Defines if the widgets of WidgetInstrument instances must be hidden during their deactivation.
 	 * @since 0.2
 	 */
-	public void setHideWidgets(boolean hideWidgets) {
+	public void setHideWidgets(final boolean hideWidgets) {
 		this.hideWidgets = hideWidgets;
 	}
 

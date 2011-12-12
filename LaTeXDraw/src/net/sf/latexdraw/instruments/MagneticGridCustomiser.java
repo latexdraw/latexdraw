@@ -81,9 +81,9 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 		SpinnerNumberModel model= new SpinnerNumberModel(10, 2, 100000, 1);
      	gridSpacing 			= new MSpinner(model, new JLabel(LResources.GRID_GAP_ICON));
      	gridSpacing.setEditor(new JSpinner.NumberEditor(gridSpacing, "0"));//$NON-NLS-1$
-     	gridSpacing.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.15")); //$NON-NLS-1$
- 		magneticCB 				= new MCheckBox(LangTool.LANG.getString18("LaTeXDrawFrame.13")); //$NON-NLS-1$
- 		magneticCB.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.14")); //$NON-NLS-1$
+     	gridSpacing.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.15")); //$NON-NLS-1$
+ 		magneticCB 				= new MCheckBox(LangTool.INSTANCE.getString18("LaTeXDrawFrame.13")); //$NON-NLS-1$
+ 		magneticCB.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.14")); //$NON-NLS-1$
 	}
 
 

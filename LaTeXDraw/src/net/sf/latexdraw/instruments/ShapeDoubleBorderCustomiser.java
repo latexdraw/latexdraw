@@ -66,13 +66,13 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-        dbleBoundCB = new MCheckBox(LangTool.LANG.getStringDialogFrame("AbstractParametersFrame.0")); //$NON-NLS-1$
+        dbleBoundCB = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.0")); //$NON-NLS-1$
         dbleBoundCB.setMargin(LResources.INSET_BUTTON);
-        dbleBoundCB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.78")); //$NON-NLS-1$
+        dbleBoundCB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.78")); //$NON-NLS-1$
 
         dbleBoundColB = new MColorButton("Colour", new MButtonIcon(pencil.dbleBorderable.getDbleBordCol()));
         dbleBoundColB.setMargin(LResources.INSET_BUTTON);
-        dbleBoundColB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.79")); //$NON-NLS-1$
+        dbleBoundColB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.79")); //$NON-NLS-1$
 
      	dbleSepField = new MSpinner(new SpinnerNumberModel(5, 1, 1000,1), new JLabel(LResources.GRID_GAP_ICON));
      	dbleSepField.setEditor(new JSpinner.NumberEditor(dbleSepField, "0")); //$NON-NLS-1$

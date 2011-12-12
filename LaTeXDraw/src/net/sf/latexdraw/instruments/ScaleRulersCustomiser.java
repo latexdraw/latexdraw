@@ -43,10 +43,10 @@ import net.sf.latexdraw.util.LResources;
  */
 public class ScaleRulersCustomiser extends Instrument {
 	/** The label of the centimetre menu */
-	public static final String LABEL_CM = LangTool.LANG.getStringOthers("XScale.cm"); //$NON-NLS-1$
+	public static final String LABEL_CM = LangTool.INSTANCE.getStringOthers("XScale.cm"); //$NON-NLS-1$
 
 	/** The label of the inch menu */
-	public static final String LABEL_INCH = LangTool.LANG.getStringOthers("XScale.inch"); //$NON-NLS-1$
+	public static final String LABEL_INCH = LangTool.INSTANCE.getStringOthers("XScale.inch"); //$NON-NLS-1$
 
 	/** The x ruler of the system. */
 	protected XScaleRuler xRuler;
@@ -83,8 +83,8 @@ public class ScaleRulersCustomiser extends Instrument {
 		this.xRuler = xRuler;
 		this.yRuler = yRuler;
 
-		xRulerItem = new MCheckBoxMenuItem(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.38"), LResources.EMPTY_ICON); //$NON-NLS-1$
-		yRulerItem = new MCheckBoxMenuItem(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.39"), LResources.EMPTY_ICON); //$NON-NLS-1$
+		xRulerItem = new MCheckBoxMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.38"), LResources.EMPTY_ICON); //$NON-NLS-1$
+		yRulerItem = new MCheckBoxMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.39"), LResources.EMPTY_ICON); //$NON-NLS-1$
 
 		unitCmItem		= new MCheckBoxMenuItem(LABEL_CM);
 		unitInchItem	= new MCheckBoxMenuItem(LABEL_INCH);

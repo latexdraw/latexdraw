@@ -55,19 +55,19 @@ public class Exporter extends WidgetInstrument {
 	public static final String TITLE_DIALOG_EXPORT = "Drawing export";
 
 	/** The label of the exportAsBMPFile item */
-	public final static String LABEL_EXPORT_BMP = LangTool.LANG.getString16("LaTeXDrawFrame.6"); //$NON-NLS-1$
+	public final static String LABEL_EXPORT_BMP = LangTool.INSTANCE.getString16("LaTeXDrawFrame.6"); //$NON-NLS-1$
 
 	/** The label of the exportAsPNGFile item */
-	public final static String LABEL_EXPORT_PNG = LangTool.LANG.getString16("LaTeXDrawFrame.7"); //$NON-NLS-1$
+	public final static String LABEL_EXPORT_PNG = LangTool.INSTANCE.getString16("LaTeXDrawFrame.7"); //$NON-NLS-1$
 
 	/** The label of the exportCodeMenu item */
-	public final static String LABEL_EXPORT_TRICKS = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.19"); //$NON-NLS-1$
+	public final static String LABEL_EXPORT_TRICKS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.19"); //$NON-NLS-1$
 
 	/** The label of the exportDrawMenu item */
-	public final static String LABEL_EXPORT_JPG = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.20"); //$NON-NLS-1$
+	public final static String LABEL_EXPORT_JPG = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.20"); //$NON-NLS-1$
 
 	/** The label of the menu export as */
-	public final static String LABEL_EXPORT_AS = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.16"); //$NON-NLS-1$
+	public final static String LABEL_EXPORT_AS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.16"); //$NON-NLS-1$
 
 	/** The canvas that contains the shapes to export. The canvas is used instead of the drawing
 	 * because to export as picture, we paint the views into a graphics. */
@@ -315,7 +315,7 @@ public class Exporter extends WidgetInstrument {
 
 		if(file.exists()) {
 			int replace = JOptionPane.showConfirmDialog(null,
-						LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
+						LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
 						Exporter.TITLE_DIALOG_EXPORT, JOptionPane.YES_NO_OPTION);
 
 			if(replace == JOptionPane.NO_OPTION)
@@ -334,7 +334,7 @@ public class Exporter extends WidgetInstrument {
 
 	@Override
 	public void onActionExecuted(final Action action) {
-		statusBar.setText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.184")); //$NON-NLS-1$
+		statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.184")); //$NON-NLS-1$
 	}
 
 

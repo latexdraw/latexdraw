@@ -70,13 +70,13 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		shadowCB = new MCheckBox(LangTool.LANG.getString17("LaTeXDrawFrame.0")); //$NON-NLS-1$
+		shadowCB = new MCheckBox(LangTool.INSTANCE.getString17("LaTeXDrawFrame.0")); //$NON-NLS-1$
 		shadowCB.setMargin(LResources.INSET_BUTTON);
-		shadowCB.setToolTipText(LangTool.LANG.getString17("LaTeXDrawFrame.4")); //$NON-NLS-1$
+		shadowCB.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.4")); //$NON-NLS-1$
 
 		shadowColB = new MColorButton("Colour", new MButtonIcon(pencil.shadowable.getShadowCol()));
 		shadowColB.setMargin(LResources.INSET_BUTTON);
-		shadowColB.setToolTipText(LangTool.LANG.getString17("LaTeXDrawFrame.5")); //$NON-NLS-1$
+		shadowColB.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.5")); //$NON-NLS-1$
 
 		SpinnerModel model = new SpinnerNumberModel(1,0.01,1000,1);
 		shadowSizeField = new MSpinner(model, new JLabel("Size:"));

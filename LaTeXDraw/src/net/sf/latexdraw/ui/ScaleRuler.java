@@ -50,14 +50,14 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 		CM {
 			@Override
 			public String getLabel() {
-				return LangTool.LANG.getStringOthers("XScale.cm"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getStringOthers("XScale.cm"); //$NON-NLS-1$
 			}
 		},
 		/** Inch */
 		INCH {
 			@Override
 			public String getLabel() {
-				return LangTool.LANG.getStringOthers("XScale.inch"); //$NON-NLS-1$
+				return LangTool.INSTANCE.getStringOthers("XScale.inch"); //$NON-NLS-1$
 			}
 		};
 

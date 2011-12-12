@@ -44,7 +44,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	RECT {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.3"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.3"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -55,7 +55,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	DOT {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.4"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.4"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -66,7 +66,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	SQUARE {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.5"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.5"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -77,7 +77,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	RHOMBUS {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.6"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.6"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -88,7 +88,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	FREE_HAND {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.7"); //$NON-NLS-1$;
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.7"); //$NON-NLS-1$;
 		}
 
 		@Override
@@ -99,7 +99,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	TRIANGLE {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.8"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.8"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -110,7 +110,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	LINES {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getString16("LaTeXDrawFrame.4");  //$NON-NLS-1$
+			return LangTool.INSTANCE.getString16("LaTeXDrawFrame.4");  //$NON-NLS-1$
 		}
 
 		@Override
@@ -121,7 +121,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	CIRCLE {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.9"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.9"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -132,7 +132,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	GRID {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.10"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.10"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -143,7 +143,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	AXES {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getString18("LaTeXDrawFrame.0"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getString18("LaTeXDrawFrame.0"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -154,7 +154,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	ELLIPSE {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.11"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.11"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -165,7 +165,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	POLYGON {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.12"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.12"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -182,7 +182,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	WEDGE {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.36"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.36"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -195,7 +195,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	CIRCLE_ARC {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.35"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.35"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -208,7 +208,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	CHORD {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.37"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.37"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -221,7 +221,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	BEZIER_CURVE {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.63"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.63"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -234,7 +234,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	BEZIER_CURVE_CLOSED {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getString19("LaTeXDrawFrame.1"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getString19("LaTeXDrawFrame.1"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -247,7 +247,7 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	TEXT {
 		@Override
 		public String getLabel() {
-			return LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.60"); //$NON-NLS-1$
+			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.60"); //$NON-NLS-1$
 		}
 
 		@Override

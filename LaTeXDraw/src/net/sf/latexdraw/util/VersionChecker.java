@@ -106,13 +106,13 @@ public class VersionChecker extends Thread {
 						if(div[3].compareTo(VERSION)>0) {
 							JOptionPane.showMessageDialog(null,
 					 		    "<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">"//$NON-NLS-1$
-					 		    +div[1]+ '/'+div[2]+'/'+div[0]+LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.208") //$NON-NLS-1$
-					 		    +div[3]+LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.209"),  //$NON-NLS-1$
-						 		   LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.210"),  //$NON-NLS-1$
+					 		    +div[1]+ '/'+div[2]+'/'+div[0]+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.208") //$NON-NLS-1$
+					 		    +div[3]+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.209"),  //$NON-NLS-1$
+						 		   LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.210"),  //$NON-NLS-1$
 						 		    JOptionPane.WARNING_MESSAGE);
-							notificationTextField.setText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.211")); //$NON-NLS-1$
+							notificationTextField.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.211")); //$NON-NLS-1$
 						}
-						else notificationTextField.setText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.212")); //$NON-NLS-1$
+						else notificationTextField.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.212")); //$NON-NLS-1$
 	  			}catch(final IOException e) { ok = false; }
 
 	  			LFileUtils.INSTANCE.closeStream(br);
@@ -128,6 +128,6 @@ public class VersionChecker extends Thread {
 		}
 
 		if(!ok)
-  			notificationTextField.setText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.213")); //$NON-NLS-1$
+  			notificationTextField.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.213")); //$NON-NLS-1$
   	}
 }

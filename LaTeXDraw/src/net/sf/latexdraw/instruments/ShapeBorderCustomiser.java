@@ -137,22 +137,22 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
      	thicknessField 		= new MSpinner(new SpinnerNumberModel(2, 0.1, 1000, 0.1), new JLabel(LResources.THICKNESS_ICON));
      	thicknessField.setEditor(new JSpinner.NumberEditor(thicknessField, "0.0"));//$NON-NLS-1$
-     	thicknessField.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.65")); //$NON-NLS-1$
+     	thicknessField.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.65")); //$NON-NLS-1$
 
      	lineColButton = new MColorButton("Colour", new MButtonIcon(pencil.lineStylable.getLineColour()));
      	lineColButton.setMargin(LResources.INSET_BUTTON);
-     	lineColButton.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.66")); //$NON-NLS-1$
+     	lineColButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.66")); //$NON-NLS-1$
 
      	lineCB = createStyleLineChoice();
      	lineCB.setPreferredSize(new Dimension(70,30));
      	lineCB.setMaximumSize(new Dimension(70,30));
 
         bordersPosCB = createBordersPositionChoice();
-        bordersPosCB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.77")); //$NON-NLS-1$
+        bordersPosCB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.77")); //$NON-NLS-1$
         bordersPosCB.setPreferredSize(new Dimension(45, 30));
         bordersPosCB.setMaximumSize(new Dimension(45, 30));
 
-     	isRound = new MCheckBox(LangTool.LANG.getStringDialogFrame("AbstractParametersFrame.16"));//$NON-NLS-1$
+     	isRound = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.16"));//$NON-NLS-1$
 
 		frameArcField = new MSpinner(new SpinnerNumberModel(0.5, 0.01, 1,0.05), new JLabel(LResources.ROUNDNESS_ICON));
 		frameArcField.setEditor(new JSpinner.NumberEditor(frameArcField, "0.00"));//$NON-NLS-1$

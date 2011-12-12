@@ -83,7 +83,7 @@ public class AddShape extends ShapeAction implements Undoable, Modifying {
 
 	@Override
 	public String getUndoName() {
-		return LangTool.LANG.getStringOthers("UndoRedoManager.create"); //$NON-NLS-1$
+		return LangTool.INSTANCE.getStringOthers("UndoRedoManager.create"); //$NON-NLS-1$
 	}
 
 

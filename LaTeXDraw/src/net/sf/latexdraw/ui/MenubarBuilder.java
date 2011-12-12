@@ -77,7 +77,7 @@ public class MenubarBuilder extends UIComposer<JMenuBar> {
 
 
 	protected void composeDrawingMenu() {
-		drawingMenu = new MMenu(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.91"), true); //$NON-NLS-1$
+		drawingMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.91"), true); //$NON-NLS-1$
 		unitMenu	= new MMenu("Unit", true);
 
 		widget.add(drawingMenu);
@@ -96,7 +96,7 @@ public class MenubarBuilder extends UIComposer<JMenuBar> {
 
 
 	protected void composeEditMenu() {
-		editMenu = new MMenu(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.89"), true); //$NON-NLS-1$
+		editMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.89"), true); //$NON-NLS-1$
 		editMenu.add(frame.paster.getCutMenu());
 		editMenu.add(frame.paster.getCopyMenu());
 		editMenu.add(frame.paster.getPasteMenu());
@@ -108,7 +108,7 @@ public class MenubarBuilder extends UIComposer<JMenuBar> {
 
 
 	protected void composeHelpMenu() {
-		helpMenu = new MMenu(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.93"), true); //$NON-NLS-1$
+		helpMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.93"), true); //$NON-NLS-1$
 		helpMenu.add(frame.helper.getReportBugItem());
 		helpMenu.add(frame.helper.getForumItem());
 		helpMenu.add(frame.helper.getDonateItem());
@@ -123,7 +123,7 @@ public class MenubarBuilder extends UIComposer<JMenuBar> {
 	 * @since 3.0
 	 */
 	protected void composeDisplayMenu() {
-		displayMenu = new MMenu(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.90"), true); //$NON-NLS-1$
+		displayMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.90"), true); //$NON-NLS-1$
 
 		widget.add(displayMenu);
 

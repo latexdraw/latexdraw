@@ -106,8 +106,8 @@ public class SaveDrawing extends Save {
 	 * @since 3.0
 	 */
 	protected static int showAskModificationsDialog(final UI ui) {
-		return JOptionPane.showConfirmDialog(ui, LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.156"), //$NON-NLS-1$
-					LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.110"), JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$
+		return JOptionPane.showConfirmDialog(ui, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.156"), //$NON-NLS-1$
+					LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.110"), JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$
 	}
 
 
@@ -130,8 +130,8 @@ public class SaveDrawing extends Save {
 			f = new File(f.getPath() + SVGFilter.SVG_EXTENSION);
 
 		if(f.exists()) {
-			int replace = JOptionPane.showConfirmDialog(null, LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
-														LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$
+			int replace = JOptionPane.showConfirmDialog(null, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
+														LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$
 
 			if(replace == JOptionPane.NO_OPTION || replace == JOptionPane.CLOSED_OPTION)
 				return null;

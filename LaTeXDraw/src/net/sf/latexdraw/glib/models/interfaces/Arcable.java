@@ -28,19 +28,19 @@ public interface Arcable {
 			public boolean supportArrow() { return false; }
 
 			@Override
-			public String getLabel() { return LangTool.LANG.getStringOthers("Arc.arc"); }//$NON-NLS-1$
+			public String getLabel() { return LangTool.INSTANCE.getStringOthers("Arc.arc"); }//$NON-NLS-1$
 		}, ARC {
 			@Override
 			public boolean supportArrow() { return true; }
 
 			@Override
-			public String getLabel() { return LangTool.LANG.getStringOthers("Arc.wedge"); }//$NON-NLS-1$
+			public String getLabel() { return LangTool.INSTANCE.getStringOthers("Arc.wedge"); }//$NON-NLS-1$
 		}, CHORD {
 			@Override
 			public boolean supportArrow() { return false; }
 
 			@Override
-			public String getLabel() { return LangTool.LANG.getStringOthers("Arc.chord"); }//$NON-NLS-1$
+			public String getLabel() { return LangTool.INSTANCE.getStringOthers("Arc.chord"); }//$NON-NLS-1$
 		};
 
 

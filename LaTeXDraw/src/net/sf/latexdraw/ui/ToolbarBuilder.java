@@ -106,9 +106,9 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 
  		//Adding a widget to select shape.
 		button = frame.editingSelector.getHandB();
-		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.136") + //$NON-NLS-1$
-				 				LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.137") + //$NON-NLS-1$
-				 				LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.138")); //$NON-NLS-1$
+		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.136") + //$NON-NLS-1$
+				 				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.137") + //$NON-NLS-1$
+				 				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.138")); //$NON-NLS-1$
 		widget.add(button);
 		widget.add(frame.deleter.getDeleteB());
 
@@ -131,22 +131,22 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		// Adding a widget to create arcs.
  		button = frame.editingSelector.getArcB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
  		widget.add(button);
 
  		//Adding a widget to create text shapes.
 		button = frame.editingSelector.getTextB();
-		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.60")); //$NON-NLS-1$
+		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.60")); //$NON-NLS-1$
 		widget.add(button);
 
  		//Adding a widget to create free hand shapes.
 		button = frame.editingSelector.getFreeHandB();
-		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.7")); //$NON-NLS-1$
+		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.7")); //$NON-NLS-1$
 		widget.add(button);
 
  		//Adding a widget to create dot shapes.
 		button = frame.editingSelector.getDotB();
-		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.117")); //$NON-NLS-1$
+		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.117")); //$NON-NLS-1$
 		widget.add(button);
 
 		widget.add(frame.exceptionsManager.getExceptionB());
@@ -161,18 +161,18 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 */
 	protected void composeRectangleLikeToolbar(final LCanvas canvas) {
 		recListB = new ListToggleButton(frame, LResources.RECT_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
-		recListB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.118")); //$NON-NLS-1$
+		recListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.118")); //$NON-NLS-1$
 		widget.add(recListB);
 
  		AbstractButton button = frame.editingSelector.getRecB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.119")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.119")); //$NON-NLS-1$
  		recListB.addComponent(button);
  		mapContainers.put(button, recListB);
 
  		button = frame.editingSelector.getSquareB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.120")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.120")); //$NON-NLS-1$
  		recListB.addComponent(button);
  		mapContainers.put(button, recListB);
  		recListB.addSeparator();
@@ -185,18 +185,18 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 */
 	protected void composeEllipseLikeToolbar(final LCanvas canvas) {
  		ellipseListB = new ListToggleButton(frame, LResources.ELLIPSE_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
- 		ellipseListB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
+ 		ellipseListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
  		widget.add(ellipseListB);
 
  		AbstractButton button = frame.editingSelector.getEllipseB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
  		ellipseListB.addComponent(button);
  		mapContainers.put(button, ellipseListB);
 
  		button = frame.editingSelector.getCircleB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.127")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.127")); //$NON-NLS-1$
  		ellipseListB.addComponent(button);
  		mapContainers.put(button, ellipseListB);
  		ellipseListB.addSeparator();
@@ -210,24 +210,24 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 */
 	protected void composePolygonLikeToolbar(final LCanvas canvas) {
  		polygonListB = new ListToggleButton(frame, LResources.POLYGON_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
- 		polygonListB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
+ 		polygonListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
  		widget.add(polygonListB);
 
  		AbstractButton button = frame.editingSelector.getPolygonB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
  		polygonListB.addComponent(button);
  		mapContainers.put(button, polygonListB);
 
  		button = frame.editingSelector.getRhombusB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.123")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.123")); //$NON-NLS-1$
  		polygonListB.addComponent(button);
  		mapContainers.put(button, polygonListB);
 
  		button = frame.editingSelector.getTriangleB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.124")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.124")); //$NON-NLS-1$
  		polygonListB.addComponent(button);
  		mapContainers.put(button, polygonListB);
  		polygonListB.addSeparator();
@@ -240,18 +240,18 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 */
 	protected void composeCurveLikeToolbar(final LCanvas canvas) {
  		bezierListB = new ListToggleButton(frame, LResources.CLOSED_BEZIER_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
- 		bezierListB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
+ 		bezierListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
  		widget.add(bezierListB);
 
  		AbstractButton button = frame.editingSelector.getBezierClosedB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getString19("LaTeXDrawFrame.11")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getString19("LaTeXDrawFrame.11")); //$NON-NLS-1$
  		bezierListB.addComponent(button);
  		mapContainers.put(button, bezierListB);
 
  		button = frame.editingSelector.getBezierB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
  		bezierListB.addComponent(button);
  		mapContainers.put(button, bezierListB);
  		bezierListB.addSeparator();
@@ -264,17 +264,17 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 */
 	protected void composeGridLikeToolbar(final LCanvas canvas) {
  		gridListB = new ListToggleButton(frame, LResources.GRID_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
- 		gridListB.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.16")); //$NON-NLS-1$
+ 		gridListB.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.16")); //$NON-NLS-1$
 
  		AbstractButton button = frame.editingSelector.getGridB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.133")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.133")); //$NON-NLS-1$
  		gridListB.addComponent(button);
  		mapContainers.put(button, gridListB);
 
  		button = frame.editingSelector.getAxesB();
  		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.17")); //$NON-NLS-1$
+ 		button.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.17")); //$NON-NLS-1$
  		gridListB.addComponent(button);
  		mapContainers.put(button, gridListB);
  		gridListB.addSeparator();
@@ -284,7 +284,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 
 	protected void composeMagneticGridToolbar(final LCanvas canvas) {
 		magneticGridB = new ListToggleButton(frame, LResources.DISPLAY_GRID_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
-		magneticGridB.setToolTipText(LangTool.LANG.getString18("LaTeXDrawFrame.12")); //$NON-NLS-1$
+		magneticGridB.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.12")); //$NON-NLS-1$
 		widget.add(magneticGridB);
 
 		magneticGridB.addComponent(frame.gridCustomiser.getStyleList());

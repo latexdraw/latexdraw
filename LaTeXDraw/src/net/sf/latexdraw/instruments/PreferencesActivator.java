@@ -67,7 +67,7 @@ public class PreferencesActivator extends WidgetInstrument {
 
 	@Override
 	protected void initialiseWidgets() {
-		showPreferencesMenu = new MMenuItem(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.56"), KeyEvent.VK_P); //$NON-NLS-1$
+		showPreferencesMenu = new MMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.56"), KeyEvent.VK_P); //$NON-NLS-1$
 		showPreferencesMenu.setIcon(LResources.PREFERENCES_ICON);
 	}
 

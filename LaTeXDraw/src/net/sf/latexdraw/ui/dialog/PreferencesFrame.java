@@ -63,19 +63,19 @@ public class PreferencesFrame extends MFrame {
 
   		setIconImage(LResources.PROPERTIES_ICON.getImage());
 
-	  	setTitle(LangTool.LANG.getStringDialogFrame("PreferencesFrame.Pref")); //$NON-NLS-1$
+	  	setTitle(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.Pref")); //$NON-NLS-1$
   		setLocation(dim.width*1/3, dim.height*1/4);
 
   		JTabbedPane tabbedPane = new JTabbedPane();
   		JPanel pGeneral = new JPanel(new BorderLayout());
 
-  		tabbedPane.add(LangTool.LANG.getStringDialogFrame("PreferencesFrame.general"), createGeneralPanel()); //$NON-NLS-1$
+  		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.general"), createGeneralPanel()); //$NON-NLS-1$
   		tabbedPane.add("LaTeX", createLatexPanel()); //$NON-NLS-1$
-  		tabbedPane.add(LangTool.LANG.getStringDialogFrame("PreferencesFrame.folders"), createFoldersPanel()); //$NON-NLS-1$
-  		tabbedPane.add(LangTool.LANG.getStringDialogFrame("PreferencesFrame.quality"), createQualityPanel()); //$NON-NLS-1$
-  		tabbedPane.add(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.90"), createDisplayPanel()); //$NON-NLS-1$
-  		tabbedPane.add(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.92"), createCodePanel()); //$NON-NLS-1$
-  		tabbedPane.add(LangTool.LANG.getStringDialogFrame("PreferencesFrame.grid"), createGridPanel()); //$NON-NLS-1$
+  		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.folders"), createFoldersPanel()); //$NON-NLS-1$
+  		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.quality"), createQualityPanel()); //$NON-NLS-1$
+  		tabbedPane.add(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.90"), createDisplayPanel()); //$NON-NLS-1$
+  		tabbedPane.add(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.92"), createCodePanel()); //$NON-NLS-1$
+  		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.grid"), createGridPanel()); //$NON-NLS-1$
 
 		pGeneral.add(tabbedPane, BorderLayout.CENTER);
 
@@ -129,10 +129,10 @@ public class PreferencesFrame extends MFrame {
   		pRecent.add(prefSetter.getNbRecentFilesField().getLabel());
   		pRecent.add(prefSetter.getNbRecentFilesField());
 
-  		pTheme.add(new JLabel(LangTool.LANG.getString19("PreferencesFrame.1"))); //$NON-NLS-1$
+  		pTheme.add(new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1"))); //$NON-NLS-1$
   		pTheme.add(prefSetter.getThemeList());
 
-  		pLang.add(new JLabel(LangTool.LANG.getStringDialogFrame("PreferencesFrame.lge"))); //$NON-NLS-1$
+  		pLang.add(new JLabel(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.lge"))); //$NON-NLS-1$
   		pLang.add(prefSetter.getLangList());
   		pEditor.add(prefSetter.getPathTexEditorField());
   		pEditor.add(bChooseEditor);
@@ -141,7 +141,7 @@ public class PreferencesFrame extends MFrame {
   		pGeneral.add(pTheme);
   		if(VersionChecker.WITH_UPDATE)
 	  		pGeneral.add(prefSetter.getCheckNewVersion());
-  		pGeneral.add(new JLabel(LangTool.LANG.getString18("PreferencesFrame.3"))); //$NON-NLS-1$
+  		pGeneral.add(new JLabel(LangTool.INSTANCE.getString18("PreferencesFrame.3"))); //$NON-NLS-1$
   		pGeneral.add(pEditor);
   		pGeneral.add(pRecent);
 
@@ -225,7 +225,7 @@ public class PreferencesFrame extends MFrame {
      	constraint.weighty = 0.1;
      	constraint.fill = GridBagConstraints.HORIZONTAL;
      	constraint.anchor = GridBagConstraints.EAST;
-     	pFolders.add(new JLabel(LangTool.LANG.getStringDialogFrame("PreferencesFrame.defOpenSave")), constraint); //$NON-NLS-1$
+     	pFolders.add(new JLabel(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.defOpenSave")), constraint); //$NON-NLS-1$
 
      	constraint.gridy = 1;
      	constraint.weightx = 10;
@@ -241,7 +241,7 @@ public class PreferencesFrame extends MFrame {
      	constraint.gridy = 2;
      	constraint.gridwidth = 6;
      	constraint.fill = GridBagConstraints.HORIZONTAL;
-     	pFolders.add(new JLabel(LangTool.LANG.getStringDialogFrame("PreferencesFrame.defFold")), constraint); //$NON-NLS-1$
+     	pFolders.add(new JLabel(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.defFold")), constraint); //$NON-NLS-1$
 
      	constraint.gridy = 3;
      	constraint.weightx = 10;

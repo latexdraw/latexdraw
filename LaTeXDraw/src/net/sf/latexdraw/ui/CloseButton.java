@@ -56,6 +56,6 @@ public class CloseButton extends MButton {
 		setMaximumSize(new Dimension(ICON_WIDTH, ICON_HEIGHT));
 		setIcon(CLOSE_OUT);
 		setRolloverIcon(CLOSE_IN);
-		setToolTipText(LangTool.LANG.getStringOthers("CloseButton.closePanel")); //$NON-NLS-1$
+		setToolTipText(LangTool.INSTANCE.getStringOthers("CloseButton.closePanel")); //$NON-NLS-1$
 	}
 }

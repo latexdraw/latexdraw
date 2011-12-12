@@ -154,11 +154,11 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 		loadButton = new MButton(LResources.OPEN_ICON);
 		loadButton.setMargin(LResources.INSET_BUTTON);
-		loadButton.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.109")); //$NON-NLS-1$
+		loadButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.109")); //$NON-NLS-1$
 
 		saveButton = new MButton(LResources.SAVE_ICON);
 		saveButton.setMargin(LResources.INSET_BUTTON);
-		saveButton.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.110")); //$NON-NLS-1$
+		saveButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.110")); //$NON-NLS-1$
 
 		loadMenu = new MMenuItem(LABEL_OPEN, KeyEvent.VK_O);
 		loadMenu.setIcon(LResources.OPEN_ICON);
@@ -267,9 +267,9 @@ public class FileLoaderSaver extends WidgetInstrument {
 		}
 
 		if(save)
-			fileChooser.setDialogTitle(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"));//$NON-NLS-1$
+			fileChooser.setDialogTitle(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"));//$NON-NLS-1$
 		else
-			fileChooser.setDialogTitle(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.200")); //$NON-NLS-1$
+			fileChooser.setDialogTitle(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.200")); //$NON-NLS-1$
 
 		return fileChooser;
 	}
@@ -277,7 +277,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 	@Override
 	public void onActionExecuted(final Action action) {
-		statusBar.setText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.191")); //$NON-NLS-1$
+		statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.191")); //$NON-NLS-1$
 	}
 
 

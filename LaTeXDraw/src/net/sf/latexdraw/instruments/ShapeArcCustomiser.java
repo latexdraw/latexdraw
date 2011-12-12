@@ -74,20 +74,20 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
 		arcB = new MToggleButton(LResources.ARC_ICON);
 		arcB.setMargin(LResources.INSET_BUTTON);
-		arcB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
+		arcB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
 
  		wedgeB = new MToggleButton(LResources.WEDGE_ICON);
  		wedgeB.setMargin(LResources.INSET_BUTTON);
- 		wedgeB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.130")); //$NON-NLS-1$
+ 		wedgeB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.130")); //$NON-NLS-1$
 
  		chordB = new MToggleButton(LResources.CHORD_ICON);
  		chordB.setMargin(LResources.INSET_BUTTON);
- 		chordB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.131")); //$NON-NLS-1$
+ 		chordB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.131")); //$NON-NLS-1$
 
-     	startAngleS = new MSpinner(new SpinnerNumberModel(0.,-360.,360.,1.), new JLabel(LangTool.LANG.getStringDialogFrame("ParametersArcFrame.0")));
+     	startAngleS = new MSpinner(new SpinnerNumberModel(0.,-360.,360.,1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersArcFrame.0")));
      	startAngleS.setEditor(new MSpinner.NumberEditor(startAngleS, "0.0"));//$NON-NLS-1$
 
-     	endAngleS = new MSpinner(new SpinnerNumberModel(0.,-360.,360.,1.), new JLabel(LangTool.LANG.getStringDialogFrame("ParametersArcFrame.1")));
+     	endAngleS = new MSpinner(new SpinnerNumberModel(0.,-360.,360.,1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersArcFrame.1")));
      	endAngleS.setEditor(new MSpinner.NumberEditor(endAngleS, "0.0"));//$NON-NLS-1$
 	}
 
@@ -216,7 +216,7 @@ abstract class Button2ArcStyle<T extends ShapePropertyAction> extends ButtonPres
 	@Override
 	public boolean isConditionRespected() {
 		final Object button = interaction.getButton();
-		return (button==instrument.arcB || button==instrument.chordB || button==instrument.wedgeB);
+		return button==instrument.arcB || button==instrument.chordB || button==instrument.wedgeB;
 	}
 }
 

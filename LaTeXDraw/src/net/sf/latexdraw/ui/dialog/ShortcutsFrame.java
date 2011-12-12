@@ -46,32 +46,32 @@ public class ShortcutsFrame extends JFrame {
 	 * The constructor creates a frame containing a table with all the shortcuts.
 	 */
 	public ShortcutsFrame() {
-		super(LangTool.LANG.getString19("LaTeXDrawFrame.3")); //$NON-NLS-1$
+		super(LangTool.INSTANCE.getString19("LaTeXDrawFrame.3")); //$NON-NLS-1$
 
 		setIconImage(LResources.LATEXDRAW_ICON.getImage());
 
 		JTable table;
-		final String[] titles = {LangTool.LANG.getString19("ShortcutsFrame.1"),  //$NON-NLS-1$
-				LangTool.LANG.getString16("ParserMessagesFrame.0"),  //$NON-NLS-1$
-				LangTool.LANG.getString19("ShortcutsFrame.3")};  //$NON-NLS-1$
-		String catEdit	= LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.89"); //$NON-NLS-1$
-		String catNav	= LangTool.LANG.getString19("ShortcutsFrame.4"); //$NON-NLS-1$
-		String catTran	= LangTool.LANG.getString19("ShortcutsFrame.5"); //$NON-NLS-1$
-		String catDraw	= LangTool.LANG.getString19("ShortcutsFrame.6"); //$NON-NLS-1$
-		String catFile	= LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.88"); //$NON-NLS-1$
-		String cathelp	= LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.93"); //$NON-NLS-1$
-		String move = LangTool.LANG.getString19("ShortcutsFrame.7"); //$NON-NLS-1$
-		JButton okB 	= new JButton(LangTool.LANG.getString18("LaTeXDrawFrame.23")); //$NON-NLS-1$
+		final String[] titles = {LangTool.INSTANCE.getString19("ShortcutsFrame.1"),  //$NON-NLS-1$
+				LangTool.INSTANCE.getString16("ParserMessagesFrame.0"),  //$NON-NLS-1$
+				LangTool.INSTANCE.getString19("ShortcutsFrame.3")};  //$NON-NLS-1$
+		String catEdit	= LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.89"); //$NON-NLS-1$
+		String catNav	= LangTool.INSTANCE.getString19("ShortcutsFrame.4"); //$NON-NLS-1$
+		String catTran	= LangTool.INSTANCE.getString19("ShortcutsFrame.5"); //$NON-NLS-1$
+		String catDraw	= LangTool.INSTANCE.getString19("ShortcutsFrame.6"); //$NON-NLS-1$
+		String catFile	= LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.88"); //$NON-NLS-1$
+		String cathelp	= LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.93"); //$NON-NLS-1$
+		String move = LangTool.INSTANCE.getString19("ShortcutsFrame.7"); //$NON-NLS-1$
+		JButton okB 	= new JButton(LangTool.INSTANCE.getString18("LaTeXDrawFrame.23")); //$NON-NLS-1$
 		JPanel panel 	= new JPanel();
 		Dimension dim 	= Toolkit.getDefaultToolkit().getScreenSize();
 
 		String ctrl = KeyEvent.getKeyModifiersText(InputEvent.CTRL_MASK);
 		String shift = KeyEvent.getKeyModifiersText(InputEvent.SHIFT_MASK);
-		String leftClick = LangTool.LANG.getString19("ShortcutsFrame.8"); //$NON-NLS-1$
-		final String st1 = LangTool.LANG.getString19("ShortcutsFrame.9"); //$NON-NLS-1$
-		final String st2 = LangTool.LANG.getString19("ShortcutsFrame.10"); //$NON-NLS-1$
-		final String st3 = LangTool.LANG.getString19("ShortcutsFrame.11"); //$NON-NLS-1$
-		final String st4 = LangTool.LANG.getString19("ShortcutsFrame.12"); //$NON-NLS-1$
+		String leftClick = LangTool.INSTANCE.getString19("ShortcutsFrame.8"); //$NON-NLS-1$
+		final String st1 = LangTool.INSTANCE.getString19("ShortcutsFrame.9"); //$NON-NLS-1$
+		final String st2 = LangTool.INSTANCE.getString19("ShortcutsFrame.10"); //$NON-NLS-1$
+		final String st3 = LangTool.INSTANCE.getString19("ShortcutsFrame.11"); //$NON-NLS-1$
+		final String st4 = LangTool.INSTANCE.getString19("ShortcutsFrame.12"); //$NON-NLS-1$
 		final Object[][] data = {
 			{ctrl+"+C", LResources.LABEL_COPY, catEdit},//$NON-NLS-1$
 			{ctrl+"+V", LResources.LABEL_PASTE, catEdit},//$NON-NLS-1$
@@ -107,7 +107,7 @@ public class ShortcutsFrame extends JFrame {
 //			{'F', EditionChoice.SELECTION.getLabel(), catDraw},//FIXME
 			{KeyEvent.getKeyText(KeyEvent.VK_DELETE), LResources.LABEL_DELETE, catDraw},
 			{KeyEvent.getKeyText(KeyEvent.VK_F1), LResources.LABEL_HELP, cathelp},
-			{KeyEvent.getKeyText(KeyEvent.VK_F2), LangTool.LANG.getString19("LaTeXDrawFrame.3"), cathelp}, //$NON-NLS-1$
+			{KeyEvent.getKeyText(KeyEvent.VK_F2), LangTool.INSTANCE.getString19("LaTeXDrawFrame.3"), cathelp}, //$NON-NLS-1$
 			{KeyEvent.getKeyText(KeyEvent.VK_RIGHT), st1, catNav},
 			{KeyEvent.getKeyText(KeyEvent.VK_LEFT), st2, catNav},
 			{KeyEvent.getKeyText(KeyEvent.VK_UP), st3, catNav},
@@ -116,21 +116,21 @@ public class ShortcutsFrame extends JFrame {
 			{ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_LEFT), st2+move, catNav},
 			{ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_UP), st3+move, catNav},
 			{ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_DOWN), st4+move, catNav},
-			{shift+'+'+ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_RIGHT), LangTool.LANG.getString19("ShortcutsFrame.14"), catNav}, //$NON-NLS-1$
-			{shift+'+'+ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_LEFT), LangTool.LANG.getString19("ShortcutsFrame.15"), catNav}, //$NON-NLS-1$
-			{shift+'+'+ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_UP), LangTool.LANG.getString19("ShortcutsFrame.16"), catNav}, //$NON-NLS-1$
-			{shift+'+'+ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_DOWN), LangTool.LANG.getString19("ShortcutsFrame.17"), catNav}, //$NON-NLS-1$
-			{shift+'+'+KeyEvent.getKeyText(KeyEvent.VK_RIGHT), LangTool.LANG.getString19("ShortcutsFrame.18"), catNav}, //$NON-NLS-1$
-			{shift+'+'+KeyEvent.getKeyText(KeyEvent.VK_LEFT), LangTool.LANG.getString19("ShortcutsFrame.19"), catNav}, //$NON-NLS-1$
-			{shift+'+'+KeyEvent.getKeyText(KeyEvent.VK_UP), LangTool.LANG.getString19("ShortcutsFrame.20"), catNav}, //$NON-NLS-1$
-			{shift+'+'+KeyEvent.getKeyText(KeyEvent.VK_DOWN), LangTool.LANG.getString19("ShortcutsFrame.21"), catNav}, //$NON-NLS-1$
-			{ctrl+"+U", LangTool.LANG.getString19("ShortcutsFrame.23"), catTran}, //$NON-NLS-1$ //$NON-NLS-2$
-			{ctrl+"+A", LangTool.LANG.getString19("ShortcutsFrame.25"), catDraw}, //$NON-NLS-1$ //$NON-NLS-2$
-			{ctrl+'+'+leftClick, LangTool.LANG.getString19("ShortcutsFrame.26"), catDraw}, //$NON-NLS-1$
-			{shift+'+'+leftClick, LangTool.LANG.getString19("ShortcutsFrame.27"), catDraw}, //$NON-NLS-1$
+			{shift+'+'+ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_RIGHT), LangTool.INSTANCE.getString19("ShortcutsFrame.14"), catNav}, //$NON-NLS-1$
+			{shift+'+'+ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_LEFT), LangTool.INSTANCE.getString19("ShortcutsFrame.15"), catNav}, //$NON-NLS-1$
+			{shift+'+'+ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_UP), LangTool.INSTANCE.getString19("ShortcutsFrame.16"), catNav}, //$NON-NLS-1$
+			{shift+'+'+ctrl+'+'+KeyEvent.getKeyText(KeyEvent.VK_DOWN), LangTool.INSTANCE.getString19("ShortcutsFrame.17"), catNav}, //$NON-NLS-1$
+			{shift+'+'+KeyEvent.getKeyText(KeyEvent.VK_RIGHT), LangTool.INSTANCE.getString19("ShortcutsFrame.18"), catNav}, //$NON-NLS-1$
+			{shift+'+'+KeyEvent.getKeyText(KeyEvent.VK_LEFT), LangTool.INSTANCE.getString19("ShortcutsFrame.19"), catNav}, //$NON-NLS-1$
+			{shift+'+'+KeyEvent.getKeyText(KeyEvent.VK_UP), LangTool.INSTANCE.getString19("ShortcutsFrame.20"), catNav}, //$NON-NLS-1$
+			{shift+'+'+KeyEvent.getKeyText(KeyEvent.VK_DOWN), LangTool.INSTANCE.getString19("ShortcutsFrame.21"), catNav}, //$NON-NLS-1$
+			{ctrl+"+U", LangTool.INSTANCE.getString19("ShortcutsFrame.23"), catTran}, //$NON-NLS-1$ //$NON-NLS-2$
+			{ctrl+"+A", LangTool.INSTANCE.getString19("ShortcutsFrame.25"), catDraw}, //$NON-NLS-1$ //$NON-NLS-2$
+			{ctrl+'+'+leftClick, LangTool.INSTANCE.getString19("ShortcutsFrame.26"), catDraw}, //$NON-NLS-1$
+			{shift+'+'+leftClick, LangTool.INSTANCE.getString19("ShortcutsFrame.27"), catDraw}, //$NON-NLS-1$
 			{KeyEvent.getKeyText(KeyEvent.VK_SPACE),
-				LangTool.LANG.getString19("ShortcutsFrame.28"), catDraw}, //$NON-NLS-1$
-			{ctrl+'+'+LangTool.LANG.getString19("ShortcutsFrame.29"), LangTool.LANG.getString19("ShortcutsFrame.30"), catDraw} //$NON-NLS-1$ //$NON-NLS-2$
+				LangTool.INSTANCE.getString19("ShortcutsFrame.28"), catDraw}, //$NON-NLS-1$
+			{ctrl+'+'+LangTool.INSTANCE.getString19("ShortcutsFrame.29"), LangTool.INSTANCE.getString19("ShortcutsFrame.30"), catDraw} //$NON-NLS-1$ //$NON-NLS-2$
 		};
 
         TableModel dataModel = new AbstractTableModel() {

@@ -200,7 +200,7 @@ class Press2Select extends Link<SelectShapes, Press, Hand> {
 	public boolean isConditionRespected() {
 		final Object target = interaction.getTarget();
 		return interaction.getTarget() instanceof IViewShape &&
-			   !instrument.canvas.getDrawing().getSelection().contains((MappingRegistry.REGISTRY.getSourceFromTarget(target, IShape.class)));
+			   !instrument.canvas.getDrawing().getSelection().contains(MappingRegistry.REGISTRY.getSourceFromTarget(target, IShape.class));
 	}
 }
 

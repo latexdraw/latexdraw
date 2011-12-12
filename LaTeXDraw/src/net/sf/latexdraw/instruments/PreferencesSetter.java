@@ -207,7 +207,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		pathTexEditorField = new MTextField();
   		pathTexEditorField.setMaximumSize(new Dimension(700, height));
 
-  		checkNewVersion = new MCheckBox(LangTool.LANG.getStringDialogFrame("PreferencesFrame.newVers"));//$NON-NLS-1$
+  		checkNewVersion = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.newVers"));//$NON-NLS-1$
 		if(VersionChecker.WITH_UPDATE)
 			checkNewVersion.setSelected(true);
 
@@ -229,7 +229,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		langList.setMaximumSize(new Dimension(250, height));
 
   		SpinnerModel model = new SpinnerNumberModel(5, 0, 20, 1);
-  		nbRecentFilesField = new MSpinner(model, new JLabel(LangTool.LANG.getString19("PreferencesFrame.0")));//$NON-NLS-1$
+  		nbRecentFilesField = new MSpinner(model, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.0")));//$NON-NLS-1$
   		nbRecentFilesField.setEditor(new JSpinner.NumberEditor(nbRecentFilesField, "0"));//$NON-NLS-1$
   		nbRecentFilesField.setMaximumSize(new Dimension(60, height));
 
@@ -242,28 +242,28 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		themeList = new MComboBox(nameThemes);
   		themeList.setMaximumSize(new Dimension(160, height));
 
-  		codeAutoUpdateCB 	= new MCheckBox(LangTool.LANG.getStringDialogFrame("PreferencesFrame.codeAuto"));//$NON-NLS-1$
+  		codeAutoUpdateCB 	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.codeAuto"));//$NON-NLS-1$
   		codeAutoUpdateCB.setSelected(true);
-  		classicGridRB  		= new MRadioButton(LangTool.LANG.getString18("PreferencesFrame.4")); //$NON-NLS-1$
+  		classicGridRB  		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.4")); //$NON-NLS-1$
   		classicGridRB.setSelected(false);
-  		persoGridRB    		= new MRadioButton(LangTool.LANG.getString18("PreferencesFrame.5")); //$NON-NLS-1$
+  		persoGridRB    		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.5")); //$NON-NLS-1$
   		persoGridRB.setSelected(true);
-  		displayGridCB      	= new MCheckBox(LangTool.LANG.getStringDialogFrame("PreferencesFrame.grid"));//$NON-NLS-1$
+  		displayGridCB      	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.grid"));//$NON-NLS-1$
   		displayGridCB.setSelected(true);
-  		magneticGridCB	   	= new MCheckBox(LangTool.LANG.getString18("PreferencesFrame.6")); //$NON-NLS-1$
+  		magneticGridCB	   	= new MCheckBox(LangTool.INSTANCE.getString18("PreferencesFrame.6")); //$NON-NLS-1$
   		magneticGridCB.setSelected(true);
      	model 			   	= new SpinnerNumberModel(20, 2, 100000, 1);
-     	persoGridGapField  	= new MSpinner(model, new JLabel(LangTool.LANG.getString18("PreferencesFrame.7")));//$NON-NLS-1$
+     	persoGridGapField  	= new MSpinner(model, new JLabel(LangTool.INSTANCE.getString18("PreferencesFrame.7")));//$NON-NLS-1$
      	persoGridGapField.setEditor(new JSpinner.NumberEditor(persoGridGapField, "0"));//$NON-NLS-1$
      	persoGridGapField.setMaximumSize(new Dimension(60, height));
 
-   		displayCodePanelCB 	= new MCheckBox(LangTool.LANG.getStringDialogFrame("PreferencesFrame.codePanel"));//$NON-NLS-1$
+   		displayCodePanelCB 	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.codePanel"));//$NON-NLS-1$
    		displayCodePanelCB.setSelected(true);
-  		displayXScaleCB    	= new MCheckBox(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.38"));//$NON-NLS-1$
+  		displayXScaleCB    	= new MCheckBox(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.38"));//$NON-NLS-1$
   		displayXScaleCB.setSelected(true);
-  		displayYScaleCB    	= new MCheckBox(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.39"));//$NON-NLS-1$
+  		displayYScaleCB    	= new MCheckBox(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.39"));//$NON-NLS-1$
   		displayYScaleCB.setSelected(true);
-  		displayBordersCB   	= new MCheckBox(LangTool.LANG.getStringDialogFrame("PreferencesFrame.bordersDraw"));//$NON-NLS-1$
+  		displayBordersCB   	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.bordersDraw"));//$NON-NLS-1$
   		displayBordersCB.setSelected(false);
   		unitChoice 		   	= new MComboBox();
   		unitChoice.addItem(Unit.CM.getLabel());
@@ -274,10 +274,10 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		pathExportField  	= new MTextField();
   		pathOpenField    	= new MTextField();
 
-  		antialiasingCheckBox = new MCheckBox(LangTool.LANG.getStringDialogFrame("PreferencesFrame.antiAl"));//$NON-NLS-1$
-  		renderingCheckBox    = new MCheckBox(LangTool.LANG.getStringDialogFrame("PreferencesFrame.rendQ"));//$NON-NLS-1$
-  		colorRenderCheckBox  = new MCheckBox(LangTool.LANG.getStringDialogFrame("PreferencesFrame.colRendQ"));//$NON-NLS-1$
-  		alpaInterCheckBox    = new MCheckBox(LangTool.LANG.getStringDialogFrame("PreferencesFrame.AlphaQ"));//$NON-NLS-1$
+  		antialiasingCheckBox = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.antiAl"));//$NON-NLS-1$
+  		renderingCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.rendQ"));//$NON-NLS-1$
+  		colorRenderCheckBox  = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.colRendQ"));//$NON-NLS-1$
+  		alpaInterCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.AlphaQ"));//$NON-NLS-1$
   		antialiasingCheckBox.setSelected(true);
   		renderingCheckBox.setSelected(true);
   		colorRenderCheckBox.setSelected(true);
@@ -324,8 +324,8 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	public JFileChooser getFileChooser() {
 		if(fileChooser==null) {
 			fileChooser = new JFileChooser();
-			fileChooser.setApproveButtonText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.171"));	//$NON-NLS-1$
-			fileChooser.setDialogTitle(LangTool.LANG.getStringDialogFrame("PreferencesFrame.selectFolder"));	//$NON-NLS-1$
+			fileChooser.setApproveButtonText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.171"));	//$NON-NLS-1$
+			fileChooser.setDialogTitle(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.selectFolder"));	//$NON-NLS-1$
 			fileChooser.setMultiSelectionEnabled(false);
 		}
 		return fileChooser;

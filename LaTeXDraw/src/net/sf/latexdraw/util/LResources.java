@@ -40,16 +40,16 @@ public final class LResources {
 	public static final String FILE_SEP = System.getProperty("file.separator");
 
 	/** The label of the arc choice */
-	public static final String LABEL_ARC_CHOICE = LangTool.LANG.getStringOthers("Arc.arcType"); //$NON-NLS-1$
+	public static final String LABEL_ARC_CHOICE = LangTool.INSTANCE.getStringOthers("Arc.arcType"); //$NON-NLS-1$
 
 	/** The e-mail of the latexdraw developer */
 	public static final String MAIL_ME = "arno_b@users.sourceforge.net"; //$NON-NLS-1$
 
 	/** The label of the menuItem zoomIn */
-	public static final String LABEL_ZOOM_IN = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.57"); //$NON-NLS-1$
+	public static final String LABEL_ZOOM_IN = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.57"); //$NON-NLS-1$
 
 	/** The label of the menuItem zoomOut */
-	public static final String LABEL_ZOOM_OUT = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.58"); //$NON-NLS-1$
+	public static final String LABEL_ZOOM_OUT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.58"); //$NON-NLS-1$
 
     /** The beginning of the action command of templates */
     public static final String TEMPLATE_START_ACTION_CMD = "template_";//$NON-NLS-1$
@@ -58,82 +58,82 @@ public final class LResources {
 	public final static String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
 
 	/** The label of the menu insert PSTricks code */
-	public final static String LABEL_INSERT_CODE = LangTool.LANG.getString16("LaTeXDrawFrame.0"); //$NON-NLS-1$
+	public final static String LABEL_INSERT_CODE = LangTool.INSTANCE.getString16("LaTeXDrawFrame.0"); //$NON-NLS-1$
 
 	/** The label of the menu insert picture */
-	public final static String LABEL_INSERT_PIX = LangTool.LANG.getString16("LaTeXDrawFrame.1"); //$NON-NLS-1$
+	public final static String LABEL_INSERT_PIX = LangTool.INSTANCE.getString16("LaTeXDrawFrame.1"); //$NON-NLS-1$
 
 	/** The label of the button stop */
-	public final static String LABEL_STOP = LangTool.LANG.getString16("LaTeXDrawFrame.3"); //$NON-NLS-1$
+	public final static String LABEL_STOP = LangTool.INSTANCE.getString16("LaTeXDrawFrame.3"); //$NON-NLS-1$
 
 	/** The label of the menu help */
-	public final static String LABEL_HELP = LABEL_APP + LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.0"); //$NON-NLS-1$
+	public final static String LABEL_HELP = LABEL_APP + LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.0"); //$NON-NLS-1$
 
 	/** The label of the menu "aboutTexDraw" */
 	public final static String LABEL_ABOUT = "About LaTeXDraw";
 
 	/** The label of the menu item displayBorders */
-	public final static String LABEL_DISPLAY_BORDERS = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.14"); //$NON-NLS-1$
+	public final static String LABEL_DISPLAY_BORDERS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.14"); //$NON-NLS-1$
 
 	/** The label of the menu item displayBorders */
-	public final static String LABEL_AUTO_ADJUST_BORDERS = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.15"); //$NON-NLS-1$
+	public final static String LABEL_AUTO_ADJUST_BORDERS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.15"); //$NON-NLS-1$
 
 	/** The label of the menu import */
-	public final static String LABEL_IMPORT = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.229"); //$NON-NLS-1$
+	public final static String LABEL_IMPORT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.229"); //$NON-NLS-1$
 
 	/** The label of the menu item "import from TeX file" */
-	public static final String LABEL_IMPORT_TEX = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.230"); //$NON-NLS-1$
+	public static final String LABEL_IMPORT_TEX = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.230"); //$NON-NLS-1$
 
 	/** The label of the menu item deleteFigure */
-	public final static String LABEL_DELETE = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.17"); //$NON-NLS-1$
+	public final static String LABEL_DELETE = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.17"); //$NON-NLS-1$
 
 	/** The label of the menu item which allows the user to quit the application*/
-	public final static String LABEL_QUIT = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.18"); //$NON-NLS-1$
+	public final static String LABEL_QUIT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.18"); //$NON-NLS-1$
 
 	/** The label of the menuItem redoMenu */
-	public final static String LABEL_REDO = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.22"); //$NON-NLS-1$
+	public final static String LABEL_REDO = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.22"); //$NON-NLS-1$
 
 	/** The label of the menuItem undoMenu */
-	public final static String LABEL_UNDO = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.23"); //$NON-NLS-1$
+	public final static String LABEL_UNDO = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.23"); //$NON-NLS-1$
 
-	public final static String LABEL_RECENT_FILES = LangTool.LANG.getString19("LaTeXDrawFrame.0"); //$NON-NLS-1$
+	public final static String LABEL_RECENT_FILES = LangTool.INSTANCE.getString19("LaTeXDrawFrame.0"); //$NON-NLS-1$
 //FIXME: to remove: LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.28")
 	/** The label of the newMenu item */
 	public final static String LABEL_NEW = "New drawing";
 
-	public final static String LABEL_NEW_WITH_SEL =LangTool.LANG.getStringLaTeXDrawFrame("LRes.0"); //$NON-NLS-1$
+	public final static String LABEL_NEW_WITH_SEL =LangTool.INSTANCE.getStringLaTeXDrawFrame("LRes.0"); //$NON-NLS-1$
 
 	/** The label of the printCodeMenu item */
-	public final static String LABEL_PRINT_CODE = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.29"); //$NON-NLS-1$
+	public final static String LABEL_PRINT_CODE = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.29"); //$NON-NLS-1$
 
 	/** The label of the printDrawMenu item */
-	public final static String LABEL_PRINT_DRAW = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.30"); //$NON-NLS-1$
+	public final static String LABEL_PRINT_DRAW = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.30"); //$NON-NLS-1$
 
 	/** The label of the menu copy */
-	public static final String LABEL_COPY = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.40"); //$NON-NLS-1$
+	public static final String LABEL_COPY = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.40"); //$NON-NLS-1$
 
 	/** The label of the menuItem updateTemplates */
-	public static final String LABEL_TEMPLATE_UPDATE = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.41"); //$NON-NLS-1$
+	public static final String LABEL_TEMPLATE_UPDATE = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.41"); //$NON-NLS-1$
 
 	/** The label of the menuItem exportAsTemplate */
-	public static final String LABEL_TEMPLATE_EXPORT = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.42"); //$NON-NLS-1$
+	public static final String LABEL_TEMPLATE_EXPORT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.42"); //$NON-NLS-1$
 
 	/** The label of the menu paste */
-	public static final String LABEL_PASTE = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.43"); //$NON-NLS-1$
+	public static final String LABEL_PASTE = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.43"); //$NON-NLS-1$
 
 	/** The label of the menu cut */
-	public static final String LABEL_CUT = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.44"); //$NON-NLS-1$
+	public static final String LABEL_CUT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.44"); //$NON-NLS-1$
 
 	public static final String LABEL_DISPLAY_PERSO_GRID = "Customised grid";
 
 	/** The label of the menuItem displayGrid */
-	public static final String LABEL_DISPLAY_GRID = LangTool.LANG.getString18("PreferencesFrame.4"); //$NON-NLS-1$
+	public static final String LABEL_DISPLAY_GRID = LangTool.INSTANCE.getString18("PreferencesFrame.4"); //$NON-NLS-1$
 
 	/** The label of the menuItem codePanel */
-	public static final String LABEL_DISPLAY_CODE_PANEL = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.46"); //$NON-NLS-1$
+	public static final String LABEL_DISPLAY_CODE_PANEL = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.46"); //$NON-NLS-1$
 
 	/** The label of the menu properties of the selected figure*/
-	public static final String LABEL_FIGURE_PROPERTIES = LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.53"); //$NON-NLS-1$
+	public static final String LABEL_FIGURE_PROPERTIES = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.53"); //$NON-NLS-1$
 
 	/** Allows the user the zoom at 100 % */
 	public static final String LABEL_ZOOM_DEFAULT = "Zoom 100%"; //$NON-NLS-1$
@@ -141,7 +141,7 @@ public final class LResources {
 	/** This token allows the program to identify LaTeXDraw template files */
 	public static final String TOKEN_TEMPLATE_FILE = "LaTeXDraw template"; //$NON-NLS-1$
 
-	public static final String LABEL_UPDATE_TO_GRID = LangTool.LANG.getString19("DrawPanel.0"); //$NON-NLS-1$
+	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getString19("DrawPanel.0"); //$NON-NLS-1$
 
 	public final static ImageIcon ARROW_ICON;
 	public final static ImageIcon TEXTPOS_T;
@@ -439,7 +439,7 @@ public final class LResources {
 
 	public static final Insets INSET_BUTTON = new Insets(1,1,1,1);
 
-	public static final String LABEL_CANCEL = LangTool.LANG.getStringDialogFrame("AbstractParametersFrame.6"); //$NON-NLS-1$
+	public static final String LABEL_CANCEL = LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.6"); //$NON-NLS-1$
 
-	public static final String LABEL_OK = LangTool.LANG.getStringDialogFrame("AbstractParametersFrame.4"); //$NON-NLS-1$
+	public static final String LABEL_OK = LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.4"); //$NON-NLS-1$
 }

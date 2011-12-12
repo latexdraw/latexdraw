@@ -31,13 +31,13 @@ public interface IAxes extends IStandardGrid {
 	public static enum AxesStyle {
 		AXES {
 			@Override
-			public String getLabel() { return LangTool.LANG.getString18("Axe.1"); } //$NON-NLS-1$
+			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.1"); } //$NON-NLS-1$
 		}, FRAME {
 			@Override
-			public String getLabel() { return LangTool.LANG.getString18("Axe.2"); } //$NON-NLS-1$
+			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.2"); } //$NON-NLS-1$
 		}, NONE {
 			@Override
-			public String getLabel() { return LangTool.LANG.getString18("Axe.0"); } //$NON-NLS-1$
+			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.0"); } //$NON-NLS-1$
 		};
 
 		/** 
@@ -65,13 +65,13 @@ public interface IAxes extends IStandardGrid {
 	public static enum TicksStyle {
 		FULL {
 			@Override
-			public String getLabel() { return LangTool.LANG.getString18("Axe.3"); }//$NON-NLS-1$
+			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.3"); }//$NON-NLS-1$
 		}, TOP {
 			@Override
-			public String getLabel() { return LangTool.LANG.getString18("Axe.4"); }//$NON-NLS-1$
+			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.4"); }//$NON-NLS-1$
 		}, BOTTOM {
 			@Override
-			public String getLabel() { return LangTool.LANG.getString18("Axe.5"); }//$NON-NLS-1$
+			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.5"); }//$NON-NLS-1$
 		};
 
 		/** 

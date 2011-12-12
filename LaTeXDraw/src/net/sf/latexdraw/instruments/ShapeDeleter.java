@@ -57,7 +57,7 @@ public class ShapeDeleter extends WidgetInstrument {
 	@Override
 	protected void initialiseWidgets() {
 		deleteB = new MButton(LResources.DEL_ICON);
-		deleteB.setToolTipText(LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.139")); //$NON-NLS-1$
+		deleteB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.139")); //$NON-NLS-1$
 	}
 
 
