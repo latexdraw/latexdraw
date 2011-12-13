@@ -1,5 +1,8 @@
 package org.malai.properties;
 
+import java.awt.Point;
+import java.awt.geom.Point2D;
+
 /**
  * Defines an interface to zoomable objects.<br>
  * <br>
@@ -45,4 +48,25 @@ public interface Zoomable {
 	 * @since 0.1
 	 */
 	void setZoom(final double x, final double y, final double zoomingLevel);
+
+
+	/**
+	 * Transforms the given point in a point which coordinates have been modified to
+	 * take account of the zoom level.
+	 * @param x The X-coordinate of the point to modify.
+	 * @param y The Y-coordinate of the point to modify.
+	 * @return The transformed point.
+	 * @since 0.2
+	 */
+	Point2D getZoomedPoint(final double x, final double y);
+
+
+	/**
+	 * Transforms the given point in a point which coordinates have been modified to
+	 * take account of the zoom level.
+	 * @param pt The point to transform.
+	 * @return The transformed point. Returns (0,0) if the given point is null.
+	 * @since 0.2
+	 */
+	Point2D getZoomedPoint(final Point pt);
 }

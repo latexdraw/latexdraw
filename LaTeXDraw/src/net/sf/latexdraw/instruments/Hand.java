@@ -61,7 +61,7 @@ public class Hand extends Instrument {
 	 * Creates the Hand instrument.
 	 * @param canvas The canvas that contains the shapes to handle.
 	 * @param grid The magnetic grid used to compute points.
-	 * @param zoomer The zommer used to computed points.
+	 * @param zoomer The zoomer used to computed points.
 	 * @param textSetter The instrument used to add texts.
 	 * @throws IllegalArgumentException If on of the given argument is null.
 	 * @since 3.0
@@ -159,8 +159,8 @@ class DnD2Translate extends Link<TranslateShapes, DnD, Hand> {
 
 	@Override
 	public void updateAction() {
-		final IPoint startPt	= instrument.grid.getTransformedPointToGrid(instrument.zoomer.getZoomedPoint(interaction.getStartPt()));
-		final IPoint endPt		= instrument.grid.getTransformedPointToGrid(instrument.zoomer.getZoomedPoint(interaction.getEndPt()));
+		final IPoint startPt	= instrument.grid.getTransformedPointToGrid(instrument.zoomer.zoomable.getZoomedPoint(interaction.getStartPt()));
+		final IPoint endPt		= instrument.grid.getTransformedPointToGrid(instrument.zoomer.zoomable.getZoomedPoint(interaction.getEndPt()));
 
 		action.setTx(endPt.getX() - startPt.getX());
 		action.setTy(endPt.getY() - startPt.getY());

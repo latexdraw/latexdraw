@@ -5,9 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +115,8 @@ public class LCanvas extends MPanel implements ICanvas {
 		this.drawing		= drawing;
 		modified			= false;
 		userSelectionBorder	= null;
-		borderIns			= new Border(this, drawing);
+		magneticGrid 		= new LMagneticGrid(0, 0, this);
+		borderIns			= new Border(this, drawing, magneticGrid);
 		border				= new Rectangle2D.Double();
 		views 				= new ArrayList<IViewShape>();
 		tempView			= new ActiveSingleton<IViewShape>();
@@ -124,8 +127,6 @@ public class LCanvas extends MPanel implements ICanvas {
 
 		setFocusable(true);
 		setDoubleBuffered(true);
-
-		magneticGrid = new LMagneticGrid(0, 0, this);
 
 		// Maybe the magnetic must be updated when the canvas dimensions changes.
 		addComponentListener(new ComponentAdapter() {
@@ -552,6 +553,20 @@ public class LCanvas extends MPanel implements ICanvas {
 	public IDrawing getDrawing() {
 		return drawing;
 	}
+
+
+	@Override
+	public Point2D getZoomedPoint(final double x, final double y) {
+		final double zoomValue = zoom.getValue();
+		return new Point2D.Double(x/zoomValue, y/zoomValue);
+	}
+
+
+	@Override
+	public Point2D getZoomedPoint(final Point pt) {
+		return pt==null ? new Point2D.Double() : getZoomedPoint(pt.x, pt.y);
+	}
+
 
 	@Override
 	public void onActionCancelled(final Action action) {

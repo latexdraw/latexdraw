@@ -5,12 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Line2D;
-
-import org.malai.preferences.Preferenciable;
-import org.malai.properties.Modifiable;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
+import java.awt.geom.Point2D;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -21,6 +16,11 @@ import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.preferences.Preferenciable;
+import org.malai.properties.Modifiable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * This class defines a magnetic grid.<br>
@@ -243,11 +243,11 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	 * @param pt The point to transform.
 	 * @return The transformed point or if there is no magnetic grid, a clone of the given point.
 	 */
-	public IPoint getTransformedPointToGrid(final IPoint pt) {
+	public IPoint getTransformedPointToGrid(final Point2D pt) {
 		final IShapeFactory factory = DrawingTK.getFactory();
 
 	   	if(isMagnetic() && isGridDisplayed()) {
-	   		IPoint point 	= factory.createPoint(pt);
+	   		IPoint point 	= factory.createPoint(pt.getX(), pt.getY());
     		double modulo 	= getMagneticGridGap();
     		double x 		= point.getX();
     		double y 		= point.getY();
@@ -275,7 +275,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
     		return point;
     	}
 
-	   	return factory.createPoint(pt);
+	   	return factory.createPoint(pt.getX(), pt.getY());
 	}
 
 
@@ -479,6 +479,6 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 			if(!Boolean.valueOf(root.getTextContent()))
 				setStyle(GridStyle.NONE);
 		} else if(name.endsWith(LNamespace.XML_CLASSIC_GRID))
-			setStyle(Boolean.valueOf(root.getTextContent()) ? GridStyle.STANDARD : GridStyle.CUSTOMISED);		
+			setStyle(Boolean.valueOf(root.getTextContent()) ? GridStyle.STANDARD : GridStyle.CUSTOMISED);
 	}
 }

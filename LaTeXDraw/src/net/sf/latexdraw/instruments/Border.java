@@ -3,7 +3,6 @@ package net.sf.latexdraw.instruments;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
+import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape;
@@ -99,20 +99,25 @@ public class Border extends Instrument implements Picker {
 	/** The drawing containing the shapes to handle. */
 	protected IDrawing drawing;
 
+	/** The magnetic grid used to create shapes. */
+	protected LMagneticGrid grid;
+
 
 
 	/**
 	 * Creates and initialises the border.
 	 * @param zoomable The object that manages the zoom.
 	 * @param drawing The drawing containing the model of the application.
+	 * @param grid The magnetic grid used to compute points.
 	 * @since 3.0
 	 */
-	public Border(final Zoomable zoomable, final IDrawing drawing) {
+	public Border(final Zoomable zoomable, final IDrawing drawing, final LMagneticGrid grid) {
 		super();
 
-		if(zoomable==null || drawing==null)
+		if(zoomable==null || drawing==null || grid==null)
 			throw new IllegalArgumentException();
 
+		this.grid		= grid;
 		this.zoomable	= zoomable;
 		this.drawing	= drawing;
 		selection 		= new ArrayList<IViewShape>();
@@ -526,7 +531,7 @@ public class Border extends Instrument implements Picker {
 	 */
 	private static class DnD2Scale extends Link<ScaleShapes, DnD, Border> {
 		/** The point corresponding to the 'press' position. */
-		protected Point p1;
+		protected IPoint p1;
 
 		/** The initial width of the scaled selection. */
 		protected double width;
@@ -553,7 +558,7 @@ public class Border extends Instrument implements Picker {
 
 			action.setDrawing(instrument.drawing);
 			action.setPosition(getScaleHandler().getPosition().getOpposite());
-			p1 		= interaction.getStartPt();
+			p1 		= instrument.grid.getTransformedPointToGrid(instrument.zoomable.getZoomedPoint(interaction.getStartPt()));
 			width  	= br.getX()-tl.getX();
 			height 	= br.getY()-tl.getY();
 		}
@@ -563,7 +568,7 @@ public class Border extends Instrument implements Picker {
 		public void updateAction() {
 			super.updateAction();
 
-			final Point pt = interaction.getEndPt();
+			final IPoint pt = instrument.grid.getTransformedPointToGrid(instrument.zoomable.getZoomedPoint(interaction.getEndPt()));
 			final double x = pt.getX() - p1.getX();
 			final double y = p1.getY() - pt.getY();
 			double width2  = width;

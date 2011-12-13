@@ -1,11 +1,14 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.SpinnerNumberModel;
+
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.library.Zoom;
 import org.malai.instrument.Instrument;
@@ -16,12 +19,6 @@ import org.malai.interaction.library.SpinnerModified;
 import org.malai.properties.Zoomable;
 import org.malai.widget.MButton;
 import org.malai.widget.MSpinner;
-
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.util.LResources;
 
 /**
  * This instrument allows to zoom on the canvas.<br>
@@ -82,35 +79,6 @@ public class Zoomer extends Instrument {
 	public void reinit() {
 		zoomSpinner.setValue(zoomable.getZoom()*100);
 	}
-
-
-	/**
-	 * Transforms the given point in a point which coordinates have been modified to
-	 * take account of the zoom level.
-	 * @param x The X-coordinate of the point to modify.
-	 * @param y The Y-coordinate of the point to modify.
-	 * @return The transformed point.
-	 * @since 3.0
-	 */
-	public IPoint getZoomedPoint(final double x, final double y) {
-		final double zoom = zoomable.getZoom();
-
-		return DrawingTK.getFactory().createPoint(x/zoom, y/zoom);
-	}
-
-
-
-	/**
-	 * Transforms the given point in a point which coordinates have been modified to
-	 * take account of the zoom level.
-	 * @param pt The point to transform.
-	 * @return The transformed point. Returns (0,0) if the given point is null.
-	 * @since 3.0
-	 */
-	public IPoint getZoomedPoint(final Point pt) {
-		return pt==null ? DrawingTK.getFactory().createPoint() : getZoomedPoint(pt.x, pt.y);
-	}
-
 
 
 	@Override
