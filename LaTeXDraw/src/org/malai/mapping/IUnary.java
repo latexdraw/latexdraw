@@ -1,7 +1,7 @@
 package org.malai.mapping;
 
 /**
- * This interface defines methods for a singleton that may contain a value of type T.<br>
+ * This interface defines methods for an unary relation that may contain a value of type T (cardinality 0..1).<br>
  * <br>
  * This file is part of Malai.<br>
  * Copyright (c) 2009-2011 Arnaud BLOUIN<br>
@@ -20,7 +20,7 @@ package org.malai.mapping;
  * @since 0.2
  * @param <T> The type of the element contained by the 0-1 relation.
  */
-public interface ISingleton<T> {
+public interface IUnary<T> {
 	/**
 	 * @return The value of the singleton.
 	 * @since 0.2

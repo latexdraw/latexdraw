@@ -180,11 +180,11 @@ public class LFrame extends UI {
 
 		/* Initialisation of the mapping between the model and the canvas. */
 		MappingRegistry.REGISTRY.addMapping(new ShapeList2ViewListMapping(drawing.getShapes(), canvas.getViews()));
-		MappingRegistry.REGISTRY.addMapping(new TempShape2TempViewMapping(drawing.getSingletonTempShape(), canvas.getSingletonTempView()));
+		MappingRegistry.REGISTRY.addMapping(new TempShape2TempViewMapping(drawing.getUnaryTempShape(), canvas.getUnaryTempView()));
 		MappingRegistry.REGISTRY.addMapping(new Drawing2CanvasMapping(drawing, canvas));
 		MappingRegistry.REGISTRY.addMapping(new Selection2BorderMapping(drawing.getSelection().getShapes(), canvas.getBorderInstrument()));
-		MappingRegistry.REGISTRY.addMapping(new Zoom2ScaleRuler(canvas.getZoomSingleton(), xScaleRuler));
-		MappingRegistry.REGISTRY.addMapping(new Zoom2ScaleRuler(canvas.getZoomSingleton(), yScaleRuler));
+		MappingRegistry.REGISTRY.addMapping(new Zoom2ScaleRuler(canvas.getZoomUnary(), xScaleRuler));
+		MappingRegistry.REGISTRY.addMapping(new Zoom2ScaleRuler(canvas.getZoomUnary(), yScaleRuler));
 		MappingRegistry.REGISTRY.addMapping(new Unit2ScaleRuler(ScaleRuler.getUnitSingleton(), xScaleRuler));
 		MappingRegistry.REGISTRY.addMapping(new Unit2ScaleRuler(ScaleRuler.getUnitSingleton(), yScaleRuler));
 

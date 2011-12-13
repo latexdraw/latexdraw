@@ -10,8 +10,8 @@ import javax.swing.JComponent;
 
 import org.malai.interaction.Eventable;
 import org.malai.interaction.SwingEventManager;
-import org.malai.mapping.ActiveSingleton;
-import org.malai.mapping.ISingleton;
+import org.malai.mapping.ActiveUnary;
+import org.malai.mapping.IUnary;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.widget.WidgetUtilities;
@@ -88,7 +88,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	}
 
 	/** The current unit of the rulers. */
-	protected final static ISingleton<Unit> UNIT = new ActiveSingleton<Unit>(Unit.CM);
+	protected final static IUnary<Unit> UNIT = new ActiveUnary<Unit>(Unit.CM);
 
 	/** The stroke of the ruler. */
 	protected static final BasicStroke STROKE = new BasicStroke(0, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER);
@@ -229,7 +229,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	 * @return The singleton that contains the unit value.
 	 * @since 3.0
 	 */
-	public static ISingleton<Unit> getUnitSingleton() {
+	public static IUnary<Unit> getUnitSingleton() {
 		return ScaleRuler.UNIT;
 	}
 

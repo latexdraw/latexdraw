@@ -1,7 +1,7 @@
 package org.malai.mapping;
 
 /**
- * This interface defines the concept of mapping that link a source value (singleton) to a target one.<br>
+ * This interface defines the concept of mapping that link a source value (unary relation) to a target one.<br>
  * <br>
  * This file is part of Malai.<br>
  * Copyright (c) 2009-2011 Arnaud BLOUIN<br>
@@ -18,25 +18,25 @@ package org.malai.mapping;
  * @author Arnaud BLOUIN
  * @version 0.2
  * @since 0.2
- * @param <S> The type of the source singleton of the mapping.
- * @param <T> The type of the target singleton of the mapping.
+ * @param <S> The type of the source unary relation of the mapping.
+ * @param <T> The type of the target unary relation of the mapping.
  */
-public abstract class Singleton2SingletonMapping<S, T> implements IMapping {
-	/** The source singleton of the mapping. */
-	protected ISingleton<S> sourceObject;
+public abstract class Unary2UnaryMapping<S, T> implements IMapping {
+	/** The source unary relation of the mapping. */
+	protected IUnary<S> sourceObject;
 
-	/** The target singleton of the mapping. */
-	protected ISingleton<T> targetObject;
+	/** The target unary relation of the mapping. */
+	protected IUnary<T> targetObject;
 
 
 	/**
-	 * Creates a singleton to singleton mapping.
-	 * @param source The source singleton.
-	 * @param target The target singleton.
+	 * Creates a unary relation to unary relation mapping.
+	 * @param source The source unary relation.
+	 * @param target The target unary relation.
 	 * @throw IllegalArgumentException If one of the given arguments is null or if they are equal.
 	 * @since 0.2
 	 */
-	public Singleton2SingletonMapping(final ISingleton<S> source, final ISingleton<T> target) {
+	public Unary2UnaryMapping(final IUnary<S> source, final IUnary<T> target) {
 		super();
 
 		if(source==null || target==null || source==target)

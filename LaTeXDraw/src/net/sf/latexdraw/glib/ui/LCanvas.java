@@ -26,8 +26,8 @@ import net.sf.latexdraw.util.LNumber;
 
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
-import org.malai.mapping.ActiveSingleton;
-import org.malai.mapping.ISingleton;
+import org.malai.mapping.ActiveUnary;
+import org.malai.mapping.IUnary;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.properties.Zoomable;
@@ -67,13 +67,13 @@ public class LCanvas extends MPanel implements ICanvas {
 	protected List<IViewShape> views;
 
 	/** The temporary view that the canvas may contain. */
-	protected ISingleton<IViewShape> tempView;
+	protected IUnary<IViewShape> tempView;
 
 	/** The border of the drawing. */
 	protected Rectangle2D border;
 
 	/** The zoom applied on the canvas. */
-	protected ISingleton<Double> zoom;
+	protected IUnary<Double> zoom;
 
 	/** The value of the antialiasing (cf. RenderingHints.VALUE_ANTIALIAS_ON/OFF) */
 	protected Object antiAliasingValue;
@@ -119,8 +119,8 @@ public class LCanvas extends MPanel implements ICanvas {
 		borderIns			= new Border(this, drawing, magneticGrid);
 		border				= new Rectangle2D.Double();
 		views 				= new ArrayList<IViewShape>();
-		tempView			= new ActiveSingleton<IViewShape>();
-		zoom				= new ActiveSingleton<Double>(1.);
+		tempView			= new ActiveUnary<IViewShape>();
+		zoom				= new ActiveUnary<Double>(1.);
 
 		ActionsRegistry.INSTANCE.addHandler(this);
 		borderIns.addEventable(this);
@@ -357,10 +357,10 @@ public class LCanvas extends MPanel implements ICanvas {
 
 
 	/**
-	 * @return The singleton that contains the temporary view.
+	 * @return The unary relation that contains the temporary view.
 	 * @since 3.0
 	 */
-	public ISingleton<IViewShape> getSingletonTempView() {
+	public IUnary<IViewShape> getUnaryTempView() {
 		return tempView;
 	}
 
@@ -498,10 +498,10 @@ public class LCanvas extends MPanel implements ICanvas {
 
 
 	/**
-	 * @return The singleton that contains the zoom value.
+	 * @return The unary relation that contains the zoom value.
 	 * @since 3.0
 	 */
-	public ISingleton<Double> getZoomSingleton() {
+	public IUnary<Double> getZoomUnary() {
 		return zoom;
 	}
 

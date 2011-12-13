@@ -1,7 +1,7 @@
 package org.malai.mapping;
 
 /**
- * An active singleton is an object that may contain a value (cardinality 0..*). When the value is modified,
+ * An active unary relation is an object that may contain a value (cardinalities 0..1). When the value is modified,
  * the mapping registry is notified and the corresponding mappings executed.<br>
  * <br>
  * This file is part of Malai.<br>
@@ -21,7 +21,7 @@ package org.malai.mapping;
  * @since 0.2
  * @param <T> The type of the element contained by the active 0-1 relation.
  */
-public class ActiveSingleton<T> implements ISingleton<T> {
+public class ActiveUnary<T> implements IUnary<T> {
 	/** The value of the singleton. */
 	protected T value;
 
@@ -30,7 +30,7 @@ public class ActiveSingleton<T> implements ISingleton<T> {
 	 * Creates an empty singleton.
 	 * @since 0.2
 	 */
-	public ActiveSingleton() {
+	public ActiveUnary() {
 		this(null);
 	}
 	
@@ -40,7 +40,7 @@ public class ActiveSingleton<T> implements ISingleton<T> {
 	 * @param value The value of the singleton.
 	 * @since 0.2
 	 */
-	public ActiveSingleton(final T value) {
+	public ActiveUnary(final T value) {
 		super();
 		
 		this.value = value;

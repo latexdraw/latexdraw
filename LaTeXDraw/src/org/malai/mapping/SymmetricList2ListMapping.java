@@ -92,7 +92,7 @@ public abstract class SymmetricList2ListMapping<E, F> extends List2ListMapping<E
 
 
 	@Override
-	public void onObjectReplaced(final ISingleton<?> object, final Object replcaedObject) {
+	public void onObjectReplaced(final IUnary<?> object, final Object replcaedObject) {
 		// Nothing to do.
 	}
 }

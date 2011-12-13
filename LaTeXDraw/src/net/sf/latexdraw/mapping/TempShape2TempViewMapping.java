@@ -4,9 +4,9 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 
-import org.malai.mapping.ISingleton;
+import org.malai.mapping.IUnary;
 import org.malai.mapping.MappingRegistry;
-import org.malai.mapping.Singleton2SingletonMapping;
+import org.malai.mapping.Unary2UnaryMapping;
 
 /**
  * Defines a mapping that link the temporary shape of the drawing to the
@@ -29,11 +29,11 @@ import org.malai.mapping.Singleton2SingletonMapping;
  * @since 3.0
  * @version 3.0
  */
-public class TempShape2TempViewMapping extends Singleton2SingletonMapping<IShape, IViewShape> {
+public class TempShape2TempViewMapping extends Unary2UnaryMapping<IShape, IViewShape> {
 	/**
-	 * {@link Singleton2SingletonMapping#Singleton2SingletonMapping(ISingleton, ISingleton)}
+	 * {@link Unary2UnaryMapping#Unary2UnaryMapping(IUnary, IUnary)}
 	 */
-	public TempShape2TempViewMapping(final ISingleton<IShape> source, final ISingleton<IViewShape> target) {
+	public TempShape2TempViewMapping(final IUnary<IShape> source, final IUnary<IViewShape> target) {
 		super(source, target);
 	}
 
@@ -47,7 +47,7 @@ public class TempShape2TempViewMapping extends Singleton2SingletonMapping<IShape
 
 
 	@Override
-	public void onObjectReplaced(final ISingleton<?> object, final Object replacedObject) {
+	public void onObjectReplaced(final IUnary<?> object, final Object replacedObject) {
 		targetObject.setValue(View2DTK.getFactory().createView(sourceObject.getValue()));
 
 		if(replacedObject!=null)

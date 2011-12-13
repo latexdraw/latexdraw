@@ -2,10 +2,8 @@ package net.sf.latexdraw.glib.models.interfaces;
 
 import java.util.List;
 
-import org.malai.mapping.ISingleton;
+import org.malai.mapping.IUnary;
 import org.malai.presentation.AbstractPresentation;
-
-
 
 /**
  * Defines an interface of a drawing that contains a set of shapes
@@ -89,8 +87,8 @@ public interface IDrawing extends ISetShapes, AbstractPresentation {
 	void setTempShape(final IShape tempShape);
 
 	/**
-	 * @return The singleton that contains the temporary shape.
+	 * @return The unary relation that contains the temporary shape.
 	 * @since 3.0
 	 */
-	ISingleton<IShape> getSingletonTempShape();
+	IUnary<IShape> getUnaryTempShape();
 }

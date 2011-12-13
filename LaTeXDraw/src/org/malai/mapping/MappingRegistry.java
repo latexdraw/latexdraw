@@ -273,7 +273,7 @@ public final class MappingRegistry implements IMappingRegistry {
 
 
 	@Override
-	public <T> void onObjectReplaced(final ISingleton<T> object, final T replacedObject) {
+	public <T> void onObjectReplaced(final IUnary<T> object, final T replacedObject) {
 		final IMapping mapping = uniqueMappings.get(object);
 
 		if(mapping==null) {

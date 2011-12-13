@@ -89,7 +89,7 @@ public interface IMappingRegistry {
 	 * @param replacedObject The old object contained in the singleton that has been replaced.
 	 * @since 0.2
 	 */
-	<T> void onObjectReplaced(final ISingleton<T> object, final T replacedObject);
+	<T> void onObjectReplaced(final IUnary<T> object, final T replacedObject);
 
 
 	/**

@@ -59,7 +59,7 @@ public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape,
 			// If the shape is a text, a special mapping must be added.
 			if(object instanceof IText)
 				MappingRegistry.REGISTRY.addMapping(new Package2TextViewMapping(
-						LaTeXGenerator.getPackagesSingleton(), (IViewText)(index==-1 ? target.get(target.size()-1) : target.get(index))));
+						LaTeXGenerator.getPackagesUnary(), (IViewText)(index==-1 ? target.get(target.size()-1) : target.get(index))));
 		}
 	}
 

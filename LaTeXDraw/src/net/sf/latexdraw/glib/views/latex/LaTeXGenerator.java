@@ -18,8 +18,8 @@ import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.StreamExecReader;
 
-import org.malai.mapping.ActiveSingleton;
-import org.malai.mapping.ISingleton;
+import org.malai.mapping.ActiveUnary;
+import org.malai.mapping.IUnary;
 import org.malai.properties.Modifiable;
 
 /**
@@ -50,7 +50,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * The latex packages used when exporting using latex.
 	 * These packages are defined for the current document but not for all documents.
 	 */
-	protected static ISingleton<String> packages = new ActiveSingleton<String>("");
+	protected static IUnary<String> packages = new ActiveUnary<String>("");
 
 
 
@@ -74,10 +74,10 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 
 	/**
-	 * @return The singleton that contains the packages value.
+	 * @return The unary relation that contains the packages value.
 	 * @since 3.0
 	 */
-	public static ISingleton<String> getPackagesSingleton() {
+	public static IUnary<String> getPackagesUnary() {
 		return packages;
 	}
 

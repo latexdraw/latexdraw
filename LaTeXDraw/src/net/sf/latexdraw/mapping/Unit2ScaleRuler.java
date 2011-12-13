@@ -1,6 +1,6 @@
 package net.sf.latexdraw.mapping;
 
-import org.malai.mapping.ISingleton;
+import org.malai.mapping.IUnary;
 import org.malai.mapping.Object2ObjectMapping;
 
 import net.sf.latexdraw.ui.ScaleRuler;
@@ -24,7 +24,7 @@ import net.sf.latexdraw.ui.ScaleRuler.Unit;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class Unit2ScaleRuler extends Object2ObjectMapping<ISingleton<Unit>, ScaleRuler> {
+public class Unit2ScaleRuler extends Object2ObjectMapping<IUnary<Unit>, ScaleRuler> {
 	//TODO this class must be merged with Zoom2ScaleRuler to form a Unit,Zoom->ScaleRuler mapping.
 	/**
 	 * Creates the mapping.
@@ -33,13 +33,13 @@ public class Unit2ScaleRuler extends Object2ObjectMapping<ISingleton<Unit>, Scal
 	 * @throws IllegalArgumentException If one of the given arguments is null or if they are the same object.
 	 * @since 3.0
 	 */
-	public Unit2ScaleRuler(final ISingleton<Unit> source, final ScaleRuler target) {
+	public Unit2ScaleRuler(final IUnary<Unit> source, final ScaleRuler target) {
 		super(source, target);
 	}
 
 
 	@Override
-	public void onObjectReplaced(final ISingleton<?> object, final Object replacedObject) {
+	public void onObjectReplaced(final IUnary<?> object, final Object replacedObject) {
 		onObjectModified(object);
 	}
 

@@ -3,7 +3,7 @@ package net.sf.latexdraw.mapping;
 import java.util.List;
 
 import org.malai.mapping.IMapping;
-import org.malai.mapping.ISingleton;
+import org.malai.mapping.IUnary;
 
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.instruments.Exporter;
@@ -89,7 +89,7 @@ public class ShapeList2ExporterMapping implements IMapping {
 
 
 	@Override
-	public void onObjectReplaced(final ISingleton<?> object, final Object replacedObject) {
+	public void onObjectReplaced(final IUnary<?> object, final Object replacedObject) {
 		//
 	}
 

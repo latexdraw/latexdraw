@@ -82,7 +82,7 @@ public interface IMapping {
 	 * @param replacedObject The old object contained in the singleton that has been replaced.
 	 * @since 0.2
 	 */
-	void onObjectReplaced(final ISingleton<?> object, final Object replacedObject);
+	void onObjectReplaced(final IUnary<?> object, final Object replacedObject);
 
 
 	/**

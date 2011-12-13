@@ -2,8 +2,8 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.util.List;
 
-import org.malai.mapping.ActiveSingleton;
-import org.malai.mapping.ISingleton;
+import org.malai.mapping.ActiveUnary;
+import org.malai.mapping.IUnary;
 
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
@@ -35,7 +35,7 @@ class LDrawing extends LGroup implements IDrawing {
 	protected IGroup selection;
 
 	/** A temporary shape in the drawing. */
-	protected ISingleton<IShape> tempShape;
+	protected IUnary<IShape> tempShape;
 
 
 	/**
@@ -46,7 +46,7 @@ class LDrawing extends LGroup implements IDrawing {
 		super(false);
 
 		selection 	= new LGroup(false);
-		tempShape	= new ActiveSingleton<IShape>();
+		tempShape	= new ActiveUnary<IShape>();
 	}
 
 
@@ -121,7 +121,7 @@ class LDrawing extends LGroup implements IDrawing {
 
 
 	@Override
-	public ISingleton<IShape> getSingletonTempShape() {
+	public IUnary<IShape> getUnaryTempShape() {
 		return tempShape;
 	}
 

@@ -84,7 +84,7 @@ public abstract class Object2ObjectMapping<S, T> implements IMapping {
 
 
 	@Override
-	public void onObjectReplaced(final ISingleton<?> object, final Object replacedObject) {
+	public void onObjectReplaced(final IUnary<?> object, final Object replacedObject) {
 		//
 	}
 
