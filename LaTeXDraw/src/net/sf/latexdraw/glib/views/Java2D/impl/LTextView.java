@@ -171,16 +171,11 @@ class LTextView extends LShapeView<IText> implements IViewText {
 				final String doc      	= getLaTeXDocument();
 				pathPic					= tmpDir.getAbsolutePath() + LResources.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
 				final String pathTex  	= pathPic + TeXFilter.TEX_EXTENSION;
-				final FileOutputStream fos = new FileOutputStream(pathTex);
-				final OutputStreamWriter osw = new OutputStreamWriter(fos);
+				final FileOutputStream fos 	= new FileOutputStream(pathTex);
+				final OutputStreamWriter osw= new OutputStreamWriter(fos);
 
 				try {
 					osw.append(doc);
-					osw.flush();
-					osw.close();
-					fos.flush();
-					fos.close();
-
 					log  = execute("latex --halt-on-error --interaction=nonstopmode --output-directory=" + tmpDir.getAbsolutePath() + " " + pathTex); //$NON-NLS-1$ //$NON-NLS-2$
 					new File(pathTex).delete();
 					new File(pathPic + ".aux").delete(); //$NON-NLS-1$
@@ -208,12 +203,12 @@ class LTextView extends LShapeView<IText> implements IViewText {
 						picFile.deleteOnExit();
 						bi = ImageIO.read(picFile);
 					}
-				}catch(final IOException ex) {
-					try { fos.flush(); } catch(final IOException ex2) { BadaboomCollector.INSTANCE.add(ex2); }
-					try { osw.flush(); } catch(final IOException ex2) { BadaboomCollector.INSTANCE.add(ex2); }
-					LFileUtils.INSTANCE.closeStream(fos);
-					LFileUtils.INSTANCE.closeStream(osw);
-				}
+				}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+
+				try{ osw.flush(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+				try{ osw.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+				try{ fos.flush(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+				try{ fos.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			}
 		}
 		catch(Exception e) {

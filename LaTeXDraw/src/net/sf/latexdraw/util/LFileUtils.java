@@ -2,12 +2,13 @@ package net.sf.latexdraw.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * Defines some workarounds to deal with the problem of the renameto function.
@@ -32,33 +33,11 @@ import java.io.IOException;
 public final class LFileUtils {
 	/** The singleton. */
 	public static final LFileUtils INSTANCE = new LFileUtils();
-	
+
 
 	private LFileUtils() {
 		super();
 	}
-	
-	
-	/**
-	 * Closes the given closeable object.
-	 * @param closeable The object to close.
-	 * @return True: the object has been successfully closed.
-	 * @since 3.0
-	 */
-	public boolean closeStream(final Closeable closeable) {
-		boolean ok;
-
-		if(closeable==null)
-			ok = false;
-		else
-	    	try {
-	    		closeable.close();
-	    		ok = true;
-	    	}catch(final IOException e) { ok = false; }
-
-    	return ok;
-	}
-
 
 
 	/**
@@ -110,7 +89,7 @@ public final class LFileUtils {
 		try {
 	    	out = new FileOutputStream(toFile);
 		}catch(final FileNotFoundException ex) {
-			closeStream(in);
+			try{ in.close(); } catch(final IOException ex2) { BadaboomCollector.INSTANCE.add(ex2); }
 			return false;
 		}
     	inBuffer = new BufferedInputStream(in);
@@ -121,10 +100,10 @@ public final class LFileUtils {
 	    		outBuffer.write(theByte);
     	}catch(IOException ex) { ok = false; }
 
-    	ok = closeStream(outBuffer) && ok;
-    	ok = closeStream(inBuffer) && ok;
-    	ok = closeStream(out) && ok;
-    	ok = closeStream(in) && ok;
+    	try{ outBuffer.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
+    	try{ inBuffer.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
+		try{ out.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
+		try{ in.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
 
     	// cleanup if files are not the same length
     	if(fromFile.length() != toFile.length()) {

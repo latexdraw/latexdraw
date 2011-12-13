@@ -81,10 +81,10 @@ public class VersionChecker extends Thread {
 	protected void checkNewVersion() {
 		boolean ok = true;
 		final URL url;
-		final InputStream is;
-		final DataInputStream dis;
-		final InputStreamReader isr;
-		final BufferedReader br;
+		InputStream is=null;
+		DataInputStream dis=null;
+		InputStreamReader isr=null;
+		BufferedReader br=null;
 		final String line;
 
 		try {
@@ -114,12 +114,13 @@ public class VersionChecker extends Thread {
 						}
 						else notificationTextField.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.212")); //$NON-NLS-1$
 	  			}catch(final IOException e) { ok = false; }
-
-	  			LFileUtils.INSTANCE.closeStream(br);
-	  			LFileUtils.INSTANCE.closeStream(isr);
-	  			LFileUtils.INSTANCE.closeStream(dis);
-	  			LFileUtils.INSTANCE.closeStream(is);
 			}catch(final IOException e) { ok = false; }
+			finally {
+				if(is!=null) try{ is.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+				if(dis!=null) try{ dis.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+				if(isr!=null) try{ isr.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+				if(br!=null) try{ br.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+			}
 		}
 		catch(final MalformedURLException ex) {
 			// That not normal so we launch the crash reporter.

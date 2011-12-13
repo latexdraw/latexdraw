@@ -524,6 +524,8 @@ public class SVGDocument implements Document {
 		if(path==null)
 			return false;
 
+		boolean ok = true;
+
 		try {
 			final FileOutputStream fos  = new FileOutputStream(path);
 	        final OutputFormat of		= new OutputFormat(this);
@@ -533,13 +535,12 @@ public class SVGDocument implements Document {
 	        xmls = new XMLSerializer(fos, of);
 
 	        try { xmls.serialize(getDocumentElement()); }
-	        catch(final IOException ex) { return false; }
+	        catch(final IOException ex) { ok = false; }
 
-	        try { fos.close(); }
-	        catch(final IOException ex) { return false; }
-		}catch(final IOException e) { return false; }
+	        try { fos.close(); } catch(final IOException ex) { ok = false; }
+		}catch(final IOException e) { ok = false; }
 
-        return true;
+        return ok;
 	}
 
 
