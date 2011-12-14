@@ -77,7 +77,7 @@ public final class ActionsRegistry {
 
 
 	/**
-	 * @return The stored actions.
+	 * @return The stored actions. Cannot be null.
 	 * @since 0.1
 	 */
 	public List<Action> getActions() {
@@ -102,7 +102,7 @@ public final class ActionsRegistry {
 				Action act = actions.remove(i);
 
 				for(ActionHandler handler : handlers)
-					handler.onActionCancelled(action);
+					handler.onActionCancelled(act);
 
 				act.flush();
 			}
@@ -113,35 +113,35 @@ public final class ActionsRegistry {
 
 
 	/**
-	 * Adds an action to the register.
-	 * @param action The action to add.
-	 * @param actionHanndler The handler that produced or is associated to the action.
+	 * Adds an action to the register. Before being added, the given action is used to cancel actions
+	 * already added. Handlers are notified of the add of the given action. If Undoable, the action is
+	 * added to the undo collector as well.
+	 * @param action The action to add. Cannot be null.
+	 * @param actionHanndler The handler that produced or is associated to the action. Cannot be null.
 	 * @since 0.2
 	 */
 	public void addAction(final Action action, final ActionHandler actionHanndler) {
-		if(action==null || actions.contains(action))
-			return;
+		if(action!=null && actionHanndler!=null && !actions.contains(action) && sizeMax>0) {
+			cancelActions(action);
 
-		cancelActions(action);
+			// If there is too many actions in the register, the oldest action is removed and flushed.
+			if(actions.size()==sizeMax)
+				actions.remove(0).flush();
 
-		// If there is too many actions in the register, the oldest action is removed and flushed.
-		if(!actions.isEmpty() && actions.size()==sizeMax)
-			actions.remove(0).flush();
+			actions.add(action);
 
-		actions.add(action);
+			for(ActionHandler handler : handlers)
+				handler.onActionAdded(action);
 
-		for(ActionHandler handler : handlers)
-			handler.onActionAdded(action);
-
-		if(action instanceof Undoable)
-			UndoCollector.INSTANCE.add((Undoable)action, actionHanndler);
+			if(action instanceof Undoable)
+				UndoCollector.INSTANCE.add((Undoable)action, actionHanndler);
+		}
 	}
 
 
 
 	/**
-	 * Removes the action from the register.
-	 * The action is then flushes.
+	 * Removes the action from the register. The action is then flushes.
 	 * @param action The action to remove.
 	 * @since 0.1
 	 */
@@ -151,7 +151,6 @@ public final class ActionsRegistry {
 
 		actions.remove(action);
 		action.flush();
-		//TODO must remove action that depends of 'action' too.
 	}
 
 
@@ -166,6 +165,25 @@ public final class ActionsRegistry {
 			handlers.add(handler);
 	}
 
+
+	/**
+	 * Removes the given handler.
+	 * @param handler The handler to remove.
+	 * @since 0.2
+	 */
+	public void removeHandler(final ActionHandler handler) {
+		if(handler!=null)
+			handlers.remove(handler);
+	}
+
+
+	/**
+	 * Removes all the action handlers.
+	 * @since 0.2
+	 */
+	public void removeAllHandlers() {
+		handlers.clear();
+	}
 
 
 	/**
@@ -219,7 +237,7 @@ public final class ActionsRegistry {
 	 * @since 0.2
 	 */
 	public void setSizeMax(final int sizeMax) {
-		if(sizeMax>0) {
+		if(sizeMax>=0) {
 			// If there is too many actions in the register, they are removed.
 			for(int i=0, nb=actions.size()-sizeMax; i<nb; i++)
 				actions.remove(0).flush();

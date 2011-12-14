@@ -70,6 +70,8 @@ public abstract class Action {
 
 	/**
 	 * Executes the action. Should be overridden by sub-class to define stuffs to execute.
+	 * If the status of the action differs than CREATED or EXECUTED and if the action cannot be done (canDo),
+	 * the action is not executed.
 	 * @since 0.1
 	 * @return True if the execution is successful. False otherwise.
 	 */
@@ -116,8 +118,9 @@ public abstract class Action {
 
 	/**
 	 * Defines if the given action can cancel the calling action. Should be overridden.
+	 * By default, false is returned.
 	 * @param action The action to test.
-	 * @return True if the given action cancels the calling action.
+	 * @return True if the given action cancels the calling action. By default, false is returned.
 	 * @since 0.1
 	 */
 	public boolean cancelledBy(final Action action) {
@@ -163,16 +166,6 @@ public abstract class Action {
 	public void abort() {
 		status = ActionStatus.ABORTED;
 	}
-
-
-	/**
-	 * @return True if the action has already started.
-	 * @since 0.1
-	 */
-	public boolean isStarted() {
-		return status!=ActionStatus.CREATED;
-	}
-
 
 
 	/**
