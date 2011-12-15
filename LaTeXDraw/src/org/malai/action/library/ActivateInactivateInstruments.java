@@ -7,7 +7,6 @@ import org.malai.action.Action;
 import org.malai.instrument.Instrument;
 import org.malai.instrument.WidgetInstrument;
 
-
 /**
  * This instrument activates and inactivates instruments.<br>
  * <br>
@@ -40,6 +39,7 @@ public class ActivateInactivateInstruments extends Action {
 
 	/**
 	 * Creates and initialises the instrument.
+	 * By default instruments are not hidden and activation is performed first.
 	 * @since 0.1
 	 */
 	public ActivateInactivateInstruments() {
@@ -132,10 +132,13 @@ public class ActivateInactivateInstruments extends Action {
 
 	@Override
 	public boolean canDo() {
-		return (insActivate!=null && !insActivate.isEmpty()) || (insInactivate!=null && !insInactivate.isEmpty());
+		return insActivate!=null || insInactivate!=null;
 	}
 
 
+	/**
+	 * @return False. Action ActivateInactivateInstruments cannot be registered.
+	 */
 	@Override
 	public boolean isRegisterable() {
 		return false;
