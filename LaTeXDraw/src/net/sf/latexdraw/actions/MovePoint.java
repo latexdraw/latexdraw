@@ -59,8 +59,7 @@ public class MovePoint extends Action implements Undoable {
 		final IPoint pt = shape.getPtAt(indexPt);
 		tx += newCoord.getX() - pt.getX();
 		ty += newCoord.getY() - pt.getY();
-		shape.setPoint(newCoord, indexPt);
-		shape.setModified(true);
+		redo();
 	}
 
 
@@ -72,14 +71,15 @@ public class MovePoint extends Action implements Undoable {
 
 	@Override
 	public void undo() {
-		shape.getPtAt(indexPt).translate(-tx, -ty);
+		IPoint pt = shape.getPtAt(indexPt);
+		shape.setPoint(pt.getX()-tx, pt.getY()-ty, indexPt);
 		shape.setModified(true);
 	}
 
 
 	@Override
 	public void redo() {
-		shape.getPtAt(indexPt).translate(tx, ty);
+		shape.setPoint(newCoord, indexPt);
 		shape.setModified(true);
 	}
 
