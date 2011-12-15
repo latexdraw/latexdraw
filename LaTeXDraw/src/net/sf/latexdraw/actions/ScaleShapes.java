@@ -77,7 +77,7 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 
 
 	private boolean isValidScale(final double scale, final double doneScale) {
-		return GLibUtilities.INSTANCE.isValidCoordinate(scale) && GLibUtilities.INSTANCE.isValidCoordinate(scale/doneScale) && (scale/doneScale)>0.;
+		return GLibUtilities.INSTANCE.isValidCoordinate(scale) && GLibUtilities.INSTANCE.isValidCoordinate(scale/doneScale);
 	}
 
 
@@ -132,7 +132,8 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 	 * @param sx The X-scale.
 	 */
 	public void setSx(final double sx) {
-		this.sx = sx;
+		if(sx>0)
+			this.sx = sx;
 	}
 
 
@@ -141,6 +142,7 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 	 * @param sy The Y-scale.
 	 */
 	public void setSy(final double sy) {
-		this.sy = sy;
+		if(sy>0)
+			this.sy = sy;
 	}
 }
