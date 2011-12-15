@@ -165,6 +165,12 @@ class LPoint extends Point2D.Double implements IPoint {
 
 
 	@Override
+	public boolean equals(final IPoint pt) {
+		return equals(pt, LNumber.THRESHOLD);
+	}
+
+
+	@Override
 	public IPoint getMiddlePoint(final IPoint p) {
 		return p==null ? null : new LPoint((x+p.getX())/2., (y+p.getY())/2.);
 	}

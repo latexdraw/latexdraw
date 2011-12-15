@@ -110,6 +110,14 @@ public interface IPoint {
 	 */
 	boolean equals(final IPoint p, final double gap);
 
+
+	/**
+	 * Allows to know if the point p is equal to the current point considering a gap of LNumber.THRESHOLD.
+	 * @param pt The point to compare.
+	 * @return True if they are equals considering the gap.
+	 */
+	boolean equals(final IPoint pt);
+
 	/**
 	 * @param p The second point.
 	 * @return The middle point of the current and given points.

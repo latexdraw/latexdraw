@@ -22,12 +22,18 @@ import java.awt.geom.Rectangle2D;
  * @version 3.0<br>
  */
 public class MovePtHandler extends Handler<Rectangle2D> {
+	/** The index of the point in its shape. */
+	protected int indexPt;
+
+
 	/**
 	 * The constructor by default.
+	 * @param indexPt The index of the point in its shape.
 	 */
-	public MovePtHandler() {
+	public MovePtHandler(final int indexPt) {
 		super();
 		shape  = new Rectangle2D.Double();
+		this.indexPt = indexPt;
 		updateShape();
 	}
 
@@ -35,5 +41,14 @@ public class MovePtHandler extends Handler<Rectangle2D> {
 	@Override
 	protected void updateShape() {
 		shape.setFrame(point.getX()-size/2., point.getY()-size/2., size, size);
+	}
+
+
+	/**
+	 * @return The index of the point in its shape.
+	 * @since 3.0
+	 */
+	public int getIndexPt() {
+		return indexPt;
 	}
 }

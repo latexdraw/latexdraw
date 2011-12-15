@@ -3,11 +3,13 @@ package net.sf.latexdraw.instruments;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.latexdraw.actions.MovePoint;
 import net.sf.latexdraw.actions.ScaleShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.handlers.ArcAngleHandler;
@@ -16,9 +18,11 @@ import net.sf.latexdraw.glib.handlers.IHandler;
 import net.sf.latexdraw.glib.handlers.MovePtHandler;
 import net.sf.latexdraw.glib.handlers.RotationHandler;
 import net.sf.latexdraw.glib.handlers.ScaleHandler;
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -33,7 +37,6 @@ import net.sf.latexdraw.mapping.Shape2BorderMapping;
 
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
-import org.malai.interaction.Interaction;
 import org.malai.interaction.library.DnD;
 import org.malai.mapping.MappingRegistry;
 import org.malai.picking.Pickable;
@@ -260,8 +263,8 @@ public class Border extends Instrument implements Picker {
 		// Adding missing handlers.
 		if(ctrlPt1Handlers.size()<nbPts)
 			for(int i=ctrlPt1Handlers.size(); i<nbPts; i++) {
-				ctrlPt1Handlers.add(new MovePtHandler());
-				ctrlPt2Handlers.add(new MovePtHandler());
+				ctrlPt1Handlers.add(new MovePtHandler(i));
+				ctrlPt2Handlers.add(new MovePtHandler(i));
 			}
 		// Removing extra handlers.
 		else if(ctrlPt1Handlers.size()>nbPts)
@@ -300,7 +303,7 @@ public class Border extends Instrument implements Picker {
 
 				if(mvPtHandlers.size()<nbPts)
 					for(int i=mvPtHandlers.size(); i<nbPts; i++)
-						mvPtHandlers.add(new MovePtHandler());
+						mvPtHandlers.add(new MovePtHandler(i));
 				else if(mvPtHandlers.size()>nbPts)
 						while(mvPtHandlers.size()>nbPts)
 							mvPtHandlers.remove(0);
@@ -438,6 +441,7 @@ public class Border extends Instrument implements Picker {
 	protected void initialiseLinks() {
 		try{
 			links.add(new DnD2Scale(this));
+			links.add(new DnD2MovePoint(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -527,6 +531,68 @@ public class Border extends Instrument implements Picker {
 
 
 	/**
+	 * This link maps a DnD interaction on a move point handler to an action that move the selected point.
+	 */
+	private static class DnD2MovePoint extends Link<MovePoint, DnD, Border> {
+		/** The original coordinates of the moved point. */
+		protected IPoint sourcePt;
+
+		protected DnD2MovePoint(final Border ins) throws InstantiationException, IllegalAccessException {
+			super(ins, true, MovePoint.class, DnD.class);
+		}
+
+		@Override
+		public void initAction() {
+			final IGroup group = instrument.drawing.getSelection();
+
+			if(group.size()==1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
+				MovePtHandler handler = getMovePtHandler();
+				sourcePt = DrawingTK.getFactory().createPoint(handler.getCentre());
+				action.setIndexPt(handler.getIndexPt());
+				action.setShape((IModifiablePointsShape)group.getShapeAt(0));
+			}
+		}
+
+
+		@Override
+		public void updateAction() {
+			super.updateAction();
+
+			final Point startPt = interaction.getStartPt();
+			final Point endPt 	= interaction.getEndPt();
+			final double x 		= sourcePt.getX() + endPt.getX()-startPt.getX();
+			final double y 		= sourcePt.getY() + endPt.getY()-startPt.getY();
+
+			action.setNewCoord(instrument.grid.getTransformedPointToGrid(instrument.zoomable.getZoomedPoint(x, y)));
+		}
+
+
+		@Override
+		public boolean isConditionRespected() {
+			return getMovePtHandler()!=null;
+		}
+
+
+		/**
+		 * @return The selected move point handler or null.
+		 * @since 3.0
+		 */
+		private MovePtHandler getMovePtHandler() {
+			final Object obj = interaction.getStartObject();
+			MovePtHandler handler = null;
+
+			if(obj instanceof MovePtHandler)
+				for(int i=0, size=instrument.mvPtHandlers.size(); i<size && handler==null; i++)
+					if(instrument.mvPtHandlers.get(i)==obj)
+						handler = (MovePtHandler)obj;
+
+			return handler;
+		}
+	}
+
+
+
+	/**
 	 * This link maps a DnD interaction on a scale handler to an action that scales the selection.
 	 */
 	private static class DnD2Scale extends Link<ScaleShapes, DnD, Border> {
@@ -542,14 +608,8 @@ public class Border extends Instrument implements Picker {
 
 		protected DnD2Scale(final Border ins) throws InstantiationException, IllegalAccessException {
 			super(ins, true, ScaleShapes.class, DnD.class);
-			clear();
 		}
 
-		private void clear() {
-			width 	= 0.;
-			height 	= 0.;
-			p1 		= null;
-		}
 
 		@Override
 		public void initAction() {
@@ -606,18 +666,6 @@ public class Border extends Instrument implements Picker {
 						handler = (ScaleHandler)obj;
 
 			return handler;
-		}
-
-		@Override
-		public void interactionAborts(final Interaction inter) {
-			super.interactionAborts(inter);
-			clear();
-		}
-
-		@Override
-		public void interactionStops(final Interaction inter) {
-			super.interactionStops(inter);
-			clear();
 		}
 	}
 }
