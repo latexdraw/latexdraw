@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
+import net.sf.latexdraw.util.LNumber;
 
 import org.malai.undo.Undoable;
 
@@ -97,6 +98,12 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 	private void scale(final double sx2, final double sy2) {
 		selection.scale(sx2, sy2, position);
 		drawing.setModified(true);
+	}
+
+
+	@Override
+	public boolean hadEffect() {
+		return super.hadEffect() && (!LNumber.INSTANCE.equals(sx, 1.) || !LNumber.INSTANCE.equals(sx, 1.));
 	}
 
 
