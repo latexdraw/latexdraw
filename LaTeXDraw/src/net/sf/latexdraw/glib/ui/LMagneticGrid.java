@@ -468,17 +468,17 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		String name = root.getNodeName();
 
 		if(name.endsWith(LNamespace.XML_GRID_GAP))
-			setGridSpacing(Integer.valueOf(root.getTextContent()));
+			setGridSpacing(Integer.parseInt(root.getTextContent()));
 		else if(name.endsWith(LNamespace.XML_MAGNETIC_GRID))
-			setMagnetic(Boolean.valueOf(root.getTextContent()));
+			setMagnetic(Boolean.parseBoolean(root.getTextContent()));
 		else if(name.endsWith(LNamespace.XML_MAGNETIC_GRID_STYLE))
 			setStyle(GridStyle.getStylefromName(root.getTextContent()));
 		// To keep compatibility with latexdraw 2.0
 		//TODO to remove with these tokens in a future release (in a couple of years).
 		else if(name.endsWith(LNamespace.XML_DISPLAY_GRID)) {
-			if(!Boolean.valueOf(root.getTextContent()))
+			if(!Boolean.parseBoolean(root.getTextContent()))
 				setStyle(GridStyle.NONE);
 		} else if(name.endsWith(LNamespace.XML_CLASSIC_GRID))
-			setStyle(Boolean.valueOf(root.getTextContent()) ? GridStyle.STANDARD : GridStyle.CUSTOMISED);
+			setStyle(Boolean.parseBoolean(root.getTextContent()) ? GridStyle.STANDARD : GridStyle.CUSTOMISED);
 	}
 }

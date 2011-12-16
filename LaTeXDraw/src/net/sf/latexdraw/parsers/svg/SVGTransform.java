@@ -95,11 +95,11 @@ public class SVGTransform {
 			k = k1==-1 ? k2 : k2==-1 ? k1 : Math.min(k1, k2);
 
 			if(k==-1)
-				setRotate(Double.valueOf(code.substring(i+1, j)), 0., 0.);
+				setRotate(Double.parseDouble(code.substring(i+1, j)), 0., 0.);
 			else {
 				double cx, cy, rotAngle;
 
-				rotAngle = Double.valueOf(code.substring(i+1, k));
+				rotAngle = Double.parseDouble(code.substring(i+1, k));
 				i = k+1;
 
 				k1 = code.indexOf(' ', k+1);
@@ -109,8 +109,8 @@ public class SVGTransform {
 				if(k==-1)
 					throw new IllegalArgumentException();
 
-				cx = Double.valueOf(code.substring(i, k));
-				cy = Double.valueOf(code.substring(k+1, j));
+				cx = Double.parseDouble(code.substring(i, k));
+				cy = Double.parseDouble(code.substring(k+1, j));
 
 				setRotate(rotAngle, cx, cy);
 			}
@@ -128,13 +128,13 @@ public class SVGTransform {
 				k = code.indexOf(' ');
 
 			if(k==-1) {
-				double val = Double.valueOf(code.substring(i+1, j));
+				double val = Double.parseDouble(code.substring(i+1, j));
 				sx = val;
 				sy = val;
 			}
 			else {
-				sx = Double.valueOf(code.substring(i+1, k));
-				sy = Double.valueOf(code.substring(k+1, j));
+				sx = Double.parseDouble(code.substring(i+1, k));
+				sy = Double.parseDouble(code.substring(k+1, j));
 			}
 
 			setScale(sx, sy);
@@ -152,13 +152,13 @@ public class SVGTransform {
 				k = code.indexOf(' ');
 
 			if(k==-1) {
-				double val = Double.valueOf(code.substring(i+1, j));
+				double val = Double.parseDouble(code.substring(i+1, j));
 				tx = val;
 				ty = val;
 			}
 			else {
-				tx = Double.valueOf(code.substring(i+1, k));
-				ty = Double.valueOf(code.substring(k+1, j));
+				tx = Double.parseDouble(code.substring(i+1, k));
+				ty = Double.parseDouble(code.substring(k+1, j));
 			}
 
 			setTranslate(tx, ty);
@@ -182,11 +182,11 @@ public class SVGTransform {
 				if(k==-1)
 					throw new IllegalArgumentException();
 
-				coords[l] = Double.valueOf(code.substring(i, k));
+				coords[l] = Double.parseDouble(code.substring(i, k));
 				i = k+1;
 			}
 
-			coords[nbPts-1] = Double.valueOf(code.substring(i, j));
+			coords[nbPts-1] = Double.parseDouble(code.substring(i, j));
 
 			setMatrix(coords[0], coords[1], coords[2], coords[3], coords[4], coords[5]);
 		}
@@ -197,7 +197,7 @@ public class SVGTransform {
 			if(i>=lgth || code.charAt(i)!='(' || j==-1)
 				throw new IllegalArgumentException();
 
-			setSkewX(Double.valueOf(code.substring(i+1, j)));
+			setSkewX(Double.parseDouble(code.substring(i+1, j)));
 		}
 		else if(code.startsWith(SVGAttributes.SVG_TRANSFORM_SKEW_Y)) {
 			i = SVGAttributes.SVG_TRANSFORM_SKEW_Y.length();
@@ -206,7 +206,7 @@ public class SVGTransform {
 			if(i>=lgth || code.charAt(i)!='(' || j==-1)
 				throw new IllegalArgumentException();
 
-			setSkewY(Double.valueOf(code.substring(i+1, j)));
+			setSkewY(Double.parseDouble(code.substring(i+1, j)));
 		}
 		else
 			throw new IllegalArgumentException();

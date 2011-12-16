@@ -27,6 +27,6 @@ public class PSFloorCommand extends PSArithemticCommand {
 		if(stack==null || stack.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
-		stack.push(String.valueOf(Math.floor(Double.valueOf(stack.pop()))));
+		stack.push(String.valueOf(Math.floor(Double.parseDouble(stack.pop()))));
 	}
 }

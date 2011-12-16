@@ -292,7 +292,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	 */
 	public void addRecentFile(final String absolutePath) {
 		int i = recentFilesName.indexOf(absolutePath);
-		int max = Float.valueOf(nbRecentFilesField.getValue().toString()).intValue();
+		int max = (int)Float.parseFloat(nbRecentFilesField.getValue().toString());
 
 		if(i!=-1)
 			recentFilesName.remove(i);
@@ -512,43 +512,43 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		if(node!=null) pathLatexDistribField.setText(node.getTextContent());
 
 		node = prefMap.get(LNamespace.XML_ALPHA_INTER);
-		if(node!=null) alpaInterCheckBox.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) alpaInterCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_ANTI_ALIAS);
-		if(node!=null) antialiasingCheckBox.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) antialiasingCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_AUTO_UPDATE);
-		if(node!=null) codeAutoUpdateCB.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) codeAutoUpdateCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_CHECK_VERSION);
-		if(node!=null) checkNewVersion.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) checkNewVersion.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_CLASSIC_GRID);
 		if(node!=null) {
-			classicGridRB.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
-			persoGridRB.setSelected(!Boolean.valueOf(node.getTextContent()).booleanValue());
+			classicGridRB.setSelected(Boolean.parseBoolean(node.getTextContent()));
+			persoGridRB.setSelected(!Boolean.parseBoolean(node.getTextContent()));
 		}
 
 		node = prefMap.get(LNamespace.XML_COLOR_RENDERING);
-		if(node!=null) colorRenderCheckBox.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) colorRenderCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_DRAW_BORDERS);
-		if(node!=null) displayBordersCB.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) displayBordersCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_DISPLAY_CODE_PANEL);
-		if(node!=null) displayCodePanelCB.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) displayCodePanelCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_DISPLAY_GRID);
-		if(node!=null) displayGridCB.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) displayGridCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_DISPLAY_X);
-		if(node!=null) displayXScaleCB.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) displayXScaleCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_DISPLAY_Y);
-		if(node!=null) displayYScaleCB.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) displayYScaleCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_GRID_GAP);
-		if(node!=null) persoGridGapField.setValueSafely(Integer.valueOf(node.getTextContent()).intValue());
+		if(node!=null) persoGridGapField.setValueSafely(Integer.parseInt(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_LAF);
 		if(node!=null) {
@@ -571,7 +571,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		if(node!=null) langList.setSelectedItemSafely(node.getTextContent());
 
 		node = prefMap.get(LNamespace.XML_MAGNETIC_GRID);
-		if(node!=null) magneticGridCB.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) magneticGridCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_PATH_EXPORT);
 		if(node!=null) pathExportField.setText(node.getTextContent());
@@ -583,7 +583,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		if(node!=null) pathTexEditorField.setText(node.getTextContent());
 
 		node = prefMap.get(LNamespace.XML_RENDERING);
-		if(node!=null) renderingCheckBox.setSelected(Boolean.valueOf(node.getTextContent()).booleanValue());
+		if(node!=null) renderingCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_UNIT);
 		if(node!=null) unitChoice.setSelectedItemSafely(node.getTextContent());
@@ -598,7 +598,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 				Node attr = nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES);
 
 				if(attr!=null)
-					nbRecentFilesField.setValue(Integer.valueOf(attr.getTextContent()).intValue());
+					nbRecentFilesField.setValue(Integer.parseInt(attr.getTextContent()));
 			}
 
 			for(int j=0, size2=nl2.getLength(); j<size2; j++) {
@@ -610,7 +610,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		}
 
 		node = prefMap.get(LNamespace.XML_MAXIMISED);
-		if(node!=null) isFrameMaximized = Boolean.valueOf(node.getTextContent()).booleanValue();
+		if(node!=null) isFrameMaximized = Boolean.parseBoolean(node.getTextContent());
 
 		node = prefMap.get(LNamespace.XML_SIZE);
 		if(node!=null) {
@@ -621,10 +621,10 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 				n2 = nl2.item(j);
 
 				if(n2.getNodeName().equals(LNamespace.XML_WIDTH))
-					frameSize.width = Integer.valueOf(n2.getTextContent()).intValue();
+					frameSize.width = Integer.parseInt(n2.getTextContent());
 				else
 					if(n2.getNodeName().equals(LNamespace.XML_HEIGHT))
-						frameSize.height = Integer.valueOf(n2.getTextContent()).intValue();
+						frameSize.height = Integer.parseInt(n2.getTextContent());
 			}
 		}
 
@@ -636,18 +636,18 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 				n2 = nl2.item(j);
 
 				if(n2.getNodeName().equals(LNamespace.XML_POSITION_X))
-					framePosition.setX(Math.max(0, Integer.valueOf(n2.getTextContent()).intValue()));
+					framePosition.setX(Math.max(0, Integer.parseInt(n2.getTextContent())));
 				else
 					if(n2.getNodeName().equals(LNamespace.XML_POSITION_Y))
-						framePosition.setY(Math.max(0, Integer.valueOf(n2.getTextContent()).intValue()));
+						framePosition.setY(Math.max(0, Integer.parseInt(n2.getTextContent())));
 			}
 		}
 
 		node = prefMap.get(LNamespace.XML_DIVIDER_POSITION);
-		if(node!=null) dividerPosition = Double.valueOf(node.getTextContent()).doubleValue();
+		if(node!=null) dividerPosition = Double.parseDouble(node.getTextContent());
 
 //		else if(name.equals(LNamespace.XML_DELIMITOR_OPACITY))//FIXME
-//  		AbstractHandler.setOpacity(Double.valueOf(content).intValue());
+//  		AbstractHandler.setOpacity((int)Double.parseDouble(content));
 	}
 
 
@@ -669,7 +669,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		gridCust.grid.setStyle(gridStyle);
 		gridCust.grid.setMagnetic(magneticGridCB.isSelected());
-		gridCust.grid.setGridSpacing(Integer.valueOf(persoGridGapField.getValue().toString()));
+		gridCust.grid.setGridSpacing(Integer.parseInt(persoGridGapField.getValue().toString()));
 		canvas.setAlphaInterpolation(alpaInterCheckBox.isSelected() ? RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY : RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
 		canvas.setAntiAliasing(antialiasingCheckBox.isSelected() ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
 		canvas.setColorRendering(colorRenderCheckBox.isSelected() ? RenderingHints.VALUE_COLOR_RENDER_QUALITY : RenderingHints.VALUE_COLOR_RENDER_SPEED);

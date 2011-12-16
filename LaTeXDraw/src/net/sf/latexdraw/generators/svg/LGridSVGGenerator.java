@@ -130,12 +130,12 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		String v = elt.getAttribute(prefix+LNamespace.XML_GRID_X_SOUTH);
 
 		if(v!=null)
-			shape.setXLabelSouth(Boolean.valueOf(v));
+			shape.setXLabelSouth(Boolean.parseBoolean(v));
 
 		v = elt.getAttribute(prefix+LNamespace.XML_GRID_Y_WEST);
 
 		if(v!=null)
-			shape.setYLabelWest(Boolean.valueOf(v));
+			shape.setYLabelWest(Boolean.parseBoolean(v));
 	}
 
 
@@ -150,7 +150,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 			String val = labelElt.getAttribute(labelElt.getUsablePrefix()+SVGAttributes.SVG_FONT_SIZE);
 
 			if(val!=null)
-				try { shape.setLabelsSize(Double.valueOf(val).intValue()); }
+				try { shape.setLabelsSize((int)Double.parseDouble(val)); }
 				catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 			shape.setGridLabelsColour(labelElt.getStroke());
@@ -168,7 +168,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 
 		if(val!=null)
 			try {
-				shape.setGridDots(Double.valueOf(val).intValue());
+				shape.setGridDots((int)Double.parseDouble(val));
 				isGridDotted = shape.getGridDots()>0;
 			}
 			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
@@ -187,7 +187,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 				shape.setGridWidth(st);
 		}
 		else
-			try{ shape.setGridWidth(Double.valueOf(val).floatValue());  }
+			try{ shape.setGridWidth(Double.parseDouble(val));  }
 			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
@@ -202,7 +202,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 
 		if(val!=null)
 			try {
-				shape.setSubGridDots(Double.valueOf(val).intValue());
+				shape.setSubGridDots((int)Double.parseDouble(val));
 				isGridDotted = shape.getSubGridDots()>0;
 			}
 			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
@@ -210,7 +210,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		val = subGridElt.getAttribute(prefix+LNamespace.XML_GRID_SUB_DIV);
 
 		if(val!=null)
-			try{ shape.setSubGridDiv(Double.valueOf(val).intValue());  }
+			try{ shape.setSubGridDiv((int)Double.parseDouble(val));  }
 			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		val = subGridElt.getAttribute(prefix+LNamespace.XML_GRID_WIDTH);
@@ -227,7 +227,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 				shape.setSubGridWidth(st);
 		}
 		else
-			try{ shape.setSubGridWidth(Double.valueOf(val).floatValue());  }
+			try{ shape.setSubGridWidth(Double.parseDouble(val));  }
 			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 

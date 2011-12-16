@@ -106,7 +106,7 @@ public class SVGNumberParser extends AbstractSVGParser {
 					c = nextChar();
 		}
 
-		try {  Double.valueOf(getCode().substring(start, getPosition())); }
+		try {  Double.parseDouble(getCode().substring(start, getPosition())); }
 		catch(NumberFormatException e) { throw new ParseException("Invalid number.", getPosition()); }//$NON-NLS-1$
 
 		return getCode().substring(start, getPosition());
@@ -123,7 +123,7 @@ public class SVGNumberParser extends AbstractSVGParser {
 	public double parseNumber(final boolean unsigned) throws ParseException {
 		String number = parseNumberAsString(unsigned);
 
-		try {  return Double.valueOf(number); }
+		try {  return Double.parseDouble(number); }
 		catch(NumberFormatException e) { throw new ParseException("Invalid number.", getPosition()); }//$NON-NLS-1$
 	}
 

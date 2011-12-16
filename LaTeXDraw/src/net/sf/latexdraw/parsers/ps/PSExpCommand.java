@@ -27,6 +27,6 @@ public class PSExpCommand extends PSArithemticCommand {
 		if(stack==null || stack.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
-		stack.push(String.valueOf(Math.pow(Double.valueOf(stack.pop()), Double.valueOf(stack.pop()))));
+		stack.push(String.valueOf(Math.pow(Double.parseDouble(stack.pop()), Double.parseDouble(stack.pop()))));
 	}
 }

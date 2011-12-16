@@ -132,7 +132,7 @@ public class SVGPointsParser extends AbstractSVGParser {
 			nextChar();
 		}
 
-		try { n = Double.valueOf(strn.toString()); }
+		try { n = Double.parseDouble(strn.toString()); }
 		catch(Exception e)
 		{ throw new ParseException("Not able to parse to given number:" + strn.toString(), getPosition()); } //$NON-NLS-1$
 

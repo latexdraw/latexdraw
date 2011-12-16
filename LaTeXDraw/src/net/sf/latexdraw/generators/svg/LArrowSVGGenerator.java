@@ -117,7 +117,7 @@ class LArrowSVGGenerator {
 		if(dotSizeNumStr==null)
 			dotSizeNum = 1;
 		else
-			try { dotSizeNum = Double.valueOf(dotSizeNumStr); }
+			try { dotSizeNum = Double.parseDouble(dotSizeNumStr); }
 			catch(NumberFormatException e) {
 				BadaboomCollector.INSTANCE.add(e);
 				dotSizeNum = 1;
@@ -151,7 +151,7 @@ class LArrowSVGGenerator {
 		if(tbarNumStr==null)
 			tbarNum = 1;
 		else
-			try { tbarNum = Double.valueOf(tbarNumStr); }
+			try { tbarNum = Double.parseDouble(tbarNumStr); }
 			catch(NumberFormatException e) {
 				BadaboomCollector.INSTANCE.add(e);
 				tbarNum = 1;
@@ -196,7 +196,7 @@ class LArrowSVGGenerator {
 			if(arrNumStr==null)
 				arrNum = 1;
 			else
-				try { arrNum = Double.valueOf(arrNumStr); }
+				try { arrNum = Double.parseDouble(arrNumStr); }
 				catch(NumberFormatException e) {
 					BadaboomCollector.INSTANCE.add(e);
 					arrNum = 1;

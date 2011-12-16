@@ -27,8 +27,8 @@ public class PSSubCommand extends PSArithemticCommand {
 		if(stack==null || stack.size()<2)
 			throw new InvalidFormatPSFunctionException();
 
-		double a = Double.valueOf(stack.pop());
-		double b = Double.valueOf(stack.pop());
+		double a = Double.parseDouble(stack.pop());
+		double b = Double.parseDouble(stack.pop());
 
 		stack.push(String.valueOf(b-a));
 	}

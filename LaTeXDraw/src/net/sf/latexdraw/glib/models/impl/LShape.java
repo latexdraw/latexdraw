@@ -546,7 +546,7 @@ abstract class LShape implements IShape {
 						(isFilled()==s.isFilled() && fillingCol.equals(s.getFillingCol()));
 
 			if(filledOk) {
-				dblbndOk = !s.isDbleBorderable() || s.isDbleBorderable() ||
+				dblbndOk = !s.isDbleBorderable() || !isDbleBorderable() ||
 							(s.hasDbleBord()==hasDbleBord &&
 							dbleBordCol.equals(s.getDbleBordCol()) && LNumber.INSTANCE.equals(dbleBordSep, s.getDbleBordSep()));
 

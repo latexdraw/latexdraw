@@ -85,7 +85,7 @@ public class PSFunctionParser {
 		if(stack.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
-		return Double.valueOf(stack.pop());
+		return Double.parseDouble(stack.pop());
 	}
 
 
@@ -170,6 +170,6 @@ public class PSFunctionParser {
 		if(cmd.equals(CMD_COS))
 			return new PSCosCommand();
 
-		return new PSValue(Double.valueOf(cmd));
+		return new PSValue(Double.parseDouble(cmd));
 	}
 }

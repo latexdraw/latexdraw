@@ -450,18 +450,18 @@ public class LCanvas extends MPanel implements ICanvas {
 
 				if(generalPreferences) {
 					if(name.endsWith(LNamespace.XML_RENDERING))
-						renderingValue = Boolean.valueOf(content).booleanValue();
+						renderingValue = Boolean.parseBoolean(content);
 					else if(name.endsWith(LNamespace.XML_COLOR_RENDERING))
-						colorRenderingValue = Boolean.valueOf(content).booleanValue();
+						colorRenderingValue = Boolean.parseBoolean(content);
 					else if(name.endsWith(LNamespace.XML_COLOR_RENDERING))
-						colorRenderingValue = Boolean.valueOf(content).booleanValue();
+						colorRenderingValue = Boolean.parseBoolean(content);
 					else if(name.endsWith(LNamespace.XML_ALPHA_INTER))
-						alphaInterpolValue = Boolean.valueOf(content).booleanValue();
+						alphaInterpolValue = Boolean.parseBoolean(content);
 					else if(name.endsWith(LNamespace.XML_ANTI_ALIAS))
-						antiAliasingValue = Boolean.valueOf(content).booleanValue();
+						antiAliasingValue = Boolean.parseBoolean(content);
 				} else
 					if(name.endsWith(LNamespace.XML_ZOOM))
-						setZoom(0, 0, Double.valueOf(node.getTextContent()).doubleValue());
+						setZoom(0, 0, Double.parseDouble(node.getTextContent()));
 			} // if
 		}// for
 	}

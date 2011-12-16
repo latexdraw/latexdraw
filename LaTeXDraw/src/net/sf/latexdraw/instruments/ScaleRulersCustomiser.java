@@ -151,10 +151,10 @@ public class ScaleRulersCustomiser extends Instrument {
 		final String name = root.getNodeName();
 
 		if(name.endsWith(LNamespace.XML_DISPLAY_X)) {
-			xRuler.setVisible(Boolean.valueOf(root.getTextContent()));
+			xRuler.setVisible(Boolean.parseBoolean(root.getTextContent()));
 			xRulerItem.setSelected(xRuler.isVisible());
 		} else if(name.endsWith(LNamespace.XML_DISPLAY_Y)) {
-			yRuler.setVisible(Boolean.valueOf(root.getTextContent()));
+			yRuler.setVisible(Boolean.parseBoolean(root.getTextContent()));
 			yRulerItem.setSelected(yRuler.isVisible());
 		}
 	}

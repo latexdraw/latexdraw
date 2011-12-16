@@ -27,6 +27,6 @@ public class PSNegCommand extends PSArithemticCommand {
 		if(stack==null || stack.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
-		stack.push(String.valueOf(-Double.valueOf(stack.pop())));
+		stack.push(String.valueOf(-Double.parseDouble(stack.pop())));
 	}
 }

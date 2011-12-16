@@ -113,10 +113,10 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		if(nb==null)
 			shape.setNewId();
 		else
-			try{ shape.setId(Double.valueOf(nb).intValue()); }
+			try{ shape.setId((int)Double.parseDouble(nb)); }
 			catch(final NumberFormatException e) {
 				if(nb.startsWith(pref))
-					try { shape.setId(Double.valueOf(nb.substring(pref.length())).intValue()); }
+					try { shape.setId((int)Double.parseDouble(nb.substring(pref.length()))); }
 					catch(final NumberFormatException e2) { shape.setNewId(); }
 				else
 					shape.setNewId();

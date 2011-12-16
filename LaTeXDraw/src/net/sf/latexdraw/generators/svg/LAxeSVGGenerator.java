@@ -69,9 +69,9 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		String pref = LNamespace.LATEXDRAW_NAMESPACE+':';
 		String str;
 
-		shape.setYLabelWest(Boolean.valueOf(elt.getAttribute(pref+LNamespace.XML_AXE_IS_WEST)).booleanValue());
-		shape.setXLabelSouth(Boolean.valueOf(elt.getAttribute(pref+LNamespace.XML_AXE_IS_SOUTH)).booleanValue());
-		shape.setShowOrigin(Boolean.valueOf(elt.getAttribute(pref+LNamespace.XML_AXE_SHOW_ORIGIN)).booleanValue());
+		shape.setYLabelWest(Boolean.parseBoolean(elt.getAttribute(pref+LNamespace.XML_AXE_IS_WEST)));
+		shape.setXLabelSouth(Boolean.parseBoolean(elt.getAttribute(pref+LNamespace.XML_AXE_IS_SOUTH)));
+		shape.setShowOrigin(Boolean.parseBoolean(elt.getAttribute(pref+LNamespace.XML_AXE_SHOW_ORIGIN)));
 		shape.setAxesStyle(AxesStyle.getStyle(elt.getAttribute(pref+LNamespace.XML_STYLE)));
 		shape.setTicksDisplayed(PlottingStyle.getStyle(elt.getAttribute(pref+LNamespace.XML_AXE_SHOW_TICKS)));
 		shape.setTicksStyle(TicksStyle.getStyle(elt.getAttribute(pref+LNamespace.XML_AXE_TICKS_STYLE)));
@@ -79,7 +79,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		str = elt.getAttribute(pref+LNamespace.XML_AXE_TICKS_SIZE);
 
 		if(str!=null)
-			try{ shape.setTicksSize(Double.valueOf(str)); }
+			try{ shape.setTicksSize(Double.parseDouble(str)); }
 			catch(NumberFormatException e) { /* */ }
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref+LNamespace.XML_GRID_END));

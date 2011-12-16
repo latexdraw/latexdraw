@@ -79,7 +79,7 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		catch(IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		if(v!=null)
-			try { shape.setRadius(Double.valueOf(v).doubleValue()); }
+			try { shape.setRadius(Double.parseDouble(v)); }
 			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		v = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_POSITION);

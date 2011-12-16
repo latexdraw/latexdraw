@@ -27,6 +27,6 @@ public class PSSinCommand extends PSArithemticCommand {
 		if(stack==null || stack.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
-		stack.push(String.valueOf(Math.sin(Math.toRadians(Double.valueOf(stack.pop())))));
+		stack.push(String.valueOf(Math.sin(Math.toRadians(Double.parseDouble(stack.pop())))));
 	}
 }

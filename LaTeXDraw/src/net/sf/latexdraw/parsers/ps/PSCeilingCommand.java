@@ -27,6 +27,6 @@ public class PSCeilingCommand extends PSArithemticCommand {
 		if(stack==null || stack.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
-		stack.push(String.valueOf(Math.ceil(Double.valueOf(stack.pop()))));
+		stack.push(String.valueOf(Math.ceil(Double.parseDouble(stack.pop()))));
 	}
 }

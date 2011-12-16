@@ -27,8 +27,8 @@ public class PSIDivCommand extends PSArithemticCommand {
 		if(stack==null || stack.size()<2)
 			throw new InvalidFormatPSFunctionException();
 
-		final double a = Double.valueOf(stack.pop());
-		final double b = Double.valueOf(stack.pop());
+		final double a = Double.parseDouble(stack.pop());
+		final double b = Double.parseDouble(stack.pop());
 
 		stack.push(String.valueOf((int)(b/a)));
 	}

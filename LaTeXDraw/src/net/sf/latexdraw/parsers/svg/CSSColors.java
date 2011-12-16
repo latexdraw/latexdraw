@@ -769,7 +769,7 @@ public final class CSSColors {
 					throw new IllegalArgumentException();
 			}
 
-			return new Color(Integer.valueOf(r, 16).intValue(), Integer.valueOf(g, 16).intValue(), Integer.valueOf(b, 16).intValue());
+			return new Color(Integer.parseInt(r, 16), Integer.parseInt(g, 16), Integer.parseInt(b, 16));
 		}
 		catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 		return null;
@@ -855,12 +855,12 @@ public final class CSSColors {
 
 				if(rgbs[0].contains("%")) {//$NON-NLS-1$
 					if(rgbs[0].endsWith("%") && rgbs[1].endsWith("%") && rgbs[2].endsWith("%"))//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-						c = new Color(Double.valueOf(rgbs[0].substring(0, rgbs[0].length()-1)).floatValue()/100f,
-									Double.valueOf(rgbs[1].substring(0, rgbs[1].length()-1)).floatValue()/100f,
-									Double.valueOf(rgbs[2].substring(0, rgbs[2].length()-1)).floatValue()/100f);
+						c = new Color((float)(Double.parseDouble(rgbs[0].substring(0, rgbs[0].length()-1))/100.),
+								(float)(Double.parseDouble(rgbs[1].substring(0, rgbs[1].length()-1))/100.),
+								(float)(Double.parseDouble(rgbs[2].substring(0, rgbs[2].length()-1))/100.));
 				}
 				else
-					c = new Color(Integer.valueOf(rgbs[0]), Integer.valueOf(rgbs[1]), Integer.valueOf(rgbs[2]));
+					c = new Color(Integer.parseInt(rgbs[0]), Integer.parseInt(rgbs[1]), Integer.parseInt(rgbs[2]));
 			}
 		}
 		catch(NumberFormatException e) 		{ return null; }

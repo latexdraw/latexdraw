@@ -1046,7 +1046,7 @@ public abstract class SVGElement implements Element, Cloneable {
 		double lc;
 
 		if(linecap!=null)
-			try { lc = Double.valueOf(linecap).doubleValue(); }
+			try { lc = Double.parseDouble(linecap); }
 			catch(Exception e) { lc = 4.; }
 		else
 			lc = parent==null ? 4. : parent.getStrokeMiterlimit();
