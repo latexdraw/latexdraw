@@ -118,9 +118,6 @@ class LGroupView extends LShapeView<IGroup> {
 		if(p==null)
 			return false;
 
-//		if(isSelected() && getHandler(p) != null)
-//			return true;
-
 		if(!border.contains(p.getX(), p.getY()))
 			return false;
 
@@ -143,9 +140,6 @@ class LGroupView extends LShapeView<IGroup> {
 	public void paint(final Graphics2D g) {
 		for(IViewShape view : views)
 			view.paint(g);
-
-//		if(isSelected && views.size()>1)
-//			border.paint(g);
 	}
 
 

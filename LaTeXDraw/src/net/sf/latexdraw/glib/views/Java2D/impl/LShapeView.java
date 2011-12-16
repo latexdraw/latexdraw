@@ -789,47 +789,4 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	public void flush() {
 		// Nothing to do.
 	}
-
-
-//	/**
-//	 * Rotates the shape using a starting point and an ending point.
-//	 * @param startPt The starting point of the rotation.
-//	 * @param endPt The ending point of the rotation.
-//	 * @return The rotation angle made by the two given points.
-//	 * @since 3.0
-//	 */
-//	public double rotate(IPoint startPt, IPoint endPt) {
-//		if(!GLibUtilities.INSTANCE.isValidPoint(startPt) || !GLibUtilities.INSTANCE.isValidPoint(endPt))
-//			return Double.NaN;
-//
-//		double angle = getGravityCentre().computeRotationAngle(startPt, endPt);
-//
-//		rotate(angle);
-//
-//		return angle;
-//	}
-
-
-//
-//	/**
-//	 * Rotates the shape using a rotation angle.
-//	 * @param angle The angle added to the current rotation angle of the shape.
-//	 * @since 3.0
-//	 */
-//	public void rotate(double angle) {
-//		if(!GLibUtilities.INSTANCE.isValidCoordinate(angle))
-//			return ;
-//
-//		shape.addToRotationAngle(angle);
-//		update();
-//	}
-//
-//
-//	/**
-//	 * @return The bounds 2D of the rotated view.
-//	 * @since 3.0
-//	 */
-//	public Rectangle2D getBounds2D() {
-//		return createRotatedShape2D().getBounds2D();
-//	}
 }

@@ -48,9 +48,6 @@ class LPictureView extends LShapeView<IPicture> {
 	@Override
 	public void paint(final Graphics2D g) {
 		g.drawImage(shape.getImage(), (int)shape.getX(), (int)shape.getY(), null);
-
-//		if(isSelected)
-//			border.paint(g);
 	}
 
 
