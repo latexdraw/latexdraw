@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.Charset;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -550,7 +551,7 @@ public class SVGDocument implements Document {
 	static class SVGEntityResolver implements EntityResolver {
 		@Override
 		public InputSource resolveEntity(final String publicId, final String systemId) {
-			return new InputSource(new ByteArrayInputStream("<?xml version='1.0' encoding='UTF-8'?>".getBytes())); //$NON-NLS-1$
+			return new InputSource(new ByteArrayInputStream("<?xml version='1.0' encoding='UTF-8'?>".getBytes(Charset.defaultCharset()))); //$NON-NLS-1$
 		}
 	}
 }
