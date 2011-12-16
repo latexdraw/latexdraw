@@ -576,10 +576,10 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			if((shape.isFilled() || (shape.hasShadow() && shadowFills)) && !shape.hasHatchings() && !shape.hasGradient())
 				root.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
 			else
-				if(fillStyle.equals(FillingStyle.NONE))
+				if(fillStyle==FillingStyle.NONE)
 		        	root.setAttribute(SVGAttributes.SVG_FILL, SVGAttributes.SVG_VALUE_NONE);
 		        else
-		        	if(fillStyle.equals(FillingStyle.GRAD)) {
+		        	if(fillStyle==FillingStyle.GRAD) {
 		        		final Element grad 		= new SVGLinearGradientElement(doc);
 		        		Element stop;
 		        		final String id 		= SVGElements.SVG_LINEAR_GRADIENT + shape.getId();

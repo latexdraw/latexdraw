@@ -400,13 +400,13 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 				final Stroke oldStroke = g.getStroke();
 				final double hAngle	 = shape.getHatchingsAngle();
 
-				if(fStyle.equals(FillingStyle.VLINES) || fStyle.equals(FillingStyle.VLINES_PLAIN))
+				if(fStyle==FillingStyle.VLINES || fStyle==FillingStyle.VLINES_PLAIN)
 					paintHatchings2(g, hAngle, bounds);
 				else
-					if(fStyle.equals(FillingStyle.HLINES) || fStyle.equals(FillingStyle.HLINES_PLAIN))
+					if(fStyle==FillingStyle.HLINES || fStyle==FillingStyle.HLINES_PLAIN)
 					paintHatchings2(g, hAngle>0?hAngle-Math.PI/2.:hAngle+Math.PI/2., bounds);
 				else
-					if(fStyle.equals(FillingStyle.CLINES) || fStyle.equals(FillingStyle.CLINES_PLAIN)) {
+					if(fStyle==FillingStyle.CLINES || fStyle==FillingStyle.CLINES_PLAIN) {
 						paintHatchings2(g, hAngle, bounds);
 						paintHatchings2(g, hAngle>0?hAngle-Math.PI/2.:hAngle+Math.PI/2., bounds);
 					}

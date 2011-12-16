@@ -537,8 +537,8 @@ abstract class LShape implements IShape {
 		boolean dblbndOk = false;
 		boolean shadowOk = false;
 		boolean lineOk = !s.isLineStylable() || !isLineStylable() ||
-		(lineStyle.equals(s.getLineStyle()) && LNumber.INSTANCE.equals(thickness, s.getThickness()) &&
-		lineStyle.equals(s.getLineStyle()) && LNumber.INSTANCE.equals(dotSep, s.getDotSep()) &&
+		(lineStyle==s.getLineStyle() && LNumber.INSTANCE.equals(thickness, s.getThickness()) &&
+		lineStyle==s.getLineStyle() && LNumber.INSTANCE.equals(dotSep, s.getDotSep()) &&
 		LNumber.INSTANCE.equals(dashSepBlack, s.getDashSepBlack()) && LNumber.INSTANCE.equals(dashSepWhite, s.getDashSepWhite()));
 
 		if(lineOk && LNumber.INSTANCE.equals(rotationAngle, s.getRotationAngle()) && LNumber.INSTANCE.equals(opacity, s.getOpacity())) {
@@ -552,7 +552,7 @@ abstract class LShape implements IShape {
 
 				if(filledOk) {
 					hatchOk = !s.isFillable() || !isFillable() ||
-							  ((s.getFillingStyle().equals(fillingStyle) && (!hasHatchings() ||
+							  ((s.getFillingStyle()==fillingStyle && (!hasHatchings() ||
 							  (LNumber.INSTANCE.equals(s.getHatchingsAngle(), hatchingsAngle) && s.getHatchingsCol().equals(hatchingsCol) &&
 							  LNumber.INSTANCE.equals(s.getHatchingsSep(), hatchingsSep) && s.getHatchingsWidth()==hatchingsWidth))) &&
 						      (hasGradient()==s.hasGradient() &&(!hasGradient() ||

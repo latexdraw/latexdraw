@@ -165,7 +165,7 @@ class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
         }
 
         // The background of the borders must be filled is there is a shadow.
-        if(shape.hasShadow() && !shape.getLineStyle().equals(LineStyle.NONE)) {
+        if(shape.hasShadow() && shape.getLineStyle()!=LineStyle.NONE) {
             elt = new SVGPathElement(doc);
             elt.setAttribute(SVGAttributes.SVG_D, path.toString());
             setSVGBorderBackground(elt, root);
