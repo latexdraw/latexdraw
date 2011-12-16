@@ -116,7 +116,7 @@ public class LCanvas extends MPanel implements ICanvas {
 		modified			= false;
 		userSelectionBorder	= null;
 		magneticGrid 		= new LMagneticGrid(0, 0, this);
-		borderIns			= new Border(this, drawing, magneticGrid);
+		borderIns			= new Border(this);
 		border				= new Rectangle2D.Double();
 		views 				= new ArrayList<IViewShape>();
 		tempView			= new ActiveUnary<IViewShape>();

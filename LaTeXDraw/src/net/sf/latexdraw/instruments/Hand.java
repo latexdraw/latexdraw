@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
@@ -100,6 +101,7 @@ public class Hand extends Instrument {
 	public void interimFeedback() {
 		// The rectangle used for the interim feedback of the selection is removed.
 		canvas.setTempUserSelectionBorder(null);
+		canvas.setCursor(Cursor.getDefaultCursor());
 	}
 }
 
@@ -173,6 +175,13 @@ class DnD2Translate extends Link<TranslateShapes, DnD, Hand> {
 		return  !instrument.canvas.getDrawing().getSelection().isEmpty() &&
 				((startObject==instrument.canvas && button==MouseEvent.BUTTON3) ||
 				 (startObject instanceof IViewShape && (button==MouseEvent.BUTTON1 || button==MouseEvent.BUTTON3)));
+	}
+
+
+	@Override
+	public void interimFeedback() {
+		super.interimFeedback();
+		instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 	}
 }
 

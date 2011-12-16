@@ -152,4 +152,13 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 		if(sy>0)
 			this.sy = sy;
 	}
+
+
+	/**
+	 * @return The direction of the scaling.
+	 * @since 3.0
+	 */
+	public Position getPosition() {
+		return position;
+	}
 }

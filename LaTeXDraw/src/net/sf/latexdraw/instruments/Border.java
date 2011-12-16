@@ -2,6 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Point2D;
@@ -28,7 +29,7 @@ import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
-import net.sf.latexdraw.glib.ui.LMagneticGrid;
+import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape;
@@ -41,7 +42,6 @@ import org.malai.interaction.library.DnD;
 import org.malai.mapping.MappingRegistry;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-import org.malai.properties.Zoomable;
 
 /**
  * This instrument manages the selected views.<br>
@@ -96,33 +96,23 @@ public class Border extends Instrument implements Picker {
 	/** The handler that rotates shapes. */
 	protected IHandler rotHandler;
 
-	/** The object that contain the zoom used to display shapes and thus the border. */
-	protected Zoomable zoomable;
-
-	/** The drawing containing the shapes to handle. */
-	protected IDrawing drawing;
-
-	/** The magnetic grid used to create shapes. */
-	protected LMagneticGrid grid;
+	/** The canvas that contains the border. */
+	protected ICanvas canvas;
 
 
 
 	/**
 	 * Creates and initialises the border.
-	 * @param zoomable The object that manages the zoom.
-	 * @param drawing The drawing containing the model of the application.
-	 * @param grid The magnetic grid used to compute points.
+	 * @param canvas The canvas that contains the border.
 	 * @since 3.0
 	 */
-	public Border(final Zoomable zoomable, final IDrawing drawing, final LMagneticGrid grid) {
+	public Border(final ICanvas canvas) {
 		super();
 
-		if(zoomable==null || drawing==null || grid==null)
+		if(canvas==null)
 			throw new IllegalArgumentException();
 
-		this.grid		= grid;
-		this.zoomable	= zoomable;
-		this.drawing	= drawing;
+		this.canvas		= canvas;
 		selection 		= new ArrayList<IViewShape>();
 		border	  		= new Rectangle2D.Double();
 		scaleHandlers  	= new ArrayList<IHandler>();
@@ -154,6 +144,12 @@ public class Border extends Instrument implements Picker {
 	}
 
 
+	@Override
+	public void interimFeedback() {
+		canvas.setCursor(Cursor.getDefaultCursor());
+	}
+
+
 	/**
 	 * Updates the bounding rectangle using the selected views.
 	 * @since 3.0
@@ -162,7 +158,7 @@ public class Border extends Instrument implements Picker {
 		if(selection.isEmpty())
 			border.setFrame(0, 0, 1, 1);
 		else {
-			final double zoomLevel = zoomable.getZoom();
+			final double zoomLevel = canvas.getZoom();
 			double minX = Double.MAX_VALUE;
 			double minY = Double.MAX_VALUE;
 			double maxX = Double.MIN_VALUE;
@@ -228,8 +224,8 @@ public class Border extends Instrument implements Picker {
 
 			if(sh instanceof IArc) {
 				final IArc arc = (IArc)sh;
-				arcHandlerStart.updateFromArc(arc, zoomable.getZoom());
-				arcHandlerEnd.updateFromArc(arc, zoomable.getZoom());
+				arcHandlerStart.updateFromArc(arc, canvas.getZoom());
+				arcHandlerEnd.updateFromArc(arc, canvas.getZoom());
 			}
 		}
 	}
@@ -251,7 +247,7 @@ public class Border extends Instrument implements Picker {
 
 
 	private void initialiseCtrlMvHandlers(final IControlPointShape cps) {
-		final double zoom = zoomable.getZoom();
+		final double zoom = canvas.getZoom();
 		final int nbPts   = cps.getNbPoints();
 		IPoint pt;
 
@@ -295,7 +291,7 @@ public class Border extends Instrument implements Picker {
 			if(sh instanceof IModifiablePointsShape) {
 				final IModifiablePointsShape pts = (IModifiablePointsShape)sh;
 				final int nbPts 				 = pts.getNbPoints();
-				final double zoom	  			 = zoomable.getZoom();
+				final double zoom	  			 = canvas.getZoom();
 				IPoint pt;
 
 				if(mvPtHandlers==null)
@@ -474,7 +470,7 @@ public class Border extends Instrument implements Picker {
 		Pickable pickable;
 
 		if(activated) {
-			final double zoom = zoomable.getZoom();
+			final double zoom = canvas.getZoom();
 			final double x2 = x*zoom;
 			final double y2 = y*zoom;
 			pickable = getHandlerAt(x2, y2, scaleHandlers);
@@ -551,7 +547,7 @@ public class Border extends Instrument implements Picker {
 
 		@Override
 		public void initAction() {
-			final IGroup group = instrument.drawing.getSelection();
+			final IGroup group = instrument.canvas.getDrawing().getSelection();
 
 			if(group.size()==1 && group.getShapeAt(0) instanceof IControlPointShape) {
 				CtrlPointHandler handler = getCtrlPtHandler();
@@ -572,7 +568,7 @@ public class Border extends Instrument implements Picker {
 			final double x 		= sourcePt.getX() + endPt.getX()-startPt.getX();
 			final double y 		= sourcePt.getY() + endPt.getY()-startPt.getY();
 
-			action.setNewCoord(instrument.grid.getTransformedPointToGrid(instrument.zoomable.getZoomedPoint(x, y)));
+			action.setNewCoord(instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(x, y)));
 		}
 
 
@@ -615,7 +611,7 @@ public class Border extends Instrument implements Picker {
 
 		@Override
 		public void initAction() {
-			final IGroup group = instrument.drawing.getSelection();
+			final IGroup group = instrument.canvas.getDrawing().getSelection();
 
 			if(group.size()==1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
 				MovePtHandler handler = getMovePtHandler();
@@ -635,7 +631,7 @@ public class Border extends Instrument implements Picker {
 			final double x 		= sourcePt.getX() + endPt.getX()-startPt.getX();
 			final double y 		= sourcePt.getY() + endPt.getY()-startPt.getY();
 
-			action.setNewCoord(instrument.grid.getTransformedPointToGrid(instrument.zoomable.getZoomedPoint(x, y)));
+			action.setNewCoord(instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(x, y)));
 		}
 
 
@@ -678,12 +674,13 @@ public class Border extends Instrument implements Picker {
 
 		@Override
 		public void initAction() {
-			final IPoint br = instrument.drawing.getSelection().getBottomRightPoint();
-			final IPoint tl = instrument.drawing.getSelection().getTopLeftPoint();
+			final IDrawing drawing = instrument.canvas.getDrawing();
+			final IPoint br = drawing.getSelection().getBottomRightPoint();
+			final IPoint tl = drawing.getSelection().getTopLeftPoint();
 
-			action.setDrawing(instrument.drawing);
+			action.setDrawing(drawing);
 			action.setPosition(getScaleHandler().getPosition().getOpposite());
-			p1 		= instrument.grid.getTransformedPointToGrid(instrument.zoomable.getZoomedPoint(interaction.getStartPt()));
+			p1 		= instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt()));
 			width  	= br.getX()-tl.getX();
 			height 	= br.getY()-tl.getY();
 		}
@@ -693,7 +690,7 @@ public class Border extends Instrument implements Picker {
 		public void updateAction() {
 			super.updateAction();
 
-			final IPoint pt = instrument.grid.getTransformedPointToGrid(instrument.zoomable.getZoomedPoint(interaction.getEndPt()));
+			final IPoint pt = instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getEndPt()));
 			final double x = pt.getX() - p1.getX();
 			final double y = p1.getY() - pt.getY();
 			double width2  = width;
@@ -718,6 +715,22 @@ public class Border extends Instrument implements Picker {
 		@Override
 		public boolean isConditionRespected() {
 			return getScaleHandler()!=null;
+		}
+
+
+		@Override
+		public void interimFeedback() {
+			super.interimFeedback();
+			switch(action.getPosition()) {
+				case EAST: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR)); break;
+				case NE: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR)); break;
+				case NORTH: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR)); break;
+				case NW: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR)); break;
+				case SE: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR)); break;
+				case SOUTH: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR)); break;
+				case SW: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR)); break;
+				case WEST: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR)); break;
+			}
 		}
 
 

@@ -1,9 +1,15 @@
 package net.sf.latexdraw.glib.ui;
 
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
+
+import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
+import net.sf.latexdraw.instruments.Border;
 
 import org.malai.action.ActionHandler;
 import org.malai.interaction.Eventable;
@@ -12,11 +18,6 @@ import org.malai.picking.Picker;
 import org.malai.presentation.ConcretePresentation;
 import org.malai.properties.Zoomable;
 import org.malai.widget.Scrollable;
-
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
-import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
-import net.sf.latexdraw.instruments.Border;
 
 /**
  * Defines an interface for a canvas that draw the drawing and manages the selected shapes.<br>
@@ -37,6 +38,13 @@ import net.sf.latexdraw.instruments.Border;
  * @since 3.0
  */
 public interface ICanvas extends Zoomable, ConcretePresentation, Scrollable, Eventable, ViewsSynchroniserHandler, ActionHandler, Picker, Pickable {
+	/**
+	 * Changes the cursor of the canvas.
+	 * @param cursor The new canvas. Cannot be null.
+	 * @since 3.0
+	 */
+	void setCursor(final Cursor cursor);
+
 	/**
 	 * @return The model of the canvas.
 	 * @since 3.0
