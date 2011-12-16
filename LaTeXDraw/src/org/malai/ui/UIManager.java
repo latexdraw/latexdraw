@@ -2,8 +2,8 @@ package org.malai.ui;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
@@ -35,7 +35,7 @@ public final class UIManager implements WindowFocusListener {
 	public static final UIManager INSTANCE = new UIManager();
 
 	/** The UI registered. */
-	private List<UI> uiRegistered;
+	private Set<UI> uiRegistered;
 
 	/**
 	 * Creates the register.
@@ -54,7 +54,7 @@ public final class UIManager implements WindowFocusListener {
 	public void registerUI(final UI ui) {
 		if(ui!=null) {
 			if(uiRegistered==null)
-				uiRegistered = new ArrayList<UI>();
+				uiRegistered = new HashSet<UI>();
 
 			if(!uiRegistered.contains(ui)) {
 				uiRegistered.add(ui);

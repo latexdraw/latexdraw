@@ -3,14 +3,14 @@ package net.sf.latexdraw.glib.views.pst;
 import static java.lang.Math.toDegrees;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.views.AbstractCodeView;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
@@ -37,7 +37,7 @@ import net.sf.latexdraw.util.LNumber;
 abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	/** The list of name of the colours added to the generated code. Useful when generating
 	 * the code to define the colours in the latex document. */
-	protected List<String> coloursName;
+	protected Set<String> coloursName;
 
 
 	/**
@@ -59,7 +59,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	protected void addColour(final String name) {
 		if(name!=null) {
 			if(coloursName==null)
-				coloursName = new ArrayList<String>();
+				coloursName = new HashSet<String>();
 			if(!coloursName.contains(name))
 				coloursName.add(name);
 		}

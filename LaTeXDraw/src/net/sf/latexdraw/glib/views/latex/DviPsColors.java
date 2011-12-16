@@ -1,9 +1,7 @@
 package net.sf.latexdraw.glib.views.latex;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -193,15 +191,15 @@ public final class DviPsColors  {
 
 	public static final DviPsColors INSTANCE 	= new DviPsColors();
 
-	/** The colours defined by the user. */
-	private List<Color> usercolors 	 		= new ArrayList<Color>();
+	private Map<String, Color> colourHT 		= new HashMap<String, Color>();
 
-	/** The name of the colours defined by the user. */
-	private List<String> userNamecolors 		= new ArrayList<String>();
-
-	private Map<String, Color> colourHT 		= new Hashtable<String, Color>();
-
-	private Map<Color, String> nameColourHT 	= new Hashtable<Color, String>();
+	private Map<Color, String> nameColourHT 	= new HashMap<Color, String>();
+	
+	/** The colours defined by the user and their name. */
+	private Map<String, Color> userColourHT 		= new HashMap<String, Color>();
+	
+	/** The colours defined by the user and their name. */
+	private Map<Color, String> userNameColourHT 	= new HashMap<Color, String>();
 
 	/** The counter is used to name the user defined colours. */
 	private int ctColours;
@@ -420,9 +418,8 @@ public final class DviPsColors  {
 
 		String name = nameColourHT.get(colour);
 
-		for(int i=0, size = usercolors.size(); name==null && i<size; i++)
-			if(colour.equals(usercolors.get(i)))
-				name = userNamecolors.get(i);
+		if(name==null)
+			name = userNameColourHT.get(colour);
 
 		return name;
 	}
@@ -439,10 +436,9 @@ public final class DviPsColors  {
 		if(name==null || name.length()==0) return null;
 
 		Color c = colourHT.get(name);
-
-		for(int i=0, size = usercolors.size(); c==null && i<size; i++)
-			if(name.equals(userNamecolors.get(i)))
-				c = usercolors.get(i);
+		
+		if(c==null)
+			c = userColourHT.get(name);
 
 		return c;
 	}
@@ -458,8 +454,8 @@ public final class DviPsColors  {
 	public String addUserColour(final Color colour) {
 		final String name = generateColourName();
 
-		usercolors.add(colour);
-		userNamecolors.add(name);
+		userColourHT.put(name, colour);
+		userNameColourHT.put(colour, name);
 
 		return name;
 	}

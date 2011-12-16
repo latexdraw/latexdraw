@@ -355,11 +355,12 @@ public class Border extends Instrument implements Picker {
 			for(final IHandler mvHandler : mvPtHandlers)
 				mvHandler.paint(g);
 
-			if(isCtrlPtMvHandlersShowable())
-				for(int i=0, size=ctrlPt1Handlers.size(); i<size; i++) {
-					ctrlPt1Handlers.get(i).paint(g);
-					ctrlPt2Handlers.get(i).paint(g);
-				}
+			if(isCtrlPtMvHandlersShowable()) {
+				for(final IHandler handler : ctrlPt1Handlers)
+					handler.paint(g);
+				for(final IHandler handler : ctrlPt2Handlers)
+					handler.paint(g);
+			}
 		}
 	}
 
@@ -559,7 +560,7 @@ public class Border extends Instrument implements Picker {
 				sourcePt = DrawingTK.getFactory().createPoint(handler.getCentre());
 				action.setIndexPt(handler.getIndexPt());
 				action.setShape((IControlPointShape)group.getShapeAt(0));
-				action.setIsFirstCtrlPt(getCtrlPtHandler(instrument.ctrlPt1Handlers, interaction.getStartObject())!=null);
+				action.setIsFirstCtrlPt(instrument.ctrlPt1Handlers.contains(interaction.getStartObject()));
 			}
 		}
 
@@ -592,21 +593,10 @@ public class Border extends Instrument implements Picker {
 			CtrlPointHandler handler = null;
 
 			if(obj instanceof CtrlPointHandler) {
-				handler = getCtrlPtHandler(instrument.ctrlPt1Handlers, obj);
+				handler = (CtrlPointHandler)(instrument.ctrlPt1Handlers.contains(obj) ? obj : null);
 				if(handler==null)
-					handler = getCtrlPtHandler(instrument.ctrlPt2Handlers, obj);
+					handler = (CtrlPointHandler)(instrument.ctrlPt2Handlers.contains(obj) ? obj : null);
 			}
-
-			return handler;
-		}
-
-
-		private CtrlPointHandler getCtrlPtHandler(final List<IHandler> list, final Object obj) {
-			CtrlPointHandler handler = null;
-
-			for(int i=0, size=list.size(); i<size && handler==null; i++)
-				if(list.get(i)==obj)
-					handler = (CtrlPointHandler)obj;
 
 			return handler;
 		}
@@ -663,14 +653,7 @@ public class Border extends Instrument implements Picker {
 		 */
 		private MovePtHandler getMovePtHandler() {
 			final Object obj = interaction.getStartObject();
-			MovePtHandler handler = null;
-
-			if(obj instanceof MovePtHandler)
-				for(int i=0, size=instrument.mvPtHandlers.size(); i<size && handler==null; i++)
-					if(instrument.mvPtHandlers.get(i)==obj)
-						handler = (MovePtHandler)obj;
-
-			return handler;
+			return obj instanceof MovePtHandler && instrument.mvPtHandlers.contains(obj) ? (MovePtHandler)obj : null;
 		}
 	}
 
@@ -742,14 +725,7 @@ public class Border extends Instrument implements Picker {
 
 		private ScaleHandler getScaleHandler() {
 			final Object obj = interaction.getStartObject();
-			ScaleHandler handler = null;
-
-			if(obj instanceof ScaleHandler)
-				for(int i=0, size=instrument.scaleHandlers.size(); i<size && handler==null; i++)
-					if(instrument.scaleHandlers.get(i)==obj)
-						handler = (ScaleHandler)obj;
-
-			return handler;
+			return obj instanceof ScaleHandler && instrument.scaleHandlers.contains(obj) ? (ScaleHandler)obj : null;
 		}
 	}
 }
