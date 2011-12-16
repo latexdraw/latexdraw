@@ -115,9 +115,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 
 	@Override
-	protected void finalize() throws Throwable {
+	protected void finalize() {
 		flush();
-		super.finalize();
 	}
 
 
