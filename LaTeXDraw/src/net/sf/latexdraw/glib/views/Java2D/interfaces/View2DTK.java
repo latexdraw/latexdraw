@@ -18,7 +18,11 @@ package net.sf.latexdraw.glib.views.Java2D.interfaces;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class View2DTK {
+public final class View2DTK {
+	private View2DTK() {
+		super();
+	}
+	
 	/** The current view factory. */
 	protected static IViewsFactory factory = null;
 	

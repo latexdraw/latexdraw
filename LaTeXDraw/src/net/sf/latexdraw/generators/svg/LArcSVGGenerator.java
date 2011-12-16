@@ -77,7 +77,7 @@ class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
 		IArrow arr1	= shape.getArrowAt(0);
 		IArrow arr2	= shape.getArrowAt(1);
 
-		if(elt==null || elt2==null || !(elt2 instanceof SVGPathElement))
+		if(elt==null || !(elt2 instanceof SVGPathElement))
 			throw new IllegalArgumentException();
 
 		SVGPathElement main = (SVGPathElement)elt2;

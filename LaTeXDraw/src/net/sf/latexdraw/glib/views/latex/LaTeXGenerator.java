@@ -50,7 +50,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * The latex packages used when exporting using latex.
 	 * These packages are defined for the current document but not for all documents.
 	 */
-	protected static IUnary<String> packages = new ActiveUnary<String>("");
+	protected static final IUnary<String> PACKAGES = new ActiveUnary<String>("");
 
 
 
@@ -60,7 +60,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 */
 	public static void setPackages(final String packages) {
 		if(packages!=null && !packages.equals(getPackages()))
-			LaTeXGenerator.packages.setValue(packages);
+			LaTeXGenerator.PACKAGES.setValue(packages);
 	}
 
 
@@ -69,7 +69,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @since 3.0
 	 */
 	public static String getPackages() {
-		return packages.getValue();
+		return PACKAGES.getValue();
 	}
 
 
@@ -78,7 +78,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @since 3.0
 	 */
 	public static IUnary<String> getPackagesUnary() {
-		return packages;
+		return PACKAGES;
 	}
 
 

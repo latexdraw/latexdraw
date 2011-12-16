@@ -145,7 +145,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	protected void update(final IShape shape) {
 		final boolean isText = shape instanceof IText;
 		final boolean isGroup = shape instanceof IGroup;
-		final boolean visible = isText && (!isGroup || (isGroup && ((IGroup)shape).containsTexts()));
+		final boolean visible = isText && (!isGroup || ((IGroup)shape).containsTexts());
 
 		setWidgetsVisible(visible);
 

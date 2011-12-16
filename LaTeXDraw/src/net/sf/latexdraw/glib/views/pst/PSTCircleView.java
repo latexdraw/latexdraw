@@ -53,11 +53,11 @@ class PSTCircleView extends PSTEllipseView {
 		if(rotation!=null)
 			cache.append(rotation);
 
-		cache.append("\\pscircle[");			//$NON-NLS-1$
+		cache.append("\\pscircle["); //$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc));
-		cache.append("](");						//$NON-NLS-1$
+		cache.append(']').append('(');
 		cache.append((float)LNumber.INSTANCE.getCutNumber(x/ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(y/ppc)).append("){");	//$NON-NLS-1$
+		cache.append((float)LNumber.INSTANCE.getCutNumber(y/ppc)).append(')').append('{');
 		cache.append((float)LNumber.INSTANCE.getCutNumber(radius/ppc)).append('}');
 
 		if(rotation!=null)

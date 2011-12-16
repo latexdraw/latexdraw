@@ -929,8 +929,8 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.2
 	 */
 	public void setStrokeLineCap(final String svgLineCap) {
-		if(svgLineCap!=null && (svgLineCap==SVGAttributes.SVG_LINECAP_VALUE_BUTT || svgLineCap==SVGAttributes.SVG_LINECAP_VALUE_ROUND ||
-		   svgLineCap==SVGAttributes.SVG_LINECAP_VALUE_SQUARE))
+		if(SVGAttributes.SVG_LINECAP_VALUE_BUTT.equals(svgLineCap) || SVGAttributes.SVG_LINECAP_VALUE_ROUND.equals(svgLineCap) || 
+		   SVGAttributes.SVG_LINECAP_VALUE_SQUARE.equals(svgLineCap))
 			setAttribute(getUsablePrefix()+SVGAttributes.SVG_STROKE_LINECAP, svgLineCap);
 	}
 
@@ -976,8 +976,8 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.2
 	 */
 	public void setStrokeLineJoin(final String svgLineJoin) {
-		if(svgLineJoin!=null && (svgLineJoin==SVGAttributes.SVG_LINEJOIN_VALUE_BEVEL || svgLineJoin==SVGAttributes.SVG_LINEJOIN_VALUE_MITER ||
-		   svgLineJoin==SVGAttributes.SVG_LINEJOIN_VALUE_ROUND))
+		if(SVGAttributes.SVG_LINEJOIN_VALUE_BEVEL.equals(svgLineJoin) || SVGAttributes.SVG_LINEJOIN_VALUE_MITER.equals(svgLineJoin) ||
+		   SVGAttributes.SVG_LINEJOIN_VALUE_ROUND.equals(svgLineJoin))
 				setAttribute(getUsablePrefix()+SVGAttributes.SVG_STROKE_LINEJOIN, svgLineJoin);
 	}
 

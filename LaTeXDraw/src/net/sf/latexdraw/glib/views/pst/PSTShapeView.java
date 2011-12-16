@@ -123,7 +123,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 		final ArrowStyle style = arrow.getArrowStyle();
 
 		if(style.isBar() || style.isRoundBracket() || style.isSquareBracket()) {
-			code.append("tbarsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getTBarSizeDim()/IShape.PPC)).append("cm ").
+			code.append("tbarsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getTBarSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
 			append(LNumber.INSTANCE.getCutNumber(arrow.getTBarSizeNum()));
 
 			if(style.isSquareBracket())
@@ -132,11 +132,11 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 				code.append(",rbracketlength=").append(LNumber.INSTANCE.getCutNumber(arrow.getRBracketNum()));
 		}
 		else if(style.isArrow())
-			code.append("arrowsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getArrowSizeDim()/IShape.PPC)).append("cm ").
+			code.append("arrowsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getArrowSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
 				 append(LNumber.INSTANCE.getCutNumber(arrow.getArrowSizeNum())).append(",arrowlength=").
 				 append(LNumber.INSTANCE.getCutNumber(arrow.getArrowLength())).append(",arrowinset=").append(LNumber.INSTANCE.getCutNumber(arrow.getArrowInset()));
 		else
-			code.append("dotsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getDotSizeDim()/IShape.PPC)).append("cm ").
+			code.append("dotsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getDotSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
 				 append(LNumber.INSTANCE.getCutNumber(arrow.getDotSizeNum()));
 
 		return code;
@@ -318,7 +318,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 				code.append(PSTricksConstants.LINE_DOTTED_STYLE);
 				code.append(", dotsep=");//$NON-NLS-1$
 				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDotSep()/ppc));
-				code.append("cm"); //$NON-NLS-1$
+				code.append(PSTricksConstants.TOKEN_CM);
 				break;
 
 			case DASHED:
@@ -326,9 +326,9 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 				code.append(PSTricksConstants.LINE_DASHED_STYLE);
 				code.append(", dash=");//$NON-NLS-1$
 				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDashSepBlack()/ppc));
-				code.append("cm "); //$NON-NLS-1$
+				code.append(PSTricksConstants.TOKEN_CM).append(' ');
 				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDashSepWhite()/ppc));
-				code.append("cm"); //$NON-NLS-1$
+				code.append(PSTricksConstants.TOKEN_CM);
 				break;
 
 			case SOLID:

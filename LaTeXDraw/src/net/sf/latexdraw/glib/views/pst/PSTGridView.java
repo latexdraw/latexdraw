@@ -65,7 +65,7 @@ class PSTGridView extends PSTShapeView<IGrid> {
 			params.append(", gridlabelcolor=").append(getColourName(gridLabelsColor)); //$NON-NLS-1$
 
 		if(!LNumber.INSTANCE.equals(unit, PSTricksConstants.DEFAULT_UNIT))
-			params.append(", unit=").append(LNumber.INSTANCE.getCutNumber((float)unit)).append("cm"); //$NON-NLS-1$ //$NON-NLS-2$
+			params.append(", unit=").append(LNumber.INSTANCE.getCutNumber((float)unit)).append(PSTricksConstants.TOKEN_CM); //$NON-NLS-1$
 
 		if(!linesColor.equals(PSTricksConstants.DEFAULT_GRIDCOLOR))
 			params.append(", gridcolor=").append(getColourName(linesColor)); //$NON-NLS-1$
@@ -121,7 +121,7 @@ class PSTGridView extends PSTShapeView<IGrid> {
 		coord.append('(').append(endX).append(',').append(endY).append(')');
 
 		if(!LNumber.INSTANCE.equals(unit, PSTricksConstants.DEFAULT_UNIT))
-			end.append("\n\\psset{unit=").append(PSTricksConstants.DEFAULT_UNIT).append("cm}");//$NON-NLS-1$ //$NON-NLS-2$
+			end.append("\n\\psset{unit=").append(PSTricksConstants.DEFAULT_UNIT).append(PSTricksConstants.TOKEN_CM).append('}');//$NON-NLS-1$
 
 		if(!LNumber.INSTANCE.equals(position.getX(), 0.) || !LNumber.INSTANCE.equals(position.getY(), 0.)) {
 			float posX = (float)LNumber.INSTANCE.getCutNumber((position.getX()-d.getX())/ppc);

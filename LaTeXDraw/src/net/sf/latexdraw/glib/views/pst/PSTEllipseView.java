@@ -53,9 +53,9 @@ class PSTEllipseView extends PSTClassicalView<IEllipse> {
 
 		cache.append("\\psellipse[");			//$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc));
-		cache.append("](");						//$NON-NLS-1$
+		cache.append(']').append('(');
 		cache.append((float)LNumber.INSTANCE.getCutNumber(x/ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(y/ppc)).append(")(");	//$NON-NLS-1$
+		cache.append((float)LNumber.INSTANCE.getCutNumber(y/ppc)).append(')').append('(');
 		cache.append((float)LNumber.INSTANCE.getCutNumber(shape.getRx()/ppc)).append(',');
 		cache.append((float)LNumber.INSTANCE.getCutNumber(shape.getRy()/ppc)).append(')');
 

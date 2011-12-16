@@ -91,7 +91,7 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		if(!LNumber.INSTANCE.equals(positionx, 0.) || !LNumber.INSTANCE.equals(positiony, 0.)) {
 			end.append('}');
 			start.append("\\rput(").append((float)LNumber.INSTANCE.getCutNumber((positionx-origDrawing.getX())/ppc)).append(','); //$NON-NLS-1$
-			start.append((float)LNumber.INSTANCE.getCutNumber((origDrawing.getY()-positiony)/ppc)).append("){").append(start); //$NON-NLS-1$
+			start.append((float)LNumber.INSTANCE.getCutNumber((origDrawing.getY()-positiony)/ppc)).append(')').append('{').append(start);
 		}
 
 		if(rot!=null) {
@@ -193,13 +193,13 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 				break;
 		}
 
-		params.append(", ticksize=").append((float)LNumber.INSTANCE.getCutNumber(shape.getTicksSize()/ppc)).append("cm");//$NON-NLS-1$//$NON-NLS-2$
+		params.append(", ticksize=").append((float)LNumber.INSTANCE.getCutNumber(shape.getTicksSize()/ppc)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
 		if(!LNumber.INSTANCE.equals(distLabelsX, 0.))
-			params.append(", dx=").append((float)LNumber.INSTANCE.getCutNumber(distLabelsX)).append("cm");//$NON-NLS-1$//$NON-NLS-2$
+			params.append(", dx=").append((float)LNumber.INSTANCE.getCutNumber(distLabelsX)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
 		if(!LNumber.INSTANCE.equals(distLabelsY, 0.))
-			params.append(", dy=").append((float)LNumber.INSTANCE.getCutNumber(distLabelsY)).append("cm");//$NON-NLS-1$//$NON-NLS-2$
+			params.append(", dy=").append((float)LNumber.INSTANCE.getCutNumber(distLabelsY)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
 		if(!LNumber.INSTANCE.equals(incrementx, PSTricksConstants.DEFAULT_DX))
 			params.append(", Dx=").append(LNumber.INSTANCE.equals(incrementx, incrementx) ? String.valueOf((int)incrementx): //$NON-NLS-1$
@@ -221,7 +221,7 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		cache.append(start);
 		cache.append("\\psaxes[");//$NON-NLS-1$
 		cache.append(params);
-		cache.append("]");//$NON-NLS-1$
+		cache.append(']');
 		cache.append(coord);
 		cache.append(end);
 	}
