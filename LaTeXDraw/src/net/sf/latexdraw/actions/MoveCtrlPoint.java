@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions;
 
 import org.malai.undo.Undoable;
 
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 
@@ -27,6 +28,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 	/** The control point shape to modify. */
 	protected IControlPointShape shape;
 
+	/** True: it is a first control point which is moved. */
 	protected boolean isFirstCtrlPt;
 
 
@@ -48,6 +50,9 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 	}
 
 
+	/**
+	 * @return The first or second control point moved.
+	 */
 	protected IPoint getPoint() {
 		return isFirstCtrlPt ? shape.getFirstCtrlPtAt(indexPt) : shape.getSecondCtrlPtAt(indexPt);
 	}
@@ -66,39 +71,33 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 	}
 
 
-	@Override
-	public void undo() {
-		final IPoint pt = getPoint();
-		if(isFirstCtrlPt) {
-			shape.setXFirstCtrlPt(pt.getX()-tx, indexPt);
-			shape.setYFirstCtrlPt(pt.getY()-ty, indexPt);
-		}
-		else {
-			shape.setXSecondCtrlPt(pt.getX()-tx, indexPt);
-			shape.setYSecondCtrlPt(pt.getY()-ty, indexPt);
-		}
+	protected void move(final IPoint firstPt, final IPoint sndPt) {
+		shape.setXFirstCtrlPt(firstPt.getX(), indexPt);
+		shape.setYFirstCtrlPt(firstPt.getY(), indexPt);
+		shape.setXSecondCtrlPt(sndPt.getX(), indexPt);
+		shape.setYSecondCtrlPt(sndPt.getY(), indexPt);
 		shape.setModified(true);
 	}
 
 
 	@Override
-	public void redo() {
-		IPoint p1;
-		IPoint p2;
-		if(isFirstCtrlPt) {
-			p1 = newCoord;
-			p2 = newCoord.centralSymmetry(shape.getPtAt(indexPt));
-		}
-		else {
-			p1 = newCoord.centralSymmetry(shape.getPtAt(indexPt));
-			p2 = newCoord;
-		}
+	public void undo() {
+		final IPoint pt = DrawingTK.getFactory().createPoint(getPoint());
+		pt.translate(-tx, -ty);
 
-		shape.setXFirstCtrlPt(p1.getX(), indexPt);
-		shape.setYFirstCtrlPt(p1.getY(), indexPt);
-		shape.setXSecondCtrlPt(p2.getX(), indexPt);
-		shape.setYSecondCtrlPt(p2.getY(), indexPt);
-		shape.setModified(true);
+		if(isFirstCtrlPt)
+			move(pt, pt.centralSymmetry(shape.getPtAt(indexPt)));
+		else
+			move(pt.centralSymmetry(shape.getPtAt(indexPt)), pt);
+	}
+
+
+	@Override
+	public void redo() {
+		if(isFirstCtrlPt)
+			move(newCoord, newCoord.centralSymmetry(shape.getPtAt(indexPt)));
+		else
+			move(newCoord.centralSymmetry(shape.getPtAt(indexPt)), newCoord);
 	}
 
 
@@ -109,7 +108,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 
 	/**
-	 * @param isFirstCtrlPt the isFirstCtrl to set.
+	 * @param isFirstCtrlPt True: it is a first control point which is moved.
 	 * @since 3.0
 	 */
 	public void setIsFirstCtrlPt(final boolean isFirstCtrlPt) {
