@@ -85,6 +85,7 @@ public class PictureChooser extends JDialog implements ActionListener
  		description.setAlignmentX(Component.CENTER_ALIGNMENT);
  		custom.add(description);
  		custom.add(fileChooser);
+ 		description.setLabelFor(fileChooser);
 
  		JPanel buttonsPanel = new JPanel();
  		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));

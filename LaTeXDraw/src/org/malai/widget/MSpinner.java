@@ -55,6 +55,9 @@ public class MSpinner extends JSpinner implements Pickable {
 		super(model);
 		
 		this.label = label;
+
+		if(label!=null)
+			label.setLabelFor(this);
 	}
 
 	

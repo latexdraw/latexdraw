@@ -89,6 +89,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
 		packagesLabel = new JLabel("Packages:");
 		packagesField = new MTextArea(true, true);
+		packagesLabel.setLabelFor(packagesField);
 		Font font = packagesField.getFont();
 		packagesField.setToolTipText("Contains the LaTeX packages that will be used to compile the text.");
 		packagesField.setFont(new Font(font.getName(), font.getStyle(), Math.max(10, font.getSize()-4)));
