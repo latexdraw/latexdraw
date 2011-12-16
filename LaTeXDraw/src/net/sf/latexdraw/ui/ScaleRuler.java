@@ -6,7 +6,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
+import javax.accessibility.Accessible;
+import javax.accessibility.AccessibleContext;
+import javax.accessibility.AccessibleRole;
 import javax.swing.JComponent;
+
+import net.sf.latexdraw.glib.ui.ICanvas;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.interaction.Eventable;
 import org.malai.interaction.SwingEventManager;
@@ -15,10 +22,6 @@ import org.malai.mapping.IUnary;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.widget.WidgetUtilities;
-
-import net.sf.latexdraw.glib.ui.ICanvas;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
-import net.sf.latexdraw.lang.LangTool;
 
 /**
  * This class defines an abstract scale ruler.<br>
@@ -39,7 +42,7 @@ import net.sf.latexdraw.lang.LangTool;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public abstract class ScaleRuler extends JComponent implements Pickable, Eventable {
+public abstract class ScaleRuler extends JComponent implements Pickable, Eventable, Accessible {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -238,4 +241,28 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	public SwingEventManager getEventManager() {
 		return eventManager;
 	}
+
+
+    @Override
+	public AccessibleContext getAccessibleContext() {
+        if(accessibleContext==null)
+            accessibleContext = new AccessibleScaleRuler();
+
+        return accessibleContext;
+    }
+
+
+	/**
+	 * This class implements accessibility support for the
+     * <code>ScaleRuler</code> class. It provides an implementation of the
+     * Java Accessibility API appropriate to panel user-interface elements.
+	 */
+    protected class AccessibleScaleRuler extends AccessibleJComponent {
+		private static final long serialVersionUID = 1L;
+
+        @Override
+		public AccessibleRole getAccessibleRole() {
+            return AccessibleRole.RULER;
+        }
+    }
 }
