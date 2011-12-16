@@ -1,15 +1,13 @@
 package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.util.LNumber;
 
 import org.malai.action.Action;
-import org.malai.undo.Undoable;
 
 /**
- * This action moves points of IModifiablePointsShape.<br>
+ * This abstract action moves any kind of points.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -26,10 +24,7 @@ import org.malai.undo.Undoable;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class MovePoint extends Action implements Undoable {
-	/** The shape to modify. */
-	protected IModifiablePointsShape shape;
-
+public abstract class MovePoint extends Action {
 	/** The index of the point to move. */
 	protected int indexPt;
 
@@ -55,32 +50,8 @@ public class MovePoint extends Action implements Undoable {
 
 
 	@Override
-	protected void doActionBody() {
-		final IPoint pt = shape.getPtAt(indexPt);
-		tx += newCoord.getX() - pt.getX();
-		ty += newCoord.getY() - pt.getY();
-		redo();
-	}
-
-
-	@Override
 	public boolean canDo() {
-		return shape!=null && indexPt>=0 && indexPt<shape.getNbPoints() && GLibUtilities.INSTANCE.isValidPoint(newCoord);
-	}
-
-
-	@Override
-	public void undo() {
-		IPoint pt = shape.getPtAt(indexPt);
-		shape.setPoint(pt.getX()-tx, pt.getY()-ty, indexPt);
-		shape.setModified(true);
-	}
-
-
-	@Override
-	public void redo() {
-		shape.setPoint(newCoord, indexPt);
-		shape.setModified(true);
+		return indexPt>=0 && GLibUtilities.INSTANCE.isValidPoint(newCoord);
 	}
 
 
@@ -88,9 +59,7 @@ public class MovePoint extends Action implements Undoable {
 	public void flush() {
 		super.flush();
 		newCoord 	= null;
-		shape 		= null;
 	}
-
 
 
 	@Override
@@ -102,21 +71,6 @@ public class MovePoint extends Action implements Undoable {
 	@Override
 	public boolean isRegisterable() {
 		return true;
-	}
-
-
-	@Override
-	public String getUndoName() {
-		return "Move Point";
-	}
-
-
-	/**
-	 * @param shape The shape to modify.
-	 * @since 3.0
-	 */
-	public void setShape(final IModifiablePointsShape shape) {
-		this.shape = shape;
 	}
 
 

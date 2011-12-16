@@ -9,10 +9,12 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.latexdraw.actions.MovePoint;
+import net.sf.latexdraw.actions.MoveCtrlPoint;
+import net.sf.latexdraw.actions.MovePointShape;
 import net.sf.latexdraw.actions.ScaleShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.handlers.ArcAngleHandler;
+import net.sf.latexdraw.glib.handlers.CtrlPointHandler;
 import net.sf.latexdraw.glib.handlers.FrameArcHandler;
 import net.sf.latexdraw.glib.handlers.IHandler;
 import net.sf.latexdraw.glib.handlers.MovePtHandler;
@@ -20,7 +22,7 @@ import net.sf.latexdraw.glib.handlers.RotationHandler;
 import net.sf.latexdraw.glib.handlers.ScaleHandler;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
-import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
+import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
@@ -243,16 +245,16 @@ public class Border extends Instrument implements Picker {
 		if(isCtrlPtMvHandlersShowable()) {
 			final IShape sh = selection.get(0).getShape();
 
-			if(sh instanceof IBezierCurve)
+			if(sh instanceof IControlPointShape)
 				// Lazy initialisation
-				initialiseCtrlMvHandlers((IBezierCurve)sh);
+				initialiseCtrlMvHandlers((IControlPointShape)sh);
 		}
 	}
 
 
-	private void initialiseCtrlMvHandlers(final IBezierCurve bc) {
+	private void initialiseCtrlMvHandlers(final IControlPointShape cps) {
 		final double zoom = zoomable.getZoom();
-		final int nbPts   = bc.getNbPoints();
+		final int nbPts   = cps.getNbPoints();
 		IPoint pt;
 
 		if(ctrlPt1Handlers==null) {
@@ -263,8 +265,8 @@ public class Border extends Instrument implements Picker {
 		// Adding missing handlers.
 		if(ctrlPt1Handlers.size()<nbPts)
 			for(int i=ctrlPt1Handlers.size(); i<nbPts; i++) {
-				ctrlPt1Handlers.add(new MovePtHandler(i));
-				ctrlPt2Handlers.add(new MovePtHandler(i));
+				ctrlPt1Handlers.add(new CtrlPointHandler(i));
+				ctrlPt2Handlers.add(new CtrlPointHandler(i));
 			}
 		// Removing extra handlers.
 		else if(ctrlPt1Handlers.size()>nbPts)
@@ -275,9 +277,9 @@ public class Border extends Instrument implements Picker {
 
 		// Updating handlers.
 		for(int i=0, size=ctrlPt1Handlers.size(); i<size; i++) {
-			pt = bc.getFirstCtrlPtAt(i);
+			pt = cps.getFirstCtrlPtAt(i);
 			ctrlPt1Handlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
-			pt = bc.getSecondCtrlPtAt(i);
+			pt = cps.getSecondCtrlPtAt(i);
 			ctrlPt2Handlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
 		}
 	}
@@ -442,6 +444,7 @@ public class Border extends Instrument implements Picker {
 		try{
 			links.add(new DnD2Scale(this));
 			links.add(new DnD2MovePoint(this));
+			links.add(new DnD2MoveCtrlPoint(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -469,31 +472,35 @@ public class Border extends Instrument implements Picker {
 
 	@Override
 	public Pickable getPickableAt(final double x, final double y) {
-		final double zoom = zoomable.getZoom();
-		final double x2 = x*zoom;
-		final double y2 = y*zoom;
-		Pickable pickable = getHandlerAt(x2, y2, scaleHandlers);
+		Pickable pickable;
 
-		if(pickable==null && rotHandler.contains(x2, y2))
-			pickable = rotHandler;
+		if(activated) {
+			final double zoom = zoomable.getZoom();
+			final double x2 = x*zoom;
+			final double y2 = y*zoom;
+			pickable = getHandlerAt(x2, y2, scaleHandlers);
 
-		if(pickable==null)
-			pickable = getHandlerAt(x2, y2, mvPtHandlers);
+			if(pickable==null && rotHandler.contains(x2, y2))
+				pickable = rotHandler;
 
-		if(pickable==null)
-			pickable = getHandlerAt(x2, y2, ctrlPt1Handlers);
+			if(pickable==null)
+				pickable = getHandlerAt(x2, y2, mvPtHandlers);
 
-		if(pickable==null)
-			pickable = getHandlerAt(x2, y2, ctrlPt2Handlers);
+			if(pickable==null)
+				pickable = getHandlerAt(x2, y2, ctrlPt1Handlers);
 
-		if(pickable==null && frameArcHandler!=null && frameArcHandler.contains(x2, y2))
-			pickable = frameArcHandler;
+			if(pickable==null)
+				pickable = getHandlerAt(x2, y2, ctrlPt2Handlers);
 
-		if(pickable==null && arcHandlerStart!=null && arcHandlerStart.contains(x2, y2))
-			pickable = arcHandlerStart;
+			if(pickable==null && frameArcHandler!=null && frameArcHandler.contains(x2, y2))
+				pickable = frameArcHandler;
 
-		if(pickable==null && arcHandlerEnd!=null && arcHandlerEnd.contains(x2, y2))
-			pickable = arcHandlerEnd;
+			if(pickable==null && arcHandlerStart!=null && arcHandlerStart.contains(x2, y2))
+				pickable = arcHandlerStart;
+
+			if(pickable==null && arcHandlerEnd!=null && arcHandlerEnd.contains(x2, y2))
+				pickable = arcHandlerEnd;
+		} else pickable = null;
 
 		return pickable;
 	}
@@ -530,15 +537,92 @@ public class Border extends Instrument implements Picker {
 	}
 
 
+
+	/**
+	 * This link maps a DnD interaction on a move control point handler to an action that move the selected control point.
+	 */
+	private static class DnD2MoveCtrlPoint extends Link<MoveCtrlPoint, DnD, Border> {
+		/** The original coordinates of the moved point. */
+		protected IPoint sourcePt;
+
+		protected DnD2MoveCtrlPoint(final Border ins) throws InstantiationException, IllegalAccessException {
+			super(ins, true, MoveCtrlPoint.class, DnD.class);
+		}
+
+
+		@Override
+		public void initAction() {
+			final IGroup group = instrument.drawing.getSelection();
+
+			if(group.size()==1 && group.getShapeAt(0) instanceof IControlPointShape) {
+				CtrlPointHandler handler = getCtrlPtHandler();
+				sourcePt = DrawingTK.getFactory().createPoint(handler.getCentre());
+				action.setIndexPt(handler.getIndexPt());
+				action.setShape((IControlPointShape)group.getShapeAt(0));
+				action.setIsFirstCtrlPt(getCtrlPtHandler(instrument.ctrlPt1Handlers, interaction.getStartObject())!=null);
+			}
+		}
+
+
+		@Override
+		public void updateAction() {
+			super.updateAction();
+
+			final Point startPt = interaction.getStartPt();
+			final Point endPt 	= interaction.getEndPt();
+			final double x 		= sourcePt.getX() + endPt.getX()-startPt.getX();
+			final double y 		= sourcePt.getY() + endPt.getY()-startPt.getY();
+
+			action.setNewCoord(instrument.grid.getTransformedPointToGrid(instrument.zoomable.getZoomedPoint(x, y)));
+		}
+
+
+		@Override
+		public boolean isConditionRespected() {
+			return getCtrlPtHandler()!=null;
+		}
+
+
+		/**
+		 * @return The selected move control point handler or null.
+		 * @since 3.0
+		 */
+		private CtrlPointHandler getCtrlPtHandler() {
+			final Object obj = interaction.getStartObject();
+			CtrlPointHandler handler = null;
+
+			if(obj instanceof CtrlPointHandler) {
+				handler = getCtrlPtHandler(instrument.ctrlPt1Handlers, obj);
+				if(handler==null)
+					handler = getCtrlPtHandler(instrument.ctrlPt2Handlers, obj);
+			}
+
+			return handler;
+		}
+
+
+		private CtrlPointHandler getCtrlPtHandler(final List<IHandler> list, final Object obj) {
+			CtrlPointHandler handler = null;
+
+			for(int i=0, size=list.size(); i<size && handler==null; i++)
+				if(list.get(i)==obj)
+					handler = (CtrlPointHandler)obj;
+
+			return handler;
+		}
+	}
+
+
+
 	/**
 	 * This link maps a DnD interaction on a move point handler to an action that move the selected point.
 	 */
-	private static class DnD2MovePoint extends Link<MovePoint, DnD, Border> {
+	private static class DnD2MovePoint extends Link<MovePointShape, DnD, Border> {
 		/** The original coordinates of the moved point. */
 		protected IPoint sourcePt;
 
 		protected DnD2MovePoint(final Border ins) throws InstantiationException, IllegalAccessException {
-			super(ins, true, MovePoint.class, DnD.class);
+			super(ins, true, MovePointShape.class, DnD.class);
 		}
 
 		@Override
