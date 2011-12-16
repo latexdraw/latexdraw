@@ -635,7 +635,7 @@ class LGroup extends LShape implements IGroup {
 	@Override
 	public IShape getShapeAt(final int i) {
 		int size = shapes.size();
-		return size==0 || i<-1 || i>= size ? null : i==-1 ? shapes.get(size-1) : shapes.get(i);
+		return shapes.isEmpty() || i<-1 || i>= size ? null : i==-1 ? shapes.get(size-1) : shapes.get(i);
 	}
 
 
