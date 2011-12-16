@@ -9,7 +9,6 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.util.LNumber;
 
-
 /**
  * Defines a model of a point. This model must be used only to define other models.
  * It is not a shape. See the LDot class for the shape.<br>
@@ -163,11 +162,6 @@ class LPoint extends Point2D.Double implements IPoint {
 		return LNumber.INSTANCE.equals(x, p.getX(), gap) && LNumber.INSTANCE.equals(y, p.getY(), gap);
 	}
 
-
-	@Override
-	public boolean equals(final IPoint pt) {
-		return equals(pt, LNumber.THRESHOLD);
-	}
 
 
 	@Override
