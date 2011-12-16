@@ -38,7 +38,7 @@ public class SVGPathSegList extends ArrayList<SVGPathSeg> implements SVGPathHand
 
 	@Override
 	public String toString() {
-		final StringBuffer path = new StringBuffer();
+		final StringBuilder path = new StringBuilder();
 
 		for(SVGPathSeg seg : this)
 			if(seg!=null) {

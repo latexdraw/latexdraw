@@ -95,12 +95,12 @@ public abstract class State implements IState {
 
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
-		sb.append(getClass().getCanonicalName()).append('[').append(name).append(", "); //$NON-NLS-1$
+		sb.append(getClass().getCanonicalName()).append('[').append(name).append(',').append(' ');
 
 		for(final ITransition t : transitions)
-			sb.append(t).append(", "); //$NON-NLS-1$
+			sb.append(t).append(',').append(' ');
 
 		sb.append(']');
 

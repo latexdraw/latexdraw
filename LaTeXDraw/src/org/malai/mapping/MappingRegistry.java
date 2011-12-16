@@ -396,7 +396,7 @@ public final class MappingRegistry implements IMappingRegistry {
 
 	@Override
 	public String toString() {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 
 		printMappings(buf, uniqueMappings, multiMappings);
 		buf.append("---\n"); //$NON-NLS-1$
@@ -410,7 +410,7 @@ public final class MappingRegistry implements IMappingRegistry {
 	 * This method is used by the toString function to print the register.
 	 * @since 0.2
 	 */
-	private static void printMappings(final StringBuffer buf, final Map<Object, IMapping> uMappings,
+	private static void printMappings(final StringBuilder buf, final Map<Object, IMapping> uMappings,
 								final Map<Object, List<IMapping>> mMappings) {
 		for(IMapping mapping : uMappings.values())
 			buf.append(mapping).append('\n');

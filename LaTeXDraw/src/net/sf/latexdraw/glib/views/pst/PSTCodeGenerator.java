@@ -39,7 +39,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	protected PSTViewsSynchroniser synchro;
 
 	/** The code cache. */
-	protected StringBuffer cache;
+	protected StringBuilder cache;
 
 	/** Defines if the latex parameters (position, caption, etc.) must be generated. */
 	protected boolean withLatexParams;
@@ -67,7 +67,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		this.withComments 	 	= withComments;
 		this.withLatexParams 	= withLatexParams;
 		synchro 				= new PSTViewsSynchroniser(handler, drawing);
-		cache   				= new StringBuffer();
+		cache   				= new StringBuilder();
 	}
 
 
@@ -86,7 +86,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	 * @return the cache.
 	 * @since 3.0
 	 */
-	public StringBuffer getCache() {
+	public StringBuilder getCache() {
 		return cache;
 	}
 
@@ -97,7 +97,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		emptyCache();
 
 		final IDrawing drawing	= synchro.getDrawing();
-		StringBuffer code;
+		StringBuilder code;
 		String pkg 				= LaTeXGenerator.getPackages();
 		PSTShapeView<?> pstView;
 		final ViewsSynchroniserHandler handler = synchro.getHandler();
@@ -106,7 +106,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		final IPoint br 	  	= handler.getBottomLeftDrawingPoint();
 		final int ppc 	  		= handler.getPPCDrawing();
 		final Map<String, String> addedColours = new HashMap<String, String>();
-		final StringBuffer shapeCode = new StringBuffer();
+		final StringBuilder shapeCode = new StringBuilder();
 
 		if(drawing.isEmpty())
 			return ;

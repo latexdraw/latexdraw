@@ -202,8 +202,7 @@ class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
 		SVGGElement showPts = new SVGGElement(doc);
 		double thickness	= shape.getThickness()/2.;
 
-		showPts.setAttribute(new StringBuffer(LNamespace.LATEXDRAW_NAMESPACE).append(':').append(
-				LNamespace.XML_TYPE).toString(), LNamespace.XML_TYPE_SHOW_PTS);
+		showPts.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SHOW_PTS);
 
 		showPts.appendChild(getShowPointsLine(doc, thickness, shape.getLineColour(), shape.getGravityCentre(),
 				shape.getStartPoint(), shape.getDashSepBlack(), shape.getDashSepWhite(), false, 1, 0));

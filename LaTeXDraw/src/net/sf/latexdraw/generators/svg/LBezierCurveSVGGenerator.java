@@ -265,8 +265,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		double rad   = (PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM*IShape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM*thick*2.)/2.;
 		int i = 0, size = shape.getNbPoints();
 
-		showPts.setAttribute(new StringBuffer(LNamespace.LATEXDRAW_NAMESPACE).append(':').append(
-											LNamespace.XML_TYPE).toString(), LNamespace.XML_TYPE_SHOW_PTS);
+		showPts.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SHOW_PTS);
 
 		/* Plotting the lines. */
 		for(i=3; i<size; i+=2) {

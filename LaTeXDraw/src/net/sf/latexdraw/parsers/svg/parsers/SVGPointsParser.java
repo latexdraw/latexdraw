@@ -88,7 +88,7 @@ public class SVGPointsParser extends AbstractSVGParser {
 		boolean isNegative;
 		boolean isFractional = false;
 		boolean isFloating   = false;
-		StringBuffer strn    = new StringBuffer();
+		StringBuilder strn   = new StringBuilder();
 
 		skipWSP();
 

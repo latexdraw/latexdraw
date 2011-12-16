@@ -375,7 +375,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return ""; //$NON-NLS-1$
 
 		final PSTCodeGenerator pstGen 	= new PSTCodeGenerator(drawing, synchronizer, false, false);
-		final StringBuffer doc 			= new StringBuffer();
+		final StringBuilder doc 		= new StringBuilder();
 		final IPoint bl					= synchronizer.getBottomLeftDrawingPoint();
 		final IPoint tr					= synchronizer.getTopRightDrawingPoint();
 		final float ppc					= synchronizer.getPPCDrawing();

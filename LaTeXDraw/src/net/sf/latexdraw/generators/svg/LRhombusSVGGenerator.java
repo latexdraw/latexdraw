@@ -117,12 +117,12 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 	    if(p2.getX()<p3.getX())
 	    	cornerGap2*=-1;
 
-		StringBuffer pointsBuf = new StringBuffer().append((float)p1.getX()).append(',').append((float)(p1.getY() - cornerGap1)).append(' ')
+		StringBuilder pointsBuilder = new StringBuilder().append((float)p1.getX()).append(',').append((float)(p1.getY() - cornerGap1)).append(' ')
 							.append((float)(p2.getX() + cornerGap2)).append(',').append((float)p2.getY()).append(' ')
 							.append((float)p3.getX()).append(',').append((float)(p3.getY() + cornerGap1)).append(' ')
 							.append((float)(tl.getX() - cornerGap2)).append(',').append((float)p2.getY());
-		String points = pointsBuf.toString();
-		StringBuffer ltdPoints = new StringBuffer().append(tl.getX()).append(' ').append(tl.getY())
+		String points = pointsBuilder.toString();
+		StringBuilder ltdPoints = new StringBuilder().append(tl.getX()).append(' ').append(tl.getY())
 								.append(' ').append(br.getX()).append(' ').append(tl.getY())
 								.append(' ').append(tl.getX()).append(' ').append(br.getY())
 								.append(' ').append(br.getX()).append(' ').append(br.getY());

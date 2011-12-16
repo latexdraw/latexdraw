@@ -312,7 +312,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	@Override
 	public String getLaTeXDocument() {
 		final String code		= shape.getText();
-		final StringBuffer doc 	= new StringBuffer();
+		final StringBuilder doc = new StringBuilder();
 		final Color textColour	= shape.getLineColour();
 		final boolean coloured;
 

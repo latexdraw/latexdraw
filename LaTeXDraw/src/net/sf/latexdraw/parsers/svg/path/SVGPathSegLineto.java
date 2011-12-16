@@ -81,14 +81,14 @@ public class SVGPathSegLineto extends SVGPathSeg {
 
 	@Override
 	public String toString() {
-		final StringBuffer stringBuffer = new StringBuffer();
+		final StringBuilder builder = new StringBuilder();
 
-		stringBuffer.append(isRelative() ? 'l' : 'L');
-		stringBuffer.append(' ');
-		stringBuffer.append(x);
-		stringBuffer.append(' ');
-		stringBuffer.append(y);
+		builder.append(isRelative() ? 'l' : 'L');
+		builder.append(' ');
+		builder.append(x);
+		builder.append(' ');
+		builder.append(y);
 
-		return stringBuffer.toString();
+		return builder.toString();
 	}
 }

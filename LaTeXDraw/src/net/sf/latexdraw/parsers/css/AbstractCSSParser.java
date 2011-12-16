@@ -45,7 +45,7 @@ public abstract class AbstractCSSParser extends CodeParser {
 		if(!isComment())
 			return null;
 
-		final StringBuffer comment 	= new StringBuffer();
+		final StringBuilder comment = new StringBuilder();
 		boolean again       		= true;
 
 		nextChar();

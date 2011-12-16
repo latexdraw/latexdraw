@@ -44,15 +44,15 @@ public class SVGPathSegCurvetoQuadraticSmooth extends SVGPathSeg {
 
 	@Override
 	public String toString() {
-		final StringBuffer stringBuffer = new StringBuffer();
+		final StringBuilder builder = new StringBuilder();
 
-		stringBuffer.append(isRelative() ? 't' : 'T');
-		stringBuffer.append(' ');
-		stringBuffer.append(x);
-		stringBuffer.append(' ');
-		stringBuffer.append(y);
+		builder.append(isRelative() ? 't' : 'T');
+		builder.append(' ');
+		builder.append(x);
+		builder.append(' ');
+		builder.append(y);
 
-		return stringBuffer.toString();
+		return builder.toString();
 	}
 
 

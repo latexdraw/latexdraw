@@ -53,19 +53,19 @@ public class SVGPathSegCurvetoCubicSmooth extends SVGPathSeg {
 
 	@Override
 	public String toString() {
-		final StringBuffer stringBuffer = new StringBuffer();
+		final StringBuilder builder = new StringBuilder();
 
-		stringBuffer.append(isRelative() ? 's' : 'S');
-		stringBuffer.append(' ');
-		stringBuffer.append(x2);
-		stringBuffer.append(' ');
-		stringBuffer.append(y2);
-		stringBuffer.append(' ');
-		stringBuffer.append(x);
-		stringBuffer.append(' ');
-		stringBuffer.append(y);
+		builder.append(isRelative() ? 's' : 'S');
+		builder.append(' ');
+		builder.append(x2);
+		builder.append(' ');
+		builder.append(y2);
+		builder.append(' ');
+		builder.append(x);
+		builder.append(' ');
+		builder.append(y);
 
-		return stringBuffer.toString();
+		return builder.toString();
 	}
 
 

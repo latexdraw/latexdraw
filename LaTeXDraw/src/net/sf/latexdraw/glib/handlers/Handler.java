@@ -145,9 +145,9 @@ abstract class Handler<T extends Shape> implements IHandler {
 
 	@Override
 	public String toString() {
-		final StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(super.toString()).append("[centre=").append(point).append(", size=").append(size).append(", colour=").append(colour).append(']');
-		return stringBuffer.toString();
+		final StringBuilder builder = new StringBuilder();
+		builder.append(super.toString()).append("[centre=").append(point).append(", size=").append(size).append(", colour=").append(colour).append(']');
+		return builder.toString();
 	}
 
 
