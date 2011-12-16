@@ -35,9 +35,4 @@ public interface ILineArcShape {
 	 * @return the isCornerRound.
 	 */
 	boolean isRoundCorner();
-
-	/**
-	 * @param isCornerRound the isCornerRound to set.
-	 */
-	void setRoundCorner(boolean isCornerRound);
 }

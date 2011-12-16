@@ -235,13 +235,8 @@ public class Pencil extends Instrument {
 		if(shape.isLineStylable())
 			shape.setLineStyle(lineStylable.getLineStyle());
 		// Setting the corner roundness.
-		if(shape instanceof ILineArcShape) {
-			ILineArcShape lineArcShape = (ILineArcShape)shape;
-			lineArcShape.setRoundCorner(roundable.isRoundCorner());
-
-			if(roundable.isRoundCorner())
-				lineArcShape.setLineArc(roundable.getLineArc());
-		}
+		if(shape instanceof ILineArcShape)
+			((ILineArcShape)shape).setLineArc(roundable.getLineArc());
 		// Setting the text parameters.
 		if(shape instanceof IText) {
 			final IText text = (IText)shape;
@@ -488,15 +483,6 @@ public class Pencil extends Instrument {
 	 */
 	public void setFillingStyle(final FillingStyle fillingStyle) {
 		fillingable.setFillingStyle(fillingStyle);
-	}
-
-
-	/**
-	 * @param isRoundCorner Defines if the corners of the shape created by the pencil are round.
-	 * @since 3.0
-	 */
-	public void setRoundCorner(final boolean isRoundCorner) {
-		roundable.setRoundCorner(isRoundCorner);
 	}
 
 

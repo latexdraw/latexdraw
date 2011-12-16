@@ -197,18 +197,6 @@ public enum ShapeProperties {
 			return obj instanceof Double;
 		}
 	},
-	/** Defines if a shape must have round corners. */
-	ROUND_CORNER {
-		@Override
-		public String getMessage() {
-			return "round corner";
-		}
-
-		@Override
-		public boolean isValueValid(final Object obj) {
-			return obj instanceof Boolean;
-		}
-	},
 	/** Modification of the colour of the filling of a shape. */
 	COLOUR_FILLING {
 		@Override

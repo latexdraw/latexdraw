@@ -125,10 +125,6 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 		shape.setPosition(elt.getX()+gap, elt.getY()+elt.getHeight()+gap);
 		shape.setWidth(elt.getWidth()-gap);
 		shape.setHeight(elt.getHeight()-gap);
-
-		if(rx>0.)
-			shape.setRoundCorner(true);
-
 		shape.setLineArc((2.*rx)/(min(shape.getHeight(), shape.getWidth())- (shape.hasDbleBord() ? shape.getDbleBordSep()+shape.getThickness() : 0.)));
 	}
 

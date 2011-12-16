@@ -201,7 +201,7 @@ class LGroup extends LShape implements IGroup {
 
 		for(int i=0, size=shapes.size(); i<size && Double.isNaN(value); i++) {
 			sh = shapes.get(i);
-			if(sh instanceof ILineArcShape && ((ILineArcShape)sh).isRoundCorner())
+			if(sh instanceof ILineArcShape)
 				value = ((ILineArcShape)sh).getLineArc();
 		}
 
@@ -241,14 +241,6 @@ class LGroup extends LShape implements IGroup {
 			round = shapes.get(i) instanceof ILineArcShape && ((ILineArcShape)shapes.get(i)).isRoundCorner();
 
 		return round;
-	}
-
-
-	@Override
-	public void setRoundCorner(final boolean isCornerRound) {
-		for(final IShape shape : shapes)
-			if(shape instanceof ILineArcShape)
-				((ILineArcShape)shape).setRoundCorner(isCornerRound);
 	}
 
 

@@ -7,13 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import org.malai.ui.UIComposer;
-import org.malai.widget.MButtonIcon;
-import org.malai.widget.MCheckBox;
-import org.malai.widget.MColorButton;
-import org.malai.widget.MComboBox;
-import org.malai.widget.MSpinner;
-
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
@@ -26,6 +19,12 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.ui.UIComposer;
+import org.malai.widget.MButtonIcon;
+import org.malai.widget.MColorButton;
+import org.malai.widget.MComboBox;
+import org.malai.widget.MSpinner;
 
 /**
  * This instrument modifies border properties of shapes or the pencil.<br>
@@ -58,9 +57,6 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 
 	/** Allows to select the position of the borders of the shape. */
 	protected MComboBox bordersPosCB;
-
-	/** Defines if the border corners are round. */
-	protected MCheckBox isRound;
 
 	/** Allows to change the angle of the round corner. */
 	protected MSpinner frameArcField;
@@ -152,9 +148,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
         bordersPosCB.setPreferredSize(new Dimension(45, 30));
         bordersPosCB.setMaximumSize(new Dimension(45, 30));
 
-     	isRound = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.16"));//$NON-NLS-1$
-
-		frameArcField = new MSpinner(new SpinnerNumberModel(0.5, 0.01, 1,0.05), new JLabel(LResources.ROUNDNESS_ICON));
+		frameArcField = new MSpinner(new SpinnerNumberModel(0., 0., 1., 0.05), new JLabel(LResources.ROUNDNESS_ICON));
 		frameArcField.setEditor(new JSpinner.NumberEditor(frameArcField, "0.00"));//$NON-NLS-1$
 	}
 
@@ -166,13 +160,11 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			boolean isStylable 	 = shape.isLineStylable();
 			boolean isMvble		 = shape.isBordersMovable();
 			boolean supportRound = shape instanceof IGroup ? ((IGroup)shape).containsRoundables() : shape instanceof ILineArcShape;
-			boolean rounded		 = supportRound && ((ILineArcShape)shape).isRoundCorner();
 
 			composer.setWidgetVisible(thicknessField, isTh);
 			composer.setWidgetVisible(lineCB, isStylable);
 			composer.setWidgetVisible(bordersPosCB, isMvble);
-			composer.setWidgetVisible(isRound, supportRound);
-			composer.setWidgetVisible(frameArcField, rounded);
+			composer.setWidgetVisible(frameArcField, supportRound);
 			lineColButton.setColor(shape.getLineColour());
 
 			if(isTh)
@@ -181,12 +173,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 				lineCB.setSelectedItemSafely(shape.getLineStyle().toString());
 			if(isMvble)
 				bordersPosCB.setSelectedItemSafely(shape.getBordersPosition().toString());
-			if(supportRound) {
-				isRound.setSelected(rounded);
-
-				if(rounded)
-					frameArcField.setValueSafely(((ILineArcShape)shape).getLineArc());
-			}
+			if(supportRound)
+				frameArcField.setValueSafely(((ILineArcShape)shape).getLineArc());
 		}
 	}
 
@@ -199,7 +187,6 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(thicknessField, activated);
 		composer.setWidgetVisible(lineColButton, activated);
 		composer.setWidgetVisible(lineCB, activated);
-		composer.setWidgetVisible(isRound, activated);
 		composer.setWidgetVisible(frameArcField, activated);
 	}
 
@@ -236,13 +223,6 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 		return thicknessField;
 	}
 
-	/**
-	 * @return The checkbox that defines if the corner of the border are round.
-	 * @since 3.0
-	 */
-	public MCheckBox getIsRound() {
-		return isRound;
-	}
 
 	/**
 	 * @return The field that defines the roundness of the corners.
@@ -257,10 +237,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseLinks() {
 		try{
 			links.add(new Spinner2PencilBorder(this));
-			links.add(new CheckBox2PencilBorder(this));
 			links.add(new List2PencilBorder(this));
 			links.add(new List2SelectionBorder(this));
-			links.add(new CheckBox2SelectionBorder(this));
 			links.add(new Spinner2SelectionBorder(this));
 			links.add(new ColourButton2PencilBorder(this));
 			links.add(new ColourButton2SelectionBorder(this));
@@ -364,9 +342,7 @@ class Spinner2SelectionBorder extends SpinnerForCustomiser<ModifyShapeProperty, 
 
 	@Override
 	public void initAction() {
-		final JSpinner spinner = interaction.getSpinner();
-
-		if(spinner==instrument.thicknessField)
+		if(interaction.getSpinner()==instrument.thicknessField)
 			action.setProperty(ShapeProperties.LINE_THICKNESS);
 		else
 			action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
@@ -399,9 +375,7 @@ class Spinner2PencilBorder extends SpinnerForCustomiser<ModifyPencilParameter, S
 
 	@Override
 	public void initAction() {
-		final JSpinner spinner = interaction.getSpinner();
-
-		if(spinner==instrument.thicknessField)
+		if(interaction.getSpinner()==instrument.thicknessField)
 			action.setProperty(ShapeProperties.LINE_THICKNESS);
 		else
 			action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
@@ -413,63 +387,6 @@ class Spinner2PencilBorder extends SpinnerForCustomiser<ModifyPencilParameter, S
 	public boolean isConditionRespected() {
 		final JSpinner spinner = interaction.getSpinner();
 		return (spinner==instrument.thicknessField || spinner==instrument.frameArcField) && instrument.pencil.isActivated();
-	}
-}
-
-
-/**
- * This link uses a checkbox to modify the pencil.
- */
-class CheckBox2PencilBorder extends CheckBoxForCustomiser<ModifyPencilParameter, ShapeBorderCustomiser> {
-	/**
-	 * Creates the link.
-	 * @param instrument The instrument that contains the link.
-	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-	 */
-	protected CheckBox2PencilBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
-		super(instrument, ModifyPencilParameter.class);
-	}
-
-	@Override
-	public void initAction() {
-		super.initAction();
-		action.setProperty(ShapeProperties.ROUND_CORNER);
-		action.setPencil(instrument.pencil);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getCheckBox()==instrument.isRound && instrument.pencil.isActivated();
-	}
-}
-
-
-
-/**
- * This link uses a checkbox to modify shapes.
- */
-class CheckBox2SelectionBorder extends CheckBoxForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
-	/**
-	 * Creates the link.
-	 * @param instrument The instrument that contains the link.
-	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-	 */
-	protected CheckBox2SelectionBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
-		super(instrument, ModifyShapeProperty.class);
-	}
-
-	@Override
-	public void initAction() {
-		super.initAction();
-		action.setProperty(ShapeProperties.ROUND_CORNER);
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getCheckBox()==instrument.isRound && instrument.hand.isActivated();
 	}
 }
 

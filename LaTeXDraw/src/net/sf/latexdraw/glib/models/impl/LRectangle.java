@@ -29,9 +29,6 @@ class LRectangle extends LRectangularShape implements IRectangle {
 	/** The radius of arcs drawn at the corners of lines. */
 	protected double frameArc;
 
-	/** Defines if the corners of lines are round or not. */
-	protected boolean isCornerRound;
-
 
 	/**
 	 * Creates a rectangle at the position (0,0).
@@ -63,18 +60,17 @@ class LRectangle extends LRectangularShape implements IRectangle {
 	 */
 	protected LRectangle(final IPoint tl, final IPoint br, final boolean uniqueID) {
 		super(tl, br, uniqueID);
-		isCornerRound 	= false;
-		frameArc		= 0.5;
+		frameArc = 0.;
 		update();
 	}
 
-	
+
 	@Override
 	public IRectangle duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof IRectangle ? (IRectangle)sh : null;
 	}
-	
+
 
 	@Override
 	public double getLineArc() {
@@ -85,7 +81,7 @@ class LRectangle extends LRectangularShape implements IRectangle {
 
 	@Override
 	public boolean isRoundCorner() {
-		return isCornerRound;
+		return frameArc>0;
 	}
 
 
@@ -97,23 +93,11 @@ class LRectangle extends LRectangularShape implements IRectangle {
 	}
 
 
-
-	@Override
-	public void setRoundCorner(final boolean round) {
-		isCornerRound = round;
-	}
-
-
-
 	@Override
 	public void copy(final IShape sh) {
 		super.copy(sh);
 
-		if(sh instanceof ILineArcShape) {
-			ILineArcShape las = (ILineArcShape) sh;
-
-			setLineArc(las.getLineArc());
-			setRoundCorner(las.isRoundCorner());
-		}
+		if(sh instanceof ILineArcShape)
+			setLineArc(((ILineArcShape)sh).getLineArc());
 	}
 }

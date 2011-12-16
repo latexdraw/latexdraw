@@ -15,7 +15,6 @@ import net.sf.latexdraw.actions.ScaleShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.handlers.ArcAngleHandler;
 import net.sf.latexdraw.glib.handlers.CtrlPointHandler;
-import net.sf.latexdraw.glib.handlers.FrameArcHandler;
 import net.sf.latexdraw.glib.handlers.IHandler;
 import net.sf.latexdraw.glib.handlers.MovePtHandler;
 import net.sf.latexdraw.glib.handlers.RotationHandler;
@@ -33,7 +32,6 @@ import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewRectangle;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.mapping.Shape2BorderMapping;
 
@@ -86,8 +84,8 @@ public class Border extends Instrument implements Picker {
 	/** The handlers that move second control points. */
 	protected List<IHandler> ctrlPt2Handlers;
 
-	/** The handler that sets the arc frame. */
-	protected IHandler frameArcHandler;
+//	/** The handler that sets the arc frame. */
+//	protected FrameArcHandler frameArcHandler;
 
 	/** The handler that sets the start angle of an arc. */
 	protected ArcAngleHandler arcHandlerStart;
@@ -203,11 +201,11 @@ public class Border extends Instrument implements Picker {
 
 		rotHandler.setPoint(border.getMaxX(), border.getMinY());
 
-		if(isFrameArcHandlerShowable()) {
-			if(frameArcHandler==null)
-				frameArcHandler	= new FrameArcHandler();
-			frameArcHandler.updateFromShape(border);
-		}
+//		if(isFrameArcHandlerShowable()) {
+//			if(frameArcHandler==null)
+//				frameArcHandler	= new FrameArcHandler();
+//			frameArcHandler.updateFromLineArcShape((ILineArcShape)selection.get(0).getShape());
+//		}
 
 		updateArcHandlers();
 		updateMvHandlers();
@@ -343,8 +341,8 @@ public class Border extends Instrument implements Picker {
 
 		rotHandler.paint(g);
 
-		if(isFrameArcHandlerShowable())
-			frameArcHandler.paint(g);
+//		if(isFrameArcHandlerShowable())
+//			frameArcHandler.paint(g);
 
 		if(isArcHandlerShowable()) {
 			arcHandlerStart.paint(g);
@@ -390,12 +388,12 @@ public class Border extends Instrument implements Picker {
 	}
 
 
-	/**
-	 * @return True if the frame arc handler can be painted.
-	 */
-	protected boolean isFrameArcHandlerShowable() {
-		return selection.size()==1 && selection.get(0) instanceof IViewRectangle;
-	}
+//	/**
+//	 * @return True if the frame arc handler can be painted.
+//	 */
+//	protected boolean isFrameArcHandlerShowable() {
+//		return selection.size()==1 && selection.get(0).getShape() instanceof ILineArcShape;
+//	}
 
 
 
@@ -493,8 +491,8 @@ public class Border extends Instrument implements Picker {
 			if(pickable==null)
 				pickable = getHandlerAt(x2, y2, ctrlPt2Handlers);
 
-			if(pickable==null && frameArcHandler!=null && frameArcHandler.contains(x2, y2))
-				pickable = frameArcHandler;
+//			if(pickable==null && frameArcHandler!=null && frameArcHandler.contains(x2, y2))
+//				pickable = frameArcHandler;
 
 			if(pickable==null && arcHandlerStart!=null && arcHandlerStart.contains(x2, y2))
 				pickable = arcHandlerStart;

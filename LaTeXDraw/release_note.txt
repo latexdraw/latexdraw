@@ -5,7 +5,6 @@ Added:
 - Can place texts at different positions: bottom-left, bottom-middle, top-right, etc. This feature produces PSTricks code based on the rput command.
 - new localisations: Brazilian Portuguese, Hungarian, Japanese, Turkish, Vietnamese, Serbian, Russian.
 - double borders supported for arcs.
-- a handler to set the rounded corner of rectangles.
 - A system tab in the "About LaTeXDraw" dialogue box to give some information about the system.
 
 Improvements:

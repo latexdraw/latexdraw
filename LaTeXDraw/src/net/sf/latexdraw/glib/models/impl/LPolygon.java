@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.models.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPolygon;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -25,11 +24,8 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @since 3.0
  */
 class LPolygon extends LModifiablePointsShape implements IPolygon {
-	/** The roundness of the round corner. */
-	protected double lineArc;
-
-	/** Defines if the corners are round. */
-	protected boolean roundCorner;
+//	/** The roundness of the round corner. */
+//	protected double lineArc;
 
 
 	/**
@@ -39,8 +35,7 @@ class LPolygon extends LModifiablePointsShape implements IPolygon {
 	protected LPolygon(final boolean uniqueID) {
 		super(uniqueID);
 
-		lineArc 	= 5.;
-		roundCorner = false;
+//		lineArc = 0.;
 	}
 
 
@@ -66,31 +61,25 @@ class LPolygon extends LModifiablePointsShape implements IPolygon {
 		final IShape sh = super.duplicate();
 		return sh instanceof IPolygon ? (IPolygon)sh : null;
 	}
-	
-
-	@Override
-	public double getLineArc() {
-		return lineArc;
-	}
 
 
-	@Override
-	public boolean isRoundCorner() {
-		return roundCorner;
-	}
-
-
-	@Override
-	public void setRoundCorner(final boolean isCornerRound) {
-		roundCorner = isCornerRound;
-	}
-
-
-	@Override
-	public void setLineArc(final double lineArc) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(lineArc) && lineArc>=0 && lineArc<=1)
-			this.lineArc = lineArc;
-	}
+//	@Override
+//	public double getLineArc() {
+//		return lineArc;
+//	}
+//
+//
+//	@Override
+//	public boolean isRoundCorner() {
+//		return lineArc>0;
+//	}
+//
+//
+//	@Override
+//	public void setLineArc(final double lineArc) {
+//		if(GLibUtilities.INSTANCE.isValidCoordinate(lineArc) && lineArc>=0 && lineArc<=1)
+//			this.lineArc = lineArc;
+//	}
 
 
 	@Override

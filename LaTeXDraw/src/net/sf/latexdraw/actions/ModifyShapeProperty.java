@@ -153,10 +153,6 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				oldValue = shape.getThickness();
 				shape.setThickness((Double)obj);
 				break;
-			case ROUND_CORNER:
-				oldValue = ((ILineArcShape)shape).isRoundCorner();
-				((ILineArcShape)shape).setRoundCorner((Boolean)obj);
-				break;
 			case ROUND_CORNER_VALUE:
 				oldValue = ((ILineArcShape)shape).getLineArc();
 				((ILineArcShape)shape).setLineArc((Double)obj);
@@ -278,7 +274,6 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case FILLING_STYLE:		return shape.isInteriorStylable();
 				case LINE_STYLE:		return shape.isLineStylable();
 				case LINE_THICKNESS:	return shape.isThicknessable();
-				case ROUND_CORNER:		return shape instanceof ILineArcShape;
 				case ROUND_CORNER_VALUE:	return shape instanceof ILineArcShape;
 				case SHADOW:			return shape.isShadowable();
 				case DBLE_BORDERS_SIZE:	return shape.isDbleBorderable();

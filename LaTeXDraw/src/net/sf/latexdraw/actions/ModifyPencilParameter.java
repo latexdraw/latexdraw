@@ -141,9 +141,6 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case SHADOW:
 				pencil.setShadow((Boolean) value);
 				break;
-			case ROUND_CORNER:
-				pencil.setRoundCorner((Boolean)value);
-				break;
 			case ROUND_CORNER_VALUE:
 				pencil.setRoundness((Double)value);
 				break;

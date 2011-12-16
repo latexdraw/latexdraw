@@ -344,8 +344,6 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		list.addComponent(borderCustomiser.getBordersPosCB());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
-		list.addComponent(borderCustomiser.getIsRound());
-		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		addSpinner(list, borderCustomiser.getFrameArcField(), true, 65);
 		list.addSeparator();
 
@@ -353,7 +351,6 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(borderCustomiser.getLineColButton(), list);
 		mapContainers.put(borderCustomiser.getLineCB(), list);
 		mapContainers.put(borderCustomiser.getBordersPosCB(), list);
-		mapContainers.put(borderCustomiser.getIsRound(), list);
 		mapContainers.put(borderCustomiser.getFrameArcField(), list);
 
 		borderCustomiser.addEventable(list.getToolbar());
