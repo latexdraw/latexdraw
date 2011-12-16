@@ -42,12 +42,6 @@ public abstract class ShapePropertyAction extends ModifyValue {
 
 
 	@Override
-	public boolean canDo() {
-		return super.canDo();
-	}
-
-
-	@Override
 	protected boolean isValueMatchesProperty() {
 		return isPropertySupported() && property.isValueValid(value);
 	}
