@@ -548,7 +548,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		if(node!=null) displayYScaleCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_GRID_GAP);
-		if(node!=null) persoGridGapField.setValueSafely(Integer.parseInt(node.getTextContent()));
+		if(node!=null) persoGridGapField.setValueSafely(Integer.valueOf(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_LAF);
 		if(node!=null) {
@@ -598,7 +598,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 				Node attr = nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES);
 
 				if(attr!=null)
-					nbRecentFilesField.setValue(Integer.parseInt(attr.getTextContent()));
+					nbRecentFilesField.setValueSafely(Integer.valueOf(attr.getTextContent()));
 			}
 
 			for(int j=0, size2=nl2.getLength(); j<size2; j++) {

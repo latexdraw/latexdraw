@@ -902,7 +902,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 					double width;
 					String attr;
 
-					try { angle = Double.valueOf(pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+ LNamespace.XML_ROTATION));
+					try { angle = Double.parseDouble(pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+ LNamespace.XML_ROTATION));
 					}catch(final Exception e) { angle = 0.; }
 
 					attr = pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_SIZE);
@@ -910,7 +910,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 					if(attr==null)
 						sep = pat.getHatchingSep();
 					else
-						try { sep = Double.valueOf(attr); }
+						try { sep = Double.parseDouble(attr); }
 						catch(final Exception e) { sep = 0.; }
 
 					if(PSTricksConstants.isValidFillStyle(str))
