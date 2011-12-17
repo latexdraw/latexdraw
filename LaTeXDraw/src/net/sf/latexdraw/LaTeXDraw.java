@@ -3,7 +3,6 @@ package net.sf.latexdraw;
 import java.io.File;
 
 import net.sf.latexdraw.actions.LoadDrawing;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
@@ -97,9 +96,7 @@ public final class LaTeXDraw {
     	LFrame frame = new LFrame(splashScreen);
     	// Composing the user interface.
     	frame.getComposer().compose(splashScreen);
-
-		try { frame.getPrefSetters().readXMLPreferences(); }
-		catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
+		frame.getPrefSetters().readXMLPreferences();
 
     	// Removing the splash screen.
     	splashScreen.setVisible(false);

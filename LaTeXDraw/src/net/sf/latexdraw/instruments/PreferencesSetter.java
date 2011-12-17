@@ -6,7 +6,6 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +18,6 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.latexdraw.actions.WritePreferences;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -50,7 +48,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
@@ -818,12 +815,9 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	/**
 	 * Reads the preferences of latexdraw defined in XML.
 	 * @throws IllegalArgumentException If a problem occurs.
-	 * @throws IOException If any IO errors occur.
-     * @throws SAXException If any parse errors occur.
-	 * @throws ParserConfigurationException if a DocumentBuilder cannot be created which satisfies the configuration requested.
 	 * @since 3.0
 	 */
-	public void readXMLPreferences() throws SAXException, IOException, ParserConfigurationException {
+	public void readXMLPreferences() {
         final File xml = new File(LPath.PATH_PREFERENCES_XML_FILE);
 
         if(xml.canRead())
@@ -833,27 +827,29 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	}
 
 
-	private void readXMLPreferencesFromFile(final File xmlFile) throws SAXException, IOException, ParserConfigurationException {
-		Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile).getFirstChild();
+	private void readXMLPreferencesFromFile(final File xmlFile) {
+		try {
+			Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile).getFirstChild();
 
-		if(node==null || !node.getNodeName().equals(LNamespace.XML_ROOT_PREFERENCES))
-			throw new IllegalArgumentException();
+			if(node==null || !node.getNodeName().equals(LNamespace.XML_ROOT_PREFERENCES))
+				throw new IllegalArgumentException();
 
-		final NodeList nl = node.getChildNodes();
-		String name;
+			final NodeList nl = node.getChildNodes();
+			String name;
 
-		Map<String, Node> prefMaps = new HashMap<String, Node>();
+			Map<String, Node> prefMaps = new HashMap<String, Node>();
 
-		for(int i=0, size=nl.getLength(); i<size; i++) {
-			node = nl.item(i);
-			name = node.getNodeName();
+			for(int i=0, size=nl.getLength(); i<size; i++) {
+				node = nl.item(i);
+				name = node.getNodeName();
 
-			if(name!=null && name.length()>0)
-				prefMaps.put(name, node);
-		}
+				if(name!=null && name.length()>0)
+					prefMaps.put(name, node);
+			}
 
-		processXMLDataPreference(prefMaps);
-		prefMaps.clear();
+			processXMLDataPreference(prefMaps);
+			prefMaps.clear();
+		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 }
 
