@@ -18,6 +18,11 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import net.sf.latexdraw.actions.WritePreferences;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -48,9 +53,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
  * This instrument modifies the preferences.<br>
@@ -671,12 +673,11 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 			FileOutputStream fos = new FileOutputStream(LPath.PATH_PREFERENCES_XML_FILE);
 			Document document 	 = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 	        Element root, elt, elt2;
-	        OutputFormat of;
-	        XMLSerializer xmls;
 
 	        document.setXmlVersion("1.0");//$NON-NLS-1$
 	        document.setXmlStandalone(true);
 	        root = document.createElement(LNamespace.XML_ROOT_PREFERENCES);
+	        document.appendChild(root);
 
 	        Attr attr = document.createAttribute(LNamespace.XML_VERSION);
 	        attr.setTextContent(VersionChecker.VERSION);
@@ -798,15 +799,14 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	        elt2.setTextContent(String.valueOf(frame.getLocation().y));
 	        elt.appendChild(elt2);
 
-	//        elt = document.createElement(LNamespace.XML_DELIMITOR_OPACITY);//TODO
-	//        elt.setTextContent(String.valueOf(Delimitor.getOpacity()));
-	//        root.appendChild(elt);
+	//      elt = document.createElement(LNamespace.XML_DELIMITOR_OPACITY);//TODO
+	//      elt.setTextContent(String.valueOf(Delimitor.getOpacity()));
+	//      root.appendChild(elt);
 
-	        of = new OutputFormat(document);
-	        of.setIndenting(true);
-
-	        xmls = new XMLSerializer(fos, of);
-	        xmls.serialize(root);
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+			transformer.transform(new DOMSource(document), new StreamResult(fos));
 			fos.close();
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
