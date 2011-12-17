@@ -74,7 +74,6 @@ public class PreferencesFrame extends MFrame {
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.folders"), createFoldersPanel()); //$NON-NLS-1$
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.quality"), createQualityPanel()); //$NON-NLS-1$
   		tabbedPane.add(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.90"), createDisplayPanel()); //$NON-NLS-1$
-  		tabbedPane.add(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.92"), createCodePanel()); //$NON-NLS-1$
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.grid"), createGridPanel()); //$NON-NLS-1$
 
 		pGeneral.add(tabbedPane, BorderLayout.CENTER);
@@ -149,19 +148,6 @@ public class PreferencesFrame extends MFrame {
 	}
 
 
-
-	/**
-	 * Creates the panel which allows the user to set the code panel preferences.
-	 * @return The created panel.
-	 */
-	private JPanel createCodePanel() {
-		JPanel pCode = new JPanel(new GridLayout(6, 1));
-  		pCode.add(prefSetter.getCodeAutoUpdateCB());
-		return pCode;
-	}
-
-
-
 	/**
 	 * Creates a JPanel containing elements allowing the set of the grid parameters.
 	 * @return The created JPanel.
@@ -196,7 +182,6 @@ public class PreferencesFrame extends MFrame {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.add(prefSetter.getUnitChoice());
 
-  		pDisplay.add(prefSetter.getDisplayCodePanelCB());
   		pDisplay.add(prefSetter.getDisplayXScaleCB());
   		pDisplay.add(prefSetter.getDisplayYScaleCB());
   		pDisplay.add(prefSetter.getDisplayBordersCB());

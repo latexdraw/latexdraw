@@ -99,14 +99,8 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	/** This check-box allows to set if the user wants to display the Y-scale. */
 	protected MCheckBox displayYScaleCB;
 
-	/** Allows to update or not in real time the PSTricks code. */
-	protected MCheckBox codeAutoUpdateCB;
-
 	/** Allows the set if the program must check new version on start up. */
 	protected MCheckBox checkNewVersion;
-
-	/** This check-box allows to set if the user wants to display the code panel. */
-	protected MCheckBox displayCodePanelCB;
 
 	/** This check-box allows to set if the user wants to the borders of the drawing. */
 	protected MCheckBox displayBordersCB;
@@ -162,9 +156,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	/** Defines the position of the main frame. */
 	protected IPoint framePosition;
 
-	/** Defines the position of the divider. */
-	protected double dividerPosition;
-
 	/** The main frame. */
 	protected LFrame frame;
 
@@ -187,7 +178,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		frameSize.width 	= 3*Toolkit.getDefaultToolkit().getScreenSize().width/2;
 		recentFilesName  	= new ArrayList<String>();
 		isFrameMaximized 	= false;
-		dividerPosition  	= 1.;
 		initialiseWidgets();
 		initialiseLinks();
 	}
@@ -242,8 +232,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		themeList = new MComboBox(nameThemes);
   		themeList.setMaximumSize(new Dimension(160, height));
 
-  		codeAutoUpdateCB 	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.codeAuto"));//$NON-NLS-1$
-  		codeAutoUpdateCB.setSelected(true);
   		classicGridRB  		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.4")); //$NON-NLS-1$
   		classicGridRB.setSelected(false);
   		persoGridRB    		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.5")); //$NON-NLS-1$
@@ -257,8 +245,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
      	persoGridGapField.setEditor(new JSpinner.NumberEditor(persoGridGapField, "0"));//$NON-NLS-1$
      	persoGridGapField.setMaximumSize(new Dimension(60, height));
 
-   		displayCodePanelCB 	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.codePanel"));//$NON-NLS-1$
-   		displayCodePanelCB.setSelected(true);
   		displayXScaleCB    	= new MCheckBox(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.38"));//$NON-NLS-1$
   		displayXScaleCB.setSelected(true);
   		displayYScaleCB    	= new MCheckBox(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.39"));//$NON-NLS-1$
@@ -381,12 +367,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		return displayYScaleCB;
 	}
 
-	/**
-	 * @return The widget used to update or not in real time the PSTricks code.
-	 */
-	public MCheckBox getCodeAutoUpdateCB() {
-		return codeAutoUpdateCB;
-	}
 
 	/**
 	 * @return The widget used to set if the program must check new version on start up.
@@ -395,12 +375,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		return checkNewVersion;
 	}
 
-	/**
-	 * @return This check-box allows to set if the user wants to display the code panel.
-	 */
-	public MCheckBox getDisplayCodePanelCB() {
-		return displayCodePanelCB;
-	}
 
 	/**
 	 * @return This check-box allows to set if the user wants to the borders of the drawing.
@@ -517,9 +491,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		node = prefMap.get(LNamespace.XML_ANTI_ALIAS);
 		if(node!=null) antialiasingCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
-		node = prefMap.get(LNamespace.XML_AUTO_UPDATE);
-		if(node!=null) codeAutoUpdateCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
 		node = prefMap.get(LNamespace.XML_CHECK_VERSION);
 		if(node!=null) checkNewVersion.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
@@ -534,9 +505,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		node = prefMap.get(LNamespace.XML_DRAW_BORDERS);
 		if(node!=null) displayBordersCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_DISPLAY_CODE_PANEL);
-		if(node!=null) displayCodePanelCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_DISPLAY_GRID);
 		if(node!=null) displayGridCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
@@ -643,9 +611,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 			}
 		}
 
-		node = prefMap.get(LNamespace.XML_DIVIDER_POSITION);
-		if(node!=null) dividerPosition = Double.parseDouble(node.getTextContent());
-
 //		else if(name.equals(LNamespace.XML_DELIMITOR_OPACITY))//FIXME
 //  		AbstractHandler.setOpacity((int)Double.parseDouble(content));
 	}
@@ -744,10 +709,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	        elt.setTextContent(pathOpenField.getText());
 	        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_DISPLAY_CODE_PANEL);
-	        elt.setTextContent(String.valueOf(displayCodePanelCB.isSelected()));
-	        root.appendChild(elt);
-
 	        elt = document.createElement(LNamespace.XML_DISPLAY_GRID);
 	        elt.setTextContent(String.valueOf(displayGridCB.isSelected()));
 	        root.appendChild(elt);
@@ -766,10 +727,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 	        elt = document.createElement(LNamespace.XML_UNIT);
 	        elt.setTextContent(unitChoice.getSelectedItem().toString());
-	        root.appendChild(elt);
-
-	        elt = document.createElement(LNamespace.XML_AUTO_UPDATE);
-	        elt.setTextContent(String.valueOf(codeAutoUpdateCB.isSelected()));
 	        root.appendChild(elt);
 
 	        elt = document.createElement(LNamespace.XML_CHECK_VERSION);
@@ -844,18 +801,13 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	        elt2.setTextContent(String.valueOf(frame.getLocation().y));
 	        elt.appendChild(elt2);
 
-	        //TODO
-//	        elt = document.createElement(LNamespace.XML_DIVIDER_POSITION);
-	//        double divLoc = frame.getCodePanelActivator().codePanel.isVisible() ? mainFrame.getDividerCurrentLocation() : mainFrame.getFormerDividerLocation();
-	//        elt.setTextContent(String.valueOf(divLoc<mainFrame.getWidth() && divLoc>=0 ? divLoc/mainFrame.getWidth() : 1.));
-	//        root.appendChild(elt);
-
 	//        elt = document.createElement(LNamespace.XML_DELIMITOR_OPACITY);//TODO
 	//        elt.setTextContent(String.valueOf(Delimitor.getOpacity()));
 	//        root.appendChild(elt);
 
 	        of = new OutputFormat(document);
 	        of.setIndenting(true);
+
 	        xmls = new XMLSerializer(fos, of);
 	        xmls.serialize(root);
 			fos.close();

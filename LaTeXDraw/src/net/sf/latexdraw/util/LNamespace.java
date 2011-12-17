@@ -77,8 +77,6 @@ public final class LNamespace {
 	public static final String XML_HEIGHT 				= "height";				//$NON-NLS-1$
 	public static final String XML_WIDTH 				= "width";				//$NON-NLS-1$
 	public static final String XML_MAXIMISED 			= "maximised";			//$NON-NLS-1$
-	public static final String XML_DIVIDER_POSITION 	= "dividerPosition";	//$NON-NLS-1$
-	public static final String XML_AUTO_UPDATE 			= "autoUpdate";			//$NON-NLS-1$
 	public static final String XML_DISPLAY_GRID 		= "displayGrid";		//$NON-NLS-1$
 	public static final String XML_ROOT_PREFERENCES 	= "preferences";		//$NON-NLS-1$
 	public static final String XML_RENDERING 			= "rendering";			//$NON-NLS-1$
@@ -87,7 +85,6 @@ public final class LNamespace {
 	public static final String XML_ANTI_ALIAS 			= "antiAlias";			//$NON-NLS-1$
 	public static final String XML_PATH_EXPORT 			= "pathExport";			//$NON-NLS-1$
 	public static final String XML_PATH_OPEN 			= "pathOpen";			//$NON-NLS-1$
-	public static final String XML_DISPLAY_CODE_PANEL 	= "displayCodePanel";	//$NON-NLS-1$
 	public static final String XML_DISPLAY_X 			= "displayXScale";		//$NON-NLS-1$
 	public static final String XML_DISPLAY_Y 			= "displayYScale";		//$NON-NLS-1$
 	public static final String XML_CHECK_VERSION 		= "checkVersion";		//$NON-NLS-1$
