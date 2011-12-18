@@ -143,6 +143,7 @@ public final class LResources {
 
 	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getString19("DrawPanel.0"); //$NON-NLS-1$
 
+	public final static ImageIcon DIM_POS_ICON;
 	public final static ImageIcon ARROW_ICON;
 	public final static ImageIcon TEXTPOS_T;
 	public final static ImageIcon TEXTPOS_TL;
@@ -237,6 +238,8 @@ public final class LResources {
 
 
 	static {
+		DIM_POS_ICON		= loadImageIcon("/res/dimPos.png");//$NON-NLS-1$
+
 		TEXTPOS_BL			= loadImageIcon("/res/textPosBL.png");//$NON-NLS-1$
 		TEXTPOS_B			= loadImageIcon("/res/textPosB.png");//$NON-NLS-1$
 		TEXTPOS_BR			= loadImageIcon("/res/textPosBR.png");//$NON-NLS-1$

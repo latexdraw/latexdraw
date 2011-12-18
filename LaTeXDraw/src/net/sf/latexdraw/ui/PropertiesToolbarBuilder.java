@@ -14,6 +14,7 @@ import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.ShapeArcCustomiser;
 import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
+import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
 import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
@@ -83,6 +84,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		// Creation of the widgets layout of the shape properties instruments.
 		widget.add(composeRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), canvas));
+		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		widget.add(composeBorderPropertiesPanel(metaShapeCustomiser.getBorderCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 		widget.add(composeDoubleBorderPropertiesPanel(metaShapeCustomiser.getDoubleBorderCustomiser(), canvas));
@@ -91,14 +93,30 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 		widget.add(composeArrowToolbar(metaShapeCustomiser.getArrowCustomiser(), canvas));
 		widget.add(composeDotToolbar(metaShapeCustomiser.getDotCustomiser(), canvas));
-		addTextPositionWidgets(metaShapeCustomiser.getTextCustomiser(), canvas);
-		addTextPropertiesWidgets(metaShapeCustomiser.getTextCustomiser(), canvas);
+		widget.add(composeTextPositionToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
+		widget.add(composeTextPropertiesToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
+	
+	
+	protected ListToggleButton composeDimPosPropertiesToolbar(final ShapeCoordDimCustomiser cust, final LCanvas canvas) {
+		ListToggleButton list = new ListToggleButton(frame, LResources.DIM_POS_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		list.setToolTipText("Modifies the dimensions and the position.");
+		
+		addSpinner(list, cust.getTlxS(), true, 90);
+		addSpinner(list, cust.getTlyS(), true, 90);
+		list.addSeparator();
+		
+		mapContainers.put(cust.getTlxS(), list);
+		mapContainers.put(cust.getTlyS(), list);
+		
+		cust.addEventable(list.getToolbar());
+		return list;
+	}
 
 
-	protected void addTextPropertiesWidgets(final TextCustomiser textCustomiser, final LCanvas canvas) {
+	protected ListToggleButton composeTextPropertiesToolbar(final TextCustomiser textCustomiser, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.TEXT_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of the text.");
 
@@ -110,11 +128,11 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(textCustomiser.getPackagesField().getScrollpane(), list);
 
 		textCustomiser.addEventable(textCustomiser.getPackagesField());
-		widget.add(list);
+		return list;
 	}
 
 
-	protected void addTextPositionWidgets(final TextCustomiser textCustomiser, final LCanvas canvas) {
+	protected ListToggleButton composeTextPositionToolbar(final TextCustomiser textCustomiser, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.TEXTPOS_BL, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the position of the text.");
 		list.addComponent(textCustomiser.getBlButton());
@@ -133,7 +151,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		list.addSeparator();
 		textCustomiser.addEventable(list.getToolbar());
-		widget.add(list);
+		return list;
 	}
 
 

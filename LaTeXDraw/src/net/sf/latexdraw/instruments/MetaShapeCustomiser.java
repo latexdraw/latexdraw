@@ -51,6 +51,9 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 	/** This instrument customises the arc parameters. */
 	protected ShapeArcCustomiser arcCustomiser;
+	
+	/** This instrument customises the dimensions and the position. */
+	protected ShapeCoordDimCustomiser dimPosCustomiser;
 
 
 
@@ -74,6 +77,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arrowCustomiser			= new ShapeArrowCustomiser(composer, hand, pencil);
 		dotCustomiser			= new ShapeDotCustomiser(composer, hand, pencil);
 		arcCustomiser			= new ShapeArcCustomiser(composer, hand, pencil);
+		dimPosCustomiser		= new ShapeCoordDimCustomiser(composer, hand, pencil);
 	}
 
 
@@ -88,6 +92,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arrowCustomiser.addEventable(eventable);
 		dotCustomiser.addEventable(eventable);
 		arcCustomiser.addEventable(eventable);
+		dimPosCustomiser.addEventable(eventable);
 	}
 
 
@@ -104,6 +109,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arrowCustomiser.setActivated(activated);
 		dotCustomiser.setActivated(activated);
 		arcCustomiser.setActivated(activated);
+		dimPosCustomiser.setActivated(activated && hand.isActivated() && !pencil.drawing.getSelection().isEmpty());
 
 		update();
 	}
@@ -120,38 +126,8 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arrowCustomiser.update(shape);
 		dotCustomiser.update(shape);
 		arcCustomiser.update(shape);
+		dimPosCustomiser.update(shape);
 	}
-
-
-//	@Override
-//	protected void repaintWidgetContainer() {
-//		super.repaintWidgetContainer();
-//
-//		borderCustomiser.repaintWidgetContainer();
-//		doubleBorderCustomiser.repaintWidgetContainer();
-//		shadowCustomiser.repaintWidgetContainer();
-//		fillingCustomiser.repaintWidgetContainer();
-//		textCustomiser.repaintWidgetContainer();
-//		rotationCustomiser.repaintWidgetContainer();
-//		arrowCustomiser.repaintWidgetContainer();
-//		dotCustomiser.repaintWidgetContainer();
-//		arcCustomiser.repaintWidgetContainer();
-//	}
-
-//	@Override
-//	public void update() {
-//		super.update();
-//
-//		borderCustomiser.update();
-//		doubleBorderCustomiser.update();
-//		shadowCustomiser.update();
-//		fillingCustomiser.update();
-//		textCustomiser.update();
-//		rotationCustomiser.update();
-//		arrowCustomiser.update();
-//		dotCustomiser.update();
-//		arcCustomiser.update();
-//	}
 
 
 	/**
@@ -232,6 +208,14 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeArcCustomiser getArcCustomiser() {
 		return arcCustomiser;
+	}
+
+	/**
+	 * @return This instrument customises the dimensions and the position.
+	 * @since 3.0
+	 */
+	public ShapeCoordDimCustomiser getDimPosCustomiser() {
+		return dimPosCustomiser;
 	}
 
 
