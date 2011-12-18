@@ -211,7 +211,7 @@ class CheckBox2SelectionDoubleBorder extends CheckBoxForCustomiser<ModifyShapePr
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 		action.setProperty(ShapeProperties.DBLE_BORDERS);
 	}
 
@@ -269,7 +269,7 @@ class ColourButton2SelectionDoubleBorder extends ColourButtonForCustomiser<Modif
 	public void initAction() {
 		super.initAction();
 		action.setProperty(ShapeProperties.COLOUR_DBLE_BORD);
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override
@@ -296,7 +296,7 @@ class Spinner2SelectionDoubleBorder extends SpinnerForCustomiser<ModifyShapeProp
 	@Override
 	public void initAction() {
 		action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override

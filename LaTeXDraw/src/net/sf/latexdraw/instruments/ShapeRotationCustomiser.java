@@ -180,7 +180,7 @@ class Spinner2RotateShape extends SpinnerForCustomiser<ModifyShapeProperty, Shap
 	@Override
 	public void initAction() {
 		action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 		action.setProperty(ShapeProperties.ROTATION_ANGLE);
 	}
 }
@@ -220,6 +220,6 @@ class ButtonPress2RotateShape extends Link<RotateShapes, ButtonPressed, ShapeRot
 			angle = -Math.PI/2.;
 
 		action.setRotationAngleIncrement(angle);
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 	}
 }

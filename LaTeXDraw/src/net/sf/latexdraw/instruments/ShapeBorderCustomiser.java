@@ -275,7 +275,7 @@ class List2SelectionBorder extends ListForCustomiser<ModifyShapeProperty, ShapeB
 	@Override
 	public void initAction() {
 		final ItemSelectable is	= interaction.getList();
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 
 		if(is==instrument.bordersPosCB) {
 			action.setProperty(ShapeProperties.BORDER_POS);
@@ -347,7 +347,7 @@ class Spinner2SelectionBorder extends SpinnerForCustomiser<ModifyShapeProperty, 
 		else
 			action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
 
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override
@@ -438,7 +438,7 @@ class ColourButton2SelectionBorder extends ColourButtonForCustomiser<ModifyShape
 	public void initAction() {
 		super.initAction();
 		action.setProperty(ShapeProperties.COLOUR_LINE);
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override

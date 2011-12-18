@@ -226,7 +226,7 @@ class CheckBox2SelectionShadow extends CheckBoxForCustomiser<ModifyShapeProperty
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 		action.setProperty(ShapeProperties.SHADOW);
 	}
 
@@ -254,7 +254,7 @@ class Spinner2SelectionShadow extends SpinnerForCustomiser<ModifyShapeProperty, 
 	@Override
 	public void initAction() {
 		final JSpinner spinner = interaction.getSpinner();
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 
 		if(spinner==instrument.shadowSizeField)
 			action.setProperty(ShapeProperties.SHADOW_SIZE);
@@ -366,7 +366,7 @@ class ColourButton2SelectionShadow extends ColourButtonForCustomiser<ModifyShape
 	public void initAction() {
 		super.initAction();
 		action.setProperty(ShapeProperties.COLOUR_SHADOW);
-		action.setShape(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override
