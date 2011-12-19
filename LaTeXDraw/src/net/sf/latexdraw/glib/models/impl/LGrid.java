@@ -106,7 +106,7 @@ class LGrid extends LAbstractGrid implements IGrid {
 		final IShape sh = super.duplicate();
 		return sh instanceof IGrid ? (IGrid)sh : null;
 	}
-	
+
 
 	@Override
 	public boolean isParametersEquals(final IShape sh, final boolean considerShadow) {
@@ -139,38 +139,38 @@ class LGrid extends LAbstractGrid implements IGrid {
 		final IPoint bl = points.get(0);
 
 		switch(pos) {
-			case EAST:
+			case WEST:
 				setUnit(unit*sx);
 				break;
-			case NE:
+			case SW:
 				setUnit(unit*sx);
 				break;
-			case NORTH:
+			case SOUTH:
 				setUnit(unit*sy);
 				break;
-			case NW:
+			case SE:
 				IPoint br = getBottomRightPoint();
 				setUnit(unit*sx);
 				bl.setX(br.getX()-getStep()*(gridEndx-gridStartx));
 				break;
-			case SE:
+			case NW:
 				IPoint tl = getTopLeftPoint();
 				setUnit(unit*sx);
 				bl.setY(tl.getY()+getStep()*(gridEndy-gridStarty));
 				break;
-			case SOUTH:
+			case NORTH:
 				tl = getTopLeftPoint();
 				setUnit(unit*sy);
 				bl.setY(tl.getY()+getStep()*(gridEndy-gridStarty));
 				break;
-			case SW:
+			case NE:
 				tl = getTopLeftPoint();
 				br = getBottomRightPoint();
 				setUnit(unit*sx);
 				bl.setX(br.getX()-getStep()*(gridEndx-gridStartx));
 				bl.setY(tl.getY()+getStep()*(gridEndy-gridStarty));
 				break;
-			case WEST:
+			case EAST:
 				br = getBottomRightPoint();
 				setUnit(unit*sx);
 				bl.setX(br.getX()-getStep()*(gridEndx-gridStartx));
