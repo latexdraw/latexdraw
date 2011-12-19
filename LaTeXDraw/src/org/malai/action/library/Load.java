@@ -31,6 +31,7 @@ public class Load extends IOAction {
 
 	@Override
 	protected void doActionBody() {
+		ui.reinit();
 		ok = openSaveManager.open(file.getPath(), ui);
 		ui.setModified(false);
 	}
