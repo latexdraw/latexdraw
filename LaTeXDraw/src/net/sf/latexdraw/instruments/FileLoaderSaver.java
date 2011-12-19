@@ -126,11 +126,9 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 	@Override
 	public void reinit() {
-		if(fileChooser!=null)
-			fileChooser.setSelectedFile(null);
-
 		currentFile	= null;
-		pathSave 	= "/home/arno/Bureau"; //FIXME when preferences will be managed.
+		fileChooser = null;
+		pathSave 	= "/home/ablouin/Bureau"; //FIXME when preferences will be managed.
 	}
 
 

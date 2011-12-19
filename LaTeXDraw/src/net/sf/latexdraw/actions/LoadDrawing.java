@@ -69,7 +69,7 @@ public class LoadDrawing extends Load implements Modifying {
 
 	protected void load() {
 		if(file==null)
-			file = fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
+			file = fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
 
 		if(file!=null && file.canRead())
 			super.doActionBody();
