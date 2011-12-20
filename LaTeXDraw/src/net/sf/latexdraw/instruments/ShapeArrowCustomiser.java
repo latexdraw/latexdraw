@@ -203,21 +203,10 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-	/**
-	 * Sets the widgets of the instrument visible or not.
-	 * @param visible True: they are visible.
-	 * @since 3.0
-	 */
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(arrowLeftCB, visible);
 		composer.setWidgetVisible(arrowRightCB, visible);
-	}
-
-
-	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-		setWidgetsVisible(activated);
 	}
 
 
@@ -237,16 +226,12 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape!=null) {
-			final boolean arrowable = shape.isArrowable();
-
-			setWidgetsVisible(activated && arrowable);
-
-			if(arrowable) {//TODO this code suppose that if arrowable, there are 2 arrows.
-				arrowLeftCB.setSelectedItemSafely(shape.getArrowStyle(0).name());
-				arrowRightCB.setSelectedItemSafely(shape.getArrowStyle(1).name());
-			}
+		if(shape!=null && shape.isArrowable()) {
+			//TODO this code suppose that if arrowable, there are 2 arrows.
+			arrowLeftCB.setSelectedItemSafely(shape.getArrowStyle(0).name());
+			arrowRightCB.setSelectedItemSafely(shape.getArrowStyle(1).name());
 		}
+		else setActivated(false);
 	}
 
 

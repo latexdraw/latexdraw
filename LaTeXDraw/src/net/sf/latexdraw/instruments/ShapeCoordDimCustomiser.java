@@ -35,11 +35,11 @@ import org.malai.widget.MSpinner;
 public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	/** Sets the X-coordinate of the top-left position. */
 	protected MSpinner tlxS;
-	
+
 	/** Sets the Y-coordinate of the top-left position. */
 	protected MSpinner tlyS;
-	
-	
+
+
 	/**
 	 * Creates the instrument.
 	 * @param hand The Hand instrument.
@@ -59,7 +59,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape !=null) {
+		if(shape!=null) {
 			final IPoint tl = shape.getTopLeftPoint();
 			tlxS.setValueSafely(tl.getX());
 			tlyS.setValueSafely(tl.getY());
@@ -78,11 +78,9 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 		tlyS.setToolTipText("Sets the Y-coordinate of the top-left position");
 	}
 
-	
-	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
 
+	@Override
+	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(tlxS, activated);
 		composer.setWidgetVisible(tlyS, activated);
 	}
@@ -115,8 +113,8 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	public MSpinner getTlyS() {
 		return tlyS;
 	}
-	
-	
+
+
 	/**
 	 * Maps spinners to translation of shapes. The X and Y spinners are used to change the position of the top-left point of the
 	 * selected shapes, i.e. to translate it.
@@ -130,15 +128,15 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 		public void initAction() {
 			action.setDrawing(instrument.pencil.drawing);
 		}
-		
-		
+
+
 		@Override
 		public void updateAction() {
 			super.updateAction();
 
 			final IPoint tl = action.getDrawing().getSelection().getTopLeftPoint();
 			final double value = Double.parseDouble(interaction.getSpinner().getValue().toString());
-			
+
 			if(interaction.getSpinner()==instrument.tlxS)
 				action.setTx(value-tl.getX());
 			else

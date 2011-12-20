@@ -485,4 +485,10 @@ class LDot extends LPositionShape implements IDot {
 		final double dec = style==DotStyle.O ? 3.6 : 2.6;
 		return radius * (0.1 / dec) * 2;
 	}
+
+
+	@Override
+	public boolean hasDot() {
+		return true;
+	}
 }

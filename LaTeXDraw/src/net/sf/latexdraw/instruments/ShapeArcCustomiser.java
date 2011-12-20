@@ -92,19 +92,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-		setWidgetsVisible(activated);
-	}
-
-
-	/**
-	 * Sets the widgets of the instrument visible or not.
-	 * @param visible True: they are visible.
-	 * @since 3.0
-	 */
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(arcB, visible);
 		composer.setWidgetVisible(wedgeB, visible);
@@ -116,16 +104,14 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		final boolean widgetsVisible;
+		boolean active = false;
 
 		if(shape instanceof Arcable) {
 			final Arcable arc = (Arcable)shape;
 			final ArcStyle type = arc.getArcStyle();
 
-			if(type==null)
-				widgetsVisible = false;
-			else {
-				widgetsVisible = true;
+			if(type!=null) {
+				active = true;
 				arcB.setSelected(type==ArcStyle.ARC);
 				wedgeB.setSelected(type==ArcStyle.WEDGE);
 				chordB.setSelected(type==ArcStyle.CHORD);
@@ -133,9 +119,9 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 				endAngleS.setValueSafely(Math.toDegrees(arc.getAngleEnd()));
 			}
 		}
-		else widgetsVisible = false;
 
-		setWidgetsVisible(widgetsVisible);
+		if(!active)
+			setActivated(false);
 	}
 
 

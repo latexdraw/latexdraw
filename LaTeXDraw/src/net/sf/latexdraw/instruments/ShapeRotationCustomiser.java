@@ -87,16 +87,11 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	public void setActivated(final boolean activated) {
-		if(activated && hand.isActivated())
-			super.setActivated(true);
-		else
-			super.setActivated(false);
-
-		composer.setWidgetVisible(rotate180Button, this.activated);
-		composer.setWidgetVisible(rotate270Button, this.activated);
-		composer.setWidgetVisible(rotate90Button, this.activated);
-		composer.setWidgetVisible(rotationField, this.activated);
+	protected void setWidgetsVisible(final boolean visible) {
+		composer.setWidgetVisible(rotate180Button, visible);
+		composer.setWidgetVisible(rotate270Button, visible);
+		composer.setWidgetVisible(rotate90Button, visible);
+		composer.setWidgetVisible(rotationField, visible);
 	}
 
 

@@ -117,19 +117,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-		setWidgetsVisible(activated);
-	}
-
-
-	/**
-	 * Sets the widgets of the instrument visible or not.
-	 * @param visible True: they are visible.
-	 * @since 3.0
-	 */
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(blButton, visible);
 		composer.setWidgetVisible(bButton, visible);
@@ -144,13 +132,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		final boolean isText = shape instanceof IText;
-		final boolean isGroup = shape instanceof IGroup;
-		final boolean visible = isText && (!isGroup || ((IGroup)shape).containsTexts());
-
-		setWidgetsVisible(visible);
-
-		if(shape instanceof IText) {
+		if(shape instanceof IText && (!(shape instanceof IGroup) || ((IGroup)shape).containsTexts())) {
 			final TextPosition tp = ((IText)shape).getTextPosition();
 
 			bButton.setSelected(tp==TextPosition.BOT);
@@ -161,6 +143,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 			tlButton.setSelected(tp==TextPosition.TOP_LEFT);
 			packagesField.setText(LaTeXGenerator.getPackages());
 		}
+		else setActivated(false);
 	}
 
 

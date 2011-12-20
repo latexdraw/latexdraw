@@ -183,10 +183,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		final boolean isFillingCust = shape.isInteriorStylable();
-
-		// Updating their values.
-		if(isFillingCust) {
+		if(shape.isInteriorStylable()) {
 			final FillingStyle style	= shape.getFillingStyle();
 			final boolean isFillable	= style.isFillable();
 			final boolean hatchings		= style.isHatchings();
@@ -219,16 +216,11 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 				gradMidPtField.setValueSafely(shape.getGradMidPt());
 			}
 		}
-
-		setWidgetsVisible(isFillingCust);
+		else setActivated(false);
 	}
 
 
-	/**
-	 * Sets the widgets of the instrument visible or not.
-	 * @param visible True: they are visible.
-	 * @since 3.0
-	 */
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(fillColButton, visible);
 		composer.setWidgetVisible(hatchColButton, visible);
@@ -240,13 +232,6 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(hatchSepField, visible);
 		composer.setWidgetVisible(hatchAngleField, visible);
 		composer.setWidgetVisible(hatchWidthField, visible);
-	}
-
-
-	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-		setWidgetsVisible(activated);
 	}
 
 

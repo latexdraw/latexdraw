@@ -107,42 +107,27 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape!=null) {
-			boolean dblable = shape.isDbleBorderable();
+		if(shape!=null && shape.isDbleBorderable()) {
+			final boolean dble = shape.hasDbleBord();
 
-			setWidgetsVisible(dblable);
+			dbleBoundCB.setSelected(dble);
+			dbleBoundColB.setEnabled(dble);
+			dbleSepField.setEnabled(dble);
 
-			if(dblable) {
-				boolean dble = shape.hasDbleBord();
-				dbleBoundCB.setSelected(dble);
-				composer.setWidgetVisible(dbleBoundColB, dble);
-				composer.setWidgetVisible(dbleSepField, dble);
-
-				if(dble) {
-					dbleBoundColB.setColor(shape.getDbleBordCol());
-					dbleSepField.setValueSafely((int)shape.getDbleBordSep());
-				}
+			if(dble) {
+				dbleBoundColB.setColor(shape.getDbleBordCol());
+				dbleSepField.setValueSafely((int)shape.getDbleBordSep());
 			}
 		}
-	}
-
-
-	/**
-	 * Sets the widgets of the instrument visible or not.
-	 * @param visible True: they are visible.
-	 * @since 3.0
-	 */
-	protected void setWidgetsVisible(final boolean visible) {
-		composer.setWidgetVisible(dbleBoundCB, visible);
-		composer.setWidgetVisible(dbleBoundColB, visible);
-		composer.setWidgetVisible(dbleSepField, visible);
+		else setActivated(false);
 	}
 
 
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-		setWidgetsVisible(activated);
+	protected void setWidgetsVisible(final boolean visible) {
+		composer.setWidgetVisible(dbleBoundCB, visible);
+		composer.setWidgetVisible(dbleBoundColB, visible);
+		composer.setWidgetVisible(dbleSepField, visible);
 	}
 
 

@@ -47,4 +47,10 @@ public interface Dottable {
 	 * @since 3.0
 	 */
 	void setRadius(final double radius);
+
+	/**
+	 * @return True if the dottable has or is a dot.
+	 * @since 3.0
+	 */
+	boolean hasDot();
 }

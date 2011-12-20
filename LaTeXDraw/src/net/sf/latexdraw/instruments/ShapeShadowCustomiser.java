@@ -89,17 +89,6 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-		setWidgetsVisible(activated);
-	}
-
-
-	/**
-	 * Sets the widgets of the instrument visible or not.
-	 * @param visible True: they are visible.
-	 * @since 3.0
-	 */
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(shadowCB, visible);
 		composer.setWidgetVisible(shadowColB, visible);
@@ -110,25 +99,21 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape!=null) {
-			boolean shadowable = shape.isShadowable();
+		if(shape!=null && shape.isShadowable()) {
+			final boolean hasShadow = shape.hasShadow();
 
-			if(shadowable) {
-				boolean hasShadow = shape.hasShadow();
-				shadowCB.setSelected(hasShadow);
-				composer.setWidgetVisible(shadowColB, hasShadow);
-				composer.setWidgetVisible(shadowSizeField, hasShadow);
-				composer.setWidgetVisible(shadowAngleField, hasShadow);
+			shadowCB.setSelected(hasShadow);
+			shadowColB.setEnabled(hasShadow);
+			shadowAngleField.setEnabled(hasShadow);
+			shadowSizeField.setEnabled(hasShadow);
 
-				if(hasShadow) {
-					shadowColB.setColor(shape.getShadowCol());
-					shadowAngleField.setValueSafely(Math.toDegrees(shape.getShadowAngle()));
-					shadowSizeField.setValueSafely(shape.getShadowSize());
-				}
+			if(hasShadow) {
+				shadowColB.setColor(shape.getShadowCol());
+				shadowAngleField.setValueSafely(Math.toDegrees(shape.getShadowAngle()));
+				shadowSizeField.setValueSafely(shape.getShadowSize());
 			}
-
-			setWidgetsVisible(shadowable);
 		}
+		else setActivated(false);
 	}
 
 	@Override

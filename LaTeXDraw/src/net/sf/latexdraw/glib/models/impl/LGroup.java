@@ -1348,4 +1348,14 @@ class LGroup extends LShape implements IGroup {
 		for(final IShape sh : shapes)
 			sh.scale(sx, sy, pos);
 	}
+
+
+	@Override
+	public boolean hasDot() {
+		for(final IShape sh : shapes)
+			if(sh instanceof Dottable && ((Dottable)sh).hasDot())
+				return true;
+
+		return false;
+	}
 }

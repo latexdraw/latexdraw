@@ -155,7 +155,9 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape!=null) {
+		if(shape==null)
+			setActivated(false);
+		else {
 			boolean isTh	 	 = shape.isThicknessable();
 			boolean isStylable 	 = shape.isLineStylable();
 			boolean isMvble		 = shape.isBordersMovable();
@@ -180,9 +182,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-
+	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(bordersPosCB, activated);
 		composer.setWidgetVisible(thicknessField, activated);
 		composer.setWidgetVisible(lineColButton, activated);

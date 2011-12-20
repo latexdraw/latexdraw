@@ -103,6 +103,23 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 
 
 	/**
+	 * Sets the widgets of the instrument visible or not.
+	 * @param visible True: they are visible.
+	 * @since 3.0
+	 */
+	protected abstract void setWidgetsVisible(final boolean visible);
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+//		if(isActivated()!=activated) {
+			super.setActivated(activated);
+			setWidgetsVisible(activated);
+//		}
+	}
+
+
+	/**
 	 * @return The Hand instrument.
 	 * @since 3.0
 	 */

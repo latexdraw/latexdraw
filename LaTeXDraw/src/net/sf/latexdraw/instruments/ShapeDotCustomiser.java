@@ -140,41 +140,20 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		boolean widgetVisible = false;
-
-		if(shape instanceof Dottable) {
+		if(shape instanceof Dottable && ((Dottable)shape).hasDot()) {
 			final Dottable dot 	= (Dottable)shape;
-			final double radius = dot.getRadius();
-			final DotStyle style= dot.getDotStyle();
-
-			if(!Double.isNaN(radius) && style!=null) {
-				dotSizeField.setValueSafely(dot.getRadius());
-				dotCB.setSelectedItemSafely(dot.getDotStyle().toString());
-				widgetVisible = true;
-			}
+			dotSizeField.setValueSafely(dot.getRadius());
+			dotCB.setSelectedItemSafely(dot.getDotStyle().toString());
 		}
-
-		setWidgetsVisible(widgetVisible);
-	}
-
-
-	/**
-	 * Sets the widgets of the instrument visible or not.
-	 * @param visible True: they are visible.
-	 * @since 3.0
-	 */
-	protected void setWidgetsVisible(final boolean visible) {
-		composer.setWidgetVisible(dotCB, visible);
-		composer.setWidgetVisible(dotSizeField, visible);
+		else setActivated(false);
 	}
 
 
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-		setWidgetsVisible(activated);
+	protected void setWidgetsVisible(final boolean visible) {
+		composer.setWidgetVisible(dotCB, visible);
+		composer.setWidgetVisible(dotSizeField, visible);
 	}
-
 
 
 	@Override

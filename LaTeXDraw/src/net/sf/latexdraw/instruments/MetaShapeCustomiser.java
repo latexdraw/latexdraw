@@ -51,7 +51,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 	/** This instrument customises the arc parameters. */
 	protected ShapeArcCustomiser arcCustomiser;
-	
+
 	/** This instrument customises the dimensions and the position. */
 	protected ShapeCoordDimCustomiser dimPosCustomiser;
 
@@ -105,13 +105,14 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shadowCustomiser.setActivated(activated);
 		fillingCustomiser.setActivated(activated);
 		textCustomiser.setActivated(activated);
-		rotationCustomiser.setActivated(activated);
+		rotationCustomiser.setActivated(activated && hand.isActivated());
 		arrowCustomiser.setActivated(activated);
 		dotCustomiser.setActivated(activated);
 		arcCustomiser.setActivated(activated);
 		dimPosCustomiser.setActivated(activated && hand.isActivated() && !pencil.drawing.getSelection().isEmpty());
 
-		update();
+		if(activated)
+			update();
 	}
 
 
@@ -227,6 +228,12 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
+		// This instrument does not have any widget.
+	}
+
+
+	@Override
+	protected void setWidgetsVisible(final boolean visible) {
 		// This instrument does not have any widget.
 	}
 }
