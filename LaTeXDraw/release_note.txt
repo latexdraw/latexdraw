@@ -47,3 +47,7 @@ Changes:
 - the type of magnetic grid can be changed using the grid toolbar.
 - the magnetic grid cannot be magnetic when it is not visible.
 - no more button 'default' in all the dialogue boxes.
+
+Fixed:
+- lp#880677, sf#3296077: line colour of psdot style asterisk is not saved.
+

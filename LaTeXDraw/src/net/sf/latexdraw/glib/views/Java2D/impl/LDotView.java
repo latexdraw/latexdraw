@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
@@ -343,8 +344,15 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 	public void updateBorder() {
 		final double angle = shape.getRotationAngle();
 
-		if(LNumber.INSTANCE.equals(angle, 0.))
-			border.setFrame(path.getBounds2D());
+		if(LNumber.INSTANCE.equals(angle, 0.)) {
+			Rectangle2D rec = path.getBounds2D();
+			BasicStroke stroke = getStroke();
+			// The stroke must be used for defining the border of the dot.
+			if(stroke!=null)
+				rec = rec.createUnion(stroke.createStrokedShape(path).getBounds2D());
+
+			border.setFrame(rec);
+		}
 		else {
 			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
 			//TODO
