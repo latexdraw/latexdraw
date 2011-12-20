@@ -98,19 +98,19 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
-	
-	
+
+
 	protected ListToggleButton composeDimPosPropertiesToolbar(final ShapeCoordDimCustomiser cust, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.DIM_POS_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the dimensions and the position.");
-		
+
 		addSpinner(list, cust.getTlxS(), true, 90);
 		addSpinner(list, cust.getTlyS(), true, 90);
 		list.addSeparator();
-		
+
 		mapContainers.put(cust.getTlxS(), list);
 		mapContainers.put(cust.getTlyS(), list);
-		
+
 		cust.addEventable(list.getToolbar());
 		return list;
 	}
@@ -191,7 +191,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.setToolTipText("Customises the dots.");
 
 		list.addComponent(ins.getDotCB());
-		list.addComponent(ins.getDotSizeField());
+		addSpinner(list, ins.getDotSizeField(), false, 70);
 		list.addSeparator();
 
 		mapContainers.put(ins.getDotCB(), list);

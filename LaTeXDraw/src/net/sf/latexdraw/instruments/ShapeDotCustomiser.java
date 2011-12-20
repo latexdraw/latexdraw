@@ -5,12 +5,7 @@ import java.awt.ItemSelectable;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-
-import org.malai.ui.UIComposer;
-import org.malai.widget.MComboBox;
-import org.malai.widget.MSpinner;
 
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
@@ -21,6 +16,10 @@ import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.ui.UIComposer;
+import org.malai.widget.MComboBox;
+import org.malai.widget.MSpinner;
 
 /**
  * This instrument modifies dot parameters.<br>
@@ -67,16 +66,12 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-     	final SpinnerModel model = new SpinnerNumberModel(6, 0.1, 1000, 1);
-     	dotSizeField = new MSpinner(model, new JLabel(LResources.DOT_STYLE_NONE_ICON));
+     	dotSizeField = new MSpinner(new SpinnerNumberModel(6, 0.1, 1000, 1), new JLabel(LResources.DOT_STYLE_NONE_ICON));
      	dotSizeField.setEditor(new JSpinner.NumberEditor(dotSizeField, "0.0"));//$NON-NLS-1$
      	dotSizeField.setToolTipText("Define the size of a dot.");
-     	dotSizeField.setPreferredSize(new Dimension(75,30));
-     	dotSizeField.setMaximumSize(new Dimension(75,30));
 
      	dotCB = createDotStyleChoice();
-     	dotCB.setPreferredSize(new Dimension(55,30));
-     	dotCB.setMaximumSize(new Dimension(55,30));
+     	dotSizeField.setToolTipText("Select the style of the dot.");
 	}
 
 	/**
@@ -136,6 +131,9 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
      	label.setName(DotStyle.FSQUARE.toString());
      	label.setIcon(LResources.DOT_STYLE_SQUARE_F_ICON);
      	dotChoice.addItem(label);
+
+     	dotChoice.setPreferredSize(new Dimension(55,30));
+     	dotChoice.setMaximumSize(new Dimension(55,30));
 
      	return dotChoice;
 	}

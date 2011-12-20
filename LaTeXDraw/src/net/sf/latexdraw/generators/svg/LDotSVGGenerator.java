@@ -96,7 +96,7 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		if(withTransformation)
 			applyTransformations(elt);
 
-		if(!shape.isFillable())
+		if(!shape.isFillable() && shape.isFilled())
 			shape.setLineColour(CSSColors.INSTANCE.getRGBColour(main.getFill()));
 	}
 
@@ -122,6 +122,8 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_SIZE, String.valueOf(shape.getRadius()));
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_DOT_SHAPE, shape.getDotStyle().getPSTToken());
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POSITION, shape.getPosition().getX() + " " + shape.getPosition().getY()); //$NON-NLS-1$
+
+		graphics.dispose();
 
 		return root;
 	}

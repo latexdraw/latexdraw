@@ -401,8 +401,7 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public boolean isFillable() {
-		return style == DotStyle.DIAMOND || style == DotStyle.PENTAGON || style == DotStyle.O || style == DotStyle.SQUARE
-				|| style == DotStyle.TRIANGLE;
+		return style.isFillable();
 	}
 
 
@@ -410,7 +409,7 @@ class LDot extends LPositionShape implements IDot {
 	@Override
 	public boolean isFilled() {
 		return isFillable() || style == DotStyle.FDIAMOND || style == DotStyle.FPENTAGON || style == DotStyle.FSQUARE
-				|| style == DotStyle.FTRIANGLE;
+				|| style == DotStyle.FTRIANGLE || style==DotStyle.DOT;
 	}
 
 

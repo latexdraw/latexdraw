@@ -78,7 +78,7 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 			case O 			:
 			case PENTAGON	:
 			case SQUARE		:
-			case TRIANGLE	: paintDotShape(g, true, shape.isFilled() ? shape.getFillingCol() : Color.WHITE); break;
+			case TRIANGLE	: paintDotShape(g, true, shape.getFillingCol()); break;
 			case DOT 		:
 			case FDIAMOND	:
 			case FPENTAGON	:
