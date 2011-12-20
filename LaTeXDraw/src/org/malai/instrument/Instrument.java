@@ -92,6 +92,15 @@ public abstract class Instrument implements Preferenciable, Modifiable, Reinitia
 	}
 
 
+	/**
+	 * Stops the interactions of the instrument and clears all its events waiting for a process.
+	 * @since 0.2
+	 */
+	public void clearEvents() {
+		for(final Link<?,?,?> link : links)
+			link.clearEvents();
+	}
+
 
 	/**
 	 * @return True if the instrument is activated.

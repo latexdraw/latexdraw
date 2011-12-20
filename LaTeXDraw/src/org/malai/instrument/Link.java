@@ -91,6 +91,16 @@ public abstract class Link<A extends Action, I extends Interaction, N extends In
 
 
 	/**
+	 * Stops the interaction and clears all its events waiting for a process.
+	 * @since 0.2
+	 */
+	public void clearEvents() {
+		interaction.reinit();
+		interaction.clearEventsStillInProcess();
+	}
+
+
+	/**
 	 * Initialises the action of the link. If the attribute 'action' is
 	 * not null, nothing will be done.
 	 * @since 0.2

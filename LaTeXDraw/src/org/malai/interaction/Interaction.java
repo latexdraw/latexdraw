@@ -724,10 +724,15 @@ public abstract class Interaction implements IStateMachine, EventHandler {
 	protected void processEvents() {
 		if(stillProcessingEvents!=null) {
 			Event event;
-			final int size = stillProcessingEvents.size();
+			// All the events must be processed but the list stillProcessingEvents can be modified
+			// during the process. So, a clone of the list must be created.
+			List<Event> list = new ArrayList<Event>(stillProcessingEvents);
 
-			for(int i=0; i<size; i++) {
-				event = stillProcessingEvents.remove(0);
+			// All the events must be processed.
+			while(!list.isEmpty()) {
+				event = list.remove(0);
+				// Do not forget to remove the event from its original list.
+				stillProcessingEvents.remove(0);
 
 				if(event instanceof MousePressEvent) {
 					MousePressEvent press = (MousePressEvent)event;

@@ -306,7 +306,7 @@ public class LFrame extends UI {
 	public Instrument[] getInstruments() {
 		return new Instrument[]{editingSelector, exporter, fileLoader, hand, pencil, metaShapeCustomiser, undoManager,
 								zoomer, scaleRulersCustomiser, scroller, gridCustomiser, helper, textSetter, exceptionsManager,
-								deleter, prefActivator, prefSetters};
+								deleter, prefActivator, prefSetters, paster, getCanvas().getBorderInstrument(), tabSelector};
 	}
 
 

@@ -131,6 +131,21 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	}
 
 
+	@Override
+	public void clearEvents() {
+		borderCustomiser.clearEvents();
+		doubleBorderCustomiser.clearEvents();
+		shadowCustomiser.clearEvents();
+		fillingCustomiser.clearEvents();
+		textCustomiser.clearEvents();
+		rotationCustomiser.clearEvents();
+		arrowCustomiser.clearEvents();
+		dotCustomiser.clearEvents();
+		arcCustomiser.clearEvents();
+		dimPosCustomiser.clearEvents();
+	}
+
+
 	/**
 	 * @return The instrument that customises the line properties of shapes.
 	 * @since 3.0
