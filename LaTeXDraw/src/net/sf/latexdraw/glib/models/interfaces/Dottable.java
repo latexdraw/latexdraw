@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
+import java.awt.Color;
+
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 
 /**
@@ -53,4 +55,23 @@ public interface Dottable {
 	 * @since 3.0
 	 */
 	boolean hasDot();
+
+	/**
+	 * Sets the filling colour of the dottable.
+	 * @param fillingCol its new colour.
+	 * @since 3.0
+	 */
+	void setFillingCol(final Color fillingCol);
+
+	/**
+	 * @return The filling colour of the dottable or null if not fillable.
+	 * @since 3.0
+	 */
+	Color getFillingCol();
+
+	/**
+	 * @return True if the dot can be filled.
+	 * @since 3.0
+	 */
+	boolean isFillable();
 }

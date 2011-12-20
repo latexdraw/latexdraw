@@ -223,8 +223,10 @@ public class Pencil extends Instrument {
 			shape.setShadowSize(shadowable.getShadowSize());
 		}
 		if(shape instanceof Dottable) {
-			((Dottable)shape).setDotStyle(dottable.getDotStyle());
-			((Dottable)shape).setRadius(dottable.getRadius());
+			final Dottable dot = (Dottable)shape;
+			dot.setDotStyle(dottable.getDotStyle());
+			dot.setRadius(dottable.getRadius());
+			dot.setFillingCol(dottable.getFillingCol());
 		}
 		if(shape instanceof Arcable) {
 			final Arcable arc = (Arcable)shape;
@@ -304,6 +306,16 @@ public class Pencil extends Instrument {
 	 */
 	public void setDotSize(final double dotSize) {
 		dottable.setRadius(dotSize);
+	}
+
+
+	/**
+	 * Defines the filling colour of the created dots.
+	 * @param fillingDotCol The filling colour of the created dots.
+	 * @since 3.0
+	 */
+	public void setDotFillingCol(final Color fillingDotCol) {
+		dottable.setFillingCol(fillingDotCol);
 	}
 
 

@@ -14,10 +14,13 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.ui.UIComposer;
+import org.malai.widget.MButtonIcon;
+import org.malai.widget.MColorButton;
 import org.malai.widget.MComboBox;
 import org.malai.widget.MSpinner;
 
@@ -46,6 +49,9 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	/** Allows the selection of a dot shape. */
 	protected MComboBox dotCB;
 
+	/** Changes the colour of the filling of the dot. */
+	protected MColorButton fillingB;
+
 
 	/**
 	 * Creates the instrument.
@@ -72,6 +78,10 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 
      	dotCB = createDotStyleChoice();
      	dotSizeField.setToolTipText("Select the style of the dot.");
+
+     	fillingB = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(pencil.fillingable.getFillingCol()));//$NON-NLS-1$
+     	fillingB.setMargin(LResources.INSET_BUTTON);
+     	fillingB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.68")); //$NON-NLS-1$
 	}
 
 	/**
@@ -144,6 +154,10 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 			final Dottable dot 	= (Dottable)shape;
 			dotSizeField.setValueSafely(dot.getRadius());
 			dotCB.setSelectedItemSafely(dot.getDotStyle().toString());
+			fillingB.setEnabled(shape.isFillable());
+
+			if(shape.isFillable())
+				fillingB.setColor(shape.getFillingCol());
 		}
 		else setActivated(false);
 	}
@@ -153,6 +167,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(dotCB, visible);
 		composer.setWidgetVisible(dotSizeField, visible);
+		composer.setWidgetVisible(fillingB, visible);
 	}
 
 
@@ -163,6 +178,8 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 			links.add(new Spinner2SelectionDotSize(this));
 			links.add(new List2PencilDotStyle(this));
 			links.add(new List2SelectionDotStyle(this));
+			links.add(new FillingButton2SelectionFilling(this));
+			links.add(new FillingButton2PencilFilling(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -185,94 +202,145 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	public MComboBox getDotCB() {
 		return dotCB;
 	}
-}
 
 
-
-/**
- * This link maps a list to a ModifyPencil action.
- */
-class List2PencilDotStyle extends ListForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
-	protected List2PencilDotStyle(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
-		super(instrument, ModifyPencilParameter.class);
+	/**
+	 * @return the button that changes the colour of the filling of dots.
+	 * @since 3.0
+	 */
+	public MColorButton getFillingB() {
+		return fillingB;
 	}
 
-	@Override
-	public void initAction() {
-		action.setPencil(instrument.pencil);
-		action.setProperty(ShapeProperties.DOT_STYLE);
-		action.setValue(DotStyle.getStyle(getLabelText()));
+
+	/**
+	 * This link maps a colour button to the pencil.
+	 */
+	private static class FillingButton2PencilFilling extends ColourButtonForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
+		protected FillingButton2PencilFilling(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setPencil(instrument.pencil);
+			action.setProperty(ShapeProperties.DOT_FILLING_COL);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getButton()==instrument.fillingB && instrument.pencil.isActivated();
+		}
 	}
 
-	@Override
-	public boolean isConditionRespected() {
-		final ItemSelectable is = interaction.getList();
-		return is==instrument.dotCB && instrument.pencil.isActivated();
-	}
-}
 
+	/**
+	 * This link maps a colour button to the pencil.
+	 */
+	private static class FillingButton2SelectionFilling extends ColourButtonForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
+		protected FillingButton2SelectionFilling(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyShapeProperty.class);
+		}
 
-/**
- * This link maps a list to a ModifyShape action.
- */
-class List2SelectionDotStyle extends ListForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
-	protected List2SelectionDotStyle(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
-		super(instrument, ModifyShapeProperty.class);
-	}
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setShape(instrument.pencil.drawing.getSelection().duplicate());
+			action.setProperty(ShapeProperties.DOT_FILLING_COL);
+		}
 
-	@Override
-	public void initAction() {
-		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
-		action.setProperty(ShapeProperties.DOT_STYLE);
-		action.setValue(DotStyle.getStyle(getLabelText()));
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		final ItemSelectable is	= interaction.getList();
-		return is==instrument.dotCB && instrument.hand.isActivated();
-	}
-}
-
-
-
-/**
- * This link maps a spinner to a ModifyPencil action.
- */
-class Spinner2SelectionDotSize extends SpinnerForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
-	protected Spinner2SelectionDotSize(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, ModifyShapeProperty.class);
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getButton()==instrument.fillingB && instrument.hand.isActivated();
+		}
 	}
 
-	@Override
-	public void initAction() {
-		action.setProperty(ShapeProperties.DOT_SIZE);
-		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
+
+	/**
+	 * This link maps a list to a ModifyPencil action.
+	 */
+		private static class List2PencilDotStyle extends ListForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
+		protected List2PencilDotStyle(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			action.setPencil(instrument.pencil);
+			action.setProperty(ShapeProperties.DOT_STYLE);
+			action.setValue(DotStyle.getStyle(getLabelText()));
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			final ItemSelectable is = interaction.getList();
+			return is==instrument.dotCB && instrument.pencil.isActivated();
+		}
 	}
 
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getSpinner()==instrument.dotSizeField && instrument.hand.isActivated();
+
+	/**
+	 * This link maps a list to a ModifyShape action.
+	 */
+	private static class List2SelectionDotStyle extends ListForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
+		protected List2SelectionDotStyle(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyShapeProperty.class);
+		}
+
+		@Override
+		public void initAction() {
+			action.setShape(instrument.pencil.drawing.getSelection().duplicate());
+			action.setProperty(ShapeProperties.DOT_STYLE);
+			action.setValue(DotStyle.getStyle(getLabelText()));
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			final ItemSelectable is	= interaction.getList();
+			return is==instrument.dotCB && instrument.hand.isActivated();
+		}
 	}
-}
 
 
-/**
- * This link maps a spinner to a ModifyPencil action.
- */
-class Spinner2PencilDotSize extends SpinnerForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
-	protected Spinner2PencilDotSize(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, ModifyPencilParameter.class);
+	/**
+	 * This link maps a spinner to a ModifyPencil action.
+	 */
+	private static class Spinner2SelectionDotSize extends SpinnerForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
+		protected Spinner2SelectionDotSize(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class);
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.DOT_SIZE);
+			action.setShape(instrument.pencil.drawing.getSelection().duplicate());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getSpinner()==instrument.dotSizeField && instrument.hand.isActivated();
+		}
 	}
 
-	@Override
-	public void initAction() {
-		action.setProperty(ShapeProperties.DOT_SIZE);
-		action.setPencil(instrument.pencil);
-	}
 
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getSpinner()==instrument.dotSizeField && instrument.pencil.isActivated();
+	/**
+	 * This link maps a spinner to a ModifyPencil action.
+	 */
+	private static class Spinner2PencilDotSize extends SpinnerForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
+		protected Spinner2PencilDotSize(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.DOT_SIZE);
+			action.setPencil(instrument.pencil);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getSpinner()==instrument.dotSizeField && instrument.pencil.isActivated();
+		}
 	}
 }

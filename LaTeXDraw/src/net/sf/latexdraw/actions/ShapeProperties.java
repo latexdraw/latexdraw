@@ -389,6 +389,18 @@ public enum ShapeProperties {
 			return obj instanceof LineStyle;
 		}
 	},
+	/** Modification of the filling colour of a dot. */
+	DOT_FILLING_COL {
+		@Override
+		public String getMessage() {
+			return "dot filling colour";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Color;
+		}
+	},
 	/** Modification of the style of a dot. */
 	DOT_STYLE {
 		@Override
@@ -411,30 +423,6 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Integer || obj instanceof Double || obj instanceof Float;
-		}
-	},
-	/** Modification of the style of the first arrow of a shape. */
-	ARROW_START_STYLE {
-		@Override
-		public String getMessage() {
-			return "starting arrow style";
-		}
-
-		@Override
-		public boolean isValueValid(final Object obj) {
-			return obj instanceof ArrowStyle;
-		}
-	},
-	/** Modification of the style of the second arrow of a shape. */
-	ARROW_END_STYLE {
-		@Override
-		public String getMessage() {
-			return "ending arrow style";
-		}
-
-		@Override
-		public boolean isValueValid(final Object obj) {
-			return obj instanceof ArrowStyle;
 		}
 	};
 

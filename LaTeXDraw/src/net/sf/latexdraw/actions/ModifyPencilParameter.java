@@ -90,12 +90,6 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 	@Override
 	protected void applyValue(final Object obj) {
 		switch(property) {
-			case ARROW_END_STYLE:
-				pencil.setArrowRightStyle((ArrowStyle) value);
-				break;
-			case ARROW_START_STYLE:
-				pencil.setArrowLeftStyle((ArrowStyle) value);
-				break;
 			case BORDER_POS:
 				pencil.setBorderPosition((BorderPos) value);
 				break;
@@ -122,6 +116,9 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 				break;
 			case DBLE_BORDERS:
 				pencil.setDoubleBorder((Boolean) value);
+				break;
+			case DOT_FILLING_COL:
+				pencil.setDotFillingCol((Color)value);
 				break;
 			case DOT_SIZE:
 				pencil.setDotSize((Double) value);

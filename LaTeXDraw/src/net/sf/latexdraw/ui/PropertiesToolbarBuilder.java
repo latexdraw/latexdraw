@@ -192,10 +192,12 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		list.addComponent(ins.getDotCB());
 		addSpinner(list, ins.getDotSizeField(), false, 70);
+		list.addComponent(ins.getFillingB());
 		list.addSeparator();
 
 		mapContainers.put(ins.getDotCB(), list);
 		mapContainers.put(ins.getDotSizeField(), list);
+		mapContainers.put(ins.getFillingB(), list);
 
         ins.addEventable(list.getToolbar());
 
