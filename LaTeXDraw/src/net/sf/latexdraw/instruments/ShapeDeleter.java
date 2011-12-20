@@ -160,7 +160,7 @@ class KeyPressed2DeleteShapes extends DeleteShapesLink<KeyPressure> {
 
 	@Override
 	public boolean isConditionRespected() {
-		return super.isConditionRespected() && interaction.getKey()==KeyEvent.VK_DELETE;
+		return interaction.getKey()==KeyEvent.VK_DELETE && super.isConditionRespected();
 	}
 }
 
