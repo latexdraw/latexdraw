@@ -33,6 +33,7 @@ import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
+import net.sf.latexdraw.parsers.svg.SVGPathElement;
 
 /**
  * This Graphics can be used to convert Java drawing (using Graphics2D) into SVG.
@@ -68,6 +69,12 @@ public class Graphics2D2SVG extends Graphics2D {
 	/** The current stroke. Is null as the initialisation. */
 	protected Stroke currentStroke;
 
+	/** Corresponds to the last SVG path element created. Is used for optimisation. */
+	private SVGPathElement lastPathPainted;
+
+	/** True if the last path was filled. Painted otherwise. Is used for optimisation. */
+	private boolean lastPathPaintedFilled;
+
 
 	/**
 	 * Creates the converter.
@@ -84,6 +91,10 @@ public class Graphics2D2SVG extends Graphics2D {
 		element 	  = new SVGGElement(document);
 	}
 
+
+	protected void clearLastPath() {
+		lastPathPainted = null;
+	}
 
 
 	/**
@@ -182,6 +193,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public boolean drawImage(final Image img, final AffineTransform xform, final ImageObserver obs) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -190,6 +202,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawImage(final BufferedImage img, final BufferedImageOp op, final int x, final int y) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -198,6 +211,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawRenderedImage(final RenderedImage img, final AffineTransform xform) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -206,6 +220,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawRenderableImage(final RenderableImage img, final AffineTransform xform) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -214,6 +229,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawString(final String str, final int x, final int y) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -222,6 +238,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawString(final String str, final float x, final float y) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -230,6 +247,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawString(final AttributedCharacterIterator iterator, final int x, final int y) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -238,6 +256,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawString(final AttributedCharacterIterator iterator, final float x, final float y) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -246,6 +265,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawGlyphVector(final GlyphVector g, final float x, final float y) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -265,9 +285,19 @@ public class Graphics2D2SVG extends Graphics2D {
 			Path2D2SVGPath parser = new Path2D2SVGPath((Path2D)sh, document);
 			try{
 				parser.parse();
-				SVGElement shapeElt = parser.getSVGElement();
-				setShapeAttributes(shapeElt, fill, draw);
-				element.appendChild(shapeElt);
+				SVGPathElement shapeElt = parser.getSVGElement();
+
+				if(lastPathPainted!=null && fill!=lastPathPaintedFilled && shapeElt.getPathData().equals(lastPathPainted.getPathData())) {
+					setShapeAttributes(lastPathPainted, fill, draw);
+					// The shape was both filled and painted so the optimisation ends.
+					lastPathPainted = null;
+				}else {
+					setShapeAttributes(shapeElt, fill, draw);
+					element.appendChild(shapeElt);
+					// Maybe the next instruction will be the painting of the filling of the shape just filled or painted.
+					lastPathPainted = shapeElt;
+					lastPathPaintedFilled = fill;
+				}
 			}catch(ParseException exception){ BadaboomCollector.INSTANCE.add(exception); }
 		}
 		else throw new IllegalArgumentException();
@@ -362,6 +392,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void translate(final int x, final int y) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -370,6 +401,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void translate(final double tx, final double ty) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -378,6 +410,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void rotate(final double theta) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -386,6 +419,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void rotate(final double theta, final double x, final double y) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -394,6 +428,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void scale(final double sx, final double sy) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -402,6 +437,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void shear(final double shx, final double shy) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -410,6 +446,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void transform(final AffineTransform tx) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -418,6 +455,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void setTransform(final AffineTransform tx) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -471,6 +509,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void clip(final Shape s) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -555,6 +594,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void clipRect(final int x, final int y, final int width, final int height) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -563,6 +603,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void setClip(final int x, final int y, final int width, final int height) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -595,6 +636,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawLine(final int x1, final int y1, final int x2, final int y2) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -603,6 +645,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void fillRect(final int x, final int y, final int width, final int height) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -611,6 +654,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void clearRect(final int x, final int y, final int width, final int height) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -619,6 +663,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawRoundRect(final int x, final int y, final int width, final int height, final int arcWidth, final int arcHeight) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -627,6 +672,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void fillRoundRect(final int x, final int y, final int width, final int height, final int arcWidth, final int arcHeight) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -635,6 +681,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawOval(final int x, final int y, final int width, final int height) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -643,6 +690,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void fillOval(final int x, final int y, final int width, final int height) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -651,6 +699,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawArc(final int x, final int y, final int width, final int height, final int startAngle, final int arcAngle) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -659,6 +708,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void fillArc(final int x, final int y, final int width, final int height, final int startAngle, final int arcAngle) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -667,6 +717,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawPolyline(final int[] xPoints, final int[] yPoints, final int nPoints) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -675,6 +726,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void drawPolygon(final int[] xPoints, final int[] yPoints, final int nPoints) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -683,6 +735,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public void fillPolygon(final int[] xPoints, final int[] yPoints, final int nPoints) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -691,6 +744,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public boolean drawImage(final Image img, final int x, final int y, final ImageObserver observer) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -699,6 +753,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public boolean drawImage(final Image img, final int x, final int y, final int width, final int height, final ImageObserver observer) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -707,6 +762,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public boolean drawImage(final Image img, final int x, final int y, final Color bgcolor, final ImageObserver observer) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -715,6 +771,7 @@ public class Graphics2D2SVG extends Graphics2D {
 
 	@Override
 	public boolean drawImage(final Image img, final int x, final int y, final int width, final int height, final Color bgcolor, final ImageObserver observer) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -724,6 +781,7 @@ public class Graphics2D2SVG extends Graphics2D {
 	@Override
 	public boolean drawImage(final Image img, final int dx1, final int dy1, final int dx2, final int dy2, final int sx1, final int sy1, final int sx2, final int sy2,
 			final ImageObserver observer) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
@@ -733,18 +791,20 @@ public class Graphics2D2SVG extends Graphics2D {
 	@Override
 	public boolean drawImage(final Image img, final int dx1, final int dy1, final int dx2, final int dy2, final int sx1, final int sy1, final int sx2, final int sy2, final Color bgcolor,
 			final ImageObserver observer) {
+		clearLastPath();
 		// TODO Auto-generated method stub
 		throw new IllegalArgumentException();
 	}
-
 
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		throw new IllegalArgumentException();
+		clearLastPath();
+		currentStroke	= null;
+		currentColour	= null;
+		element 		= null;
+		document		= null;
 	}
-
 
 
 	/**
