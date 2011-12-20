@@ -37,21 +37,20 @@ class PSTDotView extends PSTClassicalView<IDot> {
 	}
 
 
-
 	@Override
 	public void updateCache(final IPoint origin, final float ppc) {
-		double x 				= shape.getX() - origin.getX();
-		double y 				= origin.getY() - shape.getY();
-		DotStyle style 			= shape.getDotStyle();
-		StringBuilder params   	= getPropertiesCode(ppc);
-		StringBuilder rotation 	= getRotationHeaderCode(ppc, origin);
+		final double x 				= shape.getX() - origin.getX();
+		final double y 				= origin.getY() - shape.getY();
+		final DotStyle style 		= shape.getDotStyle();
+		final StringBuilder params  = getPropertiesCode(ppc);
+		final StringBuilder rotation= getRotationHeaderCode(ppc, origin);
 
 		emptyCache();
 
 		if(style!=DotStyle.DOT)
 			params.append(", dotstyle=").append(style.getPSTToken()); //$NON-NLS-1$
 
-		params.append(", dotsize=").append((float)LNumber.INSTANCE.getCutNumber(shape.getRadius()*2./ppc)); //$NON-NLS-1$
+		params.append(", dotsize=").append((float)LNumber.INSTANCE.getCutNumber(shape.getRadius()/ppc)); //$NON-NLS-1$
 
 		if(rotation!=null)
 			cache.append(rotation);
