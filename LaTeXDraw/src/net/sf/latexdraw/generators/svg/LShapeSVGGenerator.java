@@ -564,21 +564,26 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		final SVGDefsElement defs 	= doc.getFirstChild().getDefs();
 		final FillingStyle fillStyle= shape.getFillingStyle();
 
+		// Setting the position of the borders.
 		if(shape.isBordersMovable())
 	        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE +':'+ LNamespace.XML_BORDERS_POS, shape.getBordersPosition().getLatexToken());
 
+		// Setting the thickness of the borders.
 		if(shape.isThicknessable()) {
 			LShapeSVGGenerator.setThickness(root, shape.getThickness(), shape.hasDbleBord(), shape.getDbleBordSep());
 			root.setStroke(shape.getLineColour());
 		}
 
+		// Setting the filling properties.
 		if(shape.isFillable())
 			if((shape.isFilled() || (shape.hasShadow() && shadowFills)) && !shape.hasHatchings() && !shape.hasGradient())
 				root.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
 			else
+				// Setting the filling colour.
 				if(fillStyle==FillingStyle.NONE)
 		        	root.setAttribute(SVGAttributes.SVG_FILL, SVGAttributes.SVG_VALUE_NONE);
 		        else
+		        	// Setting the gradient properties.
 		        	if(fillStyle==FillingStyle.GRAD) {
 		        		final Element grad 		= new SVGLinearGradientElement(doc);
 		        		Element stop;
@@ -600,7 +605,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		            		grad.setAttribute(SVGAttributes.SVG_GRADIENT_UNITS, SVGAttributes.SVG_UNITS_VALUE_USR);
 		        		}
 
-
+		        		// Setting the middle point of the gradient and its colours.
 		        		if(!LNumber.INSTANCE.equals(gradMidPt, 0.)) {
 			        		stop = doc.createElement(SVGElements.SVG_STOP);
 			        		stop.setAttribute(SVGAttributes.SVG_OFFSET, "0");//$NON-NLS-1$
@@ -624,6 +629,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        		root.setAttribute(SVGAttributes.SVG_FILL, SVG_URL_TOKEN_BEGIN + id + ')');
 		        	}
 		        	else {
+		        		// Setting the hatchings.
 		        		if(shape.hasHatchings()) {
 		        			final String id 		= SVGElements.SVG_PATTERN + shape.getId();
 		        			final Element hatch 	= doc.createElement(SVGElements.SVG_PATTERN);
@@ -649,6 +655,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        			path.setAttribute(SVGAttributes.SVG_D, getSVGHatchingsPath().toString());
 	        				gPath.appendChild(path);
 
+	        				// Several shapes having hatching must have their shadow filled.
 		        			if(shape.isFilled() || (shape.hasShadow() && shadowFills)) {
 		        				Element fill = doc.createElement(SVGElements.SVG_RECT);
 		        				fill.setAttribute(SVGAttributes.SVG_FILL,   CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
@@ -721,6 +728,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		final double sex 			= se.getX();
 		final double sey 			= se.getY();
 
+		// Computing the angle.
 		if(angle2>0.) {
 			if(angle2>3.*halphPI)
 				angle2 = angle2-Math.PI*2.;
@@ -738,17 +746,20 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		final double val = hatchingWidth+hatchingSep;
 
 		if(LNumber.INSTANCE.equals(angle2, 0.))
+			// Drawing the hatchings vertically.
 			for(double x = nwx; x<sex; x+=val) {
 				path.add(new SVGPathSegMoveto(x, nwy, false));
 				path.add(new SVGPathSegLineto(x, sey, false));
 			}
 		else
+			// Drawing the hatchings horizontally.
 			if(LNumber.INSTANCE.equals(angle2, halphPI) || LNumber.INSTANCE.equals(angle2, -halphPI))
 				for(double y = nwy; y<sey; y+=val) {
 					path.add(new SVGPathSegMoveto(nwx, y, false));
 					path.add(new SVGPathSegLineto(sex, y, false));
 				}
 			else {
+				// Drawing the hatchings by rotation.
 				final double incX = val/Math.cos(angle2);
 				final double incY = val/Math.sin(angle2);
 				double maxX;
@@ -806,6 +817,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			double angle 		= shape.getGradAngle()%(2*PI);
 			double gradMidPt 	= shape.getGradMidPt();
 
+			// Transforming the negative angle in a positive angle.
 			if(angle<0.)
 				angle = 2*PI + angle;
 
@@ -816,6 +828,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 			if(!LNumber.INSTANCE.equals(angle, 0.)) {
 				if(LNumber.INSTANCE.equals(angle%(PI/2.), 0.)) {
+					// The gradient is horizontal.
 					pt1 = factory.createPoint(nwx, (nwy+sey)/2.);
 					pt2 = factory.createPoint(sex, (nwy+sey)/2.);
 
@@ -847,6 +860,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				}
 			}//if(angle!=0)
 			else {
+				// The gradient is vertical.
 				if(!ignoreMidPt && gradMidPt<0.5)
 					pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (nwx+sex)/2.,se.getY()));
 
@@ -888,61 +902,64 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		if(fill==null || shape==null || fill.equals(SVGAttributes.SVG_VALUE_NONE))
 			return ;
 
+		// Getting the url to the SVG symbol of the filling.
 		if(fill.startsWith(SVG_URL_TOKEN_BEGIN) && fill.endsWith(")") && defs!=null) { //$NON-NLS-1$
 			final String uri 		= fill.substring(5, fill.length()-1);
 			final SVGElement def 	= defs.getDef(uri);
 
-			if(def!=null)
-				if(def instanceof SVGPatternElement) {
-					final SVGPatternElement pat = (SVGPatternElement)def;
-					final Color c 				= pat.getBackgroundColor();
-					final String str 			= pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_TYPE);
-					double angle;
-					double sep;
-					double width;
-					String attr;
+			// A pattern means hatchings.
+			if(def instanceof SVGPatternElement) {
+				final SVGPatternElement pat = (SVGPatternElement)def;
+				final Color c 				= pat.getBackgroundColor();
+				final String str 			= pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_TYPE);
+				double angle;
+				double sep;
+				double width;
+				String attr;
 
-					try { angle = Double.parseDouble(pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+ LNamespace.XML_ROTATION));
-					}catch(final Exception e) { angle = 0.; }
+				try { angle = Double.parseDouble(pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+ LNamespace.XML_ROTATION));
+				}catch(final Exception e) { angle = 0.; }
 
-					attr = pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_SIZE);
+				attr = pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_SIZE);
 
-					if(attr==null)
-						sep = pat.getHatchingSep();
-					else
-						try { sep = Double.parseDouble(attr); }
-						catch(final Exception e) { sep = 0.; }
-
-					if(PSTricksConstants.isValidFillStyle(str))
-						shape.setFillingStyle(FillingStyle.getStyleFromLatex(str));
-
-					if(!Double.isNaN(angle))
-						shape.setHatchingsAngle(angle);
-
-					shape.setFilled(c!=null);
-					shape.setFillingCol(c);
-					shape.setHatchingsCol(pat.getHatchingColor());
-
-					if(!Double.isNaN(sep))
-						shape.setHatchingsSep(sep);
-
-					width = pat.getHatchingStrokeWidth();
-
-					if(!Double.isNaN(width))
-						shape.setHatchingsWidth((float)width);
-				}
+				if(attr==null)
+					sep = pat.getHatchingSep();
 				else
-					if(def instanceof SVGLinearGradientElement) {
-						final SVGLinearGradientElement grad = (SVGLinearGradientElement)def;
+					try { sep = Double.parseDouble(attr); }
+					catch(final Exception e) { sep = 0.; }
 
-						shape.setGradColStart(grad.getStartColor());
-						shape.setGradColEnd(grad.getEndColor());
-						shape.setFillingStyle(FillingStyle.getStyle(PSTricksConstants.TOKEN_FILL_GRADIENT));
-						shape.setGradMidPt(grad.getMiddlePoint());
-						shape.setGradAngle(grad.getAngle());
-					}
+				if(PSTricksConstants.isValidFillStyle(str))
+					shape.setFillingStyle(FillingStyle.getStyleFromLatex(str));
+
+				if(!Double.isNaN(angle))
+					shape.setHatchingsAngle(angle);
+
+				shape.setFilled(c!=null);
+				shape.setFillingCol(c);
+				shape.setHatchingsCol(pat.getHatchingColor());
+
+				if(!Double.isNaN(sep))
+					shape.setHatchingsSep(sep);
+
+				width = pat.getHatchingStrokeWidth();
+
+				if(!Double.isNaN(width))
+					shape.setHatchingsWidth((float)width);
+			}
+			else
+				// A linear gradient means a gradient.
+				if(def instanceof SVGLinearGradientElement) {
+					final SVGLinearGradientElement grad = (SVGLinearGradientElement)def;
+
+					shape.setGradColStart(grad.getStartColor());
+					shape.setGradColEnd(grad.getEndColor());
+					shape.setFillingStyle(FillingStyle.getStyle(PSTricksConstants.TOKEN_FILL_GRADIENT));
+					shape.setGradMidPt(grad.getMiddlePoint());
+					shape.setGradAngle(grad.getAngle());
+				}
 		}
 		else {
+			// Just getting the filling colour.
 			final Color c = CSSColors.INSTANCE.getRGBColour(fill);
 
 			if(c!=null) {
