@@ -8,12 +8,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JViewport;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-import net.sf.latexdraw.instruments.EditionChoice;
 import net.sf.latexdraw.instruments.FileLoaderSaver;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -76,36 +80,33 @@ public class ShortcutsFrame extends JFrame {
 			{ctrl+"+C", LResources.LABEL_COPY, catEdit},//$NON-NLS-1$
 			{ctrl+"+V", LResources.LABEL_PASTE, catEdit},//$NON-NLS-1$
 			{ctrl+"+X", LResources.LABEL_CUT, catEdit},//$NON-NLS-1$
-			{ctrl+"+Z", LResources.LABEL_UNDO, catEdit},//$NON-NLS-1$
-			{ctrl+"+Y", LResources.LABEL_REDO, catEdit},//$NON-NLS-1$
+			{ctrl+"+Z", LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.23"), catEdit},//$NON-NLS-1$
+			{ctrl+"+Y", LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.22"), catEdit},//$NON-NLS-1$
 			{ctrl+"+N", LResources.LABEL_NEW, catFile},//$NON-NLS-1$
 			{ctrl+"+O", FileLoaderSaver.LABEL_OPEN, catFile},//$NON-NLS-1$
 			{ctrl+"+S", FileLoaderSaver.LABEL_SAVE, catFile},//$NON-NLS-1$
-			{ctrl+"+E", LResources.LABEL_PRINT_CODE, catFile},//$NON-NLS-1$
-			{ctrl+"+D", LResources.LABEL_PRINT_DRAW, catFile},//$NON-NLS-1$
-			{ctrl+"+W", LResources.LABEL_QUIT, catFile},//$NON-NLS-1$
-			{KeyEvent.getKeyText(KeyEvent.VK_F9), LResources.LABEL_ZOOM_DEFAULT, catNav},
-			{KeyEvent.getKeyText(KeyEvent.VK_ADD), LResources.LABEL_ZOOM_IN, catNav},
-			{KeyEvent.getKeyText(KeyEvent.VK_SUBTRACT), LResources.LABEL_ZOOM_OUT, catNav},
-			{'J', EditionChoice.LINES.getLabel(), catDraw},
-			{'P', EditionChoice.POLYGON.getLabel(), catDraw},
-			{'D', EditionChoice.DOT.getLabel(), catDraw},
-			{'R', EditionChoice.RECT.getLabel(), catDraw},
-			{'S', EditionChoice.SQUARE.getLabel(), catDraw},
-			{'H', EditionChoice.RHOMBUS.getLabel(), catDraw},
-			{'T', EditionChoice.TRIANGLE.getLabel(), catDraw},
-			{'E', EditionChoice.ELLIPSE.getLabel(), catDraw},
-			{'C', EditionChoice.CIRCLE.getLabel(), catDraw},
-			{'A', EditionChoice.CIRCLE_ARC.getLabel(),	catDraw},
-			{'W', EditionChoice.WEDGE.getLabel(), catDraw},
-			{'O', EditionChoice.CHORD.getLabel(), catDraw},
-			{'B', EditionChoice.BEZIER_CURVE.getLabel(), catDraw},
-			{'G', EditionChoice.GRID.getLabel(), catDraw},
-			{'Z', EditionChoice.AXES.getLabel(), catDraw},
-			{'K', EditionChoice.FREE_HAND.getLabel(), catDraw},
-			{'X', EditionChoice.TEXT.getLabel(), catDraw},
+			{ctrl+"+W", LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.18"), catFile},//$NON-NLS-1$
+			{KeyEvent.getKeyText(KeyEvent.VK_ADD), LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.57"), catNav},
+			{KeyEvent.getKeyText(KeyEvent.VK_SUBTRACT), LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.58"), catNav},
+//			{'J', EditionChoice.LINES.getLabel(), catDraw},
+//			{'P', EditionChoice.POLYGON.getLabel(), catDraw},
+//			{'D', EditionChoice.DOT.getLabel(), catDraw},
+//			{'R', EditionChoice.RECT.getLabel(), catDraw},
+//			{'S', EditionChoice.SQUARE.getLabel(), catDraw},
+//			{'H', EditionChoice.RHOMBUS.getLabel(), catDraw},
+//			{'T', EditionChoice.TRIANGLE.getLabel(), catDraw},
+//			{'E', EditionChoice.ELLIPSE.getLabel(), catDraw},
+//			{'C', EditionChoice.CIRCLE.getLabel(), catDraw},
+//			{'A', EditionChoice.CIRCLE_ARC.getLabel(),	catDraw},
+//			{'W', EditionChoice.WEDGE.getLabel(), catDraw},
+//			{'O', EditionChoice.CHORD.getLabel(), catDraw},
+//			{'B', EditionChoice.BEZIER_CURVE.getLabel(), catDraw},
+//			{'G', EditionChoice.GRID.getLabel(), catDraw},
+//			{'Z', EditionChoice.AXES.getLabel(), catDraw},
+//			{'K', EditionChoice.FREE_HAND.getLabel(), catDraw},
+//			{'X', EditionChoice.TEXT.getLabel(), catDraw},
 //			{'F', EditionChoice.SELECTION.getLabel(), catDraw},//FIXME
-			{KeyEvent.getKeyText(KeyEvent.VK_DELETE), LResources.LABEL_DELETE, catDraw},
+			{KeyEvent.getKeyText(KeyEvent.VK_DELETE), LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.17"), catDraw},
 			{KeyEvent.getKeyText(KeyEvent.VK_F1), LResources.LABEL_HELP, cathelp},
 			{KeyEvent.getKeyText(KeyEvent.VK_F2), LangTool.INSTANCE.getString19("LaTeXDrawFrame.3"), cathelp}, //$NON-NLS-1$
 			{KeyEvent.getKeyText(KeyEvent.VK_RIGHT), st1, catNav},

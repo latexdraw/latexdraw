@@ -2,11 +2,10 @@ package net.sf.latexdraw.ui;
 
 import java.awt.Dimension;
 
-import javax.swing.ImageIcon;
+import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LResources;
 
 import org.malai.widget.MButton;
-
-import net.sf.latexdraw.lang.LangTool;
 
 /**
  * This class defines a button which allows the user to close a window<br>
@@ -36,26 +35,19 @@ public class CloseButton extends MButton {
 	/** The height of the button */
 	public static final int ICON_HEIGHT = 14;
 
-	/** The image of the button. */
-	protected final static ImageIcon CLOSE_OUT = new ImageIcon(Class.class.getClass().getResource("/res/closeOut.png"));//$NON-NLS-1$
-
-	/** The image of the button when the mouse is on. */
-	protected final static ImageIcon CLOSE_IN = new ImageIcon(Class.class.getClass().getResource("/res/closeIn.png"));//$NON-NLS-1$
-
-
-
 	/**
 	 * The constructor by default.
 	 */
 	public CloseButton() {
 		super();
 
+		final Dimension dim = new Dimension(ICON_WIDTH, ICON_HEIGHT);
 		setSize(ICON_WIDTH, ICON_HEIGHT);
-		setPreferredSize(new Dimension(ICON_WIDTH, ICON_HEIGHT));
-		setMinimumSize(new Dimension(ICON_WIDTH, ICON_HEIGHT));
-		setMaximumSize(new Dimension(ICON_WIDTH, ICON_HEIGHT));
-		setIcon(CLOSE_OUT);
-		setRolloverIcon(CLOSE_IN);
+		setPreferredSize(dim);
+		setMinimumSize(dim);
+		setMaximumSize(dim);
+		setIcon(LResources.BUTTON_CLOSE_OUT_ICON);
+		setRolloverIcon(LResources.BUTTON_CLOSE_IN_ICON);
 		setToolTipText(LangTool.INSTANCE.getStringOthers("CloseButton.closePanel")); //$NON-NLS-1$
 	}
 }

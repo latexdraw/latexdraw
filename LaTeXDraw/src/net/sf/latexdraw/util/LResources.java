@@ -32,24 +32,15 @@ public final class LResources {
 	private LResources() {
 		super();
 	}
-	
+
 	/** The line separator of the current system. */
 	public static final String EOL = System.getProperty("line.separator");
-	
+
 	/** The file separator of the current system. */
 	public static final String FILE_SEP = System.getProperty("file.separator");
 
-	/** The label of the arc choice */
-	public static final String LABEL_ARC_CHOICE = LangTool.INSTANCE.getStringOthers("Arc.arcType"); //$NON-NLS-1$
-
 	/** The e-mail of the latexdraw developer */
 	public static final String MAIL_ME = "arno_b@users.sourceforge.net"; //$NON-NLS-1$
-
-	/** The label of the menuItem zoomIn */
-	public static final String LABEL_ZOOM_IN = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.57"); //$NON-NLS-1$
-
-	/** The label of the menuItem zoomOut */
-	public static final String LABEL_ZOOM_OUT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.58"); //$NON-NLS-1$
 
     /** The beginning of the action command of templates */
     public static final String TEMPLATE_START_ACTION_CMD = "template_";//$NON-NLS-1$
@@ -84,18 +75,6 @@ public final class LResources {
 	/** The label of the menu item "import from TeX file" */
 	public static final String LABEL_IMPORT_TEX = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.230"); //$NON-NLS-1$
 
-	/** The label of the menu item deleteFigure */
-	public final static String LABEL_DELETE = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.17"); //$NON-NLS-1$
-
-	/** The label of the menu item which allows the user to quit the application*/
-	public final static String LABEL_QUIT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.18"); //$NON-NLS-1$
-
-	/** The label of the menuItem redoMenu */
-	public final static String LABEL_REDO = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.22"); //$NON-NLS-1$
-
-	/** The label of the menuItem undoMenu */
-	public final static String LABEL_UNDO = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.23"); //$NON-NLS-1$
-
 	public final static String LABEL_RECENT_FILES = LangTool.INSTANCE.getString19("LaTeXDrawFrame.0"); //$NON-NLS-1$
 //FIXME: to remove: LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.28")
 	/** The label of the newMenu item */
@@ -129,14 +108,8 @@ public final class LResources {
 	/** The label of the menuItem displayGrid */
 	public static final String LABEL_DISPLAY_GRID = LangTool.INSTANCE.getString18("PreferencesFrame.4"); //$NON-NLS-1$
 
-	/** The label of the menuItem codePanel */
-	public static final String LABEL_DISPLAY_CODE_PANEL = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.46"); //$NON-NLS-1$
-
 	/** The label of the menu properties of the selected figure*/
 	public static final String LABEL_FIGURE_PROPERTIES = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.53"); //$NON-NLS-1$
-
-	/** Allows the user the zoom at 100 % */
-	public static final String LABEL_ZOOM_DEFAULT = "Zoom 100%"; //$NON-NLS-1$
 
 	/** This token allows the program to identify LaTeXDraw template files */
 	public static final String TOKEN_TEMPLATE_FILE = "LaTeXDraw template"; //$NON-NLS-1$
@@ -185,9 +158,9 @@ public final class LResources {
 	public final static ImageIcon ARROW_STYLE_BAR_END_R_ICON; 	public final static ImageIcon DRAWING_PROP_ICON;
 	public final static ImageIcon ARC_ICON;					public final static ImageIcon ARROW_STYLE_BAR_IN_L_ICON;
 	public final static ImageIcon WEDGE_ICON;				public final static ImageIcon ARROW_STYLE_BAR_IN_R_ICON;
-	public final static ImageIcon ZOOM_IN_ICON;				public final static ImageIcon ARROW_STYLE_BRACK_L_ICON;
+	public final static ImageIcon ARROW_STYLE_BRACK_L_ICON;
 	public final static ImageIcon ARROW_STYLE_BRACK_LR_ICON; 	public final static ImageIcon ARROW_STYLE_BRACK_RR_ICON;
-	public final static ImageIcon ZOOM_OUT_ICON;			public final static ImageIcon ARROW_STYLE_BRACK_R_ICON;
+	public final static ImageIcon ARROW_STYLE_BRACK_R_ICON;
 	public final static ImageIcon ZOOM_DEFAULT_ICON;		public final static ImageIcon ARROW_STYLE_CIRCLE_END_L_ICON;
 	public final static ImageIcon UNDO_ICON;				public final static ImageIcon ARROW_STYLE_CIRCLE_END_R_ICON;
 	public final static ImageIcon REDO_ICON;				public final static ImageIcon ARROW_STYLE_CIRCLE_IN_L_ICON;
@@ -214,9 +187,8 @@ public final class LResources {
 	public final static ImageIcon OUTER_ICON;		    	public final static ImageIcon COPY_SEL_ICON;
 	public final static ImageIcon IMPORT_ICON;				public final static ImageIcon COMMENT_ICON;
 	public final static ImageIcon LINES_ICON;	 			public final static ImageIcon LATEXDRAW_ICON;
-	public final static ImageIcon OK_ICON;					public final static ImageIcon ERR_ICON;
-	public final static ImageIcon MINUS_ICON;				public final static ImageIcon PLUS_ICON;
-	public final static ImageIcon STOP_ICON;				public final static ImageIcon RELOAD_ICON;
+	public final static ImageIcon ERR_ICON;
+	public final static ImageIcon STOP_ICON;
 	public final static ImageIcon INSERT_PIC_ICON; 			public final static ImageIcon INSERT_PST_ICON;
 	public final static ImageIcon THICKNESS_ICON; 			public final static ImageIcon GRADIENT_ICON;
 	public final static ImageIcon DISPLAY_GRID_ICON;		public final static ImageIcon ROTATE_270_ICON;
@@ -235,6 +207,8 @@ public final class LResources {
 	public final static ImageIcon DIST_HORIZ_LEFT_ICON;		public final static ImageIcon DIST_HORIZ_RIGHT_ICON;
 	public final static ImageIcon ROUNDNESS_ICON;
 	public final static ImageIcon GRID_GAP_ICON;
+	public final static ImageIcon BUTTON_CLOSE_IN_ICON;
+	public final static ImageIcon BUTTON_CLOSE_OUT_ICON;
 
 
 	static {
@@ -336,8 +310,6 @@ public final class LResources {
 		UNDO_ICON 		= loadImageIcon("/res/Undo.png");//$NON-NLS-1$
 		REDO_ICON 		= loadImageIcon("/res/Redo.png");	//$NON-NLS-1$
 		ZOOM_DEFAULT_ICON = loadImageIcon("/res/Magnify.png");	//$NON-NLS-1$
-		ZOOM_IN_ICON 		= loadImageIcon("/res/MagnifyPlus.png");	//$NON-NLS-1$
-		ZOOM_OUT_ICON 	= loadImageIcon("/res/MagnifyMinus.png");//$NON-NLS-1$
 		WEDGE_ICON 		= loadImageIcon("/res/wedge.png");//$NON-NLS-1$
 		ARC_ICON 		= loadImageIcon("/res/Arc.png");	//$NON-NLS-1$
 		PREFERENCES_ICON = loadImageIcon("/res/preferences-system.png");	//$NON-NLS-1$
@@ -364,17 +336,13 @@ public final class LResources {
 		EXPORT_ICON 		= loadImageIcon("/res/go-previous.png");//$NON-NLS-1$
 		JOIN_ICON 		= loadImageIcon("/res/join.png");//$NON-NLS-1$
 		SEPARATE_ICON 	= loadImageIcon("/res/separate.png");//$NON-NLS-1$
-		RELOAD_ICON 		= loadImageIcon("/res/view-refresh.png");//$NON-NLS-1$
 		BEZIER_CURVE_ICON = loadImageIcon("/res/bezierCurve.png");//$NON-NLS-1$
 		CHORD_ICON 		= loadImageIcon("/res/chord.png"); //$NON-NLS-1$
 		COPY_SEL_ICON 	= loadImageIcon("/res/CopySel.png"); //$NON-NLS-1$
 		IMPORT_ICON 		= loadImageIcon("/res/go-next.png"); //$NON-NLS-1$
 		COMMENT_ICON 	= loadImageIcon("/res/comment.png"); //$NON-NLS-1$
 		LINES_ICON = loadImageIcon("/res/joinedLines.png"); //$NON-NLS-1$
-		OK_ICON 			= loadImageIcon("/res/ok.png"); //$NON-NLS-1$
 		ERR_ICON 		= loadImageIcon("/res/emblem-unreadable.png"); //$NON-NLS-1$
-		PLUS_ICON 		= loadImageIcon("/res/list-add.png"); //$NON-NLS-1$
-		MINUS_ICON 		= loadImageIcon("/res/list-remove.png"); //$NON-NLS-1$
 		STOP_ICON 		= loadImageIcon("/res/stop.png"); //$NON-NLS-1$
 		INSERT_PIC_ICON 	= loadImageIcon("/res/image-x-generic.png"); //$NON-NLS-1$
 		INSERT_PST_ICON = loadImageIcon("/res/text-x-generic.png"); //$NON-NLS-1$
@@ -398,6 +366,9 @@ public final class LResources {
 		DRAWING_PROP_ICON		= loadImageIcon("/res/document-properties.png"); //$NON-NLS-1$
 		LATEXDRAW_ICON		= loadImageIcon("/res/LaTeXDrawIcon.png"); //$NON-NLS-1$
 		PDF_ICON				= loadImageIcon("/res/pdf.png"); //$NON-NLS-1$
+
+		BUTTON_CLOSE_OUT_ICON = loadImageIcon("/res/closeOut.png"); //$NON-NLS-1$
+		BUTTON_CLOSE_IN_ICON = loadImageIcon("/res/closeIn.png"); //$NON-NLS-1$
 
 		ALIGN_BOTTOM_ICON		= loadImageIcon("/res/align/alignBottom.png"); //$NON-NLS-1$
 		ALIGN_LEFT_ICON		= loadImageIcon("/res/align/alignLeft.png"); //$NON-NLS-1$
