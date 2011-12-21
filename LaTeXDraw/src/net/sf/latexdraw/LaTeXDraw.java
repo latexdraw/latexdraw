@@ -3,6 +3,7 @@ package net.sf.latexdraw;
 import java.io.File;
 
 import net.sf.latexdraw.actions.LoadDrawing;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
@@ -107,6 +108,7 @@ public final class LaTeXDraw {
     	frame.getCanvas().requestFocusInWindow();
     	// Flushes the resources.
     	splashScreen.flush();
+    	Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE);
 
     	if(cmdLine.getFilename()!=null) {
 	    	LoadDrawing action = new LoadDrawing();

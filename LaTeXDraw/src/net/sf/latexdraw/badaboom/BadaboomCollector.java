@@ -44,7 +44,6 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	private BadaboomCollector() {
 		super();
 		handlers = new ArrayList<BadaboomHandler>();
-		Thread.setDefaultUncaughtExceptionHandler(this);
 		ErrorCatcher.INSTANCE.setNotifier(this);
 	}
 
