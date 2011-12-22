@@ -1,14 +1,17 @@
 package net.sf.latexdraw.actions;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
-import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 
 /**
  * Defines shape properties.<br>
@@ -40,6 +43,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getAngleStartList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setAngleStart((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setAngleStartList((List<Double>)values);
+		}
 	},
 	/** Modification of the end angle of arcs. */
 	ARC_END_ANGLE {
@@ -51,6 +72,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getAngleEndList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setAngleEnd((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setAngleEndList((List<Double>)values);
 		}
 	},
 	/** Modification of the style of arcs. */
@@ -64,6 +103,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof ArcStyle;
 		}
+
+		@Override
+		public List<ArcStyle> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<ArcStyle>() :group.getArcStyleList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setArcStyle((ArcStyle)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setArcStyleList((List<ArcStyle>)values);
+		}
 	},
 	/** Defines if the shape has a second arrow. */
 	ARROW2_STYLE {
@@ -75,6 +132,23 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof ArrowStyle;
+		}
+
+		@Override
+		public List<ArrowStyle> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<ArrowStyle>() :group.getArrowStyleList(1);
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setArrowStyle((ArrowStyle)value, 1);
+		}
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setArrowStyleList((List<ArrowStyle>)values, 1);
 		}
 	},
 	/** Defines if the shape has a first arrow. */
@@ -88,6 +162,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof ArrowStyle;
 		}
+
+		@Override
+		public List<ArrowStyle> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<ArrowStyle>() :group.getArrowStyleList(0);
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setArrowStyle((ArrowStyle)value, 0);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setArrowStyleList((List<ArrowStyle>)values, 0);
+		}
 	},
 	/** Modification of the rotation angle a shape. */
 	ROTATION_ANGLE {
@@ -100,6 +192,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getRotationAngleList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setRotationAngle((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setRotationAngleList((List<Double>)values);
+		}
 	},
 	/** Modification of the position of texts. */
 	TEXT_POSITION {
@@ -110,7 +220,25 @@ public enum ShapeProperties {
 
 		@Override
 		public boolean isValueValid(final Object obj) {
-			return obj instanceof IText.TextPosition;
+			return obj instanceof TextPosition;
+		}
+
+		@Override
+		public List<TextPosition> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<TextPosition>() : group.getTextPositionList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setTextPosition((TextPosition)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setTextPositionList((List<TextPosition>)values);
 		}
 	},
 	/** Modification of the text. */
@@ -124,6 +252,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof String;
 		}
+
+		@Override
+		public List<String> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<String>() : group.getTextList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setText((String)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setTextList((List<String>)values);
+		}
 	},
 	/** Modification of the hatchings angle of shapes. */
 	HATCHINGS_ANGLE {
@@ -135,6 +281,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getHatchingsAngleList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setHatchingsAngle((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setHatchingsAngleList((List<Double>)values);
 		}
 	},
 	/** Modification of the hatchings width a shape. */
@@ -148,6 +312,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getHatchingsWidthList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setHatchingsWidth((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setHatchingsWidthList((List<Double>)values);
+		}
 	},
 	/** Modification of the hatching spacing a shape. */
 	HATCHINGS_SEP {
@@ -159,6 +341,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getHatchingsSepList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setHatchingsSep((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setHatchingsSepList((List<Double>)values);
 		}
 	},
 	/** Modification of the gradient angle a shape. */
@@ -172,6 +372,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getGradAngleList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setGradAngle((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setGradAngleList((List<Double>)values);
+		}
 	},
 	/** Modification of the middle point of the gradient a shape. */
 	GRAD_MID_POINT {
@@ -183,6 +401,24 @@ public enum ShapeProperties {
 			@Override
 			public boolean isValueValid(final Object obj) {
 				return obj instanceof Double;
+			}
+
+			@Override
+			public List<Double> getPropertyValues(final IGroup group) {
+				return group==null ? new ArrayList<Double>() : group.getGradMidPtList();
+			}
+
+			@Override
+			public void setPropertyValue(final IGroup group, final Object value) {
+				if(group!=null && isValueValid(value))
+					group.setGradMidPt((Double)value);
+			}
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public void setPropertyValueList(final IGroup group, final List<?> values) {
+				if(group!=null)
+					group.setGradMidPtList((List<Double>)values);
 			}
 	},
 	/** Modification of the round corner value of a shape. */
@@ -196,6 +432,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getLineArcList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setLineArc((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setLineArcList((List<Double>)values);
+		}
 	},
 	/** Modification of the colour of the filling of a shape. */
 	COLOUR_FILLING {
@@ -207,6 +461,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
+		}
+
+		@Override
+		public List<Color> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Color>() : group.getFillingColList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setFillingCol((Color)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setFillingColList((List<Color>)values);
 		}
 	},
 	/** Modification of the colour of the borders of a shape. */
@@ -220,6 +492,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
+
+		@Override
+		public List<Color> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Color>() : group.getLineColourList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setLineColour((Color)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setLineColourList((List<Color>)values);
+		}
 	},
 	/** Modification of the colour of the hatchings of a shape. */
 	COLOUR_HATCHINGS {
@@ -231,6 +521,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
+		}
+
+		@Override
+		public List<Color> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Color>() : group.getHatchingsColList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setHatchingsCol((Color)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setHatchingsColList((List<Color>)values);
 		}
 	},
 	/** Defines if a shape must have double borders. */
@@ -244,6 +552,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Boolean;
 		}
+
+		@Override
+		public List<Boolean> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Boolean>() : group.hasDbleBordList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setHasDbleBord((Boolean)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setHasDbleBordList((List<Boolean>)values);
+		}
 	},
 	/** Modification of the size of the double borders of a shape. */
 	DBLE_BORDERS_SIZE {
@@ -255,6 +581,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getDbleBordSepList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setDbleBordSep((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setDbleBordSepList((List<Double>)values);
 		}
 	},
 	/** Modification of the colour of the double borders of a shape. */
@@ -268,6 +612,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
+
+		@Override
+		public List<Color> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Color>() : group.getDbleBordColList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setDbleBordCol((Color)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setDbleBordColList((List<Color>)values);
+		}
 	},
 	/** Defines if a shape must have a shadow. */
 	SHADOW {
@@ -279,6 +641,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Boolean;
+		}
+
+		@Override
+		public List<Boolean> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Boolean>() : group.hasShadowList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setHasShadow((Boolean)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setHasShadowList((List<Boolean>)values);
 		}
 	},
 	/** Modification of the size of the shadow of a shape. */
@@ -292,6 +672,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
 		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getShadowSizeList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setShadowSize((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setShadowSizeList((List<Double>)values);
+		}
 	},
 	/** Modification of the angle of the shadow of a shape. */
 	SHADOW_ANGLE {
@@ -303,6 +701,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Double;
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getShadowAngleList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setShadowAngle((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setShadowAngleList((List<Double>)values);
 		}
 	},
 	/** Modification of colour of the shadow of a shape. */
@@ -316,6 +732,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
+
+		@Override
+		public List<Color> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Color>() : group.getShadowColList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setShadowCol((Color)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setShadowColList((List<Color>)values);
+		}
 	},
 	/** Modification of the colour of the start gradient of a shape. */
 	COLOUR_GRADIENT_START {
@@ -327,6 +761,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
+		}
+
+		@Override
+		public List<Color> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Color>() : group.getGradColStartList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setGradColStart((Color)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setGradColStartList((List<Color>)values);
 		}
 	},
 	/** Modification of the colour of the end gradient of a shape. */
@@ -340,6 +792,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
 		}
+
+		@Override
+		public List<Color> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Color>() : group.getGradColEndList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setGradColEnd((Color)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setGradColEndList((List<Color>)values);
+		}
 	},
 	/** Modification of the thickness of the borders of a shape. */
 	LINE_THICKNESS {
@@ -351,6 +821,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Integer || obj instanceof Double || obj instanceof Float;
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getThicknessList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setThickness((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setThicknessList((List<Double>)values);
 		}
 	},
 	/** Modification of the filling style of a shape. */
@@ -364,6 +852,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof FillingStyle;
 		}
+
+		@Override
+		public List<FillingStyle> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<FillingStyle>() : group.getFillingStyleList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setFillingStyle((FillingStyle)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setFillingStyleList((List<FillingStyle>)values);
+		}
 	},
 	/** Modification of the border position of a shape. */
 	BORDER_POS {
@@ -375,6 +881,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof BorderPos;
+		}
+
+		@Override
+		public List<BorderPos> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<BorderPos>() : group.getBordersPositionList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setBordersPosition((BorderPos)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setBordersPositionList((List<BorderPos>)values);
 		}
 	},
 	/** Modification of the line style of a shape. */
@@ -388,6 +912,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof LineStyle;
 		}
+
+		@Override
+		public List<LineStyle> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<LineStyle>() : group.getLineStyleList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setLineStyle((LineStyle)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setLineStyleList((List<LineStyle>)values);
+		}
 	},
 	/** Modification of the filling colour of a dot. */
 	DOT_FILLING_COL {
@@ -399,6 +941,24 @@ public enum ShapeProperties {
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Color;
+		}
+
+		@Override
+		public List<Color> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Color>() : group.getDotFillingColList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setDotFillingCol((Color)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setDotFillingColList((List<Color>)values);
 		}
 	},
 	/** Modification of the style of a dot. */
@@ -412,6 +972,24 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof DotStyle;
 		}
+
+		@Override
+		public List<DotStyle> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<DotStyle>() : group.getDotStyleList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setDotStyle((DotStyle)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setDotStyleList((List<DotStyle>)values);
+		}
 	},
 	/** Modification of the size of dots. */
 	DOT_SIZE {
@@ -424,7 +1002,59 @@ public enum ShapeProperties {
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Integer || obj instanceof Double || obj instanceof Float;
 		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getDotSizeList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setRadius((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setDotSizeList((List<Double>)values);
+		}
 	};
+
+	/**
+	 * @param group The group to test.
+	 * @return True if the given group supports the calling property.
+	 * @since 3.0
+	 */
+	public boolean isPropertySupported(final IGroup group) {
+		return group!=null;
+	}
+
+	/**
+	 * Sets the given value of the property to the given group.
+	 * @param group The group to modify.
+	 * @param value The new value of the property to set.
+	 * @since 3.0
+	 */
+	public abstract void setPropertyValue(final IGroup group, final Object value);
+
+	/**
+	 * Sets the given values of the property to the given group. The size of the list
+	 * must equals the number of shapes of the group. If a shape of the group must not be set,
+	 * its corresponding value in the list must be null.
+	 * @param group The group to modify.
+	 * @param values The set of new values of the property to set.
+	 * @since 3.0
+	 */
+	public abstract void setPropertyValueList(final IGroup group, final List<?> values);
+
+	/**
+	 * @param group The group to explore.
+	 * @return The list of property values of the shapes of the given group.
+	 * @since 3.0
+	 */
+	public abstract List<?> getPropertyValues(final IGroup group);
 
 
 	/**

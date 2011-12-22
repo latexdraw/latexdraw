@@ -9,6 +9,7 @@ import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
@@ -192,7 +193,9 @@ class Enter2SetText extends Link<ModifyShapeProperty, KeyTyped, TextSetter> {
 
 	@Override
 	public void initAction() {
-		action.setShape(instrument.text);
+		IGroup group = DrawingTK.getFactory().createGroup(false);
+		group.addShape(instrument.text);
+		action.setGroup(group);
 		action.setProperty(ShapeProperties.TEXT);
 		action.setValue(instrument.textField.getText());
 	}

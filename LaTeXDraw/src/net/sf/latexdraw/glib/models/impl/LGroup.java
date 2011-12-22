@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.malai.mapping.ActiveArrayList;
@@ -688,6 +689,60 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
+	public double getHatchingsAngle() {
+		for(final IShape sh : shapes)
+			if(sh.isInteriorStylable())
+				return sh.getHatchingsAngle();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public double getHatchingsSep() {
+		for(final IShape sh : shapes)
+			if(sh.isInteriorStylable())
+				return sh.getHatchingsSep();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public double getHatchingsWidth() {
+		for(final IShape sh : shapes)
+			if(sh.isInteriorStylable())
+				return sh.getHatchingsWidth();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setHatchingsAngle(double hatchingsAngle) {
+		for(final IShape sh : shapes)
+			if(sh.isInteriorStylable())
+				sh.setHatchingsAngle(hatchingsAngle);
+	}
+
+
+	@Override
+	public void setHatchingsSep(double hatchingsSep) {
+		for(final IShape sh : shapes)
+			if(sh.isInteriorStylable())
+				sh.setHatchingsSep(hatchingsSep);
+	}
+
+
+	@Override
+	public void setHatchingsWidth(double hatchingsWidth) {
+		for(final IShape sh : shapes)
+			if(sh.isInteriorStylable())
+				sh.setHatchingsWidth(hatchingsWidth);
+	}
+
+
+	@Override
 	public boolean isArrowable() {
 		boolean arrowable = false;
 
@@ -1203,6 +1258,27 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
+	public Color getDotFillingCol() {
+		Color color=null;
+
+		for(int i=0, size=shapes.size(); i<size && color==null; i++)
+			if(shapes.get(i) instanceof Dottable)
+				color = ((Dottable)shapes.get(i)).getDotFillingCol();
+
+		return color;
+	}
+
+
+	@Override
+	public void setDotFillingCol(final Color fillingCol) {
+		if(fillingCol!=null)
+			for(final IShape sh : shapes)
+				if(sh instanceof Dottable)
+					((Dottable)sh).setDotFillingCol(fillingCol);
+	}
+
+
+	@Override
 	public DotStyle getDotStyle() {
 		DotStyle style=null;
 
@@ -1357,5 +1433,674 @@ class LGroup extends LShape implements IGroup {
 				return true;
 
 		return false;
+	}
+
+
+	@Override
+	public List<BorderPos> getBordersPositionList() {
+		List<BorderPos> list = new ArrayList<BorderPos>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isBordersMovable() ? sh.getBordersPosition() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Color> getLineColourList() {
+		List<Color> list = new ArrayList<Color>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.getLineColour());
+
+		return list;
+	}
+
+
+	@Override
+	public void setBordersPositionList(final List<BorderPos> list) {
+		if(list!=null && list.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(list.get(i)!=null)
+					shapes.get(i).setBordersPosition(list.get(i));
+	}
+
+
+	@Override
+	public void setLineColourList(final List<Color> list) {
+		if(list!=null && list.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				shapes.get(i).setLineColour(list.get(i));
+	}
+
+
+	@Override
+	public List<Double> getAngleStartList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof Arcable ? ((Arcable)sh).getAngleStart() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getAngleEndList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof Arcable ? ((Arcable)sh).getAngleEnd() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<ArcStyle> getArcStyleList() {
+		List<ArcStyle> list = new ArrayList<ArcStyle>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof Arcable ? ((Arcable)sh).getArcStyle() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<ArrowStyle> getArrowStyleList(final int i) {
+		List<ArrowStyle> list = new ArrayList<ArrowStyle>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isArrowable() ? sh.getArrowStyle(i) : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getRotationAngleList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.getRotationAngle());
+
+		return list;
+	}
+
+
+	@Override
+	public List<TextPosition> getTextPositionList() {
+		List<TextPosition> list = new ArrayList<TextPosition>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IText ? ((IText)sh).getTextPosition() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<String> getTextList() {
+		List<String> list = new ArrayList<String>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IText ? ((IText)sh).getText() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getHatchingsAngleList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isInteriorStylable() ? sh.getHatchingsAngle() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getHatchingsWidthList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isInteriorStylable() ? sh.getHatchingsWidth() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getHatchingsSepList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isInteriorStylable() ? sh.getHatchingsSep() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getGradAngleList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isInteriorStylable() ? sh.getGradAngle() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getGradMidPtList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isInteriorStylable() ? sh.getGradMidPt() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getLineArcList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof ILineArcShape ? ((ILineArcShape)sh).getLineArc() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Color> getFillingColList() {
+		List<Color> list = new ArrayList<Color>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isInteriorStylable() ? sh.getFillingCol() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Color> getHatchingsColList() {
+		List<Color> list = new ArrayList<Color>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isInteriorStylable() ? sh.getHatchingsCol() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Boolean> hasDbleBordList() {
+		List<Boolean> list = new ArrayList<Boolean>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isDbleBorderable() ? sh.hasDbleBord() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getDbleBordSepList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isDbleBorderable() ? sh.getDbleBordSep() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Color> getDbleBordColList() {
+		List<Color> list = new ArrayList<Color>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isDbleBorderable() ? sh.getDbleBordCol() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Boolean> hasShadowList() {
+		List<Boolean> list = new ArrayList<Boolean>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isShadowable() ? sh.hasShadow() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getShadowSizeList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isShadowable() ? sh.getShadowSize() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getShadowAngleList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isShadowable() ? sh.getShadowAngle() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Color> getShadowColList() {
+		List<Color> list = new ArrayList<Color>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isShadowable() ? sh.getShadowCol() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Color> getGradColStartList() {
+		List<Color> list = new ArrayList<Color>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isInteriorStylable() ? sh.getGradColStart() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Color> getGradColEndList() {
+		List<Color> list = new ArrayList<Color>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isInteriorStylable() ? sh.getGradColEnd() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getThicknessList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isThicknessable() ? sh.getThickness() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<FillingStyle> getFillingStyleList() {
+		List<FillingStyle> list = new ArrayList<FillingStyle>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isInteriorStylable() ? sh.getFillingStyle() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<LineStyle> getLineStyleList() {
+		List<LineStyle> list = new ArrayList<LineStyle>();
+
+		for(final IShape sh : shapes)
+			list.add(sh.isLineStylable() ? sh.getLineStyle() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Color> getDotFillingColList() {
+		List<Color> list = new ArrayList<Color>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof Dottable ? ((Dottable)sh).getDotFillingCol() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<DotStyle> getDotStyleList() {
+		List<DotStyle> list = new ArrayList<DotStyle>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof Dottable ? ((Dottable)sh).getDotStyle() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public List<Double> getDotSizeList() {
+		List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof Dottable ? ((Dottable)sh).getRadius() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public void setAngleStartList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i) instanceof Arcable)
+					((Arcable)shapes.get(i)).setAngleStart(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setDotStyleList(final List<DotStyle> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i) instanceof Dottable)
+					((Dottable)shapes.get(i)).setDotStyle(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setAngleEndList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i) instanceof Arcable)
+					((Arcable)shapes.get(i)).setAngleEnd(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setArcStyleList(final List<ArcStyle> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i) instanceof Arcable)
+					((Arcable)shapes.get(i)).setArcStyle(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setArrowStyleList(final List<ArrowStyle> values, final int i) {
+		if(values!=null && values.size()==shapes.size())
+			for(int j=0, size=shapes.size(); j<size; j++) {
+				if(values.get(j)!=null && shapes.get(j).isArrowable())
+					shapes.get(j).setArrowStyle(values.get(j), i);
+			}
+	}
+
+
+	@Override
+	public void setRotationAngleList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null)
+					shapes.get(i).setRotationAngle(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setTextPositionList(final List<TextPosition> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i) instanceof IText)
+					((IText)shapes.get(i)).setTextPosition(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setTextList(final List<String> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i) instanceof IText)
+					((IText)shapes.get(i)).setText(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setHatchingsAngleList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isInteriorStylable())
+					shapes.get(i).setHatchingsAngle(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setHatchingsWidthList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isInteriorStylable())
+					shapes.get(i).setHatchingsWidth(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setHatchingsSepList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isInteriorStylable())
+					shapes.get(i).setHatchingsSep(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setGradAngleList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isInteriorStylable())
+					shapes.get(i).setGradAngle(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setGradMidPtList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isInteriorStylable())
+					shapes.get(i).setGradMidPt(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setLineArcList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i) instanceof ILineArcShape)
+					((ILineArcShape)shapes.get(i)).setLineArc(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setFillingColList(final List<Color> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isInteriorStylable())
+					shapes.get(i).setFillingCol(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setHatchingsColList(final List<Color> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isInteriorStylable())
+					shapes.get(i).setHatchingsCol(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setHasDbleBordList(final List<Boolean> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isDbleBorderable())
+					shapes.get(i).setHasDbleBord(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setDbleBordSepList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isDbleBorderable())
+					shapes.get(i).setDbleBordSep(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setDbleBordColList(final List<Color> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isDbleBorderable())
+					shapes.get(i).setDbleBordCol(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setHasShadowList(final List<Boolean> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isShadowable())
+					shapes.get(i).setHasShadow(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setShadowSizeList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isShadowable())
+					shapes.get(i).setShadowSize(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setShadowAngleList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isShadowable())
+					shapes.get(i).setShadowAngle(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setShadowColList(final List<Color> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isShadowable())
+					shapes.get(i).setShadowCol(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setGradColStartList(final List<Color> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isInteriorStylable())
+					shapes.get(i).setGradColStart(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setGradColEndList(final List<Color> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isInteriorStylable())
+					shapes.get(i).setGradColEnd(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setThicknessList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isThicknessable())
+					shapes.get(i).setThickness(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setFillingStyleList(final List<FillingStyle> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isInteriorStylable())
+					shapes.get(i).setFillingStyle(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setLineStyleList(final List<LineStyle> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i).isLineStylable())
+					shapes.get(i).setLineStyle(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setDotFillingColList(final List<Color> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i) instanceof Dottable)
+					((Dottable)shapes.get(i)).setDotFillingCol(values.get(i));
+			}
+	}
+
+
+	@Override
+	public void setDotSizeList(List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				if(values.get(i)!=null && shapes.get(i) instanceof Dottable)
+					((Dottable)shapes.get(i)).setRadius(values.get(i));
+			}
 	}
 }

@@ -1,19 +1,8 @@
 package net.sf.latexdraw.actions;
 
-import java.awt.Color;
+import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.Arcable;
-import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
-import net.sf.latexdraw.glib.models.interfaces.Dottable;
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
-import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
-import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 
 import org.malai.undo.Undoable;
 
@@ -37,10 +26,10 @@ import org.malai.undo.Undoable;
  */
 public class ModifyShapeProperty extends ShapePropertyAction implements Undoable, Modifying {
 	/** The shape to modify. */
-	protected IShape shape;
+	protected IGroup shapes;
 
 	/** The old value of the property. */
-	protected Object oldValue;
+	protected List<?> oldValue;
 
 
 	/**
@@ -55,20 +44,29 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 	@Override
 	public void flush() {
 		super.flush();
-		shape 		= null;
-		oldValue 	= null;
+
+		if(shapes!=null) {
+			shapes.clear();
+			shapes = null;
+		}
+
+		if(oldValue!=null) {
+			oldValue.clear();
+			oldValue = null;
+		}
 	}
 
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && shape!=null;
+		return super.canDo() && shapes!=null;
 	}
 
 
 	@Override
 	public void undo() {
-		applyValue(oldValue);
+		property.setPropertyValueList(shapes, oldValue);
+		shapes.setModified(true);
 	}
 
 
@@ -92,164 +90,25 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 
 	@Override
 	protected void applyValue(final Object obj) {
-		switch(property) {
-			case BORDER_POS:
-				oldValue = shape.getBordersPosition();
-				shape.setBordersPosition((BorderPos)obj);
-				break;
-			case COLOUR_DBLE_BORD:
-				oldValue = shape.getDbleBordCol();
-				shape.setDbleBordCol((Color)obj);
-				break;
-			case COLOUR_FILLING:
-				oldValue = shape.isFilled();
-				shape.setFillingCol((Color)value);
-				break;
-			case COLOUR_GRADIENT_END:
-				oldValue = shape.getGradColEnd();
-				shape.setGradColEnd((Color)obj);
-				break;
-			case COLOUR_GRADIENT_START:
-				oldValue = shape.getGradColStart();
-				shape.setGradColStart((Color)obj);
-				break;
-			case COLOUR_HATCHINGS:
-				oldValue = shape.getHatchingsCol();
-				shape.setHatchingsCol((Color)obj);
-				break;
-			case COLOUR_LINE:
-				oldValue = shape.getLineColour();
-				shape.setLineColour((Color)obj);
-				break;
-			case COLOUR_SHADOW:
-				oldValue = shape.getShadowCol();
-				shape.setShadowCol((Color)obj);
-				break;
-			case DBLE_BORDERS:
-				oldValue = shape.hasDbleBord();
-				shape.setHasDbleBord((Boolean)obj);
-				break;
-			case DOT_FILLING_COL:
-				oldValue = shape.getFillingCol();
-				shape.setFillingCol((Color)obj);
-				break;
-			case DOT_SIZE:
-				oldValue = ((Dottable)shape).getRadius();
-				((Dottable)shape).setRadius((Double)obj);
-				break;
-			case DOT_STYLE:
-				oldValue = ((Dottable)shape).getDotStyle();
-				((Dottable)shape).setDotStyle((DotStyle)obj);
-				break;
-			case FILLING_STYLE:
-				oldValue = shape.getFillingStyle();
-				shape.setFillingStyle((FillingStyle)obj);
-				break;
-			case LINE_STYLE:
-				oldValue = shape.getLineStyle();
-				shape.setLineStyle((LineStyle)obj);
-				break;
-			case LINE_THICKNESS:
-				oldValue = shape.getThickness();
-				shape.setThickness((Double)obj);
-				break;
-			case ROUND_CORNER_VALUE:
-				oldValue = ((ILineArcShape)shape).getLineArc();
-				((ILineArcShape)shape).setLineArc((Double)obj);
-				break;
-			case SHADOW:
-				oldValue = shape.hasShadow();
-				shape.setHasShadow((Boolean)obj);
-				break;
-			case DBLE_BORDERS_SIZE:
-				oldValue = shape.getDbleBordSep();
-				shape.setDbleBordSep((Double)obj);
-				break;
-			case SHADOW_ANGLE:
-				oldValue = shape.getShadowAngle();
-				shape.setShadowAngle((Double)obj);
-				break;
-			case SHADOW_SIZE:
-				oldValue = shape.getShadowSize();
-				shape.setShadowSize((Double)obj);
-				break;
-			case GRAD_ANGLE:
-				oldValue = shape.getGradAngle();
-				shape.setGradAngle((Double)obj);
-				break;
-			case GRAD_MID_POINT:
-				oldValue = shape.getGradMidPt();
-				shape.setGradMidPt((Double)obj);
-				break;
-			case HATCHINGS_ANGLE:
-				oldValue = shape.getHatchingsAngle();
-				shape.setHatchingsAngle((Double)obj);
-				break;
-			case HATCHINGS_SEP:
-				oldValue = shape.getHatchingsSep();
-				shape.setHatchingsSep((Double)obj);
-				break;
-			case HATCHINGS_WIDTH:
-				oldValue = shape.getHatchingsWidth();
-				shape.setHatchingsWidth((Double)obj);
-				break;
-			case TEXT_POSITION:
-				final IText text = (IText)shape;
-				oldValue = text.getTextPosition();
-				text.setTextPosition((TextPosition)obj);
-				break;
-			case ROTATION_ANGLE:
-				oldValue = shape.getRotationAngle();
-				shape.setRotationAngle((Double)obj);
-				break;
-			case ARROW1_STYLE:
-				oldValue = shape.getArrowStyle(0);
-				shape.setArrowStyle((ArrowStyle)obj, 0);
-				break;
-			case ARROW2_STYLE:
-				oldValue = shape.getArrowStyle(1);
-				shape.setArrowStyle((ArrowStyle)obj, 1);
-				break;
-			case TEXT:
-				final IText textShape = (IText)shape;
-				oldValue = textShape.getText();
-				textShape.setText((String)obj);
-				break;
-			case ARC_END_ANGLE:
-				Arcable arc = (Arcable)shape;
-				oldValue = arc.getAngleEnd();
-				arc.setAngleEnd((Double)obj);
-				break;
-			case ARC_START_ANGLE:
-				arc = (Arcable)shape;
-				oldValue = arc.getAngleStart();
-				arc.setAngleStart((Double)obj);
-				break;
-			case ARC_STYLE:
-				arc = (Arcable)shape;
-				oldValue = arc.getArcStyle();
-				arc.setArcStyle((ArcStyle)obj);
-				break;
-		}
-
-		shape.setModified(true);
+		property.setPropertyValue(shapes, obj);
+		shapes.setModified(true);
 	}
-
 
 
 	@Override
 	protected void doActionBody() {
+		oldValue = property.getPropertyValues(shapes);
 		applyValue(value);
 	}
 
 
 	/**
-	 * Sets the shape to modify.
-	 * @param sh The shape to modify.
+	 * Sets the group of shapes to modify.
+	 * @param group The group of shapes to modify.
 	 * @since 3.0
 	 */
-	public void setShape(final IShape sh) {
-		this.shape = sh;
+	public void setGroup(final IGroup group) {
+		this.shapes = group;
 	}
 
 
@@ -259,38 +118,38 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 		if(super.isPropertySupported())
 			switch(property) {
 				case ARROW1_STYLE:
-				case ARROW2_STYLE:		return shape.isArrowable();
-				case BORDER_POS:		return shape.isBordersMovable();
-				case COLOUR_FILLING:	return shape.isFillable();
+				case ARROW2_STYLE:		return shapes.isArrowable();
+				case BORDER_POS:		return shapes.isBordersMovable();
+				case COLOUR_FILLING:	return shapes.isFillable();
 				case COLOUR_GRADIENT_END:
 				case COLOUR_GRADIENT_START:
 				case DOT_FILLING_COL:
-				case DOT_SIZE:
-				case DOT_STYLE:			return shape instanceof Dottable;
-				case LINE_STYLE:		return shape.isLineStylable();
-				case LINE_THICKNESS:	return shape.isThicknessable();
-				case ROUND_CORNER_VALUE:return shape instanceof ILineArcShape;
+				case LINE_STYLE:		return shapes.isLineStylable();
+				case LINE_THICKNESS:	return shapes.isThicknessable();
 				case DBLE_BORDERS_SIZE:
 				case DBLE_BORDERS:
-				case COLOUR_DBLE_BORD:	return shape.isDbleBorderable();
+				case COLOUR_DBLE_BORD:	return shapes.isDbleBorderable();
 				case SHADOW_ANGLE:
 				case SHADOW_SIZE:
 				case COLOUR_SHADOW:
-				case SHADOW:			return shape.isShadowable();
+				case SHADOW:			return shapes.isShadowable();
 				case GRAD_ANGLE:
 				case GRAD_MID_POINT:
 				case HATCHINGS_ANGLE:
 				case HATCHINGS_SEP:
 				case HATCHINGS_WIDTH:
 				case COLOUR_HATCHINGS:
-				case FILLING_STYLE:		return shape.isInteriorStylable();
+				case FILLING_STYLE:		return shapes.isInteriorStylable();
+				case ROUND_CORNER_VALUE:
+				case DOT_SIZE:
+				case DOT_STYLE:
 				case ROTATION_ANGLE:
-				case COLOUR_LINE:		return true;
 				case TEXT:
-				case TEXT_POSITION:		return shape instanceof IText;
+				case TEXT_POSITION:
 				case ARC_END_ANGLE:
 				case ARC_START_ANGLE:
-				case ARC_STYLE:			return shape instanceof Arcable;
+				case ARC_STYLE:
+				case COLOUR_LINE:		return true;
 			}
 
 		return false;

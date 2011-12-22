@@ -235,7 +235,7 @@ class Button2SelectionArcStyle extends Button2ArcStyle<ModifyShapeProperty> {
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override
@@ -278,7 +278,7 @@ class Spinner2SelectionStartAngle extends SpinnerForCustomiser<ModifyShapeProper
 	@Override
 	public void initAction() {
 		action.setProperty(ShapeProperties.ARC_START_ANGLE);
-		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override
@@ -325,7 +325,7 @@ class Spinner2SelectionEndAngle extends SpinnerForCustomiser<ModifyShapeProperty
 	@Override
 	public void initAction() {
 		action.setProperty(ShapeProperties.ARC_END_ANGLE);
-		action.setShape(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override

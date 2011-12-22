@@ -491,4 +491,16 @@ class LDot extends LPositionShape implements IDot {
 	public boolean hasDot() {
 		return true;
 	}
+
+
+	@Override
+	public Color getDotFillingCol() {
+		return getFillingCol();
+	}
+
+
+	@Override
+	public void setDotFillingCol(final Color value) {
+		setFillingCol(value);
+	}
 }

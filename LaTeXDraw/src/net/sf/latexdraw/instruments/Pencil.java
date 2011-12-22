@@ -226,7 +226,7 @@ public class Pencil extends Instrument {
 			final Dottable dot = (Dottable)shape;
 			dot.setDotStyle(dottable.getDotStyle());
 			dot.setRadius(dottable.getRadius());
-			dot.setFillingCol(dottable.getFillingCol());
+			dot.setDotFillingCol(dottable.getDotFillingCol());
 		}
 		if(shape instanceof Arcable) {
 			final Arcable arc = (Arcable)shape;
@@ -315,7 +315,7 @@ public class Pencil extends Instrument {
 	 * @since 3.0
 	 */
 	public void setDotFillingCol(final Color fillingDotCol) {
-		dottable.setFillingCol(fillingDotCol);
+		dottable.setDotFillingCol(fillingDotCol);
 	}
 
 

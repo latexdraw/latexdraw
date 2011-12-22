@@ -56,22 +56,23 @@ public interface Dottable {
 	 */
 	boolean hasDot();
 
-	/**
-	 * Sets the filling colour of the dottable.
-	 * @param fillingCol its new colour.
-	 * @since 3.0
-	 */
-	void setFillingCol(final Color fillingCol);
 
 	/**
 	 * @return The filling colour of the dottable or null if not fillable.
 	 * @since 3.0
 	 */
-	Color getFillingCol();
+	Color getDotFillingCol();
 
 	/**
 	 * @return True if the dot can be filled.
 	 * @since 3.0
 	 */
 	boolean isFillable();
+
+	/**
+	 * Sets the filling colour of the dottable.
+	 * @param fillingCol its new colour.
+	 * @since 3.0
+	 */
+	void setDotFillingCol(final Color fillingCol);
 }
