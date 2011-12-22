@@ -175,6 +175,9 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 				try {
 					osw.append(doc);
+					try{ osw.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+					try{ fos.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+
 					log  = execute("latex --halt-on-error --interaction=nonstopmode --output-directory=" + tmpDir.getAbsolutePath() + " " + pathTex); //$NON-NLS-1$ //$NON-NLS-2$
 					new File(pathTex).delete();
 					new File(pathPic + ".aux").delete(); //$NON-NLS-1$
@@ -204,9 +207,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 					}
 				}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-				try{ osw.flush(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 				try{ osw.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-				try{ fos.flush(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 				try{ fos.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			}
 		}
