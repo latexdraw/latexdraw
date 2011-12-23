@@ -52,6 +52,13 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 	}
 
 
+	@Override
+	public void flush() {
+		super.flush();
+		fontMetrics = null;
+		pathLabels = null;
+	}
+
 
 	@Override
 	public void updateBorder() {
@@ -117,7 +124,7 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 		fontMetrics = FontDesignMetrics.getMetrics(new Font(null, Font.PLAIN, shape.getLabelsSize()));
 	}
 
-	
+
 	@Override
 	protected void updateGeneralPathInside() {
 		// Nothing to do.
@@ -137,12 +144,12 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 	protected void updateDblePathOutside() {
 		// Nothing to do.
 	}
-	
+
 	@Override
 	protected void updateGeneralPathOutside() {
 		// Nothing to do.
 	}
-	
+
 	@Override
 	protected void updateDblePathInside() {
 		// Nothing to do.

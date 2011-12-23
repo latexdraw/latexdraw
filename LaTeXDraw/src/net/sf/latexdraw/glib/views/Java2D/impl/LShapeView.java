@@ -53,7 +53,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	protected Path2D path;
 
 	/** The view of the arrows of the shape. */
-	protected List<LArrowView> arrows;
+	protected List<IViewArrow> arrows;
 
 	/**
 	 * The border of the shape. This attribute must be used to compute
@@ -76,7 +76,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 		// Creation of the views of the arrows of the shape.
 		if(model.isArrowable()) {
-			arrows = new ArrayList<LArrowView>();
+			arrows = new ArrayList<IViewArrow>();
 
 			for(final IArrow arrow : shape.getArrows())
 				arrows.add(new LArrowView(arrow));
@@ -117,6 +117,11 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		return path;
 	}
 
+
+	@Override
+	public List<IViewArrow> getArrowViews() {
+		return arrows;
+	}
 
 
 	@Override
@@ -781,12 +786,19 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 	@Override
 	public Picker getPicker() {
-		return null; //TODO
+		return null;
 	}
 
 
 	@Override
 	public void flush() {
-		// Nothing to do.
+		shape = null;
+		path = null;
+		border = null;
+
+		if(arrows!=null) {
+			arrows.clear();
+			arrows = null;
+		}
 	}
 }

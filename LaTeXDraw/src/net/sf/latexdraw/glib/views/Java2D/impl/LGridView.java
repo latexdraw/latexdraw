@@ -46,6 +46,12 @@ class LGridView extends LStandardGridView<IGrid> {
 	}
 
 
+	@Override
+	public void flush() {
+		super.flush();
+		pathSubGrid = null;
+	}
+
 
 	@Override
 	public void paint(final Graphics2D g) {
@@ -111,8 +117,6 @@ class LGridView extends LStandardGridView<IGrid> {
 										final double tlx, final double tly, final double brx, final double bry, final double absStep) {
 		double k, i;
 
-		path.reset();
-
 		if(shape.getGridDots()>0)
 			updatePathMainGridDots(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, brx, bry, absStep);
 		else {
@@ -138,8 +142,6 @@ class LGridView extends LStandardGridView<IGrid> {
 		final double xSubStep  	= xStep/subGridDiv;
 		final double ySubStep  	= yStep/subGridDiv;
 		double i, j, n, m, k;
-
-		pathSubGrid.reset();
 
 		// We draw the sub-grid
 		if(subGridDots>0) {
@@ -206,8 +208,6 @@ class LGridView extends LStandardGridView<IGrid> {
 		GlyphVector gv;
 		float x;
 
-		pathLabels.reset();
-
 		for(i=tlx + (isWest ? width+labelsSize/4. : -width-labelWidth-labelsSize/4.), j=minX; j<=maxX; i+=absStep, j++) {
 			text = String.valueOf((int)j).toCharArray();
 			gv   = font.layoutGlyphVector(frc, text, 0, text.length, 0);
@@ -242,6 +242,10 @@ class LGridView extends LStandardGridView<IGrid> {
 		final double posX 	 = pos.getX()+Math.min(shape.getGridStartX(), shape.getGridEndX())*IShape.PPC*unit;
 		final double posY 	 = pos.getY()-Math.min(shape.getGridStartY(), shape.getGridEndY())*IShape.PPC*unit;
 		final double absStep = Math.abs(xStep);
+
+		path.reset();
+		pathLabels.reset();
+		pathSubGrid.reset();
 
 		updatePathSubGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, br.getX(), br.getY());
 		updatePathMainGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, br.getX(), br.getY(), absStep);
