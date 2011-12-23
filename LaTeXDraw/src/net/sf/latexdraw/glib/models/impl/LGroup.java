@@ -16,6 +16,7 @@ import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 
@@ -2102,5 +2103,284 @@ class LGroup extends LShape implements IGroup {
 				if(values.get(i)!=null && shapes.get(i) instanceof Dottable)
 					((Dottable)shapes.get(i)).setRadius(values.get(i));
 			}
+	}
+
+
+	@Override
+	public double getGridMinX() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getGridMinX();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public double getGridMaxX() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getGridMaxX();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public double getGridMinY() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getGridMinY();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public double getGridMaxY() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getGridMaxY();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public int getLabelsSize() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getLabelsSize();
+
+		return -1;
+	}
+
+
+	@Override
+	public void setLabelsSize(final int labelsSize) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setLabelsSize(labelsSize);
+	}
+
+
+	@Override
+	public void setGridEndX(final double x) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setGridEndX(x);
+	}
+
+
+	@Override
+	public void setGridEndY(final double y) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setGridEndY(y);
+	}
+
+
+	@Override
+	public boolean isXLabelSouth() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).isXLabelSouth();
+
+		return false;
+	}
+
+
+	@Override
+	public void setXLabelSouth(final boolean isXLabelSouth) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setXLabelSouth(isXLabelSouth);
+	}
+
+
+	@Override
+	public boolean isYLabelWest() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).isYLabelWest();
+
+		return false;
+	}
+
+
+	@Override
+	public void setYLabelWest(final boolean isYLabelWest) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setYLabelWest(isYLabelWest);
+	}
+
+
+	@Override
+	public double getGridStartX() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getGridStartX();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public double getGridStartY() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getGridStartY();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setGridStart(final double x, final double y) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setGridStart(x, y);
+	}
+
+
+	@Override
+	public double getGridEndX() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getGridEndX();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public double getGridEndY() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getGridEndY();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setGridEnd(final double x, final double y) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setGridEnd(x, y);
+	}
+
+
+	@Override
+	public double getOriginX() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getOriginX();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public double getOriginY() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getOriginY();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setOrigin(final double x, final double y) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setOrigin(x, y);
+	}
+
+
+	@Override
+	public void setGridStartY(final double y) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setGridStartY(y);
+	}
+
+
+	@Override
+	public void setGridStartX(final double x) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setGridStartX(x);
+	}
+
+
+	@Override
+	public void setOriginX(final double x) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setOriginX(x);
+	}
+
+
+	@Override
+	public void setOriginY(final double y) {
+		for(final IShape shape : shapes)
+			if(shape instanceof IStandardGrid)
+				((IStandardGrid)shape).setOriginY(y);
+	}
+
+
+	@Override
+	public double getStep() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getStep();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public boolean containsGrids() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return true;
+
+		return false;
+	}
+
+
+	@Override
+	public void setGridStartList(final List<IPoint> values) {
+		IPoint pt;
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				pt = values.get(i);
+				if(pt!=null && shapes.get(i) instanceof IStandardGrid)
+					((IStandardGrid)shapes.get(i)).setGridStart(pt.getX(), pt.getY());
+			}
+	}
+
+
+	@Override
+	public List<IPoint> getGridStartList() {
+		List<IPoint> list = new ArrayList<IPoint>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IStandardGrid ? ((IStandardGrid)sh).getGridStart() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public IPoint getGridStart() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getGridStart();
+
+		return null;
 	}
 }

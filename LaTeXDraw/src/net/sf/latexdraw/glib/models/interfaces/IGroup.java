@@ -25,15 +25,21 @@ import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable {
+public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable, IStandardGrid {
 	/**
-	 * @return True if one of the shape of the group supports rounded corners.
+	 * @return True if one of the shapes of the group is a grid.
+	 * @since 3.0
+	 */
+	boolean containsGrids();
+
+	/**
+	 * @return True if one of the shapes of the group supports rounded corners.
 	 * @since 3.0
 	 */
 	boolean containsRoundables();
 
 	/**
-	 * @return True if one of the shape of the group is a text.
+	 * @return True if one of the shapes of the group is a text.
 	 * @since 3.0
 	 */
 	boolean containsTexts();
@@ -594,4 +600,21 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	 * @since 3.0
 	 */
 	void setDotSizeList(final List<Double> values);
+
+	/**
+	 * Sets the starting points of the grid shapes of the group.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setGridStartList(final List<IPoint> values);
+
+	/**
+	 * @return The list of the starting points of the grid shapes contained by the group.
+	 * If a shape of the group does not support the starting point property, null is added
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<IPoint> getGridStartList();
 }

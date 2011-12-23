@@ -25,6 +25,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
@@ -93,6 +94,9 @@ public class Pencil extends Instrument {
 	/** The style of the created arcs. */
 	protected Arcable arcable;
 
+	/** Contains the properties of the created grid. */
+	protected IStandardGrid gridShape;
+
 	/** A shape that supports filling customisation. Used to get and set filling properties. */
 	protected IShape fillingable;
 
@@ -133,6 +137,7 @@ public class Pencil extends Instrument {
 		dbleBorderable	= lineStylable;
 		roundable		= (ILineArcShape)lineStylable;
 		dottable		= factory.createDot(factory.createPoint(), false);
+		gridShape		= factory.createGrid(false, factory.createPoint());
 		borderMoveable	= lineStylable;
 		fillingable		= lineStylable;
 		textable		= factory.createText(false);
@@ -188,7 +193,7 @@ public class Pencil extends Instrument {
 	public void setShapeParameters(final IShape shape) {
 		if(shape==null)
 			return ;
-
+//FIXME Should use copy operations to copy these parameters.
 		shape.setLineColour(lineStylable.getLineColour());
 
 		if(shape.isArrowable()) {
@@ -199,18 +204,8 @@ public class Pencil extends Instrument {
 			shape.setThickness(lineStylable.getThickness());
 		if(shape.isBordersMovable())
 			shape.setBordersPosition(borderMoveable.getBordersPosition());
-		if(shape.isInteriorStylable()) {
-			shape.setFillingStyle(fillingable.getFillingStyle());
-			shape.setFillingCol(fillingable.getFillingCol());
-			shape.setGradColEnd(fillingable.getGradColEnd());
-			shape.setGradColStart(fillingable.getGradColStart());
-			shape.setGradAngle(fillingable.getGradAngle());
-			shape.setGradMidPt(fillingable.getGradMidPt());
-			shape.setHatchingsCol(fillingable.getHatchingsCol());
-			shape.setHatchingsAngle(fillingable.getHatchingsAngle());
-			shape.setHatchingsSep(fillingable.getHatchingsSep());
-			shape.setHatchingsWidth(fillingable.getHatchingsWidth());
-		}
+		if(shape.isInteriorStylable())
+			shape.copy(fillingable);
 		if(shape.isDbleBorderable()) {
 			shape.setHasDbleBord(dbleBorderable.hasDbleBord());
 			shape.setDbleBordCol(dbleBorderable.getDbleBordCol());
@@ -244,6 +239,8 @@ public class Pencil extends Instrument {
 			final IText text = (IText)shape;
 			text.setTextPosition(textable.getTextPosition());
 		}
+		if(shape instanceof IStandardGrid)
+			((IStandardGrid)shape).copy(gridShape);
 
 		shape.setModified(true);
 	}
@@ -573,6 +570,15 @@ public class Pencil extends Instrument {
 	 */
 	public void setTextPosition(final TextPosition value) {
 		textable.setTextPosition(value);
+	}
+
+	/**
+	 * @param value The starting point of the grid that must be set by the pencil.
+	 * @since 3.0
+	 */
+	public void setGridStart(final IPoint value) {
+		if(value!=null)
+			gridShape.setGridStart(value.getX(), value.getY());
 	}
 }
 

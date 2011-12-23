@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
@@ -32,6 +33,38 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** Modification of the starting position of grids. */
+	GRID_START {
+		@Override
+		public String getMessage() {
+			return "Grid's coordinates";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof IPoint;
+		}
+
+		@Override
+		public List<IPoint> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<IPoint>() : group.getGridStartList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value)) {
+				IPoint pt = (IPoint)value;
+				group.setGridStart(pt.getX(), pt.getY());
+			}
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setGridStartList((List<IPoint>)values);
+		}
+	},
 	/** Modification of the start angle of arcs. */
 	ARC_START_ANGLE {
 		@Override

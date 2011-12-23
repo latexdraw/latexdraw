@@ -5,6 +5,7 @@ import java.awt.Color;
 import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
@@ -183,6 +184,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case ARC_END_ANGLE	: pencil.setArcEndAngle((Double)value); 	break;
 			case ARC_START_ANGLE: pencil.setArcStartAngle((Double)value);	break;
 			case ARC_STYLE		: pencil.setArcStyle((ArcStyle)value);		break;
+			case GRID_START: pencil.setGridStart((IPoint)value); break;
 		}
 	}
 }

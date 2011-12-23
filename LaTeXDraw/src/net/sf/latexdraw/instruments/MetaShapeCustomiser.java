@@ -55,6 +55,9 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument customises the dimensions and the position. */
 	protected ShapeCoordDimCustomiser dimPosCustomiser;
 
+	/** This instrument customises grids and axes. */
+	protected ShapeGridCustomiser gridCustomiser;
+
 
 
 	/**
@@ -78,6 +81,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dotCustomiser			= new ShapeDotCustomiser(composer, hand, pencil);
 		arcCustomiser			= new ShapeArcCustomiser(composer, hand, pencil);
 		dimPosCustomiser		= new ShapeCoordDimCustomiser(composer, hand, pencil);
+		gridCustomiser			= new ShapeGridCustomiser(composer, hand, pencil);
 	}
 
 
@@ -93,6 +97,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dotCustomiser.addEventable(eventable);
 		arcCustomiser.addEventable(eventable);
 		dimPosCustomiser.addEventable(eventable);
+		gridCustomiser.addEventable(eventable);
 	}
 
 
@@ -109,6 +114,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arrowCustomiser.setActivated(activated);
 		dotCustomiser.setActivated(activated);
 		arcCustomiser.setActivated(activated);
+		gridCustomiser.setActivated(activated);
 		dimPosCustomiser.setActivated(activated && hand.isActivated() && !pencil.drawing.getSelection().isEmpty());
 
 		if(activated)
@@ -128,6 +134,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dotCustomiser.update(shape);
 		arcCustomiser.update(shape);
 		dimPosCustomiser.update(shape);
+		gridCustomiser.update(shape);
 	}
 
 
@@ -143,6 +150,16 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dotCustomiser.clearEvents();
 		arcCustomiser.clearEvents();
 		dimPosCustomiser.clearEvents();
+		gridCustomiser.clearEvents();
+	}
+
+
+	/**
+	 * @return The instrument that customises grids and axes.
+	 * @since 3.0
+	 */
+	public ShapeGridCustomiser getGridCustomiser() {
+		return gridCustomiser;
 	}
 
 

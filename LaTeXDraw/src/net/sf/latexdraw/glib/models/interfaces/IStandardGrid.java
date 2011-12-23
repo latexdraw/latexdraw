@@ -100,6 +100,12 @@ public interface IStandardGrid extends IPositionShape {
 	double getGridStartY();
 
 	/**
+	 * @return The starting point of the grid.
+	 * @since 3.0
+	 */
+	IPoint getGridStart();
+
+	/**
 	 * @param x The x-coordinate of the starting point of the grid.
 	 * @param y The y-coordinate of the starting point of the grid.
 	 */

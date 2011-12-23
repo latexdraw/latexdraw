@@ -18,6 +18,7 @@ import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
 import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
+import net.sf.latexdraw.instruments.ShapeGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
 import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
 import net.sf.latexdraw.instruments.TextCustomiser;
@@ -96,7 +97,24 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(composeTextPositionToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeTextPropertiesToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
+		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getGridCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
+	}
+
+
+	protected ListToggleButton composeGridPropertiesToolbar(final ShapeGridCustomiser cust, final LCanvas canvas) {
+		ListToggleButton list = new ListToggleButton(frame, LResources.GRID_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		list.setToolTipText("Modifies the properties of grids and axes.");
+
+		addSpinner(list, cust.getxStartS(), true, 50);
+		addSpinner(list, cust.getyStartS(), true, 50);
+		list.addSeparator();
+
+		mapContainers.put(cust.getxStartS(), list);
+		mapContainers.put(cust.getyStartS(), list);
+
+		cust.addEventable(list.getToolbar());
+		return list;
 	}
 
 
