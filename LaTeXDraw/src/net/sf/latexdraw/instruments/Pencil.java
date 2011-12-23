@@ -602,14 +602,6 @@ abstract class PencilLink<I extends Interaction> extends Link<AddShape, I, Penci
 		action.setShape(instrument.createShapeInstance());
 		action.setDrawing(instrument.drawing);
 	}
-
-
-	@Override
-	public void interimFeedback() {
-		// The temp shape must be be the same shape than the shape what will be added to the drawing. So we
-		// need to duplicate it at each feedback. The issue can be cpu consuming.
-		instrument.drawing.setTempShape(action.getShape().duplicate());
-	}
 }
 
 
@@ -693,6 +685,14 @@ class MultiClic2AddShape extends PencilLink<MultiClick> {
 			interaction.setMinPoints(3);
 		else
 			interaction.setMinPoints(2);
+	}
+
+
+	@Override
+	public void interimFeedback() {
+		// The temp shape must be be the same shape than the shape what will be added to the drawing. So we
+		// need to duplicate it at each feedback. The issue can be cpu consuming.
+		instrument.drawing.setTempShape(action.getShape().duplicate());
 	}
 }
 
@@ -822,6 +822,14 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 				shape.setTop(v2);
 				shape.setBottom(v1);
 			}
+	}
+
+
+	@Override
+	public void interimFeedback() {
+		// The temp shape must be be the same shape than the shape what will be added to the drawing. So we
+		// need to duplicate it at each feedback. The issue can be cpu consuming.
+		instrument.drawing.setTempShape(action.getShape().duplicate());
 	}
 }
 
