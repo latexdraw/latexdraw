@@ -82,7 +82,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public double getGridMaxX() {
-		return gridEndx>gridStartx ? gridEndx : gridStartx;
+		return gridEndx>=gridStartx ? gridEndx : gridStartx;
 	}
 
 
@@ -94,23 +94,21 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public double getGridMaxY() {
-		return gridEndy>gridStarty ? gridEndy : gridStarty;
+		return gridEndy>=gridStarty ? gridEndy : gridStarty;
 	}
 
 
 	@Override
 	public IPoint getBottomRightPoint() {
-		IPoint pos = points.get(0);
-
-		return new LPoint(pos.getX()+getStep()*(gridEndx-gridStartx), pos.getY());
+		final IPoint pos = points.get(0);
+		return new LPoint(pos.getX()+getGridMaxX()*PPC, pos.getY()-getGridMinY()*PPC);
 	}
 
 
 	@Override
 	public IPoint getTopLeftPoint() {
-		IPoint pos = points.get(0);
-
-		return new LPoint(pos.getX(), pos.getY()-getStep()*(gridEndy-gridStarty));
+		final IPoint pos = points.get(0);
+		return new LPoint(pos.getX()+getGridMinX()*PPC, pos.getY()-getGridMaxY()*PPC);
 	}
 
 
