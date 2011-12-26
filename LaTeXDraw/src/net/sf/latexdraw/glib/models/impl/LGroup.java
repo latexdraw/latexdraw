@@ -720,7 +720,7 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
-	public void setHatchingsAngle(double hatchingsAngle) {
+	public void setHatchingsAngle(final double hatchingsAngle) {
 		for(final IShape sh : shapes)
 			if(sh.isInteriorStylable())
 				sh.setHatchingsAngle(hatchingsAngle);
@@ -728,7 +728,7 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
-	public void setHatchingsSep(double hatchingsSep) {
+	public void setHatchingsSep(final double hatchingsSep) {
 		for(final IShape sh : shapes)
 			if(sh.isInteriorStylable())
 				sh.setHatchingsSep(hatchingsSep);
@@ -736,7 +736,7 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
-	public void setHatchingsWidth(double hatchingsWidth) {
+	public void setHatchingsWidth(final double hatchingsWidth) {
 		for(final IShape sh : shapes)
 			if(sh.isInteriorStylable())
 				sh.setHatchingsWidth(hatchingsWidth);
@@ -2097,7 +2097,7 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
-	public void setDotSizeList(List<Double> values) {
+	public void setDotSizeList(final List<Double> values) {
 		if(values!=null && values.size()==shapes.size())
 			for(int i=0, size=shapes.size(); i<size; i++) {
 				if(values.get(i)!=null && shapes.get(i) instanceof Dottable)
