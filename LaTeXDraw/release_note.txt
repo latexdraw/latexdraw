@@ -50,4 +50,5 @@ Changes:
 
 Fixed:
 - lp#880677, sf#3296077: line colour of psdot style asterisk is not saved.
+- The painted axes did not match the generated pdf because of the package pstricks-add.
 
