@@ -40,9 +40,9 @@ public interface IAxes extends IStandardGrid {
 			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.0"); } //$NON-NLS-1$
 		};
 
-		/** 
+		/**
 		 * The translated label of the style.
-		 * @return The label corresponding to the style. 
+		 * @return The label corresponding to the style.
 		 */
 		public abstract String getLabel();
 
@@ -66,17 +66,59 @@ public interface IAxes extends IStandardGrid {
 		FULL {
 			@Override
 			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.3"); }//$NON-NLS-1$
+
+			@Override
+			public boolean isTop() {
+				return true;
+			}
+
+			@Override
+			public boolean isBottom() {
+				return true;
+			}
 		}, TOP {
 			@Override
 			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.4"); }//$NON-NLS-1$
+
+			@Override
+			public boolean isTop() {
+				return true;
+			}
+
+			@Override
+			public boolean isBottom() {
+				return false;
+			}
 		}, BOTTOM {
 			@Override
 			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.5"); }//$NON-NLS-1$
+
+			@Override
+			public boolean isTop() {
+				return false;
+			}
+
+			@Override
+			public boolean isBottom() {
+				return true;
+			}
 		};
 
-		/** 
-		 * The translated label of the style. 
-		 * @return The label corresponding to the style. 
+		/**
+		 * @return True if the current tick style considers the top ticks.
+		 * @since 3.0
+		 */
+		public abstract boolean isTop();
+
+		/**
+		 * @return True if the current tick style considers the bottom ticks.
+		 * @since 3.0
+		 */
+		public abstract boolean isBottom();
+
+		/**
+		 * The translated label of the style.
+		 * @return The label corresponding to the style.
 		 */
 		public abstract String getLabel();
 
@@ -98,10 +140,62 @@ public interface IAxes extends IStandardGrid {
 
 	/** Defines the different style of labels. */
 	public static enum PlottingStyle {
-		ALL,
-		X,
-		Y,
-		NONE;
+		ALL {
+			@Override
+			public boolean isX() {
+				return true;
+			}
+
+			@Override
+			public boolean isY() {
+				return true;
+			}
+		},
+		X {
+			@Override
+			public boolean isX() {
+				return true;
+			}
+
+			@Override
+			public boolean isY() {
+				return false;
+			}
+		},
+		Y {
+			@Override
+			public boolean isX() {
+				return false;
+			}
+
+			@Override
+			public boolean isY() {
+				return true;
+			}
+		},
+		NONE {
+			@Override
+			public boolean isX() {
+				return false;
+			}
+
+			@Override
+			public boolean isY() {
+				return false;
+			}
+		};
+
+		/**
+		 * @return True if the current style supports the X-axis.
+		 * @since 3.0
+		 */
+		public abstract boolean isX();
+
+		/**
+		 * @return True if the current style supports the Y-axis.
+		 * @since 3.0
+		 */
+		public abstract boolean isY();
 
 		/**
 		 * The style that corresponds to the given string.
@@ -119,7 +213,7 @@ public interface IAxes extends IStandardGrid {
 		}
 	}
 
-	
+
 	@Override
 	IAxes duplicate();
 

@@ -79,7 +79,8 @@ class LAxes extends LAbstractGrid implements IAxes {
 		incrementY		= PSTricksConstants.DEFAULT_DY;
 		distLabelsX		= PSTricksConstants.DEFAULT_DIST_X_LABEL;
 		distLabelsY		= PSTricksConstants.DEFAULT_DIST_X_LABEL;
-
+		arrows.add(new LArrow(this));
+		arrows.add(new LArrow(this));
 		update();
 	}
 
@@ -122,8 +123,8 @@ class LAxes extends LAbstractGrid implements IAxes {
 
 		return ok;
 	}
-	
-	
+
+
 	@Override
 	public IAxes duplicate() {
 		final IShape sh = super.duplicate();

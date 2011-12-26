@@ -4,12 +4,13 @@ import java.awt.BasicStroke;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
 import java.awt.geom.Path2D;
 
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a view of the IGrid model.<br>
@@ -80,10 +81,24 @@ class LGridView extends LStandardGridView<IGrid> {
 		g.draw(path);
 
 		// Drawing the labels.
+		//FIXME: labels may be not visible.
 		g.setColor(shape.getGridLabelsColour());
 		g.fill(pathLabels);
 	}
 
+
+	@Override
+	public void updateBorder() {
+		final double angle = shape.getRotationAngle();
+
+		if(LNumber.INSTANCE.equals(angle, 0.)) {//FIXME: labels may be not visible.
+			border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
+		}
+		else {
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
+			//TODO
+		}
+	}
 
 
 	private void updatePathMainGridDots(final double unit, final double minX, final double maxX, final double minY, final double maxY,
@@ -203,22 +218,16 @@ class LGridView extends LStandardGridView<IGrid> {
 		final Font font 		= fontMetrics.getFont();
 		final FontRenderContext frc = new FontRenderContext(null, true, true);
 		double i, j;
-		char[] text;
 		String label;
-		GlyphVector gv;
 		float x;
 
-		for(i=tlx + (isWest ? width+labelsSize/4. : -width-labelWidth-labelsSize/4.), j=minX; j<=maxX; i+=absStep, j++) {
-			text = String.valueOf((int)j).toCharArray();
-			gv   = font.layoutGlyphVector(frc, text, 0, text.length, 0);
-			pathLabels.append(gv.getOutline((float)i, (float)(yorig+tmp)), false);
-		}
+		for(i=tlx + (isWest ? width+labelsSize/4. : -width-labelWidth-labelsSize/4.), j=minX; j<=maxX; i+=absStep, j++)
+			updateText(String.valueOf((int)j), (float)i, (float)(yorig+tmp), font, frc);
 
 		for(i=tly + (isSouth ? -width-labelsSize/4. : width+labelHeight), j=maxY ; j>=minY; i+=absStep, j--) {
 			label = String.valueOf((int)j);
-			gv    = font.layoutGlyphVector(frc, label.toCharArray(), 0, label.length(), 0);
 			x	  = isWest ? (float)(xorig-fontMetrics.stringWidth(label)-labelsSize/4.-width) : (float)(xorig+labelsSize/4.+width);
-			pathLabels.append(gv.getOutline(x, (float)i), false);
+			updateText(label, x, (float)i, font, frc);
 		}
 	}
 

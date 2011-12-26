@@ -5,11 +5,12 @@ import static java.lang.Math.sin;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.util.LNumber;
@@ -60,16 +61,10 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 	}
 
 
-	@Override
-	public void updateBorder() {
-		final double angle = shape.getRotationAngle();
-
-		if(LNumber.INSTANCE.equals(angle, 0.))
-			border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
-		else {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
-			//TODO
-		}
+	protected void updateText(final String text, final float x, final float y, final Font font, final FontRenderContext frc) {
+		final char[] textChars = text.toCharArray();
+		final GlyphVector gv   = font.layoutGlyphVector(frc, textChars, 0, textChars.length, 0);
+		pathLabels.append(gv.getOutline(x, y), false);
 	}
 
 
