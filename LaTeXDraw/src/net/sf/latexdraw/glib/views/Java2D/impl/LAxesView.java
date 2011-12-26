@@ -1,9 +1,11 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
+import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
@@ -35,12 +37,67 @@ class LAxesView extends LStandardGridView<IAxes> {
 	/** The interval between the labels and the axes. */
 	public static final double GAP_LABEL = 5.;
 
+	protected Path2D pathTicks;
+
 
 	protected LAxesView(final IAxes model) {
 		super(model);
+		pathTicks = new Path2D.Double();
 		update();
 	}
 
+
+
+	private void updatePathTicksX(final double gapx, final TicksStyle ticksStyle, final double tickLgth) {
+		final int origx 	= (int)shape.getOriginX();
+		final double posx 	= shape.getPosition().getX();
+		final double posy 	= shape.getPosition().getY();
+		final double y 		= posy + (ticksStyle.isBottom() ? tickLgth/2. : 0.);
+		double x;
+		int val;
+
+		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX(), minx = shape.getGridMinX(), i=maxx-(maxx%((int)incrx)); i>=minx; i-=incrx) {
+			val = (int)(i+origx);
+			if(val!=0) {
+				x = posx+val*gapx*incrx;
+				pathTicks.moveTo(x, y);
+				pathTicks.lineTo(x, y-tickLgth);
+			}
+		}
+	}
+
+
+
+	private void updatePathTicksY(final double gapy, final TicksStyle ticksStyle, final double tickLgth) {
+		final int origy 	= (int)shape.getOriginY();
+		final double posx 	= shape.getPosition().getX();
+		final double posy 	= shape.getPosition().getY();
+		final double x 		= posx - (ticksStyle.isBottom() ? tickLgth/2. : 0.);
+		double y;
+		int val;
+
+		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY(), miny = shape.getGridMinY(), i=maxy-(maxy%((int)incry)); i>=miny; i-=incry) {
+			val = (int)(i+origy);
+			if(val!=0) {
+				y = posy-val*gapy*incry;
+				pathTicks.moveTo(x, y);
+				pathTicks.lineTo(x+tickLgth, y);
+			}
+		}
+	}
+
+
+	private void updatePathTicks(final double gapx, final double gapy) {
+		final PlottingStyle ticksDisplay = shape.getTicksDisplayed();
+		final TicksStyle ticksStyle = shape.getTicksStyle();
+		final double tickLgth = ticksStyle==TicksStyle.FULL ? shape.getTicksSize()*2. : shape.getTicksSize();
+
+		if(ticksDisplay.isX())
+			updatePathTicksX(gapx, ticksStyle, tickLgth);
+
+		if(ticksDisplay.isY())
+			updatePathTicksY(gapy, ticksStyle, tickLgth);
+	}
 
 
 	private void updatePathLabelsY(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapy, final FontRenderContext frc) {
@@ -238,6 +295,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 
 		path.reset();
 		pathLabels.reset();
+		pathTicks.reset();
 
 //		if(distX!=0.) {
 //			if(maxX!=0.) {
@@ -294,6 +352,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 				break;
 		}
 
+		updatePathTicks(gapX, gapY);
+
 		if(shape.getLabelsDisplayed()!=PlottingStyle.NONE)
 			updatePathLabels(gapX, gapY);
 	}
@@ -304,6 +364,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 		g.setStroke(getStroke());
 		g.setColor(shape.getLineColour());
 		g.draw(path);
+		g.setStroke(new BasicStroke((float)shape.getThickness(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
+		g.draw(pathTicks);
 
 		if(shape.getLabelsDisplayed()!=PlottingStyle.NONE) {
 			g.setColor(Color.BLACK);
@@ -793,61 +855,5 @@ class LAxesView extends LStandardGridView<IAxes> {
 //								(int)(posx+gap+GAP_LABEL), (int)(posy+height/2.-j*gapY*incry));
 //			}
 //		}
-//	}
-
-
-
-//	@Override
-//	public void updateBorder() {
-//		final IPoint pos   = shape.getPosition();
-//		final double endx  = shape.getGridEndX();
-//		final double endy  = shape.getGridEndY();
-//		final double posx  = pos.getX();
-//		final double posy  = pos.getY();
-//		final double startx = shape.getGridStartX();
-//		final double starty = shape.getGridStartY();
-//		final TicksStyle ticksStyle = shape.getTicksStyle();
-//		final double ticksSize	  	= shape.getTicksSize();
-//
-//		double minX, maxX, minY, maxY, add1X=0., add2X=0., add1Y=0., add2Y=0.;
-//		final boolean ticksTop = ticksStyle==TicksStyle.FULL || ticksStyle==TicksStyle.TOP;
-//		final boolean ticksBot = ticksStyle==TicksStyle.FULL || ticksStyle==TicksStyle.BOTTOM;
-//
-//		if(endx<startx) {
-//			minX = endx;
-//			maxX = startx;
-//		}
-//		else {
-//			minX = startx;
-//			maxX = endx;
-//		}
-//
-//		if(endy<starty) {
-//			minY = endy;
-//			maxY = starty;
-//		}
-//		else {
-//			minY = starty;
-//			maxY = endy;
-//		}
-//
-//		if(minX>=0. && shape.isYLabelWest())
-//			add1X = Math.max(fontMetrics.stringWidth(String.valueOf(minY)),
-//							 fontMetrics.stringWidth(String.valueOf(maxY)))+(ticksBot ? ticksSize : 0.);
-//
-//		if(maxX<=0.)
-//			add2X = Math.max(fontMetrics.stringWidth(String.valueOf(minY)),
-//							 fontMetrics.stringWidth(String.valueOf(maxY)))+(ticksBot ? ticksSize : 0.);
-//
-//		if(minY>=0. && shape.isXLabelSouth())
-//			add2Y = fontMetrics.getHeight()+GAP_LABEL+(ticksBot ? ticksSize : 0.);
-//
-//		if(maxY<=0.)
-//			add1Y = fontMetrics.getHeight()+GAP_LABEL+(ticksTop ? ticksSize : 0.);
-//
-//		border.setFrameFromDiagonal(posx+Math.min(0, minX)*IShape.PPC-add1X,
-//									posy-Math.max(0, maxY)*IShape.PPC-add1Y,
-//									posx+Math.max(0, maxX)*IShape.PPC+add2X,
-//									posy-Math.min(0, minY)*IShape.PPC+add2Y);
 //	}
 }
