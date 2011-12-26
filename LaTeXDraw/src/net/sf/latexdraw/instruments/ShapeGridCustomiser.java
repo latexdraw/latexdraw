@@ -10,6 +10,7 @@ import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.lang.LangTool;
@@ -61,8 +62,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape instanceof IStandardGrid) {
-			IStandardGrid grid = (IStandardGrid)shape;
+		if(shape instanceof IStandardGrid && (!(shape instanceof IGroup) || ((IGroup)shape).containsGrids())) {
+			final IStandardGrid grid = (IStandardGrid)shape;
 
 			((SpinnerNumberModel)xStartS.getModel()).setMaximum((int)grid.getGridEndX());
 			((SpinnerNumberModel)yStartS.getModel()).setMaximum((int)grid.getGridEndY());
