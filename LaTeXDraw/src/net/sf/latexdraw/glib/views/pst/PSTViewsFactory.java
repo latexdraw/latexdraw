@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
 import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
@@ -66,10 +67,10 @@ public final class PSTViewsFactory {
 	 */
 	private void initCommands() {
 		CreateViewPSTCmd cmd = new CreateViewPSTCmd(null, IPicture.class) { @Override public PSTShapeView<?> create(final IShape shape) { return new PSTPictureView((IPicture)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IText.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTTextView((IText)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, IFreehand.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTFreeHandView((IFreehand)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, IDot.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTDotView((IDot)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, IGrid.class)		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTGridView((IGrid)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IAxes.class)		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTAxesView((IAxes)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, IBezierCurve.class){ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTBezierCurveView((IBezierCurve)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, IPolygon.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTPolygonView((IPolygon)shape); } };
 		// All the commands of the chain of responsibility are chained together.
@@ -80,6 +81,7 @@ public final class PSTViewsFactory {
 		cmd = new CreateViewPSTCmd(cmd, IEllipse.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTEllipseView((IEllipse)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, IArc.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTArcView((IArc)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, ICircle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTCircleView((ICircle)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IText.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTTextView((IText)shape); } };
 		// The last created command is the first element of the chain.
 		createCmd = new CreateViewPSTCmd(cmd, IRectangle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTRectView((IRectangle)shape); } };
 	}
