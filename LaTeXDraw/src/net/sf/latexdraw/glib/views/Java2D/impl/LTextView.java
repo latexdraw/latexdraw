@@ -125,6 +125,16 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	public void flush() {
 		super.flush();
 
+		flushPictures();
+		lastText = ""; //$NON-NLS-1$
+	}
+	
+	
+	/**
+	 * Flushes the pictures of the text and all the related resources.
+	 * @since 3.0
+	 */
+	protected void flushPictures() {
 		if(image!=null)
 			image.flush();
 
@@ -136,13 +146,12 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 		pathPic  = null;
 		image 	 = null;
-		lastText = ""; //$NON-NLS-1$
 	}
 
 
 	@Override
 	public void updateImage() {
-		flush();
+		flushPictures();
 		image = createImage();
 	}
 
