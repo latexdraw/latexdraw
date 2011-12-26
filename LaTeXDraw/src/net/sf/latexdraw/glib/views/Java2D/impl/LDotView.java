@@ -71,6 +71,11 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 		return stroke;
 	}
 
+	
+	@Override
+	public void paintBorders(final Graphics2D g) {
+		// Nothing to do.
+	}
 
 	@Override
 	public void paint(final Graphics2D g) {
