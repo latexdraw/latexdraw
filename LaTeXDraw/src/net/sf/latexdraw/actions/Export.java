@@ -20,6 +20,8 @@ import javax.imageio.ImageWriter;
 import javax.imageio.plugins.bmp.BMPImageWriteParam;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.ImageOutputStream;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -33,6 +35,9 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
+import net.sf.latexdraw.instruments.Exporter;
+import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.ui.dialog.ExportDialog;
 
 import org.malai.action.Action;
 
@@ -173,14 +178,8 @@ public class Export extends Action {
 	}
 
 
-	/** The file where the drawing must be exported. */
-	protected File file;
-
 	/** The format with which the drawing must be exported. */
 	protected ExportFormat format;
-
-	/** The compression rate of JPG pictures. */
-	protected float compressionRate;
 
 	/** The canvas that contains views. */
 	protected ICanvas canvas;
@@ -191,6 +190,9 @@ public class Export extends Action {
 	/** Defines if the shapes have been successfully exported. */
 	protected boolean exported;
 
+	/** The dialogue chooser used to select the targeted file. */
+	protected ExportDialog dialogueBox;
+
 
 
 	/**
@@ -199,7 +201,6 @@ public class Export extends Action {
 	 */
 	public Export() {
 		super();
-
 		exported = false;
 	}
 
@@ -210,7 +211,7 @@ public class Export extends Action {
 		canvas 			= null;
 		latexDistribPath= null;
 		format 			= null;
-		file 			= null;
+		dialogueBox		= null;
 	}
 
 
@@ -222,39 +223,52 @@ public class Export extends Action {
 
 	@Override
 	protected void doActionBody() {
-		switch(format) {
-			case BMP:
-				exported = exportAsBMP();
-				break;
-			case EPS_LATEX:
-				exported = exportAsPS();
-				break;
-			case JPG:
-				exported = exportAsJPG();
-				break;
-			case PDF:
-				exported = exportAsPDF();
-				break;
-			case PDF_CROP:
-				exported = exportAsPDF();
-				break;
-			case PNG:
-				exported = exportAsPNG();
-				break;
-			case TEX:
-				exported = exportAsPST();
-				break;
+		// Showing the dialog.
+		final int response 	= dialogueBox.showSaveDialog(null);
+		File f 				= dialogueBox.getSelectedFile();
+
+		exported = true;
+
+		// Analysing the result of the dialog.
+		if(response != JFileChooser.APPROVE_OPTION || f==null)
+			exported = false;
+		else {
+			if(f.getName().toLowerCase().indexOf(format.getFileExtension().toLowerCase()) == -1)
+				f = new File(f.getPath() + format.getFileExtension());
+
+			if(f.exists()) {
+				int replace = JOptionPane.showConfirmDialog(null,
+							LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
+							Exporter.TITLE_DIALOG_EXPORT, JOptionPane.YES_NO_OPTION);
+
+				if(replace == JOptionPane.NO_OPTION)
+					exported = false; // The user doesn't want to replace the file
+			}
 		}
+
+		if(exported)
+			exported = export(f);
+	}
+
+
+	protected boolean export(final File file) {
+		switch(format) {
+			case BMP: 		return exportAsBMP(file);
+			case EPS_LATEX: return exportAsPS(file);
+			case JPG: 		return exportAsJPG(file);
+			case PDF: 		return exportAsPDF(file);
+			case PDF_CROP: 	return exportAsPDF(file);
+			case PNG: 		return exportAsPNG(file);
+			case TEX: 		return exportAsPST(file);
+		}
+		return false;
 	}
 
 
 
 	@Override
 	public boolean canDo() {
-		boolean ok = canvas!=null && format!=null && file!=null;
-
-		// Testing the export as jpg.
-		ok = ok && (format!=ExportFormat.JPG || (compressionRate>0f && compressionRate<=1f));
+		boolean ok = canvas!=null && format!=null && dialogueBox!=null;
 		// Testing the export as PS/PDF using latex.
 		ok = ok && ((format!=ExportFormat.EPS_LATEX && format!=ExportFormat.PDF && format!=ExportFormat.PDF_CROP) || latexDistribPath!=null);
 
@@ -272,9 +286,10 @@ public class Export extends Action {
 
 	/**
 	 * Exports the drawing as a PNG picture.
+	 * @param file The targeted location.
 	 * @return true if the picture was well created.
 	 */
-	public boolean exportAsPNG() {
+	protected boolean exportAsPNG(final File file) {
 		final RenderedImage rendImage = createRenderedImage();
 
 		try {
@@ -289,9 +304,10 @@ public class Export extends Action {
 
 	/**
 	 * Exports the drawing as a JPG picture.
+	 * @param file The targeted location.
 	 * @return true if the picture was well created.
 	 */
-	public boolean exportAsJPG() {
+	protected boolean exportAsJPG(final File file) {
 		final RenderedImage rendImage = createRenderedImage();
 
 		try {
@@ -300,7 +316,7 @@ public class Export extends Action {
 			final ImageOutputStream ios 	= ImageIO.createImageOutputStream(file);
 
 			iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-			iwparam.setCompressionQuality(compressionRate);
+			iwparam.setCompressionQuality(dialogueBox.getCompressionRate()/100f);
 			iw.setOutput(ios);
 			iw.write(null, new IIOImage(rendImage, null, null), iwparam);
 			iw.dispose();
@@ -316,10 +332,11 @@ public class Export extends Action {
 
 	/**
 	 * Creates a ps document of the given views (compiled using latex).
+	 * @param file The targeted location.
 	 * @return True: the file has been created.
 	 * @since 3.0
 	 */
-	public boolean exportAsPS() {
+	protected boolean exportAsPS(final File file) {
 		File psFile;
 
 		try{
@@ -337,10 +354,11 @@ public class Export extends Action {
 
 	/**
 	 * Creates a pdf document of the given views (compiled using latex).
+	 * @param file The targeted location.
 	 * @return True: the file has been created.
 	 * @since 3.0
 	 */
-	public boolean exportAsPDF() {
+	protected boolean exportAsPDF(final File file) {
 		File pdfFile;
 
 		try{
@@ -355,10 +373,11 @@ public class Export extends Action {
 
 
 	/**
-	 * Allows to export the drawing as a PST document.
+	 * Exports the drawing as a PST document.
+	 * @param file The targeted location.
 	 * @return true if the PST document was been successfully created.
 	 */
-	public boolean exportAsPST() {
+	protected boolean exportAsPST(final File file) {
 		PrintWriter out = null;
 		boolean ok;
 
@@ -388,9 +407,10 @@ public class Export extends Action {
 
 	/**
 	 * Exports the drawing as a BMP picture.
+	 * @param file The targeted location.
 	 * @return true if the picture was successfully created.
 	 */
-	public boolean exportAsBMP(){
+	protected boolean exportAsBMP(final File file){
 		final RenderedImage rendImage = createRenderedImage();
 
 		try {
@@ -416,7 +436,7 @@ public class Export extends Action {
 	 * @return A buffered image that contains given views (not null).
 	 * @since 3.0
 	 */
-	public BufferedImage createRenderedImage() {
+	protected BufferedImage createRenderedImage() {
 		final IPoint tr 	= canvas.getTopRightDrawingPoint();
 		final IPoint bl 	= canvas.getBottomLeftDrawingPoint();
 		final double dec    = 5.;
@@ -459,15 +479,13 @@ public class Export extends Action {
 	}
 
 
-
 	/**
-	 * @param compressionRate The new JPG compression rate
+	 * @param dialogueBox The file chooser to set.
 	 * @since 3.0
 	 */
-	public void setCompressionRate(final float compressionRate) {
-		this.compressionRate = compressionRate;
+	public void setDialogueBox(final ExportDialog dialogueBox) {
+		this.dialogueBox = dialogueBox;
 	}
-
 
 
 	/**
@@ -479,19 +497,8 @@ public class Export extends Action {
 	}
 
 
-
 	/**
-	 * @param file the file to set.
-	 * @since 3.0
-	 */
-	public void setFile(final File file) {
-		this.file = file;
-	}
-
-
-
-	/**
-	 * @param format the format to set.
+	 * @param format The format to set.
 	 * @since 3.0
 	 */
 	public void setFormat(final ExportFormat format) {
@@ -499,9 +506,8 @@ public class Export extends Action {
 	}
 
 
-
 	/**
-	 * @param canvas the canvas to set.
+	 * @param canvas The canvas to set.
 	 * @since 3.0
 	 */
 	public void setCanvas(final ICanvas canvas) {

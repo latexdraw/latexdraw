@@ -1,11 +1,8 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.event.KeyEvent;
-import java.io.File;
 
-import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import net.sf.latexdraw.actions.Export;
@@ -106,14 +103,8 @@ public class Exporter extends WidgetInstrument {
 	/** The dialog box that allows to define where the drawing must be exported. */
 	protected ExportDialog fileChooserExport;
 
-	/** The current location where exports occur. */
-	protected File currentFile;
-
 	/** The default location of the exports. */
 	protected String pathExport;
-
-	/** The compression rate of JPG pictures. */
-	protected float compressionRate;
 
 	/** The path where latex binaries are. */
 	protected String latexPathDistrib;
@@ -147,7 +138,6 @@ public class Exporter extends WidgetInstrument {
 
 		defaultPackages		= ""; //$NON-NLS-1$
 		latexPathDistrib	= ""; //$NON-NLS-1$
-		compressionRate		= 0.9f;
 		this.statusBar		= statusBar;
 		this.drawing		= drawing;
 		this.canvas 		= canvas;
@@ -270,17 +260,13 @@ public class Exporter extends WidgetInstrument {
 
 
 	/**
-	 * Show the export dialog to select a path.
 	 * @param format The format of the document to export.
-	 * @return True if the user has successfully selected a file.
+	 * @return The export dialog to select a path.
 	 * @since 3.0
 	 */
-	protected boolean showExportDialog(final ExportFormat format) {
-		if(format==null)
-			return false;
-
+	protected ExportDialog getExportDialog(final ExportFormat format) {
 		if(fileChooserExport==null)
-			fileChooserExport = new ExportDialog(currentFile==null ? pathExport : currentFile.getPath());
+			fileChooserExport = new ExportDialog(pathExport);// currentFile==null ? pathExport : currentFile.getPath());
 
 		// Setting the dialog.
 		fileChooserExport.removeChoosableFileFilter(fileChooserExport.getFileFilter());
@@ -288,46 +274,7 @@ public class Exporter extends WidgetInstrument {
 		fileChooserExport.setFileFilter(format.getFilter());
 		fileChooserExport.setDialogTitle(Exporter.TITLE_DIALOG_EXPORT);
 
-		if(currentFile==null)
-			fileChooserExport.setSelectedFile(null);
-		else {
-			String fPath = currentFile.getPath();
-
-			// Removing the extension added during the previous export.
-			final int indexDot = fPath.lastIndexOf('.');
-
-			if(indexDot!=-1)
-				fPath = fPath.substring(0, indexDot);
-
-			fileChooserExport.setSelectedFile(new File(fPath));
-		}
-
-		// Showing the dialog.
-		final int response 	= fileChooserExport.showSaveDialog(null);
-		File file 			= fileChooserExport.getSelectedFile();
-
-		// Analysing the result of the dialog.
-		if(response != JFileChooser.APPROVE_OPTION || file==null)
-			return false;
-
-		if(file.getName().toLowerCase().indexOf(format.getFileExtension().toLowerCase()) == -1)
-			file = new File(file.getPath() + format.getFileExtension());
-
-		if(file.exists()) {
-			int replace = JOptionPane.showConfirmDialog(null,
-						LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
-						Exporter.TITLE_DIALOG_EXPORT, JOptionPane.YES_NO_OPTION);
-
-			if(replace == JOptionPane.NO_OPTION)
-				return false; // The user doesn't want to replace the file
-		}
-
-		if(format==ExportFormat.JPG)
-			compressionRate = fileChooserExport.getCompressionRate()/100f;
-
-		currentFile = file;
-
-		return true;
+		return fileChooserExport;
 	}
 
 
@@ -415,10 +362,8 @@ public class Exporter extends WidgetInstrument {
 }
 
 
-
 /**
  * This link maps menus to an export action.
- * @author Arnaud Blouin
  */
 class MenuPressed2Export extends Link<Export, MenuItemPressed, Exporter> {
 	/**
@@ -451,15 +396,10 @@ class MenuPressed2Export extends Link<Export, MenuItemPressed, Exporter> {
 			format = ExportFormat.BMP;
 		else format = null;
 
-		if(format!=null && instrument.showExportDialog(format)) {
-			action.setCanvas(instrument.canvas);
-			action.setFormat(format);
-			action.setFile(instrument.currentFile);
-			action.setLatexDistribPath(instrument.latexPathDistrib);
-			action.setCompressionRate(instrument.compressionRate);
-		}
-		else
-			action = null;
+		action.setDialogueBox(instrument.getExportDialog(format));
+		action.setCanvas(instrument.canvas);
+		action.setFormat(format);
+		action.setLatexDistribPath(instrument.latexPathDistrib);
 	}
 
 
@@ -490,13 +430,10 @@ class ButtonPressed2Export extends Link<Export, ButtonPressed, Exporter> {
 
 	@Override
 	public void initAction() {
-		if(instrument.showExportDialog(ExportFormat.PDF)) {
-			action.setCanvas(instrument.canvas);
-			action.setFormat(ExportFormat.PDF);
-			action.setFile(instrument.currentFile);
-			action.setLatexDistribPath(instrument.latexPathDistrib);
-		}
-		else action = null;
+		action.setDialogueBox(instrument.getExportDialog(ExportFormat.PDF));
+		action.setCanvas(instrument.canvas);
+		action.setFormat(ExportFormat.PDF);
+		action.setLatexDistribPath(instrument.latexPathDistrib);
 	}
 
 
