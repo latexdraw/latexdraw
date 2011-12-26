@@ -32,13 +32,36 @@ public interface IAxes extends IStandardGrid {
 		AXES {
 			@Override
 			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.1"); } //$NON-NLS-1$
+
+			@Override
+			public String getPSTToken() {
+				return PSTricksConstants.TOKEN_AXES_STYLE_AXES;
+			}
 		}, FRAME {
 			@Override
 			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.2"); } //$NON-NLS-1$
+
+			@Override
+			public String getPSTToken() {
+				return PSTricksConstants.TOKEN_AXES_STYLE_FRAME;
+			}
 		}, NONE {
 			@Override
 			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.0"); } //$NON-NLS-1$
+
+			@Override
+			public String getPSTToken() {
+				return PSTricksConstants.TOKEN_AXES_STYLE_NONE;
+			}
 		};
+
+
+		/**
+		 * @return The PST token corresponding to the axe style.
+		 * @since 3.0
+		 */
+		public abstract String getPSTToken();
+
 
 		/**
 		 * The translated label of the style.
@@ -76,6 +99,11 @@ public interface IAxes extends IStandardGrid {
 			public boolean isBottom() {
 				return true;
 			}
+
+			@Override
+			public String getPSTToken() {
+				return PSTricksConstants.TOKEN_TICKS_STYLE_FULL;
+			}
 		}, TOP {
 			@Override
 			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.4"); }//$NON-NLS-1$
@@ -88,6 +116,11 @@ public interface IAxes extends IStandardGrid {
 			@Override
 			public boolean isBottom() {
 				return false;
+			}
+
+			@Override
+			public String getPSTToken() {
+				return PSTricksConstants.TOKEN_TICKS_STYLE_TOP;
 			}
 		}, BOTTOM {
 			@Override
@@ -102,7 +135,18 @@ public interface IAxes extends IStandardGrid {
 			public boolean isBottom() {
 				return true;
 			}
+
+			@Override
+			public String getPSTToken() {
+				return PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM;
+			}
 		};
+
+		/**
+		 * @return The PST token corresponding to the tick style.
+		 * @since 3.0
+		 */
+		public abstract String getPSTToken();
 
 		/**
 		 * @return True if the current tick style considers the top ticks.
@@ -150,6 +194,11 @@ public interface IAxes extends IStandardGrid {
 			public boolean isY() {
 				return true;
 			}
+
+			@Override
+			public String getPSTToken() {
+				return PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL;
+			}
 		},
 		X {
 			@Override
@@ -160,6 +209,11 @@ public interface IAxes extends IStandardGrid {
 			@Override
 			public boolean isY() {
 				return false;
+			}
+
+			@Override
+			public String getPSTToken() {
+				return PSTricksConstants.TOKEN_LABELS_DISPLAYED_X;
 			}
 		},
 		Y {
@@ -172,6 +226,11 @@ public interface IAxes extends IStandardGrid {
 			public boolean isY() {
 				return true;
 			}
+
+			@Override
+			public String getPSTToken() {
+				return PSTricksConstants.TOKEN_LABELS_DISPLAYED_Y;
+			}
 		},
 		NONE {
 			@Override
@@ -183,7 +242,19 @@ public interface IAxes extends IStandardGrid {
 			public boolean isY() {
 				return false;
 			}
+
+			@Override
+			public String getPSTToken() {
+				return PSTricksConstants.TOKEN_LABELS_DISPLAYED_NONE;
+			}
 		};
+
+		/**
+		 * @return The PST token corresponding to the labels style.
+		 * @since 3.0
+		 */
+		public abstract String getPSTToken();
+
 
 		/**
 		 * @return True if the current style supports the X-axis.

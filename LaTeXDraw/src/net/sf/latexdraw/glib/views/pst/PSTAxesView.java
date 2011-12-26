@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -76,7 +75,6 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		else {
 			startY = gridEndy;
 			endY   = gridStarty;
-
 		}
 
 		if(isYLabelWest) {
@@ -91,7 +89,7 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		if(!LNumber.INSTANCE.equals(positionx, 0.) || !LNumber.INSTANCE.equals(positiony, 0.)) {
 			end.append('}');
 			start.append("\\rput(").append((float)LNumber.INSTANCE.getCutNumber((positionx-origDrawing.getX())/ppc)).append(','); //$NON-NLS-1$
-			start.append((float)LNumber.INSTANCE.getCutNumber((origDrawing.getY()-positiony)/ppc)).append(')').append('{').append(start);
+			start.append((float)LNumber.INSTANCE.getCutNumber((origDrawing.getY()-positiony)/ppc)).append(')').append('{');
 		}
 
 		if(rot!=null) {
@@ -105,94 +103,10 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		coord.append((int)endX).append(',').append((int)endY).append(')');
 
 		params = getLineCode(ppc);
-		params.append(", tickstyle=");//$NON-NLS-1$
-
-		switch(shape.getTicksStyle()) {
-			case BOTTOM:
-				params.append(PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM);
-				break;
-
-			case FULL:
-				params.append(PSTricksConstants.TOKEN_TICKS_STYLE_FULL);
-				break;
-
-			case TOP:
-				params.append(PSTricksConstants.TOKEN_TICKS_STYLE_TOP);
-				break;
-
-			default:
-				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
-				break;
-		}
-
-		params.append(", axesstyle=");//$NON-NLS-1$
-
-		switch(shape.getAxesStyle()) {
-			case AXES:
-				params.append(PSTricksConstants.TOKEN_AXES_STYLE_AXES);
-				break;
-
-			case FRAME:
-				params.append(PSTricksConstants.TOKEN_AXES_STYLE_FRAME);
-				break;
-
-			case NONE:
-				params.append(PSTricksConstants.TOKEN_AXES_STYLE_NONE);
-				break;
-
-			default:
-				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
-				break;
-		}
-
-		params.append(", labels=");//$NON-NLS-1$
-
-		switch(shape.getLabelsDisplayed()) {
-			case ALL:
-				params.append(PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL);
-				break;
-
-			case NONE:
-				params.append(PSTricksConstants.TOKEN_LABELS_DISPLAYED_NON);
-				break;
-
-			case X:
-				params.append(PSTricksConstants.TOKEN_LABELS_DISPLAYED_X);
-				break;
-
-			case Y:
-				params.append(PSTricksConstants.TOKEN_LABELS_DISPLAYED_Y);
-				break;
-
-			default:
-				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
-				break;
-		}
-
-		params.append(", ticks=");//$NON-NLS-1$
-
-		switch(shape.getTicksDisplayed()) {
-			case ALL:
-				params.append(PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL);
-				break;
-
-			case NONE:
-				params.append(PSTricksConstants.TOKEN_LABELS_DISPLAYED_NON);
-				break;
-
-			case X:
-				params.append(PSTricksConstants.TOKEN_LABELS_DISPLAYED_X);
-				break;
-
-			case Y:
-				params.append(PSTricksConstants.TOKEN_LABELS_DISPLAYED_Y);
-				break;
-
-			default:
-				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
-				break;
-		}
-
+		params.append(", tickstyle=").append(shape.getTicksStyle().getPSTToken());//$NON-NLS-1$
+		params.append(", axesstyle=").append(shape.getAxesStyle().getPSTToken());//$NON-NLS-1$
+		params.append(", labels=").append(shape.getLabelsDisplayed().getPSTToken());//$NON-NLS-1$
+		params.append(", ticks=").append(shape.getTicksDisplayed().getPSTToken());//$NON-NLS-1$
 		params.append(", ticksize=").append((float)LNumber.INSTANCE.getCutNumber(shape.getTicksSize()/ppc)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
 		if(!LNumber.INSTANCE.equals(distLabelsX, 0.))

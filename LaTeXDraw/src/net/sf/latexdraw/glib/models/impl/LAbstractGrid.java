@@ -366,8 +366,6 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void copy(final IShape s) {
-		if(s==null) return ;
-
 		super.copy(s);
 
 		if(s instanceof IStandardGrid) {

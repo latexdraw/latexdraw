@@ -66,7 +66,7 @@ public abstract class PSTricksConstants {
 	public static final String TOKEN_LABELS_DISPLAYED_Y 	= "y";//$NON-NLS-1$
 
 	/** The text to display when no labels must be displayed. */
-	public static final String TOKEN_LABELS_DISPLAYED_NON 	= "none";//$NON-NLS-1$
+	public static final String TOKEN_LABELS_DISPLAYED_NONE 	= "none";//$NON-NLS-1$
 
 	/** The token when the ticks must be fully shown. */
 	public static final String TOKEN_TICKS_STYLE_FULL 	= "full";//$NON-NLS-1$
