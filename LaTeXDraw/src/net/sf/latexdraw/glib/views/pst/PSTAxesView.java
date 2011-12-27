@@ -32,10 +32,8 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 	 */
 	protected PSTAxesView(final IAxes model) {
 		super(model);
-
 		update();
 	}
-
 
 
 	@Override
@@ -46,29 +44,19 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		emptyCache();
 
 		double startX, startY, endX, endY;
-		final boolean isXLabelSouth = shape.isXLabelSouth();
-		final boolean isYLabelWest  = shape.isYLabelWest();
-		final IPoint position		= shape.getPosition();
-		final double distLabelsX	= shape.getDistLabelsX();
-		final double distLabelsY	= shape.getDistLabelsY();
-		final boolean showOrigin	= shape.isShowOrigin();
 		StringBuilder start	  		= new StringBuilder();
 		StringBuilder end	  		= new StringBuilder();
 		StringBuilder rot	  		= getRotationHeaderCode(ppc, origDrawing);
 		StringBuilder coord	  		= new StringBuilder();
-		StringBuilder params;
+		StringBuilder arrowsStyle 	= getArrowsStyleCode();
 		final double gridEndx 		= shape.getGridEndX();
 		final double gridEndy 		= shape.getGridEndY();
-		final double positionx  	= position.getX();
-		final double positiony  	= position.getY();
-		final double incrementx 	= shape.getIncrementX();
-		final double incrementy 	= shape.getIncrementY();
-		final double originx 		= shape.getOriginX();
-		final double originy 		= shape.getOriginY();
+		final double positionx  	= shape.getPosition().getX();
+		final double positiony  	= shape.getPosition().getY();
 		final double gridStartx 	= shape.getGridStartX();
 		final double gridStarty 	= shape.getGridStartY();
 
-		if(isXLabelSouth) {
+		if(shape.isXLabelSouth()) {
 			startY = gridStarty;
 			endY   = gridEndy;
 		}
@@ -77,7 +65,7 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 			endY   = gridStarty;
 		}
 
-		if(isYLabelWest) {
+		if(shape.isYLabelWest()) {
 			startX = gridStartx;
 			endX   = gridEndx;
 		}
@@ -102,7 +90,28 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		coord.append((int)startY).append(')').append('(');
 		coord.append((int)endX).append(',').append((int)endY).append(')');
 
-		params = getLineCode(ppc);
+		cache.append(start);
+		cache.append("\\psaxes[");//$NON-NLS-1$
+		cache.append(updateParams(ppc));
+		cache.append(']');
+		if(arrowsStyle!=null)
+			cache.append(arrowsStyle);
+		cache.append(coord);
+		cache.append(end);
+	}
+
+
+
+	protected StringBuilder updateParams(final float ppc) {
+		StringBuilder params 		= getLineCode(ppc);
+		final double incrementx 	= shape.getIncrementX();
+		final double incrementy 	= shape.getIncrementY();
+		final double originx 		= shape.getOriginX();
+		final double originy 		= shape.getOriginY();
+		final double distLabelsX	= shape.getDistLabelsX();
+		final double distLabelsY	= shape.getDistLabelsY();
+		final boolean showOrigin	= shape.isShowOrigin();
+
 		params.append(", tickstyle=").append(shape.getTicksStyle().getPSTToken());//$NON-NLS-1$
 		params.append(", axesstyle=").append(shape.getAxesStyle().getPSTToken());//$NON-NLS-1$
 		params.append(", labels=").append(shape.getLabelsDisplayed().getPSTToken());//$NON-NLS-1$
@@ -132,11 +141,6 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		if(showOrigin!=PSTricksConstants.DEFAULT_SHOW_ORIGIN)
 			params.append(", showorigin=").append(showOrigin);//$NON-NLS-1$
 
-		cache.append(start);
-		cache.append("\\psaxes[");//$NON-NLS-1$
-		cache.append(params);
-		cache.append(']');
-		cache.append(coord);
-		cache.append(end);
+		return params;
 	}
 }
