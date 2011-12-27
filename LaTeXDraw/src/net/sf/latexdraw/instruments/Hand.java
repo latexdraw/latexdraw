@@ -98,6 +98,13 @@ public class Hand extends Instrument {
 
 
 	@Override
+	public void setActivated(final boolean activated) {
+		if(this.activated!=activated)
+			super.setActivated(activated);
+	}
+
+
+	@Override
 	public void interimFeedback() {
 		// The rectangle used for the interim feedback of the selection is removed.
 		canvas.setTempUserSelectionBorder(null);

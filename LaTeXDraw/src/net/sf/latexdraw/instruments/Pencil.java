@@ -150,6 +150,13 @@ public class Pencil extends Instrument {
 
 
 	@Override
+	public void setActivated(final boolean activated) {
+		if(this.activated!=activated)
+			super.setActivated(activated);
+	}
+
+
+	@Override
 	public void interimFeedback() {
 		drawing.setTempShape(null);
 		drawing.setModified(true);
