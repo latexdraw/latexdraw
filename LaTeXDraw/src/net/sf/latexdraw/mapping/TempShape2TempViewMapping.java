@@ -48,12 +48,15 @@ public class TempShape2TempViewMapping extends Unary2UnaryMapping<IShape, IViewS
 
 	@Override
 	public void onObjectReplaced(final IUnary<?> object, final Object replacedObject) {
-		targetObject.setValue(View2DTK.getFactory().createView(sourceObject.getValue()));
-
-		if(replacedObject!=null)
+		if(replacedObject!=null) {
 			MappingRegistry.REGISTRY.removeMappingsUsingSource(replacedObject);
+			targetObject.getValue().flush();
+			targetObject.setValue(null);
+		}
 
-		if(sourceObject.getValue()!=null)
+		if(sourceObject.getValue()!=null) {
+			targetObject.setValue(View2DTK.getFactory().createView(sourceObject.getValue()));
 			MappingRegistry.REGISTRY.addMapping(new Shape2ViewMapping(sourceObject.getValue(), targetObject.getValue()));
+		}
 	}
 }
