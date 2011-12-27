@@ -52,7 +52,8 @@ public abstract class Link<A extends Action, I extends Interaction, N extends In
 	protected Class<A> clazzAction;
 
 	/**
-	 * Creates a link. This constructor must initialise the interaction.
+	 * Creates a link. This constructor must initialise the interaction. The link is (de-)activated if the given
+	 * instrument is (de-)activated.
 	 * @param ins The instrument that contains the link.
 	 * @param exec Specifies if the action must be execute or update on each evolution of the interaction.
 	 * @param clazzAction The type of the action that will be created. Used to instantiate the action by reflexivity.
@@ -73,6 +74,7 @@ public abstract class Link<A extends Action, I extends Interaction, N extends In
 		action		= null;
 		instrument  = ins;
 		execute		= exec;
+		setActivated(ins.isActivated());
 		interaction.addHandler(this);
 	}
 
