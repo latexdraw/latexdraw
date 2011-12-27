@@ -108,11 +108,15 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 
 		final Graphics2D2SVG graphics = new Graphics2D2SVG(doc);
         final SVGElement root;
+        final boolean viewCreated;
         // Instead of creating a view, its is gathered from the Java view of the application.
 		IViewShape view = MappingRegistry.REGISTRY.getTargetFromSource(shape, IViewDot.class);
 
-		if(view==null)
+		if(view==null) {
 			view =  View2DTK.getFactory().createView(shape);
+			viewCreated = true;
+		}
+		else viewCreated = false;
 
         view.paint(graphics);
         root = graphics.getElement();
@@ -124,6 +128,9 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POSITION, shape.getPosition().getX() + " " + shape.getPosition().getY()); //$NON-NLS-1$
 
 		graphics.dispose();
+
+		if(viewCreated)
+			view.flush();
 
 		return root;
 	}
