@@ -8,6 +8,8 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
@@ -37,6 +39,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 	/** The interval between the labels and the axes. */
 	public static final double GAP_LABEL = 5.;
 
+	/** The path containing the data to paint concerning the ticks of the axes. */
 	protected Path2D pathTicks;
 
 
@@ -47,18 +50,24 @@ class LAxesView extends LStandardGridView<IAxes> {
 	}
 
 
-
+	/**
+	 * Updates the ticks path by drawing the ticks of the X-axis.
+	 */
 	private void updatePathTicksX(final double gapx, final TicksStyle ticksStyle, final double tickLgth) {
 		final int origx 	= (int)shape.getOriginX();
 		final double posx 	= shape.getPosition().getX();
 		final double posy 	= shape.getPosition().getY();
 		final double y 		= posy + (ticksStyle.isBottom() ? tickLgth/2. : 0.);
+		final boolean noArrowLeftX = shape.getArrowStyle(2)==ArrowStyle.NONE;
+		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE;
 		double x;
 		int val;
+		int inti;
 
 		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX(), minx = shape.getGridMinX(), i=maxx-(maxx%((int)incrx)); i>=minx; i-=incrx) {
-			val = (int)(i+origx);
-			if(val!=0) {
+			inti = (int)i;
+			val = inti+origx;
+			if(isElementPaintable(val, false, noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
 				x = posx+val*gapx*incrx;
 				pathTicks.moveTo(x, y);
 				pathTicks.lineTo(x, y-tickLgth);
@@ -67,18 +76,24 @@ class LAxesView extends LStandardGridView<IAxes> {
 	}
 
 
-
+	/**
+	 * Updates the ticks path by drawing the ticks of the Y-axis.
+	 */
 	private void updatePathTicksY(final double gapy, final TicksStyle ticksStyle, final double tickLgth) {
 		final int origy 	= (int)shape.getOriginY();
 		final double posx 	= shape.getPosition().getX();
 		final double posy 	= shape.getPosition().getY();
 		final double x 		= posx - (ticksStyle.isBottom() ? tickLgth/2. : 0.);
+		final boolean noArrowTopY = shape.getArrowStyle(1)==ArrowStyle.NONE;
+		final boolean noArrowBotY  = shape.getArrowStyle(0)==ArrowStyle.NONE;
 		double y;
 		int val;
+		int inti;
 
 		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY(), miny = shape.getGridMinY(), i=maxy-(maxy%((int)incry)); i>=miny; i-=incry) {
-			val = (int)(i+origy);
-			if(val!=0) {
+			inti = (int)i;
+			val = inti+origy;
+			if(isElementPaintable(val, false, noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				y = posy-val*gapy*incry;
 				pathTicks.moveTo(x, y);
 				pathTicks.lineTo(x+tickLgth, y);
@@ -87,6 +102,9 @@ class LAxesView extends LStandardGridView<IAxes> {
 	}
 
 
+	/**
+	 * Updates the ticks path by drawing the ticks of the X/Y-axis.
+	 */
 	private void updatePathTicks(final double gapx, final double gapy) {
 		final PlottingStyle ticksDisplay = shape.getTicksDisplayed();
 		final TicksStyle ticksStyle = shape.getTicksStyle();
@@ -100,8 +118,10 @@ class LAxesView extends LStandardGridView<IAxes> {
 	}
 
 
+	/**
+	 * Updates the labels path by drawing the labels of the Y-axis.
+	 */
 	private void updatePathLabelsY(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapy, final FontRenderContext frc) {
-		// Painting the labels on the Y-axis.
 		final boolean isWest 	= shape.isYLabelWest();
 		final double posx 		= shape.getPosition().getX();
 		final double posy 		= shape.getPosition().getY();
@@ -112,12 +132,16 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final Font font 		= fontMetrics.getFont();
 		final boolean showOrigY = shape.isShowOrigin() && ((isWest && shape.getGridMinX()>=0.) || (!isWest && shape.getGridMaxX()<=0.));
 		final int height 		= fontMetrics.getAscent();
+		final boolean noArrowTopY = shape.getArrowStyle(1)==ArrowStyle.NONE;
+		final boolean noArrowBotY  = shape.getArrowStyle(0)==ArrowStyle.NONE;
 		String str;
 		int val;
+		int inti;
 
 		for(double maxy = shape.getGridMaxY(), miny = shape.getGridMinY(), i=maxy-(maxy%((int)incry)); i>=miny; i-=incry) {
-			val = (int)(i+origy);
-			if(val!=0 || showOrigY) {
+			inti = (int)i;
+			val = inti+origy;
+			if(isElementPaintable(val, showOrigY, noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				str	 = String.valueOf(val+origy);
 				updateText(str, (float)(posx-gap-fontMetrics.stringWidth(str)-GAP_LABEL), (float)(posy+height/2.-val*gapy*incry), font, frc);
 			}
@@ -125,7 +149,9 @@ class LAxesView extends LStandardGridView<IAxes> {
 	}
 
 
-
+	/**
+	 * Updates the labels path by drawing the labels of the X-axis.
+	 */
 	private void updatePathLabelsX(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapx, final FontRenderContext frc) {
 		// Painting the labels on the X-axis.
 		final boolean isSouth 	= shape.isXLabelSouth();
@@ -138,12 +164,16 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double sep 		= shape.getGridMaxY()<=0. || !isSouth ? -gap-GAP_LABEL : gap + fontMetrics.getAscent();
 		final Font font 		= fontMetrics.getFont();
 		final boolean showOrigX = shape.isShowOrigin() && ((isSouth && shape.getGridMinY()>=0.) || (!isSouth && shape.getGridMaxY()<=0.));
+		final boolean noArrowLeftX = shape.getArrowStyle(0)==ArrowStyle.NONE;
+		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE;
 		String str;
 		int val;
+		int inti;
 
 		for(double maxx = shape.getGridMaxX(), minx = shape.getGridMinX(), i=maxx-(maxx%((int)incrx)); i>=minx; i-=incrx) {
-			val = (int)(i+origx);
-			if(val!=0 || showOrigX) {
+			inti = (int)i;
+			val = inti+origx;
+			if(isElementPaintable(val, showOrigX, noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
 				str	 = String.valueOf(val+origx);
 				updateText(str, (float)(posx+val*gapx*incrx-fontMetrics.stringWidth(str)/2.), (float)(posy+sep), font, frc);
 			}
@@ -151,6 +181,17 @@ class LAxesView extends LStandardGridView<IAxes> {
 	}
 
 
+	/**
+	 * @return True if a ticks or a label corresponding to the given parameter can be painted.
+	 */
+	private boolean isElementPaintable(final int val, final boolean showOrigin, final boolean noArrow1, final boolean noArrow2, final double min, final double max, final int i) {
+		return (val!=0 || showOrigin) && (noArrow2 || !LNumber.INSTANCE.equals(max, i)) && (noArrow1 || !LNumber.INSTANCE.equals(min, i));
+	}
+
+
+	/**
+	 * Updates the labels path by drawing the labels of the X/Y-axis.
+	 */
 	protected void updatePathLabels(final double gapx, final double gapy) {
 		final FontRenderContext frc = new FontRenderContext(null, true, true);
 		final PlottingStyle labelsDisplay = shape.getLabelsDisplayed();
@@ -165,121 +206,43 @@ class LAxesView extends LStandardGridView<IAxes> {
 	}
 
 
-	protected void updatePathAxes() {//final double minX, final double maxX, final double minY, final double maxY, final boolean isWest,
-								//final boolean isSouth, final double startx, final double starty, final double endx, final double endy) {
+	/**
+	 * Updates the general path of the view by drawing the frame of the shape.
+	 */
+	protected void updatePathFrame() {
+		final double endx = shape.getGridEndX();
+		final double endy = shape.getGridEndY();
+
+		if(endx>0 || endy>0) {
+			final double posx = shape.getPosition().getX();
+			final double posy = shape.getPosition().getY();
+			final double y1 = endy>0. ? posy-endy*IShape.PPC : posy;
+			final double x2 = endx>0. ? posx+endx*IShape.PPC : posx;
+
+			path.moveTo(posx, y1);
+			path.lineTo(x2, y1);
+			path.lineTo(x2, posy);
+			path.lineTo(posx, posy);
+			path.closePath();
+		}
+	}
+
+
+	/**
+	 * Updates the general path of the view by drawing the axis of the shape.
+	 */
+	protected void updatePathAxes() {
 		final double posX = shape.getPosition().getX();
 		final double posY = shape.getPosition().getY();
+		IArrow arr0 = shape.getArrowAt(0);
+		IArrow arr1 = shape.getArrowAt(1);
+		double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0.;
+		double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0.;
 
-		path.moveTo(posX+shape.getGridStartX()*IShape.PPC, posY);
-		path.lineTo(posX+shape.getGridEndX()*IShape.PPC, posY);
-		path.moveTo(posX, posY-shape.getGridStartY()*IShape.PPC);
-		path.lineTo(posX, posY-shape.getGridEndY()*IShape.PPC);
-//		boolean arrowOk = !LNumber.INSTANCE.equals(minX, maxX) || !LNumber.INSTANCE.equals(maxX, minY) || !LNumber.INSTANCE.equals(minY, maxY);
-//		IArrow arr1 = shape.getArrowAt(0);
-//		IArrow arr2 = shape.getArrowAt(1);
-//		double posx = shape.getPosition().getX();
-//		double posy = shape.getPosition().getY();
-//		IShapeFactory fac = DrawingTK.getFactory();
-//		IPoint p1x = fac.createPoint(posx+startx*IShape.PPC, posy);
-//		IPoint p1y = fac.createPoint(posx+endx*IShape.PPC, posy);
-//		IPoint p2x = fac.createPoint(posx, posy-endy*IShape.PPC);
-//		IPoint p2y = fac.createPoint(posx, posy-starty*IShape.PPC);
-//		IPolyline xLine = fac.createPolyline(p1x, p1y, false);
-//		IPolyline yLine = fac.createPolyline(p2x, p2y, false);
-//		ArrowStyle arrStyle1 = arr1.getArrowStyle();
-//		ArrowStyle arrStyle2 = arr2.getArrowStyle();
-//
-//		if(arrStyle1!=ArrowStyle.NONE && arrowOk) {
-//			double lgth = arr1.getArrowLength();
-//			boolean isArrow = arrStyle1.needsLineReduction();
-//
-//			if((!LNumber.INSTANCE.equals(minX, 0.) && isWest) || (!LNumber.INSTANCE.equals(maxX, 0.) && !isWest) || LNumber.INSTANCE.equals(maxY, minY)) {
-//				if(isArrow)
-//					if(isWest)
-//						 p1x.setX(p1x.getX()-lgth);
-//					else  {
-//						arrStyle1 = arrStyle1.getOppositeArrowStyle();
-//						p2x.setX(p2x.getX()+lgth);
-//					}
-//
-//				xLine.setArrowStyle(arrStyle1, isWest ? 0 : 1);
-//			}
-//
-//			if((!LNumber.INSTANCE.equals(minY, 0.) && isSouth) || (!LNumber.INSTANCE.equals(maxY, 0.) && !isSouth) || LNumber.INSTANCE.equals(maxX, minX)) {
-//				if(isArrow && isSouth)
-//					if(isSouth) {
-//						arrStyle1 = arrStyle1.getOppositeArrowStyle();
-//						p2y.setY(p2y.getY()+lgth);
-//					}else
-//						p1y.setY(p1y.getY()-lgth);
-//
-//				yLine.setArrowStyle(arrStyle1, isSouth ? 0 : 1);
-//			}
-//		}
-//
-//		if(arrStyle2!=ArrowStyle.NONE && arrowOk) {
-//			double lgth = arr2.getArrowLength();
-//			boolean isArrow = arrStyle2.needsLineReduction();
-//
-//			if((!LNumber.INSTANCE.equals(maxX, 0.) && isWest) || (!LNumber.INSTANCE.equals(minX, 0.) && !isWest) || LNumber.INSTANCE.equals(maxX, minX)) {
-//				if(isArrow && isWest)
-//					arrStyle2 = arrStyle2.getOppositeArrowStyle();
-//
-//				if(LNumber.INSTANCE.equals(maxX, minX) && LNumber.INSTANCE.equals(minX, 0)) {
-//					if(isArrow)
-//						if(maxY>0)
-//							p2y.setX(p2y.getX()+lgth);
-//						else p1x.setX(p1x.getX()-lgth);
-//
-//					yLine.setArrowStyle(arrStyle2, maxY>0 ? 0 : 1);
-//				} else {
-//					if(isArrow)
-//						if(isWest)
-//							p2x.setX(p2x.getX()+lgth);
-//						else p1x.setX(p1x.getX()-lgth);
-//
-//					xLine.setArrowStyle(arrStyle2, isWest ? 0 : 1);
-//				}
-//			}
-//
-//			if((!LNumber.INSTANCE.equals(maxY, 0.) && isSouth) || (!LNumber.INSTANCE.equals(minY, 0.) && !isSouth) || LNumber.INSTANCE.equals(maxY, minY)) {
-//				if(isArrow && !isSouth)
-//					arrStyle2 = arrStyle2.getOppositeArrowStyle();
-//
-//				if(LNumber.INSTANCE.equals(maxY, minY) && LNumber.INSTANCE.equals(minY, 0)) {
-//					if(isArrow)
-//						if(maxX>0.)
-//							p1x.setY(p1x.getY()-lgth);
-//						else p2x.setY(p2x.getY()+lgth);
-//
-//					if(maxX>0.)
-//						xLine.setArrowStyle(arrStyle2, 0);
-//					else
-//						xLine.setArrowStyle(arrStyle2, 1);
-//				}
-//				else {
-//					if(isArrow)
-//						if(isSouth)
-//							p1y.setY(p1y.getY()-lgth);
-//						else p2y.setY(p2y.getY()+lgth);
-//
-//					if(isSouth)
-//						yLine.setArrowStyle(arrStyle2, 0);
-//					else
-//						yLine.setArrowStyle(arrStyle2, 1);
-//				}
-//			}
-//		}
-//
-//		arrows.clear();//TODO arrowview flush, arrow flush
-//		IViewShape view = View2DTK.getFactory().createView(xLine);
-//		path.append(view.getPath(), false);
-//		arrows.addAll(view.getArrowViews());
-//		view.flush();
-//		view = View2DTK.getFactory().createView(yLine);
-//		path.append(view.getPath(), false);
-//		arrows.addAll(view.getArrowViews());
-//		view.flush();
+		path.moveTo(posX+shape.getGridStartX()*IShape.PPC + arr0Reduction, posY);
+		path.lineTo(posX+shape.getGridEndX()*IShape.PPC - arr1Reduction, posY);
+		path.moveTo(posX, posY-shape.getGridStartY()*IShape.PPC - arr0Reduction);
+		path.lineTo(posX, posY-shape.getGridEndY()*IShape.PPC + arr1Reduction);
 	}
 
 
@@ -297,65 +260,26 @@ class LAxesView extends LStandardGridView<IAxes> {
 		pathLabels.reset();
 		pathTicks.reset();
 
-//		if(distX!=0.) {
-//			if(maxX!=0.) {
-//				maxX = maxX/distX;
-//				if(maxX==0.)
-//					maxX=0.1;
-//			}
-//
-//			if(minX!=0) {
-//				minX = minX/distX;
-//				if(minX==0.)
-//					minX=0.1;
-//			}
-//		}
-//
-//		if(distY!=0.) {
-//			if(maxY!=0.) {
-//				maxY = maxY/distY;
-//				if(maxY==0.)
-//					maxY=0.1;
-//			}
-//
-//			if(minY!=0.) {
-//				minY = minY/distY;
-//				if(minY==0.)
-//					minY=0.1;
-//			}
-//		}
-//
-//		boolean arrow1Ok = shape.getArrowStyle(0)!=ArrowStyle.NONE;
-//		boolean arrow2Ok = shape.getArrowStyle(1)!=ArrowStyle.NONE;
-//
-//		minX3 = axesStyle==AxesStyle.AXES && ((arrow1Ok && isWest) ||
-//			(arrow2Ok && !isWest)) && startx!=0 && (distX==0. || distX==1.)? minX+1 : minX;
-//		minY3 = axesStyle==AxesStyle.AXES && ((arrow1Ok && isSouth) ||
-//				(arrow2Ok && !isSouth)) && starty!=0 && (distY==0. || distY==1.)? minY+1 : minY;
-//		maxX3 = axesStyle==AxesStyle.AXES && ((arrow2Ok && isWest) || (arrow1Ok && !isWest)) &&
-//		 		(distX==0. || distX==1.)? maxX-1 : maxX;
-//		maxY3 = axesStyle==AxesStyle.AXES && ((arrow2Ok && isSouth) || (arrow1Ok && !isSouth)) &&
-//		 		(distY==0. || distY==1.)? maxY-1 : maxY;
-//
-//		minX3 = minX>0 ? 0 : minX3;
-//		maxX3 = maxX<0 ? 0 : maxX3;
-//		minY3 = minY>0 ? 0 : minY3;
-//		maxY3 = maxY<0 ? 0 : maxY3;
+		updatePathArrows();
 
 		switch(axesStyle) {
-			case AXES:
-				updatePathAxes();//minX, maxX, minY, maxY, isWest, isSouth, startx, starty, endx, endy);
-				break;
-			case FRAME:
-				break;
-			case NONE:
-				break;
+			case AXES: updatePathAxes(); break;
+			case FRAME:updatePathFrame(); break;
+			case NONE: break;
 		}
 
 		updatePathTicks(gapX, gapY);
 
 		if(shape.getLabelsDisplayed()!=PlottingStyle.NONE)
 			updatePathLabels(gapX, gapY);
+	}
+
+
+
+	@Override
+	protected void updatePathArrows() {
+		if(shape.getAxesStyle().supportsArrows())
+			super.updatePathArrows();
 	}
 
 
@@ -367,11 +291,33 @@ class LAxesView extends LStandardGridView<IAxes> {
 		g.setStroke(new BasicStroke((float)shape.getThickness(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
 		g.draw(pathTicks);
 
+		if(shape.getAxesStyle().supportsArrows())
+			paintArrows(g, false);
+
 		if(shape.getLabelsDisplayed()!=PlottingStyle.NONE) {
 			g.setColor(Color.BLACK);
 			g.fill(pathLabels);
 		}
-//		paintArrows(g, false);
+	}
+
+
+	@Override
+	protected void paintArrows(final Graphics2D g, final boolean asShadow) {
+		if(arrows.size()==4) {
+			final Color colour = asShadow ? shape.getShadowCol() : shape.getFillingCol();
+
+			if(!LNumber.INSTANCE.equals(shape.getGridMinX(), 0))
+				arrows.get(2).paint(g, colour, asShadow);
+
+			if(!LNumber.INSTANCE.equals(shape.getGridMaxX(), 0))
+				arrows.get(3).paint(g, colour, asShadow);
+
+			if(!LNumber.INSTANCE.equals(shape.getGridMaxY(), 0))
+				arrows.get(1).paint(g, colour, asShadow);
+
+			if(!LNumber.INSTANCE.equals(shape.getGridMinY(), 0))
+				arrows.get(0).paint(g, colour, asShadow);
+		}
 	}
 
 
@@ -379,481 +325,14 @@ class LAxesView extends LStandardGridView<IAxes> {
 	public void updateBorder() {
 		final double angle = shape.getRotationAngle();
 
-		if(LNumber.INSTANCE.equals(angle, 0.)) {
+		if(LNumber.INSTANCE.equals(angle, 0.))
 			if(shape.getLabelsDisplayed()==PlottingStyle.NONE)
 				border.setFrame(path.getBounds2D());
 			else
 				border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
-		}
 		else {
 			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
 			//TODO
 		}
 	}
-
-//	@Override
-//	public void paint(Graphics2D g)
-//	{
-//		IPoint p 	 = beginRotation(g);
-	//		IPoint end   = shape.getGridEnd();
-	//		IPoint start = shape.getGridStart();
-//		IPoint orig  = shape.getOrigin();
-//		IPoint incr  = shape.getIncrement();
-//		IPoint pos   = shape.getPosition();
-	//		double endx  = end.getX();
-	//		double endy  = end.getY();
-//		double posx  = pos.getX();
-//		double posy  = pos.getY();
-//		double incrx = incr.getX();
-//		double incry = incr.getY();
-//		double origx = orig.getX();
-//		double origy = orig.getY();
-	//		double startx = start.getX();
-	//		double starty = start.getY();
-	//		double distX  = shape.getDistLabelsX();
-	//		double distY  = shape.getDistLabelsY();
-	//		boolean isSouth = shape.isXLabelSouth();
-	//		boolean isWest  = shape.isYLabelWest();
-//		boolean isOrig  = shape.isShowOrigin();
-//		PlottingStyle labelsDisplay = shape.getLabelsDisplayed();
-//		PlottingStyle ticksDisplay  = shape.getTicksDisplayed();
-//		TicksStyle ticksStyle		= shape.getTicksStyle();
-	//		AxesStyle axesStyle			= shape.getAxesStyle();
-//		LineStyle lineStyle			= shape.getLineStyle();
-//		double thickness			= shape.getThickness();
-//		Color lineColour			= shape.getLineColour();
-//		double ticksSize			= shape.getTicksSize();
-//
-	//		double minX, maxX, minY, maxY, maxX3, minX3, maxY3, minY3;
-//		double gapX = distX==0. ? IShape.PPC : (distX/incr.getX())*IShape.PPC, i;
-//		double gapY = distY==0. ? IShape.PPC : (distY/incr.getY())*IShape.PPC;
-//		boolean ticksBot = ticksStyle==TicksStyle.BOTTOM || ticksStyle==TicksStyle.FULL;
-//		int j;
-//
-	//		switch(lineStyle) {
-	//			case SOLID:
-	//				g.setStroke(new BasicStroke((float)thickness, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
-	//				break;
-	//
-	//			case DOTTED:
-	//				g.setStroke(new BasicStroke((float)thickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER,
-	//						1.f, new float[]{0,(float)(thickness+shape.getDotSep())}, 0));
-	//				break;
-	//
-	//			case DASHED:
-	//				g.setStroke(new BasicStroke((float)thickness, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
-	//						1.f, new float[]{(float)shape.getDashSepBlack(), (float)shape.getDashSepWhite()}, 0));
-	//				break;
-	//
-	//			default: break;
-	//		}
-	//
-	//
-	//		g.setColor(lineColour);
-//		g.setFont(font);
-	//
-	//		if(end.getX()<start.getX()) {
-	//			minX = end.getX();
-	//			maxX = start.getX();
-	//		}
-	//		else {
-	//			minX = start.getX();
-	//			maxX = end.getX();
-	//		}
-	//
-	//		if(end.getY()<start.getY()) {
-	//			minY = end.getY();
-	//			maxY = start.getY();
-	//		}
-	//		else {
-	//			minY = start.getY();
-	//			maxY = end.getY();
-	//		}
-	//
-	//		if(distX!=0.) {
-	//			if(maxX!=0.) {
-	//				maxX = maxX/distX;
-	//				if(maxX==0.)
-	//					maxX=0.1;
-	//			}
-	//
-	//			if(minX!=0) {
-	//				minX = minX/distX;
-	//				if(minX==0.)
-	//					minX=0.1;
-	//			}
-	//		}
-	//
-	//		if(distY!=0.) {
-	//			if(maxY!=0.) {
-	//				maxY = maxY/distY;
-	//				if(maxY==0.)
-	//					maxY=0.1;
-	//			}
-	//
-	//			if(minY!=0.) {
-	//				minY = minY/distY;
-	//				if(minY==0.)
-	//					minY=0.1;
-	//			}
-	//		}
-	//
-	//		boolean arrow1Ok = !arrowHead1.getArrowStyle().equals(PSTricksConstants.NONEARROW_STYLE);
-	//		boolean arrow2Ok = !arrowHead2.getArrowStyle().equals(PSTricksConstants.NONEARROW_STYLE);
-	//
-	//		minX3 = axesStyle==AxesStyle.AXES && ((arrow1Ok && isWest) ||
-	//				(arrow2Ok && !isWest)) && start.getX()!=0 && (distX==0. || distX==1.)? minX+1 : minX;
-	//		minY3 = axesStyle==AxesStyle.AXES && ((arrow1Ok && isSouth) ||
-	//				(arrow2Ok && !isSouth)) && start.getY()!=0 && (distY==0. || distY==1.)? minY+1 : minY;
-	//		maxX3 = axesStyle==AxesStyle.AXES && ((arrow2Ok && isWest) || (arrow1Ok && !isWest)) &&
-	//		 		(distX==0. || distX==1.)? maxX-1 : maxX;
-	//		maxY3 = axesStyle==AxesStyle.AXES && ((arrow2Ok && isSouth) || (arrow1Ok && !isSouth)) &&
-	//		 		(distY==0. || distY==1.)? maxY-1 : maxY;
-	//
-	//		minX3 = minX>0 ? 0 : minX3;
-	//		maxX3 = maxX<0 ? 0 : maxX3;
-	//		minY3 = minY>0 ? 0 : minY3;
-	//		maxY3 = maxY<0 ? 0 : maxY3;
-	//
-	//		switch(axesStyle)
-	//		{
-	//			case AXES:
-////				boolean arrowOk = (float)minX!=(float)maxX || (float)maxX!=(float)minY || (float)minY!=(float)maxY;
-//				LLine xLine = new LLine(new LPoint(posx+start.getX()*IShape.PPC, posy),
-//										new LPoint(posx+end.getX()*IShape.PPC, posy));
-//				LLine yLine = new LLine(new LPoint(posx, posy-end.getY()*IShape.PPC),
-//										new LPoint(posx, posy-start.getY()*IShape.PPC));
-//
-////				if(!arrowHead1.getArrowStyle().equals(PSTricksConstants.NONEARROW_STYLE) && arrowOk)
-////				{
-////					String arrowStyle = arrowHead1.getArrowStyle();
-////					lgth = arrowHead1.getArrowHeadLength();
-////					boolean isArrow = arrowHead1.needReduceLine();
-////
-////					if((minX!=0 && isWest) || (maxX!=0 && !isWest) || maxY==minY)
-////					{
-////						if(isArrow && !isWest)
-////						{
-////							if(arrowStyle.equals(PSTricksConstants.RARROW_STYLE))
-////								arrowStyle = PSTricksConstants.LARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LARROW_STYLE))
-////								arrowStyle = PSTricksConstants.RARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.DLARROW_STYLE))
-////								arrowStyle = PSTricksConstants.DRARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.DRARROW_STYLE))
-////								arrowStyle = PSTricksConstants.DLARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.RRBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.LRBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LRBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.RRBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.RSBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.LSBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LSBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.RSBRACKET_STYLE;
-////						}
-////
-////						if(isArrow)
-////							if(isWest)
-////								 xLine.getPt1().x-=lgth;
-////							else xLine.getPt2().x+=lgth;
-////
-////						if(isWest)
-////							xLine.setArrow1Style(arrowStyle);
-////						else
-////							xLine.setArrow2Style(arrowStyle);
-////					}
-////
-////					if((minY!=0 && isSouth) || (maxY!=0 && !isSouth) || maxX==minX)
-////					{
-////						arrowStyle = arrowHead1.getArrowStyle();
-////
-////						if(isArrow && isSouth)
-////						{
-////							if(arrowStyle.equals(PSTricksConstants.RARROW_STYLE))
-////								arrowStyle = PSTricksConstants.LARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LARROW_STYLE))
-////								arrowStyle = PSTricksConstants.RARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.DLARROW_STYLE))
-////								arrowStyle = PSTricksConstants.DRARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.DRARROW_STYLE))
-////								arrowStyle = PSTricksConstants.DLARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.RRBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.LRBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LRBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.RRBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.RSBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.LSBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LSBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.RSBRACKET_STYLE;
-////						}
-////
-////						if(isArrow)
-////							if(isSouth)
-////								 yLine.getPt2().y+=lgth;
-////							else yLine.getPt1().y-=lgth;
-////
-////						if(isSouth)
-////							yLine.setArrow2Style(arrowStyle);
-////						else
-////							yLine.setArrow1Style(arrowStyle);
-////					}
-////				}
-////
-////				if(!arrowHead2.getArrowStyle().equals(PSTricksConstants.NONEARROW_STYLE) && arrowOk)
-////				{
-////					String arrowStyle = arrowHead2.getArrowStyle();
-////					lgth = arrowHead2.getArrowHeadLength();
-////					boolean isArrow = arrowHead2.needReduceLine();
-////
-////					if((maxY!=0 && isSouth) || (minY!=0 && !isSouth) || maxY==minY)
-////					{
-////						if(isArrow && !isSouth)
-////						{
-////							if(arrowStyle.equals(PSTricksConstants.RARROW_STYLE))
-////								arrowStyle = PSTricksConstants.LARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LARROW_STYLE))
-////								arrowStyle = PSTricksConstants.RARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.DLARROW_STYLE))
-////								arrowStyle = PSTricksConstants.DRARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.DRARROW_STYLE))
-////								arrowStyle = PSTricksConstants.DLARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.RRBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.LRBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LRBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.RRBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.RSBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.LSBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LSBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.RSBRACKET_STYLE;
-////						}
-////
-////						if(maxY==minY && minY==0)
-////						{
-////							if(isArrow)
-////								if(maxX>0)
-////									 xLine.getPt1().y-=lgth;
-////								else xLine.getPt2().y+=lgth;
-////
-////							if(maxX>0)
-////								xLine.setArrow1Style(arrowStyle);
-////							else
-////								xLine.setArrow2Style(arrowStyle);
-////						}
-////						else
-////						{
-////							if(isArrow)
-////								if(isSouth)
-////									 yLine.getPt1().y-=lgth;
-////								else yLine.getPt2().y+=lgth;
-////
-////							if(isSouth)
-////								yLine.setArrow1Style(arrowStyle);
-////							else
-////								yLine.setArrow2Style(arrowStyle);
-////						}
-////					}
-////
-////					if((maxX!=0 && isWest) || (minX!=0 && !isWest) || maxX==minX)
-////					{
-////						arrowStyle = arrowHead2.getArrowStyle();
-////
-////						if(isArrow && isWest)
-////						{
-////							if(arrowStyle.equals(PSTricksConstants.RARROW_STYLE))
-////								arrowStyle = PSTricksConstants.LARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LARROW_STYLE))
-////								arrowStyle = PSTricksConstants.RARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.DLARROW_STYLE))
-////								arrowStyle = PSTricksConstants.DRARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.DRARROW_STYLE))
-////								arrowStyle = PSTricksConstants.DLARROW_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.RRBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.LRBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LRBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.RRBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.RSBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.LSBRACKET_STYLE;
-////							else if(arrowStyle.equals(PSTricksConstants.LSBRACKET_STYLE))
-////								arrowStyle = PSTricksConstants.RSBRACKET_STYLE;
-////						}
-////
-////						if(maxX==minX && minX==0)
-////						{
-////							if(isArrow)
-////								if(maxY>0)
-////									 yLine.getPt2().x+=lgth;
-////								else xLine.getPt1().x-=lgth;
-////
-////							if(maxY>0)
-////								yLine.setArrow2Style(arrowStyle);
-////							else
-////								yLine.setArrow1Style(arrowStyle);
-////						}
-////						else
-////						{
-////							if(isArrow)
-////								if(isWest)
-////									 xLine.getPt2().x+=lgth;
-////								else xLine.getPt1().x-=lgth;
-////
-////							if(isWest)
-////								xLine.setArrow2Style(arrowStyle);
-////							else
-////								xLine.setArrow1Style(arrowStyle);
-////						}
-////					}
-////				}
-//
-//				g.draw(xLine);
-//				g.draw(yLine);
-//
-//				break;
-//
-//			case FRAME:
-//				if(endx>0 || endy>0) {
-//					double xMax = posx+endx*IShape.PPC;
-//					double yMax = posy-endy*IShape.PPC;
-//
-//					g.draw(new Rectangle2D.Double(posx, endy>0?yMax:posy, endx>0?xMax:posx, posy));
-//				}
-//				break;
-//
-//			case NONE:
-//				/* Nothing to do. */
-//				break;
-//		}
-//
-//		double endX = distX!=0. ? maxX3 : maxX3/incrx;
-//		double endY = distY!=0. ? maxY3 : maxY3/incry;
-//		double startX = distX!=0. ? minX3 : minX3/incrx;
-//		double startY = distY!=0. ? minY3 : minY3/incry;
-//
-//		if(ticksDisplay!=PlottingStyle.NONE)// We draw the ticks
-//		{
-//			if(ticksStyle==TicksStyle.FULL || (ticksStyle==TicksStyle.TOP && maxY>0) ||
-//			  (ticksStyle==TicksStyle.BOTTOM && maxY<=0))
-//				if(ticksDisplay==PlottingStyle.X || ticksDisplay==PlottingStyle.ALL)
-//				{
-//					for(j=1; j<=endX; j++)
-//						g.draw(new Line2D.Double(posx+j*gapX*incrx, posy,
-//								 posx+j*gapX*incrx, posy-ticksSize-thickness/2.));
-//
-//					for(j=-1; j>=startX; j--)
-//						g.draw(new Line2D.Double(posx+j*gapX*incrx, posy,
-//								posx+j*gapX*incrx, posy-ticksSize-thickness/2.));
-//				}
-//
-//			if(ticksStyle==TicksStyle.FULL || (ticksStyle==TicksStyle.TOP && maxX>0) ||
-//			  (ticksStyle==TicksStyle.BOTTOM && maxX<=0))
-//				if(ticksDisplay==PlottingStyle.Y || ticksDisplay==PlottingStyle.ALL)
-//				{
-//					for(j=1; j<=endY; j++)
-//						g.draw(new Line2D.Double(posx, posy-j*gapY*incry,
-//								 posx+ticksSize+thickness/2., posy-j*gapY*incry));
-//
-//					for(j=-1; j>=startY; j--)
-//						g.draw(new Line2D.Double(posx, posy-j*gapY*incry,
-//								posx+ticksSize+thickness/2., posy-j*gapY*incry));
-//				}
-//
-//			if(ticksStyle==TicksStyle.FULL || (ticksStyle==TicksStyle.BOTTOM && maxY>0) ||
-//			  (ticksStyle==TicksStyle.TOP && maxY<=0))
-//				if(ticksDisplay==PlottingStyle.X || ticksDisplay==PlottingStyle.ALL)
-//				{
-//					for(j=1; j<=endX; j++)
-//						g.draw(new Line2D.Double(posx+j*gapX*incrx, posy,
-//								 posx+j*gapX*incrx, posy+ticksSize+thickness/2.));
-//
-//					for(j=-1; j>=startX; j--)
-//						g.draw(new Line2D.Double(posx+j*gapX*incrx, posy,
-//								posx+j*gapX*incrx, posy+ticksSize+thickness/2.));
-//				}
-//
-//			if(ticksStyle==TicksStyle.FULL || (ticksStyle==TicksStyle.BOTTOM && maxX>0) ||
-//				(ticksStyle==TicksStyle.TOP && maxX<=0))
-//				if(ticksDisplay==PlottingStyle.Y || ticksDisplay==PlottingStyle.ALL)
-//				{
-//					for(j=1; j<=endY; j++)
-//						g.draw(new Line2D.Double(posx, posy-j*gapY*incry,
-//								 posx-ticksSize-thickness/2., posy-j*gapY*incry));
-//
-//					for(j=-1; j>=startY; j--)
-//						g.draw(new Line2D.Double(posx, posy-j*gapY*incry,
-//								posx-ticksSize-thickness/2., posy-j*gapY*incry));
-//				}
-//		}
-//
-//		g.setColor(Color.BLACK);
-//
-//		if(labelsDisplay==PlottingStyle.ALL || labelsDisplay==PlottingStyle.X)
-//		{// We show the labels on the X-shape.
-//			float height 	= fontMetrics.getAscent();
-//			double gap 		= ((ticksDisplay==PlottingStyle.ALL || ticksDisplay==PlottingStyle.X)&&
-//							((isSouth && (ticksStyle==TicksStyle.BOTTOM || ticksStyle==TicksStyle.FULL)) ||
-//							 (!isSouth && (ticksStyle==TicksStyle.TOP || ticksStyle==TicksStyle.FULL)))?
-//							  ticksSize:0)+thickness/2.+GAP_LABEL;
-//			double sep		= maxY<=0 || !isSouth? -gap-GAP_LABEL : gap+height;
-//			String str;
-//
-//			if(((isSouth && starty>=0) || (!isSouth &&
-//				endy<=0)) && (startx!=endx || startx!=0) && starty<=0 && isOrig)
-//					g.drawString(String.valueOf((int)origx),
-//							(int)(posx-fontMetrics.stringWidth(String.valueOf((int)origx))/2.), (int)(posy+sep));
-//
-//			for(i=incrx, j=1; j<=endX; i+=incrx, j++) {
-//				str = (((int)incrx)==incrx?String.valueOf((int)(i+origx)) : String.valueOf(i+origx));
-//				g.drawString(str, (int)(posx+j*gapX*incrx-fontMetrics.stringWidth(str)/2.), (int)(posy+sep));
-//			}
-//
-//			for(i=-incrx, j=-1; j>=startX; i-=incrx, j--) {
-//				str = (((int)incrx)==incrx?String.valueOf((int)(i+origx)): String.valueOf(i+origx));
-//				g.drawString(str, (int)(posx+j*gapX*incrx-fontMetrics.stringWidth(str)/2.), (int)(posy+sep));
-//			}
-//		}
-//
-//		if(labelsDisplay==PlottingStyle.ALL || labelsDisplay==PlottingStyle.Y)
-//		{// We show the labels on the Y-shape.
-//			float height = fontMetrics.getAscent();
-//			String str;
-//
-//			if(maxX>0 && isWest)
-//			{
-//				double gap	= (ticksBot && (ticksDisplay==PlottingStyle.ALL ||
-//								ticksDisplay==PlottingStyle.Y)?ticksSize:0)+thickness/2.;
-//
-//				if(startx==0 && (starty!=endy || starty!=0) && isOrig)
-//					g.drawString(String.valueOf((int)origy),
-//							(int)(posx-gap-g.getFontMetrics().stringWidth(String.valueOf((int)origy))-GAP_LABEL),
-//							(int)(posy+height/2.));
-//
-//				for(i=incry, j=1; j<=endY; i+=incry, j++) {
-//					str = ((int)incry)==incry?String.valueOf((int)(i+origy)):String.valueOf(i+origy);
-//					g.drawString(str, (int)(posx-gap-fontMetrics.stringWidth(str)-GAP_LABEL),
-//								(int)(posy+height/2.-j*gapY*incry));
-//				}
-//
-//				for(i=-incry, j=-1; j>=startY; i-=incry, j--) {
-//					str = ((int)incry)==incry?String.valueOf((int)(i+origy)):String.valueOf(i+origy);
-//					g.drawString(str, (int)(posx-gap-fontMetrics.stringWidth(str)-GAP_LABEL),
-//								(int)(posy+height/2.-j*gapY*incry));
-//				}
-//			}
-//			else
-//			{
-//				double gap	= ((!ticksBot || ticksStyle==TicksStyle.FULL) && (ticksDisplay==PlottingStyle.ALL||
-//								ticksDisplay==PlottingStyle.Y)?ticksSize:0)+thickness/2.;
-//
-//				if((!isWest && endx<=0) || (isWest && startx>=0) && (starty!=endy  || starty!=0) && isOrig)
-//					g.drawString(String.valueOf((int)origy), (int)(posx+gap+GAP_LABEL), (int)(posy+height/2.));
-//
-//				for(i=incry, j=1; j<=endY; i+=incry, j++)
-//					g.drawString(((int)incry)==incry?String.valueOf((int)(i+origy)):String.valueOf(i+origy),
-//								(int)(posx+gap+GAP_LABEL), (int)(posy+height/2.-j*gapY*incry));
-//
-//				for(i=-incry, j=-1; j>=startY; i-=incry, j--)
-//					g.drawString(((int)incry)==incry?String.valueOf((int)(i+origy)):String.valueOf(i+origy),
-//								(int)(posx+gap+GAP_LABEL), (int)(posy+height/2.-j*gapY*incry));
-//			}
-//		}
-//	}
 }

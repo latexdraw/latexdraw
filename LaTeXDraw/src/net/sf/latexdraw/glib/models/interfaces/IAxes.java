@@ -37,6 +37,11 @@ public interface IAxes extends IStandardGrid {
 			public String getPSTToken() {
 				return PSTricksConstants.TOKEN_AXES_STYLE_AXES;
 			}
+
+			@Override
+			public boolean supportsArrows() {
+				return true;
+			}
 		}, FRAME {
 			@Override
 			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.2"); } //$NON-NLS-1$
@@ -44,6 +49,11 @@ public interface IAxes extends IStandardGrid {
 			@Override
 			public String getPSTToken() {
 				return PSTricksConstants.TOKEN_AXES_STYLE_FRAME;
+			}
+
+			@Override
+			public boolean supportsArrows() {
+				return false;
 			}
 		}, NONE {
 			@Override
@@ -53,7 +63,19 @@ public interface IAxes extends IStandardGrid {
 			public String getPSTToken() {
 				return PSTricksConstants.TOKEN_AXES_STYLE_NONE;
 			}
+
+			@Override
+			public boolean supportsArrows() {
+				return false;
+			}
 		};
+
+
+		/**
+		 * @return True if the axe style supports arrows.
+		 * @since 3.0
+		 */
+		public abstract boolean supportsArrows();
 
 
 		/**

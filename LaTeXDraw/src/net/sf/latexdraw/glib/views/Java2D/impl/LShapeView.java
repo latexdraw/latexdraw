@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -13,8 +14,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.malai.picking.Picker;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
@@ -29,6 +28,8 @@ import net.sf.latexdraw.glib.views.AbstractView;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArrow;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.util.LNumber;
+
+import org.malai.picking.Picker;
 
 /**
  * Defines a view of the LShape model.<br>
@@ -115,12 +116,6 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	@Override
 	public Path2D getPath() {
 		return path;
-	}
-
-
-	@Override
-	public List<IViewArrow> getArrowViews() {
-		return arrows;
 	}
 
 
@@ -501,8 +496,10 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	 * @since 3.0
 	 */
 	protected void paintArrows(final Graphics2D g, final boolean asShadow) {
+		final Color colour = asShadow ? shape.getShadowCol() : shape.getFillingCol();
+
 		for(final IViewArrow arrow : arrows)
-			arrow.paint(g, asShadow ? shape.getShadowCol() : shape.getFillingCol(), asShadow);
+			arrow.paint(g, colour, asShadow);
 	}
 
 

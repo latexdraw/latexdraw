@@ -84,7 +84,6 @@ public interface IViewShape extends IAbstractView, Pickable {
 	void paintFilling(final Graphics2D g);
 
 
-
 	/**
 	 * Allows to know if the point pt is in (or not) the shape.
 	 * @param pt The point.
@@ -105,7 +104,6 @@ public interface IViewShape extends IAbstractView, Pickable {
 	boolean intersects(final Rectangle2D rec);
 
 
-
 	/**
 	 * This function creates the corresponding rotated Java shape using the shape model.
 	 * @return The rotated shape.
@@ -114,13 +112,11 @@ public interface IViewShape extends IAbstractView, Pickable {
 	Shape getRotatedShape2D();
 
 
-
 	/**
 	 * @return The border of the view.
 	 * @since 3.0
 	 */
 	Rectangle2D getBorder();
-
 
 
 	/**

@@ -26,58 +26,145 @@ public interface IArrow extends IArrowable {
 		NONE {
 			@Override
 			public String getPSTToken() { return ""; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return NONE; }
 		}, LEFT_ARROW {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.LARROW_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return RIGHT_ARROW; }
+
+			@Override
+			public boolean needsLineReduction() { return true; }
 		}, RIGHT_ARROW {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.RARROW_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return LEFT_ARROW; }
+
+			@Override
+			public boolean needsLineReduction() { return true; }
 		}, RIGHT_DBLE_ARROW {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.DRARROW_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return LEFT_DBLE_ARROW; }
+
+			@Override
+			public boolean needsLineReduction() { return true; }
 		}, LEFT_DBLE_ARROW {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.DLARROW_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return RIGHT_DBLE_ARROW; }
+
+			@Override
+			public boolean needsLineReduction() { return true; }
 		}, BAR_END {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.BAREND_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return BAR_END; }
 		}, BAR_IN {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.BARIN_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return BAR_IN; }
 		}, LEFT_SQUARE_BRACKET {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.LSBRACKET_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return RIGHT_SQUARE_BRACKET; }
+
+			@Override
+			public boolean needsLineReduction() { return true; }
 		}, RIGHT_SQUARE_BRACKET {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.RSBRACKET_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return LEFT_SQUARE_BRACKET; }
+
+			@Override
+			public boolean needsLineReduction() { return true; }
 		}, LEFT_ROUND_BRACKET {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.LRBRACKET_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return RIGHT_ROUND_BRACKET; }
+
+			@Override
+			public boolean needsLineReduction() { return true; }
 		}, RIGHT_ROUND_BRACKET {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.RRBRACKET_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return LEFT_ROUND_BRACKET; }
+
+			@Override
+			public boolean needsLineReduction() { return true; }
 		}, CIRCLE_END {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.CIRCLEEND_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return CIRCLE_END; }
 		}, CIRCLE_IN {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.CIRCLEIN_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return CIRCLE_IN; }
 		}, DISK_END {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.DISKEND_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return DISK_END; }
 		}, DISK_IN {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.DISKIN_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return DISK_IN; }
 		}, ROUND_END {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.ROUNDEND_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return ROUND_END; }
 		}, ROUND_IN {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.ROUNDIN_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return ROUND_IN; }
+
+			@Override
+			public boolean needsLineReduction() { return true; }
 		}, SQUARE_END {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.SQUAREEND_STYLE; }
+
+			@Override
+			public ArrowStyle getOppositeArrowStyle() { return SQUARE_END; }
 		};
+
+		/**
+		 * @return The opposite arrow of the current one.
+		 * @since 3.0
+		 */
+		public abstract ArrowStyle getOppositeArrowStyle();
 
 		/**
 		 * @return The PSTricks token of the arrow style.
@@ -145,6 +232,15 @@ public interface IArrow extends IArrowable {
 								   (isRoundBracket() && style.isRoundBracket()) || (isSquareBracket() && style.isSquareBracket()));
 		}
 
+		/**
+		 * @return True if the current arrow style need its line to be reduced.
+		 * For instance the arrow style requires its line to be smaller.
+		 * The width of the arrow can be used in complement to reduce the line.
+		 * @since 3.0
+		 */
+		public boolean needsLineReduction() {
+			return false;
+		}
 
 		/**
 		 * @return The arrow style corresponding to the given PST token or the style name (or null).

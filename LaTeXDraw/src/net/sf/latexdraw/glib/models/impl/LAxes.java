@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
+import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -79,7 +81,13 @@ class LAxes extends LAbstractGrid implements IAxes {
 		incrementY		= PSTricksConstants.DEFAULT_DY;
 		distLabelsX		= PSTricksConstants.DEFAULT_DIST_X_LABEL;
 		distLabelsY		= PSTricksConstants.DEFAULT_DIST_X_LABEL;
+		// The first arrow is for the bottom of the Y-axis.
 		arrows.add(new LArrow(this));
+		// The second arrow is for the top of the Y-axis.
+		arrows.add(new LArrow(this));
+		// The third arrow is for the left of the X-axis.
+		arrows.add(new LArrow(this));
+		// The fourth arrow is for the right of the X-axis.
 		arrows.add(new LArrow(this));
 		update();
 	}
@@ -122,6 +130,60 @@ class LAxes extends LAbstractGrid implements IAxes {
 		}
 
 		return ok;
+	}
+
+
+	@Override
+	public void setArrowStyle(final ArrowStyle style, final int position) {
+		final IArrow arr1 = getArrowAt(position);
+
+		if(style!=null && arr1!=null) {
+			super.setArrowStyle(style, position);
+			 arrows.get((position+2)%4).setArrowStyle(style);
+		}
+	}
+
+
+	@Override
+	public ILine getArrowLine(final IArrow arrow) {
+		ILine line;
+
+		// For the X-axis
+		if(arrow==arrows.get(2) || arrow==arrows.get(3))
+			line = getArrowLineX(arrow==arrows.get(2));
+		else
+			// For the Y-axis.
+			if(arrow==arrows.get(0) || arrow==arrows.get(1))
+				line = getArrowLineY(arrow==arrows.get(1));
+			else
+				// If the given arrow is null or is not an arrow of the shape.
+				line = null;
+
+		return line;
+	}
+
+
+	/**
+	 * @return The line of the Y-axis.
+	 */
+	private ILine getArrowLineY(final boolean topY) {
+		final IPoint pos = getPosition();
+		final IPoint p2 = new LPoint(pos.getX(), pos.getY()-gridEndy*PPC);
+		final IPoint p1 = new LPoint(pos.getX(), pos.getY()-gridStarty*PPC);
+
+		return topY ? new LLine(p2, p1) : new LLine(p1, p2);
+	}
+
+
+	/**
+	 * @return The line of the X-axis.
+	 */
+	private ILine getArrowLineX(final boolean leftX) {
+		final IPoint pos = getPosition();
+		final IPoint p2 = new LPoint(pos.getX()+gridEndx*PPC, pos.getY());
+		final IPoint p1 = new LPoint(pos.getX()+gridStartx*PPC, pos.getY());
+
+		return leftX ? new LLine(p1, p2) : new LLine(p2, p1);
 	}
 
 
