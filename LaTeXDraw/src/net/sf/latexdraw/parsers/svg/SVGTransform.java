@@ -40,6 +40,12 @@ public class SVGTransform {
 	/** The angle of a possible rotation or skew. */
 	protected double angle;
 
+	/** The possible rotation X-position. */
+	protected double cx;
+
+	/** The possible rotation Y-position. */
+	protected double cy;
+
 
 	/**
 	 * Creates a transformation with no type.
@@ -49,6 +55,8 @@ public class SVGTransform {
 		type 	= SVG_TRANSFORM_UNKNOWN;
 		matrix 	= new SVGMatrix();
 		angle 	= Double.NaN;
+		cx		= Double.NaN;
+		cy		= Double.NaN;
 	}
 
 
@@ -98,7 +106,7 @@ public class SVGTransform {
 			if(k==-1)
 				setRotate(Double.parseDouble(code.substring(i+1, j)), 0., 0.);
 			else {
-				double cx, cy, rotAngle;
+				double cx2, cy2, rotAngle;
 
 				rotAngle = Double.parseDouble(code.substring(i+1, k));
 				i = k+1;
@@ -110,10 +118,10 @@ public class SVGTransform {
 				if(k==-1)
 					throw new IllegalArgumentException();
 
-				cx = Double.parseDouble(code.substring(i, k));
-				cy = Double.parseDouble(code.substring(k+1, j));
+				cx2 = Double.parseDouble(code.substring(i, k));
+				cy2 = Double.parseDouble(code.substring(k+1, j));
 
-				setRotate(rotAngle, cx, cy);
+				setRotate(rotAngle, cx2, cy2);
 			}
 		}
 		else if(code.startsWith(SVGAttributes.SVG_TRANSFORM_SCALE)) {
@@ -285,7 +293,9 @@ public class SVGTransform {
 		m1.multiply(m2);
 
 		matrix.setMatrix(m1.a, m1.b, m1.c, m1.d, m1.e, m1.f);
-		this.angle = angle;
+		this.angle 	= angle;
+		this.cx 	= cx;
+		this.cy 	= cy;
 	}
 
 
@@ -450,6 +460,24 @@ public class SVGTransform {
 	}
 
 
+	/**
+	 * @return The rotation X-position or NaN is the transformation is not a rotation.
+	 * @since 3.0
+	 */
+	public double getCx() {
+		return cx;
+	}
+
+
+
+	/**
+	 * @return The rotation Y-position or NaN is the transformation is not a rotation.
+	 * @since 3.0
+	 */
+	public double getCy() {
+		return cy;
+	}
+
 
 	/**
 	 * Creates a translation.
@@ -479,6 +507,77 @@ public class SVGTransform {
 		r.setRotate(angle, cx, cy);
 
 		return r;
+	}
+
+
+	/**
+	 * Tests if the given transformation cancels the calling one.
+	 * @param transform The transformation to test.
+	 * @return True if the given transformation cancels the calling one.
+	 * @since 3.0
+	 */
+	public boolean cancels(final SVGTransform transform) {
+		if(transform==null)
+			return false;
+		if(isTranslation())
+			return cancelsTranslation(transform);
+		if(isRotation())
+			return cancelsRotation(transform);
+		if(isScale())
+			return cancelsScale(transform);
+		if(isXSkew())
+			return cancelsXSkew(transform);
+		if(isYSkew())
+			return cancelsYSkew(transform);
+		return false;
+	}
+
+
+	/**
+	 * @param transform The transformation to test.
+	 * @return True: if the given transformation is a rotation that cancels the calling one.
+	 * @since 3.0
+	 */
+	private boolean cancelsRotation(final SVGTransform transform) {
+		return transform.isRotation() && LNumber.INSTANCE.equals(-(getRotationAngle()%360), transform.getRotationAngle()%360) &&
+				LNumber.INSTANCE.equals(getCx(), transform.getCx()) && LNumber.INSTANCE.equals(getCy(), transform.getCy());
+	}
+
+	/**
+	 * @param transform The transformation to test.
+	 * @return True: if the given transformation is a translation that cancels the calling one.
+	 * @since 3.0
+	 */
+	private boolean cancelsTranslation(final SVGTransform transform) {
+		return transform.isTranslation() && LNumber.INSTANCE.equals(-getTX(), transform.getTX()) && LNumber.INSTANCE.equals(-getTY(), transform.getTY());
+	}
+
+	/**
+	 * @param transform The transformation to test.
+	 * @return True: if the given transformation is a scaling that cancels the calling one.
+	 * @since 3.0
+	 */
+	private boolean cancelsScale(final SVGTransform transform) {
+		return transform.isScale() && LNumber.INSTANCE.equals(getXScaleFactor()*transform.getXScaleFactor(), 1.) &&
+			   LNumber.INSTANCE.equals(getYScaleFactor()*transform.getYScaleFactor(), 1.);
+	}
+
+	/**
+	 * @param transform The transformation to test.
+	 * @return True: if the given transformation is an X-skewing that cancels the calling one.
+	 * @since 3.0
+	 */
+	private boolean cancelsXSkew(final SVGTransform transform) {
+		throw new IllegalArgumentException("Not yet implemented");
+	}
+
+	/**
+	 * @param transform The transformation to test.
+	 * @return True: if the given transformation is an Y-skewing that cancels the calling one.
+	 * @since 3.0
+	 */
+	private boolean cancelsYSkew(final SVGTransform transform) {
+		throw new IllegalArgumentException("Not yet implemented");
 	}
 
 

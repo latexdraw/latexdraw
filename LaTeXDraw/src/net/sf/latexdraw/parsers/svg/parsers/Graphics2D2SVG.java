@@ -34,6 +34,8 @@ import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGPathElement;
+import net.sf.latexdraw.parsers.svg.SVGTransform;
+import net.sf.latexdraw.parsers.svg.SVGTransformList;
 
 /**
  * This Graphics can be used to convert Java drawing (using Graphics2D) into SVG.
@@ -75,6 +77,9 @@ public class Graphics2D2SVG extends Graphics2D {
 	/** True if the last path was filled. Painted otherwise. Is used for optimisation. */
 	private boolean lastPathPaintedFilled;
 
+	/** The list of the current transformations. Can be null. */
+	private SVGTransformList currentTransforms;
+
 
 	/**
 	 * Creates the converter.
@@ -108,6 +113,8 @@ public class Graphics2D2SVG extends Graphics2D {
 		if(fill)
 			elt.setFill(currentColour);
 			// TODO gradient, etc.
+		if(currentTransforms!=null && !currentTransforms.isEmpty())
+			elt.setAttribute(SVGAttributes.SVG_TRANSFORM, currentTransforms.toString());
 	}
 
 
@@ -402,8 +409,7 @@ public class Graphics2D2SVG extends Graphics2D {
 	@Override
 	public void translate(final double tx, final double ty) {
 		clearLastPath();
-		// TODO Auto-generated method stub
-		throw new IllegalArgumentException();
+		addTransformation(SVGTransform.createTranslation(tx, ty));
 	}
 
 
@@ -411,17 +417,30 @@ public class Graphics2D2SVG extends Graphics2D {
 	@Override
 	public void rotate(final double theta) {
 		clearLastPath();
-		// TODO Auto-generated method stub
-		throw new IllegalArgumentException();
+		rotate(theta, 0., 0.);
 	}
 
+
+	private void addTransformation(final SVGTransform transformation) {
+		if(currentTransforms==null)
+			currentTransforms = new SVGTransformList();
+
+		if(currentTransforms.isEmpty())
+			currentTransforms.add(transformation);
+		else {
+			SVGTransform transformPrev = currentTransforms.get(currentTransforms.size()-1);
+			if(transformPrev.cancels(transformation))
+				currentTransforms.remove(currentTransforms.size()-1);
+			else
+				currentTransforms.add(transformation);
+		}
+	}
 
 
 	@Override
 	public void rotate(final double theta, final double x, final double y) {
 		clearLastPath();
-		// TODO Auto-generated method stub
-		throw new IllegalArgumentException();
+		addTransformation(SVGTransform.createRotation(Math.toDegrees(theta), x, y));
 	}
 
 
@@ -800,6 +819,12 @@ public class Graphics2D2SVG extends Graphics2D {
 	@Override
 	public void dispose() {
 		clearLastPath();
+
+		if(currentTransforms!=null) {
+			currentTransforms.clear();
+			currentTransforms = null;
+		}
+
 		currentStroke	= null;
 		currentColour	= null;
 		element 		= null;
