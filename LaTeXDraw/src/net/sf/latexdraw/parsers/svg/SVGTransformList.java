@@ -51,6 +51,17 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 
 
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+
+		for(final SVGTransform transform : this)
+			builder.append(transform.toString()).append(' ');
+
+		return builder.toString();
+	}
+
+
 
 	/**
 	 * Add some transformations using a string containing the transformations.

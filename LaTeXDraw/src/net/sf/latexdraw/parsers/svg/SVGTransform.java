@@ -1,5 +1,6 @@
 package net.sf.latexdraw.parsers.svg;
 
+import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines an SVG transformation.<br>
@@ -489,30 +490,32 @@ public class SVGTransform {
 
 		switch(getType()) {
 			case SVG_TRANSFORM_MATRIX:
-				code.append(SVGAttributes.SVG_TRANSFORM_MATRIX).append("(").append(m.toString()).append(")");//$NON-NLS-1$//$NON-NLS-2$
+				code.append(SVGAttributes.SVG_TRANSFORM_MATRIX).append('(').append(m.toString()).append(')');
 				break;
 
 			case SVG_TRANSFORM_ROTATE:
-				code.append(SVGAttributes.SVG_TRANSFORM_ROTATE).append("(").append(getRotationAngle()).append(//$NON-NLS-1$
-								m.getE()==0 && m.getF()==0 ? "" : " " + m.getE() + " " + m.getF()).append(")");//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$
+				code.append(SVGAttributes.SVG_TRANSFORM_ROTATE).append('(').append(getRotationAngle());
+
+				if(!LNumber.INSTANCE.equals(m.getE(), 0.) || !LNumber.INSTANCE.equals(m.getF(), 0.))
+					code.append(' ').append(m.getE()).append(' ').append(m.getF());
+
+				code.append(')');
 				break;
 
 			case SVG_TRANSFORM_SCALE:
-				code.append(SVGAttributes.SVG_TRANSFORM_SCALE).append("(").append(getXScaleFactor()).append(" ").append(//$NON-NLS-2$//$NON-NLS-1$
-						getYScaleFactor()).append(")");//$NON-NLS-1$
+				code.append(SVGAttributes.SVG_TRANSFORM_SCALE).append('(').append(getXScaleFactor()).append(' ').append(getYScaleFactor()).append(')');
 				break;
 
 			case SVG_TRANSFORM_SKEWX:
-				code.append(SVGAttributes.SVG_TRANSFORM_SKEW_X).append("(").append(getXSkewAngle()).append(")");//$NON-NLS-1$//$NON-NLS-2$
+				code.append(SVGAttributes.SVG_TRANSFORM_SKEW_X).append('(').append(getXSkewAngle()).append(')');
 				break;
 
 			case SVG_TRANSFORM_SKEWY:
-				code.append(SVGAttributes.SVG_TRANSFORM_SKEW_Y).append("(").append(getYSkewAngle()).append(")");//$NON-NLS-1$//$NON-NLS-2$
+				code.append(SVGAttributes.SVG_TRANSFORM_SKEW_Y).append('(').append(getYSkewAngle()).append(')');
 				break;
 
 			case SVG_TRANSFORM_TRANSLATE:
-				code.append(SVGAttributes.SVG_TRANSFORM_TRANSLATE).append("(").append(getTX()).append(" ").append(//$NON-NLS-2$ //$NON-NLS-1$
-						getTY()).append(")");//$NON-NLS-1$
+				code.append(SVGAttributes.SVG_TRANSFORM_TRANSLATE).append('(').append(getTX()).append(' ').append(getTY()).append(')');
 				break;
 		}
 
