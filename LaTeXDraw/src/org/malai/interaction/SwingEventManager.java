@@ -13,8 +13,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
@@ -65,7 +65,7 @@ public class SwingEventManager implements MouseListener, KeyListener, MouseMotio
 	public SwingEventManager() {
 		super();
 
-		handlers = new ArrayList<EventHandler>();
+		handlers = new CopyOnWriteArrayList<EventHandler>();
 	}
 
 

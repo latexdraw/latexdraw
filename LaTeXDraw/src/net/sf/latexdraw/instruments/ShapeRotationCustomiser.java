@@ -61,9 +61,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeRotationCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
-
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -105,8 +103,8 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new ButtonPress2RotateShape(this));
-			links.add(new Spinner2RotateShape(this));
+			addLink(new ButtonPress2RotateShape(this));
+			addLink(new Spinner2RotateShape(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

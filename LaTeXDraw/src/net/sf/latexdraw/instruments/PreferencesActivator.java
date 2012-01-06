@@ -61,7 +61,6 @@ public class PreferencesActivator extends WidgetInstrument {
 
 		this.prefSetter = prefSetter;
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -75,8 +74,8 @@ public class PreferencesActivator extends WidgetInstrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new MenuItem2ActivateSetterLink(this));
-			links.add(new MenuItem2ShowPreferencesLink(this, null, showPreferencesMenu));
+			addLink(new MenuItem2ActivateSetterLink(this));
+			addLink(new MenuItem2ShowPreferencesLink(this, null, showPreferencesMenu));
 		}catch(InstantiationException ex){
 			BadaboomCollector.INSTANCE.add(ex);
 		}catch(IllegalAccessException ex){

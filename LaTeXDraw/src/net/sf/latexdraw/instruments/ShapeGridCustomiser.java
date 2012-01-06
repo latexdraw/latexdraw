@@ -54,9 +54,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeGridCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
-
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -96,8 +94,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new Spinner2ModifySelectionGridCoords(this));
-			links.add(new Spinner2ModifyPencilGridCoords(this));
+			addLink(new Spinner2ModifySelectionGridCoords(this));
+			addLink(new Spinner2ModifyPencilGridCoords(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

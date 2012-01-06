@@ -178,7 +178,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		recentFilesName  	= new ArrayList<String>();
 		isFrameMaximized 	= false;
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -293,7 +292,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new CloseFrame2SavePreferences(this));
+			addLink(new CloseFrame2SavePreferences(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

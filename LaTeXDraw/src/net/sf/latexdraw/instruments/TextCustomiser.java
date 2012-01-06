@@ -78,9 +78,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	 */
 	public TextCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
-
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -150,9 +148,9 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new KeysTyped2ChangePackages(this));
-			links.add(new ButtonPressed2ChangeTextPosition(this));
-			links.add(new ButtonPressed2ChangePencil(this));
+			addLink(new KeysTyped2ChangePackages(this));
+			addLink(new ButtonPressed2ChangeTextPosition(this));
+			addLink(new ButtonPressed2ChangePencil(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

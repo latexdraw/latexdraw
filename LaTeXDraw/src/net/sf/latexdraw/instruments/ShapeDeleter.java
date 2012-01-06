@@ -50,7 +50,6 @@ public class ShapeDeleter extends WidgetInstrument {
 	public ShapeDeleter(final UIComposer<?> composer) {
 		super(composer);
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -89,8 +88,8 @@ public class ShapeDeleter extends WidgetInstrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new ButtonPressed2DeleteShapes(this));
-			links.add(new KeyPressed2DeleteShapes(this));
+			addLink(new ButtonPressed2DeleteShapes(this));
+			addLink(new KeyPressed2DeleteShapes(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

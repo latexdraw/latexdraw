@@ -52,7 +52,6 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	public ShapeCoordDimCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -89,7 +88,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new Spinner2TranslateShape(this));
+			addLink(new Spinner2TranslateShape(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

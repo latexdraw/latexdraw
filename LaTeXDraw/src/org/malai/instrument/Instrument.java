@@ -42,6 +42,9 @@ public abstract class Instrument implements Preferenciable, Modifiable, Reinitia
 	/** Defined if the instrument has been modified. */
 	protected boolean modified;
 
+	/** The eventable objects that the instrument uses. */
+	protected List<Eventable> eventables;
+
 
 	/**
 	 * Creates and initialises the instrument.
@@ -64,6 +67,15 @@ public abstract class Instrument implements Preferenciable, Modifiable, Reinitia
 
 
 	/**
+	 * @return True: the instrument has at least one link. False otherwise.
+	 * @since 0.2
+	 */
+	public boolean hasLinks() {
+		return getSizeLinks()>0;
+	}
+
+
+	/**
 	 * @return The links that compose the instrument. Cannot be null.
 	 * @since 0.2
 	 */
@@ -79,6 +91,34 @@ public abstract class Instrument implements Preferenciable, Modifiable, Reinitia
 	protected abstract void initialiseLinks();
 
 
+	/**
+	 * Adds the given link to the list of links of the instrument.
+	 * Eventables object previously added to the instrument are added
+	 * to the added link.
+	 * @param link The link to add. If null, nothing is done.
+	 * @since 0.2
+	 */
+	protected void addLink(final Link<?,?,?> link) {
+		if(link!=null) {
+			links.add(link);
+
+			if(eventables!=null)
+				for(final Eventable eventable : eventables)
+					link.addEventable(eventable);
+		}
+	}
+
+
+	/**
+	 * Removes the given link from the list of links of the instrument.
+	 * @param link The link to remove.
+	 * @return True: the given link has been removed. False otherwise.
+	 * @since 0.2
+	 */
+	protected boolean removeLink(final Link<?,?,?> link) {
+		return link==null ? false : links.remove(link);
+	}
+
 
 	/**
 	 * Binds the interaction of the links of the instrument to a Eventable object that produces
@@ -87,8 +127,15 @@ public abstract class Instrument implements Preferenciable, Modifiable, Reinitia
 	 * @since 0.2
 	 */
 	public void addEventable(final Eventable eventable) {
-		for(Link<?,?,?> link : links)
-			link.addEventable(eventable);
+		if(eventable!=null) {
+			if(eventables==null)
+				eventables = new ArrayList<Eventable>();
+
+			eventables.add(eventable);
+
+			for(Link<?,?,?> link : links)
+				link.addEventable(eventable);
+		}
 	}
 
 
@@ -117,8 +164,11 @@ public abstract class Instrument implements Preferenciable, Modifiable, Reinitia
 	public void setActivated(final boolean activated) {
 		this.activated = activated;
 
-		for(Link<?,?,?> link : links)
-			link.setActivated(activated);
+		if(activated && !hasLinks())
+			initialiseLinks();
+		else
+			for(final Link<?,?,?> link : links)
+				link.setActivated(activated);
 
 		interimFeedback();
 	}

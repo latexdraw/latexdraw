@@ -59,7 +59,6 @@ public class Helper extends WidgetInstrument {
 	public Helper(final UIComposer<?> composer) {
 		super(composer);
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -84,10 +83,10 @@ public class Helper extends WidgetInstrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new MenuItem2AboutFrame(this, aboutFrame, aboutItem));
-			links.add(new MenuItem2OpenWebPageLink(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523")));
-			links.add(new MenuItem2OpenWebPageLink(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums")));
-			links.add(new MenuItem2OpenWebPageLink(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
+			addLink(new MenuItem2AboutFrame(this, aboutFrame, aboutItem));
+			addLink(new MenuItem2OpenWebPageLink(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523")));
+			addLink(new MenuItem2OpenWebPageLink(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums")));
+			addLink(new MenuItem2OpenWebPageLink(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

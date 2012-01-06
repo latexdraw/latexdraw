@@ -62,9 +62,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeShadowCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
-
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -119,12 +117,12 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new CheckBox2PencilShadow(this));
-			links.add(new CheckBox2SelectionShadow(this));
-			links.add(new Spinner2SelectionShadow(this));
-			links.add(new Spinner2PencilShadow(this));
-			links.add(new ColourButton2SelectionShadow(this));
-			links.add(new ColourButton2PencilShadow(this));
+			addLink(new CheckBox2PencilShadow(this));
+			addLink(new CheckBox2SelectionShadow(this));
+			addLink(new Spinner2SelectionShadow(this));
+			addLink(new Spinner2PencilShadow(this));
+			addLink(new ColourButton2SelectionShadow(this));
+			addLink(new ColourButton2PencilShadow(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

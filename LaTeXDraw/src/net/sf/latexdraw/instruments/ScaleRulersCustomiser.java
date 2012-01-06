@@ -89,8 +89,6 @@ public class ScaleRulersCustomiser extends Instrument {
 		unitCmItem		= new MCheckBoxMenuItem(LABEL_CM);
 		unitInchItem	= new MCheckBoxMenuItem(LABEL_INCH);
 
-		initialiseLinks();
-
 		// Mapping the instrument to the widgets that produce interactions that concerns its links.
 		addEventable(this.xRuler);
 		addEventable(this.yRuler);
@@ -134,8 +132,8 @@ public class ScaleRulersCustomiser extends Instrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new MenuItem2ShowHideCodeScaleRuler(this));
-			links.add(new MenuItem2SetUnit(this));
+			addLink(new MenuItem2ShowHideCodeScaleRuler(this));
+			addLink(new MenuItem2SetUnit(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

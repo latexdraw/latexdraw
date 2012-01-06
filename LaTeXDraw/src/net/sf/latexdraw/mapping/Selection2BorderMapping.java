@@ -60,16 +60,20 @@ public class Selection2BorderMapping extends SelectionMapping {
 	public void onObjectAdded(final Object list, final Object object, final int index) {
 		final IViewShape view = MappingRegistry.REGISTRY.getTargetFromSource(object, IViewShape.class);
 
-		if(view!=null)
+		if(view!=null) {
+			updateActivation(list);
 			border.add(view);
+		}
 	}
 
 	@Override
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
 		final IViewShape view = MappingRegistry.REGISTRY.getTargetFromSource(object, IViewShape.class);
 
-		if(view!=null)
+		if(view!=null) {
 			border.remove(view);
+			updateActivation(list);
+		}
 	}
 
 
@@ -83,5 +87,15 @@ public class Selection2BorderMapping extends SelectionMapping {
 	public void clear() {
 		super.clear();
 		border = null;
+	}
+
+
+	/**
+	 * Updates the activation of the border.
+	 * @since 3.0
+	 */
+	protected void updateActivation(final Object list) {
+		if(list instanceof List)
+			border.setActivated(!((List<?>)list).isEmpty());
 	}
 }

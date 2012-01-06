@@ -70,8 +70,6 @@ public class Zoomer extends Instrument {
 		zoomSpinner					= new MSpinner(new SpinnerNumberModel(zoomable.getZoom()*100, Zoomable.MIN_ZOOM*100, Zoomable.MAX_ZOOM*100, Zoomable.ZOOM_INCREMENT*100), null);
 		zoomSpinner.setMaximumSize(new Dimension(55, 28));
 		zoomSpinner.setToolTipText(LangTool.INSTANCE.getString19("ShortcutsFrame.30"));//$NON-NLS-1$
-
-		initialiseLinks();
 	}
 
 
@@ -84,9 +82,9 @@ public class Zoomer extends Instrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new Scroll2Zoom(this));
-			links.add(new Spinner2Zoom(this));
-			links.add(new Button2Zoom(this));
+			addLink(new Scroll2Zoom(this));
+			addLink(new Spinner2Zoom(this));
+			addLink(new Button2Zoom(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

@@ -12,7 +12,7 @@ import net.sf.latexdraw.badaboom.BadaboomManager;
 import net.sf.latexdraw.util.LResources;
 
 /**
- * This instrument allows to see exceptions launched during the exection of the program.<br>
+ * This instrument allows to see exceptions launched during the execution of the program.<br>
  * <br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
@@ -47,7 +47,6 @@ public class ExceptionsManager extends Instrument implements BadaboomHandler {
 
 		frame		= new BadaboomManager();
 		exceptionB 	= new MButton(LResources.ERR_ICON);
-		initialiseLinks();
 		setActivated(false);
 		BadaboomCollector.INSTANCE.addHandler(this);
 	}
@@ -56,7 +55,7 @@ public class ExceptionsManager extends Instrument implements BadaboomHandler {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new ButtonPress2ShowExceptionFrame(this));
+			addLink(new ButtonPress2ShowExceptionFrame(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

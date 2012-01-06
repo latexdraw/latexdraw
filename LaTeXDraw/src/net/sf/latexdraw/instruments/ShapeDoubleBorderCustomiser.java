@@ -58,9 +58,7 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeDoubleBorderCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
-
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -134,12 +132,12 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new CheckBox2PencilDoubleBorder(this));
-			links.add(new CheckBox2SelectionDoubleBorder(this));
-			links.add(new ColourButton2PencilDoubleBorder(this));
-			links.add(new ColourButton2SelectionDoubleBorder(this));
-			links.add(new Spinner2PencilDoubleBorder(this));
-			links.add(new Spinner2SelectionDoubleBorder(this));
+			addLink(new CheckBox2PencilDoubleBorder(this));
+			addLink(new CheckBox2SelectionDoubleBorder(this));
+			addLink(new ColourButton2PencilDoubleBorder(this));
+			addLink(new ColourButton2SelectionDoubleBorder(this));
+			addLink(new Spinner2PencilDoubleBorder(this));
+			addLink(new Spinner2SelectionDoubleBorder(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

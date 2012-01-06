@@ -63,9 +63,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeDotCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
-
 		initialiseWidgets();
-     	initialiseLinks();
 	}
 
 
@@ -174,12 +172,12 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new Spinner2PencilDotSize(this));
-			links.add(new Spinner2SelectionDotSize(this));
-			links.add(new List2PencilDotStyle(this));
-			links.add(new List2SelectionDotStyle(this));
-			links.add(new FillingButton2SelectionFilling(this));
-			links.add(new FillingButton2PencilFilling(this));
+			addLink(new Spinner2PencilDotSize(this));
+			addLink(new Spinner2SelectionDotSize(this));
+			addLink(new List2PencilDotStyle(this));
+			addLink(new List2SelectionDotStyle(this));
+			addLink(new FillingButton2SelectionFilling(this));
+			addLink(new FillingButton2PencilFilling(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

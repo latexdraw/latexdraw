@@ -44,7 +44,6 @@ public class TabSelector extends Instrument {
 			throw new IllegalArgumentException();
 
 		this.frame = frame;
-		initialiseLinks();
 	}
 
 
@@ -52,7 +51,7 @@ public class TabSelector extends Instrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new TabSelected2ActivateInstruments(this));
+			addLink(new TabSelected2ActivateInstruments(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

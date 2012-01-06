@@ -136,7 +136,6 @@ public class EditingSelector extends WidgetInstrument {
 		hand.setActivated(true);
 		pencil.setActivated(false);
 		metaShapeCustomiser.setActivated(false);
-		initialiseLinks();
 	}
 
 
@@ -266,9 +265,9 @@ public class EditingSelector extends WidgetInstrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new ButtonPressed2AddText(this, false));
-			links.add(new ButtonPressed2DefineStylePencil(this));
-			links.add(new ButtonPressed2ActivateIns(this));
+			addLink(new ButtonPressed2AddText(this, false));
+			addLink(new ButtonPressed2DefineStylePencil(this));
+			addLink(new ButtonPressed2ActivateIns(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -281,10 +280,12 @@ public class EditingSelector extends WidgetInstrument {
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
 
+		final boolean hasSelection = !hand.canvas.getDrawing().getSelection().isEmpty();
+
 		hand.setActivated(activated && handB.isSelected());
 		pencil.setActivated(activated && !handB.isSelected());
-		border.setActivated(activated && hand.isActivated());
-		deleter.setActivated(hand.isActivated() && !border.getSelection().isEmpty());
+		border.setActivated(activated && hand.isActivated() && hasSelection);
+		deleter.setActivated(hand.isActivated() && hasSelection);
 		metaShapeCustomiser.setActivated(activated && (deleter.isActivated() || pencil.isActivated()));
 
 		composer.setWidgetVisible(arcB, activated);
@@ -566,16 +567,22 @@ class ButtonPressed2ActivateIns extends Link<ActivateInactivateInstruments, Butt
 
 		/* Selection of the instruments to activate/desactivate. */
 		if(ab==instrument.handB) {
+			final boolean noSelection = instrument.hand.canvas.getDrawing().getSelection().isEmpty();
 			action.addInstrumentToActivate(instrument.hand);
-			action.addInstrumentToActivate(instrument.border);
-			if(!instrument.border.getSelection().isEmpty())
+
+			if(!noSelection)
 				action.addInstrumentToActivate(instrument.deleter);
+
 			action.addInstrumentToInactivate(instrument.pencil);
 
-			if(instrument.border.getSelection().isEmpty())
+			if(noSelection) {
 				action.addInstrumentToInactivate(instrument.metaShapeCustomiser);
-			else
+				action.addInstrumentToInactivate(instrument.border);
+			}
+			else {
 				action.addInstrumentToActivate(instrument.metaShapeCustomiser);
+				action.addInstrumentToActivate(instrument.border);
+			}
 		} else {
 			action.addInstrumentToInactivate(instrument.hand);
 			action.addInstrumentToInactivate(instrument.border);

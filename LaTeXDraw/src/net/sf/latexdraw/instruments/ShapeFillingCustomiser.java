@@ -87,9 +87,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeFillingCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
-
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -238,12 +236,12 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new List2PencilFilling(this));
-			links.add(new List2SelectionFilling(this));
-			links.add(new ColourButton2PencilFilling(this));
-			links.add(new ColourButton2SelectionFilling(this));
-			links.add(new Spinner2PencilFilling(this));
-			links.add(new Spinner2SelectionFilling(this));
+			addLink(new List2PencilFilling(this));
+			addLink(new List2SelectionFilling(this));
+			addLink(new ColourButton2PencilFilling(this));
+			addLink(new ColourButton2SelectionFilling(this));
+			addLink(new Spinner2PencilFilling(this));
+			addLink(new Spinner2SelectionFilling(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

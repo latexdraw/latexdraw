@@ -120,7 +120,6 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 		initialiseWidgets();
         reinit();
-		initialiseLinks();
 	}
 
 
@@ -172,18 +171,18 @@ public class FileLoaderSaver extends WidgetInstrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new ButtonClose2SaveLink(this));
-			links.add(new ShortCut2SaveLink(this));
-			links.add(new Button2SaveLink(this));
-			links.add(new Menu2SaveLink(this));
-			links.add(new Shortcut2SaveLink(this));
-			links.add(new Menu2SaveAsLink(this));
-			links.add(new Menu2LoadLink(this));
-			links.add(new Button2LoadLink(this));
-			links.add(new Shortcut2LoadLink(this));
-			links.add(new Menu2NewLink(this));
-			links.add(new Button2NewLink(this));
-			links.add(new ShortCut2NewLink(this));
+			addLink(new ButtonClose2SaveLink(this));
+			addLink(new ShortCut2SaveLink(this));
+			addLink(new Button2SaveLink(this));
+			addLink(new Menu2SaveLink(this));
+			addLink(new Shortcut2SaveLink(this));
+			addLink(new Menu2SaveAsLink(this));
+			addLink(new Menu2LoadLink(this));
+			addLink(new Button2LoadLink(this));
+			addLink(new Shortcut2LoadLink(this));
+			addLink(new Menu2NewLink(this));
+			addLink(new Button2NewLink(this));
+			addLink(new ShortCut2NewLink(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

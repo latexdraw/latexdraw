@@ -77,7 +77,6 @@ public class Hand extends Instrument {
 		this.zoomer		= zoomer;
 		this.grid		= grid;
 		this.canvas 	= canvas;
-		initialiseLinks();
 	}
 
 
@@ -85,10 +84,10 @@ public class Hand extends Instrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new Press2Select(this));
-			links.add(new DnD2Select(this, true));
-			links.add(new DnD2Translate(this, true));
-			links.add(new DoubleClick2InitTextSetter(this));
+			addLink(new Press2Select(this));
+			addLink(new DnD2Select(this, true));
+			addLink(new DnD2Translate(this, true));
+			addLink(new DoubleClick2InitTextSetter(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

@@ -49,7 +49,6 @@ public class UndoRedoManager extends WidgetInstrument {
 		super(composer);
 
 		initialiseWidgets();
-		initialiseLinks();
 		UndoCollector.INSTANCE.addHandler(this);
 	}
 
@@ -64,8 +63,8 @@ public class UndoRedoManager extends WidgetInstrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new ButtonPressed2Undo(this));
-			links.add(new ButtonPressed2Redo(this));
+			addLink(new ButtonPressed2Undo(this));
+			addLink(new ButtonPressed2Redo(this));
 		}catch(InstantiationException e){
 			ErrorCatcher.INSTANCE.reportError(e);
 		}catch(IllegalAccessException e){

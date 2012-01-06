@@ -144,7 +144,6 @@ public class Exporter extends WidgetInstrument {
 
 		initialiseWidgets();
 		reinit();
-		initialiseLinks();
 	}
 
 
@@ -231,8 +230,8 @@ public class Exporter extends WidgetInstrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new ButtonPressed2Export(this));
-			links.add(new MenuPressed2Export(this));
+			addLink(new ButtonPressed2Export(this));
+			addLink(new MenuPressed2Export(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

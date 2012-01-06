@@ -63,9 +63,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeArcCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
-
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -128,12 +126,12 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new Spinner2SelectionEndAngle(this));
-			links.add(new Spinner2SelectionStartAngle(this));
-			links.add(new Spinner2PencilStartAngle(this));
-			links.add(new Spinner2PencilEndAngle(this));
-			links.add(new Button2SelectionArcStyle(this));
-			links.add(new Button2PencilArcStyle(this));
+			addLink(new Spinner2SelectionEndAngle(this));
+			addLink(new Spinner2SelectionStartAngle(this));
+			addLink(new Spinner2PencilStartAngle(this));
+			addLink(new Spinner2PencilEndAngle(this));
+			addLink(new Button2SelectionArcStyle(this));
+			addLink(new Button2PencilArcStyle(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

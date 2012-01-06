@@ -77,8 +77,6 @@ public class TextSetter extends Instrument {
 		textField 		= new TextAreaAutoSize();
 		layeredPanel.add(textField, JLayeredPane.PALETTE_LAYER);
 		textField.setVisible(false);
-
-		initialiseLinks();
 		addEventable(textField);
 	}
 
@@ -108,9 +106,9 @@ public class TextSetter extends Instrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new Enter2SetText(this));
-			links.add(new Enter2AddText(this));
-			links.add(new KeyPress2Desactivate(this));
+			addLink(new Enter2SetText(this));
+			addLink(new Enter2AddText(this));
+			addLink(new KeyPress2Desactivate(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

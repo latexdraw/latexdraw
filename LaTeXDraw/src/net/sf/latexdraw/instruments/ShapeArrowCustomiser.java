@@ -54,8 +54,6 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeArrowCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
-
-		initialiseLinks();
 		initialiseWidgets();
 	}
 
@@ -213,8 +211,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new List2PencilArrowStyle(this));
-			links.add(new List2ShapeArrowStyle(this));
+			addLink(new List2PencilArrowStyle(this));
+			addLink(new List2ShapeArrowStyle(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

@@ -44,7 +44,6 @@ public class Scroller extends Instrument {
 			throw new IllegalArgumentException();
 
 		this.panel = panel;
-		initialiseLinks();
 	}
 
 
@@ -52,7 +51,7 @@ public class Scroller extends Instrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new Scrolling2Scroll(this));
+			addLink(new Scrolling2Scroll(this));
 		}catch(InstantiationException e){
 			ErrorCatcher.INSTANCE.reportError(e);
 		}catch(IllegalAccessException e){

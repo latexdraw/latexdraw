@@ -144,8 +144,6 @@ public class Pencil extends Instrument {
 		arcable			= factory.createCircleArc(false);
 		arrowLeftStyle	= ArrowStyle.NONE;
 		arrowRightStyle	= ArrowStyle.NONE;
-
-		initialiseLinks();
 	}
 
 
@@ -166,11 +164,11 @@ public class Pencil extends Instrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new Press2AddShape(this));
-			links.add(new Press2AddText(this, false));
-			links.add(new DnD2AddShape(this, false));
-			links.add(new MultiClic2AddShape(this, false));
-			links.add(new Press2InitTextSetter(this));
+			addLink(new Press2AddShape(this));
+			addLink(new Press2AddText(this, false));
+			addLink(new DnD2AddShape(this, false));
+			addLink(new MultiClic2AddShape(this, false));
+			addLink(new Press2InitTextSetter(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

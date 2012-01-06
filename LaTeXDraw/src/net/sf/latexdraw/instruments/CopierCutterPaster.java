@@ -67,7 +67,6 @@ public class CopierCutterPaster extends WidgetInstrument {
 
 		this.drawing = drawing;
 		initialiseWidgets();
-		initialiseLinks();
 		ActionsRegistry.INSTANCE.addHandler(this);
 	}
 
@@ -119,12 +118,12 @@ public class CopierCutterPaster extends WidgetInstrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new MenuItem2PasteShapes(this));
-			links.add(new Shortcut2PasteShapes(this));
-			links.add(new MenuItem2CopyShapes(this));
-			links.add(new Shortcut2CopyShapes(this));
-			links.add(new MenuItem2CutShapes(this));
-			links.add(new Shortcut2CutShapes(this));
+			addLink(new MenuItem2PasteShapes(this));
+			addLink(new Shortcut2PasteShapes(this));
+			addLink(new MenuItem2CopyShapes(this));
+			addLink(new Shortcut2CopyShapes(this));
+			addLink(new MenuItem2CutShapes(this));
+			addLink(new Shortcut2CutShapes(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

@@ -127,8 +127,6 @@ public class Border extends Instrument implements Picker {
 		scaleHandlers.add(new ScaleHandler(Position.SOUTH));
 		scaleHandlers.add(new ScaleHandler(Position.SE));
 		rotHandler 		= new RotationHandler();
-
-		initialiseLinks();
 	}
 
 
@@ -136,11 +134,6 @@ public class Border extends Instrument implements Picker {
 	public void reinit() {
 		selection.clear();
 		border.setFrame(0., 0., 1., 1.);
-	}
-
-	@Override
-	public boolean isActivated() {
-		return super.isActivated() && selection.size()>0;
 	}
 
 
@@ -437,9 +430,9 @@ public class Border extends Instrument implements Picker {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new DnD2Scale(this));
-			links.add(new DnD2MovePoint(this));
-			links.add(new DnD2MoveCtrlPoint(this));
+			addLink(new DnD2Scale(this));
+			addLink(new DnD2MovePoint(this));
+			addLink(new DnD2MoveCtrlPoint(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -458,9 +451,7 @@ public class Border extends Instrument implements Picker {
 				MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class);
 
 			selection.clear();
-
-			if(isActivated())
-				update();
+			setActivated(false);
 		}
 	}
 

@@ -71,7 +71,6 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 
 		this.grid = grid;
 		initialiseWidgets();
-		initialiseLinks();
 	}
 
 
@@ -145,9 +144,9 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			links.add(new List2ChangeStyle(this));
-			links.add(new Spinner2GridSpacing(this));
-			links.add(new CheckBox2MagneticGrid(this));
+			addLink(new List2ChangeStyle(this));
+			addLink(new Spinner2GridSpacing(this));
+			addLink(new CheckBox2MagneticGrid(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){

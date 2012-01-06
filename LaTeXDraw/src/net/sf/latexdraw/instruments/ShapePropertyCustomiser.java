@@ -112,10 +112,8 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 
 	@Override
 	public void setActivated(final boolean activated) {
-//		if(isActivated()!=activated) {
-			super.setActivated(activated);
-			setWidgetsVisible(activated);
-//		}
+		super.setActivated(activated);
+		setWidgetsVisible(activated);
 	}
 
 
