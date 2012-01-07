@@ -9,7 +9,7 @@ import net.sf.latexdraw.instruments.Pencil;
  * This action allows to set the kind of shape that the pencil must draw.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
  * <br>
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

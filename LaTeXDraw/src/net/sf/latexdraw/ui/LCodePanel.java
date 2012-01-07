@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
  * Defines the panel which contains the code generated from the drawing.<br>
  * <br>
  * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
  *<br>
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

@@ -14,7 +14,7 @@ import org.malai.picking.Picker;
  * An improvement of MSpinner against JSpinner is that MSpinner can have a label (JLabel).
  * <br>
  * This file is part of Malai.<br>
- * Copyright (c) 2009-2011 Arnaud BLOUIN<br>
+ * Copyright (c) 2009-2012 Arnaud BLOUIN<br>
  * <br>
  * Malai is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

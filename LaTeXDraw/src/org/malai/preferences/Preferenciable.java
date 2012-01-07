@@ -7,7 +7,7 @@ import org.w3c.dom.Element;
  * The interface can be applied on classes which can preferences can be saved into an XML document.<br>
  * <br>
  * This file is part of libMalai.<br>
- * Copyright (c) 2009-2011 Arnaud BLOUIN<br>
+ * Copyright (c) 2009-2012 Arnaud BLOUIN<br>
  * <br>
  * libMalan is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

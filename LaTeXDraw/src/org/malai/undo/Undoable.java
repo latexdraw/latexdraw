@@ -3,7 +3,7 @@ package org.malai.undo;
 /**
  * Defines an interface for undoable objects.
  * This file is part of libMalai.
- * Copyright (c) 2009-2011 Arnaud BLOUIN
+ * Copyright (c) 2009-2012 Arnaud BLOUIN
  *
  * libMalan is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

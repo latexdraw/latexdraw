@@ -23,7 +23,7 @@ import net.sf.latexdraw.util.LResources;
  * This class defines a file chooser for pictures; some elements come from
  * the JavaSwing.jar demo code source Copyright (c) 2004 Sun Microsystems.<br>
  * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
  *<br>
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

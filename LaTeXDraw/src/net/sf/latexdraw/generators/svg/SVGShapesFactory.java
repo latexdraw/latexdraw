@@ -1,6 +1,7 @@
 package net.sf.latexdraw.generators.svg;
 
 import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
@@ -25,7 +26,7 @@ import net.sf.latexdraw.parsers.svg.SVGElement;
  * Creates SVG elements based on latexdraw.<br>
  *<br>
  * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
  *<br>
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -76,6 +77,7 @@ public final class SVGShapesFactory {
 		cmd = new CreateViewSVGCmd(cmd, IFreehand.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LFreeHandSVGGenerator((IFreehand)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, IDot.class) 		{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LDotSVGGenerator((IDot)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, IGrid.class)		{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LGridSVGGenerator((IGrid)shape).toSVG(doc); } };
+		cmd = new CreateViewSVGCmd(cmd, IAxes.class)		{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LAxeSVGGenerator((IAxes)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, IBezierCurve.class){ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LBezierCurveSVGGenerator((IBezierCurve)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, IPolygon.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LPolygonSVGGenerator((IPolygon)shape).toSVG(doc); } };
 		// All the commands of the chain of responsibility are chained together.

@@ -10,11 +10,15 @@ import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
+import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGNodeList;
+import net.sf.latexdraw.parsers.svg.parsers.Graphics2D2SVG;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
 
@@ -22,7 +26,7 @@ import net.sf.latexdraw.util.LNamespace;
  * Defines a SVG generator for an shape.<br>
  *<br>
  * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
  *<br>
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -42,7 +46,6 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 	protected LAxeSVGGenerator(final IAxes shape) {
 		super(shape);
 	}
-
 
 
 	protected LAxeSVGGenerator(final SVGGElement elt) {
@@ -123,8 +126,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		SVGGElement l1=null, l2=null;
 		SVGElement element;
 
-		while((l1==null || l2==null) && i<size)
-		{
+		while((l1==null || l2==null) && i<size) {
 			element = nl.item(i);
 
 			if(element instanceof SVGGElement)
@@ -137,8 +139,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		}
 
 		if(l1!=null && l2!=null)
-			try
-			{
+			try {
 				IPolyline la = new LPolylinesSVGGenerator(l1, false).shape;
 				IPolyline lb = new LPolylinesSVGGenerator(l2, false).shape;
 
@@ -168,39 +169,45 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		if(doc==null)
 			return null;
 
-		String pref 	= LNamespace.LATEXDRAW_NAMESPACE+':';
-		SVGElement root = new SVGGElement(doc);
+		final Graphics2D2SVG graphics = new Graphics2D2SVG(doc);
+		IViewShape view = View2DTK.getFactory().createView(shape);
+		
+        view.paint(graphics);
+        
+        final SVGElement root = graphics.getElement();
+		String pref = LNamespace.LATEXDRAW_NAMESPACE+':';
 		setThickness(root, shape.getThickness(), false, 0.);
 		root.setStroke(shape.getLineColour());
 
 		root.setAttribute(pref+LNamespace.XML_AXE_IS_WEST, String.valueOf(shape.isYLabelWest()));
 		root.setAttribute(pref+LNamespace.XML_AXE_IS_SOUTH, String.valueOf(shape.isXLabelSouth()));
 		root.setAttribute(pref+LNamespace.XML_STYLE, shape.getAxesStyle().toString());
-//		root.setAttribute(pref+LNamespace.XML_GRID_START, shape.getGridStart().getX() + " " + shape.getGridStart().getY()); //$NON-NLS-1$
-//		root.setAttribute(pref+LNamespace.XML_GRID_END, shape.getGridEnd().getX() + " " + shape.getGridEnd().getY());//$NON-NLS-1$
-//		root.setAttribute(pref+LNamespace.XML_GRID_ORIGIN, shape.getOrigin().getX() + " " + shape.getOrigin().getY());//$NON-NLS-1$
-//		root.setAttribute(pref+LNamespace.XML_AXE_INCREMENT, shape.getIncrement().getX() + " " + shape.getIncrement().getY());//$NON-NLS-1$
+		root.setAttribute(pref+LNamespace.XML_GRID_START, shape.getGridStartX() + " " + shape.getGridStartY()); //$NON-NLS-1$
+		root.setAttribute(pref+LNamespace.XML_GRID_END, shape.getGridEndX() + " " + shape.getGridEndY());//$NON-NLS-1$
+		root.setAttribute(pref+LNamespace.XML_GRID_ORIGIN, shape.getOriginX() + " " + shape.getOriginY());//$NON-NLS-1$
+		root.setAttribute(pref+LNamespace.XML_AXE_INCREMENT, shape.getIncrementX() + " " + shape.getIncrementY());//$NON-NLS-1$
 		root.setAttribute(pref+LNamespace.XML_AXE_DIST_LABELS, shape.getDistLabelsX() + " " + shape.getDistLabelsY());//$NON-NLS-1$
 		root.setAttribute(pref+LNamespace.XML_AXE_TICKS_SIZE, String.valueOf(shape.getTicksSize()));
 		root.setAttribute(pref+LNamespace.XML_AXE_SHOW_ORIGIN, String.valueOf(shape.isShowOrigin()));
 		root.setAttribute(pref+LNamespace.XML_AXE_SHOW_TICKS, shape.getTicksDisplayed().toString());
 		root.setAttribute(pref+LNamespace.XML_AXE_LABELS_STYLE, shape.getLabelsDisplayed().toString());
 		root.setAttribute(pref+LNamespace.XML_AXE_TICKS_STYLE, shape.getTicksStyle().toString());
-
-		createSVGAxe(root, doc);
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_AXE);
+		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
+        
+//		createSVGAxe(root, doc);
+		
+		view.flush();
+		graphics.dispose();
 
 		return root;
 	}
 
 
 
-
-	protected void createSVGAxe(final SVGElement elt, final SVGDocument document)
-	{
-		if(elt==null || document==null)
-			return ;
-
-//		IAxes axe 				 = (IAxes)shape;
+//	protected void createSVGAxe(final SVGElement elt, final SVGDocument document) {
+//		if(elt==null || document==null)
+//			return ;
 //		double minX, maxX, minY, maxY, maxX3, minX3, maxY3, minY3;
 //		IPoint increment = shape.getIncrement();
 //		IPoint gridEnd   = shape.getGridEnd();
@@ -744,5 +751,5 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 //
 //		if(rotationAngle%(Math.PI*2)!=0)
 //			setSVGRotationAttribute(elt);
-	}
+//	}
 }

@@ -23,7 +23,7 @@ import net.sf.latexdraw.util.VersionChecker;
  * Define the dialogue box describing the latexdraw information.<br>
  * <br>
  * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
  * <br>
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -132,7 +132,7 @@ public class AboutDialogueBox extends JFrame {
 					VersionChecker.VERSION + (VersionChecker.VERSION_STABILITY.length()==0 ? "" : " " +VersionChecker.VERSION_STABILITY) + //$NON-NLS-1$ //$NON-NLS-2$
 					LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.220") + " " + VersionChecker.ID_BUILD+"<br><br>"+//$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
 					LResources.LABEL_APP+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.221")+"<br>"+//$NON-NLS-1$//$NON-NLS-2$
-					"Copyright(c) 2005-2011 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>"+//$NON-NLS-1$
+					"Copyright(c) 2005-2012 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>"+//$NON-NLS-1$
 					"http://latexdraw.sourceforge.net/<br></div></body></html>");//$NON-NLS-1$
 
 			panel.add(new DisplayCanvas(i), BorderLayout.NORTH);

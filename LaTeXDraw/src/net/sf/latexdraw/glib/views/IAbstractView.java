@@ -6,7 +6,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * Defines an interface for abstract views.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2011 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
  * <br>
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

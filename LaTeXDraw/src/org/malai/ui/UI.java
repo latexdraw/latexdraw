@@ -17,7 +17,7 @@ import org.malai.widget.MFrame;
  * Defines the concept of User Interface based on a JFrame.<br>
  * <br>
  * This file is part of libMalai.<br>
- * Copyright (c) 2009-2011 Arnaud BLOUIN<br>
+ * Copyright (c) 2009-2012 Arnaud BLOUIN<br>
  * <br>
  * libMalan is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
