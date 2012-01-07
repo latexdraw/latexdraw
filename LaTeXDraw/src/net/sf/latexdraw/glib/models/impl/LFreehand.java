@@ -1,7 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
-import java.awt.geom.GeneralPath;
-
+import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -26,6 +25,16 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @since 3.0
  */
 class LFreehand extends LModifiablePointsShape implements IFreehand {
+	/** The type of the curves of the shape. */
+	protected FreeHandType type;
+
+	/** The interval to consider while painting the shape. */
+	protected int interval;
+
+	/** Defines if the drawing is opened of closed. */
+	protected boolean open;
+
+
 	/**
 	 * Creates and initialises a freehand model.
 	 * @param pt The first point.
@@ -35,63 +44,78 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 	 */
 	protected LFreehand(final IPoint pt, final boolean uniqueID) {
 		super(uniqueID);
-//
-//		if(!GLibUtilities.INSTANCE.isValidPoint(pt))
-//			throw new IllegalArgumentException();
-//
-//		addPoint(pt);
-//		type 		= FreeHandType.CURVES;
-//		interval 	= 5;
-//		open		= true;
+
+		if(!GLibUtilities.INSTANCE.isValidPoint(pt))
+			throw new IllegalArgumentException();
+
+		addPoint(pt);
+		type 		= FreeHandType.CURVES;
+		interval 	= 5;
+		open		= true;
+	}
+
+
+	@Override
+	public void copy(final IShape sh) {
+		super.copy(sh);
+
+		if(sh instanceof IFreehand) {
+			final IFreehand fh = (IFreehand)sh;
+			open 	= fh.isOpen();
+			interval= fh.getInterval();
+			type 	= fh.getType();
+		}
+	}
+
+
+	@Override
+	public boolean isParametersEquals(final IShape s, final boolean considerShadow) {
+		boolean ok = super.isParametersEquals(s, considerShadow);
+
+		if(s instanceof IFreehand) {
+			final IFreehand fh = (IFreehand)s;
+			ok = ok && open==fh.isOpen() && interval==fh.getInterval() && type==fh.getType();
+		}
+
+		return ok;
 	}
 
 
 	@Override
 	public int getInterval() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-	@Override
-	public GeneralPath getPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return interval;
 	}
 
 
 	@Override
 	public FreeHandType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return type;
 	}
 
 
 	@Override
 	public boolean isOpen() {
-		// TODO Auto-generated method stub
-		return false;
+		return open;
 	}
 
 
 	@Override
 	public void setInterval(final int interval) {
-		// TODO Auto-generated method stub
-
+		if(interval>0)
+			this.interval = interval;
 	}
 
 
 	@Override
 	public void setOpen(final boolean open) {
-		// TODO Auto-generated method stub
-
+		this.open = open;
 	}
 
 
 	@Override
 	public void setType(final FreeHandType type) {
-		// TODO Auto-generated method stub
-
+		if(type!=null)
+			this.type = type;
 	}
 
 
@@ -104,64 +128,54 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 
 	@Override
 	public boolean isArrowable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public boolean isBordersMovable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public boolean isDbleBorderable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public boolean isFillable() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 
 	@Override
 	public boolean isInteriorStylable() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 
 	@Override
 	public boolean isLineStylable() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 
 	@Override
 	public boolean isShadowable() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 
 	@Override
 	public boolean isShowPtsable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public boolean isThicknessable() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-
 }

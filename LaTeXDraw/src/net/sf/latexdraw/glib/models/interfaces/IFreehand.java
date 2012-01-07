@@ -1,7 +1,5 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
-import java.awt.geom.GeneralPath;
-
 /**
  * Defines an interface that classes defining a freehand shape should implement.<br>
  * <br>
@@ -48,7 +46,7 @@ public interface IFreehand extends IModifiablePointsShape {
 	 * @since 3.0
 	 */
 	void setType(final FreeHandType type);
-	
+
 	@Override
 	IFreehand duplicate();
 
@@ -75,10 +73,4 @@ public interface IFreehand extends IModifiablePointsShape {
 	 * @since 3.0
 	 */
 	void setInterval(final int interval);
-
-	/**
-	 * @return The path of the shape. Useful to define the corner points.
-	 * @since 3.0
-	 */
-	GeneralPath getPath();
 }
