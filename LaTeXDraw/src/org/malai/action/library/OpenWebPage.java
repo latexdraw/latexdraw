@@ -6,7 +6,6 @@ import java.net.URI;
 
 import org.malai.action.Action;
 
-
 /**
  * This action opens an URI in the default browser.<br>
  * <br>
@@ -44,6 +43,12 @@ public class OpenWebPage extends Action {
 	@Override
 	public boolean isRegisterable() {
 		return false;
+	}
+
+
+	@Override
+	public void flush() {
+		uri = null;
 	}
 
 
