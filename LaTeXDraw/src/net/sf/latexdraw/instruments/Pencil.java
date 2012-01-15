@@ -15,6 +15,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -728,10 +729,10 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 	public void initAction() {
 		super.initAction();
 
-		final IShape shape 		= action.getShape();
-		final EditionChoice ec 	= instrument.getCurrentChoice();
+		final IShape shape = action.getShape();
 
 		if(shape!=null) {
+			final EditionChoice ec 	= instrument.getCurrentChoice();
 			IPoint pt = instrument.getAdaptedPoint(interaction.getStartPt());
 
 			// For squares and circles, the centre of the shape is the reference point during the creation.
@@ -743,7 +744,10 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 				recShape.setHeight(2.);
 			}
 			else
-				shape.translate(pt.getX(), pt.getY());
+				if(ec==EditionChoice.FREE_HAND && shape instanceof IFreehand)
+					((IFreehand)shape).getPtAt(0).setPoint(pt.getX(), pt.getY());
+				else
+					shape.translate(pt.getX(), pt.getY());
 		}
 	}
 
@@ -753,7 +757,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 		final EditionChoice ec = instrument.getCurrentChoice();
 		return ec==EditionChoice.RECT || ec==EditionChoice.ELLIPSE || ec==EditionChoice.SQUARE ||
 			   ec==EditionChoice.CIRCLE || ec==EditionChoice.RHOMBUS || ec==EditionChoice.TRIANGLE  ||
-			   ec==EditionChoice.CIRCLE_ARC;
+			   ec==EditionChoice.CIRCLE_ARC || ec==EditionChoice.FREE_HAND;
 	}
 
 
@@ -768,7 +772,10 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 		if(ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE  || ec==EditionChoice.CIRCLE_ARC)
 			updateShapeFromCentre(shape, startPt, endPt.getX());
 		else
-			updateShapeFromDiag(shape, startPt, endPt);
+			if(ec==EditionChoice.FREE_HAND && shape instanceof IFreehand)
+				((IFreehand)shape).addPoint(endPt);
+			else
+				updateShapeFromDiag(shape, startPt, endPt);
 
 		shape.setModified(true);
 		action.getDrawing().setModified(true);

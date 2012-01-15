@@ -120,7 +120,16 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 
 	@Override
-	public abstract void updateBorder();
+	public void updateBorder() {
+		Shape sh;
+
+		if(LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.))
+			sh = path;
+		else
+			sh = getRotatedShape2D();
+
+		border.setFrame(getStroke().createStrokedShape(sh).getBounds2D());
+	}
 
 
 

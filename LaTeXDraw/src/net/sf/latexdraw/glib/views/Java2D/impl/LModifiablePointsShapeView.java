@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import java.awt.Shape;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
@@ -78,19 +77,6 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 				if(close)
 					path.closePath();
 		}
-	}
-
-
-	@Override
-	public void updateBorder() {
-		Shape sh;
-
-		if(LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.))
-			sh = path;
-		else
-			sh = getRotatedShape2D();
-
-		border.setFrame(getStroke().createStrokedShape(sh).getBounds2D());
 	}
 
 
