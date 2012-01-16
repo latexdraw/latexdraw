@@ -186,22 +186,22 @@ class LTextView extends LShapeView<IText> implements IViewText {
 					try{ osw.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 					try{ fos.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-					log  = execute("latex --halt-on-error --interaction=nonstopmode --output-directory=" + tmpDir.getAbsolutePath() + " " + pathTex); //$NON-NLS-1$ //$NON-NLS-2$
+					log  = execute(new String[]{"latex", "--halt-on-error", "--interaction=nonstopmode", "--output-directory=" + tmpDir.getAbsolutePath(), pathTex}); //$NON-NLS-1$ //$NON-NLS-2$
 					new File(pathTex).delete();
 					new File(pathPic + ".aux").delete(); //$NON-NLS-1$
 					new File(pathPic + ".log").delete(); //$NON-NLS-1$
 
 					if(log.length()==0) {
-						log += execute("dvips " + pathPic + ".dvi -o " + pathPic + PSFilter.PS_EXTENSION); //$NON-NLS-1$ //$NON-NLS-2$
+						log += execute(new String[]{"dvips", pathPic + ".dvi",  "-o", pathPic + PSFilter.PS_EXTENSION}); //$NON-NLS-1$ //$NON-NLS-2$
 						new File(pathPic + ".dvi").delete(); //$NON-NLS-1$
 					}
 					if(log.length()==0)
-						log += execute("ps2pdf " + pathPic + PSFilter.PS_EXTENSION + " " + pathPic + PDFFilter.PDF_EXTENSION); //$NON-NLS-1$ //$NON-NLS-2$
+						log += execute(new String[]{"ps2pdf", pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
 					if(log.length()==0)
-						log += execute("pdfcrop " + pathPic + PDFFilter.PDF_EXTENSION + " " + pathPic + PDFFilter.PDF_EXTENSION); //$NON-NLS-1$ //$NON-NLS-2$
+						log += execute(new String[]{"pdfcrop", pathPic + PDFFilter.PDF_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
 					if(log.length()==0) {
-						log += execute("gs -q -dNOPAUSE -dBATCH -sDEVICE=pngalpha -r72 -dEPSCrop -sOutputFile=" + pathPic +
-										PNGFilter.PNG_EXTENSION + " " + pathPic + PDFFilter.PDF_EXTENSION);
+						log += execute(new String[]{"gs", "-q", "-dNOPAUSE", "-dBATCH", "-sDEVICE=pngalpha", "-r72", "-dEPSCrop", "-sOutputFile=" + pathPic + PNGFilter.PNG_EXTENSION,
+													pathPic + PDFFilter.PDF_EXTENSION});
 						new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
 					}
 
@@ -263,7 +263,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	 * @return The log resulting of the command. If not empty the command failed.
 	 * @since 3.0
 	 */
-	private static String execute(final String cmd) {
+	private static String execute(final String[] cmd) {
 		StringBuilder log 		= new StringBuilder();
 		InputStreamReader isr 	= null;
 		BufferedReader br 		= null;
