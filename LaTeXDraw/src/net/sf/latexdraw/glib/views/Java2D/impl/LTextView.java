@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.Shape;
 import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -168,7 +167,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	 * @since 3.0
 	 */
 	protected Image createImage() {
-		BufferedImage bi = null;
+		Image bi = null;
 		log = ""; //$NON-NLS-1$
 
 		try {
@@ -201,12 +200,9 @@ class LTextView extends LShapeView<IText> implements IViewText {
 					if(log.length()==0)
 						log += execute("pdfcrop " + pathPic + PDFFilter.PDF_EXTENSION + " " + pathPic + PDFFilter.PDF_EXTENSION); //$NON-NLS-1$ //$NON-NLS-2$
 					if(log.length()==0) {
-						log += execute("pdftops " + pathPic + PDFFilter.PDF_EXTENSION + " " + pathPic + PSFilter.PS_EXTENSION); //$NON-NLS-1$ //$NON-NLS-2$
+						log += execute("gs -q -dNOPAUSE -dBATCH -sDEVICE=pngalpha -r72 -dEPSCrop -sOutputFile=" + pathPic +
+										PNGFilter.PNG_EXTENSION + " " + pathPic + PDFFilter.PDF_EXTENSION);
 						new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
-					}
-					if(log.length()==0) {
-						log += execute("convert -channel RGBA " + pathPic + PSFilter.PS_EXTENSION + " " + pathPic + PNGFilter.PNG_EXTENSION); //$NON-NLS-1$ //$NON-NLS-2$
-						new File(pathPic + PSFilter.PS_EXTENSION).delete();
 					}
 
 					if(log.length()==0) {
