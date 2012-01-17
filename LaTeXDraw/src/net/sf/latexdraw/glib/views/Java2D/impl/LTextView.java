@@ -8,12 +8,10 @@ import java.awt.Image;
 import java.awt.Shape;
 import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
@@ -36,6 +34,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.StreamExecReader;
 import sun.font.FontDesignMetrics;
 
 import com.sun.pdfview.PDFFile;
@@ -208,7 +207,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 						raf = new RandomAccessFile(new File(pathPic+PDFFilter.PDF_EXTENSION), "r");
 						fc = raf.getChannel();
 						final PDFFile pdfFile = new PDFFile(fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()));
-						
+
 						if(pdfFile.getNumPages()==1) {
 							final PDFPage page = pdfFile.getPage(1);
 							final Rectangle2D bound = page.getBBox();
@@ -278,54 +277,28 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	 * @since 3.0
 	 */
 	private static String execute(final String[] cmd) {
-		StringBuilder log 		= new StringBuilder();
-		InputStreamReader isr 	= null;
-		BufferedReader br 		= null;
+		String log;
 
 		try {
-			Runtime runtime = Runtime.getRuntime();
-			Process process;
-			process = runtime.exec(cmd);
+			final Process process = Runtime.getRuntime().exec(cmd);
+			final StreamExecReader errReader = new StreamExecReader(process.getErrorStream());
+			final StreamExecReader outReader = new StreamExecReader(process.getInputStream());
 
-			boolean ok 		= true;
-			int cpt    		= 1;
-			int exit   		= 0;
+			errReader.start();
+			outReader.start();
 
-			synchronized(runtime) {
-				while(ok && cpt<10)
-					try {
-						exit = process.exitValue();
-						ok = false;
-					}
-					catch(IllegalThreadStateException e) {
-						runtime.wait(10);
-						cpt++;
-					}
-			}
-
-			isr = new InputStreamReader(process.getInputStream());
-			br     = new BufferedReader(isr);
-
-			String line = br.readLine();
-
-			while(line!=null) {
-				log.append(line).append(LResources.EOL);
-				line = br.readLine();
-			}
-
-			if(exit==0)
-				log.delete(0, log.length());
+			if(process.waitFor()==0)
+				log = "";
+			else
+				log = errReader.getLog();
 
 		}catch(final IOException ex) {
-			log.append(ex.getMessage());
+			log = ex.getMessage();
 		}catch(final InterruptedException ex) {
-			log.append(ex.getMessage());
+			log = ex.getMessage();
 		}
 
-		try{ if(br!=null) br.close(); }   catch(final IOException ex){ log.append(ex.getMessage()); }
-		try{ if(isr!=null) isr.close(); } catch(final IOException ex){ log.append(ex.getMessage()); }
-
-		return log.toString();
+		return log;
 	}
 
 

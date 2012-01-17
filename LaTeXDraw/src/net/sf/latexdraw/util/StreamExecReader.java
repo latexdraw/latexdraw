@@ -32,7 +32,7 @@ public class StreamExecReader extends Thread {
 	private InputStream stream;
 
 	/** The read log. */
-	private String log;
+	private StringBuilder log;
 
 
 	/**
@@ -42,35 +42,33 @@ public class StreamExecReader extends Thread {
 	public StreamExecReader(final InputStream is) {
 		super();
 
+		if(is==null)
+			throw new IllegalArgumentException();
+
 		stream = is;
-		log	   = ""; //$NON-NLS-1$
 	}
 
 
 	@Override
 	public void run() {
-		InputStreamReader isr = null;
-        BufferedReader br     = null;
+		final InputStreamReader isr = new InputStreamReader(stream);
+        final BufferedReader br = new BufferedReader(isr);
 
-		try {
-			if(stream!=null) {
-	            isr 		= new InputStreamReader(stream);
-	            br 	  		= new BufferedReader(isr);
-	            String line = null;
-	            log			= ""; //$NON-NLS-1$
+       log = new StringBuilder();
 
-	            while((line = br.readLine()) != null)
-	                log += line;
+        try {
+	        if(br.ready()) {
+		        String line = br.readLine();
+
+		        while(line != null) {
+		            log.append(line).append(LResources.EOL);
+		            line = br.readLine();
+		        }
 			}
-        }catch(IOException ioe) { BadaboomCollector.INSTANCE.add(ioe); }
-        try {
-        	if(br!=null)
-        		br.close();
-        }catch(IOException ioe) { BadaboomCollector.INSTANCE.add(ioe); }
-        try {
-        	if(isr!=null)
-        		isr.close();
-        }catch(IOException ioe) { BadaboomCollector.INSTANCE.add(ioe); }
+        }catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+
+        try { br.close(); } catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+        try { isr.close(); } catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 	}
 
 
@@ -78,8 +76,6 @@ public class StreamExecReader extends Thread {
 	 * @return The read log.
 	 */
 	public String getLog() {
-		synchronized(log){
-			return log;
-		}
+		return log.toString();
 	}
 }
