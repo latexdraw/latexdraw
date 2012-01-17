@@ -15,14 +15,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.imageio.ImageIO;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PDFFilter;
-import net.sf.latexdraw.filters.PNGFilter;
 import net.sf.latexdraw.filters.PSFilter;
 import net.sf.latexdraw.filters.TeXFilter;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
@@ -38,6 +37,9 @@ import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LResources;
 import sun.font.FontDesignMetrics;
+
+import com.sun.pdfview.PDFFile;
+import com.sun.pdfview.PDFPage;
 
 /**
  * Defines a view of the IText model.<br>
@@ -180,6 +182,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 				final String pathTex  	= pathPic + TeXFilter.TEX_EXTENSION;
 				final FileOutputStream fos 	= new FileOutputStream(pathTex);
 				final OutputStreamWriter osw= new OutputStreamWriter(fos);
+				RandomAccessFile raf = null;
+				FileChannel fc = null;
 
 				try {
 					osw.append(doc);
@@ -199,19 +203,29 @@ class LTextView extends LShapeView<IText> implements IViewText {
 						log += execute(new String[]{"ps2pdf", pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
 					if(log.length()==0)
 						log += execute(new String[]{"pdfcrop", pathPic + PDFFilter.PDF_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
-					if(log.length()==0) {
-						log += execute(new String[]{"gs", "-q", "-dNOPAUSE", "-dBATCH", "-sDEVICE=pngalpha", "-r72", "-dEPSCrop", "-sOutputFile=" + pathPic + PNGFilter.PNG_EXTENSION,
-													pathPic + PDFFilter.PDF_EXTENSION});
-						new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
-					}
 
-					if(log.length()==0) {
-						File picFile = new File(pathPic + PNGFilter.PNG_EXTENSION);
-						picFile.deleteOnExit();
-						bi = ImageIO.read(picFile);
-					}
+					try {
+						raf = new RandomAccessFile(new File(pathPic+PDFFilter.PDF_EXTENSION), "r");
+						fc = raf.getChannel();
+						final PDFFile pdfFile = new PDFFile(fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()));
+						
+						if(pdfFile.getNumPages()==1) {
+							final PDFPage page = pdfFile.getPage(1);
+							final Rectangle2D bound = page.getBBox();
+						    bi = page.getImage((int)bound.getWidth(), (int)bound.getHeight(), bound, null, false, true);
+						}
+						else BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
+					}catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
+
+//					if(log.length()==0) {
+//						log += execute(new String[]{"gs", "-q", "-dNOPAUSE", "-dBATCH", "-sDEVICE=pngalpha", "-r72", "-dEPSCrop", "-sOutputFile=" + pathPic + PNGFilter.PNG_EXTENSION,
+//													pathPic + PDFFilter.PDF_EXTENSION});
+//						new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
+//					}
 				}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
+				try { if(fc!=null) fc.close(); }catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+				try { if(raf!=null) raf.close(); }catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 				try{ osw.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 				try{ fos.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			}
