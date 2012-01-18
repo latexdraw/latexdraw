@@ -54,7 +54,7 @@ public class StreamExecReader extends Thread {
 		final InputStreamReader isr = new InputStreamReader(stream);
         final BufferedReader br = new BufferedReader(isr);
 
-       log = new StringBuilder();
+        log = new StringBuilder();
 
         try {
 	        if(br.ready()) {
@@ -76,6 +76,6 @@ public class StreamExecReader extends Thread {
 	 * @return The read log.
 	 */
 	public String getLog() {
-		return log.toString();
+		return log==null ? "" : log.toString();
 	}
 }
