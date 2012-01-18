@@ -116,9 +116,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	/** The field used to modifies the path of the selected latex editor. */
 	protected MTextField pathTexEditorField;
 
-	/** The field used to modifies the path of latex binaries. */
-	protected MTextField pathLatexDistribField;
-
 	/** The text field used to defines the latex packages to use. */
 	protected MTextArea latexIncludes;
 
@@ -187,8 +184,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	 */
 	protected void initialiseWidgets() {
 		final int height = 40;
-  		pathLatexDistribField = new MTextField();
-  		pathLatexDistribField.setMaximumSize(new Dimension(700, height));
 
   		latexIncludes = new MTextArea(true, false);
   		latexIncludes.setToolTipText("<html>Include in this list the latex packages you regularly use in your drawing, e.g. :<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>");
@@ -410,13 +405,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	}
 
 	/**
-	 * @return The field used to modifies the path of latex binaries.
-	 */
-	public MTextField getPathLatexDistribField() {
-		return pathLatexDistribField;
-	}
-
-	/**
 	 * @return The text field used to defines the latex packages to use.
 	 */
 	public MTextArea getLatexIncludes() {
@@ -479,9 +467,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		node = prefMap.get(LNamespace.XML_LATEX_INCLUDES);
 		if(node!=null) latexIncludes.setText(node.getTextContent());
-
-		node = prefMap.get(LNamespace.XML_PATH_LATEX_DISTRIB);
-		if(node!=null) pathLatexDistribField.setText(node.getTextContent());
 
 		node = prefMap.get(LNamespace.XML_ALPHA_INTER);
 		if(node!=null) alpaInterCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
@@ -638,7 +623,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		canvas.setColorRendering(colorRenderCheckBox.isSelected() ? RenderingHints.VALUE_COLOR_RENDER_QUALITY : RenderingHints.VALUE_COLOR_RENDER_SPEED);
 		canvas.setRendering(renderingCheckBox.isSelected() ? RenderingHints.VALUE_RENDER_QUALITY : RenderingHints.VALUE_RENDER_SPEED);
 		exporter.setDefaultPackages(latexIncludes.getText());
-		exporter.setLatexPathDistrib(pathLatexDistribField.getText());
 		exporter.setPathExport(pathExportField.getText());
 		gridCust.gridSpacing.setValueSafely(persoGridGapField.getValue());
 		gridCust.magneticCB.setSelected(magneticGridCB.isSelected());
@@ -748,10 +732,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 	        elt = document.createElement(LNamespace.XML_PATH_TEX_EDITOR);
 	        elt.setTextContent(pathTexEditorField.getText());
-	        root.appendChild(elt);
-
-	        elt = document.createElement(LNamespace.XML_PATH_LATEX_DISTRIB);
-	        elt.setTextContent(pathLatexDistribField.getText());
 	        root.appendChild(elt);
 
 	        elt = document.createElement(LNamespace.XML_LATEX_INCLUDES);

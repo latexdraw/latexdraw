@@ -86,18 +86,8 @@ public class PreferencesFrame extends MFrame {
 
 
 	private JPanel createLatexPanel() {
-		JPanel pLatex 		 = new JPanel();
-		JPanel pLatexDistrib = new JPanel();
-
+		JPanel pLatex = new JPanel();
 		pLatex.setLayout(new BoxLayout(pLatex, BoxLayout.Y_AXIS));
-		pLatexDistrib.setLayout(new BoxLayout(pLatexDistrib, BoxLayout.X_AXIS));
-
-  		JButton bChooseLatex = new JButton(LResources.OPEN_ICON);
-
-  		pLatexDistrib.add(prefSetter.getPathLatexDistribField());
-  		pLatexDistrib.add(bChooseLatex);
-  		pLatex.add(new JLabel("The path of the latex binaires:"));
-  		pLatex.add(pLatexDistrib);
   		pLatex.add(new JLabel("Packages included during latex compilations:"));
   		pLatex.add(prefSetter.getLatexIncludes().getScrollpane());
 

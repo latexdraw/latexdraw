@@ -106,8 +106,6 @@ public class Exporter extends WidgetInstrument {
 	/** The default location of the exports. */
 	protected String pathExport;
 
-	/** The path where latex binaries are. */
-	protected String latexPathDistrib;
 
 	/**
 	 * The latex packages that the interactive system saves by default.
@@ -137,7 +135,6 @@ public class Exporter extends WidgetInstrument {
 			throw new IllegalArgumentException();
 
 		defaultPackages		= ""; //$NON-NLS-1$
-		latexPathDistrib	= ""; //$NON-NLS-1$
 		this.statusBar		= statusBar;
 		this.drawing		= drawing;
 		this.canvas 		= canvas;
@@ -198,10 +195,6 @@ public class Exporter extends WidgetInstrument {
 		if(generalPreferences) {
             elt = document.createElement(LNamespace.XML_PATH_EXPORT);
             elt.setTextContent(pathExport);
-            root.appendChild(elt);
-
-            elt = document.createElement(LNamespace.XML_PATH_LATEX_DISTRIB);
-            elt.setTextContent(latexPathDistrib);
             root.appendChild(elt);
 
             elt = document.createElement(LNamespace.XML_LATEX_INCLUDES);
@@ -325,24 +318,6 @@ public class Exporter extends WidgetInstrument {
 
 
 	/**
-	 * @return The path of the latex distribution.
-	 * @since 3.0
-	 */
-	public String getLatexPathDistrib() {
-		return latexPathDistrib;
-	}
-
-
-	/**
-	 * @param latexPathDistrib The path of the latex distribution.
-	 * @since 3.0
-	 */
-	public void setLatexPathDistrib(final String latexPathDistrib) {
-		if(latexPathDistrib!=null)
-			this.latexPathDistrib = latexPathDistrib;
-	}
-
-	/**
 	 * @return The path where files are exported.
 	 * @since 3.0
 	 */
@@ -398,7 +373,6 @@ class MenuPressed2Export extends Link<Export, MenuItemPressed, Exporter> {
 		action.setDialogueBox(instrument.getExportDialog(format));
 		action.setCanvas(instrument.canvas);
 		action.setFormat(format);
-		action.setLatexDistribPath(instrument.latexPathDistrib);
 	}
 
 
@@ -432,7 +406,6 @@ class ButtonPressed2Export extends Link<Export, ButtonPressed, Exporter> {
 		action.setDialogueBox(instrument.getExportDialog(ExportFormat.PDF));
 		action.setCanvas(instrument.canvas);
 		action.setFormat(ExportFormat.PDF);
-		action.setLatexDistribPath(instrument.latexPathDistrib);
 	}
 
 

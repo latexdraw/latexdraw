@@ -432,14 +432,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * the pstricks drawing.
 	 * @param drawing The shapes to export.
 	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
-	 * @param latexDistribPath The path of the folder that contains the latex binaries (may be null or empty)
 	 * @param synchronizer The object that synchronises the view and the model.
 	 * @return The create file or null.
 	 * @since 3.0
 	 */
-	public static File createPSFile(final IDrawing drawing, final String latexDistribPath, final String pathExportPs,
-									final ViewsSynchroniserHandler synchronizer){
-		return createPSFile(drawing, latexDistribPath, pathExportPs, synchronizer, null);
+	public static File createPSFile(final IDrawing drawing, final String pathExportPs, final ViewsSynchroniserHandler synchronizer){
+		return createPSFile(drawing, pathExportPs, synchronizer, null);
 	}
 
 
@@ -449,18 +447,15 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * the pstricks drawing.
 	 * @param drawing The shapes to export.
 	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
-	 * @param latexDistribPath The path of the folder that contains the latex binaries (may be null or empty)
 	 * @param synchronizer The object that synchronises the view and the model.
 	 * @param tmpDir The temporary directory used for the compilation.
 	 * @return The create file or null.
 	 * @since 3.0
 	 */
-	public static File createPSFile(final IDrawing drawing, final String latexDistribPath, final String pathExportPs,
-									final ViewsSynchroniserHandler synchronizer, final File tmpDir) {
+	public static File createPSFile(final IDrawing drawing, final String pathExportPs, final ViewsSynchroniserHandler synchronizer, final File tmpDir) {
 		if(pathExportPs==null)
 			return null;
 
-		String dirBin   	= latexDistribPath;
 		int lastSep			= pathExportPs.lastIndexOf(LResources.FILE_SEP)+1;
 		String name			= pathExportPs.substring(lastSep==-1 ? 0 : lastSep, pathExportPs.lastIndexOf(PSFilter.PS_EXTENSION));
 		File tmpDir2		= tmpDir==null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
@@ -482,12 +477,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 		if(texFile==null || !texFile.exists())
 			return null;
 
-		String[] paramsLatex = new String[] {dirBin+"latex", "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+		String[] paramsLatex = new String[] {"latex", "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 				texFile.getAbsolutePath()};
 		log    = execute(paramsLatex, tmpDir2);
 		File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
 		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
-		String[] paramsDvi = new String[] {dirBin+"dvips", "-Pdownload35", "-T", ((tr.getX()-bl.getX())/ppc+dec)+"cm,"+((bl.getY()-tr.getY())/ppc+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		String[] paramsDvi = new String[] {"dvips", "-Pdownload35", "-T", ((tr.getX()-bl.getX())/ppc+dec)+"cm,"+((bl.getY()-tr.getY())/ppc+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 						name, "-o", pathExportPs}; //$NON-NLS-1$
 		log   += execute(paramsDvi, tmpDir2);
 
@@ -516,28 +511,24 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * the pstricks drawing.
 	 * @param drawing The shapes to export.
 	 * @param pathExportPdf The path of the .pdf file to create (MUST ends with .pdf).
-	 * @param latexDistribPath The path of the folder that contains the latex binaries (may be null or empty)
 	 * @param synchronizer The object that synchronises the view and the model.
 	 * @return The create file or null.
 	 * @param crop if true, the output document will be cropped.
 	 * @since 3.0
 	 */
-	public static File createPDFFile(final IDrawing drawing, final String latexDistribPath, final String pathExportPdf,
-									final ViewsSynchroniserHandler synchronizer, final boolean crop) {
+	public static File createPDFFile(final IDrawing drawing, final String pathExportPdf, final ViewsSynchroniserHandler synchronizer, final boolean crop) {
 		if(pathExportPdf==null)
 			return null;
 
-		String dirBin   = latexDistribPath;
-		File tmpDir		= LFileUtils.INSTANCE.createTempDir();
+		File tmpDir = LFileUtils.INSTANCE.createTempDir();
 
 		if(tmpDir==null) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
 			return null;
 		}
 
-		String name		= pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
-		File psFile 	= createPSFile(drawing, latexDistribPath, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PSFilter.PS_EXTENSION,
-										synchronizer, tmpDir);
+		String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
+		File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PSFilter.PS_EXTENSION, synchronizer, tmpDir);
 		String log;
 		File pdfFile;
 
@@ -548,13 +539,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
 		String optionEmbed = "-dEmbedAllFonts" + (System.getProperty("os.name").toLowerCase().contains("win") ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
-		dirBin  = dirBin==null ? "" : dirBin.endsWith(LResources.FILE_SEP) || dirBin.length()==0 ? dirBin : dirBin + LResources.FILE_SEP; //$NON-NLS-1$
-		log 	= execute(new String[] {dirBin + "ps2pdf", optionEmbed, psFile.getAbsolutePath(), //$NON-NLS-1$
+		log = execute(new String[] {"ps2pdf", optionEmbed, psFile.getAbsolutePath(), //$NON-NLS-1$
 							crop ? name + PDFFilter.PDF_EXTENSION : pathExportPdf}, tmpDir);
 
 		if(crop) {
 			pdfFile = new File(tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PDFFilter.PDF_EXTENSION);
-			log 	= execute(new String[] {dirBin + "pdfcrop", pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir); //$NON-NLS-1$
+			log 	= execute(new String[] {"pdfcrop", pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir); //$NON-NLS-1$
 			// JAVA7: test pdfFile.toPath().move(pathExportPdf)
 			// the renameto method is weak and fails sometimes.
 			if(!pdfFile.renameTo(new File(pathExportPdf)) && !LFileUtils.INSTANCE.copy(pdfFile, new File(pathExportPdf)))

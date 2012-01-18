@@ -184,9 +184,6 @@ public class Export extends Action {
 	/** The canvas that contains views. */
 	protected ICanvas canvas;
 
-	/** The path where the latex binaries are located. */
-	protected String latexDistribPath;
-
 	/** Defines if the shapes have been successfully exported. */
 	protected boolean exported;
 
@@ -209,7 +206,6 @@ public class Export extends Action {
 	public void flush() {
 		super.flush();
 		canvas 			= null;
-		latexDistribPath= null;
 		format 			= null;
 		dialogueBox		= null;
 	}
@@ -265,16 +261,10 @@ public class Export extends Action {
 	}
 
 
-
 	@Override
 	public boolean canDo() {
-		boolean ok = canvas!=null && format!=null && dialogueBox!=null;
-		// Testing the export as PS/PDF using latex.
-		ok = ok && ((format!=ExportFormat.EPS_LATEX && format!=ExportFormat.PDF && format!=ExportFormat.PDF_CROP) || latexDistribPath!=null);
-
-		return ok;
+		return canvas!=null && format!=null && dialogueBox!=null;
 	}
-
 
 
 	@Override
@@ -340,7 +330,7 @@ public class Export extends Action {
 		File psFile;
 
 		try{
-			psFile = LaTeXGenerator.createPSFile(canvas.getDrawing(), latexDistribPath, file.getAbsolutePath(), canvas);
+			psFile = LaTeXGenerator.createPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas);
 		}
 		catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
@@ -362,7 +352,7 @@ public class Export extends Action {
 		File pdfFile;
 
 		try{
-			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), latexDistribPath, file.getAbsolutePath(), canvas, format==ExportFormat.PDF);
+			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, format==ExportFormat.PDF);
 		} catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
 			pdfFile = null;
@@ -485,15 +475,6 @@ public class Export extends Action {
 	 */
 	public void setDialogueBox(final ExportDialog dialogueBox) {
 		this.dialogueBox = dialogueBox;
-	}
-
-
-	/**
-	 * @param latexDistribPath The location of the latex binaries.
-	 * @since 3.0
-	 */
-	public void setLatexDistribPath(final String latexDistribPath) {
-		this.latexDistribPath = latexDistribPath;
 	}
 
 

@@ -90,7 +90,6 @@ public final class LNamespace {
 	public static final String XML_CHECK_VERSION 		= "checkVersion";		//$NON-NLS-1$
 	public static final String XML_LANG 				= "lang";				//$NON-NLS-1$
 	public static final String XML_PATH_TEX_EDITOR 		= "pathTexEditor";		//$NON-NLS-1$
-	public static final String XML_PATH_LATEX_DISTRIB	= "latexDistrib";		//$NON-NLS-1$
 	public static final String XML_LATEX_INCLUDES		= "latexIncludes";		//$NON-NLS-1$
 	public static final String XML_RECENT_FILES 		= "recentFiles";		//$NON-NLS-1$
 	public static final String XML_NB_RECENT_FILES 		= "nb";					//$NON-NLS-1$
