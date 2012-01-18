@@ -57,14 +57,12 @@ public class StreamExecReader extends Thread {
         log = new StringBuilder();
 
         try {
-	        if(br.ready()) {
-		        String line = br.readLine();
+	        String line = br.readLine();
 
-		        while(line != null) {
-		            log.append(line).append(LResources.EOL);
-		            line = br.readLine();
-		        }
-			}
+	        while(line != null) {
+	            log.append(line).append(LResources.EOL);
+	            line = br.readLine();
+	        }
         }catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
         try { br.close(); } catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
