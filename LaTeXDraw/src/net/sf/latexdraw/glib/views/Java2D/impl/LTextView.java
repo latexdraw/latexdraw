@@ -401,15 +401,12 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		final IPoint position = image==null ? getTextPositionText() : getTextPositionImage();
 
 		if(image==null) {
-			System.out.println("PAINT1>>> " + shape.getText() + " " + position);
 			g.setColor(shape.getLineColour());
 			g.setFont(FONT);
 			g.drawString(shape.getText(), (int)position.getX(), (int)position.getY());
 		}
-		else {
-			System.out.println("PAINT2>>> " + image + " " + position + " " + image.getHeight(null) + " " + image.getWidth(null));
+		else
 			g.drawImage(image, (int)position.getX(), (int)position.getY(), null);
-		}
 
 		if(p!=null)
 			endRotation(g, p);
@@ -425,12 +422,10 @@ class LTextView extends LShapeView<IText> implements IViewText {
 			TextLayout tl = new TextLayout(shape.getText(), FONT, FONT_METRICS.getFontRenderContext());
 			Rectangle2D bounds = tl.getBounds();
 			border.setFrame(position.getX(), position.getY()-bounds.getHeight(), bounds.getWidth(), bounds.getHeight());
-			System.out.println("BORDER1>>>>" + border + " ; " + position + " " + bounds);
 		}
 		else {
 			final double height = image.getHeight(null);
 			border.setFrame(position.getX(), position.getY(), image.getWidth(null), height);
-			System.out.println("BORDER2>>>>" + border + " ; " + position + " " + image.getWidth(null) + " " + height);
 		}
 	}
 
