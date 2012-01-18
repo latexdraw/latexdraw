@@ -4,7 +4,7 @@
 	<property name="dir.data" value="out/data"/>
 	<property name="dir.report" value="out/report"/>
 	<property name="dir.doc" location="doc"/>
-	<property name="release.name" value="LaTeXDraw3.0b1" />
+	<property name="release.name" value="LaTeXDraw3.0a1" />
 	
 	<!-- Creates the output directories -->
 	<target name="prepare">
@@ -60,7 +60,6 @@
 			 <!-- Filters the files -->
 			 <fileset dir="bin/"
 				 includes="net/sf/latexdraw/**/*.class ; org/malai/**/*.class ; res/**/* ; lang/**/*"
-				 excludes="net/sf/latexdraw/installer/*"
 			 />
 			 <fileset dir="" includes="res/**/* ; lang/**/*" />
 		</jar>
