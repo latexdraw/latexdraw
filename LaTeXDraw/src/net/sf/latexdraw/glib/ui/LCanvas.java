@@ -9,6 +9,8 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -20,14 +22,19 @@ import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.ToolTipable;
 import net.sf.latexdraw.instruments.Border;
+import net.sf.latexdraw.mapping.ViewList2TooltipableList;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
 
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
+import org.malai.mapping.ActiveArrayList;
 import org.malai.mapping.ActiveUnary;
+import org.malai.mapping.IActiveList;
 import org.malai.mapping.IUnary;
+import org.malai.mapping.MappingRegistry;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.properties.Zoomable;
@@ -64,10 +71,16 @@ public class LCanvas extends MPanel implements ICanvas {
 	private static final long serialVersionUID = 1L;
 
 	/** The shapes of the canvas. */
-	protected List<IViewShape> views;
+	protected IActiveList<IViewShape> views;
 
 	/** The temporary view that the canvas may contain. */
 	protected IUnary<IViewShape> tempView;
+
+	/**
+	 * This list contains a subset of the list 'view'. It contains the tooltipable views of 'views'.
+	 * This attribute is used only to avoid a full exploration of the list 'views' (that can be huge).
+	 */
+	protected List<ToolTipable> tooltipableView;
 
 	/** The border of the drawing. */
 	protected Rectangle2D border;
@@ -118,7 +131,8 @@ public class LCanvas extends MPanel implements ICanvas {
 		magneticGrid 		= new LMagneticGrid(0, 0, this);
 		borderIns			= new Border(this);
 		border				= new Rectangle2D.Double();
-		views 				= new ArrayList<IViewShape>();
+		views 				= new ActiveArrayList<IViewShape>();
+		tooltipableView		= new ArrayList<ToolTipable>();
 		tempView			= new ActiveUnary<IViewShape>();
 		zoom				= new ActiveUnary<Double>(1.);
 
@@ -127,6 +141,9 @@ public class LCanvas extends MPanel implements ICanvas {
 
 		setFocusable(true);
 		setDoubleBuffered(true);
+
+		// Adding a mapping between the views and its subset containing only tooltipable views.
+		MappingRegistry.REGISTRY.addMapping(new ViewList2TooltipableList(views, tooltipableView));
 
 		// Maybe the magnetic must be updated when the canvas dimensions changes.
 		addComponentListener(new ComponentAdapter() {
@@ -137,6 +154,8 @@ public class LCanvas extends MPanel implements ICanvas {
             }
         });
 
+		// Adding a kind of instrument that manages the tooltips.
+		addMouseMotionListener(new TooltipDisplayer());
 		update();
 	}
 
@@ -161,7 +180,6 @@ public class LCanvas extends MPanel implements ICanvas {
 
 		g.dispose();
 	}
-
 
 
 
@@ -200,7 +218,6 @@ public class LCanvas extends MPanel implements ICanvas {
 
     	borderIns.paint(g);
 	}
-
 
 
 
@@ -267,13 +284,11 @@ public class LCanvas extends MPanel implements ICanvas {
 
 
 
-
 	@Override
 	public void updatePreferredSize() {
 		final double zoomValue = getZoom();
 		setPreferredSize(new Dimension((int)((border.getMaxX()+10)*zoomValue), (int)((border.getMaxY()+10)*zoomValue)));
 	}
-
 
 
 
@@ -606,5 +621,36 @@ public class LCanvas extends MPanel implements ICanvas {
 	@Override
 	public void onActionDone(final Action action) {
 		// Nothing to do.
+	}
+
+
+	/**
+	 * This kind of instrument manages the tooltips displayed on some views.
+	 */
+	protected class TooltipDisplayer implements MouseMotionListener{
+		protected TooltipDisplayer() {
+			super();
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			boolean again = true;
+			ToolTipable tooltipable;
+
+			for(int i=0, size=tooltipableView.size(); i<size && again; i++) {
+				tooltipable = tooltipableView.get(i);
+
+				if(tooltipable.isToolTipVisible(e.getX(), e.getY())) {
+					String text = tooltipable.getToolTip();
+					setToolTipText(text==null || text.length()==0 ? null : text);
+					again = false;
+				}
+			}
+
+			if(again)
+				setToolTipText(null);
+		}
+		@Override
+		public void mouseDragged(MouseEvent e) { /* Nothing to do. */ }
 	}
 }

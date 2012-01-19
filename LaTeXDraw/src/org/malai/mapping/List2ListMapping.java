@@ -23,14 +23,7 @@ import java.util.List;
  * @param <E> The type of the source element of the mapping.
  * @param <F> The type of the target element of the mapping.
  */
-public abstract class List2ListMapping<E, F> implements IMapping {
-	/** The source list. */
-	protected List<E> source;
-
-	/** The target list. */
-	protected List<F> target;
-
-
+public abstract class List2ListMapping<E, F> extends List2ObjectMapping<E, List<F>> {
 	/**
 	 * Creates the mapping.
 	 * @param source The source list.
@@ -39,31 +32,6 @@ public abstract class List2ListMapping<E, F> implements IMapping {
 	 * @since 0.2
 	 */
 	public List2ListMapping(final List<E> source, final List<F> target) {
-		super();
-
-		if(source==null || target==null || source==target)
-			throw new IllegalArgumentException();
-
-		this.source = source;
-		this.target = target;
-	}
-
-
-	@Override
-	public List<E> getSource() {
-		return source;
-	}
-
-
-	@Override
-	public List<F> getTarget() {
-		return target;
-	}
-
-
-	@Override
-	public void clear() {
-		source = null;
-		target = null;
+		super(source, target);
 	}
 }

@@ -189,32 +189,35 @@ class LTextView extends LShapeView<IText> implements IViewText {
 					try{ osw.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 					try{ fos.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-					log  = execute(new String[]{"latex", "--halt-on-error", "--interaction=nonstopmode", "--output-directory=" + tmpDir.getAbsolutePath(), pathTex}); //$NON-NLS-1$ //$NON-NLS-2$
+					boolean ok = execute(new String[]{"latex", "--halt-on-error", "--interaction=nonstopmode", "--output-directory=" + tmpDir.getAbsolutePath(), pathTex}); //$NON-NLS-1$ //$NON-NLS-2$
 					new File(pathTex).delete();
 					new File(pathPic + ".aux").delete(); //$NON-NLS-1$
 					new File(pathPic + ".log").delete(); //$NON-NLS-1$
 
-					if(log.length()==0) {
-						log += execute(new String[]{"dvips", pathPic + ".dvi",  "-o", pathPic + PSFilter.PS_EXTENSION}); //$NON-NLS-1$ //$NON-NLS-2$
+					if(ok) {
+						ok = execute(new String[]{"dvips", pathPic + ".dvi",  "-o", pathPic + PSFilter.PS_EXTENSION}); //$NON-NLS-1$ //$NON-NLS-2$
 						new File(pathPic + ".dvi").delete(); //$NON-NLS-1$
 					}
-					if(log.length()==0)
-						log += execute(new String[]{"ps2pdf", pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
-					if(log.length()==0)
-						log += execute(new String[]{"pdfcrop", pathPic + PDFFilter.PDF_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
+					if(ok)
+						ok = execute(new String[]{"ps2pdf", pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
+					if(ok)
+						ok = execute(new String[]{"pdfcrop", pathPic + PDFFilter.PDF_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
 
-					try {
-						raf = new RandomAccessFile(new File(pathPic+PDFFilter.PDF_EXTENSION), "r");
-						fc = raf.getChannel();
-						final PDFFile pdfFile = new PDFFile(fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()));
+					if(ok)
+						try {
+							raf = new RandomAccessFile(new File(pathPic+PDFFilter.PDF_EXTENSION), "r");
+							fc = raf.getChannel();
+							final PDFFile pdfFile = new PDFFile(fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()));
 
-						if(pdfFile.getNumPages()==1) {
-							final PDFPage page = pdfFile.getPage(1);
-							final Rectangle2D bound = page.getBBox();
-						    bi = page.getImage((int)bound.getWidth(), (int)bound.getHeight(), bound, null, false, true);
-						}
-						else BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
-					}catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
+							if(pdfFile.getNumPages()==1) {
+								final PDFPage page = pdfFile.getPage(1);
+								final Rectangle2D bound = page.getBBox();
+							    bi = page.getImage((int)bound.getWidth(), (int)bound.getHeight(), bound, null, false, true);
+							}
+							else BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
+
+							new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
+						}catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 //					if(log.length()==0) {
 //						log += execute(new String[]{"gs", "-q", "-dNOPAUSE", "-dBATCH", "-sDEVICE=pngalpha", "-r72", "-dEPSCrop", "-sOutputFile=" + pathPic + PNGFilter.PNG_EXTENSION,
@@ -273,12 +276,10 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	/**
 	 * Executes a given command and returns the log.
 	 * @param cmd The command to execute.
-	 * @return The log resulting of the command. If not empty the command failed.
+	 * @return True if the command exit normally.
 	 * @since 3.0
 	 */
-	private static String execute(final String[] cmd) {
-		String log;
-
+	private boolean execute(final String[] cmd) {
 		try {
 			final Process process = Runtime.getRuntime().exec(cmd);
 			final StreamExecReader errReader = new StreamExecReader(process.getErrorStream());
@@ -288,17 +289,16 @@ class LTextView extends LShapeView<IText> implements IViewText {
 			outReader.start();
 
 			if(process.waitFor()==0)
-				log = "";
-			else
-				log = errReader.getLog();
+				return true;
 
+			log += outReader.getLog() + LResources.EOL + errReader.getLog();
 		}catch(final IOException ex) {
-			log = ex.getMessage();
+			log += ex.getMessage();
 		}catch(final InterruptedException ex) {
-			log = ex.getMessage();
+			log += ex.getMessage();
 		}
 
-		return log;
+		return false;
 	}
 
 
@@ -458,5 +458,28 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	@Override
 	protected void updateGeneralPathOutside() {
 		// Nothing to do.
+	}
+
+
+	@Override
+	public boolean isToolTipVisible(int x, int y) {
+		return border.contains(x, y);
+	}
+
+
+	@Override
+	public String getToolTip() {
+		String msg;
+
+		if(log==null || log.length()==0)
+			msg = "";
+		else {
+			msg = getLatexErrorMessageFromLog();
+
+			if(msg.length()==0)
+				msg = log;
+		}
+
+		return msg;
 	}
 }

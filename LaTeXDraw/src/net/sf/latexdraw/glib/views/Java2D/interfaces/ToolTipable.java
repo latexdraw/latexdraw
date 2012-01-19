@@ -1,9 +1,7 @@
 package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
-import java.awt.Image;
-
 /**
- * This interface defines a view of a text.<br>
+ * Defines a type corresponding to shapes that support tooltips.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
@@ -16,32 +14,24 @@ import java.awt.Image;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 11/18/2011<br>
+ * 01/19/2012<br>
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public interface IViewText extends IViewShape, ToolTipable {
+public interface ToolTipable {
 	/**
-	 * Updates the image.
+	 * Tests if a tooltip can be displayed. The coordinates can be used to test
+	 * if the current pointer position points onto the tooltipable object.
+	 * @param x The X-coordinate to test.
+	 * @param y The Y-coordinate to test.
+	 * @return True if a tooltip can be displayed.
 	 * @since 3.0
 	 */
-	void updateImage();
+	boolean isToolTipVisible(final int x, final int y);
 
 	/**
-	 * @return the image.
+	 * @return The tooltip to display.
 	 * @since 3.0
 	 */
-	Image getImage();
-
-	/**
-	 * @return The precise latex error messages that the latex compilation produced.
-	 * @since 3.0
-	 */
-	String getLatexErrorMessageFromLog();
-
-	/**
-	 * @return The LaTeX document that will be compiled in order to get the picture of the text.
-	 * @since 3.0
-	 */
-	String getLaTeXDocument();
+	String getToolTip();
 }
