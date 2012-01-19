@@ -172,7 +172,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 	protected void initialiseLinks() {
 		try{
 			addLink(new ButtonClose2SaveLink(this));
-			addLink(new ShortCut2SaveLink(this));
+			addLink(new Shortcut2SavePrefLink(this));
 			addLink(new Button2SaveLink(this));
 			addLink(new Menu2SaveLink(this));
 			addLink(new Shortcut2SaveLink(this));
@@ -182,7 +182,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 			addLink(new Shortcut2LoadLink(this));
 			addLink(new Menu2NewLink(this));
 			addLink(new Button2NewLink(this));
-			addLink(new ShortCut2NewLink(this));
+			addLink(new Shortcut2NewLink(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -375,8 +375,8 @@ class Menu2NewLink extends Interaction2NewLink<MenuItemPressed> {
 
 
 
-class ShortCut2NewLink extends Interaction2NewLink<KeysPressure> {
-	protected ShortCut2NewLink(final FileLoaderSaver ins) throws InstantiationException, IllegalAccessException {
+class Shortcut2NewLink extends Interaction2NewLink<KeysPressure> {
+	protected Shortcut2NewLink(final FileLoaderSaver ins) throws InstantiationException, IllegalAccessException {
 		super(ins, KeysPressure.class);
 	}
 
@@ -392,13 +392,13 @@ class ShortCut2NewLink extends Interaction2NewLink<KeysPressure> {
 /**
  * This link maps a keyboard shortcut to an action that saves the preferences.
  */
-class ShortCut2SaveLink extends Interaction2SaveLink<KeysPressure> {
+class Shortcut2SavePrefLink extends Interaction2SaveLink<KeysPressure> {
 	/**
 	 * The constructor by default.
 	 * @param fileLoader The file loader/saver;
 	 * @since 3.0
 	 */
-	protected ShortCut2SaveLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+	protected Shortcut2SavePrefLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, KeysPressure.class);
 	}
 
