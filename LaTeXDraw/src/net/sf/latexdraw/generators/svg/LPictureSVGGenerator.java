@@ -1,5 +1,7 @@
 package net.sf.latexdraw.generators.svg;
 
+import java.io.IOException;
+
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
@@ -38,26 +40,21 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 	/**
 	 * Creates a picture from a SVGImage element.
 	 * @param elt The source element.
+	 * @throws IOException If a problem while reading/writing pictures occurs.
 	 * @since 2.0.0
 	 */
-	protected LPictureSVGGenerator(final SVGImageElement elt) {
-		this(DrawingTK.getFactory().createPicture(true, DrawingTK.getFactory().createPoint(), elt.getURI()));
+	protected LPictureSVGGenerator(final SVGImageElement elt) throws IOException {
+		this(DrawingTK.getFactory().createPicture(true, DrawingTK.getFactory().createPoint()));
 
-//		IPicture p = (IPicture)getShape();
-//
-//		p.createEPSImage();
-//		p.getPosition().setPoint(elt.getX(), elt.getY());
-//		p.getBorders().setFirstPoint(new LPoint(p.getPosition()));
-//		p.getBorders().setLastPoint(p.getPosition().getX()+p.getImage().getWidth(null), p.getPosition().getX()+p.getImage().getHeight(null));
-//		p.getBorders().setIsFilled(true);
-//		p.update();
+		shape.setPathSource(elt.getURI());
+		shape.getPosition().setPoint(elt.getX(), elt.getY());
 		applyTransformations(elt);
 	}
 
 
 
 
-	protected LPictureSVGGenerator(final SVGGElement elt) {
+	protected LPictureSVGGenerator(final SVGGElement elt) throws IOException {
 		this(elt, true);
 	}
 
@@ -66,10 +63,11 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 	/**
 	 * Creates a picture from a latexdraw-SVG element.
 	 * @param elt The source element.
+	 * @throws IOException If a problem while reading/writing pictures occurs.
 	 * @since 2.0.0
 	 */
-	protected LPictureSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createPicture(true, DrawingTK.getFactory().createPoint(), "")); //$NON-NLS-1$
+	protected LPictureSVGGenerator(final SVGGElement elt, final boolean withTransformation) throws IOException {
+		this(DrawingTK.getFactory().createPicture(true, DrawingTK.getFactory().createPoint()));
 
 		setNumber(elt);
 //		SVGElement elt2 = getLaTeXDrawElement(elt, null);

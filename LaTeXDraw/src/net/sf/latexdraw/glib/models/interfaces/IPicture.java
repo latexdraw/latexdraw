@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
 import java.awt.Image;
+import java.io.IOException;
 
 /**
  * Defines an interface that classes defining a picture should implement.<br>
@@ -24,19 +25,13 @@ import java.awt.Image;
 public interface IPicture extends IPositionShape {
 	@Override
 	IPicture duplicate();
-	
-	/**
-	 * Defines the image.
-	 * @param path The path of the image.
-	 * @return True if the image is loaded.
-	 * @since 3.0
-	 */
-	boolean setImage(String path);
 
 	/**
+	 * Sets the new picture.
 	 * @param pathSource the pathSource to set.
+	 * @throws IOException If a problem while reading/writing pictures occurs.
 	 */
-	void setPathSource(String pathSource);
+	void setPathSource(String pathSource) throws IOException;
 
 	/**
 	 * @return the pathSource.

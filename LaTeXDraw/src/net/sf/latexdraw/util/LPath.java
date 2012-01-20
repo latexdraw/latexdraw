@@ -28,7 +28,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 public final class LPath {
 	/** The singleton. */
 	public static final LPath INSTANCE = new LPath();
-	
+
 	/** The name of the cache directory */
 	public static final String CACHE_DIR 		= ".cache";//$NON-NLS-1$
 
@@ -40,14 +40,13 @@ public final class LPath {
 
 	public static final String PATH_LOCAL_USER 				= INSTANCE.getPathLocalUser();
 	public static final String PATH_TEMPLATES_DIR_USER 		= PATH_LOCAL_USER + File.separator + TEMPLATE_DIR;
-	public static final String PATH_PREFERENCES_FILE_OLD   	= PATH_LOCAL_USER + File.separator + ".preferences";//$NON-NLS-1$
-	public static final String PATH_PREFERENCES_XML_FILE   	= PATH_PREFERENCES_FILE_OLD+".xml";//$NON-NLS-1$
+	public static final String PATH_PREFERENCES_XML_FILE   	= PATH_LOCAL_USER + File.separator + ".preferences.xml";//$NON-NLS-1$
 	public static final String PATH_CACHE_DIR      	   		= PATH_LOCAL_USER + File.separator + CACHE_DIR;
 	public static final String PATH_CACHE_SHARE_DIR	   		= PATH_LOCAL_USER + File.separator + CACHE_SHARED_DIR;
 	public static final String PATH_TEMPLATES_SHARED   		= INSTANCE.getPathTemplatesShared();
 	public static final String PATH_SHARED 			  		= INSTANCE.getPathShared();
 
-	
+
 	private LPath() {
 		super();
 	}

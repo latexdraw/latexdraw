@@ -136,11 +136,10 @@ public interface IShapeFactory {
 	 * Creates a picture and the corresponding EPS picture.
 	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The position of the top-left point of the picture.
-	 * @param pathSource The path of the image to load.
 	 * @return The created picture.
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 */
-	IPicture createPicture(final boolean isUniqueID, final IPoint pt, final String pathSource);
+	IPicture createPicture(final boolean isUniqueID, final IPoint pt);
 
 	/**
 	 * Creates a grid with a predefined point.

@@ -4,9 +4,13 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.List;
 
+import javax.swing.JFileChooser;
+
 import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.InitTextSetter;
+import net.sf.latexdraw.actions.InsertPicture;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.filters.PictureFilter;
 import net.sf.latexdraw.glib.models.interfaces.Arcable;
 import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
@@ -110,6 +114,9 @@ public class Pencil extends Instrument {
 	/** The style of the right arrows. */
 	protected ArrowStyle arrowRightStyle;
 
+	/** The file chooser used to select pictures. */
+	protected JFileChooser pictureFileChooser;
+
 
 	/**
 	 * Creates a pencil.
@@ -167,6 +174,7 @@ public class Pencil extends Instrument {
 		try{
 			addLink(new Press2AddShape(this));
 			addLink(new Press2AddText(this, false));
+			addLink(new Press2InsertPicture(this, false));
 			addLink(new DnD2AddShape(this, false));
 			addLink(new MultiClic2AddShape(this, false));
 			addLink(new Press2InitTextSetter(this));
@@ -249,6 +257,23 @@ public class Pencil extends Instrument {
 			((IStandardGrid)shape).copy(gridShape);
 
 		shape.setModified(true);
+	}
+
+
+	/**
+	 * @return The file chooser used to select pictures.
+	 * @since 3.0
+	 */
+	public JFileChooser getPictureFileChooser() {
+		if(pictureFileChooser==null) {
+			pictureFileChooser = new JFileChooser();
+
+			pictureFileChooser.setMultiSelectionEnabled(false);
+			pictureFileChooser.setAcceptAllFileFilterUsed(true);
+			pictureFileChooser.setFileFilter(new PictureFilter());
+		}
+
+		return pictureFileChooser;
 	}
 
 
@@ -852,10 +877,35 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 }
 
 
+
+/**
+ * Maps a mouse press interaction to an action that asks and adds a picture into the drawing.
+ */
+class Press2InsertPicture extends Link<InsertPicture, Press, Pencil> {
+	protected Press2InsertPicture(final Pencil ins, final boolean exec) throws InstantiationException, IllegalAccessException {
+		super(ins, exec, InsertPicture.class, Press.class);
+	}
+
+	@Override
+	public void initAction() {
+		action.setDrawing(instrument.drawing);
+		action.setShape(DrawingTK.getFactory().createPicture(true, instrument.getAdaptedPoint(interaction.getPoint())));
+		action.setFileChooser(instrument.getPictureFileChooser());
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return instrument.getCurrentChoice()==EditionChoice.PICTURE;
+	}
+}
+
+
+
 class Press2AddShape extends PencilLink<Press> {
 	protected Press2AddShape(final Pencil ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, Press.class);
 	}
+
 
 	@Override
 	public void initAction() {
@@ -868,6 +918,7 @@ class Press2AddShape extends PencilLink<Press> {
 			shape.setModified(true);
 		}
 	}
+
 
 	@Override
 	public boolean isConditionRespected() {

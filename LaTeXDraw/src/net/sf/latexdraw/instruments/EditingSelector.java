@@ -89,6 +89,9 @@ public class EditingSelector extends WidgetInstrument {
 	/** The button that allows to select the instrument Pencil to add arcs. */
 	protected MToggleButton arcB;
 
+	/** The button that allows to select the instrument Pencil to add pictures. */
+	protected MToggleButton picB;
+
 	/** The instrument Hand. */
 	protected Hand hand;
 
@@ -158,6 +161,7 @@ public class EditingSelector extends WidgetInstrument {
 		button2EditingChoiceMap.put(rhombusB, EditionChoice.RHOMBUS);
 		button2EditingChoiceMap.put(squareB, EditionChoice.SQUARE);
 		button2EditingChoiceMap.put(triangleB, EditionChoice.TRIANGLE);
+		button2EditingChoiceMap.put(picB, EditionChoice.PICTURE);
 	}
 
 
@@ -214,6 +218,9 @@ public class EditingSelector extends WidgetInstrument {
 
 		linesB = new MToggleButton(LResources.LINES_ICON);
 		linesB.setMargin(LResources.INSET_BUTTON);
+
+		picB = new MToggleButton(LResources.INSERT_PIC_ICON);
+		picB.setMargin(LResources.INSET_BUTTON);
 	}
 
 
@@ -237,6 +244,7 @@ public class EditingSelector extends WidgetInstrument {
 			triangleB.setSelected(false);
 			bezierB.setSelected(false);
 			bezierClosedB.setSelected(false);
+			picB.setSelected(false);
 		} else if(pencil.isActivated()){
 			EditionChoice ec = pencil.getCurrentChoice();
 
@@ -256,6 +264,7 @@ public class EditingSelector extends WidgetInstrument {
 			bezierClosedB.setSelected(ec==EditionChoice.BEZIER_CURVE_CLOSED);
 			textB.setSelected(ec==EditionChoice.TEXT);
 			freeHandB.setSelected(ec==EditionChoice.FREE_HAND);
+			picB.setSelected(ec==EditionChoice.PICTURE);
 			handB.setSelected(false);
 		}
 	}
@@ -305,6 +314,7 @@ public class EditingSelector extends WidgetInstrument {
 		composer.setWidgetVisible(textB, activated);
 		composer.setWidgetVisible(freeHandB, activated);
 		composer.setWidgetVisible(handB, activated);
+		composer.setWidgetVisible(picB, activated);
 	}
 
 
@@ -469,6 +479,14 @@ public class EditingSelector extends WidgetInstrument {
 	 */
 	public MToggleButton getArcB() {
 		return arcB;
+	}
+
+	/**
+	 * @return The button that allows the select instrument Pencil to add pictures.
+	 * @since 3.0
+	 */
+	public MToggleButton getPicB() {
+		return picB;
 	}
 
 

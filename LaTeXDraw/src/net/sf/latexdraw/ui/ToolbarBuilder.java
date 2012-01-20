@@ -149,6 +149,11 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.117")); //$NON-NLS-1$
 		widget.add(button);
 
+		//Adding a widget to add pictures.
+		button = frame.editingSelector.getPicB();
+		button.setToolTipText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.1")); //$NON-NLS-1$
+		widget.add(button);
+
 		widget.add(frame.exceptionsManager.getExceptionB());
 
 		if(progressBar!=null) progressBar.addToProgressBar(5);

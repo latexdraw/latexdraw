@@ -5,7 +5,6 @@ import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
 
-
 /**
  * Defines an abstract view of the IPicture model.<br>
  * <br>
@@ -43,13 +42,16 @@ class LPictureView extends LShapeView<IPicture> {
 	}
 
 
+	@Override
+	public boolean contains(double x, double y) {
+		return border.contains(x, y);
+	}
 
 
 	@Override
 	public void paint(final Graphics2D g) {
 		g.drawImage(shape.getImage(), (int)shape.getX(), (int)shape.getY(), null);
 	}
-
 
 
 	@Override
@@ -60,42 +62,31 @@ class LPictureView extends LShapeView<IPicture> {
 
 	@Override
 	protected void updateDblePathInside() {
-		// TODO Auto-generated method stub
-
+		// Nothing to do.
 	}
-
 
 	@Override
 	protected void updateDblePathMiddle() {
-		// TODO Auto-generated method stub
-
+		// Nothing to do.
 	}
-
 
 	@Override
 	protected void updateDblePathOutside() {
-		// TODO Auto-generated method stub
-
+		// Nothing to do.
 	}
-
 
 	@Override
 	protected void updateGeneralPathInside() {
-		// TODO Auto-generated method stub
-
+		// Nothing to do.
 	}
-
 
 	@Override
 	protected void updateGeneralPathMiddle() {
-		// TODO Auto-generated method stub
-
+		// Nothing to do.
 	}
-
 
 	@Override
 	protected void updateGeneralPathOutside() {
-		// TODO Auto-generated method stub
-
+		// Nothing to do.
 	}
 }

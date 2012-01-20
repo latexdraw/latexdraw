@@ -11,6 +11,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
+import net.sf.latexdraw.glib.models.interfaces.IPicture;
 import net.sf.latexdraw.glib.models.interfaces.IPolygon;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
@@ -19,7 +20,6 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.ISquare;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.ITriangle;
-import net.sf.latexdraw.lang.LangTool;
 
 /**
  * Defines the choices of edition of the canvas.<br>
@@ -43,21 +43,11 @@ import net.sf.latexdraw.lang.LangTool;
 public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	RECT {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.3"); //$NON-NLS-1$
-		}
-
-		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(IRectangle.class);
 		}
 	},
 	DOT {
-		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.4"); //$NON-NLS-1$
-		}
-
 		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(IDot.class);
@@ -65,21 +55,11 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	},
 	SQUARE {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.5"); //$NON-NLS-1$
-		}
-
-		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(ISquare.class);
 		}
 	},
 	RHOMBUS {
-		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.6"); //$NON-NLS-1$
-		}
-
 		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(IRhombus.class);
@@ -87,21 +67,11 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	},
 	FREE_HAND {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.7"); //$NON-NLS-1$;
-		}
-
-		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(IFreehand.class);
 		}
 	},
 	TRIANGLE {
-		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.8"); //$NON-NLS-1$
-		}
-
 		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(ITriangle.class);
@@ -109,21 +79,11 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	},
 	LINES {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getString16("LaTeXDrawFrame.4");  //$NON-NLS-1$
-		}
-
-		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(IPolyline.class);
 		}
 	},
 	CIRCLE {
-		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.9"); //$NON-NLS-1$
-		}
-
 		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(ICircle.class);
@@ -131,21 +91,11 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	},
 	GRID {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.10"); //$NON-NLS-1$
-		}
-
-		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(IGrid.class);
 		}
 	},
 	AXES {
-		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getString18("LaTeXDrawFrame.0"); //$NON-NLS-1$
-		}
-
 		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(IAxes.class);
@@ -153,38 +103,17 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	},
 	ELLIPSE {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.11"); //$NON-NLS-1$
-		}
-
-		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(IEllipse.class);
 		}
 	},
 	POLYGON {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.12"); //$NON-NLS-1$
-		}
-
-		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(IPolygon.class);
 		}
 	},
-//	SELECTION {//TODO relocate ? remove ?
-//		@Override
-//		public String getLabel() {
-//			return LaTeXDrawLang.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.13"); //$NON-NLS-1$
-//		}
-//	},
 	WEDGE {
-		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.36"); //$NON-NLS-1$
-		}
-
 		@Override
 		public IShape createShapeInstance() {
 			final IShape shape = DrawingTK.getFactory().newShape(IArc.class);
@@ -194,11 +123,6 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	},
 	CIRCLE_ARC {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.35"); //$NON-NLS-1$
-		}
-
-		@Override
 		public IShape createShapeInstance() {
 			final IShape shape = DrawingTK.getFactory().newShape(ICircleArc.class);
 			((ICircleArc)shape).setArcStyle(ArcStyle.ARC);
@@ -206,11 +130,6 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 		}
 	},
 	CHORD {
-		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.37"); //$NON-NLS-1$
-		}
-
 		@Override
 		public IShape createShapeInstance() {
 			final IShape shape = DrawingTK.getFactory().newShape(IArc.class);
@@ -220,11 +139,6 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	},
 	BEZIER_CURVE {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.63"); //$NON-NLS-1$
-		}
-
-		@Override
 		public IShape createShapeInstance() {
 			final IShape shape = DrawingTK.getFactory().newShape(IBezierCurve.class);
 			((IBezierCurve)shape).setIsClosed(false);
@@ -232,11 +146,6 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 		}
 	},
 	BEZIER_CURVE_CLOSED {
-		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getString19("LaTeXDrawFrame.1"); //$NON-NLS-1$
-		}
-
 		@Override
 		public IShape createShapeInstance() {
 			final IShape shape = DrawingTK.getFactory().newShape(IBezierCurve.class);
@@ -246,22 +155,16 @@ public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	},
 	TEXT {
 		@Override
-		public String getLabel() {
-			return LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.60"); //$NON-NLS-1$
-		}
-
-		@Override
 		public IShape createShapeInstance() {
 			return DrawingTK.getFactory().newShape(IText.class);
 		}
+	},
+	PICTURE {
+		@Override
+		public IShape createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IPicture.class);
+		}
 	};
-
-
-	/**
-	 * @return The label of the edition choice.
-	 * @since 3.0
-	 */
-	public abstract String getLabel();
 
 
 	/**

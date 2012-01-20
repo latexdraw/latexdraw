@@ -93,7 +93,7 @@ public class LShapeFactory implements IShapeFactory {
 		if(shapeClass.equals(IGroup.class) || shapeClass.equals(LGroup.class))
 			return shapeClass.cast(createGroup(true));
 		if(shapeClass.equals(IPicture.class) || shapeClass.equals(LPicture.class))
-			return shapeClass.cast(createPicture(true, createPoint(), "")); //$NON-NLS-1$
+			return shapeClass.cast(createPicture(true, createPoint()));
 		if(shapeClass.equals(IText.class) || shapeClass.equals(LText.class))
 			return shapeClass.cast(createText(true));
 		return null;
@@ -165,8 +165,8 @@ public class LShapeFactory implements IShapeFactory {
 	}
 
 	@Override
-	public IPicture createPicture(final boolean isUniqueID, final IPoint pt, final String pathSource) {
-		return new LPicture(isUniqueID, pt, pathSource);
+	public IPicture createPicture(final boolean isUniqueID, final IPoint pt) {
+		return new LPicture(isUniqueID, pt);
 	}
 
 	@Override
