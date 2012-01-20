@@ -61,9 +61,32 @@ public interface IText extends IPositionShape {
 		 * @since 3.0
 		 */
 		public abstract String getLatexToken();
+
+
+		/**
+		 * @param latexToken The latex token to test.
+		 * @return The TextPosition enumeration item corresponding to the given latex token.
+		 * @since 3.0
+		 */
+		public static TextPosition getTextPosition(final String latexToken) {
+			if(BOT.getLatexToken().equals(latexToken))
+				return BOT;
+			if(BOT_LEFT.getLatexToken().equals(latexToken))
+				return BOT_LEFT;
+			if(BOT_RIGHT.getLatexToken().equals(latexToken))
+				return BOT_RIGHT;
+			if(TOP.getLatexToken().equals(latexToken))
+				return TOP;
+			if(TOP_LEFT.getLatexToken().equals(latexToken))
+				return TOP_LEFT;
+			if(TOP_RIGHT.getLatexToken().equals(latexToken))
+				return TOP_RIGHT;
+
+			return null;
+		}
 	}
 
-	
+
 	@Override
 	IText duplicate();
 

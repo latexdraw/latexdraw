@@ -37,6 +37,9 @@ Improvements:
 
 Changes:
 - Tabs are used to replace the code panel.
+- Text support:
+    - Font family and font size cannot be loaded from a latexdraw 2.* svg file
+    - No more widgets to define framedbox. You have to do that manually in latex.
 - there is no more the choice between line and curve to close a Bezier curve. Only curve is supported. That because in a 
   future release, every segment of a Bezier curve will be either a line or a curve.
 - the PPC (point per centimetre) cannot be changed anymore.
