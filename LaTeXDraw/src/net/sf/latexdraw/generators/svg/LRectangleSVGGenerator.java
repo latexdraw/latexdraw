@@ -120,9 +120,9 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 		setSVGParameters(elt);
 
 		final double rx	= elt.getRx();
-		final double gap= getPositionGap()/2.;
+		final double gap= getPositionGap();
 
-		shape.setPosition(elt.getX()+gap, elt.getY()+elt.getHeight()+gap);
+		shape.setPosition(elt.getX()+gap/2., elt.getY()+elt.getHeight()-gap/2.);
 		shape.setWidth(elt.getWidth()-gap);
 		shape.setHeight(elt.getHeight()-gap);
 		shape.setLineArc((2.*rx)/(min(shape.getHeight(), shape.getWidth())- (shape.hasDbleBord() ? shape.getDbleBordSep()+shape.getThickness() : 0.)));
@@ -157,7 +157,7 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 
         if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
         	// The background of the borders must be filled is there is a shadow.
-	        elt = new SVGRectElement(x, y,width, height, document);
+	        elt = new SVGRectElement(x, y, width, height, document);
 	        setSVGBorderBackground(elt, root);
 	        setSVGRoundCorner(elt);
         }
