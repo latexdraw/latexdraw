@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LResources;
 
 /**
@@ -33,10 +34,8 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 	 */
 	protected PSTPictureView(final IPicture model) {
 		super(model);
-
 		update();
 	}
-
 
 
 
@@ -47,7 +46,6 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 
 		emptyCache();
 
-		//FIXME position of the picture
 		String path 		= shape.getPathTarget();
 		StringBuilder start = new StringBuilder();
 		StringBuilder rot 	= getRotationHeaderCode(ppc, origin);
@@ -61,9 +59,12 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 			cache.append(rot);
 
 		cache.append(start);
+		cache.append("\\rput(");//$NON-NLS-1$
+		cache.append((float)LNumber.INSTANCE.getCutNumber((shape.getX()+shape.getWidth()/2.-origin.getX())/ppc)).append(',');
+		cache.append((float)LNumber.INSTANCE.getCutNumber((origin.getY()-shape.getY()-shape.getHeight()/2.)/ppc)).append(')').append('{');
 		cache.append("\\includegraphics{"); //$NON-NLS-1$
 		cache.append(path);
-		cache.append('}');
+		cache.append('}').append('}');
 
 		if(rot!=null)
 			cache.append(rot);
