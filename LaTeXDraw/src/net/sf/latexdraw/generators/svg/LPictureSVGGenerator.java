@@ -36,7 +36,6 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 	}
 
 
-
 	/**
 	 * Creates a picture from a SVGImage element.
 	 * @param elt The source element.
@@ -50,7 +49,6 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 		shape.getPosition().setPoint(elt.getX(), elt.getY());
 		applyTransformations(elt);
 	}
-
 
 
 
@@ -70,29 +68,15 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 		this(DrawingTK.getFactory().createPicture(true, DrawingTK.getFactory().createPoint()));
 
 		setNumber(elt);
-//		SVGElement elt2 = getLaTeXDrawElement(elt, null);
-//
-//		if(elt==null || elt2==null || !(elt2 instanceof SVGImageElement))
-//			throw new IllegalArgumentException();
-//
-//		SVGImageElement main = (SVGImageElement)elt2;
-//
-//		IPicture p = (IPicture)getShape();
-//		p.setPathSource(main.getURI());
-//		p.setPicture(p.getImage());
-//
-//		if(p.getImage()==null)
-//			throw new IllegalArgumentException();
-//
-//		double x = main.getX();
-//		double y = main.getY();
-//
-//		p.createEPSImage();
-//		p.getPosition().setLocation(x, y);
-//		p.getBorders().setFirstPoint(new LPoint(x, y));
-//		p.getBorders().setLastPoint(x+p.getPicture().getWidth(null), y+p.getPicture().getHeight(null));
-//		p.getBorders().setIsFilled(true);
-//		p.updateShape();
+		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+
+		if(elt==null || !(elt2 instanceof SVGImageElement))
+			throw new IllegalArgumentException();
+
+		SVGImageElement main = (SVGImageElement)elt2;
+
+		shape.setPathSource(main.getURI());
+		shape.setPosition(main.getX(), main.getY());
 
 		if(withTransformation)
 			applyTransformations(elt);
