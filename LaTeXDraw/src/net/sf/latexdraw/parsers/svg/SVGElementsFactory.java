@@ -104,6 +104,8 @@ public final class SVGElementsFactory {
 					return new SVGMarkerElement(src, parent);
 				else if(name.endsWith(SVGElements.SVG_TEXT))
 					return new SVGTextElement(src, parent);
+				else if(name.endsWith(SVGElements.SVG_IMAGE))
+					return new SVGImageElement(src, parent);
 			}
 			else
 				return new OtherNSElement(src, parent);
