@@ -173,4 +173,10 @@ class LPicture extends LPositionShape implements IPicture {
 		final IShape sh = super.duplicate();
 		return sh instanceof IPicture ? (IPicture)sh : null;
 	}
+
+
+	@Override
+	public boolean isColourable() {
+		return false;
+	}
 }

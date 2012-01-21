@@ -580,6 +580,13 @@ abstract class LShape implements IShape {
 
 
 	@Override
+	public boolean isColourable() {
+		return true;
+	}
+
+
+
+	@Override
 	public void scale(final double sx, final double sy, final Position pos) {
 		if(pos==null || !GLibUtilities.INSTANCE.isValidPoint(sx, sy) || sx<=0 || sy<=0)
 			throw new IllegalArgumentException();

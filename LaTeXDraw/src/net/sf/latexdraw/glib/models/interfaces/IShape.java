@@ -389,6 +389,12 @@ public interface IShape extends Modifiable, IArrowable {
 	boolean isDbleBorderable();
 
 	/**
+	 * @return True if the shape can have colours.
+	 * @since 3.0
+	 */
+	boolean isColourable();
+
+	/**
 	 * @return True if the shape can have an interior colour.
 	 * @since 3.0
 	 */

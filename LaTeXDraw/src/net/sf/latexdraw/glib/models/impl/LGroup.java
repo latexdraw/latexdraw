@@ -2383,4 +2383,14 @@ class LGroup extends LShape implements IGroup {
 
 		return null;
 	}
+
+
+	@Override
+	public boolean isColourable() {
+		for(final IShape sh : shapes)
+			if(sh.isColourable())
+				return true;
+
+		return false;
+	}
 }
