@@ -21,6 +21,8 @@ import org.malai.preferences.Preferenciable;
 import org.malai.properties.Modifiable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * This class defines a magnetic grid.<br>
@@ -464,21 +466,33 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 
 
 	@Override
-	public void load(final boolean generalPreferences, final String nsURI, final Element root) {
-		String name = root.getNodeName();
+	public void load(final boolean generalPreferences, final String nsURI, final Element meta) {
+		final NodeList nl = meta.getChildNodes();
+		final String uri = nsURI==null ? "" : nsURI; //$NON-NLS-1$
+		Node node;
+		String name;
 
-		if(name.endsWith(LNamespace.XML_GRID_GAP))
-			setGridSpacing(Integer.parseInt(root.getTextContent()));
-		else if(name.endsWith(LNamespace.XML_MAGNETIC_GRID))
-			setMagnetic(Boolean.parseBoolean(root.getTextContent()));
-		else if(name.endsWith(LNamespace.XML_MAGNETIC_GRID_STYLE))
-			setStyle(GridStyle.getStylefromName(root.getTextContent()));
-		// To keep compatibility with latexdraw 2.0
-		//TODO to remove with these tokens in a future release (in a couple of years).
-		else if(name.endsWith(LNamespace.XML_DISPLAY_GRID)) {
-			if(!Boolean.parseBoolean(root.getTextContent()))
-				setStyle(GridStyle.NONE);
-		} else if(name.endsWith(LNamespace.XML_CLASSIC_GRID))
-			setStyle(Boolean.parseBoolean(root.getTextContent()) ? GridStyle.STANDARD : GridStyle.CUSTOMISED);
+		for(int i=0, size=nl.getLength(); i<size; i++) {
+			node = nl.item(i);
+
+			// Must be a latexdraw tag.
+			if(node!=null && uri.equals(node.getNamespaceURI())) {
+				name = node.getNodeName();
+
+				if(name.endsWith(LNamespace.XML_GRID_GAP))
+					setGridSpacing(Integer.parseInt(node.getTextContent()));
+				else if(name.endsWith(LNamespace.XML_MAGNETIC_GRID))
+					setMagnetic(Boolean.parseBoolean(node.getTextContent()));
+				else if(name.endsWith(LNamespace.XML_MAGNETIC_GRID_STYLE))
+					setStyle(GridStyle.getStylefromName(node.getTextContent()));
+				// To keep compatibility with latexdraw 2.0
+				//TODO to remove with these tokens in a future release (in a couple of years).
+				else if(name.endsWith(LNamespace.XML_DISPLAY_GRID)) {
+					if(!Boolean.parseBoolean(node.getTextContent()))
+						setStyle(GridStyle.NONE);
+				} else if(name.endsWith(LNamespace.XML_CLASSIC_GRID))
+					setStyle(Boolean.parseBoolean(node.getTextContent()) ? GridStyle.STANDARD : GridStyle.CUSTOMISED);
+			}
+		}
 	}
 }
