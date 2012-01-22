@@ -126,8 +126,8 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 		final GridStyle style = grid.getStyle();
 		final boolean visible = style!=GridStyle.NONE;
 
-		gridSpacing.setVisible(visible && style==GridStyle.CUSTOMISED);
-		magneticCB.setVisible(visible);
+		composer.setWidgetVisible(gridSpacing, visible && style==GridStyle.CUSTOMISED);
+		composer.setWidgetVisible(magneticCB, visible);
 		styleList.setSelectedItemSafely(style.getLabel());
 
 		if(visible) {
