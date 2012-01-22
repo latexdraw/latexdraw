@@ -600,6 +600,15 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 
 	/**
+	 * @return True if a new version must be checked.
+	 * @since 3.0
+	 */
+	public boolean isVersionCheckEnable() {
+		return checkNewVersion!=null && checkNewVersion.isSelected();
+	}
+
+
+	/**
 	 * Applies the values of the preferences setter to the concerned elements.
 	 * @since 3.0
 	 */
@@ -642,7 +651,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		if(isFrameMaximized || frameSize.width==0 || frameSize.height==0)
 			frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		// TODO checkversion, autoupdate, drawBorders, PathtexEditor, recentFiles, XML_DIVIDER_POSITION
+		// TODO autoupdate, drawBorders, PathtexEditor, recentFiles, XML_DIVIDER_POSITION
 	}
 
 

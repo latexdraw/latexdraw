@@ -2,8 +2,8 @@ package net.sf.latexdraw.instruments;
 
 import java.awt.event.KeyEvent;
 
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import javax.swing.JTextField;
 
 import net.sf.latexdraw.actions.Export;
 import net.sf.latexdraw.actions.Export.ExportFormat;
@@ -115,7 +115,7 @@ public class Exporter extends WidgetInstrument {
 	protected String defaultPackages;
 
 	/** The field where messages are displayed. */
-	protected JTextField statusBar;
+	protected JLabel statusBar;
 
 
 
@@ -128,7 +128,7 @@ public class Exporter extends WidgetInstrument {
 	 * @throws IllegalArgumentException If one of the given arguments is null.
 	 * @since 3.0
 	 */
-	public Exporter(final UIComposer<?> composer, final ICanvas canvas, final IDrawing drawing, final JTextField statusBar) {
+	public Exporter(final UIComposer<?> composer, final ICanvas canvas, final IDrawing drawing, final JLabel statusBar) {
 		super(composer);
 
 		if(canvas==null || drawing==null || statusBar==null)

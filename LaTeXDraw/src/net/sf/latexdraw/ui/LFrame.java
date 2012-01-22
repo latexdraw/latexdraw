@@ -1,7 +1,7 @@
 package net.sf.latexdraw.ui;
 
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -119,7 +119,7 @@ public class LFrame extends UI {
 	protected ShapeDeleter deleter;
 
 	/** The status-bar of the frame. */
-	protected JTextField statusBar;
+	protected JLabel statusBar;
 
 	/** The ruler used to display X-dimensions. */
 	protected XScaleRuler xScaleRuler;
@@ -192,8 +192,8 @@ public class LFrame extends UI {
 			progressBar.addToProgressBar(5);
 
 		// Initialisation of the status bar.
-		statusBar = new JTextField("");//$NON-NLS-1$
-		statusBar.setEditable(false);
+		statusBar = new JLabel("");//$NON-NLS-1$
+//		statusBar.setEditable(false);
 
 		/* Creation of the instruments. */
 		instantiateInstruments(canvas, drawing);
@@ -439,6 +439,15 @@ public class LFrame extends UI {
 	 */
 	public MTabbedPane getTabbedPanel() {
 		return tabbedPanel;
+	}
+
+
+	/**
+	 * @return The status bar used to display some feedback information.
+	 * @since 3.0
+	 */
+	public JLabel getStatusBar() {
+		return statusBar;
 	}
 }
 

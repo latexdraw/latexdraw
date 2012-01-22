@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.JFileChooser;
-import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 import net.sf.latexdraw.actions.LoadDrawing;
 import net.sf.latexdraw.actions.NewDrawing;
@@ -93,7 +93,7 @@ public class FileLoaderSaver extends WidgetInstrument {
     protected UI ui;
 
 	/** The field where messages are displayed. */
-	protected JTextField statusBar;
+	protected JLabel statusBar;
 
 	/** The instrument used to manage preferences. */
 	protected PreferencesSetter prefSetter;
@@ -108,7 +108,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 	 * @throws NullPointerException If the given UI is null.
 	 * @since 3.0
 	 */
-	public FileLoaderSaver(final UI ui, final JTextField statusBar, final PreferencesSetter prefSetter) {
+	public FileLoaderSaver(final UI ui, final JLabel statusBar, final PreferencesSetter prefSetter) {
 		super(ui.getComposer());
 
 		if(statusBar==null || prefSetter==null)

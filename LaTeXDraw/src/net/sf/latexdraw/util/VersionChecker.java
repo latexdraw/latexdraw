@@ -5,14 +5,11 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.lang.LangTool;
 
 /**
  * This class allows to check if a new version of LaTeXDraw is out. This class is a child of Thread
@@ -33,25 +30,25 @@ import net.sf.latexdraw.lang.LangTool;
  * 05/20/2010<br>
  * @author Arnaud BLOUIN
  * @version 3.0
- * @since 1.8<br>
+ * @since 1.8
  */
 public class VersionChecker extends Thread {
 	/** The version of the application */
 	public final static String VERSION   = "3.0.0";//$NON-NLS-1$
 
-	public final static String VERSION_STABILITY = "pre alpha 1"; //$NON-NLS-1$
+	public final static String VERSION_STABILITY = "alpha 1"; //$NON-NLS-1$
 
 	/** The identifier of the build */
-	public static final String ID_BUILD = "20110110";//$NON-NLS-1$
+	public static final String ID_BUILD = "20120131";//$NON-NLS-1$
 
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;
-	
+
     /** The path of the file containing the news */
     public static final String PATH_MSG = "http://latexdraw.sourceforge.net/news.txt"; //$NON-NLS-1$
 
     /** The field where messages will be displayed. */
-    protected JTextField notificationTextField;
+    protected JLabel notificationTextField;
 
 
 	/**
@@ -59,7 +56,7 @@ public class VersionChecker extends Thread {
 	 * @param notificationTextField The field where messages will be displayed.
 	 * @throws IllegalArgumentException If notificationTextField is null.
 	 */
-	public VersionChecker(final JTextField notificationTextField) {
+	public VersionChecker(final JLabel notificationTextField) {
 		super();
 
 		if(notificationTextField==null)
@@ -79,56 +76,29 @@ public class VersionChecker extends Thread {
   	 * Checks if a new version of latexdraw is out.
   	 */
 	protected void checkNewVersion() {
-		boolean ok = true;
-		final URL url;
 		InputStream is=null;
 		DataInputStream dis=null;
 		InputStreamReader isr=null;
 		BufferedReader br=null;
-		final String line;
 
 		try {
-			url = new URL(PATH_MSG);
-			try {
-				is  = url.openStream();
-				dis = new DataInputStream(is);
-	  			isr = new InputStreamReader(dis);
-	  			br 	= new BufferedReader(isr);
+			is  = new URL(PATH_MSG).openStream();
+			dis = new DataInputStream(is);
+  			isr = new InputStreamReader(dis);
+  			br 	= new BufferedReader(isr);
 
-	  			try{
-	  				String[] div = null;
-	  				line = br.readLine();
+  			final String line = br.readLine();
+			final String[] div = line==null ? null : line.split("_"); //$NON-NLS-1$
 
-		  			if(line!=null)
-		  				div = line.split("_");//$NON-NLS-1$
-
-					if(div!=null && div.length>3)
-						if(div[3].compareTo(VERSION)>0) {
-							JOptionPane.showMessageDialog(null,
-					 		    "<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">"//$NON-NLS-1$
-					 		    +div[1]+ '/'+div[2]+'/'+div[0]+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.208") //$NON-NLS-1$
-					 		    +div[3]+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.209"),  //$NON-NLS-1$
-						 		   LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.210"),  //$NON-NLS-1$
-						 		    JOptionPane.WARNING_MESSAGE);
-							notificationTextField.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.211")); //$NON-NLS-1$
-						}
-						else notificationTextField.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.212")); //$NON-NLS-1$
-	  			}catch(final IOException e) { ok = false; }
-			}catch(final IOException e) { ok = false; }
-			finally {
-				if(is!=null) try{ is.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-				if(dis!=null) try{ dis.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-				if(isr!=null) try{ isr.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-				if(br!=null) try{ br.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-			}
+			if(div!=null && div.length>3 && div[3].compareTo(VERSION)>0)
+				notificationTextField.setText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" +
+											"Version" + ' ' + div[3]+ ' ' + "available!" + "</html>");
+		}catch(final IOException e) { /* Nothing to do. */ }
+		finally {
+			if(is!=null) try{ is.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+			if(dis!=null) try{ dis.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+			if(isr!=null) try{ isr.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+			if(br!=null) try{ br.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 		}
-		catch(final MalformedURLException ex) {
-			// That not normal so we launch the crash reporter.
-			BadaboomCollector.INSTANCE.add(ex);
-			ok = false;
-		}
-
-		if(!ok)
-  			notificationTextField.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.213")); //$NON-NLS-1$
   	}
 }

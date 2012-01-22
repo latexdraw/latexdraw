@@ -14,6 +14,7 @@ import net.sf.latexdraw.ui.SplashScreen;
 import net.sf.latexdraw.util.LCommandLine;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.Theme;
+import net.sf.latexdraw.util.VersionChecker;
 
 import org.malai.action.ActionsRegistry;
 import org.malai.mapping.MappingRegistry;
@@ -73,8 +74,6 @@ public final class LaTeXDraw {
     		case APPLICATION:
     		case APPLICATION_FILENAME:// Create the frame of the application.
     			launchLatexdraw(cmdLine);
-//	    	    	if(!System.getProperty("os.name").equals("Linux"))//$NON-NLS-1$//$NON-NLS-2$
-//	    	    		frame.setVisible(true);
     			break;
 
     		case CONVERTION:
@@ -118,5 +117,9 @@ public final class LaTeXDraw {
 	    	action.setFileChooser(frame.getFileLoader().getDialog(false));
 	    	action.doIt();
     	}
+
+    	// Checking a new version if required.
+    	if(VersionChecker.WITH_UPDATE && frame.getPrefSetters().isVersionCheckEnable())
+    		new VersionChecker(frame.getStatusBar()).run();
     }
  }
