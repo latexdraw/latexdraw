@@ -564,7 +564,8 @@ public class LCanvas extends MPanel implements ICanvas {
 	@Override
 	public void setModified(final boolean modified) {
 		this.modified = modified;
-		magneticGrid.setModified(modified);
+		if(!modified)
+			magneticGrid.setModified(modified);
 	}
 
 

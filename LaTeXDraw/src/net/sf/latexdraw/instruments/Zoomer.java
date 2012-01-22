@@ -75,7 +75,7 @@ public class Zoomer extends Instrument {
 
 	@Override
 	public void reinit() {
-		zoomSpinner.setValue(zoomable.getZoom()*100);
+		zoomSpinner.setValueSafely(zoomable.getZoom()*100);
 	}
 
 
@@ -95,7 +95,7 @@ public class Zoomer extends Instrument {
 
 	@Override
 	public void interimFeedback() {
-		zoomSpinner.setValue(zoomable.getZoom()*100);
+		zoomSpinner.setValueSafely(zoomable.getZoom()*100);
 	}
 
 
