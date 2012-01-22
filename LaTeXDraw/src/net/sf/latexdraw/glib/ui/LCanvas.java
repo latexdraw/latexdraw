@@ -437,6 +437,8 @@ public class LCanvas extends MPanel implements ICanvas {
 	        elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
 	        root.appendChild(elt);
 		}
+
+		magneticGrid.save(generalPreferences, nsURI, document, root);
 	}
 
 
@@ -479,6 +481,8 @@ public class LCanvas extends MPanel implements ICanvas {
 						setZoom(0, 0, Double.parseDouble(node.getTextContent()));
 			} // if
 		}// for
+
+		magneticGrid.load(generalPreferences, nsURI, meta);
 	}
 
 

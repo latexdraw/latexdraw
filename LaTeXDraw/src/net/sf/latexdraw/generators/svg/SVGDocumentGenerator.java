@@ -240,9 +240,8 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 
 			// Loads the presentation's data.
 			for(Presentation<?,?> presentation : ui.getPresentations())
-				presentation.getConcretePresentation().load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, meta);
+				presentation.getConcretePresentation().load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
 			//TODO drawborders, autoadjust, border, delimitorOpacity
-			// zoom : Zoomer or Canvas?
 			// unit : scaleRulerCustomiser
 			// code, caption, label, POSITION_HORIZ, POSITION_VERT, COMMENTS, AUTO_UPDATE: codePanelActivator or CodePanel, ...?
 			// size (width, height), position (x, y)

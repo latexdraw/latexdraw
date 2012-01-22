@@ -135,9 +135,6 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 				gridSpacing.setValueSafely(grid.getGridSpacing());
 			magneticCB.setSelected(grid.isMagnetic());
 		}
-
-//		if(widgetContainer!=null)
-//			widgetContainer.repaint();
 	}
 
 
