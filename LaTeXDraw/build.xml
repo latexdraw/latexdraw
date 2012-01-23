@@ -30,10 +30,6 @@
 	<!-- Creates the jar -->
 	<target name="jar" description="Generates latexdraw.jar">
 		<!-- copies the librairies -->
-		<copy todir="${dir.data}/help/" overwrite="true" failonerror="true">
-			<fileset dir="src/help/" />
-		</copy>
-		
 		<copy todir="${dir.data}/lib/" overwrite="true" failonerror="true">
 			<fileset dir="lib/" />
 		</copy>
