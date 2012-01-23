@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Shape;
 import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,6 +32,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.util.ImageCropper;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LResources;
@@ -200,8 +202,6 @@ class LTextView extends LShapeView<IText> implements IViewText {
 					}
 					if(ok)
 						ok = execute(new String[]{"ps2pdf", pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
-					if(ok)
-						ok = execute(new String[]{"pdfcrop", pathPic + PDFFilter.PDF_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
 
 					if(ok)
 						try {
@@ -210,20 +210,20 @@ class LTextView extends LShapeView<IText> implements IViewText {
 							final PDFFile pdfFile = new PDFFile(fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()));
 
 							if(pdfFile.getNumPages()==1) {
-								final PDFPage page = pdfFile.getPage(1);
+								final PDFPage page 		= pdfFile.getPage(1);
 								final Rectangle2D bound = page.getBBox();
-							    bi = page.getImage((int)bound.getWidth(), (int)bound.getHeight(), bound, null, false, true);
+							    final Image img 		= page.getImage((int)bound.getWidth(), (int)bound.getHeight(), bound, null, false, true);
+
+							    if(img instanceof BufferedImage)
+								    bi = ImageCropper.INSTANCE.cropImage((BufferedImage)img);
+
+							    if(img!=null)
+							    	img.flush();
 							}
 							else BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
 
 							new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
 						}catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
-
-//					if(log.length()==0) {
-//						log += execute(new String[]{"gs", "-q", "-dNOPAUSE", "-dBATCH", "-sDEVICE=pngalpha", "-r72", "-dEPSCrop", "-sOutputFile=" + pathPic + PNGFilter.PNG_EXTENSION,
-//													pathPic + PDFFilter.PDF_EXTENSION});
-//						new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
-//					}
 				}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 				try { if(fc!=null) fc.close(); }catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
