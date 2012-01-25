@@ -570,6 +570,24 @@ public abstract class SVGElement implements Element, Cloneable {
 	}
 
 
+
+	/**
+	 * Sets the transformation of the elements. Removes previous transformations.
+	 * Should not be called directly; call setAttribute instead.
+	 * @param transformation The transformation to set.
+	 * @since 3.0
+	 */
+	private void setTransformation(final String transformation) {
+		if(transform==null)
+			transform = new SVGTransformList();
+		else
+			transform.clear();
+
+		transform.addTransformations(getAttribute(getUsablePrefix()+SVGAttributes.SVG_TRANSFORM));
+	}
+
+
+
 	@Override
 	public void setAttribute(final String name, final String value) {
 		if(value==null || name==null)
@@ -579,6 +597,9 @@ public abstract class SVGElement implements Element, Cloneable {
 			attributes = new SVGNamedNodeMap();
 
 		attributes.setNamedItem(new SVGAttr(name, value, this));
+
+		if(SVGAttributes.SVG_TRANSFORM.equals(name))
+			setTransformation(value);
 	}
 
 
@@ -929,7 +950,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.2
 	 */
 	public void setStrokeLineCap(final String svgLineCap) {
-		if(SVGAttributes.SVG_LINECAP_VALUE_BUTT.equals(svgLineCap) || SVGAttributes.SVG_LINECAP_VALUE_ROUND.equals(svgLineCap) || 
+		if(SVGAttributes.SVG_LINECAP_VALUE_BUTT.equals(svgLineCap) || SVGAttributes.SVG_LINECAP_VALUE_ROUND.equals(svgLineCap) ||
 		   SVGAttributes.SVG_LINECAP_VALUE_SQUARE.equals(svgLineCap))
 			setAttribute(getUsablePrefix()+SVGAttributes.SVG_STROKE_LINECAP, svgLineCap);
 	}
