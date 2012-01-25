@@ -214,55 +214,55 @@ public interface IShape extends Modifiable, IArrowable {
 	public static enum FillingStyle {
 		NONE {
 			@Override
-			public boolean isFillable() { return false; }
+			public boolean isFilled() { return false; }
 
 			@Override
 			public String getLatexToken() { return PSTricksConstants.TOKEN_FILL_NONE; }
 		}, GRAD {
 			@Override
-			public boolean isFillable() { return false; }
+			public boolean isFilled() { return false; }
 
 			@Override
 			public String getLatexToken() { return PSTricksConstants.TOKEN_FILL_GRADIENT; }
 		}, HLINES {
 			@Override
-			public boolean isFillable() { return false; }
+			public boolean isFilled() { return false; }
 
 			@Override
 			public String getLatexToken() { return PSTricksConstants.TOKEN_FILL_HLINES; }
 		}, VLINES {
 			@Override
-			public boolean isFillable() { return false; }
+			public boolean isFilled() { return false; }
 
 			@Override
 			public String getLatexToken() { return PSTricksConstants.TOKEN_FILL_VLINES; }
 		}, CLINES {
 			@Override
-			public boolean isFillable() { return false; }
+			public boolean isFilled() { return false; }
 
 			@Override
 			public String getLatexToken() { return PSTricksConstants.TOKEN_FILL_CROSSHATCH; }
 		}, PLAIN {
 			@Override
-			public boolean isFillable() { return true; }
+			public boolean isFilled() { return true; }
 
 			@Override
 			public String getLatexToken() { return PSTricksConstants.TOKEN_FILL_SOLID; }
 		}, HLINES_PLAIN {
 			@Override
-			public boolean isFillable() { return true; }
+			public boolean isFilled() { return true; }
 
 			@Override
 			public String getLatexToken() { return PSTricksConstants.TOKEN_FILL_HLINES_F; }
 		}, VLINES_PLAIN {
 			@Override
-			public boolean isFillable() { return true; }
+			public boolean isFilled() { return true; }
 
 			@Override
 			public String getLatexToken() { return PSTricksConstants.TOKEN_FILL_VLINES_F; }
 		}, CLINES_PLAIN {
 			@Override
-			public boolean isFillable() { return true; }
+			public boolean isFilled() { return true; }
 
 			@Override
 			public String getLatexToken() { return PSTricksConstants.TOKEN_FILL_CROSSHATCH_F; }
@@ -270,10 +270,10 @@ public interface IShape extends Modifiable, IArrowable {
 
 
 		/**
-		 * Allows to know if the style can be filled.
-		 * @return True if the shape can be filled.
+		 * Allows to know if the style is filled.
+		 * @return True if the shape is filled.
 		 */
-		public abstract boolean isFillable();
+		public abstract boolean isFilled();
 
 		/**
 		 * @return The latex token corresponding to the filling style.

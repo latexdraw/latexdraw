@@ -526,7 +526,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public boolean isFilled() {
-		return fillingStyle.isFillable();
+		return fillingStyle.isFilled();
 	}
 
 

@@ -183,7 +183,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	protected void update(final IShape shape) {
 		if(shape.isInteriorStylable()) {
 			final FillingStyle style	= shape.getFillingStyle();
-			final boolean isFillable	= style.isFillable();
+			final boolean isFillable	= style.isFilled();
 			final boolean hatchings		= style.isHatchings();
 			final boolean gradient		= style.isGradient();
 
