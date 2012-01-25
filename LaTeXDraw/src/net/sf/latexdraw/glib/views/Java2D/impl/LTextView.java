@@ -36,6 +36,8 @@ import net.sf.latexdraw.util.ImageCropper;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
+import net.sf.latexdraw.util.LSystem.OperatingSystem;
 import net.sf.latexdraw.util.StreamExecReader;
 import sun.font.FontDesignMetrics;
 
@@ -169,7 +171,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	 * @return The LaTeX compiled picture of the text or null.
 	 * @since 3.0
 	 */
-	protected Image createImage() {
+	private Image createImage() {
 		Image bi = null;
 		log = ""; //$NON-NLS-1$
 
@@ -185,23 +187,24 @@ class LTextView extends LShapeView<IText> implements IViewText {
 				final OutputStreamWriter osw= new OutputStreamWriter(fos);
 				RandomAccessFile raf = null;
 				FileChannel fc = null;
+				final OperatingSystem os = LSystem.INSTANCE.getSystem();
 
 				try {
 					osw.append(doc);
 					try{ osw.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 					try{ fos.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-					boolean ok = execute(new String[]{"latex", "--halt-on-error", "--interaction=nonstopmode", "--output-directory=" + tmpDir.getAbsolutePath(), pathTex}); //$NON-NLS-1$ //$NON-NLS-2$
+					boolean ok = execute(new String[]{os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", "--output-directory=" + tmpDir.getAbsolutePath(), pathTex}); //$NON-NLS-1$ //$NON-NLS-2$
 					new File(pathTex).delete();
 					new File(pathPic + ".aux").delete(); //$NON-NLS-1$
 					new File(pathPic + ".log").delete(); //$NON-NLS-1$
 
 					if(ok) {
-						ok = execute(new String[]{"dvips", pathPic + ".dvi",  "-o", pathPic + PSFilter.PS_EXTENSION}); //$NON-NLS-1$ //$NON-NLS-2$
+						ok = execute(new String[]{os.getDvipsBinPath(), pathPic + ".dvi",  "-o", pathPic + PSFilter.PS_EXTENSION}); //$NON-NLS-1$ //$NON-NLS-2$
 						new File(pathPic + ".dvi").delete(); //$NON-NLS-1$
 					}
 					if(ok)
-						ok = execute(new String[]{"ps2pdf", pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
+						ok = execute(new String[]{os.getPs2pdfBinPath(), pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION}); //$NON-NLS-1$
 
 					if(ok)
 						try {

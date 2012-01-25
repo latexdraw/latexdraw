@@ -16,7 +16,9 @@ import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.StreamExecReader;
+import net.sf.latexdraw.util.LSystem.OperatingSystem;
 
 import org.malai.mapping.ActiveUnary;
 import org.malai.mapping.IUnary;
@@ -473,16 +475,17 @@ public abstract class LaTeXGenerator implements Modifiable {
 		IPoint bl		= synchronizer.getBottomLeftDrawingPoint();
 		int ppc			= synchronizer.getPPCDrawing();
 		float dec		= 0.2f;
+		final OperatingSystem os = LSystem.INSTANCE.getSystem();
 
 		if(texFile==null || !texFile.exists())
 			return null;
 
-		String[] paramsLatex = new String[] {"latex", "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+		String[] paramsLatex = new String[] {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 				texFile.getAbsolutePath()};
 		log    = execute(paramsLatex, tmpDir2);
 		File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
 		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
-		String[] paramsDvi = new String[] {"dvips", "-Pdownload35", "-T", ((tr.getX()-bl.getX())/ppc+dec)+"cm,"+((bl.getY()-tr.getY())/ppc+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		String[] paramsDvi = new String[] {os.getDvipsBinPath(), "-Pdownload35", "-T", ((tr.getX()-bl.getX())/ppc+dec)+"cm,"+((bl.getY()-tr.getY())/ppc+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 						name, "-o", pathExportPs}; //$NON-NLS-1$
 		log   += execute(paramsDvi, tmpDir2);
 
@@ -531,20 +534,21 @@ public abstract class LaTeXGenerator implements Modifiable {
 		File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PSFilter.PS_EXTENSION, synchronizer, tmpDir);
 		String log;
 		File pdfFile;
+		final OperatingSystem os = LSystem.INSTANCE.getSystem();
 
 		if(psFile==null)
 			return null;
 
 		// On windows, an option must be defined using this format:
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
-		String optionEmbed = "-dEmbedAllFonts" + (System.getProperty("os.name").toLowerCase().contains("win") ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+		String optionEmbed = "-dEmbedAllFonts" + (LSystem.INSTANCE.isWindows() ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-		log = execute(new String[] {"ps2pdf", optionEmbed, psFile.getAbsolutePath(), //$NON-NLS-1$
+		log = execute(new String[] {os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), //$NON-NLS-1$
 							crop ? name + PDFFilter.PDF_EXTENSION : pathExportPdf}, tmpDir);
 
 		if(crop) {
 			pdfFile = new File(tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PDFFilter.PDF_EXTENSION);
-			log 	= execute(new String[] {"pdfcrop", pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir); //$NON-NLS-1$
+			log 	= execute(new String[] {os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir); //$NON-NLS-1$
 			// JAVA7: test pdfFile.toPath().move(pathExportPdf)
 			// the renameto method is weak and fails sometimes.
 			if(!pdfFile.renameTo(new File(pathExportPdf)) && !LFileUtils.INSTANCE.copy(pdfFile, new File(pathExportPdf)))

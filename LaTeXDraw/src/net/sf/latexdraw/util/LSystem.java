@@ -24,22 +24,85 @@ public final class LSystem {
 	 * The different operating systems managed.
 	 */
 	public static enum OperatingSystem {
-		VISTA, XP, SEVEN, MAC_OS_X, LINUX;
+		VISTA, XP, SEVEN,
+		MAC_OS_X {
+			@Override
+			public String getLatexBinPath() {
+				return "/usr/texbin/latex";
+			}
+
+			@Override
+			public String getDvipsBinPath() {
+				return "/usr/texbin/dvips";
+			}
+
+			@Override
+			public String getPs2pdfBinPath() {
+				return "/usr/local/bin/ps2pdf";
+			}
+
+			@Override
+			public String getPdfcropBinPath() {
+				return "pdfcrop";
+			}
+		},
+		LINUX;
+
+		/**
+		 * @return The path where is the latex binary.
+		 * @since 3.0
+		 */
+		public String getLatexBinPath() {
+			return "latex";
+		}
+
+		/**
+		 * @return The path where is the dvips binary.
+		 * @since 3.0
+		 */
+		public String getDvipsBinPath() {
+			return "dvips";
+		}
+
+		/**
+		 * @return The path where is the ps2pdf binary.
+		 * @since 3.0
+		 */
+		public String getPs2pdfBinPath() {
+			return "ps2pdf";
+		}
+
+		/**
+		 * @return The path where is the pdfcrop binary.
+		 * @since 3.0
+		 */
+		public String getPdfcropBinPath() {
+			return "pdfcrop";
+		}
 	}
-	
-	
+
+
 	/** The singleton. */
-	public static final LSystem INSTANCE = new LSystem(); 
-	
-	
+	public static final LSystem INSTANCE = new LSystem();
+
+
 	/**
 	 * Creates the singleton.
 	 */
 	private LSystem() {
 		super();
 	}
-	
-	
+
+
+	/**
+	 * @return True: the operating system currently used is Windows.
+	 * @since 3.0
+	 */
+	public boolean isWindows() {
+		return isSeven() || isVista() || isXP();
+	}
+
+
 	/**
 	 * @return True: the operating system currently used is Vista.
 	 * @since 3.0
@@ -95,10 +158,10 @@ public final class LSystem {
 
 		if(os.equalsIgnoreCase("linux")) //$NON-NLS-1$
 			return OperatingSystem.LINUX;
-		
+
 		if(os.equalsIgnoreCase("windows 7")) //$NON-NLS-1$
 			return OperatingSystem.SEVEN;
-		
+
 		if(os.equalsIgnoreCase("windows vista")) //$NON-NLS-1$
 			return OperatingSystem.VISTA;
 
