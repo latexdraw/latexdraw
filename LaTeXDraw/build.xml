@@ -59,6 +59,8 @@
 			 />
 			 <fileset dir="" includes="res/**/* ; lang/**/*" />
 		</jar>
+		
+		<chmod file="${dir.data}/LaTeXDraw.jar" perm="+x"/>
 	</target>
 
 	
