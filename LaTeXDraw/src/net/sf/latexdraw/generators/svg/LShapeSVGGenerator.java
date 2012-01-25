@@ -274,36 +274,35 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 					shape.setShadowSize(tx);
 					sSize = true;
 				}
-				else
-					if(shape.getGravityCentre()!=null) {
-						shape.updateGravityCentre();
-						final IPoint gravityCenter 	= shape.getGravityCentre();
-						double angle 				= Double.NaN;
-						double shSize 				= shape.getShadowSize();
+				else {
+					shape.updateGravityCentre();
+					final IPoint gravityCenter 	= shape.getGravityCentre();
+					double angle 				= Double.NaN;
+					double shSize 				= shape.getShadowSize();
 
-						if(LNumber.INSTANCE.equals(ty, 0.))
-							angle = tx<0. ? Math.PI : 0.;
-						else
-							if(LNumber.INSTANCE.equals(shSize, Math.abs(tx)))
-								angle = ty>0. ? -Math.PI/2. : Math.PI/2.;
-							else {
-								angle = Math.acos(gravityCenter.distance(gravityCenter.getX()+tx+shSize, gravityCenter.getY())/
-													gravityCenter.distance(gravityCenter.getX()+tx+shSize, gravityCenter.getY()+ty));
+					if(LNumber.INSTANCE.equals(ty, 0.))
+						angle = tx<0. ? Math.PI : 0.;
+					else
+						if(LNumber.INSTANCE.equals(shSize, Math.abs(tx)))
+							angle = ty>0. ? -Math.PI/2. : Math.PI/2.;
+						else {
+							angle = Math.acos(gravityCenter.distance(gravityCenter.getX()+tx+shSize, gravityCenter.getY())/
+												gravityCenter.distance(gravityCenter.getX()+tx+shSize, gravityCenter.getY()+ty));
 
-								if(tx+shSize<0) {
-									if(ty<0.)
-										angle = Math.PI - angle;
-									else
-										angle += Math.PI;
-								}
+							if(tx+shSize<0) {
+								if(ty<0.)
+									angle = Math.PI - angle;
 								else
-									if(ty>0.)
-										angle *= -1;
+									angle += Math.PI;
 							}
+							else
+								if(ty>0.)
+									angle *= -1;
+						}
 
-						shape.setShadowAngle(angle);
-						sAngle = true;
-					}
+					shape.setShadowAngle(angle);
+					sAngle = true;
+				}
 			}
 		}
 
