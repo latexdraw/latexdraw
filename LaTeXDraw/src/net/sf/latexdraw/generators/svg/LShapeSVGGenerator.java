@@ -322,7 +322,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		shape.setDbleBordSep(elt.getStrokeWidth());
 		shape.setDbleBordCol(elt.getStroke());
-		shape.setThickness((float)((shape.getThickness()-shape.getDbleBordSep())/2.));
+		shape.setThickness((shape.getThickness()-shape.getDbleBordSep())/2.);
 		shape.setHasDbleBord(true);
 	}
 
@@ -353,7 +353,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			return ;
 
 		if(shape.isThicknessable())
-			shape.setThickness((float)elt.getStrokeWidth());
+			shape.setThickness(elt.getStrokeWidth());
 
 		if(shape.isBordersMovable()) {
 			final String bp = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_BORDERS_POS);
@@ -446,7 +446,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			return;
 
 		if(stroke==null || !stroke.equals(SVGAttributes.SVG_VALUE_NONE))
-			try{ shape.setThickness((float)new SVGLengthParser(strokeWidth).parseLength().getValue()); }
+			try{ shape.setThickness(new SVGLengthParser(strokeWidth).parseLength().getValue()); }
 			catch(final ParseException e){ BadaboomCollector.INSTANCE.add(e); }
 	}
 
@@ -943,7 +943,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				width = pat.getHatchingStrokeWidth();
 
 				if(!Double.isNaN(width))
-					shape.setHatchingsWidth((float)width);
+					shape.setHatchingsWidth(width);
 			}
 			else
 				// A linear gradient means a gradient.

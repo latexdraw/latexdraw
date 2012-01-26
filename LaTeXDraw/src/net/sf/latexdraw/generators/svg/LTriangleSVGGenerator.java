@@ -133,9 +133,9 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	    if(p1y>p2y)
 	    	cornerGap1*=-1;
 
-		String points = (float)p1x + "," + (float)(p1y - cornerGap1) + " " + //$NON-NLS-1$//$NON-NLS-2$
-						(float)(p2x - cornerGap2) + "," + (float)(p2y + (p1y<p2y ? gap : -gap)) + " " + //$NON-NLS-1$//$NON-NLS-2$
-						(float)(p3x + cornerGap2) + "," + (float)(p2y + (p1y<p2y ? gap : -gap));//$NON-NLS-1$
+		String points = p1x + "," + (p1y - cornerGap1) + " " + //$NON-NLS-1$//$NON-NLS-2$
+						(p2x - cornerGap2) + "," + (p2y + (p1y<p2y ? gap : -gap)) + " " + //$NON-NLS-1$//$NON-NLS-2$
+						(p3x + cornerGap2) + "," + (p2y + (p1y<p2y ? gap : -gap));//$NON-NLS-1$
 	    String ltdPoints = pt1.getX() + " " + pt1.getY() + " " + shape.getPtAt(1).getX() + " " + shape.getPtAt(1).getY() +//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 	    					" " + shape.getPtAt(2).getX() + " " + shape.getPtAt(2).getY() + " " + pt2.getX() + " " + pt2.getY();//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$
 

@@ -109,12 +109,12 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 	 * @since 3.0
 	 */
 	protected void getPathCurves(final SVGPathSegList path) {
-		float prevx = (float)shape.getPtAt(-1).getX();
-		float prevy = (float)shape.getPtAt(-1).getY();
-		float curx = (float)shape.getPtAt(0).getX();
-		float cury = (float)shape.getPtAt(0).getY();
-        float midx = (curx + prevx) / 2.0f;
-        float midy = (cury + prevy) / 2.0f;
+		double prevx = shape.getPtAt(-1).getX();
+		double prevy = shape.getPtAt(-1).getY();
+		double curx = shape.getPtAt(0).getX();
+		double cury = shape.getPtAt(0).getY();
+		double midx = (curx + prevx) / 2.;
+		double midy = (cury + prevy) / 2.;
 		int i;
 		final int size = shape.getNbPoints();
 		final int interval = shape.getInterval();
@@ -122,41 +122,41 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
     	path.add(new SVGPathSegMoveto(curx, cury, false));
 
         if(size>interval) {
-            prevx = curx;
-            prevy = cury;
-            curx = (float)shape.getPtAt(interval).getX();
-            cury = (float)shape.getPtAt(interval).getY();
-            midx = (curx + prevx) / 2.0f;
-            midy = (cury + prevy) / 2.0f;
-            path.add(new SVGPathSegLineto(midx, midy, false));
+           prevx = curx;
+           prevy = cury;
+           curx = shape.getPtAt(interval).getX();
+           cury = shape.getPtAt(interval).getY();
+           midx = (curx + prevx) / 2.;
+           midy = (cury + prevy) / 2.;
+           path.add(new SVGPathSegLineto(midx, midy, false));
         }
 
         for(i=interval*2; i<size; i+=interval)  {
-        	 float x1 = (midx + curx) / 2.0f;
-             float y1 = (midy + cury) / 2.0f;
-             prevx = curx;
-             prevy = cury;
-             curx = (float)shape.getPtAt(i).getX();
-             cury = (float)shape.getPtAt(i).getY();
-             midx = (curx + prevx) / 2.0f;
-             midy = (cury + prevy) / 2.0f;
-             float x2 = (prevx + midx) / 2.0f;
-             float y2 = (prevy + midy) / 2.0f;
+        	double x1 = (midx + curx) / 2.;
+        	double y1 = (midy + cury) / 2.;
+        	prevx = curx;
+        	prevy = cury;
+            curx = shape.getPtAt(i).getX();
+            cury = shape.getPtAt(i).getY();
+            midx = (curx + prevx) / 2.;
+            midy = (cury + prevy) / 2.;
+            double x2 = (prevx + midx) / 2.;
+            double y2 = (prevy + midy) / 2.;
 
-             path.add(new SVGPathSegCurvetoCubic(midx, midy, x1, y1, x2, y2, false));
+            path.add(new SVGPathSegCurvetoCubic(midx, midy, x1, y1, x2, y2, false));
         }
 
         if((i-interval+1)<size) {
-        	float x1 = (midx + curx) / 2.0f;
-        	float y1 = (midy + cury) / 2.0f;
+        	double x1 = (midx + curx) / 2.;
+        	double y1 = (midy + cury) / 2.;
             prevx = curx;
             prevy = cury;
-            curx = (float)shape.getPtAt(-1).getX();
-            cury = (float)shape.getPtAt(-1).getY();
-            midx = (curx + prevx) / 2.0f;
-            midy = (cury + prevy) / 2.0f;
-            float x2 = (prevx + midx) / 2.0f;
-            float y2 = (prevy + midy) / 2.0f;
+            curx = shape.getPtAt(-1).getX();
+            cury = shape.getPtAt(-1).getY();
+            midx = (curx + prevx) / 2.;
+            midy = (cury + prevy) / 2.;
+            double x2 = (prevx + midx) / 2.;
+            double y2 = (prevy + midy) / 2.;
 
             path.add(new SVGPathSegCurvetoCubic(shape.getPtAt(-1).getX(), shape.getPtAt(-1).getY(), x1, y1, x2, y2, false));
         }
