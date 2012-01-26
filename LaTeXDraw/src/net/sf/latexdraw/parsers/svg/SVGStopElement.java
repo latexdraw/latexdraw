@@ -38,6 +38,17 @@ public class SVGStopElement extends SVGElement {
 	}
 
 
+	/**
+	 * Creates a new empty SVG STOP element.
+	 * @param doc The owner document.
+	 */
+	public SVGStopElement(final SVGDocument doc) {
+		super(doc);
+
+		setNodeName(SVGElements.SVG_STOP);
+	}
+
+
 	@Override
 	public boolean checkAttributes() {
 		return !Double.isNaN(getOffset());

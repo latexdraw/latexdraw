@@ -31,7 +31,10 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGLineElement;
 import net.sf.latexdraw.parsers.svg.SVGLinearGradientElement;
 import net.sf.latexdraw.parsers.svg.SVGMarkerElement;
+import net.sf.latexdraw.parsers.svg.SVGPathElement;
 import net.sf.latexdraw.parsers.svg.SVGPatternElement;
+import net.sf.latexdraw.parsers.svg.SVGRectElement;
+import net.sf.latexdraw.parsers.svg.SVGStopElement;
 import net.sf.latexdraw.parsers.svg.SVGTransform;
 import net.sf.latexdraw.parsers.svg.SVGTransformList;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
@@ -584,8 +587,8 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        else
 		        	// Setting the gradient properties.
 		        	if(fillStyle==FillingStyle.GRAD) {
-		        		final Element grad 		= new SVGLinearGradientElement(doc);
-		        		Element stop;
+		        		final SVGElement grad	= new SVGLinearGradientElement(doc);
+		        		SVGStopElement stop;
 		        		final String id 		= SVGElements.SVG_LINEAR_GRADIENT + shape.getId();
 		        		final double gradMidPt 	= shape.getGradAngle()>PI || (shape.getGradMidPt()<0 && shape.getGradMidPt()>-PI)?
 		        								1-shape.getGradMidPt() : shape.getGradMidPt();
@@ -606,19 +609,19 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		        		// Setting the middle point of the gradient and its colours.
 		        		if(!LNumber.INSTANCE.equals(gradMidPt, 0.)) {
-			        		stop = doc.createElement(SVGElements.SVG_STOP);
+			        		stop = new SVGStopElement(doc);
 			        		stop.setAttribute(SVGAttributes.SVG_OFFSET, "0");//$NON-NLS-1$
 			        		stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColStart(), true));
 			        		grad.appendChild(stop);
 		        		}
 
-		        		stop = doc.createElement(SVGElements.SVG_STOP);
+		        		stop = new SVGStopElement(doc);
 		        		stop.setAttribute(SVGAttributes.SVG_OFFSET, String.valueOf(gradMidPt));
 		        		stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColEnd(), true));
 		        		grad.appendChild(stop);
 
 		        		if(!LNumber.INSTANCE.equals(gradMidPt, 1.)) {
-		            		stop = doc.createElement(SVGElements.SVG_STOP);
+		            		stop = new SVGStopElement(doc);
 		            		stop.setAttribute(SVGAttributes.SVG_OFFSET, "1");//$NON-NLS-1$
 		            		stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColStart(), true));
 		            		grad.appendChild(stop);
@@ -631,10 +634,11 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        		// Setting the hatchings.
 		        		if(shape.hasHatchings()) {
 		        			final String id 		= SVGElements.SVG_PATTERN + shape.getId();
-		        			final Element hatch 	= doc.createElement(SVGElements.SVG_PATTERN);
-		        			final Element gPath 	= doc.createElement(SVGElements.SVG_G);
+		        			final SVGPatternElement hatch = new SVGPatternElement(doc);
+		        			final SVGGElement gPath = new SVGGElement(doc);
 		        			final IPoint max 		= shape.getFullBottomRightPoint();
-
+		        			final SVGPathElement path = new SVGPathElement(doc);
+		        			
 		        			root.setAttribute(SVGAttributes.SVG_FILL, SVG_URL_TOKEN_BEGIN + id + ')');
 		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, shape.getFillingStyle().getLatexToken());
 		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ROTATION, String.valueOf(shape.getHatchingsAngle()));
@@ -649,14 +653,12 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        			gPath.setAttribute(SVGAttributes.SVG_STROKE_WIDTH, String.valueOf(shape.getHatchingsWidth()));
 		        			gPath.setAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, SVGAttributes.SVG_VALUE_NONE);
 
-		        			final Element path = doc.createElement(SVGElements.SVG_PATH);
-
 		        			path.setAttribute(SVGAttributes.SVG_D, getSVGHatchingsPath().toString());
 	        				gPath.appendChild(path);
 
 	        				// Several shapes having hatching must have their shadow filled.
 		        			if(shape.isFilled() || (shape.hasShadow() && shadowFills)) {
-		        				Element fill = doc.createElement(SVGElements.SVG_RECT);
+		        				SVGRectElement fill = new SVGRectElement(doc);
 		        				fill.setAttribute(SVGAttributes.SVG_FILL,   CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
 		        				fill.setAttribute(SVGAttributes.SVG_STROKE, SVGAttributes.SVG_VALUE_NONE);
 		        				fill.setAttribute(SVGAttributes.SVG_WIDTH,  String.valueOf((int)max.getX()));

@@ -39,6 +39,16 @@ public class SVGPatternElement extends SVGElement {
 	}
 
 
+	/**
+	 * Creates a new empty SVG Pattern element.
+	 * @param doc The owner document.
+	 */
+	public SVGPatternElement(final SVGDocument doc) {
+		super(doc);
+		setNodeName(SVGElements.SVG_PATTERN);
+	}
+
+
 	@Override
 	public boolean checkAttributes() {
 		return !(getWidth()<0. || getHeight()<0.);
