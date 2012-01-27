@@ -104,12 +104,7 @@ class LArrow implements IArrow {
 	}
 
 
-	/**
-	 * Copies the parameters of the given arrow to the current arrow.
-	 * The owner of the arrow to copy is not copied to the current arrow.
-	 * @param model The arrow to copy. Cannot be null.
-	 * @since 3.0
-	 */
+	@Override
 	public void copy(final IArrow model) {
 		if(model!=null) {
 			arrowInset 		= model.getArrowInset();

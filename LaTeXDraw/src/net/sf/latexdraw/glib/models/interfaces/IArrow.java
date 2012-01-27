@@ -273,6 +273,15 @@ public interface IArrow extends IArrowable {
 
 
 	/**
+	 * Copies the parameters of the given arrow to the current arrow.
+	 * The owner of the arrow to copy is not copied to the current arrow.
+	 * @param model The arrow to copy. Cannot be null.
+	 * @since 3.0
+	 */
+	void copy(final IArrow model);
+
+
+	/**
 	 * @return True if the current arrow has a style.
 	 * @since 3.0
 	 */
