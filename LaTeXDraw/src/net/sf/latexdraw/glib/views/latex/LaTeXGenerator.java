@@ -413,16 +413,19 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		boolean ok = true;
 
-		final String doc 				= getLatexDocument(drawing, synchronizer);
-		final FileOutputStream fos;
-		try { fos = new FileOutputStream(pathExportTex); } catch(final IOException ex) { return null; }
-		final OutputStreamWriter osw 	= new OutputStreamWriter(fos);
+		FileOutputStream fos = null;
+		OutputStreamWriter osw = null;
+		
+		try { 
+			fos = new FileOutputStream(pathExportTex); 
+			osw = new OutputStreamWriter(fos);
+		} catch(final IOException ex) { ok = false; }
 
-		try { osw.append(doc); } catch(final IOException ex) { ok = false; }
-		try { osw.flush();     } catch(final IOException ex) { ok = false; }
-		try { osw.close();     } catch(final IOException ex) { ok = false; }
-		try { fos.flush();     } catch(final IOException ex) { ok = false; }
-		try { fos.close();     } catch(final IOException ex) { ok = false; }
+		try { if(osw!=null) osw.append(getLatexDocument(drawing, synchronizer)); } catch(final IOException ex) { ok = false; }
+		try { if(osw!=null) osw.flush();     } catch(final IOException ex) { ok = false; }
+		try { if(osw!=null) osw.close();     } catch(final IOException ex) { ok = false; }
+		try { if(fos!=null) fos.flush();     } catch(final IOException ex) { ok = false; }
+		try { if(fos!=null) fos.close();     } catch(final IOException ex) { ok = false; }
 
 		return ok ? new File(pathExportTex) : null;
 	}

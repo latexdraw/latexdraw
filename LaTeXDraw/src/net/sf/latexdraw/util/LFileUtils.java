@@ -77,33 +77,31 @@ public final class LFileUtils {
 			return false;
 
 		boolean ok = true;
-		final FileInputStream in;
-    	final FileOutputStream out;
-    	final BufferedInputStream inBuffer;
-    	final BufferedOutputStream outBuffer;
-    	int theByte = 0;
+		FileInputStream in = null;
+    	FileOutputStream out = null;
+    	BufferedInputStream inBuffer = null;
+    	BufferedOutputStream outBuffer = null;
 
-		try {
+		try {//TODO JAVA7
 	    	in 	= new FileInputStream(fromFile);
-		}catch(final FileNotFoundException ex) { return false; }
-		try {
 	    	out = new FileOutputStream(toFile);
-		}catch(final FileNotFoundException ex) {
-			try{ in.close(); } catch(final IOException ex2) { BadaboomCollector.INSTANCE.add(ex2); }
-			return false;
-		}
-    	inBuffer = new BufferedInputStream(in);
-    	outBuffer= new BufferedOutputStream(out);
+	    	inBuffer = new BufferedInputStream(in);
+	    	outBuffer= new BufferedOutputStream(out);
 
-    	try {
-	    	while ((theByte = inBuffer.read()) > -1)
+	    	int theByte = inBuffer.read();
+
+	    	while(theByte > -1){
 	    		outBuffer.write(theByte);
-    	}catch(IOException ex) { ok = false; }
+	    		theByte = inBuffer.read();
+	    	}
 
-    	try{ outBuffer.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
-    	try{ inBuffer.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
-		try{ out.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
-		try{ in.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
+		}catch(final FileNotFoundException ex) { ok = false; }
+		catch(final IOException ex) { ok = false; }
+
+    	try{ if(outBuffer!=null) outBuffer.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
+    	try{ if(inBuffer!=null) inBuffer.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
+		try{ if(out!=null) out.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
+		try{ if(in!=null) in.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
 
     	// cleanup if files are not the same length
     	if(fromFile.length() != toFile.length()) {
