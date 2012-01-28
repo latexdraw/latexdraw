@@ -59,15 +59,13 @@
 			 />
 			 <fileset dir="" includes="res/**/* ; lang/**/*" />
 		</jar>
-		
-		<chmod file="${dir.data}/LaTeXDraw.jar" perm="+x"/>
 	</target>
 
 	
 
     <target name="zip src" depends="jar">
         <copy todir="out/${release.name}_src">
-                <fileset dir="" includes="**/*" excludes="site/ ; Todo.txt ; graphisme/ ; out/ ; **/*.class"/>
+                <fileset dir="" includes="**/*" excludes="target/ ; site/ ; Todo.txt ; design/ ; out/ ; bin/"/>
         </copy>
         <zip destfile="${dir.out}/${release.name}_src.zip" compress="true">
              <fileset dir="out/" includes="${release.name}_src/" />
@@ -83,7 +81,10 @@
         <zip destfile="${dir.out}/${release.name}.zip" compress="true">
              <fileset dir="out/" includes="${release.name}/"/>
         </zip>
-   	<delete dir="out/${release.name}" />
+   		<delete dir="out/${release.name}" />
     </target>
 	
+	<target name="chmod" description="Adding +x to the jar file">
+		<chmod file="${dir.data}/LaTeXDraw.jar" perm="+x"/>
+	</target>
 </project>
