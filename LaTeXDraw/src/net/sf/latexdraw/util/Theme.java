@@ -66,7 +66,7 @@ public final class Theme {
 		try{
 			lookAndFeel = Theme.INSTANCE.readTheme();
 			System.setProperty("apple.laf.useScreenMenuBar", "true"); //$NON-NLS-1$ //$NON-NLS-2$
-			System.setProperty("com.apple.mrj.application.apple.menu.about.name", "LaTeXDraw");//$NON-NLS-1$
+			System.setProperty("com.apple.mrj.application.apple.menu.about.name", LResources.LABEL_APP);//$NON-NLS-1$
      		UIManager.setLookAndFeel(lookAndFeel);
 		}
 		catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
