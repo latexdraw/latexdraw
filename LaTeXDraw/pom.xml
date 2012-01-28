@@ -5,7 +5,7 @@
   <groupId>LaTeXDraw</groupId>
   <artifactId>LaTeXDraw</artifactId>
   <name>LaTeXDraw</name>
-  <version>3.0_20111216c</version>
+  <version>3.0_20120128 alpha1</version>
   <build>
         <sourceDirectory>src/</sourceDirectory>
         <outputDirectory>bin/</outputDirectory>
