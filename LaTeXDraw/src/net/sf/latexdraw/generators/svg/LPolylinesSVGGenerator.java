@@ -112,18 +112,25 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
-		if(elt==null || !(elt2 instanceof SVGPolyLineElement))//TODO must manage SVGLineElement
+		if(elt==null || (!(elt2 instanceof SVGPolyLineElement) && !(elt2 instanceof SVGLineElement)))
 			throw new IllegalArgumentException();
 
 		IArrow arrow1 	= shape.getArrowAt(0);
 		IArrow arrow2 	= shape.getArrowAt(1);
-		SVGPolyLineElement main = (SVGPolyLineElement)elt2;
+
+		if(elt2 instanceof SVGPolyLineElement) {
+			setSVGModifiablePointsParameters((SVGPolyLineElement)elt2);
+		}else {
+			final SVGLineElement lineElt = (SVGLineElement)elt2;
+			shape.addPoint(DrawingTK.getFactory().createPoint(lineElt.getX1(), lineElt.getY1()));
+			shape.addPoint(DrawingTK.getFactory().createPoint(lineElt.getX2(), lineElt.getY2()));
+		}
+
 		setSVGLatexdrawParameters(elt);
-		setSVGModifiablePointsParameters(main);
 		shape.update();
 
-		setSVGArrow(arrow1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main);
-		setSVGArrow(arrow2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main);
+		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), elt2);
+		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), elt2);
 		homogeniseArrows(arrow1, arrow2);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));

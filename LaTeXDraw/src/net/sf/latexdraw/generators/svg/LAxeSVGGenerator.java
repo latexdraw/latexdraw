@@ -5,20 +5,23 @@ import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
+import net.sf.latexdraw.glib.models.interfaces.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
+import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGNodeList;
-import net.sf.latexdraw.parsers.svg.parsers.Graphics2D2SVG;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
 
@@ -169,12 +172,12 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		if(doc==null)
 			return null;
 
-		final Graphics2D2SVG graphics = new Graphics2D2SVG(doc);
-		IViewShape view = View2DTK.getFactory().createView(shape);
-		
-        view.paint(graphics);
-        
-        final SVGElement root = graphics.getElement();
+//		final Graphics2D2SVG graphics = new Graphics2D2SVG(doc);
+//		IViewShape view = View2DTK.getFactory().createView(shape);
+
+//        view.paint(graphics);
+        //  graphics.getElement();
+        final SVGElement root = new SVGGElement(doc);
 		String pref = LNamespace.LATEXDRAW_NAMESPACE+':';
 		setThickness(root, shape.getThickness(), false, 0.);
 		root.setStroke(shape.getLineColour());
@@ -194,20 +197,81 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		root.setAttribute(pref+LNamespace.XML_AXE_TICKS_STYLE, shape.getTicksStyle().toString());
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_AXE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
-        
-//		createSVGAxe(root, doc);
-		
-		view.flush();
-		graphics.dispose();
+
+		createSVGAxe(root, doc);
+
+//		view.flush();
+//		graphics.dispose();
 
 		return root;
 	}
 
 
+	private void createArrows(final SVGElement elt, final SVGDocument document) {
+		if(shape.getAxesStyle().supportsArrows() && shape.getArrows().size()==4) {
+			final IShapeFactory fac = DrawingTK.getFactory();
+			final double posX = shape.getPosition().getX();
+			final double posY = shape.getPosition().getY();
+			final IArrow arr0 = shape.getArrowAt(0);
+			final IArrow arr1 = shape.getArrowAt(1);
+			final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0.;
+			final double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0.;
+			final IPolyline xLine = fac.createPolyline(false);
+			final IPolyline yLine = fac.createPolyline(false);
 
-//	protected void createSVGAxe(final SVGElement elt, final SVGDocument document) {
-//		if(elt==null || document==null)
-//			return ;
+			xLine.addPoint(fac.createPoint(posX+shape.getGridStartX()*IShape.PPC + arr0Reduction, posY));
+			xLine.addPoint(fac.createPoint(posX+shape.getGridEndX()*IShape.PPC - arr1Reduction, posY));
+			yLine.addPoint(fac.createPoint(posX, posY-shape.getGridStartY()*IShape.PPC - arr0Reduction));
+			yLine.addPoint(fac.createPoint(posX, posY-shape.getGridEndY()*IShape.PPC + arr1Reduction));
+
+			xLine.getArrowAt(0).copy(arr0);
+			xLine.getArrowAt(1).copy(arr1);
+			yLine.getArrowAt(0).copy(shape.getArrowAt(2));
+			yLine.getArrowAt(1).copy(shape.getArrowAt(3));
+			final SVGElement eltX = new LPolylinesSVGGenerator(xLine).toSVG(document);
+			final SVGElement eltY = new LPolylinesSVGGenerator(yLine).toSVG(document);
+
+			elt.appendChild(eltX);
+			elt.appendChild(eltY);
+		}
+	}
+
+
+	private void createFrame(final SVGElement elt, final SVGDocument document) {
+		final double gridEndx = shape.getGridEndX();
+		final double gridEndy = shape.getGridEndY();
+
+		if(gridEndx>0 || gridEndy>0) {
+			final double positionx = shape.getPosition().getX();
+			final double positiony = shape.getPosition().getY();
+			final double xMax = positionx+gridEndx*IShape.PPC;
+			final double yMax = positiony-gridEndy*IShape.PPC;
+			final IPoint pos  = DrawingTK.getFactory().createPoint(positionx, gridEndy>0 ? yMax : positiony);
+			final IRectangle r= DrawingTK.getFactory().createRectangle(pos, Math.abs(pos.getX()-(gridEndx>0 ? xMax : positionx)),
+																		Math.abs(pos.getY()-positiony), false);
+
+			r.setBordersPosition(BorderPos.MID);
+			r.setLineColour(shape.getLineColour());
+			r.setLineStyle(shape.getLineStyle());
+			r.setThickness(shape.getThickness());
+			elt.appendChild(new LRectangleSVGGenerator(r).toSVG(document));
+		}
+	}
+
+
+
+	private void createSVGAxe(final SVGElement elt, final SVGDocument document) {
+		switch(shape.getAxesStyle()) {
+			case AXES:
+				createArrows(elt, document);
+				break;
+			case FRAME:
+				createFrame(elt, document);
+				break;
+			case NONE:
+				break;
+		}
+
 //		double minX, maxX, minY, maxY, maxX3, minX3, maxY3, minY3;
 //		IPoint increment = shape.getIncrement();
 //		IPoint gridEnd   = shape.getGridEnd();
@@ -751,5 +815,5 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 //
 //		if(rotationAngle%(Math.PI*2)!=0)
 //			setSVGRotationAttribute(elt);
-//	}
+	}
 }

@@ -202,7 +202,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 			arrowSVG.setAttribute(SVGAttributes.SVG_ID, arrowName);
 			defs.appendChild(arrowSVG);
-			parent.setAttribute(arrowPos==0 ? SVGAttributes.SVG_MARKER_START : SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrowName + ')');
+			parent.setAttribute(arrowPos%2==0 ? SVGAttributes.SVG_MARKER_START : SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrowName + ')');
 		}
 	}
 
@@ -638,7 +638,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        			final SVGGElement gPath = new SVGGElement(doc);
 		        			final IPoint max 		= shape.getFullBottomRightPoint();
 		        			final SVGPathElement path = new SVGPathElement(doc);
-		        			
+
 		        			root.setAttribute(SVGAttributes.SVG_FILL, SVG_URL_TOKEN_BEGIN + id + ')');
 		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, shape.getFillingStyle().getLatexToken());
 		        			hatch.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ROTATION, String.valueOf(shape.getHatchingsAngle()));
