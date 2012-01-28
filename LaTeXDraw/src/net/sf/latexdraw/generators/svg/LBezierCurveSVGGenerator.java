@@ -108,12 +108,12 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		if(list==null || list.size()<2 || !(list.get(0) instanceof SVGPathSegMoveto))
 			throw new IllegalArgumentException();
 
+		final IShapeFactory fac = DrawingTK.getFactory();
 		SVGPathSegMoveto m 	= (SVGPathSegMoveto)list.get(0);
 		SVGPathSegCurvetoCubic c;
 		int i=1, size = list.size();
 
-		IShapeFactory factory = DrawingTK.getFactory();
-		shape.addPoint(factory.createPoint(m.getX(), m.getY()));
+		shape.addPoint(fac.createPoint(m.getX(), m.getY()));
 
 		if(i>0 && list.get(1) instanceof SVGPathSegCurvetoCubic) {// We set the control point of the first point.
 			c = (SVGPathSegCurvetoCubic)list.get(1);
@@ -122,13 +122,10 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 
 		while(i<size && list.get(i) instanceof SVGPathSegCurvetoCubic) {
 			c = (SVGPathSegCurvetoCubic)list.get(i);
-			shape.addPoint(factory.createPoint(c.getX(), c.getY()));
+			shape.addPoint(fac.createPoint(c.getX(), c.getY()));
 			shape.getFirstCtrlPtAt(-1).setPoint(c.getX2(), c.getY2());
 			i++;
 		}
-
-		shape.removePoint(0); // We remove the two first points created during the first initialisation.
-		shape.removePoint(0);
 
 		if(shape.getPtAt(-1).equals(shape.getPtAt(0), 0.00001)) {// We set the shape as closed
 			shape.removePoint(-1);
