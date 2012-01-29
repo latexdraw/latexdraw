@@ -65,7 +65,6 @@
 		<chmod file="${dir.data}/LaTeXDraw.jar" perm="ugo+rx" verbose="true"/>
 	</target>
 
-	
 
     <target name="zip src" depends="jar">
         <copy todir="out/${release.name}_src">
