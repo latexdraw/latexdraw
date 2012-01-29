@@ -366,17 +366,6 @@ public interface IShape extends Modifiable, IArrowable {
 	void copy(final IShape s);
 
 	/**
-	 * Updates the model.
-	 */
-	void update();
-
-	/**
-	 * Update the gravity centre of the figure.
-	 * @since 3.0
-	 */
-	void updateGravityCentre();
-
-	/**
 	 * @return True if the thickness of the shape can be changed.
 	 * @since 3.0
 	 */

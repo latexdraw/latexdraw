@@ -54,7 +54,6 @@ class LRhombus extends LRectangularShape implements IRhombus {
 	 */
 	protected LRhombus(final IPoint tl, final IPoint br, final boolean uniqueID) {
 		super(tl, br, uniqueID);
-		update();
 	}
 	
 	

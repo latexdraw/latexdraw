@@ -88,8 +88,6 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 		shape.getPtAt(2).setPoint2D(ptsPol.get(2));
 		shape.getPtAt(3).setPoint2D(ptsPol.get(3));
 
-		shape.update();
-
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 

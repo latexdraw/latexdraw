@@ -120,9 +120,6 @@ abstract class LShape implements IShape {
 	/** The size of the shadow in pixel. */
 	protected double shadowSize;
 
-	/** The gravity centre of the shape. */
-	protected IPoint gravityCentre;
-
 	/** The arrow of the shape, may be null. */
 	protected List<IArrow> arrows;
 
@@ -147,7 +144,6 @@ abstract class LShape implements IShape {
 		shadowAngle 	= -Math.PI/4.;
 		gradAngle	 	= 0.;
 		hatchingsAngle	= 0.;
-		gravityCentre 	= new LPoint();
 		arrows			= null;
 		hasShadow   	= false;
 		hasDbleBord		= false;
@@ -190,7 +186,6 @@ abstract class LShape implements IShape {
 		shadowAngle 	= s.getShadowAngle();
 		gradAngle	 	= s.getGradAngle();
 		hatchingsAngle	= s.getHatchingsAngle();
-		gravityCentre 	= new LPoint(s.getGravityCentre());
 		hasShadow   	= s.hasShadow();
 		hasDbleBord		= s.hasDbleBord();
 		lineStyle		= s.getLineStyle();
@@ -254,6 +249,7 @@ abstract class LShape implements IShape {
 		setRotationAngle(getRotationAngle()+angle);
 
 		if(gravCentre!=null) {
+			final IPoint gravityCentre = getGravityCentre();
 			final IPoint rotatedGC = gravityCentre.rotatePoint(gravCentre, angle);
 			translate(rotatedGC.getX()-gravityCentre.getX(), rotatedGC.getY()-gravityCentre.getY());
 		}
@@ -393,7 +389,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getGravityCentre() {
-		return gravityCentre;
+		return points.isEmpty() ? new LPoint() : getTopLeftPoint().getMiddlePoint(getBottomLeftPoint());
 	}
 
 
@@ -1115,23 +1111,6 @@ abstract class LShape implements IShape {
 
 
 	@Override
-	public void update() {
-		updateGravityCentre();
-	}
-
-
-	@Override
-	public void updateGravityCentre() {
-		if(getNbPoints()>0) {
-			IPoint tl = getTopLeftPoint();
-			IPoint br = getBottomRightPoint();
-
-			gravityCentre.setPoint((tl.getX()+br.getX())/2., (tl.getY()+br.getY())/2.);
-		}
-	}
-
-
-	@Override
 	public void mirrorHorizontal(final IPoint origin) {
 		if(!GLibUtilities.INSTANCE.isValidPoint(origin))
 			return ;
@@ -1260,6 +1239,7 @@ abstract class LShape implements IShape {
 		IPoint shadowGap = new LPoint();
 
 		if(isShadowable()) {
+			final IPoint gravityCentre = getGravityCentre();
 			shadowGap.setPoint(gravityCentre.getX()+shadowSize, gravityCentre.getY());
 			shadowGap = shadowGap.rotatePoint(gravityCentre, shadowAngle);
 			shadowGap.setX(shadowGap.getX()-gravityCentre.getX());
@@ -1273,10 +1253,9 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void setModified(final boolean modified) {
-		if(modified) {
-			update();
+		if(modified)
 			MappingRegistry.REGISTRY.onObjectModified(this);
-		}
+
 		this.modified = modified;
 	}
 

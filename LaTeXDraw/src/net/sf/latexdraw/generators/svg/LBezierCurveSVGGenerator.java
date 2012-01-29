@@ -91,7 +91,6 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		homogeniseArrows(arrow1, arrow2);
 
 		shape.setShowPts(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHOW_PTS)!=null);
-		shape.update();
 
 		if(withTransformation)
 			applyTransformations(elt);
@@ -138,7 +137,6 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 				shape.setIsClosed(false);
 
 		shape.updateSecondControlPoints();
-		shape.update();
 	}
 
 

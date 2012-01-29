@@ -52,7 +52,6 @@ class LPolygon extends LModifiablePointsShape implements IPolygon {
 
 		addPoint(point);
 		addPoint(point2);
-		update();
 	}
 
 

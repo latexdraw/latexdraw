@@ -683,8 +683,6 @@ class LGroup extends LShape implements IGroup {
 			for(final IShape sh : shapes)
 				dup.addShape(sh);
 
-		dup.update();
-
 		return dup;
 	}
 
@@ -1059,7 +1057,7 @@ class LGroup extends LShape implements IGroup {
 
 	@Override
 	public void addToRotationAngle(final IPoint gravCentre, final double angle) {
-		final IPoint gc = gravCentre==null ? gravityCentre : gravCentre;
+		final IPoint gc = gravCentre==null ? getGravityCentre() : gravCentre;
 
 		for(final IShape sh : shapes)
 			sh.addToRotationAngle(gc, angle);
@@ -1087,19 +1085,12 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
-	public void updateGravityCentre() {
+	public IPoint getGravityCentre() {
 		switch(shapes.size()) {
 			case 0:
-				gravityCentre.setPoint(0., 0.);
-				break;
-			case 1:
-				gravityCentre.setPoint(shapes.get(0).getGravityCentre());
-				break;
+				return new LPoint();
 			default:
-				final IPoint tl = getTopLeftPoint();
-				final IPoint br = getBottomRightPoint();
-				gravityCentre.setPoint((tl.getX()+br.getX())/2., (tl.getY()+br.getY())/2.);
-				break;
+				return getTopLeftPoint().getMiddlePoint(getBottomLeftPoint());
 		}
 	}
 

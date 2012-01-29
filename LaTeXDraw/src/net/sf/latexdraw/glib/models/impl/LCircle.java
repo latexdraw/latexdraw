@@ -45,8 +45,6 @@ class LCircle extends LEllipse implements ICircle {
 	 */
     protected LCircle(final IPoint pt, final double radius, final boolean isUniqueID) {
 		super(new LPoint(pt.getX()-radius, pt.getY()-radius), new LPoint(pt.getX()+radius, pt.getY()+radius), isUniqueID);
-
-		update();
 	}
 
 

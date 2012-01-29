@@ -65,8 +65,6 @@ class LArc extends LEllipse implements IArc {
 		arrows 		= new ArrayList<IArrow>();
 		arrows.add(new LArrow(this));
 		arrows.add(new LArrow(this));
-
-		update();
 	}
 
 	
@@ -105,12 +103,14 @@ class LArc extends LEllipse implements IArc {
 
 	@Override
 	public IPoint getEndPoint() {
+		final IPoint gravityCentre = getGravityCentre();
 		return new LPoint(gravityCentre.getX()+Math.cos(endAngle)*getRy(), gravityCentre.getY()-Math.sin(endAngle)*getRy());
 	}
 
 
 	@Override
 	public IPoint getStartPoint() {
+		final IPoint gravityCentre = getGravityCentre();
 		return new LPoint(gravityCentre.getX()+Math.cos(startAngle)*getRx(), gravityCentre.getY()-Math.sin(startAngle)*getRx());
 	}
 

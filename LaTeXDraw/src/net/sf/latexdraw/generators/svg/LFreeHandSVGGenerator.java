@@ -83,7 +83,6 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
-		shape.update();
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 
 		v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ROTATION);

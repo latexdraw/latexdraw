@@ -77,8 +77,6 @@ class LGrid extends LAbstractGrid implements IGrid {
 		subGridDots  		= PSTricksConstants.DEFAULT_SUBGRIDDOTS;
 		subGridWidth 		= PSTricksConstants.DEFAULT_SUB_GRID_WIDTH*PPC;
 		unit 		 		= PSTricksConstants.DEFAULT_UNIT;
-
-		update();
 	}
 
 

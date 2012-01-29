@@ -89,7 +89,6 @@ class LAxes extends LAbstractGrid implements IAxes {
 		arrows.add(new LArrow(this));
 		// The fourth arrow is for the right of the X-axis.
 		arrows.add(new LArrow(this));
-		update();
 	}
 
 

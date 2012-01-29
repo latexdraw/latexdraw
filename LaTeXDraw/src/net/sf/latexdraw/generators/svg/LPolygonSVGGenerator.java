@@ -68,7 +68,6 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 
 		setSVGModifiablePointsParameters(elt);
 		applyTransformations(elt);
-		shape.update();
 	}
 
 
@@ -102,8 +101,6 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 		SVGPolygonElement main = (SVGPolygonElement)elt2;
 		setSVGLatexdrawParameters(elt);
 		setSVGModifiablePointsParameters(main);
-
-		shape.update();
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 

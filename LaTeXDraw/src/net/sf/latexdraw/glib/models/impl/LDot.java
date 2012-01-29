@@ -44,8 +44,6 @@ class LDot extends LPositionShape implements IDot {
 
 		style = DotStyle.DOT;
 		radius = 20.;
-
-		update();
 	}
 
 
@@ -252,7 +250,6 @@ class LDot extends LPositionShape implements IDot {
 
 			setDotStyle(dot.getDotStyle());
 			setRadius(dot.getRadius());
-			update();
 		}
 	}
 

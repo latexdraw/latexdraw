@@ -278,7 +278,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 					sSize = true;
 				}
 				else {
-					shape.updateGravityCentre();
 					final IPoint gravityCenter 	= shape.getGravityCentre();
 					double angle 				= Double.NaN;
 					double shSize 				= shape.getShadowSize();

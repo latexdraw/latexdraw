@@ -61,7 +61,6 @@ class LRectangle extends LRectangularShape implements IRectangle {
 	protected LRectangle(final IPoint tl, final IPoint br, final boolean uniqueID) {
 		super(tl, br, uniqueID);
 		frameArc = 0.;
-		update();
 	}
 
 

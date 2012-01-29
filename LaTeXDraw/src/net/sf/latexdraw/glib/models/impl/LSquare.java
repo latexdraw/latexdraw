@@ -43,8 +43,6 @@ class LSquare extends LRectangle implements ISquare {
 	 */
 	protected LSquare(final IPoint pos, final double width, final boolean uniqueID) {
 		super(pos, width, width, uniqueID);
-
-		update();
 	}
 
 

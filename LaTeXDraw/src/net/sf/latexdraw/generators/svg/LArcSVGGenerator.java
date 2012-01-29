@@ -105,7 +105,6 @@ class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
 					shape.setArcStyle(ArcStyle.WEDGE);
 
 		shape.setShowPts(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHOW_PTS)!=null);
-		shape.update();
 
 		setNumber(elt);
 		setSVGParameters(main);

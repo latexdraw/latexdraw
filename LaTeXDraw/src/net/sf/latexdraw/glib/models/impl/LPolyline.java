@@ -38,8 +38,6 @@ class LPolyline extends LPolygon implements IPolyline {
 		arrows = new ArrayList<IArrow>();
 		arrows.add(new LArrow(this));
 		arrows.add(new LArrow(this));
-
-		update();
 	}
 
 
@@ -56,7 +54,6 @@ class LPolyline extends LPolygon implements IPolyline {
 
 		addPoint(point);
 		addPoint(point2);
-		update();
 	}
 
 	

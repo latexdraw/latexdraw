@@ -46,7 +46,6 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	 */
 	protected LEllipse(final IPoint tl, final IPoint br, final boolean isUniqueID) {
 		super(tl, br, isUniqueID);
-		update();
 	}
 
 	

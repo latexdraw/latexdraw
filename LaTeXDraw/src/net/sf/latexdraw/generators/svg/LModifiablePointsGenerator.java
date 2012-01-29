@@ -85,7 +85,6 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 			shape.addPoint(factory.createPoint(pt.getX(), pt.getY()));
 		}
 
-		shape.update();
 		setSVGParameters(elt);
 		applyTransformations(elt);
 	}

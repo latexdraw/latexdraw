@@ -71,7 +71,6 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 
 		setSVGModifiablePointsParameters(elt);
 		applyTransformations(elt);
-		shape.update();
 	}
 
 
@@ -85,7 +84,6 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 
 		//TODO
 		applyTransformations(elt);
-		shape.update();
 	}
 
 
@@ -127,8 +125,6 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		}
 
 		setSVGLatexdrawParameters(elt);
-		shape.update();
-
 		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), elt2);
 		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), elt2);
 		homogeniseArrows(arrow1, arrow2);

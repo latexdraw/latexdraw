@@ -43,7 +43,6 @@ class LTriangle extends LRectangularShape implements ITriangle {
 	 */
 	protected LTriangle(final IPoint pos, final double width, final double height, final boolean uniqueID) {
 		super(pos, pos==null ? null : new LPoint(pos.getX()+width, pos.getY()+height), uniqueID);
-		update();
 	}
 	
 	
