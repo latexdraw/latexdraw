@@ -46,6 +46,8 @@
 			<fileset dir="templates/"/>
 		</copy>
 		
+		<chmod file="${dir.data}/install_debian_ubuntu" perm="ugo+rx" verbose="true"/>
+		
 		<jar jarfile="${dir.data}/LaTeXDraw.jar" manifest="META-INF/MANIFEST.MF">
 			<!-- Creates the manifest -->
 			<manifest>
@@ -60,16 +62,16 @@
 			 <fileset dir="" includes="res/**/* ; lang/**/*" />
 		</jar>
 		
-		<chmod file="${dir.data}/LaTeXDraw.jar" perm="+x"/>
+		<chmod file="${dir.data}/LaTeXDraw.jar" perm="ugo+rx" verbose="true"/>
 	</target>
 
 	
 
     <target name="zip src" depends="jar">
         <copy todir="out/${release.name}_src">
-                <fileset dir="" includes="**/*" excludes="site/ ; Todo.txt ; graphisme/ ; out/ ; **/*.class"/>
+                <fileset dir="" includes="**/*" excludes="target/ ; site/ ; Todo.txt ; design/ ; out/ ; bin/"/>
         </copy>
-        <zip destfile="${dir.out}/${release.name}_src.zip" compress="true">
+        <zip destfile="${dir.out}/${release.name}_src.zip" compress="true" level="9" preserve0permissions="true">
              <fileset dir="out/" includes="${release.name}_src/" />
         </zip>
         <delete dir="out/${release.name}_src" />
@@ -80,10 +82,14 @@
         <copy todir="out/${release.name}">
             <fileset dir="out/" includes="data/ ; install_vista.vbs ; *.txt ; *.jar ; install_debian_ubuntu" />
    	    </copy>
-        <zip destfile="${dir.out}/${release.name}.zip" compress="true">
+
+   		<chmod file="out/${release.name}/install_debian_ubuntu" perm="ugo+rx" verbose="true"/>
+   		<chmod file="out/${release.name}/data/LaTeXDraw.jar" perm="ugo+rx" verbose="true"/>
+   		<chmod file="out/${release.name}/installer.jar" perm="ugo+rx" verbose="true"/>
+
+        <zip destfile="${dir.out}/${release.name}.zip" compress="true" level="9" preserve0permissions="true">
              <fileset dir="out/" includes="${release.name}/"/>
         </zip>
-   	<delete dir="out/${release.name}" />
+   		<delete dir="out/${release.name}" />
     </target>
-	
 </project>

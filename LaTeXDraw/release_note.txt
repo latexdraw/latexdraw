@@ -1,4 +1,4 @@
-Version 3.0 alpha 1
+Version 3.0 alpha 1 - January 28th 2012
 
 Added:
 - Native support of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
