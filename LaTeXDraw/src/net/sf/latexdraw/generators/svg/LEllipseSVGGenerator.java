@@ -3,7 +3,6 @@ package net.sf.latexdraw.generators.svg;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -52,8 +51,8 @@ class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator<S> {
 	protected LEllipseSVGGenerator(final SVGEllipseElement elt) {
 		this((S)DrawingTK.getFactory().createEllipse(true));
 
-		setEllipseParameters(elt, 0.);
 		setSVGParameters(elt);
+		setEllipseParameters(elt, 0.);
 		applyTransformations(elt);
 	}
 
@@ -84,9 +83,9 @@ class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator<S> {
 		if(elt==null || !(elt2 instanceof SVGEllipseElement))
 			throw new IllegalArgumentException();
 
-		setEllipseParameters((SVGEllipseElement)elt2, getPositionGap()/2.);
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(elt2);
+		setEllipseParameters((SVGEllipseElement)elt2, getPositionGap());
 
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
@@ -104,13 +103,12 @@ class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator<S> {
 	 * @since 3.0
 	 */
 	protected void setEllipseParameters(final SVGEllipseElement ellipseElt, final double gap) {
-		final double rx = ellipseElt.getRx();
-		final double ry	= ellipseElt.getRy();
+		final double width  = 2.*ellipseElt.getRx()-gap;
+		final double height	= 2.*ellipseElt.getRy()-gap;
 
-		shape.setPosition(ellipseElt.getCx()-rx, ellipseElt.getCy()-ry); //TODO to test: gap should be consider.
-		shape.setWidth(2.*rx-gap);
-		shape.setHeight(2.*ry-gap);
-		shape.setBordersPosition(BorderPos.MID);
+		shape.setPosition(ellipseElt.getCx()-width/2., ellipseElt.getCy()+height/2.);
+		shape.setWidth(width);
+		shape.setHeight(height);
 	}
 
 

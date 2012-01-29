@@ -3,7 +3,6 @@ package net.sf.latexdraw.generators.svg;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGCircleElement;
@@ -51,8 +50,8 @@ class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	protected LCircleSVGGenerator(final SVGCircleElement elt) {
 		this(DrawingTK.getFactory().createCircle(true));
 
-		setCircleParameters(elt, 0.);
 		setSVGParameters(elt);
+		setCircleParameters(elt, 0.);
 		applyTransformations(elt);
 	}
 
@@ -84,11 +83,9 @@ class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(elt2);
-
-		setCircleParameters((SVGCircleElement)elt2, getPositionGap()/2.);
-		shape.update();
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
+		setCircleParameters((SVGCircleElement)elt2, getPositionGap());
 
 		if(withTransformation)
 			applyTransformations(elt);
@@ -103,11 +100,10 @@ class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	 * @since 3.0
 	 */
 	protected void setCircleParameters(final SVGCircleElement circleElt, final double gap) {
-		final double radius  = circleElt.getR();
+		final double radius  = circleElt.getR()-gap/2.;
 
-		shape.setPosition(circleElt.getCx()-radius, circleElt.getCy()-radius); //TODO to test: gap should be consider.
-		shape.setRadius(circleElt.getR()-gap);
-		shape.setBordersPosition(BorderPos.MID);
+		shape.setRadius(radius);
+		shape.setPosition(circleElt.getCx()-radius, circleElt.getCy()+radius);
 	}
 
 
