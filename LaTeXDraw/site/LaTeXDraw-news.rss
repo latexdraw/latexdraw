@@ -15,6 +15,15 @@
   </image>
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
   <item>
+    <title>For testing purposes only: LaTeXDraw 3.0.0 alpha 1 released</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Sun, 29 Jan 2012 08:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS37</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS37</link>
+    <description>Whooooooooooo! Finally a release. It's about time. Ok ok, this is not a stable release but a preview for testing purposes only. LaTeXDraw 3.0.0 alpha 1 has been released with a lot of improvements such a native support of LaTeX text, pdf export on Macos has been fixed, etc. You can get the files and the release note there: https://sourceforge.net/projects/latexdraw/files/beta%20testing/3.0.0%20alpha1/. There is still a lot of features not yet re-introduced in 3.0.0 (for your memory: LaTeXDraw has been completely rewritten for the 3.0.0 version), such as: it is not possible to rotate shapes yet; no PSTricks import; no recent files; some widgets are still missing for modifying some shapes' attributes; etc. You can report any problem there (https://launchpad.net/latexdraw) or there (http://sourceforge.net/tracker/?group_id=156523). I will release a new alpha version at the end of February.</description>
+  </item>
+
+  <item>
     <title>Native support of LaTeX text</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Fri, 12 Aug 2011 08:00:00 GMT</pubDate>
