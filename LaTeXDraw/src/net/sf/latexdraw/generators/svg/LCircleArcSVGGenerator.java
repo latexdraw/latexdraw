@@ -4,8 +4,8 @@ import java.awt.geom.Arc2D;
 
 import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
-import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
@@ -40,14 +40,14 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
+class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
 	/**
 	 * Creates a generator of SVG arc.
 	 * @param shape The arc shape used for the generation.
 	 * @throws IllegalArgumentException If arc is null.
 	 * @since 2.0
 	 */
-	protected LArcSVGGenerator(final IArc shape)	{
+	protected LCircleArcSVGGenerator(final ICircleArc shape)	{
 		super(shape);
 	}
 
@@ -58,7 +58,7 @@ class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
 	 * @throws IllegalArgumentException If the given element is null.
 	 * @since 2.0
 	 */
-	protected LArcSVGGenerator(final SVGGElement elt) {
+	protected LCircleArcSVGGenerator(final SVGGElement elt) {
 		this(elt, true);
 	}
 
@@ -70,8 +70,8 @@ class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
 	 * @param withTransformation If true, the SVG transformations will be applied.
 	 * @since 2.0.0
 	 */
-	protected LArcSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createArc(true));
+	protected LCircleArcSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+		this(DrawingTK.getFactory().createCircleArc(true));
 
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
 		IArrow arr1	= shape.getArrowAt(0);
@@ -173,6 +173,13 @@ class LArcSVGGenerator extends LEllipseSVGGenerator<IArc> {
         elt = new SVGPathElement(doc);
         elt.setAttribute(SVGAttributes.SVG_D, path.toString());
         root.appendChild(elt);
+
+        if(shape.hasDbleBord()) {
+            SVGElement dble = new SVGPathElement(doc);
+            dble.setAttribute(SVGAttributes.SVG_D, path.toString());
+        	setSVGDoubleBordersAttributes(dble);
+        	root.appendChild(dble);
+        }
 
         setSVGRotationAttribute(root);
         setSVGAttributes(doc, elt, true);

@@ -1,9 +1,9 @@
 package net.sf.latexdraw.generators.svg;
 
-import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
@@ -86,7 +86,7 @@ public final class SVGShapesFactory {
 		cmd = new CreateViewSVGCmd(cmd, ITriangle.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LTriangleSVGGenerator((ITriangle)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, IGroup.class) 		{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LGroupSVGGenerator((IGroup)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, IEllipse.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LEllipseSVGGenerator<IEllipse>((IEllipse)shape).toSVG(doc); } };
-		cmd = new CreateViewSVGCmd(cmd, IArc.class) 		{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LArcSVGGenerator((IArc)shape).toSVG(doc); } };
+		cmd = new CreateViewSVGCmd(cmd, ICircleArc.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LCircleArcSVGGenerator((ICircleArc)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, ICircle.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LCircleSVGGenerator((ICircle)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, IRectangle.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LRectangleSVGGenerator((IRectangle)shape).toSVG(doc); } };
 		// The last created command is the first element of the chain.

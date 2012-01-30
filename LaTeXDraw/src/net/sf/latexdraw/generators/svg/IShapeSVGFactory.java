@@ -144,7 +144,7 @@ final class IShapeSVGFactory {
 					else if(type.equals(LNamespace.XML_TYPE_DOT))
 						return new LDotSVGGenerator((SVGGElement)elt, withTransformations).getShape();
 					else if(type.equals(LNamespace.XML_TYPE_ARC))
-						return new LArcSVGGenerator((SVGGElement)elt, withTransformations).getShape();
+						return new LCircleArcSVGGenerator((SVGGElement)elt, withTransformations).getShape();
 					else if(type.equals(LNamespace.XML_TYPE_PICTURE))
 						return new LPictureSVGGenerator((SVGGElement)elt, withTransformations).getShape();
 				}

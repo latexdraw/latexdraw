@@ -137,7 +137,7 @@ class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	        setSVGBorderBackground(elt, root);
         }
 
-        elt = new SVGCircleElement((brx+tlx)/2., (bry+tly)/2., (brx-tlx+gap)/2., doc);
+        elt = new SVGCircleElement((brx+tlx)/2., (bry+tly)/2., (brx-tlx+gap)/2., doc);// FIXME Should use prototype design pattern to reduce re-creation.
         root.appendChild(elt);
 
         if(shape.hasDbleBord()) {
