@@ -1,7 +1,9 @@
 package net.sf.latexdraw.generators.svg;
 
+import java.text.ParseException;
 import java.util.List;
 
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -146,7 +148,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		final SVGDefsElement defs 	= doc.getFirstChild().getDefs();
 		final StringBuilder points 	= new StringBuilder();
 		final List<IPoint> pts		= shape.getPoints();
-		SVGElement elt;
+		SVGPolyLineElement elt;
 
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_JOINED_LINES);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
@@ -157,9 +159,8 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		final String pointsStr = points.toString();
 
 		if(shape.hasShadow()) {
-			SVGElement shad = new SVGPolyLineElement(doc);
-
-			shad.setAttribute(SVGAttributes.SVG_POINTS, pointsStr);
+			SVGPolyLineElement shad = new SVGPolyLineElement(doc);
+			try { shad.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			setSVGShadowAttributes(shad, false);
 			root.appendChild(shad);
 			setSVGArrow(shad, 0, true, doc, defs);
@@ -167,20 +168,19 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		}
 
         if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE) && shape.isFilled()) {
-        // The background of the borders must be filled is there is a shadow.
+        	// The background of the borders must be filled is there is a shadow.
     		elt = new SVGPolyLineElement(doc);
-    		elt.setAttribute(SVGAttributes.SVG_POINTS, pointsStr);
+    		try { elt.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
     		setSVGBorderBackground(elt, root);
         }
 
 		elt = new SVGPolyLineElement(doc);
-		elt.setAttribute(SVGAttributes.SVG_POINTS, pointsStr);
+		try { elt.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
 		root.appendChild(elt);
 
 		if(shape.hasDbleBord()) {
-			SVGElement dblBord = new SVGPolyLineElement(doc);
-
-			dblBord.setAttribute(SVGAttributes.SVG_POINTS, pointsStr);
+			SVGPolyLineElement dblBord = new SVGPolyLineElement(doc);
+			try { dblBord.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			setSVGDoubleBordersAttributes(dblBord);
 			root.appendChild(dblBord);
 		}

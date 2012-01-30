@@ -1,5 +1,8 @@
 package net.sf.latexdraw.generators.svg;
 
+import java.text.ParseException;
+
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPolygon;
@@ -129,8 +132,7 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 
         if(shape.hasShadow()) {
         	SVGPolygonElement shad = new SVGPolygonElement(doc);
-
-        	shad.setAttribute(SVGAttributes.SVG_POINTS, points);
+        	try { shad.setPoints(points); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
         	setSVGShadowAttributes(shad, true);
         	root.appendChild(shad);
         }
@@ -138,20 +140,19 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
         if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE)) {
         	// The background of the borders must be filled is there is a shadow.
         	elt = new SVGPolygonElement(doc);
-        	elt.setAttribute(SVGAttributes.SVG_POINTS, points);
+        	try { elt.setPoints(points); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
         	setSVGBorderBackground(elt, root);
         }
 
         elt = new SVGPolygonElement(doc);
-        elt.setAttribute(SVGAttributes.SVG_POINTS, points);
+        try { elt.setPoints(points); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
         root.appendChild(elt);
         setSVGAttributes(doc, elt, true);
         setSVGRotationAttribute(root);
 
         if(shape.hasDbleBord()) {
         	SVGPolygonElement dblBord = new SVGPolygonElement(doc);
-
-        	dblBord.setAttribute(SVGAttributes.SVG_POINTS, points);
+        	try { dblBord.setPoints(points); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
         	setSVGDoubleBordersAttributes(dblBord);
         	root.appendChild(dblBord);
         }
