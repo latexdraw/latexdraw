@@ -389,7 +389,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getGravityCentre() {
-		return points.isEmpty() ? new LPoint() : getTopLeftPoint().getMiddlePoint(getBottomLeftPoint());
+		return points.isEmpty() ? new LPoint() : getTopLeftPoint().getMiddlePoint(getBottomRightPoint());
 	}
 
 
