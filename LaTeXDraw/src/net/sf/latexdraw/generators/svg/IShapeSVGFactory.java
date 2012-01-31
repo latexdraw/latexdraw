@@ -35,7 +35,7 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-final class IShapeSVGFactory {
+public final class IShapeSVGFactory {
 	/** The singleton. */
 	public static final IShapeSVGFactory INSTANCE = new IShapeSVGFactory();
 
