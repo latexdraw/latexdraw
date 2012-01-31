@@ -69,9 +69,10 @@ public class SVGDocument implements Document {
 	 * the document is read an place in the <code>root</code> attribute.
 	 * @param uri The file to parse.
 	 * @throws MalformedSVGDocument If an error occurs.
+	 * @throws IOException If the document cannot be opened.
 	 * @throws IllegalArgumentException If a n argument is not valid.
 	 */
-	public SVGDocument(final URI uri) throws MalformedSVGDocument {
+	public SVGDocument(final URI uri) throws MalformedSVGDocument, IOException {
 		if(uri==null)
 			throw new IllegalArgumentException();
 
@@ -100,10 +101,6 @@ public class SVGDocument implements Document {
 			}
 		}
 		catch(final SAXException e) {
-			BadaboomCollector.INSTANCE.add(e);
-			throw new MalformedSVGDocument();
-		}
-		catch(final IOException e) {
 			BadaboomCollector.INSTANCE.add(e);
 			throw new MalformedSVGDocument();
 		}
