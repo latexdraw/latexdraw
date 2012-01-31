@@ -136,6 +136,8 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 
 	@Override
 	protected void setPath(final boolean close) {
+		if(shape.getNbPoints()<2) return ;
+
 		final List<IPoint> pts 		= shape.getPoints();
 		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
 		final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
