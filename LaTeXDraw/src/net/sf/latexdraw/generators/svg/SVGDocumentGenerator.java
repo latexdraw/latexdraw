@@ -189,17 +189,13 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 
 		final IGroup shapes = DrawingTK.getFactory().createGroup(false);
 		final NodeList elts = doc.getDocumentElement().getChildNodes();
-		IShape shape 		= null;
 		Node node;
 
 		for(int i=0, size=elts.getLength(); i<size; i++) {
 			node = elts.item(i);
 
 			if(node instanceof SVGElement)
-				shape = IShapeSVGFactory.INSTANCE.createShape((SVGElement)node);
-
-			if(shape!=null)
-				shapes.addShape(shape);
+				shapes.addShape(IShapeSVGFactory.INSTANCE.createShape((SVGElement)node));
 		}
 
 		return shapes.size() == 1 ? shapes.getShapeAt(0) : shapes.size()==0 ? null : shapes;
