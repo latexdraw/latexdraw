@@ -54,7 +54,6 @@ public final class ImageCropper {
 		final int bottom = getBottom(img, width, height, left, right);
 		final int newWidth = img.getWidth(null)-left-right;
 		final int newHeight = img.getHeight(null)-top-bottom;
-		System.out.println(left + " " + right + " " + top + " " + bottom);
 		final Image cropped = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB_PRE);
 		final Graphics g = cropped.getGraphics();
 
