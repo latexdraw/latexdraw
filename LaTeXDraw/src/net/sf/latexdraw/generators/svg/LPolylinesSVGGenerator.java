@@ -59,6 +59,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 			throw new IllegalArgumentException();
 
 		initModifiablePointsShape(elt);
+		setSVGParameters(elt);
 	}
 
 
@@ -72,6 +73,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		this(DrawingTK.getFactory().createPolyline(true));
 
 		setSVGModifiablePointsParameters(elt);
+		setSVGParameters(elt);
 		applyTransformations(elt);
 	}
 
@@ -85,6 +87,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		this(DrawingTK.getFactory().createPolyline(true));
 
 		//TODO
+		setSVGParameters(elt);
 		applyTransformations(elt);
 	}
 
@@ -127,6 +130,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		}
 
 		setSVGLatexdrawParameters(elt);
+		setSVGParameters(elt);
 		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), elt2);
 		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), elt2);
 		homogeniseArrows(arrow1, arrow2);
