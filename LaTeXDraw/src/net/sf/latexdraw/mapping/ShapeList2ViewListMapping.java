@@ -54,12 +54,12 @@ public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape,
 		super.onObjectAdded(list, object, index);
 
 		if(object instanceof IShape) {
-			MappingRegistry.REGISTRY.addMapping(new Shape2ViewMapping((IShape)object, index==-1 ? target.get(target.size()-1) : target.get(index)));
+			final IViewShape view = index==-1 ? target.get(target.size()-1) : target.get(index);
+			MappingRegistry.REGISTRY.addMapping(new Shape2ViewMapping((IShape)object, view));
 
 			// If the shape is a text, a special mapping must be added.
-			if(object instanceof IText)
-				MappingRegistry.REGISTRY.addMapping(new Package2TextViewMapping(
-						LaTeXGenerator.getPackagesUnary(), (IViewText)(index==-1 ? target.get(target.size()-1) : target.get(index))));
+			if(view instanceof IViewText)
+				MappingRegistry.REGISTRY.addMapping(new Package2TextViewMapping(LaTeXGenerator.getPackagesUnary(), (IViewText)view));
 		}
 	}
 
