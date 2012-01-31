@@ -146,21 +146,20 @@ class LGroupView extends LShapeView<IGroup> {
 
 	@Override
 	public void updateBorder() {
-//		double xMin = Double.MAX_VALUE, yMin = Double.MAX_VALUE;
-//		double xMax = Double.MIN_VALUE, yMax = Double.MIN_VALUE;
-//		Rectangle2D rec;
-//
-//		for(IShapeView v : views) {
-//			rec = v.getBorder();
-//
-//			if(rec.getMinX()<xMin) xMin = rec.getMinX();
-//			if(rec.getMinY()<yMin) yMin = rec.getMinY();
-//			if(rec.getMaxX()>xMax) xMax = rec.getMaxX();
-//			if(rec.getMaxY()>yMax) yMax = rec.getMaxY();
-//		}
-//
-//		border.border.setFrameFromDiagonal(xMin, yMin, xMax, yMax);
-//		border.update();
+		double xMin = Double.MAX_VALUE, yMin = Double.MAX_VALUE;
+		double xMax = Double.MIN_VALUE, yMax = Double.MIN_VALUE;
+		Rectangle2D rec;
+
+		for(final IViewShape v : views) {
+			rec = v.getBorder();
+
+			if(rec.getMinX()<xMin) xMin = rec.getMinX();
+			if(rec.getMinY()<yMin) yMin = rec.getMinY();
+			if(rec.getMaxX()>xMax) xMax = rec.getMaxX();
+			if(rec.getMaxY()>yMax) yMax = rec.getMaxY();
+		}
+
+		border.setFrameFromDiagonal(xMin, yMin, xMax, yMax);
 	}
 
 
