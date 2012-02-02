@@ -641,11 +641,13 @@ public class LCanvas extends MPanel implements ICanvas {
 		public void mouseMoved(MouseEvent e) {
 			boolean again = true;
 			ToolTipable tooltipable;
+			final double x = e.getX()/getZoom();
+			final double y = e.getY()/getZoom();
 
 			for(int i=0, size=tooltipableView.size(); i<size && again; i++) {
 				tooltipable = tooltipableView.get(i);
 
-				if(tooltipable.isToolTipVisible(e.getX(), e.getY())) {
+				if(tooltipable.isToolTipVisible(x, y)) {
 					String text = tooltipable.getToolTip();
 					setToolTipText(text==null || text.length()==0 ? null : text);
 					again = false;

@@ -27,7 +27,7 @@ public interface ToolTipable {
 	 * @return True if a tooltip can be displayed.
 	 * @since 3.0
 	 */
-	boolean isToolTipVisible(final int x, final int y);
+	boolean isToolTipVisible(final double x, final double y);
 
 	/**
 	 * @return The tooltip to display.

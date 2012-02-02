@@ -468,7 +468,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 
 	@Override
-	public boolean isToolTipVisible(int x, int y) {
+	public boolean isToolTipVisible(double x, double y) {
 		return border.contains(x, y);
 	}
 
