@@ -85,6 +85,9 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 	public static final FontMetrics FONT_METRICS = FontDesignMetrics.getMetrics(FONT);
 
+	/** A ratio used to create bigger thumbnails to improve the quality of the displayed image. */
+	protected static final double SCALE_IMAGE = 3;
+
 
 	/**
 	 * Creates and initialises a text view.
@@ -314,7 +317,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 		// We must scale the text to fit its latex size: latexdrawDPI/latexDPI is the ratio to scale the
 		// created png picture.
-		final double scale = IShape.PPC*PSTricksConstants.INCH_VAL_CM/PSTricksConstants.INCH_VAL_PT;
+		final double scale = (IShape.PPC*PSTricksConstants.INCH_VAL_CM/PSTricksConstants.INCH_VAL_PT)*SCALE_IMAGE;
 
 		doc.append("\\documentclass[10pt]{article}\\usepackage[usenames,dvipsnames]{pstricks}"); //$NON-NLS-1$
 		doc.append(LaTeXGenerator.getPackages());
@@ -365,12 +368,12 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 	private IPoint getTextPositionImage() {
 		switch(shape.getTextPosition()) {
-			case BOT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/2., shape.getY()-image.getHeight(null));
-			case TOP : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/2., shape.getY());
-			case BOT_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY()-image.getHeight(null));
+			case BOT : return DrawingTK.getFactory().createPoint(shape.getX()-border.getWidth()/2., shape.getY()-border.getHeight());
+			case TOP : return DrawingTK.getFactory().createPoint(shape.getX()-border.getWidth()/2., shape.getY());
+			case BOT_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY()-border.getHeight());
 			case TOP_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY());
-			case BOT_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null), shape.getY()-image.getHeight(null));
-			case TOP_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null), shape.getY());
+			case BOT_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-border.getWidth(), shape.getY()-border.getHeight());
+			case TOP_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-border.getWidth(), shape.getY());
 		}
 
 		return null;
@@ -378,16 +381,13 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 
 	private IPoint getTextPositionText() {
-		TextLayout tl = new TextLayout(shape.getText(), FONT, FONT_METRICS.getFontRenderContext());
-		Rectangle2D bounds = tl.getBounds();
-
 		switch(shape.getTextPosition()) {
-			case BOT : return DrawingTK.getFactory().createPoint(shape.getX()-bounds.getWidth()/2., shape.getY());
-			case TOP : return DrawingTK.getFactory().createPoint(shape.getX()-bounds.getWidth()/2., shape.getY()+bounds.getHeight());
+			case BOT : return DrawingTK.getFactory().createPoint(shape.getX()-border.getWidth()/2., shape.getY());
+			case TOP : return DrawingTK.getFactory().createPoint(shape.getX()-border.getWidth()/2., shape.getY()+border.getHeight());
 			case BOT_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY());
-			case TOP_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY()+bounds.getHeight());
-			case BOT_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-bounds.getWidth(), shape.getY());
-			case TOP_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-bounds.getWidth(), shape.getY()+bounds.getHeight());
+			case TOP_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY()+border.getHeight());
+			case BOT_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-border.getWidth(), shape.getY());
+			case TOP_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-border.getWidth(), shape.getY()+border.getHeight());
 		}
 
 		return null;
@@ -408,8 +408,11 @@ class LTextView extends LShapeView<IText> implements IViewText {
 			g.setFont(FONT);
 			g.drawString(shape.getText(), (int)position.getX(), (int)position.getY());
 		}
-		else
-			g.drawImage(image, (int)position.getX(), (int)position.getY(), null);
+		else {
+			g.scale(1/SCALE_IMAGE, 1/SCALE_IMAGE);
+			g.drawImage(image, (int)(position.getX()*SCALE_IMAGE), (int)(position.getY()*SCALE_IMAGE), null);
+			g.scale(SCALE_IMAGE, SCALE_IMAGE);
+		}
 
 		if(p!=null)
 			endRotation(g, p);
@@ -428,7 +431,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		}
 		else {
 			final double height = image.getHeight(null);
-			border.setFrame(position.getX(), position.getY(), image.getWidth(null), height);
+			border.setFrame(position.getX(), position.getY(), image.getWidth(null)*(1/SCALE_IMAGE), height*(1/SCALE_IMAGE));
 		}
 	}
 
