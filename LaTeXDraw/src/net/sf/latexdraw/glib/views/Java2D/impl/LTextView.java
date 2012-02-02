@@ -427,7 +427,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		if(image==null) {
 			TextLayout tl = new TextLayout(shape.getText(), FONT, FONT_METRICS.getFontRenderContext());
 			Rectangle2D bounds = tl.getBounds();
-			border.setFrame(position.getX(), position.getY()-bounds.getHeight(), bounds.getWidth(), bounds.getHeight());
+			border.setFrame(position.getX(), position.getY()-bounds.getHeight()+tl.getDescent(), tl.getAdvance(), bounds.getHeight());
 		}
 		else {
 			final double height = image.getHeight(null);
