@@ -56,13 +56,13 @@ class LPolyline extends LPolygon implements IPolyline {
 		addPoint(point2);
 	}
 
-	
+
 	@Override
 	public IPolyline duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof IPolyline ? (IPolyline)sh : null;
 	}
-	
+
 
 	@Override
 	public ILine getArrowLine(final IArrow arrow) {
@@ -78,6 +78,13 @@ class LPolyline extends LPolygon implements IPolyline {
 
 		return line;
 	}
+
+
+	@Override
+	public boolean isFillable() {
+		return getNbPoints()>2;
+	}
+
 
 
 	@Override
