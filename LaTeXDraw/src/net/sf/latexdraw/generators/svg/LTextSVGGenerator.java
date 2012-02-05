@@ -3,6 +3,7 @@ package net.sf.latexdraw.generators.svg;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.IText.TextSize;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -91,6 +92,13 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 		}
 		else
 			throw new IllegalArgumentException();
+
+		TextSize textSize;
+		try { textSize = TextSize.getTextSizeFromSize(Double.valueOf(elt.getAttribute(SVGAttributes.SVG_FONT_SIZE)).intValue()); }
+		catch(NumberFormatException e) { textSize = null; }
+
+		if(textSize!=null)
+			shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText() + '}');
 
 		if(SVGAttributes.SVG_FONT_WEIGHT_BOLD.equals(elt.getAttribute(SVGAttributes.SVG_FONT_WEIGHT)))
 			shape.setText("\\textbf{" + shape.getText() + '}');

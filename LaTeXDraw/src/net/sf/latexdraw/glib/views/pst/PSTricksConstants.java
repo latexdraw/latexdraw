@@ -142,29 +142,6 @@ public abstract class PSTricksConstants {
 	public static final double DEFAULT_UPUT_DOWN_RIGHT_ANGLE 	= 315;
 	public static final double DEFAULT_UPUT_UP_RIGHT_ANGLE		=  45;
 
-	public static final String COMMAND_TEXT_LARGE = "\\large ";//$NON-NLS-1$
-
-	public static final String COMMAND_TEXT_TINY     = "\\tiny ";//$NON-NLS-1$
-
-	public static final String COMMAND_TEXT_SCRIPT   = "\\scriptsize ";//$NON-NLS-1$
-
-	public static final String COMMAND_TEXT_FOOTNOTE = "\\footnotesize ";//$NON-NLS-1$
-
-	public static final String COMMAND_TEXT_SMALL  = "\\small ";//$NON-NLS-1$
-
-	public static final String COMMAND_TEXT_NORMAL = "\\normalsize ";//$NON-NLS-1$
-
-	public static final String COMMAND_TEXT_LARGE1 = "\\large ";//$NON-NLS-1$
-
-	public static final String COMMAND_TEXT_LARGE2 = "\\Large ";//$NON-NLS-1$
-
-	public static final String COMMAND_TEXT_LARGE3 =  "\\LARGE ";//$NON-NLS-1$
-
-	public static final String COMMAND_TEXT_HUGE1 =  "\\huge ";//$NON-NLS-1$
-
-	public static final String COMMAND_TEXT_HUGE2 =  "\\Huge ";//$NON-NLS-1$
-
-
 	/** gangle is the angle of rotation of a diamond and a triangle
 	 * around their centre. */
 	public static final double DEFAULT_GANGLE = 0;
