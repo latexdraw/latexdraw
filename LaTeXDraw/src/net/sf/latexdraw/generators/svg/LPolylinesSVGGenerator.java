@@ -131,11 +131,11 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(elt);
+		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
+		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), elt2);
 		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), elt2);
 		homogeniseArrows(arrow1, arrow2);
-		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
-		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 
 		if(withTransformation)
 			applyTransformations(elt);
