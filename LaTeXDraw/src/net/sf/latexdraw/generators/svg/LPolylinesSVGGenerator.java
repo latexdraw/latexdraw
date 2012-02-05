@@ -127,10 +127,10 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 			final SVGLineElement lineElt = (SVGLineElement)elt2;
 			shape.addPoint(DrawingTK.getFactory().createPoint(lineElt.getX1(), lineElt.getY1()));
 			shape.addPoint(DrawingTK.getFactory().createPoint(lineElt.getX2(), lineElt.getY2()));
+			setSVGParameters(elt2);
 		}
 
 		setSVGLatexdrawParameters(elt);
-		setSVGParameters(elt);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), elt2);
