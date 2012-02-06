@@ -142,7 +142,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getArrowShapedWidth() {
-		return arrowSizeNum*owner.getThickness()+arrowSizeDim;
+		return arrowSizeNum*(owner.hasDbleBord() ? owner.getThickness()*2. + owner.getDbleBordSep() : owner.getThickness())+arrowSizeDim;
 	}
 
 
