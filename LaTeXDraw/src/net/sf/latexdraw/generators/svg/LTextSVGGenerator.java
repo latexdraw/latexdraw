@@ -95,7 +95,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 
 		TextSize textSize;
 		try { textSize = TextSize.getTextSizeFromSize(Double.valueOf(elt.getAttribute(SVGAttributes.SVG_FONT_SIZE)).intValue()); }
-		catch(NumberFormatException e) { textSize = null; }
+		catch(Exception e) { textSize = null; }
 
 		if(textSize!=null)
 			shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText() + '}');
