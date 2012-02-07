@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
@@ -33,6 +35,51 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** The inset of arrows. */
+	ARROW_INSET {
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			double val = (Double)value;
+
+			for(final IShape sh : group.getShapes())
+				if(sh.isArrowable())
+					sh.setArrowInset(val);
+		}
+
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			IShape sh;
+
+			for(int i=0, size=group.size(); i<size; i++) {
+				sh = group.getShapeAt(i);
+				if(sh.isArrowable())
+					sh.setArrowInset((Double)values.get(i));
+			}
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			final List<Double> vals = new ArrayList<Double>();
+			IArrow arr;
+
+			for(final IShape sh : group.getShapes()) {
+				arr = sh.isArrowable() ? sh.getArrowAt(0) : null;
+				vals.add(arr==null ? null : arr.getArrowInset());
+			}
+
+			return vals;
+		}
+
+		@Override
+		public String getMessage() {
+			return "arrow parameter";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	},
 	/** Modification of the starting position of grids. */
 	GRID_START {
 		@Override

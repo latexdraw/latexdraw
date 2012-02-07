@@ -117,6 +117,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 	protected boolean isPropertySupported() {
 		if(super.isPropertySupported())
 			switch(property) {
+				case ARROW_INSET:
 				case ARROW1_STYLE:
 				case ARROW2_STYLE:		return shapes.isArrowable();
 				case BORDER_POS:		return shapes.isBordersMovable();

@@ -76,7 +76,7 @@ class LArrow implements IArrow {
 
 		this.owner 	 = owner;
 		style		 = ArrowStyle.NONE;
-		arrowInset   = PSTricksConstants.DEFAULT_ARROW_INSET;
+		arrowInset   = 0.;
 		arrowLength  = PSTricksConstants.DEFAULT_ARROW_LENGTH;
 		arrowSizeDim = PSTricksConstants.DEFAULT_ARROW_SIZE_DIM*IShape.PPC;
 		arrowSizeNum = PSTricksConstants.DEFAULT_ARROW_SIZE_NUM;

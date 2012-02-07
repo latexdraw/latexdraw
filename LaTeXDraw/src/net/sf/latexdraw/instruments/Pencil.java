@@ -15,6 +15,7 @@ import net.sf.latexdraw.glib.models.interfaces.Arcable;
 import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
@@ -114,6 +115,8 @@ public class Pencil extends Instrument {
 	/** The style of the right arrows. */
 	protected ArrowStyle arrowRightStyle;
 
+	protected IArrow arrow;
+
 	/** The file chooser used to select pictures. */
 	protected JFileChooser pictureFileChooser;
 
@@ -152,6 +155,7 @@ public class Pencil extends Instrument {
 		arcable			= factory.createCircleArc(false);
 		arrowLeftStyle	= ArrowStyle.NONE;
 		arrowRightStyle	= ArrowStyle.NONE;
+		arrow			= factory.createArrow(lineStylable);
 	}
 
 
@@ -255,6 +259,18 @@ public class Pencil extends Instrument {
 		}
 		if(shape instanceof IStandardGrid)
 			((IStandardGrid)shape).copy(gridShape);
+		if(shape.isArrowable()) {
+			shape.setArrowInset(arrow.getArrowInset());
+			shape.setArrowLength(arrow.getArrowLength());
+			shape.setArrowSizeDim(arrow.getArrowSizeDim());
+			shape.setArrowSizeNum(arrow.getArrowSizeNum());
+			shape.setDotSizeDim(arrow.getDotSizeDim());
+			shape.setDotSizeNum(arrow.getDotSizeNum());
+			shape.setBracketNum(arrow.getBracketNum());
+			shape.setRBracketNum(arrow.getRBracketNum());
+			shape.setTBarSizeDim(arrow.getTBarSizeDim());
+			shape.setTBarSizeNum(arrow.getTBarSizeNum());
+		}
 
 		shape.setModified(true);
 	}
@@ -294,6 +310,16 @@ public class Pencil extends Instrument {
 	public void setCurrentChoice(final EditionChoice currentChoice) {
 		if(currentChoice!=null)
 			this.currentChoice = currentChoice;
+	}
+
+
+	/**
+	 * Sets the arrow inset of the pencil.
+	 * @param inset The new inset.
+	 * @since 3.0
+	 */
+	public void setArrowInset(final double inset) {
+		arrow.setArrowInset(inset);
 	}
 
 

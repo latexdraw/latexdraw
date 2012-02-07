@@ -224,15 +224,37 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 	protected JComponent composeArrowToolbar(final ShapeArrowCustomiser ins, final LCanvas canvas) {
+		final int size = 70;
 		ListToggleButton list = new ListToggleButton(frame, LResources.ARROW_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the arrows.");
 
 		list.addComponent(ins.getArrowLeftCB());
 		list.addComponent(ins.getArrowRightCB());
+		addSpinner(list, ins.getArrowInset(), true, size);
+		addSpinner(list, ins.getArrowLength(), true, size);
+		addSpinner(list, ins.getArrowSizeNum(), true, size);
+		addSpinner(list, ins.getArrowSizeDim(), true, size);
+		addSpinner(list, ins.getBracketNum(), true, size);
+		addSpinner(list, ins.getTbarsizeNum(), true, size);
+		addSpinner(list, ins.getTbarsizeDim(), true, size);
+		addSpinner(list, ins.getDotSizeNum(), true, size);
+		addSpinner(list, ins.getDotSizeDim(), true, size);
+		addSpinner(list, ins.getRbracketNum(), true, size);
+
 		list.addSeparator();
 
 		mapContainers.put(ins.getArrowLeftCB(), list);
 		mapContainers.put(ins.getArrowRightCB(), list);
+		mapContainers.put(ins.getArrowInset(), list);
+		mapContainers.put(ins.getArrowLength(), list);
+		mapContainers.put(ins.getArrowSizeNum(), list);
+		mapContainers.put(ins.getArrowSizeDim(), list);
+		mapContainers.put(ins.getTbarsizeNum(), list);
+		mapContainers.put(ins.getTbarsizeDim(), list);
+		mapContainers.put(ins.getBracketNum(), list);
+		mapContainers.put(ins.getRbracketNum(), list);
+		mapContainers.put(ins.getDotSizeNum(), list);
+		mapContainers.put(ins.getDotSizeDim(), list);
 
         ins.addEventable(list.getToolbar());
 
