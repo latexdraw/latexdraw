@@ -36,6 +36,51 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  */
 public enum ShapeProperties {
 	/** The inset of arrows. */
+	ARROW_LENGTH {
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			double val = (Double)value;
+
+			for(final IShape sh : group.getShapes())
+				if(sh.isArrowable())
+					sh.setArrowLength(val);
+		}
+
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			IShape sh;
+
+			for(int i=0, size=group.size(); i<size; i++) {
+				sh = group.getShapeAt(i);
+				if(sh.isArrowable())
+					sh.setArrowLength((Double)values.get(i));
+			}
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			final List<Double> vals = new ArrayList<Double>();
+			IArrow arr;
+
+			for(final IShape sh : group.getShapes()) {
+				arr = sh.isArrowable() ? sh.getArrowAt(0) : null;
+				vals.add(arr==null ? null : arr.getArrowLength());
+			}
+
+			return vals;
+		}
+
+		@Override
+		public String getMessage() {
+			return "arrow parameter";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	},
+	/** The inset of arrows. */
 	ARROW_INSET {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {

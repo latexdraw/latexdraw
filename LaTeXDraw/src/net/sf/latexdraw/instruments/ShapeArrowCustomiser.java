@@ -492,7 +492,10 @@ class Spinner2SelectionArrowParam extends SpinnerForCustomiser<ModifyShapeProper
 
 	@Override
 	public void initAction() {
-		action.setProperty(ShapeProperties.ARROW_INSET);
+		final Object obj = interaction.getSpinner();
+
+		if(obj==instrument.arrowInset) action.setProperty(ShapeProperties.ARROW_INSET);
+		else action.setProperty(ShapeProperties.ARROW_LENGTH);
 		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
 	}
 
@@ -500,7 +503,7 @@ class Spinner2SelectionArrowParam extends SpinnerForCustomiser<ModifyShapeProper
 	@Override
 	public boolean isConditionRespected() {
 		final Object obj = interaction.getSpinner();
-		return obj==instrument.arrowInset;
+		return obj==instrument.arrowInset || obj==instrument.arrowLength;
 	}
 }
 

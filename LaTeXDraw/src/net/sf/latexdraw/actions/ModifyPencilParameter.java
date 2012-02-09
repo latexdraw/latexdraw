@@ -186,6 +186,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case ARC_STYLE		: pencil.setArcStyle((ArcStyle)value);		break;
 			case GRID_START: pencil.setGridStart((IPoint)value); break;
 			case ARROW_INSET: pencil.setArrowInset((Double)value); break;
+			case ARROW_LENGTH: pencil.setArrowLength((Double)value); break;
 		}
 	}
 }

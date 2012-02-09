@@ -321,6 +321,16 @@ public class Pencil extends Instrument {
 	public void setArrowInset(final double inset) {
 		arrow.setArrowInset(inset);
 	}
+	
+	
+	/**
+	 * Sets the arrow inset of the pencil.
+	 * @param lgth The new inset.
+	 * @since 3.0
+	 */
+	public void setArrowLength(final double lgth) {
+		arrow.setArrowLength(lgth);
+	}
 
 
 	/**
