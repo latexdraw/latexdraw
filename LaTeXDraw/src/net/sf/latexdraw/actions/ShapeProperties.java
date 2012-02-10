@@ -35,7 +35,366 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  * @since 3.0
  */
 public enum ShapeProperties {
-	/** The inset of arrows. */
+	/** The t bar num of arrows. */
+	ARROW_T_BAR_SIZE_DIM {
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			double val = (Double)value;
+
+			for(final IShape sh : group.getShapes())
+				if(sh.isArrowable())
+					sh.setTBarSizeDim(val);
+		}
+
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			IShape sh;
+
+			for(int i=0, size=group.size(); i<size; i++) {
+				sh = group.getShapeAt(i);
+				if(sh.isArrowable())
+					sh.setTBarSizeDim((Double)values.get(i));
+			}
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			final List<Double> vals = new ArrayList<Double>();
+			IArrow arr;
+
+			for(final IShape sh : group.getShapes()) {
+				arr = sh.isArrowable() ? sh.getArrowAt(0) : null;
+				vals.add(arr==null ? null : arr.getTBarSizeDim());
+			}
+
+			return vals;
+		}
+
+		@Override
+		public String getMessage() {
+			return "arrow parameter";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	},
+	/** The t bar num of arrows. */
+	ARROW_T_BAR_SIZE_NUM {
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			double val = (Double)value;
+
+			for(final IShape sh : group.getShapes())
+				if(sh.isArrowable())
+					sh.setTBarSizeNum(val);
+		}
+
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			IShape sh;
+
+			for(int i=0, size=group.size(); i<size; i++) {
+				sh = group.getShapeAt(i);
+				if(sh.isArrowable())
+					sh.setTBarSizeNum((Double)values.get(i));
+			}
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			final List<Double> vals = new ArrayList<Double>();
+			IArrow arr;
+
+			for(final IShape sh : group.getShapes()) {
+				arr = sh.isArrowable() ? sh.getArrowAt(0) : null;
+				vals.add(arr==null ? null : arr.getTBarSizeNum());
+			}
+
+			return vals;
+		}
+
+		@Override
+		public String getMessage() {
+			return "arrow parameter";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	},
+	/** The dot size dim of arrows. */
+	ARROW_DOT_SIZE_NUM {
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			double val = (Double)value;
+
+			for(final IShape sh : group.getShapes())
+				if(sh.isArrowable())
+					sh.setDotSizeNum(val);
+		}
+
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			IShape sh;
+
+			for(int i=0, size=group.size(); i<size; i++) {
+				sh = group.getShapeAt(i);
+				if(sh.isArrowable())
+					sh.setDotSizeNum((Double)values.get(i));
+			}
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			final List<Double> vals = new ArrayList<Double>();
+			IArrow arr;
+
+			for(final IShape sh : group.getShapes()) {
+				arr = sh.isArrowable() ? sh.getArrowAt(0) : null;
+				vals.add(arr==null ? null : arr.getDotSizeNum());
+			}
+
+			return vals;
+		}
+
+		@Override
+		public String getMessage() {
+			return "arrow parameter";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	},
+	/** The dot size dim of arrows. */
+	ARROW_DOT_SIZE_DIM {
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			double val = (Double)value;
+
+			for(final IShape sh : group.getShapes())
+				if(sh.isArrowable())
+					sh.setDotSizeDim(val);
+		}
+
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			IShape sh;
+
+			for(int i=0, size=group.size(); i<size; i++) {
+				sh = group.getShapeAt(i);
+				if(sh.isArrowable())
+					sh.setDotSizeDim((Double)values.get(i));
+			}
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			final List<Double> vals = new ArrayList<Double>();
+			IArrow arr;
+
+			for(final IShape sh : group.getShapes()) {
+				arr = sh.isArrowable() ? sh.getArrowAt(0) : null;
+				vals.add(arr==null ? null : arr.getDotSizeDim());
+			}
+
+			return vals;
+		}
+
+		@Override
+		public String getMessage() {
+			return "arrow parameter";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	},
+	/** The bracket num of arrows. */
+	ARROW_BRACKET_NUM {
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			double val = (Double)value;
+
+			for(final IShape sh : group.getShapes())
+				if(sh.isArrowable())
+					sh.setBracketNum(val);
+		}
+
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			IShape sh;
+
+			for(int i=0, size=group.size(); i<size; i++) {
+				sh = group.getShapeAt(i);
+				if(sh.isArrowable())
+					sh.setBracketNum((Double)values.get(i));
+			}
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			final List<Double> vals = new ArrayList<Double>();
+			IArrow arr;
+
+			for(final IShape sh : group.getShapes()) {
+				arr = sh.isArrowable() ? sh.getArrowAt(0) : null;
+				vals.add(arr==null ? null : arr.getBracketNum());
+			}
+
+			return vals;
+		}
+
+		@Override
+		public String getMessage() {
+			return "arrow parameter";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	},
+	/** The round bracket num of arrows. */
+	ARROW_R_BRACKET_NUM {
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			double val = (Double)value;
+
+			for(final IShape sh : group.getShapes())
+				if(sh.isArrowable())
+					sh.setRBracketNum(val);
+		}
+
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			IShape sh;
+
+			for(int i=0, size=group.size(); i<size; i++) {
+				sh = group.getShapeAt(i);
+				if(sh.isArrowable())
+					sh.setRBracketNum((Double)values.get(i));
+			}
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			final List<Double> vals = new ArrayList<Double>();
+			IArrow arr;
+
+			for(final IShape sh : group.getShapes()) {
+				arr = sh.isArrowable() ? sh.getArrowAt(0) : null;
+				vals.add(arr==null ? null : arr.getRBracketNum());
+			}
+
+			return vals;
+		}
+
+		@Override
+		public String getMessage() {
+			return "arrow parameter";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	},
+	/** The size num of arrows. */
+	ARROW_SIZE_NUM {
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			double val = (Double)value;
+
+			for(final IShape sh : group.getShapes())
+				if(sh.isArrowable())
+					sh.setArrowSizeNum(val);
+		}
+
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			IShape sh;
+
+			for(int i=0, size=group.size(); i<size; i++) {
+				sh = group.getShapeAt(i);
+				if(sh.isArrowable())
+					sh.setArrowSizeNum((Double)values.get(i));
+			}
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			final List<Double> vals = new ArrayList<Double>();
+			IArrow arr;
+
+			for(final IShape sh : group.getShapes()) {
+				arr = sh.isArrowable() ? sh.getArrowAt(0) : null;
+				vals.add(arr==null ? null : arr.getArrowSizeNum());
+			}
+
+			return vals;
+		}
+
+		@Override
+		public String getMessage() {
+			return "arrow parameter";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	},
+	/** The size dim of arrows. */
+	ARROW_SIZE_DIM {
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			double val = (Double)value;
+
+			for(final IShape sh : group.getShapes())
+				if(sh.isArrowable())
+					sh.setArrowSizeDim(val);
+		}
+
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			IShape sh;
+
+			for(int i=0, size=group.size(); i<size; i++) {
+				sh = group.getShapeAt(i);
+				if(sh.isArrowable())
+					sh.setArrowSizeDim((Double)values.get(i));
+			}
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			final List<Double> vals = new ArrayList<Double>();
+			IArrow arr;
+
+			for(final IShape sh : group.getShapes()) {
+				arr = sh.isArrowable() ? sh.getArrowAt(0) : null;
+				vals.add(arr==null ? null : arr.getArrowSizeDim());
+			}
+
+			return vals;
+		}
+
+		@Override
+		public String getMessage() {
+			return "arrow parameter";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+	},
 	ARROW_LENGTH {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {

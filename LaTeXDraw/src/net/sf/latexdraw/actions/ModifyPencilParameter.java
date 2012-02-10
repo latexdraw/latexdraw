@@ -187,6 +187,14 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case GRID_START: pencil.setGridStart((IPoint)value); break;
 			case ARROW_INSET: pencil.setArrowInset((Double)value); break;
 			case ARROW_LENGTH: pencil.setArrowLength((Double)value); break;
+			case ARROW_BRACKET_NUM: pencil.setArrowBracketNum((Double)value); break;
+			case ARROW_DOT_SIZE_DIM: pencil.setArrowDotSizeDim((Double)value); break;
+			case ARROW_DOT_SIZE_NUM: pencil.setArrowDotSizeNum((Double)value); break;
+			case ARROW_R_BRACKET_NUM: pencil.setArrowRBracketNum((Double)value); break;
+			case ARROW_SIZE_DIM: pencil.setArrowSizeDim((Double)value); break;
+			case ARROW_SIZE_NUM: pencil.setArrowSizeNum((Double)value); break;
+			case ARROW_T_BAR_SIZE_DIM: pencil.setArrowTBarDim((Double)value); break;
+			case ARROW_T_BAR_SIZE_NUM: pencil.setArrowTBarNum((Double)value); break;
 		}
 	}
 }

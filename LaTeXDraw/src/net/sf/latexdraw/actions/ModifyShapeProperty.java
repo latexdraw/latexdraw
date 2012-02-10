@@ -117,6 +117,14 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 	protected boolean isPropertySupported() {
 		if(super.isPropertySupported())
 			switch(property) {
+				case ARROW_BRACKET_NUM:
+				case ARROW_DOT_SIZE_DIM:
+				case ARROW_DOT_SIZE_NUM:
+				case ARROW_R_BRACKET_NUM:
+				case ARROW_SIZE_DIM:
+				case ARROW_SIZE_NUM:
+				case ARROW_T_BAR_SIZE_DIM:
+				case ARROW_T_BAR_SIZE_NUM:
 				case ARROW_INSET:
 				case ARROW_LENGTH:
 				case ARROW1_STYLE:

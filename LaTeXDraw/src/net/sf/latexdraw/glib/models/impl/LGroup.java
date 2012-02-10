@@ -916,7 +916,7 @@ class LGroup extends LShape implements IGroup {
 	public double getArrowSizeDim() {
 		for(final IShape sh : shapes)
 			if(sh.isArrowable())
-				return sh.getArrowSizeNum();
+				return sh.getArrowSizeDim();
 
 		return Double.NaN;
 	}
@@ -925,7 +925,7 @@ class LGroup extends LShape implements IGroup {
 	public double getArrowInset() {
 		for(final IShape sh : shapes)
 			if(sh.isArrowable())
-				return sh.getArrowSizeNum();
+				return sh.getArrowInset();
 
 		return Double.NaN;
 	}

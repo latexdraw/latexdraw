@@ -321,8 +321,8 @@ public class Pencil extends Instrument {
 	public void setArrowInset(final double inset) {
 		arrow.setArrowInset(inset);
 	}
-	
-	
+
+
 	/**
 	 * Sets the arrow inset of the pencil.
 	 * @param lgth The new inset.
@@ -330,6 +330,78 @@ public class Pencil extends Instrument {
 	 */
 	public void setArrowLength(final double lgth) {
 		arrow.setArrowLength(lgth);
+	}
+
+	/**
+	 * Sets the arrow dot size dim of the pencil.
+	 * @param dotSizeDim The new dot size dim.
+	 * @since 3.0
+	 */
+	public void setArrowDotSizeDim(final double dotSizeDim) {
+		arrow.setDotSizeDim(dotSizeDim);
+	}
+
+	/**
+	 * Sets the arrow dot size num of the pencil.
+	 * @param dotSizeNum The new dot size num.
+	 * @since 3.0
+	 */
+	public void setArrowDotSizeNum(final double dotSizeNum) {
+		arrow.setDotSizeNum(dotSizeNum);
+	}
+
+	/**
+	 * Sets the arrow size dim of the pencil.
+	 * @param sizeDim The new size dim.
+	 * @since 3.0
+	 */
+	public void setArrowSizeDim(final double sizeDim) {
+		arrow.setArrowSizeDim(sizeDim);
+	}
+
+	/**
+	 * Sets the arrow size num of the pencil.
+	 * @param sizeNum The new size num.
+	 * @since 3.0
+	 */
+	public void setArrowSizeNum(final double sizeNum) {
+		arrow.setArrowSizeNum(sizeNum);
+	}
+
+	/**
+	 * Sets the arrow t bar dim of the pencil.
+	 * @param tbarDim The new t bar dim.
+	 * @since 3.0
+	 */
+	public void setArrowTBarDim(final double tbarDim) {
+		arrow.setTBarSizeDim(tbarDim);
+	}
+
+	/**
+	 * Sets the arrow t bar num of the pencil.
+	 * @param tbarNum The new t bar num.
+	 * @since 3.0
+	 */
+	public void setArrowTBarNum(final double tbarNum) {
+		arrow.setTBarSizeNum(tbarNum);
+	}
+
+	/**
+	 * Sets the round bracket num of the pencil.
+	 * @param rBracketNum The new round bracket.
+	 * @since 3.0
+	 */
+	public void setArrowRBracketNum(final double rBracketNum) {
+		arrow.setRBracketNum(rBracketNum);
+	}
+
+	/**
+	 * Sets the bracket num of the pencil.
+	 * @param bracketNum The new bracket.
+	 * @since 3.0
+	 */
+	public void setArrowBracketNum(final double bracketNum) {
+		arrow.setRBracketNum(bracketNum);
 	}
 
 

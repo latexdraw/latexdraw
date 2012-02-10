@@ -10,6 +10,7 @@ import javax.swing.SpinnerNumberModel;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
+import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
@@ -93,39 +94,34 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
      	arrowRightCB.setPreferredSize(new Dimension(80,30));
      	arrowRightCB.setMaximumSize(new Dimension(80,30));
 
-     	SpinnerNumberModel model = new SpinnerNumberModel(10., 0., 1000., 1.);
-     	dotSizeDim = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
+     	dotSizeDim = new MSpinner(new SpinnerNumberModel(10., 0., 1000., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
      	dotSizeDim.setEditor(new JSpinner.NumberEditor(dotSizeDim, "0.00"));//$NON-NLS-1$
 
-     	arrowSizeDim = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
+     	arrowSizeDim = new MSpinner(new SpinnerNumberModel(10., 0., 1000., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
      	arrowSizeDim.setEditor(new JSpinner.NumberEditor(arrowSizeDim, "0.00"));//$NON-NLS-1$
 
-     	tbarsizeDim = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
+     	tbarsizeDim = new MSpinner(new SpinnerNumberModel(10., 0., 1000., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
      	tbarsizeDim.setEditor(new JSpinner.NumberEditor(tbarsizeDim, "0.00"));//$NON-NLS-1$
 
-     	model = new SpinnerNumberModel(10., 0.1, 100., 0.1);
-     	dotSizeNum = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.20")));
+     	dotSizeNum = new MSpinner(new SpinnerNumberModel(10., 0.1, 100., 0.1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.20")));
      	dotSizeNum.setEditor(new JSpinner.NumberEditor(dotSizeNum, "0.00"));//$NON-NLS-1$
 
-     	tbarsizeNum = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.21")));
+     	tbarsizeNum = new MSpinner(new SpinnerNumberModel(10., 0.1, 100., 0.1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.21")));
      	tbarsizeNum.setEditor(new JSpinner.NumberEditor(tbarsizeNum, "0.00"));//$NON-NLS-1$
 
-     	model = new SpinnerNumberModel(10., 0.1, 100., 0.01);
-     	bracketNum = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.22")));
+     	bracketNum = new MSpinner(new SpinnerNumberModel(10., 0.1, 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.22")));
      	bracketNum.setEditor(new JSpinner.NumberEditor(bracketNum, "0.00"));//$NON-NLS-1$
 
-     	rbracketNum = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.23")));
+     	rbracketNum = new MSpinner(new SpinnerNumberModel(10., 0.1, 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.23")));
      	rbracketNum.setEditor(new JSpinner.NumberEditor(rbracketNum, "0.00"));//$NON-NLS-1$
 
-     	arrowSizeNum = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.28")));
+     	arrowSizeNum = new MSpinner(new SpinnerNumberModel(10., 0.1, 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.28")));
      	arrowSizeNum.setEditor(new JSpinner.NumberEditor(arrowSizeNum, "0.00"));//$NON-NLS-1$
 
-     	model = new SpinnerNumberModel(10., 0., 100., 0.01);
-     	arrowLength = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.26")));
+     	arrowLength = new MSpinner(new SpinnerNumberModel(10., 0., 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.26")));
      	arrowLength.setEditor(new JSpinner.NumberEditor(arrowLength, "0.00"));//$NON-NLS-1$
 
-     	model = new SpinnerNumberModel(0., 0., 100., 0.01);
-     	arrowInset = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.27")));
+     	arrowInset = new MSpinner(new SpinnerNumberModel(0., 0., 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.27")));
      	arrowInset.setEditor(new JSpinner.NumberEditor(arrowInset, "0.00"));//$NON-NLS-1$
 	}
 
@@ -460,9 +456,42 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 }
 
 
+abstract class Spinner2ArrowParam<A  extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeArrowCustomiser> {
+	protected Spinner2ArrowParam(final ShapeArrowCustomiser ins, Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+		super(ins, clazzAction);
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		final Object obj = interaction.getSpinner();
+		return obj==instrument.arrowInset || obj==instrument.arrowLength || obj==instrument.arrowSizeDim || obj==instrument.arrowSizeNum ||
+				obj==instrument.bracketNum || obj==instrument.dotSizeDim || obj==instrument.dotSizeNum || obj==instrument.rbracketNum ||
+				obj==instrument.tbarsizeDim || obj==instrument.tbarsizeNum;
+	}
+
+	@Override
+	public void initAction() {
+		final Object obj = interaction.getSpinner();
+		ShapeProperties prop;
+
+		if(obj==instrument.arrowInset) prop = ShapeProperties.ARROW_INSET;
+		else if(obj==instrument.arrowLength) prop = ShapeProperties.ARROW_LENGTH;
+		else if(obj==instrument.arrowSizeDim) prop = ShapeProperties.ARROW_SIZE_DIM;
+		else if(obj==instrument.arrowSizeNum) prop = ShapeProperties.ARROW_SIZE_NUM;
+		else if(obj==instrument.bracketNum) prop = ShapeProperties.ARROW_BRACKET_NUM;
+		else if(obj==instrument.dotSizeDim) prop = ShapeProperties.ARROW_DOT_SIZE_DIM;
+		else if(obj==instrument.dotSizeNum) prop = ShapeProperties.ARROW_DOT_SIZE_NUM;
+		else if(obj==instrument.rbracketNum) prop = ShapeProperties.ARROW_R_BRACKET_NUM;
+		else if(obj==instrument.tbarsizeDim) prop = ShapeProperties.ARROW_T_BAR_SIZE_DIM;
+		else prop = ShapeProperties.ARROW_T_BAR_SIZE_NUM;
+
+		action.setProperty(prop);
+	}
+}
+
 
 /** This link maps spinners to a ModifyShapeProperty action. */
-class Spinner2PencilArrowParam extends SpinnerForCustomiser<ModifyPencilParameter, ShapeArrowCustomiser> {
+class Spinner2PencilArrowParam extends Spinner2ArrowParam<ModifyPencilParameter> {
 	protected Spinner2PencilArrowParam(final ShapeArrowCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyPencilParameter.class);
 	}
@@ -470,21 +499,14 @@ class Spinner2PencilArrowParam extends SpinnerForCustomiser<ModifyPencilParamete
 
 	@Override
 	public void initAction() {
-		action.setProperty(ShapeProperties.ARROW_INSET);
+		super.initAction();
 		action.setPencil(instrument.pencil);
-	}
-
-
-	@Override
-	public boolean isConditionRespected() {
-		final Object obj = interaction.getSpinner();
-		return obj==instrument.arrowInset;
 	}
 }
 
 
 /** This link maps spinners to a ModifyShapeProperty action. */
-class Spinner2SelectionArrowParam extends SpinnerForCustomiser<ModifyShapeProperty, ShapeArrowCustomiser> {
+class Spinner2SelectionArrowParam extends Spinner2ArrowParam<ModifyShapeProperty> {
 	protected Spinner2SelectionArrowParam(final ShapeArrowCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyShapeProperty.class);
 	}
@@ -492,18 +514,8 @@ class Spinner2SelectionArrowParam extends SpinnerForCustomiser<ModifyShapeProper
 
 	@Override
 	public void initAction() {
-		final Object obj = interaction.getSpinner();
-
-		if(obj==instrument.arrowInset) action.setProperty(ShapeProperties.ARROW_INSET);
-		else action.setProperty(ShapeProperties.ARROW_LENGTH);
+		super.initAction();
 		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
-	}
-
-
-	@Override
-	public boolean isConditionRespected() {
-		final Object obj = interaction.getSpinner();
-		return obj==instrument.arrowInset || obj==instrument.arrowLength;
 	}
 }
 
