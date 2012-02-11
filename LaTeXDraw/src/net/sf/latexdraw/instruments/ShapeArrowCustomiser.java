@@ -48,24 +48,34 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	/** Allows to change the style of the right-end of the shape. */
 	protected MComboBox arrowRightCB;
 
+	/** The field to set the dot size num parameter of arrows. */
 	protected MSpinner dotSizeNum;
 
+	/** The field to set the dot size dim parameter of arrows. */
 	protected MSpinner dotSizeDim;
 
+	/** The field to set the bracket num parameter of arrows. */
 	protected MSpinner bracketNum;
 
+	/** The field to set the rounded bracket num parameter of arrows. */
 	protected MSpinner rbracketNum;
 
+	/** The field to set the t bar size num parameter of arrows. */
 	protected MSpinner tbarsizeNum;
 
+	/** The field to set the t bar size dim parameter of arrows. */
 	protected MSpinner tbarsizeDim;
 
+	/** The field to set the arrows size dim parameter of arrows. */
 	protected MSpinner arrowSizeDim;
 
+	/** The field to set the arrow size num parameter of arrows. */
 	protected MSpinner arrowSizeNum;
 
+	/** The field to set the arrow length parameter of arrows. */
 	protected MSpinner arrowLength;
 
+	/** The field to set the arrow inset parameter of arrows. */
 	protected MSpinner arrowInset;
 
 
