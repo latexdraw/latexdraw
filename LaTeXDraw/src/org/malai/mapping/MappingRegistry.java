@@ -364,7 +364,7 @@ public final class MappingRegistry implements IMappingRegistry {
 			uniqueMaps.remove(object);
 			// Removing the opposite mappings if required.
 			if(removeOppositeMappings)
-				removeOppositeMapping(mapping);
+				removeOppositeMapping(mapping, removeUsingTarget);
 			// Freeing the mapping.
 			mapping.clear();
 		}
@@ -379,7 +379,7 @@ public final class MappingRegistry implements IMappingRegistry {
 					mappings.remove(i);
 					// Removing the opposite mappings if required.
 					if(removeOppositeMappings)
-						removeOppositeMapping(mapping);
+						removeOppositeMapping(mapping, removeUsingTarget);
 					// Freeing the mapping.
 					mapping.clear();
 				}
@@ -421,18 +421,32 @@ public final class MappingRegistry implements IMappingRegistry {
 	}
 
 
-	private void removeOppositeMapping(final IMapping mapping) {
+	private void removeOppositeMapping(final IMapping mapping, final boolean removeUsingTarget) {
 		if(mapping==null) return;
 
-		invertedUniqueMappings.values().remove(mapping);
+		final Object ref;
+		final Map<Object, IMapping> uniqueMap;
+		final Map<Object, List<IMapping>> uniqueMultiMap;
 
-		List<IMapping> maps = invertedMultiMappings.get(mapping.getTarget());
+		if(removeUsingTarget) {
+			ref = mapping.getSource();
+			uniqueMap = uniqueMappings;
+			uniqueMultiMap = multiMappings;
+		} else {
+			ref = mapping.getTarget();
+			uniqueMap = invertedUniqueMappings;
+			uniqueMultiMap = invertedMultiMappings;
+		}
+
+		uniqueMap.values().remove(mapping);
+
+		final List<IMapping> maps = uniqueMultiMap.get(ref);
 
 		if(maps!=null) {
 			maps.remove(mapping);
 
 			if(maps.isEmpty())
-				invertedMultiMappings.remove(mapping.getTarget());
+				uniqueMultiMap.remove(ref);
 		}
 	}
 
