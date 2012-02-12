@@ -1,8 +1,13 @@
 package net.sf.latexdraw.generators.svg;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.net.URI;
 import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.SwingWorker;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.SVGFilter;
@@ -11,6 +16,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.ui.LCanvas;
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -26,10 +32,10 @@ import org.malai.presentation.AbstractPresentation;
 import org.malai.presentation.Presentation;
 import org.malai.ui.ISOpenSaver;
 import org.malai.ui.UI;
+import org.malai.widget.MProgressBar;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 
 /**
  * Defines a generator that creates SVG documents from drawings.<br>
@@ -52,237 +58,341 @@ import org.w3c.dom.NodeList;
  */
 public class SVGDocumentGenerator implements ISOpenSaver {
 	/** The singleton that allows the save/load latexdraw SVG documents. */
-	public static final SVGDocumentGenerator SVG_GENERATOR = new SVGDocumentGenerator();
+	public static final SVGDocumentGenerator INSTANCE = new SVGDocumentGenerator();
 
 
+	private SVGDocumentGenerator() {
+		super();
+	}
 
-	/**
-	 * Creates an SVG document from a set of shapes.
-	 * @param shapes The shapes to convert in SVG.
-	 * @return The created SVG document or null.
-	 * @since 2.0
-	 */
-	public SVGDocument toSVG(final List<IShape> shapes) {
-		if(shapes==null)
-			return null;
 
-		final SVGDocument doc 		= new SVGDocument();
-		final SVGSVGElement root 	= doc.getFirstChild();
-		final SVGGElement g 		= new SVGGElement(doc);
-		final SVGDefsElement defs	= new SVGDefsElement(doc);
-		SVGElement elt;
+	@Override
+	public boolean save(final String path, final UI ui, final MProgressBar progressBar, final Object statusBar) {
+		final SaveWorker lw = new SaveWorker(ui, path, statusBar);
 
-		root.appendChild(defs);
-		root.appendChild(g);
-		root.setAttribute("xmlns:"+LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);//$NON-NLS-1$
+		if(progressBar!=null)
+			lw.addPropertyChangeListener(new ProgressListener(progressBar));
 
-        for(final IShape sh : shapes)
-        	if(sh!=null) {
-        		// For each shape an SVG element is created.
-        		elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
-
-	        	if(elt!=null)
-	        		g.appendChild(elt);
-	        }
-
-        return doc;
+		lw.execute();
+		return true;
 	}
 
 
 
+	@Override
+	public boolean open(final String path, final UI ui, final MProgressBar progressBar, final Object statusBar) {
+		final LoadWorker lw = new LoadWorker(ui, path, statusBar);
+
+		if(progressBar!=null)
+			lw.addPropertyChangeListener(new ProgressListener(progressBar));
+
+		lw.execute();
+		return true;
+	}
+
+
 	/**
-	 * Creates an SVG document from a drawing.
-	 * @param drawing The drawing to convert in SVG.
-	 * @return The created SVG document or null.
-	 * @see SVGDocumentGenerator#toSVG(List)
-	 * @since 2.0
+	 * The listener that listens the progress performed by the workers to update the progress bar.
 	 */
-	public SVGDocument toSVG(final IDrawing drawing) {
-		if(drawing==null)
-			return null;
+	class ProgressListener implements PropertyChangeListener {
+		private MProgressBar progressBar;
 
-		// Creation of the SVG document.
-		final SVGDocument doc = toSVG(drawing.getShapes());
+		protected ProgressListener(final MProgressBar progressBar) {
+			super();
+			this.progressBar = progressBar;
+		}
 
-		// Setting SVG attributes to the created document.
-		if(doc!=null) {
-			final SVGSVGElement root = doc.getFirstChild();
+		@Override
+		public void propertyChange(final PropertyChangeEvent evt) {
+            if("progress".equals(evt.getPropertyName()))
+            	progressBar.setValue((Integer)evt.getNewValue());
+            else if("state".equals(evt.getPropertyName()))
+            	switch((SwingWorker.StateValue)evt.getNewValue()){
+					case STARTED:
+						progressBar.setVisible(true);
+						break;
+					case DONE:
+						progressBar.setVisible(false);
+						break;
+					default: break;
+				}
+		}
+	}
+
+
+	/**
+	 * The abstract worker that factorises the code of loading and saving workers.
+	 */
+	abstract class IOWorker extends SwingWorker<Boolean, Void> {
+		protected UI ui;
+
+		protected String path;
+
+		protected Object statusBar;
+
+
+		protected IOWorker(final UI ui, final String path, final Object statusBar) {
+			super();
+			this.ui = ui;
+			this.path = path;
+			this.statusBar = statusBar;
+		}
+
+
+		/**
+		 * @return The name of the SVG document.
+		 * @since 3.0
+		 */
+		protected String getDocumentName() {
+			String name;
+
+			if(path==null)
+				name = ""; //$NON-NLS-1$
+			else {
+				name = new File(path).getName();
+				int indexSVG = name.lastIndexOf(SVGFilter.SVG_EXTENSION);
+
+				if(indexSVG!=-1)
+					name = name.substring(0, indexSVG);
+			}
+
+			return name;
+		}
+	}
+
+
+
+	class SaveWorker extends IOWorker {
+		protected SaveWorker(final UI ui, final String path, final Object statusBar) {
+			super(ui, path, statusBar);
+		}
+
+
+		/**
+		 * Creates an SVG document from a drawing.
+		 * @param drawing The drawing to convert in SVG.
+		 * @return The created SVG document or null.
+		 * @since 2.0
+		 */
+		private SVGDocument toSVG(final IDrawing drawing, final double incr) {
+			// Creation of the SVG document.
+			final List<IShape> shapes	= drawing.getShapes();
+			final SVGDocument doc 		= new SVGDocument();
+			final SVGSVGElement root 	= doc.getFirstChild();
+			final SVGGElement g 		= new SVGGElement(doc);
+			final SVGDefsElement defs	= new SVGDefsElement(doc);
+			SVGElement elt;
+
+			root.appendChild(defs);
+			root.appendChild(g);
+			root.setAttribute("xmlns:"+LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);//$NON-NLS-1$
+
+	        for(final IShape sh : shapes)
+	        	if(sh!=null) {
+	        		// For each shape an SVG element is created.
+	        		elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
+
+		        	if(elt!=null)
+		        		g.appendChild(elt);
+
+		        	setProgress((int)Math.min(100., getProgress()+incr));
+		        }
+
+			// Setting SVG attributes to the created document.
 			root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");//$NON-NLS-1$
 			root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");//$NON-NLS-1$
+
+			return doc;
 		}
 
-		return doc;
-	}
 
+		@Override
+		protected Boolean doInBackground() throws Exception {
+			if(ui==null || path==null)
+				return false;
 
+			setProgress(0);
+			final AbstractPresentation absPres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
 
+			if(!(absPres instanceof IDrawing))
+				return false;
 
-	@Override
-	public boolean save(final String path, final UI ui) {
-		if(ui==null || path==null)
-			return false;
-
-		final AbstractPresentation absPres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
-
-		if(!(absPres instanceof IDrawing))
-			return false;
-
-		// Creation of the SVG document.
-		final SVGDocument doc = toSVG((IDrawing) absPres);
-
-		if(doc==null)
-			return false;
-
-		final SVGMetadataElement meta	= new SVGMetadataElement(doc);
-		final SVGElement metaLTD		= (SVGElement)doc.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+SVGElements.SVG_METADATA);
-		final SVGSVGElement root 		= doc.getFirstChild();
-		final Instrument[] instruments 	= ui.getInstruments();
-
-		// Creation of the SVG meta data tag.
-		meta.appendChild(metaLTD);
-		root.appendChild(meta);
-
-		// The parameters of the instruments are now saved.
-		for(Instrument instrument : instruments)
-			instrument.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-
-		for(Presentation<?,?> presentation : ui.getPresentations())
-			presentation.getConcretePresentation().save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-
-		ui.setTitle(getDocumentName(path));
-
-		return doc.saveSVGDocument(path);
-	}
-
-
-	/**
-	 * @param path The path of the SVG file.
-	 * @return The name of the SVG document.
-	 * @since 3.0
-	 */
-	protected String getDocumentName(final String path) {
-		String name;
-
-		if(path==null)
-			name = ""; //$NON-NLS-1$
-		else {
-			name = new File(path).getName();
-			int indexSVG = name.lastIndexOf(SVGFilter.SVG_EXTENSION);
-
-			if(indexSVG!=-1)
-				name = name.substring(0, indexSVG);
-		}
-
-		return name;
-	}
-
-
-	/**
-	 * Converts an SVG document into a set of shapes.
-	 * @param doc The SVG document.
-	 * @return The created shapes or null.
-	 * @since 3.0
-	 */
-	public IShape toLatexdraw(final SVGDocument doc) {
-		if(doc==null)
-			return null;
-
-		final IGroup shapes = DrawingTK.getFactory().createGroup(false);
-		final NodeList elts = doc.getDocumentElement().getChildNodes();
-		Node node;
-
-		for(int i=0, size=elts.getLength(); i<size; i++) {
-			node = elts.item(i);
-
-			if(node instanceof SVGElement)
-				shapes.addShape(IShapeSVGFactory.INSTANCE.createShape((SVGElement)node));
-		}
-
-		return shapes.size() == 1 ? shapes.getShapeAt(0) : shapes.size()==0 ? null : shapes;
-	}
-
-
-
-	@Override
-	public boolean open(final String path, final UI ui) {
-		try{
-			final SVGDocument svgDoc 		= new SVGDocument(new URI(path));
-			Element meta 			 		= svgDoc.getDocumentElement().getMeta();
+			// Creation of the SVG document.
 			final Instrument[] instruments 	= ui.getInstruments();
-			final AbstractPresentation pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
-			Element ldMeta;
+			final IDrawing drawing			= (IDrawing)absPres;
+			final double incr				= 100./(drawing.size() + instruments.length + ui.getPresentations().size());
+			final SVGDocument doc 			= toSVG(drawing, incr);
+			final SVGMetadataElement meta	= new SVGMetadataElement(doc);
+			final SVGElement metaLTD		= (SVGElement)doc.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+SVGElements.SVG_METADATA);
+			final SVGSVGElement root 		= doc.getFirstChild();
 
-			if(meta==null)
-				ldMeta = null;
-			else {
-				final NodeList nl	= meta.getElementsByTagNameNS(LNamespace.LATEXDRAW_NAMESPACE_URI, SVGElements.SVG_METADATA);
-				final Node node		= nl.getLength()==0 ? null : nl.item(0);
-				ldMeta 				= node instanceof Element ? (Element)node : null;
+			// Creation of the SVG meta data tag.
+			meta.appendChild(metaLTD);
+			root.appendChild(meta);
+
+			// The parameters of the instruments are now saved.
+			for(Instrument instrument : instruments) {
+				instrument.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
+				setProgress((int)Math.min(100., getProgress()+incr));
 			}
 
-			// Adding loaded shapes.
-			if(pres instanceof IDrawing) {
-				final IShape shape     = toLatexdraw(svgDoc);
-				final IDrawing drawing = (IDrawing)pres;
-
-				if(shape instanceof IGroup) { // If several shapes have been loaded
-					final IGroup group = (IGroup)shape;
-
-					for(IShape sh : group.getShapes())
-						drawing.addShape(sh);
-				} else // If only a single shape has been loaded.
-					drawing.addShape(shape);
+			for(Presentation<?,?> presentation : ui.getPresentations()) {
+				presentation.getConcretePresentation().save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
+				setProgress((int)Math.min(100., getProgress()+incr));
 			}
 
-			// Loads the presentation's data.
-			for(Presentation<?,?> presentation : ui.getPresentations())
-				presentation.getConcretePresentation().load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
-			//TODO drawborders, autoadjust, border, delimitorOpacity
-			// unit : scaleRulerCustomiser
-			// code, caption, label, POSITION_HORIZ, POSITION_VERT, COMMENTS, AUTO_UPDATE: codePanelActivator or CodePanel, ...?
-			// size (width, height), position (x, y)
+			ui.setTitle(getDocumentName());
 
-			// The parameters of the instruments are loaded.
-			if(meta!=null)
-				loadInstruments(ldMeta, instruments);
+			return doc.saveSVGDocument(path);
+		}
 
-			// Updating the possible widgets of the instruments.
-			for(Instrument instrument : instruments)
-				instrument.interimFeedback();
 
-			ui.updatePresentations();
-			ui.setTitle(getDocumentName(path));
+		@Override
+		protected void done() {
+			super.done();
 
-			return true;
-
-		}catch(final Exception e){
-			BadaboomCollector.INSTANCE.add(e);
-			return false;
+			// Showing a message in the status bar.
+			try {
+				if(get() && statusBar instanceof JLabel)
+					((JLabel)statusBar).setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.191")); //$NON-NLS-1$
+			}catch(final Exception ex){ BadaboomCollector.INSTANCE.add(ex); }
 		}
 	}
 
 
+
+
 	/**
-	 * Loads the instruments of the systems.
-	 * @param meta The meta-data that contains the data of the instruments.
-	 * @param instruments The instruments to set.
-	 * @since 3.0
+	 * The worker that loads SVG documents.
 	 */
-	protected void loadInstruments(final Element meta, final Instrument[] instruments) {
-		final NodeList nl = meta.getChildNodes();
-		Node n;
-		Element elt;
+	class LoadWorker extends IOWorker {
+		protected LoadWorker(final UI ui, final String path, final Object statusBar) {
+			super(ui, path, statusBar);
+		}
 
-		for(int i=0, size = nl.getLength(); i<size; i++) {
-			n = nl.item(i);
 
-			if(n instanceof Element && LNamespace.LATEXDRAW_NAMESPACE_URI.equals(n.getNamespaceURI()))
-				try {
-					elt = (Element)n;
-					for(final Instrument instrument : instruments)
-						instrument.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, elt);
+		/**
+		 * Converts an SVG document into a set of shapes.
+		 * @param doc The SVG document.
+		 * @param incrProgressBar The increment that will be used by the progress bar.
+		 * @return The created shapes or null.
+		 * @since 3.0
+		 */
+		private IShape toLatexdraw(final SVGDocument doc, final double incrProgressBar) {
+			if(doc==null)
+				return null;
+
+			final IGroup shapes = DrawingTK.getFactory().createGroup(false);
+			final NodeList elts = doc.getDocumentElement().getChildNodes();
+			Node node;
+
+			for(int i=0, size=elts.getLength(); i<size; i++) {
+				node = elts.item(i);
+
+				if(node instanceof SVGElement)
+					shapes.addShape(IShapeSVGFactory.INSTANCE.createShape((SVGElement)node));
+				setProgress((int)Math.min(100., getProgress()+incrProgressBar));
+			}
+
+			return shapes.size() == 1 ? shapes.getShapeAt(0) : shapes.size()==0 ? null : shapes;
+		}
+
+
+
+		/**
+		 * Loads the instruments of the systems.
+		 * @param meta The meta-data that contains the data of the instruments.
+		 * @param instruments The instruments to set.
+		 * @since 3.0
+		 */
+		private void loadInstruments(final Element meta, final Instrument[] instruments) {
+			final NodeList nl = meta.getChildNodes();
+			Node n;
+			Element elt;
+
+			for(int i=0, size = nl.getLength(); i<size; i++) {
+				n = nl.item(i);
+
+				if(n instanceof Element && LNamespace.LATEXDRAW_NAMESPACE_URI.equals(n.getNamespaceURI()))
+					try {
+						elt = (Element)n;
+						for(final Instrument instrument : instruments)
+							instrument.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, elt);
+					}
+					catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
+			}
+		}
+
+
+
+		@Override
+		protected Boolean doInBackground() throws Exception {
+			try{
+				final SVGDocument svgDoc 		= new SVGDocument(new URI(path));
+				Element meta 			 		= svgDoc.getDocumentElement().getMeta();
+				final Instrument[] instruments 	= ui.getInstruments();
+				final AbstractPresentation pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
+				Element ldMeta;
+				double incrProgressBar;
+
+				if(meta==null)
+					ldMeta = null;
+				else {
+					final NodeList nl	= meta.getElementsByTagNameNS(LNamespace.LATEXDRAW_NAMESPACE_URI, SVGElements.SVG_METADATA);
+					final Node node		= nl.getLength()==0 ? null : nl.item(0);
+					ldMeta 				= node instanceof Element ? (Element)node : null;
 				}
-				catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
+
+	            setProgress(0);
+
+				// Adding loaded shapes.
+				if(pres instanceof IDrawing) {
+					incrProgressBar		   = Math.max(50./(svgDoc.getDocumentElement().getChildNodes().getLength()+ui.getPresentations().size()), 1.);
+					final IShape shape     = toLatexdraw(svgDoc, incrProgressBar);
+					final IDrawing drawing = (IDrawing)pres;
+
+					if(shape instanceof IGroup) { // If several shapes have been loaded
+						final IGroup group = (IGroup)shape;
+						final double incr  = Math.max(50./group.size(), 1.);
+
+						for(IShape sh : group.getShapes()) {
+							drawing.addShape(sh);
+							setProgress((int)Math.min(100., getProgress()+incr));
+						}
+					} else { // If only a single shape has been loaded.
+						drawing.addShape(shape);
+						setProgress(Math.min(100, getProgress()+50));
+					}
+				}
+				else incrProgressBar = Math.max(100./ui.getPresentations().size(), 1.);
+
+				// Loads the presentation's data.
+				for(Presentation<?,?> presentation : ui.getPresentations()) {
+					presentation.getConcretePresentation().load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
+					setProgress((int)Math.min(100., getProgress()+incrProgressBar));
+				}
+
+				//TODO drawborders, autoadjust, border, delimitorOpacity
+				// unit : scaleRulerCustomiser
+				// code, caption, label, POSITION_HORIZ, POSITION_VERT, COMMENTS, AUTO_UPDATE: codePanelActivator or CodePanel, ...?
+				// size (width, height), position (x, y)
+
+				// The parameters of the instruments are loaded.
+				if(meta!=null)
+					loadInstruments(ldMeta, instruments);
+
+				// Updating the possible widgets of the instruments.
+				for(Instrument instrument : instruments)
+					instrument.interimFeedback();
+
+				ui.updatePresentations();
+				ui.setTitle(getDocumentName());
+
+				return true;
+			}catch(final Exception e){
+				BadaboomCollector.INSTANCE.add(e);
+				return false;
+			}
 		}
 	}
 }

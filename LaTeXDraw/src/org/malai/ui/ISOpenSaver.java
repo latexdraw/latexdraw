@@ -1,5 +1,6 @@
 package org.malai.ui;
 
+import org.malai.widget.MProgressBar;
 
 /**
  * Defines an interface for objects that must open and save abstract presentations and
@@ -27,10 +28,12 @@ public interface ISOpenSaver {
 	 * to the given file.
 	 * @param path The destination path.
 	 * @param ui The user interface that contains abstract presentations and instruments.
+	 * @param progressBar The progress bar used to show the progress of the saving. Can be null.
+	 * @param statusWidget The widget that displays the status of the saving operation. Can be null.
 	 * @return True: the operation is successful.
 	 * @since 0.2
 	 */
-	boolean save(final String path, final UI ui);
+	boolean save(final String path, final UI ui, final MProgressBar progressBar, final Object statusWidget);
 
 
 	/**
@@ -38,8 +41,10 @@ public interface ISOpenSaver {
 	 * to the given file.
 	 * @param path The source path that contains information for presentations and instruments.
 	 * @param ui The user interface that contains abstract presentations and instruments.
+	 * @param progressBar The progress bar used to show the progress of the saving. Can be null.
+	 * @param statusWidget The widget that displays the status of the loading operation. Can be null.
 	 * @return True: the operation is successful.
 	 * @since 0.2
 	 */
-	boolean open(final String path, final UI ui);
+	boolean open(final String path, final UI ui, final MProgressBar progressBar, final Object statusWidget);
 }

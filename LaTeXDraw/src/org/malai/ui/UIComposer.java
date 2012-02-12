@@ -2,6 +2,8 @@ package org.malai.ui;
 
 import java.awt.Component;
 
+import org.malai.widget.MProgressBar;
+
 /**
  * A UI composer is a object that composes a user interface using instruments and presentations.<br>
  * <br>
@@ -27,7 +29,6 @@ public abstract class UIComposer<T extends Component> {
 	protected T widget;
 
 
-
 	/**
 	 * Creates the composer.
 	 * @since 0.2
@@ -41,7 +42,7 @@ public abstract class UIComposer<T extends Component> {
 	 * This method composes the user interface using instruments, presentations and widgets of the interactive system.
 	 * @param progressBar The progress bar that can be used to show the progress of the UI composition. Can be null.
 	 */
-	public abstract void compose(final IProgressBar progressBar);
+	public abstract void compose(final MProgressBar progressBar);
 
 
 	/**

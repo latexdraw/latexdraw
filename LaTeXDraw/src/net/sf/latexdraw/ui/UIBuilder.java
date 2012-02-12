@@ -3,13 +3,16 @@ package net.sf.latexdraw.ui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
+
+import javax.swing.BoxLayout;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
 
 import org.malai.instrument.Instrument;
-import org.malai.ui.IProgressBar;
 import org.malai.ui.UIComposer;
 import org.malai.widget.MPanel;
+import org.malai.widget.MProgressBar;
 import org.malai.widget.MToolBar;
 import org.malai.widget.Scrollable;
 
@@ -80,7 +83,9 @@ public class UIBuilder extends UIComposer<LFrame> {
 
 
 	@Override
-	public void compose(final IProgressBar progressBar) {
+	public void compose(final MProgressBar progressBar) {
+		final MPanel statusPanel = new MPanel(false, false);
+
 		menubarBuilder.compose(progressBar);
 		toolbarBuilder.compose(progressBar);
 		propToolbarBuilder.compose(progressBar);
@@ -101,10 +106,15 @@ public class UIBuilder extends UIComposer<LFrame> {
 		widget.tabbedPanel.addTab("Drawing", drawingArea);
 		widget.tabbedPanel.addTab("PST", widget.getCodePanel());
 
+		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.LINE_AXIS));
+		statusPanel.add(widget.fileLoader.getProgressBar());
+		statusPanel.add(widget.statusBar);
+		widget.fileLoader.getProgressBar().setMaximumSize(new Dimension(200, 60));
+
 		contentPane.setLayout(new BorderLayout());
 		contentPane.add(toolbarBuilder.getWidget(), BorderLayout.NORTH);
 		contentPane.add(widget.tabbedPanel, BorderLayout.CENTER);
-		contentPane.add(widget.statusBar, BorderLayout.SOUTH);
+		contentPane.add(statusPanel, BorderLayout.SOUTH);
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
 		widget.setJMenuBar(menubarBuilder.getWidget());

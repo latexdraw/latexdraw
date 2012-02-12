@@ -17,7 +17,6 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.action.Action;
 import org.malai.instrument.Link;
 import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.Interaction;
@@ -28,6 +27,7 @@ import org.malai.interaction.library.WindowClosed;
 import org.malai.ui.UI;
 import org.malai.widget.MButton;
 import org.malai.widget.MMenuItem;
+import org.malai.widget.MProgressBar;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -98,6 +98,9 @@ public class FileLoaderSaver extends WidgetInstrument {
 	/** The instrument used to manage preferences. */
 	protected PreferencesSetter prefSetter;
 
+	/** The progress bar used to show the progress of loading and saving operations. */
+	protected MProgressBar progressBar;
+
 
 	/**
 	 * Creates the file loader/saver.
@@ -165,6 +168,9 @@ public class FileLoaderSaver extends WidgetInstrument {
 
         saveAsMenu = new MMenuItem(LABEL_SAVE_AS, KeyEvent.VK_A);
         saveAsMenu.setIcon(LResources.SAVE_AS_ICON);
+
+        progressBar = new MProgressBar(0, 100);
+        progressBar.setVisible(false);
 	}
 
 
@@ -251,6 +257,15 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 
 	/**
+	 * @return The progress bar used to show the progress of the loading and saving operations.
+	 * @since 3.0
+	 */
+	public MProgressBar getProgressBar() {
+		return progressBar;
+	}
+
+
+	/**
 	 * @param save True: the dialogue box will be configured for saving prupose. Otherwose, for opening purpose.
 	 * @return The dialogue box to open or save drawings.
 	 * @since 3.0
@@ -270,13 +285,6 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 		return fileChooser;
 	}
-
-
-	@Override
-	public void onActionExecuted(final Action action) {
-		statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.191")); //$NON-NLS-1$
-	}
-
 
 
 	@Override
@@ -342,7 +350,7 @@ abstract class Interaction2NewLink<I extends Interaction> extends Link<NewDrawin
 	public void initAction() {
 		action.setPrefSetter(instrument.prefSetter);
 		action.setUi(instrument.ui);
-		action.setOpenSaveManager(SVGDocumentGenerator.SVG_GENERATOR);
+		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 		action.setFileChooser(instrument.getDialog(false));
 	}
 }
@@ -490,9 +498,11 @@ abstract class Interaction2SaveLink<I extends Interaction> extends Link<SaveDraw
 
 	@Override
 	public void initAction() {
+		action.setStatusWidget(instrument.statusBar);
+		action.setProgressBar(instrument.progressBar);
 		action.setFile(instrument.currentFile);
 		action.setUi(instrument.ui);
-		action.setOpenSaveManager(SVGDocumentGenerator.SVG_GENERATOR);
+		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 		action.setFileChooser(instrument.getDialog(true));
 	}
 }
@@ -592,9 +602,11 @@ abstract class Interaction2LoadLink<I extends Interaction> extends Link<LoadDraw
 
 	@Override
 	public void initAction() {
+		action.setStatusWidget(instrument.statusBar);
+		action.setProgressBar(instrument.progressBar);
 		action.setFileChooser(instrument.getDialog(false));
 		action.setUi(instrument.ui);
-		action.setOpenSaveManager(SVGDocumentGenerator.SVG_GENERATOR);
+		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 	}
 }
 

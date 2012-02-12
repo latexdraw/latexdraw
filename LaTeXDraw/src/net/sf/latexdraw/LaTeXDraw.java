@@ -93,9 +93,9 @@ public final class LaTeXDraw {
 		SplashScreen splashScreen = new SplashScreen(Theme.INSTANCE.getLookAndFeel());
 		splashScreen.setVisible(true);
 		// Creation of the main frame.
-    	LFrame frame = new LFrame(splashScreen);
+    	LFrame frame = new LFrame(splashScreen.getProgressBar());
     	// Composing the user interface.
-    	frame.getComposer().compose(splashScreen);
+    	frame.getComposer().compose(splashScreen.getProgressBar());
 		frame.getPrefSetters().readXMLPreferences();
 
     	// Removing the splash screen.
@@ -113,7 +113,7 @@ public final class LaTeXDraw {
 	    	LoadDrawing action = new LoadDrawing();
 	    	action.setFile(new File(cmdLine.getFilename()));
 	    	action.setUi(frame);
-	    	action.setOpenSaveManager(SVGDocumentGenerator.SVG_GENERATOR);
+	    	action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 	    	action.setFileChooser(frame.getFileLoader().getDialog(false));
 	    	action.doIt();
     	}

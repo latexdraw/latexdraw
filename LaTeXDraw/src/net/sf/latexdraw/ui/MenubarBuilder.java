@@ -6,12 +6,12 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
 
-import org.malai.ui.IProgressBar;
+import net.sf.latexdraw.lang.LangTool;
+
 import org.malai.ui.UIComposer;
 import org.malai.widget.MCheckBoxMenuItem;
 import org.malai.widget.MMenu;
-
-import net.sf.latexdraw.lang.LangTool;
+import org.malai.widget.MProgressBar;
 
 /**
  * The composer that creates the menu bar of the application.<br>
@@ -65,7 +65,7 @@ public class MenubarBuilder extends UIComposer<JMenuBar> {
 
 
 	@Override
-	public void compose(final IProgressBar progressBar) {
+	public void compose(final MProgressBar progressBar) {
 		widget = new JMenuBar();
 		composeDrawingMenu();
 		composeEditMenu();

@@ -40,7 +40,7 @@ public class LoadDrawing extends Load implements Modifying {
 				case JOptionPane.YES_OPTION: // save + load
 					File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
 					if(f!=null) {
-						openSaveManager.save(f.getPath(), ui);
+						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
 						ui.setModified(false);
 						load();
 					}

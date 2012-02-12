@@ -42,10 +42,10 @@ import org.malai.instrument.library.Scroller;
 import org.malai.instrument.library.UndoRedoManager;
 import org.malai.mapping.MappingRegistry;
 import org.malai.presentation.Presentation;
-import org.malai.ui.IProgressBar;
 import org.malai.ui.UI;
 import org.malai.ui.UIManager;
 import org.malai.widget.MLayeredPane;
+import org.malai.widget.MProgressBar;
 import org.malai.widget.MTabbedPane;
 
 /**
@@ -147,7 +147,7 @@ public class LFrame extends UI {
 	 * @param progressBar The progress bar used to show the progression of the construction of the frame. Can be null.
 	 * @since 3.0
 	 */
-	public LFrame(final IProgressBar progressBar) {
+	public LFrame(final MProgressBar progressBar) {
 		super();
 		composer = new UIBuilder(this);
 		buildFrame(progressBar);
@@ -158,7 +158,7 @@ public class LFrame extends UI {
 	 * The builder of the frame.
 	 * @since 3.0
 	 */
-	private void buildFrame(final IProgressBar progressBar) {
+	private void buildFrame(final MProgressBar progressBar) {
 		final LCanvas canvas 	= getCanvas();
 		final IDrawing drawing	= getDrawing();
 

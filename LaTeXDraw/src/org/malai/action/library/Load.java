@@ -1,6 +1,5 @@
 package org.malai.action.library;
 
-
 /**
  * This action allows to load abstract presentations and instruments' parameters to a file.
  * <br>
@@ -32,7 +31,7 @@ public class Load extends IOAction {
 	@Override
 	protected void doActionBody() {
 		ui.reinit();
-		ok = openSaveManager.open(file.getPath(), ui);
+		ok = openSaveManager.open(file.getPath(), ui, progressBar, statusWidget);
 		ui.setModified(false);
 	}
 }

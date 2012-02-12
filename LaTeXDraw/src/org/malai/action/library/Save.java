@@ -1,6 +1,5 @@
 package org.malai.action.library;
 
-
 /**
  * This action allows to save abstract presentations and instruments' parameters to a file.
  * <br>
@@ -31,7 +30,7 @@ public class Save extends IOAction {
 
 	@Override
 	protected void doActionBody() {
-		ok = openSaveManager.save(file.getPath(), ui);
+		ok = openSaveManager.save(file.getPath(), ui, progressBar, statusWidget);
 		ui.setModified(false);
 	}
 }

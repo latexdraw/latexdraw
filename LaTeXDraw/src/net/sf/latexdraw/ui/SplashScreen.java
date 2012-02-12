@@ -6,14 +6,12 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
 
-import javax.swing.JProgressBar;
 import javax.swing.JWindow;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.malai.ui.IProgressBar;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+
+import org.malai.widget.MProgressBar;
 
 /**
  * This class defines a splash screen displayed during the start of the program with a progress
@@ -36,11 +34,11 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
  * @version 3.0
  * @since 1.9
  */
-public class SplashScreen extends JWindow implements IProgressBar {
+public class SplashScreen extends JWindow {
 	private static final long serialVersionUID = 1L;
 
 	/** The progress bar showing us the progression of the loading of the LaTeXDraw interface.*/
-	protected JProgressBar progressBar;
+	protected MProgressBar progressBar;
 
 	/** The canvas that contains the image to display. */
 	protected DisplayCanvas canvas;
@@ -61,7 +59,7 @@ public class SplashScreen extends JWindow implements IProgressBar {
 		}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		Dimension dim 	= Toolkit.getDefaultToolkit().getScreenSize();
-		progressBar 	= new JProgressBar(0, 100);
+		progressBar 	= new MProgressBar(0, 100);
 		Image img 		= Toolkit.getDefaultToolkit().getImage(
 						  getClass().getClassLoader().getResource("res/LaTeXDrawSmall.png"));//$NON-NLS-1$
 		MediaTracker tracker=new MediaTracker(this);
@@ -89,27 +87,11 @@ public class SplashScreen extends JWindow implements IProgressBar {
 	}
 
 
-	@Override
-	public void addToProgressBar(final int increment) {
-		final int cpt = progressBar.getValue()+increment;
-
-		if(cpt>=progressBar.getMinimum() && cpt<=progressBar.getMaximum())
-			try {
-				SwingUtilities.invokeAndWait(new Runnable() {
-				@Override
-				public void run() {updateBar(cpt);} });
-			}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
-	}
-
-
-
 	/**
-	 * Allows to update the progress bar.
-	 * @param newValue its new value.
+	 * @return The progress bar used to show the progress of the initialisation.
+	 * @since 3.0
 	 */
-	protected void updateBar(final int newValue) {
-		synchronized(progressBar){
-			progressBar.setValue(newValue);
-		}
+	public MProgressBar getProgressBar() {
+		return progressBar;
 	}
 }

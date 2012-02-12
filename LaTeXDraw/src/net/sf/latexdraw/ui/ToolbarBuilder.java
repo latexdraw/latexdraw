@@ -12,8 +12,8 @@ import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.ui.IProgressBar;
 import org.malai.ui.UIComposer;
+import org.malai.widget.MProgressBar;
 import org.malai.widget.MSpinner;
 import org.malai.widget.MToolBar;
 
@@ -76,7 +76,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 
 
 	@Override
-	public void compose(final IProgressBar progressBar) {//TODO: remove "LaTeXDrawFrame.116"?
+	public void compose(final MProgressBar progressBar) {//TODO: remove "LaTeXDrawFrame.116"?
 		widget = new MToolBar(true);
 
 		final LCanvas canvas = frame.getCanvas();

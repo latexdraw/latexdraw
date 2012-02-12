@@ -25,9 +25,9 @@ import net.sf.latexdraw.instruments.TextCustomiser;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.ui.IProgressBar;
 import org.malai.ui.UIComposer;
 import org.malai.widget.MPanel;
+import org.malai.widget.MProgressBar;
 import org.malai.widget.MSpinner;
 
 /**
@@ -76,7 +76,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 	@Override
-	public void compose(final IProgressBar progressBar) {
+	public void compose(final MProgressBar progressBar) {
 		final LCanvas canvas = frame.getCanvas();
 		MetaShapeCustomiser metaShapeCustomiser = frame.getMetaShapeCustomiser();
 
