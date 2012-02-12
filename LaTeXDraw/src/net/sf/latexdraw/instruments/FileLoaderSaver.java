@@ -149,6 +149,37 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 
 	@Override
+	public void setActivated(final boolean activated, final boolean hide) {
+		super.setActivated(activated);
+
+		final boolean showButtons = activated || !hide;
+		newMenu.setVisible(showButtons);
+		newButton.setVisible(showButtons);
+		saveAsMenu.setVisible(showButtons);
+		saveButton.setVisible(showButtons);
+		saveMenu.setVisible(showButtons);
+		loadButton.setVisible(showButtons);
+		loadMenu.setVisible(showButtons);
+
+		if(showButtons) {
+			newMenu.setEnabled(activated);
+			newButton.setEnabled(activated);
+			saveAsMenu.setEnabled(activated);
+			saveButton.setEnabled(activated);
+			saveMenu.setEnabled(activated);
+			loadButton.setEnabled(activated);
+			loadMenu.setEnabled(activated);
+		}
+	}
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+		setActivated(activated, true);
+	}
+
+
+	@Override
 	protected void initialiseWidgets() {
 		newMenu	= new MMenuItem(LResources.LABEL_NEW, KeyEvent.VK_N);
 		newMenu.setIcon(LResources.NEW_ICON);

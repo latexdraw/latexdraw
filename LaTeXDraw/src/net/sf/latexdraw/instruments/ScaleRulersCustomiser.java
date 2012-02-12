@@ -100,6 +100,8 @@ public class ScaleRulersCustomiser extends Instrument {
 		super.setActivated(activated);
 		unitCmItem.setEnabled(activated);
 		unitInchItem.setEnabled(activated);
+		xRulerItem.setEnabled(activated);
+		yRulerItem.setEnabled(activated);
 	}
 
 

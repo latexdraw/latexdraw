@@ -212,11 +212,19 @@ public class Exporter extends WidgetInstrument {
 
 
 	@Override
-	public void setActivated(final boolean activated) {
+	public void setActivated(final boolean activated, final boolean hide) {
 		super.setActivated(activated);
 
+		exportMenu.setVisible(activated || !hide);
+		pdfButton.setVisible(activated || !hide);
 		exportMenu.setEnabled(activated);
 		pdfButton.setEnabled(activated);
+	}
+
+
+	@Override
+	public void setActivated(final boolean activated) {
+		setActivated(activated, false);
 	}
 
 

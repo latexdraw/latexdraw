@@ -289,14 +289,6 @@ public class EditingSelector extends WidgetInstrument {
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
 
-		final boolean hasSelection = !hand.canvas.getDrawing().getSelection().isEmpty();
-
-		hand.setActivated(activated && handB.isSelected());
-		pencil.setActivated(activated && !handB.isSelected());
-		border.setActivated(activated && hand.isActivated() && hasSelection);
-		deleter.setActivated(hand.isActivated() && hasSelection);
-		metaShapeCustomiser.setActivated(activated && (deleter.isActivated() || pencil.isActivated()));
-
 		composer.setWidgetVisible(arcB, activated);
 		composer.setWidgetVisible(axesB, activated);
 		composer.setWidgetVisible(bezierB, activated);

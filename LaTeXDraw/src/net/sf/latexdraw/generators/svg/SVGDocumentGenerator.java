@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.mapping.ShapeList2ExporterMapping;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -25,9 +27,13 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGMetadataElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
+import net.sf.latexdraw.ui.LFrame;
 import net.sf.latexdraw.util.LNamespace;
 
 import org.malai.instrument.Instrument;
+import org.malai.instrument.WidgetInstrument;
+import org.malai.mapping.IMapping;
+import org.malai.mapping.MappingRegistry;
 import org.malai.presentation.AbstractPresentation;
 import org.malai.presentation.Presentation;
 import org.malai.ui.ISOpenSaver;
@@ -130,6 +136,8 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 
 		protected Object statusBar;
 
+		private List<Boolean> instrumentsState;
+
 
 		protected IOWorker(final UI ui, final String path, final Object statusBar) {
 			super();
@@ -157,6 +165,46 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 			}
 
 			return name;
+		}
+
+
+		@Override
+		protected Boolean doInBackground() throws Exception {
+			final Instrument[] ins = ui.getInstruments();
+
+			instrumentsState = new ArrayList<Boolean>();
+
+			if(ui instanceof LFrame)
+				MappingRegistry.REGISTRY.removeMappingsUsingTarget(((LFrame)ui).getExporter(), ShapeList2ExporterMapping.class);
+
+			for(final Instrument instrument : ins) {
+				instrumentsState.add(instrument.isActivated());
+
+				if(instrument instanceof WidgetInstrument)
+					((WidgetInstrument)instrument).setActivated(false, true);
+				else
+					instrument.setActivated(false);
+			}
+
+			return true;
+		}
+
+
+		@Override
+		protected void done() {
+			super.done();
+
+			final Instrument[] ins = ui.getInstruments();
+
+			for(int i=0, size=instrumentsState.size(); i<size; i++)
+				ins[i].setActivated(instrumentsState.get(i));
+
+			if(ui instanceof LFrame) {
+				final LFrame frame = (LFrame)ui;
+				final IMapping mapping = new ShapeList2ExporterMapping(frame.getDrawing().getShapes(), frame.getExporter());
+				MappingRegistry.REGISTRY.addMapping(mapping);
+				mapping.init();
+			}
 		}
 	}
 
@@ -208,8 +256,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 
 		@Override
 		protected Boolean doInBackground() throws Exception {
-			if(ui==null || path==null)
-				return false;
+			super.doInBackground();
 
 			setProgress(0);
 			final AbstractPresentation absPres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
@@ -279,9 +326,6 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 		 * @since 3.0
 		 */
 		private IShape toLatexdraw(final SVGDocument doc, final double incrProgressBar) {
-			if(doc==null)
-				return null;
-
 			final IGroup shapes = DrawingTK.getFactory().createGroup(false);
 			final NodeList elts = doc.getDocumentElement().getChildNodes();
 			Node node;
@@ -327,6 +371,8 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 
 		@Override
 		protected Boolean doInBackground() throws Exception {
+			super.doInBackground();
+
 			try{
 				final SVGDocument svgDoc 		= new SVGDocument(new URI(path));
 				Element meta 			 		= svgDoc.getDocumentElement().getMeta();
