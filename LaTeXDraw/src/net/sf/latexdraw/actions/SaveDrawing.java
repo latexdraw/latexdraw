@@ -33,33 +33,33 @@ import net.sf.latexdraw.lang.LangTool;
 public class SaveDrawing extends Save {
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
-	
+
 	/** True: A dialog bow will be always shown to ask the location to save. */
 	protected boolean saveAs;
-	
+
 	/** True: the app will be closed after the drawing saved. */
 	protected boolean saveOnClose;
-	
-	
+
+
 	/**
 	 * Creates the action.
 	 * @since 3.0
 	 */
 	public SaveDrawing() {
 		super();
-		
+
 		saveAs 		= false;
 		saveOnClose = false;
 		file 		= null;
 	}
-	
-	
+
+
 	@Override
 	public boolean canDo() {
 		return ui!=null && openSaveManager!=null && fileChooser!=null;
 	}
-	
-	
+
+
 	@Override
 	protected void doActionBody() {
 		if(saveOnClose)
@@ -77,7 +77,8 @@ public class SaveDrawing extends Save {
 							System.exit(1);
 						}
 						break;
-					case JOptionPane.CANCEL_OPTION: // nothing
+					case JOptionPane.CANCEL_OPTION:
+						ok = false;
 						break;
 					default:
 						break;
@@ -87,22 +88,24 @@ public class SaveDrawing extends Save {
 		else {
 			if(file==null)
 				file = showDialog(fileChooser, saveAs, ui, file);
-			if(file!=null)
+			if(file==null)
+				ok = false;
+			else
 				super.doActionBody();
 		}
 	}
 
-	
+
 	@Override
 	public void flush() {
 		super.flush();
-		
+
 		fileChooser = null;
 	}
 
-	
+
 	/**
-	 * @return -1: cancel, 0: yes, 1: no 
+	 * @return -1: cancel, 0: yes, 1: no
 	 * @since 3.0
 	 */
 	protected static int showAskModificationsDialog(final UI ui) {
@@ -122,7 +125,7 @@ public class SaveDrawing extends Save {
 			f = fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
 		else
 			f = file;
-		
+
 		if(f==null)
 			return null;
 
@@ -136,11 +139,11 @@ public class SaveDrawing extends Save {
 			if(replace == JOptionPane.NO_OPTION || replace == JOptionPane.CLOSED_OPTION)
 				return null;
 		}
-		
+
 		return f;
 	}
 
-	
+
 	/**
 	 * @param fileChooser The file chooser that will be used to select the location to save.
 	 * @since 3.0

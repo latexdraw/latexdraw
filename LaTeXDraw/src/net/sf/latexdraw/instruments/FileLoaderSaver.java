@@ -17,6 +17,8 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
 
+import org.malai.action.Action;
+import org.malai.action.library.IOAction;
 import org.malai.instrument.Link;
 import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.Interaction;
@@ -129,17 +131,20 @@ public class FileLoaderSaver extends WidgetInstrument {
 	@Override
 	public void reinit() {
 		currentFile	= null;
-		fileChooser = null;
 		pathSave 	= "/home/ablouin/Bureau"; //FIXME when preferences will be managed.
 	}
 
 
 	@Override
-	public void interimFeedback() {
-		super.interimFeedback();
-		File file = fileChooser==null ? null : fileChooser.getSelectedFile();
-		if(file!=null)
-			currentFile = file;
+	public void onActionDone(final Action action) {
+		super.onActionDone(action);
+
+		if(action!=null && action.hadEffect()) {
+			final File file = fileChooser==null ? null : fileChooser.getSelectedFile();
+
+			if(file!=null)
+				currentFile = file;
+		}
 	}
 
 
@@ -486,29 +491,6 @@ class Menu2SaveAsLink extends Interaction2SaveLink<MenuItemPressed> {
 
 
 /**
- * This abstract link maps an interaction to a save action.
- */
-abstract class Interaction2SaveLink<I extends Interaction> extends Link<SaveDrawing, I, FileLoaderSaver> {
-	/**
-	 * Creates the link.
-	 */
-	protected Interaction2SaveLink(final FileLoaderSaver fileLoader, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
-		super(fileLoader, false, SaveDrawing.class, interaction);
-	}
-
-	@Override
-	public void initAction() {
-		action.setStatusWidget(instrument.statusBar);
-		action.setProgressBar(instrument.progressBar);
-		action.setFile(instrument.currentFile);
-		action.setUi(instrument.ui);
-		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
-		action.setFileChooser(instrument.getDialog(true));
-	}
-}
-
-
-/**
  * This link maps a keyboard shortcut to a save action.
  */
 class Shortcut2SaveLink extends Interaction2SaveLink<KeysPressure> {
@@ -589,24 +571,50 @@ class Button2SaveLink extends Interaction2SaveLink<ButtonPressed> {
 }
 
 
-/**
- * This abstract link maps an interaction to a load action.
- */
-abstract class Interaction2LoadLink<I extends Interaction> extends Link<LoadDrawing, I, FileLoaderSaver> {
-	/**
-	 * Creates the link.
-	 */
-	protected Interaction2LoadLink(final FileLoaderSaver fileLoader, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
-		super(fileLoader, false, LoadDrawing.class, interaction);
+abstract class Interaction2IOLink<A extends IOAction, I extends Interaction> extends Link<A, I, FileLoaderSaver> {
+	protected Interaction2IOLink(final FileLoaderSaver fileLoader, final Class<A> action, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
+		super(fileLoader, false, action, interaction);
 	}
 
 	@Override
 	public void initAction() {
 		action.setStatusWidget(instrument.statusBar);
 		action.setProgressBar(instrument.progressBar);
-		action.setFileChooser(instrument.getDialog(false));
 		action.setUi(instrument.ui);
 		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
+	}
+}
+
+
+/**
+ * This abstract link maps an interaction to a save action.
+ */
+abstract class Interaction2SaveLink<I extends Interaction> extends Interaction2IOLink<SaveDrawing, I> {
+	protected Interaction2SaveLink(final FileLoaderSaver fileLoader, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
+		super(fileLoader, SaveDrawing.class, interaction);
+	}
+
+	@Override
+	public void initAction() {
+		super.initAction();
+		action.setFileChooser(instrument.getDialog(true));
+		action.setFile(instrument.currentFile);
+	}
+}
+
+
+/**
+ * This abstract link maps an interaction to a load action.
+ */
+abstract class Interaction2LoadLink<I extends Interaction> extends Interaction2IOLink<LoadDrawing, I> {
+	protected Interaction2LoadLink(final FileLoaderSaver fileLoader, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
+		super(fileLoader, LoadDrawing.class, interaction);
+	}
+
+	@Override
+	public void initAction() {
+		super.initAction();
+		action.setFileChooser(instrument.getDialog(false));
 	}
 }
 
