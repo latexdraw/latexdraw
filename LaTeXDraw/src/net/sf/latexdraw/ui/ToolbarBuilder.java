@@ -86,11 +86,9 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		widget.add(frame.fileLoader.getNewButton());
 		widget.add(frame.fileLoader.getLoadButton());
 		widget.add(frame.fileLoader.getSaveButton());
-		widget.addSeparator();
 
 		// Adding the pdf button
 		widget.add(frame.exporter.getPdfButton());
-		widget.addSeparator();
 
 		// Adding the zoom buttons.
 		widget.add(frame.zoomer.getZoomSpinner());
