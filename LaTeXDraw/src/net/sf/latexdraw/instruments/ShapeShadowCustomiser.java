@@ -1,5 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import java.awt.Color;
+
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
@@ -72,7 +74,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 		shadowCB.setMargin(LResources.INSET_BUTTON);
 		shadowCB.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.4")); //$NON-NLS-1$
 
-		shadowColB = new MColorButton("Colour", new MButtonIcon(pencil.shadowable.getShadowCol()));
+		shadowColB = new MColorButton("Colour", new MButtonIcon(Color.BLACK));
 		shadowColB.setMargin(LResources.INSET_BUTTON);
 		shadowColB.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.5")); //$NON-NLS-1$
 

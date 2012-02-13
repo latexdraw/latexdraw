@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.ItemSelectable;
 
@@ -135,7 +136,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseWidgets() {
 		// Creation of the filling widgets.
-     	fillColButton = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(pencil.fillingable.getFillingCol()));//$NON-NLS-1$
+     	fillColButton = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(Color.WHITE));//$NON-NLS-1$
      	fillColButton.setMargin(LResources.INSET_BUTTON);
      	fillColButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.68")); //$NON-NLS-1$
 
@@ -144,11 +145,11 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
      	fillStyleCB.setMaximumSize(new Dimension(65,30));
 
 		// Creation of the gradient widgets.
-        gradStartColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.1"), new MButtonIcon(pencil.fillingable.getGradColStart()));
+        gradStartColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.1"), new MButtonIcon(Color.BLACK));
         gradStartColButton.setMargin(LResources.INSET_BUTTON);
         gradStartColButton.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.7")); //$NON-NLS-1$
 
-        gradEndColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.2"), new MButtonIcon(pencil.fillingable.getGradColEnd()));
+        gradEndColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.2"), new MButtonIcon(Color.BLACK));
         gradEndColButton.setMargin(LResources.INSET_BUTTON);
         gradEndColButton.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.8")); //$NON-NLS-1$
 
@@ -173,7 +174,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
      	hatchAngleField = new MSpinner(model, new JLabel("angle:"));
      	hatchAngleField.setEditor(new JSpinner.NumberEditor(hatchAngleField, "0.00"));//$NON-NLS-1$
 
-     	hatchColButton = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.49"), new MButtonIcon(pencil.fillingable.getHatchingsCol())); //$NON-NLS-1$
+     	hatchColButton = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.49"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
      	hatchColButton.setMargin(LResources.INSET_BUTTON);
      	hatchColButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.69")); //$NON-NLS-1$
 	}

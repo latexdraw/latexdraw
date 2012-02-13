@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.ItemSelectable;
 
@@ -133,7 +134,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
      	thicknessField.setEditor(new JSpinner.NumberEditor(thicknessField, "0.0"));//$NON-NLS-1$
      	thicknessField.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.65")); //$NON-NLS-1$
 
-     	lineColButton = new MColorButton("Colour", new MButtonIcon(pencil.lineStylable.getLineColour()));
+     	lineColButton = new MColorButton("Colour", new MButtonIcon(Color.BLACK));
      	lineColButton.setMargin(LResources.INSET_BUTTON);
      	lineColButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.66")); //$NON-NLS-1$
 

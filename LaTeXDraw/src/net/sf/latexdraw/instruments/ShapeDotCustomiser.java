@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.ItemSelectable;
 
@@ -77,7 +78,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
      	dotCB = createDotStyleChoice();
      	dotSizeField.setToolTipText("Select the style of the dot.");
 
-     	fillingB = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(pencil.fillingable.getFillingCol()));//$NON-NLS-1$
+     	fillingB = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(Color.WHITE));//$NON-NLS-1$
      	fillingB.setMargin(LResources.INSET_BUTTON);
      	fillingB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.68")); //$NON-NLS-1$
 	}

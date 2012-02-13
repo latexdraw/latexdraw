@@ -58,6 +58,8 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument customises grids and axes. */
 	protected ShapeGridCustomiser gridCustomiser;
 
+	protected ShapeGrouper shapeGrouper;
+
 
 
 	/**
@@ -82,6 +84,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arcCustomiser			= new ShapeArcCustomiser(composer, hand, pencil);
 		dimPosCustomiser		= new ShapeCoordDimCustomiser(composer, hand, pencil);
 		gridCustomiser			= new ShapeGridCustomiser(composer, hand, pencil);
+		shapeGrouper			= new ShapeGrouper(composer, hand, pencil);
 	}
 
 
@@ -98,6 +101,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arcCustomiser.addEventable(eventable);
 		dimPosCustomiser.addEventable(eventable);
 		gridCustomiser.addEventable(eventable);
+		shapeGrouper.addEventable(eventable);
 	}
 
 
@@ -116,6 +120,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arcCustomiser.setActivated(activated);
 		gridCustomiser.setActivated(activated);
 		dimPosCustomiser.setActivated(activated && hand.isActivated() && !pencil.drawing.getSelection().isEmpty());
+		shapeGrouper.setActivated(activated && hand.isActivated() && !pencil.drawing.getSelection().isEmpty());
 
 		if(activated)
 			update();
@@ -135,6 +140,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arcCustomiser.update(shape);
 		dimPosCustomiser.update(shape);
 		gridCustomiser.update(shape);
+		shapeGrouper.update(shape);
 	}
 
 
@@ -151,6 +157,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arcCustomiser.clearEvents();
 		dimPosCustomiser.clearEvents();
 		gridCustomiser.clearEvents();
+		shapeGrouper.clearEvents();
 	}
 
 
@@ -249,6 +256,14 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeCoordDimCustomiser getDimPosCustomiser() {
 		return dimPosCustomiser;
+	}
+
+	/**
+	 * @return the shapeGrouper.
+	 * @since 3.0
+	 */
+	public ShapeGrouper getShapeGrouper() {
+		return shapeGrouper;
 	}
 
 

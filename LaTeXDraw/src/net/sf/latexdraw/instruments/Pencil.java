@@ -1,6 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.util.List;
 
@@ -12,15 +11,12 @@ import net.sf.latexdraw.actions.InsertPicture;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PictureFilter;
 import net.sf.latexdraw.glib.models.interfaces.Arcable;
-import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
-import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -28,12 +24,9 @@ import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 
 import org.malai.instrument.Instrument;
@@ -76,49 +69,13 @@ public class Pencil extends Instrument {
 	/** The drawing that contains the shapes. */
 	protected IDrawing drawing;
 
-	/** A shape that supports shadows. Used to get and set shadow parameters. */
-	protected IShape shadowable;
-
-	/** A shape that supports double borders. Used to get and set double line parameters. */
-	protected IShape dbleBorderable;
-
-	/** A shape that supports line customisation. Used to get and set line parameters. */
-	protected IShape lineStylable;
-
-	/** A shape that supports round corners. Used to get and set round corner parameters. */
-	protected ILineArcShape roundable;
-
-	/** A shape that supports text features. */
-	protected IText textable;
-
-	/** A shape that supports move of its border. Used to get and set border positions. */
-	protected IShape borderMoveable;
-
-	/** The style of the created dots. */
-	protected Dottable dottable;
-
-	/** The style of the created arcs. */
-	protected Arcable arcable;
-
-	/** Contains the properties of the created grid. */
-	protected IStandardGrid gridShape;
-
-	/** A shape that supports filling customisation. Used to get and set filling properties. */
-	protected IShape fillingable;
-
 	/** The zoomer that is used to give the zoom level to compute coordinates of the created shapes. */
 	protected Zoomer zoomer;
 
-	/** The style of the left arrows. */
-	protected ArrowStyle arrowLeftStyle;
-
-	/** The style of the right arrows. */
-	protected ArrowStyle arrowRightStyle;
-
-	protected IArrow arrow;
-
 	/** The file chooser used to select pictures. */
 	protected JFileChooser pictureFileChooser;
+
+	protected IGroup groupParams;
 
 
 	/**
@@ -130,32 +87,24 @@ public class Pencil extends Instrument {
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public Pencil(final IDrawing drawing, final Zoomer zoomer, final LMagneticGrid grid,
-				final TextSetter textSetter) {
+	public Pencil(final IDrawing drawing, final Zoomer zoomer, final LMagneticGrid grid, final TextSetter textSetter) {
 		super();
 
 		if(drawing==null || zoomer==null || grid==null || textSetter==null)
 			throw new IllegalArgumentException();
 
 		IShapeFactory factory = DrawingTK.getFactory();
+		groupParams		= factory.createGroup(false);
 		this.textSetter = textSetter;
 		this.grid		= grid;
 		this.drawing 	= drawing;
 		this.zoomer		= zoomer;
 		currentChoice 	= EditionChoice.RECT;
-		lineStylable	= factory.createRectangle(false);
-		shadowable		= lineStylable;
-		dbleBorderable	= lineStylable;
-		roundable		= (ILineArcShape)lineStylable;
-		dottable		= factory.createDot(factory.createPoint(), false);
-		gridShape		= factory.createGrid(false, factory.createPoint());
-		borderMoveable	= lineStylable;
-		fillingable		= lineStylable;
-		textable		= factory.createText(false);
-		arcable			= factory.createCircleArc(false);
-		arrowLeftStyle	= ArrowStyle.NONE;
-		arrowRightStyle	= ArrowStyle.NONE;
-		arrow			= factory.createArrow(lineStylable);
+		groupParams.addShape(factory.createRectangle(false));
+		groupParams.addShape(factory.createDot(factory.createPoint(), false));
+		groupParams.addShape(factory.createGrid(false, factory.createPoint()));
+		groupParams.addShape(factory.createText(false));
+		groupParams.addShape(factory.createCircleArc(false));
 	}
 
 
@@ -190,6 +139,16 @@ public class Pencil extends Instrument {
 
 
 	/**
+	 * @return The shape that contains the parameters of the pencil. These parameters
+	 * will be used for the creation of new shapes.
+	 * @since 3.0
+	 */
+	public IGroup getGroupParams() {
+		return groupParams;
+	}
+
+
+	/**
 	 * @return An instance of a shape configured (thickness, colours, etc.) with the parameters of the pencil.
 	 * @since 3.0
 	 */
@@ -211,64 +170,64 @@ public class Pencil extends Instrument {
 		if(shape==null)
 			return ;
 //FIXME Should use copy operations to copy these parameters.
-		shape.setLineColour(lineStylable.getLineColour());
+		shape.setLineColour(groupParams.getLineColour());
 
 		if(shape.isArrowable()) {
-			shape.setArrowStyle(arrowLeftStyle, 0);
-			shape.setArrowStyle(arrowRightStyle, 1);
+			shape.setArrowStyle(groupParams.getArrowStyle(0), 0);
+			shape.setArrowStyle(groupParams.getArrowStyle(1), 1);
 		}
 		if(shape.isThicknessable())
-			shape.setThickness(lineStylable.getThickness());
+			shape.setThickness(groupParams.getThickness());
 		if(shape.isBordersMovable())
-			shape.setBordersPosition(borderMoveable.getBordersPosition());
+			shape.setBordersPosition(groupParams.getBordersPosition());
 		if(shape.isInteriorStylable())
-			shape.copy(fillingable);
+			shape.copy(groupParams);
 		if(shape.isDbleBorderable()) {
-			shape.setHasDbleBord(dbleBorderable.hasDbleBord());
-			shape.setDbleBordCol(dbleBorderable.getDbleBordCol());
-			shape.setDbleBordSep(dbleBorderable.getDbleBordSep());
+			shape.setHasDbleBord(groupParams.hasDbleBord());
+			shape.setDbleBordCol(groupParams.getDbleBordCol());
+			shape.setDbleBordSep(groupParams.getDbleBordSep());
 		}
 		if(shape.isShadowable()) {
-			shape.setHasShadow(shadowable.hasShadow());
-			shape.setShadowCol(shadowable.getShadowCol());
-			shape.setShadowAngle(shadowable.getShadowAngle());
-			shape.setShadowSize(shadowable.getShadowSize());
+			shape.setHasShadow(groupParams.hasShadow());
+			shape.setShadowCol(groupParams.getShadowCol());
+			shape.setShadowAngle(groupParams.getShadowAngle());
+			shape.setShadowSize(groupParams.getShadowSize());
 		}
 		if(shape instanceof Dottable) {
 			final Dottable dot = (Dottable)shape;
-			dot.setDotStyle(dottable.getDotStyle());
-			dot.setRadius(dottable.getRadius());
-			dot.setDotFillingCol(dottable.getDotFillingCol());
+			dot.setDotStyle(groupParams.getDotStyle());
+			dot.setRadius(groupParams.getRadius());
+			dot.setDotFillingCol(groupParams.getDotFillingCol());
 		}
 		if(shape instanceof Arcable) {
 			final Arcable arc = (Arcable)shape;
-			arc.setAngleStart(arcable.getAngleStart());
-			arc.setAngleEnd(arcable.getAngleEnd());
-			arc.setArcStyle(arcable.getArcStyle());
+			arc.setAngleStart(groupParams.getAngleStart());
+			arc.setAngleEnd(groupParams.getAngleEnd());
+			arc.setArcStyle(groupParams.getArcStyle());
 		}
 		if(shape.isLineStylable())
-			shape.setLineStyle(lineStylable.getLineStyle());
+			shape.setLineStyle(groupParams.getLineStyle());
 		// Setting the corner roundness.
 		if(shape instanceof ILineArcShape)
-			((ILineArcShape)shape).setLineArc(roundable.getLineArc());
+			((ILineArcShape)shape).setLineArc(groupParams.getLineArc());
 		// Setting the text parameters.
 		if(shape instanceof IText) {
 			final IText text = (IText)shape;
-			text.setTextPosition(textable.getTextPosition());
+			text.setTextPosition(groupParams.getTextPosition());
 		}
 		if(shape instanceof IStandardGrid)
-			((IStandardGrid)shape).copy(gridShape);
+			shape.copy(groupParams);
 		if(shape.isArrowable()) {
-			shape.setArrowInset(arrow.getArrowInset());
-			shape.setArrowLength(arrow.getArrowLength());
-			shape.setArrowSizeDim(arrow.getArrowSizeDim());
-			shape.setArrowSizeNum(arrow.getArrowSizeNum());
-			shape.setDotSizeDim(arrow.getDotSizeDim());
-			shape.setDotSizeNum(arrow.getDotSizeNum());
-			shape.setBracketNum(arrow.getBracketNum());
-			shape.setRBracketNum(arrow.getRBracketNum());
-			shape.setTBarSizeDim(arrow.getTBarSizeDim());
-			shape.setTBarSizeNum(arrow.getTBarSizeNum());
+			shape.setArrowInset(groupParams.getArrowInset());
+			shape.setArrowLength(groupParams.getArrowLength());
+			shape.setArrowSizeDim(groupParams.getArrowSizeDim());
+			shape.setArrowSizeNum(groupParams.getArrowSizeNum());
+			shape.setDotSizeDim(groupParams.getDotSizeDim());
+			shape.setDotSizeNum(groupParams.getDotSizeNum());
+			shape.setBracketNum(groupParams.getBracketNum());
+			shape.setRBracketNum(groupParams.getRBracketNum());
+			shape.setTBarSizeDim(groupParams.getTBarSizeDim());
+			shape.setTBarSizeNum(groupParams.getTBarSizeNum());
 		}
 
 		shape.setModified(true);
@@ -313,385 +272,6 @@ public class Pencil extends Instrument {
 
 
 	/**
-	 * Sets the arrow inset of the pencil.
-	 * @param inset The new inset.
-	 * @since 3.0
-	 */
-	public void setArrowInset(final double inset) {
-		arrow.setArrowInset(inset);
-	}
-
-
-	/**
-	 * Sets the arrow inset of the pencil.
-	 * @param lgth The new inset.
-	 * @since 3.0
-	 */
-	public void setArrowLength(final double lgth) {
-		arrow.setArrowLength(lgth);
-	}
-
-	/**
-	 * Sets the arrow dot size dim of the pencil.
-	 * @param dotSizeDim The new dot size dim.
-	 * @since 3.0
-	 */
-	public void setArrowDotSizeDim(final double dotSizeDim) {
-		arrow.setDotSizeDim(dotSizeDim);
-	}
-
-	/**
-	 * Sets the arrow dot size num of the pencil.
-	 * @param dotSizeNum The new dot size num.
-	 * @since 3.0
-	 */
-	public void setArrowDotSizeNum(final double dotSizeNum) {
-		arrow.setDotSizeNum(dotSizeNum);
-	}
-
-	/**
-	 * Sets the arrow size dim of the pencil.
-	 * @param sizeDim The new size dim.
-	 * @since 3.0
-	 */
-	public void setArrowSizeDim(final double sizeDim) {
-		arrow.setArrowSizeDim(sizeDim);
-	}
-
-	/**
-	 * Sets the arrow size num of the pencil.
-	 * @param sizeNum The new size num.
-	 * @since 3.0
-	 */
-	public void setArrowSizeNum(final double sizeNum) {
-		arrow.setArrowSizeNum(sizeNum);
-	}
-
-	/**
-	 * Sets the arrow t bar dim of the pencil.
-	 * @param tbarDim The new t bar dim.
-	 * @since 3.0
-	 */
-	public void setArrowTBarDim(final double tbarDim) {
-		arrow.setTBarSizeDim(tbarDim);
-	}
-
-	/**
-	 * Sets the arrow t bar num of the pencil.
-	 * @param tbarNum The new t bar num.
-	 * @since 3.0
-	 */
-	public void setArrowTBarNum(final double tbarNum) {
-		arrow.setTBarSizeNum(tbarNum);
-	}
-
-	/**
-	 * Sets the round bracket num of the pencil.
-	 * @param rBracketNum The new round bracket.
-	 * @since 3.0
-	 */
-	public void setArrowRBracketNum(final double rBracketNum) {
-		arrow.setRBracketNum(rBracketNum);
-	}
-
-	/**
-	 * Sets the bracket num of the pencil.
-	 * @param bracketNum The new bracket.
-	 * @since 3.0
-	 */
-	public void setArrowBracketNum(final double bracketNum) {
-		arrow.setRBracketNum(bracketNum);
-	}
-
-
-	/**
-	 * Sets the thickness of the pencil.
-	 * @param thickness The new thickness.
-	 * @since 3.0
-	 */
-	public void setThickness(final double thickness) {
-		lineStylable.setThickness(thickness);
-	}
-
-
-	/**
-	 * Sets the size of the shadow.
-	 * @param shadowSize The new shadow size.
-	 * @since 3.0
-	 */
-	public void setShadowSize(final double shadowSize) {
-		shadowable.setShadowSize(shadowSize);
-	}
-
-
-	/**
-	 * Sets the angle of the shadow.
-	 * @param shadowAngle The new shadow angle.
-	 * @since 3.0
-	 */
-	public void setShadowAngle(final double shadowAngle) {
-		shadowable.setShadowAngle(shadowAngle);
-	}
-
-
-	/**
-	 * Defines the size of the created dots.
-	 * @param dotSize The size of the created dots.
-	 * @since 3.0
-	 */
-	public void setDotSize(final double dotSize) {
-		dottable.setRadius(dotSize);
-	}
-
-
-	/**
-	 * Defines the filling colour of the created dots.
-	 * @param fillingDotCol The filling colour of the created dots.
-	 * @since 3.0
-	 */
-	public void setDotFillingCol(final Color fillingDotCol) {
-		dottable.setDotFillingCol(fillingDotCol);
-	}
-
-
-	/**
-	 * Defines if the created shapes must have a shadow.
-	 * @param shadow True: the created shapes will have a shadow.
-	 * @since 3.0
-	 */
-	public void setShadow(final boolean shadow) {
-		shadowable.setHasShadow(shadow);
-	}
-
-
-	/**
-	 * Sets if the created shapes must have double borders.
-	 * @param doubleBorder True: created shapes must have double borders.
-	 * @since 3.0
-	 */
-	public void setDoubleBorder(final boolean doubleBorder) {
-		dbleBorderable.setHasDbleBord(doubleBorder);
-	}
-
-
-	/**
-	 * Sets the line colour of the created shapes.
-	 * @param lineColor The line colour of the created shapes.
-	 * @since 3.0
-	 */
-	public void setLineColor(final Color lineColor) {
-		lineStylable.setLineColour(lineColor);
-	}
-
-
-	/**
-	 * Sets the filling colour of the created shapes.
-	 * @param fillingColor The filling colour of the created shapes.
-	 * @since 3.0
-	 */
-	public void setFillingColor(final Color fillingColor) {
-		fillingable.setFillingCol(fillingColor);
-	}
-
-
-	/**
-	 * Sets the shadow colour of the created shapes.
-	 * @param shadowColor The shadow colour of the created shapes.
-	 * @since 3.0
-	 */
-	public void setShadowColor(final Color shadowColor) {
-		shadowable.setShadowCol(shadowColor);
-	}
-
-
-	/**
-	 * Sets the hatchings colour of the created shapes.
-	 * @param hatchingsColor The hatchings colour of the created shapes.
-	 * @since 3.0
-	 */
-	public void setHatchingsColor(final Color hatchingsColor) {
-		fillingable.setHatchingsCol(hatchingsColor);
-	}
-
-
-	/**
-	 * Sets the starting gradient colour of the created shapes.
-	 * @param gradStartColor The starting gradient colour of the created shapes.
-	 * @since 3.0
-	 */
-	public void setGradStartColor(final Color gradStartColor) {
-		fillingable.setGradColStart(gradStartColor);
-	}
-
-
-	/**
-	 * Sets the ending gradient colour of the created shapes.
-	 * @param gradEndColor The ending gradient colour of the created shapes.
-	 * @since 3.0
-	 */
-	public void setGradEndColor(final Color gradEndColor) {
-		fillingable.setGradColEnd(gradEndColor);
-	}
-
-
-	/**
-	 * Sets the double colour of the created shapes.
-	 * @param doubleBorderColor The double colour of the created shapes.
-	 * @since 3.0
-	 */
-	public void setDoubleBorderColor(final Color doubleBorderColor) {
-		dbleBorderable.setDbleBordCol(doubleBorderColor);
-	}
-
-
-	/**
-	 * Sets the style of the created dots.
-	 * @param dotStyle The style of the created dots.
-	 * @since 3.0
-	 */
-	public void setDotStyle(final DotStyle dotStyle) {
-		dottable.setDotStyle(dotStyle);
-	}
-
-	/**
-	 * Sets the style of the created arcs.
-	 * @param arcStyle The style of the created arcs.
-	 * @since 3.0
-	 */
-	public void setArcStyle(final ArcStyle arcStyle) {
-		arcable.setArcStyle(arcStyle);
-	}
-
-	/**
-	 * Sets the start angle of the created arcs.
-	 * @param startAngle The start angle of the created arcs.
-	 * @since 3.0
-	 */
-	public void setArcStartAngle(final double startAngle) {
-		arcable.setAngleStart(startAngle);
-	}
-
-	/**
-	 * Sets the end angle of the created arcs.
-	 * @param endAngle The end angle of the created arcs.
-	 * @since 3.0
-	 */
-	public void setArcEndAngle(final double endAngle) {
-		arcable.setAngleEnd(endAngle);
-	}
-
-
-	/**
-	 * Sets the style of the left arrows.
-	 * @param arrowLeftStyle The style of the left arrows.
-	 * @since 3.0
-	 */
-	public void setArrowLeftStyle(final ArrowStyle arrowLeftStyle) {
-		if(arrowLeftStyle!=null)
-			this.arrowLeftStyle = arrowLeftStyle;
-	}
-
-
-	/**
-	 * Sets the style of the right arrows.
-	 * @param arrowRightStyle The style of the right arrows.
-	 * @since 3.0
-	 */
-	public void setArrowRightStyle(final ArrowStyle arrowRightStyle) {
-		if(arrowRightStyle!=null)
-			this.arrowRightStyle = arrowRightStyle;
-	}
-
-
-	/**
-	 * Sets the position of the borders of the created shapes.
-	 * @param borderPosition The position of the borders of the created shapes.
-	 * @since 3.0
-	 */
-	public void setBorderPosition(final BorderPos borderPosition) {
-		borderMoveable.setBordersPosition(borderPosition);
-	}
-
-
-	/**
-	 * Sets the line style of the created shapes.
-	 * @param lineStyle The line style of the created shapes.
-	 * @since 3.0
-	 */
-	public void setLineStyle(final LineStyle lineStyle) {
-		lineStylable.setLineStyle(lineStyle);
-	}
-
-
-	/**
-	 * Sets the filling style of the created shapes.
-	 * @param fillingStyle The filling style of the created shapes.
-	 * @since 3.0
-	 */
-	public void setFillingStyle(final FillingStyle fillingStyle) {
-		fillingable.setFillingStyle(fillingStyle);
-	}
-
-
-	/**
-	 * @param roundness Defines the roundness of the border corners.
-	 * @since 3.0
-	 */
-	public void setRoundness(final double roundness) {
-		roundable.setLineArc(roundness);
-	}
-
-
-	/**
-	 * @param dbleSize The space between double border.
-	 * @since 3.0
-	 */
-	public void setDoubleBorderSize(final double dbleSize) {
-		dbleBorderable.setDbleBordSep(dbleSize);
-	}
-
-	/**
-	 * @param angle The angle of the gradient.
-	 * @since 3.0
-	 */
-	public void setGradAngle(final double angle) {
-		fillingable.setGradAngle(angle);
-	}
-
-	/**
-	 * @param midPt The middle point of the gradient.
-	 * @since 3.0
-	 */
-	public void setGradMidPt(final double midPt) {
-		fillingable.setGradMidPt(midPt);
-	}
-
-	/**
-	 * @param angle The angle of the hatchings.
-	 * @since 3.0
-	 */
-	public void setHatchAngle(final double angle) {
-		fillingable.setHatchingsAngle(angle);
-	}
-
-	/**
-	 * @param sep The spacing between the hatchings.
-	 * @since 3.0
-	 */
-	public void setHatchSep(final double sep) {
-		fillingable.setHatchingsSep(sep);
-	}
-
-	/**
-	 * @param width the width of the hatchings.
-	 * @since 3.0
-	 */
-	public void setHatchWidth(final double width) {
-		fillingable.setHatchingsWidth(width);
-	}
-
-
-	/**
 	 * Computes the point depending on the the zoom level and the magnetic grid.
 	 * @param point The point to adapted.
 	 * @return The computed point.
@@ -699,24 +279,6 @@ public class Pencil extends Instrument {
 	 */
 	public IPoint getAdaptedPoint(final Point point) {
 		return grid.getTransformedPointToGrid(zoomer.zoomable.getZoomedPoint(point));
-	}
-
-
-	/**
-	 * @param value The text position of texts added by the pencil.
-	 * @since 3.0
-	 */
-	public void setTextPosition(final TextPosition value) {
-		textable.setTextPosition(value);
-	}
-
-	/**
-	 * @param value The starting point of the grid that must be set by the pencil.
-	 * @since 3.0
-	 */
-	public void setGridStart(final IPoint value) {
-		if(value!=null)
-			gridShape.setGridStart(value.getX(), value.getY());
 	}
 }
 

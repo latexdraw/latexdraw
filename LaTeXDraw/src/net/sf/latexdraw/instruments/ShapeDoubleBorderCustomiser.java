@@ -1,5 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import java.awt.Color;
+
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -68,7 +70,7 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
         dbleBoundCB.setMargin(LResources.INSET_BUTTON);
         dbleBoundCB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.78")); //$NON-NLS-1$
 
-        dbleBoundColB = new MColorButton("Colour", new MButtonIcon(pencil.dbleBorderable.getDbleBordCol()));
+        dbleBoundColB = new MColorButton("Colour", new MButtonIcon(Color.WHITE));
         dbleBoundColB.setMargin(LResources.INSET_BUTTON);
         dbleBoundColB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.79")); //$NON-NLS-1$
 

@@ -92,109 +92,109 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 	protected void applyValue(final Object obj) {
 		switch(property) {
 			case BORDER_POS:
-				pencil.setBorderPosition((BorderPos) value);
+				pencil.getGroupParams().setBordersPosition((BorderPos) value);
 				break;
 			case COLOUR_DBLE_BORD:
-				pencil.setDoubleBorderColor((Color) value);
+				pencil.getGroupParams().setDbleBordCol((Color) value);
 				break;
 			case COLOUR_FILLING:
-				pencil.setFillingColor((Color) value);
+				pencil.getGroupParams().setFillingCol((Color) value);
 				break;
 			case COLOUR_GRADIENT_END:
-				pencil.setGradEndColor((Color) value);
+				pencil.getGroupParams().setGradColEnd((Color) value);
 				break;
 			case COLOUR_GRADIENT_START:
-				pencil.setGradStartColor((Color) value);
+				pencil.getGroupParams().setGradColStart((Color) value);
 				break;
 			case COLOUR_HATCHINGS:
-				pencil.setHatchingsColor((Color) value);
+				pencil.getGroupParams().setHatchingsCol((Color) value);
 				break;
 			case COLOUR_LINE:
-				pencil.setLineColor((Color) value);
+				pencil.getGroupParams().setLineColour((Color) value);
 				break;
 			case COLOUR_SHADOW:
-				pencil.setShadowColor((Color) value);
+				pencil.getGroupParams().setShadowCol((Color) value);
 				break;
 			case DBLE_BORDERS:
-				pencil.setDoubleBorder((Boolean) value);
+				pencil.getGroupParams().setHasDbleBord((Boolean) value);
 				break;
 			case DOT_FILLING_COL:
-				pencil.setDotFillingCol((Color)value);
+				pencil.getGroupParams().setDotFillingCol((Color)value);
 				break;
 			case DOT_SIZE:
-				pencil.setDotSize((Double) value);
+				pencil.getGroupParams().setRadius((Double) value);
 				break;
 			case DOT_STYLE:
-				pencil.setDotStyle((DotStyle) value);
+				pencil.getGroupParams().setDotStyle((DotStyle) value);
 				break;
 			case FILLING_STYLE:
-				pencil.setFillingStyle((FillingStyle) value);
+				pencil.getGroupParams().setFillingStyle((FillingStyle) value);
 				break;
 			case LINE_STYLE:
-				pencil.setLineStyle((LineStyle) value);
+				pencil.getGroupParams().setLineStyle((LineStyle) value);
 				break;
 			case LINE_THICKNESS:
-				pencil.setThickness((Double) value);
+				pencil.getGroupParams().setThickness((Double) value);
 				break;
 			case SHADOW:
-				pencil.setShadow((Boolean) value);
+				pencil.getGroupParams().setHasShadow((Boolean) value);
 				break;
 			case ROUND_CORNER_VALUE:
-				pencil.setRoundness((Double)value);
+				pencil.getGroupParams().setLineArc((Double)value);
 				break;
 			case DBLE_BORDERS_SIZE:
-				pencil.setDoubleBorderSize((Double)value);
+				pencil.getGroupParams().setDbleBordSep((Double)value);
 				break;
 			case SHADOW_ANGLE:
-				pencil.setShadowAngle((Double)value);
+				pencil.getGroupParams().setShadowAngle((Double)value);
 				break;
 			case SHADOW_SIZE:
-				pencil.setShadowSize((Double)value);
+				pencil.getGroupParams().setShadowSize((Double)value);
 				break;
 			case GRAD_ANGLE:
-				pencil.setGradAngle((Double)value);
+				pencil.getGroupParams().setGradAngle((Double)value);
 				break;
 			case GRAD_MID_POINT:
-				pencil.setGradMidPt((Double)value);
+				pencil.getGroupParams().setGradMidPt((Double)value);
 				break;
 			case HATCHINGS_ANGLE:
-				pencil.setHatchAngle((Double)value);
+				pencil.getGroupParams().setHatchingsAngle((Double)value);
 				break;
 			case HATCHINGS_SEP:
-				pencil.setHatchSep((Double)value);
+				pencil.getGroupParams().setHatchingsSep((Double)value);
 				break;
 			case HATCHINGS_WIDTH:
-				pencil.setHatchWidth((Double)value);
+				pencil.getGroupParams().setHatchingsWidth((Double)value);
 				break;
 			case TEXT_POSITION:
-				pencil.setTextPosition((TextPosition)value);
+				pencil.getGroupParams().setTextPosition((TextPosition)value);
 				break;
 			case ROTATION_ANGLE:
 				// The pencil does not perform rotation.
 				break;
 			case ARROW1_STYLE:
-				pencil.setArrowLeftStyle((ArrowStyle)value);
+				pencil.getGroupParams().setArrowStyle((ArrowStyle)value, 0);
 				break;
 			case ARROW2_STYLE:
-				pencil.setArrowRightStyle((ArrowStyle)value);
+				pencil.getGroupParams().setArrowStyle((ArrowStyle)value, 1);
 				break;
 			case TEXT:
 				// The pencil does not set text values.
 				break;
-			case ARC_END_ANGLE	: pencil.setArcEndAngle((Double)value); 	break;
-			case ARC_START_ANGLE: pencil.setArcStartAngle((Double)value);	break;
-			case ARC_STYLE		: pencil.setArcStyle((ArcStyle)value);		break;
-			case GRID_START: pencil.setGridStart((IPoint)value); break;
-			case ARROW_INSET: pencil.setArrowInset((Double)value); break;
-			case ARROW_LENGTH: pencil.setArrowLength((Double)value); break;
-			case ARROW_BRACKET_NUM: pencil.setArrowBracketNum((Double)value); break;
-			case ARROW_DOT_SIZE_DIM: pencil.setArrowDotSizeDim((Double)value); break;
-			case ARROW_DOT_SIZE_NUM: pencil.setArrowDotSizeNum((Double)value); break;
-			case ARROW_R_BRACKET_NUM: pencil.setArrowRBracketNum((Double)value); break;
-			case ARROW_SIZE_DIM: pencil.setArrowSizeDim((Double)value); break;
-			case ARROW_SIZE_NUM: pencil.setArrowSizeNum((Double)value); break;
-			case ARROW_T_BAR_SIZE_DIM: pencil.setArrowTBarDim((Double)value); break;
-			case ARROW_T_BAR_SIZE_NUM: pencil.setArrowTBarNum((Double)value); break;
+			case ARC_END_ANGLE	: pencil.getGroupParams().setAngleEnd((Double)value); 	break;
+			case ARC_START_ANGLE: pencil.getGroupParams().setAngleStart((Double)value);	break;
+			case ARC_STYLE		: pencil.getGroupParams().setArcStyle((ArcStyle)value);		break;
+			case GRID_START: pencil.getGroupParams().setGridStart(((IPoint)value).getX(), ((IPoint)value).getY()); break;
+			case ARROW_INSET: pencil.getGroupParams().setArrowInset((Double)value); break;
+			case ARROW_LENGTH: pencil.getGroupParams().setArrowLength((Double)value); break;
+			case ARROW_BRACKET_NUM: pencil.getGroupParams().setBracketNum((Double)value); break;
+			case ARROW_DOT_SIZE_DIM: pencil.getGroupParams().setDotSizeDim((Double)value); break;
+			case ARROW_DOT_SIZE_NUM: pencil.getGroupParams().setDotSizeNum((Double)value); break;
+			case ARROW_R_BRACKET_NUM: pencil.getGroupParams().setRBracketNum((Double)value); break;
+			case ARROW_SIZE_DIM: pencil.getGroupParams().setArrowSizeDim((Double)value); break;
+			case ARROW_SIZE_NUM: pencil.getGroupParams().setArrowSizeNum((Double)value); break;
+			case ARROW_T_BAR_SIZE_DIM: pencil.getGroupParams().setTBarSizeDim((Double)value); break;
+			case ARROW_T_BAR_SIZE_NUM: pencil.getGroupParams().setTBarSizeNum((Double)value); break;
 		}
 	}
 }
