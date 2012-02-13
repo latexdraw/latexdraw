@@ -10,7 +10,6 @@ import java.awt.RenderingHints;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -157,23 +156,6 @@ public class LCanvas extends MPanel implements ICanvas {
 
 		// Adding a kind of instrument that manages the tooltips.
 		addMouseMotionListener(new TooltipDisplayer());
-
-		// Grabbing the focus.
-		addMouseListener(new MouseListener() {
-			@Override
-			public void mouseReleased(final MouseEvent e) { /* */ }
-			@Override
-			public void mousePressed(final MouseEvent e) {
-				LCanvas.this.grabFocus();
-			}
-			@Override
-			public void mouseExited(final MouseEvent e) { /* */ }
-			@Override
-			public void mouseEntered(final MouseEvent e) { /* */ }
-			@Override
-			public void mouseClicked(final MouseEvent e) { /* */ }
-		});
-
 		update();
 	}
 
