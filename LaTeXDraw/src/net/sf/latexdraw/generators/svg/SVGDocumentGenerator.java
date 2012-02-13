@@ -205,6 +205,8 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 				MappingRegistry.REGISTRY.addMapping(mapping);
 				mapping.init();
 			}
+
+			ui.setModified(false);
 		}
 	}
 
