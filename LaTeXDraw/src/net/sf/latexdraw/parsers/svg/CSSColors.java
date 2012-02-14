@@ -1,11 +1,10 @@
 package net.sf.latexdraw.parsers.svg;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.IdentityHashMap;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
@@ -29,15 +28,17 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
  * @version 0.1
  */
 public final class CSSColors {
-	/** The colours defined by the user. */
-	private List<Color> userColours = new ArrayList<Color>();
+//	/** The colours defined by the user. */
+//	private List<Color> userColours = new ArrayList<Color>();
+//
+//	/** The name of the colours defined by the user. */
+//	private List<String> usernameColours = new ArrayList<String>();
 
-	/** The name of the colours defined by the user. */
-	private List<String> usernameColours = new ArrayList<String>();
+	private Map<String, Color> userColours;
 
-	private Map<String, Color> colourHashtable = new Hashtable<String, Color>(100);
+	private Map<String, Color> colourHashtable;
 
-	private Map<Color, String> nameColourHashtable = new Hashtable<Color, String>(100);
+	private Map<Color, String> nameColourHashtable;
 
 
     public static final String CSS_ALICEBLUE_NAME 		= "aliceblue";//$NON-NLS-1$
@@ -339,7 +340,7 @@ public final class CSSColors {
     /** The singleton. */
     public static final CSSColors INSTANCE = new CSSColors();
 
-	protected void createColourHashTable() {
+	private void createColourHashTable() {
 		colourHashtable.clear();
 	    colourHashtable.put(CSS_ALICEBLUE_NAME, CSS_ALICEBLUE_RGB_VALUE);
 	    colourHashtable.put(CSS_ANTIQUEWHITE_NAME, CSS_ANTIQUEWHITE_RGB_VALUE);
@@ -490,8 +491,7 @@ public final class CSSColors {
 	}
 
 
-
-	protected void createNameColourHashTable() {
+	private void createNameColourHashTable() {
 		nameColourHashtable.clear();
 	    nameColourHashtable.put(CSS_ALICEBLUE_RGB_VALUE, CSS_ALICEBLUE_NAME);
 	    nameColourHashtable.put(CSS_ANTIQUEWHITE_RGB_VALUE, CSS_ANTIQUEWHITE_NAME);
@@ -637,8 +637,9 @@ public final class CSSColors {
 	private CSSColors() {
 		super();
 
-		colourHashtable 	= new IdentityHashMap<String, Color>();
-		nameColourHashtable = new IdentityHashMap<Color, String>();
+		colourHashtable 	= new HashMap<String, Color>();
+		nameColourHashtable = new HashMap<Color, String>();
+		userColours			= new HashMap<String, Color>();
 
 		createColourHashTable();
 		createNameColourHashTable();
@@ -654,18 +655,9 @@ public final class CSSColors {
 		if(name==null || name.length()==0)
 			return null;
 
-		Color c = colourHashtable.get(name);
+		final Color col = colourHashtable.get(name);
 
-		if(c!=null)
-			return c;
-
-		boolean found = false;
-		int i=0, size = userColours.size();
-
-		while(!found && i<size)
-			found = name.equals(usernameColours.get(i++));
-
-		return found ? userColours.get(i-1) : null;
+		return col==null ? userColours.get(name) : col;
 	}
 
 
@@ -673,60 +665,49 @@ public final class CSSColors {
 
 	/**
 	 * Adds a colour defined by the user.
-	 * @param c The colour to add.
+	 * @param col The colour to add.
 	 * @param name The name of this colour.
 	 */
-	public void addUserColor(final Color c, final String name) {
-		if(name==null || c==null)
+	public void addUserColor(final Color col, final String name) {
+		if(name==null || col==null || name.length()==0)
 			return ;
 
-		boolean exist = false;
-		int i=0, size = usernameColours.size();
-
-		while(!exist && i<size) {
-			exist = name.equals(usernameColours.get(i));
-			i++;
-		}
-
-		if(exist) {
-			usernameColours.remove(i-1);
-			userColours.remove(i-1);
-		}
-
-		userColours.add(c);
-		usernameColours.add(name);
+		userColours.put(name, col);
 	}
 
 
 
 
 	/**
-	 * @param c The colour of the colour with the given name.
+	 * @param col The colour of the colour with the given name.
 	 * @param create If true and if the colour is not found, then the colour will be created, added to the user's colours and returned.
 	 * The created name will be then its hexadecimal value.
 	 * @return The name of the colour or null.
 	 */
-	public String getColorName(final Color c, final boolean create) {
-		if(c==null)
+	public String getColorName(final Color col, final boolean create) {
+		if(col==null)
 			return null;
 
-		String name = nameColourHashtable.get(c);
+		String name = nameColourHashtable.get(col);
 
 		if(name!=null)
 			return name;
 
-		boolean found = false;
-		int i=0, size = userColours.size();
+		final Iterator<Entry<String, Color>> itCols = userColours.entrySet().iterator();
+		Entry<String, Color> entry = null;
 
-		while(!found && i<size)
-			found = c.equals(userColours.get(i++));
+		while(itCols.hasNext() && entry==null) {
+			entry = itCols.next();
+			if(!entry.getValue().equals(col))
+				entry = null;
+		}
 
-		if(found)
-			return usernameColours.get(i-1);
+		if(entry!=null)
+			return entry.getKey();
 
 		if(create) {
-			addUserColor(c, rgbToHex(c));
-			return getColorName(c, false);
+			addUserColor(col, rgbToHex(col));
+			return getColorName(col, false);
 		}
 
 		return null;
