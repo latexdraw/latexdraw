@@ -86,7 +86,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	public static final FontMetrics FONT_METRICS = FontDesignMetrics.getMetrics(FONT);
 
 	/** A ratio used to create bigger thumbnails to improve the quality of the displayed image. */
-	protected static final double SCALE_IMAGE = 3;
+	protected static final double SCALE_IMAGE = 2.;
 
 
 	/**
