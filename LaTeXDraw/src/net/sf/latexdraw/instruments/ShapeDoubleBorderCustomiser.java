@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 import org.malai.ui.UIComposer;
 import org.malai.widget.MButtonIcon;
@@ -74,7 +73,7 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
         dbleBoundColB.setMargin(LResources.INSET_BUTTON);
         dbleBoundColB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.79")); //$NON-NLS-1$
 
-     	dbleSepField = new MSpinner(new SpinnerNumberModel(5, 1, 1000,1), new JLabel(LResources.GRID_GAP_ICON));
+     	dbleSepField = new MSpinner(new MSpinner.MSpinnerNumberModel(5., 1., 1000., 1.), new JLabel(LResources.GRID_GAP_ICON));
      	dbleSepField.setEditor(new JSpinner.NumberEditor(dbleSepField, "0")); //$NON-NLS-1$
 	}
 

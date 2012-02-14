@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instruments;
 
 import javax.swing.JLabel;
-import javax.swing.SpinnerNumberModel;
 
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
@@ -82,10 +81,10 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
  		chordB.setMargin(LResources.INSET_BUTTON);
  		chordB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.131")); //$NON-NLS-1$
 
-     	startAngleS = new MSpinner(new SpinnerNumberModel(0.,-360.,360.,1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersArcFrame.0")));
+     	startAngleS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -360., 360., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersArcFrame.0")));
      	startAngleS.setEditor(new MSpinner.NumberEditor(startAngleS, "0.0"));//$NON-NLS-1$
 
-     	endAngleS = new MSpinner(new SpinnerNumberModel(0.,-360.,360.,1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersArcFrame.1")));
+     	endAngleS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -360., 360., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersArcFrame.1")));
      	endAngleS.setEditor(new MSpinner.NumberEditor(endAngleS, "0.0"));//$NON-NLS-1$
 	}
 

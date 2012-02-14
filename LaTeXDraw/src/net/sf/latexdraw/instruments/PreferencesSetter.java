@@ -14,8 +14,6 @@ import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -211,8 +209,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		langList.addItem(LangTool.Lang.SR.getName());
   		langList.setMaximumSize(new Dimension(250, height));
 
-  		SpinnerModel model = new SpinnerNumberModel(5, 0, 20, 1);
-  		nbRecentFilesField = new MSpinner(model, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.0")));//$NON-NLS-1$
+  		nbRecentFilesField = new MSpinner(new MSpinner.MSpinnerNumberModel(5, 0, 20, 1), new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.0")));//$NON-NLS-1$
   		nbRecentFilesField.setEditor(new JSpinner.NumberEditor(nbRecentFilesField, "0"));//$NON-NLS-1$
   		nbRecentFilesField.setMaximumSize(new Dimension(60, height));
 
@@ -233,8 +230,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		displayGridCB.setSelected(true);
   		magneticGridCB	   	= new MCheckBox(LangTool.INSTANCE.getString18("PreferencesFrame.6")); //$NON-NLS-1$
   		magneticGridCB.setSelected(true);
-     	model 			   	= new SpinnerNumberModel(20, 2, 100000, 1);
-     	persoGridGapField  	= new MSpinner(model, new JLabel(LangTool.INSTANCE.getString18("PreferencesFrame.7")));//$NON-NLS-1$
+     	persoGridGapField  	= new MSpinner(new MSpinner.MSpinnerNumberModel(20, 2, 10000, 1), new JLabel(LangTool.INSTANCE.getString18("PreferencesFrame.7")));//$NON-NLS-1$
      	persoGridGapField.setEditor(new JSpinner.NumberEditor(persoGridGapField, "0"));//$NON-NLS-1$
      	persoGridGapField.setMaximumSize(new Dimension(60, height));
 

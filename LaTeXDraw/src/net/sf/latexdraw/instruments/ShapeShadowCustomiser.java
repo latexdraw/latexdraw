@@ -4,8 +4,6 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 
 import org.malai.ui.UIComposer;
 import org.malai.widget.MButtonIcon;
@@ -78,12 +76,10 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 		shadowColB.setMargin(LResources.INSET_BUTTON);
 		shadowColB.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.5")); //$NON-NLS-1$
 
-		SpinnerModel model = new SpinnerNumberModel(1,0.01,1000,1);
-		shadowSizeField = new MSpinner(model, new JLabel("Size:"));
+		shadowSizeField = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 0.01, 1000. ,1.), new JLabel("Size:"));
 		shadowSizeField.setEditor(new JSpinner.NumberEditor(shadowSizeField, "0.00"));//$NON-NLS-1$
 
-     	model = new SpinnerNumberModel(45, -360, 360,0.5);
-     	shadowAngleField = new MSpinner(model, new JLabel("Angle:"));
+     	shadowAngleField = new MSpinner(new MSpinner.MSpinnerNumberModel(45., -360., 360., 0.5), new JLabel("Angle:"));
      	shadowAngleField.setEditor(new JSpinner.NumberEditor(shadowAngleField, "0.0"));//$NON-NLS-1$
 	}
 

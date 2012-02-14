@@ -6,7 +6,6 @@ import java.awt.ItemSelectable;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
@@ -130,7 +129,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-     	thicknessField 		= new MSpinner(new SpinnerNumberModel(2, 0.1, 1000, 0.1), new JLabel(LResources.THICKNESS_ICON));
+     	thicknessField 		= new MSpinner(new MSpinner.MSpinnerNumberModel(2., 0.1, 1000., 0.1), new JLabel(LResources.THICKNESS_ICON));
      	thicknessField.setEditor(new JSpinner.NumberEditor(thicknessField, "0.0"));//$NON-NLS-1$
      	thicknessField.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.65")); //$NON-NLS-1$
 
@@ -147,7 +146,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
         bordersPosCB.setPreferredSize(new Dimension(45, 30));
         bordersPosCB.setMaximumSize(new Dimension(45, 30));
 
-		frameArcField = new MSpinner(new SpinnerNumberModel(0., 0., 1., 0.05), new JLabel(LResources.ROUNDNESS_ICON));
+		frameArcField = new MSpinner(new MSpinner.MSpinnerNumberModel(0., 0., 1., 0.05), new JLabel(LResources.ROUNDNESS_ICON));
 		frameArcField.setEditor(new JSpinner.NumberEditor(frameArcField, "0.00"));//$NON-NLS-1$
 	}
 

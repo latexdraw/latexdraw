@@ -2,7 +2,6 @@ package net.sf.latexdraw.instruments;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
@@ -63,10 +62,10 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		if(shape instanceof IStandardGrid && (!(shape instanceof IGroup) || ((IGroup)shape).containsGrids())) {
 			final IStandardGrid grid = (IStandardGrid)shape;
 
-			((SpinnerNumberModel)xStartS.getModel()).setMaximum((int)grid.getGridEndX());
-			((SpinnerNumberModel)yStartS.getModel()).setMaximum((int)grid.getGridEndY());
-			xStartS.setValueSafely((int)grid.getGridStartX());
-			yStartS.setValueSafely((int)grid.getGridStartY());
+			((MSpinner.MSpinnerNumberModel)xStartS.getModel()).setMaximumSafely(grid.getGridEndX());
+			((MSpinner.MSpinnerNumberModel)yStartS.getModel()).setMaximumSafely(grid.getGridEndY());
+			xStartS.setValueSafely(grid.getGridStartX());
+			yStartS.setValueSafely(grid.getGridStartY());
 		}
 		else setActivated(false);
 	}
@@ -81,11 +80,11 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		xStartS = new MSpinner(new SpinnerNumberModel(0, Integer.MIN_VALUE, Integer.MAX_VALUE, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.12")));//$NON-NLS-1$
+		xStartS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.12")));//$NON-NLS-1$
 		xStartS.setEditor(new JSpinner.NumberEditor(xStartS, "0"));//$NON-NLS-1$
 		xStartS.setToolTipText("Sets the minimal X-coordinate of the grid.");
 
-		yStartS = new MSpinner(new SpinnerNumberModel(0, Integer.MIN_VALUE, Integer.MAX_VALUE, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.14")));//$NON-NLS-1$
+		yStartS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.14")));//$NON-NLS-1$
 		yStartS.setEditor(new JSpinner.NumberEditor(yStartS, "0"));//$NON-NLS-1$
 		yStartS.setToolTipText("Sets the minimal Y-coordinate of the grid.");
 	}

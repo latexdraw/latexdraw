@@ -7,8 +7,6 @@ import java.awt.ItemSelectable;
 import javax.swing.AbstractButton;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
@@ -153,25 +151,20 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
         gradEndColButton.setMargin(LResources.INSET_BUTTON);
         gradEndColButton.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.8")); //$NON-NLS-1$
 
-     	SpinnerModel model = new SpinnerNumberModel(0.5,0,1,0.01);
-     	gradMidPtField = new MSpinner(model, new JLabel(LangTool.INSTANCE.getString17("AbstractParametersFrame.4"))); //$NON-NLS-1$
+     	gradMidPtField = new MSpinner(new MSpinner.MSpinnerNumberModel(0.5, 0., 1., 0.01), new JLabel(LangTool.INSTANCE.getString17("AbstractParametersFrame.4"))); //$NON-NLS-1$
      	gradMidPtField.setEditor(new JSpinner.NumberEditor(gradMidPtField, "0.000"));//$NON-NLS-1$
 
-     	model = new SpinnerNumberModel(0, -360, 360,0.5);
-     	gradAngleField = new MSpinner(model, new JLabel(LangTool.INSTANCE.getString17("AbstractParametersFrame.3"))); //$NON-NLS-1$
+     	gradAngleField = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -360., 360., 0.5), new JLabel(LangTool.INSTANCE.getString17("AbstractParametersFrame.3"))); //$NON-NLS-1$
      	gradAngleField.setEditor(new JSpinner.NumberEditor(gradAngleField, "0.0"));//$NON-NLS-1$
 
 		// Creation of the hatchings widgets.
-     	model = new SpinnerNumberModel(5, 0.1, 100,0.1);
-     	hatchWidthField = new MSpinner(model, new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.11"))); //$NON-NLS-1$
+     	hatchWidthField = new MSpinner(new MSpinner.MSpinnerNumberModel(5., 0.1, 100., 0.1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.11"))); //$NON-NLS-1$
      	hatchWidthField.setEditor(new JSpinner.NumberEditor(hatchWidthField, "0.0"));//$NON-NLS-1$
 
-     	model = new SpinnerNumberModel(2, 0.01, 1000,1);
-     	hatchSepField = new MSpinner(model, new JLabel(LangTool.INSTANCE.getString18("AbstractParametersFrame.0"))); //$NON-NLS-1$
+     	hatchSepField = new MSpinner(new MSpinner.MSpinnerNumberModel(2., 0.01, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("AbstractParametersFrame.0"))); //$NON-NLS-1$
      	hatchSepField.setEditor(new JSpinner.NumberEditor(hatchSepField, "0.00"));//$NON-NLS-1$
 
-     	model = new SpinnerNumberModel(0., -1000., 1000., 1.);
-     	hatchAngleField = new MSpinner(model, new JLabel("angle:"));
+     	hatchAngleField = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -1000., 1000., 1.), new JLabel("angle:"));
      	hatchAngleField.setEditor(new JSpinner.NumberEditor(hatchAngleField, "0.00"));//$NON-NLS-1$
 
      	hatchColButton = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.49"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$

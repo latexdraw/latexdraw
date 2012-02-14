@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 import org.malai.interaction.Eventable;
@@ -58,6 +59,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument customises grids and axes. */
 	protected ShapeGridCustomiser gridCustomiser;
 
+	/** This instrument groups shapes. */
 	protected ShapeGrouper shapeGrouper;
 
 
@@ -108,6 +110,8 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	@Override
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
+		
+		final IGroup selection = pencil.drawing.getSelection();
 
 		borderCustomiser.setActivated(activated);
 		doubleBorderCustomiser.setActivated(activated);
@@ -119,8 +123,8 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dotCustomiser.setActivated(activated);
 		arcCustomiser.setActivated(activated);
 		gridCustomiser.setActivated(activated);
-		dimPosCustomiser.setActivated(activated && hand.isActivated() && !pencil.drawing.getSelection().isEmpty());
-		shapeGrouper.setActivated(activated && hand.isActivated() && !pencil.drawing.getSelection().isEmpty());
+		dimPosCustomiser.setActivated(activated && hand.isActivated() && !selection.isEmpty());
+		shapeGrouper.setActivated(activated && hand.isActivated() && (selection.size()>1 || selection.getShapeAt(0) instanceof IGroup));
 
 		if(activated)
 			update();

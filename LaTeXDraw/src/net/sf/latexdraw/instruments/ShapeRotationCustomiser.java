@@ -3,7 +3,6 @@ package net.sf.latexdraw.instruments;
 import javax.swing.AbstractButton;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 import org.malai.instrument.Link;
 import org.malai.interaction.library.ButtonPressed;
@@ -79,7 +78,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
      	rotate270Button.setMargin(LResources.INSET_BUTTON);
      	rotate270Button.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.5")); //$NON-NLS-1$
 
-     	rotationField = new MSpinner(new SpinnerNumberModel(0, -360, 360,0.1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.7"))); //$NON-NLS-1$
+     	rotationField = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -360., 360., 0.1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.7"))); //$NON-NLS-1$
      	rotationField.setEditor(new JSpinner.NumberEditor(rotationField, "0.0"));	//$NON-NLS-1$
 	}
 

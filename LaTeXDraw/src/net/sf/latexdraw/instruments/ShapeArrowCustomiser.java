@@ -5,7 +5,6 @@ import java.awt.ItemSelectable;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
@@ -104,34 +103,34 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
      	arrowRightCB.setPreferredSize(new Dimension(80,30));
      	arrowRightCB.setMaximumSize(new Dimension(80,30));
 
-     	dotSizeDim = new MSpinner(new SpinnerNumberModel(10., 0., 1000., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
+     	dotSizeDim = new MSpinner(new MSpinner.MSpinnerNumberModel(10., 0., 1000., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
      	dotSizeDim.setEditor(new JSpinner.NumberEditor(dotSizeDim, "0.00"));//$NON-NLS-1$
 
-     	arrowSizeDim = new MSpinner(new SpinnerNumberModel(10., 0., 1000., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
+     	arrowSizeDim = new MSpinner(new MSpinner.MSpinnerNumberModel(10., 0., 1000., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
      	arrowSizeDim.setEditor(new JSpinner.NumberEditor(arrowSizeDim, "0.00"));//$NON-NLS-1$
 
-     	tbarsizeDim = new MSpinner(new SpinnerNumberModel(10., 0., 1000., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
+     	tbarsizeDim = new MSpinner(new MSpinner.MSpinnerNumberModel(10., 0., 1000., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.24")));
      	tbarsizeDim.setEditor(new JSpinner.NumberEditor(tbarsizeDim, "0.00"));//$NON-NLS-1$
 
-     	dotSizeNum = new MSpinner(new SpinnerNumberModel(10., 0.1, 100., 0.1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.20")));
+     	dotSizeNum = new MSpinner(new MSpinner.MSpinnerNumberModel(10., 0.1, 100., 0.1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.20")));
      	dotSizeNum.setEditor(new JSpinner.NumberEditor(dotSizeNum, "0.00"));//$NON-NLS-1$
 
-     	tbarsizeNum = new MSpinner(new SpinnerNumberModel(10., 0.1, 100., 0.1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.21")));
+     	tbarsizeNum = new MSpinner(new MSpinner.MSpinnerNumberModel(10., 0.1, 100., 0.1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.21")));
      	tbarsizeNum.setEditor(new JSpinner.NumberEditor(tbarsizeNum, "0.00"));//$NON-NLS-1$
 
-     	bracketNum = new MSpinner(new SpinnerNumberModel(10., 0.1, 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.22")));
+     	bracketNum = new MSpinner(new MSpinner.MSpinnerNumberModel(10., 0.1, 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.22")));
      	bracketNum.setEditor(new JSpinner.NumberEditor(bracketNum, "0.00"));//$NON-NLS-1$
 
-     	rbracketNum = new MSpinner(new SpinnerNumberModel(10., 0.1, 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.23")));
+     	rbracketNum = new MSpinner(new MSpinner.MSpinnerNumberModel(10., 0.1, 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.23")));
      	rbracketNum.setEditor(new JSpinner.NumberEditor(rbracketNum, "0.00"));//$NON-NLS-1$
 
-     	arrowSizeNum = new MSpinner(new SpinnerNumberModel(10., 0.1, 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.28")));
+     	arrowSizeNum = new MSpinner(new MSpinner.MSpinnerNumberModel(10., 0.1, 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.28")));
      	arrowSizeNum.setEditor(new JSpinner.NumberEditor(arrowSizeNum, "0.00"));//$NON-NLS-1$
 
-     	arrowLength = new MSpinner(new SpinnerNumberModel(10., 0., 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.26")));
+     	arrowLength = new MSpinner(new MSpinner.MSpinnerNumberModel(10., 0., 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.26")));
      	arrowLength.setEditor(new JSpinner.NumberEditor(arrowLength, "0.00"));//$NON-NLS-1$
 
-     	arrowInset = new MSpinner(new SpinnerNumberModel(0., 0., 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.27")));
+     	arrowInset = new MSpinner(new MSpinner.MSpinnerNumberModel(0., 0., 100., 0.01), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.27")));
      	arrowInset.setEditor(new JSpinner.NumberEditor(arrowInset, "0.00"));//$NON-NLS-1$
 	}
 

@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-import javax.swing.SpinnerNumberModel;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -64,10 +62,10 @@ public class Zoomer extends Instrument {
 
 		this.zoomable = zoomable;
 
-		zoomDefaultButton 			= new MButton(LResources.ZOOM_DEFAULT_ICON);
+		zoomDefaultButton = new MButton(LResources.ZOOM_DEFAULT_ICON);
 		zoomDefaultButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.113")); //$NON-NLS-1$
 
-		zoomSpinner					= new MSpinner(new SpinnerNumberModel(zoomable.getZoom()*100, Zoomable.MIN_ZOOM*100, Zoomable.MAX_ZOOM*100, Zoomable.ZOOM_INCREMENT*100), null);
+		zoomSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(zoomable.getZoom()*100., Zoomable.MIN_ZOOM*100., Zoomable.MAX_ZOOM*100., Zoomable.ZOOM_INCREMENT*100.), null);
 		zoomSpinner.setMaximumSize(new Dimension(55, 28));
 		zoomSpinner.setToolTipText(LangTool.INSTANCE.getString19("ShortcutsFrame.30"));//$NON-NLS-1$
 	}

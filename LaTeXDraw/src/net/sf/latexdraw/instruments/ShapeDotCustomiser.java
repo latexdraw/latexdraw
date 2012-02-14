@@ -6,7 +6,6 @@ import java.awt.ItemSelectable;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
@@ -71,7 +70,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-     	dotSizeField = new MSpinner(new SpinnerNumberModel(6, 0.1, 1000, 1), new JLabel(LResources.DOT_STYLE_NONE_ICON));
+     	dotSizeField = new MSpinner(new MSpinner.MSpinnerNumberModel(6., 0.1, 1000., 1.), new JLabel(LResources.DOT_STYLE_NONE_ICON));
      	dotSizeField.setEditor(new JSpinner.NumberEditor(dotSizeField, "0.0"));//$NON-NLS-1$
      	dotSizeField.setToolTipText("Define the size of a dot.");
 

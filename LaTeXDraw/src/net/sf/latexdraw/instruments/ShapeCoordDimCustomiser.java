@@ -2,7 +2,6 @@ package net.sf.latexdraw.instruments;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 import net.sf.latexdraw.actions.TranslateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -69,10 +68,10 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		tlxS = new MSpinner(new SpinnerNumberModel(0., Integer.MIN_VALUE, Integer.MAX_VALUE, 1.), new JLabel("x"));
+		tlxS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel("x"));
 		tlxS.setEditor(new JSpinner.NumberEditor(tlxS, "0.00"));//$NON-NLS-1$
 		tlxS.setToolTipText("Sets the X-coordinate of the top-left position");
-		tlyS = new MSpinner(new SpinnerNumberModel(0., Integer.MIN_VALUE, Integer.MAX_VALUE, 1.), new JLabel("y"));
+		tlyS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel("y"));
 		tlyS.setEditor(new JSpinner.NumberEditor(tlyS, "0.00"));//$NON-NLS-1$
 		tlyS.setToolTipText("Sets the Y-coordinate of the top-left position");
 	}
