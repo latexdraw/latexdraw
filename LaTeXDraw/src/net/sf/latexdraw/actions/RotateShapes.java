@@ -3,6 +3,7 @@ package net.sf.latexdraw.actions;
 import org.malai.undo.Undoable;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
  * This action increments to rotation angle of shapes.<br>
@@ -22,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class RotateShapes extends ShapeAction implements Undoable, Modifying {
+public class RotateShapes extends ShapeAction<IShape> implements Undoable, Modifying {
 	/** The increment to add to the rotation angle of the shape. */
 	protected double rotationAngleIncrement;
 

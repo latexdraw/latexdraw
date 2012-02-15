@@ -1,7 +1,5 @@
 package net.sf.latexdraw.actions;
 
-import org.malai.action.Action;
-
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
@@ -21,10 +19,11 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * 11/21/2010<br>
  * @author Arnaud BLOUIN
  * @since 3.0
+ * @param <T> The type of the shape that the action handles.
  */
-public abstract class ShapeAction extends Action {
+public abstract class ShapeAction<T extends IShape> extends DrawingAction {
 	/** The shape to add. */
-	protected IShape shape;
+	protected T shape;
 
 
 	/**
@@ -41,7 +40,7 @@ public abstract class ShapeAction extends Action {
 	 * @param shape The shape to add.
 	 * @since 3.0
 	 */
-	public void setShape(final IShape shape) {
+	public void setShape(final T shape) {
 		this.shape = shape;
 	}
 
@@ -57,7 +56,7 @@ public abstract class ShapeAction extends Action {
 	 * @return The shape to modify.
 	 * @since 3.0
 	 */
-	public IShape getShape() {
+	public T getShape() {
 		return shape;
 	}
 

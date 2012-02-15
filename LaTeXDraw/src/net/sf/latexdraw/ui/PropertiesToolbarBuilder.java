@@ -19,6 +19,7 @@ import net.sf.latexdraw.instruments.ShapeDotCustomiser;
 import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
 import net.sf.latexdraw.instruments.ShapeGridCustomiser;
+import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
 import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
 import net.sf.latexdraw.instruments.TextCustomiser;
@@ -84,6 +85,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		// Creation of the widgets layout of the shape properties instruments.
+		composeJoinShapesWidgets(metaShapeCustomiser.getShapeGrouper());
 		widget.add(composeRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		widget.add(composeBorderPropertiesPanel(metaShapeCustomiser.getBorderCustomiser(), canvas));
@@ -99,6 +101,14 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
 		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getGridCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
+	}
+
+
+	// Composition of the widgets that joins/separates shapes.
+	protected void composeJoinShapesWidgets(final ShapeGrouper grouper) {
+		widget.add(grouper.getGroupB());
+		widget.add(grouper.getSepB());
+		grouper.addEventable(widget);
 	}
 
 

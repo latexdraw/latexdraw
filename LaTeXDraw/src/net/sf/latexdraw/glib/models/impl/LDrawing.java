@@ -112,6 +112,18 @@ class LDrawing extends LGroup implements IDrawing {
 		selection.removeShape(sh);
 		return super.removeShape(sh);
 	}
+	
+	
+	@Override
+	public IShape removeShape(final int i) {
+		// Must be removed from the selection before removing from the main list (otherwise mapping selection2border will fail.
+		final IShape removedSh = shapes.isEmpty() || i<-1 || i>=shapes.size() ? null : i==-1 ? shapes.get(shapes.size()-1) : shapes.get(i);
+		
+		if(removedSh!=null)
+			selection.removeShape(removedSh);
+		
+		return super.removeShape(i);
+	}
 
 
 	@Override

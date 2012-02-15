@@ -1,9 +1,9 @@
 package net.sf.latexdraw.actions;
 
-import org.malai.undo.Undoable;
-
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
+
+import org.malai.undo.Undoable;
 
 /**
  * This action adds a shape to a drawing.<br>
@@ -23,29 +23,12 @@ import net.sf.latexdraw.lang.LangTool;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class AddShape extends ShapeAction implements Undoable, Modifying {
-	/** The drawing in which the shape will be added. */
-	protected IDrawing drawing;
-
-
+public class AddShape extends ShapeAction<IShape> implements Undoable, Modifying {
 	/**
 	 * Creates the action.
 	 */
 	public AddShape() {
 		super();
-	}
-
-
-	@Override
-	public void flush() {
-		super.flush();
-		drawing = null;
-	}
-
-
-	@Override
-	public boolean canDo() {
-		return super.canDo() && drawing!=null;
 	}
 
 
@@ -59,25 +42,6 @@ public class AddShape extends ShapeAction implements Undoable, Modifying {
 	@Override
 	public boolean isRegisterable() {
 		return true;
-	}
-
-
-	/**
-	 * Sets the drawing in which the shape will be added.
-	 * @param drawing The drawing in which the shape will be added.
-	 * @since 3.0
-	 */
-	public void setDrawing(final IDrawing drawing) {
-		this.drawing = drawing;
-	}
-
-
-	/**
-	 * @return The drawing in which the shape will be added.
-	 * @since 3.0
-	 */
-	public IDrawing getDrawing() {
-		return drawing;
 	}
 
 
