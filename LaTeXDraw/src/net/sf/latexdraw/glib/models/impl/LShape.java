@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.malai.mapping.MappingRegistry;
-
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
@@ -15,6 +13,8 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LNumber;
+
+import org.malai.mapping.MappingRegistry;
 
 /**
  * Defines a model of a shape.<br>
@@ -1268,7 +1268,14 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void rotate(final IPoint point, final double angle) {
-		//TODO
+		final IPoint gc = getGravityCentre();
+
+		if(point!=null && !gc.equals(point)) {// The position of the shape must be rotated.
+			final IPoint rotGC = gc.rotatePoint(point, angle);
+			translate(rotGC.getX() - gc.getX(), rotGC.getY() - gc.getY());
+		}
+
+		setRotationAngle(rotationAngle+angle);
 	}
 
 
