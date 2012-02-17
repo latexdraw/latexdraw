@@ -156,6 +156,12 @@ public class ScaleRulersCustomiser extends Instrument {
 		} else if(name.endsWith(LNamespace.XML_DISPLAY_Y)) {
 			yRuler.setVisible(Boolean.parseBoolean(root.getTextContent()));
 			yRulerItem.setSelected(yRuler.isVisible());
+		} else if(name.endsWith(LNamespace.XML_UNIT)) {
+			final String unit = root.getTextContent();
+			final boolean isCm = Unit.CM.toString().equals(unit) || unitCmItem.getText().equals(unit);
+			unitCmItem.setSelected(isCm);
+			unitInchItem.setSelected(!isCm);
+			ScaleRuler.setUnit(isCm ? Unit.CM : Unit.INCH);
 		}
 	}
 
@@ -172,8 +178,11 @@ public class ScaleRulersCustomiser extends Instrument {
 		elt = document.createElement(ns + LNamespace.XML_DISPLAY_X);
         elt.setTextContent(String.valueOf(xRuler.isVisible()));
         root.appendChild(elt);
-		elt = document.createElement(ns + LNamespace.XML_DISPLAY_Y);
+        elt = document.createElement(ns + LNamespace.XML_DISPLAY_Y);
         elt.setTextContent(String.valueOf(yRuler.isVisible()));
+        root.appendChild(elt);
+		elt = document.createElement(ns + LNamespace.XML_UNIT);
+        elt.setTextContent(String.valueOf(unitCmItem.isSelected() ? Unit.CM : Unit.INCH));
         root.appendChild(elt);
 	}
 

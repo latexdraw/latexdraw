@@ -420,9 +420,9 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 					setProgress((int)Math.min(100., getProgress()+incrProgressBar));
 				}
 
-				//TODO drawborders, autoadjust, border, delimitorOpacity
+				//TODO drawborders, autoadjust, border
 				// unit : scaleRulerCustomiser
-				// code, caption, label, POSITION_HORIZ, POSITION_VERT, COMMENTS, AUTO_UPDATE: codePanelActivator or CodePanel, ...?
+				// code, caption, label, POSITION_HORIZ, POSITION_VERT, COMMENTS
 				// size (width, height), position (x, y)
 
 				// The parameters of the instruments are loaded.
