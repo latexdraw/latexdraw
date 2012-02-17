@@ -381,7 +381,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 		super.onActionExecuted(action);
 
 		// Updating the recent files on I/O actions.
-		if(action instanceof IOAction) {
+		if(action instanceof IOAction && action.hadEffect()) {
 			prefSetter.addRecentFile(((IOAction)action).getFile().getPath());
 			updateRecentMenuItems(prefSetter.recentFilesName);
 		}
