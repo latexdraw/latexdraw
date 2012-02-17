@@ -590,9 +590,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 						framePosition.setY(Math.max(0, Integer.parseInt(n2.getTextContent())));
 			}
 		}
-
-//		else if(name.equals(LNamespace.XML_DELIMITOR_OPACITY))//FIXME
-//  		AbstractHandler.setOpacity((int)Double.parseDouble(content));
 	}
 
 
@@ -784,10 +781,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	        elt2 = document.createElement(LNamespace.XML_POSITION_Y);
 	        elt2.setTextContent(String.valueOf(frame.getLocation().y));
 	        elt.appendChild(elt2);
-
-	//      elt = document.createElement(LNamespace.XML_DELIMITOR_OPACITY);//TODO
-	//      elt.setTextContent(String.valueOf(Delimitor.getOpacity()));
-	//      root.appendChild(elt);
 
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");

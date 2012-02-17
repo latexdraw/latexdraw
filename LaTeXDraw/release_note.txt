@@ -51,6 +51,7 @@ Changes:
 - The change of unit (cm or inch) can be now performed throw menu items in the "Drawing" menu.
 - The type of magnetic grid can be changed using the grid toolbar.
 - The magnetic grid cannot be magnetic when it is not visible.
+- Because handlers design have been improved, it is no more possible to change the opacity of handlers.
 
 
 Fixed:
