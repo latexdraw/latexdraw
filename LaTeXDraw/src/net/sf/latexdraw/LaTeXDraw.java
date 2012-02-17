@@ -76,10 +76,10 @@ public final class LaTeXDraw {
     			launchLatexdraw(cmdLine);
     			break;
 
-    		case CONVERTION:
+//    		case CONVERTION:
 //	    			if(!BatchConvertFrame.convert(cmdLine.getFileConvertionSrc(), cmdLine.getFileConvertionTarget()))
 //	    					System.out.println("The conversion failed.");
-    			break;
+//    			break;
 
     		case STOP:
     			break;

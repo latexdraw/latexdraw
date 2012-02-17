@@ -24,8 +24,8 @@ import java.io.File;
 public class LCommandLine {
 	/** The different states of the command line. */
 	public static enum CmdLineState {
-		/** If the command line states a conversion. */
-		CONVERTION,
+//		/** If the command line states a conversion. */
+//		CONVERTION,
 		/** If the command line states that latexdraw must start without a file to open. */
 		APPLICATION,
 		/** If the command line states that latexdraw must start with a file to open. */
@@ -37,18 +37,18 @@ public class LCommandLine {
 	/** The option for show the help. */
 	public static final String OPTION_HELP 		 = "-h"; //$NON-NLS-1$
 
-	/** The option to show the conversion option. */
-	public static final String OPTION_CONVERTION = "-c"; //$NON-NLS-1$
+//	/** The option to show the conversion option. */
+//	public static final String OPTION_CONVERTION = "-c"; //$NON-NLS-1$
 
 
 	/** The file name given in argument. */
 	protected String filename;
 
-	/** The source file to convert. */
-	protected String fileConvertionSrc;
+//	/** The source file to convert. */
+//	protected String fileConvertionSrc;
 
-	/** The target file to create. */
-	protected String fileConvertionTarget;
+//	/** The target file to create. */
+//	protected String fileConvertionTarget;
 
 
 	/**
@@ -56,9 +56,6 @@ public class LCommandLine {
 	 */
 	public LCommandLine() {
 		super();
-		filename 			 = null;
-		fileConvertionSrc    = null;
-		fileConvertionTarget = null;
 	}
 
 
@@ -78,7 +75,7 @@ public class LCommandLine {
 			return CmdLineState.STOP;
 		}
 
-		if(args[0].equals(OPTION_CONVERTION)) {
+//		if(args[0].equals(OPTION_CONVERTION)) {
 //			if(args.length<3) {
 //				System.out.println("No enough parameters. ");
 //				displayHelp();
@@ -106,9 +103,9 @@ public class LCommandLine {
 //
 //			System.out.println("One of the given file formats is not managed or cannot be recognised.");
 //			displayHelp();
-
-			return CmdLineState.STOP;
-		}
+//
+//			return CmdLineState.STOP;
+//		}
 
 		filename = getFileName(args);
 
@@ -158,12 +155,12 @@ public class LCommandLine {
 		System.out.println(LResources.LABEL_APP + ' ' + VersionChecker.VERSION + VersionChecker.VERSION_STABILITY);
 		System.out.println("Options:");
 		System.out.println("\t"+OPTION_HELP+"\t\t\t\tDisplay the different options"); //$NON-NLS-1$
-		System.out.println("\t"+OPTION_CONVERTION+" <filename1> <filename2>\tConvert filename1 in filename2. "+ //$NON-NLS-1$
-							"The extensions are used in order to define the source and target formats.");
-		System.out.println("\t\t\t\t\tSource formats are: svg, tex, png, bmp, jpg, ppm, gif");
-		System.out.println("\t\t\t\t\tTarget formats are: svg, tex, png, bmp, jpg, ppm, eps");
-		System.out.println("\t\t\t\t\tNote that svg and tex output formats cannot be used if the source format");
-		System.out.println("\t\t\t\t\tis different than tex or svg");
+//		System.out.println("\t"+OPTION_CONVERTION+" <filename1> <filename2>\tConvert filename1 in filename2. "+ //$NON-NLS-1$
+//							"The extensions are used in order to define the source and target formats.");
+//		System.out.println("\t\t\t\t\tSource formats are: svg, tex, png, bmp, jpg, ppm, gif");
+//		System.out.println("\t\t\t\t\tTarget formats are: svg, tex, png, bmp, jpg, ppm, eps");
+//		System.out.println("\t\t\t\t\tNote that svg and tex output formats cannot be used if the source format");
+//		System.out.println("\t\t\t\t\tis different than tex or svg");
 		System.out.println("\t<filename>\t\t\tOpens the given file <filename> into latexdraw.");
 		System.out.println("If no argument is given, latexdraw will started with a new drawing.");
 	}
@@ -180,21 +177,21 @@ public class LCommandLine {
 
 
 
-	/**
-	 * @return The fileConvertionSrc.
-	 * @since 2.0.3
-	 */
-	public String getFileConvertionSrc() {
-		return fileConvertionSrc;
-	}
-
-
-
-	/**
-	 * @return The fileConvertionTarget.
-	 * @since 2.0.3
-	 */
-	public String getFileConvertionTarget() {
-		return fileConvertionTarget;
-	}
+//	/**
+//	 * @return The fileConvertionSrc.
+//	 * @since 2.0.3
+//	 */
+//	public String getFileConvertionSrc() {
+//		return fileConvertionSrc;
+//	}
+//
+//
+//
+//	/**
+//	 * @return The fileConvertionTarget.
+//	 * @since 2.0.3
+//	 */
+//	public String getFileConvertionTarget() {
+//		return fileConvertionTarget;
+//	}
 }
