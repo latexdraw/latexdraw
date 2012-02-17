@@ -75,7 +75,6 @@ public final class LResources {
 	/** The label of the menu item "import from TeX file" */
 	public static final String LABEL_IMPORT_TEX = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.230"); //$NON-NLS-1$
 
-	public final static String LABEL_RECENT_FILES = LangTool.INSTANCE.getString19("LaTeXDrawFrame.0"); //$NON-NLS-1$
 //FIXME: to remove: LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.28")
 	/** The label of the newMenu item */
 	public final static String LABEL_NEW = "New drawing";

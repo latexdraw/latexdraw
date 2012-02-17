@@ -86,6 +86,7 @@ public class MenubarBuilder extends UIComposer<JMenuBar> {
 		drawingMenu.add(frame.fileLoader.getLoadMenu());
 		drawingMenu.add(frame.fileLoader.getSaveMenu());
 		drawingMenu.add(frame.fileLoader.getSaveAsMenu());
+		drawingMenu.add(frame.fileLoader.getRecentFilesMenu());
 		drawingMenu.addSeparator();
 		drawingMenu.add(frame.exporter.getExportMenu());
 		drawingMenu.addSeparator();

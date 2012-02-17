@@ -73,6 +73,8 @@ public class LoadDrawing extends Load implements Modifying {
 
 		if(file!=null && file.canRead())
 			super.doActionBody();
+		else
+			ok = false;
 	}
 
 

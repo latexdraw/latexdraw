@@ -9,6 +9,7 @@ import org.malai.action.library.Save;
 import org.malai.ui.UI;
 
 import net.sf.latexdraw.filters.SVGFilter;
+import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.lang.LangTool;
 
 /**
@@ -40,6 +41,9 @@ public class SaveDrawing extends Save {
 	/** True: the app will be closed after the drawing saved. */
 	protected boolean saveOnClose;
 
+	/** The instrument that manages the preferences. */
+	protected PreferencesSetter prefSetter;
+
 
 	/**
 	 * Creates the action.
@@ -50,7 +54,6 @@ public class SaveDrawing extends Save {
 
 		saveAs 		= false;
 		saveOnClose = false;
-		file 		= null;
 	}
 
 
@@ -67,14 +70,14 @@ public class SaveDrawing extends Save {
 				saveAs = true;
 				switch(showAskModificationsDialog(ui)) {
 					case JOptionPane.NO_OPTION: // exit
-						System.exit(1);
+						quit();
 						break;
 					case JOptionPane.YES_OPTION: // save + exit
 						File f = showDialog(fileChooser, saveAs, ui, file);
 						if(f!=null) {
 							file = f;
 							super.doActionBody();
-							System.exit(1);
+							quit();
 						}
 						break;
 					case JOptionPane.CANCEL_OPTION:
@@ -84,7 +87,7 @@ public class SaveDrawing extends Save {
 						break;
 				}
 			}
-			else System.exit(1);
+			else quit();
 		else {
 			if(file==null)
 				file = showDialog(fileChooser, saveAs, ui, file);
@@ -96,10 +99,18 @@ public class SaveDrawing extends Save {
 	}
 
 
+	private void quit() {
+		// Saving the preferences.
+		if(prefSetter!=null)
+			prefSetter.writeXMLPreferences();
+		System.exit(1);
+	}
+
+
 	@Override
 	public void flush() {
 		super.flush();
-
+		prefSetter	= null;
 		fileChooser = null;
 	}
 
@@ -141,6 +152,15 @@ public class SaveDrawing extends Save {
 		}
 
 		return f;
+	}
+
+
+	/**
+	 * @param prefSetter The instrument that manages the preferences.
+	 * @since 3.0
+	 */
+	public void setPrefSetter(final PreferencesSetter prefSetter) {
+		this.prefSetter = prefSetter;
 	}
 
 

@@ -266,17 +266,18 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	 * @param absolutePath The absolute path of the file to add.
 	 */
 	public void addRecentFile(final String absolutePath) {
-		int i = recentFilesName.indexOf(absolutePath);
-		int max = (int)Float.parseFloat(nbRecentFilesField.getValue().toString());
+		if(new File(absolutePath).canRead()) {
+			final int i = recentFilesName.indexOf(absolutePath);
+			final int max = (int)Double.parseDouble(nbRecentFilesField.getValue().toString());
 
-		if(i!=-1)
-			recentFilesName.remove(i);
+			if(i!=-1)
+				recentFilesName.remove(i);
 
-		while(recentFilesName.size()>=max)
-			recentFilesName.remove(max-1);
+			while(recentFilesName.size()>=max)
+				recentFilesName.remove(max-1);
 
-		recentFilesName.add(0, absolutePath);
-		writeXMLPreferences();
+			recentFilesName.add(0, absolutePath);
+		}
 	}
 
 
@@ -639,6 +640,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		scaleCust.unitCmItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.CM.getLabel()));
 		scaleCust.unitInchItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.INCH.getLabel()));
 		saver.setPathSave(pathOpenField.getText());
+		saver.updateRecentMenuItems(recentFilesName);
 		ScaleRuler.setUnit(Unit.getUnit(unitChoice.getSelectedItem().toString()));
 		frame.setLocation((int)framePosition.getX(), (int)framePosition.getY());
 
@@ -647,7 +649,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		if(isFrameMaximized || frameSize.width==0 || frameSize.height==0)
 			frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		// TODO autoupdate, drawBorders, PathtexEditor, recentFiles, XML_DIVIDER_POSITION
+		// TODO drawBorders, PathtexEditor
 	}
 
 

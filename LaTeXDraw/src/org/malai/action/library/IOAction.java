@@ -94,8 +94,17 @@ public abstract class IOAction extends Action {
 
 
 	/**
+	 * @return The targeted file.
+	 * @since 0.2
+	 */
+	public File getFile() {
+		return file;
+	}
+
+
+	/**
 	 * @param progressBar The progress bar used to show the progress of the saving.
-	 * @since 3.0
+	 * @since 0.2
 	 */
 	public void setProgressBar(final MProgressBar progressBar) {
 		this.progressBar = progressBar;

@@ -28,6 +28,7 @@ import org.malai.interaction.library.MenuItemPressed;
 import org.malai.interaction.library.WindowClosed;
 import org.malai.ui.UI;
 import org.malai.widget.MButton;
+import org.malai.widget.MMenu;
 import org.malai.widget.MMenuItem;
 import org.malai.widget.MProgressBar;
 import org.w3c.dom.Document;
@@ -87,6 +88,9 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 	/** The menu used to create a new document. */
 	protected MMenuItem newMenu;
+
+	/** The menu that contains the menu item corresponding to the recent documents. */
+	protected MMenu recentFilesMenu;
 
     /** The fileChooser used to save drawings. */
     protected JFileChooser fileChooser;
@@ -205,6 +209,8 @@ public class FileLoaderSaver extends WidgetInstrument {
         saveAsMenu = new MMenuItem(LABEL_SAVE_AS, KeyEvent.VK_A);
         saveAsMenu.setIcon(LResources.SAVE_AS_ICON);
 
+        recentFilesMenu = new MMenu(LangTool.INSTANCE.getString19("LaTeXDrawFrame.0"), true);//$NON-NLS-1$
+
         progressBar = new MProgressBar(0, 100);
         progressBar.setVisible(false);
 	}
@@ -225,6 +231,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 			addLink(new Menu2NewLink(this));
 			addLink(new Button2NewLink(this));
 			addLink(new Shortcut2NewLink(this));
+			addLink(new RecentMenuItem2LoadLink(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -293,11 +300,45 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 
 	/**
+	 * @return The menu that permits to load recent documents.
+	 * @since 3.0
+	 */
+	public MMenu getRecentFilesMenu() {
+		return recentFilesMenu;
+	}
+
+
+	/**
 	 * @return The progress bar used to show the progress of the loading and saving operations.
 	 * @since 3.0
 	 */
 	public MProgressBar getProgressBar() {
 		return progressBar;
+	}
+
+
+	/**
+	 * Updates the recent menu items.
+	 * @param recentDocs The list of recent documents.
+	 * @since 3.0
+	 */
+	public void updateRecentMenuItems(final List<String> recentDocs) {
+		recentFilesMenu.removeAll();
+
+		if(recentDocs!=null && !recentDocs.isEmpty()) {
+			MMenuItem item;
+
+			for(final String fileName : recentDocs) {
+				if(new File(fileName).canRead()) {
+					item = new MMenuItem(fileName.substring(fileName.lastIndexOf(LResources.FILE_SEP)+1));
+					item.setToolTipText(fileName);
+					recentFilesMenu.add(item);
+				}
+			}
+			//TODO remove LangTool.INSTANCE.getString19("LaTeXDrawFrame.2")
+		}
+
+		recentFilesMenu.setEnabled(recentFilesMenu.getMenuComponentCount()>0);
 	}
 
 
@@ -331,6 +372,18 @@ public class FileLoaderSaver extends WidgetInstrument {
 			Element elt = document.createElement(LNamespace.XML_PATH_OPEN);
             elt.setTextContent(pathSave);
             root.appendChild(elt);
+		}
+	}
+
+
+	@Override
+	public void onActionExecuted(final Action action) {
+		super.onActionExecuted(action);
+
+		// Updating the recent files on I/O actions.
+		if(action instanceof IOAction) {
+			prefSetter.addRecentFile(((IOAction)action).getFile().getPath());
+			updateRecentMenuItems(prefSetter.recentFilesName);
 		}
 	}
 
@@ -628,6 +681,7 @@ abstract class Interaction2SaveLink<I extends Interaction> extends Interaction2I
 	@Override
 	public void initAction() {
 		super.initAction();
+		action.setPrefSetter(instrument.prefSetter);
 		action.setFileChooser(instrument.getDialog(true));
 		action.setFile(instrument.currentFile);
 	}
@@ -648,6 +702,28 @@ abstract class Interaction2LoadLink<I extends Interaction> extends Interaction2I
 		action.setFileChooser(instrument.getDialog(false));
 	}
 }
+
+
+
+/** The link maps recent menu items to an action that loads documents. */
+class RecentMenuItem2LoadLink extends Interaction2LoadLink<MenuItemPressed> {
+	protected RecentMenuItem2LoadLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+		super(fileLoader, MenuItemPressed.class);
+	}
+
+	@Override
+	public void initAction() {
+		super.initAction();
+		action.setFile(new File(interaction.getMenuItem().getToolTipText()));
+	}
+
+
+	@Override
+	public boolean isConditionRespected() {
+		return instrument.recentFilesMenu.contains(interaction.getMenuItem());
+	}
+}
+
 
 
 /**
