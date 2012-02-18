@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.models.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.ISquare;
@@ -93,9 +92,32 @@ class LSquare extends LRectangle implements ISquare {
 
 	@Override
 	public void scale(final double sx, final double sy, final Position pos) {
-		if(pos==null || sx<=0 || !GLibUtilities.INSTANCE.isValidCoordinate(sx))
-			throw new IllegalArgumentException();
-		scaleXY(getGravityCentre(), sx, sx);
+		final Position position;
+		final double scale;
+		//TODO scala: create a SquaredShape trait to factorise this code.
+		switch(pos) {
+			case EAST :
+				position = Position.SE;
+				scale = sx;
+				break;
+			case WEST:
+				position = Position.SW;
+				scale = sx;
+				break;
+			case NORTH:
+				position = Position.NW;
+				scale = sy;
+				break;
+			case SOUTH:
+				position = Position.SW;
+				scale = sy;
+				break;
+			default :
+				position = pos;
+				scale = sx;
+		}
+
+		super.scale(scale, scale, position);
 	}
 
 
