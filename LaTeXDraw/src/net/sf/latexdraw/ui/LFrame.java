@@ -1,5 +1,7 @@
 package net.sf.latexdraw.ui;
 
+import java.awt.Point;
+
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.WindowConstants;
@@ -35,7 +37,9 @@ import net.sf.latexdraw.mapping.ShapeList2ViewListMapping;
 import net.sf.latexdraw.mapping.TempShape2TempViewMapping;
 import net.sf.latexdraw.mapping.Unit2ScaleRuler;
 import net.sf.latexdraw.mapping.Zoom2ScaleRuler;
+import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.VersionChecker;
 
 import org.malai.instrument.Instrument;
 import org.malai.instrument.library.Scroller;
@@ -47,6 +51,10 @@ import org.malai.ui.UIManager;
 import org.malai.widget.MLayeredPane;
 import org.malai.widget.MProgressBar;
 import org.malai.widget.MTabbedPane;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * This class contains all the elements of the graphical user interface.<br>
@@ -298,6 +306,93 @@ public class LFrame extends UI {
 		final LCanvas canvas	= new LCanvas(drawing);
 		presentations.add(new Presentation<IDrawing, ICanvas>(drawing, canvas));
 		presentations.add(new Presentation<IDrawing, LCodePanel>(drawing, new LCodePanel(drawing, canvas)));
+	}
+
+
+
+	@Override
+	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
+		super.save(generalPreferences, nsURI, document, root);
+
+    	Element elt = document.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_VERSION);
+    	Element elt2;
+
+    	// Saving the version.
+    	elt.appendChild(document.createTextNode(VersionChecker.VERSION));
+    	root.appendChild(elt);
+
+    	// Saving the dimensions of the frame.
+        elt = document.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_SIZE);
+        root.appendChild(elt);
+
+        elt2 = document.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_WIDTH);
+        elt2.setTextContent(String.valueOf(getWidth()));
+        elt.appendChild(elt2);
+
+        elt2 = document.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_HEIGHT);
+        elt2.setTextContent(String.valueOf(getHeight()));
+        elt.appendChild(elt2);
+
+		// Saving the position.
+		final Point location = getLocation();
+        elt = document.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POSITION);
+        root.appendChild(elt);
+
+        elt2 = document.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POSITION_X);
+        elt2.setTextContent(String.valueOf(location.getX()));
+        elt.appendChild(elt2);
+
+        elt2 = document.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POSITION_Y);
+        elt2.setTextContent(String.valueOf(location.getY()));
+        elt.appendChild(elt2);
+	}
+
+
+
+	@Override
+	public void load(final boolean generalPreferences, final String nsURI, final Element meta) {
+		super.load(generalPreferences, nsURI, meta);
+
+		Node node;
+		final NodeList metaNodes = meta.getChildNodes();
+		String name;
+
+		for(int i=0, size = metaNodes.getLength(); i<size; i++) {
+			node = metaNodes.item(i);
+			name = node.getNodeName();
+
+			if(name.endsWith(LNamespace.XML_SIZE)) {
+				final NodeList nlSize = node.getChildNodes();
+				Node nodeSize;
+
+				for(int j=0, size2 = nlSize.getLength(); j<size2; j++) {
+					nodeSize = nlSize.item(j);
+					name = nodeSize.getNodeName();
+
+					if(name.endsWith(LNamespace.XML_WIDTH))
+						setSize(Double.valueOf(nodeSize.getTextContent()).intValue(), getHeight());
+					else
+						if(name.endsWith(LNamespace.XML_HEIGHT))
+							setSize(getWidth(), Double.valueOf(nodeSize.getTextContent()).intValue());
+				}
+			}else
+			// Loading the position.
+			if(name.endsWith(LNamespace.XML_POSITION)) {
+				final NodeList nlPos = node.getChildNodes();
+				Node nodePosition;
+
+				for(int j=0, sizeNodePos = nlPos.getLength(); j<sizeNodePos; j++) {
+					nodePosition = nlPos.item(j);
+					name = nodePosition.getNodeName();
+
+					if(name.endsWith(LNamespace.XML_POSITION_X))
+						setLocation(Math.max(0, Double.valueOf(nodePosition.getTextContent()).intValue()), (int)getLocation().getY());
+					else
+						if(name.endsWith(LNamespace.XML_POSITION_Y))
+							setLocation((int)getLocation().getX(), Math.max(0, Double.valueOf(nodePosition.getTextContent()).intValue()));
+				}
+			}
+		}
 	}
 
 

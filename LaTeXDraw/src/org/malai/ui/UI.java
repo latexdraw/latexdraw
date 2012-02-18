@@ -6,12 +6,15 @@ import java.util.List;
 import javax.swing.WindowConstants;
 
 import org.malai.instrument.Instrument;
+import org.malai.preferences.Preferenciable;
 import org.malai.presentation.AbstractPresentation;
 import org.malai.presentation.ConcretePresentation;
 import org.malai.presentation.Presentation;
 import org.malai.properties.Modifiable;
 import org.malai.properties.Reinitialisable;
 import org.malai.widget.MFrame;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Defines the concept of User Interface based on a JFrame.<br>
@@ -30,7 +33,7 @@ import org.malai.widget.MFrame;
  * @since 0.1
  * @version 0.2
  */
-public abstract class UI extends MFrame implements Modifiable, Reinitialisable {
+public abstract class UI extends MFrame implements Modifiable, Reinitialisable, Preferenciable {
 	private static final long serialVersionUID = 1L;
 
 	/** The presentations of the interactive system. */
@@ -138,6 +141,18 @@ public abstract class UI extends MFrame implements Modifiable, Reinitialisable {
 		}
 
 		return pres;
+	}
+
+
+	@Override
+	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
+		// To override.
+	}
+
+
+	@Override
+	public void load(final boolean generalPreferences, final String nsURI, final Element meta) {
+		// To override.
 	}
 
 

@@ -290,6 +290,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 				setProgress((int)Math.min(100., getProgress()+incr));
 			}
 
+			ui.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
 			ui.setTitle(getDocumentName());
 
 			return doc.saveSVGDocument(path);
@@ -421,9 +422,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 				}
 
 				//TODO drawborders, autoadjust, border
-				// unit : scaleRulerCustomiser
 				// code, caption, label, POSITION_HORIZ, POSITION_VERT, COMMENTS
-				// size (width, height), position (x, y)
 
 				// The parameters of the instruments are loaded.
 				if(meta!=null)
@@ -433,6 +432,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 				for(Instrument instrument : instruments)
 					instrument.interimFeedback();
 
+				ui.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
 				ui.updatePresentations();
 				ui.setTitle(getDocumentName());
 
