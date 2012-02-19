@@ -110,39 +110,6 @@ class LDot extends LPositionShape implements IDot {
 	}
 
 
-
-	@Override
-	public boolean setBottom(final double y) {
-		setRadius(getNewRadius(y, false));
-		return true;
-	}
-
-
-
-	@Override
-	public boolean setLeft(final double x) {
-		setRadius(getNewRadius(x, true));
-		return true;
-	}
-
-
-
-	@Override
-	public boolean setRight(final double x) {
-		setRadius(getNewRadius(x, true));
-		return true;
-	}
-
-
-
-	@Override
-	public boolean setTop(final double y) {
-		setRadius(getNewRadius(y, false));
-		return true;
-	}
-
-
-
 	@Override
 	public void mirrorHorizontal(final IPoint origin) {
 		// Nothing to do for the dot.

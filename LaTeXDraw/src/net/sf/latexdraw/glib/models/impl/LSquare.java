@@ -47,51 +47,7 @@ class LSquare extends LRectangle implements ISquare {
 	}
 
 
-
-	@Override
-	public boolean setTop(final double y) {
-		boolean ok = super.setTop(y);
-
-		if(ok)
-			setWidth(getHeight());
-
-		return ok;
-	}
-
-
-	@Override
-	public boolean setBottom(final double y) {
-		boolean ok = super.setBottom(y);
-
-		if(ok)
-			setWidth(getHeight());
-
-		return ok;
-	}
-
-
-	@Override
-	public boolean setLeft(final double x) {
-		boolean ok = super.setLeft(x);
-
-		if(ok)
-			setHeight(getWidth());
-
-		return ok;
-	}
-
-
-	@Override
-	public boolean setRight(final double x) {
-		boolean ok = super.setRight(x);
-
-		if(ok)
-			setHeight(getWidth());
-
-		return ok;
-	}
-
-
+	
 	@Override
 	public void scale(final double sx, final double sy, final Position pos, final Rectangle2D bound) {
 		final Position position;

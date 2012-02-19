@@ -1365,57 +1365,9 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
-	public boolean setBottom(final double y) {
-		final double gap = y-getBottomRightPoint().getY();
-		boolean ok = false;
-
-		for(final IShape sh : shapes)
-			ok = sh.setBottom(sh.getBottomRightPoint().getY()+gap);
-
-		return ok;
-	}
-
-
-	@Override
-	public boolean setLeft(final double x) {
-		final double gap = x - getTopLeftPoint().getX();
-		boolean ok = false;
-
-		for(final IShape sh : shapes)
-			ok = sh.setLeft(sh.getBottomLeftPoint().getX()+gap);
-
-		return ok;
-	}
-
-
-	@Override
-	public boolean setRight(final double x) {
-		final double gap = x - getBottomRightPoint().getX();
-		boolean ok = false;
-
-		for(final IShape sh : shapes)
-			ok = sh.setRight(sh.getBottomRightPoint().getX()+gap);
-
-		return ok;
-	}
-
-
-	@Override
 	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
 		for(final IShape sh : shapes)
 			sh.scale(x, y, pos, bound);
-	}
-
-
-	@Override
-	public boolean setTop(final double y) {
-		final double gap = y-getTopLeftPoint().getY();
-		boolean ok = false;
-
-		for(final IShape sh : shapes)
-			ok = sh.setTop(sh.getTopLeftPoint().getY()+gap);
-
-		return ok;
 	}
 
 

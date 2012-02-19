@@ -491,58 +491,6 @@ public interface IShape extends Modifiable, IArrowable {
 	void scale(final double sx, final double sy, final Position pos, final Rectangle2D bound);
 
 	/**
-	 * Sets the top point of the shape: this method should be used when we want to
-	 * scale the shape using a point.
-	 * @param y This Y-coordinate is the new top Y-coordinate of the shape. All
-	 * the points of the shape will be scaled according to the difference between
-	 * the current top Y-coordinate (getTopLeftPoint().y) and the given Y-coordinate.
-	 * If y is lesser than the bottom y, then the shape is inverted and the scale
-	 * occurs at the bottom position.
-	 * @return True if the shape has been mirrored.
-	 * @since 3.0
-	 */
-	boolean setTop(final double y);
-
-	/**
-	 * Sets the bottom point of the shape: this method should be used when we want to
-	 * scale the shape using a point.
-	 * @param y This Y-coordinate is the new bottom Y-coordinate of the shape. All
-	 * the points of the shape will be scaled according to the difference between
-	 * the current bottom Y-coordinate (getBottomRightPoint().y) and the given Y-coordinate.
-	 * If y is lesser than the bottom y, then the shape is inverted and the scale
-	 * occurs at the bottom position.
-	 * @return True if the shape has been mirrored.
-	 * @since 3.0
-	 */
-	boolean setBottom(final double y);
-
-	/**
-	 * Sets the left point of the shape: this method should be used when we want to
-	 * scale the shape using a point.
-	 * @param x This X-coordinate is the new left X-coordinate of the shape. All
-	 * the points of the shape will be scaled according to the difference between
-	 * the current left X-coordinate (getTopLeftPoint().y) and the given X-coordinate.
-	 * If y is lesser than the bottom y, then the shape is inverted and the scale
-	 * occurs at the bottom position.
-	 * @return True if the shape has been mirrored.
-	 * @since 3.0
-	 */
-	boolean setLeft(final double x);
-
-	/**
-	 * Sets the right point of the shape: this method should be used when we want to
-	 * scale the shape using a point.
-	 * @param x This X-coordinate is the new right X-coordinate of the shape. All
-	 * the points of the shape will be scaled according to the difference between
-	 * the current right X-coordinate (getBottomRightPoint().y) and the given X-coordinate.
-	 * If y is lesser than the bottom y, then the shape is inverted and the scale
-	 * occurs at the bottom position.
-	 * @return True if the shape has been mirrored.
-	 * @since 3.0
-	 */
-	boolean setRight(final double x);
-
-	/**
 	 * Returns horizontally the shape.
 	 * @since 1.8
 	 * @param origin The location of the horizontal axe.

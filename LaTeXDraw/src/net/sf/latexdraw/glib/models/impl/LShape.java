@@ -644,50 +644,6 @@ abstract class LShape implements IShape {
 
 
 	@Override
-	public boolean setBottom(final double y) {
-		if(!GLibUtilities.INSTANCE.isValidCoordinate(y))
-			return false;
-
-		IPoint tl  = getTopLeftPoint();
-		double tly = tl.getY();
-
-		if(LNumber.INSTANCE.equals(y, tly))
-			return false;
-
-		if(y<tly) {
-			mirrorVertical(getGravityCentre());
-			setTop(y);
-			setBottom(tl.getY());
-
-			return true;
-		}
-
-		IPoint br 		= getBottomRightPoint();
-		IPoint pt;
-		IPoint pt2 		= new LPoint();
-		double percent 	= (y-tly)/(br.getY()-tly);
-		double pty;
-
-		for(int i=0, size=points.size(); i<size; i++) {// We rescale each point
-			pt  = points.get(i);
-			pty = pt.getY();
-
-			if(!LNumber.INSTANCE.equals(pty, tly)) {
-				if(LNumber.INSTANCE.equals(pty, br.getY()))
-					pt2.setY(y);
-				else
-					pt2.setY(tly+(pty-tly)*percent);
-
-				pt2.setX(pt.getX());
-				points.get(i).setPoint(pt2);
-			}
-		}
-
-		return false;
-	}
-
-
-	@Override
 	public void setDashSepBlack(final double dashSepBlack) {
 		if(dashSepBlack>0 && GLibUtilities.INSTANCE.isValidCoordinate(dashSepBlack))
 			this.dashSepBlack = dashSepBlack;
@@ -872,49 +828,6 @@ abstract class LShape implements IShape {
 	}
 
 
-	@Override
-	public boolean setLeft(final double x) {
-		if(!GLibUtilities.INSTANCE.isValidCoordinate(x))
-			return false;
-
-		IPoint br  = getBottomRightPoint();
-		double brx = br.getX();
-
-		if(LNumber.INSTANCE.equals(x, brx))
-			return false;
-
-		if(x>brx) {
-			mirrorHorizontal(getGravityCentre());
-			setRight(x);
-			setLeft(brx);
-
-			return true;
-		}
-
-		IPoint tl 		= getTopLeftPoint();
-		IPoint pt;
-		IPoint pt2 		= new LPoint();
-		double percent 	= (brx-x)/(brx-tl.getX());
-		double ptx;
-
-		for(int i=0, size=points.size(); i<size; i++) {// We rescale each point
-			pt  = points.get(i);
-			ptx = pt.getX();
-
-			if(!LNumber.INSTANCE.equals(ptx, brx)) {
-				if(LNumber.INSTANCE.equals(ptx, tl.getX()))
-					pt2.setX(x);
-				else
-					pt2.setX(br.getX()+(ptx-brx)*percent);
-
-				pt2.setY(pt.getY());
-				points.get(i).setPoint(pt2);
-			}
-		}
-
-		return false;
-	}
-
 
 	@Override
 	public void setLineColour(final Color lineColour) {
@@ -964,48 +877,6 @@ abstract class LShape implements IShape {
 
 
 
-	@Override
-	public boolean setRight(final double x) {
-		if(!GLibUtilities.INSTANCE.isValidCoordinate(x))
-			return false;
-
-		IPoint tl  = getTopLeftPoint();
-		double tlx = tl.getX();
-
-		if(LNumber.INSTANCE.equals(x, tlx))
-			return false;
-
-		if(x<tlx) {
-			mirrorHorizontal(tl);
-			setLeft(x);
-			return true;
-		}
-
-		IPoint br  		= getBottomRightPoint();
-		double brx 		= br.getX();
-		IPoint pt;
-		IPoint pt2 		= new LPoint();
-		double percent 	= (x-tlx)/(brx-tlx);
-		double ptx;
-
-		for(int i=0, size=points.size(); i<size; i++) {// We rescale each point
-			pt  = points.get(i);
-			ptx = pt.getX();
-
-			if(!LNumber.INSTANCE.equals(ptx, tlx)) {
-				if(LNumber.INSTANCE.equals(ptx, brx))
-					pt2.setX(x);
-				else
-					pt2.setX(tlx+(ptx-tlx)*percent);
-
-				pt2.setY(pt.getY());
-				points.get(i).setPoint(pt2);
-			}
-		}
-
-		return false;
-	}
-
 
 	@Override
 	public void setRotationAngle(final double rotationAngle) {
@@ -1046,51 +917,6 @@ abstract class LShape implements IShape {
 	public void setThickness(final double thickness) {
 		if(thickness>0 && isThicknessable() && GLibUtilities.INSTANCE.isValidCoordinate(thickness))
 			this.thickness = thickness;
-	}
-
-
-	@Override
-	public boolean setTop(final double y) {
-		if(!GLibUtilities.INSTANCE.isValidCoordinate(y))
-			return false;
-
-		IPoint br  = getBottomRightPoint();
-		double bry = br.getY();
-
-		if(LNumber.INSTANCE.equals(y, bry))
-			return false;
-
-		if(y>bry) {
-			mirrorVertical(getGravityCentre());
-			setBottom(y);
-			setTop(bry);
-
-			return true;
-		}
-
-		IPoint tl  		= getTopLeftPoint();
-		double tly 		= tl.getY();
-		IPoint pt;
-		IPoint pt2 		= new LPoint();
-		double percent 	= (bry-y)/(bry-tly);
-		double pty;
-
-		for(int i=0, size=points.size(); i<size; i++) {
-			pt  = points.get(i);
-			pty = pt.getY();
-
-			if(!LNumber.INSTANCE.equals(pty, bry)) {
-				if(LNumber.INSTANCE.equals(pty, tly))
-					pt2.setY(y);
-				else
-					pt2.setY(bry+(pty-bry)*percent);
-
-				pt2.setX(pt.getX());
-				points.get(i).setPoint(pt2);
-			}
-		}
-
-		return false;
 	}
 
 

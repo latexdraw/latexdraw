@@ -113,50 +113,6 @@ class LCircle extends LEllipse implements ICircle {
 
 
 	@Override
-	public boolean setTop(final double y) {
-		boolean ok = super.setTop(y);
-
-		if(ok)
-			setWidth(getHeight());
-
-		return ok;
-	}
-
-
-	@Override
-	public boolean setBottom(final double y) {
-		boolean ok = super.setBottom(y);
-
-		if(ok)
-			setWidth(getHeight());
-
-		return ok;
-	}
-
-
-	@Override
-	public boolean setLeft(final double x) {
-		boolean ok = super.setLeft(x);
-
-		if(ok)
-			setHeight(getWidth());
-
-		return ok;
-	}
-
-
-	@Override
-	public boolean setRight(final double x) {
-		boolean ok = super.setRight(x);
-
-		if(ok)
-			setHeight(getWidth());
-
-		return ok;
-	}
-
-
-	@Override
 	public void setWidth(final double width) {
 		super.setWidth(width);
 		super.setHeight(width);
