@@ -463,13 +463,14 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 		final IPoint startPt= instrument.getAdaptedPoint(interaction.getStartPt());
 		final IPoint endPt	= instrument.getAdaptedPoint(interaction.getEndPt());
 
-		if(ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE  || ec==EditionChoice.CIRCLE_ARC)
-			updateShapeFromCentre(shape, startPt, endPt.getX());
+		if((ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE  || ec==EditionChoice.CIRCLE_ARC) && shape instanceof IRectangularShape)
+			updateShapeFromCentre((IRectangularShape)shape, startPt, endPt.getX());
 		else
 			if(ec==EditionChoice.FREE_HAND && shape instanceof IFreehand)
 				((IFreehand)shape).addPoint(endPt);
 			else
-				updateShapeFromDiag(shape, startPt, endPt);
+				if(shape instanceof IRectangularShape)
+					updateShapeFromDiag((IRectangularShape)shape, startPt, endPt);
 
 		shape.setModified(true);
 		action.getDrawing().setModified(true);
@@ -495,45 +496,58 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 	}
 
 
-	private void updateShapeFromCentre(final IShape shape, final IPoint startPt, final double endX) {
+	private void updateShapeFromCentre(final IRectangularShape shape, final IPoint startPt, final double endX) {
 		final double sx = startPt.getX();
 		final double sy = startPt.getY();
 		final double radius = Math.max(sx<endX ? endX-sx : sx - endX, getGap(shape));
 
-		shape.setTop(sy-radius);
-		shape.setBottom(sy+radius);
-		shape.setLeft(sx-radius);
-		shape.setRight(sx+radius);
+		shape.setPosition(sx-radius, sy+radius);
+		shape.setWidth(radius*2.);
+		shape.setHeight(radius*2.);
 	}
 
 
-	private void updateShapeFromDiag(final IShape shape, final IPoint startPt, final IPoint endPt) {
+	private void updateShapeFromDiag(final IRectangularShape shape, final IPoint startPt, final IPoint endPt) {
 		final double gap = getGap(shape);
 		double v1 = startPt.getX();
 		double v2 = endPt.getX();
 
+		double tlx = Double.NaN;
+		double tly = Double.NaN;
+		double brx = Double.NaN;
+		double bry = Double.NaN;
+		boolean ok = true;
+
 		if(Math.abs(v1-v2)>gap)
 			if(v1<v2) {
-				shape.setRight(v2);
-				shape.setLeft(v1);
+				brx = v2;
+				tlx = v1;
 			}
 			else {
-				shape.setLeft(v2);
-				shape.setRight(v1);
+				brx = v1;
+				tlx = v2;
 			}
+		else ok = false;
 
 		v1 = startPt.getY();
 		v2 = endPt.getY();
 
 		if(Math.abs(v1-v2)>gap)
 			if(v1<v2) {
-				shape.setBottom(v2);
-				shape.setTop(v1);
+				bry = v2;
+				tly = v1;
 			}
 			else {
-				shape.setTop(v2);
-				shape.setBottom(v1);
+				bry = v1;
+				tly = v2;
 			}
+		else ok = false;
+
+		if(ok) {
+			shape.setPosition(tlx, bry);
+			shape.setWidth(brx - tlx);
+			shape.setHeight(bry - tly);
+		}
 	}
 
 
