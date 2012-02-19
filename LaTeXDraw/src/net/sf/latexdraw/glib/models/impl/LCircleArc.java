@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import java.awt.geom.Rectangle2D;
+
 import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -119,7 +121,7 @@ class LCircleArc extends LArc implements ICircleArc {
 
 
 	@Override
-	public void scale(final double sx, final double sy, final Position pos) {
+	public void scale(final double sx, final double sy, final Position pos, final Rectangle2D bound) {
 		final Position position;
 		final double scale;
 
@@ -145,6 +147,6 @@ class LCircleArc extends LArc implements ICircleArc {
 				scale = sx;
 		}
 
-		super.scale(scale, scale, position);
+		super.scale(scale, scale, position, bound);
 	}
 }

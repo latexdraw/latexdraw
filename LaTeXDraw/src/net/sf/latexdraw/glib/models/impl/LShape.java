@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -582,78 +583,57 @@ abstract class LShape implements IShape {
 
 
 
-	@Override
-	public void scale(final double sx, final double sy, final Position pos) {
-		if(pos==null || !GLibUtilities.INSTANCE.isValidPoint(sx, sy) || sx<=0 || sy<=0)
-			throw new IllegalArgumentException();
-
-		switch(pos) {
-			case EAST:
-				scaleX(getBottomRightPoint().getX(), sx);
-				break;
-			case WEST:
-				scaleX(getTopLeftPoint().getX(), sx);
-				break;
-			case NORTH:
-				scaleY(getTopLeftPoint().getY(), sy);
-				break;
-			case SOUTH:
-				scaleY(getBottomLeftPoint().getY(), sy);
-				break;
-			case NE:
-				scaleXY(getTopRightPoint(), sx, sy);
-				break;
-			case NW:
-				scaleXY(getTopLeftPoint(), sx, sy);
-				break;
-			case SE:
-				scaleXY(getBottomRightPoint(), sx, sy);
-				break;
-			case SW:
-				scaleXY(getBottomLeftPoint(), sx, sy);
-				break;
-		}
-	}
-
-
-	protected static void scaleX(final List<IPoint> list, final double xRef, final double sx) {
-		for(final IPoint pt : list)
-			if(!LNumber.INSTANCE.equals(xRef, pt.getX()))
-				pt.setX(xRef+(pt.getX()-xRef)*sx);
-	}
-
-	protected static void scaleY(final List<IPoint> list, final double yRef, final double sy) {
-		for(final IPoint pt : list)
-			if(!LNumber.INSTANCE.equals(yRef, pt.getY()))
-				pt.setY(yRef+(pt.getY()-yRef)*sy);
-	}
-
-	protected static void scaleXY(final List<IPoint> list, final IPoint ref, final double sx, final double sy) {
-		final double xRef = ref.getX();
-		final double yRef = ref.getY();
-
-		for(final IPoint pt : list) {
-			if(!LNumber.INSTANCE.equals(xRef, pt.getX()))
-				pt.setX(xRef+(pt.getX()-xRef)*sx);
-			if(!LNumber.INSTANCE.equals(yRef, pt.getY()))
-				pt.setY(yRef+(pt.getY()-yRef)*sy);
-		}
-	}
-
-
-	protected void scaleX(final double xRef, final double sx) {
-		scaleX(points, xRef, sx);
-	}
-
-
-	protected void scaleY(final double yRef, final double sy) {
-		scaleY(points, yRef, sy);
-	}
-
-
-	protected void scaleXY(final IPoint ref, final double sx, final double sy) {
-		scaleXY(points, ref, sx, sy);
-	}
+//	protected static void scaleX(final List<IPoint> list, final double xRef, final double sx) {
+//		for(final IPoint pt : list)
+//			if(!LNumber.INSTANCE.equals(xRef, pt.getX()))
+//				pt.setX(xRef+(pt.getX()-xRef)*sx);
+//	}
+//
+//	protected static void scaleY(final List<IPoint> list, final double yRef, final double sy) {
+//		for(final IPoint pt : list)
+//			if(!LNumber.INSTANCE.equals(yRef, pt.getY()))
+//				pt.setY(yRef+(pt.getY()-yRef)*sy);
+//	}
+//
+//	protected static void scaleXY(final List<IPoint> list, final IPoint ref, final double sx, final double sy) {
+//		final double xRef = ref.getX();
+//		final double yRef = ref.getY();
+//
+//		for(final IPoint pt : list) {
+//			if(!LNumber.INSTANCE.equals(xRef, pt.getX()))
+//				pt.setX(xRef+(pt.getX()-xRef)*sx);
+//			if(!LNumber.INSTANCE.equals(yRef, pt.getY()))
+//				pt.setY(yRef+(pt.getY()-yRef)*sy);
+//		}
+//	}
+//
+//
+//	protected void scaleX(final double xRef, final double sx) {
+//		final IPoint tl = getTopLeftPoint();
+//		final IPoint br = getBottomRightPoint();
+//
+//		if(sx>1. || Math.abs(tl.getX()-br.getX())*sx>1.)
+//			scaleX(points, xRef, sx);
+//	}
+//
+//
+//	protected void scaleY(final double yRef, final double sy) {
+//		final IPoint tl = getTopLeftPoint();
+//		final IPoint br = getBottomRightPoint();
+//
+//		if(sy>1. || Math.abs(tl.getY()-br.getY())*sy>1.)
+//			scaleY(points, yRef, sy);
+//	}
+//
+//
+//	protected void scaleXY(final IPoint ref, final double sx, final double sy) {
+//		final IPoint tl = getTopLeftPoint();
+//		final IPoint br = getBottomRightPoint();
+//
+//		if((sx>1. || Math.abs(tl.getX()-br.getX())*sx>1.) && (sy>1. || Math.abs(tl.getY()-br.getY())*sy>1.))
+//			scaleXY(points, ref, sx, sy);
+//		System.out.println(sx + " " + sy);
+//	}
 
 
 	@Override
@@ -963,6 +943,26 @@ abstract class LShape implements IShape {
 	}
 
 
+	@Override
+	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
+		if(bound==null || pos==null) return ;
+
+		final double sx = x/bound.getWidth();
+		final double sy = y/bound.getHeight();
+		final boolean xScale = pos.isEast() || pos.isWest();
+		final boolean yScale = pos.isNorth() || pos.isSouth();
+		final double refX = pos.isWest() ? bound.getX() : bound.getMaxX();
+		final double refY = pos.isNorth() ? bound.getY() : bound.getMaxY();
+
+		for(final IPoint pt : points) {
+			if(xScale && !LNumber.INSTANCE.equals(pt.getX(), refX))
+				pt.setX(refX+(pt.getX()-refX)*sx);
+			if(yScale && !LNumber.INSTANCE.equals(pt.getY(), refY))
+				pt.setY(refY+(pt.getY()-refY)*sy);
+		}
+	}
+
+
 
 	@Override
 	public boolean setRight(final double x) {
@@ -976,10 +976,8 @@ abstract class LShape implements IShape {
 			return false;
 
 		if(x<tlx) {
-			mirrorHorizontal(getGravityCentre());
+			mirrorHorizontal(tl);
 			setLeft(x);
-			setRight(tlx);
-
 			return true;
 		}
 

@@ -156,37 +156,6 @@ class LDot extends LPositionShape implements IDot {
 	}
 
 
-
-	@Override
-	public void scale(final double sx, final double sy, final Position pos) {
-		if(sx <= 0 || sy <= 0 || pos == null || !GLibUtilities.INSTANCE.isValidPoint(sx, sy))
-			return;
-
-		//TODO
-//		switch(pos){
-//		// A dot is a circle, so only sx or sy is allowed, not both
-//		// at the same time.
-//			case EAST:
-//			case NE:
-//			case SE:
-//				scaleX(sx, false); // Only x.
-//				break;
-//			case NORTH:
-//				scaleY(sy, true);
-//				break;
-//			case SOUTH:
-//				scaleY(sy, false);
-//				break;
-//			case SW:
-//			case NW:
-//			case WEST:
-//				scaleX(sx, true); // Only x.
-//				break;
-//		}
-	}
-
-
-
 	@Override
 	public void setX(final double x) {
 		points.get(0).setX(x);

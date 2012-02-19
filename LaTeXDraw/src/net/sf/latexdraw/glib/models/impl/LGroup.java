@@ -1,16 +1,16 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.malai.mapping.ActiveArrayList;
-
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.Arcable;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
+import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
@@ -18,7 +18,8 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
+
+import org.malai.mapping.ActiveArrayList;
 
 /**
  * A Group is a group of IShape.<br>
@@ -1400,6 +1401,13 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
+	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
+		for(final IShape sh : shapes)
+			sh.scale(x, y, pos, bound);
+	}
+
+
+	@Override
 	public boolean setTop(final double y) {
 		final double gap = y-getTopLeftPoint().getY();
 		boolean ok = false;
@@ -1408,13 +1416,6 @@ class LGroup extends LShape implements IGroup {
 			ok = sh.setTop(sh.getTopLeftPoint().getY()+gap);
 
 		return ok;
-	}
-
-
-	@Override
-	public void scale(final double sx, final double sy, final Position pos) {
-		for(final IShape sh : shapes)
-			sh.scale(sx, sy, pos);
 	}
 
 

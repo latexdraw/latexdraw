@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import org.malai.properties.Modifiable;
@@ -483,10 +484,11 @@ public interface IShape extends Modifiable, IArrowable {
 	 * then the scale will extend or reduce the shape at the bottom-right point. If the reference
 	 * position is NORTH or SOUTH the sx parameter will not be used. If it is EAST or WEST the sy
 	 * parameter will not be used.
+	 * @param bound The bound (e.g. the border of the selected shapes) used to compute the scaling.
 	 * @throws IllegalArgumentException If one of the parameter is not valid.
 	 * @since 3.0
 	 */
-	void scale(final double sx, final double sy, final Position pos);
+	void scale(final double sx, final double sy, final Position pos, final Rectangle2D bound);
 
 	/**
 	 * Sets the top point of the shape: this method should be used when we want to

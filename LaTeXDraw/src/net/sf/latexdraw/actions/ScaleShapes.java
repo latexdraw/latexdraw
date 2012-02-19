@@ -1,8 +1,10 @@
 package net.sf.latexdraw.actions;
 
+import java.awt.geom.Rectangle2D;
+
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
-import net.sf.latexdraw.util.LNumber;
 
 import org.malai.undo.Undoable;
 
@@ -26,19 +28,22 @@ import org.malai.undo.Undoable;
  */
 public class ScaleShapes extends DrawingSelectionAction implements Undoable, Modifying {
 	/** The direction of the scaling. */
-	protected Position position;
+	protected Position refPosition;
 
-	/** The X-scale ratio. */
-	protected double sx;
+	/** The new X position used to compute the scale factor. */
+	protected double newX;
 
-	/** The Y-scale ratio. */
-	protected double sy;
+	/** The new Y position used to compute the scale factor. */
+	protected double newY;
 
-	/** The X-scale that has been already performed (if the action is executed several times before being ended). */
-	private double sxDone;
+	/** The bound of the selected shapes used to perform the scaling. */
+	private Rectangle2D bound;
 
-	/** The Y-scale that has been already performed (if the action is executed several times before being ended). */
-	private double syDone;
+	/** The old width of the selection. */
+	private double oldWidth;
+
+	/** The old height of the selection. */
+	private double oldHeight;
 
 
 	/**
@@ -46,11 +51,10 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 	 */
 	public ScaleShapes() {
 		super();
-		position 	= null;
-		sx	 		= Double.NaN;
-		sy	 		= Double.NaN;
-		sxDone 		= 1.;
-		syDone 		= 1.;
+		oldWidth	= Double.NaN;
+		oldHeight	= Double.NaN;
+		newX		= Double.NaN;
+		newY		= Double.NaN;
 	}
 
 
@@ -62,103 +66,113 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && position!=null && isValidScales();
+		return super.canDo() && refPosition!=null && isValidScales();
 	}
 
 
 	private boolean isValidScales() {
-		switch(position) {
+		switch(refPosition) {
 			case EAST: case WEST:
-				return isValidScale(sx, sxDone);
+				return isValidScale(newX);
 			case NORTH: case SOUTH:
-				return isValidScale(sy, syDone);
-			default: return isValidScale(sx, sxDone) && isValidScale(sy, syDone);
+				return isValidScale(newY);
+			default: return isValidScale(newX) && isValidScale(newY);
 		}
 	}
 
 
-	private boolean isValidScale(final double scale, final double doneScale) {
-		return GLibUtilities.INSTANCE.isValidCoordinate(scale) && GLibUtilities.INSTANCE.isValidCoordinate(scale/doneScale);
+	private boolean isValidScale(final double scale) {
+		return GLibUtilities.INSTANCE.isValidCoordinate(scale) && scale>0;
 	}
 
 
 	@Override
 	protected void doActionBody() {
-		scale(sx/sxDone, sy/syDone);
-		sxDone = sx;
-		syDone = sy;
+		if(Double.isNaN(oldWidth)) {
+			final IPoint br = selection.getBottomRightPoint();
+			final IPoint tl = selection.getTopLeftPoint();
+			oldWidth  = br.getX() - tl.getX();
+			oldHeight = br.getY() - tl.getY();
+			bound = new Rectangle2D.Double();
+			updateBound(tl, br);
+		}
+
+		redo();
 	}
 
 
-	/**
-	 * Proceed to the scaling.
-	 * @param sx2 The X-scale ratio to consider.
-	 * @param sy2 The Y-scale ratio to consider.
-	 */
-	private void scale(final double sx2, final double sy2) {
-		selection.scale(sx2, sy2, position);
-		drawing.setModified(true);
-	}
-
-
-	@Override
-	public boolean hadEffect() {
-		return super.hadEffect() && (!LNumber.INSTANCE.equals(sx, 1.) || !LNumber.INSTANCE.equals(sx, 1.));
+	private void updateBound(final IPoint tl, final IPoint br) {
+		bound.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
 	}
 
 
 	@Override
 	public void undo() {
-		scale(1/sx, 1/sy);
+		selection.scale(oldWidth, oldHeight, refPosition, bound);
+		drawing.setModified(true);
+		updateBound(selection.getTopLeftPoint(), selection.getBottomRightPoint());
 	}
 
 
 	@Override
 	public void redo() {
-		scale(sx, sy);
+		double scaledWidth  = 0.;
+		double scaledHeight = 0.;
+
+		if(refPosition.isSouth())
+			scaledHeight = bound.getHeight() + bound.getY() - newY;
+		else if(refPosition.isNorth())
+			scaledHeight = bound.getHeight() + newY - bound.getMaxY();
+
+		if(refPosition.isWest())
+			scaledWidth = bound.getWidth() + newX - bound.getMaxX();
+		else if(refPosition.isEast())
+			scaledWidth = bound.getWidth() + bound.getX() - newX;
+
+		selection.scale(scaledWidth, scaledHeight, refPosition, bound);
+		drawing.setModified(true);
+		updateBound(selection.getTopLeftPoint(), selection.getBottomRightPoint());
 	}
 
 
 	@Override
 	public String getUndoName() {
-		return "Scaling";
+		return "Resizing";
 	}
 
 
 	/**
-	 * Sets the reference position of the scale.
-	 * @param position The new position.
-	 */
-	public void setPosition(final Position position) {
-		this.position = position;
-	}
-
-
-	/**
-	 * Sets the new X-scale.
-	 * @param sx The X-scale.
-	 */
-	public void setSx(final double sx) {
-		if(sx>0)
-			this.sx = sx;
-	}
-
-
-	/**
-	 * Sets the new Y-scale.
-	 * @param sy The Y-scale.
-	 */
-	public void setSy(final double sy) {
-		if(sy>0)
-			this.sy = sy;
-	}
-
-
-	/**
-	 * @return The direction of the scaling.
+	 * @return The reference position of the scaling.
 	 * @since 3.0
 	 */
-	public Position getPosition() {
-		return position;
+	public Position getRefPosition() {
+		return refPosition;
+	}
+
+
+	/**
+	 * @param newX The new X position used to compute the scale factor.
+	 * @since 3.0
+	 */
+	public final void setNewX(final double newX) {
+		this.newX = newX;
+	}
+
+
+	/**
+	 * @param newY The new Y position used to compute the scale factor.
+	 * @since 3.0
+	 */
+	public final void setNewY(final double newY) {
+		this.newY = newY;
+	}
+
+
+	/**
+	 * @param refPosition The reference position of the scaling.
+	 * @since 3.0
+	 */
+	public void setRefPosition(final Position refPosition) {
+		this.refPosition = refPosition;
 	}
 }

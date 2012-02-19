@@ -3,7 +3,6 @@ package net.sf.latexdraw.glib.models.impl;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a model of a rectangular shape.<br>
@@ -81,93 +80,6 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 			points.get(0).setY(yPos);
 			points.get(1).setY(yPos);
 		}
-	}
-
-
-	@Override
-	public boolean setBottom(final double y) {
-		boolean ok;
-
-		if(GLibUtilities.INSTANCE.isValidCoordinate(y)) {
-			if(LNumber.INSTANCE.equals(y, points.get(0).getY()))
-				return true;
-
-			if(y<points.get(0).getY())
-				ok = setTop(y);
-			else {
-				ok = true;
-				points.get(2).setY(y);
-				points.get(3).setY(y);
-			}
-		} else ok = false;
-
-		return ok;
-	}
-
-
-
-	@Override
-	public boolean setLeft(final double x) {
-		boolean ok;
-
-		if(GLibUtilities.INSTANCE.isValidCoordinate(x)) {
-			if(LNumber.INSTANCE.equals(x, points.get(1).getX()))
-				return true;
-
-			if(x>points.get(1).getX())
-				ok = setRight(x);
-			else {
-				ok = true;
-				points.get(0).setX(x);
-				points.get(3).setX(x);
-			}
-		} else ok = false;
-
-		return ok;
-	}
-
-
-
-	@Override
-	public boolean setRight(final double x) {
-		boolean ok;
-
-		if(GLibUtilities.INSTANCE.isValidCoordinate(x)) {
-			if(LNumber.INSTANCE.equals(x, points.get(0).getX()))
-				return true;
-
-			if(x<points.get(0).getX())
-				ok = setLeft(x);
-			else {
-				ok = true;
-				points.get(1).setX(x);
-				points.get(2).setX(x);
-			}
-		} else ok = false;
-
-		return ok;
-	}
-
-
-
-	@Override
-	public boolean setTop(final double y) {
-		boolean ok;
-
-		if(GLibUtilities.INSTANCE.isValidCoordinate(y)) {
-			if(LNumber.INSTANCE.equals(y, points.get(3).getY()))
-				return true;
-
-			if(y>points.get(3).getY())
-				ok = setBottom(y);
-			else {
-				ok = true;
-				points.get(0).setY(y);
-				points.get(1).setY(y);
-			}
-		} else ok = false;
-
-		return ok;
 	}
 
 

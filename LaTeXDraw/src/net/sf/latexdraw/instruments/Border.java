@@ -651,11 +651,11 @@ public class Border extends Instrument implements Picker {
 		/** The point corresponding to the 'press' position. */
 		protected IPoint p1;
 
-		/** The initial width of the scaled selection. */
-		protected double width;
+		/** The x gap (gap between the pressed position and the targeted position) of the X-scaling. */
+		protected double xGap;
 
-		/** The initial height of the scaled selection. */
-		protected double height;
+		/** The y gap (gap between the pressed position and the targeted position) of the Y-scaling. */
+		protected double yGap;
 
 
 		protected DnD2Scale(final Border ins) throws InstantiationException, IllegalAccessException {
@@ -663,17 +663,36 @@ public class Border extends Instrument implements Picker {
 		}
 
 
+		private void setXGap(final Position refPosition, final IPoint tl, final IPoint br) {
+			switch(refPosition) {
+				case NW: case SW: case WEST: xGap = p1.getX() - br.getX(); break;
+				case NE: case SE: case EAST: xGap = tl.getX() - p1.getX(); break;
+				default: xGap = 0.;
+			}
+		}
+
+		private void setYGap(final Position refPosition, final IPoint tl, final IPoint br) {
+			switch(refPosition) {
+				case NW: case NE: case NORTH: yGap = p1.getY() - br.getY(); break;
+				case SW: case SE: case SOUTH: yGap = tl.getY() - p1.getY(); break;
+				default: yGap = 0.;
+			}
+		}
+
+
 		@Override
 		public void initAction() {
 			final IDrawing drawing = instrument.canvas.getDrawing();
+			final Position refPosition = getScaleHandler().getPosition().getOpposite();
 			final IPoint br = drawing.getSelection().getBottomRightPoint();
 			final IPoint tl = drawing.getSelection().getTopLeftPoint();
 
+			p1 = instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt()));
+
+			setXGap(refPosition, tl, br);
+			setYGap(refPosition, tl, br);
 			action.setDrawing(drawing);
-			action.setPosition(getScaleHandler().getPosition().getOpposite());
-			p1 		= instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt()));
-			width  	= br.getX()-tl.getX();
-			height 	= br.getY()-tl.getY();
+			action.setRefPosition(refPosition);
 		}
 
 
@@ -682,24 +701,17 @@ public class Border extends Instrument implements Picker {
 			super.updateAction();
 
 			final IPoint pt = instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getEndPt()));
-			final double x = pt.getX() - p1.getX();
-			final double y = p1.getY() - pt.getY();
-			double width2  = width;
-			double height2 = height;
-			final Position position = getScaleHandler().getPosition();
+			final Position refPosition = action.getRefPosition();
 
-			if(position.isEast())
-				width2 += x;
-			else if (position.isWest())
-				width2 -= x;
+			if(refPosition.isSouth())
+				action.setNewY(pt.getY() - yGap);
+			else if(refPosition.isNorth())
+				action.setNewY(pt.getY() - yGap);
 
-			if(position.isNorth())
-				height2 += y;
-			else if(position.isSouth())
-				height2 -= y;
-
-			action.setSx(width2/width);
-			action.setSy(height2/height);
+			if(refPosition.isWest())
+				action.setNewX(pt.getX() - xGap);
+			else if(refPosition.isEast())
+				action.setNewX(pt.getX() - xGap);
 		}
 
 
@@ -712,7 +724,7 @@ public class Border extends Instrument implements Picker {
 		@Override
 		public void interimFeedback() {
 			super.interimFeedback();
-			switch(action.getPosition()) {
+			switch(action.getRefPosition()) {
 				case EAST: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR)); break;
 				case NE: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR)); break;
 				case NORTH: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR)); break;

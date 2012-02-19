@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
@@ -130,7 +131,7 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 
 	@Override
-	public void scale(final double sx, final double sy, final Position pos) {
+	public void scale(final double sx, final double sy, final Position pos, final Rectangle2D bound) {
 		if(pos==null || sx<=0 || sy<=0 || !GLibUtilities.INSTANCE.isValidPoint(sx, sy))
 			return;
 

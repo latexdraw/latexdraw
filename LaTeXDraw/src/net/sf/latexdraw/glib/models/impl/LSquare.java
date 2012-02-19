@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import java.awt.geom.Rectangle2D;
+
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.ISquare;
@@ -91,7 +93,7 @@ class LSquare extends LRectangle implements ISquare {
 
 
 	@Override
-	public void scale(final double sx, final double sy, final Position pos) {
+	public void scale(final double sx, final double sy, final Position pos, final Rectangle2D bound) {
 		final Position position;
 		final double scale;
 		//TODO scala: create a SquaredShape trait to factorise this code.
@@ -117,7 +119,7 @@ class LSquare extends LRectangle implements ISquare {
 				scale = sx;
 		}
 
-		super.scale(scale, scale, position);
+		super.scale(scale, scale, position, bound);
 	}
 
 

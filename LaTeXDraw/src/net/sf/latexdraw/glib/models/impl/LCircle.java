@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import java.awt.geom.Rectangle2D;
+
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -56,7 +58,7 @@ class LCircle extends LEllipse implements ICircle {
 
 
 	@Override
-	public void scale(final double sx, final double sy, final Position pos) {
+	public void scale(final double sx, final double sy, final Position pos, final Rectangle2D bound) {
 		final Position position;
 		final double scale;
 
@@ -82,7 +84,7 @@ class LCircle extends LEllipse implements ICircle {
 				scale = sx;
 		}
 
-		super.scale(scale, scale, position);
+		super.scale(scale, scale, position, bound);
 	}
 
 
@@ -110,7 +112,7 @@ class LCircle extends LEllipse implements ICircle {
 		if(!GLibUtilities.INSTANCE.isValidCoordinate(radius))
 			return ;
 
-		IPoint centre = getGravityCentre();
+		final IPoint centre = getGravityCentre();
 
 		setTop(centre.getY()-radius);
 		setLeft(centre.getX()-radius);
