@@ -20,20 +20,6 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @since 3.0
  */
 public interface ICircle extends IEllipse {
-	/**
-	 * Defines the radius of the circle from the centre of the shape, i.e.
-	 * the centre of the circle does not move.
-	 * @param radius The new radius.
-	 * @since 3.0
-	 */
-	void setRadius(final double radius);
-
-	/**
-	 * @return The radius of the circle.
-	 * @since 3.0
-	 */
-	double getRadius();
-	
 	@Override
 	ICircle duplicate();
 }

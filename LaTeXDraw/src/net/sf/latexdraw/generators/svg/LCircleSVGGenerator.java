@@ -102,7 +102,7 @@ class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	protected void setCircleParameters(final SVGCircleElement circleElt, final double gap) {
 		final double radius  = circleElt.getR()-gap/2.;
 
-		shape.setRadius(radius);
+		shape.setWidth(radius*2.);
 		shape.setPosition(circleElt.getCx()-radius, circleElt.getCy()+radius);
 	}
 

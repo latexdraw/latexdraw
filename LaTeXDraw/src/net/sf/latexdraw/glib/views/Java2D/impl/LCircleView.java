@@ -36,9 +36,9 @@ class LCircleView extends LEllipseView<ICircle> {
 	@Override
 	public void updateBorder() {
 		final double gap 	= getBorderGap();
-		final double radius = shape.getRadius()*2.;
-		final double width 	= Math.max(radius+gap*2., shape.getThickness());
+		final double width = shape.getWidth();
+		final double widthMin 	= Math.max(width+gap*2., shape.getThickness());
 
-		border.setFrame(shape.getX()-gap, shape.getY()-radius-gap, width, width);
+		border.setFrame(shape.getX()-gap, shape.getY()-width-gap, widthMin, widthMin);
 	}
 }

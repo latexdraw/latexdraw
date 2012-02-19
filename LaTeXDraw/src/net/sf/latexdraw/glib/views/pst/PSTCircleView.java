@@ -45,7 +45,7 @@ class PSTCircleView extends PSTEllipseView {
 		emptyCache();
 
 		final ICircle circle 		 = (ICircle)shape;
-		final double radius			 = circle.getRadius();
+		final double radius			 = circle.getWidth()/2.;
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
 		final double x	 			 = circle.getX()+radius - position.getX();
 		final double y	 			 = position.getY()+radius - circle.getY();

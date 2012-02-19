@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -98,24 +97,6 @@ class LCircle extends LEllipse implements ICircle {
 	@Override
 	public void setRy(final double rx) {
 		setRx(rx);
-	}
-
-
-	@Override
-	public double getRadius() {
-		return getWidth()/2.;
-	}
-
-
-	@Override
-	public void setRadius(final double radius) {
-		if(!GLibUtilities.INSTANCE.isValidCoordinate(radius))
-			return ;
-
-		final IPoint centre = getGravityCentre();
-
-		setTop(centre.getY()-radius);
-		setLeft(centre.getX()-radius);
 	}
 
 
