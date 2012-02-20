@@ -5,6 +5,11 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Map.Entry;
 
 import javax.swing.JEditorPane;
@@ -73,6 +78,33 @@ public class AboutDialogueBox extends JFrame {
  		setSize(width, height);
 	}
 
+
+	/**
+	 * Read a text file using the utf-8 encoding and sets it to the given editor panel.
+	 */
+	private void setTextToEditorPane(final JEditorPane editor, final String path) {
+		try {
+			final InputStream is = getClass().getResourceAsStream(path);
+			final Reader reader = new InputStreamReader(is, "UTF-8");//$NON-NLS-1$
+			final BufferedReader br = new BufferedReader(reader);
+			final StringBuilder txt = new StringBuilder();
+	        String line = br.readLine();
+
+	        while(line != null) {
+	        	txt.append(line).append(LResources.EOL);
+	            line = br.readLine();
+	        }
+
+	        try { br.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+	        try { reader.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+	        try { is.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+
+	        editor.setContentType("text/plain");//$NON-NLS-1$
+	        editor.setText(txt.toString());
+		}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+	}
+
+
 	protected void createSystemPanel(final JTabbedPane tabbedPane) {
 		JEditorPane editorPane = new JEditorPane();
 		StringBuilder builder = new StringBuilder();
@@ -88,7 +120,8 @@ public class AboutDialogueBox extends JFrame {
 
 	protected void createLicensePanel(final JTabbedPane tabbedPane) {
 		try {
-			JEditorPane editorPane = new JEditorPane(getClass().getResource("/res/license.txt"));//$NON-NLS-1$
+			JEditorPane editorPane = new JEditorPane();
+			setTextToEditorPane(editorPane, "/res/license.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.28"), new JScrollPane(editorPane)); //$NON-NLS-1$
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
@@ -97,7 +130,8 @@ public class AboutDialogueBox extends JFrame {
 
 	protected void createReleaseNotePanel(final JTabbedPane tabbedPane) {
 		try {
-			JEditorPane editorPane = new JEditorPane(getClass().getResource("/res/release_note.txt"));//$NON-NLS-1$
+			JEditorPane editorPane = new JEditorPane();
+			setTextToEditorPane(editorPane, "/res/release_note.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.27"), new JScrollPane(editorPane)); //$NON-NLS-1$
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
@@ -106,7 +140,8 @@ public class AboutDialogueBox extends JFrame {
 
 	protected void createTranslatorsPanel(final JTabbedPane tabbedPane) {
 		try {
-			JEditorPane editorPane = new JEditorPane(getClass().getResource("/res/translators.txt"));//$NON-NLS-1$
+			JEditorPane editorPane = new JEditorPane();
+			setTextToEditorPane(editorPane, "/res/translators.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.26"), new JScrollPane(editorPane)); //$NON-NLS-1$
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
