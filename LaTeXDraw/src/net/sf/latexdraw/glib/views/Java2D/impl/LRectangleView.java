@@ -40,26 +40,29 @@ class LRectangleView<M extends IRectangle> extends LRectangularView<IRectangle> 
 
 	@Override
 	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
+		final double w2 = Math.max(1., width);
+		final double h2 = Math.max(1., height);
+		
 		if(((ILineArcShape)shape).isRoundCorner()) {
-			final double diameter = ((ILineArcShape)shape).getLineArc() * Math.min(width, height);
+			final double diameter = Math.max(1., ((ILineArcShape)shape).getLineArc() * Math.min(w2, h2));
 			final double radius   = diameter/2.;
 
 			path.moveTo(tlx + radius, tly);
-			path.lineTo(tlx + width - radius, tly);
-			LEllipseView.curveQuarter(tlx+width-diameter, tly, diameter, diameter, path, LEllipseView.POINTS[3]);
+			path.lineTo(tlx + w2 - radius, tly);
+			LEllipseView.curveQuarter(tlx+w2-diameter, tly, diameter, diameter, path, LEllipseView.POINTS[3]);
 			path.lineTo(tlx + width, tly + height - radius);
-			LEllipseView.curveQuarter(tlx+width-diameter, tly+height-diameter, diameter, diameter, path, LEllipseView.POINTS[0]);
+			LEllipseView.curveQuarter(tlx+w2-diameter, tly+height-diameter, diameter, diameter, path, LEllipseView.POINTS[0]);
 			path.lineTo(tlx + radius, tly + height);
-			LEllipseView.curveQuarter(tlx, tly+height-diameter, diameter, diameter, path, LEllipseView.POINTS[1]);
-			path.lineTo(tlx, tly + height - radius);
+			LEllipseView.curveQuarter(tlx, tly+h2-diameter, diameter, diameter, path, LEllipseView.POINTS[1]);
+			path.lineTo(tlx, tly + h2 - radius);
 			path.lineTo(tlx, tly + radius);
 			LEllipseView.curveQuarter(tlx, tly, diameter, diameter, path, LEllipseView.POINTS[2]);
 			path.closePath();
 		} else {
-			path.moveTo(tlx		 , tly);
-			path.lineTo(tlx+width, tly);
-			path.lineTo(tlx+width, tly+height);
-			path.lineTo(tlx		 , tly+height);
+			path.moveTo(tlx	  , tly);
+			path.lineTo(tlx+w2, tly);
+			path.lineTo(tlx+w2, tly+h2);
+			path.lineTo(tlx	  , tly+h2);
 			path.closePath();
 		}
 	}
