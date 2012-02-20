@@ -3,6 +3,7 @@ package net.sf.latexdraw.actions;
 import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
 
@@ -26,7 +27,7 @@ import org.malai.undo.Undoable;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ScaleShapes extends DrawingSelectionAction implements Undoable, Modifying {
+public class ScaleShapes extends ShapeAction<IGroup> implements Undoable, Modifying {
 	/** The direction of the scaling. */
 	protected Position refPosition;
 
@@ -55,6 +56,7 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 		oldHeight	= Double.NaN;
 		newX		= Double.NaN;
 		newY		= Double.NaN;
+		bound 		= new Rectangle2D.Double();
 	}
 
 
@@ -73,10 +75,11 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 	private boolean isValidScales() {
 		switch(refPosition) {
 			case EAST: case WEST:
-				return isValidScale(newX);
+				return isValidScale(newX) && getScaledWidth()>0.;
 			case NORTH: case SOUTH:
-				return isValidScale(newY);
-			default: return isValidScale(newX) && isValidScale(newY);
+				return isValidScale(newY) && getScaledHeight()>0.;
+			default:
+				return isValidScale(newX) && isValidScale(newY) && getScaledHeight()>1. && getScaledWidth()>1.;
 		}
 	}
 
@@ -89,14 +92,12 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 	@Override
 	protected void doActionBody() {
 		if(Double.isNaN(oldWidth)) {
-			final IPoint br = selection.getBottomRightPoint();
-			final IPoint tl = selection.getTopLeftPoint();
+			final IPoint br = shape.getBottomRightPoint();
+			final IPoint tl = shape.getTopLeftPoint();
 			oldWidth  = br.getX() - tl.getX();
 			oldHeight = br.getY() - tl.getY();
-			bound = new Rectangle2D.Double();
 			updateBound(tl, br);
 		}
-
 		redo();
 	}
 
@@ -108,30 +109,44 @@ public class ScaleShapes extends DrawingSelectionAction implements Undoable, Mod
 
 	@Override
 	public void undo() {
-		selection.scale(oldWidth, oldHeight, refPosition, bound);
+		shape.scale(oldWidth, oldHeight, refPosition, bound);
 		drawing.setModified(true);
-		updateBound(selection.getTopLeftPoint(), selection.getBottomRightPoint());
+		updateBound(shape.getTopLeftPoint(), shape.getBottomRightPoint());
+	}
+
+
+	@Override
+	public void setShape(final IGroup shape) {
+		super.setShape(shape);
+
+		if(shape!=null)
+			updateBound(shape.getTopLeftPoint(), shape.getBottomRightPoint());
+	}
+
+
+	private double getScaledHeight() {
+		if(refPosition.isSouth())
+			return bound.getHeight() + bound.getY() - newY;
+		else if(refPosition.isNorth())
+			return bound.getHeight() + newY - bound.getMaxY();
+		return 0.;
+	}
+
+
+	private double getScaledWidth() {
+		if(refPosition.isWest())
+			return bound.getWidth() + newX - bound.getMaxX();
+		else if(refPosition.isEast())
+			return bound.getWidth() + bound.getX() - newX;
+		return 0.;
 	}
 
 
 	@Override
 	public void redo() {
-		double scaledWidth  = 0.;
-		double scaledHeight = 0.;
-
-		if(refPosition.isSouth())
-			scaledHeight = bound.getHeight() + bound.getY() - newY;
-		else if(refPosition.isNorth())
-			scaledHeight = bound.getHeight() + newY - bound.getMaxY();
-
-		if(refPosition.isWest())
-			scaledWidth = bound.getWidth() + newX - bound.getMaxX();
-		else if(refPosition.isEast())
-			scaledWidth = bound.getWidth() + bound.getX() - newX;
-
-		selection.scale(scaledWidth, scaledHeight, refPosition, bound);
+		shape.scale(getScaledWidth(), getScaledHeight(), refPosition, bound);
 		drawing.setModified(true);
-		updateBound(selection.getTopLeftPoint(), selection.getBottomRightPoint());
+		updateBound(shape.getTopLeftPoint(), shape.getBottomRightPoint());
 	}
 
 

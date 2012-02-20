@@ -692,6 +692,7 @@ public class Border extends Instrument implements Picker {
 			setXGap(refPosition, tl, br);
 			setYGap(refPosition, tl, br);
 			action.setDrawing(drawing);
+			action.setShape(drawing.getSelection().duplicate());
 			action.setRefPosition(refPosition);
 		}
 
@@ -704,14 +705,14 @@ public class Border extends Instrument implements Picker {
 			final Position refPosition = action.getRefPosition();
 
 			if(refPosition.isSouth())
-				action.setNewY(pt.getY() - yGap);
+				action.setNewY(pt.getY() + yGap);
 			else if(refPosition.isNorth())
 				action.setNewY(pt.getY() - yGap);
 
 			if(refPosition.isWest())
 				action.setNewX(pt.getX() - xGap);
 			else if(refPosition.isEast())
-				action.setNewX(pt.getX() - xGap);
+				action.setNewX(pt.getX() + xGap);
 		}
 
 

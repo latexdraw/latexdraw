@@ -163,6 +163,7 @@ class DnD2Translate extends Link<TranslateShapes, DnD, Hand> {
 	@Override
 	public void initAction() {
 		action.setDrawing(instrument.canvas.getDrawing());
+		action.setShape(instrument.canvas.getDrawing().getSelection().duplicate());
 	}
 
 	@Override

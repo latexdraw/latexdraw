@@ -1,6 +1,7 @@
 package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.util.LNumber;
 
 import org.malai.undo.Undoable;
@@ -23,7 +24,7 @@ import org.malai.undo.Undoable;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class TranslateShapes extends DrawingSelectionAction implements Undoable, Modifying {
+public class TranslateShapes extends ShapeAction<IGroup> implements Undoable, Modifying {
 	/** The x vector translation. */
 	protected double tx;
 
@@ -61,8 +62,8 @@ public class TranslateShapes extends DrawingSelectionAction implements Undoable,
 
 	@Override
 	protected void doActionBody() {
-		selection.translate(tx-performedTx, ty-performedTy);
-		selection.setModified(true);
+		shape.translate(tx-performedTx, ty-performedTy);
+		shape.setModified(true);
 		drawing.setModified(true);
 		performedTx = tx;
 		performedTy = ty;
@@ -71,23 +72,23 @@ public class TranslateShapes extends DrawingSelectionAction implements Undoable,
 
 	@Override
 	public boolean canDo() {
-		final boolean okShape = super.canDo() && !selection.isEmpty() && GLibUtilities.INSTANCE.isValidPoint(tx, ty);
+		final boolean okShape = super.canDo() && !shape.isEmpty() && GLibUtilities.INSTANCE.isValidPoint(tx, ty);
 		return okShape && (!LNumber.INSTANCE.equals(tx, 0.) || !LNumber.INSTANCE.equals(ty, 0.));
 	}
 
 
 	@Override
 	public void undo() {
-		selection.translate(-tx, -ty);
-		selection.setModified(true);
+		shape.translate(-tx, -ty);
+		shape.setModified(true);
 		drawing.setModified(true);
 	}
 
 
 	@Override
 	public void redo() {
-		selection.translate(tx, ty);
-		selection.setModified(true);
+		shape.translate(tx, ty);
+		shape.setModified(true);
 		drawing.setModified(true);
 	}
 

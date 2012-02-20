@@ -63,6 +63,6 @@ public abstract class ShapeAction<T extends IShape> extends DrawingAction {
 
 	@Override
 	public boolean canDo() {
-		return shape!=null;
+		return super.canDo() && shape!=null;
 	}
 }
