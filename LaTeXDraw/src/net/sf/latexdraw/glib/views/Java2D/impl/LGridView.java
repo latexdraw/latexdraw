@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
@@ -234,10 +235,6 @@ class LGridView extends LStandardGridView<IGrid> {
 
 	@Override
 	public void updatePath() {
-		final IPoint tl   = shape.getTopLeftPoint();
-		final IPoint br   = shape.getBottomRightPoint();
-		final double tlx  = tl.getX();
-		final double tly  = tl.getY();
 		final double minY = shape.getGridMinY();
 		final double maxY = shape.getGridMaxY();
 		final double minX = shape.getGridMinX();
@@ -251,13 +248,40 @@ class LGridView extends LStandardGridView<IGrid> {
 		final double posX 	 = pos.getX()+Math.min(shape.getGridStartX(), shape.getGridEndX())*IShape.PPC*unit;
 		final double posY 	 = pos.getY()-Math.min(shape.getGridStartY(), shape.getGridEndY())*IShape.PPC*unit;
 		final double absStep = Math.abs(xStep);
+		final Rectangle2D bounds = getGridBounds(posX, posY);
+		final double tlx = bounds.getMinX();
+		final double tly = bounds.getMinY();
 
 		path.reset();
 		pathLabels.reset();
 		pathSubGrid.reset();
 
-		updatePathSubGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, br.getX(), br.getY());
-		updatePathMainGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, br.getX(), br.getY(), absStep);
+		updatePathSubGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, bounds.getMaxX(), bounds.getMaxY());
+		updatePathMainGrid(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, bounds.getMaxX(), bounds.getMaxY(), absStep);
 		updatePathLabels(minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, absStep);
+	}
+
+
+
+	protected Rectangle2D getGridBounds(final double posX, final double posY) {
+		final Rectangle2D rec = new Rectangle2D.Double();
+		final double gridStartx = shape.getGridStartX();
+		final double gridStarty = shape.getGridStartY();
+		final double gridEndx = shape.getGridEndX();
+		final double gridEndy = shape.getGridEndY();
+		final double step = IShape.PPC*shape.getUnit();
+
+		if(gridStartx<gridEndx)
+			if(gridStarty<gridEndy)
+				rec.setFrameFromDiagonal(posX, posY-step*Math.abs(gridEndy-gridStarty), posX+step*Math.abs(gridEndx-gridStartx), posY);
+			else
+				rec.setFrameFromDiagonal(posX, posY, posX+step*Math.abs(gridEndx-gridStartx), posY+step*Math.abs(gridEndy-gridStarty));
+		else
+			if(gridStarty<gridEndy)
+				rec.setFrameFromDiagonal(posX-step*Math.abs(gridEndx-gridStartx),  posY-step*Math.abs(gridEndy-gridStarty), posX, posY);
+			else
+				rec.setFrameFromDiagonal(posX-step*Math.abs(gridEndx-gridStartx), posY, posX, posY+step*Math.abs(gridEndy-gridStarty));
+
+		return rec;
 	}
 }
