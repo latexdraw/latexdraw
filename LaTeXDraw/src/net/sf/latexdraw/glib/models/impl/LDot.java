@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
@@ -150,23 +151,11 @@ class LDot extends LPositionShape implements IDot {
 	}
 
 
-//
-//	@Override
-//	protected void scaleX(final double sx, final boolean onLeft) {
-//		// onLeft is useless since the position of the dot is its centre
-//		// and only the radius is used to computed its size.
-//		setRadius(radius * sx);
-//	}
-//
-//
-//
-//	@Override
-//	protected void scaleY(final double sy, final boolean onNorth) {
-//		// onNorth is useless since the position of the dot is its centre
-//		// and only the radius is used to computed its size.
-//		setRadius(radius * sy);
-//	}
 
+	@Override
+	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
+		setRadius(radius * Math.max(x/bound.getWidth(), y/bound.getHeight()));
+	}
 
 
 	@Override
