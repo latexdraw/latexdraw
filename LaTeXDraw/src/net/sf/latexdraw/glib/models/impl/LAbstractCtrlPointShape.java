@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,28 +54,12 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	}
 
 
-//	@Override
-//	protected void scaleX(final double xRef, final double sx) {
-//		super.scaleX(xRef, sx);
-//		scaleX(firstCtrlPts, xRef, sx);
-//		scaleX(secondCtrlPts, xRef, sx);
-//	}
-//
-//
-//	@Override
-//	protected void scaleY(final double yRef, final double sy) {
-//		super.scaleY(yRef, sy);
-//		scaleY(firstCtrlPts, yRef, sy);
-//		scaleY(secondCtrlPts, yRef, sy);
-//	}
-//
-//
-//	@Override
-//	protected void scaleXY(final IPoint ref, final double sx, final double sy) {
-//		super.scaleXY(ref, sx, sy);
-//		scaleXY(firstCtrlPts, ref, sx, sy);
-//		scaleXY(secondCtrlPts, ref, sx, sy);
-//	}
+	@Override
+	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
+		super.scale(x, y, pos, bound);
+		scaleSetPoints(firstCtrlPts, x, y, pos, bound);
+		scaleSetPoints(secondCtrlPts, x, y, pos, bound);
+	}
 
 
 	@Override

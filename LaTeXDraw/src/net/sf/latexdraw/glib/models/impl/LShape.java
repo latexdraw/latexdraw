@@ -859,7 +859,11 @@ abstract class LShape implements IShape {
 	@Override
 	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
 		if(bound==null || pos==null) return ;
+		scaleSetPoints(points, x, y, pos, bound);
+	}
 
+
+	protected void scaleSetPoints(final List<IPoint> pts, final double x, final double y, final Position pos, final Rectangle2D bound) {
 		final double sx = x/bound.getWidth();
 		final double sy = y/bound.getHeight();
 		final boolean xScale = pos.isEast() || pos.isWest();
@@ -867,7 +871,7 @@ abstract class LShape implements IShape {
 		final double refX = pos.isWest() ? bound.getX() : bound.getMaxX();
 		final double refY = pos.isNorth() ? bound.getY() : bound.getMaxY();
 
-		for(final IPoint pt : points) {
+		for(final IPoint pt : pts) {
 			if(xScale && !LNumber.INSTANCE.equals(pt.getX(), refX))
 				pt.setX(refX+(pt.getX()-refX)*sx);
 			if(yScale && !LNumber.INSTANCE.equals(pt.getY(), refY))
