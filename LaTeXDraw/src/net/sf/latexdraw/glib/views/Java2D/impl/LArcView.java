@@ -77,13 +77,15 @@ class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 	public static void setArcPath(final Path2D path, final double tlx, final double tly, final double width, final double height, final double startAngle,
 									final double endAngle, final int style) {
 		if(path!=null) {
+			final double w2 = Math.max(1., width);
+			final double h2 = Math.max(1., height);
 			double sAngle = Math.toDegrees(startAngle%(Math.PI*2.));
 			double eAngle = Math.toDegrees(endAngle%(Math.PI*2.));
 
 			if(LNumber.INSTANCE.equals(sAngle, eAngle))
 				eAngle += 0.1;
 
-			path.append(new Arc2D.Double(tlx, tly, width, height, sAngle<eAngle ? sAngle : eAngle, eAngle>sAngle ? eAngle-sAngle : sAngle-eAngle, style), false);
+			path.append(new Arc2D.Double(tlx, tly, w2, h2, sAngle<eAngle ? sAngle : eAngle, eAngle>sAngle ? eAngle-sAngle : sAngle-eAngle, style), false);
 		}
 	}
 
