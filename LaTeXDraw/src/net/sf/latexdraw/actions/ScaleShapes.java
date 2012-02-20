@@ -75,9 +75,9 @@ public class ScaleShapes extends ShapeAction<IGroup> implements Undoable, Modify
 	private boolean isValidScales() {
 		switch(refPosition) {
 			case EAST: case WEST:
-				return isValidScale(newX) && getScaledWidth()>0.;
+				return isValidScale(newX) && getScaledWidth()>1.;
 			case NORTH: case SOUTH:
-				return isValidScale(newY) && getScaledHeight()>0.;
+				return isValidScale(newY) && getScaledHeight()>1.;
 			default:
 				return isValidScale(newX) && isValidScale(newY) && getScaledHeight()>1. && getScaledWidth()>1.;
 		}
