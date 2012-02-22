@@ -44,10 +44,21 @@ public final class LangTool {
 			public String getName() {
 				return "Russkiy yazyk";//$NON-NLS-1$
 			}
-
+			
 			@Override
 			public String getToken() {
 				return "lang.ru";//$NON-NLS-1$
+			}
+		},
+		CS {
+			@Override
+			public String getName() {
+				return "Čeština";//$NON-NLS-1$
+			}
+
+			@Override
+			public String getToken() {
+				return "lang.cs";//$NON-NLS-1$
 			}
 		},SR {
 			@Override
@@ -281,6 +292,7 @@ public final class LangTool {
 		mapLangs.put("pt-BR", Lang.PT_BR);
 		mapLangs.put("sr", Lang.SR);
 		mapLangs.put("ru", Lang.RU);
+		mapLangs.put("cs", Lang.CS);
 
 		mapLangs.put(Lang.FR.getName(), Lang.FR);
 		mapLangs.put(Lang.EN_BR.getName(), Lang.EN_BR);
@@ -296,6 +308,7 @@ public final class LangTool {
 		mapLangs.put(Lang.PT_BR.getName(), Lang.PT_BR);
 		mapLangs.put(Lang.SR.getName(), Lang.SR);
 		mapLangs.put(Lang.RU.getName(), Lang.RU);
+		mapLangs.put(Lang.CS.getName(), Lang.CS);
 	}
 
 
