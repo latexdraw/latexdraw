@@ -131,17 +131,15 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 
 	@Override
-	public void scale(final double sx, final double sy, final Position pos, final Rectangle2D bound) {
-		if(pos==null || sx<=0 || sy<=0 || !GLibUtilities.INSTANCE.isValidPoint(sx, sy))
-			return;
+	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
+		if(pos==null || bound==null) return;
 
 		final IPoint bl = points.get(0);
+		final double sx = x/bound.getWidth();
+		final double sy = y/bound.getHeight();
 
 		switch(pos) {
-			case WEST:
-				setUnit(unit*sx);
-				break;
-			case SW:
+			case WEST: case SW:
 				setUnit(unit*sx);
 				break;
 			case SOUTH:
