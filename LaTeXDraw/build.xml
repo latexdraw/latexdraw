@@ -4,7 +4,7 @@
 	<property name="dir.data" value="out/data"/>
 	<property name="dir.report" value="out/report"/>
 	<property name="dir.doc" location="doc"/>
-	<property name="release.name" value="LaTeXDraw3.0a1" />
+	<property name="release.name" value="LaTeXDraw3.0a2" />
 	
 	<!-- Creates the output directories -->
 	<target name="prepare">
@@ -35,7 +35,7 @@
 		</copy>
 		
 		<copy todir="${dir.out}/" overwrite="true" failonerror="true">
-			<fileset dir="" includes="license.txt ; history.txt ; release_note.txt ; readme.txt ; install_vista.vbs ; install_debian_ubuntu"/>
+			<fileset dir="" includes="license.txt ; history.txt ; release_note.txt ; readme.txt ; install_vista_seven.vbs ; install_debian_ubuntu"/>
 		</copy>
 		
 		<copy todir="${dir.data}/.cache" overwrite="true" failonerror="true">
@@ -79,14 +79,14 @@
 	
    <target name="zip jar" depends="zip src">
         <copy todir="out/${release.name}">
-            <fileset dir="out/" includes="data/ ; install_vista.vbs ; *.txt ; *.jar ; install_debian_ubuntu" />
+            <fileset dir="out/" includes="data/ ; install_vista_seven.vbs ; *.txt ; *.jar ; install_debian_ubuntu" />
    	    </copy>
 
    		<chmod file="out/${release.name}/install_debian_ubuntu" perm="ugo+rx" verbose="true"/>
    		<chmod file="out/${release.name}/data/LaTeXDraw.jar" perm="ugo+rx" verbose="true"/>
    		<chmod file="out/${release.name}/installer.jar" perm="ugo+rx" verbose="true"/>
 
-        <zip destfile="${dir.out}/${release.name}.zip" compress="true" level="9" preserve0permissions="true">
+        <zip destfile="${dir.out}/${release.name}_bin.zip" compress="true" level="9" preserve0permissions="true">
              <fileset dir="out/" includes="${release.name}/"/>
         </zip>
    		<delete dir="out/${release.name}" />

@@ -1,9 +1,9 @@
-Version 3.0 alpha 1 - January 29th 2012
+Version 3.0 alpha 2 - February 26th 2012
 
 Added:
 - Native support of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
 - Can place texts at different positions: bottom-left, bottom-middle, top-right, etc. This feature produces PSTricks code based on the rput command.
-- new localisations: Brazilian Portuguese, Hungarian, Japanese, Turkish, Vietnamese, Serbian, Russian.
+- new localisations: Brazilian Portuguese, Hungarian, Japanese, Turkish, Vietnamese, Serbian, Russian, Czech.
 - double borders supported for arcs.
 - A system tab in the "About LaTeXDraw" dialogue box to give some information about the system.
 
@@ -48,13 +48,16 @@ Changes:
 - There is no more the choice between line and curve to close a Bezier curve. Only curve is supported. That because in a 
   future release, every segment of a Bezier curve will be either a line or a curve.
 - The PPC (point per centimetre) cannot be changed anymore.
-- The change of unit (cm or inch) can be now performed throw menu items in the "Drawing" menu.
+- The change of unit (cm or inch) can be now performed through menu items in the "Drawing" menu.
 - The type of magnetic grid can be changed using the grid toolbar.
 - The magnetic grid cannot be magnetic when it is not visible.
 - Because handlers design have been improved, it is no more possible to change the opacity of handlers.
 
 
 Fixed:
+- lp#675155: the scale handlers approximately resize shapes
+- lp#675150: the unit saved into an SVG document is not loaded
+- lp#598504: when you copy paste a rotated triangle/rhombus, and you move the copied shape then the rotation angle is set back to 0
 - lp#880677, sf#3296077: line colour of psdot style asterisk is not saved.
 - The painted axes did not match the generated pdf because of the package pstricks-add.
 
