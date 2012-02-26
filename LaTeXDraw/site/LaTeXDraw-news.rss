@@ -15,6 +15,16 @@
   </image>
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
   <item>
+    <title>For testing purposes only: LaTeXDraw 3.0.0 alpha 2 released</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Sun, 26 Feb 2012 08:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS38</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS38</link>
+    <description>Second alpha just released. Still for testing purposes only (piece of advice ;)). A lot of bugs were fixed, can join/separate shapes, can customise arrows, better text thumbnail resolution, progress bars,... A third alpha is expected in 4 weeks.</description>
+  </item>
+
+
+  <item>
     <title>For testing purposes only: LaTeXDraw 3.0.0 alpha 1 released</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Sun, 29 Jan 2012 08:00:00 GMT</pubDate>
@@ -109,109 +119,6 @@ This release also fixes some problems for more information) and the Italian loca
    <guid>http://latexdraw.sourceforge.net/index.html#NEWS26</guid>
 	  <description>The stable release of the 2.0 series is now release. It fixes some problem from the last beta version. Feel free to report any problem you find.
 Look at the release note for more details. The more important things are certainly the use of the SVG format as the default format, the alignement and distribution of figures.</description>
-  </item>
-  
-  <item>
-    <title>LaTeXDraw 2.0.0 beta3</title>
-    <author>arno_b@users.sourceforge.net (arno_b)</author>
-    <pubDate>Wed, 26 Mar 2008 19:35:00 GMT</pubDate>
-	<link>http://latexdraw.sourceforge.net/index.html#NEWS25</link>
-   <guid>http://latexdraw.sourceforge.net/index.html#NEWS25</guid>
-	  <description>The third and last beta version of 2.0 is released. It fixes a lot of bugs but some problems with arrows need to be fixed. 
-Look at the release note for more details. The new strings are ready to be translated and it can be done on launchpad. The next release will be the final 2.0 that will be released in a month.</description>
-  </item>
-  
-  <item>
-    <title>LaTeXDraw Translations on Launchpad</title>
-    <author>arno_b@users.sourceforge.net (arno_b)</author>
-    <pubDate>Sun, 17 Feb 2008 20:28:00 GMT</pubDate>
-	<link>http://latexdraw.sourceforge.net/index.html#NEWS24</link>
-   <guid>http://latexdraw.sourceforge.net/index.html#NEWS24</guid>
-	  <description>To facilitate the translation of latexdraw, we test since a month the translation platform of launchpad. Thanks to it, everone can easily translate the program without any pressure of us :p. To make translations you just need to 
-	  create an account one launchpad and to set your language(s). Then you can translate latexdraw and any program which is 
-	  on lauchpad (Ubuntu, Gnome, ...). See https://translations.launchpad.net/latexdraw/. If you find that a translation is not correct, you can modify it too.
-	  </description>
-  </item>
-  <item>
-    <title>LaTeXDraw 2.0.0 beta2</title>
-    <author>arno_b@users.sourceforge.net (arno_b)</author>
-    <pubDate>Sun, 17 Feb 2008 20:27:00 GMT</pubDate>
-	<link>http://latexdraw.sourceforge.net/index.html#NEWS23</link>
-   <guid>http://latexdraw.sourceforge.net/index.html#NEWS23</guid>
-	  <description>The second beta version of 2.0 is released. It fixes some bugs but a lot still need to be fixed. 
-Another great stuff is that the German translation is available for test.
-Look at the release note for more details. The translations are not yet ready.</description>
-  </item>
-  
-  <item>
-    <title>LaTeXDraw 2.0.0 beta1</title>
-    <author>arno_b@users.sourceforge.net (arno_b)</author>
-    <pubDate>Tue, 22 Jan 2008 23:04:00 GMT</pubDate>
-	<link>http://latexdraw.sourceforge.net/index.html#NEWS22</link>
-   <guid>http://latexdraw.sourceforge.net/index.html#NEWS22</guid>
-	  <description>Finally! The first test release of latexdraw 2.0.0 is out. This big new version brings a lot of new stuffs:
-- SVG import/export in order to remplace the former latexdraw format
-- can align a set of shapes
-- can distribute a set of shape
-- PSTricks import improvement
-- better performance
-- better plotting of some shapes
--  ... and so on ...
-
-But this version is not yet stable, so you should make copy of your drawings before using it. And feel free to report any problem you find.
-Look at the release note for more details. The translations are not yet ready.</description>
-  </item>
-  <item>
-    <title>LaTeXDraw 1.9.4</title>
-    <author>arno_b@users.sourceforge.net (arno_b)</author>
-    <pubDate>Sat, 01 Sep 2007 11:50:00 GMT</pubDate>
-	<link>http://latexdraw.sourceforge.net/index.html#NEWS21</link>
-   <guid>http://latexdraw.sourceforge.net/index.html#NEWS21</guid>
-	  <description>LaTeXDraw 1.9.4 is released. This new maintenance version fixes some bugs before the release of the 2.0.</description>
-  </item>
-
-  <item>
-    <title>LaTeXDraw 1.9.3</title>
-    <author>arno_b@users.sourceforge.net (arno_b)</author>
-    <pubDate>Sat, 23 Jun 2007 14:54:00 GMT</pubDate>
-	<link>http://latexdraw.sourceforge.net/index.html#NEWS20</link>
-   <guid>http://latexdraw.sourceforge.net/index.html#NEWS20</guid>
-	  <description>LaTeXDraw 1.9.3 is released. This maintenance version fixes some bugs and at least one other maintenance version is expected before the release of the 2.0.</description>
-  </item>
-
-  <item>
-    <title>LaTeXDraw 1.9.2</title>
-    <author>arno_b@users.sourceforge.net (arno_b)</author>
-    <pubDate>Thu, 31 May 2007 23:50:00 GMT</pubDate>
-	<link>http://latexdraw.sourceforge.net/index.html#NEWS19</link>
-   <guid>http://latexdraw.sourceforge.net/index.html#NEWS19</guid>
-	  <description>LaTeXDraw 1.9.2 is released. This new version store user data into a profile instead of in the latexdraw directory. Bugs were fixed too ;) Most of all, an tiny installer was implemented to easily install latexdraw.</description>
-  </item>
-
-  <item>
-    <title>LaTeXDraw 1.9.1</title>
-    <author>arno_b@users.sourceforge.net (arno_b)</author>
-    <pubDate>Wed, 4 Apr 2007 19:40:00 GMT</pubDate>
-	<link>http://latexdraw.sourceforge.net/index.html#NEWS18</link>
-   <guid>http://latexdraw.sourceforge.net/index.html#NEWS18</guid>
-	  <description>LaTeXDraw 1.9.1 is released. With this new release, you can notably change the parameters of several selected figures. in fact, all the behaviour of the toolbar of parameters has been improved to be more efficient. Several bugs are also fixed and minor improvements were implemented.</description>
-  </item>
-
-  <item>
-    <title>How to translate LaTeXDraw</title>
-    <author>arno_b@users.sourceforge.net (arno_b)</author>
-    <pubDate>Mon, 12 Mar 2007 19:37:00 GMT</pubDate>
-	<link>http://latexdraw.sourceforge.net/index.html#NEWS17</link>
-   <guid>http://latexdraw.sourceforge.net/index.html#NEWS17</guid>
-	  <description>LaTeXDraw is released only in 3 tongues (english, french and spanish)! If you interested to translate it, that's easy: download the files at http://latexdraw.sourceforge.net/en.zip and translate it.</description>
-  </item>
-  <item>
-    <title>LaTeXDraw 1.9</title>
-    <author>arno_b@users.sourceforge.net (arno_b)</author>
-    <pubDate>Fri, 9 Feb 2007 22:47:00 GMT</pubDate>
-	<link>http://latexdraw.sourceforge.net/index.html#NEWS16</link>
-   <guid>http://latexdraw.sourceforge.net/index.html#NEWS16</guid>
-	  <description>LaTeXDraw 1.9 is released. This new version mainly improves the Bezier curve by supporting more that two points, and now it can be open or closed,... The free hand was improved too; in order to be more efficient, only a given number of points are drawn and the connections between them can be either a line or a curve. A lot of minor improvements have been implemented, see the release note for more informations.</description>
   </item>
 </channel>
 </rss>
