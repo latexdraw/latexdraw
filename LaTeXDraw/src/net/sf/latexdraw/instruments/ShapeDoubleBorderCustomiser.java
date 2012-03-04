@@ -115,7 +115,7 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 
 			if(dble) {
 				dbleBoundColB.setColor(shape.getDbleBordCol());
-				dbleSepField.setValueSafely((int)shape.getDbleBordSep());
+				dbleSepField.setValueSafely(shape.getDbleBordSep());
 			}
 		}
 		else setActivated(false);
