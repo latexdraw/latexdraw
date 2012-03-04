@@ -1091,7 +1091,7 @@ class LGroup extends LShape implements IGroup {
 			case 0:
 				return new LPoint();
 			default:
-				return getTopLeftPoint().getMiddlePoint(getBottomLeftPoint());
+				return getTopLeftPoint().getMiddlePoint(getBottomRightPoint());
 		}
 	}
 
