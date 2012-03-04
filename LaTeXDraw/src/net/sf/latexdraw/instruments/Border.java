@@ -12,6 +12,7 @@ import java.util.List;
 
 import net.sf.latexdraw.actions.MoveCtrlPoint;
 import net.sf.latexdraw.actions.MovePointShape;
+import net.sf.latexdraw.actions.RotateShapes;
 import net.sf.latexdraw.actions.ScaleShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.handlers.ArcAngleHandler;
@@ -433,6 +434,7 @@ public class Border extends Instrument implements Picker {
 			addLink(new DnD2Scale(this));
 			addLink(new DnD2MovePoint(this));
 			addLink(new DnD2MoveCtrlPoint(this));
+			addLink(new DnD2Rotate(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -525,7 +527,48 @@ public class Border extends Instrument implements Picker {
 
 
 	/**
-	 * This link maps a DnD interaction on a move control point handler to an action that move the selected control point.
+	 * This link maps a DnD interaction on a rotation handler to an action that rotates the selected shapes.
+	 */
+	private static class DnD2Rotate extends Link<RotateShapes, DnD, Border> {
+		/** The point corresponding to the 'press' position. */
+		protected IPoint p1;
+
+		/** The gravity centre used for the rotation. */
+		protected IPoint gc;
+
+
+		protected DnD2Rotate(final Border ins) throws InstantiationException, IllegalAccessException {
+			super(ins, true, RotateShapes.class, DnD.class);
+		}
+
+		@Override
+		public void initAction() {
+			final IDrawing drawing = instrument.canvas.getDrawing();
+
+			p1 = instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt()));
+			gc = drawing.getSelection().getGravityCentre();
+			action.setGc(gc);
+			action.setDrawing(drawing);
+			action.setShape(drawing.getSelection().duplicate());
+		}
+
+
+		@Override
+		public void updateAction() {
+			final IPoint p2 = instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getEndPt()));
+			action.setRotationAngle(gc.computeRotationAngle(p1, p2));
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getStartObject()==instrument.rotHandler;
+		}
+	}
+
+
+
+	/**
+	 * This link maps a DnD interaction on a move control point handler to an action that moves the selected control point.
 	 */
 	private static class DnD2MoveCtrlPoint extends Link<MoveCtrlPoint, DnD, Border> {
 		/** The original coordinates of the moved point. */
@@ -590,7 +633,7 @@ public class Border extends Instrument implements Picker {
 
 
 	/**
-	 * This link maps a DnD interaction on a move point handler to an action that move the selected point.
+	 * This link maps a DnD interaction on a move point handler to an action that moves the selected point.
 	 */
 	private static class DnD2MovePoint extends Link<MovePointShape, DnD, Border> {
 		/** The original coordinates of the moved point. */

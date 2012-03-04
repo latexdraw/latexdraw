@@ -1,9 +1,10 @@
 package net.sf.latexdraw.actions;
 
-import org.malai.undo.Undoable;
-
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+
+import org.malai.undo.Undoable;
 
 /**
  * This action increments to rotation angle of shapes.<br>
@@ -24,12 +25,16 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @since 3.0
  */
 public class RotateShapes extends ShapeAction<IShape> implements Undoable, Modifying {
-	/** The increment to add to the rotation angle of the shape. */
-	protected double rotationAngleIncrement;
+	/** The rotation angle to apply. */
+	protected double rotationAngle;
 
+	/** The gravity centre used for the rotation. */
+	protected IPoint gc;
+	
+	
 	/** The last increment performed on shapes. Used to execute several times the action. */
-	private double lastIncrement;
-
+	private double lastRotationAngle;
+	
 
 	/**
 	 * Creates the action.
@@ -37,14 +42,14 @@ public class RotateShapes extends ShapeAction<IShape> implements Undoable, Modif
 	public RotateShapes() {
 		super();
 
-		rotationAngleIncrement = Double.NaN;
-		lastIncrement		   = 0.;
+		rotationAngle 		= Double.NaN;
+		lastRotationAngle 	= 0.;
 	}
 
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && GLibUtilities.INSTANCE.isValidCoordinate(rotationAngleIncrement);
+		return super.canDo() && GLibUtilities.INSTANCE.isValidCoordinate(rotationAngle) && GLibUtilities.INSTANCE.isValidPoint(gc);
 	}
 
 
@@ -56,8 +61,8 @@ public class RotateShapes extends ShapeAction<IShape> implements Undoable, Modif
 
 	@Override
 	protected void doActionBody() {
-		rotateShapes(rotationAngleIncrement-lastIncrement);
-		lastIncrement = rotationAngleIncrement;
+		rotateShapes(rotationAngle-lastRotationAngle);
+		lastRotationAngle = rotationAngle;
 	}
 
 
@@ -66,20 +71,20 @@ public class RotateShapes extends ShapeAction<IShape> implements Undoable, Modif
 	 * @param angleIncrement The increment to add to the rotation angle of the shape.
 	 */
 	private void rotateShapes(final double angleIncrement) {
-		shape.addToRotationAngle(null, angleIncrement);
+		shape.addToRotationAngle(gc, angleIncrement);
 		shape.setModified(true);
 	}
 
 
 	@Override
 	public void undo() {
-		rotateShapes(-rotationAngleIncrement);
+		rotateShapes(-rotationAngle);
 	}
 
 
 	@Override
 	public void redo() {
-		rotateShapes(rotationAngleIncrement);
+		rotateShapes(rotationAngle);
 	}
 
 
@@ -90,10 +95,19 @@ public class RotateShapes extends ShapeAction<IShape> implements Undoable, Modif
 
 
 	/**
-	 * @param rotationAngleIncrement The increment to add to the rotation angle of the shape.
+	 * @param rotationAngle The rotation angle to apply.
 	 * @since 3.0
 	 */
-	public void setRotationAngleIncrement(final double rotationAngleIncrement) {
-		this.rotationAngleIncrement = rotationAngleIncrement;
+	public void setRotationAngle(final double rotationAngle) {
+		this.rotationAngle = rotationAngle;
+	}
+
+
+	/**
+	 * @param gc The gravity centre used for the rotation.
+	 * @since 3.0
+	 */
+	public final void setGc(final IPoint gc) {
+		this.gc = gc;
 	}
 }
