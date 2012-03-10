@@ -634,4 +634,21 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	 * @since 3.0
 	 */
 	List<IPoint> getGridEndList();
+
+	/**
+	 * Sets the size of the labels of the grid shapes of the group.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setGridLabelSizeList(final List<Integer> values);
+
+	/**
+	 * @return The list of the sizes of the labels of the grid shapes contained by the group.
+	 * If a shape of the group does not support the starting point property, null is added
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<Integer> getGridLabelSizeList();
 }

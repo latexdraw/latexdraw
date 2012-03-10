@@ -120,12 +120,14 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		addSpinner(list, cust.getyStartS(), true, 50);
 		addSpinner(list, cust.getxEndS(), true, 50);
 		addSpinner(list, cust.getyEndS(), true, 50);
+		addSpinner(list, cust.getLabelsSizeS(), true, 50);
 		list.addSeparator();
 
 		mapContainers.put(cust.getxStartS(), list);
 		mapContainers.put(cust.getyStartS(), list);
 		mapContainers.put(cust.getxEndS(), list);
 		mapContainers.put(cust.getyEndS(), list);
+		mapContainers.put(cust.getLabelsSizeS(), list);
 
 		cust.addEventable(list.getToolbar());
 		return list;

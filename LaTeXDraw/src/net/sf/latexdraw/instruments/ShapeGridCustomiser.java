@@ -10,7 +10,6 @@ import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.lang.LangTool;
@@ -49,6 +48,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** The field that sets the Y-coordinate of the ending point of the grid. */
 	protected MSpinner yEndS;
 
+	/** The field that sets the size of the labels of the grid. */
+	protected MSpinner labelsSizeS;
+
 
 	/**
 	 * Creates the instrument.
@@ -77,6 +79,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			((MSpinner.MSpinnerNumberModel)yEndS.getModel()).setMinumunSafely(grid.getGridStartY());
 			xEndS.setValueSafely(grid.getGridEndX());
 			yEndS.setValueSafely(grid.getGridEndY());
+			labelsSizeS.setValueSafely(grid.getLabelsSize());
 		}
 		else setActivated(false);
 	}
@@ -88,6 +91,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(yStartS, visible);
 		composer.setWidgetVisible(xEndS, visible);
 		composer.setWidgetVisible(yEndS, visible);
+		composer.setWidgetVisible(labelsSizeS, visible);
 	}
 
 
@@ -108,6 +112,10 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		yEndS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.13")));//$NON-NLS-1$
 		yEndS.setEditor(new JSpinner.NumberEditor(yEndS, "0"));//$NON-NLS-1$
 		yEndS.setToolTipText("Sets the maximal Y-coordinate of the grid.");
+
+		labelsSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(10, 1, 100, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.9")));//$NON-NLS-1$
+		labelsSizeS.setEditor(new JSpinner.NumberEditor(labelsSizeS, "0"));//$NON-NLS-1$
+		labelsSizeS.setToolTipText("Sets the size of the labels of the grid.");
 	}
 
 
@@ -156,6 +164,14 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		return yEndS;
 	}
 
+	/**
+	 * @return The field that sets the size of the labels of the grid.
+	 * @since 3.0
+	 */
+	public MSpinner getLabelsSizeS() {
+		return labelsSizeS;
+	}
+
 
 	private static class Spinner2ModifySelectionGridCoords extends Spinner2ModifyGridCoords<ModifyShapeProperty> {
 		protected Spinner2ModifySelectionGridCoords(final ShapeGridCustomiser ins) throws InstantiationException, IllegalAccessException {
@@ -201,7 +217,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void initAction() {
-			if(isStartGridSpinner())
+			if(isLabelSizeSpinner())
+				action.setProperty(ShapeProperties.GRID_SIZE_LABEL);
+			else if(isStartGridSpinner())
 				action.setProperty(ShapeProperties.GRID_START);
 			else
 				action.setProperty(ShapeProperties.GRID_END);
@@ -209,16 +227,14 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void updateAction() {
-			IPoint pt;
-
-			if(isStartGridSpinner())
-				pt = DrawingTK.getFactory().createPoint(
-						Double.parseDouble(instrument.xStartS.getValue().toString()), Double.parseDouble(instrument.yStartS.getValue().toString()));
+			if(isLabelSizeSpinner())
+				action.setValue(Integer.parseInt(instrument.labelsSizeS.getValue().toString()));
+			else if(isStartGridSpinner())
+				action.setValue(DrawingTK.getFactory().createPoint(
+						Double.parseDouble(instrument.xStartS.getValue().toString()), Double.parseDouble(instrument.yStartS.getValue().toString())));
 			else
-				pt = DrawingTK.getFactory().createPoint(
-						Double.parseDouble(instrument.xEndS.getValue().toString()), Double.parseDouble(instrument.yEndS.getValue().toString()));
-
-			action.setValue(pt);
+				action.setValue(DrawingTK.getFactory().createPoint(
+						Double.parseDouble(instrument.xEndS.getValue().toString()), Double.parseDouble(instrument.yEndS.getValue().toString())));
 		}
 
 
@@ -232,10 +248,14 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			return spinner==instrument.xEndS || spinner==instrument.yEndS;
 		}
 
+		private boolean isLabelSizeSpinner() {
+			return interaction.getSpinner()==instrument.labelsSizeS;
+		}
+
 
 		@Override
 		public boolean isConditionRespected() {
-			return isStartGridSpinner() || isEndGridSpinner();
+			return isStartGridSpinner() || isEndGridSpinner() || isLabelSizeSpinner();
 		}
 	}
 }

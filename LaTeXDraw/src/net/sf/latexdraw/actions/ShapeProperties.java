@@ -35,6 +35,36 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** The size of the labels of grids. */
+	GRID_SIZE_LABEL {
+		@Override
+		public String getMessage() {
+			return "grid's labels size";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Integer;
+		}
+
+		@Override
+		public List<Integer> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Integer>() : group.getGridLabelSizeList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setLabelsSize((Integer)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setGridLabelSizeList((List<Integer>)values);
+		}
+	},
 	/** The t bar num of arrows. */
 	ARROW_T_BAR_SIZE_DIM {
 		@Override

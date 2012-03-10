@@ -161,6 +161,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case ARC_STYLE:
 				case GRID_START:
 				case GRID_END:
+				case GRID_SIZE_LABEL:
 				case COLOUR_LINE:		return true;
 			}
 
