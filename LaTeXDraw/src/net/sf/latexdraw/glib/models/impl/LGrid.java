@@ -140,36 +140,36 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 		switch(pos) {
 			case WEST: case SW:
-				setUnit(unit*sx);
+				setUnit(sx);
 				break;
 			case SOUTH:
-				setUnit(unit*sy);
+				setUnit(sy);
 				break;
 			case SE:
 				IPoint br = getBottomRightPoint();
-				setUnit(unit*sx);
+				setUnit(sx);
 				bl.setX(br.getX()-getStep()*(gridEndx-gridStartx));
 				break;
 			case NW:
 				IPoint tl = getTopLeftPoint();
-				setUnit(unit*sx);
+				setUnit(sx);
 				bl.setY(tl.getY()+getStep()*(gridEndy-gridStarty));
 				break;
 			case NORTH:
 				tl = getTopLeftPoint();
-				setUnit(unit*sy);
+				setUnit(sy);
 				bl.setY(tl.getY()+getStep()*(gridEndy-gridStarty));
 				break;
 			case NE:
 				tl = getTopLeftPoint();
 				br = getBottomRightPoint();
-				setUnit(unit*sx);
+				setUnit(sx);
 				bl.setX(br.getX()-getStep()*(gridEndx-gridStartx));
 				bl.setY(tl.getY()+getStep()*(gridEndy-gridStarty));
 				break;
 			case EAST:
 				br = getBottomRightPoint();
-				setUnit(unit*sx);
+				setUnit(sx);
 				bl.setX(br.getX()-getStep()*(gridEndx-gridStartx));
 				break;
 		}

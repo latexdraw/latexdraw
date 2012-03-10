@@ -10,6 +10,7 @@ import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.lang.LangTool;
@@ -42,6 +43,12 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** The field that sets the Y-coordinate of the starting point of the grid. */
 	protected MSpinner yStartS;
 
+	/** The field that sets the X-coordinate of the ending point of the grid. */
+	protected MSpinner xEndS;
+
+	/** The field that sets the Y-coordinate of the ending point of the grid. */
+	protected MSpinner yEndS;
+
 
 	/**
 	 * Creates the instrument.
@@ -66,6 +73,10 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			((MSpinner.MSpinnerNumberModel)yStartS.getModel()).setMaximumSafely(grid.getGridEndY());
 			xStartS.setValueSafely(grid.getGridStartX());
 			yStartS.setValueSafely(grid.getGridStartY());
+			((MSpinner.MSpinnerNumberModel)xEndS.getModel()).setMinumunSafely(grid.getGridStartX());
+			((MSpinner.MSpinnerNumberModel)yEndS.getModel()).setMinumunSafely(grid.getGridStartY());
+			xEndS.setValueSafely(grid.getGridEndX());
+			yEndS.setValueSafely(grid.getGridEndY());
 		}
 		else setActivated(false);
 	}
@@ -75,6 +86,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(xStartS, visible);
 		composer.setWidgetVisible(yStartS, visible);
+		composer.setWidgetVisible(xEndS, visible);
+		composer.setWidgetVisible(yEndS, visible);
 	}
 
 
@@ -87,6 +100,14 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		yStartS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.14")));//$NON-NLS-1$
 		yStartS.setEditor(new JSpinner.NumberEditor(yStartS, "0"));//$NON-NLS-1$
 		yStartS.setToolTipText("Sets the minimal Y-coordinate of the grid.");
+
+		xEndS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.11")));//$NON-NLS-1$
+		xEndS.setEditor(new JSpinner.NumberEditor(xEndS, "0"));//$NON-NLS-1$
+		xEndS.setToolTipText("Sets the maximal X-coordinate of the grid.");
+
+		yEndS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.13")));//$NON-NLS-1$
+		yEndS.setEditor(new JSpinner.NumberEditor(yEndS, "0"));//$NON-NLS-1$
+		yEndS.setToolTipText("Sets the maximal Y-coordinate of the grid.");
 	}
 
 
@@ -117,6 +138,22 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	 */
 	public MSpinner getyStartS() {
 		return yStartS;
+	}
+
+	/**
+	 * @return The field that sets the X-coordinate of the ending point of the grid.
+	 * @since 3.0
+	 */
+	public MSpinner getxEndS() {
+		return xEndS;
+	}
+
+	/**
+	 * @return The field that sets the Y-coordinate of the ending point of the grid.
+	 * @since 3.0
+	 */
+	public MSpinner getyEndS() {
+		return yEndS;
 	}
 
 
@@ -164,19 +201,41 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void initAction() {
-			action.setProperty(ShapeProperties.GRID_START);
+			if(isStartGridSpinner())
+				action.setProperty(ShapeProperties.GRID_START);
+			else
+				action.setProperty(ShapeProperties.GRID_END);
 		}
 
 		@Override
 		public void updateAction() {
-			action.setValue(DrawingTK.getFactory().createPoint(
-					Integer.parseInt(instrument.xStartS.getValue().toString()), Integer.parseInt(instrument.yStartS.getValue().toString())));
+			IPoint pt;
+
+			if(isStartGridSpinner())
+				pt = DrawingTK.getFactory().createPoint(
+						Double.parseDouble(instrument.xStartS.getValue().toString()), Double.parseDouble(instrument.yStartS.getValue().toString()));
+			else
+				pt = DrawingTK.getFactory().createPoint(
+						Double.parseDouble(instrument.xEndS.getValue().toString()), Double.parseDouble(instrument.yEndS.getValue().toString()));
+
+			action.setValue(pt);
 		}
+
+
+		private boolean isStartGridSpinner() {
+			final Object spinner = interaction.getSpinner();
+			return spinner==instrument.xStartS || spinner==instrument.yStartS;
+		}
+
+		private boolean isEndGridSpinner() {
+			final Object spinner = interaction.getSpinner();
+			return spinner==instrument.xEndS || spinner==instrument.yEndS;
+		}
+
 
 		@Override
 		public boolean isConditionRespected() {
-			final Object spinner = interaction.getSpinner();
-			return spinner==instrument.xStartS || spinner==instrument.yStartS;
+			return isStartGridSpinner() || isEndGridSpinner();
 		}
 	}
 }

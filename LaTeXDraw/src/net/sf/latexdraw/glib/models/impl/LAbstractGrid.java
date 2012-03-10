@@ -328,4 +328,10 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	public IPoint getGridStart() {
 		return new LPoint(gridStartx, gridStarty);
 	}
+
+
+	@Override
+	public IPoint getGridEnd() {
+		return new LPoint(gridEndx, gridEndy);
+	}
 }

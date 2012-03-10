@@ -485,6 +485,38 @@ public enum ShapeProperties {
 		}
 	},
 	/** Modification of the starting position of grids. */
+	GRID_END {
+		@Override
+		public String getMessage() {
+			return "Grid's coordinates";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof IPoint;
+		}
+
+		@Override
+		public List<IPoint> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<IPoint>() : group.getGridEndList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value)) {
+				IPoint pt = (IPoint)value;
+				group.setGridEnd(pt.getX(), pt.getY());
+			}
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setGridEndList((List<IPoint>)values);
+		}
+	},
+	/** Modification of the starting position of grids. */
 	GRID_START {
 		@Override
 		public String getMessage() {

@@ -2297,6 +2297,17 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
+	public void setGridEndList(final List<IPoint> values) {
+		IPoint pt;
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				pt = values.get(i);
+				if(pt!=null && shapes.get(i) instanceof IStandardGrid)
+					((IStandardGrid)shapes.get(i)).setGridEnd(pt.getX(), pt.getY());
+			}
+	}
+
+	@Override
 	public void setGridStartList(final List<IPoint> values) {
 		IPoint pt;
 		if(values!=null && values.size()==shapes.size())
@@ -2320,10 +2331,31 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
+	public List<IPoint> getGridEndList() {
+		List<IPoint> list = new ArrayList<IPoint>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IStandardGrid ? ((IStandardGrid)sh).getGridEnd() : null);
+
+		return list;
+	}
+
+
+	@Override
 	public IPoint getGridStart() {
 		for(final IShape sh : shapes)
 			if(sh instanceof IStandardGrid)
 				return ((IStandardGrid)sh).getGridStart();
+
+		return null;
+	}
+
+
+	@Override
+	public IPoint getGridEnd() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid)
+				return ((IStandardGrid)sh).getGridEnd();
 
 		return null;
 	}
