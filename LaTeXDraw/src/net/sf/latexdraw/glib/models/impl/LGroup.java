@@ -2362,6 +2362,34 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
+	public void setGridOriginList(final List<IPoint> values) {
+		IPoint pt;
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++) {
+				pt = values.get(i);
+				if(pt!=null && shapes.get(i) instanceof IStandardGrid)
+					((IStandardGrid)shapes.get(i)).setOrigin(pt.getX(), pt.getY());
+			}
+	}
+
+
+	@Override
+	public List<IPoint> getGridOriginList() {
+		List<IPoint> list = new ArrayList<IPoint>();
+
+		for(final IShape sh : shapes)
+			if(sh instanceof IStandardGrid) {
+				IStandardGrid grid = (IStandardGrid)sh;
+				list.add(new LPoint(grid.getOriginX(), grid.getOriginY()));
+			}
+			else list.add(null);
+
+		return list;
+	}
+
+
+
+	@Override
 	public boolean isColourable() {
 		for(final IShape sh : shapes)
 			if(sh.isColourable())

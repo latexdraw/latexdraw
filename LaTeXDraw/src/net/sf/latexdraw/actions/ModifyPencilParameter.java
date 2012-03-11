@@ -199,6 +199,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case ARROW_T_BAR_SIZE_DIM: pencil.getGroupParams().setTBarSizeDim((Double)value); break;
 			case ARROW_T_BAR_SIZE_NUM: pencil.getGroupParams().setTBarSizeNum((Double)value); break;
 			case GRID_SIZE_LABEL: pencil.getGroupParams().setLabelsSize((Integer)value); break;
+			case GRID_ORIGIN: pencil.getGroupParams().setOrigin(((IPoint)value).getX(), ((IPoint)value).getY()); break;
 		}
 	}
 }

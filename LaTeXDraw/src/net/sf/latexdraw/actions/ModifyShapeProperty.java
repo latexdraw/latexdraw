@@ -164,6 +164,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case GRID_LABEL_POSITION_Y:
 				case GRID_LABEL_POSITION_X:
 				case GRID_SIZE_LABEL:
+				case GRID_ORIGIN:
 				case COLOUR_LINE:		return true;
 			}
 

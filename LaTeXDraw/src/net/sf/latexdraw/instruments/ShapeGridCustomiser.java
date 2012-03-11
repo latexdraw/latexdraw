@@ -59,6 +59,12 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** The field that defines the X-coordinates of the labels. */
 	protected MToggleButton labelsXInvertedCB;
 
+	/** The field that sets the X-coordinate of the origin point of the grid. */
+	protected MSpinner xOriginS;
+
+	/** The field that sets the Y-coordinate of the origin point of the grid. */
+	protected MSpinner yOriginS;
+
 
 	/**
 	 * Creates the instrument.
@@ -87,6 +93,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			((MSpinner.MSpinnerNumberModel)yEndS.getModel()).setMinumunSafely(grid.getGridStartY());
 			xEndS.setValueSafely(grid.getGridEndX());
 			yEndS.setValueSafely(grid.getGridEndY());
+			xOriginS.setValueSafely(grid.getOriginX());
+			yOriginS.setValueSafely(grid.getOriginY());
 			labelsSizeS.setValueSafely(grid.getLabelsSize());
 			labelsYInvertedCB.setSelected(!grid.isXLabelSouth());
 			labelsXInvertedCB.setSelected(!grid.isYLabelWest());
@@ -104,6 +112,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(labelsSizeS, visible);
 		composer.setWidgetVisible(labelsYInvertedCB, visible);
 		composer.setWidgetVisible(labelsXInvertedCB, visible);
+		composer.setWidgetVisible(xOriginS, visible);
+		composer.setWidgetVisible(yOriginS, visible);
 	}
 
 
@@ -134,6 +144,14 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
      	labelsXInvertedCB = new MToggleButton(LResources.GRID_X_LABEL);
      	labelsXInvertedCB.setToolTipText("Changes the X-coordinates of the labels.");
+
+		xOriginS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.1")));//$NON-NLS-1$
+		xOriginS.setEditor(new JSpinner.NumberEditor(xOriginS, "0"));//$NON-NLS-1$
+		xOriginS.setToolTipText("Sets the X-coordinate of the origin of the grid.");
+
+		yOriginS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.0")));//$NON-NLS-1$
+		yOriginS.setEditor(new JSpinner.NumberEditor(yOriginS, "0"));//$NON-NLS-1$
+		yOriginS.setToolTipText("Sets the Y-coordinate of the origin of the grid.");
 	}
 
 
@@ -182,6 +200,22 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	 */
 	public MSpinner getyEndS() {
 		return yEndS;
+	}
+
+	/**
+	 * @return The field that sets the X-coordinate of the origin point of the grid.
+	 * @since 3.0
+	 */
+	public MSpinner getxOriginS() {
+		return xOriginS;
+	}
+
+	/**
+	 * @return The field that sets the Y-coordinate of the origin point of the grid.
+	 * @since 3.0
+	 */
+	public MSpinner getyOriginS() {
+		return yOriginS;
 	}
 
 	/**
@@ -272,7 +306,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-
+	/** The link that maps a spinner to an action that modifies the selected shapes. */
 	private static class Spinner2ModifySelectionGridCoords extends Spinner2ModifyGridCoords<ModifyShapeProperty> {
 		protected Spinner2ModifySelectionGridCoords(final ShapeGridCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class);
@@ -291,7 +325,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-
+	/** The link that maps a spinner to an action that modifies the pencil. */
 	private static class Spinner2ModifyPencilGridCoords extends Spinner2ModifyGridCoords<ModifyPencilParameter> {
 		protected Spinner2ModifyPencilGridCoords(final ShapeGridCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class);
@@ -317,7 +351,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void initAction() {
-			if(isLabelSizeSpinner())
+			if(isOriginSpinner())
+				action.setProperty(ShapeProperties.GRID_ORIGIN);
+			else if(isLabelSizeSpinner())
 				action.setProperty(ShapeProperties.GRID_SIZE_LABEL);
 			else if(isStartGridSpinner())
 				action.setProperty(ShapeProperties.GRID_START);
@@ -327,7 +363,10 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void updateAction() {
-			if(isLabelSizeSpinner())
+			if(isOriginSpinner())
+				action.setValue(DrawingTK.getFactory().createPoint(
+						Double.parseDouble(instrument.xOriginS.getValue().toString()), Double.parseDouble(instrument.yOriginS.getValue().toString())));
+			else if(isLabelSizeSpinner())
 				action.setValue(Integer.parseInt(instrument.labelsSizeS.getValue().toString()));
 			else if(isStartGridSpinner())
 				action.setValue(DrawingTK.getFactory().createPoint(
@@ -339,23 +378,25 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 
 		private boolean isStartGridSpinner() {
-			final Object spinner = interaction.getSpinner();
-			return spinner==instrument.xStartS || spinner==instrument.yStartS;
+			return interaction.getSpinner()==instrument.xStartS || interaction.getSpinner()==instrument.yStartS;
 		}
 
 		private boolean isEndGridSpinner() {
-			final Object spinner = interaction.getSpinner();
-			return spinner==instrument.xEndS || spinner==instrument.yEndS;
+			return interaction.getSpinner()==instrument.xEndS || interaction.getSpinner()==instrument.yEndS;
 		}
 
 		private boolean isLabelSizeSpinner() {
 			return interaction.getSpinner()==instrument.labelsSizeS;
 		}
 
+		private boolean isOriginSpinner() {
+			return interaction.getSpinner()==instrument.xOriginS || interaction.getSpinner()==instrument.yOriginS;
+		}
+
 
 		@Override
 		public boolean isConditionRespected() {
-			return isStartGridSpinner() || isEndGridSpinner() || isLabelSizeSpinner();
+			return isStartGridSpinner() || isEndGridSpinner() || isLabelSizeSpinner() || isOriginSpinner();
 		}
 	}
 }
