@@ -52,8 +52,11 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** The field that sets the size of the labels of the grid. */
 	protected MSpinner labelsSizeS;
 
-	/** The field that defines if the X-labels are under the X-axe. */
-	protected MCheckBox xLabelsSouthCB;
+	/** The field that defines the Y-coordinates of the labels. */
+	protected MCheckBox labelsYInvertedCB;
+
+	/** The field that defines the X-coordinates of the labels. */
+	protected MCheckBox labelsXInvertedCB;
 
 
 	/**
@@ -84,7 +87,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			xEndS.setValueSafely(grid.getGridEndX());
 			yEndS.setValueSafely(grid.getGridEndY());
 			labelsSizeS.setValueSafely(grid.getLabelsSize());
-			xLabelsSouthCB.setSelected(!grid.isXLabelSouth());
+			labelsYInvertedCB.setSelected(!grid.isXLabelSouth());
+			labelsXInvertedCB.setSelected(!grid.isYLabelWest());
 		}
 		else setActivated(false);
 	}
@@ -97,7 +101,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(xEndS, visible);
 		composer.setWidgetVisible(yEndS, visible);
 		composer.setWidgetVisible(labelsSizeS, visible);
-		composer.setWidgetVisible(xLabelsSouthCB, visible);
+		composer.setWidgetVisible(labelsYInvertedCB, visible);
+		composer.setWidgetVisible(labelsXInvertedCB, visible);
 	}
 
 
@@ -123,8 +128,11 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		labelsSizeS.setEditor(new JSpinner.NumberEditor(labelsSizeS, "0"));//$NON-NLS-1$
 		labelsSizeS.setToolTipText("Sets the size of the labels of the grid.");
 
-     	xLabelsSouthCB = new MCheckBox(LangTool.INSTANCE.getString16("ParametersGridFrame.1"));
-     	xLabelsSouthCB.setToolTipText("Changes the Y-coordinates of the labels.");
+     	labelsYInvertedCB = new MCheckBox(LangTool.INSTANCE.getString16("ParametersGridFrame.1"));
+     	labelsYInvertedCB.setToolTipText("Changes the Y-coordinates of the labels.");
+
+     	labelsXInvertedCB = new MCheckBox(LangTool.INSTANCE.getString16("ParametersGridFrame.0"));
+     	labelsXInvertedCB.setToolTipText("Changes the X-coordinates of the labels.");
 	}
 
 
@@ -184,11 +192,19 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 	/**
-	 * @return The field that defines if the X-labels are under the X-axe.
+	 * @return The field that defines the Y-coordinates of the labels.
 	 * @since 3.0
 	 */
-	public MCheckBox getXLabelsSouthCB() {
-		return xLabelsSouthCB;
+	public MCheckBox getLabelsYInvertedCB() {
+		return labelsYInvertedCB;
+	}
+
+	/**
+	 * @return The field that defines the X-coordinates of the labels.
+	 * @since 3.0
+	 */
+	public MCheckBox getLabelsXInvertedCB() {
+		return labelsXInvertedCB;
 	}
 
 
@@ -199,12 +215,15 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getCheckBox()==instrument.xLabelsSouthCB;
+			return interaction.getCheckBox()==instrument.labelsYInvertedCB || interaction.getCheckBox()==instrument.labelsXInvertedCB;
 		}
 
 		@Override
 		public void initAction() {
-			action.setProperty(ShapeProperties.GRID_LABEL_POSITION_X);
+			if(interaction.getCheckBox()==instrument.labelsYInvertedCB)
+				action.setProperty(ShapeProperties.GRID_LABEL_POSITION_Y);
+			else
+				action.setProperty(ShapeProperties.GRID_LABEL_POSITION_X);
 		}
 
 		@Override

@@ -121,7 +121,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		addSpinner(list, cust.getxEndS(), true, 50);
 		addSpinner(list, cust.getyEndS(), true, 50);
 		addSpinner(list, cust.getLabelsSizeS(), true, 50);
-		list.addComponent(cust.getXLabelsSouthCB());
+		list.addComponent(cust.getLabelsXInvertedCB());
+		list.addComponent(cust.getLabelsYInvertedCB());
 		list.addSeparator();
 
 		mapContainers.put(cust.getxStartS(), list);
@@ -129,7 +130,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(cust.getxEndS(), list);
 		mapContainers.put(cust.getyEndS(), list);
 		mapContainers.put(cust.getLabelsSizeS(), list);
-		mapContainers.put(cust.getXLabelsSouthCB(), list);
+		mapContainers.put(cust.getLabelsXInvertedCB(), list);
+		mapContainers.put(cust.getLabelsYInvertedCB(), list);
 
 		cust.addEventable(list.getToolbar());
 		return list;

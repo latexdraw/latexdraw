@@ -653,7 +653,7 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	List<Integer> getGridLabelSizeList();
 
 	/**
-	 * Sets the grid's X labels position of the group.
+	 * Sets the Y-coordinate of the labels of the grid contained by the group.
 	 * @param values The list of values to use. Its must must equals the number of
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
@@ -662,10 +662,27 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	void setGridXLabelSouthList(final List<Boolean> values);
 
 	/**
-	 * @return The list of the position of the X-labels of the grid shapes contained by the group.
+	 * @return The list of the Y-coordinate labels of the grid shapes contained by the group.
 	 * If a shape of the group does not support the starting point property, null is added
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
 	List<Boolean> getGridXLabelSouthList();
+
+	/**
+	 * Sets the X-coordinate of the labels of the grid contained by the group.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setGridYLabelWestList(final List<Boolean> values);
+
+	/**
+	 * @return The list of the Y-coordinate labels of the grid shapes contained by the group.
+	 * If a shape of the group does not support the starting point property, null is added
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<Boolean> getGridYLabelWestList();
 }

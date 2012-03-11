@@ -35,8 +35,38 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  * @since 3.0
  */
 public enum ShapeProperties {
-	/** The position of the labels of the X-axe of grids. */
+	/** The X-coordinate of the grid's labels. */
 	GRID_LABEL_POSITION_X {
+		@Override
+		public String getMessage() {
+			return "grid's labels position";
+		}
+		
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Boolean;
+		}
+		
+		@Override
+		public List<Boolean> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Boolean>() : group.getGridYLabelWestList();
+		}
+		
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setYLabelWest((Boolean)value);
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setGridYLabelWestList((List<Boolean>)values);
+		}
+	},
+	/** The Y-coordinate of the grid's labels. */
+	GRID_LABEL_POSITION_Y {
 		@Override
 		public String getMessage() {
 			return "grid's labels position";
