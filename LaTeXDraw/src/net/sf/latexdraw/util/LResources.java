@@ -208,9 +208,14 @@ public final class LResources {
 	public final static ImageIcon GRID_GAP_ICON;
 	public final static ImageIcon BUTTON_CLOSE_IN_ICON;
 	public final static ImageIcon BUTTON_CLOSE_OUT_ICON;
+	public final static ImageIcon GRID_X_LABEL;
+	public final static ImageIcon GRID_Y_LABEL;
 
 
 	static {
+		GRID_X_LABEL		= loadImageIcon("/res/xGridLabel.png");//$NON-NLS-1$
+		GRID_Y_LABEL		= loadImageIcon("/res/yGridLabel.png");//$NON-NLS-1$
+
 		DIM_POS_ICON		= loadImageIcon("/res/dimPos.png");//$NON-NLS-1$
 
 		TEXTPOS_BL			= loadImageIcon("/res/textPosBL.png");//$NON-NLS-1$

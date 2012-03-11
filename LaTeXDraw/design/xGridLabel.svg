@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.48.3.1 r9886"
+   width="20"
+   height="20"
+   sodipodi:docname="test.svg"
+   inkscape:export-filename="/home/ablouin/Bureau/test.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1372"
+     inkscape:window-height="864"
+     id="namedview89"
+     showgrid="false"
+     inkscape:zoom="28.704946"
+     inkscape:cx="5.3760749"
+     inkscape:cy="10.31022"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4" />
+  <line
+     style="stroke:#808080;stroke-width:0.40599999;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line13"
+     y2="0.31315142"
+     y1="19.524057"
+     x2="5.2812934"
+     x1="5.2812934" />
+  <line
+     style="stroke:#808080;stroke-width:0.40599999;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line15"
+     y2="0.27260214"
+     y1="19.716278"
+     x2="10.169441"
+     x1="10.169441" />
+  <line
+     style="stroke:#808080;stroke-width:0.40599999;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line17"
+     y2="0.26917368"
+     y1="19.716248"
+     x2="15.054485"
+     x1="15.054485" />
+  <line
+     style="stroke:#808080;stroke-width:0.40599999;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line19"
+     y2="0.26917368"
+     y1="19.716248"
+     x2="19.839001"
+     x1="19.839001" />
+  <line
+     style="stroke:#808080;stroke-width:0.456;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line37"
+     y2="14.946"
+     y1="14.946"
+     x2="19.84639"
+     x1="0.3831214" />
+  <line
+     style="stroke:#808080;stroke-width:0.456;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line41"
+     y2="5.076581"
+     y1="5.076581"
+     x2="19.84639"
+     x1="0.3831214" />
+  <line
+     style="stroke:#808080;stroke-width:0.40599999;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line43"
+     y2="0.19700001"
+     y1="0.19700001"
+     x2="19.87302"
+     x1="0.47997937" />
+  <line
+     style="stroke:#000000;stroke-width:0.611;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line61"
+     y2="0.32021767"
+     y1="19.709301"
+     x2="0.35949993"
+     x1="0.35949993" />
+  <line
+     style="stroke:#000000;stroke-width:0.611;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line67"
+     y2="19.852501"
+     y1="19.852501"
+     x2="19.745506"
+     x1="0.46044818" />
+  <line
+     style="stroke:#000000;stroke-width:0.611;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none"
+     id="line69"
+     y2="10.0825"
+     y1="10.0825"
+     x2="19.745506"
+     x1="0.46044818" />
+  <text
+     style="font-size:4.88497877px;stroke:#000000;stroke-width:1"
+     id="text83"
+     y="8.3748894"
+     x="1.9709667"
+     transform="scale(1.0000045,0.99999551)">1</text>
+  <text
+     style="font-size:4.88497877px;stroke:#000000;stroke-width:1"
+     id="text85"
+     y="18.144848"
+     x="1.9709667"
+     transform="scale(1.0000045,0.99999551)">0</text>
+  <metadata
+     id="metadata87">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

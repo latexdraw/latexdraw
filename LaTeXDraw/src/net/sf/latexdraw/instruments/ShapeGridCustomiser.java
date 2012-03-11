@@ -13,10 +13,11 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LResources;
 
 import org.malai.ui.UIComposer;
-import org.malai.widget.MCheckBox;
 import org.malai.widget.MSpinner;
+import org.malai.widget.MToggleButton;
 
 /**
  * This instrument modifies the parameters of grids and axes.<br>
@@ -53,10 +54,10 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	protected MSpinner labelsSizeS;
 
 	/** The field that defines the Y-coordinates of the labels. */
-	protected MCheckBox labelsYInvertedCB;
+	protected MToggleButton labelsYInvertedCB;
 
 	/** The field that defines the X-coordinates of the labels. */
-	protected MCheckBox labelsXInvertedCB;
+	protected MToggleButton labelsXInvertedCB;
 
 
 	/**
@@ -128,10 +129,10 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		labelsSizeS.setEditor(new JSpinner.NumberEditor(labelsSizeS, "0"));//$NON-NLS-1$
 		labelsSizeS.setToolTipText("Sets the size of the labels of the grid.");
 
-     	labelsYInvertedCB = new MCheckBox(LangTool.INSTANCE.getString16("ParametersGridFrame.1"));
+     	labelsYInvertedCB = new MToggleButton(LResources.GRID_Y_LABEL);
      	labelsYInvertedCB.setToolTipText("Changes the Y-coordinates of the labels.");
 
-     	labelsXInvertedCB = new MCheckBox(LangTool.INSTANCE.getString16("ParametersGridFrame.0"));
+     	labelsXInvertedCB = new MToggleButton(LResources.GRID_X_LABEL);
      	labelsXInvertedCB.setToolTipText("Changes the X-coordinates of the labels.");
 	}
 
@@ -195,7 +196,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	 * @return The field that defines the Y-coordinates of the labels.
 	 * @since 3.0
 	 */
-	public MCheckBox getLabelsYInvertedCB() {
+	public MToggleButton getLabelsYInvertedCB() {
 		return labelsYInvertedCB;
 	}
 
@@ -203,24 +204,24 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	 * @return The field that defines the X-coordinates of the labels.
 	 * @since 3.0
 	 */
-	public MCheckBox getLabelsXInvertedCB() {
+	public MToggleButton getLabelsXInvertedCB() {
 		return labelsXInvertedCB;
 	}
 
 
-	private static abstract class CheckBox4ShapeGridCust<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeGridCustomiser> {
+	private static abstract class CheckBox4ShapeGridCust<A extends ShapePropertyAction> extends ButtonPressedForCustomiser<A, ShapeGridCustomiser> {
 		protected CheckBox4ShapeGridCust(final ShapeGridCustomiser ins, Class<A> actClazz) throws InstantiationException, IllegalAccessException {
 			super(ins, actClazz);
 		}
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getCheckBox()==instrument.labelsYInvertedCB || interaction.getCheckBox()==instrument.labelsXInvertedCB;
+			return interaction.getButton()==instrument.labelsYInvertedCB || interaction.getButton()==instrument.labelsXInvertedCB;
 		}
 
 		@Override
 		public void initAction() {
-			if(interaction.getCheckBox()==instrument.labelsYInvertedCB)
+			if(interaction.getButton()==instrument.labelsYInvertedCB)
 				action.setProperty(ShapeProperties.GRID_LABEL_POSITION_Y);
 			else
 				action.setProperty(ShapeProperties.GRID_LABEL_POSITION_X);
@@ -228,7 +229,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void updateAction() {
-			action.setValue(!interaction.getCheckBox().isSelected());
+			action.setValue(!interaction.getButton().isSelected());
 		}
 	}
 
