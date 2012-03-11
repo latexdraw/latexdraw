@@ -15,6 +15,7 @@ import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.ui.UIComposer;
+import org.malai.widget.MCheckBox;
 import org.malai.widget.MSpinner;
 
 /**
@@ -51,6 +52,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** The field that sets the size of the labels of the grid. */
 	protected MSpinner labelsSizeS;
 
+	/** The field that defines if the X-labels are under the X-axe. */
+	protected MCheckBox xLabelsSouthCB;
+
 
 	/**
 	 * Creates the instrument.
@@ -80,6 +84,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			xEndS.setValueSafely(grid.getGridEndX());
 			yEndS.setValueSafely(grid.getGridEndY());
 			labelsSizeS.setValueSafely(grid.getLabelsSize());
+			xLabelsSouthCB.setSelected(!grid.isXLabelSouth());
 		}
 		else setActivated(false);
 	}
@@ -92,6 +97,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(xEndS, visible);
 		composer.setWidgetVisible(yEndS, visible);
 		composer.setWidgetVisible(labelsSizeS, visible);
+		composer.setWidgetVisible(xLabelsSouthCB, visible);
 	}
 
 
@@ -116,6 +122,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		labelsSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(10, 1, 100, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.9")));//$NON-NLS-1$
 		labelsSizeS.setEditor(new JSpinner.NumberEditor(labelsSizeS, "0"));//$NON-NLS-1$
 		labelsSizeS.setToolTipText("Sets the size of the labels of the grid.");
+
+     	xLabelsSouthCB = new MCheckBox(LangTool.INSTANCE.getString16("ParametersGridFrame.1"));
+     	xLabelsSouthCB.setToolTipText("Changes the Y-coordinates of the labels.");
 	}
 
 
@@ -124,6 +133,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		try{
 			addLink(new Spinner2ModifySelectionGridCoords(this));
 			addLink(new Spinner2ModifyPencilGridCoords(this));
+			addLink(new CheckBox2ModifySelectionGrid(this));
+			addLink(new CheckBox2ModifyPencilGrid(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -171,6 +182,75 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	public MSpinner getLabelsSizeS() {
 		return labelsSizeS;
 	}
+
+	/**
+	 * @return The field that defines if the X-labels are under the X-axe.
+	 * @since 3.0
+	 */
+	public MCheckBox getXLabelsSouthCB() {
+		return xLabelsSouthCB;
+	}
+
+
+	private static abstract class CheckBox4ShapeGridCust<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeGridCustomiser> {
+		protected CheckBox4ShapeGridCust(final ShapeGridCustomiser ins, Class<A> actClazz) throws InstantiationException, IllegalAccessException {
+			super(ins, actClazz);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getCheckBox()==instrument.xLabelsSouthCB;
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.GRID_LABEL_POSITION_X);
+		}
+
+		@Override
+		public void updateAction() {
+			action.setValue(!interaction.getCheckBox().isSelected());
+		}
+	}
+
+
+	/** The link that maps a checkbox to an action that modifies the selection. */
+	private static class CheckBox2ModifySelectionGrid extends CheckBox4ShapeGridCust<ModifyShapeProperty> {
+		protected CheckBox2ModifySelectionGrid(final ShapeGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return super.isConditionRespected() && instrument.hand.isActivated();
+		}
+	}
+
+
+	/** The link that maps a checkbox to an action that modifies the pencil. */
+	private static class CheckBox2ModifyPencilGrid extends CheckBox4ShapeGridCust<ModifyPencilParameter> {
+		protected CheckBox2ModifyPencilGrid(final ShapeGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setPencil(instrument.pencil);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return super.isConditionRespected() && instrument.pencil.isActivated();
+		}
+	}
+
 
 
 	private static class Spinner2ModifySelectionGridCoords extends Spinner2ModifyGridCoords<ModifyShapeProperty> {

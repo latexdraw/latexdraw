@@ -186,6 +186,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case ARC_STYLE		: pencil.getGroupParams().setArcStyle((ArcStyle)value);		break;
 			case GRID_START: pencil.getGroupParams().setGridStart(((IPoint)value).getX(), ((IPoint)value).getY()); break;
 			case GRID_END: pencil.getGroupParams().setGridEnd(((IPoint)value).getX(), ((IPoint)value).getY()); break;
+			case GRID_LABEL_POSITION_X: pencil.getGroupParams().setXLabelSouth((Boolean)value); break;
 			case ARROW_INSET: pencil.getGroupParams().setArrowInset((Double)value); break;
 			case ARROW_LENGTH: pencil.getGroupParams().setArrowLength((Double)value); break;
 			case ARROW_BRACKET_NUM: pencil.getGroupParams().setBracketNum((Double)value); break;

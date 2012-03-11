@@ -2389,4 +2389,24 @@ class LGroup extends LShape implements IGroup {
 
 		return list;
 	}
+
+
+	@Override
+	public void setGridXLabelSouthList(final List<Boolean> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IStandardGrid)
+					((IStandardGrid)shapes.get(i)).setXLabelSouth(values.get(i));
+	}
+
+
+	@Override
+	public List<Boolean> getGridXLabelSouthList() {
+		final List<Boolean> list = new ArrayList<Boolean>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IStandardGrid ? ((IStandardGrid)sh).isXLabelSouth() : null);
+
+		return list;
+	}
 }
