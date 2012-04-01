@@ -6,7 +6,6 @@ import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 
 import org.malai.interaction.SwingEventManager;
 import org.malai.picking.Pickable;
@@ -61,39 +60,6 @@ public class MComboBox extends JComboBox implements Pickable {
 	 */
 	public MComboBox(final Vector<?> items) {
 		super(items);
-	}
-
-
-	@Override
-	public void setSelectedItem(final Object anObject) {
-		int i;
-		final int size = getItemCount();
-
-		if(anObject==null || size==0)
-			return ;
-		// Getting the real item corresponding to the given object.
-		Object o = null;
-		// anObject can be either a JLabel or a String.
-		if(anObject instanceof JLabel)
-			o = anObject;
-		else {
-			boolean found = false;
-
-			if(!(anObject instanceof String))
-				throw new IllegalArgumentException(anObject.toString());
-			// Looking for the item that matches the given string.
-			for(i=0; i<size && !found; i++) {
-				o = getItemAt(i);
-
-				if(o instanceof JLabel && ((JLabel)o).getText().equals(anObject))
-					found=true;
-				else
-					if(o instanceof String && ((String)o).equals(anObject))
-						found=true;
-			}
-		}
-
-	    dataModel.setSelectedItem(o);
 	}
 
 
