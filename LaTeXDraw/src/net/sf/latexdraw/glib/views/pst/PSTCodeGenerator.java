@@ -107,6 +107,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		final int ppc 	  		= handler.getPPCDrawing();
 		final Map<String, String> addedColours = new HashMap<String, String>();
 		final StringBuilder shapeCode = new StringBuilder();
+		boolean hasBeginFigure;
 
 		if(drawing.isEmpty())
 			return ;
@@ -121,8 +122,17 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			cache.append(pkg).append(LResources.EOL);
 		}
 
-		if(withLatexParams && positionVertToken!=VerticalPosition.NONE)
-			cache.append("\\begin{figure}[").append(positionVertToken.getToken()).append(']').append(LResources.EOL);//$NON-NLS-1$
+		if(withLatexParams && (positionVertToken!=VerticalPosition.NONE || caption.length()>0 || label.length()>0)) {
+			cache.append("\\begin{figure}");
+
+			if(positionVertToken==VerticalPosition.NONE)
+				cache.append(LResources.EOL);
+			else
+				cache.append('[').append(positionVertToken.getToken()).append(']').append(LResources.EOL);
+
+			hasBeginFigure = true;
+		}
+		else hasBeginFigure = false;
 
 		if(withLatexParams && positionHoriCentre)
 			cache.append("\\begin{center}").append(LResources.EOL);//$NON-NLS-1$
@@ -154,13 +164,13 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 				cache.append("\\end{center}").append(LResources.EOL);//$NON-NLS-1$
 
 			if(label.length()>0)
-				cache.append("\\label{").append(label).append('}');//$NON-NLS-1$
+				cache.append("\\label{").append(label).append('}').append(LResources.EOL);//$NON-NLS-1$
 
 			if(caption.length()>0)
-				cache.append("\\caption{").append(caption).append('}');//$NON-NLS-1$
+				cache.append("\\caption{").append(caption).append('}').append(LResources.EOL);//$NON-NLS-1$
 
-			if(positionVertToken!=VerticalPosition.NONE)
-				cache.append("\\end{figure}");//$NON-NLS-1$
+			if(hasBeginFigure)
+				cache.append("\\end{figure}").append(LResources.EOL);//$NON-NLS-1$
 		}
 	}
 

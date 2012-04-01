@@ -7,8 +7,10 @@ import java.util.Map;
 
 import javax.swing.AbstractButton;
 import javax.swing.Box;
+import javax.swing.JLabel;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
+import net.sf.latexdraw.instruments.DrawingPropertiesCustomiser;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -58,6 +60,9 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	/** The toolbar that contains the widgets to customise the magnetic grid. */
 	protected ListToggleButton magneticGridB;
 
+	/** The toolbar that contains the widgets to customise the drawing's properties. */
+	protected ListToggleButton drawingB;
+
 	/** The hash map used to map a widget to its container. */
 	protected Map<Component, ListToggleButton> mapContainers;
 
@@ -97,6 +102,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
 		composeMagneticGridToolbar(canvas);
+		composeDrawingPropertiesToolbar(canvas);
 
 		// Adding the undo/redo buttons.
 		widget.add(frame.undoManager.getUndoB());
@@ -155,6 +161,25 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		widget.add(frame.exceptionsManager.getExceptionB());
 
 		if(progressBar!=null) progressBar.addToProgressBar(5);
+	}
+
+
+	protected void composeDrawingPropertiesToolbar(final LCanvas canvas) {
+		final DrawingPropertiesCustomiser cust = frame.getDrawingPropCustomiser();
+		drawingB = new ListToggleButton(frame, LResources.DRAWING_PROP_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
+		drawingB.setToolTipText("Customising the drawing's properties.");
+		widget.add(drawingB);
+
+		cust.getTitleField().setColumns(15);
+		cust.getLabelField().setColumns(10);
+		drawingB.addComponent(new JLabel("Caption:"));
+		drawingB.addComponent(cust.getTitleField());
+		drawingB.addComponent(new JLabel("Label:"));
+		drawingB.addComponent(cust.getLabelField());
+		drawingB.addComponent(cust.getMiddleHorizPosCB());
+		drawingB.addComponent(new JLabel("Position:"));
+		drawingB.addComponent(cust.getPositionCB());
+		drawingB.addSeparator();
 	}
 
 

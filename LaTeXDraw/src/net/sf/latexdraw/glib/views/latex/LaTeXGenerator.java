@@ -108,6 +108,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 			public String getToken() { return ""; }//$NON-NLS-1$
 		};
 
+
+		@Override
+		public String toString() {
+			return getToken();
+		}
+
 		/**
 		 * @return The token corresponding to the placement.
 		 * @since 3.0
@@ -415,9 +421,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		FileOutputStream fos = null;
 		OutputStreamWriter osw = null;
-		
-		try { 
-			fos = new FileOutputStream(pathExportTex); 
+
+		try {
+			fos = new FileOutputStream(pathExportTex);
 			osw = new OutputStreamWriter(fos);
 		} catch(final IOException ex) { ok = false; }
 

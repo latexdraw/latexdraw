@@ -12,6 +12,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.CopierCutterPaster;
+import net.sf.latexdraw.instruments.DrawingPropertiesCustomiser;
 import net.sf.latexdraw.instruments.EditingSelector;
 import net.sf.latexdraw.instruments.ExceptionsManager;
 import net.sf.latexdraw.instruments.Exporter;
@@ -138,6 +139,9 @@ public class LFrame extends UI {
 	/** The instrument that customises the magnetic grid. */
 	protected MagneticGridCustomiser gridCustomiser;
 
+	/** The instrument that customises the properties of the drawing. */
+	protected DrawingPropertiesCustomiser drawingPropCustomiser;
+
 	/** The instrument that copies, cuts and pastes selected shapes. */
 	protected CopierCutterPaster paster;
 
@@ -231,6 +235,8 @@ public class LFrame extends UI {
 		exceptionsManager	= new ExceptionsManager();
 		helper				= new Helper(composer);
 		try { gridCustomiser= new MagneticGridCustomiser(composer, canvas.getMagneticGrid()); }
+		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, getCodePanel().getPstGenerator()); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scaleRulersCustomiser = new ScaleRulersCustomiser(xScaleRuler, yScaleRuler); }
 		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
@@ -401,7 +407,8 @@ public class LFrame extends UI {
 	public Instrument[] getInstruments() {
 		return new Instrument[]{editingSelector, exporter, fileLoader, hand, pencil, metaShapeCustomiser, undoManager,
 								zoomer, scaleRulersCustomiser, scroller, gridCustomiser, helper, textSetter, exceptionsManager,
-								deleter, prefActivator, prefSetters, paster, getCanvas().getBorderInstrument(), tabSelector};
+								deleter, prefActivator, prefSetters, paster, getCanvas().getBorderInstrument(), tabSelector,
+								drawingPropCustomiser};
 	}
 
 
@@ -444,6 +451,15 @@ public class LFrame extends UI {
 	 */
 	public PreferencesSetter getPrefSetters() {
 		return prefSetters;
+	}
+
+
+	/**
+	 * @return The instrument that customises the drawing's properties.
+	 * @since 3.0
+	 */
+	public final DrawingPropertiesCustomiser getDrawingPropCustomiser() {
+		return drawingPropCustomiser;
 	}
 
 

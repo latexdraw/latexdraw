@@ -162,6 +162,7 @@ public class UIBuilder extends UIComposer<LFrame> {
 		setGlobalShortcutEventable(widget.fileLoader, canvas);
 		widget.fileLoader.addEventable(widget);
 		widget.tabSelector.addEventable(widget.tabbedPanel);
+		widget.drawingPropCustomiser.addEventable(toolbarBuilder.drawingB.getToolbar());
 	}
 
 
@@ -198,5 +199,6 @@ public class UIBuilder extends UIComposer<LFrame> {
 		widget.scaleRulersCustomiser.setActivated(true);
 		widget.paster.setActivated(true);
 		widget.tabSelector.setActivated(true);
+		widget.drawingPropCustomiser.setActivated(true);
 	}
 }

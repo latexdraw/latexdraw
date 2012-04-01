@@ -120,8 +120,8 @@ public class ModifyLatexProperties extends Action implements Undoable, Modifying
 			case COMMENT 			: generator.setComment((String)object); break;
 			case LABEL 				: generator.setLabel((String)object); break;
 			case PACKAGES 			: LaTeXGenerator.setPackages((String)object); break;
-			case POSITION_HORIZONTAL: generator.setPositionVertToken((VerticalPosition)object); break;
-			case POSITION_VERTICAL 	: generator.setPositionHoriCentre((Boolean)object); break;
+			case POSITION_HORIZONTAL: generator.setPositionHoriCentre((Boolean)object); break;
+			case POSITION_VERTICAL  : generator.setPositionVertToken((VerticalPosition)object); break;
 		}
 	}
 
@@ -147,7 +147,7 @@ public class ModifyLatexProperties extends Action implements Undoable, Modifying
 
 	@Override
 	public String getUndoName() {
-		return "Modification of a LaTeX attribute";
+		return "Modification of a drawing's property";
 	}
 
 
