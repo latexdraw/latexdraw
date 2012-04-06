@@ -2677,4 +2677,24 @@ class LGroup extends LShape implements IGroup {
 				if(sh instanceof IAxes)
 					((IAxes)sh).setAxesStyle(axesStyle);
 	}
+
+
+	@Override
+	public void setAxesTicksStyleList(final List<TicksStyle> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IAxes)
+					((IAxes)shapes.get(i)).setTicksStyle(values.get(i));
+	}
+
+
+	@Override
+	public List<TicksStyle> getAxesTicksStyleList() {
+		final List<TicksStyle> list = new ArrayList<TicksStyle>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IAxes ? ((IAxes)sh).getTicksStyle() : null);
+
+		return list;
+	}
 }

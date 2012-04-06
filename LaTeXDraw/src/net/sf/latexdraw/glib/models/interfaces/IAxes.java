@@ -39,7 +39,7 @@ public interface IAxes extends IStandardGrid {
 			public boolean supportsArrows() {
 				return true;
 			}
-			
+
 			@Override
 			public String toString() {
 				 return LangTool.INSTANCE.getString18("Axe.1"); //$NON-NLS-1$
@@ -54,7 +54,7 @@ public interface IAxes extends IStandardGrid {
 			public boolean supportsArrows() {
 				return false;
 			}
-			
+
 			@Override
 			public String toString() {
 				return LangTool.INSTANCE.getString18("Axe.2"); //$NON-NLS-1$
@@ -69,7 +69,7 @@ public interface IAxes extends IStandardGrid {
 			public boolean supportsArrows() {
 				return false;
 			}
-			
+
 			@Override
 			public String toString() {
 				return "None";
@@ -109,9 +109,6 @@ public interface IAxes extends IStandardGrid {
 	public static enum TicksStyle {
 		FULL {
 			@Override
-			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.3"); }//$NON-NLS-1$
-
-			@Override
 			public boolean isTop() {
 				return true;
 			}
@@ -125,10 +122,12 @@ public interface IAxes extends IStandardGrid {
 			public String getPSTToken() {
 				return PSTricksConstants.TOKEN_TICKS_STYLE_FULL;
 			}
-		}, TOP {
-			@Override
-			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.4"); }//$NON-NLS-1$
 
+			@Override
+			public String toString() {
+				return LangTool.INSTANCE.getString18("Axe.3");//$NON-NLS-1$
+			}
+		}, TOP {
 			@Override
 			public boolean isTop() {
 				return true;
@@ -143,10 +142,12 @@ public interface IAxes extends IStandardGrid {
 			public String getPSTToken() {
 				return PSTricksConstants.TOKEN_TICKS_STYLE_TOP;
 			}
-		}, BOTTOM {
-			@Override
-			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.5"); }//$NON-NLS-1$
 
+			@Override
+			public String toString() {
+				return LangTool.INSTANCE.getString18("Axe.4");//$NON-NLS-1$
+			}
+		}, BOTTOM {
 			@Override
 			public boolean isTop() {
 				return false;
@@ -160,6 +161,11 @@ public interface IAxes extends IStandardGrid {
 			@Override
 			public String getPSTToken() {
 				return PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM;
+			}
+
+			@Override
+			public String toString() {
+				return LangTool.INSTANCE.getString18("Axe.5");//$NON-NLS-1$
 			}
 		};
 
@@ -180,13 +186,6 @@ public interface IAxes extends IStandardGrid {
 		 * @since 3.0
 		 */
 		public abstract boolean isBottom();
-
-		/**
-		 * The translated label of the style.
-		 * @return The label corresponding to the style.
-		 */
-		public abstract String getLabel();
-
 
 		/**
 		 * @param style The style to check. Can be the PST token or the name of the style (e.g. FULL.toString()).

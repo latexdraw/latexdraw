@@ -5,6 +5,7 @@ import java.awt.Color;
 import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
@@ -202,6 +203,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case GRID_SIZE_LABEL: pencil.getGroupParams().setLabelsSize((Integer)value); break;
 			case GRID_ORIGIN: pencil.getGroupParams().setOrigin(((IPoint)value).getX(), ((IPoint)value).getY()); break;
 			case AXES_STYLE: pencil.getGroupParams().setAxesStyle((AxesStyle)value); break;
+			case AXES_TICKS_STYLE: pencil.getGroupParams().setTicksStyle((TicksStyle)value); break;
 		}
 	}
 }

@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -37,28 +38,58 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  */
 public enum ShapeProperties {
 	/** The X-coordinate of the grid's labels. */
+	AXES_TICKS_STYLE {
+		@Override
+		public String getMessage() {
+			return "Ticks' style";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof TicksStyle;
+		}
+
+		@Override
+		public List<TicksStyle> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<TicksStyle>() : group.getAxesTicksStyleList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setTicksStyle((TicksStyle)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setAxesTicksStyleList((List<TicksStyle>)values);
+		}
+	},
+	/** The X-coordinate of the grid's labels. */
 	AXES_STYLE {
 		@Override
 		public String getMessage() {
 			return "Axe's style";
 		}
-		
+
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof AxesStyle;
 		}
-		
+
 		@Override
 		public List<AxesStyle> getPropertyValues(final IGroup group) {
 			return group==null ? new ArrayList<AxesStyle>() : group.getAxesStyleList();
 		}
-		
+
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
 			if(group!=null && isValueValid(value))
 				group.setAxesStyle((AxesStyle)value);
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		@Override
 		public void setPropertyValueList(final IGroup group, final List<?> values) {
@@ -72,23 +103,23 @@ public enum ShapeProperties {
 		public String getMessage() {
 			return "grid's labels position";
 		}
-		
+
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof Boolean;
 		}
-		
+
 		@Override
 		public List<Boolean> getPropertyValues(final IGroup group) {
 			return group==null ? new ArrayList<Boolean>() : group.getGridYLabelWestList();
 		}
-		
+
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
 			if(group!=null && isValueValid(value))
 				group.setYLabelWest((Boolean)value);
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		@Override
 		public void setPropertyValueList(final IGroup group, final List<?> values) {
@@ -643,17 +674,17 @@ public enum ShapeProperties {
 		public String getMessage() {
 			return "Grid's coordinates";
 		}
-		
+
 		@Override
 		public boolean isValueValid(final Object obj) {
 			return obj instanceof IPoint;
 		}
-		
+
 		@Override
 		public List<IPoint> getPropertyValues(final IGroup group) {
 			return group==null ? new ArrayList<IPoint>() : group.getGridOriginList();
 		}
-		
+
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
 			if(group!=null && isValueValid(value)) {
@@ -661,7 +692,7 @@ public enum ShapeProperties {
 				group.setOrigin(pt.getX(), pt.getY());
 			}
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		@Override
 		public void setPropertyValueList(final IGroup group, final List<?> values) {

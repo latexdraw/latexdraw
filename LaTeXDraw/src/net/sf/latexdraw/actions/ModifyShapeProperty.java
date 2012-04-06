@@ -165,8 +165,9 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case ARC_END_ANGLE:
 				case ARC_START_ANGLE:
 				case ARC_STYLE:
-				case AXES_STYLE:		return shapes.containsAxes();
 				case COLOUR_LINE:		return true;
+				case AXES_TICKS_STYLE:
+				case AXES_STYLE:		return shapes.containsAxes();
 			}
 
 		return false;

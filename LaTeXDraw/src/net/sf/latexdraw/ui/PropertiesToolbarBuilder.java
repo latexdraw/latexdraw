@@ -8,6 +8,9 @@ import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JComponent;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
@@ -117,13 +120,23 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	protected ListToggleButton composeAxesPropertiesToolbar(final ShapeAxesCustomiser cust, final LCanvas canvas) {
 		ListToggleButton list = new ListToggleButton(frame, LResources.AXES_ICON, ListToggleButton.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of axes.");
+		MPanel panel 	  = new MPanel(false, true);
+		MPanel ticksPanel = new MPanel(false, true);
 
-		list.addComponent(cust.getShapeAxes());
+		ticksPanel.setBorder(new CompoundBorder(new TitledBorder(null, LangTool.INSTANCE.getString18("ParametersAxeFrame.17"), //$NON-NLS-1$
+				  TitledBorder.LEFT, TitledBorder.TOP), new EmptyBorder(0,0,0,0)));
+
+		panel.add(cust.getShapeAxes());
+		ticksPanel.add(cust.getShapeTicks());
+
+		list.addComponent(panel);
+		list.addComponent(ticksPanel);
 		list.addSeparator();
 
 		mapContainers.put(cust.getShapeAxes(), list);
 
-		cust.addEventable(list.getToolbar());
+		cust.addEventable(panel);
+		cust.addEventable(ticksPanel);
 		return list;
 	}
 

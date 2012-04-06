@@ -7,6 +7,7 @@ import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
@@ -35,6 +36,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	/** The widget that permits to select the style of the axes. */
 	protected MComboBox shapeAxes;
 
+	/** The widget that permits to select the style of the ticks. */
+	protected MComboBox shapeTicks;
+
 
 	/**
 	 * Creates the instrument.
@@ -56,6 +60,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		if(shape instanceof IAxes && (!(shape instanceof IGroup) || ((IGroup)shape).containsAxes())) {
 			final IAxes axes = (IAxes)shape;
 			shapeAxes.setSelectedItemSafely(axes.getAxesStyle());
+			shapeTicks.setSelectedItemSafely(axes.getTicksStyle());
 		}
 		else setActivated(false);
 	}
@@ -64,12 +69,14 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(shapeAxes, activated);
+		composer.setWidgetVisible(shapeTicks, activated);
 	}
 
 
 	@Override
 	protected void initialiseWidgets() {
 		shapeAxes = new MComboBox(AxesStyle.values());
+		shapeTicks = new MComboBox(TicksStyle.values());
 	}
 
 
@@ -94,6 +101,14 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		return shapeAxes;
 	}
 
+	/**
+	 * @return The widget that permits to select the style of the ticks.
+	 * @since 3.0
+	 */
+	public final MComboBox getShapeTicks() {
+		return shapeTicks;
+	}
+
 
 	/** Maps a combobox to an action that modifies the axe's style. */
 	private static abstract class Combobox2CustomAxes<A extends ShapePropertyAction> extends ListForCustomiser<A, ShapeAxesCustomiser> {
@@ -103,12 +118,16 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public boolean isConditionRespected() {
-			return instrument.shapeAxes==interaction.getList();
+			return instrument.shapeAxes==interaction.getList() || instrument.shapeTicks==interaction.getList();
 		}
 
 		@Override
 		public void initAction() {
-			action.setProperty(ShapeProperties.AXES_STYLE);
+			if(instrument.shapeAxes==interaction.getList())
+				action.setProperty(ShapeProperties.AXES_STYLE);
+			else
+				action.setProperty(ShapeProperties.AXES_TICKS_STYLE);
+
 			action.setValue(interaction.getList().getSelectedObjects()[0]);
 		}
 	}
