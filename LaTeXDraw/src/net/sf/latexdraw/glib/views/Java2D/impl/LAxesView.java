@@ -58,12 +58,18 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final int origx 	= (int)shape.getOriginX();
 		final double posx 	= shape.getPosition().getX();
 		final double posy 	= shape.getPosition().getY();
-		final double y 		= posy + (ticksStyle.isBottom() ? tickLgth/2. : 0.);
 		final boolean noArrowLeftX = shape.getArrowStyle(2)==ArrowStyle.NONE;
 		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE;
 		double x;
+		final double y;
 		int val;
 		int inti;
+
+		switch(ticksStyle) {
+			case FULL: 	y = posy + tickLgth/2.; break;
+			case TOP:	y = posy; break;
+			default: 	y = posy + tickLgth;
+		}
 
 		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX(), minx = shape.getGridMinX(), i=maxx-(maxx%((int)incrx)); i>=minx; i-=incrx) {
 			inti = (int)i;
@@ -84,12 +90,18 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final int origy 	= (int)shape.getOriginY();
 		final double posx 	= shape.getPosition().getX();
 		final double posy 	= shape.getPosition().getY();
-		final double x 		= posx - (ticksStyle.isBottom() ? tickLgth/2. : 0.);
 		final boolean noArrowTopY = shape.getArrowStyle(1)==ArrowStyle.NONE;
 		final boolean noArrowBotY  = shape.getArrowStyle(0)==ArrowStyle.NONE;
+		final double x;
 		double y;
 		int val;
 		int inti;
+
+		switch(ticksStyle) {
+			case FULL: 	x = posx - tickLgth/2.; break;
+			case TOP:	x = posx; break;
+			default: 	x = posx - tickLgth;
+		}
 
 		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY(), miny = shape.getGridMinY(), i=maxy-(maxy%((int)incry)); i>=miny; i-=incry) {
 			inti = (int)i;
