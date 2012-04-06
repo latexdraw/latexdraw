@@ -3,6 +3,7 @@ package net.sf.latexdraw.ui;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -171,14 +172,19 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 	 * @since 3.0
 	 */
 	public boolean isContentVisible() {
+		return isContentVisibleContainer(toolbar);
+	}
+
+
+	private static boolean isContentVisibleContainer(final Container cont) {
 		boolean visible = false;
 		Component comp;
 
-		for(int i=0, size=toolbar.getComponentCount(); i<size && !visible; i++) {
-			comp = toolbar.getComponent(i);
+		for(int i=0, size=cont.getComponentCount(); i<size && !visible; i++) {
+			comp = cont.getComponent(i);
 
 			if(!(comp instanceof JToolBar.Separator) && !(comp instanceof CloseButton) && !(comp instanceof Box.Filler))
-				visible = comp.isVisible();
+				visible = comp.isVisible() && (!(comp instanceof Container) || isContentVisibleContainer((Container)comp));
 		}
 
 		return visible;
