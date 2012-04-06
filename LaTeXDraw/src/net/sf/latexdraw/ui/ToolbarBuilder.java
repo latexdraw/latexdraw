@@ -43,28 +43,28 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	protected LFrame frame;
 
 	/** The toolbar that contains the widgets to create rectangle-like shapes. */
-	protected ListToggleButton recListB;
+	protected WidgetMiniToolbar recListB;
 
 	/** The toolbar that contains the widgets to create polygon-like shapes. */
-	protected ListToggleButton polygonListB;
+	protected WidgetMiniToolbar polygonListB;
 
 	/** The toolbar that contains the widgets to create grid-like shapes. */
-	protected ListToggleButton gridListB;
+	protected WidgetMiniToolbar gridListB;
 
 	/** The toolbar that contains the widgets to create ellipse-like shapes. */
-	protected ListToggleButton ellipseListB;
+	protected WidgetMiniToolbar ellipseListB;
 
 	/** The toolbar that contains the widgets to create curve-like shapes. */
-	protected ListToggleButton bezierListB;
+	protected WidgetMiniToolbar bezierListB;
 
 	/** The toolbar that contains the widgets to customise the magnetic grid. */
-	protected ListToggleButton magneticGridB;
+	protected WidgetMiniToolbar magneticGridB;
 
 	/** The toolbar that contains the widgets to customise the drawing's properties. */
-	protected ListToggleButton drawingB;
+	protected WidgetMiniToolbar drawingB;
 
 	/** The hash map used to map a widget to its container. */
-	protected Map<Component, ListToggleButton> mapContainers;
+	protected Map<Component, WidgetMiniToolbar> mapContainers;
 
 
 	/**
@@ -76,7 +76,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	public ToolbarBuilder(final LFrame frame) {
 		super();
 		this.frame 		= frame;
-		mapContainers	= new IdentityHashMap<Component, ListToggleButton>();
+		mapContainers	= new IdentityHashMap<Component, WidgetMiniToolbar>();
 	}
 
 
@@ -166,7 +166,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 
 	protected void composeDrawingPropertiesToolbar(final LCanvas canvas) {
 		final DrawingPropertiesCustomiser cust = frame.getDrawingPropCustomiser();
-		drawingB = new ListToggleButton(frame, LResources.DRAWING_PROP_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
+		drawingB = new WidgetMiniToolbar(frame, LResources.DRAWING_PROP_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
 		drawingB.setToolTipText("Customising the drawing's properties.");
 		widget.add(drawingB);
 
@@ -188,7 +188,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * @since 3.0
 	 */
 	protected void composeRectangleLikeToolbar(final LCanvas canvas) {
-		recListB = new ListToggleButton(frame, LResources.RECT_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
+		recListB = new WidgetMiniToolbar(frame, LResources.RECT_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
 		recListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.118")); //$NON-NLS-1$
 		widget.add(recListB);
 
@@ -212,7 +212,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * @since 3.0
 	 */
 	protected void composeEllipseLikeToolbar(final LCanvas canvas) {
- 		ellipseListB = new ListToggleButton(frame, LResources.ELLIPSE_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
+ 		ellipseListB = new WidgetMiniToolbar(frame, LResources.ELLIPSE_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
  		ellipseListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
  		widget.add(ellipseListB);
 
@@ -237,7 +237,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * @since 3.0
 	 */
 	protected void composePolygonLikeToolbar(final LCanvas canvas) {
- 		polygonListB = new ListToggleButton(frame, LResources.POLYGON_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
+ 		polygonListB = new WidgetMiniToolbar(frame, LResources.POLYGON_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
  		polygonListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
  		widget.add(polygonListB);
 
@@ -267,7 +267,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * @since 3.0
 	 */
 	protected void composeCurveLikeToolbar(final LCanvas canvas) {
- 		bezierListB = new ListToggleButton(frame, LResources.CLOSED_BEZIER_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
+ 		bezierListB = new WidgetMiniToolbar(frame, LResources.CLOSED_BEZIER_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
  		bezierListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
  		widget.add(bezierListB);
 
@@ -291,7 +291,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * @since 3.0
 	 */
 	protected void composeGridLikeToolbar(final LCanvas canvas) {
- 		gridListB = new ListToggleButton(frame, LResources.GRID_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
+ 		gridListB = new WidgetMiniToolbar(frame, LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
  		gridListB.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.16")); //$NON-NLS-1$
 
  		AbstractButton button = frame.editingSelector.getGridB();
@@ -311,7 +311,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 
 
 	protected void composeMagneticGridToolbar(final LCanvas canvas) {
-		magneticGridB = new ListToggleButton(frame, LResources.DISPLAY_GRID_ICON, ListToggleButton.LOCATION_SOUTH, canvas);
+		magneticGridB = new WidgetMiniToolbar(frame, LResources.DISPLAY_GRID_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
 		magneticGridB.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.12")); //$NON-NLS-1$
 		widget.add(magneticGridB);
 

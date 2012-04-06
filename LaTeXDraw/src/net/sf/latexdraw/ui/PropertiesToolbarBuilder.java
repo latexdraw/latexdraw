@@ -64,7 +64,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	protected LFrame frame;
 
 	/** The hash map used to map a widget to its container. */
-	protected Map<Component, ListToggleButton> mapContainers;
+	protected Map<Component, WidgetMiniToolbar> mapContainers;
 
 
 	/**
@@ -76,7 +76,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	public PropertiesToolbarBuilder(final LFrame frame) {
 		super();
 		this.frame 		= frame;
-		mapContainers	= new IdentityHashMap<Component, ListToggleButton>();
+		mapContainers	= new IdentityHashMap<Component, WidgetMiniToolbar>();
 	}
 
 
@@ -117,8 +117,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
-	protected ListToggleButton composeAxesPropertiesToolbar(final ShapeAxesCustomiser cust, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.AXES_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+	protected WidgetMiniToolbar composeAxesPropertiesToolbar(final ShapeAxesCustomiser cust, final LCanvas canvas) {
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.AXES_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of axes.");
 		MPanel panel 	  = new MPanel(false, true);
 		MPanel ticksPanel = new MPanel(false, true);
@@ -142,8 +142,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 
-	protected ListToggleButton composeGridPropertiesToolbar(final ShapeGridCustomiser cust, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.GRID_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+	protected WidgetMiniToolbar composeGridPropertiesToolbar(final ShapeGridCustomiser cust, final LCanvas canvas) {
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids and axes.");
 
 		addSpinner(list, cust.getxStartS(), true, 50);
@@ -172,8 +172,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
-	protected ListToggleButton composeDimPosPropertiesToolbar(final ShapeCoordDimCustomiser cust, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.DIM_POS_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+	protected WidgetMiniToolbar composeDimPosPropertiesToolbar(final ShapeCoordDimCustomiser cust, final LCanvas canvas) {
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.DIM_POS_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the dimensions and the position.");
 
 		addSpinner(list, cust.getTlxS(), true, 90);
@@ -188,8 +188,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
-	protected ListToggleButton composeTextPropertiesToolbar(final TextCustomiser textCustomiser, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.TEXT_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+	protected WidgetMiniToolbar composeTextPropertiesToolbar(final TextCustomiser textCustomiser, final LCanvas canvas) {
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.TEXT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of the text.");
 
 		list.addComponent(textCustomiser.getPackagesLabel());
@@ -204,8 +204,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
-	protected ListToggleButton composeTextPositionToolbar(final TextCustomiser textCustomiser, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.TEXTPOS_BL, ListToggleButton.LOCATION_NORTH, canvas);
+	protected WidgetMiniToolbar composeTextPositionToolbar(final TextCustomiser textCustomiser, final LCanvas canvas) {
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.TEXTPOS_BL, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the position of the text.");
 		list.addComponent(textCustomiser.getBlButton());
 		list.addComponent(textCustomiser.getBButton());
@@ -227,7 +227,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
-	protected void addSpinner(final ListToggleButton list, final MSpinner spinner, final boolean label, final int width) {
+	protected void addSpinner(final WidgetMiniToolbar list, final MSpinner spinner, final boolean label, final int width) {
 		spinner.setPreferredSize(new Dimension(width, HEIGHT_TEXTFIELD));
 		if(label)
 			list.addComponent(spinner.getLabel());
@@ -236,7 +236,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 	protected JComponent composeArcPropertiesWidgets(final ShapeArcCustomiser ins, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.ARC_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.ARC_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the arcs.");
 
 		list.addComponent(ins.getArcB());
@@ -259,7 +259,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 	protected JComponent composeDotToolbar(final ShapeDotCustomiser ins, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.DOT_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.DOT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the dots.");
 
 		list.addComponent(ins.getDotCB());
@@ -279,7 +279,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 	protected JComponent composeArrowToolbar(final ShapeArrowCustomiser ins, final LCanvas canvas) {
 		final int size = 70;
-		ListToggleButton list = new ListToggleButton(frame, LResources.ARROW_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.ARROW_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the arrows.");
 
 		list.addComponent(ins.getArrowLeftCB());
@@ -318,7 +318,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 	protected JComponent composeRotationToolbar(final ShapeRotationCustomiser ins, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.ROTATE_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.ROTATE_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
         list.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.2")); //$NON-NLS-1$
 
         addSpinner(list, ins.getRotationField(), true, 65);
@@ -345,7 +345,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	 * @since 3.0
 	 */
 	protected JComponent composeFillingPanel(final ShapeFillingCustomiser fillingCustomiser, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.FILLING_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.FILLING_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the filling properties.");
 		list.addComponent(fillingCustomiser.getFillStyleCB());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
@@ -392,7 +392,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	 * @since 3.0
 	 */
 	protected JComponent composeShadowPropertiesPanel(final ShapeShadowCustomiser shadowCustomiser, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.SHADOW_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.SHADOW_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the shadow properties.");
 		list.addComponent(shadowCustomiser.getShadowCB());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
@@ -421,7 +421,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	 * @since 3.0
 	 */
 	protected JComponent composeDoubleBorderPropertiesPanel(final ShapeDoubleBorderCustomiser dbleBorderCustomiser, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.DOUBLE_BORDER_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.DOUBLE_BORDER_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the double border properties.");
 		list.addComponent(dbleBorderCustomiser.getDbleBoundCB());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
@@ -447,7 +447,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	 * @since 3.0
 	 */
 	protected JComponent composeBorderPropertiesPanel(final ShapeBorderCustomiser borderCustomiser, final LCanvas canvas) {
-		ListToggleButton list = new ListToggleButton(frame, LResources.BORDER_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.BORDER_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the border properties.");
 
 		addSpinner(list, borderCustomiser.getThicknessField(), true, 65);

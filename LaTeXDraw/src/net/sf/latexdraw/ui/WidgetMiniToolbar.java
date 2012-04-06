@@ -65,7 +65,7 @@ import org.malai.widget.WidgetUtilities;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class ListToggleButton extends JToggleButton implements ActionListener, ChangeListener, WindowFocusListener, Picker, Eventable {
+public class WidgetMiniToolbar extends JToggleButton implements ActionListener, ChangeListener, WindowFocusListener, Picker, Eventable {
 	private static final long serialVersionUID = 1L;
 
 	/** The event manager that listens events produced by the list of toogle buttons. May be null. */
@@ -113,7 +113,7 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 	 * @param componentFocusOnClose The component to give the focus when the toolbar is closed. Can be null.
 	 * @since 3.0
 	 */
-	public ListToggleButton(final JFrame frame, final String txt, final int locate, final Component componentFocusOnClose) {
+	public WidgetMiniToolbar(final JFrame frame, final String txt, final int locate, final Component componentFocusOnClose) {
 		super(txt);
 
 		setIcon();
@@ -130,7 +130,7 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 	 * @param frame The main frame containing the ListJToggleButton.
 	 * @param componentFocusOnClose The component to give the focus when the toolbar is closed. Can be null.
 	 */
-	public ListToggleButton(final JFrame frame, final Icon icon, final int locate, final Component componentFocusOnClose) {
+	public WidgetMiniToolbar(final JFrame frame, final Icon icon, final int locate, final Component componentFocusOnClose) {
 		super(icon);
 
 		intializing(frame, locate);
@@ -332,7 +332,7 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 	public void actionPerformed(final ActionEvent e) {
 		final Object src = e.getSource();
 
-		if(src instanceof ListToggleButton) {
+		if(src instanceof WidgetMiniToolbar) {
 			final boolean visible = !buttonsFrame.isVisible();
 
 			defineToolbarLocation();
@@ -543,9 +543,9 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 	    		// - the widget concerned by the event is not a widget of the toolbar (necessary to manage widgets
 	    		// which size is not contained into the toolbar such as ComboBoxes).
 		    	if(!new Rectangle(buttonsFrame.getLocationOnScreen(), buttonsFrame.getSize()).contains(pt) &&
-		    		!new Rectangle(ListToggleButton.this.getLocationOnScreen(), ListToggleButton.this.getSize()).contains(pt) &&
+		    		!new Rectangle(WidgetMiniToolbar.this.getLocationOnScreen(), WidgetMiniToolbar.this.getSize()).contains(pt) &&
 		    		SwingUtilities.getAncestorOfClass(WindowWidgets.class, comp)!=buttonsFrame)
-		    		ListToggleButton.this.buttonsFrame.setVisible(false);
+		    		WidgetMiniToolbar.this.buttonsFrame.setVisible(false);
 		    	}
 		}
 
@@ -555,7 +555,7 @@ public class ListToggleButton extends JToggleButton implements ActionListener, C
 	class WindowWidgets extends JWindow implements WindowListener {
 		private static final long serialVersionUID = 1L;
 
-		protected WindowWidgets(final JFrame owner, final JPanel buttonsPanel, final ListToggleButton list) {
+		protected WindowWidgets(final JFrame owner, final JPanel buttonsPanel, final WidgetMiniToolbar list) {
 			super(owner);
 
 			setVisible(false);

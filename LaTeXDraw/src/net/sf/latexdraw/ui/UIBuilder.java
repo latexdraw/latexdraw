@@ -70,7 +70,7 @@ public class UIBuilder extends UIComposer<LFrame> {
 
 		super.setWidgetVisible(comp, visible);
 
-		ListToggleButton list = toolbarBuilder.mapContainers.get(comp);
+		WidgetMiniToolbar list = toolbarBuilder.mapContainers.get(comp);
 
 		if(list==null)
 			list = propToolbarBuilder.mapContainers.get(comp);
