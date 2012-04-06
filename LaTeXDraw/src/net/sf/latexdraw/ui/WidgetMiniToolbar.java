@@ -256,6 +256,11 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	}
 
 
+	@Override
+	public Component add(final Component comp) {
+		addComponent(comp);
+		return comp;
+	}
 
 
 	/**
