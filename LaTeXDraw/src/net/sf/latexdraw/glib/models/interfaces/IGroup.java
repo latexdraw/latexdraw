@@ -25,12 +25,19 @@ import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable, IStandardGrid {
+public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable, IAxes {
+	/**
+	 * @return True if one of the shapes of the group is an axe.
+	 * @since 3.0
+	 */
+	boolean containsAxes();
+
+
 	/**
 	 * @return True if one of the shapes of the group is a grid.
 	 * @since 3.0
 	 */
-	boolean containsGrids();
+	boolean containsStandardGrids();
 
 	/**
 	 * @return True if one of the shapes of the group supports rounded corners.
@@ -702,4 +709,21 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	 * @since 3.0
 	 */
 	List<Boolean> getGridYLabelWestList();
+
+	/**
+	 * Sets the style of the axes contained by the group.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setAxesStyleList(final List<AxesStyle> values);
+
+	/**
+	 * @return The list of the styles of the axes contained by the group.
+	 * If a shape of the group is not an axe, null is added.
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<AxesStyle> getAxesStyleList();
 }

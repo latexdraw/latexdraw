@@ -7,6 +7,7 @@ import java.util.List;
 import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -35,6 +36,36 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** The X-coordinate of the grid's labels. */
+	AXES_STYLE {
+		@Override
+		public String getMessage() {
+			return "Axe's style";
+		}
+		
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof AxesStyle;
+		}
+		
+		@Override
+		public List<AxesStyle> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<AxesStyle>() : group.getAxesStyleList();
+		}
+		
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setAxesStyle((AxesStyle)value);
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setAxesStyleList((List<AxesStyle>)values);
+		}
+	},
 	/** The X-coordinate of the grid's labels. */
 	GRID_LABEL_POSITION_X {
 		@Override

@@ -13,6 +13,7 @@ import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.ShapeArcCustomiser;
 import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
+import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
@@ -100,6 +101,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(composeTextPropertiesToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
 		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getGridCustomiser(), canvas));
+		widget.add(composeAxesPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
 
@@ -110,6 +112,21 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(grouper.getSepB());
 		grouper.addEventable(widget);
 	}
+
+
+	protected ListToggleButton composeAxesPropertiesToolbar(final ShapeAxesCustomiser cust, final LCanvas canvas) {
+		ListToggleButton list = new ListToggleButton(frame, LResources.AXES_ICON, ListToggleButton.LOCATION_NORTH, canvas);
+		list.setToolTipText("Modifies the properties of axes.");
+
+		list.addComponent(cust.getShapeAxes());
+		list.addSeparator();
+
+		mapContainers.put(cust.getShapeAxes(), list);
+
+		cust.addEventable(list.getToolbar());
+		return list;
+	}
+
 
 
 	protected ListToggleButton composeGridPropertiesToolbar(final ShapeGridCustomiser cust, final LCanvas canvas) {

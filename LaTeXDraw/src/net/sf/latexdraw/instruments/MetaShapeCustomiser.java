@@ -62,6 +62,9 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument groups shapes. */
 	protected ShapeGrouper shapeGrouper;
 
+	/** This instrument that customises axes. */
+	protected ShapeAxesCustomiser shapeAxesCustomiser;
+
 
 
 	/**
@@ -87,6 +90,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dimPosCustomiser		= new ShapeCoordDimCustomiser(composer, hand, pencil);
 		gridCustomiser			= new ShapeGridCustomiser(composer, hand, pencil);
 		shapeGrouper			= new ShapeGrouper(composer, hand, pencil);
+		shapeAxesCustomiser		= new ShapeAxesCustomiser(composer, hand, pencil);
 	}
 
 
@@ -104,13 +108,14 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dimPosCustomiser.addEventable(eventable);
 		gridCustomiser.addEventable(eventable);
 		shapeGrouper.addEventable(eventable);
+		shapeAxesCustomiser.addEventable(eventable);
 	}
 
 
 	@Override
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
-		
+
 		final IGroup selection = pencil.drawing.getSelection();
 
 		borderCustomiser.setActivated(activated);
@@ -123,6 +128,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dotCustomiser.setActivated(activated);
 		arcCustomiser.setActivated(activated);
 		gridCustomiser.setActivated(activated);
+		shapeAxesCustomiser.setActivated(activated);
 		dimPosCustomiser.setActivated(activated && hand.isActivated() && !selection.isEmpty());
 		shapeGrouper.setActivated(activated && hand.isActivated() && (selection.size()>1 || selection.getShapeAt(0) instanceof IGroup));
 
@@ -145,6 +151,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dimPosCustomiser.update(shape);
 		gridCustomiser.update(shape);
 		shapeGrouper.update(shape);
+		shapeAxesCustomiser.update(shape);
 	}
 
 
@@ -162,6 +169,16 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dimPosCustomiser.clearEvents();
 		gridCustomiser.clearEvents();
 		shapeGrouper.clearEvents();
+		shapeAxesCustomiser.clearEvents();
+	}
+
+
+	/**
+	 * @return The instrument that customises axes.
+	 * @since 3.0
+	 */
+	public ShapeAxesCustomiser getAxesCustomiser() {
+		return shapeAxesCustomiser;
 	}
 
 

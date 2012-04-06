@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
@@ -324,12 +325,17 @@ class LAxesView extends LStandardGridView<IAxes> {
 	@Override
 	public void updateBorder() {
 		final double angle = shape.getRotationAngle();
+		final Rectangle2D bound;
+
+		if(shape.getAxesStyle()==AxesStyle.NONE)
+ 			bound = new Rectangle2D.Double(shape.getPosition().getX(), shape.getPosition().getY(), 1, 1);
+		else bound = path.getBounds2D();
 
 		if(LNumber.INSTANCE.equals(angle, 0.))
 			if(shape.getLabelsDisplayed()==PlottingStyle.NONE)
-				border.setFrame(path.getBounds2D());
+				border.setFrame(bound);
 			else
-				border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
+				border.setFrame(bound.createUnion(pathLabels.getBounds2D()));
 		else {
 			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
 			//TODO

@@ -31,9 +31,6 @@ public interface IAxes extends IStandardGrid {
 	public static enum AxesStyle {
 		AXES {
 			@Override
-			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.1"); } //$NON-NLS-1$
-
-			@Override
 			public String getPSTToken() {
 				return PSTricksConstants.TOKEN_AXES_STYLE_AXES;
 			}
@@ -42,10 +39,12 @@ public interface IAxes extends IStandardGrid {
 			public boolean supportsArrows() {
 				return true;
 			}
-		}, FRAME {
+			
 			@Override
-			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.2"); } //$NON-NLS-1$
-
+			public String toString() {
+				 return LangTool.INSTANCE.getString18("Axe.1"); //$NON-NLS-1$
+			}
+		}, FRAME {
 			@Override
 			public String getPSTToken() {
 				return PSTricksConstants.TOKEN_AXES_STYLE_FRAME;
@@ -55,10 +54,12 @@ public interface IAxes extends IStandardGrid {
 			public boolean supportsArrows() {
 				return false;
 			}
-		}, NONE {
+			
 			@Override
-			public String getLabel() { return LangTool.INSTANCE.getString18("Axe.0"); } //$NON-NLS-1$
-
+			public String toString() {
+				return LangTool.INSTANCE.getString18("Axe.2"); //$NON-NLS-1$
+			}
+		}, NONE {
 			@Override
 			public String getPSTToken() {
 				return PSTricksConstants.TOKEN_AXES_STYLE_NONE;
@@ -67,6 +68,11 @@ public interface IAxes extends IStandardGrid {
 			@Override
 			public boolean supportsArrows() {
 				return false;
+			}
+			
+			@Override
+			public String toString() {
+				return "None";
 			}
 		};
 
@@ -83,13 +89,6 @@ public interface IAxes extends IStandardGrid {
 		 * @since 3.0
 		 */
 		public abstract String getPSTToken();
-
-
-		/**
-		 * The translated label of the style.
-		 * @return The label corresponding to the style.
-		 */
-		public abstract String getLabel();
 
 
 		/**

@@ -10,6 +10,7 @@ import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
@@ -2287,9 +2288,19 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
-	public boolean containsGrids() {
+	public boolean containsStandardGrids() {
 		for(final IShape sh : shapes)
 			if(sh instanceof IStandardGrid)
+				return true;
+
+		return false;
+	}
+
+
+	@Override
+	public boolean containsAxes() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
 				return true;
 
 		return false;
@@ -2456,5 +2467,214 @@ class LGroup extends LShape implements IGroup {
 			list.add(sh instanceof IStandardGrid ? ((IStandardGrid)sh).isYLabelWest() : null);
 
 		return list;
+	}
+
+
+	@Override
+	public void setAxesStyleList(final List<AxesStyle> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IAxes)
+					((IAxes)shapes.get(i)).setAxesStyle(values.get(i));
+	}
+
+
+	@Override
+	public List<AxesStyle> getAxesStyleList() {
+		final List<AxesStyle> list = new ArrayList<AxesStyle>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IAxes ? ((IAxes)sh).getAxesStyle() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public double getIncrementX() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getIncrementX();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public double getIncrementY() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getIncrementY();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setIncrementX(final double increment) {
+		if(GLibUtilities.INSTANCE.isValidCoordinate(increment))
+			for(final IShape sh : shapes)
+				if(sh instanceof IAxes)
+					((IAxes)sh).setIncrementX(increment);
+	}
+
+
+	@Override
+	public void setIncrementY(final double increment) {
+		if(GLibUtilities.INSTANCE.isValidCoordinate(increment))
+			for(final IShape sh : shapes)
+				if(sh instanceof IAxes)
+					((IAxes)sh).setIncrementY(increment);
+	}
+
+
+	@Override
+	public double getDistLabelsX() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getDistLabelsX();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public double getDistLabelsY() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getDistLabelsY();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setDistLabelsX(final double distLabelsX) {
+		if(GLibUtilities.INSTANCE.isValidCoordinate(distLabelsX))
+			for(final IShape sh : shapes)
+				if(sh instanceof IAxes)
+					((IAxes)sh).setDistLabelsX(distLabelsX);
+	}
+
+
+	@Override
+	public void setDistLabelsY(final double distLabelsY) {
+		if(GLibUtilities.INSTANCE.isValidCoordinate(distLabelsY))
+			for(final IShape sh : shapes)
+				if(sh instanceof IAxes)
+					((IAxes)sh).setDistLabelsY(distLabelsY);
+	}
+
+
+	@Override
+	public PlottingStyle getLabelsDisplayed() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getLabelsDisplayed();
+
+		return null;
+	}
+
+
+	@Override
+	public void setLabelsDisplayed(final PlottingStyle labelsDisplayed) {
+		if(labelsDisplayed!=null)
+			for(final IShape sh : shapes)
+				if(sh instanceof IAxes)
+					((IAxes)sh).setLabelsDisplayed(labelsDisplayed);
+	}
+
+
+	@Override
+	public boolean isShowOrigin() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).isShowOrigin();
+
+		return false;
+	}
+
+
+	@Override
+	public void setShowOrigin(final boolean showOrigin) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				((IAxes)sh).setShowOrigin(showOrigin);
+	}
+
+
+	@Override
+	public PlottingStyle getTicksDisplayed() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getTicksDisplayed();
+
+		return null;
+	}
+
+
+	@Override
+	public void setTicksDisplayed(final PlottingStyle ticksDisplayed) {
+		if(ticksDisplayed!=null)
+			for(final IShape sh : shapes)
+				if(sh instanceof IAxes)
+					((IAxes)sh).setTicksDisplayed(ticksDisplayed);
+	}
+
+
+	@Override
+	public TicksStyle getTicksStyle() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getTicksStyle();
+
+		return null;
+	}
+
+
+	@Override
+	public void setTicksStyle(final TicksStyle ticksStyle) {
+		if(ticksStyle!=null)
+			for(final IShape sh : shapes)
+				if(sh instanceof IAxes)
+					((IAxes)sh).setTicksStyle(ticksStyle);
+	}
+
+
+	@Override
+	public double getTicksSize() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getTicksSize();
+
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setTicksSize(final double ticksSize) {
+		if(GLibUtilities.INSTANCE.isValidCoordinate(ticksSize))
+			for(final IShape sh : shapes)
+				if(sh instanceof IAxes)
+					((IAxes)sh).setTicksSize(ticksSize);
+	}
+
+
+	@Override
+	public AxesStyle getAxesStyle() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getAxesStyle();
+
+		return null;
+	}
+
+
+	@Override
+	public void setAxesStyle(final AxesStyle axesStyle) {
+		if(axesStyle!=null)
+			for(final IShape sh : shapes)
+				if(sh instanceof IAxes)
+					((IAxes)sh).setAxesStyle(axesStyle);
 	}
 }

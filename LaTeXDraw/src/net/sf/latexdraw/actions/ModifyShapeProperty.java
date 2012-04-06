@@ -150,6 +150,12 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case HATCHINGS_WIDTH:
 				case COLOUR_HATCHINGS:
 				case FILLING_STYLE:		return shapes.isInteriorStylable();
+				case GRID_START:
+				case GRID_END:
+				case GRID_LABEL_POSITION_Y:
+				case GRID_LABEL_POSITION_X:
+				case GRID_SIZE_LABEL:
+				case GRID_ORIGIN:		return shapes.containsStandardGrids();
 				case ROUND_CORNER_VALUE:
 				case DOT_SIZE:
 				case DOT_STYLE:
@@ -159,12 +165,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case ARC_END_ANGLE:
 				case ARC_START_ANGLE:
 				case ARC_STYLE:
-				case GRID_START:
-				case GRID_END:
-				case GRID_LABEL_POSITION_Y:
-				case GRID_LABEL_POSITION_X:
-				case GRID_SIZE_LABEL:
-				case GRID_ORIGIN:
+				case AXES_STYLE:		return shapes.containsAxes();
 				case COLOUR_LINE:		return true;
 			}
 
