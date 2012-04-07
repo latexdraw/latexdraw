@@ -71,7 +71,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 			default: 	y = posy + tickLgth;
 		}
 
-		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX(), minx = shape.getGridMinX(), i=maxx-(maxx%((int)incrx)); i>=minx; i-=incrx) {
+		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX(), minx = shape.getGridMinX(), i=maxx-maxx%(int)incrx; i>=minx; i-=incrx) {
 			inti = (int)i;
 			val = inti+origx;
 			if(isElementPaintable(val, false, noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
@@ -103,7 +103,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 			default: 	x = posx - tickLgth;
 		}
 
-		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY(), miny = shape.getGridMinY(), i=maxy-(maxy%((int)incry)); i>=miny; i-=incry) {
+		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY(), miny = shape.getGridMinY(), i=maxy-maxy%(int)incry; i>=miny; i-=incry) {
 			inti = (int)i;
 			val = inti+origy;
 			if(isElementPaintable(val, false, noArrowBotY, noArrowTopY, miny, maxy, inti)) {
@@ -140,10 +140,9 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double posy 		= shape.getPosition().getY();
 		final int origy 		= (int)shape.getOriginY();
 		final double incry 		= shape.getIncrementY();
-		final double gap 		= (ticksDisplay.isY() && ((isWest && ticksStyle.isBottom()) || (!isWest && ticksStyle.isTop())) ? shape.getTicksSize() : 0)
-									+ shape.getThickness()/2. + GAP_LABEL;
+		final double gap;
 		final Font font 		= fontMetrics.getFont();
-		final boolean showOrigY = shape.isShowOrigin() && ((isWest && shape.getGridMinX()>=0.) || (!isWest && shape.getGridMaxX()<=0.));
+		final boolean showOrigY = shape.isShowOrigin() && (isWest && shape.getGridMinX()>=0. || !isWest && shape.getGridMaxX()<=0.);
 		final int height 		= fontMetrics.getAscent();
 		final boolean noArrowTopY = shape.getArrowStyle(1)==ArrowStyle.NONE;
 		final boolean noArrowBotY  = shape.getArrowStyle(0)==ArrowStyle.NONE;
@@ -151,12 +150,27 @@ class LAxesView extends LStandardGridView<IAxes> {
 		int val;
 		int inti;
 
-		for(double maxy = shape.getGridMaxY(), miny = shape.getGridMinY(), i=maxy-(maxy%((int)incry)); i>=miny; i-=incry) {
+		if(isWest)
+			if(ticksStyle.isBottom() && ticksDisplay.isY())
+				gap = -(shape.getTicksSize() + shape.getThickness()/2. + GAP_LABEL);
+			else
+				gap = -(shape.getThickness()/2. + GAP_LABEL);
+		else
+			if(ticksStyle.isTop() && ticksDisplay.isY())
+				gap = shape.getTicksSize() + shape.getThickness()/2. + GAP_LABEL;
+			else
+				gap = shape.getThickness()/2. + GAP_LABEL;
+
+
+		for(double maxy = shape.getGridMaxY(), miny = shape.getGridMinY(), i=maxy-maxy%(int)incry; i>=miny; i-=incry) {
 			inti = (int)i;
 			val = inti+origy;
 			if(isElementPaintable(val, showOrigY, noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				str	 = String.valueOf(val+origy);
-				updateText(str, (float)(posx-gap-fontMetrics.stringWidth(str)-GAP_LABEL), (float)(posy+height/2.-val*gapy*incry), font, frc);
+				if(isWest)
+					updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-val*gapy*incry), font, frc);
+				else
+					updateText(str, (float)(posx+gap), (float)(posy+height/2.-val*gapy*incry), font, frc);
 			}
 		}
 	}
@@ -172,18 +186,18 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double posy 		= shape.getPosition().getY();
 		final int origx 		= (int)shape.getOriginX();
 		final double incrx 		= shape.getIncrementX();
-		final double gap 		= (ticksDisplay.isX() && ((isSouth && ticksStyle.isBottom()) || (!isSouth && ticksStyle.isTop())) ? shape.getTicksSize() : 0)
+		final double gap 		= (ticksDisplay.isX() && (isSouth && ticksStyle.isBottom() || !isSouth && ticksStyle.isTop()) ? shape.getTicksSize() : 0)
 									+ shape.getThickness()/2. + GAP_LABEL;
 		final double sep 		= shape.getGridMaxY()<=0. || !isSouth ? -gap-GAP_LABEL : gap + fontMetrics.getAscent();
 		final Font font 		= fontMetrics.getFont();
-		final boolean showOrigX = shape.isShowOrigin() && ((isSouth && shape.getGridMinY()>=0.) || (!isSouth && shape.getGridMaxY()<=0.));
+		final boolean showOrigX = shape.isShowOrigin() && (isSouth && shape.getGridMinY()>=0. || !isSouth && shape.getGridMaxY()<=0.);
 		final boolean noArrowLeftX = shape.getArrowStyle(0)==ArrowStyle.NONE;
 		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE;
 		String str;
 		int val;
 		int inti;
 
-		for(double maxx = shape.getGridMaxX(), minx = shape.getGridMinX(), i=maxx-(maxx%((int)incrx)); i>=minx; i-=incrx) {
+		for(double maxx = shape.getGridMaxX(), minx = shape.getGridMinX(), i=maxx-maxx%(int)incrx; i>=minx; i-=incrx) {
 			inti = (int)i;
 			val = inti+origx;
 			if(isElementPaintable(val, showOrigX, noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
@@ -247,10 +261,10 @@ class LAxesView extends LStandardGridView<IAxes> {
 	protected void updatePathAxes() {
 		final double posX = shape.getPosition().getX();
 		final double posY = shape.getPosition().getY();
-		IArrow arr0 = shape.getArrowAt(0);
-		IArrow arr1 = shape.getArrowAt(1);
-		double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0.;
-		double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0.;
+		final IArrow arr0 = shape.getArrowAt(0);
+		final IArrow arr1 = shape.getArrowAt(1);
+		final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0.;
+		final double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0.;
 
 		path.moveTo(posX+shape.getGridStartX()*IShape.PPC + arr0Reduction, posY);
 		path.lineTo(posX+shape.getGridEndX()*IShape.PPC - arr1Reduction, posY);
@@ -263,11 +277,11 @@ class LAxesView extends LStandardGridView<IAxes> {
 	public void updatePath() {
 		final double incrx = shape.getIncrementX();
 		final double incry = shape.getIncrementY();
-		double distX  = shape.getDistLabelsX();
-		double distY  = shape.getDistLabelsY();
+		final double distX  = shape.getDistLabelsX();
+		final double distY  = shape.getDistLabelsY();
 		final AxesStyle axesStyle = shape.getAxesStyle();
-		double gapX = LNumber.INSTANCE.equals(distX, 0.) ? IShape.PPC : (distX/incrx)*IShape.PPC;
-		double gapY = LNumber.INSTANCE.equals(distY, 0.) ? IShape.PPC : (distY/incry)*IShape.PPC;
+		final double gapX = LNumber.INSTANCE.equals(distX, 0.) ? IShape.PPC : distX/incrx*IShape.PPC;
+		final double gapY = LNumber.INSTANCE.equals(distY, 0.) ? IShape.PPC : distY/incry*IShape.PPC;
 
 		path.reset();
 		pathLabels.reset();
@@ -348,9 +362,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 				border.setFrame(bound);
 			else
 				border.setFrame(bound.createUnion(pathLabels.getBounds2D()));
-		else {
+		else
 			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
 			//TODO
-		}
 	}
 }
