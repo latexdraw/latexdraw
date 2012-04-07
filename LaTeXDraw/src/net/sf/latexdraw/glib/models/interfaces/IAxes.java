@@ -269,6 +269,12 @@ public interface IAxes extends IStandardGrid {
 			}
 		};
 
+
+		@Override
+		public String toString() {
+			return getPSTToken();
+		}
+
 		/**
 		 * @return The PST token corresponding to the labels style.
 		 * @since 3.0

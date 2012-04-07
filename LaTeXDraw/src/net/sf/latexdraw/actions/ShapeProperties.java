@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
@@ -37,11 +38,41 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** How the ticks of axes are displayed. */
+	AXES_TICKS_SHOW {
+		@Override
+		public String getMessage() {
+			return "Ticks' parameters";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof PlottingStyle;
+		}
+
+		@Override
+		public List<PlottingStyle> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<PlottingStyle>() : group.getAxesTicksDisplayedList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setTicksDisplayed((PlottingStyle)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setAxesTicksDisplayedList((List<PlottingStyle>)values);
+		}
+	},
 	/** The size of the ticks of axes. */
 	AXES_TICKS_SIZE {
 		@Override
 		public String getMessage() {
-			return "Ticks' size";
+			return "Ticks' parameters";
 		}
 
 		@Override
@@ -71,7 +102,7 @@ public enum ShapeProperties {
 	AXES_TICKS_STYLE {
 		@Override
 		public String getMessage() {
-			return "Ticks' style";
+			return "Ticks' parameters";
 		}
 
 		@Override
@@ -221,7 +252,7 @@ public enum ShapeProperties {
 	ARROW_T_BAR_SIZE_DIM {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			double val = (Double)value;
+			final double val = (Double)value;
 
 			for(final IShape sh : group.getShapes())
 				if(sh.isArrowable())
@@ -266,7 +297,7 @@ public enum ShapeProperties {
 	ARROW_T_BAR_SIZE_NUM {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			double val = (Double)value;
+			final double val = (Double)value;
 
 			for(final IShape sh : group.getShapes())
 				if(sh.isArrowable())
@@ -311,7 +342,7 @@ public enum ShapeProperties {
 	ARROW_DOT_SIZE_NUM {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			double val = (Double)value;
+			final double val = (Double)value;
 
 			for(final IShape sh : group.getShapes())
 				if(sh.isArrowable())
@@ -356,7 +387,7 @@ public enum ShapeProperties {
 	ARROW_DOT_SIZE_DIM {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			double val = (Double)value;
+			final double val = (Double)value;
 
 			for(final IShape sh : group.getShapes())
 				if(sh.isArrowable())
@@ -401,7 +432,7 @@ public enum ShapeProperties {
 	ARROW_BRACKET_NUM {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			double val = (Double)value;
+			final double val = (Double)value;
 
 			for(final IShape sh : group.getShapes())
 				if(sh.isArrowable())
@@ -446,7 +477,7 @@ public enum ShapeProperties {
 	ARROW_R_BRACKET_NUM {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			double val = (Double)value;
+			final double val = (Double)value;
 
 			for(final IShape sh : group.getShapes())
 				if(sh.isArrowable())
@@ -491,7 +522,7 @@ public enum ShapeProperties {
 	ARROW_SIZE_NUM {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			double val = (Double)value;
+			final double val = (Double)value;
 
 			for(final IShape sh : group.getShapes())
 				if(sh.isArrowable())
@@ -536,7 +567,7 @@ public enum ShapeProperties {
 	ARROW_SIZE_DIM {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			double val = (Double)value;
+			final double val = (Double)value;
 
 			for(final IShape sh : group.getShapes())
 				if(sh.isArrowable())
@@ -580,7 +611,7 @@ public enum ShapeProperties {
 	ARROW_LENGTH {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			double val = (Double)value;
+			final double val = (Double)value;
 
 			for(final IShape sh : group.getShapes())
 				if(sh.isArrowable())
@@ -625,7 +656,7 @@ public enum ShapeProperties {
 	ARROW_INSET {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
-			double val = (Double)value;
+			final double val = (Double)value;
 
 			for(final IShape sh : group.getShapes())
 				if(sh.isArrowable())
@@ -686,7 +717,7 @@ public enum ShapeProperties {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
 			if(group!=null && isValueValid(value)) {
-				IPoint pt = (IPoint)value;
+				final IPoint pt = (IPoint)value;
 				group.setGridEnd(pt.getX(), pt.getY());
 			}
 		}
@@ -718,7 +749,7 @@ public enum ShapeProperties {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
 			if(group!=null && isValueValid(value)) {
-				IPoint pt = (IPoint)value;
+				final IPoint pt = (IPoint)value;
 				group.setOrigin(pt.getX(), pt.getY());
 			}
 		}
@@ -750,7 +781,7 @@ public enum ShapeProperties {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
 			if(group!=null && isValueValid(value)) {
-				IPoint pt = (IPoint)value;
+				final IPoint pt = (IPoint)value;
 				group.setGridStart(pt.getX(), pt.getY());
 			}
 		}

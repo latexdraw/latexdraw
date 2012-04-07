@@ -9,6 +9,7 @@ import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -46,6 +47,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	/** The widget that permits to set the size of the ticks. */
 	protected MSpinner ticksSizeS;
 
+	/** The widget that permits to show/hide the ticks of the axes. */
+	protected MComboBox showTicks;
+
 
 	/**
 	 * Creates the instrument.
@@ -69,6 +73,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			shapeAxes.setSelectedItemSafely(axes.getAxesStyle());
 			shapeTicks.setSelectedItemSafely(axes.getTicksStyle());
 			ticksSizeS.setValueSafely(axes.getTicksSize());
+			showTicks.setSelectedItemSafely(axes.getTicksDisplayed());
 		}
 		else setActivated(false);
 	}
@@ -79,6 +84,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(shapeAxes, activated);
 		composer.setWidgetVisible(shapeTicks, activated);
 		composer.setWidgetVisible(ticksSizeS, activated);
+		composer.setWidgetVisible(showTicks, activated);
 	}
 
 
@@ -86,6 +92,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
 		shapeAxes = new MComboBox(AxesStyle.values());
 		shapeTicks = new MComboBox(TicksStyle.values());
+		showTicks = new MComboBox(PlottingStyle.values());
 		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
 	}
 
@@ -97,9 +104,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			addLink(new Combobox2CustomPencilAxes(this));
 			addLink(new Spinner2CustomPencilAxes(this));
 			addLink(new Spinner2CustomSelectedAxes(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -127,6 +134,14 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 */
 	public final MSpinner getTicksSizeS() {
 		return ticksSizeS;
+	}
+
+	/**
+	 * @return The widget that permits to show/hide the ticks of the axes.
+	 * @since 3.0
+	 */
+	public final MComboBox getShowTicks() {
+		return showTicks;
 	}
 
 
@@ -195,7 +210,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public boolean isConditionRespected() {
-			return instrument.shapeAxes==interaction.getList() || instrument.shapeTicks==interaction.getList();
+			final Object list = interaction.getList();
+			return instrument.shapeAxes==list || instrument.shapeTicks==list || instrument.showTicks==list;
 		}
 
 		@Override
@@ -203,7 +219,10 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			if(instrument.shapeAxes==interaction.getList())
 				action.setProperty(ShapeProperties.AXES_STYLE);
 			else
-				action.setProperty(ShapeProperties.AXES_TICKS_STYLE);
+				if(instrument.showTicks==interaction.getList())
+					action.setProperty(ShapeProperties.AXES_TICKS_SHOW);
+				else
+					action.setProperty(ShapeProperties.AXES_TICKS_STYLE);
 
 			action.setValue(interaction.getList().getSelectedObjects()[0]);
 		}
