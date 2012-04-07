@@ -1,5 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import javax.swing.JLabel;
+
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
@@ -10,9 +12,11 @@ import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.ui.UIComposer;
 import org.malai.widget.MComboBox;
+import org.malai.widget.MSpinner;
 
 /**
  * This instrument modifies axes properties of shapes or the pencil.<br>
@@ -39,6 +43,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	/** The widget that permits to select the style of the ticks. */
 	protected MComboBox shapeTicks;
 
+	/** The widget that permits to set the size of the ticks. */
+	protected MSpinner ticksSizeS;
+
 
 	/**
 	 * Creates the instrument.
@@ -61,6 +68,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			final IAxes axes = (IAxes)shape;
 			shapeAxes.setSelectedItemSafely(axes.getAxesStyle());
 			shapeTicks.setSelectedItemSafely(axes.getTicksStyle());
+			ticksSizeS.setValueSafely(axes.getTicksSize());
 		}
 		else setActivated(false);
 	}
@@ -70,6 +78,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(shapeAxes, activated);
 		composer.setWidgetVisible(shapeTicks, activated);
+		composer.setWidgetVisible(ticksSizeS, activated);
 	}
 
 
@@ -77,6 +86,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
 		shapeAxes = new MComboBox(AxesStyle.values());
 		shapeTicks = new MComboBox(TicksStyle.values());
+		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
 	}
 
 
@@ -85,6 +95,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		try {
 			addLink(new Combobox2CustomSelectedAxes(this));
 			addLink(new Combobox2CustomPencilAxes(this));
+			addLink(new Spinner2CustomPencilAxes(this));
+			addLink(new Spinner2CustomSelectedAxes(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -108,6 +120,71 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	public final MComboBox getShapeTicks() {
 		return shapeTicks;
 	}
+
+	/**
+	 * @return The widget that permits to set the size of the ticks.
+	 * @since 3.0
+	 */
+	public final MSpinner getTicksSizeS() {
+		return ticksSizeS;
+	}
+
+
+	/** Maps a spinner to an action that modifies the ticks size. */
+	private static abstract class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeAxesCustomiser> {
+		protected Spinner2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+			super(ins, clazzAction);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.ticksSizeS==interaction.getSpinner();
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.AXES_TICKS_SIZE);
+		}
+	}
+
+
+	/** Maps a spinner to an action that modifies the ticks size of the selected shapes. */
+	private static class Spinner2CustomSelectedAxes extends Spinner2CustomAxes<ModifyShapeProperty> {
+		protected Spinner2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated() && super.isConditionRespected();
+		}
+	}
+
+
+	/** Maps a spinner to an action that modifies the ticks size of the pencil. */
+	private static class Spinner2CustomPencilAxes extends Spinner2CustomAxes<ModifyPencilParameter> {
+		protected Spinner2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setPencil(instrument.pencil);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated() && super.isConditionRespected();
+		}
+	}
+
 
 
 	/** Maps a combobox to an action that modifies the axe's style. */

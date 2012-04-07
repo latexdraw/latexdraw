@@ -1,6 +1,7 @@
 package net.sf.latexdraw.ui;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.IdentityHashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -127,7 +129,10 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 				  TitledBorder.LEFT, TitledBorder.TOP), new EmptyBorder(0,0,0,0)));
 
 		panel.add(cust.getShapeAxes());
+
+		ticksPanel.add(new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.0")));
 		ticksPanel.add(cust.getShapeTicks());
+		addSpinner(ticksPanel, cust.getTicksSizeS(), true, 70);
 
 		list.addComponent(panel);
 		list.addComponent(ticksPanel);
@@ -227,11 +232,11 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
-	protected void addSpinner(final WidgetMiniToolbar list, final MSpinner spinner, final boolean label, final int width) {
+	protected void addSpinner(final Container cont, final MSpinner spinner, final boolean label, final int width) {
 		spinner.setPreferredSize(new Dimension(width, HEIGHT_TEXTFIELD));
 		if(label)
-			list.addComponent(spinner.getLabel());
-		list.addComponent(spinner);
+			cont.add(spinner.getLabel());
+		cont.add(spinner);
 	}
 
 

@@ -37,7 +37,37 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  * @since 3.0
  */
 public enum ShapeProperties {
-	/** The X-coordinate of the grid's labels. */
+	/** The size of the ticks of axes. */
+	AXES_TICKS_SIZE {
+		@Override
+		public String getMessage() {
+			return "Ticks' size";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getAxesTicksSizeList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setTicksSize((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setAxesTicksSizeList((List<Double>)values);
+		}
+	},
+	/** The style of the ticks of axes. */
 	AXES_TICKS_STYLE {
 		@Override
 		public String getMessage() {
@@ -67,7 +97,7 @@ public enum ShapeProperties {
 				group.setAxesTicksStyleList((List<TicksStyle>)values);
 		}
 	},
-	/** The X-coordinate of the grid's labels. */
+	/** The style of axes. */
 	AXES_STYLE {
 		@Override
 		public String getMessage() {
