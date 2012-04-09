@@ -38,11 +38,41 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** The increment of the axes' labels. */
+	AXES_LABELS_INCR {
+		@Override
+		public String getMessage() {
+			return "Axe's parameters";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof IPoint;
+		}
+
+		@Override
+		public List<IPoint> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<IPoint>() : group.getAxesIncrementsList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setIncrement((IPoint)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setAxesIncrementsList((List<IPoint>)values);
+		}
+	},
 	/** How the ticks of axes are displayed. */
 	AXES_TICKS_SHOW {
 		@Override
 		public String getMessage() {
-			return "Ticks' parameters";
+			return "Axe's parameters";
 		}
 
 		@Override
@@ -72,7 +102,7 @@ public enum ShapeProperties {
 	AXES_TICKS_SIZE {
 		@Override
 		public String getMessage() {
-			return "Ticks' parameters";
+			return "Axe's parameters";
 		}
 
 		@Override
@@ -102,7 +132,7 @@ public enum ShapeProperties {
 	AXES_TICKS_STYLE {
 		@Override
 		public String getMessage() {
-			return "Ticks' parameters";
+			return "Axe's parameters";
 		}
 
 		@Override

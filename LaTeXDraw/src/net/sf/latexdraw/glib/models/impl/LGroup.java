@@ -2707,4 +2707,42 @@ class LGroup extends LShape implements IGroup {
 
 		return list;
 	}
+
+
+	@Override
+	public void setAxesIncrementsList(final List<IPoint> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IAxes)
+					((IAxes)shapes.get(i)).setIncrement(values.get(i));
+	}
+
+
+	@Override
+	public List<IPoint> getAxesIncrementsList() {
+		final List<IPoint> list = new ArrayList<IPoint>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IAxes ? ((IAxes)sh).getIncrement() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public IPoint getIncrement() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getIncrement();
+
+		return null;
+	}
+
+
+	@Override
+	public void setIncrement(final IPoint increment) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				((IAxes)sh).setIncrement(increment);
+	}
 }

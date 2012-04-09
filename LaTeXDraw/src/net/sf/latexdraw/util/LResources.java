@@ -210,9 +210,11 @@ public final class LResources {
 	public final static ImageIcon BUTTON_CLOSE_OUT_ICON;
 	public final static ImageIcon GRID_X_LABEL;
 	public final static ImageIcon GRID_Y_LABEL;
+	public final static ImageIcon GRID_LABELS;
 
 
 	static {
+		GRID_LABELS			= loadImageIcon("/res/gridLabels.png");//$NON-NLS-1$
 		GRID_X_LABEL		= loadImageIcon("/res/xGridLabel.png");//$NON-NLS-1$
 		GRID_Y_LABEL		= loadImageIcon("/res/yGridLabel.png");//$NON-NLS-1$
 

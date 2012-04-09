@@ -107,6 +107,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
 		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getGridCustomiser(), canvas));
 		widget.add(composeAxesPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), canvas));
+		widget.add(composeGridLabelsPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), metaShapeCustomiser.getGridCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
 
@@ -116,6 +117,30 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(grouper.getGroupB());
 		widget.add(grouper.getSepB());
 		grouper.addEventable(widget);
+	}
+
+
+	protected WidgetMiniToolbar composeGridLabelsPropertiesToolbar(final ShapeAxesCustomiser axeCust, final ShapeGridCustomiser stdGridCust, final LCanvas canvas) {
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		list.setToolTipText("Modifies the properties of grids' labels.");
+
+		addSpinner(list, stdGridCust.getLabelsSizeS(), true, 50);
+		list.addComponent(stdGridCust.getLabelsXInvertedCB());
+		list.addComponent(stdGridCust.getLabelsYInvertedCB());
+		addSpinner(list, axeCust.getIncrLabelX(), true, 50);
+		addSpinner(list, axeCust.getIncrLabelY(), true, 50);
+		list.addSeparator();
+
+		mapContainers.put(axeCust.getIncrLabelX(), list);
+		mapContainers.put(axeCust.getIncrLabelY(), list);
+		mapContainers.put(stdGridCust.getLabelsSizeS(), list);
+		mapContainers.put(stdGridCust.getLabelsXInvertedCB(), list);
+		mapContainers.put(stdGridCust.getLabelsYInvertedCB(), list);
+
+		axeCust.addEventable(list.getToolbar());
+		stdGridCust.addEventable(list.getToolbar());
+
+		return list;
 	}
 
 
@@ -159,9 +184,6 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		addSpinner(list, cust.getyEndS(), true, 50);
 		addSpinner(list, cust.getxOriginS(), true, 50);
 		addSpinner(list, cust.getyOriginS(), true, 50);
-		addSpinner(list, cust.getLabelsSizeS(), true, 50);
-		list.addComponent(cust.getLabelsXInvertedCB());
-		list.addComponent(cust.getLabelsYInvertedCB());
 		list.addSeparator();
 
 		mapContainers.put(cust.getxStartS(), list);
@@ -170,9 +192,6 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(cust.getyEndS(), list);
 		mapContainers.put(cust.getxOriginS(), list);
 		mapContainers.put(cust.getyOriginS(), list);
-		mapContainers.put(cust.getLabelsSizeS(), list);
-		mapContainers.put(cust.getLabelsXInvertedCB(), list);
-		mapContainers.put(cust.getLabelsYInvertedCB(), list);
 
 		cust.addEventable(list.getToolbar());
 		return list;

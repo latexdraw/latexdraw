@@ -320,13 +320,17 @@ public interface IAxes extends IStandardGrid {
 	 */
 	double getIncrementX();
 
-
 	/**
 	 * @return The Y increment of the axes.
 	 * @since 3.0
 	 */
 	double getIncrementY();
 
+	/**
+	 * @return The increments of the axes.
+	 * @since 3.0
+	 */
+	IPoint getIncrement();
 
 	/**
 	 * @param increment the X increment to set.
@@ -337,6 +341,11 @@ public interface IAxes extends IStandardGrid {
 	 * @param increment the Y increment to set.
 	 */
 	void setIncrementY(final double increment);
+
+	/**
+	 * @param increment The axes' increment to set.
+	 */
+	void setIncrement(final IPoint increment);
 
 	/**
 	 * @return the distLabels.x.

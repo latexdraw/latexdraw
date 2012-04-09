@@ -97,7 +97,7 @@ class LAxes extends LAbstractGrid implements IAxes {
 		super.copy(s);
 
 		if(s instanceof IAxes) {
-			IAxes axes = (IAxes) s;
+			final IAxes axes = (IAxes) s;
 
 			setTicksDisplayed(axes.getTicksDisplayed());
 			setTicksSize(axes.getTicksSize());
@@ -118,7 +118,7 @@ class LAxes extends LAbstractGrid implements IAxes {
 		boolean ok = super.isParametersEquals(s, considerShadow);
 
 		if(ok && s instanceof IAxes) {
-			IAxes axes = (IAxes) s;
+			final IAxes axes = (IAxes) s;
 
 			ok = showOrigin==axes.isShowOrigin() && ticksDisplayed==axes.getTicksDisplayed() &&
 				LNumber.INSTANCE.equals(ticksSize, axes.getTicksSize()) && ticksStyle==axes.getTicksStyle() &&
@@ -354,9 +354,21 @@ class LAxes extends LAbstractGrid implements IAxes {
 		return incrementX;
 	}
 
-
 	@Override
 	public double getIncrementY() {
 		return incrementY;
+	}
+
+	@Override
+	public IPoint getIncrement() {
+		return new LPoint(incrementX, incrementY);
+	}
+
+	@Override
+	public void setIncrement(final IPoint increment) {
+		if(increment!=null) {
+			setIncrementX(increment.getX());
+			setIncrementY(increment.getY());
+		}
 	}
 }

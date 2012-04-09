@@ -7,6 +7,7 @@ import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
@@ -50,6 +51,12 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	/** The widget that permits to show/hide the ticks of the axes. */
 	protected MComboBox showTicks;
 
+	/** The widget that permits to set the increment of X-labels. */
+	protected MSpinner incrLabelX;
+
+	/** The widget that permits to set the increment of Y-labels. */
+	protected MSpinner incrLabelY;
+
 
 	/**
 	 * Creates the instrument.
@@ -74,6 +81,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			shapeTicks.setSelectedItemSafely(axes.getTicksStyle());
 			ticksSizeS.setValueSafely(axes.getTicksSize());
 			showTicks.setSelectedItemSafely(axes.getTicksDisplayed());
+			incrLabelX.setValueSafely(axes.getIncrementX());
+			incrLabelY.setValueSafely(axes.getIncrementY());
 		}
 		else setActivated(false);
 	}
@@ -85,6 +94,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(shapeTicks, activated);
 		composer.setWidgetVisible(ticksSizeS, activated);
 		composer.setWidgetVisible(showTicks, activated);
+		composer.setWidgetVisible(incrLabelX, activated);
+		composer.setWidgetVisible(incrLabelY, activated);
 	}
 
 
@@ -94,6 +105,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		shapeTicks = new MComboBox(TicksStyle.values());
 		showTicks = new MComboBox(PlottingStyle.values());
 		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
+		incrLabelX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.8")));
+		incrLabelY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.9")));
 	}
 
 
@@ -144,6 +157,22 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		return showTicks;
 	}
 
+	/**
+	 * @return The widget that permits to set the increment of X-labels.
+	 * @since 3.0
+	 */
+	public final MSpinner getIncrLabelX() {
+		return incrLabelX;
+	}
+
+	/**
+	 * @return The widget that permits to set the increment of Y-labels.
+	 * @since 3.0
+	 */
+	public final MSpinner getIncrLabelY() {
+		return incrLabelY;
+	}
+
 
 	/** Maps a spinner to an action that modifies the ticks size. */
 	private static abstract class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeAxesCustomiser> {
@@ -153,12 +182,30 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public boolean isConditionRespected() {
-			return instrument.ticksSizeS==interaction.getSpinner();
+			final Object spinner = interaction.getSpinner();
+			return instrument.ticksSizeS==spinner || instrument.incrLabelX==spinner || instrument.incrLabelY==spinner;
 		}
 
 		@Override
 		public void initAction() {
-			action.setProperty(ShapeProperties.AXES_TICKS_SIZE);
+			if(interaction.getSpinner()==instrument.ticksSizeS)
+				action.setProperty(ShapeProperties.AXES_TICKS_SIZE);
+			else
+				action.setProperty(ShapeProperties.AXES_LABELS_INCR);
+		}
+
+		@Override
+		public void updateAction() {
+			final Object spinner = interaction.getSpinner();
+			final double val = Double.valueOf(interaction.getSpinner().getValue().toString());
+
+			if(spinner==instrument.ticksSizeS)
+				action.setValue(val);
+			else
+				if(spinner==instrument.incrLabelX)
+					action.setValue(DrawingTK.getFactory().createPoint(val, Double.valueOf(instrument.incrLabelY.getValue().toString())));
+				else
+					action.setValue(DrawingTK.getFactory().createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()), val));
 		}
 	}
 
