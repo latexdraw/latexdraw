@@ -75,7 +75,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 			inti = (int)i;
 			val = inti+origx;
 			if(isElementPaintable(val, false, noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
-				x = posx+val*gapx*incrx;
+				x = posx+val*gapx;
 				pathTicks.moveTo(x, y);
 				pathTicks.lineTo(x, y-tickLgth);
 			}
@@ -107,7 +107,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 			inti = (int)i;
 			val = inti+origy;
 			if(isElementPaintable(val, false, noArrowBotY, noArrowTopY, miny, maxy, inti)) {
-				y = posy-val*gapy*incry;
+				y = posy-val*gapy;
 				pathTicks.moveTo(x, y);
 				pathTicks.lineTo(x+tickLgth, y);
 			}
@@ -168,9 +168,9 @@ class LAxesView extends LStandardGridView<IAxes> {
 			if(isElementPaintable(val, showOrigY, noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				str	 = String.valueOf(val+origy);
 				if(isWest)
-					updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-val*gapy*incry), font, frc);
+					updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-val*gapy), font, frc);
 				else
-					updateText(str, (float)(posx+gap), (float)(posy+height/2.-val*gapy*incry), font, frc);
+					updateText(str, (float)(posx+gap), (float)(posy+height/2.-val*gapy), font, frc);
 			}
 		}
 	}
@@ -202,7 +202,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 			val = inti+origx;
 			if(isElementPaintable(val, showOrigX, noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
 				str	 = String.valueOf(val+origx);
-				updateText(str, (float)(posx+val*gapx*incrx-fontMetrics.stringWidth(str)/2.), (float)(posy+sep), font, frc);
+				updateText(str, (float)(posx+val*gapx-fontMetrics.stringWidth(str)/2.), (float)(posy+sep), font, frc);
 			}
 		}
 	}
