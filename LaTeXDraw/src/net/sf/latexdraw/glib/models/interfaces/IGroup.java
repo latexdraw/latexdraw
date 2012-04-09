@@ -794,4 +794,21 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	 * @since 3.0
 	 */
 	List<IPoint> getAxesIncrementsList();
+
+	/**
+	 * Sets how the labels of the axes contained by the group are displayed.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setAxesLabelsDisplayedList(final List<PlottingStyle> values);
+
+	/**
+	 * @return The list of the plotting styles of the axes' labels contained in the group.
+	 * If a shape of the group is not an axe, null is added.
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<PlottingStyle> getAxesLabelsDisplayedList();
 }

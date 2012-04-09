@@ -120,11 +120,14 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
+	/** Creates the toolbar containing the widgets that customises grids' labels. */
 	protected WidgetMiniToolbar composeGridLabelsPropertiesToolbar(final ShapeAxesCustomiser axeCust, final ShapeGridCustomiser stdGridCust, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids' labels.");
 
 		addSpinner(list, stdGridCust.getLabelsSizeS(), true, 50);
+		list.addComponent(new JLabel("Visibility:"));
+		list.addComponent(axeCust.getShowLabels());
 		list.addComponent(stdGridCust.getLabelsXInvertedCB());
 		list.addComponent(stdGridCust.getLabelsYInvertedCB());
 		addSpinner(list, axeCust.getIncrLabelX(), true, 50);
@@ -144,6 +147,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
+	/** Creates the toolbar containing the widgets that customises axes. */
 	protected WidgetMiniToolbar composeAxesPropertiesToolbar(final ShapeAxesCustomiser cust, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.AXES_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of axes.");

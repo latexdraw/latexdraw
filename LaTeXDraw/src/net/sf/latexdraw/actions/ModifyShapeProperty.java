@@ -170,6 +170,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case AXES_TICKS_SIZE:
 				case AXES_TICKS_SHOW:
 				case AXES_LABELS_INCR:
+				case AXES_LABELS_SHOW:
 				case AXES_STYLE:		return shapes.containsAxes();
 			}
 

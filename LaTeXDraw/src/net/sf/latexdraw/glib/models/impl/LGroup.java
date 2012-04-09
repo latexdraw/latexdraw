@@ -2745,4 +2745,24 @@ class LGroup extends LShape implements IGroup {
 			if(sh instanceof IAxes)
 				((IAxes)sh).setIncrement(increment);
 	}
+
+
+	@Override
+	public void setAxesLabelsDisplayedList(final List<PlottingStyle> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IAxes)
+					((IAxes)shapes.get(i)).setLabelsDisplayed(values.get(i));
+	}
+
+
+	@Override
+	public List<PlottingStyle> getAxesLabelsDisplayedList() {
+		final List<PlottingStyle> list = new ArrayList<PlottingStyle>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IAxes ? ((IAxes)sh).getLabelsDisplayed() : null);
+
+		return list;
+	}
 }

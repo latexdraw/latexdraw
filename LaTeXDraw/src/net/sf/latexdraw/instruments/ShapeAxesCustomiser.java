@@ -57,6 +57,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	/** The widget that permits to set the increment of Y-labels. */
 	protected MSpinner incrLabelY;
 
+	/** The widget that permits to set the visibility of the labels. */
+	protected MComboBox showLabels;
+
 
 	/**
 	 * Creates the instrument.
@@ -83,6 +86,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			showTicks.setSelectedItemSafely(axes.getTicksDisplayed());
 			incrLabelX.setValueSafely(axes.getIncrementX());
 			incrLabelY.setValueSafely(axes.getIncrementY());
+			showLabels.setSelectedItemSafely(axes.getLabelsDisplayed());
 		}
 		else setActivated(false);
 	}
@@ -96,6 +100,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(showTicks, activated);
 		composer.setWidgetVisible(incrLabelX, activated);
 		composer.setWidgetVisible(incrLabelY, activated);
+		composer.setWidgetVisible(showLabels, activated);
 	}
 
 
@@ -104,6 +109,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		shapeAxes = new MComboBox(AxesStyle.values());
 		shapeTicks = new MComboBox(TicksStyle.values());
 		showTicks = new MComboBox(PlottingStyle.values());
+		showLabels = new MComboBox(PlottingStyle.values());
 		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
 		incrLabelX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.8")));
 		incrLabelY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.9")));
@@ -155,6 +161,14 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 */
 	public final MComboBox getShowTicks() {
 		return showTicks;
+	}
+
+	/**
+	 * @return The widget that permits to show/hide the labels of the axes.
+	 * @since 3.0
+	 */
+	public final MComboBox getShowLabels() {
+		return showLabels;
 	}
 
 	/**
@@ -258,18 +272,23 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public boolean isConditionRespected() {
 			final Object list = interaction.getList();
-			return instrument.shapeAxes==list || instrument.shapeTicks==list || instrument.showTicks==list;
+			return instrument.shapeAxes==list || instrument.shapeTicks==list || instrument.showTicks==list || instrument.showLabels==list;
 		}
 
 		@Override
 		public void initAction() {
-			if(instrument.shapeAxes==interaction.getList())
+			final Object list = interaction.getList();
+
+			if(instrument.shapeAxes==list)
 				action.setProperty(ShapeProperties.AXES_STYLE);
 			else
-				if(instrument.showTicks==interaction.getList())
+				if(instrument.showTicks==list)
 					action.setProperty(ShapeProperties.AXES_TICKS_SHOW);
 				else
-					action.setProperty(ShapeProperties.AXES_TICKS_STYLE);
+					if(instrument.showLabels==list)
+						action.setProperty(ShapeProperties.AXES_LABELS_SHOW);
+					else
+						action.setProperty(ShapeProperties.AXES_TICKS_STYLE);
 
 			action.setValue(interaction.getList().getSelectedObjects()[0]);
 		}

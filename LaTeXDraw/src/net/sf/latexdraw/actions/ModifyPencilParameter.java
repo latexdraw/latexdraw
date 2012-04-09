@@ -208,6 +208,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case AXES_TICKS_SIZE: pencil.getGroupParams().setTicksSize((Double)value); break;
 			case AXES_TICKS_SHOW: pencil.getGroupParams().setTicksDisplayed((PlottingStyle)value); break;
 			case AXES_LABELS_INCR: pencil.getGroupParams().setIncrement((IPoint)value); break;
+			case AXES_LABELS_SHOW: pencil.getGroupParams().setLabelsDisplayed((PlottingStyle)value); break;
 		}
 	}
 }

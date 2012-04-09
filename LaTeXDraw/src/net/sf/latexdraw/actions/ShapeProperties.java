@@ -68,6 +68,36 @@ public enum ShapeProperties {
 				group.setAxesIncrementsList((List<IPoint>)values);
 		}
 	},
+	/** How the labels of axes are displayed. */
+	AXES_LABELS_SHOW {
+		@Override
+		public String getMessage() {
+			return "Axe's parameters";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof PlottingStyle;
+		}
+
+		@Override
+		public List<PlottingStyle> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<PlottingStyle>() : group.getAxesLabelsDisplayedList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setLabelsDisplayed((PlottingStyle)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setAxesLabelsDisplayedList((List<PlottingStyle>)values);
+		}
+	},
 	/** How the ticks of axes are displayed. */
 	AXES_TICKS_SHOW {
 		@Override
