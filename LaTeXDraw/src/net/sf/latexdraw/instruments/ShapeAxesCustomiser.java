@@ -17,6 +17,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.ui.UIComposer;
+import org.malai.widget.MCheckBox;
 import org.malai.widget.MComboBox;
 import org.malai.widget.MSpinner;
 
@@ -60,6 +61,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	/** The widget that permits to set the visibility of the labels. */
 	protected MComboBox showLabels;
 
+	/** The widget that permits to set the visibility of the origin point. */
+	protected MCheckBox showOrigin;
+
 
 	/**
 	 * Creates the instrument.
@@ -87,6 +91,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			incrLabelX.setValueSafely(axes.getIncrementX());
 			incrLabelY.setValueSafely(axes.getIncrementY());
 			showLabels.setSelectedItemSafely(axes.getLabelsDisplayed());
+			showOrigin.setSelected(axes.isShowOrigin());
 		}
 		else setActivated(false);
 	}
@@ -101,6 +106,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(incrLabelX, activated);
 		composer.setWidgetVisible(incrLabelY, activated);
 		composer.setWidgetVisible(showLabels, activated);
+		composer.setWidgetVisible(showOrigin, activated);
 	}
 
 
@@ -113,6 +119,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
 		incrLabelX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.8")));
 		incrLabelY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.9")));
+		showOrigin = new MCheckBox(LangTool.INSTANCE.getString18("ParametersAxeFrame.1"), true); //$NON-NLS-1$
 	}
 
 
@@ -123,6 +130,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			addLink(new Combobox2CustomPencilAxes(this));
 			addLink(new Spinner2CustomPencilAxes(this));
 			addLink(new Spinner2CustomSelectedAxes(this));
+			addLink(new CheckBox2CustomPencilAxes(this));
+			addLink(new CheckBox2CustomSelectedAxes(this));
 		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(final IllegalAccessException e){
@@ -135,7 +144,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to select the style of the axes.
 	 * @since 3.0
 	 */
-	public final MComboBox getShapeAxes() {
+	public MComboBox getShapeAxes() {
 		return shapeAxes;
 	}
 
@@ -143,7 +152,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to select the style of the ticks.
 	 * @since 3.0
 	 */
-	public final MComboBox getShapeTicks() {
+	public MComboBox getShapeTicks() {
 		return shapeTicks;
 	}
 
@@ -151,7 +160,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to set the size of the ticks.
 	 * @since 3.0
 	 */
-	public final MSpinner getTicksSizeS() {
+	public MSpinner getTicksSizeS() {
 		return ticksSizeS;
 	}
 
@@ -159,7 +168,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to show/hide the ticks of the axes.
 	 * @since 3.0
 	 */
-	public final MComboBox getShowTicks() {
+	public MComboBox getShowTicks() {
 		return showTicks;
 	}
 
@@ -167,7 +176,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to show/hide the labels of the axes.
 	 * @since 3.0
 	 */
-	public final MComboBox getShowLabels() {
+	public MComboBox getShowLabels() {
 		return showLabels;
 	}
 
@@ -175,7 +184,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to set the increment of X-labels.
 	 * @since 3.0
 	 */
-	public final MSpinner getIncrLabelX() {
+	public MSpinner getIncrLabelX() {
 		return incrLabelX;
 	}
 
@@ -183,12 +192,81 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to set the increment of Y-labels.
 	 * @since 3.0
 	 */
-	public final MSpinner getIncrLabelY() {
+	public MSpinner getIncrLabelY() {
 		return incrLabelY;
 	}
 
+	/**
+	 * @return The widget that permits to set the visibility of the origin point.
+	 * @since 3.0
+	 */
+	public MCheckBox getShowOrigin() {
+		return showOrigin;
+	}
 
-	/** Maps a spinner to an action that modifies the ticks size. */
+
+	/** Maps a checkbox to an action that modifies several axes' parameters. */
+	private static abstract class CheckBox2CustomAxes<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeAxesCustomiser> {
+		protected CheckBox2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+			super(ins, clazzAction);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.showOrigin==interaction.getCheckBox();
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.AXES_SHOW_ORIGIN);
+		}
+
+		@Override
+		public void updateAction() {
+			action.setValue(interaction.getCheckBox().isSelected());
+		}
+	}
+
+
+	/** Maps a spinner to an action that modifies the ticks size of the selected shapes. */
+	private static class CheckBox2CustomSelectedAxes extends CheckBox2CustomAxes<ModifyShapeProperty> {
+		protected CheckBox2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated() && super.isConditionRespected();
+		}
+	}
+
+
+	/** Maps a spinner to an action that modifies the ticks size of the pencil. */
+	private static class CheckBox2CustomPencilAxes extends CheckBox2CustomAxes<ModifyPencilParameter> {
+		protected CheckBox2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setPencil(instrument.pencil);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated() && super.isConditionRespected();
+		}
+	}
+
+
+	/** Maps a spinner to an action that modifies several axes' parameters. */
 	private static abstract class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeAxesCustomiser> {
 		protected Spinner2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(ins, clazzAction);

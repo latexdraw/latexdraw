@@ -38,6 +38,36 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** Show/Hide the origin of the axes. */
+	AXES_SHOW_ORIGIN {
+		@Override
+		public String getMessage() {
+			return "Axe's parameters";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Boolean;
+		}
+
+		@Override
+		public List<Boolean> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Boolean>() : group.getAxesShowOriginList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setShowOrigin((Boolean)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setAxesShowOriginList((List<Boolean>)values);
+		}
+	},
 	/** The increment of the axes' labels. */
 	AXES_LABELS_INCR {
 		@Override

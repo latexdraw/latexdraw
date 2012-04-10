@@ -128,6 +128,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		addSpinner(list, stdGridCust.getLabelsSizeS(), true, 50);
 		list.addComponent(new JLabel("Visibility:"));
 		list.addComponent(axeCust.getShowLabels());
+		list.addComponent(axeCust.getShowOrigin());
 		list.addComponent(stdGridCust.getLabelsXInvertedCB());
 		list.addComponent(stdGridCust.getLabelsYInvertedCB());
 		addSpinner(list, axeCust.getIncrLabelX(), true, 50);

@@ -2765,4 +2765,24 @@ class LGroup extends LShape implements IGroup {
 
 		return list;
 	}
+
+
+	@Override
+	public void setAxesShowOriginList(final List<Boolean> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IAxes)
+					((IAxes)shapes.get(i)).setShowOrigin(values.get(i));
+	}
+
+
+	@Override
+	public List<Boolean> getAxesShowOriginList() {
+		final List<Boolean> list = new ArrayList<Boolean>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IAxes ? ((IAxes)sh).isShowOrigin() : null);
+
+		return list;
+	}
 }
