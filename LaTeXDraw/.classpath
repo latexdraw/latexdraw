@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/PDFRenderer-0.9.1.jar"/>
 	<classpathentry kind="lib" path="lib/jlibeps.jar"/>
+	<classpathentry kind="lib" path="lib/malai.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
