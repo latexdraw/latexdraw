@@ -137,8 +137,12 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		addSpinner(list, axeCust.getDistLabelsY(), true, 60);
 		list.addSeparator();
 
+		mapContainers.put(axeCust.getShowLabels(), list);
+		mapContainers.put(axeCust.getShowOrigin(), list);
 		mapContainers.put(axeCust.getIncrLabelX(), list);
 		mapContainers.put(axeCust.getIncrLabelY(), list);
+		mapContainers.put(axeCust.getDistLabelsX(), list);
+		mapContainers.put(axeCust.getDistLabelsY(), list);
 		mapContainers.put(stdGridCust.getLabelsSizeS(), list);
 		mapContainers.put(stdGridCust.getLabelsXInvertedCB(), list);
 		mapContainers.put(stdGridCust.getLabelsYInvertedCB(), list);
@@ -173,6 +177,9 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addSeparator();
 
 		mapContainers.put(cust.getShapeAxes(), list);
+		mapContainers.put(cust.getShapeTicks(), list);
+		mapContainers.put(cust.getTicksSizeS(), list);
+		mapContainers.put(cust.getShowTicks(), list);
 
 		cust.addEventable(panel);
 		cust.addEventable(ticksPanel);
