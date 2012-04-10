@@ -64,6 +64,12 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	/** The widget that permits to set the visibility of the origin point. */
 	protected MCheckBox showOrigin;
 
+	/** The distance between the X-labels. */
+	protected MSpinner distLabelsX;
+
+	/** The distance between the Y-labels. */
+	protected MSpinner distLabelsY;
+
 
 	/**
 	 * Creates the instrument.
@@ -92,6 +98,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			incrLabelY.setValueSafely(axes.getIncrementY());
 			showLabels.setSelectedItemSafely(axes.getLabelsDisplayed());
 			showOrigin.setSelected(axes.isShowOrigin());
+			distLabelsX.setValueSafely(axes.getDistLabelsX());
+			distLabelsY.setValueSafely(axes.getDistLabelsY());
 		}
 		else setActivated(false);
 	}
@@ -107,6 +115,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(incrLabelY, activated);
 		composer.setWidgetVisible(showLabels, activated);
 		composer.setWidgetVisible(showOrigin, activated);
+		composer.setWidgetVisible(distLabelsX, activated);
+		composer.setWidgetVisible(distLabelsY, activated);
 	}
 
 
@@ -119,6 +129,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
 		incrLabelX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.8")));
 		incrLabelY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.9")));
+		distLabelsX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.01, 0.01, 1000., 0.05), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.6")));
+		distLabelsY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.01, 0.01, 1000., 0.05), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.7")));
 		showOrigin = new MCheckBox(LangTool.INSTANCE.getString18("ParametersAxeFrame.1"), true); //$NON-NLS-1$
 	}
 
@@ -204,6 +216,22 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		return showOrigin;
 	}
 
+	/**
+	 * @return The distance between the X-labels.
+	 * @since 3.0
+	 */
+	public MSpinner getDistLabelsX() {
+		return distLabelsX;
+	}
+
+	/**
+	 * @return The distance between the Y-labels.
+	 * @since 3.0
+	 */
+	public MSpinner getDistLabelsY() {
+		return distLabelsY;
+	}
+
 
 	/** Maps a checkbox to an action that modifies several axes' parameters. */
 	private static abstract class CheckBox2CustomAxes<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeAxesCustomiser> {
@@ -275,29 +303,36 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public boolean isConditionRespected() {
 			final Object spinner = interaction.getSpinner();
-			return instrument.ticksSizeS==spinner || instrument.incrLabelX==spinner || instrument.incrLabelY==spinner;
+			return instrument.ticksSizeS==spinner || instrument.incrLabelX==spinner || instrument.incrLabelY==spinner ||
+				   instrument.distLabelsX==spinner || instrument.distLabelsY==spinner;
 		}
 
 		@Override
 		public void initAction() {
-			if(interaction.getSpinner()==instrument.ticksSizeS)
+			final Object spinner = interaction.getSpinner();
+
+			if(spinner==instrument.ticksSizeS)
 				action.setProperty(ShapeProperties.AXES_TICKS_SIZE);
 			else
-				action.setProperty(ShapeProperties.AXES_LABELS_INCR);
+				if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
+					action.setProperty(ShapeProperties.AXES_LABELS_DIST);
+				else
+					action.setProperty(ShapeProperties.AXES_LABELS_INCR);
 		}
 
 		@Override
 		public void updateAction() {
 			final Object spinner = interaction.getSpinner();
-			final double val = Double.valueOf(interaction.getSpinner().getValue().toString());
 
 			if(spinner==instrument.ticksSizeS)
-				action.setValue(val);
+				action.setValue(Double.valueOf(interaction.getSpinner().getValue().toString()));
 			else
-				if(spinner==instrument.incrLabelX)
-					action.setValue(DrawingTK.getFactory().createPoint(val, Double.valueOf(instrument.incrLabelY.getValue().toString())));
+				if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
+					action.setValue(DrawingTK.getFactory().createPoint(Double.valueOf(instrument.distLabelsX.getValue().toString()),
+									Double.valueOf(instrument.distLabelsY.getValue().toString())));
 				else
-					action.setValue(DrawingTK.getFactory().createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()), val));
+					action.setValue(DrawingTK.getFactory().createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()),
+								Double.valueOf(instrument.incrLabelY.getValue().toString())));
 		}
 	}
 

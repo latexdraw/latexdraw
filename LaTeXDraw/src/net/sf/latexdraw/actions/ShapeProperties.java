@@ -69,6 +69,36 @@ public enum ShapeProperties {
 		}
 	},
 	/** The increment of the axes' labels. */
+	AXES_LABELS_DIST {
+		@Override
+		public String getMessage() {
+			return "Axe's parameters";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof IPoint;
+		}
+
+		@Override
+		public List<IPoint> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<IPoint>() : group.getAxesDistLabelsList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setDistLabels((IPoint)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setAxesDistLabelsList((List<IPoint>)values);
+		}
+	},
+	/** The increment of the axes' labels. */
 	AXES_LABELS_INCR {
 		@Override
 		public String getMessage() {

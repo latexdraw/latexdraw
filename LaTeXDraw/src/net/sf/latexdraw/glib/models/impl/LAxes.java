@@ -79,8 +79,8 @@ class LAxes extends LAbstractGrid implements IAxes {
 		axesStyle		= AxesStyle.AXES;
 		incrementX		= PSTricksConstants.DEFAULT_DX;
 		incrementY		= PSTricksConstants.DEFAULT_DY;
-		distLabelsX		= PSTricksConstants.DEFAULT_DIST_X_LABEL;
-		distLabelsY		= PSTricksConstants.DEFAULT_DIST_X_LABEL;
+		distLabelsX		= 1.;
+		distLabelsY		= 1.;
 		// The first arrow is for the bottom of the Y-axis.
 		arrows.add(new LArrow(this));
 		// The second arrow is for the top of the Y-axis.
@@ -369,6 +369,21 @@ class LAxes extends LAbstractGrid implements IAxes {
 		if(increment!=null) {
 			setIncrementX(increment.getX());
 			setIncrementY(increment.getY());
+		}
+	}
+
+
+	@Override
+	public IPoint getDistLabels() {
+		return new LPoint(distLabelsX, distLabelsY);
+	}
+
+
+	@Override
+	public void setDistLabels(final IPoint distLabels) {
+		if(distLabels!=null) {
+			setDistLabelsX(distLabels.getX());
+			setDistLabelsY(distLabels.getY());
 		}
 	}
 }

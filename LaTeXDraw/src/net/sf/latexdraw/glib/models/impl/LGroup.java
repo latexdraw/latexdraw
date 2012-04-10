@@ -2785,4 +2785,42 @@ class LGroup extends LShape implements IGroup {
 
 		return list;
 	}
+
+
+	@Override
+	public IPoint getDistLabels() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				return ((IAxes)sh).getDistLabels();
+
+		return null;
+	}
+
+
+	@Override
+	public void setDistLabels(final IPoint distLabels) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IAxes)
+				((IAxes)sh).setDistLabels(distLabels);
+	}
+
+
+	@Override
+	public void setAxesDistLabelsList(final List<IPoint> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IAxes)
+					((IAxes)shapes.get(i)).setDistLabels(values.get(i));
+	}
+
+
+	@Override
+	public List<IPoint> getAxesDistLabelsList() {
+		final List<IPoint> list = new ArrayList<IPoint>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IAxes ? ((IAxes)sh).getDistLabels() : null);
+
+		return list;
+	}
 }

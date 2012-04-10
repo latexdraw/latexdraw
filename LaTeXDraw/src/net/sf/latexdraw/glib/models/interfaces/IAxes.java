@@ -348,6 +348,11 @@ public interface IAxes extends IStandardGrid {
 	void setIncrement(final IPoint increment);
 
 	/**
+	 * @return The distance between the labels of the axes.
+	 */
+	IPoint getDistLabels();
+
+	/**
 	 * @return the distLabels.x.
 	 */
 	double getDistLabelsX();
@@ -356,6 +361,11 @@ public interface IAxes extends IStandardGrid {
 	 * @return the distLabels.y.
 	 */
 	double getDistLabelsY();
+
+	/**
+	 * @param distLabels The distance between the labels of the axes.
+	 */
+	void setDistLabels(final IPoint distLabels);
 
 	/**
 	 * @param distLabelsX the distLabels.x to set.

@@ -133,6 +133,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(stdGridCust.getLabelsYInvertedCB());
 		addSpinner(list, axeCust.getIncrLabelX(), true, 50);
 		addSpinner(list, axeCust.getIncrLabelY(), true, 50);
+		addSpinner(list, axeCust.getDistLabelsX(), true, 60);
+		addSpinner(list, axeCust.getDistLabelsY(), true, 60);
 		list.addSeparator();
 
 		mapContainers.put(axeCust.getIncrLabelX(), list);

@@ -828,4 +828,21 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	 * @since 3.0
 	 */
 	List<Boolean> getAxesShowOriginList();
+
+	/**
+	 * Sets the distances between the labels of the axes contained by the group are displayed.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setAxesDistLabelsList(final List<IPoint> values);
+
+	/**
+	 * @return The list of the distances between the labels of the axes contained in the group.
+	 * If a shape of the group is not an axe, null is added.
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<IPoint> getAxesDistLabelsList();
 }
