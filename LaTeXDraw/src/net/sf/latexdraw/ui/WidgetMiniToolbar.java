@@ -29,6 +29,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
@@ -183,8 +184,8 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 		for(int i=0, size=cont.getComponentCount(); i<size && !visible; i++) {
 			comp = cont.getComponent(i);
 
-			if(!(comp instanceof JToolBar.Separator) && !(comp instanceof CloseButton) && !(comp instanceof Box.Filler))
-				visible = comp.isVisible() && (!(comp instanceof Container) || isContentVisibleContainer((Container)comp));
+			if(!(comp instanceof JToolBar.Separator) && !(comp instanceof CloseButton) && !(comp instanceof Box.Filler) && !(comp instanceof JLabel))
+				visible = comp.isVisible() && (!(comp instanceof JPanel) || isContentVisibleContainer((JPanel)comp));
 		}
 
 		return visible;
@@ -286,8 +287,8 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 		final int ys[] = new int[TRIANGLE_NB_POINT];
 
 		if(location==LOCATION_SOUTH) {
-			xs[0] = (width-WIDTH_TRIANGLE)>>1;
-			xs[1] = (width+WIDTH_TRIANGLE)>>1;
+			xs[0] = width-WIDTH_TRIANGLE>>1;
+			xs[1] = width+WIDTH_TRIANGLE>>1;
 			xs[2] = width>>1;
 
 			ys[0] = height-HEIGHT_TRIANGLE-TRIANGLE_GAP;
@@ -295,8 +296,8 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 			ys[2] = height-TRIANGLE_GAP;
 		}
 		else {
-			xs[0] = (width-WIDTH_TRIANGLE)>>1;
-			xs[1] = (width+WIDTH_TRIANGLE)>>1;
+			xs[0] = width-WIDTH_TRIANGLE>>1;
+			xs[1] = width+WIDTH_TRIANGLE>>1;
 			xs[2] = width>>1;
 
 			ys[0] = HEIGHT_TRIANGLE+TRIANGLE_GAP;
