@@ -162,9 +162,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			addLink(new Spinner2ModifyPencilGridCoords(this));
 			addLink(new CheckBox2ModifySelectionGrid(this));
 			addLink(new CheckBox2ModifyPencilGrid(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -244,7 +244,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 
 	private static abstract class CheckBox4ShapeGridCust<A extends ShapePropertyAction> extends ButtonPressedForCustomiser<A, ShapeGridCustomiser> {
-		protected CheckBox4ShapeGridCust(final ShapeGridCustomiser ins, Class<A> actClazz) throws InstantiationException, IllegalAccessException {
+		protected CheckBox4ShapeGridCust(final ShapeGridCustomiser ins, final Class<A> actClazz) throws InstantiationException, IllegalAccessException {
 			super(ins, actClazz);
 		}
 
