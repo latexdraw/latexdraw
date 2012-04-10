@@ -4,7 +4,7 @@
 	<property name="dir.data" value="out/data"/>
 	<property name="dir.report" value="out/report"/>
 	<property name="dir.doc" location="doc"/>
-	<property name="release.name" value="LaTeXDraw3.0a2" />
+	<property name="release.name" value="LaTeXDraw3.0a3" />
 	
 	<!-- Creates the output directories -->
 	<target name="prepare">
