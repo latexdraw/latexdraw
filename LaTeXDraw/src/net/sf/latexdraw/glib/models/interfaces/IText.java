@@ -210,9 +210,6 @@ public interface IText extends IPositionShape {
 	}
 
 
-	@Override
-	IText duplicate();
-
 	/**
 	 * @return The text position of the text (bottom-right, top-left, etc.).
 	 * @since 3.0

@@ -311,9 +311,6 @@ public interface IAxes extends IStandardGrid {
 	}
 
 
-	@Override
-	IAxes duplicate();
-
 	/**
 	 * @return The X increment of the axes.
 	 * @since 3.0
