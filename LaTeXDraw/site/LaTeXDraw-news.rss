@@ -14,6 +14,16 @@
     <description>A graphical PSTricks code generator/editor</description>
   </image>
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
+
+  <item>
+    <title>For testing purposes only: LaTeXDraw 3.0.0 alpha 3 released</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Mon, 10 Apr 2012 08:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS39</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS39</link>
+    <description>Third alpha just released. Still for testing purposes only. I was pretty busy these last weeks so that this release does not contain a lot of improvements: can rotate shapes; can customise axes; can customise the drawings' properties. Another alpha is excepted in a couple of weeks.</description>
+  </item>
+
   <item>
     <title>For testing purposes only: LaTeXDraw 3.0.0 alpha 2 released</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
