@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -33,6 +32,7 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.ui.UIComposer;
+import org.malai.widget.MComboBox;
 import org.malai.widget.MPanel;
 import org.malai.widget.MProgressBar;
 import org.malai.widget.MSpinner;
@@ -125,16 +125,15 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids' labels.");
 
-		addSpinner(list, stdGridCust.getLabelsSizeS(), true, 50);
-		list.addComponent(new JLabel("Visibility:"));
-		list.addComponent(axeCust.getShowLabels());
+		addSpinner(list, stdGridCust.getLabelsSizeS(), 50);
+		addCombobox(list, axeCust.getShowLabels());
 		list.addComponent(axeCust.getShowOrigin());
 		list.addComponent(stdGridCust.getLabelsXInvertedCB());
 		list.addComponent(stdGridCust.getLabelsYInvertedCB());
-		addSpinner(list, axeCust.getIncrLabelX(), true, 50);
-		addSpinner(list, axeCust.getIncrLabelY(), true, 50);
-		addSpinner(list, axeCust.getDistLabelsX(), true, 60);
-		addSpinner(list, axeCust.getDistLabelsY(), true, 60);
+		addSpinner(list, axeCust.getIncrLabelX(), 50);
+		addSpinner(list, axeCust.getIncrLabelY(), 50);
+		addSpinner(list, axeCust.getDistLabelsX(), 60);
+		addSpinner(list, axeCust.getDistLabelsY(), 60);
 		list.addSeparator();
 
 		mapContainers.put(axeCust.getShowLabels(), list);
@@ -166,11 +165,9 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		panel.add(cust.getShapeAxes());
 
-		ticksPanel.add(new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.0")));
-		ticksPanel.add(cust.getShapeTicks());
-		addSpinner(ticksPanel, cust.getTicksSizeS(), true, 70);
-		ticksPanel.add(new JLabel("Visibility:"));
-		ticksPanel.add(cust.getShowTicks());
+		addCombobox(ticksPanel, cust.getShapeTicks());
+		addSpinner(ticksPanel, cust.getTicksSizeS(), 70);
+		addCombobox(ticksPanel, cust.getShowTicks());
 
 		list.addComponent(panel);
 		list.addComponent(ticksPanel);
@@ -192,12 +189,12 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids and axes.");
 
-		addSpinner(list, cust.getxStartS(), true, 50);
-		addSpinner(list, cust.getyStartS(), true, 50);
-		addSpinner(list, cust.getxEndS(), true, 50);
-		addSpinner(list, cust.getyEndS(), true, 50);
-		addSpinner(list, cust.getxOriginS(), true, 50);
-		addSpinner(list, cust.getyOriginS(), true, 50);
+		addSpinner(list, cust.getxStartS(), 50);
+		addSpinner(list, cust.getyStartS(), 50);
+		addSpinner(list, cust.getxEndS(), 50);
+		addSpinner(list, cust.getyEndS(), 50);
+		addSpinner(list, cust.getxOriginS(), 50);
+		addSpinner(list, cust.getyOriginS(), 50);
 		list.addSeparator();
 
 		mapContainers.put(cust.getxStartS(), list);
@@ -216,8 +213,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.DIM_POS_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the dimensions and the position.");
 
-		addSpinner(list, cust.getTlxS(), true, 90);
-		addSpinner(list, cust.getTlyS(), true, 90);
+		addSpinner(list, cust.getTlxS(), 90);
+		addSpinner(list, cust.getTlyS(), 90);
 		list.addSeparator();
 
 		mapContainers.put(cust.getTlxS(), list);
@@ -267,9 +264,17 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
-	protected void addSpinner(final Container cont, final MSpinner spinner, final boolean label, final int width) {
+	// FIXME SCALA: When a trait will be used, this trait could be used as type of the parameter instead of several operations.
+	protected void addSpinner(final Container cont, final MSpinner spinner, final int width) {
 		spinner.setPreferredSize(new Dimension(width, HEIGHT_TEXTFIELD));
-		if(label)
+		if(spinner.getLabel()!=null)
+			cont.add(spinner.getLabel());
+		cont.add(spinner);
+	}
+
+
+	protected void addCombobox(final Container cont, final MComboBox spinner) {
+		if(spinner.getLabel()!=null)
 			cont.add(spinner.getLabel());
 		cont.add(spinner);
 	}
@@ -282,8 +287,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(ins.getArcB());
 		list.addComponent(ins.getChordB());
 		list.addComponent(ins.getWedgeB());
-		addSpinner(list, ins.getStartAngleS(), true, 70);
-		addSpinner(list, ins.getEndAngleS(), true, 70);
+		addSpinner(list, ins.getStartAngleS(), 70);
+		addSpinner(list, ins.getEndAngleS(), 70);
 		list.addSeparator();
 
 		mapContainers.put(ins.getArcB(), list);
@@ -303,7 +308,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.setToolTipText("Customises the dots.");
 
 		list.addComponent(ins.getDotCB());
-		addSpinner(list, ins.getDotSizeField(), false, 70);
+		addSpinner(list, ins.getDotSizeField(), 70);
 		list.addComponent(ins.getFillingB());
 		list.addSeparator();
 
@@ -324,16 +329,16 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		list.addComponent(ins.getArrowLeftCB());
 		list.addComponent(ins.getArrowRightCB());
-		addSpinner(list, ins.getArrowInset(), true, size);
-		addSpinner(list, ins.getArrowLength(), true, size);
-		addSpinner(list, ins.getArrowSizeNum(), true, size);
-		addSpinner(list, ins.getArrowSizeDim(), true, size);
-		addSpinner(list, ins.getBracketNum(), true, size);
-		addSpinner(list, ins.getTbarsizeNum(), true, size);
-		addSpinner(list, ins.getTbarsizeDim(), true, size);
-		addSpinner(list, ins.getDotSizeNum(), true, size);
-		addSpinner(list, ins.getDotSizeDim(), true, size);
-		addSpinner(list, ins.getRbracketNum(), true, size);
+		addSpinner(list, ins.getArrowInset(), size);
+		addSpinner(list, ins.getArrowLength(), size);
+		addSpinner(list, ins.getArrowSizeNum(), size);
+		addSpinner(list, ins.getArrowSizeDim(), size);
+		addSpinner(list, ins.getBracketNum(), size);
+		addSpinner(list, ins.getTbarsizeNum(), size);
+		addSpinner(list, ins.getTbarsizeDim(), size);
+		addSpinner(list, ins.getDotSizeNum(), size);
+		addSpinner(list, ins.getDotSizeDim(), size);
+		addSpinner(list, ins.getRbracketNum(), size);
 
 		list.addSeparator();
 
@@ -361,7 +366,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.ROTATE_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
         list.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.2")); //$NON-NLS-1$
 
-        addSpinner(list, ins.getRotationField(), true, 65);
+        addSpinner(list, ins.getRotationField(), 65);
         list.addComponent(ins.getRotate90Button());
         list.addComponent(ins.getRotate180Button());
         list.addComponent(ins.getRotate270Button());
@@ -393,19 +398,19 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		list.addComponent(fillingCustomiser.getHatchColButton());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
-		addSpinner(list, fillingCustomiser.getHatchAngleField(), true, 65);
+		addSpinner(list, fillingCustomiser.getHatchAngleField(), 65);
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
-		addSpinner(list, fillingCustomiser.getHatchWidthField(), true, 60);
+		addSpinner(list, fillingCustomiser.getHatchWidthField(), 60);
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
-		addSpinner(list, fillingCustomiser.getHatchSepField(), true, 65);
+		addSpinner(list, fillingCustomiser.getHatchSepField(), 65);
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		list.addComponent(fillingCustomiser.getGradStartColButton());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		list.addComponent(fillingCustomiser.getGradEndColButton());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
-		addSpinner(list, fillingCustomiser.getGradAngleField(), true, 60);
+		addSpinner(list, fillingCustomiser.getGradAngleField(), 60);
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
-		addSpinner(list, fillingCustomiser.getGradMidPtField(), true, 70);
+		addSpinner(list, fillingCustomiser.getGradMidPtField(), 70);
 		list.addSeparator();
 
 		mapContainers.put(fillingCustomiser.getFillStyleCB(), list);
@@ -438,9 +443,9 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		list.addComponent(shadowCustomiser.getShadowColB());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
-		addSpinner(list, shadowCustomiser.getShadowSizeField(), true, 75);
+		addSpinner(list, shadowCustomiser.getShadowSizeField(), 75);
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
-		addSpinner(list, shadowCustomiser.getShadowAngleField(), true, 75);
+		addSpinner(list, shadowCustomiser.getShadowAngleField(), 75);
 		list.addSeparator();
 
 		mapContainers.put(shadowCustomiser.getShadowCB(), list);
@@ -467,7 +472,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		list.addComponent(dbleBorderCustomiser.getDbleBoundColB());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
-		addSpinner(list, dbleBorderCustomiser.getDbleSepField(), true, 55);
+		addSpinner(list, dbleBorderCustomiser.getDbleSepField(), 55);
 		list.addSeparator();
 
 		mapContainers.put(dbleBorderCustomiser.getDbleBoundCB(), list);
@@ -490,7 +495,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.BORDER_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the border properties.");
 
-		addSpinner(list, borderCustomiser.getThicknessField(), true, 65);
+		addSpinner(list, borderCustomiser.getThicknessField(), 65);
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		list.addComponent(borderCustomiser.getLineColButton());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
@@ -498,7 +503,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
 		list.addComponent(borderCustomiser.getBordersPosCB());
 		list.addComponent(Box.createHorizontalStrut(SEPARATION_WIDTH));
-		addSpinner(list, borderCustomiser.getFrameArcField(), true, 65);
+		addSpinner(list, borderCustomiser.getFrameArcField(), 65);
 		list.addSeparator();
 
 		mapContainers.put(borderCustomiser.getThicknessField(), list);

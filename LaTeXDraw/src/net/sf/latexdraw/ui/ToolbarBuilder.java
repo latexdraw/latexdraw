@@ -177,7 +177,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		drawingB.addComponent(new JLabel("Label:"));
 		drawingB.addComponent(cust.getLabelField());
 		drawingB.addComponent(cust.getMiddleHorizPosCB());
-		drawingB.addComponent(new JLabel("Position:"));
+		drawingB.addComponent(cust.getPositionCB().getLabel());
 		drawingB.addComponent(cust.getPositionCB());
 		drawingB.addSeparator();
 	}
@@ -321,7 +321,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		magneticGridB.addComponent(frame.gridCustomiser.getMagneticCB());
 		mapContainers.put(frame.gridCustomiser.getMagneticCB(), magneticGridB);
 		magneticGridB.addComponent(Box.createHorizontalStrut(PropertiesToolbarBuilder.SEPARATION_WIDTH));
-		MSpinner spinner = frame.gridCustomiser.getGridSpacing();
+		final MSpinner spinner = frame.gridCustomiser.getGridSpacing();
 		spinner.setPreferredSize(new Dimension(65, PropertiesToolbarBuilder.HEIGHT_TEXTFIELD));
 		if(spinner.getLabel()!=null)
 			magneticGridB.addComponent(spinner.getLabel());

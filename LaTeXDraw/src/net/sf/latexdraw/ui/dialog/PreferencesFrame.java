@@ -59,15 +59,15 @@ public class PreferencesFrame extends MFrame {
 			throw new IllegalArgumentException();
 
 		this.prefSetter = setter;
-  		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+  		final Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
   		setIconImage(LResources.PROPERTIES_ICON.getImage());
 
 	  	setTitle(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.Pref")); //$NON-NLS-1$
   		setLocation(dim.width*1/3, dim.height*1/4);
 
-  		JTabbedPane tabbedPane = new JTabbedPane();
-  		JPanel pGeneral = new JPanel(new BorderLayout());
+  		final JTabbedPane tabbedPane = new JTabbedPane();
+  		final JPanel pGeneral = new JPanel(new BorderLayout());
 
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.general"), createGeneralPanel()); //$NON-NLS-1$
   		tabbedPane.add("LaTeX", createLatexPanel()); //$NON-NLS-1$
@@ -86,7 +86,7 @@ public class PreferencesFrame extends MFrame {
 
 
 	private JPanel createLatexPanel() {
-		JPanel pLatex = new JPanel();
+		final JPanel pLatex = new JPanel();
 		pLatex.setLayout(new BoxLayout(pLatex, BoxLayout.Y_AXIS));
   		pLatex.add(new JLabel("Packages included during latex compilations:"));
   		pLatex.add(prefSetter.getLatexIncludes().getScrollpane());
@@ -101,11 +101,11 @@ public class PreferencesFrame extends MFrame {
 	 * @return The created panel.
 	 */
 	private JPanel createGeneralPanel() {
-		JPanel pGeneral = new JPanel();
-		JPanel pLang 	= new JPanel();
-		JPanel pEditor 	= new JPanel();
-  		JPanel pRecent 	= new JPanel();
-  		JPanel pTheme	= new JPanel();
+		final JPanel pGeneral 	= new JPanel();
+		final JPanel pLang 		= new JPanel();
+		final JPanel pEditor 	= new JPanel();
+  		final JPanel pRecent 	= new JPanel();
+  		final JPanel pTheme		= new JPanel();
 
   		pTheme.setLayout(new BoxLayout(pTheme, BoxLayout.X_AXIS));
 		pEditor.setLayout(new BoxLayout(pEditor, BoxLayout.X_AXIS));
@@ -113,12 +113,12 @@ public class PreferencesFrame extends MFrame {
   		pGeneral.setLayout(new GridLayout(6, 1));
   		pRecent.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-  		JButton bChooseEditor = new JButton(LResources.OPEN_ICON);
+  		final JButton bChooseEditor = new JButton(LResources.OPEN_ICON);
 
   		pRecent.add(prefSetter.getNbRecentFilesField().getLabel());
   		pRecent.add(prefSetter.getNbRecentFilesField());
 
-  		pTheme.add(new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1"))); //$NON-NLS-1$
+  		pTheme.add(prefSetter.getThemeList().getLabel());
   		pTheme.add(prefSetter.getThemeList());
 
   		pLang.add(new JLabel(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.lge"))); //$NON-NLS-1$
@@ -187,10 +187,10 @@ public class PreferencesFrame extends MFrame {
 	 * @return The created panel.
 	 */
 	private JPanel createFoldersPanel() {
-  		JPanel pFolders  = new JPanel(new GridBagLayout());
-  		JButton bExport  = new JButton(LResources.OPEN_ICON);
-  		JButton bOpen    = new JButton(LResources.OPEN_ICON);
-  		GridBagConstraints constraint = new GridBagConstraints();
+  		final JPanel pFolders  = new JPanel(new GridBagLayout());
+  		final JButton bExport  = new JButton(LResources.OPEN_ICON);
+  		final JButton bOpen    = new JButton(LResources.OPEN_ICON);
+  		final GridBagConstraints constraint = new GridBagConstraints();
 
     	constraint.gridx = 0;
      	constraint.gridy = 0;
