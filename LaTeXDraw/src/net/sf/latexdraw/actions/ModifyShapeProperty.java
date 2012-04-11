@@ -2,7 +2,9 @@ package net.sf.latexdraw.actions;
 
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 
 import org.malai.undo.Undoable;
 
@@ -155,7 +157,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case GRID_LABEL_POSITION_Y:
 				case GRID_LABEL_POSITION_X:
 				case GRID_SIZE_LABEL:
-				case GRID_ORIGIN:		return shapes.containsStandardGrids();
+				case GRID_ORIGIN:		return shapes.isTypeOf(IStandardGrid.class);
 				case ROUND_CORNER_VALUE:
 				case DOT_SIZE:
 				case DOT_STYLE:
@@ -173,7 +175,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case AXES_LABELS_SHOW:
 				case AXES_SHOW_ORIGIN:
 				case AXES_LABELS_DIST:
-				case AXES_STYLE:		return shapes.containsAxes();
+				case AXES_STYLE:		return shapes.isTypeOf(IAxes.class);
 			}
 
 		return false;

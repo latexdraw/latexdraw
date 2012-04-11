@@ -160,7 +160,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			final boolean isStylable = shape.isLineStylable();
 			final boolean isMvble	 = shape.isBordersMovable();
 			final boolean isColor	 = shape.isColourable();
-			final boolean supportRound = shape instanceof IGroup ? ((IGroup)shape).containsRoundables() : shape instanceof ILineArcShape;
+			final boolean supportRound = shape.isTypeOf(ILineArcShape.class);
 
 			composer.setWidgetVisible(thicknessField, isTh);
 			composer.setWidgetVisible(lineCB, isStylable);

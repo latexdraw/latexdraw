@@ -27,25 +27,6 @@ import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
  */
 public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable, IAxes {
 	/**
-	 * @return True if one of the shapes of the group is an axe.
-	 * @since 3.0
-	 */
-	boolean containsAxes();
-
-
-	/**
-	 * @return True if one of the shapes of the group is a grid.
-	 * @since 3.0
-	 */
-	boolean containsStandardGrids();
-
-	/**
-	 * @return True if one of the shapes of the group supports rounded corners.
-	 * @since 3.0
-	 */
-	boolean containsRoundables();
-
-	/**
 	 * @return True if one of the shapes of the group is a text.
 	 * @since 3.0
 	 */

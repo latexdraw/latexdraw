@@ -219,13 +219,13 @@ abstract class LShape implements IShape {
 
 
 	protected void copyArrows(final IShape s) {
-		List<IArrow> arrs = s.getArrows();
+		final List<IArrow> arrs = s.getArrows();
 
 		if(arrows==null)
 			 arrows = new ArrayList<IArrow>();
 		else arrows.clear();
 
-		for(IArrow arr : arrs)
+		for(final IArrow arr : arrs)
 			arrows.add(new LArrow(arr, this));
 	}
 
@@ -235,11 +235,11 @@ abstract class LShape implements IShape {
 		if(sh==null || !getClass().isInstance(sh))
 			return ;
 
-		List<IPoint> pts  = sh.getPoints();
+		final List<IPoint> pts  = sh.getPoints();
 
 		points.clear();
 
-		for(IPoint pt : pts)
+		for(final IPoint pt : pts)
 			points.add(new LPoint(pt));
 	}
 
@@ -343,8 +343,8 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getFullBottomRightPoint() {
-		double gap = getBorderGap();
-		IPoint br  = getBottomRightPoint();
+		final double gap = getBorderGap();
+		final IPoint br  = getBottomRightPoint();
 
 		br.translate(gap, gap);
 
@@ -355,8 +355,8 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getFullTopLeftPoint() {
-		double gap = getBorderGap();
-		IPoint tl  = getTopLeftPoint();
+		final double gap = getBorderGap();
+		final IPoint tl  = getTopLeftPoint();
 
 		tl.translate(-gap, -gap);
 
@@ -533,34 +533,33 @@ abstract class LShape implements IShape {
 		boolean hatchOk  = false;
 		boolean dblbndOk = false;
 		boolean shadowOk = false;
-		boolean lineOk = !s.isLineStylable() || !isLineStylable() ||
-		(lineStyle==s.getLineStyle() && LNumber.INSTANCE.equals(thickness, s.getThickness()) &&
+		final boolean lineOk = !s.isLineStylable() || !isLineStylable() ||
+		lineStyle==s.getLineStyle() && LNumber.INSTANCE.equals(thickness, s.getThickness()) &&
 		lineStyle==s.getLineStyle() && LNumber.INSTANCE.equals(dotSep, s.getDotSep()) &&
-		LNumber.INSTANCE.equals(dashSepBlack, s.getDashSepBlack()) && LNumber.INSTANCE.equals(dashSepWhite, s.getDashSepWhite()));
+		LNumber.INSTANCE.equals(dashSepBlack, s.getDashSepBlack()) && LNumber.INSTANCE.equals(dashSepWhite, s.getDashSepWhite());
 
 		if(lineOk && LNumber.INSTANCE.equals(rotationAngle, s.getRotationAngle()) && LNumber.INSTANCE.equals(opacity, s.getOpacity())) {
 			filledOk = !s.isFillable() || !isFillable() ||
-						(isFilled()==s.isFilled() && fillingCol.equals(s.getFillingCol()));
+						isFilled()==s.isFilled() && fillingCol.equals(s.getFillingCol());
 
 			if(filledOk) {
 				dblbndOk = !s.isDbleBorderable() || !isDbleBorderable() ||
-							(s.hasDbleBord()==hasDbleBord &&
-							dbleBordCol.equals(s.getDbleBordCol()) && LNumber.INSTANCE.equals(dbleBordSep, s.getDbleBordSep()));
+							s.hasDbleBord()==hasDbleBord &&
+							dbleBordCol.equals(s.getDbleBordCol()) && LNumber.INSTANCE.equals(dbleBordSep, s.getDbleBordSep());
 
 				if(filledOk) {
 					hatchOk = !s.isFillable() || !isFillable() ||
-							  ((s.getFillingStyle()==fillingStyle && (!hasHatchings() ||
-							  (LNumber.INSTANCE.equals(s.getHatchingsAngle(), hatchingsAngle) && s.getHatchingsCol().equals(hatchingsCol) &&
-							  LNumber.INSTANCE.equals(s.getHatchingsSep(), hatchingsSep) && s.getHatchingsWidth()==hatchingsWidth))) &&
-						      (hasGradient()==s.hasGradient() &&(!hasGradient() ||
-						      (LNumber.INSTANCE.equals(gradAngle, s.getGradAngle()) && gradColEnd.equals(s.getGradColEnd()) &&
-				    		  LNumber.INSTANCE.equals(gradMidPt, s.getGradMidPt()) && gradColStart.equals(s.getGradColStart())))));
+							  s.getFillingStyle()==fillingStyle && (!hasHatchings() ||
+							  LNumber.INSTANCE.equals(s.getHatchingsAngle(), hatchingsAngle) && s.getHatchingsCol().equals(hatchingsCol) &&
+							  LNumber.INSTANCE.equals(s.getHatchingsSep(), hatchingsSep) && s.getHatchingsWidth()==hatchingsWidth) &&
+						      hasGradient()==s.hasGradient() &&(!hasGradient() ||
+						      LNumber.INSTANCE.equals(gradAngle, s.getGradAngle()) && gradColEnd.equals(s.getGradColEnd()) &&
+				    		  LNumber.INSTANCE.equals(gradMidPt, s.getGradMidPt()) && gradColStart.equals(s.getGradColStart()));
 
-					if(hatchOk) {
+					if(hatchOk)
 						shadowOk = !considerShadow || !s.isShadowable() || !isShadowable() ||
-									(hasShadow==s.hasShadow() && LNumber.INSTANCE.equals(shadowAngle, s.getShadowAngle()) &&
-									shadowCol.equals(s.getShadowCol()) && LNumber.INSTANCE.equals(shadowSize, s.getShadowSize()));
-					}
+									hasShadow==s.hasShadow() && LNumber.INSTANCE.equals(shadowAngle, s.getShadowAngle()) &&
+									shadowCol.equals(s.getShadowCol()) && LNumber.INSTANCE.equals(shadowSize, s.getShadowSize());
 				}
 			}
 		}
@@ -945,7 +944,7 @@ abstract class LShape implements IShape {
 
 		IPoint pt1;
 
-		for(IPoint pt : points) {
+		for(final IPoint pt : points) {
 			pt1 = pt.horizontalSymmetry(origin);
 
 			if(pt1!=null)
@@ -961,7 +960,7 @@ abstract class LShape implements IShape {
 
 		IPoint pt1;
 
-		for(IPoint pt : points) {
+		for(final IPoint pt : points) {
 			pt1 = pt.verticalSymmetry(origin);
 
 			if(pt1!=null)
@@ -972,7 +971,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getBottomRightPoint() {
-		IPoint br = new LPoint();
+		final IPoint br = new LPoint();
 
 		if(points.size()>0) {
 			IPoint pt = points.get(0);
@@ -992,7 +991,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getBottomLeftPoint() {
-		IPoint bl = new LPoint();
+		final IPoint bl = new LPoint();
 
 		if(points.size()>0) {
 			IPoint pt = points.get(0);
@@ -1012,7 +1011,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getTopLeftPoint() {
-		IPoint tl = new LPoint();
+		final IPoint tl = new LPoint();
 
 		if(points.size()>0) {
 			IPoint pt = points.get(0);
@@ -1032,7 +1031,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getTopRightPoint() {
-		IPoint tr = new LPoint();
+		final IPoint tr = new LPoint();
 
 		if(points.size()>0) {
 			IPoint pt = points.get(0);
@@ -1053,7 +1052,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IShape duplicate() {
-		IShape shape = DrawingTK.getFactory().newShape(this.getClass());
+		final IShape shape = DrawingTK.getFactory().newShape(this.getClass());
 
 		shape.copy(this);
 
@@ -1307,5 +1306,14 @@ abstract class LShape implements IShape {
 		} else style = null;
 
 		return style;
+	}
+
+
+	@Override
+	public boolean isTypeOf(final Class<?> clazz) {
+		if(clazz==null)
+			return false;
+
+		return clazz.isInstance(this);
 	}
 }

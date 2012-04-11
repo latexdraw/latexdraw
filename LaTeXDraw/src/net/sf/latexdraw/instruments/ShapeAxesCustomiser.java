@@ -88,7 +88,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape instanceof IAxes && (!(shape instanceof IGroup) || ((IGroup)shape).containsAxes())) {
+		if(shape.isTypeOf(IAxes.class)) {
 			final IAxes axes = (IAxes)shape;
 			shapeAxes.setSelectedItemSafely(axes.getAxesStyle());
 			shapeTicks.setSelectedItemSafely(axes.getTicksStyle());

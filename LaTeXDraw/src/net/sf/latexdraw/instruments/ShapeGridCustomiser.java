@@ -82,7 +82,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape instanceof IStandardGrid && (!(shape instanceof IGroup) || ((IGroup)shape).containsStandardGrids())) {
+		if(shape.isTypeOf(IStandardGrid.class)) {
 			final IStandardGrid grid = (IStandardGrid)shape;
 
 			((MSpinner.MSpinnerNumberModel)xStartS.getModel()).setMaximumSafely(grid.getGridEndX());

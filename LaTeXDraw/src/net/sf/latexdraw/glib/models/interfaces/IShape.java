@@ -916,4 +916,15 @@ public interface IShape extends Modifiable, IArrowable {
 	 * @since 3.0
 	 */
 	void rotate(final IPoint point, final double angle);
+
+	/**
+	 * This operation is a workaround to support the dynamic typing
+	 * of groups: the type of a group depends on its content.
+	 * This operation tests if the type of the calling shape conforms
+	 * to the given type.
+	 * @param clazz The type to check.
+	 * @return True if the type of the calling object conforms to the given type.
+	 * @since 3.0
+	 */
+	boolean isTypeOf(final Class<?> clazz);
 }

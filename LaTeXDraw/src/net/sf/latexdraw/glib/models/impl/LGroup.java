@@ -57,6 +57,24 @@ class LGroup extends LShape implements IGroup {
 	}
 
 
+
+	@Override
+	public boolean isTypeOf(final Class<?> clazz) {
+		if(clazz==null)
+			return false;
+
+		if(clazz.equals(getClass()) || clazz.equals(IShape.class) ||
+			clazz.equals(LShape.class) || clazz.equals(IGroup.class))
+			return true;
+
+		for(final IShape sh : shapes)
+			if(sh.isTypeOf(clazz))
+				return true;
+
+		return false;
+	}
+
+
 	@Override
 	public void addShape(final IShape sh) {
 		if(sh!=null)
@@ -219,18 +237,6 @@ class LGroup extends LShape implements IGroup {
 			for(final IShape shape : shapes)
 				if(shape instanceof ILineArcShape)
 					((ILineArcShape)shape).setLineArc(lineArc);
-	}
-
-
-
-	@Override
-	public boolean containsRoundables() {
-		boolean roundable = false;
-
-		for(int i=0, size=shapes.size(); i<size && !roundable; i++)
-			roundable = shapes.get(i) instanceof ILineArcShape;
-
-		return roundable;
 	}
 
 
@@ -2254,26 +2260,6 @@ class LGroup extends LShape implements IGroup {
 				return ((IStandardGrid)sh).getStep();
 
 		return Double.NaN;
-	}
-
-
-	@Override
-	public boolean containsStandardGrids() {
-		for(final IShape sh : shapes)
-			if(sh instanceof IStandardGrid)
-				return true;
-
-		return false;
-	}
-
-
-	@Override
-	public boolean containsAxes() {
-		for(final IShape sh : shapes)
-			if(sh instanceof IAxes)
-				return true;
-
-		return false;
 	}
 
 
