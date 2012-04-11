@@ -88,7 +88,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		packagesLabel = new JLabel("Packages:");
 		packagesField = new MTextArea(true, true);
 		packagesLabel.setLabelFor(packagesField);
-		Font font = packagesField.getFont();
+		final Font font = packagesField.getFont();
 		packagesField.setToolTipText("Contains the LaTeX packages that will be used to compile the text.");
 		packagesField.setFont(new Font(font.getName(), font.getStyle(), Math.max(10, font.getSize()-4)));
 		packagesField.setColumns(20);
@@ -151,9 +151,9 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 			addLink(new KeysTyped2ChangePackages(this));
 			addLink(new ButtonPressed2ChangeTextPosition(this));
 			addLink(new ButtonPressed2ChangePencil(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -305,7 +305,7 @@ class ButtonPressed2ChangeTextPosition extends ButtonPressedForCustomiser<Modify
 	public void initAction() {
 		final AbstractButton ab = interaction.getButton();
 
-		action.setGroup(instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setGroup((IGroup)instrument.hand.canvas.getDrawing().getSelection().duplicate());
 		action.setProperty(ShapeProperties.TEXT_POSITION);
 
 		if(instrument.bButton==ab) action.setValue(IText.TextPosition.BOT);

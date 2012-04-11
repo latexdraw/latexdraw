@@ -214,13 +214,13 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		nbRecentFilesField.setEditor(new JSpinner.NumberEditor(nbRecentFilesField, "0"));//$NON-NLS-1$
   		nbRecentFilesField.setMaximumSize(new Dimension(60, height));
 
-  		UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
-  		String[] nameThemes = new String[info.length];
+  		final UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
+  		final String[] nameThemes = new String[info.length];
 
   		for(int i=0; i<info.length;i++)
   			nameThemes[i] = info[i].getName();
 
-  		themeList = new MComboBox(nameThemes);
+  		themeList = new MComboBox(nameThemes, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1")));
   		themeList.setMaximumSize(new Dimension(160, height));
 
   		classicGridRB  		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.4")); //$NON-NLS-1$
@@ -286,9 +286,9 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	protected void initialiseLinks() {
 		try{
 			addLink(new CloseFrame2SavePreferences(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -501,8 +501,9 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		node = prefMap.get(LNamespace.XML_LAF);
 		if(node!=null) {
-			String nodeText = node.getTextContent();
-			int count = themeList.getItemCount(), j=0;
+			final String nodeText = node.getTextContent();
+			final int count = themeList.getItemCount();
+			int j=0;
 			boolean again = true;
 
 			while(j<count && again)
@@ -539,12 +540,12 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		node = prefMap.get(LNamespace.XML_RECENT_FILES);
 		if(node!=null) {
-			NodeList nl2 = node.getChildNodes();
-			NamedNodeMap nnm = node.getAttributes();
+			final NodeList nl2 = node.getChildNodes();
+			final NamedNodeMap nnm = node.getAttributes();
 			recentFilesName.clear();
 
 			if(nnm!=null && nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES)!=null) {
-				Node attr = nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES);
+				final Node attr = nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES);
 
 				if(attr!=null)
 					nbRecentFilesField.setValueSafely(Integer.valueOf(attr.getTextContent()));
@@ -563,7 +564,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		node = prefMap.get(LNamespace.XML_SIZE);
 		if(node!=null) {
-			NodeList nl2 = node.getChildNodes();
+			final NodeList nl2 = node.getChildNodes();
 			frameSize = new Dimension();
 
 			for(int j=0, size2=nl2.getLength(); j<size2; j++) {
@@ -579,7 +580,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		node = prefMap.get(LNamespace.XML_POSITION);
 		if(node!=null) {
-			NodeList nl2 = node.getChildNodes();
+			final NodeList nl2 = node.getChildNodes();
 
 			for(int j=0, size2=nl2.getLength(); j<size2; j++) {
 				n2 = nl2.item(j);
@@ -658,8 +659,8 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	 */
 	public void writeXMLPreferences() {
 		try {
-			FileOutputStream fos = new FileOutputStream(LPath.PATH_PREFERENCES_XML_FILE);
-			Document document 	 = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+			final FileOutputStream fos = new FileOutputStream(LPath.PATH_PREFERENCES_XML_FILE);
+			final Document document 	 = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 	        Element root, elt, elt2;
 
 	        document.setXmlVersion("1.0");//$NON-NLS-1$
@@ -667,7 +668,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	        root = document.createElement(LNamespace.XML_ROOT_PREFERENCES);
 	        document.appendChild(root);
 
-	        Attr attr = document.createAttribute(LNamespace.XML_VERSION);
+	        final Attr attr = document.createAttribute(LNamespace.XML_VERSION);
 	        attr.setTextContent(VersionChecker.VERSION);
 	        root.setAttributeNode(attr);
 
@@ -747,7 +748,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	        elt.setAttribute(LNamespace.XML_NB_RECENT_FILES, nbRecentFilesField.getValue().toString());
 	        root.appendChild(elt);
 
-	        for(String recentFile : recentFilesName) {
+	        for(final String recentFile : recentFilesName) {
 	            elt2 = document.createElement(LNamespace.XML_RECENT_FILE);
 	            elt2.setTextContent(recentFile);
 	            elt.appendChild(elt2);
@@ -783,12 +784,12 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	        elt2.setTextContent(String.valueOf(frame.getLocation().y));
 	        elt.appendChild(elt2);
 
-			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			final Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 			transformer.transform(new DOMSource(document), new StreamResult(fos));
 			fos.close();
-		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
+		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -817,7 +818,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 			final NodeList nl = node.getChildNodes();
 			String name;
 
-			Map<String, Node> prefMaps = new HashMap<String, Node>();
+			final Map<String, Node> prefMaps = new HashMap<String, Node>();
 
 			for(int i=0, size=nl.getLength(); i<size; i++) {
 				node = nl.item(i);
@@ -829,7 +830,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 			processXMLDataPreference(prefMaps);
 			prefMaps.clear();
-		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
+		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 }
 

@@ -12,6 +12,7 @@ import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
@@ -290,9 +291,9 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 			addLink(new List2ShapeArrowStyle(this));
 			addLink(new Spinner2SelectionArrowParam(this));
 			addLink(new Spinner2PencilArrowParam(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -466,7 +467,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 
 
 abstract class Spinner2ArrowParam<A  extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeArrowCustomiser> {
-	protected Spinner2ArrowParam(final ShapeArrowCustomiser ins, Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+	protected Spinner2ArrowParam(final ShapeArrowCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 		super(ins, clazzAction);
 	}
 
@@ -524,7 +525,7 @@ class Spinner2SelectionArrowParam extends Spinner2ArrowParam<ModifyShapeProperty
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 	}
 }
 
@@ -585,7 +586,7 @@ class List2ShapeArrowStyle extends ListForCustomiser<ModifyShapeProperty, ShapeA
 		else
 			action.setProperty(ShapeProperties.ARROW2_STYLE);
 
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 		action.setValue(ArrowStyle.getArrowStyle(getLabelText()));
 	}
 

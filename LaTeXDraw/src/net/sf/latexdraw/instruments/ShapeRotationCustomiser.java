@@ -14,6 +14,7 @@ import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.RotateShapes;
 import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -104,9 +105,9 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 		try{
 			addLink(new ButtonPress2RotateShape(this));
 			addLink(new Spinner2RotateShape(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -172,7 +173,7 @@ class Spinner2RotateShape extends SpinnerForCustomiser<ModifyShapeProperty, Shap
 	@Override
 	public void initAction() {
 		action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 		action.setProperty(ShapeProperties.ROTATION_ANGLE);
 	}
 }

@@ -15,6 +15,7 @@ import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -121,9 +122,9 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 			addLink(new Spinner2PencilShadow(this));
 			addLink(new ColourButton2SelectionShadow(this));
 			addLink(new ColourButton2PencilShadow(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -207,7 +208,7 @@ class CheckBox2SelectionShadow extends CheckBoxForCustomiser<ModifyShapeProperty
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 		action.setProperty(ShapeProperties.SHADOW);
 	}
 
@@ -235,7 +236,7 @@ class Spinner2SelectionShadow extends SpinnerForCustomiser<ModifyShapeProperty, 
 	@Override
 	public void initAction() {
 		final JSpinner spinner = interaction.getSpinner();
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 
 		if(spinner==instrument.shadowSizeField)
 			action.setProperty(ShapeProperties.SHADOW_SIZE);
@@ -347,7 +348,7 @@ class ColourButton2SelectionShadow extends ColourButtonForCustomiser<ModifyShape
 	public void initAction() {
 		super.initAction();
 		action.setProperty(ShapeProperties.COLOUR_SHADOW);
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override

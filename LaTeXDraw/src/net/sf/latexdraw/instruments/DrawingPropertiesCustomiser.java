@@ -1,5 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import javax.swing.JLabel;
+
 import net.sf.latexdraw.actions.ModifyLatexProperties;
 import net.sf.latexdraw.actions.ModifyLatexProperties.LatexProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -62,7 +64,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 	 * @param latexGen The LaTeX code generator.
 	 * @since 3.0
 	 */
-	public DrawingPropertiesCustomiser(final UIComposer<?> composer, LaTeXGenerator latexGen) {
+	public DrawingPropertiesCustomiser(final UIComposer<?> composer, final LaTeXGenerator latexGen) {
 		super(composer);
 
 		if(latexGen==null)
@@ -159,7 +161,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 		titleField = new MTextField();
 		labelField = new MTextField();
 		middleHorizPosCB = new MCheckBox("Centred");
-		positionCB = new MComboBox(VerticalPosition.values());
+		positionCB = new MComboBox(VerticalPosition.values(), new JLabel("Position:"));
 	}
 
 
@@ -223,9 +225,9 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 			addLink(new TextField2CustDrawing(this));
 			addLink(new CheckBox2CustDrawing(this));
 			addLink(new ComboBox2CustDrawing(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

@@ -15,6 +15,7 @@ import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -139,9 +140,9 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 			addLink(new ColourButton2SelectionDoubleBorder(this));
 			addLink(new Spinner2PencilDoubleBorder(this));
 			addLink(new Spinner2SelectionDoubleBorder(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -195,7 +196,7 @@ class CheckBox2SelectionDoubleBorder extends CheckBoxForCustomiser<ModifyShapePr
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 		action.setProperty(ShapeProperties.DBLE_BORDERS);
 	}
 
@@ -253,7 +254,7 @@ class ColourButton2SelectionDoubleBorder extends ColourButtonForCustomiser<Modif
 	public void initAction() {
 		super.initAction();
 		action.setProperty(ShapeProperties.COLOUR_DBLE_BORD);
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override
@@ -280,7 +281,7 @@ class Spinner2SelectionDoubleBorder extends SpinnerForCustomiser<ModifyShapeProp
 	@Override
 	public void initAction() {
 		action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override

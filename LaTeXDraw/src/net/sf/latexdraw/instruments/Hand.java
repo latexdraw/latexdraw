@@ -10,6 +10,7 @@ import net.sf.latexdraw.actions.SelectShapes;
 import net.sf.latexdraw.actions.TranslateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
@@ -88,9 +89,9 @@ public class Hand extends Instrument {
 			addLink(new DnD2Select(this, true));
 			addLink(new DnD2Translate(this, true));
 			addLink(new DoubleClick2InitTextSetter(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -163,7 +164,7 @@ class DnD2Translate extends Link<TranslateShapes, DnD, Hand> {
 	@Override
 	public void initAction() {
 		action.setDrawing(instrument.canvas.getDrawing());
-		action.setShape(instrument.canvas.getDrawing().getSelection().duplicate());
+		action.setShape((IGroup)instrument.canvas.getDrawing().getSelection().duplicate());
 	}
 
 	@Override
@@ -180,8 +181,8 @@ class DnD2Translate extends Link<TranslateShapes, DnD, Hand> {
 		final Object startObject = interaction.getStartObject();
 		final int button 		 = interaction.getButton();
 		return  !instrument.canvas.getDrawing().getSelection().isEmpty() &&
-				((startObject==instrument.canvas && button==MouseEvent.BUTTON3) ||
-				 (startObject instanceof IViewShape && (button==MouseEvent.BUTTON1 || button==MouseEvent.BUTTON3)));
+				(startObject==instrument.canvas && button==MouseEvent.BUTTON3 ||
+				 startObject instanceof IViewShape && (button==MouseEvent.BUTTON1 || button==MouseEvent.BUTTON3));
 	}
 
 
@@ -248,12 +249,12 @@ class DnD2Select extends Link<SelectShapes, DnD, Hand> {
 
 	@Override
 	public void updateAction() {
-		Point start			= interaction.getStartPt();
-		Point end			= interaction.getEndPt();
-		double minX			= Math.min(start.x, end.x);
-		double maxX			= Math.max(start.x, end.x);
-		double minY			= Math.min(start.y, end.y);
-		double maxY			= Math.max(start.y, end.y);
+		final Point start			= interaction.getStartPt();
+		final Point end			= interaction.getEndPt();
+		final double minX			= Math.min(start.x, end.x);
+		final double maxX			= Math.max(start.x, end.x);
+		final double minY			= Math.min(start.y, end.y);
+		final double maxY			= Math.max(start.y, end.y);
 		final double zoom	= instrument.canvas.getZoom();
 
 		// Updating the rectangle used for the interim feedback and for the selection of shapes.
@@ -262,7 +263,7 @@ class DnD2Select extends Link<SelectShapes, DnD, Hand> {
 		action.setShape(null);
 
 		if(!selectionBorder.isEmpty())
-			for(IViewShape view : instrument.canvas.getViews())
+			for(final IViewShape view : instrument.canvas.getViews())
 				if(view.intersects(selectionBorder))
 					// Taking the shape in function of the view.
 					action.addShape(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class));

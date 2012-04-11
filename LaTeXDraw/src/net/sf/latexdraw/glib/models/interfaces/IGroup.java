@@ -59,8 +59,6 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	 */
 	IGroup duplicate(final boolean duplicateShapes);
 
-	@Override
-	IGroup duplicate();
 
 	/**
 	 * @return The list of the border positions of the shapes contained by the group.

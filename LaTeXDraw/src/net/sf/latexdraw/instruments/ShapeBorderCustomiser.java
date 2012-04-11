@@ -84,7 +84,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * @return The created list.
 	 */
 	public static MComboBox createBordersPositionChoice() {
-		MComboBox dbPositionChoice = new MComboBox();
+		final MComboBox dbPositionChoice = new MComboBox();
 		dbPositionChoice.setRenderer(new LabelListCellRenderer());
 
 		JLabel label = new JLabel(BorderPos.INTO.toString());
@@ -109,7 +109,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * @return The created list.
 	 */
 	public static MComboBox createStyleLineChoice() {
-		MComboBox lineChoice = new MComboBox();
+		final MComboBox lineChoice = new MComboBox();
 
 		lineChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(LineStyle.SOLID.toString());
@@ -243,9 +243,9 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			addLink(new Spinner2SelectionBorder(this));
 			addLink(new ColourButton2PencilBorder(this));
 			addLink(new ColourButton2SelectionBorder(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -276,7 +276,7 @@ class List2SelectionBorder extends ListForCustomiser<ModifyShapeProperty, ShapeB
 	@Override
 	public void initAction() {
 		final ItemSelectable is	= interaction.getList();
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 
 		if(is==instrument.bordersPosCB) {
 			action.setProperty(ShapeProperties.BORDER_POS);
@@ -348,7 +348,7 @@ class Spinner2SelectionBorder extends SpinnerForCustomiser<ModifyShapeProperty, 
 		else
 			action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
 
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override
@@ -439,7 +439,7 @@ class ColourButton2SelectionBorder extends ColourButtonForCustomiser<ModifyShape
 	public void initAction() {
 		super.initAction();
 		action.setProperty(ShapeProperties.COLOUR_LINE);
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
@@ -178,9 +179,9 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 			addLink(new List2SelectionDotStyle(this));
 			addLink(new FillingButton2SelectionFilling(this));
 			addLink(new FillingButton2PencilFilling(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -244,7 +245,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 			action.setProperty(ShapeProperties.DOT_FILLING_COL);
 		}
 
@@ -288,7 +289,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void initAction() {
-			action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 			action.setProperty(ShapeProperties.DOT_STYLE);
 			action.setValue(DotStyle.getStyle(getLabelText()));
 		}
@@ -312,7 +313,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			action.setProperty(ShapeProperties.DOT_SIZE);
-			action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 		}
 
 		@Override

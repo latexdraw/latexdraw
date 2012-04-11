@@ -435,9 +435,9 @@ public class Border extends Instrument implements Picker {
 			addLink(new DnD2MovePoint(this));
 			addLink(new DnD2MoveCtrlPoint(this));
 			addLink(new DnD2Rotate(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -449,7 +449,7 @@ public class Border extends Instrument implements Picker {
 	 */
 	public void clear() {
 		if(!selection.isEmpty()) {
-			for(IViewShape view : selection)
+			for(final IViewShape view : selection)
 				MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class);
 
 			selection.clear();
@@ -584,7 +584,7 @@ public class Border extends Instrument implements Picker {
 			final IGroup group = instrument.canvas.getDrawing().getSelection();
 
 			if(group.size()==1 && group.getShapeAt(0) instanceof IControlPointShape) {
-				CtrlPointHandler handler = getCtrlPtHandler();
+				final CtrlPointHandler handler = getCtrlPtHandler();
 				sourcePt = DrawingTK.getFactory().createPoint(handler.getCentre());
 				action.setIndexPt(handler.getIndexPt());
 				action.setShape((IControlPointShape)group.getShapeAt(0));
@@ -648,7 +648,7 @@ public class Border extends Instrument implements Picker {
 			final IGroup group = instrument.canvas.getDrawing().getSelection();
 
 			if(group.size()==1 && group.getShapeAt(0) instanceof IModifiablePointsShape) {
-				MovePtHandler handler = getMovePtHandler();
+				final MovePtHandler handler = getMovePtHandler();
 				sourcePt = DrawingTK.getFactory().createPoint(handler.getCentre());
 				action.setIndexPt(handler.getIndexPt());
 				action.setShape((IModifiablePointsShape)group.getShapeAt(0));
@@ -735,7 +735,7 @@ public class Border extends Instrument implements Picker {
 			setXGap(refPosition, tl, br);
 			setYGap(refPosition, tl, br);
 			action.setDrawing(drawing);
-			action.setShape(drawing.getSelection().duplicate());
+			action.setShape((IGroup)drawing.getSelection().duplicate());
 			action.setRefPosition(refPosition);
 		}
 

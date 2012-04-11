@@ -9,6 +9,7 @@ import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.Arcable;
 import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -131,9 +132,9 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 			addLink(new Spinner2PencilEndAngle(this));
 			addLink(new Button2SelectionArcStyle(this));
 			addLink(new Button2PencilArcStyle(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -232,7 +233,7 @@ class Button2SelectionArcStyle extends Button2ArcStyle<ModifyShapeProperty> {
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override
@@ -275,7 +276,7 @@ class Spinner2SelectionStartAngle extends SpinnerForCustomiser<ModifyShapeProper
 	@Override
 	public void initAction() {
 		action.setProperty(ShapeProperties.ARC_START_ANGLE);
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override
@@ -322,7 +323,7 @@ class Spinner2SelectionEndAngle extends SpinnerForCustomiser<ModifyShapeProperty
 	@Override
 	public void initAction() {
 		action.setProperty(ShapeProperties.ARC_END_ANGLE);
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 	}
 
 	@Override

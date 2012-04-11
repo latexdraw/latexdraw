@@ -13,6 +13,7 @@ import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.lang.LangTool;
@@ -236,9 +237,9 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 			addLink(new ColourButton2SelectionFilling(this));
 			addLink(new Spinner2PencilFilling(this));
 			addLink(new Spinner2SelectionFilling(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -371,7 +372,7 @@ class List2SelectionFilling extends ListForCustomiser<ModifyShapeProperty, Shape
 
 	@Override
 	public void initAction() {
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 		action.setProperty(ShapeProperties.FILLING_STYLE);
 		action.setValue(FillingStyle.getStyle(getLabelText()));
 	}
@@ -447,7 +448,7 @@ class ColourButton2SelectionFilling extends ColourButtonForCustomiser<ModifyShap
 		super.initAction();
 
 		final AbstractButton but = interaction.getButton();
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 
 		if(but==instrument.fillColButton)
 			action.setProperty(ShapeProperties.COLOUR_FILLING);
@@ -487,7 +488,7 @@ class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty,
 
 	@Override
 	public void initAction() {
-		action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 		setProperty(interaction.getSpinner(), instrument, action);
 	}
 

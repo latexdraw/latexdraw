@@ -277,7 +277,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 		}
 
 		@Override
@@ -315,7 +315,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup(instrument.pencil.drawing.getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
 		}
 
 		@Override
