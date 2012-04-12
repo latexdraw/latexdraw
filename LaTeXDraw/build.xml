@@ -52,7 +52,7 @@
 			<!-- Creates the manifest -->
 			<manifest>
 				<attribute name="Main-Class" value="net.sf.latexdraw.LaTeXDraw"/>
-				<attribute name="Class-Path" value="./ lib/PDFRenderer-0.9.1.jar lib/jlibeps.jar"/>
+				<attribute name="Class-Path" value="./ lib/PDFRenderer-0.9.1.jar lib/jlibeps.jar lib/malai.jar"/>
 			</manifest>
 			
 			 <!-- Filters the files -->
