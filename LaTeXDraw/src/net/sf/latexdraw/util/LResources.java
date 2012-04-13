@@ -402,7 +402,7 @@ public final class LResources {
 	 */
 	public static ImageIcon loadImageIcon(final String path) {
 		try {
-			final URL url = Class.class.getClass().getResource(path);
+			final URL url = Class.class.getResource(path);
 
 			if(url==null)
 				throw new MalformedURLException();
