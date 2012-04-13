@@ -14,7 +14,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.io.StringWriter;
 import java.nio.channels.FileChannel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -108,7 +110,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 	@Override
 	public void update() {
-		if((image==null && log.length()==0) || !lastText.equals(shape.getText()) ||
+		if(image==null && log.length()==0 || !lastText.equals(shape.getText()) ||
 			lastColour==null || !lastColour.equals(shape.getLineColour()) ||
 			lastTextPos==null || lastTextPos!=shape.getTextPosition()) {
 			updateImage();
@@ -146,7 +148,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 			image.flush();
 
 		if(pathPic!=null) {
-			File file = new File(pathPic);
+			final File file = new File(pathPic);
 			if(file.exists() && file.canWrite())
 				file.delete();
 		}
@@ -182,7 +184,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 			final String code = shape.getText();
 
 			if(code!=null && !code.isEmpty()) {
-				File tmpDir 			= LFileUtils.INSTANCE.createTempDir();
+				final File tmpDir 			= LFileUtils.INSTANCE.createTempDir();
 				final String doc      	= getLaTeXDocument();
 				pathPic					= tmpDir.getAbsolutePath() + LResources.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
 				final String pathTex  	= pathPic + TeXFilter.TEX_EXTENSION;
@@ -229,23 +231,28 @@ class LTextView extends LShapeView<IText> implements IViewText {
 							else BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
 
 							new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
-						}catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
+						}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 				}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-				try { if(fc!=null) fc.close(); }catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-				try { if(raf!=null) raf.close(); }catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+				try { if(fc!=null) fc.close(); }catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+				try { if(raf!=null) raf.close(); }catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 				try{ osw.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 				try{ fos.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			}
 		}
-		catch(Exception e) {
+		catch(final Exception e) {
+			final StringWriter sw = new StringWriter();
+		    final PrintWriter pw  = new PrintWriter(sw);
+
+		    e.printStackTrace(pw);
 			new File(pathPic + TeXFilter.TEX_EXTENSION).delete();
 			new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
 			new File(pathPic + PSFilter.PS_EXTENSION).delete();
 			new File(pathPic + ".dvi").delete(); //$NON-NLS-1$
 			new File(pathPic + ".aux").delete(); //$NON-NLS-1$
 			new File(pathPic + ".log").delete(); //$NON-NLS-1$
-			BadaboomCollector.INSTANCE.add(new FileNotFoundException(log+e.getMessage()));
+			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Log:\n" + log + "\nException:\n" + sw));
+			pw.flush();
 		}
 
 		return bi;
@@ -317,7 +324,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 		// We must scale the text to fit its latex size: latexdrawDPI/latexDPI is the ratio to scale the
 		// created png picture.
-		final double scale = (IShape.PPC*PSTricksConstants.INCH_VAL_CM/PSTricksConstants.INCH_VAL_PT)*SCALE_IMAGE;
+		final double scale = IShape.PPC*PSTricksConstants.INCH_VAL_CM/PSTricksConstants.INCH_VAL_PT*SCALE_IMAGE;
 
 		doc.append("\\documentclass[10pt]{article}\\usepackage[usenames,dvipsnames]{pstricks}"); //$NON-NLS-1$
 		doc.append(LaTeXGenerator.getPackages());
@@ -381,8 +388,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 
 	private IPoint getTextPositionText() {
-		TextLayout tl = new TextLayout(shape.getText(), FONT, FONT_METRICS.getFontRenderContext());
-		Rectangle2D bounds = tl.getBounds();
+		final TextLayout tl = new TextLayout(shape.getText(), FONT, FONT_METRICS.getFontRenderContext());
+		final Rectangle2D bounds = tl.getBounds();
 
 		switch(shape.getTextPosition()) {
 			case BOT : return DrawingTK.getFactory().createPoint(shape.getX()-bounds.getWidth()/2., shape.getY());
@@ -428,8 +435,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		final IPoint position = image==null ? getTextPositionText() : getTextPositionImage();
 
 		if(image==null) {
-			TextLayout tl = new TextLayout(shape.getText(), FONT, FONT_METRICS.getFontRenderContext());
-			Rectangle2D bounds = tl.getBounds();
+			final TextLayout tl = new TextLayout(shape.getText(), FONT, FONT_METRICS.getFontRenderContext());
+			final Rectangle2D bounds = tl.getBounds();
 			border.setFrame(position.getX(), position.getY()-bounds.getHeight()+tl.getDescent(), tl.getAdvance(), bounds.getHeight());
 		}
 		else
@@ -469,7 +476,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 
 	@Override
-	public boolean isToolTipVisible(double x, double y) {
+	public boolean isToolTipVisible(final double x, final double y) {
 		return border.contains(x, y);
 	}
 
