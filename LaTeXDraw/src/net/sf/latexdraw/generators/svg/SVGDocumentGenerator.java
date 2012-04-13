@@ -3,7 +3,6 @@ package net.sf.latexdraw.generators.svg;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -382,8 +381,8 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 			super.doInBackground();
 
 			try{
-				final SVGDocument svgDoc 		= new SVGDocument(new URI(path));
-				Element meta 			 		= svgDoc.getDocumentElement().getMeta();
+				final SVGDocument svgDoc 		= new SVGDocument(new File(path).toURI());
+				final Element meta 			 	= svgDoc.getDocumentElement().getMeta();
 				final Instrument[] instruments 	= ui.getInstruments();
 				final AbstractPresentation pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
 				Element ldMeta;
