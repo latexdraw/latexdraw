@@ -56,9 +56,9 @@ public class ExceptionsManager extends Instrument implements BadaboomHandler {
 	protected void initialiseLinks() {
 		try{
 			addLink(new ButtonPress2ShowExceptionFrame(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
