@@ -17,6 +17,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.ui.LCanvas;
+import net.sf.latexdraw.instruments.ExceptionsManager;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.mapping.ShapeList2ExporterMapping;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
@@ -138,6 +139,8 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 
 		private List<Boolean> instrumentsState;
 
+		private List<Instrument> instruments;
+
 
 		protected IOWorker(final UI ui, final String path, final Object statusBar) {
 			super();
@@ -158,7 +161,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 				name = ""; //$NON-NLS-1$
 			else {
 				name = new File(path).getName();
-				int indexSVG = name.lastIndexOf(SVGFilter.SVG_EXTENSION);
+				final int indexSVG = name.lastIndexOf(SVGFilter.SVG_EXTENSION);
 
 				if(indexSVG!=-1)
 					name = name.substring(0, indexSVG);
@@ -173,12 +176,16 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 			final Instrument[] ins = ui.getInstruments();
 
 			instrumentsState = new ArrayList<Boolean>();
+			instruments 	 = new ArrayList<Instrument>();
 
 			if(ui instanceof LFrame)
 				MappingRegistry.REGISTRY.removeMappingsUsingTarget(((LFrame)ui).getExporter(), ShapeList2ExporterMapping.class);
 
 			for(final Instrument instrument : ins) {
-				instrumentsState.add(instrument.isActivated());
+				if(!(instrument instanceof ExceptionsManager)) {
+					instrumentsState.add(instrument.isActivated());
+					instruments.add(instrument);
+				}
 
 				if(instrument instanceof WidgetInstrument)
 					((WidgetInstrument)instrument).setActivated(false, true);
@@ -194,10 +201,8 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 		protected void done() {
 			super.done();
 
-			final Instrument[] ins = ui.getInstruments();
-
 			for(int i=0, size=instrumentsState.size(); i<size; i++)
-				ins[i].setActivated(instrumentsState.get(i));
+				instruments.get(i).setActivated(instrumentsState.get(i));
 
 			if(ui instanceof LFrame) {
 				final LFrame frame = (LFrame)ui;
@@ -280,12 +285,12 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 			root.appendChild(meta);
 
 			// The parameters of the instruments are now saved.
-			for(Instrument instrument : instruments) {
+			for(final Instrument instrument : instruments) {
 				instrument.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
 				setProgress((int)Math.min(100., getProgress()+incr));
 			}
 
-			for(Presentation<?,?> presentation : ui.getPresentations()) {
+			for(final Presentation<?,?> presentation : ui.getPresentations()) {
 				presentation.getConcretePresentation().save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
 				setProgress((int)Math.min(100., getProgress()+incr));
 			}
@@ -377,8 +382,8 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 			super.doInBackground();
 
 			try{
-				final SVGDocument svgDoc 		= new SVGDocument(new URI(path));
-				Element meta 			 		= svgDoc.getDocumentElement().getMeta();
+				final SVGDocument svgDoc 		= new SVGDocument(new URI("@&'_jdfod"));
+				final Element meta 			 	= svgDoc.getDocumentElement().getMeta();
 				final Instrument[] instruments 	= ui.getInstruments();
 				final AbstractPresentation pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
 				Element ldMeta;
@@ -404,7 +409,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 						final IGroup group = (IGroup)shape;
 						final double incr  = Math.max(50./group.size(), 1.);
 
-						for(IShape sh : group.getShapes()) {
+						for(final IShape sh : group.getShapes()) {
 							drawing.addShape(sh);
 							setProgress((int)Math.min(100., getProgress()+incr));
 						}
@@ -416,7 +421,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 				else incrProgressBar = Math.max(100./ui.getPresentations().size(), 1.);
 
 				// Loads the presentation's data.
-				for(Presentation<?,?> presentation : ui.getPresentations()) {
+				for(final Presentation<?,?> presentation : ui.getPresentations()) {
 					presentation.getConcretePresentation().load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
 					setProgress((int)Math.min(100., getProgress()+incrProgressBar));
 				}
@@ -429,7 +434,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 					loadInstruments(ldMeta, instruments);
 
 				// Updating the possible widgets of the instruments.
-				for(Instrument instrument : instruments)
+				for(final Instrument instrument : instruments)
 					instrument.interimFeedback();
 
 				ui.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
