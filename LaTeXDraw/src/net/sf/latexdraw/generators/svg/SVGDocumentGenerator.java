@@ -382,8 +382,8 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 			super.doInBackground();
 
 			try{
-				final SVGDocument svgDoc 		= new SVGDocument(new URI("@&'_jdfod"));
-				final Element meta 			 	= svgDoc.getDocumentElement().getMeta();
+				final SVGDocument svgDoc 		= new SVGDocument(new URI(path));
+				Element meta 			 		= svgDoc.getDocumentElement().getMeta();
 				final Instrument[] instruments 	= ui.getInstruments();
 				final AbstractPresentation pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
 				Element ldMeta;
