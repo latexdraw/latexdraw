@@ -101,7 +101,7 @@ class LFreeHandView extends LShapeView<IFreehand> {
         }
 
         // If it remains not used points.
-        if((i-interval+1)<size) {
+        if(i-interval+1<size) {
         	x1 = (midx + curx)/2.;
         	y1 = (midy + cury)/2.;
             prevx = curx;
@@ -135,7 +135,7 @@ class LFreeHandView extends LShapeView<IFreehand> {
 			path.lineTo(pt.getX(), pt.getY());
 		}
 
-		if((i-interval)<size)
+		if(i-interval<size)
 			path.lineTo(pts.get(size-1).getX(), pts.get(size-1).getY());
 	}
 
