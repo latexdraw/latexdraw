@@ -23,7 +23,7 @@ import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
 import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
-import net.sf.latexdraw.instruments.ShapeGridCustomiser;
+import net.sf.latexdraw.instruments.ShapeStandardGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
 import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
@@ -121,7 +121,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 	/** Creates the toolbar containing the widgets that customises grids' labels. */
-	protected WidgetMiniToolbar composeGridLabelsPropertiesToolbar(final ShapeAxesCustomiser axeCust, final ShapeGridCustomiser stdGridCust, final LCanvas canvas) {
+	protected WidgetMiniToolbar composeGridLabelsPropertiesToolbar(final ShapeAxesCustomiser axeCust, final ShapeStandardGridCustomiser stdGridCust, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids' labels.");
 
@@ -185,7 +185,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 
-	protected WidgetMiniToolbar composeGridPropertiesToolbar(final ShapeGridCustomiser cust, final LCanvas canvas) {
+	protected WidgetMiniToolbar composeGridPropertiesToolbar(final ShapeStandardGridCustomiser cust, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids and axes.");
 

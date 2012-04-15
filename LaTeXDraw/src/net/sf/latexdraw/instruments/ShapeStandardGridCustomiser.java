@@ -37,7 +37,7 @@ import org.malai.widget.MToggleButton;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeGridCustomiser extends ShapePropertyCustomiser {
+public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 	/** The field that sets the X-coordinate of the starting point of the grid. */
 	protected MSpinner xStartS;
 
@@ -74,7 +74,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public ShapeGridCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeStandardGridCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}
@@ -243,8 +243,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-	private static abstract class CheckBox4ShapeGridCust<A extends ShapePropertyAction> extends ButtonPressedForCustomiser<A, ShapeGridCustomiser> {
-		protected CheckBox4ShapeGridCust(final ShapeGridCustomiser ins, final Class<A> actClazz) throws InstantiationException, IllegalAccessException {
+	private static abstract class CheckBox4ShapeGridCust<A extends ShapePropertyAction> extends ButtonPressedForCustomiser<A, ShapeStandardGridCustomiser> {
+		protected CheckBox4ShapeGridCust(final ShapeStandardGridCustomiser ins, final Class<A> actClazz) throws InstantiationException, IllegalAccessException {
 			super(ins, actClazz);
 		}
 
@@ -270,7 +270,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 	/** The link that maps a checkbox to an action that modifies the selection. */
 	private static class CheckBox2ModifySelectionGrid extends CheckBox4ShapeGridCust<ModifyShapeProperty> {
-		protected CheckBox2ModifySelectionGrid(final ShapeGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+		protected CheckBox2ModifySelectionGrid(final ShapeStandardGridCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class);
 		}
 
@@ -289,7 +289,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 	/** The link that maps a checkbox to an action that modifies the pencil. */
 	private static class CheckBox2ModifyPencilGrid extends CheckBox4ShapeGridCust<ModifyPencilParameter> {
-		protected CheckBox2ModifyPencilGrid(final ShapeGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+		protected CheckBox2ModifyPencilGrid(final ShapeStandardGridCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class);
 		}
 
@@ -308,7 +308,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 	/** The link that maps a spinner to an action that modifies the selected shapes. */
 	private static class Spinner2ModifySelectionGridCoords extends Spinner2ModifyGridCoords<ModifyShapeProperty> {
-		protected Spinner2ModifySelectionGridCoords(final ShapeGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+		protected Spinner2ModifySelectionGridCoords(final ShapeStandardGridCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class);
 		}
 
@@ -327,7 +327,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 	/** The link that maps a spinner to an action that modifies the pencil. */
 	private static class Spinner2ModifyPencilGridCoords extends Spinner2ModifyGridCoords<ModifyPencilParameter> {
-		protected Spinner2ModifyPencilGridCoords(final ShapeGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+		protected Spinner2ModifyPencilGridCoords(final ShapeStandardGridCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class);
 		}
 
@@ -344,8 +344,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-	private static abstract class Spinner2ModifyGridCoords<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeGridCustomiser> {
-		protected Spinner2ModifyGridCoords(final ShapeGridCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+	private static abstract class Spinner2ModifyGridCoords<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeStandardGridCustomiser> {
+		protected Spinner2ModifyGridCoords(final ShapeStandardGridCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(ins, clazzAction);
 		}
 
