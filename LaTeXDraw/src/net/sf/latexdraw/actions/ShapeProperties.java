@@ -188,6 +188,36 @@ public enum ShapeProperties {
 				group.setAxesTicksDisplayedList((List<PlottingStyle>)values);
 		}
 	},
+	/** The width of the grids. */
+	GRID_WIDTH {
+		@Override
+		public String getMessage() {
+			return "grid's parameters";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Double;
+		}
+
+		@Override
+		public List<Double> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Double>() : group.getGridWidthList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setGridWidth((Double)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setGridWidthList((List<Double>)values);
+		}
+	},
 	/** The size of the ticks of axes. */
 	AXES_TICKS_SIZE {
 		@Override

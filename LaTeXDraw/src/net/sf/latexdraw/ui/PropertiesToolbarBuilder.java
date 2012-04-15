@@ -195,10 +195,12 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids.");
 
+		addSpinner(list, cust.getGridWidth(), 60);
 		list.addComponent(cust.getColourSubGrid());
 		list.addSeparator();
 
 		mapContainers.put(cust.getColourSubGrid(), list);
+		mapContainers.put(cust.getGridWidth(), list);
 		cust.addEventable(list.getToolbar());
 		return list;
 	}
