@@ -2967,4 +2967,24 @@ class LGroup extends LShape implements IGroup {
 
 		return list;
 	}
+
+
+	@Override
+	public void setSubGridColourList(final List<Color> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IGrid)
+					((IGrid)shapes.get(i)).setSubGridColour(values.get(i));
+	}
+
+
+	@Override
+	public List<Color> getSubGridColourList() {
+		final List<Color> list = new ArrayList<Color>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IGrid ? ((IGrid)sh).getSubGridColour() : null);
+
+		return list;
+	}
 }

@@ -212,6 +212,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case AXES_SHOW_ORIGIN: pencil.getGroupParams().setShowOrigin((Boolean)value); break;
 			case AXES_LABELS_DIST: pencil.getGroupParams().setDistLabels((IPoint)value); break;
 			case GRID_LABELS_COLOUR: pencil.getGroupParams().setGridLabelsColour((Color)value); break;
+			case GRID_SUBGRID_COLOUR: pencil.getGroupParams().setSubGridColour((Color)value); break;
 		}
 	}
 }

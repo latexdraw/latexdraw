@@ -1333,6 +1333,36 @@ public enum ShapeProperties {
 		}
 	},
 	/** Modification of the colour of the labels of a grid. */
+	GRID_SUBGRID_COLOUR {
+		@Override
+		public String getMessage() {
+			return "sub-grid' colour";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Color;
+		}
+
+		@Override
+		public List<Color> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Color>() : group.getSubGridColourList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setSubGridColour((Color)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setSubGridColourList((List<Color>)values);
+		}
+	},
+	/** Modification of the colour of the labels of a grid. */
 	GRID_LABELS_COLOUR {
 		@Override
 		public String getMessage() {

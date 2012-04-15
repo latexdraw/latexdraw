@@ -106,7 +106,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(composeTextPositionToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeTextPropertiesToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
-		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getStandardGridCustomiser(), canvas));
+		widget.add(composeStandardGridPropertiesToolbar(metaShapeCustomiser.getStandardGridCustomiser(), canvas));
+		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getGridCustomiser(), canvas));
 		widget.add(composeAxesPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), canvas));
 		widget.add(composeGridLabelsPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), metaShapeCustomiser.getGridCustomiser(),
 					metaShapeCustomiser.getStandardGridCustomiser(), canvas));
@@ -190,8 +191,20 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
+	protected WidgetMiniToolbar composeGridPropertiesToolbar(final ShapeGridCustomiser cust, final LCanvas canvas) {
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		list.setToolTipText("Modifies the properties of grids.");
 
-	protected WidgetMiniToolbar composeGridPropertiesToolbar(final ShapeStandardGridCustomiser cust, final LCanvas canvas) {
+		list.addComponent(cust.getColourSubGrid());
+		list.addSeparator();
+
+		mapContainers.put(cust.getColourSubGrid(), list);
+		cust.addEventable(list.getToolbar());
+		return list;
+	}
+
+
+	protected WidgetMiniToolbar composeStandardGridPropertiesToolbar(final ShapeStandardGridCustomiser cust, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids and axes.");
 

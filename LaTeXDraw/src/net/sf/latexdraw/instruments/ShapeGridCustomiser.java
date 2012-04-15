@@ -37,6 +37,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** Changes the colour of the labels. */
 	protected MColorButton colourLabels;
 
+	/** Changes the colour of the sub-grid. */
+	protected MColorButton colourSubGrid;
+
 
 	/**
 	 * Creates the instrument.
@@ -58,6 +61,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		if(shape.isTypeOf(IGrid.class)) {
 			final IGrid grid = (IGrid)shape;
 			colourLabels.setColor(grid.getGridLabelsColour());
+			colourSubGrid.setColor(grid.getSubGridColour());
 		}
 		else setActivated(false);
 	}
@@ -66,12 +70,14 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(colourLabels, activated);
+		composer.setWidgetVisible(colourSubGrid, activated);
 	}
 
 
 	@Override
 	protected void initialiseWidgets() {
-		colourLabels = new MColorButton("Colour", new MButtonIcon(Color.BLACK));
+		colourLabels  = new MColorButton("Labels", new MButtonIcon(Color.BLACK));
+		colourSubGrid = new MColorButton("Sub-grid", new MButtonIcon(Color.BLACK));
 	}
 
 
@@ -96,6 +102,14 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		return colourLabels;
 	}
 
+	/**
+	 * @return The button that permits to change the colour of the sub-grid.
+	 * @since 3.0
+	 */
+	public final MColorButton getColourSubGrid() {
+		return colourSubGrid;
+	}
+
 
 	private static abstract class ColourButtonForShapeGridCust<A extends ShapePropertyAction> extends ColourButtonForCustomiser<A, ShapeGridCustomiser> {
 		protected ColourButtonForShapeGridCust(final ShapeGridCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
@@ -105,12 +119,15 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setProperty(ShapeProperties.GRID_LABELS_COLOUR);
+			if(interaction.getButton()==instrument.colourLabels)
+				action.setProperty(ShapeProperties.GRID_LABELS_COLOUR);
+			else
+				action.setProperty(ShapeProperties.GRID_SUBGRID_COLOUR);
 		}
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getButton()==instrument.colourLabels;
+			return interaction.getButton()==instrument.colourLabels || interaction.getButton()==instrument.colourSubGrid;
 		}
 	}
 
