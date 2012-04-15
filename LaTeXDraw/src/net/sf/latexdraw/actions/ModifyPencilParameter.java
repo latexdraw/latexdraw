@@ -216,6 +216,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case GRID_WIDTH: pencil.getGroupParams().setGridWidth((Double)value); break;
 			case GRID_SUBGRID_WIDTH: pencil.getGroupParams().setSubGridWidth((Double)value); break;
 			case GRID_DOTS: pencil.getGroupParams().setGridDots((Integer)value); break;
+			case GRID_SUBGRID_DOTS: pencil.getGroupParams().setSubGridDots((Integer)value); break;
 		}
 	}
 }
