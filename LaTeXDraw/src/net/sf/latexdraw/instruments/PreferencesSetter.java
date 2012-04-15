@@ -193,6 +193,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 			checkNewVersion.setSelected(true);
 
   		langList = new MComboBox();
+  		langList.addItem(LangTool.Lang.CA.getName());
   		langList.addItem(LangTool.Lang.CS.getName());
   		langList.addItem(LangTool.Lang.DE.getName());
   		langList.addItem(LangTool.Lang.EN_BR.getName());

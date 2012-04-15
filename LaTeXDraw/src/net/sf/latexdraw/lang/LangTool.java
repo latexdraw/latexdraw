@@ -39,12 +39,23 @@ import org.xml.sax.SAXException;
  */
 public final class LangTool {
 	public static enum Lang {
+		CA {
+			@Override
+			public String getName() {
+				return "Català";//$NON-NLS-1$
+			}
+
+			@Override
+			public String getToken() {
+				return "lang.ca";//$NON-NLS-1$
+			}
+		},
 		RU {
 			@Override
 			public String getName() {
 				return "Russkiy yazyk";//$NON-NLS-1$
 			}
-			
+
 			@Override
 			public String getToken() {
 				return "lang.ru";//$NON-NLS-1$
@@ -218,7 +229,7 @@ public final class LangTool {
 		 * @since 3.0
 		 */
 		public static Lang getLanguage(final String name) {
-			Lang lang = INSTANCE.getMapLangs().get(name);
+			final Lang lang = INSTANCE.getMapLangs().get(name);
 			return lang==null ? EN_BR : lang;
 		}
 
@@ -228,7 +239,7 @@ public final class LangTool {
 		 * @since 3.0
 		 */
 		public static Lang getSystemLanguage() {
-			Lang language = INSTANCE.getMapLangs().get(System.getProperty("user.language"));//$NON-NLS-1$
+			final Lang language = INSTANCE.getMapLangs().get(System.getProperty("user.language"));//$NON-NLS-1$
 			return language==null ? Lang.getDefaultLanguage() : language;
 		}
 	}
@@ -293,6 +304,7 @@ public final class LangTool {
 		mapLangs.put("sr", Lang.SR);
 		mapLangs.put("ru", Lang.RU);
 		mapLangs.put("cs", Lang.CS);
+		mapLangs.put("ca", Lang.CA);
 
 		mapLangs.put(Lang.FR.getName(), Lang.FR);
 		mapLangs.put(Lang.EN_BR.getName(), Lang.EN_BR);
@@ -309,6 +321,7 @@ public final class LangTool {
 		mapLangs.put(Lang.SR.getName(), Lang.SR);
 		mapLangs.put(Lang.RU.getName(), Lang.RU);
 		mapLangs.put(Lang.CS.getName(), Lang.CS);
+		mapLangs.put(Lang.CA.getName(), Lang.CA);
 	}
 
 
