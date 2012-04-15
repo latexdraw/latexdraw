@@ -3007,4 +3007,24 @@ class LGroup extends LShape implements IGroup {
 
 		return list;
 	}
+
+
+	@Override
+	public void setSubGridWidthList(final List<Double> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IGrid)
+					((IGrid)shapes.get(i)).setSubGridWidth(values.get(i));
+	}
+
+
+	@Override
+	public List<Double> getSubGridWidthList() {
+		final List<Double> list = new ArrayList<Double>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IGrid ? ((IGrid)sh).getSubGridWidth() : null);
+
+		return list;
+	}
 }

@@ -48,6 +48,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** Changes the width of the main grid. */
 	protected MSpinner gridWidth;
 
+	/** Changes the width of the sub-grid. */
+	protected MSpinner subGridWidth;
+
 
 	/**
 	 * Creates the instrument.
@@ -71,6 +74,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			colourLabels.setColor(grid.getGridLabelsColour());
 			colourSubGrid.setColor(grid.getSubGridColour());
 			gridWidth.setValueSafely(grid.getGridWidth());
+			subGridWidth.setValueSafely(grid.getSubGridWidth());
 		}
 		else setActivated(false);
 	}
@@ -81,6 +85,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(colourLabels, activated);
 		composer.setWidgetVisible(colourSubGrid, activated);
 		composer.setWidgetVisible(gridWidth, activated);
+		composer.setWidgetVisible(subGridWidth, activated);
 	}
 
 
@@ -89,6 +94,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		colourLabels  = new MColorButton("Labels", new MButtonIcon(Color.BLACK));
 		colourSubGrid = new MColorButton("Sub-grid", new MButtonIcon(Color.BLACK));
 		gridWidth	  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.6")));
+		subGridWidth  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.7")));
 	}
 
 
@@ -124,11 +130,19 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 	/**
-	 * @return The button that permits to change the colour of the sub-grid.
+	 * @return The button that permits to change the width of the main grid.
 	 * @since 3.0
 	 */
 	public final MSpinner getGridWidth() {
 		return gridWidth;
+	}
+
+	/**
+	 * @return The button that permits to change the width of the sub-grid.
+	 * @since 3.0
+	 */
+	public final MSpinner getSubGridWidth() {
+		return subGridWidth;
 	}
 
 
@@ -139,12 +153,15 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void initAction() {
-			action.setProperty(ShapeProperties.GRID_WIDTH);
+			if(interaction.getSpinner()==instrument.gridWidth)
+				action.setProperty(ShapeProperties.GRID_WIDTH);
+			else
+				action.setProperty(ShapeProperties.GRID_SUBGRID_WIDTH);
 		}
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getSpinner()==instrument.gridWidth;
+			return interaction.getSpinner()==instrument.gridWidth || interaction.getSpinner()==instrument.subGridWidth;
 		}
 	}
 

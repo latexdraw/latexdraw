@@ -196,11 +196,13 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.setToolTipText("Modifies the properties of grids.");
 
 		addSpinner(list, cust.getGridWidth(), 60);
+		addSpinner(list, cust.getSubGridWidth(), 60);
 		list.addComponent(cust.getColourSubGrid());
 		list.addSeparator();
 
 		mapContainers.put(cust.getColourSubGrid(), list);
 		mapContainers.put(cust.getGridWidth(), list);
+		mapContainers.put(cust.getSubGridWidth(), list);
 		cust.addEventable(list.getToolbar());
 		return list;
 	}

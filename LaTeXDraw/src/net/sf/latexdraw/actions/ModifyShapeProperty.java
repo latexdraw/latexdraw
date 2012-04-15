@@ -178,6 +178,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case AXES_LABELS_DIST:
 				case AXES_STYLE:		return shapes.isTypeOf(IAxes.class);
 				case GRID_SUBGRID_COLOUR:
+				case GRID_SUBGRID_WIDTH:
 				case GRID_WIDTH:
 				case GRID_LABELS_COLOUR: return shapes.isTypeOf(IGrid.class);
 			}
