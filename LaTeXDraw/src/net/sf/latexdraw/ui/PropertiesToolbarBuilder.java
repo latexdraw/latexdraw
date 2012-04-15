@@ -198,6 +198,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		addSpinner(list, cust.getGridWidth(), 60);
 		addSpinner(list, cust.getSubGridWidth(), 60);
 		list.addComponent(cust.getColourSubGrid());
+		addSpinner(list, cust.getGridDots(), 50);
 		list.addSeparator();
 
 		mapContainers.put(cust.getColourSubGrid(), list);

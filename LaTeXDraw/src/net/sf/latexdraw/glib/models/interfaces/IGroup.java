@@ -869,7 +869,7 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	void setGridWidthList(final List<Double> values);
 
 	/**
-	 * @return The the width of the grids contained by the group.
+	 * @return The width of the grids contained by the group.
 	 * If a shape of the group is not an axe, null is added.
 	 * to the list. The list cannot be null.
 	 * @since 3.0
@@ -886,10 +886,27 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	void setSubGridWidthList(final List<Double> values);
 
 	/**
-	 * @return The the width of the sub-grids contained by the group.
+	 * @return The width of the sub-grids contained by the group.
 	 * If a shape of the group is not an axe, null is added.
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
 	List<Double> getSubGridWidthList();
+
+	/**
+	 * Sets the number of dots composing the main lines of each grids contained by the group.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setGridDotsList(final List<Integer> values);
+
+	/**
+	 * @return The number of dots composing the main lines of each grids contained by the group.
+	 * If a shape of the group is not an axe, null is added.
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<Integer> getGridDotsList();
 }

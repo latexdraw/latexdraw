@@ -51,6 +51,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** Changes the width of the sub-grid. */
 	protected MSpinner subGridWidth;
 
+	/** Changes the number of dots composing the main grid. */
+	protected MSpinner gridDots;
+
 
 	/**
 	 * Creates the instrument.
@@ -75,6 +78,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			colourSubGrid.setColor(grid.getSubGridColour());
 			gridWidth.setValueSafely(grid.getGridWidth());
 			subGridWidth.setValueSafely(grid.getSubGridWidth());
+			gridDots.setValueSafely(grid.getGridDots());
 		}
 		else setActivated(false);
 	}
@@ -86,6 +90,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(colourSubGrid, activated);
 		composer.setWidgetVisible(gridWidth, activated);
 		composer.setWidgetVisible(subGridWidth, activated);
+		composer.setWidgetVisible(gridDots, activated);
 	}
 
 
@@ -95,6 +100,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		colourSubGrid = new MColorButton("Sub-grid", new MButtonIcon(Color.BLACK));
 		gridWidth	  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.6")));
 		subGridWidth  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.7")));
+		gridDots 	  = new MSpinner(new MSpinnerNumberModel(0, 0, 10000, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.5")));
 	}
 
 
@@ -130,7 +136,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 	/**
-	 * @return The button that permits to change the width of the main grid.
+	 * @return The spinner that permits to change the width of the main grid.
 	 * @since 3.0
 	 */
 	public final MSpinner getGridWidth() {
@@ -138,11 +144,19 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 	/**
-	 * @return The button that permits to change the width of the sub-grid.
+	 * @return The spinner that permits to change the width of the sub-grid.
 	 * @since 3.0
 	 */
 	public final MSpinner getSubGridWidth() {
 		return subGridWidth;
+	}
+
+	/**
+	 * @return The spinner that permits to change the number of dots composing the main grid.
+	 * @since 3.0
+	 */
+	public final MSpinner getGridDots() {
+		return gridDots;
 	}
 
 
@@ -153,15 +167,28 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void initAction() {
-			if(interaction.getSpinner()==instrument.gridWidth)
+			final Object spinner = interaction.getSpinner();
+
+			if(spinner==instrument.gridWidth)
 				action.setProperty(ShapeProperties.GRID_WIDTH);
-			else
+			else if(spinner==instrument.subGridWidth)
 				action.setProperty(ShapeProperties.GRID_SUBGRID_WIDTH);
+			else
+				action.setProperty(ShapeProperties.GRID_DOTS);
 		}
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getSpinner()==instrument.gridWidth || interaction.getSpinner()==instrument.subGridWidth;
+			final Object spinner = interaction.getSpinner();
+			return spinner==instrument.gridWidth || spinner==instrument.subGridWidth || spinner==instrument.gridDots;
+		}
+
+		@Override
+		public void updateAction() {
+			if(interaction.getSpinner()==instrument.gridDots)
+				action.setValue(Integer.valueOf(interaction.getSpinner().getValue().toString()));
+			else
+				super.updateAction();
 		}
 	}
 
