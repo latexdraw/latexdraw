@@ -42,7 +42,7 @@ public enum ShapeProperties {
 	AXES_SHOW_ORIGIN {
 		@Override
 		public String getMessage() {
-			return "Axe's parameters";
+			return "axe's parameters";
 		}
 
 		@Override
@@ -72,7 +72,7 @@ public enum ShapeProperties {
 	AXES_LABELS_DIST {
 		@Override
 		public String getMessage() {
-			return "Axe's parameters";
+			return "axe's parameters";
 		}
 
 		@Override
@@ -102,7 +102,7 @@ public enum ShapeProperties {
 	AXES_LABELS_INCR {
 		@Override
 		public String getMessage() {
-			return "Axe's parameters";
+			return "axe's parameters";
 		}
 
 		@Override
@@ -132,7 +132,7 @@ public enum ShapeProperties {
 	AXES_LABELS_SHOW {
 		@Override
 		public String getMessage() {
-			return "Axe's parameters";
+			return "axe's parameters";
 		}
 
 		@Override
@@ -162,7 +162,7 @@ public enum ShapeProperties {
 	AXES_TICKS_SHOW {
 		@Override
 		public String getMessage() {
-			return "Axe's parameters";
+			return "axe's parameters";
 		}
 
 		@Override
@@ -192,7 +192,7 @@ public enum ShapeProperties {
 	AXES_TICKS_SIZE {
 		@Override
 		public String getMessage() {
-			return "Axe's parameters";
+			return "axe's parameters";
 		}
 
 		@Override
@@ -222,7 +222,7 @@ public enum ShapeProperties {
 	AXES_TICKS_STYLE {
 		@Override
 		public String getMessage() {
-			return "Axe's parameters";
+			return "axe's parameters";
 		}
 
 		@Override
@@ -252,7 +252,7 @@ public enum ShapeProperties {
 	AXES_STYLE {
 		@Override
 		public String getMessage() {
-			return "Axe's style";
+			return "axe's style";
 		}
 
 		@Override
@@ -1330,6 +1330,36 @@ public enum ShapeProperties {
 		public void setPropertyValueList(final IGroup group, final List<?> values) {
 			if(group!=null)
 				group.setLineArcList((List<Double>)values);
+		}
+	},
+	/** Modification of the colour of the labels of a grid. */
+	GRID_LABELS_COLOUR {
+		@Override
+		public String getMessage() {
+			return "labels' colour";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Color;
+		}
+
+		@Override
+		public List<Color> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Color>() : group.getGridLabelsColourList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setGridLabelsColour((Color)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setGridLabelsColourList((List<Color>)values);
 		}
 	},
 	/** Modification of the colour of the filling of a shape. */

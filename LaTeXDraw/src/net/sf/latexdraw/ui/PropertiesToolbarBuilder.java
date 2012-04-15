@@ -23,6 +23,7 @@ import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
 import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
+import net.sf.latexdraw.instruments.ShapeGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeStandardGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
@@ -105,9 +106,10 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(composeTextPositionToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeTextPropertiesToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
-		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getGridCustomiser(), canvas));
+		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getStandardGridCustomiser(), canvas));
 		widget.add(composeAxesPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), canvas));
-		widget.add(composeGridLabelsPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), metaShapeCustomiser.getGridCustomiser(), canvas));
+		widget.add(composeGridLabelsPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), metaShapeCustomiser.getGridCustomiser(),
+					metaShapeCustomiser.getStandardGridCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
 
@@ -121,12 +123,14 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 	/** Creates the toolbar containing the widgets that customises grids' labels. */
-	protected WidgetMiniToolbar composeGridLabelsPropertiesToolbar(final ShapeAxesCustomiser axeCust, final ShapeStandardGridCustomiser stdGridCust, final LCanvas canvas) {
+	protected WidgetMiniToolbar composeGridLabelsPropertiesToolbar(final ShapeAxesCustomiser axeCust, final ShapeGridCustomiser gridCust,
+																	final ShapeStandardGridCustomiser stdGridCust, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids' labels.");
 
 		addSpinner(list, stdGridCust.getLabelsSizeS(), 50);
 		addCombobox(list, axeCust.getShowLabels());
+		list.addComponent(gridCust.getColourLabels());
 		list.addComponent(axeCust.getShowOrigin());
 		list.addComponent(stdGridCust.getLabelsXInvertedCB());
 		list.addComponent(stdGridCust.getLabelsYInvertedCB());
@@ -137,6 +141,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addSeparator();
 
 		mapContainers.put(axeCust.getShowLabels(), list);
+		mapContainers.put(gridCust.getColourLabels(), list);
 		mapContainers.put(axeCust.getShowOrigin(), list);
 		mapContainers.put(axeCust.getIncrLabelX(), list);
 		mapContainers.put(axeCust.getIncrLabelY(), list);
@@ -148,6 +153,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		axeCust.addEventable(list.getToolbar());
 		stdGridCust.addEventable(list.getToolbar());
+		gridCust.addEventable(list.getToolbar());
 
 		return list;
 	}

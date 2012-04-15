@@ -3,6 +3,7 @@ package net.sf.latexdraw.actions;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
+import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 
@@ -176,6 +177,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case AXES_SHOW_ORIGIN:
 				case AXES_LABELS_DIST:
 				case AXES_STYLE:		return shapes.isTypeOf(IAxes.class);
+				case GRID_LABELS_COLOUR: return shapes.isTypeOf(IGrid.class);
 			}
 
 		return false;

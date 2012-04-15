@@ -65,6 +65,9 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument that customises axes. */
 	protected ShapeAxesCustomiser shapeAxesCustomiser;
 
+	/** This instrument that customises grids. */
+	protected ShapeGridCustomiser shapeGridCustomiser;
+
 
 
 	/**
@@ -91,6 +94,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		gridCustomiser			= new ShapeStandardGridCustomiser(composer, hand, pencil);
 		shapeGrouper			= new ShapeGrouper(composer, hand, pencil);
 		shapeAxesCustomiser		= new ShapeAxesCustomiser(composer, hand, pencil);
+		shapeGridCustomiser		= new ShapeGridCustomiser(composer, hand, pencil);
 	}
 
 
@@ -109,6 +113,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		gridCustomiser.addEventable(eventable);
 		shapeGrouper.addEventable(eventable);
 		shapeAxesCustomiser.addEventable(eventable);
+		shapeGridCustomiser.addEventable(eventable);
 	}
 
 
@@ -129,6 +134,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		arcCustomiser.setActivated(activated);
 		gridCustomiser.setActivated(activated);
 		shapeAxesCustomiser.setActivated(activated);
+		shapeGridCustomiser.setActivated(activated);
 		dimPosCustomiser.setActivated(activated && hand.isActivated() && !selection.isEmpty());
 		shapeGrouper.setActivated(activated && hand.isActivated() && (selection.size()>1 || selection.getShapeAt(0) instanceof IGroup));
 
@@ -152,6 +158,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		gridCustomiser.update(shape);
 		shapeGrouper.update(shape);
 		shapeAxesCustomiser.update(shape);
+		shapeGridCustomiser.update(shape);
 	}
 
 
@@ -170,6 +177,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		gridCustomiser.clearEvents();
 		shapeGrouper.clearEvents();
 		shapeAxesCustomiser.clearEvents();
+		shapeGridCustomiser.clearEvents();
 	}
 
 
@@ -181,12 +189,20 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		return shapeAxesCustomiser;
 	}
 
+	/**
+	 * @return The instrument that customises grids.
+	 * @since 3.0
+	 */
+	public ShapeGridCustomiser getGridCustomiser() {
+		return shapeGridCustomiser;
+	}
+
 
 	/**
 	 * @return The instrument that customises grids and axes.
 	 * @since 3.0
 	 */
-	public ShapeStandardGridCustomiser getGridCustomiser() {
+	public ShapeStandardGridCustomiser getStandardGridCustomiser() {
 		return gridCustomiser;
 	}
 

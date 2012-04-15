@@ -12,6 +12,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
@@ -2806,6 +2807,163 @@ class LGroup extends LShape implements IGroup {
 
 		for(final IShape sh : shapes)
 			list.add(sh instanceof IAxes ? ((IAxes)sh).getDistLabels() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public int getGridDots() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				return ((IGrid)sh).getGridDots();
+		return 0;
+	}
+
+
+	@Override
+	public void setGridDots(final int gridDots) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				((IGrid)sh).setGridDots(gridDots);
+	}
+
+
+	@Override
+	public Color getGridLabelsColour() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				return ((IGrid)sh).getGridLabelsColour();
+
+		return null;
+	}
+
+
+	@Override
+	public void setGridLabelsColour(final Color gridLabelsColour) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				((IGrid)sh).setGridLabelsColour(gridLabelsColour);
+	}
+
+
+	@Override
+	public double getGridWidth() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				return ((IGrid)sh).getGridWidth();
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setGridWidth(final double gridWidth) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				((IGrid)sh).setGridWidth(gridWidth);
+	}
+
+
+	@Override
+	public Color getSubGridColour() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				return ((IGrid)sh).getSubGridColour();
+		return null;
+	}
+
+
+	@Override
+	public void setSubGridColour(final Color subGridColour) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				((IGrid)sh).setSubGridColour(subGridColour);
+	}
+
+
+	@Override
+	public int getSubGridDiv() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				return ((IGrid)sh).getSubGridDiv();
+		return 0;
+	}
+
+
+	@Override
+	public void setSubGridDiv(final int subGridDiv) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				((IGrid)sh).setSubGridDiv(subGridDiv);
+	}
+
+
+	@Override
+	public int getSubGridDots() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				return ((IGrid)sh).getSubGridDots();
+		return 0;
+	}
+
+
+	@Override
+	public void setSubGridDots(final int subGridDots) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				((IGrid)sh).setSubGridDots(subGridDots);
+	}
+
+
+	@Override
+	public double getSubGridWidth() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				return ((IGrid)sh).getSubGridWidth();
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setSubGridWidth(final double subGridWidth) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				((IGrid)sh).setSubGridWidth(subGridWidth);
+	}
+
+
+	@Override
+	public void setUnit(final double unit) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				((IGrid)sh).setUnit(unit);
+	}
+
+
+	@Override
+	public double getUnit() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IGrid)
+				return ((IGrid)sh).getUnit();
+		return Double.NaN;
+	}
+
+
+	@Override
+	public void setGridLabelsColourList(final List<Color> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IGrid)
+					((IGrid)shapes.get(i)).setGridLabelsColour(values.get(i));
+	}
+
+
+	@Override
+	public List<Color> getGridLabelsColourList() {
+		final List<Color> list = new ArrayList<Color>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IGrid ? ((IGrid)sh).getGridLabelsColour() : null);
 
 		return list;
 	}

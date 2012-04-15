@@ -25,7 +25,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable, IAxes {
+public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable, IAxes, IGrid {
 	/**
 	 * @return True if one of the shapes of the group is a text.
 	 * @since 3.0
@@ -824,4 +824,21 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	 * @since 3.0
 	 */
 	List<IPoint> getAxesDistLabelsList();
+
+	/**
+	 * Sets the labels' colours of the grids contained by the group.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setGridLabelsColourList(final List<Color> values);
+
+	/**
+	 * @return The list of labels' colours of the grids contained by the group.
+	 * If a shape of the group is not an axe, null is added.
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<Color> getGridLabelsColourList();
 }
