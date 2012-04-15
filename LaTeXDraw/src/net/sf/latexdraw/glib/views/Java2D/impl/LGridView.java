@@ -59,15 +59,13 @@ class LGridView extends LStandardGridView<IGrid> {
 	public void paint(final Graphics2D g) {
 		if(g==null) return ;
 
-		final float gridWidth = (float)shape.getSubGridWidth();
-
 		// Drawing the sub grid.
 		g.setColor(shape.getSubGridColour());
 
 		if(shape.getSubGridDots()>0)
-			g.setStroke(new BasicStroke(gridWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+			g.setStroke(new BasicStroke((float)shape.getSubGridWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		else
-			g.setStroke(new BasicStroke(gridWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+			g.setStroke(new BasicStroke((float)shape.getSubGridWidth(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 
 		g.draw(pathSubGrid);
 
@@ -75,9 +73,9 @@ class LGridView extends LStandardGridView<IGrid> {
 		g.setColor(shape.getLineColour());
 
 		if(shape.getGridDots()>0)
-			g.setStroke(new BasicStroke(gridWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+			g.setStroke(new BasicStroke((float)shape.getGridWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 		else
-			g.setStroke(new BasicStroke(gridWidth, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+			g.setStroke(new BasicStroke((float)shape.getGridWidth(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 
 		g.draw(path);
 
@@ -92,13 +90,11 @@ class LGridView extends LStandardGridView<IGrid> {
 	public void updateBorder() {
 		final double angle = shape.getRotationAngle();
 
-		if(LNumber.INSTANCE.equals(angle, 0.)) {//FIXME: labels may be not visible.
+		if(LNumber.INSTANCE.equals(angle, 0.)) //FIXME: labels may be not visible.
 			border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
-		}
-		else {
+		else
 			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
 			//TODO
-		}
 	}
 
 
@@ -106,7 +102,7 @@ class LGridView extends LStandardGridView<IGrid> {
 										final double posX, final double posY, final double xStep, final double yStep,
 										final double tlx, final double tly, final double brx, final double bry, final double absStep) {
 		final int gridDots   = shape.getGridDots();
-		final double dotStep = (unit*IShape.PPC)/gridDots;
+		final double dotStep = unit*IShape.PPC/gridDots;
 		double k, i, l, m, n, j;
 
 		for(k=minX, i=posX; k<=maxX; i+=xStep, k++)
@@ -161,9 +157,9 @@ class LGridView extends LStandardGridView<IGrid> {
 
 		// We draw the sub-grid
 		if(subGridDots>0) {
-			double dotStep = (unit*IShape.PPC)/(subGridDots*subGridDiv);
-			double nbX = (maxX-minX)*subGridDiv;
-			double nbY = (maxY-minY)*subGridDiv;
+			final double dotStep = unit*IShape.PPC/(subGridDots*subGridDiv);
+			final double nbX = (maxX-minX)*subGridDiv;
+			final double nbY = (maxY-minY)*subGridDiv;
 
 			for(i=0, n=tlx; i<nbX; i++, n+=xSubStep)
 				for(j=0, m=tly; j<=nbY; j++, m+=ySubStep)
