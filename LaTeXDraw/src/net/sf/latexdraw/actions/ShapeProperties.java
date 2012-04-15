@@ -218,6 +218,36 @@ public enum ShapeProperties {
 				group.setSubGridWidthList((List<Double>)values);
 		}
 	},
+	/** The division the sub-lines of grids. */
+	GRID_SUBGRID_DIV {
+		@Override
+		public String getMessage() {
+			return "grid's parameters";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Integer;
+		}
+
+		@Override
+		public List<Integer> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Integer>() : group.getSubGridDivList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setSubGridDiv((Integer)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setSubGridDivList((List<Integer>)values);
+		}
+	},
 	/** The number of dots composing the sub-lines of grids. */
 	GRID_SUBGRID_DOTS {
 		@Override

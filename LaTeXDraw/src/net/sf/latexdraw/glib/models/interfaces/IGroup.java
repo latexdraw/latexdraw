@@ -926,4 +926,21 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	 * @since 3.0
 	 */
 	List<Integer> getSubGridDotsList();
+
+	/**
+	 * Sets the division of the sub-lines of each grids contained by the group.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setSubGridDivList(final List<Integer> values);
+
+	/**
+	 * @return The division of the sub-lines of each grids contained by the group.
+	 * If a shape of the group is not an axe, null is added.
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<Integer> getSubGridDivList();
 }

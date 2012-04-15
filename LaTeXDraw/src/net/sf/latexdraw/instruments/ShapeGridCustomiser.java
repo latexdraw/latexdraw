@@ -57,6 +57,9 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** Changes the number of dots composing the sub-grid. */
 	protected MSpinner subGridDots;
 
+	/** Changes the division of the sub-grid. */
+	protected MSpinner subGridDiv;
+
 
 	/**
 	 * Creates the instrument.
@@ -83,6 +86,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			subGridWidth.setValueSafely(grid.getSubGridWidth());
 			gridDots.setValueSafely(grid.getGridDots());
 			subGridDots.setValueSafely(grid.getSubGridDots());
+			subGridDiv.setValueSafely(grid.getSubGridDiv());
 		}
 		else setActivated(false);
 	}
@@ -96,6 +100,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(subGridWidth, activated);
 		composer.setWidgetVisible(gridDots, activated);
 		composer.setWidgetVisible(subGridDots, activated);
+		composer.setWidgetVisible(subGridDiv, activated);
 	}
 
 
@@ -107,6 +112,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		subGridWidth  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.7")));
 		gridDots 	  = new MSpinner(new MSpinnerNumberModel(0, 0, 10000, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.5")));
 		subGridDots	  = new MSpinner(new MSpinnerNumberModel(0, 0, 10000, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.4")));
+		subGridDiv	  = new MSpinner(new MSpinnerNumberModel(1, 1, 100, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.8")));
 	}
 
 
@@ -173,6 +179,14 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		return subGridDots;
 	}
 
+	/**
+	 * @return The spinner that permits to change the division of the sub-grid.
+	 * @since 3.0
+	 */
+	public final MSpinner getSubGridDiv() {
+		return subGridDiv;
+	}
+
 
 	private static abstract class SpinnerForShapeGridCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeGridCustomiser> {
 		protected SpinnerForShapeGridCust(final ShapeGridCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
@@ -189,20 +203,23 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 				action.setProperty(ShapeProperties.GRID_SUBGRID_WIDTH);
 			else if(spinner==instrument.gridDots)
 				action.setProperty(ShapeProperties.GRID_DOTS);
-			else
+			else if(spinner==instrument.subGridDots)
 				action.setProperty(ShapeProperties.GRID_SUBGRID_DOTS);
+			else
+				action.setProperty(ShapeProperties.GRID_SUBGRID_DIV);
 		}
 
 		@Override
 		public boolean isConditionRespected() {
 			final Object spinner = interaction.getSpinner();
 			return spinner==instrument.gridWidth || spinner==instrument.subGridWidth || spinner==instrument.gridDots ||
-					spinner==instrument.subGridDots;
+					spinner==instrument.subGridDots || spinner==instrument.subGridDiv;
 		}
 
 		@Override
 		public void updateAction() {
-			if(interaction.getSpinner()==instrument.gridDots || interaction.getSpinner()==instrument.subGridDots)
+			if(interaction.getSpinner()==instrument.gridDots || interaction.getSpinner()==instrument.subGridDots ||
+				interaction.getSpinner()==instrument.subGridDiv)
 				action.setValue(Integer.valueOf(interaction.getSpinner().getValue().toString()));
 			else
 				super.updateAction();

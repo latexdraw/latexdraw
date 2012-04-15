@@ -182,6 +182,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case GRID_WIDTH:
 				case GRID_DOTS:
 				case GRID_SUBGRID_DOTS:
+				case GRID_SUBGRID_DIV:
 				case GRID_LABELS_COLOUR: return shapes.isTypeOf(IGrid.class);
 			}
 

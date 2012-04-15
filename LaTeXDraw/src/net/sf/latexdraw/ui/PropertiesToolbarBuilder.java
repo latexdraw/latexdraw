@@ -200,6 +200,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(cust.getColourSubGrid());
 		addSpinner(list, cust.getGridDots(), 50);
 		addSpinner(list, cust.getSubGridDots(), 50);
+		addSpinner(list, cust.getSubGridDiv(), 50);
 		list.addSeparator();
 
 		mapContainers.put(cust.getColourSubGrid(), list);
@@ -207,6 +208,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(cust.getSubGridWidth(), list);
 		mapContainers.put(cust.getGridDots(), list);
 		mapContainers.put(cust.getSubGridDots(), list);
+		mapContainers.put(cust.getSubGridDiv(), list);
 		cust.addEventable(list.getToolbar());
 		return list;
 	}
