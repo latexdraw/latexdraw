@@ -42,9 +42,6 @@ public final class LResources {
 	/** The e-mail of the latexdraw developer */
 	public static final String MAIL_ME = "arno_b@users.sourceforge.net"; //$NON-NLS-1$
 
-    /** The beginning of the action command of templates */
-    public static final String TEMPLATE_START_ACTION_CMD = "template_";//$NON-NLS-1$
-
 	/** The name of the application */
 	public final static String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
 
@@ -90,12 +87,6 @@ public final class LResources {
 	/** The label of the menu copy */
 	public static final String LABEL_COPY = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.40"); //$NON-NLS-1$
 
-	/** The label of the menuItem updateTemplates */
-	public static final String LABEL_TEMPLATE_UPDATE = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.41"); //$NON-NLS-1$
-
-	/** The label of the menuItem exportAsTemplate */
-	public static final String LABEL_TEMPLATE_EXPORT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.42"); //$NON-NLS-1$
-
 	/** The label of the menu paste */
 	public static final String LABEL_PASTE = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.43"); //$NON-NLS-1$
 
@@ -109,9 +100,6 @@ public final class LResources {
 
 	/** The label of the menu properties of the selected figure*/
 	public static final String LABEL_FIGURE_PROPERTIES = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.53"); //$NON-NLS-1$
-
-	/** This token allows the program to identify LaTeXDraw template files */
-	public static final String TOKEN_TEMPLATE_FILE = "LaTeXDraw template"; //$NON-NLS-1$
 
 	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getString19("DrawPanel.0"); //$NON-NLS-1$
 
@@ -211,9 +199,11 @@ public final class LResources {
 	public final static ImageIcon GRID_X_LABEL;
 	public final static ImageIcon GRID_Y_LABEL;
 	public final static ImageIcon GRID_LABELS;
+	public final static ImageIcon RELOAD_ICON;
 
 
 	static {
+		RELOAD_ICON			= loadImageIcon("/res/view-refresh.png");//$NON-NLS-1$
 		GRID_LABELS			= loadImageIcon("/res/gridLabels.png");//$NON-NLS-1$
 		GRID_X_LABEL		= loadImageIcon("/res/xGridLabel.png");//$NON-NLS-1$
 		GRID_Y_LABEL		= loadImageIcon("/res/yGridLabel.png");//$NON-NLS-1$

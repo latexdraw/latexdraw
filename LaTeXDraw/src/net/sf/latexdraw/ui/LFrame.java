@@ -27,6 +27,7 @@ import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.instruments.ScaleRulersCustomiser;
 import net.sf.latexdraw.instruments.ShapeDeleter;
 import net.sf.latexdraw.instruments.TabSelector;
+import net.sf.latexdraw.instruments.TemplateManager;
 import net.sf.latexdraw.instruments.TextSetter;
 import net.sf.latexdraw.instruments.Zoomer;
 import net.sf.latexdraw.mapping.Drawing2CanvasMapping;
@@ -145,11 +146,16 @@ public class LFrame extends UI {
 	/** The instrument that copies, cuts and pastes selected shapes. */
 	protected CopierCutterPaster paster;
 
+	/** The instrument that selects the current tab. */
 	protected TabSelector tabSelector;
+
+	/** The instrument that manages the templates. */
+	protected TemplateManager templateManager;
 
 	/** The layered panel used to display widgets upon shapes (e.g. text setters). */
 	protected MLayeredPane layeredPanel;
 
+	/** The panel that contains the tabs of the app. */
 	protected MTabbedPane tabbedPanel;
 
 
@@ -235,39 +241,41 @@ public class LFrame extends UI {
 		exceptionsManager	= new ExceptionsManager();
 		helper				= new Helper(composer);
 		try { gridCustomiser= new MagneticGridCustomiser(composer, canvas.getMagneticGrid()); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, getCodePanel().getPstGenerator()); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scaleRulersCustomiser = new ScaleRulersCustomiser(xScaleRuler, yScaleRuler); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scroller		= new Scroller(canvas); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { zoomer		= new Zoomer(canvas); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { textSetter	= new TextSetter(layeredPanel); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { deleter		= new ShapeDeleter(composer); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { hand 			= new Hand(canvas, canvas.getMagneticGrid(), zoomer, textSetter); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { pencil 		= new Pencil(drawing, zoomer, canvas.getMagneticGrid(), textSetter); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { exporter		= new Exporter(composer, canvas, drawing, statusBar); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { metaShapeCustomiser = new MetaShapeCustomiser(composer, hand, pencil); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { editingSelector = new EditingSelector(composer, pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager(composer);
 		try { paster		= new CopierCutterPaster(composer, drawing); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		prefSetters			= new PreferencesSetter(this);
 		try { prefActivator	= new PreferencesActivator(composer, prefSetters); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { fileLoader	= new FileLoaderSaver(this, statusBar, prefSetters); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { tabSelector	= new TabSelector(this); }
-		catch(IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		try { templateManager = new TemplateManager(composer); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 	}
 
 
@@ -408,7 +416,7 @@ public class LFrame extends UI {
 		return new Instrument[]{editingSelector, exporter, fileLoader, hand, pencil, metaShapeCustomiser, undoManager,
 								zoomer, scaleRulersCustomiser, scroller, gridCustomiser, helper, textSetter, exceptionsManager,
 								deleter, prefActivator, prefSetters, paster, getCanvas().getBorderInstrument(), tabSelector,
-								drawingPropCustomiser};
+								drawingPropCustomiser, templateManager};
 	}
 
 
