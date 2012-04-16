@@ -132,10 +132,12 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		addCombobox(list, cust.getFreeHandType());
 		addSpinner(list, cust.getGapPoints(), 50);
+		list.addComponent(cust.getOpen());
 		list.addSeparator();
 
 		mapContainers.put(cust.getFreeHandType(), list);
 		mapContainers.put(cust.getGapPoints(), list);
+		mapContainers.put(cust.getOpen(), list);
 
 		cust.addEventable(list.getToolbar());
 

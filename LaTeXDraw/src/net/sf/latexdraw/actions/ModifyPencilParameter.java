@@ -221,6 +221,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case GRID_SUBGRID_DIV: pencil.getGroupParams().setSubGridDiv((Integer)value); break;
 			case FREEHAND_STYLE: pencil.getGroupParams().setType((FreeHandType)value); break;
 			case FREEHAND_INTERVAL: pencil.getGroupParams().setInterval((Integer)value); break;
+			case FREEHAND_OPEN: pencil.getGroupParams().setOpen((Boolean)value); break;
 		}
 	}
 }

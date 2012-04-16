@@ -3182,6 +3182,26 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
+	public void setFreeHandOpenList(final List<Boolean> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IFreehand)
+					((IFreehand)shapes.get(i)).setOpen(values.get(i));
+	}
+
+
+	@Override
+	public List<Boolean> getFreeHandOpenList() {
+		final List<Boolean> list = new ArrayList<Boolean>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IFreehand ? ((IFreehand)sh).isOpen() : null);
+
+		return list;
+	}
+
+
+	@Override
 	public void addPoint(final IPoint pt) {
 		// TODO Auto-generated method stub
 

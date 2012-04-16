@@ -17,6 +17,7 @@ import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.ui.UIComposer;
+import org.malai.widget.MCheckBox;
 import org.malai.widget.MComboBox;
 import org.malai.widget.MSpinner;
 import org.malai.widget.MSpinner.MSpinnerNumberModel;
@@ -46,6 +47,9 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 	/** The gap to consider between the points. */
 	protected MSpinner gapPoints;
 
+	/** Defines if the shape is open. */
+	protected MCheckBox open;
+
 
 	/**
 	 * Creates the instrument.
@@ -68,6 +72,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 			final IFreehand fh = (IFreehand)shape;
 			freeHandType.setSelectedItemSafely(fh.getType().toString());
 			gapPoints.setValueSafely(fh.getInterval());
+			open.setSelected(fh.isOpen());
 		}
 		else setActivated(false);
 	}
@@ -77,6 +82,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(freeHandType, activated);
 		composer.setWidgetVisible(gapPoints, activated);
+		composer.setWidgetVisible(open, activated);
 	}
 
 
@@ -95,6 +101,8 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 		freeHandType.setMaximumSize(new Dimension(90, 30));
 
 		gapPoints = new MSpinner(new MSpinnerNumberModel(5, 1, 1000, 1), new JLabel(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.0")));
+
+		open = new MCheckBox(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.1"));
 	}
 
 
@@ -115,6 +123,15 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 	}
 
 
+	/**
+	 * @return The check box that defines if the shape is open.
+	 * @since 3.0
+	 */
+	public final MCheckBox getOpen() {
+		return open;
+	}
+
+
 	@Override
 	protected void initialiseLinks() {
 		try {
@@ -122,10 +139,67 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 			addLink(new Combobox2CustomSelectedFH(this));
 			addLink(new Spinner2PencilFreeHand(this));
 			addLink(new Spinner2SelectionFreeHand(this));
+			addLink(new Checkbox2PencilFreeHand(this));
+			addLink(new Checkbox2SelectionFreeHand(this));
 		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
+		}
+	}
+
+
+	/** Maps a checkbox to an action. */
+	private static abstract class CheckboxForShapeFreeHandCust<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeFreeHandCustomiser> {
+		protected CheckboxForShapeFreeHandCust(final ShapeFreeHandCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+			super(instrument, clazzAction);
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.FREEHAND_OPEN);
+			action.setValue(interaction.getCheckBox().isSelected());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getCheckBox()==instrument.open;
+		}
+	}
+
+	/** Maps a checkbox to an action that modifies the pencil. */
+	private static class Checkbox2PencilFreeHand extends CheckboxForShapeFreeHandCust<ModifyPencilParameter> {
+		protected Checkbox2PencilFreeHand(final ShapeFreeHandCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setPencil(instrument.pencil);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated() && super.isConditionRespected();
+		}
+	}
+
+	/** This link maps a colour button to the selected shapes. */
+	private static class Checkbox2SelectionFreeHand extends CheckboxForShapeFreeHandCust<ModifyShapeProperty> {
+		protected Checkbox2SelectionFreeHand(final ShapeFreeHandCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyShapeProperty.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated() && super.isConditionRespected();
 		}
 	}
 

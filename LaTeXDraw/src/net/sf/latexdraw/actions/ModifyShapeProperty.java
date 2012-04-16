@@ -186,6 +186,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case GRID_SUBGRID_DIV:
 				case GRID_LABELS_COLOUR: return shapes.isTypeOf(IGrid.class);
 				case FREEHAND_INTERVAL:
+				case FREEHAND_OPEN:
 				case FREEHAND_STYLE : return shapes.isTypeOf(IFreehand.class);
 			}
 
