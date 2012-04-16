@@ -23,6 +23,7 @@ import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
 import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
+import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
 import net.sf.latexdraw.instruments.ShapeGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeStandardGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeGrouper;
@@ -111,6 +112,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(composeAxesPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), canvas));
 		widget.add(composeGridLabelsPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), metaShapeCustomiser.getGridCustomiser(),
 					metaShapeCustomiser.getStandardGridCustomiser(), canvas));
+		widget.add(composeFreeHandPropertiesToolbar(metaShapeCustomiser.getFreeHandCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
 
@@ -120,6 +122,22 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(grouper.getGroupB());
 		widget.add(grouper.getSepB());
 		grouper.addEventable(widget);
+	}
+
+
+	/** Creates the toolbar containing the widgets that customises axes. */
+	protected WidgetMiniToolbar composeFreeHandPropertiesToolbar(final ShapeFreeHandCustomiser cust, final LCanvas canvas) {
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.FREE_HAND_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		list.setToolTipText("Modifies the properties of freehand drawings.");
+
+		addCombobox(list, cust.getFreeHandType());
+		list.addSeparator();
+
+		mapContainers.put(cust.getFreeHandType(), list);
+
+		cust.addEventable(list.getToolbar());
+
+		return list;
 	}
 
 

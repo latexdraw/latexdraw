@@ -68,6 +68,9 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument that customises grids. */
 	protected ShapeGridCustomiser shapeGridCustomiser;
 
+	/** This instrument that customises freehands. */
+	protected ShapeFreeHandCustomiser shapeFreeHandCustomiser;
+
 
 
 	/**
@@ -95,6 +98,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeGrouper			= new ShapeGrouper(composer, hand, pencil);
 		shapeAxesCustomiser		= new ShapeAxesCustomiser(composer, hand, pencil);
 		shapeGridCustomiser		= new ShapeGridCustomiser(composer, hand, pencil);
+		shapeFreeHandCustomiser	= new ShapeFreeHandCustomiser(composer, hand, pencil);
 	}
 
 
@@ -114,6 +118,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeGrouper.addEventable(eventable);
 		shapeAxesCustomiser.addEventable(eventable);
 		shapeGridCustomiser.addEventable(eventable);
+		shapeFreeHandCustomiser.addEventable(eventable);
 	}
 
 
@@ -135,6 +140,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		gridCustomiser.setActivated(activated);
 		shapeAxesCustomiser.setActivated(activated);
 		shapeGridCustomiser.setActivated(activated);
+		shapeFreeHandCustomiser.setActivated(activated);
 		dimPosCustomiser.setActivated(activated && hand.isActivated() && !selection.isEmpty());
 		shapeGrouper.setActivated(activated && hand.isActivated() && (selection.size()>1 || selection.getShapeAt(0) instanceof IGroup));
 
@@ -159,6 +165,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeGrouper.update(shape);
 		shapeAxesCustomiser.update(shape);
 		shapeGridCustomiser.update(shape);
+		shapeFreeHandCustomiser.update(shape);
 	}
 
 
@@ -178,8 +185,17 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeGrouper.clearEvents();
 		shapeAxesCustomiser.clearEvents();
 		shapeGridCustomiser.clearEvents();
+		shapeFreeHandCustomiser.clearEvents();
 	}
 
+
+	/**
+	 * @return The instrument that customises freehands.
+	 * @since 3.0
+	 */
+	public ShapeFreeHandCustomiser getFreeHandCustomiser() {
+		return shapeFreeHandCustomiser;
+	}
 
 	/**
 	 * @return The instrument that customises axes.

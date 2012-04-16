@@ -11,6 +11,7 @@ import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.IFreehand.FreeHandType;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -396,6 +397,36 @@ public enum ShapeProperties {
 		public void setPropertyValueList(final IGroup group, final List<?> values) {
 			if(group!=null)
 				group.setAxesTicksStyleList((List<TicksStyle>)values);
+		}
+	},
+	/** The style of axes. */
+	FREEHAND_STYLE {
+		@Override
+		public String getMessage() {
+			return "free hand's parameters";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof FreeHandType;
+		}
+
+		@Override
+		public List<FreeHandType> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<FreeHandType>() : group.getFreeHandTypeList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setType((FreeHandType)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setFreeHandTypeList((List<FreeHandType>)values);
 		}
 	},
 	/** The style of axes. */

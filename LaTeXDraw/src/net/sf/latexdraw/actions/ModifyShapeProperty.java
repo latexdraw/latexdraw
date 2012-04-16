@@ -3,6 +3,7 @@ package net.sf.latexdraw.actions;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
+import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
@@ -184,6 +185,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case GRID_SUBGRID_DOTS:
 				case GRID_SUBGRID_DIV:
 				case GRID_LABELS_COLOUR: return shapes.isTypeOf(IGrid.class);
+				case FREEHAND_STYLE : return shapes.isTypeOf(IFreehand.class);
 			}
 
 		return false;

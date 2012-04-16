@@ -12,6 +12,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
@@ -676,7 +677,7 @@ class LGroup extends LShape implements IGroup {
 	 * Duplicates the group. Does not duplicate the shapes it contains.
 	 */
 	@Override
-	public IGroup duplicate() {
+	public IShape duplicate() {
 		return duplicate(false);
 	}
 
@@ -3086,5 +3087,120 @@ class LGroup extends LShape implements IGroup {
 			list.add(sh instanceof IGrid ? ((IGrid)sh).getSubGridDiv() : null);
 
 		return list;
+	}
+
+
+	@Override
+	public void setFreeHandTypeList(final List<FreeHandType> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IFreehand)
+					((IFreehand)shapes.get(i)).setType(values.get(i));
+	}
+
+
+	@Override
+	public List<FreeHandType> getFreeHandTypeList() {
+		final List<FreeHandType> list = new ArrayList<FreeHandType>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IFreehand ? ((IFreehand)sh).getType() : null);
+
+		return list;
+	}
+
+
+	@Override
+	public FreeHandType getType() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IFreehand)
+				return ((IFreehand)sh).getType();
+		return null;
+	}
+
+
+	@Override
+	public void setType(final FreeHandType type) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IFreehand)
+				((IFreehand)sh).setType(type);
+	}
+
+
+	@Override
+	public boolean isOpen() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IFreehand)
+				return ((IFreehand)sh).isOpen();
+		return false;
+	}
+
+
+	@Override
+	public void setOpen(final boolean open) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IFreehand)
+				((IFreehand)sh).setOpen(open);
+	}
+
+
+	@Override
+	public int getInterval() {
+		for(final IShape sh : shapes)
+			if(sh instanceof IFreehand)
+				return ((IFreehand)sh).getInterval();
+		return 0;
+	}
+
+
+	@Override
+	public void setInterval(final int interval) {
+		for(final IShape sh : shapes)
+			if(sh instanceof IFreehand)
+				((IFreehand)sh).setInterval(interval);
+	}
+
+
+	@Override
+	public void addPoint(final IPoint pt) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addPoint(final IPoint pt, final int position) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public boolean removePoint(final IPoint pt) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public IPoint removePoint(final int position) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean setPoint(final IPoint p, final int position) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setPoint(final double x, final double y, final int position) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public IPoint replacePoint(final IPoint pt, final int position) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -25,7 +25,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable, IAxes, IGrid {
+public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable, IAxes, IGrid, IFreehand {
 	/**
 	 * @return True if one of the shapes of the group is a text.
 	 * @since 3.0
@@ -943,4 +943,21 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arca
 	 * @since 3.0
 	 */
 	List<Integer> getSubGridDivList();
+
+	/**
+	 * Sets the type of the freehand shapes contained in the group.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setFreeHandTypeList(final List<FreeHandType> values);
+
+	/**
+	 * @return The types of the freehand shapes contained in the group.
+	 * If a shape of the group is not an axe, null is added.
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<FreeHandType> getFreeHandTypeList();
 }

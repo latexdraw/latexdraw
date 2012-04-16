@@ -93,7 +93,7 @@ public class Pencil extends Instrument {
 		if(drawing==null || zoomer==null || grid==null || textSetter==null)
 			throw new IllegalArgumentException();
 
-		IShapeFactory factory = DrawingTK.getFactory();
+		final IShapeFactory factory = DrawingTK.getFactory();
 		groupParams		= factory.createGroup(false);
 		this.textSetter = textSetter;
 		this.grid		= grid;
@@ -107,6 +107,7 @@ public class Pencil extends Instrument {
 		groupParams.addShape(factory.createText(false));
 		groupParams.addShape(factory.createCircleArc(false));
 		groupParams.addShape(factory.createPolyline(false));
+		groupParams.addShape(factory.createFreeHand(factory.createPoint(), false));
 	}
 
 
@@ -132,9 +133,9 @@ public class Pencil extends Instrument {
 			addLink(new DnD2AddShape(this, false));
 			addLink(new MultiClic2AddShape(this, false));
 			addLink(new Press2InitTextSetter(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -429,7 +430,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 
 		if(shape!=null) {
 			final EditionChoice ec 	= instrument.getCurrentChoice();
-			IPoint pt = instrument.getAdaptedPoint(interaction.getStartPt());
+			final IPoint pt = instrument.getAdaptedPoint(interaction.getStartPt());
 
 			// For squares and circles, the centre of the shape is the reference point during the creation.
 			if((ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE || ec==EditionChoice.CIRCLE_ARC) && shape instanceof IRectangularShape) {

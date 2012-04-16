@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.IFreehand.FreeHandType;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
@@ -218,6 +219,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case GRID_DOTS: pencil.getGroupParams().setGridDots((Integer)value); break;
 			case GRID_SUBGRID_DOTS: pencil.getGroupParams().setSubGridDots((Integer)value); break;
 			case GRID_SUBGRID_DIV: pencil.getGroupParams().setSubGridDiv((Integer)value); break;
+			case FREEHAND_STYLE: pencil.getGroupParams().setType((FreeHandType)value); break;
 		}
 	}
 }
