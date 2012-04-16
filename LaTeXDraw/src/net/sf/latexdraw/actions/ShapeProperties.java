@@ -219,6 +219,36 @@ public enum ShapeProperties {
 				group.setSubGridWidthList((List<Double>)values);
 		}
 	},
+	/** The interval between the points of free hand shapes. */
+	FREEHAND_INTERVAL {
+		@Override
+		public String getMessage() {
+			return "free hand's parameters";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Integer;
+		}
+
+		@Override
+		public List<Integer> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Integer>() : group.getFreeHandIntervalList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setInterval((Integer)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setFreeHandIntervalList((List<Integer>)values);
+		}
+	},
 	/** The division the sub-lines of grids. */
 	GRID_SUBGRID_DIV {
 		@Override

@@ -3162,6 +3162,26 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
+	public void setFreeHandIntervalList(final List<Integer> values) {
+		if(values!=null && values.size()==shapes.size())
+			for(int i=0, size=shapes.size(); i<size; i++)
+				if(values.get(i)!=null && shapes.get(i) instanceof IFreehand)
+					((IFreehand)shapes.get(i)).setInterval(values.get(i));
+	}
+
+
+	@Override
+	public List<Integer> getFreeHandIntervalList() {
+		final List<Integer> list = new ArrayList<Integer>();
+
+		for(final IShape sh : shapes)
+			list.add(sh instanceof IFreehand ? ((IFreehand)sh).getInterval() : null);
+
+		return list;
+	}
+
+
+	@Override
 	public void addPoint(final IPoint pt) {
 		// TODO Auto-generated method stub
 

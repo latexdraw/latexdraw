@@ -131,9 +131,11 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.setToolTipText("Modifies the properties of freehand drawings.");
 
 		addCombobox(list, cust.getFreeHandType());
+		addSpinner(list, cust.getGapPoints(), 50);
 		list.addSeparator();
 
 		mapContainers.put(cust.getFreeHandType(), list);
+		mapContainers.put(cust.getGapPoints(), list);
 
 		cust.addEventable(list.getToolbar());
 

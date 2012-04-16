@@ -18,6 +18,8 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.ui.UIComposer;
 import org.malai.widget.MComboBox;
+import org.malai.widget.MSpinner;
+import org.malai.widget.MSpinner.MSpinnerNumberModel;
 
 /**
  * This instrument modifies free hand properties of shapes or the pencil.<br>
@@ -41,6 +43,9 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 	/** The type of the freehand. */
 	protected MComboBox freeHandType;
 
+	/** The gap to consider between the points. */
+	protected MSpinner gapPoints;
+
 
 	/**
 	 * Creates the instrument.
@@ -62,6 +67,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 		if(shape.isTypeOf(IFreehand.class)) {
 			final IFreehand fh = (IFreehand)shape;
 			freeHandType.setSelectedItemSafely(fh.getType().toString());
+			gapPoints.setValueSafely(fh.getInterval());
 		}
 		else setActivated(false);
 	}
@@ -70,6 +76,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(freeHandType, activated);
+		composer.setWidgetVisible(gapPoints, activated);
 	}
 
 
@@ -84,8 +91,10 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 		label = new JLabel(IFreehand.FreeHandType.LINES.toString());
 		label.setIcon(LResources.LINES_FREEHAND_ICON);
 		freeHandType.addItem(label);
-		freeHandType.setPreferredSize(new Dimension(80, 30));
-		freeHandType.setMaximumSize(new Dimension(80, 30));
+		freeHandType.setPreferredSize(new Dimension(90, 30));
+		freeHandType.setMaximumSize(new Dimension(90, 30));
+
+		gapPoints = new MSpinner(new MSpinnerNumberModel(5, 1, 1000, 1), new JLabel(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.0")));
 	}
 
 
@@ -97,16 +106,89 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 		return freeHandType;
 	}
 
+	/**
+	 * @return The gap to consider between the points.
+	 * @since 3.0
+	 */
+	public final MSpinner getGapPoints() {
+		return gapPoints;
+	}
+
 
 	@Override
 	protected void initialiseLinks() {
 		try {
 			addLink(new Combobox2CustomPencilFH(this));
 			addLink(new Combobox2CustomSelectedFH(this));
+			addLink(new Spinner2PencilFreeHand(this));
+			addLink(new Spinner2SelectionFreeHand(this));
 		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
+		}
+	}
+
+
+	/** Maps a spinner to an action. */
+	private static abstract class SpinnerForShapeFreeHandCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeFreeHandCustomiser> {
+		protected SpinnerForShapeFreeHandCust(final ShapeFreeHandCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+			super(instrument, clazzAction);
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.FREEHAND_INTERVAL);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getSpinner()==instrument.gapPoints;
+		}
+
+		@Override
+		public void updateAction() {
+			action.setValue(Integer.valueOf(interaction.getSpinner().getValue().toString()));
+		}
+	}
+
+
+	/** Maps a spinner to an action that modifies the pencil. */
+	private static class Spinner2PencilFreeHand extends SpinnerForShapeFreeHandCust<ModifyPencilParameter> {
+		protected Spinner2PencilFreeHand(final ShapeFreeHandCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setPencil(instrument.pencil);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated() && super.isConditionRespected();
+		}
+	}
+
+
+	/**
+	 * This link maps a colour button to the selected shapes.
+	 */
+	private static class Spinner2SelectionFreeHand extends SpinnerForShapeFreeHandCust<ModifyShapeProperty> {
+		protected Spinner2SelectionFreeHand(final ShapeFreeHandCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyShapeProperty.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated() && super.isConditionRespected();
 		}
 	}
 
