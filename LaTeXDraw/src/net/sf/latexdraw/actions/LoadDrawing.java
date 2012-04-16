@@ -3,7 +3,10 @@ package net.sf.latexdraw.actions;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import net.sf.latexdraw.ui.LFrame;
 
 import org.malai.action.library.Load;
 
@@ -26,19 +29,19 @@ import org.malai.action.library.Load;
  * @date 06/09/2011
  * @since 3.0
  */
-public class LoadDrawing extends Load implements Modifying {
+public class LoadDrawing extends Load<LFrame, JLabel> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
 
 	@Override
 	protected void doActionBody() {
-		if(ui.isModified()) {
+		if(ui.isModified())
 			switch(SaveDrawing.showAskModificationsDialog(ui)) {
 				case JOptionPane.NO_OPTION: //load
 					load();
 					break;
 				case JOptionPane.YES_OPTION: // save + load
-					File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
+					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
 					if(f!=null) {
 						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
 						ui.setModified(false);
@@ -50,7 +53,6 @@ public class LoadDrawing extends Load implements Modifying {
 				default:
 					break;
 			}
-		}
 		else load();
 	}
 

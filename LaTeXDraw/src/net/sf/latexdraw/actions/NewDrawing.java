@@ -3,12 +3,14 @@ package net.sf.latexdraw.actions;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import org.malai.action.library.IOAction;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
+import net.sf.latexdraw.ui.LFrame;
 
 /**
  * This action permits to create a new drawing and initialises the application as required.<br>
@@ -28,7 +30,7 @@ import net.sf.latexdraw.instruments.PreferencesSetter;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class NewDrawing extends IOAction implements Modifying {
+public class NewDrawing extends IOAction<LFrame, JLabel> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
 
@@ -38,13 +40,13 @@ public class NewDrawing extends IOAction implements Modifying {
 
 	@Override
 	protected void doActionBody() {
-		if(ui.isModified()) {
+		if(ui.isModified())
 			switch(SaveDrawing.showAskModificationsDialog(ui)) {
 				case JOptionPane.NO_OPTION: //new
 					newDrawing();
 					break;
 				case JOptionPane.YES_OPTION: // save + load
-					File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
+					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
 					if(f!=null) {
 						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
 						ui.setModified(false);
@@ -56,7 +58,6 @@ public class NewDrawing extends IOAction implements Modifying {
 				default:
 					break;
 			}
-		}
 		else newDrawing();
 	}
 
@@ -64,7 +65,7 @@ public class NewDrawing extends IOAction implements Modifying {
 	protected void newDrawing() {
 		ui.reinit();
 		try{ prefSetter.readXMLPreferences(); }
-		catch(Exception exception){ BadaboomCollector.INSTANCE.add(exception); }
+		catch(final Exception exception){ BadaboomCollector.INSTANCE.add(exception); }
 	}
 
 

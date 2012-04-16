@@ -14,6 +14,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.ui.LFrame;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
 
@@ -26,7 +27,6 @@ import org.malai.interaction.library.ButtonPressed;
 import org.malai.interaction.library.KeysPressure;
 import org.malai.interaction.library.MenuItemPressed;
 import org.malai.interaction.library.WindowClosed;
-import org.malai.ui.UI;
 import org.malai.widget.MButton;
 import org.malai.widget.MMenu;
 import org.malai.widget.MMenuItem;
@@ -96,7 +96,7 @@ public class FileLoaderSaver extends WidgetInstrument {
     protected JFileChooser fileChooser;
 
     /** The UI to save/open. */
-    protected UI ui;
+    protected LFrame ui;
 
 	/** The field where messages are displayed. */
 	protected JLabel statusBar;
@@ -117,7 +117,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 	 * @throws NullPointerException If the given UI is null.
 	 * @since 3.0
 	 */
-	public FileLoaderSaver(final UI ui, final JLabel statusBar, final PreferencesSetter prefSetter) {
+	public FileLoaderSaver(final LFrame ui, final JLabel statusBar, final PreferencesSetter prefSetter) {
 		super(ui.getComposer());
 
 		if(statusBar==null || prefSetter==null)
@@ -232,9 +232,9 @@ public class FileLoaderSaver extends WidgetInstrument {
 			addLink(new Button2NewLink(this));
 			addLink(new Shortcut2NewLink(this));
 			addLink(new RecentMenuItem2LoadLink(this));
-		}catch(InstantiationException e){
+		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -328,14 +328,12 @@ public class FileLoaderSaver extends WidgetInstrument {
 		if(recentDocs!=null && !recentDocs.isEmpty()) {
 			MMenuItem item;
 
-			for(final String fileName : recentDocs) {
-				if(new File(fileName).canRead()) {
+			for(final String fileName : recentDocs)
+			 if(new File(fileName).canRead()) {
 					item = new MMenuItem(fileName.substring(fileName.lastIndexOf(LResources.FILE_SEP)+1));
 					item.setToolTipText(fileName);
 					recentFilesMenu.add(item);
 				}
-			}
-			//TODO remove LangTool.INSTANCE.getString19("LaTeXDrawFrame.2")
 		}
 
 		recentFilesMenu.setEnabled(recentFilesMenu.getMenuComponentCount()>0);
@@ -369,7 +367,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 		super.save(generalPreferences, nsURI, document, root);
 
 		if(generalPreferences && document!=null && root!=null) {
-			Element elt = document.createElement(LNamespace.XML_PATH_OPEN);
+			final Element elt = document.createElement(LNamespace.XML_PATH_OPEN);
             elt.setTextContent(pathSave);
             root.appendChild(elt);
 		}
@@ -382,7 +380,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 		// Updating the recent files on I/O actions.
 		if(action instanceof IOAction && action.hadEffect()) {
-			prefSetter.addRecentFile(((IOAction)action).getFile().getPath());
+			prefSetter.addRecentFile(((IOAction<?, ?>)action).getFile().getPath());
 			updateRecentMenuItems(prefSetter.recentFilesName);
 		}
 	}
@@ -655,7 +653,7 @@ class Button2SaveLink extends Interaction2SaveLink<ButtonPressed> {
 }
 
 
-abstract class Interaction2IOLink<A extends IOAction, I extends Interaction> extends Link<A, I, FileLoaderSaver> {
+abstract class Interaction2IOLink<A extends IOAction<LFrame, JLabel>, I extends Interaction> extends Link<A, I, FileLoaderSaver> {
 	protected Interaction2IOLink(final FileLoaderSaver fileLoader, final Class<A> action, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, false, action, interaction);
 	}

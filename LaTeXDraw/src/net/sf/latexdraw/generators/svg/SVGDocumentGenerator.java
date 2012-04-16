@@ -37,7 +37,6 @@ import org.malai.mapping.MappingRegistry;
 import org.malai.presentation.AbstractPresentation;
 import org.malai.presentation.Presentation;
 import org.malai.ui.ISOpenSaver;
-import org.malai.ui.UI;
 import org.malai.widget.MProgressBar;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -62,7 +61,7 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class SVGDocumentGenerator implements ISOpenSaver {
+public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	/** The singleton that allows the save/load latexdraw SVG documents. */
 	public static final SVGDocumentGenerator INSTANCE = new SVGDocumentGenerator();
 
@@ -73,7 +72,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 
 
 	@Override
-	public boolean save(final String path, final UI ui, final MProgressBar progressBar, final Object statusBar) {
+	public boolean save(final String path, final LFrame ui, final MProgressBar progressBar, final JLabel statusBar) {
 		final SaveWorker lw = new SaveWorker(ui, path, statusBar);
 
 		if(progressBar!=null)
@@ -86,7 +85,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 
 
 	@Override
-	public boolean open(final String path, final UI ui, final MProgressBar progressBar, final Object statusBar) {
+	public boolean open(final String path, final LFrame ui, final MProgressBar progressBar, final JLabel statusBar) {
 		final LoadWorker lw = new LoadWorker(ui, path, statusBar);
 
 		if(progressBar!=null)
@@ -130,18 +129,18 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 	 * The abstract worker that factorises the code of loading and saving workers.
 	 */
 	abstract class IOWorker extends SwingWorker<Boolean, Void> {
-		protected UI ui;
+		protected LFrame ui;
 
 		protected String path;
 
-		protected Object statusBar;
+		protected JLabel statusBar;
 
 		private List<Boolean> instrumentsState;
 
 		private List<Instrument> instruments;
 
 
-		protected IOWorker(final UI ui, final String path, final Object statusBar) {
+		protected IOWorker(final LFrame ui, final String path, final JLabel statusBar) {
 			super();
 			this.ui = ui;
 			this.path = path;
@@ -177,8 +176,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 			instrumentsState = new ArrayList<Boolean>();
 			instruments 	 = new ArrayList<Instrument>();
 
-			if(ui instanceof LFrame)
-				MappingRegistry.REGISTRY.removeMappingsUsingTarget(((LFrame)ui).getExporter(), ShapeList2ExporterMapping.class);
+			MappingRegistry.REGISTRY.removeMappingsUsingTarget(ui.getExporter(), ShapeList2ExporterMapping.class);
 
 			for(final Instrument instrument : ins) {
 				if(!(instrument instanceof ExceptionsManager)) {
@@ -203,13 +201,10 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 			for(int i=0, size=instrumentsState.size(); i<size; i++)
 				instruments.get(i).setActivated(instrumentsState.get(i));
 
-			if(ui instanceof LFrame) {
-				final LFrame frame = (LFrame)ui;
-				final IMapping mapping = new ShapeList2ExporterMapping(frame.getDrawing().getShapes(), frame.getExporter());
-				MappingRegistry.REGISTRY.addMapping(mapping);
-				mapping.init();
-			}
-
+			final LFrame frame = ui;
+			final IMapping mapping = new ShapeList2ExporterMapping(frame.getDrawing().getShapes(), frame.getExporter());
+			MappingRegistry.REGISTRY.addMapping(mapping);
+			mapping.init();
 			ui.setModified(false);
 		}
 	}
@@ -217,7 +212,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 
 
 	class SaveWorker extends IOWorker {
-		protected SaveWorker(final UI ui, final String path, final Object statusBar) {
+		protected SaveWorker(final LFrame ui, final String path, final JLabel statusBar) {
 			super(ui, path, statusBar);
 		}
 
@@ -304,12 +299,8 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 		@Override
 		protected void done() {
 			super.done();
-
 			// Showing a message in the status bar.
-			try {
-				if(get() && statusBar instanceof JLabel)
-					((JLabel)statusBar).setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.191")); //$NON-NLS-1$
-			}catch(final Exception ex){ BadaboomCollector.INSTANCE.add(ex); }
+			statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.191")); //$NON-NLS-1$
 		}
 	}
 
@@ -320,7 +311,7 @@ public class SVGDocumentGenerator implements ISOpenSaver {
 	 * The worker that loads SVG documents.
 	 */
 	class LoadWorker extends IOWorker {
-		protected LoadWorker(final UI ui, final String path, final Object statusBar) {
+		protected LoadWorker(final LFrame ui, final String path, final JLabel statusBar) {
 			super(ui, path, statusBar);
 		}
 

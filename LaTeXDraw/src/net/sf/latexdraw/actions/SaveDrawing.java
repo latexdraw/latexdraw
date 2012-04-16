@@ -3,6 +3,7 @@ package net.sf.latexdraw.actions;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import org.malai.action.library.Save;
@@ -11,6 +12,7 @@ import org.malai.ui.UI;
 import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.ui.LFrame;
 
 /**
  * This action saves the given drawing into an SVG document.
@@ -31,7 +33,7 @@ import net.sf.latexdraw.lang.LangTool;
  * @date 06/09/2011
  * @since 3.0
  */
-public class SaveDrawing extends Save {
+public class SaveDrawing extends Save<LFrame, JLabel> {
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
 
@@ -73,7 +75,7 @@ public class SaveDrawing extends Save {
 						quit();
 						break;
 					case JOptionPane.YES_OPTION: // save + exit
-						File f = showDialog(fileChooser, saveAs, ui, file);
+						final File f = showDialog(fileChooser, saveAs, ui, file);
 						if(f!=null) {
 							file = f;
 							super.doActionBody();
@@ -132,7 +134,7 @@ public class SaveDrawing extends Save {
 	protected static File showDialog(final JFileChooser fileChooser, final boolean saveAs, final UI ui, final File file) {
 		File f;
 
-		if(saveAs || (file==null && ui.isModified()))
+		if(saveAs || file==null && ui.isModified())
 			f = fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
 		else
 			f = file;
@@ -144,7 +146,7 @@ public class SaveDrawing extends Save {
 			f = new File(f.getPath() + SVGFilter.SVG_EXTENSION);
 
 		if(f.exists()) {
-			int replace = JOptionPane.showConfirmDialog(null, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
+			final int replace = JOptionPane.showConfirmDialog(null, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
 														LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$
 
 			if(replace == JOptionPane.NO_OPTION || replace == JOptionPane.CLOSED_OPTION)
