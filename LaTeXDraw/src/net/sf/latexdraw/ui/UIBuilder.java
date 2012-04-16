@@ -163,6 +163,7 @@ public class UIBuilder extends UIComposer<LFrame> {
 		widget.fileLoader.addEventable(widget);
 		widget.tabSelector.addEventable(widget.tabbedPanel);
 		widget.drawingPropCustomiser.addEventable(toolbarBuilder.drawingB.getToolbar());
+		widget.templateManager.addEventable(widget.templateManager.getTemplateMenu());
 	}
 
 
@@ -200,5 +201,6 @@ public class UIBuilder extends UIComposer<LFrame> {
 		widget.paster.setActivated(true);
 		widget.tabSelector.setActivated(true);
 		widget.drawingPropCustomiser.setActivated(true);
+		widget.templateManager.setActivated(true);
 	}
 }

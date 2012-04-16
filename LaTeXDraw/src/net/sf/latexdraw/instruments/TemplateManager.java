@@ -1,10 +1,13 @@
 package net.sf.latexdraw.instruments;
 
 import net.sf.latexdraw.actions.UpdateTemplates;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
+import org.malai.instrument.Link;
 import org.malai.instrument.WidgetInstrument;
+import org.malai.interaction.library.MenuItemPressed;
 import org.malai.ui.UIComposer;
 import org.malai.widget.MMenu;
 import org.malai.widget.MMenuItem;
@@ -55,7 +58,13 @@ public class TemplateManager extends WidgetInstrument {
 
 	@Override
 	protected void initialiseLinks() {
-		// TODO Auto-generated method stub
+		try{
+			addLink(new MenuItem2UpdateTemplates(this));
+		}catch(final InstantiationException e){
+			BadaboomCollector.INSTANCE.add(e);
+		}catch(final IllegalAccessException e){
+			BadaboomCollector.INSTANCE.add(e);
+		}
 	}
 
 
@@ -81,5 +90,24 @@ public class TemplateManager extends WidgetInstrument {
 	 */
 	public final MMenu getTemplateMenu() {
 		return templateMenu;
+	}
+
+
+	/** Maps a menu item interaction to an action that updates the templates. */
+	private static class MenuItem2UpdateTemplates extends Link<UpdateTemplates, MenuItemPressed, TemplateManager> {
+		public MenuItem2UpdateTemplates(final TemplateManager ins) throws InstantiationException, IllegalAccessException {
+			super(ins, false, UpdateTemplates.class, MenuItemPressed.class);
+		}
+
+		@Override
+		public void initAction() {
+			action.setUpdateThumbnails(true);
+			action.setTemplatesMenu(instrument.templateMenu);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getMenuItem()==instrument.updateTemplatesMenu;
+		}
 	}
 }

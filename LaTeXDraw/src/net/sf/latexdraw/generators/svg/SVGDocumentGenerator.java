@@ -243,6 +243,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	}
 
 
+	/** Abstract class dedicated to the support of templates. */
 	abstract class TemplatesWorker extends LoadShapesWorker {
 		protected TemplatesWorker(final LFrame ui, final String path, final JLabel statusBar) {
 			super(ui, path, statusBar);
@@ -300,6 +301,10 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 				updateTemplates(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR);
 			}
 
+			// Removing the former menu items but the last two of them (the update menu item and the separator).
+			for(int i=0, size=templatesMenu.getMenuComponentCount()-2; i<size; i++)
+				templatesMenu.remove(0);
+
 			createMenuItems(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR, true);
 
 			return true;
@@ -349,7 +354,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 				for(int i=0; i<files.length; i++)
 					if(filter.accept(files[i]))
 						try {
-							template = toLatexdraw(new SVGDocument(new File(pathTemplate).toURI()), 0);
+							template = toLatexdraw(new SVGDocument(files[i].toURI()), 0);
 							thumbnail = new File(pathCache+File.separator+files[i].getName()+PNGFilter.PNG_EXTENSION);
 							createTemplateThumbnail(thumbnail, template);
 						}catch(final Exception ex){ BadaboomCollector.INSTANCE.add(ex); }

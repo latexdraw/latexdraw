@@ -1,11 +1,6 @@
 package net.sf.latexdraw.ui;
 
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-
 import javax.swing.JMenuBar;
-import javax.swing.KeyStroke;
-
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.ui.UIComposer;
@@ -81,7 +76,6 @@ public class MenubarBuilder extends UIComposer<JMenuBar> {
 		unitMenu	= new MMenu("Unit", true);
 
 		widget.add(drawingMenu);
-
 		drawingMenu.add(frame.fileLoader.getNewMenu());
 		drawingMenu.add(frame.fileLoader.getLoadMenu());
 		drawingMenu.add(frame.fileLoader.getSaveMenu());
@@ -104,7 +98,6 @@ public class MenubarBuilder extends UIComposer<JMenuBar> {
 		editMenu.add(frame.paster.getPasteMenu());
 		editMenu.addSeparator();
 		editMenu.add(frame.prefActivator.getShowPreferencesMenu());
-
 		widget.add(editMenu);
 	}
 
@@ -136,7 +129,6 @@ public class MenubarBuilder extends UIComposer<JMenuBar> {
         menuCBItem.setSelected(true);
         displayMenu.add(menuCBItem);
         displayMenu.addSeparator();
-        menuCBItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,InputEvent.CTRL_MASK));
         displayMenu.add(menuCBItem);
 	}
 }
