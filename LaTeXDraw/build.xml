@@ -39,11 +39,11 @@
 		</copy>
 		
 		<copy todir="${dir.data}/.cache" overwrite="true" failonerror="true">
-			<fileset dir=".cache/"/>
+			<fileset dir="templates/.cache/"/>
 		</copy>
 		
 		<copy todir="${dir.data}/templates" overwrite="true" failonerror="true">
-			<fileset dir="templates/"/>
+			<fileset dir="templates/templates/"/>
 		</copy>
 		
 		<chmod file="${dir.data}/install_debian_ubuntu" perm="ugo+rx" verbose="true"/>
