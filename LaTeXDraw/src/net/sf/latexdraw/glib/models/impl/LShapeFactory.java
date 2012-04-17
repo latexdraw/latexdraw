@@ -2,30 +2,7 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.Point;
 
-import net.sf.latexdraw.glib.models.interfaces.IArc;
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.IAxes;
-import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
-import net.sf.latexdraw.glib.models.interfaces.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
-import net.sf.latexdraw.glib.models.interfaces.IDot;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import net.sf.latexdraw.glib.models.interfaces.IEllipse;
-import net.sf.latexdraw.glib.models.interfaces.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.IGrid;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.ILine;
-import net.sf.latexdraw.glib.models.interfaces.IPicture;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.IRhombus;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.ISquare;
-import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.models.interfaces.ITriangle;
+import net.sf.latexdraw.glib.models.interfaces.*;
 
 /**
  * This factory creates shapes.<br>
