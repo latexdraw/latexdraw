@@ -21,6 +21,7 @@
 	    	notree="false" nonavbar="false" noindex="false" access="private">
 	      <fileset dir = "">
 	        <include name="src/**/*.java"/>
+	      	<include name="src/**/*.scala"/>
 	      </fileset>
 	    </javadoc>
 	</target>
@@ -52,7 +53,7 @@
 			<!-- Creates the manifest -->
 			<manifest>
 				<attribute name="Main-Class" value="net.sf.latexdraw.LaTeXDraw"/>
-				<attribute name="Class-Path" value="./ lib/PDFRenderer-0.9.1.jar lib/jlibeps.jar lib/malai.jar"/>
+				<attribute name="Class-Path" value="./ lib/PDFRenderer-0.9.1.jar lib/jlibeps.jar lib/malai.jar lib/scala-library.jar"/>
 			</manifest>
 			
 			 <!-- Filters the files -->

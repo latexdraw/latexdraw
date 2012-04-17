@@ -1,3 +1,3 @@
 #! /bin/sh
 
-javac -cp ./lib/PDFRenderer-0.9.1.jar:./lib/jlibeps.jar:./lib/malai.jar -d ./bin/ $(find ./src/* | grep .java$)
+scalac -optimise -cp ./lib/PDFRenderer-0.9.1.jar:./lib/jlibeps.jar:./lib/malai.jar -d ./bin `find ./src/* -iname "*.java" -or -iname "*.scala"`
