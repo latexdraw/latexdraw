@@ -40,7 +40,6 @@ import org.malai.mapping.ActiveArrayList;
  * <br>
  * 02/14/2008<br>
  * @author Arnaud BLOUIN
- * @version 3.0
  * @since 3.0
  */
 class LGroup extends LShape implements IGroup {
@@ -1056,16 +1055,6 @@ class LGroup extends LShape implements IGroup {
 
 
 	@Override
-	public boolean containsTexts() {
-		for(final IShape sh : shapes)
-			if(sh instanceof IText)
-				return true;
-
-		return false;
-	}
-
-
-	@Override
 	public void addToRotationAngle(final IPoint gravCentre, final double angle) {
 		final IPoint gc = gravCentre==null ? getGravityCentre() : gravCentre;
 
@@ -1377,16 +1366,6 @@ class LGroup extends LShape implements IGroup {
 	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
 		for(final IShape sh : shapes)
 			sh.scale(x, y, pos, bound);
-	}
-
-
-	@Override
-	public boolean hasDot() {
-		for(final IShape sh : shapes)
-			if(sh instanceof Dottable && ((Dottable)sh).hasDot())
-				return true;
-
-		return false;
 	}
 
 

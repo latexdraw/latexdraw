@@ -51,13 +51,6 @@ public interface Dottable {
 	void setRadius(final double radius);
 
 	/**
-	 * @return True if the dottable has or is a dot.
-	 * @since 3.0
-	 */
-	boolean hasDot();
-
-
-	/**
 	 * @return The filling colour of the dottable or null if not fillable.
 	 * @since 3.0
 	 */

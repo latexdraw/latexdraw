@@ -130,7 +130,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape instanceof IText && (!(shape instanceof IGroup) || ((IGroup)shape).containsTexts())) {
+		if(shape.isTypeOf(IText.class)) {
 			final TextPosition tp = ((IText)shape).getTextPosition();
 
 			bButton.setSelected(tp==TextPosition.BOT);

@@ -149,7 +149,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape instanceof Dottable && ((Dottable)shape).hasDot()) {
+		if(shape.isTypeOf(Dottable.class)) {
 			final Dottable dot 	= (Dottable)shape;
 			dotSizeField.setValueSafely(dot.getRadius());
 			dotCB.setSelectedItemSafely(dot.getDotStyle().toString());

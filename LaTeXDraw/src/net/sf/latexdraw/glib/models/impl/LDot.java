@@ -171,7 +171,7 @@ class LDot extends LPositionShape implements IDot {
 		super.copy(sh);
 
 		if(sh instanceof IDot){
-			IDot dot = (IDot)sh;
+			final IDot dot = (IDot)sh;
 
 			setDotStyle(dot.getDotStyle());
 			setRadius(dot.getRadius());
@@ -182,8 +182,8 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public IPoint getBottomLeftPoint() {
-		IPoint tl = new LPoint();
-		IPoint br = new LPoint();
+		final IPoint tl = new LPoint();
+		final IPoint br = new LPoint();
 		getTopLeftBottomRightPoints(tl, br);
 
 		return new LPoint(tl.getX(), br.getY());
@@ -193,7 +193,7 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public IPoint getBottomRightPoint() {
-		IPoint br = new LPoint();
+		final IPoint br = new LPoint();
 		getTopLeftBottomRightPoints(new LPoint(), br);
 
 		return br;
@@ -203,7 +203,7 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public IPoint getTopLeftPoint() {
-		IPoint tl = new LPoint();
+		final IPoint tl = new LPoint();
 		getTopLeftBottomRightPoints(tl, new LPoint());
 
 		return tl;
@@ -213,8 +213,8 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public IPoint getTopRightPoint() {
-		IPoint tl = new LPoint();
-		IPoint br = new LPoint();
+		final IPoint tl = new LPoint();
+		final IPoint br = new LPoint();
 		getTopLeftBottomRightPoints(tl, br);
 
 		return new LPoint(br.getX(), tl.getY());
@@ -244,11 +244,11 @@ class LDot extends LPositionShape implements IDot {
 		// defined below.
 		switch(style){
 			case ASTERISK:// TODO: to check, I do not think it works.
-				final double radiusAst = (tly + radius / 5.) - (bry - radius / 5.) / 2. + dec;
+				final double radiusAst = tly + radius / 5. - (bry - radius / 5.) / 2. + dec;
 				tl.setX(Math.cos(7 * Math.PI / 6.) * radiusAst + x);
-				tl.setY((tly + radius / 5.) - dec);
+				tl.setY(tly + radius / 5. - dec);
 				br.setX(Math.cos(Math.PI / 6.) * radiusAst + x);
-				br.setY((bry - radius / 5.) + dec);
+				br.setY(bry - radius / 5. + dec);
 				break;
 			case BAR:
 				// The thickness of the bar.
@@ -341,7 +341,7 @@ class LDot extends LPositionShape implements IDot {
 		boolean ok = super.isParametersEquals(s, considerShadow);
 
 		if(ok && s instanceof IDot){
-			IDot dot = (IDot)s;
+			final IDot dot = (IDot)s;
 
 			ok = dot.getDotStyle() == getDotStyle() && LNumber.INSTANCE.equals(dot.getRadius(), getRadius());
 		}
@@ -406,12 +406,6 @@ class LDot extends LPositionShape implements IDot {
 	public double getOGap() {
 		final double dec = style==DotStyle.O ? 3.6 : 2.6;
 		return radius * (0.1 / dec) * 2;
-	}
-
-
-	@Override
-	public boolean hasDot() {
-		return true;
 	}
 
 

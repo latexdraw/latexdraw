@@ -27,12 +27,6 @@ import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
  */
 public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable, IAxes, IGrid, IFreehand {
 	/**
-	 * @return True if one of the shapes of the group is a text.
-	 * @since 3.0
-	 */
-	boolean containsTexts();
-
-	/**
 	 * Duplicates the group of shapes.
 	 * @param duplicateShapes True: the shapes will be duplicated as well.
 	 * @return The duplicated group of shapes.
