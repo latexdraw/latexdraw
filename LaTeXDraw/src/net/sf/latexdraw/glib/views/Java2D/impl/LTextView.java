@@ -223,7 +223,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 							    final Image img 		= page.getImage((int)bound.getWidth(), (int)bound.getHeight(), bound, null, false, true);
 
 							    if(img instanceof BufferedImage)
-								    bi = ImageCropper.INSTANCE.cropImage((BufferedImage)img);
+								    bi = ImageCropper.cropImage((BufferedImage)img);
 
 							    if(img!=null)
 							    	img.flush();

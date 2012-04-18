@@ -54,7 +54,7 @@ public final class LaTeXDraw {
 		LPath.INSTANCE.checkDirectories();
 
 		// Settings the theme.
-		Theme.INSTANCE.setTheme();
+		Theme.setTheme();
 
 		// Settings the factories.
 		DrawingTK.setFactory(new LShapeFactory());
@@ -90,7 +90,7 @@ public final class LaTeXDraw {
 
     private static void launchLatexdraw(final LCommandLine cmdLine) {
     	// Creation of the splash screen.
-		SplashScreen splashScreen = new SplashScreen(Theme.INSTANCE.getLookAndFeel());
+		SplashScreen splashScreen = new SplashScreen(Theme.lookAndFeel());
 		splashScreen.setVisible(true);
 		// Creation of the main frame.
     	LFrame frame = new LFrame(splashScreen.getProgressBar());
