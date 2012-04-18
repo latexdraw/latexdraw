@@ -60,9 +60,9 @@ protected trait LGroupText extends IGroup {
 	}
 
 
-	override def getX() = 0.
+	override def getX() = 0.0
 
-	override def getY() = 0.
+	override def getY() = 0.0
 
 	override def getPosition() : IPoint = null
 

@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions;
 
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
@@ -160,15 +161,15 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case GRID_LABEL_POSITION_X:
 				case GRID_SIZE_LABEL:
 				case GRID_ORIGIN:		return shapes.isTypeOf(IStandardGrid.class);
+				case ARC_END_ANGLE:
+				case ARC_START_ANGLE:
+				case ARC_STYLE: return shapes.isTypeOf(IArc.class);
 				case ROUND_CORNER_VALUE:
 				case DOT_SIZE:
 				case DOT_STYLE:
 				case ROTATION_ANGLE:
 				case TEXT:
 				case TEXT_POSITION:
-				case ARC_END_ANGLE:
-				case ARC_START_ANGLE:
-				case ARC_STYLE:
 				case COLOUR_LINE:		return true;
 				case AXES_TICKS_STYLE:
 				case AXES_TICKS_SIZE:

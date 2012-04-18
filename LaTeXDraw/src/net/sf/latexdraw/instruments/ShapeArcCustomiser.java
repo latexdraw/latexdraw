@@ -7,8 +7,8 @@ import net.sf.latexdraw.actions.ModifyShapeProperty;
 import net.sf.latexdraw.actions.ShapeProperties;
 import net.sf.latexdraw.actions.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.Arcable;
-import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle;
+import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
@@ -104,8 +104,8 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	protected void update(final IShape shape) {
 		boolean active = false;
 
-		if(shape instanceof Arcable) {
-			final Arcable arc = (Arcable)shape;
+		if(shape instanceof IArc) {
+			final IArc arc = (IArc)shape;
 			final ArcStyle type = arc.getArcStyle();
 
 			if(type!=null) {

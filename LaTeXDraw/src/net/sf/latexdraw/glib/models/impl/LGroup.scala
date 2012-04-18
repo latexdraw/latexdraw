@@ -8,7 +8,7 @@ import scala.collection.JavaConversions._
 
 import org.malai.mapping.ActiveArrayList
 
-import net.sf.latexdraw.glib.models.interfaces.Arcable.ArcStyle
+import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle
@@ -573,7 +573,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def getAngleStartList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{_ match {
-				case arc : Arcable => list.add(arc.getAngleStart)
+				case arc : IArc => list.add(arc.getAngleStart)
 				case _ => list.add(null)
 			}
 		}
@@ -584,7 +584,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def getAngleEndList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{_ match {
-				case arc : Arcable => list.add(arc.getAngleEnd)
+				case arc : IArc => list.add(arc.getAngleEnd)
 				case _ => list.add(null)
 			}
 		}
@@ -595,7 +595,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def getArcStyleList() : List[ArcStyle] = {
 		val list = new ArrayList[ArcStyle]()
 		shapes.foreach{_ match {
-				case arc : Arcable => list.add(arc.getArcStyle)
+				case arc : IArc => list.add(arc.getArcStyle)
 				case _ => list.add(null)
 			}
 		}
@@ -899,8 +899,8 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def setAngleStartList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size()==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[Arcable])
-					shapes.get(i).asInstanceOf[Arcable].setAngleStart(values.get(i))
+				if(shapes.get(i).isInstanceOf[IArc])
+					shapes.get(i).asInstanceOf[IArc].setAngleStart(values.get(i))
 	}
 
 
@@ -915,16 +915,16 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def setAngleEndList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size()==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[Arcable])
-					shapes.get(i).asInstanceOf[Arcable].setAngleEnd(values.get(i))
+				if(shapes.get(i).isInstanceOf[IArc])
+					shapes.get(i).asInstanceOf[IArc].setAngleEnd(values.get(i))
 	}
 
 
 	override def setArcStyleList(values : List[ArcStyle]) = {
 		if(values!=null && values.size()==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[Arcable])
-					shapes.get(i).asInstanceOf[Arcable].setArcStyle(values.get(i))
+				if(shapes.get(i).isInstanceOf[IArc])
+					shapes.get(i).asInstanceOf[IArc].setArcStyle(values.get(i))
 	}
 
 

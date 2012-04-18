@@ -387,7 +387,7 @@ protected trait LGroupShape extends IGroup {
 	override def getRotationAngle() : Double = {
 		getShapes.headOption match {
 			case Some(sh) => sh.getRotationAngle
-			case _ => 0.
+			case _ => 0.0
 		}
 	}
 

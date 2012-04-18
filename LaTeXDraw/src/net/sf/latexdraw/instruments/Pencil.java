@@ -10,23 +10,8 @@ import net.sf.latexdraw.actions.InitTextSetter;
 import net.sf.latexdraw.actions.InsertPicture;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PictureFilter;
-import net.sf.latexdraw.glib.models.interfaces.Arcable;
-import net.sf.latexdraw.glib.models.interfaces.Dottable;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
-import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import net.sf.latexdraw.glib.models.interfaces.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
-import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
-import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.*;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
-import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 
 import org.malai.instrument.Instrument;
@@ -202,8 +187,8 @@ public class Pencil extends Instrument {
 			dot.setRadius(groupParams.getRadius());
 			dot.setDotFillingCol(groupParams.getDotFillingCol());
 		}
-		if(shape instanceof Arcable) {
-			final Arcable arc = (Arcable)shape;
+		if(shape instanceof IArc) {
+			final IArc arc = (IArc)shape;
 			arc.setAngleStart(groupParams.getAngleStart());
 			arc.setAngleEnd(groupParams.getAngleEnd());
 			arc.setArcStyle(groupParams.getArcStyle());

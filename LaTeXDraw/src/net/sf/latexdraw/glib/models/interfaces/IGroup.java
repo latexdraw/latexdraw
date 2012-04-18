@@ -25,7 +25,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, Arcable, IAxes, IGrid, IFreehand {
+public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, IArc, IAxes, IGrid, IFreehand {
 	/**
 	 * Duplicates the group of shapes.
 	 * @param duplicateShapes True: the shapes will be duplicated as well.
