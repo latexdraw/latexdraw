@@ -48,6 +48,12 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def duplicate() = duplicate(false)
 
 
+	override def setModified(modified : Boolean) = {
+		getShapes.foreach{shape => shape.setModified(modified)}
+		super.setModified(modified)
+	}
+
+
 	override def duplicate(duplicateShapes : Boolean) : IGroup = {
 		val dup = new LGroup(true)
 
