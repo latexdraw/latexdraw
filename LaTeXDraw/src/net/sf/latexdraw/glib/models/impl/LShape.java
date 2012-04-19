@@ -1052,10 +1052,9 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IShape duplicate() {
-		final IShape shape = DrawingTK.getFactory().newShape(this.getClass());
+		final IShape shape = DrawingTK.getFactory().newShape(this.getClass()).get();
 
 		shape.copy(this);
-
 		return shape;
 	}
 

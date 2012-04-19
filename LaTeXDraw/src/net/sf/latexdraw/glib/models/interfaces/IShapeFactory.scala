@@ -1,6 +1,6 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces
 
-import java.awt.Point;
+import java.awt.Point
 
 /**
  * Defines an interface to implement an abstract factory.<br>
@@ -16,24 +16,24 @@ import java.awt.Point;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 01/04/2011<br>
+ * 2012-04-19<br>
  * @author Arnaud BLOUIN
  * @version 3.0
  * @since 3.0
  */
-public interface IShapeFactory {
+trait IShapeFactory {
 	/**
 	 * @param shapeClass The class of the shape to instantiated.
 	 * @return A new instance of the class given as argument or null.
 	 * @since 3.0
 	 */
-	<T extends IShape> T newShape(final Class<T> shapeClass);
+	def newShape[T <: IShape](shapeClass : java.lang.Class[T]) : Option[T]
 
 	/**
 	 * @return The created drawing.
 	 * @since 3.0
 	 */
-	IDrawing createDrawing();
+	def createDrawing() : IDrawing
 
 	/**
 	 * Creates an arrow from an other arrow.
@@ -42,14 +42,14 @@ public interface IShapeFactory {
 	 * @return The created arrow.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	IArrow createArrow(final IArrow arrow, final IShape owner);
+	def createArrow(arrow : IArrow, owner : IShape) : IArrow
 
 	/**
 	 * Creates an arrow.
 	 * @param owner The shape that contains the arrow.
 	 * @return The created arrow.
 	 */
-	IArrow createArrow(final IShape owner);
+	def createArrow(owner : IShape) : IArrow
 
 	/**
 	 * Creates axes with default values.
@@ -57,21 +57,21 @@ public interface IShapeFactory {
 	 * @param isUniqueID True: the model will have a unique ID.
 	 * @return The created axes.
 	 */
-	IAxes createAxes(final boolean isUniqueID, final IPoint pt);
+	def createAxes(isUniqueID : Boolean, pt : IPoint) : IAxes
 
 	/**
 	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The centre of the dot.
 	 * @return The created dot.
 	 */
-	IDot createDot(final IPoint pt, final boolean isUniqueID);
+	def createDot(pt : IPoint, isUniqueID : Boolean) : IDot
 
 	/**
 	 * Creates a model with no point.
 	 * @param isUniqueID True: the model will have a unique ID.
 	 * @return The created bezier curve.
 	 */
-	IBezierCurve createBezierCurve(final boolean isUniqueID);
+	def createBezierCurve(isUniqueID : Boolean) : IBezierCurve
 
 	/**
 	 * Creates a bezier curve with two points.
@@ -80,7 +80,7 @@ public interface IShapeFactory {
 	 * @param uniqueID uniqueID True: the model will have a unique ID.
 	 * @return The created bezier curve.
 	 */
-	IBezierCurve createBezierCurve(final IPoint point, final IPoint point2, final boolean uniqueID);
+	def createBezierCurve(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IBezierCurve
 
 	/**
 	 * Creates an ellipse.
@@ -90,13 +90,13 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If a or b is not valid.
 	 * @return The created ellipse.
 	 */
-	IEllipse createEllipse(final IPoint tl, final IPoint br, final boolean isUniqueID);
+	def createEllipse(tl : IPoint, br : IPoint, isUniqueID : Boolean) : IEllipse
 
 	/**
 	 * @param isUniqueID True: the ellipse will have a unique ID.
 	 * @return The created ellipse.
 	 */
-	IEllipse createEllipse(final boolean isUniqueID);
+	def createEllipse(isUniqueID : Boolean) : IEllipse
 
 	/**
 	 * Creates a triangle.
@@ -107,13 +107,13 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created triangle.
 	 */
-	ITriangle createTriangle(final IPoint pos, final double width, final double height, final boolean uniqueID);
+	def createTriangle(pos : IPoint, width : Double, height : Double, uniqueID : Boolean) : ITriangle
 
 	/**
 	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @return The created triangle.
 	 */
-	ITriangle createTriangle(final boolean isUniqueID);
+	def createTriangle(isUniqueID : Boolean) : ITriangle
 
 	/**
 	 * Creates a rhombus.
@@ -124,13 +124,13 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If the width, the height or the centre is not valid.
 	 * @return The created rhombus.
 	 */
-	IRhombus createRhombus(final IPoint centre, final double width, final double height, final boolean uniqueID);
+	def createRhombus(centre : IPoint, width : Double, height : Double, uniqueID : Boolean) : IRhombus
 
 	/**
 	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @return The created rhombus.
 	 */
-	IRhombus createRhombus(final boolean isUniqueID);
+	def createRhombus(isUniqueID : Boolean) : IRhombus
 
 	/**
 	 * Creates a picture and the corresponding EPS picture.
@@ -139,7 +139,7 @@ public interface IShapeFactory {
 	 * @return The created picture.
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 */
-	IPicture createPicture(final boolean isUniqueID, final IPoint pt);
+	def createPicture(isUniqueID : Boolean, pt : IPoint) : IPicture
 
 	/**
 	 * Creates a grid with a predefined point.
@@ -147,7 +147,7 @@ public interface IShapeFactory {
 	 * @param pt The position.
 	 * @return The created grid.
 	 */
-	IGrid createGrid(final boolean isUniqueID, final IPoint pt);
+	def createGrid(isUniqueID : Boolean, pt : IPoint) : IGrid
 
 	/**
 	 * Creates and initialises a freehand model.
@@ -157,7 +157,7 @@ public interface IShapeFactory {
 	 * @return The created freehand shape.
 	 * @since 3.0
 	 */
-	IFreehand createFreeHand(final IPoint pt, final boolean uniqueID);
+	def createFreeHand(pt : IPoint, uniqueID : Boolean) : IFreehand
 
 	/**
 	 * Creates a circle.
@@ -168,20 +168,20 @@ public interface IShapeFactory {
 	 * @throw NullPointerException If the given point pt is null.
 	 * @return The created circle.
 	 */
-	ICircle createCircle(final IPoint pt, final double radius, final boolean isUniqueID);
+	def createCircle(pt : IPoint, radius : Double, isUniqueID : Boolean) : ICircle
 
 	/**
 	 * @param isUniqueID True: the circle will have a unique ID.
 	 * @return The created circle.
 	 */
-	ICircle createCircle(final boolean isUniqueID);
+	def createCircle(isUniqueID : Boolean) : ICircle
 
 	/**
 	 * @param uniqueID True: the model will have a unique ID.
 	 * @return The created group of shapes.
 	 * @since 3.0
 	 */
-	IGroup createGroup(final boolean uniqueID);
+	def createGroup(uniqueID : Boolean) : IGroup
 
 	/**
 	 * Constructs a line from the specified coordinates.
@@ -192,7 +192,7 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If one of the given coordinate is not valid.
 	 * @return The created line.
 	 */
-	ILine createLine(final double x1, final double y1, final double x2, final double y2);
+	def createLine(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : ILine
 
 	/**
 	 * Creates a line by creating a second point with:
@@ -201,7 +201,7 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If one of the given parameter is not valid.
 	 * @return The created line.
 	 */
-	ILine createLine(final double b, final IPoint p1);
+	def createLine(b : Double, p1 : IPoint) : ILine
 
 	/**
 	 * Constructs a line from the specified <code>Point2D</code> objects.
@@ -210,14 +210,14 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If one of the given points is not valid.
 	 * @return The created line.
 	 */
-	ILine createLine(final IPoint p1, final IPoint p2);
+	def createLine(p1 : IPoint, p2 : IPoint) : ILine
 
 
 	/**
 	 * @return The created point with coordinates (0, 0).
 	 * @since 3.0
 	 */
-	IPoint createPoint();
+	def createPoint() : IPoint
 
 	/**
 	 * Creates a Point2D with the specified coordinates.
@@ -226,17 +226,7 @@ public interface IShapeFactory {
 	 * @return The created point.
 	 * @since 3.0
 	 */
-	IPoint createPoint(final double x, final double y);
-
-
-	/**
-	 * Creates a point from the java Point.
-	 * @param pt The java point.
-	 * @return The created point or null.
-	 * @since 3.0
-	 */
-	IPoint createPoint(final Point pt);
-
+	def createPoint(x : Double, y : Double) : IPoint
 
 	/**
 	 * Creates a Point2D with the specified coordinates.
@@ -244,14 +234,14 @@ public interface IShapeFactory {
 	 * @return The created point.
 	 * @since 3.0
 	 */
-	IPoint createPoint(final IPoint pt);
+	def createPoint(pt : IPoint) : IPoint
 
 	/**
 	 * @return The created polyline
 	 * @param uniqueID True: the shape will have a unique ID.
 	 * @since 3.0
 	 */
-	IPolyline createPolyline(final boolean uniqueID);
+	def createPolyline(uniqueID : Boolean) : IPolyline
 
 	/**
 	 * Creates a model with two points.
@@ -261,14 +251,14 @@ public interface IShapeFactory {
 	 * @return The created polyline.
 	 * @since 3.0
 	 */
-	IPolyline createPolyline(final IPoint point, final IPoint point2, final boolean uniqueID);
+	def createPolyline(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IPolyline
 
 	/**
 	 * @return The created polygon
 	 * @param uniqueID True: the shape will have a unique ID.
 	 * @since 3.0
 	 */
-	IPolygon createPolygon(final boolean uniqueID);
+	def createPolygon(uniqueID : Boolean) : IPolygon
 
 	/**
 	 * Creates a polygon with two points.
@@ -278,14 +268,14 @@ public interface IShapeFactory {
 	 * @return The created polygon.
 	 * @since 3.0
 	 */
-	IPolygon createPolygon(final IPoint point, final IPoint point2, final boolean uniqueID);
+	def createPolygon(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IPolygon
 
 	/**
 	 * @return The created rectangle with position (0,0) and width=10 and height=10.
 	 * @param uniqueID True: the shape will have a unique ID.
 	 * @since 3.0
 	 */
-	IRectangle createRectangle(final boolean uniqueID);
+	def createRectangle(uniqueID : Boolean) : IRectangle
 
 	/**
 	 * Creates a rectangle.
@@ -297,7 +287,7 @@ public interface IShapeFactory {
 	 * @return The created rectangle.
 	 * @since 3.0
 	 */
-	IRectangle createRectangle(final IPoint pos, final double width, final double height, final boolean uniqueID);
+	def createRectangle(pos : IPoint, width : Double, height : Double, uniqueID : Boolean) : IRectangle
 
 	/**
 	 * Creates a rectangle.
@@ -307,7 +297,7 @@ public interface IShapeFactory {
 	 * @return The created rectangle.
 	 * @since 3.0
 	 */
-	IRectangle createRectangle(final IPoint tl, final IPoint br, final boolean uniqueID);
+	def createRectangle(tl : IPoint, br : IPoint, uniqueID : Boolean) : IRectangle
 
 	/**
 	 * Create a text at position (0,0) which text is "text".
@@ -315,7 +305,7 @@ public interface IShapeFactory {
 	 * @return The created text.
 	 * @since 3.0
 	 */
-	IText createText(final boolean uniqueID);
+	def createText(isUniqueID : Boolean) : IText
 
 	/**
 	 * Creates a text.
@@ -326,7 +316,7 @@ public interface IShapeFactory {
 	 * @return The created text.
 	 * @since 3.0
 	 */
-	IText createText(final boolean isUniqueID, final IPoint pt, final String text);
+	def createText(isUniqueID : Boolean, pt : IPoint, text : String) : IText
 
 	/**
 	 * Creates a square at position (0,0) which width equals 10.
@@ -334,7 +324,7 @@ public interface IShapeFactory {
 	 * @param uniqueID True: the shape will have a unique ID.
 	 * @since 3.0
 	 */
-	ISquare createSquare(final boolean uniqueID);
+	def createSquare(isUniqueID : Boolean) : ISquare
 
 	/**
 	 * Creates a square.
@@ -345,7 +335,7 @@ public interface IShapeFactory {
 	 * @return The created square.
 	 * @since 3.0
 	 */
-	ISquare createSquare(final IPoint pos, final double width, final boolean uniqueID);
+	def createSquare(pos : IPoint, width : Double, isUniqueID : Boolean) : ISquare
 
 
 	/**
@@ -356,7 +346,7 @@ public interface IShapeFactory {
 	 * @return The created circled arc.
 	 * @since 3.0
 	 */
-	ICircleArc createCircleArc(final IPoint tl, final IPoint br, final boolean uniqueID);
+	def createCircleArc(tl : IPoint, br : IPoint, uniqueID : Boolean) : ICircleArc
 
 
 	/**
@@ -365,7 +355,7 @@ public interface IShapeFactory {
 	 * @return The created circled arc.
 	 * @since 3.0
 	 */
-	ICircleArc createCircleArc(final boolean isUniqueID);
+	def createCircleArc(isUniqueID : Boolean) : ICircleArc
 
 
 	/**
@@ -376,7 +366,7 @@ public interface IShapeFactory {
 	 * @return The created arc.
 	 * @since 3.0
 	 */
-	IArc createArc(final IPoint tl, final IPoint br, final boolean uniqueID);
+	def createArc(tl : IPoint, br : IPoint, uniqueID : Boolean) : IArc
 
 
 	/**
@@ -385,7 +375,7 @@ public interface IShapeFactory {
 	 * @return The created arc.
 	 * @since 3.0
 	 */
-	IArc createArc(final boolean isUniqueID);
+	def createArc(isUniqueID : Boolean) : IArc
 
 
 	/**
@@ -394,5 +384,12 @@ public interface IShapeFactory {
 	 * @return The duplicated shape or null.
 	 * @since 3.0
 	 */
-	IShape duplicate(IShape shape);
+	def duplicate(shape : IShape) : IShape
+
+
+	/**
+	 * Converts a Java point into a IPoint.
+	 * @since 3.0
+	 */
+	implicit def Point2IPoint(pt : Point) = if(pt==null) null else createPoint(pt.getX, pt.getY)
 }

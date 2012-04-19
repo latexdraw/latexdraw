@@ -1,25 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import net.sf.latexdraw.glib.models.interfaces.*;
 import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
-import net.sf.latexdraw.glib.models.interfaces.IArc;
-import net.sf.latexdraw.glib.models.interfaces.IAxes;
-import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
-import net.sf.latexdraw.glib.models.interfaces.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
-import net.sf.latexdraw.glib.models.interfaces.IDot;
-import net.sf.latexdraw.glib.models.interfaces.IEllipse;
-import net.sf.latexdraw.glib.models.interfaces.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.IGrid;
-import net.sf.latexdraw.glib.models.interfaces.IPicture;
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.IRhombus;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.ISquare;
-import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.models.interfaces.ITriangle;
 
 /**
  * Defines the choices of edition of the canvas.<br>
@@ -43,126 +25,126 @@ import net.sf.latexdraw.glib.models.interfaces.ITriangle;
 public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
 	RECT {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IRectangle.class);
+		public IRectangle createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IRectangle.class).get();
 		}
 	},
 	DOT {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IDot.class);
+		public IDot createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IDot.class).get();
 		}
 	},
 	SQUARE {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(ISquare.class);
+		public ISquare createShapeInstance() {
+			return DrawingTK.getFactory().newShape(ISquare.class).get();
 		}
 	},
 	RHOMBUS {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IRhombus.class);
+		public IRhombus createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IRhombus.class).get();
 		}
 	},
 	FREE_HAND {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IFreehand.class);
+		public IFreehand createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IFreehand.class).get();
 		}
 	},
 	TRIANGLE {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(ITriangle.class);
+		public ITriangle createShapeInstance() {
+			return DrawingTK.getFactory().newShape(ITriangle.class).get();
 		}
 	},
 	LINES {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IPolyline.class);
+		public IPolyline createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IPolyline.class).get();
 		}
 	},
 	CIRCLE {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(ICircle.class);
+		public ICircle createShapeInstance() {
+			return DrawingTK.getFactory().newShape(ICircle.class).get();
 		}
 	},
 	GRID {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IGrid.class);
+		public IGrid createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IGrid.class).get();
 		}
 	},
 	AXES {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IAxes.class);
+		public IAxes createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IAxes.class).get();
 		}
 	},
 	ELLIPSE {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IEllipse.class);
+		public IEllipse createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IEllipse.class).get();
 		}
 	},
 	POLYGON {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IPolygon.class);
+		public IPolygon createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IPolygon.class).get();
 		}
 	},
 	WEDGE {
 		@Override
-		public IShape createShapeInstance() {
-			final IShape shape = DrawingTK.getFactory().newShape(IArc.class);
-			((IArc)shape).setArcStyle(ArcStyle.WEDGE);
+		public IArc createShapeInstance() {
+			final IArc shape = DrawingTK.getFactory().newShape(IArc.class).get();
+			shape.setArcStyle(ArcStyle.WEDGE);
 			return shape;
 		}
 	},
 	CIRCLE_ARC {
 		@Override
-		public IShape createShapeInstance() {
-			final IShape shape = DrawingTK.getFactory().newShape(ICircleArc.class);
-			((ICircleArc)shape).setArcStyle(ArcStyle.ARC);
+		public ICircleArc createShapeInstance() {
+			final ICircleArc shape = DrawingTK.getFactory().newShape(ICircleArc.class).get();
+			shape.setArcStyle(ArcStyle.ARC);
 			return shape;
 		}
 	},
 	CHORD {
 		@Override
-		public IShape createShapeInstance() {
-			final IShape shape = DrawingTK.getFactory().newShape(IArc.class);
-			((IArc)shape).setArcStyle(ArcStyle.CHORD);
+		public IArc createShapeInstance() {
+			final IArc shape = DrawingTK.getFactory().newShape(IArc.class).get();
+			shape.setArcStyle(ArcStyle.CHORD);
 			return shape;
 		}
 	},
 	BEZIER_CURVE {
 		@Override
-		public IShape createShapeInstance() {
-			final IShape shape = DrawingTK.getFactory().newShape(IBezierCurve.class);
-			((IBezierCurve)shape).setIsClosed(false);
+		public IBezierCurve createShapeInstance() {
+			final IBezierCurve shape = DrawingTK.getFactory().newShape(IBezierCurve.class).get();
+			shape.setIsClosed(false);
 			return shape;
 		}
 	},
 	BEZIER_CURVE_CLOSED {
 		@Override
-		public IShape createShapeInstance() {
-			final IShape shape = DrawingTK.getFactory().newShape(IBezierCurve.class);
-			((IBezierCurve)shape).setIsClosed(true);
+		public IBezierCurve createShapeInstance() {
+			final IBezierCurve shape = DrawingTK.getFactory().newShape(IBezierCurve.class).get();
+			shape.setIsClosed(true);
 			return shape;
 		}
 	},
 	TEXT {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IText.class);
+		public IText createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IText.class).get();
 		}
 	},
 	PICTURE {
 		@Override
-		public IShape createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IPicture.class);
+		public IPicture createShapeInstance() {
+			return DrawingTK.getFactory().newShape(IPicture.class).get();
 		}
 	};
 
