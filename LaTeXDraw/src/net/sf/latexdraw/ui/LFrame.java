@@ -256,7 +256,7 @@ public class LFrame extends UI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { tabSelector	= new TabSelector(this); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { templateManager = new TemplateManager(composer); }
+		try { templateManager = new TemplateManager(composer, this); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 	}
 

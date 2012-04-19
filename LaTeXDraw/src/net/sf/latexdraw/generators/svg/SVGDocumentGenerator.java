@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -117,8 +118,24 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		return true;
 	}
 
+	
+	/**
+	 * Inserts a set of shapes into the drawing.
+	 * @param path The file of the SVG document to load.
+	 * @param ui The UI that contains the drawing.
+	 * @since 3.0
+	 */
+	public void insert(final String path, final LFrame ui) {
+		new InsertWorker(ui, path).execute();
+	}
 
 
+	/**
+	 * Updates the templates.
+	 * @param templatesMenu The menu that contains the templates.
+	 * @param updatesThumbnails True: the thumbnails of the template will be updated.
+	 * @since 3.0
+	 */
 	public void updateTemplates(final MMenu templatesMenu, final boolean updatesThumbnails) {
 		new UpdateTemplatesWorker(templatesMenu, updatesThumbnails).execute();
 	}
@@ -254,14 +271,14 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	     * @param nameThumb The name of the thumbnail.
 	     * @return The created menu item.
 	     */
-	    protected MMenuItem createTemplateMenuItem(final String nameThumb, final String pathPic) {
+	    protected MMenuItem createTemplateMenuItem(final String svgPath, final String nameThumb, final String pathPic) {
 	    	MMenuItem menu = null;
 	    	ImageIcon icon;
-	    	final String svgPath = pathPic+File.separator+nameThumb;
+	    	final String pngPath = pathPic+File.separator+nameThumb;
 	    	final int id = nameThumb.indexOf(PNGFilter.PNG_EXTENSION);
 
 	    	try {
-	    		final Image image = ImageIO.read(new File(svgPath));
+	    		final Image image = ImageIO.read(new File(pngPath));
 	    		icon = new ImageIcon(image);
 	    		image.flush();
 	    	}
@@ -276,6 +293,50 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 	    	return menu;
 	    }
+	}
+	
+	
+	/** This worker inserts the given set of shapes into the drawing. */
+	class InsertWorker extends LoadShapesWorker {
+		protected InsertWorker(final LFrame ui, final String path) {
+			super(ui, path, null);
+		}
+		
+		
+		@Override
+		protected Boolean doInBackground() throws Exception {
+			super.doInBackground();
+
+			try{
+				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
+				final AbstractPresentation pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
+
+				// Adding loaded shapes.
+				if(pres instanceof IDrawing) {
+					final IShape shape     = toLatexdraw(svgDoc, 0);
+					final IDrawing drawing = (IDrawing)pres;
+
+					if(shape instanceof IGroup) { // If several shapes have been loaded
+						final IGroup group = (IGroup)shape;
+
+						for(final IShape sh : group.getShapes())
+							drawing.addShape(sh);
+					}else // If only a single shape has been loaded.
+						drawing.addShape(shape);
+				}
+
+				// Updating the possible widgets of the instruments.
+				for(final Instrument instrument : ui.getInstruments())
+					instrument.interimFeedback();
+
+				ui.updatePresentations();
+
+				return true;
+			}catch(final Exception e){
+				BadaboomCollector.INSTANCE.add(e);
+				return false;
+			}
+		}
 	}
 
 
@@ -324,7 +385,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 			if(files!=null)
 				for(int i=0; i<files.length; i++)
 					if(filter.accept(files[i]) && !files[i].isDirectory()) {
-						final MMenuItem menu = createTemplateMenuItem(files[i].getName()+PNGFilter.PNG_EXTENSION, pathCache);
+						final MMenuItem menu = createTemplateMenuItem(files[i].getPath(), files[i].getName()+PNGFilter.PNG_EXTENSION, pathCache);
 
 						if(menu!=null)
 							templatesMenu.add(menu, i);
@@ -527,6 +588,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		protected LoadShapesWorker(final LFrame ui, final String path, final JLabel statusBar) {
 			super(ui, path, statusBar);
 		}
+
 
 		/**
 		 * Converts an SVG document into a set of shapes.
