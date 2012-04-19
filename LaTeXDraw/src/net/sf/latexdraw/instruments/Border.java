@@ -10,10 +10,10 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.latexdraw.actions.MoveCtrlPoint;
-import net.sf.latexdraw.actions.MovePointShape;
-import net.sf.latexdraw.actions.RotateShapes;
-import net.sf.latexdraw.actions.ScaleShapes;
+import net.sf.latexdraw.actions.shape.MoveCtrlPoint;
+import net.sf.latexdraw.actions.shape.MovePointShape;
+import net.sf.latexdraw.actions.shape.RotateShapes;
+import net.sf.latexdraw.actions.shape.ScaleShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.handlers.ArcAngleHandler;
 import net.sf.latexdraw.glib.handlers.CtrlPointHandler;

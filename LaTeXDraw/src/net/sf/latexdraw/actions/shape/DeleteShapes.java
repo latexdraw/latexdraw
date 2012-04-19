@@ -1,9 +1,10 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions.shape;
 
 import java.util.List;
 
 import org.malai.undo.Undoable;
 
+import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**

@@ -2,6 +2,8 @@ package net.sf.latexdraw.actions;
 
 import java.awt.Color;
 
+import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;

@@ -5,7 +5,7 @@ import java.awt.ItemSelectable;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 
-import net.sf.latexdraw.actions.ShapePropertyAction;
+import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 import org.malai.action.Action;

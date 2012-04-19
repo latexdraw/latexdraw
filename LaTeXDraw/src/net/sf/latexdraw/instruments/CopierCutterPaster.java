@@ -2,10 +2,10 @@ package net.sf.latexdraw.instruments;
 
 import java.awt.event.KeyEvent;
 
-import net.sf.latexdraw.actions.CopyShapes;
-import net.sf.latexdraw.actions.CutShapes;
-import net.sf.latexdraw.actions.PasteShapes;
-import net.sf.latexdraw.actions.SelectShapes;
+import net.sf.latexdraw.actions.shape.CopyShapes;
+import net.sf.latexdraw.actions.shape.CutShapes;
+import net.sf.latexdraw.actions.shape.PasteShapes;
+import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.util.LResources;

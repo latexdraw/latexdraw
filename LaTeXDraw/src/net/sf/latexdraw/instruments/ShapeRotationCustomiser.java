@@ -10,9 +10,9 @@ import org.malai.ui.UIComposer;
 import org.malai.widget.MButton;
 import org.malai.widget.MSpinner;
 
-import net.sf.latexdraw.actions.ModifyShapeProperty;
-import net.sf.latexdraw.actions.RotateShapes;
-import net.sf.latexdraw.actions.ShapeProperties;
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
+import net.sf.latexdraw.actions.shape.RotateShapes;
+import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;

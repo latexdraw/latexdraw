@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 
-import net.sf.latexdraw.actions.AddShape;
-import net.sf.latexdraw.actions.InitTextSetter;
-import net.sf.latexdraw.actions.InsertPicture;
+import net.sf.latexdraw.actions.shape.AddShape;
+import net.sf.latexdraw.actions.shape.InitTextSetter;
+import net.sf.latexdraw.actions.shape.InsertPicture;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PictureFilter;
 import net.sf.latexdraw.glib.models.interfaces.*;

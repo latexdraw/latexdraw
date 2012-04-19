@@ -1,4 +1,4 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions.shape;
 
 import java.io.IOException;
 

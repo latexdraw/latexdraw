@@ -1,10 +1,11 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions.shape;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.malai.undo.Undoable;
 
+import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LResources;
@@ -39,9 +40,9 @@ public class CutShapes extends CopyShapes implements Undoable, Modifying {
 	protected void doActionBody() {
 		// Removing the shapes.
 		List<IShape> selectedShapes = selection.getShapes();
-		List<IShape> drawingSh 		= selection.drawing.getShapes();
+		List<IShape> drawingSh 		= selection.getDrawing().getShapes();
 		IShape sh;
-		drawing			= selection.drawing;
+		drawing			= selection.getDrawing();
 		copiedShapes 	= new ArrayList<IShape>();
 		positionShapes 	= new int[selectedShapes.size()];
 

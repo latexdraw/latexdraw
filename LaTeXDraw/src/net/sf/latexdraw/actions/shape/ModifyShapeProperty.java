@@ -1,7 +1,8 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions.shape;
 
 import java.util.List;
 
+import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;

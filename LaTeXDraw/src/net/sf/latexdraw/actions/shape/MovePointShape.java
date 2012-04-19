@@ -1,4 +1,4 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions.shape;
 
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;

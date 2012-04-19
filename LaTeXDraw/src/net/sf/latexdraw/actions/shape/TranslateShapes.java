@@ -1,5 +1,6 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions.shape;
 
+import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.util.LNumber;

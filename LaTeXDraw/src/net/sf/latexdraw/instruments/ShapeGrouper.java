@@ -2,9 +2,9 @@ package net.sf.latexdraw.instruments;
 
 import java.util.List;
 
-import net.sf.latexdraw.actions.JoinShapes;
-import net.sf.latexdraw.actions.SelectShapes;
-import net.sf.latexdraw.actions.SeparateShapes;
+import net.sf.latexdraw.actions.shape.JoinShapes;
+import net.sf.latexdraw.actions.shape.SelectShapes;
+import net.sf.latexdraw.actions.shape.SeparateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;

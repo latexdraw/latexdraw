@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.swing.AbstractButton;
 
-import net.sf.latexdraw.actions.AddShape;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
+import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.util.LResources;

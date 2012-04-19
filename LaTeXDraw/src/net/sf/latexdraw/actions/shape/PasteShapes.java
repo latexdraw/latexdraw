@@ -1,7 +1,9 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions.shape;
 
 import org.malai.undo.Undoable;
 
+import net.sf.latexdraw.actions.DrawingAction;
+import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LResources;

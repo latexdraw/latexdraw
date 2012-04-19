@@ -3,8 +3,8 @@ package net.sf.latexdraw.instruments;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-import net.sf.latexdraw.actions.DeleteShapes;
-import net.sf.latexdraw.actions.SelectShapes;
+import net.sf.latexdraw.actions.shape.DeleteShapes;
+import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;

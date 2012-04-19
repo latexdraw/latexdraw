@@ -1,5 +1,6 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions.shape;
 
+import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 

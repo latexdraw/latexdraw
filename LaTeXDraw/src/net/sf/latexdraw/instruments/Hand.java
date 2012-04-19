@@ -5,9 +5,9 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.actions.InitTextSetter;
-import net.sf.latexdraw.actions.SelectShapes;
-import net.sf.latexdraw.actions.TranslateShapes;
+import net.sf.latexdraw.actions.shape.InitTextSetter;
+import net.sf.latexdraw.actions.shape.SelectShapes;
+import net.sf.latexdraw.actions.shape.TranslateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;

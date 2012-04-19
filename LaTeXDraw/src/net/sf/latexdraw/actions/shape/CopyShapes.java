@@ -1,4 +1,4 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions.shape;
 
 import java.util.ArrayList;
 import java.util.List;

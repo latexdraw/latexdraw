@@ -3,7 +3,7 @@ package net.sf.latexdraw.instruments;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 
-import net.sf.latexdraw.actions.TranslateShapes;
+import net.sf.latexdraw.actions.shape.TranslateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
