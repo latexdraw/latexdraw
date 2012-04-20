@@ -12,15 +12,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.*;
-import net.sf.latexdraw.mapping.Drawing2CanvasMapping;
-import net.sf.latexdraw.mapping.Selection2BorderMapping;
-import net.sf.latexdraw.mapping.Selection2DeleterMapping;
-import net.sf.latexdraw.mapping.Selection2MetaCustumiserMapping;
-import net.sf.latexdraw.mapping.ShapeList2ExporterMapping;
-import net.sf.latexdraw.mapping.ShapeList2ViewListMapping;
-import net.sf.latexdraw.mapping.TempShape2TempViewMapping;
-import net.sf.latexdraw.mapping.Unit2ScaleRuler;
-import net.sf.latexdraw.mapping.Zoom2ScaleRuler;
+import net.sf.latexdraw.mapping.*;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.VersionChecker;
@@ -205,6 +197,7 @@ public class LFrame extends UI {
 		MappingRegistry.REGISTRY.addMapping(new ShapeList2ExporterMapping(drawing.getShapes(), exporter));
 		MappingRegistry.REGISTRY.addMapping(new Selection2MetaCustumiserMapping(drawing.getSelection().getShapes(), metaShapeCustomiser));
 		MappingRegistry.REGISTRY.addMapping(new Selection2DeleterMapping(drawing.getSelection().getShapes(), deleter));
+		MappingRegistry.REGISTRY.addMapping(new Selection2TemplateManager(drawing.getSelection().getShapes(), templateManager));
 
 		if(progressBar!=null)
 			progressBar.addToProgressBar(5);

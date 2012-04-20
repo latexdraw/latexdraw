@@ -548,7 +548,6 @@ public class Border extends Instrument implements Picker {
 			p1 = instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt()));
 			gc = drawing.getSelection().getGravityCentre();
 			action.setGc(gc);
-			action.setDrawing(drawing);
 			action.setShape(drawing.getSelection().duplicate());
 		}
 
@@ -745,7 +744,7 @@ public class Border extends Instrument implements Picker {
 			super.updateAction();
 
 			final IPoint pt = instrument.canvas.getMagneticGrid().getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getEndPt()));
-			final Position refPosition = action.getRefPosition();
+			final Position refPosition = action.refPosition().get();
 
 			if(refPosition.isSouth())
 				action.setNewY(pt.getY() + yGap);
@@ -768,7 +767,7 @@ public class Border extends Instrument implements Picker {
 		@Override
 		public void interimFeedback() {
 			super.interimFeedback();
-			switch(action.getRefPosition()) {
+			switch(action.refPosition().get()) {
 				case EAST: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR)); break;
 				case NE: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR)); break;
 				case NORTH: instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR)); break;

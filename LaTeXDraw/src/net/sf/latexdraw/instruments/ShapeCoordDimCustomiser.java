@@ -132,7 +132,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 		public void updateAction() {
 			super.updateAction();
 
-			final IPoint tl = action.getDrawing().getSelection().getTopLeftPoint();
+			final IPoint tl = action.drawing().get().getSelection().getTopLeftPoint();
 			final double value = Double.parseDouble(interaction.getSpinner().getValue().toString());
 
 			if(interaction.getSpinner()==instrument.tlxS)

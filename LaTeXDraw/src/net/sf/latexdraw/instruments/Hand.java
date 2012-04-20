@@ -10,7 +10,6 @@ import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.actions.shape.TranslateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
@@ -164,7 +163,7 @@ class DnD2Translate extends Link<TranslateShapes, DnD, Hand> {
 	@Override
 	public void initAction() {
 		action.setDrawing(instrument.canvas.getDrawing());
-		action.setShape((IGroup)instrument.canvas.getDrawing().getSelection().duplicate());
+		action.setShape(instrument.canvas.getDrawing().getSelection().duplicate());
 	}
 
 	@Override

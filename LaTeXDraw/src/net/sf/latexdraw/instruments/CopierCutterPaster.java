@@ -105,7 +105,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 //				validSelectAction = !((SelectShapes)executedAction).getShapes().isEmpty();
 //			}else {
 				SelectShapes sa = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-				validSelectAction = sa!=null && !sa.getShapes().isEmpty();
+				validSelectAction = sa!=null && !sa.shapes().isEmpty();
 //			}
 
 		copyMenu.setEnabled(activated && validSelectAction);
@@ -240,7 +240,7 @@ class MenuItem2CutShapes extends Interaction2AbstractCopy<CutShapes, MenuItemPre
 	@Override
 	public boolean isConditionRespected() {
 		Action act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-		boolean okSelection = act instanceof SelectShapes && !((SelectShapes)act).getShapes().isEmpty();
+		boolean okSelection = act instanceof SelectShapes && !((SelectShapes)act).shapes().isEmpty();
 
 		return okSelection && getInteraction().getMenuItem()==getInstrument().cutMenu;
 	}
@@ -262,7 +262,7 @@ class MenuItem2CopyShapes extends Interaction2AbstractCopy<CopyShapes, MenuItemP
 	@Override
 	public boolean isConditionRespected() {
 		Action act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-		boolean okSelection = act instanceof SelectShapes && !((SelectShapes)act).getShapes().isEmpty();
+		boolean okSelection = act instanceof SelectShapes && !((SelectShapes)act).shapes().isEmpty();
 
 		return okSelection && getInteraction().getMenuItem()==getInstrument().copyMenu;
 	}

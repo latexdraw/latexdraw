@@ -1,10 +1,9 @@
-package net.sf.latexdraw.actions.shape;
+package net.sf.latexdraw.actions
 
-import net.sf.latexdraw.actions.DrawingAction;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.IShape
 
 /**
- * This abstract action allows the definition of actions related with spaes.<br>
+ * This trait encapsulates a shape attribute.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
@@ -17,39 +16,22 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 11/21/2010<br>
+ * 2012-04-19<br>
  * @author Arnaud BLOUIN
  * @since 3.0
  * @param <T> The type of the shape that the action handles.
  */
-public abstract class ShapeAction<T extends IShape> extends DrawingAction {
+trait ShapeAction[T <: IShape] {
 	/** The shape to add. */
-	protected T shape;
-
-
-	/**
-	 * Creates the action.
-	 * @since 3.0
-	 */
-	public ShapeAction() {
-		super();
-	}
-
+	protected var _shape : Option[T] = None
 
 	/**
 	 * Sets the shape to add.
 	 * @param shape The shape to add.
 	 * @since 3.0
 	 */
-	public void setShape(final T shape) {
-		this.shape = shape;
-	}
-
-
-	@Override
-	public void flush() {
-		super.flush();
-		shape = null;
+	def setShape(shape : T) {
+		_shape = Some(shape)
 	}
 
 
@@ -57,13 +39,5 @@ public abstract class ShapeAction<T extends IShape> extends DrawingAction {
 	 * @return The shape to modify.
 	 * @since 3.0
 	 */
-	public T getShape() {
-		return shape;
-	}
-
-
-	@Override
-	public boolean canDo() {
-		return super.canDo() && shape!=null;
-	}
+	def shape = _shape
 }

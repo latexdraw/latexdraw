@@ -1,13 +1,10 @@
-package net.sf.latexdraw.actions.shape;
+package net.sf.latexdraw.actions
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.sf.latexdraw.actions.DrawingAction;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.IShape
+import java.util.ArrayList
 
 /**
- * This abstract action uses a set of shapes.<br>
+ * This trait encapsulates a set of shapes attribute.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
@@ -20,38 +17,24 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 01/07/2010<br>
+ * 2012-04-19<br>
  * @author Arnaud BLOUIN
  * @since 3.0
+ * @param <T> The type of the shape that the action handles.
  */
-public abstract class MultiShapesAction extends DrawingAction {
+trait ShapesAction {
 	/** The shapes to handle. */
-	protected List<IShape> shapes;
-	
-	/**
-	 * Creates the action.
-	 */
-	public MultiShapesAction() {
-		super();
-		shapes = new ArrayList<IShape>();
-	}
+	protected var _shapes : java.util.List[IShape] = new ArrayList[IShape]()
 
-	
-	@Override
-	public void flush() {
-		super.flush();
-		shapes.clear();
-	}
-	
-	
+
 	/**
 	 * Add a shape to the list of shapes to handle.
 	 * @param shape The shape to handle.
 	 * @since 3.0
 	 */
-	public void addShape(final IShape shape) {
+	def addShape(shape : IShape) {
 		if(shape!=null)
-			shapes.add(shape);
+			_shapes.add(shape)
 	}
 
 
@@ -60,19 +43,17 @@ public abstract class MultiShapesAction extends DrawingAction {
 	 * @param shape The shape to handle. Can be null.
 	 * @since 3.0
 	 */
-	public void setShape(final IShape shape) {
-		shapes.clear();
+	def setShape(shape : IShape) {
+		_shapes.clear
 
 		if(shape!=null)
-			shapes.add(shape);
+			_shapes.add(shape)
 	}
-	
-	
+
+
 	/**
 	 * @return The shapes to handle.
 	 * @since 3.0
 	 */
-	public List<IShape> getShapes() {
-		return shapes;
-	}
+	def shapes = _shapes
 }

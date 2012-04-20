@@ -123,10 +123,10 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-			final List<IShape> shapes 	 = selection.getShapes();
+			final List<IShape> shapes 	 = selection.shapes();
 
 			if(shapes.size()==1 && shapes.get(0) instanceof IGroup)
-				action.setShape((IGroup)shapes.get(0));
+				action.setShape(shapes.get(0));
 
 			action.setDrawing(instrument.pencil.drawing);
 		}
@@ -147,7 +147,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-			final List<IShape> shapes 	 = selection.getShapes();
+			final List<IShape> shapes 	 = selection.shapes();
 
 			for(final IShape sh : shapes)
 				action.addShape(sh);

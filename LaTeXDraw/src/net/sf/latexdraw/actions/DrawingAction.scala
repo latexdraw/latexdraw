@@ -1,11 +1,9 @@
-package net.sf.latexdraw.actions;
+package net.sf.latexdraw.actions
 
-import org.malai.action.Action;
-
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.IDrawing
 
 /**
- * This abstract action uses a drawing.<br>
+ * This trait encapsulates a drawing attribute.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
@@ -18,51 +16,27 @@ import net.sf.latexdraw.glib.models.interfaces.IDrawing;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 01/07/2010<br>
+ * 2012-04-19<br>
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public abstract class DrawingAction extends Action {
+trait DrawingAction {
 	/** The drawing that will be handled by the action. */
-	protected IDrawing drawing;
-	
-	
-	/**
-	 * Creates the action.
-	 * @since 3.0
-	 */
-	public DrawingAction() {
-		super();
-	}
+	protected var _drawing : Option[IDrawing] = None
 
 
-	@Override
-	public boolean canDo() {
-		return drawing!=null;
-	}
-	
-	
-	@Override
-	public void flush() {
-		super.flush();
-		drawing = null;
-	}
-	
-	
 	/**
 	 * @param drawing The drawing that will be handled by the action
 	 * @since 3.0
 	 */
-	public void setDrawing(final IDrawing drawing) {
-		this.drawing = drawing;
+	def setDrawing(drawing : IDrawing) {
+		_drawing = Some(drawing)
 	}
-	
-	
+
+
 	/**
 	 * @return The drawing that will be handled by the action
 	 * @since 3.0
 	 */
-	public IDrawing getDrawing() {
-		return drawing;
-	}
+	def drawing = _drawing
 }

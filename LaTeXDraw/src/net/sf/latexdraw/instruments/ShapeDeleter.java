@@ -126,19 +126,19 @@ abstract class DeleteShapesLink<I extends Interaction> extends Link<DeleteShapes
 	@Override
 	public void initAction() {
 		final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-		final List<IShape> shapes 	 = selection.getShapes();
+		final List<IShape> shapes 	 = selection.shapes();
 
 		for(final IShape sh : shapes)
 			action.addShape(sh);
 
-		action.setDrawing(selection.getDrawing());
+		action.setDrawing(selection.drawing().get());
 	}
 
 
 	@Override
 	public boolean isConditionRespected() {
 		final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-		return selection!=null && !selection.getShapes().isEmpty();
+		return selection!=null && !selection.shapes().isEmpty();
 	}
 }
 

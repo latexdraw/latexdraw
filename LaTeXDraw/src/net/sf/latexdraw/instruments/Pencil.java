@@ -328,7 +328,7 @@ class MultiClic2AddShape extends PencilLink<MultiClick> {
 	public void updateAction() {
 		final List<Point> pts	= interaction.getPoints();
 		final IPoint currPoint	= instrument.getAdaptedPoint(interaction.getCurrentPosition());
-		final IModifiablePointsShape shape = (IModifiablePointsShape)action.getShape();
+		final IModifiablePointsShape shape = (IModifiablePointsShape)action.shape().get();
 
 		if(shape.getNbPoints()==pts.size() && !interaction.isLastPointFinalPoint()) {
 			final IPoint pt = instrument.getAdaptedPoint(pts.get(pts.size()-1));
@@ -343,7 +343,7 @@ class MultiClic2AddShape extends PencilLink<MultiClick> {
 			((IControlPointShape)shape).balance();
 
 		shape.setModified(true);
-		action.getDrawing().setModified(true);
+		action.drawing().get().setModified(true);
 	}
 
 
@@ -351,7 +351,7 @@ class MultiClic2AddShape extends PencilLink<MultiClick> {
 	public void initAction() {
 		super.initAction();
 
-		final IShape shape = action.getShape();
+		final IShape shape = action.shape().get();
 
 		if(shape instanceof IModifiablePointsShape) {
 			final IModifiablePointsShape modShape = (IModifiablePointsShape)shape;
@@ -386,7 +386,7 @@ class MultiClic2AddShape extends PencilLink<MultiClick> {
 	public void interimFeedback() {
 		// The temp shape must be be the same shape than the shape what will be added to the drawing. So we
 		// need to duplicate it at each feedback. The issue can be cpu consuming.
-		instrument.drawing.setTempShape(action.getShape().duplicate());
+		instrument.drawing.setTempShape(action.shape().get().duplicate());
 	}
 }
 
@@ -411,7 +411,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 	public void initAction() {
 		super.initAction();
 
-		final IShape shape = action.getShape();
+		final IShape shape = action.shape().get();
 
 		if(shape!=null) {
 			final EditionChoice ec 	= instrument.getCurrentChoice();
@@ -445,7 +445,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 
 	@Override
 	public void updateAction() {
-		final IShape shape 	= action.getShape();
+		final IShape shape 	= action.shape().get();
 		final EditionChoice ec = instrument.getCurrentChoice();
 		// Getting the points depending on the current zoom.
 		final IPoint startPt= instrument.getAdaptedPoint(interaction.getStartPt());
@@ -461,7 +461,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 					updateShapeFromDiag((IRectangularShape)shape, startPt, endPt);
 
 		shape.setModified(true);
-		action.getDrawing().setModified(true);
+		action.drawing().get().setModified(true);
 	}
 
 
@@ -543,7 +543,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 	public void interimFeedback() {
 		// The temp shape must be be the same shape than the shape what will be added to the drawing. So we
 		// need to duplicate it at each feedback. The issue can be cpu consuming.
-		instrument.drawing.setTempShape(action.getShape().duplicate());
+		instrument.drawing.setTempShape(action.shape().get().duplicate());
 	}
 }
 
@@ -582,7 +582,7 @@ class Press2AddShape extends PencilLink<Press> {
 	public void initAction() {
 		super.initAction();
 
-		final IShape shape = action.getShape();
+		final IShape shape = action.shape().get();
 
 		if(shape instanceof IPositionShape) {
 			((IPositionShape)shape).setPosition(instrument.getAdaptedPoint(interaction.getPoint()));

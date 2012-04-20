@@ -164,6 +164,7 @@ public class UIBuilder extends UIComposer<LFrame> {
 		widget.tabSelector.addEventable(widget.tabbedPanel);
 		widget.drawingPropCustomiser.addEventable(toolbarBuilder.drawingB.getToolbar());
 		widget.templateManager.addEventable(widget.templateManager.templateMenu());
+		widget.templateManager.addEventable(widget.exporter.getExportMenu());
 	}
 
 
