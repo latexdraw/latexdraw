@@ -32,7 +32,7 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, IArc
 	 * @return The duplicated group of shapes.
 	 * @since 3.0
 	 */
-	IGroup duplicate(final boolean duplicateShapes);
+	IGroup duplicateDeep(final boolean duplicateShapes);
 
 
 	/**

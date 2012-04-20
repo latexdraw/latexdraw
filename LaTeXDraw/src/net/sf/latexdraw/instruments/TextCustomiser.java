@@ -305,7 +305,7 @@ class ButtonPressed2ChangeTextPosition extends ButtonPressedForCustomiser<Modify
 	public void initAction() {
 		final AbstractButton ab = interaction.getButton();
 
-		action.setGroup((IGroup)instrument.hand.canvas.getDrawing().getSelection().duplicate());
+		action.setGroup((IGroup)instrument.hand.canvas().getDrawing().getSelection().duplicate());
 		action.setProperty(ShapeProperties.TEXT_POSITION);
 
 		if(instrument.bButton==ab) action.setValue(IText.TextPosition.BOT);

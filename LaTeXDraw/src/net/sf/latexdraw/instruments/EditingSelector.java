@@ -503,7 +503,7 @@ public class EditingSelector extends WidgetInstrument {
 	@Override
 	public void onActionDone(final Action action) {
 		super.onActionDone(action);
-		hand.canvas.requestFocus();
+		hand.canvas().requestFocus();
 	}
 }
 
@@ -577,7 +577,7 @@ class ButtonPressed2ActivateIns extends Link<ActivateInactivateInstruments, Butt
 
 		/* Selection of the instruments to activate/desactivate. */
 		if(ab==instrument.handB) {
-			final boolean noSelection = instrument.hand.canvas.getDrawing().getSelection().isEmpty();
+			final boolean noSelection = instrument.hand.canvas().getDrawing().getSelection().isEmpty();
 			action.addInstrumentToActivate(instrument.hand);
 
 			if(!noSelection)

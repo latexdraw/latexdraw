@@ -45,7 +45,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 			with LGroupGrid with LGroupShape with LGroupStdGrid
 			with LGroupText with LSetShapes {
 
-	override def duplicate() = duplicate(false)
+	override def duplicate() = duplicateDeep(false)
 
 
 	override def setModified(modified : Boolean) = {
@@ -54,7 +54,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def duplicate(duplicateShapes : Boolean) : IGroup = {
+	override def duplicateDeep(duplicateShapes : Boolean) : IGroup = {
 		val dup = new LGroup(true)
 
 		if(duplicateShapes)

@@ -20,9 +20,6 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @since 3.0
  */
 public interface IEllipse extends IRectangularShape {
-	@Override
-	IEllipse duplicate();
-
 	/**
 	 * @return The half of the biggest axe.
 	 * @since 3.0

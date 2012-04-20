@@ -106,7 +106,4 @@ public interface IArc extends IEllipse {
 	 * @since 1.9
 	 */
 	IPoint getEndPoint();
-	
-	@Override
-	IArc duplicate();
 }
