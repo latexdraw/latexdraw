@@ -1,13 +1,13 @@
 package net.sf.latexdraw.glib.models.impl
 
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import scala.collection.JavaConversions._
+import java.awt.geom.Rectangle2D
 import java.awt.Color
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos
-import net.sf.latexdraw.glib.models.interfaces.IShape
-import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle
+
+import scala.collection.JavaConversions.asScalaBuffer
+
+import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.IShape._
 
 /**
  * This trait encapsulates the code of the group related to the support of the general shape's properties.<br>
@@ -29,6 +29,11 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
  */
 protected trait LGroupShape extends IGroup {
 	override def setThickness(thickness : Double) = getShapes.foreach{shape => shape.setThickness(thickness) }
+
+
+	override def scale(sx : Double, sy : Double, pos : Position, bound : Rectangle2D) {
+		getShapes.foreach{sh => sh.scale(sx, sy, pos, bound)}
+	}
 
 
 	override def getThickness() : Double = {
