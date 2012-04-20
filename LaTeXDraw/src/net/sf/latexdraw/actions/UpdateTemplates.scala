@@ -22,33 +22,23 @@ import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class UpdateTemplates extends Action {
-	/** The menu that contains the template menu items. */
-	protected var _templatesMenu : MMenu = null
-
+class UpdateTemplates extends Action with TemplateAction{
 	/** Defines if the thumbnails must be updated. */
 	protected var _updateThumbnails : Boolean = false
 
 
 	override def isRegisterable() = false
 
-	override def doActionBody() { 
-		SVGDocumentGenerator.INSTANCE.updateTemplates(_templatesMenu, _updateThumbnails)
+	override def doActionBody() {
+		SVGDocumentGenerator.INSTANCE.updateTemplates(_templatesMenu.get, _updateThumbnails)
 	}
 
-	override def canDo() = _templatesMenu!=null
-
-	/**
-	 * @param menu The menu that contains the template menu items.
-	 */
-	def templatesMenu_=(menu : MMenu) { _templatesMenu = menu }
-	
-	def templatesMenu = _templatesMenu
+	override def canDo() = _templatesMenu.isDefined
 
 	/**
 	 * @param updateThumbnails Defines if the thumbnails must be updated.
 	 */
 	def updateThumbnails_=(update : Boolean) { _updateThumbnails = update }
-	
+
 	def updateThumbnails = _updateThumbnails
 }

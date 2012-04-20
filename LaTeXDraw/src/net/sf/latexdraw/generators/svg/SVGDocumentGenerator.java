@@ -96,7 +96,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 	@Override
 	public boolean save(final String path, final LFrame ui, final MProgressBar progressBar, final JLabel statusBar) {
-		final SaveWorker lw = new SaveWorker(ui, path, statusBar);
+		final SaveWorker lw = new SaveWorker(ui, path, statusBar, true, false);
 
 		if(progressBar!=null)
 			lw.addPropertyChangeListener(new ProgressListener(progressBar));
@@ -118,7 +118,25 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		return true;
 	}
 
-	
+
+	/**
+	 * Exports the selected shapes as a template.
+	 * @param path The path where the template will be saved.
+	 * @param ui The main frame of the app.
+	 * @param progressBar The progress bar.
+	 * @param statusBar The status bar.
+	 * @param templateMenu The menu that contains the template menu items.
+	 */
+	public void saveTemplate(final String path, final LFrame ui, final MProgressBar progressBar, final JLabel statusBar, final MMenu templateMenu) {
+		final SaveTemplateWorker lw = new SaveTemplateWorker(ui, path, statusBar, templateMenu);
+
+		if(progressBar!=null)
+			lw.addPropertyChangeListener(new ProgressListener(progressBar));
+
+		lw.execute();
+	}
+
+
 	/**
 	 * Inserts a set of shapes into the drawing.
 	 * @param path The file of the SVG document to load.
@@ -275,7 +293,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	    	MMenuItem menu = null;
 	    	ImageIcon icon;
 	    	final String pngPath = pathPic+File.separator+nameThumb;
-	    	final int id = nameThumb.indexOf(PNGFilter.PNG_EXTENSION);
+	    	final int id = nameThumb.lastIndexOf(SVGFilter.SVG_EXTENSION+PNGFilter.PNG_EXTENSION);
 
 	    	try {
 	    		final Image image = ImageIO.read(new File(pngPath));
@@ -294,15 +312,15 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	    	return menu;
 	    }
 	}
-	
-	
+
+
 	/** This worker inserts the given set of shapes into the drawing. */
 	class InsertWorker extends LoadShapesWorker {
 		protected InsertWorker(final LFrame ui, final String path) {
 			super(ui, path, null);
 		}
-		
-		
+
+
 		@Override
 		protected Boolean doInBackground() throws Exception {
 			super.doInBackground();
@@ -366,6 +384,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 			for(int i=0, size=templatesMenu.getMenuComponentCount()-2; i<size; i++)
 				templatesMenu.remove(0);
 
+			createMenuItems(LPath.PATH_TEMPLATES_DIR_USER, LPath.PATH_CACHE_DIR, true);
 			createMenuItems(LPath.PATH_TEMPLATES_SHARED, LPath.PATH_CACHE_SHARE_DIR, true);
 
 			return true;
@@ -487,11 +506,36 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	}
 
 
+	class SaveTemplateWorker extends SaveWorker {
+		protected MMenu templateMenu;
+
+		protected SaveTemplateWorker(final LFrame ui, final String path, final JLabel statusBar, final MMenu templateMenu) {
+			super(ui, path, statusBar, false, true);
+			this.templateMenu = templateMenu;
+		}
+
+
+		@Override
+		protected void done() {
+			super.done();
+			INSTANCE.updateTemplates(templateMenu, true);
+		}
+	}
+
 
 	/** This worker saves the given document. */
 	class SaveWorker extends IOWorker {
-		protected SaveWorker(final LFrame ui, final String path, final JLabel statusBar) {
+		/** Defines if the parameters of the drawing (instruments, presentations, etc.) must be saved. */
+		protected boolean saveParameters;
+
+		/** Specifies if only the selected shapes must be saved. */
+		protected boolean onlySelection;
+
+
+		protected SaveWorker(final LFrame ui, final String path, final JLabel statusBar, final boolean saveParameters, final boolean onlySelection) {
 			super(ui, path, statusBar);
+			this.saveParameters = saveParameters;
+			this.onlySelection = onlySelection;
 		}
 
 
@@ -503,28 +547,29 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		 */
 		private SVGDocument toSVG(final IDrawing drawing, final double incr) {
 			// Creation of the SVG document.
-			final List<IShape> shapes	= drawing.getShapes();
+			final List<IShape> shapes;
 			final SVGDocument doc 		= new SVGDocument();
 			final SVGSVGElement root 	= doc.getFirstChild();
 			final SVGGElement g 		= new SVGGElement(doc);
-			final SVGDefsElement defs	= new SVGDefsElement(doc);
 			SVGElement elt;
 
-			root.appendChild(defs);
+			if(onlySelection)
+				shapes  = drawing.getSelection().getShapes();
+			else shapes = drawing.getShapes();
+
 			root.appendChild(g);
 			root.setAttribute("xmlns:"+LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);//$NON-NLS-1$
+			root.appendChild(new SVGDefsElement(doc));
 
-	        for(final IShape sh : shapes)
-	        	if(sh!=null) {
+			try {
+		        for(final IShape sh : shapes) {
 	        		// For each shape an SVG element is created.
 	        		elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
-
 		        	if(elt!=null)
 		        		g.appendChild(elt);
-
 		        	setProgress((int)Math.min(100., getProgress()+incr));
 		        }
-
+			}catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 			// Setting SVG attributes to the created document.
 			root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");//$NON-NLS-1$
 			root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");//$NON-NLS-1$
@@ -549,26 +594,28 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 			final double incr				= 100./(drawing.size() + instruments.length + ui.getPresentations().size());
 			final SVGDocument doc 			= toSVG(drawing, incr);
 			final SVGMetadataElement meta	= new SVGMetadataElement(doc);
-			final SVGElement metaLTD		= (SVGElement)doc.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+SVGElements.SVG_METADATA);
 			final SVGSVGElement root 		= doc.getFirstChild();
+			final SVGElement metaLTD		= (SVGElement)doc.createElement(LNamespace.LATEXDRAW_NAMESPACE+':'+SVGElements.SVG_METADATA);
 
 			// Creation of the SVG meta data tag.
 			meta.appendChild(metaLTD);
 			root.appendChild(meta);
 
-			// The parameters of the instruments are now saved.
-			for(final Instrument instrument : instruments) {
-				instrument.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-				setProgress((int)Math.min(100., getProgress()+incr));
-			}
+			if(saveParameters) {
+				// The parameters of the instruments are now saved.
+				for(final Instrument instrument : instruments) {
+					instrument.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
+					setProgress((int)Math.min(100., getProgress()+incr));
+				}
 
-			for(final Presentation<?,?> presentation : ui.getPresentations()) {
-				presentation.getConcretePresentation().save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-				setProgress((int)Math.min(100., getProgress()+incr));
-			}
+				for(final Presentation<?,?> presentation : ui.getPresentations()) {
+					presentation.getConcretePresentation().save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
+					setProgress((int)Math.min(100., getProgress()+incr));
+				}
 
-			ui.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
-			ui.setTitle(getDocumentName());
+				ui.save(false, LNamespace.LATEXDRAW_NAMESPACE, doc, metaLTD);
+				ui.setTitle(getDocumentName());
+			}
 
 			return doc.saveSVGDocument(path);
 		}
@@ -578,7 +625,8 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		protected void done() {
 			super.done();
 			// Showing a message in the status bar.
-			statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.191")); //$NON-NLS-1$
+			if(statusBar!=null)
+				statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.191")); //$NON-NLS-1$
 		}
 	}
 

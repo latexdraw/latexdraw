@@ -14,6 +14,7 @@ import net.sf.latexdraw.actions.LoadTemplate
 import java.io.File
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
 import net.sf.latexdraw.ui.LFrame
+import net.sf.latexdraw.actions.ExportTemplate
 
 /**
  * This instrument manages the templates.<br>
@@ -40,7 +41,10 @@ class TemplateManager(composer : UIComposer[_], val ui : LFrame) extends WidgetI
 	/** The menu item that permits to update the templates. */
 	protected val _updateTemplatesMenu : MMenuItem = new MMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.41"), LResources.RELOAD_ICON)
 
-	
+	/** The menu item used to export the selection as templates. */
+	protected val _exportTemplateMenu : MMenuItem = new MMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.42"))
+
+
 	initialiseWidgets
 
 
@@ -53,7 +57,8 @@ class TemplateManager(composer : UIComposer[_], val ui : LFrame) extends WidgetI
 	override protected def initialiseLinks() {
 		try	{
 			addLink(new MenuItem2UpdateTemplates(this))
-			addLink(new MenuItem2LoadTemplates(this))
+			addLink(new MenuItem2LoadTemplate(this))
+			addLink(new MenuItem2ExportTemplate(this))
 		}
 		catch{case ex => BadaboomCollector.INSTANCE.add(ex)}
 	}
@@ -70,20 +75,35 @@ class TemplateManager(composer : UIComposer[_], val ui : LFrame) extends WidgetI
 		action.flush
 	}
 
-
 	/**
 	 * @return The main menu that contains the template menu items.
 	 */
 	def templateMenu = _templateMenu
-	
+
 	/**
 	 * @return The menu item that permits to update the templates.
 	 */
 	def updateTemplatesMenu = _updateTemplatesMenu
+
+	/**
+	 * @return The menu item used to export the selection as templates.
+	 */
+	def exportTemplateMenu = _exportTemplateMenu
 }
 
 
-private class MenuItem2LoadTemplates(ins : TemplateManager) extends 
+private class MenuItem2ExportTemplate(ins : TemplateManager) extends
+				Link[ExportTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[ExportTemplate], classOf[MenuItemPressed]) {
+	override def initAction() {
+		action.setUi(instrument.ui)
+		action.templatesMenu = instrument.templateMenu
+	}
+
+	override def isConditionRespected() = interaction.getMenuItem==instrument.exportTemplateMenu
+}
+
+
+private class MenuItem2LoadTemplate(ins : TemplateManager) extends
 				Link[LoadTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[LoadTemplate], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.setFile(new File(interaction.getMenuItem.getName))
@@ -96,7 +116,7 @@ private class MenuItem2LoadTemplates(ins : TemplateManager) extends
 
 
 /** Maps a menu item interaction to an action that updates the templates. */
-private class MenuItem2UpdateTemplates(ins : TemplateManager) extends 
+private class MenuItem2UpdateTemplates(ins : TemplateManager) extends
 				Link[UpdateTemplates, MenuItemPressed, TemplateManager](ins, false, classOf[UpdateTemplates], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.updateThumbnails = true
@@ -105,4 +125,3 @@ private class MenuItem2UpdateTemplates(ins : TemplateManager) extends
 
 	override def isConditionRespected() = interaction.getMenuItem==instrument.updateTemplatesMenu
 }
-	
