@@ -1,7 +1,8 @@
 package net.sf.latexdraw.glib.models.impl
 
+import scala.collection.JavaConversions.asScalaBuffer
+
 import net.sf.latexdraw.glib.models.interfaces.IGroup
-import scala.collection.JavaConversions._
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape
 
 /**

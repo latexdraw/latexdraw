@@ -1,9 +1,10 @@
 package net.sf.latexdraw.actions
 
 import org.malai.action.library.IOAction
+
 import javax.swing.JLabel
-import net.sf.latexdraw.ui.LFrame
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
+import net.sf.latexdraw.ui.LFrame
 
 /**
  * This action loads a given template.<br>

@@ -1,11 +1,12 @@
 package net.sf.latexdraw.actions.shape
 
 import org.malai.action.Action
-import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.actions.Modifying
 import org.malai.undo.Undoable
-import net.sf.latexdraw.glib.models.interfaces.IShape
+
 import net.sf.latexdraw.actions.DrawingAction
+import net.sf.latexdraw.actions.Modifying
+import net.sf.latexdraw.actions.ShapeAction
+import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.lang.LangTool
 
 /**

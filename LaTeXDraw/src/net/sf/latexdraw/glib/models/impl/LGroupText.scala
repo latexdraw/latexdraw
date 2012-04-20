@@ -1,10 +1,11 @@
 package net.sf.latexdraw.glib.models.impl
 
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import scala.collection.JavaConversions._
-import net.sf.latexdraw.glib.models.interfaces.IText
+import scala.collection.JavaConversions.asScalaBuffer
+
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition
+import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.IText
 
 /**
  * This trait encapsulates the code of the group related to the support of texts.<br>

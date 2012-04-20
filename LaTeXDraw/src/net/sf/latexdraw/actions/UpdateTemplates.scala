@@ -1,7 +1,7 @@
 package net.sf.latexdraw.actions
 
-import org.malai.widget.MMenu
 import org.malai.action.Action
+
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
 
 /**

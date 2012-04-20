@@ -1,9 +1,9 @@
 package net.sf.latexdraw.glib.models.impl
 
+import org.malai.mapping.ActiveArrayList
+
 import net.sf.latexdraw.glib.models.interfaces.ISetShapes
 import net.sf.latexdraw.glib.models.interfaces.IShape
-import scala.collection.JavaConversions._
-import org.malai.mapping.ActiveArrayList
 
 /**
  * This trait implements the ISetShapes interface.<br>

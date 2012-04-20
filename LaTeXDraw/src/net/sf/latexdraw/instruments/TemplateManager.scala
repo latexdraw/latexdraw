@@ -1,20 +1,22 @@
 package net.sf.latexdraw.instruments
 
+import java.io.File
+
+import org.malai.instrument.Link
 import org.malai.instrument.WidgetInstrument
+import org.malai.interaction.library.MenuItemPressed
+import org.malai.ui.UIComposer
 import org.malai.widget.MMenu
 import org.malai.widget.MMenuItem
-import org.malai.ui.UIComposer
-import net.sf.latexdraw.actions.UpdateTemplates
-import net.sf.latexdraw.lang.LangTool
-import net.sf.latexdraw.util.LResources
-import org.malai.instrument.Link
-import org.malai.interaction.library.MenuItemPressed
-import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.actions.LoadTemplate
-import java.io.File
-import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
-import net.sf.latexdraw.ui.LFrame
+
 import net.sf.latexdraw.actions.ExportTemplate
+import net.sf.latexdraw.actions.LoadTemplate
+import net.sf.latexdraw.actions.UpdateTemplates
+import net.sf.latexdraw.badaboom.BadaboomCollector
+import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
+import net.sf.latexdraw.lang.LangTool
+import net.sf.latexdraw.ui.LFrame
+import net.sf.latexdraw.util.LResources
 
 /**
  * This instrument manages the templates.<br>

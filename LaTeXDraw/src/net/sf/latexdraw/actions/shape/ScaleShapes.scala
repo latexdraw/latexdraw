@@ -1,15 +1,17 @@
 package net.sf.latexdraw.actions.shape
 
-import org.malai.action.Action
 import java.awt.geom.Rectangle2D
-import net.sf.latexdraw.glib.models.interfaces.IShape.Position
-import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities
-import net.sf.latexdraw.glib.models.interfaces.IPoint
-import net.sf.latexdraw.actions.DrawingAction
+
+import org.malai.action.Action
 import org.malai.undo.Undoable
+
+import net.sf.latexdraw.actions.DrawingAction
+import net.sf.latexdraw.actions.Modifying
+import net.sf.latexdraw.actions.ShapeAction
+import net.sf.latexdraw.glib.models.interfaces.IShape.Position
+import net.sf.latexdraw.glib.models.interfaces.GLibUtilities
+import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.glib.models.interfaces.IPoint
 
 class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction with Undoable with Modifying {
 	/** The direction of the scaling. */

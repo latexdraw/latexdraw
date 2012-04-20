@@ -1,9 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
+import scala.collection.JavaConversions.asScalaBuffer
+
 import net.sf.latexdraw.glib.models.interfaces.IGroup
-import scala.collection.JavaConversions._
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
 import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
 
 /**
  * This trait encapsulates the code of the group related to the support of standard grids.<br>

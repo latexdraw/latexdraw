@@ -1,12 +1,14 @@
 package net.sf.latexdraw.actions.shape
 
-import net.sf.latexdraw.actions.ShapeAction
+import scala.collection.JavaConversions.asScalaBuffer
+
 import org.malai.action.Action
-import net.sf.latexdraw.glib.models.interfaces.IGroup
 import org.malai.undo.Undoable
+
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
-import scala.collection.JavaConversions._
+import net.sf.latexdraw.actions.ShapeAction
+import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.lang.LangTool
 
 /**

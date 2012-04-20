@@ -5,9 +5,12 @@ import java.awt.Color
 
 import scala.collection.JavaConversions.asScalaBuffer
 
+import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos
+import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle
+import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle
+import net.sf.latexdraw.glib.models.interfaces.IShape.Position
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
-import net.sf.latexdraw.glib.models.interfaces.IShape._
 
 /**
  * This trait encapsulates the code of the group related to the support of the general shape's properties.<br>

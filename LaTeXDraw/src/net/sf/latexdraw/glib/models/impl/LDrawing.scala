@@ -1,12 +1,14 @@
 package net.sf.latexdraw.glib.models.impl
 
-import net.sf.latexdraw.glib.models.interfaces.IDrawing
-import net.sf.latexdraw.glib.models.interfaces.IGroup
+import scala.collection.JavaConversions.asScalaBuffer
+
 import org.malai.mapping.IUnary
 import org.malai.mapping.ActiveUnary
-import net.sf.latexdraw.glib.models.interfaces.IShape
-import scala.collection.JavaConversions._
 import org.malai.mapping.MappingRegistry
+
+import net.sf.latexdraw.glib.models.interfaces.IDrawing
+import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.glib.models.interfaces.IShape
 
 /**
  * Implements the concept of drawing.<br>

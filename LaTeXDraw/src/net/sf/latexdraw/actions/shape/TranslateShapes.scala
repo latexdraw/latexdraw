@@ -1,14 +1,14 @@
 package net.sf.latexdraw.actions.shape
 
 import org.malai.action.Action
-import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import org.malai.properties.Modifiable
 import org.malai.undo.Undoable
+
 import net.sf.latexdraw.actions.DrawingAction
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities
-import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.actions.Modifying
+import net.sf.latexdraw.actions.ShapeAction
+import net.sf.latexdraw.glib.models.interfaces.GLibUtilities
+import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.util.LNumber
 
 /**
  * This action translates shapes.<br>

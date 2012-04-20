@@ -1,12 +1,15 @@
 package net.sf.latexdraw.actions.shape
 
+import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.JavaConversions.bufferAsJavaList
+import scala.collection.mutable.Buffer
+
 import org.malai.action.Action
-import net.sf.latexdraw.actions.ShapesAction
+import org.malai.undo.Undoable
+
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
-import org.malai.undo.Undoable
-import scala.collection.JavaConversions._
-import scala.collection.mutable.Buffer
+import net.sf.latexdraw.actions.ShapesAction
 
 /**
  * This action removes shapes from a drawing.<br>

@@ -1,12 +1,14 @@
 package net.sf.latexdraw.actions.shape
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConversions.asScalaBuffer
+
 import org.malai.action.Action
+import org.malai.undo.Undoable
+
 import net.sf.latexdraw.actions.DrawingAction
+import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.util.LResources
-import org.malai.undo.Undoable
-import net.sf.latexdraw.actions.Modifying
 
 /**
  * This action pastes the copied or cut shapes.<br>

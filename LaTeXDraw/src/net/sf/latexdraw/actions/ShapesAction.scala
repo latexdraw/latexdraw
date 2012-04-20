@@ -1,7 +1,8 @@
 package net.sf.latexdraw.actions
 
-import net.sf.latexdraw.glib.models.interfaces.IShape
 import java.util.ArrayList
+
+import net.sf.latexdraw.glib.models.interfaces.IShape
 
 /**
  * This trait encapsulates a set of shapes attribute.<br>

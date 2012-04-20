@@ -1,14 +1,8 @@
 package net.sf.latexdraw.actions.shape
 
-import org.malai.action.Action
 import javax.swing.JFileChooser
-import net.sf.latexdraw.glib.models.interfaces.IPicture
-import net.sf.latexdraw.actions.ShapeAction
-import java.io.IOException
-import net.sf.latexdraw.actions.Modifying
-import org.malai.undo.Undoable
 import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.actions.DrawingAction
+import net.sf.latexdraw.glib.models.interfaces.IPicture
 
 /**
  * This action asks the user to select a picture and, if valid, adds it to a drawing.<br>

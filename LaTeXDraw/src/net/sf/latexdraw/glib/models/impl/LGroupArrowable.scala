@@ -1,10 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import scala.collection.JavaConversions._
+import scala.collection.JavaConversions.asScalaBuffer
+
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle
-import net.sf.latexdraw.glib.models.interfaces.IArrowable
 import net.sf.latexdraw.glib.models.interfaces.IArrow
+import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.ILine
 
 /**

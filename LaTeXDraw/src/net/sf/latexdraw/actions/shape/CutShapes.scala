@@ -1,12 +1,13 @@
 package net.sf.latexdraw.actions.shape
 
-import org.malai.action.Action
-import scala.collection.JavaConversions._
-import net.sf.latexdraw.glib.models.interfaces.IShape
-import net.sf.latexdraw.util.LResources
+import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.JavaConversions.bufferAsJavaList
 import scala.collection.mutable.Buffer
+
 import org.malai.undo.Undoable
+
 import net.sf.latexdraw.actions.Modifying
+import net.sf.latexdraw.util.LResources
 
 /**
  * This action cuts the selected shapes.<br>

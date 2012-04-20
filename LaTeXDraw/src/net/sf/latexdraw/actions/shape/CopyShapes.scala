@@ -1,10 +1,13 @@
 package net.sf.latexdraw.actions.shape
 
-import org.malai.action.Action
-import net.sf.latexdraw.glib.models.interfaces.IShape
 import java.util.ArrayList
-import scala.collection.JavaConversions._
+
+import scala.collection.JavaConversions.asScalaBuffer
+
+import org.malai.action.Action
+
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
+import net.sf.latexdraw.glib.models.interfaces.IShape
 
 /**
  * This action copies the selected shapes.<br>

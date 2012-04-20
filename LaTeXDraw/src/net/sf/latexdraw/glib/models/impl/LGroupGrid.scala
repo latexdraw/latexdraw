@@ -1,9 +1,11 @@
 package net.sf.latexdraw.glib.models.impl
 
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import scala.collection.JavaConversions._
-import net.sf.latexdraw.glib.models.interfaces.IGrid
 import java.awt.Color
+
+import scala.collection.JavaConversions.asScalaBuffer
+
+import net.sf.latexdraw.glib.models.interfaces.IGrid
+import net.sf.latexdraw.glib.models.interfaces.IGroup
 
 /**
  * This trait encapsulates the code of the group related to the support of grids.<br>
