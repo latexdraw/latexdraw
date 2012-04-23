@@ -21,7 +21,6 @@
 	    	notree="false" nonavbar="false" noindex="false" access="private">
 	      <fileset dir = "">
 	        <include name="src/**/*.java"/>
-	      	<include name="src/**/*.scala"/>
 	      </fileset>
 	    </javadoc>
 	</target>
@@ -69,7 +68,7 @@
 
     <target name="zip src" depends="jar">
         <copy todir="out/${release.name}_src">
-                <fileset dir="" includes="**/*" excludes="target/ ; site/ ; Todo.txt ; design/ ; out/ ; bin/"/>
+                <fileset dir="" includes="**/*" excludes="target/ ; site/ ; Todo.txt ; design/ ; out/ ; bin/ ; .cache ; .settings/ ; .fbprefs"/>
         </copy>
         <zip destfile="${dir.out}/${release.name}_src.zip" compress="true" level="9" preserve0permissions="true">
              <fileset dir="out/" includes="${release.name}_src/" />
