@@ -123,7 +123,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 	/**
 	 * @param refPosition The reference position of the scaling.
 	 */
-	def setRefPosition(refPosition : Position) {
+	def refPosition_=(refPosition : Position) {
 		_refPosition = Some(refPosition)
 	}
 
@@ -132,7 +132,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 	/**
 	 * @param newX The new X position used to compute the scale factor.
 	 */
-	def setNewX(newX : Double) {
+	def newX_=(newX : Double) {
 		_newX = newX
 	}
 
@@ -141,7 +141,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 	/**
 	 * @param newY The new Y position used to compute the scale factor.
 	 */
-	def setNewY(newY : Double) {
+	def newY_=(newY : Double) {
 		_newY = newY
 	}
 }
