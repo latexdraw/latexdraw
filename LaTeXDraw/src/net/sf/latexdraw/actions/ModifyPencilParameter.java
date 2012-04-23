@@ -224,6 +224,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case FREEHAND_STYLE: pencil.getGroupParams().setType((FreeHandType)value); break;
 			case FREEHAND_INTERVAL: pencil.getGroupParams().setInterval((Integer)value); break;
 			case FREEHAND_OPEN: pencil.getGroupParams().setOpen((Boolean)value); break;
+			case SHOW_POINTS: pencil.getGroupParams().setShowPts((Boolean)value); break;
 		}
 	}
 }

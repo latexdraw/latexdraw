@@ -988,4 +988,21 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, Dottable, IArc
 	 * @since 3.0
 	 */
 	List<Boolean> getFreeHandOpenList();
+
+	/**
+	 * @return The boolean value defining if the shapes contained in the group must show their points.
+	 * If a shape of the group cannot show their points, null is added.
+	 * to the list. The list cannot be null.
+	 * @since 3.0
+	 */
+	List<Boolean> getShowPointsList();
+
+	/**
+	 * Defines if the shapes contained in the group must show their points.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 * @since 3.0
+	 */
+	void setShowPointsList(final List<Boolean> values);
 }

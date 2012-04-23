@@ -40,6 +40,36 @@ import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
  */
 public enum ShapeProperties {
 	/** Show/Hide the origin of the axes. */
+	SHOW_POINTS {
+		@Override
+		public String getMessage() {
+			return "show points";
+		}
+
+		@Override
+		public boolean isValueValid(final Object obj) {
+			return obj instanceof Boolean;
+		}
+
+		@Override
+		public List<Boolean> getPropertyValues(final IGroup group) {
+			return group==null ? new ArrayList<Boolean>() : group.getShowPointsList();
+		}
+
+		@Override
+		public void setPropertyValue(final IGroup group, final Object value) {
+			if(group!=null && isValueValid(value))
+				group.setShowPts((Boolean)value);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void setPropertyValueList(final IGroup group, final List<?> values) {
+			if(group!=null)
+				group.setShowPointsList((List<Boolean>)values);
+		}
+	},
+	/** Show/Hide the origin of the axes. */
 	AXES_SHOW_ORIGIN {
 		@Override
 		public String getMessage() {

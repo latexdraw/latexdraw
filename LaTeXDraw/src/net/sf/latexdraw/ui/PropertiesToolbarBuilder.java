@@ -103,7 +103,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(composeFillingPanel(metaShapeCustomiser.getFillingCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 		widget.add(composeArrowToolbar(metaShapeCustomiser.getArrowCustomiser(), canvas));
-		widget.add(composeDotToolbar(metaShapeCustomiser.getDotCustomiser(), canvas));
+		widget.add(composeDotToolbar(metaShapeCustomiser.getDotCustomiser(), metaShapeCustomiser.getBorderCustomiser(), canvas));
 		widget.add(composeTextPositionToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeTextPropertiesToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
@@ -354,9 +354,11 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
-	protected JComponent composeDotToolbar(final ShapeDotCustomiser ins, final LCanvas canvas) {
+	protected JComponent composeDotToolbar(final ShapeDotCustomiser ins, final ShapeBorderCustomiser sbc, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.DOT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the dots.");
+
+		list.addComponent(sbc.getShowPoints());
 
 		list.addComponent(ins.getDotCB());
 		addSpinner(list, ins.getDotSizeField(), 70);
@@ -368,6 +370,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(ins.getFillingB(), list);
 
         ins.addEventable(list.getToolbar());
+        sbc.addEventable(list.getToolbar());
 
 		return list;
 	}

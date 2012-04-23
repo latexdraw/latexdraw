@@ -48,8 +48,16 @@ protected trait LGroupShape extends IGroup {
 	override def isShowPtsable() = getShapes.exists{shape => shape.isShowPtsable}
 
 
-//	override def isShowPts() = getShapes.exists{shape => shape.isShowPts}
-//
+	override def isShowPts() = getShapes.exists{shape => shape.isShowPtsable && shape.isShowPts}
+
+
+	override def setShowPts(show : Boolean) {
+		getShapes.foreach{shape =>
+			if(shape.isShowPtsable)
+				shape.setShowPts(show)
+		}
+	}
+
 
 	override def getLineColour() : Color = {
 		getShapes.headOption match {

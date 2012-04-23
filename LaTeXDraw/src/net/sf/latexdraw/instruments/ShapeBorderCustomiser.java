@@ -22,6 +22,7 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.ui.UIComposer;
 import org.malai.widget.MButtonIcon;
+import org.malai.widget.MCheckBox;
 import org.malai.widget.MColorButton;
 import org.malai.widget.MComboBox;
 import org.malai.widget.MSpinner;
@@ -45,7 +46,6 @@ import org.malai.widget.MSpinner;
  * @since 3.0
  */
 public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
-
 	/** The field which allows to change shapes thickness. */
 	protected MSpinner thicknessField;
 
@@ -60,6 +60,9 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 
 	/** Allows to change the angle of the round corner. */
 	protected MSpinner frameArcField;
+
+	/** Defines if the points of the shape must be painted. */
+	protected MCheckBox showPoints;
 
 
 
@@ -148,6 +151,9 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 
 		frameArcField = new MSpinner(new MSpinner.MSpinnerNumberModel(0., 0., 1., 0.05), new JLabel(LResources.ROUNDNESS_ICON));
 		frameArcField.setEditor(new JSpinner.NumberEditor(frameArcField, "0.00"));//$NON-NLS-1$
+
+		showPoints = new MCheckBox("Show points");
+		showPoints.setToolTipText("Show as dots the (control) points of the shape.");
 	}
 
 
@@ -161,12 +167,14 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			final boolean isMvble	 = shape.isBordersMovable();
 			final boolean isColor	 = shape.isColourable();
 			final boolean supportRound = shape.isTypeOf(ILineArcShape.class);
+			final boolean showPts	 = shape.isShowPtsable();
 
 			composer.setWidgetVisible(thicknessField, isTh);
 			composer.setWidgetVisible(lineCB, isStylable);
 			composer.setWidgetVisible(bordersPosCB, isMvble);
 			composer.setWidgetVisible(frameArcField, supportRound);
 			composer.setWidgetVisible(lineColButton, isColor);
+			composer.setWidgetVisible(showPoints, showPts);
 
 			if(isColor)
 				lineColButton.setColor(shape.getLineColour());
@@ -178,6 +186,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 				bordersPosCB.setSelectedItemSafely(shape.getBordersPosition().toString());
 			if(supportRound)
 				frameArcField.setValueSafely(((ILineArcShape)shape).getLineArc());
+			if(showPts)
+				showPoints.setSelected(shape.isShowPts());
 		}
 	}
 
@@ -189,6 +199,15 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(lineColButton, activated);
 		composer.setWidgetVisible(lineCB, activated);
 		composer.setWidgetVisible(frameArcField, activated);
+		composer.setWidgetVisible(showPoints, activated);
+	}
+
+
+	/**
+	 * @return The widget that defines if the points of the shape must be painted.
+	 */
+	public MCheckBox getShowPoints() {
+		return showPoints;
 	}
 
 
@@ -243,11 +262,54 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			addLink(new Spinner2SelectionBorder(this));
 			addLink(new ColourButton2PencilBorder(this));
 			addLink(new ColourButton2SelectionBorder(this));
+			addLink(new Checkbox2ShowPointsSelection(this));
+			addLink(new Checkbox2ShowPointsPencil(this));
 		}catch(final InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(final IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
+	}
+}
+
+
+/** Maps a checkbox to an action that show/hide the selected shapes' points. */
+class Checkbox2ShowPointsSelection extends CheckBoxForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
+	protected Checkbox2ShowPointsSelection(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
+		super(instrument, ModifyShapeProperty.class);
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return instrument.hand.isActivated() && instrument.showPoints==interaction.getCheckBox();
+	}
+
+	@Override
+	public void initAction() {
+		action.setProperty(ShapeProperties.SHOW_POINTS);
+		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		action.setValue(interaction.getCheckBox().isSelected());
+	}
+}
+
+
+
+/** Maps a checkbox to an action that show/hide the shapes' points created by the pencil. */
+class Checkbox2ShowPointsPencil extends CheckBoxForCustomiser<ModifyPencilParameter, ShapeBorderCustomiser> {
+	protected Checkbox2ShowPointsPencil(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
+		super(instrument, ModifyPencilParameter.class);
+	}
+
+	@Override
+	public void initAction() {
+		action.setProperty(ShapeProperties.SHOW_POINTS);
+		action.setPencil(instrument.pencil);
+		action.setValue(interaction.getCheckBox().isSelected());
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return instrument.pencil.isActivated() && instrument.showPoints==interaction.getCheckBox();
 	}
 }
 

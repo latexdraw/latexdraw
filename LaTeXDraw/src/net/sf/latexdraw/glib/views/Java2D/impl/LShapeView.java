@@ -472,7 +472,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	public void paint(final Graphics2D g) {
 		// We begin the rotation, if needed.
 		IPoint vectorTrans = beginRotation(g);
-		boolean isShowPts  = shape.isShowPtsable();
+		boolean isShowPts  = shape.isShowPtsable() && shape.isShowPts();
 
 		// Lines of the show points option must be drawn before all.
 		if(isShowPts)

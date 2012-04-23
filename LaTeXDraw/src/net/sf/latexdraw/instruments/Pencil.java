@@ -92,6 +92,7 @@ public class Pencil extends Instrument {
 		groupParams.addShape(factory.createText(false));
 		groupParams.addShape(factory.createCircleArc(false));
 		groupParams.addShape(factory.createPolyline(false));
+		groupParams.addShape(factory.createBezierCurve(false));
 		groupParams.addShape(factory.createFreeHand(factory.createPoint(), false));
 	}
 

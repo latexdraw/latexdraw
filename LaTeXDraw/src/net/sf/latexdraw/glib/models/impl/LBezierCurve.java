@@ -57,8 +57,8 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 		addPoint(point);
 		addPoint(point2);
 	}
-	
-	
+
+
 	@Override
 	public IBezierCurve duplicate() {
 		final IShape sh = super.duplicate();
@@ -147,5 +147,11 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 	@Override
 	public boolean shadowFillsShape() {
 		return false;
+	}
+
+
+	@Override
+	public boolean isShowPtsable() {
+		return true;
 	}
 }

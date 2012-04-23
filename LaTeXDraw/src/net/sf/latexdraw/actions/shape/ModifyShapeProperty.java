@@ -123,6 +123,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 	protected boolean isPropertySupported() {
 		if(super.isPropertySupported())
 			switch(property) {
+				case SHOW_POINTS: return shapes.isShowPtsable();
 				case ARROW_BRACKET_NUM:
 				case ARROW_DOT_SIZE_DIM:
 				case ARROW_DOT_SIZE_NUM:

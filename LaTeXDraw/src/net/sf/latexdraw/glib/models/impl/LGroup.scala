@@ -1139,4 +1139,23 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 				if(shapes.get(i).isInstanceOf[Dottable])
 					shapes.get(i).asInstanceOf[Dottable].setRadius(values.get(i))
 	}
+
+
+	override def setShowPointsList(values : List[java.lang.Boolean]) = {
+		if(values!=null && values.size()==shapes.size)
+			for(i <- 0 until values.size)
+				if(shapes.get(i).isShowPtsable)
+					shapes.get(i).setShowPts(values.get(i))
+	}
+
+
+	override def getShowPointsList() : List[java.lang.Boolean] = {
+		val list = new ArrayList[java.lang.Boolean]()
+		shapes.foreach{sh => sh.isShowPtsable match {
+				case true => list.add(sh.isShowPts)
+				case false => list.add(null)
+			}
+		}
+		return list
+	}
 }
