@@ -18,8 +18,10 @@ import org.malai.picking.Picker
 
 import net.sf.latexdraw.actions.shape.MoveCtrlPoint
 import net.sf.latexdraw.actions.shape.MovePointShape
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty
 import net.sf.latexdraw.actions.shape.RotateShapes
 import net.sf.latexdraw.actions.shape.ScaleShapes
+import net.sf.latexdraw.actions.shape.ShapeProperties
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.glib.handlers.ArcAngleHandler
 import net.sf.latexdraw.glib.handlers.CtrlPointHandler
@@ -411,6 +413,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 			addLink(new DnD2MovePoint(this))
 			addLink(new DnD2MoveCtrlPoint(this))
 			addLink(new DnD2Rotate(this))
+			addLink(new DnD2ArcAngle(this))
 		}catch{case ex => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
@@ -487,16 +490,63 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 }
 
 
+/** Maps a DnD interaction to an action that changes the arc angles. */
+private class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty, DnD, Border](ins, true, classOf[ModifyShapeProperty], classOf[DnD]) {
+	/** The point corresponding to the 'press' position. */
+	private var p1 : IPoint = null
+
+	/** The gravity centre used for the rotation. */
+	private var gc : IPoint = null
+
+	private var gap : IPoint = DrawingTK.getFactory.createPoint
+
+
+	def initAction() {
+		val pCentre = interaction.getStartObject.asInstanceOf[IHandler].getCentre
+		val pt = instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt))
+		val drawing = instrument.canvas.getDrawing
+
+		gc = drawing.getSelection.getGravityCentre
+		gap.setPoint(pt.getX-pCentre.getX, pt.getY-pCentre.getY)
+
+		if(interaction.getStartObject==instrument.arcHandlerStart)
+			action.setProperty(ShapeProperties.ARC_START_ANGLE)
+		else
+			action.setProperty(ShapeProperties.ARC_END_ANGLE)
+
+		action.setGroup(drawing.getSelection.duplicate.asInstanceOf[IGroup])
+	}
+
+
+	override def updateAction() {
+		val pt = instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getEndPt))
+		action.setValue(computeAngle(DrawingTK.getFactory.createPoint(pt.getX-gap.getX, pt.getY-gap.getY)))
+	}
+
+
+	private def computeAngle(position : IPoint) : Double = {
+		val angle = math.acos((position.getX-gc.getX)/position.distance(gc))
+
+		if(position.getY>gc.getY)
+			 2*math.Pi - angle
+		else angle
+	}
+
+
+	override def isConditionRespected() = interaction.getStartObject==instrument.arcHandlerEnd || interaction.getStartObject==instrument.arcHandlerStart
+}
+
+
 
 /**
  * This link maps a DnD interaction on a rotation handler to an action that rotates the selected shapes.
  */
 private class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Border](ins, true, classOf[RotateShapes], classOf[DnD]) {
 	/** The point corresponding to the 'press' position. */
-	protected var p1 : IPoint = null
+	private var p1 : IPoint = null
 
 	/** The gravity centre used for the rotation. */
-	protected var gc : IPoint = null
+	private var gc : IPoint = null
 
 
 	def initAction() {

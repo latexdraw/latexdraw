@@ -1158,7 +1158,7 @@ public enum ShapeProperties {
 	ARC_START_ANGLE {
 		@Override
 		public String getMessage() {
-			return "Arc start angle";
+			return "Arc angle";
 		}
 
 		@Override
@@ -1188,7 +1188,7 @@ public enum ShapeProperties {
 	ARC_END_ANGLE {
 		@Override
 		public String getMessage() {
-			return "Arc end angle";
+			return "Arc angle";
 		}
 
 		@Override
