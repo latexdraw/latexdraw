@@ -15,6 +15,17 @@
   </image>
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
+
+  <item>
+    <title>For testing purposes only: LaTeXDraw 3.0.0 alpha 4 released</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Mon, 23 Apr 2012 08:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS40</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS40</link>
+    <description>Fourth alpha just released. Still for testing purposes only. This version: several Windows Seven bugs fixed; can customise grids and free hand shapes using widgets; can change the angles of arcs using their handlers; can reuse and create templates; the PSTricks parameter 'showpoints' supported for Bézier curves. Test it! One more alpha version is expected to (re-)support PSTricks import. Then, beta versions will be prepared to fix issues.</description>
+  </item>
+
+
   <item>
     <title>For testing purposes only: LaTeXDraw 3.0.0 alpha 3 released</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
