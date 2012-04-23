@@ -2,15 +2,10 @@ package net.sf.latexdraw.glib.models.impl
 
 import java.awt.geom.Rectangle2D
 import java.awt.Color
-
 import scala.collection.JavaConversions.asScalaBuffer
-
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos
-import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle
-import net.sf.latexdraw.glib.models.interfaces.IShape.Position
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.IShape
 
 /**
  * This trait encapsulates the code of the group related to the support of the general shape's properties.<br>
@@ -34,7 +29,7 @@ protected trait LGroupShape extends IGroup {
 	override def setThickness(thickness : Double) = getShapes.foreach{shape => shape.setThickness(thickness) }
 
 
-	override def scale(sx : Double, sy : Double, pos : Position, bound : Rectangle2D) {
+	override def scale(sx : Double, sy : Double, pos : IShape.Position, bound : Rectangle2D) {
 		getShapes.foreach{sh => sh.scale(sx, sy, pos, bound)}
 	}
 
@@ -50,6 +45,12 @@ protected trait LGroupShape extends IGroup {
 	override def isThicknessable() = getShapes.exists{shape => shape.isThicknessable}
 
 
+	override def isShowPtsable() = getShapes.exists{shape => shape.isShowPtsable}
+
+
+//	override def isShowPts() = getShapes.exists{shape => shape.isShowPts}
+//
+
 	override def getLineColour() : Color = {
 		getShapes.headOption match {
 			case Some(shape) => shape.getLineColour
@@ -61,7 +62,7 @@ protected trait LGroupShape extends IGroup {
 	override def isLineStylable() = getShapes.exists{shape => shape.isLineStylable}
 
 
-	override def getLineStyle() : LineStyle = {
+	override def getLineStyle() : IShape.LineStyle = {
 		getShapes.find{shape => shape.isLineStylable} match {
 			case Some(sh) => sh.getLineStyle
 			case _ => null
@@ -69,7 +70,7 @@ protected trait LGroupShape extends IGroup {
 	}
 
 
-	override def setLineStyle(style : LineStyle) = {
+	override def setLineStyle(style : IShape.LineStyle) = {
 		getShapes.foreach{shape =>
 			if(shape.isLineStylable)
 				shape.setLineStyle(style)
@@ -81,7 +82,7 @@ protected trait LGroupShape extends IGroup {
 	override def isBordersMovable() = getShapes.exists{shape => shape.isBordersMovable}
 
 
-	override def getBordersPosition() : BorderPos = {
+	override def getBordersPosition() : IShape.BorderPos = {
 		getShapes.find{shape => shape.isBordersMovable} match {
 			case Some(sh) => sh.getBordersPosition
 			case _ => null
@@ -89,7 +90,7 @@ protected trait LGroupShape extends IGroup {
 	}
 
 
-	override def setBordersPosition(position : BorderPos) = {
+	override def setBordersPosition(position : IShape.BorderPos) = {
 		getShapes.foreach{shape =>
 			if(shape.isBordersMovable)
 				shape.setBordersPosition(position)
@@ -208,7 +209,7 @@ protected trait LGroupShape extends IGroup {
 	}
 
 
-	override def getFillingStyle() : FillingStyle = {
+	override def getFillingStyle() : IShape.FillingStyle = {
 		getShapes.find{shape => shape.isInteriorStylable} match {
 			case Some(sh) => sh.getFillingStyle
 			case _ => null
@@ -216,7 +217,7 @@ protected trait LGroupShape extends IGroup {
 	}
 
 
-	override def setFillingStyle(style : FillingStyle) = {
+	override def setFillingStyle(style : IShape.FillingStyle) = {
 		getShapes.foreach{shape =>
 			if(shape.isInteriorStylable)
 				shape.setFillingStyle(style)
@@ -372,9 +373,6 @@ protected trait LGroupShape extends IGroup {
 				shape.setHatchingsWidth(hatchingsWidth)
 		}
 	}
-
-
-	override def isShowPtsable() = false //TODO
 
 
 	override def translate(tx : Double, ty : Double) = getShapes.foreach{shape => shape.translate(tx, ty)}

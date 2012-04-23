@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
 
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle
 import net.sf.latexdraw.glib.models.interfaces.IArrow
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.ILine
@@ -29,14 +28,14 @@ protected trait LGroupArrowable extends IGroup {
 	/** May return the first grid of the group. */
 	private def firstIArrowable = getShapes.find{shape => shape.isArrowable }
 
-	override def setArrowStyle(style : ArrowStyle, position : Int) = {
+	override def setArrowStyle(style : IArrow.ArrowStyle, position : Int) = {
 		getShapes.foreach{shape =>
 			if(shape.isArrowable)
 				shape.setArrowStyle(style, position)
 		}
 	}
 
-	override def getArrowStyle(position : Int) : ArrowStyle = {
+	override def getArrowStyle(position : Int) : IArrow.ArrowStyle = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getArrowStyle(position)
 			case _ => null

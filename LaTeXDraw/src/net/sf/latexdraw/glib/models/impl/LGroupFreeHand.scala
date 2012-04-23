@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
 
-import net.sf.latexdraw.glib.models.interfaces.IFreehand.FreeHandType
 import net.sf.latexdraw.glib.models.interfaces.IFreehand
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
@@ -29,7 +28,7 @@ protected trait LGroupFreeHand extends IGroup {
 	/** May return the first free hand shape of the group. */
 	private def firstIFreeHand = getShapes.find{shape => shape.isInstanceOf[IFreehand] }
 
-	override def getType() : FreeHandType = {
+	override def getType() : IFreehand.FreeHandType = {
 		firstIFreeHand match {
 			case Some(fh) => fh.asInstanceOf[IFreehand].getType
 			case _ => null
@@ -37,7 +36,7 @@ protected trait LGroupFreeHand extends IGroup {
 	}
 
 
-	override def setType(fhType : FreeHandType) = {
+	override def setType(fhType : IFreehand.FreeHandType) = {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IFreehand])
 				shape.asInstanceOf[IFreehand].setType(fhType)

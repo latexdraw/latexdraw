@@ -2,9 +2,6 @@ package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
 
-import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle
-import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle
-import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle
 import net.sf.latexdraw.glib.models.interfaces.IAxes
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
@@ -95,7 +92,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getLabelsDisplayed() : PlottingStyle = {
+	override def getLabelsDisplayed() : IAxes.PlottingStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.asInstanceOf[IAxes].getLabelsDisplayed
 			case _ => null
@@ -103,7 +100,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def setLabelsDisplayed(labelsDisplayed : PlottingStyle) = {
+	override def setLabelsDisplayed(labelsDisplayed : IAxes.PlottingStyle) = {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IAxes])
 				shape.asInstanceOf[IAxes].setLabelsDisplayed(labelsDisplayed)
@@ -127,7 +124,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getTicksDisplayed() : PlottingStyle = {
+	override def getTicksDisplayed() : IAxes.PlottingStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.asInstanceOf[IAxes].getTicksDisplayed
 			case _ => null
@@ -135,7 +132,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def setTicksDisplayed(ticksDisplayed : PlottingStyle) = {
+	override def setTicksDisplayed(ticksDisplayed : IAxes.PlottingStyle) = {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IAxes])
 				shape.asInstanceOf[IAxes].setTicksDisplayed(ticksDisplayed)
@@ -143,7 +140,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getTicksStyle() : TicksStyle = {
+	override def getTicksStyle() : IAxes.TicksStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.asInstanceOf[IAxes].getTicksStyle
 			case _ => null
@@ -151,7 +148,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def setTicksStyle(ticksStyle : TicksStyle) = {
+	override def setTicksStyle(ticksStyle : IAxes.TicksStyle) = {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IAxes])
 				shape.asInstanceOf[IAxes].setTicksStyle(ticksStyle)
@@ -175,7 +172,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getAxesStyle() : AxesStyle = {
+	override def getAxesStyle() : IAxes.AxesStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.asInstanceOf[IAxes].getAxesStyle
 			case _ => null
@@ -183,7 +180,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def setAxesStyle(axesStyle : AxesStyle) = {
+	override def setAxesStyle(axesStyle : IAxes.AxesStyle) = {
 		if(axesStyle!=null)
 			getShapes.foreach{shape =>
 				if(shape.isInstanceOf[IAxes])

@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
 
-import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle
 import net.sf.latexdraw.glib.models.interfaces.IArc
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.ILine
@@ -30,7 +29,7 @@ protected trait LGroupArc extends IGroup {
 	/** May return the first IArc shape of the group. */
 	private def firstIArc = getShapes.find{shape => shape.isInstanceOf[IArc] }
 
-	override def getArcStyle() : ArcStyle = {
+	override def getArcStyle() : IArc.ArcStyle = {
 		firstIArc match {
 			case Some(arc) => arc.asInstanceOf[IArc].getArcStyle
 			case _ => null
@@ -38,7 +37,7 @@ protected trait LGroupArc extends IGroup {
 	}
 
 
-	override def setArcStyle(typeArc : ArcStyle) = {
+	override def setArcStyle(typeArc : IArc.ArcStyle) = {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IArc])
 				shape.asInstanceOf[IArc].setArcStyle(typeArc)
@@ -76,33 +75,33 @@ protected trait LGroupArc extends IGroup {
 				shape.asInstanceOf[IArc].setAngleEnd(angleEnd)
 		}
 	}
-	
-	
+
+
 	override def getStartPoint() : IPoint = null
 
 	override def getEndPoint() : IPoint = null
-	
+
 	override def getA() = Double.NaN
 
 	override def getB() = Double.NaN
-	
+
 	override def getRx() = Double.NaN
-	
+
 	override def getRy() = Double.NaN
 
 	override def setRx(rx : Double) = {}
-	
+
 	override def setRy(ry : Double) = {}
-	
+
 	override def setCentre(centre : IPoint) = {}
 
 	override def getIntersection(line : ILine) : Array[IPoint] = null
-	
+
 	override def setWidth(width : Double) = {}
-	
+
 	override def setHeight(height : Double) = {}
-		
+
 	override def getWidth() = Double.NaN
-			
+
 	override def getHeight() = Double.NaN
 }

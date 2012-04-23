@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
 
-import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IText
@@ -29,7 +28,7 @@ protected trait LGroupText extends IGroup {
 	/** May return the first free hand shape of the group. */
 	private def firstIText = getShapes.find{shape => shape.isInstanceOf[IText] }
 
-	override def getTextPosition() : TextPosition = {
+	override def getTextPosition() : IText.TextPosition = {
 		firstIText match {
 			case Some(txt) => txt.asInstanceOf[IText].getTextPosition
 			case _ => null
@@ -37,7 +36,7 @@ protected trait LGroupText extends IGroup {
 	}
 
 
-	override def setTextPosition(textPosition : TextPosition) = {
+	override def setTextPosition(textPosition : IText.TextPosition) = {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IText])
 				shape.asInstanceOf[IText].setTextPosition(textPosition)

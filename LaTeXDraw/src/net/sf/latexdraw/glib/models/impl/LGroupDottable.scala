@@ -1,12 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
 import java.awt.Color
-
 import scala.collection.JavaConversions.asScalaBuffer
-
-import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle
 import net.sf.latexdraw.glib.models.interfaces.Dottable
 import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.glib.models.interfaces.IDot
 
 /**
  * This trait encapsulates the code of the group related to the support of dottable shapes.<br>
@@ -46,7 +44,7 @@ protected trait LGroupDottable extends IGroup {
 	}
 
 
-	override def getDotStyle() : DotStyle = {
+	override def getDotStyle() : IDot.DotStyle = {
 		firstDottable match {
 			case Some(dot) => dot.asInstanceOf[Dottable].getDotStyle
 			case _ => null
@@ -54,7 +52,7 @@ protected trait LGroupDottable extends IGroup {
 	}
 
 
-	override def setDotStyle(style : DotStyle) = {
+	override def setDotStyle(style : IDot.DotStyle) = {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[Dottable])
 				shape.asInstanceOf[Dottable].setDotStyle(style)
