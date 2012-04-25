@@ -1,10 +1,8 @@
-package net.sf.latexdraw.parsers.pst.parser.sub
+package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 
 /**
- * Defines a parser parsing PST expressions.<br>
+ * A parser parsing PST parameters.<br>
  *<br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
@@ -22,8 +20,8 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-trait PSTCodeParser extends PSTAbstractParser {
-	def parsePSTCode : Parser[IGroup] =  ident ^^ { case foo =>
-		DrawingTK.getFactory.createGroup(false)
-	}
+trait PSTParameterParser extends PSTAbstractParser {
+//	def parsePSTCode : Parser[List[Tuple2[String]]] =  ident ^^ { case foo =>
+//		DrawingTK.getFactory.createGroup(false)
+//	}
 }

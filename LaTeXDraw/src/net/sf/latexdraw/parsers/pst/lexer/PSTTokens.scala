@@ -26,58 +26,73 @@ import scala.util.parsing.input.Positional
  */
 trait PSTTokens extends Tokens with Parsers {
 
-  abstract case class PSTToken() extends Token with Positional {
-    def getOffset : java.lang.Integer  = this.pos.asInstanceOf[OffsetPosition].offset
-    def getLength : java.lang.Integer = this.toString.length
-  }
+	trait PSTToken extends Token with Positional {
+		def getOffset : java.lang.Integer  = this.pos.asInstanceOf[OffsetPosition].offset
+		def getLength : java.lang.Integer = this.toString.length
+	}
 
-  /** The class of comment tokens */
-  case class Whitespace() extends PSTToken() {
-    override def chars = " "
-    override def toString = " "
-  }
-
-  /** The class of comment tokens */
-  case class Comment(chars: String) extends PSTToken() {
-    override def toString = "%"+chars
-  }
-
-//  /** The class of comment tokens */
-//  case class ERR_MLComment(chars: String) extends PSTToken {
-//    override def toString = "/* "+chars+" */"
-//  }
-  /** The class of delim tokens */
-  case class Delimiter(chars: String) extends PSTToken() {
-    override def toString = chars
-  }
-
-//  /** The class of keyword tokens */
-//  case class Keyword(chars: String) extends PSTToken() {
-//    override def toString = chars
-//  }
-
-  /** The class of numeric literal tokens */
-  case class NumericLit(chars: String) extends PSTToken() {
-    override def toString = chars
-  }
+	/** The class of comment tokens */
+	case class Whitespace() extends PSTToken {
+	  	override def chars = " "
+		override def toString = " "
+	}
 
 
-  /** The class of identifier tokens */
-  case class Identifier(chars: String) extends PSTToken() {
-    override def toString = chars
-  }
+	/** The class of comment tokens */
+	case class Comment(chars : String) extends PSTToken {
+		override def toString = "%"+chars
+	}
 
-  case class KEOF() extends PSTToken() {
-    override def toString = ""
-    override def chars = ' '.toString
-  }
 
-  case class KIncomplet(chars:String, msg:String) extends PSTToken() {
-    override def toString = chars
-  }
+	/** The class of Math mode tokens */
+	case class MathMode(chars : String) extends PSTToken {
+		override def toString = "$"+chars+"$"
+	}
 
-  case class KError(chars: String) extends PSTToken() {
-    override def toString = chars
-    override def getLength = 1
-  }
+
+	/** The class of delim tokens */
+	case class Delimiter(chars : String) extends PSTToken {
+		override def toString = chars
+	}
+
+
+	/** The class of numeric literal tokens */
+	case class NumericLit(chars : String) extends PSTToken {
+		override def toString = chars
+	}
+
+
+	/** The class of identifier tokens */
+	case class Command(chars : String) extends PSTToken {
+		override def toString = "\\" + chars
+	}
+
+
+	/** The class of text tokens */
+	case class Text(chars : String) extends PSTToken {
+		override def toString = chars
+	}
+
+
+	/** The class of identifier tokens */
+	case class Identifier(chars : String) extends PSTToken {
+		override def toString = chars
+	}
+
+
+	case class KEOF() extends PSTToken {
+		override def toString = ""
+		override def chars = ' '.toString
+	}
+
+
+	case class KIncomplet(chars : String, msg : String) extends PSTToken {
+		override def toString = chars
+	}
+
+
+	case class KError(chars : String) extends PSTToken {
+		override def toString = chars
+		override def getLength = 1
+	}
 }

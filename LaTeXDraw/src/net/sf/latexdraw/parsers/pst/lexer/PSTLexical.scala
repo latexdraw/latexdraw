@@ -8,6 +8,7 @@ import scala.util.parsing.combinator.lexical.StdLexical
 import scala.util.parsing.input.CharArrayReader.EofCh
 import scala.util.parsing.input.Position
 import scala.collection.JavaConversions._
+import java.text.ParseException
 
 /**
  * Defines a PSTricks lexical.<br>
@@ -29,52 +30,93 @@ import scala.collection.JavaConversions._
  * @version 3.0
  */
 class PSTLexical extends Lexical with PSTTokens {
-  /** This token is produced by a scanner {@see Scanner} when scanning failed. */
-  override def errorToken(msg: String): PSTToken = new KError(msg)
-
-  def eof = elem("eof", ch => ch == EofCh)
-
-  protected def kident(name: String) : PSTToken = Identifier(name)
-
-  override def whitespace: Parser[Any] = rep(whitespaceChar)
-
-  val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]","=")
-
-  def comment : Parser[PSTToken] = (
-	positioned('%' ~> rep( chrExcept(EofCh, '\n') ) ^^ { case content => Comment(content.mkString) })
-  )
-
-   def identifier : Parser[PSTToken] = (
-    positioned(identChar ~ rep( identChar | digit ) ^^ { case first ~ rest => Identifier((first::rest).mkString) } )
-   )
-
-  // legal identifier chars other than digits
-  def identChar = letter | elem('_')
+	/** This token is produced by a scanner {@see Scanner} when scanning failed. */
+	override def errorToken(msg : String): PSTToken = new KError(msg)
 
 
-  // see `token' in `Scanners'
-  def token: Parser[PSTToken] = (
-     positioned(identifier ^^{ case id => kident(id.toString) })
-     | positioned(comment ^^{ case c => c })
-     | positioned(eof ^^ {case _ => KEOF() })
-     | positioned(delim)
-     /* | floatingToken*/
-     |  positioned( elem("illegal character", p => true ) ^^^KError("illegal character") ) //  failure("illegal character"))
-    )
+	def eof = elem("eof", ch => ch == EofCh)
 
 
-  private lazy val _delim: Parser[PSTToken] = {
-    // construct parser for delimiters by |'ing together the parsers for the individual delimiters,
-    // starting with the longest one -- otherwise a delimiter D will never be matched if there is
-    // another delimiter that is a prefix of D
-    def parseDelim(s: String): Parser[PSTToken] = positioned(accept(s.toList) ^^ { x => Delimiter(s) })
-
-    val d = new Array[String](delimiters.size)
-    delimiters.copyToArray(d, 0)
-    scala.util.Sorting.quickSort(d)
-    (d.toList map parseDelim).foldRight(failure("no matching delimiter") : Parser[PSTToken])((x, y) => y | x)
-  }
+	override def whitespace : Parser[Any] = rep(whitespaceChar)
 
 
-  protected def delim: Parser[PSTToken] = _delim
+ 	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
+
+
+ 	def command : Parser[PSTToken] = (
+		positioned('\\' ~> identifier ~ opt('*') ^^ {
+			case name ~ star =>
+				star match {
+					case Some(_) => Command(name.chars + '*')
+					case None => Command(name.chars)
+				}
+		})
+	)
+
+
+	def specialCommand : Parser[PSTToken] =  (
+		positioned('\\' ~> (elem('_')|elem('&')|elem('=')|elem('~')|elem('$')|elem('^')|elem('{')|elem('}')|
+				elem('%')|elem('#')|elem('\\')|elem('\"')|elem('\'')|elem('*')|elem(',')|elem('.')|
+				elem('/')|elem('@')|elem('`')) ^^ {case char => Text(char.toString) })
+	)
+
+
+	def comment : Parser[PSTToken] = (
+		positioned('%' ~> rep(chrExcept(EofCh, '\n')) ^^ { case content => Comment(content.mkString) })
+	)
+
+
+	def mathMode : Parser[MathMode] = (
+		positioned('$' ~> mathModeMultiLine ^^ { case math => MathMode("$"+math.chars) }) |
+		positioned('\\' ~> '(' ~> mathModeParenthesisMultiLine ^^ { case math => MathMode("\\("+math.chars) }) |
+		positioned('\\' ~> '[' ~> mathModeBracketsMultiLine ^^ { case math => MathMode("\\["+math.chars) })
+	)
+
+
+	protected def mathModeMultiLine : Parser[MathMode] = (
+		'$' ^^ { case _ => MathMode("$")  } | chrExcept(EofCh) ~ mathModeMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
+	)
+
+
+	protected def mathModeParenthesisMultiLine : Parser[MathMode] = (
+		'\\' ~ ')' ^^ { case _ => MathMode("\\)")  } | chrExcept(EofCh) ~ mathModeParenthesisMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
+	)
+
+
+	protected def mathModeBracketsMultiLine : Parser[MathMode] = (
+		'\\' ~ ']' ^^ { case _ => MathMode("\\]")  } | chrExcept(EofCh) ~ mathModeBracketsMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
+	)
+
+
+	def identifier : Parser[Identifier] = ( positioned(rep1(letter) ^^ {case chars => Identifier(chars.mkString)}) )
+
+
+	// see `token' in `Scanners'
+	def token: Parser[PSTToken] = (
+		positioned(identifier)
+		| positioned(mathMode)
+		| positioned(comment)
+		| positioned(command)
+		| positioned(specialCommand)
+		| positioned(eof ^^ {case _ => KEOF() })
+		| positioned('$' ^^ {case _ => throw new  ParseException("Unclosed math expression (a closing $ is missing).", -1) })
+		| positioned(delim)
+		| positioned(elem("illegal character", p => true) ^^^ KError("Illegal character"))
+	)
+
+
+	private lazy val _delim : Parser[PSTToken] = {
+		// construct parser for delimiters by |'ing together the parsers for the individual delimiters,
+		// starting with the longest one -- otherwise a delimiter D will never be matched if there is
+		// another delimiter that is a prefix of D
+		def parseDelim(str : String) : Parser[PSTToken] = positioned(accept(str.toList) ^^ { x => Delimiter(str) })
+
+	    val d = new Array[String](delimiters.size)
+	    delimiters.copyToArray(d, 0)
+	    scala.util.Sorting.quickSort(d)
+	    (d.toList map parseDelim).foldRight(failure("no matching delimiter") : Parser[PSTToken])((x, y) => y | x)
+	}
+
+
+	protected def delim: Parser[PSTToken] = _delim
 }

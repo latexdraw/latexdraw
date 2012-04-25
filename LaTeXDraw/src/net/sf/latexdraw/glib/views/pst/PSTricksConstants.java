@@ -3,6 +3,14 @@ package net.sf.latexdraw.glib.views.pst;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
+import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
+import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
+import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
+import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
+
 /**
  * This class contains several constants of pstricks<br>
  *<br>
@@ -86,13 +94,13 @@ public abstract class PSTricksConstants {
 	/** The text to display when the axes must not be shown. */
 	public static final String TOKEN_AXES_STYLE_NONE 	= "none";//$NON-NLS-1$
 
-	public static final String DEFAULT_AXES_STYLE = TOKEN_AXES_STYLE_AXES;
+	public static final AxesStyle DEFAULT_AXES_STYLE = AxesStyle.AXES;
 
-	public static final String DEFAULT_TICKS_STYLE = TOKEN_TICKS_STYLE_FULL;
+	public static final TicksStyle DEFAULT_TICKS_STYLE = TicksStyle.FULL;
 
-	public static final String DEFAULT_LABELS_DISPLAYED = TOKEN_LABELS_DISPLAYED_ALL;
+	public static final PlottingStyle DEFAULT_LABELS_DISPLAYED = PlottingStyle.ALL;
 
-	public static final String DEFAULT_TICKS_DISPLAYED = TOKEN_LABELS_DISPLAYED_ALL;
+	public static final PlottingStyle DEFAULT_TICKS_DISPLAYED = PlottingStyle.ALL;
 
 	/** The first colour of a gradient by default. */
 	public static final Color DEFAULT_GRADIENT_START_COLOR = new Color(0, (int)(.1*255), (int)(.95*255));
@@ -297,7 +305,7 @@ public abstract class PSTricksConstants {
 	public static final double DEFAULT_CRUVATURE_NUM3 = 0;
 
 	/** The type of the dot by default */
-	public static final String DEFAULT_DOT_STYLE = DOT_STYLE;
+	public static final DotStyle DEFAULT_DOT_STYLE = DotStyle.DOT;
 
 	/** The scale of the dot by default */
 	public static final double DEFAULT_DOT_SCALE1 = 1;
@@ -330,7 +338,7 @@ public abstract class PSTricksConstants {
 	public static final String BORDERS_MIDDLE = "middle"; //$NON-NLS-1$
 
 	/** The position of the borders by default */
-	public static final String DEFAULT_BORDERS_POS = BORDERS_INSIDE;
+	public static final BorderPos DEFAULT_BORDERS_POS = BorderPos.INTO;
 
 	/** The colour of the double boundary of the figure by default */
 	public static final Color DEFAULT_DOUBLE_COLOR = Color.WHITE;
@@ -383,7 +391,7 @@ public abstract class PSTricksConstants {
 	public static final String LINE_SOLID_STYLE = "solid"; //$NON-NLS-1$
 
 	/** The style of the lines by default */
-	public static final String DEFAULT_LINE_STYLE = LINE_NONE_STYLE;
+	public static final LineStyle DEFAULT_LINE_STYLE = LineStyle.NONE;
 
 	/** The black-white dash pattern for the dashed line style (in cm) */
 	public static final double DEFAULT_DASH_BLACK = 5./CM_VAL_PT;
@@ -419,7 +427,7 @@ public abstract class PSTricksConstants {
 	public static final Color DEFAULT_SHADOW_COLOR = Color.DARK_GRAY;
 
 	/** The type of the fill by default */
-	public static final String DEFAULT_FILL_STYLE = "none"; //$NON-NLS-1$
+	public static final FillingStyle DEFAULT_FILL_STYLE = FillingStyle.NONE;
 
 	/** The colour of the filling */
 	public static final Color DEFAULT_FILL_COLOR = Color.WHITE;

@@ -1,8 +1,8 @@
 package net.sf.latexdraw.parsers.pst.parser
 
+import java.text.ParseException
+
 import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.parsers.pst.parser.sub.PSTAbstractParser
-import net.sf.latexdraw.parsers.pst.parser.sub.PSTCodeParser
 
 /**
  * Defines a PST parser.<br>
@@ -24,14 +24,14 @@ import net.sf.latexdraw.parsers.pst.parser.sub.PSTCodeParser
  * @version 3.0
  */
 class PSTParser extends PSTAbstractParser with PSTCodeParser {
-
+	@throws(classOf[ParseException])
 	def parsePSTCode(content: String): Option[IGroup] = {
 		val tokens = new lexical.Scanner(content + "\n")
-		val result = phrase(parsePSTCode)(tokens)
+		val result = phrase(parsePSTCode(new PSTContext()))(tokens)
 
 		result match {
 			case Success(tree, _) => Some(tree)
-			case e: NoSuccess => None
+			case e: NoSuccess => throw new ParseException(result.toString, -1)
 		}
 	}
 }

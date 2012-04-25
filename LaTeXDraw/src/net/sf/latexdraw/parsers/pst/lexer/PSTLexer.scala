@@ -20,13 +20,13 @@ package net.sf.latexdraw.parsers.pst.lexer
  * @version 3.0
  */
 class PSTLexer(content : String) extends PSTLexical {
-  var tokens = new Scanner(content)
+	var tokens = new Scanner(content)
 
-  def nextToken : PSTToken = {
-    val tok = tokens.first
-    tokens = tokens.rest
-    tok.asInstanceOf[PSTToken]
-  }
+	def nextToken : PSTToken = {
+		val tok = tokens.first
+		tokens = tokens.rest
+		tok.asInstanceOf[PSTToken]
+	}
 
-  def atEnd = tokens.atEnd
+	def atEnd = tokens.atEnd
 }
