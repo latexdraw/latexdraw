@@ -35,7 +35,7 @@ trait PSTCodeParser extends PSTAbstractParser with PSTCommandParam2PosParser {
 		val group = DrawingTK.getFactory.createGroup(false)
 
 		list.foreach{_ match {
-				case gp : IGroup => gp.getShapes.foreach{sh => group.addShape(sh)}
+				case gp : List[_] => gp.foreach{sh => group.addShape(sh.asInstanceOf[IShape])}
 				case sh : IShape => group.addShape(sh)
 				case str: String => val txt = DrawingTK.getFactory.createText(true); txt.setText(str); group.addShape(txt)
 				case _ =>

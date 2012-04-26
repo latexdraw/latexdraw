@@ -8,6 +8,8 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IDot
 import java.awt.Color
+import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
+import net.sf.latexdraw.glib.models.interfaces.IGrid
 
 /**
  * The companion the PSTContext used to encapsulate attributes shared by all the instances.<br>
@@ -30,8 +32,11 @@ import java.awt.Color
  */
 object PSTContext {
 	private var isCentered = false
+
 	private var pictureSWPt : Point2D = new Point2D.Double()
+
 	private var pictureNEPt : Point2D = new Point2D.Double()
+
 	private var tokenPosition = ""
 }
 
@@ -56,94 +61,56 @@ object PSTContext {
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class PSTContext {
-	var axesStyle 	= PSTricksConstants.DEFAULT_AXES_STYLE
-	var arrowStyle 	= new ListBuffer[IArrow.ArrowStyle]
-	var arrowSizeD 	= PSTricksConstants.DEFAULT_ARROW_SIZE_DIM
-	var arrowSizeN 	= PSTricksConstants.DEFAULT_ARROW_SIZE_NUM
-	var arrowLgth 	= PSTricksConstants.DEFAULT_ARROW_LENGTH
-	var arrowInset 	= PSTricksConstants.DEFAULT_ARROW_INSET
-	var arrowTBarSD	= PSTricksConstants.DEFAULT_ARROW_TBARSIZE_DIM
-	var arrowTBarSN = PSTricksConstants.DEFAULT_ARROW_TBARSIZE_NUM
-	var arrowBrLgth = PSTricksConstants.DEFAULT_ARROW_BRACKET_LGTH
-	var arrowrBrLgth= PSTricksConstants.DEFAULT_ARROW_RBRACKET_LGTH
-	var arrowDotSD	= PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM
-	var arrowDotSN 	= PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM
-	var arrowScale1 = PSTricksConstants.DEFAULT_ARROW_SCALE1
-	var arrowScale2 = PSTricksConstants.DEFAULT_ARROW_SCALE2
-	var arcSep 		= PSTricksConstants.DEFAULT_ARC_SEP
-	var arcSepA 	= PSTricksConstants.DEFAULT_ARC_SEP_A
-	var arcSepB 	= PSTricksConstants.DEFAULT_ARC_SEP_B
-	var boxSep		= PSTricksConstants.DEFAULT_BOX_SEP
-	var borderColor = PSTricksConstants.DEFAULT_BORDER_COLOR
-	var borderPos	= PSTricksConstants.DEFAULT_BORDERS_POS
-	var border 		= PSTricksConstants.DEFAULT_BORDER
-	var curvature1 	= PSTricksConstants.DEFAULT_CURVATURE_NUM1
-	var curvature2 	= PSTricksConstants.DEFAULT_CRUVATURE_NUM2
-	var curvature3 	= PSTricksConstants.DEFAULT_CRUVATURE_NUM3
-	var dxIncrement = PSTricksConstants.DEFAULT_DX
-	var dyIncrement = PSTricksConstants.DEFAULT_DY
-	var dxLabelDist = PSTricksConstants.DEFAULT_DIST_X_LABEL
-	var dyLabelDist = PSTricksConstants.DEFAULT_DIST_Y_LABEL
-	var dotStyle	= PSTricksConstants.DEFAULT_DOT_STYLE
-	var dotScale1	= PSTricksConstants.DEFAULT_DOT_SCALE1
-	var dotScale2	= PSTricksConstants.DEFAULT_DOT_SCALE2
-	var dotAngle	= PSTricksConstants.DEFAULT_DOT_ANGLE
-	var dotStep		= PSTricksConstants.DEFAULT_DOT_STEP
-	var dashBlack	= PSTricksConstants.DEFAULT_DASH_BLACK
-	var dashWhite	= PSTricksConstants.DEFAULT_DASH_WHITE
-	var dbleLine	= PSTricksConstants.DEFAULT_DOUBLE_LINE
-	var dbleSep		= PSTricksConstants.DEFAULT_DOUBLE_SEP
-	var dbleColor	= PSTricksConstants.DEFAULT_DOUBLE_COLOR
-	var degrees		= PSTricksConstants.DEFAULT_DEGREES
-	var frameSep	= PSTricksConstants.DEFAULT_FRAME_SEP
-	var frameArc	= PSTricksConstants.DEFAULT_FRAME_ARC
-	var fillStyle	= PSTricksConstants.DEFAULT_FILL_STYLE
-	var fillColor	= PSTricksConstants.DEFAULT_FILL_COLOR
-	var gridWidth	= PSTricksConstants.DEFAULT_GRID_WIDTH
-	var gridLabel	= PSTricksConstants.DEFAULT_GRID_LABEL/PSTricksConstants.CM_VAL_PT
-	var gridDots	= PSTricksConstants.DEFAULT_GRIDDOTS
-	var gradAngle	= PSTricksConstants.DEFAULT_GRADIENT_ANGLE
-	var gridColor	= PSTricksConstants.DEFAULT_GRIDCOLOR
-	var gradMidPoint= PSTricksConstants.DEFAULT_GRADIENT_MID_POINT
-	var gradBegin	= PSTricksConstants.DEFAULT_GRADIENT_START_COLOR
-	var gradEnd		= PSTricksConstants.DEFAULT_GRADIENT_END_COLOR
-	var gradLines	= PSTricksConstants.DEFAULT_GRADIENT_LINES
-	var gangle		= PSTricksConstants.DEFAULT_GANGLE
-	var hatchWidth	= PSTricksConstants.DEFAULT_HATCH_WIDTH
-	var hatchSep	= PSTricksConstants.DEFAULT_HATCH_SEP
-	var hatchCol	= PSTricksConstants.DEFAULT_HATCHING_COLOR
-	var hatchAngle	= PSTricksConstants.DEFAULT_HATCH_ANGLE
-	var isCornerRel	= PSTricksConstants.DEFAULT_CORNER_SIZE_RELATIVE
-	var isShadow	= PSTricksConstants.DEFAULT_SHADOW
-	var lineWidth	= PSTricksConstants.DEFAULT_LINE_WIDTH
-	var lineColor	= PSTricksConstants.DEFAULT_LINE_COLOR
-	var labelsGridCol= PSTricksConstants.DEFAULT_LABELGRIDCOLOR
-	var labels		= PSTricksConstants.DEFAULT_LABELS_DISPLAYED
-	var lineArc		= PSTricksConstants.DEFAULT_LINE_ARC
-	var lineStyle	= PSTricksConstants.DEFAULT_LINE_STYLE
-	var ox			= PSTricksConstants.DEFAULT_OX
-	var oy			= PSTricksConstants.DEFAULT_OY
-	var onRadians	= PSTricksConstants.DEFAULT_ON_RADIANS
-	var origin : Point2D = new Point2D.Double(PSTricksConstants.DEFAULT_ORIGIN.getX, PSTricksConstants.DEFAULT_ORIGIN.getY)
-	var specialCoor	= PSTricksConstants.DEFAULT_SPECIAL_COOR
-	var showPoints	= PSTricksConstants.DEFAULT_SHOW_POINTS
-	var showOrigin	= PSTricksConstants.DEFAULT_SHOW_ORIGIN
-	var subGridWidth= PSTricksConstants.DEFAULT_SUB_GRID_WIDTH
-	var swapAxes	= PSTricksConstants.DEFAULT_SWAP_AXES
-	var shadowCol	= PSTricksConstants.DEFAULT_SHADOW_COLOR
-	var subGridCol	= PSTricksConstants.DEFAULT_SUB_GRID_COLOR
-	var shadowAngle	= PSTricksConstants.DEFAULT_SHADOW_ANGLE
-	var shadowSize	= PSTricksConstants.DEFAULT_SHADOW_SIZE
-	var subGridDots = PSTricksConstants.DEFAULT_SUBGRIDDOTS
-	var subGridDiv	= PSTricksConstants.DEFAULT_SUBGRIDDIV
-	var ticks		= PSTricksConstants.DEFAULT_TICKS_DISPLAYED
-	var ticksStyle	= PSTricksConstants.DEFAULT_TICKS_STYLE
-	var ticksSize	= PSTricksConstants.DEFAULT_TICKS_SIZE
-	var unit		= PSTricksConstants.DEFAULT_UNIT
-	var xUnit		= PSTricksConstants.DEFAULT_UNIT
-	var yUnit		= PSTricksConstants.DEFAULT_UNIT
-	var textColor	= Color.BLACK
+class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IArrow.ArrowStyle], var arrowSizeD : Double,
+		var arrowSizeN : Double, var arrowLgth : Double, var arrowInset : Double, var arrowTBarSD : Double, var arrowTBarSN : Double,
+		var arrowBrLgth : Double, var arrowrBrLgth : Double, var arrowDotSD : Double, var arrowDotSN : Double, var arrowScale1 : Double,
+		var arrowScale2 : Double, var arcSep : Double, var arcSepA : Double, var arcSepB : Double, var boxSep : Boolean,
+		var borderColor : Color, var borderPos : IShape.BorderPos, var border : Double, var curvature1 : Double, var curvature2 : Double,
+		var curvature3 : Double, var dxIncrement : Double, var dyIncrement : Double, var dxLabelDist : Double, var dyLabelDist : Double,
+		var dotStyle : IDot.DotStyle, var dotScale1 : Double, var dotScale2 : Double, var dotAngle : Double, var dotStep : Double,
+		var dashBlack : Double, var dashWhite : Double, var dbleLine : Boolean, var dbleSep : Double, var dbleColor : Color,
+		var degrees : Double, var frameSep : Double, var frameArc : Double, var fillStyle : IShape.FillingStyle, var fillColor : Color,
+		var gridWidth : Double, var gridLabel : Double, var gridDots : Double, var gradAngle : Double, var gridColor : Color,
+		var gradMidPoint : Double, var gradBegin : Color, var gradEnd : Color, var gradLines : Double, var gangle : Double,
+		var hatchWidth : Double, var hatchSep : Double, var hatchCol : Color, var hatchAngle : Double, var isCornerRel : Boolean, var isShadow : Boolean,
+		var lineWidth : Double, var lineColor : Color, var labelsGridCol : Color, var labels : IAxes.PlottingStyle, var lineArc : Double,
+		var lineStyle : IShape.LineStyle, var ox : Double, var oy : Double, var onRadians : Boolean, var origin : Point2D, var specialCoor : Boolean,
+		var showPoints : Boolean, var showOrigin : Boolean, var subGridWidth : Double, var swapAxes : Boolean, var shadowCol : Color,
+		var subGridCol : Color, var shadowAngle : Double, var shadowSize : Double, var subGridDots : Double, var subGridDiv : Double,
+		var ticks : IAxes.PlottingStyle, var ticksStyle : IAxes.TicksStyle, var ticksSize : Double, var unit : Double, var xUnit : Double,
+		var yUnit : Double, var textColor : Color, var shadow : Boolean, var gridlabelcolor : Color) {
+
+	def this() {
+		this(PSTricksConstants.DEFAULT_AXES_STYLE, new ListBuffer[IArrow.ArrowStyle], PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
+			PSTricksConstants.DEFAULT_ARROW_SIZE_NUM, PSTricksConstants.DEFAULT_ARROW_LENGTH, PSTricksConstants.DEFAULT_ARROW_INSET,
+			PSTricksConstants.DEFAULT_ARROW_TBARSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_TBARSIZE_NUM, PSTricksConstants.DEFAULT_ARROW_BRACKET_LGTH,
+			PSTricksConstants.DEFAULT_ARROW_RBRACKET_LGTH, PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM,
+			PSTricksConstants.DEFAULT_ARROW_SCALE1, PSTricksConstants.DEFAULT_ARROW_SCALE2, PSTricksConstants.DEFAULT_ARC_SEP,
+			PSTricksConstants.DEFAULT_ARC_SEP_A, PSTricksConstants.DEFAULT_ARC_SEP_B, PSTricksConstants.DEFAULT_BOX_SEP,
+			PSTricksConstants.DEFAULT_BORDER_COLOR, PSTricksConstants.DEFAULT_BORDERS_POS, PSTricksConstants.DEFAULT_BORDER,
+			PSTricksConstants.DEFAULT_CURVATURE_NUM1, PSTricksConstants.DEFAULT_CRUVATURE_NUM2, PSTricksConstants.DEFAULT_CRUVATURE_NUM3,
+			PSTricksConstants.DEFAULT_DX, PSTricksConstants.DEFAULT_DY, PSTricksConstants.DEFAULT_DIST_X_LABEL, PSTricksConstants.DEFAULT_DIST_Y_LABEL,
+			PSTricksConstants.DEFAULT_DOT_STYLE, PSTricksConstants.DEFAULT_DOT_SCALE1, PSTricksConstants.DEFAULT_DOT_SCALE2,
+			PSTricksConstants.DEFAULT_DOT_ANGLE, PSTricksConstants.DEFAULT_DOT_STEP, PSTricksConstants.DEFAULT_DASH_BLACK,
+			PSTricksConstants.DEFAULT_DASH_WHITE, PSTricksConstants.DEFAULT_DOUBLE_LINE, PSTricksConstants.DEFAULT_DOUBLE_SEP,
+			PSTricksConstants.DEFAULT_DOUBLE_COLOR, PSTricksConstants.DEFAULT_DEGREES, PSTricksConstants.DEFAULT_FRAME_SEP, PSTricksConstants.DEFAULT_FRAME_ARC,
+			PSTricksConstants.DEFAULT_FILL_STYLE, PSTricksConstants.DEFAULT_FILL_COLOR, PSTricksConstants.DEFAULT_GRID_WIDTH,
+			PSTricksConstants.DEFAULT_GRID_LABEL/PSTricksConstants.CM_VAL_PT, PSTricksConstants.DEFAULT_GRIDDOTS, PSTricksConstants.DEFAULT_GRADIENT_ANGLE,
+			PSTricksConstants.DEFAULT_GRIDCOLOR, PSTricksConstants.DEFAULT_GRADIENT_MID_POINT, PSTricksConstants.DEFAULT_GRADIENT_START_COLOR,
+			PSTricksConstants.DEFAULT_GRADIENT_END_COLOR, PSTricksConstants.DEFAULT_GRADIENT_LINES, PSTricksConstants.DEFAULT_GANGLE,
+			PSTricksConstants.DEFAULT_HATCH_WIDTH, PSTricksConstants.DEFAULT_HATCH_SEP, PSTricksConstants.DEFAULT_HATCHING_COLOR,
+			PSTricksConstants.DEFAULT_HATCH_ANGLE, PSTricksConstants.DEFAULT_CORNER_SIZE_RELATIVE, PSTricksConstants.DEFAULT_SHADOW,
+			PSTricksConstants.DEFAULT_LINE_WIDTH, PSTricksConstants.DEFAULT_LINE_COLOR, PSTricksConstants.DEFAULT_LABELGRIDCOLOR,
+			PSTricksConstants.DEFAULT_LABELS_DISPLAYED, PSTricksConstants.DEFAULT_LINE_ARC, PSTricksConstants.DEFAULT_LINE_STYLE,
+			PSTricksConstants.DEFAULT_OX, PSTricksConstants.DEFAULT_OY, PSTricksConstants.DEFAULT_ON_RADIANS,
+			new Point2D.Double(PSTricksConstants.DEFAULT_ORIGIN.getX, PSTricksConstants.DEFAULT_ORIGIN.getY), PSTricksConstants.DEFAULT_SPECIAL_COOR,
+			PSTricksConstants.DEFAULT_SHOW_POINTS, PSTricksConstants.DEFAULT_SHOW_ORIGIN, PSTricksConstants.DEFAULT_SUB_GRID_WIDTH,
+			PSTricksConstants.DEFAULT_SWAP_AXES, PSTricksConstants.DEFAULT_SHADOW_COLOR, PSTricksConstants.DEFAULT_SUB_GRID_COLOR,
+			PSTricksConstants.DEFAULT_SHADOW_ANGLE, PSTricksConstants.DEFAULT_SHADOW_SIZE, PSTricksConstants.DEFAULT_SUBGRIDDOTS,
+			PSTricksConstants.DEFAULT_SUBGRIDDIV, PSTricksConstants.DEFAULT_TICKS_DISPLAYED, PSTricksConstants.DEFAULT_TICKS_STYLE,
+			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
+			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR)
+	}
 //	var textItalic
 //	var textBold
 //	var textEnc
@@ -153,106 +120,47 @@ class PSTContext {
 //	var textSize	= PSTricksConstants.COMMAND_TEXT_NORMAL
 //	var textParsed
 
-
 	/**
 	 * Creates the PST context by copying the given one.
 	 */
 	def this(model : PSTContext) {
-		this()
-		copy(model)
+		this(model.axesStyle, model.arrowStyle.clone, model.arrowSizeD, model.arrowSizeN, model.arrowLgth, model.arrowInset, model.arrowTBarSD,
+			 model.arrowTBarSN, model.arrowBrLgth, model.arrowrBrLgth, model.arrowDotSD, model.arrowDotSN, model.arrowScale1, model.arrowScale2,
+			 model.arcSep, model.arcSepA, model.arcSepB, model.boxSep, model.borderColor, model.borderPos, model.border, model.curvature1,
+			 model.curvature2, model.curvature3, model.dxIncrement, model.dyIncrement, model.dxLabelDist, model.dyLabelDist, model.dotStyle,
+			  model.dotScale1,  model.dotScale2, model.dotAngle, model.dotStep, model.dashBlack, model.dashWhite, model.dbleLine, model.dbleSep,
+			  model.dbleColor, model.degrees,
+			  model.frameSep, model.frameArc, model.fillStyle, model.fillColor, model.gridWidth, model.gridLabel, model.gridDots, model.gradAngle,
+			  model.gridColor, model.gradMidPoint, model.gradBegin, model.gradEnd, model.gradLines, model.gangle, model.hatchWidth, model.hatchSep,
+			  model.hatchCol, model.hatchAngle, model.isCornerRel, model.isShadow, model.lineWidth, model.lineColor, model.labelsGridCol,
+			  model.labels, model.lineArc, model.lineStyle, model.ox, model.oy, model.onRadians, new Point2D.Double(model.origin.getX, model.origin.getY),
+			  model.specialCoor, model.showPoints, model.showOrigin, model.subGridWidth, model.swapAxes, model.shadowCol, model.subGridCol,
+			  model.shadowAngle, model.shadowSize, model.subGridDots, model.subGridDiv, model.ticks, model.ticksStyle, model.ticksSize, model.unit,
+			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor)
 	}
 
 
-	/**
-	 * Copies the current PST context using the given one.
-	 */
-	def copy(model : PSTContext) {
-		axesStyle 	= model.axesStyle
-		arrowStyle 	= model.arrowStyle.clone
-		arrowSizeD 	= model.arrowSizeD
-		arrowSizeN 	= model.arrowSizeN
-		arrowLgth 	= model.arrowLgth
-		arrowInset 	= model.arrowInset
-		arrowTBarSD	= model.arrowTBarSD
-		arrowTBarSN = model.arrowTBarSN
-		arrowBrLgth = model.arrowBrLgth
-		arrowrBrLgth= model.arrowrBrLgth
-		arrowDotSD	= model.arrowDotSD
-		arrowDotSN 	= model.arrowDotSN
-		arrowScale1 = model.arrowScale1
-		arrowScale2 = model.arrowScale2
-		arcSep 		= model.arcSep
-		arcSepA 	= model.arcSepA
-		arcSepB 	= model.arcSepB
-		boxSep		= model.boxSep
-		borderColor = model.borderColor
-		borderPos	= model.borderPos
-		border 		= model.border
-		curvature1 	= model.curvature1
-		curvature2 	= model.curvature2
-		curvature3 	= model.curvature3
-		dxIncrement = model.dxIncrement
-		dyIncrement = model.dyIncrement
-		dxLabelDist = model.dxLabelDist
-		dyLabelDist = model.dyLabelDist
-		dotStyle	= model.dotStyle
-		dotScale1	= model.dotScale1
-		dotScale2	= model.dotScale2
-		dotAngle	= model.dotAngle
-		dotStep		= model.dotStep
-		dashBlack	= model.dashBlack
-		dashWhite	= model.dashWhite
-		dbleLine	= model.dbleLine
-		dbleSep		= model.dbleSep
-		dbleColor	= model.dbleColor
-		degrees		= model.degrees
-		frameSep	= model.frameSep
-		frameArc	= model.frameArc
-		fillStyle	= model.fillStyle
-		fillColor	= model.fillColor
-		gridWidth	= model.gridWidth
-		gridLabel	= model.gridLabel
-		gridDots	= model.gridDots
-		gradAngle	= model.gradAngle
-		gridColor	= model.gridColor
-		gradMidPoint= model.gradMidPoint
-		gradBegin	= model.gradBegin
-		gradEnd		= model.gradEnd
-		gradLines	= model.gradLines
-		gangle		= model.gangle
-		hatchWidth	= model.hatchWidth
-		hatchSep	= model.hatchSep
-		hatchCol	= model.hatchCol
-		hatchAngle	= model.hatchAngle
-		isCornerRel	= model.isCornerRel
-		isShadow	= model.isShadow
-		lineWidth	= model.lineWidth
-		lineColor	= model.lineColor
-		labelsGridCol= model.labelsGridCol
-		labels		= model.labels
-		lineArc		= model.lineArc
-		lineStyle	= model.lineStyle
-		ox			= model.ox
-		oy			= model.oy
-		onRadians	= model.onRadians
-		origin		= new Point2D.Double(model.origin.getX, model.origin.getY)
-		specialCoor	= model.specialCoor
-		showPoints	= model.showPoints
-		showOrigin	= model.showOrigin
-		subGridWidth= model.subGridWidth
-		swapAxes	= model.swapAxes
-		shadowCol	= model.shadowCol
-		subGridCol	= model.subGridCol
-		shadowAngle	= model.shadowAngle
-		shadowSize	= model.shadowAngle
-		subGridDots = model.subGridDots
-		subGridDiv	= model.subGridDiv
-		ticks		= model.ticks
-		ticksStyle	= model.ticksStyle
-		ticksSize	= model.ticksSize
-		unit		= model.unit
-		xUnit		= model.xUnit
-		yUnit		= model.yUnit
-		textColor	= model.textColor
+	def setParam(name : String, value : Any) {
+		if(name!=null)
+			name match {
+				case "boxsep" if(value.isInstanceOf[Boolean]) => boxSep = value.asInstanceOf[Boolean]
+				case "showpoints" if(value.isInstanceOf[Boolean]) => showPoints = value.asInstanceOf[Boolean]
+				case "swapaxes" if(value.isInstanceOf[Boolean]) => swapAxes = value.asInstanceOf[Boolean]
+				case "doubleline" if(value.isInstanceOf[Boolean]) => dbleLine = value.asInstanceOf[Boolean]
+				case "shadow" if(value.isInstanceOf[Boolean]) => shadow = value.asInstanceOf[Boolean]
+				case "showorigin" if(value.isInstanceOf[Boolean]) => showOrigin = value.asInstanceOf[Boolean]
+				case "linecolor" if(value.isInstanceOf[Color]) => lineColor = value.asInstanceOf[Color]
+				case "fillcolor" if(value.isInstanceOf[Color]) => fillColor = value.asInstanceOf[Color]
+				case "gridColor" if(value.isInstanceOf[Color]) => gridColor = value.asInstanceOf[Color]
+				case "gridlabelcolor" if(value.isInstanceOf[Color]) => gridlabelcolor = value.asInstanceOf[Color]
+				case "subgridcolor" if(value.isInstanceOf[Color]) => subGridCol = value.asInstanceOf[Color]
+				case "bordercolor" if(value.isInstanceOf[Color]) => borderColor = value.asInstanceOf[Color]
+				case "doublecolor" if(value.isInstanceOf[Color]) => dbleColor = value.asInstanceOf[Color]
+				case "shadowcolor" if(value.isInstanceOf[Color]) => shadowCol = value.asInstanceOf[Color]
+				case "hatchcolor" if(value.isInstanceOf[Color]) => hatchCol = value.asInstanceOf[Color]
+				case "gradend" if(value.isInstanceOf[Color]) => gradEnd = value.asInstanceOf[Color]
+				case "gradbegin" if(value.isInstanceOf[Color]) => gradBegin = value.asInstanceOf[Color]
+				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
+			}
 	}
 }

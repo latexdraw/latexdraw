@@ -47,8 +47,8 @@ class PSTLexical extends Lexical with PSTTokens {
 		positioned('\\' ~> identifier ~ opt('*') ^^ {
 			case name ~ star =>
 				star match {
-					case Some(_) => Command(name.chars + '*')
-					case None => Command(name.chars)
+					case Some(_) => Command("\\" + name.chars + '*')
+					case None => Command("\\" + name.chars)
 				}
 		})
 	)

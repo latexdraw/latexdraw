@@ -1,8 +1,8 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import java.text.ParseException
-
 import net.sf.latexdraw.glib.models.interfaces.IGroup
+import scala.collection.mutable.ListBuffer
 
 /**
  * Defines a PST parser.<br>
@@ -25,13 +25,35 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup
  */
 class PSTParser extends PSTAbstractParser with PSTCodeParser {
 	@throws(classOf[ParseException])
-	def parsePSTCode(content: String): Option[IGroup] = {
+	def parsePSTCode(content : String) : Option[IGroup] = {
 		val tokens = new lexical.Scanner(content + "\n")
 		val result = phrase(parsePSTCode(new PSTContext()))(tokens)
+
+		PSTParser._errorLogs.foreach{msg => println(msg)}
 
 		result match {
 			case Success(tree, _) => Some(tree)
 			case e: NoSuccess => throw new ParseException(result.toString, -1)
 		}
 	}
+}
+
+
+/**
+ * Companion object of the PST parser used to encapsulate shared elements.
+ */
+object PSTParser {
+	protected val _errorLogs = ListBuffer[String]()
+
+	/**
+	 * Adds the given message to the error loggers.
+	 */
+	def errorLogs_+=(msg : String) {
+		if(_errorLogs!=null)
+			_errorLogs += msg
+	}
+
+
+	/** The error logger. */
+	def errorLogs = _errorLogs
 }
