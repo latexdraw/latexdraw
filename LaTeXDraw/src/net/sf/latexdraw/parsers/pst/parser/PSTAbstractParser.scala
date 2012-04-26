@@ -76,6 +76,13 @@ trait PSTAbstractParser extends TokenParsers {
 			sh.setDbleBordCol(ctx.dbleColor)
 			sh.setDbleBordSep(ctx.dbleSep)
 		}
+
+		if(sh.isShadowable) {
+			sh.setHasShadow(ctx.shadow)
+			sh.setShadowAngle(ctx.shadowAngle)
+			sh.setShadowCol(ctx.shadowCol)
+			sh.setShadowSize(ctx.shadowSize)
+		}
 	}
 
 
