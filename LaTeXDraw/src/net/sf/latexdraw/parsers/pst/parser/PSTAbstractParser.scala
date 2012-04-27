@@ -71,6 +71,8 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	protected def setShapeGeneralParameters(sh : IShape, ctx : PSTContext) {
+		sh.setLineColour(ctx.lineColor)
+
 		if(sh.isDbleBorderable) {
 			sh.setHasDbleBord(ctx.dbleLine)
 			sh.setDbleBordCol(ctx.dbleColor)
@@ -82,6 +84,19 @@ trait PSTAbstractParser extends TokenParsers {
 			sh.setShadowAngle(ctx.shadowAngle)
 			sh.setShadowCol(ctx.shadowCol)
 			sh.setShadowSize(ctx.shadowSize)
+		}
+
+		if(sh.isInteriorStylable) {
+			sh.setFillingCol(ctx.fillColor)
+			sh.setFillingStyle(ctx.fillStyle)
+			sh.setGradAngle(ctx.gradAngle)
+			sh.setGradColEnd(ctx.gradEnd)
+			sh.setGradColStart(ctx.gradBegin)
+			sh.setGradMidPt(ctx.gradMidPoint)
+			sh.setHatchingsAngle(ctx.hatchAngle)
+			sh.setHatchingsCol(ctx.hatchCol)
+			sh.setHatchingsSep(ctx.hatchSep)
+			sh.setHatchingsWidth(ctx.hatchWidth)
 		}
 	}
 

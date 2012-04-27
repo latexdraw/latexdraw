@@ -2,6 +2,7 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import java.awt.Color
 import net.sf.latexdraw.glib.models.interfaces.IAxes
+import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
  * A parser that parses a value corresponding to an object.
@@ -24,23 +25,31 @@ import net.sf.latexdraw.glib.models.interfaces.IAxes
  * @version 3.0
  */
 trait PSTValueParser {
-	val identPattern = """\w+""".r
-	val cmdPattern = """(\\\\)\w+""".r
+	/** The regex expression of an identifier. */
+	val identPattern = """(\w)+""".r
+	/** The regex expression of PST command name. */
+	val cmdPattern = """(\\\\)(\w)+""".r
+
 
 	/** This parser parses a object value that can be either a name nor a command. */
 	def parseValueColour(value : String, ctx : PSTContext) : Option[Color] = {
 		try {
 			value match {
-				case cmdPattern(v) => println("cmdPattern")
-
-				case identPattern(v) => println("identPattern")
+				case cmdPattern(_) => println("cmdPattern"); None
+				case identPattern(_) =>
+					DviPsColors.INSTANCE.getColour(value) match {
+						case col : Color => Some(col)
+						case _ => PSTParser.errorLogs += "The following colour is unknown: " + value; None
+					}
+				case _ => None
 			}
-
-			Some(Color.WHITE)
 		}catch{case ex => None }
 	}
 
 
+	/**
+	 * Parses a boolean value.
+	 */
 	def parseValueBoolean(value : String) : Option[Boolean] = {
 		value match {
 			case "true" => Some(true)
