@@ -28,14 +28,18 @@ trait PSTValueParser {
 	/** The regex expression of an identifier. */
 	val identPattern = """(\w)+""".r
 	/** The regex expression of PST command name. */
-	val cmdPattern = """(\\\\)(\w)+""".r
+	val cmdPattern = """(\\\\)ps\w+""".r
 
 
 	/** This parser parses a object value that can be either a name nor a command. */
 	def parseValueColour(value : String, ctx : PSTContext) : Option[Color] = {
 		try {
 			value match {
-				case cmdPattern(_) => println("cmdPattern"); None
+				case cmdPattern(_) =>
+					ctx.getParam(value.replace("\\\\ps", "")) match {
+						case col : Color => Some(col)
+						case _ => None
+					}
 				case identPattern(_) =>
 					DviPsColors.INSTANCE.getColour(value) match {
 						case col : Color => Some(col)

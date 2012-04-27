@@ -140,6 +140,37 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 	}
 
 
+	/**
+	 * Returns the value corresponding to the given parameter.
+	 */
+	def getParam(name : String) : Any = {
+		if(name!=null)
+			name match {
+				case "boxsep" => boxSep
+				case "showpoints" => showPoints
+				case "swapaxes" => swapAxes
+				case "doubleline" => dbleLine
+				case "shadow" => shadow
+				case "showorigin" => showOrigin
+				case "linecolor" => lineColor
+				case "fillcolor" => fillColor
+				case "gridColor" => gridColor
+				case "gridlabelcolor" => gridlabelcolor
+				case "subgridcolor" => subGridCol
+				case "bordercolor" => borderColor
+				case "doublecolor" => dbleColor
+				case "shadowcolor" => shadowCol
+				case "hatchcolor" => hatchCol
+				case "gradend" => gradEnd
+				case "gradbegin" => gradBegin
+				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
+			}
+	}
+
+
+	/**
+	 * Sets the value of the given parameter.
+	 */
 	def setParam(name : String, value : Any) {
 		if(name!=null)
 			name match {
