@@ -82,6 +82,9 @@ trait PSTAbstractParser extends TokenParsers {
 	protected def setShapeGeneralParameters(sh : IShape, ctx : PSTContext) {
 		sh.setLineColour(ctx.lineColor)
 
+		if(sh.isBordersMovable)
+			sh.setBordersPosition(ctx.borderPos)
+
 		if(sh.isLineStylable)
 			sh.setLineStyle(ctx.lineStyle)
 

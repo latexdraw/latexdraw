@@ -36,6 +36,19 @@ trait PSTValueParser {
 	/**
 	 * Parses the line styles.
 	 */
+	def parseValueDimen(value : String) : Option[IShape.BorderPos] = {
+			value match {
+				case PSTricksConstants.BORDERS_INSIDE => Some(IShape.BorderPos.INTO)
+				case PSTricksConstants.BORDERS_MIDDLE => Some(IShape.BorderPos.MID)
+				case PSTricksConstants.BORDERS_OUTSIDE=> Some(IShape.BorderPos.OUT)
+				case _ => PSTParser.errorLogs += "Unknown border position: " + value; None
+			}
+	}
+
+
+	/**
+	 * Parses the line styles.
+	 */
 	def parseValueLineStyle(value : String) : Option[IShape.LineStyle] = {
 			value match {
 				case PSTricksConstants.LINE_DASHED_STYLE => Some(IShape.LineStyle.DASHED)
