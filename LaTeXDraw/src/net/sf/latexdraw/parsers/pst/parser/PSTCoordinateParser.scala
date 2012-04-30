@@ -2,6 +2,7 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 
 /**
  * A parser that parses numbers.<br>
@@ -27,15 +28,21 @@ trait PSTCoordinateParser extends PSTAbstractParser {
 	 * Parses a coordinate.
 	 */
 	def parseCoord(ctx : PSTContext) : Parser[IPoint] =
-		"(" ~ numeric ~ "," ~ numeric ~ ")" ^^ { case _ ~ p1 ~ _ ~ p2 ~ _ =>
+		"(" ~ opt(numeric) ~ "," ~ opt(numeric) ~ ")" ^^ { case _ ~ p1 ~ _ ~ p2 ~ _ =>
 			DrawingTK.getFactory.createPoint(createValidCoordinate(p1), createValidCoordinate(p2))
 	}
 
 
-	private def createValidCoordinate(coord : String) : Double = {
-		var coordValid = coord.replace("+", "")
-		coordValid = coordValid.replace("--", "")
-
-		coordValid.toDouble
+	/**
+	 * Converts the given parsed coordinate into a valid Java value.
+	 */
+	private def createValidCoordinate(coord : Option[String]) : Double = {
+		coord match {
+			case Some(value) =>
+				var coordValid = value.replace("+", "")
+				coordValid = coordValid.replace("--", "")
+				coordValid.toDouble
+			case None => PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE
+		}
 	}
 }
