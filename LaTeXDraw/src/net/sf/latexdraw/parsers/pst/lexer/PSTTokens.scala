@@ -56,6 +56,12 @@ trait PSTTokens extends Tokens with Parsers {
 	}
 
 
+	/** The class of unit tokens */
+	case class Unit(chars : String) extends PSTToken {
+		override def toString = chars
+	}
+
+
 	/** The class of numeric literal tokens */
 	case class NumericLit(chars : String) extends PSTToken {
 		override def toString = chars

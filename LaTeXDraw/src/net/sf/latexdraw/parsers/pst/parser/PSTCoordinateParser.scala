@@ -1,7 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
+import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 
 /**
@@ -28,21 +28,45 @@ trait PSTCoordinateParser extends PSTAbstractParser {
 	 * Parses a coordinate.
 	 */
 	def parseCoord(ctx : PSTContext) : Parser[IPoint] =
-		"(" ~ opt(numeric) ~ "," ~ opt(numeric) ~ ")" ^^ { case _ ~ p1 ~ _ ~ p2 ~ _ =>
-			DrawingTK.getFactory.createPoint(createValidCoordinate(p1), createValidCoordinate(p2))
+		"(" ~ opt(parseNumber) ~ "," ~ opt(parseNumber) ~ ")" ^^ { case _ ~ p1 ~ _ ~ p2 ~ _ =>
+			val x = p1 match {
+				case Some(value) => value
+				case None => PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE
+			}
+			val y = p2 match {
+				case Some(value) => value
+				case None => PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE
+			}
+			DrawingTK.getFactory.createPoint(x, y)
+	}
+
+
+	/**
+	 * Parses a number: a numeric value that may be followed by a unit.
+	 */
+	def parseNumber : Parser[Double] = numeric ~ opt(unit) ^^ { case num ~ unit =>
+		unit match {
+			case Some(value) => value match {
+				case PSTricksConstants.TOKEN_CM => createValidCoordinate(num)
+				case PSTricksConstants.TOKEN_MM => createValidCoordinate(num)/10.
+				case PSTricksConstants.TOKEN_PS_PT => createValidCoordinate(num)/PSTricksConstants.CM_VAL_PT
+				case PSTricksConstants.TOKEN_INCH => createValidCoordinate(num)/PSTricksConstants.INCH_VAL_CM
+			}
+			case None => createValidCoordinate(num)
+		}
 	}
 
 
 	/**
 	 * Converts the given parsed coordinate into a valid Java value.
 	 */
-	private def createValidCoordinate(coord : Option[String]) : Double = {
-		coord match {
-			case Some(value) =>
-				var coordValid = value.replace("+", "")
+	private def createValidCoordinate(coord : String) : Double = {
+//		coord match {
+//			case Some(value) =>
+				var coordValid = coord.replace("+", "")
 				coordValid = coordValid.replace("--", "")
 				coordValid.toDouble
-			case None => PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE
-		}
+//			case None => PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE
+//		}
 	}
 }

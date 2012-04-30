@@ -54,6 +54,10 @@ trait PSTAbstractParser extends TokenParsers {
 	def numeric : Parser[String] = elem("numeric", _.isInstanceOf[NumericLit]) ^^ (_.chars)
 
 
+	/** A parser which matches a unit. */
+	def unit : Parser[String] = elem("unit", _.isInstanceOf[Unit]) ^^ (_.chars)
+
+
 	/** A parser which matches a text. */
 	def text : Parser[String] = elem("text", _.isInstanceOf[Text]) ^^ (_.chars)
 

@@ -84,6 +84,25 @@ class PSTLexical extends Lexical with PSTTokens {
 
 
 	/**
+	 * Parses units.
+	 */
+	def unit : Parser[Unit] = positioned((unitCM | unitMM | unitPT | unitIN) ^^ { case value => Unit(value)})
+
+
+	/** Parses the cm unit. */
+	private def unitCM : Parser[String] = (elem('c') ~ elem('m')) ^^ { case _ ~ _ => "cm"}
+
+	/** Parses the mm unit. */
+	private def unitMM : Parser[String] = (elem('m') ~ elem('m')) ^^ { case _ ~ _ => "mm"}
+
+	/** Parses the pt unit. */
+	private def unitPT : Parser[String] = (elem('p') ~ elem('t')) ^^ { case _ ~ _ => "pt"}
+
+	/** Parses the in unit. */
+	private def unitIN : Parser[String] = (elem('i') ~ elem('n')) ^^ { case _ ~ _ => "in"}
+
+
+	/**
 	 * Parses identifers
 	 */
 	def identifier : Parser[Identifier] = ( positioned(rep1(letter) ~ opt('*') ^^ {
@@ -130,7 +149,8 @@ class PSTLexical extends Lexical with PSTTokens {
 	 * Parses all the possible tokens.
 	 */
 	def token: Parser[PSTToken] = (
-		positioned(identifier)
+		positioned(unit)
+		| positioned(identifier)
 		| positioned(mathMode)
 		| positioned(comment)
 		| positioned(command)
