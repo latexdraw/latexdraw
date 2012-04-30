@@ -3,6 +3,7 @@ package net.sf.latexdraw.parsers.pst.parser
 import java.awt.Color
 import net.sf.latexdraw.glib.models.interfaces.IAxes
 import net.sf.latexdraw.glib.views.latex.DviPsColors
+import net.sf.latexdraw.glib.models.interfaces.IShape
 
 /**
  * A parser that parses a value corresponding to an object.
@@ -29,6 +30,25 @@ trait PSTValueParser {
 	val identPattern = """(\w)+""".r
 	/** The regex expression of PST command name. */
 	val cmdPattern = """(\\\\)ps\w+""".r
+
+
+	/**
+	 * Parses a filling style.
+	 */
+	def parseValueFillingStyle(value : String) : Option[IShape.FillingStyle] = {
+		value match {
+			case "plain" => Some(IShape.FillingStyle.PLAIN)
+			case "none" => Some(IShape.FillingStyle.NONE)
+			case "vlines" => Some(IShape.FillingStyle.VLINES)
+			case "vlines*" => Some(IShape.FillingStyle.VLINES_PLAIN)
+			case "hlines" => Some(IShape.FillingStyle.HLINES)
+			case "hlines*" => Some(IShape.FillingStyle.HLINES_PLAIN)
+			case "clines" => Some(IShape.FillingStyle.CLINES)
+			case "clines*" => Some(IShape.FillingStyle.CLINES_PLAIN)
+			case "gradient" => Some(IShape.FillingStyle.GRAD)
+			case _ => None
+		}
+	}
 
 
 	/** This parser parses a object value that can be either a name nor a command. */

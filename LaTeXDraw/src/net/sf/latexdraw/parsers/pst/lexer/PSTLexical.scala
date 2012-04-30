@@ -44,12 +44,7 @@ class PSTLexical extends Lexical with PSTTokens {
 
 
  	def command : Parser[PSTToken] = (
-		positioned('\\' ~> identifier ~ opt('*') ^^ {
-			case name ~ star =>
-				star match {
-					case Some(_) => Command("\\" + name.chars + '*')
-					case None => Command("\\" + name.chars)
-				}
+		positioned('\\' ~> identifier ^^ { case name => Command("\\" + name.chars)
 		})
 	)
 
@@ -91,7 +86,15 @@ class PSTLexical extends Lexical with PSTTokens {
 	/**
 	 * Parses identifers
 	 */
-	def identifier : Parser[Identifier] = ( positioned(rep1(letter) ^^ {case chars => Identifier(chars.mkString)}) )
+	def identifier : Parser[Identifier] = ( positioned(rep1(letter) ~ opt('*') ^^ {
+		case name ~ star =>
+			star match {
+				case Some(_) => Identifier(name.mkString + '*')
+				case None => Identifier(name.mkString)
+			}
+		})
+	)
+
 
 
 	/**

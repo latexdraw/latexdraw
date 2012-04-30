@@ -163,6 +163,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "hatchcolor" => hatchCol
 				case "gradend" => gradEnd
 				case "gradbegin" => gradBegin
+				case "fillstyle" => fillStyle
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -191,6 +192,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "hatchcolor" if(value.isInstanceOf[Color]) => hatchCol = value.asInstanceOf[Color]
 				case "gradend" if(value.isInstanceOf[Color]) => gradEnd = value.asInstanceOf[Color]
 				case "gradbegin" if(value.isInstanceOf[Color]) => gradBegin = value.asInstanceOf[Color]
+				case "fillstyle" if(value.isInstanceOf[IShape.FillingStyle]) => fillStyle = value.asInstanceOf[IShape.FillingStyle]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}
 	}
