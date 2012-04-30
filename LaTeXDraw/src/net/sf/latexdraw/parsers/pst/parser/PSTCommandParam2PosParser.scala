@@ -39,6 +39,21 @@ trait PSTCommandParam2PosParser extends PSTAbstractParser with PSTParamParser wi
 					p2 = pt1
 			}
 
+			// The x-coordinates of p1 must be lower than p2 one.
+			if(p1.getX>p2.getX) {
+				val tmp = p1.getX
+				p1.setX(p2.getX)
+				p2.setX(tmp)
+			}
+
+			// The y-coordinates of p1 must be lower than p2 one.
+			if(p1.getY>p2.getY) {
+				val tmp = p1.getY
+				p1.setY(p2.getY)
+				p2.setY(tmp)
+			}
+
+			// Transforming the PST point into a Java point.
 			p1 = transformPointTo2DScene(p1)
 			p2 = transformPointTo2DScene(p2)
 
