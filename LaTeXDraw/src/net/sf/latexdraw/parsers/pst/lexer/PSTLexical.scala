@@ -88,30 +88,44 @@ class PSTLexical extends Lexical with PSTTokens {
 	)
 
 
+	/**
+	 * Parses identifers
+	 */
 	def identifier : Parser[Identifier] = ( positioned(rep1(letter) ^^ {case chars => Identifier(chars.mkString)}) )
 
 
+	/**
+	 * Parses float numbers.
+	 */
 	def floatNumber : Parser[NumericLit] = (
-		positioned(rep(elem('-')|elem('+')) ~ ((elem('.') ~ rep1(digit)) | (rep1(digit) ~ opt(elem('.') ~ rep(digit)))) ^^ {
-			case signs ~ content =>
-				var str = signs.mkString
-
-				content._1 match {
-					case list : List[_] => str = str + list.mkString
-					case _ =>
-				}
-
-				content._2 match {
-					case list : List[_] => str = str + list.mkString
-					case _ =>
-				}
-
-				NumericLit(str)
-		})
+		positioned(rep(elem('-')|elem('+')) ~ (parseDotDigit1 | parseDigitOptDotDigit) ^^ {
+			case signs ~ content => NumericLit(signs.mkString + content) })
 	)
 
 
-	// see `token' in `Scanners'
+	private def parseDigitOptDotDigit : Parser[String] = (
+		rep1(digit) ~ opt(parseDotDigit) ^^ { case digits ~ decimals =>
+			decimals match {
+				case Some(value) => digits.mkString + value
+				case None => digits.mkString
+			}
+		}
+	)
+
+
+	private def parseDotDigit : Parser[String] = (
+		elem('.') ~ rep(digit) ^^ { case _ ~ digits => "." + digits.mkString }
+	)
+
+
+	private def parseDotDigit1 : Parser[String] = (
+		elem('.') ~ rep1(digit) ^^ { case _ ~ digits => "." + digits.mkString }
+	)
+
+
+	/**
+	 * Parses all the possible tokens.
+	 */
 	def token: Parser[PSTToken] = (
 		positioned(identifier)
 		| positioned(mathMode)
