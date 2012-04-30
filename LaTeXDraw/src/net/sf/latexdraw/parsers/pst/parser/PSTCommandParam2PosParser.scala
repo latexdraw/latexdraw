@@ -57,15 +57,31 @@ trait PSTCommandParam2PosParser extends PSTAbstractParser with PSTParamParser wi
 			p1 = transformPointTo2DScene(p1)
 			p2 = transformPointTo2DScene(p2)
 
-			cmd.substring(1) match {
-				case "psframe*" | "psframe" =>
-					val rec = DrawingTK.getFactory.createRectangle(true)
-					rec.setPosition(p1)
-					rec.setWidth(scala.math.abs(p2.getX-p1.getX))
-					rec.setHeight(scala.math.abs(p2.getY-p1.getY))
-					setShapeParameters(rec, ctx)
-					List(rec)
-				case name => println("Unknown command: " + name) ; Nil
-			}
+			createShape(cmd, p1, p2, ctx)
+	}
+
+
+	/**
+	 * Creates shapes corresponding to the given pst code.
+	 */
+	private def createShape(cmd : String, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : List[IShape] = {
+		cmd.substring(1) match {
+			case "psframe*" | "psframe" =>
+				val rec = DrawingTK.getFactory.createRectangle(true)
+				rec.setPosition(p1)
+				rec.setWidth(scala.math.abs(p2.getX-p1.getX))
+				rec.setHeight(scala.math.abs(p2.getY-p1.getY))
+				setShapeParameters(rec, ctx)
+
+				if(cmd.endsWith("*")) {
+					rec.setFillingStyle(IShape.FillingStyle.PLAIN)
+					rec.setFillingCol(rec.getLineColour)
+					rec.setBordersPosition(IShape.BorderPos.INTO)
+					rec.setLineStyle(IShape.LineStyle.SOLID)
+					rec.setHasDbleBord(false)
+				}
+				List(rec)
+			case name => println("Unknown command: " + name) ; Nil
+		}
 	}
 }
