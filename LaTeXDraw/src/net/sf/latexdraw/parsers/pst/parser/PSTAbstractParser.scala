@@ -3,6 +3,8 @@ package net.sf.latexdraw.parsers.pst.parser
 import scala.collection.mutable.HashMap
 import scala.util.parsing.combinator.syntactical.TokenParsers
 import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK
+import net.sf.latexdraw.glib.models.interfaces.IPoint
 
 /**
  * Defines an abstract PST parser.<br>
@@ -48,6 +50,10 @@ trait PSTAbstractParser extends TokenParsers {
 	def command : Parser[String] = elem("command", _.isInstanceOf[Command]) ^^ (_.chars)
 
 
+	/** A parser which matches a float or integer value. */
+	def numeric : Parser[String] = elem("numeric", _.isInstanceOf[NumericLit]) ^^ (_.chars)
+
+
 	/** A parser which matches a text. */
 	def text : Parser[String] = elem("text", _.isInstanceOf[Text]) ^^ (_.chars)
 
@@ -68,6 +74,9 @@ trait PSTAbstractParser extends TokenParsers {
 			setShapeGeneralParameters(sh, ctx)
 		}
 	}
+
+
+	protected def transformPointTo2DScene(pt : IPoint) = DrawingTK.getFactory.createPoint(pt.getX*IShape.PPC, pt.getY*IShape.PPC*(-1))
 
 
 	protected def setShapeGeneralParameters(sh : IShape, ctx : PSTContext) {

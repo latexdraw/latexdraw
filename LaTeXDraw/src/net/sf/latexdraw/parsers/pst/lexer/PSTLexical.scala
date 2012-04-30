@@ -91,6 +91,26 @@ class PSTLexical extends Lexical with PSTTokens {
 	def identifier : Parser[Identifier] = ( positioned(rep1(letter) ^^ {case chars => Identifier(chars.mkString)}) )
 
 
+	def floatNumber : Parser[NumericLit] = (
+		positioned(rep(elem('-')|elem('+')) ~ ((elem('.') ~ rep1(digit)) | (rep1(digit) ~ opt(elem('.') ~ rep(digit)))) ^^ {
+			case signs ~ content =>
+				var str = signs.mkString
+
+				content._1 match {
+					case list : List[_] => str = str + list.mkString
+					case _ =>
+				}
+
+				content._2 match {
+					case list : List[_] => str = str + list.mkString
+					case _ =>
+				}
+
+				NumericLit(str)
+		})
+	)
+
+
 	// see `token' in `Scanners'
 	def token: Parser[PSTToken] = (
 		positioned(identifier)
@@ -98,6 +118,7 @@ class PSTLexical extends Lexical with PSTTokens {
 		| positioned(comment)
 		| positioned(command)
 		| positioned(specialCommand)
+		| positioned(floatNumber)
 		| positioned(eof ^^ {case _ => KEOF() })
 		| positioned('$' ^^ {case _ => throw new  ParseException("Unclosed math expression (a closing $ is missing).", -1) })
 		| positioned(delim)

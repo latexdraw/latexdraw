@@ -1,8 +1,8 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
+import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.IShape
 
 /**
  * A parser that parses commands composed of 1 optional parameter block,
@@ -24,12 +24,30 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-trait PSTCommandParam2PosParser extends PSTAbstractParser with PSTParamParser {
+trait PSTCommandParam2PosParser extends PSTAbstractParser with PSTParamParser with PSTCoordinateParser {
 	def parseCommandParame2Pos(ctx : PSTContext) : Parser[List[IShape]] =
-		command ~ opt(parseParam(ctx)) ^^ { case cmd ~ _ =>
+		command ~ opt(parseParam(ctx)) ~ parseCoord(ctx) ~ opt(parseCoord(ctx)) ^^ { case cmd ~ _ ~ pt1 ~ pt2 =>
+			var p1 : IPoint = null
+			var p2 : IPoint = null
+
+			pt2 match {
+				case Some(pt) =>
+					p1 = pt1
+					p2 = pt
+				case _ =>
+					p1 = DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY)
+					p2 = pt1
+			}
+
+			p1 = transformPointTo2DScene(p1)
+			p2 = transformPointTo2DScene(p2)
+
 			cmd.substring(1) match {
 				case "psframe*" | "psframe" =>
 					val rec = DrawingTK.getFactory.createRectangle(true)
+					rec.setPosition(p1)
+					rec.setWidth(scala.math.abs(p2.getX-p1.getX))
+					rec.setHeight(scala.math.abs(p2.getY-p1.getY))
 					setShapeParameters(rec, ctx)
 					List(rec)
 				case name => println("Unknown command: " + name) ; Nil
