@@ -164,6 +164,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "gradend" => gradEnd
 				case "gradbegin" => gradBegin
 				case "fillstyle" => fillStyle
+				case "linestyle" => lineStyle
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -193,6 +194,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "gradend" if(value.isInstanceOf[Color]) => gradEnd = value.asInstanceOf[Color]
 				case "gradbegin" if(value.isInstanceOf[Color]) => gradBegin = value.asInstanceOf[Color]
 				case "fillstyle" if(value.isInstanceOf[IShape.FillingStyle]) => fillStyle = value.asInstanceOf[IShape.FillingStyle]
+				case "linestyle" if(value.isInstanceOf[IShape.LineStyle]) => lineStyle = value.asInstanceOf[IShape.LineStyle]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}
 	}

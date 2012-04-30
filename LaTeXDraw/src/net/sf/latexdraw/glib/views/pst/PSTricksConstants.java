@@ -391,7 +391,7 @@ public abstract class PSTricksConstants {
 	public static final String LINE_SOLID_STYLE = "solid"; //$NON-NLS-1$
 
 	/** The style of the lines by default */
-	public static final LineStyle DEFAULT_LINE_STYLE = LineStyle.NONE;
+	public static final LineStyle DEFAULT_LINE_STYLE = LineStyle.SOLID;
 
 	/** The black-white dash pattern for the dashed line style (in cm) */
 	public static final double DEFAULT_DASH_BLACK = 5./CM_VAL_PT;

@@ -4,6 +4,7 @@ import java.awt.Color
 import net.sf.latexdraw.glib.models.interfaces.IAxes
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 
 /**
  * A parser that parses a value corresponding to an object.
@@ -33,7 +34,23 @@ trait PSTValueParser {
 
 
 	/**
-	 * Parses a filling style.
+	 * Parses the line styles.
+	 */
+	def parseValueLineStyle(value : String) : Option[IShape.LineStyle] = {
+			value match {
+				case PSTricksConstants.LINE_DASHED_STYLE => Some(IShape.LineStyle.DASHED)
+				case PSTricksConstants.LINE_DOTTED_STYLE => Some(IShape.LineStyle.DOTTED)
+				case PSTricksConstants.LINE_SOLID_STYLE => Some(IShape.LineStyle.SOLID)
+				case PSTricksConstants.LINE_NONE_STYLE =>
+					PSTParser.errorLogs += "line style '"+PSTricksConstants.LINE_NONE_STYLE+"' not supported yet"
+					None
+				case _ => PSTParser.errorLogs += "Unknown line style: " + value; None
+			}
+	}
+
+
+	/**
+	 * Parses the filling styles.
 	 */
 	def parseValueFillingStyle(value : String) : Option[IShape.FillingStyle] = {
 		value match {
@@ -46,7 +63,7 @@ trait PSTValueParser {
 			case "clines" => Some(IShape.FillingStyle.CLINES)
 			case "clines*" => Some(IShape.FillingStyle.CLINES_PLAIN)
 			case "gradient" => Some(IShape.FillingStyle.GRAD)
-			case _ => None
+			case _ => PSTParser.errorLogs += "Unknown filling style: " + value; None
 		}
 	}
 

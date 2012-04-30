@@ -82,6 +82,9 @@ trait PSTAbstractParser extends TokenParsers {
 	protected def setShapeGeneralParameters(sh : IShape, ctx : PSTContext) {
 		sh.setLineColour(ctx.lineColor)
 
+		if(sh.isLineStylable)
+			sh.setLineStyle(ctx.lineStyle)
+
 		if(sh.isDbleBorderable) {
 			sh.setHasDbleBord(ctx.dbleLine)
 			sh.setDbleBordCol(ctx.dbleColor)

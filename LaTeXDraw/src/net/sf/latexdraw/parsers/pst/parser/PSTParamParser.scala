@@ -42,7 +42,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("boxsep", (str : String, ctx : PSTContext) => parseValueBoolean(str)),
 //			("cornersize", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 //			("plotstyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
-//			("linestyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
+			("linestyle", (str : String, ctx : PSTContext) => parseValueLineStyle(str)),
 //			("dimen", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 			("fillstyle", (str : String, ctx : PSTContext) => parseValueFillingStyle(str)))
 //			("labels", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
