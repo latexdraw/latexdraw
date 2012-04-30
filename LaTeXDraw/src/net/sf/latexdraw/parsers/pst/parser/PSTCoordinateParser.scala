@@ -61,12 +61,8 @@ trait PSTCoordinateParser extends PSTAbstractParser {
 	 * Converts the given parsed coordinate into a valid Java value.
 	 */
 	private def createValidCoordinate(coord : String) : Double = {
-//		coord match {
-//			case Some(value) =>
-				var coordValid = coord.replace("+", "")
-				coordValid = coordValid.replace("--", "")
-				coordValid.toDouble
-//			case None => PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE
-//		}
+		var coordValid = coord.replace("+", "")
+		coordValid = coordValid.replace("--", "")
+		coordValid.toDouble
 	}
 }
