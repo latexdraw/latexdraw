@@ -34,6 +34,17 @@ trait PSTNumberParser extends PSTAbstractParser {
 
 
 	/**
+	 * Parses double values contained in the interval [0..1]
+	 */
+	def parseValue01Interval(num : String) : Option[Double] = {
+		createValidNumber(num) match {
+			case Some(value) if(value>=0.0 && value<=1.0) => Some(value)
+			case _ => None
+		}
+	}
+
+
+	/**
 	 * Parses int values.
 	 */
 	def parseValueInt(num : String) : Option[Int] = {

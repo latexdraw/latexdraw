@@ -5,6 +5,7 @@ import scala.util.parsing.combinator.syntactical.TokenParsers
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.IRectangle
 
 /**
  * Defines an abstract PST parser.<br>
@@ -72,6 +73,9 @@ trait PSTAbstractParser extends TokenParsers {
 	def setShapeParameters(sh : IShape, ctx : PSTContext) {
 		if(sh!=null && ctx!=null) {
 			setShapeGeneralParameters(sh, ctx)
+			sh match {
+				case rec : IRectangle => setRectangleParameters(rec, ctx)
+			}
 		}
 	}
 
@@ -79,6 +83,17 @@ trait PSTAbstractParser extends TokenParsers {
 	protected def transformPointTo2DScene(pt : IPoint) = DrawingTK.getFactory.createPoint(pt.getX*IShape.PPC, pt.getY*IShape.PPC*(-1))
 
 
+	/**
+	 * Sets the rectangle's parameters.
+	 */
+	protected def setRectangleParameters(rec : IRectangle, ctx : PSTContext) {
+		rec.setLineArc(ctx.frameArc)
+	}
+
+
+	/**
+	 * Sets the common shape's parameters.
+	 */
 	protected def setShapeGeneralParameters(sh : IShape, ctx : PSTContext) {
 		sh.setLineColour(ctx.lineColor)
 

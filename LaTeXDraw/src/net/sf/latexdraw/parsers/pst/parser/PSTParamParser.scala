@@ -45,8 +45,9 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("linestyle", (str : String, ctx : PSTContext) => parseValueLineStyle(str)),
 			("dimen", (str : String, ctx : PSTContext) => parseValueDimen(str)),
 			("fillstyle", (str : String, ctx : PSTContext) => parseValueFillingStyle(str)),
+			("framearc", (str : String, ctx : PSTContext) => parseValue01Interval(str)),
 			("gradlines", (str : String, ctx : PSTContext) => parseValueInt(str)),
-			("gradmidpoint", (str : String, ctx : PSTContext) => parseValueAngle(str)),
+			("gradmidpoint", (str : String, ctx : PSTContext) => parseValue01Interval(str)),
 			("hatchangle", (str : String, ctx : PSTContext) => parseValueAngle(str)),
 			("gradangle", (str : String, ctx : PSTContext) => parseValueAngle(str)),
 			("shadowangle", (str : String, ctx : PSTContext) => parseValueAngle(str)),
@@ -61,18 +62,22 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 //			("axesstyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 
 
+	/**
+	 * Parses the list of parameters.
+	 */
 	def parseParam(context : PSTContext) : Parser[Unit] = "[" ~ repsep(parseParamSetting(context), ",") ~ "]" ^^ {
 		case _ ~ _ ~ _ =>
 	}
 
-// arrows linearc framearc  arcsepA arcsepB arcsep xunit yunit unit curvature
+// arrows linearc  arcsepA arcsepB arcsep xunit yunit unit curvature
 // dotstyle dotscale dotangle gridwidth  griddots gridlabels  subgriddiv subgridwidth  subgriddots  origin plotpoints
 // dash dotsep border
-// arrowsize arrowlength arrowinset tbarsize bracketlength rbracketlength dotsize arrowscale linetyle liftpen labelsep Ox Oy Dx Dy dx oy
+// arrowsize arrowlength arrowinset tbarsize bracketlength rbracketlength dotsize arrowscale liftpen labelsep Ox Oy Dx Dy dx oy
 // ticksize framesep nodesep offset arm angle arcangle ncurv loopsize coilwidth coilheight coilarm coilaspect coilinc
-// string (gray, triangle*), command (\psfillcolor), double (.5, ), mix (.5\pslinewidth), double unit (.5cm, 1pt), integer (1), symbol (-, oo-oo), repetition (1 .1 0)
-// point ((0,1) {0,1})
 
+	/**
+	 * Parses the setting of parameters.
+	 */
 	def parseParamSetting(ctx : PSTContext) : Parser[Unit] = ident ~ "=" ~ rep1(chrExcept(',', ']', CharArrayReader.EofCh)) ^^ {
 		case name ~ _ ~ value  =>
 		val valueStr = value.mkString

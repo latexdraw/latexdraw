@@ -176,6 +176,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "gradmidpoint" => gradMidPoint
 				case "hatchangle" => hatchAngle
 				case "gradlines" => gradLines
+				case "framearc" => frameArc
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -217,6 +218,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "gradmidpoint" if(value.isInstanceOf[Double]) => gradMidPoint = value.asInstanceOf[Double]
 				case "hatchangle" if(value.isInstanceOf[Double]) => hatchAngle = value.asInstanceOf[Double]
 				case "gradlines" if(value.isInstanceOf[Int]) => gradLines = value.asInstanceOf[Int]
+				case "framearc" if(value.isInstanceOf[Double]) => frameArc = value.asInstanceOf[Double]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}
 	}
