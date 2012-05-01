@@ -26,17 +26,22 @@ trait PSTNumberParser extends PSTAbstractParser {
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
 	def parseNumber : Parser[Double] = numeric ^^ { case num =>
-		parseValueNumber(num) match {
+		parseValueDim(num) match {
 			case Some(value) => value
 			case None => Double.NaN
 		}
 	}
 
 
+	/** Parses angle values. The returned value is in degree. */
+	def parseValueAngle(num : String) = createValidNumber(num)
+
+
+
 	/**
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
-	def parseValueNumber(num : String) : Option[Double] = {
+	def parseValueDim(num : String) : Option[Double] = {
 		if(num.length>2) {
 			val value = num.substring(0, num.length-2)
 			num.substring(num.length-2) match {

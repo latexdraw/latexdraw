@@ -171,6 +171,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "doublesep" => dbleSep
 				case "hatchsep" => hatchSep
 				case "hatchwidth" => hatchWidth
+				case "shadowangle" => shadowAngle
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -207,6 +208,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "doublesep" if(value.isInstanceOf[Double]) => dbleSep = value.asInstanceOf[Double]
 				case "hatchsep" if(value.isInstanceOf[Double]) => hatchSep = value.asInstanceOf[Double]
 				case "hatchwidth" if(value.isInstanceOf[Double]) => hatchWidth = value.asInstanceOf[Double]
+				case "shadowangle" if(value.isInstanceOf[Double]) => shadowAngle = value.asInstanceOf[Double]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}
 	}

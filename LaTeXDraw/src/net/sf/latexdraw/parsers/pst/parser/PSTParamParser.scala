@@ -45,11 +45,12 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("linestyle", (str : String, ctx : PSTContext) => parseValueLineStyle(str)),
 			("dimen", (str : String, ctx : PSTContext) => parseValueDimen(str)),
 			("fillstyle", (str : String, ctx : PSTContext) => parseValueFillingStyle(str)),
-			("shadowsize", (str : String, ctx : PSTContext) => parseValueNumber(str)),
-			("doublesep", (str : String, ctx : PSTContext) => parseValueNumber(str)),
-			("hatchsep", (str : String, ctx : PSTContext) => parseValueNumber(str)),
-			("hatchwidth", (str : String, ctx : PSTContext) => parseValueNumber(str)),
-			("linewidth", (str : String, ctx : PSTContext) => parseValueNumber(str)))
+			("shadowangle", (str : String, ctx : PSTContext) => parseValueAngle(str)),
+			("shadowsize", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("doublesep", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("hatchsep", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("hatchwidth", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("linewidth", (str : String, ctx : PSTContext) => parseValueDim(str)))
 //			("labels", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 //			("ticks", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 //			("tickstyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
@@ -62,7 +63,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 
 // arrows linearc framearc  arcsepA arcsepB arcsep xunit yunit unit curvature
 // dotstyle dotscale dotangle gridwidth  griddots gridlabels  subgriddiv subgridwidth  subgriddots  origin plotpoints
-// dash dotsep border shadowangle hatchangle
+// dash dotsep border hatchangle
 // arrowsize arrowlength arrowinset tbarsize bracketlength rbracketlength dotsize arrowscale linetyle liftpen labelsep Ox Oy Dx Dy dx oy
 // ticksize framesep nodesep offset arm angle arcangle ncurv loopsize coilwidth coilheight coilarm coilaspect coilinc
 // gradlines gradmidpoint gradangle
