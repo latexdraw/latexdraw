@@ -71,7 +71,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 		var dashBlack : Double, var dashWhite : Double, var dbleLine : Boolean, var dbleSep : Double, var dbleColor : Color,
 		var degrees : Double, var frameSep : Double, var frameArc : Double, var fillStyle : IShape.FillingStyle, var fillColor : Color,
 		var gridWidth : Double, var gridLabel : Double, var gridDots : Double, var gradAngle : Double, var gridColor : Color,
-		var gradMidPoint : Double, var gradBegin : Color, var gradEnd : Color, var gradLines : Double, var gangle : Double,
+		var gradMidPoint : Double, var gradBegin : Color, var gradEnd : Color, var gradLines : Int, var gangle : Double,
 		var hatchWidth : Double, var hatchSep : Double, var hatchCol : Color, var hatchAngle : Double, var isCornerRel : Boolean, var isShadow : Boolean,
 		var lineWidth : Double, var lineColor : Color, var labelsGridCol : Color, var labels : IAxes.PlottingStyle, var lineArc : Double,
 		var lineStyle : IShape.LineStyle, var ox : Double, var oy : Double, var onRadians : Boolean, var origin : Point2D, var specialCoor : Boolean,
@@ -175,6 +175,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "gradangle" => gradAngle
 				case "gradmidpoint" => gradMidPoint
 				case "hatchangle" => hatchAngle
+				case "gradlines" => gradLines
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -215,6 +216,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "gradangle" if(value.isInstanceOf[Double]) => gradAngle = value.asInstanceOf[Double]
 				case "gradmidpoint" if(value.isInstanceOf[Double]) => gradMidPoint = value.asInstanceOf[Double]
 				case "hatchangle" if(value.isInstanceOf[Double]) => hatchAngle = value.asInstanceOf[Double]
+				case "gradlines" if(value.isInstanceOf[Int]) => gradLines = value.asInstanceOf[Int]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}
 	}

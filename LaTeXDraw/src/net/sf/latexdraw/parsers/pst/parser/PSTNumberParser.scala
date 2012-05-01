@@ -33,6 +33,20 @@ trait PSTNumberParser extends PSTAbstractParser {
 	}
 
 
+	/**
+	 * Parses int values.
+	 */
+	def parseValueInt(num : String) : Option[Int] = {
+		createValidNumber(num) match {
+			case Some(value) => scala.math.abs(value-scala.math.ceil(value))<0.00001 match {
+				case true => Some(value.toInt)
+				case false => None
+			}
+			case None => None
+		}
+	}
+
+
 	/** Parses angle values. The returned value is in degree. */
 	def parseValueAngle(num : String) = createValidNumber(num)
 
