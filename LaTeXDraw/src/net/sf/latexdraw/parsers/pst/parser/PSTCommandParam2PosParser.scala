@@ -3,6 +3,10 @@ package net.sf.latexdraw.parsers.pst.parser
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.IRectangle
+import net.sf.latexdraw.glib.models.interfaces.IEllipse
+import net.sf.latexdraw.glib.models.interfaces.IPositionShape
+import net.sf.latexdraw.glib.models.interfaces.IRectangularShape
 
 /**
  * A parser that parses commands composed of 1 optional parameter block,
@@ -39,20 +43,6 @@ trait PSTCommandParam2PosParser extends PSTAbstractParser with PSTParamParser wi
 					p2 = pt1
 			}
 
-			// The x-coordinates of p1 must be lower than p2 one.
-			if(p1.getX>p2.getX) {
-				val tmp = p1.getX
-				p1.setX(p2.getX)
-				p2.setX(tmp)
-			}
-
-			// The y-coordinates of p1 must be lower than p2 one.
-			if(p1.getY>p2.getY) {
-				val tmp = p1.getY
-				p1.setY(p2.getY)
-				p2.setY(tmp)
-			}
-
 			// Transforming the PST point into a Java point.
 			p1 = transformPointTo2DScene(p1)
 			p2 = transformPointTo2DScene(p2)
@@ -65,23 +55,57 @@ trait PSTCommandParam2PosParser extends PSTAbstractParser with PSTParamParser wi
 	 * Creates shapes corresponding to the given pst code.
 	 */
 	private def createShape(cmd : String, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : List[IShape] = {
-		cmd.substring(1) match {
-			case "psframe*" | "psframe" =>
-				val rec = DrawingTK.getFactory.createRectangle(true)
-				rec.setPosition(p1)
-				rec.setWidth(scala.math.abs(p2.getX-p1.getX))
-				rec.setHeight(scala.math.abs(p2.getY-p1.getY))
-				setShapeParameters(rec, ctx)
-
-				if(cmd.endsWith("*")) {
-					rec.setFillingStyle(IShape.FillingStyle.PLAIN)
-					rec.setFillingCol(rec.getLineColour)
-					rec.setBordersPosition(IShape.BorderPos.INTO)
-					rec.setLineStyle(IShape.LineStyle.SOLID)
-					rec.setHasDbleBord(false)
-				}
-				List(rec)
+		val name = cmd.substring(1)
+		name match {
+			case "psframe*" | "psframe" => List(createRectangle(cmd, p1, p2, ctx))
+			case "psellipse*" | "psellipse" => List(createEllipse(cmd, p1, p2, ctx))
 			case name => println("Unknown command: " + name) ; Nil
 		}
+	}
+
+
+		/**
+	 * Creates and initialises an ellipse.
+	 */
+	private def createEllipse(cmdName : String, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IEllipse = {
+		val ell = DrawingTK.getFactory.createEllipse(true)
+		setShape(ell, p1.getX-p2.getX, p1.getY-p2.getY, scala.math.abs(p2.getX*2), scala.math.abs(p2.getY*2), cmdName, ctx)
+		ell
+	}
+
+
+	/**
+	 * Creates and initialises a rectangle.
+	 */
+	private def createRectangle(cmdName : String, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IRectangle = {
+		// The x-coordinates of p1 must be lower than p2 one.
+		if(p1.getX>p2.getX) {
+			val tmp = p1.getX
+			p1.setX(p2.getX)
+			p2.setX(tmp)
+		}
+
+		// The y-coordinates of p1 must be lower than p2 one.
+		if(p1.getY<p2.getY) {
+			val tmp = p1.getY
+			p1.setY(p2.getY)
+			p2.setY(tmp)
+		}
+
+		val rec = DrawingTK.getFactory.createRectangle(true)
+		setShape(rec, p1.getX, p1.getY, scala.math.abs(p2.getX-p1.getX), scala.math.abs(p2.getY-p1.getY), cmdName, ctx)
+		rec
+	}
+
+
+	/**
+	 * Sets the created shapes with the given parameters.
+	 */
+	private def setShape(sh : IRectangularShape, x : Double, y : Double, w : Double, h : Double, cmdName : String, ctx : PSTContext) {
+		sh.setPosition(x, y)
+		sh.setWidth(scala.math.max(0.1, w))
+		sh.setHeight(scala.math.max(0.1, h))
+		setShapeParameters(sh, ctx)
+		setShapeForStar(sh, cmdName)
 	}
 }

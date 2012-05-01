@@ -75,12 +75,27 @@ trait PSTAbstractParser extends TokenParsers {
 			setShapeGeneralParameters(sh, ctx)
 			sh match {
 				case rec : IRectangle => setRectangleParameters(rec, ctx)
+				case _ =>
 			}
 		}
 	}
 
 
 	protected def transformPointTo2DScene(pt : IPoint) = DrawingTK.getFactory.createPoint(pt.getX*IShape.PPC, pt.getY*IShape.PPC*(-1))
+
+
+	/**
+	 * Configures the given shape if the command name ends with a star character.
+	 */
+	protected def setShapeForStar(sh : IShape, cmdName : String) {
+		if(cmdName.endsWith("*")) {
+			sh.setFillingStyle(IShape.FillingStyle.PLAIN)
+			sh.setFillingCol(sh.getLineColour)
+			sh.setBordersPosition(IShape.BorderPos.INTO)
+			sh.setLineStyle(IShape.LineStyle.SOLID)
+			sh.setHasDbleBord(false)
+		}
+	}
 
 
 	/**
