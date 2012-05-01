@@ -168,6 +168,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "dimen" => borderPos
 				case "linewidth" => lineWidth
 				case "shadowsize" => shadowSize
+				case "doublesep" => dbleSep
+				case "hatchsep" => hatchSep
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -201,6 +203,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "dimen" if(value.isInstanceOf[IShape.BorderPos]) => borderPos = value.asInstanceOf[IShape.BorderPos]
 				case "linewidth" if(value.isInstanceOf[Double]) => lineWidth = value.asInstanceOf[Double]
 				case "shadowsize" if(value.isInstanceOf[Double]) => shadowSize = value.asInstanceOf[Double]
+				case "doublesep" if(value.isInstanceOf[Double]) => dbleSep = value.asInstanceOf[Double]
+				case "hatchsep" if(value.isInstanceOf[Double]) => hatchSep = value.asInstanceOf[Double]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}
 	}
