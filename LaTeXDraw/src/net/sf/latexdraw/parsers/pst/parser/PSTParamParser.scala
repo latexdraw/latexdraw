@@ -48,6 +48,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("shadowsize", (str : String, ctx : PSTContext) => parseValueNumber(str)),
 			("doublesep", (str : String, ctx : PSTContext) => parseValueNumber(str)),
 			("hatchsep", (str : String, ctx : PSTContext) => parseValueNumber(str)),
+			("hatchwidth", (str : String, ctx : PSTContext) => parseValueNumber(str)),
 			("linewidth", (str : String, ctx : PSTContext) => parseValueNumber(str)))
 //			("labels", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 //			("ticks", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
@@ -61,7 +62,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 
 // arrows linearc framearc  arcsepA arcsepB arcsep xunit yunit unit curvature
 // dotstyle dotscale dotangle gridwidth  griddots gridlabels  subgriddiv subgridwidth  subgriddots  origin plotpoints
-// dash dotsep border shadowangle hatchwidth hatchangle
+// dash dotsep border shadowangle hatchangle
 // arrowsize arrowlength arrowinset tbarsize bracketlength rbracketlength dotsize arrowscale linetyle liftpen labelsep Ox Oy Dx Dy dx oy
 // ticksize framesep nodesep offset arm angle arcangle ncurv loopsize coilwidth coilheight coilarm coilaspect coilinc
 // gradlines gradmidpoint gradangle
