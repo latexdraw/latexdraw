@@ -86,7 +86,7 @@ class PSTLexical extends Lexical with PSTTokens {
 	/**
 	 * Parses units.
 	 */
-	def unit : Parser[Unit] = positioned((unitCM | unitMM | unitPT | unitIN) ^^ { case value => Unit(value)})
+	private def unit : Parser[String] = (unitCM | unitMM | unitPT | unitIN)
 
 
 	/** Parses the cm unit. */
@@ -120,8 +120,12 @@ class PSTLexical extends Lexical with PSTTokens {
 	 * Parses float numbers.
 	 */
 	def floatNumber : Parser[NumericLit] = (
-		positioned(rep(elem('-')|elem('+')) ~ (parseDotDigit1 | parseDigitOptDotDigit) ^^ {
-			case signs ~ content => NumericLit(signs.mkString + content) })
+		positioned(rep(elem('-')|elem('+')) ~ (parseDotDigit1 | parseDigitOptDotDigit) ~ opt(unit) ^^ {
+			case signs ~ content ~ unit => unit match {
+				case Some(value) => NumericLit(signs.mkString + content + value)
+				case None => NumericLit(signs.mkString + content)
+			}
+		})
 	)
 
 
@@ -149,8 +153,7 @@ class PSTLexical extends Lexical with PSTTokens {
 	 * Parses all the possible tokens.
 	 */
 	def token: Parser[PSTToken] = (
-		positioned(unit)
-		| positioned(identifier)
+		positioned(identifier)
 		| positioned(mathMode)
 		| positioned(comment)
 		| positioned(command)

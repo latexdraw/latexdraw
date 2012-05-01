@@ -44,7 +44,8 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 //			("plotstyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 			("linestyle", (str : String, ctx : PSTContext) => parseValueLineStyle(str)),
 			("dimen", (str : String, ctx : PSTContext) => parseValueDimen(str)),
-			("fillstyle", (str : String, ctx : PSTContext) => parseValueFillingStyle(str)))
+			("fillstyle", (str : String, ctx : PSTContext) => parseValueFillingStyle(str)),
+			("linewidth", (str : String, ctx : PSTContext) => parseValueNumber(str)))
 //			("labels", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 //			("ticks", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 //			("tickstyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
@@ -55,7 +56,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 		case _ ~ _ ~ _ =>
 	}
 
-// doublesep linewidth arrows linearc framearc  arcsepA arcsepB arcsep xunit yunit unit curvature
+// doublesep arrows linearc framearc  arcsepA arcsepB arcsep xunit yunit unit curvature
 // dotstyle dotscale dotangle gridwidth  griddots gridlabels  subgriddiv subgridwidth  subgriddots  origin plotpoints
 // dash dotsep border shadowsize shadowangle hatchwidth hatchsep  hatchangle
 // arrowsize arrowlength arrowinset tbarsize bracketlength rbracketlength dotsize arrowscale linetyle liftpen labelsep Ox Oy Dx Dy dx oy
@@ -73,7 +74,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 				case Some(res) => ctx.setParam(name, res)
 				case None => PSTParser.errorLogs += "Value not valid: " + name + "=" + valueStr
 			}
-			case None => PSTParser.errorLogs += "Unknown parameter: " + name
+			case None => PSTParser.errorLogs += "Unknown parameter: " + name + "=" + valueStr
 		}
 	}
 }

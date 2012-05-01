@@ -54,10 +54,6 @@ trait PSTAbstractParser extends TokenParsers {
 	def numeric : Parser[String] = elem("numeric", _.isInstanceOf[NumericLit]) ^^ (_.chars)
 
 
-	/** A parser which matches a unit. */
-	def unit : Parser[String] = elem("unit", _.isInstanceOf[Unit]) ^^ (_.chars)
-
-
 	/** A parser which matches a text. */
 	def text : Parser[String] = elem("text", _.isInstanceOf[Text]) ^^ (_.chars)
 
@@ -86,6 +82,9 @@ trait PSTAbstractParser extends TokenParsers {
 	protected def setShapeGeneralParameters(sh : IShape, ctx : PSTContext) {
 		sh.setLineColour(ctx.lineColor)
 
+		if(sh.isThicknessable)
+			sh.setThickness(ctx.lineWidth*IShape.PPC)
+
 		if(sh.isBordersMovable)
 			sh.setBordersPosition(ctx.borderPos)
 
@@ -95,27 +94,27 @@ trait PSTAbstractParser extends TokenParsers {
 		if(sh.isDbleBorderable) {
 			sh.setHasDbleBord(ctx.dbleLine)
 			sh.setDbleBordCol(ctx.dbleColor)
-			sh.setDbleBordSep(ctx.dbleSep)
+			sh.setDbleBordSep(ctx.dbleSep*IShape.PPC)
 		}
 
 		if(sh.isShadowable) {
 			sh.setHasShadow(ctx.shadow)
-			sh.setShadowAngle(ctx.shadowAngle)
+			sh.setShadowAngle(scala.math.toRadians(ctx.shadowAngle))
 			sh.setShadowCol(ctx.shadowCol)
-			sh.setShadowSize(ctx.shadowSize)
+			sh.setShadowSize(ctx.shadowSize*IShape.PPC)
 		}
 
 		if(sh.isInteriorStylable) {
 			sh.setFillingCol(ctx.fillColor)
 			sh.setFillingStyle(ctx.fillStyle)
-			sh.setGradAngle(ctx.gradAngle)
+			sh.setGradAngle(scala.math.toRadians(ctx.gradAngle))
 			sh.setGradColEnd(ctx.gradEnd)
 			sh.setGradColStart(ctx.gradBegin)
 			sh.setGradMidPt(ctx.gradMidPoint)
-			sh.setHatchingsAngle(ctx.hatchAngle)
+			sh.setHatchingsAngle(scala.math.toRadians(ctx.hatchAngle))
 			sh.setHatchingsCol(ctx.hatchCol)
-			sh.setHatchingsSep(ctx.hatchSep)
-			sh.setHatchingsWidth(ctx.hatchWidth)
+			sh.setHatchingsSep(ctx.hatchSep*IShape.PPC)
+			sh.setHatchingsWidth(ctx.hatchWidth*IShape.PPC)
 		}
 	}
 

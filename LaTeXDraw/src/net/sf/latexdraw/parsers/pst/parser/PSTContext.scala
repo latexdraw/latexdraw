@@ -166,6 +166,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "fillstyle" => fillStyle
 				case "linestyle" => lineStyle
 				case "dimen" => borderPos
+				case "linewidth" => lineWidth
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -197,6 +198,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "fillstyle" if(value.isInstanceOf[IShape.FillingStyle]) => fillStyle = value.asInstanceOf[IShape.FillingStyle]
 				case "linestyle" if(value.isInstanceOf[IShape.LineStyle]) => lineStyle = value.asInstanceOf[IShape.LineStyle]
 				case "dimen" if(value.isInstanceOf[IShape.BorderPos]) => borderPos = value.asInstanceOf[IShape.BorderPos]
+				case "linewidth" if(value.isInstanceOf[Double]) => lineWidth = value.asInstanceOf[Double]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}
 	}

@@ -5,7 +5,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 
 /**
- * A parser that parses numbers.<br>
+ * A parser that parses coordinates.<br>
  *<br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-trait PSTCoordinateParser extends PSTAbstractParser {
+trait PSTCoordinateParser extends PSTAbstractParser with PSTNumberParser {
 	/**
 	 * Parses a coordinate.
 	 */
@@ -38,31 +38,5 @@ trait PSTCoordinateParser extends PSTAbstractParser {
 				case None => PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE
 			}
 			DrawingTK.getFactory.createPoint(x, y)
-	}
-
-
-	/**
-	 * Parses a number: a numeric value that may be followed by a unit.
-	 */
-	def parseNumber : Parser[Double] = numeric ~ opt(unit) ^^ { case num ~ unit =>
-		unit match {
-			case Some(value) => value match {
-				case PSTricksConstants.TOKEN_CM => createValidCoordinate(num)
-				case PSTricksConstants.TOKEN_MM => createValidCoordinate(num)/10.
-				case PSTricksConstants.TOKEN_PS_PT => createValidCoordinate(num)/PSTricksConstants.CM_VAL_PT
-				case PSTricksConstants.TOKEN_INCH => createValidCoordinate(num)/PSTricksConstants.INCH_VAL_CM
-			}
-			case None => createValidCoordinate(num)
-		}
-	}
-
-
-	/**
-	 * Converts the given parsed coordinate into a valid Java value.
-	 */
-	private def createValidCoordinate(coord : String) : Double = {
-		var coordValid = coord.replace("+", "")
-		coordValid = coordValid.replace("--", "")
-		coordValid.toDouble
 	}
 }

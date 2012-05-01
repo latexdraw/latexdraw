@@ -26,7 +26,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-trait PSTValueParser {
+trait PSTValueParser extends PSTNumberParser {
 	/** The regex expression of an identifier. */
 	val identPattern = """(\w)+""".r
 	/** The regex expression of PST command name. */
