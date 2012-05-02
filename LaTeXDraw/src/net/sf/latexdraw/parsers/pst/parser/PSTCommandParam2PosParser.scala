@@ -29,7 +29,10 @@ import net.sf.latexdraw.glib.models.interfaces.IRectangularShape
  * @version 3.0
  */
 trait PSTCommandParam2PosParser extends PSTAbstractParser with PSTParamParser with PSTCoordinateParser {
-	def parseCommandParame2Pos(ctx : PSTContext) : Parser[List[IShape]] =
+	/**
+	 * Parses a PST command composed of 2 blocks of coordinates \foo[](,)(,).
+	 */
+	def parseCommandParam2Pos(ctx : PSTContext) : Parser[List[IShape]] =
 		command ~ opt(parseParam(ctx)) ~ parseCoord(ctx) ~ opt(parseCoord(ctx)) ^^ { case cmd ~ _ ~ pt1 ~ pt2 =>
 			var p1 : IPoint = null
 			var p2 : IPoint = null
@@ -64,7 +67,7 @@ trait PSTCommandParam2PosParser extends PSTAbstractParser with PSTParamParser wi
 	}
 
 
-		/**
+	/**
 	 * Creates and initialises an ellipse.
 	 */
 	private def createEllipse(cmdName : String, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IEllipse = {
