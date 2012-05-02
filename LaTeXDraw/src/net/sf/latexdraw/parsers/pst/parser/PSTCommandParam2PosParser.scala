@@ -62,7 +62,7 @@ trait PSTCommandParam2PosParser extends PSTAbstractParser with PSTParamParser wi
 		name match {
 			case "psframe*" | "psframe" => List(createRectangle(cmd, p1, p2, ctx))
 			case "psellipse*" | "psellipse" => List(createEllipse(cmd, p1, p2, ctx))
-			case name => println("Unknown command: " + name) ; Nil
+			case name => PSTParser.errorLogs += "Unknown command: " + name ; Nil
 		}
 	}
 

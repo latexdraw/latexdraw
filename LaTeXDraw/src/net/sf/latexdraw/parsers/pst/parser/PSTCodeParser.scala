@@ -25,17 +25,19 @@ import java.text.ParseException
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-trait PSTCodeParser extends PSTAbstractParser with PSTCommandParam2PosParser {
+trait PSTCodeParser extends PSTAbstractParser with PSTCommandParam2PosParser with PSTCommandParam1Pos1BracketParser {
 	/** The entry point to parse PST texts. */
 	def parsePSTCode(context : PSTContext) : Parser[IGroup] =
 		rep(math | text |
 			parsePSTBlock(context) |
-			parseCommandParame2Pos(context)) ^^ {
+			parseCommandParam1Pos1Bracket(context) |
+			parseCommandParam2Pos(context)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)
 
 		list.foreach{_ match {
 				case gp : List[_] => gp.foreach{sh => group.addShape(sh.asInstanceOf[IShape])}
+				case gp : IGroup => gp.getShapes.foreach{sh => group.addShape(sh)}
 				case sh : IShape => group.addShape(sh)
 				case str: String => val txt = DrawingTK.getFactory.createText(true); txt.setText(str); group.addShape(txt)
 				case _ =>
