@@ -25,12 +25,14 @@ import java.text.ParseException
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-trait PSTCodeParser extends PSTAbstractParser with PSFrameEllipseParser with PSCircleParser {
+trait PSTCodeParser extends PSTAbstractParser
+	with PSFrameEllipseParser with PSCircleParser with PSLineParser {
 	/** The entry point to parse PST texts. */
 	def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
 		rep(math | text |
 			parsePSTBlock(ctx) |
 			parsePsellipse(ctx) | parsePsframe(ctx) |
+			parsePsline(ctx) |
 			parsePscircle(ctx) | parseQdisk(ctx)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)

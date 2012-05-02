@@ -1,4 +1,4 @@
-Version 3.0 alpha 4 - April 23th 2012
+Version 3.0 alpha 5 - May 5th 2012
 
 Added:
 - Native support of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
@@ -31,6 +31,9 @@ Improvements:
 - the selected shapes are no more unselected when selecting the pencil.
 - can undo/redo change of unit (cm or inch).
 - the lime and teal colours are now supported.
+- PSTricks parser:
+	- using a ps command as a value (e.g. linecolor=\psfillcolor) is supported
+	- command qdisk supported
 
 Changes:
 - Tabs are used to replace the code panel.
