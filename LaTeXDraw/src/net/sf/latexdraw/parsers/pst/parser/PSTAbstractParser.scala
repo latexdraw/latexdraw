@@ -93,6 +93,7 @@ trait PSTAbstractParser extends TokenParsers {
 			sh.setFillingCol(sh.getLineColour)
 			sh.setBordersPosition(IShape.BorderPos.INTO)
 			sh.setLineStyle(IShape.LineStyle.SOLID)
+			sh.setHasShadow(false)
 			sh.setHasDbleBord(false)
 		}
 	}

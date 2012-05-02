@@ -31,18 +31,22 @@ trait PSTCommandParam1Pos1BracketParser extends PSTAbstractParser
 	 * Parses a PST command composed of 1 block of coordinates and 1 bracket block \foo[](,){}.
 	 */
 	def parseCommandParam1Pos1Bracket(ctx : PSTContext) : Parser[List[IShape]] =
-		command ~ opt(parseParam(ctx)) ~ opt(parseCoord(ctx)) ~ parseBracket(ctx) ^^ { case cmd ~ _ ~ pos ~ radius =>
+		command ~ opt(parseParam(ctx)) ~ opt(parseCoord(ctx)) ~ parseBracket(ctx) ^^ { case cmd ~ param ~ pos ~ radius =>
 
 		parseValueDim(radius) match {
 			case Some(value) =>
 				var pt : IPoint = null
+				var hasParam = param.isDefined
+				var hasPoint = pos.isDefined
+
 				pos match {
 					case Some(point) => pt = point
 					case _ => pt = DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY)
 				}
+
 				pt = transformPointTo2DScene(pt)
-				createShape(cmd, pt, value*IShape.PPC, ctx)
-			case None => PSTParser.errorLogs += "pscircle has an invalid radius: " + radius; Nil
+				createShape(cmd, pt, value*IShape.PPC, ctx, hasParam, hasPoint)
+			case None => PSTParser.errorLogs += "Bracket's content cannot be empty: " + cmd; Nil
 		}
 	}
 
@@ -50,12 +54,25 @@ trait PSTCommandParam1Pos1BracketParser extends PSTAbstractParser
 	/**
 	 * Creates shapes corresponding to the given pst code.
 	 */
-	private def createShape(cmdName : String, centre : IPoint, radius : Double, ctx : PSTContext) : List[IShape] = {
+	private def createShape(cmdName : String, centre : IPoint, radius : Double,
+							ctx : PSTContext, hasParam : Boolean, hasPoint : Boolean) : List[IShape] = {
 		val name = cmdName.substring(1)
 		name match {
 			case "pscircle*" | "pscircle" => List(createCircle(cmdName, centre, radius, ctx))
+			case "qdisk" => createqdisk(cmdName, centre, radius, ctx, hasParam, hasPoint)
 			case name => PSTParser.errorLogs += "Unknown command: " + name ; Nil
 		}
+	}
+
+
+	/**
+	 * Creates and initialises a circle using a qdisk command.
+	 */
+	private def createqdisk(cmdName : String, centre : IPoint, radius : Double, ctx : PSTContext,
+							hasParam : Boolean, hasPoint : Boolean) : List[IShape] = {
+		if(hasParam) { PSTParser.errorLogs += "The qdisk command cannot have parameters."; Nil }
+		else if(!hasPoint) { PSTParser.errorLogs += "The qdisk command must have its centre defined."; Nil }
+		else List(createCircle(cmdName+"*", centre, radius, ctx))
 	}
 
 
