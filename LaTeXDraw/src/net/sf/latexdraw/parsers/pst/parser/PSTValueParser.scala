@@ -5,6 +5,7 @@ import net.sf.latexdraw.glib.models.interfaces.IAxes
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
+import net.sf.latexdraw.glib.models.interfaces.IArrow
 
 /**
  * A parser that parses a value corresponding to an object.
@@ -31,6 +32,27 @@ trait PSTValueParser extends PSTNumberParser {
 	val identPattern = """(\w)+""".r
 	/** The regex expression of PST command name. */
 	val cmdPattern = """(\\\\)ps\w+""".r
+	/** The regex expression of PST arrows. */
+	val arrowPattern = """([\]\[\)\(\*\|<>ocC]{0,2})-([\]\[\)\(\*\|<>ocC]{0,2})""".r
+
+
+	/**
+	 * Parses arrows.
+	 */
+	def parseValueArrows(value : Option[String]) : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle] = {
+		value match {
+			// The arrow string must contains the separator - and at least one arrow.
+			case Some(str) if(str.contains('-') && str.length>1) =>
+				str match {
+					case arrowPattern(arr1, arr2) =>
+						Tuple2(IArrow.ArrowStyle.getArrowStyle(arr1), IArrow.ArrowStyle.getArrowStyle(arr2))
+					case _ =>
+						PSTParser.errorLogs += "Cannot parse the following arrows: " + str
+						Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE)
+				}
+			case _ => Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE)
+		}
+	}
 
 
 	/**

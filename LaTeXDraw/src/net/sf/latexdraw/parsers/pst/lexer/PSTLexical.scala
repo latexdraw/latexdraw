@@ -107,48 +107,47 @@ class PSTLexical extends Lexical with PSTTokens {
 	/**
 	 * Parses identifers
 	 */
-	def identifier : Parser[Identifier] = ( positioned(rep1(letter) ~ opt('*') ^^ {
+	def identifier : Parser[Identifier] = positioned(rep1(letter) ~ opt('*') ^^ {
 		case name ~ star =>
 			star match {
 				case Some(_) => Identifier(name.mkString + '*')
 				case None => Identifier(name.mkString)
 			}
 		})
-	)
 
 
 
 	/**
 	 * Parses float numbers.
 	 */
-	def floatNumber : Parser[NumericLit] = (
+	def floatNumber : Parser[NumericLit] =
 		positioned(rep(elem('-')|elem('+')) ~ (parseDotDigit1 | parseDigitOptDotDigit) ~ opt(unit) ^^ {
 			case signs ~ content ~ unit => unit match {
 				case Some(value) => NumericLit(signs.mkString + content + value)
 				case None => NumericLit(signs.mkString + content)
 			}
 		})
-	)
 
 
-	private def parseDigitOptDotDigit : Parser[String] = (
+	/**
+	 * Parses a character that could be part of LaTeX texts.
+	 */
+	def text : Parser[Text] = positioned(elem("char", _.isValidChar) ^^ { case char => Text(char.toString) })
+
+
+	private def parseDigitOptDotDigit : Parser[String] =
 		rep1(digit) ~ opt(parseDotDigit) ^^ { case digits ~ decimals =>
 			decimals match {
 				case Some(value) => digits.mkString + value
 				case None => digits.mkString
 			}
 		}
-	)
 
 
-	private def parseDotDigit : Parser[String] = (
-		elem('.') ~ rep(digit) ^^ { case _ ~ digits => "." + digits.mkString }
-	)
+	private def parseDotDigit : Parser[String] = elem('.') ~ rep(digit) ^^ { case _ ~ digits => "." + digits.mkString }
 
 
-	private def parseDotDigit1 : Parser[String] = (
-		elem('.') ~ rep1(digit) ^^ { case _ ~ digits => "." + digits.mkString }
-	)
+	private def parseDotDigit1 : Parser[String] = elem('.') ~ rep1(digit) ^^ { case _ ~ digits => "." + digits.mkString }
 
 
 	/**
@@ -164,6 +163,7 @@ class PSTLexical extends Lexical with PSTTokens {
 		| positioned(eof ^^ {case _ => KEOF() })
 		| positioned('$' ^^ {case _ => throw new  ParseException("Unclosed math expression (a closing $ is missing).", -1) })
 		| positioned(delim)
+		| positioned(text)
 		| positioned(elem("illegal character", p => true) ^^^ KError("Illegal character"))
 	)
 

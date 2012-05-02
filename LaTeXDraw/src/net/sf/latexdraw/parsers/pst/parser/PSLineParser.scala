@@ -5,6 +5,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IPolyline
 import scala.collection.mutable.ListBuffer
+import net.sf.latexdraw.glib.models.interfaces.IArrow
 
 /**
  * A parser grouping parsers parsing lines.<br>
@@ -25,12 +26,13 @@ import scala.collection.mutable.ListBuffer
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-trait PSLineParser extends PSTAbstractParser with PSTParamParser with PSTCoordinateParser with PSTBracketBlockParser {
+trait PSLineParser extends PSTAbstractParser
+	with PSTParamParser with PSTCoordinateParser with PSTBracketBlockParser with PSTValueParser {
 	/**
 	 * Parses psline commands.
 	 */
 	def parsePsline(ctx : PSTContext) : Parser[List[IShape]] =
-		("\\psline*" | "\\psline") ~ opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ rep1(parseCoord(ctx)) ^^ { case cmdName ~ arr ~ _ ~ ptList =>
+		("\\psline*" | "\\psline") ~ opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ rep1(parseCoord(ctx)) ^^ { case cmdName ~ _ ~ arr ~ ptList =>
 
 		val ptList2 = ptList.length match {
 				case 1 => DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY) :: ptList
@@ -40,16 +42,18 @@ trait PSLineParser extends PSTAbstractParser with PSTParamParser with PSTCoordin
 		val ptList3 = new ListBuffer[IPoint]
 		ptList2.foreach{pt => ptList3 += transformPointTo2DScene(pt)}
 
-		List(createLine(cmdName.endsWith("*"), ptList3, ctx))
+		List(createLine(cmdName.endsWith("*"), ptList3, parseValueArrows(arr), ctx))
 	}
 
 
 	/**
 	 * Creates and initialises a line.
 	 */
-	private def createLine(hasStar : Boolean, pts : ListBuffer[IPoint], ctx : PSTContext) : IPolyline = {
+	private def createLine(hasStar : Boolean, pts : ListBuffer[IPoint], arrows : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle], ctx : PSTContext) : IPolyline = {
 		val line = DrawingTK.getFactory.createPolyline(true)
 		pts.foreach{pt => line.addPoint(pt)}
+		line.setArrowStyle(arrows._1, 0)
+		line.setArrowStyle(arrows._2, 1)
 		setShapeParameters(line, ctx)
 		if(hasStar)
 			setShapeForStar(line)
