@@ -1,0 +1,125 @@
+package net.sf.latexdraw.parsers.pst.parser
+
+import net.sf.latexdraw.glib.models.interfaces.IRectangle
+import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK
+import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.IEllipse
+import net.sf.latexdraw.glib.models.interfaces.IRectangularShape
+
+/**
+ * A parser grouping parsers parsing ellipses and rectangles.<br>
+ *<br>
+ * This file is part of LaTeXDraw<br>
+ * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
+ *<br>
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.<br>
+ *<br>
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.<br>
+ *<br>
+ * 2012-05-02<br>
+ * @author Arnaud BLOUIN
+ * @version 3.0
+ */
+trait PSFrameEllipseParser extends PSTAbstractParser with PSTParamParser with PSTCoordinateParser {
+	/**
+	 * Parses psframe commands.
+	 */
+	def parsePsframe(ctx : PSTContext) : Parser[List[IShape]] =
+		("\\psframe*" ~> parsePsFrameEllipse("\\psframe*", ctx)) | ("\\psframe" ~> parsePsFrameEllipse("\\psframe", ctx))
+
+
+	/**
+	 * Parses psellipse commands.
+	 */
+	def parsePsellipse(ctx : PSTContext) : Parser[List[IShape]] =
+		("\\psellipse*" ~> parsePsFrameEllipse("\\psellipse*", ctx)) | ("\\psellipse" ~> parsePsFrameEllipse("\\psellipse", ctx))
+
+
+
+	private def parsePsFrameEllipse(cmd : String, ctx : PSTContext) : Parser[List[IShape]] =
+		opt(parseParam(ctx)) ~ parseCoord(ctx) ~ opt(parseCoord(ctx)) ^^ {
+			case _ ~ pt1 ~ dim => createRectangleEllipse(cmd, cmd.endsWith("*"), pt1, dim, ctx)
+	}
+
+
+	/**
+	 * Creates a rectangle or an ellipse depending on the given parameters.
+	 */
+	private def createRectangleEllipse(cmd : String, hasStar : Boolean, pt1 : IPoint, pt2 : Option[IPoint], ctx : PSTContext) : List[IShape] = {
+			var p1 : IPoint = null
+			var p2 : IPoint = null
+
+			pt2 match {
+				case Some(pt) =>
+					p1 = pt1
+					p2 = pt
+				case _ =>
+					p1 = DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY)
+					p2 = pt1
+			}
+
+			// Transforming the PST point into a Java point.
+			p1 = transformPointTo2DScene(p1)
+			p2 = transformPointTo2DScene(p2)
+
+			val name = cmd.substring(1)
+			name match {
+				case "psframe*" | "psframe" => List(createRectangle(hasStar, p1, p2, ctx))
+				case "psellipse*" | "psellipse" => List(createEllipse(hasStar, p1, p2, ctx))
+				case name => PSTParser.errorLogs += "Unknown command: " + name ; Nil
+			}
+	}
+
+
+	/**
+	 * Creates and initialises an ellipse.
+	 */
+	private def createEllipse(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IEllipse = {
+		val ell = DrawingTK.getFactory.createEllipse(true)
+		setRectangularShape(ell, p1.getX-p2.getX, p1.getY-p2.getY, scala.math.abs(p2.getX*2), scala.math.abs(p2.getY*2), hasStar, ctx)
+		ell
+	}
+
+
+	/**
+	 * Creates and initialises a rectangle.
+	 */
+	private def createRectangle(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IRectangle = {
+		// The x-coordinates of p1 must be lower than p2 one.
+		if(p1.getX>p2.getX) {
+			val tmp = p1.getX
+			p1.setX(p2.getX)
+			p2.setX(tmp)
+		}
+
+		// The y-coordinates of p1 must be lower than p2 one.
+		if(p1.getY<p2.getY) {
+			val tmp = p1.getY
+			p1.setY(p2.getY)
+			p2.setY(tmp)
+		}
+
+		val rec = DrawingTK.getFactory.createRectangle(true)
+		setRectangularShape(rec, p1.getX, p1.getY, scala.math.abs(p2.getX-p1.getX), scala.math.abs(p2.getY-p1.getY), hasStar, ctx)
+		rec
+	}
+
+
+	/**
+	 * Sets the created shapes with the given parameters.
+	 */
+	private def setRectangularShape(sh : IRectangularShape, x : Double, y : Double, w : Double, h : Double, hasStar : Boolean, ctx : PSTContext) {
+		sh.setPosition(x, y)
+		sh.setWidth(scala.math.max(0.1, w))
+		sh.setHeight(scala.math.max(0.1, h))
+		setShapeParameters(sh, ctx)
+		if(hasStar)
+			setShapeForStar(sh)
+	}
+}

@@ -35,7 +35,7 @@ trait PSTAbstractParser extends TokenParsers {
 
 	import lexical._
 
-
+	protected val keywordCache : HashMap[String, Parser[String]] = HashMap.empty
 	protected val delimCache : HashMap[String, Parser[String]] = HashMap.empty
 
 
@@ -85,17 +85,15 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	/**
-	 * Configures the given shape if the command name ends with a star character.
+	 * Configures the given shape to fit stared command (e.g. psellipse*).
 	 */
-	protected def setShapeForStar(sh : IShape, cmdName : String) {
-		if(cmdName.endsWith("*")) {
-			sh.setFillingStyle(IShape.FillingStyle.PLAIN)
-			sh.setFillingCol(sh.getLineColour)
-			sh.setBordersPosition(IShape.BorderPos.INTO)
-			sh.setLineStyle(IShape.LineStyle.SOLID)
-			sh.setHasShadow(false)
-			sh.setHasDbleBord(false)
-		}
+	protected def setShapeForStar(sh : IShape) {
+		sh.setFillingStyle(IShape.FillingStyle.PLAIN)
+		sh.setFillingCol(sh.getLineColour)
+		sh.setBordersPosition(IShape.BorderPos.INTO)
+		sh.setLineStyle(IShape.LineStyle.SOLID)
+		sh.setHasShadow(false)
+		sh.setHasDbleBord(false)
 	}
 
 
@@ -152,7 +150,8 @@ trait PSTAbstractParser extends TokenParsers {
 
 	// An implicit keyword function that gives a warning when a given word is not in the delimiters list
 	implicit def keyword(chars : String) : Parser[String] =
-		if(lexical.delimiters.contains(chars))
+		if(lexical.reserved.contains(chars)) keywordCache.getOrElseUpdate(chars, accept(Command(chars)) ^^ (_.chars))
+		else if(lexical.delimiters.contains(chars))
 			delimCache.getOrElseUpdate(chars, accept(Delimiter(chars)) ^^ (_.chars))
 		else
 			failure("You are trying to parse \"" + chars + "\", but it is neither contained in the delimiters list of your lexical object")
