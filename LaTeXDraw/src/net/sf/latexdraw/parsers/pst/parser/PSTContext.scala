@@ -178,6 +178,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "gradlines" => gradLines
 				case "framearc" => frameArc
 				case "linearc" => lineArc
+				case "cornersize" => isCornerRel
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -221,6 +222,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "gradlines" if(value.isInstanceOf[Int]) => gradLines = value.asInstanceOf[Int]
 				case "framearc" if(value.isInstanceOf[Double]) => frameArc = value.asInstanceOf[Double]
 				case "linearc" if(value.isInstanceOf[Double]) => lineArc = value.asInstanceOf[Double]
+				case "cornersize" if(value.isInstanceOf[Boolean]) => isCornerRel = value.asInstanceOf[Boolean]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}
 	}

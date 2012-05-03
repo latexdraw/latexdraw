@@ -39,7 +39,7 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses arrows.
 	 */
-	def parseValueArrows(value : Option[String]) : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle] = {
+	def parseValueArrows(value : Option[String]) : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle] =
 		value match {
 			// The arrow string must contains the separator - and at least one arrow.
 			case Some(str) if(str.contains('-') && str.length>1) =>
@@ -52,42 +52,51 @@ trait PSTValueParser extends PSTNumberParser {
 				}
 			case _ => Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE)
 		}
-	}
+
+
+	/**
+	 * Parses the cornersize value and returns true if the corner is relative, false
+	 * is absolute and None is the value is not correct.
+	 */
+	def parseValueCornersize(value : String) : Option[Boolean] =
+		value match {
+			case PSTricksConstants.TOKEN_RELATIVE => Some(true)
+			case PSTricksConstants.TOKEN_ABSOLUTE => Some(false)
+			case _ => None
+		}
 
 
 	/**
 	 * Parses the line styles.
 	 */
-	def parseValueDimen(value : String) : Option[IShape.BorderPos] = {
-			value match {
-				case PSTricksConstants.BORDERS_INSIDE => Some(IShape.BorderPos.INTO)
-				case PSTricksConstants.BORDERS_MIDDLE => Some(IShape.BorderPos.MID)
-				case PSTricksConstants.BORDERS_OUTSIDE=> Some(IShape.BorderPos.OUT)
-				case _ => PSTParser.errorLogs += "Unknown border position: " + value; None
-			}
-	}
+	def parseValueDimen(value : String) : Option[IShape.BorderPos] =
+		value match {
+			case PSTricksConstants.BORDERS_INSIDE => Some(IShape.BorderPos.INTO)
+			case PSTricksConstants.BORDERS_MIDDLE => Some(IShape.BorderPos.MID)
+			case PSTricksConstants.BORDERS_OUTSIDE=> Some(IShape.BorderPos.OUT)
+			case _ => PSTParser.errorLogs += "Unknown border position: " + value; None
+		}
 
 
 	/**
 	 * Parses the line styles.
 	 */
-	def parseValueLineStyle(value : String) : Option[IShape.LineStyle] = {
-			value match {
-				case PSTricksConstants.LINE_DASHED_STYLE => Some(IShape.LineStyle.DASHED)
-				case PSTricksConstants.LINE_DOTTED_STYLE => Some(IShape.LineStyle.DOTTED)
-				case PSTricksConstants.LINE_SOLID_STYLE => Some(IShape.LineStyle.SOLID)
-				case PSTricksConstants.LINE_NONE_STYLE =>
-					PSTParser.errorLogs += "line style '"+PSTricksConstants.LINE_NONE_STYLE+"' not supported yet"
-					None
-				case _ => PSTParser.errorLogs += "Unknown line style: " + value; None
-			}
-	}
+	def parseValueLineStyle(value : String) : Option[IShape.LineStyle] =
+		value match {
+			case PSTricksConstants.LINE_DASHED_STYLE => Some(IShape.LineStyle.DASHED)
+			case PSTricksConstants.LINE_DOTTED_STYLE => Some(IShape.LineStyle.DOTTED)
+			case PSTricksConstants.LINE_SOLID_STYLE => Some(IShape.LineStyle.SOLID)
+			case PSTricksConstants.LINE_NONE_STYLE =>
+				PSTParser.errorLogs += "line style '"+PSTricksConstants.LINE_NONE_STYLE+"' not supported yet"
+				None
+			case _ => PSTParser.errorLogs += "Unknown line style: " + value; None
+		}
 
 
 	/**
 	 * Parses the filling styles.
 	 */
-	def parseValueFillingStyle(value : String) : Option[IShape.FillingStyle] = {
+	def parseValueFillingStyle(value : String) : Option[IShape.FillingStyle] =
 		value match {
 			case "plain" => Some(IShape.FillingStyle.PLAIN)
 			case "none" => Some(IShape.FillingStyle.NONE)
@@ -100,11 +109,10 @@ trait PSTValueParser extends PSTNumberParser {
 			case "gradient" => Some(IShape.FillingStyle.GRAD)
 			case _ => PSTParser.errorLogs += "Unknown filling style: " + value; None
 		}
-	}
 
 
 	/** This parser parses a object value that can be either a name nor a command. */
-	def parseValueColour(value : String, ctx : PSTContext) : Option[Color] = {
+	def parseValueColour(value : String, ctx : PSTContext) : Option[Color] =
 		try {
 			value match {
 				case cmdPattern(_) =>
@@ -120,17 +128,15 @@ trait PSTValueParser extends PSTNumberParser {
 				case _ => None
 			}
 		}catch{case ex => None }
-	}
 
 
 	/**
 	 * Parses a boolean value.
 	 */
-	def parseValueBoolean(value : String) : Option[Boolean] = {
+	def parseValueBoolean(value : String) : Option[Boolean] =
 		value match {
 			case "true" => Some(true)
 			case "false" => Some(false)
 			case _ => None
 		}
-	}
 }
