@@ -40,49 +40,39 @@ class PSTLexical extends Lexical with PSTTokens {
 	override def whitespace : Parser[Any] = rep(whitespaceChar)
 
 	val reserved : HashSet[String] = HashSet("\\psellipse", "\\psframe", "\\psframe*", "\\psellipse*", "\\pscircle", "\\pscircle*",
-			"\\qdisk", "\\psline", "\\psline*")
+			"\\qdisk", "\\psline", "\\psline*", "\\qline")
 
  	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
 
 
- 	def command : Parser[PSTToken] = (
-		positioned('\\' ~> identifier ^^ { case name => Command("\\" + name.chars)
-		})
-	)
+ 	def command : Parser[PSTToken] = positioned('\\' ~> identifier ^^ { case name => Command("\\" + name.chars) })
 
 
-	def specialCommand : Parser[PSTToken] =  (
+	def specialCommand : Parser[PSTToken] =
 		positioned('\\' ~> (elem('_')|elem('&')|elem('=')|elem('~')|elem('$')|elem('^')|elem('{')|elem('}')|
 				elem('%')|elem('#')|elem('\\')|elem('\"')|elem('\'')|elem('*')|elem(',')|elem('.')|
 				elem('/')|elem('@')|elem('`')) ^^ {case char => Text(char.toString) })
-	)
 
 
-	def comment : Parser[PSTToken] = (
-		positioned('%' ~> rep(chrExcept(EofCh, '\n')) ^^ { case content => Comment(content.mkString) })
-	)
+	def comment : Parser[PSTToken] = positioned('%' ~> rep(chrExcept(EofCh, '\n')) ^^ { case content => Comment(content.mkString) })
 
 
-	def mathMode : Parser[MathMode] = (
+	def mathMode : Parser[MathMode] =
 		positioned('$' ~> mathModeMultiLine ^^ { case math => MathMode("$"+math.chars) }) |
 		positioned('\\' ~> '(' ~> mathModeParenthesisMultiLine ^^ { case math => MathMode("\\("+math.chars) }) |
 		positioned('\\' ~> '[' ~> mathModeBracketsMultiLine ^^ { case math => MathMode("\\["+math.chars) })
-	)
 
 
-	protected def mathModeMultiLine : Parser[MathMode] = (
+	protected def mathModeMultiLine : Parser[MathMode] =
 		'$' ^^ { case _ => MathMode("$")  } | chrExcept(EofCh) ~ mathModeMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
-	)
 
 
-	protected def mathModeParenthesisMultiLine : Parser[MathMode] = (
+	protected def mathModeParenthesisMultiLine : Parser[MathMode] =
 		'\\' ~ ')' ^^ { case _ => MathMode("\\)")  } | chrExcept(EofCh) ~ mathModeParenthesisMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
-	)
 
 
-	protected def mathModeBracketsMultiLine : Parser[MathMode] = (
+	protected def mathModeBracketsMultiLine : Parser[MathMode] =
 		'\\' ~ ']' ^^ { case _ => MathMode("\\]")  } | chrExcept(EofCh) ~ mathModeBracketsMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
-	)
 
 
 	/**

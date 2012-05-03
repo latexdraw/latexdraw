@@ -47,6 +47,17 @@ trait PSLineParser extends PSTAbstractParser
 
 
 	/**
+	 * Parses qline commands.
+	 */
+	def parserQline(ctx : PSTContext) : Parser[List[IShape]] =
+		"\\qline" ~ parseCoord(ctx) ~ parseCoord(ctx) ^^ { case _ ~ pt1 ~ pt2 =>
+
+		val ptList = ListBuffer(transformPointTo2DScene(pt1), transformPointTo2DScene(pt2))
+		List(createLine(false, ptList, Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE), ctx))
+	}
+
+
+	/**
 	 * Creates and initialises a line.
 	 */
 	private def createLine(hasStar : Boolean, pts : ListBuffer[IPoint], arrows : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle], ctx : PSTContext) : IPolyline = {
