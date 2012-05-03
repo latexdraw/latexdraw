@@ -61,7 +61,7 @@ object PSTContext {
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IArrow.ArrowStyle], var arrowSizeD : Double,
+class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle], var arrowSizeD : Double,
 		var arrowSizeN : Double, var arrowLgth : Double, var arrowInset : Double, var arrowTBarSD : Double, var arrowTBarSN : Double,
 		var arrowBrLgth : Double, var arrowrBrLgth : Double, var arrowDotSD : Double, var arrowDotSN : Double, var arrowScale1 : Double,
 		var arrowScale2 : Double, var arcSep : Double, var arcSepA : Double, var arcSepB : Double, var boxSep : Boolean,
@@ -81,7 +81,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 		var yUnit : Double, var textColor : Color, var shadow : Boolean, var gridlabelcolor : Color) {
 
 	def this() {
-		this(PSTricksConstants.DEFAULT_AXES_STYLE, new ListBuffer[IArrow.ArrowStyle], PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
+		this(PSTricksConstants.DEFAULT_AXES_STYLE, Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE), PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
 			PSTricksConstants.DEFAULT_ARROW_SIZE_NUM, PSTricksConstants.DEFAULT_ARROW_LENGTH, PSTricksConstants.DEFAULT_ARROW_INSET,
 			PSTricksConstants.DEFAULT_ARROW_TBARSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_TBARSIZE_NUM, PSTricksConstants.DEFAULT_ARROW_BRACKET_LGTH,
 			PSTricksConstants.DEFAULT_ARROW_RBRACKET_LGTH, PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM,
@@ -124,7 +124,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 	 * Creates the PST context by copying the given one.
 	 */
 	def this(model : PSTContext) {
-		this(model.axesStyle, model.arrowStyle.clone, model.arrowSizeD, model.arrowSizeN, model.arrowLgth, model.arrowInset, model.arrowTBarSD,
+		this(model.axesStyle, Tuple2(model.arrowStyle._1, model.arrowStyle._2), model.arrowSizeD, model.arrowSizeN, model.arrowLgth, model.arrowInset, model.arrowTBarSD,
 			 model.arrowTBarSN, model.arrowBrLgth, model.arrowrBrLgth, model.arrowDotSD, model.arrowDotSN, model.arrowScale1, model.arrowScale2,
 			 model.arcSep, model.arcSepA, model.arcSepB, model.boxSep, model.borderColor, model.borderPos, model.border, model.curvature1,
 			 model.curvature2, model.curvature3, model.dxIncrement, model.dyIncrement, model.dxLabelDist, model.dyLabelDist, model.dotStyle,
@@ -179,6 +179,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "framearc" => frameArc
 				case "linearc" => lineArc
 				case "cornersize" => isCornerRel
+				case "arrows" => arrowStyle
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -223,6 +224,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : ListBuffer[IA
 				case "framearc" if(value.isInstanceOf[Double]) => frameArc = value.asInstanceOf[Double]
 				case "linearc" if(value.isInstanceOf[Double]) => lineArc = value.asInstanceOf[Double]
 				case "cornersize" if(value.isInstanceOf[Boolean]) => isCornerRel = value.asInstanceOf[Boolean]
+				case "arrows" if(value.isInstanceOf[Tuple2[_, _]]) => arrowStyle = value.asInstanceOf[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}
 	}

@@ -39,18 +39,11 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses arrows.
 	 */
-	def parseValueArrows(value : Option[String]) : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle] =
+	def parseValueArrows(value : String) : Option[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]] =
 		value match {
 			// The arrow string must contains the separator - and at least one arrow.
-			case Some(str) if(str.contains('-') && str.length>1) =>
-				str match {
-					case arrowPattern(arr1, arr2) =>
-						Tuple2(IArrow.ArrowStyle.getArrowStyle(arr1), IArrow.ArrowStyle.getArrowStyle(arr2))
-					case _ =>
-						PSTParser.errorLogs += "Cannot parse the following arrows: " + str
-						Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE)
-				}
-			case _ => Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE)
+			case arrowPattern(arr1, arr2) => Some(Tuple2(IArrow.ArrowStyle.getArrowStyle(arr1), IArrow.ArrowStyle.getArrowStyle(arr2)))
+			case _ => None
 		}
 
 

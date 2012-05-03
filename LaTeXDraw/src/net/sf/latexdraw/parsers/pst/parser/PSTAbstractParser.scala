@@ -73,6 +73,10 @@ trait PSTAbstractParser extends TokenParsers {
 	def setShapeParameters(sh : IShape, ctx : PSTContext) {
 		if(sh!=null && ctx!=null) {
 			setShapeGeneralParameters(sh, ctx)
+
+			if(sh.isArrowable)
+				setShapeArrows(sh, ctx)
+
 			sh match {
 				case rec : IRectangle => setRectangleParameters(rec, ctx)
 				case _ =>
@@ -94,6 +98,15 @@ trait PSTAbstractParser extends TokenParsers {
 		sh.setLineStyle(IShape.LineStyle.SOLID)
 		sh.setHasShadow(false)
 		sh.setHasDbleBord(false)
+	}
+
+
+	/**
+	 * Sets the arrows' parameters.
+	 */
+	protected def setShapeArrows(sh : IShape, ctx : PSTContext) {
+		sh.setArrowStyle(ctx.arrowStyle._1, 0)
+		sh.setArrowStyle(ctx.arrowStyle._2, 1)
 	}
 
 
