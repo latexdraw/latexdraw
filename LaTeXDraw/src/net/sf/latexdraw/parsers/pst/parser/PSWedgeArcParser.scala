@@ -35,25 +35,34 @@ trait PSWedgeArcParser extends PSTAbstractParser
 	def parsePswedge(ctx : PSTContext) : Parser[List[IShape]] =
 		("\\pswedge*" | "\\pswedge") ~ opt(parseParam(ctx)) ~ opt(parseCoord(ctx)) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
 		case cmdName ~ _ ~ posRaw ~ radiusStr ~ angle1Str ~ angle2Str =>
-		createArc(IArc.ArcStyle.WEDGE, cmdName.endsWith("*"), posRaw, radiusStr, angle1Str, angle2Str, None, ctx) match {
+		createArc(IArc.ArcStyle.WEDGE, cmdName.endsWith("*"), posRaw, radiusStr, angle1Str, angle2Str, None, ctx, false) match {
 			case Some(shape) => List(shape)
 			case None => Nil
 		}
 	}
 
 
+	/**
+	 * Parses psarn commands.
+	 */
+	def parsePsarcn(ctx : PSTContext) : Parser[List[IShape]] =
+		("\\psarcn*" ~> parsePsarcPsarcn(ctx, true, "\\psarcn*")) | ("\\psarcn" ~> parsePsarcPsarcn(ctx, true, "\\psarcn"))
+
 
 	/**
-	 * Parses pswedge commands.
+	 * Parses psarc commands.
 	 */
 	def parsePsarc(ctx : PSTContext) : Parser[List[IShape]] =
-		("\\psarc*" | "\\psarc") ~ opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ opt(parseCoord(ctx)) ~
-		parseBracket(ctx) ~ parseBracket(ctx) ~ opt(parseBracket(ctx)) ^^ {
-		case cmdName ~ _ ~ firstBracketRaw ~ posRaw ~ radiusRaw ~ angle1Raw ~ angle2Raw =>
+		("\\psarc*" ~> parsePsarcPsarcn(ctx, false, "\\psarc*")) | ("\\psarc" ~> parsePsarcPsarcn(ctx, false, "\\psarc"))
 
+
+
+	private def parsePsarcPsarcn(ctx : PSTContext, inverted : Boolean, cmdName : String) : Parser[List[IShape]] =
+		opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ opt(parseCoord(ctx)) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ opt(parseBracket(ctx)) ^^ {
+		case _ ~ firstBracketRaw ~ posRaw ~ radiusRaw ~ angle1Raw ~ angle2Raw =>
 		// One of the two bracket blocks must be defined.
 		firstBracketRaw.isDefined || angle2Raw.isDefined match {
-			case true => parsePsarc_(cmdName, posRaw, firstBracketRaw, radiusRaw, angle1Raw, angle2Raw, ctx)
+			case true => parsePsarc_(cmdName, posRaw, firstBracketRaw, radiusRaw, angle1Raw, angle2Raw, ctx, inverted)
 			case false => PSTParser.errorLogs += "One set of brackets is missing for the psarc command."; Nil
 		}
 	}
@@ -63,20 +72,20 @@ trait PSWedgeArcParser extends PSTAbstractParser
 	 * Function associated to parsePsarc.
 	 */
 	private def parsePsarc_(cmdName : String, posRaw : Option[IPoint], firstBracketRaw : Option[String], radiusRaw : String,
-							angle1Raw : String, angle2Raw : Option[String], ctx : PSTContext) : List[IShape] = {
+							angle1Raw : String, angle2Raw : Option[String], ctx : PSTContext, inverted : Boolean) : List[IShape] = {
 		var arc : Option[IArc] = None
 
 		posRaw match {
 			// If the position is defined, that means that the last bracket block is defined as well.
 			case Some(value) => arc = createArc(IArc.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, radiusRaw, angle1Raw,
-												angle2Raw.get, parseValueArrows(getArrows(firstBracketRaw)), ctx)
+												angle2Raw.get, parseValueArrows(getArrows(firstBracketRaw)), ctx, inverted)
 			case None =>
 				// Otherwise, the last bracket block must be check to define if there is an arrow block.
 				angle2Raw match {
 					case Some(value) => arc = createArc(IArc.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, radiusRaw, angle1Raw,
-														value, parseValueArrows(getArrows(firstBracketRaw)), ctx)
+														value, parseValueArrows(getArrows(firstBracketRaw)), ctx, inverted)
 					case None => arc = createArc(IArc.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, firstBracketRaw.get, radiusRaw,
-												angle1Raw, parseValueArrows(getArrows(firstBracketRaw)), ctx)
+												angle1Raw, parseValueArrows(getArrows(firstBracketRaw)), ctx, inverted)
 				}
 		}
 
@@ -101,18 +110,18 @@ trait PSWedgeArcParser extends PSTAbstractParser
 	 * Creates an arc using the given parameters.
 	 */
 	private def createArc(arcType : IArc.ArcStyle, hasStar : Boolean, posRaw : Option[IPoint], radiusStr : String, angle1Str : String,
-						angle2Str : String, arrows : Option[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]], ctx : PSTContext) : Option[IArc] = {
+						angle2Str : String, arrows : Option[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]], ctx : PSTContext, inverted : Boolean) : Option[IArc] = {
 		val radius = parseValueDim(radiusStr) match {
 			case Some(value) => value
 			case None => PSTParser.errorLogs += "pswedge's radius cannot be parsed: " + radiusStr ; Double.NaN
 		}
 
-		val angle1 = parseValueAngle(angle1Str) match {
+		var angle1 = parseValueAngle(angle1Str) match {
 			case Some(value) => value
 			case None => PSTParser.errorLogs += "pswedge's angle1 cannot be parsed: " + angle1Str ; Double.NaN
 		}
 
-		val angle2 = parseValueAngle(angle2Str) match {
+		var angle2 = parseValueAngle(angle2Str) match {
 			case Some(value) => value
 			case None => PSTParser.errorLogs += "pswedge's angle2 cannot be parsed: " + angle2Str ; Double.NaN
 		}
@@ -120,6 +129,18 @@ trait PSWedgeArcParser extends PSTAbstractParser
 		val pos = posRaw match {
 			case Some(value) => value
 			case None => DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY)
+		}
+
+		var arrowsFinal : Option[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]] = arrows
+
+		// Inversion of the arrows and the angles (for psarcn)
+		if(inverted) {
+			val tmpAngle = angle1
+			angle1 = angle2
+			angle2 = tmpAngle
+			if(arrows.isDefined)
+				arrowsFinal = Some(invertArrows(arrows.get))
+			ctx.arrowStyle = invertArrows(ctx.arrowStyle)
 		}
 
 		if(radius.isNaN || angle1.isNaN || angle2.isNaN)
@@ -137,4 +158,8 @@ trait PSWedgeArcParser extends PSTAbstractParser
 			Some(arc)
 		}
 	}
+
+
+	/** Inverts the arrows (the first arrow becomes the second one, etc.). */
+	private def invertArrows(arrows : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]) : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle] = Tuple2(arrows._2, arrows._1)
 }
