@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.geom.Rectangle2D;
 
+import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -51,6 +52,35 @@ class LCircleArc extends LArc implements ICircleArc {
 	@Override
 	public double getRadius() {
 		return getWidth();
+	}
+
+
+	private void setRadius(final double radius) {
+		final double cx = getGravityCentre().getX();
+		final double cy = getGravityCentre().getY();
+
+		points.get(0).setX(cx-radius);
+		points.get(3).setX(cx-radius);
+		points.get(1).setX(cx+radius);
+		points.get(2).setX(cx+radius);
+		points.get(0).setY(cy-radius);
+		points.get(3).setY(cy-radius);
+		points.get(1).setY(cy+radius);
+		points.get(2).setY(cy+radius);
+	}
+
+
+	@Override
+	public void setRx(final double rx) {
+		if(rx>0 && GLibUtilities.INSTANCE.isValidCoordinate(rx))
+			setRadius(rx);
+	}
+
+
+	@Override
+	public void setRy(final double ry) {
+		if(ry>0 && GLibUtilities.INSTANCE.isValidCoordinate(ry))
+			setRadius(ry);
 	}
 
 
