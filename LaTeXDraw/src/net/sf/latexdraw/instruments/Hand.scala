@@ -71,7 +71,7 @@ class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : Zoomer, 
 }
 
 
-private class DoubleClick2InitTextSetter(ins : Hand) extends Link[InitTextSetter, DoubleClick, Hand](ins, false, classOf[InitTextSetter], classOf[DoubleClick]) {
+private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Link[InitTextSetter, DoubleClick, Hand](ins, false, classOf[InitTextSetter], classOf[DoubleClick]) {
 	override def initAction() {
 		val o = interaction.getTarget
 
@@ -96,7 +96,7 @@ private class DoubleClick2InitTextSetter(ins : Hand) extends Link[InitTextSetter
 /**
  * This link allows to translate the selected shapes.
  */
-private class DnD2Translate(hand : Hand) extends Link[TranslateShapes, DnD, Hand](hand, true, classOf[TranslateShapes], classOf[DnD]) {
+private sealed class DnD2Translate(hand : Hand) extends Link[TranslateShapes, DnD, Hand](hand, true, classOf[TranslateShapes], classOf[DnD]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 		action.setShape(instrument.canvas.getDrawing.getSelection.duplicate.asInstanceOf[IGroup])
@@ -128,7 +128,7 @@ private class DnD2Translate(hand : Hand) extends Link[TranslateShapes, DnD, Hand
 
 
 
-private class Press2Select(ins : Hand) extends Link[SelectShapes, Press, Hand](ins, false, classOf[SelectShapes], classOf[Press]) {
+private sealed class Press2Select(ins : Hand) extends Link[SelectShapes, Press, Hand](ins, false, classOf[SelectShapes], classOf[Press]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 	}
@@ -152,7 +152,7 @@ private class Press2Select(ins : Hand) extends Link[SelectShapes, Press, Hand](i
 /**
  * This link allows to select several shapes.
  */
-private class DnD2Select(hand : Hand) extends Link[SelectShapes, DnD, Hand](hand, true, classOf[SelectShapes], classOf[DnD]) {
+private sealed class DnD2Select(hand : Hand) extends Link[SelectShapes, DnD, Hand](hand, true, classOf[SelectShapes], classOf[DnD]) {
 	/** The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
 	private val selectionBorder : Rectangle2D = new Rectangle2D.Double()
 

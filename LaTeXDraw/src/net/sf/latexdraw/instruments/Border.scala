@@ -491,7 +491,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 
 
 /** Maps a DnD interaction to an action that changes the arc angles. */
-private class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty, DnD, Border](ins, true, classOf[ModifyShapeProperty], classOf[DnD]) {
+private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty, DnD, Border](ins, true, classOf[ModifyShapeProperty], classOf[DnD]) {
 	/** The point corresponding to the 'press' position. */
 	private var p1 : IPoint = null
 
@@ -541,7 +541,7 @@ private class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty, DnD, 
 /**
  * This link maps a DnD interaction on a rotation handler to an action that rotates the selected shapes.
  */
-private class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Border](ins, true, classOf[RotateShapes], classOf[DnD]) {
+private sealed class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Border](ins, true, classOf[RotateShapes], classOf[DnD]) {
 	/** The point corresponding to the 'press' position. */
 	private var p1 : IPoint = null
 
@@ -571,7 +571,7 @@ private class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Border](i
 /**
  * This link maps a DnD interaction on a move control point handler to an action that moves the selected control point.
  */
-private class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint, DnD, Border](ins, true, classOf[MoveCtrlPoint], classOf[DnD]) {
+private sealed class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint, DnD, Border](ins, true, classOf[MoveCtrlPoint], classOf[DnD]) {
 	/** The original coordinates of the moved point. */
 	private var sourcePt : IPoint = null
 
@@ -624,7 +624,7 @@ private class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint, DnD, B
 /**
  * This link maps a DnD interaction on a move point handler to an action that moves the selected point.
  */
-private class DnD2MovePoint(ins : Border) extends Link[MovePointShape, DnD, Border](ins, true, classOf[MovePointShape], classOf[DnD]) {
+private sealed class DnD2MovePoint(ins : Border) extends Link[MovePointShape, DnD, Border](ins, true, classOf[MovePointShape], classOf[DnD]) {
 	/** The original coordinates of the moved point. */
 	private var sourcePt : IPoint = null
 
@@ -674,7 +674,7 @@ private class DnD2MovePoint(ins : Border) extends Link[MovePointShape, DnD, Bord
 /**
  * This link maps a DnD interaction on a scale handler to an action that scales the selection.
  */
-private class DnD2Scale(ins : Border) extends Link[ScaleShapes, DnD, Border](ins, true, classOf[ScaleShapes], classOf[DnD]) {
+private sealed class DnD2Scale(ins : Border) extends Link[ScaleShapes, DnD, Border](ins, true, classOf[ScaleShapes], classOf[DnD]) {
 	/** The point corresponding to the 'press' position. */
 	private var p1 : IPoint = null
 

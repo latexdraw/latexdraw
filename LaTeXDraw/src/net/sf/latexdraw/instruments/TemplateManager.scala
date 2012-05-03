@@ -94,7 +94,7 @@ class TemplateManager(composer : UIComposer[_], val ui : LFrame) extends WidgetI
 }
 
 
-private class MenuItem2ExportTemplate(ins : TemplateManager) extends
+private sealed class MenuItem2ExportTemplate(ins : TemplateManager) extends
 				Link[ExportTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[ExportTemplate], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.setUi(instrument.ui)
@@ -105,7 +105,7 @@ private class MenuItem2ExportTemplate(ins : TemplateManager) extends
 }
 
 
-private class MenuItem2LoadTemplate(ins : TemplateManager) extends
+private sealed class MenuItem2LoadTemplate(ins : TemplateManager) extends
 				Link[LoadTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[LoadTemplate], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.setFile(new File(interaction.getMenuItem.getName))
@@ -118,7 +118,7 @@ private class MenuItem2LoadTemplate(ins : TemplateManager) extends
 
 
 /** Maps a menu item interaction to an action that updates the templates. */
-private class MenuItem2UpdateTemplates(ins : TemplateManager) extends
+private sealed class MenuItem2UpdateTemplates(ins : TemplateManager) extends
 				Link[UpdateTemplates, MenuItemPressed, TemplateManager](ins, false, classOf[UpdateTemplates], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.updateThumbnails = true
