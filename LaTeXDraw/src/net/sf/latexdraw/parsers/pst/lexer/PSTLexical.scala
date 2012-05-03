@@ -40,7 +40,8 @@ class PSTLexical extends Lexical with PSTTokens {
 	override def whitespace : Parser[Any] = rep(whitespaceChar)
 
 	val reserved : HashSet[String] = HashSet("\\psellipse", "\\psframe", "\\psframe*", "\\psellipse*", "\\pscircle", "\\pscircle*",
-			"\\qdisk", "\\psline", "\\psline*", "\\qline", "\\pspolygon*", "\\pspolygon", "\\pswedge*", "\\pswedge")
+			"\\qdisk", "\\psline", "\\psline*", "\\qline", "\\pspolygon*", "\\pspolygon", "\\pswedge*", "\\pswedge", "\\psarc*",
+			"\\psarc")
 
  	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
 
