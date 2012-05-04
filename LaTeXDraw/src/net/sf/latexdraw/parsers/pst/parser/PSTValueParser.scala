@@ -33,7 +33,7 @@ trait PSTValueParser extends PSTNumberParser {
 	/** The regex expression of PST command name. */
 	val cmdPattern = """(\\\\)ps\w+""".r
 	/** The regex expression of PST arrows. */
-	val arrowPattern = """([\]\[\)\(\*\|<>ocC]{0,2})[ ]?-[ ]?([\]\[\)\(\*\|<>ocC]{0,2})""".r
+	val arrowPattern = """([\]\[\)\(\*\|<>ocC]{0,2})-([\]\[\)\(\*\|<>ocC]{0,2})""".r
 
 
 	/**
@@ -54,7 +54,7 @@ trait PSTValueParser extends PSTNumberParser {
 	 * Parses arrows.
 	 */
 	def parseValueArrows(value : String) : Option[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]] =
-		value match {
+		value.replace(" ", "") match {
 			// The arrow string must contains the separator - and at least one arrow.
 			case arrowPattern(arr1, arr2) => Some(Tuple2(IArrow.ArrowStyle.getArrowStyle(arr1), IArrow.ArrowStyle.getArrowStyle(arr2)))
 			case _ => None
