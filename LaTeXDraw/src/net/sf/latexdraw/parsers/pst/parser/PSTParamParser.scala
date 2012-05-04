@@ -50,6 +50,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("gradlines", (str : String, ctx : PSTContext) => parseValueInt(str)),
 			("gradmidpoint", (str : String, ctx : PSTContext) => parseValue01Interval(str)),
 			("hatchangle", (str : String, ctx : PSTContext) => parseValueAngle(str)),
+			("gangle", (str : String, ctx : PSTContext) => parseValueAngle(str)),
 			("gradangle", (str : String, ctx : PSTContext) => parseValueAngle(str)),
 			("shadowangle", (str : String, ctx : PSTContext) => parseValueAngle(str)),
 			("shadowsize", (str : String, ctx : PSTContext) => parseValueDim(str)),

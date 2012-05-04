@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.IEllipse
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape
 import net.sf.latexdraw.glib.models.interfaces.IRhombus
 import net.sf.latexdraw.glib.models.interfaces.ITriangle
+import net.sf.latexdraw.util.LNumber
 
 /**
  * A parser grouping parsers parsing ellipses and rectangles.<br>
@@ -101,6 +102,14 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 	private def createTriangle(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : ITriangle = {
 		val rh = DrawingTK.getFactory.createTriangle(true)
 		setRectangularShape(rh, p1.getX-p2.getX/2., p1.getY, scala.math.abs(p2.getX), scala.math.abs(p2.getY), hasStar, ctx)
+
+		if(!LNumber.INSTANCE.equals(ctx.gangle, 0.0)) {
+			val gc = rh.getGravityCentre
+			val newGc = gc.rotatePoint(p1, scala.math.toRadians(-ctx.gangle))
+			rh.setRotationAngle(rh.getRotationAngle+scala.math.toRadians(ctx.gangle))
+			rh.translate(newGc.getX-gc.getX, newGc.getY-gc.getY)
+		}
+
 		// If the height is negative, the position and the rotation of the triangle changes.
 		if(p2.getY>0) {
 			rh.setRotationAngle(rh.getRotationAngle+scala.math.Pi)
