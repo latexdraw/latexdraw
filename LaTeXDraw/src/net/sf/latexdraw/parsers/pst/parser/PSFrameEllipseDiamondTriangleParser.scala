@@ -6,6 +6,7 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IEllipse
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape
+import net.sf.latexdraw.glib.models.interfaces.IRhombus
 
 /**
  * A parser grouping parsers parsing ellipses and rectangles.<br>
@@ -26,32 +27,39 @@ import net.sf.latexdraw.glib.models.interfaces.IRectangularShape
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-trait PSFrameEllipseParser extends PSTAbstractParser with PSTParamParser with PSTCoordinateParser {
+trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTParamParser with PSTCoordinateParser {
 	/**
 	 * Parses psframe commands.
 	 */
 	def parsePsframe(ctx : PSTContext) : Parser[List[IShape]] =
-		("\\psframe*" ~> parsePsFrameEllipse("\\psframe*", ctx)) | ("\\psframe" ~> parsePsFrameEllipse("\\psframe", ctx))
+		("\\psframe*" ~> parsePsFrameEllipseDiamondTriangle("\\psframe*", ctx)) | ("\\psframe" ~> parsePsFrameEllipseDiamondTriangle("\\psframe", ctx))
 
 
 	/**
 	 * Parses psellipse commands.
 	 */
 	def parsePsellipse(ctx : PSTContext) : Parser[List[IShape]] =
-		("\\psellipse*" ~> parsePsFrameEllipse("\\psellipse*", ctx)) | ("\\psellipse" ~> parsePsFrameEllipse("\\psellipse", ctx))
+		("\\psellipse*" ~> parsePsFrameEllipseDiamondTriangle("\\psellipse*", ctx)) | ("\\psellipse" ~> parsePsFrameEllipseDiamondTriangle("\\psellipse", ctx))
+
+
+	/**
+	 * Parses psdiamond commands.
+	 */
+	def parsePsdiamond(ctx : PSTContext) : Parser[List[IShape]] =
+		("\\psdiamond*" ~> parsePsFrameEllipseDiamondTriangle("\\psdiamond*", ctx)) | ("\\psdiamond" ~> parsePsFrameEllipseDiamondTriangle("\\psdiamond", ctx))
 
 
 
-	private def parsePsFrameEllipse(cmd : String, ctx : PSTContext) : Parser[List[IShape]] =
+	private def parsePsFrameEllipseDiamondTriangle(cmd : String, ctx : PSTContext) : Parser[List[IShape]] =
 		opt(parseParam(ctx)) ~ parseCoord(ctx) ~ opt(parseCoord(ctx)) ^^ {
-			case _ ~ pt1 ~ dim => createRectangleEllipse(cmd, cmd.endsWith("*"), pt1, dim, ctx)
+			case _ ~ pt1 ~ dim => createRectangleEllipseDiamondTriangle(cmd, cmd.endsWith("*"), pt1, dim, ctx)
 	}
 
 
 	/**
 	 * Creates a rectangle or an ellipse depending on the given parameters.
 	 */
-	private def createRectangleEllipse(cmd : String, hasStar : Boolean, pt1 : IPoint, pt2 : Option[IPoint], ctx : PSTContext) : List[IShape] = {
+	private def createRectangleEllipseDiamondTriangle(cmd : String, hasStar : Boolean, pt1 : IPoint, pt2 : Option[IPoint], ctx : PSTContext) : List[IShape] = {
 			var p1 : IPoint = null
 			var p2 : IPoint = null
 
@@ -72,8 +80,19 @@ trait PSFrameEllipseParser extends PSTAbstractParser with PSTParamParser with PS
 			name match {
 				case "psframe*" | "psframe" => List(createRectangle(hasStar, p1, p2, ctx))
 				case "psellipse*" | "psellipse" => List(createEllipse(hasStar, p1, p2, ctx))
+				case "psdiamond*" | "psdiamond" => List(createDiamond(hasStar, p1, p2, ctx))
 				case name => PSTParser.errorLogs += "Unknown command: " + name ; Nil
 			}
+	}
+
+
+	/**
+	 * Creates and initialises a rhombus.
+	 */
+	private def createDiamond(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IRhombus = {
+		val rh = DrawingTK.getFactory.createRhombus(true)
+		setRectangularShape(rh, p1.getX-p2.getX, p1.getY-p2.getY, scala.math.abs(p2.getX*2), scala.math.abs(p2.getY*2), hasStar, ctx)
+		rh
 	}
 
 

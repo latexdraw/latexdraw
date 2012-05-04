@@ -26,13 +26,13 @@ import java.text.ParseException
  * @version 3.0
  */
 trait PSTCodeParser extends PSTAbstractParser
-	with PSFrameEllipseParser with PSCircleParser with PSLineParser with PSPolygonParser with PSWedgeArcParser
+	with PSFrameEllipseDiamondTriangleParser with PSCircleParser with PSLineParser with PSPolygonParser with PSWedgeArcParser
 	with PSBezierParser with PSCurveParabolaParser {
 	/** The entry point to parse PST texts. */
 	def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
 		rep(math | text |
 			parsePSTBlock(ctx) |
-			parsePsellipse(ctx) | parsePsframe(ctx) |
+			parsePsellipse(ctx) | parsePsframe(ctx) | parsePsdiamond(ctx) |
 			parsePsline(ctx) | parserQline(ctx) |
 			parsePscircle(ctx) | parseQdisk(ctx) |
 			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) |
