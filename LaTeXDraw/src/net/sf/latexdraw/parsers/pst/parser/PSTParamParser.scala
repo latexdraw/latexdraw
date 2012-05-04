@@ -60,7 +60,8 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("arcsepA", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("arcsepB", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("arcsep", (str : String, ctx : PSTContext) => parseValueDim(str)),
-			("linewidth", (str : String, ctx : PSTContext) => parseValueDim(str)))
+			("linewidth", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("curvature", (str : String, ctx : PSTContext) => parseValueCurvature(str)))
 //			("labels", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 //			("ticks", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 //			("tickstyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
@@ -74,7 +75,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 		case _ ~ _ ~ _ =>
 	}
 
-// xunit yunit unit curvature
+// xunit yunit unit
 // dotstyle dotscale dotangle gridwidth  griddots gridlabels  subgriddiv subgridwidth  subgriddots  origin plotpoints
 // dash dotsep border
 // arrowsize arrowlength arrowinset tbarsize bracketlength rbracketlength dotsize arrowscale liftpen labelsep Ox Oy Dx Dy dx oy
@@ -85,7 +86,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 	 */
 	def parseParamSetting(ctx : PSTContext) : Parser[Unit] = ident ~ "=" ~ rep1(chrExcept(',', ']', CharArrayReader.EofCh)) ^^ {
 		case name ~ _ ~ value  =>
-		val valueStr = value.mkString
+		val valueStr = value.mkString(" ")
 
 		paramsMap.get(name) match {
 			case Some(fct) => fct(valueStr, ctx) match {

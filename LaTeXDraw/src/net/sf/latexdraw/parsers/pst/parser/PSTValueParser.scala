@@ -37,6 +37,20 @@ trait PSTValueParser extends PSTNumberParser {
 
 
 	/**
+	 * Parses the value of the curvature parameter.
+	 */
+	def parseValueCurvature(value : String) : Option[Tuple3[Double, Double, Double]] = {
+		value.split(" ") match {
+			case Array(val1, val2, val3) =>
+				try { Some(Tuple3(val1.toDouble, val2.toDouble, val3.toDouble)) }
+				catch{case _ => None}
+			case _ => None
+		}
+	}
+
+
+
+	/**
 	 * Parses arrows.
 	 */
 	def parseValueArrows(value : String) : Option[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]] =

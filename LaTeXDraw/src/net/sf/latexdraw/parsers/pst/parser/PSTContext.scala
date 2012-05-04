@@ -65,8 +65,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var arrowSizeN : Double, var arrowLgth : Double, var arrowInset : Double, var arrowTBarSD : Double, var arrowTBarSN : Double,
 		var arrowBrLgth : Double, var arrowrBrLgth : Double, var arrowDotSD : Double, var arrowDotSN : Double, var arrowScale1 : Double,
 		var arrowScale2 : Double, var arcSep : Double, var arcSepA : Double, var arcSepB : Double, var boxSep : Boolean,
-		var borderColor : Color, var borderPos : IShape.BorderPos, var border : Double, var curvature1 : Double, var curvature2 : Double,
-		var curvature3 : Double, var dxIncrement : Double, var dyIncrement : Double, var dxLabelDist : Double, var dyLabelDist : Double,
+		var borderColor : Color, var borderPos : IShape.BorderPos, var border : Double, var curvature : Tuple3[Double, Double, Double],
+		var dxIncrement : Double, var dyIncrement : Double, var dxLabelDist : Double, var dyLabelDist : Double,
 		var dotStyle : IDot.DotStyle, var dotScale1 : Double, var dotScale2 : Double, var dotAngle : Double, var dotStep : Double,
 		var dashBlack : Double, var dashWhite : Double, var dbleLine : Boolean, var dbleSep : Double, var dbleColor : Color,
 		var degrees : Double, var frameSep : Double, var frameArc : Double, var fillStyle : IShape.FillingStyle, var fillColor : Color,
@@ -88,7 +88,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			PSTricksConstants.DEFAULT_ARROW_SCALE1, PSTricksConstants.DEFAULT_ARROW_SCALE2, PSTricksConstants.DEFAULT_ARC_SEP,
 			PSTricksConstants.DEFAULT_ARC_SEP_A, PSTricksConstants.DEFAULT_ARC_SEP_B, PSTricksConstants.DEFAULT_BOX_SEP,
 			PSTricksConstants.DEFAULT_BORDER_COLOR, PSTricksConstants.DEFAULT_BORDERS_POS, PSTricksConstants.DEFAULT_BORDER,
-			PSTricksConstants.DEFAULT_CURVATURE_NUM1, PSTricksConstants.DEFAULT_CRUVATURE_NUM2, PSTricksConstants.DEFAULT_CRUVATURE_NUM3,
+			Tuple3(PSTricksConstants.DEFAULT_CURVATURE_NUM1, PSTricksConstants.DEFAULT_CRUVATURE_NUM2, PSTricksConstants.DEFAULT_CRUVATURE_NUM3),
 			PSTricksConstants.DEFAULT_DX, PSTricksConstants.DEFAULT_DY, PSTricksConstants.DEFAULT_DIST_X_LABEL, PSTricksConstants.DEFAULT_DIST_Y_LABEL,
 			PSTricksConstants.DEFAULT_DOT_STYLE, PSTricksConstants.DEFAULT_DOT_SCALE1, PSTricksConstants.DEFAULT_DOT_SCALE2,
 			PSTricksConstants.DEFAULT_DOT_ANGLE, PSTricksConstants.DEFAULT_DOT_STEP, PSTricksConstants.DEFAULT_DASH_BLACK,
@@ -126,8 +126,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 	def this(model : PSTContext) {
 		this(model.axesStyle, Tuple2(model.arrowStyle._1, model.arrowStyle._2), model.arrowSizeD, model.arrowSizeN, model.arrowLgth, model.arrowInset, model.arrowTBarSD,
 			 model.arrowTBarSN, model.arrowBrLgth, model.arrowrBrLgth, model.arrowDotSD, model.arrowDotSN, model.arrowScale1, model.arrowScale2,
-			 model.arcSep, model.arcSepA, model.arcSepB, model.boxSep, model.borderColor, model.borderPos, model.border, model.curvature1,
-			 model.curvature2, model.curvature3, model.dxIncrement, model.dyIncrement, model.dxLabelDist, model.dyLabelDist, model.dotStyle,
+			 model.arcSep, model.arcSepA, model.arcSepB, model.boxSep, model.borderColor, model.borderPos, model.border,
+			 Tuple3(model.curvature._1, model.curvature._2, model.curvature._3), model.dxIncrement, model.dyIncrement, model.dxLabelDist, model.dyLabelDist, model.dotStyle,
 			  model.dotScale1,  model.dotScale2, model.dotAngle, model.dotStep, model.dashBlack, model.dashWhite, model.dbleLine, model.dbleSep,
 			  model.dbleColor, model.degrees,
 			  model.frameSep, model.frameArc, model.fillStyle, model.fillColor, model.gridWidth, model.gridLabel, model.gridDots, model.gradAngle,
@@ -183,6 +183,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "arcsep" => arcSep
 				case "arcsepA" => arcSepA
 				case "arcsepB" => arcSepB
+				case "curvature" => curvature
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -231,6 +232,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "arcsepB" if(value.isInstanceOf[Double]) => arcSepB = value.asInstanceOf[Double]
 				case "cornersize" if(value.isInstanceOf[Boolean]) => isCornerRel = value.asInstanceOf[Boolean]
 				case "arrows" if(value.isInstanceOf[Tuple2[_, _]]) => arrowStyle = value.asInstanceOf[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]]
+				case "curvature" if(value.isInstanceOf[Tuple3[_, _, _]]) => curvature = value.asInstanceOf[Tuple3[Double, Double, Double]]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}
 	}
