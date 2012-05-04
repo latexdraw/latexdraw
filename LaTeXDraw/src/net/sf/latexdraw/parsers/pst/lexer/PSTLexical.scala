@@ -39,9 +39,10 @@ class PSTLexical extends Lexical with PSTTokens {
 
 	override def whitespace : Parser[Any] = rep(whitespaceChar)
 
+	/** The reserved token of the PST language. */
 	val reserved : HashSet[String] = HashSet("\\psellipse", "\\psframe", "\\psframe*", "\\psellipse*", "\\pscircle", "\\pscircle*",
 			"\\qdisk", "\\psline", "\\psline*", "\\qline", "\\pspolygon*", "\\pspolygon", "\\pswedge*", "\\pswedge", "\\psarc*",
-			"\\psarc", "\\psarcn*", "\\psarcn")
+			"\\psarc", "\\psarcn*", "\\psarcn", "\\psbezier*", "\\psbezier")
 
  	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
 

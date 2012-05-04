@@ -47,6 +47,25 @@ trait PSTValueParser extends PSTNumberParser {
 		}
 
 
+
+	def setArrows(sh : IShape, arrowsRaw : Option[String], invert : Boolean) {
+		arrowsRaw match {
+			case Some(value) =>
+				val arrows = parseValueArrows(value)
+				if(arrows.isDefined) {
+					if(invert) {
+						sh.setArrowStyle(arrows.get._2, 0)
+						sh.setArrowStyle(arrows.get._1, 1)
+					}else {
+						sh.setArrowStyle(arrows.get._1, 0)
+						sh.setArrowStyle(arrows.get._2, 1)
+					}
+				}
+			case None =>
+		}
+	}
+
+
 	/**
 	 * Parses the cornersize value and returns true if the corner is relative, false
 	 * is absolute and None is the value is not correct.

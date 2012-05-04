@@ -78,14 +78,14 @@ trait PSWedgeArcParser extends PSTAbstractParser
 		posRaw match {
 			// If the position is defined, that means that the last bracket block is defined as well.
 			case Some(value) => arc = createArc(IArc.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, radiusRaw, angle1Raw,
-												angle2Raw.get, parseValueArrows(getArrows(firstBracketRaw)), ctx, inverted)
+												angle2Raw.get, firstBracketRaw, ctx, inverted)
 			case None =>
 				// Otherwise, the last bracket block must be check to define if there is an arrow block.
 				angle2Raw match {
 					case Some(value) => arc = createArc(IArc.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, radiusRaw, angle1Raw,
-														value, parseValueArrows(getArrows(firstBracketRaw)), ctx, inverted)
+														value, firstBracketRaw, ctx, inverted)
 					case None => arc = createArc(IArc.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, firstBracketRaw.get, radiusRaw,
-												angle1Raw, parseValueArrows(getArrows(firstBracketRaw)), ctx, inverted)
+												angle1Raw, firstBracketRaw, ctx, inverted)
 				}
 		}
 
@@ -97,20 +97,12 @@ trait PSWedgeArcParser extends PSTAbstractParser
 	}
 
 
-	/** Tool function to get the string corresponding to the given arrow. */
-	private def getArrows(arrStr : Option[String]) =
-		arrStr match {
-			case Some(value) => value
-			case None => ""
-		}
-
-
 
 	/**
 	 * Creates an arc using the given parameters.
 	 */
 	private def createArc(arcType : IArc.ArcStyle, hasStar : Boolean, posRaw : Option[IPoint], radiusStr : String, angle1Str : String,
-						angle2Str : String, arrows : Option[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]], ctx : PSTContext, inverted : Boolean) : Option[IArc] = {
+						angle2Str : String, arrows : Option[String], ctx : PSTContext, inverted : Boolean) : Option[IArc] = {
 		val radius = parseValueDim(radiusStr) match {
 			case Some(value) => value
 			case None => PSTParser.errorLogs += "pswedge's radius cannot be parsed: " + radiusStr ; Double.NaN
@@ -131,15 +123,11 @@ trait PSWedgeArcParser extends PSTAbstractParser
 			case None => DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY)
 		}
 
-		var arrowsFinal : Option[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]] = arrows
-
 		// Inversion of the arrows and the angles (for psarcn)
 		if(inverted) {
 			val tmpAngle = angle1
 			angle1 = angle2
 			angle2 = tmpAngle
-			if(arrows.isDefined)
-				arrowsFinal = Some(invertArrows(arrows.get))
 			ctx.arrowStyle = invertArrows(ctx.arrowStyle)
 		}
 
@@ -152,6 +140,7 @@ trait PSWedgeArcParser extends PSTAbstractParser
 			arc.setRx(scala.math.abs(radius*IShape.PPC))
 			arc.setCentre(transformPointTo2DScene(pos))
 			arc.setArcStyle(arcType)
+			setArrows(arc, arrows, inverted)
 			setShapeParameters(arc, ctx)
 			if(hasStar)
 				setShapeForStar(arc)

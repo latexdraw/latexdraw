@@ -70,7 +70,7 @@ trait PSTAbstractParser extends TokenParsers {
 	/**
 	 * Sets the parameters of the given shape using the given context.
 	 */
-	def setShapeParameters(sh : IShape, ctx : PSTContext) {
+	protected def setShapeParameters(sh : IShape, ctx : PSTContext) {
 		if(sh!=null && ctx!=null) {
 			setShapeGeneralParameters(sh, ctx)
 

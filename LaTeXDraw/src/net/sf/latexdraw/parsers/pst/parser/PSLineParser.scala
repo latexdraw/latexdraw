@@ -39,14 +39,10 @@ trait PSLineParser extends PSTAbstractParser
 				case _ => ptList
 			}
 
-		val arrows = arr match {
-			case Some(value) => value
-			case None => ""
-		}
 		val ptList3 = new ListBuffer[IPoint]
 		ptList2.foreach{pt => ptList3 += transformPointTo2DScene(pt)}
 
-		List(createLine(cmdName.endsWith("*"), ptList3, parseValueArrows(arrows), ctx))
+		List(createLine(cmdName.endsWith("*"), ptList3, arr, ctx))
 	}
 
 
@@ -64,16 +60,13 @@ trait PSLineParser extends PSTAbstractParser
 	/**
 	 * Creates and initialises a line.
 	 */
-	private def createLine(hasStar : Boolean, pts : ListBuffer[IPoint], arrows : Option[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]], ctx : PSTContext) : IPolyline = {
+	private def createLine(hasStar : Boolean, pts : ListBuffer[IPoint], arrows : Option[String], ctx : PSTContext) : IPolyline = {
 		val line = DrawingTK.getFactory.createPolyline(true)
 		pts.foreach{pt => line.addPoint(pt)}
 
 		setShapeParameters(line, ctx)
 
-		if(arrows.isDefined) {
-			line.setArrowStyle(arrows.get._1, 0)
-			line.setArrowStyle(arrows.get._2, 1)
-		}
+		setArrows(line, arrows, false)
 
 		if(hasStar)
 			setShapeForStar(line)
