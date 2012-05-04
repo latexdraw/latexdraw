@@ -33,7 +33,7 @@ trait PSTValueParser extends PSTNumberParser {
 	/** The regex expression of PST command name. */
 	val cmdPattern = """(\\\\)ps\w+""".r
 	/** The regex expression of PST arrows. */
-	val arrowPattern = """([\]\[\)\(\*\|<>ocC]{0,2})-([\]\[\)\(\*\|<>ocC]{0,2})""".r
+	val arrowPattern = """([\]\[\)\(\*\|<>ocC]{0,2})[ ]?-[ ]?([\]\[\)\(\*\|<>ocC]{0,2})""".r
 
 
 	/**
