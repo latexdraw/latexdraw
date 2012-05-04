@@ -36,7 +36,8 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePsline(ctx) | parserQline(ctx) |
 			parsePscircle(ctx) | parseQdisk(ctx) |
 			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) |
-			parsePspolygon(ctx) | parsePsbezier(ctx) | parseParabola(ctx)) ^^ {
+			parsePspolygon(ctx) | parsePsbezier(ctx) |
+			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)
 

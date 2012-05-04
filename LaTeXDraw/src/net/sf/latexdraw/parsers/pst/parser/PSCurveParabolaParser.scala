@@ -24,6 +24,32 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK
  */
 trait PSCurveParabolaParser extends PSTAbstractParser with PSTParamParser with PSTCoordinateParser with PSTBracketBlockParser with PSTValueParser {
 	/**
+	 * Parses pscurve commands.
+	 */
+	def parsePscurve(ctx : PSTContext) : Parser[List[IShape]] = ("\\pscurve*" | "\\pscurve") ~> parsePscurves(ctx)
+
+
+	/**
+	 * Parses pscurve commands.
+	 */
+	def parsePsecurve(ctx : PSTContext) : Parser[List[IShape]] = ("\\psecurve*" | "\\psecurve") ~> parsePscurves(ctx)
+
+
+	/**
+	 * Parses pscurve commands.
+	 */
+	def parsePsccurve(ctx : PSTContext) : Parser[List[IShape]] = ("\\psccurve*" | "\\psccurve") ~> parsePscurves(ctx)
+
+
+	private def parsePscurves(ctx : PSTContext) : Parser[List[IShape]] =
+		opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ repN(3, parseCoord(ctx)) ~ rep(parseCoord(ctx)) ^^ {
+		case _ ~ arrowRaw ~ firstPtsRaw ~ lastPtsRaw =>
+		PSTParser.errorLogs += "Commands pscurve, psecurve, and psccurve not supported yet."
+		Nil
+	}
+
+
+	/**
 	 * Parses parabola commands.
 	 */
 	def parseParabola(ctx : PSTContext) : Parser[List[IShape]] =
