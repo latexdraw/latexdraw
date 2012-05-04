@@ -7,6 +7,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IEllipse
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape
 import net.sf.latexdraw.glib.models.interfaces.IRhombus
+import net.sf.latexdraw.glib.models.interfaces.ITriangle
 
 /**
  * A parser grouping parsers parsing ellipses and rectangles.<br>
@@ -49,6 +50,13 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 		("\\psdiamond*" ~> parsePsFrameEllipseDiamondTriangle("\\psdiamond*", ctx)) | ("\\psdiamond" ~> parsePsFrameEllipseDiamondTriangle("\\psdiamond", ctx))
 
 
+	/**
+	 * Parses pstriangle commands.
+	 */
+	def parsePstriangle(ctx : PSTContext) : Parser[List[IShape]] =
+	("\\pstriangle*" ~> parsePsFrameEllipseDiamondTriangle("\\pstriangle*", ctx)) | ("\\pstriangle" ~> parsePsFrameEllipseDiamondTriangle("\\pstriangle", ctx))
+
+
 
 	private def parsePsFrameEllipseDiamondTriangle(cmd : String, ctx : PSTContext) : Parser[List[IShape]] =
 		opt(parseParam(ctx)) ~ parseCoord(ctx) ~ opt(parseCoord(ctx)) ^^ {
@@ -81,8 +89,24 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 				case "psframe*" | "psframe" => List(createRectangle(hasStar, p1, p2, ctx))
 				case "psellipse*" | "psellipse" => List(createEllipse(hasStar, p1, p2, ctx))
 				case "psdiamond*" | "psdiamond" => List(createDiamond(hasStar, p1, p2, ctx))
+				case "pstriangle*" | "pstriangle" => List(createTriangle(hasStar, p1, p2, ctx))
 				case name => PSTParser.errorLogs += "Unknown command: " + name ; Nil
 			}
+	}
+
+
+	/**
+	 * Creates and initialises a triangle.
+	 */
+	private def createTriangle(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : ITriangle = {
+		val rh = DrawingTK.getFactory.createTriangle(true)
+		setRectangularShape(rh, p1.getX-p2.getX/2., p1.getY, scala.math.abs(p2.getX), scala.math.abs(p2.getY), hasStar, ctx)
+		// If the height is negative, the position and the rotation of the triangle changes.
+		if(p2.getY>0) {
+			rh.setRotationAngle(rh.getRotationAngle+scala.math.Pi)
+			rh.translate(0, rh.getHeight)
+		}
+		rh
 	}
 
 
