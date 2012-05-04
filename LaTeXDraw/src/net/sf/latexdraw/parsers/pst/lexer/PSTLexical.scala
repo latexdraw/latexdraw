@@ -42,7 +42,7 @@ class PSTLexical extends Lexical with PSTTokens {
 	/** The reserved token of the PST language. */
 	val reserved : HashSet[String] = HashSet("\\psellipse", "\\psframe", "\\psframe*", "\\psellipse*", "\\pscircle", "\\pscircle*",
 			"\\qdisk", "\\psline", "\\psline*", "\\qline", "\\pspolygon*", "\\pspolygon", "\\pswedge*", "\\pswedge", "\\psarc*",
-			"\\psarc", "\\psarcn*", "\\psarcn", "\\psbezier*", "\\psbezier")
+			"\\psarc", "\\psarcn*", "\\psarcn", "\\psbezier*", "\\psbezier", "\\parabola*", "\\parabola")
 
  	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
 

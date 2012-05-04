@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK
  */
 trait PSBezierParser extends PSTAbstractParser with PSTParamParser with PSTCoordinateParser with PSTBracketBlockParser {
 	/**
-	 * Parses pscircle commands.
+	 * Parses psbezier commands.
 	 */
 	def parsePsbezier(ctx : PSTContext) : Parser[List[IShape]] =
 		("\\psbezier*" | "\\psbezier") ~ opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ rep(repN(3, parseCoord(ctx))) ~ opt(parseCoord(ctx)) ^^ {
