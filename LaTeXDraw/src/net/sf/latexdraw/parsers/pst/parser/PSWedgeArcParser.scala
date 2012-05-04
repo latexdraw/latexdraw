@@ -43,6 +43,30 @@ trait PSWedgeArcParser extends PSTAbstractParser
 
 
 	/**
+	 * Parses psellipticarc commands.
+	 */
+	def parsePsellipticarc(ctx : PSTContext) : Parser[List[IShape]] =
+		("\\psellipticarc*" | "\\psellipticarc") ~ opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ parseCoord(ctx) ~ opt(parseCoord(ctx)) ~
+		parseBracket(ctx) ~ parseBracket(ctx) ^^ {
+			case cmdName ~ _ ~ arrowRaw ~ pos0Raw ~ pos1Raw ~ angle1Str ~ angle2Str =>
+		PSTParser.errorLogs += "Command psellipticarc not supported yet."
+		Nil
+	}
+
+
+	/**
+	 * Parses psellipticarcn commands.
+	 */
+	def parsePsellipticarcn(ctx : PSTContext) : Parser[List[IShape]] =
+			("\\psellipticarcn*" | "\\psellipticarcn") ~ opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ parseCoord(ctx) ~ opt(parseCoord(ctx)) ~
+			parseBracket(ctx) ~ parseBracket(ctx) ^^ {
+				case cmdName ~ _ ~ arrowRaw ~ pos0Raw ~ pos1Raw ~ angle1Str ~ angle2Str =>
+				PSTParser.errorLogs += "Command psellipticarcn not supported yet."
+				Nil
+	}
+
+
+	/**
 	 * Parses psarn commands.
 	 */
 	def parsePsarcn(ctx : PSTContext) : Parser[List[IShape]] =

@@ -35,7 +35,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePsellipse(ctx) | parsePsframe(ctx) | parsePsdiamond(ctx) | parsePstriangle(ctx) |
 			parsePsline(ctx) | parserQline(ctx) |
 			parsePscircle(ctx) | parseQdisk(ctx) |
-			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) |
+			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parsePspolygon(ctx) | parsePsbezier(ctx) |
 			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx)) ^^ {
 		case list =>
