@@ -51,7 +51,31 @@ trait PSTValueParser extends PSTNumberParser {
 
 
 	/**
-	 * Parses a 2-tuple of values composed of a double (with unit) followed by a double (without unit): dim num
+	 * Parses a num value that may be followed by another num value.
+	 */
+	def parseValueNumNum(value : String) : Option[Tuple2[Double, Double]] = {
+		value.split(" ") match {
+			case Array(num1) =>
+				// When a single value is defined, it means that the second value equals the single one defined.
+				parseValueAngle(num1) match {
+					case Some(value) => Some(Tuple2(value, value))
+					case _ => None
+				}
+			case Array(num1, num2) =>
+				val n1 = parseValueAngle(num1)
+				val n2 = parseValueAngle(num2)
+
+				if(n1.isDefined && n2.isDefined)
+					Some(Tuple2(n1.get, n2.get))
+				else
+					None
+			case _ => None
+		}
+	}
+
+
+	/**
+	 * Parses a dim value that may be followed by a num value.
 	 * Example: dotsize=2cm 4
 	 */
 	def parseValueDimNum(value : String) : Option[Tuple2[Double, Double]] = {
