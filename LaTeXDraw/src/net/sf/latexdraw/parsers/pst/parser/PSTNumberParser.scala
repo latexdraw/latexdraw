@@ -59,7 +59,7 @@ trait PSTNumberParser extends PSTAbstractParser {
 
 
 	/** Parses angle values. The returned value is in degree. */
-	def parseValueAngle(num : String) = createValidNumber(num)
+	def parseValueNum(num : String) = createValidNumber(num)
 
 
 

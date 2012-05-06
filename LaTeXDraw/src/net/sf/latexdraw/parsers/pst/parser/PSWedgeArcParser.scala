@@ -132,12 +132,12 @@ trait PSWedgeArcParser extends PSTAbstractParser
 			case None => PSTParser.errorLogs += "pswedge's radius cannot be parsed: " + radiusStr ; Double.NaN
 		}
 
-		var angle1 = parseValueAngle(angle1Str) match {
+		var angle1 = parseValueNum(angle1Str) match {
 			case Some(value) => value
 			case None => PSTParser.errorLogs += "pswedge's angle1 cannot be parsed: " + angle1Str ; Double.NaN
 		}
 
-		var angle2 = parseValueAngle(angle2Str) match {
+		var angle2 = parseValueNum(angle2Str) match {
 			case Some(value) => value
 			case None => PSTParser.errorLogs += "pswedge's angle2 cannot be parsed: " + angle2Str ; Double.NaN
 		}

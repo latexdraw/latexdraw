@@ -57,13 +57,13 @@ trait PSTValueParser extends PSTNumberParser {
 		value.split(" ") match {
 			case Array(num1) =>
 				// When a single value is defined, it means that the second value equals the single one defined.
-				parseValueAngle(num1) match {
+				parseValueNum(num1) match {
 					case Some(value) => Some(Tuple2(value, value))
 					case _ => None
 				}
 			case Array(num1, num2) =>
-				val n1 = parseValueAngle(num1)
-				val n2 = parseValueAngle(num2)
+				val n1 = parseValueNum(num1)
+				val n2 = parseValueNum(num2)
 
 				if(n1.isDefined && n2.isDefined)
 					Some(Tuple2(n1.get, n2.get))
@@ -84,7 +84,7 @@ trait PSTValueParser extends PSTNumberParser {
 				case Array(dim, num) =>
 					// When two elements compose the value, it can be either
 					// 3 cm or 2.4 1 for instance.
-					if(parseValueAngle(num).isDefined)
+					if(parseValueNum(num).isDefined)
 						parseValueOptDimNum(dim, num)
 					else parseValueOptDimNum(dim+num, "")
 				case Array(dim, unit, num) => parseValueOptDimNum(dim+unit, num)
@@ -95,7 +95,7 @@ trait PSTValueParser extends PSTNumberParser {
 
 	private def parseValueOptDimNum(dim : String, num : String) : Option[Tuple2[Double, Double]] = {
 		val dimOpt = parseValueDim(dim)
-		val numOpt = parseValueAngle(num) match {
+		val numOpt = parseValueNum(num) match {
 			case Some(value) => value
 			case _ => 0.0
 		}
