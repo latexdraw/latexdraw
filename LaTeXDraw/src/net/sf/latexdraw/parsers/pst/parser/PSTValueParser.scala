@@ -50,6 +50,38 @@ trait PSTValueParser extends PSTNumberParser {
 	}
 
 
+	/**
+	 * Parses a 2-tuple of values composed of a double (with unit) followed by a double (without unit): dim num
+	 * Example: dotsize=2cm 4
+	 */
+	def parseValueDimNum(value : String) : Option[Tuple2[Double, Double]] = {
+			value.split(" ") match {
+				case Array(dim) => parseValueOptDimNum(dim, "")
+				case Array(dim, num) =>
+					// When two elements compose the value, it can be either
+					// 3 cm or 2.4 1 for instance.
+					if(parseValueAngle(num).isDefined)
+						parseValueOptDimNum(dim, num)
+					else parseValueOptDimNum(dim+num, "")
+				case Array(dim, unit, num) => parseValueOptDimNum(dim+unit, num)
+				case _ => None
+			}
+	}
+
+
+	private def parseValueOptDimNum(dim : String, num : String) : Option[Tuple2[Double, Double]] = {
+		val dimOpt = parseValueDim(dim)
+		val numOpt = parseValueAngle(num) match {
+			case Some(value) => value
+			case _ => 0.0
+		}
+
+		if(dimOpt.isDefined)
+			Some(Tuple2(dimOpt.get, numOpt))
+		else
+			None
+	}
+
 
 	/**
 	 * Parses arrows.

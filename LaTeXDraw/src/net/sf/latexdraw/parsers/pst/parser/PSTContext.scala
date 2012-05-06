@@ -63,7 +63,7 @@ object PSTContext {
  */
 class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle], var arrowSizeD : Double,
 		var arrowSizeN : Double, var arrowLgth : Double, var arrowInset : Double, var arrowTBarSD : Double, var arrowTBarSN : Double,
-		var arrowBrLgth : Double, var arrowrBrLgth : Double, var arrowDotSD : Double, var arrowDotSN : Double, var arrowScale1 : Double,
+		var arrowBrLgth : Double, var arrowrBrLgth : Double, var arrowDotSize : Tuple2[Double,Double], var arrowScale1 : Double,
 		var arrowScale2 : Double, var arcSep : Double, var arcSepA : Double, var arcSepB : Double, var boxSep : Boolean,
 		var borderColor : Color, var borderPos : IShape.BorderPos, var border : Double, var curvature : Tuple3[Double, Double, Double],
 		var dxIncrement : Double, var dyIncrement : Double, var dxLabelDist : Double, var dyLabelDist : Double,
@@ -84,7 +84,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		this(PSTricksConstants.DEFAULT_AXES_STYLE, Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE), PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
 			PSTricksConstants.DEFAULT_ARROW_SIZE_NUM, PSTricksConstants.DEFAULT_ARROW_LENGTH, PSTricksConstants.DEFAULT_ARROW_INSET,
 			PSTricksConstants.DEFAULT_ARROW_TBARSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_TBARSIZE_NUM, PSTricksConstants.DEFAULT_ARROW_BRACKET_LGTH,
-			PSTricksConstants.DEFAULT_ARROW_RBRACKET_LGTH, PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM,
+			PSTricksConstants.DEFAULT_ARROW_RBRACKET_LGTH, Tuple2(PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM),
 			PSTricksConstants.DEFAULT_ARROW_SCALE1, PSTricksConstants.DEFAULT_ARROW_SCALE2, PSTricksConstants.DEFAULT_ARC_SEP,
 			PSTricksConstants.DEFAULT_ARC_SEP_A, PSTricksConstants.DEFAULT_ARC_SEP_B, PSTricksConstants.DEFAULT_BOX_SEP,
 			PSTricksConstants.DEFAULT_BORDER_COLOR, PSTricksConstants.DEFAULT_BORDERS_POS, PSTricksConstants.DEFAULT_BORDER,
@@ -124,12 +124,12 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 	 * Creates the PST context by copying the given one.
 	 */
 	def this(model : PSTContext) {
-		this(model.axesStyle, Tuple2(model.arrowStyle._1, model.arrowStyle._2), model.arrowSizeD, model.arrowSizeN, model.arrowLgth, model.arrowInset, model.arrowTBarSD,
-			 model.arrowTBarSN, model.arrowBrLgth, model.arrowrBrLgth, model.arrowDotSD, model.arrowDotSN, model.arrowScale1, model.arrowScale2,
-			 model.arcSep, model.arcSepA, model.arcSepB, model.boxSep, model.borderColor, model.borderPos, model.border,
-			 Tuple3(model.curvature._1, model.curvature._2, model.curvature._3), model.dxIncrement, model.dyIncrement, model.dxLabelDist, model.dyLabelDist, model.dotStyle,
-			  model.dotScale1,  model.dotScale2, model.dotAngle, model.dotStep, model.dashBlack, model.dashWhite, model.dbleLine, model.dbleSep,
-			  model.dbleColor, model.degrees,
+		this(model.axesStyle, Tuple2(model.arrowStyle._1, model.arrowStyle._2), model.arrowSizeD, model.arrowSizeN, model.arrowLgth, model.arrowInset,
+			model.arrowTBarSD, model.arrowTBarSN, model.arrowBrLgth, model.arrowrBrLgth, Tuple2(model.arrowDotSize._1, model.arrowDotSize._2),
+			model.arrowScale1, model.arrowScale2, model.arcSep, model.arcSepA, model.arcSepB, model.boxSep, model.borderColor, model.borderPos,
+			model.border, Tuple3(model.curvature._1, model.curvature._2, model.curvature._3), model.dxIncrement, model.dyIncrement, model.dxLabelDist,
+			model.dyLabelDist, model.dotStyle,  model.dotScale1,  model.dotScale2, model.dotAngle, model.dotStep, model.dashBlack, model.dashWhite,
+			model.dbleLine, model.dbleSep, model.dbleColor, model.degrees,
 			  model.frameSep, model.frameArc, model.fillStyle, model.fillColor, model.gridWidth, model.gridLabel, model.gridDots, model.gradAngle,
 			  model.gridColor, model.gradMidPoint, model.gradBegin, model.gradEnd, model.gradLines, model.gangle, model.hatchWidth, model.hatchSep,
 			  model.hatchCol, model.hatchAngle, model.isCornerRel, model.isShadow, model.lineWidth, model.lineColor, model.labelsGridCol,
@@ -186,6 +186,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "curvature" => curvature
 				case "gangle" => gangle
 				case "dotstyle" => dotStyle
+				case "dotsize" => arrowDotSize
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -236,6 +237,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "dotstyle" if(value.isInstanceOf[IDot.DotStyle]) => dotStyle = value.asInstanceOf[IDot.DotStyle]
 				case "cornersize" if(value.isInstanceOf[Boolean]) => isCornerRel = value.asInstanceOf[Boolean]
 				case "arrows" if(value.isInstanceOf[Tuple2[_, _]]) => arrowStyle = value.asInstanceOf[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]]
+				case "dotsize" if(value.isInstanceOf[Tuple2[_, _]]) => arrowDotSize = value.asInstanceOf[Tuple2[Double, Double]]
 				case "curvature" if(value.isInstanceOf[Tuple3[_, _, _]]) => curvature = value.asInstanceOf[Tuple3[Double, Double, Double]]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
 			}

@@ -58,6 +58,10 @@ trait PSDotParser extends PSTAbstractParser with PSTParamParser with PSTCoordina
 
 	private def createDot(pos : IPoint, hasStar : Boolean, ctx : PSTContext) : IDot = {
 		val dot = DrawingTK.getFactory.createDot(pos, true)
+		val dotSizeDim = if(ctx.arrowDotSize._1+ctx.arrowDotSize._2<0) scala.math.abs(ctx.arrowDotSize._1) else ctx.arrowDotSize._1
+		val dotSizeNum = if(ctx.arrowDotSize._1+ctx.arrowDotSize._2<0) scala.math.abs(ctx.arrowDotSize._2) else ctx.arrowDotSize._2
+
+		dot.setRadius((dotSizeDim+dotSizeNum*ctx.lineWidth)*IShape.PPC/2.0)
 		setShapeParameters(dot, ctx)
 		dot.setDotStyle(ctx.dotStyle)
 		if(hasStar)
