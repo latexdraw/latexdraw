@@ -1,15 +1,13 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import java.awt.geom.Point2D
-import net.sf.latexdraw.glib.models.interfaces.IAxes
-import scala.collection.mutable.ListBuffer
-import net.sf.latexdraw.glib.models.interfaces.IArrow
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants
-import net.sf.latexdraw.glib.models.interfaces.IShape
-import net.sf.latexdraw.glib.models.interfaces.IDot
 import java.awt.Color
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
-import net.sf.latexdraw.glib.models.interfaces.IGrid
+
+import net.sf.latexdraw.glib.models.interfaces.IArrow
+import net.sf.latexdraw.glib.models.interfaces.IAxes
+import net.sf.latexdraw.glib.models.interfaces.IDot
+import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 
 /**
  * The companion the PSTContext used to encapsulate attributes shared by all the instances.<br>
@@ -188,6 +186,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "dotstyle" => dotStyle
 				case "dotsize" => arrowDotSize
 				case "dotscale" => dotScale
+				case "dotangle" => dotAngle
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -235,6 +234,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "arcsepA" if(value.isInstanceOf[Double]) => arcSepA = value.asInstanceOf[Double]
 				case "arcsepB" if(value.isInstanceOf[Double]) => arcSepB = value.asInstanceOf[Double]
 				case "gangle" if(value.isInstanceOf[Double]) => gangle = value.asInstanceOf[Double]
+				case "dotangle" if(value.isInstanceOf[Double]) => dotAngle = value.asInstanceOf[Double]
 				case "dotstyle" if(value.isInstanceOf[IDot.DotStyle]) => dotStyle = value.asInstanceOf[IDot.DotStyle]
 				case "cornersize" if(value.isInstanceOf[Boolean]) => isCornerRel = value.asInstanceOf[Boolean]
 				case "arrows" if(value.isInstanceOf[Tuple2[_, _]]) => arrowStyle = value.asInstanceOf[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]]
