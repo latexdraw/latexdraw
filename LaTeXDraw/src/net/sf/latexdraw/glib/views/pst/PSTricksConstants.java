@@ -237,7 +237,7 @@ public abstract class PSTricksConstants {
 	public static final String O_STYLE          = "o"; //$NON-NLS-1$
 
 	/** The style which draw a dot */
-	public static final String DOT_STYLE        = "dot"; //$NON-NLS-1$
+	public static final String DOT_STYLE        = "*"; //$NON-NLS-1$
 
 	/** The style which draw a cross */
 	public static final String X_STYLE          = "x"; //$NON-NLS-1$

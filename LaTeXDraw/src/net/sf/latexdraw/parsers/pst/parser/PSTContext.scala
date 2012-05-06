@@ -185,6 +185,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "arcsepB" => arcSepB
 				case "curvature" => curvature
 				case "gangle" => gangle
+				case "dotstyle" => dotStyle
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -232,6 +233,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "arcsepA" if(value.isInstanceOf[Double]) => arcSepA = value.asInstanceOf[Double]
 				case "arcsepB" if(value.isInstanceOf[Double]) => arcSepB = value.asInstanceOf[Double]
 				case "gangle" if(value.isInstanceOf[Double]) => gangle = value.asInstanceOf[Double]
+				case "dotstyle" if(value.isInstanceOf[IDot.DotStyle]) => dotStyle = value.asInstanceOf[IDot.DotStyle]
 				case "cornersize" if(value.isInstanceOf[Boolean]) => isCornerRel = value.asInstanceOf[Boolean]
 				case "arrows" if(value.isInstanceOf[Tuple2[_, _]]) => arrowStyle = value.asInstanceOf[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]]
 				case "curvature" if(value.isInstanceOf[Tuple3[_, _, _]]) => curvature = value.asInstanceOf[Tuple3[Double, Double, Double]]

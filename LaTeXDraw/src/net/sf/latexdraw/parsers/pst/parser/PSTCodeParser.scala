@@ -27,7 +27,7 @@ import java.text.ParseException
  */
 trait PSTCodeParser extends PSTAbstractParser
 	with PSFrameEllipseDiamondTriangleParser with PSCircleParser with PSLineParser with PSPolygonParser with PSWedgeArcParser
-	with PSBezierParser with PSCurveParabolaParser {
+	with PSBezierParser with PSCurveParabolaParser with PSDotParser {
 	/** The entry point to parse PST texts. */
 	def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
 		rep(math | text |
@@ -35,8 +35,9 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePsellipse(ctx) | parsePsframe(ctx) | parsePsdiamond(ctx) | parsePstriangle(ctx) |
 			parsePsline(ctx) | parserQline(ctx) |
 			parsePscircle(ctx) | parseQdisk(ctx) |
-			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parsePspolygon(ctx) | parsePsbezier(ctx) |
+			parsePsdot(ctx) | parsePsdots(ctx) |
+			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)

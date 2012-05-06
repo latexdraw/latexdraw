@@ -6,6 +6,7 @@ import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import net.sf.latexdraw.glib.models.interfaces.IArrow
+import net.sf.latexdraw.glib.models.interfaces.IDot
 
 /**
  * A parser that parses a value corresponding to an object.
@@ -89,6 +90,31 @@ trait PSTValueParser extends PSTNumberParser {
 			case PSTricksConstants.TOKEN_RELATIVE => Some(true)
 			case PSTricksConstants.TOKEN_ABSOLUTE => Some(false)
 			case _ => None
+		}
+
+
+	/**
+	 * Parses the line styles.
+	 */
+	def parseValueDotStyle(value : String) : Option[IDot.DotStyle] =
+		value.replace(" ", "") match {
+			case PSTricksConstants.ASTERISK_STYLE => Some(IDot.DotStyle.ASTERISK)
+			case PSTricksConstants.BAR_STYLE => Some(IDot.DotStyle.BAR)
+			case PSTricksConstants.DIAMOND_STYLE => Some(IDot.DotStyle.DIAMOND)
+			case PSTricksConstants.DOT_STYLE => Some(IDot.DotStyle.DOT)
+			case PSTricksConstants.FDIAMOND_STYLE => Some(IDot.DotStyle.FDIAMOND)
+			case PSTricksConstants.FPENTAGON_STYLE => Some(IDot.DotStyle.FPENTAGON)
+			case PSTricksConstants.FSQUARE_STYLE => Some(IDot.DotStyle.FSQUARE)
+			case PSTricksConstants.FTRIANGLE_STYLE => Some(IDot.DotStyle.FTRIANGLE)
+			case PSTricksConstants.O_STYLE => Some(IDot.DotStyle.O)
+			case PSTricksConstants.OPLUS_STYLE => Some(IDot.DotStyle.OPLUS)
+			case PSTricksConstants.OTIMES_STYLE => Some(IDot.DotStyle.OTIMES)
+			case PSTricksConstants.PENTAGON_STYLE => Some(IDot.DotStyle.PENTAGON)
+			case PSTricksConstants.PLUS_STYLE => Some(IDot.DotStyle.PLUS)
+			case PSTricksConstants.SQUARE_STYLE => Some(IDot.DotStyle.SQUARE)
+			case PSTricksConstants.TRIANGLE_STYLE => Some(IDot.DotStyle.TRIANGLE)
+			case PSTricksConstants.X_STYLE => Some(IDot.DotStyle.X)
+			case _ => PSTParser.errorLogs += "Unknown dot style: " + value.replace(" ", ""); None
 		}
 
 
