@@ -27,7 +27,7 @@ import java.text.ParseException
  */
 trait PSTCodeParser extends PSTAbstractParser
 	with PSFrameEllipseDiamondTriangleParser with PSCircleParser with PSLineParser with PSPolygonParser with PSWedgeArcParser
-	with PSBezierParser with PSCurveParabolaParser with PSDotParser {
+	with PSBezierParser with PSCurveParabolaParser with PSDotParser with PSGridAxes {
 	/** The entry point to parse PST texts. */
 	def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
 		rep(math | text |
@@ -37,6 +37,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePscircle(ctx) | parseQdisk(ctx) |
 			parsePspolygon(ctx) | parsePsbezier(ctx) |
 			parsePsdot(ctx) | parsePsdots(ctx) |
+			parsePsgrid(ctx) |
 			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx)) ^^ {
 		case list =>

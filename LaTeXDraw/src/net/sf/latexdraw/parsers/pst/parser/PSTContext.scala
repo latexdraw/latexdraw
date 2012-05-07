@@ -2,12 +2,12 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import java.awt.geom.Point2D
 import java.awt.Color
-
 import net.sf.latexdraw.glib.models.interfaces.IArrow
 import net.sf.latexdraw.glib.models.interfaces.IAxes
 import net.sf.latexdraw.glib.models.interfaces.IDot
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 
 /**
  * The companion the PSTContext used to encapsulate attributes shared by all the instances.<br>
@@ -29,13 +29,13 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
  * @version 3.0
  */
 object PSTContext {
-	private var isCentered = false
+	var isCentered = false
 
-	private var pictureSWPt : Point2D = new Point2D.Double()
+	var pictureSWPt = DrawingTK.getFactory.createPoint
 
-	private var pictureNEPt : Point2D = new Point2D.Double()
+	var pictureNEPt = DrawingTK.getFactory.createPoint
 
-	private var tokenPosition = ""
+	var tokenPosition = ""
 }
 
 
