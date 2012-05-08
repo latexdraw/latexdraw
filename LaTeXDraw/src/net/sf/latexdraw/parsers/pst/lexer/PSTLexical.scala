@@ -45,7 +45,7 @@ class PSTLexical extends Lexical with PSTTokens {
 			"\\psarc", "\\psarcn*", "\\psarcn", "\\psbezier*", "\\psbezier", "\\parabola*", "\\parabola", "\\pscurve", "\\pscurve*",
 			"\\psecurve*", "\\psecurve", "\\psccurve*", "\\psccurve", "\\psdiamond*", "\\psdiamond", "\\pstriangle*", "\\pstriangle",
 			"\\psellipticarc*", "\\psellipticarc", "\\psellipticarcn*", "\\psellipticarcn", "\\psdot*", "\\psdot", "\\psdots*",
-			"\\psdots", "\\psgrid")
+			"\\psdots", "\\psgrid", "\\begin", "\\end", "pspicture")
 
  	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
 
@@ -83,20 +83,20 @@ class PSTLexical extends Lexical with PSTTokens {
 	/**
 	 * Parses units.
 	 */
-	private def unit : Parser[String] = (unitCM | unitMM | unitPT | unitIN)
+	private def unit : Parser[String] = unitCM | unitMM | unitPT | unitIN
 
 
 	/** Parses the cm unit. */
-	private def unitCM : Parser[String] = (elem('c') ~ elem('m')) ^^ { case _ ~ _ => "cm"}
+	private def unitCM : Parser[String] = elem('c') ~ elem('m') ^^ { case _ ~ _ => "cm"}
 
 	/** Parses the mm unit. */
-	private def unitMM : Parser[String] = (elem('m') ~ elem('m')) ^^ { case _ ~ _ => "mm"}
+	private def unitMM : Parser[String] = elem('m') ~ elem('m') ^^ { case _ ~ _ => "mm"}
 
 	/** Parses the pt unit. */
-	private def unitPT : Parser[String] = (elem('p') ~ elem('t')) ^^ { case _ ~ _ => "pt"}
+	private def unitPT : Parser[String] = elem('p') ~ elem('t') ^^ { case _ ~ _ => "pt"}
 
 	/** Parses the in unit. */
-	private def unitIN : Parser[String] = (elem('i') ~ elem('n')) ^^ { case _ ~ _ => "in"}
+	private def unitIN : Parser[String] = elem('i') ~ elem('n') ^^ { case _ ~ _ => "in"}
 
 
 	/**

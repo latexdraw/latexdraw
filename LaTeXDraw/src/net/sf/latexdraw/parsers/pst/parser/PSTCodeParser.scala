@@ -31,7 +31,7 @@ trait PSTCodeParser extends PSTAbstractParser
 	/** The entry point to parse PST texts. */
 	def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
 		rep(math | text |
-			parsePSTBlock(ctx) |
+			parsePSTBlock(ctx) | parsePspictureBlock(ctx) |
 			parsePsellipse(ctx) | parsePsframe(ctx) | parsePsdiamond(ctx) | parsePstriangle(ctx) |
 			parsePsline(ctx) | parserQline(ctx) |
 			parsePscircle(ctx) | parseQdisk(ctx) |
@@ -59,5 +59,31 @@ trait PSTCodeParser extends PSTAbstractParser
 	/** Parses a PST block surrounded with brackets. */
 	def parsePSTBlock(context : PSTContext) : Parser[IGroup] = "{" ~ parsePSTCode(new PSTContext(context)) ~ "}" ^^ {
 		case _ ~ shapes ~ _ => shapes
+	}
+
+
+	/**
+	 * Parses begin{pspicture} \end{pspicture} blocks.
+	 */
+	def parsePspictureBlock(ctx : PSTContext) : Parser[IGroup] = {
+		val ctx2 = new PSTContext(ctx)
+		parseBeginPspicture(ctx2) ~> parsePSTCode(ctx2) <~ "\\end" <~ "{" <~ "pspicture" <~ "}"
+	}
+
+
+	/**
+	 * Parses begin{pspicture} commands.
+	 */
+	private def parseBeginPspicture(ctx : PSTContext) : Parser[Any] =
+		"\\begin" ~> "{" ~> "pspicture" ~> "}" ~> parseCoord(ctx) ~ opt(parseCoord(ctx)) ^^ {
+		case p1 ~ p2 =>
+		p2 match {
+			case Some(value) =>
+				ctx.pictureSWPt = p1
+				ctx.pictureNEPt = value
+			case _ =>
+				ctx.pictureSWPt = DrawingTK.getFactory.createPoint
+				ctx.pictureNEPt = p1
+		}
 	}
 }

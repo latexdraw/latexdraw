@@ -40,8 +40,8 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 			case (Some(pt1), Some(pt2), None) => List(createGrid(DrawingTK.getFactory.createPoint(pt1), pt1, pt2, ctx))
 			case (Some(pt1), None, None) => List(createGrid(DrawingTK.getFactory.createPoint(0, 0), DrawingTK.getFactory.createPoint(0, 0), pt1, ctx))
 			case _ =>
-				val gridEnd = DrawingTK.getFactory.createPoint(getApproxCoord(PSTContext.pictureNEPt.getX), getApproxCoord(PSTContext.pictureNEPt.getY))
-				val gridStart = DrawingTK.getFactory.createPoint(getApproxCoord(PSTContext.pictureSWPt.getX), getApproxCoord(PSTContext.pictureSWPt.getY))
+				val gridEnd = DrawingTK.getFactory.createPoint(getApproxCoord(ctx.pictureNEPt.getX), getApproxCoord(ctx.pictureNEPt.getY))
+				val gridStart = DrawingTK.getFactory.createPoint(getApproxCoord(ctx.pictureSWPt.getX), getApproxCoord(ctx.pictureSWPt.getY))
 				List(createGrid(DrawingTK.getFactory.createPoint(gridStart), gridStart, gridEnd, ctx))
 		}
 	}
@@ -104,12 +104,12 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 	private def getApproxCoord(value : Double) : Double = {
 		if(value>=0)
-			if(value-value.toInt>0.5)
+			if(value-value.toInt>=0.5)
 				value.toInt+1
 			else
 				value.toInt
 		else
-			if(value.toInt-value>0.5)
+			if(value.toInt-value>=0.5)
 				value.toInt-1
 			else
 				value.toInt+1

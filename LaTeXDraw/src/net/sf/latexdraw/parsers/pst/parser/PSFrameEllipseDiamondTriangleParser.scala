@@ -158,6 +158,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 		}
 
 		val rec = DrawingTK.getFactory.createRectangle(true)
+		rec.setLineArc(ctx.frameArc)
 		setRectangularShape(rec, p1.getX, p1.getY, scala.math.abs(p2.getX-p1.getX), scala.math.abs(p2.getY-p1.getY), hasStar, ctx)
 		rec
 	}

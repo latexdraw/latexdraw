@@ -64,7 +64,7 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	// Error handling
-	def orFailure[A](a : Parser[A], msg : String) : Parser[A] = ( a | failure(msg) )
+	def orFailure[A](a : Parser[A], msg : String) : Parser[A] = a | failure(msg)
 
 
 	/**
@@ -76,11 +76,6 @@ trait PSTAbstractParser extends TokenParsers {
 
 			if(sh.isArrowable)
 				setShapeArrows(sh, ctx)
-
-			sh match {
-				case rec : IRectangle => setRectangleParameters(rec, ctx)
-				case _ =>
-			}
 		}
 	}
 
@@ -107,14 +102,6 @@ trait PSTAbstractParser extends TokenParsers {
 	protected def setShapeArrows(sh : IShape, ctx : PSTContext) {
 		sh.setArrowStyle(ctx.arrowStyle._1, 0)
 		sh.setArrowStyle(ctx.arrowStyle._2, 1)
-	}
-
-
-	/**
-	 * Sets the rectangle's parameters.
-	 */
-	protected def setRectangleParameters(rec : IRectangle, ctx : PSTContext) {
-		rec.setLineArc(ctx.frameArc)
 	}
 
 
@@ -163,7 +150,11 @@ trait PSTAbstractParser extends TokenParsers {
 
 	// An implicit keyword function that gives a warning when a given word is not in the delimiters list
 	implicit def keyword(chars : String) : Parser[String] =
-		if(lexical.reserved.contains(chars)) keywordCache.getOrElseUpdate(chars, accept(Command(chars)) ^^ (_.chars))
+		if(lexical.reserved.contains(chars))
+			if(chars.startsWith("\\"))
+				keywordCache.getOrElseUpdate(chars, accept(Command(chars)) ^^ (_.chars))
+			else
+				keywordCache.getOrElseUpdate(chars, accept(Identifier(chars)) ^^ (_.chars))
 		else if(lexical.delimiters.contains(chars))
 			delimCache.getOrElseUpdate(chars, accept(Delimiter(chars)) ^^ (_.chars))
 		else

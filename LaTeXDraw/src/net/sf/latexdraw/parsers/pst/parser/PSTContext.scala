@@ -8,36 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDot
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
-
-/**
- * The companion the PSTContext used to encapsulate attributes shared by all the instances.<br>
- *<br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
- *<br>
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.<br>
- *<br>
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- *<br>
- * 2012-04-24<br>
- * @author Arnaud BLOUIN
- * @version 3.0
- */
-object PSTContext {
-	var isCentered = false
-
-	var pictureSWPt = DrawingTK.getFactory.createPoint
-
-	var pictureNEPt = DrawingTK.getFactory.createPoint
-
-	var tokenPosition = ""
-}
-
+import net.sf.latexdraw.glib.models.interfaces.IPoint
 
 /**
  * A PST context contains the value of the PST parameters used during the parsing
@@ -76,7 +47,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var showPoints : Boolean, var showOrigin : Boolean, var subGridWidth : Double, var swapAxes : Boolean, var shadowCol : Color,
 		var subGridCol : Color, var shadowAngle : Double, var shadowSize : Double, var subGridDots : Double, var subGridDiv : Double,
 		var ticks : IAxes.PlottingStyle, var ticksStyle : IAxes.TicksStyle, var ticksSize : Double, var unit : Double, var xUnit : Double,
-		var yUnit : Double, var textColor : Color, var shadow : Boolean, var gridlabelcolor : Color) {
+		var yUnit : Double, var textColor : Color, var shadow : Boolean, var gridlabelcolor : Color, var isCentered : Boolean,
+		var pictureSWPt : IPoint, var pictureNEPt : IPoint, var tokenPosition : String) {
 
 	def this() {
 		this(PSTricksConstants.DEFAULT_AXES_STYLE, Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE), PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
@@ -107,7 +79,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			PSTricksConstants.DEFAULT_SHADOW_ANGLE, PSTricksConstants.DEFAULT_SHADOW_SIZE, PSTricksConstants.DEFAULT_SUBGRIDDOTS,
 			PSTricksConstants.DEFAULT_SUBGRIDDIV, PSTricksConstants.DEFAULT_TICKS_DISPLAYED, PSTricksConstants.DEFAULT_TICKS_STYLE,
 			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
-			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR)
+			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, DrawingTK.getFactory.createPoint,
+			DrawingTK.getFactory.createPoint, "")
 	}
 //	var textItalic
 //	var textBold
@@ -134,7 +107,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			  model.labels, model.lineArc, model.lineStyle, model.ox, model.oy, model.onRadians, new Point2D.Double(model.origin.getX, model.origin.getY),
 			  model.specialCoor, model.showPoints, model.showOrigin, model.subGridWidth, model.swapAxes, model.shadowCol, model.subGridCol,
 			  model.shadowAngle, model.shadowSize, model.subGridDots, model.subGridDiv, model.ticks, model.ticksStyle, model.ticksSize, model.unit,
-			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor)
+			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, DrawingTK.getFactory.createPoint(model.pictureSWPt),
+			  DrawingTK.getFactory.createPoint(model.pictureNEPt), model.tokenPosition)
 	}
 
 
