@@ -22,8 +22,16 @@ import scala.util.parsing.input.CharArrayReader
  * @version 3.0
  */
 trait PSTBracketBlockParser extends PSTAbstractParser {
+	/**
+	 * Parses brackets and their contents as text.
+	 */
 	def parseBracket(ctx : PSTContext) : Parser[String] =
-		"{" ~ rep1(chrExcept('}', CharArrayReader.EofCh)) ~ "}" ^^ { case _ ~ content ~ _ =>
-		content.mkString
-	}
+		"{" ~ rep1(chrExcept('}', CharArrayReader.EofCh)) ~ "}" ^^ { case _ ~ content ~ _ => content.mkString }
+
+
+	/**
+	 * Parses squared brackets and their contents as text.
+	 */
+	def parseSquaredBracket(ctx : PSTContext) : Parser[String] =
+		"[" ~ rep1(chrExcept(']', CharArrayReader.EofCh)) ~ "]" ^^ { case _ ~ content ~ _ => content.mkString }
 }

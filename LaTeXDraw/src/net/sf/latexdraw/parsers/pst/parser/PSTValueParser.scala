@@ -187,6 +187,16 @@ trait PSTValueParser extends PSTNumberParser {
 
 
 	/**
+	 * Parses the plotstyle values.
+	 */
+	def parseValuePlotstyle(value : String) : Option[String] =
+		value match {
+			case "dots" | "line" | "polygon" | "curve" | "ecurve" | "ccurve" => Some(value)
+			case _ => PSTParser.errorLogs += "Unknown plotstyle: " + value; None
+	}
+
+
+	/**
 	 * Parses the line styles.
 	 */
 	def parseValueLineStyle(value : String) : Option[IShape.LineStyle] =
