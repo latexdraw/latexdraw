@@ -7,6 +7,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IGrid
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
+import net.sf.latexdraw.util.LNumber
 
 /**
  * A parser grouping parsers parsing grids and axes.<br>
@@ -53,10 +54,11 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 		val position = DrawingTK.getFactory.createPoint(ctx.origin.getX*IShape.PPC, ctx.origin.getY*IShape.PPC*(-1.0))
 
 		setStdGridParams(origin, min, max, grid, ctx)
-		grid.setUnit(ctx.xUnit)
+
+		grid.setUnit(ctx.unit)
 		grid.setGridDots(ctx.gridDots.toInt)
-		grid.setGridLabelsColour(ctx.labelsGridCol)
-		grid.setLabelsSize((ctx.gridLabel*PSTricksConstants.CM_VAL_PT/0.6).toInt)
+		grid.setGridLabelsColour(ctx.gridlabelcolor)
+		grid.setLabelsSize((ctx.gridLabel*IShape.PPC).toInt)
 		grid.setGridWidth(scala.math.abs(ctx.gridWidth*IShape.PPC))
 		grid.setSubGridColour(ctx.subGridCol)
 		grid.setSubGridDiv(ctx.subGridDiv.toInt)

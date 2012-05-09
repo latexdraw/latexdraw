@@ -52,21 +52,30 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("hatchangle", (str : String, ctx : PSTContext) => parseValueNum(str)),
 			("gangle", (str : String, ctx : PSTContext) => parseValueNum(str)),
 			("gradangle", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("griddots", (str : String, ctx : PSTContext) => parseValueNum(str)),
 			("shadowangle", (str : String, ctx : PSTContext) => parseValueNum(str)),
 			("shadowsize", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("doublesep", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("hatchsep", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("hatchwidth", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("subgridwidth", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("arrows", (str : String, ctx : PSTContext) => parseValueArrows(str)),
 			("arcsepA", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("arcsepB", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("arcsep", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("gridlabels", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("linewidth", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("dotstyle", (str : String, ctx : PSTContext) => parseValueDotStyle(str)),
 			("curvature", (str : String, ctx : PSTContext) => parseValueCurvature(str)),
 			("dotsize", (str : String, ctx : PSTContext) => parseValueDimNum(str)),
+			("subgriddiv", (str : String, ctx : PSTContext) => parseValueNum(str)),
 			("dotscale", (str : String, ctx : PSTContext) => parseValueNumNum(str)),
-			("dotangle", (str : String, ctx : PSTContext) => parseValueNum(str)))
+			("dotangle", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("subgriddots", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("gridwidth", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("unit", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("xunit", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("yunit", (str : String, ctx : PSTContext) => parseValueDim(str)))
 //			("labels", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 //			("ticks", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 //			("tickstyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
@@ -80,9 +89,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 		case _ ~ _ ~ _ =>
 	}
 
-// xunit yunit unit
-// dotscale dotangle gridwidth  griddots gridlabels  subgriddiv subgridwidth  subgriddots  origin plotpoints
-// dash dotsep border
+// origin plotpoints dash dotsep border
 // arrowsize arrowlength arrowinset tbarsize bracketlength rbracketlength arrowscale liftpen labelsep Ox Oy Dx Dy dx oy
 // ticksize framesep nodesep offset arm angle arcangle ncurv loopsize coilwidth coilheight coilarm coilaspect coilinc
 

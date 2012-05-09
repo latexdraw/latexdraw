@@ -66,10 +66,10 @@ trait PSTNumberParser extends PSTAbstractParser {
 	/**
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
-	def parseValueDim(num : String) : Option[Double] = {
-		if(num.length>2) {
-			val value = num.substring(0, num.length-2)
-			num.substring(num.length-2) match {
+	def parseValueDim(str : String) : Option[Double] = {
+		if(str.length>2) {
+			val value = str.substring(0, str.length-2)
+			str.substring(str.length-2) match {
 				case PSTricksConstants.TOKEN_CM => createValidNumber(value)
 				case PSTricksConstants.TOKEN_MM => createValidNumber(value) match {
 						case Some(num) => Some(num/10.)
@@ -83,10 +83,10 @@ trait PSTNumberParser extends PSTAbstractParser {
 						case Some(num) => Some(num/PSTricksConstants.INCH_VAL_CM)
 						case _ => None
 					}
-				case _ => createValidNumber(num)
+				case _ => createValidNumber(str)
 			}
 		}
-		else createValidNumber(num)
+		else createValidNumber(str)
 	}
 
 

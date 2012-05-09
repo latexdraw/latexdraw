@@ -42,7 +42,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var gridWidth : Double, var gridLabel : Double, var gridDots : Double, var gradAngle : Double, var gridColor : Color,
 		var gradMidPoint : Double, var gradBegin : Color, var gradEnd : Color, var gradLines : Int, var gangle : Double,
 		var hatchWidth : Double, var hatchSep : Double, var hatchCol : Color, var hatchAngle : Double, var isCornerRel : Boolean, var isShadow : Boolean,
-		var lineWidth : Double, var lineColor : Color, var labelsGridCol : Color, var labels : IAxes.PlottingStyle, var lineArc : Double,
+		var lineWidth : Double, var lineColor : Color, var labels : IAxes.PlottingStyle, var lineArc : Double,
 		var lineStyle : IShape.LineStyle, var ox : Double, var oy : Double, var onRadians : Boolean, var origin : Point2D, var specialCoor : Boolean,
 		var showPoints : Boolean, var showOrigin : Boolean, var subGridWidth : Double, var swapAxes : Boolean, var shadowCol : Color,
 		var subGridCol : Color, var shadowAngle : Double, var shadowSize : Double, var subGridDots : Double, var subGridDiv : Double,
@@ -70,7 +70,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			PSTricksConstants.DEFAULT_GRADIENT_END_COLOR, PSTricksConstants.DEFAULT_GRADIENT_LINES, PSTricksConstants.DEFAULT_GANGLE,
 			PSTricksConstants.DEFAULT_HATCH_WIDTH, PSTricksConstants.DEFAULT_HATCH_SEP, PSTricksConstants.DEFAULT_HATCHING_COLOR,
 			PSTricksConstants.DEFAULT_HATCH_ANGLE, PSTricksConstants.DEFAULT_CORNER_SIZE_RELATIVE, PSTricksConstants.DEFAULT_SHADOW,
-			PSTricksConstants.DEFAULT_LINE_WIDTH, PSTricksConstants.DEFAULT_LINE_COLOR, PSTricksConstants.DEFAULT_LABELGRIDCOLOR,
+			PSTricksConstants.DEFAULT_LINE_WIDTH, PSTricksConstants.DEFAULT_LINE_COLOR,
 			PSTricksConstants.DEFAULT_LABELS_DISPLAYED, PSTricksConstants.DEFAULT_LINE_ARC, PSTricksConstants.DEFAULT_LINE_STYLE,
 			PSTricksConstants.DEFAULT_OX, PSTricksConstants.DEFAULT_OY, PSTricksConstants.DEFAULT_ON_RADIANS,
 			new Point2D.Double(PSTricksConstants.DEFAULT_ORIGIN.getX, PSTricksConstants.DEFAULT_ORIGIN.getY), PSTricksConstants.DEFAULT_SPECIAL_COOR,
@@ -103,7 +103,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			model.dbleLine, model.dbleSep, model.dbleColor, model.degrees,
 			  model.frameSep, model.frameArc, model.fillStyle, model.fillColor, model.gridWidth, model.gridLabel, model.gridDots, model.gradAngle,
 			  model.gridColor, model.gradMidPoint, model.gradBegin, model.gradEnd, model.gradLines, model.gangle, model.hatchWidth, model.hatchSep,
-			  model.hatchCol, model.hatchAngle, model.isCornerRel, model.isShadow, model.lineWidth, model.lineColor, model.labelsGridCol,
+			  model.hatchCol, model.hatchAngle, model.isCornerRel, model.isShadow, model.lineWidth, model.lineColor,
 			  model.labels, model.lineArc, model.lineStyle, model.ox, model.oy, model.onRadians, new Point2D.Double(model.origin.getX, model.origin.getY),
 			  model.specialCoor, model.showPoints, model.showOrigin, model.subGridWidth, model.swapAxes, model.shadowCol, model.subGridCol,
 			  model.shadowAngle, model.shadowSize, model.subGridDots, model.subGridDiv, model.ticks, model.ticksStyle, model.ticksSize, model.unit,
@@ -126,7 +126,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "showorigin" => showOrigin
 				case "linecolor" => lineColor
 				case "fillcolor" => fillColor
-				case "gridColor" => gridColor
+				case "gridcolor" => gridColor
 				case "gridlabelcolor" => gridlabelcolor
 				case "subgridcolor" => subGridCol
 				case "bordercolor" => borderColor
@@ -161,6 +161,15 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "dotsize" => arrowDotSize
 				case "dotscale" => dotScale
 				case "dotangle" => dotAngle
+				case "gridwidth" => gridWidth
+				case "griddots" => gridDots
+				case "gridlabels" => gridLabel
+				case "subgriddiv" => subGridDiv
+				case "subgridwidth" => subGridWidth
+				case "subgriddots" => subGridDots
+				case "unit" => unit
+				case "xunit" => xUnit
+				case "yunit" => yUnit
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -180,7 +189,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "showorigin" if(value.isInstanceOf[Boolean]) => showOrigin = value.asInstanceOf[Boolean]
 				case "linecolor" if(value.isInstanceOf[Color]) => lineColor = value.asInstanceOf[Color]
 				case "fillcolor" if(value.isInstanceOf[Color]) => fillColor = value.asInstanceOf[Color]
-				case "gridColor" if(value.isInstanceOf[Color]) => gridColor = value.asInstanceOf[Color]
+				case "gridcolor" if(value.isInstanceOf[Color]) => gridColor = value.asInstanceOf[Color]
 				case "gridlabelcolor" if(value.isInstanceOf[Color]) => gridlabelcolor = value.asInstanceOf[Color]
 				case "subgridcolor" if(value.isInstanceOf[Color]) => subGridCol = value.asInstanceOf[Color]
 				case "bordercolor" if(value.isInstanceOf[Color]) => borderColor = value.asInstanceOf[Color]
@@ -208,7 +217,16 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "arcsepA" if(value.isInstanceOf[Double]) => arcSepA = value.asInstanceOf[Double]
 				case "arcsepB" if(value.isInstanceOf[Double]) => arcSepB = value.asInstanceOf[Double]
 				case "gangle" if(value.isInstanceOf[Double]) => gangle = value.asInstanceOf[Double]
+				case "gridwidth" if(value.isInstanceOf[Double]) => gridWidth = value.asInstanceOf[Double]
 				case "dotangle" if(value.isInstanceOf[Double]) => dotAngle = value.asInstanceOf[Double]
+				case "griddots" if(value.isInstanceOf[Double]) => gridDots = value.asInstanceOf[Double]
+				case "gridlabels" if(value.isInstanceOf[Double]) => gridLabel = value.asInstanceOf[Double]
+				case "subgriddiv" if(value.isInstanceOf[Double]) => subGridDiv = value.asInstanceOf[Double]
+				case "subgridwidth" if(value.isInstanceOf[Double]) => subGridWidth = value.asInstanceOf[Double]
+				case "subgriddots" if(value.isInstanceOf[Double]) => subGridDots = value.asInstanceOf[Double]
+				case "unit" if(value.isInstanceOf[Double]) => unit = value.asInstanceOf[Double]
+				case "xunit" if(value.isInstanceOf[Double]) => xUnit = value.asInstanceOf[Double]
+				case "yunit" if(value.isInstanceOf[Double]) => yUnit = value.asInstanceOf[Double]
 				case "dotstyle" if(value.isInstanceOf[IDot.DotStyle]) => dotStyle = value.asInstanceOf[IDot.DotStyle]
 				case "cornersize" if(value.isInstanceOf[Boolean]) => isCornerRel = value.asInstanceOf[Boolean]
 				case "arrows" if(value.isInstanceOf[Tuple2[_, _]]) => arrowStyle = value.asInstanceOf[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]]
