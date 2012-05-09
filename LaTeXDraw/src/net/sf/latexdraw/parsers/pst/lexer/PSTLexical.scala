@@ -46,7 +46,8 @@ class PSTLexical extends Lexical with PSTTokens {
 			"\\psecurve*", "\\psecurve", "\\psccurve*", "\\psccurve", "\\psdiamond*", "\\psdiamond", "\\pstriangle*", "\\pstriangle",
 			"\\psellipticarc*", "\\psellipticarc", "\\psellipticarcn*", "\\psellipticarcn", "\\psdot*", "\\psdot", "\\psdots*",
 			"\\psdots", "\\psgrid", "\\begin", "\\end", "pspicture", "\\fileplot", "\\fileplot*", "\\dataplot*", "\\dataplot",
-			"\\savedata", "\\readdata", "\\listplot", "\\listplot*", "\\psplot", "\\psplot*", "\\parametricplot*", "\\parametricplot")
+			"\\savedata", "\\readdata", "\\listplot", "\\listplot*", "\\psplot", "\\psplot*", "\\parametricplot*", "\\parametricplot",
+			"\\psset")
 
  	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
 

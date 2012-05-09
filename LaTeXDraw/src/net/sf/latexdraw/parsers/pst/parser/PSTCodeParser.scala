@@ -31,7 +31,7 @@ trait PSTCodeParser extends PSTAbstractParser
 	/** The entry point to parse PST texts. */
 	def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
 		rep(math | text |
-			parsePSTBlock(ctx) | parsePspictureBlock(ctx) |
+			parsePSTBlock(ctx) | parsePspictureBlock(ctx) | parsePsset(ctx) |
 			parsePsellipse(ctx) | parsePsframe(ctx) | parsePsdiamond(ctx) | parsePstriangle(ctx) |
 			parsePsline(ctx) | parserQline(ctx) |
 			parsePscircle(ctx) | parseQdisk(ctx) |

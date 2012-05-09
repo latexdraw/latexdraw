@@ -83,10 +83,20 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 //			("axesstyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
 
 
+
+	/**
+	 * Parses the psset command.
+	 */
+	def parsePsset(ctx : PSTContext) : Parser[Unit] = "\\psset" ~ "{" ~ repsep(parseParamSetting(ctx, '}'), ",") ~ "}" ^^ {
+		case _ ~ _ ~ _ =>
+	}
+
+
+
 	/**
 	 * Parses the list of parameters.
 	 */
-	def parseParam(context : PSTContext) : Parser[Unit] = "[" ~ repsep(parseParamSetting(context), ",") ~ "]" ^^ {
+	def parseParam(ctx : PSTContext) : Parser[Unit] = "[" ~ repsep(parseParamSetting(ctx, ']'), ",") ~ "]" ^^ {
 		case _ ~ _ ~ _ =>
 	}
 
@@ -97,7 +107,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 	/**
 	 * Parses the setting of parameters.
 	 */
-	def parseParamSetting(ctx : PSTContext) : Parser[Unit] = ident ~ "=" ~ rep1(chrExcept(',', ']', CharArrayReader.EofCh)) ^^ {
+	def parseParamSetting(ctx : PSTContext, closingChar : Char) : Parser[Unit] = ident ~ "=" ~ rep1(chrExcept(',', closingChar, CharArrayReader.EofCh)) ^^ {
 		case name ~ _ ~ value  =>
 		val valueStr = value.mkString(" ")
 
