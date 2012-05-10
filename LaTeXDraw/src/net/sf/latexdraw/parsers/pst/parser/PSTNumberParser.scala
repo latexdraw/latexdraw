@@ -81,6 +81,29 @@ trait PSTNumberParser extends PSTAbstractParser {
 	/**
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
+	def parseValueDimDim(str : String) : Option[Tuple2[Double,Double]] = {
+		var val1 : Option[Double] = None
+		var val2 : Option[Double] = None
+
+		str.split(" ") match {
+			case Array(v1, u1, v2, u2) => val1 = parseValueDim(v1+u1) ; val2 = parseValueDim(v2+u2)
+			case Array(v1, v2) => val1 = parseValueDim(v1) ; val2 = parseValueDim(v2)
+			case Array(v1, o1, o2) =>
+				if(parseValueDim(o2).isDefined) { val1 = parseValueDim(v1+o1) ; val2 = parseValueDim(o2) }
+				else { val1 = parseValueDim(v1) ; val2 = parseValueDim(o1+o2) }
+			case _ =>
+		}
+
+		if(val1.isDefined && val2.isDefined)
+			Some(Tuple2(val1.get, val2.get))
+		else
+			None
+	}
+
+
+	/**
+	 * Parses a number: a numeric value that may be followed by a unit.
+	 */
 	def parseValueDim(str : String) : Option[Double] = {
 		if(str.length>2) {
 			val value = str.substring(0, str.length-2)
