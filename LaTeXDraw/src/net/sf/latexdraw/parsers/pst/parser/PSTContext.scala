@@ -37,7 +37,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var arcSep : Double, var arcSepA : Double, var arcSepB : Double, var boxSep : Boolean,
 		var borderColor : Color, var borderPos : IShape.BorderPos, var border : Double, var curvature : Tuple3[Double, Double, Double],
 		var dxIncrement : Double, var dyIncrement : Double, var dxLabelDist : Double, var dyLabelDist : Double,
-		var dotStyle : IDot.DotStyle, var dotScale : Tuple2[Double,Double], var dotAngle : Double, var dotStep : Double,
+		var dotStyle : IDot.DotStyle, var dotScale : Tuple2[Double,Double], var dotAngle : Double, var dotSep : Double,
 		var dash : Tuple2[Double,Double], var dbleLine : Boolean, var dbleSep : Double, var dbleColor : Color,
 		var degrees : Double, var frameSep : Double, var frameArc : Double, var fillStyle : IShape.FillingStyle, var fillColor : Color,
 		var gridWidth : Double, var gridLabel : Double, var gridDots : Double, var gradAngle : Double, var gridColor : Color,
@@ -100,7 +100,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			model.arrowTBarSD, model.arrowTBarSN, model.arrowBrLgth, model.arrowrBrLgth, Tuple2(model.arrowDotSize._1, model.arrowDotSize._2),
 			Tuple2(model.arrowScale._1, model.arrowScale._2), model.arcSep, model.arcSepA, model.arcSepB, model.boxSep, model.borderColor, model.borderPos,
 			model.border, Tuple3(model.curvature._1, model.curvature._2, model.curvature._3), model.dxIncrement, model.dyIncrement, model.dxLabelDist,
-			model.dyLabelDist, model.dotStyle,  Tuple2(model.dotScale._1,  model.dotScale._2), model.dotAngle, model.dotStep, Tuple2(model.dash._1, model.dash._2),
+			model.dyLabelDist, model.dotStyle,  Tuple2(model.dotScale._1,  model.dotScale._2), model.dotAngle, model.dotSep, Tuple2(model.dash._1, model.dash._2),
 			model.dbleLine, model.dbleSep, model.dbleColor, model.degrees,
 			  model.frameSep, model.frameArc, model.fillStyle, model.fillColor, model.gridWidth, model.gridLabel, model.gridDots, model.gradAngle,
 			  model.gridColor, model.gradMidPoint, model.gradBegin, model.gradEnd, model.gradLines, model.gangle, model.hatchWidth, model.hatchSep,
@@ -175,6 +175,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "plotpoints" => plotPoints
 				case "origin" => origin
 				case "dash" => dash
+				case "dotsep" => dotSep
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -223,6 +224,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "arcsepB" if(value.isInstanceOf[Double]) => arcSepB = value.asInstanceOf[Double]
 				case "gangle" if(value.isInstanceOf[Double]) => gangle = value.asInstanceOf[Double]
 				case "gridwidth" if(value.isInstanceOf[Double]) => gridWidth = value.asInstanceOf[Double]
+				case "dotsep" if(value.isInstanceOf[Double]) => dotSep = value.asInstanceOf[Double]
 				case "dotangle" if(value.isInstanceOf[Double]) => dotAngle = value.asInstanceOf[Double]
 				case "griddots" if(value.isInstanceOf[Double]) => gridDots = value.asInstanceOf[Double]
 				case "gridlabels" if(value.isInstanceOf[Double]) => gridLabel = value.asInstanceOf[Double]
