@@ -45,6 +45,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("linestyle", (str : String, ctx : PSTContext) => parseValueLineStyle(str)),
 			("dimen", (str : String, ctx : PSTContext) => parseValueDimen(str)),
 			("fillstyle", (str : String, ctx : PSTContext) => parseValueFillingStyle(str)),
+			("addfillstyle", (str : String, ctx : PSTContext) => parseValueFillingStyle(str)),
 			("framearc", (str : String, ctx : PSTContext) => parseValue01Interval(str)),
 			("linearc", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("gradlines", (str : String, ctx : PSTContext) => parseValueInt(str)),
