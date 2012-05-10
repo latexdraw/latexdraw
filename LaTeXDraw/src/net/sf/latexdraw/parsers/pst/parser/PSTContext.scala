@@ -176,6 +176,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "origin" => origin
 				case "dash" => dash
 				case "dotsep" => dotSep
+				case "border" => border
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -225,6 +226,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "gangle" if(value.isInstanceOf[Double]) => gangle = value.asInstanceOf[Double]
 				case "gridwidth" if(value.isInstanceOf[Double]) => gridWidth = value.asInstanceOf[Double]
 				case "dotsep" if(value.isInstanceOf[Double]) => dotSep = value.asInstanceOf[Double]
+				case "border" if(value.isInstanceOf[Double]) => border = value.asInstanceOf[Double]
 				case "dotangle" if(value.isInstanceOf[Double]) => dotAngle = value.asInstanceOf[Double]
 				case "griddots" if(value.isInstanceOf[Double]) => gridDots = value.asInstanceOf[Double]
 				case "gridlabels" if(value.isInstanceOf[Double]) => gridLabel = value.asInstanceOf[Double]

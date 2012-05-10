@@ -76,6 +76,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("gridwidth", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("unit", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("dotsep", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("border", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("dash", (str : String, ctx : PSTContext) => parseValueDimDim(str)),
 			("xunit", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("yunit", (str : String, ctx : PSTContext) => parseValueDim(str)))
@@ -103,7 +104,6 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 		case _ ~ _ ~ _ =>
 	}
 
-// plotpoints border
 // arrowsize arrowlength arrowinset tbarsize bracketlength rbracketlength arrowscale liftpen labelsep Ox Oy Dx Dy dx oy
 // ticksize framesep nodesep offset arm angle arcangle ncurv loopsize coilwidth coilheight coilarm coilaspect coilinc
 
