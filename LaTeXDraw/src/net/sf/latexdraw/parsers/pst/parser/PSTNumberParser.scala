@@ -1,6 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
+import net.sf.latexdraw.glib.models.interfaces.IPoint
 
 /**
  * A parser that parses numbers.<br>
@@ -22,6 +23,10 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
  * @version 3.0
  */
 trait PSTNumberParser extends PSTAbstractParser {
+//		/** The regex expression of the parameter origin. */
+//	val originPattern = """\{([\d\s +-]*),([\d\s +-]*)\}""".r
+
+
 	/**
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
@@ -61,6 +66,16 @@ trait PSTNumberParser extends PSTAbstractParser {
 	/** Parses angle values. The returned value is in degree. */
 	def parseValueNum(num : String) = createValidNumber(num)
 
+
+//	/** Parses the origin parameter. */
+//	def parseValueOrigin(str : String) : Option[IPoint] = {
+//		str match {
+//			case originPattern(coord1, coord2) => println(coord1 + " " + coord2)
+//			case _ => println("fooooo:"+ str)
+//		}
+//
+//		None
+//	}
 
 
 	/**

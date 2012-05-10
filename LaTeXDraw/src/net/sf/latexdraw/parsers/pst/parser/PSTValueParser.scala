@@ -79,17 +79,17 @@ trait PSTValueParser extends PSTNumberParser {
 	 * Example: dotsize=2cm 4
 	 */
 	def parseValueDimNum(value : String) : Option[Tuple2[Double, Double]] = {
-			value.split(" ") match {
-				case Array(dim) => parseValueOptDimNum(dim, "")
-				case Array(dim, num) =>
-					// When two elements compose the value, it can be either
-					// 3 cm or 2.4 1 for instance.
-					if(parseValueNum(num).isDefined)
-						parseValueOptDimNum(dim, num)
-					else parseValueOptDimNum(dim+num, "")
-				case Array(dim, unit, num) => parseValueOptDimNum(dim+unit, num)
-				case _ => None
-			}
+		value.split(" ") match {
+			case Array(dim) => parseValueOptDimNum(dim, "")
+			case Array(dim, num) =>
+				// When two elements compose the value, it can be either
+				// 3 cm or 2.4 1 for instance.
+				if(parseValueNum(num).isDefined)
+					parseValueOptDimNum(dim, num)
+				else parseValueOptDimNum(dim+num, "")
+			case Array(dim, unit, num) => parseValueOptDimNum(dim+unit, num)
+			case _ => None
+		}
 	}
 
 
