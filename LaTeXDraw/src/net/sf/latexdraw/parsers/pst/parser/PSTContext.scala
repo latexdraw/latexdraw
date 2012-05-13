@@ -31,8 +31,8 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle], var arrowSizeD : Double,
-		var arrowSizeN : Double, var arrowLgth : Double, var arrowInset : Double, var arrowTBarSD : Double, var arrowTBarSN : Double,
+class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle], var arrowSize : Tuple2[Double,Double],
+		var arrowLgth : Double, var arrowInset : Double, var arrowTBar : Tuple2[Double,Double],
 		var arrowBrLgth : Double, var arrowrBrLgth : Double, var arrowDotSize : Tuple2[Double,Double], var arrowScale : Tuple2[Double,Double],
 		var arcSep : Double, var arcSepA : Double, var arcSepB : Double, var boxSep : Boolean,
 		var borderColor : Color, var borderPos : IShape.BorderPos, var border : Double, var curvature : Tuple3[Double, Double, Double],
@@ -53,9 +53,9 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var addfillstyle : IShape.FillingStyle) {
 
 	def this() {
-		this(PSTricksConstants.DEFAULT_AXES_STYLE, Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE), PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
-			PSTricksConstants.DEFAULT_ARROW_SIZE_NUM, PSTricksConstants.DEFAULT_ARROW_LENGTH, PSTricksConstants.DEFAULT_ARROW_INSET,
-			PSTricksConstants.DEFAULT_ARROW_TBARSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_TBARSIZE_NUM, PSTricksConstants.DEFAULT_ARROW_BRACKET_LGTH,
+		this(PSTricksConstants.DEFAULT_AXES_STYLE, Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE), Tuple2(PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
+			PSTricksConstants.DEFAULT_ARROW_SIZE_NUM), PSTricksConstants.DEFAULT_ARROW_LENGTH, PSTricksConstants.DEFAULT_ARROW_INSET,
+			Tuple2(PSTricksConstants.DEFAULT_ARROW_TBARSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_TBARSIZE_NUM), PSTricksConstants.DEFAULT_ARROW_BRACKET_LGTH,
 			PSTricksConstants.DEFAULT_ARROW_RBRACKET_LGTH, Tuple2(PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM),
 			Tuple2(PSTricksConstants.DEFAULT_ARROW_SCALE1, PSTricksConstants.DEFAULT_ARROW_SCALE2), PSTricksConstants.DEFAULT_ARC_SEP,
 			PSTricksConstants.DEFAULT_ARC_SEP_A, PSTricksConstants.DEFAULT_ARC_SEP_B, PSTricksConstants.DEFAULT_BOX_SEP,
@@ -97,8 +97,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 	 * Creates the PST context by copying the given one.
 	 */
 	def this(model : PSTContext) {
-		this(model.axesStyle, Tuple2(model.arrowStyle._1, model.arrowStyle._2), model.arrowSizeD, model.arrowSizeN, model.arrowLgth, model.arrowInset,
-			model.arrowTBarSD, model.arrowTBarSN, model.arrowBrLgth, model.arrowrBrLgth, Tuple2(model.arrowDotSize._1, model.arrowDotSize._2),
+		this(model.axesStyle, Tuple2(model.arrowStyle._1, model.arrowStyle._2), Tuple2(model.arrowSize._1, model.arrowSize._2), model.arrowLgth, model.arrowInset,
+			Tuple2(model.arrowTBar._1, model.arrowTBar._2), model.arrowBrLgth, model.arrowrBrLgth, Tuple2(model.arrowDotSize._1, model.arrowDotSize._2),
 			Tuple2(model.arrowScale._1, model.arrowScale._2), model.arcSep, model.arcSepA, model.arcSepB, model.boxSep, model.borderColor, model.borderPos,
 			model.border, Tuple3(model.curvature._1, model.curvature._2, model.curvature._3), model.dxIncrement, model.dyIncrement, model.dxLabelDist,
 			model.dyLabelDist, model.dotStyle,  Tuple2(model.dotScale._1,  model.dotScale._2), model.dotAngle, model.dotSep, Tuple2(model.dash._1, model.dash._2),
@@ -179,6 +179,12 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "dotsep" => dotSep
 				case "border" => border
 				case "addfillstyle" => addfillstyle
+				case "arrowsize" => arrowSize
+				case "arrowlength" => arrowLgth
+				case "tbarsize" => arrowTBar
+				case "bracketlength" => arrowBrLgth
+				case "rbracketlength" => arrowrBrLgth
+				case "arrowscale" => arrowScale
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -236,9 +242,13 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "subgriddiv" if(value.isInstanceOf[Double]) => subGridDiv = value.asInstanceOf[Double]
 				case "subgridwidth" if(value.isInstanceOf[Double]) => subGridWidth = value.asInstanceOf[Double]
 				case "subgriddots" if(value.isInstanceOf[Double]) => subGridDots = value.asInstanceOf[Double]
+				case "bracketlength" if(value.isInstanceOf[Double]) => arrowBrLgth = value.asInstanceOf[Double]
+				case "rbracketlength" if(value.isInstanceOf[Double]) => arrowrBrLgth = value.asInstanceOf[Double]
 				case "unit" if(value.isInstanceOf[Double]) => unit = value.asInstanceOf[Double]
 				case "xunit" if(value.isInstanceOf[Double]) => xUnit = value.asInstanceOf[Double]
 				case "yunit" if(value.isInstanceOf[Double]) => yUnit = value.asInstanceOf[Double]
+				case "arrowlength" if(value.isInstanceOf[Double]) => arrowLgth = value.asInstanceOf[Double]
+				case "arrowinset" if(value.isInstanceOf[Double]) => arrowInset = value.asInstanceOf[Double]
 				case "plotpoints" if(value.isInstanceOf[Int]) => plotPoints = value.asInstanceOf[Int]
 				case "plotstyle" if(value.isInstanceOf[String]) => plotStyle = value.asInstanceOf[String]
 				case "dotstyle" if(value.isInstanceOf[IDot.DotStyle]) => dotStyle = value.asInstanceOf[IDot.DotStyle]
@@ -246,7 +256,10 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "origin" if(value.isInstanceOf[IPoint]) => origin = value.asInstanceOf[IPoint]
 				case "arrows" if(value.isInstanceOf[Tuple2[_, _]]) => arrowStyle = value.asInstanceOf[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]]
 				case "dotscale" if(value.isInstanceOf[Tuple2[_, _]]) => dotScale = value.asInstanceOf[Tuple2[Double, Double]]
+				case "arrowscale" if(value.isInstanceOf[Tuple2[_, _]]) => arrowScale = value.asInstanceOf[Tuple2[Double, Double]]
 				case "dotsize" if(value.isInstanceOf[Tuple2[_, _]]) => arrowDotSize = value.asInstanceOf[Tuple2[Double, Double]]
+				case "arrowsize" if(value.isInstanceOf[Tuple2[_, _]]) => arrowSize = value.asInstanceOf[Tuple2[Double, Double]]
+				case "tbarsize" if(value.isInstanceOf[Tuple2[_, _]]) => arrowTBar = value.asInstanceOf[Tuple2[Double, Double]]
 				case "dash" if(value.isInstanceOf[Tuple2[_, _]]) => dash = value.asInstanceOf[Tuple2[Double, Double]]
 				case "curvature" if(value.isInstanceOf[Tuple3[_, _, _]]) => curvature = value.asInstanceOf[Tuple3[Double, Double, Double]]
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value

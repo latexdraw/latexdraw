@@ -248,13 +248,13 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setArrowSizeDim(final double arrowSizeDim) {
-		if(arrowSizeDim>=0.)
+		if(arrowSizeDim>0.)
 			this.arrowSizeDim = arrowSizeDim;
 	}
 
 	@Override
 	public void setArrowSizeNum(final double arrowSizeNum) {
-		if(arrowSizeNum>0.)
+		if(arrowSizeNum>=0.)
 			this.arrowSizeNum = arrowSizeNum;
 	}
 
@@ -267,13 +267,13 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setBracketNum(final double bracketNum) {
-		if(bracketNum>0.)
+		if(bracketNum>=0.)
 			this.bracketNum = bracketNum;
 	}
 
 	@Override
 	public void setDotSizeDim(final double dotSizeDim) {
-		if(dotSizeDim>=0.)
+		if(dotSizeDim>0.)
 			this.dotSizeDim = dotSizeDim;
 	}
 
@@ -285,19 +285,19 @@ class LArrow implements IArrow {
 
 	@Override
 	public void setRBracketNum(final double rBracketNum) {
-		if(rBracketNum>0.)
+		if(rBracketNum>=0.)
 			this.rBracketNum = rBracketNum;
 	}
 
 	@Override
 	public void setTBarSizeDim(final double tbarSizeDim) {
-		if(tbarSizeDim>=0.)
+		if(tbarSizeDim>0.)
 			tBarSizeDim = tbarSizeDim;
 	}
 
 	@Override
 	public void setTBarSizeNum(final double tBarSizeNum) {
-		if(tBarSizeNum>=0.1)
+		if(tBarSizeNum>=0.)
 			this.tBarSizeNum = tBarSizeNum;
 	}
 

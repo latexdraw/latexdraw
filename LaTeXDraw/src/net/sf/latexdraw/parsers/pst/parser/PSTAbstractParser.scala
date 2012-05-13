@@ -102,6 +102,14 @@ trait PSTAbstractParser extends TokenParsers {
 	protected def setShapeArrows(sh : IShape, ctx : PSTContext) {
 		sh.setArrowStyle(ctx.arrowStyle._1, 0)
 		sh.setArrowStyle(ctx.arrowStyle._2, 1)
+		sh.setArrowSizeDim(ctx.arrowSize._1*IShape.PPC)
+		sh.setArrowSizeNum(ctx.arrowSize._2)
+		sh.setArrowLength(ctx.arrowLgth)
+		sh.setArrowInset(ctx.arrowInset)
+		sh.setTBarSizeDim(ctx.arrowTBar._1*IShape.PPC)
+		sh.setTBarSizeNum(ctx.arrowTBar._2)
+		sh.setBracketNum(ctx.arrowBrLgth)
+		sh.setRBracketNum(ctx.arrowrBrLgth)
 	}
 
 

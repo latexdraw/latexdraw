@@ -70,10 +70,17 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("dotstyle", (str : String, ctx : PSTContext) => parseValueDotStyle(str)),
 			("curvature", (str : String, ctx : PSTContext) => parseValueCurvature(str)),
 			("dotsize", (str : String, ctx : PSTContext) => parseValueDimNum(str)),
+			("arrowsize", (str : String, ctx : PSTContext) => parseValueDimNum(str)),
+			("arrowscale", (str : String, ctx : PSTContext) => parseValueDimNum(str)),//TODO to support
+			("tbarsize", (str : String, ctx : PSTContext) => parseValueDimNum(str)),
 			("subgriddiv", (str : String, ctx : PSTContext) => parseValueNum(str)),
 			("dotscale", (str : String, ctx : PSTContext) => parseValueNumNum(str)),
 			("dotangle", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("arrowlength", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("arrowinset", (str : String, ctx : PSTContext) => parseValueNum(str)),
 			("subgriddots", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("bracketlength", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("rbracketlength", (str : String, ctx : PSTContext) => parseValueNum(str)),
 			("gridwidth", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("unit", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("dotsep", (str : String, ctx : PSTContext) => parseValueDim(str)),
@@ -105,7 +112,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 		case _ ~ _ ~ _ =>
 	}
 
-// arrowsize arrowlength arrowinset tbarsize bracketlength rbracketlength arrowscale liftpen labelsep Ox Oy Dx Dy dx oy
+// liftpen labelsep Ox Oy Dx Dy dx oy
 // ticksize framesep nodesep offset arm angle arcangle ncurv loopsize coilwidth coilheight coilarm coilaspect coilinc
 
 	/**
