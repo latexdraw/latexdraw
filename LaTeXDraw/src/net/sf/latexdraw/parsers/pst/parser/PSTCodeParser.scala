@@ -40,7 +40,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePsgrid(ctx) |
 			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx) |
-			parsePSTPlotCommands(ctx)) ^^ {
+			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)
 
@@ -54,6 +54,11 @@ trait PSTCodeParser extends PSTAbstractParser
 		}
 
 		group
+	}
+
+
+	def parseNewpsobject(ctx : PSTContext) : Parser[List[IShape]] = "\\newpsobject" ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
+		case _ ~ name ~ obj ~ attributes => PSTParser.errorLogs += "The command newpsobject is not supported yet" ; Nil
 	}
 
 
