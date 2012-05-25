@@ -3,16 +3,13 @@ package net.sf.latexdraw.instruments
 import java.awt.event.MouseEvent
 import java.awt.geom.Rectangle2D
 import java.awt.Cursor
-
 import scala.collection.JavaConversions.asScalaBuffer
-
 import org.malai.instrument.Link
 import org.malai.instrument.Instrument
 import org.malai.interaction.library.DnD
 import org.malai.interaction.library.DoubleClick
 import org.malai.interaction.library.Press
 import org.malai.mapping.MappingRegistry
-
 import net.sf.latexdraw.actions.shape.SelectShapes
 import net.sf.latexdraw.actions.shape.TranslateShapes
 import net.sf.latexdraw.actions.shape.InitTextSetter
@@ -25,6 +22,7 @@ import net.sf.latexdraw.glib.ui.ICanvas
 import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
+import org.malai.instrument.library.WidgetZoomer
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -45,7 +43,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : Zoomer, val textSetter : TextSetter) extends Instrument {
+class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : WidgetZoomer, val textSetter : TextSetter) extends Instrument {
 
 	override protected def initialiseLinks() {
 		try{
@@ -78,7 +76,7 @@ private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Link[InitTex
 		if(o.isInstanceOf[IViewText]) {
 			val text = o.asInstanceOf[IViewText].getShape.asInstanceOf[IText]
 			val position = text.getPosition
-			val zoom = instrument.zoomer.zoomable.getZoom
+			val zoom = instrument.zoomer.getZoomable.getZoom
 
 			action.setTextShape(text)
 			action.setInstrument(instrument.textSetter)
@@ -104,8 +102,8 @@ private sealed class DnD2Translate(hand : Hand) extends Link[TranslateShapes, Dn
 
 
 	override def updateAction() {
-		val startPt	= instrument.grid.getTransformedPointToGrid(instrument.zoomer.zoomable.getZoomedPoint(interaction.getStartPt))
-		val endPt	= instrument.grid.getTransformedPointToGrid(instrument.zoomer.zoomable.getZoomedPoint(interaction.getEndPt))
+		val startPt	= instrument.grid.getTransformedPointToGrid(instrument.zoomer.getZoomable.getZoomedPoint(interaction.getStartPt))
+		val endPt	= instrument.grid.getTransformedPointToGrid(instrument.zoomer.getZoomable.getZoomedPoint(interaction.getEndPt))
 
 		action.setTx(endPt.getX - startPt.getX)
 		action.setTy(endPt.getY - startPt.getY)

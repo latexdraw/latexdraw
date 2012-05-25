@@ -1,5 +1,6 @@
 package net.sf.latexdraw.ui;
 
+import java.awt.Dimension;
 import java.awt.Point;
 
 import javax.swing.JLabel;
@@ -12,6 +13,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.*;
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.mapping.*;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
@@ -20,6 +22,7 @@ import net.sf.latexdraw.util.VersionChecker;
 import org.malai.instrument.Instrument;
 import org.malai.instrument.library.Scroller;
 import org.malai.instrument.library.UndoRedoManager;
+import org.malai.instrument.library.WidgetZoomer;
 import org.malai.mapping.MappingRegistry;
 import org.malai.presentation.Presentation;
 import org.malai.ui.UI;
@@ -73,7 +76,7 @@ public class LFrame extends UI {
 	protected UndoRedoManager undoManager;
 
 	/** The instrument that zoomes in/out the canvas. */
-	protected Zoomer zoomer;
+	protected WidgetZoomer zoomer;
 
 	/** The scroller used to scroll the canvas. */
 	protected Scroller scroller;
@@ -223,7 +226,8 @@ public class LFrame extends UI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scroller		= new Scroller(canvas); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { zoomer		= new Zoomer(canvas); }
+		try { zoomer		= new WidgetZoomer(canvas, true, true, LResources.ZOOM_DEFAULT_ICON, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.113"),
+				new Dimension(55, 28), LangTool.INSTANCE.getString19("ShortcutsFrame.30")); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { textSetter	= new TextSetter(layeredPanel); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
@@ -504,7 +508,7 @@ public class LFrame extends UI {
 	 * @return the zoomer.
 	 * @since 3.0
 	 */
-	public Zoomer getZoomer() {
+	public WidgetZoomer getZoomer() {
 		return zoomer;
 	}
 

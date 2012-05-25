@@ -16,6 +16,7 @@ import net.sf.latexdraw.glib.ui.LMagneticGrid;
 
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
+import org.malai.instrument.library.WidgetZoomer;
 import org.malai.interaction.Interaction;
 import org.malai.interaction.library.AbortableDnD;
 import org.malai.interaction.library.MultiClick;
@@ -55,7 +56,7 @@ public class Pencil extends Instrument {
 	protected IDrawing drawing;
 
 	/** The zoomer that is used to give the zoom level to compute coordinates of the created shapes. */
-	protected Zoomer zoomer;
+	protected WidgetZoomer zoomer;
 
 	/** The file chooser used to select pictures. */
 	protected JFileChooser pictureFileChooser;
@@ -72,7 +73,7 @@ public class Pencil extends Instrument {
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public Pencil(final IDrawing drawing, final Zoomer zoomer, final LMagneticGrid grid, final TextSetter textSetter) {
+	public Pencil(final IDrawing drawing, final WidgetZoomer zoomer, final LMagneticGrid grid, final TextSetter textSetter) {
 		super();
 
 		if(drawing==null || zoomer==null || grid==null || textSetter==null)
@@ -267,7 +268,7 @@ public class Pencil extends Instrument {
 	 * @since 3.0
 	 */
 	public IPoint getAdaptedPoint(final Point point) {
-		return grid.getTransformedPointToGrid(zoomer.zoomable.getZoomedPoint(point));
+		return grid.getTransformedPointToGrid(zoomer.getZoomable().getZoomedPoint(point));
 	}
 }
 
@@ -640,7 +641,7 @@ class Press2InitTextSetter extends Link<InitTextSetter, Press, Pencil> {
 	@Override
 	public void initAction() {
 		final IPoint adaptedPt = instrument.getAdaptedPoint(interaction.getPoint());
-		final double zoom = instrument.zoomer.zoomable.getZoom();
+		final double zoom = instrument.zoomer.getZoomable().getZoom();
 
 		action.setText("");
 		action.setTextShape(null);
