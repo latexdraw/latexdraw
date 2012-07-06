@@ -37,7 +37,6 @@ import org.malai.mapping.IUnary;
 import org.malai.mapping.MappingRegistry;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-import org.malai.properties.Zoomable;
 import org.malai.undo.Undoable;
 import org.malai.widget.MPanel;
 import org.w3c.dom.Document;
@@ -341,7 +340,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public void setZoom(final double x, final double y, final double z) {
-		if(z<=Zoomable.MAX_ZOOM && z>=Zoomable.MIN_ZOOM) {
+		if(z<=getMaxZoom() && z>=getMinZoom()) {
 			zoom.setValue(z);
 			borderIns.update();
 			update();
@@ -659,5 +658,23 @@ public class LCanvas extends MPanel implements ICanvas {
 		}
 		@Override
 		public void mouseDragged(MouseEvent e) { /* Nothing to do. */ }
+	}
+
+
+	@Override
+	public double getZoomIncrement() {
+		return 0.25;
+	}
+
+
+	@Override
+	public double getMaxZoom() {
+		return 4.5;
+	}
+
+
+	@Override
+	public double getMinZoom() {
+		return 0.25;
 	}
 }
