@@ -1,10 +1,10 @@
 package net.sf.latexdraw.parsers.pst.parser
 
+import scala.collection.JavaConversions._
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IShape
-import scala.collection.JavaConversions._
-import java.text.ParseException
+import net.sf.latexdraw.glib.models.interfaces.IFreehand
 
 /**
  * Defines a parser parsing PST expressions.<br>
@@ -27,11 +27,11 @@ import java.text.ParseException
  */
 trait PSTCodeParser extends PSTAbstractParser
 	with PSFrameEllipseDiamondTriangleParser with PSCircleParser with PSLineParser with PSPolygonParser with PSWedgeArcParser
-	with PSBezierParser with PSCurveParabolaParser with PSDotParser with PSGridAxes with PSTPlotParser {
+	with PSBezierParser with PSCurveParabolaParser with PSDotParser with PSGridAxes with PSTPlotParser with PSCustomParser {
 	/** The entry point to parse PST texts. */
 	def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
 		rep(math | text |
-			parsePSTBlock(ctx) | parsePspictureBlock(ctx) | parsePsset(ctx) |
+			parsePSTBlock(ctx, ctx.isPsCustom) | parsePspictureBlock(ctx) | parsePsset(ctx) |
 			parsePsellipse(ctx) | parsePsframe(ctx) | parsePsdiamond(ctx) | parsePstriangle(ctx) |
 			parsePsline(ctx) | parserQline(ctx) |
 			parsePscircle(ctx) | parseQdisk(ctx) |
@@ -40,7 +40,8 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePsgrid(ctx) |
 			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx) |
-			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) | parsePscustom(ctx)) ^^ {
+			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) | parsePscustom(ctx) |
+			parsePSCustomCommands(ctx)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)
 
@@ -57,11 +58,32 @@ trait PSTCodeParser extends PSTAbstractParser
 	}
 
 
-	def parsePscustom(ctx : PSTContext) : Parser[IGroup] = ("\\pscustom*" | "\\pscustom") ~ opt(parseParam(ctx)) ~ parsePSTBlock(ctx) ^^ {
-		case cmdName ~ _ ~ shapes =>
+	def parsePscustom(ctx : PSTContext) : Parser[IGroup] = ("\\pscustom*" | "\\pscustom") ~ opt(parseParam(ctx)) ~ parsePSTBlock(ctx, true) ^^ {
+		case cmdName ~ _ ~ shapes => shapes
 			if(cmdName.endsWith("*"))
 				shapes.getShapes.foreach{sh => setShapeForStar(sh)}
-			shapes
+
+			var fh : IFreehand = null
+			val gp = DrawingTK.getFactory.createGroup(false)
+
+			// The different created freehand shapes must be merged into a single one.
+			shapes.getShapes.foreach{sh =>
+				sh match {
+					case ifh : IFreehand =>
+						fh match {
+							case null => gp.addShape(ifh) ; fh = ifh // This shape is now the reference shape used for the merge.
+							case _ =>
+								if(ifh.getNbPoints==1) {// If the shape has a single point, it means it is a closepath command
+									fh.setOpen(ifh.isOpen)
+								} else {// Otherwise, the shape has two points. So, we take the last one and add it to the first shape.
+									fh.addPoint(ifh.getPtAt(ifh.getNbPoints-1))
+									fh.setType(ifh.getType)
+								}
+						}
+					case _ => gp.addShape(sh)
+				}
+			}
+			gp
 	}
 
 
@@ -76,7 +98,7 @@ trait PSTCodeParser extends PSTAbstractParser
 
 
 	/** Parses a PST block surrounded with brackets. */
-	def parsePSTBlock(context : PSTContext) : Parser[IGroup] = "{" ~ parsePSTCode(new PSTContext(context)) ~ "}" ^^ {
+	def parsePSTBlock(ctx : PSTContext, isPsCustomBlock : Boolean) : Parser[IGroup] = "{" ~ parsePSTCode(new PSTContext(ctx, isPsCustomBlock)) ~ "}" ^^ {
 		case _ ~ shapes ~ _ => shapes
 	}
 
@@ -85,7 +107,7 @@ trait PSTCodeParser extends PSTAbstractParser
 	 * Parses begin{pspicture} \end{pspicture} blocks.
 	 */
 	def parsePspictureBlock(ctx : PSTContext) : Parser[IGroup] = {
-		val ctx2 = new PSTContext(ctx)
+		val ctx2 = new PSTContext(ctx, false)
 		parseBeginPspicture(ctx2) ~> parsePSTCode(ctx2) <~ "\\end" <~ "{" <~ "pspicture" <~ "}"
 	}
 
