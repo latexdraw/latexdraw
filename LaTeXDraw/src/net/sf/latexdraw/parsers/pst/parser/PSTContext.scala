@@ -50,7 +50,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var ticks : IAxes.PlottingStyle, var ticksStyle : IAxes.TicksStyle, var ticksSize : Double, var unit : Double, var xUnit : Double,
 		var yUnit : Double, var textColor : Color, var shadow : Boolean, var gridlabelcolor : Color, var isCentered : Boolean,
 		var pictureSWPt : IPoint, var pictureNEPt : IPoint, var tokenPosition : String, var plotStyle : String, var plotPoints : Int,
-		var addfillstyle : IShape.FillingStyle) {
+		var addfillstyle : IShape.FillingStyle, var liftpen : Int) {
 
 	def this() {
 		this(PSTricksConstants.DEFAULT_AXES_STYLE, Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE), Tuple2(PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
@@ -82,7 +82,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			PSTricksConstants.DEFAULT_SUBGRIDDIV, PSTricksConstants.DEFAULT_TICKS_DISPLAYED, PSTricksConstants.DEFAULT_TICKS_STYLE,
 			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
 			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, DrawingTK.getFactory.createPoint,
-			DrawingTK.getFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE)
+			DrawingTK.getFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0)
 	}
 //	var textItalic
 //	var textBold
@@ -110,7 +110,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			  model.specialCoor, model.showPoints, model.showOrigin, model.subGridWidth, model.swapAxes, model.shadowCol, model.subGridCol,
 			  model.shadowAngle, model.shadowSize, model.subGridDots, model.subGridDiv, model.ticks, model.ticksStyle, model.ticksSize, model.unit,
 			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, DrawingTK.getFactory.createPoint(model.pictureSWPt),
-			  DrawingTK.getFactory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle)
+			  DrawingTK.getFactory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle, model.liftpen)
 	}
 
 
@@ -185,6 +185,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "bracketlength" => arrowBrLgth
 				case "rbracketlength" => arrowrBrLgth
 				case "arrowscale" => arrowScale
+				case "liftpen" => liftpen
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -254,6 +255,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "dotstyle" if(value.isInstanceOf[IDot.DotStyle]) => dotStyle = value.asInstanceOf[IDot.DotStyle]
 				case "cornersize" if(value.isInstanceOf[Boolean]) => isCornerRel = value.asInstanceOf[Boolean]
 				case "origin" if(value.isInstanceOf[IPoint]) => origin = value.asInstanceOf[IPoint]
+				case "liftpen" if(value.isInstanceOf[Int]) => liftpen = value.asInstanceOf[Int]
 				case "arrows" if(value.isInstanceOf[Tuple2[_, _]]) => arrowStyle = value.asInstanceOf[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]]
 				case "dotscale" if(value.isInstanceOf[Tuple2[_, _]]) => dotScale = value.asInstanceOf[Tuple2[Double, Double]]
 				case "arrowscale" if(value.isInstanceOf[Tuple2[_, _]]) => arrowScale = value.asInstanceOf[Tuple2[Double, Double]]

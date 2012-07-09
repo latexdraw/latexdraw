@@ -87,6 +87,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("border", (str : String, ctx : PSTContext) => parseValueDim(str)),
 			("dash", (str : String, ctx : PSTContext) => parseValueDimDim(str)),
 			("xunit", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("liftpen", (str : String, ctx : PSTContext) => parseValue012(str)),
 			("yunit", (str : String, ctx : PSTContext) => parseValueDim(str)))
 //			("origin", (str : String, ctx : PSTContext) => parseValueOrigin(str)))
 //			("labels", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
@@ -112,7 +113,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 		case _ ~ _ ~ _ =>
 	}
 
-// liftpen labelsep Ox Oy Dx Dy dx oy
+// labelsep Ox Oy Dx Dy dx oy
 // ticksize framesep nodesep offset arm angle arcangle ncurv loopsize coilwidth coilheight coilarm coilaspect coilinc
 
 	/**

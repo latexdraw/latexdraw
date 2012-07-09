@@ -39,6 +39,18 @@ trait PSTNumberParser extends PSTAbstractParser {
 
 
 	/**
+	 * Parses the given string to extract a value that can be either 0, 1, or 2.
+	 * Otherwise, None is returned.
+	 */
+	def parseValue012(num : String) : Option[Int] = {
+		createValidNumber(num) match {
+			case Some(value) if(value==0 || value==1 || value==2) => Some(value.toInt)
+			case _ => None
+		}
+	}
+
+
+	/**
 	 * Parses double values contained in the interval [0..1]
 	 */
 	def parseValue01Interval(num : String) : Option[Double] = {
@@ -63,7 +75,7 @@ trait PSTNumberParser extends PSTAbstractParser {
 	}
 
 
-	/** Parses angle values. The returned value is in degree. */
+	/** Parses numerical values. */
 	def parseValueNum(num : String) = createValidNumber(num)
 
 

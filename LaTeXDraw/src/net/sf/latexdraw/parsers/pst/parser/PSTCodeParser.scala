@@ -40,7 +40,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePsgrid(ctx) |
 			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx) |
-			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx) | parseNewpsstyle(ctx)) ^^ {
+			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) | parsePscustom(ctx)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)
 
@@ -54,6 +54,14 @@ trait PSTCodeParser extends PSTAbstractParser
 		}
 
 		group
+	}
+
+
+	def parsePscustom(ctx : PSTContext) : Parser[IGroup] = ("\\pscustom*" | "\\pscustom") ~ opt(parseParam(ctx)) ~ parsePSTBlock(ctx) ^^ {
+		case cmdName ~ _ ~ shapes =>
+			if(cmdName.endsWith("*"))
+				shapes.getShapes.foreach{sh => setShapeForStar(sh)}
+			shapes
 	}
 
 
