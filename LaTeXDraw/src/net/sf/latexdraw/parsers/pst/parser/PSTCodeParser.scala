@@ -108,15 +108,16 @@ trait PSTCodeParser extends PSTAbstractParser
 	 */
 	def parsePspictureBlock(ctx : PSTContext) : Parser[IGroup] = {
 		val ctx2 = new PSTContext(ctx, false)
-		parseBeginPspicture(ctx2) ~> parsePSTCode(ctx2) <~ "\\end" <~ "{" <~ "pspicture" <~ "}"
+		(parseBeginPspicture(ctx2, false) ~> parsePSTCode(ctx2) <~ "\\end" <~ "{" <~ "pspicture" <~ "}") |
+		(parseBeginPspicture(ctx2, true) ~> parsePSTCode(ctx2) <~ "\\end" <~ "{" <~ "pspicture*" <~ "}")
 	}
 
 
 	/**
 	 * Parses begin{pspicture} commands.
 	 */
-	private def parseBeginPspicture(ctx : PSTContext) : Parser[Any] =
-		"\\begin" ~> "{" ~> "pspicture" ~> "}" ~> parseCoord(ctx) ~ opt(parseCoord(ctx)) ^^ {
+	private def parseBeginPspicture(ctx : PSTContext, star : Boolean) : Parser[Any] =
+		"\\begin" ~> "{" ~> (if(star) "pspicture*" else "pspicture") ~> "}" ~> parseCoord(ctx) ~ opt(parseCoord(ctx)) ^^ {
 		case p1 ~ p2 =>
 		p2 match {
 			case Some(value) =>
