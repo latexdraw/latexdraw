@@ -111,6 +111,7 @@ public final class LResources {
 	public final static ImageIcon TEXTPOS_B;
 	public final static ImageIcon TEXTPOS_BR;
 	public final static ImageIcon TEXTPOS_BL;
+	public final static ImageIcon TEXTPOS_CENTRE;
 	public final static ImageIcon FILLING_ICON;
 	public final static ImageIcon BORDER_ICON;
 	public final static ImageIcon DOUBLE_BORDER_ICON;
@@ -216,6 +217,7 @@ public final class LResources {
 		TEXTPOS_TL			= loadImageIcon("/res/textPosTL.png");//$NON-NLS-1$
 		TEXTPOS_T			= loadImageIcon("/res/textPosT.png");//$NON-NLS-1$
 		TEXTPOS_TR			= loadImageIcon("/res/textPosTR.png");//$NON-NLS-1$
+		TEXTPOS_CENTRE		= loadImageIcon("/res/textPosCentre.png");//$NON-NLS-1$
 		FILLING_ICON		= loadImageIcon("/res/filling.png");//$NON-NLS-1$
 		BORDER_ICON			= loadImageIcon("/res/border.png");//$NON-NLS-1$
 		DOUBLE_BORDER_ICON	= loadImageIcon("/res/doubleBorder.png");//$NON-NLS-1$

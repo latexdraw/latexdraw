@@ -177,6 +177,11 @@ public interface IText extends IPositionShape {
 			public String getLatexToken() {
 				return "tr"; //$NON-NLS-1$
 			}
+		}, CENTER {
+			@Override
+			public String getLatexToken() {
+				return ""; //$NON-NLS-1$
+			}
 		};
 
 		/**
@@ -204,6 +209,8 @@ public interface IText extends IPositionShape {
 				return TOP_LEFT;
 			if(TOP_RIGHT.getLatexToken().equals(latexToken))
 				return TOP_RIGHT;
+			if(CENTER.getLatexToken().equals(latexToken))
+				return CENTER;
 
 			return null;
 		}

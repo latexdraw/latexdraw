@@ -381,6 +381,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 			case TOP_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY());
 			case BOT_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/SCALE_IMAGE, shape.getY()-image.getHeight(null)/SCALE_IMAGE);
 			case TOP_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/SCALE_IMAGE, shape.getY());
+			case CENTER : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/2./SCALE_IMAGE, shape.getY()-image.getHeight(null)/SCALE_IMAGE/2.);
 		}
 
 		return null;
@@ -398,6 +399,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 			case TOP_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY()+bounds.getHeight());
 			case BOT_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-bounds.getWidth(), shape.getY());
 			case TOP_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-bounds.getWidth(), shape.getY()+bounds.getHeight());
+			case CENTER : return DrawingTK.getFactory().createPoint(shape.getX()-bounds.getWidth()/2., shape.getX()-bounds.getHeight()/2.);
 		}
 
 		return null;

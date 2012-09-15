@@ -301,6 +301,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(textCustomiser.getTlButton());
 		list.addComponent(textCustomiser.getTButton());
 		list.addComponent(textCustomiser.getTrButton());
+		list.addComponent(textCustomiser.getCentreButton());
 
 		mapContainers.put(textCustomiser.getBlButton(), list);
 		mapContainers.put(textCustomiser.getBButton(), list);
@@ -308,6 +309,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(textCustomiser.getTlButton(), list);
 		mapContainers.put(textCustomiser.getTButton(), list);
 		mapContainers.put(textCustomiser.getTrButton(), list);
+		mapContainers.put(textCustomiser.getCentreButton(), list);
 
 		list.addSeparator();
 		textCustomiser.addEventable(list.getToolbar());
