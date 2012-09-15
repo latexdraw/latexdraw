@@ -37,7 +37,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePscircle(ctx) | parseQdisk(ctx) |
 			parsePspolygon(ctx) | parsePsbezier(ctx) |
 			parsePsdot(ctx) | parsePsdots(ctx) |
-			parsePsgrid(ctx) |
+			parsePsgrid(ctx) | parseRput(ctx) |
 			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx) |
 			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) | parsePscustom(ctx) |
@@ -100,6 +100,15 @@ trait PSTCodeParser extends PSTAbstractParser
 	/** Parses a PST block surrounded with brackets. */
 	def parsePSTBlock(ctx : PSTContext, isPsCustomBlock : Boolean) : Parser[IGroup] = "{" ~ parsePSTCode(new PSTContext(ctx, isPsCustomBlock)) ~ "}" ^^ {
 		case _ ~ shapes ~ _ => shapes
+	}
+
+
+	/**
+	 * Parses rput commands.
+	 */
+	def parseRput(ctx : PSTContext) : Parser[IGroup] = ("\\rput*" | "\\rput") ~ opt(parseSquaredBracket(ctx)) ~
+			opt(parseBracket(ctx)) ~ parseCoord(ctx) ~ parsePSTBlock(ctx, false) ^^ { case _ ~ refPos ~ rotation ~ coord ~ figs =>
+		figs
 	}
 
 
