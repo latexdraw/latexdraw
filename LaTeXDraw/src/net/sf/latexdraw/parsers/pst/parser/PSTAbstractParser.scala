@@ -6,6 +6,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IRectangle
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 
 /**
  * Defines an abstract PST parser.<br>
@@ -47,8 +48,12 @@ trait PSTAbstractParser extends TokenParsers {
 	def math : Parser[String] = elem("mathMode", _.isInstanceOf[MathMode]) ^^ (_.chars)
 
 
-	/** A parser which matches an PST command name. */
-	def command : Parser[String] = elem("command", _.isInstanceOf[Command]) ^^ (_.chars)
+	/** A parser which matches an PST command name defined in the lexer. */
+	def commandKnown : Parser[String] = elem("command", cmd => cmd.isInstanceOf[Command] && lexical.reserved.contains(cmd.chars)) ^^ (_.chars)
+
+
+	/** A parser which matches an PST command name undefined in the lexer. */
+	def commandUnknown : Parser[String] = elem("command", cmd => cmd.isInstanceOf[Command] && !lexical.reserved.contains(cmd.chars)) ^^ (_.chars)
 
 
 	/** A parser which matches a float or integer value. */
@@ -65,6 +70,24 @@ trait PSTAbstractParser extends TokenParsers {
 
 	// Error handling
 	def orFailure[A](a : Parser[A], msg : String) : Parser[A] = a | failure(msg)
+
+
+
+	/**
+	 * This operation checks if some texts have been parsed. In such a case a text shape
+	 * is created and returned into a list. Otherwise, Nil is returned.
+	 */
+	protected def checkTextParsed(ctx:PSTContext) : List[IShape] = {
+		ctx.textParsed match {
+			case "" => Nil
+			case _ =>
+				val text = DrawingTK.getFactory.createText(true)
+				text.setText(ctx.textParsed)
+				ctx.textParsed = ""
+				List(text)
+		}
+	}
+
 
 
 	/**
@@ -157,14 +180,20 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	// An implicit keyword function that gives a warning when a given word is not in the delimiters list
-	implicit def keyword(chars : String) : Parser[String] =
+	implicit def keyword(chars : String) : Parser[String] = {
 		if(lexical.reserved.contains(chars))
 			if(chars.startsWith("\\"))
 				keywordCache.getOrElseUpdate(chars, accept(Command(chars)) ^^ (_.chars))
 			else
 				keywordCache.getOrElseUpdate(chars, accept(Identifier(chars)) ^^ (_.chars))
-		else if(lexical.delimiters.contains(chars))
-			delimCache.getOrElseUpdate(chars, accept(Delimiter(chars)) ^^ (_.chars))
 		else
-			failure("You are trying to parse \"" + chars + "\", but it is neither contained in the delimiters list of your lexical object")
+//			if(chars.startsWith("\\")) {
+//				accept(Command(chars)) ^^ (_.chars)
+//			}
+//			else
+				if(lexical.delimiters.contains(chars))
+					delimCache.getOrElseUpdate(chars, accept(Delimiter(chars)) ^^ (_.chars))
+				else
+					failure("You are trying to parse \"" + chars + "\", but it is neither contained in the delimiters list of your lexical object")
+	}
 }

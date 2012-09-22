@@ -52,6 +52,9 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var pictureSWPt : IPoint, var pictureNEPt : IPoint, var tokenPosition : String, var plotStyle : String, var plotPoints : Int,
 		var addfillstyle : IShape.FillingStyle, var liftpen : Int, var isPsCustom : Boolean, val psCustomLatestPt : IPoint) {
 
+	/** Text text parsed in the current context. */
+	var textParsed : String = ""
+
 	def this(psCustom : Boolean) {
 		this(PSTricksConstants.DEFAULT_AXES_STYLE, Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE), Tuple2(PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
 			PSTricksConstants.DEFAULT_ARROW_SIZE_NUM), PSTricksConstants.DEFAULT_ARROW_LENGTH, PSTricksConstants.DEFAULT_ARROW_INSET,
@@ -91,7 +94,6 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 //	var textSeries
 //	var textFamily
 //	var textSize	= PSTricksConstants.COMMAND_TEXT_NORMAL
-//	var textParsed
 
 	/**
 	 * Creates the PST context by copying the given one.

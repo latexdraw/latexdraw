@@ -26,7 +26,7 @@ import scala.collection.mutable.ListBuffer
 class PSTParser extends PSTAbstractParser with PSTCodeParser {
 	@throws(classOf[ParseException])
 	def parsePSTCode(content : String) : Option[IGroup] = {
-		val tokens = new lexical.Scanner(content + "\n")
+		val tokens = new lexical.Scanner("{\n" + content + "\n}\n")
 		val result = phrase(parsePSTCode(new PSTContext(false)))(tokens)
 
 		PSTParser._errorLogs.foreach{msg => println(msg)}

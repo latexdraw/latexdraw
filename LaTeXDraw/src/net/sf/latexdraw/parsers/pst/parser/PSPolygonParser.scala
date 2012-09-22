@@ -40,7 +40,7 @@ trait PSPolygonParser extends PSTAbstractParser with PSTParamParser with PSTCoor
 		val ptList2 = new ListBuffer[IPoint]
 		ptList.foreach{pt => ptList2 += transformPointTo2DScene(pt)}
 
-		List(createPolygon(cmdName.endsWith("*"), ptList2, ctx))
+		checkTextParsed(ctx) ::: List(createPolygon(cmdName.endsWith("*"), ptList2, ctx))
 	}
 
 

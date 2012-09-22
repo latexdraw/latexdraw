@@ -42,7 +42,7 @@ trait PSCircleParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 				}
 
 				pt = transformPointTo2DScene(pt)
-				List(createCircle(cmdName.endsWith("*"), pt, value*IShape.PPC, ctx))
+				checkTextParsed(ctx) ::: List(createCircle(cmdName.endsWith("*"), pt, value*IShape.PPC, ctx))
 			case None => PSTParser.errorLogs += "Bracket's content cannot be empty: " + cmdName; Nil
 		}
 	}
@@ -55,7 +55,7 @@ trait PSCircleParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 		"\\qdisk" ~ parseCoord(ctx) ~ parseBracket(ctx) ^^ { case cmdName ~ pos ~ radius =>
 		parseValueDim(radius) match {
 			case Some(value) =>
-				List(createCircle(true, transformPointTo2DScene(pos), value*IShape.PPC, ctx))
+				checkTextParsed(ctx) ::: List(createCircle(true, transformPointTo2DScene(pos), value*IShape.PPC, ctx))
 			case None => PSTParser.errorLogs += "Bracket's content cannot be empty: " + cmdName; Nil
 		}
 	}

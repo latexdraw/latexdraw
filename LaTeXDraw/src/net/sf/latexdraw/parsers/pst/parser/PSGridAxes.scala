@@ -37,13 +37,14 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 		case cmdName ~ _ ~ p1 ~ p2 ~ p3 =>
 
 		(p1, p2, p3) match {
-			case (Some(pt1), Some(pt2), Some(pt3)) => List(createGrid(pt1, pt2, pt3, ctx))
-			case (Some(pt1), Some(pt2), None) => List(createGrid(DrawingTK.getFactory.createPoint(pt1), pt1, pt2, ctx))
-			case (Some(pt1), None, None) => List(createGrid(DrawingTK.getFactory.createPoint(0, 0), DrawingTK.getFactory.createPoint(0, 0), pt1, ctx))
+			case (Some(pt1), Some(pt2), Some(pt3)) => checkTextParsed(ctx) ::: List(createGrid(pt1, pt2, pt3, ctx))
+			case (Some(pt1), Some(pt2), None) => checkTextParsed(ctx) ::: List(createGrid(DrawingTK.getFactory.createPoint(pt1), pt1, pt2, ctx))
+			case (Some(pt1), None, None) =>
+				checkTextParsed(ctx) ::: List(createGrid(DrawingTK.getFactory.createPoint(0, 0), DrawingTK.getFactory.createPoint(0, 0), pt1, ctx))
 			case _ =>
 				val gridEnd = DrawingTK.getFactory.createPoint(getApproxCoord(ctx.pictureNEPt.getX), getApproxCoord(ctx.pictureNEPt.getY))
 				val gridStart = DrawingTK.getFactory.createPoint(getApproxCoord(ctx.pictureSWPt.getX), getApproxCoord(ctx.pictureSWPt.getY))
-				List(createGrid(DrawingTK.getFactory.createPoint(gridStart), gridStart, gridEnd, ctx))
+				checkTextParsed(ctx) ::: List(createGrid(DrawingTK.getFactory.createPoint(gridStart), gridStart, gridEnd, ctx))
 		}
 	}
 

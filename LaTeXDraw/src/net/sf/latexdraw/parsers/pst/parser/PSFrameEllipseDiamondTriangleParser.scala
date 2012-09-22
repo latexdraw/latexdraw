@@ -61,7 +61,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 
 	private def parsePsFrameEllipseDiamondTriangle(cmd : String, ctx : PSTContext) : Parser[List[IShape]] =
 		opt(parseParam(ctx)) ~ parseCoord(ctx) ~ opt(parseCoord(ctx)) ^^ {
-			case _ ~ pt1 ~ dim => createRectangleEllipseDiamondTriangle(cmd, cmd.endsWith("*"), pt1, dim, ctx)
+			case _ ~ pt1 ~ dim => checkTextParsed(ctx) ::: createRectangleEllipseDiamondTriangle(cmd, cmd.endsWith("*"), pt1, dim, ctx)
 	}
 
 

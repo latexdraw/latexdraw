@@ -225,7 +225,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 		if(ctx.isPsCustom) {
 			val fh = DrawingTK.getFactory.createFreeHand(DrawingTK.getFactory.createPoint, false)
 			fh.setOpen(false)
-			List(fh)
+			checkTextParsed(ctx) ::: List(fh)
 		}
 		else {
 			PSTParser.errorLogs += "The command closepath " + notIntoPscustomBlockErrorMsg
@@ -240,7 +240,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	def parseCurveTo(ctx : PSTContext) : Parser[List[IShape]] = "\\curveto" ~ parseCoord(ctx) ~ parseCoord(ctx) ~ parseCoord(ctx) ^^ {
 		case _ ~ _ ~ _ ~ pt3 =>
 			if(ctx.isPsCustom)
-				List(createFreeHand(false, ctx, pt3))
+				checkTextParsed(ctx) ::: List(createFreeHand(false, ctx, pt3))
 			else {
 				PSTParser.errorLogs += "The command curveto " + notIntoPscustomBlockErrorMsg
 				Nil
@@ -253,7 +253,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	 */
 	def parseLineTo(ctx : PSTContext) : Parser[List[IShape]] = "\\lineto" ~ parseCoord(ctx) ^^ { case _ ~ pt =>
 		if(ctx.isPsCustom)
-			List(createFreeHand(true, ctx, pt))
+			checkTextParsed(ctx) ::: List(createFreeHand(true, ctx, pt))
 		else {
 			PSTParser.errorLogs += "The command lineto " + notIntoPscustomBlockErrorMsg
 			Nil
@@ -283,7 +283,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 			ctx.psCustomLatestPt.setPoint(transformPointTo2DScene(pt))
 		else
 			PSTParser.errorLogs += "The command moveto " + notIntoPscustomBlockErrorMsg
-		Nil
+		checkTextParsed(ctx)
 	}
 
 
@@ -291,10 +291,10 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	 * Parses newpath commands.
 	 */
 	def parseNewpath(ctx : PSTContext) : Parser[List[IShape]] = "\\newpath" ^^ { case _ =>
-			if(ctx.isPsCustom)
-				PSTParser.errorLogs += "The command newpath is not supported yet"
-			else
-				PSTParser.errorLogs += "The command newpath " + notIntoPscustomBlockErrorMsg
-			Nil
+		if(ctx.isPsCustom)
+			PSTParser.errorLogs += "The command newpath is not supported yet"
+		else
+			PSTParser.errorLogs += "The command newpath " + notIntoPscustomBlockErrorMsg
+		checkTextParsed(ctx)
 	}
 }

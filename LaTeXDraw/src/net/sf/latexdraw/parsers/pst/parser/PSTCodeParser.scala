@@ -5,6 +5,7 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IFreehand
+import scala.util.parsing.input.CharArrayReader
 
 /**
  * Defines a parser parsing PST expressions.<br>
@@ -30,8 +31,7 @@ trait PSTCodeParser extends PSTAbstractParser
 	with PSBezierParser with PSCurveParabolaParser with PSDotParser with PSGridAxes with PSTPlotParser with PSCustomParser {
 	/** The entry point to parse PST texts. */
 	def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
-		rep(math | text |
-			parsePSTBlock(ctx, ctx.isPsCustom) | parsePspictureBlock(ctx) | parsePsset(ctx) |
+		rep(parsePSTBlock(ctx, ctx.isPsCustom) | parsePspictureBlock(ctx) | parsePsset(ctx) |
 			parsePsellipse(ctx) | parsePsframe(ctx) | parsePsdiamond(ctx) | parsePstriangle(ctx) |
 			parsePsline(ctx) | parserQline(ctx) |
 			parsePscircle(ctx) | parseQdisk(ctx) |
@@ -41,7 +41,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx) |
 			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) | parsePscustom(ctx) |
-			parsePSCustomCommands(ctx)) ^^ {
+			parsePSCustomCommands(ctx) | parseText(ctx)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)
 
@@ -49,13 +49,27 @@ trait PSTCodeParser extends PSTAbstractParser
 				case gp : List[_] => gp.foreach{sh => group.addShape(sh.asInstanceOf[IShape])}
 				case gp : IGroup => gp.getShapes.foreach{sh => group.addShape(sh)}
 				case sh : IShape => group.addShape(sh)
-				case str: String => val txt = DrawingTK.getFactory.createText(true); txt.setText(str); group.addShape(txt)
 				case _ =>
 			}
 		}
 
 		group
 	}
+
+
+
+	/**
+	 * This parser rule parses texts (raw text, unknown commands, math area, etc.) and transforms them into shapes.
+	 */
+	def parseText(ctx : PSTContext) : Parser[List[IShape]] =  (math | text | ident | numeric | commandUnknown) ^^ {
+		case obj => println(obj)
+			ctx.textParsed match {
+				case "" => ctx.textParsed = obj.mkString
+				case _  => ctx.textParsed += " " + obj.mkString
+			}
+			Nil
+	}
+
 
 
 	def parsePscustom(ctx : PSTContext) : Parser[IGroup] = ("\\pscustom*" | "\\pscustom") ~ opt(parseParam(ctx)) ~ parsePSTBlock(ctx, true) ^^ {
@@ -98,8 +112,13 @@ trait PSTCodeParser extends PSTAbstractParser
 
 
 	/** Parses a PST block surrounded with brackets. */
-	def parsePSTBlock(ctx : PSTContext, isPsCustomBlock : Boolean) : Parser[IGroup] = "{" ~ parsePSTCode(new PSTContext(ctx, isPsCustomBlock)) ~ "}" ^^ {
-		case _ ~ shapes ~ _ => shapes
+	def parsePSTBlock(ctx : PSTContext, isPsCustomBlock : Boolean) : Parser[IGroup] = {
+		val newCtx = new PSTContext(ctx, isPsCustomBlock)
+		"{" ~ parsePSTCode(newCtx) ~ "}" ^^ {
+			case _ ~ shapes ~ _ =>
+			shapes.getShapes.addAll(0, checkTextParsed(newCtx))
+			shapes
+		}
 	}
 
 

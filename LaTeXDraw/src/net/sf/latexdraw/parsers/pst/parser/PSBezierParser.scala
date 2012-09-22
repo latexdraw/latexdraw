@@ -58,6 +58,6 @@ trait PSBezierParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 		if(cmdName.endsWith("*"))
 			setShapeForStar(bezier)
 
-		List(bezier)
+		checkTextParsed(ctx) ::: List(bezier)
 	}
 }
