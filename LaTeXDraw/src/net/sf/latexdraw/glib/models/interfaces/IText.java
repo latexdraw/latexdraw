@@ -177,6 +177,31 @@ public interface IText extends IPositionShape {
 			public String getLatexToken() {
 				return "tr"; //$NON-NLS-1$
 			}
+		}, BASE {
+			@Override
+			public String getLatexToken() {
+				return "B"; //$NON-NLS-1$
+			}
+		}, BASE_LEFT {
+			@Override
+			public String getLatexToken() {
+				return "Bl"; //$NON-NLS-1$
+			}
+		}, BASE_RIGHT {
+			@Override
+			public String getLatexToken() {
+				return "Br"; //$NON-NLS-1$
+			}
+		}, LEFT {
+			@Override
+			public String getLatexToken() {
+				return "l"; //$NON-NLS-1$
+			}
+		}, RIGHT {
+			@Override
+			public String getLatexToken() {
+				return "r"; //$NON-NLS-1$
+			}
 		}, CENTER {
 			@Override
 			public String getLatexToken() {
@@ -197,22 +222,14 @@ public interface IText extends IPositionShape {
 		 * @since 3.0
 		 */
 		public static TextPosition getTextPosition(final String latexToken) {
-			if(BOT.getLatexToken().equals(latexToken))
-				return BOT;
-			if(BOT_LEFT.getLatexToken().equals(latexToken))
-				return BOT_LEFT;
-			if(BOT_RIGHT.getLatexToken().equals(latexToken))
-				return BOT_RIGHT;
-			if(TOP.getLatexToken().equals(latexToken))
-				return TOP;
-			if(TOP_LEFT.getLatexToken().equals(latexToken))
-				return TOP_LEFT;
-			if(TOP_RIGHT.getLatexToken().equals(latexToken))
-				return TOP_RIGHT;
-			if(CENTER.getLatexToken().equals(latexToken))
-				return CENTER;
+			TextPosition textPos = null;
+			final TextPosition[] textPosList = values();
 
-			return null;
+			for(int i=0; i<textPosList.length && textPos==null; i++)
+				if(textPosList[i].getLatexToken().equals(latexToken))
+					textPos = textPosList[i];
+
+			return textPos;
 		}
 	}
 
