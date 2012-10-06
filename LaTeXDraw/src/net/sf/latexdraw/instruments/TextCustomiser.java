@@ -61,6 +61,12 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	/** The button that selects the top-right text position. */
 	protected MToggleButton trButton;
 
+	/** The button that selects the left text position. */
+	protected MToggleButton lButton;
+
+	/** The button that selects the right text position. */
+	protected MToggleButton rButton;
+
 	/** The button that selects the centre text position. */
 	protected MToggleButton centreButton;
 
@@ -118,6 +124,12 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		centreButton = new MToggleButton(LResources.TEXTPOS_CENTRE);
 		centreButton.setMargin(LResources.INSET_BUTTON);
 		centreButton.setToolTipText("The position point is the centre point.");
+		lButton = new MToggleButton(LResources.TEXTPOS_L);
+		lButton.setMargin(LResources.INSET_BUTTON);
+		lButton.setToolTipText("The position point is the left point.");
+		rButton = new MToggleButton(LResources.TEXTPOS_R);
+		rButton.setMargin(LResources.INSET_BUTTON);
+		rButton.setToolTipText("The position point is the right point.");
 	}
 
 
@@ -129,6 +141,8 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(tlButton, visible);
 		composer.setWidgetVisible(tButton, visible);
 		composer.setWidgetVisible(trButton, visible);
+		composer.setWidgetVisible(lButton, visible);
+		composer.setWidgetVisible(rButton, visible);
 		composer.setWidgetVisible(centreButton, visible);
 		composer.setWidgetVisible(packagesLabel, visible);
 		composer.setWidgetVisible(packagesField, visible);
@@ -147,6 +161,8 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 			trButton.setSelected(tp==TextPosition.TOP_RIGHT);
 			tlButton.setSelected(tp==TextPosition.TOP_LEFT);
 			centreButton.setSelected(tp==TextPosition.CENTER);
+			lButton.setSelected(tp==TextPosition.LEFT);
+			rButton.setSelected(tp==TextPosition.RIGHT);
 			packagesField.setText(LaTeXGenerator.getPackages());
 		}
 		else setActivated(false);
@@ -213,6 +229,22 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	 */
 	public MToggleButton getTrButton() {
 		return trButton;
+	}
+
+	/**
+	 * @return The button that selects the left text position.
+	 * @since 3.0
+	 */
+	public MToggleButton getLButton() {
+		return lButton;
+	}
+
+	/**
+	 * @return The button that selects the right text position.
+	 * @since 3.0
+	 */
+	public MToggleButton getRButton() {
+		return rButton;
 	}
 
 	/**
@@ -292,6 +324,8 @@ class ButtonPressed2ChangePencil extends ButtonPressedForCustomiser<ModifyPencil
 		else if(instrument.bButton==ab) action.setValue(IText.TextPosition.BOT);
 		else if(instrument.tlButton==ab) action.setValue(IText.TextPosition.TOP_LEFT);
 		else if(instrument.centreButton==ab) action.setValue(IText.TextPosition.CENTER);
+		else if(instrument.lButton==ab) action.setValue(IText.TextPosition.LEFT);
+		else if(instrument.rButton==ab) action.setValue(IText.TextPosition.RIGHT);
 		else action.setValue(IText.TextPosition.TOP_RIGHT);
 	}
 
@@ -299,7 +333,8 @@ class ButtonPressed2ChangePencil extends ButtonPressedForCustomiser<ModifyPencil
 	public boolean isConditionRespected() {
 		final AbstractButton ab = interaction.getButton();
 		return instrument.pencil.isActivated() && (instrument.tButton==ab || instrument.tlButton==ab || instrument.centreButton==ab ||
-				instrument.trButton==ab || instrument.bButton==ab || instrument.blButton==ab || instrument.brButton==ab);
+				instrument.trButton==ab || instrument.bButton==ab || instrument.blButton==ab || instrument.brButton==ab ||
+				instrument.lButton==ab || instrument.rButton==ab);
 	}
 }
 
@@ -331,6 +366,8 @@ class ButtonPressed2ChangeTextPosition extends ButtonPressedForCustomiser<Modify
 		else if(instrument.tButton==ab) action.setValue(IText.TextPosition.TOP);
 		else if(instrument.tlButton==ab) action.setValue(IText.TextPosition.TOP_LEFT);
 		else if(instrument.centreButton==ab) action.setValue(IText.TextPosition.CENTER);
+		else if(instrument.lButton==ab) action.setValue(IText.TextPosition.LEFT);
+		else if(instrument.rButton==ab) action.setValue(IText.TextPosition.RIGHT);
 		else action.setValue(IText.TextPosition.TOP_RIGHT);
 	}
 
@@ -338,6 +375,7 @@ class ButtonPressed2ChangeTextPosition extends ButtonPressedForCustomiser<Modify
 	public boolean isConditionRespected() {
 		final AbstractButton ab = interaction.getButton();
 		return instrument.hand.isActivated() && ( instrument.bButton==ab || instrument.blButton==ab || instrument.centreButton==ab ||
-				instrument.brButton==ab || instrument.tButton==ab || instrument.tlButton==ab || instrument.trButton==ab);
+				instrument.brButton==ab || instrument.tButton==ab || instrument.tlButton==ab || instrument.trButton==ab ||
+				instrument.lButton==ab || instrument.rButton==ab);
 	}
 }

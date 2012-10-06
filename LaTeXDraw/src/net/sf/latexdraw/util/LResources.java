@@ -105,6 +105,8 @@ public final class LResources {
 
 	public final static ImageIcon DIM_POS_ICON;
 	public final static ImageIcon ARROW_ICON;
+	public final static ImageIcon TEXTPOS_L;
+	public final static ImageIcon TEXTPOS_R;
 	public final static ImageIcon TEXTPOS_T;
 	public final static ImageIcon TEXTPOS_TL;
 	public final static ImageIcon TEXTPOS_TR;
@@ -211,6 +213,8 @@ public final class LResources {
 
 		DIM_POS_ICON		= loadImageIcon("/res/dimPos.png");//$NON-NLS-1$
 
+		TEXTPOS_L			= loadImageIcon("/res/textPosLeft.png");//$NON-NLS-1$
+		TEXTPOS_R			= loadImageIcon("/res/textPosRight.png");//$NON-NLS-1$
 		TEXTPOS_BL			= loadImageIcon("/res/textPosBL.png");//$NON-NLS-1$
 		TEXTPOS_B			= loadImageIcon("/res/textPosB.png");//$NON-NLS-1$
 		TEXTPOS_BR			= loadImageIcon("/res/textPosBR.png");//$NON-NLS-1$
