@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import net.sf.latexdraw.glib.models.interfaces.IArrow
 import net.sf.latexdraw.glib.models.interfaces.IDot
 
+
 /**
  * A parser that parses a value corresponding to an object.
  * An object can be a name or a command.<br>
@@ -35,6 +36,38 @@ trait PSTValueParser extends PSTNumberParser {
 	val cmdPattern = """(\\\\)ps\w+""".r
 	/** The regex expression of PST arrows. */
 	val arrowPattern = """([\]\[\)\(\*\|<>ocC]{0,2})-([\]\[\)\(\*\|<>ocC]{0,2})""".r
+
+
+
+	/**
+	 * Parses the rotation value of put commands (rput, etc.) and converts it in a radian value (or None).
+	 * The second value of the returned tuple (Boolean) defines if the rotation must consider the previous
+	 * rotations (the char * in the rput command).
+	 */
+	def parseValuePutRotation(value : String) : Option[Tuple2[Double,Boolean]] = {
+		value match {
+			case "U" => Some(Tuple2(0, true))
+			case "L" => Some(Tuple2(-scala.math.Pi/2.0, true))
+			case "D" => Some(Tuple2(-scala.math.Pi, true))
+			case "R" => Some(Tuple2(-3.0*scala.math.Pi/2.0, true))
+			case "N" => Some(Tuple2(0, false))
+			case "W" => Some(Tuple2(-scala.math.Pi/2.0, false))
+			case "S" => Some(Tuple2(-scala.math.Pi, false))
+			case "E" => Some(Tuple2(-3.0*scala.math.Pi/2.0, false))
+			case value =>
+				parseValueNum(value) match {
+					case Some(num) => Some(Tuple2(-scala.math.toRadians(num), true))
+					case _ =>
+						val withStar = value.startsWith("*")
+						val numStr = if(withStar) value.substring(1) else value
+
+						parseValuePutRotation(numStr) match {
+							case Some(Tuple2(num, _)) => Some(Tuple2(num, !withStar))
+							case _ => None
+						}
+				}
+		}
+	}
 
 
 	/**

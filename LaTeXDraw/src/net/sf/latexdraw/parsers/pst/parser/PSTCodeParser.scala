@@ -6,6 +6,7 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IFreehand
 import scala.util.parsing.input.CharArrayReader
+import net.sf.latexdraw.glib.models.interfaces.IText
 
 /**
  * Defines a parser parsing PST expressions.<br>
@@ -62,7 +63,7 @@ trait PSTCodeParser extends PSTAbstractParser
 	 * This parser rule parses texts (raw text, unknown commands, math area, etc.) and transforms them into shapes.
 	 */
 	def parseText(ctx : PSTContext) : Parser[List[IShape]] =  (math | text | ident | numeric | commandUnknown) ^^ {
-		case obj => println(obj)
+		case obj =>
 			ctx.textParsed match {
 				case "" => ctx.textParsed = obj.mkString
 				case _  => ctx.textParsed += " " + obj.mkString
@@ -125,10 +126,29 @@ trait PSTCodeParser extends PSTAbstractParser
 	/**
 	 * Parses rput commands.
 	 */
-	def parseRput(ctx : PSTContext) : Parser[IGroup] = ("\\rput*" | "\\rput") ~ opt(parseSquaredBracket(ctx)) ~
-			opt(parseBracket(ctx)) ~ parseCoord(ctx) ~ parsePSTBlock(ctx, false) ^^ { case _ ~ refPos ~ rotation ~ coord ~ figs =>
-		figs
+	def parseRput(ctx : PSTContext) : Parser[IGroup] = {
+		val ctx2 = new PSTContext(ctx, ctx.isPsCustom)// Must create an other context not to modify the current one.
+		("\\rput*" | "\\rput") ~ opt(parseRputTextPosition(ctx2)) ~ opt(parseRputRotationAngle(ctx2)) ~
+		parseCoord(ctx2) ~ parsePSTBlock(ctx2, false) ^^ { case _ ~ _ ~ _ ~ coord ~ figs =>
+			figs.getShapes.foreach{shape => shape.translate(coord.getX * IShape.PPC, -coord.getY * IShape.PPC) }
+			figs
+		}
 	}
+
+
+	private def parseRputRotationAngle(ctx : PSTContext) : Parser[Unit] = parseBracket(ctx) ^^ {
+		case rotation => parseValuePutRotation(rotation) match {
+			case Some(Tuple2(rotationAngle, true)) => ctx.rputAngle += rotationAngle
+			case Some(Tuple2(rotationAngle, false)) => ctx.rputAngle = rotationAngle
+			case _ =>
+		}
+	}
+
+
+	private def parseRputTextPosition(ctx : PSTContext) : Parser[Unit] = parseSquaredBracket(ctx) ^^ {
+		case refPos => ctx.textPosition = refPos
+	}
+
 
 
 	/**

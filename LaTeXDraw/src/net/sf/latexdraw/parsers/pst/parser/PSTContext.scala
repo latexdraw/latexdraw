@@ -50,7 +50,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var ticks : IAxes.PlottingStyle, var ticksStyle : IAxes.TicksStyle, var ticksSize : Double, var unit : Double, var xUnit : Double,
 		var yUnit : Double, var textColor : Color, var shadow : Boolean, var gridlabelcolor : Color, var isCentered : Boolean,
 		var pictureSWPt : IPoint, var pictureNEPt : IPoint, var tokenPosition : String, var plotStyle : String, var plotPoints : Int,
-		var addfillstyle : IShape.FillingStyle, var liftpen : Int, var isPsCustom : Boolean, val psCustomLatestPt : IPoint) {
+		var addfillstyle : IShape.FillingStyle, var liftpen : Int, var isPsCustom : Boolean, var textPosition : String,
+		var rputAngle : Double, val psCustomLatestPt : IPoint) {
 
 	/** Text text parsed in the current context. */
 	var textParsed : String = ""
@@ -85,7 +86,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			PSTricksConstants.DEFAULT_SUBGRIDDIV, PSTricksConstants.DEFAULT_TICKS_DISPLAYED, PSTricksConstants.DEFAULT_TICKS_STYLE,
 			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
 			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, DrawingTK.getFactory.createPoint,
-			DrawingTK.getFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, DrawingTK.getFactory.createPoint)
+			DrawingTK.getFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0, DrawingTK.getFactory.createPoint)
 	}
 //	var textItalic
 //	var textBold
@@ -113,7 +114,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			  model.shadowAngle, model.shadowSize, model.subGridDots, model.subGridDiv, model.ticks, model.ticksStyle, model.ticksSize, model.unit,
 			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, DrawingTK.getFactory.createPoint(model.pictureSWPt),
 			  DrawingTK.getFactory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle, model.liftpen, psCustom,
-			  DrawingTK.getFactory.createPoint(model.psCustomLatestPt))
+			  model.textPosition, model.rputAngle, DrawingTK.getFactory.createPoint(model.psCustomLatestPt))
 	}
 
 

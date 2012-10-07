@@ -7,6 +7,7 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IRectangle
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
+import net.sf.latexdraw.glib.models.interfaces.IText
 
 /**
  * Defines an abstract PST parser.<br>
@@ -84,6 +85,8 @@ trait PSTAbstractParser extends TokenParsers {
 				val text = DrawingTK.getFactory.createText(true)
 				text.setText(ctx.textParsed)
 				ctx.textParsed = ""
+				setShapeParameters(text, ctx)
+				text.setTextPosition(IText.TextPosition.getTextPosition(ctx.textPosition))
 				List(text)
 		}
 	}
@@ -141,6 +144,7 @@ trait PSTAbstractParser extends TokenParsers {
 	 */
 	protected def setShapeGeneralParameters(sh : IShape, ctx : PSTContext) {
 		sh.setLineColour(ctx.lineColor)
+		sh.setRotationAngle(ctx.rputAngle)
 
 		if(sh.isThicknessable)
 			sh.setThickness(ctx.lineWidth*IShape.PPC)
