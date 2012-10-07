@@ -58,9 +58,9 @@ class PSTLexical extends Lexical with PSTTokens {
 
 
 	def specialCommand : Parser[PSTToken] =
-		positioned('\\' ~> (elem('_')|elem('&')|elem('=')|elem('~')|elem('$')|elem('^')|elem('{')|elem('}')|
+		positioned('\\' ~ (elem('_')|elem('&')|elem('=')|elem('~')|elem('$')|elem('^')|elem('{')|elem('}')|
 				elem('%')|elem('#')|elem('\\')|elem('\"')|elem('\'')|elem('*')|elem(',')|elem('.')|
-				elem('/')|elem('@')|elem('`')) ^^ {case char => Text(char.toString) })
+				elem('/')|elem('@')|elem('`')) ^^ {case slash ~ char => Text(slash + char.toString) })
 
 
 	def comment : Parser[PSTToken] = positioned('%' ~> rep(chrExcept(EofCh, '\n')) ^^ { case content => Comment(content.mkString) })
