@@ -42,7 +42,7 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	/** A parser which matches an identifier. */
-	def ident : Parser[String] = elem("identifier", _.isInstanceOf[Identifier]) ^^ (_.chars)
+	def ident : Parser[String] = elem("identifier", _.isInstanceOf[Identifier]) ^^ (_.toString)
 
 
 	/** A parser which matches a math expression. */
@@ -50,19 +50,19 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	/** A parser which matches an PST command name defined in the lexer. */
-	def commandKnown : Parser[String] = elem("command", cmd => cmd.isInstanceOf[Command] && lexical.reserved.contains(cmd.chars)) ^^ (_.chars)
+	def commandKnown : Parser[String] = elem("command", cmd => cmd.isInstanceOf[Command] && lexical.reserved.contains(cmd.chars)) ^^ (_.toString)
 
 
 	/** A parser which matches an PST command name undefined in the lexer. */
-	def commandUnknown : Parser[String] = elem("command", cmd => cmd.isInstanceOf[Command] && !lexical.reserved.contains(cmd.chars)) ^^ (_.chars)
+	def commandUnknown : Parser[String] = elem("command", cmd => cmd.isInstanceOf[Command] && !lexical.reserved.contains(cmd.chars)) ^^ (_.toString)
 
 
 	/** A parser which matches a float or integer value. */
-	def numeric : Parser[String] = elem("numeric", _.isInstanceOf[NumericLit]) ^^ (_.chars)
+	def numeric : Parser[String] = elem("numeric", _.isInstanceOf[NumericLit]) ^^ (_.toString)
 
 
 	/** A parser which matches a text. */
-	def text : Parser[String] = elem("text", _.isInstanceOf[Text]) ^^ (_.chars)
+	def text : Parser[String] = elem("text", _.isInstanceOf[Text]) ^^ (_.toString)
 
 
 	/** A parser that parses all characters excepted the given ones. */

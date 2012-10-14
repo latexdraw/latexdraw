@@ -64,7 +64,7 @@ trait PSTTokens extends Tokens with Parsers {
 
 	/** The class of identifier tokens */
 	case class Command(chars : String) extends PSTToken {
-		override def toString = "\\" + chars
+		override def toString = chars
 	}
 
 
