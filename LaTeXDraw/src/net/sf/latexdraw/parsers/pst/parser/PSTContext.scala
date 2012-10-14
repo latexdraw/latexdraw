@@ -11,6 +11,79 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import scala.collection.mutable.MutableList
 
+
+/**
+ * The different kinds of font shapes.
+ */
+object fontShape extends Enumeration {
+	case class FontShapeVal(pstToken:String, equivCmd:String) extends Val
+	val italic    = FontShapeVal("it", "\\it ")
+	val slanted   = FontShapeVal("sl", "\\sl ")
+	val smallCaps = FontShapeVal("sc", "\\sc ")
+	val normal    = FontShapeVal("n", "\\upshape ")
+
+	/**
+	 * returns the font shape value corresponding to the given latex token (or None).
+	 */
+	def toFontShape(token:String) : Option[FontShapeVal] = {
+		token match {
+			case italic.pstToken => Some(italic)
+			case slanted.pstToken => Some(slanted)
+			case smallCaps.pstToken => Some(smallCaps)
+			case normal.pstToken => Some(normal)
+			case _ => None
+		}
+	}
+}
+
+/**
+ * The different kinds of font families.
+ */
+object fontFamily extends Enumeration {
+	case class FontFamilyVal(pstToken:String, equivCmd:String) extends Val
+	val rm 	 = FontFamilyVal("cmr", "\\rmfamily ")
+	val sf 	 = FontFamilyVal("cmss", "\\sffamily ")
+	val tt 	 = FontFamilyVal("cmtt", "\\ttfamily ")
+
+	/**
+	 * returns the font family value corresponding to the given latex token (or None).
+	 */
+	def toFontFamily(token:String) : Option[FontFamilyVal] = {
+		token match {
+			case rm.pstToken => Some(rm)
+			case sf.pstToken => Some(sf)
+			case tt.pstToken => Some(tt)
+			case _ => None
+		}
+	}
+}
+
+/**
+ * The different kinds of font series.
+ */
+object fontSerie extends Enumeration {
+	case class FontSerieVal(pstToken:String, equivCmd:String) extends Val
+	val normal 	= FontSerieVal("m", "\\mdseries ")
+	val bf 		= FontSerieVal("b", "\\bf ")
+
+	/**
+	 * returns the font serie value corresponding to the given latex token (or None).
+	 */
+	def toFontSerie(token:String) : Option[FontSerieVal] = {
+		token match {
+			case normal.pstToken => Some(normal)
+			case bf.pstToken => Some(bf)
+			case _ => None
+		}
+	}
+}
+
+import fontShape._
+import fontFamily._
+import fontSerie._
+
+
+
 /**
  * A PST context contains the value of the PST parameters used during the parsing
  * and the creation of PST objects.<br>
@@ -51,7 +124,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var yUnit : Double, var textColor : Color, var shadow : Boolean, var gridlabelcolor : Color, var isCentered : Boolean,
 		var pictureSWPt : IPoint, var pictureNEPt : IPoint, var tokenPosition : String, var plotStyle : String, var plotPoints : Int,
 		var addfillstyle : IShape.FillingStyle, var liftpen : Int, var isPsCustom : Boolean, var textPosition : String,
-		var rputAngle : Double, val psCustomLatestPt : IPoint) {
+		var rputAngle : Double, var fontShape:Option[FontShapeVal], var fontSerie:Option[FontSerieVal], var fontFamily:Option[FontFamilyVal],
+		val psCustomLatestPt : IPoint) {
 
 	/** Text text parsed in the current context. */
 	var textParsed : String = ""
@@ -86,15 +160,10 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			PSTricksConstants.DEFAULT_SUBGRIDDIV, PSTricksConstants.DEFAULT_TICKS_DISPLAYED, PSTricksConstants.DEFAULT_TICKS_STYLE,
 			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
 			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, DrawingTK.getFactory.createPoint,
-			DrawingTK.getFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0, DrawingTK.getFactory.createPoint)
+			DrawingTK.getFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0,
+			None, None, None, DrawingTK.getFactory.createPoint)
 	}
-//	var textItalic
-//	var textBold
-//	var textEnc
-//	var textShape
-//	var textSeries
-//	var textFamily
-//	var textSize	= PSTricksConstants.COMMAND_TEXT_NORMAL
+
 
 	/**
 	 * Creates the PST context by copying the given one.
@@ -114,7 +183,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			  model.shadowAngle, model.shadowSize, model.subGridDots, model.subGridDiv, model.ticks, model.ticksStyle, model.ticksSize, model.unit,
 			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, DrawingTK.getFactory.createPoint(model.pictureSWPt),
 			  DrawingTK.getFactory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle, model.liftpen, psCustom,
-			  model.textPosition, model.rputAngle, DrawingTK.getFactory.createPoint(model.psCustomLatestPt))
+			  model.textPosition, model.rputAngle, model.fontShape, model.fontSerie, model.fontFamily, DrawingTK.getFactory.createPoint(model.psCustomLatestPt))
 	}
 
 

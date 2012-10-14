@@ -86,6 +86,9 @@ trait PSTAbstractParser extends TokenParsers {
 				text.setText(ctx.textParsed)
 				ctx.textParsed = ""
 				setShapeParameters(text, ctx)
+				if(ctx.fontFamily.isDefined) text.setText(ctx.fontFamily.get.equivCmd + text.getText())
+				if(ctx.fontSerie.isDefined) text.setText(ctx.fontSerie.get.equivCmd + text.getText())
+				if(ctx.fontShape.isDefined) text.setText(ctx.fontShape.get.equivCmd + text.getText())
 				text.setTextPosition(IText.TextPosition.getTextPosition(ctx.textPosition))
 				List(text)
 		}

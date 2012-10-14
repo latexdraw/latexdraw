@@ -29,7 +29,8 @@ import net.sf.latexdraw.glib.models.interfaces.IText
  */
 trait PSTCodeParser extends PSTAbstractParser
 	with PSFrameEllipseDiamondTriangleParser with PSCircleParser with PSLineParser with PSPolygonParser with PSWedgeArcParser
-	with PSBezierParser with PSCurveParabolaParser with PSDotParser with PSGridAxes with PSTPlotParser with PSCustomParser {
+	with PSBezierParser with PSCurveParabolaParser with PSDotParser with PSGridAxes with PSTPlotParser with PSCustomParser
+	with TextCommandsParser {
 	/** The entry point to parse PST texts. */
 	def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
 		rep(parsePSTBlock(ctx, ctx.isPsCustom) | parsePspictureBlock(ctx) | parsePsset(ctx) |
@@ -42,7 +43,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx) |
 			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) | parsePscustom(ctx) |
-			parsePSCustomCommands(ctx) | parseText(ctx)) ^^ {
+			parsePSCustomCommands(ctx) | parsetextCommands(ctx) | parseText(ctx)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)
 
