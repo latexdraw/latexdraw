@@ -46,7 +46,7 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	/** A parser which matches a math expression. */
-	def math : Parser[String] = elem("mathMode", _.isInstanceOf[MathMode]) ^^ (_.chars)
+	def math : Parser[String] = elem("mathMode", _.isInstanceOf[MathMode]) ^^ (_.toString)
 
 
 	/** A parser which matches an PST command name defined in the lexer. */
@@ -194,13 +194,9 @@ trait PSTAbstractParser extends TokenParsers {
 			else
 				keywordCache.getOrElseUpdate(chars, accept(Identifier(chars)) ^^ (_.chars))
 		else
-//			if(chars.startsWith("\\")) {
-//				accept(Command(chars)) ^^ (_.chars)
-//			}
-//			else
-				if(lexical.delimiters.contains(chars))
-					delimCache.getOrElseUpdate(chars, accept(Delimiter(chars)) ^^ (_.chars))
-				else
-					failure("You are trying to parse \"" + chars + "\", but it is neither contained in the delimiters list of your lexical object")
+			if(lexical.delimiters.contains(chars))
+				delimCache.getOrElseUpdate(chars, accept(Delimiter(chars)) ^^ (_.chars))
+			else
+				failure("You are trying to parse \"" + chars + "\", but it is neither contained in the delimiters list of your lexical object")
 	}
 }

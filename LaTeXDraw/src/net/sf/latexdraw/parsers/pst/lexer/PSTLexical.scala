@@ -50,7 +50,7 @@ class PSTLexical extends Lexical with PSTTokens {
 			"\\psset", "\\newpsobject", "\\newpsstyle", "\\pscustom", "\\pscustom*", "\\newpath", "\\moveto", "\\lineto", "\\curveto",
 			"\\closepath", "\\rcurveto", "\\gsave", "\\grestore", "\\stroke", "\\fill", "\\translate", "\\scale", "\\rotate", "\\swapaxes",
 			"\\msave", "\\mrestore", "\\openshadow", "\\closedshadow", "\\movepath", "\\rlineto", "pspicture*", "\\rput*", "\\rput",
-			"\\usefont")
+			"\\usefont", "\\psframebox", "\\psframebox*")
 
  	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
 
@@ -68,21 +68,21 @@ class PSTLexical extends Lexical with PSTTokens {
 
 
 	def mathMode : Parser[MathMode] =
-		positioned('$' ~> mathModeMultiLine ^^ { case math => MathMode("$"+math.chars) }) |
-		positioned('\\' ~> '(' ~> mathModeParenthesisMultiLine ^^ { case math => MathMode("\\("+math.chars) }) |
-		positioned('\\' ~> '[' ~> mathModeBracketsMultiLine ^^ { case math => MathMode("\\["+math.chars) })
+		positioned('$' ~> mathModeMultiLine ^^ { case math => MathMode(math.chars) }) |
+		positioned('\\' ~> '(' ~> mathModeParenthesisMultiLine ^^ { case math => MathMode(math.chars) }) |
+		positioned('\\' ~> '[' ~> mathModeBracketsMultiLine ^^ { case math => MathMode(math.chars) })
 
 
 	protected def mathModeMultiLine : Parser[MathMode] =
-		'$' ^^ { case _ => MathMode("$")  } | chrExcept(EofCh) ~ mathModeMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
+		'$' ^^ { case _ => MathMode("")  } | chrExcept(EofCh) ~ mathModeMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
 
 
 	protected def mathModeParenthesisMultiLine : Parser[MathMode] =
-		'\\' ~ ')' ^^ { case _ => MathMode("\\)")  } | chrExcept(EofCh) ~ mathModeParenthesisMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
+		'\\' ~ ')' ^^ { case _ => MathMode("")  } | chrExcept(EofCh) ~ mathModeParenthesisMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
 
 
 	protected def mathModeBracketsMultiLine : Parser[MathMode] =
-		'\\' ~ ']' ^^ { case _ => MathMode("\\]")  } | chrExcept(EofCh) ~ mathModeBracketsMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
+		'\\' ~ ']' ^^ { case _ => MathMode("")  } | chrExcept(EofCh) ~ mathModeBracketsMultiLine ^^ { case c ~ rc => MathMode(c+rc.chars) }
 
 
 	/**
