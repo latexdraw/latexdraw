@@ -210,6 +210,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		langList.addItem(LangTool.Lang.TR.getName());
   		langList.addItem(LangTool.Lang.SR.getName());
   		langList.setMaximumSize(new Dimension(250, height));
+  		langList.setSelectedItemSafely(LangTool.getCurrentLanguage().getName());
 
   		nbRecentFilesField = new MSpinner(new MSpinner.MSpinnerNumberModel(5, 0, 20, 1), new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.0")));//$NON-NLS-1$
   		nbRecentFilesField.setEditor(new JSpinner.NumberEditor(nbRecentFilesField, "0"));//$NON-NLS-1$
