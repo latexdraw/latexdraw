@@ -121,7 +121,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 
 	@Override
 	protected boolean isPropertySupported() {
-		if(super.isPropertySupported())
+		if(shapes!=null && super.isPropertySupported())
 			switch(property) {
 				case SHOW_POINTS: return shapes.isShowPtsable();
 				case ARROW_BRACKET_NUM:

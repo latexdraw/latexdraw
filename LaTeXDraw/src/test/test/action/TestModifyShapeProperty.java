@@ -1646,12 +1646,15 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 	@Override
 	public void testCanDo() throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+		IGroup varTmp = DrawingTK.getFactory().createGroup(false);
 		assertFalse(action.canDo());
-		action.setGroup(DrawingTK.getFactory().createGroup(false));
+		action.setGroup(varTmp);
 		assertFalse(action.canDo());
 		action.setProperty(ShapeProperties.ARC_END_ANGLE);
 		assertFalse(action.canDo());
 		action.setValue(100.);
+		assertFalse(action.canDo());
+		varTmp.addShape(DrawingTK.getFactory().createArc(false));
 		assertTrue(action.canDo());
 		action.setGroup(null);
 		assertFalse(action.canDo());

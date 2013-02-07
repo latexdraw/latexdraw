@@ -545,9 +545,9 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 	override def getBordersPositionList() : List[BorderPos] = {
 		val list = new ArrayList[BorderPos]()
-		shapes.foreach{_ match {
-				case grid : IStandardGrid => list.add(grid.getBordersPosition)
-				case _ => list.add(null)
+		shapes.foreach{sh => sh.isBordersMovable match {
+				case true => list.add(sh.getBordersPosition)
+				case false => list.add(null)
 			}
 		}
 		return list
@@ -564,8 +564,8 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def setBordersPositionList(list : List[BorderPos]) = {
 		if(list!=null && list.size()==shapes.size)
 			for(i <- 0 until list.size)
-				if(shapes.get(i).isInstanceOf[IStandardGrid])
-					shapes.get(i).asInstanceOf[IStandardGrid].setBordersPosition(list.get(i))
+				if(shapes.get(i).isBordersMovable)
+					shapes.get(i).setBordersPosition(list.get(i))
 	}
 
 
