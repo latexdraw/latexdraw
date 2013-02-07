@@ -8,9 +8,19 @@
   <version>3.0-alpha5-SNAPSHOT</version>
   <build>
         <sourceDirectory>src/main/</sourceDirectory>
-        <outputDirectory>bin/</outputDirectory>
     	<testSourceDirectory>src/test/</testSourceDirectory> 
-        
+
+		<resources>
+	      <resource>
+	        <directory>src/resources/</directory>
+	      </resource>
+	    </resources>
+	    <testResources>
+	      <testResource>
+	        <directory>src/resources/</directory>
+	      </testResource>
+	    </testResources>
+
         <plugins>
 			<plugin>
 				<groupId>org.scala-tools</groupId>
