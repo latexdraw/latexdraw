@@ -26,7 +26,7 @@ import javax.swing.ListCellRenderer;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LabelListCellRenderer extends JLabel implements ListCellRenderer {
+public class LabelListCellRenderer extends JLabel implements ListCellRenderer<JLabel> {
 	private static final long serialVersionUID = 1L;
 
 	/** The colour displayed when a item is selected in the list */
@@ -42,17 +42,12 @@ public class LabelListCellRenderer extends JLabel implements ListCellRenderer {
     }
 
 
-
 	@Override
-	public Component getListCellRendererComponent(final JList list, final Object value, final int index, final boolean isSelected, final boolean cellHasFocus) {
+	public Component getListCellRendererComponent(final JList<? extends JLabel> list, final JLabel value, final int index, final boolean isSelected, final boolean cellHasFocus) {
 		setBackground(isSelected ? SELECT_COLOUR : Color.WHITE);
-
-		if(value instanceof JLabel)
-			setIcon(((JLabel)value).getIcon());
-
+		setIcon(value.getIcon());
 		setEnabled(list.isEnabled());
 		setFont(list.getFont());
-
 		return this;
 	}
 }

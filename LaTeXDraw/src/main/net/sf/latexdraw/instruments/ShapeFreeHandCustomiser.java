@@ -42,7 +42,7 @@ import org.malai.widget.MSpinner.MSpinnerNumberModel;
  */
 public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 	/** The type of the freehand. */
-	protected MComboBox freeHandType;
+	protected MComboBox<JLabel> freeHandType;
 
 	/** The gap to consider between the points. */
 	protected MSpinner gapPoints;
@@ -88,7 +88,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		freeHandType = new MComboBox();
+		freeHandType = new MComboBox<JLabel>();
 		freeHandType.setLabel(new JLabel(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.2")));
 		freeHandType.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(IFreehand.FreeHandType.CURVES.toString());
@@ -110,7 +110,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 	 * @return The type of the freehand.
 	 * @since 3.0
 	 */
-	public final MComboBox getFreeHandType() {
+	public final MComboBox<JLabel> getFreeHandType() {
 		return freeHandType;
 	}
 

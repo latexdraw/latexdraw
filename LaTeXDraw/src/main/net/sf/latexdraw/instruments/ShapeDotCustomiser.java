@@ -48,7 +48,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	protected MSpinner dotSizeField;
 
 	/** Allows the selection of a dot shape. */
-	protected MComboBox dotCB;
+	protected MComboBox<JLabel> dotCB;
 
 	/** Changes the colour of the filling of the dot. */
 	protected MColorButton fillingB;
@@ -87,8 +87,8 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list of the different styles of the dot.
 	 * @return The created list.
 	 */
-	public static MComboBox createDotStyleChoice() {
-		final MComboBox dotChoice = new MComboBox();
+	public static MComboBox<JLabel> createDotStyleChoice() {
+		final MComboBox<JLabel> dotChoice = new MComboBox<JLabel>();
 
 		dotChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(DotStyle.DOT.toString());
@@ -198,7 +198,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	 * @return The dot style combo box.
 	 * @since 3.0
 	 */
-	public MComboBox getDotCB() {
+	public MComboBox<JLabel> getDotCB() {
 		return dotCB;
 	}
 

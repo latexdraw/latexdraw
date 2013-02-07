@@ -58,7 +58,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	protected MColorButton gradEndColButton;
 
 	/** Changes the style of filling. */
-	protected MComboBox fillStyleCB;
+	protected MComboBox<JLabel> fillStyleCB;
 
 	/** Changes the mid point of the gradient. */
 	protected MSpinner gradMidPtField;
@@ -95,8 +95,8 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list that contains all kinds of hatchings.
 	 * @return A created list.
 	 */
-	public static MComboBox createFillingChoice() {
-		final MComboBox list = new MComboBox();
+	public static MComboBox<JLabel> createFillingChoice() {
+		final MComboBox<JLabel> list = new MComboBox<JLabel>();
 
 		list.setRenderer(new LabelListCellRenderer());
 
@@ -280,7 +280,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that sets if the shape is filled.
 	 * @since 3.0
 	 */
-	public MComboBox getFillStyleCB() {
+	public MComboBox<JLabel> getFillStyleCB() {
 		return fillStyleCB;
 	}
 

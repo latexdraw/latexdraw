@@ -330,7 +330,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	}
 
 
-	protected void addCombobox(final Container cont, final MComboBox spinner) {
+	protected void addCombobox(final Container cont, final MComboBox<?> spinner) {
 		if(spinner.getLabel()!=null)
 			cont.add(spinner.getLabel());
 		cont.add(spinner);

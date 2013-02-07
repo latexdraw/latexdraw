@@ -41,16 +41,16 @@ import org.malai.widget.MSpinner;
  */
 public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	/** The widget that permits to select the style of the axes. */
-	protected MComboBox shapeAxes;
+	protected MComboBox<AxesStyle> shapeAxes;
 
 	/** The widget that permits to select the style of the ticks. */
-	protected MComboBox shapeTicks;
+	protected MComboBox<TicksStyle> shapeTicks;
 
 	/** The widget that permits to set the size of the ticks. */
 	protected MSpinner ticksSizeS;
 
 	/** The widget that permits to show/hide the ticks of the axes. */
-	protected MComboBox showTicks;
+	protected MComboBox<PlottingStyle> showTicks;
 
 	/** The widget that permits to set the increment of X-labels. */
 	protected MSpinner incrLabelX;
@@ -59,7 +59,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	protected MSpinner incrLabelY;
 
 	/** The widget that permits to set the visibility of the labels. */
-	protected MComboBox showLabels;
+	protected MComboBox<PlottingStyle> showLabels;
 
 	/** The widget that permits to set the visibility of the origin point. */
 	protected MCheckBox showOrigin;
@@ -122,10 +122,10 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		shapeAxes = new MComboBox(AxesStyle.values(), null);
-		shapeTicks = new MComboBox(TicksStyle.values(), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.0")));
-		showTicks = new MComboBox(PlottingStyle.values(), new JLabel("Visibility:"));
-		showLabels = new MComboBox(PlottingStyle.values(), new JLabel("Visibility:"));
+		shapeAxes = new MComboBox<AxesStyle>(AxesStyle.values(), null);
+		shapeTicks = new MComboBox<TicksStyle>(TicksStyle.values(), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.0")));
+		showTicks = new MComboBox<PlottingStyle>(PlottingStyle.values(), new JLabel("Visibility:"));
+		showLabels = new MComboBox<PlottingStyle>(PlottingStyle.values(), new JLabel("Visibility:"));
 		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
 		incrLabelX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.8")));
 		incrLabelY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.9")));
@@ -156,7 +156,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to select the style of the axes.
 	 * @since 3.0
 	 */
-	public MComboBox getShapeAxes() {
+	public MComboBox<AxesStyle> getShapeAxes() {
 		return shapeAxes;
 	}
 
@@ -164,7 +164,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to select the style of the ticks.
 	 * @since 3.0
 	 */
-	public MComboBox getShapeTicks() {
+	public MComboBox<TicksStyle> getShapeTicks() {
 		return shapeTicks;
 	}
 
@@ -180,7 +180,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to show/hide the ticks of the axes.
 	 * @since 3.0
 	 */
-	public MComboBox getShowTicks() {
+	public MComboBox<PlottingStyle> getShowTicks() {
 		return showTicks;
 	}
 
@@ -188,7 +188,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * @return The widget that permits to show/hide the labels of the axes.
 	 * @since 3.0
 	 */
-	public MComboBox getShowLabels() {
+	public MComboBox<PlottingStyle> getShowLabels() {
 		return showLabels;
 	}
 

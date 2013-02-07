@@ -55,7 +55,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 	protected MCheckBox middleHorizPosCB;
 
 	/** Defines the position of the drawing. */
-	protected MComboBox positionCB;
+	protected MComboBox<VerticalPosition> positionCB;
 
 
 	/**
@@ -161,7 +161,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 		titleField = new MTextField();
 		labelField = new MTextField();
 		middleHorizPosCB = new MCheckBox("Centred");
-		positionCB = new MComboBox(VerticalPosition.values(), new JLabel("Position:"));
+		positionCB = new MComboBox<VerticalPosition>(VerticalPosition.values(), new JLabel("Position:"));
 	}
 
 
@@ -186,7 +186,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 	 * @return The combo-box that defines the position of the drawing.
 	 * @since 3.0
 	 */
-	public final MComboBox getPositionCB() {
+	public final MComboBox<VerticalPosition> getPositionCB() {
 		return positionCB;
 	}
 

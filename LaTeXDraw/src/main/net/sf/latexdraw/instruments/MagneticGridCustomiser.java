@@ -46,7 +46,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	protected LMagneticGrid grid;
 
 	/** Contains the different possible kind of grids. */
-	protected MComboBox styleList;
+	protected MComboBox<String> styleList;
 
 	/** Sets if the grid is magnetic. */
 	protected MCheckBox magneticCB;
@@ -88,8 +88,8 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	 * @return The list widget that contains the different style of the magnetic grid.
 	 * @since 3.0
 	 */
-	public static MComboBox createStyleList() {
-		final MComboBox list = new MComboBox();
+	public static MComboBox<String> createStyleList() {
+		final MComboBox<String> list = new MComboBox<String>();
 
 		list.addItem(GridStyle.STANDARD.getLabel());
 		list.addItem(GridStyle.CUSTOMISED.getLabel());
@@ -164,7 +164,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	 * @return The list that contains the different possible kind of grids.
 	 * @since 3.0
 	 */
-	public MComboBox getStyleList() {
+	public MComboBox<String> getStyleList() {
 		return styleList;
 	}
 

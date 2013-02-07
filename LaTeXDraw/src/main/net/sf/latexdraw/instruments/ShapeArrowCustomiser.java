@@ -43,10 +43,10 @@ import org.malai.widget.MSpinner;
  */
 public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	/** Allows to change the style of the left-end of the shape. */
-	protected MComboBox arrowLeftCB;
+	protected MComboBox<JLabel> arrowLeftCB;
 
 	/** Allows to change the style of the right-end of the shape. */
-	protected MComboBox arrowRightCB;
+	protected MComboBox<JLabel> arrowRightCB;
 
 	/** The field to set the dot size num parameter of arrows. */
 	protected MSpinner dotSizeNum;
@@ -140,8 +140,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list of the different styles of arrowhead (right).
 	 * @return The created list.
 	 */
-	public static MComboBox createRightArrowStyleList() {
-		final MComboBox lineArrowRChoice = new MComboBox();
+	public static MComboBox<JLabel> createRightArrowStyleList() {
+		final MComboBox<JLabel> lineArrowRChoice = new MComboBox<JLabel>();
 
 		lineArrowRChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(ArrowStyle.NONE.name());
@@ -206,8 +206,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list of the different styles of arrowhead (left).
 	 * @return The created list.
 	 */
-	public static MComboBox createLeftArrowStyleList() {
-		final MComboBox lineArrowLChoice = new MComboBox();
+	public static MComboBox<JLabel> createLeftArrowStyleList() {
+		final MComboBox<JLabel> lineArrowLChoice = new MComboBox<JLabel>();
 
 		lineArrowLChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(ArrowStyle.NONE.name());
@@ -362,7 +362,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	 * @return The left arrow style combo box.
 	 * @since 3.0
 	 */
-	public MComboBox getArrowLeftCB() {
+	public MComboBox<JLabel> getArrowLeftCB() {
 		return arrowLeftCB;
 	}
 
@@ -370,7 +370,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	 * @return The right arrow style combo box.
 	 * @since 3.0
 	 */
-	public MComboBox getArrowRightCB() {
+	public MComboBox<JLabel> getArrowRightCB() {
 		return arrowRightCB;
 	}
 

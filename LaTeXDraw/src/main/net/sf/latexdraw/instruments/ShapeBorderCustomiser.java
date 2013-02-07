@@ -53,10 +53,10 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	protected MColorButton lineColButton;
 
 	/** Allows to change the style of the borders */
-	protected MComboBox lineCB;
+	protected MComboBox<JLabel> lineCB;
 
 	/** Allows to select the position of the borders of the shape. */
-	protected MComboBox bordersPosCB;
+	protected MComboBox<JLabel> bordersPosCB;
 
 	/** Allows to change the angle of the round corner. */
 	protected MSpinner frameArcField;
@@ -86,8 +86,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list of the different positions of the borders.
 	 * @return The created list.
 	 */
-	public static MComboBox createBordersPositionChoice() {
-		final MComboBox dbPositionChoice = new MComboBox();
+	public static MComboBox<JLabel> createBordersPositionChoice() {
+		final MComboBox<JLabel> dbPositionChoice = new MComboBox<JLabel>();
 		dbPositionChoice.setRenderer(new LabelListCellRenderer());
 
 		JLabel label = new JLabel(BorderPos.INTO.toString());
@@ -111,8 +111,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list of the different styles of line.
 	 * @return The created list.
 	 */
-	public static MComboBox createStyleLineChoice() {
-		final MComboBox lineChoice = new MComboBox();
+	public static MComboBox<JLabel> createStyleLineChoice() {
+		final MComboBox<JLabel> lineChoice = new MComboBox<JLabel>();
 
 		lineChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(LineStyle.SOLID.toString());
@@ -215,7 +215,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * @return The line style combo box.
 	 * @since 3.0
 	 */
-	public MComboBox getLineCB() {
+	public MComboBox<JLabel> getLineCB() {
 		return lineCB;
 	}
 
@@ -223,7 +223,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * @return The border position combo box.
 	 * @since 3.0
 	 */
-	public MComboBox getBordersPosCB() {
+	public MComboBox<JLabel> getBordersPosCB() {
 		return bordersPosCB;
 	}
 

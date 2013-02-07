@@ -118,13 +118,13 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	protected MTextArea latexIncludes;
 
 	/** Allows to set the unit of length by default. */
-	protected MComboBox unitChoice;
+	protected MComboBox<String> unitChoice;
 
 	/** The list that contains the supported theme. */
-	protected MComboBox themeList;
+	protected MComboBox<String> themeList;
 
 	/** The list that contains the supported languages. */
-	protected MComboBox langList;
+	protected MComboBox<String> langList;
 
 	/** The widget used to display the standard grid. */
 	protected MRadioButton classicGridRB;
@@ -192,7 +192,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		if(VersionChecker.WITH_UPDATE)
 			checkNewVersion.setSelected(true);
 
-  		langList = new MComboBox();
+  		langList = new MComboBox<String>();
   		langList.addItem(LangTool.Lang.CA.getName());
   		langList.addItem(LangTool.Lang.CS.getName());
   		langList.addItem(LangTool.Lang.DE.getName());
@@ -222,7 +222,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		for(int i=0; i<info.length;i++)
   			nameThemes[i] = info[i].getName();
 
-  		themeList = new MComboBox(nameThemes, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1")));
+  		themeList = new MComboBox<String>(nameThemes, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1")));
   		themeList.setMaximumSize(new Dimension(160, height));
 
   		classicGridRB  		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.4")); //$NON-NLS-1$
@@ -243,7 +243,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		displayYScaleCB.setSelected(true);
   		displayBordersCB   	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.bordersDraw"));//$NON-NLS-1$
   		displayBordersCB.setSelected(false);
-  		unitChoice 		   	= new MComboBox();
+  		unitChoice 		   	= new MComboBox<String>();
   		unitChoice.addItem(Unit.CM.getLabel());
   		unitChoice.addItem(Unit.INCH.getLabel());
   		unitChoice.setMaximumSize(new Dimension(160, height));
@@ -414,21 +414,21 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	/**
 	 * @return Allows to set the unit of length by default.
 	 */
-	public MComboBox getUnitChoice() {
+	public MComboBox<String> getUnitChoice() {
 		return unitChoice;
 	}
 
 	/**
 	 * @return The list that contains the supported theme.
 	 */
-	public MComboBox getThemeList() {
+	public MComboBox<String> getThemeList() {
 		return themeList;
 	}
 
 	/**
 	 * @return The list that contains the supported languages.
 	 */
-	public MComboBox getLangList() {
+	public MComboBox<String> getLangList() {
 		return langList;
 	}
 
