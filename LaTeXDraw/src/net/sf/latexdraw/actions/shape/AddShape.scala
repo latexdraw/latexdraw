@@ -38,7 +38,7 @@ class AddShape extends Action with ShapeAction[IShape] with DrawingAction with U
 	override def isRegisterable() = true
 
 
-	override def getUndoName() = LangTool.INSTANCE.getStringOthers("UndoRedoManager.create"); //$NON-NLS-1$
+	override def getUndoName() = LangTool.INSTANCE.getStringOthers("UndoRedoManager.create") //$NON-NLS-1$
 
 
 	override def redo() {

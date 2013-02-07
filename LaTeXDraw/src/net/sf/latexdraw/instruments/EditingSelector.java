@@ -17,6 +17,7 @@ import org.malai.instrument.Link;
 import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.library.ButtonPressed;
 import org.malai.ui.UIComposer;
+import org.malai.widget.MButton;
 import org.malai.widget.MToggleButton;
 
 /**
@@ -38,6 +39,9 @@ import org.malai.widget.MToggleButton;
  * @since 3.0
  */
 public class EditingSelector extends WidgetInstrument {
+	/** The instrument that converts PST code into shapes. */
+	protected CodeInserter codeInserter;
+
 	/** The button that allows to select the instrument Hand. */
 	protected MToggleButton handB;
 
@@ -92,6 +96,9 @@ public class EditingSelector extends WidgetInstrument {
 	/** The button that allows to select the instrument Pencil to add pictures. */
 	protected MToggleButton picB;
 
+	/** The button that allows to insert some code (converted in shapes). */
+	protected MButton codeB;
+
 	/** The instrument Hand. */
 	protected Hand hand;
 
@@ -118,16 +125,18 @@ public class EditingSelector extends WidgetInstrument {
 	 * @param border The instrument that manages selected shapes.
 	 * @param metaShapeCustomiser The instrument that manages instruments that customise shapes and the pencil.
 	 * @param deleter The instrument used to delete shapes.
+	 * @param inserter The instrument that converts PST code into shapes.
 	 * @throws IllegalArgumentException If one of the given parameter is null.
 	 * @since 3.0
 	 */
 	public EditingSelector(final UIComposer<?> composer, final Pencil pencil, final Hand hand, final MetaShapeCustomiser metaShapeCustomiser,
-							final Border border, final ShapeDeleter deleter) {
+							final Border border, final ShapeDeleter deleter, final CodeInserter inserter) {
 		super(composer);
 
-		if(pencil==null || hand==null || metaShapeCustomiser==null || border==null || deleter==null)
+		if(pencil==null || hand==null || metaShapeCustomiser==null || border==null || deleter==null || inserter==null)
 			throw new IllegalArgumentException();
 
+		this.codeInserter		= inserter;
 		this.deleter			= deleter;
 		this.border				= border;
 		this.pencil 			= pencil;
@@ -136,6 +145,7 @@ public class EditingSelector extends WidgetInstrument {
 
 		initialiseWidgets();
 		initialiseEditingChoiceMap();
+		codeInserter.setActivated(false);
 		hand.setActivated(true);
 		pencil.setActivated(false);
 		metaShapeCustomiser.setActivated(false);
@@ -221,6 +231,9 @@ public class EditingSelector extends WidgetInstrument {
 
 		picB = new MToggleButton(LResources.INSERT_PIC_ICON);
 		picB.setMargin(LResources.INSET_BUTTON);
+
+		codeB = new MButton(LResources.TEX_EDITOR_ICON);
+		codeB.setMargin(LResources.INSET_BUTTON);
 	}
 
 
@@ -277,6 +290,7 @@ public class EditingSelector extends WidgetInstrument {
 			addLink(new ButtonPressed2AddText(this, false));
 			addLink(new ButtonPressed2DefineStylePencil(this));
 			addLink(new ButtonPressed2ActivateIns(this));
+			addLink(new ButtonPressed2LaunchCodeInserter(this));
 		}catch(InstantiationException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}catch(IllegalAccessException e){
@@ -307,6 +321,7 @@ public class EditingSelector extends WidgetInstrument {
 		composer.setWidgetVisible(freeHandB, activated);
 		composer.setWidgetVisible(handB, activated);
 		composer.setWidgetVisible(picB, activated);
+		composer.setWidgetVisible(codeB, activated);
 	}
 
 
@@ -316,9 +331,17 @@ public class EditingSelector extends WidgetInstrument {
 	 * @since 3.0
 	 */
 	public boolean isWidget(final Object ab) {
-		return ab!=null && (button2EditingChoiceMap.get(ab)!=null || ab==handB);
+		return ab!=null && (button2EditingChoiceMap.get(ab)!=null || ab==handB || ab==codeB);
 	}
 
+
+	/**
+	 * @return The button that allows to insert PST code.
+	 * @since 3.0
+	 */
+	public MButton getCodeB() {
+		return codeB;
+	}
 
 	/**
 	 * @return The button that allows the select instrument Hand.
@@ -328,7 +351,6 @@ public class EditingSelector extends WidgetInstrument {
 		return handB;
 	}
 
-
 	/**
 	 * @return The button that allows the select instrument Pencil to draw free hand shapes.
 	 * @since 3.0
@@ -336,7 +358,6 @@ public class EditingSelector extends WidgetInstrument {
 	public MToggleButton getFreeHandB() {
 		return freeHandB;
 	}
-
 
 	/**
 	 * @return The button that allows the select instrument Pencil to add texts.
@@ -346,7 +367,6 @@ public class EditingSelector extends WidgetInstrument {
 		return textB;
 	}
 
-
 	/**
 	 * @return The button that allows the select instrument Pencil to draw dots.
 	 * @since 3.0
@@ -354,7 +374,6 @@ public class EditingSelector extends WidgetInstrument {
 	public MToggleButton getDotB() {
 		return dotB;
 	}
-
 
 	/**
 	 * @return The button that allows the select instrument Pencil to draw rectangles.
@@ -364,7 +383,6 @@ public class EditingSelector extends WidgetInstrument {
 		return recB;
 	}
 
-
 	/**
 	 * @return The button that allows the select instrument Pencil to draw squares.
 	 * @since 3.0
@@ -372,8 +390,6 @@ public class EditingSelector extends WidgetInstrument {
 	public MToggleButton getSquareB() {
 		return squareB;
 	}
-
-
 
 	/**
 	 * @return The button that allows the select instrument Pencil to draw ellipses.
@@ -383,7 +399,6 @@ public class EditingSelector extends WidgetInstrument {
 		return ellipseB;
 	}
 
-
 	/**
 	 * @return The button that allows the select instrument Pencil to draw circles.
 	 * @since 3.0
@@ -391,7 +406,6 @@ public class EditingSelector extends WidgetInstrument {
 	public MToggleButton getCircleB() {
 		return circleB;
 	}
-
 
 	/**
 	 * @return The button that allows the select instrument Pencil to draw lines.
@@ -401,7 +415,6 @@ public class EditingSelector extends WidgetInstrument {
 		return linesB;
 	}
 
-
 	/**
 	 * @return The button that allows the select instrument Pencil to draw polygons.
 	 * @since 3.0
@@ -409,7 +422,6 @@ public class EditingSelector extends WidgetInstrument {
 	public MToggleButton getPolygonB() {
 		return polygonB;
 	}
-
 
 	/**
 	 * @return The button that allows the select instrument Pencil to draw bezier curves.
@@ -419,7 +431,6 @@ public class EditingSelector extends WidgetInstrument {
 		return bezierB;
 	}
 
-
 	/**
 	 * @return The button that allows the select instrument Pencil to draw closed bezier curves.
 	 * @since 3.0
@@ -427,7 +438,6 @@ public class EditingSelector extends WidgetInstrument {
 	public MToggleButton getBezierClosedB() {
 		return bezierClosedB;
 	}
-
 
 	/**
 	 * @return The button that allows the select instrument Pencil to draw grids.
@@ -437,7 +447,6 @@ public class EditingSelector extends WidgetInstrument {
 		return gridB;
 	}
 
-
 	/**
 	 * @return The button that allows the select instrument Pencil to draw axes.
 	 * @since 3.0
@@ -445,7 +454,6 @@ public class EditingSelector extends WidgetInstrument {
 	public MToggleButton getAxesB() {
 		return axesB;
 	}
-
 
 	/**
 	 * @return The button that allows the select instrument Pencil to draw rhombuses.
@@ -455,7 +463,6 @@ public class EditingSelector extends WidgetInstrument {
 		return rhombusB;
 	}
 
-
 	/**
 	 * @return The button that allows the select instrument Pencil to draw triangles.
 	 * @since 3.0
@@ -463,7 +470,6 @@ public class EditingSelector extends WidgetInstrument {
 	public MToggleButton getTriangleB() {
 		return triangleB;
 	}
-
 
 	/**
 	 * @return The button that allows the select instrument Pencil to draw arcs.
@@ -481,7 +487,6 @@ public class EditingSelector extends WidgetInstrument {
 		return picB;
 	}
 
-
 	/**
 	 * @return The hand.
 	 * @since 3.0
@@ -489,7 +494,6 @@ public class EditingSelector extends WidgetInstrument {
 	public Hand getHand() {
 		return hand;
 	}
-
 
 	/**
 	 * @return The pencil.
@@ -507,6 +511,46 @@ public class EditingSelector extends WidgetInstrument {
 	}
 }
 
+
+
+//class ButtonPressed2ShowCodeInserter extends Button2ShowComponentLink<EditingSelector> {
+//	public ButtonPressed2ShowCodeInserter(EditingSelector ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, null, ins.codeB);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		if(component==null)
+//			component = instrument.initialiseInsertCodeDialog();
+//		super.initAction();
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return interaction.getButton()==instrument.codeB;
+//	}
+//}
+
+
+
+/**
+ * This link allows to activate the code inserter instrument.
+ */
+class ButtonPressed2LaunchCodeInserter extends Link<ActivateInactivateInstruments, ButtonPressed, EditingSelector> {
+	public ButtonPressed2LaunchCodeInserter(EditingSelector ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, ActivateInactivateInstruments.class, ButtonPressed.class);
+	}
+
+	@Override
+	public void initAction() {
+		action.addInstrumentToActivate(instrument.codeInserter);
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return interaction.getButton()==instrument.codeB;
+	}
+}
 
 
 

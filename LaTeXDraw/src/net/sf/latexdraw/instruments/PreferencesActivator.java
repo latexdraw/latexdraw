@@ -89,7 +89,7 @@ public class PreferencesActivator extends WidgetInstrument {
 	 * @return The preferences frame.
 	 * @since 3.0
 	 */
-	public PreferencesFrame initialisePreferencesFrame() {
+	protected PreferencesFrame initialisePreferencesFrame() {
 		if(preferenceFrame==null) {
 			preferenceFrame = new PreferencesFrame(prefSetter);
 			prefSetter.addEventable(preferenceFrame);

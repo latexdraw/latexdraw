@@ -129,6 +129,9 @@ public class LFrame extends UI {
 	/** The instrument that manages the templates. */
 	protected TemplateManager templateManager;
 
+	/** The instrument that converts PST code into shapes. */
+	protected CodeInserter codeInserter;
+
 	/** The layered panel used to display widgets upon shapes (e.g. text setters). */
 	protected MLayeredPane layeredPanel;
 
@@ -241,7 +244,9 @@ public class LFrame extends UI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { metaShapeCustomiser = new MetaShapeCustomiser(composer, hand, pencil); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { editingSelector = new EditingSelector(composer, pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter); }
+		try { codeInserter = new CodeInserter(); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		try { editingSelector = new EditingSelector(composer, pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter, codeInserter); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager(composer);
 		try { paster		= new CopierCutterPaster(composer, drawing); }

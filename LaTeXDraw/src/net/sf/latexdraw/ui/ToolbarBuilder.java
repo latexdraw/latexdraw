@@ -158,6 +158,11 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		button.setToolTipText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.1")); //$NON-NLS-1$
 		widget.add(button);
 
+		//Adding a widget to insert PST code.
+		button = frame.editingSelector.getCodeB();
+		button.setToolTipText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.0")); //$NON-NLS-1$
+		widget.add(button);
+
 		widget.add(frame.exceptionsManager.getExceptionB());
 
 		if(progressBar!=null) progressBar.addToProgressBar(5);

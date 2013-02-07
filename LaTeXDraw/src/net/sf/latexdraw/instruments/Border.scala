@@ -77,22 +77,22 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	protected val _scaleHandlers : ListBuffer[IHandler] = new ListBuffer()
 
 	/** The handlers that move points. */
-	protected var _mvPtHandlers : ListBuffer[IHandler] = null
+	protected lazy val _mvPtHandlers : ListBuffer[IHandler] = new ListBuffer()
 
 	/** The handlers that move first control points. */
-	protected var _ctrlPt1Handlers : ListBuffer[IHandler] = null
+	protected lazy val _ctrlPt1Handlers : ListBuffer[IHandler] = new ListBuffer()
 
 	/** The handlers that move second control points. */
-	protected var _ctrlPt2Handlers : ListBuffer[IHandler] = null
+	protected lazy val _ctrlPt2Handlers : ListBuffer[IHandler] = new ListBuffer()
 
 //	/** The handler that sets the arc frame. */
-//	protected FrameArcHandler frameArcHandler
+//	protected lazy val frameArcHandler : FrameArcHandler = new FrameArcHandler()
 
 	/** The handler that sets the start angle of an arc. */
-	protected var _arcHandlerStart : ArcAngleHandler = null
+	protected lazy val _arcHandlerStart : ArcAngleHandler = new ArcAngleHandler(true)
 
 	/** The handler that sets the end angle of an arc. */
-	protected var _arcHandlerEnd : ArcAngleHandler = null
+	protected lazy val _arcHandlerEnd : ArcAngleHandler = new ArcAngleHandler(false)
 
 	/** The handler that rotates shapes. */
 	protected val _rotHandler : IHandler = new RotationHandler()
@@ -179,11 +179,8 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 		_scaleHandlers.foreach{handler => handler.updateFromShape(_border)}
 		_rotHandler.setPoint(_border.getMaxX, _border.getMinY)
 
-//		if(isFrameArcHandlerShowable()) {
-//			if(frameArcHandler==null)
-//				frameArcHandler	= new FrameArcHandler()
+//		if(isFrameArcHandlerShowable())
 //			frameArcHandler.updateFromLineArcShape((ILineArcShape)selection.get(0).getShape())
-//		}
 
 		updateArcHandlers
 		updateMvHandlers
@@ -197,11 +194,6 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	 */
 	private def updateArcHandlers() {
 		if(isArcHandlerShowable) {
-			if(_arcHandlerEnd==null) {
-				_arcHandlerStart = new ArcAngleHandler(true)
-				_arcHandlerEnd 	 = new ArcAngleHandler(false)
-			}
-
 			val sh = _selection.apply(0).getShape
 
 			if(sh.isInstanceOf[IArc]) {
@@ -232,11 +224,6 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 		val zoom  = canvas.getZoom
 		val nbPts = cps.getNbPoints
 		var pt : IPoint = null
-
-		if(_ctrlPt1Handlers==null) {
-			_ctrlPt1Handlers = new ListBuffer()
-			_ctrlPt2Handlers = new ListBuffer()
-		}
 
 		// Adding missing handlers.
 		if(_ctrlPt1Handlers.size<nbPts)
@@ -275,9 +262,6 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 				val nbPts = pts.getNbPoints
 				val zoom  = canvas.getZoom
 				var pt : IPoint = null
-
-				if(_mvPtHandlers==null)
-					_mvPtHandlers = new ListBuffer()
 
 				if(_mvPtHandlers.size<nbPts)
 					for(i <- _mvPtHandlers.size to nbPts-1)
