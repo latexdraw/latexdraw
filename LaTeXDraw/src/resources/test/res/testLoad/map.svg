@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs/>
+    <g>
+        <g latexdraw:type="rectangle" id="id290">
+            <rect x="201.0" y="81.0" width="138.0" height="118.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#c7c7c7" fill="none"/>
+        </g>
+        <g latexdraw:type="line" id="id291">
+            <line x1="200.0" x2="340.0" y1="120.0" y2="120.0"
+                stroke-width="2.0" stroke="#c7c7c7" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id292" font-family="Dialog"
+            fill="black" font-size="18" latexdraw:x="263.8125">
+            <text x="263.8125" y="106.0"><![CDATA[A]]></text>
+        </g>
+        <g latexdraw:type="text" id="id295" font-family="Dialog"
+            fill="black" font-size="18" latexdraw:x="220.0">
+            <text x="220.0" y="140.0"><![CDATA[a]]></text>
+        </g>
+        <g latexdraw:type="rectangle" id="id298">
+            <rect x="541.0" y="81.0" width="138.0" height="118.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#c7c7c7" fill="none"/>
+        </g>
+        <g latexdraw:type="line" id="id299">
+            <line x1="540.0" x2="680.0" y1="120.0" y2="120.0"
+                stroke-width="2.0" stroke="#c7c7c7" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id300" font-family="Dialog"
+            fill="black" font-size="18" latexdraw:x="604.359375">
+            <text x="604.359375" y="106.0"><![CDATA[B]]></text>
+        </g>
+        <g latexdraw:type="text" id="id303" font-family="Dialog"
+            fill="black" font-size="18" latexdraw:x="560.0">
+            <text x="560.0" y="140.0"><![CDATA[b]]></text>
+        </g>
+        <g latexdraw:type="line" id="id306">
+            <line x1="340.0" x2="540.0" y1="140.0" y2="140.0"
+                stroke-width="2.0" stroke="#c7c7c7" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id307" font-family="Dialog"
+            fill="black" font-size="17" latexdraw:x="375.0">
+            <text x="375.0" y="120.0"><![CDATA[<<mapping>>]]></text>
+        </g>
+        <g latexdraw:type="text" id="id310" font-family="Dialog"
+            fill="black" font-size="17" latexdraw:x="423.890625">
+            <text x="423.890625" y="160.0"><![CDATA[A2B]]></text>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.0</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>false</latexdraw:magneticGrid>
+            <latexdraw:autoUpdate>false</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.0</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1141</latexdraw:width>
+                <latexdraw:height>984</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>0</latexdraw:x>
+                <latexdraw:y>24</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>130</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

@@ -1,0 +1,130 @@
+package test.parser.pst;
+
+import java.text.ParseException;
+
+import net.sf.latexdraw.glib.models.interfaces.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.parsers.pst.parser.PSTParser;
+
+import org.junit.Test;
+
+public class TestParsingPscircle extends TestParsingShape {
+	@Override
+	public String getCommandName() {
+		return "pscircle";
+	}
+	
+	
+	@Override
+	public String getBasicCoordinates() {
+		return "{1}";
+	}
+	
+	
+	@Test
+	public void testCoordinatesPt() throws ParseException {
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0);
+		assertEquals(35.*IShape.PPC/PSTricksConstants.CM_VAL_PT-10.*IShape.PPC/PSTricksConstants.CM_VAL_PT, cir.getPosition().getX());
+		assertEquals((20.*IShape.PPC/PSTricksConstants.CM_VAL_PT-10.*IShape.PPC/PSTricksConstants.CM_VAL_PT)*-1., cir.getPosition().getY());
+		assertEquals(10.*IShape.PPC/PSTricksConstants.CM_VAL_PT*2., cir.getWidth(), 0.0000001);
+		assertEquals(10.*IShape.PPC/PSTricksConstants.CM_VAL_PT*2., cir.getHeight(), 0.0000001);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+	
+	
+	@Test
+	public void testCoordinatesMm() throws ParseException {
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(350mm,200mm){10mm}").get().getShapeAt(0);
+		assertEquals(35.*IShape.PPC-1.*IShape.PPC, cir.getPosition().getX());
+		assertEquals((20.*IShape.PPC-1.*IShape.PPC)*-1., cir.getPosition().getY());
+		assertEquals(1.*IShape.PPC*2., cir.getWidth(), 0.0000001);
+		assertEquals(1.*IShape.PPC*2., cir.getHeight(), 0.0000001);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+	
+	
+	@Test
+	public void testCoordinatesInch() throws ParseException {
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(35in,20in){1.2in}").get().getShapeAt(0);
+		assertEquals(35.*IShape.PPC/2.54-1.2*IShape.PPC/2.54, cir.getPosition().getX());
+		assertEquals((20.*IShape.PPC/2.54-1.2*IShape.PPC/2.54)*-1., cir.getPosition().getY());
+		assertEquals(1.2*IShape.PPC/2.54*2., cir.getWidth(), 0.0000001);
+		assertEquals(1.2*IShape.PPC/2.54*2., cir.getHeight(), 0.0000001);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+	
+	
+	@Test
+	public void testCoordinatesCm() throws ParseException {
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(35cm,20cm){.5cm}").get().getShapeAt(0);
+		assertEquals(35.*IShape.PPC-.5*IShape.PPC, cir.getPosition().getX());
+		assertEquals((20.*IShape.PPC-.5*IShape.PPC)*-1., cir.getPosition().getY());
+		assertEquals(.5*IShape.PPC*2., cir.getWidth(), 0.0000001);
+		assertEquals(.5*IShape.PPC*2., cir.getHeight(), 0.0000001);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+	
+	
+	@Test
+	public void testCoordinatesRadius() throws ParseException {
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(35,20){10}").get().getShapeAt(0);
+		assertEquals(35.*IShape.PPC-10.*IShape.PPC, cir.getPosition().getX());
+		assertEquals((20.*IShape.PPC-10.*IShape.PPC)*-1., cir.getPosition().getY());
+		assertEquals(10.*IShape.PPC*2., cir.getWidth(), 0.0000001);
+		assertEquals(10.*IShape.PPC*2., cir.getHeight(), 0.0000001);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+	
+	
+	@Test
+	public void testFloatSigns() throws ParseException {
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(+++35.5,--50.5){--+12}").get().getShapeAt(0);
+		assertEquals(35.5*IShape.PPC-12.*IShape.PPC, cir.getPosition().getX());
+		assertEquals((50.5*IShape.PPC-12.*IShape.PPC)*-1., cir.getPosition().getY());
+		assertEquals(12.*IShape.PPC*2., cir.getWidth(), 0.0000001);
+		assertEquals(12.*IShape.PPC*2., cir.getHeight(), 0.0000001);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+	
+	
+	
+	@Test
+	public void testNegativeRadius() throws ParseException {
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(0,0){-1}").get().getShapeAt(0);
+		assertTrue(cir.getWidth()>0);
+		assertTrue(cir.getHeight()>0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+	
+	
+	@Test
+	public void test2CoordinatesFloat2() throws ParseException {
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(35.5,50.5){1.25}").get().getShapeAt(0);
+		assertEquals(35.5*IShape.PPC-1.25*IShape.PPC, cir.getPosition().getX());
+		assertEquals((50.5*IShape.PPC-1.25*IShape.PPC)*-1., cir.getPosition().getY());
+		assertEquals(1.25*IShape.PPC*2., cir.getWidth(), 0.0000001);
+		assertEquals(1.25*IShape.PPC*2., cir.getHeight(), 0.0000001);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+	
+	
+	@Test
+	public void testCoordinatesMissing() throws ParseException {
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(,){1}").get().getShapeAt(0);
+		assertEquals(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*IShape.PPC-1.*IShape.PPC, cir.getPosition().getX(), 0.0000001);
+		assertEquals((PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*IShape.PPC-1.*IShape.PPC)*-1., cir.getPosition().getY(), 0.0000001);
+		assertEquals(1.*IShape.PPC*2., cir.getWidth(), 0.0000001);
+		assertEquals(1.*IShape.PPC*2., cir.getHeight(), 0.0000001);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+	
+	
+	@Test
+	public void testErrorOnNoRadius() {
+		try {
+			parser.parsePSTCode("\\"+getCommandName()+"(,){}").get().isEmpty();
+			fail();
+		}catch(Exception e) { /* ok */ }
+	}
+}

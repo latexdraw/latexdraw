@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs/>
+    <g>
+        <g latexdraw:type="rectangle" id="id40">
+            <rect x="165.51171875" y="61.0" width="148.0" height="78.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#b1b1b1" fill="white" rx="19.5"/>
+        </g>
+        <g latexdraw:type="text" id="id41" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="165.76953125">
+            <text x="165.76953125" y="104.3046875"><![CDATA[\sc{OpenOffice.org}]]></text>
+        </g>
+        <g latexdraw:type="polygon" id="id43">
+            <polygon
+                points="420.0,260.0 396.66666666878604,290.0000000025479 396.666666668786,275.0000000025484 303.33333333545266,275.00000000254954 303.3333333354527,290.0000000025497 280.0000000021189,260.00000000255 303.3333333354515,230.00000000254988 303.3333333354519,245.0000000025497 396.66666666878535,245.0000000025481 396.66666666878507,230.0000000025483 "
+                stroke-width="2.0" stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="rectangle" id="id44">
+            <rect x="386.0" y="61.0" width="148.0" height="78.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#b1b1b1" fill="white" rx="19.5"/>
+        </g>
+        <g latexdraw:type="drawing" id="id45">
+            <g latexdraw:type="text" id="id46"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="407.2578125">
+                <text x="407.2578125" y="96.125"><![CDATA[\sc{Microsoft}]]></text>
+            </g>
+            <g latexdraw:type="text" id="id48"
+                font-family="Times New Roman" fill="black"
+                font-size="18" latexdraw:x="419.7578125">
+                <text x="419.7578125" y="116.125"><![CDATA[\sc{Office}]]></text>
+            </g>
+        </g>
+        <g latexdraw:type="polygon" id="id51" transform="rotate(180.0) translate(-919.9999999998421 -358.00000000339634)">
+            <polygon
+                points="459.9999999998424,209.00000000339622 439.9999999998424,199.00000000339622 449.9999999999406,199.00000000127355 449.9999999999407,159.0000000012736 439.99999999994054,159.00000000127355 459.9999999999408,149.0000000012737 479.99999999994077,159.00000000127358 469.99999999994094,159.0000000012736 469.9999999999408,199.00000000127366 479.99999999994105,199.0000000012737 "
+                stroke-width="2.0" stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="polygon" id="id52" transform="rotate(180.0) translate(-479.99999694816506 -358.0000000030751)">
+            <polygon
+                points="240.00001220695407,209.00000000307506 219.99999694820775,199.00000000136671 229.9999969482078,199.00000000136663 229.99999694820795,159.0000000013667 219.99999694820792,159.00000000136671 239.999996948208,149.00000000136683 259.9999969482081,159.0000000013668 249.99999694820815,159.00000000136686 249.999996948208,199.00000000136671 259.999996948208,199.00000000136674 "
+                stroke-width="2.0" stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="polygon" id="id53">
+            <polygon
+                points="490.0,220.0 490.0,300.0 430.0,300.0 430.0,240.0 450.0,220.0 "
+                stroke-width="2.0" stroke="#b1b1b1" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id54" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="426.875">
+            <text x="426.875" y="264.125"><![CDATA[OOXML]]></text>
+        </g>
+        <g latexdraw:type="polygon" id="id56">
+            <polygon
+                points="270.0,220.0 270.0,300.0 210.0,300.0 210.0,240.0 230.0,220.0 "
+                stroke-width="2.0" stroke="#b1b1b1" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id57" font-family="Times New Roman"
+            fill="black" font-size="18" latexdraw:x="222.046875">
+            <text x="222.046875" y="264.125"><![CDATA[ODF]]></text>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.25</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>false</latexdraw:magneticGrid>
+            <latexdraw:latexIncludes><![CDATA[\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}]]></latexdraw:latexIncludes>
+            <latexdraw:autoUpdate>false</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.3</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1188</latexdraw:width>
+                <latexdraw:height>776</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>0</latexdraw:x>
+                <latexdraw:y>24</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>130</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

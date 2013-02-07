@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs/>
+    <g>
+        <g latexdraw:type="line" id="id151">
+            <line x1="99.0" x2="651.0" y1="72.0" y2="72.0"
+                stroke-width="2.0" stroke="black" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id152"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="10.0">
+            <text x="10.0" y="52.0"><![CDATA[personne :]]></text>
+        </g>
+        <g latexdraw:type="text" id="id154"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="101.0">
+            <text x="101.0" y="52.0"><![CDATA[nomFamille]]></text>
+        </g>
+        <g latexdraw:type="text" id="id156"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="208.08854166666669">
+            <text x="208.08854166666669" y="52.0"><![CDATA[prénom]]></text>
+        </g>
+        <g latexdraw:type="text" id="id158"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="347.4427083333333">
+            <text x="347.4427083333333" y="52.0"><![CDATA[email]]></text>
+        </g>
+        <g latexdraw:type="text" id="id160"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="471.0">
+            <text x="471.0" y="53.0"><![CDATA[téléphone]]></text>
+        </g>
+        <g latexdraw:type="line" id="id162">
+            <line x1="195.47395833333337" x2="195.47395833333337"
+                y1="32.0" y2="151.2867362083722" stroke-width="2.0"
+                stroke="black" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="line" id="id163">
+            <line x1="275.5625" x2="275.5625" y1="32.0"
+                y2="151.2867362083722" stroke-width="2.0" stroke="black" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="line" id="id164">
+            <line x1="458.61979166666663" x2="458.61979166666663"
+                y1="32.0" y2="151.2867362083722" stroke-width="2.0"
+                stroke="black" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id165"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="211.0">
+            <text x="211.0" y="132.0"><![CDATA[Olivier]]></text>
+        </g>
+        <g latexdraw:type="text" id="id167"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="211.0">
+            <text x="211.0" y="92.0"><![CDATA[Arnaud]]></text>
+        </g>
+        <g latexdraw:type="text" id="id169"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="128.0">
+            <text x="128.0" y="92.0"><![CDATA[Blouin]]></text>
+        </g>
+        <g latexdraw:type="text" id="id171"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="291.0">
+            <text x="291.0" y="92.0"><![CDATA[arnaud.blouin@eseo.fr]]></text>
+        </g>
+        <g latexdraw:type="text" id="id173"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="291.0">
+            <text x="291.0" y="132.0"><![CDATA[olivier.beaudoux@eseo.fr]]></text>
+        </g>
+        <g latexdraw:type="text" id="id175"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="471.0">
+            <text x="471.0" y="92.0"><![CDATA[0241866745]]></text>
+        </g>
+        <g latexdraw:type="line" id="id177">
+            <line x1="560.6197916666666" x2="560.6197916666666"
+                y1="32.0" y2="151.2867362083722" stroke-width="2.0"
+                stroke="black" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id178"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="574.0">
+            <text x="574.0" y="52.0"><![CDATA[identifiant]]></text>
+        </g>
+        <g latexdraw:type="text" id="id180"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="599.0">
+            <text x="599.0" y="91.0"><![CDATA[e1]]></text>
+        </g>
+        <g latexdraw:type="text" id="id183"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="599.0">
+            <text x="599.0" y="131.0"><![CDATA[e2]]></text>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.5</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>false</latexdraw:magneticGrid>
+            <latexdraw:latexIncludes><![CDATA[\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+\usepackage[utf8]{inputenc}]]></latexdraw:latexIncludes>
+            <latexdraw:autoUpdate>true</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.3</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1122</latexdraw:width>
+                <latexdraw:height>766</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>0</latexdraw:x>
+                <latexdraw:y>25</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>130</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

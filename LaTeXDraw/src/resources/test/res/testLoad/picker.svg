@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs/>
+    <g>
+        <g latexdraw:type="rectangle" id="id134">
+            <rect x="241.0" y="81.0" width="158.0" height="118.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id135"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="296.796875">
+            <text x="296.796875" y="104.0"><![CDATA[Picker]]></text>
+        </g>
+        <g latexdraw:type="line" id="id138">
+            <line x1="240.0" x2="400.0" y1="120.0" y2="120.0"
+                stroke-width="2.0" stroke="#7c7c7c" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id139"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="248.890625">
+            <text x="248.890625" y="140.0"><![CDATA[getPickageAt(Point p)]]></text>
+        </g>
+        <g latexdraw:type="text" id="id142"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="248.890625">
+            <text x="248.890625" y="160.0"><![CDATA[getPickerAt(Point p)]]></text>
+        </g>
+        <g latexdraw:type="rectangle" id="id145">
+            <rect x="481.0" y="81.0" width="158.0" height="118.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#909090" fill="white"/>
+        </g>
+        <g latexdraw:type="text" id="id146"
+            font-family="Times New Roman" fill="black" font-size="18" latexdraw:x="529.609375">
+            <text x="529.609375" y="104.0"><![CDATA[Pickable]]></text>
+        </g>
+        <g latexdraw:type="line" id="id149">
+            <line x1="480.0" x2="640.0" y1="120.0" y2="120.0"
+                stroke-width="2.0" stroke="#7c7c7c" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id150"
+            font-family="Times New Roman" fill="black" font-size="16" latexdraw:x="488.890625">
+            <text x="488.890625" y="140.0"><![CDATA[getParentPicker()]]></text>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>1.0</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>true</latexdraw:magneticGrid>
+            <latexdraw:autoUpdate>true</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.2</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1280</latexdraw:width>
+                <latexdraw:height>776</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>0</latexdraw:x>
+                <latexdraw:y>24</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>130</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

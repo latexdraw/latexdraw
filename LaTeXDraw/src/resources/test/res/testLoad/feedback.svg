@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <defs/>
+    <g>
+        <g latexdraw:type="rectangle" id="id479">
+            <rect x="183.0" y="85.0" width="84.0" height="47.0"
+                latexdraw:borderPos="outer" stroke-width="6.0"
+                stroke="black" fill="#b84242"/>
+        </g>
+        <g latexdraw:type="ellipse" id="id480">
+            <ellipse cx="337.0" cy="157.5" rx="51.0" ry="29.5"
+                latexdraw:borderPos="outer" stroke-width="6.0"
+                stroke="black" fill="#5752a5"/>
+        </g>
+        <g latexdraw:type="square" id="id482">
+            <rect x="223.0" y="75.0" width="4.0" height="4.0"
+                latexdraw:borderPos="outer" stroke-width="6.0"
+                stroke="#4ccd43" fill="#4ccd43"/>
+        </g>
+        <g latexdraw:type="square" id="id483">
+            <rect x="273.0" y="76.0" width="4.0" height="4.0"
+                latexdraw:borderPos="outer" stroke-width="6.0"
+                stroke="#4ccd43" fill="#4ccd43"/>
+        </g>
+        <g latexdraw:type="square" id="id484">
+            <rect x="174.0" y="75.0" width="4.0" height="4.0"
+                latexdraw:borderPos="outer" stroke-width="6.0"
+                stroke="#4ccd43" fill="#4ccd43"/>
+        </g>
+        <g latexdraw:type="square" id="id485">
+            <rect x="174.0" y="138.0" width="4.0" height="4.0"
+                latexdraw:borderPos="outer" stroke-width="6.0"
+                stroke="#4ccd43" fill="#4ccd43"/>
+        </g>
+        <g latexdraw:type="square" id="id486">
+            <rect x="223.0" y="138.0" width="4.0" height="4.0"
+                latexdraw:borderPos="outer" stroke-width="6.0"
+                stroke="#4ccd43" fill="#4ccd43"/>
+        </g>
+        <g latexdraw:type="square" id="id487">
+            <rect x="273.0" y="138.0" width="4.0" height="4.0"
+                latexdraw:borderPos="outer" stroke-width="6.0"
+                stroke="#4ccd43" fill="#4ccd43"/>
+        </g>
+        <g latexdraw:type="rectangle" id="id488">
+            <rect x="175.5" y="76.5" width="100.0" height="64.0"
+                latexdraw:borderPos="outer" stroke-width="1.0"
+                stroke="#b4b4b4" fill="none" stroke-dasharray="8.0, 8.0"/>
+        </g>
+        <g latexdraw:type="rectangle" id="id489">
+            <rect x="154.0" y="105.0" width="112.0" height="70.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="#b4b4b4" fill="none" stroke-dasharray="8.0, 8.0"/>
+        </g>
+        <g latexdraw:type="polygon" id="id490">
+            <polygon
+                points="267.0,183.0 267.0,175.0 274.0,179.0 270.3999938964844,179.60000610351562 273.0,183.0 271.0,184.0 269.0,180.0 "
+                stroke-width="0.20000000298023224" stroke="#010101" fill="#fefefe"/>
+        </g>
+    </g>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:displayBorders>false</latexdraw:displayBorders>
+            <latexdraw:autoAdjust>true</latexdraw:autoAdjust>
+            <latexdraw:ppc>50</latexdraw:ppc>
+            <latexdraw:zoom>2.25</latexdraw:zoom>
+            <latexdraw:unit>cm</latexdraw:unit>
+            <latexdraw:classicGrid>false</latexdraw:classicGrid>
+            <latexdraw:gridGap>10</latexdraw:gridGap>
+            <latexdraw:code>0</latexdraw:code>
+            <latexdraw:displayGrid>true</latexdraw:displayGrid>
+            <latexdraw:magneticGrid>false</latexdraw:magneticGrid>
+            <latexdraw:autoUpdate>true</latexdraw:autoUpdate>
+            <latexdraw:version>2.0.6</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1280</latexdraw:width>
+                <latexdraw:height>743</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>29</latexdraw:x>
+                <latexdraw:y>26</latexdraw:y>
+            </latexdraw:position>
+            <latexdraw:dividerPosition>0.8</latexdraw:dividerPosition>
+            <latexdraw:displayCodePanel>false</latexdraw:displayCodePanel>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:delimitorOpacity>58</latexdraw:delimitorOpacity>
+        </latexdraw:metadata>
+    </metadata>
+</svg>
