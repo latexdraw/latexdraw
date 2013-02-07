@@ -27,10 +27,10 @@ protected trait LSetShapes extends ISetShapes {
 	/** The set of shapes. */
 	var shapes : java.util.List[IShape] = new ActiveArrayList[IShape]()
 
-	
+
 	override def contains(sh : IShape) = if(sh==null) false else shapes.contains(sh)
-	
-	
+
+
 	override def addShape(sh : IShape) = {
 		if(sh!=null)
 			shapes.add(sh)
@@ -52,10 +52,13 @@ protected trait LSetShapes extends ISetShapes {
 	}
 
 	override def getShapeAt(i : Int) : IShape = {
-		shapes.isEmpty || i< -1 || i>= shapes.size match {
-			case true => shapes.get(shapes.size-1)
-			case false => shapes.get(i)
-		}
+		if(i< -1 || i>=shapes.size)
+			null
+		else
+			i match {
+				case -1 => shapes.get(shapes.size-1)
+				case _ => shapes.get(i)
+			}
 	}
 
 
