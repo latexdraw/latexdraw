@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -162,10 +163,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	public PreferencesSetter(final LFrame frame) {
 		super();
 
-		if(frame==null)
-			throw new IllegalArgumentException();
-
-		this.frame		 	= frame;
+		this.frame		 	= Objects.requireNonNull(frame);
 		framePosition	 	= DrawingTK.getFactory().createPoint();
 		frameSize 			= new Dimension();
 		frameSize.height 	= 3*Toolkit.getDefaultToolkit().getScreenSize().height/2;

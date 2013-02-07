@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import java.util.Objects;
+
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -70,11 +72,7 @@ class LArrow implements IArrow {
 	 */
 	protected LArrow(final IShape owner) {
 		super();
-
-		if(owner==null)
-			throw new IllegalArgumentException();
-
-		this.owner 	 = owner;
+		this.owner 	 = Objects.requireNonNull(owner);
 		style		 = ArrowStyle.NONE;
 		arrowInset   = 0.;
 		arrowLength  = PSTricksConstants.DEFAULT_ARROW_LENGTH;

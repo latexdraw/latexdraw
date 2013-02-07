@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Objects;
 
 /**
  * Allows to display a given image in a panel(canvas).<br>
@@ -38,11 +39,7 @@ public class DisplayCanvas extends Canvas {
 	 */
 	public DisplayCanvas(final Image img) {
 		super();
-
-		if(img==null)
-			throw new IllegalArgumentException();
-
-		image = img;
+		image = Objects.requireNonNull(img);
 		prepareImage(image, this);
 		setPreferredSize(new Dimension(image.getWidth(this), image.getHeight(this)));
 	}

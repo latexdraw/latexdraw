@@ -1,5 +1,7 @@
 package net.sf.latexdraw.parsers.svg;
 
+import java.util.Objects;
+
 import org.w3c.dom.*;
 
 /**
@@ -41,12 +43,9 @@ public class SVGAttr implements Attr, Cloneable {
 	 * @since 0.1
 	 */
 	public SVGAttr(final String n, final String val, final Element parent) {
-		if(n==null || parent==null || val==null)
-			throw new IllegalArgumentException();
-
-		name 	= n;
-		owner 	= parent;
-		value 	= val;
+		name 	= Objects.requireNonNull(n);
+		owner 	= Objects.requireNonNull(parent);
+		value 	= Objects.requireNonNull(val);
 	}
 
 

@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.ItemSelectable;
+import java.util.Objects;
 
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
@@ -57,12 +58,8 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 	 */
 	public ShapePropertyCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer);
-
-		if(hand==null || pencil==null)
-			throw new IllegalArgumentException();
-
-		this.hand   = hand;
-		this.pencil = pencil;
+		this.hand   = Objects.requireNonNull(hand);
+		this.pencil = Objects.requireNonNull(pencil);
 	}
 
 

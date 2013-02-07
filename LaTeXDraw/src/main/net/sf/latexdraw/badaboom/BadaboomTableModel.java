@@ -1,5 +1,7 @@
 package net.sf.latexdraw.badaboom;
 
+import java.util.Objects;
+
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -36,17 +38,13 @@ public class BadaboomTableModel extends AbstractTableModel {
 
 
 	/**
-	 * Creates and initialises a table model for the 'Bordel !' manager.
+	 * Creates and initialises a table model for the badaboom manager.
 	 * @param collector The exceptions collector.
-	 * @throws IllegalArgumentException If the given collector is null.
+	 * @throws NullPointerException If the given collector is null.
 	 */
 	public BadaboomTableModel(final BadaboomCollector collector) {
 		super();
-
-		if(collector==null)
-			throw new IllegalArgumentException();
-
-		this.collector = collector;
+		this.collector = Objects.requireNonNull(collector);
 	}
 
 

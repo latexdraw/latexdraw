@@ -1,5 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import java.util.Objects;
+
 import javax.swing.JMenuItem;
 
 import org.malai.instrument.Instrument;
@@ -77,11 +79,8 @@ public class ScaleRulersCustomiser extends Instrument {
 	public ScaleRulersCustomiser(final XScaleRuler xRuler, final YScaleRuler yRuler) {
 		super();
 
-		if(xRuler==null || yRuler==null)
-			throw new IllegalArgumentException();
-
-		this.xRuler = xRuler;
-		this.yRuler = yRuler;
+		this.xRuler = Objects.requireNonNull(xRuler);
+		this.yRuler = Objects.requireNonNull(yRuler);
 
 		xRulerItem = new MCheckBoxMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.38"), LResources.EMPTY_ICON); //$NON-NLS-1$
 		yRulerItem = new MCheckBoxMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.39"), LResources.EMPTY_ICON); //$NON-NLS-1$

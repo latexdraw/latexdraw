@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.Objects;
 
 import javax.accessibility.Accessible;
 import javax.accessibility.AccessibleContext;
@@ -116,11 +117,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	 */
 	public ScaleRuler(final ICanvas canvas) {
 		super();
-
-		if(canvas==null)
-			throw new IllegalArgumentException();
-
-		this.canvas  = canvas;
+		this.canvas  = Objects.requireNonNull(canvas);
 		eventManager = new SwingEventManager();
 		eventManager.attachTo(this);
 		setDoubleBuffered(true);

@@ -1,6 +1,7 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
 import java.awt.Shape;
+import java.util.Objects;
 
 import net.sf.latexdraw.parsers.Parser;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -45,12 +46,8 @@ public abstract class Shape2D2SVG<S extends Shape, T extends SVGElement> impleme
 	 */
 	public Shape2D2SVG(final S shape, final SVGDocument document) {
 		super();
-
-		if(document==null || shape==null)
-			throw new IllegalArgumentException();
-
-		this.document 	= document;
-		this.shape 		= shape;
+		this.document 	= Objects.requireNonNull(document);
+		this.shape 		= Objects.requireNonNull(shape);
 	}
 
 

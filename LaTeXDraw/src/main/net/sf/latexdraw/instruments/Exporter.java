@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.event.KeyEvent;
+import java.util.Objects;
 
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -131,13 +132,10 @@ public class Exporter extends WidgetInstrument {
 	public Exporter(final UIComposer<?> composer, final ICanvas canvas, final IDrawing drawing, final JLabel statusBar) {
 		super(composer);
 
-		if(canvas==null || drawing==null || statusBar==null)
-			throw new IllegalArgumentException();
-
 		defaultPackages		= ""; //$NON-NLS-1$
-		this.statusBar		= statusBar;
-		this.drawing		= drawing;
-		this.canvas 		= canvas;
+		this.statusBar		= Objects.requireNonNull(statusBar);
+		this.drawing		= Objects.requireNonNull(drawing);
+		this.canvas 		= Objects.requireNonNull(canvas);
 
 		initialiseWidgets();
 		reinit();

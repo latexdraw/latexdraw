@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.views.synchroniser;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -47,12 +48,8 @@ public abstract class ViewsSynchroniser {
 	 */
 	public ViewsSynchroniser(final ViewsSynchroniserHandler h, final IDrawing drawing) {
 		super();
-
-		if(h==null || drawing==null)
-			throw new IllegalArgumentException();
-
-		handler      = h;
-		this.drawing = drawing;
+		handler      = Objects.requireNonNull(h);
+		this.drawing = Objects.requireNonNull(drawing);
 		viewsCode    = new HashMap<IShape, AbstractCodeView<?>>();
 	}
 

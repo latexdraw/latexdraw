@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views;
 
+import java.util.Objects;
+
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 
@@ -34,10 +36,7 @@ public abstract class AbstractView<S extends IShape> implements IAbstractView {
 	 * @since 3.0
 	 */
 	public AbstractView(final S model) {
-		if(model==null)
-			throw new IllegalArgumentException();
-
-		shape 	= model;
+		shape = Objects.requireNonNull(model);
 	}
 
 

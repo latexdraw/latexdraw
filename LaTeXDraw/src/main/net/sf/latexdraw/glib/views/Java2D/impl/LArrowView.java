@@ -7,6 +7,7 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
+import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
@@ -51,11 +52,7 @@ class LArrowView implements IViewArrow {
 	 */
 	protected LArrowView(final IArrow model) {
 		super();
-
-		if(model==null)
-			throw new IllegalArgumentException();
-
-		this.model = model;
+		this.model = Objects.requireNonNull(model);
 		path	   = new Path2D.Double();
 	}
 

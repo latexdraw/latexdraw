@@ -1,6 +1,8 @@
 package net.sf.latexdraw.parsers.svg;
 
 
+import java.util.Objects;
+
 import org.w3c.dom.Node;
 
 /**
@@ -41,11 +43,7 @@ public class OtherNSElement extends SVGElement {
 	 */
 	public OtherNSElement(final SVGDocument document) {
 		super();
-
-		if(document==null)
-			throw new IllegalArgumentException();
-
-		ownerDocument = document;
+		ownerDocument = Objects.requireNonNull(document);
 	}
 
 

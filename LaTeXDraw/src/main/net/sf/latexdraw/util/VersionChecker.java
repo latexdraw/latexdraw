@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Objects;
 
 import javax.swing.JLabel;
 
@@ -58,11 +59,7 @@ public class VersionChecker extends Thread {
 	 */
 	public VersionChecker(final JLabel notificationTextField) {
 		super();
-
-		if(notificationTextField==null)
-			throw new IllegalArgumentException();
-
-		this.notificationTextField = notificationTextField;
+		this.notificationTextField = Objects.requireNonNull(notificationTextField);
 	}
 
 

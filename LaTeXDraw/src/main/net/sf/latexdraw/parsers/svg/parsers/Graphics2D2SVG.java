@@ -27,6 +27,7 @@ import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
 import java.text.ParseException;
 import java.util.Map;
+import java.util.Objects;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
@@ -88,11 +89,7 @@ public class Graphics2D2SVG extends Graphics2D {
 	 */
 	public Graphics2D2SVG(final SVGDocument document) {
 		super();
-
-		if(document==null)
-			throw new IllegalArgumentException();
-
-		this.document = document;
+		this.document = Objects.requireNonNull(document);
 		element 	  = new SVGGElement(document);
 	}
 

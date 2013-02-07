@@ -2,6 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import java.awt.Point;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.JFileChooser;
 
@@ -76,15 +77,12 @@ public class Pencil extends Instrument {
 	public Pencil(final IDrawing drawing, final WidgetZoomer zoomer, final LMagneticGrid grid, final TextSetter textSetter) {
 		super();
 
-		if(drawing==null || zoomer==null || grid==null || textSetter==null)
-			throw new IllegalArgumentException();
-
 		final IShapeFactory factory = DrawingTK.getFactory();
 		groupParams		= factory.createGroup(false);
-		this.textSetter = textSetter;
-		this.grid		= grid;
-		this.drawing 	= drawing;
-		this.zoomer		= zoomer;
+		this.textSetter = Objects.requireNonNull(textSetter);
+		this.grid		= Objects.requireNonNull(grid);
+		this.drawing 	= Objects.requireNonNull(drawing);
+		this.zoomer		= Objects.requireNonNull(zoomer);
 		currentChoice 	= EditionChoice.RECT;
 		groupParams.addShape(factory.createRectangle(false));
 		groupParams.addShape(factory.createDot(factory.createPoint(), false));

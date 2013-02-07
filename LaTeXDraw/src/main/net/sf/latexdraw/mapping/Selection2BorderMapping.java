@@ -1,6 +1,7 @@
 package net.sf.latexdraw.mapping;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.malai.mapping.MappingRegistry;
 
@@ -42,11 +43,7 @@ public class Selection2BorderMapping extends SelectionMapping {
 	 */
 	public Selection2BorderMapping(final List<IShape> selection, final Border border) {
 		super(selection);
-
-		if(border==null)
-			throw new IllegalArgumentException();
-
-		this.border = border;
+		this.border = Objects.requireNonNull(border);
 	}
 
 

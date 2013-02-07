@@ -2,6 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
+import java.util.Objects;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
@@ -56,10 +57,7 @@ public class PreferencesActivator extends WidgetInstrument {
 	public PreferencesActivator(final UIComposer<?> composer, final PreferencesSetter prefSetter) {
 		super(composer);
 
-		if(prefSetter==null)
-			throw new IllegalArgumentException();
-
-		this.prefSetter = prefSetter;
+		this.prefSetter = Objects.requireNonNull(prefSetter);
 		initialiseWidgets();
 	}
 

@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.util.Objects;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -55,10 +56,7 @@ public class PreferencesFrame extends MFrame {
 	public PreferencesFrame(final PreferencesSetter setter) {
 		super(true);
 
-		if(setter==null)
-			throw new IllegalArgumentException();
-
-		this.prefSetter = setter;
+		this.prefSetter = Objects.requireNonNull(setter);
   		final Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
   		setIconImage(LResources.PROPERTIES_ICON.getImage());

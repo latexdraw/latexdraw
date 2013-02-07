@@ -1,5 +1,7 @@
 package net.sf.latexdraw.parsers;
 
+import java.util.Objects;
+
 
 /**
  * Defines an abstract parser that parses code.<br>
@@ -46,11 +48,7 @@ public abstract class CodeParser implements Parser {
 		 */
 		public Code(final String c) {
 			super();
-
-			if(c==null)
-				throw new IllegalArgumentException();
-
-			code 			= c;
+			code 			= Objects.requireNonNull(c);
 			position 		= 0;
 			linePosition 	= 1;
 		}

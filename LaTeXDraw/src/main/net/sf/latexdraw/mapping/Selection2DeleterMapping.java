@@ -1,6 +1,7 @@
 package net.sf.latexdraw.mapping;
 
 import java.util.List;
+import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.instruments.ShapeDeleter;
@@ -38,11 +39,7 @@ public class Selection2DeleterMapping extends SelectionMapping {
 	 */
 	public Selection2DeleterMapping(final List<IShape> selection, final ShapeDeleter deleter) {
 		super(selection);
-
-		if(deleter==null)
-			throw new IllegalArgumentException();
-
-		this.deleter = deleter;
+		this.deleter = Objects.requireNonNull(deleter);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.generators.svg;
 
+import java.util.Objects;
+
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
@@ -54,11 +56,7 @@ class LArrowSVGGenerator {
 	 */
 	protected LArrowSVGGenerator(final IArrow arr) {
 		super();
-
-		if(arr==null)
-			throw new IllegalArgumentException();
-
-		arrow = arr;
+		arrow = Objects.requireNonNull(arr);
 	}
 
 

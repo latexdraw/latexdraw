@@ -1,6 +1,7 @@
 package net.sf.latexdraw.mapping;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.malai.mapping.IMapping;
 import org.malai.mapping.IUnary;
@@ -29,8 +30,8 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 public abstract class SelectionMapping implements IMapping {
 	/** The selected shapes. */
 	protected List<IShape> selection;
-	
-	
+
+
 	/**
 	 * Creates the mapping.
 	 * @param selection The list of selected shapes.
@@ -39,26 +40,22 @@ public abstract class SelectionMapping implements IMapping {
 	 */
 	public SelectionMapping(final List<IShape> selection) {
 		super();
-		
-		if(selection==null)
-			throw new IllegalArgumentException();
-		
-		this.selection = selection;
+		this.selection = Objects.requireNonNull(selection);
 	}
-	
-	
+
+
 	@Override
 	public List<IShape> getSource() {
 		return selection;
 	}
-	
-	
+
+
 	@Override
 	public void clear() {
 		selection = null;
 	}
-	
-	
+
+
 	@Override
 	public void onObjectAdded(final Object list, final Object object, final int index) {
 		// Nothing to do.
@@ -83,13 +80,13 @@ public abstract class SelectionMapping implements IMapping {
 	public void onObjectModified(final Object object) {
 		// Nothing to do.
 	}
-	
+
 	@Override
 	public void onListCleaned(final Object list) {
 		// Nothing to do.
 	}
-	
-	
+
+
 	@Override
 	public void init() {
 		onListCleaned(selection);

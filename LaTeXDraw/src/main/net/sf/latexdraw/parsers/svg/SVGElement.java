@@ -2,6 +2,7 @@ package net.sf.latexdraw.parsers.svg;
 
 import java.awt.Color;
 import java.text.ParseException;
+import java.util.Objects;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.parsers.svg.parsers.CSSStyleParser;
@@ -84,11 +85,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 */
 	public SVGElement(final SVGDocument owner) {
 		this();
-
-		if(owner==null)
-			throw new IllegalArgumentException();
-
-		ownerDocument = owner;
+		ownerDocument = Objects.requireNonNull(owner);
 	}
 
 

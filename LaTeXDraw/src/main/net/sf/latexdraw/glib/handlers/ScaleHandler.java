@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.handlers;
 import java.awt.Shape;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
 
@@ -36,11 +37,7 @@ public class ScaleHandler extends Handler<Path2D> {
 	 */
 	public ScaleHandler(final Position position) {
 		super();
-
-		if(position==null)
-			throw new IllegalArgumentException();
-
-		this.position 	= position;
+		this.position 	= Objects.requireNonNull(position);
 		shape			= new Path2D.Double();
 		updateShape();
 	}

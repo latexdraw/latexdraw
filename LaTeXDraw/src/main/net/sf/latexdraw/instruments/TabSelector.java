@@ -1,5 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import java.util.Objects;
+
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.ui.LFrame;
 
@@ -39,11 +41,7 @@ public class TabSelector extends Instrument {
 	 */
 	public TabSelector(final LFrame frame) {
 		super();
-
-		if(frame==null)
-			throw new IllegalArgumentException();
-
-		this.frame = frame;
+		this.frame = Objects.requireNonNull(frame);
 	}
 
 

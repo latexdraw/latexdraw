@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.event.KeyEvent;
+import java.util.Objects;
 
 import net.sf.latexdraw.actions.shape.CopyShapes;
 import net.sf.latexdraw.actions.shape.CutShapes;
@@ -62,10 +63,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 	public CopierCutterPaster(final UIComposer<?> composer, final IDrawing drawing) {
 		super(composer);
 
-		if(drawing==null)
-			throw new IllegalArgumentException();
-
-		this.drawing = drawing;
+		this.drawing = Objects.requireNonNull(drawing);
 		initialiseWidgets();
 		ActionsRegistry.INSTANCE.addHandler(this);
 	}

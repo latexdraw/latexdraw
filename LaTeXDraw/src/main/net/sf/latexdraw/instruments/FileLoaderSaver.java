@@ -3,6 +3,7 @@ package net.sf.latexdraw.instruments;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -120,12 +121,9 @@ public class FileLoaderSaver extends WidgetInstrument {
 	public FileLoaderSaver(final LFrame ui, final JLabel statusBar, final PreferencesSetter prefSetter) {
 		super(ui.getComposer());
 
-		if(statusBar==null || prefSetter==null)
-			throw new IllegalArgumentException();
-
-		this.statusBar	= statusBar;
+		this.statusBar	= Objects.requireNonNull(statusBar);
 		this.ui			= ui;
-		this.prefSetter = prefSetter;
+		this.prefSetter = Objects.requireNonNull(prefSetter);
 
 		initialiseWidgets();
         reinit();

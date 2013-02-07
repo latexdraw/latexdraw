@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
@@ -41,11 +42,7 @@ public class StreamExecReader extends Thread {
 	 */
 	public StreamExecReader(final InputStream is) {
 		super();
-
-		if(is==null)
-			throw new IllegalArgumentException();
-
-		stream = is;
+		stream = Objects.requireNonNull(is);
 	}
 
 

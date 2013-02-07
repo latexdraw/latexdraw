@@ -1,6 +1,7 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
 import java.text.ParseException;
+import java.util.Objects;
 
 import net.sf.latexdraw.parsers.css.AbstractCSSParser;
 
@@ -36,11 +37,7 @@ public class CSSStyleParser extends AbstractCSSParser {
 	 */
 	public CSSStyleParser(final String code, final CSSStyleHandler handler) {
 		super(code);
-
-		if(handler==null)
-			throw new IllegalArgumentException();
-
-		this.handler = handler;
+		this.handler = Objects.requireNonNull(handler);
 	}
 
 

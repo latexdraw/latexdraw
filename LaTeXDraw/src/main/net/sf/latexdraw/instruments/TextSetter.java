@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.event.KeyEvent;
+import java.util.Objects;
 
 import javax.swing.JLayeredPane;
 
@@ -68,12 +69,8 @@ public class TextSetter extends Instrument {
 	 */
 	public TextSetter(final MLayeredPane overlayedPanel) {
 		super();
-
-		if(overlayedPanel==null)
-			throw new IllegalArgumentException();
-
 		text			= null;
-		layeredPanel 	= overlayedPanel;
+		layeredPanel 	= Objects.requireNonNull(overlayedPanel);
 		textField 		= new TextAreaAutoSize();
 		layeredPanel.add(textField, JLayeredPane.PALETTE_LAYER);
 		textField.setVisible(false);

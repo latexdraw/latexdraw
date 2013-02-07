@@ -1,6 +1,8 @@
 package net.sf.latexdraw.parsers.svg;
 
 
+import java.util.Objects;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -41,11 +43,7 @@ public class SVGDefsElement extends SVGElement {
 	 */
 	public SVGDefsElement(final SVGDocument owner) {
 		super();
-
-		if(owner==null)
-			throw new IllegalArgumentException();
-
-		ownerDocument = owner;
+		ownerDocument = Objects.requireNonNull(owner);
 		setNodeName(SVGElements.SVG_DEFS);
 	}
 

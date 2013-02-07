@@ -1,6 +1,7 @@
 package net.sf.latexdraw.mapping;
 
 import java.util.List;
+import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
@@ -39,11 +40,7 @@ public class Selection2MetaCustumiserMapping extends SelectionMapping {
 	 */
 	public Selection2MetaCustumiserMapping(final List<IShape> selection, final MetaShapeCustomiser shapeCustomiser) {
 		super(selection);
-
-		if(shapeCustomiser==null)
-			throw new IllegalArgumentException();
-
-		this.shapeCustomiser = shapeCustomiser;
+		this.shapeCustomiser = Objects.requireNonNull(shapeCustomiser);
 	}
 
 

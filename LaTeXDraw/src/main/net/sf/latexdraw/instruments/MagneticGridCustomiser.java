@@ -1,5 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import java.util.Objects;
+
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 
@@ -64,11 +66,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	 */
 	public MagneticGridCustomiser(final UIComposer<?> composer, final LMagneticGrid grid) {
 		super(composer);
-
-		if(grid==null)
-			throw new IllegalArgumentException();
-
-		this.grid = grid;
+		this.grid = Objects.requireNonNull(grid);
 		initialiseWidgets();
 	}
 

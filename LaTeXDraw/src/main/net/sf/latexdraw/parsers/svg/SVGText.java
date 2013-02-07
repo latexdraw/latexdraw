@@ -1,6 +1,8 @@
 package net.sf.latexdraw.parsers.svg;
 
 
+import java.util.Objects;
+
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
@@ -38,12 +40,8 @@ public class SVGText extends SVGElement implements Text {
 	 */
 	public SVGText(final String text, final SVGDocument owner) {
 		super();
-
-		if(text==null)
-			throw new IllegalArgumentException();
-
 		ownerDocument = owner;
-		data = text;
+		data = Objects.requireNonNull(text);
 		setNodeName(TEXT_NODE_NAME);
 	}
 

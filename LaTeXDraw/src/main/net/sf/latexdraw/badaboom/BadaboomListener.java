@@ -1,5 +1,7 @@
 package net.sf.latexdraw.badaboom;
 
+import java.util.Objects;
+
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JEditorPane;
 import javax.swing.event.ListSelectionEvent;
@@ -32,15 +34,11 @@ public class BadaboomListener implements ListSelectionListener {
 	/**
 	 * Creates a Border manager listener.
 	 * @param bordelManager The manager to listen.
-	 * @throws IllegalArgumentException If the given manager is null.
+	 * @throws NullPointerException If the given manager is null.
 	 */
 	public BadaboomListener(final BadaboomManager bordelManager) {
 		super();
-
-		if(bordelManager==null)
-			throw new IllegalArgumentException();
-
-		manager = bordelManager;
+		manager = Objects.requireNonNull(bordelManager);
 	}
 
 

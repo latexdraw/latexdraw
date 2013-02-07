@@ -2,6 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.AbstractButton;
 
@@ -133,15 +134,12 @@ public class EditingSelector extends WidgetInstrument {
 							final Border border, final ShapeDeleter deleter, final CodeInserter inserter) {
 		super(composer);
 
-		if(pencil==null || hand==null || metaShapeCustomiser==null || border==null || deleter==null || inserter==null)
-			throw new IllegalArgumentException();
-
-		this.codeInserter		= inserter;
-		this.deleter			= deleter;
-		this.border				= border;
-		this.pencil 			= pencil;
-		this.hand				= hand;
-		this.metaShapeCustomiser= metaShapeCustomiser;
+		this.codeInserter		= Objects.requireNonNull(inserter);
+		this.deleter			= Objects.requireNonNull(deleter);
+		this.border				= Objects.requireNonNull(border);
+		this.pencil 			= Objects.requireNonNull(pencil);
+		this.hand				= Objects.requireNonNull(hand);
+		this.metaShapeCustomiser= Objects.requireNonNull(metaShapeCustomiser);
 
 		initialiseWidgets();
 		initialiseEditingChoiceMap();

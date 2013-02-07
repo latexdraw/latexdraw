@@ -1,6 +1,7 @@
 package net.sf.latexdraw.mapping;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.malai.mapping.IMapping;
 import org.malai.mapping.IUnary;
@@ -43,12 +44,8 @@ public class ShapeList2ExporterMapping implements IMapping {
 	 */
 	public ShapeList2ExporterMapping(final List<IShape> shapes, final Exporter exporter) {
 		super();
-
-		if(shapes==null || exporter==null)
-			throw new IllegalArgumentException();
-
-		this.shapes 	= shapes;
-		this.exporter 	= exporter;
+		this.shapes 	= Objects.requireNonNull(shapes);
+		this.exporter 	= Objects.requireNonNull(exporter);
 	}
 
 
@@ -72,8 +69,8 @@ public class ShapeList2ExporterMapping implements IMapping {
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
 		updateExporter();
 	}
-	
-	
+
+
 	@Override
 	public void onListCleaned(final Object list) {
 		updateExporter();
@@ -99,8 +96,8 @@ public class ShapeList2ExporterMapping implements IMapping {
 	public void onObjectModified(final Object object) {
 		//
 	}
-	
-	
+
+
 	@Override
 	public void init() {
 		updateExporter();

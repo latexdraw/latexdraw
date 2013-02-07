@@ -1,5 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import java.util.Objects;
+
 import javax.swing.JLabel;
 
 import net.sf.latexdraw.actions.ModifyLatexProperties;
@@ -67,10 +69,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 	public DrawingPropertiesCustomiser(final UIComposer<?> composer, final LaTeXGenerator latexGen) {
 		super(composer);
 
-		if(latexGen==null)
-			throw new IllegalArgumentException();
-
-		this.latexGen = latexGen;
+		this.latexGen = Objects.requireNonNull(latexGen);
 		initialiseWidgets();
 	}
 
