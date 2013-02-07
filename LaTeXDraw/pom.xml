@@ -49,7 +49,7 @@
 		        <configuration>
 		          <parallel>methods</parallel>
 		          <threadCount>2</threadCount>
-		          <skipTests>true</skipTests>
+		          <skipTests>false</skipTests>
 		        </configuration>
 		    	<dependencies>
 		      		<dependency>
