@@ -23,7 +23,7 @@ public class TestSVGDocument extends TestCase {
 	@Before
 	public void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
 		doc1 = new SVGDocument();
-		doc2 = new SVGDocument(new URI("src/test/svg/test.svg"));
+		doc2 = new SVGDocument(new URI("src/resources/test/res/test.svg"));
 	}
 
 
@@ -44,7 +44,7 @@ public class TestSVGDocument extends TestCase {
 		catch(MalformedSVGDocument e){ /* ok */ }
 		catch(FileNotFoundException e){ /* ok */ }
 
-		SVGDocument doc = new SVGDocument(new URI("src/test/svg/test.svg"));
+		SVGDocument doc = new SVGDocument(new URI("src/resources/test/res/test.svg"));
 		assertNotNull(doc.getFirstChild());
 		assertNotNull(doc.getLastChild());
 	}
@@ -181,7 +181,7 @@ public class TestSVGDocument extends TestCase {
 		assertTrue(doc1.isEqualNode(doc));
 		assertFalse(doc1.isEqualNode(null));
 		assertFalse(doc1.isEqualNode(doc2));
-		doc = new SVGDocument(new URI("src/test/svg/test.svg"));
+		doc = new SVGDocument(new URI("src/resources/test/res/test.svg"));
 		assertTrue(doc2.isEqualNode(doc));
 		assertFalse(doc2.isEqualNode(null));
 		assertFalse(doc2.isEqualNode(doc1));
