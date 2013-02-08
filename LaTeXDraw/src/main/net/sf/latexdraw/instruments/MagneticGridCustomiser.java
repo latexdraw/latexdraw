@@ -87,7 +87,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	 * @since 3.0
 	 */
 	public static MComboBox<String> createStyleList() {
-		final MComboBox<String> list = new MComboBox<String>();
+		final MComboBox<String> list = new MComboBox<>();
 
 		list.addItem(GridStyle.STANDARD.getLabel());
 		list.addItem(GridStyle.CUSTOMISED.getLabel());

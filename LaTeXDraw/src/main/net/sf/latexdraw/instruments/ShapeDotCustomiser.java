@@ -88,7 +88,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	 * @return The created list.
 	 */
 	public static MComboBox<JLabel> createDotStyleChoice() {
-		final MComboBox<JLabel> dotChoice = new MComboBox<JLabel>();
+		final MComboBox<JLabel> dotChoice = new MComboBox<>();
 
 		dotChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(DotStyle.DOT.toString());

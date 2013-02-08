@@ -130,10 +130,10 @@ public class LCanvas extends MPanel implements ICanvas {
 		magneticGrid 		= new LMagneticGrid(0, 0, this);
 		borderIns			= new Border(this);
 		border				= new Rectangle2D.Double();
-		views 				= new ActiveArrayList<IViewShape>();
-		tooltipableView		= new ArrayList<ToolTipable>();
-		tempView			= new ActiveUnary<IViewShape>();
-		zoom				= new ActiveUnary<Double>(1.);
+		views 				= new ActiveArrayList<>();
+		tooltipableView		= new ArrayList<>();
+		tempView			= new ActiveUnary<>();
+		zoom				= new ActiveUnary<>(1.);
 
 		ActionsRegistry.INSTANCE.addHandler(this);
 		borderIns.addEventable(this);

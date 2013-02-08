@@ -151,7 +151,7 @@ public class EditingSelector extends WidgetInstrument {
 
 
 	private void initialiseEditingChoiceMap() {
-		button2EditingChoiceMap	= new HashMap<MToggleButton, EditionChoice>();
+		button2EditingChoiceMap	= new HashMap<>();
 
 		button2EditingChoiceMap.put(dotB, EditionChoice.DOT);
 		button2EditingChoiceMap.put(textB, EditionChoice.TEXT);

@@ -80,7 +80,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 	public PropertiesToolbarBuilder(final LFrame frame) {
 		super();
 		this.frame 		= frame;
-		mapContainers	= new IdentityHashMap<Component, WidgetMiniToolbar>();
+		mapContainers	= new IdentityHashMap<>();
 	}
 
 

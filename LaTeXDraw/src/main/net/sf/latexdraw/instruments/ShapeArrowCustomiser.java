@@ -141,7 +141,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	 * @return The created list.
 	 */
 	public static MComboBox<JLabel> createRightArrowStyleList() {
-		final MComboBox<JLabel> lineArrowRChoice = new MComboBox<JLabel>();
+		final MComboBox<JLabel> lineArrowRChoice = new MComboBox<>();
 
 		lineArrowRChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(ArrowStyle.NONE.name());
@@ -207,7 +207,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	 * @return The created list.
 	 */
 	public static MComboBox<JLabel> createLeftArrowStyleList() {
-		final MComboBox<JLabel> lineArrowLChoice = new MComboBox<JLabel>();
+		final MComboBox<JLabel> lineArrowLChoice = new MComboBox<>();
 
 		lineArrowLChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(ArrowStyle.NONE.name());

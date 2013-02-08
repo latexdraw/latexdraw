@@ -238,8 +238,8 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 			if(ui!=null) {
 				final Instrument[] ins = ui.getInstruments();
 
-				instrumentsState = new ArrayList<Boolean>();
-				instruments 	 = new ArrayList<Instrument>();
+				instrumentsState = new ArrayList<>();
+				instruments 	 = new ArrayList<>();
 
 				MappingRegistry.REGISTRY.removeMappingsUsingTarget(ui.getExporter(), ShapeList2ExporterMapping.class);
 
@@ -485,19 +485,18 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 			// Creation of the png file with the second picture
 			final ImageWriteParam iwparam = new JPEGImageWriteParam(Locale.getDefault());
 			final ImageWriter iw = ImageIO.getImageWritersByFormatName("png").next();//$NON-NLS-1$
-			ImageOutputStream ios = null;
 
 			iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 			iwparam.setCompressionQuality(1);
 
 			try {
-				ios = ImageIO.createImageOutputStream(templateFile);
-				iw.setOutput(ios);
-				iw.write(null, new IIOImage(bufferImage2, null, null), iwparam);
-				iw.dispose();
+				try(final ImageOutputStream ios = ImageIO.createImageOutputStream(templateFile)){
+					iw.setOutput(ios);
+					iw.write(null, new IIOImage(bufferImage2, null, null), iwparam);
+					iw.dispose();
+				}
 			}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-			try { if(ios!=null) ios.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			graphic.dispose();
 			graphic2.dispose();
 			bufferImage.flush();

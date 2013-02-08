@@ -663,7 +663,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			final List<Double> vals = new ArrayList<Double>();
+			final List<Double> vals = new ArrayList<>();
 			IArrow arr;
 
 			for(final IShape sh : group.getShapes()) {
@@ -708,7 +708,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			final List<Double> vals = new ArrayList<Double>();
+			final List<Double> vals = new ArrayList<>();
 			IArrow arr;
 
 			for(final IShape sh : group.getShapes()) {
@@ -753,7 +753,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			final List<Double> vals = new ArrayList<Double>();
+			final List<Double> vals = new ArrayList<>();
 			IArrow arr;
 
 			for(final IShape sh : group.getShapes()) {
@@ -798,7 +798,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			final List<Double> vals = new ArrayList<Double>();
+			final List<Double> vals = new ArrayList<>();
 			IArrow arr;
 
 			for(final IShape sh : group.getShapes()) {
@@ -843,7 +843,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			final List<Double> vals = new ArrayList<Double>();
+			final List<Double> vals = new ArrayList<>();
 			IArrow arr;
 
 			for(final IShape sh : group.getShapes()) {
@@ -888,7 +888,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			final List<Double> vals = new ArrayList<Double>();
+			final List<Double> vals = new ArrayList<>();
 			IArrow arr;
 
 			for(final IShape sh : group.getShapes()) {
@@ -933,7 +933,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			final List<Double> vals = new ArrayList<Double>();
+			final List<Double> vals = new ArrayList<>();
 			IArrow arr;
 
 			for(final IShape sh : group.getShapes()) {
@@ -978,7 +978,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			final List<Double> vals = new ArrayList<Double>();
+			final List<Double> vals = new ArrayList<>();
 			IArrow arr;
 
 			for(final IShape sh : group.getShapes()) {
@@ -1022,7 +1022,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			final List<Double> vals = new ArrayList<Double>();
+			final List<Double> vals = new ArrayList<>();
 			IArrow arr;
 
 			for(final IShape sh : group.getShapes()) {
@@ -1067,7 +1067,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			final List<Double> vals = new ArrayList<Double>();
+			final List<Double> vals = new ArrayList<>();
 			IArrow arr;
 
 			for(final IShape sh : group.getShapes()) {

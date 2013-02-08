@@ -168,7 +168,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		frameSize 			= new Dimension();
 		frameSize.height 	= 3*Toolkit.getDefaultToolkit().getScreenSize().height/2;
 		frameSize.width 	= 3*Toolkit.getDefaultToolkit().getScreenSize().width/2;
-		recentFilesName  	= new ArrayList<String>();
+		recentFilesName  	= new ArrayList<>();
 		isFrameMaximized 	= false;
 		initialiseWidgets();
 	}
@@ -190,7 +190,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		if(VersionChecker.WITH_UPDATE)
 			checkNewVersion.setSelected(true);
 
-  		langList = new MComboBox<String>();
+  		langList = new MComboBox<>();
   		langList.addItem(LangTool.Lang.CA.getName());
   		langList.addItem(LangTool.Lang.CS.getName());
   		langList.addItem(LangTool.Lang.DE.getName());
@@ -220,7 +220,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		for(int i=0; i<info.length;i++)
   			nameThemes[i] = info[i].getName();
 
-  		themeList = new MComboBox<String>(nameThemes, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1")));
+  		themeList = new MComboBox<>(nameThemes, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1")));
   		themeList.setMaximumSize(new Dimension(160, height));
 
   		classicGridRB  		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.4")); //$NON-NLS-1$
@@ -241,7 +241,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		displayYScaleCB.setSelected(true);
   		displayBordersCB   	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.bordersDraw"));//$NON-NLS-1$
   		displayBordersCB.setSelected(false);
-  		unitChoice 		   	= new MComboBox<String>();
+  		unitChoice 		   	= new MComboBox<>();
   		unitChoice.addItem(Unit.CM.getLabel());
   		unitChoice.addItem(Unit.INCH.getLabel());
   		unitChoice.setMaximumSize(new Dimension(160, height));
@@ -658,138 +658,138 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	 * @since 3.0
 	 */
 	public void writeXMLPreferences() {
-		try {
-			final FileOutputStream fos = new FileOutputStream(LPath.PATH_PREFERENCES_XML_FILE);
-			final Document document 	 = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-	        Element root, elt, elt2;
+		try{
+			try(final FileOutputStream fos = new FileOutputStream(LPath.PATH_PREFERENCES_XML_FILE)) {
+				final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+		        Element root, elt, elt2;
 
-	        document.setXmlVersion("1.0");//$NON-NLS-1$
-	        document.setXmlStandalone(true);
-	        root = document.createElement(LNamespace.XML_ROOT_PREFERENCES);
-	        document.appendChild(root);
+		        document.setXmlVersion("1.0");//$NON-NLS-1$
+		        document.setXmlStandalone(true);
+		        root = document.createElement(LNamespace.XML_ROOT_PREFERENCES);
+		        document.appendChild(root);
 
-	        final Attr attr = document.createAttribute(LNamespace.XML_VERSION);
-	        attr.setTextContent(VersionChecker.VERSION);
-	        root.setAttributeNode(attr);
+		        final Attr attr = document.createAttribute(LNamespace.XML_VERSION);
+		        attr.setTextContent(VersionChecker.VERSION);
+		        root.setAttributeNode(attr);
 
-	        elt = document.createElement(LNamespace.XML_RENDERING);
-	        elt.setTextContent(String.valueOf(renderingCheckBox.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_RENDERING);
+		        elt.setTextContent(String.valueOf(renderingCheckBox.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_COLOR_RENDERING);
-	        elt.setTextContent(String.valueOf(colorRenderCheckBox.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_COLOR_RENDERING);
+		        elt.setTextContent(String.valueOf(colorRenderCheckBox.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_ALPHA_INTER);
-	        elt.setTextContent(String.valueOf(alpaInterCheckBox.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_ALPHA_INTER);
+		        elt.setTextContent(String.valueOf(alpaInterCheckBox.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_ANTI_ALIAS);
-	        elt.setTextContent(String.valueOf(antialiasingCheckBox.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_ANTI_ALIAS);
+		        elt.setTextContent(String.valueOf(antialiasingCheckBox.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_PATH_EXPORT);
-	        elt.setTextContent(pathExportField.getText());
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_PATH_EXPORT);
+		        elt.setTextContent(pathExportField.getText());
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_PATH_OPEN);
-	        elt.setTextContent(pathOpenField.getText());
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_PATH_OPEN);
+		        elt.setTextContent(pathOpenField.getText());
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_DISPLAY_GRID);
-	        elt.setTextContent(String.valueOf(displayGridCB.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_DISPLAY_GRID);
+		        elt.setTextContent(String.valueOf(displayGridCB.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_DISPLAY_X);
-	        elt.setTextContent(String.valueOf(displayXScaleCB.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_DISPLAY_X);
+		        elt.setTextContent(String.valueOf(displayXScaleCB.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_DISPLAY_Y);
-	        elt.setTextContent(String.valueOf(displayYScaleCB.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_DISPLAY_Y);
+		        elt.setTextContent(String.valueOf(displayYScaleCB.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_DRAW_BORDERS);
-	        elt.setTextContent(String.valueOf(displayBordersCB.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_DRAW_BORDERS);
+		        elt.setTextContent(String.valueOf(displayBordersCB.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_UNIT);
-	        elt.setTextContent(unitChoice.getSelectedItem().toString());
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_UNIT);
+		        elt.setTextContent(unitChoice.getSelectedItem().toString());
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_CHECK_VERSION);
-	        elt.setTextContent(String.valueOf(checkNewVersion.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_CHECK_VERSION);
+		        elt.setTextContent(String.valueOf(checkNewVersion.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_LANG);
-	        elt.setTextContent(langList.getSelectedItem().toString());
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_LANG);
+		        elt.setTextContent(langList.getSelectedItem().toString());
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_MAGNETIC_GRID);
-	        elt.setTextContent(String.valueOf(magneticGridCB.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_MAGNETIC_GRID);
+		        elt.setTextContent(String.valueOf(magneticGridCB.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_CLASSIC_GRID);
-	        elt.setTextContent(String.valueOf(classicGridRB.isSelected()));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_CLASSIC_GRID);
+		        elt.setTextContent(String.valueOf(classicGridRB.isSelected()));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_GRID_GAP);
-	        elt.setTextContent(persoGridGapField.getValue().toString());
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_GRID_GAP);
+		        elt.setTextContent(persoGridGapField.getValue().toString());
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_PATH_TEX_EDITOR);
-	        elt.setTextContent(pathTexEditorField.getText());
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_PATH_TEX_EDITOR);
+		        elt.setTextContent(pathTexEditorField.getText());
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_LATEX_INCLUDES);
-	        elt.setTextContent(latexIncludes.getText());
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_LATEX_INCLUDES);
+		        elt.setTextContent(latexIncludes.getText());
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_RECENT_FILES);
-	        elt.setAttribute(LNamespace.XML_NB_RECENT_FILES, nbRecentFilesField.getValue().toString());
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_RECENT_FILES);
+		        elt.setAttribute(LNamespace.XML_NB_RECENT_FILES, nbRecentFilesField.getValue().toString());
+		        root.appendChild(elt);
 
-	        for(final String recentFile : recentFilesName) {
-	            elt2 = document.createElement(LNamespace.XML_RECENT_FILE);
-	            elt2.setTextContent(recentFile);
-	            elt.appendChild(elt2);
-	        }
+		        for(final String recentFile : recentFilesName) {
+		            elt2 = document.createElement(LNamespace.XML_RECENT_FILE);
+		            elt2.setTextContent(recentFile);
+		            elt.appendChild(elt2);
+		        }
 
-	        elt = document.createElement(LNamespace.XML_LAF);
-	        elt.setTextContent(themeList.getSelectedItem().toString());
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_LAF);
+		        elt.setTextContent(themeList.getSelectedItem().toString());
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_MAXIMISED);
-	        elt.setTextContent(String.valueOf(frame.getExtendedState()==Frame.MAXIMIZED_BOTH));
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_MAXIMISED);
+		        elt.setTextContent(String.valueOf(frame.getExtendedState()==Frame.MAXIMIZED_BOTH));
+		        root.appendChild(elt);
 
-	        elt = document.createElement(LNamespace.XML_SIZE);
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_SIZE);
+		        root.appendChild(elt);
 
-	        elt2 = document.createElement(LNamespace.XML_WIDTH);
-	        elt2.setTextContent(String.valueOf(frame.getWidth()));
-	        elt.appendChild(elt2);
+		        elt2 = document.createElement(LNamespace.XML_WIDTH);
+		        elt2.setTextContent(String.valueOf(frame.getWidth()));
+		        elt.appendChild(elt2);
 
-	        elt2 = document.createElement(LNamespace.XML_HEIGHT);
-	        elt2.setTextContent(String.valueOf(frame.getHeight()));
-	        elt.appendChild(elt2);
+		        elt2 = document.createElement(LNamespace.XML_HEIGHT);
+		        elt2.setTextContent(String.valueOf(frame.getHeight()));
+		        elt.appendChild(elt2);
 
-	        elt = document.createElement(LNamespace.XML_POSITION);
-	        root.appendChild(elt);
+		        elt = document.createElement(LNamespace.XML_POSITION);
+		        root.appendChild(elt);
 
-	        elt2 = document.createElement(LNamespace.XML_POSITION_X);
-	        elt2.setTextContent(String.valueOf(frame.getLocation().x));
-	        elt.appendChild(elt2);
+		        elt2 = document.createElement(LNamespace.XML_POSITION_X);
+		        elt2.setTextContent(String.valueOf(frame.getLocation().x));
+		        elt.appendChild(elt2);
 
-	        elt2 = document.createElement(LNamespace.XML_POSITION_Y);
-	        elt2.setTextContent(String.valueOf(frame.getLocation().y));
-	        elt.appendChild(elt2);
+		        elt2 = document.createElement(LNamespace.XML_POSITION_Y);
+		        elt2.setTextContent(String.valueOf(frame.getLocation().y));
+		        elt.appendChild(elt2);
 
-			final Transformer transformer = TransformerFactory.newInstance().newTransformer();
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-			transformer.transform(new DOMSource(document), new StreamResult(fos));
-			fos.close();
-		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
+				final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+				transformer.transform(new DOMSource(document), new StreamResult(fos));
+			}
+		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -818,7 +818,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 			final NodeList nl = node.getChildNodes();
 			String name;
 
-			final Map<String, Node> prefMaps = new HashMap<String, Node>();
+			final Map<String, Node> prefMaps = new HashMap<>();
 
 			for(int i=0, size=nl.getLength(); i<size; i++) {
 				node = nl.item(i);

@@ -87,7 +87,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * @return The created list.
 	 */
 	public static MComboBox<JLabel> createBordersPositionChoice() {
-		final MComboBox<JLabel> dbPositionChoice = new MComboBox<JLabel>();
+		final MComboBox<JLabel> dbPositionChoice = new MComboBox<>();
 		dbPositionChoice.setRenderer(new LabelListCellRenderer());
 
 		JLabel label = new JLabel(BorderPos.INTO.toString());
@@ -112,7 +112,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * @return The created list.
 	 */
 	public static MComboBox<JLabel> createStyleLineChoice() {
-		final MComboBox<JLabel> lineChoice = new MComboBox<JLabel>();
+		final MComboBox<JLabel> lineChoice = new MComboBox<>();
 
 		lineChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(LineStyle.SOLID.toString());

@@ -88,7 +88,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		freeHandType = new MComboBox<JLabel>();
+		freeHandType = new MComboBox<>();
 		freeHandType.setLabel(new JLabel(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.2")));
 		freeHandType.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(IFreehand.FreeHandType.CURVES.toString());

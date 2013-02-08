@@ -10,7 +10,6 @@ import javax.swing.WindowConstants;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.*;
 import net.sf.latexdraw.lang.LangTool;
@@ -302,8 +301,8 @@ public class LFrame extends UI {
 	public void initialisePresentations() {
 		final IDrawing drawing	= DrawingTK.getFactory().createDrawing();
 		final LCanvas canvas	= new LCanvas(drawing);
-		presentations.add(new Presentation<IDrawing, ICanvas>(drawing, canvas));
-		presentations.add(new Presentation<IDrawing, LCodePanel>(drawing, new LCodePanel(drawing, canvas)));
+		presentations.add(new Presentation<>(drawing, canvas));
+		presentations.add(new Presentation<>(drawing, new LCodePanel(drawing, canvas)));
 	}
 
 

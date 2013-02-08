@@ -76,7 +76,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	public ToolbarBuilder(final LFrame frame) {
 		super();
 		this.frame 		= frame;
-		mapContainers	= new IdentityHashMap<Component, WidgetMiniToolbar>();
+		mapContainers	= new IdentityHashMap<>();
 	}
 
 

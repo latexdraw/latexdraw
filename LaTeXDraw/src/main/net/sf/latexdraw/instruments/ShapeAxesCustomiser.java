@@ -122,10 +122,10 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		shapeAxes = new MComboBox<AxesStyle>(AxesStyle.values(), null);
-		shapeTicks = new MComboBox<TicksStyle>(TicksStyle.values(), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.0")));
-		showTicks = new MComboBox<PlottingStyle>(PlottingStyle.values(), new JLabel("Visibility:"));
-		showLabels = new MComboBox<PlottingStyle>(PlottingStyle.values(), new JLabel("Visibility:"));
+		shapeAxes = new MComboBox<>(AxesStyle.values(), null);
+		shapeTicks = new MComboBox<>(TicksStyle.values(), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.0")));
+		showTicks = new MComboBox<>(PlottingStyle.values(), new JLabel("Visibility:"));
+		showLabels = new MComboBox<>(PlottingStyle.values(), new JLabel("Visibility:"));
 		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
 		incrLabelX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.8")));
 		incrLabelY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.9")));

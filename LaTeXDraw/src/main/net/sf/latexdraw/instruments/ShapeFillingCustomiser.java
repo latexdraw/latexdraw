@@ -96,7 +96,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	 * @return A created list.
 	 */
 	public static MComboBox<JLabel> createFillingChoice() {
-		final MComboBox<JLabel> list = new MComboBox<JLabel>();
+		final MComboBox<JLabel> list = new MComboBox<>();
 
 		list.setRenderer(new LabelListCellRenderer());
 

@@ -303,16 +303,14 @@ public class Export extends Action {
 		try {
 			final ImageWriteParam iwparam 	= new JPEGImageWriteParam(Locale.getDefault());
 			final ImageWriter iw 			= ImageIO.getImageWritersByFormatName("jpg").next();//$NON-NLS-1$
-			final ImageOutputStream ios 	= ImageIO.createImageOutputStream(file);
-
-			iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-			iwparam.setCompressionQuality(dialogueBox.getCompressionRate()/100f);
-			iw.setOutput(ios);
-			iw.write(null, new IIOImage(rendImage, null, null), iwparam);
-			iw.dispose();
-			ios.close();
-
-			return true;
+			try(final ImageOutputStream ios = ImageIO.createImageOutputStream(file);){
+				iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+				iwparam.setCompressionQuality(dialogueBox.getCompressionRate()/100f);
+				iw.setOutput(ios);
+				iw.write(null, new IIOImage(rendImage, null, null), iwparam);
+				iw.dispose();
+				return true;
+			}
 	    }
 		catch(IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		return false;
@@ -368,28 +366,20 @@ public class Export extends Action {
 	 * @return true if the PST document was been successfully created.
 	 */
 	protected boolean exportAsPST(final File file) {
-		PrintWriter out = null;
 		boolean ok;
 
 		try {
-			final FileWriter fw 	= new FileWriter(file);
-			final BufferedWriter bw = new BufferedWriter(fw);
-			out  					= new PrintWriter(bw);
-
-			out.println(LaTeXGenerator.getLatexDocument(canvas.getDrawing(), canvas));
-			out.close();
-			bw.close();
-			fw.close();
-			ok = true;
+			try(final FileWriter fw 	= new FileWriter(file);
+				final BufferedWriter bw = new BufferedWriter(fw);
+				final PrintWriter out 	= new PrintWriter(bw);) {
+				out.println(LaTeXGenerator.getLatexDocument(canvas.getDrawing(), canvas));
+				ok = true;
+			}
 		}
 		catch(final IOException e) {
 			BadaboomCollector.INSTANCE.add(e);
 			ok = false;
 		}
-
-		if(out!=null)
-			out.close();
-
 		return ok;
 	}
 
@@ -406,15 +396,13 @@ public class Export extends Action {
 		try {
 			final ImageWriteParam iwparam	= new BMPImageWriteParam();
 			final ImageWriter iw			= ImageIO.getImageWritersByFormatName("bmp").next();//$NON-NLS-1$
-			final ImageOutputStream ios		= ImageIO.createImageOutputStream(file);
-
-			iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-			iw.setOutput(ios);
-			iw.write(null, new IIOImage(rendImage, null, null), iwparam);
-			iw.dispose();
-			ios.close();
-
-			return true;
+			try(final ImageOutputStream ios	= ImageIO.createImageOutputStream(file);) {
+				iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+				iw.setOutput(ios);
+				iw.write(null, new IIOImage(rendImage, null, null), iwparam);
+				iw.dispose();
+				return true;
+			}
 	    }
 		catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		return false;
