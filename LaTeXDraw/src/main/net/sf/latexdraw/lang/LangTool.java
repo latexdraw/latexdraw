@@ -1,7 +1,9 @@
 package net.sf.latexdraw.lang;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -442,10 +444,10 @@ public final class LangTool {
 	 */
 	public Lang readLang() {
 		try {
-			final File xml = new File(LPath.PATH_PREFERENCES_XML_FILE);
+			final Path xml = Paths.get(LPath.PATH_PREFERENCES_XML_FILE);
 
-			if(xml.exists()) {
-	            final Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml).getFirstChild();
+			if(Files.exists(xml)) {
+	            final Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(Files.newInputStream(xml)).getFirstChild();
 	            NodeList nl;
 
 	            if(node!=null && node.getNodeName().equals(LNamespace.XML_ROOT_PREFERENCES)) {
