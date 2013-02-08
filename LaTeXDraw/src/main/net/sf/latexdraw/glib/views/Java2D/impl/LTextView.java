@@ -184,20 +184,17 @@ class LTextView extends LShapeView<IText> implements IViewText {
 			final String code = shape.getText();
 
 			if(code!=null && !code.isEmpty()) {
-				final File tmpDir 			= LFileUtils.INSTANCE.createTempDir();
+				final File tmpDir 		= LFileUtils.INSTANCE.createTempDir();
 				final String doc      	= getLaTeXDocument();
 				pathPic					= tmpDir.getAbsolutePath() + LResources.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis(); //$NON-NLS-1$
 				final String pathTex  	= pathPic + TeXFilter.TEX_EXTENSION;
-				final FileOutputStream fos 	= new FileOutputStream(pathTex);
-				final OutputStreamWriter osw= new OutputStreamWriter(fos);
-				RandomAccessFile raf = null;
-				FileChannel fc = null;
 				final OperatingSystem os = LSystem.INSTANCE.getSystem();
 
 				try {
-					osw.append(doc);
-					try{ osw.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-					try{ fos.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+					try(final FileOutputStream fos 	= new FileOutputStream(pathTex);
+						final OutputStreamWriter osw= new OutputStreamWriter(fos)){
+						osw.append(doc);
+					}
 
 					boolean ok = execute(new String[]{os.getLatexBinPath(), "--halt-on-error", "--interaction=nonstopmode", "--output-directory=" + tmpDir.getAbsolutePath(), pathTex}); //$NON-NLS-1$ //$NON-NLS-2$
 					new File(pathTex).delete();
@@ -213,31 +210,27 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 					if(ok)
 						try {
-							raf = new RandomAccessFile(new File(pathPic+PDFFilter.PDF_EXTENSION), "r");
-							fc = raf.getChannel();
-							final PDFFile pdfFile = new PDFFile(fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()));
+							try(RandomAccessFile raf = new RandomAccessFile(new File(pathPic+PDFFilter.PDF_EXTENSION), "r");
+								FileChannel fc = raf.getChannel()){
+								final PDFFile pdfFile = new PDFFile(fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()));
 
-							if(pdfFile.getNumPages()==1) {
-								final PDFPage page 		= pdfFile.getPage(1);
-								final Rectangle2D bound = page.getBBox();
-							    final Image img 		= page.getImage((int)bound.getWidth(), (int)bound.getHeight(), bound, null, false, true);
+								if(pdfFile.getNumPages()==1) {
+									final PDFPage page 		= pdfFile.getPage(1);
+									final Rectangle2D bound = page.getBBox();
+								    final Image img 		= page.getImage((int)bound.getWidth(), (int)bound.getHeight(), bound, null, false, true);
 
-							    if(img instanceof BufferedImage)
-								    bi = ImageCropper.cropImage((BufferedImage)img);
+								    if(img instanceof BufferedImage)
+									    bi = ImageCropper.cropImage((BufferedImage)img);
 
-							    if(img!=null)
-							    	img.flush();
+								    if(img!=null)
+								    	img.flush();
+								}
+								else BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
+
+								new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
 							}
-							else BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages()));
-
-							new File(pathPic + PDFFilter.PDF_EXTENSION).delete();
 						}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 				}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-
-				try { if(fc!=null) fc.close(); }catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-				try { if(raf!=null) raf.close(); }catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-				try{ osw.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-				try{ fos.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			}
 		}
 		catch(final Exception e) {

@@ -525,17 +525,16 @@ public class SVGDocument implements Document {
 		boolean ok = true;
 
 		try {
-			final FileOutputStream fos  = new FileOutputStream(path);
-	        final OutputFormat of		= new OutputFormat(this);
-	        final XMLSerializer xmls;
+			try(final FileOutputStream fos  = new FileOutputStream(path)){
+		        final OutputFormat of = new OutputFormat(this);
+		        final XMLSerializer xmls;
 
-	        of.setIndenting(true);
-	        xmls = new XMLSerializer(fos, of);
+		        of.setIndenting(true);
+		        xmls = new XMLSerializer(fos, of);
 
-	        try { xmls.serialize(getDocumentElement()); }
-	        catch(final IOException ex) { ok = false; }
-
-	        try { fos.close(); } catch(final IOException ex) { ok = false; }
+		        try { xmls.serialize(getDocumentElement()); }
+		        catch(final IOException ex) { ok = false; }
+			}
 		}catch(final IOException e) { ok = false; }
 
         return ok;

@@ -43,7 +43,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	 */
 	private BadaboomCollector() {
 		super();
-		handlers = new ArrayList<BadaboomHandler>();
+		handlers = new ArrayList<>();
 		ErrorCatcher.INSTANCE.setNotifier(this);
 	}
 

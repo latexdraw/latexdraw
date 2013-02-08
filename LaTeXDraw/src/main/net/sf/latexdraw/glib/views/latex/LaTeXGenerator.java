@@ -52,7 +52,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * The latex packages used when exporting using latex.
 	 * These packages are defined for the current document but not for all documents.
 	 */
-	protected static final IUnary<String> PACKAGES = new ActiveUnary<String>("");
+	protected static final IUnary<String> PACKAGES = new ActiveUnary<>("");
 
 
 
@@ -419,19 +419,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		boolean ok = true;
 
-		FileOutputStream fos = null;
-		OutputStreamWriter osw = null;
-
 		try {
-			fos = new FileOutputStream(pathExportTex);
-			osw = new OutputStreamWriter(fos);
+			try(FileOutputStream fos = new FileOutputStream(pathExportTex);
+				OutputStreamWriter osw = new OutputStreamWriter(fos)){
+				osw.append(getLatexDocument(drawing, synchronizer));
+			}
 		} catch(final IOException ex) { ok = false; }
-
-		try { if(osw!=null) osw.append(getLatexDocument(drawing, synchronizer)); } catch(final IOException ex) { ok = false; }
-		try { if(osw!=null) osw.flush();     } catch(final IOException ex) { ok = false; }
-		try { if(osw!=null) osw.close();     } catch(final IOException ex) { ok = false; }
-		try { if(fos!=null) fos.flush();     } catch(final IOException ex) { ok = false; }
-		try { if(fos!=null) fos.close();     } catch(final IOException ex) { ok = false; }
 
 		return ok ? new File(pathExportTex) : null;
 	}

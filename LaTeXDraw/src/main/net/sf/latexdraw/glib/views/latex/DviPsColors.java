@@ -191,15 +191,15 @@ public final class DviPsColors  {
 
 	public static final DviPsColors INSTANCE 	= new DviPsColors();
 
-	private Map<String, Color> colourHT 		= new HashMap<String, Color>();
+	private Map<String, Color> colourHT 		= new HashMap<>();
 
-	private Map<Color, String> nameColourHT 	= new HashMap<Color, String>();
-	
+	private Map<Color, String> nameColourHT 	= new HashMap<>();
+
 	/** The colours defined by the user and their name. */
-	private Map<String, Color> userColourHT 		= new HashMap<String, Color>();
-	
+	private Map<String, Color> userColourHT 		= new HashMap<>();
+
 	/** The colours defined by the user and their name. */
-	private Map<Color, String> userNameColourHT 	= new HashMap<Color, String>();
+	private Map<Color, String> userNameColourHT 	= new HashMap<>();
 
 	/** The counter is used to name the user defined colours. */
 	private int ctColours;
@@ -436,7 +436,7 @@ public final class DviPsColors  {
 		if(name==null || name.length()==0) return null;
 
 		Color c = colourHT.get(name);
-		
+
 		if(c==null)
 			c = userColourHT.get(name);
 

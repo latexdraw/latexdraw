@@ -77,7 +77,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 		// Creation of the views of the arrows of the shape.
 		if(model.isArrowable()) {
-			arrows = new ArrayList<IViewArrow>();
+			arrows = new ArrayList<>();
 
 			for(final IArrow arrow : shape.getArrows())
 				arrows.add(new LArrowView(arrow));

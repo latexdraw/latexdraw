@@ -36,7 +36,7 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 	 * @since 0.1
 	 */
 	public SVGNamedNodeMap() {
-		nnm = new ArrayList<SVGAttr>();
+		nnm = new ArrayList<>();
 	}
 
 
@@ -130,7 +130,7 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 		try {
 			SVGNamedNodeMap clone = (SVGNamedNodeMap)super.clone();
 			//TODO: see if the ArrayList creation is useful.
-			clone.nnm = new ArrayList<SVGAttr>();
+			clone.nnm = new ArrayList<>();
 
 			for(SVGAttr attr : nnm)
 				clone.nnm.add((SVGAttr)attr.cloneNode(false));

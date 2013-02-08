@@ -48,22 +48,18 @@ public class StreamExecReader extends Thread {
 
 	@Override
 	public void run() {
-		final InputStreamReader isr = new InputStreamReader(stream);
-        final BufferedReader br = new BufferedReader(isr);
+		try {
+			try(final InputStreamReader isr = new InputStreamReader(stream);
+				final BufferedReader br = new BufferedReader(isr)){
+		        log = new StringBuilder();
+		        String line = br.readLine();
 
-        log = new StringBuilder();
-
-        try {
-	        String line = br.readLine();
-
-	        while(line != null) {
-	            log.append(line).append(LResources.EOL);
-	            line = br.readLine();
-	        }
+		        while(line != null) {
+		            log.append(line).append(LResources.EOL);
+		            line = br.readLine();
+		        }
+			}
         }catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-
-        try { br.close(); } catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-        try { isr.close(); } catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 	}
 
 

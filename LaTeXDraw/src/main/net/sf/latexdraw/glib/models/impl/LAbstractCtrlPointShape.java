@@ -48,8 +48,8 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	public LAbstractCtrlPointShape(final boolean uniqueID) {
 		super(uniqueID);
 
-		firstCtrlPts  = new ArrayList<IPoint>();
-		secondCtrlPts = new ArrayList<IPoint>();
+		firstCtrlPts  = new ArrayList<>();
+		secondCtrlPts = new ArrayList<>();
 		balanceGap	  = DEFAULT_BALANCE_GAP;
 	}
 

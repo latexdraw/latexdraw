@@ -213,8 +213,8 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		final double thickness = 3.;
 		final double height = 10.;
 		final double dble = 1.;
-		List<Double> xs = new ArrayList<Double>();
-		List<Double> ys = new ArrayList<Double>();
+		List<Double> xs = new ArrayList<>();
+		List<Double> ys = new ArrayList<>();
 
 		model.setPosition(-10, 20);
 		model.setWidth(100);
@@ -278,8 +278,8 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		final double thickness = 3.;
 		final double height = 10.;
 		final double dble = 1.;
-		List<Double> xs = new ArrayList<Double>();
-		List<Double> ys = new ArrayList<Double>();
+		List<Double> xs = new ArrayList<>();
+		List<Double> ys = new ArrayList<>();
 
 		model.setPosition(-10, 20);
 		model.setWidth(100);
@@ -343,8 +343,8 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		final double thickness = 3.;
 		final double height = 10.;
 		final double dble = 1.;
-		List<Double> xs = new ArrayList<Double>();
-		List<Double> ys = new ArrayList<Double>();
+		List<Double> xs = new ArrayList<>();
+		List<Double> ys = new ArrayList<>();
 
 		model.setPosition(-10, 20);
 		model.setWidth(100);
@@ -407,8 +407,8 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		double[] coords = new double[6];
 		final double thickness = 3.;
 		final double height = 5.;
-		List<Double> xs = new ArrayList<Double>();
-		List<Double> ys = new ArrayList<Double>();
+		List<Double> xs = new ArrayList<>();
+		List<Double> ys = new ArrayList<>();
 
 		model.setPosition(-10, 20);
 		model.setWidth(100);
@@ -469,8 +469,8 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		double[] coords = new double[6];
 		final double thickness = 3.;
 		final double height = 5.;
-		List<Double> xs = new ArrayList<Double>();
-		List<Double> ys = new ArrayList<Double>();
+		List<Double> xs = new ArrayList<>();
+		List<Double> ys = new ArrayList<>();
 
 		model.setPosition(-10, 20);
 		model.setWidth(100);
@@ -531,8 +531,8 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		double[] coords = new double[6];
 		final double thickness = 3.;
 		final double height = 5.;
-		List<Double> xs = new ArrayList<Double>();
-		List<Double> ys = new ArrayList<Double>();
+		List<Double> xs = new ArrayList<>();
+		List<Double> ys = new ArrayList<>();
 
 		model.setPosition(-10, 20);
 		model.setWidth(100);

@@ -70,7 +70,7 @@ class LAxes extends LAbstractGrid implements IAxes {
 	protected LAxes(final boolean isUniqueID, final IPoint pt) {
 		super(isUniqueID, pt);
 
-		arrows			= new ArrayList<IArrow>();
+		arrows			= new ArrayList<>();
 		showOrigin		= true;
 		ticksSize		= PSTricksConstants.DEFAULT_TICKS_SIZE*PPC;
 		ticksDisplayed	= PlottingStyle.ALL;

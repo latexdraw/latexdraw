@@ -35,7 +35,7 @@ class LPolyline extends LPolygon implements IPolyline {
 	protected LPolyline(final boolean uniqueID) {
 		super(uniqueID);
 
-		arrows = new ArrayList<IArrow>();
+		arrows = new ArrayList<>();
 		arrows.add(new LArrow(this));
 		arrows.add(new LArrow(this));
 	}

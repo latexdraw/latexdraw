@@ -4,11 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * Defines some workarounds to deal with the problem of the renameto function.
@@ -78,31 +74,21 @@ public final class LFileUtils {
 			return false;
 
 		boolean ok = true;
-		FileInputStream in = null;
-    	FileOutputStream out = null;
-    	BufferedInputStream inBuffer = null;
-    	BufferedOutputStream outBuffer = null;
 
-		try {//TODO JAVA7
-	    	in 	= new FileInputStream(fromFile);
-	    	out = new FileOutputStream(toFile);
-	    	inBuffer = new BufferedInputStream(in);
-	    	outBuffer= new BufferedOutputStream(out);
+		try {
+	    	try(FileInputStream in 	= new FileInputStream(fromFile);
+    			FileOutputStream out = new FileOutputStream(toFile);
+    			BufferedInputStream inBuffer = new BufferedInputStream(in);
+    			BufferedOutputStream outBuffer= new BufferedOutputStream(out)){
 
-	    	int theByte = inBuffer.read();
+		    	int theByte = inBuffer.read();
 
-	    	while(theByte > -1){
-	    		outBuffer.write(theByte);
-	    		theByte = inBuffer.read();
+		    	while(theByte > -1){
+		    		outBuffer.write(theByte);
+		    		theByte = inBuffer.read();
+		    	}
 	    	}
-
-		}catch(final FileNotFoundException ex) { ok = false; }
-		catch(final IOException ex) { ok = false; }
-
-    	try{ if(outBuffer!=null) outBuffer.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
-    	try{ if(inBuffer!=null) inBuffer.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
-		try{ if(out!=null) out.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
-		try{ if(in!=null) in.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); ok = false; }
+		}catch(final Exception ex) { ok = false; }
 
     	// cleanup if files are not the same length
     	if(fromFile.length() != toFile.length()) {

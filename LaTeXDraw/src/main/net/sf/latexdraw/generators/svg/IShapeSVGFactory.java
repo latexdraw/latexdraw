@@ -1,19 +1,8 @@
 package net.sf.latexdraw.generators.svg;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.parsers.svg.SVGCircleElement;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGEllipseElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGImageElement;
-import net.sf.latexdraw.parsers.svg.SVGLineElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.SVGPolyLineElement;
-import net.sf.latexdraw.parsers.svg.SVGPolygonElement;
-import net.sf.latexdraw.parsers.svg.SVGRectElement;
-import net.sf.latexdraw.parsers.svg.SVGTextElement;
+import net.sf.latexdraw.parsers.svg.*;
 import net.sf.latexdraw.util.LNamespace;
 
 /**
@@ -71,7 +60,7 @@ public final class IShapeSVGFactory {
 			if(elt instanceof SVGRectElement)
 				return new LRectangleSVGGenerator((SVGRectElement)elt).getShape();
 			else if(elt instanceof SVGEllipseElement)
-				return new LEllipseSVGGenerator<IEllipse>((SVGEllipseElement)elt).getShape();
+				return new LEllipseSVGGenerator<>((SVGEllipseElement)elt).getShape();
 			else if(elt instanceof SVGCircleElement)
 				return new LCircleSVGGenerator((SVGCircleElement)elt).getShape();
 			else if(elt instanceof SVGPolygonElement)
@@ -114,7 +103,7 @@ public final class IShapeSVGFactory {
 					if(type.equals(LNamespace.XML_TYPE_RECT))
 						return new LRectangleSVGGenerator((SVGGElement)elt, withTransformations).getShape();
 					else if(type.equals(LNamespace.XML_TYPE_ELLIPSE))
-						return new LEllipseSVGGenerator<IEllipse>((SVGGElement)elt, withTransformations).getShape();
+						return new LEllipseSVGGenerator<>((SVGGElement)elt, withTransformations).getShape();
 					else if(type.equals(LNamespace.XML_TYPE_CIRCLE))
 						return new LCircleSVGGenerator((SVGGElement)elt, withTransformations).getShape();
 					else if(type.equals(LNamespace.XML_TYPE_POLYGON))

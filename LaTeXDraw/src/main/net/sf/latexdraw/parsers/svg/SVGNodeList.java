@@ -35,7 +35,7 @@ public class SVGNodeList implements NodeList {
 	 * The constructor by default.
 	 */
 	public SVGNodeList() {
-		nodes = new ArrayList<SVGElement>();
+		nodes = new ArrayList<>();
 	}
 
 

@@ -160,7 +160,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 		titleField = new MTextField();
 		labelField = new MTextField();
 		middleHorizPosCB = new MCheckBox("Centred");
-		positionCB = new MComboBox<VerticalPosition>(VerticalPosition.values(), new JLabel("Position:"));
+		positionCB = new MComboBox<>(VerticalPosition.values(), new JLabel("Position:"));
 	}
 
 

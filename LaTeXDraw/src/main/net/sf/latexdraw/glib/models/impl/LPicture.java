@@ -119,14 +119,13 @@ class LPicture extends LPositionShape implements IPicture {
 		// Within jlibeps, graphics are defined using 72 DPI (72/2.54=28,3465 PPC), but latexdraw uses 50 PPC.
 		// That's why, we need the scale the graphics to have a 50 PPC eps picture.
 		double scale = 72. / PSTricksConstants.INCH_VAL_CM / IShape.PPC;// 72 DPI / 2.54 / 50 PPC
-		FileOutputStream finalImage = new FileOutputStream(file);
-		EpsGraphics2D g = new EpsGraphics2D("LaTeXDrawPicture", finalImage, 0, 0, (int)(getWidth()*scale), (int)(getHeight()*scale));//$NON-NLS-1$
-
-		g.scale(scale, scale);
-		g.drawImage(image, 0, 0, null);
-		g.flush();
-		g.close();
-		finalImage.close();
+		try(FileOutputStream finalImage = new FileOutputStream(file)){
+			EpsGraphics2D g = new EpsGraphics2D("LaTeXDrawPicture", finalImage, 0, 0, (int)(getWidth()*scale), (int)(getHeight()*scale));//$NON-NLS-1$
+			g.scale(scale, scale);
+			g.drawImage(image, 0, 0, null);
+			g.flush();
+			g.close();
+		}
 	}
 
 

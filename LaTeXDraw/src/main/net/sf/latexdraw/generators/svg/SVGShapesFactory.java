@@ -85,7 +85,7 @@ public final class SVGShapesFactory {
 		cmd = new CreateViewSVGCmd(cmd, IRhombus.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LRhombusSVGGenerator((IRhombus)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, ITriangle.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LTriangleSVGGenerator((ITriangle)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, IGroup.class) 		{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LGroupSVGGenerator((IGroup)shape).toSVG(doc); } };
-		cmd = new CreateViewSVGCmd(cmd, IEllipse.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LEllipseSVGGenerator<IEllipse>((IEllipse)shape).toSVG(doc); } };
+		cmd = new CreateViewSVGCmd(cmd, IEllipse.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LEllipseSVGGenerator<>((IEllipse)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, ICircleArc.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LCircleArcSVGGenerator((ICircleArc)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, ICircle.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LCircleSVGGenerator((ICircle)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, IRectangle.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LRectangleSVGGenerator((IRectangle)shape).toSVG(doc); } };

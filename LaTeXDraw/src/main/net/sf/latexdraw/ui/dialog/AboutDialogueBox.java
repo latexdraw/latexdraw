@@ -84,23 +84,20 @@ public class AboutDialogueBox extends JFrame {
 	 */
 	private void setTextToEditorPane(final JEditorPane editor, final String path) {
 		try {
-			final InputStream is = getClass().getResourceAsStream(path);
+			try(final InputStream is = getClass().getResourceAsStream(path);
 			final Reader reader = new InputStreamReader(is, "UTF-8");//$NON-NLS-1$
-			final BufferedReader br = new BufferedReader(reader);
-			final StringBuilder txt = new StringBuilder();
-	        String line = br.readLine();
+			final BufferedReader br = new BufferedReader(reader)){
+				final StringBuilder txt = new StringBuilder();
+		        String line = br.readLine();
 
-	        while(line != null) {
-	        	txt.append(line).append(LResources.EOL);
-	            line = br.readLine();
-	        }
+		        while(line != null) {
+		        	txt.append(line).append(LResources.EOL);
+		            line = br.readLine();
+		        }
 
-	        try { br.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-	        try { reader.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-	        try { is.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-
-	        editor.setContentType("text/plain");//$NON-NLS-1$
-	        editor.setText(txt.toString());
+		        editor.setContentType("text/plain");//$NON-NLS-1$
+		        editor.setText(txt.toString());
+			}
 		}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 	}
 

@@ -105,7 +105,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		final IPoint tl 	  	= handler.getTopRightDrawingPoint();
 		final IPoint br 	  	= handler.getBottomLeftDrawingPoint();
 		final int ppc 	  		= handler.getPPCDrawing();
-		final Map<String, String> addedColours = new HashMap<String, String>();
+		final Map<String, String> addedColours = new HashMap<>();
 		final StringBuilder shapeCode = new StringBuilder();
 		boolean hasBeginFigure;
 

@@ -63,7 +63,7 @@ public class PSFunctionParser {
 		if(fct==null || fct.length()==0)
 			throw new IllegalArgumentException();
 
-		commands = new ArrayList<PSArithemticCommand>();
+		commands = new ArrayList<>();
 		function = fct;
 
 		parseFunction();
@@ -77,7 +77,7 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 */
 	public double getY(final double x) throws InvalidFormatPSFunctionException {
-		Deque<String> stack = new ArrayDeque<String>();
+		Deque<String> stack = new ArrayDeque<>();
 
 		for(PSArithemticCommand cmd : commands)
 			cmd.execute(stack, x);

@@ -53,7 +53,7 @@ class LGroupView extends LShapeView<IGroup> {
 	protected LGroupView(final IGroup model) {
 		super(model);
 
-		views = new ArrayList<IViewShape>();
+		views = new ArrayList<>();
 
 		for(IShape s : model.getShapes())
 			views.add(View2DTK.getFactory().createView(s));

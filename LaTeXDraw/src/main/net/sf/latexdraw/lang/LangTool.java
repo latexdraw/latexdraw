@@ -267,7 +267,7 @@ public final class LangTool {
 	private static final Lang LANG_CURRENT = INSTANCE.readLang();
 
 	/** This map provides an easy access to the language items. */
-	private Map<String, Lang> mapLangs = new HashMap<String, Lang>();
+	private Map<String, Lang> mapLangs = new HashMap<>();
 
 	static {
 		final String token = LangTool.getCurrentLanguage().getToken();

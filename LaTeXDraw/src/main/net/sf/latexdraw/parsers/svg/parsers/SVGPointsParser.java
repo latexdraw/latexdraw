@@ -39,7 +39,7 @@ public class SVGPointsParser extends AbstractSVGParser {
 	public SVGPointsParser(final String code) {
 		super(code);
 
-		points = new ArrayList<Point2D>();
+		points = new ArrayList<>();
 	}
 
 

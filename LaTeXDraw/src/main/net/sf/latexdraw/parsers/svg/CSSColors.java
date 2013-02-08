@@ -637,9 +637,9 @@ public final class CSSColors {
 	private CSSColors() {
 		super();
 
-		colourHashtable 	= new HashMap<String, Color>();
-		nameColourHashtable = new HashMap<Color, String>();
-		userColours			= new HashMap<String, Color>();
+		colourHashtable 	= new HashMap<>();
+		nameColourHashtable = new HashMap<>();
+		userColours			= new HashMap<>();
 
 		createColourHashTable();
 		createNameColourHashTable();

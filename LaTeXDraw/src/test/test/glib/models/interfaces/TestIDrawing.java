@@ -249,7 +249,7 @@ public abstract class TestIDrawing extends TestCase {
 
 	@Test
 	public void testSetSelectionList() {
-		List<IShape> list = new ArrayList<IShape>();
+		List<IShape> list = new ArrayList<>();
 		IGroup selection  = drawing.getSelection();
 		IShape sh = DrawingTK.getFactory().createRectangle(false);
 		IShape sh2;
@@ -260,7 +260,7 @@ public abstract class TestIDrawing extends TestCase {
 		assertEquals(1, drawing.getSelection().size());
 		assertEquals(sh, drawing.getSelection().getShapeAt(0));
 
-		list = new ArrayList<IShape>();
+		list = new ArrayList<>();
 		sh   = DrawingTK.getFactory().createRectangle(false);
 		sh2  = DrawingTK.getFactory().createRectangle(false);
 		list.add(sh);
@@ -324,7 +324,7 @@ public abstract class TestIDrawing extends TestCase {
 	public void testAddToSelectionList() {
 		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
 		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		List<IShape> list = new ArrayList<IShape>();
+		List<IShape> list = new ArrayList<>();
 		IGroup selection = drawing.getSelection();
 
 		list.add(sh1);

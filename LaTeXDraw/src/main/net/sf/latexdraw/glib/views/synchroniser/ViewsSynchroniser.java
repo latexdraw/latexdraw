@@ -50,7 +50,7 @@ public abstract class ViewsSynchroniser {
 		super();
 		handler      = Objects.requireNonNull(h);
 		this.drawing = Objects.requireNonNull(drawing);
-		viewsCode    = new HashMap<IShape, AbstractCodeView<?>>();
+		viewsCode    = new HashMap<>();
 	}
 
 

@@ -59,7 +59,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	protected void addColour(final String name) {
 		if(name!=null) {
 			if(coloursName==null)
-				coloursName = new HashSet<String>();
+				coloursName = new HashSet<>();
 			if(!coloursName.contains(name))
 				coloursName.add(name);
 		}

@@ -54,13 +54,13 @@ public class LViewsFactory implements IViewsFactory {
 		cmd = new CreateView2DCmd(cmd, IGrid.class)		{ @Override public IViewShape create(final IShape shape) { return new LGridView((IGrid)shape); } };
 		cmd = new CreateView2DCmd(cmd, IAxes.class)		{ @Override public IViewShape create(final IShape shape) { return new LAxesView((IAxes)shape); } };
 		cmd = new CreateView2DCmd(cmd, IBezierCurve.class){ @Override public IViewShape create(final IShape shape) { return new LBezierCurveView((IBezierCurve)shape); } };
-		cmd = new CreateView2DCmd(cmd, IPolygon.class) 	{ @Override public IViewShape create(final IShape shape) { return new LPolygonView<IPolygon>((IPolygon)shape); } };
+		cmd = new CreateView2DCmd(cmd, IPolygon.class) 	{ @Override public IViewShape create(final IShape shape) { return new LPolygonView<>((IPolygon)shape); } };
 		// All the commands of the chain of responsibility are chained together.
 		cmd = new CreateView2DCmd(cmd, IPolyline.class) 	{ @Override public IViewShape create(final IShape shape) { return new LPolylineView((IPolyline)shape); } };
 		cmd = new CreateView2DCmd(cmd, IRhombus.class) 	{ @Override public IViewShape create(final IShape shape) { return new LRhombusView((IRhombus)shape); } };
 		cmd = new CreateView2DCmd(cmd, ITriangle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LTriangleView((ITriangle)shape); } };
-		cmd = new CreateView2DCmd(cmd, IEllipse.class) 	{ @Override public IViewShape create(final IShape shape) { return new LEllipseView<IEllipse>((IEllipse)shape); } };
-		cmd = new CreateView2DCmd(cmd, IArc.class) 		{ @Override public IViewShape create(final IShape shape) { return new LArcView<ICircleArc>((IArc)shape); } };
+		cmd = new CreateView2DCmd(cmd, IEllipse.class) 	{ @Override public IViewShape create(final IShape shape) { return new LEllipseView<>((IEllipse)shape); } };
+		cmd = new CreateView2DCmd(cmd, IArc.class) 		{ @Override public IViewShape create(final IShape shape) { return new LArcView<>((IArc)shape); } };
 		cmd = new CreateView2DCmd(cmd, ICircleArc.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleArcView((ICircleArc)shape); } };
 		cmd = new CreateView2DCmd(cmd, ICircle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleView((ICircle)shape); } };
 		cmd = new CreateView2DCmd(cmd, IText.class) 		{ @Override public IViewShape create(final IShape shape) { return new LTextView((IText)shape); } };

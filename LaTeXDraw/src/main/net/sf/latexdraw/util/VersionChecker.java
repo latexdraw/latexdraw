@@ -10,8 +10,6 @@ import java.util.Objects;
 
 import javax.swing.JLabel;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-
 /**
  * This class allows to check if a new version of LaTeXDraw is out. This class is a child of Thread
  * to avoid a freeze when the application starts.<br>
@@ -73,29 +71,18 @@ public class VersionChecker extends Thread {
   	 * Checks if a new version of latexdraw is out.
   	 */
 	protected void checkNewVersion() {
-		InputStream is=null;
-		DataInputStream dis=null;
-		InputStreamReader isr=null;
-		BufferedReader br=null;
-
 		try {
-			is  = new URL(PATH_MSG).openStream();
-			dis = new DataInputStream(is);
-  			isr = new InputStreamReader(dis);
-  			br 	= new BufferedReader(isr);
+			try(InputStream is  = new URL(PATH_MSG).openStream();
+				DataInputStream dis = new DataInputStream(is);
+				InputStreamReader isr = new InputStreamReader(dis);
+				BufferedReader br 	= new BufferedReader(isr)){
+	  			final String line = br.readLine();
+				final String[] div = line==null ? null : line.split("_"); //$NON-NLS-1$
 
-  			final String line = br.readLine();
-			final String[] div = line==null ? null : line.split("_"); //$NON-NLS-1$
-
-			if(div!=null && div.length>3 && div[3].compareTo(VERSION)>0)
-				notificationTextField.setText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" +
-											"Version" + ' ' + div[3]+ ' ' + "available!" + "</html>");
+				if(div!=null && div.length>3 && div[3].compareTo(VERSION)>0)
+					notificationTextField.setText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" +
+												"Version" + ' ' + div[3]+ ' ' + "available!" + "</html>");
+			}
 		}catch(final IOException e) { /* Nothing to do. */ }
-		finally {
-			if(is!=null) try{ is.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-			if(dis!=null) try{ dis.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-			if(isr!=null) try{ isr.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-			if(br!=null) try{ br.close(); } catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
-		}
   	}
 }

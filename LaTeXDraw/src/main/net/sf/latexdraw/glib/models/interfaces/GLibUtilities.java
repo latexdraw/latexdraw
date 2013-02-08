@@ -118,8 +118,8 @@ public final class GLibUtilities {
 			return new double[]{Math.min(x1, x2), Math.min(y1, y2), Math.max(x1, x2), Math.max(y1, y2)};
 		}
 
-		List<IPoint> left  = new ArrayList<IPoint>();
-		List<IPoint> right = new ArrayList<IPoint>();
+		List<IPoint> left  = new ArrayList<>();
+		List<IPoint> right = new ArrayList<>();
 
 		IShapeFactory factory = DrawingTK.getFactory();
 		IPoint l1 = factory.createPoint(), l2 = factory.createPoint();

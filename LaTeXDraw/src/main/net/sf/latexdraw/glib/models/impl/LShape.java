@@ -168,7 +168,7 @@ abstract class LShape implements IShape {
 		gradMidPt		= PSTricksConstants.DEFAULT_GRADIENT_MID_POINT;
 		showPts			= false;
 		opacity			= 1.;
-		points			= new ArrayList<IPoint>();
+		points			= new ArrayList<>();
 
 		if(uniqueID)
 			setNewId();
@@ -222,7 +222,7 @@ abstract class LShape implements IShape {
 		final List<IArrow> arrs = s.getArrows();
 
 		if(arrows==null)
-			 arrows = new ArrayList<IArrow>();
+			 arrows = new ArrayList<>();
 		else arrows.clear();
 
 		for(final IArrow arr : arrs)

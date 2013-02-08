@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LNumber;
@@ -62,18 +61,18 @@ class LArc extends LEllipse implements IArc {
 		startAngle 	= 0.;
 		endAngle	= 3*Math.PI/2.;
 		style		= ArcStyle.ARC;
-		arrows 		= new ArrayList<IArrow>();
+		arrows 		= new ArrayList<>();
 		arrows.add(new LArrow(this));
 		arrows.add(new LArrow(this));
 	}
 
-	
+
 	@Override
 	public IArc duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof IArc ? (IArc)sh : null;
 	}
-	
+
 
 	@Override
 	public void copy(final IShape sh) {
