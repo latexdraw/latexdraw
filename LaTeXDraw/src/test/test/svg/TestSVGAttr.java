@@ -31,25 +31,25 @@ public class TestSVGAttr extends TestCase {
 			new SVGAttr(null, null, null);
 			fail();
 		}
-		catch(IllegalArgumentException e) { /* ok */ }
+		catch(Exception e) { /* ok */ }
 
 		try {
 			new SVGAttr("", "", null);
 			fail();
 		}
-		catch(IllegalArgumentException e) { /* ok */ }
+		catch(Exception e) { /* ok */ }
 
 		try {
 			new SVGAttr(null, "", node);
 			fail();
 		}
-		catch(IllegalArgumentException e) { /* ok */ }
+		catch(Exception e) { /* ok */ }
 
 		try {
 			new SVGAttr("", null, node);
 			fail();
 		}
-		catch(IllegalArgumentException e) { /* ok */ }
+		catch(Exception e) { /* ok */ }
 
 		new SVGAttr("", "", node);
 	}

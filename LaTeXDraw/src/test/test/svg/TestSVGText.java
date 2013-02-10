@@ -28,13 +28,13 @@ public class TestSVGText extends TestCase {
 			txt = createSVGText(null, null);
 			fail();
 		}
-		catch(IllegalArgumentException e) { /* ok */ }
+		catch(Exception e) { /* ok */ }
 
 		try {
 			txt = createSVGText(null, doc);
 			fail();
 		}
-		catch(IllegalArgumentException e) { /* ok */ }
+		catch(Exception e) { /* ok */ }
 
 		txt = createSVGText("a", null);
 		assertEquals("a", txt.getData());

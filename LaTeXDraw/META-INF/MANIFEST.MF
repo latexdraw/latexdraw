@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Ant-Version: Apache Ant 1.6.5
-Created-By: 1.5.0_06-b05 (Sun Microsystems Inc.)
-
+Build-Jdk: 1.7.0_09
+Main-Class: net.sf.latexdraw.LaTeXDraw
+Class-Path: ./ lib/jlibeps.jar lib/malai.core-0.2-SNAPSHOT.jar lib/PDFRenderer-0.9.1.jar lib/scala-library.jar
