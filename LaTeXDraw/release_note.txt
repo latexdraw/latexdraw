@@ -31,6 +31,7 @@ Improvements:
 - the selected shapes are no more unselected when selecting the pencil.
 - can undo/redo change of unit (cm or inch).
 - the lime and teal colours are now supported.
+- Can zoom in/out with the keys '+' and '-'.
 - PSTricks parser:
 	- using a ps command as a value (e.g. linecolor=\psfillcolor) is supported
 	- commands qdisk, qline, psarcn supported
