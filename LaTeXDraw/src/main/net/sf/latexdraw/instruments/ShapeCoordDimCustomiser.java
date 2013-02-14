@@ -88,9 +88,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseLinks() {
 		try{
 			addLink(new Spinner2TranslateShape(this));
-		}catch(InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

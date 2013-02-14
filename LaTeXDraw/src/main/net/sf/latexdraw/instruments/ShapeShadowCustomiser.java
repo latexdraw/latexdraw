@@ -122,9 +122,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 			addLink(new Spinner2PencilShadow(this));
 			addLink(new ColourButton2SelectionShadow(this));
 			addLink(new ColourButton2PencilShadow(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

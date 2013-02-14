@@ -123,9 +123,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 			addLink(new ColourButton2SelectionGrid(this));
 			addLink(new Spinner2PencilGrid(this));
 			addLink(new Spinner2SelectionGrid(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

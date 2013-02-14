@@ -237,9 +237,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 			addLink(new ColourButton2SelectionFilling(this));
 			addLink(new Spinner2PencilFilling(this));
 			addLink(new Spinner2SelectionFilling(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

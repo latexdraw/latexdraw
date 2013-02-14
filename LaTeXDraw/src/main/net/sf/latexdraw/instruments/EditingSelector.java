@@ -289,9 +289,7 @@ public class EditingSelector extends WidgetInstrument {
 			addLink(new ButtonPressed2DefineStylePencil(this));
 			addLink(new ButtonPressed2ActivateIns(this));
 			addLink(new ButtonPressed2LaunchCodeInserter(this));
-		}catch(InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

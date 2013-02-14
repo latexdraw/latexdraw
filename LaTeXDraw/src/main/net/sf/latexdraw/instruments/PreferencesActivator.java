@@ -74,10 +74,8 @@ public class PreferencesActivator extends WidgetInstrument {
 		try{
 			addLink(new MenuItem2ActivateSetterLink(this));
 			addLink(new MenuItem2ShowPreferencesLink(this, null, showPreferencesMenu));
-		}catch(InstantiationException ex){
-			BadaboomCollector.INSTANCE.add(ex);
-		}catch(IllegalAccessException ex){
-			BadaboomCollector.INSTANCE.add(ex);
+		}catch(InstantiationException | IllegalAccessException e){
+			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
 

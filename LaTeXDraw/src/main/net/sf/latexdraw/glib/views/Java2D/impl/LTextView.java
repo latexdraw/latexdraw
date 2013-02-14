@@ -298,9 +298,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 				return true;
 
 			log += outReader.getLog() + LResources.EOL + errReader.getLog();
-		}catch(final IOException ex) {
-			log += ex.getMessage();
-		}catch(final InterruptedException ex) {
+		}catch(final IOException | InterruptedException ex) {
 			log += ex.getMessage();
 		}
 

@@ -90,9 +90,7 @@ public class ShapeDeleter extends WidgetInstrument {
 		try{
 			addLink(new ButtonPressed2DeleteShapes(this));
 			addLink(new KeyPressed2DeleteShapes(this));
-		}catch(InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

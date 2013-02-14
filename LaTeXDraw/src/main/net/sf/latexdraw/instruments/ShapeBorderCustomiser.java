@@ -264,9 +264,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			addLink(new ColourButton2SelectionBorder(this));
 			addLink(new Checkbox2ShowPointsSelection(this));
 			addLink(new Checkbox2ShowPointsPencil(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

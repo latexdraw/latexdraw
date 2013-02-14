@@ -100,11 +100,7 @@ public class SVGDocument implements Document {
 					root = new SVGSVGElement(this, nl.item(i));
 			}
 		}
-		catch(final SAXException e) {
-			BadaboomCollector.INSTANCE.add(e);
-			throw new MalformedSVGDocument();
-		}
-		catch(final ParserConfigurationException e) {
+		catch(final SAXException | ParserConfigurationException e) {
 			BadaboomCollector.INSTANCE.add(e);
 			throw new MalformedSVGDocument();
 		}

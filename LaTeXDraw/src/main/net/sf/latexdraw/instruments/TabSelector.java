@@ -50,9 +50,7 @@ public class TabSelector extends Instrument {
 	protected void initialiseLinks() {
 		try{
 			addLink(new TabSelected2ActivateInstruments(this));
-		}catch(InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

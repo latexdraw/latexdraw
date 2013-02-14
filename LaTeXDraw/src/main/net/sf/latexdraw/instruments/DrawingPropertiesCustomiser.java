@@ -224,9 +224,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 			addLink(new TextField2CustDrawing(this));
 			addLink(new CheckBox2CustDrawing(this));
 			addLink(new ComboBox2CustDrawing(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

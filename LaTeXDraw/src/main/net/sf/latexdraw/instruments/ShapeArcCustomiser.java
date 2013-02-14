@@ -132,9 +132,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 			addLink(new Spinner2PencilEndAngle(this));
 			addLink(new Button2SelectionArcStyle(this));
 			addLink(new Button2PencilArcStyle(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

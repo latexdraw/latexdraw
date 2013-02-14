@@ -141,9 +141,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 			addLink(new Spinner2SelectionFreeHand(this));
 			addLink(new Checkbox2PencilFreeHand(this));
 			addLink(new Checkbox2SelectionFreeHand(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

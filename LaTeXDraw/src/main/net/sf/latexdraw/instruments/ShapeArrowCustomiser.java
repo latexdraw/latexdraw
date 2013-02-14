@@ -291,9 +291,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 			addLink(new List2ShapeArrowStyle(this));
 			addLink(new Spinner2SelectionArrowParam(this));
 			addLink(new Spinner2PencilArrowParam(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

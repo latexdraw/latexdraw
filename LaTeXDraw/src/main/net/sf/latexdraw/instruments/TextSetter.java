@@ -106,9 +106,7 @@ public class TextSetter extends Instrument {
 			addLink(new Enter2SetText(this));
 			addLink(new Enter2AddText(this));
 			addLink(new KeyPress2Desactivate(this));
-		}catch(InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

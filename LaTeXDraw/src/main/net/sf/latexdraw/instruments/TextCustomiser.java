@@ -175,9 +175,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 			addLink(new KeysTyped2ChangePackages(this));
 			addLink(new ButtonPressed2ChangeTextPosition(this));
 			addLink(new ButtonPressed2ChangePencil(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

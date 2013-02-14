@@ -286,9 +286,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	protected void initialiseLinks() {
 		try{
 			addLink(new CloseFrame2SavePreferences(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

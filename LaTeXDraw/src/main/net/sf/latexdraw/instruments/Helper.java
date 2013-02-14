@@ -87,11 +87,7 @@ public class Helper extends WidgetInstrument {
 			addLink(new MenuItem2OpenWebPageLink(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523")));
 			addLink(new MenuItem2OpenWebPageLink(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums")));
 			addLink(new MenuItem2OpenWebPageLink(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
-		}catch(InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(URISyntaxException e){
+		}catch(InstantiationException | IllegalAccessException | URISyntaxException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

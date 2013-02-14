@@ -118,9 +118,7 @@ public class Pencil extends Instrument {
 			addLink(new DnD2AddShape(this, false));
 			addLink(new MultiClic2AddShape(this, false));
 			addLink(new Press2InitTextSetter(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

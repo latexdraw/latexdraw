@@ -135,9 +135,7 @@ public class ScaleRulersCustomiser extends Instrument {
 		try{
 			addLink(new MenuItem2ShowHideCodeScaleRuler(this));
 			addLink(new MenuItem2SetUnit(this));
-		}catch(InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

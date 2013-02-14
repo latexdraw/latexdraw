@@ -140,9 +140,7 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 			addLink(new ColourButton2SelectionDoubleBorder(this));
 			addLink(new Spinner2PencilDoubleBorder(this));
 			addLink(new Spinner2SelectionDoubleBorder(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

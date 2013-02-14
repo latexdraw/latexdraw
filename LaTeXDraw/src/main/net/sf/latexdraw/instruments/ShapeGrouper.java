@@ -91,9 +91,9 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 		try{
 			addLink(new Button2GroupShapes(this));
 			addLink(new Button2SeparateShapes(this));
+		}catch(InstantiationException | IllegalAccessException e){
+			BadaboomCollector.INSTANCE.add(e);
 		}
-		catch(InstantiationException e){ BadaboomCollector.INSTANCE.add(e); }
-		catch(IllegalAccessException e){ BadaboomCollector.INSTANCE.add(e); }
 	}
 
 

@@ -231,9 +231,7 @@ public class Exporter extends WidgetInstrument {
 		try{
 			addLink(new ButtonPressed2Export(this));
 			addLink(new MenuPressed2Export(this));
-		}catch(InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

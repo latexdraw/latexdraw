@@ -162,9 +162,7 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 			addLink(new Spinner2ModifyPencilGridCoords(this));
 			addLink(new CheckBox2ModifySelectionGrid(this));
 			addLink(new CheckBox2ModifyPencilGrid(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

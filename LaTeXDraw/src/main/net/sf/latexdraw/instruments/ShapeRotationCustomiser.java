@@ -105,9 +105,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 		try{
 			addLink(new ButtonPress2RotateShape(this));
 			addLink(new Spinner2RotateShape(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

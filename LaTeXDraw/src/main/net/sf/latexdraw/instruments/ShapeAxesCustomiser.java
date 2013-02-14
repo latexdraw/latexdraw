@@ -144,9 +144,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			addLink(new Spinner2CustomSelectedAxes(this));
 			addLink(new CheckBox2CustomPencilAxes(this));
 			addLink(new CheckBox2CustomSelectedAxes(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

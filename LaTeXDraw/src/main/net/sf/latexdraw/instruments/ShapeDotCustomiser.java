@@ -179,9 +179,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 			addLink(new List2SelectionDotStyle(this));
 			addLink(new FillingButton2SelectionFilling(this));
 			addLink(new FillingButton2PencilFilling(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

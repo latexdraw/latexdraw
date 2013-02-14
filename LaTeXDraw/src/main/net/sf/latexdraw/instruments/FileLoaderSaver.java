@@ -230,9 +230,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 			addLink(new Button2NewLink(this));
 			addLink(new Shortcut2NewLink(this));
 			addLink(new RecentMenuItem2LoadLink(this));
-		}catch(final InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(final IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

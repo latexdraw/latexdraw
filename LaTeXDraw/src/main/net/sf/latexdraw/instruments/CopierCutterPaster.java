@@ -122,9 +122,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 			addLink(new Shortcut2CopyShapes(this));
 			addLink(new MenuItem2CutShapes(this));
 			addLink(new Shortcut2CutShapes(this));
-		}catch(InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}

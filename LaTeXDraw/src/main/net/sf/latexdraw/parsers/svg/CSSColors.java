@@ -844,9 +844,7 @@ public final class CSSColors {
 					c = new Color(Integer.parseInt(rgbs[0]), Integer.parseInt(rgbs[1]), Integer.parseInt(rgbs[2]));
 			}
 		}
-		catch(NumberFormatException e) 		{ return null; }
-		catch(IllegalArgumentException e) 	{ return null; }
-
+		catch(IllegalArgumentException e) { return null; }
 		return c;
 	}
 }

@@ -460,10 +460,7 @@ public final class LangTool {
 	            }
 			}
 		}
-		catch(final ParserConfigurationException e) { BadaboomCollector.INSTANCE.add(e); }
-		catch(final IOException e)  				{ BadaboomCollector.INSTANCE.add(e); }
-		catch(final SAXException e) 				{ BadaboomCollector.INSTANCE.add(e); }
-
+		catch(final ParserConfigurationException | IOException | SAXException e) { BadaboomCollector.INSTANCE.add(e); }
 		return Lang.getSystemLanguage();
 	}
 

@@ -140,9 +140,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 			addLink(new List2ChangeStyle(this));
 			addLink(new Spinner2GridSpacing(this));
 			addLink(new CheckBox2MagneticGrid(this));
-		}catch(InstantiationException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}catch(IllegalAccessException e){
+		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
