@@ -88,6 +88,14 @@ public class InsertCodeDialog extends MFrame {
 	}
 
 
+	/**
+	 * @return The text of the editor.
+	 * @since 3.0
+	 */
+	public String getText() {
+		return editor.getText();
+	}
+
 
 	@Override
 	public void setVisible(boolean visible) {

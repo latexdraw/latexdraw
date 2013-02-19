@@ -7,6 +7,9 @@ import org.malai.instrument.Link
 import org.malai.interaction.library.WindowClosed
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import org.malai.interaction.library.ButtonPressed
+import net.sf.latexdraw.actions.InsertPSTCode
+import net.sf.latexdraw.glib.ui.ICanvas
+import javax.swing.JLabel
 
 
 /**
@@ -28,7 +31,7 @@ import org.malai.interaction.library.ButtonPressed
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class CodeInserter extends Instrument {
+class CodeInserter(val canvas : ICanvas, val statusBar : JLabel) extends Instrument {
 	/** The dialogue box used to insert code. */
 	protected lazy val _insertCodeDialog : InsertCodeDialog = new InsertCodeDialog(this)
 
@@ -39,6 +42,7 @@ class CodeInserter extends Instrument {
 	override def initialiseLinks() {
 		try{
 			addLink(new CloseDialogue2InactivateIns(this))
+			addLink(new ButtonPressed2InsertCode(this))
 			addLink(new ButtonPressed2InactivateIns(this))
 		}catch{case ex => BadaboomCollector.INSTANCE.add(ex)}
 	}
@@ -47,6 +51,21 @@ class CodeInserter extends Instrument {
 		super.setActivated(activated)
 		_insertCodeDialog.setVisible(activated)
 	}
+}
+
+
+/**
+ * This link maps a pressure on the close button of the preferences frame to an action saving the preferences.
+ */
+class ButtonPressed2InsertCode(ins : CodeInserter)
+	extends Link[InsertPSTCode, ButtonPressed, CodeInserter](ins, false, classOf[InsertPSTCode], classOf[ButtonPressed]){
+	override def initAction() {
+		action.setDrawing(instrument.canvas.getDrawing)
+		action.setCode(instrument.insertCodeDialog.getText)
+		action.setStatusBar(instrument.statusBar)
+	}
+
+	override def isConditionRespected() = interaction.getButton==instrument.insertCodeDialog.getOkButton
 }
 
 

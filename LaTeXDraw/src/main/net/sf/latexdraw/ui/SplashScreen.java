@@ -61,7 +61,7 @@ public class SplashScreen extends JWindow {
 		Dimension dim 	= Toolkit.getDefaultToolkit().getScreenSize();
 		progressBar 	= new MProgressBar(0, 100);
 		Image img 		= Toolkit.getDefaultToolkit().getImage(
-						  getClass().getClassLoader().getResource("main/res/LaTeXDrawSmall.png"));//$NON-NLS-1$
+						  getClass().getClassLoader().getResource("res/LaTeXDrawSmall.png"));//$NON-NLS-1$
 		MediaTracker tracker=new MediaTracker(this);
 		tracker.addImage(img,0);
 

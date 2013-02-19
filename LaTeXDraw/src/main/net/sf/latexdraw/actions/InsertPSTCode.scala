@@ -1,0 +1,89 @@
+package net.sf.latexdraw.actions
+
+import java.text.ParseException
+import org.malai.action.Action
+import org.malai.undo.Undoable
+import net.sf.latexdraw.badaboom.BadaboomCollector
+import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.parsers.pst.parser.PSTParser
+import javax.swing.JLabel
+import net.sf.latexdraw.lang.LangTool
+
+/**
+ * This action converts PST code into shapes and add them to the drawing.
+ * <br>
+ * This file is part of LaTeXDraw<br>
+ * Copyright (c) 2005-2013 Arnaud BLOUIN<br>
+ * <br>
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  any later version.<br>
+ * <br>
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.<br>
+ * <br>
+ * 2013-02-19<br>
+ * @author Arnaud Blouin
+ * @since 3.0
+ */
+class InsertPSTCode extends Action with DrawingAction with Undoable {
+	/** The code to parse. */
+	protected var _code : Option[String] = None
+
+	/** The status bar. */
+	protected var _statusBar : Option[JLabel] = None
+
+	/** The added shapes. */
+	private var _group : IGroup = null
+
+
+
+	protected def doActionBody() {
+		try {
+			new PSTParser().parsePSTCode(_code.get) match {
+				case Some(group) if(!group.isEmpty) =>
+					_group = group
+					val br = group.getBottomRightPoint
+					val tl = group.getTopLeftPoint
+					_group.translate(br.getX-tl.getX, br.getY-tl.getY)
+					redo
+					if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.36"))
+				case _ => if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.33"))
+			}
+		}catch{
+			case ex =>
+				BadaboomCollector.INSTANCE.add(ex)
+				if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.34"))
+			}
+
+		done
+	}
+
+	override def undo() {
+		if(_group!=null) {
+			_drawing.get.removeShape(_group)
+			_drawing.get.setModified(true)
+		}
+	}
+
+	override def redo() {
+		if(_group!=null) {
+			_drawing.get.addShape(_group)
+			_drawing.get.setModified(true)
+		}
+	}
+
+	def setStatusBar(value:JLabel) { if(value!=null) _statusBar = Some(value) else _statusBar = None }
+
+	def setCode(value:String) { if(value!=null) _code = Some(value) else _code = None }
+
+	override def getUndoName() = "Inserting of PST code"
+
+	override def canDo() = _code.isDefined && _drawing.isDefined
+
+	override def hadEffect() = isDone && _group!=null && !_group.isEmpty
+
+	override def isRegisterable() = hadEffect
+}

@@ -207,7 +207,7 @@ public class LFrame extends UI {
 		if(progressBar!=null)
 			progressBar.addToProgressBar(5);
 
-		setIconImage(LResources.LATEXDRAW_ICON.getImage());
+		try{setIconImage(LResources.LATEXDRAW_ICON.getImage());}catch(Exception ex){BadaboomCollector.INSTANCE.add(ex);}
 		setTitle(LResources.LABEL_APP);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		UIManager.INSTANCE.registerUI(this);
@@ -243,7 +243,7 @@ public class LFrame extends UI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { metaShapeCustomiser = new MetaShapeCustomiser(composer, hand, pencil); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { codeInserter = new CodeInserter(); }
+		try { codeInserter = new CodeInserter(canvas, getStatusBar()); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { editingSelector = new EditingSelector(composer, pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter, codeInserter); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }

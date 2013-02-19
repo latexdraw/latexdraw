@@ -39,10 +39,10 @@ protected class LDrawing extends IDrawing with LSetShapes {
 	var modified : Boolean = false
 
 
-	override def addToSelection(sh : IShape) = selection.addShape(sh)
+	override def addToSelection(sh : IShape) { selection.addShape(sh) }
 
 
-	override def addToSelection(newSelection : java.util.List[IShape]) = {
+	override def addToSelection(newSelection : java.util.List[IShape]) {
 		if(newSelection!=null)
 			newSelection.foreach(sh => selection.addShape(sh))
 	}
@@ -57,19 +57,19 @@ protected class LDrawing extends IDrawing with LSetShapes {
 	override def removeSelection() = selection.clear
 
 
-	override def setSelection(sh : IShape) = {
+	override def setSelection(sh : IShape) {
 		selection.clear
 		selection.addShape(sh)
 	}
 
 
-	override def setSelection(newSelection : java.util.List[IShape]) = {
+	override def setSelection(newSelection : java.util.List[IShape]) {
 		selection.clear
 		addToSelection(newSelection)
 	}
 
 
-	override def clear() = {
+	override def clear() {
 		super.clear
 		selection.clear
 		tempShape.setValue(null)
@@ -78,7 +78,7 @@ protected class LDrawing extends IDrawing with LSetShapes {
 
 	override def removeShape(sh : IShape) : Boolean = {
 		selection.removeShape(sh)
-		return super.removeShape(sh)
+		super.removeShape(sh)
 	}
 
 
@@ -90,7 +90,7 @@ protected class LDrawing extends IDrawing with LSetShapes {
 				case _ => selection.removeShape(shapes.get(i))
 			}
 
-		return super.removeShape(i)
+		super.removeShape(i)
 	}
 
 
@@ -103,7 +103,7 @@ protected class LDrawing extends IDrawing with LSetShapes {
 	override def setTempShape(tempShape : IShape) = this.tempShape.setValue(tempShape)
 
 
-	override def setModified(modified : Boolean) = {
+	override def setModified(modified : Boolean) {
 		if(modified)
 			MappingRegistry.REGISTRY.onObjectModified(this)
 

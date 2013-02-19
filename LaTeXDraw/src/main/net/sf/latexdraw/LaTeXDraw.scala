@@ -58,7 +58,7 @@ object LaTeXDraw {
 	 * The main function.
 	 * @param args The parameters given during the call of the program.
 	 */
-	def main(args: Array[String]) = {
+	def main(args: Array[String]) {
     	val cmdLine = new LCommandLine()
 
     	cmdLine.parse(args) match {
@@ -74,7 +74,7 @@ object LaTeXDraw {
 
 
 
-    private def launchLatexdraw(cmdLine : LCommandLine) = {
+    private def launchLatexdraw(cmdLine : LCommandLine) {
     	// Creation of the splash screen.
 		val splashScreen = new SplashScreen(Theme.lookAndFeel)
 		splashScreen.setVisible(true)

@@ -119,7 +119,7 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 
 	@Override
 	public String getUndoName() {
-		return "Modification of the magnetic grid.";
+		return "Modification of the magnetic grid";
 	}
 
 

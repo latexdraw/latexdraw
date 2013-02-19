@@ -16,6 +16,14 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 	}
 
 
+	@Test public void testErrorOnCommandIncomplete() {
+		try {
+			parser.parsePSTCode("\\psframe[linewidth=0.04, dimen=o");
+			failShouldNotParse();
+		}catch(ParseException ex) { /* Normal */}
+	}
+
+
 	@Test public void testNotCloseBracketShouldNotParse() {
 		try {
 			parser.parsePSTCode("{ ");

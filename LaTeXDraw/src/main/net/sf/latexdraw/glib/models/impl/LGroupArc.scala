@@ -29,52 +29,46 @@ protected trait LGroupArc extends IGroup {
 	/** May return the first IArc shape of the group. */
 	private def firstIArc = getShapes.find{shape => shape.isInstanceOf[IArc] }
 
-	override def getArcStyle() : IArc.ArcStyle = {
+	override def getArcStyle() : IArc.ArcStyle =
 		firstIArc match {
 			case Some(arc) => arc.asInstanceOf[IArc].getArcStyle
 			case _ => null
 		}
-	}
 
 
-	override def setArcStyle(typeArc : IArc.ArcStyle) = {
+	override def setArcStyle(typeArc : IArc.ArcStyle) =
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IArc])
 				shape.asInstanceOf[IArc].setArcStyle(typeArc)
 		}
-	}
 
 
-	override def getAngleStart() : Double = {
+	override def getAngleStart() : Double =
 		firstIArc match {
 			case Some(arc) => arc.asInstanceOf[IArc].getAngleStart
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def setAngleStart(angleStart : Double) = {
+	override def setAngleStart(angleStart : Double) =
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IArc])
 				shape.asInstanceOf[IArc].setAngleStart(angleStart)
 		}
-	}
 
 
-	override def getAngleEnd() : Double = {
+	override def getAngleEnd() : Double =
 		firstIArc match {
 			case Some(arc) => arc.asInstanceOf[IArc].getAngleEnd
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def setAngleEnd(angleEnd : Double) = {
+	override def setAngleEnd(angleEnd : Double) =
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IArc])
 				shape.asInstanceOf[IArc].setAngleEnd(angleEnd)
 		}
-	}
 
 
 	override def getStartPoint() : IPoint = null
