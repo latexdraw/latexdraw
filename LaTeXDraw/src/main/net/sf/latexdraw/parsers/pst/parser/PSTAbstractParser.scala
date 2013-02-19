@@ -66,7 +66,7 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	/** A parser that parses all characters excepted the given ones. */
-	def chrExcept(cs : Char*) = elem("", ch => !cs.exists{c => ch.chars==c.toString})
+	def chrExcept(cs : Char*) = elem("", ch => !cs.exists{c => ch.chars.equals(c.toString)})
 
 
 	// Error handling

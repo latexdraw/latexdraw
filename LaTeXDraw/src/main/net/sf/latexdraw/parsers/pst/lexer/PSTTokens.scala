@@ -4,6 +4,7 @@ import scala.util.parsing.combinator.Parsers
 import scala.util.parsing.combinator.token.Tokens
 import scala.util.parsing.input.OffsetPosition
 import scala.util.parsing.input.Positional
+import scala.util.parsing.input.CharArrayReader
 
 /**
  * Defines the concept of PSTricks token.<br>
@@ -81,8 +82,8 @@ trait PSTTokens extends Tokens with Parsers {
 
 
 	case class KEOF() extends PSTToken {
-		override def toString = ""
-		override def chars = ' '.toString
+		override def toString = chars
+		override def chars = CharArrayReader.EofCh.toString
 	}
 
 
