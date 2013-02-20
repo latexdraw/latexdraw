@@ -28,47 +28,42 @@ protected trait LGroupStdGrid extends IGroup {
 	/** May return the first stdGrid of the group. */
 	private def firstIStdGrid = getShapes.find{shape => shape.isInstanceOf[IStandardGrid] }
 
-	override def getGridMinX() : Double = {
+	override def getGridMinX() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridMinX
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def getGridMaxX() : Double = {
+	override def getGridMaxX() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridMaxX
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def getGridMinY() : Double = {
+	override def getGridMinY() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridMinY
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def getGridMaxY() = {
+	override def getGridMaxY() =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridMaxY
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def getLabelsSize() : Int = {
+	override def getLabelsSize() : Int =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getLabelsSize
 			case _ => -1
 		}
-	}
 
 
-	override def setLabelsSize(labelsSize : Int) = {
+	override def setLabelsSize(labelsSize : Int) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setLabelsSize(labelsSize)
@@ -76,7 +71,7 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def setGridEndX(x : Double) = {
+	override def setGridEndX(x : Double) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setGridEndX(x)
@@ -84,7 +79,7 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def setGridEndY(y : Double) = {
+	override def setGridEndY(y : Double) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setGridEndY(y)
@@ -92,15 +87,14 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def isXLabelSouth() : Boolean = {
+	override def isXLabelSouth() : Boolean =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].isXLabelSouth
 			case _ => false
 		}
-	}
 
 
-	override def setXLabelSouth(isXLabelSouth : Boolean) = {
+	override def setXLabelSouth(isXLabelSouth : Boolean) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setXLabelSouth(isXLabelSouth)
@@ -108,15 +102,14 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def isYLabelWest() : Boolean = {
+	override def isYLabelWest() : Boolean =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].isYLabelWest
 			case _ => false
 		}
-	}
 
 
-	override def setYLabelWest(isYLabelWest : Boolean) = {
+	override def setYLabelWest(isYLabelWest : Boolean) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setYLabelWest(isYLabelWest)
@@ -124,23 +117,21 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def getGridStartX() : Double = {
+	override def getGridStartX() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridStartX
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def getGridStartY() : Double = {
+	override def getGridStartY() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridStartY
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def setGridStart(x : Double, y : Double) = {
+	override def setGridStart(x : Double, y : Double) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setGridStart(x, y)
@@ -148,23 +139,21 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def getGridEndX() : Double = {
+	override def getGridEndX() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridEndX
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def getGridEndY() : Double = {
+	override def getGridEndY() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridEndY
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def setGridEnd(x : Double, y : Double) = {
+	override def setGridEnd(x : Double, y : Double) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setGridEnd(x, y)
@@ -172,23 +161,21 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def getOriginX() : Double = {
+	override def getOriginX() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getOriginX
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def getOriginY() : Double  = {
+	override def getOriginY() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getOriginY
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def setOrigin(x : Double, y : Double) = {
+	override def setOrigin(x : Double, y : Double) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setOrigin(x, y)
@@ -196,7 +183,7 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def setGridStartY(y : Double) = {
+	override def setGridStartY(y : Double) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setGridStartY(y)
@@ -204,7 +191,7 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def setGridStartX(x : Double) = {
+	override def setGridStartX(x : Double) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setGridStartX(x)
@@ -212,7 +199,7 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def setOriginX(x : Double) = {
+	override def setOriginX(x : Double) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setOriginX(x)
@@ -220,7 +207,7 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def setOriginY(y : Double) = {
+	override def setOriginY(y : Double) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IStandardGrid])
 				shape.asInstanceOf[IStandardGrid].setOriginY(y)
@@ -228,26 +215,23 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def getStep() : Double = {
+	override def getStep() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getStep
 			case _ => Double.NaN
 		}
-	}
 
 
-	override def getGridStart() : IPoint = {
+	override def getGridStart() : IPoint =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridStart
 			case _ => null
 		}
-	}
 
 
-	override def getGridEnd() : IPoint = {
+	override def getGridEnd() : IPoint =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridEnd
 			case _ => null
 		}
-	}
 }

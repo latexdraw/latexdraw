@@ -63,14 +63,13 @@ class LShapeFactory extends IShapeFactory {
 			  (classOf[LText], () => createText(true)))
 
 
-	override def newShape[T <: IShape](shapeClass : java.lang.Class[T]) : Option[T] = {
+	override def newShape[T <: IShape](shapeClass : java.lang.Class[T]) : Option[T] =
 		shapeClass match {
 			case null => None
 			case _ =>
 				try { Some(shapeClass.cast(factoryMap(shapeClass)())) }
 				catch { case ex => BadaboomCollector.INSTANCE.add(ex); None }
 		}
-	}
 
 	override def createDrawing() = new LDrawing()
 

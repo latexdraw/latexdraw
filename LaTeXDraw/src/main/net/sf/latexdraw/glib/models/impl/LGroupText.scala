@@ -28,15 +28,14 @@ protected trait LGroupText extends IGroup {
 	/** May return the first free hand shape of the group. */
 	private def firstIText = getShapes.find{shape => shape.isInstanceOf[IText] }
 
-	override def getTextPosition() : IText.TextPosition = {
+	override def getTextPosition() : IText.TextPosition =
 		firstIText match {
 			case Some(txt) => txt.asInstanceOf[IText].getTextPosition
 			case _ => null
 		}
-	}
 
 
-	override def setTextPosition(textPosition : IText.TextPosition) = {
+	override def setTextPosition(textPosition : IText.TextPosition) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IText])
 				shape.asInstanceOf[IText].setTextPosition(textPosition)
@@ -44,15 +43,14 @@ protected trait LGroupText extends IGroup {
 	}
 
 
-	override def getText() : String = {
+	override def getText() : String =
 		firstIText match {
 			case Some(txt) => txt.asInstanceOf[IText].getText
 			case _ => null
 		}
-	}
 
 
-	override def setText(text : String) = {
+	override def setText(text : String) {
 		getShapes.foreach{shape =>
 			if(shape.isInstanceOf[IText])
 				shape.asInstanceOf[IText].setText(text)
@@ -66,11 +64,11 @@ protected trait LGroupText extends IGroup {
 
 	override def getPosition() : IPoint = null
 
-	override def setPosition(pt : IPoint) = { }
+	override def setPosition(pt : IPoint) { }
 
-	override def setPosition(x : Double, y : Double) = { }
+	override def setPosition(x : Double, y : Double) { }
 
-	override def setX(x : Double) = { }
+	override def setX(x : Double) { }
 
-	override def setY(y : Double) = { }
+	override def setY(y : Double) { }
 }
