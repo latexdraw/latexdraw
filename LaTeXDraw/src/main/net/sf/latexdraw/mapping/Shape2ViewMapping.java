@@ -1,9 +1,9 @@
 package net.sf.latexdraw.mapping;
 
-import org.malai.mapping.Object2ObjectMapping;
-
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+
+import org.malai.mapping.Object2ObjectMapping;
 
 /**
  * Defines a mapping that link an IShape to a IShapeView.<br>

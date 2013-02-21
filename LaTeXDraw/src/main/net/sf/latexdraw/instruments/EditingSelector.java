@@ -13,13 +13,13 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.Action;
-import org.malai.action.library.ActivateInactivateInstruments;
 import org.malai.instrument.Link;
-import org.malai.instrument.WidgetInstrument;
-import org.malai.interaction.library.ButtonPressed;
-import org.malai.ui.UIComposer;
-import org.malai.widget.MButton;
-import org.malai.widget.MToggleButton;
+import org.malai.swing.action.library.ActivateInactivateInstruments;
+import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MButton;
+import org.malai.swing.widget.MToggleButton;
 
 /**
  * This instrument selects the pencil or the hand.<br>

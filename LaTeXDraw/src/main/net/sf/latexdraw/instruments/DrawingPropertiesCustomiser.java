@@ -13,15 +13,15 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 
 import org.malai.instrument.Link;
-import org.malai.instrument.WidgetInstrument;
-import org.malai.interaction.library.CheckBoxModified;
-import org.malai.interaction.library.ListSelectionModified;
-import org.malai.interaction.library.TextChanged;
-import org.malai.ui.UIComposer;
+import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.swing.interaction.library.CheckBoxModified;
+import org.malai.swing.interaction.library.ListSelectionModified;
+import org.malai.swing.interaction.library.TextChanged;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MCheckBox;
+import org.malai.swing.widget.MComboBox;
+import org.malai.swing.widget.MTextField;
 import org.malai.undo.Undoable;
-import org.malai.widget.MCheckBox;
-import org.malai.widget.MComboBox;
-import org.malai.widget.MTextField;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

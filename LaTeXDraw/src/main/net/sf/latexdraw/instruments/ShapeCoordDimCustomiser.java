@@ -9,9 +9,9 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 import org.malai.instrument.Link;
-import org.malai.interaction.library.SpinnerModified;
-import org.malai.ui.UIComposer;
-import org.malai.widget.MSpinner;
+import org.malai.swing.interaction.library.SpinnerModified;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MSpinner;
 
 /**
  * This instrument modifies arc dimensions and coordinates of shapes or pencil parameters.<br>

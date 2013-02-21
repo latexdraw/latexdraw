@@ -7,8 +7,8 @@ import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 
 import org.malai.presentation.ConcretePresentation;
-import org.malai.widget.MEditorPane;
-import org.malai.widget.MPanel;
+import org.malai.swing.widget.MEditorPane;
+import org.malai.swing.widget.MPanel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

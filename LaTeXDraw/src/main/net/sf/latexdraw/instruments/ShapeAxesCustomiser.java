@@ -16,10 +16,10 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 
-import org.malai.ui.UIComposer;
-import org.malai.widget.MCheckBox;
-import org.malai.widget.MComboBox;
-import org.malai.widget.MSpinner;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MCheckBox;
+import org.malai.swing.widget.MComboBox;
+import org.malai.swing.widget.MSpinner;
 
 /**
  * This instrument modifies axes properties of shapes or the pencil.<br>

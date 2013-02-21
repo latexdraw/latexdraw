@@ -1,9 +1,9 @@
 package net.sf.latexdraw.actions;
 
-import org.malai.action.Action;
-
 import net.sf.latexdraw.instruments.EditionChoice;
 import net.sf.latexdraw.instruments.Pencil;
+
+import org.malai.action.Action;
 
 /**
  * This action allows to set the kind of shape that the pencil must draw.<br>

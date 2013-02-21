@@ -3,10 +3,10 @@ package net.sf.latexdraw.mapping;
 import java.util.List;
 import java.util.Objects;
 
+import net.sf.latexdraw.glib.models.interfaces.IShape;
+
 import org.malai.mapping.IMapping;
 import org.malai.mapping.IUnary;
-
-import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
  * This abstract mapping maps the selected shapes of the drawing to something.<br>

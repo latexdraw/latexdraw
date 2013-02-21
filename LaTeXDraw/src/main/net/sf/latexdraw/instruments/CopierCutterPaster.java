@@ -14,12 +14,12 @@ import net.sf.latexdraw.util.LResources;
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
 import org.malai.instrument.Link;
-import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.Interaction;
 import org.malai.interaction.library.KeysPressure;
-import org.malai.interaction.library.MenuItemPressed;
-import org.malai.ui.UIComposer;
-import org.malai.widget.MMenuItem;
+import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.swing.interaction.library.MenuItemPressed;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MMenuItem;
 
 /**
  * This instrument permits to copy, cut and paste the selected shapes.<br>

@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.widget.MButton;
+import org.malai.swing.widget.MButton;
 
 /**
  * This class defines a button which allows the user to close a window<br>

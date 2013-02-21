@@ -5,7 +5,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 
-
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
 
 import org.w3c.dom.Node;

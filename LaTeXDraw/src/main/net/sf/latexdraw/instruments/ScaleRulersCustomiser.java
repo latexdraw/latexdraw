@@ -4,14 +4,6 @@ import java.util.Objects;
 
 import javax.swing.JMenuItem;
 
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
-import org.malai.interaction.library.MenuItemPressed;
-import org.malai.undo.Undoable;
-import org.malai.widget.MCheckBoxMenuItem;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import net.sf.latexdraw.actions.SetUnit;
 import net.sf.latexdraw.actions.ShowHideScaleRuler;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -23,6 +15,14 @@ import net.sf.latexdraw.ui.YScaleRuler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.swing.interaction.library.MenuItemPressed;
+import org.malai.swing.widget.MCheckBoxMenuItem;
+import org.malai.undo.Undoable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * This instrument activates X and Y scale rulers.<br>

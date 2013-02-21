@@ -10,10 +10,10 @@ import javax.swing.BoxLayout;
 import net.sf.latexdraw.glib.ui.LCanvas;
 
 import org.malai.instrument.Instrument;
-import org.malai.ui.UIComposer;
-import org.malai.widget.MPanel;
-import org.malai.widget.MProgressBar;
-import org.malai.widget.MToolBar;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MPanel;
+import org.malai.swing.widget.MProgressBar;
+import org.malai.swing.widget.MToolBar;
 import org.malai.widget.Scrollable;
 
 /**

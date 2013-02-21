@@ -3,7 +3,6 @@ package net.sf.latexdraw.parsers.svg;
 import java.awt.Color;
 import java.text.ParseException;
 
-
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
 
 import org.w3c.dom.Node;

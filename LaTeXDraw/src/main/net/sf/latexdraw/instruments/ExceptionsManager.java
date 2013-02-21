@@ -1,15 +1,15 @@
 package net.sf.latexdraw.instruments;
 
-import org.malai.action.library.ShowWidget;
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
-import org.malai.interaction.library.ButtonPressed;
-import org.malai.widget.MButton;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
 import net.sf.latexdraw.badaboom.BadaboomManager;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.instrument.Instrument;
+import org.malai.instrument.Link;
+import org.malai.swing.action.library.ShowWidget;
+import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.widget.MButton;
 
 /**
  * This instrument allows to see exceptions launched during the execution of the program.<br>

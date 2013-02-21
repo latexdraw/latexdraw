@@ -6,11 +6,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import org.malai.action.library.IOAction;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.ui.LFrame;
+
+import org.malai.swing.action.library.IOAction;
 
 /**
  * This action permits to create a new drawing and initialises the application as required.<br>

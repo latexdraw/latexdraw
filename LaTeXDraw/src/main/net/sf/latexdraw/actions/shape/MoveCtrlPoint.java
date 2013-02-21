@@ -1,10 +1,10 @@
 package net.sf.latexdraw.actions.shape;
 
-import org.malai.undo.Undoable;
-
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+
+import org.malai.undo.Undoable;
 
 /**
  * This action moves control points.<br>

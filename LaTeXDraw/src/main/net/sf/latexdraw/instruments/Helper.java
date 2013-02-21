@@ -9,11 +9,11 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.ui.dialog.AboutDialogueBox;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.WidgetInstrument;
-import org.malai.instrument.library.MenuItem2OpenWebPageLink;
-import org.malai.instrument.library.MenuItem2ShowComponentLink;
-import org.malai.ui.UIComposer;
-import org.malai.widget.MMenuItem;
+import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.swing.instrument.library.MenuItem2OpenWebPageLink;
+import org.malai.swing.instrument.library.MenuItem2ShowComponentLink;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MMenuItem;
 
 /**
  * This instrument manages help features.<br>

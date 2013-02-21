@@ -3,11 +3,11 @@ package net.sf.latexdraw.mapping;
 import java.util.List;
 import java.util.Objects;
 
-import org.malai.mapping.IMapping;
-import org.malai.mapping.IUnary;
-
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.instruments.Exporter;
+
+import org.malai.mapping.IMapping;
+import org.malai.mapping.IUnary;
 
 /**
  * Creates a mapping between a list of shapes and the instrument exporter.<br>

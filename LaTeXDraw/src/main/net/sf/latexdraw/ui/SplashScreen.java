@@ -11,7 +11,7 @@ import javax.swing.UIManager;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
-import org.malai.widget.MProgressBar;
+import org.malai.swing.widget.MProgressBar;
 
 /**
  * This class defines a splash screen displayed during the start of the program with a progress

@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 import net.sf.latexdraw.ui.LFrame;
 
-import org.malai.action.library.Load;
+import org.malai.swing.action.library.Load;
 
 /**
  * This action loads an SVG document into the app.

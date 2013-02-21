@@ -14,30 +14,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
-import net.sf.latexdraw.instruments.MetaShapeCustomiser;
-import net.sf.latexdraw.instruments.ShapeArcCustomiser;
-import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
-import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
-import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
-import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
-import net.sf.latexdraw.instruments.ShapeDotCustomiser;
-import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
-import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
-import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
-import net.sf.latexdraw.instruments.ShapeGridCustomiser;
-import net.sf.latexdraw.instruments.ShapeStandardGridCustomiser;
-import net.sf.latexdraw.instruments.ShapeGrouper;
-import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
-import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
-import net.sf.latexdraw.instruments.TextCustomiser;
+import net.sf.latexdraw.instruments.*;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.ui.UIComposer;
-import org.malai.widget.MComboBox;
-import org.malai.widget.MPanel;
-import org.malai.widget.MProgressBar;
-import org.malai.widget.MSpinner;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MComboBox;
+import org.malai.swing.widget.MPanel;
+import org.malai.swing.widget.MProgressBar;
+import org.malai.swing.widget.MSpinner;
 
 /**
  * The composer that creates the properties tool bar of the application.<br>

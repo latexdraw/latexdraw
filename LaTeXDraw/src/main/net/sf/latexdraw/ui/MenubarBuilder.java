@@ -1,12 +1,13 @@
 package net.sf.latexdraw.ui;
 
 import javax.swing.JMenuBar;
+
 import net.sf.latexdraw.lang.LangTool;
 
-import org.malai.ui.UIComposer;
-import org.malai.widget.MCheckBoxMenuItem;
-import org.malai.widget.MMenu;
-import org.malai.widget.MProgressBar;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MCheckBoxMenuItem;
+import org.malai.swing.widget.MMenu;
+import org.malai.swing.widget.MProgressBar;
 
 /**
  * The composer that creates the menu bar of the application.<br>

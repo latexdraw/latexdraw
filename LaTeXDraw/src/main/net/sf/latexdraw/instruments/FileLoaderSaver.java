@@ -20,18 +20,18 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.Action;
-import org.malai.action.library.IOAction;
 import org.malai.instrument.Link;
-import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.Interaction;
-import org.malai.interaction.library.ButtonPressed;
 import org.malai.interaction.library.KeysPressure;
-import org.malai.interaction.library.MenuItemPressed;
-import org.malai.interaction.library.WindowClosed;
-import org.malai.widget.MButton;
-import org.malai.widget.MMenu;
-import org.malai.widget.MMenuItem;
-import org.malai.widget.MProgressBar;
+import org.malai.swing.action.library.IOAction;
+import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.interaction.library.MenuItemPressed;
+import org.malai.swing.interaction.library.WindowClosed;
+import org.malai.swing.widget.MButton;
+import org.malai.swing.widget.MMenu;
+import org.malai.swing.widget.MMenuItem;
+import org.malai.swing.widget.MProgressBar;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

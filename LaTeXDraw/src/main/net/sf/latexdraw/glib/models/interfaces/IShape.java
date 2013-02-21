@@ -4,11 +4,10 @@ import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
-import org.malai.properties.Modifiable;
-
-
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+
+import org.malai.properties.Modifiable;
 
 /**
  * Defines an interface that classes defining an abstract shape should implement.<br>

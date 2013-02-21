@@ -17,12 +17,12 @@ import net.sf.latexdraw.glib.ui.LMagneticGrid;
 
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
-import org.malai.instrument.library.WidgetZoomer;
 import org.malai.interaction.Interaction;
-import org.malai.interaction.library.AbortableDnD;
-import org.malai.interaction.library.MultiClick;
 import org.malai.interaction.library.Press;
 import org.malai.stateMachine.MustAbortStateMachineException;
+import org.malai.swing.instrument.library.WidgetZoomer;
+import org.malai.swing.interaction.library.AbortableDnD;
+import org.malai.swing.interaction.library.MultiClick;
 
 /**
  * This instrument allows to draw shapes.<br>

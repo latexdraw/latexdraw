@@ -2,7 +2,7 @@ package net.sf.latexdraw.actions
 
 import java.io.File
 
-import org.malai.action.library.IOAction
+import org.malai.swing.action.library.IOAction
 
 import javax.swing.JLabel
 import javax.swing.JOptionPane

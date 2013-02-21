@@ -17,12 +17,12 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.interaction.Eventable;
-import org.malai.interaction.SwingEventManager;
 import org.malai.mapping.ActiveUnary;
 import org.malai.mapping.IUnary;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-import org.malai.widget.WidgetUtilities;
+import org.malai.swing.interaction.SwingEventManager;
+import org.malai.swing.widget.WidgetUtilities;
 
 /**
  * This class defines an abstract scale ruler.<br>

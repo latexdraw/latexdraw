@@ -6,13 +6,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import org.malai.action.library.Save;
-import org.malai.ui.UI;
-
 import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LFrame;
+
+import org.malai.swing.action.library.Save;
+import org.malai.swing.ui.UI;
 
 /**
  * This action saves the given drawing into an SVG document.

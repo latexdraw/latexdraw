@@ -20,7 +20,7 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.VersionChecker;
 
-import org.malai.widget.MFrame;
+import org.malai.swing.widget.MFrame;
 
 /**
  * This frame allows the user to set his preferences concerning the program and its components.<br>

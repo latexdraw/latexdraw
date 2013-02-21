@@ -12,18 +12,18 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.ui.UIComposer;
-import org.malai.widget.MButtonIcon;
-import org.malai.widget.MColorButton;
-import org.malai.widget.MComboBox;
-import org.malai.widget.MSpinner;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MButtonIcon;
+import org.malai.swing.widget.MColorButton;
+import org.malai.swing.widget.MComboBox;
+import org.malai.swing.widget.MSpinner;
 
 /**
  * This instrument modifies dot parameters.<br>

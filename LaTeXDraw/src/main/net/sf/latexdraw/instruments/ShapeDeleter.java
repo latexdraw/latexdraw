@@ -12,12 +12,12 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.ActionsRegistry;
 import org.malai.instrument.Link;
-import org.malai.instrument.WidgetInstrument;
 import org.malai.interaction.Interaction;
-import org.malai.interaction.library.ButtonPressed;
 import org.malai.interaction.library.KeyPressure;
-import org.malai.ui.UIComposer;
-import org.malai.widget.MButton;
+import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MButton;
 
 /**
  * This instrument deletes the selected shapes.<br>

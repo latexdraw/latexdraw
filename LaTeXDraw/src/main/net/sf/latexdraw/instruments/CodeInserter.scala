@@ -4,12 +4,12 @@ import org.malai.instrument.Instrument
 import net.sf.latexdraw.ui.dialog.InsertCodeDialog
 import org.malai.action.library.InactivateInstrument
 import org.malai.instrument.Link
-import org.malai.interaction.library.WindowClosed
 import net.sf.latexdraw.badaboom.BadaboomCollector
-import org.malai.interaction.library.ButtonPressed
 import net.sf.latexdraw.actions.InsertPSTCode
 import net.sf.latexdraw.glib.ui.ICanvas
 import javax.swing.JLabel
+import org.malai.swing.interaction.library.ButtonPressed
+import org.malai.swing.interaction.library.WindowClosed
 
 
 /**

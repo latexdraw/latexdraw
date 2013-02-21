@@ -4,7 +4,7 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 import org.malai.interaction.Eventable;
-import org.malai.ui.UIComposer;
+import org.malai.swing.ui.UIComposer;
 
 /**
  * This meta-instrument manages the instruments that customises shape properties.<br>

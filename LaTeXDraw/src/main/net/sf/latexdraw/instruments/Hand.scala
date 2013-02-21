@@ -6,9 +6,6 @@ import java.awt.Cursor
 import scala.collection.JavaConversions.asScalaBuffer
 import org.malai.instrument.Link
 import org.malai.instrument.Instrument
-import org.malai.interaction.library.DnD
-import org.malai.interaction.library.DoubleClick
-import org.malai.interaction.library.Press
 import org.malai.mapping.MappingRegistry
 import net.sf.latexdraw.actions.shape.SelectShapes
 import net.sf.latexdraw.actions.shape.TranslateShapes
@@ -22,7 +19,10 @@ import net.sf.latexdraw.glib.ui.ICanvas
 import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
-import org.malai.instrument.library.WidgetZoomer
+import org.malai.swing.interaction.library.DoubleClick
+import org.malai.interaction.library.DnD
+import org.malai.swing.instrument.library.WidgetZoomer
+import org.malai.interaction.library.Press
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>

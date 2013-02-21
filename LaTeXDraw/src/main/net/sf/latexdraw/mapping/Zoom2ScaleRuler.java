@@ -1,9 +1,9 @@
 package net.sf.latexdraw.mapping;
 
+import net.sf.latexdraw.ui.ScaleRuler;
+
 import org.malai.mapping.IUnary;
 import org.malai.mapping.Object2ObjectMapping;
-
-import net.sf.latexdraw.ui.ScaleRuler;
 
 /**
  * Creates a mapping between the zoom value and a scale ruler.<br>

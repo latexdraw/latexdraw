@@ -14,11 +14,11 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 
-import org.malai.ui.UIComposer;
-import org.malai.widget.MButtonIcon;
-import org.malai.widget.MColorButton;
-import org.malai.widget.MSpinner;
-import org.malai.widget.MSpinner.MSpinnerNumberModel;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MButtonIcon;
+import org.malai.swing.widget.MColorButton;
+import org.malai.swing.widget.MSpinner;
+import org.malai.swing.widget.MSpinner.MSpinnerNumberModel;
 
 /**
  * This instrument modifies grids properties of shapes or the pencil.<br>

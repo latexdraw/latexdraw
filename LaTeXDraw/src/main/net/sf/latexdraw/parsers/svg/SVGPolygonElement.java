@@ -2,8 +2,6 @@ package net.sf.latexdraw.parsers.svg;
 
 import java.text.ParseException;
 
-
-
 import org.w3c.dom.Node;
 
 /**

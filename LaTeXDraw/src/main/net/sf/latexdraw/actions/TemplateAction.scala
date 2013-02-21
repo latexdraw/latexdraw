@@ -1,6 +1,6 @@
 package net.sf.latexdraw.actions
 
-import org.malai.widget.MMenu
+import org.malai.swing.widget.MMenu
 
 /**
  * This trait encapsulates the template menu.<br>

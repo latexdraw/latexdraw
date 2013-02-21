@@ -16,11 +16,11 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.ui.UIComposer;
-import org.malai.widget.MCheckBox;
-import org.malai.widget.MComboBox;
-import org.malai.widget.MSpinner;
-import org.malai.widget.MSpinner.MSpinnerNumberModel;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MCheckBox;
+import org.malai.swing.widget.MComboBox;
+import org.malai.swing.widget.MSpinner;
+import org.malai.swing.widget.MSpinner.MSpinnerNumberModel;
 
 /**
  * This instrument modifies free hand properties of shapes or the pencil.<br>

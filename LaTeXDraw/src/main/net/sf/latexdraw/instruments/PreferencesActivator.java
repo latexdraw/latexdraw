@@ -11,11 +11,11 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.library.ActivateInstrument;
 import org.malai.instrument.Link;
-import org.malai.instrument.WidgetInstrument;
-import org.malai.instrument.library.MenuItem2ShowComponentLink;
-import org.malai.interaction.library.MenuItemPressed;
-import org.malai.ui.UIComposer;
-import org.malai.widget.MMenuItem;
+import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.swing.instrument.library.MenuItem2ShowComponentLink;
+import org.malai.swing.interaction.library.MenuItemPressed;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MMenuItem;
 
 /**
  * This instrument activates the preferences setter and shows the preferences frame.<br>

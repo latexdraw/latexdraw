@@ -7,9 +7,9 @@ import javax.swing.JLabel;
 
 import net.sf.latexdraw.actions.ModifyLatexProperties;
 import net.sf.latexdraw.actions.ModifyLatexProperties.LatexProperties;
+import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -20,9 +20,9 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.Link;
 import org.malai.interaction.library.KeysTyped;
-import org.malai.ui.UIComposer;
-import org.malai.widget.MTextArea;
-import org.malai.widget.MToggleButton;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MTextArea;
+import org.malai.swing.widget.MToggleButton;
 
 /**
  * This instrument modifies texts.<br>

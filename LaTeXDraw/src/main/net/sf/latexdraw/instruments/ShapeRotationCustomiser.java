@@ -4,12 +4,6 @@ import javax.swing.AbstractButton;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 
-import org.malai.instrument.Link;
-import org.malai.interaction.library.ButtonPressed;
-import org.malai.ui.UIComposer;
-import org.malai.widget.MButton;
-import org.malai.widget.MSpinner;
-
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.RotateShapes;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
@@ -18,6 +12,12 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
+
+import org.malai.instrument.Link;
+import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MButton;
+import org.malai.swing.widget.MSpinner;
 
 /**
  * This instrument modifies the rotation angle of selected shapes.<br>

@@ -11,14 +11,14 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 import org.malai.action.Action;
 import org.malai.instrument.Link;
-import org.malai.instrument.WidgetInstrument;
-import org.malai.interaction.library.ButtonPressed;
-import org.malai.interaction.library.CheckBoxModified;
-import org.malai.interaction.library.ListSelectionModified;
-import org.malai.interaction.library.SpinnerModified;
-import org.malai.ui.UIComposer;
+import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.interaction.library.CheckBoxModified;
+import org.malai.swing.interaction.library.ListSelectionModified;
+import org.malai.swing.interaction.library.SpinnerModified;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MColorButton;
 import org.malai.undo.Undoable;
-import org.malai.widget.MColorButton;
 
 /**
  * This abstract instrument defines the base definition of instruments that customise

@@ -17,8 +17,8 @@ import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
-import net.sf.latexdraw.util.StreamExecReader;
 import net.sf.latexdraw.util.LSystem.OperatingSystem;
+import net.sf.latexdraw.util.StreamExecReader;
 
 import org.malai.mapping.ActiveUnary;
 import org.malai.mapping.IUnary;

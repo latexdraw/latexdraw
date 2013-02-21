@@ -5,10 +5,10 @@ import java.util.Objects;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.ui.LFrame;
 
-import org.malai.action.library.ActivateInactivateInstruments;
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
-import org.malai.interaction.library.TabSelected;
+import org.malai.swing.action.library.ActivateInactivateInstruments;
+import org.malai.swing.interaction.library.TabSelected;
 
 /**
  * This instrument (de-)activates instruments while changing of tab (drawing tab, PST tab, etc.).<br>

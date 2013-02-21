@@ -1,8 +1,8 @@
 package net.sf.latexdraw.actions;
 
-import org.malai.action.Action;
-
 import net.sf.latexdraw.instruments.PreferencesSetter;
+
+import org.malai.action.Action;
 
 /**
  * This action writes the preferences.<br>

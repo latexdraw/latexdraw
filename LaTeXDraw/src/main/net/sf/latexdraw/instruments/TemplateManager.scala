@@ -1,14 +1,7 @@
 package net.sf.latexdraw.instruments
 
 import java.io.File
-
 import org.malai.instrument.Link
-import org.malai.instrument.WidgetInstrument
-import org.malai.interaction.library.MenuItemPressed
-import org.malai.ui.UIComposer
-import org.malai.widget.MMenu
-import org.malai.widget.MMenuItem
-
 import net.sf.latexdraw.actions.ExportTemplate
 import net.sf.latexdraw.actions.LoadTemplate
 import net.sf.latexdraw.actions.UpdateTemplates
@@ -17,6 +10,11 @@ import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.ui.LFrame
 import net.sf.latexdraw.util.LResources
+import org.malai.swing.widget.MMenu
+import org.malai.swing.instrument.WidgetInstrument
+import org.malai.swing.widget.MMenuItem
+import org.malai.swing.interaction.library.MenuItemPressed
+import org.malai.swing.ui.UIComposer
 
 /**
  * This instrument manages the templates.<br>

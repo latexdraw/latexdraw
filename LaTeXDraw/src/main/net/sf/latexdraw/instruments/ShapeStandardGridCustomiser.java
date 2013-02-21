@@ -15,9 +15,9 @@ import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.ui.UIComposer;
-import org.malai.widget.MSpinner;
-import org.malai.widget.MToggleButton;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MSpinner;
+import org.malai.swing.widget.MToggleButton;
 
 /**
  * This instrument modifies the parameters of grids and axes.<br>

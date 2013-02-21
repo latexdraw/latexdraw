@@ -13,9 +13,9 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.ActionsRegistry;
 import org.malai.instrument.Link;
-import org.malai.interaction.library.ButtonPressed;
-import org.malai.ui.UIComposer;
-import org.malai.widget.MButton;
+import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MButton;
 
 /**
  * This instrument groups and separates shapes.<br>

@@ -7,8 +7,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.sourceforge.jlibeps.epsgraphics.EpsGraphics2D;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.EPSFilter;
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
@@ -16,6 +14,8 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LPath;
+
+import org.sourceforge.jlibeps.epsgraphics.EpsGraphics2D;
 
 /**
  * Defines a model of a picture.<br>

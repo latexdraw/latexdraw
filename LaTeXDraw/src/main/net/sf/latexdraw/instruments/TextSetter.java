@@ -16,11 +16,11 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 
-import org.malai.action.library.ActivateInactivateInstruments;
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
 import org.malai.interaction.library.KeyTyped;
-import org.malai.widget.MLayeredPane;
+import org.malai.swing.action.library.ActivateInactivateInstruments;
+import org.malai.swing.widget.MLayeredPane;
 
 /**
  * This instrument allows to add and modify texts to the drawing.<br>

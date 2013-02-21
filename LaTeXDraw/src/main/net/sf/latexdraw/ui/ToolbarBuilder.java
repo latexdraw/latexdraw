@@ -14,10 +14,10 @@ import net.sf.latexdraw.instruments.DrawingPropertiesCustomiser;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.ui.UIComposer;
-import org.malai.widget.MProgressBar;
-import org.malai.widget.MSpinner;
-import org.malai.widget.MToolBar;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MProgressBar;
+import org.malai.swing.widget.MSpinner;
+import org.malai.swing.widget.MToolBar;
 
 /**
  * The composer that creates the tool bar of the application.<br>

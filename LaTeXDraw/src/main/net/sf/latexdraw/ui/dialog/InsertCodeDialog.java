@@ -15,9 +15,9 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.Instrument;
-import org.malai.widget.MButton;
-import org.malai.widget.MFrame;
-import org.malai.widget.MPanel;
+import org.malai.swing.widget.MButton;
+import org.malai.swing.widget.MFrame;
+import org.malai.swing.widget.MPanel;
 
 /**
  * This dialogue box allows users to insert code that will be converted into shapes.

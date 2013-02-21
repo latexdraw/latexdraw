@@ -14,15 +14,15 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.Link;
-import org.malai.instrument.WidgetInstrument;
-import org.malai.interaction.library.CheckBoxModified;
-import org.malai.interaction.library.ListSelectionModified;
-import org.malai.interaction.library.SpinnerModified;
-import org.malai.ui.UIComposer;
+import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.swing.interaction.library.CheckBoxModified;
+import org.malai.swing.interaction.library.ListSelectionModified;
+import org.malai.swing.interaction.library.SpinnerModified;
+import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MCheckBox;
+import org.malai.swing.widget.MComboBox;
+import org.malai.swing.widget.MSpinner;
 import org.malai.undo.Undoable;
-import org.malai.widget.MCheckBox;
-import org.malai.widget.MComboBox;
-import org.malai.widget.MSpinner;
 
 /**
  * This instrument customises the magnetic grid.<br>
