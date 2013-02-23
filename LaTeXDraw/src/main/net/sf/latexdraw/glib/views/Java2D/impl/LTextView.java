@@ -432,14 +432,36 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	@Override
 	public void updateBorder() {
 		final IPoint position = image==null ? getTextPositionText() : getTextPositionImage();
+		final double angle = shape.getRotationAngle();
+		double tlx;
+		double tly;
+		double widthBorder;
+		double heightBorder;
 
 		if(image==null) {
 			final TextLayout tl = new TextLayout(shape.getText(), FONT, FONT_METRICS.getFontRenderContext());
 			final Rectangle2D bounds = tl.getBounds();
-			border.setFrame(position.getX(), position.getY()-bounds.getHeight()+tl.getDescent(), tl.getAdvance(), bounds.getHeight());
+			tlx = position.getX();
+			tly = position.getY()-bounds.getHeight()+tl.getDescent();
+			widthBorder = tl.getAdvance();
+			heightBorder = bounds.getHeight();
 		}
-		else
-			border.setFrame(position.getX(), position.getY(), image.getWidth(null)*(1/SCALE_IMAGE), image.getHeight(null)*(1/SCALE_IMAGE));
+		else {
+			tlx = position.getX();
+			tly = position.getY();
+			widthBorder = image.getWidth(null)*(1/SCALE_IMAGE);
+			heightBorder = image.getHeight(null)*(1/SCALE_IMAGE);
+		}
+
+		if(LNumber.INSTANCE.equals(angle, 0.))
+			border.setFrame(tlx, tly, widthBorder, heightBorder);
+		else {
+			IPoint tl = DrawingTK.getFactory().createPoint();
+			IPoint br = DrawingTK.getFactory().createPoint();
+			getRotatedRectangle(tlx, tly, widthBorder, heightBorder, angle, shape.getGravityCentre(), tl, br);
+			// The border of the rotated rectangle is now the border of the rectangular view.
+			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
+		}
 	}
 
 

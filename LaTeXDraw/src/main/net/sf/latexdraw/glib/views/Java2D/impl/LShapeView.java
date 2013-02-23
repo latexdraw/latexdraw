@@ -783,6 +783,45 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	}
 
 
+	/**
+	 * Gives the top-left and the bottom-right points of the rotated rectangle.
+	 * @param tlx The top-left x-coordinate of the rectangle to rotate.
+	 * @param tly The top-left y-coordinate of the rectangle to rotate.
+	 * @param width The width of the rectangle to rotate.
+	 * @param height The height of the rectangle to rotate.
+	 * @param angle The rotation angle.
+	 * @param gravityCentre The gravity centre used for the rotation.
+	 * @param tl The resulting top-left point. Must not be null.
+	 * @param br The resulting bottom-right point. Must not be null.
+	 * @since 3.0
+	 */
+	protected static void getRotatedRectangle(final double tlx, final double tly, final double width,
+											 final double height, final double angle, final IPoint gravityCentre,
+											 final IPoint tl, final IPoint br) {
+		final IShapeFactory factory = DrawingTK.getFactory();
+		IPoint pts[] = new IPoint[4];
+		// Rotation of the four points of the rectangle.
+		pts[0] = factory.createPoint(tlx, tly).rotatePoint(gravityCentre, angle);
+		pts[1] = factory.createPoint(tlx+width, tly).rotatePoint(gravityCentre, angle);
+		pts[2] = factory.createPoint(tlx+width, tly+height).rotatePoint(gravityCentre, angle);
+		pts[3] = factory.createPoint(tlx, tly+height).rotatePoint(gravityCentre, angle);
+		tl.setPoint(Double.MAX_VALUE, Double.MAX_VALUE);
+		br.setPoint(Double.MIN_VALUE, Double.MIN_VALUE);
+
+		// Defining the border of the rotated rectangle.
+		for(int i=0; i<pts.length; i++) {
+			if(pts[i].getX()<tl.getX())
+				tl.setX(pts[i].getX());
+			if(pts[i].getX()>br.getX())
+				br.setX(pts[i].getX());
+			if(pts[i].getY()<tl.getY())
+				tl.setY(pts[i].getY());
+			if(pts[i].getY()>br.getY())
+				br.setY(pts[i].getY());
+		}
+	}
+
+
 
 	@Override
 	public Rectangle2D getBorder() {
