@@ -106,6 +106,7 @@ public class Pencil extends Instrument {
 	@Override
 	public void interimFeedback() {
 		drawing.setTempShape(null);
+		drawing.setModified(true);
 	}
 
 
