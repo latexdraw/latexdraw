@@ -350,7 +350,7 @@ public class Export extends Action {
 		File pdfFile;
 
 		try{
-			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, format==ExportFormat.PDF);
+			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, format==ExportFormat.PDF_CROP);
 		} catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
 			pdfFile = null;
