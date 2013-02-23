@@ -57,6 +57,7 @@ Changes:
 
 
 Fixed:
+- lp#1076032: a blanck page inserted while compiling a document as a pdf
 - lp#530184: the option 'showpoints' is badly painted for Bezier curves
 - lp#675155: the scale handlers approximately resize shapes
 - lp#675150: the unit saved into an SVG document is not loaded

@@ -390,9 +390,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		pstGen.update();
 		doc.append("\\documentclass{article}").append(LResources.EOL).append("\\pagestyle{empty}").append(LResources.EOL).append(getPackages()).append(LResources.EOL).append( //$NON-NLS-1$ //$NON-NLS-2$
-		"\\usepackage[left=0cm,top=0.1cm,right=0cm,nohead,nofoot,paperwidth=").append( //$NON-NLS-1$
+		"\\usepackage[left=0cm,top=0.1cm,right=0cm,bottom=0cm,nohead,nofoot,paperwidth=").append( //$NON-NLS-1$
 		tr.getX()/ppc).append("cm,paperheight=").append( //$NON-NLS-1$
-		bl.getY()/ppc+0.3).append("cm]{geometry}").append( //$NON-NLS-1$
+		bl.getY()/ppc+0.2).append("cm]{geometry}").append( //$NON-NLS-1$
 		LResources.EOL).append("\\usepackage[usenames,dvipsnames]{pstricks}").append(//$NON-NLS-1$
 		LResources.EOL).append("\\usepackage{epsfig}").append(//$NON-NLS-1$//$NON-NLS-2$
 		LResources.EOL).append("\\usepackage{pst-grad}").append(LResources.EOL).append("\\usepackage{pst-plot}").append(LResources.EOL).append(//$NON-NLS-1$//$NON-NLS-2$
