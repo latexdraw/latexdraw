@@ -1,11 +1,12 @@
--injars			scala-library.jar
+-injars			scala-library-2.9.2.jar
 -injars			LaTeXDraw.jar
--outjars			scala-library-shrinked.jar
--libraryjars	/opt/jdk1.6.0/jre/lib/rt.jar
+-outjars		scala-library-shrinked.jar
+-libraryjars	/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar
 -libraryjars	jlibeps.jar
 #-libraryjars	LaTeXDraw.jar
--libraryjars	malai.jar
 -libraryjars	PDFRenderer-0.9.1.jar
+-libraryjars	malai.swing-0.2-SNAPSHOT.jar
+-libraryjars	malai.core-0.2-SNAPSHOT.jar
 
 -dontobfuscate
 -dontoptimize

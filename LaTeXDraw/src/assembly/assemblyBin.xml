@@ -5,21 +5,60 @@
   <formats>
     <format>zip</format>
   </formats>
+    <dependencySets>
+        <dependencySet>
+           <includes>
+               <include>org.malai:malai.core</include>
+               <include>org.malai:malai.swing</include>
+           </includes>
+           <unpack>false</unpack>
+           <outputDirectory>data/lib/</outputDirectory>
+        </dependencySet>
+        <dependencySet>
+            <outputFileNameMapping>installer.jar</outputFileNameMapping>
+           <includes>
+               <include>net.sf.latexdraw:latexdraw.installer</include>
+           </includes>
+           <unpack>false</unpack>
+           <outputDirectory>.</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+  <files>
+     <file>
+     <source>${project.build.directory}/${project.artifactId}-${project.version}.jar</source>
+     <outputDirectory>data/</outputDirectory>
+     <destName>LaTeXDraw.jar</destName>
+  	</file>
+  </files>
   <fileSets>
     <fileSet>
-      <directory>${project.build.directory}</directory>
-      <outputDirectory>/</outputDirectory>
+      <directory>${project.basedir}/templates/</directory>
+      <outputDirectory>data/</outputDirectory>
       <includes>
-        <include>${project.artifactId}-${project.version}.jar</include>
+        <include>.cache/</include>
+        <include>templates/</include>
+      </includes>
+      <useDefaultExcludes>true</useDefaultExcludes>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/lib/</directory>
+      <outputDirectory>data/lib/</outputDirectory>
+      <includes>
+        <include>jlibeps.jar</include>
+        <include>PDFRenderer-0.9.1.jar</include>
+        <include>scala-library.jar</include>
       </includes>
       <useDefaultExcludes>true</useDefaultExcludes>
     </fileSet>
     <fileSet>
       <directory>${project.basedir}</directory>
-      <outputDirectory>/</outputDirectory>
+      <outputDirectory>.</outputDirectory>
       <includes>
-        <include>lib/</include>
-        <include>license*</include>
+        <include>license.txt</include>
+        <include>history.txt</include>
+        <include>install_*</include>
+        <include>readme.txt</include>
+        <include>release_note.txt</include>
       </includes>
       <useDefaultExcludes>true</useDefaultExcludes>
     </fileSet>
