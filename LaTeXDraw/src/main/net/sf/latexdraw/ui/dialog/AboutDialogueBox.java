@@ -118,7 +118,7 @@ public class AboutDialogueBox extends JFrame {
 	protected void createLicensePanel(final JTabbedPane tabbedPane) {
 		try {
 			JEditorPane editorPane = new JEditorPane();
-			setTextToEditorPane(editorPane, "/main/res/license.txt");//$NON-NLS-1$
+			setTextToEditorPane(editorPane, "/res/license.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.28"), new JScrollPane(editorPane)); //$NON-NLS-1$
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
@@ -128,7 +128,7 @@ public class AboutDialogueBox extends JFrame {
 	protected void createReleaseNotePanel(final JTabbedPane tabbedPane) {
 		try {
 			JEditorPane editorPane = new JEditorPane();
-			setTextToEditorPane(editorPane, "/main/res/release_note.txt");//$NON-NLS-1$
+			setTextToEditorPane(editorPane, "/res/release_note.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.27"), new JScrollPane(editorPane)); //$NON-NLS-1$
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
@@ -138,7 +138,7 @@ public class AboutDialogueBox extends JFrame {
 	protected void createTranslatorsPanel(final JTabbedPane tabbedPane) {
 		try {
 			JEditorPane editorPane = new JEditorPane();
-			setTextToEditorPane(editorPane, "/main/res/translators.txt");//$NON-NLS-1$
+			setTextToEditorPane(editorPane, "/res/translators.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.26"), new JScrollPane(editorPane)); //$NON-NLS-1$
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
@@ -147,7 +147,7 @@ public class AboutDialogueBox extends JFrame {
 
 	protected void createMainPanel(final JTabbedPane tabbedPane) {
 		try {
-			Image i = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("main/res/LaTeXDrawSmall.png"));//$NON-NLS-1$
+			Image i = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("res/LaTeXDrawSmall.png"));//$NON-NLS-1$
 			MediaTracker tracker = new MediaTracker(this);
 		    tracker.addImage(i,0);
 		    try { tracker.waitForID(0); }
