@@ -71,6 +71,20 @@ class LGroupView extends LShapeView<IGroup> {
 	}
 
 
+	@Override
+	public boolean contains(final double x, final double y) {
+		// We test the borders first to limit the computations.
+		if(!border.contains(x, y))
+			return false;
+
+		for(IViewShape sh : views)
+			if(sh.contains(x, y))
+				return true;
+
+		return false;
+	}
+
+
 
 	/**
 	 * @param i The position of the view to get.
