@@ -1,5 +1,8 @@
 package net.sf.latexdraw.parsers.pst.parser
 
+import net.sf.latexdraw.glib.views.latex.DviPsColors
+import java.awt.Color
+
 /**
  * A parser grouping parsers parsing text commands.<br>
  *<br>
@@ -23,8 +26,16 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser {
 	/**
 	 * Parses commands handling texts.
 	 */
-	def parsetextCommands(ctx:PSTContext) : Parser[Unit] = parseUseFontCommand(ctx)
+	def parsetextCommands(ctx:PSTContext) : Parser[Unit] = parseUseFontCommand(ctx) | parseColorCommand(ctx)
 
+
+	private def parseColorCommand(ctx:PSTContext) : Parser[Unit] = "\\color" ~ parseBracket(ctx) ^^ {
+		case _ ~ colourTxt =>
+			DviPsColors.INSTANCE.getColour(colourTxt) match {
+				case c:Color => ctx.textColor = c
+				case _ =>
+			}
+	}
 
 	/**
 	 * Parses the usefont command.

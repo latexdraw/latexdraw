@@ -51,7 +51,8 @@ class PSTLexical extends Lexical with PSTTokens {
 			"\\closepath", "\\rcurveto", "\\gsave", "\\grestore", "\\stroke", "\\fill", "\\translate", "\\scale", "\\rotate", "\\swapaxes",
 			"\\msave", "\\mrestore", "\\openshadow", "\\closedshadow", "\\movepath", "\\rlineto", "pspicture*", "\\rput*", "\\rput",
 			"\\usefont", "\\psframebox", "\\psframebox*", "\\psdblframebox", "\\psdblframebox*", "\\psshadowbox", "\\psshadowbox*",
-			"\\pscirclebox", "\\pscirclebox*", "\\psovalbox", "\\psovalbox*", "\\psdiabox", "\\psdiabox*", "\\pstribox", "\\pstribox*")
+			"\\pscirclebox", "\\pscirclebox*", "\\psovalbox", "\\psovalbox*", "\\psdiabox", "\\psdiabox*", "\\pstribox", "\\pstribox*",
+			"\\color")
 
  	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
 

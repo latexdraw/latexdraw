@@ -90,6 +90,7 @@ trait PSTAbstractParser extends TokenParsers {
 				if(ctx.fontSerie.isDefined) text.setText(ctx.fontSerie.get.equivCmd + text.getText())
 				if(ctx.fontShape.isDefined) text.setText(ctx.fontShape.get.equivCmd + text.getText())
 				text.setTextPosition(IText.TextPosition.getTextPosition(ctx.textPosition))
+				text.setLineColour(ctx.textColor);
 				List(text)
 		}
 	}
