@@ -2,6 +2,7 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import java.awt.Color
+import net.sf.latexdraw.glib.models.interfaces.IShape
 
 /**
  * A parser grouping parsers parsing text commands.<br>
@@ -22,25 +23,42 @@ import java.awt.Color
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser {
+trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser with IPSTCodeParser {
 	/**
 	 * Parses commands handling texts.
 	 */
-	def parsetextCommands(ctx:PSTContext) : Parser[Unit] = parseUseFontCommand(ctx) | parseColorCommand(ctx)
+	def parsetextCommands(ctx:PSTContext) : Parser[List[IShape]] = parseUseFontCommand(ctx) | parseColorCommand(ctx) | parseTextcolorCommand(ctx)
 
 
-	private def parseColorCommand(ctx:PSTContext) : Parser[Unit] = "\\color" ~ parseBracket(ctx) ^^ {
-		case _ ~ colourTxt =>
-			DviPsColors.INSTANCE.getColour(colourTxt) match {
-				case c:Color => ctx.textColor = c
-				case _ =>
-			}
+	/** Parses the command \textcolor */
+	private def parseTextcolorCommand(ctx:PSTContext) : Parser[List[IShape]] = {
+		val newCtx = new PSTContext(ctx, ctx.isPsCustom)
+		"\\textcolor" ~ parseColorBlock(newCtx) ~ parsePSTBlock(newCtx, newCtx.isPsCustom) ^^ {
+			case _ ~ _ ~ shapes  => List(shapes)
+		}
 	}
 
-	/**
-	 * Parses the usefont command.
-	 */
-	private def parseUseFontCommand(ctx:PSTContext) : Parser[Unit] = "\\usefont" ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
+
+	/** Parses the colour contained in the block. */
+	private def parseColorBlock(ctx:PSTContext) : Parser[Unit] = {
+		parseBracket(ctx) ^^ {
+			case colourTxt =>
+				DviPsColors.INSTANCE.getColour(colourTxt) match {
+				case c:Color => ctx.textColor = c
+				case _ =>
+				}
+		}
+	}
+
+
+	/** Parses the command \color */
+	private def parseColorCommand(ctx:PSTContext) : Parser[List[IShape]] = "\\color" ~ parseColorBlock(ctx) ^^ {
+		case _ ~ _ => Nil
+	}
+
+
+	/** Parses the usefont command. */
+	private def parseUseFontCommand(ctx:PSTContext) : Parser[List[IShape]] = "\\usefont" ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
 		case _ ~ encoding ~ family ~ series ~ shapes =>
 			fontShape.toFontShape(shapes) match {
 				case Some(value) => ctx.fontShape = Some(value)
@@ -54,5 +72,6 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser {
 				case Some(value) => ctx.fontSerie = Some(value)
 				case _ =>
 			}
+			Nil
 	}
 }

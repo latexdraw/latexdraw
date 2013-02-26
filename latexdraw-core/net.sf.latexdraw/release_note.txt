@@ -34,7 +34,7 @@ Improvements:
 - Can zoom in/out with the keys '+' and '-'.
 - PSTricks parser:
 	- using a ps command as a value (e.g. linecolor=\psfillcolor) is supported
-	- commands qdisk, qline, psarcn supported
+	- commands qdisk, qline, psarcn, textcolor supported
 
 Changes:
 - Tabs are used to replace the code panel.

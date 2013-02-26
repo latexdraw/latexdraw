@@ -12,6 +12,29 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestTextParsing extends TestPSTParser {
+	@Test public void testBug722075_3() throws ParseException {
+		// https://bugs.launchpad.net/latexdraw/+bug/722075
+		IGroup group = parser.parsePSTCode("\\textcolor{blue}{xyz} foobar").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text = ((IText)group.getShapeAt(0));
+		assertEquals("foobar", text.getText());
+		assertEquals(Color.BLACK, text.getLineColour());
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testBug722075_2() throws ParseException {
+		// https://bugs.launchpad.net/latexdraw/+bug/722075
+		IGroup group = parser.parsePSTCode("\\textcolor{blue}{xyz}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text = ((IText)group.getShapeAt(0));
+		assertEquals("xyz", text.getText());
+		assertEquals(Color.BLUE, text.getLineColour());
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+
 	@Test public void testBug722075_1() throws ParseException {
 		// https://bugs.launchpad.net/latexdraw/+bug/722075
 		IGroup group = parser.parsePSTCode("\\color{blue} xyz").get();

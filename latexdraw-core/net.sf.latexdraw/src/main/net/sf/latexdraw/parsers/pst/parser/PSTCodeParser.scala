@@ -30,9 +30,9 @@ import net.sf.latexdraw.glib.models.interfaces.IText
 trait PSTCodeParser extends PSTAbstractParser
 	with PSFrameEllipseDiamondTriangleParser with PSCircleParser with PSLineParser with PSPolygonParser with PSWedgeArcParser
 	with PSBezierParser with PSCurveParabolaParser with PSDotParser with PSGridAxes with PSTPlotParser with PSCustomParser
-	with TextCommandsParser with PSFrameboxParser {
-	/** The entry point to parse PST texts. */
-	def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
+	with TextCommandsParser with PSFrameboxParser with IPSTCodeParser {
+
+	override def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
 		rep(parsePSTBlock(ctx, ctx.isPsCustom) | parsePspictureBlock(ctx) | parsePsset(ctx) |
 			parsePsellipse(ctx) | parsePsframe(ctx) | parsePsdiamond(ctx) | parsePstriangle(ctx) |
 			parsePsline(ctx) | parserQline(ctx) |
@@ -60,10 +60,7 @@ trait PSTCodeParser extends PSTAbstractParser
 
 
 
-	/**
-	 * This parser rule parses texts (raw text, unknown commands, math area, etc.) and transforms them into shapes.
-	 */
-	def parseText(ctx : PSTContext) : Parser[List[IShape]] =  (math | text | ident | numeric | commandUnknown) ^^ {
+	override def parseText(ctx : PSTContext) : Parser[List[IShape]] =  (math | text | ident | numeric | commandUnknown) ^^ {
 		case obj =>
 			ctx.textParsed match {
 				case "" => ctx.textParsed = obj.mkString
@@ -73,8 +70,7 @@ trait PSTCodeParser extends PSTAbstractParser
 	}
 
 
-
-	def parsePscustom(ctx : PSTContext) : Parser[IGroup] = ("\\pscustom*" | "\\pscustom") ~ opt(parseParam(ctx)) ~ parsePSTBlock(ctx, true) ^^ {
+	override def parsePscustom(ctx : PSTContext) : Parser[IGroup] = ("\\pscustom*" | "\\pscustom") ~ opt(parseParam(ctx)) ~ parsePSTBlock(ctx, true) ^^ {
 		case cmdName ~ _ ~ shapes => shapes
 			if(cmdName.endsWith("*"))
 				shapes.getShapes.foreach{sh => setShapeForStar(sh)}
@@ -103,18 +99,18 @@ trait PSTCodeParser extends PSTAbstractParser
 	}
 
 
-	def parseNewpsobject(ctx : PSTContext) : Parser[List[IShape]] = "\\newpsobject" ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
+	override def parseNewpsobject(ctx : PSTContext) : Parser[List[IShape]] = "\\newpsobject" ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
 		case _ ~ name ~ obj ~ attributes => PSTParser.errorLogs += "The command newpsobject is not supported yet" ; Nil
 	}
 
 
-	def parseNewpsstyle(ctx : PSTContext) : Parser[List[IShape]] = "\\newpsstyle" ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
+	override def parseNewpsstyle(ctx : PSTContext) : Parser[List[IShape]] = "\\newpsstyle" ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
 		case _ ~ name ~ attributes => PSTParser.errorLogs += "The command newpsstyle is not supported yet" ; Nil
 	}
 
 
 	/** Parses a PST block surrounded with brackets. */
-	def parsePSTBlock(ctx : PSTContext, isPsCustomBlock : Boolean) : Parser[IGroup] = {
+	override def parsePSTBlock(ctx : PSTContext, isPsCustomBlock : Boolean) : Parser[IGroup] = {
 		val newCtx = new PSTContext(ctx, isPsCustomBlock)
 		"{" ~ parsePSTCode(newCtx) ~ "}" ^^ {
 			case _ ~ shapes ~ _ =>
@@ -124,10 +120,8 @@ trait PSTCodeParser extends PSTAbstractParser
 	}
 
 
-	/**
-	 * Parses rput commands.
-	 */
-	def parseRput(ctx : PSTContext) : Parser[IGroup] = {
+
+	override def parseRput(ctx : PSTContext) : Parser[IGroup] = {
 		val ctx2 = new PSTContext(ctx, ctx.isPsCustom)// Must create an other context not to modify the current one.
 		("\\rput*" | "\\rput") ~ opt(parseRputTextPosition(ctx2)) ~ opt(parseRputRotationAngle(ctx2)) ~
 		parseCoord(ctx2) ~ parsePSTBlock(ctx2, false) ^^ { case _ ~ _ ~ _ ~ coord ~ figs =>
@@ -152,10 +146,7 @@ trait PSTCodeParser extends PSTAbstractParser
 
 
 
-	/**
-	 * Parses begin{pspicture} \end{pspicture} blocks.
-	 */
-	def parsePspictureBlock(ctx : PSTContext) : Parser[IGroup] = {
+	override def parsePspictureBlock(ctx : PSTContext) : Parser[IGroup] = {
 		val ctx2 = new PSTContext(ctx, false)
 		(parseBeginPspicture(ctx2, false) ~> parsePSTCode(ctx2) <~ "\\end" <~ "{" <~ "pspicture" <~ "}") |
 		(parseBeginPspicture(ctx2, true) ~> parsePSTCode(ctx2) <~ "\\end" <~ "{" <~ "pspicture*" <~ "}")
