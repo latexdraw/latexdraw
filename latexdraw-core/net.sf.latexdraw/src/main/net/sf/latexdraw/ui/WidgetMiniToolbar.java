@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -449,13 +448,6 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	@Override
 	public Picker getPickerAt(final double x, final double y) {
 		return WidgetUtilities.INSTANCE.getPickerAt(this, toolbar.getComponents(), x, y);
-	}
-
-
-
-	@Override
-	public Point2D getRelativePoint(final double x, final double y, final Object o){
-		return WidgetUtilities.INSTANCE.getRelativePoint(toolbar.getComponents(), x, y, o);
 	}
 
 

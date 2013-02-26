@@ -20,7 +20,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.malai.instrument.Link;
 import org.malai.swing.instrument.library.WidgetZoomer;
-import org.malai.swing.interaction.SwingEventManager;
 import org.malai.swing.widget.MLayeredPane;
 
 public class TestPencil extends TestInstrument<Pencil> {
@@ -61,7 +60,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 		double x = 100., y = 300.;
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.RECT);
-		((SwingEventManager)canvas.getEventManager()).mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
+		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
 		Link<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
@@ -83,7 +82,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 		double x = 100., y = 300.;
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.ELLIPSE);
-		((SwingEventManager)canvas.getEventManager()).mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
+		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
 		Link<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
@@ -105,7 +104,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 		double x = 100., y = 300.;
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.CIRCLE);
-		((SwingEventManager)canvas.getEventManager()).mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
+		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
 		Link<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
@@ -127,7 +126,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 		double x = 100., y = 300.;
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.SQUARE);
-		((SwingEventManager)canvas.getEventManager()).mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
+		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
 		Link<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);

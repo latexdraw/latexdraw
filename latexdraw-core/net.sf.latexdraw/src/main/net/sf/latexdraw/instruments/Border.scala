@@ -466,9 +466,6 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	override def getPickerAt(x : Double, y : Double) : Picker = null
 
 
-	override def getRelativePoint(x : Double, y : Double, o : Object) : Point2D = new Point2D.Double(x, y)
-
-
 	// Supposing that there is no handler outside the border.
 	override def contains(obj : Object) = obj.isInstanceOf[IHandler]
 }
