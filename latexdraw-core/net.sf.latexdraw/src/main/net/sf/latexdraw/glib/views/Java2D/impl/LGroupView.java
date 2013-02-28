@@ -63,6 +63,16 @@ class LGroupView extends LShapeView<IGroup> {
 
 
 	@Override
+	public void flush() {
+		super.flush();
+
+		for(IViewShape v : views)
+			v.flush();
+		views.clear();
+	}
+
+
+	@Override
 	public void update() {
 		for(IViewShape view : views)
 			view.update();

@@ -32,16 +32,4 @@ public interface IViewText extends IViewShape, ToolTipable {
 	 * @since 3.0
 	 */
 	Image getImage();
-
-	/**
-	 * @return The precise latex error messages that the latex compilation produced.
-	 * @since 3.0
-	 */
-	String getLatexErrorMessageFromLog();
-
-	/**
-	 * @return The LaTeX document that will be compiled in order to get the picture of the text.
-	 * @since 3.0
-	 */
-	String getLaTeXDocument();
 }

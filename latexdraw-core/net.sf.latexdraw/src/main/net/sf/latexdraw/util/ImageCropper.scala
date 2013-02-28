@@ -46,7 +46,7 @@ object ImageCropper {
 		val newWidth = img.getWidth(null)-left-right
 		val newHeight = img.getHeight(null)-top-bottom
 		val cropped = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB_PRE)
-		val g = cropped.getGraphics()
+		val g = cropped.getGraphics
 
 	    g.drawImage(img, 0, 0, newWidth, newHeight, left, top, newWidth+left, newHeight+top, null)
 	    g.dispose
@@ -61,7 +61,7 @@ object ImageCropper {
 	private def getBottom(img : BufferedImage, width : Int, height : Int, left : Int, right : Int) : Int = {
 		var bottom = 0
 		var y = height-1
-		
+
 		while(y>=0 && !hasColouredPixelRow(img, y, left, width-right)) {
 			bottom+=1
 			y-=1
@@ -76,7 +76,7 @@ object ImageCropper {
 	private def getTop(img : BufferedImage, width : Int, height : Int, left : Int, right : Int) : Int = {
 		var top = 0
 
-		while(top<height && !hasColouredPixelRow(img, top, left, width-right)) 
+		while(top<height && !hasColouredPixelRow(img, top, left, width-right))
 			top+=1
 
 		return top
