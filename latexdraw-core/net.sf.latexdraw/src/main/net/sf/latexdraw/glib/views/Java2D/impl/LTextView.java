@@ -69,8 +69,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 	@Override
 	public void update() {
-		final Image image = FlyweightThumbnail.getImage(shape);//FIXME
-		final String log = FlyweightThumbnail.getLog(shape);
+		final Image image = FlyweightThumbnail.getImage(this);
+		final String log = FlyweightThumbnail.getLog(this);
 
 		if(image==null && log.length()==0 || !lastText.equals(shape.getText()) ||
 			lastColour==null || !lastColour.equals(shape.getLineColour()) ||
@@ -94,21 +94,21 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 	@Override
 	public void flush() {
-		FlyweightThumbnail.notifyImageFlushed(shape, lastText);
-		FlyweightThumbnail.notifyImageFlushed(shape, shape.getText());
+		FlyweightThumbnail.notifyImageFlushed(this, lastText);
+		FlyweightThumbnail.notifyImageFlushed(this, shape.getText());
 		super.flush();
 	}
 
 
 	@Override
 	public void updateImage() {
-		FlyweightThumbnail.notifyImageFlushed(shape, lastText);
+		FlyweightThumbnail.notifyImageFlushed(this, lastText);
 	}
 
 
 	@Override
 	public Image getImage() {
-		return FlyweightThumbnail.getImage(shape);
+		return FlyweightThumbnail.getImage(this);
 	}
 
 
@@ -132,7 +132,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 
 	private IPoint getTextPositionImage() {
-		final Image image = FlyweightThumbnail.getImage(shape);
+		final Image image = FlyweightThumbnail.getImage(this);
 		final double scale = FlyweightThumbnail.scaleImage();
 
 		switch(shape.getTextPosition()) {
@@ -179,7 +179,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		if(g==null)
 			return ;
 
-		final Image image = FlyweightThumbnail.getImage(shape);
+		final Image image = FlyweightThumbnail.getImage(this);
 		final IPoint p = beginRotation(g);
 		final IPoint position = image==null ? getTextPositionText() : getTextPositionImage();
 
@@ -203,7 +203,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 	@Override
 	public void updateBorder() {
-		final Image image = FlyweightThumbnail.getImage(shape);
+		final Image image = FlyweightThumbnail.getImage(this);
 		final IPoint position = image==null ? getTextPositionText() : getTextPositionImage();
 		final double angle = shape.getRotationAngle();
 		double tlx;
@@ -279,7 +279,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	@Override
 	public String getToolTip() {
 		String msg;
-		final String log = FlyweightThumbnail.getLog(shape);
+		final String log = FlyweightThumbnail.getLog(this);
 
 		if(log==null || log.length()==0)
 			msg = "";

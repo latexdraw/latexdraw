@@ -47,18 +47,18 @@ public class ViewList2TooltipableList extends List2ListMapping<IViewShape, ToolT
 	public void onObjectAdded(final Object list, final Object object, final int index) {
 		// TODO Auto-generated method stub
 		if(object instanceof ToolTipable)
-			target.add((ToolTipable)object);
+			synchronized(target){ target.add((ToolTipable)object); }
 	}
 
 	@Override
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
 		if(object instanceof ToolTipable)
-			target.remove(object);
+			synchronized(target){ target.remove(object); }
 	}
 
 	@Override
 	public void onListCleaned(final Object list) {
-		target.clear();
+		synchronized(target){ target.clear(); }
 	}
 
 

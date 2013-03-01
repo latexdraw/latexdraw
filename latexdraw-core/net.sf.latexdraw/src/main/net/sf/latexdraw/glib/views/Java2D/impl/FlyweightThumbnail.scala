@@ -11,14 +11,12 @@ import java.io.RandomAccessFile
 import java.io.StringWriter
 import java.nio.channels.FileChannel
 import java.util.regex.Pattern
-
 import scala.Option.option2Iterable
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.Map
+import scala.collection.mutable.MutableList
 import scala.collection.mutable.Set
-
 import com.sun.pdfview.PDFFile
-
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.filters.PDFFilter
 import net.sf.latexdraw.filters.PSFilter
@@ -34,6 +32,9 @@ import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.util.LSystem
 import net.sf.latexdraw.util.StreamExecReader
+import scala.collection.mutable.MutableList
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
+import net.sf.latexdraw.glib.ui.ICanvas
 
 /**
  * This flyweight manages the thumbnails of the text shapes. Its goal is to limit the number
@@ -63,11 +64,21 @@ object FlyweightThumbnail {
 	 * /tmp/latexdraw180980 (without any extension). The last String is the log of the
 	 * compilation.
 	 */
-	val images : Map[String, Tuple4[Image,Set[IText],String,String]] = new HashMap[String, Tuple4[Image,Set[IText],String,String]]()
+	val images : Map[String, Tuple4[Image,Set[IViewText],String,String]] = new HashMap[String, Tuple4[Image,Set[IViewText],String,String]]()
 
 	val _scaleImage = 2.
 
+	val creationsInProgress : Set[IViewText] = Set[IViewText]()
 
+	var _canvas : ICanvas = null
+
+	var _thread = true
+
+	/** True: the creation will be performed using threads. */
+	def setThread(withThread:Boolean) {  _thread = withThread }
+
+	/** Sets the canvas to notify when a picture is created (with threads only). */
+	def setCanvas(c:ICanvas) { _canvas = c }
 
 	/** A ratio used to create bigger thumbnails to improve the quality of the displayed image. */
 	def scaleImage() = _scaleImage
@@ -77,33 +88,54 @@ object FlyweightThumbnail {
 	 * Returns the image corresponding to the given text. If the image does not already exists,
 	 * it is created and stored.
 	 */
-	def getImage(shape:IText) : Image = getImageInfo(shape)._1
+	def getImage(shape:IViewText) : Image = getImageInfo(shape)._1
 
 
 	/**
 	 * Returns the log corresponding to the compilation of the given text. If the image does not already exists,
 	 * it is created and stored.
 	 */
-	def getLog(shape:IText) : String = getImageInfo(shape)._4
+	def getLog(shape:IViewText) : String = getImageInfo(shape)._4
 
 
 	/**
 	 * Returns some information corresponding to the the given text. If the image does not already exists,
 	 * it is created and stored.
 	 */
-	def getImageInfo(shape:IText) : Tuple4[Image,Set[IText],String,String] = {
-		val text = shape.getText
-		var res : Tuple4[Image,Set[IText],String,String] = null
+	def getImageInfo(view:IViewText) : Tuple4[Image,Set[IViewText],String,String] = {
+		val shape = view.getShape.asInstanceOf[IText]
+		var res : Tuple4[Image,Set[IViewText],String,String] = null
 
-		images.get(text) match {
+		if(creationsInProgress.synchronized{creationsInProgress.contains(view)})
+			res = new Tuple4[Image,Set[IViewText],String,String](null, Set(), "", "Creation in progress")
+		else {
+			val text = shape.getText
+			images.synchronized{images.get(text)} match {
 			case Some(tuple) =>
-				tuple._2+=shape
-				res = new Tuple4[Image,Set[IText],String,String](tuple._1, tuple._2, tuple._3, tuple._4)
+				tuple._2.synchronized { tuple._2+=view }
+				res = new Tuple4[Image,Set[IViewText],String,String](tuple._1, tuple._2, tuple._3, tuple._4)
+				images.synchronized{images+=(text -> res)}
 			case _ =>
-				val tuple = createImage(shape)
-				res = new Tuple4[Image,Set[IText],String,String](tuple._1, Set(shape), tuple._2, tuple._3)
+				if(_thread) {
+					creationsInProgress.synchronized{creationsInProgress+=view}
+					res = new Tuple4[Image,Set[IViewText],String,String](null, Set(), "", "Creation in progress")
+					new Thread() {
+						override def run() {
+							val tuple = createImage(shape)
+							images.synchronized{images+=(text -> new Tuple4[Image,Set[IViewText],String,String](tuple._1, Set(view), tuple._2, tuple._3))}
+							creationsInProgress.synchronized{creationsInProgress-=view}
+							view.getShape().setModified(true);
+							if(_canvas!=null) _canvas.refresh();
+						}
+					}.start()
+				}
+				else {
+					val tuple = createImage(shape)
+					res = new Tuple4[Image,Set[IViewText],String,String](tuple._1, Set(view), tuple._2, tuple._3)
+					images+=(text -> res)
+				}
 			}
-		images+=(text -> res)
+		}
 		res
 	}
 
@@ -112,16 +144,18 @@ object FlyweightThumbnail {
 	 * When a text picture is flushed, it must notified this flyweight that it has to check if the
 	 * corresponding image must be flushed as well.
 	 */
-	def notifyImageFlushed(shape:IText, text:String) {
-		images.get(text) match {
-			case Some(tuple) =>
-				tuple._2-=shape
-				if(tuple._2.isEmpty) { // No more used, so flushed.
-					images.remove(text)
-					flushImage(tuple._1, tuple._3)
-				}else // Decreasing the number of objets using this image.
-					images+=(text -> new Tuple4[Image,Set[IText],String,String](tuple._1, tuple._2, tuple._3, tuple._4))
-			case _ => null
+	def notifyImageFlushed(view:IViewText, text:String) {
+		if(!creationsInProgress.synchronized{creationsInProgress.contains(view)}) {
+			images.synchronized{images.get(text)} match {
+				case Some(tuple) =>
+					tuple._2.synchronized{ tuple._2-=view }
+					if(tuple._2.isEmpty) { // No more used, so flushed.
+						images.synchronized{images.remove(text)}
+						flushImage(tuple._1, tuple._3)
+					}else // Decreasing the number of objets using this image.
+						images.synchronized{images+=(text -> new Tuple4[Image,Set[IViewText],String,String](tuple._1, tuple._2, tuple._3, tuple._4))}
+				case _ => null
+			}
 		}
 	}
 
@@ -131,8 +165,10 @@ object FlyweightThumbnail {
 	 * @since 3.0
 	 */
 	private def flushImage(image:Image, pathPic:String) {
+		if(image!=null)
 		// Flushing the picture.
-		image.flush
+			image.flush
+
 		// Removing the picture file.
 		val file = new File(pathPic)
 		if(file.exists && file.canWrite)

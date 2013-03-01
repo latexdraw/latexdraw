@@ -21,6 +21,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.ToolTipable;
 import net.sf.latexdraw.instruments.Border;
@@ -135,6 +136,7 @@ public class LCanvas extends MPanel implements ICanvas {
 		tempView			= new ActiveUnary<>();
 		zoom				= new ActiveUnary<>(1.);
 
+		FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
 		borderIns.addEventable(this);
 
@@ -162,7 +164,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public void reinit() {
-		views.clear();
+		synchronized(views){views.clear();}
 		zoom.setValue(1.);
 		update();
 	}
@@ -200,8 +202,10 @@ public class LCanvas extends MPanel implements ICanvas {
 		if(mustZoom)
 			g.scale(zoomValue, zoomValue);
 
-		for(IViewShape view : views)
-    		view.paint(g);
+		synchronized(views){
+			for(IViewShape view : views)
+	    		view.paint(g);
+		}
 
     	if(temp!=null)
     		temp.paint(g);
@@ -244,21 +248,22 @@ public class LCanvas extends MPanel implements ICanvas {
 			double maxY = Double.MIN_VALUE;
 
 			Rectangle2D bounds;
+			synchronized(views){
+				for(IViewShape view : views) {
+					bounds = view.getBorder();
 
-			for(IViewShape view : views) {
-				bounds = view.getBorder();
+					if(bounds.getMinX()<minX)
+						minX = bounds.getMinX();
 
-				if(bounds.getMinX()<minX)
-					minX = bounds.getMinX();
+					if(bounds.getMinY()<minY)
+						minY = bounds.getMinY();
 
-				if(bounds.getMinY()<minY)
-					minY = bounds.getMinY();
+					if(bounds.getMaxX()>maxX)
+						maxX = bounds.getMaxX();
 
-				if(bounds.getMaxX()>maxX)
-					maxX = bounds.getMaxX();
-
-				if(bounds.getMaxY()>maxY)
-					maxY = bounds.getMaxY();
+					if(bounds.getMaxY()>maxY)
+						maxY = bounds.getMaxY();
+				}
 			}
 
 			if(temp!=null) {
@@ -299,13 +304,15 @@ public class LCanvas extends MPanel implements ICanvas {
 		final double x2 = x/getZoom();
 		final double y2 = y/getZoom();
 		IViewShape view = null;
-		int i=views.size()-1;
+		synchronized(views){
+			int i=views.size()-1;
 
-		while(i>=0 && view==null)
-			if(views.get(i).contains(x2, y2))
-				view = views.get(i);
-			else
-				i--;
+			while(i>=0 && view==null)
+				if(views.get(i).contains(x2, y2))
+					view = views.get(i);
+				else
+					i--;
+		}
 
 		return view;
 	}

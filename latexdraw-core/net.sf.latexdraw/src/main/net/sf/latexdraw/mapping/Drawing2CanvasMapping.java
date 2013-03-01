@@ -6,7 +6,7 @@ import net.sf.latexdraw.glib.ui.ICanvas;
 import org.malai.mapping.Object2ObjectMapping;
 
 /**
- * Defines a mapping that link an IDrawing to a ICanvas.<br>
+ * Defines a mapping that link an IDrawing to a ICanvas.<br>Qvas> {
  *<br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2013 Arnaud BLOUIN<br>

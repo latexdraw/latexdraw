@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Locale;
 
 import javax.imageio.IIOImage;
@@ -426,8 +427,11 @@ public class Export extends Action {
 		graphic.setColor(Color.WHITE);
 		graphic.fillRect(0, 0, (int)(tr.getX()+dec), (int)(bl.getY()+dec));
 
-		for(IViewShape view : canvas.getViews())
-			view.paint(graphic);
+		List<IViewShape> views = canvas.getViews();
+		synchronized(views){
+			for(IViewShape view : canvas.getViews())
+				view.paint(graphic);
+		}
 
 		// To delete the empty whitespace, we do a translation to
 		// the North-West point of the drawing (dec: to avoid to cut

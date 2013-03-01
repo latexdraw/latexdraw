@@ -10,7 +10,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 
 import org.malai.mapping.MappingRegistry;
-import org.malai.mapping.SymmetricList2ListMapping;
+import org.malai.mapping.SynchroSymmetricList2ListMapping;
 
 /**
  * Defines a mapping that link a list of IShape to a list of IShapeView.<br>
@@ -32,9 +32,11 @@ import org.malai.mapping.SymmetricList2ListMapping;
  * @since 3.0
  * @version 3.0
  */
-public class ShapeList2ViewListMapping extends SymmetricList2ListMapping<IShape, IViewShape> {
+public class ShapeList2ViewListMapping extends SynchroSymmetricList2ListMapping<IShape, IViewShape> {
 	/**
-	 * {@link SymmetricList2ListMapping#SymmetricList2ListMapping(List, List)}
+	 * Creates the mapping.
+	 * @param source The shape list.
+	 * @param target The view list.
 	 */
 	public ShapeList2ViewListMapping(final List<IShape> source, final List<IViewShape> target) {
 		super(source, target);
