@@ -84,6 +84,14 @@ object FlyweightThumbnail {
 	def scaleImage() = _scaleImage
 
 
+	def clear() {
+		creationsInProgress.synchronized{creationsInProgress.clear}
+		images.synchronized{
+			images.foreach{tu => flushImage(tu._2._1, tu._2._3)}
+			images.clear
+		}
+	}
+
 	/**
 	 * Returns the image corresponding to the given text. If the image does not already exists,
 	 * it is created and stored.
@@ -105,6 +113,7 @@ object FlyweightThumbnail {
 	def getImageInfo(view:IViewText) : Tuple4[Image,Set[IViewText],String,String] = {
 		val shape = view.getShape.asInstanceOf[IText]
 		var res : Tuple4[Image,Set[IViewText],String,String] = null
+		println(">>"+shape.getText)
 
 		if(creationsInProgress.synchronized{creationsInProgress.contains(view)})
 			res = new Tuple4[Image,Set[IViewText],String,String](null, Set(), "", "Creation in progress")

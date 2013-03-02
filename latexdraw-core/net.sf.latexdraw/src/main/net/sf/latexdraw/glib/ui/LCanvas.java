@@ -615,6 +615,11 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 	@Override
+	public void onUndoableCleared() {
+		// Nothing to do.
+	}
+
+	@Override
 	public void onUndoableAdded(final Undoable undoable) {
 		// Nothing to do.
 	}

@@ -7,10 +7,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.ui.LFrame;
 
+import org.malai.action.ActionsRegistry;
 import org.malai.swing.action.library.IOAction;
+import org.malai.undo.UndoCollector;
 
 /**
  * This action permits to create a new drawing and initialises the application as required.<br>
@@ -64,6 +67,9 @@ public class NewDrawing extends IOAction<LFrame, JLabel> implements Modifying {
 
 	protected void newDrawing() {
 		ui.reinit();
+		UndoCollector.INSTANCE.clear();
+		ActionsRegistry.INSTANCE.clear();
+		FlyweightThumbnail.clear();
 		try{ prefSetter.readXMLPreferences(); }
 		catch(final Exception exception){ BadaboomCollector.INSTANCE.add(exception); }
 	}
