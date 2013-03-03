@@ -112,6 +112,7 @@ public class AboutDialogueBox extends JFrame {
 
 		editorPane.setText(builder.toString());
 		tabbedPane.add("System", new JScrollPane(editorPane));
+		editorPane.setCaretPosition(0);
 	}
 
 
@@ -121,6 +122,7 @@ public class AboutDialogueBox extends JFrame {
 			setTextToEditorPane(editorPane, "/res/license.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.28"), new JScrollPane(editorPane)); //$NON-NLS-1$
+			editorPane.setCaretPosition(0);
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
@@ -131,6 +133,7 @@ public class AboutDialogueBox extends JFrame {
 			setTextToEditorPane(editorPane, "/res/release_note.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.27"), new JScrollPane(editorPane)); //$NON-NLS-1$
+			editorPane.setCaretPosition(0);
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
@@ -141,6 +144,7 @@ public class AboutDialogueBox extends JFrame {
 			setTextToEditorPane(editorPane, "/res/contributors.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add("Contributors", new JScrollPane(editorPane));
+			editorPane.setCaretPosition(0);
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
