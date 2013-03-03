@@ -10,6 +10,7 @@ import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
@@ -36,7 +37,7 @@ import org.malai.swing.widget.MMenuItem;
  * General Public License for more details.<br>
  * <br>
  * 06/03/2011<br>
- * @author Arnaud BLOUIN
+ * @author Arnaud BLOUIN, Jan-Cornelius MOLNAR
  * @since 3.0
  */
 public class CopierCutterPaster extends WidgetInstrument {
@@ -198,7 +199,7 @@ class Shortcut2CopyShapes extends Interaction2AbstractCopy<CopyShapes, KeysPress
 	@Override
 	public boolean isConditionRespected() {
 		return getInteraction().getKeys().size()==2 && getInteraction().getKeys().contains(KeyEvent.VK_C) &&
-				getInteraction().getKeys().contains(KeyEvent.VK_CONTROL);
+				getInteraction().getKeys().contains(LSystem.INSTANCE.getControlKey());
 	}
 }
 
@@ -217,7 +218,7 @@ class Shortcut2CutShapes extends Interaction2AbstractCopy<CutShapes, KeysPressur
 	@Override
 	public boolean isConditionRespected() {
 		return getInteraction().getKeys().size()==2 && getInteraction().getKeys().contains(KeyEvent.VK_X) &&
-				getInteraction().getKeys().contains(KeyEvent.VK_CONTROL);
+				getInteraction().getKeys().contains(LSystem.INSTANCE.getControlKey());
 	}
 }
 
@@ -305,7 +306,7 @@ class Shortcut2PasteShapes extends Interaction2PasteShapes<KeysPressure> {
 	@Override
 	public boolean isConditionRespected() {
 		return getInteraction().getKeys().size()==2 && getInteraction().getKeys().contains(KeyEvent.VK_V) &&
-				getInteraction().getKeys().contains(KeyEvent.VK_CONTROL);
+				getInteraction().getKeys().contains(LSystem.INSTANCE.getControlKey());
 	}
 }
 
@@ -327,4 +328,3 @@ class MenuItem2PasteShapes extends Interaction2PasteShapes<MenuItemPressed> {
 				(ActionsRegistry.INSTANCE.getAction(CopyShapes.class)!=null || ActionsRegistry.INSTANCE.getAction(CutShapes.class)!=null);
 	}
 }
-

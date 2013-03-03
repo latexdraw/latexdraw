@@ -67,7 +67,7 @@ public class AboutDialogueBox extends JFrame {
 
 		createMainPanel(tabbedPane);
 		createReleaseNotePanel(tabbedPane);
-		createTranslatorsPanel(tabbedPane);
+		createContributorsPanel(tabbedPane);
 		createSystemPanel(tabbedPane);
 		createLicensePanel(tabbedPane);
 
@@ -134,13 +134,13 @@ public class AboutDialogueBox extends JFrame {
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
-
-	protected void createTranslatorsPanel(final JTabbedPane tabbedPane) {
+//TODO check LangTool.INSTANCE.getString18("LaTeXDrawFrame.26")
+	protected void createContributorsPanel(final JTabbedPane tabbedPane) {
 		try {
 			JEditorPane editorPane = new JEditorPane();
-			setTextToEditorPane(editorPane, "/res/translators.txt");//$NON-NLS-1$
+			setTextToEditorPane(editorPane, "/res/contributors.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
-			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.26"), new JScrollPane(editorPane)); //$NON-NLS-1$
+			tabbedPane.add("Contributors", new JScrollPane(editorPane));
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 

@@ -18,6 +18,7 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LFrame;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 
 import org.malai.action.Action;
 import org.malai.instrument.Link;
@@ -50,7 +51,7 @@ import org.w3c.dom.Element;
  * General Public License for more details.<br>
  * <br>
  * 06/01/2010<br>
- * @author Arnaud BLOUIN
+ * @author Arnaud BLOUIN, Jan-Cornelius MOLNAR
  * @since 3.0
  */
 public class FileLoaderSaver extends WidgetInstrument {
@@ -475,7 +476,7 @@ class Shortcut2NewLink extends Interaction2NewLink<KeysPressure> {
 	@Override
 	public boolean isConditionRespected() {
 		final List<Integer> keys = getInteraction().getKeys();
-		return keys.size()==2 && keys.contains(KeyEvent.VK_N) && keys.contains(KeyEvent.VK_CONTROL);
+		return keys.size()==2 && keys.contains(KeyEvent.VK_N) && keys.contains(LSystem.INSTANCE.getControlKey());
 	}
 }
 
@@ -504,7 +505,7 @@ class Shortcut2SavePrefLink extends Interaction2SaveLink<KeysPressure> {
 	@Override
 	public boolean isConditionRespected() {
 		final List<Integer> keys = getInteraction().getKeys();
-		return keys.size()==2 && keys.contains(KeyEvent.VK_W) && keys.contains(KeyEvent.VK_CONTROL);
+		return keys.size()==2 && keys.contains(KeyEvent.VK_W) && keys.contains(LSystem.INSTANCE.getControlKey());
 	}
 }
 
@@ -582,7 +583,7 @@ class Shortcut2SaveLink extends Interaction2SaveLink<KeysPressure> {
 	@Override
 	public boolean isConditionRespected() {
 		final List<Integer> keys = getInteraction().getKeys();
-		return keys.size()==2 && keys.contains(KeyEvent.VK_S) && keys.contains(KeyEvent.VK_CONTROL);
+		return keys.size()==2 && keys.contains(KeyEvent.VK_S) && keys.contains(LSystem.INSTANCE.getControlKey());
 	}
 
 	@Override

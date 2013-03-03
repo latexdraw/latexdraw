@@ -1,5 +1,7 @@
 package net.sf.latexdraw.util;
 
+import java.awt.event.KeyEvent;
+
 /**
  * Defines some routines that provides information about the operating system currently used.<br>
  * <br>
@@ -16,7 +18,7 @@ package net.sf.latexdraw.util;
  *  PURPOSE. See the GNU General Public License for more details.<br>
  * <br>
  * 05/14/10<br>
- * @author Arnaud BLOUIN
+ * @author Arnaud BLOUIN, Jan-Cornelius MOLNAR
  * @version 3.0
  */
 public final class LSystem {
@@ -147,6 +149,16 @@ public final class LSystem {
 		return getSystem()==OperatingSystem.MAC_OS_X;
 	}
 
+
+	/**
+	 * @return The control modifier used by the currently used operating system.
+	 * @since 3.0
+	 */
+	public int getControlKey() {
+		if(LSystem.INSTANCE.isMacOSX())
+			return KeyEvent.VK_META;
+		return KeyEvent.VK_CONTROL;
+	}
 
 
 	/**
