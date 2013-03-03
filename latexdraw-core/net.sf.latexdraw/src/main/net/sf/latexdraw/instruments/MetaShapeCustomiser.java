@@ -126,7 +126,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
 
-		final IGroup selection = pencil.drawing.getSelection();
+		final IGroup selection = pencil.canvas.getDrawing().getSelection();
 
 		borderCustomiser.setActivated(activated);
 		doubleBorderCustomiser.setActivated(activated);

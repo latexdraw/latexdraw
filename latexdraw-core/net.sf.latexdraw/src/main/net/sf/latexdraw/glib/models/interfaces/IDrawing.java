@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.interfaces;
 
 import java.util.List;
 
-import org.malai.mapping.IUnary;
 import org.malai.presentation.AbstractPresentation;
 
 /**
@@ -72,23 +71,4 @@ public interface IDrawing extends ISetShapes, AbstractPresentation {
 	 * @since 3.0
 	 */
 	void addToSelection(final List<IShape> shapes);
-
-	/**
-	 * @return The temporary shape. Null is there is no temporary shape.
-	 * @since 3.0
-	 */
-	IShape getTempShape();
-
-	/**
-	 * Sets the temporary shape.
-	 * @param tempShape The new temporary shape. Can be null.
-	 * @since 3.0
-	 */
-	void setTempShape(final IShape tempShape);
-
-	/**
-	 * @return The unary relation that contains the temporary shape.
-	 * @since 3.0
-	 */
-	IUnary<IShape> getUnaryTempShape();
 }

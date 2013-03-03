@@ -285,7 +285,7 @@ class Checkbox2ShowPointsSelection extends CheckBoxForCustomiser<ModifyShapeProp
 	@Override
 	public void initAction() {
 		action.setProperty(ShapeProperties.SHOW_POINTS);
-		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 		action.setValue(interaction.getCheckBox().isSelected());
 	}
 }
@@ -336,7 +336,7 @@ class List2SelectionBorder extends ListForCustomiser<ModifyShapeProperty, ShapeB
 	@Override
 	public void initAction() {
 		final ItemSelectable is	= interaction.getList();
-		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 
 		if(is==instrument.bordersPosCB) {
 			action.setProperty(ShapeProperties.BORDER_POS);
@@ -408,7 +408,7 @@ class Spinner2SelectionBorder extends SpinnerForCustomiser<ModifyShapeProperty, 
 		else
 			action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
 
-		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 	}
 
 	@Override
@@ -499,7 +499,7 @@ class ColourButton2SelectionBorder extends ColourButtonForCustomiser<ModifyShape
 	public void initAction() {
 		super.initAction();
 		action.setProperty(ShapeProperties.COLOUR_LINE);
-		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 	}
 
 	@Override

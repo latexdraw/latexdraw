@@ -583,7 +583,7 @@ class ButtonPressed2AddText extends Link<AddShape, ButtonPressed, EditingSelecto
 
 	@Override
 	public void initAction() {
-		action.setDrawing(instrument.pencil.drawing);
+		action.setDrawing(instrument.pencil.canvas.getDrawing());
 		action.setShape(DrawingTK.getFactory().createText(true, DrawingTK.getFactory().createPoint(instrument.pencil.textSetter.relativePoint),
 						instrument.pencil.textSetter.getTextField().getText()));
 	}

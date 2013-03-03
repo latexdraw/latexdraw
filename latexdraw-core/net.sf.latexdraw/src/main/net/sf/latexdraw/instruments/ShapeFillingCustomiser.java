@@ -370,7 +370,7 @@ class List2SelectionFilling extends ListForCustomiser<ModifyShapeProperty, Shape
 
 	@Override
 	public void initAction() {
-		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 		action.setProperty(ShapeProperties.FILLING_STYLE);
 		action.setValue(FillingStyle.getStyle(getLabelText()));
 	}
@@ -446,7 +446,7 @@ class ColourButton2SelectionFilling extends ColourButtonForCustomiser<ModifyShap
 		super.initAction();
 
 		final AbstractButton but = interaction.getButton();
-		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 
 		if(but==instrument.fillColButton)
 			action.setProperty(ShapeProperties.COLOUR_FILLING);
@@ -486,7 +486,7 @@ class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty,
 
 	@Override
 	public void initAction() {
-		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 		setProperty(interaction.getSpinner(), instrument, action);
 	}
 

@@ -2,8 +2,6 @@ package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
 
-import org.malai.mapping.IUnary
-import org.malai.mapping.ActiveUnary
 import org.malai.mapping.MappingRegistry
 
 import net.sf.latexdraw.glib.models.interfaces.IDrawing
@@ -31,9 +29,6 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
 protected class LDrawing extends IDrawing with LSetShapes {
 	/** The selected shapes of the drawing. */
 	var selection : IGroup = new LGroup(false)
-
-	/** A temporary shape in the drawing. */
-	var tempShape : IUnary[IShape] = new ActiveUnary[IShape]()
 
 	/** Defined if the shape has been modified. */
 	var modified : Boolean = false
@@ -72,7 +67,6 @@ protected class LDrawing extends IDrawing with LSetShapes {
 	override def clear() {
 		super.clear
 		selection.clear
-		tempShape.setValue(null)
 	}
 
 
@@ -92,15 +86,6 @@ protected class LDrawing extends IDrawing with LSetShapes {
 
 		super.removeShape(i)
 	}
-
-
-	override def getTempShape() = tempShape.getValue
-
-
-	override def getUnaryTempShape() = tempShape
-
-
-	override def setTempShape(tempShape : IShape) = this.tempShape.setValue(tempShape)
 
 
 	override def setModified(modified : Boolean) {

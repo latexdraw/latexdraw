@@ -177,7 +177,6 @@ public class LFrame extends UI {
 
 		/* Initialisation of the mapping between the model and the canvas. */
 		MappingRegistry.REGISTRY.addMapping(new ShapeList2ViewListMapping(drawing.getShapes(), canvas.getViews()));
-		MappingRegistry.REGISTRY.addMapping(new TempShape2TempViewMapping(drawing.getUnaryTempShape(), canvas.getUnaryTempView()));
 		MappingRegistry.REGISTRY.addMapping(new Drawing2CanvasMapping(drawing, canvas));
 		MappingRegistry.REGISTRY.addMapping(new Selection2BorderMapping(drawing.getSelection().getShapes(), canvas.getBorderInstrument()));
 		MappingRegistry.REGISTRY.addMapping(new Zoom2ScaleRuler(canvas.getZoomUnary(), xScaleRuler));
@@ -237,7 +236,7 @@ public class LFrame extends UI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { hand 			= new Hand(canvas, canvas.getMagneticGrid(), zoomer, textSetter); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { pencil 		= new Pencil(drawing, zoomer, canvas.getMagneticGrid(), textSetter); }
+		try { pencil 		= new Pencil(canvas, zoomer, canvas.getMagneticGrid(), textSetter); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { exporter		= new Exporter(composer, canvas, drawing, statusBar); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }

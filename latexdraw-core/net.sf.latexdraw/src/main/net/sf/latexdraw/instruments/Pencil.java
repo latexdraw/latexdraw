@@ -13,7 +13,10 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PictureFilter;
 import net.sf.latexdraw.glib.models.interfaces.*;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
+import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
@@ -53,8 +56,8 @@ public class Pencil extends Instrument {
 	/** The current editing choice (rectangle, ellipse, etc.) of the instrument. */
 	protected EditionChoice currentChoice;
 
-	/** The drawing that contains the shapes. */
-	protected IDrawing drawing;
+	/** The canvas that contains the shapes' views. */
+	protected ICanvas canvas;
 
 	/** The zoomer that is used to give the zoom level to compute coordinates of the created shapes. */
 	protected WidgetZoomer zoomer;
@@ -67,21 +70,21 @@ public class Pencil extends Instrument {
 
 	/**
 	 * Creates a pencil.
-	 * @param drawing The drawing where the shapes are drawn.
+	 * @param canvas The canvas wherein the shapes are drawn.
 	 * @param zoomer The instrument zoomer used to create shapes.
 	 * @param grid The magnetic grid used to create shapes.
 	 * @param textSetter The instrument used to add and modify texts.
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public Pencil(final IDrawing drawing, final WidgetZoomer zoomer, final LMagneticGrid grid, final TextSetter textSetter) {
+	public Pencil(final ICanvas canvas, final WidgetZoomer zoomer, final LMagneticGrid grid, final TextSetter textSetter) {
 		super();
 
 		final IShapeFactory factory = DrawingTK.getFactory();
 		groupParams		= factory.createGroup(false);
 		this.textSetter = Objects.requireNonNull(textSetter);
 		this.grid		= Objects.requireNonNull(grid);
-		this.drawing 	= Objects.requireNonNull(drawing);
+		this.canvas 	= Objects.requireNonNull(canvas);
 		this.zoomer		= Objects.requireNonNull(zoomer);
 		currentChoice 	= EditionChoice.RECT;
 		groupParams.addShape(factory.createRectangle(false));
@@ -105,8 +108,8 @@ public class Pencil extends Instrument {
 
 	@Override
 	public void interimFeedback() {
-		drawing.setTempShape(null);
-		drawing.setModified(true);
+		canvas.setTempView(null);
+		canvas.refresh();
 	}
 
 
@@ -279,6 +282,8 @@ public class Pencil extends Instrument {
  * @version 3.0
  */
 abstract class PencilLink<I extends Interaction> extends Link<AddShape, I, Pencil> {
+	protected IViewShape tmpShape;
+
 	/**
 	 * The constructor by default.
 	 * @param ins The pencil.
@@ -292,8 +297,18 @@ abstract class PencilLink<I extends Interaction> extends Link<AddShape, I, Penci
 
 	@Override
 	public void initAction() {
-		action.setShape(instrument.createShapeInstance());
-		action.setDrawing(instrument.drawing);
+		final IShape sh = instrument.createShapeInstance();
+		tmpShape = View2DTK.getFactory().createView(sh);
+		action.setShape(sh);
+		action.setDrawing(instrument.canvas.getDrawing());
+		instrument.canvas.setTempView(tmpShape);
+	}
+
+
+	@Override
+	public void interimFeedback() {
+		tmpShape.update();
+		instrument.canvas.refresh();
 	}
 }
 
@@ -378,14 +393,6 @@ class MultiClic2AddShape extends PencilLink<MultiClick> {
 			interaction.setMinPoints(3);
 		else
 			interaction.setMinPoints(2);
-	}
-
-
-	@Override
-	public void interimFeedback() {
-		// The temp shape must be be the same shape than the shape what will be added to the drawing. So we
-		// need to duplicate it at each feedback. The issue can be cpu consuming.
-		instrument.drawing.setTempShape(action.shape().get().duplicate());
 	}
 }
 
@@ -536,14 +543,6 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 			shape.setHeight(bry - tly);
 		}
 	}
-
-
-	@Override
-	public void interimFeedback() {
-		// The temp shape must be be the same shape than the shape what will be added to the drawing. So we
-		// need to duplicate it at each feedback. The issue can be cpu consuming.
-		instrument.drawing.setTempShape(action.shape().get().duplicate());
-	}
 }
 
 
@@ -558,7 +557,7 @@ class Press2InsertPicture extends Link<InsertPicture, Press, Pencil> {
 
 	@Override
 	public void initAction() {
-		action.setDrawing(instrument.drawing);
+		action.setDrawing(instrument.canvas.getDrawing());
 		action.setShape(DrawingTK.getFactory().createPicture(true, instrument.getAdaptedPoint(interaction.getPoint())));
 		action.setFileChooser(instrument.getPictureFileChooser());
 	}
@@ -613,7 +612,7 @@ class Press2AddText extends Link<AddShape, Press, Pencil> {
 
 	@Override
 	public void initAction() {
-		action.setDrawing(instrument.drawing);
+		action.setDrawing(instrument.canvas.getDrawing());
 		action.setShape(DrawingTK.getFactory().createText(true, DrawingTK.getFactory().createPoint(instrument.textSetter.relativePoint),
 						instrument.textSetter.getTextField().getText()));
 	}

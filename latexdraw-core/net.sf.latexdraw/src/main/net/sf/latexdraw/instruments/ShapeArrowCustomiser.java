@@ -523,7 +523,7 @@ class Spinner2SelectionArrowParam extends Spinner2ArrowParam<ModifyShapeProperty
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 	}
 }
 
@@ -584,7 +584,7 @@ class List2ShapeArrowStyle extends ListForCustomiser<ModifyShapeProperty, ShapeA
 		else
 			action.setProperty(ShapeProperties.ARROW2_STYLE);
 
-		action.setGroup((IGroup)instrument.pencil.drawing.getSelection().duplicate());
+		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 		action.setValue(ArrowStyle.getArrowStyle(getLabelText()));
 	}
 
