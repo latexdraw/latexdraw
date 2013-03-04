@@ -147,7 +147,6 @@ public class UIBuilder extends UIComposer<LFrame> {
 		widget.editingSelector.addEventable(toolbarBuilder.bezierListB.getToolbar());
 		widget.hand.addEventable(canvas);
 		widget.pencil.addEventable(canvas);
-		widget.undoManager.addEventable(toolbar);
 		widget.exporter.addEventable(toolbar);
 		widget.exporter.addEventable(widget.exporter.getExportMenu());
 		widget.scaleRulersCustomiser.addEventable(menubarBuilder.displayMenu);
@@ -155,6 +154,7 @@ public class UIBuilder extends UIComposer<LFrame> {
 		widget.fileLoader.addEventable(widget.fileLoader.getRecentFilesMenu());
 		widget.gridCustomiser.addEventable(toolbarBuilder.magneticGridB.getToolbar());
 		widget.helper.addEventable(menubarBuilder.helpMenu);
+		setGlobalShortcutEventable(widget.undoManager, canvas);
 		setGlobalShortcutEventable(widget.zoomer, canvas);
 		setGlobalShortcutEventable(widget.deleter, canvas);
 		setGlobalShortcutEventable(widget.paster, canvas);
