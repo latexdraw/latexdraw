@@ -1,5 +1,7 @@
 package test.parser.pst;
 
+import static org.junit.Assert.*;
+
 import java.text.ParseException;
 
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
@@ -7,28 +9,24 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestPSTGeneralFeatures extends TestPSTParser {
-
-	@Test public void testBackSlackNotSeparatedFromCommand() {
-		try {
-			parser.parsePSTCode("\\ specialCoors");
-			failShouldNotParse();
-		}catch(ParseException ex) { /* Normal */}
+	@Test public void testDefineColor() throws ParseException {
+		parser.parsePSTCode("\\definecolor{color0b}{rgb}{0.5,0.5,0.5}");
+		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
 
-	@Test public void testErrorOnNotClosedParamsBlock() {
-		try {
-			parser.parsePSTCode("\\psframe[linewidth=0.04, dimen=o");
-			failShouldNotParse();
-		}catch(ParseException ex) { /* Normal */}
+	@Test(expected=ParseException.class) public void testBackSlackNotSeparatedFromCommand() throws ParseException {
+		parser.parsePSTCode("\\ specialCoors");
 	}
 
 
-	@Test public void testNotCloseBracketShouldNotParse() {
-		try {
-			parser.parsePSTCode("{ ");
-			failShouldNotParse();
-		}catch(ParseException ex) { /* Normal */}
+	@Test(expected=ParseException.class) public void testErrorOnNotClosedParamsBlock() throws ParseException {
+		parser.parsePSTCode("\\psframe[linewidth=0.04, dimen=o");
+	}
+
+
+	@Test(expected=ParseException.class) public void testNotCloseBracketShouldNotParse() throws ParseException {
+		parser.parsePSTCode("{ ");
 	}
 
 

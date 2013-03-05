@@ -1,5 +1,7 @@
 package test.parser.pst;
 
+import static org.junit.Assert.*;
+
 import java.awt.Color;
 import java.text.ParseException;
 
@@ -64,8 +66,8 @@ public class TestTextParsing extends TestPSTParser {
 		assertTrue(group.getShapeAt(0) instanceof IText);
 		IText text =  ((IText)group.getShapeAt(0));
 		assertEquals("\\footnotesize coucou", text.getText());
-		assertEquals(1.*IShape.PPC, text.getPosition().getX());
-		assertEquals(-2.*IShape.PPC, text.getPosition().getY());
+		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
+		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -76,8 +78,8 @@ public class TestTextParsing extends TestPSTParser {
 		assertTrue(group.getShapeAt(0) instanceof IText);
 		IText text =  ((IText)group.getShapeAt(0));
 		assertEquals("\\it \\bf coucou", text.getText());
-		assertEquals(1.*IShape.PPC, text.getPosition().getX());
-		assertEquals(-2.*IShape.PPC, text.getPosition().getY());
+		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
+		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);
 	}
 
 
@@ -87,8 +89,8 @@ public class TestTextParsing extends TestPSTParser {
 		assertTrue(group.getShapeAt(0) instanceof IText);
 		IText text =  ((IText)group.getShapeAt(0));
 		assertEquals("\\upshape \\bf coucou", text.getText());
-		assertEquals(1.*IShape.PPC, text.getPosition().getX());
-		assertEquals(-2.*IShape.PPC, text.getPosition().getY());
+		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
+		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);
 	}
 
 
@@ -98,8 +100,8 @@ public class TestTextParsing extends TestPSTParser {
 		assertTrue(group.getShapeAt(0) instanceof IText);
 		IText text =  ((IText)group.getShapeAt(0));
 		assertEquals("\\it \\mdseries coucou", text.getText());
-		assertEquals(1.*IShape.PPC, text.getPosition().getX());
-		assertEquals(-2.*IShape.PPC, text.getPosition().getY());
+		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
+		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);
 	}
 
 
@@ -109,8 +111,8 @@ public class TestTextParsing extends TestPSTParser {
 		assertTrue(group.getShapeAt(0) instanceof IText);
 		IText text =  ((IText)group.getShapeAt(0));
 		assertEquals("\\upshape \\mdseries coucou", text.getText());
-		assertEquals(1.*IShape.PPC, text.getPosition().getX());
-		assertEquals(-2.*IShape.PPC, text.getPosition().getY());
+		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
+		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);
 	}
 
 

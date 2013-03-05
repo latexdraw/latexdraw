@@ -1,5 +1,7 @@
 package test.parser.pst;
 
+import static org.junit.Assert.*;
+
 import java.awt.Color;
 import java.text.ParseException;
 
@@ -21,8 +23,8 @@ public class TestParsingPsdots extends TestParsingPSdot {
 		assertEquals(DotStyle.O, ((IDot)group.getShapeAt(1)).getDotStyle());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void testDotStyleDot() throws ParseException {
@@ -32,8 +34,8 @@ public class TestParsingPsdots extends TestParsingPSdot {
 		assertEquals(DotStyle.DOT, ((IDot)group.getShapeAt(1)).getDotStyle());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void testNoDotStyle() throws ParseException {
@@ -43,8 +45,8 @@ public class TestParsingPsdots extends TestParsingPSdot {
 		assertEquals(DotStyle.DOT, ((IDot)group.getShapeAt(1)).getDotStyle());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void testNoCoordinate() throws ParseException {
@@ -53,8 +55,8 @@ public class TestParsingPsdots extends TestParsingPSdot {
 			fail();
 		}catch(Exception e) { /* ok */ }
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void test1Coordinates() throws ParseException {
@@ -64,8 +66,8 @@ public class TestParsingPsdots extends TestParsingPSdot {
 		assertEquals(-10.*IShape.PPC, group.getShapeAt(0).getPtAt(0).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void testFloatSigns() throws ParseException {
@@ -76,15 +78,15 @@ public class TestParsingPsdots extends TestParsingPSdot {
 		assertEquals(50.5*IShape.PPC, group.getShapeAt(1).getPtAt(0).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void testStarFillingParametershaveNoEffect() throws ParseException {
 		//
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void testStarLineColourIsFillingColour() throws ParseException {
@@ -96,7 +98,7 @@ public class TestParsingPsdots extends TestParsingPSdot {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-	
+
 	@Override
 	@Test
 	public void testCoordinatesFloat2() throws ParseException {
@@ -105,9 +107,9 @@ public class TestParsingPsdots extends TestParsingPSdot {
 		assertEquals(-50.5*IShape.PPC, dot.getPtAt(0).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
-	
+
+
+
 	@Test
 	public void test2Points() throws ParseException {
 		IGroup group =  parser.parsePSTCode("\\"+getCommandName()+"(35.5,50.5)(2,2)").get();
@@ -120,9 +122,9 @@ public class TestParsingPsdots extends TestParsingPSdot {
 		assertEquals(-2.*IShape.PPC, group.getShapeAt(1).getPtAt(0).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
-	
+
+
+
 	@Override
 	public String getCommandName() {
 		return "psdots";

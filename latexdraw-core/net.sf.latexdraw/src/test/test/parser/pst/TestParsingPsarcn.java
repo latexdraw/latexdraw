@@ -1,5 +1,7 @@
 package test.parser.pst;
 
+import static org.junit.Assert.*;
+
 import java.text.ParseException;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
@@ -21,8 +23,8 @@ public class TestParsingPsarcn extends TestParsingPsarc {
 		assertEquals(Math.toRadians(100.), arc.getAngleEnd(), 0.0000001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void testAngle1() throws ParseException {
@@ -33,8 +35,8 @@ public class TestParsingPsarcn extends TestParsingPsarc {
 		assertEquals(Math.toRadians(-200.15), arc.getAngleStart(), 0.0000001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void testAngle2() throws ParseException {
@@ -45,8 +47,8 @@ public class TestParsingPsarcn extends TestParsingPsarc {
 		assertEquals(Math.toRadians(-10.12), arc.getAngleEnd(), 0.0000001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void testParamBarInSqureBracket() throws ParseException {
@@ -55,8 +57,8 @@ public class TestParsingPsarcn extends TestParsingPsarc {
 		assertEquals(ArrowStyle.BAR_IN, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Override
 	@Test
 	public void testParamArrowsArrows() throws ParseException {
@@ -65,8 +67,8 @@ public class TestParsingPsarcn extends TestParsingPsarc {
 		assertEquals(ArrowStyle.LEFT_ARROW, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Override
 	public String getCommandName() {
 		return "psarcn";

@@ -1,5 +1,7 @@
 package test.parser.pst;
 
+import static org.junit.Assert.*;
+
 import java.text.ParseException;
 
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
@@ -10,21 +12,21 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestParsingPsline extends TestParsingShape {
-	
+
 	@Test
 	public void testcornersizeParsed() throws ParseException {
 		parser.parsePSTCode("\\"+getCommandName()+"[cornersize=relative](5,10)").get().getShapeAt(0);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Test
 	public void testLinearcParsed() throws ParseException {
 		parser.parsePSTCode("\\"+getCommandName()+"[linearc=0.3cm](5,10)").get().getShapeAt(0);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Test
 	public void testMoreThanTwoPointsCoordinates() throws ParseException {
 		IPolyline line =  (IPolyline)parser.parsePSTCode("\\"+getCommandName()+"(5,10)(6, 7) (1, 2) % foo \n(3, \t4)").get().getShapeAt(0);
@@ -39,7 +41,7 @@ public class TestParsingPsline extends TestParsingShape {
 		assertEquals(-4.*IShape.PPC, line.getPtAt(3).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
+
 	@Test
 	public void test1Coordinates() throws ParseException {
 		IPolyline line =  (IPolyline)parser.parsePSTCode("\\"+getCommandName()+"(5,10)").get().getShapeAt(0);
@@ -50,9 +52,9 @@ public class TestParsingPsline extends TestParsingShape {
 		assertEquals(-10.*IShape.PPC, line.getPtAt(1).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
-	
+
+
+
 	@Test
 	public void testCoordinatesPt() throws ParseException {
 		IPolyline line =  (IPolyline)parser.parsePSTCode("\\"+getCommandName()+"(35pt,20pt)(10pt,5pt)").get().getShapeAt(0);
@@ -63,8 +65,8 @@ public class TestParsingPsline extends TestParsingShape {
 		assertEquals(-5.*IShape.PPC/PSTricksConstants.CM_VAL_PT, line.getPtAt(1).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Test
 	public void testCoordinatesMm() throws ParseException {
 		IPolyline line =  (IPolyline)parser.parsePSTCode("\\"+getCommandName()+"(350mm,200mm)(10mm, 30.3mm)").get().getShapeAt(0);
@@ -75,8 +77,8 @@ public class TestParsingPsline extends TestParsingShape {
 		assertEquals(-3.03*IShape.PPC, line.getPtAt(1).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Test
 	public void testCoordinatesInch() throws ParseException {
 		IPolyline line =  (IPolyline)parser.parsePSTCode("\\"+getCommandName()+"(35in,20in)(1.2in,0.2in)").get().getShapeAt(0);
@@ -86,8 +88,8 @@ public class TestParsingPsline extends TestParsingShape {
 		assertEquals(-0.2*IShape.PPC/2.54, line.getPtAt(1).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Test
 	public void testCoordinatesCm() throws ParseException {
 		IPolyline line =  (IPolyline)parser.parsePSTCode("\\"+getCommandName()+"(35cm,20cm)(1.2cm,2cm)").get().getShapeAt(0);
@@ -97,8 +99,8 @@ public class TestParsingPsline extends TestParsingShape {
 		assertEquals(-2.*IShape.PPC, line.getPtAt(1).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
+
+
 	@Test
 	public void testFloatSigns() throws ParseException {
 		IPolyline line =  (IPolyline)parser.parsePSTCode("\\"+getCommandName()+"(+++35.5,--50.5)(--+12, -1)").get().getShapeAt(0);
@@ -108,9 +110,9 @@ public class TestParsingPsline extends TestParsingShape {
 		assertEquals(1.*IShape.PPC, line.getPtAt(1).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
 
-	
+
+
 	@Test
 	public void testCoordinatesFloat2() throws ParseException {
 		IPolyline line =  (IPolyline)parser.parsePSTCode("\\"+getCommandName()+"(35.5,50.5)(12, 1)").get().getShapeAt(0);
@@ -120,9 +122,9 @@ public class TestParsingPsline extends TestParsingShape {
 		assertEquals(-1.*IShape.PPC, line.getPtAt(1).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-	
-	
-	
+
+
+
 	@Test
 	public void testErrorOnNoPoint() {
 		try {
@@ -130,14 +132,14 @@ public class TestParsingPsline extends TestParsingShape {
 			fail();
 		}catch(Exception e) { /* ok */ }
 	}
-	
-	
+
+
 	@Override
 	public String getCommandName() {
 		return "psline";
 	}
 
-	
+
 	@Override
 	public String getBasicCoordinates() {
 		return "(10,10)(20,20)(30,30)";
