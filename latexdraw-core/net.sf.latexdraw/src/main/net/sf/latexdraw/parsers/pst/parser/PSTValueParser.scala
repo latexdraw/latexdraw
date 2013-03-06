@@ -249,7 +249,7 @@ trait PSTValueParser extends PSTNumberParser {
 	 */
 	def parseValueFillingStyle(value : String) : Option[IShape.FillingStyle] =
 		value match {
-			case "plain" => Some(IShape.FillingStyle.PLAIN)
+			case "solid" => Some(IShape.FillingStyle.PLAIN)
 			case "none" => Some(IShape.FillingStyle.NONE)
 			case "vlines" => Some(IShape.FillingStyle.VLINES)
 			case "vlines*" => Some(IShape.FillingStyle.VLINES_PLAIN)
