@@ -113,7 +113,6 @@ object FlyweightThumbnail {
 	def getImageInfo(view:IViewText) : Tuple4[Image,Set[IViewText],String,String] = {
 		val shape = view.getShape.asInstanceOf[IText]
 		var res : Tuple4[Image,Set[IViewText],String,String] = null
-		println(">>"+shape.getText)
 
 		if(creationsInProgress.synchronized{creationsInProgress.contains(view)})
 			res = new Tuple4[Image,Set[IViewText],String,String](null, Set(), "", "Creation in progress")
