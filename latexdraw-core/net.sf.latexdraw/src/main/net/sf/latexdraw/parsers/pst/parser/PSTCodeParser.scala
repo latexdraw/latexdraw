@@ -7,6 +7,8 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IFreehand
 import scala.util.parsing.input.CharArrayReader
 import net.sf.latexdraw.glib.models.interfaces.IText
+import java.awt.Color
+import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
  * Defines a parser parsing PST expressions.<br>
@@ -42,7 +44,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePsgrid(ctx) | parseRput(ctx) |
 			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
 			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx) |
-			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) | parsePscustom(ctx) |
+			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) | parsePscustom(ctx) | parseDefineColor(ctx) |
 			parsePSCustomCommands(ctx) | parsePsFrameboxCmds(ctx) | parsetextCommands(ctx) | parseText(ctx)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)
@@ -119,6 +121,41 @@ trait PSTCodeParser extends PSTAbstractParser
 		}
 	}
 
+
+	override def parseDefineColor(ctx:PSTContext) : Parser[Unit] = "\\definecolor" ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
+		case _ ~ colName ~ colType ~ colSpec =>
+			var colour : Color = null
+			try{
+				colType match {
+					case "rgb" => colSpec.split(',') match {
+							case Array(r,g,b) => colour = new Color(r.toFloat, g.toFloat, b.toFloat)
+							case _ => PSTParser.errorLogs += "An rgb colour must have 3 numbers."
+						}
+					case "RGB" => colSpec.split(',') match {
+							case Array(r,g,b) => colour = DviPsColors.INSTANCE.convertRGB2rgb(r.toDouble, g.toDouble, b.toDouble)
+							case _ => PSTParser.errorLogs += "An RGB colour must have 3 numbers."
+						}
+					case "gray" => colour = DviPsColors.INSTANCE.convertgray2rgb(colSpec.toDouble)
+					case "HTML" => colour = DviPsColors.INSTANCE.convertHTML2rgb(colSpec)
+					case "cmyk" => colSpec.split(',') match {
+							case Array(c,m,y,k) => colour = DviPsColors.INSTANCE.convertcmyk2rgb(c.toDouble, m.toDouble, y.toDouble, k.toDouble)
+							case _ => PSTParser.errorLogs += "An cmyk colour must have 3 numbers."
+						}
+					case "cmy" => colSpec.split(',') match {
+							case Array(c,m,y) => colour = new Color(1-c.toFloat, 1-m.toFloat, 1-y.toFloat)
+							case _ => PSTParser.errorLogs += "An cmy colour must have 3 numbers."
+						}
+					case "hsb" => colSpec.split(',') match {
+							case Array(h,s,b) => colour = new Color(Color.HSBtoRGB(h.toFloat, s.toFloat, b.toFloat))
+							case _ => PSTParser.errorLogs += "An hsb colour must have 3 numbers."
+						}
+					case _ => PSTParser.errorLogs += "Unknown color type: " + colType
+				}
+			}catch{case e => PSTParser.errorLogs += "Error during colour conversion: " + colName + " " + colType + " " + colSpec + " " + e.getStackTraceString }
+
+			if(colour!=null)
+				DviPsColors.INSTANCE.addUserColour(colour, colName)
+	}
 
 
 	override def parseRput(ctx : PSTContext) : Parser[IGroup] = {

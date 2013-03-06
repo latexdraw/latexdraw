@@ -435,10 +435,10 @@ public final class DviPsColors  {
 	public Color getColour(final String name) {
 		if(name==null || name.length()==0) return null;
 
-		Color c = colourHT.get(name);
+		Color c = userColourHT.get(name);
 
 		if(c==null)
-			c = userColourHT.get(name);
+			c = colourHT.get(name);
 
 		return c;
 	}
@@ -447,17 +447,32 @@ public final class DviPsColors  {
 
 
 	/**
-	 * Allows to add a colour defined by the user.
+	 * Adds a colour defined by the user.
 	 * @param colour The colour to add.
 	 * @return The name of this colour.
 	 */
 	public String addUserColour(final Color colour) {
-		final String name = generateColourName();
+		String name;
 
-		userColourHT.put(name, colour);
-		userNameColourHT.put(colour, name);
+		if(colour!=null) {
+			name = generateColourName();
+			addUserColour(colour, name);
+		}else name = null;
 
 		return name;
+	}
+
+
+	/**
+	 * Adds a colour defined by the user.
+	 * @param colour The colour to add.
+	 * @param name The name of the colour.
+	 */
+	public void addUserColour(final Color colour, final String name) {
+		if(colour!=null && name!=null && name.length()>0) {
+			userColourHT.put(name, colour);
+			userNameColourHT.put(colour, name);
+		}
 	}
 
 
@@ -490,18 +505,51 @@ public final class DviPsColors  {
 	}
 
 
+	/**
+	 * Converts an HTML (i.e. hexa) colour to an rgb one.
+	 * @param hexaCode The hexadecimal code of the colour.
+	 * @return The corresponding rgb colour.
+	 * @throws IllegalArgumentException If the given argument is not valid (null or its length lesser than 8 characters).
+	 * @since 3.0
+	 */
+	public Color convertHTML2rgb(String hexaCode) {
+		if(hexaCode==null || hexaCode.length()<7)
+			throw new IllegalArgumentException(hexaCode);
+
+		 return new Color(Integer.valueOf(hexaCode.substring(1, 3), 16),
+		            Integer.valueOf(hexaCode.substring(3, 5), 16),
+		            Integer.valueOf(hexaCode.substring(5), 16));
+	}
 
 
 	/**
-	 * Converts a CMYK colour to a RGB one.
+	 * Converts an RGB [0-255] colour to an rgb [0-1] one.
+	 * @param r The red level between 0 and 255.
+	 * @param g The green level between 0 and 255.
+	 * @param b The blue level between 0 and 255.
+	 * @return The corresponding rgb colour.
+	 * @throws IllegalArgumentException If one of the given arguments is not valid.
+	 * @since 3.0
+	 */
+	public Color convertRGB2rgb(final double r, final double g, final double b) {
+		if(r<0 || g<0 || b<0)
+			throw new IllegalArgumentException(String.valueOf(r) + ""  + String.valueOf(g) + " " + String.valueOf(b));
+
+		final float factor = 1f/255f;
+		return new Color((float)r*factor, (float)g*factor, (float)b*factor);
+	}
+
+
+	/**
+	 * Converts a CMYK colour to an rgb one.
 	 * @param c The c level between 0 and 1.
 	 * @param m The m level between 0 and 1.
 	 * @param y The y level between 0 and 1.
 	 * @param k The k level between 0 and 1.
-	 * @return The corresponding RBG colour.
+	 * @return The corresponding rgb colour.
 	 * @since 2.0.0
 	 */
-	public Color cmyk2Rgb(final double c, final double m, final double y, final double k) {
+	public Color convertcmyk2rgb(final double c, final double m, final double y, final double k) {
 		if(c < 0 || c > 1)
 			throw new IllegalArgumentException(String.valueOf(c));
 
@@ -519,14 +567,13 @@ public final class DviPsColors  {
 
 
 
-
 	/**
-	 * Converts a gray colour in an RBG one.
+	 * Converts a gray colour in an rgb one.
 	 * @param g The gray level between 0 an 1.
-	 * @return The corresponding RBG colour.
+	 * @return The corresponding rgb colour.
 	 * @since 2.0.0
 	 */
-    public Color gray2RBG(final double g) {
+    public Color convertgray2rgb(final double g) {
 		if(g < 0 || g > 1)
 			throw new IllegalArgumentException(String.valueOf(g));
 

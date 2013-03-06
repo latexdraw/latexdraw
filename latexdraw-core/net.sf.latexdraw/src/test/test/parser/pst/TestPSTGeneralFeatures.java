@@ -1,17 +1,100 @@
 package test.parser.pst;
 
+import java.awt.Color;
+import java.text.ParseException;
 import static org.junit.Assert.*;
 
-import java.text.ParseException;
-
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;
 
 public class TestPSTGeneralFeatures extends TestPSTParser {
-	@Test public void testDefineColor() throws ParseException {
+	@Test public void testDefineColor_hsb() throws ParseException {
+		parser.parsePSTCode("\\definecolor{color0b}{hsb}{1,0, 0.5}");
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testDefineColor_HTML() throws ParseException {
+		parser.parsePSTCode("\\definecolor{color0b}{HTML}{#001eff}");
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testDefineColor_gray() throws ParseException {
+		parser.parsePSTCode("\\definecolor{color0b}{gray}{0.4}");
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testDefineColor_cmyk() throws ParseException {
+		parser.parsePSTCode("\\definecolor{color0b}{cmyk}{0.2,0.6,0.5,0.3}");
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testDefineColor_cmy() throws ParseException {
+		parser.parsePSTCode("\\definecolor{color0b}{cmy}{0.2,0.6,0.5}");
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testDefineColor_RGB() throws ParseException {
+		parser.parsePSTCode("\\definecolor{color0b}{RGB}{100,50,200}");
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testDefineColor_rgb() throws ParseException {
 		parser.parsePSTCode("\\definecolor{color0b}{rgb}{0.5,0.5,0.5}");
 		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+
+	@Test public void testrgbColorUsedInShape() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{rgb}{0.5,0.5,0.5}\\psframe[linecolor=color0b](10,10)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertTrue(gp.size()==1);
+		assertEquals(new Color(0.5f,0.5f,0.5f), gp.getShapeAt(0).getLineColour());
+	}
+
+
+	@Test public void testHTMLColorUsedInShape() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{HTML}{#FF0064}\\psframe[linecolor=color0b](10,10)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertTrue(gp.size()==1);
+		assertEquals(new Color(255,0,100), gp.getShapeAt(0).getLineColour());
+	}
+
+
+	@Test public void testgrayColorUsedInShape() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{gray}{0.8}\\psframe[linecolor=color0b](10,10)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertTrue(gp.size()==1);
+		assertEquals(new Color(0.8f,0.8f,0.8f), gp.getShapeAt(0).getLineColour());
+	}
+
+	@Test public void testcmyColorUsedInShape() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{cmy}{0,1,0.5}\\psframe[linecolor=color0b](10,10)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertTrue(gp.size()==1);
+		assertEquals(new Color(1f,0f,0.5f), gp.getShapeAt(0).getLineColour());
+	}
+
+	@Test public void testcmykColorUsedInShape() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{cmyk}{0,1,0.608,0}\\psframe[linecolor=color0b](10,10)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertTrue(gp.size()==1);
+		assertEquals(new Color(255,0,100), gp.getShapeAt(0).getLineColour());
+	}
+
+	@Test public void testhsbColorUsedInShape() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{hsb}{0,0,0.95}\\psframe[linecolor=color0b](10,10)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertTrue(gp.size()==1);
+		assertEquals(new Color(242,242,242), gp.getShapeAt(0).getLineColour());
+	}
+
+	@Test public void testRGBColorUsedInShape() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\definecolor{c}{RGB}{200,100,0}\\psframe[linecolor=c](10,10)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertTrue(gp.size()==1);
+		assertEquals(new Color(200,100,0), gp.getShapeAt(0).getLineColour());
 	}
 
 

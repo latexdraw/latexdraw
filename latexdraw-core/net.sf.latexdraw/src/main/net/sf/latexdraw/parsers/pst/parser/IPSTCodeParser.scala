@@ -39,6 +39,9 @@ trait IPSTCodeParser extends TokenParsers {
 
 	def parsePSTBlock(ctx : PSTContext, isPsCustomBlock : Boolean) : Parser[IGroup]
 
+	/** Parses the command definecolor. */
+	def parseDefineColor(ctx:PSTContext) : Parser[Unit]
+
 	/** Parses rput commands. */
 	def parseRput(ctx : PSTContext) : Parser[IGroup]
 

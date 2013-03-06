@@ -52,7 +52,7 @@ class PSTLexical extends Lexical with PSTTokens {
 			"\\msave", "\\mrestore", "\\openshadow", "\\closedshadow", "\\movepath", "\\rlineto", "pspicture*", "\\rput*", "\\rput",
 			"\\usefont", "\\psframebox", "\\psframebox*", "\\psdblframebox", "\\psdblframebox*", "\\psshadowbox", "\\psshadowbox*",
 			"\\pscirclebox", "\\pscirclebox*", "\\psovalbox", "\\psovalbox*", "\\psdiabox", "\\psdiabox*", "\\pstribox", "\\pstribox*",
-			"\\color", "\\textcolor")
+			"\\color", "\\textcolor", "\\definecolor")
 
  	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
 
@@ -107,13 +107,13 @@ class PSTLexical extends Lexical with PSTTokens {
 
 
 	/**
-	 * Parses identifers
+	 * Parses identifiers
 	 */
-	def identifier : Parser[Identifier] = positioned(rep1(letter) ~ opt('*') ^^ {
-		case name ~ star =>
+	def identifier : Parser[Identifier] = positioned(letter ~ rep(letter|digit) ~ opt('*') ^^ {
+		case firstChar ~ chars ~ star =>
 			star match {
-				case Some(_) => Identifier(name.mkString + '*')
-				case None => Identifier(name.mkString)
+				case Some(_) => Identifier(firstChar+chars.mkString + '*')
+				case None => Identifier(firstChar+chars.mkString)
 			}
 		})
 
