@@ -1,8 +1,6 @@
 package net.sf.latexdraw.ui.dialog;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.File;
 
 import javax.swing.BoxLayout;
@@ -69,9 +67,6 @@ public class ExportDialog extends JFileChooser {
  		pCompression.add(compressionSlide);
 
  		setAccessory(pCompression);
-
- 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-  		setLocation(dim.width/2-getWidth()/2, dim.height/2-getHeight()/2);
 	}
 
 

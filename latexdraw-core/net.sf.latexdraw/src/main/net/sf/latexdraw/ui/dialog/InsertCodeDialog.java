@@ -2,7 +2,7 @@ package net.sf.latexdraw.ui.dialog;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Rectangle;
 
 import javax.swing.BoxLayout;
 import javax.swing.JEditorPane;
@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 
 import org.malai.instrument.Instrument;
 import org.malai.swing.widget.MButton;
@@ -81,9 +82,10 @@ public class InsertCodeDialog extends MFrame {
 		getContentPane().add(scrollPane);
 		getContentPane().add(pButton);
 
- 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+ 		Dimension dim = LSystem.INSTANCE.getScreenDimension();
+ 		Rectangle rec = getGraphicsConfiguration().getBounds();
   		pack();
-  		setLocation(dim.width/2-getWidth()/2, dim.height/2-getHeight()/2);
+  		setLocation((int)(rec.getX()+dim.width/2-getWidth()/2), (int)(rec.getY()+dim.height/2-getHeight()/2));
 		setVisible(false);
 	}
 

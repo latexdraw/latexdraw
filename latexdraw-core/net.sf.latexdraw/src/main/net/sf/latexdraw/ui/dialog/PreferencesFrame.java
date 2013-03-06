@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.Objects;
 
@@ -18,6 +19,7 @@ import javax.swing.JTabbedPane;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.VersionChecker;
 
 import org.malai.swing.widget.MFrame;
@@ -133,6 +135,18 @@ public class PreferencesFrame extends MFrame {
   		pGeneral.add(pRecent);
 
 		return pGeneral;
+	}
+
+
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+
+		if(visible) {
+	 		Dimension dim = LSystem.INSTANCE.getScreenDimension();
+	 		Rectangle rec = getGraphicsConfiguration().getBounds();
+	 		setLocation((int)(rec.getX()+dim.width/2-getWidth()/2), (int)(rec.getY()+dim.height/2-getHeight()/2));
+		}
 	}
 
 

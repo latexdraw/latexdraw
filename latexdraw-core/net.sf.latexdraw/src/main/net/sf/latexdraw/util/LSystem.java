@@ -1,5 +1,9 @@
 package net.sf.latexdraw.util;
 
+import java.awt.Dimension;
+import java.awt.DisplayMode;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 
 /**
@@ -184,5 +188,22 @@ public final class LSystem {
 			return OperatingSystem.MAC_OS_X;
 
 		return null;
+	}
+
+
+	/**
+	 * @return Returns the dimension of the first available screen. If in dual screen mode,
+	 * the first screen is used. If no screen is available (Oo), the dimension (0,0) is returned.
+	 * @since 3.0
+	 */
+	public Dimension getScreenDimension() {
+     	final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    	final GraphicsDevice[] gs = ge.getScreenDevices();
+
+    	if(gs.length>0) {
+    		final DisplayMode mode = gs[0].getDisplayMode();
+    		return new Dimension(mode.getWidth(), mode.getHeight());
+    	}
+    	return new Dimension();
 	}
 }

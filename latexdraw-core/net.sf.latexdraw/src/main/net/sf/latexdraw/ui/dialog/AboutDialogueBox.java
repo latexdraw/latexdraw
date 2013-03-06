@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.DisplayCanvas;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.VersionChecker;
 
 /**
@@ -59,11 +61,9 @@ public class AboutDialogueBox extends JFrame {
 	protected void initialiseDialogueBox() {
 		final int width			= 490;
 		final int height		= 430;
-		final Dimension dim 	= Toolkit.getDefaultToolkit().getScreenSize();
 		JTabbedPane tabbedPane 	= new JTabbedPane();
 
 		setTitle(LResources.LABEL_ABOUT);
-		setLocation((dim.width-width)/2, (dim.height-height)/2);
 
 		createMainPanel(tabbedPane);
 		createReleaseNotePanel(tabbedPane);
@@ -76,6 +76,9 @@ public class AboutDialogueBox extends JFrame {
  		getContentPane().add(tabbedPane);
 
  		setSize(width, height);
+ 		Dimension dim = LSystem.INSTANCE.getScreenDimension();
+ 		Rectangle rec = getGraphicsConfiguration().getBounds();
+ 		setLocation((int)(rec.getX()+dim.width/2-getWidth()/2), (int)(rec.getY()+dim.height/2-getHeight()/2));
 	}
 
 

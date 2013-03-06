@@ -68,3 +68,4 @@ Fixed:
 - lp#911816: crash while parsing PST code containing $ and framed boxes.
 - The painted axes did not match the generated pdf because of the package pstricks-add.
 - The html label of the dialogue box used to insert PST code into the drawing is now correctly displayed.
+- better position of the application when several screens are available

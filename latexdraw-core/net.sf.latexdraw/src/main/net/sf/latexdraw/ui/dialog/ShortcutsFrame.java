@@ -2,7 +2,7 @@ package net.sf.latexdraw.ui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -21,6 +21,7 @@ import javax.swing.table.TableModel;
 import net.sf.latexdraw.instruments.FileLoaderSaver;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LSystem;
 
 /**
  * This class defines a frame containing the shortcuts of the program.<br>
@@ -67,7 +68,6 @@ public class ShortcutsFrame extends JFrame {
 		String move = LangTool.INSTANCE.getString19("ShortcutsFrame.7"); //$NON-NLS-1$
 		JButton okB 	= new JButton(LangTool.INSTANCE.getString18("LaTeXDrawFrame.23")); //$NON-NLS-1$
 		JPanel panel 	= new JPanel();
-		Dimension dim 	= Toolkit.getDefaultToolkit().getScreenSize();
 
 		String ctrl = KeyEvent.getKeyModifiersText(InputEvent.CTRL_MASK);
 		String shift = KeyEvent.getKeyModifiersText(InputEvent.SHIFT_MASK);
@@ -176,6 +176,8 @@ public class ShortcutsFrame extends JFrame {
  		getContentPane().add(scrollPane, BorderLayout.CENTER);
  		getContentPane().add(panel, BorderLayout.SOUTH);
  		setSize(550, 500);
- 		setLocation((dim.width-getWidth())/2, (dim.height-getHeight())/2);
+ 		Dimension dim = LSystem.INSTANCE.getScreenDimension();
+ 		Rectangle rec = getGraphicsConfiguration().getBounds();
+ 		setLocation((int)(rec.getX()+dim.width/2-getWidth()/2), (int)(rec.getY()+dim.height/2-getHeight()/2));
 	}
 }

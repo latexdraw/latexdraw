@@ -4,12 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JWindow;
 import javax.swing.UIManager;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.LSystem;
 
 import org.malai.swing.widget.MProgressBar;
 
@@ -58,7 +60,8 @@ public class SplashScreen extends JWindow {
 				UIManager.setLookAndFeel(lookAndFeel);
 		}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-		Dimension dim 	= Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension dim 	= LSystem.INSTANCE.getScreenDimension();
+		final Rectangle frameBound = getGraphicsConfiguration().getBounds();
 		progressBar 	= new MProgressBar(0, 100);
 		Image img 		= Toolkit.getDefaultToolkit().getImage(
 						  getClass().getClassLoader().getResource("res/LaTeXDrawSmall.png"));//$NON-NLS-1$
@@ -73,7 +76,9 @@ public class SplashScreen extends JWindow {
 		setLayout(new BorderLayout());
 		getContentPane().add(canvas, BorderLayout.CENTER);
 		getContentPane().add(progressBar, BorderLayout.SOUTH);
-		setLocation((dim.width-img.getWidth(null))/2, (dim.height-img.getHeight(null))/2);
+
+		// In case of dual screen, frameBound provides the position of the current screen.
+		setLocation((int)(frameBound.getX()+(dim.width-img.getWidth(null))/2.), (int)(frameBound.getY()+(dim.height-img.getHeight(null))/2.));
 		setSize(img.getWidth(null), img.getHeight(null)+15);
 	}
 

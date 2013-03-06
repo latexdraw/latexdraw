@@ -2,6 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.io.File;
@@ -35,6 +36,7 @@ import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
+import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.VersionChecker;
 
 import org.malai.instrument.Instrument;
@@ -612,6 +614,8 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		final ScaleRulersCustomiser scaleCust 	= frame.getScaleRulersCustomiser();
 		final FileLoaderSaver saver 			= frame.getFileLoader();
 		final LCanvas canvas					= frame.getCanvas();
+		final Dimension dim 					= LSystem.INSTANCE.getScreenDimension();
+		final Rectangle rec 					= frame.getGraphicsConfiguration().getBounds();
 		final GridStyle gridStyle;
 
 		if(displayGridCB.isSelected())
@@ -639,10 +643,11 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		saver.setPathSave(pathOpenField.getText());
 		saver.updateRecentMenuItems(recentFilesName);
 		ScaleRuler.setUnit(Unit.getUnit(unitChoice.getSelectedItem().toString()));
-		frame.setLocation((int)framePosition.getX(), (int)framePosition.getY());
+		frame.setLocation((int)(rec.getX()+(framePosition.getX()>dim.getWidth()?0:framePosition.getX())),
+						(int)(rec.getY()+(framePosition.getY()>dim.getHeight()?0:framePosition.getY())));
 
 		if(frameSize.width>0 && frameSize.height>0)
-			frame.setSize(frameSize.width, frameSize.height);
+			frame.setSize((int)Math.min(frameSize.width, dim.getWidth()), (int)Math.min(frameSize.height, dim.getHeight()));
 
 		if(isFrameMaximized || frameSize.width==0 || frameSize.height==0)
 			frame.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -659,6 +664,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		try{
 			try(final FileOutputStream fos = new FileOutputStream(LPath.PATH_PREFERENCES_XML_FILE)) {
 				final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+				final Rectangle rec = frame.getGraphicsConfiguration().getBounds();
 		        Element root, elt, elt2;
 
 		        document.setXmlVersion("1.0");//$NON-NLS-1$
@@ -775,11 +781,11 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		        root.appendChild(elt);
 
 		        elt2 = document.createElement(LNamespace.XML_POSITION_X);
-		        elt2.setTextContent(String.valueOf(frame.getLocation().x));
+		        elt2.setTextContent(String.valueOf((int)(frame.getLocation().x-rec.getX())));
 		        elt.appendChild(elt2);
 
 		        elt2 = document.createElement(LNamespace.XML_POSITION_Y);
-		        elt2.setTextContent(String.valueOf(frame.getLocation().y));
+		        elt2.setTextContent(String.valueOf((int)(frame.getLocation().y-rec.getY())));
 		        elt.appendChild(elt2);
 
 				final Transformer transformer = TransformerFactory.newInstance().newTransformer();
