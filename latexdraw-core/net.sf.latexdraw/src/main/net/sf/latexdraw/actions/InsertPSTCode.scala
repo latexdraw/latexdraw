@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.parsers.pst.parser.PSTParser
 import javax.swing.JLabel
 import net.sf.latexdraw.lang.LangTool
+import net.sf.latexdraw.glib.models.interfaces.IShape
 
 /**
  * This action converts PST code into shapes and add them to the drawing.
@@ -36,7 +37,7 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 	protected var _statusBar : Option[JLabel] = None
 
 	/** The added shapes. */
-	private var _group : IGroup = null
+	private var _shapes : IShape = null
 
 
 
@@ -44,10 +45,13 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 		try {
 			new PSTParser().parsePSTCode(_code.get) match {
 				case Some(group) if(!group.isEmpty) =>
-					_group = group
+					if(group.size()>1)
+						_shapes = group
+					else _shapes = group.getShapeAt(0)
+
 					val br = group.getBottomRightPoint
 					val tl = group.getTopLeftPoint
-					_group.translate(br.getX-tl.getX, br.getY-tl.getY)
+					_shapes.translate(br.getX-tl.getX, br.getY-tl.getY)
 					redo
 					if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.36"))
 				case _ => if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.33"))
@@ -62,15 +66,15 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 	}
 
 	override def undo() {
-		if(_group!=null) {
-			_drawing.get.removeShape(_group)
+		if(_shapes!=null) {
+			_drawing.get.removeShape(_shapes)
 			_drawing.get.setModified(true)
 		}
 	}
 
 	override def redo() {
-		if(_group!=null) {
-			_drawing.get.addShape(_group)
+		if(_shapes!=null) {
+			_drawing.get.addShape(_shapes)
 			_drawing.get.setModified(true)
 		}
 	}
@@ -83,7 +87,7 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 
 	override def canDo() = _code.isDefined && _drawing.isDefined
 
-	override def hadEffect() = isDone && _group!=null && !_group.isEmpty
+	override def hadEffect() = isDone && _shapes!=null
 
 	override def isRegisterable() = hadEffect
 }
