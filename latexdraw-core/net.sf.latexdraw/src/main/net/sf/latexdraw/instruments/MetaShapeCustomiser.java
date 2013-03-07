@@ -71,6 +71,9 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument that customises freehands. */
 	protected ShapeFreeHandCustomiser shapeFreeHandCustomiser;
 
+	/** This instrument that transforms shapes. */
+	protected ShapeTransformer shapeTransformer;
+
 
 
 	/**
@@ -99,6 +102,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeAxesCustomiser		= new ShapeAxesCustomiser(composer, hand, pencil);
 		shapeGridCustomiser		= new ShapeGridCustomiser(composer, hand, pencil);
 		shapeFreeHandCustomiser	= new ShapeFreeHandCustomiser(composer, hand, pencil);
+		shapeTransformer		= new ShapeTransformer(composer, hand, pencil);
 	}
 
 
@@ -119,6 +123,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeAxesCustomiser.addEventable(eventable);
 		shapeGridCustomiser.addEventable(eventable);
 		shapeFreeHandCustomiser.addEventable(eventable);
+		shapeTransformer.addEventable(eventable);
 	}
 
 
@@ -143,6 +148,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeFreeHandCustomiser.setActivated(activated);
 		dimPosCustomiser.setActivated(activated && hand.isActivated() && !selection.isEmpty());
 		shapeGrouper.setActivated(activated && hand.isActivated() && (selection.size()>1 || selection.getShapeAt(0) instanceof IGroup));
+		shapeTransformer.setActivated(activated && hand.isActivated() && !selection.isEmpty());
 
 		if(activated)
 			update();
@@ -166,6 +172,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeAxesCustomiser.update(shape);
 		shapeGridCustomiser.update(shape);
 		shapeFreeHandCustomiser.update(shape);
+		shapeTransformer.update(shape);
 	}
 
 
@@ -186,8 +193,17 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeAxesCustomiser.clearEvents();
 		shapeGridCustomiser.clearEvents();
 		shapeFreeHandCustomiser.clearEvents();
+		shapeTransformer.clearEvents();
 	}
 
+
+	/**
+	 * @return The instrument that transforms shapes.
+	 * @since 3.0
+	 */
+	public ShapeTransformer getShapeTransformer() {
+		return shapeTransformer;
+	}
 
 	/**
 	 * @return The instrument that customises freehands.

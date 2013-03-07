@@ -80,6 +80,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		// Creation of the widgets layout of the shape properties instruments.
 		composeJoinShapesWidgets(metaShapeCustomiser.getShapeGrouper());
 		widget.add(composeRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), canvas));
+		widget.add(composeMirrorShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		widget.add(composeBorderPropertiesPanel(metaShapeCustomiser.getBorderCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
@@ -99,6 +100,20 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 					metaShapeCustomiser.getStandardGridCustomiser(), canvas));
 		widget.add(composeFreeHandPropertiesToolbar(metaShapeCustomiser.getFreeHandCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
+	}
+
+
+	// Creates the tool bar for mirroring shapes.
+	protected WidgetMiniToolbar composeMirrorShapes(final ShapeTransformer transformer, final LCanvas canvas) {
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.MIRROR_H_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		list.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.6"));
+		list.addComponent(transformer.mirrorH());
+		list.addComponent(transformer.mirrorV());
+		list.addSeparator();
+		mapContainers.put(transformer.mirrorH(), list);
+		mapContainers.put(transformer.mirrorV(), list);
+		transformer.addEventable(list.getToolbar());
+		return list;
 	}
 
 

@@ -26,6 +26,14 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
  * @since 3.0
  */
 protected trait LGroupShape extends IGroup {
+	override def mirrorHorizontal(origin:IPoint) {
+		getShapes.foreach{sh => sh.mirrorHorizontal(origin)}
+	}
+
+	override def mirrorVertical(origin:IPoint) {
+		getShapes.foreach{sh => sh.mirrorVertical(origin)}
+	}
+
 	override def setThickness(thickness : Double) = getShapes.foreach{shape => shape.setThickness(thickness) }
 
 
