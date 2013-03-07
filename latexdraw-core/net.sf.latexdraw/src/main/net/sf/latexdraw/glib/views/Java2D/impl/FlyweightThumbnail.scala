@@ -11,18 +11,21 @@ import java.io.RandomAccessFile
 import java.io.StringWriter
 import java.nio.channels.FileChannel
 import java.util.regex.Pattern
-import scala.Option.option2Iterable
+
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.Map
-import scala.collection.mutable.MutableList
 import scala.collection.mutable.Set
+
 import com.sun.pdfview.PDFFile
+
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.filters.PDFFilter
 import net.sf.latexdraw.filters.PSFilter
 import net.sf.latexdraw.filters.TeXFilter
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IText
+import net.sf.latexdraw.glib.ui.ICanvas
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
@@ -32,9 +35,6 @@ import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.util.LSystem
 import net.sf.latexdraw.util.StreamExecReader
-import scala.collection.mutable.MutableList
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
-import net.sf.latexdraw.glib.ui.ICanvas
 
 /**
  * This flyweight manages the thumbnails of the text shapes. Its goal is to limit the number

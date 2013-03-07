@@ -509,26 +509,6 @@ public class EditingSelector extends WidgetInstrument {
 
 
 
-//class ButtonPressed2ShowCodeInserter extends Button2ShowComponentLink<EditingSelector> {
-//	public ButtonPressed2ShowCodeInserter(EditingSelector ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, null, ins.codeB);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		if(component==null)
-//			component = instrument.initialiseInsertCodeDialog();
-//		super.initAction();
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return interaction.getButton()==instrument.codeB;
-//	}
-//}
-
-
-
 /**
  * This link allows to activate the code inserter instrument.
  */
@@ -591,7 +571,7 @@ class ButtonPressed2AddText extends Link<AddShape, ButtonPressed, EditingSelecto
 	@Override
 	public boolean isConditionRespected() {
 		return instrument.pencil.textSetter.isActivated() && instrument.pencil.textSetter.getTextField().getText().length()>0 &&
-				instrument.isWidget(interaction.getButton());
+				interaction.getButton()==instrument.textB;
 	}
 }
 
@@ -646,6 +626,6 @@ class ButtonPressed2ActivateIns extends Link<ActivateInactivateInstruments, Butt
 	@Override
 	public boolean isConditionRespected() {
 		/* The pressed button must be a button of the instrument. */
-		return instrument.isWidget(interaction.getButton());
+		return instrument.codeB!=interaction.getButton() && instrument.isWidget(interaction.getButton());
 	}
 }
