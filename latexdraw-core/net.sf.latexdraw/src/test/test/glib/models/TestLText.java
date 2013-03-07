@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
+import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +19,8 @@ public class TestLText<T extends IText> extends TestIText<T> {
 	@Override
 	@Before
 	public void setUp() {
+		FlyweightThumbnail.images().clear();
+		FlyweightThumbnail.setThread(false);
 		DrawingTK.setFactory(new LShapeFactory());
 		shape  = (T) DrawingTK.getFactory().createText(false);
 		shape2 = (T) DrawingTK.getFactory().createText(false);

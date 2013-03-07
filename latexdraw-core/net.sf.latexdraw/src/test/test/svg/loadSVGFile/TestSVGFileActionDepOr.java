@@ -9,6 +9,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.parsers.svg.CSSColors;
+import static org.junit.Assert.*;
 
 public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 
@@ -42,8 +43,8 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 		assertEquals(212.8049502670051, line.getPtAt(0).getY(), 0.0001);
 		assertEquals(424.08868741702884, line.getPtAt(1).getX(), 0.0001);
 		assertEquals(164.45008642386978, line.getPtAt(1).getY(), 0.0001);
-		assertEquals(0., line.getRotationAngle());
-		assertEquals(6., line.getThickness());
+		assertEquals(0., line.getRotationAngle(),0.0001);
+		assertEquals(6., line.getThickness(),0.0001);
 		assertEquals(CSSColors.INSTANCE.getRGBColour("#909090"), line.getLineColour());
 		assertFalse(line.isFilled());
 		assertEquals(FillingStyle.NONE, line.getFillingStyle());
@@ -64,7 +65,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 		assertEquals(234.328125, txt.getPosition().getY(), 0.01);
 		assertEquals("\\normalsize{ActionPasteNode}", txt.getText());
 		assertEquals(Color.BLACK, txt.getLineColour());
-		assertEquals(0., txt.getRotationAngle());
+		assertEquals(0., txt.getRotationAngle(),0.0001);
 	}
 
 
@@ -74,14 +75,14 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 		assertEquals(160.1796875, rec.getPosition().getX(), 0.01);
 		assertEquals(280., rec.getPosition().getY(), 0.01);
 		assertEquals(CSSColors.INSTANCE.getRGBColour("#909090"), rec.getLineColour());
-		assertEquals(0., rec.getRotationAngle());
-		assertEquals(2., rec.getThickness());
+		assertEquals(0., rec.getRotationAngle(),0.0001);
+		assertEquals(2., rec.getThickness(),0.0001);
 		assertEquals(BorderPos.INTO, rec.getBordersPosition());
 		assertFalse(rec.hasShadow());
 		assertFalse(rec.hasDbleBord());
 		assertTrue(rec.isFilled());
 		assertEquals(Color.WHITE, rec.getFillingCol());
-		assertEquals(160., rec.getWidth());
-		assertEquals(100., rec.getHeight());
+		assertEquals(160., rec.getWidth(),0.0001);
+		assertEquals(100., rec.getHeight(),0.0001);
 	}
 }

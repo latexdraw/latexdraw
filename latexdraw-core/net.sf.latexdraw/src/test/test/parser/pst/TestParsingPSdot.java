@@ -11,6 +11,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestParsingPSdot extends TestParsingShape {
@@ -144,34 +145,35 @@ public class TestParsingPSdot extends TestParsingShape {
 	}
 
 
+	@Ignore
 	@Test
 	public void testDotStyleBpentagon() throws ParseException {
 		parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=Bpentagon]"+getBasicCoordinates());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
+	@Ignore
 	@Test
 	public void testDotStyleBtriangle() throws ParseException {
 		parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=Btriangle]"+getBasicCoordinates());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
+	@Ignore
 	@Test
 	public void testDotStyleBdiamond() throws ParseException {
 		parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=Bdiamond]"+getBasicCoordinates());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
+	@Ignore
 	@Test
 	public void testDotStyleBsquare() throws ParseException {
 		parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=Bsquare]"+getBasicCoordinates());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
+	@Ignore
 	@Test
 	public void testDotStyleBbar() throws ParseException {
 		parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=B|]"+getBasicCoordinates());
@@ -202,7 +204,7 @@ public class TestParsingPSdot extends TestParsingShape {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
+	@Ignore
 	@Test
 	public void testDotStyleBasterisk() throws ParseException {
 		parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=Basterisk]"+getBasicCoordinates());
@@ -217,7 +219,7 @@ public class TestParsingPSdot extends TestParsingShape {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
+	@Ignore
 	@Test
 	public void testDotStyleBPlus() throws ParseException {
 		parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=B+]"+getBasicCoordinates());
@@ -240,7 +242,7 @@ public class TestParsingPSdot extends TestParsingShape {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
+	@Ignore
 	@Test
 	public void testDotStyleBo() throws ParseException {
 		parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=Bo]"+getBasicCoordinates());

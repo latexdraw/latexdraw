@@ -1,6 +1,7 @@
 package test.glib.views.java2D;
 
 import java.awt.geom.Path2D;
+import static org.junit.Assert.*;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -262,10 +263,10 @@ public abstract class TestLRectangularView extends TestLShapeView {
 			i++;
 		}
 
-		assertEquals(-10.+thickness+dble/2., xMin);
-		assertEquals(20.-height+thickness+dble/2., yMin);
-		assertEquals(90.-thickness-dble/2., xMax);
-		assertEquals(20.-thickness-dble/2., yMax);
+		assertEquals(-10.+thickness+dble/2., xMin,0.0001);
+		assertEquals(20.-height+thickness+dble/2., yMin,0.0001);
+		assertEquals(90.-thickness-dble/2., xMax,0.0001);
+		assertEquals(20.-thickness-dble/2., yMax,0.0001);
 	}
 
 
@@ -327,10 +328,10 @@ public abstract class TestLRectangularView extends TestLShapeView {
 			i++;
 		}
 
-		assertEquals(-10., xMin);
-		assertEquals(20.-height, yMin);
-		assertEquals(90., xMax);
-		assertEquals(20., yMax);
+		assertEquals(-10., xMin,0.0001);
+		assertEquals(20.-height, yMin,0.0001);
+		assertEquals(90., xMax,0.0001);
+		assertEquals(20., yMax,0.0001);
 	}
 
 
@@ -392,10 +393,10 @@ public abstract class TestLRectangularView extends TestLShapeView {
 			i++;
 		}
 
-		assertEquals(-10.-thickness-dble/2., xMin);
-		assertEquals(20.-height-thickness-dble/2., yMin);
-		assertEquals(90.+thickness+dble/2., xMax);
-		assertEquals(20.+thickness+dble/2., yMax);
+		assertEquals(-10.-thickness-dble/2., xMin,0.0001);
+		assertEquals(20.-height-thickness-dble/2., yMin,0.0001);
+		assertEquals(90.+thickness+dble/2., xMax,0.0001);
+		assertEquals(20.+thickness+dble/2., yMax,0.0001);
 	}
 
 
@@ -454,10 +455,10 @@ public abstract class TestLRectangularView extends TestLShapeView {
 			i++;
 		}
 
-		assertEquals(-10.+thickness/2., xMin);
-		assertEquals(20.-height+thickness/2., yMin);
-		assertEquals(90.-thickness/2., xMax);
-		assertEquals(20.-thickness/2., yMax);
+		assertEquals(-10.+thickness/2., xMin,0.0001);
+		assertEquals(20.-height+thickness/2., yMin,0.0001);
+		assertEquals(90.-thickness/2., xMax,0.0001);
+		assertEquals(20.-thickness/2., yMax,0.0001);
 	}
 
 
@@ -516,10 +517,10 @@ public abstract class TestLRectangularView extends TestLShapeView {
 			i++;
 		}
 
-		assertEquals(-10., xMin);
-		assertEquals(20.-height, yMin);
-		assertEquals(90., xMax);
-		assertEquals(20., yMax);
+		assertEquals(-10., xMin,0.0001);
+		assertEquals(20.-height, yMin,0.0001);
+		assertEquals(90., xMax,0.0001);
+		assertEquals(20., yMax,0.0001);
 	}
 
 
@@ -578,9 +579,9 @@ public abstract class TestLRectangularView extends TestLShapeView {
 			i++;
 		}
 
-		assertEquals(-10.-thickness/2., xMin);
-		assertEquals(20.-height-thickness/2., yMin);
-		assertEquals(90.+thickness/2., xMax);
-		assertEquals(20.+thickness/2., yMax);
+		assertEquals(-10.-thickness/2., xMin,0.0001);
+		assertEquals(20.-height-thickness/2., yMin,0.0001);
+		assertEquals(90.+thickness/2., xMax,0.0001);
+		assertEquals(20.+thickness/2., yMax,0.0001);
 	}
 }

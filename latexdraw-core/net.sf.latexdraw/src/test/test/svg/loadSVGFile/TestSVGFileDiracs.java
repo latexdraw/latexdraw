@@ -6,6 +6,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.IText;
+import static org.junit.Assert.*;
 
 public class TestSVGFileDiracs extends TestLoadSVGFile {
 
@@ -25,12 +26,12 @@ public class TestSVGFileDiracs extends TestLoadSVGFile {
 		IPolyline pol = (IPolyline) group.getShapeAt(0);
 		assertEquals(Color.BLACK, pol.getLineColour());
 		assertEquals(2, pol.getNbPoints());
-		assertEquals(50., pol.getPtAt(0).getX());
-		assertEquals(145., pol.getPtAt(0).getY());
-		assertEquals(410., pol.getPtAt(1).getX());
-		assertEquals(145., pol.getPtAt(1).getY());
-		assertEquals(0., pol.getRotationAngle());
-		assertEquals(1., pol.getThickness());
+		assertEquals(50., pol.getPtAt(0).getX(),0.0001);
+		assertEquals(145., pol.getPtAt(0).getY(),0.0001);
+		assertEquals(410., pol.getPtAt(1).getX(),0.0001);
+		assertEquals(145., pol.getPtAt(1).getY(),0.0001);
+		assertEquals(0., pol.getRotationAngle(),0.0001);
+		assertEquals(1., pol.getThickness(),0.0001);
 		assertEquals(ArrowStyle.NONE, pol.getArrowStyle(0));
 		assertEquals(ArrowStyle.RIGHT_ARROW, pol.getArrowStyle(1));
 		assertEquals(0.4, pol.getArrowAt(1).getArrowInset(), 0.00001);

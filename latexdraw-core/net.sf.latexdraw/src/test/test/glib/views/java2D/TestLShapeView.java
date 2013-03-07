@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
@@ -19,8 +20,9 @@ public abstract class TestLShapeView extends TestAbstractView<IViewShape> {
 	public Graphics2D g;
 
 	@Before
-	@Override
 	public void setUp() {
+		FlyweightThumbnail.images().clear();
+		FlyweightThumbnail.setThread(false);
 		DrawingTK.setFactory(new LShapeFactory());
 		View2DTK.setFactory(new LViewsFactory());
 
