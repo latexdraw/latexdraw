@@ -318,6 +318,7 @@ object FlyweightThumbnail {
 			}
 			if(ok) {
 				res = execute(Array(os.getPs2pdfBinPath(), pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION)) //$NON-NLS-1$
+				new File(pathPic + PSFilter.PS_EXTENSION).delete //$NON-NLS-1$
 				ok = res._1
 				log = log + res._2
 			}
