@@ -72,7 +72,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 			final IGroup selection = (IGroup)shape;
 			final boolean separate = selection.size()==1 && selection.getShapeAt(0) instanceof IGroup;
 
-			groupB.setVisible(!separate);
+			groupB.setVisible(selection.size()>1);
 			sepB.setVisible(separate);
 		}
 	}
