@@ -12,6 +12,15 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestParsingPSbezier extends TestParsingShape {
+	@Test public void testSimpleBezierCurve() throws ParseException {
+		IBezierCurve bc = (IBezierCurve)parser.parsePSTCode(
+				"\\psbezier[linewidth=0.02](1.3918242,0.7584497)(2.0668242,0.95844966)(4.3168244,0.95844966)(4.991824,0.7584497)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(bc.getPtAt(0).getY(), bc.getPtAt(1).getY(), 0.001);
+		assertEquals(bc.getFirstCtrlPtAt(0).getY(), bc.getFirstCtrlPtAt(1).getY(), 0.001);
+		assertFalse(bc.isFilled());
+	}
+
 	@Test
 	public void testParamArrowsArrowsNoneNone() throws ParseException {
 		IBezierCurve line = (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"[arrows=<->]{-}(1,2)(3,4)(5,6)(7,8)").get().getShapeAt(0);
@@ -50,8 +59,8 @@ public class TestParsingPSbezier extends TestParsingShape {
 		assertEquals(-12.*IShape.PPC, bc.getPtAt(2).getY(), 0.0001);
 		assertEquals(17.*IShape.PPC, bc.getPtAt(3).getX(), 0.0001);
 		assertEquals(-18.*IShape.PPC, bc.getPtAt(3).getY(), 0.0001);
-		assertEquals(1.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
-		assertEquals(-2.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
+		assertEquals(-1.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
+		assertEquals(2.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
 		assertEquals(7.*IShape.PPC, bc.getSecondCtrlPtAt(1).getX(), 0.0001);
 		assertEquals(-8.*IShape.PPC, bc.getSecondCtrlPtAt(1).getY(), 0.0001);
 		assertEquals(13.*IShape.PPC, bc.getSecondCtrlPtAt(2).getX(), 0.0001);
@@ -78,8 +87,8 @@ public class TestParsingPSbezier extends TestParsingShape {
 		assertEquals(-12.*IShape.PPC, bc.getPtAt(2).getY(), 0.0001);
 		assertEquals(17.*IShape.PPC, bc.getPtAt(3).getX(), 0.0001);
 		assertEquals(-18.*IShape.PPC, bc.getPtAt(3).getY(), 0.0001);
-		assertEquals(1.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
-		assertEquals(-2.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
+		assertEquals(9.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
+		assertEquals(-18.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
 		assertEquals(7.*IShape.PPC, bc.getSecondCtrlPtAt(1).getX(), 0.0001);
 		assertEquals(-8.*IShape.PPC, bc.getSecondCtrlPtAt(1).getY(), 0.0001);
 		assertEquals(13.*IShape.PPC, bc.getSecondCtrlPtAt(2).getX(), 0.0001);
@@ -104,8 +113,8 @@ public class TestParsingPSbezier extends TestParsingShape {
 		assertEquals(-6.*IShape.PPC, bc.getPtAt(1).getY(), 0.0001);
 		assertEquals(11.*IShape.PPC, bc.getPtAt(2).getX(), 0.0001);
 		assertEquals(-12.*IShape.PPC, bc.getPtAt(2).getY(), 0.0001);
-		assertEquals(1.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
-		assertEquals(-2.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
+		assertEquals(-1.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
+		assertEquals(2.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
 		assertEquals(7.*IShape.PPC, bc.getSecondCtrlPtAt(1).getX(), 0.0001);
 		assertEquals(-8.*IShape.PPC, bc.getSecondCtrlPtAt(1).getY(), 0.0001);
 		assertEquals(3.*IShape.PPC, bc.getFirstCtrlPtAt(1).getX(), 0.0001);
@@ -126,8 +135,8 @@ public class TestParsingPSbezier extends TestParsingShape {
 		assertEquals(-6.*IShape.PPC, bc.getPtAt(1).getY(), 0.0001);
 		assertEquals(11.*IShape.PPC, bc.getPtAt(2).getX(), 0.0001);
 		assertEquals(-12.*IShape.PPC, bc.getPtAt(2).getY(), 0.0001);
-		assertEquals(1.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
-		assertEquals(-2.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
+		assertEquals(9.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
+		assertEquals(-18.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
 		assertEquals(7.*IShape.PPC, bc.getSecondCtrlPtAt(1).getX(), 0.0001);
 		assertEquals(-8.*IShape.PPC, bc.getSecondCtrlPtAt(1).getY(), 0.0001);
 		assertEquals(3.*IShape.PPC, bc.getFirstCtrlPtAt(1).getX(), 0.0001);
@@ -146,8 +155,8 @@ public class TestParsingPSbezier extends TestParsingShape {
 		assertEquals(0., bc.getPtAt(0).getY(), 0.0001);
 		assertEquals(5.*IShape.PPC, bc.getPtAt(1).getX(), 0.0001);
 		assertEquals(-6.*IShape.PPC, bc.getPtAt(1).getY(), 0.0001);
-		assertEquals(1.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
-		assertEquals(-2.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
+		assertEquals(-1.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
+		assertEquals(2.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
 		assertEquals(3.*IShape.PPC, bc.getFirstCtrlPtAt(1).getX(), 0.0001);
 		assertEquals(-4.*IShape.PPC, bc.getFirstCtrlPtAt(1).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
@@ -163,8 +172,8 @@ public class TestParsingPSbezier extends TestParsingShape {
 		assertEquals(-10.*IShape.PPC, bc.getPtAt(0).getY(), 0.0001);
 		assertEquals(5.*IShape.PPC, bc.getPtAt(1).getX(), 0.0001);
 		assertEquals(-6.*IShape.PPC, bc.getPtAt(1).getY(), 0.0001);
-		assertEquals(1.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
-		assertEquals(-2.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
+		assertEquals(9.*IShape.PPC, bc.getSecondCtrlPtAt(0).getX(), 0.0001);
+		assertEquals(-18.*IShape.PPC, bc.getSecondCtrlPtAt(0).getY(), 0.0001);
 		assertEquals(3.*IShape.PPC, bc.getFirstCtrlPtAt(1).getX(), 0.0001);
 		assertEquals(-4.*IShape.PPC, bc.getFirstCtrlPtAt(1).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());

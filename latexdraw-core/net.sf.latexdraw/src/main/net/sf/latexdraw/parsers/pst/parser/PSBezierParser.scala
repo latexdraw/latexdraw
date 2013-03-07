@@ -36,21 +36,19 @@ trait PSBezierParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 		}
 
 		val bezier = DrawingTK.getFactory.createBezierCurve(true)
-		var j = 0
+		var j = 1
+		val size = listPts.length
 
 		// Setting the points.
-		for(i <- 0 to listPts.length-1 by 3) bezier.addPoint(transformPointTo2DScene(listPts(i)))
-		// Setting the second control points.
-		for(i <- 1 to listPts.length-1 by 3){
-			bezier.getSecondCtrlPtAt(j).setPoint(transformPointTo2DScene(listPts(i)))
-			j +=1
-		}
-		// Setting the first control points
-		j = 1
-		for(i <- 2 to listPts.length-1 by 3){
+		for(i <- 0 to size-1 by 3) bezier.addPoint(transformPointTo2DScene(listPts(i)))
+
+		for(i <- 2 to size-1 by 3){
 			bezier.getFirstCtrlPtAt(j).setPoint(transformPointTo2DScene(listPts(i)))
 			j +=1
 		}
+
+		if(size>1)
+			bezier.getFirstCtrlPtAt(0).setPoint(transformPointTo2DScene(listPts(1)))
 
 		setShapeParameters(bezier, ctx)
 		setArrows(bezier, arrowRaw, false)
