@@ -114,7 +114,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 
 		shape.addPoint(fac.createPoint(m.getX(), m.getY()));
 
-		if(i>0 && list.get(1) instanceof SVGPathSegCurvetoCubic) {// We set the control point of the first point.
+		if(size>1 && list.get(1) instanceof SVGPathSegCurvetoCubic) {// We set the control point of the first point.
 			c = (SVGPathSegCurvetoCubic)list.get(1);
 			shape.getFirstCtrlPtAt(-1).setPoint(c.getX1(), c.getY1());
 		}
