@@ -444,12 +444,10 @@ public class TestTextParsing extends TestPSTParser {
 
 	@Test public void testParseMixedTextAndShapeInto2TextShapesAnd1Shape() throws ParseException {
 		IGroup group = parser.parsePSTCode("foo bar \\psdot(1,1) foo $math formula_{r}$ bar").get();
-		assertEquals(3, group.size());
+		assertEquals(2, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		assertTrue(group.getShapeAt(1) instanceof IText);
-		assertTrue(group.getShapeAt(2) instanceof IDot);
-		assertEquals("foo $math formula_{r}$ bar", ((IText)group.getShapeAt(0)).getText());
-		assertEquals("foo bar", ((IText)group.getShapeAt(1)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IDot);
+		assertEquals("foo bar foo $math formula_{r}$ bar", ((IText)group.getShapeAt(0)).getText());
 	}
 
 

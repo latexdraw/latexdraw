@@ -186,6 +186,10 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			  model.textPosition, model.rputAngle, model.fontShape, model.fontSerie, model.fontFamily, DrawingTK.getFactory.createPoint(model.psCustomLatestPt))
 	}
 
+	def this(model:PSTContext) {
+		this(model, model.isPsCustom)
+	}
+
 
 	/**
 	 * Returns the value corresponding to the given parameter.

@@ -36,15 +36,18 @@ trait PSTCodeParser extends PSTAbstractParser
 
 	override def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
 		rep(parsePSTBlock(ctx, ctx.isPsCustom) | parsePspictureBlock(ctx) | parsePsset(ctx) |
-			parsePsellipse(ctx) | parsePsframe(ctx) | parsePsdiamond(ctx) | parsePstriangle(ctx) |
-			parsePsline(ctx) | parserQline(ctx) |
-			parsePscircle(ctx) | parseQdisk(ctx) |
-			parsePspolygon(ctx) | parsePsbezier(ctx) |
-			parsePsdot(ctx) | parsePsdots(ctx) |
-			parsePsgrid(ctx) | parseRput(ctx) |
-			parsePswedge(ctx) | parsePsarc(ctx) | parsePsarcn(ctx) | parsePsellipticarc(ctx) | parsePsellipticarcn(ctx) |
-			parseParabola(ctx) | parsePscurve(ctx) | parsePsecurve(ctx) | parsePsccurve(ctx) |
-			parsePSTPlotCommands(ctx) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) | parsePscustom(ctx) | parseDefineColor(ctx) |
+			parsePsellipse(new PSTContext(ctx)) | parsePsframe(new PSTContext(ctx)) |
+			parsePsdiamond(new PSTContext(ctx)) | parsePstriangle(new PSTContext(ctx)) |
+			parsePsline(new PSTContext(ctx)) | parserQline(new PSTContext(ctx)) |
+			parsePscircle(new PSTContext(ctx)) | parseQdisk(new PSTContext(ctx)) |
+			parsePspolygon(new PSTContext(ctx)) | parsePsbezier(new PSTContext(ctx)) |
+			parsePsdot(new PSTContext(ctx)) | parsePsdots(new PSTContext(ctx)) |
+			parsePsgrid(new PSTContext(ctx)) | parseRput(ctx) |
+			parsePswedge(new PSTContext(ctx)) | parsePsarc(new PSTContext(ctx)) | parsePsarcn(new PSTContext(ctx)) |
+			parsePsellipticarc(new PSTContext(ctx)) | parsePsellipticarcn(new PSTContext(ctx)) |
+			parseParabola(new PSTContext(ctx)) | parsePscurve(new PSTContext(ctx)) | parsePsecurve(new PSTContext(ctx)) |
+			parsePsccurve(new PSTContext(ctx)) | parsePSTPlotCommands(new PSTContext(ctx)) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) |
+			parsePscustom(new PSTContext(ctx)) | parseDefineColor(ctx) |
 			parsePSCustomCommands(ctx) | parsePsFrameboxCmds(ctx) | parsetextCommands(ctx) | parseText(ctx)) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)

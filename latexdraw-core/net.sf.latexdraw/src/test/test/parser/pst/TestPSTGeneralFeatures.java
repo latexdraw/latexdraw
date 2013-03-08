@@ -1,8 +1,11 @@
 package test.parser.pst;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.awt.Color;
 import java.text.ParseException;
-import static org.junit.Assert.*;
 
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
@@ -10,6 +13,19 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestPSTGeneralFeatures extends TestPSTParser {
+
+	@Test public void testTwoShapesDoNotShareTheirParameters() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{rgb}{0.6901960784313725,0.6745098039215687,0.9294117647058824}"+
+				"\\definecolor{color0}{rgb}{0.00392156862745098,0.00392156862745098,0.00392156862745098}"+
+				"\\psframe[linewidth=0.02,linecolor=color0,dimen=outer,fillstyle=solid,fillcolor=color0b](6.5836487,0.3584497)(4.591824,-1.2415503)"+
+				"\\psbezier[linewidth=0.02](1.3918242,0.7584497)(2.0668242,0.95844966)(4.3168244,0.95844966)(4.991824,0.7584497)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(2, gp.getShapes().size());
+		assertFalse(gp.getShapeAt(1).isFilled());
+		assertEquals(Color.WHITE, gp.getShapeAt(1).getFillingCol());
+	}
+
+
 	@Test public void testDefineColor_hsb() throws ParseException {
 		parser.parsePSTCode("\\definecolor{color0b}{hsb}{1,0, 0.5}");
 		assertTrue(PSTParser.errorLogs().isEmpty());
