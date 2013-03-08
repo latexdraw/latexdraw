@@ -1,6 +1,7 @@
 package test.parser.pst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 
@@ -11,6 +12,13 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestParsingPsframebox extends TestPSTParser {
+	@Test public void testFrameboxWithSpecialColour() throws ParseException {
+		IText txt = (IText)parser.parsePSTCode("\\definecolor{color3b}{rgb}{0.7725490196078432,0.09803921568627451,0.09803921568627451}"+
+				"\\psframebox[linewidth=0.04,doubleline=true,doublesep=0.12,fillstyle=solid,fillcolor=color3b]{coucou}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertTrue(txt.getText().contains("definecolor{color3b}{rgb}{"));
+	}
+
 	@Test public void testParse_pstribox_star() throws ParseException {
 		IGroup group = parser.parsePSTCode("\\pstribox*[doubleline=true]{\\psframe(0,1)}").get();
 		assertEquals(1, group.size());

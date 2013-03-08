@@ -14,6 +14,13 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestTextParsing extends TestPSTParser {
+	@Test public void testTextWithSpecialColour() throws ParseException {
+		IText txt = (IText)parser.parsePSTCode("\\definecolor{color0}{rgb}{0.5,0.5,0.5}\\color{color0}couocu").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(new Color(0.5f,0.5f,0.5f), txt.getLineColour());
+	}
+
+
 	@Test public void testBug722075_3() throws ParseException {
 		// https://bugs.launchpad.net/latexdraw/+bug/722075
 		IGroup group = parser.parsePSTCode("\\textcolor{blue}{xyz} foobar").get();

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
+import net.sf.latexdraw.glib.views.latex.DviPsColors
+
 /**
  * A parser parsing psframebox commands.<br>
  *<br>
@@ -25,7 +27,22 @@ trait PSFrameboxParser extends PSTAbstractParser with PSTBracketBlockParser {
 		"\\pscirclebox" | "\\pscirclebox*" | "\\psovalbox" | "\\psovalbox*" | "\\psdiabox" | "\\psdiabox*"  | "\\pstribox" | "\\pstribox*") ~
 		opt(parseSquaredBracket(ctx)) ~ parseBracket(ctx) ^^ {
 		case nameCmd ~ param ~ block =>
-			val paramStr = if(param.isDefined) "[" + param.get + "]" else ""
+				val colStr = "color"
+				val paramStr = param match {
+					case Some(p) =>
+						// Searching into the parameters a user colour.
+						// These colours must be included into the parsed text.
+						p.split(",").filter(s=>s.contains(colStr)).map(s=>s.split("=")).filter(s=>s.length==2).map(s=>s(1)).foreach{
+							col => DviPsColors.INSTANCE.getUsercolourCode(col) match {
+								case "" =>
+								// The colour must not be already included.
+								case str if(!ctx.textParsed.contains(str)) => ctx.textParsed += str
+								case _ =>
+							}
+						}
+						"[" + param.get + "]"
+					case _ => ""
+				}
 			ctx.textParsed += nameCmd + paramStr + "{" + block + "}"
 	}
 }
