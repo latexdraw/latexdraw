@@ -13,6 +13,11 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestPSTGeneralFeatures extends TestPSTParser {
+	@Test public void test_scalebox() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\scalebox{0.75}{\\psframe(2,3)(5,1)}").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(1, gp.getShapes().size());
+	}
 
 	@Test public void testTwoShapesDoNotShareTheirParameters() throws ParseException {
 		IGroup gp = parser.parsePSTCode("\\definecolor{color0b}{rgb}{0.6901960784313725,0.6745098039215687,0.9294117647058824}"+
