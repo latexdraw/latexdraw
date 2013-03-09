@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
@@ -44,6 +45,34 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 		points.add(new LPoint(br.getX(), tl.getY()));
 		points.add(new LPoint(br));
 		points.add(new LPoint(tl.getX(), br.getY()));
+	}
+
+
+	@Override
+	public void mirrorHorizontal(final IPoint origin) {
+		super.mirrorHorizontal(origin);
+		if(getWidth()<0) {
+			IPoint tmp = DrawingTK.getFactory().createPoint(points.get(0));
+			points.get(0).setPoint(points.get(1));
+			points.get(1).setPoint(tmp);
+			tmp.setPoint(points.get(2));
+			points.get(2).setPoint(points.get(3));
+			points.get(3).setPoint(tmp);
+		}
+	}
+
+
+	@Override
+	public void mirrorVertical(final IPoint origin) {
+		super.mirrorVertical(origin);
+		if(getHeight()<0) {
+			IPoint tmp = DrawingTK.getFactory().createPoint(points.get(0));
+			points.get(0).setPoint(points.get(3));
+			points.get(3).setPoint(tmp);
+			tmp.setPoint(points.get(1));
+			points.get(1).setPoint(points.get(2));
+			points.get(2).setPoint(tmp);
+		}
 	}
 
 
