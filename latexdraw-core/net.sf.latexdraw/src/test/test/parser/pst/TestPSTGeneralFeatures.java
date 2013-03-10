@@ -13,6 +13,34 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestPSTGeneralFeatures extends TestPSTParser {
+	@Test(expected=ParseException.class) public void test_BeginCenter_fail_no_begin() throws ParseException {
+		parser.parsePSTCode("\\psline(1,1)(1,0)\\end{center}");
+	}
+
+
+	@Test(expected=ParseException.class) public void test_BeginCenter_fail_no_end() throws ParseException {
+		parser.parsePSTCode("\\begin{center}\\psline(1,1)(1,0)");
+	}
+
+
+	@Test(expected=ParseException.class) public void test_BeginCenter_failWithBeginPsPictureInterlacing() throws ParseException {
+		parser.parsePSTCode("\\begin{center}\\begin{pspicture}(1,1)\\psline(1,1)(1,0)\\end{center}\\end{pspicture}");
+	}
+
+
+	@Test public void test_BeginCenter_okWithBeginPsPicture() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\begin{center}\\begin{pspicture}(1,1)\\psline(1,1)(1,0)\\end{pspicture}\\end{center}").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(1, gp.getShapes().size());
+	}
+
+
+	@Test public void test_BeginCenter_ok() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\begin{center}\\psline(1,1)(1,0)\\end{center}").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(1, gp.getShapes().size());
+	}
+
 	@Test public void test_scalebox() throws ParseException {
 		IGroup gp = parser.parsePSTCode("\\scalebox{0.75}{\\psframe(2,3)(5,1)}").get();
 		assertTrue(PSTParser.errorLogs().isEmpty());

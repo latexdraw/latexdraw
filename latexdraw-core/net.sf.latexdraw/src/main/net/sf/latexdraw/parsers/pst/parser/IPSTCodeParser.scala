@@ -45,6 +45,9 @@ trait IPSTCodeParser extends TokenParsers {
 	/** Parses rput commands. */
 	def parseRput(ctx : PSTContext) : Parser[IGroup]
 
+	/** Parses begin{center} \end{center} blocks. */
+	def parseCenterBlock(ctx : PSTContext) : Parser[IGroup]
+
 	/** Parses begin{pspicture} \end{pspicture} blocks. */
 	def parsePspictureBlock(ctx : PSTContext) : Parser[IGroup]
 }

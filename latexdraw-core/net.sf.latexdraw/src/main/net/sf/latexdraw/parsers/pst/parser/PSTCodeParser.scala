@@ -35,7 +35,7 @@ trait PSTCodeParser extends PSTAbstractParser
 	with TextCommandsParser with PSFrameboxParser with IPSTCodeParser {
 
 	override def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
-		rep(parsePSTBlock(ctx, ctx.isPsCustom) | parsePspictureBlock(ctx) | parsePsset(ctx) |
+		rep(parsePSTBlock(ctx, ctx.isPsCustom) | parsePspictureBlock(ctx) | parseCenterBlock(ctx) | parsePsset(ctx) |
 			parsePsellipse(new PSTContext(ctx)) | parsePsframe(new PSTContext(ctx)) |
 			parsePsdiamond(new PSTContext(ctx)) | parsePstriangle(new PSTContext(ctx)) |
 			parsePsline(new PSTContext(ctx)) | parserQline(new PSTContext(ctx)) |
@@ -191,6 +191,9 @@ trait PSTCodeParser extends PSTAbstractParser
 		case refPos => ctx.textPosition = refPos
 	}
 
+
+	override def parseCenterBlock(ctx:PSTContext) : Parser[IGroup] =
+		"\\begin" ~> "{" ~> "center" ~> "}" ~> parsePSTCode(ctx) <~ "\\end" <~ "{" <~ "center" <~ "}"
 
 
 	override def parsePspictureBlock(ctx : PSTContext) : Parser[IGroup] = {
