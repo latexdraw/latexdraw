@@ -41,6 +41,14 @@ public class TestPSTGeneralFeatures extends TestPSTParser {
 		assertEquals(1, gp.getShapes().size());
 	}
 
+
+	@Test public void test_psscalebox() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\psscalebox{1 1}{\\psframe(2,3)(5,1)}").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(1, gp.getShapes().size());
+	}
+
+
 	@Test public void test_scalebox() throws ParseException {
 		IGroup gp = parser.parsePSTCode("\\scalebox{0.75}{\\psframe(2,3)(5,1)}").get();
 		assertTrue(PSTParser.errorLogs().isEmpty());

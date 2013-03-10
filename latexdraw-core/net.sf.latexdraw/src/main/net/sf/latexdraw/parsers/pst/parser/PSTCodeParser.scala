@@ -42,7 +42,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePscircle(new PSTContext(ctx)) | parseQdisk(new PSTContext(ctx)) |
 			parsePspolygon(new PSTContext(ctx)) | parsePsbezier(new PSTContext(ctx)) |
 			parsePsdot(new PSTContext(ctx)) | parsePsdots(new PSTContext(ctx)) |
-			parsePsgrid(new PSTContext(ctx)) | parseRput(ctx) | parseScalebox(ctx) |
+			parsePsgrid(new PSTContext(ctx)) | parseRput(ctx) | parseScalebox(ctx) | parsePsscalebox(ctx) |
 			parsePswedge(new PSTContext(ctx)) | parsePsarc(new PSTContext(ctx)) | parsePsarcn(new PSTContext(ctx)) |
 			parsePsellipticarc(new PSTContext(ctx)) | parsePsellipticarcn(new PSTContext(ctx)) |
 			parseParabola(new PSTContext(ctx)) | parsePscurve(new PSTContext(ctx)) | parsePsecurve(new PSTContext(ctx)) |
@@ -61,6 +61,14 @@ trait PSTCodeParser extends PSTAbstractParser
 		}
 
 		group
+	}
+
+
+	/**
+	 * Parses the command psscalebox.
+	 */
+	def parsePsscalebox(ctx:PSTContext) : Parser[IGroup] = "\\psscalebox" ~ parseBracket(ctx) ~ parsePSTBlock(ctx, ctx.isPsCustom) ^^ {
+		case _ ~ factor ~ shapes => shapes
 	}
 
 
