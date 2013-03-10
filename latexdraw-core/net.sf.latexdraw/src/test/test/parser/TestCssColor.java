@@ -1,13 +1,16 @@
 package test.parser;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.awt.Color;
 
-import junit.framework.TestCase;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 
 import org.junit.Test;
 
-public class TestCssColor extends TestCase {
+public class TestCssColor {
 	@Test
 	public void testGetColour() {
 		assertEquals(CSSColors.INSTANCE.getColor(CSSColors.CSS_ALICEBLUE_NAME), CSSColors.CSS_ALICEBLUE_RGB_VALUE);

@@ -1,37 +1,36 @@
 package test.parser.svg.parsers;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.awt.geom.Point2D;
 import java.text.ParseException;
-
 
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import test.parser.TestCodeParser;
 
-public class TestSVGPointsParser extends TestCodeParser
-{
-	@Override
+public class TestSVGPointsParser extends TestCodeParser {
 	@Before
 	public void setUp() {
 		parser  = new SVGPointsParser("");
 		parser2 = new SVGPointsParser("");
 	}
 
-
-
+	@Test
 	@Override
-	public void testParse() {
-		try {
-			parser.setCode(" 1, 2, \t 3\n 4 \r ,5 6  \n \t ");
-			parser.parse();
-			assertNotNull(((SVGPointsParser)parser).getPoints());
-			assertEquals(((SVGPointsParser)parser).getPoints().get(0), new Point2D.Double(1., 2.));
-			assertEquals(((SVGPointsParser)parser).getPoints().get(1),   new Point2D.Double(3., 4.));
-			assertEquals(((SVGPointsParser)parser).getPoints().get(((SVGPointsParser)parser).getPoints().size()-1),  new Point2D.Double(5., 6.));
-		}
-		catch(ParseException e) { fail(); }
+	public void testParse() throws ParseException {
+		parser.setCode(" 1, 2, \t 3\n 4 \r ,5 6  \n \t ");
+		parser.parse();
+		assertNotNull(((SVGPointsParser)parser).getPoints());
+		assertEquals(((SVGPointsParser)parser).getPoints().get(0), new Point2D.Double(1., 2.));
+		assertEquals(((SVGPointsParser)parser).getPoints().get(1),   new Point2D.Double(3., 4.));
+		assertEquals(((SVGPointsParser)parser).getPoints().get(((SVGPointsParser)parser).getPoints().size()-1),  new Point2D.Double(5., 6.));
 
 		try {
 			parser.setCode("dsf");
@@ -69,11 +68,13 @@ public class TestSVGPointsParser extends TestCodeParser
 		}catch(ParseException e) { /* */ }
 	}
 
+	@Test
 	@Override
 	public void testSkipComment() {
 		// No comment allowed.
 	}
 
+	@Test
 	@Override
 	public void testSkipWSP() {
 		parser.setCode(" \r  \t \n 10 10");
@@ -81,7 +82,7 @@ public class TestSVGPointsParser extends TestCodeParser
 		assertEquals(parser.getChar(), '1');
 	}
 
-
+	@Test
 	public void testIsWSP() {
 		parser.setCode(" \r\t\na");
 		assertTrue(parser.isWSP());
@@ -98,7 +99,7 @@ public class TestSVGPointsParser extends TestCodeParser
 	}
 
 
-	public void testSkipWSPComma() {
+	@Test public void testSkipWSPComma() {
 		parser.setCode(" \r , \t \n 10 10");
 		((SVGPointsParser)parser).skipWSPComma();
 		assertEquals(parser.getChar(), '1');
@@ -108,81 +109,75 @@ public class TestSVGPointsParser extends TestCodeParser
 	}
 
 
-	public void testReadNumber() {
+	@Test public void testReadNumber() throws ParseException {
 		SVGPointsParser p = (SVGPointsParser)parser;
 
-		try {
-			p.setCode("10");
-			assertEquals(p.readNumber(), 10.);
-			p.setCode("+10");
-			assertEquals(p.readNumber(), 10.);
-			p.setCode("-10");
-			assertEquals(p.readNumber(), -10.);
-			p.setCode("-10.");
-			assertEquals(p.readNumber(), -10.);
-			p.setCode("-.1");
-			assertEquals(p.readNumber(), -.1);
-			p.setCode("10e2");
-			assertEquals(p.readNumber(), 1000.);
-			p.setCode("10e-2");
-			assertEquals(p.readNumber(), 0.1);
-			p.setCode("10e+2");
-			assertEquals(p.readNumber(), 1000.);
-			p.setCode("10E2");
-			assertEquals(p.readNumber(), 1000.);
-			p.setCode("10E-2");
-			assertEquals(p.readNumber(), 0.1);
-			p.setCode("10E+2");
-			assertEquals(p.readNumber(), 1000.);
-			p.setCode("0.E+2");
-			assertEquals(p.readNumber(), 0.);
-		}
-		catch(ParseException e) { e.printStackTrace(); fail(); }
+		p.setCode("10");
+		assertEquals(p.readNumber(), 10., 0.0001);
+		p.setCode("+10");
+		assertEquals(p.readNumber(), 10., 0.0001);
+		p.setCode("-10");
+		assertEquals(p.readNumber(), -10., 0.0001);
+		p.setCode("-10.");
+		assertEquals(p.readNumber(), -10., 0.0001);
+		p.setCode("-.1");
+		assertEquals(p.readNumber(), -.1, 0.0001);
+		p.setCode("10e2");
+		assertEquals(p.readNumber(), 1000., 0.0001);
+		p.setCode("10e-2");
+		assertEquals(p.readNumber(), 0.1, 0.0001);
+		p.setCode("10e+2");
+		assertEquals(p.readNumber(), 1000., 0.0001);
+		p.setCode("10E2");
+		assertEquals(p.readNumber(), 1000., 0.0001);
+		p.setCode("10E-2");
+		assertEquals(p.readNumber(), 0.1, 0.0001);
+		p.setCode("10E+2");
+		assertEquals(p.readNumber(), 1000., 0.0001);
+		p.setCode("0.E+2");
+		assertEquals(p.readNumber(), 0., 0.0001);
 
 		try {
 			p.setCode(".E+2");
-			assertEquals(p.readNumber(), 0.);
+			assertEquals(p.readNumber(), 0., 0.0001);
 		} catch(ParseException e) { /* */}
 		try {
 			p.setCode(".Efd+2");
-			assertEquals(p.readNumber(), 0.);
+			assertEquals(p.readNumber(), 0., 0.0001);
 		} catch(ParseException e) { /* */}
 		try {
 			p.setCode("");
-			assertEquals(p.readNumber(), 0.);
+			assertEquals(p.readNumber(), 0., 0.0001);
 		} catch(ParseException e) { /* */}
 		try {
 			p.setCode(" \t");
-			assertEquals(p.readNumber(), 0.);
+			assertEquals(p.readNumber(), 0., 0.0001);
 		} catch(ParseException e) { /* */}
 		try {
 			p.setCode("aa");
-			assertEquals(p.readNumber(), 0.);
+			assertEquals(p.readNumber(), 0., 0.0001);
 		} catch(ParseException e) { /* */}
 		try {
 			p.setCode(".");
-			assertEquals(p.readNumber(), 0.);
+			assertEquals(p.readNumber(), 0., 0.0001);
 		} catch(ParseException e) { /* */}
 		try {
 			p.setCode("--10");
-			assertEquals(p.readNumber(), 0.);
+			assertEquals(p.readNumber(), 0., 0.0001);
 		} catch(ParseException e) { /* */}
 		try {
 			p.setCode("+-10");
-			assertEquals(p.readNumber(), 0.);
+			assertEquals(p.readNumber(), 0., 0.0001);
 		} catch(ParseException e) { /* */}
 	}
 
 
-	public void testGetPoints() {
-		try {
-			parser.setCode(" 1, 2,3 4 5,6");
-			parser.parse();
-			assertNotNull(((SVGPointsParser)parser).getPoints());
-			assertEquals(((SVGPointsParser)parser).getPoints().get(0), new Point2D.Double(1., 2.));
-			assertEquals(((SVGPointsParser)parser).getPoints().get(1),   new Point2D.Double(3., 4.));
-			assertEquals(((SVGPointsParser)parser).getPoints().get(((SVGPointsParser)parser).getPoints().size()-1),  new Point2D.Double(5., 6.));
-		}
-		catch(ParseException e) { fail(); }
+	@Test public void testGetPoints() throws ParseException {
+		parser.setCode(" 1, 2,3 4 5,6");
+		parser.parse();
+		assertNotNull(((SVGPointsParser)parser).getPoints());
+		assertEquals(((SVGPointsParser)parser).getPoints().get(0), new Point2D.Double(1., 2.));
+		assertEquals(((SVGPointsParser)parser).getPoints().get(1),   new Point2D.Double(3., 4.));
+		assertEquals(((SVGPointsParser)parser).getPoints().get(((SVGPointsParser)parser).getPoints().size()-1),  new Point2D.Double(5., 6.));
 	}
 }

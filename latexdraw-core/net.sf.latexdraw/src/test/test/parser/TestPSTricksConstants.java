@@ -1,12 +1,12 @@
 package test.parser;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
-import org.junit.*;
+import org.junit.Test;
 
-public class TestPSTricksConstants extends TestCase {
+public class TestPSTricksConstants{
 	@Test
 	public void testIsValidDotStyle() {
 		assertFalse(PSTricksConstants.isValidDotStyle(null));

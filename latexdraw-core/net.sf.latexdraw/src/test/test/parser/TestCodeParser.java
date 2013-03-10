@@ -1,22 +1,29 @@
 package test.parser;
 
-import net.sf.latexdraw.parsers.CodeParser;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-public abstract class TestCodeParser extends TestCase
-{
+import java.text.ParseException;
+
+import net.sf.latexdraw.parsers.CodeParser;
+
+import org.junit.Test;
+
+public abstract class TestCodeParser {
 	protected CodeParser parser;
 	protected CodeParser parser2;
 
 
-	public void testInitialise() {
+	@Test public void testInitialise() {
 		parser.setPosition(10);
 		parser.initialise();
 		assertTrue(parser.getPosition()==0);
 	}
 
 
-	public void testGetCharAt() {
+	@Test public void testGetCharAt() {
 		parser.setCode("test");
 		assertEquals(CodeParser.EOC, parser.getCharAt(-2));
 		assertEquals(CodeParser.EOC, parser.getCharAt(10));
@@ -28,7 +35,7 @@ public abstract class TestCodeParser extends TestCase
 	}
 
 
-	public void testGetCode() {
+	@Test public void testGetCode() {
 		String code = "this is my code";
 
 		parser.setCode(code);
@@ -41,7 +48,7 @@ public abstract class TestCodeParser extends TestCase
 	}
 
 
-	public void testSetCode() {
+	@Test public void testSetCode() {
 		String code = "a piece of code";
 
 		parser.setPosition(10);
@@ -53,7 +60,7 @@ public abstract class TestCodeParser extends TestCase
 
 
 
-	public void testNextChar() {
+	@Test public void testNextChar() {
 		parser.setCode("code");
 		assertTrue(parser.nextChar()=='o');
 		assertTrue(parser.nextChar()=='d');
@@ -66,7 +73,7 @@ public abstract class TestCodeParser extends TestCase
 	}
 
 
-	public void testGetChar() {
+	@Test public void testGetChar() {
 		parser.setCode("my code");
 		assertTrue(parser.getChar()=='m');
 		parser.setPosition(1);
@@ -78,7 +85,7 @@ public abstract class TestCodeParser extends TestCase
 	}
 
 
-	public void testIsEOC() {
+	@Test public void testIsEOC() {
 		parser.setCode("");
 		assertTrue(parser.isEOC());
 		parser.setCode("aa");
@@ -92,7 +99,7 @@ public abstract class TestCodeParser extends TestCase
 	}
 
 
-	public void testGetPosition() {
+	@Test public void testGetPosition() {
 		parser.initialise();
 		assertTrue(parser.getPosition()==0);
 		parser.setPosition(10);
@@ -102,14 +109,14 @@ public abstract class TestCodeParser extends TestCase
 	}
 
 
-	public abstract void testSkipComment();
+	@Test public abstract void testSkipComment() throws ParseException;
 
-	public abstract void testSkipWSP();
+	@Test public abstract void testSkipWSP() throws ParseException;
 
-	public abstract void testParse();
+	@Test public abstract void testParse() throws ParseException;
 
 
-	public void testIsEOL() {
+	@Test public void testIsEOL() {
 		parser.setCode("");
 		assertFalse(parser.isEOL());
 		parser.setCode("a");
@@ -132,7 +139,7 @@ public abstract class TestCodeParser extends TestCase
 	}
 
 
-	public void testSetPosition() {
+	@Test public void testSetPosition() {
 		parser.setCode("");
 		parser.setPosition(10);
 		assertEquals(10, parser.getPosition());
@@ -145,7 +152,7 @@ public abstract class TestCodeParser extends TestCase
 	}
 
 
-	public void testIncLinePosition() {
+	@Test public void testIncLinePosition() {
 		parser.setLinePosition(1);
 		parser.incLinePosition();
 		assertEquals(2, parser.getLinePosition());
@@ -157,7 +164,7 @@ public abstract class TestCodeParser extends TestCase
 
 
 
-	public void testSetLinePosition() {
+	@Test public void testSetLinePosition() {
 		parser.setLinePosition(10);
 		assertEquals(10, parser.getLinePosition());
 		parser.setLinePosition(0);
@@ -173,12 +180,12 @@ public abstract class TestCodeParser extends TestCase
 	}
 
 
-	public void testGetCoreCode() {
+	@Test public void testGetCoreCode() {
 		assertNotNull(parser.getCodeCore());
 	}
 
 
-	public void testSetCodeCore() {
+	@Test public void testSetCodeCore() {
 		parser2.setCodeCore(parser.getCodeCore());
 		assertEquals(parser2.getCodeCore(), parser.getCodeCore());
 	}

@@ -1,14 +1,12 @@
 package test.parser.svg.parsers;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.parsers.URIReferenceParser;
 
 import org.junit.Test;
 
-@SuppressWarnings("nls")
-public class TestURIReferenceParser extends TestCase
-{
+public class TestURIReferenceParser {
 	@SuppressWarnings("unused")
 	@Test
 	public void testConstructor() {
@@ -20,7 +18,6 @@ public class TestURIReferenceParser extends TestCase
 
 		new URIReferenceParser("test");
 	}
-
 
 
 	@Test
