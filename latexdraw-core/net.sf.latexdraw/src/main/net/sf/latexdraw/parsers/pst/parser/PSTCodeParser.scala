@@ -82,6 +82,9 @@ trait PSTCodeParser extends PSTAbstractParser
 
 	override def parseText(ctx : PSTContext) : Parser[List[IShape]] =  (math | text | ident | numeric | commandUnknown) ^^ {
 		case obj =>
+			if(obj.replace("\\\\", "").startsWith("\\"))
+				PSTParser.errorLogs += "Unknown command: " + obj
+
 			ctx.textParsed match {
 				case "" => ctx.textParsed = obj.mkString
 				case _  => ctx.textParsed += " " + obj.mkString

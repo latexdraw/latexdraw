@@ -13,6 +13,11 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestPSTGeneralFeatures extends TestPSTParser {
+	@Test public void testUnknownCommand() throws ParseException {
+		parser.parsePSTCode("\\fuhfisduf");
+		assertFalse(PSTParser.errorLogs().isEmpty());
+	}
+
 	@Test(expected=ParseException.class) public void test_BeginCenter_fail_no_begin() throws ParseException {
 		parser.parsePSTCode("\\psline(1,1)(1,0)\\end{center}");
 	}
