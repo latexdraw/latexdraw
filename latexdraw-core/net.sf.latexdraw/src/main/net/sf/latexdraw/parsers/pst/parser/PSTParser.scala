@@ -56,4 +56,11 @@ object PSTParser {
 
 	/** The error logger. */
 	def errorLogs = _errorLogs
+
+	/**
+	 * Cleans the parsing logs.
+	 */
+	def cleanErrors() {
+		_errorLogs.clear
+	}
 }

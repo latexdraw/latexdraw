@@ -9,6 +9,7 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser
 import javax.swing.JLabel
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.badaboom.BadaboomManager
 
 /**
  * This action converts PST code into shapes and add them to the drawing.
@@ -42,6 +43,7 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 
 
 	protected def doActionBody() {
+		PSTParser.cleanErrors
 		try {
 			new PSTParser().parsePSTCode(_code.get) match {
 				case Some(group) if(!group.isEmpty) =>
@@ -62,6 +64,7 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 				if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.34"))
 			}
 
+		PSTParser.errorLogs.foreach{str => BadaboomCollector.INSTANCE.add(new ParseException(str, -1))}
 		done
 	}
 
