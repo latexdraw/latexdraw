@@ -1,16 +1,13 @@
 package test.action;
 
-import junit.framework.TestCase;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.malai.action.Action;
 import org.malai.instrument.Instrument;
 
-public abstract class TestAbstractAction<T extends Action> extends TestCase {
+public abstract class TestAbstractAction<T extends Action> {
 	protected T action;
 
-	@Override
 	@Before
 	public void setUp() {
 		action = createAction();

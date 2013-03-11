@@ -1,6 +1,7 @@
 package test.action;
 
 import java.awt.Color;
+import static org.junit.Assert.*;
 import java.lang.reflect.Field;
 
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
@@ -400,30 +401,30 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(DrawingTK.getFactory().createPoint(-5, -6));
 		assertTrue(action.doIt());
 
-		assertEquals(-5., grid.getGridStartX());
-		assertEquals(-6., grid.getGridStartY());
-		assertEquals(-5., axe.getGridStartX());
-		assertEquals(-6., axe.getGridStartY());
+		assertEquals(-5., grid.getGridStartX(), 0.0001);
+		assertEquals(-6., grid.getGridStartY(), 0.0001);
+		assertEquals(-5., axe.getGridStartX(), 0.0001);
+		assertEquals(-6., axe.getGridStartY(), 0.0001);
 	}
 
 
 	public void testUndoGridStart() {
 		testDoGridStart();
 		action.undo();
-		assertEquals(-3., ((IGrid)g.getShapeAt(0)).getGridStartX());
-		assertEquals(-2., ((IGrid)g.getShapeAt(0)).getGridStartY());
-		assertEquals(-1., ((IAxes)g.getShapeAt(2)).getGridStartX());
-		assertEquals(-4., ((IAxes)g.getShapeAt(2)).getGridStartY());
+		assertEquals(-3., ((IGrid)g.getShapeAt(0)).getGridStartX(), 0.0001);
+		assertEquals(-2., ((IGrid)g.getShapeAt(0)).getGridStartY(), 0.0001);
+		assertEquals(-1., ((IAxes)g.getShapeAt(2)).getGridStartX(), 0.0001);
+		assertEquals(-4., ((IAxes)g.getShapeAt(2)).getGridStartY(), 0.0001);
 	}
 
 
 	public void testRedoGridStart() {
 		testUndoGridStart();
 		action.redo();
-		assertEquals(-5., ((IGrid)g.getShapeAt(0)).getGridStartX());
-		assertEquals(-6., ((IGrid)g.getShapeAt(0)).getGridStartY());
-		assertEquals(-5., ((IAxes)g.getShapeAt(2)).getGridStartX());
-		assertEquals(-6., ((IAxes)g.getShapeAt(2)).getGridStartY());
+		assertEquals(-5., ((IGrid)g.getShapeAt(0)).getGridStartX(), 0.0001);
+		assertEquals(-6., ((IGrid)g.getShapeAt(0)).getGridStartY(), 0.0001);
+		assertEquals(-5., ((IAxes)g.getShapeAt(2)).getGridStartX(), 0.0001);
+		assertEquals(-6., ((IAxes)g.getShapeAt(2)).getGridStartY(), 0.0001);
 	}
 
 
@@ -442,26 +443,26 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(33.3);
 		assertTrue(action.doIt());
 
-		assertEquals(33.3, d1.getRotationAngle());
-		assertEquals(33.3, d2.getRotationAngle());
+		assertEquals(33.3, d1.getRotationAngle(), 0.0001);
+		assertEquals(33.3, d2.getRotationAngle(), 0.0001);
 	}
 
 
 	public void testUndoRotationAngle() {
 		testDoRotationAngle();
 		action.undo();
-		assertEquals(11., g.getShapeAt(0).getRotationAngle());
-		assertEquals(-123.4, g.getShapeAt(1).getRotationAngle());
-		assertEquals(22.2, g.getShapeAt(2).getRotationAngle());
+		assertEquals(11., g.getShapeAt(0).getRotationAngle(), 0.0001);
+		assertEquals(-123.4, g.getShapeAt(1).getRotationAngle(), 0.0001);
+		assertEquals(22.2, g.getShapeAt(2).getRotationAngle(), 0.0001);
 	}
 
 
 	public void testRedoRotationAngle() {
 		testUndoRotationAngle();
 		action.redo();
-		assertEquals(33.3, g.getShapeAt(0).getRotationAngle());
-		assertEquals(33.3, g.getShapeAt(1).getRotationAngle());
-		assertEquals(33.3, g.getShapeAt(2).getRotationAngle());
+		assertEquals(33.3, g.getShapeAt(0).getRotationAngle(), 0.0001);
+		assertEquals(33.3, g.getShapeAt(1).getRotationAngle(), 0.0001);
+		assertEquals(33.3, g.getShapeAt(2).getRotationAngle(), 0.0001);
 	}
 
 
@@ -480,24 +481,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(33.3);
 		assertTrue(action.doIt());
 
-		assertEquals(33.3, d1.getRadius());
-		assertEquals(33.3, d2.getRadius());
+		assertEquals(33.3, d1.getRadius(), 0.0001);
+		assertEquals(33.3, d2.getRadius(), 0.0001);
 	}
 
 
 	public void testUndoDotSize() {
 		testDoDotSize();
 		action.undo();
-		assertEquals(11., ((IDot)g.getShapeAt(0)).getRadius());
-		assertEquals(22.2, ((IDot)g.getShapeAt(2)).getRadius());
+		assertEquals(11., ((IDot)g.getShapeAt(0)).getRadius(), 0.0001);
+		assertEquals(22.2, ((IDot)g.getShapeAt(2)).getRadius(), 0.0001);
 	}
 
 
 	public void testRedoDotSize() {
 		testUndoDotSize();
 		action.redo();
-		assertEquals(33.3, ((IDot)g.getShapeAt(0)).getRadius());
-		assertEquals(33.3, ((IDot)g.getShapeAt(2)).getRadius());
+		assertEquals(33.3, ((IDot)g.getShapeAt(0)).getRadius(), 0.0001);
+		assertEquals(33.3, ((IDot)g.getShapeAt(2)).getRadius(), 0.0001);
 	}
 
 
@@ -623,24 +624,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(101.);
 		assertTrue(action.doIt());
 
-		assertEquals(101., rec1.getThickness());
-		assertEquals(101., rec2.getThickness());
+		assertEquals(101., rec1.getThickness(), 0.0001);
+		assertEquals(101., rec2.getThickness(), 0.0001);
 	}
 
 
 	public void testUndoThickness() {
 		testDoThickness();
 		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getThickness());
-		assertEquals(33., g.getShapeAt(2).getThickness());
+		assertEquals(12.5, g.getShapeAt(0).getThickness(), 0.0001);
+		assertEquals(33., g.getShapeAt(2).getThickness(), 0.0001);
 	}
 
 
 	public void testRedoThickness() {
 		testUndoThickness();
 		action.redo();
-		assertEquals(101., g.getShapeAt(0).getThickness());
-		assertEquals(101., g.getShapeAt(2).getThickness());
+		assertEquals(101., g.getShapeAt(0).getThickness(), 0.0001);
+		assertEquals(101., g.getShapeAt(2).getThickness(), 0.0001);
 	}
 
 
@@ -659,24 +660,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(101.);
 		assertTrue(action.doIt());
 
-		assertEquals(101., rec1.getShadowAngle());
-		assertEquals(101., rec2.getShadowAngle());
+		assertEquals(101., rec1.getShadowAngle(), 0.0001);
+		assertEquals(101., rec2.getShadowAngle(), 0.0001);
 	}
 
 
 	public void testUndoShadowAngle() {
 		testDoShadowAngle();
 		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getShadowAngle());
-		assertEquals(33., g.getShapeAt(2).getShadowAngle());
+		assertEquals(12.5, g.getShapeAt(0).getShadowAngle(), 0.0001);
+		assertEquals(33., g.getShapeAt(2).getShadowAngle(), 0.0001);
 	}
 
 
 	public void testRedoShadowAngle() {
 		testUndoShadowAngle();
 		action.redo();
-		assertEquals(101., g.getShapeAt(0).getShadowAngle());
-		assertEquals(101., g.getShapeAt(2).getShadowAngle());
+		assertEquals(101., g.getShapeAt(0).getShadowAngle(), 0.0001);
+		assertEquals(101., g.getShapeAt(2).getShadowAngle(), 0.0001);
 	}
 
 
@@ -695,24 +696,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(101.);
 		assertTrue(action.doIt());
 
-		assertEquals(101., rec1.getShadowSize());
-		assertEquals(101., rec2.getShadowSize());
+		assertEquals(101., rec1.getShadowSize(), 0.0001);
+		assertEquals(101., rec2.getShadowSize(), 0.0001);
 	}
 
 
 	public void testUndoShadowSize() {
 		testDoShadowSize();
 		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getShadowSize());
-		assertEquals(33., g.getShapeAt(2).getShadowSize());
+		assertEquals(12.5, g.getShapeAt(0).getShadowSize(), 0.0001);
+		assertEquals(33., g.getShapeAt(2).getShadowSize(), 0.0001);
 	}
 
 
 	public void testRedoShadowSize() {
 		testUndoShadowSize();
 		action.redo();
-		assertEquals(101., g.getShapeAt(0).getShadowSize());
-		assertEquals(101., g.getShapeAt(2).getShadowSize());
+		assertEquals(101., g.getShapeAt(0).getShadowSize(), 0.0001);
+		assertEquals(101., g.getShapeAt(2).getShadowSize(), 0.0001);
 	}
 
 
@@ -767,24 +768,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(101.);
 		assertTrue(action.doIt());
 
-		assertEquals(101., rec1.getDbleBordSep());
-		assertEquals(101., rec2.getDbleBordSep());
+		assertEquals(101., rec1.getDbleBordSep(), 0.0001);
+		assertEquals(101., rec2.getDbleBordSep(), 0.0001);
 	}
 
 
 	public void testUndoDbleBordSep() {
 		testDoDbleBordSep();
 		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getDbleBordSep());
-		assertEquals(33., g.getShapeAt(2).getDbleBordSep());
+		assertEquals(12.5, g.getShapeAt(0).getDbleBordSep(), 0.0001);
+		assertEquals(33., g.getShapeAt(2).getDbleBordSep(), 0.0001);
 	}
 
 
 	public void testRedoDbleBordSep() {
 		testUndoDbleBordSep();
 		action.redo();
-		assertEquals(101., g.getShapeAt(0).getDbleBordSep());
-		assertEquals(101., g.getShapeAt(2).getDbleBordSep());
+		assertEquals(101., g.getShapeAt(0).getDbleBordSep(), 0.0001);
+		assertEquals(101., g.getShapeAt(2).getDbleBordSep(), 0.0001);
 	}
 
 
@@ -1090,24 +1091,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(0.3);
 		assertTrue(action.doIt());
 
-		assertEquals(0.3, rec1.getLineArc());
-		assertEquals(0.3, rec2.getLineArc());
+		assertEquals(0.3, rec1.getLineArc(), 0.0001);
+		assertEquals(0.3, rec2.getLineArc(), 0.0001);
 	}
 
 
 	public void testUndoLineArc() {
 		testDoLineArc();
 		action.undo();
-		assertEquals(0.1, ((ILineArcShape)g.getShapeAt(0)).getLineArc());
-		assertEquals(0.2, ((ILineArcShape)g.getShapeAt(2)).getLineArc());
+		assertEquals(0.1, ((ILineArcShape)g.getShapeAt(0)).getLineArc(), 0.0001);
+		assertEquals(0.2, ((ILineArcShape)g.getShapeAt(2)).getLineArc(), 0.0001);
 	}
 
 
 	public void testRedoLineArc() {
 		testUndoLineArc();
 		action.redo();
-		assertEquals(0.3, ((ILineArcShape)g.getShapeAt(0)).getLineArc());
-		assertEquals(0.3, ((ILineArcShape)g.getShapeAt(2)).getLineArc());
+		assertEquals(0.3, ((ILineArcShape)g.getShapeAt(0)).getLineArc(), 0.0001);
+		assertEquals(0.3, ((ILineArcShape)g.getShapeAt(2)).getLineArc(), 0.0001);
 	}
 
 
@@ -1125,24 +1126,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(0.3);
 		assertTrue(action.doIt());
 
-		assertEquals(0.3, rec1.getGradMidPt());
-		assertEquals(0.3, rec2.getGradMidPt());
+		assertEquals(0.3, rec1.getGradMidPt(), 0.0001);
+		assertEquals(0.3, rec2.getGradMidPt(), 0.0001);
 	}
 
 
 	public void testUndoGradMidPt() {
 		testDoGradMidPt();
 		action.undo();
-		assertEquals(0.1, g.getShapeAt(0).getGradMidPt());
-		assertEquals(0.2, g.getShapeAt(2).getGradMidPt());
+		assertEquals(0.1, g.getShapeAt(0).getGradMidPt(), 0.0001);
+		assertEquals(0.2, g.getShapeAt(2).getGradMidPt(), 0.0001);
 	}
 
 
 	public void testRedoGradMidPt() {
 		testUndoGradMidPt();
 		action.redo();
-		assertEquals(0.3, g.getShapeAt(0).getGradMidPt());
-		assertEquals(0.3, g.getShapeAt(2).getGradMidPt());
+		assertEquals(0.3, g.getShapeAt(0).getGradMidPt(), 0.0001);
+		assertEquals(0.3, g.getShapeAt(2).getGradMidPt(), 0.0001);
 	}
 
 
@@ -1161,24 +1162,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(101.);
 		assertTrue(action.doIt());
 
-		assertEquals(101., rec1.getGradAngle());
-		assertEquals(101., rec2.getGradAngle());
+		assertEquals(101., rec1.getGradAngle(), 0.0001);
+		assertEquals(101., rec2.getGradAngle(), 0.0001);
 	}
 
 
 	public void testUndoGradAngle() {
 		testDoGradAngle();
 		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getGradAngle());
-		assertEquals(33., g.getShapeAt(2).getGradAngle());
+		assertEquals(12.5, g.getShapeAt(0).getGradAngle(), 0.0001);
+		assertEquals(33., g.getShapeAt(2).getGradAngle(), 0.0001);
 	}
 
 
 	public void testRedoGradAngle() {
 		testUndoGradAngle();
 		action.redo();
-		assertEquals(101., g.getShapeAt(0).getGradAngle());
-		assertEquals(101., g.getShapeAt(2).getGradAngle());
+		assertEquals(101., g.getShapeAt(0).getGradAngle(), 0.0001);
+		assertEquals(101., g.getShapeAt(2).getGradAngle(), 0.0001);
 	}
 
 
@@ -1196,24 +1197,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(101.);
 		assertTrue(action.doIt());
 
-		assertEquals(101., rec1.getHatchingsSep());
-		assertEquals(101., rec2.getHatchingsSep());
+		assertEquals(101., rec1.getHatchingsSep(), 0.0001);
+		assertEquals(101., rec2.getHatchingsSep(), 0.0001);
 	}
 
 
 	public void testUndoHatchingsSep() {
 		testDoHatchingsSep();
 		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getHatchingsSep());
-		assertEquals(33., g.getShapeAt(2).getHatchingsSep());
+		assertEquals(12.5, g.getShapeAt(0).getHatchingsSep(), 0.0001);
+		assertEquals(33., g.getShapeAt(2).getHatchingsSep(), 0.0001);
 	}
 
 
 	public void testRedoHatchingsSep() {
 		testUndoHatchingsSep();
 		action.redo();
-		assertEquals(101., g.getShapeAt(0).getHatchingsSep());
-		assertEquals(101., g.getShapeAt(2).getHatchingsSep());
+		assertEquals(101., g.getShapeAt(0).getHatchingsSep(), 0.0001);
+		assertEquals(101., g.getShapeAt(2).getHatchingsSep(), 0.0001);
 	}
 
 
@@ -1231,24 +1232,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(101.);
 		assertTrue(action.doIt());
 
-		assertEquals(101., rec1.getHatchingsWidth());
-		assertEquals(101., rec2.getHatchingsWidth());
+		assertEquals(101., rec1.getHatchingsWidth(), 0.0001);
+		assertEquals(101., rec2.getHatchingsWidth(), 0.0001);
 	}
 
 
 	public void testUndoHatchingsWidth() {
 		testDoHatchingsWidth();
 		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getHatchingsWidth());
-		assertEquals(33., g.getShapeAt(2).getHatchingsWidth());
+		assertEquals(12.5, g.getShapeAt(0).getHatchingsWidth(), 0.0001);
+		assertEquals(33., g.getShapeAt(2).getHatchingsWidth(), 0.0001);
 	}
 
 
 	public void testRedoHatchingsWidth() {
 		testUndoHatchingsWidth();
 		action.redo();
-		assertEquals(101., g.getShapeAt(0).getHatchingsWidth());
-		assertEquals(101., g.getShapeAt(2).getHatchingsWidth());
+		assertEquals(101., g.getShapeAt(0).getHatchingsWidth(), 0.0001);
+		assertEquals(101., g.getShapeAt(2).getHatchingsWidth(), 0.0001);
 	}
 
 
@@ -1266,24 +1267,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(101.);
 		assertTrue(action.doIt());
 
-		assertEquals(101., rec1.getHatchingsAngle());
-		assertEquals(101., rec2.getHatchingsAngle());
+		assertEquals(101., rec1.getHatchingsAngle(), 0.0001);
+		assertEquals(101., rec2.getHatchingsAngle(), 0.0001);
 	}
 
 
 	public void testUndoHatchingsAngle() {
 		testDoHatchingsAngle();
 		action.undo();
-		assertEquals(12.5, g.getShapeAt(0).getHatchingsAngle());
-		assertEquals(-33., g.getShapeAt(2).getHatchingsAngle());
+		assertEquals(12.5, g.getShapeAt(0).getHatchingsAngle(), 0.0001);
+		assertEquals(-33., g.getShapeAt(2).getHatchingsAngle(), 0.0001);
 	}
 
 
 	public void testRedoHatchingsAngle() {
 		testUndoHatchingsAngle();
 		action.redo();
-		assertEquals(101., g.getShapeAt(0).getHatchingsAngle());
-		assertEquals(101., g.getShapeAt(2).getHatchingsAngle());
+		assertEquals(101., g.getShapeAt(0).getHatchingsAngle(), 0.0001);
+		assertEquals(101., g.getShapeAt(2).getHatchingsAngle(), 0.0001);
 	}
 
 
@@ -1476,24 +1477,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(21.);
 		assertTrue(action.doIt());
 
-		assertEquals(21., arc1.getAngleEnd());
-		assertEquals(21., arc2.getAngleEnd());
+		assertEquals(21., arc1.getAngleEnd(), 0.0001);
+		assertEquals(21., arc2.getAngleEnd(), 0.0001);
 	}
 
 
 	public void testUndoAngleEnd() {
 		testDoAngleEnd();
 		action.undo();
-		assertEquals(111., ((IArc)g.getShapeAt(0)).getAngleEnd());
-		assertEquals(-23.43, ((IArc)g.getShapeAt(2)).getAngleEnd());
+		assertEquals(111., ((IArc)g.getShapeAt(0)).getAngleEnd(), 0.0001);
+		assertEquals(-23.43, ((IArc)g.getShapeAt(2)).getAngleEnd(), 0.0001);
 	}
 
 
 	public void testRedoAngleEnd() {
 		testUndoAngleEnd();
 		action.redo();
-		assertEquals(21., ((IArc)g.getShapeAt(0)).getAngleEnd());
-		assertEquals(21., ((IArc)g.getShapeAt(2)).getAngleEnd());
+		assertEquals(21., ((IArc)g.getShapeAt(0)).getAngleEnd(), 0.0001);
+		assertEquals(21., ((IArc)g.getShapeAt(2)).getAngleEnd(), 0.0001);
 	}
 
 	public void testDoAngleStart() {
@@ -1510,24 +1511,24 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(21.);
 		assertTrue(action.doIt());
 
-		assertEquals(21., arc1.getAngleStart());
-		assertEquals(21., arc2.getAngleStart());
+		assertEquals(21., arc1.getAngleStart(), 0.0001);
+		assertEquals(21., arc2.getAngleStart(), 0.0001);
 	}
 
 
 	public void testUndoAngleStart() {
 		testDoAngleStart();
 		action.undo();
-		assertEquals(111., ((IArc)g.getShapeAt(0)).getAngleStart());
-		assertEquals(-23.43, ((IArc)g.getShapeAt(2)).getAngleStart());
+		assertEquals(111., ((IArc)g.getShapeAt(0)).getAngleStart(), 0.0001);
+		assertEquals(-23.43, ((IArc)g.getShapeAt(2)).getAngleStart(), 0.0001);
 	}
 
 
 	public void testRedoAngleStart() {
 		testUndoAngleStart();
 		action.redo();
-		assertEquals(21., ((IArc)g.getShapeAt(0)).getAngleStart());
-		assertEquals(21., ((IArc)g.getShapeAt(2)).getAngleStart());
+		assertEquals(21., ((IArc)g.getShapeAt(0)).getAngleStart(), 0.0001);
+		assertEquals(21., ((IArc)g.getShapeAt(2)).getAngleStart(), 0.0001);
 	}
 
 
