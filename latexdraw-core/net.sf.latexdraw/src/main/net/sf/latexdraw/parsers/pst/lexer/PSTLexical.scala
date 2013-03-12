@@ -53,18 +53,19 @@ class PSTLexical extends Lexical with PSTTokens {
 			"\\usefont", "\\psframebox", "\\psframebox*", "\\psdblframebox", "\\psdblframebox*", "\\psshadowbox", "\\psshadowbox*",
 			"\\pscirclebox", "\\pscirclebox*", "\\psovalbox", "\\psovalbox*", "\\psdiabox", "\\psdiabox*", "\\pstribox", "\\pstribox*",
 			"\\color", "\\textcolor", "\\definecolor", "\\scalebox", "center", "\\psscalebox", "\\tiny", "\\scriptsize", "\\footnotesize",
-			"\\small", "\\normalsize", "\\large", "\\Large", "\\LARGE", "\\huge", "\\Huge")
+			"\\small", "\\normalsize", "\\large", "\\Large", "\\LARGE", "\\huge", "\\Huge", "\\`", "\\'", "\\^", "\\\"", "\\H", "\\~", "\\c",
+			"\\k", "\\=", "\\b", "\\.", "\\d", "\\r", "\\u", "\\v", "\\t", "\\l")
 
  	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
 
 
- 	def command : Parser[PSTToken] = positioned('\\' ~> identifier ^^ { case name => Command("\\" + name.chars) })
+ 	def command : Parser[PSTToken] = positioned('\\' ~> (identifier | specialCommandName) ^^ { case name => Command("\\" + name.chars) })
 
-
-	def specialCommand : Parser[PSTToken] =
-		positioned('\\' ~ (elem('_')|elem('&')|elem('=')|elem('~')|elem('$')|elem('^')|elem('{')|elem('}')|
+ 	/** Companion of the parser 'command' for parsing special command names. */
+	protected def specialCommandName : Parser[Identifier] =
+		(elem('_')|elem('&')|elem('=')|elem('~')|elem('$')|elem('^')|elem('{')|elem('}')|
 				elem('%')|elem('#')|elem('\\')|elem('\"')|elem('\'')|elem('*')|elem(',')|elem('.')|
-				elem('/')|elem('@')|elem('`')) ^^ {case slash ~ char => Text(slash + char.toString) })
+				elem('/')|elem('@')|elem('`')) ^^ {case char => Identifier(char.toString) }
 
 
 	def comment : Parser[PSTToken] = positioned('%' ~> rep(chrExcept(EofCh, '\n')) ^^ { case content => Comment(content.mkString) })
@@ -161,7 +162,6 @@ class PSTLexical extends Lexical with PSTTokens {
 		| positioned(mathMode)
 		| positioned(comment)
 		| positioned(command)
-		| positioned(specialCommand)
 		| positioned(floatNumber)
 		| positioned(eof ^^ {case _ => KEOF() })
 		| positioned('$' ^^ {case _ => throw new  ParseException("Unclosed math expression (a closing $ is missing).", -1) })

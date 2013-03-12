@@ -413,12 +413,252 @@ public class TestTextParsing extends TestPSTParser {
 	}
 
 
-	@Ignore
 	@Test public void testBackSlashDoubleQuoteLetterBrackets() throws ParseException {
 		IGroup group = parser.parsePSTCode("\\\"{ee}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
 		assertEquals("\\\"{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentGraveBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\`{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\`{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentGrave() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\`e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\` e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testAccentAcuteBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\'{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\'{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentAcute() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\'e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\' e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testAccentcircumflexBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\^{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\^{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentcircumflex() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\^e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\^ e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testAccentHumlautBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\H{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\H{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentHumlaut() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\H e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\H e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testAccenttildeBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\~{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\~{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccenttilde() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\~e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\~ e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testAccentcedillaBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\c{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\c{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentcedilla() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\c e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\c e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testAccentogonekBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\k{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\k{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentogonek() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\k e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\k e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testAccentlBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\l").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\l", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentmacronBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\={ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\={ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentmacron() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\=e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\= e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentbarUnderBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\b{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\b{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentbarUnder() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\b e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\b e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentdotOverBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\.{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\.{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentdotOver() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\.e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\. e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentdotUnderBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\d{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\d{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentDotUnder() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\d e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\d e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentRingOverBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\r{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\r{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentRingOver() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\r e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\r e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentbreveBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\u{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\u{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentbreve() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\u e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\u e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentcaronBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\v{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\v{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccentcaron() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\v e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\v e", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccenttieBlock() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\t{ee}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\t{ee}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+
+	@Test public void testAccenttie() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\t e").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\t e", ((IText)group.getShapeAt(0)).getText());
 	}
 
 
