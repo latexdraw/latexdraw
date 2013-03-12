@@ -27,7 +27,17 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 	/**
 	 * Parses commands handling texts.
 	 */
-	def parsetextCommands(ctx:PSTContext) : Parser[List[IShape]] = parseUseFontCommand(ctx) | parseColorCommand(ctx) | parseTextcolorCommand(ctx)
+	def parsetextCommands(ctx:PSTContext) : Parser[List[IShape]] =
+		parseUseFontCommand(ctx) | parseColorCommand(ctx) | parseTextcolorCommand(ctx) | parseTextSizeCommand(ctx)
+
+
+	private def parseTextSizeCommand(ctx:PSTContext):Parser[List[IShape]] =
+		("\\tiny" | "\\scriptsize" | "\\footnotesize" | "\\small" | "\\normalsize" | "\\large" | "\\Large" | "\\huge" | "\\Huge") ^^ {
+		case cmd =>
+			ctx.textParsed +=cmd
+			ctx.parsedTxtNoTxt = false
+			Nil
+	}
 
 
 	/** Parses the command \textcolor */

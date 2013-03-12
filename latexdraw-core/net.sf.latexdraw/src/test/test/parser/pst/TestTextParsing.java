@@ -114,7 +114,7 @@ public class TestTextParsing extends TestPSTParser {
 	}
 
 
-	@Test @Ignore public void testParseTextLD2_footnote() throws ParseException {
+	@Test public void testParseText_footnote() throws ParseException {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\footnotesize coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
@@ -122,6 +122,89 @@ public class TestTextParsing extends TestPSTParser {
 		assertEquals("\\footnotesize coucou", text.getText());
 		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
 		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+
+	@Test public void testParseText_tiny() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rput(1,2){\\tiny coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text =  ((IText)group.getShapeAt(0));
+		assertEquals("\\tiny coucou", text.getText());
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testParseText_scriptsize() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rput(1,2){\\scriptsize coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text =  ((IText)group.getShapeAt(0));
+		assertEquals("\\scriptsize coucou", text.getText());
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testParseText_footnotesize() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rput(1,2){\\footnotesize coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text =  ((IText)group.getShapeAt(0));
+		assertEquals("\\footnotesize coucou", text.getText());
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testParseText_small() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rput(1,2){\\small coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text =  ((IText)group.getShapeAt(0));
+		assertEquals("\\small coucou", text.getText());
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+
+	@Test public void testParseText_normalsize() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rput(1,2){\\normalsize coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text =  ((IText)group.getShapeAt(0));
+		assertEquals("\\normalsize coucou", text.getText());
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testParseText_large() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rput(1,2){\\large coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text =  ((IText)group.getShapeAt(0));
+		assertEquals("\\large coucou", text.getText());
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testParseText_Large() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rput(1,2){\\Large coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text =  ((IText)group.getShapeAt(0));
+		assertEquals("\\Large coucou", text.getText());
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testParseText_huge() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rput(1,2){\\huge coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text =  ((IText)group.getShapeAt(0));
+		assertEquals("\\huge coucou", text.getText());
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+
+	@Test public void testParseText_Huge() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rput(1,2){\\Huge coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		IText text =  ((IText)group.getShapeAt(0));
+		assertEquals("\\Huge coucou", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
