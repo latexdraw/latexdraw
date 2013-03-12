@@ -73,6 +73,16 @@ trait PSTAbstractParser extends TokenParsers {
 	def orFailure[A](a : Parser[A], msg : String) : Parser[A] = a | failure(msg)
 
 
+	/**
+	 * For debugging purpose.
+	 */
+	def log[T](p: => Parser[T], ctx:PSTContext)(name: String): Parser[T] = Parser{ in =>
+//    	println("trying "+ name +" at "+ in + " with " + ctx + " having " + ctx.textParsed)
+    	val r = p(in)
+//    	println(name +" --> "+ r + " with " + ctx + " having " + ctx.textParsed)
+    	r
+	}
+
 
 	/**
 	 * This operation checks if some texts have been parsed. In such a case a text shape
@@ -82,16 +92,17 @@ trait PSTAbstractParser extends TokenParsers {
 		ctx.textParsed match {
 			case "" => Nil
 			case _ =>
-				val text = DrawingTK.getFactory.createText(true)
-				text.setText(ctx.textParsed)
-				ctx.textParsed = ""
-				setShapeParameters(text, ctx)
-				if(ctx.fontFamily.isDefined) text.setText(ctx.fontFamily.get.equivCmd + text.getText())
-				if(ctx.fontSerie.isDefined) text.setText(ctx.fontSerie.get.equivCmd + text.getText())
-				if(ctx.fontShape.isDefined) text.setText(ctx.fontShape.get.equivCmd + text.getText())
-				text.setTextPosition(IText.TextPosition.getTextPosition(ctx.textPosition))
-				text.setLineColour(ctx.textColor);
-				List(text)
+				if(ctx.parsedTxtNoTxt)
+					Nil
+				else {
+					val text = DrawingTK.getFactory.createText(true)
+					text.setText(ctx.textParsed)
+					ctx.textParsed = ""
+					setShapeParameters(text, ctx)
+					text.setTextPosition(IText.TextPosition.getTextPosition(ctx.textPosition))
+					text.setLineColour(ctx.textColor);
+					List(text)
+				}
 		}
 	}
 

@@ -16,7 +16,7 @@ public abstract class TestPSTParser {
 		FlyweightThumbnail.setThread(false);
 		DrawingTK.setFactory(new LShapeFactory());
 		parser = new PSTParser();
-		PSTParser.errorLogs().clear();
+		PSTParser.cleanErrors();
 	}
 
 
@@ -24,9 +24,4 @@ public abstract class TestPSTParser {
 
 
 	public abstract String getBasicCoordinates();
-
-
-//	public void failShouldNotParse() {
-//		fail("Should not parse.");
-//	}
 }

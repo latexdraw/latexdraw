@@ -17,10 +17,10 @@ import scala.collection.mutable.MutableList
  */
 object fontShape extends Enumeration {
 	case class FontShapeVal(pstToken:String, equivCmd:String) extends Val
-	val italic    = FontShapeVal("it", "\\it ")
-	val slanted   = FontShapeVal("sl", "\\sl ")
-	val smallCaps = FontShapeVal("sc", "\\sc ")
-	val normal    = FontShapeVal("n", "\\upshape ")
+	val italic    = FontShapeVal("it", "\\it")
+	val slanted   = FontShapeVal("sl", "\\sl")
+	val smallCaps = FontShapeVal("sc", "\\sc")
+	val normal    = FontShapeVal("n", "\\upshape")
 
 	/**
 	 * returns the font shape value corresponding to the given latex token (or None).
@@ -41,9 +41,9 @@ object fontShape extends Enumeration {
  */
 object fontFamily extends Enumeration {
 	case class FontFamilyVal(pstToken:String, equivCmd:String) extends Val
-	val rm 	 = FontFamilyVal("cmr", "\\rmfamily ")
-	val sf 	 = FontFamilyVal("cmss", "\\sffamily ")
-	val tt 	 = FontFamilyVal("cmtt", "\\ttfamily ")
+	val rm 	 = FontFamilyVal("cmr", "\\rmfamily")
+	val sf 	 = FontFamilyVal("cmss", "\\sffamily")
+	val tt 	 = FontFamilyVal("cmtt", "\\ttfamily")
 
 	/**
 	 * returns the font family value corresponding to the given latex token (or None).
@@ -63,8 +63,8 @@ object fontFamily extends Enumeration {
  */
 object fontSerie extends Enumeration {
 	case class FontSerieVal(pstToken:String, equivCmd:String) extends Val
-	val normal 	= FontSerieVal("m", "\\mdseries ")
-	val bf 		= FontSerieVal("b", "\\bf ")
+	val normal 	= FontSerieVal("m", "\\mdseries")
+	val bf 		= FontSerieVal("b", "\\bf")
 
 	/**
 	 * returns the font serie value corresponding to the given latex token (or None).
@@ -124,8 +124,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var yUnit : Double, var textColor : Color, var shadow : Boolean, var gridlabelcolor : Color, var isCentered : Boolean,
 		var pictureSWPt : IPoint, var pictureNEPt : IPoint, var tokenPosition : String, var plotStyle : String, var plotPoints : Int,
 		var addfillstyle : IShape.FillingStyle, var liftpen : Int, var isPsCustom : Boolean, var textPosition : String,
-		var rputAngle : Double, var fontShape:Option[FontShapeVal], var fontSerie:Option[FontSerieVal], var fontFamily:Option[FontFamilyVal],
-		val psCustomLatestPt : IPoint) {
+		var rputAngle : Double, var parsedTxtNoTxt:Boolean, var currFontShape:FontShapeVal, var currFontSerie:FontSerieVal,
+		var currFontFamily:FontFamilyVal, val psCustomLatestPt : IPoint) {
 
 	/** Text text parsed in the current context. */
 	var textParsed : String = ""
@@ -160,8 +160,8 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			PSTricksConstants.DEFAULT_SUBGRIDDIV, PSTricksConstants.DEFAULT_TICKS_DISPLAYED, PSTricksConstants.DEFAULT_TICKS_STYLE,
 			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
 			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, DrawingTK.getFactory.createPoint,
-			DrawingTK.getFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0,
-			None, None, None, DrawingTK.getFactory.createPoint)
+			DrawingTK.getFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0, true,
+			fontShape.normal, fontSerie.normal, fontFamily.rm, DrawingTK.getFactory.createPoint)
 	}
 
 
@@ -183,7 +183,12 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			  model.shadowAngle, model.shadowSize, model.subGridDots, model.subGridDiv, model.ticks, model.ticksStyle, model.ticksSize, model.unit,
 			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, DrawingTK.getFactory.createPoint(model.pictureSWPt),
 			  DrawingTK.getFactory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle, model.liftpen, psCustom,
-			  model.textPosition, model.rputAngle, model.fontShape, model.fontSerie, model.fontFamily, DrawingTK.getFactory.createPoint(model.psCustomLatestPt))
+			  model.textPosition, model.rputAngle, model.parsedTxtNoTxt, model.currFontShape, model.currFontSerie, model.currFontFamily,
+			  DrawingTK.getFactory.createPoint(model.psCustomLatestPt))
+
+			  if(model.currFontShape!=fontShape.normal) textParsed += model.currFontShape.equivCmd
+			  if(model.currFontSerie!=fontSerie.normal) textParsed += model.currFontSerie.equivCmd
+			  if(model.currFontFamily!=fontFamily.rm) textParsed += model.currFontFamily.equivCmd
 	}
 
 	def this(model:PSTContext) {

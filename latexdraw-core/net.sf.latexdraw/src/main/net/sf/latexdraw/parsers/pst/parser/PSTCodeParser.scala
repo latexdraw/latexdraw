@@ -42,7 +42,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			parsePscircle(new PSTContext(ctx)) | parseQdisk(new PSTContext(ctx)) |
 			parsePspolygon(new PSTContext(ctx)) | parsePsbezier(new PSTContext(ctx)) |
 			parsePsdot(new PSTContext(ctx)) | parsePsdots(new PSTContext(ctx)) |
-			parsePsgrid(new PSTContext(ctx)) | parseRput(ctx) | parseScalebox(ctx) | parsePsscalebox(ctx) |
+			parsePsgrid(new PSTContext(ctx)) | log(parseRput(ctx),ctx)("rput") | parseScalebox(ctx) | parsePsscalebox(ctx) |
 			parsePswedge(new PSTContext(ctx)) | parsePsarc(new PSTContext(ctx)) | parsePsarcn(new PSTContext(ctx)) |
 			parsePsellipticarc(new PSTContext(ctx)) | parsePsellipticarcn(new PSTContext(ctx)) |
 			parseParabola(new PSTContext(ctx)) | parsePscurve(new PSTContext(ctx)) | parsePsecurve(new PSTContext(ctx)) |
@@ -89,6 +89,7 @@ trait PSTCodeParser extends PSTAbstractParser
 				case "" => ctx.textParsed = obj.mkString
 				case _  => ctx.textParsed += " " + obj.mkString
 			}
+			ctx.parsedTxtNoTxt = false
 			Nil
 	}
 
@@ -180,7 +181,7 @@ trait PSTCodeParser extends PSTAbstractParser
 
 
 	override def parseRput(ctx : PSTContext) : Parser[IGroup] = {
-		val ctx2 = new PSTContext(ctx, ctx.isPsCustom)// Must create an other context not to modify the current one.
+		val ctx2 = new PSTContext(ctx)// Must create an other context not to modify the current one.
 		("\\rput*" | "\\rput") ~ opt(parseRputTextPosition(ctx2)) ~ opt(parseRputRotationAngle(ctx2)) ~
 		parseCoord(ctx2) ~ parsePSTBlock(ctx2, false) ^^ { case _ ~ _ ~ _ ~ coord ~ figs =>
 			figs.getShapes.foreach{shape => shape.translate(coord.getX * IShape.PPC, -coord.getY * IShape.PPC) }

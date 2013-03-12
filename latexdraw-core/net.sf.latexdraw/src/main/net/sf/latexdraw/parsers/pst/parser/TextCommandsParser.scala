@@ -32,7 +32,7 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 
 	/** Parses the command \textcolor */
 	private def parseTextcolorCommand(ctx:PSTContext) : Parser[List[IShape]] = {
-		val newCtx = new PSTContext(ctx, ctx.isPsCustom)
+		val newCtx = new PSTContext(ctx)
 		"\\textcolor" ~ parseColorBlock(newCtx) ~ parsePSTBlock(newCtx, newCtx.isPsCustom) ^^ {
 			case _ ~ _ ~ shapes  => List(shapes)
 		}
@@ -58,18 +58,20 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 
 
 	/** Parses the usefont command. */
-	private def parseUseFontCommand(ctx:PSTContext) : Parser[List[IShape]] = "\\usefont" ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
+	private def parseUseFontCommand(ctx:PSTContext) : Parser[List[IShape]] =
+		"\\usefont" ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
 		case _ ~ encoding ~ family ~ series ~ shapes =>
+			ctx.textParsed += "\\usefont{"+encoding+"}{"+family+"}{"+series+"}{"+shapes+"}"
 			fontShape.toFontShape(shapes) match {
-				case Some(value) => ctx.fontShape = Some(value)
+				case Some(value) => ctx.currFontShape = value
 				case _ =>
 			}
 			fontFamily.toFontFamily(family) match {
-				case Some(value) => ctx.fontFamily = Some(value)
+				case Some(value) => ctx.currFontFamily = value
 				case _ =>
 			}
 			fontSerie.toFontSerie(series) match {
-				case Some(value) => ctx.fontSerie = Some(value)
+				case Some(value) => ctx.currFontSerie = value
 				case _ =>
 			}
 			Nil

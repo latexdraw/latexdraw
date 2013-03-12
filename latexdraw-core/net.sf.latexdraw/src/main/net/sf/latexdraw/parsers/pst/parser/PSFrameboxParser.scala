@@ -44,5 +44,6 @@ trait PSFrameboxParser extends PSTAbstractParser with PSTBracketBlockParser {
 					case _ => ""
 				}
 			ctx.textParsed += nameCmd + paramStr + "{" + block + "}"
+			ctx.parsedTxtNoTxt = false
 	}
 }
