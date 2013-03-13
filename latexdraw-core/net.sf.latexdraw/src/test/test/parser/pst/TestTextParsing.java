@@ -15,6 +15,62 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestTextParsing extends TestPSTParser {
+	@Test public void testtextsf() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\textsf{coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\textsf{coucou}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testtextsc() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\textsc{coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\textsc{coucou}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testtextsl() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\textsl{coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\textsl{coucou}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testunderline() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\underline{coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\underline{coucou}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testtexttt() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\texttt{coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\texttt{coucou}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testEmph() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\emph{coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\emph{coucou}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testTextbf() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\textbf{coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\textbf{coucou}", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void testTextit() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\textit{coucou}").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\textit{coucou}", ((IText)group.getShapeAt(0)).getText());
+	}
+
 	@Test @Ignore public void testText_withDots() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("0..n").get().getShapeAt(0);
 		assertEquals("0..n", txt.getText());

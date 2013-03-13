@@ -29,25 +29,22 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 	 */
 	def parsetextCommands(ctx:PSTContext) : Parser[List[IShape]] =
 		parseUseFontCommand(ctx) | parseColorCommand(ctx) | parseTextcolorCommand(ctx) | parseTextSizeCommand(ctx) |
-		parseAccentCommand(ctx)
+		parsetextCommandWithBlock(ctx) | parsetextCommandWithNoBlock(ctx)
 
-
-
-	/** Parses the accent commands. */
-	private def parseAccentCommand(ctx:PSTContext):Parser[List[IShape]] = parseAccentBlock(ctx) | parseAccentNotBlock(ctx)
 
 
 	/** Parses the accent commands having no bracket block. */
-	private def parseAccentNotBlock(ctx:PSTContext):Parser[List[IShape]] = ("\\l") ^^ {case cmd =>
+	private def parsetextCommandWithNoBlock(ctx:PSTContext):Parser[List[IShape]] = ("\\l") ^^ {case cmd =>
 		ctx.textParsed +=cmd
 		ctx.parsedTxtNoTxt = false
 		Nil
 	}
 
 	/** Parses the accent commands that may ba a bracket block. */
-	private def parseAccentBlock(ctx:PSTContext):Parser[List[IShape]] =
+	private def parsetextCommandWithBlock(ctx:PSTContext):Parser[List[IShape]] =
 	("\\`" | "\\'" | "\\^" | "\\\"" | "\\H" | "\\~" | "\\c" | "\\k" | "\\=" | "\\b" | "\\." | "\\d" |
-		"\\r" | "\\u" | "\\v" | "\\t") ~ opt(parseBracket(ctx)) ^^ {
+		"\\r" | "\\u" | "\\v" | "\\t" | "\\textsf" | "\\textsc" | "\\textsl" | "\\underline" |
+		"\\texttt" | "\\emph" | "\\textbf" | "\\textit") ~ opt(parseBracket(ctx)) ^^ {
 		case cmd ~ txt =>
 			ctx.textParsed +=cmd
 			if(txt.isDefined) ctx.textParsed +="{"+txt.get+"}"
