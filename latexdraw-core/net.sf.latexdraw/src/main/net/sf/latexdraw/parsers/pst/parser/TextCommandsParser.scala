@@ -1,8 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.views.latex.DviPsColors
 import java.awt.Color
+
 import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
  * A parser grouping parsers parsing text commands.<br>
@@ -29,9 +30,51 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 	 */
 	def parsetextCommands(ctx:PSTContext) : Parser[List[IShape]] =
 		parseUseFontCommand(ctx) | parseColorCommand(ctx) | parseTextcolorCommand(ctx) | parseTextSizeCommand(ctx) |
-		parsetextCommandWithBlock(ctx) | parsetextCommandWithNoBlock(ctx)
+		parsetextCommandWithBlock(ctx) | parsetextCommandWithNoBlock(ctx) | parseFamilyFontCommand(ctx) |
+		parseSerieFontCommand(ctx) | parseShapeFontCommand(ctx)
 
 
+
+	/** Parses the font families. */
+	private def parseShapeFontCommand(ctx:PSTContext):Parser[List[IShape]] =
+		("\\upshape" | "\\itshape" | "\\slshape" | "\\scshape" | "\\it" | "\\sc" | "\\sl") ^^ {case cmd =>
+		ctx.textParsed +=cmd
+		cmd match {
+			case "\\upshape" => ctx.currFontShape = fontShape.normal
+			case "\\itshape" => ctx.currFontShape = fontShape.italic
+			case "\\it" => ctx.currFontShape = fontShape.italic
+			case "\\slshape" => ctx.currFontShape = fontShape.slanted
+			case "\\sl" => ctx.currFontShape = fontShape.slanted
+			case "\\scshape" => ctx.currFontShape = fontShape.smallCaps
+			case "\\sc" => ctx.currFontShape = fontShape.smallCaps
+			case _ =>
+		}
+		Nil
+	}
+
+	/** Parses the font families. */
+	private def parseSerieFontCommand(ctx:PSTContext):Parser[List[IShape]] = ("\\mdseries" | "\\bfseries" | "\\bf") ^^ {case cmd =>
+		ctx.textParsed +=cmd
+		cmd match {
+			case "\\mdseries" => ctx.currFontSerie = fontSerie.normal
+			case "\\bfseries" => ctx.currFontSerie = fontSerie.bf
+			case "\\bf" => ctx.currFontSerie = fontSerie.bf
+			case _ =>
+		}
+		Nil
+	}
+
+	/** Parses the font families. */
+	private def parseFamilyFontCommand(ctx:PSTContext):Parser[List[IShape]] = ("\\rmfamily" | "\\sffamily" | "\\ttfamily") ^^ {case cmd =>
+		ctx.textParsed +=cmd
+		cmd match {
+			case "\\rmfamily" => ctx.currFontFamily = fontFamily.rm
+			case "\\sffamily" => ctx.currFontFamily = fontFamily.sf
+			case "\\ttfamily" => ctx.currFontFamily = fontFamily.tt
+			case _ =>
+		}
+		Nil
+	}
 
 	/** Parses the accent commands having no bracket block. */
 	private def parsetextCommandWithNoBlock(ctx:PSTContext):Parser[List[IShape]] = ("\\l") ^^ {case cmd =>

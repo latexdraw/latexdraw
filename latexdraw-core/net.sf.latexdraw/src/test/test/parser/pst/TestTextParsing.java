@@ -15,6 +15,214 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestTextParsing extends TestPSTParser {
+	@Test public void test_bf1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\bf coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\bf coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_bf2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\bf {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\bf coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("\\bf haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_sc1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\sc coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\sc coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_sc2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\sc {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\sc coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("\\sc haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_sl1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\sl coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\sl coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_sl2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\sl {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\sl coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("\\sl haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_it1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\it coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\it coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_it2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\it {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\it coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("\\it haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_scshape1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\scshape coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\scshape coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_scshape2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\scshape {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\sc coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("\\sc haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_slshape1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\slshape coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\slshape coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_slshape2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\slshape {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\sl coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("\\sl haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_itshape1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\itshape coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\itshape coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_itshape2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\itshape {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\it coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("\\it haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_upshape1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\upshape coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\upshape coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_upshape2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\upshape {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_bfseries1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\bfseries coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\bfseries coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_bfseries2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\bfseries {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\bf coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("\\bf haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_mdseries1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\mdseries coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\mdseries coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_mdseries2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\mdseries {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_ttfamily1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\ttfamily coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\ttfamily coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_ttfamily2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\ttfamily {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_sffamily1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\sffamily coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\sffamily coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_sffamily2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\sffamily {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\sffamily coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("\\sffamily haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
+	@Test public void test_rmfamily1() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rmfamily coucou").get();
+		assertEquals(1, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("\\rmfamily coucou", ((IText)group.getShapeAt(0)).getText());
+	}
+
+	@Test public void test_rmfamily2() throws ParseException {
+		IGroup group = parser.parsePSTCode("\\rmfamily {coucou} {haha}").get();
+		assertEquals(2, group.size());
+		assertTrue(group.getShapeAt(0) instanceof IText);
+		assertEquals("coucou", ((IText)group.getShapeAt(0)).getText());
+		assertTrue(group.getShapeAt(1) instanceof IText);
+		assertEquals("haha", ((IText)group.getShapeAt(1)).getText());
+	}
+
 	@Test public void testtextsf() throws ParseException {
 		IGroup group = parser.parsePSTCode("\\textsf{coucou}").get();
 		assertEquals(1, group.size());
