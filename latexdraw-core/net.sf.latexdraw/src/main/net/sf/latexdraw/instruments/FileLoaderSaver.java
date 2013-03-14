@@ -134,7 +134,6 @@ public class FileLoaderSaver extends WidgetInstrument {
 	@Override
 	public void reinit() {
 		currentFile	= null;
-		pathSave 	= "/home/ablouin/Bureau"; //FIXME when preferences will be managed.
 	}
 
 
