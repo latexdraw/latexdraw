@@ -146,6 +146,12 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 			if(file!=null)
 				currentFile = file;
+
+			// Updating the recent files on I/O actions.
+			if(action instanceof IOAction) {
+				prefSetter.addRecentFile(((IOAction<?, ?>)action).getFile().getPath());
+				updateRecentMenuItems(prefSetter.recentFilesName);
+			}
 		}
 	}
 
@@ -324,12 +330,11 @@ public class FileLoaderSaver extends WidgetInstrument {
 		if(recentDocs!=null && !recentDocs.isEmpty()) {
 			MMenuItem item;
 
-			for(final String fileName : recentDocs)
-			 if(new File(fileName).canRead()) {
-					item = new MMenuItem(fileName.substring(fileName.lastIndexOf(LResources.FILE_SEP)+1));
-					item.setToolTipText(fileName);
-					recentFilesMenu.add(item);
-				}
+			for(final String fileName : recentDocs) {
+				item = new MMenuItem(fileName.substring(fileName.lastIndexOf(LResources.FILE_SEP)+1));
+				item.setToolTipText(fileName);
+				recentFilesMenu.add(item);
+			}
 		}
 
 		recentFilesMenu.setEnabled(recentFilesMenu.getMenuComponentCount()>0);
@@ -366,18 +371,6 @@ public class FileLoaderSaver extends WidgetInstrument {
 			final Element elt = document.createElement(LNamespace.XML_PATH_OPEN);
             elt.setTextContent(pathSave);
             root.appendChild(elt);
-		}
-	}
-
-
-	@Override
-	public void onActionExecuted(final Action action) {
-		super.onActionExecuted(action);
-
-		// Updating the recent files on I/O actions.
-		if(action instanceof IOAction && action.hadEffect()) {
-			prefSetter.addRecentFile(((IOAction<?, ?>)action).getFile().getPath());
-			updateRecentMenuItems(prefSetter.recentFilesName);
 		}
 	}
 

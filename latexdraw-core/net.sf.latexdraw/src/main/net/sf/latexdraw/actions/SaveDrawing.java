@@ -53,7 +53,6 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 	 */
 	public SaveDrawing() {
 		super();
-
 		saveAs 		= false;
 		saveOnClose = false;
 	}
@@ -98,6 +97,7 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 			else
 				super.doActionBody();
 		}
+		done();
 	}
 
 

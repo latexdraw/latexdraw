@@ -54,6 +54,7 @@ public class LoadDrawing extends Load<LFrame, JLabel> implements Modifying {
 					break;
 			}
 		else load();
+		done();
 	}
 
 

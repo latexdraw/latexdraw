@@ -269,18 +269,16 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	 * @param absolutePath The absolute path of the file to add.
 	 */
 	public void addRecentFile(final String absolutePath) {
-		if(new File(absolutePath).canRead()) {
-			final int i = recentFilesName.indexOf(absolutePath);
-			final int max = (int)Double.parseDouble(nbRecentFilesField.getValue().toString());
+		final int i = recentFilesName.indexOf(absolutePath);
+		final int max = (int)Double.parseDouble(nbRecentFilesField.getValue().toString());
 
-			if(i!=-1)
-				recentFilesName.remove(i);
+		if(i!=-1)
+			recentFilesName.remove(i);
 
-			while(recentFilesName.size()>=max)
-				recentFilesName.remove(max-1);
+		while(recentFilesName.size()>=max)
+			recentFilesName.remove(max-1);
 
-			recentFilesName.add(0, absolutePath);
-		}
+		recentFilesName.add(0, absolutePath);
 	}
 
 
