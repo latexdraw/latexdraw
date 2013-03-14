@@ -12,6 +12,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
+import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.ExportDialog;
 import net.sf.latexdraw.util.LNamespace;
@@ -74,6 +75,9 @@ public class Exporter extends WidgetInstrument {
 	/** The drawing that contains the shapes to export. */
 	protected IDrawing drawing;
 
+	/** The PST generator. */
+	protected PSTCodeGenerator pstGen;
+
 	/** The button used to export the drawing as a pdf document. */
 	protected MButton pdfButton;
 
@@ -107,7 +111,6 @@ public class Exporter extends WidgetInstrument {
 	/** The default location of the exports. */
 	protected String pathExport;
 
-
 	/**
 	 * The latex packages that the interactive system saves by default.
 	 * These packages should by set by the user and must be general, i.e.
@@ -126,16 +129,19 @@ public class Exporter extends WidgetInstrument {
 	 * @param canvas The canvas that contains the views to export (for pictures).
 	 * @param drawing The drawing that contains the shapes to export (for latex and code).
 	 * @param statusBar The status bar where messages are displayed.
+	 * @param pstGen The PST generator to use.
 	 * @throws IllegalArgumentException If one of the given arguments is null.
 	 * @since 3.0
 	 */
-	public Exporter(final UIComposer<?> composer, final ICanvas canvas, final IDrawing drawing, final JLabel statusBar) {
+	public Exporter(final UIComposer<?> composer, final ICanvas canvas, final IDrawing drawing, final JLabel statusBar,
+			final PSTCodeGenerator pstGen) {
 		super(composer);
 
 		defaultPackages		= ""; //$NON-NLS-1$
 		this.statusBar		= Objects.requireNonNull(statusBar);
 		this.drawing		= Objects.requireNonNull(drawing);
 		this.canvas 		= Objects.requireNonNull(canvas);
+		this.pstGen 		= Objects.requireNonNull(pstGen);
 
 		initialiseWidgets();
 		reinit();
@@ -377,6 +383,7 @@ class MenuPressed2Export extends Link<Export, MenuItemPressed, Exporter> {
 		action.setDialogueBox(instrument.getExportDialog(format));
 		action.setCanvas(instrument.canvas);
 		action.setFormat(format);
+		action.setPstGen(instrument.pstGen);
 	}
 
 
@@ -410,6 +417,7 @@ class ButtonPressed2Export extends Link<Export, ButtonPressed, Exporter> {
 		action.setDialogueBox(instrument.getExportDialog(ExportFormat.PDF));
 		action.setCanvas(instrument.canvas);
 		action.setFormat(ExportFormat.PDF);
+		action.setPstGen(instrument.pstGen);
 	}
 
 

@@ -177,6 +177,8 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 
 		cust.getTitleField().setColumns(15);
 		cust.getLabelField().setColumns(10);
+
+		UIBuilder.addSpinner(drawingB, cust.getScaleSpinner(), 65);
 		drawingB.addComponent(new JLabel("Caption:"));
 		drawingB.addComponent(cust.getTitleField());
 		drawingB.addComponent(new JLabel("Label:"));
@@ -322,12 +324,12 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 
 		magneticGridB.addComponent(frame.gridCustomiser.getStyleList());
 		mapContainers.put(frame.gridCustomiser.getStyleList(), magneticGridB);
-		magneticGridB.addComponent(Box.createHorizontalStrut(PropertiesToolbarBuilder.SEPARATION_WIDTH));
+		magneticGridB.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
 		magneticGridB.addComponent(frame.gridCustomiser.getMagneticCB());
 		mapContainers.put(frame.gridCustomiser.getMagneticCB(), magneticGridB);
-		magneticGridB.addComponent(Box.createHorizontalStrut(PropertiesToolbarBuilder.SEPARATION_WIDTH));
+		magneticGridB.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
 		final MSpinner spinner = frame.gridCustomiser.getGridSpacing();
-		spinner.setPreferredSize(new Dimension(65, PropertiesToolbarBuilder.HEIGHT_TEXTFIELD));
+		spinner.setPreferredSize(new Dimension(65, UIBuilder.HEIGHT_TEXTFIELD));
 		if(spinner.getLabel()!=null)
 			magneticGridB.addComponent(spinner.getLabel());
 		magneticGridB.addComponent(spinner);

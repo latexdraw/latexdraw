@@ -11,8 +11,10 @@ import net.sf.latexdraw.glib.ui.LCanvas;
 
 import org.malai.instrument.Instrument;
 import org.malai.swing.ui.UIComposer;
+import org.malai.swing.widget.MComboBox;
 import org.malai.swing.widget.MPanel;
 import org.malai.swing.widget.MProgressBar;
+import org.malai.swing.widget.MSpinner;
 import org.malai.swing.widget.MToolBar;
 import org.malai.widget.Scrollable;
 
@@ -35,6 +37,12 @@ import org.malai.widget.Scrollable;
  * @since 3.0
  */
 public class UIBuilder extends UIComposer<LFrame> {
+	/** The max height of the textfield widget. */
+	protected static final int HEIGHT_TEXTFIELD = 30;
+
+	/** The space added between widgets. */
+	protected static final int SEPARATION_WIDTH = 5;
+
 	/** The menu bar composer. */
 	protected MenubarBuilder menubarBuilder;
 
@@ -56,6 +64,21 @@ public class UIBuilder extends UIComposer<LFrame> {
 		menubarBuilder 		= new MenubarBuilder(widget);
 		toolbarBuilder 		= new ToolbarBuilder(widget);
 		propToolbarBuilder 	= new PropertiesToolbarBuilder(widget);
+	}
+
+	// FIXME SCALA: When a trait will be used, this trait could be used as type of the parameter instead of several operations.
+	protected static void addSpinner(final Container cont, final MSpinner spinner, final int width) {
+		spinner.setPreferredSize(new Dimension(width, HEIGHT_TEXTFIELD));
+		if(spinner.getLabel()!=null)
+			cont.add(spinner.getLabel());
+		cont.add(spinner);
+	}
+
+
+	protected static void addCombobox(final Container cont, final MComboBox<?> spinner) {
+		if(spinner.getLabel()!=null)
+			cont.add(spinner.getLabel());
+		cont.add(spinner);
 	}
 
 

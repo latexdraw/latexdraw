@@ -16,10 +16,12 @@ import org.malai.instrument.Link;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.CheckBoxModified;
 import org.malai.swing.interaction.library.ListSelectionModified;
+import org.malai.swing.interaction.library.SpinnerModified;
 import org.malai.swing.interaction.library.TextChanged;
 import org.malai.swing.ui.UIComposer;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MComboBox;
+import org.malai.swing.widget.MSpinner;
 import org.malai.swing.widget.MTextField;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
@@ -58,6 +60,9 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 	/** Defines the position of the drawing. */
 	protected MComboBox<VerticalPosition> positionCB;
+
+	/** Defines the scale of the drawing. */
+	protected MSpinner scaleField;
 
 
 	/**
@@ -161,6 +166,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 		labelField = new MTextField();
 		middleHorizPosCB = new MCheckBox("Centred");
 		positionCB = new MComboBox<>(VerticalPosition.values(), new JLabel("Position:"));
+		scaleField = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 0.1, 100., 0.1), new JLabel("Scale"));
 	}
 
 
@@ -169,6 +175,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 		labelField.setText(latexGen.getLabel());
 		middleHorizPosCB.setSelected(latexGen.isPositionHoriCentre());
 		positionCB.setSelectedItemSafely(latexGen.getPositionVertToken());
+		scaleField.setValue(latexGen.getScale());
 	}
 
 
@@ -178,6 +185,15 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 		if(activated)
 			updateWidgets();
+	}
+
+
+	/**
+	 * @return The spinner that sets the scale of the drawing.
+	 * @since 3.0
+	 */
+	public MSpinner getScaleSpinner() {
+		return scaleField;
 	}
 
 
@@ -224,8 +240,33 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 			addLink(new TextField2CustDrawing(this));
 			addLink(new CheckBox2CustDrawing(this));
 			addLink(new ComboBox2CustDrawing(this));
+			addLink(new Spinner2CustDrawing(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
+		}
+	}
+
+
+	/** The link that maps a combo box to action that modifies the drawing's properties. */
+	private static class Spinner2CustDrawing extends Link<ModifyLatexProperties, SpinnerModified, DrawingPropertiesCustomiser> {
+		public Spinner2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, false, ModifyLatexProperties.class, SpinnerModified.class);
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(LatexProperties.SCALE);
+			action.setGenerator(instrument.latexGen);
+		}
+
+		@Override
+		public void updateAction() {
+			action.setValue(instrument.scaleField.getValue());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getSpinner()==instrument.scaleField;
 		}
 	}
 

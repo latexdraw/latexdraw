@@ -171,6 +171,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 	/** Defined if the instrument has been modified. */
 	protected boolean modified;
 
+	/** The scale of the drawing. */
+	protected double scale;
+
 
 	/**
 	 * Initialises the abstract generator.
@@ -185,7 +188,29 @@ public abstract class LaTeXGenerator implements Modifiable {
 		caption = ""; //$NON-NLS-1$
 		positionHoriCentre = false;
 		positionVertToken  = VerticalPosition.NONE;
+		scale = 1.;
 	}
+
+
+	/**
+	 * @return the scale of the drawing.
+	 * @since 3.0
+	 */
+	public double getScale() {
+		return scale;
+	}
+
+
+
+	/**
+	 * @param scale the scale to set.
+	 * @since 3.0
+	 */
+	public void setScale(final double scale) {
+		if(scale>=0.1)
+			this.scale = scale;
+	}
+
 
 
 
@@ -375,24 +400,25 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * Generates a latex document that contains the pstricks code of the given canvas.
 	 * @param drawing The shapes to export.
 	 * @param synchronizer The object that synchronises the view and the model.
+	 * @param pstGen The PST generator to use.
 	 * @return The latex document or an empty string.
 	 * @since 3.0
 	 */
-	public static String getLatexDocument(final IDrawing drawing, final ViewsSynchroniserHandler synchronizer) {
+	public static String getLatexDocument(final IDrawing drawing, final ViewsSynchroniserHandler synchronizer, final PSTCodeGenerator pstGen) {
 		if(drawing==null || synchronizer==null)
 			return ""; //$NON-NLS-1$
 
-		final PSTCodeGenerator pstGen 	= new PSTCodeGenerator(drawing, synchronizer, false, false);
-		final StringBuilder doc 		= new StringBuilder();
-		final IPoint bl					= synchronizer.getBottomLeftDrawingPoint();
-		final IPoint tr					= synchronizer.getTopRightDrawingPoint();
-		final float ppc					= synchronizer.getPPCDrawing();
+		final StringBuilder doc = new StringBuilder();
+		final IPoint bl			= synchronizer.getBottomLeftDrawingPoint();
+		final IPoint tr			= synchronizer.getTopRightDrawingPoint();
+		final float ppc			= synchronizer.getPPCDrawing();
+		final float scale		= (float)pstGen.getScale();
 
-		pstGen.update();
+		pstGen.updateFull();
 		doc.append("\\documentclass{article}").append(LResources.EOL).append("\\pagestyle{empty}").append(LResources.EOL).append(getPackages()).append(LResources.EOL).append( //$NON-NLS-1$ //$NON-NLS-2$
 		"\\usepackage[left=0cm,top=0.1cm,right=0cm,bottom=0cm,nohead,nofoot,paperwidth=").append( //$NON-NLS-1$
-		tr.getX()/ppc).append("cm,paperheight=").append( //$NON-NLS-1$
-		bl.getY()/ppc+0.2).append("cm]{geometry}").append( //$NON-NLS-1$
+		(tr.getX()/ppc)*scale).append("cm,paperheight=").append( //$NON-NLS-1$
+		(bl.getY()/ppc)*scale+0.2).append("cm]{geometry}").append( //$NON-NLS-1$
 		LResources.EOL).append("\\usepackage[usenames,dvipsnames]{pstricks}").append(//$NON-NLS-1$
 		LResources.EOL).append("\\usepackage{epsfig}").append(//$NON-NLS-1$//$NON-NLS-2$
 		LResources.EOL).append("\\usepackage{pst-grad}").append(LResources.EOL).append("\\usepackage{pst-plot}").append(LResources.EOL).append(//$NON-NLS-1$//$NON-NLS-2$
@@ -410,10 +436,11 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param drawing The shapes to export.
 	 * @param pathExportTex The location where the file must be created.
 	 * @param synchronizer The object that synchronises the view and the model.
+	 * @param pstGen The PST generator to use.
 	 * @return The latex file or null.
 	 * @since 3.0
 	 */
-	public static File createLatexFile(final IDrawing drawing, final String pathExportTex, final ViewsSynchroniserHandler synchronizer) {
+	public static File createLatexFile(final IDrawing drawing, final String pathExportTex, final ViewsSynchroniserHandler synchronizer, final PSTCodeGenerator pstGen) {
 		if(drawing==null || pathExportTex==null)
 			return null;
 
@@ -422,7 +449,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		try {
 			try(FileOutputStream fos = new FileOutputStream(pathExportTex);
 				OutputStreamWriter osw = new OutputStreamWriter(fos)){
-				osw.append(getLatexDocument(drawing, synchronizer));
+				osw.append(getLatexDocument(drawing, synchronizer, pstGen));
 			}
 		} catch(final IOException ex) { ok = false; }
 
@@ -437,11 +464,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param drawing The shapes to export.
 	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
 	 * @param synchronizer The object that synchronises the view and the model.
+	 * @param pstGen The PST generator to use.
 	 * @return The create file or null.
 	 * @since 3.0
 	 */
-	public static File createPSFile(final IDrawing drawing, final String pathExportPs, final ViewsSynchroniserHandler synchronizer){
-		return createPSFile(drawing, pathExportPs, synchronizer, null);
+	public static File createPSFile(final IDrawing drawing, final String pathExportPs, final ViewsSynchroniserHandler synchronizer, final PSTCodeGenerator pstGen){
+		return createPSFile(drawing, pathExportPs, synchronizer, null, pstGen);
 	}
 
 
@@ -453,16 +481,19 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param pathExportPs The path of the .ps file to create (MUST ends with .ps).
 	 * @param synchronizer The object that synchronises the view and the model.
 	 * @param tmpDir The temporary directory used for the compilation.
+	 * @param pstGen The PST generator to use.
 	 * @return The create file or null.
 	 * @since 3.0
 	 */
-	public static File createPSFile(final IDrawing drawing, final String pathExportPs, final ViewsSynchroniserHandler synchronizer, final File tmpDir) {
+	public static File createPSFile(final IDrawing drawing, final String pathExportPs, final ViewsSynchroniserHandler synchronizer, final File tmpDir,
+			final PSTCodeGenerator pstGen) {
 		if(pathExportPs==null)
 			return null;
 
 		int lastSep			= pathExportPs.lastIndexOf(LResources.FILE_SEP)+1;
 		String name			= pathExportPs.substring(lastSep==-1 ? 0 : lastSep, pathExportPs.lastIndexOf(PSFilter.PS_EXTENSION));
 		File tmpDir2		= tmpDir==null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
+		final float scale	= (float)pstGen.getScale();
 
 		if(tmpDir2==null) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
@@ -470,7 +501,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		String path		= tmpDir2.getAbsolutePath() + LResources.FILE_SEP;
-		File texFile    = createLatexFile(drawing, path + name + TeXFilter.TEX_EXTENSION, synchronizer);
+		File texFile    = createLatexFile(drawing, path + name + TeXFilter.TEX_EXTENSION, synchronizer, pstGen);
 		String log;
 		File finalPS;
 		IPoint tr		= synchronizer.getTopRightDrawingPoint();
@@ -487,7 +518,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 		log    = execute(paramsLatex, tmpDir2);
 		File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
 		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
-		String[] paramsDvi = new String[] {os.getDvipsBinPath(), "-Pdownload35", "-T", ((tr.getX()-bl.getX())/ppc+dec)+"cm,"+((bl.getY()-tr.getY())/ppc+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+		String[] paramsDvi = new String[] {os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
+				(((tr.getX()-bl.getX())/ppc)*scale+dec)+"cm,"+(((bl.getY()-tr.getY())/ppc)*scale+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						name, "-o", pathExportPs}; //$NON-NLS-1$
 		log   += execute(paramsDvi, tmpDir2);
 
@@ -499,7 +532,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		finalPS = new File(pathExportPs);
 
 		if(!finalPS.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer) + LResources.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, pstGen) + LResources.EOL + log));
 			finalPS = null;
 		}
 
@@ -517,11 +550,13 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @param drawing The shapes to export.
 	 * @param pathExportPdf The path of the .pdf file to create (MUST ends with .pdf).
 	 * @param synchronizer The object that synchronises the view and the model.
+	 * @param pstGen The PST generator to use.
 	 * @return The create file or null.
 	 * @param crop if true, the output document will be cropped.
 	 * @since 3.0
 	 */
-	public static File createPDFFile(final IDrawing drawing, final String pathExportPdf, final ViewsSynchroniserHandler synchronizer, final boolean crop) {
+	public static File createPDFFile(final IDrawing drawing, final String pathExportPdf, final ViewsSynchroniserHandler synchronizer, final boolean crop,
+			final PSTCodeGenerator pstGen) {
 		if(pathExportPdf==null)
 			return null;
 
@@ -533,7 +568,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
-		File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PSFilter.PS_EXTENSION, synchronizer, tmpDir);
+		File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PSFilter.PS_EXTENSION, synchronizer, tmpDir, pstGen);
 		String log;
 		File pdfFile;
 		final OperatingSystem os = LSystem.INSTANCE.getSystem();
@@ -562,7 +597,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		psFile.delete();
 
 		if(!pdfFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer) + LResources.EOL + log));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, pstGen) + LResources.EOL + log));
 			pdfFile = null;
 		}
 

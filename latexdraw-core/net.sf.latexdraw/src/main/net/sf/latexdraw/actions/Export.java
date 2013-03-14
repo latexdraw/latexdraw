@@ -36,6 +36,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
+import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.instruments.Exporter;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.ExportDialog;
@@ -191,6 +192,9 @@ public class Export extends Action {
 	/** The dialogue chooser used to select the targeted file. */
 	protected ExportDialog dialogueBox;
 
+	/** The PST generator to use. */
+	protected PSTCodeGenerator pstGen;
+
 
 
 	/**
@@ -264,7 +268,8 @@ public class Export extends Action {
 
 	@Override
 	public boolean canDo() {
-		return canvas!=null && format!=null && dialogueBox!=null;
+		return canvas!=null && format!=null && dialogueBox!=null &&
+				(format==ExportFormat.BMP || format==ExportFormat.JPG || format==ExportFormat.PNG || pstGen!=null);
 	}
 
 
@@ -329,7 +334,7 @@ public class Export extends Action {
 		File psFile;
 
 		try{
-			psFile = LaTeXGenerator.createPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas);
+			psFile = LaTeXGenerator.createPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, pstGen);
 		}
 		catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
@@ -351,7 +356,7 @@ public class Export extends Action {
 		File pdfFile;
 
 		try{
-			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, format==ExportFormat.PDF_CROP);
+			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, format==ExportFormat.PDF_CROP, pstGen);
 		} catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
 			pdfFile = null;
@@ -373,7 +378,7 @@ public class Export extends Action {
 			try(final FileWriter fw 	= new FileWriter(file);
 				final BufferedWriter bw = new BufferedWriter(fw);
 				final PrintWriter out 	= new PrintWriter(bw);) {
-				out.println(LaTeXGenerator.getLatexDocument(canvas.getDrawing(), canvas));
+				out.println(LaTeXGenerator.getLatexDocument(canvas.getDrawing(), canvas, pstGen));
 				ok = true;
 			}
 		}
@@ -485,5 +490,14 @@ public class Export extends Action {
 	 */
 	public void setCanvas(final ICanvas canvas) {
 		this.canvas = canvas;
+	}
+
+
+	/**
+	 * @param pstGen The PST generator to use for latex, ps, or pdf exports.
+	 * @since 3.0
+	 */
+	public void setPstGen(final PSTCodeGenerator pstGen) {
+		this.pstGen = pstGen;
 	}
 }

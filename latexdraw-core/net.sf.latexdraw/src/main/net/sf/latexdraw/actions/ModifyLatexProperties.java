@@ -29,6 +29,13 @@ public class ModifyLatexProperties extends Action implements Undoable, Modifying
 	 * This enumeration defines the different LaTeX properties that can be modified.
 	 */
 	public static enum LatexProperties {
+		/** The scale of the drawing. */
+		SCALE {
+			@Override
+			public boolean isValueSupported(final Object value) {
+				return value instanceof Double;
+			}
+		},
 		/** Modification of the comments. */
 		COMMENT {
 			@Override
@@ -102,6 +109,7 @@ public class ModifyLatexProperties extends Action implements Undoable, Modifying
 	@Override
 	protected void doActionBody() {
 		switch(property) {
+			case SCALE	 			: oldValue = generator.getScale(); break;
 			case CAPTION 			: oldValue = generator.getCaption(); break;
 			case COMMENT 			: oldValue = generator.getComment(); break;
 			case LABEL 				: oldValue = generator.getLabel(); break;
@@ -116,6 +124,7 @@ public class ModifyLatexProperties extends Action implements Undoable, Modifying
 
 	private void applyValue(final Object object) {
 		switch(property) {
+			case SCALE	 			: generator.setScale((Double)object); break;
 			case CAPTION 			: generator.setCaption((String)object); break;
 			case COMMENT 			: generator.setComment((String)object); break;
 			case LABEL 				: generator.setLabel((String)object); break;

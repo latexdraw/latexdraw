@@ -11,6 +11,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.LCanvas;
+import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.instruments.*;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.mapping.Drawing2CanvasMapping;
@@ -225,11 +226,13 @@ public class LFrame extends UI {
 
 
 	private void instantiateInstruments(final LCanvas canvas, final IDrawing drawing) {
+		final PSTCodeGenerator gen = getCodePanel().getPstGenerator();
+
 		exceptionsManager	= new ExceptionsManager();
 		helper				= new Helper(composer);
 		try { gridCustomiser= new MagneticGridCustomiser(composer, canvas.getMagneticGrid()); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, getCodePanel().getPstGenerator()); }
+		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, gen); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scaleRulersCustomiser = new ScaleRulersCustomiser(xScaleRuler, yScaleRuler); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
@@ -246,7 +249,7 @@ public class LFrame extends UI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { pencil 		= new Pencil(canvas, zoomer, canvas.getMagneticGrid(), textSetter); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { exporter		= new Exporter(composer, canvas, drawing, statusBar); }
+		try { exporter		= new Exporter(composer, canvas, drawing, statusBar, gen); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { metaShapeCustomiser = new MetaShapeCustomiser(composer, hand, pencil); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
