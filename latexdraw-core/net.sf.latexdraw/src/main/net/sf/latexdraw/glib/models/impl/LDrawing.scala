@@ -91,6 +91,8 @@ protected class LDrawing extends IDrawing with LSetShapes {
 	override def setModified(modified : Boolean) {
 		if(modified)
 			MappingRegistry.REGISTRY.onObjectModified(this)
+		else
+			shapes.foreach{sh => sh.setModified(false)}
 
 		this.modified = modified
 	}
