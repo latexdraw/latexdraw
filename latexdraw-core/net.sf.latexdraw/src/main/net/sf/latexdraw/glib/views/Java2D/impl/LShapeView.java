@@ -434,13 +434,15 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		if(!border.contains(x, y))
 			return false;
 
-		if(shape.isFilled() && path.contains(x, y))
+		final Shape sh = LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.) ? path : getRotatedShape2D();
+
+		if(shape.isFilled() && sh.contains(x, y))
 			return true;
 
 		final BasicStroke bc = getStroke();
 
 		// We test if the point is on the shape.
-		return bc==null ? false : bc.createStrokedShape(path).contains(x, y);
+		return bc==null ? false : bc.createStrokedShape(sh).contains(x, y);
 	}
 
 
