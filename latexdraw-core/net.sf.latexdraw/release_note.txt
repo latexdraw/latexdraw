@@ -66,6 +66,7 @@ Fixed:
 - lp#598504: when you copy paste a rotated triangle/rhombus, and you move the copied shape then the rotation angle is set back to 0
 - lp#880677, sf#3296077: line colour of psdot style asterisk is not saved.
 - lp#911816: crash while parsing PST code containing $ and framed boxes.
+- The border of a selected ellipse did not bound it correctly.
 - The painted axes did not match the generated pdf because of the package pstricks-add.
 - The html label of the dialogue box used to insert PST code into the drawing is now correctly displayed.
 - better position of the application when several screens are available

@@ -3,6 +3,8 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a view of the IEllipse model.<br>
@@ -43,6 +45,26 @@ class LEllipseView<S extends IEllipse> extends LRectangularView<S> {
 	protected LEllipseView(final S model) {
 		super(model);
 		update();
+	}
+
+
+	@Override
+	public void updateBorder() {
+		final double angle = shape.getRotationAngle();
+
+		if(LNumber.INSTANCE.equals(angle, 0.))
+			super.updateBorder();
+		else {
+			// See: http://math.stackexchange.com/questions/91132/how-to-get-the-limits-of-rotated-ellipse
+			final IPoint gc = shape.getGravityCentre();
+			final double a = shape.getA()+getBorderGap();
+			final double b = shape.getB()+getBorderGap();
+			double cosAngle = Math.cos(angle)*Math.cos(angle);
+			double sinAngle = Math.sin(angle)*Math.sin(angle);
+			double xMin = -Math.sqrt(a*a*cosAngle+b*b*sinAngle);
+			double yMin = -Math.sqrt(a*a*sinAngle+b*b*cosAngle);
+			border.setFrame(xMin+gc.getX(), yMin+gc.getY(), -xMin*2., -yMin*2.);
+		}
 	}
 
 
