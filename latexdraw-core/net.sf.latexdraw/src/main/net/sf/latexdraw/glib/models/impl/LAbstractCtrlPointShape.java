@@ -234,6 +234,21 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 
 	@Override
+	public void setRotationAngle(double rotationAngle) {
+		if(GLibUtilities.INSTANCE.isValidCoordinate(rotationAngle)) {
+			final double diff = rotationAngle-this.rotationAngle;
+			final IPoint gc = getGravityCentre();
+
+			super.setRotationAngle(rotationAngle);
+
+			for(IPoint pt : firstCtrlPts)
+				pt.setPoint(pt.rotatePoint(gc, diff));
+			updateSecondControlPoints();
+		}
+	}
+
+
+	@Override
 	public boolean removePoint(final IPoint pt) {
 		return removePoint(points.indexOf(pt))!=null;
 	}
