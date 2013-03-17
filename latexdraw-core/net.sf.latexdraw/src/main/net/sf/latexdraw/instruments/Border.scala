@@ -478,28 +478,52 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 	/** The gravity centre used for the rotation. */
 	private var gc : IPoint = null
 
+	/** Defines whether the current handled shape is rotated. */
+	private var isRotated = false
+
+	/** The current handled shape. */
+	private var shape : IShape = null
+
 	private var gap : IPoint = DrawingTK.getFactory.createPoint
 
 
 	def initAction() {
-		val pCentre = interaction.getStartObject.asInstanceOf[IHandler].getCentre
-		val pt = instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt))
 		val drawing = instrument.canvas.getDrawing
 
-		gc = drawing.getSelection.getGravityCentre
-		gap.setPoint(pt.getX-pCentre.getX, pt.getY-pCentre.getY)
+		if(drawing.getSelection.size()==1) {
+			shape = drawing.getSelection().getShapeAt(0)
+			val rotAngle = shape.getRotationAngle
+			var pCentre = interaction.getStartObject.asInstanceOf[IHandler].getCentre
+			var pt = DrawingTK.getFactory.createPoint(instrument.canvas.getZoomedPoint(interaction.getStartPt))
 
-		if(interaction.getStartObject==instrument.arcHandlerStart)
-			action.setProperty(ShapeProperties.ARC_START_ANGLE)
-		else
-			action.setProperty(ShapeProperties.ARC_END_ANGLE)
+			gc = shape.getGravityCentre
 
-		action.setGroup(drawing.getSelection.duplicate.asInstanceOf[IGroup])
+			if(LNumber.INSTANCE.equals(rotAngle, 0))
+				isRotated = false
+			else {
+				pt = pt.rotatePoint(gc, -rotAngle)
+				pCentre = pCentre.rotatePoint(gc, -rotAngle)
+				isRotated = true
+			}
+
+			gap.setPoint(pt.getX-pCentre.getX, pt.getY-pCentre.getY)
+
+			if(interaction.getStartObject==instrument.arcHandlerStart)
+				action.setProperty(ShapeProperties.ARC_START_ANGLE)
+			else
+				action.setProperty(ShapeProperties.ARC_END_ANGLE)
+
+			action.setGroup(drawing.getSelection.duplicate.asInstanceOf[IGroup])
+		}
 	}
 
 
 	override def updateAction() {
-		val pt = instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getEndPt))
+		var pt = DrawingTK.getFactory.createPoint(instrument.canvas.getZoomedPoint(interaction.getEndPt))
+
+		if(isRotated)
+			pt = pt.rotatePoint(gc, -shape.getRotationAngle)
+
 		action.setValue(computeAngle(DrawingTK.getFactory.createPoint(pt.getX-gap.getX, pt.getY-gap.getY)))
 	}
 

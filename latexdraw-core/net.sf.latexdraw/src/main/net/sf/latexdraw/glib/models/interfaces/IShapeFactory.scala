@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces
 
 import java.awt.Point
+import java.awt.geom.Point2D
 
 /**
  * Defines an interface to implement an abstract factory.<br>
@@ -218,6 +219,14 @@ trait IShapeFactory {
 	 * @since 3.0
 	 */
 	def createPoint() : IPoint
+
+
+	/**
+	 * Duplicates a java 2D point into a IPoint.
+	 * If the given point pt is null, a point (0,0) is created.
+	 */
+	def createPoint(pt:Point2D):IPoint
+
 
 	/**
 	 * Creates a Point2D with the specified coordinates.

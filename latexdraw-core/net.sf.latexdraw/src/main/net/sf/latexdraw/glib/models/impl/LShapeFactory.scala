@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.models.impl
 import java.awt.Point
 import net.sf.latexdraw.glib.models.interfaces._
 import net.sf.latexdraw.badaboom.BadaboomCollector
+import java.awt.geom.Point2D
 
 /**
  * This factory creates shapes.<br>
@@ -70,6 +71,8 @@ class LShapeFactory extends IShapeFactory {
 				try { Some(shapeClass.cast(factoryMap(shapeClass)())) }
 				catch { case ex => BadaboomCollector.INSTANCE.add(ex); None }
 		}
+
+	override def createPoint(pt:Point2D):IPoint = if(pt==null) new LPoint() else new LPoint(pt.getX(), pt.getY())
 
 	override def createDrawing() = new LDrawing()
 
