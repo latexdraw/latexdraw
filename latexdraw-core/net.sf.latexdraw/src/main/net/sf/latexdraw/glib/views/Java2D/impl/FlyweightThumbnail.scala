@@ -132,8 +132,8 @@ object FlyweightThumbnail {
 							val tuple = createImage(shape)
 							images.synchronized{images+=(text -> new Tuple4[Image,Set[IViewText],String,String](tuple._1, Set(view), tuple._2, tuple._3))}
 							creationsInProgress.synchronized{creationsInProgress-=view}
-							view.getShape().setModified(true);
-							if(_canvas!=null) _canvas.refresh();
+							view.getShape.setModified(true)
+							if(_canvas!=null) _canvas.refresh
 						}
 					}.start()
 				}
@@ -196,7 +196,7 @@ object FlyweightThumbnail {
 
 		doc.append("\\documentclass[10pt]{article}\n\\usepackage[usenames,dvipsnames]{pstricks}") //$NON-NLS-1$
 		doc.append(LaTeXGenerator.getPackages)
-		doc.append("\\usepackage[left=0cm,top=0cm,right=0cm,nohead,nofoot,paperwidth=100cm,paperheight=100cm]{geometry}\n")
+		doc.append("\\usepackage[left=0cm,top=0cm,right=0cm,nohead,nofoot,paperwidth=10cm,paperheight=10cm]{geometry}\n")
 		doc.append("\\pagestyle{empty}\n\\begin{document}\n\\psscalebox{") //$NON-NLS-1$
 		doc.append(LNumber.INSTANCE.getCutNumber(scale).toFloat).append(' ')
 		doc.append(LNumber.INSTANCE.getCutNumber(scale).toFloat).append('}').append('{')
@@ -311,13 +311,13 @@ object FlyweightThumbnail {
 			new File(pathPic + ".log").delete //$NON-NLS-1$
 
 			if(ok) {
-				res = execute(Array(os.getDvipsBinPath(), pathPic + ".dvi",  "-o", pathPic + PSFilter.PS_EXTENSION)) //$NON-NLS-1$ //$NON-NLS-2$
+				res = execute(Array(os.getDvipsBinPath, pathPic + ".dvi",  "-o", pathPic + PSFilter.PS_EXTENSION)) //$NON-NLS-1$ //$NON-NLS-2$
 				ok = res._1
 				log = log + res._2
 				new File(pathPic + ".dvi").delete //$NON-NLS-1$
 			}
 			if(ok) {
-				res = execute(Array(os.getPs2pdfBinPath(), pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION)) //$NON-NLS-1$
+				res = execute(Array(os.getPs2pdfBinPath, pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION)) //$NON-NLS-1$
 				new File(pathPic + PSFilter.PS_EXTENSION).delete //$NON-NLS-1$
 				ok = res._1
 				log = log + res._2
@@ -325,12 +325,17 @@ object FlyweightThumbnail {
 
 			if(ok)
 				try {
-					val raf = new RandomAccessFile(new File(pathPic+PDFFilter.PDF_EXTENSION), "r")
+					val file = new File(pathPic+PDFFilter.PDF_EXTENSION)
+					val raf = new RandomAccessFile(file, "r")
 					val fc = raf.getChannel
-					val pdfFile = new PDFFile(fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size))
+					val mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size)
+					val pdfFile = new PDFFile(mbb)
+					mbb.clear
+					fc.close
+					raf.close
 
 					if(pdfFile.getNumPages==1) {
-						val page = pdfFile.getPage(1)
+						val page = pdfFile.getPage(0)
 						val bound = page.getBBox
 					    val img	= page.getImage(bound.getWidth.toInt, bound.getHeight.toInt, bound, null, false, true)
 
@@ -341,8 +346,7 @@ object FlyweightThumbnail {
 					    	img.flush
 					}
 					else BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages))
-
-					new File(pathPic + PDFFilter.PDF_EXTENSION).delete
+					file.delete
 				}catch { case ex => BadaboomCollector.INSTANCE.add(ex) }
 		}
 		catch { case e =>
@@ -358,6 +362,7 @@ object FlyweightThumbnail {
 			new File(pathPic + ".log").delete //$NON-NLS-1$
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Log:\n" + log + "\nException:\n" + sw))
 			pw.flush
+			sw.flush
 		}
 
 		return new Tuple3(bi, pathPic, log)
