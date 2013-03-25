@@ -86,6 +86,8 @@ public class UIBuilder extends UIComposer<LFrame> {
 	public void setWidgetVisible(final Component widget, final boolean visible) {
 		final Component comp;
 
+		if(widget==null || visible==widget.isVisible()) return;
+
 		// For widgets having a ScrollPane we must check their containing ScollPane.
 		if(widget instanceof Scrollable && ((Scrollable)widget).hasScrollPane())
 			comp = ((Scrollable)widget).getScrollpane();
@@ -100,7 +102,8 @@ public class UIBuilder extends UIComposer<LFrame> {
 
 		if(list!=null) {
 			list.setVisible(visible || list.isContentVisible());
-			list.repaint();
+			if(list.isVisible() && list.getWindowToolBar().isVisible())
+				list.update();
 		}
 	}
 

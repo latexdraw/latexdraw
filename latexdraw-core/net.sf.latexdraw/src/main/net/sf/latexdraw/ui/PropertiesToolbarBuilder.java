@@ -103,6 +103,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(transformer.mirrorH(), list);
 		mapContainers.put(transformer.mirrorV(), list);
 		transformer.addEventable(list.getToolbar());
+		list.setVisible(false);
 		return list;
 	}
 
@@ -130,7 +131,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(cust.getOpen(), list);
 
 		cust.addEventable(list.getToolbar());
-
+		list.setVisible(false);
 		return list;
 	}
 
@@ -167,7 +168,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		axeCust.addEventable(list.getToolbar());
 		stdGridCust.addEventable(list.getToolbar());
 		gridCust.addEventable(list.getToolbar());
-
+		list.setVisible(false);
 		return list;
 	}
 
@@ -196,7 +197,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(cust.getShapeTicks(), list);
 		mapContainers.put(cust.getTicksSizeS(), list);
 		mapContainers.put(cust.getShowTicks(), list);
-
+		list.setVisible(false);
 		cust.addEventable(panel);
 		cust.addEventable(ticksPanel);
 		return list;
@@ -222,6 +223,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(cust.getSubGridDots(), list);
 		mapContainers.put(cust.getSubGridDiv(), list);
 		cust.addEventable(list.getToolbar());
+		list.setVisible(false);
 		return list;
 	}
 
@@ -244,7 +246,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(cust.getyEndS(), list);
 		mapContainers.put(cust.getxOriginS(), list);
 		mapContainers.put(cust.getyOriginS(), list);
-
+		list.setVisible(false);
 		cust.addEventable(list.getToolbar());
 		return list;
 	}
@@ -260,7 +262,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		mapContainers.put(cust.getTlxS(), list);
 		mapContainers.put(cust.getTlyS(), list);
-
+		list.setVisible(false);
 		cust.addEventable(list.getToolbar());
 		return list;
 	}
@@ -276,7 +278,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		mapContainers.put(textCustomiser.getPackagesLabel(), list);
 		mapContainers.put(textCustomiser.getPackagesField().getScrollpane(), list);
-
+		list.setVisible(false);
 		textCustomiser.addEventable(textCustomiser.getPackagesField());
 		return list;
 	}
@@ -304,8 +306,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(textCustomiser.getCentreButton(), list);
 		mapContainers.put(textCustomiser.getLButton(), list);
 		mapContainers.put(textCustomiser.getRButton(), list);
-
 		list.addSeparator();
+		list.setVisible(false);
 		textCustomiser.addEventable(list.getToolbar());
 		return list;
 	}
@@ -329,7 +331,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(ins.getEndAngleS(), list);
 
         ins.addEventable(list.getToolbar());
-
+        list.setVisible(false);
 		return list;
 	}
 
@@ -345,13 +347,14 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		list.addComponent(ins.getFillingB());
 		list.addSeparator();
 
+		mapContainers.put(sbc.getShowPoints(), list);
 		mapContainers.put(ins.getDotCB(), list);
 		mapContainers.put(ins.getDotSizeField(), list);
 		mapContainers.put(ins.getFillingB(), list);
 
         ins.addEventable(list.getToolbar());
         sbc.addEventable(list.getToolbar());
-
+        list.setVisible(false);
 		return list;
 	}
 
@@ -390,7 +393,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(ins.getDotSizeDim(), list);
 
         ins.addEventable(list.getToolbar());
-
+        list.setVisible(false);
 		return list;
 	}
 
@@ -412,7 +415,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
         mapContainers.put(ins.getRotate270Button(), list);
 
         ins.addEventable(list.getToolbar());
-
+        list.setVisible(false);
 		return list;
 	}
 
@@ -459,7 +462,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(fillingCustomiser.getGradMidPtField(), list);
 
 		fillingCustomiser.addEventable(list.getToolbar());
-
+		list.setVisible(false);
 		return list;
 	}
 
@@ -488,7 +491,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(shadowCustomiser.getShadowAngleField(), list);
 
 		shadowCustomiser.addEventable(list.getToolbar());
-
+		list.setVisible(false);
 		return list;
 	}
 
@@ -514,7 +517,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(dbleBorderCustomiser.getDbleSepField(), list);
 
 		dbleBorderCustomiser.addEventable(list.getToolbar());
-
+		list.setVisible(false);
 		return list;
 	}
 
@@ -547,7 +550,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(borderCustomiser.getFrameArcField(), list);
 
 		borderCustomiser.addEventable(list.getToolbar());
-
+		list.setVisible(false);
 		return list;
 	}
 }

@@ -316,12 +316,9 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 		if(src instanceof WidgetMiniToolbar) {
 			final boolean visible = !buttonsFrame.isVisible();
 
-			defineToolbarLocation();
 			updateSelected();
+			defineToolbarLocation();
 			setButtonsFrameVisible(visible);
-
-			if(visible)
-				buttonsFrame.requestFocusInWindow();
 			return ;
 		}
 
@@ -348,7 +345,13 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	 * @since 3.0
 	 */
 	public void setButtonsFrameVisible(final boolean visible) {
+		if(visible)
+			update();
+
 		buttonsFrame.setVisible(visible);
+
+		if(visible)
+			buttonsFrame.requestFocusInWindow();
 
 		if(!visible && componentFocusOnClose!=null)
 			componentFocusOnClose.requestFocus();
@@ -484,13 +487,18 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	}
 
 
-	@Override
-	public void repaint() {
-		// The frame must be repack to update its layout.
+	public JWindow getWindowToolBar() {
+		return buttonsFrame;
+	}
+
+
+	/**
+	 * Updates the shape of the widgets using its components.
+	 * @since 3.0
+	 */
+	public void update() {
 		if(buttonsFrame!=null)
 			buttonsFrame.pack();
-
-		super.repaint();
 	}
 
 
