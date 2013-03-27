@@ -17,7 +17,7 @@ import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.presentation.ConcretePresentation;
 import org.malai.properties.Zoomable;
-import org.malai.widget.Scrollable;
+import org.malai.swing.widget.ScrollableWidget;
 
 /**
  * Defines an interface for a canvas that draw the drawing and manages the selected shapes.<br>
@@ -37,7 +37,7 @@ import org.malai.widget.Scrollable;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public interface ICanvas extends Zoomable, ConcretePresentation, Scrollable, Eventable, ViewsSynchroniserHandler, ActionHandler, Picker, Pickable {
+public interface ICanvas extends Zoomable, ConcretePresentation, ScrollableWidget, Eventable, ViewsSynchroniserHandler, ActionHandler, Picker, Pickable {
 	/**
 	 * Changes the cursor of the canvas.
 	 * @param cursor The new canvas. Cannot be null.
