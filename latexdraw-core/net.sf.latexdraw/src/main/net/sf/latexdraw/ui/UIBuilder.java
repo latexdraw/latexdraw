@@ -16,7 +16,7 @@ import org.malai.swing.widget.MPanel;
 import org.malai.swing.widget.MProgressBar;
 import org.malai.swing.widget.MSpinner;
 import org.malai.swing.widget.MToolBar;
-import org.malai.widget.Scrollable;
+import org.malai.swing.widget.ScrollableWidget;
 
 /**
  * This composer composes the latexdraw user interface.<br>
@@ -89,8 +89,8 @@ public class UIBuilder extends UIComposer<LFrame> {
 		if(widget==null || visible==widget.isVisible()) return;
 
 		// For widgets having a ScrollPane we must check their containing ScollPane.
-		if(widget instanceof Scrollable && ((Scrollable)widget).hasScrollPane())
-			comp = ((Scrollable)widget).getScrollpane();
+		if(widget instanceof ScrollableWidget && ((ScrollableWidget)widget).hasScrollPane())
+			comp = ((ScrollableWidget)widget).getScrollpane();
 		else comp = widget;
 
 		super.setWidgetVisible(comp, visible);
