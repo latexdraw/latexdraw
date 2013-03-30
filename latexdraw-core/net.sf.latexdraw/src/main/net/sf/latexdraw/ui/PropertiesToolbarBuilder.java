@@ -71,6 +71,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		composeJoinShapesWidgets(metaShapeCustomiser.getShapeGrouper());
 		widget.add(composeRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), canvas));
 		widget.add(composeMirrorShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
+		widget.add(composeAlignShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		widget.add(composeBorderPropertiesPanel(metaShapeCustomiser.getBorderCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
@@ -90,6 +91,29 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 					metaShapeCustomiser.getStandardGridCustomiser(), canvas));
 		widget.add(composeFreeHandPropertiesToolbar(metaShapeCustomiser.getFreeHandCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
+	}
+
+
+	// Creates the tool bar for mirroring shapes.
+	protected WidgetMiniToolbar composeAlignShapes(final ShapeTransformer transformer, final LCanvas canvas) {
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.ALIGN_LEFT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		list.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.1"));
+		list.addComponent(transformer.alignLeft());
+		list.addComponent(transformer.alignRight());
+		list.addComponent(transformer.alignBot());
+		list.addComponent(transformer.alignTop());
+		list.addComponent(transformer.alignMidHoriz());
+		list.addComponent(transformer.alignMidVert());
+		list.addSeparator();
+		mapContainers.put(transformer.alignLeft(), list);
+		mapContainers.put(transformer.alignRight(), list);
+		mapContainers.put(transformer.alignBot(), list);
+		mapContainers.put(transformer.alignTop(), list);
+		mapContainers.put(transformer.alignMidHoriz(), list);
+		mapContainers.put(transformer.alignMidVert(), list);
+		transformer.addEventable(list.getToolbar());
+		list.setVisible(false);
+		return list;
 	}
 
 

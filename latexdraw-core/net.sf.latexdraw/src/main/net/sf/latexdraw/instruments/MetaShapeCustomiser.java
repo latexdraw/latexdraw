@@ -81,10 +81,11 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	 * @param hand The Hand instrument.
 	 * @param pencil The Pencil instrument.
 	 * @param composer The composer that manages the widgets of the instrument.
+	 * @param border The instrument Border
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public MetaShapeCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public MetaShapeCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil, final Border border) {
 		super(composer, hand, pencil);
 
 		borderCustomiser 		= new ShapeBorderCustomiser(composer, hand, pencil);
@@ -102,7 +103,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeAxesCustomiser		= new ShapeAxesCustomiser(composer, hand, pencil);
 		shapeGridCustomiser		= new ShapeGridCustomiser(composer, hand, pencil);
 		shapeFreeHandCustomiser	= new ShapeFreeHandCustomiser(composer, hand, pencil);
-		shapeTransformer		= new ShapeTransformer(composer, hand, pencil);
+		shapeTransformer		= new ShapeTransformer(composer, hand, pencil, border);
 	}
 
 

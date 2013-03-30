@@ -122,6 +122,8 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 
 	def rotHandler = _rotHandler
 
+	def border = _border
+
 
 	override def reinit() {
 		_selection.clear
