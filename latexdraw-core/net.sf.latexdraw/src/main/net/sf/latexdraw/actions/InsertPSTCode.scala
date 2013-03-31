@@ -51,9 +51,12 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 						_shapes = group
 					else _shapes = group.getShapeAt(0)
 
-					val br = group.getBottomRightPoint
-					val tl = group.getTopLeftPoint
-					_shapes.translate(br.getX-tl.getX, br.getY-tl.getY)
+					val br = _shapes.getBottomRightPoint
+					val tl = _shapes.getTopLeftPoint
+					val tx = if(tl.getX<0) -tl.getX+50 else 0
+					val ty = if(tl.getY<0) -tl.getY+50 else 0
+
+					_shapes.translate(tx, ty)
 					redo
 					if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.36"))
 				case _ => if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.33"))
