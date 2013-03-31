@@ -306,23 +306,23 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 		final StringBuilder code = new StringBuilder();
 		final Color linesColor   = shape.getLineColour();
 
-		code.append("linewidth=");//$NON-NLS-1$
-		code.append((float)LNumber.INSTANCE.getCutNumber(shape.getThickness()/ppc));
+		code.append("linecolor=").append(getColourName(linesColor)); //$NON-NLS-1$
 
-		if(!linesColor.equals(PSTricksConstants.DEFAULT_LINE_COLOR))
-			code.append(", linecolor=").append(getColourName(linesColor)); //$NON-NLS-1$
+		if(shape.isThicknessable()) {
+			code.append(", linewidth=");//$NON-NLS-1$
+			code.append((float)LNumber.INSTANCE.getCutNumber(shape.getThickness()/ppc));
+		}
 
 		switch(shape.getLineStyle()) {
 			case DOTTED:
-				code.append(", linestyle=");//$NON-NLS-1$
+				code.append("linestyle=");//$NON-NLS-1$
 				code.append(PSTricksConstants.LINE_DOTTED_STYLE);
 				code.append(", dotsep=");//$NON-NLS-1$
 				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDotSep()/ppc));
 				code.append(PSTricksConstants.TOKEN_CM);
 				break;
-
 			case DASHED:
-				code.append(", linestyle=");//$NON-NLS-1$
+				code.append("linestyle=");//$NON-NLS-1$
 				code.append(PSTricksConstants.LINE_DASHED_STYLE);
 				code.append(", dash=");//$NON-NLS-1$
 				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDashSepBlack()/ppc));
@@ -330,13 +330,11 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDashSepWhite()/ppc));
 				code.append(PSTricksConstants.TOKEN_CM);
 				break;
-
 			case SOLID:
 			case NONE:
 			default:
 				break;
 		}
-
 		return code;
 	}
 
