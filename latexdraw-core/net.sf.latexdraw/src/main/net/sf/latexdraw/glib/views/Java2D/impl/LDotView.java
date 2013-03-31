@@ -58,7 +58,7 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 			case DIAMOND	:
 			case ASTERISK	: stroke = new BasicStroke((float)shape.getGeneralGap(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER); break;
 			case BAR		: stroke = new BasicStroke((float)shape.getBarThickness(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER); break;
-			case DOT 		: stroke = null; break;
+			case DOT 		: stroke = new BasicStroke((float)(shape.getRadius()/IDot.THICKNESS_O_STYLE_FACTOR), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER); break;
 			case OPLUS		:
 			case FSQUARE	:
 			case OTIMES		:
@@ -71,7 +71,7 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 		return stroke;
 	}
 
-	
+
 	@Override
 	public void paintBorders(final Graphics2D g) {
 		// Nothing to do.
