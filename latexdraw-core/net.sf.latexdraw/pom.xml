@@ -71,6 +71,11 @@
 				<groupId>org.scala-tools</groupId>
 				<artifactId>maven-scala-plugin</artifactId>
 				<version>2.14.1</version>
+		        <configuration>
+		          <args>
+		            <arg>-optimise</arg>
+		          </args>
+		        </configuration>
 				<executions>
 					<execution>
 						<id>compile</id>
