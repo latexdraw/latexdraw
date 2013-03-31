@@ -44,7 +44,6 @@ class LGroupView extends LShapeView<IGroup> {
 	}
 
 
-
 	/**
 	 * Creates an initialises a drawing view.
 	 * @param model The model to view.
@@ -95,7 +94,6 @@ class LGroupView extends LShapeView<IGroup> {
 	}
 
 
-
 	/**
 	 * @param i The position of the view to get.
 	 * @return The view at the given position.
@@ -118,8 +116,6 @@ class LGroupView extends LShapeView<IGroup> {
 	}
 
 
-
-
 	@Override
 	public boolean intersects(final Rectangle2D r) {
 		final int size = views.size();
@@ -134,7 +130,6 @@ class LGroupView extends LShapeView<IGroup> {
 
 		return !again;
 	}
-
 
 
 	@Override
@@ -159,13 +154,11 @@ class LGroupView extends LShapeView<IGroup> {
 	}
 
 
-
 	@Override
 	public void paint(final Graphics2D g) {
 		for(IViewShape view : views)
 			view.paint(g);
 	}
-
 
 
 	@Override
@@ -187,7 +180,6 @@ class LGroupView extends LShapeView<IGroup> {
 	}
 
 
-
 	/**
 	 * @return the views.
 	 * @since 3.0
@@ -197,419 +189,30 @@ class LGroupView extends LShapeView<IGroup> {
 	}
 
 
-//	public void distributeHorizBetween()
-//	{
-//		LinkedList<LShapeView> sortedF 	= new LinkedList<LShapeView>();
-//		LinkedList<Double> rights 		= new LinkedList<Double>();
-//		LinkedList<Double> lefts 		= new LinkedList<Double>();
-//		int i, size;
-//		boolean ok;
-//		double gap, x;
-//		Rectangle2D bounds;
-//
-//		for(LShapeView vi : views)
-//		{
-//			bounds = vi.getBounds2D();
-//			ok     = true;
-//			x      = bounds.getMinX();
-//
-//			for(i=0, size=lefts.size(); i<size && ok; i++)
-//				if(x<lefts.get(i))
-//					ok = false;
-//
-//			if(ok) {
-//				sortedF.addLast(vi);
-//				lefts.addLast(x);
-//				rights.addLast(bounds.getMaxX());
-//			}
-//			else {
-//				sortedF.add(i-1, vi);
-//				lefts.add(i-1, x);
-//				rights.add(i-1, bounds.getMaxX());
-//			}
-//		}
-//
-//		gap = lefts.getLast() - rights.getFirst();
-//		size = sortedF.size()-1;
-//
-//		for(i=1; i<size; i++)
-//			gap -= rights.get(i) - lefts.get(i);
-//
-//		gap/=size;
-//
-//		for(i=1; i<size; i++)
-//			sortedF.get(i).translate((sortedF.get(i-1).getBounds2D().getMaxX() + gap) - lefts.get(i), 0);
-//
-//		sortedF.clear();
-//		rights.clear();
-//		lefts.clear();
-//		rights  = null;
-//		lefts   = null;
-//		sortedF = null;
-//	}
-//
-//
-//
-//	/**
-//	 * Distributes horizontally at equal distance between the middle of the selected shapes.
-//	 * @since 2.0.0
-//	 */
-//	public void distributeHorizMiddle()
-//	{
-//		Vector<IShape> shapes  	   = ((IGroup)shape).getShapes();
-//		LinkedList<IShape> sortedF = new LinkedList<IShape>();
-//		LinkedList<Double> gcs     = new LinkedList<Double>();
-//		IPoint pt;
-//		int i, size;
-//		boolean ok;
-//		double gap;
-//
-//		for(IShape sh : shapes)
-//		{
-//			pt = sh.getGravityCentre();
-//			ok = true;
-//
-//			for(i=0, size=sortedF.size(); i<size && ok; i++)
-//				if(pt.getX()<gcs.get(i))
-//					ok = false;
-//
-//			if(ok) {
-//				sortedF.addLast(sh);
-//				gcs.addLast(pt.getX());
-//			}
-//			else {
-//				sortedF.add(i-1, sh);
-//				gcs.add(i-1, pt.getX());
-//			}
-//		}
-//
-//		gap = (gcs.getLast()-gcs.getFirst())/(size()-1);
-//		size = sortedF.size()-1;
-//
-//		for(i=1; i<size; i++)
-//			sortedF.get(i).translate((gcs.getFirst()+i*gap)-gcs.get(i), 0);
-//
-//		sortedF.clear();
-//		gcs.clear();
-//		gcs     = null;
-//		sortedF = null;
-//	}
-//
-//
-//
-//	/**
-//	 * Distributes horizontally at equal distance between the left sides of the selected shapes.
-//	 * @since 2.0.0
-//	 */
-//	public void distributeHorizLeft()
-//	{
-//		LinkedList<LShapeView> sortedF = new LinkedList<LShapeView>();
-//		LinkedList<Double> nws         = new LinkedList<Double>();
-//		int i, size;
-//		boolean ok;
-//		double gap, x;
-//
-//		for(LShapeView vi : views)
-//		{
-//			x  = vi.getBounds2D().getMinX();
-//			ok = true;
-//
-//			for(i=0, size=sortedF.size(); i<size && ok; i++)
-//				if(x<nws.get(i))
-//					ok = false;
-//
-//			if(ok) {
-//				sortedF.addLast(vi);
-//				nws.addLast(x);
-//			}
-//			else {
-//				sortedF.add(i-1, vi);
-//				nws.add(i-1, x);
-//			}
-//		}
-//
-//		gap = (nws.getLast()-nws.getFirst())/(size()-1);
-//		size = sortedF.size()-1;
-//
-//		for(i=1; i<size; i++)
-//			sortedF.get(i).translate((nws.getFirst()+i*gap)-nws.get(i), 0);
-//
-//		sortedF.clear();
-//		nws.clear();
-//		nws     = null;
-//		sortedF = null;
-//	}
-//
-//
-//
-//	/**
-//	 * Distributes horizontally at equal distance between the right sides of the selected shapes.
-//	 * @since 2.0.0
-//	 */
-//	public void distributeHorizRight()
-//	{
-//		LinkedList<LShapeView> sortedF = new LinkedList<LShapeView>();
-//		LinkedList<Double> ses         = new LinkedList<Double>();
-//		int i, size;
-//		boolean ok;
-//		double gap, x;
-//
-//		for(LShapeView vi : views)
-//		{
-//			x = vi.getBounds2D().getMaxX();
-//
-//			ok = true;
-//			for(i=0, size=sortedF.size(); i<size && ok; i++)
-//				if(x<ses.get(i))
-//					ok = false;
-//
-//			if(ok) {
-//				sortedF.addLast(vi);
-//				ses.addLast(x);
-//			}
-//			else {
-//				sortedF.add(i-1, vi);
-//				ses.add(i-1, x);
-//			}
-//		}
-//
-//		gap = (ses.getLast()-ses.getFirst())/(size()-1);
-//		size = sortedF.size()-1;
-//
-//		for(i=1; i<size; i++)
-//			sortedF.get(i).translate((ses.getFirst()+i*gap)-ses.get(i), 0);
-//
-//		sortedF.clear();
-//		ses.clear();
-//		ses     = null;
-//		sortedF = null;
-//	}
-//
-//
-//
-//	/**
-//	 * Distributes horizontally at equal distance between the selected shapes.
-//	 * @since 2.0.0
-//	 */
-//	public void distributeVertBetween()
-//	{
-//		LinkedList<LShapeView> sortedF = new LinkedList<LShapeView>();
-//		LinkedList<Double> tops        = new LinkedList<Double>();
-//		LinkedList<Double> bots        = new LinkedList<Double>();
-//		int i, size;
-//		boolean ok;
-//		double gap;
-//		Rectangle2D bounds;
-//
-//		for(LShapeView vi : views)
-//		{
-//			bounds = vi.getBounds2D();
-//
-//			ok = true;
-//			for(i=0, size=tops.size(); i<size && ok; i++)
-//				if(bounds.getMinY()<tops.get(i))
-//					ok = false;
-//
-//			if(ok)
-//			{
-//				sortedF.addLast(vi);
-//				tops.addLast(bounds.getMinY());
-//				bots.addLast(bounds.getMaxY());
-//			}
-//			else
-//			{
-//				sortedF.add(i-1, vi);
-//				tops.add(i-1, bounds.getMinY());
-//				bots.add(i-1, bounds.getMaxY());
-//			}
-//		}
-//
-//		gap = tops.getLast() - bots.getFirst();
-//		size = sortedF.size()-1;
-//
-//		for(i=1; i<size; i++)
-//			gap -= bots.get(i) - tops.get(i);
-//
-//		gap/=size;
-//
-//		for(i=1; i<size; i++)
-//			sortedF.get(i).translate(0, (sortedF.get(i-1).getBounds2D().getMaxY() + gap) - tops.get(i));
-//
-//		sortedF.clear();
-//		tops.clear();
-//		bots.clear();
-//		tops    = null;
-//		sortedF = null;
-//		bots    = null;
-//	}
-//
-//
-//
-//	/**
-//	 * Distributes vertically at equal distance between the bottom sides of the selected shapes.
-//	 * @since 2.0.0
-//	 */
-//	public void distributeVertBottom()
-//	{
-//		LinkedList<LShapeView> sortedF = new LinkedList<LShapeView>();
-//		LinkedList<Double> ses         = new LinkedList<Double>();
-//		boolean ok;
-//		double gap, y;
-//		int i, size;
-//
-//		for(LShapeView vi : views)
-//		{
-//			y  = vi.getBounds2D().getMaxY();
-//			ok = true;
-//
-//			for(i=0, size=sortedF.size(); i<size && ok; i++)
-//				if(y<ses.get(i))
-//					ok = false;
-//
-//			if(ok) {
-//				sortedF.addLast(vi);
-//				ses.addLast(y);
-//			}
-//			else {
-//				sortedF.add(i-1, vi);
-//				ses.add(i-1, y);
-//			}
-//		}
-//
-//		gap = (ses.getLast()-ses.getFirst())/(size()-1);
-//		size = sortedF.size()-1;
-//
-//		for(i=1; i<size; i++)
-//			sortedF.get(i).translate(0, (ses.getFirst()+i*gap)-ses.get(i));
-//
-//		sortedF.clear();
-//		ses.clear();
-//		ses     = null;
-//		sortedF = null;
-//	}
-//
-//
-//
-//	/**
-//	 * Distributes vertically at equal distance between the middle of the selected shapes.
-//	 * @since 2.0.0
-//	 */
-//	public void distributeVertMiddle()
-//	{
-//		Vector<IShape> shapes      = ((IGroup)shape).getShapes();
-//		LinkedList<IShape> sortedF = new LinkedList<IShape>();
-//		LinkedList<Double> gcs     = new LinkedList<Double>();
-//		IPoint pt;
-//		int i, size;
-//		boolean ok;
-//		double gap;
-//
-//		for(IShape sh : shapes)
-//		{
-//			pt = sh.getGravityCentre();
-//			ok = true;
-//
-//			for(i=0, size=sortedF.size(); i<size && ok; i++)
-//				if(pt.getY()<gcs.get(i))
-//					ok = false;
-//
-//			if(ok) {
-//				sortedF.addLast(sh);
-//				gcs.addLast(pt.getY());
-//			}
-//			else {
-//				sortedF.add(i-1, sh);
-//				gcs.add(i-1, pt.getY());
-//			}
-//		}
-//
-//		gap = (gcs.getLast()-gcs.getFirst())/(size()-1);
-//		size = sortedF.size()-1;
-//
-//		for(i=1; i<size; i++)
-//			sortedF.get(i).translate(0, (gcs.getFirst()+i*gap)-gcs.get(i));
-//
-//		sortedF.clear();
-//		gcs.clear();
-//		gcs     = null;
-//		sortedF = null;
-//	}
-//
-//
-//
-//	/**
-//	 * Distributes vertically at equal distance between the top sides of the selected shapes.
-//	 * @since 2.0.0
-//	 */
-//	public void distributeVertTop()
-//	{
-//		LinkedList<LShapeView> sortedF = new LinkedList<LShapeView>();
-//		LinkedList<Double> nws         = new LinkedList<Double>();
-//		int i, size;
-//		boolean ok;
-//		double gap, y;
-//
-//		for(LShapeView vi : views)
-//		{
-//			y  = vi.getBounds2D().getMinY();
-//			ok = true;
-//
-//			for(i=0, size=sortedF.size(); i<size && ok; i++)
-//				if(y<nws.get(i))
-//					ok = false;
-//
-//			if(ok) {
-//				sortedF.addLast(vi);
-//				nws.addLast(y);
-//			}
-//			else {
-//				sortedF.add(i-1, vi);
-//				nws.add(i-1, y);
-//			}
-//		}
-//
-//		gap = (nws.getLast()-nws.getFirst())/(size()-1);
-//		size = sortedF.size()-1;
-//
-//		for(i=1; i<size; i++)
-//			sortedF.get(i).translate(0, (nws.getFirst()+i*gap)-nws.get(i));
-//
-//		sortedF.clear();
-//		nws.clear();
-//		nws     = null;
-//		sortedF = null;
-//	}
-
-
 	@Override
 	protected void updateDblePathInside() {
 		// Nothing to do.
 	}
-
 
 	@Override
 	protected void updateDblePathMiddle() {
 		// Nothing to do.
 	}
 
-
 	@Override
 	protected void updateDblePathOutside() {
 		// Nothing to do.
 	}
-
 
 	@Override
 	protected void updateGeneralPathInside() {
 		// Nothing to do.
 	}
 
-
 	@Override
 	protected void updateGeneralPathMiddle() {
 		// Nothing to do.
 	}
-
 
 	@Override
 	protected void updateGeneralPathOutside() {

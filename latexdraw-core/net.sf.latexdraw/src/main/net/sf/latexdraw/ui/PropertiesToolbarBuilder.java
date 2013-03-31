@@ -72,6 +72,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		widget.add(composeRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), canvas));
 		widget.add(composeMirrorShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeAlignShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
+		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		widget.add(composeBorderPropertiesPanel(metaShapeCustomiser.getBorderCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
@@ -95,9 +96,35 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 	// Creates the tool bar for mirroring shapes.
+	protected WidgetMiniToolbar composeDistributeShapes(final ShapeTransformer transformer, final LCanvas canvas) {
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.DIST_VERT_EQUAL_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		list.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.8")); //$NON-NLS-1$
+		list.addComponent(transformer.distribVertEq());
+		list.addComponent(transformer.distribVertMid());
+		list.addComponent(transformer.distribVertTop());
+		list.addComponent(transformer.distribVertBot());
+		list.addComponent(transformer.distribHorizEq());
+		list.addComponent(transformer.distribHorizMid());
+		list.addComponent(transformer.distribHorizLeft());
+		list.addComponent(transformer.distribHorizRight());
+		list.addSeparator();
+		mapContainers.put(transformer.distribHorizEq(), list);
+		mapContainers.put(transformer.distribHorizLeft(), list);
+		mapContainers.put(transformer.distribHorizRight(), list);
+		mapContainers.put(transformer.distribHorizMid(), list);
+		mapContainers.put(transformer.distribVertEq(), list);
+		mapContainers.put(transformer.distribVertTop(), list);
+		mapContainers.put(transformer.distribVertBot(), list);
+		mapContainers.put(transformer.distribVertMid(), list);
+		transformer.addEventable(list.getToolbar());
+		list.setVisible(false);
+		return list;
+	}
+
+	// Creates the tool bar for mirroring shapes.
 	protected WidgetMiniToolbar composeAlignShapes(final ShapeTransformer transformer, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.ALIGN_LEFT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.1"));
+		list.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.1"));//$NON-NLS-1$
 		list.addComponent(transformer.alignLeft());
 		list.addComponent(transformer.alignRight());
 		list.addComponent(transformer.alignBot());

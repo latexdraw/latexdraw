@@ -14,6 +14,8 @@ import net.sf.latexdraw.actions.shape.AlignShapes
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.actions.shape.AlignShapes
 import net.sf.latexdraw.actions.shape.AlignmentType
+import net.sf.latexdraw.actions.shape.DistributeShapes
+import net.sf.latexdraw.actions.shape.DistributionType
 
 /**
  * This instrument transforms (mirror, etc.) the selected shapes.<br>
@@ -58,6 +60,30 @@ class ShapeTransformer(composer:UIComposer[_], hand:Hand, pencil:Pencil, val bor
 	/** The widget to middle vertical align the shapes. */
 	lazy val _alignMidVert = new MButton(LResources.ALIGN_MID_VERT_ICON)
 
+	/** The widget to bottom-vertically distribute the shapes. */
+	lazy val _distribVertBot = new MButton(LResources.DIST_VERT_BOTTOM_ICON)
+
+	/** The widget to equal-vertically distribute the shapes. */
+	lazy val _distribVertEq = new MButton(LResources.DIST_VERT_EQUAL_ICON)
+
+	/** The widget to middle-vertically distribute the shapes. */
+	lazy val _distribVertMid = new MButton(LResources.DIST_VERT_MID_ICON)
+
+	/** The widget to top-vertically distribute the shapes. */
+	lazy val _distribVertTop = new MButton(LResources.DIST_VERT_TOP_ICON)
+
+	/** The widget to equal-horizontally distribute the shapes. */
+	lazy val _distribHorizEq = new MButton(LResources.DIST_HORIZ_EQUAL_ICON)
+
+	/** The widget to left-horizontally distribute the shapes. */
+	lazy val _distribHorizLeft = new MButton(LResources.DIST_HORIZ_LEFT_ICON)
+
+	/** The widget to middle-horizontally distribute the shapes. */
+	lazy val _distribHorizMid = new MButton(LResources.DIST_HORIZ_MID_ICON)
+
+	/** The widget to right-horizontally distribute the shapes. */
+	lazy val _distribHorizRight = new MButton(LResources.DIST_HORIZ_RIGHT_ICON)
+
 
 	protected override def initialiseWidgets() {
 		_mirrorH.setMargin(LResources.INSET_BUTTON)
@@ -77,18 +103,37 @@ class ShapeTransformer(composer:UIComposer[_], hand:Hand, pencil:Pencil, val bor
 		_alignRight.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.3"))
 		_alignMidHoriz.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.6"))
 		_alignMidVert.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.7"))
+
+		_distribVertBot.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.9"))
+		_distribVertEq.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.10"))
+		_distribVertMid.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.11"))
+		_distribVertTop.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.12"))
+		_distribHorizLeft.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.13"))
+		_distribHorizEq.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.14"))
+		_distribHorizMid.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.15"))
+		_distribHorizRight.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.16"))
 	}
 
 
 	protected override def setWidgetsVisible(visible:Boolean) {
 		composer.setWidgetVisible(_mirrorH, visible)
 		composer.setWidgetVisible(_mirrorV, visible)
+
 		composer.setWidgetVisible(_alignBot, visible)
 		composer.setWidgetVisible(_alignTop, visible)
 		composer.setWidgetVisible(_alignLeft, visible)
 		composer.setWidgetVisible(_alignRight, visible)
 		composer.setWidgetVisible(_alignMidHoriz, visible)
 		composer.setWidgetVisible(_alignMidVert, visible)
+
+		composer.setWidgetVisible(_distribVertBot, visible)
+		composer.setWidgetVisible(_distribVertEq, visible)
+		composer.setWidgetVisible(_distribVertMid, visible)
+		composer.setWidgetVisible(_distribVertTop, visible)
+		composer.setWidgetVisible(_distribHorizLeft, visible)
+		composer.setWidgetVisible(_distribHorizEq, visible)
+		composer.setWidgetVisible(_distribHorizMid, visible)
+		composer.setWidgetVisible(_distribHorizRight, visible)
 	}
 
 
@@ -101,6 +146,7 @@ class ShapeTransformer(composer:UIComposer[_], hand:Hand, pencil:Pencil, val bor
 		try{
 			addLink(new Button2Mirror(this))
 			addLink(new Button2Align(this))
+			addLink(new Button2Distribute(this))
 		}catch{case ex => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
@@ -127,6 +173,30 @@ class ShapeTransformer(composer:UIComposer[_], hand:Hand, pencil:Pencil, val bor
 
 	/** The widget to bottom align the shapes. */
 	def alignBot = _alignBot
+
+	/** The widget to equal-vertically distribute the shapes. */
+	def distribVertEq = _distribVertEq
+
+	/** The widget to bottom-vertically distribute the shapes. */
+	def distribVertBot = _distribVertBot
+
+	/** The widget to middle-vertically distribute the shapes. */
+	def distribVertMid = _distribVertMid
+
+	/** The widget to top-vertically distribute the shapes. */
+	def distribVertTop = _distribVertTop
+
+	/** The widget to left-horizontally distribute the shapes. */
+	def distribHorizLeft = _distribHorizLeft
+
+	/** The widget to equal-horizontally distribute the shapes. */
+	def distribHorizEq = _distribHorizEq
+
+	/** The widget to middle-horizontally distribute the shapes. */
+	def distribHorizMid = _distribHorizMid
+
+	/** The widget to right-horizontally distribute the shapes. */
+	def distribHorizRight = _distribHorizRight
 }
 
 /**
@@ -136,7 +206,7 @@ class Button2Align(ins:ShapeTransformer) extends Link[AlignShapes, ButtonPressed
 	override def initAction() {
 		val but = interaction.getButton
 
-		action.setShape(instrument.pencil.canvas.getDrawing().getSelection().duplicate.asInstanceOf[IGroup])
+		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicate.asInstanceOf[IGroup])
 		if(but==instrument._alignBot) action.setAlignment(AlignmentType.bottom)
 		else if(but==instrument._alignLeft) action.setAlignment(AlignmentType.left)
 		else if(but==instrument._alignMidHoriz) action.setAlignment(AlignmentType.midHoriz)
@@ -154,12 +224,38 @@ class Button2Align(ins:ShapeTransformer) extends Link[AlignShapes, ButtonPressed
 }
 
 /**
+ * Maps a button interaction with an action that distributes the selected shapes.
+ */
+class Button2Distribute(ins:ShapeTransformer) extends Link[DistributeShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[DistributeShapes], classOf[ButtonPressed]) {
+	override def initAction() {
+		val but = interaction.getButton
+
+		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicate.asInstanceOf[IGroup])
+		if(but==instrument._distribHorizEq) action.setDistribution(DistributionType.horizEq)
+		else if(but==instrument._distribHorizLeft) action.setDistribution(DistributionType.horizLeft)
+		else if(but==instrument._distribHorizMid) action.setDistribution(DistributionType.horizMid)
+		else if(but==instrument._distribHorizRight) action.setDistribution(DistributionType.horizRight)
+		else if(but==instrument._distribVertBot) action.setDistribution(DistributionType.vertBot)
+		else if(but==instrument._distribVertEq) action.setDistribution(DistributionType.vertEq)
+		else if(but==instrument._distribVertMid) action.setDistribution(DistributionType.vertMid)
+		else if(but==instrument._distribVertTop) action.setDistribution(DistributionType.vertTop)
+		action.setBorder(instrument.border.border)
+	}
+
+	override def isConditionRespected() = {
+		val but = interaction.getButton
+		but==instrument._distribHorizEq || but==instrument._distribHorizLeft || but==instrument._distribHorizMid || but==instrument._distribHorizRight ||
+		but==instrument._distribVertBot || but==instrument._distribVertEq || but==instrument._distribVertMid || but==instrument._distribVertTop
+	}
+}
+
+/**
  * Maps a button interaction with an action that mirrors the selected shapes.
  */
 class Button2Mirror(ins:ShapeTransformer) extends Link[MirrorShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[MirrorShapes], classOf[ButtonPressed]) {
 	override def initAction() {
-		action.setShape(instrument.pencil.canvas.getDrawing().getSelection().duplicate)
-		action.setHorizontally(interaction.getButton()==instrument._mirrorH)
+		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicate)
+		action.setHorizontally(interaction.getButton==instrument._mirrorH)
 	}
 
 	override def isConditionRespected() = interaction.getButton==instrument._mirrorH || interaction.getButton==instrument._mirrorV
