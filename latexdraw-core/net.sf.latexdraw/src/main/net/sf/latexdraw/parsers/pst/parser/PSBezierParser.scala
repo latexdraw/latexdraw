@@ -40,15 +40,15 @@ trait PSBezierParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 		val size = listPts.length
 
 		// Setting the points.
-		for(i <- 0 to size-1 by 3) bezier.addPoint(transformPointTo2DScene(listPts(i)))
+		for(i <- 0 to size-1 by 3) bezier.addPoint(transformPointTo2DScene(listPts(i), ctx))
 
 		for(i <- 2 to size-1 by 3){
-			bezier.getFirstCtrlPtAt(j).setPoint(transformPointTo2DScene(listPts(i)))
+			bezier.getFirstCtrlPtAt(j).setPoint(transformPointTo2DScene(listPts(i), ctx))
 			j +=1
 		}
 
 		if(size>1)
-			bezier.getFirstCtrlPtAt(0).setPoint(transformPointTo2DScene(listPts(1)))
+			bezier.getFirstCtrlPtAt(0).setPoint(transformPointTo2DScene(listPts(1), ctx))
 
 		setShapeParameters(bezier, ctx)
 		setArrows(bezier, arrowRaw, false)

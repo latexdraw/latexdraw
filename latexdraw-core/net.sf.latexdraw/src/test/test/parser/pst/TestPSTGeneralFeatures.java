@@ -8,11 +8,20 @@ import java.awt.Color;
 import java.text.ParseException;
 
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;
 
 public class TestPSTGeneralFeatures extends TestPSTParser {
+	@Test public void test_psset_linewidth() throws ParseException {
+		IRectangle rec = (IRectangle)parser.parsePSTCode("\\psset{linewidth=2cm}\\psframe(10,10)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(2.*IShape.PPC, rec.getThickness(), 0.0001);
+	}
+
+
 	@Test public void testUnknownCommand() throws ParseException {
 		parser.parsePSTCode("\\fuhfisduf");
 		assertFalse(PSTParser.errorLogs().isEmpty());

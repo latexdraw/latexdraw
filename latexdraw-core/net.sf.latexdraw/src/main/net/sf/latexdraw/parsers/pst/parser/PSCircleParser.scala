@@ -41,7 +41,7 @@ trait PSCircleParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 					case _ => pt = DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY)
 				}
 
-				pt = transformPointTo2DScene(pt)
+				pt = transformPointTo2DScene(pt, ctx)
 				checkTextParsed(ctx) ::: List(createCircle(cmdName.endsWith("*"), pt, value*IShape.PPC, ctx))
 			case None => PSTParser.errorLogs += "Bracket's content cannot be empty: " + cmdName; Nil
 		}
@@ -55,7 +55,7 @@ trait PSCircleParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 		"\\qdisk" ~ parseCoord(ctx) ~ parseBracket(ctx) ^^ { case cmdName ~ pos ~ radius =>
 		parseValueDim(radius) match {
 			case Some(value) =>
-				checkTextParsed(ctx) ::: List(createCircle(true, transformPointTo2DScene(pos), value*IShape.PPC, ctx))
+				checkTextParsed(ctx) ::: List(createCircle(true, transformPointTo2DScene(pos, ctx), value*IShape.PPC, ctx))
 			case None => PSTParser.errorLogs += "Bracket's content cannot be empty: " + cmdName; Nil
 		}
 	}

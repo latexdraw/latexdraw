@@ -35,8 +35,8 @@ trait PSDotParser extends PSTAbstractParser with PSTParamParser with PSTCoordina
 
 
 		val pos = posRaw match {
-			case Some(value) => transformPointTo2DScene(value)
-			case None => transformPointTo2DScene(DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY))
+			case Some(value) => transformPointTo2DScene(value, ctx)
+			case None => transformPointTo2DScene(DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY), ctx)
 		}
 
 		checkTextParsed(ctx) ::: List(createDot(pos, cmdName.endsWith("*"), ctx))
@@ -51,7 +51,7 @@ trait PSDotParser extends PSTAbstractParser with PSTParamParser with PSTCoordina
 		("\\psdots*" | "\\psdots") ~ opt(parseParam(ctx)) ~ rep1(parseCoord(ctx)) ^^ { case cmdName ~ _ ~ ptList =>
 
 		val hasStar = cmdName.endsWith("*")
-		checkTextParsed(ctx) ::: ptList.map{pt => createDot(transformPointTo2DScene(pt), hasStar, ctx)}
+		checkTextParsed(ctx) ::: ptList.map{pt => createDot(transformPointTo2DScene(pt, ctx), hasStar, ctx)}
 	}
 
 

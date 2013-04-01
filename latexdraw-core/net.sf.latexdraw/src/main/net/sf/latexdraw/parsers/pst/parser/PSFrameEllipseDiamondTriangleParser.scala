@@ -82,8 +82,8 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 			}
 
 			// Transforming the PST point into a Java point.
-			p1 = transformPointTo2DScene(p1)
-			p2 = transformPointTo2DScene(p2)
+			p1 = transformPointTo2DScene(p1, ctx)
+			p2 = transformPointTo2DScene(p2, ctx)
 
 			val name = cmd.substring(1)
 			name match {

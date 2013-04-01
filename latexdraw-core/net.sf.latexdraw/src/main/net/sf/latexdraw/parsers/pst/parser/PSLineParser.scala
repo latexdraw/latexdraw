@@ -40,7 +40,7 @@ trait PSLineParser extends PSTAbstractParser
 			}
 
 		val ptList3 = new ListBuffer[IPoint]
-		ptList2.foreach{pt => ptList3 += transformPointTo2DScene(pt)}
+		ptList2.foreach{pt => ptList3 += transformPointTo2DScene(pt, ctx)}
 
 		checkTextParsed(ctx) ::: List(createLine(cmdName.endsWith("*"), ptList3, arr, ctx))
 	}
@@ -52,7 +52,7 @@ trait PSLineParser extends PSTAbstractParser
 	def parserQline(ctx : PSTContext) : Parser[List[IShape]] =
 		"\\qline" ~ parseCoord(ctx) ~ parseCoord(ctx) ^^ { case _ ~ pt1 ~ pt2 =>
 
-		val ptList = ListBuffer(transformPointTo2DScene(pt1), transformPointTo2DScene(pt2))
+		val ptList = ListBuffer(transformPointTo2DScene(pt1, ctx), transformPointTo2DScene(pt2, ctx))
 		checkTextParsed(ctx) ::: List(createLine(false, ptList, None, ctx))
 	}
 

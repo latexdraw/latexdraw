@@ -263,14 +263,14 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 
 	private def createFreeHand(isLine : Boolean, ctx : PSTContext, pt : IPoint) : IFreehand = {
 		val freeHand = DrawingTK.getFactory.createFreeHand(DrawingTK.getFactory.createPoint(ctx.psCustomLatestPt), true)
-		freeHand.addPoint(transformPointTo2DScene(pt))
+		freeHand.addPoint(transformPointTo2DScene(pt, ctx))
 
 		if(isLine)
 			freeHand.setType(IFreehand.FreeHandType.LINES)
 		else
 			freeHand.setType(IFreehand.FreeHandType.CURVES)
 
-		ctx.psCustomLatestPt.setPoint(transformPointTo2DScene(pt))
+		ctx.psCustomLatestPt.setPoint(transformPointTo2DScene(pt, ctx))
 		freeHand
 	}
 
@@ -280,7 +280,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	 */
 	def parseMoveTo(ctx : PSTContext) : Parser[List[IShape]] = "\\moveto" ~ parseCoord(ctx) ^^ { case _ ~ pt =>
 		if(ctx.isPsCustom)
-			ctx.psCustomLatestPt.setPoint(transformPointTo2DScene(pt))
+			ctx.psCustomLatestPt.setPoint(transformPointTo2DScene(pt, ctx))
 		else
 			PSTParser.errorLogs += "The command moveto " + notIntoPscustomBlockErrorMsg
 		checkTextParsed(ctx)

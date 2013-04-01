@@ -1,12 +1,14 @@
 package test.parser.pst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.text.ParseException;
 
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
@@ -15,6 +17,39 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestParsingPSdot extends TestParsingShape {
+	@Test public void test_psset_unit_yunit() throws ParseException {
+		IDot dot = (IDot)parser.parsePSTCode("\\psset{unit=2,yunit=3}\\psdot(1,1)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(2.*IShape.PPC, dot.getX(), 0.000001);
+		assertEquals(-2.*3.*IShape.PPC, dot.getY(), 0.000001);
+	}
+
+	@Test public void test_psset_unit_xunit() throws ParseException {
+		IDot dot = (IDot)parser.parsePSTCode("\\psset{unit=2,xunit=3}\\psdot(1,1)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(2.*3.*IShape.PPC, dot.getX(), 0.000001);
+		assertEquals(-2.*IShape.PPC, dot.getY(), 0.000001);
+	}
+
+	@Test public void test_psset_dot_unit_dot() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\psdot(1,1)\\psset{unit=2}\\psdot(1,1)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		IDot dot = (IDot)gp.getShapeAt(1);
+		assertEquals(2.*IShape.PPC, dot.getX(), 0.000001);
+		assertEquals(-2.*IShape.PPC, dot.getY(), 0.000001);
+		dot = (IDot)gp.getShapeAt(0);
+		assertEquals(IShape.PPC, dot.getX(), 0.000001);
+		assertEquals(-IShape.PPC, dot.getY(), 0.000001);
+	}
+
+	@Test public void test_psset_unit() throws ParseException {
+		IDot dot = (IDot)parser.parsePSTCode("\\psset{unit=2}\\psdot(1,1)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(2.*IShape.PPC, dot.getX(), 0.000001);
+		assertEquals(-2.*IShape.PPC, dot.getY(), 0.000001);
+	}
+
+
 	@Test
 	public void testDotAngle() throws ParseException {
 		IDot dot =  (IDot)parser.parsePSTCode("\\"+getCommandName()+"[dotangle=90]"+getBasicCoordinates()).get().getShapeAt(0);

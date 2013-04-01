@@ -162,7 +162,7 @@ trait PSWedgeArcParser extends PSTAbstractParser
 			arc.setAngleStart(scala.math.toRadians(angle1))
 			arc.setAngleEnd(scala.math.toRadians(angle2))
 			arc.setRx(scala.math.abs(radius*IShape.PPC))
-			arc.setCentre(transformPointTo2DScene(pos))
+			arc.setCentre(transformPointTo2DScene(pos, ctx))
 			arc.setArcStyle(arcType)
 			setArrows(arc, arrows, inverted)
 			setShapeParameters(arc, ctx)

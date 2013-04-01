@@ -1,6 +1,8 @@
 package test.parser.pst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 
@@ -12,6 +14,35 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestParsingPsframe extends TestParsingShape {
+	@Test public void test_psset_unit_yunit() throws ParseException {
+		IRectangle rec = (IRectangle)parser.parsePSTCode("\\psset{unit=2,yunit=3}\\"+getCommandName()+"(1,1)(5,5)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(2.*IShape.PPC, rec.getX(), 0.000001);
+		assertEquals(-2.*3.*IShape.PPC, rec.getY(), 0.000001);
+		assertEquals(2.*4.*IShape.PPC, rec.getWidth(), 0.000001);
+		assertEquals(2.*4.*3.*IShape.PPC, rec.getHeight(), 0.000001);
+	}
+
+	@Test public void test_psset_unit_xunit() throws ParseException {
+		IRectangle rec = (IRectangle)parser.parsePSTCode("\\psset{unit=2,xunit=3}\\"+getCommandName()+"(1,1)(5,5)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(2.*3.*IShape.PPC, rec.getX(), 0.000001);
+		assertEquals(-2.*IShape.PPC, rec.getY(), 0.000001);
+		assertEquals(2.*4.*3.*IShape.PPC, rec.getWidth(), 0.000001);
+		assertEquals(2.*4.*IShape.PPC, rec.getHeight(), 0.000001);
+	}
+
+	@Test public void test_psset_unit() throws ParseException {
+		IRectangle rec = (IRectangle)parser.parsePSTCode("\\psset{unit=2}\\"+getCommandName()+"(1,1)(5,5)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(2.*IShape.PPC, rec.getX(), 0.000001);
+		assertEquals(-2.*IShape.PPC, rec.getY(), 0.000001);
+		assertEquals(2.*4.*IShape.PPC, rec.getWidth(), 0.000001);
+		assertEquals(2.*4.*IShape.PPC, rec.getHeight(), 0.000001);
+	}
+
+
+
 	@Override
 	public String getCommandName() {
 		return "psframe";
