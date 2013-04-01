@@ -1,6 +1,8 @@
 package test.parser.pst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 
@@ -21,6 +23,15 @@ public class TestParsingPscircle extends TestParsingShape {
 	@Override
 	public String getBasicCoordinates() {
 		return "{1}";
+	}
+
+
+	@Test public void testUnit() throws ParseException {
+		ICircle sh = (ICircle)parser.parsePSTCode("\\psset{unit=4}\\pscircle(2,3cm){5}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(4.*2.*IShape.PPC-5.*IShape.PPC, sh.getX(), 0.0001);
+		assertEquals(-3.*IShape.PPC+5.*IShape.PPC, sh.getY(), 0.0001);
+		assertEquals(2.*5.*IShape.PPC, sh.getWidth(), 0.0001);
 	}
 
 

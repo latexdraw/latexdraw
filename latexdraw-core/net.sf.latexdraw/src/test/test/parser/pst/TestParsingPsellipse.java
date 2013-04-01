@@ -1,6 +1,7 @@
 package test.parser.pst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 
@@ -21,6 +22,16 @@ public class TestParsingPsellipse extends TestParsingShape {
 	@Override
 	public String getBasicCoordinates() {
 		return "(1,2)";
+	}
+
+
+	@Test public void testUnit() throws ParseException {
+		IEllipse sh = (IEllipse)parser.parsePSTCode("\\psset{unit=4}\\psellipse(2,3cm)(2cm,5cm)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(4.*2.*IShape.PPC-2.*IShape.PPC, sh.getX(), 0.0001);
+		assertEquals(-3.*IShape.PPC+5.*IShape.PPC, sh.getY(), 0.0001);
+		assertEquals(2.*2.*IShape.PPC, sh.getWidth(), 0.0001);
+		assertEquals(2.*5.*IShape.PPC, sh.getHeight(), 0.0001);
 	}
 
 

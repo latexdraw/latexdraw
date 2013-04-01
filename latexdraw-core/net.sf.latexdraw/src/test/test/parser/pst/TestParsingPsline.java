@@ -12,6 +12,14 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestParsingPsline extends TestParsingShape {
+	@Test public void testUnit() throws ParseException {
+		IPolyline sh = (IPolyline)parser.parsePSTCode("\\psset{unit=2}\\psline[linewidth=0.3,linestyle=dashed](2,3)(1cm,2cm)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(2.*2.*IShape.PPC, sh.getPtAt(0).getX(), 0.0001);
+		assertEquals(-3.*2.*IShape.PPC, sh.getPtAt(0).getY(), 0.0001);
+		assertEquals(IShape.PPC, sh.getPtAt(1).getX(), 0.0001);
+		assertEquals(-2.*IShape.PPC, sh.getPtAt(1).getY(), 0.0001);
+	}
 
 	@Test
 	public void testcornersizeParsed() throws ParseException {
