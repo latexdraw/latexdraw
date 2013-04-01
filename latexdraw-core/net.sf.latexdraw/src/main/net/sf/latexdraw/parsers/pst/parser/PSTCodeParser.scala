@@ -35,20 +35,20 @@ trait PSTCodeParser extends PSTAbstractParser
 	with TextCommandsParser with PSFrameboxParser with IPSTCodeParser {
 
 	override def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
-		rep(parsePSTBlock(ctx, ctx.isPsCustom) | parsePspictureBlock(ctx) | parseCenterBlock(ctx) | parsePsset(ctx) |
-			parsePsellipse(new PSTContext(ctx)) | parsePsframe(new PSTContext(ctx)) |
-			parsePsdiamond(new PSTContext(ctx)) | parsePstriangle(new PSTContext(ctx)) |
-			parsePsline(new PSTContext(ctx)) | parserQline(new PSTContext(ctx)) |
-			parsePscircle(new PSTContext(ctx)) | parseQdisk(new PSTContext(ctx)) |
-			parsePspolygon(new PSTContext(ctx)) | parsePsbezier(new PSTContext(ctx)) |
-			parsePsdot(new PSTContext(ctx)) | parsePsdots(new PSTContext(ctx)) |
-			parsePsgrid(new PSTContext(ctx)) | log(parseRput(ctx),ctx)("rput") | parseScalebox(ctx) | parsePsscalebox(ctx) |
-			parsePswedge(new PSTContext(ctx)) | parsePsarc(new PSTContext(ctx)) | parsePsarcn(new PSTContext(ctx)) |
-			parsePsellipticarc(new PSTContext(ctx)) | parsePsellipticarcn(new PSTContext(ctx)) |
-			parseParabola(new PSTContext(ctx)) | parsePscurve(new PSTContext(ctx)) | parsePsecurve(new PSTContext(ctx)) |
-			parsePsccurve(new PSTContext(ctx)) | parsePSTPlotCommands(new PSTContext(ctx)) | parseNewpsobject(ctx) | parseNewpsstyle(ctx) |
-			parsePscustom(new PSTContext(ctx)) | parseDefineColor(ctx) |
-			parsePSCustomCommands(ctx) | parsePsFrameboxCmds(ctx) | parsetextCommands(ctx) | parseText(ctx)) ^^ {
+		rep(consume(parsePSTBlock(ctx, ctx.isPsCustom)) | consume(parsePspictureBlock(ctx)) | consume(parseCenterBlock(ctx)) | consume(parsePsset(ctx)) |
+			consume(parsePsellipse(new PSTContext(ctx))) | consume(parsePsframe(new PSTContext(ctx))) |
+			consume(parsePsdiamond(new PSTContext(ctx))) | consume(parsePstriangle(new PSTContext(ctx))) |
+			consume(parsePsline(new PSTContext(ctx))) | consume(parserQline(new PSTContext(ctx))) |
+			consume(parsePscircle(new PSTContext(ctx))) | consume(parseQdisk(new PSTContext(ctx))) |
+			consume(parsePspolygon(new PSTContext(ctx))) | consume(parsePsbezier(new PSTContext(ctx))) |
+			consume(parsePsdot(new PSTContext(ctx))) | consume(parsePsdots(new PSTContext(ctx))) |
+			consume(parsePsgrid(new PSTContext(ctx))) | consume(parseRput(ctx)) | consume(parseScalebox(ctx)) | consume(parsePsscalebox(ctx)) |
+			consume(parsePswedge(new PSTContext(ctx))) | consume(parsePsarc(new PSTContext(ctx))) | consume(parsePsarcn(new PSTContext(ctx))) |
+			consume(parsePsellipticarc(new PSTContext(ctx))) | consume(parsePsellipticarcn(new PSTContext(ctx))) |
+			consume(parseParabola(new PSTContext(ctx))) | consume(parsePscurve(new PSTContext(ctx))) | consume(parsePsecurve(new PSTContext(ctx))) |
+			consume(parsePsccurve(new PSTContext(ctx))) | consume(parsePSTPlotCommands(new PSTContext(ctx))) | consume(parseNewpsobject(ctx)) |
+			consume(parseNewpsstyle(ctx)) | consume(parsePscustom(new PSTContext(ctx))) | consume(parseDefineColor(ctx)) |
+			consume(parsePSCustomCommands(ctx)) | consume(parsePsFrameboxCmds(ctx)) | consume(parsetextCommands(ctx)) | consume(parseText(ctx))) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)
 

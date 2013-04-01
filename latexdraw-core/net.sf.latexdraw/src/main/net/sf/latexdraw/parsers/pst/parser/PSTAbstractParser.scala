@@ -74,12 +74,21 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	/**
+	 * Workaround for consuming tokens.
+	 */
+	def consume[T](p: => Parser[T])(): Parser[T] = Parser{ in =>
+    	val r = p(in)
+    	r
+	}
+
+
+	/**
 	 * For debugging purpose.
 	 */
 	def log[T](p: => Parser[T], ctx:PSTContext)(name: String): Parser[T] = Parser{ in =>
-//    	println("trying "+ name +" at "+ in + " with " + ctx + " having " + ctx.textParsed)
+    	println("trying "+ name +" at "+ in + " with " + ctx + " having " + ctx.textParsed)
     	val r = p(in)
-//    	println(name +" --> "+ r + " with " + ctx + " having " + ctx.textParsed)
+    	println(name +" --> "+ r + " with " + ctx + " having " + ctx.textParsed)
     	r
 	}
 

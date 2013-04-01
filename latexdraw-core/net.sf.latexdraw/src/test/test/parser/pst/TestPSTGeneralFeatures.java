@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Color;
 import java.text.ParseException;
 
+import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -15,6 +16,30 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestPSTGeneralFeatures extends TestPSTParser {
+	@Test public void test_bug_psset_setOfShapes() throws ParseException {
+		IGroup gp = parser.parsePSTCode("\\psframe(0.5,0.5)(1.5,1.5)\\psdot[linewidth=1cm,dotsize=1](1,1)\\psset{unit=2}\\psframe(0.5,0.5)(1.5,1.5)\\psdot(2,2)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		IRectangle rec = (IRectangle)gp.getShapeAt(0);
+		assertEquals(0.5*IShape.PPC, rec.getX(), 0.000001);
+		assertEquals(-0.5*IShape.PPC, rec.getY(), 0.000001);
+		assertEquals(IShape.PPC, rec.getWidth(), 0.000001);
+		assertEquals(IShape.PPC, rec.getHeight(), 0.000001);
+
+		IDot dot = (IDot)gp.getShapeAt(1);
+		assertEquals(IShape.PPC, dot.getX(), 0.000001);
+		assertEquals(-IShape.PPC, dot.getY(), 0.000001);
+
+		rec = (IRectangle)gp.getShapeAt(2);
+		assertEquals(0.5*2.*IShape.PPC, rec.getX(), 0.000001);
+		assertEquals(-0.5*2.*IShape.PPC, rec.getY(), 0.000001);
+		assertEquals(2.*IShape.PPC, rec.getWidth(), 0.000001);
+		assertEquals(2.*IShape.PPC, rec.getHeight(), 0.000001);
+
+		dot = (IDot)gp.getShapeAt(3);
+		assertEquals(2.*2.*IShape.PPC, dot.getX(), 0.000001);
+		assertEquals(-2.*2.*IShape.PPC, dot.getY(), 0.000001);
+	}
+
 	@Test public void test_psset_linewidth() throws ParseException {
 		IRectangle rec = (IRectangle)parser.parsePSTCode("\\psset{linewidth=2cm}\\psframe(10,10)").get().getShapeAt(0);
 		assertTrue(PSTParser.errorLogs().isEmpty());
