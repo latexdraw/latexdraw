@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
+import net.sf.latexdraw.instruments.Border;
 
 import org.malai.mapping.MappingRegistry;
 import org.malai.mapping.SynchroSymmetricList2ListMapping;
@@ -33,13 +34,18 @@ import org.malai.mapping.SynchroSymmetricList2ListMapping;
  * @version 3.0
  */
 public class ShapeList2ViewListMapping extends SynchroSymmetricList2ListMapping<IShape, IViewShape> {
+	/** The border that must be updated. */
+	protected Border border;
+
 	/**
 	 * Creates the mapping.
 	 * @param source The shape list.
 	 * @param target The view list.
+	 * @param border The instrument Border
 	 */
-	public ShapeList2ViewListMapping(final List<IShape> source, final List<IViewShape> target) {
+	public ShapeList2ViewListMapping(final List<IShape> source, final List<IViewShape> target, final Border border) {
 		super(source, target);
+		this.border = border;
 	}
 
 
@@ -73,6 +79,7 @@ public class ShapeList2ViewListMapping extends SynchroSymmetricList2ListMapping<
 
 		view.flush();
 		super.onObjectRemoved(list, object, index);
+		border.remove(view);
 		MappingRegistry.REGISTRY.removeMappingsUsingSource(object, Shape2ViewMapping.class);
 
 		// If the shape is a text, the special mapping previously added must be removed.

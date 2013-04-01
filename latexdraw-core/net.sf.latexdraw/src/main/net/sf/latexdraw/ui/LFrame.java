@@ -185,7 +185,7 @@ public class LFrame extends UI {
 			progressBar.addToProgressBar(5);
 
 		/* Initialisation of the mapping between the model and the canvas. */
-		MappingRegistry.REGISTRY.addMapping(new ShapeList2ViewListMapping(drawing.getShapes(), canvas.getViews()));
+		MappingRegistry.REGISTRY.addMapping(new ShapeList2ViewListMapping(drawing.getShapes(), canvas.getViews(), canvas.getBorderInstrument()));
 		MappingRegistry.REGISTRY.addMapping(new Drawing2CanvasMapping(drawing, canvas));
 		MappingRegistry.REGISTRY.addMapping(new Selection2BorderMapping(drawing.getSelection().getShapes(), canvas.getBorderInstrument()));
 		MappingRegistry.REGISTRY.addMapping(new Zoom2ScaleRuler(canvas.getZoomUnary(), xScaleRuler));

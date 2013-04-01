@@ -141,6 +141,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	 * @since 3.0
 	 */
 	def update() {
+		if(!isActivated()) return
 		if(_selection.isEmpty)
 			_border.setFrame(0, 0, 1, 1)
 		else {
@@ -377,7 +378,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	 * @since 3.0
 	 */
 	def remove(view : IViewShape) {
-		if(view!=null && isActivated) {
+		if(view!=null) {
 			_selection -= view
 			MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, classOf[IShape]), classOf[Shape2BorderMapping])
 			update
