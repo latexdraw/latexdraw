@@ -184,7 +184,7 @@ trait PSTCodeParser extends PSTAbstractParser
 		val ctx2 = new PSTContext(ctx)// Must create an other context not to modify the current one.
 		("\\rput*" | "\\rput") ~ opt(parseRputTextPosition(ctx2)) ~ opt(parseRputRotationAngle(ctx2)) ~
 		parseCoord(ctx2) ~ parsePSTBlock(ctx2, false) ^^ { case _ ~ _ ~ _ ~ coord ~ figs =>
-			figs.getShapes.foreach{shape => shape.translate(coord.getX * IShape.PPC, -coord.getY * IShape.PPC) }
+			figs.getShapes.foreach{shape => shape.translate(coord.x * IShape.PPC, -coord.y * IShape.PPC) }
 			figs
 		}
 	}
@@ -223,11 +223,11 @@ trait PSTCodeParser extends PSTAbstractParser
 		case p1 ~ p2 =>
 		p2 match {
 			case Some(value) =>
-				ctx.pictureSWPt = p1
-				ctx.pictureNEPt = value
+				ctx.pictureSWPt = DrawingTK.getFactory().createPoint(p1.x, p1.y)
+				ctx.pictureNEPt = DrawingTK.getFactory().createPoint(value.x, value.y)
 			case _ =>
 				ctx.pictureSWPt = DrawingTK.getFactory.createPoint
-				ctx.pictureNEPt = p1
+				ctx.pictureNEPt = DrawingTK.getFactory().createPoint(p1.x, p1.y)
 		}
 	}
 }

@@ -134,7 +134,7 @@ trait PSTValueParser extends PSTNumberParser {
 		}
 
 		if(dimOpt.isDefined)
-			Some(Tuple2(dimOpt.get, numOpt))
+			Some(Tuple2(dimOpt.get._1, numOpt))
 		else
 			None
 	}

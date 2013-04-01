@@ -35,7 +35,7 @@ trait PSLineParser extends PSTAbstractParser
 		("\\psline*" | "\\psline") ~ opt(parseParam(ctx)) ~ opt(parseBracket(ctx)) ~ rep1(parseCoord(ctx)) ^^ { case cmdName ~ _ ~ arr ~ ptList =>
 
 		val ptList2 = ptList.length match {
-				case 1 => DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY) :: ptList
+				case 1 => ctx.origin.dup :: ptList
 				case _ => ptList
 			}
 

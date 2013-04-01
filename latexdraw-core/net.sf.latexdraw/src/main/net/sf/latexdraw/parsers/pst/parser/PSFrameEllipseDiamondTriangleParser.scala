@@ -68,29 +68,29 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 	/**
 	 * Creates a rectangle or an ellipse depending on the given parameters.
 	 */
-	private def createRectangleEllipseDiamondTriangle(cmd : String, hasStar : Boolean, pt1 : IPoint, pt2 : Option[IPoint], ctx : PSTContext) : List[IShape] = {
-			var p1 : IPoint = null
-			var p2 : IPoint = null
+	private def createRectangleEllipseDiamondTriangle(cmd : String, hasStar : Boolean, pt1 : PointUnit, pt2 : Option[PointUnit], ctx : PSTContext) : List[IShape] = {
+			var p1 : PointUnit = null
+			var p2 : PointUnit = null
 
 			pt2 match {
 				case Some(pt) =>
 					p1 = pt1
 					p2 = pt
 				case _ =>
-					p1 = DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY)
+					p1 = ctx.origin.dup
 					p2 = pt1
 			}
 
 			// Transforming the PST point into a Java point.
-			p1 = transformPointTo2DScene(p1, ctx)
-			p2 = transformPointTo2DScene(p2, ctx)
+			val p12D = transformPointTo2DScene(p1, ctx)
+			val p22D = transformPointTo2DScene(p2, ctx)
 
 			val name = cmd.substring(1)
 			name match {
-				case "psframe*" | "psframe" => List(createRectangle(hasStar, p1, p2, ctx))
-				case "psellipse*" | "psellipse" => List(createEllipse(hasStar, p1, p2, ctx))
-				case "psdiamond*" | "psdiamond" => List(createDiamond(hasStar, p1, p2, ctx))
-				case "pstriangle*" | "pstriangle" => List(createTriangle(hasStar, p1, p2, ctx))
+				case "psframe*" | "psframe" => List(createRectangle(hasStar, p12D, p22D, ctx))
+				case "psellipse*" | "psellipse" => List(createEllipse(hasStar, p12D, p22D, ctx))
+				case "psdiamond*" | "psdiamond" => List(createDiamond(hasStar, p12D, p22D, ctx))
+				case "pstriangle*" | "pstriangle" => List(createTriangle(hasStar, p12D, p22D, ctx))
 				case name => PSTParser.errorLogs += "Unknown command: " + name ; Nil
 			}
 	}

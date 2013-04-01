@@ -11,11 +11,26 @@ import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;
 
 public class TestPSTGeneralFeatures extends TestPSTParser {
+	@Test public void testBug756733() throws ParseException {
+		// https://bugs.launchpad.net/latexdraw/+bug/756733
+		IGroup gp = parser.parsePSTCode("\\psset{unit=5}\\psdot(1,1)\\psdot(1,10pt)").get();
+		assertTrue(PSTParser.errorLogs().isEmpty());
+
+		IDot dot = (IDot)gp.getShapeAt(0);
+		assertEquals(5.*IShape.PPC, dot.getX(), 0.000001);
+		assertEquals(5.*-IShape.PPC, dot.getY(), 0.000001);
+
+		dot = (IDot)gp.getShapeAt(1);
+		assertEquals(5.*IShape.PPC, dot.getX(), 0.000001);
+		assertEquals(10.*-IShape.PPC/PSTricksConstants.CM_VAL_PT, dot.getY(), 0.000001);
+	}
+
 	@Test public void test_bug_psset_setOfShapes() throws ParseException {
 		IGroup gp = parser.parsePSTCode("\\psframe(0.5,0.5)(1.5,1.5)\\psdot[linewidth=1cm,dotsize=1](1,1)\\psset{unit=2}\\psframe(0.5,0.5)(1.5,1.5)\\psdot(2,2)").get();
 		assertTrue(PSTParser.errorLogs().isEmpty());

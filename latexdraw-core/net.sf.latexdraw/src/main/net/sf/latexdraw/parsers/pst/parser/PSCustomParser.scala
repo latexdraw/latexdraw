@@ -261,7 +261,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	}
 
 
-	private def createFreeHand(isLine : Boolean, ctx : PSTContext, pt : IPoint) : IFreehand = {
+	private def createFreeHand(isLine : Boolean, ctx : PSTContext, pt : PointUnit) : IFreehand = {
 		val freeHand = DrawingTK.getFactory.createFreeHand(DrawingTK.getFactory.createPoint(ctx.psCustomLatestPt), true)
 		freeHand.addPoint(transformPointTo2DScene(pt, ctx))
 

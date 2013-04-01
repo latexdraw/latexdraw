@@ -33,7 +33,7 @@ trait PSPolygonParser extends PSTAbstractParser with PSTParamParser with PSTCoor
 		("\\pspolygon*" | "\\pspolygon") ~ opt(parseParam(ctx)) ~ parseCoord(ctx) ~ rep1(parseCoord(ctx)) ^^ { case cmdName ~ _ ~ pt1 ~ pts =>
 
 		val ptList = pts.length match {
-				case 1 => DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY) :: pt1 :: pts
+				case 1 => ctx.origin.dup :: pt1 :: pts
 				case _ => pt1 :: pts
 			}
 

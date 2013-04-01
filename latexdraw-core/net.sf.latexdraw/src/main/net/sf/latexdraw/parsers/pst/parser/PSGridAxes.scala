@@ -38,19 +38,19 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 		(p1, p2, p3) match {
 			case (Some(pt1), Some(pt2), Some(pt3)) => checkTextParsed(ctx) ::: List(createGrid(pt1, pt2, pt3, ctx))
-			case (Some(pt1), Some(pt2), None) => checkTextParsed(ctx) ::: List(createGrid(DrawingTK.getFactory.createPoint(pt1), pt1, pt2, ctx))
+			case (Some(pt1), Some(pt2), None) => checkTextParsed(ctx) ::: List(createGrid(pt1.dup, pt1, pt2, ctx))
 			case (Some(pt1), None, None) =>
-				checkTextParsed(ctx) ::: List(createGrid(DrawingTK.getFactory.createPoint(0, 0), DrawingTK.getFactory.createPoint(0, 0), pt1, ctx))
+				checkTextParsed(ctx) ::: List(createGrid(new PointUnit(0,0, "", ""), new PointUnit(0,0, "", ""), pt1, ctx))
 			case _ =>
-				val gridEnd = DrawingTK.getFactory.createPoint(getApproxCoord(ctx.pictureNEPt.getX), getApproxCoord(ctx.pictureNEPt.getY))
-				val gridStart = DrawingTK.getFactory.createPoint(getApproxCoord(ctx.pictureSWPt.getX), getApproxCoord(ctx.pictureSWPt.getY))
-				checkTextParsed(ctx) ::: List(createGrid(DrawingTK.getFactory.createPoint(gridStart), gridStart, gridEnd, ctx))
+				val gridEnd = new PointUnit(getApproxCoord(ctx.pictureNEPt.getX), getApproxCoord(ctx.pictureNEPt.getY), "", "")
+				val gridStart = new PointUnit(getApproxCoord(ctx.pictureSWPt.getX), getApproxCoord(ctx.pictureSWPt.getY), "", "")
+				checkTextParsed(ctx) ::: List(createGrid(gridStart.dup, gridStart, gridEnd, ctx))
 		}
 	}
 
 
 
-	private def createGrid(origin : IPoint, min : IPoint, max : IPoint, ctx : PSTContext) : IGrid = {
+	private def createGrid(origin : PointUnit, min : PointUnit, max : PointUnit, ctx : PSTContext) : IGrid = {
 		val grid = DrawingTK.getFactory.createGrid(true, DrawingTK.getFactory.createPoint)
 		val position = DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, ctx.pictureSWPt.getY*IShape.PPC*(-1.0))
 
@@ -71,11 +71,11 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 
 	/** Sets the parameters of std grids (axes and grids). */
-	private def setStdGridParams(origin : IPoint, min : IPoint, max : IPoint, grid : IStandardGrid, ctx : PSTContext) {
-		var gridEndX = max.getX
-		var gridEndY = max.getY
-		var gridStartX = min.getX
-		var gridStartY = min.getY
+	private def setStdGridParams(origin : PointUnit, min : PointUnit, max : PointUnit, grid : IStandardGrid, ctx : PSTContext) {
+		var gridEndX = max.x
+		var gridEndY = max.y
+		var gridStartX = min.x
+		var gridStartY = min.y
 		var isGridXLabelInverted = false
 		var isGridYLabelInverted = false
 
@@ -94,8 +94,8 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 		}
 
 		grid.setLineColour(ctx.gridColor)
-		grid.setOriginX(origin.getX)
-		grid.setOriginY(origin.getY)
+		grid.setOriginX(origin.x)
+		grid.setOriginY(origin.y)
 		grid.setGridEndX(gridEndX)
 		grid.setGridEndY(gridEndY)
 		grid.setGridStartX(gridStartX)

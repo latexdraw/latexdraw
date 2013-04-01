@@ -130,8 +130,11 @@ trait PSTAbstractParser extends TokenParsers {
 	}
 
 
-	protected def transformPointTo2DScene(pt : IPoint, ctx:PSTContext) =
-		DrawingTK.getFactory.createPoint(pt.getX*IShape.PPC*ctx.xUnit*ctx.unit, pt.getY*IShape.PPC*(-1)*ctx.yUnit*ctx.unit)
+	protected def transformPointTo2DScene(pt : PointUnit, ctx:PSTContext) = {
+		val newX = if(pt.xUnit.length==0) pt.x*IShape.PPC*ctx.xUnit*ctx.unit else pt.x*IShape.PPC
+		val newY = if(pt.yUnit.length==0) -pt.y*IShape.PPC*ctx.yUnit*ctx.unit else -pt.y*IShape.PPC
+		DrawingTK.getFactory.createPoint(newX, newY)
+	}
 
 
 	/**

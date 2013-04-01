@@ -186,9 +186,9 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\ttfamily {coucou} {haha}").get();
 		assertEquals(2, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		assertEquals("coucou", ((IText)group.getShapeAt(0)).getText());
+		assertEquals("\\ttfamily coucou", ((IText)group.getShapeAt(0)).getText());
 		assertTrue(group.getShapeAt(1) instanceof IText);
-		assertEquals("haha", ((IText)group.getShapeAt(1)).getText());
+		assertEquals("\\ttfamily haha", ((IText)group.getShapeAt(1)).getText());
 	}
 
 	@Test public void test_sffamily1() throws ParseException {

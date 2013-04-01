@@ -95,7 +95,7 @@ trait PSWedgeArcParser extends PSTAbstractParser
 	/**
 	 * Function associated to parsePsarc.
 	 */
-	private def parsePsarc_(cmdName : String, posRaw : Option[IPoint], firstBracketRaw : Option[String], radiusRaw : String,
+	private def parsePsarc_(cmdName : String, posRaw : Option[PointUnit], firstBracketRaw : Option[String], radiusRaw : String,
 							angle1Raw : String, angle2Raw : Option[String], ctx : PSTContext, inverted : Boolean) : List[IShape] = {
 		var arc : Option[IArc] = None
 
@@ -125,10 +125,10 @@ trait PSWedgeArcParser extends PSTAbstractParser
 	/**
 	 * Creates an arc using the given parameters.
 	 */
-	private def createArc(arcType : IArc.ArcStyle, hasStar : Boolean, posRaw : Option[IPoint], radiusStr : String, angle1Str : String,
+	private def createArc(arcType : IArc.ArcStyle, hasStar : Boolean, posRaw : Option[PointUnit], radiusStr : String, angle1Str : String,
 						angle2Str : String, arrows : Option[String], ctx : PSTContext, inverted : Boolean) : Option[IArc] = {
 		val radius = parseValueDim(radiusStr) match {
-			case Some(value) => value
+			case Some(value) => value._1
 			case None => PSTParser.errorLogs += "pswedge's radius cannot be parsed: " + radiusStr ; Double.NaN
 		}
 
@@ -144,7 +144,7 @@ trait PSWedgeArcParser extends PSTAbstractParser
 
 		val pos = posRaw match {
 			case Some(value) => value
-			case None => DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY)
+			case None => ctx.origin.dup
 		}
 
 		// Inversion of the arrows and the angles (for psarcn)

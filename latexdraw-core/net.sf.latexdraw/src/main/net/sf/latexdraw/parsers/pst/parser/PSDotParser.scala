@@ -36,7 +36,7 @@ trait PSDotParser extends PSTAbstractParser with PSTParamParser with PSTCoordina
 
 		val pos = posRaw match {
 			case Some(value) => transformPointTo2DScene(value, ctx)
-			case None => transformPointTo2DScene(DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY), ctx)
+			case None => transformPointTo2DScene(ctx.origin, ctx)
 		}
 
 		checkTextParsed(ctx) ::: List(createDot(pos, cmdName.endsWith("*"), ctx))

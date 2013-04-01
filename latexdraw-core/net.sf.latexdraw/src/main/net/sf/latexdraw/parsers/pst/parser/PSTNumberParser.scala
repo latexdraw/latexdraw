@@ -30,10 +30,10 @@ trait PSTNumberParser extends PSTAbstractParser {
 	/**
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
-	def parseNumber : Parser[Double] = numeric ^^ { case num =>
+	def parseNumber : Parser[Tuple2[Double,String]] = numeric ^^ { case num =>
 		parseValueDim(num) match {
 			case Some(value) => value
-			case None => Double.NaN
+			case None => Tuple2(Double.NaN,"")
 		}
 	}
 
@@ -94,8 +94,8 @@ trait PSTNumberParser extends PSTAbstractParser {
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
 	def parseValueDimDim(str : String) : Option[Tuple2[Double,Double]] = {
-		var val1 : Option[Double] = None
-		var val2 : Option[Double] = None
+		var val1 : Option[Tuple2[Double,String]] = None
+		var val2 : Option[Tuple2[Double,String]] = None
 
 		str.split(" ") match {
 			case Array(v1, u1, v2, u2) => val1 = parseValueDim(v1+u1) ; val2 = parseValueDim(v2+u2)
@@ -107,36 +107,54 @@ trait PSTNumberParser extends PSTAbstractParser {
 		}
 
 		if(val1.isDefined && val2.isDefined)
-			Some(Tuple2(val1.get, val2.get))
+			Some(Tuple2(val1.get._1, val2.get._1))
 		else
 			None
+	}
+
+
+	def parseValueDimNoUnit(str:String) : Option[Double] = {
+		parseValueDim(str) match {
+			case Some(Tuple2(value,_)) => Some(value)
+			case _ => None
+		}
 	}
 
 
 	/**
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
-	def parseValueDim(str : String) : Option[Double] = {
+	def parseValueDim(str : String) : Option[Tuple2[Double,String]] = {
 		if(str.length>2) {
 			val value = str.substring(0, str.length-2)
 			str.substring(str.length-2) match {
-				case PSTricksConstants.TOKEN_CM => createValidNumber(value)
+				case PSTricksConstants.TOKEN_CM =>
+					createValidNumber(value) match {
+						case Some(v) => Some(Tuple2(v, PSTricksConstants.TOKEN_CM))
+						case _ => None
+					}
 				case PSTricksConstants.TOKEN_MM => createValidNumber(value) match {
-						case Some(num) => Some(num/10.)
+						case Some(num) => Some(Tuple2(num/10., PSTricksConstants.TOKEN_MM))
 						case _ => None
 					}
 				case PSTricksConstants.TOKEN_PS_PT => createValidNumber(value) match {
-						case Some(num) => Some(num/PSTricksConstants.CM_VAL_PT)
+						case Some(num) => Some(num/PSTricksConstants.CM_VAL_PT, PSTricksConstants.TOKEN_PS_PT)
 						case _ => None
 					}
 				case PSTricksConstants.TOKEN_INCH => createValidNumber(value) match {
-						case Some(num) => Some(num/PSTricksConstants.INCH_VAL_CM)
+						case Some(num) => Some(num/PSTricksConstants.INCH_VAL_CM, PSTricksConstants.TOKEN_INCH)
 						case _ => None
 					}
-				case _ => createValidNumber(str)
+				case _ => createValidNumber(str) match {
+					case Some(v) => Some(v, "")
+					case _ => None
+				}
 			}
 		}
-		else createValidNumber(str)
+		else createValidNumber(str) match {
+				case Some(v) => Some(v, "")
+				case _ => None
+			}
 	}
 
 

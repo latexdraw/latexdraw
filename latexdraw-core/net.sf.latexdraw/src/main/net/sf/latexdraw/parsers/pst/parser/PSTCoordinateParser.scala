@@ -27,16 +27,16 @@ trait PSTCoordinateParser extends PSTAbstractParser with PSTNumberParser {
 	/**
 	 * Parses a coordinate.
 	 */
-	def parseCoord(ctx : PSTContext) : Parser[IPoint] =
+	def parseCoord(ctx : PSTContext) : Parser[PointUnit] =
 		"(" ~ opt(parseNumber) ~ "," ~ opt(parseNumber) ~ ")" ^^ { case _ ~ p1 ~ _ ~ p2 ~ _ =>
 			val x = p1 match {
 				case Some(value) => value
-				case None => PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE
+				case None => Tuple2(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE,"")
 			}
 			val y = p2 match {
 				case Some(value) => value
-				case None => PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE
+				case None => Tuple2(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE,"")
 			}
-			DrawingTK.getFactory.createPoint(x, y)
+			new PointUnit(x._1, y._1, x._2, y._2)
 	}
 }

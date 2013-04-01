@@ -32,7 +32,7 @@ trait PSBezierParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 
 		val listPts = ptRaw match {
 			case Some(value) => ptsRaw.flatten ::: List(value)
-			case None => DrawingTK.getFactory.createPoint(ctx.origin.getX, ctx.origin.getY) :: ptsRaw.flatten
+			case None => ctx.origin.dup :: ptsRaw.flatten
 		}
 
 		val bezier = DrawingTK.getFactory.createBezierCurve(true)
