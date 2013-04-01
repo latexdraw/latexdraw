@@ -5,7 +5,7 @@
   <groupId>net.sf.latexdraw</groupId>
   <artifactId>latexdraw.core</artifactId>
   <name>LaTeXDraw</name>
-  <version>3.0-beta1-SNAPSHOT</version>
+  <version>3.0-beta1</version>
   <build>
         <sourceDirectory>src/main/</sourceDirectory>
 <!--     	<testSourceDirectory>src/test/</testSourceDirectory>  -->
