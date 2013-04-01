@@ -35,7 +35,7 @@ public class Selection2MetaCustumiserMapping extends SelectionMapping {
 	 * Creates the mapping.
 	 * @param selection The list of selected shapes.
 	 * @param shapeCustomiser The instrument that manages the instruments customising the shapes and the pencil.
-	 * @throws IllegalArgumentException If on of the given parameter is null.
+	 * @throws NullPointerException If on of the given parameter is null.
 	 * @since 3.0
 	 */
 	public Selection2MetaCustumiserMapping(final List<IShape> selection, final MetaShapeCustomiser shapeCustomiser) {
@@ -58,13 +58,15 @@ public class Selection2MetaCustumiserMapping extends SelectionMapping {
 
 	@Override
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
-		shapeCustomiser.setActivated(!selection.isEmpty());
+		if(shapeCustomiser.getHand().isActivated())
+			shapeCustomiser.setActivated(!selection.isEmpty());
 	}
 
 
 	@Override
 	public void onListCleaned(final Object list) {
-		shapeCustomiser.setActivated(false);
+		if(shapeCustomiser.getHand().isActivated())
+			shapeCustomiser.setActivated(false);
 	}
 
 
