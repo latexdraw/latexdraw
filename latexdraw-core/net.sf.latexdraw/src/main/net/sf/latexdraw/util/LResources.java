@@ -171,7 +171,7 @@ public final class LResources {
 	public final static ImageIcon HATCH_HORIZ_ICON;			public final static ImageIcon HACTH_VERT_ICON;
 	public final static ImageIcon HATCH_F_HORIZ_ICON;		public final static ImageIcon HATCH_F_VERT_ICON;
 	public final static ImageIcon HATCH_CROSS_ICON;			public final static ImageIcon HATCH_F_CROSS_ICON;
-	public final static ImageIcon GRID_ICON;
+	public final static ImageIcon GRID_ICON;				public final static ImageIcon SUBGRID_ICON;
 	public final static ImageIcon JOIN_ICON;				public final static ImageIcon SEPARATE_ICON;
 	public final static ImageIcon MIDDLE_ICON;				public final static ImageIcon INNER_ICON;
 	public final static ImageIcon OUTER_ICON;
@@ -298,6 +298,7 @@ public final class LResources {
 		OUTER_ICON  = loadImageIcon("/res/doubleBoundary/double.boundary.out.png");//$NON-NLS-1$
 
 		GRID_ICON		= loadImageIcon("/res/grid.png");//$NON-NLS-1$
+		SUBGRID_ICON	= loadImageIcon("/res/subgrid.png");//$NON-NLS-1$
 		COPY_ICON  		= loadImageIcon("/res/Copy.png");//$NON-NLS-1$
 		PASTE_ICON 		= loadImageIcon("/res/Paste.png");//$NON-NLS-1$
 		CUT_ICON   		= loadImageIcon("/res/Cut.png");//$NON-NLS-1$

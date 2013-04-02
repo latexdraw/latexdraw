@@ -256,7 +256,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 
 	protected WidgetMiniToolbar composeGridPropertiesToolbar(final ShapeGridCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.SUBGRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids.");
 
 		UIBuilder.addSpinner(list, cust.getGridWidth(), 60);
