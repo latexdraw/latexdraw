@@ -103,7 +103,8 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 
 	@Override
 	protected void doActionBody() {
-		oldValue = property.getPropertyValues(shapes);
+		if(oldValue==null)
+			oldValue = property.getPropertyValues(shapes);
 		applyValue(value);
 	}
 

@@ -79,7 +79,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setFreeHandIntervalList(values : List[java.lang.Integer]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IFreehand])
 					shapes.get(i).asInstanceOf[IFreehand].setInterval(values.get(i))
@@ -98,7 +98,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setFreeHandOpenList(values : List[java.lang.Boolean]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IFreehand])
 					shapes.get(i).asInstanceOf[IFreehand].setOpen(values.get(i))
@@ -117,7 +117,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setGridLabelsColourList(values : List[Color]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IGrid])
 					shapes.get(i).asInstanceOf[IGrid].setGridLabelsColour(values.get(i))
@@ -136,7 +136,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setSubGridColourList(values : List[Color]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IGrid])
 					shapes.get(i).asInstanceOf[IGrid].setSubGridColour(values.get(i))
@@ -155,7 +155,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setGridWidthList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IGrid])
 					shapes.get(i).asInstanceOf[IGrid].setGridWidth(values.get(i))
@@ -174,7 +174,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setSubGridWidthList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IGrid])
 					shapes.get(i).asInstanceOf[IGrid].setSubGridWidth(values.get(i))
@@ -193,7 +193,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setGridDotsList(values : List[java.lang.Integer]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IGrid])
 					shapes.get(i).asInstanceOf[IGrid].setGridDots(values.get(i))
@@ -212,7 +212,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setSubGridDotsList(values : List[java.lang.Integer]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IGrid])
 					shapes.get(i).asInstanceOf[IGrid].setSubGridDots(values.get(i))
@@ -231,7 +231,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setSubGridDivList(values : List[java.lang.Integer]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IGrid])
 					shapes.get(i).asInstanceOf[IGrid].setSubGridDiv(values.get(i))
@@ -250,7 +250,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setFreeHandTypeList(values : List[FreeHandType]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IFreehand])
 					shapes.get(i).asInstanceOf[IFreehand].setType(values.get(i))
@@ -269,7 +269,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setAxesDistLabelsList(values : List[IPoint]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setDistLabels(values.get(i))
@@ -288,7 +288,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setAxesLabelsDisplayedList(values : List[PlottingStyle]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setLabelsDisplayed(values.get(i))
@@ -307,7 +307,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setAxesShowOriginList(values : List[java.lang.Boolean]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setShowOrigin(values.get(i))
@@ -326,7 +326,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setAxesTicksStyleList(values : List[TicksStyle]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setTicksStyle(values.get(i))
@@ -345,7 +345,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setAxesTicksSizeList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setTicksSize(values.get(i))
@@ -364,7 +364,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setAxesTicksDisplayedList(values : List[PlottingStyle]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setTicksDisplayed(values.get(i))
@@ -383,7 +383,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setAxesIncrementsList(values : List[IPoint]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setIncrement(values.get(i))
@@ -402,7 +402,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setGridLabelSizeList(values : List[java.lang.Integer]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setLabelsSize(values.get(i))
@@ -421,7 +421,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setGridXLabelSouthList(values : List[java.lang.Boolean]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setXLabelSouth(values.get(i))
@@ -440,7 +440,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setGridYLabelWestList(values : List[java.lang.Boolean]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setYLabelWest(values.get(i))
@@ -459,7 +459,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setAxesStyleList(values : List[AxesStyle]) = {
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IAxes])
 					shapes.get(i).asInstanceOf[IAxes].setAxesStyle(values.get(i))
@@ -479,7 +479,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 	override def setGridOriginList(values : List[IPoint]) = {
 		var pt : IPoint = null
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size) {
 				pt = values.get(i)
 				if(pt!=null && shapes.get(i).isInstanceOf[IStandardGrid])
@@ -501,7 +501,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 	override def setGridEndList(values : List[IPoint]) = {
 		var pt : IPoint = null
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size) {
 				pt = values.get(i)
 				if(pt!=null && shapes.get(i).isInstanceOf[IStandardGrid])
@@ -512,7 +512,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 	override def setGridStartList(values : List[IPoint]) = {
 		var pt : IPoint = null
-		if(values!=null && values.size()==shapes.size)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size) {
 				pt = values.get(i)
 				if(pt!=null && shapes.get(i).isInstanceOf[IStandardGrid])
@@ -562,7 +562,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setBordersPositionList(list : List[BorderPos]) = {
-		if(list!=null && list.size()==shapes.size)
+		if(list!=null && list.size==shapes.size)
 			for(i <- 0 until list.size)
 				if(shapes.get(i).isBordersMovable)
 					shapes.get(i).setBordersPosition(list.get(i))
@@ -570,7 +570,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setLineColourList(list : List[Color]) = {
-		if(list!=null && list.size()==shapes.size)
+		if(list!=null && list.size==shapes.size)
 			for(i <- 0 until list.size)
 				shapes.get(i).setLineColour(list.get(i))
 	}
@@ -902,247 +902,248 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def setAngleStartList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setAngleStartList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IArc])
 					shapes.get(i).asInstanceOf[IArc].setAngleStart(values.get(i))
 	}
 
 
-	override def setDotStyleList(values : List[DotStyle]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setDotStyleList(values : List[DotStyle]) {
+		println(values.toString + " " + shapes)
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[Dottable])
 					shapes.get(i).asInstanceOf[Dottable].setDotStyle(values.get(i))
 	}
 
 
-	override def setAngleEndList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setAngleEndList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IArc])
 					shapes.get(i).asInstanceOf[IArc].setAngleEnd(values.get(i))
 	}
 
 
-	override def setArcStyleList(values : List[ArcStyle]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setArcStyleList(values : List[ArcStyle]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IArc])
 					shapes.get(i).asInstanceOf[IArc].setArcStyle(values.get(i))
 	}
 
 
-	override def setArrowStyleList(values : List[ArrowStyle], i : Int) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setArrowStyleList(values : List[ArrowStyle], i : Int) {
+		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
 				if(shapes.get(j).isArrowable)
 					shapes.get(j).setArrowStyle(values.get(j), i)
 	}
 
 
-	override def setRotationAngleList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setRotationAngleList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i).setRotationAngle(values.get(i))
 	}
 
 
-	override def setTextPositionList(values : List[TextPosition]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setTextPositionList(values : List[TextPosition]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IText])
 					shapes.get(i).asInstanceOf[IText].setTextPosition(values.get(i))
 	}
 
 
-	override def setTextList(values : List[String]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setTextList(values : List[String]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IText])
 					shapes.get(i).asInstanceOf[IText].setText(values.get(i))
 	}
 
 
-	override def setHatchingsAngleList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setHatchingsAngleList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInteriorStylable)
 					shapes.get(i).setHatchingsAngle(values.get(i))
 	}
 
 
-	override def setHatchingsWidthList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setHatchingsWidthList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInteriorStylable)
 					shapes.get(i).setHatchingsWidth(values.get(i))
 	}
 
 
-	override def setHatchingsSepList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setHatchingsSepList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInteriorStylable)
 					shapes.get(i).setHatchingsSep(values.get(i))
 	}
 
 
-	override def setGradAngleList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setGradAngleList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInteriorStylable)
 					shapes.get(i).setGradAngle(values.get(i))
 	}
 
 
-	override def setGradMidPtList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setGradMidPtList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInteriorStylable)
 					shapes.get(i).setGradMidPt(values.get(i))
 	}
 
 
-	override def setLineArcList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setLineArcList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[ILineArcShape])
 					shapes.get(i).asInstanceOf[ILineArcShape].setLineArc(values.get(i))
 	}
 
 
-	override def setFillingColList(values : List[Color]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setFillingColList(values : List[Color]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInteriorStylable)
 					shapes.get(i).setFillingCol(values.get(i))
 	}
 
 
-	override def setHatchingsColList(values : List[Color]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setHatchingsColList(values : List[Color]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInteriorStylable)
 					shapes.get(i).setHatchingsCol(values.get(i))
 	}
 
 
-	override def setHasDbleBordList(values : List[java.lang.Boolean]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setHasDbleBordList(values : List[java.lang.Boolean]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isDbleBorderable)
 					shapes.get(i).setHasDbleBord(values.get(i))
 	}
 
 
-	override def setDbleBordSepList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setDbleBordSepList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isDbleBorderable)
 					shapes.get(i).setDbleBordSep(values.get(i))
 	}
 
 
-	override def setDbleBordColList(values : List[Color]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setDbleBordColList(values : List[Color]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isDbleBorderable)
 					shapes.get(i).setDbleBordCol(values.get(i))
 	}
 
 
-	override def setHasShadowList(values : List[java.lang.Boolean]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setHasShadowList(values : List[java.lang.Boolean]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isShadowable)
 					shapes.get(i).setHasShadow(values.get(i))
 	}
 
 
-	override def setShadowSizeList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setShadowSizeList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isShadowable)
 					shapes.get(i).setShadowSize(values.get(i))
 	}
 
 
-	override def setShadowAngleList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setShadowAngleList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isShadowable)
 					shapes.get(i).setShadowAngle(values.get(i))
 	}
 
 
-	override def setShadowColList(values : List[Color]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setShadowColList(values : List[Color]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isShadowable)
 					shapes.get(i).setShadowCol(values.get(i))
 	}
 
 
-	override def setGradColStartList(values : List[Color]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setGradColStartList(values : List[Color]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInteriorStylable)
 					shapes.get(i).setGradColStart(values.get(i))
 	}
 
 
-	override def setGradColEndList(values : List[Color]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setGradColEndList(values : List[Color]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInteriorStylable)
 					shapes.get(i).setGradColEnd(values.get(i))
 	}
 
 
-	override def setThicknessList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setThicknessList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isThicknessable)
 					shapes.get(i).setThickness(values.get(i))
 	}
 
 
-	override def setFillingStyleList(values : List[FillingStyle]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setFillingStyleList(values : List[FillingStyle]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInteriorStylable)
 					shapes.get(i).setFillingStyle(values.get(i))
 	}
 
 
-	override def setLineStyleList(values : List[LineStyle]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setLineStyleList(values : List[LineStyle]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isLineStylable)
 					shapes.get(i).setLineStyle(values.get(i))
 	}
 
 
-	override def setDotFillingColList(values : List[Color]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setDotFillingColList(values : List[Color]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[Dottable])
 					shapes.get(i).asInstanceOf[Dottable].setDotFillingCol(values.get(i))
 	}
 
 
-	override def setDotSizeList(values : List[java.lang.Double]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setDotSizeList(values : List[java.lang.Double]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[Dottable])
 					shapes.get(i).asInstanceOf[Dottable].setRadius(values.get(i))
 	}
 
 
-	override def setShowPointsList(values : List[java.lang.Boolean]) = {
-		if(values!=null && values.size()==shapes.size)
+	override def setShowPointsList(values : List[java.lang.Boolean]) {
+		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isShowPtsable)
 					shapes.get(i).setShowPts(values.get(i))
