@@ -136,11 +136,11 @@ public final class LResources {
 	public final static ImageIcon SQUARE_ICON; 				public final static ImageIcon DOT_STYLE_DIAMOND_ICON;
 	public final static ImageIcon TRIANGLE_ICON;			public final static ImageIcon DOT_STYLE_DIAMOND_F_ICON;
 	public final static ImageIcon PROPERTIES_ICON; 			public final static ImageIcon DOT_STYLE_O_ICON;
-	public final static ImageIcon PRINT_ICON;	 			public final static ImageIcon DOT_STYLE_O_PLUS_ICON;
+	public final static ImageIcon DOT_STYLE_O_PLUS_ICON;
 	public final static ImageIcon DOT_STYLE_O_CROSS_ICON;	public final static ImageIcon UPDATE_ICON;
-	public final static ImageIcon BORDERS_ICON;	 			public final static ImageIcon DOT_STYLE_PLUS_ICON;
-	public final static ImageIcon AUTO_BORDERS_ICON;		public final static ImageIcon ARROW_STYLE_ARC_L_ICON;
-	public final static ImageIcon EXPORT_ICON;				public final static ImageIcon ARROW_STYLE_ARC_R_ICON;
+	public final static ImageIcon DOT_STYLE_PLUS_ICON;
+	public final static ImageIcon ARROW_STYLE_ARC_L_ICON;
+	public final static ImageIcon ARROW_STYLE_ARC_R_ICON;
 	public final static ImageIcon ARROW_STYLE_ARC_RR_ICON;	public final static ImageIcon ARROW_STYLE_ARC_LR_ICON;
 	public final static ImageIcon ABOUT_ICON;				public final static ImageIcon ARROW_STYLE_ARROW_L_ICON;
 	public final static ImageIcon HELP_ICON;				public final static ImageIcon ARROW_STYLE_ARROW_R_ICON;
@@ -174,8 +174,8 @@ public final class LResources {
 	public final static ImageIcon GRID_ICON;
 	public final static ImageIcon JOIN_ICON;				public final static ImageIcon SEPARATE_ICON;
 	public final static ImageIcon MIDDLE_ICON;				public final static ImageIcon INNER_ICON;
-	public final static ImageIcon OUTER_ICON;		    	public final static ImageIcon COPY_SEL_ICON;
-	public final static ImageIcon IMPORT_ICON;				public final static ImageIcon COMMENT_ICON;
+	public final static ImageIcon OUTER_ICON;
+	public final static ImageIcon COMMENT_ICON;
 	public final static ImageIcon LINES_ICON;	 			public final static ImageIcon LATEXDRAW_ICON;
 	public final static ImageIcon ERR_ICON;
 	public final static ImageIcon STOP_ICON;
@@ -185,7 +185,7 @@ public final class LResources {
 	public final static ImageIcon ROTATE_180_ICON; 			public final static ImageIcon ROTATE_90_ICON;
 	public final static ImageIcon MIRROR_V_ICON;			public final static ImageIcon MIRROR_H_ICON;
 	public final static ImageIcon AXES_ICON;				public final static ImageIcon TEX_EDITOR_ICON;
-	public final static ImageIcon DELIMITOR_ICON; 			public final static ImageIcon CURVES_FREEHAND_ICON;
+	public final static ImageIcon CURVES_FREEHAND_ICON;
 	public final static ImageIcon LINES_FREEHAND_ICON; 		public final static ImageIcon CLOSE_LINE_ICON;
 	public final static ImageIcon CLOSE_CURVE_ICON;			public final static ImageIcon CLOSED_BEZIER_ICON;
 	public final static ImageIcon ALIGN_BOTTOM_ICON;		public final static ImageIcon ALIGN_LEFT_ICON;
@@ -330,18 +330,12 @@ public final class LResources {
 		SQUARE_ICON 		= loadImageIcon("/res/square.png");	//$NON-NLS-1$
 		TRIANGLE_ICON 	= loadImageIcon("/res/triangle.png");//$NON-NLS-1$
 		PROPERTIES_ICON 	= loadImageIcon("/res/preferences-desktop-theme.png");	//$NON-NLS-1$
-		PRINT_ICON 		= loadImageIcon("/res/Print.png");//$NON-NLS-1$
-		BORDERS_ICON 	= loadImageIcon("/res/Object.png");	//$NON-NLS-1$
 		HELP_ICON 		= loadImageIcon("/res/help-browser.png");	//$NON-NLS-1$
 		ABOUT_ICON 		= loadImageIcon("/res/emblem-important.png");	//$NON-NLS-1$
-		AUTO_BORDERS_ICON = loadImageIcon("/res/AutoBorders.png");//$NON-NLS-1$
-		EXPORT_ICON 		= loadImageIcon("/res/go-previous.png");//$NON-NLS-1$
 		JOIN_ICON 		= loadImageIcon("/res/join.png");//$NON-NLS-1$
 		SEPARATE_ICON 	= loadImageIcon("/res/separate.png");//$NON-NLS-1$
 		BEZIER_CURVE_ICON = loadImageIcon("/res/bezierCurve.png");//$NON-NLS-1$
 		CHORD_ICON 		= loadImageIcon("/res/chord.png"); //$NON-NLS-1$
-		COPY_SEL_ICON 	= loadImageIcon("/res/CopySel.png"); //$NON-NLS-1$
-		IMPORT_ICON 		= loadImageIcon("/res/go-next.png"); //$NON-NLS-1$
 		COMMENT_ICON 	= loadImageIcon("/res/comment.png"); //$NON-NLS-1$
 		LINES_ICON = loadImageIcon("/res/joinedLines.png"); //$NON-NLS-1$
 		ERR_ICON 		= loadImageIcon("/res/emblem-unreadable.png"); //$NON-NLS-1$
@@ -358,7 +352,6 @@ public final class LResources {
 		MIRROR_V_ICON 	= loadImageIcon("/res/mirrorV.png"); //$NON-NLS-1$
 		AXES_ICON		= loadImageIcon("/res/axes.png"); //$NON-NLS-1$
 		TEX_EDITOR_ICON	= loadImageIcon("/res/texEditor.png"); //$NON-NLS-1$
-		DELIMITOR_ICON	= loadImageIcon("/res/delimitor.png"); //$NON-NLS-1$
 		CURVES_FREEHAND_ICON	= loadImageIcon("/res/freehand/curve.png"); //$NON-NLS-1$
 		LINES_FREEHAND_ICON	= loadImageIcon("/res/freehand/line.png"); //$NON-NLS-1$
 		CLOSE_CURVE_ICON		= loadImageIcon("/res/BezierCurves/closeCurve.png"); //$NON-NLS-1$
