@@ -66,6 +66,7 @@ class LPolyline extends LPolygon implements IPolyline {
 
 	@Override
 	public ILine getArrowLine(final IArrow arrow) {
+		if(getNbPoints()<2) return null;
 		final int index = arrows.indexOf(arrow);
 		final ILine line;
 
