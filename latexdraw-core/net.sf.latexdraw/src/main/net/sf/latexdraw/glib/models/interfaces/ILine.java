@@ -87,6 +87,14 @@ public interface ILine {
 	boolean isDot();
 
 	/**
+	 * @return True if the segment defined by the line contains the given point. False otherwise or
+	 * if the given point is null.
+	 * @param pt The point to check.
+	 * @since 3.0
+	 */
+	boolean isInSegment(final IPoint pt);
+
+	/**
 	 * Sets the position of the line. Do nothing if one of the given parameter
 	 * is not valid.
 	 * @param x1 The x coordinate of the first point.

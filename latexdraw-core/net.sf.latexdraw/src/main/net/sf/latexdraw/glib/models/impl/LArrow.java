@@ -139,6 +139,21 @@ class LArrow implements IArrow {
 
 
 	@Override
+	public double getArrowShapeLength() {
+		switch(style) {
+			case LEFT_ARROW:
+			case RIGHT_ARROW:
+			case LEFT_DBLE_ARROW:
+			case RIGHT_DBLE_ARROW: return getArrowShapedWidth()*arrowLength;
+			case ROUND_IN: return (getDotSizeDim()+getDotSizeNum()*owner.getThickness())/2.;
+			case LEFT_SQUARE_BRACKET:
+			case RIGHT_SQUARE_BRACKET: return bracketNum*getBarShapedArrowWidth();
+			default: return 0;//TODO
+		}
+	}
+
+
+	@Override
 	public double getArrowShapedWidth() {
 		return arrowSizeNum*(owner.hasDbleBord() ? owner.getThickness()*2. + owner.getDbleBordSep() : owner.getThickness())+arrowSizeDim;
 	}

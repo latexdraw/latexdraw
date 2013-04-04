@@ -94,6 +94,23 @@ class LLine extends Line2D.Double implements ILine {
 
 
 	@Override
+	public boolean isInSegment(final IPoint pt) {
+		if(pt==null) return false;
+
+		final double minX = Math.min(x1, x2);
+		final double maxX = Math.max(x1, x2);
+		final double minY = Math.min(y1, y2);
+		final double maxY = Math.max(y1, y2);
+		final double x = pt.getX();
+		final double y = pt.getY();
+
+		if(isHorizontalLine()) return LNumber.INSTANCE.equals(y, minY) && x>=minX && x<=maxX;
+		if(isVerticalLine()) return LNumber.INSTANCE.equals(x, minX) && y>=minY && y<=maxY;
+		return y>=minY && y<=maxY && x>=minX && x<=maxX && LNumber.INSTANCE.equals(y, getA()*x+getB());
+	}
+
+
+	@Override
 	public void updateAandB() {
 		if(isVerticalLine()) {
 			a = java.lang.Double.NaN;

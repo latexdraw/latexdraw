@@ -81,9 +81,7 @@ class LArrowView implements IViewArrow {
 			c3x  = Math.cos(-lineAngle)*-c2x - Math.sin(-lineAngle)*(lineB-c2y);
 			c3y  = Math.sin(-lineAngle)*-c2x + Math.cos(-lineAngle)*(lineB-c2y);
 		}
-//g.setColor(Color.GREEN);
-//		g.drawLine((int)arrowLine.getPoint1().getX(), (int)arrowLine.getPoint1().getY(),
-//				(int)arrowLine.getPoint2().getX(), (int)arrowLine.getPoint2().getY());
+
 		if(!LNumber.INSTANCE.equals(lineAngle%(Math.PI*2.),0.)) {
 			g.rotate(lineAngle);
 			g.translate(c3x,c3y);

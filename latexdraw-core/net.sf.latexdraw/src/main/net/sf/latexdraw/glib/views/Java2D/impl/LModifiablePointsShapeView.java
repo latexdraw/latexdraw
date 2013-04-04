@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape;
@@ -51,10 +53,28 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 			IPoint pt		= pts.get(0);
 			// We must check if all the points of the shape are equals because if it
 			// is the case the shape will not be visible.
-			final double firstX = pt.getX();
-			final double firstY = pt.getY();
+			double firstX = pt.getX();
+			double firstY = pt.getY();
 			double sumX	= firstX;
 			double sumY	= firstY;
+
+			if(shape.isArrowable() && shape.getArrowAt(0).getArrowStyle().isReducingShape()) {
+				IArrow arr = shape.getArrowAt(0);
+				ILine line = arr.getArrowLine();
+
+				if(line!=null) {
+					IPoint[] ps = line.findPoints(line.getPoint1(), arr.getArrowShapeLength()/2.);
+					if(ps!=null) {
+						if(line.isInSegment(ps[0])) {
+							firstX = ps[0].getX();
+							firstY = ps[0].getY();
+						}else {
+							firstX = ps[1].getX();
+							firstY = ps[1].getY();
+						}
+					}
+				}
+			}
 
 			path.moveTo(firstX, firstY);
 

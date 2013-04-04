@@ -180,6 +180,10 @@ public interface IArrow extends IArrowable {
 			return this==BAR_END || this==BAR_IN;
 		}
 
+		public boolean isReducingShape() {
+			return this==LEFT_ARROW || this==RIGHT_ARROW || this==LEFT_DBLE_ARROW || this==RIGHT_DBLE_ARROW || this==ROUND_IN;
+		}
+
 		/**
 		 * @return True if the style is an arrow.
 		 * @since 3.0
@@ -293,6 +297,13 @@ public interface IArrow extends IArrowable {
 	 * @since 3.0
 	 */
 	void setArrowStyle(final ArrowStyle arrowStyle);
+
+	/**
+	 * @return The length of the arrow computed from the provided formula:
+	 * length = arrowlength x (num x linewidth + dim)
+	 * @since 3.0
+	 */
+	double getArrowShapeLength();
 
 	/**
 	 * @return The position of the arrow head.
