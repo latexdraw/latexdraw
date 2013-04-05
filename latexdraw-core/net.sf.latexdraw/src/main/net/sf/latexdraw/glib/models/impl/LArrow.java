@@ -319,4 +319,65 @@ class LArrow implements IArrow {
 		if(shape!=null)
 			owner = shape;
 	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(arrowInset);
+		result = prime * result + (int)(temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(arrowLength);
+		result = prime * result + (int)(temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(arrowSizeDim);
+		result = prime * result + (int)(temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(arrowSizeNum);
+		result = prime * result + (int)(temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(bracketNum);
+		result = prime * result + (int)(temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(dotSizeDim);
+		result = prime * result + (int)(temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(dotSizeNum);
+		result = prime * result + (int)(temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(rBracketNum);
+		result = prime * result + (int)(temp ^ (temp >>> 32));
+		result = prime * result + ((style == null) ? 0 : style.hashCode());
+		temp = Double.doubleToLongBits(tBarSizeDim);
+		result = prime * result + (int)(temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(tBarSizeNum);
+		result = prime * result + (int)(temp ^ (temp >>> 32));
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj) return true;
+		if(!(obj instanceof IArrow)) return false;
+		IArrow other = (IArrow)obj;
+		if(Double.doubleToLongBits(arrowInset) != Double.doubleToLongBits(other.getArrowInset()))
+			return false;
+		if(Double.doubleToLongBits(arrowLength) != Double.doubleToLongBits(other.getArrowLength()))
+			return false;
+		if(Double.doubleToLongBits(arrowSizeDim) != Double.doubleToLongBits(other.getArrowSizeDim()))
+			return false;
+		if(Double.doubleToLongBits(arrowSizeNum) != Double.doubleToLongBits(other.getArrowSizeNum()))
+			return false;
+		if(Double.doubleToLongBits(bracketNum) != Double.doubleToLongBits(other.getBracketNum()))
+			return false;
+		if(Double.doubleToLongBits(dotSizeDim) != Double.doubleToLongBits(other.getDotSizeDim()))
+			return false;
+		if(Double.doubleToLongBits(dotSizeNum) != Double.doubleToLongBits(other.getDotSizeNum()))
+			return false;
+		if(Double.doubleToLongBits(rBracketNum) != Double.doubleToLongBits(other.getRBracketNum()))
+			return false;
+		if(style != other.getArrowStyle())
+			return false;
+		if(Double.doubleToLongBits(tBarSizeDim) != Double.doubleToLongBits(other.getTBarSizeDim()))
+			return false;
+		if(Double.doubleToLongBits(tBarSizeNum) != Double.doubleToLongBits(other.getTBarSizeNum()))
+			return false;
+		return true;
+	}
 }

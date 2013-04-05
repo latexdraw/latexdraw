@@ -307,7 +307,7 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		int size  = shape.getPoints().size();
 		IPoint pt = DrawingTK.getFactory().createPoint();
 
-		shape.getPoints().add(pt);
+		shape.addPoint(pt);
 		assertFalse(shape.removePoint(null));
 		assertEquals(size+1, shape.getPoints().size());
 		assertTrue(shape.removePoint(pt));
@@ -320,17 +320,17 @@ public abstract class TestIModifiablePointsShape<T extends IModifiablePointsShap
 		int size  = shape.getPoints().size();
 		IPoint pt = DrawingTK.getFactory().createPoint();
 
-		shape.getPoints().add(pt);
+		shape.addPoint(pt);
 		assertNull(shape.removePoint(Integer.MAX_VALUE));
 		assertEquals(size+1, shape.getPoints().size());
 		assertNull(shape.removePoint(Integer.MIN_VALUE));
 		assertEquals(size+1, shape.getPoints().size());
 		assertEquals(shape.removePoint(-1), pt);
 		assertEquals(size, shape.getPoints().size());
-		shape.getPoints().add(pt);
+		shape.addPoint(pt);
 		assertEquals(shape.removePoint(shape.getPoints().size()-1), pt);
 		assertEquals(size, shape.getPoints().size());
-		shape.getPoints().add(0, pt);
+		shape.addPoint(pt, 0);
 		assertEquals(shape.removePoint(0), pt);
 		assertEquals(size, shape.getPoints().size());
 	}

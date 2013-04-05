@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.util.ArrayList;
 
+import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -34,10 +35,7 @@ class LPolyline extends LPolygon implements IPolyline {
 	 */
 	protected LPolyline(final boolean uniqueID) {
 		super(uniqueID);
-
 		arrows = new ArrayList<>();
-		arrows.add(new LArrow(this));
-		arrows.add(new LArrow(this));
 	}
 
 
@@ -58,6 +56,17 @@ class LPolyline extends LPolygon implements IPolyline {
 
 
 	@Override
+	public void addPoint(final IPoint pt, final int position) {
+		if(GLibUtilities.INSTANCE.isValidPoint(pt) && position>=-1 && position<=points.size())
+			if(position==-1 || position==points.size())
+				arrows.add(new LArrow(this));
+			else
+				arrows.add(position, new LArrow(this));
+		super.addPoint(pt, position);
+	}
+
+
+	@Override
 	public IPolyline duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof IPolyline ? (IPolyline)sh : null;
@@ -68,14 +77,10 @@ class LPolyline extends LPolygon implements IPolyline {
 	public ILine getArrowLine(final IArrow arrow) {
 		if(getNbPoints()<2) return null;
 		final int index = arrows.indexOf(arrow);
-		final ILine line;
+		ILine line = null;
 
-		switch(index) {
-			case 0: line = new LLine(points.get(0), points.get(1)); break;
-			case 1: line = new LLine(points.get(points.size()-1), points.get(points.size()-2)); break;
-			case -1 :
-			default : line = null;
-		}
+		if(index==0) line = new LLine(points.get(0), points.get(1));
+		else if(index==getNbPoints()-1) line = new LLine(points.get(points.size()-1), points.get(points.size()-2));
 
 		return line;
 	}

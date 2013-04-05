@@ -66,7 +66,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public boolean setPoint(final double x, final double y, final int position) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(x, y) || position<-1 || position>points.size())
+		if(!GLibUtilities.INSTANCE.isValidPoint(x, y) || position<-1 || position>points.size() || points.isEmpty())
 			return false;
 
 		IPoint p = position==-1 ? points.get(points.size()-1) : points.get(position);
@@ -79,14 +79,19 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public boolean removePoint(final IPoint pt) {
-		return pt==null ? false : points.remove(pt);
+		if(pt==null) return false;
+		final int ind = points.indexOf(pt);
+		if(ind!=-1) return removePoint(ind)!=null;
+		return false;
 	}
 
 
 	@Override
 	public IPoint removePoint(final int position) {
-		if(position>=-1 && position<points.size())
+		if(position>=-1 && position<points.size()) {
+			arrows.remove(position==-1 ? points.size()-1 : position);
 			return points.remove(position==-1 ? points.size()-1 : position);
+		}
 
 		return null;
 	}

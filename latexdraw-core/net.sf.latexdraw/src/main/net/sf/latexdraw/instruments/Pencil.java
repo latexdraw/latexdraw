@@ -144,9 +144,7 @@ public class Pencil extends Instrument {
 	 */
 	public IShape createShapeInstance() {
 		final IShape shape = getCurrentChoice().createShapeInstance();
-
 		setShapeParameters(shape);
-
 		return shape;
 	}
 
@@ -159,6 +157,13 @@ public class Pencil extends Instrument {
 	public void setShapeParameters(final IShape shape) {
 		if(shape==null)
 			return ;
+
+		if(shape instanceof IModifiablePointsShape) {
+			IModifiablePointsShape mod = (IModifiablePointsShape)shape;
+			mod.addPoint(DrawingTK.getFactory().createPoint());
+			mod.addPoint(DrawingTK.getFactory().createPoint());
+		}
+
 //FIXME Should use copy operations to copy these parameters.
 		shape.setLineColour(groupParams.getLineColour());
 
@@ -344,11 +349,8 @@ class MultiClic2AddShape extends PencilLink<MultiClick> {
 		final IPoint currPoint	= instrument.getAdaptedPoint(interaction.getCurrentPosition());
 		final IModifiablePointsShape shape = (IModifiablePointsShape)action.shape().get();
 
-		if(shape.getNbPoints()==pts.size() && !interaction.isLastPointFinalPoint()) {
-			final IPoint pt = instrument.getAdaptedPoint(pts.get(pts.size()-1));
-			shape.setPoint(pt.getX(), pt.getY(), -1);
-			shape.addPoint(DrawingTK.getFactory().createPoint(currPoint.getX(), currPoint.getY()));
-		}
+		if(shape.getNbPoints()==pts.size() && !interaction.isLastPointFinalPoint())
+			shape.addPoint(DrawingTK.getFactory().createPoint(currPoint.getX(), currPoint.getY()), pts.size()-1);
 		else
 			shape.setPoint(currPoint.getX(), currPoint.getY(), -1);
 
@@ -370,9 +372,8 @@ class MultiClic2AddShape extends PencilLink<MultiClick> {
 		if(shape instanceof IModifiablePointsShape) {
 			final IModifiablePointsShape modShape = (IModifiablePointsShape)shape;
 			final IPoint pt = instrument.getAdaptedPoint(interaction.getPoints().get(0));
-
-			modShape.addPoint(DrawingTK.getFactory().createPoint(pt.getX(), pt.getY()));
-			modShape.addPoint(DrawingTK.getFactory().createPoint(pt.getX()+1, pt.getY()+1));
+			modShape.getPtAt(0).setPoint(pt);
+			modShape.getPtAt(1).setPoint(pt.getX()+1, pt.getY()+1);
 		}
 	}
 

@@ -38,6 +38,29 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 	}
 
 
+	protected double[] updatePoint4Arrows(final double x, final double y, final IArrow arr) {
+		final double[] coords = new double[]{x, y};
+
+		if(shape.isArrowable() && arr.getArrowStyle().isReducingShape()) {
+			ILine line = arr.getArrowLine();
+
+			if(line!=null) {
+				IPoint[] ps = line.findPoints(line.getPoint1(), arr.getArrowShapeLength()/2.);
+				if(ps!=null) {
+					if(line.isInSegment(ps[0])) {
+						coords[0] = ps[0].getX();
+						coords[1] = ps[0].getY();
+					}else {
+						coords[0] = ps[1].getX();
+						coords[1] = ps[1].getY();
+					}
+				}
+			}
+		}
+		return coords;
+	}
+
+
 	/**
 	 * Update the path of the multi-point shape.
 	 * @param close True: the shape will be closed.
@@ -48,7 +71,7 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 
 		path.reset();
 
-		if(pts.size()>0) {
+		if(pts.size()>1) {
 			final int size 	= pts.size();
 			IPoint pt		= pts.get(0);
 			// We must check if all the points of the shape are equals because if it
@@ -57,28 +80,13 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 			double firstY = pt.getY();
 			double sumX	= firstX;
 			double sumY	= firstY;
-
-			if(shape.isArrowable() && shape.getArrowAt(0).getArrowStyle().isReducingShape()) {
-				IArrow arr = shape.getArrowAt(0);
-				ILine line = arr.getArrowLine();
-
-				if(line!=null) {
-					IPoint[] ps = line.findPoints(line.getPoint1(), arr.getArrowShapeLength()/2.);
-					if(ps!=null) {
-						if(line.isInSegment(ps[0])) {
-							firstX = ps[0].getX();
-							firstY = ps[0].getY();
-						}else {
-							firstX = ps[1].getX();
-							firstY = ps[1].getY();
-						}
-					}
-				}
-			}
+			double[] coords = updatePoint4Arrows(firstX, firstY, shape.getArrowAt(0));
+			firstX = coords[0];
+			firstY = coords[1];
 
 			path.moveTo(firstX, firstY);
 
-			for(int i=1; i<size; i++) {
+			for(int i=1; i<size-1; i++) {
 				pt = pts.get(i);
 				path.lineTo(pt.getX(), pt.getY());
 				// To check the points position, all the X coordinates are added together
@@ -87,6 +95,12 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 				sumX += pt.getX();
 				sumY += pt.getY();
 			}
+
+			pt = pts.get(pts.size()-1);
+			coords = updatePoint4Arrows(pt.getX(), pt.getY(), shape.getArrowAt(-1));
+			path.lineTo(coords[0], coords[1]);
+			sumX += pt.getX();
+			sumY += pt.getY();
 
 			// Checking the equality between points of the shape.
 			if(LNumber.INSTANCE.equals(firstX, sumX/size) && LNumber.INSTANCE.equals(firstY, sumY/size)) {
