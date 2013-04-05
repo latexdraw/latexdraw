@@ -142,14 +142,25 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
 		final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
 		IPoint ctrl1;
+		int size;
+		double[] coords = updatePoint4Arrows(pts.get(0).getX(), pts.get(0).getY(), shape.getArrowAt(0));
+		double[] coords2;
+		if(pts.size()==2)
+			// In this case the first curve contains the first and last points that must be modified.
+			coords2 = updatePoint4Arrows(pts.get(1).getX(),pts.get(1).getY(), shape.getArrowAt(-1));
+		else coords2 = new double[]{pts.get(1).getX(),pts.get(1).getY()};
 
 		path.reset();
-		path.moveTo(pts.get(0).getX(), pts.get(0).getY());
+		path.moveTo(coords[0], coords[1]);
 		path.curveTo(ctrlPts1.get(0).getX(), ctrlPts1.get(0).getY(),
 				   ctrlPts1.get(1).getX(), ctrlPts1.get(1).getY(),
-				   pts.get(1).getX(), pts.get(1).getY());
+				   coords2[0], coords2[1]);
 
-		for(int i=2, size=pts.size(); i<size; i++) {
+		if(shape.isClosed())
+			 size = pts.size();
+		else size = pts.size()-1;
+
+		for(int i=2; i<size; i++) {
 			ctrl1 = ctrlPts2.get(i-1);
 			path.curveTo(ctrl1.getX(), ctrl1.getY(),
 					   ctrlPts1.get(i).getX(), ctrlPts1.get(i).getY(),
@@ -161,6 +172,12 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 			IPoint ctrl2b = ctrlPts1.get(ctrlPts1.size()-1).centralSymmetry(pts.get(pts.size()-1));
 			path.curveTo(ctrl2b.getX(), ctrl2b.getY(), ctrl1b.getX(), ctrl1b.getY(), pts.get(0).getX(), pts.get(0).getY());
 			path.closePath();
+		}else {
+			if(pts.size()>2) {
+				coords = updatePoint4Arrows(pts.get(size).getX(), pts.get(size).getY(), shape.getArrowAt(size));
+				ctrl1 = ctrlPts2.get(size-1);
+				path.curveTo(ctrl1.getX(), ctrl1.getY(), ctrlPts1.get(size).getX(), ctrlPts1.get(size).getY(), coords[0], coords[1]);
+			}
 		}
 	}
 }

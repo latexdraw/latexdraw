@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.util.ArrayList;
 
+import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
@@ -38,10 +39,7 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 	 */
 	protected LBezierCurve(final boolean uniqueID) {
 		super(uniqueID);
-
 		arrows = new ArrayList<>();
-		arrows.add(new LArrow(this));
-		arrows.add(new LArrow(this));
 	}
 
 
@@ -60,6 +58,17 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 
 
 	@Override
+	public void addPoint(final IPoint pt, final int position) {
+		if(GLibUtilities.INSTANCE.isValidPoint(pt) && position>=-1 && position<=points.size())
+			if(position==-1 || position==points.size())
+				arrows.add(new LArrow(this));
+			else
+				arrows.add(position, new LArrow(this));
+		super.addPoint(pt, position);
+	}
+
+
+	@Override
 	public IBezierCurve duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof IBezierCurve ? (IBezierCurve)sh : null;
@@ -68,14 +77,12 @@ class LBezierCurve extends LAbstractCtrlPointShape implements IBezierCurve {
 
 	@Override
 	public ILine getArrowLine(final IArrow arrow) {
+		if(getNbPoints()<2) return null;
 		final int index = arrows.indexOf(arrow);
-		final ILine line;
+		ILine line = null;
 
-		switch(index) {
-			case 0:		line = new LLine(points.get(0), firstCtrlPts.get(0)); break;
-			case 1:		line = new LLine(points.get(points.size()-1), firstCtrlPts.get(points.size()-1)); break;
-			default:	line = null; break;
-		}
+		if(index==0) line = new LLine(points.get(0), firstCtrlPts.get(0));
+		else if(index==getNbPoints()-1) line = new LLine(points.get(points.size()-1), firstCtrlPts.get(points.size()-1));
 
 		return line;
 	}
