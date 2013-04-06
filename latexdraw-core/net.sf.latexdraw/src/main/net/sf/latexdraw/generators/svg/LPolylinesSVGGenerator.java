@@ -118,9 +118,6 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		if(elt==null || (!(elt2 instanceof SVGPolyLineElement) && !(elt2 instanceof SVGLineElement)))
 			throw new IllegalArgumentException();
 
-		IArrow arrow1 	= shape.getArrowAt(0);
-		IArrow arrow2 	= shape.getArrowAt(1);
-
 		if(elt2 instanceof SVGPolyLineElement) {
 			setSVGModifiablePointsParameters((SVGPolyLineElement)elt2);
 		}else {
@@ -133,6 +130,8 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		setSVGLatexdrawParameters(elt);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
+		IArrow arrow1 	= shape.getArrowAt(0);
+		IArrow arrow2 	= shape.getArrowAt(-1);
 		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), elt2);
 		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), elt2);
 		homogeniseArrows(arrow1, arrow2);

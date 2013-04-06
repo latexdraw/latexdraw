@@ -229,7 +229,7 @@ class LArrowSVGGenerator {
 	protected void setArrow(final SVGPathElement path, final SVGMarkerElement elt, final IShape owner) {
 		final SVGPathSegList list	= path.getSegList();
 		final SVGPathSegMoveto m 	= (SVGPathSegMoveto)list.get(0);
-		final boolean isInverted    = arrow.getPosition()==arrow.getArrowLine().getPoint1() ? false : true;
+		final boolean isInverted    = arrow.isInverted();
 		final double lineWidth  	= owner.hasDbleBord() ? owner.getDbleBordSep() + 2.*owner.getThickness() : owner.getThickness();
 
 		if(list.size()==2 || list.size()==4) // It may be a bar or a bracket
