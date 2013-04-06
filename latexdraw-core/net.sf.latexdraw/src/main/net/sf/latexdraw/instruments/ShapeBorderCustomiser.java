@@ -17,6 +17,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
@@ -53,10 +54,10 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	protected MColorButton lineColButton;
 
 	/** Allows to change the style of the borders */
-	protected MComboBox<JLabel> lineCB;
+	protected LabelComboBox lineCB;
 
 	/** Allows to select the position of the borders of the shape. */
-	protected MComboBox<JLabel> bordersPosCB;
+	protected LabelComboBox bordersPosCB;
 
 	/** Allows to change the angle of the round corner. */
 	protected MSpinner frameArcField;
@@ -86,8 +87,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list of the different positions of the borders.
 	 * @return The created list.
 	 */
-	public static MComboBox<JLabel> createBordersPositionChoice() {
-		final MComboBox<JLabel> dbPositionChoice = new MComboBox<>();
+	public static LabelComboBox createBordersPositionChoice() {
+		final LabelComboBox dbPositionChoice = new LabelComboBox();
 		dbPositionChoice.setRenderer(new LabelListCellRenderer());
 
 		JLabel label = new JLabel(BorderPos.INTO.toString());
@@ -111,8 +112,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list of the different styles of line.
 	 * @return The created list.
 	 */
-	public static MComboBox<JLabel> createStyleLineChoice() {
-		final MComboBox<JLabel> lineChoice = new MComboBox<>();
+	public static LabelComboBox createStyleLineChoice() {
+		final LabelComboBox lineChoice = new LabelComboBox();
 
 		lineChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(LineStyle.SOLID.toString());

@@ -17,6 +17,7 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
@@ -58,7 +59,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	protected MColorButton gradEndColButton;
 
 	/** Changes the style of filling. */
-	protected MComboBox<JLabel> fillStyleCB;
+	protected LabelComboBox fillStyleCB;
 
 	/** Changes the mid point of the gradient. */
 	protected MSpinner gradMidPtField;
@@ -95,8 +96,8 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list that contains all kinds of hatchings.
 	 * @return A created list.
 	 */
-	public static MComboBox<JLabel> createFillingChoice() {
-		final MComboBox<JLabel> list = new MComboBox<>();
+	public static LabelComboBox createFillingChoice() {
+		final LabelComboBox list = new LabelComboBox();
 
 		list.setRenderer(new LabelListCellRenderer());
 

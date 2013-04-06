@@ -9,8 +9,8 @@
 	<classpathentry kind="lib" path="lib/PDFRenderer-0.9.1.jar"/>
 	<classpathentry kind="lib" path="lib/jlibeps.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="var" path="M2_REPO/org/malai/malai.core/0.2-SNAPSHOT/malai.core-0.2-SNAPSHOT.jar" sourcepath="/M2_REPO/org/malai/malai.core/0.2-SNAPSHOT/malai.core-0.2-SNAPSHOT-src.zip"/>
-	<classpathentry kind="var" path="M2_REPO/org/malai/malai.swing/0.2-SNAPSHOT/malai.swing-0.2-SNAPSHOT.jar" sourcepath="/M2_REPO/org/malai/malai.swing/0.2-SNAPSHOT/malai.swing-0.2-SNAPSHOT-src.zip"/>
+	<classpathentry kind="var" path="M2_REPO/org/malai/malai.core/1.0/malai.core-1.0.jar" sourcepath="/M2_REPO/org/malai/malai.core/1.0/malai.core-1.0-src.zip"/>
+	<classpathentry kind="var" path="M2_REPO/org/malai/malai.swing/1.0/malai.swing-1.0.jar" sourcepath="/M2_REPO/org/malai/malai.swing/1.0/malai.swing-1.0-src.zip"/>
 	<classpathentry kind="var" path="M2_REPO"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

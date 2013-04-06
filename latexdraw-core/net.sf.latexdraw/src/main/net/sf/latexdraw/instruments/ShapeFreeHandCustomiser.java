@@ -13,6 +13,7 @@ import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
@@ -42,7 +43,7 @@ import org.malai.swing.widget.MSpinner.MSpinnerNumberModel;
  */
 public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 	/** The type of the freehand. */
-	protected MComboBox<JLabel> freeHandType;
+	protected LabelComboBox freeHandType;
 
 	/** The gap to consider between the points. */
 	protected MSpinner gapPoints;
@@ -88,7 +89,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		freeHandType = new MComboBox<>();
+		freeHandType = new LabelComboBox();
 		freeHandType.setLabel(new JLabel(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.2")));
 		freeHandType.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(IFreehand.FreeHandType.CURVES.toString());

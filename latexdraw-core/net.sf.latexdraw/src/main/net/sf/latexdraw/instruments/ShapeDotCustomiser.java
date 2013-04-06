@@ -16,6 +16,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
@@ -48,7 +49,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	protected MSpinner dotSizeField;
 
 	/** Allows the selection of a dot shape. */
-	protected MComboBox<JLabel> dotCB;
+	protected LabelComboBox dotCB;
 
 	/** Changes the colour of the filling of the dot. */
 	protected MColorButton fillingB;
@@ -87,8 +88,8 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list of the different styles of the dot.
 	 * @return The created list.
 	 */
-	public static MComboBox<JLabel> createDotStyleChoice() {
-		final MComboBox<JLabel> dotChoice = new MComboBox<>();
+	public static LabelComboBox createDotStyleChoice() {
+		final LabelComboBox dotChoice = new LabelComboBox();
 
 		dotChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(DotStyle.DOT.toString());

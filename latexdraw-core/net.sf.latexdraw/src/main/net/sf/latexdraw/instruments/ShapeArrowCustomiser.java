@@ -16,6 +16,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
@@ -43,10 +44,10 @@ import org.malai.swing.widget.MSpinner;
  */
 public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	/** Allows to change the style of the left-end of the shape. */
-	protected MComboBox<JLabel> arrowLeftCB;
+	protected LabelComboBox arrowLeftCB;
 
 	/** Allows to change the style of the right-end of the shape. */
-	protected MComboBox<JLabel> arrowRightCB;
+	protected LabelComboBox arrowRightCB;
 
 	/** The field to set the dot size num parameter of arrows. */
 	protected MSpinner dotSizeNum;
@@ -140,8 +141,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list of the different styles of arrowhead (right).
 	 * @return The created list.
 	 */
-	public static MComboBox<JLabel> createRightArrowStyleList() {
-		final MComboBox<JLabel> lineArrowRChoice = new MComboBox<>();
+	public static LabelComboBox createRightArrowStyleList() {
+		final LabelComboBox lineArrowRChoice = new LabelComboBox();
 
 		lineArrowRChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(ArrowStyle.NONE.name());
@@ -206,8 +207,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	 * Creates a list of the different styles of arrowhead (left).
 	 * @return The created list.
 	 */
-	public static MComboBox<JLabel> createLeftArrowStyleList() {
-		final MComboBox<JLabel> lineArrowLChoice = new MComboBox<>();
+	public static LabelComboBox createLeftArrowStyleList() {
+		final LabelComboBox lineArrowLChoice = new LabelComboBox();
 
 		lineArrowLChoice.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(ArrowStyle.NONE.name());
@@ -302,7 +303,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 	protected void update(final IShape shape) {
 		if(shape!=null && shape.isArrowable()) {
 			final IArrow arr1 = shape.getArrowAt(0);
-			final IArrow arr2 = shape.getArrowAt(1);
+			final IArrow arr2 = shape.getArrowAt(-1);
 			final ArrowStyle arrStyle1 = arr1.getArrowStyle();
 			final ArrowStyle arrStyle2 = arr2.getArrowStyle();
 
