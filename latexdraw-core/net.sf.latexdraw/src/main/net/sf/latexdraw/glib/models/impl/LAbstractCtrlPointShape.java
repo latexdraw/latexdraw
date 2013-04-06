@@ -227,7 +227,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		final double ty = y - pt.getY();
 		super.setPoint(x, y, position);
 		getFirstCtrlPtAt(position).translate(tx, ty);
-		getSecondCtrlPtAt(position).setPoint(getFirstCtrlPtAt(position).centralSymmetry(getPtAt(position)));
+		getSecondCtrlPtAt(position).translate(tx, ty);
 
 		return true;
 	}

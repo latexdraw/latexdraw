@@ -372,8 +372,8 @@ class MultiClic2AddShape extends PencilLink<MultiClick> {
 		if(shape instanceof IModifiablePointsShape) {
 			final IModifiablePointsShape modShape = (IModifiablePointsShape)shape;
 			final IPoint pt = instrument.getAdaptedPoint(interaction.getPoints().get(0));
-			modShape.getPtAt(0).setPoint(pt);
-			modShape.getPtAt(1).setPoint(pt.getX()+1, pt.getY()+1);
+			modShape.setPoint(pt, 0);
+			modShape.setPoint(pt.getX()+1, pt.getY()+1, 1);
 		}
 	}
 
