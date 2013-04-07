@@ -54,7 +54,7 @@ public class SplashScreen extends JWindow {
 		super();
 
 		try {
-			if(lookAndFeel==null)
+			if(lookAndFeel==null || lookAndFeel.length()==0)
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 			else
 				UIManager.setLookAndFeel(lookAndFeel);
