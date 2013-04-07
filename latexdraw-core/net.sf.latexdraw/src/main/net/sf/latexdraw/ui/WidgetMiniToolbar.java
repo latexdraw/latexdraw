@@ -497,8 +497,13 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	 * @since 3.0
 	 */
 	public void update() {
-		if(buttonsFrame!=null)
+		if(buttonsFrame!=null) {
 			buttonsFrame.pack();
+			if(buttonsFrame.isVisible()) {
+				buttonsFrame.setVisible(false);
+				buttonsFrame.setVisible(true);
+			}
+		}
 	}
 
 
