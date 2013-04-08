@@ -59,7 +59,7 @@ class LArrowView implements IViewArrow {
 
 	@Override
 	public void paint(final Graphics2D g, final Color fColour, final boolean asShadow) {
-		if(model.getArrowStyle()==ArrowStyle.NONE) return ;
+		if(model.hasStyle()) return ;
 		final ILine arrowLine 	= model.getArrowLine();
 		if(arrowLine==null) return;
 		final IPoint pt1 		= arrowLine.getPoint1();
@@ -382,5 +382,17 @@ class LArrowView implements IViewArrow {
 			case ROUND_IN			: updatePathRoundIn(xRot, yRot, pt1, pt2); break;
 			case NONE				: break;
 		}
+	}
+
+
+	@Override
+	public IArrow getModel() {
+		return model;
+	}
+
+
+	@Override
+	public Path2D getPath() {
+		return path;
 	}
 }
