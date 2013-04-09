@@ -497,9 +497,9 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 			shape = drawing.getSelection().getShapeAt(0)
 			val rotAngle = shape.getRotationAngle
 			var pCentre = interaction.getStartObject.asInstanceOf[IHandler].getCentre
-			var pt = DrawingTK.getFactory.createPoint(instrument.canvas.getZoomedPoint(interaction.getStartPt))
-
+			var pt = DrawingTK.getFactory.createPoint(interaction.getStartPt)
 			gc = shape.getGravityCentre
+			gc = DrawingTK.getFactory.createPoint(gc.getX*instrument.canvas.getZoom, gc.getY*instrument.canvas.getZoom)
 
 			if(LNumber.INSTANCE.equals(rotAngle, 0))
 				isRotated = false
@@ -522,7 +522,7 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 
 
 	override def updateAction() {
-		var pt = DrawingTK.getFactory.createPoint(instrument.canvas.getZoomedPoint(interaction.getEndPt))
+		var pt = DrawingTK.getFactory.createPoint(interaction.getEndPt)
 
 		if(isRotated)
 			pt = pt.rotatePoint(gc, -shape.getRotationAngle)
