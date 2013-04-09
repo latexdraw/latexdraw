@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LNumber;
@@ -68,6 +70,16 @@ class LArc extends LEllipse implements IArc {
 
 
 	@Override
+	public ILine getArrowLine(final IArrow arrow) {
+		if(arrows.get(0)==arrow)
+			return getTangenteAt(startAngle, startAngle<Math.PI);
+		if(arrows.get(1)==arrow)
+			return getTangenteAt(endAngle, endAngle>=Math.PI);
+		return null;
+	}
+
+
+	@Override
 	public IArc duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof IArc ? (IArc)sh : null;
@@ -85,7 +97,6 @@ class LArc extends LEllipse implements IArc {
 			style			= arc.getArcStyle();
 		}
 	}
-
 
 
 	@Override
@@ -143,7 +154,7 @@ class LArc extends LEllipse implements IArc {
 
 	@Override
 	public boolean isArrowable() {
-		return false; //TODO getType()==ArcType.ARC;
+		return style==ArcStyle.ARC;
 	}
 
 

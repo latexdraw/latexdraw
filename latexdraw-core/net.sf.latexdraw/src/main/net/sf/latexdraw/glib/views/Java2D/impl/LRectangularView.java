@@ -110,7 +110,7 @@ abstract class LRectangularView<S extends IRectangularShape> extends LShapeView<
 	 * @param gap The value removed from the height and the width of the shape. Can equal 0.
 	 * @since 3.0
 	 */
-	private void updateGeneralPath(final double gap) {
+	protected void updateGeneralPath(final double gap) {
 		final IPoint tl 	= shape.getTopLeftPoint();
 		final IPoint br 	= shape.getBottomRightPoint();
 

@@ -576,8 +576,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 					g.draw(line);
 				}
 			}
-			else
-			{
+			else {
 				double incX = val/Math.cos(angle2);
 				double incY = val/Math.sin(angle2);
 				double maxX;

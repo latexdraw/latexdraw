@@ -5,6 +5,7 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc;
 import net.sf.latexdraw.util.LNumber;
 
@@ -38,10 +39,20 @@ class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 	}
 
 
-
 	@Override
 	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
 		setArcPath(path, tlx, tly, width, height, shape.getAngleStart(), shape.getAngleEnd(), getJava2DArcStyle());
+	}
+
+
+	@Override
+	protected void updateGeneralPathInside() {
+		updateGeneralPath(0);
+	}
+
+	@Override
+	protected void updateGeneralPathOutside() {
+		updateGeneralPath(0);
 	}
 
 
@@ -74,54 +85,31 @@ class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 	 * @param style The style of the arc. See Arc2D.OPEN etc.
 	 * @since 3.0
 	 */
-	public static void setArcPath(final Path2D path, final double tlx, final double tly, final double width, final double height, final double startAngle,
+	public void setArcPath(final Path2D path, final double tlx, final double tly, final double width, final double height, final double startAngle,
 									final double endAngle, final int style) {
 		if(path!=null) {
 			final double w2 = Math.max(1., width);
 			final double h2 = Math.max(1., height);
-			double sAngle = Math.toDegrees(startAngle%(Math.PI*2.));
-			double eAngle = Math.toDegrees(endAngle%(Math.PI*2.));
+			double sAngle = startAngle;
+			double eAngle = endAngle;
+
+			if(shape.isArrowable()) {
+				IArrow arr = shape.getArrowAt(1);
+				if(arr.getArrowStyle().isReducingShape())
+					eAngle-=Math.atan(arr.getArrowShapeLength()/w2);
+				arr = shape.getArrowAt(0);
+				if(arr.getArrowStyle().isReducingShape())
+					sAngle+=Math.atan(arr.getArrowShapeLength()/w2);
+			}
+
+			sAngle = Math.toDegrees(sAngle%(Math.PI*2.));
+			eAngle = Math.toDegrees(eAngle%(Math.PI*2.));
 
 			if(LNumber.INSTANCE.equals(sAngle, eAngle))
 				eAngle += 0.1;
 
-			path.append(new Arc2D.Double(tlx, tly, w2, h2, sAngle<eAngle ? sAngle : eAngle, eAngle>sAngle ? eAngle-sAngle : sAngle-eAngle, style), false);
+			final double end = sAngle>eAngle ? 360.-sAngle+eAngle : eAngle-sAngle;
+			path.append(new Arc2D.Double(tlx, tly, w2, h2, sAngle, end, style), false);
 		}
 	}
-
-//
-//	/**
-//	 * Sets the starting or ending angle of the arc.
-//	 * @param isStartAngle True: the starting angle will be set. Otherwise it is the ending angle.
-//	 * @param pos The new position of the angle.
-//	 * @since 3.0
-//	 */
-//	public void setAngle(boolean isStartAngle, IPoint pos)
-//	{
-//		if(!GLibUtilities.INSTANCE.isValidPoint(pos))
-//			return ;
-//
-//		IArc arc = (IArc)shape;
-//
-//		ILine line = new LLine(arc.getGravityCentre(), pos);
-//		IPoint[] inters = arc.getIntersection(line);
-//
-//		if(inters==null)
-//			return ;
-//
-//		IPoint inter = inters.length==1 ? inters[0] :
-//					   inters[0].distance(pos)<inters[1].distance(pos) ? inters[0] : inters[1];
-//
-//		double angle = Math.acos((inter.getX()-arc.getGravityCentre().getX())/arc.getA());
-//
-//		if(pos.getY()>arc.getGravityCentre().getY())
-//			angle = 2*Math.PI - angle;
-//
-//		if(isStartAngle)
-//			arc.setAngleStart(angle);
-//		else
-//			arc.setAngleEnd(angle);
-//
-//		update();
-//	}
 }

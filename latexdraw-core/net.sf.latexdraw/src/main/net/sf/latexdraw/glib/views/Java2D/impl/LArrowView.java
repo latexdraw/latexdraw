@@ -59,7 +59,7 @@ class LArrowView implements IViewArrow {
 
 	@Override
 	public void paint(final Graphics2D g, final Color fColour, final boolean asShadow) {
-		if(model.hasStyle()) return ;
+		if(!model.hasStyle()) return ;
 		final ILine arrowLine 	= model.getArrowLine();
 		if(arrowLine==null) return;
 		final IPoint pt1 		= arrowLine.getPoint1();

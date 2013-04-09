@@ -43,7 +43,7 @@ class PSTArcView extends PSTClassicalView<IArc> {
 		if(!GLibUtilities.INSTANCE.isValidPoint(origin) || ppc<1)
 			return ;
 
-		emptyCache();//TODO arrows
+		emptyCache();
 
 		double radiusX 		= shape.getRx();
 		double radiusY 		= shape.getRy();
@@ -56,6 +56,7 @@ class PSTArcView extends PSTClassicalView<IArc> {
 		StringBuilder end 	= new StringBuilder();
 		StringBuilder params = getPropertiesCode(ppc);
 		StringBuilder rotation = getRotationHeaderCode(ppc, origin);
+		StringBuilder arrowsStyle = getArrowsStyleCode();
 
 		if(startAngle>endAngle) {
 			double tmp 	= startAngle;
@@ -101,7 +102,10 @@ class PSTArcView extends PSTClassicalView<IArc> {
 		}
 
 		cache.append(start);
-		cache.append('[').append(params).append(']').append('(');
+		cache.append('[').append(params).append(']');
+		if(arrowsStyle!=null)
+			cache.append(arrowsStyle);
+		cache.append('(');
 		cache.append((float)LNumber.INSTANCE.getCutNumber(x/ppc)).append(',');
 		cache.append((float)LNumber.INSTANCE.getCutNumber(y/ppc)).append(')').append('{');
 		cache.append((float)LNumber.INSTANCE.getCutNumber(radiusX/ppc)).append('}').append('{');
