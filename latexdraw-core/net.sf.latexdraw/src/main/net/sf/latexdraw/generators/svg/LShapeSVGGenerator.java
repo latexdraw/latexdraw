@@ -180,7 +180,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 			arrowSVG.setAttribute(SVGAttributes.SVG_ID, arrowName);
 			defs.appendChild(arrowSVG);
-			parent.setAttribute(arrowPos%2==0 ? SVGAttributes.SVG_MARKER_START : SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrowName + ')');
+			parent.setAttribute(arrowPos==0 ? SVGAttributes.SVG_MARKER_START : SVGAttributes.SVG_MARKER_END, SVG_URL_TOKEN_BEGIN + arrowName + ')');
 		}
 	}
 

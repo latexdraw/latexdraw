@@ -192,7 +192,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
 		setSVGArrow(elt, 0, false, doc, defs);
-		setSVGArrow(elt, 1, false, doc, defs);
+		setSVGArrow(elt, shape.getArrows().size()-1, false, doc, defs);
 
 		return root;
 	}
