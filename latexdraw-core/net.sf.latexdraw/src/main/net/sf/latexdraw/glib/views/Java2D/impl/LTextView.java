@@ -135,18 +135,19 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		final Image image = FlyweightThumbnail.getImage(this);
 		final double scale = FlyweightThumbnail.scaleImage();
 
-		switch(shape.getTextPosition()) {
-			case BOT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY()-image.getHeight(null)/scale);
-			case TOP : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY());
-			case BOT_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY()-image.getHeight(null)/scale);
-			case TOP_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY());
-			case BOT_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY()-image.getHeight(null)/scale);
-			case TOP_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY());
-			case LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY()-image.getHeight(null)/scale/2.);
-			case RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY()-image.getHeight(null)/scale/2.);
-			case BASE: case BASE_LEFT: case BASE_RIGHT:
-			case CENTER : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY()-image.getHeight(null)/scale/2.);
-		}
+		if(image!=null)
+			switch(shape.getTextPosition()) {
+				case BOT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY()-image.getHeight(null)/scale);
+				case TOP : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY());
+				case BOT_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY()-image.getHeight(null)/scale);
+				case TOP_LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY());
+				case BOT_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY()-image.getHeight(null)/scale);
+				case TOP_RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY());
+				case LEFT : return DrawingTK.getFactory().createPoint(shape.getX(), shape.getY()-image.getHeight(null)/scale/2.);
+				case RIGHT : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY()-image.getHeight(null)/scale/2.);
+				case BASE: case BASE_LEFT: case BASE_RIGHT:
+				case CENTER : return DrawingTK.getFactory().createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY()-image.getHeight(null)/scale/2.);
+			}
 
 		return null;
 	}
