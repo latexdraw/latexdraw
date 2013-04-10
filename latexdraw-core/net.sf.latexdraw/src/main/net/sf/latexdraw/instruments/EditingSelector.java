@@ -146,7 +146,6 @@ public class EditingSelector extends WidgetInstrument {
 		codeInserter.setActivated(false);
 		hand.setActivated(true);
 		pencil.setActivated(false);
-		metaShapeCustomiser.setActivated(false);
 	}
 
 

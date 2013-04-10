@@ -64,7 +64,7 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 
 
 	@Override
-	public void onActionExecuted(final Action action) {
+	public void onActionDone(final Action action) {
 		update();
 	}
 

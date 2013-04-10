@@ -219,7 +219,6 @@ public class UIBuilder extends UIComposer<LFrame> {
 		widget.hand.setActivated(true);
 		widget.pencil.setActivated(false);
 		widget.deleter.setActivated(false);
-		widget.metaShapeCustomiser.setActivated(false);
 		widget.undoManager.setActivated(true);
 		widget.zoomer.setActivated(true);
 		widget.fileLoader.setActivated(true);
