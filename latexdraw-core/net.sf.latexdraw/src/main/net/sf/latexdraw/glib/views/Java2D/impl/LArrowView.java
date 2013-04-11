@@ -119,7 +119,7 @@ class LArrowView implements IViewArrow {
 
 
 	protected void paintBarBracket(final Graphics2D g, final Color lineColor) {
-		g.setStroke(new BasicStroke((float)model.getShape().getThickness(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
+		g.setStroke(new BasicStroke((float)model.getShape().getFullThickness(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
 		g.setColor(lineColor);
 		g.draw(path);//FIXME in v2, the stroke was changed there for brackets.
 	}
@@ -140,28 +140,25 @@ class LArrowView implements IViewArrow {
 			case RIGHT_DBLE_ARROW		:
 			case RIGHT_ARROW			:
 			case LEFT_ARROW				: paintArrow(g, lineColor); break;
-			case BAR_END				:
-				g.setColor(lineColor);
-				g.draw(path);
-				break;
 			case CIRCLE_END				:
 			case CIRCLE_IN				: paintCircle(g, fillColor, lineColor); break;
 			case DISK_END				:
 			case DISK_IN				: paintDisk(g, lineColor); break;
 			case LEFT_ROUND_BRACKET		:
 			case RIGHT_ROUND_BRACKET	: paintRoundBracket(g, lineColor); break;
+			case BAR_END				:
 			case BAR_IN					:
 			case LEFT_SQUARE_BRACKET	:
 			case RIGHT_SQUARE_BRACKET	: paintBarBracket(g, lineColor); break;
 			case ROUND_IN				:
 			case ROUND_END				:
 				g.setColor(lineColor);
-				g.setStroke(new BasicStroke((float)model.getShape().getThickness(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+				g.setStroke(new BasicStroke((float)model.getShape().getFullThickness(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 				g.draw(path);
 				break;
 			case SQUARE_END				:
 				g.setColor(lineColor);
-				g.setStroke(new BasicStroke((float)model.getShape().getThickness(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+				g.setStroke(new BasicStroke((float)model.getShape().getFullThickness(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 				g.draw(path);
 				break;
 			case NONE: break;
@@ -172,7 +169,7 @@ class LArrowView implements IViewArrow {
 	protected void updatePathDiskCircleEnd(final double xRot, final double yRot) {
 		final double lineWidth	 = model.getShape().getThickness();
 		final double arrowRadius = model.getRoundShapedArrowRadius();
-		LEllipseView.setEllipsePath(path, xRot - arrowRadius+lineWidth/2., yRot - arrowRadius+lineWidth/2., arrowRadius*2-lineWidth, arrowRadius*2-lineWidth);
+		LEllipseView.setEllipsePath(path, xRot - arrowRadius+lineWidth/2., yRot - arrowRadius+lineWidth/2., arrowRadius*2.-lineWidth, arrowRadius*2.-lineWidth);
 	}
 
 
@@ -183,9 +180,9 @@ class LArrowView implements IViewArrow {
 		double x			 	 = xRot+lineWidth/2.;
 
 		if(!isArrowInPositiveDirection(pt1, pt2))
-			x -=2*arrowRadius;
+			x -=2.*arrowRadius;
 
-		LEllipseView.setEllipsePath(path, x, yRot-arrowRadius+lineWidth/2., arrowRadius*2-lineWidth, arrowRadius*2-lineWidth);
+		LEllipseView.setEllipsePath(path, x, yRot-arrowRadius+lineWidth/2., arrowRadius*2.-lineWidth, arrowRadius*2.-lineWidth);
 	}
 
 
@@ -194,8 +191,8 @@ class LArrowView implements IViewArrow {
 		final boolean invert	= model.isInverted();
 		final double[] xs 		= new double[2];
 		final double[] ys 		= new double[2];
-		final double lineWidth	= model.getShape().getThickness();
-		double lgth 			= model.getBracketShapedArrowLength();
+		final double lineWidth	= model.getShape().getFullThickness();
+		double lgth 			= model.getBracketShapedArrowLength()+model.getShape().getFullThickness()/2.;
 		double x				= xRot;
 
 		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert))
@@ -211,7 +208,6 @@ class LArrowView implements IViewArrow {
 		path.moveTo(xs[1], ys[1]-lineWidth/2.);
 		path.lineTo(x4, ys[1]-lineWidth/2.);
 	}
-
 
 
 	protected void updatePathBarIn(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2, final double[] xs, final double[] ys) {
@@ -277,7 +273,7 @@ class LArrowView implements IViewArrow {
 		final double width 		= model.getBarShapedArrowWidth();
 		final double lgth  		= model.getRBracketNum()*width;
 		final double xarc  		= model.isInverted() ? xRot : xRot+model.getShape().getThickness()/2.;
-		final double widtharc 	= lgth*2 + (invert ? model.getShape().getThickness()/2. : 0.);
+		final double widtharc 	= lgth*2. + (invert ? model.getShape().getThickness()/2. : 0.);
 		Shape s = new Arc2D.Double(xarc, yRot-width/2., widtharc, width, 130, 100, Arc2D.OPEN);
 
 		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert)) {
@@ -311,9 +307,9 @@ class LArrowView implements IViewArrow {
 		}
 
 		updatePathArrow(x, yRot, x+length, yRot-width/2., x+length-inset, yRot, x+length, yRot+width/2.);
-		updatePathArrow(x+length, yRot, x+2*length, yRot-width/2., x+2*length-inset, yRot, x+2*length, yRot+width/2.);
+		updatePathArrow(x+length, yRot, x+2.*length, yRot-width/2., x+2.*length-inset, yRot, x+2.*length, yRot+width/2.);
 		final double x2 	= x+length-inset;
-		final double x2bis 	= x+2*length-inset;
+		final double x2bis 	= x+2.*length-inset;
 
 		path.lineTo(x2, yRot);
 		path.moveTo(x2bis, yRot);
@@ -322,14 +318,14 @@ class LArrowView implements IViewArrow {
 
 
 	protected void updatePathSquareRoundEnd(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
-		path.lineTo(pt1.getX()<pt2.getX() ? xRot+1 : xRot-1, yRot);
+		path.lineTo(pt1.getX()<pt2.getX() ? xRot+1. : xRot-1., yRot);
 		path.moveTo(xRot, yRot);
 	}
 
 
 
 	protected void updatePathRoundIn(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
-		final double lineWidth 	= isArrowInPositiveDirection(pt1, pt2) ? model.getShape().getThickness() : -model.getShape().getThickness();
+		final double lineWidth 	= isArrowInPositiveDirection(pt1, pt2) ? model.getShape().getFullThickness() : -model.getShape().getFullThickness();
 		final double x 			= xRot+lineWidth/2.;
 
 		path.moveTo(x, yRot);

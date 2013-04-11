@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
@@ -122,13 +121,13 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getRoundShapedArrowRadius() {
-		return (dotSizeDim+dotSizeNum*owner.getThickness())/2.;
+		return (dotSizeDim+dotSizeNum*owner.getFullThickness())/2.;
 	}
 
 
 	@Override
 	public double getBarShapedArrowWidth() {
-		return tBarSizeDim + tBarSizeNum*owner.getThickness();
+		return tBarSizeDim + tBarSizeNum*owner.getFullThickness();
 	}
 
 
@@ -145,7 +144,7 @@ class LArrow implements IArrow {
 			case RIGHT_ARROW:
 			case LEFT_DBLE_ARROW:
 			case RIGHT_DBLE_ARROW: return getArrowShapedWidth()*arrowLength;
-			case ROUND_IN: return (getDotSizeDim()+getDotSizeNum()*owner.getThickness())/2.;
+			case ROUND_IN: return (getDotSizeDim()+getDotSizeNum()*owner.getFullThickness())/2.;
 			case LEFT_SQUARE_BRACKET:
 			case RIGHT_SQUARE_BRACKET: return bracketNum*getBarShapedArrowWidth();
 			default: return 0;//TODO
@@ -155,7 +154,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getArrowShapedWidth() {
-		return arrowSizeNum*(owner.hasDbleBord() ? owner.getThickness()*2. + owner.getDbleBordSep() : owner.getThickness())+arrowSizeDim;
+		return arrowSizeNum*owner.getFullThickness()+arrowSizeDim;
 	}
 
 
@@ -202,12 +201,6 @@ class LArrow implements IArrow {
 	@Override
 	public double getDotSizeNum() {
 		return dotSizeNum;
-	}
-
-	@Override
-	public IPoint getPosition() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

@@ -178,6 +178,12 @@ abstract class LShape implements IShape {
 
 
 	@Override
+	public double getFullThickness() {
+		return isDbleBorderable() && hasDbleBord() ? getThickness()*2.+getDbleBordSep() : getThickness();
+	}
+
+
+	@Override
 	public void copy(final IShape s) {
 		if(s==null)
 			return ;
@@ -237,6 +243,12 @@ abstract class LShape implements IShape {
 
 		for(final IPoint pt : sh.getPoints())
 			points.add(new LPoint(pt));
+
+		if(isArrowable()) {
+			arrows.clear();
+			for(final IArrow arr : sh.getArrows())
+				arrows.add(new LArrow(arr, this));
+		}
 	}
 
 

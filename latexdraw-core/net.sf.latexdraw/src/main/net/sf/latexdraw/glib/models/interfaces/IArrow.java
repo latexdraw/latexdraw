@@ -306,12 +306,6 @@ public interface IArrow extends IArrowable {
 	double getArrowShapeLength();
 
 	/**
-	 * @return The position of the arrow head.
-	 * @since 3.0
-	 */
-	IPoint getPosition();
-
-	/**
 	 * @return The style of the arrow.
 	 * @since 3.0
 	 */
