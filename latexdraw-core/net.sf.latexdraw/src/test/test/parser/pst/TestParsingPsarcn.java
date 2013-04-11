@@ -53,8 +53,8 @@ public class TestParsingPsarcn extends TestParsingPsarc {
 	@Test
 	public void testParamBarInSqureBracket() throws ParseException {
 		ICircleArc line = (ICircleArc)parser.parsePSTCode("\\"+getCommandName()+"{|-]}{1}{30}{40}").get().getShapeAt(0);
-		assertEquals(ArrowStyle.RIGHT_SQUARE_BRACKET, line.getArrowStyle(0));
-		assertEquals(ArrowStyle.BAR_IN, line.getArrowStyle(1));
+		assertEquals(ArrowStyle.BAR_IN, line.getArrowStyle(0));
+		assertEquals(ArrowStyle.RIGHT_SQUARE_BRACKET, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
