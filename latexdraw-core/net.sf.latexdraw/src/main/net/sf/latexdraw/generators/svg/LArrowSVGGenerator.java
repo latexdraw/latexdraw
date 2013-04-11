@@ -3,7 +3,6 @@ package net.sf.latexdraw.generators.svg;
 import java.util.Objects;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -62,28 +61,12 @@ class LArrowSVGGenerator {
 
 
 	/**
-	 * Creates an SVG-arrowhead generator using an SVGMarkerElement.
-	 * @param elt The SVGMarkerElement uses to creates the arrow.
-	 * @param owner The shape that has the arrow.
-	 */
-	public LArrowSVGGenerator(final SVGMarkerElement elt, final IShape owner) {
-		this(DrawingTK.getFactory().createArrow(owner));
-
-		if(elt==null)
-			throw new IllegalArgumentException();
-
-		setArrow(elt, owner);
-	}
-
-
-
-	/**
 	 * Initialises the arrow using an SVGMarkerElement.
 	 * @param elt The SVGMarkerElement uses to initialise the arrow.
 	 * @param owner The figure the has the arrow.
 	 * @since 2.0.0
 	 */
-	protected void setArrow(final SVGMarkerElement elt, final IShape owner) {
+	protected void setArrow(final SVGMarkerElement elt, final IShape owner, final String svgMarker) {
 		SVGNodeList nl = elt.getChildren(SVGElements.SVG_PATH);
 
 		if(nl.getLength()==0) {
@@ -93,7 +76,7 @@ class LArrowSVGGenerator {
 				setArrow((SVGCircleElement)nl.item(0), elt, owner);
 		}
 		else
-			setArrow((SVGPathElement)nl.item(0), elt, owner);
+			setArrow((SVGPathElement)nl.item(0), elt, owner, svgMarker);
 	}
 
 
@@ -141,10 +124,11 @@ class LArrowSVGGenerator {
 
 
 	private void setArrowBarBracket(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final SVGPathSeg seg,
-									final SVGMarkerElement elt, final SVGPathSegList list, final boolean isInverted) {
+									final SVGMarkerElement elt, final SVGPathSegList list, final String svgMarker) {
 		String tbarNumStr = path.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_TBAR_SIZE_NUM);
 		double tbarNum;
 		double y = Math.abs(m.getY());
+		final boolean isStartArrow = SVGAttributes.SVG_MARKER_START.equals(svgMarker);
 
 		if(tbarNumStr==null)
 			tbarNum = 1.;
@@ -164,8 +148,9 @@ class LArrowSVGGenerator {
 			double width  = (arrow.getTBarSizeDim() + arrow.getTBarSizeNum()*lineWidth)/lineWidth;
 			double rBrack = (Math.abs(m.getX())-0.5)/width;
 
-			arrow.setArrowStyle(LNumber.INSTANCE.equals(Math.abs(m.getX()), 0.5) ? isInverted ? ArrowStyle.LEFT_ROUND_BRACKET : ArrowStyle.RIGHT_ROUND_BRACKET :
-									isInverted ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
+			arrow.setArrowStyle(LNumber.INSTANCE.equals(Math.abs(m.getX()), 0.5) ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
+			if(!isStartArrow)
+				arrow.setArrowStyle(arrow.getArrowStyle().getOppositeArrowStyle());
 			arrow.setRBracketNum(rBrack);
 		}
 		else // It may be a bracket.
@@ -181,7 +166,7 @@ class LArrowSVGGenerator {
 
 
 	private void setArrowArrow(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final SVGPathSeg seg,
-							   final SVGPathSegList list, final boolean isInverted) {
+							   final SVGPathSegList list, final String svgMarker) {
 		if(!(seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto &&
 				list.get(3) instanceof SVGPathSegLineto && list.get(4) instanceof SVGPathSegClosePath))
 				return ;
@@ -190,6 +175,7 @@ class LArrowSVGGenerator {
 			double arrNum, arrDim;
 			final double lgth = Math.abs(((SVGPathSegLineto)seg).getX() - m.getX());
 			final boolean moveIs0 = LNumber.INSTANCE.equals(m.getX(),0.) && LNumber.INSTANCE.equals(m.getY(),0.);
+			final boolean isStartArrow = SVGAttributes.SVG_MARKER_START.equals(svgMarker);
 
 			if(arrNumStr==null)
 				arrNum = 1.;
@@ -200,16 +186,13 @@ class LArrowSVGGenerator {
 					arrNum = 1.;
 				}
 
-			if(isInverted)
-				if(list.size()==10)
-					arrow.setArrowStyle(moveIs0 ? ArrowStyle.RIGHT_DBLE_ARROW : ArrowStyle.LEFT_DBLE_ARROW);
-				else
-					arrow.setArrowStyle(moveIs0 ? ArrowStyle.RIGHT_ARROW : ArrowStyle.LEFT_ARROW);
+			if(list.size()==10)
+				arrow.setArrowStyle(moveIs0 ? ArrowStyle.LEFT_DBLE_ARROW : ArrowStyle.RIGHT_DBLE_ARROW);
 			else
-				if(list.size()==10)
-					arrow.setArrowStyle(moveIs0 ? ArrowStyle.LEFT_DBLE_ARROW : ArrowStyle.RIGHT_DBLE_ARROW);
-				else
-					arrow.setArrowStyle(moveIs0 ? ArrowStyle.LEFT_ARROW : ArrowStyle.RIGHT_ARROW);
+				arrow.setArrowStyle(moveIs0 ? ArrowStyle.LEFT_ARROW : ArrowStyle.RIGHT_ARROW);
+
+			if(!isStartArrow)
+				arrow.setArrowStyle(arrow.getArrowStyle().getOppositeArrowStyle());
 
 			arrDim = lineWidth*(((SVGPathSegLineto)seg).getY()*2. - arrNum);
 			arrow.setArrowLength(lgth/((arrNum*lineWidth + arrDim)/lineWidth));
@@ -226,16 +209,15 @@ class LArrowSVGGenerator {
 	 * @param owner The shape that has the arrow.
 	 * @since 2.0.0
 	 */
-	protected void setArrow(final SVGPathElement path, final SVGMarkerElement elt, final IShape owner) {
+	protected void setArrow(final SVGPathElement path, final SVGMarkerElement elt, final IShape owner, final String svgMarker) {
 		final SVGPathSegList list	= path.getSegList();
 		final SVGPathSegMoveto m 	= (SVGPathSegMoveto)list.get(0);
-		final boolean isInverted    = arrow.isInverted();
 		final double lineWidth  	= owner.hasDbleBord() ? owner.getDbleBordSep() + 2.*owner.getThickness() : owner.getThickness();
 
 		if(list.size()==2 || list.size()==4) // It may be a bar or a bracket
-			setArrowBarBracket(path, m, lineWidth, list.get(1), elt, list, isInverted);
+			setArrowBarBracket(path, m, lineWidth, list.get(1), elt, list, svgMarker);
 		else if(list.size()==5 || list.size()==10)// It may be an arrow or a double arrow
-			setArrowArrow(path, m, lineWidth, list.get(1), list, isInverted);
+			setArrowArrow(path, m, lineWidth, list.get(1), list, svgMarker);
 	}
 
 

@@ -362,12 +362,12 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param elt An element of the SVG document (useful to get the defs of the document).
 	 * @since 2.0.0
 	 */
-	protected void setSVGArrow(final IArrow ah, final String arrowID, final SVGElement elt) {
+	protected void setSVGArrow(final IArrow ah, final String arrowID, final SVGElement elt, final String svgMarker) {
 		if(ah==null || arrowID==null || elt==null)
 			return ;
 
 		final LArrowSVGGenerator arrGen = new LArrowSVGGenerator(ah);
-		arrGen.setArrow((SVGMarkerElement)elt.getDef(new URIReferenceParser(arrowID).getURI()), getShape());
+		arrGen.setArrow((SVGMarkerElement)elt.getDef(new URIReferenceParser(arrowID).getURI()), getShape(), svgMarker);
 	}
 
 

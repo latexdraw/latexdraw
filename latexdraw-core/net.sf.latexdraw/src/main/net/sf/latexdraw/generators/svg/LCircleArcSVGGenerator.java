@@ -108,8 +108,8 @@ class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
 
 		setNumber(elt);
 		setSVGParameters(main);
-		setSVGArrow(arr1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main);
-		setSVGArrow(arr2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main);
+		setSVGArrow(arr1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main, SVGAttributes.SVG_MARKER_START);
+		setSVGArrow(arr2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main, SVGAttributes.SVG_MARKER_END);
 		homogeniseArrows(arr1, arr2);
 		setSVGLatexdrawParameters(elt);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));

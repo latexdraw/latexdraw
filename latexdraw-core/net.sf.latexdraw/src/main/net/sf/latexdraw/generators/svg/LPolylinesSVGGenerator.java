@@ -132,8 +132,8 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
 		IArrow arrow1 	= shape.getArrowAt(0);
 		IArrow arrow2 	= shape.getArrowAt(-1);
-		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), elt2);
-		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), elt2);
+		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), elt2, SVGAttributes.SVG_MARKER_START);
+		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), elt2, SVGAttributes.SVG_MARKER_END);
 		homogeniseArrows(arrow1, arrow2);
 
 		if(withTransformation)
