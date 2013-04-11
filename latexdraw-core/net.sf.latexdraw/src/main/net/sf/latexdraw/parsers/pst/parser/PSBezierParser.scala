@@ -51,7 +51,7 @@ trait PSBezierParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 			bezier.getFirstCtrlPtAt(0).setPoint(transformPointTo2DScene(listPts(1), ctx))
 
 		setShapeParameters(bezier, ctx)
-		setArrows(bezier, arrowRaw, false)
+		setArrows(bezier, arrowRaw, false, ctx)
 		bezier.updateSecondControlPoints
 
 		if(cmdName.endsWith("*"))

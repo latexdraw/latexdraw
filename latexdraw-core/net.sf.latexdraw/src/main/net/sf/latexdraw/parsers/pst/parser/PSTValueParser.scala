@@ -152,17 +152,18 @@ trait PSTValueParser extends PSTNumberParser {
 
 
 
-	def setArrows(sh : IShape, arrowsRaw : Option[String], invert : Boolean) {
+	def setArrows(sh : IShape, arrowsRaw : Option[String], invert : Boolean, ctx:PSTContext) {
 		arrowsRaw match {
 			case Some(value) =>
 				val arrows = parseValueArrows(value)
 				if(arrows.isDefined) {
+					ctx.arrowStyle = arrows.get
 					if(invert) {
 						sh.setArrowStyle(arrows.get._2, 0)
-						sh.setArrowStyle(arrows.get._1, 1)
+						sh.setArrowStyle(arrows.get._1, -1)
 					}else {
 						sh.setArrowStyle(arrows.get._1, 0)
-						sh.setArrowStyle(arrows.get._2, 1)
+						sh.setArrowStyle(arrows.get._2, -1)
 					}
 				}
 			case None =>

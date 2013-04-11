@@ -66,7 +66,7 @@ trait PSLineParser extends PSTAbstractParser
 
 		setShapeParameters(line, ctx)
 
-		setArrows(line, arrows, false)
+		setArrows(line, arrows, false, ctx)
 
 		if(hasStar)
 			setShapeForStar(line)

@@ -164,7 +164,7 @@ trait PSWedgeArcParser extends PSTAbstractParser
 			arc.setRx(scala.math.abs(radius*IShape.PPC))
 			arc.setCentre(transformPointTo2DScene(pos, ctx))
 			arc.setArcStyle(arcType)
-			setArrows(arc, arrows, inverted)
+			setArrows(arc, arrows, inverted, ctx)
 			setShapeParameters(arc, ctx)
 			if(hasStar)
 				setShapeForStar(arc)
