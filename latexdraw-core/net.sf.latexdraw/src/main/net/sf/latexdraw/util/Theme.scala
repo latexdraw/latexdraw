@@ -61,7 +61,11 @@ object Theme {
 	def platformLnF : String = {
 		LSystem.INSTANCE.isLinux match {
 			case true => "com.sun.java.swing.plaf.gtk.GTKLookAndFeel" //$NON-NLS-1$
-			case false => UIManager.getCrossPlatformLookAndFeelClassName
+			case false => 
+			   LSystem.INSTANCE.isMacOSX match {
+			     case true => "com.apple.laf.AquaLookAndFeel"
+			     case false => UIManager.getCrossPlatformLookAndFeelClassName
+			   } 
 		}
 	}
 

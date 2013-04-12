@@ -37,6 +37,7 @@ import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LSystem;
+import net.sf.latexdraw.util.Theme;
 import net.sf.latexdraw.util.VersionChecker;
 
 import org.malai.instrument.Instrument;
@@ -218,12 +219,19 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
   		final UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
   		final String[] nameThemes = new String[info.length];
-
-  		for(int i=0; i<info.length;i++)
+  		final String lnf = Theme.lookAndFeel();
+  		String nameLnf = null;
+  		
+  		for(int i=0; i<info.length;i++) {
   			nameThemes[i] = info[i].getName();
+  			if(info[i].getClassName().equals(lnf))
+  				nameLnf = nameThemes[i];
+  		}
 
   		themeList = new MComboBox<>(nameThemes, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1")));
   		themeList.setMaximumSize(new Dimension(160, height));
+  		if(nameLnf!=null)
+  			themeList.setSelectedItem(nameLnf);
 
   		classicGridRB  		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.4")); //$NON-NLS-1$
   		classicGridRB.setSelected(false);
