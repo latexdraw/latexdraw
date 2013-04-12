@@ -1,14 +1,21 @@
 package net.sf.latexdraw.util;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URL;
-import java.util.Objects;
 
-import javax.swing.JLabel;
+import javax.swing.JButton;
+
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.ui.UIBuilder;
+
+import org.malai.action.library.OpenWebPage;
 
 /**
  * This class allows to check if a new version of LaTeXDraw is out. This class is a child of Thread
@@ -35,10 +42,10 @@ public class VersionChecker extends Thread {
 	/** The version of the application */
 	public final static String VERSION   = "3.0.0";//$NON-NLS-1$
 
-	public final static String VERSION_STABILITY = "beta 1"; //$NON-NLS-1$
+	public final static String VERSION_STABILITY = ""; //$NON-NLS-1$
 
 	/** The identifier of the build */
-	public static final String ID_BUILD = "20130331";//$NON-NLS-1$
+	public static final String ID_BUILD = "20130505";//$NON-NLS-1$
 
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;
@@ -47,17 +54,19 @@ public class VersionChecker extends Thread {
     public static final String PATH_MSG = "http://latexdraw.sourceforge.net/news.txt"; //$NON-NLS-1$
 
     /** The field where messages will be displayed. */
-    protected JLabel notificationTextField;
+    protected JButton buttonUpdate;
+
+    /** The composer of the application. */
+    protected UIBuilder builder;
 
 
 	/**
 	 * Creates the version checker.
-	 * @param notificationTextField The field where messages will be displayed.
-	 * @throws IllegalArgumentException If notificationTextField is null.
+	 * @param builder The composer of the application.
 	 */
-	public VersionChecker(final JLabel notificationTextField) {
+	public VersionChecker(final UIBuilder builder) {
 		super();
-		this.notificationTextField = Objects.requireNonNull(notificationTextField);
+		this.builder = builder;
 	}
 
 
@@ -79,9 +88,26 @@ public class VersionChecker extends Thread {
 	  			final String line = br.readLine();
 				final String[] div = line==null ? null : line.split("_"); //$NON-NLS-1$
 
-				if(div!=null && div.length>3 && div[3].compareTo(VERSION)>0)
-					notificationTextField.setText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" +
+				if(div!=null && div.length>3 && div[3].compareTo(VERSION)>0) {
+					buttonUpdate = new JButton(LResources.UPDATE_ICON);
+					buttonUpdate.setToolTipText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" +
 												"Version" + ' ' + div[3]+ ' ' + "available!" + "</html>");
+					buttonUpdate.setVisible(true);
+					buttonUpdate.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(final ActionEvent evt) {
+							try {
+								OpenWebPage action = new OpenWebPage();
+								action.setUri(new URI("http://latexdraw.sourceforge.net/"));
+								if(action.canDo())
+									action.doIt();
+								action.flush();
+								buttonUpdate.setVisible(false);
+							}catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
+						}
+					});
+					builder.getToolbar().add(buttonUpdate);
+				}
 			}
 		}catch(final IOException e) { /* Nothing to do. */ }
   	}

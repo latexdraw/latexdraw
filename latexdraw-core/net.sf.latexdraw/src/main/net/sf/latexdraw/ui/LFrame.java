@@ -225,6 +225,12 @@ public class LFrame extends UI {
 	}
 
 
+	@Override
+	public UIBuilder getComposer() {
+		return (UIBuilder)composer;
+	}
+
+
 	private void instantiateInstruments(final LCanvas canvas, final IDrawing drawing) {
 		final PSTCodeGenerator gen = getCodePanel().getPstGenerator();
 

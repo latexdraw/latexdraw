@@ -66,6 +66,16 @@ public class UIBuilder extends UIComposer<LFrame> {
 		propToolbarBuilder 	= new PropertiesToolbarBuilder(widget);
 	}
 
+
+	/**
+	 * @return The toolbar of the application.
+	 * @since 3.0
+	 */
+	public MToolBar getToolbar() {
+		return toolbarBuilder.getWidget();
+	}
+
+
 	// FIXME SCALA: When a trait will be used, this trait could be used as type of the parameter instead of several operations.
 	protected static void addSpinner(final Container cont, final MSpinner spinner, final int width) {
 		spinner.setPreferredSize(new Dimension(width, HEIGHT_TEXTFIELD));

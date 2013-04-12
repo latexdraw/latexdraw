@@ -18,6 +18,7 @@ import net.sf.latexdraw.util.LPath
 import org.malai.action.ActionsRegistry
 import net.sf.latexdraw.glib.models.impl.LShapeFactory
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory
+import net.sf.latexdraw.ui.UIBuilder
 
 /**
  * The main class of the project.<br>
@@ -65,10 +66,6 @@ object LaTeXDraw {
     		case CmdLineState.APPLICATION => launchLatexdraw(cmdLine)
 			case CmdLineState.STOP =>
     		case CmdLineState.APPLICATION_FILENAME => launchLatexdraw(cmdLine)
-//    		case CONVERTION:
-//	    			if(!BatchConvertFrame.convert(cmdLine.getFileConvertionSrc(), cmdLine.getFileConvertionTarget()))
-//	    					System.out.println("The conversion failed.");
-//    			break;
     	}
     }
 
@@ -107,6 +104,6 @@ object LaTeXDraw {
 
     	// Checking a new version if required.
     	if(VersionChecker.WITH_UPDATE && frame.getPrefSetters.isVersionCheckEnable)
-    		new VersionChecker(frame.getStatusBar).run
+    		new VersionChecker(frame.getComposer).run
     }
 }
