@@ -6,8 +6,9 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.Window;
 
-import javax.swing.JWindow;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -36,7 +37,7 @@ import org.malai.swing.widget.MProgressBar;
  * @version 3.0
  * @since 1.9
  */
-public class SplashScreen extends JWindow {
+public class SplashScreen extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	/** The progress bar showing us the progression of the loading of the LaTeXDraw interface.*/
@@ -60,6 +61,8 @@ public class SplashScreen extends JWindow {
 				UIManager.setLookAndFeel(lookAndFeel);
 		}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 
+		setUndecorated(true);
+		setType(Window.Type.UTILITY);
 		Dimension dim 	= LSystem.INSTANCE.getScreenDimension();
 		final Rectangle frameBound = getGraphicsConfiguration().getBounds();
 		progressBar 	= new MProgressBar(0, 100);
