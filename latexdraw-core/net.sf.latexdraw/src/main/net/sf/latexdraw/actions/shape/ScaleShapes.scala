@@ -1,10 +1,8 @@
 package net.sf.latexdraw.actions.shape
 
 import java.awt.geom.Rectangle2D
-
 import org.malai.action.Action
 import org.malai.undo.Undoable
-
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapeAction
@@ -12,6 +10,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.Position
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.util.LNumber
 
 /**
  * This action scales a shape.<br>
@@ -50,21 +49,24 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 	/** The old height of the selection. */
 	private var oldHeight : Double = Double.NaN
 
+	private var doneOnce = false
+
 
 
 	override def isRegisterable() = hadEffect
 
+	override def hadEffect = isDone && (!LNumber.INSTANCE.equals(oldWidth, bound.getWidth) || !LNumber.INSTANCE.equals(oldHeight, bound.getHeight))
 
 	override def canDo() = _drawing.isDefined && _shape.isDefined && _refPosition.isDefined && isValidScales
 
 
 	private def isValidScales = {
 		_refPosition.get match {
-			case Position.EAST => isValidScale(_newX) && scaledWidth>1.0
-			case Position.WEST => isValidScale(_newX) && scaledWidth>1.0
-			case Position.NORTH => isValidScale(_newY) && scaledHeight>1.0
-			case Position.SOUTH => isValidScale(_newY) && scaledHeight>1.0
-			case _ => isValidScale(_newX) && isValidScale(_newY) && scaledHeight>1.0 && scaledWidth>1.0
+			case Position.EAST => isValidScale(_newX) && scaledWidth(_newX)>1.0
+			case Position.WEST => isValidScale(_newX) && scaledWidth(_newX)>1.0
+			case Position.NORTH => isValidScale(_newY) && scaledHeight(_newY)>1.0
+			case Position.SOUTH => isValidScale(_newY) && scaledHeight(_newY)>1.0
+			case _ => isValidScale(_newX) && isValidScale(_newY) && scaledHeight(_newY)>1.0 && scaledWidth(_newX)>1.0
 		}
 	}
 
@@ -106,19 +108,19 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 	}
 
 
-	private def scaledHeight : Double = {
+	private def scaledHeight(y:Double) : Double = {
 		_refPosition.get match {
-			case ref if(ref.isSouth) => bound.getHeight + bound.getY - _newY
-			case ref if(ref.isNorth) =>  bound.getHeight + _newY - bound.getMaxY
+			case ref if(ref.isSouth) => bound.getHeight + bound.getY - y
+			case ref if(ref.isNorth) =>  bound.getHeight + y - bound.getMaxY
 			case _ => 0.0
 		}
 	}
 
 
-	private def scaledWidth : Double = {
+	private def scaledWidth(x:Double) : Double = {
 		_refPosition.get match {
-			case ref if(ref.isWest) => bound.getWidth + _newX - bound.getMaxX
-			case ref if(ref.isEast) => bound.getWidth + bound.getX - _newX
+			case ref if(ref.isWest) => bound.getWidth + x - bound.getMaxX
+			case ref if(ref.isEast) => bound.getWidth + bound.getX - x
 			case _ => 0.0
 		}
 	}
@@ -126,7 +128,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 
 	override def redo() {
 		val sh = _shape.get
-		sh.scale(scaledWidth, scaledHeight, _refPosition.get, bound)
+		sh.scale(scaledWidth(_newX), scaledHeight(_newY), _refPosition.get, bound)
 		sh.setModified(true)
 		_drawing.get.setModified(true)
 		updateBound(sh.getTopLeftPoint, sh.getBottomRightPoint)
@@ -151,7 +153,8 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 	 * @param newX The new X position used to compute the scale factor.
 	 */
 	def newX_=(newX : Double) {
-		_newX = newX
+		if(scaledWidth(newX)>1)
+			_newX = newX
 	}
 
 	def newY = _newY
@@ -160,6 +163,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 	 * @param newY The new Y position used to compute the scale factor.
 	 */
 	def newY_=(newY : Double) {
-		_newY = newY
+		if(scaledHeight(newY)>1)
+			_newY = newY
 	}
 }
