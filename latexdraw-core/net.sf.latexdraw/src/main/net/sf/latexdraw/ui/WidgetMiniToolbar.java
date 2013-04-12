@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -132,7 +131,7 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 		buttonsPanel.add(toolbar);
 		buttonsPanel.setBorder(BorderFactory.createEtchedBorder());
 
-		buttonsFrame = new WindowWidgets(frame, buttonsPanel, this);
+		buttonsFrame = new WindowWidgets(buttonsPanel);
 
 		addActionListener(this);
 		setMargin(new Insets(1,1,1,1));
@@ -487,7 +486,7 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	}
 
 
-	public JWindow getWindowToolBar() {
+	public JFrame getWindowToolBar() {
 		return buttonsFrame;
 	}
 
@@ -497,13 +496,8 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	 * @since 3.0
 	 */
 	public void update() {
-		if(buttonsFrame!=null) {
+		if(buttonsFrame!=null)
 			buttonsFrame.pack();
-			if(buttonsFrame.isVisible()) {
-				buttonsFrame.setVisible(false);
-				buttonsFrame.setVisible(true);
-			}
-		}
 	}
 
 
@@ -539,54 +533,18 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	}
 
 
-	class WindowWidgets extends JWindow implements WindowListener {
+	private class WindowWidgets extends JFrame {
 		private static final long serialVersionUID = 1L;
 
-		protected WindowWidgets(final JFrame owner, final JPanel buttonsPanel, final WidgetMiniToolbar list) {
-			super(owner);
-
+		protected WindowWidgets(final JPanel buttonsPanel) {
+			super();
+			setType(Window.Type.UTILITY);
+			setFocusable(false);
+			setUndecorated(true);
 			setVisible(false);
 			setAlwaysOnTop(true);
 			add(buttonsPanel);
 			pack();
-			addWindowFocusListener(list);
-			owner.addWindowListener(this);
-		}
-
-		@Override
-		public void windowOpened(final WindowEvent e) {
-			// Nothing to do.
-		}
-
-		@Override
-		public void windowClosing(final WindowEvent e) {
-			// Nothing to do.
-		}
-
-		@Override
-		public void windowClosed(final WindowEvent e) {
-			// Nothing to do.
-		}
-
-		@Override
-		public void windowIconified(final WindowEvent e) {
-			// Nothing to do.
-		}
-
-		@Override
-		public void windowDeiconified(final WindowEvent e) {
-			// Nothing to do.
-		}
-
-		@Override
-		public void windowActivated(final WindowEvent e) {
-			// Nothing to do.
-		}
-
-		@Override
-		public void windowDeactivated(final WindowEvent e) {
-			// Need to hide the window when the main frame is no more visible.
-			setVisible(false);
 		}
 	}
 }
