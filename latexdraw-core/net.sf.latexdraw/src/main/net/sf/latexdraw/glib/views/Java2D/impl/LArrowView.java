@@ -121,7 +121,7 @@ class LArrowView implements IViewArrow {
 	protected void paintBarBracket(final Graphics2D g, final Color lineColor) {
 		g.setStroke(new BasicStroke((float)model.getShape().getFullThickness(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
 		g.setColor(lineColor);
-		g.draw(path);//FIXME in v2, the stroke was changed there for brackets.
+		g.draw(path);
 	}
 
 

@@ -1285,19 +1285,19 @@ public enum ShapeProperties {
 
 		@Override
 		public List<ArrowStyle> getPropertyValues(final IGroup group) {
-			return group==null ? new ArrayList<ArrowStyle>() :group.getArrowStyleList(1);
+			return group==null ? new ArrayList<ArrowStyle>() :group.getArrowStyleList(-1);
 		}
 
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
 			if(group!=null && isValueValid(value))
-				group.setArrowStyle((ArrowStyle)value, 1);
+				group.setArrowStyle((ArrowStyle)value, -1);
 		}
 		@SuppressWarnings("unchecked")
 		@Override
 		public void setPropertyValueList(final IGroup group, final List<?> values) {
 			if(group!=null)
-				group.setArrowStyleList((List<ArrowStyle>)values, 1);
+				group.setArrowStyleList((List<ArrowStyle>)values, -1);
 		}
 	},
 	/** Defines if the shape has a first arrow. */

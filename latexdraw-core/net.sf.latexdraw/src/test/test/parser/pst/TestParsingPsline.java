@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 
+import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -12,6 +13,15 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 import org.junit.Test;
 
 public class TestParsingPsline extends TestParsingShape {
+	@Test public void testBugTwoSameArrows() throws ParseException {
+		IPolyline sh = (IPolyline)parser.parsePSTCode("\\psline{<-<}(-0.1,-0.2)(2,5)").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(sh.getArrowAt(0).getArrowStyle(), IArrow.ArrowStyle.LEFT_ARROW);
+		assertEquals(sh.getArrowAt(1).getArrowStyle(), IArrow.ArrowStyle.LEFT_ARROW);
+		assertTrue(sh.getArrowAt(0)!=sh.getArrowAt(1));
+	}
+
+
 	@Test public void testUnit() throws ParseException {
 		IPolyline sh = (IPolyline)parser.parsePSTCode("\\psset{unit=2}\\psline[linewidth=0.3,linestyle=dashed](2,3)(1cm,2cm)").get().getShapeAt(0);
 		assertTrue(PSTParser.errorLogs().isEmpty());

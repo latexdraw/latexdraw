@@ -121,85 +121,40 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 		return path;
 	}
 
-
 	@Override
 	protected IPoint beginRotation(final Graphics2D g) {
 		return null;
 	}
-
 
 	@Override
 	protected void endRotation(final Graphics2D g, final IPoint translation) {
 		// Nothing to do.
 	}
 
-
-//	@Override
-//	public boolean intersects(final Rectangle2D rec) {
-//		if(rec==null || (LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.) && !rec.contains(border) && !border.contains(rec) && !rec.intersects(border)))
-//			return false;
-//
-//		final BasicStroke stroke = getStroke();
-//
-//		if(stroke==null)
-//			return path.intersects(rec) || path.contains(rec);
-//
-//		return (shape.isFilled() && path.contains(rec)) || stroke.createStrokedShape(path).intersects(rec);
-//	}
-//
-//
-//
-//	@Override
-//	public boolean contains(final double x, final double y) {
-//		// We test the borders first to limit the computations.
-//		if(!border.contains(x, y))
-//			return false;
-//
-//		if(shape.isFilled() && path.contains(x, y))
-//			return true;
-//
-//		final BasicStroke bc = getStroke();
-//
-//		// We test if the point is on the shape.
-//		return bc==null ? false : bc.createStrokedShape(path).contains(x, y);
-//	}
-//
-//
-//	@Override
-//	public void updateBorder() {
-//		border.setFrame(getStroke().createStrokedShape(path).getBounds2D());
-//	}
-
-
 	@Override
 	protected void updateDblePathInside() {
 		updateDblePathMiddle();
 	}
-
 
 	@Override
 	protected void updateDblePathMiddle() {
 		updateGeneralPathMiddle();
 	}
 
-
 	@Override
 	protected void updateDblePathOutside() {
 		updateDblePathMiddle();
 	}
-
 
 	@Override
 	protected void updateGeneralPathInside() {
 		updateGeneralPathMiddle();
 	}
 
-
 	@Override
 	protected void updateGeneralPathMiddle() {
 		setPath(true);
 	}
-
 
 	@Override
 	protected void updateGeneralPathOutside() {
