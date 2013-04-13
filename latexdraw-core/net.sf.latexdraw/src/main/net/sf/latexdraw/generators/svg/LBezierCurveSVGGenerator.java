@@ -77,15 +77,13 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 			throw new IllegalArgumentException();
 
 		SVGPathElement main = (SVGPathElement)elt2;
-		IArrow arrow1 		= shape.getArrowAt(0);
-		IArrow arrow2 		= shape.getArrowAt(-1);
-
 		setPath(main.getSegList());
 		setNumber(elt);
 		setSVGParameters(main);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
-
+		final IArrow arrow1 = shape.getArrowAt(0);
+		final IArrow arrow2 = shape.getArrowAt(-1);
 		setSVGArrow(arrow1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main, SVGAttributes.SVG_MARKER_START);
 		setSVGArrow(arrow2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main, SVGAttributes.SVG_MARKER_END);
 		homogeniseArrows(arrow1, arrow2);
