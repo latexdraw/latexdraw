@@ -147,6 +147,8 @@ class LArrow implements IArrow {
 			case ROUND_IN: return (getDotSizeDim()+getDotSizeNum()*owner.getFullThickness())/2.;
 			case LEFT_SQUARE_BRACKET:
 			case RIGHT_SQUARE_BRACKET: return bracketNum*getBarShapedArrowWidth();
+			case CIRCLE_IN:
+			case DISK_IN: return getRoundShapedArrowRadius();
 			default: return 0;//TODO
 		}
 	}

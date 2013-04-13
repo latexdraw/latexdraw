@@ -181,7 +181,8 @@ public interface IArrow extends IArrowable {
 		}
 
 		public boolean isReducingShape() {
-			return this==LEFT_ARROW || this==RIGHT_ARROW || this==LEFT_DBLE_ARROW || this==RIGHT_DBLE_ARROW || this==ROUND_IN;
+			return this==LEFT_ARROW || this==RIGHT_ARROW || this==LEFT_DBLE_ARROW || this==RIGHT_DBLE_ARROW || this==ROUND_IN ||
+					this==CIRCLE_IN || this==DISK_IN;
 		}
 
 		/**
