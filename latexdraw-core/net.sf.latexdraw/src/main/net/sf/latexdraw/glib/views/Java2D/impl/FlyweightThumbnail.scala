@@ -196,7 +196,7 @@ object FlyweightThumbnail {
 
 		doc.append("\\documentclass[10pt]{article}\n\\usepackage[usenames,dvipsnames]{pstricks}") //$NON-NLS-1$
 		doc.append(LaTeXGenerator.getPackages)
-		doc.append("\\usepackage[left=0cm,top=0cm,right=0cm,nohead,nofoot,paperwidth=10cm,paperheight=10cm]{geometry}\n")
+		doc.append("\\usepackage[left=0cm,top=0cm,right=0cm,nohead,nofoot,paperwidth=50cm,paperheight=8cm]{geometry}\n")
 		doc.append("\\pagestyle{empty}\n\\begin{document}\n\\psscalebox{") //$NON-NLS-1$
 		doc.append(LNumber.INSTANCE.getCutNumber(scale).toFloat).append(' ')
 		doc.append(LNumber.INSTANCE.getCutNumber(scale).toFloat).append('}').append('{')
