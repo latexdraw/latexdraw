@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 
 import org.malai.swing.widget.MProgressBar;
@@ -61,6 +62,7 @@ public class SplashScreen extends JFrame {
 				UIManager.setLookAndFeel(lookAndFeel);
 		}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 
+		try{setIconImage(LResources.LATEXDRAW_ICON.getImage());}catch(Exception ex){BadaboomCollector.INSTANCE.add(ex);}
 		setUndecorated(true);
 		setType(Window.Type.UTILITY);
 		Dimension dim 	= LSystem.INSTANCE.getScreenDimension();
