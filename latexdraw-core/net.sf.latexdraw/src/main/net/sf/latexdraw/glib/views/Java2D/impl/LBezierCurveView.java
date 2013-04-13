@@ -50,7 +50,7 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 		final boolean isClosed		= shape.isClosed();
 		final IArrow arr1			= shape.getArrowAt(0);
 		boolean arrow1Drawable 		= arr1.hasStyle() && shape.getNbPoints()>1;
-		boolean arrow2Drawable 		= shape.getArrowAt(1).hasStyle() && shape.getNbPoints()>1 && !isClosed;
+		boolean arrow2Drawable 		= shape.getArrowAt(-1).hasStyle() && shape.getNbPoints()>1 && !isClosed;
 		final int size 				= shape.getNbPoints();
 		final List<IPoint> pts 		= shape.getPoints();
 		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();

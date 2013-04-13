@@ -1,12 +1,16 @@
 package test.svg.loadSVGFile;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.IText;
-import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 public class TestSVGFileDiracs extends TestLoadSVGFile {
 
@@ -21,7 +25,7 @@ public class TestSVGFileDiracs extends TestLoadSVGFile {
 	}
 
 
-	public void testShape0() {
+	@Test public void testShape0() {
 		assertTrue(group.getShapeAt(0) instanceof IPolyline);
 		IPolyline pol = (IPolyline) group.getShapeAt(0);
 		assertEquals(Color.BLACK, pol.getLineColour());
@@ -41,14 +45,14 @@ public class TestSVGFileDiracs extends TestLoadSVGFile {
 	}
 
 
-	public void testShape2() {
+	@Test public void testShape2() {
 		assertTrue(group.getShapeAt(2) instanceof IGroup);
 		IGroup gp = (IGroup) group.getShapeAt(2);
 		assertEquals(7, gp.size());
 	}
 
 
-	public void testShape3() {
+	@Test public void testShape3() {
 		assertTrue(group.getShapeAt(3) instanceof IText);
 		IText txt = (IText) group.getShapeAt(3);
 		assertEquals("\\normalsize{$t$}", txt.getText());
@@ -58,7 +62,7 @@ public class TestSVGFileDiracs extends TestLoadSVGFile {
 	}
 
 
-	public void testShape6() {
+	@Test public void testShape6() {
 		assertTrue(group.getShapeAt(6) instanceof IText);
 		IText txt = (IText) group.getShapeAt(6);
 		assertEquals("\\normalsize{$t_7$}", txt.getText());
@@ -68,7 +72,7 @@ public class TestSVGFileDiracs extends TestLoadSVGFile {
 	}
 
 
-	public void testShape7() {
+	@Test public void testShape7() {
 		assertTrue(group.getShapeAt(7) instanceof IText);
 		IText txt = (IText) group.getShapeAt(7);
 		assertEquals("\\normalsize{$\\cdots\\cdots$}", txt.getText());

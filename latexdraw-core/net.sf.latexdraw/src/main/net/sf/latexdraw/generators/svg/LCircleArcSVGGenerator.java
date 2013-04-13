@@ -75,7 +75,7 @@ class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
 
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
 		IArrow arr1	= shape.getArrowAt(0);
-		IArrow arr2	= shape.getArrowAt(1);
+		IArrow arr2	= shape.getArrowAt(-1);
 
 		if(elt==null || !(elt2 instanceof SVGPathElement))
 			throw new IllegalArgumentException();

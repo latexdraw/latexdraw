@@ -78,7 +78,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 
 		SVGPathElement main = (SVGPathElement)elt2;
 		IArrow arrow1 		= shape.getArrowAt(0);
-		IArrow arrow2 		= shape.getArrowAt(1);
+		IArrow arrow2 		= shape.getArrowAt(-1);
 
 		setPath(main.getSegList());
 		setNumber(elt);
@@ -254,7 +254,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		boolean isClosed  	= shape.isClosed();
 		SVGGElement showPts = new SVGGElement(doc);
 		IArrow arrow1 		= shape.getArrowAt(0);
-		IArrow arrow2 		= shape.getArrowAt(1);
+		IArrow arrow2 		= shape.getArrowAt(-1);
 		final double doubleSep = shape.getDbleBordSep();
 		double thick = (hasDble ? shape.getDbleBordSep()+shape.getThickness()*2. : shape.getThickness())/2.;
 		double rad   = (PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM*IShape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM*thick*2.)/2.;

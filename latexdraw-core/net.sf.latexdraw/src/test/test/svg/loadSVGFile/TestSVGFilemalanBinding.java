@@ -1,16 +1,21 @@
 package test.svg.loadSVGFile;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.IPolygon;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
-import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 
@@ -20,7 +25,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 	}
 
 
-	public void testShape26() {
+	@Test public void testShape26() {
 		assertTrue(group.getShapeAt(26) instanceof IBezierCurve);
 		IBezierCurve pol = (IBezierCurve) group.getShapeAt(26);
 
@@ -41,15 +46,15 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertFalse(pol.hasShadow());
 		assertEquals(FillingStyle.NONE, pol.getFillingStyle());
 		assertEquals(ArrowStyle.NONE, pol.getArrowAt(0).getArrowStyle());
-		assertEquals(ArrowStyle.RIGHT_ARROW, pol.getArrowAt(1).getArrowStyle());
-		assertEquals(0., pol.getArrowAt(1).getArrowInset(), 0.00001);
-		assertEquals(2.65, pol.getArrowAt(1).getArrowSizeDim(), 0.01);
-		assertEquals(2.0, pol.getArrowAt(1).getArrowSizeNum(), 0.00001);
-		assertEquals(1.4, pol.getArrowAt(1).getArrowLength(), 0.00001);
+		assertEquals(ArrowStyle.RIGHT_ARROW, pol.getArrowAt(-1).getArrowStyle());
+		assertEquals(0., pol.getArrowAt(-1).getArrowInset(), 0.00001);
+		assertEquals(2.65, pol.getArrowAt(-1).getArrowSizeDim(), 0.01);
+		assertEquals(2.0, pol.getArrowAt(-1).getArrowSizeNum(), 0.00001);
+		assertEquals(1.4, pol.getArrowAt(-1).getArrowLength(), 0.00001);
 	}
 
 
-	public void testShape4() {
+	@Test public void testShape4() {
 		assertTrue(group.getShapeAt(4) instanceof IPolyline);
 		IPolyline pol = (IPolyline) group.getShapeAt(4);
 
@@ -68,7 +73,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 	}
 
 
-	public void testShape3() {
+	@Test public void testShape3() {
 		assertTrue(group.getShapeAt(3) instanceof IText);
 		IText txt = (IText) group.getShapeAt(3);
 		assertEquals(Color.BLACK, txt.getLineColour());
@@ -79,7 +84,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 	}
 
 
-	public void testShape1() {
+	@Test public void testShape1() {
 		assertTrue(group.getShapeAt(1) instanceof IPolygon);
 		IPolygon pol = (IPolygon) group.getShapeAt(1);
 
@@ -105,7 +110,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 	}
 
 
-	public void testShape0() {
+	@Test public void testShape0() {
 		assertTrue(group.getShapeAt(0) instanceof IPolyline);
 		IPolyline pol = (IPolyline) group.getShapeAt(0);
 

@@ -1,5 +1,9 @@
 package test.svg.loadSVGFile;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
@@ -9,7 +13,8 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.parsers.svg.CSSColors;
-import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 
@@ -24,7 +29,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 	}
 
 
-	public void testShape3() {
+	@Test public void testShape3() {
 		assertTrue(group.getShapeAt(3) instanceof IText);
 		final IText txt = (IText) group.getShapeAt(3);
 		assertEquals(339.6037265028475, txt.getPosition().getX(), 0.01);
@@ -35,7 +40,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 	}
 
 
-	public void testShape2() {
+	@Test public void testShape2() {
 		assertTrue(group.getShapeAt(2) instanceof IPolyline);
 		final IPolyline line = (IPolyline) group.getShapeAt(2);
 		assertEquals(2, line.getNbPoints());
@@ -58,7 +63,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 	}
 
 
-	public void testShape1() {
+	@Test public void testShape1() {
 		assertTrue(group.getShapeAt(1) instanceof IText);
 		final IText txt = (IText) group.getShapeAt(1);
 		assertEquals(177.8671875, txt.getPosition().getX(), 0.01);
@@ -69,7 +74,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 	}
 
 
-	public void testShape0() {
+	@Test public void testShape0() {
 		assertTrue(group.getShapeAt(0) instanceof IRectangle);
 		final IRectangle rec = (IRectangle) group.getShapeAt(0);
 		assertEquals(160.1796875, rec.getPosition().getX(), 0.01);

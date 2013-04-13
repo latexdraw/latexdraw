@@ -94,7 +94,7 @@ class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 			double eAngle = endAngle;
 
 			if(shape.isArrowable()) {
-				IArrow arr = shape.getArrowAt(1);
+				IArrow arr = shape.getArrowAt(-1);
 				if(arr.getArrowStyle().isReducingShape())
 					eAngle-=Math.atan(arr.getArrowShapeLength()/w2);
 				arr = shape.getArrowAt(0);

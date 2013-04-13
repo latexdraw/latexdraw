@@ -1,5 +1,9 @@
 package test.svg.loadSVGFile;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
@@ -9,9 +13,10 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
-import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 import net.sf.latexdraw.glib.models.interfaces.IText;
-import static org.junit.Assert.*;
+import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
+
+import org.junit.Test;
 
 public class TestSVGFile3State extends TestLoadSVGFile {
 	@Override
@@ -20,7 +25,7 @@ public class TestSVGFile3State extends TestLoadSVGFile {
 	}
 
 
-	public void testShape10() {
+	@Test public void testShape10() {
 		assertTrue(group.getShapeAt(10) instanceof IText);
 		final IText txt = (IText) group.getShapeAt(10);
 		assertEquals("\\normalsize{Dragging}", txt.getText());
@@ -31,7 +36,7 @@ public class TestSVGFile3State extends TestLoadSVGFile {
 	}
 
 
-	public void testShape3() {
+	@Test public void testShape3() {
 		assertTrue(group.getShapeAt(3) instanceof IBezierCurve);
 		final IBezierCurve bez = (IBezierCurve) group.getShapeAt(3);
 		assertEquals(2, bez.getNbPoints());
@@ -56,15 +61,15 @@ public class TestSVGFile3State extends TestLoadSVGFile {
 		assertEquals(BorderPos.INTO, bez.getBordersPosition());
 		assertEquals(FillingStyle.NONE, bez.getFillingStyle());
 		assertEquals(ArrowStyle.NONE, bez.getArrowStyle(0));
-		assertEquals(ArrowStyle.RIGHT_ARROW, bez.getArrowStyle(1));
-		assertEquals(0., bez.getArrowAt(1).getArrowInset(), 0.00001);
-		assertEquals(5.65, bez.getArrowAt(1).getArrowSizeDim(), 0.01);
-		assertEquals(2.0, bez.getArrowAt(1).getArrowSizeNum(), 0.00001);
-		assertEquals(1.4, bez.getArrowAt(1).getArrowLength(), 0.00001);
+		assertEquals(ArrowStyle.RIGHT_ARROW, bez.getArrowStyle(-1));
+		assertEquals(0., bez.getArrowAt(-1).getArrowInset(), 0.00001);
+		assertEquals(5.65, bez.getArrowAt(-1).getArrowSizeDim(), 0.01);
+		assertEquals(2.0, bez.getArrowAt(-1).getArrowSizeNum(), 0.00001);
+		assertEquals(1.4, bez.getArrowAt(-1).getArrowLength(), 0.00001);
 	}
 
 
-	public void testShape0() {
+	@Test public void testShape0() {
 		assertTrue(group.getShapeAt(0) instanceof IGroup);
 		final IGroup gp = (IGroup) group.getShapeAt(0);
 		assertEquals(2, gp.size());

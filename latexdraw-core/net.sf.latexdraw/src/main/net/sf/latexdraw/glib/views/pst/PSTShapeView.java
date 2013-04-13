@@ -92,11 +92,11 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 
 		if(shape.isArrowable()) {
 			final ArrowStyle style1 = shape.getArrowStyle(0);
-			final ArrowStyle style2 = shape.getArrowStyle(1);
+			final ArrowStyle style2 = shape.getArrowStyle(-1);
 
 			if(style1==ArrowStyle.NONE) {
 				if(style2!=ArrowStyle.NONE)
-					code = getArrowParametersCode(shape.getArrowAt(1));
+					code = getArrowParametersCode(shape.getArrowAt(-1));
 			} else
 				if(style2==ArrowStyle.NONE)
 					code = getArrowParametersCode(shape.getArrowAt(0));
@@ -105,7 +105,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 						code = getArrowParametersCode(shape.getArrowAt(0));
 					else {
 						code = getArrowParametersCode(shape.getArrowAt(0));
-						code.append(',').append(getArrowParametersCode(shape.getArrowAt(1)));
+						code.append(',').append(getArrowParametersCode(shape.getArrowAt(-1)));
 					}
 		}
 
