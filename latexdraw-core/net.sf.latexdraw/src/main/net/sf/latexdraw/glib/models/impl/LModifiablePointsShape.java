@@ -89,7 +89,8 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 	@Override
 	public IPoint removePoint(final int position) {
 		if(position>=-1 && position<points.size()) {
-			arrows.remove(position==-1 ? points.size()-1 : position);
+			if(isArrowable())
+				arrows.remove(position==-1 ? points.size()-1 : position);
 			return points.remove(position==-1 ? points.size()-1 : position);
 		}
 
