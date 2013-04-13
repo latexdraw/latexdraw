@@ -1,6 +1,8 @@
 package test.glib.models.interfaces;
 
 
+import static org.junit.Assert.*;
+
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;

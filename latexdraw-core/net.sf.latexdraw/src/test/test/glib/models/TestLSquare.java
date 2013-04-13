@@ -1,6 +1,10 @@
 package test.glib.models;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
@@ -15,10 +19,10 @@ import net.sf.latexdraw.glib.models.interfaces.ISquare;
 import org.junit.Before;
 import org.junit.Test;
 
+import test.HelperTest;
 import test.glib.models.interfaces.TestISquare;
 
 public class TestLSquare<T extends ISquare> extends TestISquare<T> {
-	@Override
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
@@ -78,9 +82,9 @@ public class TestLSquare<T extends ISquare> extends TestISquare<T> {
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		sq = DrawingTK.getFactory().createSquare(DrawingTK.getFactory().createPoint(20, 26), 11, true);
-		assertEquals(20., sq.getPosition().getX());
-		assertEquals(37., sq.getPosition().getY());
-		assertEquals(11., sq.getWidth());
-		assertEquals(11., sq.getHeight());
+		HelperTest.assertEqualsDouble(20., sq.getPosition().getX());
+		HelperTest.assertEqualsDouble(37., sq.getPosition().getY());
+		HelperTest.assertEqualsDouble(11., sq.getWidth());
+		HelperTest.assertEqualsDouble(11., sq.getHeight());
 	}
 }

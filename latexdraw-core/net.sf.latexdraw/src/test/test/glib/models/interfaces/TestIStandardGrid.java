@@ -1,9 +1,14 @@
 package test.glib.models.interfaces;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 
 import org.junit.Test;
+
+import test.HelperTest;
 
 public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPositionShape<T> {
 	@Test
@@ -23,19 +28,19 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 	public void testGetSetGridEndX() {
 		shape.setGridStartX(-10);
 		shape.setGridEndX(5);
-		assertEquals(5., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(5., shape.getGridEndX());
 		shape.setGridEndX(0);
-		assertEquals(0., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(0., shape.getGridEndX());
 		shape.setGridEndX(-5);
-		assertEquals(-5., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(-5., shape.getGridEndX());
 		shape.setGridEndX(-15);
-		assertEquals(-5., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(-5., shape.getGridEndX());
 		shape.setGridEndX(Double.NaN);
-		assertEquals(-5., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(-5., shape.getGridEndX());
 		shape.setGridEndX(Double.NEGATIVE_INFINITY);
-		assertEquals(-5., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(-5., shape.getGridEndX());
 		shape.setGridEndX(Double.POSITIVE_INFINITY);
-		assertEquals(-5., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(-5., shape.getGridEndX());
 	}
 
 
@@ -43,19 +48,19 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 	public void testGetSetGridEndY() {
 		shape.setGridStartY(-10);
 		shape.setGridEndY(5);
-		assertEquals(5., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(5., shape.getGridEndY());
 		shape.setGridEndY(0);
-		assertEquals(0., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(0., shape.getGridEndY());
 		shape.setGridEndY(-5);
-		assertEquals(-5., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridEndY());
 		shape.setGridEndY(-15);
-		assertEquals(-5., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridEndY());
 		shape.setGridEndY(Double.NaN);
-		assertEquals(-5., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridEndY());
 		shape.setGridEndY(Double.NEGATIVE_INFINITY);
-		assertEquals(-5., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridEndY());
 		shape.setGridEndY(Double.POSITIVE_INFINITY);
-		assertEquals(-5., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridEndY());
 	}
 
 
@@ -81,20 +86,20 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 	public void testSetGridStart() {
 		shape.setGridEnd(5, 9);
 		shape.setGridStart(-5, -4);
-		assertEquals(-5., shape.getGridStartX());
-		assertEquals(-4., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(-4., shape.getGridStartY());
 		shape.setGridStart(-6, 10);
-		assertEquals(-6., shape.getGridStartX());
-		assertEquals(-4., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(-6., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(-4., shape.getGridStartY());
 		shape.setGridStart(6, 8);
-		assertEquals(-6., shape.getGridStartX());
-		assertEquals(8., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(-6., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(8., shape.getGridStartY());
 		shape.setGridStart(6, Double.NaN);
-		assertEquals(-6., shape.getGridStartX());
-		assertEquals(8., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(-6., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(8., shape.getGridStartY());
 		shape.setGridStart(Double.NEGATIVE_INFINITY, 8);
-		assertEquals(-6., shape.getGridStartX());
-		assertEquals(8., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(-6., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(8., shape.getGridStartY());
 	}
 
 
@@ -102,43 +107,43 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 	public void testSetGridEnd() {
 		shape.setGridStart(-5, -4);
 		shape.setGridEnd(5, 9);
-		assertEquals(5., shape.getGridEndX());
-		assertEquals(9., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(5., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(9., shape.getGridEndY());
 		shape.setGridEnd(6, -5);
-		assertEquals(6., shape.getGridEndX());
-		assertEquals(9., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(6., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(9., shape.getGridEndY());
 		shape.setGridEnd(-6, 10);
-		assertEquals(6., shape.getGridEndX());
-		assertEquals(10., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(6., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(10., shape.getGridEndY());
 		shape.setGridEnd(-6, Double.POSITIVE_INFINITY);
-		assertEquals(6., shape.getGridEndX());
-		assertEquals(10., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(6., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(10., shape.getGridEndY());
 		shape.setGridEnd(Double.NaN, 10);
-		assertEquals(6., shape.getGridEndX());
-		assertEquals(10., shape.getGridEndY());
+		HelperTest.assertEqualsDouble(6., shape.getGridEndX());
+		HelperTest.assertEqualsDouble(10., shape.getGridEndY());
 	}
 
 
 	@Test
 	public void testGetSetOrigin() {
 		shape.setOrigin(10, 6);
-		assertEquals(10., shape.getOriginX());
-		assertEquals(6., shape.getOriginY());
+		HelperTest.assertEqualsDouble(10., shape.getOriginX());
+		HelperTest.assertEqualsDouble(6., shape.getOriginY());
 		shape.setOrigin(0, 0);
-		assertEquals(0., shape.getOriginX());
-		assertEquals(0., shape.getOriginY());
+		HelperTest.assertEqualsDouble(0., shape.getOriginX());
+		HelperTest.assertEqualsDouble(0., shape.getOriginY());
 		shape.setOrigin(0, -5);
-		assertEquals(0., shape.getOriginX());
-		assertEquals(-5., shape.getOriginY());
+		HelperTest.assertEqualsDouble(0., shape.getOriginX());
+		HelperTest.assertEqualsDouble(-5., shape.getOriginY());
 		shape.setOrigin(-8, 0);
-		assertEquals(-8., shape.getOriginX());
-		assertEquals(0., shape.getOriginY());
+		HelperTest.assertEqualsDouble(-8., shape.getOriginX());
+		HelperTest.assertEqualsDouble(0., shape.getOriginY());
 		shape.setOrigin(-9, Double.NaN);
-		assertEquals(-9., shape.getOriginX());
-		assertEquals(0., shape.getOriginY());
+		HelperTest.assertEqualsDouble(-9., shape.getOriginX());
+		HelperTest.assertEqualsDouble(0., shape.getOriginY());
 		shape.setOrigin(Double.POSITIVE_INFINITY, 1);
-		assertEquals(-9., shape.getOriginX());
-		assertEquals(1., shape.getOriginY());
+		HelperTest.assertEqualsDouble(-9., shape.getOriginX());
+		HelperTest.assertEqualsDouble(1., shape.getOriginY());
 	}
 
 
@@ -146,19 +151,19 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 	public void testGetSetGridStartY() {
 		shape.setGridEndY(10);
 		shape.setGridStartY(5);
-		assertEquals(5., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(5., shape.getGridStartY());
 		shape.setGridStartY(0);
-		assertEquals(0., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(0., shape.getGridStartY());
 		shape.setGridStartY(-5);
-		assertEquals(-5., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartY());
 		shape.setGridStartY(15);
-		assertEquals(-5., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartY());
 		shape.setGridStartY(Double.NaN);
-		assertEquals(-5., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartY());
 		shape.setGridStartY(Double.POSITIVE_INFINITY);
-		assertEquals(-5., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartY());
 		shape.setGridStartY(Double.NEGATIVE_INFINITY);
-		assertEquals(-5., shape.getGridStartY());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartY());
 	}
 
 
@@ -166,53 +171,53 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 	public void testGetSetGridStartX() {
 		shape.setGridEndX(10);
 		shape.setGridStartX(5);
-		assertEquals(5., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(5., shape.getGridStartX());
 		shape.setGridStartX(0);
-		assertEquals(0., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(0., shape.getGridStartX());
 		shape.setGridStartX(-5);
-		assertEquals(-5., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartX());
 		shape.setGridStartX(15);
-		assertEquals(-5., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartX());
 		shape.setGridStartX(Double.NaN);
-		assertEquals(-5., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartX());
 		shape.setGridStartX(Double.POSITIVE_INFINITY);
-		assertEquals(-5., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartX());
 		shape.setGridStartX(Double.NEGATIVE_INFINITY);
-		assertEquals(-5., shape.getGridStartX());
+		HelperTest.assertEqualsDouble(-5., shape.getGridStartX());
 	}
 
 
 	@Test
 	public void testGetSetOriginX() {
 		shape.setOriginX(100);
-		assertEquals(100., shape.getOriginX());
+		HelperTest.assertEqualsDouble(100., shape.getOriginX());
 		shape.setOriginX(-100);
-		assertEquals(-100., shape.getOriginX());
+		HelperTest.assertEqualsDouble(-100., shape.getOriginX());
 		shape.setOriginX(0);
-		assertEquals(0., shape.getOriginX());
+		HelperTest.assertEqualsDouble(0., shape.getOriginX());
 		shape.setOriginX(Double.NaN);
-		assertEquals(0., shape.getOriginX());
+		HelperTest.assertEqualsDouble(0., shape.getOriginX());
 		shape.setOriginX(Double.POSITIVE_INFINITY);
-		assertEquals(0., shape.getOriginX());
+		HelperTest.assertEqualsDouble(0., shape.getOriginX());
 		shape.setOriginX(Double.NEGATIVE_INFINITY);
-		assertEquals(0., shape.getOriginX());
+		HelperTest.assertEqualsDouble(0., shape.getOriginX());
 	}
 
 
 	@Test
 	public void testGetSetOriginY() {
 		shape.setOriginY(100);
-		assertEquals(100., shape.getOriginY());
+		HelperTest.assertEqualsDouble(100., shape.getOriginY());
 		shape.setOriginY(-100);
-		assertEquals(-100., shape.getOriginY());
+		HelperTest.assertEqualsDouble(-100., shape.getOriginY());
 		shape.setOriginY(0);
-		assertEquals(0., shape.getOriginY());
+		HelperTest.assertEqualsDouble(0., shape.getOriginY());
 		shape.setOriginY(Double.NaN);
-		assertEquals(0., shape.getOriginY());
+		HelperTest.assertEqualsDouble(0., shape.getOriginY());
 		shape.setOriginY(Double.POSITIVE_INFINITY);
-		assertEquals(0., shape.getOriginY());
+		HelperTest.assertEqualsDouble(0., shape.getOriginY());
 		shape.setOriginY(Double.NEGATIVE_INFINITY);
-		assertEquals(0., shape.getOriginY());
+		HelperTest.assertEqualsDouble(0., shape.getOriginY());
 	}
 
 
@@ -230,12 +235,12 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 
 		IStandardGrid g2 = (IStandardGrid) shape.duplicate();
 
-		assertEquals(20., g2.getOriginX());
-		assertEquals(30., g2.getOriginY());
-		assertEquals(-100., g2.getGridStartX());
-		assertEquals(-40., g2.getGridStartY());
-		assertEquals(200., g2.getGridEndX());
-		assertEquals(300., g2.getGridEndY());
+		HelperTest.assertEqualsDouble(20., g2.getOriginX());
+		HelperTest.assertEqualsDouble(30., g2.getOriginY());
+		HelperTest.assertEqualsDouble(-100., g2.getGridStartX());
+		HelperTest.assertEqualsDouble(-40., g2.getGridStartY());
+		HelperTest.assertEqualsDouble(200., g2.getGridEndX());
+		HelperTest.assertEqualsDouble(300., g2.getGridEndY());
 		assertFalse(g2.isXLabelSouth());
 		assertFalse(g2.isYLabelWest());
 //		assertEquals(IText.TestSize.HUGE1.getSize(), shape2.getLabelsSize());//FIXME
@@ -256,12 +261,12 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 
 		shape.copy(shape2);
 
-		assertEquals(shape2.getOriginX(), shape.getOriginX());
-		assertEquals(shape2.getOriginY(), shape.getOriginY());
-		assertEquals(shape2.getGridEndX(), shape.getGridEndX());
-		assertEquals(shape2.getGridEndY(), shape.getGridEndY());
-		assertEquals(shape2.getGridStartX(), shape.getGridStartX());
-		assertEquals(shape2.getGridStartY(), shape.getGridStartY());
+		HelperTest.assertEqualsDouble(shape2.getOriginX(), shape.getOriginX());
+		HelperTest.assertEqualsDouble(shape2.getOriginY(), shape.getOriginY());
+		HelperTest.assertEqualsDouble(shape2.getGridEndX(), shape.getGridEndX());
+		HelperTest.assertEqualsDouble(shape2.getGridEndY(), shape.getGridEndY());
+		HelperTest.assertEqualsDouble(shape2.getGridStartX(), shape.getGridStartX());
+		HelperTest.assertEqualsDouble(shape2.getGridStartY(), shape.getGridStartY());
 		assertFalse(shape2.isXLabelSouth());
 		assertFalse(shape2.isYLabelWest());
 		assertEquals(shape2.getLabelsSize(), shape.getLabelsSize());

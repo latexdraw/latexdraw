@@ -1,5 +1,7 @@
 package test.instruments;
 
+import static org.junit.Assert.*;
+
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
@@ -22,10 +24,11 @@ import org.malai.instrument.Link;
 import org.malai.swing.instrument.library.WidgetZoomer;
 import org.malai.swing.widget.MLayeredPane;
 
+import test.HelperTest;
+
 public class TestPencil extends TestInstrument<Pencil> {
 	protected LCanvas canvas;
 
-	@Override
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
@@ -68,8 +71,8 @@ public class TestPencil extends TestInstrument<Pencil> {
 
 		IRectangle rec = (IRectangle) ((AddShape)link.getAction()).shape().get();
 		checkShape(rec);
-		assertEquals(rec.getTopLeftPoint().getX(), x);
-		assertEquals(rec.getTopLeftPoint().getY(), y);
+		HelperTest.assertEqualsDouble(rec.getTopLeftPoint().getX(), x);
+		HelperTest.assertEqualsDouble(rec.getTopLeftPoint().getY(), y);
 		assertTrue(rec.getWidth()>0);
 		assertTrue(rec.getHeight()>0);
 	}
@@ -90,8 +93,8 @@ public class TestPencil extends TestInstrument<Pencil> {
 
 		IEllipse ell = (IEllipse) ((AddShape)link.getAction()).shape().get();
 		checkShape(ell);
-		assertEquals(ell.getTopLeftPoint().getX(), x);
-		assertEquals(ell.getTopLeftPoint().getY(), y);
+		HelperTest.assertEqualsDouble(ell.getTopLeftPoint().getX(), x);
+		HelperTest.assertEqualsDouble(ell.getTopLeftPoint().getY(), y);
 		assertTrue(ell.getWidth()>0);
 		assertTrue(ell.getHeight()>0);
 	}
@@ -112,8 +115,8 @@ public class TestPencil extends TestInstrument<Pencil> {
 
 		ICircle circle = (ICircle) ((AddShape)link.getAction()).shape().get();
 		checkShape(circle);
-		assertEquals(circle.getGravityCentre().getX(), x);
-		assertEquals(circle.getGravityCentre().getY(), y);
+		HelperTest.assertEqualsDouble(circle.getGravityCentre().getX(), x);
+		HelperTest.assertEqualsDouble(circle.getGravityCentre().getY(), y);
 		assertTrue(circle.getWidth()>0);
 		assertTrue(circle.getHeight()>0);
 	}
@@ -134,8 +137,8 @@ public class TestPencil extends TestInstrument<Pencil> {
 
 		ISquare square = (ISquare) ((AddShape)link.getAction()).shape().get();
 		checkShape(square);
-		assertEquals(square.getGravityCentre().getX(), x);
-		assertEquals(square.getGravityCentre().getY(), y);
+		HelperTest.assertEqualsDouble(square.getGravityCentre().getX(), x);
+		HelperTest.assertEqualsDouble(square.getGravityCentre().getY(), y);
 		assertTrue(square.getWidth()>0);
 		assertTrue(square.getHeight()>0);
 	}

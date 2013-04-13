@@ -1,6 +1,10 @@
 package test.glib.models;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
@@ -13,10 +17,10 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import org.junit.Before;
 import org.junit.Test;
 
+import test.HelperTest;
 import test.glib.models.interfaces.TestIBezierCurve;
 
 public class TestLBezierCurve<T extends IBezierCurve> extends TestIBezierCurve<T> {
-	@Override
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
@@ -59,10 +63,10 @@ public class TestLBezierCurve<T extends IBezierCurve> extends TestIBezierCurve<T
 
 		assertNotNull(curve);
 		assertEquals(2, curve.getPoints().size());
-		assertEquals(100., curve.getPoints().get(0).getX());
-		assertEquals(200., curve.getPoints().get(0).getY());
-		assertEquals(300., curve.getPoints().get(1).getX());
-		assertEquals(400., curve.getPoints().get(1).getY());
+		HelperTest.assertEqualsDouble(100., curve.getPoints().get(0).getX());
+		HelperTest.assertEqualsDouble(200., curve.getPoints().get(0).getY());
+		HelperTest.assertEqualsDouble(300., curve.getPoints().get(1).getX());
+		HelperTest.assertEqualsDouble(400., curve.getPoints().get(1).getY());
 		assertEquals(2, curve.getFirstCtrlPts().size());
 		assertEquals(2, curve.getSecondCtrlPts().size());
 		assertEquals(2, curve.getArrows().size());

@@ -1,6 +1,7 @@
 package test.glib.models;
 
 
+import static org.junit.Assert.*;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
@@ -17,7 +18,6 @@ import org.junit.Test;
 import test.glib.models.interfaces.TestIPolyline;
 
 public class TestLPolyline<T extends IPolyline> extends TestIPolyline<T> {
-	@Override
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());

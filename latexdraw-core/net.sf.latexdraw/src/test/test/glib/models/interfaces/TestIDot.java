@@ -1,11 +1,16 @@
 package test.glib.models.interfaces;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 
 import org.junit.Test;
+
+import test.HelperTest;
 
 public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 	@Test
@@ -50,23 +55,23 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 	@Test
 	public void testGetSetRadius() {
 		shape.setRadius(22);
-		assertEquals(22., shape.getRadius());
+		HelperTest.assertEqualsDouble(22., shape.getRadius());
 		shape.setRadius(1);
-		assertEquals(1., shape.getRadius());
+		HelperTest.assertEqualsDouble(1., shape.getRadius());
 		shape.setRadius(0.001);
-		assertEquals(0.001, shape.getRadius());
+		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
 		shape.setRadius(0);
-		assertEquals(0.001, shape.getRadius());
+		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
 		shape.setRadius(-0.001);
-		assertEquals(0.001, shape.getRadius());
+		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
 		shape.setRadius(-1);
-		assertEquals(0.001, shape.getRadius());
+		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
 		shape.setRadius(Double.NaN);
-		assertEquals(0.001, shape.getRadius());
+		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
 		shape.setRadius(Double.POSITIVE_INFINITY);
-		assertEquals(0.001, shape.getRadius());
+		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
 		shape.setRadius(Double.NEGATIVE_INFINITY);
-		assertEquals(0.001, shape.getRadius());
+		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
 	}
 
 
@@ -80,7 +85,7 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 		shape2.setRadius(31);
 		shape.copy(shape2);
 		assertEquals(shape2.getDotStyle(), shape.getDotStyle());
-		assertEquals(shape2.getRadius(), shape.getRadius());
+		HelperTest.assertEqualsDouble(shape2.getRadius(), shape.getRadius());
 	}
 
 
@@ -129,14 +134,14 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 	public void testMirrorHorizontal() {
 		shape.setPosition(-10, -20);
 		shape.mirrorHorizontal(DrawingTK.getFactory().createPoint(100, 0));
-		assertEquals(-10., shape.getPosition().getX());
-		assertEquals(-20., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
+		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 		shape.mirrorHorizontal(null);
-		assertEquals(-10., shape.getPosition().getX());
-		assertEquals(-20., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
+		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 		shape.mirrorHorizontal(DrawingTK.getFactory().createPoint(Double.NaN, Double.POSITIVE_INFINITY));
-		assertEquals(-10., shape.getPosition().getX());
-		assertEquals(-20., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
+		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 	}
 
 
@@ -144,14 +149,14 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 	public void testMirrorVertical() {
 		shape.setPosition(-10, -20);
 		shape.mirrorVertical(DrawingTK.getFactory().createPoint(100, 0));
-		assertEquals(-10., shape.getPosition().getX());
-		assertEquals(-20., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
+		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 		shape.mirrorVertical(null);
-		assertEquals(-10., shape.getPosition().getX());
-		assertEquals(-20., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
+		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 		shape.mirrorVertical(DrawingTK.getFactory().createPoint(Double.NaN, Double.POSITIVE_INFINITY));
-		assertEquals(-10., shape.getPosition().getX());
-		assertEquals(-20., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
+		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 	}
 
 

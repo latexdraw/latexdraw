@@ -1,6 +1,9 @@
 package test.glib.models;
 
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
@@ -13,10 +16,10 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import org.junit.Before;
 import org.junit.Test;
 
+import test.HelperTest;
 import test.glib.models.interfaces.TestIDot;
 
 public class TestLDot<T extends IDot> extends TestIDot<T> {
-	@Override
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
@@ -46,8 +49,8 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 		assertTrue(dot1.getRadius()>0);
 		assertNotNull(dot1.getDotStyle());
 		assertNotNull(dot1.getPosition());
-		assertEquals(0., dot1.getPosition().getX());
-		assertEquals(0., dot1.getPosition().getY());
+		HelperTest.assertEqualsDouble(0., dot1.getPosition().getX());
+		HelperTest.assertEqualsDouble(0., dot1.getPosition().getY());
 	}
 
 
@@ -58,11 +61,11 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 		assertTrue(dot1.getRadius()>0);
 		assertNotNull(dot1.getDotStyle());
 		assertNotNull(dot1.getPosition());
-		assertEquals(0., dot1.getPosition().getX());
-		assertEquals(0., dot1.getPosition().getY());
+		HelperTest.assertEqualsDouble(0., dot1.getPosition().getX());
+		HelperTest.assertEqualsDouble(0., dot1.getPosition().getY());
 
 		dot1 = DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(-1, 2), true);
-		assertEquals(-1., dot1.getPosition().getX());
-		assertEquals(2., dot1.getPosition().getY());
+		HelperTest.assertEqualsDouble(-1., dot1.getPosition().getX());
+		HelperTest.assertEqualsDouble(2., dot1.getPosition().getY());
 	}
 }

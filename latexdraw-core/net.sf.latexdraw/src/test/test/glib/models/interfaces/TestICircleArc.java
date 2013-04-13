@@ -4,6 +4,8 @@ import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
 
 import org.junit.Test;
 
+import test.HelperTest;
+
 
 public abstract class TestICircleArc<T extends ICircleArc> extends TestIArc<T> {
 	@Test
@@ -19,11 +21,11 @@ public abstract class TestICircleArc<T extends ICircleArc> extends TestIArc<T> {
 		shape.setWidth(20);
 		shape.setHeight(15);
 
-		assertEquals(7.5, shape.getRx());
+		HelperTest.assertEqualsDouble(7.5, shape.getRx());
 		shape.setHeight(10);
 		shape.setWidth(5);
 
-		assertEquals(2.5, shape.getRx());
+		HelperTest.assertEqualsDouble(2.5, shape.getRx());
 	}
 
 
@@ -34,11 +36,11 @@ public abstract class TestICircleArc<T extends ICircleArc> extends TestIArc<T> {
 		shape.setWidth(20);
 		shape.setHeight(15);
 
-		assertEquals(7.5, shape.getRy());
+		HelperTest.assertEqualsDouble(7.5, shape.getRy());
 		shape.setHeight(10);
 		shape.setWidth(5);
 
-		assertEquals(2.5, shape.getRy());
+		HelperTest.assertEqualsDouble(2.5, shape.getRy());
 	}
 
 
@@ -49,12 +51,12 @@ public abstract class TestICircleArc<T extends ICircleArc> extends TestIArc<T> {
 		shape.setWidth(20);
 		shape.setHeight(15);
 
-		assertEquals(7.5, shape.getA());
+		HelperTest.assertEqualsDouble(7.5, shape.getA());
 
 		shape.setHeight(15);
 		shape.setWidth(10);
 
-		assertEquals(5., shape.getA());
+		HelperTest.assertEqualsDouble(5., shape.getA());
 	}
 
 
@@ -66,11 +68,11 @@ public abstract class TestICircleArc<T extends ICircleArc> extends TestIArc<T> {
 		shape.setWidth(20);
 		shape.setHeight(15);
 
-		assertEquals(7.5, shape.getB());
+		HelperTest.assertEqualsDouble(7.5, shape.getB());
 
 		shape.setHeight(15);
 		shape.setWidth(10);
 
-		assertEquals(5., shape.getB());
+		HelperTest.assertEqualsDouble(5., shape.getB());
 	}
 }

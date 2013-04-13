@@ -1,9 +1,14 @@
 package test.glib.models.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
 
 import org.junit.Test;
+
+import test.HelperTest;
 
 public abstract class TestIArc<T extends IArc> extends TestIEllipse<T> {
 	@Test
@@ -12,36 +17,36 @@ public abstract class TestIArc<T extends IArc> extends TestIEllipse<T> {
 		shape.setPosition(-1, -1);
 
 		shape.setAngleStart(0);
-		assertEquals(1, shape.getStartPoint().getX());
-		assertEquals(0, shape.getStartPoint().getY());
+		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
+		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getY());
 
 		shape.setAngleStart(Math.PI/2.);
-		assertEquals(0, shape.getStartPoint().getX());
-		assertEquals(1, shape.getStartPoint().getY());
+		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
+		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getY());
 
 		shape.setAngleStart(Math.PI);
-		assertEquals(-1, shape.getStartPoint().getX());
-		assertEquals(0, shape.getStartPoint().getY());
+		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getX());
+		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getY());
 
 		shape.setAngleStart(1.5*Math.PI);
-		assertEquals(0, shape.getStartPoint().getX());
-		assertEquals(-1, shape.getStartPoint().getY());
+		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
+		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getY());
 
 		shape.setAngleStart(2.*Math.PI);
-		assertEquals(1, shape.getStartPoint().getX());
-		assertEquals(0, shape.getStartPoint().getY());
+		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
+		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getY());
 
 		shape.setAngleStart(-2.*Math.PI);
-		assertEquals(1, shape.getStartPoint().getX());
-		assertEquals(0, shape.getStartPoint().getY());
+		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
+		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getY());
 
 		shape.setAngleStart(-Math.PI/2.);
-		assertEquals(0, shape.getStartPoint().getX());
-		assertEquals(-1, shape.getStartPoint().getY());
+		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
+		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getY());
 
 		shape.setAngleStart(-Math.PI);
-		assertEquals(-1, shape.getStartPoint().getX());
-		assertEquals(0, shape.getStartPoint().getY());
+		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getX());
+		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getY());
 	}
 
 
@@ -70,62 +75,62 @@ public abstract class TestIArc<T extends IArc> extends TestIEllipse<T> {
 	@Test
 	public void testSetGetAngleStart() {
 		shape.setAngleStart(Math.PI);
-		assertEquals(Math.PI, shape.getAngleStart());
+		HelperTest.assertEqualsDouble(Math.PI, shape.getAngleStart());
 
 		shape.setAngleStart(0.);
-		assertEquals(0., shape.getAngleStart());
+		HelperTest.assertEqualsDouble(0., shape.getAngleStart());
 
 		shape.setAngleStart(2.*Math.PI);
-		assertEquals(2.*Math.PI, shape.getAngleStart());
+		HelperTest.assertEqualsDouble(2.*Math.PI, shape.getAngleStart());
 
 		shape.setAngleStart(4.*Math.PI);
-		assertEquals(4.*Math.PI, shape.getAngleStart());
+		HelperTest.assertEqualsDouble(4.*Math.PI, shape.getAngleStart());
 
 		shape.setAngleStart(-2.*Math.PI);
-		assertEquals(-2.*Math.PI, shape.getAngleStart());
+		HelperTest.assertEqualsDouble(-2.*Math.PI, shape.getAngleStart());
 
 		shape.setAngleStart(-4.*Math.PI);
-		assertEquals(-4.*Math.PI, shape.getAngleStart());
+		HelperTest.assertEqualsDouble(-4.*Math.PI, shape.getAngleStart());
 
 		shape.setAngleStart(Double.NaN);
-		assertEquals(-4.*Math.PI, shape.getAngleStart());
+		HelperTest.assertEqualsDouble(-4.*Math.PI, shape.getAngleStart());
 
 		shape.setAngleStart(Double.NEGATIVE_INFINITY);
-		assertEquals(-4.*Math.PI, shape.getAngleStart());
+		HelperTest.assertEqualsDouble(-4.*Math.PI, shape.getAngleStart());
 
 		shape.setAngleStart(Double.POSITIVE_INFINITY);
-		assertEquals(-4.*Math.PI, shape.getAngleStart());
+		HelperTest.assertEqualsDouble(-4.*Math.PI, shape.getAngleStart());
 	}
 
 
 	@Test
 	public void testSetGetAngleEnd() {
 		shape.setAngleEnd(Math.PI);
-		assertEquals(Math.PI, shape.getAngleEnd());
+		HelperTest.assertEqualsDouble(Math.PI, shape.getAngleEnd());
 
 		shape.setAngleEnd(0.);
-		assertEquals(0., shape.getAngleEnd());
+		HelperTest.assertEqualsDouble(0., shape.getAngleEnd());
 
 		shape.setAngleEnd(2.*Math.PI);
-		assertEquals(2.*Math.PI, shape.getAngleEnd());
+		HelperTest.assertEqualsDouble(2.*Math.PI, shape.getAngleEnd());
 
 		shape.setAngleEnd(4.*Math.PI);
-		assertEquals(4.*Math.PI, shape.getAngleEnd());
+		HelperTest.assertEqualsDouble(4.*Math.PI, shape.getAngleEnd());
 
 		shape.setAngleEnd(-2.*Math.PI);
-		assertEquals(-2.*Math.PI, shape.getAngleEnd());
+		HelperTest.assertEqualsDouble(-2.*Math.PI, shape.getAngleEnd());
 
 		shape.setAngleEnd(-4.*Math.PI);
-		assertEquals(-4.*Math.PI, shape.getAngleEnd());
+		HelperTest.assertEqualsDouble(-4.*Math.PI, shape.getAngleEnd());
 
 		shape.setAngleEnd(Double.NaN);
-		assertEquals(-4.*Math.PI, shape.getAngleEnd());
+		HelperTest.assertEqualsDouble(-4.*Math.PI, shape.getAngleEnd());
 
 		shape.setAngleEnd(Double.NEGATIVE_INFINITY);
-		assertEquals(-4.*Math.PI, shape.getAngleEnd());
+		HelperTest.assertEqualsDouble(-4.*Math.PI, shape.getAngleEnd());
 
 		shape.setAngleEnd(Double.POSITIVE_INFINITY);
-		assertEquals(-4.*Math.PI, shape.getAngleEnd());
+		HelperTest.assertEqualsDouble(-4.*Math.PI, shape.getAngleEnd());
 	}
 
 
@@ -140,8 +145,8 @@ public abstract class TestIArc<T extends IArc> extends TestIEllipse<T> {
 
 		shape.copy(shape2);
 
-		assertEquals(-4.*Math.PI, shape.getAngleEnd());
-		assertEquals(-2.*Math.PI, shape.getAngleStart());
+		HelperTest.assertEqualsDouble(-4.*Math.PI, shape.getAngleEnd());
+		HelperTest.assertEqualsDouble(-2.*Math.PI, shape.getAngleStart());
 		assertEquals(ArcStyle.WEDGE, shape.getArcStyle());
 	}
 

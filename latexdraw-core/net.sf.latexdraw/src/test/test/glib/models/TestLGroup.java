@@ -1,5 +1,6 @@
 package test.glib.models;
 
+import static org.junit.Assert.*;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
@@ -28,7 +29,6 @@ import org.junit.Test;
 import test.glib.models.interfaces.TestIGroup;
 
 public class TestLGroup<T extends IGroup> extends TestIGroup<T> {
-	@Override
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());

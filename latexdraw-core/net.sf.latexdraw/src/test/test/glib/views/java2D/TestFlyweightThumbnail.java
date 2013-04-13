@@ -1,8 +1,11 @@
 package test.glib.views.java2D;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.awt.Image;
 
-import junit.framework.TestCase;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IText;
@@ -19,11 +22,10 @@ import scala.Option;
 import scala.Tuple4;
 import scala.collection.mutable.Set;
 
-public class TestFlyweightThumbnail extends TestCase {
+public class TestFlyweightThumbnail {
 	protected IViewText viewTxt;
 
 	@Before
-	@Override
 	public void setUp() {
 		FlyweightThumbnail.images().clear();
 		DrawingTK.setFactory(new LShapeFactory());

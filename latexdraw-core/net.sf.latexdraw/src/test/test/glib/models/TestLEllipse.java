@@ -1,6 +1,10 @@
 package test.glib.models;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
@@ -13,11 +17,11 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import org.junit.Before;
 import org.junit.Test;
 
+import test.HelperTest;
 import test.glib.models.interfaces.TestIEllipse;
 
 
 public class TestLEllipse<T extends IEllipse> extends TestIEllipse<T> {
-	@Override
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
@@ -82,9 +86,9 @@ public class TestLEllipse<T extends IEllipse> extends TestIEllipse<T> {
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		ell = DrawingTK.getFactory().createEllipse(DrawingTK.getFactory().createPoint(20, 26), DrawingTK.getFactory().createPoint(30, 35), true);
-		assertEquals(20., ell.getPosition().getX());
-		assertEquals(35., ell.getPosition().getY());
-		assertEquals(10., ell.getWidth());
-		assertEquals(9., ell.getHeight());
+		HelperTest.assertEqualsDouble(20., ell.getPosition().getX());
+		HelperTest.assertEqualsDouble(35., ell.getPosition().getY());
+		HelperTest.assertEqualsDouble(10., ell.getWidth());
+		HelperTest.assertEqualsDouble(9., ell.getHeight());
 	}
 }

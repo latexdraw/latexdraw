@@ -5,6 +5,8 @@ import net.sf.latexdraw.glib.models.interfaces.ISquare;
 
 import org.junit.Test;
 
+import test.HelperTest;
+
 public abstract class TestISquare<T extends ISquare> extends TestIRectangle<T> {
 	@Override
 	@Test
@@ -12,8 +14,8 @@ public abstract class TestISquare<T extends ISquare> extends TestIRectangle<T> {
 		shape.setPosition(-15, 100);
 		shape.setWidth(10);
 
-		assertEquals(-5., shape.getBottomRightPoint().getX());
-		assertEquals(100., shape.getBottomRightPoint().getY());
+		HelperTest.assertEqualsDouble(-5., shape.getBottomRightPoint().getX());
+		HelperTest.assertEqualsDouble(100., shape.getBottomRightPoint().getY());
 	}
 
 
@@ -124,8 +126,8 @@ public abstract class TestISquare<T extends ISquare> extends TestIRectangle<T> {
 		shape.setPosition(20, 10);
 		shape.setWidth(10);
 
-		assertEquals(30., shape.getTopRightPoint().getX());
-		assertEquals(0., shape.getTopRightPoint().getY());
+		HelperTest.assertEqualsDouble(30., shape.getTopRightPoint().getX());
+		HelperTest.assertEqualsDouble(0., shape.getTopRightPoint().getY());
 	}
 
 
@@ -133,10 +135,10 @@ public abstract class TestISquare<T extends ISquare> extends TestIRectangle<T> {
 	public void testSetWidthHeight() {
 		shape.setPosition(-5, -5);
 		shape.setHeight(2);
-		assertEquals(2., shape.getWidth());
-		assertEquals(2., shape.getHeight());
+		HelperTest.assertEqualsDouble(2., shape.getWidth());
+		HelperTest.assertEqualsDouble(2., shape.getHeight());
 		shape.setWidth(3);
-		assertEquals(3., shape.getWidth());
-		assertEquals(3., shape.getHeight());
+		HelperTest.assertEqualsDouble(3., shape.getWidth());
+		HelperTest.assertEqualsDouble(3., shape.getHeight());
 	}
 }

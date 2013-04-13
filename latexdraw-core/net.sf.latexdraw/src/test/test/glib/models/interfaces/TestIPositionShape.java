@@ -2,6 +2,7 @@ package test.glib.models.interfaces;
 
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import static junit.framework.Assert.*;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
 

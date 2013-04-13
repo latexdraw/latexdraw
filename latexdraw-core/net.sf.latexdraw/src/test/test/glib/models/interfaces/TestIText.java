@@ -2,6 +2,7 @@ package test.glib.models.interfaces;
 
 
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
+import static junit.framework.Assert.*;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 
 import org.junit.Test;

@@ -1,9 +1,13 @@
 package test.glib.models.interfaces;
 
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 
 import org.junit.Test;
+
+import test.HelperTest;
 
 
 public abstract class TestIRectangle<T extends IRectangle> extends TestIRectangularShape<T> {
@@ -14,7 +18,7 @@ public abstract class TestIRectangle<T extends IRectangle> extends TestIRectangu
 
 		shape2.setLineArc(0.55);
 		shape.copy(shape2);
-		assertEquals(0.55, shape.getLineArc());
+		HelperTest.assertEqualsDouble(0.55, shape.getLineArc());
 		assertTrue(shape.isRoundCorner());
 	}
 
@@ -23,21 +27,21 @@ public abstract class TestIRectangle<T extends IRectangle> extends TestIRectangu
 	@Test
 	public void testGetSetLineArc() {
 		shape.setLineArc(0.5);
-		assertEquals(0.5, shape.getLineArc());
+		HelperTest.assertEqualsDouble(0.5, shape.getLineArc());
 		shape.setLineArc(1);
-		assertEquals(1., shape.getLineArc());
+		HelperTest.assertEqualsDouble(1., shape.getLineArc());
 		shape.setLineArc(0);
-		assertEquals(0., shape.getLineArc());
+		HelperTest.assertEqualsDouble(0., shape.getLineArc());
 		shape.setLineArc(-0.0001);
-		assertEquals(0., shape.getLineArc());
+		HelperTest.assertEqualsDouble(0., shape.getLineArc());
 		shape.setLineArc(1.0001);
-		assertEquals(0., shape.getLineArc());
+		HelperTest.assertEqualsDouble(0., shape.getLineArc());
 		shape.setLineArc(Double.NaN);
-		assertEquals(0., shape.getLineArc());
+		HelperTest.assertEqualsDouble(0., shape.getLineArc());
 		shape.setLineArc(Double.NEGATIVE_INFINITY);
-		assertEquals(0., shape.getLineArc());
+		HelperTest.assertEqualsDouble(0., shape.getLineArc());
 		shape.setLineArc(Double.POSITIVE_INFINITY);
-		assertEquals(0., shape.getLineArc());
+		HelperTest.assertEqualsDouble(0., shape.getLineArc());
 	}
 
 

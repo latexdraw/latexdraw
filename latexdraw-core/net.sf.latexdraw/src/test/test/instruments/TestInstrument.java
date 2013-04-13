@@ -1,15 +1,16 @@
 package test.instruments;
 
-import java.util.List;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import junit.framework.TestCase;
+import java.util.List;
 
 import org.junit.Test;
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
 
 
-public abstract class TestInstrument<T extends Instrument> extends TestCase {
+public abstract class TestInstrument<T extends Instrument> {
 	protected T instrument;
 
 	@Test

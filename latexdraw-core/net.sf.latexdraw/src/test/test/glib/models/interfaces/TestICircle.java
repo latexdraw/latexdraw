@@ -5,6 +5,8 @@ import net.sf.latexdraw.glib.models.interfaces.ICircle;
 
 import org.junit.Test;
 
+import test.HelperTest;
+
 public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 	@Test
 	@Override
@@ -13,11 +15,11 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setWidth(20);
 		shape.setHeight(15);
 
-		assertEquals(7.5, shape.getRx());
+		HelperTest.assertEqualsDouble(7.5, shape.getRx());
 		shape.setHeight(10);
 		shape.setWidth(5);
 
-		assertEquals(2.5, shape.getRx());
+		HelperTest.assertEqualsDouble(2.5, shape.getRx());
 	}
 
 
@@ -28,11 +30,11 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setWidth(20);
 		shape.setHeight(15);
 
-		assertEquals(7.5, shape.getRy());
+		HelperTest.assertEqualsDouble(7.5, shape.getRy());
 		shape.setHeight(10);
 		shape.setWidth(5);
 
-		assertEquals(2.5, shape.getRy());
+		HelperTest.assertEqualsDouble(2.5, shape.getRy());
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setPosition(0, 1);
 		shape.setWidth(10);
 
-		assertEquals(5., shape.getRx());
+		HelperTest.assertEqualsDouble(5., shape.getRx());
 	}
 
 
@@ -51,7 +53,7 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setPosition(0, 1);
 		shape.setWidth(10);
 
-		assertEquals(5., shape.getRy());
+		HelperTest.assertEqualsDouble(5., shape.getRy());
 	}
 
 
@@ -60,7 +62,7 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setPosition(0, 1);
 		shape.setWidth(1);
 
-		assertEquals(shape.getRy(), shape.getRx());
+		HelperTest.assertEqualsDouble(shape.getRy(), shape.getRx());
 	}
 
 
@@ -68,19 +70,19 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setPosition(0, 1);
 		shape.setRx(23);
 
-		assertEquals(23., shape.getRy());
-		assertEquals(23., shape.getA());
-		assertEquals(23., shape.getB());
-		assertEquals(46., shape.getWidth());
-		assertEquals(46., shape.getHeight());
+		HelperTest.assertEqualsDouble(23., shape.getRy());
+		HelperTest.assertEqualsDouble(23., shape.getA());
+		HelperTest.assertEqualsDouble(23., shape.getB());
+		HelperTest.assertEqualsDouble(46., shape.getWidth());
+		HelperTest.assertEqualsDouble(46., shape.getHeight());
 
 		shape.setRy(25);
 
-		assertEquals(25., shape.getRy());
-		assertEquals(25., shape.getA());
-		assertEquals(25., shape.getB());
-		assertEquals(50., shape.getWidth());
-		assertEquals(50., shape.getHeight());
+		HelperTest.assertEqualsDouble(25., shape.getRy());
+		HelperTest.assertEqualsDouble(25., shape.getA());
+		HelperTest.assertEqualsDouble(25., shape.getB());
+		HelperTest.assertEqualsDouble(50., shape.getWidth());
+		HelperTest.assertEqualsDouble(50., shape.getHeight());
 	}
 
 
@@ -191,11 +193,11 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setPosition(10, 5);
 		shape.setWidth(20);
 
-		assertEquals(10., shape.getA());
+		HelperTest.assertEqualsDouble(10., shape.getA());
 
 		shape.setHeight(15);
 
-		assertEquals(7.5, shape.getA());
+		HelperTest.assertEqualsDouble(7.5, shape.getA());
 	}
 
 
@@ -206,11 +208,11 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setPosition(10, 5);
 		shape.setHeight(15);
 
-		assertEquals(7.5, shape.getB());
+		HelperTest.assertEqualsDouble(7.5, shape.getB());
 
 		shape.setWidth(10);
 
-		assertEquals(5., shape.getB());
+		HelperTest.assertEqualsDouble(5., shape.getB());
 	}
 
 
@@ -221,8 +223,8 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setPosition(-5, 0);
 		shape.setWidth(10);
 
-		assertEquals(-5., shape.getBottomLeftPoint().getX());
-		assertEquals(0., shape.getBottomLeftPoint().getY());
+		HelperTest.assertEqualsDouble(-5., shape.getBottomLeftPoint().getX());
+		HelperTest.assertEqualsDouble(0., shape.getBottomLeftPoint().getY());
 	}
 
 
@@ -232,8 +234,8 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setPosition(-15, 100);
 		shape.setWidth(10);
 
-		assertEquals(-5., shape.getBottomRightPoint().getX());
-		assertEquals(100., shape.getBottomRightPoint().getY());
+		HelperTest.assertEqualsDouble(-5., shape.getBottomRightPoint().getX());
+		HelperTest.assertEqualsDouble(100., shape.getBottomRightPoint().getY());
 	}
 
 
@@ -243,8 +245,8 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setPosition(20, 10);
 		shape.setHeight(20);
 
-		assertEquals(20., shape.getTopLeftPoint().getX());
-		assertEquals(-10., shape.getTopLeftPoint().getY());
+		HelperTest.assertEqualsDouble(20., shape.getTopLeftPoint().getX());
+		HelperTest.assertEqualsDouble(-10., shape.getTopLeftPoint().getY());
 	}
 
 
@@ -254,8 +256,8 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 		shape.setPosition(20, 10);
 		shape.setWidth(10);
 
-		assertEquals(30., shape.getTopRightPoint().getX());
-		assertEquals(0., shape.getTopRightPoint().getY());
+		HelperTest.assertEqualsDouble(30., shape.getTopRightPoint().getX());
+		HelperTest.assertEqualsDouble(0., shape.getTopRightPoint().getY());
 	}
 
 
@@ -263,10 +265,10 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 	public void testSetWidthHeight() {
 		shape.setPosition(-5, -5);
 		shape.setHeight(2);
-		assertEquals(2., shape.getWidth());
-		assertEquals(2., shape.getHeight());
+		HelperTest.assertEqualsDouble(2., shape.getWidth());
+		HelperTest.assertEqualsDouble(2., shape.getHeight());
 		shape.setWidth(3);
-		assertEquals(3., shape.getWidth());
-		assertEquals(3., shape.getHeight());
+		HelperTest.assertEqualsDouble(3., shape.getWidth());
+		HelperTest.assertEqualsDouble(3., shape.getHeight());
 	}
 }

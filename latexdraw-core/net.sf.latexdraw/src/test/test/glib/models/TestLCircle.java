@@ -1,6 +1,10 @@
 package test.glib.models;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
@@ -14,10 +18,10 @@ import net.sf.latexdraw.glib.models.interfaces.ISquare;
 import org.junit.Before;
 import org.junit.Test;
 
+import test.HelperTest;
 import test.glib.models.interfaces.TestICircle;
 
 public class TestLCircle<T extends ICircle> extends TestICircle<T> {
-	@Override
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
@@ -46,8 +50,8 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 		ICircle circle = DrawingTK.getFactory().createCircle(false);
 
 		assertEquals(4, circle.getNbPoints());
-		assertEquals(circle.getRx(), circle.getRy());
-		assertEquals(circle.getWidth(), circle.getHeight());
+		HelperTest.assertEqualsDouble(circle.getRx(), circle.getRy());
+		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
 		assertTrue(circle.getHeight()>0);
 	}
 
@@ -56,9 +60,9 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 	public void testConstructors2() {
 		ICircle circle = DrawingTK.getFactory().createCircle(false);
 
-		assertEquals(4, circle.getNbPoints());
-		assertEquals(circle.getRx(), circle.getRy());
-		assertEquals(circle.getWidth(), circle.getHeight());
+		HelperTest.assertEqualsDouble(4, circle.getNbPoints());
+		HelperTest.assertEqualsDouble(circle.getRx(), circle.getRy());
+		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
 		assertTrue(circle.getHeight()>0);
 	}
 
@@ -94,11 +98,11 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 
 		circle = DrawingTK.getFactory().createCircle(DrawingTK.getFactory().createPoint(1, 2), 10., true);
 
-		assertEquals(1., circle.getGravityCentre().getX());
-		assertEquals(2., circle.getGravityCentre().getY());
-		assertEquals(20., circle.getWidth());
+		HelperTest.assertEqualsDouble(1., circle.getGravityCentre().getX());
+		HelperTest.assertEqualsDouble(2., circle.getGravityCentre().getY());
+		HelperTest.assertEqualsDouble(20., circle.getWidth());
 		assertEquals(4, circle.getNbPoints());
-		assertEquals(circle.getRx(), circle.getRy());
-		assertEquals(circle.getWidth(), circle.getHeight());
+		HelperTest.assertEqualsDouble(circle.getRx(), circle.getRy());
+		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
 	}
 }

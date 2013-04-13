@@ -1,6 +1,10 @@
 package test.glib.models;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
@@ -14,10 +18,10 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
 import org.junit.Before;
 import org.junit.Test;
 
+import test.HelperTest;
 import test.glib.models.interfaces.TestIRectangle;
 
 public class TestLRectangle<T extends IRectangle> extends TestIRectangle<T> {
-	@Override
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
@@ -56,16 +60,16 @@ public class TestLRectangle<T extends IRectangle> extends TestIRectangle<T> {
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		rec = DrawingTK.getFactory().createRectangle(DrawingTK.getFactory().createPoint(20, 26), DrawingTK.getFactory().createPoint(30, 35), true);
-		assertEquals(20., rec.getPosition().getX());
-		assertEquals(35., rec.getPosition().getY());
-		assertEquals(10., rec.getWidth());
-		assertEquals(9., rec.getHeight());
+		HelperTest.assertEqualsDouble(20., rec.getPosition().getX());
+		HelperTest.assertEqualsDouble(35., rec.getPosition().getY());
+		HelperTest.assertEqualsDouble(10., rec.getWidth());
+		HelperTest.assertEqualsDouble(9., rec.getHeight());
 
 		rec = DrawingTK.getFactory().createRectangle(DrawingTK.getFactory().createPoint(5, 6), 11, 12, true);
-		assertEquals(5., rec.getPosition().getX());
-		assertEquals(18., rec.getPosition().getY());
-		assertEquals(11., rec.getWidth());
-		assertEquals(12., rec.getHeight());
+		HelperTest.assertEqualsDouble(5., rec.getPosition().getX());
+		HelperTest.assertEqualsDouble(18., rec.getPosition().getY());
+		HelperTest.assertEqualsDouble(11., rec.getWidth());
+		HelperTest.assertEqualsDouble(12., rec.getHeight());
 
 		try {
 			rec = DrawingTK.getFactory().createRectangle(null, 10, 10, true);

@@ -1,9 +1,12 @@
 package test.glib.models.interfaces;
 
 
+import static org.junit.Assert.assertNotNull;
 import net.sf.latexdraw.glib.models.interfaces.IRhombus;
 
 import org.junit.Test;
+
+import test.HelperTest;
 
 public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShape<T> {
 	@Override
@@ -14,8 +17,8 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 
 		assertNotNull(shape.getBottomLeftPoint());
-		assertEquals(0., shape.getBottomLeftPoint().getX());
-		assertEquals(5., shape.getBottomLeftPoint().getY());
+		HelperTest.assertEqualsDouble(0., shape.getBottomLeftPoint().getX());
+		HelperTest.assertEqualsDouble(5., shape.getBottomLeftPoint().getY());
 	}
 
 
@@ -27,8 +30,8 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 
 		assertNotNull(shape.getBottomRightPoint());
-		assertEquals(10., shape.getBottomRightPoint().getX());
-		assertEquals(5., shape.getBottomRightPoint().getY());
+		HelperTest.assertEqualsDouble(10., shape.getBottomRightPoint().getX());
+		HelperTest.assertEqualsDouble(5., shape.getBottomRightPoint().getY());
 	}
 
 
@@ -41,8 +44,8 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 
 		assertNotNull(shape.getTopLeftPoint());
-		assertEquals(0., shape.getTopLeftPoint().getX());
-		assertEquals(-5., shape.getTopLeftPoint().getY());
+		HelperTest.assertEqualsDouble(0., shape.getTopLeftPoint().getX());
+		HelperTest.assertEqualsDouble(-5., shape.getTopLeftPoint().getY());
 	}
 
 
@@ -55,8 +58,8 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 
 		assertNotNull(shape.getTopRightPoint());
-		assertEquals(10., shape.getTopRightPoint().getX());
-		assertEquals(-5., shape.getTopRightPoint().getY());
+		HelperTest.assertEqualsDouble(10., shape.getTopRightPoint().getX());
+		HelperTest.assertEqualsDouble(-5., shape.getTopRightPoint().getY());
 	}
 
 
@@ -69,14 +72,14 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 		shape.mirrorHorizontal(shape.getGravityCentre());
 
-		assertEquals(10., shape.getPtAt(0).getX());
-		assertEquals(0., shape.getPtAt(0).getY());
-		assertEquals(5., shape.getPtAt(1).getX());
-		assertEquals(-5., shape.getPtAt(1).getY());
-		assertEquals(5., shape.getPtAt(3).getX());
-		assertEquals(5., shape.getPtAt(3).getY());
-		assertEquals(0., shape.getPtAt(2).getX());
-		assertEquals(0., shape.getPtAt(2).getY());
+		HelperTest.assertEqualsDouble(10., shape.getPtAt(0).getX());
+		HelperTest.assertEqualsDouble(0., shape.getPtAt(0).getY());
+		HelperTest.assertEqualsDouble(5., shape.getPtAt(1).getX());
+		HelperTest.assertEqualsDouble(-5., shape.getPtAt(1).getY());
+		HelperTest.assertEqualsDouble(5., shape.getPtAt(3).getX());
+		HelperTest.assertEqualsDouble(5., shape.getPtAt(3).getY());
+		HelperTest.assertEqualsDouble(0., shape.getPtAt(2).getX());
+		HelperTest.assertEqualsDouble(0., shape.getPtAt(2).getY());
 	}
 
 
@@ -89,14 +92,14 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 		shape.mirrorVertical(shape.getGravityCentre());
 
-		assertEquals(0., shape.getPtAt(0).getX());
-		assertEquals(0., shape.getPtAt(0).getY());
-		assertEquals(5., shape.getPtAt(1).getX());
-		assertEquals(5., shape.getPtAt(1).getY());
-		assertEquals(5., shape.getPtAt(3).getX());
-		assertEquals(-5., shape.getPtAt(3).getY());
-		assertEquals(10., shape.getPtAt(2).getX());
-		assertEquals(0., shape.getPtAt(2).getY());
+		HelperTest.assertEqualsDouble(0., shape.getPtAt(0).getX());
+		HelperTest.assertEqualsDouble(0., shape.getPtAt(0).getY());
+		HelperTest.assertEqualsDouble(5., shape.getPtAt(1).getX());
+		HelperTest.assertEqualsDouble(5., shape.getPtAt(1).getY());
+		HelperTest.assertEqualsDouble(5., shape.getPtAt(3).getX());
+		HelperTest.assertEqualsDouble(-5., shape.getPtAt(3).getY());
+		HelperTest.assertEqualsDouble(10., shape.getPtAt(2).getX());
+		HelperTest.assertEqualsDouble(0., shape.getPtAt(2).getY());
 	}
 
 
@@ -136,7 +139,7 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 //		assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
 //	}
 
-	
+
 	@Override
 	@Test
 	public void testTranslate() {
@@ -145,13 +148,13 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 		shape.setHeight(10);
 		shape.translate(100, 50);
 
-		assertEquals(100., shape.getPtAt(0).getX());
-		assertEquals(45., shape.getPtAt(0).getY());
-		assertEquals(110., shape.getPtAt(1).getX());
-		assertEquals(40., shape.getPtAt(1).getY());
-		assertEquals(120., shape.getPtAt(2).getX());
-		assertEquals(45., shape.getPtAt(2).getY());
-		assertEquals(110., shape.getPtAt(3).getX());
-		assertEquals(50., shape.getPtAt(3).getY());
+		HelperTest.assertEqualsDouble(100., shape.getPtAt(0).getX());
+		HelperTest.assertEqualsDouble(45., shape.getPtAt(0).getY());
+		HelperTest.assertEqualsDouble(110., shape.getPtAt(1).getX());
+		HelperTest.assertEqualsDouble(40., shape.getPtAt(1).getY());
+		HelperTest.assertEqualsDouble(120., shape.getPtAt(2).getX());
+		HelperTest.assertEqualsDouble(45., shape.getPtAt(2).getY());
+		HelperTest.assertEqualsDouble(110., shape.getPtAt(3).getX());
+		HelperTest.assertEqualsDouble(50., shape.getPtAt(3).getY());
 	}
 }

@@ -1,6 +1,8 @@
 package test.glib.models;
 
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
@@ -13,10 +15,10 @@ import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import org.junit.Before;
 import org.junit.Test;
 
+import test.HelperTest;
 import test.glib.models.interfaces.TestIGrid;
 
 public class TestLGrid<T extends IGrid> extends TestIGrid<T> {
-	@Override
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
@@ -44,7 +46,7 @@ public class TestLGrid<T extends IGrid> extends TestIGrid<T> {
 		IGrid grid = DrawingTK.getFactory().createGrid(false, DrawingTK.getFactory().createPoint());
 		assertTrue(grid.getGridEndX()>=grid.getGridStartX());
 		assertTrue(grid.getGridEndY()>=grid.getGridStartY());
-		assertEquals(0., grid.getPosition().getX());
-		assertEquals(0., grid.getPosition().getY());
+		HelperTest.assertEqualsDouble(0., grid.getPosition().getX());
+		HelperTest.assertEqualsDouble(0., grid.getPosition().getY());
 	}
 }
