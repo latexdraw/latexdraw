@@ -747,18 +747,19 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 					setProgress((int)Math.min(100., getProgress()+incrProgressBar));
 				}
 
-				//TODO drawborders, autoadjust, border
+				//TODO border
 				// code, caption, label, POSITION_HORIZ, POSITION_VERT, COMMENTS
 
 				// The parameters of the instruments are loaded.
-				if(meta!=null)
+				if(ldMeta!=null)
 					loadInstruments(ldMeta, instruments);
 
 				// Updating the possible widgets of the instruments.
 				for(final Instrument instrument : instruments)
 					instrument.interimFeedback();
 
-				ui.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
+				if(ldMeta!=null)
+					ui.load(false, LNamespace.LATEXDRAW_NAMESPACE_URI, ldMeta);
 				ui.updatePresentations();
 				ui.setTitle(getDocumentName());
 

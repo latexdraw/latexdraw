@@ -32,13 +32,13 @@ protected trait LSetShapes extends ISetShapes {
 
 
 	override def addShape(sh : IShape) {
-		if(sh!=null)
+		if(sh!=null && (!sh.isInstanceOf[ISetShapes] || !sh.asInstanceOf[ISetShapes].isEmpty))
 			shapes.add(sh)
 	}
 
 
 	override def addShape(sh : IShape, index : Int) =
-		if(sh!=null && index<=shapes.size && (index== -1 || index>=0))
+		if(sh!=null && index<=shapes.size && (index== -1 || index>=0) && (!sh.isInstanceOf[ISetShapes] || !sh.asInstanceOf[ISetShapes].isEmpty))
 			if(index== -1 || index==shapes.size)
 				shapes.add(sh)
 			else

@@ -37,6 +37,14 @@ public class TestLGroup<T extends IGroup> extends TestIGroup<T> {
 	}
 
 
+	@Test public void testCannotAddShapeWhichIsEmptyGroup() {
+		shape.addShape(DrawingTK.getFactory().createGroup(false));
+		assertTrue(shape.isEmpty());
+		shape.addShape(DrawingTK.getFactory().createGroup(false), -1);
+		assertTrue(shape.isEmpty());
+	}
+
+
 	@Override
 	@Test
 	public void testIsTypeOf() {
