@@ -86,8 +86,10 @@ class RotateShapes extends Action with ShapeAction[IShape] with Undoable with Mo
 	/**
 	 * @param gc The gravity centre used for the rotation.
 	 */
-	def gc_=(gc : IPoint) {
-		_gc = Some(gc)
+	def setGravityCentre(gc : IPoint) {
+		if(gc!=null)
+			_gc = Some(gc)
+		else _gc = None
 	}
 
 	def gc = _gc

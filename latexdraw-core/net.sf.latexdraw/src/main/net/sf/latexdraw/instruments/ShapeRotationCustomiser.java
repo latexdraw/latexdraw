@@ -210,6 +210,7 @@ class ButtonPress2RotateShape extends Link<RotateShapes, ButtonPressed, ShapeRot
 		else
 			angle = -Math.PI/2.;
 
+		action.setGravityCentre(instrument.pencil.canvas.getDrawing().getSelection().getGravityCentre());
 		action.setRotationAngle(angle);
 		action.setShape(instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 	}

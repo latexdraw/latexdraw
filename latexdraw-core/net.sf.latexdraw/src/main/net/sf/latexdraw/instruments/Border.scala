@@ -560,7 +560,7 @@ private sealed class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Bo
 		val drawing = instrument.canvas.getDrawing
 		p1 = DrawingTK.getFactory.createPoint(instrument.canvas.getZoomedPoint(interaction.getStartPt))
 		gc = drawing.getSelection.getGravityCentre
-		action.gc = gc
+		action.setGravityCentre(gc)
 		action.setShape(drawing.getSelection.duplicate)
 	}
 
