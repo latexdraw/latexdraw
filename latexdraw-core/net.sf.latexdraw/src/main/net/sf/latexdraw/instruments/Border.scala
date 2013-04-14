@@ -558,7 +558,7 @@ private sealed class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Bo
 
 	def initAction() {
 		val drawing = instrument.canvas.getDrawing
-		p1 = instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt))
+		p1 = DrawingTK.getFactory.createPoint(instrument.canvas.getZoomedPoint(interaction.getStartPt))
 		gc = drawing.getSelection.getGravityCentre
 		action.gc = gc
 		action.setShape(drawing.getSelection.duplicate)
@@ -566,7 +566,7 @@ private sealed class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Bo
 
 
 	override def updateAction() {
-		val p2 = instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getEndPt))
+		val p2 = DrawingTK.getFactory.createPoint(instrument.canvas.getZoomedPoint(interaction.getEndPt))
 		action.setRotationAngle(gc.computeRotationAngle(p1, p2))
 	}
 
