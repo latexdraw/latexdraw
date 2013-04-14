@@ -30,6 +30,8 @@ import net.sf.latexdraw.actions.shape.MoveCtrlPoint
 import net.sf.latexdraw.actions.shape.RotateShapes
 import org.malai.action.Action
 import net.sf.latexdraw.actions.shape.TranslateShapes
+import org.malai.interaction.library.KeysPressure
+import java.awt.event.KeyEvent
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -59,6 +61,7 @@ class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : WidgetZo
 			addLink(new DnD2Select(this))
 			addLink(new DnD2Translate(this))
 			addLink(new DoubleClick2InitTextSetter(this))
+			addLink(new CtrlA2SelectAllShapes(this))
 		}catch{case ex => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
@@ -86,6 +89,17 @@ class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : WidgetZo
 			}
 		}
 	}
+}
+
+
+private sealed class CtrlA2SelectAllShapes(ins:Hand) extends Link[SelectShapes, KeysPressure, Hand](ins, false, classOf[SelectShapes], classOf[KeysPressure]) {
+	override def initAction() {
+		instrument.canvas.getDrawing.getShapes.foreach{sh => action.addShape(sh)}
+		action.setDrawing(instrument.canvas.getDrawing)
+	}
+
+	override def isConditionRespected() =
+		interaction.getKeys().size()==2 && interaction.getKeys().contains(KeyEvent.VK_A) && interaction.getKeys().contains(KeyEvent.VK_CONTROL)
 }
 
 
