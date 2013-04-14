@@ -90,9 +90,14 @@ class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
 		sx = ((SVGPathSegMoveto)l.get(0)).getX();
 		sy = ((SVGPathSegMoveto)l.get(0)).getY();
 		Arc2D arc = ((SVGPathSegArc)l.get(1)).getArc2D(sx, sy);
-
-		shape.setAngleStart(Math.toRadians(arc.getAngleStart())%(Math.PI*2));
-		shape.setAngleEnd(Math.toRadians(arc.getAngleExtent()+arc.getAngleStart())%(Math.PI*2));
+		double angle = Math.toRadians(arc.getAngleStart())%(Math.PI*2);
+		if(angle<0.)
+			angle = 2.*Math.PI+angle;
+		shape.setAngleStart(angle);
+		angle = Math.toRadians(arc.getAngleExtent()+arc.getAngleStart())%(Math.PI*2);
+		if(angle<0.)
+			angle = 2.*Math.PI+angle;
+		shape.setAngleEnd(angle);
 		shape.setPosition(arc.getMinX(), arc.getMaxY());
 		shape.setWidth(arc.getMaxX()-arc.getMinX());
 		shape.setHeight(arc.getMaxY()-arc.getMinY());
@@ -134,7 +139,7 @@ class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
         IPoint start 		 = shape.getStartPoint();
         IPoint end 			 = shape.getEndPoint();
         double radius 		 = shape.getRx();
-        boolean largeArcFlag = startAngle>endAngle ? startAngle-endAngle>=Math.PI : endAngle-startAngle>Math.PI;
+        boolean largeArcFlag = Math.abs(startAngle-endAngle)>=Math.PI || startAngle>endAngle;
         SVGPathSegList path  = new SVGPathSegList();
         SVGElement elt;
 
@@ -142,7 +147,7 @@ class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
         root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
         path.add(new SVGPathSegMoveto(start.getX(), start.getY(), false));
-        path.add(new SVGPathSegArc(end.getX(), end.getY(), radius, radius, 0, largeArcFlag, startAngle>endAngle, false));
+        path.add(new SVGPathSegArc(end.getX(), end.getY(), radius, radius, 0, largeArcFlag, false, false));
 
         if(type==ArcStyle.CHORD)
         	path.add(new SVGPathSegClosePath());
