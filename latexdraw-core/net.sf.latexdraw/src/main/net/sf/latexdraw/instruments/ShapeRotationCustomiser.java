@@ -168,9 +168,14 @@ class Spinner2RotateShape extends SpinnerForCustomiser<ModifyShapeProperty, Shap
 		return instrument.getRotationField()==interaction.getSpinner();
 	}
 
+
+	@Override
+	public void updateAction() {
+		action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
+	}
+
 	@Override
 	public void initAction() {
-		action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
 		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
 		action.setProperty(ShapeProperties.ROTATION_ANGLE);
 	}
