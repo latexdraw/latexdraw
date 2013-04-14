@@ -32,8 +32,8 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 	@Test public void testShape3() {
 		assertTrue(group.getShapeAt(3) instanceof IText);
 		final IText txt = (IText) group.getShapeAt(3);
-		assertEquals(339.6037265028475, txt.getPosition().getX(), 0.01);
-		assertEquals(189.54589633778912, txt.getPosition().getY(), 0.01);
+		assertEquals(345.08930858, txt.getPosition().getX(), 0.0001);
+		assertEquals(198.570298, txt.getPosition().getY(), 0.0001);
 		assertEquals("\\normalsize{needs}", txt.getText());
 		assertEquals(Color.BLACK, txt.getLineColour());
 		assertEquals(Math.toRadians(-28.917426838501797), txt.getRotationAngle(), 0.0001);
