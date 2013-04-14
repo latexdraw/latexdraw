@@ -1,11 +1,16 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Arc2D;
+import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.glib.models.interfaces.IArc;
+import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc;
 import net.sf.latexdraw.util.LNumber;
 
@@ -42,6 +47,22 @@ class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 	@Override
 	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
 		setArcPath(path, tlx, tly, width, height, shape.getAngleStart(), shape.getAngleEnd(), getJava2DArcStyle());
+	}
+
+
+	@Override
+	public void paintShowPointsLines(final Graphics2D g) {
+		if(shape.getArcStyle()!=ArcStyle.WEDGE) {
+			final IPoint gc = shape.getGravityCentre();
+			final IPoint p1 = shape.getStartPoint();
+			final IPoint p2 = shape.getEndPoint();
+
+			g.setColor(shape.getLineColour());
+			g.setStroke(new BasicStroke((float)(shape.getThickness()/2.), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f,
+						new float[]{(float)shape.getDashSepBlack(), (float)shape.getDashSepWhite()}, 0));
+			g.draw(new Line2D.Double(p1.getX(), p1.getY(), gc.getX(), gc.getY()));
+			g.draw(new Line2D.Double(p2.getX(), p2.getY(), gc.getX(), gc.getY()));
+		}
 	}
 
 

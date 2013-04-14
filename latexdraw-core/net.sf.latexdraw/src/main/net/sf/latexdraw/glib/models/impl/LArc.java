@@ -80,6 +80,12 @@ class LArc extends LEllipse implements IArc {
 
 
 	@Override
+	public boolean isShowPtsable() {
+		return true;
+	}
+
+
+	@Override
 	public IArc duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof IArc ? (IArc)sh : null;

@@ -138,40 +138,20 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-	/**
-	 * @return The toggle button that selects the arc style.
-	 */
-	public MToggleButton getArcB() {
-		return arcB;
-	}
+	/** @return The toggle button that selects the arc style. */
+	public MToggleButton getArcB() { return arcB; }
 
-	/**
-	 * @return The toggle button that selects the wedge style.
-	 */
-	public MToggleButton getWedgeB() {
-		return wedgeB;
-	}
+	/** @return The toggle button that selects the wedge style. */
+	public MToggleButton getWedgeB() { return wedgeB; }
 
-	/**
-	 * @return The toggle button that selects the chord style.
-	 */
-	public MToggleButton getChordB() {
-		return chordB;
-	}
+	/**  @return The toggle button that selects the chord style. */
+	public MToggleButton getChordB() { return chordB; }
 
-	/**
-	 * @return The spinner that sets the start angle.
-	 */
-	public MSpinner getStartAngleS() {
-		return startAngleS;
-	}
+	/** @return The spinner that sets the start angle. */
+	public MSpinner getStartAngleS() { return startAngleS; }
 
-	/**
-	 * @return The spinner that sets the end angle.
-	 */
-	public MSpinner getEndAngleS() {
-		return endAngleS;
-	}
+	/**  @return The spinner that sets the end angle. */
+	public MSpinner getEndAngleS() { return endAngleS; }
 }
 
 
