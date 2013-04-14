@@ -23,6 +23,13 @@ import org.malai.swing.interaction.library.DoubleClick
 import org.malai.interaction.library.DnD
 import org.malai.swing.instrument.library.WidgetZoomer
 import org.malai.interaction.library.Press
+import net.sf.latexdraw.actions.shape.MovePointShape
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty
+import net.sf.latexdraw.actions.shape.ScaleShapes
+import net.sf.latexdraw.actions.shape.MoveCtrlPoint
+import net.sf.latexdraw.actions.shape.RotateShapes
+import org.malai.action.Action
+import net.sf.latexdraw.actions.shape.TranslateShapes
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -44,6 +51,7 @@ import org.malai.interaction.library.Press
  * @version 3.0
  */
 class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : WidgetZoomer, val textSetter : TextSetter) extends Instrument {
+	protected var _metaCustomiser : MetaShapeCustomiser = null
 
 	override protected def initialiseLinks() {
 		try{
@@ -65,6 +73,18 @@ class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : WidgetZo
 		// The rectangle used for the interim feedback of the selection is removed.
 		canvas.setTempUserSelectionBorder(null)
 		canvas.setCursor(Cursor.getDefaultCursor)
+	}
+
+	def setMetaCustomiser(metaCustomiser:MetaShapeCustomiser) { _metaCustomiser = metaCustomiser }
+
+
+	override def onActionDone(action:Action) {
+		if(_metaCustomiser!=null) {
+			action match {
+				case _:TranslateShapes => _metaCustomiser.dimPosCustomiser.update()
+				case _ =>
+			}
+		}
 	}
 }
 

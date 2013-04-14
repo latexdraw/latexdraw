@@ -56,8 +56,7 @@ class TranslateShapes extends Action with ShapeAction[IGroup] with DrawingAction
 	}
 
 
-	override def canDo() =  _drawing.isDefined && _shape.isDefined && !_shape.get.isEmpty && GLibUtilities.INSTANCE.isValidPoint(_tx, _ty) &&
-							(!LNumber.INSTANCE.equals(_tx, 0.) || !LNumber.INSTANCE.equals(_ty, 0.))
+	override def canDo() =  _drawing.isDefined && _shape.isDefined && !_shape.get.isEmpty && GLibUtilities.INSTANCE.isValidPoint(_tx, _ty)
 
 
 	override def undo() {

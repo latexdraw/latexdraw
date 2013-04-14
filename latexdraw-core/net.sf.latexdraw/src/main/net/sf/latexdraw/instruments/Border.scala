@@ -42,6 +42,9 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.mapping.Shape2BorderMapping
 import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.glib.models.impl.LDrawing
+import org.malai.action.Action
+import net.sf.latexdraw.actions.shape.RotateShapes
+import net.sf.latexdraw.actions.shape.TranslateShapes
 
 /**
  * This instrument manages the selected views.<br>
@@ -96,6 +99,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	/** The handler that rotates shapes. */
 	protected val _rotHandler : IHandler = new RotationHandler()
 
+	protected var _metaCustomiser : MetaShapeCustomiser = null
 
 	// Initialisation of the handlers that are always used.
 	_scaleHandlers += new ScaleHandler(Position.NW)
@@ -124,6 +128,8 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 
 	def border = _border
 
+	def setMetaCustomiser(metaCustomiser:MetaShapeCustomiser) { _metaCustomiser = metaCustomiser }
+
 
 	override def reinit() {
 		_selection.clear
@@ -133,6 +139,20 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 
 	override def interimFeedback() {
 		canvas.setCursor(Cursor.getDefaultCursor)
+	}
+
+
+	override def onActionDone(action:Action) {
+		if(_metaCustomiser!=null) {
+			action match {
+				case _:RotateShapes => _metaCustomiser.rotationCustomiser.update()
+				case _:ModifyShapeProperty => _metaCustomiser.arcCustomiser.update()
+				case _:MoveCtrlPoint => _metaCustomiser.dimPosCustomiser.update()
+				case _:MovePointShape => _metaCustomiser.dimPosCustomiser.update()
+				case _:ScaleShapes => _metaCustomiser.dimPosCustomiser.update()
+				case _ =>
+			}
+		}
 	}
 
 
