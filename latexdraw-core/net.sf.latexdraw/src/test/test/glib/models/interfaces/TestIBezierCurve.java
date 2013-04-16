@@ -44,12 +44,6 @@ public abstract class TestIBezierCurve<T extends IBezierCurve> extends TestICont
 
 	@Override
 	@Test
-	public void testIsParametersEquals() {
-		//TODO
-	}
-
-	@Override
-	@Test
 	public void testDuplicate() {
 		//TODO
 	}

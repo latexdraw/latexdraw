@@ -49,13 +49,6 @@ public abstract class TestIText<T extends IText> extends TestIPositionShape<T> {
 
 	@Override
 	@Test
-	public void testIsParametersEquals() {
-		//TODO
-	}
-
-
-	@Override
-	@Test
 	public void testDuplicate() {
 		super.testDuplicate();
 		//TODO

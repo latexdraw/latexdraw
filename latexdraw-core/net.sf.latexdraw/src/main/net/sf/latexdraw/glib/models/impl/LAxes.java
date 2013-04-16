@@ -10,7 +10,6 @@ import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a model of axes.<br>
@@ -110,25 +109,6 @@ class LAxes extends LAbstractGrid implements IAxes {
 			setIncrementY(axes.getIncrementY());
 			setLabelsDisplayed(axes.getLabelsDisplayed());
 		}
-	}
-
-
-	@Override
-	public boolean isParametersEquals(final IShape s, final boolean considerShadow) {
-		boolean ok = super.isParametersEquals(s, considerShadow);
-
-		if(ok && s instanceof IAxes) {
-			final IAxes axes = (IAxes) s;
-
-			ok = showOrigin==axes.isShowOrigin() && ticksDisplayed==axes.getTicksDisplayed() &&
-				LNumber.INSTANCE.equals(ticksSize, axes.getTicksSize()) && ticksStyle==axes.getTicksStyle() &&
-				axesStyle==axes.getAxesStyle() && LNumber.INSTANCE.equals(distLabelsX, axes.getDistLabelsX()) &&
-				LNumber.INSTANCE.equals(distLabelsY, axes.getDistLabelsY()) &&
-				LNumber.INSTANCE.equals(incrementX, axes.getIncrementX()) && LNumber.INSTANCE.equals(incrementY, axes.getIncrementY()) &&
-				labelsDisplayed==axes.getLabelsDisplayed();
-		}
-
-		return ok;
 	}
 
 

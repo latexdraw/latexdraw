@@ -229,7 +229,7 @@ class LArrow implements IArrow {
 	public boolean isInverted() {
 		final boolean isLeft = isLeftArrow();
 		final boolean isRightStyle = style.isRightStyle();
-		return (isLeft && isRightStyle)  || (!isLeft && !isRightStyle);
+		return isLeft && isRightStyle  || !isLeft && !isRightStyle;
 	}
 
 	@Override
@@ -307,11 +307,5 @@ class LArrow implements IArrow {
 	public void setTBarSizeNum(final double tBarSizeNum) {
 		if(tBarSizeNum>=0.)
 			this.tBarSizeNum = tBarSizeNum;
-	}
-
-	@Override
-	public void setShape(final IShape shape) {
-		if(shape!=null)
-			owner = shape;
 	}
 }

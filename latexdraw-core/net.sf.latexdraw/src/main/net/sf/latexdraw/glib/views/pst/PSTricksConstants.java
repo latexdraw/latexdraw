@@ -118,9 +118,6 @@ public abstract class PSTricksConstants {
 	/** The angle of the gradient in degree. */
 	public static final double DEFAULT_GRADIENT_ANGLE = 0;
 
-	/** The value by default of a missing coordinate : (5,) */
-	public static final double DEFAULT_VALUE_MISSING_COORDINATE = 1.;
-
 	public static final String TOKEN_PUT_ANGLE_0   = "U";//$NON-NLS-1$
 	public static final String TOKEN_PUT_ANGLE_90  = "L";//$NON-NLS-1$
 	public static final String TOKEN_PUT_ANGLE_180 = "D";//$NON-NLS-1$
@@ -129,12 +126,6 @@ public abstract class PSTricksConstants {
 	public static final String TOKEN_PUT_ANGLE_90_STAR	= "W";//$NON-NLS-1$
 	public static final String TOKEN_PUT_ANGLE_180_STAR	= "S";//$NON-NLS-1$
 	public static final String TOKEN_PUT_ANGLE_270_STAR	= "E";//$NON-NLS-1$
-
-	public static final char TOKEN_RPUT_TOP 	= 't';
-	public static final char TOKEN_RPUT_BOTTOM 	= 'b';
-	public static final char TOKEN_RPUT_BASE 	= 'B';
-	public static final char TOKEN_RPUT_LEFT 	= 'l';
-	public static final char TOKEN_RPUT_RIGHT 	= 'r';
 
 	public static final char TOKEN_UPUT_DOWN 	= 'd';
 	public static final char TOKEN_UPUT_UP	 	= 'u';
@@ -153,16 +144,6 @@ public abstract class PSTricksConstants {
 	/** gangle is the angle of rotation of a diamond and a triangle
 	 * around their centre. */
 	public static final double DEFAULT_GANGLE = 0;
-
-	public static final String TOKEN_COLOR_TYPE_NAMED = "named"; //$NON-NLS-1$
-
-	public static final String TOKEN_COLOR_TYPE_CMYK = "cmyk"; //$NON-NLS-1$
-
-	public static final String TOKEN_COLOR_TYPE_HSB = "hsb"; //$NON-NLS-1$
-
-	public static final String TOKEN_COLOR_TYPE_GRAY = "gray"; //$NON-NLS-1$
-
-	public static final String TOKEN_COLOR_TYPE_RGB = "rgb"; //$NON-NLS-1$
 
 	/** The token of the parameters : fillstyle = none */
 	public static final String TOKEN_FILL_NONE = "none";//$NON-NLS-1$
@@ -412,7 +393,7 @@ public abstract class PSTricksConstants {
 	public static final boolean DEFAULT_DOUBLE_LINE = false;
 
 	/** The width of the separation between the double lines */
-	public static final double DEFAULT_DOUBLE_SEP = (1.25/(DEFAULT_LINE_WIDTH*CM_VAL_PT))/CM_VAL_PT;
+	public static final double DEFAULT_DOUBLE_SEP = 1.25/(DEFAULT_LINE_WIDTH*CM_VAL_PT)/CM_VAL_PT;
 
 	/** Is there shadow by default */
 	public static final boolean DEFAULT_SHADOW = false;
@@ -504,28 +485,6 @@ public abstract class PSTricksConstants {
 	/** When true, the box that is produced is the size of the frame or
 		whatever that is drawn around the object. */
 	public static final boolean DEFAULT_BOX_SEP = true;
-
-
-	/**
-	 * Allows to know if the new style is valid
-	 * @param newStyle The style which must be checked
-	 * @return True if the style is valid
-	 */
-	public static boolean isValidDotStyle(final String newStyle) {
-		if(newStyle==null)
-			return false;
-
-		return newStyle.equals(OPLUS_STYLE) || newStyle.equals(DOT_STYLE)
-				|| newStyle.equals(OTIMES_STYLE) || newStyle.equals(O_STYLE)
-				|| newStyle.equals(X_STYLE)
-				|| newStyle.equals(FTRIANGLE_STYLE) || newStyle.equals(FSQUARE_STYLE)
-				|| newStyle.equals(FPENTAGON_STYLE) || newStyle.equals(FDIAMOND_STYLE)
-				|| newStyle.equals(TRIANGLE_STYLE) || newStyle.equals(PENTAGON_STYLE)
-				|| newStyle.equals(PLUS_STYLE) || newStyle.equals(SQUARE_STYLE)
-				|| newStyle.equals(BAR_STYLE) || newStyle.equals(DIAMOND_STYLE)
-				|| newStyle.equals(ASTERISK_STYLE);
-	}
-
 
 
 	/**

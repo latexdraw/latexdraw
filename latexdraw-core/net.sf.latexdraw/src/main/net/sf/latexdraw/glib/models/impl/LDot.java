@@ -7,7 +7,6 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a model of a dot.<br>
@@ -333,22 +332,6 @@ class LDot extends LPositionShape implements IDot {
 		return isFillable() || style == DotStyle.FDIAMOND || style == DotStyle.FPENTAGON || style == DotStyle.FSQUARE
 				|| style == DotStyle.FTRIANGLE || style==DotStyle.DOT;
 	}
-
-
-
-	@Override
-	public boolean isParametersEquals(final IShape s, final boolean considerShadow) {
-		boolean ok = super.isParametersEquals(s, considerShadow);
-
-		if(ok && s instanceof IDot){
-			final IDot dot = (IDot)s;
-
-			ok = dot.getDotStyle() == getDotStyle() && LNumber.INSTANCE.equals(dot.getRadius(), getRadius());
-		}
-
-		return ok;
-	}
-
 
 
 	@Override

@@ -220,12 +220,6 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Override
 	@Test
-	public void testIsParametersEquals() {
-		//TODO
-	}
-
-	@Override
-	@Test
 	public void testDuplicate() {
 		//TODO
 	}

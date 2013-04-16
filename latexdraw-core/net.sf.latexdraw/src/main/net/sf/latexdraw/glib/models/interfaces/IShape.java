@@ -187,22 +187,6 @@ public interface IShape extends Modifiable, IArrowable {
 			return null;
 		}
 
-
-		/**
-		 * @param token The latex token to test.
-		 * @return The line style that corresponds to the given latex parameter (or null).
-		 * @since 3.0
-		 */
-		public static LineStyle getStyleFromLatex(final String token) {
-			if(token==null) return null;
-			if(PSTricksConstants.LINE_NONE_STYLE.equals(token)) 	return NONE;
-			if(PSTricksConstants.LINE_SOLID_STYLE.equals(token)) 	return SOLID;
-			if(PSTricksConstants.LINE_DASHED_STYLE.equals(token)) 	return DASHED;
-			if(PSTricksConstants.LINE_DOTTED_STYLE.equals(token)) 	return DOTTED;
-			return null;
-		}
-
-
 		/**
 		 * @return The latex token corresponding to the line style.
 		 * @since 3.0
@@ -514,15 +498,6 @@ public interface IShape extends Modifiable, IArrowable {
 	 * @param ty The Y translation.
 	 */
 	void translate(final double tx, final double ty);
-
-	/**
-	 * Checks if the parameters of the shapes are equals.
-	 * @param s The shape to compare.
-	 * @param considerShadow True if the parameters of the shadows must be considered.
-	 * @return True if the parameters are equals.
-	 * @since 1.9
-	 */
-	boolean isParametersEquals(final IShape s, final boolean considerShadow);
 
 	/**
 	 * @return True if the shape has hatchings.

@@ -174,14 +174,6 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 	}
 
 
-	protected void setDotPath() {
-		final IPoint tl	= shape.getLazyTopLeftPoint();
-
-		path.reset();
-		LEllipseView.setEllipsePath(path, tl.getX(), tl.getY(), shape.getRadius(), shape.getRadius());
-	}
-
-
 	protected void setPathBar() {
 		final IPoint br	= shape.getLazyBottomRightPoint();
 		final IPoint tl	= shape.getLazyTopLeftPoint();

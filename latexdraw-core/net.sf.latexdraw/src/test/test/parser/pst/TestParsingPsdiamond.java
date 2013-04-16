@@ -137,8 +137,8 @@ public class TestParsingPsdiamond extends TestParsingShape {
 	@Test
 	public void test2CoordinatesTwoFirstMissing() throws ParseException {
 		IRhombus rh = (IRhombus)parser.parsePSTCode("\\"+getCommandName()+"(,)(35,50)").get().getShapeAt(0);
-		assertEquals(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*IShape.PPC-35*IShape.PPC, rh.getPosition().getX(), 0.001);
-		assertEquals(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*-IShape.PPC+50.*IShape.PPC, rh.getPosition().getY(), 0.001);
+		assertEquals(IShape.PPC-35*IShape.PPC, rh.getPosition().getX(), 0.001);
+		assertEquals(-IShape.PPC+50.*IShape.PPC, rh.getPosition().getY(), 0.001);
 		assertEquals(35.*IShape.PPC*2., rh.getWidth(), 0.001);
 		assertEquals(50.*IShape.PPC*2., rh.getHeight(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());

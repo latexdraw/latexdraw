@@ -271,37 +271,4 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 		assertFalse(shape2.isYLabelWest());
 		assertEquals(shape2.getLabelsSize(), shape.getLabelsSize());
 	}
-
-
-	@Override
-	@Test
-	public void testIsParametersEquals() {
-		super.testIsParametersEquals();
-
-		shape.setOrigin(20, 30);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setOrigin(20, 30);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setGridEnd(100, -40);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setGridEnd(100, -40);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setGridStart(-200, -300);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setGridStart(-200, -300);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setXLabelSouth(false);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setXLabelSouth(false);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setYLabelWest(false);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setYLabelWest(false);
-		assertTrue(shape.isParametersEquals(shape2, true));
-//		shape.setLabelsSize(IText.TestSize.HUGE1.getSize());//FIXME
-//		assertFalse(shape.isParametersEquals(shape2, true));
-//		shape2.setLabelsSize(IText.TestSize.HUGE1.getSize());
-//		assertTrue(shape.isParametersEquals(shape2, true));
-
-	}
 }

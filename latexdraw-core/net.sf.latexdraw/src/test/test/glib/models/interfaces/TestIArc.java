@@ -1,8 +1,6 @@
 package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
 
@@ -148,30 +146,5 @@ public abstract class TestIArc<T extends IArc> extends TestIEllipse<T> {
 		HelperTest.assertEqualsDouble(-4.*Math.PI, shape.getAngleEnd());
 		HelperTest.assertEqualsDouble(-2.*Math.PI, shape.getAngleStart());
 		assertEquals(ArcStyle.WEDGE, shape.getArcStyle());
-	}
-
-	@Override
-	@Test
-	public void testIsParametersEquals() {
-		shape2.setAngleEnd(-4.*Math.PI);
-		shape2.setAngleStart(-2.*Math.PI);
-		shape2.setArcStyle(ArcStyle.WEDGE);
-
-		shape.setAngleEnd(-4.*Math.PI);
-		shape.setAngleStart(-2.*Math.PI);
-		shape.setArcStyle(ArcStyle.WEDGE);
-
-		assertTrue(shape.isParametersEquals(shape2, false));
-
-		shape.setAngleEnd(1.);
-		assertFalse(shape.isParametersEquals(shape2, false));
-
-		shape.setAngleEnd(-4.*Math.PI);
-		shape.setAngleStart(1.);
-		assertFalse(shape.isParametersEquals(shape2, false));
-
-		shape.setAngleStart(-2.*Math.PI);
-		shape.setArcStyle(ArcStyle.ARC);
-		assertFalse(shape.isParametersEquals(shape2, false));
 	}
 }

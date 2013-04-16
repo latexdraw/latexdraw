@@ -29,17 +29,4 @@ public class TestLineStyle extends TestCase
 		assertEquals(LineStyle.getStyle(LineStyle.NONE.toString()), LineStyle.NONE);
 		assertEquals(LineStyle.getStyle(LineStyle.SOLID.toString()), LineStyle.SOLID);
 	}
-
-
-	@Test
-	public void testGetStyleFromLatex() {
-		assertNull(LineStyle.getStyleFromLatex(null));
-		assertNull(LineStyle.getStyleFromLatex(""));
-		assertNull(LineStyle.getStyleFromLatex("fdfd"));
-		assertNull(LineStyle.getStyleFromLatex("&é^kd çdu"));
-		assertEquals(LineStyle.getStyleFromLatex(PSTricksConstants.LINE_DASHED_STYLE), LineStyle.DASHED);
-		assertEquals(LineStyle.getStyleFromLatex(PSTricksConstants.LINE_DOTTED_STYLE), LineStyle.DOTTED);
-		assertEquals(LineStyle.getStyleFromLatex(PSTricksConstants.LINE_NONE_STYLE), LineStyle.NONE);
-		assertEquals(LineStyle.getStyleFromLatex(PSTricksConstants.LINE_SOLID_STYLE), LineStyle.SOLID);
-	}
 }

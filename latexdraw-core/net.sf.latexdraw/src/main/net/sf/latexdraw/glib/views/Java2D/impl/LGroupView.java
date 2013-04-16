@@ -95,19 +95,6 @@ class LGroupView extends LShapeView<IGroup> {
 
 
 	/**
-	 * @param i The position of the view to get.
-	 * @return The view at the given position.
-	 * @since 3.0
-	 */
-	public IViewShape getViewAt(final int i) {
-		if(i>=0 && i<views.size())
-			return views.get(i);
-
-		return null;
-	}
-
-
-	/**
 	 * @return The number of views that has the drawing view.
 	 * @since 3.0
 	 */

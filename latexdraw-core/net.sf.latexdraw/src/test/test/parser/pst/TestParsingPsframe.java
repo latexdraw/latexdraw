@@ -270,8 +270,8 @@ public class TestParsingPsframe extends TestParsingShape {
 	@Test
 	public void test2CoordinatesTwoFirstMissing() throws ParseException {
 		IRectangle rec = (IRectangle)parser.parsePSTCode("\\"+getCommandName()+"(,)(35,50)").get().getShapeAt(0);
-		assertEquals(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*IShape.PPC, rec.getPosition().getX(), 0.001);
-		assertEquals(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*-IShape.PPC, rec.getPosition().getY(), 0.001);
+		assertEquals(IShape.PPC, rec.getPosition().getX(), 0.001);
+		assertEquals(-IShape.PPC, rec.getPosition().getY(), 0.001);
 		assertEquals(34.*IShape.PPC, rec.getWidth(), 0.001);
 		assertEquals(49.*IShape.PPC, rec.getHeight(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());

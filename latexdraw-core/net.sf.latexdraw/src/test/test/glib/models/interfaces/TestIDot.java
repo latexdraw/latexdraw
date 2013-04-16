@@ -2,8 +2,6 @@ package test.glib.models.interfaces;
 
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
@@ -86,23 +84,6 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 		shape.copy(shape2);
 		assertEquals(shape2.getDotStyle(), shape.getDotStyle());
 		HelperTest.assertEqualsDouble(shape2.getRadius(), shape.getRadius());
-	}
-
-
-
-	@Override
-	@Test
-	public void testIsParametersEquals() {
-		super.testIsParametersEquals();
-
-		shape2.setDotStyle(DotStyle.DIAMOND);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape.setDotStyle(DotStyle.DIAMOND);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape2.setRadius(31);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape.setRadius(31);
-		assertTrue(shape.isParametersEquals(shape2, true));
 	}
 
 

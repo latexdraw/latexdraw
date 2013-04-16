@@ -233,8 +233,8 @@ public interface IArrow extends IArrowable {
 		 * @since 3.0
 		 */
 		public boolean isSameKind(final ArrowStyle style) {
-			return style!=null && ((isArrow() && style.isArrow()) || (isBar() && style.isBar()) || (isCircleDisk() && style.isCircleDisk()) ||
-								   (isRoundBracket() && style.isRoundBracket()) || (isSquareBracket() && style.isSquareBracket()));
+			return style!=null && (isArrow() && style.isArrow() || isBar() && style.isBar() || isCircleDisk() && style.isCircleDisk() ||
+								   isRoundBracket() && style.isRoundBracket() || isSquareBracket() && style.isSquareBracket());
 		}
 
 		/**
@@ -329,13 +329,6 @@ public interface IArrow extends IArrowable {
 	 * @since 3.0
 	 */
 	IShape getShape();
-
-	/**
-	 * Defines the shape that contains the arrow.
-	 * @param shape The new shape. Cannot be null.
-	 * @since 3.0
-	 */
-	void setShape(final IShape shape);
 
 	/**
 	 * @return The line that can be used to locate the arrow.

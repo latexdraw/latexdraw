@@ -109,11 +109,4 @@ public abstract class TestIPicture<T extends IPicture> extends TestIPositionShap
 	public void testCopy() {
 		//TODO
 	}
-
-
-	@Override
-	@Test
-	public void testIsParametersEquals() {
-		//TODO
-	}
 }

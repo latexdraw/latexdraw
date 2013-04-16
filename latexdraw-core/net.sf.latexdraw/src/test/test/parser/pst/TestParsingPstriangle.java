@@ -158,8 +158,8 @@ public class TestParsingPstriangle extends TestParsingShape {
 	@Test
 	public void test2CoordinatesTwoFirstMissing() throws ParseException {
 		ITriangle tri = (ITriangle)parser.parsePSTCode("\\"+getCommandName()+"(,)(35,50)").get().getShapeAt(0);
-		assertEquals(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*IShape.PPC-35./2.*IShape.PPC, tri.getPosition().getX(), 0.001);
-		assertEquals(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*IShape.PPC*-1., tri.getPosition().getY(), 0.001);
+		assertEquals(IShape.PPC-35./2.*IShape.PPC, tri.getPosition().getX(), 0.001);
+		assertEquals(IShape.PPC*-1., tri.getPosition().getY(), 0.001);
 		assertEquals(35.*IShape.PPC, tri.getWidth(), 0.001);
 		assertEquals(50.*IShape.PPC, tri.getHeight(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());

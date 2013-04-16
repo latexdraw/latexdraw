@@ -8,7 +8,6 @@ import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a model of a grid.<br>
@@ -105,29 +104,6 @@ class LGrid extends LAbstractGrid implements IGrid {
 		final IShape sh = super.duplicate();
 		return sh instanceof IGrid ? (IGrid)sh : null;
 	}
-
-
-	@Override
-	public boolean isParametersEquals(final IShape sh, final boolean considerShadow) {
-		boolean equal = super.isParametersEquals(sh, considerShadow);
-
-		if(equal && sh instanceof IGrid) {
-			IGrid grid = (IGrid) sh;
-
-			// Comparing colours.
-			equal = grid.getSubGridColour().equals(subGridColour) && grid.getGridLabelsColour().equals(gridLabelsColour);
-			// Comparing div and unit.
-			equal = equal && grid.getSubGridDiv()==subGridDiv && LNumber.INSTANCE.equals(unit, grid.getUnit());
-			// Comparing dots.
-			equal = equal && grid.getSubGridDots()==subGridDots && gridDots==grid.getGridDots();
-			// Comparing widths.
-			equal = equal && LNumber.INSTANCE.equals(grid.getSubGridWidth(), subGridWidth) && LNumber.INSTANCE.equals(grid.getGridWidth(), gridWidth);
-		}
-
-		return equal;
-	}
-
-
 
 
 	@Override

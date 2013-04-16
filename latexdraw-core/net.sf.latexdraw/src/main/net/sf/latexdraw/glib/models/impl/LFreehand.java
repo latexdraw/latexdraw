@@ -69,19 +69,6 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 
 
 	@Override
-	public boolean isParametersEquals(final IShape s, final boolean considerShadow) {
-		boolean ok = super.isParametersEquals(s, considerShadow);
-
-		if(s instanceof IFreehand) {
-			final IFreehand fh = (IFreehand)s;
-			ok = ok && open==fh.isOpen() && interval==fh.getInterval() && type==fh.getType();
-		}
-
-		return ok;
-	}
-
-
-	@Override
 	public int getInterval() {
 		return interval;
 	}

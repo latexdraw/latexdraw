@@ -4,7 +4,6 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a model of an abstract latex grid.<br>
@@ -298,29 +297,6 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 			originy 	= grid.getOriginY();
 			setLabelsSize(grid.getLabelsSize());
 		}
-	}
-
-
-	@Override
-	public boolean isParametersEquals(final IShape s, final boolean considerShadow) {
-		boolean ok = super.isParametersEquals(s, considerShadow);
-
-		if(ok && s instanceof IStandardGrid) {
-			IStandardGrid grid = (IStandardGrid) s;
-
-			// Comparing grid end.
-			ok = LNumber.INSTANCE.equals(gridEndx, grid.getGridEndX()) && LNumber.INSTANCE.equals(gridEndy, grid.getGridEndY());
-			// Comparing grid start.
-			ok = ok && LNumber.INSTANCE.equals(gridStartx, grid.getGridStartX()) && LNumber.INSTANCE.equals(gridStarty, grid.getGridStartY());
-			// Comparing label position.
-			ok = ok && xLabelSouth==grid.isXLabelSouth() && yLabelWest==grid.isYLabelWest();
-			// Comparing label size.
-			ok = ok && labelSize==grid.getLabelsSize();
-			// Comparing the origin.
-			ok = ok && LNumber.INSTANCE.equals(originx, grid.getOriginX()) && LNumber.INSTANCE.equals(originy, grid.getOriginY());
-		}
-
-		return ok;
 	}
 
 

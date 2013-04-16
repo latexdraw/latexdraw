@@ -57,19 +57,6 @@ class LText extends LPositionShape implements IText {
 
 
 	@Override
-	public boolean isParametersEquals(final IShape sh, final boolean considerShadow) {
-		boolean ok = super.isParametersEquals(sh, considerShadow);
-
-		if(ok && sh instanceof IText) {
-			final IText txt = (IText)sh;
-			ok = txt.getText().equals(text) && txt.getTextPosition()==textPosition;
-		}
-
-		return ok;
-	}
-
-
-	@Override
 	public IText duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof IText ? (IText)sh : null;

@@ -284,56 +284,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 	}
 
 
-
-	@Override
-	@Test
-	public void testIsParametersEquals() {
-		super.testIsParametersEquals();
-
-		shape.setAxesStyle(AxesStyle.NONE);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setAxesStyle(AxesStyle.NONE);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setDistLabelsX(11);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setDistLabelsX(11);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setDistLabelsY(11);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setDistLabelsY(11);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setIncrementX(11);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setIncrementX(11);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setIncrementY(11);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setIncrementY(11);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setLabelsDisplayed(PlottingStyle.NONE);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setLabelsDisplayed(PlottingStyle.NONE);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setShowOrigin(false);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setShowOrigin(false);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setTicksDisplayed(PlottingStyle.Y);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setTicksDisplayed(PlottingStyle.Y);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setTicksSize(199);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setTicksSize(199);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setTicksStyle(TicksStyle.TOP);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setTicksStyle(TicksStyle.TOP);
-		assertTrue(shape.isParametersEquals(shape2, true));
-	}
-
-
-
 	@Override
 	@Test
 	public void testDuplicate() {

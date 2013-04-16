@@ -148,8 +148,8 @@ public class TestParsingPsellipse extends TestParsingShape {
 	@Test
 	public void test2CoordinatesTwoFirstMissing() throws ParseException {
 		IEllipse ell = (IEllipse)parser.parsePSTCode("\\"+getCommandName()+"(,)(35,50)").get().getShapeAt(0);
-		assertEquals(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*IShape.PPC-35*IShape.PPC, ell.getPosition().getX(), 0.001);
-		assertEquals(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*-IShape.PPC+50.*IShape.PPC, ell.getPosition().getY(), 0.001);
+		assertEquals(IShape.PPC-35*IShape.PPC, ell.getPosition().getX(), 0.001);
+		assertEquals(-IShape.PPC+50.*IShape.PPC, ell.getPosition().getY(), 0.001);
 		assertEquals(35.*IShape.PPC*2., ell.getWidth(), 0.001);
 		assertEquals(50.*IShape.PPC*2., ell.getHeight(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());

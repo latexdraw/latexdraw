@@ -125,8 +125,8 @@ public class TestParsingPscircle extends TestParsingShape {
 	@Test
 	public void testCoordinatesMissing() throws ParseException {
 		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(,){1}").get().getShapeAt(0);
-		assertEquals(PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*IShape.PPC-1.*IShape.PPC, cir.getPosition().getX(), 0.0000001);
-		assertEquals((PSTricksConstants.DEFAULT_VALUE_MISSING_COORDINATE*IShape.PPC-1.*IShape.PPC)*-1., cir.getPosition().getY(), 0.0000001);
+		assertEquals(IShape.PPC-1.*IShape.PPC, cir.getPosition().getX(), 0.0000001);
+		assertEquals((IShape.PPC-1.*IShape.PPC)*-1., cir.getPosition().getY(), 0.0000001);
 		assertEquals(1.*IShape.PPC*2., cir.getWidth(), 0.0000001);
 		assertEquals(1.*IShape.PPC*2., cir.getHeight(), 0.0000001);
 		assertTrue(PSTParser.errorLogs().isEmpty());

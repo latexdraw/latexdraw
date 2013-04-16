@@ -382,44 +382,4 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(shape2.getSubGridWidth(), shape.getSubGridWidth());
 		assertEquals(shape2.getSubGridDiv(), shape.getSubGridDiv());
 	}
-
-
-	@Override
-	@Test
-	public void testIsParametersEquals() {
-		super.testIsParametersEquals();
-
-		shape.setGridDots(45);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setGridDots(45);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setSubGridDots(55);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setSubGridDots(55);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setGridLabelsColour(Color.CYAN);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setGridLabelsColour(Color.CYAN);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setSubGridColour(Color.GREEN);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setSubGridColour(Color.GREEN);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setUnit(0.6);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setUnit(0.6);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setGridWidth(12);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setGridWidth(12);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setSubGridWidth(24);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setSubGridWidth(24);
-		assertTrue(shape.isParametersEquals(shape2, true));
-		shape.setSubGridDiv(32);
-		assertFalse(shape.isParametersEquals(shape2, true));
-		shape2.setSubGridDiv(32);
-		assertTrue(shape.isParametersEquals(shape2, true));
-	}
 }

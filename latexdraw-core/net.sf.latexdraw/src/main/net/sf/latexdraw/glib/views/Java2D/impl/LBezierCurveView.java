@@ -31,9 +31,6 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
  * @version 3.0
  */
 class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implements IViewBezierCurve {
-	public static final BasicStroke STROKE_CTRL_LINES = new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.f, new float[]{5f, 3f}, 0f);
-
-
 	/**
 	 * Creates an initialises the Java view of a LBeziershape.
 	 * @param model The model to view.

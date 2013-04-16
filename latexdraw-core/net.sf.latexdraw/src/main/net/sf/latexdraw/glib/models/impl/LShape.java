@@ -536,47 +536,6 @@ abstract class LShape implements IShape {
 
 
 	@Override
-	public boolean isParametersEquals(final IShape s, final boolean considerShadow) {
-		boolean filledOk = false;
-		boolean hatchOk  = false;
-		boolean dblbndOk = false;
-		boolean shadowOk = false;
-		final boolean lineOk = !s.isLineStylable() || !isLineStylable() ||
-		lineStyle==s.getLineStyle() && LNumber.INSTANCE.equals(thickness, s.getThickness()) &&
-		lineStyle==s.getLineStyle() && LNumber.INSTANCE.equals(dotSep, s.getDotSep()) &&
-		LNumber.INSTANCE.equals(dashSepBlack, s.getDashSepBlack()) && LNumber.INSTANCE.equals(dashSepWhite, s.getDashSepWhite());
-
-		if(lineOk && LNumber.INSTANCE.equals(rotationAngle, s.getRotationAngle()) && LNumber.INSTANCE.equals(opacity, s.getOpacity())) {
-			filledOk = !s.isFillable() || !isFillable() ||
-						isFilled()==s.isFilled() && fillingCol.equals(s.getFillingCol());
-
-			if(filledOk) {
-				dblbndOk = !s.isDbleBorderable() || !isDbleBorderable() ||
-							s.hasDbleBord()==hasDbleBord &&
-							dbleBordCol.equals(s.getDbleBordCol()) && LNumber.INSTANCE.equals(dbleBordSep, s.getDbleBordSep());
-
-				if(filledOk) {
-					hatchOk = !s.isFillable() || !isFillable() ||
-							  s.getFillingStyle()==fillingStyle && (!hasHatchings() ||
-							  LNumber.INSTANCE.equals(s.getHatchingsAngle(), hatchingsAngle) && s.getHatchingsCol().equals(hatchingsCol) &&
-							  LNumber.INSTANCE.equals(s.getHatchingsSep(), hatchingsSep) && s.getHatchingsWidth()==hatchingsWidth) &&
-						      hasGradient()==s.hasGradient() &&(!hasGradient() ||
-						      LNumber.INSTANCE.equals(gradAngle, s.getGradAngle()) && gradColEnd.equals(s.getGradColEnd()) &&
-				    		  LNumber.INSTANCE.equals(gradMidPt, s.getGradMidPt()) && gradColStart.equals(s.getGradColStart()));
-
-					if(hatchOk)
-						shadowOk = !considerShadow || !s.isShadowable() || !isShadowable() ||
-									hasShadow==s.hasShadow() && LNumber.INSTANCE.equals(shadowAngle, s.getShadowAngle()) &&
-									shadowCol.equals(s.getShadowCol()) && LNumber.INSTANCE.equals(shadowSize, s.getShadowSize());
-				}
-			}
-		}
-
-		return lineColour.equals(s.getLineColour()) && lineOk && filledOk && dblbndOk && shadowOk && hatchOk ;
-	}
-
-
-	@Override
 	public boolean isShowPts() {
 		return showPts;
 	}

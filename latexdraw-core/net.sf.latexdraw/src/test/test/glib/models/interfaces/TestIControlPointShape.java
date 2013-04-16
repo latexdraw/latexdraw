@@ -64,12 +64,6 @@ public abstract class TestIControlPointShape<T extends IControlPointShape> exten
 		//TODO
 	}
 
-	@Override
-	@Test
-	public void testIsParametersEquals() {
-		//TODO
-	}
-
 
 	@Override
 	@Test
