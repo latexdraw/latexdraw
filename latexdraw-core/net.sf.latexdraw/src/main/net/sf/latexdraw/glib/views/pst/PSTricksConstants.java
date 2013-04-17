@@ -118,6 +118,9 @@ public abstract class PSTricksConstants {
 	/** The angle of the gradient in degree. */
 	public static final double DEFAULT_GRADIENT_ANGLE = 0;
 
+	/** The value by default of a missing coordinate : (5,) */
+	public static final double DEFAULT_VALUE_MISSING_COORDINATE = 1.;
+
 	public static final String TOKEN_PUT_ANGLE_0   = "U";//$NON-NLS-1$
 	public static final String TOKEN_PUT_ANGLE_90  = "L";//$NON-NLS-1$
 	public static final String TOKEN_PUT_ANGLE_180 = "D";//$NON-NLS-1$

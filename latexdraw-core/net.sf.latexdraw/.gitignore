@@ -4,3 +4,4 @@
 *~
 /.cache
 /site
+/.scala_dependencies
