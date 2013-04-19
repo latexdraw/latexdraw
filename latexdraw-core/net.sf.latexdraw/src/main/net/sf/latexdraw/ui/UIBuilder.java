@@ -176,11 +176,6 @@ public class UIBuilder extends UIComposer<LFrame> {
 		widget.exceptionsManager.addEventable(toolbar);
 		widget.scroller.addEventable(canvas);
 		widget.editingSelector.addEventable(toolbar);
-		widget.editingSelector.addEventable(toolbarBuilder.recListB.getToolbar());
-		widget.editingSelector.addEventable(toolbarBuilder.polygonListB.getToolbar());
-		widget.editingSelector.addEventable(toolbarBuilder.ellipseListB.getToolbar());
-		widget.editingSelector.addEventable(toolbarBuilder.gridListB.getToolbar());
-		widget.editingSelector.addEventable(toolbarBuilder.bezierListB.getToolbar());
 		widget.hand.addEventable(canvas);
 		widget.pencil.addEventable(canvas);
 		widget.exporter.addEventable(toolbar);

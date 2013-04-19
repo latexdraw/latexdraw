@@ -42,21 +42,6 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	/** The main frame of the interactive system. */
 	protected LFrame frame;
 
-	/** The toolbar that contains the widgets to create rectangle-like shapes. */
-	protected WidgetMiniToolbar recListB;
-
-	/** The toolbar that contains the widgets to create polygon-like shapes. */
-	protected WidgetMiniToolbar polygonListB;
-
-	/** The toolbar that contains the widgets to create grid-like shapes. */
-	protected WidgetMiniToolbar gridListB;
-
-	/** The toolbar that contains the widgets to create ellipse-like shapes. */
-	protected WidgetMiniToolbar ellipseListB;
-
-	/** The toolbar that contains the widgets to create curve-like shapes. */
-	protected WidgetMiniToolbar bezierListB;
-
 	/** The toolbar that contains the widgets to customise the magnetic grid. */
 	protected WidgetMiniToolbar magneticGridB;
 
@@ -123,14 +108,14 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		button.setToolTipText("Draw a single or several joined lines.");
 		widget.add(button);
 
-		composeRectangleLikeToolbar(canvas);
-		composeEllipseLikeToolbar(canvas);
-		composePolygonLikeToolbar(canvas);
+		composeRectangleLikeToolbar();
+		composeEllipseLikeToolbar();
+		composePolygonLikeToolbar();
 
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
-		composeCurveLikeToolbar(canvas);
-		composeGridLikeToolbar(canvas);
+		composeCurveLikeToolbar();
+		composeGridLikeToolbar();
 
 		// Adding a widget to create arcs.
  		button = frame.editingSelector.getArcB();
@@ -194,23 +179,16 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * Adds widgets to select the type of shape to create. Here rectangle/square shape.
 	 * @since 3.0
 	 */
-	protected void composeRectangleLikeToolbar(final LCanvas canvas) {
-		recListB = new WidgetMiniToolbar(frame, LResources.RECT_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
-		recListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.118")); //$NON-NLS-1$
-		widget.add(recListB);
-
+	protected void composeRectangleLikeToolbar() {
  		AbstractButton button = frame.editingSelector.getRecB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.119")); //$NON-NLS-1$
- 		recListB.addComponent(button);
- 		mapContainers.put(button, recListB);
+ 		widget.add(button);
 
  		button = frame.editingSelector.getSquareB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.120")); //$NON-NLS-1$
- 		recListB.addComponent(button);
- 		mapContainers.put(button, recListB);
- 		recListB.addSeparator();
+ 		widget.add(button);
 	}
 
 
@@ -218,23 +196,16 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * Adds a widgets to create ellipse/circle shapes.
 	 * @since 3.0
 	 */
-	protected void composeEllipseLikeToolbar(final LCanvas canvas) {
- 		ellipseListB = new WidgetMiniToolbar(frame, LResources.ELLIPSE_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
- 		ellipseListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
- 		widget.add(ellipseListB);
-
+	protected void composeEllipseLikeToolbar() {
  		AbstractButton button = frame.editingSelector.getEllipseB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
- 		ellipseListB.addComponent(button);
- 		mapContainers.put(button, ellipseListB);
+ 		widget.add(button);
 
  		button = frame.editingSelector.getCircleB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.127")); //$NON-NLS-1$
- 		ellipseListB.addComponent(button);
- 		mapContainers.put(button, ellipseListB);
- 		ellipseListB.addSeparator();
+ 		widget.add(button);
 	}
 
 
@@ -243,29 +214,21 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * Adds a widgets to create polygon/rhombus/triangle shapes.
 	 * @since 3.0
 	 */
-	protected void composePolygonLikeToolbar(final LCanvas canvas) {
- 		polygonListB = new WidgetMiniToolbar(frame, LResources.POLYGON_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
- 		polygonListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
- 		widget.add(polygonListB);
-
+	protected void composePolygonLikeToolbar() {
  		AbstractButton button = frame.editingSelector.getPolygonB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
- 		polygonListB.addComponent(button);
- 		mapContainers.put(button, polygonListB);
+ 		widget.add(button);
 
  		button = frame.editingSelector.getRhombusB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.123")); //$NON-NLS-1$
- 		polygonListB.addComponent(button);
- 		mapContainers.put(button, polygonListB);
+ 		widget.add(button);
 
  		button = frame.editingSelector.getTriangleB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.124")); //$NON-NLS-1$
- 		polygonListB.addComponent(button);
- 		mapContainers.put(button, polygonListB);
- 		polygonListB.addSeparator();
+ 		widget.add(button);
 	}
 
 
@@ -273,23 +236,16 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * Adds a widgets to create bezier curve shapes.
 	 * @since 3.0
 	 */
-	protected void composeCurveLikeToolbar(final LCanvas canvas) {
- 		bezierListB = new WidgetMiniToolbar(frame, LResources.CLOSED_BEZIER_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
- 		bezierListB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
- 		widget.add(bezierListB);
-
+	protected void composeCurveLikeToolbar() {
  		AbstractButton button = frame.editingSelector.getBezierClosedB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getString19("LaTeXDrawFrame.11")); //$NON-NLS-1$
- 		bezierListB.addComponent(button);
- 		mapContainers.put(button, bezierListB);
+ 		widget.add(button);
 
  		button = frame.editingSelector.getBezierB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
- 		bezierListB.addComponent(button);
- 		mapContainers.put(button, bezierListB);
- 		bezierListB.addSeparator();
+ 		widget.add(button);
 	}
 
 
@@ -297,23 +253,16 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * Adds a widgets to create grid/axes shapes.
 	 * @since 3.0
 	 */
-	protected void composeGridLikeToolbar(final LCanvas canvas) {
- 		gridListB = new WidgetMiniToolbar(frame, LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
- 		gridListB.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.16")); //$NON-NLS-1$
-
+	protected void composeGridLikeToolbar() {
  		AbstractButton button = frame.editingSelector.getGridB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.133")); //$NON-NLS-1$
- 		gridListB.addComponent(button);
- 		mapContainers.put(button, gridListB);
+ 		widget.add(button);
 
  		button = frame.editingSelector.getAxesB();
  		button.setMargin(LResources.INSET_BUTTON);
  		button.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.17")); //$NON-NLS-1$
- 		gridListB.addComponent(button);
- 		mapContainers.put(button, gridListB);
- 		gridListB.addSeparator();
- 		widget.add(gridListB);
+ 		widget.add(button);
 	}
 
 
