@@ -315,14 +315,14 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 
 		switch(shape.getLineStyle()) {
 			case DOTTED:
-				code.append("linestyle=");//$NON-NLS-1$
+				code.append(", linestyle=");//$NON-NLS-1$
 				code.append(PSTricksConstants.LINE_DOTTED_STYLE);
 				code.append(", dotsep=");//$NON-NLS-1$
 				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDotSep()/ppc));
 				code.append(PSTricksConstants.TOKEN_CM);
 				break;
 			case DASHED:
-				code.append("linestyle=");//$NON-NLS-1$
+				code.append(", linestyle=");//$NON-NLS-1$
 				code.append(PSTricksConstants.LINE_DASHED_STYLE);
 				code.append(", dash=");//$NON-NLS-1$
 				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDashSepBlack()/ppc));
