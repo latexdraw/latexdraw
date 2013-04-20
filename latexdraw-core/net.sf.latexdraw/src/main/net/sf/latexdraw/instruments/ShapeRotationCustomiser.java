@@ -4,17 +4,15 @@ import javax.swing.AbstractButton;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.RotateShapes;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.Link;
 import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.interaction.library.SpinnerModified;
 import org.malai.swing.ui.UIComposer;
 import org.malai.swing.widget.MButton;
 import org.malai.swing.widget.MSpinner;
@@ -152,7 +150,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 /**
  * This link maps a spinner to an action that rotates the selected shapes.
  */
-class Spinner2RotateShape extends SpinnerForCustomiser<ModifyShapeProperty, ShapeRotationCustomiser> {
+class Spinner2RotateShape extends Link<RotateShapes, SpinnerModified, ShapeRotationCustomiser> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.
@@ -160,7 +158,7 @@ class Spinner2RotateShape extends SpinnerForCustomiser<ModifyShapeProperty, Shap
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
 	public Spinner2RotateShape(final ShapeRotationCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, ModifyShapeProperty.class);
+		super(ins, false, RotateShapes.class, SpinnerModified.class);
 	}
 
 	@Override
@@ -168,16 +166,18 @@ class Spinner2RotateShape extends SpinnerForCustomiser<ModifyShapeProperty, Shap
 		return instrument.getRotationField()==interaction.getSpinner();
 	}
 
-
 	@Override
 	public void updateAction() {
-		action.setValue(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString())));
+		Object obj  = action.shape().get();
+		if(obj instanceof IShape)
+			action.setRotationAngle(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString()))-((IShape)obj).getRotationAngle());
 	}
 
 	@Override
 	public void initAction() {
-		action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
-		action.setProperty(ShapeProperties.ROTATION_ANGLE);
+		IShape sh = instrument.pencil.canvas.getDrawing().getSelection().duplicate();
+		action.setShape(sh);
+		action.setGravityCentre(sh.getGravityCentre());
 	}
 }
 

@@ -71,7 +71,7 @@ class RotateShapes extends Action with ShapeAction[IShape] with Undoable with Mo
 	}
 
 
-	override def getUndoName() = ShapeProperties.ROTATION_ANGLE.getMessage
+	override def getUndoName() = "rotation"
 
 
 	/**

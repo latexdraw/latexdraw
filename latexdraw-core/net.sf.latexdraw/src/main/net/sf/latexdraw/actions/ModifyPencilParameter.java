@@ -65,8 +65,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 
 	@Override
 	protected boolean isPropertySupported() {
-		return super.isPropertySupported() && property!=ShapeProperties.ROTATION_ANGLE &&
-				property!=ShapeProperties.TEXT;
+		return super.isPropertySupported() && property!=ShapeProperties.TEXT;
 	}
 
 
@@ -174,9 +173,6 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 				break;
 			case TEXT_POSITION:
 				pencil.getGroupParams().setTextPosition((TextPosition)value);
-				break;
-			case ROTATION_ANGLE:
-				// The pencil does not perform rotation.
 				break;
 			case ARROW1_STYLE:
 				pencil.getGroupParams().setArrowStyle((ArrowStyle)value, 0);

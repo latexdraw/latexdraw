@@ -170,7 +170,6 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case ROUND_CORNER_VALUE:
 				case DOT_SIZE:
 				case DOT_STYLE:
-				case ROTATION_ANGLE:
 				case TEXT:
 				case TEXT_POSITION:
 				case COLOUR_LINE:		return true;

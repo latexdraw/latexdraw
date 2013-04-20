@@ -1330,36 +1330,6 @@ public enum ShapeProperties {
 				group.setArrowStyleList((List<ArrowStyle>)values, 0);
 		}
 	},
-	/** Modification of the rotation angle a shape. */
-	ROTATION_ANGLE {
-		@Override
-		public String getMessage() {
-			return "rotation";
-		}
-
-		@Override
-		public boolean isValueValid(final Object obj) {
-			return obj instanceof Double;
-		}
-
-		@Override
-		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? new ArrayList<Double>() : group.getRotationAngleList();
-		}
-
-		@Override
-		public void setPropertyValue(final IGroup group, final Object value) {
-			if(group!=null && isValueValid(value))
-				group.setRotationAngle((Double)value);
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public void setPropertyValueList(final IGroup group, final List<?> values) {
-			if(group!=null)
-				group.setRotationAngleList((List<Double>)values);
-		}
-	},
 	/** Modification of the position of texts. */
 	TEXT_POSITION {
 		@Override

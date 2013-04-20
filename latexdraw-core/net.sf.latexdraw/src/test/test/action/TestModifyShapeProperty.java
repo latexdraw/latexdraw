@@ -428,45 +428,6 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	}
 
 
-	public void testDoRotationAngle() {
-		IDot d1 = DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(), false);
-		IRectangle rec = DrawingTK.getFactory().createRectangle(false);
-		IDot d2 = DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(), false);
-		g.addShape(d1);
-		g.addShape(rec);
-		g.addShape(d2);
-		d1.setRotationAngle(11.);
-		d2.setRotationAngle(22.2);
-		rec.setRotationAngle(-123.4);
-		action.setGroup(g);
-		action.setProperty(ShapeProperties.ROTATION_ANGLE);
-		action.setValue(33.3);
-		assertTrue(action.doIt());
-
-		assertEquals(33.3, d1.getRotationAngle(), 0.0001);
-		assertEquals(33.3, d2.getRotationAngle(), 0.0001);
-	}
-
-
-	public void testUndoRotationAngle() {
-		testDoRotationAngle();
-		action.undo();
-		assertEquals(11., g.getShapeAt(0).getRotationAngle(), 0.0001);
-		assertEquals(-123.4, g.getShapeAt(1).getRotationAngle(), 0.0001);
-		assertEquals(22.2, g.getShapeAt(2).getRotationAngle(), 0.0001);
-	}
-
-
-	public void testRedoRotationAngle() {
-		testUndoRotationAngle();
-		action.redo();
-		assertEquals(33.3, g.getShapeAt(0).getRotationAngle(), 0.0001);
-		assertEquals(33.3, g.getShapeAt(1).getRotationAngle(), 0.0001);
-		assertEquals(33.3, g.getShapeAt(2).getRotationAngle(), 0.0001);
-	}
-
-
-
 	public void testDoDotSize() {
 		IDot d1 = DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(), false);
 		IRectangle rec = DrawingTK.getFactory().createRectangle(false);
