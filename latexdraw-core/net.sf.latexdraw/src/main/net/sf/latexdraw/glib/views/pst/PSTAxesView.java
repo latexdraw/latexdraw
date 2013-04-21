@@ -116,7 +116,7 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		params.append(", axesstyle=").append(shape.getAxesStyle().getPSTToken());//$NON-NLS-1$
 		params.append(", labels=").append(shape.getLabelsDisplayed().getPSTToken());//$NON-NLS-1$
 		params.append(", ticks=").append(shape.getTicksDisplayed().getPSTToken());//$NON-NLS-1$
-		params.append(", ticksize=").append((float)LNumber.INSTANCE.getCutNumber(shape.getTicksSize()/ppc)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
+//		params.append(", ticksize=").append((float)LNumber.INSTANCE.getCutNumber(shape.getTicksSize()/ppc)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
 		if(!LNumber.INSTANCE.equals(distLabelsX, 0.))
 			params.append(", dx=").append((float)LNumber.INSTANCE.getCutNumber(distLabelsX)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$

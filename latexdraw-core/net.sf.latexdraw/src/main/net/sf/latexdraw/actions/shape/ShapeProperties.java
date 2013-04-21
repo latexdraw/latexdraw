@@ -426,36 +426,36 @@ public enum ShapeProperties {
 				group.setGridWidthList((List<Double>)values);
 		}
 	},
-	/** The size of the ticks of axes. */
-	AXES_TICKS_SIZE {
-		@Override
-		public String getMessage() {
-			return "axe's parameters";
-		}
-
-		@Override
-		public boolean isValueValid(final Object obj) {
-			return obj instanceof Double;
-		}
-
-		@Override
-		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? new ArrayList<Double>() : group.getAxesTicksSizeList();
-		}
-
-		@Override
-		public void setPropertyValue(final IGroup group, final Object value) {
-			if(group!=null && isValueValid(value))
-				group.setTicksSize((Double)value);
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public void setPropertyValueList(final IGroup group, final List<?> values) {
-			if(group!=null)
-				group.setAxesTicksSizeList((List<Double>)values);
-		}
-	},
+//	/** The size of the ticks of axes. */
+//	AXES_TICKS_SIZE {
+//		@Override
+//		public String getMessage() {
+//			return "axe's parameters";
+//		}
+//
+//		@Override
+//		public boolean isValueValid(final Object obj) {
+//			return obj instanceof Double;
+//		}
+//
+//		@Override
+//		public List<Double> getPropertyValues(final IGroup group) {
+//			return group==null ? new ArrayList<Double>() : group.getAxesTicksSizeList();
+//		}
+//
+//		@Override
+//		public void setPropertyValue(final IGroup group, final Object value) {
+//			if(group!=null && isValueValid(value))
+//				group.setTicksSize((Double)value);
+//		}
+//
+//		@SuppressWarnings("unchecked")
+//		@Override
+//		public void setPropertyValueList(final IGroup group, final List<?> values) {
+//			if(group!=null)
+//				group.setAxesTicksSizeList((List<Double>)values);
+//		}
+//	},
 	/** The style of the ticks of axes. */
 	AXES_TICKS_STYLE {
 		@Override

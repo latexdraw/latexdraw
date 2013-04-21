@@ -46,8 +46,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	/** The widget that permits to select the style of the ticks. */
 	protected MComboBox<TicksStyle> shapeTicks;
 
-	/** The widget that permits to set the size of the ticks. */
-	protected MSpinner ticksSizeS;
+//	/** The widget that permits to set the size of the ticks. */
+//	protected MSpinner ticksSizeS;
 
 	/** The widget that permits to show/hide the ticks of the axes. */
 	protected MComboBox<PlottingStyle> showTicks;
@@ -92,7 +92,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 			final IAxes axes = (IAxes)shape;
 			shapeAxes.setSelectedItemSafely(axes.getAxesStyle());
 			shapeTicks.setSelectedItemSafely(axes.getTicksStyle());
-			ticksSizeS.setValueSafely(axes.getTicksSize());
+//			ticksSizeS.setValueSafely(axes.getTicksSize());
 			showTicks.setSelectedItemSafely(axes.getTicksDisplayed());
 			incrLabelX.setValueSafely(axes.getIncrementX());
 			incrLabelY.setValueSafely(axes.getIncrementY());
@@ -109,7 +109,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(shapeAxes, activated);
 		composer.setWidgetVisible(shapeTicks, activated);
-		composer.setWidgetVisible(ticksSizeS, activated);
+//		composer.setWidgetVisible(ticksSizeS, activated);
 		composer.setWidgetVisible(showTicks, activated);
 		composer.setWidgetVisible(incrLabelX, activated);
 		composer.setWidgetVisible(incrLabelY, activated);
@@ -126,7 +126,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		shapeTicks = new MComboBox<>(TicksStyle.values(), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.0")));
 		showTicks = new MComboBox<>(PlottingStyle.values(), new JLabel("Visibility:"));
 		showLabels = new MComboBox<>(PlottingStyle.values(), new JLabel("Visibility:"));
-		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
+//		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
 		incrLabelX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.8")));
 		incrLabelY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.9")));
 		distLabelsX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.01, 0.01, 1000., 0.05), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.6")));
@@ -166,13 +166,13 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		return shapeTicks;
 	}
 
-	/**
-	 * @return The widget that permits to set the size of the ticks.
-	 * @since 3.0
-	 */
-	public MSpinner getTicksSizeS() {
-		return ticksSizeS;
-	}
+//	/**
+//	 * @return The widget that permits to set the size of the ticks.
+//	 * @since 3.0
+//	 */
+//	public MSpinner getTicksSizeS() {
+//		return ticksSizeS;
+//	}
 
 	/**
 	 * @return The widget that permits to show/hide the ticks of the axes.
@@ -301,7 +301,9 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public boolean isConditionRespected() {
 			final Object spinner = interaction.getSpinner();
-			return instrument.ticksSizeS==spinner || instrument.incrLabelX==spinner || instrument.incrLabelY==spinner ||
+			return
+//					instrument.ticksSizeS==spinner ||
+					instrument.incrLabelX==spinner || instrument.incrLabelY==spinner ||
 				   instrument.distLabelsX==spinner || instrument.distLabelsY==spinner;
 		}
 
@@ -309,28 +311,28 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		public void initAction() {
 			final Object spinner = interaction.getSpinner();
 
-			if(spinner==instrument.ticksSizeS)
-				action.setProperty(ShapeProperties.AXES_TICKS_SIZE);
+//			if(spinner==instrument.ticksSizeS)
+//				action.setProperty(ShapeProperties.AXES_TICKS_SIZE);
+//			else
+			if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
+				action.setProperty(ShapeProperties.AXES_LABELS_DIST);
 			else
-				if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
-					action.setProperty(ShapeProperties.AXES_LABELS_DIST);
-				else
-					action.setProperty(ShapeProperties.AXES_LABELS_INCR);
+				action.setProperty(ShapeProperties.AXES_LABELS_INCR);
 		}
 
 		@Override
 		public void updateAction() {
 			final Object spinner = interaction.getSpinner();
 
-			if(spinner==instrument.ticksSizeS)
-				action.setValue(Double.valueOf(interaction.getSpinner().getValue().toString()));
+//			if(spinner==instrument.ticksSizeS)
+//				action.setValue(Double.valueOf(interaction.getSpinner().getValue().toString()));
+//			else
+			if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
+				action.setValue(DrawingTK.getFactory().createPoint(Double.valueOf(instrument.distLabelsX.getValue().toString()),
+								Double.valueOf(instrument.distLabelsY.getValue().toString())));
 			else
-				if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
-					action.setValue(DrawingTK.getFactory().createPoint(Double.valueOf(instrument.distLabelsX.getValue().toString()),
-									Double.valueOf(instrument.distLabelsY.getValue().toString())));
-				else
-					action.setValue(DrawingTK.getFactory().createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()),
-								Double.valueOf(instrument.incrLabelY.getValue().toString())));
+				action.setValue(DrawingTK.getFactory().createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()),
+							Double.valueOf(instrument.incrLabelY.getValue().toString())));
 		}
 	}
 

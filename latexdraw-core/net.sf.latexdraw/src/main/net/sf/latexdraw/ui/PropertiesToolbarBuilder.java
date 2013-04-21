@@ -264,7 +264,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		panel.add(cust.getShapeAxes());
 
 		UIBuilder.addCombobox(ticksPanel, cust.getShapeTicks());
-		UIBuilder.addSpinner(ticksPanel, cust.getTicksSizeS(), 70);
+//		UIBuilder.addSpinner(ticksPanel, cust.getTicksSizeS(), 70);
 		UIBuilder.addCombobox(ticksPanel, cust.getShowTicks());
 
 		list.addComponent(panel);
@@ -273,7 +273,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		mapContainers.put(cust.getShapeAxes(), list);
 		mapContainers.put(cust.getShapeTicks(), list);
-		mapContainers.put(cust.getTicksSizeS(), list);
+//		mapContainers.put(cust.getTicksSizeS(), list);
 		mapContainers.put(cust.getShowTicks(), list);
 		list.setVisible(false);
 		cust.addEventable(panel);

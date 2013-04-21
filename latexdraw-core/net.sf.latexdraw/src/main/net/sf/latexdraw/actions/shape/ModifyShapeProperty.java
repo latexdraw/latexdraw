@@ -174,7 +174,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case TEXT_POSITION:
 				case COLOUR_LINE:		return true;
 				case AXES_TICKS_STYLE:
-				case AXES_TICKS_SIZE:
+//				case AXES_TICKS_SIZE:
 				case AXES_TICKS_SHOW:
 				case AXES_LABELS_INCR:
 				case AXES_LABELS_SHOW:

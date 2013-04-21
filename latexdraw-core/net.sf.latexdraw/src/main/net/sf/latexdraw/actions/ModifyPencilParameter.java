@@ -204,7 +204,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case GRID_ORIGIN: pencil.getGroupParams().setOrigin(((IPoint)value).getX(), ((IPoint)value).getY()); break;
 			case AXES_STYLE: pencil.getGroupParams().setAxesStyle((AxesStyle)value); break;
 			case AXES_TICKS_STYLE: pencil.getGroupParams().setTicksStyle((TicksStyle)value); break;
-			case AXES_TICKS_SIZE: pencil.getGroupParams().setTicksSize((Double)value); break;
+//			case AXES_TICKS_SIZE: pencil.getGroupParams().setTicksSize((Double)value); break;
 			case AXES_TICKS_SHOW: pencil.getGroupParams().setTicksDisplayed((PlottingStyle)value); break;
 			case AXES_LABELS_INCR: pencil.getGroupParams().setIncrement((IPoint)value); break;
 			case AXES_LABELS_SHOW: pencil.getGroupParams().setLabelsDisplayed((PlottingStyle)value); break;
