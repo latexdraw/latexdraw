@@ -74,6 +74,9 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument that transforms shapes. */
 	protected ShapeTransformer shapeTransformer;
 
+	/** This instrument that places shapes. */
+	protected ShapePositioner shapePositioner;
+
 
 
 	/**
@@ -104,6 +107,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeGridCustomiser		= new ShapeGridCustomiser(composer, hand, pencil);
 		shapeFreeHandCustomiser	= new ShapeFreeHandCustomiser(composer, hand, pencil);
 		shapeTransformer		= new ShapeTransformer(composer, hand, pencil, border);
+		shapePositioner			= new ShapePositioner(composer, hand, pencil);
 	}
 
 
@@ -125,6 +129,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeGridCustomiser.addEventable(eventable);
 		shapeFreeHandCustomiser.addEventable(eventable);
 		shapeTransformer.addEventable(eventable);
+		shapePositioner.addEventable(eventable);
 	}
 
 
@@ -150,6 +155,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dimPosCustomiser.setActivated(activated && hand.isActivated() && !selection.isEmpty());
 		shapeGrouper.setActivated(activated && hand.isActivated() && (selection.size()>1 || selection.getShapeAt(0) instanceof IGroup));
 		shapeTransformer.setActivated(activated && hand.isActivated() && !selection.isEmpty());
+		shapePositioner.setActivated(activated && hand.isActivated() && !selection.isEmpty());
 
 		if(activated)
 			update();
@@ -174,6 +180,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeGridCustomiser.update(shape);
 		shapeFreeHandCustomiser.update(shape);
 		shapeTransformer.update(shape);
+		shapePositioner.update(shape);
 	}
 
 
@@ -195,16 +202,15 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeGridCustomiser.clearEvents();
 		shapeFreeHandCustomiser.clearEvents();
 		shapeTransformer.clearEvents();
+		shapePositioner.clearEvents();
 	}
 
 
-	/**
-	 * @return The instrument that transforms shapes.
-	 * @since 3.0
-	 */
-	public ShapeTransformer getShapeTransformer() {
-		return shapeTransformer;
-	}
+	/** @return The instrument that places shapes. */
+	public ShapePositioner getShapePositioner() { return shapePositioner; }
+
+	/** @return The instrument that transforms shapes. */
+	public ShapeTransformer getShapeTransformer() { return shapeTransformer; }
 
 	/**
 	 * @return The instrument that customises freehands.

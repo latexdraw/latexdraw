@@ -60,7 +60,7 @@ class DeleteShapes extends Action with ShapesAction with DrawingAction with Undo
 
 	override def undo() {
 		val dr = _drawing.get
-		for(i <- 0 to positionShapes.length-1) dr.addShape(_shapes.get(i), positionShapes.get(i))
+		for(i <- 0 until positionShapes.length) dr.addShape(_shapes.get(i), positionShapes.get(i))
 
 		dr.setModified(true)
 	}

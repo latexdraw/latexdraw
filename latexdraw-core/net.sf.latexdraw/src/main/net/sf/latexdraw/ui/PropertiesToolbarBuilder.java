@@ -69,7 +69,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		// Creation of the widgets layout of the shape properties instruments.
 		composeJoinShapesWidgets(metaShapeCustomiser.getShapeGrouper());
-		widget.add(composeRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), canvas));
+		widget.add(composeShapePositionerWidgets(metaShapeCustomiser.getShapePositioner(), canvas));
+		widget.add(composeMirrorShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeMirrorShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeAlignShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
@@ -92,6 +93,21 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 					metaShapeCustomiser.getStandardGridCustomiser(), canvas));
 		widget.add(composeFreeHandPropertiesToolbar(metaShapeCustomiser.getFreeHandCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
+	}
+
+
+	// Creates the tool bar for place shapes.
+	protected WidgetMiniToolbar composeShapePositionerWidgets(final ShapePositioner ins, final LCanvas canvas) {
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.FOREGROUND_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		list.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.6")); //$NON-NLS-1$
+		list.addComponent(ins.getForegroundButton());
+		list.addComponent(ins.getBackgroundButton());
+		list.addSeparator();
+		mapContainers.put(ins.getForegroundButton(), list);
+		mapContainers.put(ins.getBackgroundButton(), list);
+		ins.addEventable(list.getToolbar());
+		list.setVisible(false);
+		return list;
 	}
 
 
