@@ -107,6 +107,7 @@ public class MenubarBuilder extends UIComposer<JMenuBar> {
 
 	protected void composeHelpMenu() {
 		helpMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.93"), true); //$NON-NLS-1$
+		helpMenu.add(frame.helper.getShortcutItem());
 		helpMenu.add(frame.helper.getReportBugItem());
 		helpMenu.add(frame.helper.getForumItem());
 		helpMenu.add(frame.helper.getDonateItem());
