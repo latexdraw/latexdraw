@@ -1,11 +1,11 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.Component;
-import java.awt.event.KeyEvent;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.AboutDialogueBox;
 import net.sf.latexdraw.ui.dialog.ShortcutsFrame;
 import net.sf.latexdraw.util.LResources;
@@ -73,15 +73,15 @@ public class Helper extends WidgetInstrument {
 	protected void initialiseWidgets() {
 		shortcutFrame 	= null;
 		aboutFrame 		= null;
-		aboutItem = new MMenuItem(LResources.LABEL_ABOUT, KeyEvent.VK_A);
+		aboutItem = new MMenuItem(LResources.LABEL_ABOUT);
 		aboutItem.setIcon(LResources.ABOUT_ICON);
-		donateItem = new MMenuItem("Donate", KeyEvent.VK_D);
+		donateItem = new MMenuItem("Donate");
 		donateItem.setIcon(LResources.ABOUT_ICON);
-		reportBugItem = new MMenuItem("Report bugs", KeyEvent.VK_B);
+		reportBugItem = new MMenuItem("Report bugs");
 		reportBugItem.setIcon(LResources.ERR_ICON);
-		forumItem = new MMenuItem("Go to forums", KeyEvent.VK_F);
+		forumItem = new MMenuItem("Go to forums");
 		forumItem.setIcon(LResources.ABOUT_ICON);
-		shortcutItem = new MMenuItem("SC", KeyEvent.VK_S);
+		shortcutItem = new MMenuItem(LangTool.INSTANCE.getString19("LaTeXDrawFrame.3"));
 		shortcutItem.setIcon(LResources.ABOUT_ICON);
 
 	}
