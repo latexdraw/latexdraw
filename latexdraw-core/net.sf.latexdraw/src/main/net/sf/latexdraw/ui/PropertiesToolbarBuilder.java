@@ -6,7 +6,9 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -209,16 +211,25 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids' labels.");
 
-		UIBuilder.addSpinner(list, stdGridCust.getLabelsSizeS(), 50);
-		UIBuilder.addCombobox(list, axeCust.getShowLabels());
-		list.addComponent(gridCust.getColourLabels());
-		list.addComponent(axeCust.getShowOrigin());
-		list.addComponent(stdGridCust.getLabelsXInvertedCB());
-		list.addComponent(stdGridCust.getLabelsYInvertedCB());
-		UIBuilder.addSpinner(list, axeCust.getIncrLabelX(), 50);
-		UIBuilder.addSpinner(list, axeCust.getIncrLabelY(), 50);
-		UIBuilder.addSpinner(list, axeCust.getDistLabelsX(), 60);
-		UIBuilder.addSpinner(list, axeCust.getDistLabelsY(), 60);
+		JPanel p1 = new JPanel();
+		JPanel p2 = new JPanel();
+		JPanel p3 = new JPanel();
+		p1.setLayout(new BoxLayout(p1, BoxLayout.X_AXIS));
+		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS));
+		p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));
+		UIBuilder.addSpinner(p1, stdGridCust.getLabelsSizeS(), 50);
+		UIBuilder.addCombobox(p1, axeCust.getShowLabels());
+		p1.add(gridCust.getColourLabels());
+		p1.add(axeCust.getShowOrigin());
+		p1.add(stdGridCust.getLabelsXInvertedCB());
+		p1.add(stdGridCust.getLabelsYInvertedCB());
+		UIBuilder.addSpinner(p2, axeCust.getIncrLabelX(), 50);
+		UIBuilder.addSpinner(p2, axeCust.getIncrLabelY(), 50);
+		UIBuilder.addSpinner(p2, axeCust.getDistLabelsX(), 60);
+		UIBuilder.addSpinner(p2, axeCust.getDistLabelsY(), 60);
+		p3.add(p1);
+		p3.add(p2);
+		list.addComponent(p3);
 		list.addSeparator();
 
 		mapContainers.put(axeCust.getShowLabels(), list);
