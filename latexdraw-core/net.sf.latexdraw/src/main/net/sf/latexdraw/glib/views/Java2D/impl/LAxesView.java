@@ -188,7 +188,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double incrx 		= shape.getIncrementX();
 		final double gap 		= (ticksDisplay.isX() && (isSouth && ticksStyle.isBottom() || !isSouth && ticksStyle.isTop()) ? shape.getTicksSize() : 0)
 									+ shape.getThickness()/2. + GAP_LABEL;
-		final double sep 		= shape.getGridMaxY()<=0. || !isSouth ? -gap-GAP_LABEL : gap + fontMetrics.getAscent();
+		final double sep 		= shape.getGridMaxY()<=-shape.getOriginY() || !isSouth ? -gap-GAP_LABEL : gap + fontMetrics.getAscent();
 		final Font font 		= fontMetrics.getFont();
 		final boolean showOrigX = shape.isShowOrigin() && (isSouth && shape.getGridMinY()>=-shape.getOriginY() || !isSouth && shape.getGridMaxY()<=-shape.getOriginY());
 		final boolean noArrowLeftX = shape.getArrowStyle(0)==ArrowStyle.NONE;
