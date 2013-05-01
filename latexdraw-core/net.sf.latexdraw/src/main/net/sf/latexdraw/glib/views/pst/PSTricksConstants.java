@@ -62,7 +62,7 @@ public abstract class PSTricksConstants {
 	public static final boolean DEFAULT_SHOW_ORIGIN = true;
 
 	/** The default size of the ticks in cm. */
-	public static final double DEFAULT_TICKS_SIZE = 3./CM_VAL_PT;
+	public static final double DEFAULT_TICKS_SIZE = 4./CM_VAL_PT;
 
 	/** The text to display when all the labels must be displayed. */
 	public static final String TOKEN_LABELS_DISPLAYED_ALL 	= "all"; //$NON-NLS-1$

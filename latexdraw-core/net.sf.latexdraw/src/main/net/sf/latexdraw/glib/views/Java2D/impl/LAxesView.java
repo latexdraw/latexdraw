@@ -315,7 +315,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		g.setStroke(getStroke());
 		g.setColor(shape.getLineColour());
 		g.draw(path);
-		g.setStroke(new BasicStroke((float)shape.getThickness()/2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
+		g.setStroke(new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
 		g.draw(pathTicks);
 
 		if(shape.getAxesStyle().supportsArrows())
