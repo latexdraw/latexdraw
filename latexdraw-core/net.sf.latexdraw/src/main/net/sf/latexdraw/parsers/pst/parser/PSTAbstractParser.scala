@@ -2,11 +2,9 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import scala.collection.mutable.HashMap
 import scala.util.parsing.combinator.syntactical.TokenParsers
+
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IShape
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
-import net.sf.latexdraw.glib.models.interfaces.IPoint
-import net.sf.latexdraw.glib.models.interfaces.IRectangle
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IText
 
 /**
@@ -31,9 +29,7 @@ import net.sf.latexdraw.glib.models.interfaces.IText
 trait PSTAbstractParser extends TokenParsers {
 	type Tokens = net.sf.latexdraw.parsers.pst.lexer.PSTTokens
 
-	val lexical = new net.sf.latexdraw.parsers.pst.lexer.PSTLexical {
-	  override def whitespace: Parser[Any] = rep(whitespaceChar | comment)
-	}
+	val lexical = new net.sf.latexdraw.parsers.pst.lexer.PSTLexical
 
 	import lexical._
 
@@ -62,7 +58,7 @@ trait PSTAbstractParser extends TokenParsers {
 
 
 	/** A parser which matches a text. */
-	def text : Parser[String] = elem("text", _.isInstanceOf[Text]) ^^ (_.toString)
+	def text : Parser[String] = elem("text", elt => elt.isInstanceOf[Text] || lexical.textualDelimiters.contains(elt.chars)) ^^ (_.toString)
 
 
 	/** A parser that parses all characters excepted the given ones. */
@@ -105,7 +101,10 @@ trait PSTAbstractParser extends TokenParsers {
 					Nil
 				else {
 					val text = DrawingTK.getFactory.createText(true)
-					text.setText(ctx.textParsed)
+					if(ctx.textParsed.endsWith(" "))
+						text.setText(ctx.textParsed.substring(0, ctx.textParsed.length()-1))
+					else
+						text.setText(ctx.textParsed)
 					ctx.textParsed = ""
 					setShapeParameters(text, ctx)
 					text.setTextPosition(IText.TextPosition.getTextPosition(ctx.textPosition))

@@ -15,6 +15,14 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestTextParsing extends TestPSTParser {
+	@Test
+	public void testBugParenthesis() throws ParseException {
+		IText txt = (IText)parser.parsePSTCode("{( )}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals("( )", txt.getText());
+	}
+
+
 	@Test public void test_bf1() throws ParseException {
 		IGroup group = parser.parsePSTCode("\\bf coucou").get();
 		assertEquals(1, group.size());
@@ -337,7 +345,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\textcolor{blue}{xyz} foobar").get();
 		assertEquals(2, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text = ((IText)group.getShapeAt(0));
+		IText text = (IText)group.getShapeAt(0);
 		assertEquals("foobar", text.getText());
 		assertEquals(Color.BLACK, text.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
@@ -348,7 +356,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\textcolor{blue}{xyz}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text = ((IText)group.getShapeAt(0));
+		IText text = (IText)group.getShapeAt(0);
 		assertEquals("xyz", text.getText());
 		assertEquals(Color.BLUE, text.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
@@ -360,7 +368,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\color{blue} xyz").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text = ((IText)group.getShapeAt(0));
+		IText text = (IText)group.getShapeAt(0);
 		assertEquals("xyz", text.getText());
 		assertEquals(Color.BLUE, text.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
@@ -372,7 +380,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\psframebox{$E=mc^2$}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text = ((IText)group.getShapeAt(0));
+		IText text = (IText)group.getShapeAt(0);
 		assertEquals("\\psframebox{$E=mc^2$}", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -382,7 +390,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\footnotesize coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\footnotesize coucou", text.getText());
 		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
 		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);
@@ -394,7 +402,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\tiny coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\tiny coucou", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -403,7 +411,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\scriptsize coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\scriptsize coucou", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -412,7 +420,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\footnotesize coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\footnotesize coucou", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -421,7 +429,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\small coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\small coucou", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -431,7 +439,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\normalsize coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\normalsize coucou", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -440,7 +448,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\large coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\large coucou", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -449,7 +457,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\Large coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\Large coucou", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -458,7 +466,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\huge coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\huge coucou", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -467,7 +475,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\rput(1,2){\\Huge coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\Huge coucou", text.getText());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -477,7 +485,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\usefont{T1}{ptm}{b}{it}\\rput(1,2){coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\it\\bf coucou", text.getText());
 		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
 		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);
@@ -488,7 +496,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\usefont{T1}{ptm}{b}{n}\\rput(1,2){coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\bf coucou", text.getText());
 		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
 		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);
@@ -499,7 +507,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\usefont{T1}{ptm}{m}{it}\\rput(1,2){coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("\\it coucou", text.getText());
 		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
 		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);
@@ -510,7 +518,7 @@ public class TestTextParsing extends TestPSTParser {
 		IGroup group = parser.parsePSTCode("\\usefont{T1}{ptm}{m}{n}\\rput(1,2){coucou}").get();
 		assertEquals(1, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IText);
-		IText text =  ((IText)group.getShapeAt(0));
+		IText text =  (IText)group.getShapeAt(0);
 		assertEquals("coucou", text.getText());
 		assertEquals(1.*IShape.PPC, text.getPosition().getX(), 0.001);
 		assertEquals(-2.*IShape.PPC, text.getPosition().getY(), 0.001);

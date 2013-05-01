@@ -1,7 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import scala.util.parsing.combinator.syntactical.TokenParsers
-import net.sf.latexdraw.parsers.Parser
+
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IShape
 

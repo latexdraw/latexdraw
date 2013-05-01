@@ -37,7 +37,7 @@ class PSTLexical extends Lexical with PSTTokens {
 	def eof = elem("eof", ch => ch == EofCh)
 
 
-	override def whitespace : Parser[Any] = rep(whitespaceChar)
+	override def whitespace : Parser[Any] = rep(whitespaceChar | comment)
 
 	/** The reserved token of the PST language. */
 	val reserved : HashSet[String] = HashSet("\\psellipse", "\\psframe", "\\psframe*", "\\psellipse*", "\\pscircle", "\\pscircle*",
@@ -58,7 +58,10 @@ class PSTLexical extends Lexical with PSTTokens {
 			"\\texttt", "\\emph", "\\textbf", "\\textit", "\\rmfamily", "\\sffamily", "\\ttfamily", "\\mdseries", "\\bfseries", "\\scshape",
 			"\\slshape", "\\itshape", "\\upshape", "\\it", "\\sl", "\\sc", "\\bf")
 
- 	val delimiters : HashSet[String] = HashSet("{", "}", ",", "(", ")", "[", "]", "=", "\\")
+	val textualDelimiters : HashSet[String] = HashSet(",", "(", ")", "[", "]", "=")
+
+ 	val delimiters : HashSet[String] = HashSet("{", "}", "\\") ++ textualDelimiters
+
 
 
  	def command : Parser[PSTToken] = positioned('\\' ~> (identifier | specialCommandName) ^^ { case name => Command("\\" + name.chars) })
