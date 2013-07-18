@@ -71,6 +71,7 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 
 		// Creation of the widgets layout of the shape properties instruments.
 		composeJoinShapesWidgets(metaShapeCustomiser.getShapeGrouper());
+		widget.add(composeRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), canvas));
 		widget.add(composeShapePositionerWidgets(metaShapeCustomiser.getShapePositioner(), canvas));
 		widget.add(composeMirrorShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeMirrorShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
