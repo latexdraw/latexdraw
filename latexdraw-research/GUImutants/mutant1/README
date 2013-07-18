@@ -1,0 +1,12 @@
+MUTANT1
+In this mutant is introduced a presentation fault:
+Rectangles are represented by ellipses
+
+The mutated file is net.sf.latexdraw.glib.views.Java2D.impl.LRectangleView.
+The mutated code is the operation setRectangularShape.
+
+To produce the failure:
+1. Select the rectangle tool
+2. Drag-and-drop onto the drawing area to create a shape
+-> An ellipse is painted instead of a rectangle
+

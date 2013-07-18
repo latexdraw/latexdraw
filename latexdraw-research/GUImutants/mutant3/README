@@ -1,0 +1,13 @@
+MUTANT3
+In this mutant is introduced a data presentation fault:
+The rotation value displayed by the rotation field is in radian instead of in degree.
+
+The mutated file is net.sf.latexdraw.instruments.ShapeRotationCustomiser
+The mutated code is the operation update.
+
+To produce the failure:
+1. Create a shape
+2. Select it
+3. Rotate it using the rotation handler
+-> The data displayed in the rotation field is in radian.
+

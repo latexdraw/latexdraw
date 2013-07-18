@@ -1,0 +1,12 @@
+MUTANT2
+In this mutant is introduced a user interface fault:
+The rotations widgets are not visible
+
+The mutated file is net.sf.latexdraw.ui.PropertiesToolbarBuilder
+The mutated code is the operation compose.
+
+To produce the failure:
+1. Create a shape
+2. Select it
+-> Rotation widgets are not visible in the bottom toolbar
+

@@ -1,0 +1,15 @@
+To build each mutant, execute "mvn clean install" in the directory of each mutant.
+A zip file containing the runnable jar file is created in the directory "target".
+
+To create a new mutant, copy/paste the original latexdraw (dir "original"), rename the newly created dir (e.g. mutant1).
+Modify the pom file: replace <version>3.0.0-mutantX</version> by the name of your mutant (e.g. <version>3.0.0-mutant1</version>).
+If you want to import your project in Eclipse you should modify the file ".project" to change the name of the project (e.g. <name>net.sf.latexdraw.mutant1</name>).
+Modify the java code to introduce the error (you can import the project in Eclipse).
+Build the mutant to test it.
+
+The main class of the application is LaTeXDraw to run as a scala application.
+
+Required:
+Java 7, Scala 2.10, git
+Maven is required for building executables jar files.
+Eclipse is recommanded to edit the code.
