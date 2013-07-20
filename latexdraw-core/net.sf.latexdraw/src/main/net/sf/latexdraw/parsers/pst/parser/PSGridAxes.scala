@@ -52,11 +52,9 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 	private def createGrid(origin : PointUnit, min : PointUnit, max : PointUnit, ctx : PSTContext) : IGrid = {
 		val grid = DrawingTK.getFactory.createGrid(true, DrawingTK.getFactory.createPoint)
-		val position = DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, ctx.pictureSWPt.getY*IShape.PPC*(-1.0))
 
 		setStdGridParams(origin, min, max, grid, ctx)
-
-		grid.setPosition(position)
+		grid.setPosition(DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
 		grid.setUnit(ctx.unit)
 		grid.setGridDots(ctx.gridDots.toInt)
 		grid.setGridLabelsColour(ctx.gridlabelcolor)
