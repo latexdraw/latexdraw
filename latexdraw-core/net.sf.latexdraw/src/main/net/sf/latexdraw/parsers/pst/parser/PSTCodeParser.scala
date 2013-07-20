@@ -95,7 +95,7 @@ trait PSTCodeParser extends PSTAbstractParser
 
 
 	override def parsePscustom(ctx : PSTContext) : Parser[IGroup] = ("\\pscustom*" | "\\pscustom") ~ opt(parseParam(ctx)) ~ parsePSTBlock(ctx, true) ^^ {
-		case cmdName ~ _ ~ shapes => shapes
+		case cmdName ~ _ ~ shapes =>
 			if(cmdName.endsWith("*"))
 				shapes.getShapes.foreach{sh => setShapeForStar(sh)}
 
@@ -173,7 +173,7 @@ trait PSTCodeParser extends PSTAbstractParser
 						}
 					case _ => PSTParser.errorLogs += "Unknown color type: " + colType
 				}
-			}catch{case e => PSTParser.errorLogs += "Error during colour conversion: " + colName + " " + colType + " " + colSpec + " " + e.getStackTraceString }
+			}catch{case e: Throwable => PSTParser.errorLogs += "Error during colour conversion: " + colName + " " + colType + " " + colSpec + " " + e.getStackTraceString }
 
 			if(colour!=null)
 				DviPsColors.INSTANCE.addUserColour(colour, colName)

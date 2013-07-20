@@ -44,7 +44,7 @@ class CodeInserter(val canvas : ICanvas, val statusBar : JLabel) extends Instrum
 			addLink(new CloseDialogue2InactivateIns(this))
 			addLink(new ButtonPressed2InsertCode(this))
 			addLink(new ButtonPressed2InactivateIns(this))
-		}catch{case ex => BadaboomCollector.INSTANCE.add(ex)}
+		}catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
 	override def setActivated(activated : Boolean) {

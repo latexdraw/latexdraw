@@ -36,7 +36,7 @@ class InsertPicture extends AddShape {
 			try{
 				_shape.get.asInstanceOf[IPicture].setPathSource(_fileChooser.get.getSelectedFile.getAbsolutePath)
 				loaded = true
-			}catch { case ex => BadaboomCollector.INSTANCE.add(ex) }
+			}catch { case ex: Throwable => BadaboomCollector.INSTANCE.add(ex) }
 
 		if(loaded)
 			redo

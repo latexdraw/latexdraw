@@ -60,7 +60,7 @@ class TemplateManager(composer : UIComposer[_], val ui : LFrame) extends WidgetI
 			addLink(new MenuItem2LoadTemplate(this))
 			addLink(new MenuItem2ExportTemplate(this))
 		}
-		catch{case ex => BadaboomCollector.INSTANCE.add(ex)}
+		catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
 

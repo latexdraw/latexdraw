@@ -62,7 +62,7 @@ class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : WidgetZo
 			addLink(new DnD2Translate(this))
 			addLink(new DoubleClick2InitTextSetter(this))
 			addLink(new CtrlA2SelectAllShapes(this))
-		}catch{case ex => BadaboomCollector.INSTANCE.add(ex)}
+		}catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
 

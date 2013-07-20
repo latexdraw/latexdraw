@@ -134,7 +134,7 @@ trait PSTNumberParser extends PSTAbstractParser {
 						case _ => None
 					}
 				case PSTricksConstants.TOKEN_MM => createValidNumber(value) match {
-						case Some(num) => Some(Tuple2(num/10., PSTricksConstants.TOKEN_MM))
+						case Some(num) => Some(Tuple2(num/10.0, PSTricksConstants.TOKEN_MM))
 						case _ => None
 					}
 				case PSTricksConstants.TOKEN_PS_PT => createValidNumber(value) match {
@@ -165,6 +165,6 @@ trait PSTNumberParser extends PSTAbstractParser {
 		var coordValid = coord.replace("+", "")
 		coordValid = coordValid.replace("--", "")
 		try { Some(coordValid.toDouble) }
-		catch{case _ => None}
+		catch{case _: Throwable => None}
 	}
 }

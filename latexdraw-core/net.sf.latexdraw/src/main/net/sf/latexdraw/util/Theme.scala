@@ -50,7 +50,7 @@ object Theme {
 			System.setProperty("com.apple.mrj.application.apple.menu.about.name", LResources.LABEL_APP)//$NON-NLS-1$
      		UIManager.setLookAndFeel(_lookAndFeel)
 		}
-		catch { case ex => BadaboomCollector.INSTANCE.add(ex) }
+		catch { case ex: Throwable => BadaboomCollector.INSTANCE.add(ex) }
 	}
 
 
@@ -61,11 +61,11 @@ object Theme {
 	def platformLnF : String = {
 		LSystem.INSTANCE.isLinux match {
 			case true => "com.sun.java.swing.plaf.gtk.GTKLookAndFeel" //$NON-NLS-1$
-			case false => 
+			case false =>
 			   LSystem.INSTANCE.isMacOSX match {
 			     case true => "com.apple.laf.AquaLookAndFeel"
 			     case false => UIManager.getCrossPlatformLookAndFeelClassName
-			   } 
+			   }
 		}
 	}
 

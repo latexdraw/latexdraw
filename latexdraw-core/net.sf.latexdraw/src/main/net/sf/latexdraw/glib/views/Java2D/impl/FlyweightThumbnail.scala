@@ -66,7 +66,7 @@ object FlyweightThumbnail {
 	 */
 	val images : Map[String, Tuple4[Image,Set[IViewText],String,String]] = new HashMap[String, Tuple4[Image,Set[IViewText],String,String]]()
 
-	val _scaleImage = 2.
+	val _scaleImage = 2.0
 
 	val creationsInProgress : Set[IViewText] = Set[IViewText]()
 
@@ -162,7 +162,7 @@ object FlyweightThumbnail {
 						flushImage(tuple._1, tuple._3)
 					}else // Decreasing the number of objets using this image.
 						images.synchronized{images+=(text -> new Tuple4[Image,Set[IViewText],String,String](tuple._1, tuple._2, tuple._3, tuple._4))}
-				case _ => null
+				case _ =>
 			}
 		}
 	}
@@ -276,7 +276,7 @@ object FlyweightThumbnail {
 				return new Tuple2(true, log)
 
 			log = outReader.getLog + LResources.EOL + errReader.getLog
-		}catch{ case ex => log += ex.getMessage }
+		}catch{ case ex: Throwable => log += ex.getMessage }
 		return new Tuple2(true, log)
 	}
 
@@ -347,9 +347,9 @@ object FlyweightThumbnail {
 					}
 					else BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages))
 					file.delete
-				}catch { case ex => BadaboomCollector.INSTANCE.add(ex) }
+				}catch { case ex: Throwable => BadaboomCollector.INSTANCE.add(ex) }
 		}
-		catch { case e =>
+		catch { case e: Throwable =>
 			val sw = new StringWriter()
 		    val pw = new PrintWriter(sw)
 

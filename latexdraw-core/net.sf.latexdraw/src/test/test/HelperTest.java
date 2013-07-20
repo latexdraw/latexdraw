@@ -3,6 +3,7 @@ package test;
 
 import java.awt.GraphicsEnvironment;
 import java.lang.reflect.Field;
+import static org.junit.Assert.*;
 
 public abstract class HelperTest {
 	public static Field getField(final Class<?> clazz, final String name) throws SecurityException, NoSuchFieldException {
@@ -18,6 +19,6 @@ public abstract class HelperTest {
 
 
 	public static void assertEqualsDouble(double v1, double v2) {
-		junit.framework.Assert.assertEquals(v1, v2, 0.0000001);
+		assertEquals(v1, v2, 0.0000001);
 	}
 }

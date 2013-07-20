@@ -420,7 +420,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 			addLink(new DnD2MoveCtrlPoint(this))
 			addLink(new DnD2Rotate(this))
 			addLink(new DnD2ArcAngle(this))
-		}catch{case ex => BadaboomCollector.INSTANCE.add(ex)}
+		}catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
 

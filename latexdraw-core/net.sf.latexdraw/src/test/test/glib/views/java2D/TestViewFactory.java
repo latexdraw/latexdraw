@@ -8,7 +8,7 @@ import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 

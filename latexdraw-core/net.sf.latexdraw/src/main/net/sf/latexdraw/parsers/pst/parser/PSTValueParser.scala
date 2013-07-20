@@ -77,7 +77,7 @@ trait PSTValueParser extends PSTNumberParser {
 		value.split(" ") match {
 			case Array(val1, val2, val3) =>
 				try { Some(Tuple3(val1.toDouble, val2.toDouble, val3.toDouble)) }
-				catch{case _ => None}
+				catch{case _: Throwable => None}
 			case _ => None
 		}
 	}
@@ -279,7 +279,7 @@ trait PSTValueParser extends PSTNumberParser {
 					}
 				case _ => None
 			}
-		}catch{case ex => None }
+		}catch{case ex: Throwable => None }
 
 
 	/**

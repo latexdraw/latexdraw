@@ -147,7 +147,7 @@ class ShapeTransformer(composer:UIComposer[_], hand:Hand, pencil:Pencil, val bor
 			addLink(new Button2Mirror(this))
 			addLink(new Button2Align(this))
 			addLink(new Button2Distribute(this))
-		}catch{case ex => BadaboomCollector.INSTANCE.add(ex)}
+		}catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
 	/** The widget to mirror horizontally. */

@@ -101,7 +101,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 	 */
 	private def createTriangle(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : ITriangle = {
 		val rh = DrawingTK.getFactory.createTriangle(true)
-		setRectangularShape(rh, p1.getX-p2.getX/2., p1.getY, scala.math.abs(p2.getX), scala.math.abs(p2.getY), hasStar, ctx)
+		setRectangularShape(rh, p1.getX-p2.getX/2.0, p1.getY, scala.math.abs(p2.getX), scala.math.abs(p2.getY), hasStar, ctx)
 
 		if(!LNumber.INSTANCE.equals(ctx.gangle, 0.0)) {
 			val gc = rh.getGravityCentre

@@ -62,7 +62,7 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 				case _ => if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.33"))
 			}
 		}catch{
-			case ex =>
+			case ex : Throwable =>
 				BadaboomCollector.INSTANCE.add(ex)
 				if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.34"))
 			}

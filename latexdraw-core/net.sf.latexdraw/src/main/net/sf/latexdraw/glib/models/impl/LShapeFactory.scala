@@ -69,7 +69,7 @@ class LShapeFactory extends IShapeFactory {
 			case null => None
 			case _ =>
 				try { Some(shapeClass.cast(factoryMap(shapeClass)())) }
-				catch { case ex => BadaboomCollector.INSTANCE.add(ex); None }
+				catch { case ex: Throwable => BadaboomCollector.INSTANCE.add(ex); None }
 		}
 
 	override def createPoint(pt:Point2D):IPoint = if(pt==null) new LPoint() else new LPoint(pt.getX(), pt.getY())
