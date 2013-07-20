@@ -394,6 +394,16 @@ public abstract class LaTeXGenerator implements Modifiable {
 	public abstract void update();
 
 
+	/**
+	 * Generates a latex code of the drawing only (ie no begin{document} and co).
+	 * @param pstGen The PST generator to use.
+	 * @return The latex code.
+	 * @since 3.0
+	 */
+	public static String getLatexDrawing(final PSTCodeGenerator pstGen) {
+		pstGen.updateFull();
+		return pstGen.getCache().toString();
+	}
 
 
 	/**
@@ -417,8 +427,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 		pstGen.updateFull();
 		doc.append("\\documentclass{article}").append(LResources.EOL).append("\\pagestyle{empty}").append(LResources.EOL).append(getPackages()).append(LResources.EOL).append( //$NON-NLS-1$ //$NON-NLS-2$
 		"\\usepackage[left=0cm,top=0.1cm,right=0cm,bottom=0cm,nohead,nofoot,paperwidth=").append( //$NON-NLS-1$
-		(tr.getX()/ppc)*scale).append("cm,paperheight=").append( //$NON-NLS-1$
-		(bl.getY()/ppc)*scale+0.2).append("cm]{geometry}").append( //$NON-NLS-1$
+		tr.getX()/ppc*scale).append("cm,paperheight=").append( //$NON-NLS-1$
+		bl.getY()/ppc*scale+0.2).append("cm]{geometry}").append( //$NON-NLS-1$
 		LResources.EOL).append("\\usepackage[usenames,dvipsnames]{pstricks}").append(//$NON-NLS-1$
 		LResources.EOL).append("\\usepackage{epsfig}").append(//$NON-NLS-1$//$NON-NLS-2$
 		LResources.EOL).append("\\usepackage{pst-grad}").append(LResources.EOL).append("\\usepackage{pst-plot}").append(LResources.EOL).append(//$NON-NLS-1$//$NON-NLS-2$
@@ -520,7 +530,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
 
 		String[] paramsDvi = new String[] {os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
-				(((tr.getX()-bl.getX())/ppc)*scale+dec)+"cm,"+(((bl.getY()-tr.getY())/ppc)*scale+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				(tr.getX()-bl.getX())/ppc*scale+dec+"cm,"+((bl.getY()-tr.getY())/ppc*scale+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						name, "-o", pathExportPs}; //$NON-NLS-1$
 		log   += execute(paramsDvi, tmpDir2);
 

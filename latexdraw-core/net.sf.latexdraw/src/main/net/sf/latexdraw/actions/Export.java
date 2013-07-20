@@ -378,7 +378,7 @@ public class Export extends Action {
 			try(final FileWriter fw 	= new FileWriter(file);
 				final BufferedWriter bw = new BufferedWriter(fw);
 				final PrintWriter out 	= new PrintWriter(bw);) {
-				out.println(LaTeXGenerator.getLatexDocument(canvas.getDrawing(), canvas, pstGen));
+				out.println(LaTeXGenerator.getLatexDrawing(pstGen));
 				ok = true;
 			}
 		}
