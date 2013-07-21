@@ -22,7 +22,7 @@ import org.malai.mapping.IUnary;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.swing.interaction.SwingEventManager;
-import org.malai.swing.widget.WidgetUtilities;
+import org.malai.swing.widget.SwingWidgetUtilities;
 
 /**
  * This class defines an abstract scale ruler.<br>
@@ -172,7 +172,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 				ppc*=PSTricksConstants.INCH_VAL_CM;
 
 			// If the ppc is not to small sub-lines are drawn.
-	    	if(ppc>(MIN_PCC_SUBLINES/zoom)) {
+	    	if(ppc>MIN_PCC_SUBLINES/zoom) {
 	    		final double ppc10 			= ppc/10.;
 	    		final double halfSizeZoomed = sizeZoomed/2.;
 
@@ -196,7 +196,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 
 	@Override
 	public Picker getPicker() {
-		return WidgetUtilities.INSTANCE.getPicker(this);
+		return SwingWidgetUtilities.INSTANCE.getPicker(this);
 	}
 
 

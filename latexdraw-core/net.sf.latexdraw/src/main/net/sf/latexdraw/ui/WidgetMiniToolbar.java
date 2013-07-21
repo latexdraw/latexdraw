@@ -18,7 +18,7 @@ import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.swing.interaction.SwingEventManager;
 import org.malai.swing.widget.MToolBar;
-import org.malai.swing.widget.WidgetUtilities;
+import org.malai.swing.widget.SwingWidgetUtilities;
 
 /**
  * This class defines a button which displays a frame containing
@@ -435,21 +435,21 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 
 	@Override
 	public boolean contains(final Object obj) {
-		return WidgetUtilities.INSTANCE.contains(toolbar.getComponents(), obj);
+		return SwingWidgetUtilities.INSTANCE.contains(toolbar.getComponents(), obj);
 	}
 
 
 
 	@Override
 	public Pickable getPickableAt(final double x, final double y) {
-		return WidgetUtilities.INSTANCE.getPickableAt(this, toolbar.getComponents(), x, y);
+		return SwingWidgetUtilities.INSTANCE.getPickableAt(this, toolbar.getComponents(), x, y);
 	}
 
 
 
 	@Override
 	public Picker getPickerAt(final double x, final double y) {
-		return WidgetUtilities.INSTANCE.getPickerAt(this, toolbar.getComponents(), x, y);
+		return SwingWidgetUtilities.INSTANCE.getPickerAt(this, toolbar.getComponents(), x, y);
 	}
 
 

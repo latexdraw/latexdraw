@@ -1,37 +1,36 @@
 package net.sf.latexdraw.instruments
 
+import java.awt.Cursor
+import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
 import java.awt.geom.Rectangle2D
-import java.awt.Cursor
 import scala.collection.JavaConversions.asScalaBuffer
-import org.malai.instrument.Link
+import org.malai.action.Action
 import org.malai.instrument.Instrument
+import org.malai.instrument.Link
+import org.malai.interaction.library.DnD
+import org.malai.interaction.library.KeysPressure
 import org.malai.mapping.MappingRegistry
+import org.malai.swing.instrument.library.WidgetZoomer
+import org.malai.swing.interaction.library.DoubleClick
+import net.sf.latexdraw.actions.shape.InitTextSetter
+import net.sf.latexdraw.actions.shape.RotateShapes
+import net.sf.latexdraw.actions.shape.ScaleShapes
 import net.sf.latexdraw.actions.shape.SelectShapes
 import net.sf.latexdraw.actions.shape.TranslateShapes
-import net.sf.latexdraw.actions.shape.InitTextSetter
+import net.sf.latexdraw.actions.shape.TranslateShapes
 import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IText
 import net.sf.latexdraw.glib.ui.ICanvas
 import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
-import org.malai.swing.interaction.library.DoubleClick
-import org.malai.interaction.library.DnD
-import org.malai.swing.instrument.library.WidgetZoomer
-import org.malai.interaction.library.Press
-import net.sf.latexdraw.actions.shape.MovePointShape
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty
-import net.sf.latexdraw.actions.shape.ScaleShapes
-import net.sf.latexdraw.actions.shape.MoveCtrlPoint
-import net.sf.latexdraw.actions.shape.RotateShapes
-import org.malai.action.Action
-import net.sf.latexdraw.actions.shape.TranslateShapes
-import org.malai.interaction.library.KeysPressure
-import java.awt.event.KeyEvent
+import org.malai.interaction.library.PressWithKeys
+import org.malai.interaction.library.DnDWithKeys
+import scala.collection.mutable.Buffer
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -160,7 +159,7 @@ private sealed class DnD2Translate(hand : Hand) extends Link[TranslateShapes, Dn
 
 
 
-private sealed class Press2Select(ins : Hand) extends Link[SelectShapes, Press, Hand](ins, false, classOf[SelectShapes], classOf[Press]) {
+private sealed class Press2Select(ins : Hand) extends Link[SelectShapes, PressWithKeys, Hand](ins, false, classOf[SelectShapes], classOf[PressWithKeys]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 	}
@@ -168,15 +167,23 @@ private sealed class Press2Select(ins : Hand) extends Link[SelectShapes, Press, 
 	override def updateAction() {
 		val target = interaction.getTarget
 
-		if(target.isInstanceOf[IViewShape])
-			action.setShape(MappingRegistry.REGISTRY.getSourceFromTarget(target, classOf[IShape]))
+		if(target.isInstanceOf[IViewShape]) {
+			val keys = interaction.getKeys
+			val selection = instrument.canvas.getDrawing.getSelection.getShapes
+			val targetSh = MappingRegistry.REGISTRY.getSourceFromTarget(target, classOf[IShape])
+
+			if(keys.contains(KeyEvent.VK_SHIFT))
+				selection.filter{sh => sh!=targetSh}.foreach{sh => action.addShape(sh)}
+			else if(keys.contains(KeyEvent.VK_CONTROL)) {
+				selection.foreach{sh => action.addShape(sh)}
+				action.addShape(targetSh)
+			}
+			else
+				action.setShape(targetSh)
+		}
 	}
 
-	override def isConditionRespected() : Boolean = {
-		val target = interaction.getTarget
-		return target.isInstanceOf[IViewShape] &&
-			   !instrument.canvas.getDrawing.getSelection.contains(MappingRegistry.REGISTRY.getSourceFromTarget(target, classOf[IShape]))
-	}
+	override def isConditionRespected() : Boolean = interaction.getTarget.isInstanceOf[IViewShape]
 }
 
 
@@ -184,35 +191,48 @@ private sealed class Press2Select(ins : Hand) extends Link[SelectShapes, Press, 
 /**
  * This link allows to select several shapes.
  */
-private sealed class DnD2Select(hand : Hand) extends Link[SelectShapes, DnD, Hand](hand, true, classOf[SelectShapes], classOf[DnD]) {
+private sealed class DnD2Select(hand : Hand) extends Link[SelectShapes, DnDWithKeys, Hand](hand, true, classOf[SelectShapes], classOf[DnDWithKeys]) {
 	/** The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
 	private val selectionBorder : Rectangle2D = new Rectangle2D.Double()
 
+	private var selectedShapes : Buffer[IShape] = null
+	private var selectedViews  : Buffer[IViewShape] = null
+
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
+		selectedShapes = instrument.canvas.getDrawing.getSelection.getShapes.clone
+		selectedViews  = instrument.canvas.getBorderInstrument.selection.clone
 	}
 
 
 	override def updateAction() {
-		val start = interaction.getStartPt
+		val start = interaction.getPoint
 		val end	  = interaction.getEndPt
 		val minX  = math.min(start.x, end.x)
 		val maxX  = math.max(start.x, end.x)
 		val minY  = math.min(start.y, end.y)
 		val maxY  = math.max(start.y, end.y)
 		val zoom  = instrument.canvas.getZoom
+		val keys = interaction.getKeys
 
 		// Updating the rectangle used for the interim feedback and for the selection of shapes.
 		selectionBorder.setFrame(minX/zoom, minY/zoom, (maxX-minX)/zoom, (maxY-minY)/zoom)
 		// Cleaning the selected shapes in the action.
 		action.setShape(null)
 
-		if(!selectionBorder.isEmpty)
-			instrument.canvas.getViews.foreach{view =>
-				if(view.intersects(selectionBorder))
-					// Taking the shape in function of the view.
-					action.addShape(MappingRegistry.REGISTRY.getSourceFromTarget(view, classOf[IShape]))
-			}
+		if(keys.contains(KeyEvent.VK_SHIFT))
+			selectedViews.filter{view => !view.intersects(selectionBorder)}.foreach{
+					view => action.addShape(MappingRegistry.REGISTRY.getSourceFromTarget(view, classOf[IShape]))}
+		else {
+			if(keys.contains(KeyEvent.VK_CONTROL))
+				selectedShapes.foreach{sh => action.addShape(sh)}
+			if(!selectionBorder.isEmpty)
+				instrument.canvas.getViews.foreach{view =>
+					if(view.intersects(selectionBorder))
+						// Taking the shape in function of the view.
+						action.addShape(MappingRegistry.REGISTRY.getSourceFromTarget(view, classOf[IShape]))
+				}
+		}
 	}
 
 	override def isConditionRespected() = interaction.getStartObject==instrument.canvas && interaction.getButton==MouseEvent.BUTTON1
