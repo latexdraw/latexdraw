@@ -41,7 +41,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			consume(parsePsline(new PSTContext(ctx))) | consume(parserQline(new PSTContext(ctx))) |
 			consume(parsePscircle(new PSTContext(ctx))) | consume(parseQdisk(new PSTContext(ctx))) |
 			consume(parsePspolygon(new PSTContext(ctx))) | consume(parsePsbezier(new PSTContext(ctx))) |
-			consume(parsePsdot(new PSTContext(ctx))) | consume(parsePsdots(new PSTContext(ctx))) |
+			consume(parsePsdot(new PSTContext(ctx))) | consume(parsePsdots(new PSTContext(ctx))) | consume(parsePsaxes(new PSTContext(ctx))) |
 			consume(parsePsgrid(new PSTContext(ctx))) | consume(parseRput(ctx)) | consume(parseScalebox(ctx)) | consume(parsePsscalebox(ctx)) |
 			consume(parsePswedge(new PSTContext(ctx))) | consume(parsePsarc(new PSTContext(ctx))) | consume(parsePsarcn(new PSTContext(ctx))) |
 			consume(parsePsellipticarc(new PSTContext(ctx))) | consume(parsePsellipticarcn(new PSTContext(ctx))) |

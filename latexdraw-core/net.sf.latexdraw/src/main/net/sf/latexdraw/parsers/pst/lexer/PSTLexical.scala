@@ -56,7 +56,7 @@ class PSTLexical extends Lexical with PSTTokens {
 			"\\small", "\\normalsize", "\\large", "\\Large", "\\LARGE", "\\huge", "\\Huge", "\\`", "\\'", "\\^", "\\\"", "\\H", "\\~", "\\c",
 			"\\k", "\\=", "\\b", "\\.", "\\d", "\\r", "\\u", "\\v", "\\t", "\\l", "\\textit", "\\textsf", "\\textsc", "\\textsl", "\\underline",
 			"\\texttt", "\\emph", "\\textbf", "\\textit", "\\rmfamily", "\\sffamily", "\\ttfamily", "\\mdseries", "\\bfseries", "\\scshape",
-			"\\slshape", "\\itshape", "\\upshape", "\\it", "\\sl", "\\sc", "\\bf")
+			"\\slshape", "\\itshape", "\\upshape", "\\it", "\\sl", "\\sc", "\\bf", "\\psaxes")
 
 	val textualDelimiters : HashSet[String] = HashSet(",", "(", ")", "[", "]", "=")
 

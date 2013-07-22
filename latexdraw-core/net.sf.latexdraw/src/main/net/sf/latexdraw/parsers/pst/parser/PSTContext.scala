@@ -325,6 +325,17 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "subgriddiv" if(value.isInstanceOf[Double]) => subGridDiv = value.asInstanceOf[Double]
 				case "subgridwidth" if(value.isInstanceOf[Double]) => subGridWidth = value.asInstanceOf[Double]
 				case "subgriddots" if(value.isInstanceOf[Double]) => subGridDots = value.asInstanceOf[Double]
+				case "tickstyle" if(value.isInstanceOf[IAxes.TicksStyle]) => ticksStyle = value.asInstanceOf[IAxes.TicksStyle]
+				case "axesstyle" if(value.isInstanceOf[IAxes.AxesStyle]) => axesStyle = value.asInstanceOf[IAxes.AxesStyle]
+				case "labels" if(value.isInstanceOf[IAxes.PlottingStyle]) => labels = value.asInstanceOf[IAxes.PlottingStyle]
+				case "ticks" if(value.isInstanceOf[IAxes.PlottingStyle]) => ticks = value.asInstanceOf[IAxes.PlottingStyle]
+				case "dx" if(value.isInstanceOf[Double]) => dxLabelDist = value.asInstanceOf[Double]
+				case "dy" if(value.isInstanceOf[Double]) => dyLabelDist = value.asInstanceOf[Double]
+				case "Dx" if(value.isInstanceOf[Double]) => dxIncrement = value.asInstanceOf[Double]
+				case "Dy" if(value.isInstanceOf[Double]) => dyIncrement = value.asInstanceOf[Double]
+				case "Ox" if(value.isInstanceOf[Double]) => ox = value.asInstanceOf[Double]
+				case "Oy" if(value.isInstanceOf[Double]) => oy = value.asInstanceOf[Double]
+				case "ticksize" if(value.isInstanceOf[Double]) => ticksSize = value.asInstanceOf[Double]
 				case "bracketlength" if(value.isInstanceOf[Double]) => arrowBrLgth = value.asInstanceOf[Double]
 				case "rbracketlength" if(value.isInstanceOf[Double]) => arrowrBrLgth = value.asInstanceOf[Double]
 				case "unit" if(value.isInstanceOf[Double]) => unit = value.asInstanceOf[Double]
@@ -346,7 +357,7 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "tbarsize" if(value.isInstanceOf[Tuple2[_, _]]) => arrowTBar = value.asInstanceOf[Tuple2[Double, Double]]
 				case "dash" if(value.isInstanceOf[Tuple2[_, _]]) => dash = value.asInstanceOf[Tuple2[Double, Double]]
 				case "curvature" if(value.isInstanceOf[Tuple3[_, _, _]]) => curvature = value.asInstanceOf[Tuple3[Double, Double, Double]]
-				case _ => PSTParser.errorLogs += "Parameter unknown: " + name + " " + value
+				case _ => PSTParser.errorLogs += "[PSTContext.setParam] Parameter unknown: " + name + " " + value
 			}
 	}
 }

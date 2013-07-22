@@ -88,12 +88,19 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 			("dash", (str : String, ctx : PSTContext) => parseValueDimDim(str)),
 			("xunit", (str : String, ctx : PSTContext) => parseValueDimNoUnit(str)),
 			("liftpen", (str : String, ctx : PSTContext) => parseValue012(str)),
-			("yunit", (str : String, ctx : PSTContext) => parseValueDimNoUnit(str)))
+			("yunit", (str : String, ctx : PSTContext) => parseValueDimNoUnit(str)),
 //			("origin", (str : String, ctx : PSTContext) => parseValueOrigin(str)))
-//			("labels", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
-//			("ticks", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
-//			("tickstyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
-//			("axesstyle", (str : String, ctx : PSTContext) => parseValueText.apply(obj)),
+			("labels", (str : String, ctx : PSTContext) => parseValueLabelVisibility(str)),
+			("ticks", (str : String, ctx : PSTContext) => parseValueLabelVisibility(str)),
+			("tickstyle", (str : String, ctx : PSTContext) => parseValueTickstyle(str)),
+			("dx", (str : String, ctx : PSTContext) => parseValueDimNoUnit(str)),
+			("dy", (str : String, ctx : PSTContext) => parseValueDimNoUnit(str)),
+			("Dx", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("Dy", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("Ox", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("Oy", (str : String, ctx : PSTContext) => parseValueNum(str)),
+			("ticksize", (str : String, ctx : PSTContext) => parseValueDim(str)),
+			("axesstyle", (str : String, ctx : PSTContext) => parseValueAxestyle(str)))
 
 
 
@@ -113,8 +120,7 @@ trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 		case _ ~ _ ~ _ =>
 	}
 
-// labelsep Ox Oy Dx Dy dx oy
-// ticksize framesep nodesep offset arm angle arcangle ncurv loopsize coilwidth coilheight coilarm coilaspect coilinc
+// framesep nodesep offset arm angle arcangle ncurv loopsize coilwidth coilheight coilarm coilaspect coilinc labelsep
 
 	/**
 	 * Parses the setting of parameters.

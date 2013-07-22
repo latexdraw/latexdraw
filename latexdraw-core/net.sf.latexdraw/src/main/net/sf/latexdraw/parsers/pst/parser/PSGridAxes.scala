@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.IGrid
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
 import net.sf.latexdraw.util.LNumber
+import net.sf.latexdraw.glib.models.interfaces.IAxes
 
 /**
  * A parser grouping parsers parsing grids and axes.<br>
@@ -29,12 +30,28 @@ import net.sf.latexdraw.util.LNumber
  * @version 3.0
  */
 trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinateParser {
+	def parsePsaxes(ctx : PSTContext) : Parser[List[IShape]] =
+		"\\psaxes" ~ opt(parseParam(ctx)) ~ opt(parseCoord(ctx)) ~ opt(parseCoord(ctx)) ~ opt(parseCoord(ctx)) ^^ {
+		case _ ~ _ ~ p1 ~ p2 ~ p3 =>
+		(p1, p2, p3) match {
+			case (Some(pt1), Some(pt2), Some(pt3)) => checkTextParsed(ctx) ::: List(createAxes(pt2, pt3, ctx))
+			case (Some(pt1), Some(pt2), None) => checkTextParsed(ctx) ::: List(createAxes(pt1, pt2, ctx))
+			case (Some(pt1), None, None) =>
+				checkTextParsed(ctx) ::: List(createAxes(new PointUnit(0,0, "", ""), pt1, ctx))
+			case _ =>
+				val gridEnd = new PointUnit(getApproxCoord(ctx.pictureNEPt.getX), getApproxCoord(ctx.pictureNEPt.getY), "", "")
+				val gridStart = new PointUnit(getApproxCoord(ctx.pictureSWPt.getX), getApproxCoord(ctx.pictureSWPt.getY), "", "")
+				checkTextParsed(ctx) ::: List(createAxes(gridStart, gridEnd, ctx))
+		}
+	}
+
+
 	/**
 	 * Parses psgrid commands.
 	 */
 	def parsePsgrid(ctx : PSTContext) : Parser[List[IShape]] =
 		"\\psgrid" ~ opt(parseParam(ctx)) ~ opt(parseCoord(ctx)) ~ opt(parseCoord(ctx)) ~ opt(parseCoord(ctx)) ^^ {
-		case cmdName ~ _ ~ p1 ~ p2 ~ p3 =>
+		case _ ~ _ ~ p1 ~ p2 ~ p3 =>
 
 		(p1, p2, p3) match {
 			case (Some(pt1), Some(pt2), Some(pt3)) => checkTextParsed(ctx) ::: List(createGrid(pt1, pt2, pt3, ctx))
@@ -48,6 +65,23 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 		}
 	}
 
+
+	private def createAxes(min : PointUnit, max : PointUnit, ctx : PSTContext) : IAxes = {
+			val axes = DrawingTK.getFactory.createAxes(true, DrawingTK.getFactory.createPoint)
+
+			setStdGridParams(new PointUnit(ctx.ox, ctx.oy, null, null), min, max, axes, ctx)
+			axes.setPosition(DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
+			axes.setAxesStyle(ctx.axesStyle)
+			axes.setTicksDisplayed(ctx.ticks)
+			axes.setLabelsDisplayed(ctx.labels)
+			axes.setTicksStyle(ctx.ticksStyle)
+			axes.setIncrementX(ctx.dxIncrement)
+			axes.setIncrementY(ctx.dyIncrement)
+			axes.setDistLabelsX(ctx.dxLabelDist)
+			axes.setDistLabelsY(ctx.dyLabelDist)
+			axes.setShowOrigin(ctx.showOrigin)
+			axes
+	}
 
 
 	private def createGrid(origin : PointUnit, min : PointUnit, max : PointUnit, ctx : PSTContext) : IGrid = {
