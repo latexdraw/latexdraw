@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -212,9 +211,9 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids' labels.");
 
-		JPanel p1 = new JPanel();
-		JPanel p2 = new JPanel();
-		JPanel p3 = new JPanel();
+		MPanel p1 = new MPanel(false, true);
+		MPanel p2 = new MPanel(false, true);
+		MPanel p3 = new MPanel(false, false);
 		p1.setLayout(new BoxLayout(p1, BoxLayout.X_AXIS));
 		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS));
 		p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));
@@ -244,9 +243,12 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(stdGridCust.getLabelsXInvertedCB(), list);
 		mapContainers.put(stdGridCust.getLabelsYInvertedCB(), list);
 
-		axeCust.addEventable(list.getToolbar());
-		stdGridCust.addEventable(list.getToolbar());
-		gridCust.addEventable(list.getToolbar());
+		axeCust.addEventable(p1);
+		stdGridCust.addEventable(p1);
+		gridCust.addEventable(p1);
+		axeCust.addEventable(p2);
+		stdGridCust.addEventable(p2);
+		gridCust.addEventable(p2);
 		list.setVisible(false);
 		return list;
 	}
