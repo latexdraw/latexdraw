@@ -31,6 +31,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 	/** The cut or copy action. */
 	protected var _copy : CopyShapes = null
 
+	/** The magnetic grid to use. */
 	protected var _grid : LMagneticGrid = null
 
 
@@ -95,7 +96,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 
 	def copy = _copy
 
-
+	/** Sets the magnetic grisd to use. */
 	def setGrid(grid:LMagneticGrid) {
 		_grid = grid
 	}

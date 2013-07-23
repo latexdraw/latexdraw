@@ -31,6 +31,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
 import org.malai.interaction.library.PressWithKeys
 import org.malai.interaction.library.DnDWithKeys
 import scala.collection.mutable.Buffer
+import net.sf.latexdraw.actions.shape.UpdateToGrid
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -61,6 +62,7 @@ class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : WidgetZo
 			addLink(new DnD2Translate(this))
 			addLink(new DoubleClick2InitTextSetter(this))
 			addLink(new CtrlA2SelectAllShapes(this))
+			addLink(new CtrlU2UpdateShapes(this))
 		}catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
@@ -88,6 +90,17 @@ class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : WidgetZo
 			}
 		}
 	}
+}
+
+
+private sealed class CtrlU2UpdateShapes(ins:Hand) extends Link[UpdateToGrid, KeysPressure, Hand](ins, false, classOf[UpdateToGrid], classOf[KeysPressure]) {
+	override def initAction() {
+		action.setShape(instrument.canvas.getDrawing.getSelection.duplicate.asInstanceOf[IGroup])
+		action.setGrid(instrument.canvas.getMagneticGrid)
+	}
+
+	override def isConditionRespected() = instrument.canvas.getMagneticGrid.isMagnetic() &&
+		interaction.getKeys().size()==2 && interaction.getKeys().contains(KeyEvent.VK_U) && interaction.getKeys().contains(KeyEvent.VK_CONTROL)
 }
 
 
