@@ -202,8 +202,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 		final double angle = shape.getRotationAngle();
 
 		if(!LNumber.INSTANCE.equals(angle, 0.)) {
-			IPoint gravityCenter = shape.getGravityCentre();//FIXME doit merder pour les formes qui n'ont pas de gc (comme le texte)
-			// car les vues java utilise le gc des borders.
+			IPoint gravityCenter = shape.getGravityCentre();
 			final double cx 	= (gravityCenter.getX() - position.getX()) / ppc;
 			final double cy 	= (position.getY() - gravityCenter.getY()) / ppc;
 			double x 			= LNumber.INSTANCE.getCutNumber(-Math.cos(-angle)*cx + Math.sin(-angle)*cy+cx);

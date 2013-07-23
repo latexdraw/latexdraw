@@ -8,13 +8,14 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.util.LNumber;
 
@@ -312,6 +313,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 
 	@Override
 	public void paint(final Graphics2D g) {
+		final IPoint vectorTrans = beginRotation(g);
+
 		g.setStroke(getStroke());
 		g.setColor(shape.getLineColour());
 		g.draw(path);
@@ -325,6 +328,9 @@ class LAxesView extends LStandardGridView<IAxes> {
 			g.setColor(Color.BLACK);
 			g.fill(pathLabels);
 		}
+
+		if(vectorTrans!=null)
+			endRotation(g, vectorTrans);
 	}
 
 
@@ -351,19 +357,22 @@ class LAxesView extends LStandardGridView<IAxes> {
 	@Override
 	public void updateBorder() {
 		final double angle = shape.getRotationAngle();
-		final Rectangle2D bound;
+		Rectangle2D bound;
 
 		if(shape.getAxesStyle()==AxesStyle.NONE)
  			bound = new Rectangle2D.Double(shape.getPosition().getX(), shape.getPosition().getY(), 1, 1);
 		else bound = path.getBounds2D();
 
+		if(shape.getLabelsDisplayed()!=PlottingStyle.NONE)
+			bound = bound.createUnion(pathLabels.getBounds2D()).getBounds2D();
+
 		if(LNumber.INSTANCE.equals(angle, 0.))
-			if(shape.getLabelsDisplayed()==PlottingStyle.NONE)
-				border.setFrame(bound);
-			else
-				border.setFrame(bound.createUnion(pathLabels.getBounds2D()));
-		else
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
-			//TODO
+			border.setFrame(bound);
+		else {
+			IPoint tl = DrawingTK.getFactory().createPoint();
+			IPoint br = DrawingTK.getFactory().createPoint();
+			getRotatedRectangle(bound.getMinX(), bound.getMinY(), bound.getWidth(), bound.getHeight(), angle, shape.getGravityCentre(), tl, br);
+			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
+		}
 	}
 }

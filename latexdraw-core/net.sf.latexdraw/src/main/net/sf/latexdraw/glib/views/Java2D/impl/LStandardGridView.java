@@ -11,6 +11,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.util.LNumber;
@@ -58,6 +59,22 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 		super.flush();
 		fontMetrics = null;
 		pathLabels = null;
+	}
+
+
+	@Override
+	public void updateBorder() {
+		final double angle = shape.getRotationAngle();
+
+		if(LNumber.INSTANCE.equals(angle, 0.)) //FIXME: labels may be not visible.
+			border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
+		else {
+			Rectangle2D rec = path.getBounds2D().createUnion(pathLabels.getBounds2D());
+			IPoint tl = DrawingTK.getFactory().createPoint();
+			IPoint br = DrawingTK.getFactory().createPoint();
+			getRotatedRectangle(rec.getMinX(), rec.getMinY(), rec.getWidth(), rec.getHeight(), angle, shape.getGravityCentre(), tl, br);
+			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
+		}
 	}
 
 

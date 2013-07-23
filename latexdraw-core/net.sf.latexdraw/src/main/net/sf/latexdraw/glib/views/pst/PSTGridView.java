@@ -77,8 +77,8 @@ class PSTGridView extends PSTShapeView<IGrid> {
 
 
 	@Override
-	public void updateCache(final IPoint d, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(d) || ppc<1)
+	public void updateCache(final IPoint pt, final float ppc) {
+		if(!GLibUtilities.INSTANCE.isValidPoint(pt) || ppc<1)
 			return ;
 
 		emptyCache();
@@ -89,7 +89,7 @@ class PSTGridView extends PSTShapeView<IGrid> {
 		IPoint position		  = shape.getPosition();
 		StringBuilder start	  = new StringBuilder();
 		StringBuilder end	  = new StringBuilder();
-		StringBuilder rot	  = getRotationHeaderCode(ppc, d);
+		StringBuilder rot	  = getRotationHeaderCode(ppc, position);
 		StringBuilder coord	  = new StringBuilder();
 		double unit			  = shape.getUnit();
 		double gridStartx 	  = shape.getGridStartX();
@@ -124,8 +124,8 @@ class PSTGridView extends PSTShapeView<IGrid> {
 			end.append("\n\\psset{unit=").append(PSTricksConstants.DEFAULT_UNIT).append(PSTricksConstants.TOKEN_CM).append('}');//$NON-NLS-1$
 
 		if(!LNumber.INSTANCE.equals(position.getX(), 0.) || !LNumber.INSTANCE.equals(position.getY(), 0.)) {
-			float posX = (float)LNumber.INSTANCE.getCutNumber((position.getX()-d.getX())/ppc);
-			float posY = (float)LNumber.INSTANCE.getCutNumber((d.getY()-position.getY())/ppc);
+			float posX = (float)LNumber.INSTANCE.getCutNumber((position.getX()-pt.getX())/ppc);
+			float posY = (float)LNumber.INSTANCE.getCutNumber((pt.getY()-position.getY())/ppc);
 
 			end.append('}');
 			start.append("\\rput(").append(posX).append(',').append(posY).append(')').append('{');//$NON-NLS-1$

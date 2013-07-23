@@ -46,7 +46,7 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		double startX, startY, endX, endY;
 		StringBuilder start	  		= new StringBuilder();
 		StringBuilder end	  		= new StringBuilder();
-		StringBuilder rot	  		= getRotationHeaderCode(ppc, origDrawing);
+		StringBuilder rot	  		= getRotationHeaderCode(ppc, shape.getPosition());
 		StringBuilder coord	  		= new StringBuilder();
 		StringBuilder arrowsStyle 	= getArrowsStyleCode();
 		final double gridEndx 		= shape.getGridEndX();

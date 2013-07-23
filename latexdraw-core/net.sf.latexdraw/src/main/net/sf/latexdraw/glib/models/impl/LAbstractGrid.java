@@ -99,21 +99,21 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public IPoint getBottomRightPoint() {
-		final IPoint pos = points.get(0);
+		final IPoint pos = getPosition();
 		return new LPoint(pos.getX()+getGridMaxX()*PPC, pos.getY()-getGridMinY()*PPC);
 	}
 
 
 	@Override
 	public IPoint getTopLeftPoint() {
-		final IPoint pos = points.get(0);
+		final IPoint pos = getPosition();
 		return new LPoint(pos.getX()+getGridMinX()*PPC, pos.getY()-getGridMaxY()*PPC);
 	}
 
 
 	@Override
 	public IPoint getTopRightPoint() {
-		IPoint pos  = points.get(0);
+		IPoint pos  = getPosition();
 		double step = getStep();
 
 		return new LPoint(pos.getX()+step*(gridEndx-gridStartx), pos.getY()-step*(gridEndy-gridStarty));

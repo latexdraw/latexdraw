@@ -7,11 +7,9 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a view of the IGrid model.<br>
@@ -59,6 +57,8 @@ class LGridView extends LStandardGridView<IGrid> {
 	public void paint(final Graphics2D g) {
 		if(g==null) return ;
 
+		final IPoint vectorTrans = beginRotation(g);
+
 		// Drawing the sub grid.
 		g.setColor(shape.getSubGridColour());
 
@@ -83,18 +83,9 @@ class LGridView extends LStandardGridView<IGrid> {
 		//FIXME: labels may be not visible.
 		g.setColor(shape.getGridLabelsColour());
 		g.fill(pathLabels);
-	}
 
-
-	@Override
-	public void updateBorder() {
-		final double angle = shape.getRotationAngle();
-
-		if(LNumber.INSTANCE.equals(angle, 0.)) //FIXME: labels may be not visible.
-			border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
-		else
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
-			//TODO
+		if(vectorTrans!=null)
+			endRotation(g, vectorTrans);
 	}
 
 
