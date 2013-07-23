@@ -79,7 +79,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX(), minx = shape.getGridMinX(), i=maxx-maxx%(int)incrx; i>=minx; i-=incrx) {
 			inti = (int)i;
 			val = inti+origx;
-			if(isElementPaintable(val, false, noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
+			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
 				x = posx+val*gapx;
 				pathTicks.moveTo(x, y);
 				pathTicks.lineTo(x, y-tickLgth);
@@ -111,7 +111,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY(), miny = shape.getGridMinY(), i=maxy-maxy%(int)incry; i>=miny; i-=incry) {
 			inti = (int)i;
 			val = inti+origy;
-			if(isElementPaintable(val, false, noArrowBotY, noArrowTopY, miny, maxy, inti)) {
+			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				y = posy-val*gapy;
 				pathTicks.moveTo(x, y);
 				pathTicks.lineTo(x+tickLgth, y);
@@ -147,7 +147,6 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double incry 		= shape.getIncrementY();
 		final double gap;
 		final Font font 		= fontMetrics.getFont();
-		final boolean showOrigY = shape.isShowOrigin() && (isWest && shape.getGridMinX()>=-shape.getOriginX() || !isWest && shape.getGridMaxX()<=-shape.getOriginX());
 		final int height 		= fontMetrics.getAscent();
 		final boolean noArrowTopY = shape.getArrowStyle(1)==ArrowStyle.NONE;
 		final boolean noArrowBotY  = shape.getArrowStyle(0)==ArrowStyle.NONE;
@@ -170,7 +169,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		for(double maxy = shape.getGridMaxY(), miny = shape.getGridMinY(), i=maxy-maxy%(int)incry; i>=miny; i-=incry) {
 			inti = (int)i;
 			val = inti+origy;
-			if(isElementPaintable(val, showOrigY, noArrowBotY, noArrowTopY, miny, maxy, inti)) {
+			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				str	 = String.valueOf(val+origy);
 				if(isWest)
 					updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-val*gapy), font, frc);
@@ -195,7 +194,6 @@ class LAxesView extends LStandardGridView<IAxes> {
 									+ shape.getThickness()/2. + GAP_LABEL;
 		final double sep 		= shape.getGridMaxY()<=-shape.getOriginY() || !isSouth ? -gap-GAP_LABEL : gap + fontMetrics.getAscent();
 		final Font font 		= fontMetrics.getFont();
-		final boolean showOrigX = shape.isShowOrigin() && (isSouth && shape.getGridMinY()>=-shape.getOriginY() || !isSouth && shape.getGridMaxY()<=-shape.getOriginY());
 		final boolean noArrowLeftX = shape.getArrowStyle(0)==ArrowStyle.NONE;
 		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE;
 		String str;
@@ -205,7 +203,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		for(double maxx = shape.getGridMaxX(), minx = shape.getGridMinX(), i=maxx-maxx%(int)incrx; i>=minx; i-=incrx) {
 			inti = (int)i;
 			val = inti+origx;
-			if(isElementPaintable(val, showOrigX, noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
+			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
 				str	 = String.valueOf(val+origx);
 				updateText(str, (float)(posx+val*gapx-fontMetrics.stringWidth(str)/2.), (float)(posy+sep), font, frc);
 			}
@@ -216,8 +214,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 	/**
 	 * @return True if a ticks or a label corresponding to the given parameter can be painted.
 	 */
-	private boolean isElementPaintable(final int val, final boolean showOrigin, final boolean noArrow1, final boolean noArrow2, final double min, final double max, final int i) {
-		return (val!=0 || showOrigin) && (noArrow2 || !LNumber.INSTANCE.equals(max, i)) && (noArrow1 || !LNumber.INSTANCE.equals(min, i));
+	private boolean isElementPaintable(final boolean noArrow1, final boolean noArrow2, final double min, final double max, final int i) {
+		return (noArrow2 || !LNumber.INSTANCE.equals(max, i)) && (noArrow1 || !LNumber.INSTANCE.equals(min, i));
 	}
 
 
