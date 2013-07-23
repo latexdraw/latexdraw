@@ -73,6 +73,8 @@ public class LoadDrawing extends Load<LFrame, JLabel> implements Modifying {
 	protected void load() {
 		if(file==null)
 			file = fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
+		else
+			fileChooser.setSelectedFile(file);
 
 		if(file!=null && file.canRead())
 			super.doActionBody();
