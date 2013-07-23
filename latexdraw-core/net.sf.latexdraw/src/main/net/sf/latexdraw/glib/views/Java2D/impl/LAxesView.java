@@ -77,7 +77,16 @@ class LAxesView extends LStandardGridView<IAxes> {
 			default: 	y = posy + tickLgth;
 		}
 
-		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=maxx*incrx; i>=minx*incrx; i-=incrx) {
+		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=origx; i<=maxx*incrx; i+=incrx) {
+			inti = (int)i;
+			val = inti+origx;
+			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
+				x = posx+val*gapx;
+				pathTicks.moveTo(x, y);
+				pathTicks.lineTo(x, y-tickLgth);
+			}
+		}
+		for(double incrx = shape.getIncrementX(), maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=origx-incrx; i>=minx*incrx; i-=incrx) {
 			inti = (int)i;
 			val = inti+origx;
 			if(isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
@@ -110,7 +119,16 @@ class LAxesView extends LStandardGridView<IAxes> {
 			default: 	x = posx - tickLgth;
 		}
 
-		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=maxy*incry; i>=miny*incry; i-=incry) {
+		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=origy; i<=maxy*incry; i+=incry) {
+			inti = (int)i;
+			val = inti+origy;
+			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
+				y = posy-val*gapy;
+				pathTicks.moveTo(x, y);
+				pathTicks.lineTo(x+tickLgth, y);
+			}
+		}
+		for(double incry = shape.getIncrementY(), maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=origy-incry; i>=miny*incry; i-=incry) {
 			inti = (int)i;
 			val = inti+origy;
 			if(isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
@@ -162,8 +180,15 @@ class LAxesView extends LStandardGridView<IAxes> {
 		else
 			gap = -(shape.getThickness()/2. + GAP_LABEL);
 
-
-		for(double maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=maxy*incry; i>=miny*incry; i-=incry) {
+		for(double maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=origy; i<=maxy*incry; i+=incry) {
+			inti = (int)i;
+			val = inti+origy;
+			if((showOrig || val!=origy) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
+				str	 = String.valueOf(val+origy);
+				updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-val*gapy), font, frc);
+			}
+		}
+		for(double maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=origy-incry; i>=miny*incry; i-=incry) {
 			inti = (int)i;
 			val = inti+origy;
 			if((showOrig || val!=origy) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
@@ -194,7 +219,15 @@ class LAxesView extends LStandardGridView<IAxes> {
 		int val;
 		int inti;
 
-		for(double maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=maxx*incrx; i>=minx*incrx; i-=incrx) {
+		for(double maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=origx; i<=maxx*incrx; i+=incrx) {
+			inti = (int)i;
+			val = inti+origx;
+			if((showOrig || val!=origx) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
+				str	 = String.valueOf(val+origx);
+				updateText(str, (float)(posx+val*gapx-fontMetrics.stringWidth(str)/2.), (float)(posy+sep), font, frc);
+			}
+		}
+		for(double maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=origx-incrx; i>=minx*incrx; i-=incrx) {
 			inti = (int)i;
 			val = inti+origx;
 			if((showOrig || val!=origx) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
