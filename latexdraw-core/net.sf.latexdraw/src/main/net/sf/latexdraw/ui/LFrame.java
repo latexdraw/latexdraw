@@ -267,7 +267,7 @@ public class LFrame extends UI {
 		try { editingSelector = new EditingSelector(composer, pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter, codeInserter); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager(composer);
-		try { paster		= new CopierCutterPaster(composer, drawing); }
+		try { paster		= new CopierCutterPaster(composer, drawing, canvas.getMagneticGrid()); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		prefSetters			= new PreferencesSetter(this);
 		try { prefActivator	= new PreferencesActivator(composer, prefSetters); }

@@ -1,14 +1,13 @@
 package net.sf.latexdraw.actions.shape
 
 import scala.collection.JavaConversions.asScalaBuffer
-
 import org.malai.action.Action
 import org.malai.undo.Undoable
-
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.util.LResources
+import net.sf.latexdraw.glib.ui.LMagneticGrid
 
 /**
  * This action pastes the copied or cut shapes.<br>
@@ -30,26 +29,26 @@ import net.sf.latexdraw.util.LResources
  */
 class PasteShapes extends Action with DrawingAction with Undoable with Modifying {
 	/** The cut or copy action. */
-	protected var _copy : Option[CopyShapes] = None
+	protected var _copy : CopyShapes = null
 
-	/** The default gap used to translate shapes while pasting. */
-	private val gapPaste = 10
+	protected var _grid : LMagneticGrid = null
 
 
-	override def canDo() = _copy.isDefined && _drawing.isDefined
+	override def canDo() = _copy!=null && _grid!=null && _drawing.isDefined
 
 
 	override def isRegisterable() = true
 
 
 	override def doActionBody() {
-		val cop = _copy.get
+		val cop = _copy
 		val dr = _drawing.get
 		// While pasting cut shapes, the first paste must be at the same position that the original shapes.
 		// But for pasting after just copying, a initial gap must be used.
 		if(!(cop.isInstanceOf[CutShapes]))
 			cop.nbTimeCopied+=1
 
+		val gapPaste = if(_grid.isMagnetic()) _grid.getGridSpacing() else 10
 		val gap = cop.nbTimeCopied*gapPaste
 
 		cop.copiedShapes.foreach{shape =>
@@ -67,7 +66,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 
 	override def undo() {
 		var i = 0
-		val nbShapes = _copy.get.copiedShapes.size
+		val nbShapes = _copy.copiedShapes.size
 		val dr = _drawing.get
 
 		while(i<nbShapes && !dr.isEmpty) {
@@ -75,7 +74,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 			i+=1
 		}
 
-		_copy.get.nbTimeCopied-=1
+		_copy.nbTimeCopied-=1
 		dr.setModified(true)
 	}
 
@@ -91,8 +90,13 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 	 * @param copy the copy to set.
 	 */
 	def setCopy(copy : CopyShapes) {
-		_copy = Some(copy)
+		_copy = copy
 	}
 
 	def copy = _copy
+
+
+	def setGrid(grid:LMagneticGrid) {
+		_grid = grid
+	}
 }

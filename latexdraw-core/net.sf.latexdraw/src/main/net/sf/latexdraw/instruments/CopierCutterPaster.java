@@ -9,6 +9,7 @@ import net.sf.latexdraw.actions.shape.PasteShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 
@@ -53,18 +54,22 @@ public class CopierCutterPaster extends WidgetInstrument {
 	/** The drawing that contains the shapes. */
 	protected IDrawing drawing;
 
+	protected LMagneticGrid grid;
+
 
 	/**
 	 * Creates the instrument.
 	 * @param drawing The drawing that contains the shapes.
 	 * @param composer The composer that manages the widgets of the instrument.
-	 * @throws IllegalArgumentException If the given drawing is null.
+	 * @param grid THe magnetic grid used when pasting shapes.
+	 * @throws NullPointerException If the given drawing is null.
 	 * @since 3.0
 	 */
-	public CopierCutterPaster(final UIComposer<?> composer, final IDrawing drawing) {
+	public CopierCutterPaster(final UIComposer<?> composer, final IDrawing drawing, final LMagneticGrid grid) {
 		super(composer);
 
 		this.drawing = Objects.requireNonNull(drawing);
+		this.grid = Objects.requireNonNull(grid);
 		initialiseWidgets();
 		ActionsRegistry.INSTANCE.addHandler(this);
 	}
@@ -97,15 +102,8 @@ public class CopierCutterPaster extends WidgetInstrument {
 	 * @since 3.0
 	 */
 	protected void updateWidgets(final Action executedAction) {
-		boolean validSelectAction = activated;
-
-//		if(activated)
-//			if(executedAction instanceof SelectShapes) {
-//				validSelectAction = !((SelectShapes)executedAction).getShapes().isEmpty();
-//			}else {
-				SelectShapes sa = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-				validSelectAction = sa!=null && !sa.shapes().isEmpty();
-//			}
+		SelectShapes sa = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
+		boolean validSelectAction = sa!=null && !sa.shapes().isEmpty();
 
 		copyMenu.setEnabled(activated && validSelectAction);
 		cutMenu.setEnabled(activated && copyMenu.isEnabled());
@@ -287,6 +285,7 @@ abstract class Interaction2PasteShapes<I extends Interaction> extends Link<Paste
 		if(act instanceof CopyShapes) {
 			action.setCopy((CopyShapes)act);
 			action.setDrawing(instrument.drawing);
+			action.setGrid(instrument.grid);
 		}
 	}
 }
