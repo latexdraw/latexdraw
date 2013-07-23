@@ -80,7 +80,6 @@ class LGridView extends LStandardGridView<IGrid> {
 		g.draw(path);
 
 		// Drawing the labels.
-		//FIXME: labels may be not visible.
 		g.setColor(shape.getGridLabelsColour());
 		g.fill(pathLabels);
 

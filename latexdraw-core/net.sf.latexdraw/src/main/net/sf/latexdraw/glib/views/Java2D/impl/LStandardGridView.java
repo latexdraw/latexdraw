@@ -66,7 +66,7 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 	public void updateBorder() {
 		final double angle = shape.getRotationAngle();
 
-		if(LNumber.INSTANCE.equals(angle, 0.)) //FIXME: labels may be not visible.
+		if(LNumber.INSTANCE.equals(angle, 0.))
 			border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
 		else {
 			Rectangle2D rec = path.getBounds2D().createUnion(pathLabels.getBounds2D());

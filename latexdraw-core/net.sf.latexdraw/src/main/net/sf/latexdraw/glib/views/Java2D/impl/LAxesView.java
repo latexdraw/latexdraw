@@ -1,10 +1,14 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
@@ -355,13 +359,56 @@ class LAxesView extends LStandardGridView<IAxes> {
 
 
 	@Override
+	public boolean intersects(final Rectangle2D r) {
+		if(r==null)
+			return false;
+
+		final double rotationAngle = shape.getRotationAngle();
+		boolean intersects;
+
+		Path2D pa;
+
+		if(shape.getAxesStyle()==AxesStyle.NONE)
+			pa = new Path2D.Double(new Rectangle2D.Double(shape.getPosition().getX(), shape.getPosition().getY(), 2, 2));
+		else pa = new Path2D.Double(path);
+
+		if(shape.getTicksDisplayed()!=PlottingStyle.NONE)
+			pa.append(pathTicks, false);
+
+		if(shape.getLabelsDisplayed()!=PlottingStyle.NONE)
+			pa.append(pathLabels, false);
+
+		if(LNumber.INSTANCE.equals(rotationAngle, 0.)) {
+			intersects = pa.intersects(r);
+		}
+		else {
+			final IPoint tl 	= shape.getTopLeftPoint();
+			final IPoint br 	= shape.getBottomRightPoint();
+			final double cx 	= (tl.getX()+br.getX())/2.;
+			final double cy		= (tl.getY()+br.getY())/2.;
+			final double c2x 	= cos(rotationAngle)*cx - sin(rotationAngle)*cy;
+			final double c2y 	= sin(rotationAngle)*cx + cos(rotationAngle)*cy;
+			final AffineTransform at = AffineTransform.getTranslateInstance(cx - c2x, cy - c2y);
+
+			at.rotate(rotationAngle);
+			intersects = at.createTransformedShape(pa).intersects(r);
+		}
+
+		return intersects;
+	}
+
+
+	@Override
 	public void updateBorder() {
 		final double angle = shape.getRotationAngle();
 		Rectangle2D bound;
 
 		if(shape.getAxesStyle()==AxesStyle.NONE)
- 			bound = new Rectangle2D.Double(shape.getPosition().getX(), shape.getPosition().getY(), 1, 1);
+			bound = new Rectangle2D.Double(shape.getPosition().getX(), shape.getPosition().getY(), 2, 2);
 		else bound = path.getBounds2D();
+
+		if(shape.getTicksDisplayed()!=PlottingStyle.NONE)
+			bound = bound.createUnion(pathTicks.getBounds2D()).getBounds2D();
 
 		if(shape.getLabelsDisplayed()!=PlottingStyle.NONE)
 			bound = bound.createUnion(pathLabels.getBounds2D()).getBounds2D();
