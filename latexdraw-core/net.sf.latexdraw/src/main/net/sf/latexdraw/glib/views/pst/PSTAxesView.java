@@ -43,7 +43,6 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 
 		emptyCache();
 
-		double startX, startY, endX, endY;
 		StringBuilder start	  		= new StringBuilder();
 		StringBuilder end	  		= new StringBuilder();
 		StringBuilder rot	  		= getRotationHeaderCode(ppc, shape.getPosition());
@@ -55,24 +54,6 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		final double positiony  	= shape.getPosition().getY();
 		final double gridStartx 	= shape.getGridStartX();
 		final double gridStarty 	= shape.getGridStartY();
-
-		if(shape.isXLabelSouth()) {
-			startY = gridStarty;
-			endY   = gridEndy;
-		}
-		else {
-			startY = gridEndy;
-			endY   = gridStarty;
-		}
-
-		if(shape.isYLabelWest()) {
-			startX = gridStartx;
-			endX   = gridEndx;
-		}
-		else {
-			startX = gridEndx;
-			endX   = gridStartx;
-		}
 
 		if(!LNumber.INSTANCE.equals(positionx, 0.) || !LNumber.INSTANCE.equals(positiony, 0.)) {
 			end.append('}');
@@ -86,9 +67,9 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		}
 
 		coord.append('(').append(0).append(',').append(0).append(')');
-		coord.append('(').append((int)startX).append(',');
-		coord.append((int)startY).append(')').append('(');
-		coord.append((int)endX).append(',').append((int)endY).append(')');
+		coord.append('(').append((int)gridStartx).append(',');
+		coord.append((int)gridStarty).append(')').append('(');
+		coord.append((int)gridEndx).append(',').append((int)gridEndy).append(')');
 
 		cache.append(start);
 		cache.append("\\psaxes[");//$NON-NLS-1$

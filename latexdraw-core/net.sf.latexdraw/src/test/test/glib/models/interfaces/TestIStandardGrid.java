@@ -2,8 +2,6 @@ package test.glib.models.interfaces;
 
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 
 import org.junit.Test;
@@ -61,24 +59,6 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 		HelperTest.assertEqualsDouble(-5., shape.getGridEndY());
 		shape.setGridEndY(Double.POSITIVE_INFINITY);
 		HelperTest.assertEqualsDouble(-5., shape.getGridEndY());
-	}
-
-
-	@Test
-	public void testIsSetXLabelSouth() {
-		shape.setXLabelSouth(true);
-		assertTrue(shape.isXLabelSouth());
-		shape.setXLabelSouth(false);
-		assertFalse(shape.isXLabelSouth());
-	}
-
-
-	@Test
-	public void testIsSetYLabelWest() {
-		shape.setYLabelWest(true);
-		assertTrue(shape.isYLabelWest());
-		shape.setYLabelWest(false);
-		assertFalse(shape.isYLabelWest());
 	}
 
 
@@ -229,8 +209,6 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 		shape.setOrigin(20, 30);
 		shape.setGridStart(-100, -40);
 		shape.setGridEnd(200, 300);
-		shape.setXLabelSouth(false);
-		shape.setYLabelWest(false);
 //		shape.setLabelsSize(IText.TestSize.HUGE1.getSize());
 
 		IStandardGrid g2 = (IStandardGrid) shape.duplicate();
@@ -241,8 +219,6 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 		HelperTest.assertEqualsDouble(-40., g2.getGridStartY());
 		HelperTest.assertEqualsDouble(200., g2.getGridEndX());
 		HelperTest.assertEqualsDouble(300., g2.getGridEndY());
-		assertFalse(g2.isXLabelSouth());
-		assertFalse(g2.isYLabelWest());
 //		assertEquals(IText.TestSize.HUGE1.getSize(), shape2.getLabelsSize());//FIXME
 	}
 
@@ -255,8 +231,6 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 		shape2.setOrigin(20, 30);
 		shape2.setGridEnd(100, -40);
 		shape2.setGridStart(200, 300);
-		shape2.setXLabelSouth(false);
-		shape2.setYLabelWest(false);
 		shape2.setLabelsSize(20);
 
 		shape.copy(shape2);
@@ -267,8 +241,6 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 		HelperTest.assertEqualsDouble(shape2.getGridEndY(), shape.getGridEndY());
 		HelperTest.assertEqualsDouble(shape2.getGridStartX(), shape.getGridStartX());
 		HelperTest.assertEqualsDouble(shape2.getGridStartY(), shape.getGridStartY());
-		assertFalse(shape2.isXLabelSouth());
-		assertFalse(shape2.isYLabelWest());
 		assertEquals(shape2.getLabelsSize(), shape.getLabelsSize());
 	}
 }

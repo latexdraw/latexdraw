@@ -22,6 +22,25 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(2.*IShape.PPC, shape.getStep());
 	}
 
+
+	@Test
+	public void testIsSetXLabelSouth() {
+		shape.setXLabelSouth(true);
+		assertTrue(shape.isXLabelSouth());
+		shape.setXLabelSouth(false);
+		assertFalse(shape.isXLabelSouth());
+	}
+
+
+	@Test
+	public void testIsSetYLabelWest() {
+		shape.setYLabelWest(true);
+		assertTrue(shape.isYLabelWest());
+		shape.setYLabelWest(false);
+		assertFalse(shape.isYLabelWest());
+	}
+
+
 	@Test
 	public void testGetSetGridDots() {
 		shape.setGridDots(20);
@@ -145,6 +164,8 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		shape.setGridWidth(12);
 		shape.setSubGridWidth(24);
 		shape.setSubGridDiv(32);
+		shape.setXLabelSouth(false);
+		shape.setYLabelWest(false);
 
 		IGrid g2 = (IGrid)shape.duplicate();
 
@@ -156,6 +177,8 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(g2.getGridWidth(), shape.getGridWidth());
 		HelperTest.assertEqualsDouble(g2.getSubGridWidth(), shape.getSubGridWidth());
 		assertEquals(g2.getSubGridDiv(), shape.getSubGridDiv());
+		assertFalse(g2.isXLabelSouth());
+		assertFalse(g2.isYLabelWest());
 	}
 
 
@@ -370,6 +393,8 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		shape2.setGridWidth(12);
 		shape2.setSubGridWidth(24);
 		shape2.setSubGridDiv(32);
+		shape2.setXLabelSouth(false);
+		shape2.setYLabelWest(false);
 
 		shape.copy(shape2);
 
@@ -381,5 +406,7 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(shape2.getGridWidth(), shape.getGridWidth());
 		HelperTest.assertEqualsDouble(shape2.getSubGridWidth(), shape.getSubGridWidth());
 		assertEquals(shape2.getSubGridDiv(), shape.getSubGridDiv());
+		assertFalse(shape2.isXLabelSouth());
+		assertFalse(shape2.isYLabelWest());
 	}
 }

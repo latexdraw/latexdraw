@@ -13,11 +13,9 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.util.LResources;
 
 import org.malai.swing.ui.UIComposer;
 import org.malai.swing.widget.MSpinner;
-import org.malai.swing.widget.MToggleButton;
 
 /**
  * This instrument modifies the parameters of grids and axes.<br>
@@ -52,12 +50,6 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 
 	/** The field that sets the size of the labels of the grid. */
 	protected MSpinner labelsSizeS;
-
-	/** The field that defines the Y-coordinates of the labels. */
-	protected MToggleButton labelsYInvertedCB;
-
-	/** The field that defines the X-coordinates of the labels. */
-	protected MToggleButton labelsXInvertedCB;
 
 	/** The field that sets the X-coordinate of the origin point of the grid. */
 	protected MSpinner xOriginS;
@@ -96,8 +88,6 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 			xOriginS.setValueSafely(grid.getOriginX());
 			yOriginS.setValueSafely(grid.getOriginY());
 			labelsSizeS.setValueSafely(grid.getLabelsSize());
-			labelsYInvertedCB.setSelected(!grid.isXLabelSouth());
-			labelsXInvertedCB.setSelected(!grid.isYLabelWest());
 		}
 		else setActivated(false);
 	}
@@ -110,8 +100,6 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(xEndS, visible);
 		composer.setWidgetVisible(yEndS, visible);
 		composer.setWidgetVisible(labelsSizeS, visible);
-		composer.setWidgetVisible(labelsYInvertedCB, visible);
-		composer.setWidgetVisible(labelsXInvertedCB, visible);
 		composer.setWidgetVisible(xOriginS, visible);
 		composer.setWidgetVisible(yOriginS, visible);
 	}
@@ -139,12 +127,6 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 		labelsSizeS.setEditor(new JSpinner.NumberEditor(labelsSizeS, "0"));//$NON-NLS-1$
 		labelsSizeS.setToolTipText("Sets the size of the labels of the grid.");
 
-     	labelsYInvertedCB = new MToggleButton(LResources.GRID_Y_LABEL);
-     	labelsYInvertedCB.setToolTipText("Changes the Y-coordinates of the labels.");
-
-     	labelsXInvertedCB = new MToggleButton(LResources.GRID_X_LABEL);
-     	labelsXInvertedCB.setToolTipText("Changes the X-coordinates of the labels.");
-
 		xOriginS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.1")));//$NON-NLS-1$
 		xOriginS.setEditor(new JSpinner.NumberEditor(xOriginS, "0"));//$NON-NLS-1$
 		xOriginS.setToolTipText("Sets the X-coordinate of the origin of the grid.");
@@ -160,8 +142,6 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 		try{
 			addLink(new Spinner2ModifySelectionGridCoords(this));
 			addLink(new Spinner2ModifyPencilGridCoords(this));
-			addLink(new CheckBox2ModifySelectionGrid(this));
-			addLink(new CheckBox2ModifyPencilGrid(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -224,84 +204,6 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 		return labelsSizeS;
 	}
 
-	/**
-	 * @return The field that defines the Y-coordinates of the labels.
-	 * @since 3.0
-	 */
-	public MToggleButton getLabelsYInvertedCB() {
-		return labelsYInvertedCB;
-	}
-
-	/**
-	 * @return The field that defines the X-coordinates of the labels.
-	 * @since 3.0
-	 */
-	public MToggleButton getLabelsXInvertedCB() {
-		return labelsXInvertedCB;
-	}
-
-
-	private static abstract class CheckBox4ShapeGridCust<A extends ShapePropertyAction> extends ButtonPressedForCustomiser<A, ShapeStandardGridCustomiser> {
-		protected CheckBox4ShapeGridCust(final ShapeStandardGridCustomiser ins, final Class<A> actClazz) throws InstantiationException, IllegalAccessException {
-			super(ins, actClazz);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getButton()==instrument.labelsYInvertedCB || interaction.getButton()==instrument.labelsXInvertedCB;
-		}
-
-		@Override
-		public void initAction() {
-			if(interaction.getButton()==instrument.labelsYInvertedCB)
-				action.setProperty(ShapeProperties.GRID_LABEL_POSITION_Y);
-			else
-				action.setProperty(ShapeProperties.GRID_LABEL_POSITION_X);
-		}
-
-		@Override
-		public void updateAction() {
-			action.setValue(!interaction.getButton().isSelected());
-		}
-	}
-
-
-	/** The link that maps a checkbox to an action that modifies the selection. */
-	private static class CheckBox2ModifySelectionGrid extends CheckBox4ShapeGridCust<ModifyShapeProperty> {
-		protected CheckBox2ModifySelectionGrid(final ShapeStandardGridCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return super.isConditionRespected() && instrument.hand.isActivated();
-		}
-	}
-
-
-	/** The link that maps a checkbox to an action that modifies the pencil. */
-	private static class CheckBox2ModifyPencilGrid extends CheckBox4ShapeGridCust<ModifyPencilParameter> {
-		protected CheckBox2ModifyPencilGrid(final ShapeStandardGridCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setPencil(instrument.pencil);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return super.isConditionRespected() && instrument.pencil.isActivated();
-		}
-	}
 
 
 	/** The link that maps a spinner to an action that modifies the selected shapes. */

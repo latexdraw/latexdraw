@@ -193,18 +193,6 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 
 	@Override
-	public boolean isXLabelSouth() {
-		return xLabelSouth;
-	}
-
-
-	@Override
-	public boolean isYLabelWest() {
-		return yLabelWest;
-	}
-
-
-	@Override
 	public void setGridEnd(final double x, final double y) {
 		setGridEndX(x);
 		setGridEndY(y);
@@ -268,19 +256,6 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 
 	@Override
-	public void setXLabelSouth(final boolean isXLabelSouth) {
-		xLabelSouth = isXLabelSouth;
-	}
-
-
-	@Override
-	public void setYLabelWest(final boolean isYLabelWest) {
-		yLabelWest = isYLabelWest;
-	}
-
-
-
-	@Override
 	public void copy(final IShape s) {
 		super.copy(s);
 
@@ -291,8 +266,6 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 			gridEndy 	= grid.getGridEndY();
 			gridStartx 	= grid.getGridStartX();
 			gridStarty 	= grid.getGridStartY();
-			xLabelSouth = grid.isXLabelSouth();
-			yLabelWest 	= grid.isYLabelWest();
 			originx 	= grid.getOriginX();
 			originy 	= grid.getOriginY();
 			setLabelsSize(grid.getLabelsSize());

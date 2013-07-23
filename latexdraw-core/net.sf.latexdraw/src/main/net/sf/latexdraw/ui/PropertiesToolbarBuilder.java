@@ -221,8 +221,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		UIBuilder.addCombobox(p1, axeCust.getShowLabels());
 		p1.add(gridCust.getColourLabels());
 		p1.add(axeCust.getShowOrigin());
-		p1.add(stdGridCust.getLabelsXInvertedCB());
-		p1.add(stdGridCust.getLabelsYInvertedCB());
+		p1.add(gridCust.getLabelsXInvertedCB());
+		p1.add(gridCust.getLabelsYInvertedCB());
 		UIBuilder.addSpinner(p2, axeCust.getIncrLabelX(), 50);
 		UIBuilder.addSpinner(p2, axeCust.getIncrLabelY(), 50);
 		UIBuilder.addSpinner(p2, axeCust.getDistLabelsX(), 60);
@@ -240,8 +240,8 @@ public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
 		mapContainers.put(axeCust.getDistLabelsX(), list);
 		mapContainers.put(axeCust.getDistLabelsY(), list);
 		mapContainers.put(stdGridCust.getLabelsSizeS(), list);
-		mapContainers.put(stdGridCust.getLabelsXInvertedCB(), list);
-		mapContainers.put(stdGridCust.getLabelsYInvertedCB(), list);
+		mapContainers.put(gridCust.getLabelsXInvertedCB(), list);
+		mapContainers.put(gridCust.getLabelsYInvertedCB(), list);
 
 		axeCust.addEventable(p1);
 		stdGridCust.addEventable(p1);

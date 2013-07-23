@@ -142,7 +142,6 @@ class LAxesView extends LStandardGridView<IAxes> {
 	 * Updates the labels path by drawing the labels of the Y-axis.
 	 */
 	private void updatePathLabelsY(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapy, final FontRenderContext frc) {
-		final boolean isWest 	= shape.isYLabelWest();
 		final double posx 		= shape.getPosition().getX();
 		final double posy 		= shape.getPosition().getY();
 		final int origy 		= (int)shape.getOriginY();
@@ -158,16 +157,10 @@ class LAxesView extends LStandardGridView<IAxes> {
 		int val;
 		int inti;
 
-		if(isWest)
-			if(ticksStyle.isBottom() && ticksDisplay.isY())
-				gap = -(shape.getTicksSize() + shape.getThickness()/2. + GAP_LABEL);
-			else
-				gap = -(shape.getThickness()/2. + GAP_LABEL);
+		if(ticksStyle.isBottom() && ticksDisplay.isY())
+			gap = -(shape.getTicksSize() + shape.getThickness()/2. + GAP_LABEL);
 		else
-			if(ticksStyle.isTop() && ticksDisplay.isY())
-				gap = shape.getTicksSize() + shape.getThickness()/2. + GAP_LABEL;
-			else
-				gap = shape.getThickness()/2. + GAP_LABEL;
+			gap = -(shape.getThickness()/2. + GAP_LABEL);
 
 
 		for(double maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=maxy*incry; i>=miny*incry; i-=incry) {
@@ -175,10 +168,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 			val = inti+origy;
 			if((showOrig || val!=origy) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				str	 = String.valueOf(val+origy);
-				if(isWest)
-					updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-val*gapy), font, frc);
-				else
-					updateText(str, (float)(posx+gap), (float)(posy+height/2.-val*gapy), font, frc);
+				updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-val*gapy), font, frc);
 			}
 		}
 	}
@@ -189,14 +179,12 @@ class LAxesView extends LStandardGridView<IAxes> {
 	 */
 	private void updatePathLabelsX(final PlottingStyle ticksDisplay, final TicksStyle ticksStyle, final double gapx, final FontRenderContext frc) {
 		// Painting the labels on the X-axis.
-		final boolean isSouth 	= shape.isXLabelSouth();
 		final double posx 		= shape.getPosition().getX();
 		final double posy 		= shape.getPosition().getY();
 		final int origx 		= (int)shape.getOriginX();
 		final double incrx 		= shape.getIncrementX();
-		final double gap 		= (ticksDisplay.isX() && (isSouth && ticksStyle.isBottom() || !isSouth && ticksStyle.isTop()) ? shape.getTicksSize() : 0)
-									+ shape.getThickness()/2. + GAP_LABEL;
-		final double sep 		= shape.getGridMaxY()<=-shape.getOriginY() || !isSouth ? -gap-GAP_LABEL : gap + fontMetrics.getAscent();
+		final double gap 		= (ticksDisplay.isX() && ticksStyle.isBottom() ? shape.getTicksSize() : 0) + shape.getThickness()/2. + GAP_LABEL;
+		final double sep 		= shape.getGridMaxY()<=-shape.getOriginY() ? -gap-GAP_LABEL : gap + fontMetrics.getAscent();
 		final Font font 		= fontMetrics.getFont();
 		final boolean noArrowLeftX = shape.getArrowStyle(0)==ArrowStyle.NONE;
 		final boolean noArrowRightX = shape.getArrowStyle(3)==ArrowStyle.NONE;

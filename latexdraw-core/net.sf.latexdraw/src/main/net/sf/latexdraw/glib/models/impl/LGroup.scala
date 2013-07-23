@@ -423,15 +423,15 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def setGridXLabelSouthList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setXLabelSouth(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGrid])
+					shapes.get(i).asInstanceOf[IGrid].setXLabelSouth(values.get(i))
 	}
 
 
 	override def getGridXLabelSouthList() : List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.isXLabelSouth)
+				case axes : IGrid => list.add(axes.isXLabelSouth)
 				case _ => list.add(null)
 			}
 		}
@@ -442,15 +442,15 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def setGridYLabelWestList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setYLabelWest(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGrid])
+					shapes.get(i).asInstanceOf[IGrid].setYLabelWest(values.get(i))
 	}
 
 
 	override def getGridYLabelWestList() : List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.isYLabelWest)
+				case axes : IGrid => list.add(axes.isYLabelWest)
 				case _ => list.add(null)
 			}
 		}

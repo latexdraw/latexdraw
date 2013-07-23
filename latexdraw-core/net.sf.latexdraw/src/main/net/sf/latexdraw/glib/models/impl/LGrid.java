@@ -91,11 +91,37 @@ class LGrid extends LAbstractGrid implements IGrid {
 			subGridColour 	= grid.getSubGridColour();
 			subGridDiv 		= grid.getSubGridDiv();
 			subGridDots 	= grid.getSubGridDots();
-			gridLabelsColour	= grid.getGridLabelsColour();
+			gridLabelsColour= grid.getGridLabelsColour();
+			xLabelSouth 	= grid.isXLabelSouth();
+			yLabelWest 		= grid.isYLabelWest();
 			unit			= grid.getUnit();
 			gridWidth		= grid.getGridWidth();
 			subGridWidth	= grid.getSubGridWidth();
 		}
+	}
+
+
+	@Override
+	public boolean isXLabelSouth() {
+		return xLabelSouth;
+	}
+
+
+	@Override
+	public boolean isYLabelWest() {
+		return yLabelWest;
+	}
+
+
+	@Override
+	public void setXLabelSouth(final boolean isXLabelSouth) {
+		xLabelSouth = isXLabelSouth;
+	}
+
+
+	@Override
+	public void setYLabelWest(final boolean isYLabelWest) {
+		yLabelWest = isYLabelWest;
 	}
 
 

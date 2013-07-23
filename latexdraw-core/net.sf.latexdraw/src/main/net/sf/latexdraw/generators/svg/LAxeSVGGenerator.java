@@ -68,8 +68,6 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		String pref = LNamespace.LATEXDRAW_NAMESPACE+':';
 		String str;
 
-		shape.setYLabelWest(Boolean.parseBoolean(elt.getAttribute(pref+LNamespace.XML_AXE_IS_WEST)));
-		shape.setXLabelSouth(Boolean.parseBoolean(elt.getAttribute(pref+LNamespace.XML_AXE_IS_SOUTH)));
 		shape.setShowOrigin(Boolean.parseBoolean(elt.getAttribute(pref+LNamespace.XML_AXE_SHOW_ORIGIN)));
 		shape.setAxesStyle(AxesStyle.getStyle(elt.getAttribute(pref+LNamespace.XML_STYLE)));
 		shape.setTicksDisplayed(PlottingStyle.getStyle(elt.getAttribute(pref+LNamespace.XML_AXE_SHOW_TICKS)));
@@ -141,15 +139,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
 				shape.setPosition(DrawingTK.getFactory().createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
 				shape.setLineStyle(la.getLineStyle());
-
-				if(shape.isXLabelSouth()) {
-					shape.getArrowAt(0).setArrowStyle(la.getArrowAt(0).getArrowStyle());
-					shape.getArrowAt(1).setArrowStyle(la.getArrowAt(1).getArrowStyle());
-				}
-				else {
-					shape.getArrowAt(0).setArrowStyle(la.getArrowAt(1).getArrowStyle());
-					shape.getArrowAt(1).setArrowStyle(la.getArrowAt(0).getArrowStyle());
-				}
+				shape.getArrowAt(0).setArrowStyle(la.getArrowAt(0).getArrowStyle());
+				shape.getArrowAt(1).setArrowStyle(la.getArrowAt(1).getArrowStyle());
 			}
 			catch(IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
 
@@ -174,8 +165,6 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		setThickness(root, shape.getThickness(), false, 0.);
 		root.setStroke(shape.getLineColour());
 
-		root.setAttribute(pref+LNamespace.XML_AXE_IS_WEST, String.valueOf(shape.isYLabelWest()));
-		root.setAttribute(pref+LNamespace.XML_AXE_IS_SOUTH, String.valueOf(shape.isXLabelSouth()));
 		root.setAttribute(pref+LNamespace.XML_STYLE, shape.getAxesStyle().toString());
 		root.setAttribute(pref+LNamespace.XML_GRID_START, shape.getGridStartX() + " " + shape.getGridStartY()); //$NON-NLS-1$
 		root.setAttribute(pref+LNamespace.XML_GRID_END, shape.getGridEndX() + " " + shape.getGridEndY());//$NON-NLS-1$

@@ -67,43 +67,29 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 
 	private def createAxes(min : PointUnit, max : PointUnit, ctx : PSTContext) : IAxes = {
-			val axes = DrawingTK.getFactory.createAxes(true, DrawingTK.getFactory.createPoint)
+		val axes = DrawingTK.getFactory.createAxes(true, DrawingTK.getFactory.createPoint)
 
-			setStdGridParams(new PointUnit(ctx.ox, ctx.oy, null, null), min, max, axes, ctx)
-			axes.setPosition(DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
-			axes.setAxesStyle(ctx.axesStyle)
-			axes.setTicksDisplayed(ctx.ticks)
-			axes.setLabelsDisplayed(ctx.labels)
-			axes.setTicksStyle(ctx.ticksStyle)
-			axes.setIncrementX(ctx.dxIncrement)
-			axes.setIncrementY(ctx.dyIncrement)
-			axes.setDistLabelsX(ctx.dxLabelDist)
-			axes.setDistLabelsY(ctx.dyLabelDist)
-			axes.setShowOrigin(ctx.showOrigin)
-			axes
+		setStdGridParams(new PointUnit(ctx.ox, ctx.oy, null, null), min, max, axes, ctx)
+		axes.setPosition(DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
+		axes.setAxesStyle(ctx.axesStyle)
+		axes.setTicksDisplayed(ctx.ticks)
+		axes.setLabelsDisplayed(ctx.labels)
+		axes.setTicksStyle(ctx.ticksStyle)
+		axes.setIncrementX(ctx.dxIncrement)
+		axes.setIncrementY(ctx.dyIncrement)
+		axes.setDistLabelsX(ctx.dxLabelDist)
+		axes.setDistLabelsY(ctx.dyLabelDist)
+		axes.setShowOrigin(ctx.showOrigin)
+		axes.setGridEndX(max.x)
+		axes.setGridEndY(max.y)
+		axes.setGridStartX(min.x)
+		axes.setGridStartY(min.y)
+		axes
 	}
 
 
 	private def createGrid(origin : PointUnit, min : PointUnit, max : PointUnit, ctx : PSTContext) : IGrid = {
 		val grid = DrawingTK.getFactory.createGrid(true, DrawingTK.getFactory.createPoint)
-
-		setStdGridParams(origin, min, max, grid, ctx)
-		grid.setPosition(DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
-		grid.setUnit(ctx.unit)
-		grid.setGridDots(ctx.gridDots.toInt)
-		grid.setGridLabelsColour(ctx.gridlabelcolor)
-		grid.setLabelsSize((ctx.gridLabel*IShape.PPC).toInt)
-		grid.setGridWidth(scala.math.abs(ctx.gridWidth*IShape.PPC))
-		grid.setSubGridColour(ctx.subGridCol)
-		grid.setSubGridDiv(ctx.subGridDiv.toInt)
-		grid.setSubGridDots(ctx.subGridDots.toInt)
-		grid.setSubGridWidth(scala.math.abs(ctx.subGridWidth*IShape.PPC))
-		grid
-	}
-
-
-	/** Sets the parameters of std grids (axes and grids). */
-	private def setStdGridParams(origin : PointUnit, min : PointUnit, max : PointUnit, grid : IStandardGrid, ctx : PSTContext) {
 		var gridEndX = max.x
 		var gridEndY = max.y
 		var gridStartX = min.x
@@ -125,15 +111,32 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 			isGridYLabelInverted = true
 		}
 
-		grid.setLineColour(ctx.gridColor)
-		grid.setOriginX(origin.x)
-		grid.setOriginY(origin.y)
+		setStdGridParams(origin, min, max, grid, ctx)
+		grid.setPosition(DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
+		grid.setUnit(ctx.unit)
+		grid.setGridDots(ctx.gridDots.toInt)
+		grid.setGridLabelsColour(ctx.gridlabelcolor)
+		grid.setLabelsSize((ctx.gridLabel*IShape.PPC).toInt)
+		grid.setGridWidth(scala.math.abs(ctx.gridWidth*IShape.PPC))
+		grid.setSubGridColour(ctx.subGridCol)
+		grid.setSubGridDiv(ctx.subGridDiv.toInt)
+		grid.setSubGridDots(ctx.subGridDots.toInt)
+		grid.setSubGridWidth(scala.math.abs(ctx.subGridWidth*IShape.PPC))
+		grid.setXLabelSouth(!isGridYLabelInverted)
+		grid.setYLabelWest(!isGridXLabelInverted)
 		grid.setGridEndX(gridEndX)
 		grid.setGridEndY(gridEndY)
 		grid.setGridStartX(gridStartX)
 		grid.setGridStartY(gridStartY)
-		grid.setXLabelSouth(!isGridYLabelInverted)
-		grid.setYLabelWest(!isGridXLabelInverted)
+		grid
+	}
+
+
+	/** Sets the parameters of std grids (axes and grids). */
+	private def setStdGridParams(origin : PointUnit, min : PointUnit, max : PointUnit, grid : IStandardGrid, ctx : PSTContext) {
+		grid.setLineColour(ctx.gridColor)
+		grid.setOriginX(origin.x)
+		grid.setOriginY(origin.y)
 	}
 
 

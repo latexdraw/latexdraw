@@ -29,6 +29,36 @@ protected trait LGroupGrid extends IGroup {
 	/** May return the first grid of the group. */
 	private def firstIGrid = getShapes.find{shape => shape.isInstanceOf[IGrid] }
 
+
+	override def isXLabelSouth() : Boolean =
+		firstIGrid match {
+			case Some(stdGrid) => stdGrid.asInstanceOf[IGrid].isXLabelSouth
+			case _ => false
+		}
+
+
+	override def setXLabelSouth(isXLabelSouth : Boolean) {
+		getShapes.foreach{shape =>
+			if(shape.isInstanceOf[IGrid])
+				shape.asInstanceOf[IGrid].setXLabelSouth(isXLabelSouth)
+		}
+	}
+
+
+	override def isYLabelWest() : Boolean =
+		firstIGrid match {
+			case Some(stdGrid) => stdGrid.asInstanceOf[IGrid].isYLabelWest
+			case _ => false
+		}
+
+
+	override def setYLabelWest(isYLabelWest : Boolean) {
+		getShapes.foreach{shape =>
+			if(shape.isInstanceOf[IGrid])
+				shape.asInstanceOf[IGrid].setYLabelWest(isYLabelWest)
+		}
+	}
+
 	override def getGridDots() : Int = {
 		firstIGrid match {
 			case Some(grid) => grid.asInstanceOf[IGrid].getGridDots

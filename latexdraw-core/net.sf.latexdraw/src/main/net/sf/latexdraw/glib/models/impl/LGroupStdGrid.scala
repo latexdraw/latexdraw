@@ -87,36 +87,6 @@ protected trait LGroupStdGrid extends IGroup {
 	}
 
 
-	override def isXLabelSouth() : Boolean =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].isXLabelSouth
-			case _ => false
-		}
-
-
-	override def setXLabelSouth(isXLabelSouth : Boolean) {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IStandardGrid])
-				shape.asInstanceOf[IStandardGrid].setXLabelSouth(isXLabelSouth)
-		}
-	}
-
-
-	override def isYLabelWest() : Boolean =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].isYLabelWest
-			case _ => false
-		}
-
-
-	override def setYLabelWest(isYLabelWest : Boolean) {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IStandardGrid])
-				shape.asInstanceOf[IStandardGrid].setYLabelWest(isYLabelWest)
-		}
-	}
-
-
 	override def getGridStartX() : Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.asInstanceOf[IStandardGrid].getGridStartX

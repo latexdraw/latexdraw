@@ -70,26 +70,6 @@ public interface IStandardGrid extends IPositionShape {
 	void setGridEndY(final double y);
 
 	/**
-	 * @return the isXLabelSouth.
-	 */
-	boolean isXLabelSouth();
-
-	/**
-	 * @param isXLabelSouth the isXLabelSouth to set.
-	 */
-	void setXLabelSouth(final boolean isXLabelSouth);
-
-	/**
-	 * @return the isYLabelWest.
-	 */
-	boolean isYLabelWest();
-
-	/**
-	 * @param isYLabelWest the isYLabelWest to set.
-	 */
-	void setYLabelWest(final boolean isYLabelWest);
-
-	/**
 	 * @return The x-coordinate of the starting point of the grid.
 	 */
 	double getGridStartX();

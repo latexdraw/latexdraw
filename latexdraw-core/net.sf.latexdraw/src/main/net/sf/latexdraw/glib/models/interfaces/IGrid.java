@@ -42,6 +42,25 @@ public interface IGrid extends IStandardGrid {
 	 */
 	void setGridLabelsColour(final Color gridLabelsColour);
 
+	/**
+	 * @return the isXLabelSouth.
+	 */
+	boolean isXLabelSouth();
+
+	/**
+	 * @param isXLabelSouth the isXLabelSouth to set.
+	 */
+	void setXLabelSouth(final boolean isXLabelSouth);
+
+	/**
+	 * @return the isYLabelWest.
+	 */
+	boolean isYLabelWest();
+
+	/**
+	 * @param isYLabelWest the isYLabelWest to set.
+	 */
+	void setYLabelWest(final boolean isYLabelWest);
 
 	/**
 	 * @return Returns the gridWidth.
