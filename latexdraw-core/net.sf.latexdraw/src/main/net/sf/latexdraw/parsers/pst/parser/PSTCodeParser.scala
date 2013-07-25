@@ -107,7 +107,7 @@ trait PSTCodeParser extends PSTAbstractParser
 				sh match {
 					case ifh : IFreehand =>
 						fh match {
-							case null => gp.addShape(ifh) ; fh = ifh // This shape is now the reference shape used for the merge.
+							case null => gp.addShape(ifh) ; fh = ifh ; fh.setInterval(1) // This shape is now the reference shape used for the merge.
 							case _ =>
 								if(ifh.getNbPoints==1) {// If the shape has a single point, it means it is a closepath command
 									fh.setOpen(ifh.isOpen)

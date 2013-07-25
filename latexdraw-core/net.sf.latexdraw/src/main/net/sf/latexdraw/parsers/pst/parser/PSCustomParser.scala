@@ -291,9 +291,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	 * Parses newpath commands.
 	 */
 	def parseNewpath(ctx : PSTContext) : Parser[List[IShape]] = "\\newpath" ^^ { case _ =>
-		if(ctx.isPsCustom)
-			PSTParser.errorLogs += "The command newpath is not supported yet"
-		else
+		if(!ctx.isPsCustom)
 			PSTParser.errorLogs += "The command newpath " + notIntoPscustomBlockErrorMsg
 		checkTextParsed(ctx)
 	}
