@@ -31,7 +31,11 @@ public interface IFreehand extends IModifiablePointsShape {
 		 * @since 3.0
 		 */
 		public static FreeHandType getType(final String type) {
-			return type==null || type.equals(CURVES.toString()) ? CURVES : type.equals(LINES.toString()) ? LINES : CURVES;
+			if(CURVES.toString().equals(type))
+				return CURVES;
+			if(LINES.toString().equals(type))
+				return LINES;
+			return null;
 		}
 	}
 

@@ -94,8 +94,14 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE);
 
 		try{
-			int value = Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE)).intValue();
-			shape.setType(value==0 ? FreeHandType.LINES : FreeHandType.CURVES); }
+			FreeHandType type = FreeHandType.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE));
+			if(type==null) {
+				int val = Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE)).intValue();
+				type = val==0 ? FreeHandType.LINES : FreeHandType.CURVES;
+			}
+
+			shape.setType(type);
+		}
 		catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		if(withTransformation)
@@ -145,7 +151,7 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
             path.add(new SVGPathSegCurvetoCubic(midx, midy, x1, y1, x2, y2, false));
         }
 
-        if((i-interval+1)<size) {
+        if(i-interval+1<size) {
         	double x1 = (midx + curx) / 2.;
         	double y1 = (midy + cury) / 2.;
             prevx = curx;
@@ -177,7 +183,7 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		for(i=interval; i<size; i+=interval)
 			path.add(new SVGPathSegLineto(shape.getPtAt(i).getX(), shape.getPtAt(i).getY(), false));
 
-		if((i-interval)<size)
+		if(i-interval<size)
 			path.add(new SVGPathSegLineto(shape.getPtAt(-1).getX(), shape.getPtAt(-1).getY(), false));
 	}
 
