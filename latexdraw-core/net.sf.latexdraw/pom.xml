@@ -6,6 +6,24 @@
   <artifactId>latexdraw.core</artifactId>
   <name>LaTeXDraw</name>
   <version>3.0.0-SNAPSHOT</version>
+  
+  	<properties>
+		<malai.version>1.1-SNAPSHOT</malai.version>
+	</properties>
+	
+<distributionManagement>
+    <snapshotRepository>
+        <id>mavenInriaSnapshot</id>
+        <name>http://maven.inria.fr-snapshots</name>
+        <url>http://maven.inria.fr/artifactory/malai-public-snapshot</url>
+    </snapshotRepository>
+	<repository>
+        <id>mavenInriaRelease</id>
+        <name>http://maven.inria.fr-releases</name>
+        <url>http://maven.inria.fr/artifactory/malai-public-release</url>
+    </repository>
+</distributionManagement>
+  
   <build>
         <sourceDirectory>src/main/</sourceDirectory>
 <!--     	<testSourceDirectory>src/test/</testSourceDirectory>  -->
@@ -172,12 +190,12 @@
 			<dependency>
 			    <groupId>org.malai</groupId>
 			    <artifactId>malai.core</artifactId>
-			    <version>1.1</version>
+			    <version>${malai.version}</version>
 			</dependency>
 			<dependency>
 			    <groupId>org.malai</groupId>
 			    <artifactId>malai.swing</artifactId>
-			    <version>1.1</version>
+			    <version>${malai.version}</version>
 			</dependency>
 			<dependency>
 			    <groupId>net.sf.latexdraw</groupId>
