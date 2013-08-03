@@ -264,7 +264,7 @@ class LArrowView implements IViewArrow {
 
 
 	private boolean isArrowInPositiveDirection(final IPoint pt1, final IPoint pt2) {
-		return pt1.getX()<pt2.getX() || (pt1.getX()==pt2.getX() && pt1.getY()<pt2.getY());
+		return pt1.getX()<pt2.getX() || pt1.getX()==pt2.getX() && pt1.getY()<pt2.getY();
 	}
 
 
@@ -341,9 +341,9 @@ class LArrowView implements IViewArrow {
 	public void updatePath() {
 		path.reset();
 
-		if(model.getArrowStyle()==ArrowStyle.NONE || model.getShape().getNbPoints()<2) return;
-		final ILine arrowLine 	= model.getArrowLine();
-		if(arrowLine==null) return;
+		final ILine arrowLine = model.getArrowLine();
+
+		if(model.getArrowStyle()==ArrowStyle.NONE || arrowLine==null) return;
 		double xRot, yRot;
 		final double lineAngle	= arrowLine.getLineAngle();
 		final IPoint pt1 		= arrowLine.getPoint1();
