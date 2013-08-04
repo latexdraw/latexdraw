@@ -147,6 +147,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 			catch(IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		homogeniseArrows(shape.getArrowAt(0), shape.getArrowAt(1));
+		homogeniseArrows(shape.getArrowAt(1), shape.getArrowAt(2));
+		homogeniseArrows(shape.getArrowAt(2), shape.getArrowAt(3));
 		applyTransformations(elt);
 	}
 
