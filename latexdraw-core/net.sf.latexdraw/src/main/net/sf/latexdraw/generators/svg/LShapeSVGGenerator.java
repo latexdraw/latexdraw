@@ -234,10 +234,17 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		if(elt==null || !shape.isShadowable())
 			return ;
 
-		final String fill = elt.getFill();
+		if(shape.isFillable()) {
+			final String fill = elt.getFill();
 
-		if(fill!=null && !fill.equals(SVGAttributes.SVG_VALUE_NONE) && !fill.startsWith(SVG_URL_TOKEN_BEGIN))
-			shape.setShadowCol(CSSColors.INSTANCE.getRGBColour(fill));
+			if(fill!=null && !fill.equals(SVGAttributes.SVG_VALUE_NONE) && !fill.startsWith(SVG_URL_TOKEN_BEGIN))
+				shape.setShadowCol(CSSColors.INSTANCE.getRGBColour(fill));
+		}else {
+			final Color strok = elt.getStroke();
+
+			if(strok!=null)
+				shape.setShadowCol(strok);
+		}
 
 		final SVGTransformList tl = elt.getTransform();
 		SVGTransform t;
@@ -555,7 +562,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		// Setting the filling properties.
 		if(shape.isFillable())
-			if((shape.isFilled() || (shape.hasShadow() && shadowFills)) && !shape.hasHatchings() && !shape.hasGradient())
+			if((shape.isFilled() || shape.hasShadow() && shadowFills) && !shape.hasHatchings() && !shape.hasGradient())
 				root.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
 			else
 				// Setting the filling colour.
@@ -567,7 +574,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        		final SVGElement grad	= new SVGLinearGradientElement(doc);
 		        		SVGStopElement stop;
 		        		final String id 		= SVGElements.SVG_LINEAR_GRADIENT + shape.getId();
-		        		final double gradMidPt 	= shape.getGradAngle()>PI || (shape.getGradMidPt()<0 && shape.getGradMidPt()>-PI)?
+		        		final double gradMidPt 	= shape.getGradAngle()>PI || shape.getGradMidPt()<0 && shape.getGradMidPt()>-PI?
 		        								1-shape.getGradMidPt() : shape.getGradMidPt();
 
 		        		grad.setAttribute(SVGAttributes.SVG_ID, id);
@@ -634,7 +641,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	        				gPath.appendChild(path);
 
 	        				// Several shapes having hatching must have their shadow filled.
-		        			if(shape.isFilled() || (shape.hasShadow() && shadowFills)) {
+		        			if(shape.isFilled() || shape.hasShadow() && shadowFills) {
 		        				SVGRectElement fill = new SVGRectElement(doc);
 		        				fill.setAttribute(SVGAttributes.SVG_FILL,   CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
 		        				fill.setAttribute(SVGAttributes.SVG_STROKE, SVGAttributes.SVG_VALUE_NONE);
@@ -823,7 +830,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 					pt2 = pt2.rotatePoint(cg, -angle);
 					l 	= factory.createLine(pt1, pt2);
 
-					if(LNumber.INSTANCE.equals(angle, 0.) && angle>0. && angle<(PI/2.))
+					if(LNumber.INSTANCE.equals(angle, 0.) && angle>0. && angle<PI/2.)
 						 l2 = l.getPerpendicularLine(nw);
 					else l2 = l.getPerpendicularLine(factory.createPoint(nwx,sey));
 

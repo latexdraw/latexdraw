@@ -1,11 +1,11 @@
 Version 3.0.0
 
 Added:
-- Native support of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
+- Native support/rendering of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
 - Can place texts at different positions: bottom-left, bottom-middle, top-right, etc. This feature produces PSTricks code based on the rput command.
 - new localisations: Brazilian Portuguese, Hungarian, Japanese, Turkish, Vietnamese, Serbian, Russian, Czech, Catalan.
 - double borders supported for arcs.
-- A system tab in the "About LaTeXDraw" dialogue box to give some information about the system.
+- A system tab in the "About LaTeXDraw" dialogue box to give information about the system.
 
 Improvements:
 - Can add/modify texts directly into the drawing using an integrated text field (no more dialogue box).
@@ -59,7 +59,7 @@ Changes:
 
 
 Fixed:
-- lp#1076032: a blanck page inserted while compiling a document as a pdf
+- lp#1076032: a blank page inserted while compiling a document as a pdf
 - lp#530184: the option 'showpoints' is badly painted for Bezier curves
 - lp#675155: the scale handlers approximately resize shapes
 - lp#675150: the unit saved into an SVG document is not loaded
@@ -70,4 +70,5 @@ Fixed:
 - The border of a selected ellipse did not bound it correctly.
 - The painted axes did not match the generated pdf because of the package pstricks-add.
 - The html label of the dialogue box used to insert PST code into the drawing is now correctly displayed.
+- The colour of the shadow is not always correctly loaded from an SVG-latexdraw document
 - better position of the application when several screens are available
