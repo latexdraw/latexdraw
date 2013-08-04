@@ -208,7 +208,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				target.setArrowInset(source.getArrowInset());
 				target.setArrowLength(source.getArrowLength());
 				target.setArrowSizeDim(source.getArrowSizeDim());
-				target.setArrowSizeNum(target.getArrowSizeNum());
+				target.setArrowSizeNum(source.getArrowSizeNum());
 			} else if(style.isRoundBracket()) {
 				target.setRBracketNum(source.getRBracketNum());
 				target.setTBarSizeDim(source.getTBarSizeDim());
