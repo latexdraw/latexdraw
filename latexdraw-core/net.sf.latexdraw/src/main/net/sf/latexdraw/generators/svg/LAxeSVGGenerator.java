@@ -141,6 +141,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 				shape.setLineStyle(la.getLineStyle());
 				shape.getArrowAt(0).setArrowStyle(la.getArrowAt(0).getArrowStyle());
 				shape.getArrowAt(1).setArrowStyle(la.getArrowAt(1).getArrowStyle());
+				shape.getArrowAt(2).setArrowStyle(lb.getArrowAt(0).getArrowStyle());
+				shape.getArrowAt(3).setArrowStyle(lb.getArrowAt(1).getArrowStyle());
 			}
 			catch(IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
 
