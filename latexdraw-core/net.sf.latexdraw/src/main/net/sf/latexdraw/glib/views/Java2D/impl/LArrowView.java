@@ -106,6 +106,7 @@ class LArrowView implements IViewArrow {
 
 	protected void paintDisk(final Graphics2D g, final Color lineColour) {
 		g.setColor(lineColour);
+		g.setStroke(new BasicStroke((float)model.getShape().getThickness(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 		g.fill(path);
 		g.draw(path);
 	}
