@@ -47,7 +47,9 @@ public abstract class TestLoadSVGFile {
 				shapes.addShape(IShapeSVGFactory.INSTANCE.createShape((SVGElement)node));
 		}
 
-		return (IGroup) shapes.getShapeAt(0);
+		if(shapes.size()==1 && shapes.getShapeAt(0) instanceof IGroup)
+			return (IGroup) shapes.getShapeAt(0);
+		return shapes;
 	}
 
 
