@@ -145,7 +145,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(rButton, visible);
 		composer.setWidgetVisible(centreButton, visible);
 		composer.setWidgetVisible(packagesLabel, visible);
-		composer.setWidgetVisible(packagesField, visible);
+		composer.setWidgetVisible(packagesField.getScrollpane(), visible);
 	}
 
 
