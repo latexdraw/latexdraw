@@ -1,0 +1,12 @@
+MUTANT14
+
+In this mutant is introduced a presentation fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.ShaperDeleter
+The mutated code is the operation setActivated(boolean):void
+
+To produce the failure:
+1. Draw a shape on canvas
+2. Selecting a shape by drag-and-drop onto the drawing area
+
+Actual result: The widget "Delete" only shows up when a shape is selected.
