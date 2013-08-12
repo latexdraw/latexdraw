@@ -1,0 +1,12 @@
+MUTANT32
+
+In this mutant is introduced a presentation (GUI) fault: 
+
+The mutated file is package net.sf.latexdraw.glib.views.Java2D.impl.LTriangleView
+The mutated code is the operation setRectangularShape.
+
+To produce the failure:
+1. Select a rectangle shape
+2. Drag and drop on canvas to draw a rectangle
+ 
+Actual result:  The rectangle is not drawn correctly. 
