@@ -1,0 +1,11 @@
+MUTANT46
+
+In this mutant is introduced a presentation (GUI) fault: 
+
+The mutated file is package net.sf.latexdraw.glib.models.impl.LShape.
+The mutated code is the operation LShape.
+
+To produce the failure:
+1. Draw a shape on canvas 
+ 
+Actual result:  The shape is drawn with a dashed line.
