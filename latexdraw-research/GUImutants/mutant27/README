@@ -1,0 +1,11 @@
+MUTANT27
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.Pencil
+The mutated code is the operation initialiseLinks().
+
+To produce the failure:
+1. Drag and drop to draw a shape on canvas 
+
+Actual result: Drag and drop to draw a shape does not work

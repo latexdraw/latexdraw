@@ -1,0 +1,12 @@
+MUTANT34
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package net.sf.latexdraw.glib.ui.LCanvas.
+The mutated code is the operation getZoomIncrement().
+
+To produce the failure:
+1. Zoom in or zoom out by entering some value or clicking on the spinner widget
+
+ 
+Actual result:  The zoom does not work.
