@@ -1,0 +1,13 @@
+MUTANT30
+
+In this mutant is introduced a interaction link fault: 
+
+The mutated file is package package package net.sf.latexdraw.instruments.ShapeShadowCustomiser
+The mutated code is the operation initAction() in Spinner2SelectionShadow class.
+
+To produce the failure:
+1. Draw a shape on canvas 
+2. Select the shape
+3. Modify its shadow properties
+ 
+Actual result:  Changing the size field modifies the angle field and vice-versa. 
