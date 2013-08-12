@@ -1,0 +1,14 @@
+MUTANT20
+
+In this mutant is introduced a reversible actions fault: 
+
+The mutated file is package package net.sf.latexdraw.actions.shape.ModifyShapeProperty.
+The mutated code is the operation undo().
+
+To produce the failure:
+1. Draw a shape on canvas
+2. Select the shape
+3. Modify its properties (e.g., border, double border, shadow, filling properties)
+4. Performing undo action
+
+Actual result: The actions regarding to undo the current properties is not performed step by step.

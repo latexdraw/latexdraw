@@ -1,0 +1,14 @@
+MUTANT23
+
+In this mutant is introduced a reversible actions fault: 
+
+The mutated file is package package net.sf.latexdraw.actions.shape.ScaleShapes
+The mutated code is the operation undo().
+
+To produce the failure:
+1. Draw a shape on canvas
+2. Select the shape
+3. Resize the shape by drag and drop 
+4. Perform undo actions 
+
+Actual result: The action to undo the scaling does not work.

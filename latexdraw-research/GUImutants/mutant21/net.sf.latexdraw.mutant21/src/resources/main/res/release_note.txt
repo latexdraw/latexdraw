@@ -1,0 +1,73 @@
+Version 3.0.0
+
+Added:
+- Native support of LaTeX texts: texts added to drawings are compiled in pdf using latex and then imported in the drawing.
+- Can place texts at different positions: bottom-left, bottom-middle, top-right, etc. This feature produces PSTricks code based on the rput command.
+- new localisations: Brazilian Portuguese, Hungarian, Japanese, Turkish, Vietnamese, Serbian, Russian, Czech, Catalan.
+- double borders supported for arcs.
+- A system tab in the "About LaTeXDraw" dialogue box to give some information about the system.
+
+Improvements:
+- Can add/modify texts directly into the drawing using an integrated text field (no more dialogue box).
+- no more dialogue boxes to change shapes properties. They can be changed using the toolbar which has been widely improved.
+- when selecting a kind of shape, the corresponding widgets dedicated to the selected kind of shape are displayed to customise shapes.
+- users can abort the creation of shapes using the escape key
+- the graphical library has been totally rewritten:
+   - better shapes movement
+   - less memory consumption
+   - the text is now compiled in LaTeX and imported
+   - no more button to create a line; you can create a line using the button 'lines'
+   - better use of handlers to resize and rotate shapes
+- the undo/redo manager has been totally rewritten:
+   - less memory consumption
+   - more stable and efficient
+   - more actions can be undone
+   - more information about the undoable actions (the undo/redo messages are more precise)
+- the error manager has been totally rewritten:
+   - the manager can be accessed by the menu 'help' -> 'Error console'
+   - the error window displays all the errors, not a single one
+- the shape handlers are no more zoomed when zooming in/out.
+- the widgets of the parameters toolbar now appear and disappear more accurately
+- the selected shapes are no more unselected when selecting the pencil.
+- can undo/redo change of unit (cm or inch).
+- the lime and teal colours are now supported.
+- Can zoom in/out with the keys '+' and '-'.
+- PSTricks parser:
+	- using a ps command as a value (e.g. linecolor=\psfillcolor) is supported
+	- commands qdisk, qline, psarcn, textcolor supported
+	- better support of the command definecolor
+- better Mac OS X integration: the key Win/Apple is used instead of the key Ctrl in shortcuts
+
+Changes:
+- Tabs are used to replace the code panel.
+- Text support:
+    - Font family and font size cannot be loaded from a latexdraw 2.* svg file
+    - No more widgets to define framedbox. You have to do that manually in latex.
+- No more batch conversion frame
+- The ldp format, that was the default format for 1.9.* and older versions, is no more supported.
+- The PPM export is no more supported
+- The basic EPS export is no more supported (the LaTeX EPS export is still supported).
+- No more button 'default' in all the dialogue boxes.
+- Handlers style has changed.
+- There is no more the choice between line and curve to close a Bezier curve. Only curve is supported. That because in a 
+  future release, every segment of a Bezier curve will be either a line or a curve.
+- The PPC (point per centimetre) cannot be changed anymore.
+- The change of unit (cm or inch) can be performed through menu items in the "Drawing" menu.
+- The type of magnetic grid can be changed using the grid toolbar.
+- The magnetic grid cannot be magnetic when it is not visible.
+- Because handlers design have been improved, it is no more possible to change the opacity of handlers.
+
+
+Fixed:
+- lp#1076032: a blanck page inserted while compiling a document as a pdf
+- lp#530184: the option 'showpoints' is badly painted for Bezier curves
+- lp#675155: the scale handlers approximately resize shapes
+- lp#675150: the unit saved into an SVG document is not loaded
+- lp#598504: when you copy paste a rotated triangle/rhombus, and you move the copied shape then the rotation angle is set back to 0
+- lp#880677, sf#3296077: line colour of psdot style asterisk is not saved.
+- lp#911816: crash while parsing PST code containing $ and framed boxes.
+- lp#756733: the pst parser did not use correctly the unit to create shapes.
+- The border of a selected ellipse did not bound it correctly.
+- The painted axes did not match the generated pdf because of the package pstricks-add.
+- The html label of the dialogue box used to insert PST code into the drawing is now correctly displayed.
+- better position of the application when several screens are available

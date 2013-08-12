@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw">
+    <defs/>
+    <g>
+        <g latexdraw:type="drawing" id="43">
+            <g latexdraw:type="bezierCurve" id="40">
+                <path
+                    d="M 153.0 79.921873 C 157.0 50.9218755 280.0 79.921873 269.0 52.921875 "
+                    stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+            </g>
+            <g latexdraw:type="bezierCurve" id="41">
+                <path
+                    d="M 154.0 79.921873 C 148.0 49.921876 21.0 79.921873 35.0 53.9218755 "
+                    stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+            </g>
+        </g>
+    </g>
+</svg>
