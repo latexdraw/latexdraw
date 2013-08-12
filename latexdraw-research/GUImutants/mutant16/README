@@ -1,0 +1,12 @@
+MUTANT16
+
+In this mutant is introduced a interaction link fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.EditingSelector
+The mutated code is the operation initAction() in the ButtonPressed2DefineStylePencil class
+
+To produce the failure:
+1. Selecting any kind of shape (e.g., rectangle, square, triangle, etc.)
+2. Drag-and-drop on canvas to draw the selected shape
+
+Actual result: The rectangle shape always is drawing.
