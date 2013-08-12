@@ -1,0 +1,12 @@
+MUTANT18
+
+In this mutant is introduced a interaction link fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.Pencil
+The mutated code is the operation updateAction() in the DnD2AddShape class
+
+To produce the failure:
+1. Clicking on toolbar to select one of the following shapes: rectangle, square, circle, ellipse, triangle, rhombus, arc.
+2. Draw the shape on canvas by drag and drop
+
+Actual result: The shape is not drawn, only a single dot.
