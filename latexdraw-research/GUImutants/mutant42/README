@@ -1,0 +1,11 @@
+MUTANT42
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package net.sf.latexdraw.ui.LCanvas.
+The mutated code is the operation paintViews.
+
+To produce the failure:
+1. Draw a shape on canvas by drag and drop.
+ 
+Actual result:  The shape disappears after releasing the mouse button to complete the drawing. However, when the zoom is changed the shape appears.
