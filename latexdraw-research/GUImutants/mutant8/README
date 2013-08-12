@@ -1,0 +1,13 @@
+MUTANT8
+
+In this mutant is introduced a interaction link fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.Border.
+The mutated code is the operation override def updateAction() in class DnD2Rotate.
+
+To produce the failure:
+1. Draw a shape on canvas
+2. Selecting a shape by drag-and-drop onto the drawing area
+3. Rotating a shape by using the rotation handler 
+
+Actual result: The selected shape is not rotated.
