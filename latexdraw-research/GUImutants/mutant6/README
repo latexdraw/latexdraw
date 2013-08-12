@@ -1,0 +1,12 @@
+MUTANT6
+
+In this mutant is introduced presentation fault: 
+
+The mutated file is net.sf.latexdraw.glib.handlers.Handler.
+The mutated code is the operation Handler.
+
+To produce the failure:
+1. Draw a shape on canvas.
+2. Drag-and-drop onto the drawing area to select a shape.
+
+Actual result: Shape's handlers are not colorful to show them up on canvas.

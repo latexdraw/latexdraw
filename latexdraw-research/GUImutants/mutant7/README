@@ -1,0 +1,12 @@
+MUTANT7
+
+In this mutant is introduced a presentation fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.Hand.
+The mutated code is the operation override def interimFeedback().
+
+To produce the failure:
+1. Draw a shape on canvas.
+2. Drag-and-drop onto the drawing area to select a shape.
+
+Actual result: The rectangle used for the interim feedback of the selection is not removed.
