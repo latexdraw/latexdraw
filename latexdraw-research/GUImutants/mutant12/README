@@ -1,0 +1,13 @@
+MUTANT12
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.ShaperDeleter
+The mutated code is the operation isConditionRespected in the KeyPressed2DeleteShapes abstract class.
+
+To produce the failure:
+1. Draw a shape on canvas
+2. Selecting a shape by drag-and-drop onto the drawing area
+3. Deleting a shape by using the Delete key.
+
+Actual result: The shape is not deleted by using Delete key.

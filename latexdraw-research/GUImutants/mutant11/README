@@ -1,0 +1,13 @@
+MUTANT11
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.Border.
+The mutated code is the operation override def interimFeedback().
+
+To produce the failure:
+1. Draw a shape on canvas
+2. Selecting a shape by drag-and-drop onto the drawing area
+3. Scaling a shape by using the scaling handler by manipulating North, South, East, West arrows
+
+Actual result: The shape is scaled only after the second click on those arrows.
