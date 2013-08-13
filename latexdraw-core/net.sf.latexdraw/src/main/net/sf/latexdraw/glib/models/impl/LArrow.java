@@ -234,7 +234,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public boolean isLeftArrow() {
-		return owner.getArrows().indexOf(this)%2==0;
+		return owner.getArrows().indexOf(this)<owner.getArrows().size()/2;
 	}
 
 	@Override

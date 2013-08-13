@@ -177,9 +177,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case ARROW1_STYLE:
 				pencil.getGroupParams().setArrowStyle((ArrowStyle)value, 0);
 				break;
-			case ARROW2_STYLE:
-				pencil.getGroupParams().setArrowStyle((ArrowStyle)value, 1);
-				break;
+			case ARROW2_STYLE: pencil.getGroupParams().setArrowStyle((ArrowStyle)value, -1); break;
 			case TEXT:
 				// The pencil does not set text values.
 				break;

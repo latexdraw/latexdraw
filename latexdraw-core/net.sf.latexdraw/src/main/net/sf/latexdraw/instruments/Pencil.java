@@ -169,7 +169,7 @@ public class Pencil extends Instrument {
 
 		if(shape.isArrowable()) {
 			shape.setArrowStyle(groupParams.getArrowStyle(0), 0);
-			shape.setArrowStyle(groupParams.getArrowStyle(1), 1);
+			shape.setArrowStyle(groupParams.getArrowStyle(-1), -1);
 		}
 		if(shape.isThicknessable())
 			shape.setThickness(groupParams.getThickness());

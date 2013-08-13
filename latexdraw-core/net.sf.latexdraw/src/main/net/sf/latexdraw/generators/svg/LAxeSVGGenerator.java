@@ -139,10 +139,10 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
 				shape.setPosition(DrawingTK.getFactory().createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
 				shape.setLineStyle(la.getLineStyle());
-				shape.getArrowAt(0).setArrowStyle(la.getArrowAt(0).getArrowStyle());
-				shape.getArrowAt(1).setArrowStyle(la.getArrowAt(1).getArrowStyle());
-				shape.getArrowAt(2).setArrowStyle(lb.getArrowAt(0).getArrowStyle());
-				shape.getArrowAt(3).setArrowStyle(lb.getArrowAt(1).getArrowStyle());
+				shape.getArrowAt(1).setArrowStyle(la.getArrowAt(0).getArrowStyle());
+				shape.getArrowAt(3).setArrowStyle(la.getArrowAt(1).getArrowStyle());
+				shape.getArrowAt(0).setArrowStyle(lb.getArrowAt(0).getArrowStyle());
+				shape.getArrowAt(2).setArrowStyle(lb.getArrowAt(1).getArrowStyle());
 			}
 			catch(IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
 
@@ -197,8 +197,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 			final IShapeFactory fac = DrawingTK.getFactory();
 			final double posX = shape.getPosition().getX();
 			final double posY = shape.getPosition().getY();
-			final IArrow arr0 = shape.getArrowAt(0);
-			final IArrow arr1 = shape.getArrowAt(1);
+			final IArrow arr0 = shape.getArrowAt(1);
+			final IArrow arr1 = shape.getArrowAt(3);
 			final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0.;
 			final double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0.;
 			final IPolyline xLine = fac.createPolyline(false);
@@ -211,8 +211,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
 			xLine.getArrowAt(0).copy(arr0);
 			xLine.getArrowAt(1).copy(arr1);
-			yLine.getArrowAt(0).copy(shape.getArrowAt(2));
-			yLine.getArrowAt(1).copy(shape.getArrowAt(3));
+			yLine.getArrowAt(0).copy(shape.getArrowAt(0));
+			yLine.getArrowAt(1).copy(shape.getArrowAt(2));
 			final SVGElement eltX = new LPolylinesSVGGenerator(xLine).toSVG(document);
 			final SVGElement eltY = new LPolylinesSVGGenerator(yLine).toSVG(document);
 

@@ -82,9 +82,9 @@ class LAxes extends LAbstractGrid implements IAxes {
 		distLabelsY		= 1.;
 		// The first arrow is for the bottom of the Y-axis.
 		arrows.add(new LArrow(this));
-		// The second arrow is for the top of the Y-axis.
+		// The second arrow is for the left of the X-axis.
 		arrows.add(new LArrow(this));
-		// The third arrow is for the left of the X-axis.
+		// The third arrow is for the top of the Y-axis.
 		arrows.add(new LArrow(this));
 		// The fourth arrow is for the right of the X-axis.
 		arrows.add(new LArrow(this));
@@ -118,7 +118,13 @@ class LAxes extends LAbstractGrid implements IAxes {
 
 		if(style!=null && arr1!=null) {
 			super.setArrowStyle(style, position);
-			 arrows.get((position+2)%4).setArrowStyle(style);
+			int pos = position==-1 ? arrows.size()-1 : position;
+			switch(pos%4) {
+				case 0: arrows.get(1).setArrowStyle(style); break;
+				case 1: arrows.get(0).setArrowStyle(style); break;
+				case 2: arrows.get(3).setArrowStyle(style); break;
+				case 3: arrows.get(2).setArrowStyle(style); break;
+			}
 		}
 	}
 
@@ -128,12 +134,12 @@ class LAxes extends LAbstractGrid implements IAxes {
 		ILine line;
 
 		// For the X-axis
-		if(arrow==arrows.get(2) || arrow==arrows.get(3))
-			line = getArrowLineX(arrow==arrows.get(2));
+		if(arrow==arrows.get(1) || arrow==arrows.get(3))
+			line = getArrowLineX(arrow==arrows.get(1));
 		else
 			// For the Y-axis.
-			if(arrow==arrows.get(0) || arrow==arrows.get(1))
-				line = getArrowLineY(arrow==arrows.get(1));
+			if(arrow==arrows.get(0) || arrow==arrows.get(2))
+				line = getArrowLineY(arrow==arrows.get(2));
 			else
 				// If the given arrow is null or is not an arrow of the shape.
 				line = null;
