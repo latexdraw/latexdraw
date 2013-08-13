@@ -86,7 +86,6 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	protected LPolylinesSVGGenerator(final SVGLineElement elt) {
 		this(DrawingTK.getFactory().createPolyline(true));
 
-		//TODO
 		setSVGParameters(elt);
 		applyTransformations(elt);
 	}
@@ -115,7 +114,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
-		if(elt==null || (!(elt2 instanceof SVGPolyLineElement) && !(elt2 instanceof SVGLineElement)))
+		if(elt==null || !(elt2 instanceof SVGPolyLineElement) && !(elt2 instanceof SVGLineElement))
 			throw new IllegalArgumentException();
 
 		if(elt2 instanceof SVGPolyLineElement) {
@@ -124,9 +123,9 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 			final SVGLineElement lineElt = (SVGLineElement)elt2;
 			shape.addPoint(DrawingTK.getFactory().createPoint(lineElt.getX1(), lineElt.getY1()));
 			shape.addPoint(DrawingTK.getFactory().createPoint(lineElt.getX2(), lineElt.getY2()));
-			setSVGParameters(elt2);
 		}
 
+		setSVGParameters(elt2);
 		setSVGLatexdrawParameters(elt);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
