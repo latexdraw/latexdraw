@@ -229,7 +229,7 @@ private sealed class DnD2Select(hand : Hand) extends Link[SelectShapes, DnDWithK
 		val keys = interaction.getKeys
 
 		// Updating the rectangle used for the interim feedback and for the selection of shapes.
-		selectionBorder.setFrame(minX/zoom, minY/zoom, (maxX-minX)/zoom, (maxY-minY)/zoom)
+		selectionBorder.setFrame(minX/zoom, minY/zoom, Math.max((maxX-minX)/zoom, 1), Math.max((maxY-minY)/zoom, 1))
 		// Cleaning the selected shapes in the action.
 		action.setShape(null)
 
