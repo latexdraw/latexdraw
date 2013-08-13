@@ -83,36 +83,24 @@ public interface IArrow extends IArrowable {
 
 			@Override
 			public ArrowStyle getOppositeArrowStyle() { return RIGHT_SQUARE_BRACKET; }
-
-			@Override
-			public boolean needsLineReduction() { return true; }
 		}, RIGHT_SQUARE_BRACKET {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.RSBRACKET_STYLE; }
 
 			@Override
 			public ArrowStyle getOppositeArrowStyle() { return LEFT_SQUARE_BRACKET; }
-
-			@Override
-			public boolean needsLineReduction() { return true; }
 		}, LEFT_ROUND_BRACKET {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.LRBRACKET_STYLE; }
 
 			@Override
 			public ArrowStyle getOppositeArrowStyle() { return RIGHT_ROUND_BRACKET; }
-
-			@Override
-			public boolean needsLineReduction() { return true; }
 		}, RIGHT_ROUND_BRACKET {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.RRBRACKET_STYLE; }
 
 			@Override
 			public ArrowStyle getOppositeArrowStyle() { return LEFT_ROUND_BRACKET; }
-
-			@Override
-			public boolean needsLineReduction() { return true; }
 		}, CIRCLE_END {
 			@Override
 			public String getPSTToken() { return PSTricksConstants.CIRCLEEND_STYLE; }
