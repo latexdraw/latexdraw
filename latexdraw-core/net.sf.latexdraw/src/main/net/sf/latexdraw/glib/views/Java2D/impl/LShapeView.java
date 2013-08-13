@@ -239,6 +239,10 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 			case PLAIN:
 				g.setColor(shape.getFillingCol());
+				if(shape.hasShadow()) {
+					g.setStroke(new BasicStroke((float)getStrokeThickness()));
+					g.draw(path);
+				}
 				g.fill(path);
 				break;
 
@@ -280,7 +284,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 						pt2 = pt2.rotatePoint(cg, -angle);
 						l = factory.createLine(pt1, pt2);
 
-						if(angle>=0. && angle<(Math.PI/2.))
+						if(angle>=0. && angle<Math.PI/2.)
 							l2 = l.getPerpendicularLine(tl);
 						else
 							l2 = l.getPerpendicularLine(factory.createPoint(tl.getX(),br.getY()));
@@ -319,7 +323,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 				final Rectangle2D bounds  = path.getBounds2D();
 				g.setClip(path);
 
-				if(shape.isFilled() || (shape.hasShadow() && shape.shadowFillsShape())) {
+				if(shape.isFilled() || shape.hasShadow() && shape.shadowFillsShape()) {
 					g.setColor(shape.getFillingCol());
 					g.fill(bounds);
 				}
@@ -374,7 +378,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 	@Override
 	public boolean intersects(final Rectangle2D rec) {
-		if(rec==null || (LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.) && !rec.contains(border) && !border.contains(rec) && !rec.intersects(border)))
+		if(rec==null || LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.) && !rec.contains(border) && !border.contains(rec) && !rec.intersects(border))
 			return false;
 
 		final BasicStroke stroke = getStroke();
@@ -383,7 +387,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		if(stroke==null)
 			return sh.intersects(rec) || sh.contains(rec);
 
-		return (shape.isFilled() && sh.contains(rec)) || stroke.createStrokedShape(sh).intersects(rec);
+		return shape.isFilled() && sh.contains(rec) || stroke.createStrokedShape(sh).intersects(rec);
 	}
 
 
@@ -594,7 +598,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 				line.x2 = line.x1;
 				line.y2 = line.y1;
 
-				if(((float)incX)<=0f)
+				if((float)incX<=0f)
 					return ;
 
 				while(line.x2 < maxX) {
