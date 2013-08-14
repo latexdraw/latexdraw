@@ -22,6 +22,7 @@ import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -101,7 +102,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		if(progressBar!=null)
 			lw.addPropertyChangeListener(new ProgressListener(progressBar));
 
-		lw.execute();
+		SwingUtilities.invokeLater(lw);
 		return true;
 	}
 
@@ -114,7 +115,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		if(progressBar!=null)
 			lw.addPropertyChangeListener(new ProgressListener(progressBar));
 
-		lw.execute();
+		SwingUtilities.invokeLater(lw);
 		return true;
 	}
 
@@ -133,7 +134,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		if(progressBar!=null)
 			lw.addPropertyChangeListener(new ProgressListener(progressBar));
 
-		lw.execute();
+		SwingUtilities.invokeLater(lw);
 	}
 
 
