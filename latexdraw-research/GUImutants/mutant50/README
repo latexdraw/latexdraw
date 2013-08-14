@@ -1,0 +1,12 @@
+MUTANT50
+
+In this mutant is introduced a abort interaction fault: 
+
+The mutated file is package  net.sf.latexdraw.instruments.Pencil.
+The mutated code is the operation interactionStarts.
+
+To produce the failure:
+1. Draw a line or closed bézier or bézier curves by using the minimal of clicks (e.g., two clicks for a simple line).
+ 
+Actual result: The shapes are not drawn correctly and the interaction is aborted when the right button is pressed. 
+Workaround: It is necessary more clicks to draw the shapes.
