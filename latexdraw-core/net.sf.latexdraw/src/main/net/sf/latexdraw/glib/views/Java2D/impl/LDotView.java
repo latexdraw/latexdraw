@@ -3,15 +3,12 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewDot;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a view of the IDot model.<br>
@@ -39,7 +36,6 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 	 */
 	protected LDotView(final IDot model) {
 		super(model);
-
 		update();
 	}
 
@@ -79,6 +75,8 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 
 	@Override
 	public void paint(final Graphics2D g) {
+		final IPoint vectorTrans = beginRotation(g);
+
 		switch(shape.getDotStyle()) {
 			case DIAMOND	:
 			case O 			:
@@ -97,6 +95,9 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 			case PLUS		:
 			case X			: paintDotShape(g, false, null); break;
 		}
+
+		if(vectorTrans!=null)
+			endRotation(g, vectorTrans);
 	}
 
 
@@ -333,26 +334,6 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 			case OTIMES		: setPathOTime();	break;
 			case PLUS		: setPathPlus();	break;
 			case X			: setPathX();		break;
-		}
-	}
-
-
-	@Override
-	public void updateBorder() {
-		final double angle = shape.getRotationAngle();
-
-		if(LNumber.INSTANCE.equals(angle, 0.)) {
-			Rectangle2D rec = path.getBounds2D();
-			BasicStroke stroke = getStroke();
-			// The stroke must be used for defining the border of the dot.
-			if(stroke!=null)
-				rec = rec.createUnion(stroke.createStrokedShape(path).getBounds2D());
-
-			border.setFrame(rec);
-		}
-		else {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException());
-			//TODO
 		}
 	}
 
