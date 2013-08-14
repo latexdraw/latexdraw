@@ -128,7 +128,7 @@ class LArrowView implements IViewArrow {
 
 	protected void paintArrow(final Graphics2D g, final Color lineColor) {
 		g.setColor(lineColor);
-		g.fill(path);// FIXME to see if double arrow same than in v2
+		g.fill(path);
 	}
 
 	protected void paintArrow(final Graphics2D g, final Color fColour, final boolean asShadow) {
@@ -168,7 +168,7 @@ class LArrowView implements IViewArrow {
 
 
 	protected void updatePathDiskCircleEnd(final double xRot, final double yRot) {
-		final double lineWidth	 = model.getShape().getThickness();
+		final double lineWidth	 = model.getShape().getFullThickness();
 		final double arrowRadius = model.getRoundShapedArrowRadius();
 		LEllipseView.setEllipsePath(path, xRot - arrowRadius+lineWidth/2., yRot - arrowRadius+lineWidth/2., arrowRadius*2.-lineWidth, arrowRadius*2.-lineWidth);
 	}
@@ -177,7 +177,7 @@ class LArrowView implements IViewArrow {
 
 	protected void updatePathDiskCircleIn(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
 		final double arrowRadius = model.getRoundShapedArrowRadius();
-		final double lineWidth	 = model.getShape().getThickness();
+		final double lineWidth	 = model.getShape().getFullThickness();
 		double x			 	 = xRot+lineWidth/2.;
 
 		if(!isArrowInPositiveDirection(pt1, pt2))
