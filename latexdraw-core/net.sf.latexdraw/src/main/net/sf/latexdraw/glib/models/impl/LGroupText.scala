@@ -26,7 +26,7 @@ import net.sf.latexdraw.glib.models.interfaces.IText
  */
 protected trait LGroupText extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstIText = getShapes.find{shape => shape.isInstanceOf[IText] }
+	private def firstIText = getShapes.find{shape => shape.isTypeOf(classOf[IText]) }
 
 	override def getTextPosition() : IText.TextPosition =
 		firstIText match {

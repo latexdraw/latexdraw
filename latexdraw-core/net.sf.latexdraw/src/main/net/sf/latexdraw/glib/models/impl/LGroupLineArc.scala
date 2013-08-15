@@ -25,7 +25,7 @@ import net.sf.latexdraw.glib.models.interfaces.ILineArcShape
  */
 protected trait LGroupLineArc extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstLineArc = getShapes.find{shape => shape.isInstanceOf[ILineArcShape] }
+	private def firstLineArc = getShapes.find{shape => shape.isTypeOf(classOf[ILineArcShape]) }
 
 	override def getLineArc() : Double = {
 		firstLineArc match {

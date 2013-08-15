@@ -27,7 +27,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
  */
 protected trait LGroupArc extends IGroup {
 	/** May return the first IArc shape of the group. */
-	private def firstIArc = getShapes.find{shape => shape.isInstanceOf[IArc] }
+	private def firstIArc = getShapes.find{shape => shape.isTypeOf(classOf[IArc]) }
 
 	override def getArcStyle() : IArc.ArcStyle =
 		firstIArc match {

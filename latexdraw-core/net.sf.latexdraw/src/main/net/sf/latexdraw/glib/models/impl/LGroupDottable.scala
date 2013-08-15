@@ -26,7 +26,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDot
  */
 protected trait LGroupDottable extends IGroup {
 	/** May return the first grid of the group. */
-	private def firstDottable = getShapes.find{shape => shape.isInstanceOf[Dottable] }
+	private def firstDottable = getShapes.find{shape => shape.isTypeOf(classOf[Dottable]) }
 
 	override def getDotFillingCol() : Color = {
 		firstDottable match {

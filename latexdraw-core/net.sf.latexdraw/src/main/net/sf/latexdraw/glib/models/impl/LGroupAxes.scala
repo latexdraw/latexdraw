@@ -26,7 +26,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
  */
 protected trait LGroupAxes extends IGroup {
 	/** May return the first axes shape of the group. */
-	private def firstIAxes = getShapes.find{shape => shape.isInstanceOf[IAxes] }
+	private def firstIAxes = getShapes.find{shape => shape.isTypeOf(classOf[IAxes]) }
 
 	override def getIncrementX() : Double = {
 		firstIAxes match {

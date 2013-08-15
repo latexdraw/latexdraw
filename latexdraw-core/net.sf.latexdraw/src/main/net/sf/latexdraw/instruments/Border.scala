@@ -218,7 +218,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 		if(isArcHandlerShowable) {
 			val sh = _selection.apply(0).getShape
 
-			if(sh.isInstanceOf[IArc]) {
+			if(sh.isTypeOf(classOf[IArc])) {
 				val arc = sh.asInstanceOf[IArc]
 				_arcHandlerStart.updateFromArc(arc, canvas.getZoom)
 				_arcHandlerEnd.updateFromArc(arc, canvas.getZoom)
@@ -235,7 +235,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 		if(isCtrlPtMvHandlersShowable) {
 			val sh = _selection.apply(0).getShape
 
-			if(sh.isInstanceOf[IControlPointShape])
+			if(sh.isTypeOf(classOf[IControlPointShape]))
 				// Lazy initialisation
 				initialiseCtrlMvHandlers(sh.asInstanceOf[IControlPointShape])
 		}
@@ -279,7 +279,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 		if(isPtMvHandlersShowable) {
 			val sh = _selection.apply(0).getShape
 
-			if(sh.isInstanceOf[IModifiablePointsShape]) {
+			if(sh.isTypeOf(classOf[IModifiablePointsShape])) {
 				val pts   = sh.asInstanceOf[IModifiablePointsShape]
 				val nbPts = pts.getNbPoints
 				val zoom  = canvas.getZoom
@@ -606,7 +606,7 @@ private sealed class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint,
 	override def initAction() {
 		val group = instrument.canvas.getDrawing.getSelection
 
-		if(group.size==1 && group.getShapeAt(0).isInstanceOf[IControlPointShape]) {
+		if(group.size==1 && group.getShapeAt(0).isTypeOf(classOf[IControlPointShape])) {
 			val handler = ctrlPtHandler.get
 			sourcePt = DrawingTK.getFactory.createPoint(handler.getCentre)
 			action.setIndexPt(handler.getIndexPt)
@@ -659,7 +659,7 @@ private sealed class DnD2MovePoint(ins : Border) extends Link[MovePointShape, Dn
 	override def initAction() {
 		val group = instrument.canvas.getDrawing.getSelection
 
-		if(group.size==1 && group.getShapeAt(0).isInstanceOf[IModifiablePointsShape]) {
+		if(group.size==1 && group.getShapeAt(0).isTypeOf(classOf[IModifiablePointsShape])) {
 			val handler = movePtHandler.get
 			sourcePt = DrawingTK.getFactory.createPoint(handler.getCentre)
 			action.setIndexPt(handler.getIndexPt)

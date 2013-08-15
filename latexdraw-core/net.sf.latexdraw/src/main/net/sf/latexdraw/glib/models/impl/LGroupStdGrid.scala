@@ -26,7 +26,7 @@ import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
  */
 protected trait LGroupStdGrid extends IGroup {
 	/** May return the first stdGrid of the group. */
-	private def firstIStdGrid = getShapes.find{shape => shape.isInstanceOf[IStandardGrid] }
+	private def firstIStdGrid = getShapes.find{shape => shape.isTypeOf(classOf[IStandardGrid]) }
 
 	override def getGridMinX() : Double =
 		firstIStdGrid match {

@@ -27,7 +27,7 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup
  */
 protected trait LGroupGrid extends IGroup {
 	/** May return the first grid of the group. */
-	private def firstIGrid = getShapes.find{shape => shape.isInstanceOf[IGrid] }
+	private def firstIGrid = getShapes.find{shape => shape.isTypeOf(classOf[IGrid]) }
 
 
 	override def isXLabelSouth() : Boolean =

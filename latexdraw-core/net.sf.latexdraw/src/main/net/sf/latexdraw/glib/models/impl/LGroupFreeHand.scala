@@ -26,7 +26,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
  */
 protected trait LGroupFreeHand extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstIFreeHand = getShapes.find{shape => shape.isInstanceOf[IFreehand] }
+	private def firstIFreeHand = getShapes.find{shape => shape.isTypeOf(classOf[IFreehand]) }
 
 	override def getType() : IFreehand.FreeHandType = {
 		firstIFreeHand match {
