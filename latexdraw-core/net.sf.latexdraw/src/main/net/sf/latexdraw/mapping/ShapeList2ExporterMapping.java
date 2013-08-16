@@ -73,7 +73,7 @@ public class ShapeList2ExporterMapping implements IMapping {
 
 	@Override
 	public void onListCleaned(final Object list) {
-		updateExporter();
+		exporter.setActivated(false);
 	}
 
 
