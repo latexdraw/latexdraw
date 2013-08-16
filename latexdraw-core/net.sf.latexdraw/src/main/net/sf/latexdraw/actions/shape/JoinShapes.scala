@@ -33,17 +33,11 @@ import net.sf.latexdraw.lang.LangTool
  * @since 3.0
  */
 class JoinShapes extends Action with ShapesAction with DrawingAction with Undoable with Modifying {
-	/** The index of the joined shapes into the original list. */
-	protected var positionShapes : Buffer[Int] = null
-
 	/** The added group of shapes. */
-	protected var addedGroup : IGroup = null
+	protected val addedGroup : IGroup = DrawingTK.getFactory().createGroup(true)
 
 
 	override protected def doActionBody() {
-		val drawingSh = _drawing.get.getShapes
-		addedGroup = DrawingTK.getFactory().createGroup(true)
-		positionShapes = shapes.map{sh => drawingSh.indexOf(sh)}
 		joinShapes
 	}
 
@@ -53,7 +47,11 @@ class JoinShapes extends Action with ShapesAction with DrawingAction with Undoab
 
 	private def joinShapes() {
 		val dr = _drawing.get
-		_shapes.foreach{sh =>
+		val drawingSh = dr.getShapes
+		// creating a map from the shapes to join and their index
+		val map = _shapes.map{sh => (drawingSh.indexOf(sh), sh)}.toMap
+
+		map.keySet.toIndexedSeq.sorted.map{index => map.get(index).get}.foreach{sh =>
 			dr.removeShape(sh)
 			addedGroup.addShape(sh)
 		}
@@ -65,9 +63,13 @@ class JoinShapes extends Action with ShapesAction with DrawingAction with Undoab
 
 	override def undo() {
 		val dr = _drawing.get
+		val drawingSh = dr.getShapes
+		val map = _shapes.map{sh => (sh, drawingSh.indexOf(sh))}.toMap
+
 		dr.removeShape(addedGroup)
+		addedGroup.getShapes.foreach{sh => dr.addShape(sh, map.get(sh).get)}
 		addedGroup.clear
-		for(i <- 0 to positionShapes.length-1) dr.addShape(_shapes.get(i), positionShapes.get(i))
+		dr.setModified(true)
 	}
 
 
@@ -79,5 +81,5 @@ class JoinShapes extends Action with ShapesAction with DrawingAction with Undoab
 	override def getUndoName() = LangTool.INSTANCE.getStringOthers("UndoRedoManager.join")
 
 
-	override def isRegisterable()  = true
+	override def isRegisterable() = true
 }
