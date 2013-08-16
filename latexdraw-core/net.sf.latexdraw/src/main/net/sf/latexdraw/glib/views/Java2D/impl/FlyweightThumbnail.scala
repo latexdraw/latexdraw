@@ -11,13 +11,10 @@ import java.io.RandomAccessFile
 import java.io.StringWriter
 import java.nio.channels.FileChannel
 import java.util.regex.Pattern
-
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
-
 import com.sun.pdfview.PDFFile
-
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.filters.PDFFilter
 import net.sf.latexdraw.filters.PSFilter
@@ -35,6 +32,7 @@ import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.util.LSystem
 import net.sf.latexdraw.util.StreamExecReader
+import javax.swing.SwingUtilities
 
 /**
  * This flyweight manages the thumbnails of the text shapes. Its goal is to limit the number
@@ -127,14 +125,15 @@ object FlyweightThumbnail {
 				if(_thread) {
 					creationsInProgress.synchronized{creationsInProgress+=view}
 					res = new Tuple4[Image,Set[IViewText],String,String](null, Set(), "", "Creation in progress")
-					new Thread() {
+					SwingUtilities.invokeLater(new Thread() {
 						override def run() {
 							val tuple = createImage(shape)
 							images.synchronized{images+=(text -> new Tuple4[Image,Set[IViewText],String,String](tuple._1, Set(view), tuple._2, tuple._3))}
 							creationsInProgress.synchronized{creationsInProgress-=view}
+							view.updateBorder
 							if(_canvas!=null) _canvas.refresh
 						}
-					}.start()
+					});
 				}
 				else {
 					val tuple = createImage(shape)
