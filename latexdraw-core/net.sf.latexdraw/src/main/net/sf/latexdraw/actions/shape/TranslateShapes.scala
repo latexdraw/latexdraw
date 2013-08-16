@@ -46,6 +46,8 @@ class TranslateShapes extends Action with ShapeAction[IGroup] with DrawingAction
 
 	override def isRegisterable() = hadEffect
 
+	override def hadEffect() = !LNumber.INSTANCE.equals(performedTx, 0.0) || !LNumber.INSTANCE.equals(performedTy, 0.0)
+
 
 	protected def doActionBody() {
 		_shape.get.translate(_tx-performedTx, _ty-performedTy)
