@@ -50,11 +50,13 @@ class TranslateShapes extends Action with ShapeAction[IGroup] with DrawingAction
 
 
 	protected def doActionBody() {
-		_shape.get.translate(_tx-performedTx, _ty-performedTy)
-		_shape.get.setModified(true)
-		_drawing.get.setModified(true)
-		performedTx = _tx
-		performedTy = _ty
+		if(!LNumber.INSTANCE.equals((_tx-performedTx), 0.0) || !LNumber.INSTANCE.equals((_ty-performedTy), 0.0)) {
+			_shape.get.translate(_tx-performedTx, _ty-performedTy)
+			_shape.get.setModified(true)
+			_drawing.get.setModified(true)
+			performedTx = _tx
+			performedTy = _ty
+		}
 	}
 
 
