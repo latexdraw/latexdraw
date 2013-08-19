@@ -1,0 +1,13 @@
+MUTANT51
+
+In this mutant is introduced a interaction link fault: 
+
+The mutated file is package  net.sf.latexdraw.instruments.Hand.
+The mutated code is the operation updateAction() in the DnD2Select class.
+
+To produce the failure:
+1. Draw one or more shapes on canvas
+2. Click on select in the tool bar
+3. Drag and drop on canvas
+ 
+Actual result: All shapes drawn are selected.
