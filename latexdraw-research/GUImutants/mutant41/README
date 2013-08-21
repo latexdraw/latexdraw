@@ -1,0 +1,13 @@
+MUTANT41
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package net.sf.latexdraw.ui.LCanvas.
+The mutated code is the operation paintViews.
+
+To produce the failure:
+1. Draw a shape on canvas
+2. Perform zooming in (e.g., 125%) by clicking on the spinner widget or using shortcuts (crtl + mouse wheel) or entering the values on text field spinner.
+
+ 
+Actual result: Zoom is performed incorrectly.

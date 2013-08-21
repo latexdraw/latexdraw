@@ -1,0 +1,11 @@
+MUTANT28
+
+In this mutant is introduced a interaction link fault: 
+
+The mutated file is package package package net.sf.latexdraw.instruments.Pencil
+The mutated code is the operation initialiseLinks().
+
+To produce the failure:
+1. Draw one of the following shapes: joined lines, polygon, closed Bézier curve or Bézier curve (the shapes which need a click on canvas before)
+
+Actual result: The shape is not drawn.

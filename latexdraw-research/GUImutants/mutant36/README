@@ -1,0 +1,13 @@
+MUTANT36
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package  net.sf.latexdraw.ui.UIBuilder.
+The mutated code is the setEventableToInstruments().
+
+To produce the failure:
+1. Select a shape style in toolbar
+2. Drag and drop to draw a shape on canvas until appears the scroll bars
+3. Perform  the horizontal or vertically scroll by mouse wheel.
+
+ Actual result:  The scroll does not work.

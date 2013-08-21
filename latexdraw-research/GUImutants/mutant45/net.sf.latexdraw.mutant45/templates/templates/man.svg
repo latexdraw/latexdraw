@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw">
+    <defs/>
+    <g>
+        <g latexdraw:type="drawing" id="29">
+            <g latexdraw:type="ellipse" id="17">
+                <ellipse rx="22.0" ry="28.5" cx="129.0" cy="204.5"
+                    latexdraw:borderPos="outer" stroke-width="2.0"
+                    stroke="black" fill="none"/>
+            </g>
+            <g latexdraw:type="bezierCurve" id="19">
+                <path
+                    d="M 132.0 234.0 C 144.0 259.0 156.0 299.0 140.0 324.0 "
+                    stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+            </g>
+            <g latexdraw:type="bezierCurve" id="20">
+                <path
+                    d="M 162.0 402.0 C 179.0 365.0 158.0 341.0 141.0 324.0 "
+                    stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+            </g>
+            <g latexdraw:type="line" id="21">
+                <line x1="162.0" x2="181.0" y1="402.0" y2="396.0"
+                    stroke-width="2.0" stroke="black" latexdraw:rotationAngle="0.0"/>
+            </g>
+            <g latexdraw:type="bezierCurve" id="22">
+                <path
+                    d="M 140.0 323.0 C 118.0 348.0 108.0 380.0 119.0 400.0 "
+                    stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+            </g>
+            <g latexdraw:type="line" id="23">
+                <line x1="118.0" x2="103.0" y1="399.0" y2="397.0"
+                    stroke-width="2.0" stroke="black" latexdraw:rotationAngle="0.0"/>
+            </g>
+            <g latexdraw:type="bezierCurve" id="24">
+                <path
+                    d="M 138.0 250.0 C 168.0 250.0 210.0 272.0 148.0 292.0 "
+                    stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+            </g>
+            <g latexdraw:type="line" id="25">
+                <line x1="150.0" x2="170.0" y1="292.0" y2="298.0"
+                    stroke-width="2.0" stroke="black" latexdraw:rotationAngle="0.0"/>
+            </g>
+            <g latexdraw:type="bezierCurve" id="26">
+                <path
+                    d="M 140.0 291.0 C 110.05834319410604 286.0643120536383 73.96319560193382 260.8373793486737 138.3093072884114 250.66005598586014 "
+                    stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="3.2967689075150655"/>
+            </g>
+            <g latexdraw:type="line" id="27">
+                <line x1="142.0" x2="121.5154533133977" y1="291.0"
+                    y2="299.4911435385404" stroke-width="2.0"
+                    stroke="black" latexdraw:rotationAngle="3.2967689075150655"/>
+            </g>
+        </g>
+    </g>
+</svg>

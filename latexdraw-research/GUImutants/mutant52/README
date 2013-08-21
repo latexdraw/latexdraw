@@ -1,0 +1,12 @@
+MUTANT52
+
+In this mutant is introduced a abort interaction fault: 
+
+The mutated file is package  net.sf.latexdraw.instruments.TextSetter.
+The mutated code is the operation isConditionRespected() in the KeyPress2Desactivate class.
+
+To produce the failure:
+1. Typing some text on canvas
+2. Press "ESC" key to abort
+ 
+Actual result: The text is not deleted (i.e. typing is not aborted).

@@ -1,0 +1,11 @@
+MUTANT44
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package net.sf.latexdraw.glib.models.impl.LShape.
+The mutated code is the operation translate.
+
+To produce the failure:
+1. Draw a shape on canvas 
+ 
+Actual result:  A line is drawn on top of canvas instead of the shape.

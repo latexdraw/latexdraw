@@ -1,0 +1,13 @@
+MUTANT45
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package net.sf.latexdraw.actions.shape.TranslateShapes
+The mutated code is the operation doActionBody().
+
+To produce the failure:
+1. Draw a shape on canvas 
+2. Select the shape
+3. Move the shape by drag and drop
+ 
+Actual result:  The shape moves incorrectly (it disappears off the canvas)

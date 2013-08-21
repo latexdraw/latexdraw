@@ -1,0 +1,7 @@
+/bin
+/test
+/target
+*~
+/.cache
+/site
+/.scala_dependencies

@@ -1,0 +1,12 @@
+MUTANT43
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.ShapeTransformer.
+The mutated code is the operation Button2Align.
+
+To produce the failure:
+1. Draw two or more shapes on canvas 
+2. Align the shapes.
+ 
+Actual result:  The shapes are not aligned correctly.

@@ -1,0 +1,12 @@
+MUTANT29
+
+In this mutant is introduced a interaction link fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.Pencil
+The mutated code is the operation initialiseLinks().
+
+To produce the failure:
+1. Typing some text on canvas 
+2. Clicking on canvas 
+
+Actual result: The text is not added.

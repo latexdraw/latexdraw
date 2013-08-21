@@ -1,0 +1,11 @@
+MUTANT47
+
+In this mutant is introduced a interaction link fault: 
+
+The mutated file is package net.sf.latexdraw.instruments.EditingSelector.
+The mutated code is the operation initAction() in the ButtonPressed2ActivateIns class.
+
+To produce the failure:
+1. Click on tool bar to select a shape style (e.g., line, rectangle, triangle, so on) 
+ 
+Actual result:  The shape properties are not activated on the left bottom of the canvas.

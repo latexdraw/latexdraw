@@ -1,0 +1,24 @@
+Patches:
+Jan-Cornelius MOLNAR: Mac OS X integration
+
+Translations:
+
+Brazilian Portuguese: Emerson Vinicius, José Humberto Alvarenga Melo, Matheus de Araújo, Eugênio F, Joao Luiz
+Catalan: Marc Coll Carrillo, Manel Velasco
+Czech: Michal Janoušek
+English-UK: Arnaud Blouin, Malcolm Parsons
+French: Arnaud Blouin, Thibault Liebert
+German: Lukas Woodtli, Data, maar7, mm, Sebastian Schlatow, Sebastian Lipp, Flosen, xlazarus, ah8982, Dennis Baudys, Julian Gehring
+Hungarian: Máté Nagy, Griechisch Erika
+Italian: Andrea Burattin, Guybrush88, Franco Buratti, Omar Inverso, Luca Martini, Martino Barbon, Simone Sandri, Matteo Ferrabone
+Japanese: uji, Koji Yokota
+Polish: Przemyslaw Dabek
+Russian: Pand5461, Nikita Putko, Aleksey Kabanov
+Serbian: Мирослав Николић
+Spanish: Ruben Agapito, Juan Pablo García, Manel Velasco, Luis J. Claros, Hector A. Mantellini, Fitoschido, ghas
+Turkish: kosti
+Ukranian: Max_ym
+Vietnamese: Nguyen Quang Chien
+
+We need you for the translations!
+See: https://translations.launchpad.net/latexdraw

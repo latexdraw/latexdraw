@@ -1,0 +1,11 @@
+MUTANT33
+
+In this mutant is introduced a presentation fault: 
+
+The mutated file is package net.sf.latexdraw.glib.ui.LMagneticGrid.
+The mutated code is the operation setSize().
+
+To produce the failure:
+1. Open latexdraw
+ 
+Actual result:  The magnetic grid is not displayed.

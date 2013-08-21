@@ -1,0 +1,13 @@
+MUTANT19
+
+In this mutant is introduced a data presentation fault: 
+
+The mutated file is package package net.sf.latexdraw.actions.shape.ModifyShapeProperty
+The mutated code is the operation isPropertySupported().
+
+To produce the failure:
+1. Draw a shape on canvas
+2. Select the shape
+3. Modify its border of properties by changing the color of the border.
+
+Actual result: The color of its border is not changed according the selected value.

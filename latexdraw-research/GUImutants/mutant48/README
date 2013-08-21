@@ -1,0 +1,12 @@
+MUTANT48
+
+In this mutant is introduced a interaction link fault: 
+
+The mutated file is package  net.sf.latexdraw.instruments.TextSetter.
+The mutated code is the operation initAction() in the Enter2AddText class.
+
+To produce the failure:
+1. Type some text on canvas.
+2. Press enter to add the text.
+ 
+Actual result:  The text is not added on canvas.

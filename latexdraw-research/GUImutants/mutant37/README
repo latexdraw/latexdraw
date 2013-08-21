@@ -1,0 +1,11 @@
+MUTANT37
+
+In this mutant is introduced a interaction behavior fault: 
+
+The mutated file is package net.sf.latexdraw.ui.UIBuilder.
+The mutated code is the operation setEventableToInstruments().
+
+To produce the failure:
+1. Zoom in or zoom out by clicking on the spinner widget or using shortcuts (crtl + mouse wheel) or entering some values on text field spinner.
+
+Actual result:  The zoom does not work.

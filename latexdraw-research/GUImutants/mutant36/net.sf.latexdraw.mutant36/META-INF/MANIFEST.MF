@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Build-Jdk: 1.7.0_09
+Main-Class: net.sf.latexdraw.LaTeXDraw
+Class-Path: ./ lib/jlibeps.jar lib/malai.core-1.0.jar lib/malai.swing-1.0.jar lib/PDFRenderer-0.9.1.jar lib/scala-library.jar

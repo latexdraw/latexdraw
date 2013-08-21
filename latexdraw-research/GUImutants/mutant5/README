@@ -1,0 +1,11 @@
+MUTANT5
+
+In this mutant is introduced a interim feedback fault: 
+
+The mutated file is net.sf.latexdraw.glib.ui.LCanvas.
+The mutated code is the operation setTempView.
+
+To produce the failure:
+1. Drag-and-drop onto the drawing area to draw a shape.
+
+Actual result: Don't show the intermediary states when a shape has been drawn.

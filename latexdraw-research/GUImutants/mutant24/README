@@ -1,0 +1,14 @@
+MUTANT24
+
+In this mutant is introduced a reversible actions fault: 
+
+The mutated file is package package net.sf.latexdraw.actions.shape.RotateShapes
+The mutated code is the operation redo().
+
+To produce the failure:
+1. Draw a shape on canvas
+2. Select the shape
+3. Rotate the shape
+4. Perform a undo action and then redo this action
+
+Actual result: The redo action does not work.

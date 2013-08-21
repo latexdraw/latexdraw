@@ -1,0 +1,14 @@
+MUTANT38
+
+In this mutant is introduced a reversible actions fault: 
+
+The mutated file is package net.sf.latexdraw.ui.UIBuilder.
+The mutated code is the operation getEventableToInstruments().
+
+To produce the failure:
+1. Draw a shape on canvas.
+2. Undo (by click on the toolbar) this drawing.
+ 
+Actual result:  The undo does not work.
+
+Observation: Shortcuts for undo or redo actions do not work on Mac.
