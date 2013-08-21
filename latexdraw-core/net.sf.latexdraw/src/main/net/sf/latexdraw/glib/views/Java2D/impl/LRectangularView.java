@@ -2,10 +2,8 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.geom.Path2D;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
-import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a view of the IRectangularView model.<br>
@@ -55,33 +53,6 @@ abstract class LRectangularView<S extends IRectangularShape> extends LShapeView<
 
 		return gap;
 	}
-
-
-	@Override
-	public void updateBorder() {
-		final double height		= shape.getHeight();
-		final double thickness	= shape.getThickness();
-		double gap				= getBorderGap();
-
-		// Defining the coordinates and dimensions of the not rotated border.
-		double tlx = shape.getX()-gap;
-		double tly = shape.getY()-height-gap;
-		final double widthBorder  = Math.max(shape.getWidth()+gap*2., thickness);
-		final double heightBorder = Math.max(height+gap*2., thickness);
-		final double angle 		  = shape.getRotationAngle();
-
-		if(LNumber.INSTANCE.equals(angle, 0.))
-			border.setFrame(tlx, tly, widthBorder, heightBorder);
-		else {
-			IPoint tl = DrawingTK.getFactory().createPoint();
-			IPoint br = DrawingTK.getFactory().createPoint();
-			getRotatedRectangle(tlx, tly, widthBorder, heightBorder, angle, shape.getGravityCentre(), tl, br);
-			// The border of the rotated rectangle is now the border of the rectangular view.
-			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
-		}
-	}
-
-
 
 
 	@Override
