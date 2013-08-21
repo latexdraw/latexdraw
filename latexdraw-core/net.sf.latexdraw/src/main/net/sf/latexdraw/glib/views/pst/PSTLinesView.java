@@ -57,5 +57,8 @@ class PSTLinesView extends PSTPolygonView {
 		if(arrowsStyle!=null)
 			cache.append(arrowsStyle);
 		cache.append(points);
+
+		if(rotation!=null)
+			cache.append('}');
 	}
 }
