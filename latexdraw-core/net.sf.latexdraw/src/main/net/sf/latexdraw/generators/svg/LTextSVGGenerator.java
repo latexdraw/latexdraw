@@ -98,7 +98,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 		catch(Exception e) { textSize = null; }
 
 		if(textSize!=null)
-			shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText() + '}');
+			shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}');
 
 		if(SVGAttributes.SVG_FONT_WEIGHT_BOLD.equals(elt.getAttribute(SVGAttributes.SVG_FONT_WEIGHT)))
 			shape.setText("\\textbf{" + shape.getText() + '}');
