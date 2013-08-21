@@ -131,7 +131,10 @@ object FlyweightThumbnail {
 							images.synchronized{images+=(text -> new Tuple4[Image,Set[IViewText],String,String](tuple._1, Set(view), tuple._2, tuple._3))}
 							creationsInProgress.synchronized{creationsInProgress-=view}
 							view.updateBorder
-							if(_canvas!=null) _canvas.refresh
+							if(_canvas!=null) {
+								_canvas.getBorderInstrument.update
+								_canvas.refresh
+							}
 						}
 					});
 				}
