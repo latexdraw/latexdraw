@@ -79,5 +79,8 @@ class PSTPolygonView extends PSTClassicalView<IPolygon> {
 		cache.append(getPropertiesCode(ppc));
 		cache.append(']');
 		cache.append(points);
+
+		if(rotation!=null)
+			cache.append('}');
 	}
 }
