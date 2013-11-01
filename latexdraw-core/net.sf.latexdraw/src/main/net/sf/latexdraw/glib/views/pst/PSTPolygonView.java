@@ -70,17 +70,10 @@ class PSTPolygonView extends PSTClassicalView<IPolygon> {
 		emptyCache();
 
 		final StringBuilder points   = getPointsCode(position, ppc);
-		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
-
-		if(rotation!=null)
-			cache.append(rotation);
 
 		cache.append("\\pspolygon["); //$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc));
 		cache.append(']');
 		cache.append(points);
-
-		if(rotation!=null)
-			cache.append('}');
 	}
 }
