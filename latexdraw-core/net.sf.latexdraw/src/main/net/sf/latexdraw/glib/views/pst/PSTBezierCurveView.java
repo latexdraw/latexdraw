@@ -52,7 +52,6 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 		StringBuilder arrowsStyle= getArrowsStyleCode();
 		StringBuilder params 	= getPropertiesCode(ppc);
 		StringBuilder coord 	= new StringBuilder();
-		StringBuilder rotation 	= getRotationHeaderCode(ppc, origin);
 		List<IPoint> pts 		= shape.getPoints();
 		List<IPoint> fCtrlPts 	= shape.getFirstCtrlPts();
 		List<IPoint> sCtrlPts 	= shape.getSecondCtrlPts();
@@ -104,17 +103,11 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 			coord.append(LNumber.INSTANCE.getCutNumber((float)((originy-pt.getY())/ppc))).append(')');
 		}
 
-		if(rotation!=null)
-			cache.append(rotation);
-
 		cache.append("\\psbezier["); //$NON-NLS-1$
 		cache.append(params);
 		cache.append(']');
 		if(arrowsStyle!=null)
 			cache.append(arrowsStyle);
 		cache.append(coord);
-
-		if(rotation!=null)
-			cache.append('}');
 	}
 }
