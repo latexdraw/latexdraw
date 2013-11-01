@@ -76,16 +76,16 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	protected val _border : Rectangle2D = new Rectangle2D.Double()
 
 	/** The handlers that scale shapes. */
-	protected val _scaleHandlers : ListBuffer[IHandler] = new ListBuffer()
+	protected val _scaleHandlers : ListBuffer[ScaleHandler] = new ListBuffer()
 
 	/** The handlers that move points. */
-	protected lazy val _mvPtHandlers : ListBuffer[IHandler] = new ListBuffer()
+	protected lazy val _mvPtHandlers : ListBuffer[MovePtHandler] = new ListBuffer()
 
 	/** The handlers that move first control points. */
-	protected lazy val _ctrlPt1Handlers : ListBuffer[IHandler] = new ListBuffer()
+	protected lazy val _ctrlPt1Handlers : ListBuffer[CtrlPointHandler] = new ListBuffer()
 
 	/** The handlers that move second control points. */
-	protected lazy val _ctrlPt2Handlers : ListBuffer[IHandler] = new ListBuffer()
+	protected lazy val _ctrlPt2Handlers : ListBuffer[CtrlPointHandler] = new ListBuffer()
 
 //	/** The handler that sets the arc frame. */
 //	protected lazy val frameArcHandler : FrameArcHandler = new FrameArcHandler()
@@ -97,7 +97,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	protected lazy val _arcHandlerEnd : ArcAngleHandler = new ArcAngleHandler(false)
 
 	/** The handler that rotates shapes. */
-	protected val _rotHandler : IHandler = new RotationHandler()
+	protected val _rotHandler : RotationHandler = new RotationHandler()
 
 	protected var _metaCustomiser : MetaShapeCustomiser = null
 
@@ -198,7 +198,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	 * @since 3.0
 	 */
 	private def updateHandlersPosition() {
-		_scaleHandlers.foreach{handler => handler.updateFromShape(_border)}
+		_scaleHandlers.foreach(_.updateFromShape(_border))
 		_rotHandler.setPoint(_border.getMaxX, _border.getMinY)
 
 //		if(isFrameArcHandlerShowable())
@@ -216,12 +216,12 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	 */
 	private def updateArcHandlers() {
 		if(isArcHandlerShowable) {
-			val sh = _selection.apply(0).getShape
+			val sh = _selection(0).getShape
 
 			if(sh.isTypeOf(classOf[IArc])) {
 				val arc = sh.asInstanceOf[IArc]
-				_arcHandlerStart.updateFromArc(arc, canvas.getZoom)
-				_arcHandlerEnd.updateFromArc(arc, canvas.getZoom)
+				_arcHandlerStart.update(arc, canvas.getZoom)
+				_arcHandlerEnd.update(arc, canvas.getZoom)
 			}
 		}
 	}
@@ -233,7 +233,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	 */
 	private def updateCtrlMvHandlers() {
 		if(isCtrlPtMvHandlersShowable) {
-			val sh = _selection.apply(0).getShape
+			val sh = _selection(0).getShape
 
 			if(sh.isTypeOf(classOf[IControlPointShape]))
 				// Lazy initialisation
@@ -277,7 +277,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	 */
 	private def updateMvHandlers() {
 		if(isPtMvHandlersShowable) {
-			val sh = _selection.apply(0).getShape
+			val sh = _selection(0).getShape
 
 			if(sh.isTypeOf(classOf[IModifiablePointsShape])) {
 				val pts   = sh.asInstanceOf[IModifiablePointsShape]
@@ -320,7 +320,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	 * Paints the required handlers.
 	 */
 	private def paintHandlers(g : Graphics2D) {
-		_scaleHandlers.foreach{handler => handler.paint(g)}
+		_scaleHandlers.foreach(_.paint(g))
 		_rotHandler.paint(g)
 
 //		if(isFrameArcHandlerShowable())
@@ -332,11 +332,11 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 		}
 
 		if(isPtMvHandlersShowable) {
-			_mvPtHandlers.foreach{mvHandler => mvHandler.paint(g)}
+			_mvPtHandlers.foreach(_.paint(g))
 
 			if(isCtrlPtMvHandlersShowable) {
-				_ctrlPt1Handlers.foreach{handler => handler.paint(g)}
-				_ctrlPt2Handlers.foreach{handler => handler.paint(g)}
+				_ctrlPt1Handlers.foreach(_.paint(g))
+				_ctrlPt2Handlers.foreach(_.paint(g))
 			}
 		}
 	}
@@ -346,19 +346,19 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	/**
 	 * @return True if the control move point handlers can be painted.
 	 */
-	protected def isCtrlPtMvHandlersShowable() = _selection.size==1 && _selection.apply(0).isInstanceOf[IViewBezierCurve]
+	protected def isCtrlPtMvHandlersShowable() = _selection.size==1 && _selection(0).isInstanceOf[IViewBezierCurve]
 
 
 	/**
 	 * @return True if the move point handlers can be painted.
 	 */
-	protected def isPtMvHandlersShowable() = _selection.size==1 && _selection.apply(0).isInstanceOf[IViewModifiablePtsShape]
+	protected def isPtMvHandlersShowable() = _selection.size==1 && _selection(0).isInstanceOf[IViewModifiablePtsShape]
 
 
 	/**
 	 * @return True if the arc handlers can be painted.
 	 */
-	protected def isArcHandlerShowable() = _selection.size==1 && _selection.apply(0).isInstanceOf[IViewArc]
+	protected def isArcHandlerShowable() = _selection.size==1 && _selection(0).isInstanceOf[IViewArc]
 
 
 //	/**
@@ -477,7 +477,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 
 
 
-	private def getHandlerAt(x : Double, y : Double, handlers : ListBuffer[IHandler]) : Option[IHandler] = {
+	private def getHandlerAt[T <: IHandler[_]](x : Double, y : Double, handlers : ListBuffer[T]) : Option[T] = {
 		handlers match {
 			case null => None
 			case _ => handlers.find{handler => handler.contains(x, y)}
@@ -489,7 +489,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 
 
 	// Supposing that there is no handler outside the border.
-	override def contains(obj : Object) = obj.isInstanceOf[IHandler]
+	override def contains(obj : Object) = obj.isInstanceOf[IHandler[_]]
 }
 
 
@@ -513,10 +513,10 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 	def initAction() {
 		val drawing = instrument.canvas.getDrawing
 
-		if(drawing.getSelection.size()==1) {
-			shape = drawing.getSelection().getShapeAt(0)
+		if(drawing.getSelection.size==1) {
+			shape = drawing.getSelection.getShapeAt(0)
 			val rotAngle = shape.getRotationAngle
-			var pCentre = interaction.getStartObject.asInstanceOf[IHandler].getCentre
+			var pCentre = interaction.getStartObject.asInstanceOf[IHandler[_]].getCentre
 			var pt = DrawingTK.getFactory.createPoint(interaction.getStartPt)
 			gc = shape.getGravityCentre
 			gc = DrawingTK.getFactory.createPoint(gc.getX*instrument.canvas.getZoom, gc.getY*instrument.canvas.getZoom)

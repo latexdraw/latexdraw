@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 import org.malai.picking.Pickable;
 
@@ -26,8 +27,9 @@ import org.malai.picking.Pickable;
  * 08/29/11<br>
  * @author Arnaud BLOUIN<br>
  * @version 3.0<br>
+ * @param <T> The type of the shape model that the handler controls.
  */
-public interface IHandler extends Pickable {
+public interface IHandler<T extends IShape> extends Pickable {
 	/** The default size of a handler. */
 	int DEFAULT_SIZE = 16;
 
@@ -84,8 +86,10 @@ public interface IHandler extends Pickable {
 
 	/**
 	 * Updates the handler.
+	 * @param shape The shape model.
+	 * @param zoom The current zoom level.
 	 */
-	void update();
+	void update(final T shape, final double zoom);
 
 	/**
 	 * @return the size of the handler.

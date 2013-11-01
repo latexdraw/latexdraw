@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
 
+import net.sf.latexdraw.glib.models.interfaces.IShape;
+
 /**
  * Defines a handler that rotates a shape.<br>
  *<br>
@@ -24,7 +26,7 @@ import java.awt.geom.Path2D;
  * @author Arnaud BLOUIN<br>
  * @version 3.0<br>
  */
-public class RotationHandler extends Handler<Path2D> {
+public class RotationHandler extends Handler<Path2D, IShape> {
 	public static final BasicStroke STROKE = new BasicStroke(2.5f);
 
 	private Arc2D arc;

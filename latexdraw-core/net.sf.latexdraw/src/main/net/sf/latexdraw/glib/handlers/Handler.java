@@ -7,6 +7,7 @@ import java.awt.Shape;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 import org.malai.picking.Picker;
 
@@ -29,7 +30,7 @@ import org.malai.picking.Picker;
  * @author Arnaud BLOUIN<br>
  * @version 3.0<br>
  */
-abstract class Handler<T extends Shape> implements IHandler {
+abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S> {
 	/** The coordinates of the centre of the delimiter. */
 	protected IPoint point;
 
@@ -128,7 +129,7 @@ abstract class Handler<T extends Shape> implements IHandler {
 	 * Updates the handler.
 	 */
 	@Override
-	public void update() {
+	public void update(final S model, final double zoom) {
 		if(opacity!=colour.getTransparency())
 			colour = new Color(colour.getRed(), colour.getGreen(),colour.getBlue(), opacity);
 

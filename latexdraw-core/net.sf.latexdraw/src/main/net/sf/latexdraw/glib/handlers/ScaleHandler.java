@@ -5,6 +5,7 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Objects;
 
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
 
 /**
@@ -26,7 +27,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
  * @author Arnaud BLOUIN<br>
  * @version 3.0<br>
  */
-public class ScaleHandler extends Handler<Path2D> {
+public class ScaleHandler extends Handler<Path2D, IShape> {
 	/** The position of the possible scalings. */
 	protected Position position;
 

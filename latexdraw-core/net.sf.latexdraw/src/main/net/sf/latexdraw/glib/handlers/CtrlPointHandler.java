@@ -2,6 +2,8 @@ package net.sf.latexdraw.glib.handlers;
 
 import java.awt.geom.Ellipse2D;
 
+import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
+
 /**
  * Defines a handler that moves a control point (for Bézier curves).<br>
  *<br>
@@ -21,7 +23,7 @@ import java.awt.geom.Ellipse2D;
  * @author Arnaud BLOUIN<br>
  * @version 3.0<br>
  */
-public class CtrlPointHandler extends Handler<Ellipse2D> {
+public class CtrlPointHandler extends Handler<Ellipse2D, IControlPointShape> {
 	/** The index of the point in its shape. */
 	protected int indexPt;
 
