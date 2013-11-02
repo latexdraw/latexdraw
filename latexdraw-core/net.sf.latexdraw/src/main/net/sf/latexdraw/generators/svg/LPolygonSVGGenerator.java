@@ -148,7 +148,7 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
         try { elt.setPoints(points); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
         root.appendChild(elt);
         setSVGAttributes(doc, elt, true);
-        setSVGRotationAttribute(root);
+        elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE +':'+ LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
         if(shape.hasDbleBord()) {
         	SVGPolygonElement dblBord = new SVGPolygonElement(doc);
