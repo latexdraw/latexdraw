@@ -174,7 +174,7 @@ class KeyPress2Desactivate extends Link<ActivateInactivateInstruments, KeyTyped,
 		int key = interaction.getKey();
 		// It is useless to check if another key is pressed because if it is the case, the interaction
 		// is in state keyPressed.
-		return (key==KeyEvent.VK_ENTER && instrument.textField.getText().length()>0) || key==KeyEvent.VK_ESCAPE;
+		return key==KeyEvent.VK_ENTER && instrument.textField.getText().length()>0 || key==KeyEvent.VK_ESCAPE;
 	}
 }
 

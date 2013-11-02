@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.ComponentAdapter;
@@ -27,6 +28,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.ToolTipable;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.mapping.ViewList2TooltipableList;
+import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
 
@@ -158,7 +160,10 @@ public class LCanvas extends MPanel implements ICanvas {
 
 		addMouseListener(new MouseListener() {
 			@Override public void mouseEntered(final MouseEvent e) {
-				LCanvas.this.requestFocusInWindow();
+				// Workaround to assure that the canvas always has the focus.
+				// This fix must not be applied when the current focused component is the text setter.
+				if(!(KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner() instanceof TextAreaAutoSize))
+					LCanvas.this.requestFocusInWindow();
 			}
 			@Override public void mouseReleased(final MouseEvent e) {/**/}
 			@Override public void mousePressed(final MouseEvent e)  {/**/}
