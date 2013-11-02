@@ -35,23 +35,26 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public void rotate(final IPoint point, final double angle) {
-		setRotationAngle(rotationAngle+angle);
+		setRotationAngle(point, angle);
 	}
 
 
+	public void setRotationAngle(final IPoint gc, double rotationAngle) {
+		if(GLibUtilities.INSTANCE.isValidCoordinate(rotationAngle)) {
+			final double diff = rotationAngle-this.rotationAngle;
+			final IPoint gc2 = gc==null ? getGravityCentre() : gc;
+
+			super.setRotationAngle(rotationAngle);
+
+			for(IPoint pt : points)
+				pt.setPoint(pt.rotatePoint(gc2, diff));
+		}
+	}
 
 
 	@Override
 	public void setRotationAngle(double rotationAngle) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(rotationAngle)) {
-			final double diff = rotationAngle-this.rotationAngle;
-			super.setRotationAngle(rotationAngle);
-
-			final IPoint gc = getGravityCentre();
-
-			for(IPoint pt : points)
-				pt.setPoint(pt.rotatePoint(gc, diff));
-		}
+		setRotationAngle(null, rotationAngle);
 	}
 
 
