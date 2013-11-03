@@ -8,6 +8,9 @@ import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.glib.ui.LMagneticGrid
+import scala.collection.mutable.ListBuffer
+import net.sf.latexdraw.glib.models.interfaces.IShape
+import java.util.ArrayList
 
 /**
  * This action pastes the copied or cut shapes.<br>
@@ -42,25 +45,27 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 
 
 	override def doActionBody() {
-		val cop = _copy
 		val dr = _drawing.get
 		// While pasting cut shapes, the first paste must be at the same position that the original shapes.
 		// But for pasting after just copying, a initial gap must be used.
-		if(!(cop.isInstanceOf[CutShapes]))
-			cop.nbTimeCopied+=1
+		if(!(_copy.isInstanceOf[CutShapes]))
+			_copy.nbTimeCopied+=1
 
 		val gapPaste = if(_grid.isMagnetic()) _grid.getGridSpacing() else 10
-		val gap = cop.nbTimeCopied*gapPaste
+		val gap = _copy.nbTimeCopied*gapPaste
+		val dups = new ArrayList[IShape]
 
-		cop.copiedShapes.foreach{shape =>
+		_copy.copiedShapes.foreach{shape =>
 			val sh = DrawingTK.getFactory.duplicate(shape)
+			dups.add(sh)
 			sh.translate(gap, gap)
 			dr.addShape(sh)
 		}
 
-		if(cop.isInstanceOf[CutShapes])
-			cop.nbTimeCopied+=1
+		if(_copy.isInstanceOf[CutShapes])
+			_copy.nbTimeCopied+=1
 
+		dr.setSelection(dups)
 		dr.setModified(true)
 	}
 
