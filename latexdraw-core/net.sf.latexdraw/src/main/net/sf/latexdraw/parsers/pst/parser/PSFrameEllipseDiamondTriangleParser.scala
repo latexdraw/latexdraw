@@ -91,7 +91,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 				case "psellipse*" | "psellipse" => List(createEllipse(hasStar, p12D, p22D, ctx))
 				case "psdiamond*" | "psdiamond" => List(createDiamond(hasStar, p12D, p22D, ctx))
 				case "pstriangle*" | "pstriangle" => List(createTriangle(hasStar, p12D, p22D, ctx))
-				case name => PSTParser.errorLogs += "Unknown command: " + name ; Nil
+				case _ => PSTParser.errorLogs += "Unknown command: " + name ; Nil
 			}
 	}
 
@@ -125,6 +125,10 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 	private def createDiamond(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IRhombus = {
 		val rh = DrawingTK.getFactory.createRhombus(true)
 		setRectangularShape(rh, p1.getX-p2.getX, p1.getY-p2.getY, scala.math.abs(p2.getX*2), scala.math.abs(p2.getY*2), hasStar, ctx)
+
+		if(!LNumber.INSTANCE.equals(ctx.gangle, 0.0))
+			rh.setRotationAngle(rh.getRotationAngle-scala.math.toRadians(ctx.gangle))
+
 		rh
 	}
 
