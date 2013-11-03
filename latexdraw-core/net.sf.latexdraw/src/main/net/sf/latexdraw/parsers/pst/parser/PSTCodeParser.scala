@@ -11,6 +11,7 @@ import java.awt.Color
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape
 import net.sf.latexdraw.util.LNumber
+import net.sf.latexdraw.glib.models.interfaces.IPicture
 
 /**
  * Defines a parser parsing PST expressions.<br>
@@ -50,7 +51,8 @@ trait PSTCodeParser extends PSTAbstractParser
 			consume(parseParabola(new PSTContext(ctx))) | consume(parsePscurve(new PSTContext(ctx))) | consume(parsePsecurve(new PSTContext(ctx))) |
 			consume(parsePsccurve(new PSTContext(ctx))) | consume(parsePSTPlotCommands(new PSTContext(ctx))) | consume(parseNewpsobject(ctx)) |
 			consume(parseNewpsstyle(ctx)) | consume(parsePscustom(new PSTContext(ctx))) | consume(parseDefineColor(ctx)) |
-			consume(parsePSCustomCommands(ctx)) | consume(parsePsFrameboxCmds(ctx)) | consume(parsetextCommands(ctx)) | consume(parseText(ctx))) ^^ {
+			consume(parseIncludeGraphics(ctx) | parsePSCustomCommands(ctx)) | consume(parsePsFrameboxCmds(ctx)) | consume(parsetextCommands(ctx)) |
+			consume(parseText(ctx))) ^^ {
 		case list =>
 		val group = DrawingTK.getFactory.createGroup(false)
 
@@ -93,6 +95,17 @@ trait PSTCodeParser extends PSTAbstractParser
 			}
 			ctx.parsedTxtNoTxt = false
 			Nil
+	}
+
+
+	override def parseIncludeGraphics(ctx : PSTContext) : Parser[IShape] = "\\includegraphics" ~ opt(parseParam(ctx)) ~ "{" ~ rep1(text|ident|numeric) ~ "}" ^^ {
+		case _ ~ _ ~ _ ~ paths ~ _ =>
+			PSTParser.errorLogs += "The command includegraphics is not supported yet."
+			null
+//			val pic = DrawingTK.getFactory.createPicture(true, DrawingTK.getFactory.createPoint)
+//			val pathEPS = paths.mkString
+//			pic.setPathSource(pathEPS)
+//			pic
 	}
 
 

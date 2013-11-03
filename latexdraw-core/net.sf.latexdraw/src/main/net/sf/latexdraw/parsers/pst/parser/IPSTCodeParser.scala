@@ -37,6 +37,8 @@ trait IPSTCodeParser extends TokenParsers {
 
 	def parseNewpsstyle(ctx : PSTContext) : Parser[List[IShape]]
 
+	def parseIncludeGraphics(ctx : PSTContext) : Parser[IShape]
+
 	def parsePSTBlock(ctx : PSTContext, isPsCustomBlock : Boolean) : Parser[IGroup]
 
 	/** Parses the command definecolor. */
