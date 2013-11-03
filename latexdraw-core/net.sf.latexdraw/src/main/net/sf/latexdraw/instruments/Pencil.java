@@ -17,6 +17,7 @@ import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
+import net.sf.latexdraw.util.LNumber;
 
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
@@ -458,17 +459,24 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 		final IPoint startPt= instrument.getAdaptedPoint(interaction.getStartPt());
 		final IPoint endPt	= instrument.getAdaptedPoint(interaction.getEndPt());
 
-		if((ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE  || ec==EditionChoice.CIRCLE_ARC) && shape instanceof IRectangularShape)
+		if((ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE  || ec==EditionChoice.CIRCLE_ARC) && shape instanceof IRectangularShape) {
 			updateShapeFromCentre((IRectangularShape)shape, startPt, endPt.getX());
+			shape.setModified(true);
+			action.drawing().get().setModified(true);
+		}
 		else
-			if(ec==EditionChoice.FREE_HAND && shape instanceof IFreehand)
-				((IFreehand)shape).addPoint(endPt);
+			if(ec==EditionChoice.FREE_HAND && shape instanceof IFreehand) {
+				final IFreehand fh = (IFreehand)shape;
+				final IPoint lastPoint = fh.getPtAt(-1);
+				if(!LNumber.INSTANCE.equals(lastPoint.getX(), endPt.getX(), 0.0001) && !LNumber.INSTANCE.equals(lastPoint.getY(), endPt.getY(), 0.0001))
+					fh.addPoint(endPt);
+			}
 			else
-				if(shape instanceof IRectangularShape)
+				if(shape instanceof IRectangularShape) {
 					updateShapeFromDiag((IRectangularShape)shape, startPt, endPt);
-
-		shape.setModified(true);
-		action.drawing().get().setModified(true);
+					shape.setModified(true);
+					action.drawing().get().setModified(true);
+				}
 	}
 
 
