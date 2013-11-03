@@ -99,7 +99,7 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 		img.setAttribute(SVGAttributes.SVG_Y, String.valueOf(shape.getPosition().getY()));
 		img.setAttribute(SVGAttributes.SVG_HEIGHT, String.valueOf(shape.getImage().getHeight(null)));
 		img.setAttribute(SVGAttributes.SVG_WIDTH, String.valueOf(shape.getImage().getWidth(null)));
-
+		setSVGRotationAttribute(root);
 		root.appendChild(img);
 
 		return root;

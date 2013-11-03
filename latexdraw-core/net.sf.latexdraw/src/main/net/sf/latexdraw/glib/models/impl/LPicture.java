@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.EPSFilter;
+import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -128,6 +129,50 @@ class LPicture extends LPositionShape implements IPicture {
 		}
 	}
 
+
+	@Override
+	public IPoint getPosition() {
+		return getTopLeftPoint();
+	}
+
+
+	@Override
+	public IPoint getTopLeftPoint() {
+		return getPtAt(0);
+	}
+
+
+	@Override
+	public IPoint getTopRightPoint() {
+		final IPoint pos = getPtAt(0);
+		return DrawingTK.getFactory().createPoint(pos.getX()+getWidth(), pos.getY());
+	}
+
+
+	@Override
+	public IPoint getFullBottomRightPoint() {
+		return getBottomRightPoint();
+	}
+
+
+	@Override
+	public IPoint getFullTopLeftPoint() {
+		return getTopLeftPoint();
+	}
+
+
+	@Override
+	public IPoint getBottomRightPoint() {
+		final IPoint pos = getPtAt(0);
+		return DrawingTK.getFactory().createPoint(pos.getX()+getWidth(), pos.getY()+getHeight());
+	}
+
+
+	@Override
+	public IPoint getBottomLeftPoint() {
+		final IPoint pos = getPtAt(0);
+		return DrawingTK.getFactory().createPoint(pos.getX(), pos.getY()+getHeight());
+	}
 
 
 	@Override

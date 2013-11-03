@@ -81,12 +81,12 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 
 	@Override
 	public double getX() {
-		return getBottomLeftPoint().getX();
+		return getPosition().getX();
 	}
 
 
 	@Override
 	public double getY() {
-		return getBottomLeftPoint().getY();
+		return getPosition().getY();
 	}
 }

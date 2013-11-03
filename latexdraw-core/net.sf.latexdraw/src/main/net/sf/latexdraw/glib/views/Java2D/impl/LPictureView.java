@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines an abstract view of the IPicture model.<br>
@@ -31,7 +33,6 @@ class LPictureView extends LShapeView<IPicture> {
 	 */
 	protected LPictureView(final IPicture model) {
 		super(model);
-
 		update();
 	}
 
@@ -50,13 +51,21 @@ class LPictureView extends LShapeView<IPicture> {
 
 	@Override
 	public void paint(final Graphics2D g) {
+		final IPoint vectorTrans = beginRotation(g);
+
 		g.drawImage(shape.getImage(), (int)shape.getX(), (int)shape.getY(), null);
+
+		if(vectorTrans!=null)
+			endRotation(g, vectorTrans);
 	}
 
 
 	@Override
 	public void updateBorder() {
 		border.setFrame(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+
+		if(!LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.))
+			border.setFrame(getRotatedShape2D(shape.getRotationAngle(), border, shape.getTopLeftPoint(), shape.getBottomRightPoint()).getBounds2D());
 	}
 
 
