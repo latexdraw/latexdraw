@@ -19,8 +19,8 @@ public class TestLFreeHand<T extends IFreehand> extends TestIFreehand<T> {
 	@Before
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createFreeHand(DrawingTK.getFactory().createPoint(), false);
-		shape2 = (T) DrawingTK.getFactory().createFreeHand(DrawingTK.getFactory().createPoint(), false);
+		shape  = (T) DrawingTK.getFactory().createFreeHand(false);
+		shape2 = (T) DrawingTK.getFactory().createFreeHand(false);
 	}
 
 
@@ -38,16 +38,8 @@ public class TestLFreeHand<T extends IFreehand> extends TestIFreehand<T> {
 
 
 	@Test
-	public void testConstructorsWithValidPoint() {
-		final IFreehand fh = DrawingTK.getFactory().createFreeHand(DrawingTK.getFactory().createPoint(), false);
+	public void testConstructors() {
+		final IFreehand fh = DrawingTK.getFactory().createFreeHand(false);
 		assertNotNull(fh);
-	}
-
-	@Test
-	public void testConstructorsWithNotValidPoint() {
-		try {
-			DrawingTK.getFactory().createFreeHand(null, false);
-			fail();
-		}catch(IllegalArgumentException e) { /* ok */ }
 	}
 }

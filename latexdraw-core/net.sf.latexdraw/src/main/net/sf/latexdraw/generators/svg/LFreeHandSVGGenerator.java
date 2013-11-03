@@ -54,7 +54,7 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 
 	protected LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createFreeHand(DrawingTK.getFactory().createPoint(), false));
+		this(DrawingTK.getFactory().createFreeHand(false));
 
 		final IShapeFactory factory = DrawingTK.getFactory();
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -78,8 +78,6 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 		for(Point2D pt : pts)
 			shape.addPoint(factory.createPoint(pt.getX(), pt.getY()));
-
-		shape.removePoint(0);
 
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);

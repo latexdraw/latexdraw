@@ -97,7 +97,7 @@ public class TestLGroup<T extends IGroup> extends TestIGroup<T> {
 		assertTrue(shape.isTypeOf(IAxes.class));
 
 		assertFalse(shape.isTypeOf(IFreehand.class));
-		shape.addShape(DrawingTK.getFactory().createFreeHand(DrawingTK.getFactory().createPoint(), false));
+		shape.addShape(DrawingTK.getFactory().createFreeHand(false));
 		assertTrue(shape.isTypeOf(IFreehand.class));
 		assertTrue(shape.isTypeOf(IDot.class));
 		assertTrue(shape.isTypeOf(ICircleArc.class));

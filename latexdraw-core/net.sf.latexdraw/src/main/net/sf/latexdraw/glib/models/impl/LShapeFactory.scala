@@ -54,8 +54,8 @@ class LShapeFactory extends IShapeFactory {
 			  (classOf[LBezierCurve], () => createBezierCurve(true)),
 			  (classOf[IDot], () => createDot(createPoint, true)),
 			  (classOf[LDot], () => createDot(createPoint, true)),
-			  (classOf[IFreehand], () => createFreeHand(createPoint, true)),
-			  (classOf[LFreehand], () => createFreeHand(createPoint, true)),
+			  (classOf[IFreehand], () => createFreeHand(true)),
+			  (classOf[LFreehand], () => createFreeHand(true)),
 			  (classOf[IGroup], () => createGroup(true)),
 			  (classOf[LGroup], () => createGroup(true)),
 			  (classOf[IPicture], () => createPicture(true, createPoint)),
@@ -104,7 +104,7 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createGrid(isUniqueID : Boolean, pt : IPoint) = new LGrid(isUniqueID, pt)
 
-	override def createFreeHand(pt : IPoint, uniqueID : Boolean) = new LFreehand(pt, uniqueID)
+	override def createFreeHand(uniqueID : Boolean) = new LFreehand(uniqueID)
 
 	override def createCircle(pt : IPoint, radius : Double, isUniqueID : Boolean) = new LCircle(pt, radius, isUniqueID)
 

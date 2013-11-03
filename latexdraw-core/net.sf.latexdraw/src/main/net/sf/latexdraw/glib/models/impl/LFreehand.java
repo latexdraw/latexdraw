@@ -1,8 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
@@ -37,18 +35,12 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 
 	/**
 	 * Creates and initialises a freehand model.
-	 * @param pt The first point.
 	 * @param uniqueID True: the model will have a unique ID.
 	 * @throws IllegalArgumentException If the given point is not valid.
 	 * @since 3.0
 	 */
-	protected LFreehand(final IPoint pt, final boolean uniqueID) {
+	protected LFreehand(final boolean uniqueID) {
 		super(uniqueID);
-
-		if(!GLibUtilities.INSTANCE.isValidPoint(pt))
-			throw new IllegalArgumentException();
-
-		addPoint(pt);
 		type 		= FreeHandType.CURVES;
 		interval 	= 5;
 		open		= true;

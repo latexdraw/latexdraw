@@ -95,7 +95,7 @@ public class Pencil extends Instrument {
 		groupParams.addShape(factory.createCircleArc(false));
 		groupParams.addShape(factory.createPolyline(false));
 		groupParams.addShape(factory.createBezierCurve(false));
-		groupParams.addShape(factory.createFreeHand(factory.createPoint(), false));
+		groupParams.addShape(factory.createFreeHand(false));
 	}
 
 
@@ -158,7 +158,7 @@ public class Pencil extends Instrument {
 		if(shape==null)
 			return ;
 
-		if(shape instanceof IModifiablePointsShape) {
+		if(shape instanceof IModifiablePointsShape && !(shape instanceof IFreehand)) {
 			IModifiablePointsShape mod = (IModifiablePointsShape)shape;
 			mod.addPoint(DrawingTK.getFactory().createPoint());
 			mod.addPoint(DrawingTK.getFactory().createPoint());
@@ -434,7 +434,7 @@ class DnD2AddShape extends PencilLink<AbortableDnD> {
 			}
 			else
 				if(ec==EditionChoice.FREE_HAND && shape instanceof IFreehand)
-					((IFreehand)shape).getPtAt(0).setPoint(pt.getX(), pt.getY());
+					((IFreehand)shape).addPoint(DrawingTK.getFactory().createPoint(pt.getX(), pt.getY()));
 				else
 					shape.translate(pt.getX(), pt.getY());
 		}

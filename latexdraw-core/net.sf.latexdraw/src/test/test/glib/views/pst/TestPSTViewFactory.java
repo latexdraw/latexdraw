@@ -107,7 +107,7 @@ public class TestPSTViewFactory {
 	}
 
 	public void testCreateFreehandViewPST() {
-		Object view = PSTViewsFactory.INSTANCE.createView(shFac.createFreeHand(shFac.createPoint(), false));
+		Object view = PSTViewsFactory.INSTANCE.createView(shFac.createFreeHand(false));
 		assertNotNull(view);
 		assertTrue(view.getClass().getName().toLowerCase().contains("freehand"));
 	}

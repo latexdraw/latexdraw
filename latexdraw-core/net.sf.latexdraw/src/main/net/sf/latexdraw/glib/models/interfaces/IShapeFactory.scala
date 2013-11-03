@@ -152,13 +152,12 @@ trait IShapeFactory {
 
 	/**
 	 * Creates and initialises a freehand model.
-	 * @param pt The first point.
 	 * @param uniqueID True: the model will have a unique ID.
 	 * @throws IllegalArgumentException If the given point is not valid.
 	 * @return The created freehand shape.
 	 * @since 3.0
 	 */
-	def createFreeHand(pt : IPoint, uniqueID : Boolean) : IFreehand
+	def createFreeHand(uniqueID : Boolean) : IFreehand
 
 	/**
 	 * Creates a circle.

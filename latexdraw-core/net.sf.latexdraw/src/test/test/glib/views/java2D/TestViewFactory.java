@@ -113,7 +113,7 @@ public class TestViewFactory {
 	}
 
 	public void testCreateFreehandView() {
-		IViewShape view = viewFac.createView(shFac.createFreeHand(shFac.createPoint(), false));
+		IViewShape view = viewFac.createView(shFac.createFreeHand(false));
 		assertNotNull(view);
 		assertTrue(view.getClass().getName().toLowerCase().contains("freehand"));
 	}
