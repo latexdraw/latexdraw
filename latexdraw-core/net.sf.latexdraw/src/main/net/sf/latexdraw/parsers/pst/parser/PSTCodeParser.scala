@@ -9,6 +9,8 @@ import scala.util.parsing.input.CharArrayReader
 import net.sf.latexdraw.glib.models.interfaces.IText
 import java.awt.Color
 import net.sf.latexdraw.glib.views.latex.DviPsColors
+import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape
+import net.sf.latexdraw.util.LNumber
 
 /**
  * Defines a parser parsing PST expressions.<br>
@@ -183,8 +185,9 @@ trait PSTCodeParser extends PSTAbstractParser
 	override def parseRput(ctx : PSTContext) : Parser[IGroup] = {
 		val ctx2 = new PSTContext(ctx)// Must create an other context not to modify the current one.
 		("\\rput*" | "\\rput") ~ opt(parseRputTextPosition(ctx2)) ~ opt(parseRputRotationAngle(ctx2)) ~
-		parseCoord(ctx2) ~ parsePSTBlock(ctx2, false) ^^ { case _ ~ _ ~ _ ~ coord ~ figs =>
-			figs.getShapes.foreach{shape => shape.translate(coord.x * IShape.PPC, -coord.y * IShape.PPC) }
+		parseCoord(ctx2) ~ parsePSTBlock(ctx2, false) ^^ { case _ ~ _ ~ rot ~ coord ~ figs =>
+			if(!rot.isDefined)
+				figs.getShapes.foreach(_.translate(coord.x * IShape.PPC, -coord.y * IShape.PPC))
 			figs
 		}
 	}
@@ -223,11 +226,11 @@ trait PSTCodeParser extends PSTAbstractParser
 		case p1 ~ p2 =>
 		p2 match {
 			case Some(value) =>
-				ctx.pictureSWPt = DrawingTK.getFactory().createPoint(p1.x, p1.y)
-				ctx.pictureNEPt = DrawingTK.getFactory().createPoint(value.x, value.y)
+				ctx.pictureSWPt = DrawingTK.getFactory.createPoint(p1.x, p1.y)
+				ctx.pictureNEPt = DrawingTK.getFactory.createPoint(value.x, value.y)
 			case _ =>
 				ctx.pictureSWPt = DrawingTK.getFactory.createPoint
-				ctx.pictureNEPt = DrawingTK.getFactory().createPoint(p1.x, p1.y)
+				ctx.pictureNEPt = DrawingTK.getFactory.createPoint(p1.x, p1.y)
 		}
 	}
 }
