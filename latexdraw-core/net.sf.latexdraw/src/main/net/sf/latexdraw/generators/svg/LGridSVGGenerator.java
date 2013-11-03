@@ -241,7 +241,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 									  final double minY, final double maxY, final int subGridDots, final double subGridWidth,
 									  final double tlx, final double tly, final double brx, final double bry, final Color subGridColour) {
 		double i, j, n, m, k;
-		final double dotStep = (unit*IShape.PPC)/(subGridDots*subGridDiv);
+		final double dotStep = unit*IShape.PPC/(subGridDots*subGridDiv);
 		final double nbX = (maxX-minX)*subGridDiv;
 		final double nbY = (maxY-minY)*subGridDiv;
 		final SVGElement subgridDots = new SVGGElement(document);
@@ -335,7 +335,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 								   final double posY, final double xStep, final double yStep, final double gridWidth, final Color linesColour) {
 		double k, i, m, n, l, j;
 		final int gridDots = shape.getGridDots();
-		final double dotStep = (unit*IShape.PPC)/gridDots;
+		final double dotStep = unit*IShape.PPC/gridDots;
 		final SVGElement gridDotsElt = new SVGGElement(document);
 		SVGElement dot;
 
@@ -553,6 +553,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		root.setAttribute(prefix+LNamespace.XML_GRID_START, shape.getGridStartX() + " " + shape.getGridStartY());//$NON-NLS-1$
 		root.setAttribute(prefix+LNamespace.XML_GRID_ORIGIN, shape.getOriginX() + " " + shape.getOriginY());//$NON-NLS-1$
 		createSVGGrid(root, doc);
+		setSVGRotationAttribute(root);
 
 		return root;
 	}

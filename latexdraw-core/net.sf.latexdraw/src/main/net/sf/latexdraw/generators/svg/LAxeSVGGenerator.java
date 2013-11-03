@@ -182,8 +182,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		root.setAttribute(pref+LNamespace.XML_AXE_TICKS_STYLE, shape.getTicksStyle().toString());
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_AXE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
-
 		createSVGAxe(root, doc);
+		setSVGRotationAttribute(root);
 
 //		view.flush();
 //		graphics.dispose();
