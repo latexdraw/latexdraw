@@ -144,8 +144,11 @@ public class FileLoaderSaver extends WidgetInstrument {
 		if(action!=null && action.hadEffect()) {
 			final File file = fileChooser==null ? null : fileChooser.getSelectedFile();
 
-			if(file!=null)
+			if(file!=null) {
 				currentFile = file;
+				if(!currentFile.getPath().endsWith(SVGFilter.SVG_EXTENSION))
+					currentFile = new File(currentFile.getPath()+SVGFilter.SVG_EXTENSION);
+			}
 
 			// Updating the recent files on I/O actions.
 			if(action instanceof IOAction) {
