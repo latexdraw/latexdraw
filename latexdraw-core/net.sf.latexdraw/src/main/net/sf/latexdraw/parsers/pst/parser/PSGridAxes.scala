@@ -70,6 +70,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 		val axes = DrawingTK.getFactory.createAxes(true, DrawingTK.getFactory.createPoint)
 
 		setStdGridParams(new PointUnit(ctx.ox, ctx.oy, null, null), min, max, axes, ctx)
+		setShapeGeneralParameters(axes, ctx)
 		axes.setPosition(DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
 		axes.setAxesStyle(ctx.axesStyle)
 		axes.setTicksDisplayed(ctx.ticks)
@@ -112,6 +113,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 		}
 
 		setStdGridParams(origin, min, max, grid, ctx)
+		setShapeGeneralParameters(grid, ctx)
 		grid.setPosition(DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
 		grid.setUnit(ctx.unit)
 		grid.setGridDots(ctx.gridDots.toInt)
