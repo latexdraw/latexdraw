@@ -67,6 +67,6 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 		cache.append('}').append('}');
 
 		if(rot!=null)
-			cache.append(rot);
+			cache.append('}');
 	}
 }
