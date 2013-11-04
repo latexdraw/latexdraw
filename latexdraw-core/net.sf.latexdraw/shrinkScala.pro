@@ -1,12 +1,12 @@
 # proguard @shrinkScala.pro
 -injars			scala-library-2.9.2.jar
--injars			LaTeXDraw.jar
+-injars			latexdraw.core.jar
 -outjars		scala-library-shrinked.jar
 -libraryjars	/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar
 -libraryjars	jlibeps.jar
 -libraryjars	PDFRenderer-0.9.1.jar
--libraryjars	malai.swing-0.2-SNAPSHOT.jar
--libraryjars	malai.core-0.2-SNAPSHOT.jar
+-libraryjars	malai.swing-1.1.jar
+-libraryjars	malai.core-1.1.jar
 
 -dontobfuscate
 -dontoptimize
