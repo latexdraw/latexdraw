@@ -94,30 +94,6 @@ public interface IText extends IPositionShape {
 
 
 		/**
-		 * @param token The token to analyse.
-		 * @return The text size corresponding to the given latex token or null.
-		 * @since 3.0
-		 */
-		public static TextSize getTextSizeFromToken(final String token) {
-			TextSize textSize;
-
-			if(TINY.equals(token)) textSize = TINY;
-			else if(FOOTNOTE.equals(token)) textSize = FOOTNOTE;
-			else if(HUGE1.equals(token)) textSize = HUGE1;
-			else if(HUGE2.equals(token)) textSize = HUGE2;
-			else if(LARGE1.equals(token)) textSize = LARGE1;
-			else if(LARGE2.equals(token)) textSize = LARGE2;
-			else if(LARGE3.equals(token)) textSize = LARGE3;
-			else if(NORMAL.equals(token)) textSize = NORMAL;
-			else if(SCRIPT.equals(token)) textSize = SCRIPT;
-			else if(SMALL.equals(token)) textSize = SMALL;
-			else textSize = null;
-
-			return textSize;
-		}
-
-
-		/**
 		 * @param size The text size value to analyse.
 		 * @return The corresponding text size item or null.
 		 * @since 3.0
