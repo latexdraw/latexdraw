@@ -911,7 +911,6 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 
 
 	override def setDotStyleList(values : List[DotStyle]) {
-		println(values.toString + " " + shapes)
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[Dottable])
