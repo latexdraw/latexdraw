@@ -3,7 +3,6 @@ package test.action;
 import org.junit.Before;
 import org.junit.Test;
 import org.malai.action.Action;
-import org.malai.instrument.Instrument;
 
 public abstract class TestAbstractAction<T extends Action> {
 	protected T action;
@@ -32,15 +31,4 @@ public abstract class TestAbstractAction<T extends Action> {
 
 	@Test
 	public abstract void testHadEffect() throws Exception;
-
-
-	public class InstrumentMock extends Instrument {
-		public InstrumentMock() {
-			super();
-		}
-		@Override
-		protected void initialiseLinks() {
-			//
-		}
-	}
 }
