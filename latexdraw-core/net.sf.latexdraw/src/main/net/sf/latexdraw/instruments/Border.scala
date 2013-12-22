@@ -400,7 +400,8 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	def remove(view : IViewShape) {
 		if(view!=null) {
 			_selection -= view
-			MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, classOf[IShape]), classOf[Shape2BorderMapping])
+			MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, classOf[IShape]),
+											classOf[Shape2BorderMapping])
 			update
 		}
 	}
@@ -431,8 +432,8 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	def clear() {
 		if(!selection.isEmpty) {
 			selection.foreach{view =>
-				MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, classOf[IShape]), classOf[Shape2BorderMapping])}
-
+				MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, classOf[IShape]),
+											classOf[Shape2BorderMapping])}
 			selection.clear
 			setActivated(false)
 		}
