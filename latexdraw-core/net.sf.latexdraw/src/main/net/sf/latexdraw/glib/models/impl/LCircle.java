@@ -1,10 +1,12 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.geom.Rectangle2D;
+import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a model of a circle.<br>
@@ -83,7 +85,20 @@ class LCircle extends LEllipse implements ICircle {
 				scale = sx;
 		}
 
-		super.scale(scale, scale, position, bound);
+		scaleSetPoints(points, scale, position, bound);
+	}
+
+
+	protected void scaleSetPoints(final List<IPoint> pts, final double scale, final Position pos, final Rectangle2D bound) {
+		final double sx = scale/bound.getWidth();
+		final double refX = pos.isWest() ? bound.getX() : bound.getMaxX();
+		final double refY = pos.isNorth() ? bound.getY() : bound.getMaxY();
+
+		for(final IPoint pt : pts)
+			if(!LNumber.INSTANCE.equals(pt.getX(), refX) || !LNumber.INSTANCE.equals(pt.getY(), refY)) {
+				pt.setX(refX+(pt.getX()-refX)*sx);
+				pt.setY(refY+(pt.getY()-refY)*sx);
+			}
 	}
 
 

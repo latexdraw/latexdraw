@@ -1,10 +1,12 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.geom.Rectangle2D;
+import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.ISquare;
+import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a model of a square.<br>
@@ -47,7 +49,7 @@ class LSquare extends LRectangle implements ISquare {
 	}
 
 
-	
+
 	@Override
 	public void scale(final double sx, final double sy, final Position pos, final Rectangle2D bound) {
 		final Position position;
@@ -75,7 +77,19 @@ class LSquare extends LRectangle implements ISquare {
 				scale = sx;
 		}
 
-		super.scale(scale, scale, position, bound);
+		scaleSetPoints(points, scale, position, bound);
+	}
+
+	protected void scaleSetPoints(final List<IPoint> pts, final double scale, final Position pos, final Rectangle2D bound) {
+		final double sx = scale/bound.getWidth();
+		final double refX = pos.isWest() ? bound.getX() : bound.getMaxX();
+		final double refY = pos.isNorth() ? bound.getY() : bound.getMaxY();
+
+		for(final IPoint pt : pts)
+			if(!LNumber.INSTANCE.equals(pt.getX(), refX) || !LNumber.INSTANCE.equals(pt.getY(), refY)) {
+				pt.setX(refX+(pt.getX()-refX)*sx);
+				pt.setY(refY+(pt.getY()-refY)*sx);
+			}
 	}
 
 
