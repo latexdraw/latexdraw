@@ -133,46 +133,52 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 
 	@Override
+	public IPoint getBottomRightPoint() {
+		final IPoint pos = getPosition();
+		return new LPoint(pos.getX()+getGridMaxX()*PPC*unit, pos.getY()-getGridMinY()*PPC);
+	}
+
+
+	@Override
+	public IPoint getTopLeftPoint() {
+		final IPoint pos = getPosition();
+		return new LPoint(pos.getX()+getGridMinX()*PPC, pos.getY()-getGridMaxY()*PPC*unit);
+	}
+
+
+	@Override
 	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
 		if(pos==null || bound==null) return;
 
-		final IPoint bl = points.get(0);
 		final double sx = x/bound.getWidth();
 		final double sy = y/bound.getHeight();
-
 		switch(pos) {
 			case WEST: case SW:
-				setUnit(sx);
+				if(unit+sx-1>=0.5)
+					setUnit(unit+sx-1);
 				break;
 			case SOUTH:
-				setUnit(sy);
+				if(unit+sy-1>=0.5)
+					setUnit(unit+sy-1);
 				break;
-			case SE:
-				IPoint br = getBottomRightPoint();
-				setUnit(sx);
-				bl.setX(br.getX()-getStep()*(gridEndx-gridStartx));
-				break;
-			case NW:
-				IPoint tl = getTopLeftPoint();
-				setUnit(sx);
-				bl.setY(tl.getY()+getStep()*(gridEndy-gridStarty));
-				break;
-			case NORTH:
-				tl = getTopLeftPoint();
-				setUnit(sy);
-				bl.setY(tl.getY()+getStep()*(gridEndy-gridStarty));
+			case NORTH: case NW:
+				if(unit+sy-1>=0.5) {
+					setUnit(unit+sy-1);
+					translate(0., -getTopRightPoint().getY()+bound.getY());
+				}
 				break;
 			case NE:
-				tl = getTopLeftPoint();
-				br = getBottomRightPoint();
-				setUnit(sx);
-				bl.setX(br.getX()-getStep()*(gridEndx-gridStartx));
-				bl.setY(tl.getY()+getStep()*(gridEndy-gridStarty));
+				if(unit+sy-1>=0.5) {
+					setUnit(unit+sy-1);
+					final IPoint tr = getTopRightPoint();
+					translate(-tr.getX()+bound.getMaxX(), -tr.getY()+bound.getY());
+				}
 				break;
-			case EAST:
-				br = getBottomRightPoint();
-				setUnit(sx);
-				bl.setX(br.getX()-getStep()*(gridEndx-gridStartx));
+			case EAST: case SE:
+				if(unit+sx-1>=0.5) {
+					setUnit(unit+sx-1);
+					translate(-getTopRightPoint().getX()+bound.getMaxX(), 0.);
+				}
 				break;
 		}
 	}

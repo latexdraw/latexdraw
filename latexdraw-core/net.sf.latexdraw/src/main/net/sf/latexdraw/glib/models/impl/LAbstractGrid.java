@@ -115,7 +115,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	public IPoint getTopRightPoint() {
 		IPoint pos  = getPosition();
 		double step = getStep();
-
+		//FIXME strange: different from getTopLeftPoint and co. but works for scale.
 		return new LPoint(pos.getX()+step*(gridEndx-gridStartx), pos.getY()-step*(gridEndy-gridStarty));
 	}
 
