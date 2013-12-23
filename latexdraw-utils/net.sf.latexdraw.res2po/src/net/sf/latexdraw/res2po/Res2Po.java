@@ -41,14 +41,14 @@ public class Res2Po  {
 				FileReader flB 		= new FileReader(filesBase[i]);
 				BufferedReader brB 	= new BufferedReader(flB);
 				FileOutputStream fos = new FileOutputStream(f);
-				OutputStreamWriter osw = new OutputStreamWriter(fos, "ISO-8859-1");
+				OutputStreamWriter osw = new OutputStreamWriter(fos);
 				BufferedWriter bw 	= new BufferedWriter(osw);
 				f2 = new File(inputDir+File.separator+filesBase[i].getName());
 				
 				if(f2.canRead())
 				{
 					FileInputStream fis = new FileInputStream(f2);
-					InputStreamReader isr = new InputStreamReader(fis, "ISO-8859-1");
+					InputStreamReader isr = new InputStreamReader(fis);
 					BufferedReader brI = new BufferedReader(isr);
 					generatePo(brB, brI, bw, id);
 					
@@ -92,7 +92,7 @@ public class Res2Po  {
 			bw.write("msgid \"\"\n");
 			bw.write("msgstr \"\"\n");
 			bw.write("\"Project-Id-Version: "+ id + "\\n\"\n");
-			bw.write("\"Content-Type: text/plain; charset=ISO-8859-1\\n\"\n\n");
+			bw.write("\"Content-Type: text/plain; charset=utf-8\\n\"\n\n");
 			
 			String line1 = brB.readLine(), line2 = brI.readLine();
 		
@@ -213,7 +213,7 @@ public class Res2Po  {
 			bw.write("msgid \"\"\n");
 			bw.write("msgstr \"\"\n");
 			bw.write("\"Project-Id-Version: PACKAGE VERSION\\n\"\n");
-			bw.write("\"Content-Type: text/plain; charset=CHARSET\\n\"\n\n");
+			bw.write("\"Content-Type: text/plain; charset=utf-8\\n\"\n\n");
 			
 			String line = br.readLine();
 			
@@ -247,7 +247,7 @@ public class Res2Po  {
 			bw.write("msgid \"\"\n");
 			bw.write("msgstr \"\"\n");
 			bw.write("\"Project-Id-Version: "+ id + "\\n\"\n");
-			bw.write("\"Content-Type: text/plain; charset=ISO-8859-1\\n\"\n\n");
+			bw.write("\"Content-Type: text/plain; charset=utf-8\\n\"\n\n");
 			
 			String line = br.readLine();
 			
