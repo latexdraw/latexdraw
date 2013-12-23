@@ -14,7 +14,7 @@
    height="297mm"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="latexdraw_logo.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    version="1.1">
@@ -1614,9 +1614,9 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1396"
-     inkscape:window-height="915"
-     inkscape:window-x="314"
-     inkscape:window-y="103"
+     inkscape:window-height="847"
+     inkscape:window-x="202"
+     inkscape:window-y="24"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -1704,7 +1704,7 @@
        height="325.71429"
        x="40.892857"
        y="223.25504"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.0.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998" />
     <text
@@ -1713,14 +1713,14 @@
        x="59.598999"
        y="498.79858"
        id="text6422"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.0.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
          id="tspan6424"
          x="59.598999"
          y="498.79858"
-         style="font-size:32px;fill:#dcdcdc;fill-opacity:1;font-family:ClearlyU Alternate Glyphs">LaTeXDraw 3.0</tspan></text>
+         style="font-size:32px;fill:#dcdcdc;fill-opacity:1;font-family:ClearlyU Alternate Glyphs">LaTeXDraw 3.1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:9.7610817px;font-style:normal;font-weight:normal;fill:url(#radialGradient2385);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1728,7 +1728,7 @@
        y="330.57983"
        id="text15419"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.0.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1743,7 +1743,7 @@
        y="403.85229"
        id="text16316"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.0.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1758,7 +1758,7 @@
        y="389.44006"
        id="text16308"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.0.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1773,7 +1773,7 @@
        y="356.10049"
        id="text16312"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.0.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1788,7 +1788,7 @@
        y="367.21365"
        id="text16324"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.0.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1803,7 +1803,7 @@
        y="378.32687"
        id="text2241"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.0.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1818,7 +1818,7 @@
        y="344.98248"
        id="text2247"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.0.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"

@@ -40,9 +40,9 @@ import org.malai.action.library.OpenWebPage;
  */
 public class VersionChecker extends Thread {
 	/** The version of the application */
-	public final static String VERSION   = "3.0.0";//$NON-NLS-1$
+	public final static String VERSION   = "3.1.0";//$NON-NLS-1$
 
-	public final static String VERSION_STABILITY = ""; //$NON-NLS-1$
+	public final static String VERSION_STABILITY = "snapshot"; //$NON-NLS-1$
 
 	/** The identifier of the build */
 	public static final String ID_BUILD = "20131223";//$NON-NLS-1$
