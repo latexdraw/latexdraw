@@ -47,7 +47,7 @@ import net.sf.latexdraw.util.VersionChecker;
  */
 public class AboutDialogueBox extends JFrame {
 	private static final long serialVersionUID = 1L;
-	// TODO Strings to remove(?): getStringLaTeXDrawFrame("LFrame2.25"), getString16("LaTeXDrawFrame.18"), getString16("LaTeXDrawFrame.19"), getString18("LaTeXDrawFrame.25")
+
 	/**
 	 * Creates the dialogue box.
 	 * @since 3.0
@@ -140,7 +140,6 @@ public class AboutDialogueBox extends JFrame {
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
-//TODO check LangTool.INSTANCE.getString18("LaTeXDrawFrame.26")
 	protected void createContributorsPanel(final JTabbedPane tabbedPane) {
 		try {
 			JEditorPane editorPane = new JEditorPane();

@@ -22,7 +22,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
  * @version 3.0
  * @since 3.0
  */
-public enum EditionChoice {//TODO remove "LaTeXDrawFrame.2"?
+public enum EditionChoice {
 	RECT {
 		@Override
 		public IRectangle createShapeInstance() {

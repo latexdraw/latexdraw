@@ -60,29 +60,16 @@ public final class LResources {
 	/** The label of the menu "aboutTexDraw" */
 	public final static String LABEL_ABOUT = "About LaTeXDraw";
 
-	/** The label of the menu item displayBorders */
-	public final static String LABEL_DISPLAY_BORDERS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.14"); //$NON-NLS-1$
-
-	/** The label of the menu item displayBorders */
-	public final static String LABEL_AUTO_ADJUST_BORDERS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.15"); //$NON-NLS-1$
-
 	/** The label of the menu import */
 	public final static String LABEL_IMPORT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.229"); //$NON-NLS-1$
 
 	/** The label of the menu item "import from TeX file" */
 	public static final String LABEL_IMPORT_TEX = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.230"); //$NON-NLS-1$
 
-//FIXME: to remove: LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.28")
 	/** The label of the newMenu item */
 	public final static String LABEL_NEW = "New drawing";
 
 	public final static String LABEL_NEW_WITH_SEL =LangTool.INSTANCE.getStringLaTeXDrawFrame("LRes.0"); //$NON-NLS-1$
-
-	/** The label of the printCodeMenu item */
-	public final static String LABEL_PRINT_CODE = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.29"); //$NON-NLS-1$
-
-	/** The label of the printDrawMenu item */
-	public final static String LABEL_PRINT_DRAW = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.30"); //$NON-NLS-1$
 
 	/** The label of the menu copy */
 	public static final String LABEL_COPY = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.40"); //$NON-NLS-1$

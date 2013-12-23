@@ -66,7 +66,7 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 
 
 	@Override
-	public void compose(final MProgressBar progressBar) {//TODO: remove "LaTeXDrawFrame.116"?
+	public void compose(final MProgressBar progressBar) {
 		widget = new MToolBar(true);
 
 		final LCanvas canvas = frame.getCanvas();

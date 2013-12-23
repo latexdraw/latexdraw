@@ -103,9 +103,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	/** Allows the set if the program must check new version on start up. */
 	protected MCheckBox checkNewVersion;
 
-	/** This check-box allows to set if the user wants to the borders of the drawing. */
-	protected MCheckBox displayBordersCB;
-
 	/** This check-box allows to set if alpha-interpolation must be used. */
 	protected MCheckBox alpaInterCheckBox;
 
@@ -221,7 +218,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		final String[] nameThemes = new String[info.length];
   		final String lnf = Theme.lookAndFeel();
   		String nameLnf = null;
-  		
+
   		for(int i=0; i<info.length;i++) {
   			nameThemes[i] = info[i].getName();
   			if(info[i].getClassName().equals(lnf))
@@ -249,8 +246,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		displayXScaleCB.setSelected(true);
   		displayYScaleCB    	= new MCheckBox(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.39"));//$NON-NLS-1$
   		displayYScaleCB.setSelected(true);
-  		displayBordersCB   	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.bordersDraw"));//$NON-NLS-1$
-  		displayBordersCB.setSelected(false);
   		unitChoice 		   	= new MComboBox<>();
   		unitChoice.addItem(Unit.CM.getLabel());
   		unitChoice.addItem(Unit.INCH.getLabel());
@@ -372,14 +367,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		return checkNewVersion;
 	}
 
-
-	/**
-	 * @return This check-box allows to set if the user wants to the borders of the drawing.
-	 */
-	public MCheckBox getDisplayBordersCB() {
-		return displayBordersCB;
-	}
-
 	/**
 	 * @return This check-box allows to set if alpha-interpolation must be used.
 	 */
@@ -489,9 +476,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		node = prefMap.get(LNamespace.XML_COLOR_RENDERING);
 		if(node!=null) colorRenderCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_DRAW_BORDERS);
-		if(node!=null) displayBordersCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_DISPLAY_GRID);
 		if(node!=null) displayGridCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
@@ -716,10 +700,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		        elt = document.createElement(LNamespace.XML_DISPLAY_Y);
 		        elt.setTextContent(String.valueOf(displayYScaleCB.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_DRAW_BORDERS);
-		        elt.setTextContent(String.valueOf(displayBordersCB.isSelected()));
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_UNIT);

@@ -60,7 +60,6 @@ public final class LNamespace {
 	public static final String XML_POSITION_VERT		= "positionVert";		//$NON-NLS-1$
 	public static final String XML_POSITION_HORIZ		= "centreHoriz";		//$NON-NLS-1$
 	public static final String XML_COMMENTS				= "comments";			//$NON-NLS-1$
-	public static final String XML_DRAW_BORDERS			= "displayBorders";		//$NON-NLS-1$
 	public static final String XML_AUTO_ADJUST			= "autoAdjust";			//$NON-NLS-1$
 	public static final String XML_ZOOM					= "zoom";				//$NON-NLS-1$
 	public static final String XML_UNIT					= "unit";				//$NON-NLS-1$
@@ -123,7 +122,7 @@ public final class LNamespace {
 	public static final String XML_AXE_LABELS_STYLE		= "showLabels";			//$NON-NLS-1$
 	public static final String XML_AXE_DIST_LABELS		= "distLabels";			//$NON-NLS-1$
 	public static final String XML_AXE_TICKS_STYLE		= "ticksStyle";			//$NON-NLS-1$
-	
+
 	private LNamespace() {
 		super();
 	}

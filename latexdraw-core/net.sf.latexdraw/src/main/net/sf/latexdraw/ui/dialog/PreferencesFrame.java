@@ -186,7 +186,6 @@ public class PreferencesFrame extends MFrame {
 
   		pDisplay.add(prefSetter.getDisplayXScaleCB());
   		pDisplay.add(prefSetter.getDisplayYScaleCB());
-  		pDisplay.add(prefSetter.getDisplayBordersCB());
   		pDisplay.add(panel);
 
   		return pDisplay;

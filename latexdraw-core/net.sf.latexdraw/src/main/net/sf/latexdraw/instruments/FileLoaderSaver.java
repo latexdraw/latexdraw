@@ -196,16 +196,16 @@ public class FileLoaderSaver extends WidgetInstrument {
 		newMenu.setIcon(LResources.NEW_ICON);
 
 		newButton = new MButton(LResources.NEW_ICON);
-		newButton.setMargin(LResources.INSET_BUTTON);// FIXME: remove LangTool.LANG.getStringLaTeXDrawFrame("LaTeXDrawFrame.108")
+		newButton.setMargin(LResources.INSET_BUTTON);
 		newButton.setToolTipText("Creation of a new drawing.");
 
 		loadButton = new MButton(LResources.OPEN_ICON);
 		loadButton.setMargin(LResources.INSET_BUTTON);
-		loadButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.109")); //$NON-NLS-1$
+		loadButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.200"));
 
 		saveButton = new MButton(LResources.SAVE_ICON);
 		saveButton.setMargin(LResources.INSET_BUTTON);
-		saveButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.110")); //$NON-NLS-1$
+		saveButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"));
 
 		loadMenu = new MMenuItem(LABEL_OPEN, KeyEvent.VK_O);
 		loadMenu.setIcon(LResources.OPEN_ICON);

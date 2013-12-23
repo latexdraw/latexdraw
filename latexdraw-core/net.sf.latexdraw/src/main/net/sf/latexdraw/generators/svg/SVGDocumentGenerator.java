@@ -37,7 +37,6 @@ import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.instruments.ExceptionsManager;
-import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.mapping.ShapeList2ExporterMapping;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
@@ -626,7 +625,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 			super.done();
 			// Showing a message in the status bar.
 			if(statusBar!=null)
-				statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.191")); //$NON-NLS-1$
+				statusBar.setText("Drawing saved.");
 		}
 	}
 
