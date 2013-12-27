@@ -126,9 +126,6 @@ public class UIBuilder extends UIComposer<LFrame> {
 		toolbarBuilder.compose(progressBar);
 		propToolbarBuilder.compose(progressBar);
 
-		/* Organisation of the general layout of the user interface. */
-		final Container contentPane = widget.getContentPane();
-
 		/* Creation of the drawing area composed of the canvas, the scales, etc. */
 		final MPanel drawingArea = new MPanel(false, false);
 		drawingArea.setLayout(new BorderLayout());
@@ -147,10 +144,10 @@ public class UIBuilder extends UIComposer<LFrame> {
 		statusPanel.add(widget.statusBar);
 		widget.fileLoader.getProgressBar().setMaximumSize(new Dimension(200, 60));
 
-		contentPane.setLayout(new BorderLayout());
-		contentPane.add(toolbarBuilder.getWidget(), BorderLayout.NORTH);
-		contentPane.add(widget.tabbedPanel, BorderLayout.CENTER);
-		contentPane.add(statusPanel, BorderLayout.SOUTH);
+		widget.setLayout(new BorderLayout());
+		widget.add(toolbarBuilder.getWidget(), BorderLayout.NORTH);
+		widget.add(widget.tabbedPanel, BorderLayout.CENTER);
+		widget.add(statusPanel, BorderLayout.SOUTH);
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
 		widget.setJMenuBar(menubarBuilder.getWidget());
