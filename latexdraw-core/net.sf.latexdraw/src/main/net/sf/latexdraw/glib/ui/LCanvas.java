@@ -363,8 +363,19 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public void setZoom(final double x, final double y, final double z) {
-		if(z<=getMaxZoom() && z>=getMinZoom()) {
+		if(z<=getMaxZoom() && z>=getMinZoom() && !LNumber.INSTANCE.equals(z,zoom.getValue())) {
+			final double oldZoom = zoom.getValue();
 			zoom.setValue(z);
+
+			if(!LNumber.INSTANCE.equals(-1., x) || !LNumber.INSTANCE.equals(-1., y)) {
+				final double dx = (z-oldZoom)*x/oldZoom;
+				final double dy = (z-oldZoom)*y/oldZoom;
+				final Point pt = scrollpane.getViewport().getViewPosition();
+				pt.x += dx;
+				pt.y += dy;
+				getScrollpane().getViewport().setViewPosition(pt);
+			}
+
 			borderIns.update();
 			update();
 			setModified(true);
@@ -691,7 +702,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public double getZoomIncrement() {
-		return 0.25;
+		return 0.05;
 	}
 
 
@@ -703,6 +714,6 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public double getMinZoom() {
-		return 0.25;
+		return 0.1;
 	}
 }
