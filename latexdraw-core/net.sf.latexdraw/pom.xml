@@ -8,7 +8,7 @@
   <version>3.1.0-SNAPSHOT</version>
   
   	<properties>
-		<malai.version>1.1</malai.version>
+		<malai.version>1.2-SNAPSHOT</malai.version>
 	</properties>
 	
 <distributionManagement>
