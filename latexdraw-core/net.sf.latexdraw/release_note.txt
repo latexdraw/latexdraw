@@ -1,3 +1,7 @@
 *******************************************************************
 Version 3.1.0
-- When zooming using the mouse, the zoom process follows the pointer
+- When zooming using the mouse, the zoom process follows the pointer.
+  The zoom increment, min, and max values have been changed to fit this new feature.
+- Like many drawing applications, the view point of the drawing area can be move using
+  the middle button of the mouse (or both the right and left buttons in some cases).
+  It is more convenient than using the scroll bars.

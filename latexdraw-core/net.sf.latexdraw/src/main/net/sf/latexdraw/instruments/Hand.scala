@@ -32,6 +32,7 @@ import org.malai.interaction.library.PressWithKeys
 import org.malai.interaction.library.DnDWithKeys
 import scala.collection.mutable.Buffer
 import net.sf.latexdraw.actions.shape.UpdateToGrid
+import org.malai.swing.action.library.MoveCamera
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -60,6 +61,7 @@ class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : WidgetZo
 			addLink(new Press2Select(this))
 			addLink(new DnD2Select(this))
 			addLink(new DnD2Translate(this))
+			addLink(new DnD2MoveViewport(this))
 			addLink(new DoubleClick2InitTextSetter(this))
 			addLink(new CtrlA2SelectAllShapes(this))
 			addLink(new CtrlU2UpdateShapes(this))
@@ -253,5 +255,30 @@ private sealed class DnD2Select(hand : Hand) extends Link[SelectShapes, DnDWithK
 	override def interimFeedback() {
 		instrument.canvas.setTempUserSelectionBorder(selectionBorder)
 		instrument.canvas.refresh
+	}
+}
+
+
+/**
+ * Moves the viewport using the hand.
+ */
+private sealed class DnD2MoveViewport(hand : Hand) extends Link[MoveCamera, DnD, Hand](hand, true, classOf[MoveCamera], classOf[DnD]) {
+	override def initAction() {
+		action.setScrollPane(hand.canvas.getScrollpane)
+	}
+
+	override def updateAction() {
+		val startPt	= interaction.getStartPt
+		val endPt	= interaction.getEndPt
+		val pane	= hand.canvas.getScrollpane
+		action.setPx(pane.getHorizontalScrollBar.getValue+(startPt.getX - endPt.getX).toInt)
+		action.setPy(pane.getVerticalScrollBar.getValue+(startPt.getY - endPt.getY).toInt)
+	}
+
+	override def isConditionRespected() = interaction.getButton==MouseEvent.BUTTON2
+
+	override def interimFeedback() {
+		super.interimFeedback
+		instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR))
 	}
 }
