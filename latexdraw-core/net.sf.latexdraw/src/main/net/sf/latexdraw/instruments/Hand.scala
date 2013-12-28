@@ -271,8 +271,8 @@ private sealed class DnD2MoveViewport(hand : Hand) extends Link[MoveCamera, DnD,
 		val startPt	= interaction.getStartPt
 		val endPt	= interaction.getEndPt
 		val pane	= hand.canvas.getScrollpane
-		action.setPx(pane.getHorizontalScrollBar.getValue+(startPt.getX - endPt.getX).toInt)
-		action.setPy(pane.getVerticalScrollBar.getValue+(startPt.getY - endPt.getY).toInt)
+		action.setPx(pane.getHorizontalScrollBar.getValue+pane.getHorizontalScrollBar.getWidth/2+(startPt.getX - endPt.getX).toInt)
+		action.setPy(pane.getVerticalScrollBar.getValue+pane.getVerticalScrollBar.getHeight/2+(startPt.getY - endPt.getY).toInt)
 	}
 
 	override def isConditionRespected() = interaction.getButton==MouseEvent.BUTTON2
