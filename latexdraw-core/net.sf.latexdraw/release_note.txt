@@ -5,3 +5,6 @@ Version 3.1.0
 - Like many drawing applications, the view point of the drawing area can be move using
   the middle button of the mouse (or both the right and left buttons in some cases).
   It is more convenient than using the scroll bars.
+
+- fixed: The text field used during the editing of text is not always correctly located
+  https://bugs.launchpad.net/latexdraw/+bug/1264869

@@ -33,9 +33,10 @@ public class TestPencil extends TestInstrument<Pencil> {
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
 		IDrawing drawing = DrawingTK.getFactory().createDrawing();
+		MLayeredPane layers = new MLayeredPane(false, false);
 		canvas 		= new LCanvas(drawing);
 		instrument 	= new Pencil(canvas, new WidgetZoomer(canvas, true, true, null, "", null, "", true), new LMagneticGrid(100, 100, canvas),
-				new TextSetter(new MLayeredPane(false, false)));
+				new TextSetter(layers), layers);
 		instrument.addEventable(canvas);
 	}
 

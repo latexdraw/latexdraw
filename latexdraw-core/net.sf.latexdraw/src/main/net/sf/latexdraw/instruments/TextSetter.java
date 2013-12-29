@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.event.KeyEvent;
-import java.util.Objects;
 
 import javax.swing.JLayeredPane;
 
@@ -44,9 +43,6 @@ public class TextSetter extends Instrument {
 	/** The text field. */
 	protected TextAreaAutoSize textField;
 
-	/** The pane where the text field must be added. */
-	protected MLayeredPane layeredPanel;
-
 	/** The pencil used to create shapes. */
 	protected Pencil pencil;
 
@@ -64,15 +60,14 @@ public class TextSetter extends Instrument {
 	/**
 	 * Creates the instrument.
 	 * @param overlayedPanel The pane where the text field must be added.
-	 * @throws IllegalArgumentException If the given panel is null.
+	 * @throws NullPointerException If the given MLayeredPane is null.
 	 * @since 3.0
 	 */
 	public TextSetter(final MLayeredPane overlayedPanel) {
 		super();
-		text			= null;
-		layeredPanel 	= Objects.requireNonNull(overlayedPanel);
-		textField 		= new TextAreaAutoSize();
-		layeredPanel.add(textField, JLayeredPane.PALETTE_LAYER);
+		text		= null;
+		textField	= new TextAreaAutoSize();
+		overlayedPanel.add(textField, JLayeredPane.PALETTE_LAYER);
 		textField.setVisible(false);
 		addEventable(textField);
 	}
@@ -115,18 +110,7 @@ public class TextSetter extends Instrument {
 	@Override
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
-
-		if(textField.isVisible()!=activated) {
-			if(activated) {
-				textField.setVisible(true);
-				textField.setLocation(100, 100);
-			} else
-				textField.setVisible(false);
-
-			layeredPanel.repaint();
-			textField.setVisible(activated);
-		}
-
+		textField.setVisible(activated);
 		if(activated)
 			textField.requestFocusInWindow();
 	}

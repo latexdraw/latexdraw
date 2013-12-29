@@ -244,8 +244,9 @@ public class LFrame extends UI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scroller		= new Scroller(canvas); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { zoomer		= new WidgetZoomer(canvas, true, true, LResources.ZOOM_DEFAULT_ICON, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.113"),
-				new Dimension(55, 28), LangTool.INSTANCE.getString19("ShortcutsFrame.30"), true); }
+		try { zoomer		= new WidgetZoomer(canvas, true, true,
+							LResources.ZOOM_DEFAULT_ICON, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.113"),
+							new Dimension(55, 28), LangTool.INSTANCE.getString19("ShortcutsFrame.30"), true); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { textSetter	= new TextSetter(layeredPanel); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
@@ -253,7 +254,7 @@ public class LFrame extends UI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { hand 			= new Hand(canvas, canvas.getMagneticGrid(), zoomer, textSetter); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { pencil 		= new Pencil(canvas, zoomer, canvas.getMagneticGrid(), textSetter); }
+		try { pencil 		= new Pencil(canvas, zoomer, canvas.getMagneticGrid(), textSetter, layeredPanel); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { exporter		= new Exporter(composer, canvas, drawing, statusBar, gen); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }

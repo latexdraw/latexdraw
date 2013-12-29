@@ -1,10 +1,12 @@
 package net.sf.latexdraw.instruments;
 
+import java.awt.Component;
 import java.awt.Point;
 import java.util.List;
 import java.util.Objects;
 
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
 
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.actions.shape.InitTextSetter;
@@ -27,6 +29,7 @@ import org.malai.stateMachine.MustAbortStateMachineException;
 import org.malai.swing.instrument.library.WidgetZoomer;
 import org.malai.swing.interaction.library.AbortableDnD;
 import org.malai.swing.interaction.library.MultiClick;
+import org.malai.swing.widget.MLayeredPane;
 
 /**
  * This instrument allows to draw shapes.<br>
@@ -60,6 +63,8 @@ public class Pencil extends Instrument {
 	/** The canvas that contains the shapes' views. */
 	protected ICanvas canvas;
 
+	protected MLayeredPane layers;
+
 	/** The zoomer that is used to give the zoom level to compute coordinates of the created shapes. */
 	protected WidgetZoomer zoomer;
 
@@ -75,10 +80,12 @@ public class Pencil extends Instrument {
 	 * @param zoomer The instrument zoomer used to create shapes.
 	 * @param grid The magnetic grid used to create shapes.
 	 * @param textSetter The instrument used to add and modify texts.
+	 * @param layeredPane The layers of the drawing area.
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public Pencil(final ICanvas canvas, final WidgetZoomer zoomer, final LMagneticGrid grid, final TextSetter textSetter) {
+	public Pencil(final ICanvas canvas, final WidgetZoomer zoomer, final LMagneticGrid grid, final TextSetter textSetter,
+			final MLayeredPane layeredPane) {
 		super();
 
 		final IShapeFactory factory = DrawingTK.getFactory();
@@ -87,6 +94,7 @@ public class Pencil extends Instrument {
 		this.grid		= Objects.requireNonNull(grid);
 		this.canvas 	= Objects.requireNonNull(canvas);
 		this.zoomer		= Objects.requireNonNull(zoomer);
+		layers			= Objects.requireNonNull(layeredPane);
 		currentChoice 	= EditionChoice.RECT;
 		groupParams.addShape(factory.createRectangle(false));
 		groupParams.addShape(factory.createDot(factory.createPoint(), false));
@@ -645,15 +653,13 @@ class Press2InitTextSetter extends Link<InitTextSetter, Press, Pencil> {
 
 	@Override
 	public void initAction() {
-		final IPoint adaptedPt = instrument.getAdaptedPoint(interaction.getPoint());
-		final double zoom = instrument.zoomer.getZoomable().getZoom();
-
 		action.setText("");
 		action.setTextShape(null);
 		action.setInstrument(instrument.textSetter);
 		action.setTextSetter(instrument.textSetter);
-		action.setAbsolutePoint(DrawingTK.getFactory().createPoint(adaptedPt.getX()*zoom, adaptedPt.getY()*zoom));
-		action.setRelativePoint(adaptedPt);
+		action.setAbsolutePoint(DrawingTK.getFactory().createPoint(
+				SwingUtilities.convertPoint((Component)interaction.getTarget(),interaction.getPoint(), instrument.layers)));
+		action.setRelativePoint(instrument.getAdaptedPoint(interaction.getPoint()));
 	}
 
 	@Override
