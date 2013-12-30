@@ -19,6 +19,8 @@ import org.malai.action.ActionsRegistry
 import net.sf.latexdraw.glib.models.impl.LShapeFactory
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory
 import net.sf.latexdraw.ui.UIBuilder
+import javax.swing.SwingUtilities
+import org.malai.swing.action.library.MoveCamera
 
 /**
  * The main class of the project.<br>
@@ -88,6 +90,7 @@ object LaTeXDraw {
     	frame.setVisible(true)
     	frame.setModified(false)
     	frame.getCanvas.requestFocusInWindow
+    	frame.getCanvas.centreViewport
     	// Flushes the resources.
     	splashScreen.flush
     	Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE)

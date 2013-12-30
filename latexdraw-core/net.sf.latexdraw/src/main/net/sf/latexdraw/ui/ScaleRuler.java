@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.util.Objects;
 
 import javax.accessibility.Accessible;
@@ -43,7 +45,7 @@ import org.malai.swing.widget.SwingWidgetUtilities;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public abstract class ScaleRuler extends JComponent implements Pickable, Eventable, Accessible {
+public abstract class ScaleRuler extends JComponent implements Pickable, Eventable, Accessible, AdjustmentListener {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -121,6 +123,15 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 		eventManager = new SwingEventManager();
 		eventManager.attachTo(this);
 		setDoubleBuffered(true);
+
+		canvas.getScrollpane().getVerticalScrollBar().addAdjustmentListener(this);
+		canvas.getScrollpane().getHorizontalScrollBar().addAdjustmentListener(this);
+	}
+
+
+	@Override
+	public void adjustmentValueChanged(final AdjustmentEvent e) {
+		repaint();
 	}
 
 
@@ -149,42 +160,60 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	 */
 	protected abstract void drawLine(final Graphics2D g2, final double positionA, final double positionB1, final double positionB2);
 
+	/**
+	 * Adapts the given graphics to the current position of the grid.
+	 * @param g The graphics of the ruler.
+	 * @since 3.1
+	 */
+	protected abstract void adaptGraphicsToViewpoint(final Graphics2D g);
+
+	/**
+	 * @return The gap between the origin (0) and the current position of the painted view.
+	 * @since 3.1
+	 */
+	protected abstract double getClippingGap();
 
 	@Override
     public void paintComponent(final Graphics g) {
-		if(g instanceof Graphics2D) {
-	    	double zoom 	= canvas.getZoom();
-	    	double lgth 	= getLength()*(1/zoom), i, j, cpt;
-	    	double start 	= getStart()/zoom;
-	    	double ppc 		= canvas.getPPCDrawing();
-	    	Graphics2D g2 	= (Graphics2D)g;
-	    	double sizeZoomed = SIZE/zoom;
+		super.paintComponent(g);
+		if(!(g instanceof Graphics2D)) return;
 
-	    	// Settings the parameters of the graphics.
-	    	g2.scale(zoom, zoom);
-	    	g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-			g2.setStroke(STROKE);
-	    	g2.setColor(Color.BLACK);
+    	final double zoom 		= canvas.getZoom();
+    	final double lgth 		= getLength()/zoom;
+    	final double start 		= getStart()/zoom;
+    	double ppc 				= canvas.getPPCDrawing();
+    	final Graphics2D g2 	= (Graphics2D)g;
+    	final double sizeZoomed = SIZE/zoom;
+    	double i, j, cpt;
 
-	    	// adjusting the ppc value according to the current unit.
-			if(getUnit()==Unit.INCH)
-				ppc*=PSTricksConstants.INCH_VAL_CM;
+    	// adjusting the ppc value according to the current unit.
+		if(getUnit()==Unit.INCH)
+			ppc*=PSTricksConstants.INCH_VAL_CM;
 
-			// If the ppc is not to small sub-lines are drawn.
-	    	if(ppc>MIN_PCC_SUBLINES/zoom) {
-	    		final double ppc10 			= ppc/10.;
-	    		final double halfSizeZoomed = sizeZoomed/2.;
+    	// Optimisation for limitating the painting to the visible part only.
+    	final double clipStart = (int)(getClippingGap()/zoom/ppc)*ppc;
 
-	    		for(i=start+ppc10; i<lgth; i+=ppc)
-	    			for(j=i, cpt=1; cpt<10; j+=ppc10, cpt++)
-	    				drawLine(g2, j, halfSizeZoomed, sizeZoomed);
-	    	}
+    	// Settings the parameters of the graphics.
+    	adaptGraphicsToViewpoint(g2);
+    	g2.scale(zoom, zoom);
+    	g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g2.setStroke(STROKE);
+    	g2.setColor(Color.BLACK);
 
-	    	// Major lines of the ruler are drawn.
-	    	for(i=start; i<lgth;i+=ppc)
-	    		drawLine(g2, i, 0., sizeZoomed);
-		}
+		// If the ppc is not to small sub-lines are drawn.
+    	if(ppc>MIN_PCC_SUBLINES/zoom) {
+    		final double ppc10 			= ppc/10.;
+    		final double halfSizeZoomed = sizeZoomed/2.;
+
+    		for(i=start+ppc10+clipStart; i<lgth; i+=ppc)
+    			for(j=i, cpt=1; cpt<10; j+=ppc10, cpt++)
+    				drawLine(g2, j, halfSizeZoomed, sizeZoomed);
+    	}
+
+    	// Major lines of the ruler are drawn.
+    	for(i=start+clipStart; i<lgth;i+=ppc)
+    		drawLine(g2, i, 0., sizeZoomed);
     }
 
 

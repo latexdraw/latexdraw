@@ -1,5 +1,7 @@
 *******************************************************************
 Version 3.1.0
+- The size of drawing area is no more limited to the size of the drawing.
+  Additional boundaries are now provided around the drawing area to ease the editing.
 - When zooming using the mouse, the zoom process follows the pointer.
   The zoom increment, min, and max values have been changed to fit this new feature.
 - Like many drawing applications, the view point of the drawing area can be move using
@@ -10,3 +12,5 @@ Version 3.1.0
   https://bugs.launchpad.net/latexdraw/+bug/1264869
 - fixed: The grid is not correctly painted when using the inch unit
   https://bugs.launchpad.net/latexdraw/+bug/1264999
+- fixed: The rulers do not fit the grid when scroll bars are moved
+  https://bugs.launchpad.net/latexdraw/+bug/1265007

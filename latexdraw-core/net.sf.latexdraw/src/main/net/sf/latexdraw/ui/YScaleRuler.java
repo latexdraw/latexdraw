@@ -48,11 +48,21 @@ public class YScaleRuler extends ScaleRuler {
 
 	@Override
 	protected double getLength() {
-		return getSize().getHeight();
+		return getSize().getHeight()+getClippingGap();
 	}
 
 	@Override
 	protected double getStart() {
 		return 0.;
+	}
+
+	@Override
+	protected void adaptGraphicsToViewpoint(Graphics2D g) {
+		g.translate(0, (int)-getClippingGap());
+	}
+
+	@Override
+	protected double getClippingGap() {
+		return canvas.getVisibleBound().getMinY();
 	}
 }

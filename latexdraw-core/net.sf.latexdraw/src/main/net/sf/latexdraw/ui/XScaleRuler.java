@@ -55,12 +55,24 @@ public class XScaleRuler extends ScaleRuler {
 
 	@Override
 	protected double getLength() {
-		return getSize().getWidth();
+		return getSize().getWidth()+getClippingGap();
 	}
 
 
 	@Override
 	protected double getStart() {
 		return yruler==null || !yruler.isVisible() ? 0. : SIZE;
+	}
+
+
+	@Override
+	protected void adaptGraphicsToViewpoint(final Graphics2D g) {
+		g.translate((int)-getClippingGap(), 0);
+	}
+
+
+	@Override
+	protected double getClippingGap() {
+		return canvas.getVisibleBound().getMinX();
 	}
 }

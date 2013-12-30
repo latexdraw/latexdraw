@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -17,6 +18,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
@@ -41,6 +44,7 @@ import org.malai.mapping.IUnary;
 import org.malai.mapping.MappingRegistry;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
+import org.malai.swing.action.library.MoveCamera;
 import org.malai.swing.widget.MPanel;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
@@ -72,6 +76,8 @@ public class LCanvas extends MPanel implements ICanvas {
 												BasicStroke.JOIN_MITER, 1f, new float[] { 7f, 7f}, 0);
 
 	private static final long serialVersionUID = 1L;
+
+	public static final IPoint ORIGIN = DrawingTK.getFactory().createPoint(5000, 5000);
 
 	/** The shapes of the canvas. */
 	protected IActiveList<IViewShape> views;
@@ -145,6 +151,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 		setFocusable(true);
 		setDoubleBuffered(true);
+		setBackground(Color.WHITE);
 
 		// Adding a mapping between the views and its subset containing only tooltipable views.
 		MappingRegistry.REGISTRY.addMapping(new ViewList2TooltipableList(views, tooltipableView));
@@ -182,15 +189,15 @@ public class LCanvas extends MPanel implements ICanvas {
 	public void reinit() {
 		synchronized(views){views.clear();}
 		zoom.setValue(1.);
+		centreViewport();
 		update();
 	}
 
 
 
 	@Override
-	public void paint(final Graphics g) {
-    	g.setColor(Color.WHITE);
-    	g.fillRect(0, 0, getWidth(), getHeight());
+	public void paintComponent(final Graphics g) {
+		super.paintComponent(g);
 
     	if(g instanceof Graphics2D)
     		paintViews((Graphics2D) g, true, true);
@@ -303,11 +310,26 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 
+	public void centreViewport() {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				final MoveCamera action = new MoveCamera();
+				action.setScrollPane(getScrollpane());
+				action.setPx(getWidth()/2.);
+				action.setPy(getHeight()/2.);
+				if(action.canDo())
+					action.doIt();
+				action.flush();
+			}
+		});
+	}
+
 
 	@Override
 	public void updatePreferredSize() {
 		final double zoomValue = getZoom();
-		setPreferredSize(new Dimension((int)((border.getMaxX()+10)*zoomValue), (int)((border.getMaxY()+10)*zoomValue)));
+		setPreferredSize(new Dimension((int)(border.getWidth()*zoomValue)+5000, (int)(border.getHeight()*zoomValue)+5000));
 	}
 
 
@@ -715,5 +737,15 @@ public class LCanvas extends MPanel implements ICanvas {
 	@Override
 	public double getMinZoom() {
 		return 0.1;
+	}
+
+	@Override
+	public IPoint getOrigin() {
+		return ORIGIN;
+	}
+
+	@Override
+	public Rectangle getVisibleBound() {
+		return super.getVisibleRect();
 	}
 }

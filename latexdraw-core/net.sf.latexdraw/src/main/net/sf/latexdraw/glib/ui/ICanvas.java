@@ -3,10 +3,12 @@ package net.sf.latexdraw.glib.ui;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.instruments.Border;
@@ -97,7 +99,18 @@ public interface ICanvas extends Zoomable, ConcretePresentation, ScrollableWidge
 	 */
 	void paintViews(final Graphics2D g, final boolean withZoom, final boolean withGrid);
 
+	/**
+	 * @return The origin location of the drawing area, i.e. defines the location in the drawing area
+	 * where the point (0,0) is.
+	 * @since 3.1
+	 */
+	IPoint getOrigin();
 
+	/**
+	 * @return The visible part of the canvas.
+	 * @since 3.1
+	 */
+	Rectangle getVisibleBound();
 
 	/**
 	 * Updates the canvas.
