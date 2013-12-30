@@ -15,3 +15,5 @@ Version 3.1.0
   https://bugs.launchpad.net/latexdraw/+bug/1264999
 - fixed: The rulers do not fit the grid when scroll bars are moved
   https://bugs.launchpad.net/latexdraw/+bug/1265007
+- fixed: The grid radio buttons are not linked (preferences panel)
+  https://bugs.launchpad.net/latexdraw/+bug/1265051

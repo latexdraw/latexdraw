@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -234,6 +235,9 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		classicGridRB.setSelected(false);
   		persoGridRB    		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.5")); //$NON-NLS-1$
   		persoGridRB.setSelected(true);
+  		final ButtonGroup group = new ButtonGroup();
+  		group.add(classicGridRB);
+  		group.add(persoGridRB);
   		displayGridCB      	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.grid"));//$NON-NLS-1$
   		displayGridCB.setSelected(true);
   		magneticGridCB	   	= new MCheckBox(LangTool.INSTANCE.getString18("PreferencesFrame.6")); //$NON-NLS-1$
