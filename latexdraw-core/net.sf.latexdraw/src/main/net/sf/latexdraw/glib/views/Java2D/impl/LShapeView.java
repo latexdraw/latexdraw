@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
@@ -393,10 +394,12 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 
 	@Override
-	public void paint(final Graphics2D g) {
+	public void paint(final Graphics2D g, final Rectangle clip) {
+		if(clip!=null && !clip.contains(border) && !clip.intersects(border)) return;
+
 		// We begin the rotation, if needed.
-		IPoint vectorTrans = beginRotation(g);
-		boolean isShowPts  = shape.isShowPtsable() && shape.isShowPts();
+		final IPoint vectorTrans = beginRotation(g);
+		final boolean isShowPts  = shape.isShowPtsable() && shape.isShowPts();
 
 		// Lines of the show points option must be drawn before all.
 		if(isShowPts)

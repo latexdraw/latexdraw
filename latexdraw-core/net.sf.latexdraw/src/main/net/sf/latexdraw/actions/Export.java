@@ -435,7 +435,7 @@ public class Export extends Action {
 		List<IViewShape> views = canvas.getViews();
 		synchronized(views){
 			for(IViewShape view : canvas.getViews())
-				view.paint(graphic);
+				view.paint(graphic, null);
 		}
 
 		// To delete the empty whitespace, we do a translation to

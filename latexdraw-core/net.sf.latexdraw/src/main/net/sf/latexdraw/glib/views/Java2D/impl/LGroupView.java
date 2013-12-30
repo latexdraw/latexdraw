@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -142,9 +143,11 @@ class LGroupView extends LShapeView<IGroup> {
 
 
 	@Override
-	public void paint(final Graphics2D g) {
-		for(IViewShape view : views)
-			view.paint(g);
+	public void paint(final Graphics2D g, final Rectangle clip) {
+		if(clip!=null && !clip.contains(border) && !clip.intersects(border)) return;
+
+		for(final IViewShape view : views)
+			view.paint(g, clip);
 	}
 
 

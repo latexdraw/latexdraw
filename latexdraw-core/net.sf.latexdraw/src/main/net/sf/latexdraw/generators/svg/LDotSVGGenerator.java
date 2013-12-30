@@ -118,7 +118,7 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		}
 		else viewCreated = false;
 
-        view.paint(graphics);
+        view.paint(graphics, null);
         root = graphics.getElement();
 
         root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_DOT);

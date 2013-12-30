@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
@@ -74,7 +75,9 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 	}
 
 	@Override
-	public void paint(final Graphics2D g) {
+	public void paint(final Graphics2D g, final Rectangle clip) {
+		if(clip!=null && !clip.contains(border) && !clip.intersects(border)) return;
+
 		final IPoint vectorTrans = beginRotation(g);
 
 		switch(shape.getDotStyle()) {

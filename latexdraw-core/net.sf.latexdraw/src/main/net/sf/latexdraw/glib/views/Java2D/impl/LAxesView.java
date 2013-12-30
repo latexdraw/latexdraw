@@ -7,6 +7,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
@@ -343,7 +344,9 @@ class LAxesView extends LStandardGridView<IAxes> {
 
 
 	@Override
-	public void paint(final Graphics2D g) {
+	public void paint(final Graphics2D g, final Rectangle clip) {
+		if(clip!=null && !clip.contains(border) && !clip.intersects(border)) return;
+
 		final IPoint vectorTrans = beginRotation(g);
 
 		g.setStroke(getStroke());

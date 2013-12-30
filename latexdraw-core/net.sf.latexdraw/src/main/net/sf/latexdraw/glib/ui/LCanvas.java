@@ -187,20 +187,18 @@ public class LCanvas extends MPanel implements ICanvas {
 	@Override
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
-
     	if(g instanceof Graphics2D)
-    		paintViews((Graphics2D) g, true, true);
-
-		g.dispose();
+    		paintViews((Graphics2D)g, true, true);
 	}
 
 
 
 	@Override
 	public void paintViews(final Graphics2D g, final boolean withZoom, final boolean withGrid) {
-		final IViewShape temp = getTempView();
-		final double zoomValue = getZoom();
-		final boolean mustZoom = withZoom && !LNumber.INSTANCE.equals(zoomValue, 1.);
+		final Rectangle clip 	= g.getClipBounds();
+		final IViewShape temp 	= getTempView();
+		final double zoomValue 	= getZoom();
+		final boolean mustZoom 	= withZoom && !LNumber.INSTANCE.equals(zoomValue, 1.);
 
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, alphaInterpolValue);
 		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 	   colorRenderingValue);
@@ -211,16 +209,23 @@ public class LCanvas extends MPanel implements ICanvas {
 		if(withGrid && magneticGrid.isGridDisplayed())
     		magneticGrid.paint(g);
 
-		if(mustZoom)
+		if(mustZoom) {
 			g.scale(zoomValue, zoomValue);
+			if(clip!=null) {
+				clip.x/=zoomValue;
+				clip.y/=zoomValue;
+				clip.width/=zoomValue;
+				clip.height/=zoomValue;
+			}
+		}
 
 		synchronized(views){
-			for(IViewShape view : views)
-	    		view.paint(g);
+			for(final IViewShape view : views)
+	    		view.paint(g, clip);
 		}
 
     	if(temp!=null)
-    		temp.paint(g);
+    		temp.paint(g, clip);
 
     	if(userSelectionBorder!=null) {
     		g.setStroke(STROKE_USER_SELECTION_BORDER);
@@ -229,11 +234,10 @@ public class LCanvas extends MPanel implements ICanvas {
     	}
 
 		if(mustZoom)
-			g.scale(1/zoomValue, 1/zoomValue);
+			g.scale(1./zoomValue, 1./zoomValue);
 
     	borderIns.paint(g);
 	}
-
 
 
 	@Override
@@ -243,8 +247,6 @@ public class LCanvas extends MPanel implements ICanvas {
 		repaint();
 		revalidate();
 	}
-
-
 
 
 	@Override

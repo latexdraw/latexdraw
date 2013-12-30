@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
@@ -33,10 +34,11 @@ public interface IViewShape extends IAbstractView, Pickable {
 	/**
 	 * Draws the shape within a Java2D graphics.
 	 * @param g The graphics where the shape must be drawn.
+	 * @param clip The painted area. Can be null.
 	 * @throw NullPointerException If the given Graphics2D is null.
-	 * @since 3.0
+	 * @since 3.1
 	 */
-	void paint(final Graphics2D g);
+	void paint(final Graphics2D g, final Rectangle clip);
 
 
 	/**

@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
@@ -176,9 +177,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 
 	@Override
-	public void paint(final Graphics2D g) {
-		if(g==null)
-			return ;
+	public void paint(final Graphics2D g, final Rectangle clip) {
+		if(clip!=null && !clip.contains(border) && !clip.intersects(border)) return;
 
 		final Image image = FlyweightThumbnail.getImage(this);
 		final IPoint p = beginRotation(g);

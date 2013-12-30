@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
@@ -50,11 +51,11 @@ class LPictureView extends LShapeView<IPicture> {
 
 
 	@Override
-	public void paint(final Graphics2D g) {
+	public void paint(final Graphics2D g, final Rectangle clip) {
+		if(clip!=null && !clip.contains(border) && !clip.intersects(border)) return;
+
 		final IPoint vectorTrans = beginRotation(g);
-
 		g.drawImage(shape.getImage(), (int)shape.getX(), (int)shape.getY(), null);
-
 		if(vectorTrans!=null)
 			endRotation(g, vectorTrans);
 	}

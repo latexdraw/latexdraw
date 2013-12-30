@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 import java.awt.BasicStroke;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
@@ -54,8 +55,8 @@ class LGridView extends LStandardGridView<IGrid> {
 
 
 	@Override
-	public void paint(final Graphics2D g) {
-		if(g==null) return ;
+	public void paint(final Graphics2D g, final Rectangle clip) {
+		if(clip!=null && !clip.contains(border) && !clip.intersects(border)) return;
 
 		final IPoint vectorTrans = beginRotation(g);
 

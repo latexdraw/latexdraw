@@ -71,7 +71,7 @@ public abstract class TestLShapeView extends TestAbstractView<IViewShape> {
 
 	@Test
 	public void testPaint() {
-		view.paint(g);
+		view.paint(g, null);
 	}
 
 

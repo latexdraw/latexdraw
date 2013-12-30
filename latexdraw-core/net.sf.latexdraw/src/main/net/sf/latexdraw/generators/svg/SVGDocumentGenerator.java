@@ -468,7 +468,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 			aff.translate(0, 0);
 
-			view.paint(graphic);
+			view.paint(graphic, null);
 			view.flush();
 
 			graphic2.setColor(Color.WHITE);
