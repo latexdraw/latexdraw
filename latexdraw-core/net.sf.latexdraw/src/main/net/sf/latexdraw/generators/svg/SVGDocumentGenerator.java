@@ -706,7 +706,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 				final SVGDocument svgDoc 		= new SVGDocument(new File(path).toURI());
 				final Element meta 			 	= svgDoc.getDocumentElement().getMeta();
 				final Instrument[] instruments 	= ui.getInstruments();
-				final AbstractPresentation pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
+				final IDrawing drawing = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
 				Element ldMeta;
 				double incrProgressBar;
 
@@ -721,25 +721,21 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	            setProgress(0);
 
 				// Adding loaded shapes.
-				if(pres instanceof IDrawing) {
-					incrProgressBar		   = Math.max(50./(svgDoc.getDocumentElement().getChildNodes().getLength()+ui.getPresentations().size()), 1.);
-					final IShape shape     = toLatexdraw(svgDoc, incrProgressBar);
-					final IDrawing drawing = (IDrawing)pres;
+				incrProgressBar		   = Math.max(50./(svgDoc.getDocumentElement().getChildNodes().getLength()+ui.getPresentations().size()), 1.);
+				final IShape shape     = toLatexdraw(svgDoc, incrProgressBar);
 
-					if(shape instanceof IGroup) { // If several shapes have been loaded
-						final IGroup group = (IGroup)shape;
-						final double incr  = Math.max(50./group.size(), 1.);
+				if(shape instanceof IGroup) { // If several shapes have been loaded
+					final IGroup group = (IGroup)shape;
+					final double incr  = Math.max(50./group.size(), 1.);
 
-						for(final IShape sh : group.getShapes()) {
-							drawing.addShape(sh);
-							setProgress((int)Math.min(100., getProgress()+incr));
-						}
-					} else { // If only a single shape has been loaded.
-						drawing.addShape(shape);
-						setProgress(Math.min(100, getProgress()+50));
+					for(final IShape sh : group.getShapes()) {
+						drawing.addShape(sh);
+						setProgress((int)Math.min(100., getProgress()+incr));
 					}
+				} else { // If only a single shape has been loaded.
+					drawing.addShape(shape);
+					setProgress(Math.min(100, getProgress()+50));
 				}
-				else incrProgressBar = Math.max(100./ui.getPresentations().size(), 1.);
 
 				// Loads the presentation's data.
 				for(final Presentation<?,?> presentation : ui.getPresentations()) {
