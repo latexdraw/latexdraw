@@ -171,9 +171,6 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		if(isGridDisplayed() && width>0 && height>0) {
 			double ppc = canvas.getPPCDrawing();
 
-			if(ScaleRuler.getUnit()==Unit.INCH)
-				ppc*=PSTricksConstants.INCH_VAL_CM;
-
 			gaph.setColor(Color.WHITE);
 			gaph.fillRect(0, 0, width, height);
 			gaph.setColor(Color.BLACK);
@@ -253,9 +250,9 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
     		double modulo 	= getMagneticGridGap();
     		double x 		= point.getX();
     		double y 		= point.getY();
-    		int base 		= (int)(((int)(x/modulo))*modulo);
+    		int base 		= (int)((int)(x/modulo)*modulo);
 
-    		if(x>modulo) x = x%((int)modulo);
+    		if(x>modulo) x = x%(int)modulo;
 
     		double res = modulo-x;
     		x = base;
@@ -263,9 +260,9 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
     		if(res<modulo/2.) x+=modulo;
 
     		point.setX((int)x);
-    		base = (int)(((int)(point.getY()/modulo))*modulo);
+    		base = (int)((int)(point.getY()/modulo)*modulo);
 
-    		if(y>modulo) y = y%((int)modulo);
+    		if(y>modulo) y = y%(int)modulo;
 
     		res = modulo-y;
     		y = base;
@@ -293,8 +290,8 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 			gap = getGridSpacing();
 		else {
 			final double ppc = canvas.getPPCDrawing();
-			gap = ScaleRuler.getUnit()==Unit.CM ? ppc/10. : (ppc*PSTricksConstants.INCH_VAL_CM)/10.;
-			gap = (gap-(int)gap)>0.5? ((int)gap)+1 : (int)gap;
+			gap = ScaleRuler.getUnit()==Unit.CM ? ppc/10. : ppc*PSTricksConstants.INCH_VAL_CM/10.;
+			gap = gap-(int)gap>0.5? (int)gap+1 : (int)gap;
 		}
 
 		return gap;

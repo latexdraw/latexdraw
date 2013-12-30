@@ -8,3 +8,5 @@ Version 3.1.0
 
 - fixed: The text field used during the editing of text is not always correctly located
   https://bugs.launchpad.net/latexdraw/+bug/1264869
+- fixed: The grid is not correctly painted when using the inch unit
+  https://bugs.launchpad.net/latexdraw/+bug/1264999
