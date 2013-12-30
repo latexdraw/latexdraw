@@ -75,7 +75,11 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final IPoint ORIGIN = DrawingTK.getFactory().createPoint(5000, 5000);
+	/** The margin used to surround the drawing. */
+	public static final int MARGINS = 2500;
+
+	/** The origin of the drawing in the whole drawing area. */
+	public static final IPoint ORIGIN = DrawingTK.getFactory().createPoint(MARGINS, MARGINS);
 
 	/** The shapes of the canvas. */
 	protected IActiveList<IViewShape> views;
@@ -306,9 +310,10 @@ public class LCanvas extends MPanel implements ICanvas {
 			@Override
 			public void run() {
 				final MoveCamera action = new MoveCamera();
+				final Rectangle rec = getVisibleBound();
 				action.setScrollPane(getScrollpane());
-				action.setPx(getWidth()/2.);
-				action.setPy(getHeight()/2.);
+				action.setPx(getWidth()/2.+rec.getWidth()/2.);
+				action.setPy(getHeight()/2.+rec.getHeight()/2.);
 				if(action.canDo())
 					action.doIt();
 				action.flush();
@@ -320,7 +325,7 @@ public class LCanvas extends MPanel implements ICanvas {
 	@Override
 	public void updatePreferredSize() {
 		final double zoomValue = getZoom();
-		setPreferredSize(new Dimension((int)(border.getWidth()*zoomValue)+5000, (int)(border.getHeight()*zoomValue)+5000));
+		setPreferredSize(new Dimension((int)(border.getWidth()*zoomValue)+MARGINS*2, (int)(border.getHeight()*zoomValue)+MARGINS*2));
 	}
 
 
