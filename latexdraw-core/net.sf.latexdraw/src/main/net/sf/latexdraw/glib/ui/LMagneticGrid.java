@@ -3,9 +3,10 @@ package net.sf.latexdraw.glib.ui;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -82,7 +83,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		 * @since 3.0
 		 */
 		public static GridStyle getStylefromName(final String name) {
-			GridStyle style = null;
+			final GridStyle style;
 
 			if(CUSTOMISED.toString().equals(name))
 				style = CUSTOMISED;
@@ -90,6 +91,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 				style = STANDARD;
 			else if(NONE.toString().equals(name))
 				style = NONE;
+			else style = null;
 
 			return style;
 		}
@@ -102,7 +104,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		 * @since 3.0
 		 */
 		public static GridStyle getStyleFromLabel(final String label) {
-			GridStyle style = null;
+			final GridStyle style;
 
 			if(CUSTOMISED.getLabel().equals(label))
 				style = CUSTOMISED;
@@ -110,6 +112,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 				style = STANDARD;
 			else if(NONE.getLabel().equals(label))
 				style = NONE;
+			else style = null;
 
 			return style;
 		}
@@ -124,12 +127,6 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	/** defines the spacing between the lines of the grid. */
 	protected int gridSpacing;
 
-	/** The width of the grid. */
-	protected int width;
-
-	/** The height of the grid. */
-	protected int height;
-
 	/** The style of the grid. */
 	protected GridStyle style;
 
@@ -142,97 +139,96 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 
 	/**
 	 * Creates the magnetic grid.
-	 * @param width The width of the grid.
-	 * @param height The height of the grid.
 	 * @param canvas The canvas in which the grid will work.
-	 * @throws IllegalArgumentException if the given parameters are not valid.
-	 * @since 2.0
+	 * @throws NullPointerException if the given parameters are not valid.
+	 * @since 3.1
 	 */
-	public LMagneticGrid(final int width, final int height, final ICanvas canvas) {
+	public LMagneticGrid(final ICanvas canvas) {
 		super();
-
-		if(width<0 || height<0 || canvas==null)
-			throw new IllegalArgumentException();
-
-		modified	= false;
-		this.canvas	= canvas;
-		this.width  = width;
-		this.height = height;
+		modified = false;
+		this.canvas	= Objects.requireNonNull(canvas);
 		reinitGrid();
 	}
 
 
 	/**
 	 * Paints the magnetic grid is activated.
-	 * @param gaph The graphics in which the grid will be drawn.
+	 * @param graph The graphics in which the grid will be drawn.
 	 * @since 3.0
 	 */
-	public void paint(final Graphics2D gaph) {
-		if(isGridDisplayed() && width>0 && height>0) {
-			double ppc = canvas.getPPCDrawing();
+	public void paint(final Graphics2D graph) {
+		if(!isGridDisplayed()) return;
+		final Rectangle clip = graph.getClipBounds();
+		if(clip==null) return;
 
-			gaph.setColor(Color.WHITE);
-			gaph.fillRect(0, 0, width, height);
-			gaph.setColor(Color.BLACK);
-			gaph.setStroke(STROKE);
-			gaph.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		graph.setColor(Color.BLACK);
+		graph.setStroke(STROKE);
 
-			switch(style) {
-				case STANDARD:
-					if(ScaleRuler.getUnit()==Unit.INCH)
-						ppc*=PSTricksConstants.INCH_VAL_CM;
+		switch(style) {
+			case STANDARD:
+				double ppc = canvas.getPPCDrawing();
+				if(ScaleRuler.getUnit()==Unit.INCH)
+					ppc*=PSTricksConstants.INCH_VAL_CM;
 
-					paintSubLines(gaph);
-					paintMainLines(gaph, ppc);
-					break;
-				case CUSTOMISED:
-					paintMainLines(gaph, gridSpacing);
-					break;
-				case NONE: break;
-			}
+				paintSubLines(graph, clip);
+				paintMainLines(graph, ppc, clip);
+				break;
+			case CUSTOMISED:
+				paintMainLines(graph, gridSpacing, clip);
+				break;
+			case NONE: break;
 		}
 	}
 
 
 
-	protected void paintSubLines(final Graphics2D graph) {
-		double ppc    = canvas.getPPCDrawing();
-		double zoom	  = canvas.getZoom();
-
+	protected void paintSubLines(final Graphics2D graph, final Rectangle clip) {
+		double pixPerCm10 = canvas.getPPCDrawing()*canvas.getZoom()/10.;
 		if(ScaleRuler.getUnit()==Unit.INCH)
-			ppc*=PSTricksConstants.INCH_VAL_CM;
+			pixPerCm10*=PSTricksConstants.INCH_VAL_CM;
 
-		if(ppc>20) {
-    		double i, j;
-    		double pixPerCm10 = ppc/10.;
-    		int cpt;
-    		ppc*=zoom;
-    		pixPerCm10*=zoom;
+		if(Double.compare(pixPerCm10, 4.)>0) {
+			final Line2D line = new Line2D.Double();
+			final double xMinclip = Math.floor(clip.getMinX()/pixPerCm10)*pixPerCm10-clip.getMinX();
+			final double yMinclip = Math.floor(clip.getMinY()/pixPerCm10)*pixPerCm10-clip.getMinY();
+			final double xMaxclip = clip.getMaxX();
+			final double yMaxclip = clip.getMaxY();
+			final double minX 	  = clip.getMinX();
+			final double minY	  = clip.getMinY();
 
-    		for(i=pixPerCm10-1; i<width; i+=ppc)
-    			for(j=i, cpt=0; cpt<10; j+=pixPerCm10, cpt++)
-    				graph.draw(new Line2D.Double(j, 0, j, height));
+    		for(double i=pixPerCm10-1+xMinclip+minX; i<xMaxclip; i+=pixPerCm10) {
+				line.setLine(i, minY, i, yMaxclip);
+				graph.draw(line);
+			}
 
-    		for(i=pixPerCm10-1; i<height; i+=ppc)
-    			for(j=i, cpt=0; cpt<10; j+=pixPerCm10, cpt++)
-    				graph.draw(new Line2D.Double(0, j, width, j));
+    		for(double i=pixPerCm10-1+yMinclip+minY; i<yMaxclip; i+=pixPerCm10) {
+				line.setLine(minX, i, xMaxclip, i);
+				graph.draw(line);
+			}
     	}
 	}
 
 
 
-	protected void paintMainLines(final Graphics2D graph, final double gap) {
-		double zoom	  = canvas.getZoom();
-		double i, j;
-		double gap2 = gap;
+	protected void paintMainLines(final Graphics2D graph, final double gap, final Rectangle clip) {
+		final double gap2 	  = gap*canvas.getZoom();
+		final double xMinclip = Math.floor(clip.getMinX()/gap2)*gap2-clip.getMinX();
+		final double yMinclip = Math.floor(clip.getMinY()/gap2)*gap2-clip.getMinY();
+		final double xMaxclip = clip.getMaxX();
+		final double yMaxclip = clip.getMaxY();
+		final double minX 	  = clip.getMinX();
+		final double minY	  = clip.getMinY();
+		final Line2D line 	  = new Line2D.Double();
 
-		gap2*=zoom;
+		for(double i=gap2-1+xMinclip+minX; i<xMaxclip; i+=gap2) {
+			line.setLine(i, minY, i, yMaxclip);
+			graph.draw(line);
+		}
 
-		for(i=gap2-1; i<width; i+=gap2)
-			graph.draw(new Line2D.Double(i, 0, i, height));
-
-		for(j=gap2-1; j<height; j+=gap2)
-			graph.draw(new Line2D.Double(0, j, width, j));
+		for(double j=gap2-1+yMinclip+minY; j<yMaxclip; j+=gap2) {
+			line.setLine(minX, j, xMaxclip, j);
+			graph.draw(line);
+		}
 	}
 
 
@@ -246,8 +242,8 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		final IShapeFactory factory = DrawingTK.getFactory();
 
 	   	if(isMagnetic() && isGridDisplayed()) {
-	   		IPoint point 	= factory.createPoint(pt.getX(), pt.getY());
-    		double modulo 	= getMagneticGridGap();
+	   		final IPoint point  = factory.createPoint(pt.getX(), pt.getY());
+    		final double modulo = getMagneticGridGap();
     		double x 		= point.getX();
     		double y 		= point.getY();
     		int base 		= (int)((int)(x/modulo)*modulo);
@@ -361,38 +357,6 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 
 
 	/**
-	 * @return The width of the magnetic grid.
-	 * @since 2.0.0
-	 */
-	public int getWidth() {
-		return width;
-	}
-
-
-	/**
-	 * @return The height of the magnetic grid.
-	 * @since 2.0.0
-	 */
-	public int getHeight() {
-		return height;
-	}
-
-
-	/**
-	 * Sets the size of the magnetic grid.
-	 * @param width The new width.
-	 * @param height The new height.
-	 * @since 3.0
-	 */
-	public void setSize(final int width, final int height) {
-		if(height>=0)
-			this.height = height;
-		if(width>=0)
-			this.width  = width;
-	}
-
-
-	/**
 	 * @return The style of the magnetic grid.
 	 * @since 2.0.0
 	 */
@@ -421,36 +385,22 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		return style!=GridStyle.NONE;
 	}
 
-
-	/**
-	 * @return the canvas which displays the grid.
-	 * @since 3.0
-	 */
-	public ICanvas getCanvas() {
-		return canvas;
-	}
-
-
 	@Override
 	public void setModified(final boolean modified) {
 		this.modified = modified;
 	}
-
 
 	@Override
 	public boolean isModified() {
 		return modified;
 	}
 
-
 	@Override
 	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
-		if(document==null || root==null)
-			return ;
+		if(document==null || root==null) return ;
 
-		Element elt;
 		final String ns = generalPreferences ? "" : LPath.INSTANCE.getNormaliseNamespaceURI(nsURI); //$NON-NLS-1$
-		elt = document.createElement(ns + LNamespace.XML_MAGNETIC_GRID_STYLE);
+		Element elt = document.createElement(ns + LNamespace.XML_MAGNETIC_GRID_STYLE);
         elt.setTextContent(getStyle().toString());
         root.appendChild(elt);
         elt = document.createElement(ns + LNamespace.XML_GRID_GAP);

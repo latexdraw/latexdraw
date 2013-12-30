@@ -9,8 +9,6 @@ import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -137,7 +135,7 @@ public class LCanvas extends MPanel implements ICanvas {
 		this.drawing		= drawing;
 		modified			= false;
 		userSelectionBorder	= null;
-		magneticGrid 		= new LMagneticGrid(0, 0, this);
+		magneticGrid 		= new LMagneticGrid(this);
 		borderIns			= new Border(this);
 		border				= new Rectangle2D.Double();
 		views 				= new ActiveArrayList<>();
@@ -155,15 +153,6 @@ public class LCanvas extends MPanel implements ICanvas {
 
 		// Adding a mapping between the views and its subset containing only tooltipable views.
 		MappingRegistry.REGISTRY.addMapping(new ViewList2TooltipableList(views, tooltipableView));
-
-		// Maybe the magnetic must be updated when the canvas dimensions changes.
-		addComponentListener(new ComponentAdapter() {
-            @Override
-			public void componentResized(final ComponentEvent event){
-    			magneticGrid.setSize(getWidth(), getHeight());
-    			repaint();
-            }
-        });
 
 		addMouseListener(new MouseListener() {
 			@Override public void mouseEntered(final MouseEvent e) {
