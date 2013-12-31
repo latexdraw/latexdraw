@@ -2,6 +2,7 @@
 Version 3.1.0
 - The size of drawing area is no more limited to the size of the drawing.
   Additional boundaries are now provided around the drawing area to ease the editing.
+- In complement to the previous change, a page (US letter only for the moment) is painted.
 - When zooming using the mouse, the zoom process follows the pointer.
   The zoom increment, min, and max values have been changed to fit this new feature.
 - Like many drawing applications, the view point of the drawing area can be move using

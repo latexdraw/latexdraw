@@ -126,6 +126,9 @@ public class LCanvas extends MPanel implements ICanvas {
 	/** The model of the view. */
 	protected IDrawing drawing;
 
+	/** The current page of the canvas. */
+	protected Page page;
+
 
 
 	/**
@@ -146,6 +149,7 @@ public class LCanvas extends MPanel implements ICanvas {
 		tooltipableView		= new ArrayList<>();
 		tempView			= new ActiveUnary<>();
 		zoom				= new ActiveUnary<>(1.);
+		page 				= Page.USLETTER;
 
 		FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
@@ -222,6 +226,8 @@ public class LCanvas extends MPanel implements ICanvas {
 				clip.height/=zoomValue;
 			}
 		}
+
+		page.paint(g, ORIGIN);
 
 		synchronized(views){
 			for(final IViewShape view : views)
