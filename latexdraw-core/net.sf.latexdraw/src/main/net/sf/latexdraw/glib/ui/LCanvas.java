@@ -316,10 +316,9 @@ public class LCanvas extends MPanel implements ICanvas {
 			@Override
 			public void run() {
 				final MoveCamera action = new MoveCamera();
-				final Rectangle rec = getVisibleBound();
 				action.setScrollPane(getScrollpane());
-				action.setPx(getWidth()/2.+rec.getWidth()/2.);
-				action.setPy(getHeight()/2.+rec.getHeight()/2.);
+				action.setPx(ORIGIN.getX()+page.getWidth()*IShape.PPC/2.);
+				action.setPy(ORIGIN.getY()+getVisibleBound().getHeight()/2.-IShape.PPC);
 				if(action.canDo())
 					action.doIt();
 				action.flush();
@@ -331,7 +330,9 @@ public class LCanvas extends MPanel implements ICanvas {
 	@Override
 	public void updatePreferredSize() {
 		final double zoomValue = getZoom();
-		setPreferredSize(new Dimension((int)(border.getWidth()*zoomValue)+MARGINS*2, (int)(border.getHeight()*zoomValue)+MARGINS*2));
+		setPreferredSize(new Dimension(
+				(int)(Math.max(border.getWidth(), page.getWidth())*zoomValue)+MARGINS*2,
+				(int)(Math.max(border.getHeight(), page.getHeight())*zoomValue)+MARGINS*2));
 	}
 
 
