@@ -191,7 +191,6 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 
-
 	@Override
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
@@ -200,10 +199,8 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 
-
 	@Override
 	public void paintViews(final Graphics2D g, final boolean withZoom, final boolean withGrid) {
-		final Rectangle clip 	= g.getClipBounds();
 		final IViewShape temp 	= getTempView();
 		final double zoomValue 	= getZoom();
 		final boolean mustZoom 	= withZoom && !LNumber.INSTANCE.equals(zoomValue, 1.);
@@ -217,17 +214,15 @@ public class LCanvas extends MPanel implements ICanvas {
 		if(withGrid && magneticGrid.isGridDisplayed())
     		magneticGrid.paint(g);
 
-		if(mustZoom) {
-			g.scale(zoomValue, zoomValue);
-			if(clip!=null) {
-				clip.x/=zoomValue;
-				clip.y/=zoomValue;
-				clip.width/=zoomValue;
-				clip.height/=zoomValue;
-			}
-		}
+		g.translate(ORIGIN.getX(), ORIGIN.getY());
 
-		page.paint(g, ORIGIN);
+		if(mustZoom)
+			g.scale(zoomValue, zoomValue);
+
+		page.paint(g, DrawingTK.getFactory().createPoint());
+
+		// Getting the clip must be done here to consider the scaling and translation.
+		final Rectangle clip = g.getClipBounds();
 
 		synchronized(views){
 			for(final IViewShape view : views)
@@ -247,6 +242,8 @@ public class LCanvas extends MPanel implements ICanvas {
 			g.scale(1./zoomValue, 1./zoomValue);
 
     	borderIns.paint(g);
+
+    	g.translate(-ORIGIN.getX(), -ORIGIN.getY());
 	}
 
 
@@ -336,7 +333,6 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 
-
 	@Override
 	public IViewShape getViewAt(final double x, final double y) {
 		if(!GLibUtilities.INSTANCE.isValidPoint(x, y))
@@ -359,17 +355,16 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 
-
 	@Override
 	public Pickable getPickableAt(final double x, final double y){
-		final double x2 = x/getZoom();
-		final double y2 = y/getZoom();
+		final double x2 = x-ORIGIN.getX();
+		final double y2 = y-ORIGIN.getY();
 		Pickable pickable = borderIns.getPickableAt(x2, y2);
 
 		if(pickable==null)
-			pickable = getViewAt(x, y);
+			pickable = getViewAt(x2, y2);
 
-		return pickable==null ? contains((int)x, (int)y) ? this : null : pickable;
+		return pickable==null ? contains((int)x2, (int)y2) ? this : null : pickable;
 	}
 
 
@@ -383,7 +378,6 @@ public class LCanvas extends MPanel implements ICanvas {
 	public double getZoom() {
 		return zoom.getValue();
 	}
-
 
 
 	@Override
@@ -408,19 +402,16 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 
-
 	@Override
 	public List<IViewShape> getViews() {
 		return views;
 	}
 
 
-
 	@Override
 	public IViewShape getTempView() {
 		return tempView.getValue();
 	}
-
 
 
 	@Override
@@ -451,19 +442,16 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 
-
 	@Override
 	public IPoint getOriginDrawingPoint() {
 		return DrawingTK.getFactory().createPoint(border.getMinX(), border.getCenterY());
 	}
 
 
-
 	@Override
 	public int getPPCDrawing() {
 		return IShape.PPC;
 	}
-
 
 
 	@Override
@@ -750,5 +738,16 @@ public class LCanvas extends MPanel implements ICanvas {
 	@Override
 	public Rectangle getVisibleBound() {
 		return super.getVisibleRect();
+	}
+
+	@Override
+	public IPoint convertToOrigin(final IPoint pt) {
+		IPoint convertion;
+		if(pt==null) convertion = null;
+		else {
+			convertion = DrawingTK.getFactory().createPoint(pt);
+			convertion.translate(-ORIGIN.getX(), -ORIGIN.getY());
+		}
+		return convertion;
 	}
 }

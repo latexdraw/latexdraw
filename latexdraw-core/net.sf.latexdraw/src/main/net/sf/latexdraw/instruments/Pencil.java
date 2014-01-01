@@ -282,7 +282,7 @@ public class Pencil extends Instrument {
 	 * @since 3.0
 	 */
 	public IPoint getAdaptedPoint(final Point point) {
-		return grid.getTransformedPointToGrid(zoomer.getZoomable().getZoomedPoint(point));
+		return canvas.convertToOrigin(grid.getTransformedPointToGrid(zoomer.getZoomable().getZoomedPoint(point)));
 	}
 }
 

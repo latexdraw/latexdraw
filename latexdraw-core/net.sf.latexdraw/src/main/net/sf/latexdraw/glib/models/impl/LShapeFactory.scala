@@ -5,6 +5,17 @@ import net.sf.latexdraw.glib.models.interfaces._
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import java.awt.geom.Point2D
 
+object LShapeFactory {
+	/** Converts a Point to an IPoint. */
+	implicit def Point2IPoint(pt:Point) = DrawingTK.getFactory.createPoint(pt.getX, pt.getY)
+
+	/** Converts a Point2D to an IPoint. */
+	implicit def Point2D2IPoint(pt:Point2D) = DrawingTK.getFactory.createPoint(pt.getX, pt.getY)
+
+	/** Converts an IPoint to a Point2D. */
+	implicit def IPoint2Point2D(pt:IPoint) = new Point2D.Double(pt.getX, pt.getY)
+}
+
 /**
  * This factory creates shapes.<br>
  * <br>

@@ -33,6 +33,10 @@ import org.malai.interaction.library.DnDWithKeys
 import scala.collection.mutable.Buffer
 import net.sf.latexdraw.actions.shape.UpdateToGrid
 import org.malai.swing.action.library.MoveCamera
+import net.sf.latexdraw.glib.models.interfaces.IPoint
+import java.awt.Point
+import net.sf.latexdraw.glib.models.impl.LShapeFactory._
+
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -53,7 +57,7 @@ import org.malai.swing.action.library.MoveCamera
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class Hand(val canvas : ICanvas, val grid : LMagneticGrid, val zoomer : WidgetZoomer, val textSetter : TextSetter) extends Instrument {
+class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrument(canvas) {
 	protected var _metaCustomiser : MetaShapeCustomiser = null
 
 	override protected def initialiseLinks() {
@@ -124,12 +128,11 @@ private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Link[InitTex
 		if(o.isInstanceOf[IViewText]) {
 			val text = o.asInstanceOf[IViewText].getShape.asInstanceOf[IText]
 			val position = text.getPosition
-			val zoom = instrument.zoomer.getZoomable.getZoom
 
 			action.setTextShape(text)
 			action.setInstrument(instrument.textSetter)
 			action.setTextSetter(instrument.textSetter)
-			action.setAbsolutePoint(DrawingTK.getFactory.createPoint(position.getX*zoom, position.getY*zoom))
+			action.setAbsolutePoint(instrument.getAdaptedOriginPoint(position))
 			action.setRelativePoint(DrawingTK.getFactory.createPoint(position))
 		}
 	}
@@ -150,8 +153,8 @@ private sealed class DnD2Translate(hand : Hand) extends Link[TranslateShapes, Dn
 
 
 	override def updateAction() {
-		val startPt	= instrument.grid.getTransformedPointToGrid(instrument.zoomer.getZoomable.getZoomedPoint(interaction.getStartPt))
-		val endPt	= instrument.grid.getTransformedPointToGrid(instrument.zoomer.getZoomable.getZoomedPoint(interaction.getEndPt))
+		val startPt	= instrument.getAdaptedGridPoint(interaction.getStartPt)
+		val endPt	= instrument.getAdaptedGridPoint(interaction.getEndPt)
 
 		action.setTx(endPt.getX - startPt.getX)
 		action.setTy(endPt.getY - startPt.getY)
@@ -221,12 +224,12 @@ private sealed class DnD2Select(hand : Hand) extends Link[SelectShapes, DnDWithK
 
 
 	override def updateAction() {
-		val start = interaction.getPoint
-		val end	  = interaction.getEndPt
-		val minX  = math.min(start.x, end.x)
-		val maxX  = math.max(start.x, end.x)
-		val minY  = math.min(start.y, end.y)
-		val maxY  = math.max(start.y, end.y)
+		val start = instrument.getAdaptedOriginPoint(interaction.getPoint)
+		val end	  = instrument.getAdaptedOriginPoint(interaction.getEndPt)
+		val minX  = math.min(start.getX, end.getX)
+		val maxX  = math.max(start.getX, end.getX)
+		val minY  = math.min(start.getY, end.getY)
+		val maxY  = math.max(start.getY, end.getY)
 		val zoom  = instrument.canvas.getZoom
 		val keys = interaction.getKeys
 

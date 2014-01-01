@@ -45,6 +45,7 @@ import net.sf.latexdraw.glib.models.impl.LDrawing
 import org.malai.action.Action
 import net.sf.latexdraw.actions.shape.RotateShapes
 import net.sf.latexdraw.actions.shape.TranslateShapes
+import net.sf.latexdraw.glib.models.impl.LShapeFactory._
 
 /**
  * This instrument manages the selected views.<br>
@@ -65,7 +66,7 @@ import net.sf.latexdraw.actions.shape.TranslateShapes
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class Border(val canvas : ICanvas) extends Instrument with Picker {
+class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	/** The stroke uses by the border to display its bounding rectangle. */
 	val stroke = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f, Array(7, 7), 0)
 
@@ -143,7 +144,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 
 
 	override def onActionDone(action:Action) {
-		if(_metaCustomiser!=null) {
+		if(_metaCustomiser!=null)
 			action match {
 				case _:RotateShapes => _metaCustomiser.rotationCustomiser.update()
 				case _:ModifyShapeProperty => _metaCustomiser.arcCustomiser.update()
@@ -152,7 +153,6 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 				case _:ScaleShapes => _metaCustomiser.dimPosCustomiser.update()
 				case _ =>
 			}
-		}
 	}
 
 
@@ -161,7 +161,7 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 	 * @since 3.0
 	 */
 	def update() {
-		if(!isActivated()) return
+		if(!isActivated) return
 		if(_selection.isEmpty)
 			_border.setFrame(0, 0, 1, 1)
 		else {
@@ -341,25 +341,14 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 		}
 	}
 
-
-
-	/**
-	 * @return True if the control move point handlers can be painted.
-	 */
+	/** @return True if the control move point handlers can be painted. */
 	protected def isCtrlPtMvHandlersShowable() = _selection.size==1 && _selection(0).isInstanceOf[IViewBezierCurve]
 
-
-	/**
-	 * @return True if the move point handlers can be painted.
-	 */
+	/** @return True if the move point handlers can be painted. */
 	protected def isPtMvHandlersShowable() = _selection.size==1 && _selection(0).isInstanceOf[IViewModifiablePtsShape]
 
-
-	/**
-	 * @return True if the arc handlers can be painted.
-	 */
+	/** @return True if the arc handlers can be painted. */
 	protected def isArcHandlerShowable() = _selection.size==1 && _selection(0).isInstanceOf[IViewArc]
-
 
 //	/**
 //	 * @return True if the frame arc handler can be painted.
@@ -367,8 +356,6 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 //	protected boolean isFrameArcHandlerShowable() {
 //		return selection.size()==1 && selection.get(0).getShape() instanceof ILineArcShape
 //	}
-
-
 
 	/**
 	 * Adds the given shape to the selection. If the instrument is
@@ -441,41 +428,34 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 
 
 	override def getPickableAt(x : Double, y : Double) : Pickable = {
-		var pickable : Option[Pickable] = None
-
 		if(activated) {
-			val zoom = canvas.getZoom
-			val x2 = x*zoom
-			val y2 = y*zoom
-			pickable = getHandlerAt(x2, y2, _scaleHandlers)
+			var pickable : Option[Pickable] = getHandlerAt(x, y, _scaleHandlers)
 
-			if(pickable.isEmpty && _rotHandler.contains(x2, y2))
+			if(pickable.isEmpty && _rotHandler.contains(x, y))
 				pickable = Some(_rotHandler)
 
 			if(pickable.isEmpty)
-				pickable = getHandlerAt(x2, y2, _mvPtHandlers)
+				pickable = getHandlerAt(x, y, _mvPtHandlers)
 
 			if(pickable.isEmpty)
-				pickable = getHandlerAt(x2, y2, _ctrlPt1Handlers)
+				pickable = getHandlerAt(x, y, _ctrlPt1Handlers)
 
 			if(pickable.isEmpty)
-				pickable = getHandlerAt(x2, y2, _ctrlPt2Handlers)
+				pickable = getHandlerAt(x, y, _ctrlPt2Handlers)
 
 //			if(pickable.isEmpty && _frameArcHandler!=null && _frameArcHandler.contains(x2, y2))
 //				pickable = Some(_frameArcHandler)
 
-			if(pickable.isEmpty && _arcHandlerStart!=null && _arcHandlerStart.contains(x2, y2))
+			if(pickable.isEmpty && _arcHandlerStart!=null && _arcHandlerStart.contains(x, y))
 				pickable = Some(_arcHandlerStart)
 
-			if(pickable.isEmpty && _arcHandlerEnd!=null && _arcHandlerEnd.contains(x2, y2))
+			if(pickable.isEmpty && _arcHandlerEnd!=null && _arcHandlerEnd.contains(x, y))
 				pickable = Some(_arcHandlerEnd)
+
+			return pickable.getOrElse(null)
 		}
-
-		if(pickable.isDefined)
-			return pickable.get
-		else return null
+		return null
 	}
-
 
 
 	private def getHandlerAt[T <: IHandler[_]](x : Double, y : Double, handlers : ListBuffer[T]) : Option[T] = {
@@ -496,9 +476,6 @@ class Border(val canvas : ICanvas) extends Instrument with Picker {
 
 /** Maps a DnD interaction to an action that changes the arc angles. */
 private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty, DnD, Border](ins, true, classOf[ModifyShapeProperty], classOf[DnD]) {
-	/** The point corresponding to the 'press' position. */
-	private var p1 : IPoint = null
-
 	/** The gravity centre used for the rotation. */
 	private var gc : IPoint = null
 
@@ -518,11 +495,10 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 			shape = drawing.getSelection.getShapeAt(0)
 			val rotAngle = shape.getRotationAngle
 			var pCentre = interaction.getStartObject.asInstanceOf[IHandler[_]].getCentre
-			var pt = DrawingTK.getFactory.createPoint(interaction.getStartPt)
-			gc = shape.getGravityCentre
-			gc = DrawingTK.getFactory.createPoint(gc.getX*instrument.canvas.getZoom, gc.getY*instrument.canvas.getZoom)
+			var pt : IPoint = interaction.getStartPt
+			gc = instrument.getAdaptedOriginPoint(shape.getGravityCentre)
 
-			if(LNumber.INSTANCE.equals(rotAngle, 0))
+			if(LNumber.INSTANCE.equals(rotAngle, 0.0))
 				isRotated = false
 			else {
 				pt = pt.rotatePoint(gc, -rotAngle)
@@ -543,7 +519,7 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 
 
 	override def updateAction() {
-		var pt = DrawingTK.getFactory.createPoint(interaction.getEndPt)
+		var pt : IPoint = instrument.getAdaptedOriginPoint(interaction.getEndPt)
 
 		if(isRotated)
 			pt = pt.rotatePoint(gc, -shape.getRotationAngle)
@@ -579,7 +555,7 @@ private sealed class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Bo
 
 	def initAction() {
 		val drawing = instrument.canvas.getDrawing
-		p1 = DrawingTK.getFactory.createPoint(instrument.canvas.getZoomedPoint(interaction.getStartPt))
+		p1 = instrument.getAdaptedOriginPoint(interaction.getStartPt)
 		gc = drawing.getSelection.getGravityCentre
 		action.setGravityCentre(gc)
 		action.setShape(drawing.getSelection.duplicate)
@@ -587,8 +563,7 @@ private sealed class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Bo
 
 
 	override def updateAction() {
-		val p2 = DrawingTK.getFactory.createPoint(instrument.canvas.getZoomedPoint(interaction.getEndPt))
-		action.setRotationAngle(gc.computeRotationAngle(p1, p2))
+		action.setRotationAngle(gc.computeRotationAngle(p1, instrument.getAdaptedOriginPoint(interaction.getEndPt)))
 	}
 
 	override def isConditionRespected() = interaction.getStartObject==instrument.rotHandler
@@ -619,13 +594,11 @@ private sealed class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint,
 
 	override def updateAction() {
 		super.updateAction
-
 		val startPt = interaction.getStartPt
 		val endPt 	= interaction.getEndPt
 		val x 		= sourcePt.getX + endPt.getX-startPt.getX
 		val y 		= sourcePt.getY + endPt.getY-startPt.getY
-
-		action.setNewCoord(instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(x, y)))
+		action.setNewCoord(instrument.getAdaptedGridPoint(DrawingTK.getFactory.createPoint(x, y)))
 	}
 
 
@@ -671,13 +644,11 @@ private sealed class DnD2MovePoint(ins : Border) extends Link[MovePointShape, Dn
 
 	override def updateAction() {
 		super.updateAction
-
 		val startPt = interaction.getStartPt
 		val endPt 	= interaction.getEndPt
 		val x 		= sourcePt.getX + endPt.getX-startPt.getX
 		val y 		= sourcePt.getY + endPt.getY-startPt.getY
-
-		action.setNewCoord(instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(x, y)))
+		action.setNewCoord(instrument.getAdaptedGridPoint(DrawingTK.getFactory.createPoint(x, y)))
 	}
 
 
@@ -749,7 +720,7 @@ private sealed class DnD2Scale(ins : Border) extends Link[ScaleShapes, DnD, Bord
 	override def updateAction() {
 		super.updateAction
 
-		val pt = instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getEndPt))
+		val pt = instrument.getAdaptedGridPoint(interaction.getEndPt)
 		val refPosition = action.refPosition.get
 
 		if(refPosition.isSouth)

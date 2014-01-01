@@ -197,4 +197,13 @@ public interface ICanvas extends Zoomable, ConcretePresentation, ScrollableWidge
 	 * @since 3.0
 	 */
 	void requestFocus();
+
+	/**
+	 * Converts the given point in the coordinate system based on the canvas' origin.
+	 * The given point must be in the coordinate system of a jpanel (the top-left point is the origin).
+	 * @param pt The point to convert.
+	 * @return The converted point or null if the given point is null.
+	 * @since 3.1
+	 */
+	IPoint convertToOrigin(final IPoint pt);
 }
