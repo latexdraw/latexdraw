@@ -256,7 +256,7 @@ public class EditingSelector extends WidgetInstrument {
 			bezierClosedB.setSelected(false);
 			picB.setSelected(false);
 		} else if(pencil.isActivated()){
-			EditionChoice ec = pencil.getCurrentChoice();
+			EditionChoice ec = pencil.currentChoice();
 
 			recB.setSelected(ec==EditionChoice.RECT);
 			squareB.setSelected(ec==EditionChoice.SQUARE);
@@ -562,14 +562,14 @@ class ButtonPressed2AddText extends Link<AddShape, ButtonPressed, EditingSelecto
 
 	@Override
 	public void initAction() {
-		action.setDrawing(instrument.pencil.canvas.getDrawing());
-		action.setShape(DrawingTK.getFactory().createText(true, DrawingTK.getFactory().createPoint(instrument.pencil.textSetter.relativePoint),
-						instrument.pencil.textSetter.getTextField().getText()));
+		action.setDrawing(instrument.pencil.canvas().getDrawing());
+		action.setShape(DrawingTK.getFactory().createText(true, DrawingTK.getFactory().createPoint(instrument.pencil.textSetter().relativePoint),
+						instrument.pencil.textSetter().getTextField().getText()));
 	}
 
 	@Override
 	public boolean isConditionRespected() {
-		return instrument.pencil.textSetter.isActivated() && instrument.pencil.textSetter.getTextField().getText().length()>0 &&
+		return instrument.pencil.textSetter().isActivated() && instrument.pencil.textSetter().getTextField().getText().length()>0 &&
 				interaction.getButton()==instrument.textB;
 	}
 }
@@ -592,7 +592,7 @@ class ButtonPressed2ActivateIns extends Link<ActivateInactivateInstruments, Butt
 		action.setActivateFirst(false);
 
 		if(ab!=instrument.textB)
-			action.addInstrumentToInactivate(instrument.pencil.textSetter);
+			action.addInstrumentToInactivate(instrument.pencil.textSetter());
 
 		/* Selection of the instruments to activate/desactivate. */
 		if(ab==instrument.handB) {

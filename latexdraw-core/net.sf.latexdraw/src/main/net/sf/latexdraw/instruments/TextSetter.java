@@ -206,7 +206,7 @@ class Enter2AddText extends Link<AddShape, KeyTyped, TextSetter> {
 			text.setPosition(textPosition.getX(), textPosition.getY());
 			text.setText(instrument.textField.getText());
 			action.setShape(text);
-			action.setDrawing(instrument.pencil.canvas.getDrawing());
+			action.setDrawing(instrument.pencil.canvas().getDrawing());
 		}
 	}
 

@@ -27,4 +27,12 @@ abstract class CanvasInstrument(val canvas : ICanvas) extends Instrument {
 	 * @since 3.1
 	 */
 	def getAdaptedGridPoint(pt:IPoint) = canvas.getMagneticGrid.getTransformedPointToGrid(canvas.getZoomedPoint(pt.getX, pt.getY))
+
+	/**
+	 * Computes the point depending on the the zoom level and the magnetic grid.
+	 * @param point The point to adapted.
+	 * @return The computed point.
+	 * @since 3.0
+	 */
+	def getAdaptedPoint(pt:Point) = canvas.convertToOrigin(canvas.getMagneticGrid.getTransformedPointToGrid(canvas.getZoomedPoint(pt)))
 }

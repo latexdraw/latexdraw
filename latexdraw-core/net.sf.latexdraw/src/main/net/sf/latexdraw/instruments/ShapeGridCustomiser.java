@@ -253,7 +253,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
 		}
 
 		@Override
@@ -363,7 +363,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
 		}
 
 		@Override
@@ -440,7 +440,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
 		}
 
 		@Override

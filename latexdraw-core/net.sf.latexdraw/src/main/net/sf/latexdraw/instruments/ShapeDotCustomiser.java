@@ -244,7 +244,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
 			action.setProperty(ShapeProperties.DOT_FILLING_COL);
 		}
 
@@ -288,7 +288,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void initAction() {
-			action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
 			action.setProperty(ShapeProperties.DOT_STYLE);
 			action.setValue(DotStyle.getStyle(getLabelText()));
 		}
@@ -312,7 +312,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			action.setProperty(ShapeProperties.DOT_SIZE);
-			action.setGroup((IGroup)instrument.pencil.canvas.getDrawing().getSelection().duplicate());
+			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
 		}
 
 		@Override

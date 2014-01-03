@@ -128,7 +128,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 			if(shapes.size()==1 && shapes.get(0) instanceof IGroup)
 				action.setShape(shapes.get(0));
 
-			action.setDrawing(instrument.pencil.canvas.getDrawing());
+			action.setDrawing(instrument.pencil.canvas().getDrawing());
 		}
 
 		@Override
@@ -152,7 +152,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 			for(final IShape sh : shapes)
 				action.addShape(sh);
 
-			action.setDrawing(instrument.pencil.canvas.getDrawing());
+			action.setDrawing(instrument.pencil.canvas().getDrawing());
 		}
 
 		@Override

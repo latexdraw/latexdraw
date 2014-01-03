@@ -122,7 +122,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void initAction() {
-			action.setDrawing(instrument.pencil.canvas.getDrawing());
+			action.setDrawing(instrument.pencil.canvas().getDrawing());
 		}
 
 

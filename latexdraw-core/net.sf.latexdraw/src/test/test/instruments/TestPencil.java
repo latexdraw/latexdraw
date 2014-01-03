@@ -30,13 +30,15 @@ public class TestPencil extends TestInstrument<Pencil> {
 	protected LCanvas canvas;
 
 	@Before
+	@SuppressWarnings("unused")
 	public void setUp() {
 		DrawingTK.setFactory(new LShapeFactory());
 		IDrawing drawing = DrawingTK.getFactory().createDrawing();
 		MLayeredPane layers = new MLayeredPane(false, false);
 		canvas 		= new LCanvas(drawing);
-		instrument 	= new Pencil(canvas, new WidgetZoomer(canvas, true, true, null, "", null, "", true), new LMagneticGrid(canvas),
-				new TextSetter(layers), layers);
+		LMagneticGrid grid = new LMagneticGrid(canvas);
+		WidgetZoomer zoomer = new WidgetZoomer(canvas, true, true, null, "", null, "", true);
+		instrument 	= new Pencil(canvas, new TextSetter(layers), layers);
 		instrument.addEventable(canvas);
 	}
 
@@ -148,21 +150,21 @@ public class TestPencil extends TestInstrument<Pencil> {
 
 	public void changePencilShapeAttributes() {
 		instrument.setActivated(true);
-		instrument.getGroupParams().setLineColour(Color.BLUE);
-		instrument.getGroupParams().setThickness(13.);
-		instrument.getGroupParams().setBordersPosition(BorderPos.OUT);
-		instrument.getGroupParams().setDotStyle(DotStyle.BAR);
-		instrument.getGroupParams().setRadius(24.);
-		instrument.getGroupParams().setHasDbleBord(true);
-		instrument.getGroupParams().setDbleBordCol(Color.CYAN);
-		instrument.getGroupParams().setHasShadow(true);
-		instrument.getGroupParams().setFillingCol(Color.MAGENTA);
-		instrument.getGroupParams().setFillingStyle(FillingStyle.GRAD);
-		instrument.getGroupParams().setGradColEnd(Color.RED);
-		instrument.getGroupParams().setGradColStart(Color.YELLOW);
-		instrument.getGroupParams().setHatchingsCol(Color.GRAY);
-		instrument.getGroupParams().setLineStyle(LineStyle.DOTTED);
-		instrument.getGroupParams().setShadowCol(Color.GREEN);
+		instrument._groupParams().setLineColour(Color.BLUE);
+		instrument._groupParams().setThickness(13.);
+		instrument._groupParams().setBordersPosition(BorderPos.OUT);
+		instrument._groupParams().setDotStyle(DotStyle.BAR);
+		instrument._groupParams().setRadius(24.);
+		instrument._groupParams().setHasDbleBord(true);
+		instrument._groupParams().setDbleBordCol(Color.CYAN);
+		instrument._groupParams().setHasShadow(true);
+		instrument._groupParams().setFillingCol(Color.MAGENTA);
+		instrument._groupParams().setFillingStyle(FillingStyle.GRAD);
+		instrument._groupParams().setGradColEnd(Color.RED);
+		instrument._groupParams().setGradColStart(Color.YELLOW);
+		instrument._groupParams().setHatchingsCol(Color.GRAY);
+		instrument._groupParams().setLineStyle(LineStyle.DOTTED);
+		instrument._groupParams().setShadowCol(Color.GREEN);
 	}
 
 
