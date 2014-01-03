@@ -25,7 +25,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
  */
 protected trait LSetShapes extends ISetShapes {
 	/** The set of shapes. */
-	var shapes : java.util.List[IShape] = new ActiveArrayList[IShape]()
+	val shapes : java.util.List[IShape] = new ActiveArrayList[IShape]()
 
 
 	override def contains(sh : IShape) = if(sh==null) false else shapes.contains(sh)

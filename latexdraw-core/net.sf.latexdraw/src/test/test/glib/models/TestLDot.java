@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.Dottable;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
@@ -35,7 +34,7 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 		assertFalse(shape.isTypeOf(IRectangle.class));
 		assertFalse(shape.isTypeOf(ICircle.class));
 		assertTrue(shape.isTypeOf(IShape.class));
-		assertTrue(shape.isTypeOf(Dottable.class));
+		assertTrue(shape.isTypeOf(IDot.class));
 		assertTrue(shape.isTypeOf(IPositionShape.class));
 		assertTrue(shape.isTypeOf(IDot.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));

@@ -226,12 +226,18 @@ abstract class LShape implements IShape {
 
 	protected void copyArrows(final IShape s) {
 		if(s==null || !isArrowable() || !s.isArrowable()) return ;
-		final List<IArrow> arrs = s.getArrows();
-
-		for(int i=0, size1=arrows.size(), size2=arrs.size(); i<size1 && i<size2; i++) {
-			arrows.get(i).copy(arrs.get(i));
-			i++;
-		}
+		setArrowStyle(s.getArrowStyle(0), 0);
+		setArrowStyle(s.getArrowStyle(-1), -1);
+		setArrowInset(s.getArrowInset());
+		setArrowLength(s.getArrowLength());
+		setArrowSizeDim(s.getArrowSizeDim());
+		setArrowSizeNum(s.getArrowSizeNum());
+		setDotSizeDim(s.getDotSizeDim());
+		setDotSizeNum(s.getDotSizeNum());
+		setBracketNum(s.getBracketNum());
+		setRBracketNum(s.getRBracketNum());
+		setTBarSizeDim(s.getTBarSizeDim());
+		setTBarSizeNum(s.getTBarSizeNum());
 	}
 
 

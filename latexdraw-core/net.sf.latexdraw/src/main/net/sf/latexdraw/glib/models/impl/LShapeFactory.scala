@@ -36,7 +36,7 @@ object LShapeFactory {
  */
 class LShapeFactory extends IShapeFactory {
 	/** The map that maps types to creation operations. */
-	private val factoryMap: Map[Class[_], () => IShape] = Map(
+	val factoryMap: Map[Class[_], () => IShape] = Map(
 			  (classOf[ICircleArc], () => createCircleArc(true)),
 			  (classOf[LCircleArc], () => createCircleArc(true)),
 			  (classOf[IArc], () => createArc(true)),

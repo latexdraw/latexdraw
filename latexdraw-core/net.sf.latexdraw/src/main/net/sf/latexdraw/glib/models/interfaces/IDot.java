@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
+import java.awt.Color;
+
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 /**
@@ -21,7 +23,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
  * @version 3.0
  * @since 3.0
  */
-public interface IDot extends IPositionShape, Dottable {
+public interface IDot extends IPositionShape {
 	/** Useful to calculate the thickness of dot with the o style. */
 	double THICKNESS_O_STYLE_FACTOR = 16.;
 
@@ -129,7 +131,7 @@ public interface IDot extends IPositionShape, Dottable {
 			}
 		};
 
-		/** 
+		/**
 		 * Allows to know if the dot shape can be filled.
 		 * @return True if the dot can be filled.
 		 */
@@ -170,11 +172,55 @@ public interface IDot extends IPositionShape, Dottable {
 			return null;
 		}
 	}
-	
-	
+
+	/**
+	 * @return The style of the dot.
+	 * @since 3.0
+	 */
+	DotStyle getDotStyle();
+
+	/**
+	 * Defines the style of the dot.
+	 * @param style The new style.
+	 * @since 3.0
+	 */
+	void setDotStyle(final DotStyle style);
+
+	/**
+	 * @return the radius of the dot.
+	 * @since 3.0
+	 */
+	double getRadius();
+
+	/**
+	 * Defines the radius of the dot.
+	 * @param radius the radius to set. Must be greater than 0.
+	 * @since 3.0
+	 */
+	void setRadius(final double radius);
+
+	/**
+	 * @return The filling colour of the dottable or null if not fillable.
+	 * @since 3.0
+	 */
+	Color getDotFillingCol();
+
+	/**
+	 * @return True if the dot can be filled.
+	 * @since 3.0
+	 */
+	@Override
+	boolean isFillable();
+
+	/**
+	 * Sets the filling colour of the dottable.
+	 * @param fillingCol its new colour.
+	 * @since 3.0
+	 */
+	void setDotFillingCol(final Color fillingCol);
+
 	@Override
 	IDot duplicate();
-	
 
 	/**
 	 * While getTopLeftPoint takes care about the current shape of the dot to compute the top left point,

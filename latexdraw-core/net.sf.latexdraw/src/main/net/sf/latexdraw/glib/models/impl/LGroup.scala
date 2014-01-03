@@ -39,9 +39,9 @@ import net.sf.latexdraw.glib.models.interfaces._
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
+protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 			with LGroupArc with LGroupArrowable with LGroupAxes
-			with LGroupDottable with LGroupFreeHand with LGroupLineArc
+			with LGroupDot with LGroupFreeHand with LGroupLineArc
 			with LGroupGrid with LGroupShape with LGroupStdGrid
 			with LGroupText with LSetShapes {
 
@@ -872,7 +872,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def getDotFillingColList() : List[Color] = {
 		val list = new ArrayList[Color]()
 		shapes.foreach{_ match {
-				case dot : Dottable => list.add(dot.getDotFillingCol)
+				case dot : IDot => list.add(dot.getDotFillingCol)
 				case _ => list.add(null)
 			}
 		}
@@ -883,7 +883,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def getDotStyleList() : List[DotStyle] = {
 		val list = new ArrayList[DotStyle]()
 		shapes.foreach{_ match {
-				case dot : Dottable => list.add(dot.getDotStyle)
+				case dot : IDot => list.add(dot.getDotStyle)
 				case _ => list.add(null)
 			}
 		}
@@ -894,7 +894,7 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def getDotSizeList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{_ match {
-				case dot : Dottable => list.add(dot.getRadius)
+				case dot : IDot => list.add(dot.getRadius)
 				case _ => list.add(null)
 			}
 		}
@@ -913,8 +913,8 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def setDotStyleList(values : List[DotStyle]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[Dottable])
-					shapes.get(i).asInstanceOf[Dottable].setDotStyle(values.get(i))
+				if(shapes.get(i).isInstanceOf[IDot])
+					shapes.get(i).asInstanceOf[IDot].setDotStyle(values.get(i))
 	}
 
 
@@ -1128,16 +1128,16 @@ protected class LGroup(uniqueID : java.lang.Boolean) extends LShape(uniqueID)
 	override def setDotFillingColList(values : List[Color]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[Dottable])
-					shapes.get(i).asInstanceOf[Dottable].setDotFillingCol(values.get(i))
+				if(shapes.get(i).isInstanceOf[IDot])
+					shapes.get(i).asInstanceOf[IDot].setDotFillingCol(values.get(i))
 	}
 
 
 	override def setDotSizeList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[Dottable])
-					shapes.get(i).asInstanceOf[Dottable].setRadius(values.get(i))
+				if(shapes.get(i).isInstanceOf[IDot])
+					shapes.get(i).asInstanceOf[IDot].setRadius(values.get(i))
 	}
 
 

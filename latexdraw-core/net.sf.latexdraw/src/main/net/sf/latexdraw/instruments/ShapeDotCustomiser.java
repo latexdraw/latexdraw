@@ -11,7 +11,7 @@ import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.Dottable;
+import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -150,8 +150,8 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape.isTypeOf(Dottable.class)) {
-			final Dottable dot 	= (Dottable)shape;
+		if(shape.isTypeOf(IDot.class)) {
+			final IDot dot 	= (IDot)shape;
 			dotSizeField.setValueSafely(dot.getRadius());
 			dotCB.setSelectedItemSafely(dot.getDotStyle().toString());
 			fillingB.setEnabled(shape.isFillable());

@@ -119,72 +119,13 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
 	 * @since 3.0
 	 */
 	def setShapeParameters(shape:IShape) = {
-		if(shape.isInstanceOf[IModifiablePointsShape] && !shape.isInstanceOf[IFreehand]) {
+		if(shape.isInstanceOf[IModifiablePointsShape] && !shape.isInstanceOf[IFreehand]) {//FIXME
 			val mod = shape.asInstanceOf[IModifiablePointsShape]
 			mod.addPoint(DrawingTK.getFactory.createPoint)
 			mod.addPoint(DrawingTK.getFactory.createPoint)
 		}
 
-//FIXME Should use copy operations to copy these parameters.
-		shape.setLineColour(groupParams.getLineColour)
-
-		if(shape.isArrowable) {
-			shape.setArrowStyle(groupParams.getArrowStyle(0), 0)
-			shape.setArrowStyle(groupParams.getArrowStyle(-1), -1)
-		}
-		if(shape.isThicknessable)
-			shape.setThickness(groupParams.getThickness)
-		if(shape.isBordersMovable)
-			shape.setBordersPosition(groupParams.getBordersPosition)
-		if(shape.isInteriorStylable)
-			shape.copy(groupParams)
-		if(shape.isDbleBorderable) {
-			shape.setHasDbleBord(groupParams.hasDbleBord)
-			shape.setDbleBordCol(groupParams.getDbleBordCol)
-			shape.setDbleBordSep(groupParams.getDbleBordSep)
-		}
-		if(shape.isShadowable) {
-			shape.setHasShadow(groupParams.hasShadow)
-			shape.setShadowCol(groupParams.getShadowCol)
-			shape.setShadowAngle(groupParams.getShadowAngle)
-			shape.setShadowSize(groupParams.getShadowSize)
-		}
-		if(shape.isInstanceOf[Dottable]) {
-			val dot = shape.asInstanceOf[Dottable]
-			dot.setDotStyle(groupParams.getDotStyle)
-			dot.setRadius(groupParams.getRadius)
-			dot.setDotFillingCol(groupParams.getDotFillingCol)
-		}
-		if(shape.isInstanceOf[IArc]) {
-			val arc = shape.asInstanceOf[IArc]
-			arc.setAngleStart(groupParams.getAngleStart)
-			arc.setAngleEnd(groupParams.getAngleEnd)
-			arc.setArcStyle(groupParams.getArcStyle)
-		}
-		if(shape.isLineStylable())
-			shape.setLineStyle(groupParams.getLineStyle)
-		// Setting the corner roundness.
-		if(shape.isInstanceOf[ILineArcShape])
-			shape.asInstanceOf[ILineArcShape].setLineArc(groupParams.getLineArc)
-		// Setting the text parameters.
-		if(shape.isInstanceOf[IText]) {
-			val text = shape.asInstanceOf[IText]
-			text.setTextPosition(groupParams.getTextPosition)
-		}
-		if(shape.isInstanceOf[IStandardGrid])
-			shape.copy(groupParams)
-		if(shape.isArrowable) {
-			shape.setArrowInset(groupParams.getArrowInset)
-			shape.setArrowLength(groupParams.getArrowLength)
-			shape.setArrowSizeDim(groupParams.getArrowSizeDim)
-			shape.setArrowSizeNum(groupParams.getArrowSizeNum)
-			shape.setDotSizeDim(groupParams.getDotSizeDim)
-			shape.setDotSizeNum(groupParams.getDotSizeNum)
-			shape.setBracketNum(groupParams.getBracketNum)
-			shape.setRBracketNum(groupParams.getRBracketNum)
-			shape.setTBarSizeDim(groupParams.getTBarSizeDim)
-			shape.setTBarSizeNum(groupParams.getTBarSizeNum)
-		}
+		shape.copy(groupParams)
 		shape.setModified(true)
 		shape
 	}
