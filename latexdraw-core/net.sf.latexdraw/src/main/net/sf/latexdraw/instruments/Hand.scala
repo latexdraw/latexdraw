@@ -58,7 +58,7 @@ import net.sf.latexdraw.glib.models.impl.LShapeFactory._
  * @version 3.0
  */
 class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrument(canvas) {
-	protected var _metaCustomiser : MetaShapeCustomiser = null
+	var _metaCustomiser : MetaShapeCustomiser = _
 
 	override protected def initialiseLinks() {
 		try{
@@ -89,11 +89,9 @@ class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrume
 
 
 	override def onActionDone(action:Action) {
-		if(_metaCustomiser!=null) {
-			action match {
-				case _:TranslateShapes => _metaCustomiser.dimPosCustomiser.update()
-				case _ =>
-			}
+		action match {
+			case _:TranslateShapes => _metaCustomiser.dimPosCustomiser.update()
+			case _ =>
 		}
 	}
 }
@@ -211,10 +209,9 @@ private sealed class Press2Select(ins : Hand) extends Link[SelectShapes, PressWi
  */
 private sealed class DnD2Select(hand : Hand) extends Link[SelectShapes, DnDWithKeys, Hand](hand, true, classOf[SelectShapes], classOf[DnDWithKeys]) {
 	/** The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
-	private val selectionBorder : Rectangle2D = new Rectangle2D.Double()
-
-	private var selectedShapes : Buffer[IShape] = null
-	private var selectedViews  : Buffer[IViewShape] = null
+	val selectionBorder : Rectangle2D = new Rectangle2D.Double()
+	var selectedShapes : Buffer[IShape] = _
+	var selectedViews  : Buffer[IViewShape] = _
 
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)

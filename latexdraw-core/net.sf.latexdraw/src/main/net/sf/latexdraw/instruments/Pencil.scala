@@ -215,18 +215,18 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
  */
 private abstract sealed class PencilLink[I <: Interaction](pencil:Pencil, exec:Boolean, clazzInteraction:Class[I])
 				extends Link[AddShape, I, Pencil](pencil, false, classOf[AddShape], clazzInteraction) {
-	protected var tmpShape : Option[IViewShape] = None
+	protected var tmpShape : IViewShape = _
 
 	override def initAction() {
 		val sh = instrument.createShapeInstance
-		tmpShape = Some(View2DTK.getFactory.createView(sh))
+		tmpShape = View2DTK.getFactory.createView(sh)
 		action.setShape(sh)
 		action.setDrawing(instrument.canvas.getDrawing)
-		instrument.canvas.setTempView(tmpShape.get)
+		instrument.canvas.setTempView(tmpShape)
 	}
 
 	override def interimFeedback() {
-		if(tmpShape.isDefined) tmpShape.get.update
+		tmpShape.update
 		instrument.canvas.refresh
 	}
 }

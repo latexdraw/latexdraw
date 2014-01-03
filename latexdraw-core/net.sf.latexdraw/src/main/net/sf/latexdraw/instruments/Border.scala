@@ -71,36 +71,36 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	val stroke = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f, Array(7, 7), 0)
 
 	/** The selected views. */
-	protected val _selection : ListBuffer[IViewShape] = new ListBuffer()
+	val _selection : ListBuffer[IViewShape] = new ListBuffer()
 
 	/** The rectangle uses to show the selection. */
-	protected val _border : Rectangle2D = new Rectangle2D.Double()
+	val _border : Rectangle2D = new Rectangle2D.Double()
 
 	/** The handlers that scale shapes. */
-	protected val _scaleHandlers : ListBuffer[ScaleHandler] = new ListBuffer()
+	val _scaleHandlers : ListBuffer[ScaleHandler] = new ListBuffer()
 
 	/** The handlers that move points. */
-	protected lazy val _mvPtHandlers : ListBuffer[MovePtHandler] = new ListBuffer()
+	lazy val _mvPtHandlers : ListBuffer[MovePtHandler] = new ListBuffer()
 
 	/** The handlers that move first control points. */
-	protected lazy val _ctrlPt1Handlers : ListBuffer[CtrlPointHandler] = new ListBuffer()
+	lazy val _ctrlPt1Handlers : ListBuffer[CtrlPointHandler] = new ListBuffer()
 
 	/** The handlers that move second control points. */
-	protected lazy val _ctrlPt2Handlers : ListBuffer[CtrlPointHandler] = new ListBuffer()
+	lazy val _ctrlPt2Handlers : ListBuffer[CtrlPointHandler] = new ListBuffer()
 
 //	/** The handler that sets the arc frame. */
 //	protected lazy val frameArcHandler : FrameArcHandler = new FrameArcHandler()
 
 	/** The handler that sets the start angle of an arc. */
-	protected lazy val _arcHandlerStart : ArcAngleHandler = new ArcAngleHandler(true)
+	lazy val _arcHandlerStart : ArcAngleHandler = new ArcAngleHandler(true)
 
 	/** The handler that sets the end angle of an arc. */
-	protected lazy val _arcHandlerEnd : ArcAngleHandler = new ArcAngleHandler(false)
+	lazy val _arcHandlerEnd : ArcAngleHandler = new ArcAngleHandler(false)
 
 	/** The handler that rotates shapes. */
-	protected val _rotHandler : RotationHandler = new RotationHandler()
+	val _rotHandler : RotationHandler = new RotationHandler()
 
-	protected var _metaCustomiser : MetaShapeCustomiser = null
+	var _metaCustomiser : MetaShapeCustomiser = _
 
 	// Initialisation of the handlers that are always used.
 	_scaleHandlers += new ScaleHandler(Position.NW)
@@ -144,7 +144,6 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 
 
 	override def onActionDone(action:Action) {
-		if(_metaCustomiser!=null)
 			action match {
 				case _:RotateShapes => _metaCustomiser.rotationCustomiser.update()
 				case _:ModifyShapeProperty => _metaCustomiser.arcCustomiser.update()
@@ -245,7 +244,6 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	private def initialiseCtrlMvHandlers(cps : IControlPointShape) {
 		val zoom  = canvas.getZoom
 		val nbPts = cps.getNbPoints
-		var pt : IPoint = null
 
 		// Adding missing handlers.
 		if(_ctrlPt1Handlers.size<nbPts)
@@ -262,10 +260,10 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 
 		// Updating handlers.
 		for(i <- 0 to _ctrlPt1Handlers.size-1) {
-			pt = cps.getFirstCtrlPtAt(i)
-			_ctrlPt1Handlers.apply(i).setPoint(pt.getX*zoom, pt.getY*zoom)
-			pt = cps.getSecondCtrlPtAt(i)
-			_ctrlPt2Handlers.apply(i).setPoint(pt.getX*zoom, pt.getY*zoom)
+			val pt1 = cps.getFirstCtrlPtAt(i)
+			_ctrlPt1Handlers.apply(i).setPoint(pt1.getX*zoom, pt1.getY*zoom)
+			val pt2 = cps.getSecondCtrlPtAt(i)
+			_ctrlPt2Handlers.apply(i).setPoint(pt2.getX*zoom, pt2.getY*zoom)
 		}
 	}
 
@@ -283,7 +281,6 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 				val pts   = sh.asInstanceOf[IModifiablePointsShape]
 				val nbPts = pts.getNbPoints
 				val zoom  = canvas.getZoom
-				var pt : IPoint = null
 
 				if(_mvPtHandlers.size<nbPts)
 					for(i <- _mvPtHandlers.size to nbPts-1)
@@ -293,7 +290,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 							_mvPtHandlers.remove(0)
 
 				for(i <- 0 to _mvPtHandlers.size-1) {
-					pt = pts.getPtAt(i)
+					val pt = pts.getPtAt(i)
 					_mvPtHandlers.apply(i).setPoint(pt.getX*zoom, pt.getY*zoom)
 				}
 			}
@@ -376,7 +373,6 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	}
 
 
-
 	/**
 	 * Removes the given view from the selection. If the instrument is
 	 * activated and the removal is performed, the instrument is updated.
@@ -446,10 +442,10 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 //			if(pickable.isEmpty && _frameArcHandler!=null && _frameArcHandler.contains(x2, y2))
 //				pickable = Some(_frameArcHandler)
 
-			if(pickable.isEmpty && _arcHandlerStart!=null && _arcHandlerStart.contains(x, y))
+			if(pickable.isEmpty && _arcHandlerStart.contains(x, y))
 				pickable = Some(_arcHandlerStart)
 
-			if(pickable.isEmpty && _arcHandlerEnd!=null && _arcHandlerEnd.contains(x, y))
+			if(pickable.isEmpty && _arcHandlerEnd.contains(x, y))
 				pickable = Some(_arcHandlerEnd)
 
 			return pickable.getOrElse(null)
@@ -458,12 +454,8 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	}
 
 
-	private def getHandlerAt[T <: IHandler[_]](x : Double, y : Double, handlers : ListBuffer[T]) : Option[T] = {
-		handlers match {
-			case null => None
-			case _ => handlers.find{handler => handler.contains(x, y)}
-		}
-	}
+	private def getHandlerAt[T <: IHandler[_]](x : Double, y : Double, handlers : ListBuffer[T]) : Option[T] =
+		handlers.find{handler => handler.contains(x, y)}
 
 
 	override def getPickerAt(x : Double, y : Double) : Picker = null
@@ -477,15 +469,15 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 /** Maps a DnD interaction to an action that changes the arc angles. */
 private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty, DnD, Border](ins, true, classOf[ModifyShapeProperty], classOf[DnD]) {
 	/** The gravity centre used for the rotation. */
-	private var gc : IPoint = null
+	var gc : IPoint = _
 
 	/** Defines whether the current handled shape is rotated. */
-	private var isRotated = false
+	var isRotated = false
 
 	/** The current handled shape. */
-	private var shape : IShape = null
+	var shape : IShape = _
 
-	private var gap : IPoint = DrawingTK.getFactory.createPoint
+	var gap : IPoint = DrawingTK.getFactory.createPoint
 
 
 	def initAction() {
@@ -547,10 +539,10 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
  */
 private sealed class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Border](ins, true, classOf[RotateShapes], classOf[DnD]) {
 	/** The point corresponding to the 'press' position. */
-	private var p1 : IPoint = null
+	var p1 : IPoint = _
 
 	/** The gravity centre used for the rotation. */
-	private var gc : IPoint = null
+	var gc : IPoint = _
 
 
 	def initAction() {
@@ -576,7 +568,7 @@ private sealed class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Bo
  */
 private sealed class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint, DnD, Border](ins, true, classOf[MoveCtrlPoint], classOf[DnD]) {
 	/** The original coordinates of the moved point. */
-	private var sourcePt : IPoint = null
+	var sourcePt : IPoint = _
 
 
 	override def initAction() {
@@ -627,7 +619,7 @@ private sealed class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint,
  */
 private sealed class DnD2MovePoint(ins : Border) extends Link[MovePointShape, DnD, Border](ins, true, classOf[MovePointShape], classOf[DnD]) {
 	/** The original coordinates of the moved point. */
-	private var sourcePt : IPoint = null
+	var sourcePt : IPoint = _
 
 
 	override def initAction() {
@@ -675,13 +667,13 @@ private sealed class DnD2MovePoint(ins : Border) extends Link[MovePointShape, Dn
  */
 private sealed class DnD2Scale(ins : Border) extends Link[ScaleShapes, DnD, Border](ins, true, classOf[ScaleShapes], classOf[DnD]) {
 	/** The point corresponding to the 'press' position. */
-	private var p1 : IPoint = null
+	var p1 : IPoint = _
 
 	/** The x gap (gap between the pressed position and the targeted position) of the X-scaling. */
-	private var xGap : Double = 0.0
+	var xGap : Double = _
 
 	/** The y gap (gap between the pressed position and the targeted position) of the Y-scaling. */
-	private var yGap : Double = 0.0
+	var yGap : Double = _
 
 
 	private def setXGap(refPosition : Position, tl : IPoint, br : IPoint) {

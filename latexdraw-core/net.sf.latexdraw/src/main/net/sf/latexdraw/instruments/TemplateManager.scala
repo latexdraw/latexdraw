@@ -36,13 +36,13 @@ import org.malai.swing.ui.UIComposer
  */
 class TemplateManager(composer : UIComposer[_], val ui : LFrame) extends WidgetInstrument(composer) {
 	/** The main menu that contains the template menu items. */
-	protected val _templateMenu : MMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.103"), true)
+	val _templateMenu : MMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.103"), true)
 
 	/** The menu item that permits to update the templates. */
-	protected val _updateTemplatesMenu : MMenuItem = new MMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.41"), LResources.RELOAD_ICON)
+	val _updateTemplatesMenu : MMenuItem = new MMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.41"), LResources.RELOAD_ICON)
 
 	/** The menu item used to export the selection as templates. */
-	protected val _exportTemplateMenu : MMenuItem = new MMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.42"))
+	val _exportTemplateMenu : MMenuItem = new MMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.42"))
 
 
 	initialiseWidgets

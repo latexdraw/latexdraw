@@ -33,7 +33,7 @@ import org.malai.swing.interaction.library.WindowClosed
  */
 class CodeInserter(val canvas : ICanvas, val statusBar : JLabel) extends Instrument {
 	/** The dialogue box used to insert code. */
-	protected lazy val _insertCodeDialog : InsertCodeDialog = new InsertCodeDialog(this)
+	lazy val _insertCodeDialog : InsertCodeDialog = new InsertCodeDialog(this)
 
 
 	/** Accessor for the code insertion dialogue box. */
