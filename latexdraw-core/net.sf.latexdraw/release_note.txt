@@ -9,6 +9,7 @@ Version 3.1.0
   the middle button of the mouse (or both the right and left buttons in some cases).
   It is more convenient than using the scroll bars.
 - Better rendering performance.
+- Ukrainian translation added.
 
 - fixed: The text field used during the editing of text is not always correctly located
   https://bugs.launchpad.net/latexdraw/+bug/1264869

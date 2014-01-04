@@ -203,6 +203,16 @@ public final class LangTool {
 			public String getToken() {
 				return "lang.pl";//$NON-NLS-1$
 			}
+		}, UK {
+			@Override
+			public String getName() {
+				return "українська мова";//$NON-NLS-1$
+			}
+
+			@Override
+			public String getToken() {
+				return "lang.uk";//$NON-NLS-1$
+			}
 		};
 
 
@@ -307,6 +317,7 @@ public final class LangTool {
 		mapLangs.put("ru", Lang.RU);
 		mapLangs.put("cs", Lang.CS);
 		mapLangs.put("ca", Lang.CA);
+		mapLangs.put("uk", Lang.UK);
 
 		mapLangs.put(Lang.FR.getName(), Lang.FR);
 		mapLangs.put(Lang.EN_BR.getName(), Lang.EN_BR);
@@ -324,6 +335,7 @@ public final class LangTool {
 		mapLangs.put(Lang.RU.getName(), Lang.RU);
 		mapLangs.put(Lang.CS.getName(), Lang.CS);
 		mapLangs.put(Lang.CA.getName(), Lang.CA);
+		mapLangs.put(Lang.UK.getName(), Lang.UK);
 	}
 
 

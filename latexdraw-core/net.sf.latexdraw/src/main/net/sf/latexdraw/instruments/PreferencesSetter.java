@@ -192,22 +192,8 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 			checkNewVersion.setSelected(true);
 
   		langList = new MComboBox<>();
-  		langList.addItem(LangTool.Lang.CA.getName());
-  		langList.addItem(LangTool.Lang.CS.getName());
-  		langList.addItem(LangTool.Lang.DE.getName());
-  		langList.addItem(LangTool.Lang.EN_BR.getName());
-  		langList.addItem(LangTool.Lang.EN_US.getName());
-  		langList.addItem(LangTool.Lang.ES.getName());
-  		langList.addItem(LangTool.Lang.FR.getName());
-  		langList.addItem(LangTool.Lang.IT.getName());
-  		langList.addItem(LangTool.Lang.JA.getName());
-  		langList.addItem(LangTool.Lang.HU.getName());
-  		langList.addItem(LangTool.Lang.PL.getName());
-  		langList.addItem(LangTool.Lang.PT_BR.getName());
-  		langList.addItem(LangTool.Lang.VI.getName());
-  		langList.addItem(LangTool.Lang.RU.getName());
-  		langList.addItem(LangTool.Lang.TR.getName());
-  		langList.addItem(LangTool.Lang.SR.getName());
+  		for(final LangTool.Lang lang : LangTool.Lang.values())
+  			langList.addItem(lang.getName());
   		langList.setMaximumSize(new Dimension(250, height));
   		langList.setSelectedItemSafely(LangTool.getCurrentLanguage().getName());
 
