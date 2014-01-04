@@ -8,7 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
  * Defines a model of a shape that contains points that can be modified.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2013 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
  * <br>
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
