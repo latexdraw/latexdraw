@@ -26,11 +26,13 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
  */
 protected trait LGroupAxes extends IGroup {
 	/** May return the first axes shape of the group. */
-	private def firstIAxes = getShapes.find{shape => shape.isTypeOf(classOf[IAxes]) }
+	private def firstIAxes = axesShapes.find{_.isTypeOf(classOf[IAxes])}
+
+	private def axesShapes = getShapes.flatMap{case x:IAxes => x::Nil; case _ => Nil}
 
 	override def getIncrementX() : Double = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getIncrementX
+			case Some(axe) => axe.getIncrementX
 			case _ => Double.NaN
 		}
 	}
@@ -38,31 +40,25 @@ protected trait LGroupAxes extends IGroup {
 
 	override def getIncrementY() : Double = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getIncrementY
+			case Some(axe) => axe.getIncrementY
 			case _ => Double.NaN
 		}
 	}
 
 
-	override def setIncrementX(increment : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setIncrementX(increment)
-		}
+	override def setIncrementX(increment : Double) {
+		axesShapes.foreach{_.setIncrementX(increment)}
 	}
 
 
-	override def setIncrementY(increment : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setIncrementY(increment)
-		}
+	override def setIncrementY(increment : Double) {
+		axesShapes.foreach{_.setIncrementY(increment)}
 	}
 
 
 	override def getDistLabelsX() : Double = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getDistLabelsX
+			case Some(axe) => axe.getDistLabelsX
 			case _ => Double.NaN
 		}
 	}
@@ -70,153 +66,122 @@ protected trait LGroupAxes extends IGroup {
 
 	override def getDistLabelsY() : Double = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getDistLabelsY
+			case Some(axe) => axe.getDistLabelsY
 			case _ => Double.NaN
 		}
 	}
 
 
-	override def setDistLabelsX(distLabelsX : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setDistLabelsX(distLabelsX)
-		}
+	override def setDistLabelsX(distLabelsX : Double) {
+		axesShapes.foreach{_.setDistLabelsX(distLabelsX)}
 	}
 
 
-	override def setDistLabelsY(distLabelsY : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setDistLabelsY(distLabelsY)
-		}
+	override def setDistLabelsY(distLabelsY : Double) {
+		axesShapes.foreach{_.setDistLabelsY(distLabelsY)}
 	}
 
 
 	override def getLabelsDisplayed() : IAxes.PlottingStyle = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getLabelsDisplayed
+			case Some(axe) => axe.getLabelsDisplayed
 			case _ => null
 		}
 	}
 
 
-	override def setLabelsDisplayed(labelsDisplayed : IAxes.PlottingStyle) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setLabelsDisplayed(labelsDisplayed)
-		}
+	override def setLabelsDisplayed(labelsDisplayed : IAxes.PlottingStyle) {
+		axesShapes.foreach{_.setLabelsDisplayed(labelsDisplayed)}
 	}
 
 
 	override def isShowOrigin() : Boolean = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].isShowOrigin
+			case Some(axe) => axe.isShowOrigin
 			case _ => false
 		}
 	}
 
 
-	override def setShowOrigin(showOrigin : Boolean) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setShowOrigin(showOrigin)
-		}
+	override def setShowOrigin(showOrigin : Boolean) {
+		axesShapes.foreach{_.setShowOrigin(showOrigin)}
 	}
 
 
 	override def getTicksDisplayed() : IAxes.PlottingStyle = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getTicksDisplayed
+			case Some(axe) => axe.getTicksDisplayed
 			case _ => null
 		}
 	}
 
 
-	override def setTicksDisplayed(ticksDisplayed : IAxes.PlottingStyle) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setTicksDisplayed(ticksDisplayed)
-		}
+	override def setTicksDisplayed(ticksDisplayed : IAxes.PlottingStyle) {
+		axesShapes.foreach{_.setTicksDisplayed(ticksDisplayed)}
 	}
 
 
 	override def getTicksStyle() : IAxes.TicksStyle = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getTicksStyle
+			case Some(axe) => axe.getTicksStyle
 			case _ => null
 		}
 	}
 
 
-	override def setTicksStyle(ticksStyle : IAxes.TicksStyle) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setTicksStyle(ticksStyle)
-		}
+	override def setTicksStyle(ticksStyle : IAxes.TicksStyle) {
+		axesShapes.foreach{_.setTicksStyle(ticksStyle)}
 	}
 
 
 	override def getTicksSize() : Double = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getTicksSize
+			case Some(axe) => axe.getTicksSize
 			case _ => Double.NaN
 		}
 	}
 
 
-	override def setTicksSize(ticksSize : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setTicksSize(ticksSize)
-		}
+	override def setTicksSize(ticksSize : Double) {
+		axesShapes.foreach{_.setTicksSize(ticksSize)}
 	}
 
 
 	override def getAxesStyle() : IAxes.AxesStyle = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getAxesStyle
+			case Some(axe) => axe.getAxesStyle
 			case _ => null
 		}
 	}
 
 
-	override def setAxesStyle(axesStyle : IAxes.AxesStyle) = {
-		if(axesStyle!=null)
-			getShapes.foreach{shape =>
-				if(shape.isInstanceOf[IAxes])
-					shape.asInstanceOf[IAxes].setAxesStyle(axesStyle)
-		}
+	override def setAxesStyle(axesStyle : IAxes.AxesStyle) {
+		axesShapes.foreach{_.setAxesStyle(axesStyle)}
 	}
 
 
 	override def getIncrement() : IPoint = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getIncrement
+			case Some(axe) => axe.getIncrement
 			case _ => null
 		}
 	}
 
 
-	override def setIncrement(increment : IPoint) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setIncrement(increment)
-		}
+	override def setIncrement(increment : IPoint) {
+		axesShapes.foreach{_.setIncrement(increment)}
 	}
 
 
 	override def getDistLabels() : IPoint = {
 		firstIAxes match {
-			case Some(axe) => axe.asInstanceOf[IAxes].getDistLabels
+			case Some(axe) => axe.getDistLabels
 			case _ => null
 		}
 	}
 
 
-	override def setDistLabels(distLabels : IPoint) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IAxes])
-				shape.asInstanceOf[IAxes].setDistLabels(distLabels)
-		}
+	override def setDistLabels(distLabels : IPoint) {
+		axesShapes.foreach{_.setDistLabels(distLabels)}
 	}
 }

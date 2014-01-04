@@ -26,53 +26,46 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
  */
 protected trait LGroupFreeHand extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstIFreeHand = getShapes.find{shape => shape.isTypeOf(classOf[IFreehand]) }
+	private def firstIFreeHand = fhShapes.find{_.isTypeOf(classOf[IFreehand])}
+
+	private def fhShapes = getShapes.flatMap{case x:IFreehand => x::Nil; case _ => Nil}
 
 	override def getType() : IFreehand.FreeHandType = {
 		firstIFreeHand match {
-			case Some(fh) => fh.asInstanceOf[IFreehand].getType
+			case Some(fh) => fh.getType
 			case _ => null
 		}
 	}
 
 
-	override def setType(fhType : IFreehand.FreeHandType) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IFreehand])
-				shape.asInstanceOf[IFreehand].setType(fhType)
-		}
+	override def setType(fhType : IFreehand.FreeHandType) {
+		fhShapes.foreach{_.setType(fhType)}
 	}
 
 
 	override def isOpen() : Boolean = {
 		firstIFreeHand match {
-			case Some(fh) => fh.asInstanceOf[IFreehand].isOpen
+			case Some(fh) => fh.isOpen
 			case _ => false
 		}
 	}
 
 
-	override def setOpen(open : Boolean) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IFreehand])
-				shape.asInstanceOf[IFreehand].setOpen(open)
-		}
+	override def setOpen(open : Boolean) {
+		fhShapes.foreach{_.setOpen(open)}
 	}
 
 
 	override def getInterval() : Int = {
 		firstIFreeHand match {
-			case Some(fh) => fh.asInstanceOf[IFreehand].getInterval
+			case Some(fh) => fh.getInterval
 			case _ => 0
 		}
 	}
 
 
-	override def setInterval(interval : Int) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IFreehand])
-				shape.asInstanceOf[IFreehand].setInterval(interval)
-		}
+	override def setInterval(interval : Int) {
+		fhShapes.foreach{_.setInterval(interval)}
 	}
 
 

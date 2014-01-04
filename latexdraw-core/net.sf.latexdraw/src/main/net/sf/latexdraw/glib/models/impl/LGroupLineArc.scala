@@ -25,7 +25,9 @@ import net.sf.latexdraw.glib.models.interfaces.ILineArcShape
  */
 protected trait LGroupLineArc extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstLineArc = getShapes.find{shape => shape.isTypeOf(classOf[ILineArcShape]) }
+	private def firstLineArc = lineArcShapes.find{_.isTypeOf(classOf[ILineArcShape])}
+
+	private def lineArcShapes = getShapes.flatMap{case x:ILineArcShape => x::Nil; case _ => Nil}
 
 	override def getLineArc() : Double = {
 		firstLineArc match {
@@ -34,14 +36,9 @@ protected trait LGroupLineArc extends IGroup {
 		}
 	}
 
-
-	override def setLineArc(lineArc : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[ILineArcShape])
-				shape.asInstanceOf[ILineArcShape].setLineArc(lineArc)
-		}
+	override def setLineArc(lineArc : Double) {
+		lineArcShapes.foreach{_.setLineArc(lineArc)}
 	}
 
-
-	override def isRoundCorner() = getShapes.exists{sh => sh.isInstanceOf[ILineArcShape] && sh.asInstanceOf[ILineArcShape].isRoundCorner}
+	override def isRoundCorner() = firstLineArc.isDefined && firstLineArc.get.isRoundCorner
 }

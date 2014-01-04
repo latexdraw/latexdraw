@@ -27,161 +27,133 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup
  */
 protected trait LGroupGrid extends IGroup {
 	/** May return the first grid of the group. */
-	private def firstIGrid = getShapes.find{shape => shape.isTypeOf(classOf[IGrid]) }
+	private def firstIGrid = gridShapes.find{_.isTypeOf(classOf[IGrid])}
+
+	private def gridShapes = getShapes.flatMap{case x:IGrid => x::Nil; case _ => Nil}
 
 
 	override def isXLabelSouth() : Boolean =
 		firstIGrid match {
-			case Some(stdGrid) => stdGrid.asInstanceOf[IGrid].isXLabelSouth
+			case Some(stdGrid) => stdGrid.isXLabelSouth
 			case _ => false
 		}
 
 
 	override def setXLabelSouth(isXLabelSouth : Boolean) {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IGrid])
-				shape.asInstanceOf[IGrid].setXLabelSouth(isXLabelSouth)
-		}
+		gridShapes.foreach{_.setXLabelSouth(isXLabelSouth)}
 	}
 
 
 	override def isYLabelWest() : Boolean =
 		firstIGrid match {
-			case Some(stdGrid) => stdGrid.asInstanceOf[IGrid].isYLabelWest
+			case Some(stdGrid) => stdGrid.isYLabelWest
 			case _ => false
 		}
 
 
 	override def setYLabelWest(isYLabelWest : Boolean) {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IGrid])
-				shape.asInstanceOf[IGrid].setYLabelWest(isYLabelWest)
-		}
+		gridShapes.foreach{_.setYLabelWest(isYLabelWest)}
 	}
 
 	override def getGridDots() : Int = {
 		firstIGrid match {
-			case Some(grid) => grid.asInstanceOf[IGrid].getGridDots
+			case Some(grid) => grid.getGridDots
 			case _ => 0
 		}
 	}
 
 
-	override def setGridDots(gridDots : Int) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IGrid])
-				shape.asInstanceOf[IGrid].setGridDots(gridDots)
-		}
+	override def setGridDots(gridDots : Int) {
+		gridShapes.foreach{_.setGridDots(gridDots)}
 	}
 
 
 	override def getGridLabelsColour() : Color = {
 		firstIGrid match {
-			case Some(grid) => grid.asInstanceOf[IGrid].getGridLabelsColour
+			case Some(grid) => grid.getGridLabelsColour
 			case _ => null
 		}
 	}
 
 
-	override def setGridLabelsColour(gridLabelsColour : Color) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IGrid])
-				shape.asInstanceOf[IGrid].setGridLabelsColour(gridLabelsColour)
-		}
+	override def setGridLabelsColour(gridLabelsColour : Color) {
+		gridShapes.foreach{_.setGridLabelsColour(gridLabelsColour)}
 	}
 
 
 	override def getGridWidth() : Double = {
 		firstIGrid match {
-			case Some(grid) => grid.asInstanceOf[IGrid].getGridWidth
+			case Some(grid) => grid.getGridWidth
 			case _ => Double.NaN
 		}
 	}
 
 
-	override def setGridWidth(gridWidth : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IGrid])
-				shape.asInstanceOf[IGrid].setGridWidth(gridWidth)
-		}
+	override def setGridWidth(gridWidth : Double) {
+		gridShapes.foreach{_.setGridWidth(gridWidth)}
 	}
 
 
 	override def getSubGridColour() : Color = {
 		firstIGrid match {
-			case Some(grid) => grid.asInstanceOf[IGrid].getSubGridColour
+			case Some(grid) => grid.getSubGridColour
 			case _ => null
 		}
 	}
 
 
-	override def setSubGridColour(subGridColour : Color) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IGrid])
-				shape.asInstanceOf[IGrid].setSubGridColour(subGridColour)
-		}
+	override def setSubGridColour(subGridColour : Color) {
+		gridShapes.foreach{_.setSubGridColour(subGridColour)}
 	}
 
 
 	override def getSubGridDiv() : Int = {
 		firstIGrid match {
-			case Some(grid) => grid.asInstanceOf[IGrid].getSubGridDiv
+			case Some(grid) => grid.getSubGridDiv
 			case _ => 0
 		}
 	}
 
 
-	override def setSubGridDiv(subGridDiv : Int) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IGrid])
-				shape.asInstanceOf[IGrid].setSubGridDiv(subGridDiv)
-		}
+	override def setSubGridDiv(subGridDiv : Int) {
+		gridShapes.foreach{_.setSubGridDiv(subGridDiv)}
 	}
 
 
 	override def getSubGridDots() : Int = {
 		firstIGrid match {
-			case Some(grid) => grid.asInstanceOf[IGrid].getSubGridDots
+			case Some(grid) => grid.getSubGridDots
 			case _ => 0
 		}
 	}
 
 
-	override def setSubGridDots(subGridDots : Int) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IGrid])
-				shape.asInstanceOf[IGrid].setSubGridDots(subGridDots)
-		}
+	override def setSubGridDots(subGridDots : Int) {
+		gridShapes.foreach{_.setSubGridDots(subGridDots)}
 	}
 
 
 	override def getSubGridWidth() : Double = {
 		firstIGrid match {
-			case Some(grid) => grid.asInstanceOf[IGrid].getSubGridWidth
+			case Some(grid) => grid.getSubGridWidth
 			case _ => Double.NaN
 		}
 	}
 
 
-	override def setSubGridWidth(subGridWidth : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IGrid])
-				shape.asInstanceOf[IGrid].setSubGridWidth(subGridWidth)
-		}
+	override def setSubGridWidth(subGridWidth : Double) {
+		gridShapes.foreach{_.setSubGridWidth(subGridWidth)}
 	}
 
 
-	override def setUnit(unit : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IGrid])
-				shape.asInstanceOf[IGrid].setUnit(unit)
-		}
+	override def setUnit(unit : Double) {
+		gridShapes.foreach{_.setUnit(unit)}
 	}
 
 
 	override def getUnit() : Double = {
 		firstIGrid match {
-			case Some(grid) => grid.asInstanceOf[IGrid].getUnit
+			case Some(grid) => grid.getUnit
 			case _ => Double.NaN
 		}
 	}

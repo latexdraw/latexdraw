@@ -26,13 +26,12 @@ import net.sf.latexdraw.glib.models.interfaces.ILine
  */
 protected trait LGroupArrowable extends IGroup {
 	/** May return the first grid of the group. */
-	private def firstIArrowable = getShapes.find{shape => shape.isArrowable }
+	private def firstIArrowable = arrowShapes.headOption
 
-	override def setArrowStyle(style : IArrow.ArrowStyle, position : Int) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setArrowStyle(style, position)
-		}
+	private def arrowShapes = getShapes.filter(_.isArrowable)
+
+	override def setArrowStyle(style : IArrow.ArrowStyle, position : Int) {
+		arrowShapes.foreach{_.setArrowStyle(style, position)}
 	}
 
 	override def getArrowStyle(position : Int) : IArrow.ArrowStyle = {
@@ -42,9 +41,7 @@ protected trait LGroupArrowable extends IGroup {
 		}
 	}
 
-
-	override def isArrowable() = getShapes.exists{shape => shape.isArrowable }
-
+	override def isArrowable() = firstIArrowable.isDefined
 
 	override def getArrowAt(position : Int) : IArrow = {
 		firstIArrowable match {
@@ -70,32 +67,20 @@ protected trait LGroupArrowable extends IGroup {
 	}
 
 
-	override def setDotSizeDim(dotSizeDim : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setDotSizeDim(dotSizeDim)
-		}
+	override def setDotSizeDim(dotSizeDim : Double) {
+		arrowShapes.foreach{_.setDotSizeDim(dotSizeDim)}
 	}
 
-	override def setDotSizeNum(dotSizeNum : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setDotSizeNum(dotSizeNum)
-		}
+	override def setDotSizeNum(dotSizeNum : Double) {
+		arrowShapes.foreach{_.setDotSizeNum(dotSizeNum)}
 	}
 
-	override def setTBarSizeNum(tbarSizeNum : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setTBarSizeNum(tbarSizeNum)
-		}
+	override def setTBarSizeNum(tbarSizeNum : Double) {
+		arrowShapes.foreach{_.setTBarSizeNum(tbarSizeNum)}
 	}
 
-	override def setTBarSizeDim(tbarSizeDim : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setTBarSizeDim(tbarSizeDim)
-		}
+	override def setTBarSizeDim(tbarSizeDim : Double) {
+		arrowShapes.foreach{_.setTBarSizeDim(tbarSizeDim)}
 	}
 
 	override def getTBarSizeDim() : Double = {
@@ -112,46 +97,28 @@ protected trait LGroupArrowable extends IGroup {
 		}
 	}
 
-	override def setRBracketNum(rBracketNum : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setRBracketNum(rBracketNum)
-		}
+	override def setRBracketNum(rBracketNum : Double) {
+		arrowShapes.foreach{_.setRBracketNum(rBracketNum)}
 	}
 
-	override def setBracketNum(bracketNum : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setBracketNum(bracketNum)
-		}
+	override def setBracketNum(bracketNum : Double) {
+		arrowShapes.foreach{_.setBracketNum(bracketNum)}
 	}
 
-	override def setArrowLength(lgth : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setArrowLength(lgth)
-		}
+	override def setArrowLength(lgth : Double) {
+		arrowShapes.foreach{_.setArrowLength(lgth)}
 	}
 
-	override def setArrowSizeDim(arrowSizeDim : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setArrowSizeDim(arrowSizeDim)
-		}
+	override def setArrowSizeDim(arrowSizeDim : Double) {
+		arrowShapes.foreach{_.setArrowSizeDim(arrowSizeDim)}
 	}
 
-	override def setArrowSizeNum(arrowSizeNum : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setArrowSizeNum(arrowSizeNum)
-		}
+	override def setArrowSizeNum(arrowSizeNum : Double) {
+		arrowShapes.foreach{_.setArrowSizeNum(arrowSizeNum)}
 	}
 
-	override def setArrowInset(inset : Double) = {
-		getShapes.foreach{shape =>
-			if(shape.isArrowable)
-				shape.setArrowInset(inset)
-		}
+	override def setArrowInset(inset : Double) {
+		arrowShapes.foreach{_.setArrowInset(inset)}
 	}
 
 	override def getDotSizeDim() : Double = {

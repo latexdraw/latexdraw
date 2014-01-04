@@ -26,37 +26,29 @@ import net.sf.latexdraw.glib.models.interfaces.IText
  */
 protected trait LGroupText extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstIText = getShapes.find{shape => shape.isTypeOf(classOf[IText]) }
+	private def firstIText = txtShapes.find{_.isTypeOf(classOf[IText])}
+
+	private def txtShapes = getShapes.flatMap{case x:IText => x::Nil; case _ => Nil}
 
 	override def getTextPosition() : IText.TextPosition =
 		firstIText match {
-			case Some(txt) => txt.asInstanceOf[IText].getTextPosition
+			case Some(txt) => txt.getTextPosition
 			case _ => null
 		}
 
-
 	override def setTextPosition(textPosition : IText.TextPosition) {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IText])
-				shape.asInstanceOf[IText].setTextPosition(textPosition)
-		}
+		txtShapes.foreach{_.setTextPosition(textPosition)}
 	}
-
 
 	override def getText() : String =
 		firstIText match {
-			case Some(txt) => txt.asInstanceOf[IText].getText
+			case Some(txt) => txt.getText
 			case _ => null
 		}
 
-
 	override def setText(text : String) {
-		getShapes.foreach{shape =>
-			if(shape.isInstanceOf[IText])
-				shape.asInstanceOf[IText].setText(text)
-		}
+		txtShapes.foreach{_.setText(text)}
 	}
-
 
 	override def getX() = 0.0
 
