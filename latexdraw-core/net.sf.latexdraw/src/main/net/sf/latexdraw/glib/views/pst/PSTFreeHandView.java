@@ -54,8 +54,8 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
         float midx=0;
         float midy=0;
 
-        coord.append("\\moveto(").append(LNumber.INSTANCE.getCutNumber((float)((curx-originx)/ppc)));//$NON-NLS-1$
-        coord.append(',').append(LNumber.INSTANCE.getCutNumber((float)((originy-cury)/ppc))).append(')').append('\n');
+        coord.append("\\moveto(").append(LNumber.getCutNumber((float)((curx-originx)/ppc)));//$NON-NLS-1$
+        coord.append(',').append(LNumber.getCutNumber((float)((originy-cury)/ppc))).append(')').append('\n');
 
         if(pts.size()>interval) {
             prevx = curx;
@@ -65,8 +65,8 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
             midx = (curx + prevx) / 2.0f;
             midy = (cury + prevy) / 2.0f;
 
-            coord.append("\\lineto(").append(LNumber.INSTANCE.getCutNumber((float)((midx-originx)/ppc)));//$NON-NLS-1$
-            coord.append(',').append(LNumber.INSTANCE.getCutNumber((float)((originy-midy)/ppc))).append(')').append('\n');
+            coord.append("\\lineto(").append(LNumber.getCutNumber((float)((midx-originx)/ppc)));//$NON-NLS-1$
+            coord.append(',').append(LNumber.getCutNumber((float)((originy-midy)/ppc))).append(')').append('\n');
         }
 
         for(i=interval*2; i<size; i+=interval) {
@@ -81,12 +81,12 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 			float x2 	= (prevx + midx) / 2.0f;
 			float y2 	= (prevy + midy) / 2.0f;
 
-            coord.append("\\curveto(").append(LNumber.INSTANCE.getCutNumber((float)((x1-originx)/ppc)));//$NON-NLS-1$
-            coord.append(',').append(LNumber.INSTANCE.getCutNumber((float)((originy-y1)/ppc))).append(')').append('(');
-            coord.append(LNumber.INSTANCE.getCutNumber((float)((x2-originx)/ppc))).append(',');
-            coord.append(LNumber.INSTANCE.getCutNumber((float)((originy-y2)/ppc))).append(')').append('(');
-            coord.append(LNumber.INSTANCE.getCutNumber((float)((midx-originx)/ppc))).append(',');
-            coord.append(LNumber.INSTANCE.getCutNumber((float)((originy-midy)/ppc))).append(')').append('\n');
+            coord.append("\\curveto(").append(LNumber.getCutNumber((float)((x1-originx)/ppc)));//$NON-NLS-1$
+            coord.append(',').append(LNumber.getCutNumber((float)((originy-y1)/ppc))).append(')').append('(');
+            coord.append(LNumber.getCutNumber((float)((x2-originx)/ppc))).append(',');
+            coord.append(LNumber.getCutNumber((float)((originy-y2)/ppc))).append(')').append('(');
+            coord.append(LNumber.getCutNumber((float)((midx-originx)/ppc))).append(',');
+            coord.append(LNumber.getCutNumber((float)((originy-midy)/ppc))).append(')').append('\n');
         }
 
         if((i-interval+1)<size) {
@@ -102,12 +102,12 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
             float y2 	= (prevy + midy) / 2.0f;
 
             coord.append("\\curveto("); //$NON-NLS-1$
-    		coord.append(LNumber.INSTANCE.getCutNumber((float)((x1-originx)/ppc))).append(',');
-			coord.append(LNumber.INSTANCE.getCutNumber((float)((originy-y1)/ppc))).append(')').append('(');
-			coord.append(LNumber.INSTANCE.getCutNumber((float)((x2-originx)/ppc))).append(',');
-			coord.append(LNumber.INSTANCE.getCutNumber((float)((originy-y2)/ppc))).append(')').append('(');
-			coord.append(LNumber.INSTANCE.getCutNumber((float)((pts.get(pts.size()-1).getX()-originx)/ppc))).append(',');
-			coord.append(LNumber.INSTANCE.getCutNumber((float)((originy-pts.get(pts.size()-1).getY())/ppc))).append(')').append('\n');
+    		coord.append(LNumber.getCutNumber((float)((x1-originx)/ppc))).append(',');
+			coord.append(LNumber.getCutNumber((float)((originy-y1)/ppc))).append(')').append('(');
+			coord.append(LNumber.getCutNumber((float)((x2-originx)/ppc))).append(',');
+			coord.append(LNumber.getCutNumber((float)((originy-y2)/ppc))).append(')').append('(');
+			coord.append(LNumber.getCutNumber((float)((pts.get(pts.size()-1).getX()-originx)/ppc))).append(',');
+			coord.append(LNumber.getCutNumber((float)((originy-pts.get(pts.size()-1).getY())/ppc))).append(')').append('\n');
         }
 	}
 
@@ -122,25 +122,25 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 		final int size = shape.getNbPoints();
 		final int interval = shape.getInterval();
 
-		coord.append("\\moveto(").append(LNumber.INSTANCE.getCutNumber((float)((p.getX()-originx)/ppc)));//$NON-NLS-1$
-		coord.append(',').append(LNumber.INSTANCE.getCutNumber((float)((originy-p.getY())/ppc))).append(')').append('\n');
+		coord.append("\\moveto(").append(LNumber.getCutNumber((float)((p.getX()-originx)/ppc)));//$NON-NLS-1$
+		coord.append(',').append(LNumber.getCutNumber((float)((originy-p.getY())/ppc))).append(')').append('\n');
 
 		for(i=interval; i<size; i+=interval) {
 			p = pts.get(i);
-			coord.append("\\lineto(").append(LNumber.INSTANCE.getCutNumber((float)((p.getX()-originx)/ppc)));//$NON-NLS-1$
-			coord.append(',').append(LNumber.INSTANCE.getCutNumber((float)((originy-p.getY())/ppc))).append(')').append('\n');
+			coord.append("\\lineto(").append(LNumber.getCutNumber((float)((p.getX()-originx)/ppc)));//$NON-NLS-1$
+			coord.append(',').append(LNumber.getCutNumber((float)((originy-p.getY())/ppc))).append(')').append('\n');
 		}
 
 		if((i-interval)<size)
-			coord.append("\\lineto(").append(LNumber.INSTANCE.getCutNumber((float)((pts.get(pts.size()-1).getX()-originx)/ppc))).append(//$NON-NLS-1$
-				',').append(LNumber.INSTANCE.getCutNumber((float)((originy-pts.get(pts.size()-1).getY())/ppc))).append(')').append('\n');
+			coord.append("\\lineto(").append(LNumber.getCutNumber((float)((pts.get(pts.size()-1).getX()-originx)/ppc))).append(//$NON-NLS-1$
+				',').append(LNumber.getCutNumber((float)((originy-pts.get(pts.size()-1).getY())/ppc))).append(')').append('\n');
 
 	}
 
 
 	@Override
 	public void updateCache(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(origin) || ppc<1)
+		if(!GLibUtilities.isValidPoint(origin) || ppc<1)
 			return ;
 
 		emptyCache();

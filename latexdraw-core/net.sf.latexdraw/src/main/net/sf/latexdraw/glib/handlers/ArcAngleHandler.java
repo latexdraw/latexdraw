@@ -62,7 +62,7 @@ public class ArcAngleHandler extends Handler<Rectangle2D, IArc> {
 			pt = arc.getEndPoint();
 
 		// If the shape is rotated, the handler's position must fit the rotation angle.
-		if(!LNumber.INSTANCE.equals(rotAngle, 0.))
+		if(!LNumber.equals(rotAngle, 0.))
 			pt = pt.rotatePoint(zoomedGC, rotAngle);
 
 		point.setPoint(pt.zoom(zoom).getMiddlePoint(zoomedGC));

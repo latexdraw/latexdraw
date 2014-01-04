@@ -87,7 +87,7 @@ class LRectangle extends LRectangularShape implements IRectangle {
 
 	@Override
 	public void setLineArc(final double arc) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(arc) && arc>=0 && arc<=1)
+		if(GLibUtilities.isValidCoordinate(arc) && arc>=0 && arc<=1)
 			frameArc = arc;
 	}
 

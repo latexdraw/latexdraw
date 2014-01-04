@@ -57,7 +57,7 @@ class LPolyline extends LPolygon implements IPolyline {
 
 	@Override
 	public void addPoint(final IPoint pt, final int position) {
-		if(GLibUtilities.INSTANCE.isValidPoint(pt) && position>=-1 && position<=points.size())
+		if(GLibUtilities.isValidPoint(pt) && position>=-1 && position<=points.size())
 			if(position==-1 || position==points.size())
 				arrows.add(new LArrow(this));
 			else

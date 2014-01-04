@@ -66,7 +66,7 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 	 */
 	@Override
 	public void setPoint(final double x, final double y) {
-		if(GLibUtilities.INSTANCE.isValidPoint(x, y)) {
+		if(GLibUtilities.isValidPoint(x, y)) {
 			point.setPoint(x, y);
 			updateShape();
 		}

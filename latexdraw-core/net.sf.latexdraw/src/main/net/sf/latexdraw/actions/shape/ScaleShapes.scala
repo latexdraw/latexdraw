@@ -55,7 +55,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 
 	override def isRegisterable() = hadEffect
 
-	override def hadEffect = isDone && (!LNumber.INSTANCE.equals(oldWidth, bound.getWidth) || !LNumber.INSTANCE.equals(oldHeight, bound.getHeight))
+	override def hadEffect = isDone && (!LNumber.equals(oldWidth, bound.getWidth) || !LNumber.equals(oldHeight, bound.getHeight))
 
 	override def canDo() = _drawing.isDefined && _shape.isDefined && _refPosition.isDefined && isValidScales
 
@@ -71,7 +71,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 	}
 
 
-	private def isValidScale(scale : Double) = GLibUtilities.INSTANCE.isValidCoordinate(scale) && scale>0
+	private def isValidScale(scale : Double) = GLibUtilities.isValidCoordinate(scale) && scale>0
 
 
 	protected def doActionBody() {

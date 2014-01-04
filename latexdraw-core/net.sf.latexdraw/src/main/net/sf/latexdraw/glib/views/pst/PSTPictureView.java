@@ -41,7 +41,7 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 
 	@Override
 	public void updateCache(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(origin) || ppc<1)
+		if(!GLibUtilities.isValidPoint(origin) || ppc<1)
 			return ;
 
 		emptyCache();
@@ -60,8 +60,8 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 
 		cache.append(start);
 		cache.append("\\rput(");//$NON-NLS-1$
-		cache.append((float)LNumber.INSTANCE.getCutNumber((shape.getX()+shape.getWidth()/2.-origin.getX())/ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber((origin.getY()-shape.getY()-shape.getHeight()/2.)/ppc)).append(')').append('{');
+		cache.append((float)LNumber.getCutNumber((shape.getX()+shape.getWidth()/2.-origin.getX())/ppc)).append(',');
+		cache.append((float)LNumber.getCutNumber((origin.getY()-shape.getY()-shape.getHeight()/2.)/ppc)).append(')').append('{');
 		cache.append("\\includegraphics{"); //$NON-NLS-1$
 		cache.append(path);
 		cache.append('}').append('}');

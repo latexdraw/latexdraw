@@ -123,21 +123,21 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 		final ArrowStyle style = arrow.getArrowStyle();
 
 		if(style.isBar() || style.isRoundBracket() || style.isSquareBracket()) {
-			code.append("tbarsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getTBarSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
-			append(LNumber.INSTANCE.getCutNumber(arrow.getTBarSizeNum()));
+			code.append("tbarsize=").append(LNumber.getCutNumber(arrow.getTBarSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
+			append(LNumber.getCutNumber(arrow.getTBarSizeNum()));
 
 			if(style.isSquareBracket())
-				code.append(",bracketlength=").append(LNumber.INSTANCE.getCutNumber(arrow.getBracketNum()));
+				code.append(",bracketlength=").append(LNumber.getCutNumber(arrow.getBracketNum()));
 			else if(style.isRoundBracket())
-				code.append(",rbracketlength=").append(LNumber.INSTANCE.getCutNumber(arrow.getRBracketNum()));
+				code.append(",rbracketlength=").append(LNumber.getCutNumber(arrow.getRBracketNum()));
 		}
 		else if(style.isArrow())
-			code.append("arrowsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getArrowSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
-				 append(LNumber.INSTANCE.getCutNumber(arrow.getArrowSizeNum())).append(",arrowlength=").
-				 append(LNumber.INSTANCE.getCutNumber(arrow.getArrowLength())).append(",arrowinset=").append(LNumber.INSTANCE.getCutNumber(arrow.getArrowInset()));
+			code.append("arrowsize=").append(LNumber.getCutNumber(arrow.getArrowSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
+				 append(LNumber.getCutNumber(arrow.getArrowSizeNum())).append(",arrowlength=").
+				 append(LNumber.getCutNumber(arrow.getArrowLength())).append(",arrowinset=").append(LNumber.getCutNumber(arrow.getArrowInset()));
 		else
-			code.append("dotsize=").append(LNumber.INSTANCE.getCutNumber(arrow.getDotSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
-				 append(LNumber.INSTANCE.getCutNumber(arrow.getDotSizeNum()));
+			code.append("dotsize=").append(LNumber.getCutNumber(arrow.getDotSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
+				 append(LNumber.getCutNumber(arrow.getDotSizeNum()));
 
 		return code;
 	}
@@ -195,21 +195,21 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	 * @since 3.0
 	 */
 	protected StringBuilder getRotationHeaderCode(final float ppc, final IPoint position) {
-		if(ppc<1 || !GLibUtilities.INSTANCE.isValidPoint(position))
+		if(ppc<1 || !GLibUtilities.isValidPoint(position))
 			return null;
 
 		StringBuilder code;
 		final double angle = shape.getRotationAngle();
 
-		if(!LNumber.INSTANCE.equals(angle, 0.)) {
+		if(!LNumber.equals(angle, 0.)) {
 			IPoint gravityCenter = shape.getGravityCentre();
 			final double cx 	= (gravityCenter.getX() - position.getX()) / ppc;
 			final double cy 	= (position.getY() - gravityCenter.getY()) / ppc;
-			double x 			= LNumber.INSTANCE.getCutNumber(-Math.cos(-angle)*cx + Math.sin(-angle)*cy+cx);
-			double y 			= LNumber.INSTANCE.getCutNumber(-Math.sin(-angle)*cx - Math.cos(-angle)*cy+cy);
+			double x 			= LNumber.getCutNumber(-Math.cos(-angle)*cx + Math.sin(-angle)*cy+cx);
+			double y 			= LNumber.getCutNumber(-Math.sin(-angle)*cx - Math.cos(-angle)*cy+cy);
 
 			code = new StringBuilder();
-			code.append("\\rput{").append((float)LNumber.INSTANCE.getCutNumber(-Math.toDegrees(shape.getRotationAngle())%360)).append('}').append('('); //$NON-NLS-1$
+			code.append("\\rput{").append((float)LNumber.getCutNumber(-Math.toDegrees(shape.getRotationAngle())%360)).append('}').append('('); //$NON-NLS-1$
 			code.append((float)x).append(',').append((float)y).append(')').append('{');
 		}
 		else
@@ -250,7 +250,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 
 			code = new StringBuilder();
 			code.append("doubleline=true, doublesep=");//$NON-NLS-1$
-			code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDbleBordSep()/ppc));
+			code.append((float)LNumber.getCutNumber(shape.getDbleBordSep()/ppc));
 
 			if(!doubleColor.equals(PSTricksConstants.DEFAULT_DOUBLE_COLOR))
 				code.append(", doublecolor=").append(getColourName(doubleColor)); //$NON-NLS-1$
@@ -309,7 +309,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 
 		if(shape.isThicknessable()) {
 			code.append(", linewidth=");//$NON-NLS-1$
-			code.append((float)LNumber.INSTANCE.getCutNumber(shape.getThickness()/ppc));
+			code.append((float)LNumber.getCutNumber(shape.getThickness()/ppc));
 		}
 
 		switch(shape.getLineStyle()) {
@@ -317,16 +317,16 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 				code.append(", linestyle=");//$NON-NLS-1$
 				code.append(PSTricksConstants.LINE_DOTTED_STYLE);
 				code.append(", dotsep=");//$NON-NLS-1$
-				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDotSep()/ppc));
+				code.append((float)LNumber.getCutNumber(shape.getDotSep()/ppc));
 				code.append(PSTricksConstants.TOKEN_CM);
 				break;
 			case DASHED:
 				code.append(", linestyle=");//$NON-NLS-1$
 				code.append(PSTricksConstants.LINE_DASHED_STYLE);
 				code.append(", dash=");//$NON-NLS-1$
-				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDashSepBlack()/ppc));
+				code.append((float)LNumber.getCutNumber(shape.getDashSepBlack()/ppc));
 				code.append(PSTricksConstants.TOKEN_CM).append(' ');
-				code.append((float)LNumber.INSTANCE.getCutNumber(shape.getDashSepWhite()/ppc));
+				code.append((float)LNumber.getCutNumber(shape.getDashSepWhite()/ppc));
 				code.append(PSTricksConstants.TOKEN_CM);
 				break;
 			case SOLID:
@@ -361,8 +361,8 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	private StringBuilder getFillingGrad() {
 		final Color gradStartCol = shape.getGradColStart();
 		final Color gradEndCol   = shape.getGradColEnd();
-		final float gradMidPt	 = (float)LNumber.INSTANCE.getCutNumber(shape.getGradMidPt());
-		final float gradAngle	 = (float)LNumber.INSTANCE.getCutNumber(shape.getGradAngle());
+		final float gradMidPt	 = (float)LNumber.getCutNumber(shape.getGradMidPt());
+		final float gradAngle	 = (float)LNumber.getCutNumber(shape.getGradAngle());
 		final StringBuilder code = new StringBuilder("fillstyle=gradient, gradlines=2000");//$NON-NLS-1$
 
 		if(!gradStartCol.equals(PSTricksConstants.DEFAULT_GRADIENT_START_COLOR))
@@ -371,11 +371,11 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 		if(!gradEndCol.equals(PSTricksConstants.DEFAULT_GRADIENT_END_COLOR))
 			code.append(", gradend=").append(getColourName(gradEndCol)); //$NON-NLS-1$
 
-		if(!LNumber.INSTANCE.equals(gradMidPt, PSTricksConstants.DEFAULT_GRADIENT_MID_POINT))
+		if(!LNumber.equals(gradMidPt, PSTricksConstants.DEFAULT_GRADIENT_MID_POINT))
 			code.append(", gradmidpoint=").append(gradMidPt);//$NON-NLS-1$
 
-		if(!LNumber.INSTANCE.equals(toDegrees(gradAngle), PSTricksConstants.DEFAULT_GRADIENT_ANGLE))
-			code.append(", gradangle=").append((float)LNumber.INSTANCE.getCutNumber(toDegrees(gradAngle)));//$NON-NLS-1$
+		if(!LNumber.equals(toDegrees(gradAngle), PSTricksConstants.DEFAULT_GRADIENT_ANGLE))
+			code.append(", gradangle=").append((float)LNumber.getCutNumber(toDegrees(gradAngle)));//$NON-NLS-1$
 
 		return code;
 	}
@@ -402,10 +402,10 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 			code.append('*');
 
 		code.append(", hatchwidth="); //$NON-NLS-1$
-		code.append((float)LNumber.INSTANCE.getCutNumber(shape.getHatchingsWidth()/ppc));
-		code.append(", hatchangle=").append(LNumber.INSTANCE.getCutNumber(Math.toDegrees(shape.getHatchingsAngle()))); //$NON-NLS-1$
+		code.append((float)LNumber.getCutNumber(shape.getHatchingsWidth()/ppc));
+		code.append(", hatchangle=").append(LNumber.getCutNumber(Math.toDegrees(shape.getHatchingsAngle()))); //$NON-NLS-1$
 		code.append(", hatchsep="); //$NON-NLS-1$
-		code.append((float)LNumber.INSTANCE.getCutNumber(shape.getHatchingsSep()/ppc));
+		code.append((float)LNumber.getCutNumber(shape.getHatchingsSep()/ppc));
 
 		if(!hatchingsCol.equals(PSTricksConstants.DEFAULT_HATCHING_COLOR))
 			code.append(", hatchcolor=").append(getColourName(hatchingsCol)); //$NON-NLS-1$
@@ -477,10 +477,10 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 			code = new StringBuilder();
 			code.append("shadow=true");//$NON-NLS-1$
 
-			if(!LNumber.INSTANCE.equals(Math.toDegrees(shape.getShadowAngle()), PSTricksConstants.DEFAULT_SHADOW_ANGLE))
-				code.append(",shadowangle="+(float)LNumber.INSTANCE.getCutNumber(Math.toDegrees(shape.getShadowAngle())));//$NON-NLS-1$
+			if(!LNumber.equals(Math.toDegrees(shape.getShadowAngle()), PSTricksConstants.DEFAULT_SHADOW_ANGLE))
+				code.append(",shadowangle="+(float)LNumber.getCutNumber(Math.toDegrees(shape.getShadowAngle())));//$NON-NLS-1$
 
-			code.append(",shadowsize="+(float)LNumber.INSTANCE.getCutNumber(shape.getShadowSize()/ppc));//$NON-NLS-1$
+			code.append(",shadowsize="+(float)LNumber.getCutNumber(shape.getShadowSize()/ppc));//$NON-NLS-1$
 
 			if(!shadowColor.equals(PSTricksConstants.DEFAULT_SHADOW_COLOR))
 				code.append(",shadowcolor=").append(getColourName(shadowColor)); //$NON-NLS-1$

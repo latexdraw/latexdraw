@@ -39,7 +39,7 @@ class PSTRectView extends PSTClassicalView<IRectangle> {
 
 	@Override
 	public void updateCache(final IPoint position, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(position) || ppc<1)
+		if(!GLibUtilities.isValidPoint(position) || ppc<1)
 			return ;
 
 		emptyCache();
@@ -54,7 +54,7 @@ class PSTRectView extends PSTClassicalView<IRectangle> {
 		double y2 		 = position.getY() - br.getY();
 
 		if(shape.isRoundCorner())
-			params.append(", framearc=").append((float)LNumber.INSTANCE.getCutNumber(shape.getLineArc())); //$NON-NLS-1$
+			params.append(", framearc=").append((float)LNumber.getCutNumber(shape.getLineArc())); //$NON-NLS-1$
 
 		rotation = getRotationHeaderCode(ppc, position);
 
@@ -64,10 +64,10 @@ class PSTRectView extends PSTClassicalView<IRectangle> {
 		cache.append("\\psframe[");	//$NON-NLS-1$
 		cache.append(params);
 		cache.append(']').append('(');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(x2 / ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(y1 / ppc)).append(')').append('(');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(x1 / ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(y2 / ppc)).append(')');
+		cache.append((float)LNumber.getCutNumber(x2 / ppc)).append(',');
+		cache.append((float)LNumber.getCutNumber(y1 / ppc)).append(')').append('(');
+		cache.append((float)LNumber.getCutNumber(x1 / ppc)).append(',');
+		cache.append((float)LNumber.getCutNumber(y2 / ppc)).append(')');
 
 		if(rotation!=null)
 			cache.append('}');

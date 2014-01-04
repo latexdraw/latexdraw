@@ -199,8 +199,8 @@ object FlyweightThumbnail {
 		doc.append(LaTeXGenerator.getPackages)
 		doc.append("\\usepackage[left=0cm,top=0cm,right=0cm,nohead,nofoot,paperwidth=50cm,paperheight=8cm]{geometry}\n")
 		doc.append("\\pagestyle{empty}\n\\begin{document}\n\\psscalebox{") //$NON-NLS-1$
-		doc.append(LNumber.INSTANCE.getCutNumber(scale).toFloat).append(' ')
-		doc.append(LNumber.INSTANCE.getCutNumber(scale).toFloat).append('}').append('{')
+		doc.append(LNumber.getCutNumber(scale).toFloat).append(' ')
+		doc.append(LNumber.getCutNumber(scale).toFloat).append('}').append('{')
 
 		if(!textColour.equals(PSTricksConstants.DEFAULT_LINE_COLOR)) {
 			var name = DviPsColors.INSTANCE.getColourName(textColour)

@@ -73,7 +73,7 @@ class LLine extends Line2D.Double implements ILine {
 	protected LLine(final IPoint p1, final IPoint p2) {
 		super();
 
-		if(!GLibUtilities.INSTANCE.isValidPoint(p1) || !GLibUtilities.INSTANCE.isValidPoint(p2))
+		if(!GLibUtilities.isValidPoint(p1) || !GLibUtilities.isValidPoint(p2))
 			throw new IllegalArgumentException();
 
 		setP1(p1);
@@ -85,7 +85,7 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public void setLine(final double x1, final double y1, final double x2, final double y2) {
-		if(GLibUtilities.INSTANCE.isValidPoint(x1, y1) && GLibUtilities.INSTANCE.isValidPoint(x2, y2)) {
+		if(GLibUtilities.isValidPoint(x1, y1) && GLibUtilities.isValidPoint(x2, y2)) {
 			super.setLine(x1, y1, x2, y2);
 			updateAandB();
 		}
@@ -104,9 +104,9 @@ class LLine extends Line2D.Double implements ILine {
 		final double x = pt.getX();
 		final double y = pt.getY();
 
-		if(isHorizontalLine()) return LNumber.INSTANCE.equals(y, minY) && x>=minX && x<=maxX;
-		if(isVerticalLine()) return LNumber.INSTANCE.equals(x, minX) && y>=minY && y<=maxY;
-		return y>=minY && y<=maxY && x>=minX && x<=maxX && LNumber.INSTANCE.equals(y, getA()*x+getB());
+		if(isHorizontalLine()) return LNumber.equals(y, minY) && x>=minX && x<=maxX;
+		if(isVerticalLine()) return LNumber.equals(x, minX) && y>=minY && y<=maxY;
+		return y>=minY && y<=maxY && x>=minX && x<=maxX && LNumber.equals(y, getA()*x+getB());
 	}
 
 
@@ -125,7 +125,7 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public double getXWithEquation(final double y) {
-		return GLibUtilities.INSTANCE.isValidCoordinate(y) ? isVerticalLine() ? isHorizontalLine() ?
+		return GLibUtilities.isValidCoordinate(y) ? isVerticalLine() ? isHorizontalLine() ?
 				java.lang.Double.NaN : getX1() : (y-b)/a : java.lang.Double.NaN;
 	}
 
@@ -133,7 +133,7 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public double getYWithEquation(final double x) {
-		return GLibUtilities.INSTANCE.isValidCoordinate(x) ? a*x+b : java.lang.Double.NaN;
+		return GLibUtilities.isValidCoordinate(x) ? a*x+b : java.lang.Double.NaN;
 	}
 
 
@@ -153,10 +153,10 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public IPoint[] findPoints(final double x, final double y, final double distance) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(x, y) || !GLibUtilities.INSTANCE.isValidCoordinate(distance))
+		if(!GLibUtilities.isValidPoint(x, y) || !GLibUtilities.isValidCoordinate(distance))
 			return null;
 
-		if(LNumber.INSTANCE.equals(distance, 0.)) {
+		if(LNumber.equals(distance, 0.)) {
 			LPoint[] sol = new LPoint[1];
 			sol[0] 		 = new LPoint(x,y);
 
@@ -193,7 +193,7 @@ class LLine extends Line2D.Double implements ILine {
 			return sol;
 		}
 		else
-			if(LNumber.INSTANCE.equals(delta, 0.)) {
+			if(LNumber.equals(delta, 0.)) {
 				double x2b, y2b;
 				LPoint sol[] = new LPoint[1];
 
@@ -223,20 +223,20 @@ class LLine extends Line2D.Double implements ILine {
 
 		return new Line(new Point2D.Double(x, y), new Point2D.Double(-b2/a2, 0.));
 		 */
-		if(!GLibUtilities.INSTANCE.isValidPoint(pt))
+		if(!GLibUtilities.isValidPoint(pt))
 			return null;
 
 		if(isVerticalLine())//FIXME must always create a perpendicular line + add test
-			return LNumber.INSTANCE.equals(pt.getX(), x1) ? new LLine(pt.getY(), new LPoint(pt)) : null;
+			return LNumber.equals(pt.getX(), x1) ? new LLine(pt.getY(), new LPoint(pt)) : null;
 
-		if(LNumber.INSTANCE.equals(pt.getX(), 0.)) {
+		if(LNumber.equals(pt.getX(), 0.)) {
 			LPoint pt3  = new LPoint(getPoint2());
 			LPoint pt2  = (LPoint) pt3.rotatePoint(pt, Math.PI/2.);
 
 			return new LLine(pt2, pt);
 		}
 
-		if(LNumber.INSTANCE.equals(a, 0.))
+		if(LNumber.equals(a, 0.))
 			return new LLine(pt.getX(), pt.getY(), pt.getX(), pt.getY()-10.);
 
 		double a2 = -1./a;
@@ -248,13 +248,13 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public boolean isVerticalLine() {
-		return LNumber.INSTANCE.equals(x1, x2);
+		return LNumber.equals(x1, x2);
 	}
 
 
 	@Override
 	public boolean isHorizontalLine() {
-		return LNumber.INSTANCE.equals(y1, y2);
+		return LNumber.equals(y1, y2);
 	}
 
 
@@ -262,7 +262,7 @@ class LLine extends Line2D.Double implements ILine {
 	@Override
 	public IPoint getIntersection(final ILine l) {
 		if(l==null) return null;
-		if(LNumber.INSTANCE.equals(a, l.getA(), 0.00000000001)) return null;
+		if(LNumber.equals(a, l.getA(), 0.00000000001)) return null;
 
 		boolean verticalLine1 = isVerticalLine();
 		boolean verticalLine2 = l.isVerticalLine();
@@ -387,7 +387,7 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public void setP1(final IPoint pt) {
-		if(GLibUtilities.INSTANCE.isValidPoint(pt)) {
+		if(GLibUtilities.isValidPoint(pt)) {
 			this.x1 = pt.getX();
 			this.y1 = pt.getY();
 		}
@@ -397,7 +397,7 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public void setP1(final double x, final double y) {
-		if(GLibUtilities.INSTANCE.isValidPoint(x, y)) {
+		if(GLibUtilities.isValidPoint(x, y)) {
 			this.x1 = x;
 			this.y1 = y;
 		}
@@ -407,7 +407,7 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public void setP2(final IPoint pt) {
-		if(GLibUtilities.INSTANCE.isValidPoint(pt)) {
+		if(GLibUtilities.isValidPoint(pt)) {
 			this.x2 = pt.getX();
 			this.y2 = pt.getY();
 		}
@@ -417,7 +417,7 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public void setP2(final double x, final double y) {
-		if(GLibUtilities.INSTANCE.isValidPoint(x, y)) {
+		if(GLibUtilities.isValidPoint(x, y)) {
 			this.x2 = x;
 			this.y2 = y;
 		}
@@ -427,28 +427,28 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public void setX1(final double x1) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(x1))
+		if(GLibUtilities.isValidCoordinate(x1))
 			this.x1 = x1;
 	}
 
 
 	@Override
 	public void setX2(final double x2) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(x2))
+		if(GLibUtilities.isValidCoordinate(x2))
 			this.x2 = x2;
 	}
 
 
 	@Override
 	public void setY1(final double y1) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(y1))
+		if(GLibUtilities.isValidCoordinate(y1))
 			this.y1 = y1;
 	}
 
 
 	@Override
 	public void setY2(final double y2) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(y2))
+		if(GLibUtilities.isValidCoordinate(y2))
 			this.y2 = y2;
 	}
 

@@ -557,13 +557,13 @@ abstract class LShape implements IShape {
 
 //	protected static void scaleX(final List<IPoint> list, final double xRef, final double sx) {
 //		for(final IPoint pt : list)
-//			if(!LNumber.INSTANCE.equals(xRef, pt.getX()))
+//			if(!LNumber.equals(xRef, pt.getX()))
 //				pt.setX(xRef+(pt.getX()-xRef)*sx);
 //	}
 //
 //	protected static void scaleY(final List<IPoint> list, final double yRef, final double sy) {
 //		for(final IPoint pt : list)
-//			if(!LNumber.INSTANCE.equals(yRef, pt.getY()))
+//			if(!LNumber.equals(yRef, pt.getY()))
 //				pt.setY(yRef+(pt.getY()-yRef)*sy);
 //	}
 //
@@ -572,9 +572,9 @@ abstract class LShape implements IShape {
 //		final double yRef = ref.getY();
 //
 //		for(final IPoint pt : list) {
-//			if(!LNumber.INSTANCE.equals(xRef, pt.getX()))
+//			if(!LNumber.equals(xRef, pt.getX()))
 //				pt.setX(xRef+(pt.getX()-xRef)*sx);
-//			if(!LNumber.INSTANCE.equals(yRef, pt.getY()))
+//			if(!LNumber.equals(yRef, pt.getY()))
 //				pt.setY(yRef+(pt.getY()-yRef)*sy);
 //		}
 //	}
@@ -617,14 +617,14 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void setDashSepBlack(final double dashSepBlack) {
-		if(dashSepBlack>0 && GLibUtilities.INSTANCE.isValidCoordinate(dashSepBlack))
+		if(dashSepBlack>0 && GLibUtilities.isValidCoordinate(dashSepBlack))
 			this.dashSepBlack = dashSepBlack;
 	}
 
 
 	@Override
 	public void setDashSepWhite(final double dashSepWhite) {
-		if(dashSepWhite>0 && GLibUtilities.INSTANCE.isValidCoordinate(dashSepWhite))
+		if(dashSepWhite>0 && GLibUtilities.isValidCoordinate(dashSepWhite))
 			this.dashSepWhite = dashSepWhite;
 	}
 
@@ -638,14 +638,14 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void setDbleBordSep(final double dbleBordSep) {
-		if(dbleBordSep>=0 && isDbleBorderable() && GLibUtilities.INSTANCE.isValidCoordinate(dbleBordSep))
+		if(dbleBordSep>=0 && isDbleBorderable() && GLibUtilities.isValidCoordinate(dbleBordSep))
 			this.dbleBordSep = dbleBordSep;
 	}
 
 
 	@Override
 	public void setDotSep(final double dotSep) {
-		if(dotSep>=0 && GLibUtilities.INSTANCE.isValidCoordinate(dotSep))
+		if(dotSep>=0 && GLibUtilities.isValidCoordinate(dotSep))
 			this.dotSep = dotSep;
 	}
 
@@ -726,7 +726,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void setGradAngle(final double gradAngle) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(gradAngle) && isInteriorStylable())
+		if(GLibUtilities.isValidCoordinate(gradAngle) && isInteriorStylable())
 			this.gradAngle = gradAngle;
 	}
 
@@ -768,7 +768,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void setHatchingsAngle(final double hatchingsAngle) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(hatchingsAngle) && isInteriorStylable())
+		if(GLibUtilities.isValidCoordinate(hatchingsAngle) && isInteriorStylable())
 			this.hatchingsAngle = hatchingsAngle;
 	}
 
@@ -782,14 +782,14 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void setHatchingsSep(final double hatchingsSep) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(hatchingsSep) && hatchingsSep>=0 && isInteriorStylable())
+		if(GLibUtilities.isValidCoordinate(hatchingsSep) && hatchingsSep>=0 && isInteriorStylable())
 			this.hatchingsSep = hatchingsSep;
 	}
 
 
 	@Override
 	public void setHatchingsWidth(final double hatchingsWidth) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(hatchingsWidth) && hatchingsWidth>0 && isInteriorStylable())
+		if(GLibUtilities.isValidCoordinate(hatchingsWidth) && hatchingsWidth>0 && isInteriorStylable())
 			this.hatchingsWidth = hatchingsWidth;
 	}
 
@@ -823,7 +823,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void setOpacity(final double opacity) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(opacity) && opacity>=0. && opacity<=1.)
+		if(GLibUtilities.isValidCoordinate(opacity) && opacity>=0. && opacity<=1.)
 			this.opacity = opacity;
 	}
 
@@ -844,9 +844,9 @@ abstract class LShape implements IShape {
 		final double refY = pos.isNorth() ? bound.getY() : bound.getMaxY();
 
 		for(final IPoint pt : pts) {
-			if(xScale && !LNumber.INSTANCE.equals(pt.getX(), refX))
+			if(xScale && !LNumber.equals(pt.getX(), refX))
 				pt.setX(refX+(pt.getX()-refX)*sx);
-			if(yScale && !LNumber.INSTANCE.equals(pt.getY(), refY))
+			if(yScale && !LNumber.equals(pt.getY(), refY))
 				pt.setY(refY+(pt.getY()-refY)*sy);
 		}
 	}
@@ -856,14 +856,14 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void setRotationAngle(final double rotationAngle) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(rotationAngle))
+		if(GLibUtilities.isValidCoordinate(rotationAngle))
 			this.rotationAngle = rotationAngle;
 	}
 
 
 	@Override
 	public void setShadowAngle(final double shadowAngle) {
-		if(isShadowable() && GLibUtilities.INSTANCE.isValidCoordinate(shadowAngle))
+		if(isShadowable() && GLibUtilities.isValidCoordinate(shadowAngle))
 			this.shadowAngle = shadowAngle;
 	}
 
@@ -877,7 +877,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void setShadowSize(final double shadowSize) {
-		if(isShadowable() && shadowSize>0 && GLibUtilities.INSTANCE.isValidCoordinate(shadowSize))
+		if(isShadowable() && shadowSize>0 && GLibUtilities.isValidCoordinate(shadowSize))
 			this.shadowSize = shadowSize;
 	}
 
@@ -891,7 +891,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void setThickness(final double thickness) {
-		if(thickness>0 && isThicknessable() && GLibUtilities.INSTANCE.isValidCoordinate(thickness))
+		if(thickness>0 && isThicknessable() && GLibUtilities.isValidCoordinate(thickness))
 			this.thickness = thickness;
 	}
 
@@ -904,7 +904,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void translate(final double tx, final double ty) {
-		if(GLibUtilities.INSTANCE.isValidPoint(tx, ty))
+		if(GLibUtilities.isValidPoint(tx, ty))
 			for(int i=0, size=points.size(); i<size; i++)
 				points.get(i).translate(tx, ty);
 	}
@@ -912,7 +912,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void mirrorHorizontal(final IPoint origin) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(origin))
+		if(!GLibUtilities.isValidPoint(origin))
 			return ;
 
 		IPoint pt1;
@@ -928,7 +928,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void mirrorVertical(final IPoint origin) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(origin))
+		if(!GLibUtilities.isValidPoint(origin))
 			return ;
 
 		IPoint pt1;

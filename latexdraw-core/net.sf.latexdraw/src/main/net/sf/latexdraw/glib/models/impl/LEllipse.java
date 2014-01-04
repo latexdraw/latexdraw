@@ -103,7 +103,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 
 		double lineb = line.getB();
 		double linea = line.getA();
-		boolean vert = !GLibUtilities.INSTANCE.isValidPoint(linea, lineb);// The line is vertical.
+		boolean vert = !GLibUtilities.isValidPoint(linea, lineb);// The line is vertical.
 		IPoint[] pts;
 		double a	 = getA()/2.;
 		double b	 = getB()/2.;
@@ -130,7 +130,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 			pts[1] = new LPoint(x2, linea*x2+lineb);
 		}
 		else
-			if(LNumber.INSTANCE.equals(delta,0.)) {
+			if(LNumber.equals(delta,0.)) {
 				double x0 = -gamma/(2.*beta);
 				pts = new LPoint[1];
 				pts[0] = new LPoint(x0, linea*x0+lineb);
@@ -165,7 +165,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 
 	@Override
 	public void setRx(final double rx) {
-		if(rx<=0 && !GLibUtilities.INSTANCE.isValidCoordinate(rx))
+		if(rx<=0 && !GLibUtilities.isValidCoordinate(rx))
 			return ;
 
 		double cx = getGravityCentre().getX();
@@ -179,7 +179,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 
 	@Override
 	public void setRy(final double ry) {
-		if(ry<=0 && !GLibUtilities.INSTANCE.isValidCoordinate(ry))
+		if(ry<=0 && !GLibUtilities.isValidCoordinate(ry))
 			return ;
 
 		double cy = getGravityCentre().getY();
@@ -193,7 +193,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 
 	@Override
 	public void setCentre(final IPoint centre) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(centre))
+		if(!GLibUtilities.isValidPoint(centre))
 			return ;
 
 		IPoint gc = getGravityCentre();

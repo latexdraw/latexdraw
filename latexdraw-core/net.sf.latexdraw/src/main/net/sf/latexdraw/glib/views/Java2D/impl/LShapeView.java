@@ -91,7 +91,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	protected static Shape getRotatedShape2D(final double angle, final Shape shape, final IPoint tlPoint, final IPoint brPoint) {
 		Shape sh;
 
-		if(LNumber.INSTANCE.equals(angle, 0.))
+		if(LNumber.equals(angle, 0.))
 			sh = shape;
 		else {
 			final double cx 		 = (tlPoint.getX()+brPoint.getX())/2.;
@@ -124,7 +124,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	public void updateBorder() {
 		Shape sh;
 
-		if(LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.))
+		if(LNumber.equals(shape.getRotationAngle(), 0.))
 			sh = path;
 		else
 			sh = getRotatedShape2D();
@@ -267,8 +267,8 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 					angle = angle-Math.PI;
 				}
 
-				if(!LNumber.INSTANCE.equals(angle, 0.)) {
-					if(LNumber.INSTANCE.equals(angle%(Math.PI/2.), 0.)) {
+				if(!LNumber.equals(angle, 0.)) {
+					if(LNumber.equals(angle%(Math.PI/2.), 0.)) {
 						pt1 = factory.createPoint(tl.getX(), (tl.getY()+br.getY())/2.);
 						pt2 = factory.createPoint(br.getX(), (tl.getY()+br.getY())/2.);
 
@@ -357,7 +357,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		if(!border.contains(x, y))
 			return false;
 
-		final Shape sh = LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.) ? path : getRotatedShape2D();
+		final Shape sh = LNumber.equals(shape.getRotationAngle(), 0.) ? path : getRotatedShape2D();
 
 		if(shape.isFilled() && sh.contains(x, y))
 			return true;
@@ -379,11 +379,11 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 	@Override
 	public boolean intersects(final Rectangle2D rec) {
-		if(rec==null || LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.) && !rec.contains(border) && !border.contains(rec) && !rec.intersects(border))
+		if(rec==null || LNumber.equals(shape.getRotationAngle(), 0.) && !rec.contains(border) && !border.contains(rec) && !rec.intersects(border))
 			return false;
 
 		final BasicStroke stroke = getStroke();
-		final Shape sh	 		 = LNumber.INSTANCE.equals(shape.getRotationAngle(), 0.) ? path : getRotatedShape2D();
+		final Shape sh	 		 = LNumber.equals(shape.getRotationAngle(), 0.) ? path : getRotatedShape2D();
 
 		if(stroke==null)
 			return sh.intersects(rec) || sh.contains(rec);
@@ -674,7 +674,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		final double rotationAngle = shape.getRotationAngle();
 		IPoint p = null;
 
-		if(!LNumber.INSTANCE.equals(rotationAngle%(Math.PI*2.), 0.) && g!=null) {
+		if(!LNumber.equals(rotationAngle%(Math.PI*2.), 0.) && g!=null) {
 			final IPoint tl = shape.getTopLeftPoint();//FIXME: should be border?
 			final IPoint br = shape.getBottomRightPoint();
 			final double cx = (tl.getX() + br.getX()) / 2., cy = (tl.getY() + br.getY()) / 2.;
@@ -702,7 +702,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	 * @since 3.0
 	 */
 	protected void endRotation(final Graphics2D g, final IPoint translation) {
-		if(GLibUtilities.INSTANCE.isValidPoint(translation) && g!=null) {
+		if(GLibUtilities.isValidPoint(translation) && g!=null) {
 			g.translate(-translation.getX(), -translation.getY());
 			g.rotate(-shape.getRotationAngle());
 		}

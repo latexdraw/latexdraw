@@ -530,7 +530,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		if(shape.getLabelsSize()>0)
 			createSVGGridLabels(document, elt, prefix, minX, maxX, minY, maxY, tlx, tly, xStep, yStep, gridWidth, absStep);
 
-		if(LNumber.INSTANCE.equals(shape.getRotationAngle()%(Math.PI*2), 0.))
+		if(LNumber.equals(shape.getRotationAngle()%(Math.PI*2), 0.))
 			setSVGRotationAttribute(elt);
 	}
 

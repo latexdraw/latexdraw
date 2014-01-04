@@ -38,7 +38,7 @@ class PSTRhombusView extends PSTClassicalView<IRhombus> {
 
 	@Override
 	public void updateCache(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(origin) || ppc<1)
+		if(!GLibUtilities.isValidPoint(origin) || ppc<1)
 			return ;
 
 		emptyCache();
@@ -54,16 +54,16 @@ class PSTRhombusView extends PSTClassicalView<IRhombus> {
 		final StringBuilder params 	= getPropertiesCode(ppc);
 		final double rotationAngle  = Math.toDegrees(shape.getRotationAngle())%360;
 
-		if(!LNumber.INSTANCE.equals(rotationAngle, 0.))
-			params.append(", gangle=").append((float)LNumber.INSTANCE.getCutNumber(-rotationAngle));//$NON-NLS-1$
+		if(!LNumber.equals(rotationAngle, 0.))
+			params.append(", gangle=").append((float)LNumber.getCutNumber(-rotationAngle));//$NON-NLS-1$
 
 		cache.append("\\psdiamond[");//$NON-NLS-1$
 		cache.append(params);
 		cache.append(']').append('(');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(xCenter/ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(yCenter/ppc)).append(')').append('(');
-		cache.append((float)LNumber.INSTANCE.getCutNumber((brx-tlx)/2f)/ppc).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber((bry-tly)/2f)/ppc).append(')');
+		cache.append((float)LNumber.getCutNumber(xCenter/ppc)).append(',');
+		cache.append((float)LNumber.getCutNumber(yCenter/ppc)).append(')').append('(');
+		cache.append((float)LNumber.getCutNumber((brx-tlx)/2f)/ppc).append(',');
+		cache.append((float)LNumber.getCutNumber((bry-tly)/2f)/ppc).append(')');
 	}
 }
 

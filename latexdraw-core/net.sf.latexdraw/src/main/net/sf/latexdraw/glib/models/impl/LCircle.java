@@ -95,7 +95,7 @@ class LCircle extends LEllipse implements ICircle {
 		final double refY = pos.isNorth() ? bound.getY() : bound.getMaxY();
 
 		for(final IPoint pt : pts)
-			if(!LNumber.INSTANCE.equals(pt.getX(), refX) || !LNumber.INSTANCE.equals(pt.getY(), refY)) {
+			if(!LNumber.equals(pt.getX(), refX) || !LNumber.equals(pt.getY(), refY)) {
 				pt.setX(refX+(pt.getX()-refX)*sx);
 				pt.setY(refY+(pt.getY()-refY)*sx);
 			}

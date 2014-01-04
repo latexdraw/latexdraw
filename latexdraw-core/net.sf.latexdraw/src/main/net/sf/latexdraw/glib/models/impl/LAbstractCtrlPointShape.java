@@ -183,28 +183,28 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setXFirstCtrlPt(final double x, final int id) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(x) && id>=0 && id<firstCtrlPts.size())
+		if(GLibUtilities.isValidCoordinate(x) && id>=0 && id<firstCtrlPts.size())
 			firstCtrlPts.get(id).setX(x);
 	}
 
 
 	@Override
 	public void setXSecondCtrlPt(final double x, final int id) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(x) && id>=0 && id<secondCtrlPts.size())
+		if(GLibUtilities.isValidCoordinate(x) && id>=0 && id<secondCtrlPts.size())
 			secondCtrlPts.get(id).setX(x);
 	}
 
 
 	@Override
 	public void setYFirstCtrlPt(final double y, final int id) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(y) && id>=0 && id<firstCtrlPts.size())
+		if(GLibUtilities.isValidCoordinate(y) && id>=0 && id<firstCtrlPts.size())
 			firstCtrlPts.get(id).setY(y);
 	}
 
 
 	@Override
 	public void setYSecondCtrlPt(final double y, final int id) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(y) && id>=0 && id<secondCtrlPts.size())
+		if(GLibUtilities.isValidCoordinate(y) && id>=0 && id<secondCtrlPts.size())
 			secondCtrlPts.get(id).setY(y);
 	}
 
@@ -220,7 +220,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	public boolean setPoint(final double x, final double y, final int position) {
 		IPoint pt = getPtAt(position);
 
-		if(pt==null || !GLibUtilities.INSTANCE.isValidPoint(x, y))
+		if(pt==null || !GLibUtilities.isValidPoint(x, y))
 			return false;
 
 		final double tx = x - pt.getX();
@@ -235,7 +235,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public void setRotationAngle(double rotationAngle) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(rotationAngle)) {
+		if(GLibUtilities.isValidCoordinate(rotationAngle)) {
 			final double diff = rotationAngle-this.rotationAngle;
 			final IPoint gc = getGravityCentre();
 
@@ -279,7 +279,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		super.addPoint(pt, position);
 
 		// Adding the control points.
-		if(GLibUtilities.INSTANCE.isValidPoint(pt) && position>=-1 && position<points.size()) {
+		if(GLibUtilities.isValidPoint(pt) && position>=-1 && position<points.size()) {
 			final IPoint ctrlPt  = new LPoint(pt.getX(), pt.getY()+DEFAULT_POSITION_CTRL);
 			if(position==-1) {
 				firstCtrlPts.add(ctrlPt);
@@ -317,7 +317,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		super.translate(tx, ty);
 
 		// Translating control points.
-		if(GLibUtilities.INSTANCE.isValidPoint(tx, ty)) {
+		if(GLibUtilities.isValidPoint(tx, ty)) {
 			for(final IPoint pt : firstCtrlPts)
 				pt.translate(tx, ty);
 			for(final IPoint pt : secondCtrlPts)

@@ -250,7 +250,7 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 	@Override
 	public void setGridWidth(final double gridWidth) {
-		if(gridWidth>0 && GLibUtilities.INSTANCE.isValidCoordinate(gridWidth))
+		if(gridWidth>0 && GLibUtilities.isValidCoordinate(gridWidth))
 			this.gridWidth = gridWidth;
 	}
 
@@ -278,14 +278,14 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 	@Override
 	public void setSubGridWidth(final double subGridWidth) {
-		if(subGridWidth>0 && GLibUtilities.INSTANCE.isValidCoordinate(subGridWidth))
+		if(subGridWidth>0 && GLibUtilities.isValidCoordinate(subGridWidth))
 			this.subGridWidth = subGridWidth;
 	}
 
 
 	@Override
 	public void setUnit(final double unit) {
-		if(unit>0 && GLibUtilities.INSTANCE.isValidCoordinate(unit))//TODO unit may be lesser than 0.
+		if(unit>0 && GLibUtilities.isValidCoordinate(unit))//TODO unit may be lesser than 0.
 			this.unit = unit;
 	}
 

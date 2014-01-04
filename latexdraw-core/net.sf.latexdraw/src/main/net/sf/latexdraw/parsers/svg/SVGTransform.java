@@ -539,8 +539,8 @@ public class SVGTransform {
 	 * @since 3.0
 	 */
 	private boolean cancelsRotation(final SVGTransform transform) {
-		return transform.isRotation() && LNumber.INSTANCE.equals(-(getRotationAngle()%360), transform.getRotationAngle()%360) &&
-				LNumber.INSTANCE.equals(getCx(), transform.getCx()) && LNumber.INSTANCE.equals(getCy(), transform.getCy());
+		return transform.isRotation() && LNumber.equals(-(getRotationAngle()%360), transform.getRotationAngle()%360) &&
+				LNumber.equals(getCx(), transform.getCx()) && LNumber.equals(getCy(), transform.getCy());
 	}
 
 	/**
@@ -549,7 +549,7 @@ public class SVGTransform {
 	 * @since 3.0
 	 */
 	private boolean cancelsTranslation(final SVGTransform transform) {
-		return transform.isTranslation() && LNumber.INSTANCE.equals(-getTX(), transform.getTX()) && LNumber.INSTANCE.equals(-getTY(), transform.getTY());
+		return transform.isTranslation() && LNumber.equals(-getTX(), transform.getTX()) && LNumber.equals(-getTY(), transform.getTY());
 	}
 
 	/**
@@ -558,8 +558,8 @@ public class SVGTransform {
 	 * @since 3.0
 	 */
 	private boolean cancelsScale(final SVGTransform transform) {
-		return transform.isScale() && LNumber.INSTANCE.equals(getXScaleFactor()*transform.getXScaleFactor(), 1.) &&
-			   LNumber.INSTANCE.equals(getYScaleFactor()*transform.getYScaleFactor(), 1.);
+		return transform.isScale() && LNumber.equals(getXScaleFactor()*transform.getXScaleFactor(), 1.) &&
+			   LNumber.equals(getYScaleFactor()*transform.getYScaleFactor(), 1.);
 	}
 
 	/**
@@ -595,7 +595,7 @@ public class SVGTransform {
 			case SVG_TRANSFORM_ROTATE:
 				code.append(SVGAttributes.SVG_TRANSFORM_ROTATE).append('(').append(getRotationAngle());
 
-				if(!LNumber.INSTANCE.equals(m.getE(), 0.) || !LNumber.INSTANCE.equals(m.getF(), 0.))
+				if(!LNumber.equals(m.getE(), 0.) || !LNumber.equals(m.getF(), 0.))
 					code.append(' ').append(m.getE()).append(' ').append(m.getF());
 
 				code.append(')');

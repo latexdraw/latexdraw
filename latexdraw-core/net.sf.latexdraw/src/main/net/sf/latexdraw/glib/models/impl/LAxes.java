@@ -236,28 +236,28 @@ class LAxes extends LAbstractGrid implements IAxes {
 
 	@Override
 	public void setDistLabelsX(final double distLabelsX) {
-		if(distLabelsX>0 && GLibUtilities.INSTANCE.isValidCoordinate(distLabelsX))
+		if(distLabelsX>0 && GLibUtilities.isValidCoordinate(distLabelsX))
 				this.distLabelsX = distLabelsX;
 	}
 
 
 	@Override
 	public void setDistLabelsY(final double distLabelsY) {
-		if(distLabelsY>0 && GLibUtilities.INSTANCE.isValidCoordinate(distLabelsY))
+		if(distLabelsY>0 && GLibUtilities.isValidCoordinate(distLabelsY))
 			this.distLabelsY = distLabelsY;
 	}
 
 
 	@Override
 	public void setIncrementX(final double increment) {
-		if(increment>0 && GLibUtilities.INSTANCE.isValidCoordinate(increment))
+		if(increment>0 && GLibUtilities.isValidCoordinate(increment))
 			this.incrementX = increment;
 	}
 
 
 	@Override
 	public void setIncrementY(final double increment) {
-		if(increment>0 && GLibUtilities.INSTANCE.isValidCoordinate(increment))
+		if(increment>0 && GLibUtilities.isValidCoordinate(increment))
 			this.incrementY = increment;
 	}
 
@@ -284,7 +284,7 @@ class LAxes extends LAbstractGrid implements IAxes {
 
 	@Override
 	public void setTicksSize(final double ticksSize) {
-		if(ticksSize>0 && GLibUtilities.INSTANCE.isValidCoordinate(ticksSize))
+		if(ticksSize>0 && GLibUtilities.isValidCoordinate(ticksSize))
 			this.ticksSize = ticksSize;
 	}
 

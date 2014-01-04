@@ -50,7 +50,7 @@ class PSTDotView extends PSTClassicalView<IDot> {
 		if(style!=DotStyle.DOT)
 			params.append(", dotstyle=").append(style.getPSTToken()); //$NON-NLS-1$
 
-		params.append(", dotsize=").append((float)LNumber.INSTANCE.getCutNumber(shape.getRadius()/ppc)); //$NON-NLS-1$
+		params.append(", dotsize=").append((float)LNumber.getCutNumber(shape.getRadius()/ppc)); //$NON-NLS-1$
 
 		if(rotation!=null)
 			cache.append(rotation);
@@ -58,8 +58,8 @@ class PSTDotView extends PSTClassicalView<IDot> {
 		cache.append("\\psdots["); //$NON-NLS-1$
 		cache.append(params);
 		cache.append(']').append('(');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(x/ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(y/ppc)).append(')');
+		cache.append((float)LNumber.getCutNumber(x/ppc)).append(',');
+		cache.append((float)LNumber.getCutNumber(y/ppc)).append(')');
 
 		if(rotation!=null)
 			cache.append('}');

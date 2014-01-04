@@ -66,14 +66,14 @@ class LPoint extends Point2D.Double implements IPoint {
 
 	@Override
 	public double computeAngle(final IPoint pt) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(pt))
+		if(!GLibUtilities.isValidPoint(pt))
 			return java.lang.Double.NaN;
 
 		double angle;
 		double x2 = pt.getX() - x;
 		double y2 = pt.getY() - y;
 
-		if(LNumber.INSTANCE.equals(x2, 0.)) {
+		if(LNumber.equals(x2, 0.)) {
 			angle = Math.PI/2.;
 
 			if(y2<0.)
@@ -94,7 +94,7 @@ class LPoint extends Point2D.Double implements IPoint {
 
 	@Override
 	public double computeRotationAngle(final IPoint pt1, final IPoint pt2) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(pt1) || !GLibUtilities.INSTANCE.isValidPoint(pt2))
+		if(!GLibUtilities.isValidPoint(pt1) || !GLibUtilities.isValidPoint(pt2))
 			return java.lang.Double.NaN;
 
 		double thetaOld = computeAngle(pt1);
@@ -112,7 +112,7 @@ class LPoint extends Point2D.Double implements IPoint {
 
 	@Override
 	public IPoint rotatePoint(final IPoint gravityC, final double theta) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(gravityC) || !GLibUtilities.INSTANCE.isValidCoordinate(theta))
+		if(!GLibUtilities.isValidPoint(gravityC) || !GLibUtilities.isValidCoordinate(theta))
 			return null;
 
 		IPoint pt 		= new LPoint();
@@ -127,18 +127,18 @@ class LPoint extends Point2D.Double implements IPoint {
 
 		angle = angle%(2.*PI);
 
-		if(LNumber.INSTANCE.equals(angle, 0.))
+		if(LNumber.equals(angle, 0.))
 			return (LPoint)clone();
 
-		if(LNumber.INSTANCE.equals(angle-PI/2., 0.)) {
+		if(LNumber.equals(angle-PI/2., 0.)) {
 			cosTheta = 0.;
 			sinTheta = 1.;
 		}
-		else if(LNumber.INSTANCE.equals(angle-PI, 0.)) {
+		else if(LNumber.equals(angle-PI, 0.)) {
 				cosTheta = -1.;
 				sinTheta = 0.;
 			}
-			else if(LNumber.INSTANCE.equals(angle-(3.*PI/2.), 0.)) {
+			else if(LNumber.equals(angle-(3.*PI/2.), 0.)) {
 					cosTheta = 0.;
 					sinTheta = -1.;
 				}
@@ -156,10 +156,10 @@ class LPoint extends Point2D.Double implements IPoint {
 
 	@Override
 	public boolean equals(final IPoint p, final double gap) {
-		if(!GLibUtilities.INSTANCE.isValidCoordinate(gap) || !GLibUtilities.INSTANCE.isValidPoint(p))
+		if(!GLibUtilities.isValidCoordinate(gap) || !GLibUtilities.isValidPoint(p))
 			return false;
 
-		return LNumber.INSTANCE.equals(x, p.getX(), gap) && LNumber.INSTANCE.equals(y, p.getY(), gap);
+		return LNumber.equals(x, p.getX(), gap) && LNumber.equals(y, p.getY(), gap);
 	}
 
 
@@ -173,14 +173,14 @@ class LPoint extends Point2D.Double implements IPoint {
 
 	@Override
 	public void translate(final double tx, final double ty) {
-		if(GLibUtilities.INSTANCE.isValidPoint(tx, ty))
+		if(GLibUtilities.isValidPoint(tx, ty))
 			setLocation(x+tx, y+ty);
 	}
 
 
 	@Override
 	public IPoint horizontalSymmetry(final IPoint origin) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(origin))
+		if(!GLibUtilities.isValidPoint(origin))
 			return null;
 
 		return new LPoint(2.*origin.getX()-x, y);
@@ -189,7 +189,7 @@ class LPoint extends Point2D.Double implements IPoint {
 
 	@Override
 	public IPoint verticalSymmetry(final IPoint origin) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(origin))
+		if(!GLibUtilities.isValidPoint(origin))
 			return null;
 
 		return new LPoint(x, 2.*origin.getY() - y);
@@ -199,28 +199,28 @@ class LPoint extends Point2D.Double implements IPoint {
 
 	@Override
 	public void setPoint(final double newX, final double newY) {
-		if(GLibUtilities.INSTANCE.isValidPoint(newX, newY))
+		if(GLibUtilities.isValidPoint(newX, newY))
 			setLocation(newX, newY);
 	}
 
 
 	@Override
 	public void setX(final double newX) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(newX))
+		if(GLibUtilities.isValidCoordinate(newX))
 			x = newX;
 	}
 
 
 	@Override
 	public void setY(final double newY) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(newY))
+		if(GLibUtilities.isValidCoordinate(newY))
 			y = newY;
 	}
 
 
 	@Override
 	public void setPoint(final IPoint pt) {
-		if(GLibUtilities.INSTANCE.isValidPoint(pt))
+		if(GLibUtilities.isValidPoint(pt))
 			setLocation(pt.getX(), pt.getY());
 	}
 

@@ -34,7 +34,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 	protected LRectangularShape(final IPoint tl, final IPoint br, final boolean isUniqueID) {
 		super(isUniqueID, new LPoint());
 
-		if(!GLibUtilities.INSTANCE.isValidPoint(tl) || !GLibUtilities.INSTANCE.isValidPoint(br))
+		if(!GLibUtilities.isValidPoint(tl) || !GLibUtilities.isValidPoint(br))
 			throw new IllegalArgumentException("Invalid point(s)."); //$NON-NLS-1$
 
 		if(tl.getX()>=br.getX() || tl.getY()>=br.getY())//TODO see if the width/height can be equal to 0.
@@ -91,7 +91,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 
 	@Override
 	public void setWidth(final double width) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(width) && width>0) {
+		if(GLibUtilities.isValidCoordinate(width) && width>0) {
 			double xPos = points.get(points.size()-1).getX() + width;
 
 			points.get(1).setX(xPos);
@@ -103,7 +103,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 
 	@Override
 	public void setHeight(final double height) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(height) && height>0) {
+		if(GLibUtilities.isValidCoordinate(height) && height>0) {
 			double yPos = points.get(points.size()-1).getY() - height;
 
 			points.get(0).setY(yPos);

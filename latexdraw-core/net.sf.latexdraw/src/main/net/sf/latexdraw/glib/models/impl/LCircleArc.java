@@ -72,14 +72,14 @@ class LCircleArc extends LArc implements ICircleArc {
 
 	@Override
 	public void setRx(final double rx) {
-		if(rx>0 && GLibUtilities.INSTANCE.isValidCoordinate(rx))
+		if(rx>0 && GLibUtilities.isValidCoordinate(rx))
 			setRadius(rx);
 	}
 
 
 	@Override
 	public void setRy(final double ry) {
-		if(ry>0 && GLibUtilities.INSTANCE.isValidCoordinate(ry))
+		if(ry>0 && GLibUtilities.isValidCoordinate(ry))
 			setRadius(ry);
 	}
 

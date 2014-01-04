@@ -42,7 +42,7 @@ class PSTTextView extends PSTShapeView<IText> {
 
 	@Override
 	public void updateCache(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(origin) || ppc<1)
+		if(!GLibUtilities.isValidPoint(origin) || ppc<1)
 			return ;
 
 		final StringBuilder rot = getRotationHeaderCode(ppc, origin);
@@ -69,8 +69,8 @@ class PSTTextView extends PSTShapeView<IText> {
 		else
 			cache.append("\\rput[").append(shape.getTextPosition().getLatexToken()).append(']').append('('); //$NON-NLS-1$
 
-		cache.append((float)LNumber.INSTANCE.getCutNumber((shape.getX()-origin.getX())/ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber((origin.getY()-shape.getY())/ppc)).append(')').append('{');
+		cache.append((float)LNumber.getCutNumber((shape.getX()-origin.getX())/ppc)).append(',');
+		cache.append((float)LNumber.getCutNumber((origin.getY()-shape.getY())/ppc)).append(')').append('{');
 
 		if(colorName!=null)
 			cache.append("\\textcolor{").append(colorName).append('}').append('{'); //$NON-NLS-1$

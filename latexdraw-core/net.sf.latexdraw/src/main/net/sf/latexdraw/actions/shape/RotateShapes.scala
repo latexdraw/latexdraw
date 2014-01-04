@@ -38,8 +38,8 @@ class RotateShapes extends Action with ShapeAction[IShape] with Undoable with Mo
 	var lastRotationAngle : Double = 0.0
 
 
-	override def canDo() = _shape.isDefined && _gc.isDefined && GLibUtilities.INSTANCE.isValidCoordinate(_rotationAngle) &&
-							GLibUtilities.INSTANCE.isValidPoint(_gc.get)
+	override def canDo() = _shape.isDefined && _gc.isDefined && GLibUtilities.isValidCoordinate(_rotationAngle) &&
+							GLibUtilities.isValidPoint(_gc.get)
 
 
 	override def isRegisterable() = true

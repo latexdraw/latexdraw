@@ -39,7 +39,7 @@ class PSTCircleView extends PSTEllipseView {
 
 	@Override
 	public void updateCache(final IPoint position, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(position) || ppc<1)
+		if(!GLibUtilities.isValidPoint(position) || ppc<1)
 			return ;
 
 		emptyCache();
@@ -56,9 +56,9 @@ class PSTCircleView extends PSTEllipseView {
 		cache.append("\\pscircle["); //$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc));
 		cache.append(']').append('(');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(x/ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(y/ppc)).append(')').append('{');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(radius/ppc)).append('}');
+		cache.append((float)LNumber.getCutNumber(x/ppc)).append(',');
+		cache.append((float)LNumber.getCutNumber(y/ppc)).append(')').append('{');
+		cache.append((float)LNumber.getCutNumber(radius/ppc)).append('}');
 
 		if(rotation!=null)
 			cache.append('}');

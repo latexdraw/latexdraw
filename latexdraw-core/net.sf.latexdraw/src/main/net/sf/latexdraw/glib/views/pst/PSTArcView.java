@@ -40,7 +40,7 @@ class PSTArcView extends PSTClassicalView<IArc> {
 
 	@Override
 	public void updateCache(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(origin) || ppc<1)
+		if(!GLibUtilities.isValidPoint(origin) || ppc<1)
 			return ;
 
 		emptyCache();
@@ -67,8 +67,8 @@ class PSTArcView extends PSTClassicalView<IArc> {
 		if(rotation!=null)
 			end.append('}');
 
-		if(!LNumber.INSTANCE.equals(yunit, 1.)) {
-			start.append("\\psscalebox{1 ").append((float)LNumber.INSTANCE.getCutNumber(yunit)).append('}').append('{'); //$NON-NLS-1$
+		if(!LNumber.equals(yunit, 1.)) {
+			start.append("\\psscalebox{1 ").append((float)LNumber.getCutNumber(yunit)).append('}').append('{'); //$NON-NLS-1$
 			end.append('}');
 		}
 
@@ -86,10 +86,10 @@ class PSTArcView extends PSTClassicalView<IArc> {
 
 				start.append("\\psarc"); //$NON-NLS-1$
 				end.append(LResources.EOL).append("\\psline[").append(params).append(']').append('('); //$NON-NLS-1$
-				end.append((float)LNumber.INSTANCE.getCutNumber(startPt.getX()/ppc)).append(',');
-				end.append((float)LNumber.INSTANCE.getCutNumber(startPt.getY()/ppc)).append(')').append('(');
-				end.append((float)LNumber.INSTANCE.getCutNumber(endPt.getX()/ppc)).append(',');
-				end.append((float)LNumber.INSTANCE.getCutNumber(endPt.getY()/ppc)).append(')');
+				end.append((float)LNumber.getCutNumber(startPt.getX()/ppc)).append(',');
+				end.append((float)LNumber.getCutNumber(startPt.getY()/ppc)).append(')').append('(');
+				end.append((float)LNumber.getCutNumber(endPt.getX()/ppc)).append(',');
+				end.append((float)LNumber.getCutNumber(endPt.getY()/ppc)).append(')');
 				break;
 
 			case WEDGE:
@@ -106,11 +106,11 @@ class PSTArcView extends PSTClassicalView<IArc> {
 		if(arrowsStyle!=null)
 			cache.append(arrowsStyle);
 		cache.append('(');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(x/ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(y/ppc)).append(')').append('{');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(radiusX/ppc)).append('}').append('{');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(Math.toDegrees(startAngle))).append('}').append('{');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(Math.toDegrees(endAngle))).append('}');
+		cache.append((float)LNumber.getCutNumber(x/ppc)).append(',');
+		cache.append((float)LNumber.getCutNumber(y/ppc)).append(')').append('{');
+		cache.append((float)LNumber.getCutNumber(radiusX/ppc)).append('}').append('{');
+		cache.append((float)LNumber.getCutNumber(Math.toDegrees(startAngle))).append('}').append('{');
+		cache.append((float)LNumber.getCutNumber(Math.toDegrees(endAngle))).append('}');
 		cache.append(end);
 	}
 }

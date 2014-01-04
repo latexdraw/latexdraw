@@ -90,7 +90,7 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public void setRadius(final double radius) {
-		if(radius > 0. && GLibUtilities.INSTANCE.isValidCoordinate(radius))
+		if(radius > 0. && GLibUtilities.isValidCoordinate(radius))
 			this.radius = radius;
 	}
 
@@ -103,7 +103,7 @@ class LDot extends LPositionShape implements IDot {
 	 * @since 3.0
 	 */
 	protected double getNewRadius(final double value, final boolean isX) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(value))
+		if(GLibUtilities.isValidCoordinate(value))
 			return isX ? Math.abs(getPosition().getX() - value) : Math.abs(getPosition().getY() - value);
 
 		return Double.NaN;

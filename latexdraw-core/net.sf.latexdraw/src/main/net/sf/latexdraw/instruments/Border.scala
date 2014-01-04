@@ -490,7 +490,7 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 			var pt : IPoint = interaction.getStartPt
 			gc = instrument.getAdaptedOriginPoint(shape.getGravityCentre)
 
-			if(LNumber.INSTANCE.equals(rotAngle, 0.0))
+			if(LNumber.equals(rotAngle, 0.0))
 				isRotated = false
 			else {
 				pt = pt.rotatePoint(gc, -rotAngle)

@@ -160,7 +160,7 @@ public class SVGSVGElement extends SVGElement {
 
 	@Override
 	public boolean enableRendering() {
-		return !LNumber.INSTANCE.equals(getWidth(), 0.) && !LNumber.INSTANCE.equals(getHeight(), 0.);
+		return !LNumber.equals(getWidth(), 0.) && !LNumber.equals(getHeight(), 0.);
 	}
 
 

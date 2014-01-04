@@ -39,7 +39,7 @@ class PSTLinesView extends PSTPolygonView {
 
 	@Override
 	public void updateCache(final IPoint position, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(position) || ppc<1)
+		if(!GLibUtilities.isValidPoint(position) || ppc<1)
 			return ;
 
 		emptyCache();

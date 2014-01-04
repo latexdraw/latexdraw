@@ -39,14 +39,14 @@ class PSTEllipseView extends PSTClassicalView<IEllipse> {
 
 	@Override
 	public void updateCache(final IPoint position, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(position) || ppc<1)
+		if(!GLibUtilities.isValidPoint(position) || ppc<1)
 			return ;
 
 		emptyCache();
 
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
-		final double x	 			 = LNumber.INSTANCE.getCutNumber(shape.getX()+shape.getRx() - position.getX());
-		final double y	 			 = LNumber.INSTANCE.getCutNumber(position.getY()+shape.getRy() - shape.getY());
+		final double x	 			 = LNumber.getCutNumber(shape.getX()+shape.getRx() - position.getX());
+		final double y	 			 = LNumber.getCutNumber(position.getY()+shape.getRy() - shape.getY());
 
 		if(rotation!=null)
 			cache.append(rotation);
@@ -54,10 +54,10 @@ class PSTEllipseView extends PSTClassicalView<IEllipse> {
 		cache.append("\\psellipse[");			//$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc));
 		cache.append(']').append('(');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(x/ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(y/ppc)).append(')').append('(');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(shape.getRx()/ppc)).append(',');
-		cache.append((float)LNumber.INSTANCE.getCutNumber(shape.getRy()/ppc)).append(')');
+		cache.append((float)LNumber.getCutNumber(x/ppc)).append(',');
+		cache.append((float)LNumber.getCutNumber(y/ppc)).append(')').append('(');
+		cache.append((float)LNumber.getCutNumber(shape.getRx()/ppc)).append(',');
+		cache.append((float)LNumber.getCutNumber(shape.getRy()/ppc)).append(')');
 
 		if(rotation!=null)
 			cache.append('}');

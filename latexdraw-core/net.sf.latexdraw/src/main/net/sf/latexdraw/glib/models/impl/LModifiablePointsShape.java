@@ -40,7 +40,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 
 	public void setRotationAngle(final IPoint gc, double rotationAngle) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(rotationAngle)) {
+		if(GLibUtilities.isValidCoordinate(rotationAngle)) {
 			final double diff = rotationAngle-this.rotationAngle;
 			final IPoint gc2 = gc==null ? getGravityCentre() : gc;
 
@@ -69,7 +69,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public boolean setPoint(final double x, final double y, final int position) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(x, y) || position<-1 || position>points.size() || points.isEmpty())
+		if(!GLibUtilities.isValidPoint(x, y) || position<-1 || position>points.size() || points.isEmpty())
 			return false;
 
 		IPoint p = position==-1 ? points.get(points.size()-1) : points.get(position);
@@ -103,7 +103,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public IPoint replacePoint(final IPoint pt, final int position) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(pt) || points.contains(pt) || position<-1 || position>points.size())
+		if(!GLibUtilities.isValidPoint(pt) || points.contains(pt) || position<-1 || position>points.size())
 			return null;
 
 		IPoint pRemoved = points.remove(position==-1 ? points.size()-1 : position);
@@ -125,7 +125,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public void addPoint(final IPoint pt, final int position) {
-		if(GLibUtilities.INSTANCE.isValidPoint(pt) && position>=-1 && position<=points.size())
+		if(GLibUtilities.isValidPoint(pt) && position>=-1 && position<=points.size())
 			if(position==-1 || position==points.size())
 				points.add(pt);
 			else

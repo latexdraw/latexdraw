@@ -435,8 +435,8 @@ public abstract class TestILine extends TestCase {
 		line.updateAandB();
 		IPoint pt = line.getIntersection(line2);
 		assertNotNull(pt);
-		assertTrue(LNumber.INSTANCE.equals(5.809358228, pt.getX(), 0.00000001));
-		assertTrue(LNumber.INSTANCE.equals(-79.152505858, pt.getY(), 0.00000001));
+		assertTrue(LNumber.equals(5.809358228, pt.getX(), 0.00000001));
+		assertTrue(LNumber.equals(-79.152505858, pt.getY(), 0.00000001));
 
 		assertNull(line.getIntersection(null));
 		assertNull(line.getIntersection(line));

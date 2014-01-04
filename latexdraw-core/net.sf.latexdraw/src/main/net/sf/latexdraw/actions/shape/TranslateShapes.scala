@@ -46,11 +46,11 @@ class TranslateShapes extends Action with ShapeAction[IGroup] with DrawingAction
 
 	override def isRegisterable() = hadEffect
 
-	override def hadEffect() = !LNumber.INSTANCE.equals(performedTx, 0.0) || !LNumber.INSTANCE.equals(performedTy, 0.0)
+	override def hadEffect() = !LNumber.equals(performedTx, 0.0) || !LNumber.equals(performedTy, 0.0)
 
 
 	protected def doActionBody() {
-		if(!LNumber.INSTANCE.equals((_tx-performedTx), 0.0) || !LNumber.INSTANCE.equals((_ty-performedTy), 0.0)) {
+		if(!LNumber.equals((_tx-performedTx), 0.0) || !LNumber.equals((_ty-performedTy), 0.0)) {
 			_shape.get.translate(_tx-performedTx, _ty-performedTy)
 			_shape.get.setModified(true)
 			_drawing.get.setModified(true)
@@ -60,7 +60,7 @@ class TranslateShapes extends Action with ShapeAction[IGroup] with DrawingAction
 	}
 
 
-	override def canDo() =  _drawing.isDefined && _shape.isDefined && !_shape.get.isEmpty && GLibUtilities.INSTANCE.isValidPoint(_tx, _ty)
+	override def canDo() =  _drawing.isDefined && _shape.isDefined && !_shape.get.isEmpty && GLibUtilities.isValidPoint(_tx, _ty)
 
 
 	override def undo() {

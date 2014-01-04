@@ -76,7 +76,7 @@ class LPolygon extends LModifiablePointsShape implements IPolygon {
 //
 //	@Override
 //	public void setLineArc(final double lineArc) {
-//		if(GLibUtilities.INSTANCE.isValidCoordinate(lineArc) && lineArc>=0 && lineArc<=1)
+//		if(GLibUtilities.isValidCoordinate(lineArc) && lineArc>=0 && lineArc<=1)
 //			this.lineArc = lineArc;
 //	}
 

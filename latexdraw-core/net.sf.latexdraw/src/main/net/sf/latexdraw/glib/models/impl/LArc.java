@@ -138,14 +138,14 @@ class LArc extends LEllipse implements IArc {
 
 	@Override
 	public void setAngleEnd(final double angleEnd) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(angleEnd))
+		if(GLibUtilities.isValidCoordinate(angleEnd))
 			this.endAngle = angleEnd;
 	}
 
 
 	@Override
 	public void setAngleStart(final double angleStart) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(angleStart))
+		if(GLibUtilities.isValidCoordinate(angleStart))
 			this.startAngle = angleStart;
 	}
 

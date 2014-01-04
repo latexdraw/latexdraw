@@ -201,14 +201,14 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setGridEndX(final double x) {
-		if(x>=gridStartx && GLibUtilities.INSTANCE.isValidCoordinate(x))
+		if(x>=gridStartx && GLibUtilities.isValidCoordinate(x))
 			gridEndx = x;
 	}
 
 
 	@Override
 	public void setGridEndY(final double y) {
-		if(y>=gridStarty && GLibUtilities.INSTANCE.isValidCoordinate(y))
+		if(y>=gridStarty && GLibUtilities.isValidCoordinate(y))
 			gridEndy = y;
 	}
 
@@ -222,14 +222,14 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setGridStartX(final double x) {
-		if(x<=gridEndx && GLibUtilities.INSTANCE.isValidCoordinate(x))
+		if(x<=gridEndx && GLibUtilities.isValidCoordinate(x))
 			gridStartx = x;
 	}
 
 
 	@Override
 	public void setGridStartY(final double y) {
-		if(y<=gridEndy && GLibUtilities.INSTANCE.isValidCoordinate(y))
+		if(y<=gridEndy && GLibUtilities.isValidCoordinate(y))
 			gridStarty = y;
 	}
 
@@ -243,14 +243,14 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setOriginX(final double x) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(x))
+		if(GLibUtilities.isValidCoordinate(x))
 			originx = x;
 	}
 
 
 	@Override
 	public void setOriginY(final double y) {
-		if(GLibUtilities.INSTANCE.isValidCoordinate(y))
+		if(GLibUtilities.isValidCoordinate(y))
 			originy = y;
 	}
 

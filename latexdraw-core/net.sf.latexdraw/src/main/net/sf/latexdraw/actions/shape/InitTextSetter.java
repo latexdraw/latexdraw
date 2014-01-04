@@ -106,8 +106,8 @@ public class InitTextSetter extends ActivateInstrument {
 
 	@Override
 	public boolean canDo() {
-		return super.canDo() && GLibUtilities.INSTANCE.isValidPoint(absolutePoint) &&
-				GLibUtilities.INSTANCE.isValidPoint(relativePoint) && setter!=null && (text!=null || textShape!=null);
+		return super.canDo() && GLibUtilities.isValidPoint(absolutePoint) &&
+				GLibUtilities.isValidPoint(relativePoint) && setter!=null && (text!=null || textShape!=null);
 	}
 
 

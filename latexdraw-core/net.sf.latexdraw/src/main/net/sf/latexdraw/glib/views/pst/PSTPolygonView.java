@@ -43,7 +43,7 @@ class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	 * @since 3.0
 	 */
 	protected StringBuilder getPointsCode(final IPoint position, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(position) || ppc<1)
+		if(!GLibUtilities.isValidPoint(position) || ppc<1)
 			return null;
 
 		IPoint p;
@@ -53,8 +53,8 @@ class PSTPolygonView extends PSTClassicalView<IPolygon> {
 
 		for(i=0; i<size; i++) {
 			p = shape.getPtAt(i);
-			points.append('(').append((float)LNumber.INSTANCE.getCutNumber((p.getX()-position.getX())/ppc));
-			points.append(',').append((float)LNumber.INSTANCE.getCutNumber((position.getY()-p.getY())/ppc)).append(')');
+			points.append('(').append((float)LNumber.getCutNumber((p.getX()-position.getX())/ppc));
+			points.append(',').append((float)LNumber.getCutNumber((position.getY()-p.getY())/ppc)).append(')');
 		}
 
 		return points;
@@ -64,7 +64,7 @@ class PSTPolygonView extends PSTClassicalView<IPolygon> {
 
 	@Override
 	public void updateCache(final IPoint position, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(position) || ppc<1)
+		if(!GLibUtilities.isValidPoint(position) || ppc<1)
 			return ;
 
 		emptyCache();

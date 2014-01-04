@@ -122,8 +122,8 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	    final double p2x = p2.getX();
 	    final double p2y = p2.getY();
 	    final double p3x = p3.getX();
-	    double cornerGap1 = GLibUtilities.INSTANCE.getCornerGap(factory.createPoint(p1x, p2y), p1, p2, gap);
-	    double cornerGap2 = GLibUtilities.INSTANCE.getCornerGap(shape.getGravityCentre(), p2, p3, gap);
+	    double cornerGap1 = GLibUtilities.getCornerGap(factory.createPoint(p1x, p2y), p1, p2, gap);
+	    double cornerGap2 = GLibUtilities.getCornerGap(shape.getGravityCentre(), p2, p3, gap);
 
 	    if(p2x>p3x)
 	    	cornerGap2*=-1;

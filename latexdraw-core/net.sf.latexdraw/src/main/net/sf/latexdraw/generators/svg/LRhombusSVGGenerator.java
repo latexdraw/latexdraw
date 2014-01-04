@@ -110,8 +110,8 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 		SVGElement root = new SVGGElement(doc);
 		SVGElement elt;
 	    double gap = getPositionGap()/2.;
-	    double cornerGap1 = GLibUtilities.INSTANCE.getCornerGap(gc, p1, p2, gap);
-	    double cornerGap2 = GLibUtilities.INSTANCE.getCornerGap(gc, p2, p3, gap);
+	    double cornerGap1 = GLibUtilities.getCornerGap(gc, p1, p2, gap);
+	    double cornerGap2 = GLibUtilities.getCornerGap(gc, p2, p3, gap);
 
 	    if(p2.getX()<p3.getX())
 	    	cornerGap2*=-1;

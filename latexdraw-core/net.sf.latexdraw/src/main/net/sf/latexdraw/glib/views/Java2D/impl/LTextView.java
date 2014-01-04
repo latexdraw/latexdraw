@@ -228,7 +228,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 			heightBorder = image.getHeight(null)*(1/scale);
 		}
 
-		if(LNumber.INSTANCE.equals(angle, 0.))
+		if(LNumber.equals(angle, 0.))
 			border.setFrame(tlx, tly, widthBorder, heightBorder);
 		else {
 			IPoint tl = DrawingTK.getFactory().createPoint();

@@ -280,7 +280,7 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 			if(ec==EditionChoice.FREE_HAND && shape.isInstanceOf[IFreehand]) {
 				val fh = shape.asInstanceOf[IFreehand]
 				val lastPoint = fh.getPtAt(-1)
-				if(!LNumber.INSTANCE.equals(lastPoint.getX, endPt.getX, 0.0001) && !LNumber.INSTANCE.equals(lastPoint.getY, endPt.getY, 0.0001))
+				if(!LNumber.equals(lastPoint.getX, endPt.getX, 0.0001) && !LNumber.equals(lastPoint.getY, endPt.getY, 0.0001))
 					fh.addPoint(endPt)
 			}
 			else

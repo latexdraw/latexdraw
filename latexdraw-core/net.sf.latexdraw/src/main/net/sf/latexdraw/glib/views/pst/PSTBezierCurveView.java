@@ -42,7 +42,7 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 
 	@Override
 	public void updateCache(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.INSTANCE.isValidPoint(origin) || ppc<1)
+		if(!GLibUtilities.isValidPoint(origin) || ppc<1)
 			return ;
 
 		emptyCache();
@@ -61,14 +61,14 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 		if(size<2)
 			return ;
 
-		coord.append('(').append((float)LNumber.INSTANCE.getCutNumber((pts.get(0).getX()-originx)/ppc));
-		coord.append(',').append((float)LNumber.INSTANCE.getCutNumber((originy-pts.get(0).getY())/ppc));
-		coord.append(')').append('(').append((float)LNumber.INSTANCE.getCutNumber((fCtrlPts.get(0).getX()-originx)/ppc));
-		coord.append(',').append((float)LNumber.INSTANCE.getCutNumber((originy-fCtrlPts.get(0).getY())/ppc));
-		coord.append(')').append('(').append((float)LNumber.INSTANCE.getCutNumber((fCtrlPts.get(1).getX()-originx)/ppc));
-		coord.append(',').append((float)LNumber.INSTANCE.getCutNumber((originy-fCtrlPts.get(1).getY())/ppc));
-		coord.append(')').append('(').append((float)LNumber.INSTANCE.getCutNumber((pts.get(1).getX()-originx)/ppc));
-		coord.append(',').append((float)LNumber.INSTANCE.getCutNumber((originy-pts.get(1).getY())/ppc));
+		coord.append('(').append((float)LNumber.getCutNumber((pts.get(0).getX()-originx)/ppc));
+		coord.append(',').append((float)LNumber.getCutNumber((originy-pts.get(0).getY())/ppc));
+		coord.append(')').append('(').append((float)LNumber.getCutNumber((fCtrlPts.get(0).getX()-originx)/ppc));
+		coord.append(',').append((float)LNumber.getCutNumber((originy-fCtrlPts.get(0).getY())/ppc));
+		coord.append(')').append('(').append((float)LNumber.getCutNumber((fCtrlPts.get(1).getX()-originx)/ppc));
+		coord.append(',').append((float)LNumber.getCutNumber((originy-fCtrlPts.get(1).getY())/ppc));
+		coord.append(')').append('(').append((float)LNumber.getCutNumber((pts.get(1).getX()-originx)/ppc));
+		coord.append(',').append((float)LNumber.getCutNumber((originy-pts.get(1).getY())/ppc));
 		coord.append(')');
 
 		for(i=2; i<size; i++) {
@@ -76,15 +76,15 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 			ctrlPt2 = sCtrlPts.get(i-1);
 			pt 		= pts.get(i-1);
 
-			coord.append('(').append(LNumber.INSTANCE.getCutNumber((float)((ctrlPt2.getX()-originx)/ppc)));
-			coord.append(',').append(LNumber.INSTANCE.getCutNumber((float)((originy-ctrlPt2.getY())/ppc)));
-			coord.append(')').append('(').append(LNumber.INSTANCE.getCutNumber((float)((ctrlPt1.getX()-originx)/ppc)));
-			coord.append(',').append(LNumber.INSTANCE.getCutNumber((float)((originy-ctrlPt1.getY())/ppc)));
+			coord.append('(').append(LNumber.getCutNumber((float)((ctrlPt2.getX()-originx)/ppc)));
+			coord.append(',').append(LNumber.getCutNumber((float)((originy-ctrlPt2.getY())/ppc)));
+			coord.append(')').append('(').append(LNumber.getCutNumber((float)((ctrlPt1.getX()-originx)/ppc)));
+			coord.append(',').append(LNumber.getCutNumber((float)((originy-ctrlPt1.getY())/ppc)));
 			coord.append(')').append('(');
 
 			pt = pts.get(i);
-			coord.append(LNumber.INSTANCE.getCutNumber((float)((pt.getX()-originx)/ppc))).append(',');
-			coord.append(LNumber.INSTANCE.getCutNumber((float)((originy-pt.getY())/ppc))).append(')');
+			coord.append(LNumber.getCutNumber((float)((pt.getX()-originx)/ppc))).append(',');
+			coord.append(LNumber.getCutNumber((float)((originy-pt.getY())/ppc))).append(')');
 		}
 
 		if(shape.isClosed()) {
@@ -92,15 +92,15 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 			ctrlPt2 = sCtrlPts.get(sCtrlPts.size()-1);
 			pt 		= pts.get(pts.size()-1);
 
-			coord.append('(').append(LNumber.INSTANCE.getCutNumber((float)((ctrlPt2.getX()-originx)/ppc)));
-			coord.append(',').append(LNumber.INSTANCE.getCutNumber((float)((originy-ctrlPt2.getY())/ppc)));
-			coord.append(')').append('(').append(LNumber.INSTANCE.getCutNumber((float)((ctrlPt1.getX()-originx)/ppc)));
-			coord.append(',').append(LNumber.INSTANCE.getCutNumber((float)((originy-ctrlPt1.getY())/ppc)));
+			coord.append('(').append(LNumber.getCutNumber((float)((ctrlPt2.getX()-originx)/ppc)));
+			coord.append(',').append(LNumber.getCutNumber((float)((originy-ctrlPt2.getY())/ppc)));
+			coord.append(')').append('(').append(LNumber.getCutNumber((float)((ctrlPt1.getX()-originx)/ppc)));
+			coord.append(',').append(LNumber.getCutNumber((float)((originy-ctrlPt1.getY())/ppc)));
 			coord.append(')').append('(');
 
 			pt = pts.get(0);
-			coord.append(LNumber.INSTANCE.getCutNumber((float)((pt.getX()-originx)/ppc))).append(',');
-			coord.append(LNumber.INSTANCE.getCutNumber((float)((originy-pt.getY())/ppc))).append(')');
+			coord.append(LNumber.getCutNumber((float)((pt.getX()-originx)/ppc))).append(',');
+			coord.append(LNumber.getCutNumber((float)((originy-pt.getY())/ppc))).append(')');
 		}
 
 		cache.append("\\psbezier["); //$NON-NLS-1$

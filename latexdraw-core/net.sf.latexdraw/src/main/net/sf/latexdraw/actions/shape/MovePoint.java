@@ -51,7 +51,7 @@ public abstract class MovePoint extends Action {
 
 	@Override
 	public boolean canDo() {
-		return indexPt>=0 && GLibUtilities.INSTANCE.isValidPoint(newCoord);
+		return indexPt>=0 && GLibUtilities.isValidPoint(newCoord);
 	}
 
 
@@ -64,7 +64,7 @@ public abstract class MovePoint extends Action {
 
 	@Override
 	public boolean hadEffect() {
-		return super.hadEffect() && (!LNumber.INSTANCE.equals(tx, 0.) || !LNumber.INSTANCE.equals(ty, 0.));
+		return super.hadEffect() && (!LNumber.equals(tx, 0.) || !LNumber.equals(ty, 0.));
 	}
 
 
