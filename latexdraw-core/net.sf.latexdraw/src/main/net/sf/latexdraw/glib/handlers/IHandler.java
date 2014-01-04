@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.handlers;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 
