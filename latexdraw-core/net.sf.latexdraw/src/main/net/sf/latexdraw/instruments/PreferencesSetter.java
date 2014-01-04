@@ -113,9 +113,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	/** This textField allows to set the default directories for exporting actions. */
 	protected MTextField pathExportField;
 
-	/** The field used to modifies the path of the selected latex editor. */
-	protected MTextField pathTexEditorField;
-
 	/** The text field used to defines the latex packages to use. */
 	protected MTextArea latexIncludes;
 
@@ -184,8 +181,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
   		latexIncludes = new MTextArea(true, false);
   		latexIncludes.setToolTipText("<html>Include in this list the latex packages you regularly use in your drawing, e.g. :<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>");
-  		pathTexEditorField = new MTextField();
-  		pathTexEditorField.setMaximumSize(new Dimension(700, height));
 
   		checkNewVersion = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.newVers"));//$NON-NLS-1$
 		if(VersionChecker.WITH_UPDATE)
@@ -379,13 +374,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	}
 
 	/**
-	 * @return The field used to modifies the path of the selected latex editor.
-	 */
-	public MTextField getPathTexEditorField() {
-		return pathTexEditorField;
-	}
-
-	/**
 	 * @return The text field used to defines the latex packages to use.
 	 */
 	public MTextArea getLatexIncludes() {
@@ -508,9 +496,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		node = prefMap.get(LNamespace.XML_PATH_OPEN);
 		if(node!=null) pathOpenField.setText(node.getTextContent());
-
-		node = prefMap.get(LNamespace.XML_PATH_TEX_EDITOR);
-		if(node!=null) pathTexEditorField.setText(node.getTextContent());
 
 		node = prefMap.get(LNamespace.XML_RENDERING);
 		if(node!=null) renderingCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
@@ -714,10 +699,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		        elt = document.createElement(LNamespace.XML_GRID_GAP);
 		        elt.setTextContent(persoGridGapField.getValue().toString());
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_PATH_TEX_EDITOR);
-		        elt.setTextContent(pathTexEditorField.getText());
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_LATEX_INCLUDES);

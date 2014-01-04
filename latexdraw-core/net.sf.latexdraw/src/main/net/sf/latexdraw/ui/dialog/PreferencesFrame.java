@@ -79,7 +79,7 @@ public class PreferencesFrame extends MFrame {
 		pGeneral.add(tabbedPane, BorderLayout.CENTER);
 
 		getContentPane().add(pGeneral);
-  		setSize(500, 340);//FIXME
+  		setSize(460, 280);
 		setVisible(false);
 	}
 
@@ -103,17 +103,13 @@ public class PreferencesFrame extends MFrame {
 	private JPanel createGeneralPanel() {
 		final JPanel pGeneral 	= new JPanel();
 		final JPanel pLang 		= new JPanel();
-		final JPanel pEditor 	= new JPanel();
   		final JPanel pRecent 	= new JPanel();
   		final JPanel pTheme		= new JPanel();
 
   		pTheme.setLayout(new BoxLayout(pTheme, BoxLayout.X_AXIS));
-		pEditor.setLayout(new BoxLayout(pEditor, BoxLayout.X_AXIS));
 		pLang.setLayout(new BoxLayout(pLang, BoxLayout.X_AXIS));
   		pGeneral.setLayout(new GridLayout(6, 1));
   		pRecent.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-  		final JButton bChooseEditor = new JButton(LResources.OPEN_ICON);
 
   		pRecent.add(prefSetter.getNbRecentFilesField().getLabel());
   		pRecent.add(prefSetter.getNbRecentFilesField());
@@ -123,15 +119,11 @@ public class PreferencesFrame extends MFrame {
 
   		pLang.add(new JLabel(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.lge"))); //$NON-NLS-1$
   		pLang.add(prefSetter.getLangList());
-  		pEditor.add(prefSetter.getPathTexEditorField());
-  		pEditor.add(bChooseEditor);
 
   		pGeneral.add(pLang);
   		pGeneral.add(pTheme);
   		if(VersionChecker.WITH_UPDATE)
 	  		pGeneral.add(prefSetter.getCheckNewVersion());
-  		pGeneral.add(new JLabel(LangTool.INSTANCE.getString18("PreferencesFrame.3"))); //$NON-NLS-1$
-  		pGeneral.add(pEditor);
   		pGeneral.add(pRecent);
 
 		return pGeneral;
