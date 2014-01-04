@@ -30,39 +30,6 @@ public abstract class TestIShape<T extends IShape> {
 	public abstract void testIsTypeOf();
 
 	@Test
-	public void testGetShadowGap() {
-		final IPoint gc = shape.getGravityCentre();
-		shape.setShadowAngle(Math.PI/4.);
-		shape.setShadowSize(10);
-		IPoint trans = shape.getShadowGap();
-
-		assertNotNull(trans);
-
-		if(shape.isShadowable()) {
-			IPoint pt = DrawingTK.getFactory().createPoint(gc.getX()+10, gc.getY());
-			pt = pt.rotatePoint(gc, Math.PI/4.);
-			HelperTest.assertEqualsDouble(pt.getX()-gc.getX(), trans.getX());
-			HelperTest.assertEqualsDouble(gc.getY()-pt.getY(), trans.getY());
-
-			shape.setShadowAngle(0.);
-			trans = shape.getShadowGap();
-			pt = DrawingTK.getFactory().createPoint(gc.getX()+10, gc.getY());
-			HelperTest.assertEqualsDouble(pt.getX()-gc.getX(), trans.getX());
-			HelperTest.assertEqualsDouble(gc.getY()-pt.getY(), trans.getY());
-
-			shape.setShadowAngle(2.*Math.PI);
-			trans = shape.getShadowGap();
-			pt = DrawingTK.getFactory().createPoint(gc.getX()+10, gc.getY());
-			HelperTest.assertEqualsDouble(pt.getX()-gc.getX(), trans.getX());
-			HelperTest.assertEqualsDouble(gc.getY()-pt.getY(), trans.getY());
-		} else {
-			HelperTest.assertEqualsDouble(0., trans.getX());
-			HelperTest.assertEqualsDouble(0., trans.getY());
-		}
-	}
-
-
-	@Test
 	public void testGetPoints() {
 		assertNotNull(shape.getPoints());
 	}

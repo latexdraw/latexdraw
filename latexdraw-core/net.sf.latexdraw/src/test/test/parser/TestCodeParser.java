@@ -152,18 +152,6 @@ public abstract class TestCodeParser {
 	}
 
 
-	@Test public void testIncLinePosition() {
-		parser.setLinePosition(1);
-		parser.incLinePosition();
-		assertEquals(2, parser.getLinePosition());
-		parser.incLinePosition();
-		assertEquals(3, parser.getLinePosition());
-		parser.incLinePosition();
-		assertEquals(4, parser.getLinePosition());
-	}
-
-
-
 	@Test public void testSetLinePosition() {
 		parser.setLinePosition(10);
 		assertEquals(10, parser.getLinePosition());

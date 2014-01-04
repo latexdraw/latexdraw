@@ -54,7 +54,7 @@ class PSTRhombusView extends PSTClassicalView<IRhombus> {
 		final StringBuilder params 	= getPropertiesCode(ppc);
 		final double rotationAngle  = Math.toDegrees(shape.getRotationAngle())%360;
 
-		if(!LNumber.equals(rotationAngle, 0.))
+		if(!LNumber.equalsDouble(rotationAngle, 0.))
 			params.append(", gangle=").append((float)LNumber.getCutNumber(-rotationAngle));//$NON-NLS-1$
 
 		cache.append("\\psdiamond[");//$NON-NLS-1$

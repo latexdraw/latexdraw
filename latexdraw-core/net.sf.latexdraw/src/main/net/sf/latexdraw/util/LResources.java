@@ -39,32 +39,11 @@ public final class LResources {
 	/** The file separator of the current system. */
 	public static final String FILE_SEP = System.getProperty("file.separator");
 
-	/** The e-mail of the latexdraw developer */
-	public static final String MAIL_ME = "arno_b@users.sourceforge.net"; //$NON-NLS-1$
-
 	/** The name of the application */
 	public final static String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
 
-	/** The label of the menu insert PSTricks code */
-	public final static String LABEL_INSERT_CODE = LangTool.INSTANCE.getString16("LaTeXDrawFrame.0"); //$NON-NLS-1$
-
-	/** The label of the menu insert picture */
-	public final static String LABEL_INSERT_PIX = LangTool.INSTANCE.getString16("LaTeXDrawFrame.1"); //$NON-NLS-1$
-
-	/** The label of the button stop */
-	public final static String LABEL_STOP = LangTool.INSTANCE.getString16("LaTeXDrawFrame.3"); //$NON-NLS-1$
-
-	/** The label of the menu help */
-	public final static String LABEL_HELP = LABEL_APP + LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.0"); //$NON-NLS-1$
-
 	/** The label of the menu "aboutTexDraw" */
 	public final static String LABEL_ABOUT = "About LaTeXDraw";
-
-	/** The label of the menu import */
-	public final static String LABEL_IMPORT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.229"); //$NON-NLS-1$
-
-	/** The label of the menu item "import from TeX file" */
-	public static final String LABEL_IMPORT_TEX = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.230"); //$NON-NLS-1$
 
 	/** The label of the newMenu item */
 	public final static String LABEL_NEW = "New drawing";
@@ -84,9 +63,6 @@ public final class LResources {
 
 	/** The label of the menuItem displayGrid */
 	public static final String LABEL_DISPLAY_GRID = LangTool.INSTANCE.getString18("PreferencesFrame.4"); //$NON-NLS-1$
-
-	/** The label of the menu properties of the selected figure*/
-	public static final String LABEL_FIGURE_PROPERTIES = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.53"); //$NON-NLS-1$
 
 	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getString19("DrawPanel.0"); //$NON-NLS-1$
 
@@ -143,8 +119,8 @@ public final class LResources {
 	public final static ImageIcon REDO_ICON;				public final static ImageIcon ARROW_STYLE_CIRCLE_IN_L_ICON;
 	public final static ImageIcon BACKGROUND_ICON;   		public final static ImageIcon ARROW_STYLE_CIRCLE_IN_R_ICON;
 	public final static ImageIcon FOREGROUND_ICON;   		public final static ImageIcon ARROW_STYLE_DBLE_ARROW_L_ICON;
-	public final static ImageIcon BEHIND_SEL_ICON;	   		public final static ImageIcon ARROW_STYLE_DBLE_ARROW_R_ICON;
-	public final static ImageIcon IN_FRONT_OF_SEL_ICON;		public final static ImageIcon ARROW_STYLE_DISK_END_L_ICON;
+	public final static ImageIcon ARROW_STYLE_DBLE_ARROW_R_ICON;
+	public final static ImageIcon ARROW_STYLE_DISK_END_L_ICON;
 	public final static ImageIcon ROTATE_ICON;	 			public final static ImageIcon ARROW_STYLE_DISK_END_R_ICON;
 	public final static ImageIcon POLYGON_ICON;	 			public final static ImageIcon ARROW_STYLE_DISK_IN_L_ICON;
 	public final static ImageIcon TEXT_ICON;		 		public final static ImageIcon ARROW_STYLE_DISK_IN_R_ICON;
@@ -173,8 +149,8 @@ public final class LResources {
 	public final static ImageIcon MIRROR_V_ICON;			public final static ImageIcon MIRROR_H_ICON;
 	public final static ImageIcon AXES_ICON;				public final static ImageIcon TEX_EDITOR_ICON;
 	public final static ImageIcon CURVES_FREEHAND_ICON;
-	public final static ImageIcon LINES_FREEHAND_ICON; 		public final static ImageIcon CLOSE_LINE_ICON;
-	public final static ImageIcon CLOSE_CURVE_ICON;			public final static ImageIcon CLOSED_BEZIER_ICON;
+	public final static ImageIcon LINES_FREEHAND_ICON;
+	public final static ImageIcon CLOSED_BEZIER_ICON;
 	public final static ImageIcon ALIGN_BOTTOM_ICON;		public final static ImageIcon ALIGN_LEFT_ICON;
 	public final static ImageIcon ALIGN_MID_HORIZ_ICON; 	public final static ImageIcon ALIGN_MID_VERT_ICON;
 	public final static ImageIcon ALIGN_RIGHT_ICON;			public final static ImageIcon ALIGN_TOP_ICON;
@@ -293,8 +269,6 @@ public final class LResources {
 		TEXT_ICON 		= loadImageIcon("/res/text.png");		//$NON-NLS-1$
 		POLYGON_ICON 	= loadImageIcon("/res/polygon.png");	//$NON-NLS-1$
 		ROTATE_ICON 		= loadImageIcon("/res/rotation.png");	//$NON-NLS-1$
-		IN_FRONT_OF_SEL_ICON= loadImageIcon("/res/InFrontSelect.png");	//$NON-NLS-1$
-		BEHIND_SEL_ICON 	= loadImageIcon("/res/behindSelect.png");	//$NON-NLS-1$
 		BACKGROUND_ICON 	= loadImageIcon("/res/background.png");	//$NON-NLS-1$
 		FOREGROUND_ICON 	= loadImageIcon("/res/foreground.png");//$NON-NLS-1$
 		UNDO_ICON 		= loadImageIcon("/res/Undo.png");//$NON-NLS-1$
@@ -342,8 +316,6 @@ public final class LResources {
 		TEX_EDITOR_ICON	= loadImageIcon("/res/texEditor.png"); //$NON-NLS-1$
 		CURVES_FREEHAND_ICON	= loadImageIcon("/res/freehand/curve.png"); //$NON-NLS-1$
 		LINES_FREEHAND_ICON	= loadImageIcon("/res/freehand/line.png"); //$NON-NLS-1$
-		CLOSE_CURVE_ICON		= loadImageIcon("/res/BezierCurves/closeCurve.png"); //$NON-NLS-1$
-		CLOSE_LINE_ICON		= loadImageIcon("/res/BezierCurves/closeLine.png"); //$NON-NLS-1$
 		CLOSED_BEZIER_ICON	= loadImageIcon("/res/closedBezier.png"); //$NON-NLS-1$
 		UPDATE_ICON			= loadImageIcon("/res/system-software-update.png"); //$NON-NLS-1$
 		DRAWING_PROP_ICON		= loadImageIcon("/res/document-properties.png"); //$NON-NLS-1$

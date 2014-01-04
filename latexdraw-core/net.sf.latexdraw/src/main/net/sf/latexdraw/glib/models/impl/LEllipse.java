@@ -130,7 +130,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 			pts[1] = new LPoint(x2, linea*x2+lineb);
 		}
 		else
-			if(LNumber.equals(delta,0.)) {
+			if(LNumber.equalsDouble(delta,0.)) {
 				double x0 = -gamma/(2.*beta);
 				pts = new LPoint[1];
 				pts[0] = new LPoint(x0, linea*x0+lineb);

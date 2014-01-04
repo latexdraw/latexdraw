@@ -98,27 +98,4 @@ public final class LFileUtils {
 
     	return ok;
 	}
-
-	/**
-	* Moves a file.
-	* The renameTo method does not allow action across NFS mounted filesystems
-	* this method is the workaround
-	* @param fromFile The existing File
-	* @param toFile The new File
-	* @return  <code>true</code> if and only if the renaming succeeded;
-	*          <code>false</code> otherwise
-	*/
-	public boolean move(final File fromFile, final File toFile) {
-		if(fromFile==null || toFile==null)
-			return false;
-
-	    if(fromFile.renameTo(toFile))
-	      return true;
-
-	    // delete if copy was successful, otherwise move will fail
-	    if(copy(fromFile, toFile))
-	      return fromFile.delete();
-
-	    return false;
-	}
 }

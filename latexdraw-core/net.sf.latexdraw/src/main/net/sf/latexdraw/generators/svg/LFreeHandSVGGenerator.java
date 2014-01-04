@@ -48,10 +48,6 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		super(fh);
 	}
 
-	protected LFreeHandSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
 
 	protected LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(DrawingTK.getFactory().createFreeHand(false));

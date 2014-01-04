@@ -201,7 +201,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 		StringBuilder code;
 		final double angle = shape.getRotationAngle();
 
-		if(!LNumber.equals(angle, 0.)) {
+		if(!LNumber.equalsDouble(angle, 0.)) {
 			IPoint gravityCenter = shape.getGravityCentre();
 			final double cx 	= (gravityCenter.getX() - position.getX()) / ppc;
 			final double cy 	= (position.getY() - gravityCenter.getY()) / ppc;
@@ -371,10 +371,10 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 		if(!gradEndCol.equals(PSTricksConstants.DEFAULT_GRADIENT_END_COLOR))
 			code.append(", gradend=").append(getColourName(gradEndCol)); //$NON-NLS-1$
 
-		if(!LNumber.equals(gradMidPt, PSTricksConstants.DEFAULT_GRADIENT_MID_POINT))
+		if(!LNumber.equalsDouble(gradMidPt, PSTricksConstants.DEFAULT_GRADIENT_MID_POINT))
 			code.append(", gradmidpoint=").append(gradMidPt);//$NON-NLS-1$
 
-		if(!LNumber.equals(toDegrees(gradAngle), PSTricksConstants.DEFAULT_GRADIENT_ANGLE))
+		if(!LNumber.equalsDouble(toDegrees(gradAngle), PSTricksConstants.DEFAULT_GRADIENT_ANGLE))
 			code.append(", gradangle=").append((float)LNumber.getCutNumber(toDegrees(gradAngle)));//$NON-NLS-1$
 
 		return code;
@@ -477,7 +477,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 			code = new StringBuilder();
 			code.append("shadow=true");//$NON-NLS-1$
 
-			if(!LNumber.equals(Math.toDegrees(shape.getShadowAngle()), PSTricksConstants.DEFAULT_SHADOW_ANGLE))
+			if(!LNumber.equalsDouble(Math.toDegrees(shape.getShadowAngle()), PSTricksConstants.DEFAULT_SHADOW_ANGLE))
 				code.append(",shadowangle="+(float)LNumber.getCutNumber(Math.toDegrees(shape.getShadowAngle())));//$NON-NLS-1$
 
 			code.append(",shadowsize="+(float)LNumber.getCutNumber(shape.getShadowSize()/ppc));//$NON-NLS-1$

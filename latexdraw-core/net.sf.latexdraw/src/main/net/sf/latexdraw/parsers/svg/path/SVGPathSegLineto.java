@@ -72,13 +72,6 @@ public class SVGPathSegLineto extends SVGPathSeg {
 	}
 
 
-
-	@Override
-	public PathSeg getType() {
-		return isRelative() ? PathSeg.LINETO_REL : PathSeg.LINETO_ABS;
-	}
-
-
 	@Override
 	public String toString() {
 		final StringBuilder builder = new StringBuilder();

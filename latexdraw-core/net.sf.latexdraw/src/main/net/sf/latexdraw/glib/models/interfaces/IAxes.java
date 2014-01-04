@@ -23,10 +23,6 @@ import net.sf.latexdraw.lang.LangTool;
  * @since 3.0
  */
 public interface IAxes extends IStandardGrid {
-	/** The interval between the labels and the axes. */
-	double GAP_LABEL = 5.;
-
-
 	/** Defines the different kinds of axes. */
 	public static enum AxesStyle {
 		AXES {

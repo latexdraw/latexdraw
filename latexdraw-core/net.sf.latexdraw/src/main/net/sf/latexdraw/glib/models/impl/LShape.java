@@ -557,13 +557,13 @@ abstract class LShape implements IShape {
 
 //	protected static void scaleX(final List<IPoint> list, final double xRef, final double sx) {
 //		for(final IPoint pt : list)
-//			if(!LNumber.equals(xRef, pt.getX()))
+//			if(!LNumber.equalsDouble(xRef, pt.getX()))
 //				pt.setX(xRef+(pt.getX()-xRef)*sx);
 //	}
 //
 //	protected static void scaleY(final List<IPoint> list, final double yRef, final double sy) {
 //		for(final IPoint pt : list)
-//			if(!LNumber.equals(yRef, pt.getY()))
+//			if(!LNumber.equalsDouble(yRef, pt.getY()))
 //				pt.setY(yRef+(pt.getY()-yRef)*sy);
 //	}
 //
@@ -572,9 +572,9 @@ abstract class LShape implements IShape {
 //		final double yRef = ref.getY();
 //
 //		for(final IPoint pt : list) {
-//			if(!LNumber.equals(xRef, pt.getX()))
+//			if(!LNumber.equalsDouble(xRef, pt.getX()))
 //				pt.setX(xRef+(pt.getX()-xRef)*sx);
-//			if(!LNumber.equals(yRef, pt.getY()))
+//			if(!LNumber.equalsDouble(yRef, pt.getY()))
 //				pt.setY(yRef+(pt.getY()-yRef)*sy);
 //		}
 //	}
@@ -844,9 +844,9 @@ abstract class LShape implements IShape {
 		final double refY = pos.isNorth() ? bound.getY() : bound.getMaxY();
 
 		for(final IPoint pt : pts) {
-			if(xScale && !LNumber.equals(pt.getX(), refX))
+			if(xScale && !LNumber.equalsDouble(pt.getX(), refX))
 				pt.setX(refX+(pt.getX()-refX)*sx);
-			if(yScale && !LNumber.equals(pt.getY(), refY))
+			if(yScale && !LNumber.equalsDouble(pt.getY(), refY))
 				pt.setY(refY+(pt.getY()-refY)*sy);
 		}
 	}
@@ -1030,24 +1030,6 @@ abstract class LShape implements IShape {
 		shape.copy(this);
 		return shape;
 	}
-
-
-
-	@Override
-	public IPoint getShadowGap() {
-		IPoint shadowGap = new LPoint();
-
-		if(isShadowable()) {
-			final IPoint gravityCentre = getGravityCentre();
-			shadowGap.setPoint(gravityCentre.getX()+shadowSize, gravityCentre.getY());
-			shadowGap = shadowGap.rotatePoint(gravityCentre, shadowAngle);
-			shadowGap.setX(shadowGap.getX()-gravityCentre.getX());
-			shadowGap.setY(gravityCentre.getY()-shadowGap.getY());
-		}
-
-		return shadowGap;
-	}
-
 
 
 	@Override

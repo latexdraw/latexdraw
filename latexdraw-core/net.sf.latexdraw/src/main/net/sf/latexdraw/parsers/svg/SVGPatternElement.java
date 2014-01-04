@@ -57,7 +57,7 @@ public class SVGPatternElement extends SVGElement {
 
 	@Override
 	public boolean enableRendering() {
-		if(LNumber.equals(getWidth(), 0.) || LNumber.equals(getHeight(), 0.))
+		if(LNumber.equalsDouble(getWidth(), 0.) || LNumber.equalsDouble(getHeight(), 0.))
 			return false;
 
 		return true;
@@ -241,7 +241,7 @@ public class SVGPatternElement extends SVGElement {
 			l2x = Double.valueOf(coord2[1]).floatValue();
 			l2y = Double.valueOf(coord2[2]).floatValue();
 
-			if(LNumber.equals(l1x, l2x))
+			if(LNumber.equalsDouble(l1x, l2x))
 				return Math.abs(l1y-l2y)-getHatchingStrokeWidth();
 
 			return Math.abs(l1x-l2x)-getHatchingStrokeWidth();

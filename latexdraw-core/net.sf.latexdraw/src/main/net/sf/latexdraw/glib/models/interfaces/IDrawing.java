@@ -32,43 +32,9 @@ public interface IDrawing extends ISetShapes, AbstractPresentation {
 	IGroup getSelection();
 
 	/**
-	 * Clears the selection.
-	 * @since 3.0
-	 */
-	void removeSelection();
-
-	/**
-	 * Selects the given shape and unselect the already selected shapes.
-	 * @param sh The shape to select.
-	 * @since 3.0
-	 */
-	void setSelection(final IShape sh);
-
-	/**
 	 * Selects the given shapes and unselect the already selected shapes.
 	 * @param shapes The shapes to select.
 	 * @since 3.0
 	 */
 	void setSelection(final List<IShape> shapes);
-
-	/**
-	 * Removes the given shape from the selection.
-	 * @param sh The shape to remove from the selection.
-	 * @since 3.0
-	 */
-	void removeFromSelection(final IShape sh);
-
-	/**
-	 * Adds the given shape to the selection.
-	 * @param sh The shape to select.
-	 * @since 3.0
-	 */
-	void addToSelection(final IShape sh);
-
-	/**
-	 * Adds the given shapes to the selection.
-	 * @param shapes The shapes to select.
-	 * @since 3.0
-	 */
-	void addToSelection(final List<IShape> shapes);
 }

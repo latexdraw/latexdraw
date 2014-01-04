@@ -74,42 +74,11 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 
 
 	/**
-	 * Sets the width of the handler and updates the shape.
-	 * @param size Its new width. Must be greater than 0.
-	 */
-	@Override
-	public void setSize(final double size) {
-		if(size>0) {
-			this.size = size;
-			updateShape();
-		}
-	}
-
-
-	/**
-	 * @return The X-coordinate of the handler.
-	 */
-	@Override
-	public double getX() {
-		return point.getX();
-	}
-
-
-	/**
 	 * @return The centre of the handler.
 	 */
 	@Override
 	public IPoint getCentre() {
 		return point;
-	}
-
-
-	/**
-	 * @return The Y-coordinate of the handler.
-	 */
-	@Override
-	public double getY() {
-		return point.getY();
 	}
 
 
@@ -151,35 +120,6 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 		return builder.toString();
 	}
 
-
-	/**
-	 * @return the size of the handler.
-	 */
-	@Override
-	public double getSize() {
-		return size;
-	}
-
-
-	@Override
-	public int getOpacity() {
-		return opacity;
-	}
-
-
-	@Override
-	public void setOpacity(final int opacity) {
-		if(opacity>=0 && opacity<=255)
-			this.opacity = opacity;
-	}
-
-
-	@Override
-	public Color getColour() {
-		return colour;
-	}
-
-
 	@Override
 	public void updateFromShape(final Shape sh) {
 		updateShape();
@@ -194,7 +134,6 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 
 	@Override
 	public Picker getPicker() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

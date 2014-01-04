@@ -58,19 +58,6 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	}
 
 
-
-	/**
-	 * Creates a rectangle from a G SVG element.
-	 * @param elt The G SVG element used for the creation of a rectangle.
-	 * @throws IllegalArgumentException If the given element is null.
-	 * @since 2.0
-	 */
-	protected LRectangleSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-
 	/**
 	 * Creates a rectangle from a latexdraw-SVG element.
 	 * @param elt The source element.
@@ -125,7 +112,7 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 		shape.setPosition(elt.getX()+gap/2., elt.getY()+elt.getHeight()-gap/2.);
 		shape.setWidth(elt.getWidth()-gap);
 		shape.setHeight(elt.getHeight()-gap);
-		shape.setLineArc((2.*rx)/(min(shape.getHeight(), shape.getWidth())- (shape.hasDbleBord() ? shape.getDbleBordSep()+shape.getThickness() : 0.)));
+		shape.setLineArc(2.*rx/(min(shape.getHeight(), shape.getWidth())- (shape.hasDbleBord() ? shape.getDbleBordSep()+shape.getThickness() : 0.)));
 	}
 
 
@@ -140,8 +127,8 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 		final IPoint br  = shape.getBottomRightPoint();
 		SVGElement elt;
         final SVGElement root = new SVGGElement(document);
-        final double width  = Math.max(1, (br.getX()-tl.getX())+gap);
-        final double height = Math.max(1., (br.getY()-tl.getY())+gap);
+        final double width  = Math.max(1, br.getX()-tl.getX()+gap);
+        final double height = Math.max(1., br.getY()-tl.getY()+gap);
         final double x		= tl.getX()-gap/2.;
         final double y		= tl.getY()-gap/2.;
 

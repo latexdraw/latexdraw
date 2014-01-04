@@ -28,14 +28,12 @@ public final class LNamespace {
 	public static final String XML_TYPE_RECT 			= "rectangle";			//$NON-NLS-1$
 	public static final String XML_TYPE_FREEHAND		= "akinPoints";			//$NON-NLS-1$
 	public static final String XML_TYPE_ARC 			= "arc";				//$NON-NLS-1$
-	public static final String XML_TYPE_ARROWHEAD 		= "arrowhead";			//$NON-NLS-1$
 	public static final String XML_TYPE_AXE 			= "axe";				//$NON-NLS-1$
 	public static final String XML_TYPE_BEZIER_CURVE	= "bezierCurve";		//$NON-NLS-1$
 	public static final String XML_TYPE_CIRCLE			= "circle";				//$NON-NLS-1$
 	public static final String XML_TYPE_DOT				= "dot";				//$NON-NLS-1$
 	public static final String XML_TYPE_GROUP			= "drawing";			//$NON-NLS-1$
 	public static final String XML_TYPE_ELLIPSE			= "ellipse";			//$NON-NLS-1$
-	public static final String XML_TYPE_FRAMEDBOX		= "framedbox";			//$NON-NLS-1$
 	public static final String XML_TYPE_GRID			= "grid";				//$NON-NLS-1$
 	public static final String XML_TYPE_JOINED_LINES	= "joinedLines";		//$NON-NLS-1$
 	public static final String XML_TYPE_POLYGON			= "polygon";			//$NON-NLS-1$
@@ -54,19 +52,16 @@ public final class LNamespace {
 	public static final String XML_TYPE_GRID_SUB		= "subGrid";			//$NON-NLS-1$
 	public static final String XML_TYPE_BG				= "background";			//$NON-NLS-1$
 
-	public static final String XML_BORDER				= "border";				//$NON-NLS-1$
 	public static final String XML_CAPTION				= "caption";			//$NON-NLS-1$
 	public static final String XML_LABEL				= "label";				//$NON-NLS-1$
 	public static final String XML_POSITION_VERT		= "positionVert";		//$NON-NLS-1$
 	public static final String XML_POSITION_HORIZ		= "centreHoriz";		//$NON-NLS-1$
 	public static final String XML_COMMENTS				= "comments";			//$NON-NLS-1$
-	public static final String XML_AUTO_ADJUST			= "autoAdjust";			//$NON-NLS-1$
 	public static final String XML_ZOOM					= "zoom";				//$NON-NLS-1$
 	public static final String XML_UNIT					= "unit";				//$NON-NLS-1$
 	public static final String XML_CLASSIC_GRID			= "classicGrid";		//$NON-NLS-1$
 	public static final String XML_MAGNETIC_GRID_STYLE	= "magneticGridStyle";	//$NON-NLS-1$
 	public static final String XML_GRID_GAP				= "gridGap";			//$NON-NLS-1$
-	public static final String XML_CODE					= "code";				//$NON-NLS-1$
 	public static final String XML_MAGNETIC_GRID		= "magneticGrid";		//$NON-NLS-1$
 	public static final String XML_VERSION				= "version";			//$NON-NLS-1$
 	public static final String XML_POSITION 			= "position";			//$NON-NLS-1$
@@ -113,8 +108,6 @@ public final class LNamespace {
 	public static final String XML_ARROW_TBAR_SIZE_NUM	= "tbarSizeNum";		//$NON-NLS-1$
 	public static final String XML_ARROW_SIZE_NUM		= "arrSizeNum";			//$NON-NLS-1$
 
-	public static final String XML_AXE_IS_WEST			= "isWest";				//$NON-NLS-1$
-	public static final String XML_AXE_IS_SOUTH			= "isSouth";			//$NON-NLS-1$
 	public static final String XML_AXE_INCREMENT		= "increment";			//$NON-NLS-1$
 	public static final String XML_AXE_TICKS_SIZE		= "ticksSize";			//$NON-NLS-1$
 	public static final String XML_AXE_SHOW_ORIGIN		= "showOrigin";			//$NON-NLS-1$

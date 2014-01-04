@@ -53,7 +53,6 @@ public final class SVGAttributes {
 	public static final String SVG_POINTS					= "points";							//$NON-NLS-1$
 	public static final String SVG_MARKER_END				= "marker-end";						//$NON-NLS-1$
 	public static final String SVG_MARKER_START				= "marker-start";					//$NON-NLS-1$
-	public static final String SVG_MARKER_MID				= "marker-mid";						//$NON-NLS-1$
 	public static final String SVG_ORIENT					= "orient";							//$NON-NLS-1$
 	public static final String SVG_R						= "r";								//$NON-NLS-1$
 	public static final String SVG_REF_X					= "refX";							//$NON-NLS-1$
@@ -86,7 +85,6 @@ public final class SVGAttributes {
 	public static final String SVG_LINEJOIN_VALUE_ROUND		= "round";							//$NON-NLS-1$
 	public static final String SVG_LINEJOIN_VALUE_BEVEL		= "bevel";							//$NON-NLS-1$
 	public static final String SVG_VALUE_AUTO				= "auto";							//$NON-NLS-1$
-	public static final String SVG_INHERIT					= "inherit";						//$NON-NLS-1$
 	public static final String SVG_PAD						= "pad";							//$NON-NLS-1$
 	public static final String SVG_REFLECT					= "reflect";						//$NON-NLS-1$
 	public static final String SVG_REPEAT					= "repeat";							//$NON-NLS-1$
@@ -101,7 +99,6 @@ public final class SVGAttributes {
 	public static final String SVG_TRANSFORM_SKEW_Y			= "skewY";							//$NON-NLS-1$
 
 	public static final String SVG_FONT_STYLE_NORMAL		= "normal";							//$NON-NLS-1$
-	public static final String SVG_FONT_STYLE_OBLIQUE		= "oblique";						//$NON-NLS-1$
 	public static final String SVG_FONT_STYLE_ITALIC		= "italic";							//$NON-NLS-1$
 	public static final String SVG_FONT_WEIGHT_BOLD			= "bold";							//$NON-NLS-1$
 	public static final String SVG_FONT_WEIGHT_NORMAL		= "normal";							//$NON-NLS-1$

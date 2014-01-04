@@ -58,18 +58,6 @@ class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator<S> {
 
 
 	/**
-	 * Creates an ellipse from a G SVG element.
-	 * @param elt The G SVG element used for the creation of an ellipse.
-	 * @throws IllegalArgumentException If the given element is null.
-	 * @since 2.0
-	 */
-	protected LEllipseSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-
-	/**
 	 * Creates an ellipse from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 * @since 2.0.0

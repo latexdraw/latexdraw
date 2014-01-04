@@ -52,16 +52,6 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 
 
 	/**
-	 * Creates a dot from a G SVG element.
-	 * @param elt The G SVG element used for the creation of a dot.
-	 * @throws IllegalArgumentException If the given element is null.
-	 */
-	protected LDotSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-	/**
 	 * Creates a dot from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 * @since 2.0.0

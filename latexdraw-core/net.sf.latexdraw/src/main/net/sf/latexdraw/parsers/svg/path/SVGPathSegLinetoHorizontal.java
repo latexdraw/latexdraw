@@ -43,12 +43,6 @@ public class SVGPathSegLinetoHorizontal extends SVGPathSegLineto {
 
 
 	@Override
-	public PathSeg getType() {
-		return isRelative() ? PathSeg.LINETO_HORIZONTAL_REL : PathSeg.LINETO_HORIZONTAL_ABS;
-	}
-
-
-	@Override
 	public double getY() {
 		return getX();
 	}

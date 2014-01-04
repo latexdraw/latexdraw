@@ -245,7 +245,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 	 * @return True if a ticks or a label corresponding to the given parameter can be painted.
 	 */
 	private boolean isElementPaintable(final boolean noArrow1, final boolean noArrow2, final double min, final double max, final int i) {
-		return (noArrow2 || !LNumber.equals(max, i)) && (noArrow1 || !LNumber.equals(min, i));
+		return (noArrow2 || !LNumber.equalsDouble(max, i)) && (noArrow1 || !LNumber.equalsDouble(min, i));
 	}
 
 
@@ -313,8 +313,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final double distX  = shape.getDistLabelsX();
 		final double distY  = shape.getDistLabelsY();
 		final AxesStyle axesStyle = shape.getAxesStyle();
-		final double gapX = LNumber.equals(distX, 0.) ? IShape.PPC : distX/incrx*IShape.PPC;
-		final double gapY = LNumber.equals(distY, 0.) ? IShape.PPC : distY/incry*IShape.PPC;
+		final double gapX = LNumber.equalsDouble(distX, 0.) ? IShape.PPC : distX/incrx*IShape.PPC;
+		final double gapY = LNumber.equalsDouble(distY, 0.) ? IShape.PPC : distY/incry*IShape.PPC;
 
 		path.reset();
 		pathLabels.reset();
@@ -373,16 +373,16 @@ class LAxesView extends LStandardGridView<IAxes> {
 		if(arrows.size()==4) {
 			final Color colour = asShadow ? shape.getShadowCol() : shape.getFillingCol();
 
-			if(!LNumber.equals(shape.getGridMinX(), 0))
+			if(!LNumber.equalsDouble(shape.getGridMinX(), 0))
 				arrows.get(1).paint(g, colour, asShadow);
 
-			if(!LNumber.equals(shape.getGridMaxX(), 0))
+			if(!LNumber.equalsDouble(shape.getGridMaxX(), 0))
 				arrows.get(3).paint(g, colour, asShadow);
 
-			if(!LNumber.equals(shape.getGridMaxY(), 0))
+			if(!LNumber.equalsDouble(shape.getGridMaxY(), 0))
 				arrows.get(2).paint(g, colour, asShadow);
 
-			if(!LNumber.equals(shape.getGridMinY(), 0))
+			if(!LNumber.equalsDouble(shape.getGridMinY(), 0))
 				arrows.get(0).paint(g, colour, asShadow);
 		}
 	}
@@ -408,7 +408,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		if(shape.getLabelsDisplayed()!=PlottingStyle.NONE)
 			pa.append(pathLabels, false);
 
-		if(LNumber.equals(rotationAngle, 0.)) {
+		if(LNumber.equalsDouble(rotationAngle, 0.)) {
 			intersects = pa.intersects(r);
 		}
 		else {
@@ -443,7 +443,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		if(shape.getLabelsDisplayed()!=PlottingStyle.NONE)
 			bound = bound.createUnion(pathLabels.getBounds2D()).getBounds2D();
 
-		if(LNumber.equals(angle, 0.))
+		if(LNumber.equalsDouble(angle, 0.))
 			border.setFrame(bound);
 		else {
 			IPoint tl = DrawingTK.getFactory().createPoint();

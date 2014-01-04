@@ -89,7 +89,7 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 
 		shape.get.getShapes.foreach{sh=>
 			val middle2 = middles(i)
-			if(!LNumber.equals(middle2, middle))
+			if(!LNumber.equalsDouble(middle2, middle))
 				sh.translate(0, middle-middle2)
 			i+=1
 		}
@@ -117,7 +117,7 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 
 		shape.get.getShapes.foreach{sh=>
 			val middle2 = middles(i)
-			if(!LNumber.equals(middle2, middle))
+			if(!LNumber.equalsDouble(middle2, middle))
 				sh.translate(middle-middle2, 0)
 			i+=1
 		}
@@ -142,7 +142,7 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 
 		shape.get.getShapes.foreach{sh=>
 		val y = ys(i)
-		if(!LNumber.equals(y, theMaxY))
+		if(!LNumber.equalsDouble(y, theMaxY))
 			sh.translate(0, theMaxY-y)
 			i+=1
 		}
@@ -166,7 +166,7 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 
 		shape.get.getShapes.foreach{sh=>
 			val y = ys(i)
-			if(!LNumber.equals(y, theMinY))
+			if(!LNumber.equalsDouble(y, theMinY))
 				sh.translate(0, theMinY-y)
 			i+=1
 		}
@@ -190,7 +190,7 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 
 		shape.get.getShapes.foreach{sh=>
 			val x = xs(i)
-			if(!LNumber.equals(x, theMaxX))
+			if(!LNumber.equalsDouble(x, theMaxX))
 				sh.translate(theMaxX-x, 0)
 			i+=1
 		}
@@ -214,7 +214,7 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 
 		shape.get.getShapes.foreach{sh=>
 			val x = xs(i)
-			if(!LNumber.equals(x, theMinX))
+			if(!LNumber.equalsDouble(x, theMinX))
 				sh.translate(theMinX-x, 0)
 			i+=1
 		}

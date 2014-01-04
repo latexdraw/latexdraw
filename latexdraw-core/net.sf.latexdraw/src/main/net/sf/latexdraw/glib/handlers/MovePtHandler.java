@@ -50,7 +50,7 @@ public class MovePtHandler extends Handler<Rectangle2D, IModifiablePointsShape> 
 		IPoint pt = sh.getPtAt(indexPt);
 
 		// If the shape is rotated, the handler's position must fit the rotation angle.
-		if(!LNumber.equals(rotAngle, 0.))
+		if(!LNumber.equalsDouble(rotAngle, 0.))
 			pt = pt.rotatePoint(zoomedGC, rotAngle);
 
 		point.setPoint(pt.zoom(zoom));

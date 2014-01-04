@@ -49,17 +49,6 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 
 
 	/**
-	 * Creates a triangle from a G SVG element.
-	 * @param elt The G SVG element used for the creation of a triangle.
-	 * @throws IllegalArgumentException If the given element is null.
-	 * @since 2.0
-	 */
-	protected LTriangleSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-	/**
 	 * Creates a triangle from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 * @since 2.0.0

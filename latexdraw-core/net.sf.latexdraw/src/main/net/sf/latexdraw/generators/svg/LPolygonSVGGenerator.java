@@ -74,19 +74,6 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	}
 
 
-
-	/**
-	 * Creates a latexdraw polygon from an SVG element provided by a latexdraw-SVG document.
-	 * @param elt The latexdraw-SVG element to convert as a latexdraw shape.
-	 * @since 3.0
-	 */
-	protected LPolygonSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-
-
 	/**
 	 * Creates a polygon from a latexdraw-SVG element.
 	 * @param elt The source element.

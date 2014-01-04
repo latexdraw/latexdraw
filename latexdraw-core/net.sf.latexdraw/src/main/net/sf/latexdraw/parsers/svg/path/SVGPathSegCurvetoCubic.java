@@ -136,10 +136,4 @@ public class SVGPathSegCurvetoCubic extends SVGPathSeg {
 	public double getY2() {
 		return y2;
 	}
-
-
-	@Override
-	public PathSeg getType() {
-		return isRelative() ? PathSeg.CURVETO_CUBIC_REL : PathSeg.CURVETO_CUBIC_ABS;
-	}
 }

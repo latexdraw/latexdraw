@@ -878,16 +878,6 @@ public interface IShape extends Modifiable, IArrowable {
 	 */
 	IShape duplicate();
 
-
-
-	/**
-	 * Computes the translation vector between the shape itself and its shadow.
-	 * @return The computed translation vector. (0,0) is the shape cannot have shadow.
-	 * @since 3.0
-	 */
-	IPoint getShadowGap();
-
-
 	/**
 	 * Rotates the shape.
 	 * @param point The rotation centre.

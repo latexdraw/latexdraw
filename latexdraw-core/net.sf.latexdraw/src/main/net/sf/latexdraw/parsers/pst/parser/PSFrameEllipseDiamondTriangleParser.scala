@@ -103,7 +103,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 		val rh = DrawingTK.getFactory.createTriangle(true)
 		setRectangularShape(rh, p1.getX-p2.getX/2.0, p1.getY, scala.math.abs(p2.getX), scala.math.abs(p2.getY), hasStar, ctx)
 
-		if(!LNumber.equals(ctx.gangle, 0.0)) {
+		if(!LNumber.equalsDouble(ctx.gangle, 0.0)) {
 			val gc = rh.getGravityCentre
 			val newGc = gc.rotatePoint(p1, scala.math.toRadians(-ctx.gangle))
 			rh.setRotationAngle(rh.getRotationAngle+scala.math.toRadians(ctx.gangle))
@@ -126,7 +126,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 		val rh = DrawingTK.getFactory.createRhombus(true)
 		setRectangularShape(rh, p1.getX-p2.getX, p1.getY-p2.getY, scala.math.abs(p2.getX*2), scala.math.abs(p2.getY*2), hasStar, ctx)
 
-		if(!LNumber.equals(ctx.gangle, 0.0))
+		if(!LNumber.equalsDouble(ctx.gangle, 0.0))
 			rh.setRotationAngle(rh.getRotationAngle-scala.math.toRadians(ctx.gangle))
 
 		rh

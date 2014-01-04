@@ -41,6 +41,7 @@ public final class CSSColors {
 	private Map<Color, String> nameColourHashtable;
 
 
+	public static final String CSS_LINEN_NAME	 		= "linen";//$NON-NLS-1$
     public static final String CSS_ALICEBLUE_NAME 		= "aliceblue";//$NON-NLS-1$
     public static final String CSS_ANTIQUEWHITE_NAME 	= "antiquewhite";//$NON-NLS-1$
     public static final String CSS_AQUAMARINE_NAME 		= "aquamarine";//$NON-NLS-1$
@@ -228,7 +229,6 @@ public final class CSSColors {
     public static final Color CSS_DARKGOLDENROD_RGB_VALUE 		= new Color(184, 134, 11);
     public static final Color CSS_DARKGRAY_RGB_VALUE 			= new Color(169, 169, 169);
     public static final Color CSS_DARKGREEN_RGB_VALUE 			= new Color(0, 100, 0);
-    public static final Color CSS_DARKGREY_RGB_VALUE 			= new Color(169, 169, 169);
     public static final Color CSS_DARKKHAKI_RGB_VALUE 			= new Color(189, 183, 107);
     public static final Color CSS_DARKMAGENTA_RGB_VALUE 		= new Color(139, 0, 139);
     public static final Color CSS_DARKOLIVEGREEN_RGB_VALUE 		= new Color(85, 107, 47);
@@ -239,13 +239,11 @@ public final class CSSColors {
     public static final Color CSS_DARKSEAGREEN_RGB_VALUE 		= new Color(143, 188, 143);
     public static final Color CSS_DARKSLATEBLUE_RGB_VALUE 		= new Color(72, 61, 139);
     public static final Color CSS_DARKSLATEGRAY_RGB_VALUE 		= new Color(47, 79, 79);
-    public static final Color CSS_DARKSLATEGREY_RGB_VALUE 		= new Color(47, 79, 79);
     public static final Color CSS_DARKTURQUOISE_RGB_VALUE 		= new Color(0, 206, 209);
     public static final Color CSS_DARKVIOLET_RGB_VALUE 			= new Color(148, 0, 211);
     public static final Color CSS_DEEPPINK_RGB_VALUE 			= new Color(255, 20, 147);
     public static final Color CSS_DEEPSKYBLUE_RGB_VALUE 		= new Color(0, 191, 255);
     public static final Color CSS_DIMGRAY_RGB_VALUE 			= new Color(105, 105, 105);
-    public static final Color CSS_DIMGREY_RGB_VALUE 			= new Color(105, 105, 105);
     public static final Color CSS_DODGERBLUE_RGB_VALUE 			= new Color(30, 144, 255);
     public static final Color CSS_FIREBRICK_RGB_VALUE 			= new Color(178, 34, 34);
     public static final Color CSS_FLORALWHITE_RGB_VALUE 		= new Color(255, 250, 240);
@@ -254,7 +252,6 @@ public final class CSSColors {
     public static final Color CSS_GHOSTWHITE_RGB_VALUE 			= new Color(248, 248, 255);
     public static final Color CSS_GOLD_RGB_VALUE 				= new Color(255, 215, 0);
     public static final Color CSS_GOLDENROD_RGB_VALUE 			= new Color(218, 165, 32);
-    public static final Color CSS_GREY_RGB_VALUE 				= new Color(128, 128, 128);
     public static final Color CSS_GREENYELLOW_RGB_VALUE 		= new Color(173, 255, 47);
     public static final Color CSS_HONEYDEW_RGB_VALUE 			= new Color(240, 255, 240);
     public static final Color CSS_HOTPINK_RGB_VALUE 			= new Color(255, 105, 180);
@@ -272,13 +269,11 @@ public final class CSSColors {
     public static final Color CSS_LIGHTGOLDENRODYELLOW_RGB_VALUE= new Color(250, 250, 210);
     public static final Color CSS_LIGHTGRAY_RGB_VALUE 			= new Color(211, 211, 211);
     public static final Color CSS_LIGHTGREEN_RGB_VALUE 			= new Color(144, 238, 144);
-    public static final Color CSS_LIGHTGREY_RGB_VALUE 			= new Color(211, 211, 211);
     public static final Color CSS_LIGHTPINK_RGB_VALUE 			= new Color(255, 182, 193);
     public static final Color CSS_LIGHTSALMON_RGB_VALUE 		= new Color(255, 160, 122);
     public static final Color CSS_LIGHTSEAGREEN_RGB_VALUE 		= new Color(32, 178, 170);
     public static final Color CSS_LIGHTSKYBLUE_RGB_VALUE 		= new Color(135, 206, 250);
     public static final Color CSS_LIGHTSLATEGRAY_RGB_VALUE 		= new Color(119, 136, 153);
-    public static final Color CSS_LIGHTSLATEGREY_RGB_VALUE 		= new Color(119, 136, 153);
     public static final Color CSS_LIGHTSTEELBLUE_RGB_VALUE 		= new Color(176, 196, 222);
     public static final Color CSS_LIGHTYELLOW_RGB_VALUE 		= new Color(255, 255, 224);
     public static final Color CSS_LIMEGREEN_RGB_VALUE 			= new Color(50, 205, 50);
@@ -324,7 +319,6 @@ public final class CSSColors {
     public static final Color CSS_SKYBLUE_RGB_VALUE 			= new Color(135, 206, 235);
     public static final Color CSS_SLATEBLUE_RGB_VALUE 			= new Color(106, 90, 205);
     public static final Color CSS_SLATEGRAY_RGB_VALUE 			= new Color(112, 128, 144);
-    public static final Color CSS_SLATEGREY_RGB_VALUE 			= new Color(112, 128, 144);
     public static final Color CSS_SNOW_RGB_VALUE 				= new Color(255, 250, 250);
     public static final Color CSS_SPRINGGREEN_RGB_VALUE 		= new Color(0, 255, 127);
     public static final Color CSS_STEELBLUE_RGB_VALUE 			= new Color(70, 130, 180);
@@ -342,6 +336,7 @@ public final class CSSColors {
 
 	private void createColourHashTable() {
 		colourHashtable.clear();
+		colourHashtable.put(CSS_LINEN_NAME, CSS_LINEN_RGB_VALUE);
 	    colourHashtable.put(CSS_ALICEBLUE_NAME, CSS_ALICEBLUE_RGB_VALUE);
 	    colourHashtable.put(CSS_ANTIQUEWHITE_NAME, CSS_ANTIQUEWHITE_RGB_VALUE);
 	    colourHashtable.put(CSS_AQUAMARINE_NAME, CSS_AQUAMARINE_RGB_VALUE);
@@ -368,7 +363,7 @@ public final class CSSColors {
 	    colourHashtable.put(CSS_DARKGOLDENROD_NAME, CSS_DARKGOLDENROD_RGB_VALUE);
 	    colourHashtable.put(CSS_DARKGRAY_NAME, CSS_DARKGRAY_RGB_VALUE);
 	    colourHashtable.put(CSS_DARKGREEN_NAME, CSS_DARKGREEN_RGB_VALUE);
-	    colourHashtable.put(CSS_DARKGREY_NAME, CSS_DARKGREY_RGB_VALUE);
+	    colourHashtable.put(CSS_DARKGREY_NAME, CSS_DARKGRAY_RGB_VALUE);
 	    colourHashtable.put(CSS_DARKKHAKI_NAME, CSS_DARKKHAKI_RGB_VALUE);
 	    colourHashtable.put(CSS_DARKMAGENTA_NAME, CSS_DARKMAGENTA_RGB_VALUE);
 	    colourHashtable.put(CSS_DARKOLIVEGREEN_NAME, CSS_DARKOLIVEGREEN_RGB_VALUE);
@@ -385,7 +380,7 @@ public final class CSSColors {
 	    colourHashtable.put(CSS_DEEPPINK_NAME, CSS_DEEPPINK_RGB_VALUE);
 	    colourHashtable.put(CSS_DEEPSKYBLUE_NAME, CSS_DEEPSKYBLUE_RGB_VALUE);
 	    colourHashtable.put(CSS_DIMGRAY_NAME, CSS_DIMGRAY_RGB_VALUE);
-	    colourHashtable.put(CSS_DIMGREY_NAME, CSS_DIMGREY_RGB_VALUE);
+	    colourHashtable.put(CSS_DIMGREY_NAME, CSS_DIMGRAY_RGB_VALUE);
 	    colourHashtable.put(CSS_DODGERBLUE_NAME, CSS_DODGERBLUE_RGB_VALUE);
 	    colourHashtable.put(CSS_FIREBRICK_NAME, CSS_FIREBRICK_RGB_VALUE);
 	    colourHashtable.put(CSS_FLORALWHITE_NAME, CSS_FLORALWHITE_RGB_VALUE);
@@ -415,13 +410,13 @@ public final class CSSColors {
 	    colourHashtable.put(CSS_LIGHTGOLDENRODYELLOW_NAME, CSS_LIGHTGOLDENRODYELLOW_RGB_VALUE);
 	    colourHashtable.put(CSS_LIGHTGRAY_NAME, CSS_LIGHTGRAY_RGB_VALUE);
 	    colourHashtable.put(CSS_LIGHTGREEN_NAME, CSS_LIGHTGREEN_RGB_VALUE);
-	    colourHashtable.put(CSS_LIGHTGREY_NAME, CSS_LIGHTGREY_RGB_VALUE);
+	    colourHashtable.put(CSS_LIGHTGREY_NAME, CSS_LIGHTGRAY_RGB_VALUE);
 	    colourHashtable.put(CSS_LIGHTPINK_NAME, CSS_LIGHTPINK_RGB_VALUE);
 	    colourHashtable.put(CSS_LIGHTSALMON_NAME, CSS_LIGHTSALMON_RGB_VALUE);
 	    colourHashtable.put(CSS_LIGHTSEAGREEN_NAME, CSS_LIGHTSEAGREEN_RGB_VALUE);
 	    colourHashtable.put(CSS_LIGHTSKYBLUE_NAME, CSS_LIGHTSKYBLUE_RGB_VALUE);
 	    colourHashtable.put(CSS_LIGHTSLATEGRAY_NAME, CSS_LIGHTSLATEGRAY_RGB_VALUE);
-	    colourHashtable.put(CSS_LIGHTSLATEGREY_NAME, CSS_LIGHTSLATEGREY_RGB_VALUE);
+	    colourHashtable.put(CSS_LIGHTSLATEGREY_NAME, CSS_LIGHTSLATEGRAY_RGB_VALUE);
 	    colourHashtable.put(CSS_LIGHTSTEELBLUE_NAME, CSS_LIGHTSTEELBLUE_RGB_VALUE);
 	    colourHashtable.put(CSS_LIGHTYELLOW_NAME, CSS_LIGHTYELLOW_RGB_VALUE);
 	    colourHashtable.put(CSS_LIMEGREEN_NAME, CSS_LIMEGREEN_RGB_VALUE);
@@ -473,7 +468,7 @@ public final class CSSColors {
 	    colourHashtable.put(CSS_SKYBLUE_NAME, CSS_SKYBLUE_RGB_VALUE);
 	    colourHashtable.put(CSS_SLATEBLUE_NAME, CSS_SLATEBLUE_RGB_VALUE);
 	    colourHashtable.put(CSS_SLATEGRAY_NAME, CSS_SLATEGRAY_RGB_VALUE);
-	    colourHashtable.put(CSS_SLATEGREY_NAME, CSS_SLATEGREY_RGB_VALUE);
+	    colourHashtable.put(CSS_SLATEGREY_NAME, CSS_SLATEGRAY_RGB_VALUE);
 	    colourHashtable.put(CSS_SNOW_NAME, CSS_SNOW_RGB_VALUE);
 	    colourHashtable.put(CSS_SPRINGGREEN_NAME, CSS_SPRINGGREEN_RGB_VALUE);
 	    colourHashtable.put(CSS_STEELBLUE_NAME, CSS_STEELBLUE_RGB_VALUE);

@@ -9,7 +9,6 @@ import javax.swing.JMenuItem;
 import net.sf.latexdraw.actions.Export;
 import net.sf.latexdraw.actions.Export.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
@@ -72,9 +71,6 @@ public class Exporter extends WidgetInstrument {
 	 * because to export as picture, we paint the views into a graphics. */
 	protected ICanvas canvas;
 
-	/** The drawing that contains the shapes to export. */
-	protected IDrawing drawing;
-
 	/** The PST generator. */
 	protected PSTCodeGenerator pstGen;
 
@@ -127,19 +123,16 @@ public class Exporter extends WidgetInstrument {
 	 * Creates the instrument.
 	 * @param composer The composer that manages the widgets of the instrument.
 	 * @param canvas The canvas that contains the views to export (for pictures).
-	 * @param drawing The drawing that contains the shapes to export (for latex and code).
 	 * @param statusBar The status bar where messages are displayed.
 	 * @param pstGen The PST generator to use.
 	 * @throws IllegalArgumentException If one of the given arguments is null.
 	 * @since 3.0
 	 */
-	public Exporter(final UIComposer<?> composer, final ICanvas canvas, final IDrawing drawing, final JLabel statusBar,
-			final PSTCodeGenerator pstGen) {
+	public Exporter(final UIComposer<?> composer, final ICanvas canvas, final JLabel statusBar, final PSTCodeGenerator pstGen) {
 		super(composer);
 
 		defaultPackages		= ""; //$NON-NLS-1$
 		this.statusBar		= Objects.requireNonNull(statusBar);
-		this.drawing		= Objects.requireNonNull(drawing);
 		this.canvas 		= Objects.requireNonNull(canvas);
 		this.pstGen 		= Objects.requireNonNull(pstGen);
 

@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.JLabel;
 
@@ -70,7 +69,6 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		widget = new MToolBar(true);
 
 		final LCanvas canvas = frame.getCanvas();
-		AbstractButton button;
 
 		// Adding new/open/save buttons
 		widget.add(frame.fileLoader.getNewButton());
@@ -94,19 +92,13 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		widget.add(frame.undoManager.getRedoB());
 
  		//Adding a widget to select shape.
-		button = frame.editingSelector.getHandB();
-		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.136") + //$NON-NLS-1$
-				 				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.137") + //$NON-NLS-1$
-				 				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.138")); //$NON-NLS-1$
-		widget.add(button);
+		widget.add(frame.editingSelector.getHandB());
 		widget.add(frame.deleter.getDeleteB());
 
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
  		//Adding a widget to create lines.
-		button = frame.editingSelector.getLinesB();
-		button.setToolTipText("Draw a single or several joined lines.");
-		widget.add(button);
+		widget.add(frame.editingSelector.getLinesB());
 
 		composeRectangleLikeToolbar();
 		composeEllipseLikeToolbar();
@@ -117,37 +109,12 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 		composeCurveLikeToolbar();
 		composeGridLikeToolbar();
 
-		// Adding a widget to create arcs.
- 		button = frame.editingSelector.getArcB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
- 		widget.add(button);
-
- 		//Adding a widget to create text shapes.
-		button = frame.editingSelector.getTextB();
-		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.60")); //$NON-NLS-1$
-		widget.add(button);
-
- 		//Adding a widget to create free hand shapes.
-		button = frame.editingSelector.getFreeHandB();
-		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.7")); //$NON-NLS-1$
-		widget.add(button);
-
- 		//Adding a widget to create dot shapes.
-		button = frame.editingSelector.getDotB();
-		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.117")); //$NON-NLS-1$
-		widget.add(button);
-
-		//Adding a widget to add pictures.
-		button = frame.editingSelector.getPicB();
-		button.setToolTipText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.1")); //$NON-NLS-1$
-		widget.add(button);
-
-		//Adding a widget to insert PST code.
-		button = frame.editingSelector.getCodeB();
-		button.setToolTipText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.0")); //$NON-NLS-1$
-		widget.add(button);
-
+ 		widget.add(frame.editingSelector.getArcB());
+		widget.add(frame.editingSelector.getTextB());
+		widget.add(frame.editingSelector.getFreeHandB());
+		widget.add(frame.editingSelector.getDotB());
+		widget.add(frame.editingSelector.getPicB());
+		widget.add(frame.editingSelector.getCodeB());
 		widget.add(frame.exceptionsManager.getExceptionB());
 
 		if(progressBar!=null) progressBar.addToProgressBar(5);
@@ -180,15 +147,8 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * @since 3.0
 	 */
 	protected void composeRectangleLikeToolbar() {
- 		AbstractButton button = frame.editingSelector.getRecB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.119")); //$NON-NLS-1$
- 		widget.add(button);
-
- 		button = frame.editingSelector.getSquareB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.120")); //$NON-NLS-1$
- 		widget.add(button);
+ 		widget.add(frame.editingSelector.getRecB());
+ 		widget.add(frame.editingSelector.getSquareB());
 	}
 
 
@@ -197,15 +157,8 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * @since 3.0
 	 */
 	protected void composeEllipseLikeToolbar() {
- 		AbstractButton button = frame.editingSelector.getEllipseB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
- 		widget.add(button);
-
- 		button = frame.editingSelector.getCircleB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.127")); //$NON-NLS-1$
- 		widget.add(button);
+ 		widget.add(frame.editingSelector.getEllipseB());
+ 		widget.add(frame.editingSelector.getCircleB());
 	}
 
 
@@ -215,20 +168,9 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * @since 3.0
 	 */
 	protected void composePolygonLikeToolbar() {
- 		AbstractButton button = frame.editingSelector.getPolygonB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
- 		widget.add(button);
-
- 		button = frame.editingSelector.getRhombusB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.123")); //$NON-NLS-1$
- 		widget.add(button);
-
- 		button = frame.editingSelector.getTriangleB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.124")); //$NON-NLS-1$
- 		widget.add(button);
+ 		widget.add(frame.editingSelector.getPolygonB());
+ 		widget.add(frame.editingSelector.getRhombusB());
+ 		widget.add(frame.editingSelector.getTriangleB());
 	}
 
 
@@ -237,15 +179,8 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * @since 3.0
 	 */
 	protected void composeCurveLikeToolbar() {
- 		AbstractButton button = frame.editingSelector.getBezierClosedB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getString19("LaTeXDrawFrame.11")); //$NON-NLS-1$
- 		widget.add(button);
-
- 		button = frame.editingSelector.getBezierB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
- 		widget.add(button);
+ 		widget.add(frame.editingSelector.getBezierClosedB());
+ 		widget.add(frame.editingSelector.getBezierB());
 	}
 
 
@@ -254,15 +189,8 @@ public class ToolbarBuilder extends UIComposer<MToolBar> {
 	 * @since 3.0
 	 */
 	protected void composeGridLikeToolbar() {
- 		AbstractButton button = frame.editingSelector.getGridB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.133")); //$NON-NLS-1$
- 		widget.add(button);
-
- 		button = frame.editingSelector.getAxesB();
- 		button.setMargin(LResources.INSET_BUTTON);
- 		button.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.17")); //$NON-NLS-1$
- 		widget.add(button);
+ 		widget.add(frame.editingSelector.getGridB());
+ 		widget.add(frame.editingSelector.getAxesB());
 	}
 
 

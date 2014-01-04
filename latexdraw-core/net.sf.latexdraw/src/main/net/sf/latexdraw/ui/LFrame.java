@@ -256,7 +256,7 @@ public class LFrame extends UI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { pencil 		= new Pencil(canvas, textSetter, layeredPanel); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { exporter		= new Exporter(composer, canvas, drawing, statusBar, gen); }
+		try { exporter		= new Exporter(composer, canvas, statusBar, gen); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try {
 			metaShapeCustomiser = new MetaShapeCustomiser(composer, hand, pencil, canvas.getBorderInstrument());

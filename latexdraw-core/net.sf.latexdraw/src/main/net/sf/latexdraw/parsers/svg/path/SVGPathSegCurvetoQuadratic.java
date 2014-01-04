@@ -105,10 +105,4 @@ public class SVGPathSegCurvetoQuadratic extends SVGPathSeg {
 	public double getY1() {
 		return y1;
 	}
-
-
-	@Override
-	public PathSeg getType() {
-		return isRelative() ? PathSeg.CURVETO_QUADRATIC_REL : PathSeg.CURVETO_QUADRATIC_ABS;
-	}
 }

@@ -55,7 +55,7 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		final double gridStartx 	= shape.getGridStartX();
 		final double gridStarty 	= shape.getGridStartY();
 
-		if(!LNumber.equals(positionx, 0.) || !LNumber.equals(positiony, 0.)) {
+		if(!LNumber.equalsDouble(positionx, 0.) || !LNumber.equalsDouble(positiony, 0.)) {
 			end.append('}');
 			start.append("\\rput(").append((float)LNumber.getCutNumber((positionx-origDrawing.getX())/ppc)).append(','); //$NON-NLS-1$
 			start.append((float)LNumber.getCutNumber((origDrawing.getY()-positiony)/ppc)).append(')').append('{');
@@ -99,24 +99,24 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 		params.append(", ticks=").append(shape.getTicksDisplayed().getPSTToken());//$NON-NLS-1$
 //		params.append(", ticksize=").append((float)LNumber.getCutNumber(shape.getTicksSize()/ppc)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
-		if(!LNumber.equals(distLabelsX, 0.))
+		if(!LNumber.equalsDouble(distLabelsX, 0.))
 			params.append(", dx=").append((float)LNumber.getCutNumber(distLabelsX)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
-		if(!LNumber.equals(distLabelsY, 0.))
+		if(!LNumber.equalsDouble(distLabelsY, 0.))
 			params.append(", dy=").append((float)LNumber.getCutNumber(distLabelsY)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
-		if(!LNumber.equals(incrementx, PSTricksConstants.DEFAULT_DX))
-			params.append(", Dx=").append(LNumber.equals(incrementx, incrementx) ? String.valueOf((int)incrementx): //$NON-NLS-1$
+		if(!LNumber.equalsDouble(incrementx, PSTricksConstants.DEFAULT_DX))
+			params.append(", Dx=").append(LNumber.equalsDouble(incrementx, incrementx) ? String.valueOf((int)incrementx): //$NON-NLS-1$
 											String.valueOf((float)LNumber.getCutNumber(incrementx)));
 
-		if(!LNumber.equals(incrementy, PSTricksConstants.DEFAULT_DY))
-			params.append(", Dy=").append(LNumber.equals(incrementy, incrementy) ? String.valueOf((int)incrementy): //$NON-NLS-1$
+		if(!LNumber.equalsDouble(incrementy, PSTricksConstants.DEFAULT_DY))
+			params.append(", Dy=").append(LNumber.equalsDouble(incrementy, incrementy) ? String.valueOf((int)incrementy): //$NON-NLS-1$
 										String.valueOf((float)LNumber.getCutNumber(incrementy)));
 
-		if(!LNumber.equals(originx, PSTricksConstants.DEFAULT_OX))
+		if(!LNumber.equalsDouble(originx, PSTricksConstants.DEFAULT_OX))
 			params.append(", Ox=").append((int)originx);//$NON-NLS-1$
 
-		if(!LNumber.equals(originy, PSTricksConstants.DEFAULT_OY))
+		if(!LNumber.equalsDouble(originy, PSTricksConstants.DEFAULT_OY))
 			params.append(", Oy=").append((int)originy);//$NON-NLS-1$
 
 		if(showOrigin!=PSTricksConstants.DEFAULT_SHOW_ORIGIN)

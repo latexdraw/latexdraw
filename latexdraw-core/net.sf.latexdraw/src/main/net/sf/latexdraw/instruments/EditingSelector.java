@@ -10,6 +10,7 @@ import net.sf.latexdraw.actions.ModifyPencilStyle;
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.Action;
@@ -177,60 +178,81 @@ public class EditingSelector extends WidgetInstrument {
 		/* Creation of the widgets of the instrument. */
 		handB = new MToggleButton(LResources.SELECT_ICON);
 		handB.setMargin(LResources.INSET_BUTTON);
+		handB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.136") + //$NON-NLS-1$
+ 				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.137") + //$NON-NLS-1$
+ 				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.138")); //$NON-NLS-1$
 
 		dotB = new MToggleButton(LResources.DOT_ICON);
 		dotB.setMargin(LResources.INSET_BUTTON);
+		dotB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.117")); //$NON-NLS-1$
 
 		freeHandB = new MToggleButton(LResources.FREE_HAND_ICON);
 		freeHandB.setMargin(LResources.INSET_BUTTON);
+		freeHandB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.7")); //$NON-NLS-1$
 
 		textB = new MToggleButton(LResources.TEXT_ICON);
 		textB.setMargin(LResources.INSET_BUTTON);
+		textB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.60")); //$NON-NLS-1$
 
 		recB = new MToggleButton(LResources.RECT_ICON);
 		recB.setMargin(LResources.INSET_BUTTON);
+ 		recB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.119")); //$NON-NLS-1$
 
 		squareB = new MToggleButton(LResources.SQUARE_ICON);
 		squareB.setMargin(LResources.INSET_BUTTON);
+ 		squareB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.120")); //$NON-NLS-1$
 
 		ellipseB = new MToggleButton(LResources.ELLIPSE_ICON);
 		ellipseB.setMargin(LResources.INSET_BUTTON);
+ 		ellipseB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.125")); //$NON-NLS-1$
 
 		circleB = new MToggleButton(LResources.CIRCLE_ICON);
 		circleB.setMargin(LResources.INSET_BUTTON);
+ 		circleB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.127")); //$NON-NLS-1$
 
 		axesB = new MToggleButton(LResources.AXES_ICON);
 		axesB.setMargin(LResources.INSET_BUTTON);
+ 		axesB.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.17")); //$NON-NLS-1$
 
 		gridB = new MToggleButton(LResources.GRID_ICON);
 		gridB.setMargin(LResources.INSET_BUTTON);
+		gridB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.133")); //$NON-NLS-1$
 
 		bezierB = new MToggleButton(LResources.BEZIER_CURVE_ICON);
 		bezierB.setMargin(LResources.INSET_BUTTON);
+ 		bezierB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.132")); //$NON-NLS-1$
 
 		bezierClosedB = new MToggleButton(LResources.CLOSED_BEZIER_ICON);
 		bezierClosedB.setMargin(LResources.INSET_BUTTON);
+ 		bezierClosedB.setToolTipText(LangTool.INSTANCE.getString19("LaTeXDrawFrame.11")); //$NON-NLS-1$
 
 		arcB = new MToggleButton(LResources.ARC_ICON);
 		arcB.setMargin(LResources.INSET_BUTTON);
+ 		arcB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
 
 		triangleB = new MToggleButton(LResources.TRIANGLE_ICON);
 		triangleB.setMargin(LResources.INSET_BUTTON);
+ 		triangleB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.124")); //$NON-NLS-1$
 
 		rhombusB = new MToggleButton(LResources.RHOMBUS_ICON);
 		rhombusB.setMargin(LResources.INSET_BUTTON);
+ 		rhombusB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.123")); //$NON-NLS-1$
 
 		polygonB = new MToggleButton(LResources.POLYGON_ICON);
 		polygonB.setMargin(LResources.INSET_BUTTON);
+ 		polygonB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.121")); //$NON-NLS-1$
 
 		linesB = new MToggleButton(LResources.LINES_ICON);
 		linesB.setMargin(LResources.INSET_BUTTON);
+		linesB.setToolTipText("Draw a single or several joined lines.");
 
 		picB = new MToggleButton(LResources.INSERT_PIC_ICON);
 		picB.setMargin(LResources.INSET_BUTTON);
+		picB.setToolTipText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.1")); //$NON-NLS-1$
 
 		codeB = new MButton(LResources.TEX_EDITOR_ICON);
 		codeB.setMargin(LResources.INSET_BUTTON);
+		codeB.setToolTipText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.0")); //$NON-NLS-1$
 	}
 
 

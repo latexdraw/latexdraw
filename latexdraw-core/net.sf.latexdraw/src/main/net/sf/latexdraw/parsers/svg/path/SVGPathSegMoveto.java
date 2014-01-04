@@ -43,10 +43,4 @@ public class SVGPathSegMoveto extends SVGPathSegLineto {
 
 		return builder.toString();
 	}
-
-
-	@Override
-	public PathSeg getType() {
-		return isRelative() ? PathSeg.MOVETO_REL : PathSeg.MOVETO_ABS;
-	}
 }

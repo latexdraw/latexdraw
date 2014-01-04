@@ -38,17 +38,6 @@ class LSquareSVGGenerator extends LRectangleSVGGenerator {
 
 
 	/**
-	 * Creates an SVG generator for squares.
-	 * @param elt The SVG element to convert in latexdraw.
-	 * @since 3.0
-	 */
-	protected LSquareSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-
-	/**
 	 * Creates a square from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 * @since 2.0.0

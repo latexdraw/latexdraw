@@ -56,16 +56,6 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 
 
 	/**
-	 * Creates a grid from a G SVG element.
-	 * @param elt The G SVG element used for the creation of a grid.
-	 * @throws IllegalArgumentException If the given element is null.
-	 */
-	protected LGridSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-	/**
 	 * Creates a grid from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 * @since 2.0.0
@@ -530,7 +520,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		if(shape.getLabelsSize()>0)
 			createSVGGridLabels(document, elt, prefix, minX, maxX, minY, maxY, tlx, tly, xStep, yStep, gridWidth, absStep);
 
-		if(LNumber.equals(shape.getRotationAngle()%(Math.PI*2), 0.))
+		if(LNumber.equalsDouble(shape.getRotationAngle()%(Math.PI*2), 0.))
 			setSVGRotationAttribute(elt);
 	}
 

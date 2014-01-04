@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
-import java.awt.geom.Point2D;
 
 /**
  * Defines an interface that classes defining a line should implement.<br>
@@ -79,13 +78,6 @@ public interface ILine {
 	 */
 	boolean isHorizontalLine();
 
-
-	/**
-	 * @return True if the two points of the line are equals meaning this is not a line but a 'dot'.
-	 * @since 3.0
-	 */
-	boolean isDot();
-
 	/**
 	 * @return True if the segment defined by the line contains the given point. False otherwise or
 	 * if the given point is null.
@@ -148,22 +140,6 @@ public interface ILine {
 	void setP2(final IPoint pt);
 
 	/**
-	 * Sets the coordinates of the first point.
-	 * @param x The new x coordinate of the first point.
-	 * @param y The new y coordinate of the first point.
-	 * @since 3.0
-	 */
-	void setP1(final double x, final double y);
-
-	/**
-	 * Sets the coordinates of the second point.
-	 * @param x The new x coordinate of the second point.
-	 * @param y The new y coordinate of the second point.
-	 * @since 3.0
-	 */
-	void setP2(final double x, final double y);
-
-	/**
 	 * @return the a parameter of the line.
 	 */
 	double getA();
@@ -198,11 +174,6 @@ public interface ILine {
 	IPoint getIntersection(final ILine l);
 
 	/**
-	 * @return The middle point of the line.
-	 */
-	IPoint getMiddlePt();
-
-	/**
 	 * @param l The second line.
 	 * @return The point of the intersection between of the two segments.
 	 */
@@ -226,33 +197,6 @@ public interface ILine {
 	 * @return The found points or null if a problem occurs.
 	 */
 	IPoint[] findPoints(final IPoint p, final double distance);
-
-	/**
-	 * Gets the points which are on the line and at the distance
-	 * "distance" of the point "p" of the line.
-	 * @param p The point of reference.
-	 * @param distance The distance between p and the points we must find.
-	 * @return The found points or null if a problem occurs.
-	 */
-	IPoint[] findPoints(final Point2D p, final double distance);
-
-	/**
-	 * Gets the Y-coordinate thanks to the equation of the line and the X-coordinate of the point.
-	 * The line must not by vertical.
-	 * @param x The X-coordinate of the point.
-	 * @return The Y-coordinate of the point or NaN if the line is vertical or if the two points
-	 * of the line are equal, or if the given x is not valid.
-	 */
-	double getYWithEquation(final double x);
-
-	/**
-	 * Gets the X-coordinate thanks to the equation of the line and the Y-coordinate of the point.
-	 * The line must not by horizontal.
-	 * @param y The Y-coordinate of the point.
-	 * @return The X-coordinate of the point or NaN if the line is horizontal or if the two points
-	 * of the line are equal, or if the given y is not valid.
-	 */
-	double getXWithEquation(final double y);
 
 	/**
 	 * Update the y-intercept <code>b</code> and slope <code>a</code>.

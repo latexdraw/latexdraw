@@ -64,12 +64,6 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 	}
 
 
-	protected LTextSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-
 	/**
 	 * Creates a text from a latexdraw-SVG element.
 	 * @param elt The source element.

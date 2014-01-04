@@ -67,7 +67,7 @@ class PSTArcView extends PSTClassicalView<IArc> {
 		if(rotation!=null)
 			end.append('}');
 
-		if(!LNumber.equals(yunit, 1.)) {
+		if(!LNumber.equalsDouble(yunit, 1.)) {
 			start.append("\\psscalebox{1 ").append((float)LNumber.getCutNumber(yunit)).append('}').append('{'); //$NON-NLS-1$
 			end.append('}');
 		}

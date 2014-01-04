@@ -34,33 +34,13 @@ protected class LDrawing extends IDrawing with LSetShapes {
 	var modified : Boolean = false
 
 
-	override def addToSelection(sh : IShape) { selection.addShape(sh) }
-
-
-	override def addToSelection(newSelection : java.util.List[IShape]) {
-		if(newSelection!=null)
-			newSelection.foreach(sh => selection.addShape(sh))
-	}
-
-
 	override def getSelection() = selection
-
-
-	override def removeFromSelection(sh : IShape) = selection.removeShape(sh)
-
-
-	override def removeSelection() = selection.clear
-
-
-	override def setSelection(sh : IShape) {
-		selection.clear
-		selection.addShape(sh)
-	}
 
 
 	override def setSelection(newSelection : java.util.List[IShape]) {
 		selection.clear
-		addToSelection(newSelection)
+		if(newSelection!=null)
+			newSelection.foreach(sh => selection.addShape(sh))
 	}
 
 

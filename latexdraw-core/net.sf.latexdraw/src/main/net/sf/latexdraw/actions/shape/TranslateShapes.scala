@@ -46,11 +46,11 @@ class TranslateShapes extends Action with ShapeAction[IGroup] with DrawingAction
 
 	override def isRegisterable() = hadEffect
 
-	override def hadEffect() = !LNumber.equals(performedTx, 0.0) || !LNumber.equals(performedTy, 0.0)
+	override def hadEffect() = !LNumber.equalsDouble(performedTx, 0.0) || !LNumber.equalsDouble(performedTy, 0.0)
 
 
 	protected def doActionBody() {
-		if(!LNumber.equals((_tx-performedTx), 0.0) || !LNumber.equals((_ty-performedTy), 0.0)) {
+		if(!LNumber.equalsDouble((_tx-performedTx), 0.0) || !LNumber.equalsDouble((_ty-performedTy), 0.0)) {
 			_shape.get.translate(_tx-performedTx, _ty-performedTy)
 			_shape.get.setModified(true)
 			_drawing.get.setModified(true)

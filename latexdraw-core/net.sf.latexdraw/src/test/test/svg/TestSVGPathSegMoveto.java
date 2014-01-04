@@ -6,7 +6,6 @@ import junit.framework.TestCase;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parsers.svg.path.SVGPathHandler;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSeg.PathSeg;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
 
 import org.junit.Test;
@@ -19,7 +18,6 @@ public class TestSVGPathSegMoveto extends TestCase implements SVGPathHandler {
 		assertEquals(seg.getX(), -1.);
 		assertEquals(seg.getY(), -2.);
 		assertFalse(seg.isRelative());
-		assertEquals(seg.getType(), PathSeg.MOVETO_ABS);
 	}
 
 

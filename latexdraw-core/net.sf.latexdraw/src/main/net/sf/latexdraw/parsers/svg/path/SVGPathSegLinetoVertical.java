@@ -31,13 +31,6 @@ public class SVGPathSegLinetoVertical extends SVGPathSegLineto {
 
 
 	@Override
-	public PathSeg getType() {
-		return isRelative() ? PathSeg.LINETO_VERTICAL_REL : PathSeg.LINETO_VERTICAL_ABS;
-	}
-
-
-
-	@Override
 	public String toString() {
 		final StringBuilder builder = new StringBuilder();
 

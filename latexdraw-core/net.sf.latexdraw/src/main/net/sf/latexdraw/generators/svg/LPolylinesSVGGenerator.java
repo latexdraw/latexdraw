@@ -91,18 +91,6 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	}
 
 
-
-	/**
-	 * Creates a latexdraw polyline from an SVG element provided by a latexdraw-SVG document.
-	 * @param elt The latexdraw-SVG element to convert as a latexdraw shape.
-	 * @since 3.0
-	 */
-	protected LPolylinesSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-
 	/**
 	 * Creates some joined-lines from a latexdraw-SVG element.
 	 * @param elt The source element.

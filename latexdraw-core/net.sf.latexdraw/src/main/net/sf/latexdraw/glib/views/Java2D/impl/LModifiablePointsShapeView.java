@@ -103,7 +103,7 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 			sumY += pt.getY();
 
 			// Checking the equality between points of the shape.
-			if(LNumber.equals(firstX, sumX/size) && LNumber.equals(firstY, sumY/size)) {
+			if(LNumber.equalsDouble(firstX, sumX/size) && LNumber.equalsDouble(firstY, sumY/size)) {
 				// If they are all equals, we draw a tiny but visible line.
 				path.reset();
 				path.moveTo(firstX, firstY);

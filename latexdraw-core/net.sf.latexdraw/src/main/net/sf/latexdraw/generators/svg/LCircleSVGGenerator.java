@@ -57,17 +57,6 @@ class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 
 
 	/**
-	 * Creates a circle from a G SVG element.
-	 * @param elt The G SVG element used for the creation of a circle.
-	 * @throws IllegalArgumentException If the given element is null.
-	 * @since 2.0
-	 */
-	protected LCircleSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-	/**
 	 * Creates a circle from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 * @since 2.0.0

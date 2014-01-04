@@ -73,7 +73,7 @@ class LPoint extends Point2D.Double implements IPoint {
 		double x2 = pt.getX() - x;
 		double y2 = pt.getY() - y;
 
-		if(LNumber.equals(x2, 0.)) {
+		if(LNumber.equalsDouble(x2, 0.)) {
 			angle = Math.PI/2.;
 
 			if(y2<0.)
@@ -127,18 +127,18 @@ class LPoint extends Point2D.Double implements IPoint {
 
 		angle = angle%(2.*PI);
 
-		if(LNumber.equals(angle, 0.))
+		if(LNumber.equalsDouble(angle, 0.))
 			return (LPoint)clone();
 
-		if(LNumber.equals(angle-PI/2., 0.)) {
+		if(LNumber.equalsDouble(angle-PI/2., 0.)) {
 			cosTheta = 0.;
 			sinTheta = 1.;
 		}
-		else if(LNumber.equals(angle-PI, 0.)) {
+		else if(LNumber.equalsDouble(angle-PI, 0.)) {
 				cosTheta = -1.;
 				sinTheta = 0.;
 			}
-			else if(LNumber.equals(angle-(3.*PI/2.), 0.)) {
+			else if(LNumber.equalsDouble(angle-(3.*PI/2.), 0.)) {
 					cosTheta = 0.;
 					sinTheta = -1.;
 				}
@@ -159,7 +159,7 @@ class LPoint extends Point2D.Double implements IPoint {
 		if(!GLibUtilities.isValidCoordinate(gap) || !GLibUtilities.isValidPoint(p))
 			return false;
 
-		return LNumber.equals(x, p.getX(), gap) && LNumber.equals(y, p.getY(), gap);
+		return LNumber.equalsDouble(x, p.getX(), gap) && LNumber.equalsDouble(y, p.getY(), gap);
 	}
 
 

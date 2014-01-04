@@ -51,13 +51,6 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 	}
 
 
-
-	protected LPictureSVGGenerator(final SVGGElement elt) throws IOException {
-		this(elt, true);
-	}
-
-
-
 	/**
 	 * Creates a picture from a latexdraw-SVG element.
 	 * @param elt The source element.

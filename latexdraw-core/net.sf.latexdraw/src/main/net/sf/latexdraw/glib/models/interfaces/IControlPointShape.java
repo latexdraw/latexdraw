@@ -25,24 +25,10 @@ public interface IControlPointShape extends IModifiablePointsShape {
 	/** The default position gap of control points against their reference point. */
 	int DEFAULT_POSITION_CTRL = 40;
 
-	/** The default balance gap used to balance all the points of the bézier curve. */
-	int DEFAULT_BALANCE_GAP = 50;
-
-
 	/**
 	 * Balances all the control points in order the create a rounded shape.
 	 */
 	void balance();
-
-	/**
-	 * @return the balanceGap.
-	 */
-	int getBalanceGap();
-
-	/**
-	 * @param balanceGap the balanceGap to set.
-	 */
-	void setBalanceGap(final int balanceGap);
 
 	/**
 	 * @param position The position of the wanted points (-1 for the last point).

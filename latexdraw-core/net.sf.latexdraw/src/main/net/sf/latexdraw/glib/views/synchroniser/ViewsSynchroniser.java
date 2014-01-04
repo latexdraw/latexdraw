@@ -1,7 +1,6 @@
 package net.sf.latexdraw.glib.views.synchroniser;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
@@ -69,41 +68,6 @@ public abstract class ViewsSynchroniser {
 	 * @since 3.0
 	 */
 	public abstract boolean updateCode(final IShape shape);
-
-
-
-	/**
-	 * Removes the useless PSTricks views still in the synchroniser but
-	 * removed from the drawing. This method can take some times,
-	 * so it is advised to launch it occasionally.
-	 * @since 3.0
-	 */
-	public void clean() {
-		if(viewsCode.size()>drawing.size()) {
-			final Iterator<IShape> shapes = viewsCode.keySet().iterator();
-			IShape shape;
-			int i;
-			final int size = drawing.size();
-			boolean again;
-
-			while(shapes.hasNext()) {
-				shape = shapes.next();
-				i     = 0;
-				again = true;
-
-				while(i<size && again)
-					if(drawing.getShapeAt(i)==shape)
-						again = false;
-					else
-						i++;
-
-				if(again)// We have to remove the code view
-					viewsCode.remove(shape);
-			}
-
-			shapes.remove();
-		}
-	}
 
 
 	/**

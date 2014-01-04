@@ -59,7 +59,7 @@ object GLibUtilities {
 		val ac = a.distance(c)
 		val ab = a.distance(b)
 
-		if(LNumber.equals(ab, ac))
+		if(LNumber.equalsDouble(ab, ac))
 			return a.distance((b.getX+c.getX)/2.0, (b.getY+c.getY)/2.0)
 
 		return ab * ac / b.distance(c)

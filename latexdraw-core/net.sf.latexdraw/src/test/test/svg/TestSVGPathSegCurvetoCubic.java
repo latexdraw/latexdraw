@@ -3,13 +3,11 @@ package test.svg;
 import java.text.ParseException;
 
 import junit.framework.TestCase;
-
 import net.sf.latexdraw.parsers.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parsers.svg.path.SVGPathHandler;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubic;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSeg.PathSeg;
 
 import org.junit.Test;
 
@@ -26,7 +24,6 @@ public class TestSVGPathSegCurvetoCubic extends TestCase implements SVGPathHandl
 		assertEquals(seg.getY1(), 4e-1);
 		assertEquals(seg.getY2(), 6.5);
 		assertTrue(seg.isRelative());
-		assertEquals(seg.getType(), PathSeg.CURVETO_CUBIC_REL);
 	}
 
 
@@ -42,7 +39,7 @@ public class TestSVGPathSegCurvetoCubic extends TestCase implements SVGPathHandl
 
 	@Override
 	public void onPathSeg(SVGPathSeg pathSeg) {
-		if((pathSeg instanceof SVGPathSegMoveto) && cpt==0) {
+		if(pathSeg instanceof SVGPathSegMoveto && cpt==0) {
 			cpt++;
 			return ;
 		}

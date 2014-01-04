@@ -66,7 +66,7 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 	public void updateBorder() {
 		final double angle = shape.getRotationAngle();
 
-		if(LNumber.equals(angle, 0.))
+		if(LNumber.equalsDouble(angle, 0.))
 			border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
 		else {
 			Rectangle2D rec = path.getBounds2D().createUnion(pathLabels.getBounds2D());
@@ -101,7 +101,7 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 		final double rotationAngle = shape.getRotationAngle();
 		boolean intersects;
 
-		if(LNumber.equals(rotationAngle, 0.)) {
+		if(LNumber.equalsDouble(rotationAngle, 0.)) {
 			intersects = path.intersects(r) || pathLabels.intersects(r);
 		}
 		else {

@@ -55,15 +55,6 @@ public class SVGPathSegCurvetoQuadraticSmooth extends SVGPathSeg {
 		return builder.toString();
 	}
 
-
-
-	@Override
-	public PathSeg getType() {
-		return isRelative() ? PathSeg.CURVETO_QUADRATIC_SMOOTH_REL : PathSeg.CURVETO_QUADRATIC_SMOOTH_ABS;
-	}
-
-
-
 	/**
 	 * @return the x.
 	 * @since 2.0

@@ -31,14 +31,14 @@ import net.sf.latexdraw.glib.models.interfaces.IShape;
  * @since 3.0
  */
 abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements IControlPointShape {
+	/** The default balance gap used to balance all the points of the bézier curve. */
+	int DEFAULT_BALANCE_GAP = 50;
+
 	/** This vector contains the points which allows to change the angles of the curves */
 	protected List<IPoint> firstCtrlPts;
 
 	/** Contains the second control points of each points; useful for closed curve. */
 	protected List<IPoint> secondCtrlPts;
-
-	/**  Define the gap between a control point and its point in pixel when using {@link #balance()} method. */
-	protected int balanceGap;
 
 
 	/**
@@ -47,10 +47,8 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	 */
 	public LAbstractCtrlPointShape(final boolean uniqueID) {
 		super(uniqueID);
-
 		firstCtrlPts  = new ArrayList<>();
 		secondCtrlPts = new ArrayList<>();
-		balanceGap	  = DEFAULT_BALANCE_GAP;
 	}
 
 
@@ -60,21 +58,6 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		scaleSetPoints(firstCtrlPts, x, y, pos, bound);
 		scaleSetPoints(secondCtrlPts, x, y, pos, bound);
 	}
-
-
-	@Override
-	public int getBalanceGap() {
-		return balanceGap;
-	}
-
-
-	@Override
-	public void setBalanceGap(final int balanceGap) {
-		if(balanceGap>=1)
-			this.balanceGap = balanceGap;
-	}
-
-
 
 	/**
 	 * Method used by the balance method. Just returns the balanced control points of the given points.
@@ -89,7 +72,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 			line.setLine(pt.getX(), pt.getY(), pt.getX()+10, line.getA()*(pt.getX()+10) + b);
 		}
 
-		return line.findPoints(pt, balanceGap);
+		return line.findPoints(pt, DEFAULT_BALANCE_GAP);
 	}
 
 
@@ -323,14 +306,5 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 			for(final IPoint pt : secondCtrlPts)
 				pt.translate(tx, ty);
 		}
-	}
-
-
-	@Override
-	public void copy(final IShape sh) {
-		super.copy(sh);
-
-		if(sh instanceof IControlPointShape)
-			balanceGap 	= ((IControlPointShape)sh).getBalanceGap();
 	}
 }

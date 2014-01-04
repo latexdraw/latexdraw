@@ -112,12 +112,12 @@ public class SVGPathSegArc extends SVGPathSeg {
 		}
 
 		// Step 2: Compute (cx1, cy1)
-		double sign = (laf == sf) ? -1 : 1;
-		double sq = ((prx * pry) - (prx * py1) - (pry * px1)) / ((prx * py1) + (pry * px1));
-		sq = (sq < 0) ? 0 : sq;
+		double sign = laf == sf ? -1 : 1;
+		double sq = (prx * pry - prx * py1 - pry * px1) / (prx * py1 + pry * px1);
+		sq = sq < 0 ? 0 : sq;
 		double coef = sign * Math.sqrt(sq);
-		double cx1 = coef * ((rx2 * y1) / ry2);
-		double cy1 = coef * -((ry2 * x1) / rx2);
+		double cx1 = coef * (rx2 * y1 / ry2);
+		double cy1 = coef * -(ry2 * x1 / rx2);
 
 		// Step 3: Compute (cx, cy) from (cx1, cy1)
 		double sx2 = (x0+x2)/2.;
@@ -130,15 +130,15 @@ public class SVGPathSegArc extends SVGPathSeg {
 		double uy = (y1 - cy1) / ry2;
 		double vx = (-x1 - cx1) / rx2;
 		double vy = (-y1 - cy1) / ry2;
-		double p = ux, n = Math.sqrt((ux * ux) + (uy * uy));
+		double p = ux, n = Math.sqrt(ux * ux + uy * uy);
 
-		sign = (uy < 0) ? -1. : 1.;
+		sign = uy < 0 ? -1. : 1.;
 		double angleStart = Math.toDegrees(sign * Math.acos(p / n));
 
 		// Compute the angle extent
 		n = Math.sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy));
 		p = ux * vx + uy * vy;
-		sign = (ux * vy - uy * vx < 0) ? -1. : 1.;
+		sign = ux * vy - uy * vx < 0 ? -1. : 1.;
 
 		double angleExtent = Math.toDegrees(sign * Math.acos(p / n));
 
@@ -208,18 +208,11 @@ public class SVGPathSegArc extends SVGPathSeg {
 		return sweepFlag;
 	}
 
-
-	@Override
-	public PathSeg getType() {
-		return isRelative() ? PathSeg.ARC_REL : PathSeg.ARC_ABS;
-	}
-
-
 	@Override
 	public String toString() {
 		final StringBuilder builder = new StringBuilder();
 
-		builder.append(isRelative() ? 'a' : 'A'); 
+		builder.append(isRelative() ? 'a' : 'A');
 		builder.append(' ');
 		builder.append(rx);
 		builder.append(' ');

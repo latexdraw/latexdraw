@@ -53,18 +53,6 @@ class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
 
 
 	/**
-	 * Creates an arc from a G SVG element.
-	 * @param elt The G SVG element used for the creation of an arc.
-	 * @throws IllegalArgumentException If the given element is null.
-	 * @since 2.0
-	 */
-	protected LCircleArcSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-
-	/**
 	 * Creates an arc from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 * @param withTransformation If true, the SVG transformations will be applied.

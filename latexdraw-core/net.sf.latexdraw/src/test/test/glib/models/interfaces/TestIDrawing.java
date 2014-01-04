@@ -209,44 +209,6 @@ public abstract class TestIDrawing extends TestCase {
 	}
 
 
-
-	@Test
-	public void testRemoveSelection() {
-		drawing.getSelection().addShape(DrawingTK.getFactory().createRectangle(false));
-		drawing.removeSelection();
-		assertEquals(0, drawing.getSelection().size());
-		drawing.getSelection().addShape(DrawingTK.getFactory().createRectangle(false));
-		drawing.getSelection().addShape(DrawingTK.getFactory().createRectangle(false));
-		drawing.getSelection().addShape(DrawingTK.getFactory().createRectangle(false));
-		drawing.getSelection().addShape(DrawingTK.getFactory().createRectangle(false));
-		drawing.removeSelection();
-		assertEquals(0, drawing.getSelection().size());
-	}
-
-
-
-	@Test
-	public void testSetSelection() {
-		IShape sh = DrawingTK.getFactory().createRectangle(false);
-
-		drawing.setSelection(sh);
-		assertEquals(1, drawing.getSelection().size());
-		assertEquals(sh, drawing.getSelection().getShapeAt(0));
-
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		sh = DrawingTK.getFactory().createRectangle(false);
-
-		drawing.setSelection(sh);
-		drawing.setSelection(sh2);
-		assertEquals(1, drawing.getSelection().size());
-		assertEquals(sh2, drawing.getSelection().getShapeAt(0));
-		drawing.setSelection((IShape)null);
-		assertNotNull(drawing.getSelection());
-		assertEquals(0, drawing.getSelection().size());
-	}
-
-
-
 	@Test
 	public void testSetSelectionList() {
 		List<IShape> list = new ArrayList<>();
@@ -273,71 +235,5 @@ public abstract class TestIDrawing extends TestCase {
 		drawing.setSelection((List<IShape>)null);
 		assertNotNull(drawing.getSelection());
 		assertEquals(0, drawing.getSelection().size());
-	}
-
-
-
-	@Test
-	public void testRemoveFromSelection() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh3 = DrawingTK.getFactory().createRectangle(false);
-
-		drawing.getSelection().addShape(sh1);
-		drawing.getSelection().addShape(sh2);
-		drawing.getSelection().addShape(sh3);
-		drawing.removeFromSelection(sh2);
-		assertEquals(2, drawing.getSelection().size());
-		assertEquals(sh1, drawing.getSelection().getShapeAt(0));
-		assertEquals(sh3, drawing.getSelection().getShapeAt(1));
-		drawing.removeFromSelection(null);
-		assertEquals(2, drawing.getSelection().size());
-		assertEquals(sh1, drawing.getSelection().getShapeAt(0));
-		assertEquals(sh3, drawing.getSelection().getShapeAt(1));
-		drawing.removeFromSelection(DrawingTK.getFactory().createRectangle(false));
-		assertEquals(2, drawing.getSelection().size());
-		assertEquals(sh1, drawing.getSelection().getShapeAt(0));
-		assertEquals(sh3, drawing.getSelection().getShapeAt(1));
-	}
-
-
-
-	@Test
-	public void testAddToSelection() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-
-		drawing.addToSelection(sh1);
-		drawing.addToSelection(sh2);
-		assertEquals(2, drawing.getSelection().size());
-		assertEquals(sh1, drawing.getSelection().getShapeAt(0));
-		assertEquals(sh2, drawing.getSelection().getShapeAt(1));
-		drawing.addToSelection((IShape)null);
-		assertEquals(2, drawing.getSelection().size());
-		assertEquals(sh1, drawing.getSelection().getShapeAt(0));
-		assertEquals(sh2, drawing.getSelection().getShapeAt(1));
-	}
-
-
-
-	@Test
-	public void testAddToSelectionList() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		List<IShape> list = new ArrayList<>();
-		IGroup selection = drawing.getSelection();
-
-		list.add(sh1);
-		list.add(sh2);
-		drawing.addToSelection(list);
-		assertEquals(selection, drawing.getSelection());
-		assertEquals(2, drawing.getSelection().size());
-		assertEquals(sh1, drawing.getSelection().getShapeAt(0));
-		assertEquals(sh2, drawing.getSelection().getShapeAt(1));
-		drawing.addToSelection((List<IShape>)null);
-		assertEquals(selection, drawing.getSelection());
-		assertEquals(2, drawing.getSelection().size());
-		assertEquals(sh1, drawing.getSelection().getShapeAt(0));
-		assertEquals(sh2, drawing.getSelection().getShapeAt(1));
 	}
 }

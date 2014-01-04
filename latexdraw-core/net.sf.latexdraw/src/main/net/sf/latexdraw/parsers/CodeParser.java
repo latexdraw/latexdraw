@@ -260,15 +260,6 @@ public abstract class CodeParser implements Parser {
 			codeCore.position = position;
 	}
 
-
-	/**
-	 * Increments the line position.
-	 */
-	public void incLinePosition() {
-		codeCore.linePosition++;
-	}
-
-
 	/**
 	 * @param linePosition the line position to set. Must be greater than 0.
 	 * @since 2.0.2

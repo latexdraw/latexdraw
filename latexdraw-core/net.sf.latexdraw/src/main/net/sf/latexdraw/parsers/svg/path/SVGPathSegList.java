@@ -3,8 +3,6 @@ package net.sf.latexdraw.parsers.svg.path;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import net.sf.latexdraw.parsers.svg.path.SVGPathSeg.PathSeg;
-
 /**
  * Defines a list of SVGPath segments.<br>
  *<br>
@@ -59,78 +57,6 @@ public class SVGPathSegList extends ArrayList<SVGPathSeg> implements SVGPathHand
 
 
 	/**
-	 * Returns the current point <b>with absolute values</b> at the end of the SVGPathSeg at the position <code>i</code>.
-	 * @param pos The position of the SVGPathSeg to compute the current point.
-	 * @return The current point <b>with absolute values</b>.
-	 */
-	@SuppressWarnings("incomplete-switch")
-	public Point2D getCurrentPoint(final int pos) {
-		if(pos<0 || pos>=size())
-			return null;
-
-		Point2D.Double pt = new Point2D.Double(), pt2;
-		SVGPathSeg p = get(pos);
-
-		switch(p.getType()) {
-			case LINETO_ABS:
-				pt.setLocation(((SVGPathSegLineto)p).getX(), ((SVGPathSegLineto)p).getY());
-				break;
-
-			case MOVETO_ABS:
-				pt.setLocation(((SVGPathSegMoveto)p).getX(), ((SVGPathSegMoveto)p).getY());
-				break;
-
-			case CLOSEPATH:
-				pt.setLocation(getInitialPoint(pos-1));
-				break;
-
-			case ARC_ABS:
-				pt.setLocation(((SVGPathSegArc)p).getX(), ((SVGPathSegArc)p).getY());
-				break;
-
-			case CURVETO_CUBIC_ABS:
-				pt.setLocation(((SVGPathSegCurvetoCubic)p).getX(), ((SVGPathSegCurvetoCubic)p).getY());
-				break;
-
-			case CURVETO_CUBIC_SMOOTH_ABS:
-				pt.setLocation(((SVGPathSegCurvetoCubicSmooth)p).getX(), ((SVGPathSegCurvetoCubicSmooth)p).getY());
-				break;
-
-			case CURVETO_QUADRATIC_ABS:
-				pt.setLocation(((SVGPathSegCurvetoQuadratic)p).getX(), ((SVGPathSegCurvetoQuadratic)p).getY());
-				break;
-
-			case CURVETO_QUADRATIC_SMOOTH_ABS:
-				pt.setLocation(((SVGPathSegCurvetoQuadraticSmooth)p).getX(), ((SVGPathSegCurvetoQuadraticSmooth)p).getY());
-				break;
-
-			case LINETO_HORIZONTAL_ABS:
-				pt2 = (Point2D.Double)getCurrentPoint(pos-1);
-
-				if(pt2==null)
-					pt=null;
-				else
-					pt.setLocation(((SVGPathSegLinetoHorizontal)p).getX(), pt2.getY());
-
-				break;
-
-			case LINETO_VERTICAL_ABS:
-				pt2 = (Point2D.Double)getCurrentPoint(pos-1);
-
-				if(pt2==null)
-					pt=null;
-				else
-					pt.setLocation(pt2.getX(), ((SVGPathSegLinetoVertical)p).getY());
-
-				break;
-		}
-
-		return pt;
-	}
-
-
-
-	/**
 	 * Returns the initial point of the path containing the element at the position i.
 	 * @param pos The position the begin the research.
 	 * @return The initial point of the path.
@@ -144,7 +70,7 @@ public class SVGPathSegList extends ArrayList<SVGPathSeg> implements SVGPathHand
 		int i = pos;
 
 		while(m==null && i>0)
-			if(get(i).getType()==PathSeg.MOVETO_ABS)
+			if(!get(i).isRelative() && get(i) instanceof SVGPathSegMoveto)
 				m = (SVGPathSegMoveto)get(i);
 
 		if(m==null)

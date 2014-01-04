@@ -33,9 +33,4 @@ public class SVGPathSegClosePath extends SVGPathSeg {
 	public String toString() {
 		return "z";//$NON-NLS-1$
 	}
-
-	@Override
-	public PathSeg getType() {
-		return PathSeg.CLOSEPATH;
-	}
 }

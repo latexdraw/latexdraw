@@ -2,9 +2,6 @@ package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Path2D;
-
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
 
 /**
  * This interface defines a view of an arrow.<br>
@@ -39,17 +36,4 @@ public interface IViewArrow {
 	 * @since 3.0
 	 */
 	void updatePath();
-
-	/**
-	 * @return The arrow model of the view.
-	 * @since 3.0
-	 */
-	IArrow getModel();
-
-	/**
-	 * @return The Java path of the arrow.
-	 * @since 3.0
-	 */
-	Path2D getPath();
 }
-

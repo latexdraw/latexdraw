@@ -34,16 +34,6 @@ public interface IHandler<T extends IShape> extends Pickable {
 	int DEFAULT_SIZE = 16;
 
 	/**
-	 * @return The opacity of the handler.
-	 */
-	int getOpacity();
-
-	/**
-	 * @param opacity the opacity to set.
-	 */
-	void setOpacity(final int opacity);
-
-	/**
 	 * Updates the handler using the given shape.
 	 * @param shape The shape used to updated the handler.
 	 * @since 3.0
@@ -57,26 +47,11 @@ public interface IHandler<T extends IShape> extends Pickable {
 	 */
 	void setPoint(final double x, final double y);
 
-	/**
-	 * Sets the width of the handler.
-	 * @param size Its new width. Must be greater than 0.
-	 */
-	void setSize(final double size);
-
-	/**
-	 * @return The X-coordinate of the handler.
-	 */
-	double getX();
 
 	/**
 	 * @return The centre of the handler.
 	 */
 	IPoint getCentre();
-
-	/**
-	 * @return The Y-coordinate of the handler.
-	 */
-	double getY();
 
 	/**
 	 * paint the handler.
@@ -90,15 +65,4 @@ public interface IHandler<T extends IShape> extends Pickable {
 	 * @param zoom The current zoom level.
 	 */
 	void update(final T shape, final double zoom);
-
-	/**
-	 * @return the size of the handler.
-	 */
-	double getSize();
-
-	/**
-	 * @return The colour of the handler.
-	 * @since 3.0
-	 */
-	Color getColour();
 }

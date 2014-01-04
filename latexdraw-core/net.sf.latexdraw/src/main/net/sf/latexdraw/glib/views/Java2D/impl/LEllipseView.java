@@ -52,7 +52,7 @@ class LEllipseView<S extends IEllipse> extends LRectangularView<S> {
 	public void updateBorder() {
 		final double angle = shape.getRotationAngle();
 
-		if(LNumber.equals(angle, 0.))
+		if(LNumber.equalsDouble(angle, 0.))
 			super.updateBorder();
 		else {
 			// See: http://math.stackexchange.com/questions/91132/how-to-get-the-limits-of-rotated-ellipse

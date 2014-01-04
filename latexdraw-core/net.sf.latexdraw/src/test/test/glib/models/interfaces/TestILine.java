@@ -1,7 +1,5 @@
 package test.glib.models.interfaces;
 
-import java.awt.geom.Point2D;
-
 import junit.framework.TestCase;
 import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
@@ -15,60 +13,33 @@ public abstract class TestILine extends TestCase {
 	protected ILine line;
 
 	@Test
-	public void testIsDot() {
-		line.setP1(100, 100);
-		line.setP2(100, 100);
-		line.updateAandB();
-		assertTrue(line.isDot());
-
-		line.setP2(100, 100.1);
-		assertFalse(line.isDot());
-
-		line.setP2(100.1, 100);
-		assertFalse(line.isDot());
-
-		line.setP2(99.9, 100);
-		assertFalse(line.isDot());
-
-		line.setP2(100, 99.9);
-		assertFalse(line.isDot());
-	}
-
-
-	@Test
 	public void testLineAngle() {
-		line.setP1(0, 100);
-		line.setP2(100, 100);
+		line.setLine(0, 100, 100, 100);
 		line.updateAandB();
 
 		assertEquals(0., line.getLineAngle());
 
-		line.setP1(0, 100);
-		line.setP2(-100, 100);
+		line.setLine(0, 100, -100, 100);
 		line.updateAandB();
 
 		assertEquals(0., line.getLineAngle());
 
-		line.setP1(0, 100);
-		line.setP2(0, 200);
+		line.setLine(0, 100, 0, 200);
 		line.updateAandB();
 
 		assertEquals(Math.PI/2., line.getLineAngle());
 
-		line.setP1(0, 100);
-		line.setP2(0, -200);
+		line.setLine(0, 100, 0, -200);
 		line.updateAandB();
 
 		assertEquals(Math.PI/2., line.getLineAngle());
 
-		line.setP1(100, 100);
-		line.setP2(100, 100);
+		line.setLine(100, 100, 100, 100);
 		line.updateAandB();
 
 		assertEquals(0., line.getLineAngle());
 
-		line.setP1(92.27, -12028.2);
-		line.setP2(98700, 982);
+		line.setLine(92.27, -12028.2, 98700, 982);
 		line.updateAandB();
 
 		assertEquals(Math.atan(line.getA()), line.getLineAngle());
@@ -122,10 +93,10 @@ public abstract class TestILine extends TestCase {
 	@Test
 	public void testGetPoint1() {
 		assertNotNull(line.getPoint1());
-		line.setP1(100, 200);
+		line.setP1(DrawingTK.getFactory().createPoint(100, 200));
 		assertEquals(100., line.getPoint1().getX());
 		assertEquals(200., line.getPoint1().getY());
-		line.setP1(-300, 400);
+		line.setP1(DrawingTK.getFactory().createPoint(-300, 400));
 		assertEquals(-300., line.getPoint1().getX());
 		assertEquals(400., line.getPoint1().getY());
 	}
@@ -134,10 +105,10 @@ public abstract class TestILine extends TestCase {
 	@Test
 	public void testGetPoint2() {
 		assertNotNull(line.getPoint1());
-		line.setP2(100, 200);
+		line.setP2(DrawingTK.getFactory().createPoint(100, 200));
 		assertEquals(100., line.getPoint2().getX());
 		assertEquals(200., line.getPoint2().getY());
-		line.setP2(-300, 400);
+		line.setP2(DrawingTK.getFactory().createPoint(-300, 400));
 		assertEquals(-300., line.getPoint2().getX());
 		assertEquals(400., line.getPoint2().getY());
 	}
@@ -245,25 +216,25 @@ public abstract class TestILine extends TestCase {
 
 	@Test
 	public void testSetP1DoubleDouble() {
-		line.setP1(20, 30);
+		line.setP1(DrawingTK.getFactory().createPoint(20, 30));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(Double.NaN, -10);
+		line.setP1(DrawingTK.getFactory().createPoint(Double.NaN, -10));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(Double.POSITIVE_INFINITY, -10);
+		line.setP1(DrawingTK.getFactory().createPoint(Double.POSITIVE_INFINITY, -10));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(Double.NEGATIVE_INFINITY, -10);
+		line.setP1(DrawingTK.getFactory().createPoint(Double.NEGATIVE_INFINITY, -10));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(-10, Double.NaN);
+		line.setP1(DrawingTK.getFactory().createPoint(-10, Double.NaN));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(-10, Double.POSITIVE_INFINITY);
+		line.setP1(DrawingTK.getFactory().createPoint(-10, Double.POSITIVE_INFINITY));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(-10, Double.NEGATIVE_INFINITY);
+		line.setP1(DrawingTK.getFactory().createPoint(-10, Double.NEGATIVE_INFINITY));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
 	}
@@ -271,29 +242,29 @@ public abstract class TestILine extends TestCase {
 
 	@Test
 	public void testSetP2DoubleDouble() {
-		line.setP2(20, 30);
+		line.setP2(DrawingTK.getFactory().createPoint(20, 30));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
 		line.setP2(null);
 		assertNotNull(line.getPoint2());
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(Double.NaN, -20);
+		line.setP2(DrawingTK.getFactory().createPoint(Double.NaN, -20));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(Double.POSITIVE_INFINITY, -20);
+		line.setP2(DrawingTK.getFactory().createPoint(Double.POSITIVE_INFINITY, -20));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(Double.NEGATIVE_INFINITY, -20);
+		line.setP2(DrawingTK.getFactory().createPoint(Double.NEGATIVE_INFINITY, -20));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(-20, Double.NaN);
+		line.setP2(DrawingTK.getFactory().createPoint(-20, Double.NaN));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(-20, Double.POSITIVE_INFINITY);
+		line.setP2(DrawingTK.getFactory().createPoint(-20, Double.POSITIVE_INFINITY));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(-20, Double.NEGATIVE_INFINITY);
+		line.setP2(DrawingTK.getFactory().createPoint(-20, Double.NEGATIVE_INFINITY));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
 	}
@@ -435,8 +406,8 @@ public abstract class TestILine extends TestCase {
 		line.updateAandB();
 		IPoint pt = line.getIntersection(line2);
 		assertNotNull(pt);
-		assertTrue(LNumber.equals(5.809358228, pt.getX(), 0.00000001));
-		assertTrue(LNumber.equals(-79.152505858, pt.getY(), 0.00000001));
+		assertTrue(LNumber.equalsDouble(5.809358228, pt.getX(), 0.00000001));
+		assertTrue(LNumber.equalsDouble(-79.152505858, pt.getY(), 0.00000001));
 
 		assertNull(line.getIntersection(null));
 		assertNull(line.getIntersection(line));
@@ -559,43 +530,6 @@ public abstract class TestILine extends TestCase {
 		line.setLine(187.3503, 938, 938, 187.37035);
 		line.updateAandB();
 		assertFalse(line.isHorizontalLine());
-	}
-
-
-	@Test
-	public void testGetMiddlePt() {
-		line.setLine(1, 1, 1, 1);
-		line.updateAandB();
-		IPoint pt = line.getMiddlePt();
-
-		assertNotNull(pt);
-		assertEquals(1., pt.getX());
-		assertEquals(1., pt.getY());
-
-		line.setLine(1, 1, 3, 1);
-		line.updateAandB();
-		pt = line.getMiddlePt();
-
-		assertNotNull(pt);
-		assertEquals(2., pt.getX());
-		assertEquals(1., pt.getY());
-
-		line.setLine(1, 1, -1, -1);
-		line.updateAandB();
-		pt = line.getMiddlePt();
-
-		assertNotNull(pt);
-		assertEquals(0., pt.getX());
-		assertEquals(0., pt.getY());
-
-
-		line.setLine(-1, -1, -3, -1);
-		line.updateAandB();
-		pt = line.getMiddlePt();
-
-		assertNotNull(pt);
-		assertEquals(-2., pt.getX());
-		assertEquals(-1., pt.getY());
 	}
 
 
@@ -793,81 +727,6 @@ public abstract class TestILine extends TestCase {
 	}
 
 
-	@Test
-	public void testFindPointsPoint2DDouble() {
-		line.setLine(1, 1, 3, 1);
-		line.updateAandB();
-		assertNull(line.findPoints((Point2D.Double)null, 10));
-		assertNull(line.findPoints((Point2D.Double)DrawingTK.getFactory().createPoint(Double.NaN,10), 10));
-		assertNull(line.findPoints((Point2D.Double)DrawingTK.getFactory().createPoint(10, Double.POSITIVE_INFINITY), 10));
-		assertNull(line.findPoints((Point2D.Double)DrawingTK.getFactory().createPoint(10, 10), Double.NaN));
-		assertNull(line.findPoints((Point2D.Double)DrawingTK.getFactory().createPoint(10, 10), Double.NEGATIVE_INFINITY));
-
-		IPoint[] pts = line.findPoints((Point2D.Double)DrawingTK.getFactory().createPoint(1, 1), 2);
-		assertNotNull(pts);
-		assertEquals(2, pts.length);
-		assertEquals(1., pts[0].getY());
-		assertEquals(1., pts[1].getY());
-
-		if(pts[0].getX()<1.) {
-			assertEquals(-1., pts[0].getX());
-			assertEquals(3., pts[1].getX());
-		}
-		else {
-			assertEquals(3., pts[0].getX());
-			assertEquals(-1., pts[1].getX());
-		}
-
-		line.setLine(3, 3, 3, 3);
-		line.updateAandB();
-		pts = line.findPoints((Point2D.Double)DrawingTK.getFactory().createPoint(3, 3), 1);
-		assertNull(pts);
-
-		line.setLine(0, 3, 3, 3);
-		line.updateAandB();
-		pts = line.findPoints((Point2D.Double)DrawingTK.getFactory().createPoint(10, 10), 1);
-		assertNull(pts);
-	}
-
-
-	@Test
-	public void testGetYWithEquation() {
-		line.setLine(1, 1, 3, 1);
-		line.updateAandB();
-		assertEquals(1., line.getYWithEquation(5));
-		line.setLine(1, 1, 2, 2);
-		line.updateAandB();
-		assertEquals(3., line.getYWithEquation(3));
-		line.setLine(1, 1, 1, 1);
-		line.updateAandB();
-		assertEquals(Double.NaN, line.getYWithEquation(5));
-		line.setLine(1, 3, 1, 1);
-		line.updateAandB();
-		assertEquals(Double.NaN, line.getYWithEquation(1));
-		assertEquals(Double.NaN, line.getYWithEquation(Double.NaN));
-		assertEquals(Double.NaN, line.getYWithEquation(Double.POSITIVE_INFINITY));
-		assertEquals(Double.NaN, line.getYWithEquation(Double.NEGATIVE_INFINITY));
-	}
-
-
-	@Test
-	public void testGetXWithEquation() {
-		line.setLine(1, 1, 3, 1);
-		line.updateAandB();
-		assertEquals(Double.NaN, line.getXWithEquation(1));
-		line.setLine(1, 1, 2, 2);
-		line.updateAandB();
-		assertEquals(3., line.getXWithEquation(3));
-		line.setLine(1, 1, 1, 1);
-		line.updateAandB();
-		assertEquals(Double.NaN, line.getXWithEquation(5));
-		line.setLine(1, 3, 1, 1);
-		line.updateAandB();
-		assertEquals(1., line.getXWithEquation(5));
-		assertEquals(Double.NaN, line.getXWithEquation(Double.NaN));
-		assertEquals(Double.NaN, line.getXWithEquation(Double.POSITIVE_INFINITY));
-		assertEquals(Double.NaN, line.getXWithEquation(Double.NEGATIVE_INFINITY));
-	}
 
 
 	@Test

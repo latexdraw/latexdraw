@@ -258,7 +258,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				tx = t.getTX();
 				ty = t.getTY();
 
-				if(LNumber.equals(ty, 0.) && !sSize) { // It is shadowSize.
+				if(LNumber.equalsDouble(ty, 0.) && !sSize) { // It is shadowSize.
 					shape.setShadowSize(tx);
 					sSize = true;
 				}
@@ -267,10 +267,10 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 					double angle 				= Double.NaN;
 					double shSize 				= shape.getShadowSize();
 
-					if(LNumber.equals(ty, 0.))
+					if(LNumber.equalsDouble(ty, 0.))
 						angle = tx<0. ? Math.PI : 0.;
 					else
-						if(LNumber.equals(shSize, Math.abs(tx)))
+						if(LNumber.equalsDouble(shSize, Math.abs(tx)))
 							angle = ty>0. ? -Math.PI/2. : Math.PI/2.;
 						else {
 							angle = Math.acos(gravityCenter.distance(gravityCenter.getX()+tx+shSize, gravityCenter.getY())/
@@ -463,7 +463,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		final double rotationAngle = shape.getRotationAngle();
 		final IPoint gravityCenter = shape.getGravityCentre();
 
-		if(!LNumber.equals(rotationAngle%(2*PI), 0.)) {
+		if(!LNumber.equalsDouble(rotationAngle%(2*PI), 0.)) {
 			final double gcx = gravityCenter.getX();
 			final double gcy = gravityCenter.getY();
 			final double x   = -Math.cos(-rotationAngle) * gcx + Math.sin(-rotationAngle) * gcy + gcx;
@@ -579,7 +579,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		        		grad.setAttribute(SVGAttributes.SVG_ID, id);
 
-		        		if(!LNumber.equals(shape.getGradAngle()%(2*PI), PI/2.)) {
+		        		if(!LNumber.equalsDouble(shape.getGradAngle()%(2*PI), PI/2.)) {
 		        			final Point2D.Float p1 = new Point2D.Float(), p2 = new Point2D.Float();
 
 		        			getGradientPoints(p1, p2, true);
@@ -592,7 +592,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        		}
 
 		        		// Setting the middle point of the gradient and its colours.
-		        		if(!LNumber.equals(gradMidPt, 0.)) {
+		        		if(!LNumber.equalsDouble(gradMidPt, 0.)) {
 			        		stop = new SVGStopElement(doc);
 			        		stop.setAttribute(SVGAttributes.SVG_OFFSET, "0");//$NON-NLS-1$
 			        		stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColStart(), true));
@@ -604,7 +604,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        		stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColEnd(), true));
 		        		grad.appendChild(stop);
 
-		        		if(!LNumber.equals(gradMidPt, 1.)) {
+		        		if(!LNumber.equalsDouble(gradMidPt, 1.)) {
 		            		stop = new SVGStopElement(doc);
 		            		stop.setAttribute(SVGAttributes.SVG_OFFSET, "1");//$NON-NLS-1$
 		            		stop.setAttribute(SVGAttributes.SVG_STOP_COLOR, CSSColors.INSTANCE.getColorName(shape.getGradColStart(), true));
@@ -730,7 +730,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		final double val = hatchingWidth+hatchingSep;
 
-		if(LNumber.equals(angle2, 0.))
+		if(LNumber.equalsDouble(angle2, 0.))
 			// Drawing the hatchings vertically.
 			for(double x = nwx; x<sex; x+=val) {
 				path.add(new SVGPathSegMoveto(x, nwy, false));
@@ -738,7 +738,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			}
 		else
 			// Drawing the hatchings horizontally.
-			if(LNumber.equals(angle2, halphPI) || LNumber.equals(angle2, -halphPI))
+			if(LNumber.equalsDouble(angle2, halphPI) || LNumber.equalsDouble(angle2, -halphPI))
 				for(double y = nwy; y<sey; y+=val) {
 					path.add(new SVGPathSegMoveto(nwx, y, false));
 					path.add(new SVGPathSegLineto(sex, y, false));
@@ -763,7 +763,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				x2 = x1;
 				y2 = y1;
 
-				if(incX<0. || LNumber.equals(incX, 0.))
+				if(incX<0. || LNumber.equalsDouble(incX, 0.))
 					return ;
 
 				while(x2 < maxX) {
@@ -806,13 +806,13 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			if(angle<0.)
 				angle = 2*PI + angle;
 
-			if(angle>PI || LNumber.equals(angle, PI)) {
+			if(angle>PI || LNumber.equalsDouble(angle, PI)) {
 				gradMidPt 	= 1 - shape.getGradMidPt();
 				angle 		= angle-PI;
 			}
 
-			if(!LNumber.equals(angle, 0.)) {
-				if(LNumber.equals(angle%(PI/2.), 0.)) {
+			if(!LNumber.equalsDouble(angle, 0.)) {
+				if(LNumber.equalsDouble(angle%(PI/2.), 0.)) {
 					// The gradient is horizontal.
 					pt1 = factory.createPoint(nwx, (nwy+sey)/2.);
 					pt2 = factory.createPoint(sex, (nwy+sey)/2.);
@@ -830,7 +830,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 					pt2 = pt2.rotatePoint(cg, -angle);
 					l 	= factory.createLine(pt1, pt2);
 
-					if(LNumber.equals(angle, 0.) && angle>0. && angle<PI/2.)
+					if(LNumber.equalsDouble(angle, 0.) && angle>0. && angle<PI/2.)
 						 l2 = l.getPerpendicularLine(nw);
 					else l2 = l.getPerpendicularLine(factory.createPoint(nwx,sey));
 

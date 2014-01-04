@@ -67,7 +67,7 @@ class LArrowView implements IViewArrow {
 		final double lineB	  	= arrowLine.getB();
 		double c2x, c2y, c3x, c3y;
 
-		if(LNumber.equals(Math.abs(lineAngle), Math.PI/2.)) {
+		if(LNumber.equalsDouble(Math.abs(lineAngle), Math.PI/2.)) {
 			final double cx = pt1.getX();
 			final double cy = pt1.getY();
 			c2x = Math.cos(lineAngle)*cx - Math.sin(lineAngle)*cy;
@@ -82,14 +82,14 @@ class LArrowView implements IViewArrow {
 			c3y  = Math.sin(-lineAngle)*-c2x + Math.cos(-lineAngle)*(lineB-c2y);
 		}
 
-		if(!LNumber.equals(lineAngle%(Math.PI*2.),0.)) {
+		if(!LNumber.equalsDouble(lineAngle%(Math.PI*2.),0.)) {
 			g.rotate(lineAngle);
 			g.translate(c3x,c3y);
 		}
 
 		paintArrow(g, fColour, asShadow);
 
-		if(!LNumber.equals(lineAngle%(Math.PI*2.),0.)) {
+		if(!LNumber.equalsDouble(lineAngle%(Math.PI*2.),0.)) {
 			g.translate(-c3x,-c3y);
 			g.rotate(-lineAngle);
 		}
@@ -351,7 +351,7 @@ class LArrowView implements IViewArrow {
 		final IPoint pt2 		= arrowLine.getPoint2();
 		final double lineB	  	= arrowLine.getB();
 
-		if(LNumber.equals(Math.abs(lineAngle), Math.PI/2.) || LNumber.equals(Math.abs(lineAngle), 0.)) {
+		if(LNumber.equalsDouble(Math.abs(lineAngle), Math.PI/2.) || LNumber.equalsDouble(Math.abs(lineAngle), 0.)) {
 			xRot = pt1.getX();
 			yRot = pt1.getY();
 		} else {
@@ -379,17 +379,5 @@ class LArrowView implements IViewArrow {
 			case ROUND_IN			: updatePathRoundIn(xRot, yRot, pt1, pt2); break;
 			case NONE				: break;
 		}
-	}
-
-
-	@Override
-	public IArrow getModel() {
-		return model;
-	}
-
-
-	@Override
-	public Path2D getPath() {
-		return path;
 	}
 }

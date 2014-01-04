@@ -64,7 +64,7 @@ public abstract class MovePoint extends Action {
 
 	@Override
 	public boolean hadEffect() {
-		return super.hadEffect() && (!LNumber.equals(tx, 0.) || !LNumber.equals(ty, 0.));
+		return super.hadEffect() && (!LNumber.equalsDouble(tx, 0.) || !LNumber.equalsDouble(ty, 0.));
 	}
 
 

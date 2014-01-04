@@ -31,7 +31,7 @@ object LNumber {
 	 * @return True if both values are approximatively equal using a threshold approximation value.
 	 * @since 3.0
 	 */
-	def equals(a:Double, b:Double, threshold:Double) = Math.abs(a - b) <= threshold
+	def equalsDouble(a:Double, b:Double, threshold:Double) = Math.abs(a - b) <= threshold
 
 	/**
 	 * Compares two double values to know if they are approximatively equal.
@@ -40,7 +40,7 @@ object LNumber {
 	 * @return True if both values are approximatively equal using a threshold approximation value.
 	 * @since 3.0
 	 */
-	def equals(a:Double, b:Double) : Boolean = equals(a, b, THRESHOLD)
+	def equalsDouble(a:Double, b:Double) : Boolean = equalsDouble(a, b, THRESHOLD)
 
 	/**
 	 * See getCutNumber(float value, double threshold). The threshold is by default the constant value THRESHOLD.

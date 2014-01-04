@@ -53,17 +53,6 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 
 
 	/**
-	 * Creates a rectangle from a G SVG element.
-	 * @param elt The G SVG element used for the creation of a rectangle.
-	 * @throws IllegalArgumentException If the given element is null.
-	 * @since 2.0
-	 */
-	protected LBezierCurveSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
-	/**
 	 * Creates a Bézier curve from a latexdraw-SVG element.
 	 * @param elt The source element.
 	 * @since 2.0.0

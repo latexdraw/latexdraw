@@ -1,7 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
 
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
@@ -104,9 +103,9 @@ class LLine extends Line2D.Double implements ILine {
 		final double x = pt.getX();
 		final double y = pt.getY();
 
-		if(isHorizontalLine()) return LNumber.equals(y, minY) && x>=minX && x<=maxX;
-		if(isVerticalLine()) return LNumber.equals(x, minX) && y>=minY && y<=maxY;
-		return y>=minY && y<=maxY && x>=minX && x<=maxX && LNumber.equals(y, getA()*x+getB());
+		if(isHorizontalLine()) return LNumber.equalsDouble(y, minY) && x>=minX && x<=maxX;
+		if(isVerticalLine()) return LNumber.equalsDouble(x, minX) && y>=minY && y<=maxY;
+		return y>=minY && y<=maxY && x>=minX && x<=maxX && LNumber.equalsDouble(y, getA()*x+getB());
 	}
 
 
@@ -122,29 +121,6 @@ class LLine extends Line2D.Double implements ILine {
 	}
 
 
-
-	@Override
-	public double getXWithEquation(final double y) {
-		return GLibUtilities.isValidCoordinate(y) ? isVerticalLine() ? isHorizontalLine() ?
-				java.lang.Double.NaN : getX1() : (y-b)/a : java.lang.Double.NaN;
-	}
-
-
-
-	@Override
-	public double getYWithEquation(final double x) {
-		return GLibUtilities.isValidCoordinate(x) ? a*x+b : java.lang.Double.NaN;
-	}
-
-
-
-	@Override
-	public IPoint[] findPoints(final Point2D p, final double distance) {
-		return p==null ? null : findPoints(p.getX(), p.getY(), distance);
-	}
-
-
-
 	@Override
 	public IPoint[] findPoints(final IPoint p, final double distance) {
 		return p==null ? null : findPoints(p.getX(), p.getY(), distance);
@@ -156,7 +132,7 @@ class LLine extends Line2D.Double implements ILine {
 		if(!GLibUtilities.isValidPoint(x, y) || !GLibUtilities.isValidCoordinate(distance))
 			return null;
 
-		if(LNumber.equals(distance, 0.)) {
+		if(LNumber.equalsDouble(distance, 0.)) {
 			LPoint[] sol = new LPoint[1];
 			sol[0] 		 = new LPoint(x,y);
 
@@ -176,7 +152,7 @@ class LLine extends Line2D.Double implements ILine {
 
 		double aLine = a*a+1.;
 		double bLine = -2.*(x+y*a-a*b);
-		double cLine = b*b-(2.*y*b)+y*y+x*x-(distance*distance);
+		double cLine = b*b-2.*y*b+y*y+x*x-distance*distance;
 		double delta = bLine*bLine-4.*aLine*cLine;
 
 		if(delta>0.) {
@@ -193,7 +169,7 @@ class LLine extends Line2D.Double implements ILine {
 			return sol;
 		}
 		else
-			if(LNumber.equals(delta, 0.)) {
+			if(LNumber.equalsDouble(delta, 0.)) {
 				double x2b, y2b;
 				LPoint sol[] = new LPoint[1];
 
@@ -227,16 +203,16 @@ class LLine extends Line2D.Double implements ILine {
 			return null;
 
 		if(isVerticalLine())//FIXME must always create a perpendicular line + add test
-			return LNumber.equals(pt.getX(), x1) ? new LLine(pt.getY(), new LPoint(pt)) : null;
+			return LNumber.equalsDouble(pt.getX(), x1) ? new LLine(pt.getY(), new LPoint(pt)) : null;
 
-		if(LNumber.equals(pt.getX(), 0.)) {
+		if(LNumber.equalsDouble(pt.getX(), 0.)) {
 			LPoint pt3  = new LPoint(getPoint2());
 			LPoint pt2  = (LPoint) pt3.rotatePoint(pt, Math.PI/2.);
 
 			return new LLine(pt2, pt);
 		}
 
-		if(LNumber.equals(a, 0.))
+		if(LNumber.equalsDouble(a, 0.))
 			return new LLine(pt.getX(), pt.getY(), pt.getX(), pt.getY()-10.);
 
 		double a2 = -1./a;
@@ -248,13 +224,13 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public boolean isVerticalLine() {
-		return LNumber.equals(x1, x2);
+		return LNumber.equalsDouble(x1, x2);
 	}
 
 
 	@Override
 	public boolean isHorizontalLine() {
-		return LNumber.equals(y1, y2);
+		return LNumber.equalsDouble(y1, y2);
 	}
 
 
@@ -262,7 +238,7 @@ class LLine extends Line2D.Double implements ILine {
 	@Override
 	public IPoint getIntersection(final ILine l) {
 		if(l==null) return null;
-		if(LNumber.equals(a, l.getA(), 0.00000000001)) return null;
+		if(LNumber.equalsDouble(a, l.getA(), 0.00000000001)) return null;
 
 		boolean verticalLine1 = isVerticalLine();
 		boolean verticalLine2 = l.isVerticalLine();
@@ -305,15 +281,6 @@ class LLine extends Line2D.Double implements ILine {
 	}
 
 
-
-
-	@Override
-	public IPoint getMiddlePt() {
-		return new LPoint((getX1()+getX2())/2., (getY1()+getY2())/2.);
-	}
-
-
-
 	@Override
 	public IPoint getIntersectionSegment(final ILine l) {
 		IPoint p = getIntersection(l);
@@ -328,8 +295,8 @@ class LLine extends Line2D.Double implements ILine {
 		IPoint tl2 = l.getTopLeftPoint();
 		IPoint br2 = l.getBottomRightPoint();
 
-		if((px>=tl.getX() && px<=br.getX() && py>=tl.getY() && py<=br.getY()) &&
-		   (px>=tl2.getX() && px<=br2.getX() && py>=tl2.getY() && py<=br2.getY()))
+		if(px>=tl.getX() && px<=br.getX() && py>=tl.getY() && py<=br.getY() &&
+		   px>=tl2.getX() && px<=br2.getX() && py>=tl2.getY() && py<=br2.getY())
 			return p;
 
 		return null;
@@ -394,17 +361,6 @@ class LLine extends Line2D.Double implements ILine {
 	}
 
 
-
-	@Override
-	public void setP1(final double x, final double y) {
-		if(GLibUtilities.isValidPoint(x, y)) {
-			this.x1 = x;
-			this.y1 = y;
-		}
-	}
-
-
-
 	@Override
 	public void setP2(final IPoint pt) {
 		if(GLibUtilities.isValidPoint(pt)) {
@@ -412,17 +368,6 @@ class LLine extends Line2D.Double implements ILine {
 			this.y2 = pt.getY();
 		}
 	}
-
-
-
-	@Override
-	public void setP2(final double x, final double y) {
-		if(GLibUtilities.isValidPoint(x, y)) {
-			this.x2 = x;
-			this.y2 = y;
-		}
-	}
-
 
 
 	@Override
@@ -462,12 +407,6 @@ class LLine extends Line2D.Double implements ILine {
 			return Math.PI/2.;
 
 		return Math.atan(getA());
-	}
-
-
-	@Override
-	public boolean isDot() {
-		return isVerticalLine() && isHorizontalLine();
 	}
 
 

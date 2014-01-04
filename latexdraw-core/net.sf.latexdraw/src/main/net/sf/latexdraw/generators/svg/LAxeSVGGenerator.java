@@ -44,11 +44,6 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 	}
 
 
-	protected LAxeSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
 	/**
 	 * Creates axes from a latexdraw-SVG element.
 	 * @param elt The source element.

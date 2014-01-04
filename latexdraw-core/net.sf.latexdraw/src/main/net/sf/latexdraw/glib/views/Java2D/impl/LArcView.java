@@ -79,7 +79,7 @@ class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 
 	@Override
 	public void updateBorder() {
-		final Shape sh = LNumber.equals(shape.getRotationAngle(), 0.) ? path : getRotatedShape2D();
+		final Shape sh = LNumber.equalsDouble(shape.getRotationAngle(), 0.) ? path : getRotatedShape2D();
 		border.setFrame(getStroke().createStrokedShape(sh).getBounds2D());
 	}
 
@@ -126,7 +126,7 @@ class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 			sAngle = Math.toDegrees(sAngle%(Math.PI*2.));
 			eAngle = Math.toDegrees(eAngle%(Math.PI*2.));
 
-			if(LNumber.equals(sAngle, eAngle))
+			if(LNumber.equalsDouble(sAngle, eAngle))
 				eAngle += 0.1;
 
 			final double end = sAngle>eAngle ? 360.-sAngle+eAngle : eAngle-sAngle;

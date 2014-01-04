@@ -46,19 +46,6 @@ class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
 	/**
 	 * Creates an SVG generator from an SVGGElement that should corresponds to a
 	 * group of latexdraw shapes.
-	 * @param group The group of latexdraw shapes in the SVG format supplemented with latexdraw
-	 * information.
-	 * @since 3.0
-	 */
-	protected LGroupSVGGenerator(final SVGGElement group) {
-		this(group, true);
-	}
-
-
-
-	/**
-	 * Creates an SVG generator from an SVGGElement that should corresponds to a
-	 * group of latexdraw shapes.
 	 * @param elt The group of latexdraw shapes in the SVG format supplemented with latexdraw
 	 * information.
 	 * @param withTransformation True: the set of transformations that concerned the given SVG element will be applied to the shape.

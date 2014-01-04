@@ -65,7 +65,7 @@ class LPictureView extends LShapeView<IPicture> {
 	public void updateBorder() {
 		border.setFrame(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
 
-		if(!LNumber.equals(shape.getRotationAngle(), 0.))
+		if(!LNumber.equalsDouble(shape.getRotationAngle(), 0.))
 			border.setFrame(getRotatedShape2D(shape.getRotationAngle(), border, shape.getTopLeftPoint(), shape.getBottomRightPoint()).getBounds2D());
 	}
 

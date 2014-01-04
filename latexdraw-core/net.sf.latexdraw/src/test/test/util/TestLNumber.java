@@ -9,8 +9,8 @@ import org.junit.Test;
 public class TestLNumber extends TestCase {
 	@Test
 	public void testEqualsEqual() {
-		assertTrue(LNumber.equals(10, 0, 10));
-		assertTrue(LNumber.equals(-10, 0, 10));
+		assertTrue(LNumber.equalsDouble(10, 0, 10));
+		assertTrue(LNumber.equalsDouble(-10, 0, 10));
 	}
 
 
@@ -19,16 +19,16 @@ public class TestLNumber extends TestCase {
 		double a = 1./3.;
 		double b = 0.333333333333333;
 
-		assertTrue(LNumber.equals(a, b));
+		assertTrue(LNumber.equalsDouble(a, b));
 		b = 0.3299;
-		assertFalse(LNumber.equals(a, b));
+		assertFalse(LNumber.equalsDouble(a, b));
 
 		a = -1./3.;
 		b = -0.333333333333333;
 
-		assertTrue(LNumber.equals(a, b));
+		assertTrue(LNumber.equalsDouble(a, b));
 		b = -0.3299;
-		assertFalse(LNumber.equals(a, b));
+		assertFalse(LNumber.equalsDouble(a, b));
 	}
 
 
@@ -38,20 +38,20 @@ public class TestLNumber extends TestCase {
 		double a = 1./3.;
 		double b = 0.333333333333333;
 
-		assertTrue(LNumber.equals(a, b, 0.00001));
+		assertTrue(LNumber.equalsDouble(a, b, 0.00001));
 		b = 0.3299;
-		assertFalse(LNumber.equals(a, b, 0.00000001));
-		assertTrue(LNumber.equals(a, b, 0.01));
+		assertFalse(LNumber.equalsDouble(a, b, 0.00000001));
+		assertTrue(LNumber.equalsDouble(a, b, 0.01));
 
 		a = -1./3.;
 		b = -0.333333333333333;
 
-		assertTrue(LNumber.equals(a, b, 0.00001));
+		assertTrue(LNumber.equalsDouble(a, b, 0.00001));
 		b = -0.3299;
-		assertFalse(LNumber.equals(a, b, 0.00000001));
-		assertFalse(LNumber.equals(a, b, -0.00000001));
-		assertFalse(LNumber.equals(a, b, 0.));
-		assertTrue(LNumber.equals(a, b, 0.01));
+		assertFalse(LNumber.equalsDouble(a, b, 0.00000001));
+		assertFalse(LNumber.equalsDouble(a, b, -0.00000001));
+		assertFalse(LNumber.equalsDouble(a, b, 0.));
+		assertTrue(LNumber.equalsDouble(a, b, 0.01));
 	}
 
 

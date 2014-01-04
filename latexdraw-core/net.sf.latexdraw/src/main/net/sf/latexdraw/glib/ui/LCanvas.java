@@ -203,7 +203,7 @@ public class LCanvas extends MPanel implements ICanvas {
 	public void paintViews(final Graphics2D g, final boolean withZoom, final boolean withGrid) {
 		final IViewShape temp 	= getTempView();
 		final double zoomValue 	= getZoom();
-		final boolean mustZoom 	= withZoom && !LNumber.equals(zoomValue, 1.);
+		final boolean mustZoom 	= withZoom && !LNumber.equalsDouble(zoomValue, 1.);
 
 		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, alphaInterpolValue);
 		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 	   colorRenderingValue);
@@ -382,11 +382,11 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public void setZoom(final double x, final double y, final double z) {
-		if(z<=getMaxZoom() && z>=getMinZoom() && !LNumber.equals(z,zoom.getValue())) {
+		if(z<=getMaxZoom() && z>=getMinZoom() && !LNumber.equalsDouble(z,zoom.getValue())) {
 			final double oldZoom = zoom.getValue();
 			zoom.setValue(z);
 
-			if(!LNumber.equals(-1., x) || !LNumber.equals(-1., y)) {
+			if(!LNumber.equalsDouble(-1., x) || !LNumber.equalsDouble(-1., y)) {
 				final double dx = (z-oldZoom)*x/oldZoom;
 				final double dy = (z-oldZoom)*y/oldZoom;
 				final Point pt = scrollpane.getViewport().getViewPosition();

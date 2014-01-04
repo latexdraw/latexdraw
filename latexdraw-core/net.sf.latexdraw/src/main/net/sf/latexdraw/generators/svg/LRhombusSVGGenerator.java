@@ -46,18 +46,6 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 		super(rhombus);
 	}
 
-
-	/**
-	 * Creates a rhombus from a G SVG element.
-	 * @param elt The G SVG element used for the creation of a rhombus.
-	 * @throws IllegalArgumentException If the given element is null.
-	 * @since 2.0
-	 */
-	protected LRhombusSVGGenerator(final SVGGElement elt) {
-		this(elt, true);
-	}
-
-
 	/**
 	 * Creates a rhombus from a latexdraw-SVG element.
 	 * @param elt The source element.

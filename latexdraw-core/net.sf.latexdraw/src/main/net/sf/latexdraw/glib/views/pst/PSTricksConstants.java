@@ -121,29 +121,6 @@ public abstract class PSTricksConstants {
 	/** The value by default of a missing coordinate : (5,) */
 	public static final double DEFAULT_VALUE_MISSING_COORDINATE = 1.;
 
-	public static final String TOKEN_PUT_ANGLE_0   = "U";//$NON-NLS-1$
-	public static final String TOKEN_PUT_ANGLE_90  = "L";//$NON-NLS-1$
-	public static final String TOKEN_PUT_ANGLE_180 = "D";//$NON-NLS-1$
-	public static final String TOKEN_PUT_ANGLE_270 = "R";//$NON-NLS-1$
-	public static final String TOKEN_PUT_ANGLE_0_STAR	= "N";//$NON-NLS-1$
-	public static final String TOKEN_PUT_ANGLE_90_STAR	= "W";//$NON-NLS-1$
-	public static final String TOKEN_PUT_ANGLE_180_STAR	= "S";//$NON-NLS-1$
-	public static final String TOKEN_PUT_ANGLE_270_STAR	= "E";//$NON-NLS-1$
-
-	public static final char TOKEN_UPUT_DOWN 	= 'd';
-	public static final char TOKEN_UPUT_UP	 	= 'u';
-	public static final char TOKEN_UPUT_RIGHT 	= 'r';
-	public static final char TOKEN_UPUT_LEFT 	= 'l';
-
-	public static final double DEFAULT_UPUT_DOWN_ANGLE 	= 270;
-	public static final double DEFAULT_UPUT_UP_ANGLE 	=  90;
-	public static final double DEFAULT_UPUT_RIGHT_ANGLE =   0;
-	public static final double DEFAULT_UPUT_LEFT_ANGLE 	= 180;
-	public static final double DEFAULT_UPUT_DOWN_LEFT_ANGLE 	= 225;
-	public static final double DEFAULT_UPUT_UP_LEFT_ANGLE 		= 135;
-	public static final double DEFAULT_UPUT_DOWN_RIGHT_ANGLE 	= 315;
-	public static final double DEFAULT_UPUT_UP_RIGHT_ANGLE		=  45;
-
 	/** gangle is the angle of rotation of a diamond and a triangle
 	 * around their centre. */
 	public static final double DEFAULT_GANGLE = 0;
@@ -354,8 +331,6 @@ public abstract class PSTricksConstants {
 	/** The unit by default in cm */
 	public static final double DEFAULT_UNIT = 1;
 
-	public static final int DEFAULT_PLOT_POINTS = 50;
-
 	/** The origin of the coordinate system by default */
 	public static final Point2D.Double DEFAULT_ORIGIN = new Point2D.Double(0,0);
 
@@ -478,9 +453,6 @@ public abstract class PSTricksConstants {
 
 	/** The scale of the arrowhead */
 	public static final double DEFAULT_ARROW_SCALE2 = 1;
-
-	/** The value by default of labelsep of the command uput (in cm)*/
-	public static final double DEFAULT_LABEL_SEP = 5/CM_VAL_PT;
 
 	/** Distance between each side of a frame and the enclosed box (in cm). */
 	public static final double DEFAULT_FRAME_SEP = 3/CM_VAL_PT;
