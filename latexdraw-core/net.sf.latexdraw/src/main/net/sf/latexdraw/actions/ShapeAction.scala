@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
  */
 trait ShapeAction[T <: IShape] {
 	/** The shape to add. */
-	protected var _shape : Option[T] = None
+	var _shape : Option[T] = None
 
 	/**
 	 * Sets the shape to add.

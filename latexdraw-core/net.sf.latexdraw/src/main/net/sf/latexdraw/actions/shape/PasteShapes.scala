@@ -32,10 +32,10 @@ import java.util.ArrayList
  */
 class PasteShapes extends Action with DrawingAction with Undoable with Modifying {
 	/** The cut or copy action. */
-	protected var _copy : CopyShapes = null
+	var _copy : CopyShapes = _
 
 	/** The magnetic grid to use. */
-	protected var _grid : LMagneticGrid = null
+	var _grid : LMagneticGrid = _
 
 
 	override def canDo() = _copy!=null && _grid!=null && _drawing.isDefined

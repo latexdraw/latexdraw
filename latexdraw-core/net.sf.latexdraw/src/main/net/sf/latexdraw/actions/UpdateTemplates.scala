@@ -24,7 +24,7 @@ import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
  */
 class UpdateTemplates extends Action with TemplateAction{
 	/** Defines if the thumbnails must be updated. */
-	protected var _updateThumbnails : Boolean = false
+	var _updateThumbnails = false
 
 
 	override def isRegisterable() = false

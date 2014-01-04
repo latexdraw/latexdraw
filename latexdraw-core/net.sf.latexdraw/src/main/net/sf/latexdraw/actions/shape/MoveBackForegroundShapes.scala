@@ -31,13 +31,13 @@ import scala.collection.mutable.Buffer
  */
 class MoveBackForegroundShapes extends Action with ShapeAction[IGroup] with DrawingAction with Undoable with Modifying {
 	/** Defines whether the shapes must be placed in the foreground. */
-	var foreground : Boolean = false
+	var foreground = false
 
 	/** The former position of the shapes. */
-	var formerId : Array[Int] = null
+	var formerId : Array[Int] = _
 
 	/** The shapes sorted by their position. */
-	var sortedSh : Buffer[IShape] = null
+	var sortedSh : Buffer[IShape] = _
 
 
 	override protected def doActionBody() {

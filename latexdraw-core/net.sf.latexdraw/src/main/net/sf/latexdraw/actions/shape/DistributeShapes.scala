@@ -47,13 +47,13 @@ import DistributionType._
  */
 class DistributeShapes extends Action with ShapeAction[IGroup] with Undoable with Modifying {
 	/** The reference border that must bounds the shapes to align. */
-	var _border : Rectangle2D = null
+	var _border : Rectangle2D = _
 
 	/** The views corresponding to the shapes to align. */
 	val _views = new ListBuffer[IViewShape]()
 
 	/** The alignment to perform. */
-	var _distribution : DistributionType = null
+	var _distribution : DistributionType = _
 
 	/** The former positions of the shapes to align. Used for undoing. */
 	val _oldPositions = new ListBuffer[IPoint]()

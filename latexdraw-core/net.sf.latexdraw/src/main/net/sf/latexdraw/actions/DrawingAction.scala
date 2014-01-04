@@ -22,7 +22,7 @@ import net.sf.latexdraw.glib.models.interfaces.IDrawing
  */
 trait DrawingAction {
 	/** The drawing that will be handled by the action. */
-	protected var _drawing : Option[IDrawing] = None
+	var _drawing : Option[IDrawing] = None
 
 
 	/**

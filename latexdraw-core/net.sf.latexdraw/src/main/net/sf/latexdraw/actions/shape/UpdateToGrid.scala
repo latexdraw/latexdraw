@@ -33,9 +33,9 @@ import net.sf.latexdraw.glib.models.interfaces.DrawingTK
  */
 class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Modifying {
 	/** The magnetic grid to use. */
-	protected var _grid : LMagneticGrid = null
+	var _grid : LMagneticGrid = null
 
-	private val _listPts : Buffer[Buffer[IPoint]] = new ListBuffer[Buffer[IPoint]]()
+	val _listPts : Buffer[Buffer[IPoint]] = new ListBuffer[Buffer[IPoint]]()
 
 
 	protected def doActionBody() {

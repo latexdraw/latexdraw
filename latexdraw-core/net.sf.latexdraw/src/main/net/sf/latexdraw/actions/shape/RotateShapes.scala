@@ -29,13 +29,13 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
  */
 class RotateShapes extends Action with ShapeAction[IShape] with Undoable with Modifying {
 	/** The rotation angle to apply. */
-	protected var _rotationAngle : Double = Double.NaN
+	var _rotationAngle : Double = Double.NaN
 
 	/** The gravity centre used for the rotation. */
-	protected var _gc : Option[IPoint] = None
+	var _gc : Option[IPoint] = None
 
 	/** The last increment performed on shapes. Used to execute several times the action. */
-	private var lastRotationAngle : Double = 0.0
+	var lastRotationAngle : Double = 0.0
 
 
 	override def canDo() = _shape.isDefined && _gc.isDefined && GLibUtilities.INSTANCE.isValidCoordinate(_rotationAngle) &&

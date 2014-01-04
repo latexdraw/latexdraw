@@ -22,7 +22,7 @@ import org.malai.swing.widget.MMenu
  */
 trait TemplateAction {
 	/** The menu that contains the template menu items. */
-	protected var _templatesMenu : Option[MMenu] = None
+	var _templatesMenu : Option[MMenu] = None
 
 	/**
 	 * @param menu The menu that contains the template menu items.

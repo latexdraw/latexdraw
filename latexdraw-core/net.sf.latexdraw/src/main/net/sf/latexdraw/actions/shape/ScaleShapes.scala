@@ -32,24 +32,24 @@ import net.sf.latexdraw.util.LNumber
  */
 class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction with Undoable with Modifying {
 	/** The direction of the scaling. */
-	protected var _refPosition : Option[Position] = None
+	var _refPosition : Option[Position] = None
 
 	/** The new X position used to compute the scale factor. */
-	protected var _newX : Double = Double.NaN
+	var _newX : Double = Double.NaN
 
 	/** The new Y position used to compute the scale factor. */
-	protected var _newY : Double = Double.NaN
+	var _newY : Double = Double.NaN
 
 	/** The bound of the selected shapes used to perform the scaling. */
-	private val bound : Rectangle2D = new Rectangle2D.Double()
+	val bound : Rectangle2D = new Rectangle2D.Double()
 
 	/** The old width of the selection. */
-	private var oldWidth : Double = Double.NaN
+	var oldWidth : Double = Double.NaN
 
 	/** The old height of the selection. */
-	private var oldHeight : Double = Double.NaN
+	var oldHeight : Double = Double.NaN
 
-	private var doneOnce = false
+	var doneOnce = false
 
 
 

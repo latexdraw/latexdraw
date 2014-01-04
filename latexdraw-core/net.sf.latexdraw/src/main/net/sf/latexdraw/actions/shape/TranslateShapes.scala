@@ -30,18 +30,18 @@ import net.sf.latexdraw.util.LNumber
  */
 class TranslateShapes extends Action with ShapeAction[IGroup] with DrawingAction with Undoable with Modifying {
 	/** The x vector translation. */
-	protected var _tx : Double = 0.0
+	var _tx : Double = 0.0
 
 	/** The y vector translation. */
-	protected var _ty : Double = 0.0
+	var _ty : Double = 0.0
 
 	/** The x vector translation that has been already performed. This attribute is needed since
 	 * this action can be executed several times. */
-	private var performedTx : Double = 0.0
+	var performedTx : Double = 0.0
 
 	/** The y vector translation that has been already performed. This attribute is needed since
 	 * this action can be executed several times. */
-	private var performedTy : Double = 0.0
+	var performedTy : Double = 0.0
 
 
 	override def isRegisterable() = hadEffect

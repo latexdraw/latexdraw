@@ -29,7 +29,7 @@ import net.sf.latexdraw.util.LResources
  */
 class CutShapes extends CopyShapes with Undoable with Modifying {
 	/** The index of the cut shapes. */
-	private var _positionShapes : Buffer[Int] = null
+	var _positionShapes : Buffer[Int] = _
 
 
 	override def doActionBody() {

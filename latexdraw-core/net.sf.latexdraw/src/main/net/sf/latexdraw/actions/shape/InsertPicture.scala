@@ -24,10 +24,10 @@ import net.sf.latexdraw.glib.models.interfaces.IPicture
  */
 class InsertPicture extends AddShape {
 	/** The file chooser used to select the picture to add. */
-	protected var _fileChooser : Option[JFileChooser] = None
+	var _fileChooser : Option[JFileChooser] = None
 
 	/** Defines if the picture has been successfully loaded. */
-	private var loaded : Boolean = false
+	var loaded = false
 
 
 	override protected def doActionBody() {

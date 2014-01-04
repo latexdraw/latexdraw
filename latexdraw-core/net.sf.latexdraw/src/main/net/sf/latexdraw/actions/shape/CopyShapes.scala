@@ -29,13 +29,13 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
  */
 class CopyShapes extends Action {
 	/** The selection action. */
-	protected[shape] var _selection : Option[SelectShapes] = None
+	var _selection : Option[SelectShapes] = None
 
 	/** The copied shapes from the selection. */
-	private[shape] var copiedShapes : java.util.List[IShape] = new ArrayList[IShape]()
+	var copiedShapes : java.util.List[IShape] = new ArrayList[IShape]()
 
 	/** The number of times that the shapes have been copied. Use to compute the gap while pasting. */
-	private[shape] var nbTimeCopied : Int = 0
+	var nbTimeCopied : Int = 0
 
 
 	override protected def doActionBody() {

@@ -31,7 +31,7 @@ import net.sf.latexdraw.actions.ShapesAction
  */
 class DeleteShapes extends Action with ShapesAction with DrawingAction with Undoable with Modifying {
 	/** The index of the deleted shapes into the original list. */
-	protected var positionShapes : Buffer[Int] = null
+	var positionShapes : Buffer[Int] = _
 
 
 	def isRegisterable() = true

@@ -34,7 +34,7 @@ import net.sf.latexdraw.lang.LangTool
  */
 class JoinShapes extends Action with ShapesAction with DrawingAction with Undoable with Modifying {
 	/** The added group of shapes. */
-	protected val addedGroup : IGroup = DrawingTK.getFactory().createGroup(true)
+	val addedGroup = DrawingTK.getFactory().createGroup(true)
 
 
 	override protected def doActionBody() {

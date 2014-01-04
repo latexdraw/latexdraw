@@ -25,7 +25,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
  */
 trait ShapesAction {
 	/** The shapes to handle. */
-	protected var _shapes : java.util.List[IShape] = new ArrayList[IShape]()
+	val _shapes : java.util.List[IShape] = new ArrayList[IShape]()
 
 
 	/**

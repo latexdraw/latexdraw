@@ -32,13 +32,13 @@ import net.sf.latexdraw.badaboom.BadaboomManager
  */
 class InsertPSTCode extends Action with DrawingAction with Undoable {
 	/** The code to parse. */
-	protected var _code : Option[String] = None
+	var _code : Option[String] = None
 
 	/** The status bar. */
-	protected var _statusBar : Option[JLabel] = None
+	var _statusBar : Option[JLabel] = None
 
 	/** The added shapes. */
-	private var _shapes : IShape = null
+	var _shapes : Option[IShape] = None
 
 
 
@@ -47,16 +47,14 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 		try {
 			new PSTParser().parsePSTCode(_code.get) match {
 				case Some(group) if(!group.isEmpty) =>
-					if(group.size()>1)
-						_shapes = group
-					else _shapes = group.getShapeAt(0)
-
-					val br = _shapes.getBottomRightPoint
-					val tl = _shapes.getTopLeftPoint
+					val sh = if(group.size()>1) group else group.getShapeAt(0)
+					val br = sh.getBottomRightPoint
+					val tl = sh.getTopLeftPoint
 					val tx = if(tl.getX<0) -tl.getX+50 else 0
 					val ty = if(tl.getY<0) -tl.getY+50 else 0
 
-					_shapes.translate(tx, ty)
+					_shapes = Some(sh)
+					sh.translate(tx, ty)
 					redo
 					if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.36"))
 				case _ => if(_statusBar.isDefined) _statusBar.get.setText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.33"))
@@ -72,28 +70,28 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 	}
 
 	override def undo() {
-		if(_shapes!=null) {
-			_drawing.get.removeShape(_shapes)
+		if(_shapes.isDefined) {
+			_drawing.get.removeShape(_shapes.get)
 			_drawing.get.setModified(true)
 		}
 	}
 
 	override def redo() {
-		if(_shapes!=null) {
-			_drawing.get.addShape(_shapes)
+		if(_shapes.isDefined) {
+			_drawing.get.addShape(_shapes.get)
 			_drawing.get.setModified(true)
 		}
 	}
 
-	def setStatusBar(value:JLabel) { if(value!=null) _statusBar = Some(value) else _statusBar = None }
+	def setStatusBar(value:JLabel) { _statusBar = if(value!=null) Some(value) else None }
 
-	def setCode(value:String) { if(value!=null) _code = Some(value) else _code = None }
+	def setCode(value:String) { _code = if(value!=null) Some(value) else None }
 
 	override def getUndoName() = "Inserting of PST code"
 
 	override def canDo() = _code.isDefined && _drawing.isDefined
 
-	override def hadEffect() = isDone && _shapes!=null
+	override def hadEffect() = isDone && _shapes.isDefined
 
 	override def isRegisterable() = hadEffect
 }
