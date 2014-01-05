@@ -1,16 +1,16 @@
 package test.glib.models.interfaces;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
 
-public class TestFillingStyle extends TestCase
-{
-	@Test
-	public void testIsFillable() {
+public class TestFillingStyle {
+	@Test public void testIsFillable() {
 		assertFalse(FillingStyle.GRAD.isFilled());
 		assertFalse(FillingStyle.CLINES.isFilled());
 		assertFalse(FillingStyle.VLINES.isFilled());
@@ -22,9 +22,7 @@ public class TestFillingStyle extends TestCase
 		assertTrue(FillingStyle.PLAIN.isFilled());
 	}
 
-
-	@Test
-	public void testGetLatexToken() {
+	@Test public void testGetLatexToken() {
 		assertEquals(FillingStyle.CLINES.getLatexToken(), PSTricksConstants.TOKEN_FILL_CROSSHATCH);
 		assertEquals(FillingStyle.CLINES_PLAIN.getLatexToken(), PSTricksConstants.TOKEN_FILL_CROSSHATCH_F);
 		assertEquals(FillingStyle.GRAD.getLatexToken(), PSTricksConstants.TOKEN_FILL_GRADIENT);
@@ -36,9 +34,7 @@ public class TestFillingStyle extends TestCase
 		assertEquals(FillingStyle.VLINES_PLAIN.getLatexToken(), PSTricksConstants.TOKEN_FILL_VLINES_F);
 	}
 
-
-	@Test
-	public void testGetStyleFromLatex() {
+	@Test public void testGetStyleFromLatex() {
 		assertNull(FillingStyle.getStyleFromLatex(null));
 		assertNull(FillingStyle.getStyleFromLatex(""));
 		assertNull(FillingStyle.getStyleFromLatex("azo"));
@@ -54,9 +50,7 @@ public class TestFillingStyle extends TestCase
 		assertEquals(FillingStyle.getStyleFromLatex(PSTricksConstants.TOKEN_FILL_VLINES_F), FillingStyle.VLINES_PLAIN);
 	}
 
-
-	@Test
-	public void testGetStyle() {
+	@Test public void testGetStyle() {
 		assertNull(FillingStyle.getStyle(null));
 		assertNull(FillingStyle.getStyle(""));
 		assertNull(FillingStyle.getStyle("oiezuroj"));
@@ -72,9 +66,7 @@ public class TestFillingStyle extends TestCase
 		assertEquals(FillingStyle.getStyle(FillingStyle.PLAIN.toString()), FillingStyle.PLAIN);
 	}
 
-
-	@Test
-	public void testIsHatchings() {
+	@Test public void testIsHatchings() {
 		assertFalse(FillingStyle.GRAD.isHatchings());
 		assertFalse(FillingStyle.NONE.isHatchings());
 		assertFalse(FillingStyle.PLAIN.isHatchings());

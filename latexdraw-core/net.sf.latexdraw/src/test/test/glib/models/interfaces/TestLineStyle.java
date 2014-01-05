@@ -1,25 +1,21 @@
 package test.glib.models.interfaces;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
 
-public class TestLineStyle extends TestCase
-{
-	@Test
-	public void getLatexToken() {
+public class TestLineStyle {
+	@Test public void testgetLatexToken() {
 		assertEquals(LineStyle.DASHED.getLatexToken(), PSTricksConstants.LINE_DASHED_STYLE);
 		assertEquals(LineStyle.DOTTED.getLatexToken(), PSTricksConstants.LINE_DOTTED_STYLE);
 		assertEquals(LineStyle.NONE.getLatexToken(), PSTricksConstants.LINE_NONE_STYLE);
 		assertEquals(LineStyle.SOLID.getLatexToken(), PSTricksConstants.LINE_SOLID_STYLE);
 	}
 
-
-	@Test
-	public void testGetStyle() {
+	@Test public void testGetStyle() {
 		assertNull(LineStyle.getStyle(null));
 		assertNull(LineStyle.getStyle(""));
 		assertNull(LineStyle.getStyle("erzter fd"));

@@ -1,14 +1,12 @@
 package test.glib.models.interfaces;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.*;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
 
-public class TestBorderPos extends TestCase
-{
+public class TestBorderPos {
 	@Test
 	public void testGetLatexToken() {
 		assertEquals(BorderPos.INTO.getLatexToken(), PSTricksConstants.BORDERS_INSIDE);

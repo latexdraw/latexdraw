@@ -180,10 +180,8 @@ public interface IShape extends Modifiable, IArrowable {
 		 */
 		public static LineStyle getStyle(final String styleName) {
 			if(styleName==null) return null;
-			if(NONE.toString().equals(styleName)) 	return NONE;
-			if(SOLID.toString().equals(styleName)) 	return SOLID;
-			if(DASHED.toString().equals(styleName)) return DASHED;
-			if(DOTTED.toString().equals(styleName)) return DOTTED;
+			for(LineStyle ls : values())
+				if(ls.toString().equals(styleName)) return ls;
 			return null;
 		}
 
@@ -293,15 +291,8 @@ public interface IShape extends Modifiable, IArrowable {
 		 */
 		public static FillingStyle getStyle(final String style) {
 			if(style==null) return null;
-			if(NONE.toString().equals(style)) 			return NONE;
-			if(HLINES.toString().equals(style)) 		return HLINES;
-			if(HLINES_PLAIN.toString().equals(style)) 	return HLINES_PLAIN;
-			if(VLINES.toString().equals(style)) 		return VLINES;
-			if(VLINES_PLAIN.toString().equals(style)) 	return VLINES_PLAIN;
-			if(CLINES.toString().equals(style)) 		return CLINES;
-			if(CLINES_PLAIN.toString().equals(style)) 	return CLINES_PLAIN;
-			if(GRAD.toString().equals(style)) 			return GRAD;
-			if(PLAIN.toString().equals(style)) 			return PLAIN;
+			for(FillingStyle fs : values())
+				if(fs.toString().equals(style)) return fs;
 			return null;
 		}
 

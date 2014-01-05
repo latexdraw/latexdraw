@@ -1,11 +1,11 @@
 package test.glib.models.interfaces;
 
-import junit.framework.TestCase;
-
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 
-public class TestTextPosition extends TestCase {
+import org.junit.Test;
+
+public class TestTextPosition {
 	@Test
 	public void testGetTextPositionFromText() {
 		assertEquals(IText.TextPosition.BASE, IText.TextPosition.getTextPosition("B"));
@@ -21,8 +21,8 @@ public class TestTextPosition extends TestCase {
 		assertEquals(IText.TextPosition.LEFT, IText.TextPosition.getTextPosition("l"));
 		assertEquals(IText.TextPosition.RIGHT, IText.TextPosition.getTextPosition("r"));
 	}
-	
-	
+
+
 	@Test
 	public void testGetLatexToken() {
 		assertEquals("B", IText.TextPosition.BASE.getLatexToken());
