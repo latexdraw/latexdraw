@@ -22,8 +22,7 @@ package net.sf.latexdraw.glib.models.interfaces;
 public interface IFreehand extends IModifiablePointsShape {
 	/** The different types of freehand. */
 	public enum FreeHandType {
-		CURVES,
-		LINES;
+		CURVES, LINES;
 
 		/**
 		 * @param type The type to check.
@@ -31,10 +30,9 @@ public interface IFreehand extends IModifiablePointsShape {
 		 * @since 3.0
 		 */
 		public static FreeHandType getType(final String type) {
-			if(CURVES.toString().equals(type))
-				return CURVES;
-			if(LINES.toString().equals(type))
-				return LINES;
+			for(final FreeHandType fh : values())
+				if(fh.toString().equals(type))
+					return fh;
 			return null;
 		}
 	}
