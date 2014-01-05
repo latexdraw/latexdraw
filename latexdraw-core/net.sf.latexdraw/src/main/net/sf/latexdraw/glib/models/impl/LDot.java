@@ -112,14 +112,14 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public void mirrorHorizontal(final IPoint origin) {
-		// Nothing to do for the dot.
+		setPosition(getPosition().horizontalSymmetry(origin));
 	}
 
 
 
 	@Override
 	public void mirrorVertical(final IPoint origin) {
-		// Nothing to do for the dot.
+		setPosition(getPosition().verticalSymmetry(origin));
 	}
 
 
