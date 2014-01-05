@@ -8,7 +8,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.WindowConstants;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
@@ -319,7 +319,7 @@ public class LFrame extends UI {
 
 	@Override
 	public void initialisePresentations() {
-		final IDrawing drawing	= DrawingTK.getFactory().createDrawing();
+		final IDrawing drawing	= ShapeFactory.factory().createDrawing();
 		final LCanvas canvas	= new LCanvas(drawing);
 		presentations.add(new Presentation<>(drawing, canvas));
 		presentations.add(new Presentation<>(drawing, new LCodePanel(drawing, canvas)));

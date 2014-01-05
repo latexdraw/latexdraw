@@ -3,16 +3,14 @@ package net.sf.latexdraw.actions.shape
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.JavaConversions.bufferAsJavaList
 import scala.collection.mutable.Buffer
-
 import org.malai.action.Action
 import org.malai.undo.Undoable
-
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapesAction
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.lang.LangTool
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * This action joins shapes.<br>
@@ -34,7 +32,7 @@ import net.sf.latexdraw.lang.LangTool
  */
 class JoinShapes extends Action with ShapesAction with DrawingAction with Undoable with Modifying {
 	/** The added group of shapes. */
-	val addedGroup = DrawingTK.getFactory().createGroup(true)
+	val addedGroup = ShapeFactory.factory.createGroup(true)
 
 
 	override protected def doActionBody() {

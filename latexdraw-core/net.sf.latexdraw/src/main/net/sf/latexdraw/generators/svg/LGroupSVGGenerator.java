@@ -2,7 +2,7 @@ package net.sf.latexdraw.generators.svg;
 
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
@@ -53,7 +53,7 @@ class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
 	 * @since 3.0
 	 */
 	public LGroupSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createGroup(true));
+		this(ShapeFactory.factory().createGroup(true));
 
 		if(elt==null)
 			throw new IllegalArgumentException();

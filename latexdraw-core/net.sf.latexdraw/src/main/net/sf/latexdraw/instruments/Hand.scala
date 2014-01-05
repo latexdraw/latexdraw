@@ -20,7 +20,6 @@ import net.sf.latexdraw.actions.shape.SelectShapes
 import net.sf.latexdraw.actions.shape.TranslateShapes
 import net.sf.latexdraw.actions.shape.TranslateShapes
 import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IText
@@ -36,6 +35,7 @@ import org.malai.swing.action.library.MoveCamera
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import java.awt.Point
 import net.sf.latexdraw.glib.models.impl.LShapeFactory._
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 
 /**
@@ -131,7 +131,7 @@ private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Link[InitTex
 			action.setInstrument(instrument.textSetter)
 			action.setTextSetter(instrument.textSetter)
 			action.setAbsolutePoint(instrument.getAdaptedOriginPoint(position))
-			action.setRelativePoint(DrawingTK.getFactory.createPoint(position))
+			action.setRelativePoint(ShapeFactory.factory.createPoint(position))
 		}
 	}
 

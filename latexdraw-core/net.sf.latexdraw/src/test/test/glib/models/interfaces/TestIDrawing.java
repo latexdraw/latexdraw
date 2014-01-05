@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -20,8 +20,8 @@ public abstract class TestIDrawing extends TestCase {
 
 	@Test
 	public void testAddShapeIShape() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
+		IShape sh1 = ShapeFactory.factory().createRectangle(false);
+		IShape sh2 = ShapeFactory.factory().createRectangle(false);
 
 		drawing.addShape(sh1);
 		drawing.addShape(sh2);
@@ -37,9 +37,9 @@ public abstract class TestIDrawing extends TestCase {
 
 	@Test
 	public void testAddShapeIShapeInt() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh3 = DrawingTK.getFactory().createRectangle(false);
+		IShape sh1 = ShapeFactory.factory().createRectangle(false);
+		IShape sh2 = ShapeFactory.factory().createRectangle(false);
+		IShape sh3 = ShapeFactory.factory().createRectangle(false);
 
 		drawing.addShape(sh1, 1);
 		assertEquals(0, drawing.getShapes().size());
@@ -69,9 +69,9 @@ public abstract class TestIDrawing extends TestCase {
 
 	@Test
 	public void testRemoveShapeIShape() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh3 = DrawingTK.getFactory().createRectangle(false);
+		IShape sh1 = ShapeFactory.factory().createRectangle(false);
+		IShape sh2 = ShapeFactory.factory().createRectangle(false);
+		IShape sh3 = ShapeFactory.factory().createRectangle(false);
 
 		drawing.getShapes().add(sh1);
 		drawing.getShapes().add(sh2);
@@ -84,7 +84,7 @@ public abstract class TestIDrawing extends TestCase {
 		assertEquals(2, drawing.getShapes().size());
 		assertEquals(sh1, drawing.getShapes().get(0));
 		assertEquals(sh3, drawing.getShapes().get(1));
-		drawing.removeShape(DrawingTK.getFactory().createRectangle(false));
+		drawing.removeShape(ShapeFactory.factory().createRectangle(false));
 		assertEquals(2, drawing.getShapes().size());
 		assertEquals(sh1, drawing.getShapes().get(0));
 		assertEquals(sh3, drawing.getShapes().get(1));
@@ -93,9 +93,9 @@ public abstract class TestIDrawing extends TestCase {
 
 	@Test
 	public void testRemoveShapeInt() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh3 = DrawingTK.getFactory().createRectangle(false);
+		IShape sh1 = ShapeFactory.factory().createRectangle(false);
+		IShape sh2 = ShapeFactory.factory().createRectangle(false);
+		IShape sh3 = ShapeFactory.factory().createRectangle(false);
 
 		drawing.getShapes().add(sh1);
 		drawing.getShapes().add(sh2);
@@ -111,9 +111,9 @@ public abstract class TestIDrawing extends TestCase {
 
 	@Test
 	public void testGetShapeAt() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh3 = DrawingTK.getFactory().createRectangle(false);
+		IShape sh1 = ShapeFactory.factory().createRectangle(false);
+		IShape sh2 = ShapeFactory.factory().createRectangle(false);
+		IShape sh3 = ShapeFactory.factory().createRectangle(false);
 
 		drawing.getShapes().add(sh1);
 		drawing.getShapes().add(sh2);
@@ -130,9 +130,9 @@ public abstract class TestIDrawing extends TestCase {
 
 	@Test
 	public void testSize() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh3 = DrawingTK.getFactory().createRectangle(false);
+		IShape sh1 = ShapeFactory.factory().createRectangle(false);
+		IShape sh2 = ShapeFactory.factory().createRectangle(false);
+		IShape sh3 = ShapeFactory.factory().createRectangle(false);
 
 		drawing.getShapes().add(sh1);
 		assertEquals(1, drawing.size());
@@ -147,10 +147,10 @@ public abstract class TestIDrawing extends TestCase {
 
 	@Test
 	public void testContains() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh3 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh4 = DrawingTK.getFactory().createRectangle(false);
+		IShape sh1 = ShapeFactory.factory().createRectangle(false);
+		IShape sh2 = ShapeFactory.factory().createRectangle(false);
+		IShape sh3 = ShapeFactory.factory().createRectangle(false);
+		IShape sh4 = ShapeFactory.factory().createRectangle(false);
 
 		drawing.getShapes().add(sh1);
 		drawing.getShapes().add(sh2);
@@ -166,9 +166,9 @@ public abstract class TestIDrawing extends TestCase {
 
 	@Test
 	public void testIsEmpty() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh3 = DrawingTK.getFactory().createRectangle(false);
+		IShape sh1 = ShapeFactory.factory().createRectangle(false);
+		IShape sh2 = ShapeFactory.factory().createRectangle(false);
+		IShape sh3 = ShapeFactory.factory().createRectangle(false);
 
 		drawing.getShapes().clear();
 		assertTrue(drawing.isEmpty());
@@ -185,9 +185,9 @@ public abstract class TestIDrawing extends TestCase {
 
 	@Test
 	public void testClear() {
-		IShape sh1 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh2 = DrawingTK.getFactory().createRectangle(false);
-		IShape sh3 = DrawingTK.getFactory().createRectangle(false);
+		IShape sh1 = ShapeFactory.factory().createRectangle(false);
+		IShape sh2 = ShapeFactory.factory().createRectangle(false);
+		IShape sh3 = ShapeFactory.factory().createRectangle(false);
 
 		drawing.getShapes().add(sh1);
 		drawing.getShapes().add(sh2);
@@ -213,7 +213,7 @@ public abstract class TestIDrawing extends TestCase {
 	public void testSetSelectionList() {
 		List<IShape> list = new ArrayList<>();
 		IGroup selection  = drawing.getSelection();
-		IShape sh = DrawingTK.getFactory().createRectangle(false);
+		IShape sh = ShapeFactory.factory().createRectangle(false);
 		IShape sh2;
 
 		list.add(sh);
@@ -223,8 +223,8 @@ public abstract class TestIDrawing extends TestCase {
 		assertEquals(sh, drawing.getSelection().getShapeAt(0));
 
 		list = new ArrayList<>();
-		sh   = DrawingTK.getFactory().createRectangle(false);
-		sh2  = DrawingTK.getFactory().createRectangle(false);
+		sh   = ShapeFactory.factory().createRectangle(false);
+		sh2  = ShapeFactory.factory().createRectangle(false);
 		list.add(sh);
 		list.add(sh2);
 		drawing.setSelection(list);

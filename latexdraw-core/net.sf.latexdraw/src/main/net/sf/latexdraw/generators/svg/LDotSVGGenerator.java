@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewDot;
@@ -57,7 +57,7 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 	 * @since 2.0.0
 	 */
 	protected LDotSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(), true));
+		this(ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(), true));
 
 		if(elt==null)
 			throw new IllegalArgumentException();

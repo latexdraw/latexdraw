@@ -1,16 +1,18 @@
 package net.sf.latexdraw.actions.shape
 
+import java.util.ArrayList
+
 import scala.collection.JavaConversions.asScalaBuffer
+
 import org.malai.action.Action
 import org.malai.undo.Undoable
+
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
-import net.sf.latexdraw.util.LResources
-import net.sf.latexdraw.glib.ui.LMagneticGrid
-import scala.collection.mutable.ListBuffer
 import net.sf.latexdraw.glib.models.interfaces.IShape
-import java.util.ArrayList
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.ui.LMagneticGrid
+import net.sf.latexdraw.util.LResources
 
 /**
  * This action pastes the copied or cut shapes.<br>
@@ -56,7 +58,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 		val dups = new ArrayList[IShape]
 
 		_copy.copiedShapes.foreach{shape =>
-			val sh = DrawingTK.getFactory.duplicate(shape)
+			val sh = ShapeFactory.factory.duplicate(shape)
 			dups.add(sh)
 			sh.translate(gap, gap)
 			dr.addShape(sh)

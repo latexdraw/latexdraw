@@ -1,6 +1,6 @@
 package net.sf.latexdraw.generators.svg;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -48,7 +48,7 @@ class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	 * @since 2.0.0
 	 */
 	protected LCircleSVGGenerator(final SVGCircleElement elt) {
-		this(DrawingTK.getFactory().createCircle(true));
+		this(ShapeFactory.factory().createCircle(true));
 
 		setSVGParameters(elt);
 		setCircleParameters(elt, 0.);
@@ -62,7 +62,7 @@ class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	 * @since 2.0.0
 	 */
 	protected LCircleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createCircle(false));
+		this(ShapeFactory.factory().createCircle(false));
 
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);

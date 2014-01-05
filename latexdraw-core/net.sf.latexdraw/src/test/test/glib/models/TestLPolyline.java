@@ -1,9 +1,11 @@
 package test.glib.models;
 
 
-import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -20,15 +22,14 @@ import test.glib.models.interfaces.TestIPolyline;
 public class TestLPolyline<T extends IPolyline> extends TestIPolyline<T> {
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createPolyline(false);
-		shape2 = (T) DrawingTK.getFactory().createPolyline(false);
-		shape.addPoint(DrawingTK.getFactory().createPoint(1, 1));
-		shape.addPoint(DrawingTK.getFactory().createPoint(2, 2));
-		shape.addPoint(DrawingTK.getFactory().createPoint(3, 3));
-		shape2.addPoint(DrawingTK.getFactory().createPoint(1, 1));
-		shape2.addPoint(DrawingTK.getFactory().createPoint(2, 2));
-		shape2.addPoint(DrawingTK.getFactory().createPoint(3, 3));
+		shape  = (T) ShapeFactory.factory().createPolyline(false);
+		shape2 = (T) ShapeFactory.factory().createPolyline(false);
+		shape.addPoint(ShapeFactory.factory().createPoint(1, 1));
+		shape.addPoint(ShapeFactory.factory().createPoint(2, 2));
+		shape.addPoint(ShapeFactory.factory().createPoint(3, 3));
+		shape2.addPoint(ShapeFactory.factory().createPoint(1, 1));
+		shape2.addPoint(ShapeFactory.factory().createPoint(2, 2));
+		shape2.addPoint(ShapeFactory.factory().createPoint(3, 3));
 	}
 
 
@@ -57,23 +58,23 @@ public class TestLPolyline<T extends IPolyline> extends TestIPolyline<T> {
 
 	@Test
 	public void testConstructor() {
-		IPoint pt1   = DrawingTK.getFactory().createPoint(1, 1);
-		IPoint pt2   = DrawingTK.getFactory().createPoint(2, 2);
-		IPolyline pol = DrawingTK.getFactory().createPolyline(pt1, pt2, true);
+		IPoint pt1   = ShapeFactory.factory().createPoint(1, 1);
+		IPoint pt2   = ShapeFactory.factory().createPoint(2, 2);
+		IPolyline pol = ShapeFactory.factory().createPolyline(pt1, pt2, true);
 
-		pol = DrawingTK.getFactory().createPolyline(pt1, pt2, false);
+		pol = ShapeFactory.factory().createPolyline(pt1, pt2, false);
 		assertEquals(pt1, pol.getPtAt(0));
 		assertEquals(pt2, pol.getPtAt(-1));
 
-		pol = DrawingTK.getFactory().createPolyline(true);
-		pol = DrawingTK.getFactory().createPolyline(false);
+		pol = ShapeFactory.factory().createPolyline(true);
+		pol = ShapeFactory.factory().createPolyline(false);
 
 		try {
-			pol = DrawingTK.getFactory().createPolyline(null, pt2, true);
+			pol = ShapeFactory.factory().createPolyline(null, pt2, true);
 			fail();
-			pol = DrawingTK.getFactory().createPolyline(pt1, null, true);
+			pol = ShapeFactory.factory().createPolyline(pt1, null, true);
 			fail();
-			pol = DrawingTK.getFactory().createPolyline(null, null, true);
+			pol = ShapeFactory.factory().createPolyline(null, null, true);
 			fail();
 		}catch(IllegalArgumentException e){ /* */ }
 	}

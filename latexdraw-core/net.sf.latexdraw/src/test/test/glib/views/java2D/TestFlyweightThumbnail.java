@@ -6,8 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Image;
 
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
@@ -28,11 +27,10 @@ public class TestFlyweightThumbnail {
 	@Before
 	public void setUp() {
 		FlyweightThumbnail.images().clear();
-		DrawingTK.setFactory(new LShapeFactory());
 		View2DTK.setFactory(new LViewsFactory());
 		UndoCollector.INSTANCE.setSizeMax(0);
 		FlyweightThumbnail.setThread(false);
-		viewTxt = (IViewText)View2DTK.getFactory().createView(DrawingTK.getFactory().createText(false, DrawingTK.getFactory().createPoint(), "coucou"));
+		viewTxt = (IViewText)View2DTK.getFactory().createView(ShapeFactory.factory().createText(false, ShapeFactory.factory().createPoint(), "coucou"));
 	}
 
 
@@ -52,7 +50,7 @@ public class TestFlyweightThumbnail {
 	@SuppressWarnings("unused")
 	@Test
 	public void testNewTwoSameTextsNewSinglePicture() throws InterruptedException {
-		IViewText v2 = (IViewText)View2DTK.getFactory().createView(DrawingTK.getFactory().createText(false, DrawingTK.getFactory().createPoint(), "coucou"));
+		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.factory().createText(false, ShapeFactory.factory().createPoint(), "coucou"));
 		assertEquals(1, FlyweightThumbnail.images().size());
 		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)viewTxt.getShape()).getText());
 		assertTrue(optTuple.isDefined());
@@ -63,7 +61,7 @@ public class TestFlyweightThumbnail {
 
 	@Test
 	public void testNewTwoSameTextsRemoveOneStillPicture() {
-		IViewText v2 = (IViewText)View2DTK.getFactory().createView(DrawingTK.getFactory().createText(false, DrawingTK.getFactory().createPoint(), "coucou"));
+		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.factory().createText(false, ShapeFactory.factory().createPoint(), "coucou"));
 		FlyweightThumbnail.notifyImageFlushed(viewTxt, ((IText)viewTxt.getShape()).getText());
 		assertEquals(1, FlyweightThumbnail.images().size());
 		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)v2.getShape()).getText());
@@ -75,7 +73,7 @@ public class TestFlyweightThumbnail {
 
 	@Test
 	public void testNewTwoTextsRemoveOneOnePictureRemains() {
-		IViewText v2 = (IViewText)View2DTK.getFactory().createView(DrawingTK.getFactory().createText(false, DrawingTK.getFactory().createPoint(), "aaa"));
+		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.factory().createText(false, ShapeFactory.factory().createPoint(), "aaa"));
 		assertEquals(2, FlyweightThumbnail.images().size());
 		FlyweightThumbnail.notifyImageFlushed(viewTxt, ((IText)viewTxt.getShape()).getText());
 		assertEquals(1, FlyweightThumbnail.images().size());

@@ -1,7 +1,7 @@
 package test.glib.models.interfaces;
 
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
 
@@ -52,7 +52,7 @@ public abstract class TestIPositionShape<T extends IPositionShape> extends TestI
 
 	@Test
 	public void testGetSetPosition() {
-		IPoint pt = DrawingTK.getFactory().createPoint(15, 25);
+		IPoint pt = ShapeFactory.factory().createPoint(15, 25);
 
 		shape.setPosition(pt);
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
@@ -62,22 +62,22 @@ public abstract class TestIPositionShape<T extends IPositionShape> extends TestI
 		shape.setPosition(null);
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(DrawingTK.getFactory().createPoint(Double.NaN, 0));
+		shape.setPosition(ShapeFactory.factory().createPoint(Double.NaN, 0));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(DrawingTK.getFactory().createPoint(Double.NEGATIVE_INFINITY, 0));
+		shape.setPosition(ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY, 0));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(DrawingTK.getFactory().createPoint(Double.POSITIVE_INFINITY, 0));
+		shape.setPosition(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, 0));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(DrawingTK.getFactory().createPoint(0, Double.NaN));
+		shape.setPosition(ShapeFactory.factory().createPoint(0, Double.NaN));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(DrawingTK.getFactory().createPoint(0, Double.NEGATIVE_INFINITY));
+		shape.setPosition(ShapeFactory.factory().createPoint(0, Double.NEGATIVE_INFINITY));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(DrawingTK.getFactory().createPoint(0, Double.POSITIVE_INFINITY));
+		shape.setPosition(ShapeFactory.factory().createPoint(0, Double.POSITIVE_INFINITY));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
 

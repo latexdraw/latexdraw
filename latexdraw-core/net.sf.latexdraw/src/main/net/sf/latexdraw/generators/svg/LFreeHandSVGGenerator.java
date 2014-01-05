@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand.FreeHandType;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -50,9 +50,9 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 
 	protected LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createFreeHand(false));
+		this(ShapeFactory.factory().createFreeHand(false));
 
-		final IShapeFactory factory = DrawingTK.getFactory();
+		final IShapeFactory factory = ShapeFactory.factory();
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		setNumber(elt);

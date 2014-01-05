@@ -2,10 +2,9 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import scala.collection.mutable.HashMap
 import scala.util.parsing.combinator.syntactical.TokenParsers
-
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IText
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * Defines an abstract PST parser.<br>
@@ -100,7 +99,7 @@ trait PSTAbstractParser extends TokenParsers {
 				if(ctx.parsedTxtNoTxt)
 					Nil
 				else {
-					val text = DrawingTK.getFactory.createText(true)
+					val text = ShapeFactory.factory.createText(true)
 					if(ctx.textParsed.endsWith(" "))
 						text.setText(ctx.textParsed.substring(0, ctx.textParsed.length()-1))
 					else
@@ -132,7 +131,7 @@ trait PSTAbstractParser extends TokenParsers {
 	protected def transformPointTo2DScene(pt : PointUnit, ctx:PSTContext) = {
 		val newX = if(pt.xUnit.length==0) pt.x*IShape.PPC*ctx.xUnit*ctx.unit else pt.x*IShape.PPC
 		val newY = if(pt.yUnit.length==0) -pt.y*IShape.PPC*ctx.yUnit*ctx.unit else -pt.y*IShape.PPC
-		DrawingTK.getFactory.createPoint(newX, newY)
+		ShapeFactory.factory.createPoint(newX, newY)
 	}
 
 

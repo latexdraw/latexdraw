@@ -3,7 +3,7 @@ package net.sf.latexdraw.generators.svg;
 import java.text.ParseException;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPolygon;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -51,7 +51,7 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @since 3.0
 	 */
 	protected LPolygonSVGGenerator(final SVGPathElement elt) {
-		super(DrawingTK.getFactory().createPolygon(true));
+		super(ShapeFactory.factory().createPolygon(true));
 
 		if(elt==null)
 			throw new IllegalArgumentException();
@@ -67,7 +67,7 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @since 2.0.0
 	 */
 	protected LPolygonSVGGenerator(final SVGPolygonElement elt) {
-		this(DrawingTK.getFactory().createPolygon(true));
+		this(ShapeFactory.factory().createPolygon(true));
 
 		setSVGModifiablePointsParameters(elt);
 		applyTransformations(elt);
@@ -80,7 +80,7 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @since 2.0.0
 	 */
 	protected LPolygonSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createPolygon(true));
+		this(ShapeFactory.factory().createPolygon(true));
 
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);

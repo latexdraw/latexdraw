@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -38,7 +38,7 @@ public abstract class TestIShape<T extends IShape> {
 
 	@Test
 	public void testGetNbPoints() {
-		IPoint pt = DrawingTK.getFactory().createPoint();
+		IPoint pt = ShapeFactory.factory().createPoint();
 
 		assertEquals(shape.getPoints().size(), shape.getNbPoints());
 		shape.getPoints().add(pt);
@@ -51,8 +51,8 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetPtAt() {
 		if(shape.getPoints().isEmpty()) {
-			shape.getPoints().add(DrawingTK.getFactory().createPoint());
-			shape.getPoints().add(DrawingTK.getFactory().createPoint());
+			shape.getPoints().add(ShapeFactory.factory().createPoint());
+			shape.getPoints().add(ShapeFactory.factory().createPoint());
 		}
 
 		for(int i=0; i<shape.getNbPoints(); i++)
@@ -107,7 +107,7 @@ public abstract class TestIShape<T extends IShape> {
 			shape2.setShowPts(true);
 
 		if(shape2.isArrowable())
-			shape2.getArrows().add(DrawingTK.getFactory().createArrow(shape));
+			shape2.getArrows().add(ShapeFactory.factory().createArrow(shape));
 
 		shape2.setRotationAngle(-30);
 
@@ -666,9 +666,9 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetArrowAt() {
 		if(shape.isArrowable()) {
-			IArrow a1 = DrawingTK.getFactory().createArrow(shape);
-			IArrow a2 = DrawingTK.getFactory().createArrow(shape);
-			IArrow a3 = DrawingTK.getFactory().createArrow(shape);
+			IArrow a1 = ShapeFactory.factory().createArrow(shape);
+			IArrow a2 = ShapeFactory.factory().createArrow(shape);
+			IArrow a3 = ShapeFactory.factory().createArrow(shape);
 
 			shape.getArrows().clear();
 			shape.getArrows().add(a1);

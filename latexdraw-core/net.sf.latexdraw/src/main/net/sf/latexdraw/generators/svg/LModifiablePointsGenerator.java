@@ -3,7 +3,7 @@ package net.sf.latexdraw.generators.svg;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.parsers.svg.AbstractPointsElement;
@@ -50,7 +50,7 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 	protected void setSVGModifiablePointsParameters(final AbstractPointsElement ape) {
 		setSVGParameters(ape);
 		final List<Point2D> ptsPol 		= ape.getPoints2D();
-		final IShapeFactory factory 	= DrawingTK.getFactory();
+		final IShapeFactory factory 	= ShapeFactory.factory();
 
 		if(ptsPol==null)
 			throw new IllegalArgumentException();
@@ -73,7 +73,7 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 		final int size = segs.size()-1;
 		int i;
 		Point2D pt;
-		final IShapeFactory factory	= DrawingTK.getFactory();
+		final IShapeFactory factory	= ShapeFactory.factory();
 
 		for(i=0; i<size; i++) {
 			seg = segs.get(i);

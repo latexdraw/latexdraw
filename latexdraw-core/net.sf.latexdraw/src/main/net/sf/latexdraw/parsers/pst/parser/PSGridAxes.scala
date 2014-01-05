@@ -2,13 +2,13 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import scala.collection.mutable.ListBuffer
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IGrid
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
 import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.glib.models.interfaces.IAxes
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * A parser grouping parsers parsing grids and axes.<br>
@@ -67,11 +67,11 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 
 	private def createAxes(min : PointUnit, max : PointUnit, ctx : PSTContext) : IAxes = {
-		val axes = DrawingTK.getFactory.createAxes(true, DrawingTK.getFactory.createPoint)
+		val axes = ShapeFactory.factory.createAxes(true, ShapeFactory.factory.createPoint)
 
 		setStdGridParams(new PointUnit(ctx.ox, ctx.oy, null, null), min, max, axes, ctx)
 		setShapeGeneralParameters(axes, ctx)
-		axes.setPosition(DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
+		axes.setPosition(ShapeFactory.factory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
 		axes.setAxesStyle(ctx.axesStyle)
 		axes.setTicksDisplayed(ctx.ticks)
 		axes.setLabelsDisplayed(ctx.labels)
@@ -90,7 +90,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 
 	private def createGrid(origin : PointUnit, min : PointUnit, max : PointUnit, ctx : PSTContext) : IGrid = {
-		val grid = DrawingTK.getFactory.createGrid(true, DrawingTK.getFactory.createPoint)
+		val grid = ShapeFactory.factory.createGrid(true, ShapeFactory.factory.createPoint)
 		var gridEndX = max.x
 		var gridEndY = max.y
 		var gridStartX = min.x
@@ -114,7 +114,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 		setStdGridParams(origin, min, max, grid, ctx)
 		setShapeGeneralParameters(grid, ctx)
-		grid.setPosition(DrawingTK.getFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
+		grid.setPosition(ShapeFactory.factory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
 		grid.setUnit(ctx.unit)
 		grid.setGridDots(ctx.gridDots.toInt)
 		grid.setGridLabelsColour(ctx.gridlabelcolor)

@@ -1,13 +1,15 @@
 package test.glib.views.java2D;
 
 import java.awt.geom.Path2D;
+
 import static org.junit.Assert.*;
+
 import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 
@@ -41,10 +43,10 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		view.update();
 
 		assertFalse(view.contains(null));
-		assertFalse(view.contains(DrawingTK.getFactory().createPoint(Double.NaN, 0)));
-		assertFalse(view.contains(DrawingTK.getFactory().createPoint(0, Double.NaN)));
-		assertFalse(view.contains(DrawingTK.getFactory().createPoint(Double.POSITIVE_INFINITY, 0)));
-		assertFalse(view.contains(DrawingTK.getFactory().createPoint(0, Double.NEGATIVE_INFINITY)));
+		assertFalse(view.contains(ShapeFactory.factory().createPoint(Double.NaN, 0)));
+		assertFalse(view.contains(ShapeFactory.factory().createPoint(0, Double.NaN)));
+		assertFalse(view.contains(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, 0)));
+		assertFalse(view.contains(ShapeFactory.factory().createPoint(0, Double.NEGATIVE_INFINITY)));
 	}
 
 

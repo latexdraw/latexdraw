@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -61,7 +61,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 	 * @since 2.0.0
 	 */
 	protected LGridSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createGrid(true, DrawingTK.getFactory().createPoint()));
+		this(ShapeFactory.factory().createGrid(true, ShapeFactory.factory().createPoint()));
 
 		if(elt==null)
 			throw new IllegalArgumentException();

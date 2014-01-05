@@ -8,7 +8,7 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
@@ -264,15 +264,15 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void updateAction() {
 			if(isOriginSpinner())
-				action.setValue(DrawingTK.getFactory().createPoint(
+				action.setValue(ShapeFactory.factory().createPoint(
 						Double.parseDouble(instrument.xOriginS.getValue().toString()), Double.parseDouble(instrument.yOriginS.getValue().toString())));
 			else if(isLabelSizeSpinner())
 				action.setValue(Integer.parseInt(instrument.labelsSizeS.getValue().toString()));
 			else if(isStartGridSpinner())
-				action.setValue(DrawingTK.getFactory().createPoint(
+				action.setValue(ShapeFactory.factory().createPoint(
 						Double.parseDouble(instrument.xStartS.getValue().toString()), Double.parseDouble(instrument.yStartS.getValue().toString())));
 			else
-				action.setValue(DrawingTK.getFactory().createPoint(
+				action.setValue(ShapeFactory.factory().createPoint(
 						Double.parseDouble(instrument.xEndS.getValue().toString()), Double.parseDouble(instrument.yEndS.getValue().toString())));
 		}
 

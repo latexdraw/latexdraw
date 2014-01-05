@@ -5,8 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
@@ -23,9 +22,8 @@ import test.glib.models.interfaces.TestIBezierCurve;
 public class TestLBezierCurve<T extends IBezierCurve> extends TestIBezierCurve<T> {
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createBezierCurve(false);
-		shape2 = (T) DrawingTK.getFactory().createBezierCurve(false);
+		shape  = (T) ShapeFactory.factory().createBezierCurve(false);
+		shape2 = (T) ShapeFactory.factory().createBezierCurve(false);
 	}
 
 
@@ -46,7 +44,7 @@ public class TestLBezierCurve<T extends IBezierCurve> extends TestIBezierCurve<T
 
 	@Test
 	public void testConstructors() {
-		IBezierCurve curve = DrawingTK.getFactory().createBezierCurve(false);
+		IBezierCurve curve = ShapeFactory.factory().createBezierCurve(false);
 
 		assertNotNull(curve);
 		assertEquals(0, curve.getPoints().size());
@@ -57,9 +55,9 @@ public class TestLBezierCurve<T extends IBezierCurve> extends TestIBezierCurve<T
 
 	@Test
 	public void testConstructors2() {
-		IBezierCurve curve = DrawingTK.getFactory().createBezierCurve(
-				DrawingTK.getFactory().createPoint(100, 200),
-				DrawingTK.getFactory().createPoint(300, 400), false);
+		IBezierCurve curve = ShapeFactory.factory().createBezierCurve(
+				ShapeFactory.factory().createPoint(100, 200),
+				ShapeFactory.factory().createPoint(300, 400), false);
 
 		assertNotNull(curve);
 		assertEquals(2, curve.getPoints().size());

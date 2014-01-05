@@ -27,7 +27,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import net.sf.latexdraw.actions.WritePreferences;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
@@ -162,7 +162,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		super();
 
 		this.frame		 	= Objects.requireNonNull(frame);
-		framePosition	 	= DrawingTK.getFactory().createPoint();
+		framePosition	 	= ShapeFactory.factory().createPoint();
 		frameSize 			= new Dimension();
 		frameSize.height 	= 3*Toolkit.getDefaultToolkit().getScreenSize().height/2;
 		frameSize.width 	= 3*Toolkit.getDefaultToolkit().getScreenSize().width/2;

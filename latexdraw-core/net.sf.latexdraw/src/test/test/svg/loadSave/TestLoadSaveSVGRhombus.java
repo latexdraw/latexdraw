@@ -1,6 +1,6 @@
 package test.svg.loadSave;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IRhombus;
 
 import org.junit.Before;
@@ -9,6 +9,6 @@ public class TestLoadSaveSVGRhombus extends TestLoadSaveSVGRectangularShape<IRho
 	@Before
 	@Override
 	public void setUp() {
-		shape = DrawingTK.getFactory().createRhombus(false);
+		shape = ShapeFactory.factory().createRhombus(false);
 	}
 }

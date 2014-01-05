@@ -4,8 +4,7 @@ package test.glib.models;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
@@ -21,9 +20,8 @@ import test.glib.models.interfaces.TestIDot;
 public class TestLDot<T extends IDot> extends TestIDot<T> {
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(), false);
-		shape2 = (T) DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(), false);
+		shape  = (T) ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(), false);
+		shape2 = (T) ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(), false);
 	}
 
 
@@ -43,7 +41,7 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 
 	@Test
 	public void testConstructor1() {
-		IDot dot1 = DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(), false);
+		IDot dot1 = ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(), false);
 
 		assertTrue(dot1.getRadius()>0);
 		assertNotNull(dot1.getDotStyle());
@@ -55,7 +53,7 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 
 	@Test
 	public void testConstructor3() {
-		IDot dot1 = DrawingTK.getFactory().createDot(null, false);
+		IDot dot1 = ShapeFactory.factory().createDot(null, false);
 
 		assertTrue(dot1.getRadius()>0);
 		assertNotNull(dot1.getDotStyle());
@@ -63,7 +61,7 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 		HelperTest.assertEqualsDouble(0., dot1.getPosition().getX());
 		HelperTest.assertEqualsDouble(0., dot1.getPosition().getY());
 
-		dot1 = DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(-1, 2), true);
+		dot1 = ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(-1, 2), true);
 		HelperTest.assertEqualsDouble(-1., dot1.getPosition().getX());
 		HelperTest.assertEqualsDouble(2., dot1.getPosition().getY());
 	}

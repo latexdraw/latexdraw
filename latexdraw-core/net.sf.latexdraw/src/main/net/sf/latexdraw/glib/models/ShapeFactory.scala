@@ -1,4 +1,7 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models
+
+import net.sf.latexdraw.glib.models.interfaces.IShapeFactory
+import net.sf.latexdraw.glib.models.impl.LShapeFactory
 
 /**
  * This class contains the factory that must be used to create shape instances.<br>
@@ -19,28 +22,6 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public final class DrawingTK {
-	private DrawingTK() {
-		super();
-	}
-	
-	/** The factory. */
-	private static IShapeFactory factory = null;
-
-	/**
-	 * Sets the new factory.
-	 * @param factory The new factory.
-	 * @since 3.0
-	 */
-	public static void setFactory(final IShapeFactory factory) {
-		DrawingTK.factory = factory;
-	}
-
-	/**
-	 * @return The current factory. Can be null.
-	 * @since 3.0
-	 */
-	public static IShapeFactory getFactory() {
-		return factory;
-	}
+object ShapeFactory {
+	val factory : IShapeFactory = new LShapeFactory()
 }

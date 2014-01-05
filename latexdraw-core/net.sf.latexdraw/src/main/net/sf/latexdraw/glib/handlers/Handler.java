@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -55,7 +55,7 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 		opacity	= 100;
 		size   	= DEFAULT_SIZE;
 		colour 	= new Color(0, 0, 0, opacity);
-		point  	= DrawingTK.getFactory().createPoint();
+		point  	= ShapeFactory.factory().createPoint();
 	}
 
 

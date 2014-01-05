@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 
@@ -236,7 +236,7 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		shape.setGridEnd(10, 10);
 		shape.setUnit(1);
 
-		shape.mirrorHorizontal(DrawingTK.getFactory().createPoint(IShape.PPC*10., 0.));
+		shape.mirrorHorizontal(ShapeFactory.factory().createPoint(IShape.PPC*10., 0.));
 		HelperTest.assertEqualsDouble(IShape.PPC*10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(0., shape.getPosition().getY());
 	}
@@ -249,7 +249,7 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		shape.setGridEnd(10, 10);
 		shape.setUnit(1);
 
-		shape.mirrorVertical(DrawingTK.getFactory().createPoint(0., -IShape.PPC*10.));
+		shape.mirrorVertical(ShapeFactory.factory().createPoint(0., -IShape.PPC*10.));
 		HelperTest.assertEqualsDouble(0., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-IShape.PPC*10., shape.getPosition().getY());
 	}

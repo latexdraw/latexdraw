@@ -1,8 +1,8 @@
 package test.glib.views.pst;
 
-import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.views.pst.PSTViewsFactory;
@@ -12,14 +12,10 @@ import org.junit.Before;
 public class TestPSTViewFactory {
 	protected IShapeFactory shFac;
 
-	static {
-		DrawingTK.setFactory(new LShapeFactory());
-	}
-
 
 	@Before
 	public void setUp() {
-		shFac = DrawingTK.getFactory();
+		shFac = ShapeFactory.factory();
 	}
 
 

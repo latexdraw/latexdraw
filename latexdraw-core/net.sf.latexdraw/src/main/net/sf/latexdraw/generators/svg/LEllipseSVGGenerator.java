@@ -1,6 +1,6 @@
 package net.sf.latexdraw.generators.svg;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -49,7 +49,7 @@ class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator<S> {
 	 * @since 2.0.0
 	 */
 	protected LEllipseSVGGenerator(final SVGEllipseElement elt) {
-		this((S)DrawingTK.getFactory().createEllipse(true));
+		this((S)ShapeFactory.factory().createEllipse(true));
 
 		setSVGParameters(elt);
 		setEllipseParameters(elt, 0.);
@@ -63,7 +63,7 @@ class LEllipseSVGGenerator<S extends IEllipse> extends LShapeSVGGenerator<S> {
 	 * @since 2.0.0
 	 */
 	protected LEllipseSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this((S)DrawingTK.getFactory().createEllipse(false));
+		this((S)ShapeFactory.factory().createEllipse(false));
 
 		setNumber(elt);
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);

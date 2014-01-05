@@ -1,6 +1,6 @@
 package test.svg.loadSave;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 
 import org.junit.Before;
@@ -9,7 +9,7 @@ public class TestLoadSaveSVGRectangle extends TestLoadSaveSVGRectangularShape<IR
 	@Before
 	@Override
 	public void setUp() {
-		shape = DrawingTK.getFactory().createRectangle(false);
+		shape = ShapeFactory.factory().createRectangle(false);
 	}
 
 

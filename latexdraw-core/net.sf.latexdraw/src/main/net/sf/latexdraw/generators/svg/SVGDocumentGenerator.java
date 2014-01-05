@@ -28,7 +28,7 @@ import javax.swing.SwingWorker;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.PNGFilter;
 import net.sf.latexdraw.filters.SVGFilter;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -645,7 +645,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		 * @since 3.0
 		 */
 		protected IShape toLatexdraw(final SVGDocument doc, final double incrProgressBar) {
-			final IGroup shapes = DrawingTK.getFactory().createGroup(false);
+			final IGroup shapes = ShapeFactory.factory().createGroup(false);
 			final NodeList elts = doc.getDocumentElement().getChildNodes();
 			Node node;
 

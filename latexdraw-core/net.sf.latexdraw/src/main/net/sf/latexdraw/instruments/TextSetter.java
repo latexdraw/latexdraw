@@ -8,7 +8,7 @@ import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -170,7 +170,7 @@ class Enter2SetText extends Link<ModifyShapeProperty, KeyTyped, TextSetter> {
 
 	@Override
 	public void initAction() {
-		IGroup group = DrawingTK.getFactory().createGroup(false);
+		IGroup group = ShapeFactory.factory().createGroup(false);
 		group.addShape(instrument.text);
 		action.setGroup(group);
 		action.setProperty(ShapeProperties.TEXT);
@@ -197,7 +197,7 @@ class Enter2AddText extends Link<AddShape, KeyTyped, TextSetter> {
 
 	@Override
 	public void initAction() {
-		final IPoint textPosition = instrument.relativePoint==null ? DrawingTK.getFactory().createPoint(instrument.textField.getX(),
+		final IPoint textPosition = instrument.relativePoint==null ? ShapeFactory.factory().createPoint(instrument.textField.getX(),
 									instrument.textField.getY()+instrument.textField.getHeight()) : instrument.relativePoint;
 		final IShape sh = instrument.pencil==null ? null : instrument.pencil.createShapeInstance();
 

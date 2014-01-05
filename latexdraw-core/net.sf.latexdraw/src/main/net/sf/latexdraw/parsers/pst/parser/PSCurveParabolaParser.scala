@@ -1,7 +1,6 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.models.interfaces.IShape
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 
 /**
  * A parser grouping parsers parsing curves and parabolas.<br>

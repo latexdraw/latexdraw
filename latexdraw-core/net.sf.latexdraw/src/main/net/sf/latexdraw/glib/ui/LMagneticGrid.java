@@ -8,7 +8,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -239,7 +239,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	 * @return The transformed point or if there is no magnetic grid, a clone of the given point.
 	 */
 	public IPoint getTransformedPointToGrid(final Point2D pt) {
-		final IShapeFactory factory = DrawingTK.getFactory();
+		final IShapeFactory factory = ShapeFactory.factory();
 
 	   	if(isMagnetic() && isGridDisplayed()) {
 	   		final IPoint point  = factory.createPoint(pt.getX(), pt.getY());

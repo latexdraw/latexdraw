@@ -5,8 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
@@ -25,9 +24,8 @@ import test.glib.models.interfaces.TestISquare;
 public class TestLSquare<T extends ISquare> extends TestISquare<T> {
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		shape = (T) DrawingTK.getFactory().createSquare(false);
-		shape2 = (T) DrawingTK.getFactory().createSquare(false);
+		shape = (T) ShapeFactory.factory().createSquare(false);
+		shape2 = (T) ShapeFactory.factory().createSquare(false);
 	}
 
 
@@ -49,39 +47,39 @@ public class TestLSquare<T extends ISquare> extends TestISquare<T> {
 
 	@Test
 	public void testConstructors() {
-		ISquare sq = DrawingTK.getFactory().createSquare(false);
+		ISquare sq = ShapeFactory.factory().createSquare(false);
 		assertEquals(4, sq.getNbPoints());
 
 		try {
-			sq = DrawingTK.getFactory().createSquare(null, 10, true);
+			sq = ShapeFactory.factory().createSquare(null, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = DrawingTK.getFactory().createSquare(DrawingTK.getFactory().createPoint(Double.NaN, 0), 10, true);
+			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(Double.NaN, 0), 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = DrawingTK.getFactory().createSquare(DrawingTK.getFactory().createPoint(), 0, true);
+			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(), 0, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = DrawingTK.getFactory().createSquare(DrawingTK.getFactory().createPoint(), -10, true);
+			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(), -10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = DrawingTK.getFactory().createSquare(DrawingTK.getFactory().createPoint(), Double.NaN, true);
+			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(), Double.NaN, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = DrawingTK.getFactory().createSquare(DrawingTK.getFactory().createPoint(), Double.POSITIVE_INFINITY, true);
+			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(), Double.POSITIVE_INFINITY, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = DrawingTK.getFactory().createSquare(DrawingTK.getFactory().createPoint(), Double.NEGATIVE_INFINITY, true);
+			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(), Double.NEGATIVE_INFINITY, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
-		sq = DrawingTK.getFactory().createSquare(DrawingTK.getFactory().createPoint(20, 26), 11, true);
+		sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(20, 26), 11, true);
 		HelperTest.assertEqualsDouble(20., sq.getPosition().getX());
 		HelperTest.assertEqualsDouble(37., sq.getPosition().getY());
 		HelperTest.assertEqualsDouble(11., sq.getWidth());

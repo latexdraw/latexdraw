@@ -1,7 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * A parser grouping parsers parsing bézier curves.<br>
@@ -35,7 +35,7 @@ trait PSBezierParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 			case None => ctx.origin.dup :: ptsRaw.flatten
 		}
 
-		val bezier = DrawingTK.getFactory.createBezierCurve(true)
+		val bezier = ShapeFactory.factory.createBezierCurve(true)
 		var j = 1
 		val size = listPts.length
 

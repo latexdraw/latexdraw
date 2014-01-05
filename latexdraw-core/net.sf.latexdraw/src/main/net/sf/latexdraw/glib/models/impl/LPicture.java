@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.EPSFilter;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -145,7 +145,7 @@ class LPicture extends LPositionShape implements IPicture {
 	@Override
 	public IPoint getTopRightPoint() {
 		final IPoint pos = getPtAt(0);
-		return DrawingTK.getFactory().createPoint(pos.getX()+getWidth(), pos.getY());
+		return ShapeFactory.factory().createPoint(pos.getX()+getWidth(), pos.getY());
 	}
 
 
@@ -164,14 +164,14 @@ class LPicture extends LPositionShape implements IPicture {
 	@Override
 	public IPoint getBottomRightPoint() {
 		final IPoint pos = getPtAt(0);
-		return DrawingTK.getFactory().createPoint(pos.getX()+getWidth(), pos.getY()+getHeight());
+		return ShapeFactory.factory().createPoint(pos.getX()+getWidth(), pos.getY()+getHeight());
 	}
 
 
 	@Override
 	public IPoint getBottomLeftPoint() {
 		final IPoint pos = getPtAt(0);
-		return DrawingTK.getFactory().createPoint(pos.getX(), pos.getY()+getHeight());
+		return ShapeFactory.factory().createPoint(pos.getX(), pos.getY()+getHeight());
 	}
 
 

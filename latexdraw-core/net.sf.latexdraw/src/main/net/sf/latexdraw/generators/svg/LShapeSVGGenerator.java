@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import java.text.ParseException;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.*;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
@@ -135,7 +136,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		if(t!=null)
 			switch(t.getType()) {
 				case SVGTransform.SVG_TRANSFORM_ROTATE:
-					getShape().rotate(DrawingTK.getFactory().createPoint(t.getMatrix().getE(), t.getMatrix().getF()), Math.toRadians(t.getRotationAngle()));
+					getShape().rotate(ShapeFactory.factory().createPoint(t.getMatrix().getE(), t.getMatrix().getF()), Math.toRadians(t.getRotationAngle()));
 					break;
 
 				case SVGTransform.SVG_TRANSFORM_SCALE:
@@ -519,7 +520,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			final IPoint gravityCenter 	= shape.getGravityCentre();
 			final double gcx 			= gravityCenter.getX();
 			final double gcy 			= gravityCenter.getY();
-			IPoint pt 			 		= DrawingTK.getFactory().createPoint(
+			IPoint pt 			 		= ShapeFactory.factory().createPoint(
 										gcx+shape.getShadowSize(), gcy).rotatePoint(shape.getGravityCentre(), -shape.getShadowAngle());
 
 			elt.setAttribute(SVGAttributes.SVG_TRANSFORM,
@@ -675,7 +676,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		final String hatchingStyle 	= shape.getFillingStyle().getLatexToken();
 		final double hatchingAngle 	= shape.getHatchingsAngle();
-		final IRectangle bound 		= DrawingTK.getFactory().createRectangle(shape.getFullTopLeftPoint(), shape.getFullBottomRightPoint(), false);
+		final IRectangle bound 		= ShapeFactory.factory().createRectangle(shape.getFullTopLeftPoint(), shape.getFullBottomRightPoint(), false);
 
 		if(hatchingStyle.equals(PSTricksConstants.TOKEN_FILL_VLINES) ||
 			hatchingStyle.equals(PSTricksConstants.TOKEN_FILL_VLINES_F))
@@ -790,7 +791,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			throw new IllegalArgumentException();
 
 		try {
-			final IShapeFactory	factory = DrawingTK.getFactory();
+			final IShapeFactory	factory = ShapeFactory.factory();
 			final IPoint nw 	= shape.getTopLeftPoint();
 			final IPoint se 	= shape.getBottomRightPoint();
 			final double nwx 	= nw.getX();

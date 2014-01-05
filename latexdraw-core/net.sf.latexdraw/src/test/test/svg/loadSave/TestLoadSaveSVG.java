@@ -6,8 +6,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import net.sf.latexdraw.generators.svg.IShapeSVGFactory;
 import net.sf.latexdraw.generators.svg.SVGShapesFactory;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -31,13 +30,12 @@ public abstract class TestLoadSaveSVG<T extends IShape> extends TestCase {
 	protected T shape;
 
 	static {
-		DrawingTK.setFactory(new LShapeFactory());
 		View2DTK.setFactory(new LViewsFactory());
 	}
 
 
 	public T saveLoadShape(T sh) {
-		IDrawing drawing = DrawingTK.getFactory().createDrawing();
+		IDrawing drawing = ShapeFactory.factory().createDrawing();
 		drawing.addShape(sh);
 		SVGDocument doc = toSVG(drawing);
 		return toLatexdraw(doc);
@@ -48,7 +46,7 @@ public abstract class TestLoadSaveSVG<T extends IShape> extends TestCase {
 		if(doc==null)
 			return null;
 
-		final IGroup shapes = DrawingTK.getFactory().createGroup(false);
+		final IGroup shapes = ShapeFactory.factory().createGroup(false);
 		final NodeList elts = doc.getDocumentElement().getChildNodes();
 		Node node;
 

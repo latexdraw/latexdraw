@@ -7,8 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import net.sf.latexdraw.generators.svg.IShapeSVGFactory;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
@@ -22,10 +21,6 @@ import org.w3c.dom.NodeList;
 public abstract class TestLoadSVGFile {
 	protected IGroup group;
 
-	static {
-		DrawingTK.setFactory(new LShapeFactory());
-	}
-
 	@Before
 	public void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
 		FlyweightThumbnail.images().clear();
@@ -36,7 +31,7 @@ public abstract class TestLoadSVGFile {
 
 
 	public IGroup toLatexdraw(final SVGDocument doc) {
-		final IGroup shapes = DrawingTK.getFactory().createGroup(false);
+		final IGroup shapes = ShapeFactory.factory().createGroup(false);
 		final NodeList elts = doc.getDocumentElement().getChildNodes();
 		Node node;
 

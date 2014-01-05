@@ -2,7 +2,7 @@ package test.svg.loadSave;
 
 import java.awt.Color;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
 
@@ -12,7 +12,7 @@ public class TestLoadSaveSVGText extends TestLoadSaveSVG<IText> {
 	@Before
 	@Override
 	public void setUp() {
-		shape = DrawingTK.getFactory().createText(false);
+		shape = ShapeFactory.factory().createText(false);
 	}
 
 	@Override

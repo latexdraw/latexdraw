@@ -1,12 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.IShape
-import scala.collection.mutable.ListBuffer
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IArc
-import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IArrow
-import net.sf.latexdraw.glib.models.interfaces.ICircleArc
+import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * A parser grouping parsers parsing arcs.<br>
@@ -158,7 +155,7 @@ trait PSWedgeArcParser extends PSTAbstractParser
 		if(radius.isNaN || angle1.isNaN || angle2.isNaN)
 			None
 		else {
-			val arc = DrawingTK.getFactory.createCircleArc(true)
+			val arc = ShapeFactory.factory.createCircleArc(true)
 			arc.setAngleStart(scala.math.toRadians(angle1))
 			arc.setAngleEnd(scala.math.toRadians(angle2))
 			arc.setRx(scala.math.abs(radius*IShape.PPC))

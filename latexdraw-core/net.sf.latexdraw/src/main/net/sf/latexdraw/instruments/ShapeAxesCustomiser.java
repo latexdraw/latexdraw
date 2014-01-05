@@ -7,7 +7,7 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
@@ -328,10 +328,10 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 //				action.setValue(Double.valueOf(interaction.getSpinner().getValue().toString()));
 //			else
 			if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
-				action.setValue(DrawingTK.getFactory().createPoint(Double.valueOf(instrument.distLabelsX.getValue().toString()),
+				action.setValue(ShapeFactory.factory().createPoint(Double.valueOf(instrument.distLabelsX.getValue().toString()),
 								Double.valueOf(instrument.distLabelsY.getValue().toString())));
 			else
-				action.setValue(DrawingTK.getFactory().createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()),
+				action.setValue(ShapeFactory.factory().createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()),
 							Double.valueOf(instrument.incrLabelY.getValue().toString())));
 		}
 	}

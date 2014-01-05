@@ -3,7 +3,7 @@ package net.sf.latexdraw.generators.svg;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IRhombus;
@@ -52,7 +52,7 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 	 * @since 2.0.0
 	 */
 	protected LRhombusSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createRhombus(true));
+		this(ShapeFactory.factory().createRhombus(true));
 
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -92,9 +92,9 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 		final IPoint tl  = shape.getTopLeftPoint();
 		final IPoint br  = shape.getBottomRightPoint();
 		IPoint gc = shape.getGravityCentre();
-		IPoint p1 = DrawingTK.getFactory().createPoint((tl.getX()+br.getX())/2., tl.getY());
-		IPoint p2 = DrawingTK.getFactory().createPoint(br.getX(), (tl.getY()+br.getY())/2.);
-		IPoint p3 = DrawingTK.getFactory().createPoint((tl.getX()+br.getX())/2., br.getY());
+		IPoint p1 = ShapeFactory.factory().createPoint((tl.getX()+br.getX())/2., tl.getY());
+		IPoint p2 = ShapeFactory.factory().createPoint(br.getX(), (tl.getY()+br.getY())/2.);
+		IPoint p3 = ShapeFactory.factory().createPoint((tl.getX()+br.getX())/2., br.getY());
 		SVGElement root = new SVGGElement(doc);
 		SVGElement elt;
 	    double gap = getPositionGap()/2.;

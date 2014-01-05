@@ -3,7 +3,7 @@ package test.glib.models.interfaces;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand.FreeHandType;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -81,7 +81,7 @@ public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiable
 
 	@Test
 	public void testCopyWhenNotFreeHand() {
-		IShape sh = DrawingTK.getFactory().createArc(false);
+		IShape sh = ShapeFactory.factory().createArc(false);
 		shape.copy(sh);
 //		assertTrue(shape.isParametersEquals(sh, false));
 //		assertTrue(shape.isParametersEquals(sh, true));

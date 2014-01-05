@@ -1,7 +1,7 @@
 package net.sf.latexdraw.generators.svg;
 
 import static java.lang.Math.min;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -51,7 +51,7 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	 * @since 2.0.0
 	 */
 	protected LRectangleSVGGenerator(final SVGRectElement elt) {
-		this(DrawingTK.getFactory().createRectangle(true));
+		this(ShapeFactory.factory().createRectangle(true));
 
 		setSVGRectParameters(elt);
 		applyTransformations(elt);
@@ -65,7 +65,7 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	 * @since 2.0.0
 	 */
 	protected LRectangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createRectangle(false));
+		this(ShapeFactory.factory().createRectangle(false));
 		initRectangle(elt, withTransformation);
 	}
 

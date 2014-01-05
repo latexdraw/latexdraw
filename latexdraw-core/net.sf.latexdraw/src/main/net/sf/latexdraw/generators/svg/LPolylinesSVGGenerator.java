@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
@@ -53,7 +53,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @param elt The SVG path.
 	 */
 	protected LPolylinesSVGGenerator(final SVGPathElement elt) {
-		super(DrawingTK.getFactory().createPolyline(true));
+		super(ShapeFactory.factory().createPolyline(true));
 
 		if(elt==null || !elt.isLines())
 			throw new IllegalArgumentException();
@@ -70,7 +70,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGPolyLineElement elt) {
-		this(DrawingTK.getFactory().createPolyline(true));
+		this(ShapeFactory.factory().createPolyline(true));
 
 		setSVGModifiablePointsParameters(elt);
 		setSVGParameters(elt);
@@ -84,7 +84,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGLineElement elt) {
-		this(DrawingTK.getFactory().createPolyline(true));
+		this(ShapeFactory.factory().createPolyline(true));
 
 		setSVGParameters(elt);
 		applyTransformations(elt);
@@ -97,7 +97,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createPolyline(true));
+		this(ShapeFactory.factory().createPolyline(true));
 
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -109,8 +109,8 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 			setSVGModifiablePointsParameters((SVGPolyLineElement)elt2);
 		}else {
 			final SVGLineElement lineElt = (SVGLineElement)elt2;
-			shape.addPoint(DrawingTK.getFactory().createPoint(lineElt.getX1(), lineElt.getY1()));
-			shape.addPoint(DrawingTK.getFactory().createPoint(lineElt.getX2(), lineElt.getY2()));
+			shape.addPoint(ShapeFactory.factory().createPoint(lineElt.getX1(), lineElt.getY1()));
+			shape.addPoint(ShapeFactory.factory().createPoint(lineElt.getX2(), lineElt.getY2()));
 		}
 
 		setSVGParameters(elt2);

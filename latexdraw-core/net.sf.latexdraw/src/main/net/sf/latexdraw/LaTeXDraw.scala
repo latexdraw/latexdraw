@@ -1,26 +1,25 @@
 package net.sf.latexdraw
 
-import net.sf.latexdraw.util.LCommandLine
-import net.sf.latexdraw.util.LCommandLine.CmdLineState
-import net.sf.latexdraw.actions.LoadDrawing
-import net.sf.latexdraw.util.VersionChecker
-import net.sf.latexdraw.badaboom.BadaboomCollector
+import java.io.File
+
+import org.malai.action.ActionsRegistry
 import org.malai.mapping.MappingRegistry
+import org.malai.undo.UndoCollector
+
+import net.sf.latexdraw.actions.LoadDrawing
+import net.sf.latexdraw.badaboom.BadaboomCollector
+import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
+import net.sf.latexdraw.glib.models.impl.LShapeFactory
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory
+import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
 import net.sf.latexdraw.ui.LFrame
 import net.sf.latexdraw.ui.SplashScreen
-import net.sf.latexdraw.util.Theme
-import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
-import java.io.File
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
-import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
-import org.malai.undo.UndoCollector
+import net.sf.latexdraw.util.LCommandLine
+import net.sf.latexdraw.util.LCommandLine.CmdLineState
 import net.sf.latexdraw.util.LPath
-import org.malai.action.ActionsRegistry
-import net.sf.latexdraw.glib.models.impl.LShapeFactory
-import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory
-import net.sf.latexdraw.ui.UIBuilder
-import javax.swing.SwingUtilities
-import org.malai.swing.action.library.MoveCamera
+import net.sf.latexdraw.util.Theme
+import net.sf.latexdraw.util.VersionChecker
 
 /**
  * The main class of the project.<br>
@@ -53,7 +52,6 @@ object LaTeXDraw {
 	Theme.setTheme
 
 	// Settings the factories.
-	DrawingTK.setFactory(new LShapeFactory())
 	View2DTK.setFactory(new LViewsFactory())
 
 

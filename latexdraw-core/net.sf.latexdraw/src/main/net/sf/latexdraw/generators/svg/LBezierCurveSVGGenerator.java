@@ -2,7 +2,7 @@ package net.sf.latexdraw.generators.svg;
 
 import java.awt.Color;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -58,7 +58,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 	 * @since 2.0.0
 	 */
 	protected LBezierCurveSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createBezierCurve(false));
+		this(ShapeFactory.factory().createBezierCurve(false));
 
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
@@ -94,7 +94,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		if(list==null || list.size()<2 || !(list.get(0) instanceof SVGPathSegMoveto))
 			throw new IllegalArgumentException();
 
-		final IShapeFactory fac = DrawingTK.getFactory();
+		final IShapeFactory fac = ShapeFactory.factory();
 		SVGPathSegMoveto m 	= (SVGPathSegMoveto)list.get(0);
 		SVGPathSegCurvetoCubic c;
 		int i=1, size = list.size();

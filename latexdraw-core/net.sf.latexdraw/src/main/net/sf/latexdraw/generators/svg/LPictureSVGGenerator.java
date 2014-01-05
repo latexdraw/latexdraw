@@ -2,7 +2,7 @@ package net.sf.latexdraw.generators.svg;
 
 import java.io.IOException;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -43,7 +43,7 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 	 * @since 2.0.0
 	 */
 	protected LPictureSVGGenerator(final SVGImageElement elt) throws IOException {
-		this(DrawingTK.getFactory().createPicture(true, DrawingTK.getFactory().createPoint()));
+		this(ShapeFactory.factory().createPicture(true, ShapeFactory.factory().createPoint()));
 
 		shape.setPathSource(elt.getURI());
 		shape.getPosition().setPoint(elt.getX(), elt.getY());
@@ -58,7 +58,7 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 	 * @since 2.0.0
 	 */
 	protected LPictureSVGGenerator(final SVGGElement elt, final boolean withTransformation) throws IOException {
-		this(DrawingTK.getFactory().createPicture(true, DrawingTK.getFactory().createPoint()));
+		this(ShapeFactory.factory().createPicture(true, ShapeFactory.factory().createPoint()));
 
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);

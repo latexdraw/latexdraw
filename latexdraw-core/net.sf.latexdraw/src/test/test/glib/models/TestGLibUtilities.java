@@ -1,42 +1,34 @@
 package test.glib.models ;
 
 import junit.framework.TestCase;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 
-import org.junit.Before;
 import org.junit.Test;
 
 
 public class TestGLibUtilities extends TestCase {
-	@Override
-	@Before
-	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-	}
-
 	@Test
 	public void testIsValidPoint1() {
 		assertFalse(GLibUtilities.isValidPoint(null));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.NaN, 0)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.NaN, Double.NaN)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(0, Double.NaN)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.POSITIVE_INFINITY, 0)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(0, Double.POSITIVE_INFINITY)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.NEGATIVE_INFINITY, 0)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(0, Double.NEGATIVE_INFINITY)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.NaN, Double.NEGATIVE_INFINITY)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.NEGATIVE_INFINITY, Double.NaN)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.NaN, Double.POSITIVE_INFINITY)));
-		assertFalse(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(Double.POSITIVE_INFINITY, Double.NaN)));
-		assertTrue(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(0, 0)));
-		assertTrue(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(1000000, 1000000)));
-		assertTrue(GLibUtilities.isValidPoint(DrawingTK.getFactory().createPoint(-1000000, -1000000)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.NaN, 0)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.NaN, Double.NaN)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(0, Double.NaN)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, 0)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(0, Double.POSITIVE_INFINITY)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY, 0)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(0, Double.NEGATIVE_INFINITY)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.NaN, Double.NEGATIVE_INFINITY)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY, Double.NaN)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.NaN, Double.POSITIVE_INFINITY)));
+		assertFalse(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, Double.NaN)));
+		assertTrue(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(0, 0)));
+		assertTrue(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(1000000, 1000000)));
+		assertTrue(GLibUtilities.isValidPoint(ShapeFactory.factory().createPoint(-1000000, -1000000)));
 	}
 
 

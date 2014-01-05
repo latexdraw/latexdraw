@@ -4,7 +4,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
@@ -87,8 +87,8 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		// For the first point, the lines are created differently.
 		int posPrev = position==0 ? 1 : position - 1;
 		int posNext = position==0 ? points.size()-1 : position==points.size()-1 ? 0 : position + 1;
-		ILine line1 = DrawingTK.getFactory().createLine(getPtAt(posPrev), ctrlPts[0]);
-		ILine line2 = DrawingTK.getFactory().createLine(getPtAt(posNext), ctrlPts[1]);
+		ILine line1 = ShapeFactory.factory().createLine(getPtAt(posPrev), ctrlPts[0]);
+		ILine line2 = ShapeFactory.factory().createLine(getPtAt(posNext), ctrlPts[1]);
 
 		if(line1.getIntersectionSegment(line2)==null) {
 			firstCtrlPts.get(position).setPoint(ctrlPts[0]);

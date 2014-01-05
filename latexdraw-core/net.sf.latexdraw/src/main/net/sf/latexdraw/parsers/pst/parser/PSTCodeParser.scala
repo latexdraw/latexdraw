@@ -1,17 +1,15 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import scala.collection.JavaConversions._
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
+import java.awt.Color
+
+import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.JavaConversions.seqAsJavaList
+
+import net.sf.latexdraw.glib.models.interfaces.IFreehand
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IShape
-import net.sf.latexdraw.glib.models.interfaces.IFreehand
-import scala.util.parsing.input.CharArrayReader
-import net.sf.latexdraw.glib.models.interfaces.IText
-import java.awt.Color
+import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.views.latex.DviPsColors
-import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape
-import net.sf.latexdraw.util.LNumber
-import net.sf.latexdraw.glib.models.interfaces.IPicture
 
 /**
  * Defines a parser parsing PST expressions.<br>
@@ -54,7 +52,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			consume(parseIncludeGraphics(ctx) | parsePSCustomCommands(ctx)) | consume(parsePsFrameboxCmds(ctx)) | consume(parsetextCommands(ctx)) |
 			consume(parseText(ctx))) ^^ {
 		case list =>
-		val group = DrawingTK.getFactory.createGroup(false)
+		val group = ShapeFactory.factory.createGroup(false)
 
 		list.foreach{_ match {
 				case gp : List[_] => gp.foreach{sh => group.addShape(sh.asInstanceOf[IShape])}
@@ -115,7 +113,7 @@ trait PSTCodeParser extends PSTAbstractParser
 				shapes.getShapes.foreach{sh => setShapeForStar(sh)}
 
 			var fh : IFreehand = null
-			val gp = DrawingTK.getFactory.createGroup(false)
+			val gp = ShapeFactory.factory.createGroup(false)
 
 			// The different created freehand shapes must be merged into a single one.
 			shapes.getShapes.foreach{sh =>
@@ -239,11 +237,11 @@ trait PSTCodeParser extends PSTAbstractParser
 		case p1 ~ p2 =>
 		p2 match {
 			case Some(value) =>
-				ctx.pictureSWPt = DrawingTK.getFactory.createPoint(p1.x, p1.y)
-				ctx.pictureNEPt = DrawingTK.getFactory.createPoint(value.x, value.y)
+				ctx.pictureSWPt = ShapeFactory.factory.createPoint(p1.x, p1.y)
+				ctx.pictureNEPt = ShapeFactory.factory.createPoint(value.x, value.y)
 			case _ =>
-				ctx.pictureSWPt = DrawingTK.getFactory.createPoint
-				ctx.pictureNEPt = DrawingTK.getFactory.createPoint(p1.x, p1.y)
+				ctx.pictureSWPt = ShapeFactory.factory.createPoint
+				ctx.pictureNEPt = ShapeFactory.factory.createPoint(p1.x, p1.y)
 		}
 	}
 }

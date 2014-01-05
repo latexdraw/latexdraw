@@ -1,12 +1,12 @@
 package test.instruments;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 import net.sf.latexdraw.actions.shape.AddShape;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.*;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
@@ -32,8 +32,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 	@Before
 	@SuppressWarnings("unused")
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		IDrawing drawing = DrawingTK.getFactory().createDrawing();
+		IDrawing drawing = ShapeFactory.factory().createDrawing();
 		MLayeredPane layers = new MLayeredPane(false, false);
 		canvas 		= new LCanvas(drawing);
 		LMagneticGrid grid = new LMagneticGrid(canvas);

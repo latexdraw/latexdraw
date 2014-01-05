@@ -1,17 +1,19 @@
 package net.sf.latexdraw.actions.shape
 
-import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.actions.Modifying
+import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.JavaConversions.bufferAsJavaList
+import scala.collection.mutable.Buffer
+import scala.collection.mutable.ListBuffer
+
 import org.malai.action.Action
 import org.malai.undo.Undoable
-import net.sf.latexdraw.glib.models.interfaces.IShape
-import net.sf.latexdraw.glib.ui.LMagneticGrid
-import scala.collection.mutable.Buffer
-import net.sf.latexdraw.glib.models.interfaces.IPoint
-import scala.collection.mutable.ListBuffer
+
+import net.sf.latexdraw.actions.Modifying
+import net.sf.latexdraw.actions.ShapeAction
 import net.sf.latexdraw.glib.models.interfaces.IGroup
-import scala.collection.JavaConversions._
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
+import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.ui.LMagneticGrid
 
 /**
  * This action updates the given shapes to magnetic grid if activated.<br>
@@ -40,12 +42,11 @@ class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Mo
 
 	protected def doActionBody() {
 		var list : Buffer[IPoint] = null
-		val factory = DrawingTK.getFactory
 
 		shape.get.getShapes.foreach{sh=>
 			list = new ListBuffer[IPoint]
 			_listPts.add(list)
-			sh.getPoints.foreach(pt=> list.add(factory.createPoint(pt)))
+			sh.getPoints.foreach(pt=> list.add(ShapeFactory.factory.createPoint(pt)))
 		}
 		redo
 	}

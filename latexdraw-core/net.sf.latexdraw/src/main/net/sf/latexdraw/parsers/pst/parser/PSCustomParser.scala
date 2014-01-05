@@ -1,9 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.models.interfaces.IShape
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IFreehand
 import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * A parser grouping parsers parsing commands related to the pscustom command.<br>
@@ -223,7 +223,7 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 	 */
 	def parseClosepath(ctx : PSTContext) : Parser[List[IShape]] = "\\closepath" ^^ { case _ =>
 		if(ctx.isPsCustom) {
-			val fh = DrawingTK.getFactory.createFreeHand(false)
+			val fh = ShapeFactory.factory.createFreeHand(false)
 			fh.setOpen(false)
 			checkTextParsed(ctx) ::: List(fh)
 		}
@@ -262,8 +262,8 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 
 
 	private def createFreeHand(isLine : Boolean, ctx : PSTContext, pt : PointUnit) : IFreehand = {
-		val freeHand = DrawingTK.getFactory.createFreeHand(true)
-		freeHand.addPoint(DrawingTK.getFactory.createPoint(ctx.psCustomLatestPt))
+		val freeHand = ShapeFactory.factory.createFreeHand(true)
+		freeHand.addPoint(ShapeFactory.factory.createPoint(ctx.psCustomLatestPt))
 		freeHand.addPoint(transformPointTo2DScene(pt, ctx))
 
 		if(isLine)

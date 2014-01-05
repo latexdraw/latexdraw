@@ -5,8 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
@@ -24,9 +23,8 @@ import test.glib.models.interfaces.TestICircle;
 public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createCircle(false);
-		shape2 = (T) DrawingTK.getFactory().createCircle(false);
+		shape  = (T) ShapeFactory.factory().createCircle(false);
+		shape2 = (T) ShapeFactory.factory().createCircle(false);
 	}
 
 
@@ -47,7 +45,7 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 
 	@Test
 	public void testConstructors() {
-		ICircle circle = DrawingTK.getFactory().createCircle(false);
+		ICircle circle = ShapeFactory.factory().createCircle(false);
 
 		assertEquals(4, circle.getNbPoints());
 		HelperTest.assertEqualsDouble(circle.getRx(), circle.getRy());
@@ -58,7 +56,7 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 
 	@Test
 	public void testConstructors2() {
-		ICircle circle = DrawingTK.getFactory().createCircle(false);
+		ICircle circle = ShapeFactory.factory().createCircle(false);
 
 		HelperTest.assertEqualsDouble(4, circle.getNbPoints());
 		HelperTest.assertEqualsDouble(circle.getRx(), circle.getRy());
@@ -72,31 +70,31 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 		ICircle circle;
 
 		try {
-			circle = DrawingTK.getFactory().createCircle(null, 10., true);
+			circle = ShapeFactory.factory().createCircle(null, 10., true);
 			fail();
 		}catch(NullPointerException e) {/* */}
 
 		try {
-			circle = DrawingTK.getFactory().createCircle(DrawingTK.getFactory().createPoint(Double.NaN, 1), 10., true);
+			circle = ShapeFactory.factory().createCircle(ShapeFactory.factory().createPoint(Double.NaN, 1), 10., true);
 			fail();
 		}catch(IllegalArgumentException e) {/* */}
 
 		try {
-			circle = DrawingTK.getFactory().createCircle(DrawingTK.getFactory().createPoint(1, Double.NEGATIVE_INFINITY), 10., true);
+			circle = ShapeFactory.factory().createCircle(ShapeFactory.factory().createPoint(1, Double.NEGATIVE_INFINITY), 10., true);
 			fail();
 		}catch(IllegalArgumentException e) {/* */}
 
 		try {
-			circle = DrawingTK.getFactory().createCircle(DrawingTK.getFactory().createPoint(1, 1), -10., true);
+			circle = ShapeFactory.factory().createCircle(ShapeFactory.factory().createPoint(1, 1), -10., true);
 			fail();
 		}catch(IllegalArgumentException e) {/* */}
 
 		try {
-			circle = DrawingTK.getFactory().createCircle(DrawingTK.getFactory().createPoint(1, 1), 0., true);
+			circle = ShapeFactory.factory().createCircle(ShapeFactory.factory().createPoint(1, 1), 0., true);
 			fail();
 		}catch(IllegalArgumentException e) {/* */}
 
-		circle = DrawingTK.getFactory().createCircle(DrawingTK.getFactory().createPoint(1, 2), 10., true);
+		circle = ShapeFactory.factory().createCircle(ShapeFactory.factory().createPoint(1, 2), 10., true);
 
 		HelperTest.assertEqualsDouble(1., circle.getGravityCentre().getX());
 		HelperTest.assertEqualsDouble(2., circle.getGravityCentre().getY());

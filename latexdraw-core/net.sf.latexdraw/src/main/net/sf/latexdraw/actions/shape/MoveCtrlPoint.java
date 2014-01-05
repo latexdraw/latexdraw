@@ -1,6 +1,6 @@
 package net.sf.latexdraw.actions.shape;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 
@@ -82,7 +82,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 	@Override
 	public void undo() {
-		final IPoint pt = DrawingTK.getFactory().createPoint(getPoint());
+		final IPoint pt = ShapeFactory.factory().createPoint(getPoint());
 		pt.translate(-tx, -ty);
 
 		if(isFirstCtrlPt)

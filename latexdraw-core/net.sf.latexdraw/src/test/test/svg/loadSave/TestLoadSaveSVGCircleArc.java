@@ -1,6 +1,6 @@
 package test.svg.loadSave;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
 
 import org.junit.Before;
@@ -9,7 +9,7 @@ public class TestLoadSaveSVGCircleArc extends TestLoadSaveSVGRectangularShape<IC
 	@Before
 	@Override
 	public void setUp() {
-		shape = DrawingTK.getFactory().createCircleArc(false);
+		shape = ShapeFactory.factory().createCircleArc(false);
 	}
 
 	public void testStartAngle0() {

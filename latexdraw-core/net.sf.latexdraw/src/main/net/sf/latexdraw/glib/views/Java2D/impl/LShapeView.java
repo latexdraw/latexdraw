@@ -16,7 +16,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
@@ -248,7 +248,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 				break;
 
 			case GRAD:
-				final IShapeFactory factory = DrawingTK.getFactory();
+				final IShapeFactory factory = ShapeFactory.factory();
 				final GeneralPath p = new GeneralPath(path);//TODO checks if useful the create an other path
 				final IPoint tl  = shape.getTopLeftPoint();
 				final IPoint br  = shape.getBottomRightPoint();
@@ -488,7 +488,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 			final double dx;
 			final double dy;
 			final IPoint gc 		= shape.getGravityCentre();
-			final IPoint shadowgc 	= DrawingTK.getFactory().createPoint(gc.getX()+shape.getShadowSize(), gc.getY());
+			final IPoint shadowgc 	= ShapeFactory.factory().createPoint(gc.getX()+shape.getShadowSize(), gc.getY());
 
 			shadowgc.setPoint(shadowgc.rotatePoint(gc, shape.getShadowAngle()));
 			dx = shadowgc.getX() - gc.getX();
@@ -685,7 +685,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 			g.rotate(rotationAngle);
 			g.translate(c3x, c3y);
-			p = DrawingTK.getFactory().createPoint(c3x, c3y);
+			p = ShapeFactory.factory().createPoint(c3x, c3y);
 		}
 
 		return p;
@@ -724,7 +724,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	protected static void getRotatedRectangle(final double tlx, final double tly, final double width,
 											 final double height, final double angle, final IPoint gravityCentre,
 											 final IPoint tl, final IPoint br) {
-		final IShapeFactory factory = DrawingTK.getFactory();
+		final IShapeFactory factory = ShapeFactory.factory();
 		IPoint pts[] = new IPoint[4];
 		// Rotation of the four points of the rectangle.
 		pts[0] = factory.createPoint(tlx, tly).rotatePoint(gravityCentre, angle);

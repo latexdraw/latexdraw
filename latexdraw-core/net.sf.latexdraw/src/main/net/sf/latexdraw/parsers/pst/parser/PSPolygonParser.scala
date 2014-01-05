@@ -2,9 +2,9 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import scala.collection.mutable.ListBuffer
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IPolygon
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * A parser grouping parsers parsing polygons.<br>
@@ -48,7 +48,7 @@ trait PSPolygonParser extends PSTAbstractParser with PSTParamParser with PSTCoor
 	 * Creates and initialises a line.
 	 */
 	private def createPolygon(hasStar : Boolean, pts : ListBuffer[IPoint], ctx : PSTContext) : IPolygon = {
-		val pol = DrawingTK.getFactory.createPolygon(true)
+		val pol = ShapeFactory.factory.createPolygon(true)
 		pts.foreach{pt => pol.addPoint(pt)}
 
 		setShapeParameters(pol, ctx)

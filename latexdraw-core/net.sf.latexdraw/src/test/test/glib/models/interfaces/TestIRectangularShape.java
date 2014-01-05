@@ -4,7 +4,7 @@ package test.glib.models.interfaces;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
 
@@ -253,8 +253,8 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 	@Override
 	@Test
 	public void testMirrorHorizontal() {
-		IPoint pt2 = DrawingTK.getFactory().createPoint(3,1);
-		IPoint pt4 = DrawingTK.getFactory().createPoint(1,3);
+		IPoint pt2 = ShapeFactory.factory().createPoint(3,1);
+		IPoint pt4 = ShapeFactory.factory().createPoint(1,3);
 
 		shape.setPosition(pt4);
 		shape.setWidth(pt2.getX()-pt4.getX());
@@ -275,8 +275,8 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 	@Override
 	@Test
 	public void testMirrorVertical() {
-		IPoint pt2 = DrawingTK.getFactory().createPoint(3,1);
-		IPoint pt4 = DrawingTK.getFactory().createPoint(1,3);
+		IPoint pt2 = ShapeFactory.factory().createPoint(3,1);
+		IPoint pt4 = ShapeFactory.factory().createPoint(1,3);
 
 		shape.setPosition(pt4);
 		shape.setWidth(pt2.getX()-pt4.getX());
@@ -298,8 +298,8 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 	@Override
 	@Test
 	public void testTranslate() {
-		IPoint pt2 = DrawingTK.getFactory().createPoint(3,1);
-		IPoint pt4 = DrawingTK.getFactory().createPoint(1,3);
+		IPoint pt2 = ShapeFactory.factory().createPoint(3,1);
+		IPoint pt4 = ShapeFactory.factory().createPoint(1,3);
 
 		shape.setPosition(pt4);
 		shape.setWidth(pt2.getX()-pt4.getX());

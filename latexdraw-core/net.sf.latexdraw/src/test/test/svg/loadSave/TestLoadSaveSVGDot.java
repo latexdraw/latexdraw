@@ -2,7 +2,7 @@ package test.svg.loadSave;
 
 import java.awt.Color;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 
@@ -13,7 +13,7 @@ public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
 	@Before
 	@Override
 	public void setUp() {
-		shape = DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(), false);
+		shape = ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(), false);
 	}
 
 	private void setDot(final double x, final double y, final DotStyle style, final double size,

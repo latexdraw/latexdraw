@@ -1,6 +1,6 @@
 package test.glib.views.java2D;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import static org.junit.Assert.*;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
@@ -13,7 +13,7 @@ public class TestLDotView extends TestLShapeView {
 	@Before
 	public void setUp() {
 		super.setUp();
-		view = View2DTK.getFactory().createView(DrawingTK.getFactory().createDot(DrawingTK.getFactory().createPoint(), false));
+		view = View2DTK.getFactory().createView(ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(), false));
 	}
 
 

@@ -1,41 +1,15 @@
 package test.glib.models;
 
 import junit.framework.TestCase;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
-import net.sf.latexdraw.glib.models.interfaces.IAxes;
-import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
-import net.sf.latexdraw.glib.models.interfaces.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
-import net.sf.latexdraw.glib.models.interfaces.IDot;
-import net.sf.latexdraw.glib.models.interfaces.IEllipse;
-import net.sf.latexdraw.glib.models.interfaces.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.IGrid;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.IPicture;
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.IRhombus;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.ISquare;
-import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.models.interfaces.ITriangle;
+import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class TestLShapeFactory extends TestCase{
-	@Override
-	@Before
-	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-	}
-
-
 	@Test
 	public void testNewShape() {
-		IShapeFactory factory = DrawingTK.getFactory();
+		IShapeFactory factory = ShapeFactory.factory();
 		assertFalse(factory.newShape(IRectangle.class).isEmpty());
 		assertFalse(factory.newShape(IPolyline.class).isEmpty());
 		assertFalse(factory.newShape(IBezierCurve.class).isEmpty());

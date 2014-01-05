@@ -5,8 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
@@ -24,9 +23,8 @@ import test.glib.models.interfaces.TestIEllipse;
 public class TestLEllipse<T extends IEllipse> extends TestIEllipse<T> {
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createEllipse(false);
-		shape2 = (T) DrawingTK.getFactory().createEllipse(false);
+		shape  = (T) ShapeFactory.factory().createEllipse(false);
+		shape2 = (T) ShapeFactory.factory().createEllipse(false);
 	}
 
 
@@ -46,7 +44,7 @@ public class TestLEllipse<T extends IEllipse> extends TestIEllipse<T> {
 
 	@Test
 	public void testConstructors2() {
-		IEllipse ell = DrawingTK.getFactory().createEllipse(false);
+		IEllipse ell = ShapeFactory.factory().createEllipse(false);
 
 		assertEquals(4, ell.getNbPoints());
 	}
@@ -56,36 +54,36 @@ public class TestLEllipse<T extends IEllipse> extends TestIEllipse<T> {
 		IEllipse ell;
 
 		try {
-			ell = DrawingTK.getFactory().createEllipse(null, DrawingTK.getFactory().createPoint(), true);
+			ell = ShapeFactory.factory().createEllipse(null, ShapeFactory.factory().createPoint(), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			ell = DrawingTK.getFactory().createEllipse(DrawingTK.getFactory().createPoint(), null, true);
+			ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(), null, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			ell = DrawingTK.getFactory().createEllipse(DrawingTK.getFactory().createPoint(), DrawingTK.getFactory().createPoint(), true);
+			ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(), ShapeFactory.factory().createPoint(), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			ell = DrawingTK.getFactory().createEllipse(DrawingTK.getFactory().createPoint(1,0), DrawingTK.getFactory().createPoint(2,0), true);
+			ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(1,0), ShapeFactory.factory().createPoint(2,0), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			ell = DrawingTK.getFactory().createEllipse(DrawingTK.getFactory().createPoint(1,Double.NaN), DrawingTK.getFactory().createPoint(2,0), true);
+			ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(1,Double.NaN), ShapeFactory.factory().createPoint(2,0), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			ell = DrawingTK.getFactory().createEllipse(DrawingTK.getFactory().createPoint(1,2), DrawingTK.getFactory().createPoint(2,Double.NaN), true);
+			ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(1,2), ShapeFactory.factory().createPoint(2,Double.NaN), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
-		ell = DrawingTK.getFactory().createEllipse(DrawingTK.getFactory().createPoint(20, 26), DrawingTK.getFactory().createPoint(30, 35), true);
+		ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(20, 26), ShapeFactory.factory().createPoint(30, 35), true);
 		HelperTest.assertEqualsDouble(20., ell.getPosition().getX());
 		HelperTest.assertEqualsDouble(35., ell.getPosition().getY());
 		HelperTest.assertEqualsDouble(10., ell.getWidth());

@@ -1,8 +1,7 @@
 package test.glib.models;
 
 
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,14 +13,13 @@ public class TestLLine extends TestILine{
 	@Override
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		line = DrawingTK.getFactory().createLine(DrawingTK.getFactory().createPoint(0,0), DrawingTK.getFactory().createPoint(1,1));
+		line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(0,0), ShapeFactory.factory().createPoint(1,1));
 	}
 
 
 	@Test
 	public void testConstructors2() {
-		line = DrawingTK.getFactory().createLine(10, DrawingTK.getFactory().createPoint(1,1));
+		line = ShapeFactory.factory().createLine(10, ShapeFactory.factory().createPoint(1,1));
 
 		assertNotNull(line.getPoint1());
 		assertNotNull(line.getPoint2());
@@ -30,7 +28,7 @@ public class TestLLine extends TestILine{
 		assertEquals(1., line.getX1());
 		assertEquals(1., line.getY1());
 
-		line = DrawingTK.getFactory().createLine(0, DrawingTK.getFactory().createPoint(1,1));
+		line = ShapeFactory.factory().createLine(0, ShapeFactory.factory().createPoint(1,1));
 
 		assertNotNull(line.getPoint1());
 		assertNotNull(line.getPoint2());
@@ -39,7 +37,7 @@ public class TestLLine extends TestILine{
 		assertEquals(1., line.getX1());
 		assertEquals(1., line.getY1());
 
-		line = DrawingTK.getFactory().createLine(-10, DrawingTK.getFactory().createPoint(1,1));
+		line = ShapeFactory.factory().createLine(-10, ShapeFactory.factory().createPoint(1,1));
 
 		assertNotNull(line.getPoint1());
 		assertNotNull(line.getPoint2());
@@ -49,32 +47,32 @@ public class TestLLine extends TestILine{
 		assertEquals(1., line.getY1());
 
 		try {
-			line = DrawingTK.getFactory().createLine(Double.NaN, DrawingTK.getFactory().createPoint(1,2));
+			line = ShapeFactory.factory().createLine(Double.NaN, ShapeFactory.factory().createPoint(1,2));
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			line = DrawingTK.getFactory().createLine(Double.NEGATIVE_INFINITY, DrawingTK.getFactory().createPoint(1,2));
+			line = ShapeFactory.factory().createLine(Double.NEGATIVE_INFINITY, ShapeFactory.factory().createPoint(1,2));
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			line = DrawingTK.getFactory().createLine(Double.POSITIVE_INFINITY, DrawingTK.getFactory().createPoint(1,2));
+			line = ShapeFactory.factory().createLine(Double.POSITIVE_INFINITY, ShapeFactory.factory().createPoint(1,2));
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			line = DrawingTK.getFactory().createLine(10, DrawingTK.getFactory().createPoint(1,Double.NaN));
+			line = ShapeFactory.factory().createLine(10, ShapeFactory.factory().createPoint(1,Double.NaN));
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			line = DrawingTK.getFactory().createLine(10, DrawingTK.getFactory().createPoint(Double.NEGATIVE_INFINITY,2));
+			line = ShapeFactory.factory().createLine(10, ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY,2));
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			line = DrawingTK.getFactory().createLine(10, null);
+			line = ShapeFactory.factory().createLine(10, null);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 	}
@@ -82,7 +80,7 @@ public class TestLLine extends TestILine{
 
 	@Test
 	public void testConstructors3() {
-		line = DrawingTK.getFactory().createLine(DrawingTK.getFactory().createPoint(1,1), DrawingTK.getFactory().createPoint(2,2));
+		line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(1,1), ShapeFactory.factory().createPoint(2,2));
 
 		assertNotNull(line.getPoint1());
 		assertNotNull(line.getPoint2());
@@ -94,32 +92,32 @@ public class TestLLine extends TestILine{
 		assertEquals(2., line.getY2());
 
 		try {
-			line = DrawingTK.getFactory().createLine(null, DrawingTK.getFactory().createPoint(1,2));
+			line = ShapeFactory.factory().createLine(null, ShapeFactory.factory().createPoint(1,2));
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			line = DrawingTK.getFactory().createLine(DrawingTK.getFactory().createPoint(Double.NaN,2), DrawingTK.getFactory().createPoint(1,2));
+			line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(Double.NaN,2), ShapeFactory.factory().createPoint(1,2));
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			line = DrawingTK.getFactory().createLine(DrawingTK.getFactory().createPoint(2, Double.POSITIVE_INFINITY), DrawingTK.getFactory().createPoint(1,2));
+			line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(2, Double.POSITIVE_INFINITY), ShapeFactory.factory().createPoint(1,2));
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			line = DrawingTK.getFactory().createLine(DrawingTK.getFactory().createPoint(1,2), null);
+			line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(1,2), null);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			line = DrawingTK.getFactory().createLine(DrawingTK.getFactory().createPoint(1,2), DrawingTK.getFactory().createPoint(Double.NaN, 1));
+			line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(1,2), ShapeFactory.factory().createPoint(Double.NaN, 1));
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			line = DrawingTK.getFactory().createLine(DrawingTK.getFactory().createPoint(1,2), DrawingTK.getFactory().createPoint(1, Double.NEGATIVE_INFINITY));
+			line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(1,2), ShapeFactory.factory().createPoint(1, Double.NEGATIVE_INFINITY));
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 	}

@@ -1,9 +1,9 @@
 package test.glib.models;
 
 
-import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IPicture;
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
@@ -18,9 +18,8 @@ import test.glib.models.interfaces.TestIPicture;
 public class TestLPicture<T extends IPicture> extends TestIPicture<T> {
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createPicture(false, DrawingTK.getFactory().createPoint());
-		shape2 = (T) DrawingTK.getFactory().createPicture(false, DrawingTK.getFactory().createPoint());
+		shape  = (T) ShapeFactory.factory().createPicture(false, ShapeFactory.factory().createPoint());
+		shape2 = (T) ShapeFactory.factory().createPicture(false, ShapeFactory.factory().createPoint());
 	}
 
 

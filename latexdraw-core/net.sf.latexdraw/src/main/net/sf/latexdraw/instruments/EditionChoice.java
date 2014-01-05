@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.*;
 import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
 
@@ -26,79 +27,79 @@ public enum EditionChoice {
 	RECT {
 		@Override
 		public IRectangle createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IRectangle.class).get();
+			return ShapeFactory.factory().newShape(IRectangle.class).get();
 		}
 	},
 	DOT {
 		@Override
 		public IDot createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IDot.class).get();
+			return ShapeFactory.factory().newShape(IDot.class).get();
 		}
 	},
 	SQUARE {
 		@Override
 		public ISquare createShapeInstance() {
-			return DrawingTK.getFactory().newShape(ISquare.class).get();
+			return ShapeFactory.factory().newShape(ISquare.class).get();
 		}
 	},
 	RHOMBUS {
 		@Override
 		public IRhombus createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IRhombus.class).get();
+			return ShapeFactory.factory().newShape(IRhombus.class).get();
 		}
 	},
 	FREE_HAND {
 		@Override
 		public IFreehand createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IFreehand.class).get();
+			return ShapeFactory.factory().newShape(IFreehand.class).get();
 		}
 	},
 	TRIANGLE {
 		@Override
 		public ITriangle createShapeInstance() {
-			return DrawingTK.getFactory().newShape(ITriangle.class).get();
+			return ShapeFactory.factory().newShape(ITriangle.class).get();
 		}
 	},
 	LINES {
 		@Override
 		public IPolyline createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IPolyline.class).get();
+			return ShapeFactory.factory().newShape(IPolyline.class).get();
 		}
 	},
 	CIRCLE {
 		@Override
 		public ICircle createShapeInstance() {
-			return DrawingTK.getFactory().newShape(ICircle.class).get();
+			return ShapeFactory.factory().newShape(ICircle.class).get();
 		}
 	},
 	GRID {
 		@Override
 		public IGrid createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IGrid.class).get();
+			return ShapeFactory.factory().newShape(IGrid.class).get();
 		}
 	},
 	AXES {
 		@Override
 		public IAxes createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IAxes.class).get();
+			return ShapeFactory.factory().newShape(IAxes.class).get();
 		}
 	},
 	ELLIPSE {
 		@Override
 		public IEllipse createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IEllipse.class).get();
+			return ShapeFactory.factory().newShape(IEllipse.class).get();
 		}
 	},
 	POLYGON {
 		@Override
 		public IPolygon createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IPolygon.class).get();
+			return ShapeFactory.factory().newShape(IPolygon.class).get();
 		}
 	},
 	WEDGE {
 		@Override
 		public IArc createShapeInstance() {
-			final IArc shape = DrawingTK.getFactory().newShape(IArc.class).get();
+			final IArc shape = ShapeFactory.factory().newShape(IArc.class).get();
 			shape.setArcStyle(ArcStyle.WEDGE);
 			return shape;
 		}
@@ -106,7 +107,7 @@ public enum EditionChoice {
 	CIRCLE_ARC {
 		@Override
 		public ICircleArc createShapeInstance() {
-			final ICircleArc shape = DrawingTK.getFactory().newShape(ICircleArc.class).get();
+			final ICircleArc shape = ShapeFactory.factory().newShape(ICircleArc.class).get();
 			shape.setArcStyle(ArcStyle.ARC);
 			return shape;
 		}
@@ -114,7 +115,7 @@ public enum EditionChoice {
 	CHORD {
 		@Override
 		public IArc createShapeInstance() {
-			final IArc shape = DrawingTK.getFactory().newShape(IArc.class).get();
+			final IArc shape = ShapeFactory.factory().newShape(IArc.class).get();
 			shape.setArcStyle(ArcStyle.CHORD);
 			return shape;
 		}
@@ -122,7 +123,7 @@ public enum EditionChoice {
 	BEZIER_CURVE {
 		@Override
 		public IBezierCurve createShapeInstance() {
-			final IBezierCurve shape = DrawingTK.getFactory().newShape(IBezierCurve.class).get();
+			final IBezierCurve shape = ShapeFactory.factory().newShape(IBezierCurve.class).get();
 			shape.setIsClosed(false);
 			return shape;
 		}
@@ -130,7 +131,7 @@ public enum EditionChoice {
 	BEZIER_CURVE_CLOSED {
 		@Override
 		public IBezierCurve createShapeInstance() {
-			final IBezierCurve shape = DrawingTK.getFactory().newShape(IBezierCurve.class).get();
+			final IBezierCurve shape = ShapeFactory.factory().newShape(IBezierCurve.class).get();
 			shape.setIsClosed(true);
 			return shape;
 		}
@@ -138,13 +139,13 @@ public enum EditionChoice {
 	TEXT {
 		@Override
 		public IText createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IText.class).get();
+			return ShapeFactory.factory().newShape(IText.class).get();
 		}
 	},
 	PICTURE {
 		@Override
 		public IPicture createShapeInstance() {
-			return DrawingTK.getFactory().newShape(IPicture.class).get();
+			return ShapeFactory.factory().newShape(IPicture.class).get();
 		}
 	};
 

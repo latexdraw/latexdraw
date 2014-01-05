@@ -3,7 +3,7 @@ package net.sf.latexdraw.generators.svg;
 import java.awt.geom.Point2D;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
@@ -54,7 +54,7 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	 * @since 2.0.0
 	 */
 	protected LTriangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createTriangle(true));
+		this(ShapeFactory.factory().createTriangle(true));
 
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -96,7 +96,7 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 		if(doc==null || doc.getFirstChild().getDefs()==null)
 			return null;
 
-		final IShapeFactory factory = DrawingTK.getFactory();
+		final IShapeFactory factory = ShapeFactory.factory();
 		SVGElement root = new SVGGElement(doc), elt;
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_TRIANGLE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());

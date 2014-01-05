@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.*;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
@@ -51,7 +52,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 	 * @since 2.0.0
 	 */
 	protected LAxeSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createAxes(false, DrawingTK.getFactory().createPoint()));
+		this(ShapeFactory.factory().createAxes(false, ShapeFactory.factory().createPoint()));
 
 		if(elt==null)
 			throw new IllegalArgumentException();
@@ -132,7 +133,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 				IPolyline la = new LPolylinesSVGGenerator(l1, false).shape;
 				IPolyline lb = new LPolylinesSVGGenerator(l2, false).shape;
 
-				shape.setPosition(DrawingTK.getFactory().createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
+				shape.setPosition(ShapeFactory.factory().createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
 				shape.setLineStyle(la.getLineStyle());
 				shape.getArrowAt(1).setArrowStyle(la.getArrowAt(0).getArrowStyle());
 				shape.getArrowAt(3).setArrowStyle(la.getArrowAt(1).getArrowStyle());
@@ -189,7 +190,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
 	private void createArrows(final SVGElement elt, final SVGDocument document) {
 		if(shape.getAxesStyle().supportsArrows() && shape.getArrows().size()==4) {
-			final IShapeFactory fac = DrawingTK.getFactory();
+			final IShapeFactory fac = ShapeFactory.factory();
 			final double posX = shape.getPosition().getX();
 			final double posY = shape.getPosition().getY();
 			final IArrow arr0 = shape.getArrowAt(1);
@@ -226,8 +227,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 			final double positiony = shape.getPosition().getY();
 			final double xMax = positionx+gridEndx*IShape.PPC;
 			final double yMax = positiony-gridEndy*IShape.PPC;
-			final IPoint pos  = DrawingTK.getFactory().createPoint(positionx, gridEndy>0 ? yMax : positiony);
-			final IRectangle r= DrawingTK.getFactory().createRectangle(pos, Math.abs(pos.getX()-(gridEndx>0 ? xMax : positionx)),
+			final IPoint pos  = ShapeFactory.factory().createPoint(positionx, gridEndy>0 ? yMax : positiony);
+			final IRectangle r= ShapeFactory.factory().createRectangle(pos, Math.abs(pos.getX()-(gridEndx>0 ? xMax : positionx)),
 																		Math.abs(pos.getY()-positiony), false);
 
 			r.setBordersPosition(BorderPos.MID);

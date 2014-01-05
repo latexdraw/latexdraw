@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -133,8 +133,8 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 		path.reset();
 		setPathOLikeDot(shape.getOGap());
 
-		IPoint p1 = DrawingTK.getFactory().createPoint((tlx+brx)/2., tly+dec*2);
-		IPoint p2 = DrawingTK.getFactory().createPoint((tlx+brx)/2., bry-dec*2);
+		IPoint p1 = ShapeFactory.factory().createPoint((tlx+brx)/2., tly+dec*2);
+		IPoint p2 = ShapeFactory.factory().createPoint((tlx+brx)/2., bry-dec*2);
 		p1 = p1.rotatePoint(centre, Math.PI/4.);
 		p2 = p2.rotatePoint(centre, Math.PI/4.);
 

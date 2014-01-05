@@ -2,8 +2,8 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IPoint
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.ICircle
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * A parser grouping parsers parsing circles.<br>
@@ -65,7 +65,7 @@ trait PSCircleParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 	 * Creates and initialises a circle.
 	 */
 	private def createCircle(hasStar : Boolean, centre : IPoint, radius : Double, ctx : PSTContext) : ICircle = {
-		val circ = DrawingTK.getFactory.createCircle(true)
+		val circ = ShapeFactory.factory.createCircle(true)
 		circ.setRx(scala.math.max(0.1, radius))
 		circ.setCentre(centre)
 		setShapeParameters(circ, ctx)

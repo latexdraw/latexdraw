@@ -1,9 +1,11 @@
 package test.glib.models;
 
 
-import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
@@ -21,9 +23,8 @@ public class TestLText<T extends IText> extends TestIText<T> {
 	public void setUp() {
 		FlyweightThumbnail.images().clear();
 		FlyweightThumbnail.setThread(false);
-		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createText(false);
-		shape2 = (T) DrawingTK.getFactory().createText(false);
+		shape  = (T) ShapeFactory.factory().createText(false);
+		shape2 = (T) ShapeFactory.factory().createText(false);
 	}
 
 
@@ -42,30 +43,30 @@ public class TestLText<T extends IText> extends TestIText<T> {
 
 	@Test
 	public void testConstructors() {
-		IText txt = DrawingTK.getFactory().createText(false);
+		IText txt = ShapeFactory.factory().createText(false);
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = DrawingTK.getFactory().createText(true);
+		txt = ShapeFactory.factory().createText(true);
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = DrawingTK.getFactory().createText(true, DrawingTK.getFactory().createPoint(), "coucou");
+		txt = ShapeFactory.factory().createText(true, ShapeFactory.factory().createPoint(), "coucou");
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = DrawingTK.getFactory().createText(true, DrawingTK.getFactory().createPoint(), "");
+		txt = ShapeFactory.factory().createText(true, ShapeFactory.factory().createPoint(), "");
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = DrawingTK.getFactory().createText(true, DrawingTK.getFactory().createPoint(), null);
+		txt = ShapeFactory.factory().createText(true, ShapeFactory.factory().createPoint(), null);
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
 
-		txt = DrawingTK.getFactory().createText(false, null, "aa");
-		assertEquals(DrawingTK.getFactory().createPoint(), txt.getPosition());
-		txt = DrawingTK.getFactory().createText(false, DrawingTK.getFactory().createPoint(0, Double.NEGATIVE_INFINITY), "aa");
-		assertEquals(DrawingTK.getFactory().createPoint(), txt.getPosition());
+		txt = ShapeFactory.factory().createText(false, null, "aa");
+		assertEquals(ShapeFactory.factory().createPoint(), txt.getPosition());
+		txt = ShapeFactory.factory().createText(false, ShapeFactory.factory().createPoint(0, Double.NEGATIVE_INFINITY), "aa");
+		assertEquals(ShapeFactory.factory().createPoint(), txt.getPosition());
 	}
 }

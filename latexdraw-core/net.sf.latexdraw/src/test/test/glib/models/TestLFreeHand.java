@@ -1,9 +1,10 @@
 package test.glib.models;
 
 
-import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
@@ -18,9 +19,8 @@ import test.glib.models.interfaces.TestIFreehand;
 public class TestLFreeHand<T extends IFreehand> extends TestIFreehand<T> {
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createFreeHand(false);
-		shape2 = (T) DrawingTK.getFactory().createFreeHand(false);
+		shape  = (T) ShapeFactory.factory().createFreeHand(false);
+		shape2 = (T) ShapeFactory.factory().createFreeHand(false);
 	}
 
 
@@ -39,7 +39,7 @@ public class TestLFreeHand<T extends IFreehand> extends TestIFreehand<T> {
 
 	@Test
 	public void testConstructors() {
-		final IFreehand fh = DrawingTK.getFactory().createFreeHand(false);
+		final IFreehand fh = ShapeFactory.factory().createFreeHand(false);
 		assertNotNull(fh);
 	}
 }

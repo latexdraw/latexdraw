@@ -1,7 +1,5 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
-import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 
 /**

@@ -6,7 +6,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -41,7 +41,7 @@ class LGroupView extends LShapeView<IGroup> {
 	 * @since 3.0
 	 */
 	protected LGroupView() {
-		this(DrawingTK.getFactory().createGroup(false));
+		this(ShapeFactory.factory().createGroup(false));
 	}
 
 

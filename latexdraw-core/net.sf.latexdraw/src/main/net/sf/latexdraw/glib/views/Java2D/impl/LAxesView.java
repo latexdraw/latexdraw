@@ -13,7 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
@@ -446,8 +446,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 		if(LNumber.equalsDouble(angle, 0.))
 			border.setFrame(bound);
 		else {
-			IPoint tl = DrawingTK.getFactory().createPoint();
-			IPoint br = DrawingTK.getFactory().createPoint();
+			IPoint tl = ShapeFactory.factory().createPoint();
+			IPoint br = ShapeFactory.factory().createPoint();
 			getRotatedRectangle(bound.getMinX(), bound.getMinY(), bound.getWidth(), bound.getHeight(), angle, shape.getGravityCentre(), tl, br);
 			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
 		}

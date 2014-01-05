@@ -1,7 +1,5 @@
 package test.parser.pst;
 
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
 import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
@@ -14,7 +12,6 @@ public abstract class TestPSTParser {
 	public void setUp() throws Exception {
 		FlyweightThumbnail.images().clear();
 		FlyweightThumbnail.setThread(false);
-		DrawingTK.setFactory(new LShapeFactory());
 		parser = new PSTParser();
 		PSTParser.cleanErrors();
 	}

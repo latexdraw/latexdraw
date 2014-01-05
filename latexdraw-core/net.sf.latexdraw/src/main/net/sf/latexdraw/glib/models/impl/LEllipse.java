@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
@@ -70,7 +70,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 //		tl.setPoint(tl.getX()+th, tl.getY()+th);
 //		br.setPoint(br.getX()-th, br.getY()-th);
 		final IPoint gc = getGravityCentre();
-		final IPoint pt = DrawingTK.getFactory().createPoint(br.getX(), (br.getY()+tl.getY())/2.).rotatePoint(gc, -angle);
+		final IPoint pt = ShapeFactory.factory().createPoint(br.getX(), (br.getY()+tl.getY())/2.).rotatePoint(gc, -angle);
 		final double a = Math.abs(tl.getX()-gc.getX());
 		final double b = Math.abs(tl.getY()-gc.getY());
 		final double dec = 100.;

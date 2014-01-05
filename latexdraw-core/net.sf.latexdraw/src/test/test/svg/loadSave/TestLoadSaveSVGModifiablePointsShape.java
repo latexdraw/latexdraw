@@ -1,6 +1,6 @@
 package test.svg.loadSave;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
 
 public abstract class TestLoadSaveSVGModifiablePointsShape<T extends IModifiablePointsShape> extends TestLoadSaveSVG<IModifiablePointsShape> {
@@ -20,9 +20,9 @@ public abstract class TestLoadSaveSVGModifiablePointsShape<T extends IModifiable
 
 	@Override
 	protected void setDefaultDimensions() {
-		shape.addPoint(DrawingTK.getFactory().createPoint(10, 20));
-		shape.addPoint(DrawingTK.getFactory().createPoint(30, 50));
-		shape.addPoint(DrawingTK.getFactory().createPoint(60, 78));
-		shape.addPoint(DrawingTK.getFactory().createPoint(-60, -10));
+		shape.addPoint(ShapeFactory.factory().createPoint(10, 20));
+		shape.addPoint(ShapeFactory.factory().createPoint(30, 50));
+		shape.addPoint(ShapeFactory.factory().createPoint(60, 78));
+		shape.addPoint(ShapeFactory.factory().createPoint(-60, -10));
 	}
 }

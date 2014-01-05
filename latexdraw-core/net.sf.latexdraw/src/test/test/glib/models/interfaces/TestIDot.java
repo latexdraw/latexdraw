@@ -2,7 +2,7 @@ package test.glib.models.interfaces;
 
 
 import static org.junit.Assert.assertEquals;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 
@@ -114,13 +114,13 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 	@Override
 	public void testMirrorHorizontal() {
 		shape.setPosition(-10, -20);
-		shape.mirrorHorizontal(DrawingTK.getFactory().createPoint(100, 0));
+		shape.mirrorHorizontal(ShapeFactory.factory().createPoint(100, 0));
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 		shape.mirrorHorizontal(null);
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
-		shape.mirrorHorizontal(DrawingTK.getFactory().createPoint(Double.NaN, Double.POSITIVE_INFINITY));
+		shape.mirrorHorizontal(ShapeFactory.factory().createPoint(Double.NaN, Double.POSITIVE_INFINITY));
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 	}
@@ -129,13 +129,13 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 	@Override
 	public void testMirrorVertical() {
 		shape.setPosition(-10, -20);
-		shape.mirrorVertical(DrawingTK.getFactory().createPoint(100, 0));
+		shape.mirrorVertical(ShapeFactory.factory().createPoint(100, 0));
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 		shape.mirrorVertical(null);
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
-		shape.mirrorVertical(DrawingTK.getFactory().createPoint(Double.NaN, Double.POSITIVE_INFINITY));
+		shape.mirrorVertical(ShapeFactory.factory().createPoint(Double.NaN, Double.POSITIVE_INFINITY));
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 	}

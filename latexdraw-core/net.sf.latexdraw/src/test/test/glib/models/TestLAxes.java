@@ -4,8 +4,7 @@ package test.glib.models;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
@@ -21,9 +20,8 @@ import test.glib.models.interfaces.TestIAxes;
 public class TestLAxes<T extends IAxes> extends TestIAxes<T> {
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createAxes(false, DrawingTK.getFactory().createPoint());
-		shape2 = (T) DrawingTK.getFactory().createAxes(false, DrawingTK.getFactory().createPoint());
+		shape  = (T) ShapeFactory.factory().createAxes(false, ShapeFactory.factory().createPoint());
+		shape2 = (T) ShapeFactory.factory().createAxes(false, ShapeFactory.factory().createPoint());
 	}
 
 
@@ -42,28 +40,28 @@ public class TestLAxes<T extends IAxes> extends TestIAxes<T> {
 
 	@Test
 	public void testConstructor3() {
-		IAxes axes = DrawingTK.getFactory().createAxes(false, DrawingTK.getFactory().createPoint(10, -20));
+		IAxes axes = ShapeFactory.factory().createAxes(false, ShapeFactory.factory().createPoint(10, -20));
 
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(10., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(-20., axes.getPtAt(0).getY());
-		axes = DrawingTK.getFactory().createAxes(false, null);
+		axes = ShapeFactory.factory().createAxes(false, null);
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = DrawingTK.getFactory().createAxes(true, null);
+		axes = ShapeFactory.factory().createAxes(true, null);
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = DrawingTK.getFactory().createAxes(false, DrawingTK.getFactory().createPoint(Double.NaN, 0));
+		axes = ShapeFactory.factory().createAxes(false, ShapeFactory.factory().createPoint(Double.NaN, 0));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = DrawingTK.getFactory().createAxes(true, DrawingTK.getFactory().createPoint(0, Double.NaN));
+		axes = ShapeFactory.factory().createAxes(true, ShapeFactory.factory().createPoint(0, Double.NaN));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = DrawingTK.getFactory().createAxes(false, DrawingTK.getFactory().createPoint(Double.POSITIVE_INFINITY, 0));
+		axes = ShapeFactory.factory().createAxes(false, ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, 0));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());

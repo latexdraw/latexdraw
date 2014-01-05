@@ -2,7 +2,6 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import java.awt.geom.Point2D
 import java.awt.Color
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK
 import net.sf.latexdraw.glib.models.interfaces.IArrow
 import net.sf.latexdraw.glib.models.interfaces.IAxes
 import net.sf.latexdraw.glib.models.interfaces.IDot
@@ -10,6 +9,7 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import scala.collection.mutable.MutableList
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 
 /**
@@ -81,7 +81,6 @@ object fontSerie extends Enumeration {
 import fontShape._
 import fontFamily._
 import fontSerie._
-
 
 
 /**
@@ -159,9 +158,9 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			PSTricksConstants.DEFAULT_SHADOW_ANGLE, PSTricksConstants.DEFAULT_SHADOW_SIZE, PSTricksConstants.DEFAULT_SUBGRIDDOTS,
 			PSTricksConstants.DEFAULT_SUBGRIDDIV, PSTricksConstants.DEFAULT_TICKS_DISPLAYED, PSTricksConstants.DEFAULT_TICKS_STYLE,
 			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
-			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, DrawingTK.getFactory.createPoint,
-			DrawingTK.getFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0, true,
-			fontShape.normal, fontSerie.normal, fontFamily.rm, DrawingTK.getFactory.createPoint)
+			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, ShapeFactory.factory.createPoint,
+			ShapeFactory.factory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0, true,
+			fontShape.normal, fontSerie.normal, fontFamily.rm, ShapeFactory.factory.createPoint)
 	}
 
 
@@ -181,10 +180,10 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 			  model.labels, model.lineArc, model.lineStyle, model.ox, model.oy, model.onRadians, model.origin.dup,
 			  model.specialCoor, model.showPoints, model.showOrigin, model.subGridWidth, model.swapAxes, model.shadowCol, model.subGridCol,
 			  model.shadowAngle, model.shadowSize, model.subGridDots, model.subGridDiv, model.ticks, model.ticksStyle, model.ticksSize, model.unit,
-			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, DrawingTK.getFactory.createPoint(model.pictureSWPt),
-			  DrawingTK.getFactory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle, model.liftpen, psCustom,
+			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, ShapeFactory.factory.createPoint(model.pictureSWPt),
+			  ShapeFactory.factory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle, model.liftpen, psCustom,
 			  model.textPosition, model.rputAngle, model.parsedTxtNoTxt, model.currFontShape, model.currFontSerie, model.currFontFamily,
-			  DrawingTK.getFactory.createPoint(model.psCustomLatestPt))
+			  ShapeFactory.factory.createPoint(model.psCustomLatestPt))
 
 			  if(model.currFontShape!=fontShape.normal) textParsed += model.currFontShape.equivCmd
 			  if(model.currFontSerie!=fontSerie.normal) textParsed += model.currFontSerie.equivCmd

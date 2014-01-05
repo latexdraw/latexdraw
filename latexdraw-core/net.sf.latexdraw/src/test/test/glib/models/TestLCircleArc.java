@@ -1,9 +1,9 @@
 package test.glib.models;
 
 
-import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
@@ -21,9 +21,8 @@ import test.glib.models.interfaces.TestICircleArc;
 public class TestLCircleArc<T extends ICircleArc> extends TestICircleArc<T> {
 	@Before
 	public void setUp() {
-		DrawingTK.setFactory(new LShapeFactory());
-		shape  = (T) DrawingTK.getFactory().createCircleArc(false);
-		shape2 = (T) DrawingTK.getFactory().createCircleArc(false);
+		shape  = (T) ShapeFactory.factory().createCircleArc(false);
+		shape2 = (T) ShapeFactory.factory().createCircleArc(false);
 	}
 
 

@@ -1,6 +1,6 @@
 package net.sf.latexdraw.generators.svg;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ISquare;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
@@ -43,7 +43,7 @@ class LSquareSVGGenerator extends LRectangleSVGGenerator {
 	 * @since 2.0.0
 	 */
 	protected LSquareSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createSquare(false));
+		this(ShapeFactory.factory().createSquare(false));
 		initRectangle(elt, withTransformation);
 	}
 

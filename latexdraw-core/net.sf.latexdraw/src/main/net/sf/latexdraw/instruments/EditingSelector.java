@@ -9,7 +9,7 @@ import javax.swing.AbstractButton;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -585,7 +585,7 @@ class ButtonPressed2AddText extends Link<AddShape, ButtonPressed, EditingSelecto
 	@Override
 	public void initAction() {
 		action.setDrawing(instrument.pencil.canvas().getDrawing());
-		action.setShape(DrawingTK.getFactory().createText(true, DrawingTK.getFactory().createPoint(instrument.pencil.textSetter().relativePoint),
+		action.setShape(ShapeFactory.factory().createText(true, ShapeFactory.factory().createPoint(instrument.pencil.textSetter().relativePoint),
 						instrument.pencil.textSetter().getTextField().getText()));
 	}
 

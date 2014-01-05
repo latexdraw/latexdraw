@@ -1,14 +1,14 @@
 package test.glib.views.java2D;
 
-import net.sf.latexdraw.glib.models.impl.LShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
-import static org.junit.Assert.*;
 
 import org.junit.Before;
 
@@ -18,7 +18,6 @@ public class TestViewFactory {
 	protected IShapeFactory shFac;
 
 	static {
-		DrawingTK.setFactory(new LShapeFactory());
 		View2DTK.setFactory(new LViewsFactory());
 	}
 
@@ -26,7 +25,7 @@ public class TestViewFactory {
 	@Before
 	public void setUp() {
 		viewFac = View2DTK.getFactory();
-		shFac	= DrawingTK.getFactory();
+		shFac	= ShapeFactory.factory();
 	}
 
 

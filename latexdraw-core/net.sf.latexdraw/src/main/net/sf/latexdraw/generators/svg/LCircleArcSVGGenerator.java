@@ -2,7 +2,7 @@ package net.sf.latexdraw.generators.svg;
 
 import java.awt.geom.Arc2D;
 
-import net.sf.latexdraw.glib.models.interfaces.DrawingTK;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
@@ -59,7 +59,7 @@ class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
 	 * @since 2.0.0
 	 */
 	protected LCircleArcSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(DrawingTK.getFactory().createCircleArc(true));
+		this(ShapeFactory.factory().createCircleArc(true));
 
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
 		IArrow arr1	= shape.getArrowAt(0);
