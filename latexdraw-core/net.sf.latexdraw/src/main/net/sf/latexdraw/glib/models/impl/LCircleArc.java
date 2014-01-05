@@ -47,12 +47,6 @@ class LCircleArc extends LArc implements ICircleArc {
 		super(tl, br, isUniqueID);
 	}
 
-
-	@Override
-	public double getRadius() {
-		return getWidth();//FIXME
-	}
-
 	@Override
 	public ICircleArc duplicate() {
 		final IShape sh = super.duplicate();

@@ -20,12 +20,6 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @since 3.0
  */
 public interface ICircleArc extends IArc {
-	/**
-	 * @return The radius of the arc.
-	 * @since 3.0
-	 */
-	double getRadius();
-	
 	@Override
 	ICircleArc duplicate();
 }
