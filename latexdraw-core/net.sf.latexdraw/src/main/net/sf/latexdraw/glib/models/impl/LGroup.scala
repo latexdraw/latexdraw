@@ -7,15 +7,13 @@ import scala.collection.JavaConversions.asScalaBuffer
 import net.sf.latexdraw.glib.models.interfaces.IArc
 import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle
-import net.sf.latexdraw.glib.models.interfaces.IAxes
-import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle
-import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle
-import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle
 import net.sf.latexdraw.glib.models.interfaces.IDot
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType
-import net.sf.latexdraw.glib.models.interfaces.IGrid
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape
 import net.sf.latexdraw.glib.models.interfaces.IPoint
@@ -26,6 +24,8 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle
 import net.sf.latexdraw.glib.models.interfaces.IText
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
 
 /**
  * A Group is a group of IShape instances.<br>
@@ -125,15 +125,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setGridLabelsColourList(values : List[Color]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGrid])
-					shapes.get(i).asInstanceOf[IGrid].setGridLabelsColour(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGridProp])
+					shapes.get(i).asInstanceOf[IGridProp].setGridLabelsColour(values.get(i))
 	}
 
 
 	override def getGridLabelsColourList() : List[Color] = {
 		val list = new ArrayList[Color]()
 		shapes.foreach{_ match {
-				case grid : IGrid => list.add(grid.getGridLabelsColour)
+				case grid : IGridProp => list.add(grid.getGridLabelsColour)
 				case _ => list.add(null)
 			}
 		}
@@ -144,15 +144,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setSubGridColourList(values : List[Color]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGrid])
-					shapes.get(i).asInstanceOf[IGrid].setSubGridColour(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGridProp])
+					shapes.get(i).asInstanceOf[IGridProp].setSubGridColour(values.get(i))
 	}
 
 
 	override def getSubGridColourList() : List[Color] = {
 		val list = new ArrayList[Color]()
 		shapes.foreach{_ match {
-				case grid : IGrid => list.add(grid.getSubGridColour)
+				case grid : IGridProp => list.add(grid.getSubGridColour)
 				case _ => list.add(null)
 			}
 		}
@@ -163,15 +163,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setGridWidthList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGrid])
-					shapes.get(i).asInstanceOf[IGrid].setGridWidth(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGridProp])
+					shapes.get(i).asInstanceOf[IGridProp].setGridWidth(values.get(i))
 	}
 
 
 	override def getGridWidthList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{_ match {
-				case grid : IGrid => list.add(grid.getGridWidth)
+				case grid : IGridProp => list.add(grid.getGridWidth)
 				case _ => list.add(null)
 			}
 		}
@@ -182,15 +182,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setSubGridWidthList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGrid])
-					shapes.get(i).asInstanceOf[IGrid].setSubGridWidth(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGridProp])
+					shapes.get(i).asInstanceOf[IGridProp].setSubGridWidth(values.get(i))
 	}
 
 
 	override def getSubGridWidthList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{_ match {
-				case grid : IGrid => list.add(grid.getSubGridWidth)
+				case grid : IGridProp => list.add(grid.getSubGridWidth)
 				case _ => list.add(null)
 			}
 		}
@@ -201,15 +201,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setGridDotsList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGrid])
-					shapes.get(i).asInstanceOf[IGrid].setGridDots(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGridProp])
+					shapes.get(i).asInstanceOf[IGridProp].setGridDots(values.get(i))
 	}
 
 
 	override def getGridDotsList() : List[java.lang.Integer] = {
 		val list = new ArrayList[java.lang.Integer]()
 		shapes.foreach{_ match {
-				case grid : IGrid => list.add(grid.getGridDots)
+				case grid : IGridProp => list.add(grid.getGridDots)
 				case _ => list.add(null)
 			}
 		}
@@ -220,15 +220,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setSubGridDotsList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGrid])
-					shapes.get(i).asInstanceOf[IGrid].setSubGridDots(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGridProp])
+					shapes.get(i).asInstanceOf[IGridProp].setSubGridDots(values.get(i))
 	}
 
 
 	override def getSubGridDotsList() : List[java.lang.Integer] = {
 		val list = new ArrayList[java.lang.Integer]()
 		shapes.foreach{_ match {
-				case grid : IGrid => list.add(grid.getSubGridDots)
+				case grid : IGridProp => list.add(grid.getSubGridDots)
 				case _ => list.add(null)
 			}
 		}
@@ -239,15 +239,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setSubGridDivList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGrid])
-					shapes.get(i).asInstanceOf[IGrid].setSubGridDiv(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGridProp])
+					shapes.get(i).asInstanceOf[IGridProp].setSubGridDiv(values.get(i))
 	}
 
 
 	override def getSubGridDivList() : List[java.lang.Integer] = {
 		val list = new ArrayList[java.lang.Integer]()
 		shapes.foreach{_ match {
-				case grid : IGrid => list.add(grid.getSubGridDiv)
+				case grid : IGridProp => list.add(grid.getSubGridDiv)
 				case _ => list.add(null)
 			}
 		}
@@ -277,15 +277,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesDistLabelsList(values : List[IPoint]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setDistLabels(values.get(i))
+				if(shapes.get(i).isInstanceOf[IAxesProp])
+					shapes.get(i).asInstanceOf[IAxesProp].setDistLabels(values.get(i))
 	}
 
 
 	override def getAxesDistLabelsList() : List[IPoint] = {
 		val list = new ArrayList[IPoint]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.getDistLabels)
+				case axes : IAxesProp => list.add(axes.getDistLabels)
 				case _ => list.add(null)
 			}
 		}
@@ -296,15 +296,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesLabelsDisplayedList(values : List[PlottingStyle]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setLabelsDisplayed(values.get(i))
+				if(shapes.get(i).isInstanceOf[IAxesProp])
+					shapes.get(i).asInstanceOf[IAxesProp].setLabelsDisplayed(values.get(i))
 	}
 
 
 	override def getAxesLabelsDisplayedList() : List[PlottingStyle] = {
 		val list = new ArrayList[PlottingStyle]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.getLabelsDisplayed)
+				case axes : IAxesProp => list.add(axes.getLabelsDisplayed)
 				case _ => list.add(null)
 			}
 		}
@@ -315,15 +315,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesShowOriginList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setShowOrigin(values.get(i))
+				if(shapes.get(i).isInstanceOf[IAxesProp])
+					shapes.get(i).asInstanceOf[IAxesProp].setShowOrigin(values.get(i))
 	}
 
 
 	override def getAxesShowOriginList() : List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.isShowOrigin)
+				case axes : IAxesProp => list.add(axes.isShowOrigin)
 				case _ => list.add(null)
 			}
 		}
@@ -334,15 +334,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesTicksStyleList(values : List[TicksStyle]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setTicksStyle(values.get(i))
+				if(shapes.get(i).isInstanceOf[IAxesProp])
+					shapes.get(i).asInstanceOf[IAxesProp].setTicksStyle(values.get(i))
 	}
 
 
 	override def getAxesTicksStyleList() : List[TicksStyle] = {
 		val list = new ArrayList[TicksStyle]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.getTicksStyle)
+				case axes : IAxesProp => list.add(axes.getTicksStyle)
 				case _ => list.add(null)
 			}
 		}
@@ -353,15 +353,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesTicksSizeList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setTicksSize(values.get(i))
+				if(shapes.get(i).isInstanceOf[IAxesProp])
+					shapes.get(i).asInstanceOf[IAxesProp].setTicksSize(values.get(i))
 	}
 
 
 	override def getAxesTicksSizeList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.getTicksSize)
+				case axes : IAxesProp => list.add(axes.getTicksSize)
 				case _ => list.add(null)
 			}
 		}
@@ -372,15 +372,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesTicksDisplayedList(values : List[PlottingStyle]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setTicksDisplayed(values.get(i))
+				if(shapes.get(i).isInstanceOf[IAxesProp])
+					shapes.get(i).asInstanceOf[IAxesProp].setTicksDisplayed(values.get(i))
 	}
 
 
 	override def getAxesTicksDisplayedList() : List[PlottingStyle] = {
 		val list = new ArrayList[PlottingStyle]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.getTicksDisplayed)
+				case axes : IAxesProp => list.add(axes.getTicksDisplayed)
 				case _ => list.add(null)
 			}
 		}
@@ -391,15 +391,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesIncrementsList(values : List[IPoint]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setIncrement(values.get(i))
+				if(shapes.get(i).isInstanceOf[IAxesProp])
+					shapes.get(i).asInstanceOf[IAxesProp].setIncrement(values.get(i))
 	}
 
 
 	override def getAxesIncrementsList() : List[IPoint] = {
 		val list = new ArrayList[IPoint]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.getIncrement)
+				case axes : IAxesProp => list.add(axes.getIncrement)
 				case _ => list.add(null)
 			}
 		}
@@ -410,15 +410,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setGridLabelSizeList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setLabelsSize(values.get(i))
+				if(shapes.get(i).isInstanceOf[IStdGridProp])
+					shapes.get(i).asInstanceOf[IStdGridProp].setLabelsSize(values.get(i))
 	}
 
 
 	override def getGridLabelSizeList() : List[java.lang.Integer] = {
 		val list = new ArrayList[java.lang.Integer]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.getLabelsSize)
+				case axes : IStdGridProp => list.add(axes.getLabelsSize)
 				case _ => list.add(null)
 			}
 		}
@@ -429,15 +429,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setGridXLabelSouthList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGrid])
-					shapes.get(i).asInstanceOf[IGrid].setXLabelSouth(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGridProp])
+					shapes.get(i).asInstanceOf[IGridProp].setXLabelSouth(values.get(i))
 	}
 
 
 	override def getGridXLabelSouthList() : List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{_ match {
-				case axes : IGrid => list.add(axes.isXLabelSouth)
+				case axes : IGridProp => list.add(axes.isXLabelSouth)
 				case _ => list.add(null)
 			}
 		}
@@ -448,15 +448,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setGridYLabelWestList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGrid])
-					shapes.get(i).asInstanceOf[IGrid].setYLabelWest(values.get(i))
+				if(shapes.get(i).isInstanceOf[IGridProp])
+					shapes.get(i).asInstanceOf[IGridProp].setYLabelWest(values.get(i))
 	}
 
 
 	override def getGridYLabelWestList() : List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{_ match {
-				case axes : IGrid => list.add(axes.isYLabelWest)
+				case axes : IGridProp => list.add(axes.isYLabelWest)
 				case _ => list.add(null)
 			}
 		}
@@ -467,15 +467,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesStyleList(values : List[AxesStyle]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxes])
-					shapes.get(i).asInstanceOf[IAxes].setAxesStyle(values.get(i))
+				if(shapes.get(i).isInstanceOf[IAxesProp])
+					shapes.get(i).asInstanceOf[IAxesProp].setAxesStyle(values.get(i))
 	}
 
 
 	override def getAxesStyleList() : List[AxesStyle] = {
 		val list = new ArrayList[AxesStyle]()
 		shapes.foreach{_ match {
-				case axes : IAxes => list.add(axes.getAxesStyle)
+				case axes : IAxesProp => list.add(axes.getAxesStyle)
 				case _ => list.add(null)
 			}
 		}

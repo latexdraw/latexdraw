@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
+import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 
 /**
  * Defines a model of an abstract latex grid.<br>
@@ -259,8 +260,8 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	public void copy(final IShape s) {
 		super.copy(s);
 
-		if(s instanceof IStandardGrid) {
-			IStandardGrid grid = (IStandardGrid) s;
+		if(s instanceof IStdGridProp) {
+			IStdGridProp grid = (IStdGridProp) s;
 
 			gridEndx 	= grid.getGridEndX();
 			gridEndy 	= grid.getGridEndY();

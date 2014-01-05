@@ -9,6 +9,7 @@ import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 /**
@@ -95,8 +96,8 @@ class LAxes extends LAbstractGrid implements IAxes {
 	public void copy(final IShape s) {
 		super.copy(s);
 
-		if(s instanceof IAxes) {
-			final IAxes axes = (IAxes) s;
+		if(s instanceof IAxesProp) {
+			final IAxesProp axes = (IAxesProp) s;
 
 			setTicksDisplayed(axes.getTicksDisplayed());
 			setTicksSize(axes.getTicksSize());

@@ -1,8 +1,11 @@
 package test.glib.models.interfaces;
 
-import static org.junit.Assert.*;
-
-import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
@@ -14,8 +17,8 @@ public class TestAxesStyle {
 		assertFalse(AxesStyle.FRAME.supportsArrows());
 		assertFalse(AxesStyle.NONE.supportsArrows());
 	}
-	
-	
+
+
 	@Test
 	public void testGetPSTToken() {
 		assertEquals(PSTricksConstants.TOKEN_AXES_STYLE_AXES, AxesStyle.AXES.getPSTToken());

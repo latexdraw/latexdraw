@@ -3,7 +3,7 @@ package net.sf.latexdraw.parsers.pst.parser
 import java.awt.geom.Point2D
 import java.awt.Color
 import net.sf.latexdraw.glib.models.interfaces.IArrow
-import net.sf.latexdraw.glib.models.interfaces.IAxes
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
 import net.sf.latexdraw.glib.models.interfaces.IDot
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IShape
@@ -103,7 +103,7 @@ import fontSerie._
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle], var arrowSize : Tuple2[Double,Double],
+class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle], var arrowSize : Tuple2[Double,Double],
 		var arrowLgth : Double, var arrowInset : Double, var arrowTBar : Tuple2[Double,Double],
 		var arrowBrLgth : Double, var arrowrBrLgth : Double, var arrowDotSize : Tuple2[Double,Double], var arrowScale : Tuple2[Double,Double],
 		var arcSep : Double, var arcSepA : Double, var arcSepB : Double, var boxSep : Boolean,
@@ -115,11 +115,11 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 		var gridWidth : Double, var gridLabel : Double, var gridDots : Double, var gradAngle : Double, var gridColor : Color,
 		var gradMidPoint : Double, var gradBegin : Color, var gradEnd : Color, var gradLines : Int, var gangle : Double,
 		var hatchWidth : Double, var hatchSep : Double, var hatchCol : Color, var hatchAngle : Double, var isCornerRel : Boolean, var isShadow : Boolean,
-		var lineWidth : Double, var lineColor : Color, var labels : IAxes.PlottingStyle, var lineArc : Double,
+		var lineWidth : Double, var lineColor : Color, var labels : IAxesProp.PlottingStyle, var lineArc : Double,
 		var lineStyle : IShape.LineStyle, var ox : Double, var oy : Double, var onRadians : Boolean, var origin : PointUnit, var specialCoor : Boolean,
 		var showPoints : Boolean, var showOrigin : Boolean, var subGridWidth : Double, var swapAxes : Boolean, var shadowCol : Color,
 		var subGridCol : Color, var shadowAngle : Double, var shadowSize : Double, var subGridDots : Double, var subGridDiv : Double,
-		var ticks : IAxes.PlottingStyle, var ticksStyle : IAxes.TicksStyle, var ticksSize : Double, var unit : Double, var xUnit : Double,
+		var ticks : IAxesProp.PlottingStyle, var ticksStyle : IAxesProp.TicksStyle, var ticksSize : Double, var unit : Double, var xUnit : Double,
 		var yUnit : Double, var textColor : Color, var shadow : Boolean, var gridlabelcolor : Color, var isCentered : Boolean,
 		var pictureSWPt : IPoint, var pictureNEPt : IPoint, var tokenPosition : String, var plotStyle : String, var plotPoints : Int,
 		var addfillstyle : IShape.FillingStyle, var liftpen : Int, var isPsCustom : Boolean, var textPosition : String,
@@ -324,10 +324,10 @@ class PSTContext(var axesStyle : IAxes.AxesStyle, var arrowStyle : Tuple2[IArrow
 				case "subgriddiv" if(value.isInstanceOf[Double]) => subGridDiv = value.asInstanceOf[Double]
 				case "subgridwidth" if(value.isInstanceOf[Double]) => subGridWidth = value.asInstanceOf[Double]
 				case "subgriddots" if(value.isInstanceOf[Double]) => subGridDots = value.asInstanceOf[Double]
-				case "tickstyle" if(value.isInstanceOf[IAxes.TicksStyle]) => ticksStyle = value.asInstanceOf[IAxes.TicksStyle]
-				case "axesstyle" if(value.isInstanceOf[IAxes.AxesStyle]) => axesStyle = value.asInstanceOf[IAxes.AxesStyle]
-				case "labels" if(value.isInstanceOf[IAxes.PlottingStyle]) => labels = value.asInstanceOf[IAxes.PlottingStyle]
-				case "ticks" if(value.isInstanceOf[IAxes.PlottingStyle]) => ticks = value.asInstanceOf[IAxes.PlottingStyle]
+				case "tickstyle" if(value.isInstanceOf[IAxesProp.TicksStyle]) => ticksStyle = value.asInstanceOf[IAxesProp.TicksStyle]
+				case "axesstyle" if(value.isInstanceOf[IAxesProp.AxesStyle]) => axesStyle = value.asInstanceOf[IAxesProp.AxesStyle]
+				case "labels" if(value.isInstanceOf[IAxesProp.PlottingStyle]) => labels = value.asInstanceOf[IAxesProp.PlottingStyle]
+				case "ticks" if(value.isInstanceOf[IAxesProp.PlottingStyle]) => ticks = value.asInstanceOf[IAxesProp.PlottingStyle]
 				case "dx" if(value.isInstanceOf[Double]) => dxLabelDist = value.asInstanceOf[Double]
 				case "dy" if(value.isInstanceOf[Double]) => dyLabelDist = value.asInstanceOf[Double]
 				case "Dx" if(value.isInstanceOf[Double]) => dxIncrement = value.asInstanceOf[Double]

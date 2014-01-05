@@ -8,12 +8,12 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IAxes;
-import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.swing.ui.UIComposer;
@@ -88,8 +88,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape.isTypeOf(IAxes.class)) {
-			final IAxes axes = (IAxes)shape;
+		if(shape.isTypeOf(IAxesProp.class)) {
+			final IAxesProp axes = (IAxesProp)shape;
 			shapeAxes.setSelectedItemSafely(axes.getAxesStyle());
 			shapeTicks.setSelectedItemSafely(axes.getTicksStyle());
 //			ticksSizeS.setValueSafely(axes.getTicksSize());

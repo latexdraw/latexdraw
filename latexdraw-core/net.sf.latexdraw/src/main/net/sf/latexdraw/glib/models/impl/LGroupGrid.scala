@@ -1,11 +1,9 @@
 package net.sf.latexdraw.glib.models.impl
 
 import java.awt.Color
-
 import scala.collection.JavaConversions.asScalaBuffer
-
-import net.sf.latexdraw.glib.models.interfaces.IGrid
 import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp
 
 /**
  * This trait encapsulates the code of the group related to the support of grids.<br>
@@ -27,9 +25,9 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup
  */
 protected trait LGroupGrid extends IGroup {
 	/** May return the first grid of the group. */
-	private def firstIGrid = gridShapes.find{_.isTypeOf(classOf[IGrid])}
+	private def firstIGrid = gridShapes.find{_.isTypeOf(classOf[IGridProp])}
 
-	private def gridShapes = getShapes.flatMap{case x:IGrid => x::Nil; case _ => Nil}
+	private def gridShapes = getShapes.flatMap{case x:IGridProp => x::Nil; case _ => Nil}
 
 
 	override def isXLabelSouth() : Boolean =

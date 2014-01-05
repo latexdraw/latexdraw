@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;

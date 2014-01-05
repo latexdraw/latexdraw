@@ -3,13 +3,13 @@ package net.sf.latexdraw.glib.views.pst;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 
-import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 
 /**
  * This class contains several constants of pstricks<br>

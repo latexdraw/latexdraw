@@ -1,10 +1,9 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
-
-import net.sf.latexdraw.glib.models.interfaces.IAxes
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
 
 /**
  * This trait encapsulates the code of the group related to the support of axes.<br>
@@ -26,9 +25,9 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
  */
 protected trait LGroupAxes extends IGroup {
 	/** May return the first axes shape of the group. */
-	private def firstIAxes = axesShapes.find{_.isTypeOf(classOf[IAxes])}
+	private def firstIAxes = axesShapes.find{_.isTypeOf(classOf[IAxesProp])}
 
-	private def axesShapes = getShapes.flatMap{case x:IAxes => x::Nil; case _ => Nil}
+	private def axesShapes = getShapes.flatMap{case x:IAxesProp => x::Nil; case _ => Nil}
 
 	override def getIncrementX() : Double = {
 		firstIAxes match {
@@ -82,7 +81,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getLabelsDisplayed() : IAxes.PlottingStyle = {
+	override def getLabelsDisplayed() : IAxesProp.PlottingStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getLabelsDisplayed
 			case _ => null
@@ -90,7 +89,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def setLabelsDisplayed(labelsDisplayed : IAxes.PlottingStyle) {
+	override def setLabelsDisplayed(labelsDisplayed : IAxesProp.PlottingStyle) {
 		axesShapes.foreach{_.setLabelsDisplayed(labelsDisplayed)}
 	}
 
@@ -108,7 +107,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getTicksDisplayed() : IAxes.PlottingStyle = {
+	override def getTicksDisplayed() : IAxesProp.PlottingStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getTicksDisplayed
 			case _ => null
@@ -116,12 +115,12 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def setTicksDisplayed(ticksDisplayed : IAxes.PlottingStyle) {
+	override def setTicksDisplayed(ticksDisplayed : IAxesProp.PlottingStyle) {
 		axesShapes.foreach{_.setTicksDisplayed(ticksDisplayed)}
 	}
 
 
-	override def getTicksStyle() : IAxes.TicksStyle = {
+	override def getTicksStyle() : IAxesProp.TicksStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getTicksStyle
 			case _ => null
@@ -129,7 +128,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def setTicksStyle(ticksStyle : IAxes.TicksStyle) {
+	override def setTicksStyle(ticksStyle : IAxesProp.TicksStyle) {
 		axesShapes.foreach{_.setTicksStyle(ticksStyle)}
 	}
 
@@ -147,7 +146,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getAxesStyle() : IAxes.AxesStyle = {
+	override def getAxesStyle() : IAxesProp.AxesStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getAxesStyle
 			case _ => null
@@ -155,7 +154,7 @@ protected trait LGroupAxes extends IGroup {
 	}
 
 
-	override def setAxesStyle(axesStyle : IAxes.AxesStyle) {
+	override def setAxesStyle(axesStyle : IAxesProp.AxesStyle) {
 		axesShapes.foreach{_.setAxesStyle(axesStyle)}
 	}
 

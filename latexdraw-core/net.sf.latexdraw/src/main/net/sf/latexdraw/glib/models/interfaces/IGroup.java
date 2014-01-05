@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 
 /**
  * Defines an interface that classes defining a group of shapes should implement.<br>
@@ -25,7 +27,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends ISetShapes, ILineArcShape, IText, IDot, IArc, IAxes, IGrid, IFreeHandProp {
+public interface IGroup extends ISetShapes, ILineArcShape, IText, IDot, IArc, IAxesProp, IGridProp, IFreeHandProp {
 	/**
 	 * Duplicates the group of shapes.
 	 * @param duplicateShapes True: the shapes will be duplicated as well.
@@ -33,7 +35,6 @@ public interface IGroup extends ISetShapes, ILineArcShape, IText, IDot, IArc, IA
 	 * @since 3.0
 	 */
 	IGroup duplicateDeep(final boolean duplicateShapes);
-
 
 	/**
 	 * @return The list of the border positions of the shapes contained by the group.

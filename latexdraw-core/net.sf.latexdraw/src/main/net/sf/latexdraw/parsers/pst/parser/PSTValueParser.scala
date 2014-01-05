@@ -1,7 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import java.awt.Color
-import net.sf.latexdraw.glib.models.interfaces.IAxes
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
@@ -212,12 +212,12 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the visibility styles.
 	 */
-	def parseValueLabelVisibility(value : String) : Option[IAxes.PlottingStyle] =
+	def parseValueLabelVisibility(value : String) : Option[IAxesProp.PlottingStyle] =
 		value match {
-			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL => Some(IAxes.PlottingStyle.ALL)
-			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_NONE => Some(IAxes.PlottingStyle.NONE)
-			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_X  => Some(IAxes.PlottingStyle.X)
-			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_Y  => Some(IAxes.PlottingStyle.Y)
+			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL => Some(IAxesProp.PlottingStyle.ALL)
+			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_NONE => Some(IAxesProp.PlottingStyle.NONE)
+			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_X  => Some(IAxesProp.PlottingStyle.X)
+			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_Y  => Some(IAxesProp.PlottingStyle.Y)
 			case _ => PSTParser.errorLogs += "Unknown tick style: " + value; None
 	}
 
@@ -225,11 +225,11 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the tick styles.
 	 */
-	def parseValueTickstyle(value : String) : Option[IAxes.TicksStyle] =
+	def parseValueTickstyle(value : String) : Option[IAxesProp.TicksStyle] =
 		value match {
-			case PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM => Some(IAxes.TicksStyle.BOTTOM)
-			case PSTricksConstants.TOKEN_TICKS_STYLE_FULL => Some(IAxes.TicksStyle.FULL)
-			case PSTricksConstants.TOKEN_TICKS_STYLE_TOP => Some(IAxes.TicksStyle.TOP)
+			case PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM => Some(IAxesProp.TicksStyle.BOTTOM)
+			case PSTricksConstants.TOKEN_TICKS_STYLE_FULL => Some(IAxesProp.TicksStyle.FULL)
+			case PSTricksConstants.TOKEN_TICKS_STYLE_TOP => Some(IAxesProp.TicksStyle.TOP)
 			case _ => PSTParser.errorLogs += "Unknown tick style: " + value; None
 	}
 
@@ -237,11 +237,11 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the axes styles.
 	 */
-	def parseValueAxestyle(value : String) : Option[IAxes.AxesStyle] =
+	def parseValueAxestyle(value : String) : Option[IAxesProp.AxesStyle] =
 		value match {
-			case PSTricksConstants.TOKEN_AXES_STYLE_AXES  => Some(IAxes.AxesStyle.AXES)
-			case PSTricksConstants.TOKEN_AXES_STYLE_FRAME => Some(IAxes.AxesStyle.FRAME)
-			case PSTricksConstants.TOKEN_AXES_STYLE_NONE  => Some(IAxes.AxesStyle.NONE)
+			case PSTricksConstants.TOKEN_AXES_STYLE_AXES  => Some(IAxesProp.AxesStyle.AXES)
+			case PSTricksConstants.TOKEN_AXES_STYLE_FRAME => Some(IAxesProp.AxesStyle.FRAME)
+			case PSTricksConstants.TOKEN_AXES_STYLE_NONE  => Some(IAxesProp.AxesStyle.NONE)
 			case _ => PSTParser.errorLogs += "Unknown axes style: " + value; None
 	}
 

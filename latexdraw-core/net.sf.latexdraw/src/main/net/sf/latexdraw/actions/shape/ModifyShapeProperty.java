@@ -4,10 +4,10 @@ import java.util.List;
 
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
-import net.sf.latexdraw.glib.models.interfaces.IAxes;
-import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 
 import org.malai.undo.Undoable;
@@ -180,14 +180,14 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case AXES_LABELS_SHOW:
 				case AXES_SHOW_ORIGIN:
 				case AXES_LABELS_DIST:
-				case AXES_STYLE:		return shapes.isTypeOf(IAxes.class);
+				case AXES_STYLE:		return shapes.isTypeOf(IAxesProp.class);
 				case GRID_SUBGRID_COLOUR:
 				case GRID_SUBGRID_WIDTH:
 				case GRID_WIDTH:
 				case GRID_DOTS:
 				case GRID_SUBGRID_DOTS:
 				case GRID_SUBGRID_DIV:
-				case GRID_LABELS_COLOUR: return shapes.isTypeOf(IGrid.class);
+				case GRID_LABELS_COLOUR: return shapes.isTypeOf(IGridProp.class);
 				case FREEHAND_INTERVAL:
 				case FREEHAND_OPEN:
 				case FREEHAND_STYLE : return shapes.isTypeOf(IFreeHandProp.class);

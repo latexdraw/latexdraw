@@ -17,11 +17,11 @@ import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
-import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 import net.sf.latexdraw.util.LNumber;
 
 /**

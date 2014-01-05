@@ -9,9 +9,9 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -86,8 +86,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape.isTypeOf(IGrid.class)) {
-			final IGrid grid = (IGrid)shape;
+		if(shape.isTypeOf(IGridProp.class)) {
+			final IGridProp grid = (IGridProp)shape;
 			colourLabels.setColor(grid.getGridLabelsColour());
 			colourSubGrid.setColor(grid.getSubGridColour());
 			gridWidth.setValueSafely(grid.getGridWidth());

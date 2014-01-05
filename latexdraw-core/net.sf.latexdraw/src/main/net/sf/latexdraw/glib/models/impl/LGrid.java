@@ -7,6 +7,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 /**
@@ -84,8 +85,8 @@ class LGrid extends LAbstractGrid implements IGrid {
 	public void copy(final IShape sh) {
 		super.copy(sh);
 
-		if(sh instanceof IGrid) {
-			IGrid grid = (IGrid) sh;
+		if(sh instanceof IGridProp) {
+			IGridProp grid = (IGridProp) sh;
 
 			gridDots 		= grid.getGridDots();
 			subGridColour 	= grid.getSubGridColour();
