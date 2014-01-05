@@ -20,71 +20,28 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @since 3.0
  */
 public interface IText extends IPositionShape {
-	/**
-	 * This enumeration defines the concept of text size for latex texts.
-	 */
+	/** This enumeration defines the concept of text size for latex texts. */
 	public static enum TextSize {
 		/** \tiny size */
-		TINY {
-			@Override
-			public String getLatexToken() {
-				return "tiny";
-			}
-		},/** \scriptsize size */
-		SCRIPT {
-			@Override
-			public String getLatexToken() {
-				return "scriptsize";
-			}
-		},/** \footnotesize size */
-		FOOTNOTE {
-			@Override
-			public String getLatexToken() {
-				return "footnotesize";
-			}
-		},/** \small size */
-		SMALL {
-			@Override
-			public String getLatexToken() {
-				return "small";
-			}
-		},/** \small size */
-		NORMAL {
-			@Override
-			public String getLatexToken() {
-				return "normalsize";
-			}
-		},/** \large size */
-		LARGE1 {
-			@Override
-			public String getLatexToken() {
-				return "large";
-			}
-		},/** \Large size */
-		LARGE2 {
-			@Override
-			public String getLatexToken() {
-				return "Large";
-			}
-		},/** \LARGE size */
-		LARGE3 {
-			@Override
-			public String getLatexToken() {
-				return "LARGE";
-			}
-		},/** \huge size */
-		HUGE1 {
-			@Override
-			public String getLatexToken() {
-				return "huge";
-			}
-		},/** \Huge size */
-		HUGE2 {
-			@Override
-			public String getLatexToken() {
-				return "Huge";
-			}
-		};
+		TINY {@Override public String getLatexToken() {return "tiny";}},
+		/** \scriptsize size */
+		SCRIPT {@Override public String getLatexToken() {return "scriptsize";}},
+		/** \footnotesize size */
+		FOOTNOTE {@Override public String getLatexToken() {return "footnotesize";}},
+		/** \small size */
+		SMALL {@Override public String getLatexToken() {return "small";}},
+		/** \small size */
+		NORMAL {@Override public String getLatexToken() {return "normalsize";}},
+		/** \large size */
+		LARGE1 {@Override public String getLatexToken() {return "large";}},
+		/** \Large size */
+		LARGE2 {@Override public String getLatexToken() {return "Large";}},
+		/** \LARGE size */
+		LARGE3 {@Override public String getLatexToken() {return "LARGE";}},
+		/** \huge size */
+		HUGE1 {@Override public String getLatexToken() {return "huge";}},
+		/** \Huge size */
+		HUGE2 {@Override public String getLatexToken() {return "Huge";}};
 
 		/**
 		 * @return The latex token corresponding to the text size.
@@ -92,98 +49,42 @@ public interface IText extends IPositionShape {
 		 */
 		public abstract String getLatexToken();
 
-
 		/**
 		 * @param size The text size value to analyse.
 		 * @return The corresponding text size item or null.
 		 * @since 3.0
 		 */
 		public static TextSize getTextSizeFromSize(final int size) {
-			TextSize textSize;
-
 			switch(size){
-				case 11: textSize = TINY; break;
-				case 16: textSize = FOOTNOTE; break;
-				case 35: textSize = HUGE1; break;
-				case 44: textSize = HUGE2; break;
-				case 22: textSize = LARGE1; break;
-				case 24: textSize = LARGE2; break;
-				case 30: textSize = LARGE3; break;
-				case 18: textSize = NORMAL; break;
-				case 14: textSize = SCRIPT; break;
-				case 17: textSize = SMALL; break;
-				default: textSize = null;
+				case 11: return TINY;
+				case 16: return FOOTNOTE;
+				case 35: return HUGE1;
+				case 44: return HUGE2;
+				case 22: return LARGE1;
+				case 24: return LARGE2;
+				case 30: return LARGE3;
+				case 18: return NORMAL;
+				case 14: return SCRIPT;
+				case 17: return SMALL;
+				default: return null;
 			}
-
-			return textSize;
 		}
 	}
 
-	/**
-	 * The position of the text (bottom-right, top-left, etc.).
-	 */
+	/** The position of the text (bottom-right, top-left, etc.). */
 	public static enum TextPosition {
-		BOT_LEFT {
-			@Override
-			public String getLatexToken() {
-				return "bl"; //$NON-NLS-1$
-			}
-		}, BOT {
-			@Override
-			public String getLatexToken() {
-				return "b"; //$NON-NLS-1$
-			}
-		}, BOT_RIGHT {
-			@Override
-			public String getLatexToken() {
-				return "br"; //$NON-NLS-1$
-			}
-		}, TOP_LEFT {
-			@Override
-			public String getLatexToken() {
-				return "tl"; //$NON-NLS-1$
-			}
-		}, TOP {
-			@Override
-			public String getLatexToken() {
-				return "t"; //$NON-NLS-1$
-			}
-		}, TOP_RIGHT {
-			@Override
-			public String getLatexToken() {
-				return "tr"; //$NON-NLS-1$
-			}
-		}, BASE {
-			@Override
-			public String getLatexToken() {
-				return "B"; //$NON-NLS-1$
-			}
-		}, BASE_LEFT {
-			@Override
-			public String getLatexToken() {
-				return "Bl"; //$NON-NLS-1$
-			}
-		}, BASE_RIGHT {
-			@Override
-			public String getLatexToken() {
-				return "Br"; //$NON-NLS-1$
-			}
-		}, LEFT {
-			@Override
-			public String getLatexToken() {
-				return "l"; //$NON-NLS-1$
-			}
-		}, RIGHT {
-			@Override
-			public String getLatexToken() {
-				return "r"; //$NON-NLS-1$
-			}
-		}, CENTER {
-			@Override
-			public String getLatexToken() {
-				return ""; //$NON-NLS-1$
-			}
-		};
+		BOT_LEFT 	{@Override public String getLatexToken() {return "bl";}}, //$NON-NLS-1$
+		BOT 		{@Override public String getLatexToken() {return "b";}}, //$NON-NLS-1$
+		BOT_RIGHT 	{@Override public String getLatexToken() { return "br";}}, //$NON-NLS-1$
+		TOP_LEFT 	{@Override public String getLatexToken() {return "tl";}}, //$NON-NLS-1$
+		TOP 		{@Override public String getLatexToken() {return "t";}}, //$NON-NLS-1$
+		TOP_RIGHT 	{@Override public String getLatexToken() {return "tr";}}, //$NON-NLS-1$
+		BASE 		{@Override public String getLatexToken() { return "B";}}, //$NON-NLS-1$
+		BASE_LEFT 	{@Override public String getLatexToken() {return "Bl";}}, //$NON-NLS-1$
+		BASE_RIGHT 	{@Override public String getLatexToken() { return "Br";}}, //$NON-NLS-1$
+		LEFT 		{@Override public String getLatexToken() {return "l";}}, //$NON-NLS-1$
+		RIGHT 		{@Override public String getLatexToken() {return "r";}}, //$NON-NLS-1$
+		CENTER 		{@Override public String getLatexToken() {return "";}}; //$NON-NLS-1$
 
 		/**
 		 * @return The latex token corresponding to the text position.
