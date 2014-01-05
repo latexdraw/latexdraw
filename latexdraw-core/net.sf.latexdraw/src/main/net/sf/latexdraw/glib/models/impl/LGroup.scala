@@ -4,22 +4,30 @@ import java.awt.Color
 import java.util.ArrayList
 import java.util.List
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConversions.asScalaBuffer
 
-import org.malai.mapping.ActiveArrayList
-
+import net.sf.latexdraw.glib.models.interfaces.IArc
 import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle
+import net.sf.latexdraw.glib.models.interfaces.IAxes
 import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle
 import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle
+import net.sf.latexdraw.glib.models.interfaces.IDot
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle
-import net.sf.latexdraw.glib.models.interfaces.IFreehand.FreeHandType
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType
+import net.sf.latexdraw.glib.models.interfaces.IGrid
+import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.glib.models.interfaces.ILineArcShape
+import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle
+import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
+import net.sf.latexdraw.glib.models.interfaces.IText
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition
-import net.sf.latexdraw.glib.models.interfaces._
 
 /**
  * A Group is a group of IShape instances.<br>
@@ -81,15 +89,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setFreeHandIntervalList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IFreehand])
-					shapes.get(i).asInstanceOf[IFreehand].setInterval(values.get(i))
+				if(shapes.get(i).isInstanceOf[IFreeHandProp])
+					shapes.get(i).asInstanceOf[IFreeHandProp].setInterval(values.get(i))
 	}
 
 
 	override def getFreeHandIntervalList() : List[java.lang.Integer] = {
 		val list = new ArrayList[java.lang.Integer]()
 		shapes.foreach{_ match {
-				case fh : IFreehand => list.add(fh.getInterval)
+				case fh : IFreeHandProp => list.add(fh.getInterval)
 				case _ => list.add(null)
 			}
 		}
@@ -100,15 +108,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setFreeHandOpenList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IFreehand])
-					shapes.get(i).asInstanceOf[IFreehand].setOpen(values.get(i))
+				if(shapes.get(i).isInstanceOf[IFreeHandProp])
+					shapes.get(i).asInstanceOf[IFreeHandProp].setOpen(values.get(i))
 	}
 
 
 	override def getFreeHandOpenList() : List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{_ match {
-				case fh : IFreehand => list.add(fh.isOpen)
+				case fh : IFreeHandProp => list.add(fh.isOpen)
 				case _ => list.add(null)
 			}
 		}
@@ -252,15 +260,15 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setFreeHandTypeList(values : List[FreeHandType]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IFreehand])
-					shapes.get(i).asInstanceOf[IFreehand].setType(values.get(i))
+				if(shapes.get(i).isInstanceOf[IFreeHandProp])
+					shapes.get(i).asInstanceOf[IFreeHandProp].setType(values.get(i))
 	}
 
 
 	override def getFreeHandTypeList() : List[FreeHandType] = {
 		val list = new ArrayList[FreeHandType]()
 		shapes.foreach{_ match {
-				case fh : IFreehand => list.add(fh.getType)
+				case fh : IFreeHandProp => list.add(fh.getType)
 				case _ => list.add(null)
 			}
 		}

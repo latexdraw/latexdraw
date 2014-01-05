@@ -10,12 +10,12 @@ import net.sf.latexdraw.glib.models.interfaces.IAxes.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IAxes.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
-import net.sf.latexdraw.glib.models.interfaces.IFreehand.FreeHandType;
 import net.sf.latexdraw.glib.models.interfaces.*;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
 import net.sf.latexdraw.instruments.Pencil;
 
 /**

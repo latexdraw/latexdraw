@@ -1,6 +1,7 @@
 package test.parser.pst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 
@@ -10,6 +11,7 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;
@@ -145,7 +147,7 @@ public class TestParsingPscustom extends TestPSTParser {
 		assertEquals(-2.77*IShape.PPC, fh.getPtAt(3).getY(), 0.001);
 		assertEquals(8.1*IShape.PPC, fh.getPtAt(4).getX(), 0.001);
 		assertEquals(-0.37*IShape.PPC, fh.getPtAt(4).getY(), 0.001);
-		assertEquals(IFreehand.FreeHandType.CURVES, fh.getType());
+		assertEquals(IFreeHandProp.FreeHandType.CURVES, fh.getType());
 		assertEquals(0, PSTParser.errorLogs().size());
 	}
 
@@ -169,7 +171,7 @@ public class TestParsingPscustom extends TestPSTParser {
 		assertEquals(8.1*IShape.PPC, fh.getPtAt(4).getX(), 0.001);
 		assertEquals(-0.37*IShape.PPC, fh.getPtAt(4).getY(), 0.001);
 		assertTrue(fh.isOpen());
-		assertEquals(IFreehand.FreeHandType.CURVES, fh.getType());
+		assertEquals(IFreeHandProp.FreeHandType.CURVES, fh.getType());
 		assertEquals(0, PSTParser.errorLogs().size());
 	}
 
@@ -186,7 +188,7 @@ public class TestParsingPscustom extends TestPSTParser {
 		assertEquals(-4.*IShape.PPC, fh.getPtAt(1).getY(), 0.001);
 		assertEquals(5.*IShape.PPC, fh.getPtAt(2).getX(), 0.001);
 		assertEquals(-6.*IShape.PPC, fh.getPtAt(2).getY(), 0.001);
-		assertEquals(IFreehand.FreeHandType.LINES, fh.getType());
+		assertEquals(IFreeHandProp.FreeHandType.LINES, fh.getType());
 		assertEquals(0, PSTParser.errorLogs().size());
 	}
 
@@ -199,7 +201,7 @@ public class TestParsingPscustom extends TestPSTParser {
 		assertEquals(-2.*IShape.PPC, fh.getPtAt(0).getY(), 0.001);
 		assertEquals(3.*IShape.PPC, fh.getPtAt(1).getX(), 0.001);
 		assertEquals(-4.*IShape.PPC, fh.getPtAt(1).getY(), 0.001);
-		assertEquals(IFreehand.FreeHandType.CURVES, fh.getType());
+		assertEquals(IFreeHandProp.FreeHandType.CURVES, fh.getType());
 		assertEquals(0, PSTParser.errorLogs().size());
 	}
 
@@ -212,7 +214,7 @@ public class TestParsingPscustom extends TestPSTParser {
 		assertEquals(-2.*IShape.PPC, fh.getPtAt(0).getY(), 0.001);
 		assertEquals(3.*IShape.PPC, fh.getPtAt(1).getX(), 0.001);
 		assertEquals(-4.*IShape.PPC, fh.getPtAt(1).getY(), 0.001);
-		assertEquals(IFreehand.FreeHandType.LINES, fh.getType());
+		assertEquals(IFreeHandProp.FreeHandType.LINES, fh.getType());
 		assertEquals(0, PSTParser.errorLogs().size());
 	}
 

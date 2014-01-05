@@ -5,10 +5,10 @@ import java.util.List;
 import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
-import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 
 import org.malai.undo.Undoable;
 
@@ -190,7 +190,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case GRID_LABELS_COLOUR: return shapes.isTypeOf(IGrid.class);
 				case FREEHAND_INTERVAL:
 				case FREEHAND_OPEN:
-				case FREEHAND_STYLE : return shapes.isTypeOf(IFreehand.class);
+				case FREEHAND_STYLE : return shapes.isTypeOf(IFreeHandProp.class);
 			}
 
 		return false;

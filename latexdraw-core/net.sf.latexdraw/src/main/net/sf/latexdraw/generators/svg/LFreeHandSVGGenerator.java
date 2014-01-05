@@ -6,7 +6,7 @@ import java.util.List;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.IFreehand.FreeHandType;
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 
 /**
  * Defines an interface that classes defining a group of shapes should implement.<br>
@@ -24,7 +25,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends ISetShapes, ILineArcShape, IText, IDot, IArc, IAxes, IGrid, IFreehand {
+public interface IGroup extends ISetShapes, ILineArcShape, IText, IDot, IArc, IAxes, IGrid, IFreeHandProp {
 	/**
 	 * Duplicates the group of shapes.
 	 * @param duplicateShapes True: the shapes will be duplicated as well.

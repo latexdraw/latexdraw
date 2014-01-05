@@ -2,7 +2,7 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.*;
 
-import net.sf.latexdraw.glib.models.interfaces.IFreehand.FreeHandType;
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
 
 import org.junit.Test;
 

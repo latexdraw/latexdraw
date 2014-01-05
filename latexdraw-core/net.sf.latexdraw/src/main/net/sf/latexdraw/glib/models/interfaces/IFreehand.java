@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
+
 /**
  * Defines an interface that classes defining a freehand shape should implement.<br>
  * <br>
@@ -19,57 +21,6 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public interface IFreehand extends IModifiablePointsShape {
-	/** The different types of freehand. */
-	public enum FreeHandType {
-		CURVES, LINES;
-
-		/**
-		 * @param type The type to check.
-		 * @return The corresponding type. Returns CURVES by default.
-		 * @since 3.0
-		 */
-		public static FreeHandType getType(final String type) {
-			for(final FreeHandType fh : values())
-				if(fh.toString().equals(type))
-					return fh;
-			return null;
-		}
-	}
-
-	/**
-	 * @return the type.
-	 * @since 3.0
-	 */
-	FreeHandType getType();
-
-	/**
-	 * @param type the type to set.
-	 * @since 3.0
-	 */
-	void setType(final FreeHandType type);
-
-	/**
-	 * @return the open.
-	 * @since 3.0
-	 */
-	boolean isOpen();
-
-	/**
-	 * @param open the open to set.
-	 * @since 3.0
-	 */
-	void setOpen(final boolean open);
-
-	/**
-	 * @return the interval.
-	 * @since 3.0
-	 */
-	int getInterval();
-
-	/**
-	 * @param interval the interval to set.
-	 * @since 3.0
-	 */
-	void setInterval(final int interval);
+public interface IFreehand extends IFreeHandProp, IModifiablePointsShape {
+	//
 }

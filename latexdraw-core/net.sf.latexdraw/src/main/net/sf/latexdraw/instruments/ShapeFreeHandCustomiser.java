@@ -9,9 +9,9 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
@@ -69,8 +69,8 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape.isTypeOf(IFreehand.class)) {
-			final IFreehand fh = (IFreehand)shape;
+		if(shape.isTypeOf(IFreeHandProp.class)) {
+			final IFreeHandProp fh = (IFreeHandProp)shape;
 			freeHandType.setSelectedItemSafely(fh.getType().toString());
 			gapPoints.setValueSafely(fh.getInterval());
 			open.setSelected(fh.isOpen());
@@ -92,10 +92,10 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 		freeHandType = new LabelComboBox();
 		freeHandType.setLabel(new JLabel(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.2")));
 		freeHandType.setRenderer(new LabelListCellRenderer());
-		JLabel label = new JLabel(IFreehand.FreeHandType.CURVES.toString());
+		JLabel label = new JLabel(IFreeHandProp.FreeHandType.CURVES.toString());
 		label.setIcon(LResources.CURVES_FREEHAND_ICON);
 		freeHandType.addItem(label);
-		label = new JLabel(IFreehand.FreeHandType.LINES.toString());
+		label = new JLabel(IFreeHandProp.FreeHandType.LINES.toString());
 		label.setIcon(LResources.LINES_FREEHAND_ICON);
 		freeHandType.addItem(label);
 		freeHandType.setPreferredSize(new Dimension(90, 30));
@@ -280,9 +280,9 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			action.setProperty(ShapeProperties.FREEHAND_STYLE);
-			if(getLabelText().equals(IFreehand.FreeHandType.CURVES.toString()))
-				 action.setValue(IFreehand.FreeHandType.CURVES);
-			else action.setValue(IFreehand.FreeHandType.LINES);
+			if(getLabelText().equals(IFreeHandProp.FreeHandType.CURVES.toString()))
+				 action.setValue(IFreeHandProp.FreeHandType.CURVES);
+			else action.setValue(IFreeHandProp.FreeHandType.LINES);
 		}
 	}
 

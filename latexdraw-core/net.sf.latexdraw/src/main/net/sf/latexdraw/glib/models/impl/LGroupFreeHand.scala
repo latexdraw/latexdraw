@@ -1,10 +1,9 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
-
-import net.sf.latexdraw.glib.models.interfaces.IFreehand
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
 
 /**
  * This trait encapsulates the code of the group related to the support of free hand shapes.<br>
@@ -26,22 +25,20 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
  */
 protected trait LGroupFreeHand extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstIFreeHand = fhShapes.find{_.isTypeOf(classOf[IFreehand])}
+	private def firstIFreeHand = fhShapes.find{_.isTypeOf(classOf[IFreeHandProp])}
 
-	private def fhShapes = getShapes.flatMap{case x:IFreehand => x::Nil; case _ => Nil}
+	private def fhShapes = getShapes.flatMap{case x:IFreeHandProp => x::Nil; case _ => Nil}
 
-	override def getType() : IFreehand.FreeHandType = {
+	override def getType() : IFreeHandProp.FreeHandType = {
 		firstIFreeHand match {
 			case Some(fh) => fh.getType
 			case _ => null
 		}
 	}
 
-
-	override def setType(fhType : IFreehand.FreeHandType) {
+	override def setType(fhType : IFreeHandProp.FreeHandType) {
 		fhShapes.foreach{_.setType(fhType)}
 	}
-
 
 	override def isOpen() : Boolean = {
 		firstIFreeHand match {
@@ -50,11 +47,9 @@ protected trait LGroupFreeHand extends IGroup {
 		}
 	}
 
-
 	override def setOpen(open : Boolean) {
 		fhShapes.foreach{_.setOpen(open)}
 	}
-
 
 	override def getInterval() : Int = {
 		firstIFreeHand match {
@@ -63,23 +58,7 @@ protected trait LGroupFreeHand extends IGroup {
 		}
 	}
 
-
 	override def setInterval(interval : Int) {
 		fhShapes.foreach{_.setInterval(interval)}
 	}
-
-
-	override def addPoint(pt : IPoint) = {}
-
-	override def addPoint(pt : IPoint, position : Int) = {}
-
-	override def removePoint(pt : IPoint) = false
-
-	override def removePoint(position : Int) : IPoint = null
-
-	override def setPoint(p : IPoint, position : Int)  = false
-
-	override def setPoint(x : Double, y : Double, position : Int) = false
-
-	override def replacePoint(pt : IPoint, position : Int) : IPoint = null
 }

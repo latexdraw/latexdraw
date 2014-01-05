@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.models.impl;
 
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 
 /**
  * Defines a model of a free hand shape.<br>
@@ -51,8 +52,8 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 	public void copy(final IShape sh) {
 		super.copy(sh);
 
-		if(sh instanceof IFreehand) {
-			final IFreehand fh = (IFreehand)sh;
+		if(sh instanceof IFreeHandProp) {
+			final IFreeHandProp fh = (IFreeHandProp)sh;
 			open 	= fh.isOpen();
 			interval= fh.getInterval();
 			type 	= fh.getType();
