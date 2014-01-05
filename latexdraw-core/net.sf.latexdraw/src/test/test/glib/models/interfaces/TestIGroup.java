@@ -570,13 +570,6 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Override
 	@Test
-	public void testGetSetOpacity() {
-		//TODO
-	}
-
-
-	@Override
-	@Test
 	public void testSetGetThickness() {
 		//TODO
 	}

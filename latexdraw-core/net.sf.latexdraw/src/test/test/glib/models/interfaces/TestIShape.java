@@ -109,7 +109,6 @@ public abstract class TestIShape<T extends IShape> {
 		if(shape2.isArrowable())
 			shape2.getArrows().add(DrawingTK.getFactory().createArrow(shape));
 
-		shape2.setOpacity(0.8);
 		shape2.setRotationAngle(-30);
 
 		shape.copy(shape2);
@@ -155,8 +154,6 @@ public abstract class TestIShape<T extends IShape> {
 		if(shape.isShowPtsable())
 			assertEquals(shape.isShowPts(), shape2.isShowPts());
 
-		HelperTest.assertEqualsDouble(shape2.getOpacity(), 0.8);
-		HelperTest.assertEqualsDouble(shape.getOpacity(), shape2.getOpacity());
 		HelperTest.assertEqualsDouble(shape.getRotationAngle(), shape2.getRotationAngle());
 
 		assertEquals(shape.getPoints().size(), shape2.getPoints().size());
@@ -768,33 +765,6 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(BorderPos.INTO, shape.getBordersPosition());
 		}
 	}
-
-
-	@Test
-	public void testGetSetOpacity() {
-		HelperTest.assertEqualsDouble(1., shape.getOpacity());
-		shape.setOpacity(0.5);
-		HelperTest.assertEqualsDouble(0.5, shape.getOpacity());
-		shape.setOpacity(0.);
-		HelperTest.assertEqualsDouble(0., shape.getOpacity());
-		shape.setOpacity(1);
-		HelperTest.assertEqualsDouble(1., shape.getOpacity());
-		shape.setOpacity(0.6);
-		HelperTest.assertEqualsDouble(0.6, shape.getOpacity());
-		shape.setOpacity(Double.NaN);
-		HelperTest.assertEqualsDouble(0.6, shape.getOpacity());
-		shape.setOpacity(Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(0.6, shape.getOpacity());
-		shape.setOpacity(Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(0.6, shape.getOpacity());
-		shape.setOpacity(-0.0001);
-		HelperTest.assertEqualsDouble(0.6, shape.getOpacity());
-		shape.setOpacity(1.001);
-		HelperTest.assertEqualsDouble(0.6, shape.getOpacity());
-	}
-
-
-
 
 
 	@Test

@@ -842,18 +842,6 @@ public interface IShape extends Modifiable, IArrowable {
 	boolean shadowFillsShape();
 
 	/**
-	 * @return the opacity between 0 and 1 included.
-	 * @since 3.0
-	 */
-	double getOpacity();
-
-	/**
-	 * @param opacity the opacity to set. Must be in [0,1].
-	 * @since 3.0
-	 */
-	void setOpacity(final double opacity);
-
-	/**
 	 * Computes the gap created by the thickness, the double borders and the position
 	 * of the border. For example, it helps to compute the top left point that considers
 	 * the attributes of the shape (thickness, double borders,...).

@@ -40,9 +40,6 @@ abstract class LShape implements IShape {
 	/** The increment used to define the ID of the shapes. */
 	private static int number = 0;
 
-	/** The opacity of the shape (in [0;1]). */
-	protected double opacity;
-
 	/** The thickness of the lines of the shape in pixels. */
 	protected double thickness;
 
@@ -167,7 +164,6 @@ abstract class LShape implements IShape {
 		gradColEnd		= PSTricksConstants.DEFAULT_GRADIENT_END_COLOR;
 		gradMidPt		= PSTricksConstants.DEFAULT_GRADIENT_MID_POINT;
 		showPts			= false;
-		opacity			= 1.;
 		points			= new ArrayList<>();
 
 		if(uniqueID)
@@ -214,7 +210,6 @@ abstract class LShape implements IShape {
 		setGradColEnd(s.getGradColEnd());
 		setGradMidPt(s.getGradMidPt());
 		setShowPts(s.isShowPts());
-		setOpacity(s.getOpacity());
 
 		copyPoints(s);
 
@@ -454,13 +449,6 @@ abstract class LShape implements IShape {
 	public int getNbPoints() {
 		return points.size();
 	}
-
-
-	@Override
-	public double getOpacity() {
-		return opacity;
-	}
-
 
 	@Override
 	public List<IPoint> getPoints() {
@@ -818,13 +806,6 @@ abstract class LShape implements IShape {
 	@Override
 	public void setNewId() {
 		setId(++number);
-	}
-
-
-	@Override
-	public void setOpacity(final double opacity) {
-		if(GLibUtilities.isValidCoordinate(opacity) && opacity>=0. && opacity<=1.)
-			this.opacity = opacity;
 	}
 
 
