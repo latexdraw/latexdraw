@@ -142,7 +142,7 @@ class LArrowSVGGenerator {
 		arrow.setTBarSizeNum(tbarNum);
 		arrow.setTBarSizeDim(y*lineWidth*2. - tbarNum*lineWidth);
 
-		if((seg instanceof SVGPathSegLineto && LNumber.equalsDouble(((SVGPathSegLineto)seg).getX(), m.getX())) || (seg instanceof SVGPathSegLinetoVertical))
+		if(seg instanceof SVGPathSegLineto && LNumber.equalsDouble(((SVGPathSegLineto)seg).getX(), m.getX()) || seg instanceof SVGPathSegLinetoVertical)
 			arrow.setArrowStyle(LNumber.equalsDouble(m.getX(),0.) ? ArrowStyle.BAR_IN : ArrowStyle.BAR_END);
 		else if(seg instanceof SVGPathSegCurvetoCubic) {
 			double width  = (arrow.getTBarSizeDim() + arrow.getTBarSizeNum()*lineWidth)/lineWidth;
@@ -159,7 +159,7 @@ class LArrowSVGGenerator {
 
 			y = y + (m.getY()>0. ? -0.5 : 0.5);
 			arrow.setTBarSizeDim(y*lineWidth*2. - tbarNum*lineWidth);
-			arrow.setBracketNum(((lgth-0.5)*lineWidth)/(arrow.getTBarSizeDim()/IShape.PPC + arrow.getTBarSizeNum()*lineWidth));
+			arrow.setBracketNum((lgth-0.5)*lineWidth/(arrow.getTBarSizeDim()/IShape.PPC + arrow.getTBarSizeNum()*lineWidth));
 			arrow.setArrowStyle(elt.getRefX()>0.? ArrowStyle.RIGHT_SQUARE_BRACKET : ArrowStyle.LEFT_SQUARE_BRACKET);
 		}
 	}
@@ -198,7 +198,7 @@ class LArrowSVGGenerator {
 			arrow.setArrowLength(lgth/((arrNum*lineWidth + arrDim)/lineWidth));
 			arrow.setArrowSizeDim(arrDim);
 			arrow.setArrowSizeNum(arrNum);
-			arrow.setArrowInset((Math.abs(((SVGPathSegLineto)seg).getX()-((SVGPathSegLineto)list.get(2)).getX()))/lgth);
+			arrow.setArrowInset(Math.abs(((SVGPathSegLineto)seg).getX()-((SVGPathSegLineto)list.get(2)).getX())/lgth);
 	}
 
 
@@ -279,7 +279,7 @@ class LArrowSVGGenerator {
 		final SVGPathElement bar 	= new SVGPathElement(doc);
 		final double width 			= arrow.getTBarSizeDim() + arrow.getTBarSizeNum()*lineWidth;
 		final SVGPathSegList path 	= new SVGPathSegList();
-		final double lgth 			= (arrow.getBracketNum()*(arrow.getTBarSizeDim()/IShape.PPC + arrow.getTBarSizeNum()*lineWidth))/lineWidth;
+		final double lgth 			= arrow.getBracketNum()*(arrow.getTBarSizeDim()/IShape.PPC + arrow.getTBarSizeNum()*lineWidth)/lineWidth;
 		final boolean isInverted  	= arrow.isInverted();//FIXME shape.PPC
 		double gapPostion;
 
@@ -417,10 +417,9 @@ class LArrowSVGGenerator {
 		if(doc==null || !arrow.hasStyle())
 			return null;
 
-		final IShape shape 			= arrow.getShape();
 		final ArrowStyle arrowStyle = arrow.getArrowStyle();
 		final SVGElement marker 	= new SVGMarkerElement(doc);
-		final double lineWidth  	= shape.hasDbleBord() ? shape.getDbleBordSep() + 2.*shape.getThickness() : shape.getThickness();
+		final double lineWidth  	= arrow.getShape().getFullThickness();
 		double gapPostion 			= 0.;
 
 		if(arrowStyle==ArrowStyle.CIRCLE_END || arrowStyle==ArrowStyle.CIRCLE_IN)
