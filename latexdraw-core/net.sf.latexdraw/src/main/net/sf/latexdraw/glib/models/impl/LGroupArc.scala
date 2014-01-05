@@ -77,7 +77,7 @@ protected trait LGroupArc extends IGroup {
 
 	override def setCentre(centre : IPoint) = {}
 
-	override def getIntersection(line : ILine) : Array[IPoint] = null
+//	override def getIntersection(line : ILine) : Array[IPoint] = null
 
 	override def setWidth(width : Double) = {}
 

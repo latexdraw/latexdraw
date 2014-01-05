@@ -40,13 +40,4 @@ public interface IEllipse extends IRectangularShape {
 	 * @since 3.0
 	 */
 	void setCentre(final IPoint centre);
-
-
-	/**
-	 * Computes the intersection points between the ellipse and the given line.
-	 * @param line The line to test.
-	 * @return 1 or 2 points or null.
-	 * @since 3.0
-	 */
-	IPoint[] getIntersection(final ILine line);
 }
