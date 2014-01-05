@@ -11,7 +11,7 @@ import test.HelperTest;
 public abstract class TestIArc<T extends IArc> extends TestIEllipse<T> {
 	@Test
 	public void testGetStartPoint() {
-		shape.setRx(1);
+		shape.setWidth(2.0);
 		shape.setPosition(-1, -1);
 
 		shape.setAngleStart(0);

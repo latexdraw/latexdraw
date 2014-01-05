@@ -76,7 +76,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 		final double dec = 100.;
 		final ILine tgt = new LLine(pt.getX(), pt.getY(), 0., 0.);
 
-		if(((float)angle)%((float)Math.PI)<=0.01) {
+		if((float)angle%(float)Math.PI<=0.01) {
 			tgt.setX2(pt.getX());
 			if(orientation)
 				 tgt.setY2(pt.getY() - dec);
@@ -87,7 +87,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 				 tgt.setX2(pt.getX()-dec);
 			else tgt.setX2(pt.getX()+dec);
 
-			if(((float)angle)%((float)Math.PI/2f)<=0.01)
+			if((float)angle%((float)Math.PI/2f)<=0.01)
 				 tgt.setY2(pt.getY());
 			else tgt.setY2(-(b*(pt.getX()-gc.getX())*(tgt.getX2()-pt.getX()))/(a*(pt.getY()-gc.getY())) + pt.getY());
 		}
@@ -149,48 +149,6 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	}
 
 
-
-	@Override
-	public double getRx() {
-		return getWidth()/2.;
-	}
-
-
-	@Override
-	public double getRy() {
-		return getHeight()/2.;
-	}
-
-
-
-	@Override
-	public void setRx(final double rx) {
-		if(rx<=0 && !GLibUtilities.isValidCoordinate(rx))
-			return ;
-
-		double cx = getGravityCentre().getX();
-
-		points.get(0).setX(cx-rx);
-		points.get(3).setX(cx-rx);
-		points.get(1).setX(cx+rx);
-		points.get(2).setX(cx+rx);
-	}
-
-
-	@Override
-	public void setRy(final double ry) {
-		if(ry<=0 && !GLibUtilities.isValidCoordinate(ry))
-			return ;
-
-		double cy = getGravityCentre().getY();
-
-		points.get(0).setY(cy-ry);
-		points.get(3).setY(cy-ry);
-		points.get(1).setY(cy+ry);
-		points.get(2).setY(cy+ry);
-	}
-
-
 	@Override
 	public void setCentre(final IPoint centre) {
 		if(!GLibUtilities.isValidPoint(centre))
@@ -204,8 +162,8 @@ class LEllipse extends LRectangularShape implements IEllipse {
 
 	@Override
 	public double getA() {
-		double rx = getRx();
-		double ry = getRy();
+		double rx = getWidth()/2.;
+		double ry = getHeight()/2.;
 
 		return rx<ry ? ry : rx;
 	}
@@ -213,8 +171,8 @@ class LEllipse extends LRectangularShape implements IEllipse {
 
 	@Override
 	public double getB() {
-		double rx = getRx();
-		double ry = getRy();
+		double rx = getWidth()/2.;
+		double ry = getHeight()/2.;
 
 		return rx>ry ? ry : rx;
 	}

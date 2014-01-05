@@ -14,66 +14,6 @@ import test.HelperTest;
 
 public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularShape<T> {
 	@Test
-	public void testGetRx() {
-		shape.setPosition(10, 5);
-		shape.setWidth(20);
-		shape.setHeight(15);
-
-		HelperTest.assertEqualsDouble(10., shape.getRx());
-		shape.setHeight(10);
-		shape.setWidth(5);
-
-		HelperTest.assertEqualsDouble(2.5, shape.getRx());
-	}
-
-
-	@Test
-	public void testGetRy() {
-		shape.setPosition(10, 5);
-		shape.setWidth(20);
-		shape.setHeight(15);
-
-		HelperTest.assertEqualsDouble(7.5, shape.getRy());
-		shape.setHeight(10);
-		shape.setWidth(5);
-
-		HelperTest.assertEqualsDouble(5., shape.getRy());
-	}
-
-
-	@Test
-	public void testSetRx() {
-		shape.setPosition(10, 5);
-		shape.setRx(10.);
-		HelperTest.assertEqualsDouble(10., shape.getRx());
-		shape.setRx(20.);
-		HelperTest.assertEqualsDouble(20., shape.getRx());
-		shape.setRx(Double.NaN);
-		HelperTest.assertEqualsDouble(20., shape.getRx());
-		shape.setRx(Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(20., shape.getRx());
-		shape.setRx(Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(20., shape.getRx());
-	}
-
-
-	@Test
-	public void testSetRy() {
-		shape.setPosition(10, 5);
-		shape.setRy(10.);
-		HelperTest.assertEqualsDouble(10., shape.getRy());
-		shape.setRy(20.);
-		HelperTest.assertEqualsDouble(20., shape.getRy());
-		shape.setRy(Double.NaN);
-		HelperTest.assertEqualsDouble(20., shape.getRy());
-		shape.setRy(Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(20., shape.getRy());
-		shape.setRy(Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(20., shape.getRy());
-	}
-
-
-	@Test
 	public void testGetIntersectionHoriz1() {
 		ILine line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(-10,0), ShapeFactory.factory().createPoint(10,0));
 		shape.setPosition(-1,1);

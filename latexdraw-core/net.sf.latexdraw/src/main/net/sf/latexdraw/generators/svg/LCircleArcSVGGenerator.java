@@ -126,7 +126,7 @@ class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
         SVGElement root 	 = new SVGGElement(doc);
         IPoint start 		 = shape.getStartPoint();
         IPoint end 			 = shape.getEndPoint();
-        double radius 		 = shape.getRx();
+        double radius 		 = shape.getWidth()/2.0;
         boolean largeArcFlag = Math.abs(startAngle-endAngle)>=Math.PI || startAngle>endAngle;
         SVGPathSegList path  = new SVGPathSegList();
         SVGElement elt;

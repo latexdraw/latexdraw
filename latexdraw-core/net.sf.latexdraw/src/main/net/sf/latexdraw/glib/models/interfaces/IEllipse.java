@@ -35,33 +35,6 @@ public interface IEllipse extends IRectangularShape {
 
 
 	/**
-	 * @return The x radius of the ellipse.
-	 * @since 3.0
-	 */
-	double getRx();
-
-	/**
-	 * @return The y radius of the ellipse.
-	 * @since 3.0
-	 */
-	double getRy();
-
-	/**
-	 * Sets the x radius of the ellipse.
-	 * @param rx The new x radius.
-	 * @since 3.0
-	 */
-	void setRx(final double rx);
-
-	/**
-	 * Sets the y radius of the ellipse.
-	 * @param ry The new y radius.
-	 * @since 3.0
-	 */
-	void setRy(final double ry);
-
-
-	/**
 	 * Translates the shape to its new centre.
 	 * @param centre The new centre.
 	 * @since 3.0

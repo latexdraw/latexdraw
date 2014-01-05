@@ -103,27 +103,14 @@ class LCircle extends LEllipse implements ICircle {
 
 
 	@Override
-	public void setRx(final double rx) {
-		super.setRx(rx);
-		super.setRy(rx);
-	}
-
-
-	@Override
-	public void setRy(final double rx) {
-		setRx(rx);
-	}
-
-
-	@Override
 	public double getA() {
-		return getRx();
+		return getWidth();
 	}
 
 
 	@Override
 	public double getB() {
-		return getRx();
+		return getA();
 	}
 
 

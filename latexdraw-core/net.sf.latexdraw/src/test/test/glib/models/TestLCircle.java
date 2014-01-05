@@ -48,7 +48,6 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 		ICircle circle = ShapeFactory.factory().createCircle(false);
 
 		assertEquals(4, circle.getNbPoints());
-		HelperTest.assertEqualsDouble(circle.getRx(), circle.getRy());
 		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
 		assertTrue(circle.getHeight()>0);
 	}
@@ -59,7 +58,6 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 		ICircle circle = ShapeFactory.factory().createCircle(false);
 
 		HelperTest.assertEqualsDouble(4, circle.getNbPoints());
-		HelperTest.assertEqualsDouble(circle.getRx(), circle.getRy());
 		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
 		assertTrue(circle.getHeight()>0);
 	}
@@ -100,7 +98,6 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 		HelperTest.assertEqualsDouble(2., circle.getGravityCentre().getY());
 		HelperTest.assertEqualsDouble(20., circle.getWidth());
 		assertEquals(4, circle.getNbPoints());
-		HelperTest.assertEqualsDouble(circle.getRx(), circle.getRy());
 		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
 	}
 }

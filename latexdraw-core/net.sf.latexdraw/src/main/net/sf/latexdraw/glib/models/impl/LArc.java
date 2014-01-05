@@ -119,14 +119,14 @@ class LArc extends LEllipse implements IArc {
 	@Override
 	public IPoint getEndPoint() {
 		final IPoint gravityCentre = getGravityCentre();
-		return new LPoint(gravityCentre.getX()+Math.cos(endAngle)*getRy(), gravityCentre.getY()-Math.sin(endAngle)*getRy());
+		return new LPoint(gravityCentre.getX()+Math.cos(endAngle)*getHeight()/2.0, gravityCentre.getY()-Math.sin(endAngle)*getHeight()/2.0);
 	}
 
 
 	@Override
 	public IPoint getStartPoint() {
 		final IPoint gravityCentre = getGravityCentre();
-		return new LPoint(gravityCentre.getX()+Math.cos(startAngle)*getRx(), gravityCentre.getY()-Math.sin(startAngle)*getRx());
+		return new LPoint(gravityCentre.getX()+Math.cos(startAngle)*getWidth()/2.0, gravityCentre.getY()-Math.sin(startAngle)*getWidth()/2.0);
 	}
 
 

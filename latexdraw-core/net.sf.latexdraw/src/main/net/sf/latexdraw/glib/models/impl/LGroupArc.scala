@@ -75,14 +75,6 @@ protected trait LGroupArc extends IGroup {
 
 	override def getB() = Double.NaN
 
-	override def getRx() = Double.NaN
-
-	override def getRy() = Double.NaN
-
-	override def setRx(rx : Double) = {}
-
-	override def setRy(ry : Double) = {}
-
 	override def setCentre(centre : IPoint) = {}
 
 	override def getIntersection(line : ILine) : Array[IPoint] = null
