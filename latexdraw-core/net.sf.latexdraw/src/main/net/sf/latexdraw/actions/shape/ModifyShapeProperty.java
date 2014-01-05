@@ -7,8 +7,8 @@ import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 
 import org.malai.undo.Undoable;
 
@@ -163,7 +163,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case GRID_LABEL_POSITION_Y:
 				case GRID_LABEL_POSITION_X:
 				case GRID_SIZE_LABEL:
-				case GRID_ORIGIN:		return shapes.isTypeOf(IStandardGrid.class);
+				case GRID_ORIGIN:		return shapes.isTypeOf(IStdGridProp.class);
 				case ARC_END_ANGLE:
 				case ARC_START_ANGLE:
 				case ARC_STYLE: return shapes.isTypeOf(IArc.class);

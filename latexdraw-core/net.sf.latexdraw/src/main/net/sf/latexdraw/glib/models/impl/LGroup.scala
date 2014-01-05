@@ -3,9 +3,7 @@ package net.sf.latexdraw.glib.models.impl
 import java.awt.Color
 import java.util.ArrayList
 import java.util.List
-
 import scala.collection.JavaConversions.asScalaBuffer
-
 import net.sf.latexdraw.glib.models.interfaces.IArc
 import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle
@@ -25,9 +23,9 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
 import net.sf.latexdraw.glib.models.interfaces.IText
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition
+import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
 
 /**
  * A Group is a group of IShape instances.<br>
@@ -490,8 +488,8 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size) {
 				pt = values.get(i)
-				if(pt!=null && shapes.get(i).isInstanceOf[IStandardGrid])
-					shapes.get(i).asInstanceOf[IStandardGrid].setOrigin(pt.getX, pt.getY)
+				if(pt!=null && shapes.get(i).isInstanceOf[IStdGridProp])
+					shapes.get(i).asInstanceOf[IStdGridProp].setOrigin(pt.getX, pt.getY)
 			}
 	}
 
@@ -499,7 +497,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getGridOriginList() : List[IPoint] = {
 		val list = new ArrayList[IPoint]()
 		shapes.foreach{_ match {
-				case grid : IStandardGrid => list.add(new LPoint(grid.getOriginX, grid.getOriginY))
+				case grid : IStdGridProp => list.add(new LPoint(grid.getOriginX, grid.getOriginY))
 				case _ => list.add(null)
 			}
 		}
@@ -512,8 +510,8 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size) {
 				pt = values.get(i)
-				if(pt!=null && shapes.get(i).isInstanceOf[IStandardGrid])
-					shapes.get(i).asInstanceOf[IStandardGrid].setGridEnd(pt.getX, pt.getY)
+				if(pt!=null && shapes.get(i).isInstanceOf[IStdGridProp])
+					shapes.get(i).asInstanceOf[IStdGridProp].setGridEnd(pt.getX, pt.getY)
 			}
 	}
 
@@ -523,8 +521,8 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size) {
 				pt = values.get(i)
-				if(pt!=null && shapes.get(i).isInstanceOf[IStandardGrid])
-					shapes.get(i).asInstanceOf[IStandardGrid].setGridStart(pt.getX, pt.getY)
+				if(pt!=null && shapes.get(i).isInstanceOf[IStdGridProp])
+					shapes.get(i).asInstanceOf[IStdGridProp].setGridStart(pt.getX, pt.getY)
 			}
 	}
 
@@ -532,7 +530,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getGridStartList() : List[IPoint] = {
 		val list = new ArrayList[IPoint]()
 		shapes.foreach{_ match {
-				case grid : IStandardGrid => list.add(grid.getGridStart)
+				case grid : IStdGridProp => list.add(grid.getGridStart)
 				case _ => list.add(null)
 			}
 		}
@@ -543,7 +541,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getGridEndList() : List[IPoint] = {
 		val list = new ArrayList[IPoint]()
 		shapes.foreach{_ match {
-				case grid : IStandardGrid => list.add(grid.getGridEnd)
+				case grid : IStdGridProp => list.add(grid.getGridEnd)
 				case _ => list.add(null)
 			}
 		}

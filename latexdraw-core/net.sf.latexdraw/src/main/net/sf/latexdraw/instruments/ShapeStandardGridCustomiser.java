@@ -11,7 +11,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
+import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.swing.ui.UIComposer;
@@ -74,8 +74,8 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape.isTypeOf(IStandardGrid.class)) {
-			final IStandardGrid grid = (IStandardGrid)shape;
+		if(shape.isTypeOf(IStdGridProp.class)) {
+			final IStdGridProp grid = (IStdGridProp)shape;
 
 			((MSpinner.MSpinnerNumberModel)xStartS.getModel()).setMaximumSafely(grid.getGridEndX());
 			((MSpinner.MSpinnerNumberModel)yStartS.getModel()).setMaximumSafely(grid.getGridEndY());

@@ -4,7 +4,7 @@ import scala.collection.JavaConversions.asScalaBuffer
 
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
+import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
 
 /**
  * This trait encapsulates the code of the group related to the support of standard grids.<br>
@@ -26,9 +26,9 @@ import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
  */
 protected trait LGroupStdGrid extends IGroup {
 	/** May return the first stdGrid of the group. */
-	private def firstIStdGrid = gridShapes.find{_.isTypeOf(classOf[IStandardGrid])}
+	private def firstIStdGrid = gridShapes.find{_.isTypeOf(classOf[IStdGridProp])}
 
-	private def gridShapes = getShapes.flatMap{case x:IStandardGrid => x::Nil; case _ => Nil}
+	private def gridShapes = getShapes.flatMap{case x:IStdGridProp => x::Nil; case _ => Nil}
 
 	override def getGridMinX() : Double =
 		firstIStdGrid match {
