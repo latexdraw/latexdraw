@@ -4,7 +4,7 @@ import java.awt.Color
 
 import scala.collection.JavaConversions.asScalaBuffer
 
-import net.sf.latexdraw.glib.models.interfaces.IDot
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 
 /**
@@ -27,9 +27,9 @@ import net.sf.latexdraw.glib.models.interfaces.IGroup
  */
 protected trait LGroupDot extends IGroup {
 	/** May return the first grid of the group. */
-	private def firstDottable = dotShapes.find{_.isTypeOf(classOf[IDot])}
+	private def firstDottable = dotShapes.find{_.isTypeOf(classOf[IDotProp])}
 
-	private def dotShapes = getShapes.flatMap{case x:IDot => x::Nil; case _ => Nil}
+	private def dotShapes = getShapes.flatMap{case x:IDotProp => x::Nil; case _ => Nil}
 
 	override def getDotFillingCol() : Color = {
 		firstDottable match {
@@ -44,7 +44,7 @@ protected trait LGroupDot extends IGroup {
 	}
 
 
-	override def getDotStyle() : IDot.DotStyle = {
+	override def getDotStyle() : IDotProp.DotStyle = {
 		firstDottable match {
 			case Some(dot) => dot.getDotStyle
 			case _ => null
@@ -52,7 +52,7 @@ protected trait LGroupDot extends IGroup {
 	}
 
 
-	override def setDotStyle(style : IDot.DotStyle) {
+	override def setDotStyle(style : IDotProp.DotStyle) {
 		dotShapes.foreach{_.setDotStyle(style)}
 	}
 
@@ -67,61 +67,5 @@ protected trait LGroupDot extends IGroup {
 
 	override def setRadius(radius : Double) {
 		dotShapes.foreach{_.setRadius(radius)}
-	}
-
-	override def getLazyTopLeftPoint() = {
-		firstDottable match {
-			case Some(dot) => dot.getLazyTopLeftPoint
-			case _ => null
-		}
-	}
-
-	override def getLazyBottomRightPoint() = {
-		firstDottable match {
-			case Some(dot) => dot.getLazyBottomRightPoint
-			case _ => null
-		}
-	}
-
-	override def getPlusGap() = {
-		firstDottable match {
-			case Some(dot) => dot.getPlusGap
-			case _ => Double.NaN
-		}
-	}
-
-	override def getCrossGap() = {
-		firstDottable match {
-			case Some(dot) => dot.getCrossGap
-			case _ => Double.NaN
-		}
-	}
-
-	override def getBarGap() = {
-		firstDottable match {
-			case Some(dot) => dot.getBarGap
-			case _ => Double.NaN
-		}
-	}
-
-	override def getBarThickness() = {
-		firstDottable match {
-			case Some(dot) => dot.getBarThickness
-			case _ => Double.NaN
-		}
-	}
-
-	override def getGeneralGap() = {
-		firstDottable match {
-			case Some(dot) => dot.getGeneralGap
-			case _ => Double.NaN
-		}
-	}
-
-	override def getOGap() = {
-		firstDottable match {
-			case Some(dot) => dot.getOGap
-			case _ => Double.NaN
-		}
 	}
 }

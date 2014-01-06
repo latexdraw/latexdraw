@@ -5,6 +5,7 @@ import java.awt.Color
 import net.sf.latexdraw.glib.models.interfaces.IArrow
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
 import net.sf.latexdraw.glib.models.interfaces.IDot
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
@@ -109,7 +110,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : Tuple2[IA
 		var arcSep : Double, var arcSepA : Double, var arcSepB : Double, var boxSep : Boolean,
 		var borderColor : Color, var borderPos : IShape.BorderPos, var border : Double, var curvature : Tuple3[Double, Double, Double],
 		var dxIncrement : Double, var dyIncrement : Double, var dxLabelDist : Double, var dyLabelDist : Double,
-		var dotStyle : IDot.DotStyle, var dotScale : Tuple2[Double,Double], var dotAngle : Double, var dotSep : Double,
+		var dotStyle : IDotProp.DotStyle, var dotScale : Tuple2[Double,Double], var dotAngle : Double, var dotSep : Double,
 		var dash : Tuple2[Double,Double], var dbleLine : Boolean, var dbleSep : Double, var dbleColor : Color,
 		var degrees : Double, var frameSep : Double, var frameArc : Double, var fillStyle : IShape.FillingStyle, var fillColor : Color,
 		var gridWidth : Double, var gridLabel : Double, var gridDots : Double, var gradAngle : Double, var gridColor : Color,
@@ -344,7 +345,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : Tuple2[IA
 				case "arrowinset" if(value.isInstanceOf[Double]) => arrowInset = value.asInstanceOf[Double]
 				case "plotpoints" if(value.isInstanceOf[Int]) => plotPoints = value.asInstanceOf[Int]
 				case "plotstyle" if(value.isInstanceOf[String]) => plotStyle = value.asInstanceOf[String]
-				case "dotstyle" if(value.isInstanceOf[IDot.DotStyle]) => dotStyle = value.asInstanceOf[IDot.DotStyle]
+				case "dotstyle" if(value.isInstanceOf[IDotProp.DotStyle]) => dotStyle = value.asInstanceOf[IDotProp.DotStyle]
 				case "cornersize" if(value.isInstanceOf[Boolean]) => isCornerRel = value.asInstanceOf[Boolean]
 				case "origin" if(value.isInstanceOf[PointUnit]) => origin = value.asInstanceOf[PointUnit]
 				case "liftpen" if(value.isInstanceOf[Int]) => liftpen = value.asInstanceOf[Int]

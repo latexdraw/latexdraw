@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArc
 import net.sf.latexdraw.glib.models.interfaces.IArrow
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
 
 /**
  * A parser grouping parsers parsing arcs.<br>
@@ -32,7 +33,7 @@ trait PSWedgeArcParser extends PSTAbstractParser
 	def parsePswedge(ctx : PSTContext) : Parser[List[IShape]] =
 		("\\pswedge*" | "\\pswedge") ~ opt(parseParam(ctx)) ~ opt(parseCoord(ctx)) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^ {
 		case cmdName ~ _ ~ posRaw ~ radiusStr ~ angle1Str ~ angle2Str =>
-		createArc(IArc.ArcStyle.WEDGE, cmdName.endsWith("*"), posRaw, radiusStr, angle1Str, angle2Str, None, ctx, false) match {
+		createArc(IArcProp.ArcStyle.WEDGE, cmdName.endsWith("*"), posRaw, radiusStr, angle1Str, angle2Str, None, ctx, false) match {
 			case Some(shape) => List(shape)
 			case None => Nil
 		}
@@ -98,14 +99,14 @@ trait PSWedgeArcParser extends PSTAbstractParser
 
 		posRaw match {
 			// If the position is defined, that means that the last bracket block is defined as well.
-			case Some(value) => arc = createArc(IArc.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, radiusRaw, angle1Raw,
+			case Some(value) => arc = createArc(IArcProp.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, radiusRaw, angle1Raw,
 												angle2Raw.get, firstBracketRaw, ctx, inverted)
 			case None =>
 				// Otherwise, the last bracket block must be check to define if there is an arrow block.
 				angle2Raw match {
-					case Some(value) => arc = createArc(IArc.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, radiusRaw, angle1Raw,
+					case Some(value) => arc = createArc(IArcProp.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, radiusRaw, angle1Raw,
 														value, firstBracketRaw, ctx, inverted)
-					case None => arc = createArc(IArc.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, firstBracketRaw.get, radiusRaw,
+					case None => arc = createArc(IArcProp.ArcStyle.ARC, cmdName.endsWith("*"), posRaw, firstBracketRaw.get, radiusRaw,
 												angle1Raw, firstBracketRaw, ctx, inverted)
 				}
 		}
@@ -122,7 +123,7 @@ trait PSWedgeArcParser extends PSTAbstractParser
 	/**
 	 * Creates an arc using the given parameters.
 	 */
-	private def createArc(arcType : IArc.ArcStyle, hasStar : Boolean, posRaw : Option[PointUnit], radiusStr : String, angle1Str : String,
+	private def createArc(arcType : IArcProp.ArcStyle, hasStar : Boolean, posRaw : Option[PointUnit], radiusStr : String, angle1Str : String,
 						angle2Str : String, arrows : Option[String], ctx : PSTContext, inverted : Boolean) : Option[IArc] = {
 		val radius = parseValueDim(radiusStr) match {
 			case Some(value) => value._1

@@ -6,6 +6,7 @@ import net.sf.latexdraw.actions.Modifying;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
@@ -141,7 +142,6 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case COLOUR_FILLING:	return shapes.isFillable();
 				case COLOUR_GRADIENT_END:
 				case COLOUR_GRADIENT_START:
-				case DOT_FILLING_COL:
 				case LINE_STYLE:		return shapes.isLineStylable();
 				case LINE_THICKNESS:	return shapes.isThicknessable();
 				case DBLE_BORDERS_SIZE:
@@ -169,7 +169,8 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case ARC_STYLE: return shapes.isTypeOf(IArcProp.class);
 				case ROUND_CORNER_VALUE:
 				case DOT_SIZE:
-				case DOT_STYLE:
+				case DOT_FILLING_COL:
+				case DOT_STYLE:	return shapes.isTypeOf(IDotProp.class);
 				case TEXT:
 				case TEXT_POSITION:
 				case COLOUR_LINE:		return true;

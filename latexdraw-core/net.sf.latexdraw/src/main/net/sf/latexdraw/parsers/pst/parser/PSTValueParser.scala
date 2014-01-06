@@ -1,13 +1,13 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import java.awt.Color
+
+import net.sf.latexdraw.glib.models.interfaces.IArrow
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
+import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
 import net.sf.latexdraw.glib.views.latex.DviPsColors
-import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
-import net.sf.latexdraw.glib.models.interfaces.IArrow
-import net.sf.latexdraw.glib.models.interfaces.IDot
-import net.sf.latexdraw.glib.models.interfaces.IGrid
 
 
 /**
@@ -187,24 +187,24 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the line styles.
 	 */
-	def parseValueDotStyle(value : String) : Option[IDot.DotStyle] =
+	def parseValueDotStyle(value : String) : Option[IDotProp.DotStyle] =
 		value.replace(" ", "") match {
-			case PSTricksConstants.ASTERISK_STYLE => Some(IDot.DotStyle.ASTERISK)
-			case PSTricksConstants.BAR_STYLE => Some(IDot.DotStyle.BAR)
-			case PSTricksConstants.DIAMOND_STYLE => Some(IDot.DotStyle.DIAMOND)
-			case PSTricksConstants.DOT_STYLE => Some(IDot.DotStyle.DOT)
-			case PSTricksConstants.FDIAMOND_STYLE => Some(IDot.DotStyle.FDIAMOND)
-			case PSTricksConstants.FPENTAGON_STYLE => Some(IDot.DotStyle.FPENTAGON)
-			case PSTricksConstants.FSQUARE_STYLE => Some(IDot.DotStyle.FSQUARE)
-			case PSTricksConstants.FTRIANGLE_STYLE => Some(IDot.DotStyle.FTRIANGLE)
-			case PSTricksConstants.O_STYLE => Some(IDot.DotStyle.O)
-			case PSTricksConstants.OPLUS_STYLE => Some(IDot.DotStyle.OPLUS)
-			case PSTricksConstants.OTIMES_STYLE => Some(IDot.DotStyle.OTIMES)
-			case PSTricksConstants.PENTAGON_STYLE => Some(IDot.DotStyle.PENTAGON)
-			case PSTricksConstants.PLUS_STYLE => Some(IDot.DotStyle.PLUS)
-			case PSTricksConstants.SQUARE_STYLE => Some(IDot.DotStyle.SQUARE)
-			case PSTricksConstants.TRIANGLE_STYLE => Some(IDot.DotStyle.TRIANGLE)
-			case PSTricksConstants.X_STYLE => Some(IDot.DotStyle.X)
+			case PSTricksConstants.ASTERISK_STYLE => Some(IDotProp.DotStyle.ASTERISK)
+			case PSTricksConstants.BAR_STYLE => Some(IDotProp.DotStyle.BAR)
+			case PSTricksConstants.DIAMOND_STYLE => Some(IDotProp.DotStyle.DIAMOND)
+			case PSTricksConstants.DOT_STYLE => Some(IDotProp.DotStyle.DOT)
+			case PSTricksConstants.FDIAMOND_STYLE => Some(IDotProp.DotStyle.FDIAMOND)
+			case PSTricksConstants.FPENTAGON_STYLE => Some(IDotProp.DotStyle.FPENTAGON)
+			case PSTricksConstants.FSQUARE_STYLE => Some(IDotProp.DotStyle.FSQUARE)
+			case PSTricksConstants.FTRIANGLE_STYLE => Some(IDotProp.DotStyle.FTRIANGLE)
+			case PSTricksConstants.O_STYLE => Some(IDotProp.DotStyle.O)
+			case PSTricksConstants.OPLUS_STYLE => Some(IDotProp.DotStyle.OPLUS)
+			case PSTricksConstants.OTIMES_STYLE => Some(IDotProp.DotStyle.OTIMES)
+			case PSTricksConstants.PENTAGON_STYLE => Some(IDotProp.DotStyle.PENTAGON)
+			case PSTricksConstants.PLUS_STYLE => Some(IDotProp.DotStyle.PLUS)
+			case PSTricksConstants.SQUARE_STYLE => Some(IDotProp.DotStyle.SQUARE)
+			case PSTricksConstants.TRIANGLE_STYLE => Some(IDotProp.DotStyle.TRIANGLE)
+			case PSTricksConstants.X_STYLE => Some(IDotProp.DotStyle.X)
 			case _ => PSTParser.errorLogs += "Unknown dot style: " + value.replace(" ", ""); None
 		}
 

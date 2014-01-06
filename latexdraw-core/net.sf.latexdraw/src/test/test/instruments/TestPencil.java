@@ -7,11 +7,16 @@ import java.awt.event.MouseEvent;
 
 import net.sf.latexdraw.actions.shape.AddShape;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.*;
-import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.IEllipse;
+import net.sf.latexdraw.glib.models.interfaces.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.ISquare;
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.instruments.EditionChoice;

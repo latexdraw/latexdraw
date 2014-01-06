@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
-import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,8 +25,8 @@ public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
 		if(fillCol!=null)
 			shape.setFillingCol(fillCol);
 	}
-	
-	
+
+
 	@Override
 	protected void setDefaultDimensions() {
 		//

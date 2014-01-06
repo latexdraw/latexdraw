@@ -4,7 +4,7 @@ package test.glib.models.interfaces;
 import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
-import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 
 import org.junit.Test;
 

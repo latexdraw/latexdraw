@@ -7,6 +7,7 @@ import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 
 /**
  * Defines a model of a dot.<br>
@@ -169,11 +170,12 @@ class LDot extends LPositionShape implements IDot {
 	public void copy(final IShape sh) {
 		super.copy(sh);
 
-		if(sh!=null && sh.isTypeOf(IDot.class)){
-			final IDot dot = (IDot)sh;
+		if(sh!=null && sh.isTypeOf(IDotProp.class)){
+			final IDotProp dot = (IDotProp)sh;
 
 			setDotStyle(dot.getDotStyle());
 			setRadius(dot.getRadius());
+			setDotFillingCol(dot.getDotFillingCol());
 		}
 	}
 

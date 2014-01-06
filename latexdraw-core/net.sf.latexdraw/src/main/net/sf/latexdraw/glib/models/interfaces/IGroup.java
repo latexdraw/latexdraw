@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 
@@ -28,7 +29,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends ISetShapes, ILineArcShape, IText, IDot, IArcProp, IAxesProp, IGridProp, IFreeHandProp {
+public interface IGroup extends ISetShapes, ILineArcShape, IText, IDotProp, IArcProp, IAxesProp, IGridProp, IFreeHandProp {
 	/**
 	 * Duplicates the group of shapes.
 	 * @param duplicateShapes True: the shapes will be duplicated as well.
