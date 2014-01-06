@@ -95,7 +95,6 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 
 	@Override
 	protected void applyValue(final Object obj) {
-		System.out.println(property + " " + value);
 		switch(property) {
 			case BORDER_POS:
 				pencil.groupParams().setBordersPosition((BorderPos) value);
