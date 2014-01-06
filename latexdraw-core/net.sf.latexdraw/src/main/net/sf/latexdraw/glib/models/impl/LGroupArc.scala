@@ -2,13 +2,11 @@ package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
 
-import net.sf.latexdraw.glib.models.interfaces.IArc
 import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.glib.models.interfaces.ILine
-import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
 
 /**
- * This trait encapsulates the code of the group related to the support of IArc shapes.<br>
+ * This trait encapsulates the code of the group related to the support of IArcProp shapes.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -26,64 +24,38 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint
  * @since 3.0
  */
 protected trait LGroupArc extends IGroup {
-	/** May return the first IArc shape of the group. */
-	private def firstIArc = arcShapes.find{_.isTypeOf(classOf[IArc])}
+	/** May return the first IArcProp shape of the group. */
+	private def firstIArcProp = arcShapes.find{_.isTypeOf(classOf[IArcProp])}
 
-	private def arcShapes = getShapes.flatMap{case x:IArc => x::Nil; case _ => Nil}
+	private def arcShapes = getShapes.flatMap{case x:IArcProp => x::Nil; case _ => Nil}
 
-	override def getArcStyle() : IArc.ArcStyle =
-		firstIArc match {
+	override def getArcStyle() : IArcProp.ArcStyle =
+		firstIArcProp match {
 			case Some(arc) => arc.getArcStyle
 			case _ => null
 		}
 
-
-	override def setArcStyle(typeArc : IArc.ArcStyle) {
+	override def setArcStyle(typeArc : IArcProp.ArcStyle) {
 		arcShapes.foreach{_.setArcStyle(typeArc)}
 	}
 
-
 	override def getAngleStart() : Double =
-		firstIArc match {
+		firstIArcProp match {
 			case Some(arc) => arc.getAngleStart
 			case _ => Double.NaN
 		}
-
 
 	override def setAngleStart(angleStart : Double) {
 		arcShapes.foreach{_.setAngleStart(angleStart)}
 	}
 
-
 	override def getAngleEnd() : Double =
-		firstIArc match {
+		firstIArcProp match {
 			case Some(arc) => arc.getAngleEnd
 			case _ => Double.NaN
 		}
 
-
 	override def setAngleEnd(angleEnd : Double) {
 		arcShapes.foreach{_.setAngleEnd(angleEnd)}
 	}
-
-
-	override def getStartPoint() : IPoint = null
-
-	override def getEndPoint() : IPoint = null
-
-	override def getA() = Double.NaN
-
-	override def getB() = Double.NaN
-
-	override def setCentre(centre : IPoint) = {}
-
-//	override def getIntersection(line : ILine) : Array[IPoint] = null
-
-	override def setWidth(width : Double) = {}
-
-	override def setHeight(height : Double) = {}
-
-	override def getWidth() = Double.NaN
-
-	override def getHeight() = Double.NaN
 }

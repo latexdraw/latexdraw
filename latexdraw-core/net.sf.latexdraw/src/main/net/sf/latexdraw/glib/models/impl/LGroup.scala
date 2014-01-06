@@ -3,17 +3,12 @@ package net.sf.latexdraw.glib.models.impl
 import java.awt.Color
 import java.util.ArrayList
 import java.util.List
+
 import scala.collection.JavaConversions.asScalaBuffer
-import net.sf.latexdraw.glib.models.interfaces.IArc
-import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle
+
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle
 import net.sf.latexdraw.glib.models.interfaces.IDot
 import net.sf.latexdraw.glib.models.interfaces.IDot.DotStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.ILineArcShape
 import net.sf.latexdraw.glib.models.interfaces.IPoint
@@ -23,9 +18,16 @@ import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle
 import net.sf.latexdraw.glib.models.interfaces.IText
 import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition
-import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
-import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType
+import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
 
 /**
  * A Group is a group of IShape instances.<br>
@@ -55,7 +57,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 
 
 	override def setModified(modified : Boolean) = {
-		getShapes.foreach{shape => shape.setModified(modified)}
+		getShapes.foreach{_.setModified(modified)}
 		super.setModified(modified)
 	}
 
@@ -80,7 +82,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 			clazz.equals(classOf[LShape]) || clazz.equals(classOf[IGroup]))
 			return true
 
-		return shapes.exists{sh => sh.isTypeOf(clazz)}
+		return shapes.exists{_.isTypeOf(clazz)}
 	}
 
 
@@ -585,7 +587,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getAngleStartList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{_ match {
-				case arc : IArc => list.add(arc.getAngleStart)
+				case arc : IArcProp => list.add(arc.getAngleStart)
 				case _ => list.add(null)
 			}
 		}
@@ -596,7 +598,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getAngleEndList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{_ match {
-				case arc : IArc => list.add(arc.getAngleEnd)
+				case arc : IArcProp => list.add(arc.getAngleEnd)
 				case _ => list.add(null)
 			}
 		}
@@ -607,7 +609,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getArcStyleList() : List[ArcStyle] = {
 		val list = new ArrayList[ArcStyle]()
 		shapes.foreach{_ match {
-				case arc : IArc => list.add(arc.getArcStyle)
+				case arc : IArcProp => list.add(arc.getArcStyle)
 				case _ => list.add(null)
 			}
 		}
@@ -911,8 +913,8 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAngleStartList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IArc])
-					shapes.get(i).asInstanceOf[IArc].setAngleStart(values.get(i))
+				if(shapes.get(i).isInstanceOf[IArcProp])
+					shapes.get(i).asInstanceOf[IArcProp].setAngleStart(values.get(i))
 	}
 
 
@@ -927,16 +929,16 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAngleEndList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IArc])
-					shapes.get(i).asInstanceOf[IArc].setAngleEnd(values.get(i))
+				if(shapes.get(i).isInstanceOf[IArcProp])
+					shapes.get(i).asInstanceOf[IArcProp].setAngleEnd(values.get(i))
 	}
 
 
 	override def setArcStyleList(values : List[ArcStyle]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IArc])
-					shapes.get(i).asInstanceOf[IArc].setArcStyle(values.get(i))
+				if(shapes.get(i).isInstanceOf[IArcProp])
+					shapes.get(i).asInstanceOf[IArcProp].setArcStyle(values.get(i))
 	}
 
 

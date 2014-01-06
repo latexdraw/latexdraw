@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 
 /**
  * Defines a model of an arc.<br>
@@ -95,8 +96,8 @@ class LArc extends LEllipse implements IArc {
 	public void copy(final IShape sh) {
 		super.copy(sh);
 
-		if(sh instanceof IArc) {
-			final IArc arc 	= (IArc)sh;
+		if(sh instanceof IArcProp) {
+			final IArcProp arc 	= (IArcProp)sh;
 			startAngle 		= arc.getAngleStart();
 			endAngle 		= arc.getAngleEnd();
 			style			= arc.getArcStyle();

@@ -2,7 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.*;
-import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 
 /**
  * Defines the choices of edition of the canvas.<br>

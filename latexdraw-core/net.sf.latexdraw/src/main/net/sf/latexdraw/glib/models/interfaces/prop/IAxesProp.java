@@ -4,6 +4,22 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.lang.LangTool;
 
+/**
+ * Groups axes' properties.
+ * <br>
+ * This file is part of LaTeXDraw<br>
+ * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
+ *<br>
+ *  LaTeXDraw is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  any later version.<br>
+ *<br>
+ *  LaTeXDraw is distributed without any warranty; without even the
+ *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ *  PURPOSE. See the GNU General Public License for more details.<br>
+ *<br>
+ */
 public interface IAxesProp extends IStdGridProp {
 	/** Defines the different kinds of axes. */
 	public static enum AxesStyle {

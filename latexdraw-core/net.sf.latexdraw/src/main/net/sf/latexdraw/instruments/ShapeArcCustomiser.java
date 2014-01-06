@@ -7,10 +7,10 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IArc;
-import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -67,7 +67,6 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-
 	@Override
 	protected void initialiseWidgets() {
 		arcB = new MToggleButton(LResources.ARC_ICON);
@@ -104,8 +103,8 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	protected void update(final IShape shape) {
 		boolean active = false;
 
-		if(shape instanceof IArc) {
-			final IArc arc = (IArc)shape;
+		if(shape instanceof IArcProp) {
+			final IArcProp arc = (IArcProp)shape;
 			final ArcStyle type = arc.getArcStyle();
 
 			if(type!=null) {

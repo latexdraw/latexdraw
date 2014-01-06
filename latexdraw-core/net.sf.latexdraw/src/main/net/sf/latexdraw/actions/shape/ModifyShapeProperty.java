@@ -3,8 +3,8 @@ package net.sf.latexdraw.actions.shape;
 import java.util.List;
 
 import net.sf.latexdraw.actions.Modifying;
-import net.sf.latexdraw.glib.models.interfaces.IArc;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
@@ -166,7 +166,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case GRID_ORIGIN:		return shapes.isTypeOf(IStdGridProp.class);
 				case ARC_END_ANGLE:
 				case ARC_START_ANGLE:
-				case ARC_STYLE: return shapes.isTypeOf(IArc.class);
+				case ARC_STYLE: return shapes.isTypeOf(IArcProp.class);
 				case ROUND_CORNER_VALUE:
 				case DOT_SIZE:
 				case DOT_STYLE:

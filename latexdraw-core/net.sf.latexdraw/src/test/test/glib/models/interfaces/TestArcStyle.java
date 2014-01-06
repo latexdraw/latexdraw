@@ -3,7 +3,7 @@ package test.glib.models.interfaces;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.IArc.ArcStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 
 import org.junit.Test;
 
