@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
+import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 /**

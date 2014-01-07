@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.prop;
 
 /**
  * Defines an interface to share operations on arrow's properties.<br>
