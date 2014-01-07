@@ -1,6 +1,7 @@
-package net.sf.latexdraw.glib.models.interfaces
+package net.sf.latexdraw.glib.models
 
 import net.sf.latexdraw.util.LNumber
+import net.sf.latexdraw.glib.models.interfaces.IPoint
 
 /**
  * Defines some utilities function for the glib library.<br>

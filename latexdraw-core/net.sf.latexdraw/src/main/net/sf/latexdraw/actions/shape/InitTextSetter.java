@@ -1,6 +1,6 @@
 package net.sf.latexdraw.actions.shape;
 
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.instruments.TextSetter;

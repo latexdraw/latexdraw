@@ -2,7 +2,7 @@ package test.glib.models ;
 
 import junit.framework.TestCase;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
+import net.sf.latexdraw.glib.models.GLibUtilities;
 
 import org.junit.Test;
 

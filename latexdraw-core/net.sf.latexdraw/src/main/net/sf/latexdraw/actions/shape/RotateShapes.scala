@@ -2,12 +2,12 @@ package net.sf.latexdraw.actions.shape
 
 import org.malai.action.Action
 import org.malai.undo.Undoable
-
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities
+import net.sf.latexdraw.glib.models.GLibUtilities
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.GLibUtilities
 
 /**
  * This action increments to rotation angle of shapes.<br>

@@ -5,8 +5,8 @@ import static java.lang.Math.atan;
 
 import java.awt.geom.Point2D;
 
+import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.util.LNumber;
 

@@ -7,10 +7,11 @@ import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapeAction
 import net.sf.latexdraw.glib.models.interfaces.IShape.Position
-import net.sf.latexdraw.glib.models.interfaces.GLibUtilities
+import net.sf.latexdraw.glib.models.GLibUtilities
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.util.LNumber
+import net.sf.latexdraw.glib.models.GLibUtilities
 
 /**
  * This action scales a shape.<br>
