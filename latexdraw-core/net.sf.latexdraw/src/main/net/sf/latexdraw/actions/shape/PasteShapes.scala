@@ -58,7 +58,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 		val dups = new ArrayList[IShape]
 
 		_copy.copiedShapes.foreach{shape =>
-			val sh = ShapeFactory.factory.duplicate(shape)
+			val sh = ShapeFactory.duplicate(shape)
 			dups.add(sh)
 			sh.translate(gap, gap)
 			dr.addShape(sh)

@@ -9,6 +9,6 @@ public class TestLoadSaveSVGSquare extends TestLoadSaveSVGRectangularShape<ISqua
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createSquare(false);
+		shape = ShapeFactory.createSquare(false);
 	}
 }

@@ -34,7 +34,7 @@ protected trait LGroupDot extends IGroup {
 	override def getDotFillingCol() : Color = {
 		firstDottable match {
 			case Some(dot) => dot.getDotFillingCol
-			case _ => null
+			case _ => Color.BLACK
 		}
 	}
 
@@ -47,7 +47,7 @@ protected trait LGroupDot extends IGroup {
 	override def getDotStyle() : IDotProp.DotStyle = {
 		firstDottable match {
 			case Some(dot) => dot.getDotStyle
-			case _ => null
+			case _ => IDotProp.DotStyle.DOT
 		}
 	}
 

@@ -5,6 +5,7 @@ import static java.lang.Math.atan;
 
 import java.awt.geom.Point2D;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.util.LNumber;
@@ -88,7 +89,7 @@ class LPoint extends Point2D.Double implements IPoint {
 
 	@Override
 	public IPoint zoom(final double zoomLevel) {
-		return new LPoint(x*zoomLevel, y*zoomLevel);
+		return ShapeFactory.createPoint(x*zoomLevel, y*zoomLevel);
 	}
 
 
@@ -115,7 +116,7 @@ class LPoint extends Point2D.Double implements IPoint {
 		if(!GLibUtilities.isValidPoint(gravityC) || !GLibUtilities.isValidCoordinate(theta))
 			return null;
 
-		IPoint pt 		= new LPoint();
+		IPoint pt 		= ShapeFactory.createPoint();
 		double cosTheta;
 		double sinTheta;
 		double angle 	= theta;
@@ -128,7 +129,7 @@ class LPoint extends Point2D.Double implements IPoint {
 		angle = angle%(2.*PI);
 
 		if(LNumber.equalsDouble(angle, 0.))
-			return (LPoint)clone();
+			return (IPoint)clone();
 
 		if(LNumber.equalsDouble(angle-PI/2., 0.)) {
 			cosTheta = 0.;
@@ -138,7 +139,7 @@ class LPoint extends Point2D.Double implements IPoint {
 				cosTheta = -1.;
 				sinTheta = 0.;
 			}
-			else if(LNumber.equalsDouble(angle-(3.*PI/2.), 0.)) {
+			else if(LNumber.equalsDouble(angle-3.*PI/2., 0.)) {
 					cosTheta = 0.;
 					sinTheta = -1.;
 				}
@@ -166,7 +167,7 @@ class LPoint extends Point2D.Double implements IPoint {
 
 	@Override
 	public IPoint getMiddlePoint(final IPoint p) {
-		return p==null ? null : new LPoint((x+p.getX())/2., (y+p.getY())/2.);
+		return p==null ? null : ShapeFactory.createPoint((x+p.getX())/2., (y+p.getY())/2.);
 	}
 
 
@@ -183,7 +184,7 @@ class LPoint extends Point2D.Double implements IPoint {
 		if(!GLibUtilities.isValidPoint(origin))
 			return null;
 
-		return new LPoint(2.*origin.getX()-x, y);
+		return ShapeFactory.createPoint(2.*origin.getX()-x, y);
 	}
 
 
@@ -192,7 +193,7 @@ class LPoint extends Point2D.Double implements IPoint {
 		if(!GLibUtilities.isValidPoint(origin))
 			return null;
 
-		return new LPoint(x, 2.*origin.getY() - y);
+		return ShapeFactory.createPoint(x, 2.*origin.getY() - y);
 	}
 
 

@@ -36,7 +36,7 @@ class CopyShapes extends Action {
 
 
 	override protected def doActionBody() {
-		_selection.get.shapes.foreach{shape => copiedShapes.add(ShapeFactory.factory.duplicate(shape))}
+		_selection.get.shapes.foreach{shape => copiedShapes.add(ShapeFactory.duplicate(shape))}
 	}
 
 

@@ -10,7 +10,6 @@ import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
@@ -239,10 +238,8 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	 * @return The transformed point or if there is no magnetic grid, a clone of the given point.
 	 */
 	public IPoint getTransformedPointToGrid(final Point2D pt) {
-		final IShapeFactory factory = ShapeFactory.factory();
-
 	   	if(isMagnetic() && isGridDisplayed()) {
-	   		final IPoint point  = factory.createPoint(pt.getX(), pt.getY());
+	   		final IPoint point  = ShapeFactory.createPoint(pt.getX(), pt.getY());
     		final double modulo = getMagneticGridGap();
     		double x 		= point.getX();
     		double y 		= point.getY();
@@ -270,7 +267,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
     		return point;
     	}
 
-	   	return factory.createPoint(pt.getX(), pt.getY());
+	   	return ShapeFactory.createPoint(pt.getX(), pt.getY());
 	}
 
 

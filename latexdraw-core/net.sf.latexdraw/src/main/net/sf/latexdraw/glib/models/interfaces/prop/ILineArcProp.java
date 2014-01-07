@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.prop;
 
 /**
  * Defines an interface that classes defining a shape that
@@ -20,7 +20,7 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public interface ILineArcShape {
+public interface ILineArcProp {
 	/**
 	 * @return the lineArc.
 	 */

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
+import net.sf.latexdraw.glib.models.interfaces.prop.ICurveProp;
+
 /**
  * Defines an interface that classes defining a latex curve should implement.<br>
  * <br>
@@ -19,17 +21,6 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public interface ICurve extends IModifiablePointsShape {
-	/** The different styles of a curve. */
-	public static enum CurveStyle {CURVE, ECURVE, CCURVE}
-
-	/**
-	 * @return the style of the curve.
-	 */
-	CurveStyle getStyle();
-
-	/**
-	 * @param style the style to set.
-	 */
-	void setStyle(final CurveStyle style);
+public interface ICurve extends IModifiablePointsShape, ICurveProp {
+//
 }

@@ -84,7 +84,7 @@ protected trait LGroupAxes extends IGroup {
 	override def getLabelsDisplayed() : IAxesProp.PlottingStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getLabelsDisplayed
-			case _ => null
+			case _ => IAxesProp.PlottingStyle.ALL
 		}
 	}
 
@@ -110,7 +110,7 @@ protected trait LGroupAxes extends IGroup {
 	override def getTicksDisplayed() : IAxesProp.PlottingStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getTicksDisplayed
-			case _ => null
+			case _ => IAxesProp.PlottingStyle.ALL
 		}
 	}
 
@@ -123,7 +123,7 @@ protected trait LGroupAxes extends IGroup {
 	override def getTicksStyle() : IAxesProp.TicksStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getTicksStyle
-			case _ => null
+			case _ => IAxesProp.TicksStyle.FULL
 		}
 	}
 
@@ -149,7 +149,7 @@ protected trait LGroupAxes extends IGroup {
 	override def getAxesStyle() : IAxesProp.AxesStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getAxesStyle
-			case _ => null
+			case _ => IAxesProp.AxesStyle.AXES
 		}
 	}
 

@@ -7,7 +7,6 @@ import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
@@ -58,7 +57,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 	 * @since 2.0.0
 	 */
 	protected LBezierCurveSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.factory().createBezierCurve(false));
+		this(ShapeFactory.createBezierCurve(false));
 
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
@@ -94,12 +93,11 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		if(list==null || list.size()<2 || !(list.get(0) instanceof SVGPathSegMoveto))
 			throw new IllegalArgumentException();
 
-		final IShapeFactory fac = ShapeFactory.factory();
 		SVGPathSegMoveto m 	= (SVGPathSegMoveto)list.get(0);
 		SVGPathSegCurvetoCubic c;
 		int i=1, size = list.size();
 
-		shape.addPoint(fac.createPoint(m.getX(), m.getY()));
+		shape.addPoint(ShapeFactory.createPoint(m.getX(), m.getY()));
 
 		if(size>1 && list.get(1) instanceof SVGPathSegCurvetoCubic) {// We set the control point of the first point.
 			c = (SVGPathSegCurvetoCubic)list.get(1);
@@ -108,7 +106,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 
 		while(i<size && list.get(i) instanceof SVGPathSegCurvetoCubic) {
 			c = (SVGPathSegCurvetoCubic)list.get(i);
-			shape.addPoint(fac.createPoint(c.getX(), c.getY()));
+			shape.addPoint(ShapeFactory.createPoint(c.getX(), c.getY()));
 			shape.getFirstCtrlPtAt(-1).setPoint(c.getX2(), c.getY2());
 			i++;
 		}

@@ -21,8 +21,8 @@ import test.glib.models.interfaces.TestIPolygon;
 public class TestLPolygon<T extends IPolygon> extends TestIPolygon<T> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.factory().createPolygon(false);
-		shape2 = (T) ShapeFactory.factory().createPolygon(false);
+		shape  = (T) ShapeFactory.createPolygon(false);
+		shape2 = (T) ShapeFactory.createPolygon(false);
 	}
 
 
@@ -71,24 +71,24 @@ public class TestLPolygon<T extends IPolygon> extends TestIPolygon<T> {
 
 	@Test
 	public void testConstructor() {
-		IPoint pt1   = ShapeFactory.factory().createPoint(1, 1);
-		IPoint pt2   = ShapeFactory.factory().createPoint(2, 2);
-		IPolygon pol = ShapeFactory.factory().createPolygon(pt1, pt2, true);
+		IPoint pt1   = ShapeFactory.createPoint(1, 1);
+		IPoint pt2   = ShapeFactory.createPoint(2, 2);
+		IPolygon pol = ShapeFactory.createPolygon(pt1, pt2, true);
 
-		pol = ShapeFactory.factory().createPolygon(pt1, pt2, false);
+		pol = ShapeFactory.createPolygon(pt1, pt2, false);
 		assertEquals(pt1, pol.getPtAt(0));
 		assertEquals(pt2, pol.getPtAt(-1));
 
-		pol = ShapeFactory.factory().createPolygon(false);
-		pol = ShapeFactory.factory().createPolygon(true);
-		pol = ShapeFactory.factory().createPolygon(false);
+		pol = ShapeFactory.createPolygon(false);
+		pol = ShapeFactory.createPolygon(true);
+		pol = ShapeFactory.createPolygon(false);
 
 		try {
-			pol = ShapeFactory.factory().createPolygon(null, pt2, true);
+			pol = ShapeFactory.createPolygon(null, pt2, true);
 			fail();
-			pol = ShapeFactory.factory().createPolygon(pt1, null, true);
+			pol = ShapeFactory.createPolygon(pt1, null, true);
 			fail();
-			pol = ShapeFactory.factory().createPolygon(null, null, true);
+			pol = ShapeFactory.createPolygon(null, null, true);
 			fail();
 		}catch(IllegalArgumentException e){ /* */ }
 	}

@@ -8,11 +8,11 @@ import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IEllipse;
-import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,8 +23,8 @@ import test.glib.models.interfaces.TestIRectangle;
 public class TestLRectangle<T extends IRectangle> extends TestIRectangle<T> {
 	@Before
 	public void setUp() {
-		shape = (T) ShapeFactory.factory().createRectangle(false);
-		shape2 = (T) ShapeFactory.factory().createRectangle(false);
+		shape = (T) ShapeFactory.createRectangle(false);
+		shape2 = (T) ShapeFactory.createRectangle(false);
 	}
 
 
@@ -35,7 +35,7 @@ public class TestLRectangle<T extends IRectangle> extends TestIRectangle<T> {
 		assertFalse(shape.isTypeOf(IEllipse.class));
 		assertFalse(shape.isTypeOf(ICircle.class));
 		assertTrue(shape.isTypeOf(IShape.class));
-		assertTrue(shape.isTypeOf(ILineArcShape.class));
+		assertTrue(shape.isTypeOf(ILineArcProp.class));
 		assertTrue(shape.isTypeOf(IPositionShape.class));
 		assertTrue(shape.isTypeOf(IRectangularShape.class));
 		assertTrue(shape.isTypeOf(IRectangle.class));
@@ -46,75 +46,75 @@ public class TestLRectangle<T extends IRectangle> extends TestIRectangle<T> {
 
 	@Test
 	public void testConstructors() {
-		IRectangle rec = ShapeFactory.factory().createRectangle(false);
+		IRectangle rec = ShapeFactory.createRectangle(false);
 		assertEquals(4, rec.getNbPoints());
 
 		try {
-			rec = ShapeFactory.factory().createRectangle(null, ShapeFactory.factory().createPoint(), true);
+			rec = ShapeFactory.createRectangle(null, ShapeFactory.createPoint(), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(), null, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(), null, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
-		rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(20, 26), ShapeFactory.factory().createPoint(30, 35), true);
+		rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(20, 26), ShapeFactory.createPoint(30, 35), true);
 		HelperTest.assertEqualsDouble(20., rec.getPosition().getX());
 		HelperTest.assertEqualsDouble(35., rec.getPosition().getY());
 		HelperTest.assertEqualsDouble(10., rec.getWidth());
 		HelperTest.assertEqualsDouble(9., rec.getHeight());
 
-		rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(5, 6), 11, 12, true);
+		rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(5, 6), 11, 12, true);
 		HelperTest.assertEqualsDouble(5., rec.getPosition().getX());
 		HelperTest.assertEqualsDouble(18., rec.getPosition().getY());
 		HelperTest.assertEqualsDouble(11., rec.getWidth());
 		HelperTest.assertEqualsDouble(12., rec.getHeight());
 
 		try {
-			rec = ShapeFactory.factory().createRectangle(null, 10, 10, true);
+			rec = ShapeFactory.createRectangle(null, 10, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(Double.NaN, 0), 10, 10, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(Double.NaN, 0), 10, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(0, 0), -10, 10, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), -10, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(0, 0), Double.NaN, 10, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), Double.NaN, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(0, 0), Double.POSITIVE_INFINITY, 10, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), Double.POSITIVE_INFINITY, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(0, 0), Double.NEGATIVE_INFINITY, 10, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), Double.NEGATIVE_INFINITY, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(0, 0), 0, 10, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 0, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(0, 0), 10, 0, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 10, 0, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(0, 0), 10, -10, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 10, -10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(0, 0), 10, Double.NaN, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 10, Double.NaN, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(0, 0), 10, Double.NEGATIVE_INFINITY, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 10, Double.NEGATIVE_INFINITY, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			rec = ShapeFactory.factory().createRectangle(ShapeFactory.factory().createPoint(0, 0), 10, Double.POSITIVE_INFINITY, true);
+			rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 10, Double.POSITIVE_INFINITY, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 	}

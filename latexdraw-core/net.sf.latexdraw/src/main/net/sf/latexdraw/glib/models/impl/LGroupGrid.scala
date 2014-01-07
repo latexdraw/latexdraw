@@ -69,7 +69,7 @@ protected trait LGroupGrid extends IGroup {
 	override def getGridLabelsColour() : Color = {
 		firstIGrid match {
 			case Some(grid) => grid.getGridLabelsColour
-			case _ => null
+			case _ => Color.BLACK
 		}
 	}
 
@@ -95,7 +95,7 @@ protected trait LGroupGrid extends IGroup {
 	override def getSubGridColour() : Color = {
 		firstIGrid match {
 			case Some(grid) => grid.getSubGridColour
-			case _ => null
+			case _ => Color.BLACK
 		}
 	}
 

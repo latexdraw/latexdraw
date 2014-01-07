@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.awt.geom.Rectangle2D;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -32,7 +33,7 @@ class LCircleArc extends LArc implements ICircleArc {
 	 * @since 3.0
 	 */
 	protected LCircleArc(final boolean isUniqueID) {
-		this(new LPoint(10, 10), new LPoint(20, 20), isUniqueID);
+		this(ShapeFactory.createPoint(10, 10), ShapeFactory.createPoint(20, 20), isUniqueID);
 	}
 
 

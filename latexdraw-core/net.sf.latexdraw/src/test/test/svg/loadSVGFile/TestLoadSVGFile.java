@@ -31,7 +31,7 @@ public abstract class TestLoadSVGFile {
 
 
 	public IGroup toLatexdraw(final SVGDocument doc) {
-		final IGroup shapes = ShapeFactory.factory().createGroup(false);
+		final IGroup shapes = ShapeFactory.createGroup(false);
 		final NodeList elts = doc.getDocumentElement().getChildNodes();
 		Node node;
 

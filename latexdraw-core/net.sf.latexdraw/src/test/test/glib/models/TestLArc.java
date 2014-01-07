@@ -16,8 +16,8 @@ import test.glib.models.interfaces.TestIArc;
 public class TestLArc<T extends IArc> extends TestIArc<T> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.factory().createArc(false);
-		shape2 = (T) ShapeFactory.factory().createArc(false);
+		shape  = (T) ShapeFactory.createArc(false);
+		shape2 = (T) ShapeFactory.createArc(false);
 	}
 
 

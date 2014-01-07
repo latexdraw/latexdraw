@@ -1,10 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
-
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IText
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
 
 /**
  * This trait encapsulates the code of the group related to the support of texts.<br>
@@ -30,13 +30,13 @@ protected trait LGroupText extends IGroup {
 
 	private def txtShapes = getShapes.flatMap{case x:IText => x::Nil; case _ => Nil}
 
-	override def getTextPosition() : IText.TextPosition =
+	override def getTextPosition() : ITextProp.TextPosition =
 		firstIText match {
 			case Some(txt) => txt.getTextPosition
 			case _ => null
 		}
 
-	override def setTextPosition(textPosition : IText.TextPosition) {
+	override def setTextPosition(textPosition : ITextProp.TextPosition) {
 		txtShapes.foreach{_.setTextPosition(textPosition)}
 	}
 
@@ -49,18 +49,4 @@ protected trait LGroupText extends IGroup {
 	override def setText(text : String) {
 		txtShapes.foreach{_.setText(text)}
 	}
-
-	override def getX() = 0.0
-
-	override def getY() = 0.0
-
-	override def getPosition() : IPoint = null
-
-	override def setPosition(pt : IPoint) { }
-
-	override def setPosition(x : Double, y : Double) { }
-
-	override def setX(x : Double) { }
-
-	override def setY(y : Double) { }
 }

@@ -162,7 +162,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		super();
 
 		this.frame		 	= Objects.requireNonNull(frame);
-		framePosition	 	= ShapeFactory.factory().createPoint();
+		framePosition	 	= ShapeFactory.createPoint();
 		frameSize 			= new Dimension();
 		frameSize.height 	= 3*Toolkit.getDefaultToolkit().getScreenSize().height/2;
 		frameSize.width 	= 3*Toolkit.getDefaultToolkit().getScreenSize().width/2;

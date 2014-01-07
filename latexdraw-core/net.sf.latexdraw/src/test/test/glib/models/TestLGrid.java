@@ -20,8 +20,8 @@ import test.glib.models.interfaces.TestIGrid;
 public class TestLGrid<T extends IGrid> extends TestIGrid<T> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.factory().createGrid(false, ShapeFactory.factory().createPoint());
-		shape2 = (T) ShapeFactory.factory().createGrid(false, ShapeFactory.factory().createPoint());
+		shape  = (T) ShapeFactory.createGrid(false, ShapeFactory.createPoint());
+		shape2 = (T) ShapeFactory.createGrid(false, ShapeFactory.createPoint());
 	}
 
 
@@ -41,7 +41,7 @@ public class TestLGrid<T extends IGrid> extends TestIGrid<T> {
 
 	@Test
 	public void testConstructors() {
-		IGrid grid = ShapeFactory.factory().createGrid(false, ShapeFactory.factory().createPoint());
+		IGrid grid = ShapeFactory.createGrid(false, ShapeFactory.createPoint());
 		assertTrue(grid.getGridEndX()>=grid.getGridStartX());
 		assertTrue(grid.getGridEndY()>=grid.getGridStartY());
 		HelperTest.assertEqualsDouble(0., grid.getPosition().getX());

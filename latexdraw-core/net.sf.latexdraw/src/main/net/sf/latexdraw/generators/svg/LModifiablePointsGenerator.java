@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.parsers.svg.AbstractPointsElement;
 import net.sf.latexdraw.parsers.svg.SVGPathElement;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
@@ -49,14 +48,13 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 	 */
 	protected void setSVGModifiablePointsParameters(final AbstractPointsElement ape) {
 		setSVGParameters(ape);
-		final List<Point2D> ptsPol 		= ape.getPoints2D();
-		final IShapeFactory factory 	= ShapeFactory.factory();
+		final List<Point2D> ptsPol = ape.getPoints2D();
 
 		if(ptsPol==null)
 			throw new IllegalArgumentException();
 
 		for(final Point2D pt : ptsPol)
-			shape.addPoint(factory.createPoint(pt.getX(), pt.getY()));
+			shape.addPoint(ShapeFactory.createPoint(pt.getX(), pt.getY()));
 	}
 
 
@@ -73,7 +71,6 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 		final int size = segs.size()-1;
 		int i;
 		Point2D pt;
-		final IShapeFactory factory	= ShapeFactory.factory();
 
 		for(i=0; i<size; i++) {
 			seg = segs.get(i);
@@ -82,7 +79,7 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 				throw new IllegalArgumentException("The given SVG path element is not a polygon."); //$NON-NLS-1$
 
 			pt = ((SVGPathSegLineto)seg).getPoint();
-			shape.addPoint(factory.createPoint(pt.getX(), pt.getY()));
+			shape.addPoint(ShapeFactory.createPoint(pt.getX(), pt.getY()));
 		}
 
 		setSVGParameters(elt);

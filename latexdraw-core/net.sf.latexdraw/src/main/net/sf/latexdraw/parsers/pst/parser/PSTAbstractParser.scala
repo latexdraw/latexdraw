@@ -5,6 +5,8 @@ import scala.util.parsing.combinator.syntactical.TokenParsers
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IText
 import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
+import scala.language.implicitConversions
 
 /**
  * Defines an abstract PST parser.<br>
@@ -99,14 +101,14 @@ trait PSTAbstractParser extends TokenParsers {
 				if(ctx.parsedTxtNoTxt)
 					Nil
 				else {
-					val text = ShapeFactory.factory.createText(true)
+					val text = ShapeFactory.createText(true)
 					if(ctx.textParsed.endsWith(" "))
 						text.setText(ctx.textParsed.substring(0, ctx.textParsed.length()-1))
 					else
 						text.setText(ctx.textParsed)
 					ctx.textParsed = ""
 					setShapeParameters(text, ctx)
-					text.setTextPosition(IText.TextPosition.getTextPosition(ctx.textPosition))
+					text.setTextPosition(ITextProp.TextPosition.getTextPosition(ctx.textPosition))
 					text.setLineColour(ctx.textColor);
 					List(text)
 				}
@@ -131,7 +133,7 @@ trait PSTAbstractParser extends TokenParsers {
 	protected def transformPointTo2DScene(pt : PointUnit, ctx:PSTContext) = {
 		val newX = if(pt.xUnit.length==0) pt.x*IShape.PPC*ctx.xUnit*ctx.unit else pt.x*IShape.PPC
 		val newY = if(pt.yUnit.length==0) -pt.y*IShape.PPC*ctx.yUnit*ctx.unit else -pt.y*IShape.PPC
-		ShapeFactory.factory.createPoint(newX, newY)
+		ShapeFactory.createPoint(newX, newY)
 	}
 
 

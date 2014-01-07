@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
+import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
+
 /**
  * Defines an interface that classes defining a plot should implement.<br>
  * <br>
@@ -19,75 +21,9 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public interface IPlot extends IShape {
+public interface IPlot extends IShape, IPlotProp {
 	@Override
 	IPlot duplicate();
-	
-	/**
-	 * @return the interval
-	 */
-	double getInterval();
-
-	/**
-	 * @return the equation.
-	 */
-	String getEquation();
-
-	/**
-	 * @param equation the equation to set.
-	 */
-	void setEquation(final String equation);
-
-	/**
-	 * @return the minX.
-	 */
-	double getMinX();
-
-	/**
-	 * @param minX the minX to set.
-	 */
-	void setMinX(final double minX);
-
-	/**
-	 * @return the maxX.
-	 */
-	double getMaxX();
-
-	/**
-	 * @param maxX the maxX to set.
-	 */
-	void setMaxX(final double maxX);
-
-	/**
-	 * @return the nbPoints.
-	 */
-	@Override
-	int getNbPoints();
-
-	/**
-	 * @param nbPoints the nbPoints to set.
-	 */
-	void setNbPoints(final int nbPoints);
-
-	/**
-	 * @return the xScale.
-	 */
-	double getXScale();
-
-	/**
-	 * @param scale the xScale to set.
-	 */
-	void setXScale(final double scale);
-
-	/**
-	 * @return the yScale.
-	 */
-	double getYScale();
-
-	/**
-	 * @param scale the yScale to set.
-	 */
-	void setYScale(final double scale);
 
 	/**
 	 * @param x The X coordinate.

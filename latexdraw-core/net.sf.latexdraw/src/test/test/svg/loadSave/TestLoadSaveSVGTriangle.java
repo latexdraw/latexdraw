@@ -9,6 +9,6 @@ public class TestLoadSaveSVGTriangle extends TestLoadSaveSVGRectangularShape<ITr
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createTriangle(false);
+		shape = ShapeFactory.createTriangle(false);
 	}
 }

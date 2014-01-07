@@ -11,6 +11,6 @@ public class TestLRectangleView extends TestLRectangularView {
 	@Override
 	public void setUp() {
 		super.setUp();
-		view = View2DTK.getFactory().createView(ShapeFactory.factory().createRectangle(false));
+		view = View2DTK.getFactory().createView(ShapeFactory.createRectangle(false));
 	}
 }

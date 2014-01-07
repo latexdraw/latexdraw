@@ -645,7 +645,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		 * @since 3.0
 		 */
 		protected IShape toLatexdraw(final SVGDocument doc, final double incrProgressBar) {
-			final IGroup shapes = ShapeFactory.factory().createGroup(false);
+			final IGroup shapes = ShapeFactory.createGroup(false);
 			final NodeList elts = doc.getDocumentElement().getChildNodes();
 			Node node;
 

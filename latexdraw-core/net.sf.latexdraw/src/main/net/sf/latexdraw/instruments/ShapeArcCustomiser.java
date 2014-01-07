@@ -101,24 +101,17 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		boolean active = false;
-
-		if(shape instanceof IArcProp) {
+		if(shape.isTypeOf(IArcProp.class)) {
 			final IArcProp arc = (IArcProp)shape;
 			final ArcStyle type = arc.getArcStyle();
-
-			if(type!=null) {
-				active = true;
-				arcB.setSelected(type==ArcStyle.ARC);
-				wedgeB.setSelected(type==ArcStyle.WEDGE);
-				chordB.setSelected(type==ArcStyle.CHORD);
-				startAngleS.setValueSafely(Math.toDegrees(arc.getAngleStart()));
-				endAngleS.setValueSafely(Math.toDegrees(arc.getAngleEnd()));
-			}
+			arcB.setSelected(type==ArcStyle.ARC);
+			wedgeB.setSelected(type==ArcStyle.WEDGE);
+			chordB.setSelected(type==ArcStyle.CHORD);
+			startAngleS.setValueSafely(Math.toDegrees(arc.getAngleStart()));
+			endAngleS.setValueSafely(Math.toDegrees(arc.getAngleEnd()));
+			setActivated(true);
 		}
-
-		if(!active)
-			setActivated(false);
+		else setActivated(false);
 	}
 
 

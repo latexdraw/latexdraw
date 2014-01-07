@@ -136,7 +136,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		if(t!=null)
 			switch(t.getType()) {
 				case SVGTransform.SVG_TRANSFORM_ROTATE:
-					getShape().rotate(ShapeFactory.factory().createPoint(t.getMatrix().getE(), t.getMatrix().getF()), Math.toRadians(t.getRotationAngle()));
+					getShape().rotate(ShapeFactory.createPoint(t.getMatrix().getE(), t.getMatrix().getF()), Math.toRadians(t.getRotationAngle()));
 					break;
 
 				case SVGTransform.SVG_TRANSFORM_SCALE:
@@ -520,7 +520,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			final IPoint gravityCenter 	= shape.getGravityCentre();
 			final double gcx 			= gravityCenter.getX();
 			final double gcy 			= gravityCenter.getY();
-			IPoint pt 			 		= ShapeFactory.factory().createPoint(
+			IPoint pt 			 		= ShapeFactory.createPoint(
 										gcx+shape.getShadowSize(), gcy).rotatePoint(shape.getGravityCentre(), -shape.getShadowAngle());
 
 			elt.setAttribute(SVGAttributes.SVG_TRANSFORM,
@@ -676,7 +676,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		final String hatchingStyle 	= shape.getFillingStyle().getLatexToken();
 		final double hatchingAngle 	= shape.getHatchingsAngle();
-		final IRectangle bound 		= ShapeFactory.factory().createRectangle(shape.getFullTopLeftPoint(), shape.getFullBottomRightPoint(), false);
+		final IRectangle bound 		= ShapeFactory.createRectangle(shape.getFullTopLeftPoint(), shape.getFullBottomRightPoint(), false);
 
 		if(hatchingStyle.equals(PSTricksConstants.TOKEN_FILL_VLINES) ||
 			hatchingStyle.equals(PSTricksConstants.TOKEN_FILL_VLINES_F))
@@ -791,15 +791,14 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			throw new IllegalArgumentException();
 
 		try {
-			final IShapeFactory	factory = ShapeFactory.factory();
 			final IPoint nw 	= shape.getTopLeftPoint();
 			final IPoint se 	= shape.getBottomRightPoint();
 			final double nwx 	= nw.getX();
 			final double nwy 	= nw.getY();
 			final double sex 	= se.getX();
 			final double sey 	= se.getY();
-			IPoint pt1 			= factory.createPoint((nwx+sex)/2., nwy);
-			IPoint pt2 			= factory.createPoint((nwx+sex)/2., sey);
+			IPoint pt1 			= ShapeFactory.createPoint((nwx+sex)/2., nwy);
+			IPoint pt2 			= ShapeFactory.createPoint((nwx+sex)/2., sey);
 			double angle 		= shape.getGradAngle()%(2*PI);
 			double gradMidPt 	= shape.getGradMidPt();
 
@@ -815,8 +814,8 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			if(!LNumber.equalsDouble(angle, 0.)) {
 				if(LNumber.equalsDouble(angle%(PI/2.), 0.)) {
 					// The gradient is horizontal.
-					pt1 = factory.createPoint(nwx, (nwy+sey)/2.);
-					pt2 = factory.createPoint(sex, (nwy+sey)/2.);
+					pt1 = ShapeFactory.createPoint(nwx, (nwy+sey)/2.);
+					pt2 = ShapeFactory.createPoint(sex, (nwy+sey)/2.);
 
 					if(!ignoreMidPt && gradMidPt<0.5)
 						pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), sex,(nwy+sey)/2.));
@@ -829,11 +828,11 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 					pt1 = pt1.rotatePoint(cg, -angle);
 					pt2 = pt2.rotatePoint(cg, -angle);
-					l 	= factory.createLine(pt1, pt2);
+					l 	= ShapeFactory.createLine(pt1, pt2);
 
 					if(LNumber.equalsDouble(angle, 0.) && angle>0. && angle<PI/2.)
 						 l2 = l.getPerpendicularLine(nw);
-					else l2 = l.getPerpendicularLine(factory.createPoint(nwx,sey));
+					else l2 = l.getPerpendicularLine(ShapeFactory.createPoint(nwx,sey));
 
 					pt1 			= l.getIntersection(l2);
 					double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());

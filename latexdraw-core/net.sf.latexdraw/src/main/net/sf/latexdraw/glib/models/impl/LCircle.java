@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.models.impl;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -34,7 +35,7 @@ class LCircle extends LEllipse implements ICircle {
 	 * @since 3.0
 	 */
     protected LCircle(final boolean isUniqueID) {
-		this(new LPoint(), 1., isUniqueID);
+		this(ShapeFactory.createPoint(), 1., isUniqueID);
 	}
 
 
@@ -47,7 +48,7 @@ class LCircle extends LEllipse implements ICircle {
 	 * @throw NullPointerException If the given point pt is null.
 	 */
     protected LCircle(final IPoint pt, final double radius, final boolean isUniqueID) {
-		super(new LPoint(pt.getX()-radius, pt.getY()-radius), new LPoint(pt.getX()+radius, pt.getY()+radius), isUniqueID);
+		super(ShapeFactory.createPoint(pt.getX()-radius, pt.getY()-radius), ShapeFactory.createPoint(pt.getX()+radius, pt.getY()+radius), isUniqueID);
 	}
 
 

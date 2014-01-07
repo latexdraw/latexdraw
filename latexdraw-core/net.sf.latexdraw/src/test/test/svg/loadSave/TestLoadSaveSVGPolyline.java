@@ -8,6 +8,6 @@ public class TestLoadSaveSVGPolyline extends TestLoadSaveSVGPolygon {
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createPolyline(false);
+		shape = ShapeFactory.createPolyline(false);
 	}
 }

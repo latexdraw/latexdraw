@@ -12,10 +12,10 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
@@ -167,7 +167,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			final boolean isStylable = shape.isLineStylable();
 			final boolean isMvble	 = shape.isBordersMovable();
 			final boolean isColor	 = shape.isColourable();
-			final boolean supportRound = shape.isTypeOf(ILineArcShape.class);
+			final boolean supportRound = shape.isTypeOf(ILineArcProp.class);
 			final boolean showPts	 = shape.isShowPtsable();
 
 			composer.setWidgetVisible(thicknessField, isTh);
@@ -186,7 +186,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			if(isMvble)
 				bordersPosCB.setSelectedItemSafely(shape.getBordersPosition().toString());
 			if(supportRound)
-				frameArcField.setValueSafely(((ILineArcShape)shape).getLineArc());
+				frameArcField.setValueSafely(((ILineArcProp)shape).getLineArc());
 			if(showPts)
 				showPoints.setSelected(shape.isShowPts());
 		}

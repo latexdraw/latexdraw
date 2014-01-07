@@ -8,12 +8,12 @@ import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
-import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.ISquare;
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +24,8 @@ import test.glib.models.interfaces.TestISquare;
 public class TestLSquare<T extends ISquare> extends TestISquare<T> {
 	@Before
 	public void setUp() {
-		shape = (T) ShapeFactory.factory().createSquare(false);
-		shape2 = (T) ShapeFactory.factory().createSquare(false);
+		shape = (T) ShapeFactory.createSquare(false);
+		shape2 = (T) ShapeFactory.createSquare(false);
 	}
 
 
@@ -38,7 +38,7 @@ public class TestLSquare<T extends ISquare> extends TestISquare<T> {
 		assertTrue(shape.isTypeOf(IShape.class));
 		assertTrue(shape.isTypeOf(IPositionShape.class));
 		assertTrue(shape.isTypeOf(IRectangularShape.class));
-		assertTrue(shape.isTypeOf(ILineArcShape.class));
+		assertTrue(shape.isTypeOf(ILineArcProp.class));
 		assertTrue(shape.isTypeOf(IRectangle.class));
 		assertTrue(shape.isTypeOf(ISquare.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
@@ -47,39 +47,39 @@ public class TestLSquare<T extends ISquare> extends TestISquare<T> {
 
 	@Test
 	public void testConstructors() {
-		ISquare sq = ShapeFactory.factory().createSquare(false);
+		ISquare sq = ShapeFactory.createSquare(false);
 		assertEquals(4, sq.getNbPoints());
 
 		try {
-			sq = ShapeFactory.factory().createSquare(null, 10, true);
+			sq = ShapeFactory.createSquare(null, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(Double.NaN, 0), 10, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(Double.NaN, 0), 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(), 0, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), 0, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(), -10, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), -10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(), Double.NaN, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.NaN, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(), Double.POSITIVE_INFINITY, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.POSITIVE_INFINITY, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(), Double.NEGATIVE_INFINITY, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.NEGATIVE_INFINITY, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
-		sq = ShapeFactory.factory().createSquare(ShapeFactory.factory().createPoint(20, 26), 11, true);
+		sq = ShapeFactory.createSquare(ShapeFactory.createPoint(20, 26), 11, true);
 		HelperTest.assertEqualsDouble(20., sq.getPosition().getX());
 		HelperTest.assertEqualsDouble(37., sq.getPosition().getY());
 		HelperTest.assertEqualsDouble(11., sq.getWidth());

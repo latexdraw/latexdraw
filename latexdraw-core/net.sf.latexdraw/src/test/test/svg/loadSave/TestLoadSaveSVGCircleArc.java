@@ -9,7 +9,7 @@ public class TestLoadSaveSVGCircleArc extends TestLoadSaveSVGRectangularShape<IC
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createCircleArc(false);
+		shape = ShapeFactory.createCircleArc(false);
 	}
 
 	public void testStartAngle0() {

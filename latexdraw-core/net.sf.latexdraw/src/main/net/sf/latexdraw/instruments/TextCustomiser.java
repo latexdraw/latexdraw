@@ -13,8 +13,8 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.util.LResources;
 
@@ -151,8 +151,8 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape.isTypeOf(IText.class)) {
-			final TextPosition tp = ((IText)shape).getTextPosition();
+		if(shape.isTypeOf(ITextProp.class)) {
+			final TextPosition tp = ((ITextProp)shape).getTextPosition();
 
 			bButton.setSelected(tp==TextPosition.BOT);
 			brButton.setSelected(tp==TextPosition.BOT_RIGHT);
@@ -316,15 +316,15 @@ class ButtonPressed2ChangePencil extends ButtonPressedForCustomiser<ModifyPencil
 		action.setProperty(ShapeProperties.TEXT_POSITION);
 		action.setPencil(instrument.pencil);
 
-		if(instrument.blButton==ab) action.setValue(IText.TextPosition.BOT_LEFT);
-		else if(instrument.brButton==ab) action.setValue(IText.TextPosition.BOT_RIGHT);
-		else if(instrument.tButton==ab) action.setValue(IText.TextPosition.TOP);
-		else if(instrument.bButton==ab) action.setValue(IText.TextPosition.BOT);
-		else if(instrument.tlButton==ab) action.setValue(IText.TextPosition.TOP_LEFT);
-		else if(instrument.centreButton==ab) action.setValue(IText.TextPosition.CENTER);
-		else if(instrument.lButton==ab) action.setValue(IText.TextPosition.LEFT);
-		else if(instrument.rButton==ab) action.setValue(IText.TextPosition.RIGHT);
-		else action.setValue(IText.TextPosition.TOP_RIGHT);
+		if(instrument.blButton==ab) action.setValue(ITextProp.TextPosition.BOT_LEFT);
+		else if(instrument.brButton==ab) action.setValue(ITextProp.TextPosition.BOT_RIGHT);
+		else if(instrument.tButton==ab) action.setValue(ITextProp.TextPosition.TOP);
+		else if(instrument.bButton==ab) action.setValue(ITextProp.TextPosition.BOT);
+		else if(instrument.tlButton==ab) action.setValue(ITextProp.TextPosition.TOP_LEFT);
+		else if(instrument.centreButton==ab) action.setValue(ITextProp.TextPosition.CENTER);
+		else if(instrument.lButton==ab) action.setValue(ITextProp.TextPosition.LEFT);
+		else if(instrument.rButton==ab) action.setValue(ITextProp.TextPosition.RIGHT);
+		else action.setValue(ITextProp.TextPosition.TOP_RIGHT);
 	}
 
 	@Override
@@ -358,15 +358,15 @@ class ButtonPressed2ChangeTextPosition extends ButtonPressedForCustomiser<Modify
 		action.setGroup((IGroup)instrument.hand.canvas().getDrawing().getSelection().duplicate());
 		action.setProperty(ShapeProperties.TEXT_POSITION);
 
-		if(instrument.bButton==ab) action.setValue(IText.TextPosition.BOT);
-		else if(instrument.blButton==ab) action.setValue(IText.TextPosition.BOT_LEFT);
-		else if(instrument.brButton==ab) action.setValue(IText.TextPosition.BOT_RIGHT);
-		else if(instrument.tButton==ab) action.setValue(IText.TextPosition.TOP);
-		else if(instrument.tlButton==ab) action.setValue(IText.TextPosition.TOP_LEFT);
-		else if(instrument.centreButton==ab) action.setValue(IText.TextPosition.CENTER);
-		else if(instrument.lButton==ab) action.setValue(IText.TextPosition.LEFT);
-		else if(instrument.rButton==ab) action.setValue(IText.TextPosition.RIGHT);
-		else action.setValue(IText.TextPosition.TOP_RIGHT);
+		if(instrument.bButton==ab) action.setValue(ITextProp.TextPosition.BOT);
+		else if(instrument.blButton==ab) action.setValue(ITextProp.TextPosition.BOT_LEFT);
+		else if(instrument.brButton==ab) action.setValue(ITextProp.TextPosition.BOT_RIGHT);
+		else if(instrument.tButton==ab) action.setValue(ITextProp.TextPosition.TOP);
+		else if(instrument.tlButton==ab) action.setValue(ITextProp.TextPosition.TOP_LEFT);
+		else if(instrument.centreButton==ab) action.setValue(ITextProp.TextPosition.CENTER);
+		else if(instrument.lButton==ab) action.setValue(ITextProp.TextPosition.LEFT);
+		else if(instrument.rButton==ab) action.setValue(ITextProp.TextPosition.RIGHT);
+		else action.setValue(ITextProp.TextPosition.TOP_RIGHT);
 	}
 
 	@Override

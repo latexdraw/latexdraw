@@ -1,10 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
-
 import net.sf.latexdraw.glib.models.interfaces.IArrow
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.ILine
+import java.util.Collections
 
 /**
  * This trait encapsulates the code of the group related to the support of arrowable shapes.<br>
@@ -37,7 +37,7 @@ protected trait LGroupArrowable extends IGroup {
 	override def getArrowStyle(position : Int) : IArrow.ArrowStyle = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getArrowStyle(position)
-			case _ => null
+			case _ => IArrow.ArrowStyle.NONE
 		}
 	}
 
@@ -54,7 +54,7 @@ protected trait LGroupArrowable extends IGroup {
 	override def getArrows() : java.util.List[IArrow] = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getArrows
-			case _ => null
+			case _ => Collections.emptyList()
 		}
 	}
 

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces;
 
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
+
 /**
  * Defines an interface that classes defining a rectangle should implement.<br>
  * <br>
@@ -19,7 +21,7 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public interface IRectangle extends IRectangularShape, ILineArcShape {
+public interface IRectangle extends IRectangularShape, ILineArcProp {
 	@Override
 	IRectangle duplicate();
 }

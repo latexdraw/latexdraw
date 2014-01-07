@@ -2,8 +2,8 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.geom.Path2D;
 
-import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewRectangle;
 
 /**
@@ -43,8 +43,8 @@ class LRectangleView<M extends IRectangle> extends LRectangularView<IRectangle> 
 		final double w2 = Math.max(1., width);
 		final double h2 = Math.max(1., height);
 		
-		if(((ILineArcShape)shape).isRoundCorner()) {
-			final double diameter = Math.max(1., ((ILineArcShape)shape).getLineArc() * Math.min(w2, h2));
+		if(((ILineArcProp)shape).isRoundCorner()) {
+			final double diameter = Math.max(1., ((ILineArcProp)shape).getLineArc() * Math.min(w2, h2));
 			final double radius   = diameter/2.;
 
 			path.moveTo(tlx + radius, tly);

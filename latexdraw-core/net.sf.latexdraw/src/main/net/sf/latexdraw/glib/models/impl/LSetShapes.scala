@@ -2,7 +2,7 @@ package net.sf.latexdraw.glib.models.impl
 
 import org.malai.mapping.ActiveArrayList
 
-import net.sf.latexdraw.glib.models.interfaces.ISetShapes
+import net.sf.latexdraw.glib.models.interfaces.prop.ISetShapesProp
 import net.sf.latexdraw.glib.models.interfaces.IShape
 
 /**
@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LSetShapes extends ISetShapes {
+protected trait LSetShapes extends ISetShapesProp {
 	/** The set of shapes. */
 	val shapes : java.util.List[IShape] = new ActiveArrayList[IShape]()
 
@@ -32,13 +32,13 @@ protected trait LSetShapes extends ISetShapes {
 
 
 	override def addShape(sh : IShape) {
-		if(sh!=null && (!sh.isInstanceOf[ISetShapes] || !sh.asInstanceOf[ISetShapes].isEmpty))
+		if(sh!=null && (!sh.isInstanceOf[ISetShapesProp] || !sh.asInstanceOf[ISetShapesProp].isEmpty))
 			shapes.add(sh)
 	}
 
 
 	override def addShape(sh : IShape, index : Int) =
-		if(sh!=null && index<=shapes.size && (index== -1 || index>=0) && (!sh.isInstanceOf[ISetShapes] || !sh.asInstanceOf[ISetShapes].isEmpty))
+		if(sh!=null && index<=shapes.size && (index== -1 || index>=0) && (!sh.isInstanceOf[ISetShapesProp] || !sh.asInstanceOf[ISetShapesProp].isEmpty))
 			if(index== -1 || index==shapes.size)
 				shapes.add(sh)
 			else

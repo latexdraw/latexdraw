@@ -34,7 +34,7 @@ import net.sf.latexdraw.actions.shape.UpdateToGrid
 import org.malai.swing.action.library.MoveCamera
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import java.awt.Point
-import net.sf.latexdraw.glib.models.impl.LShapeFactory._
+import net.sf.latexdraw.glib.models.ShapeFactory._
 import net.sf.latexdraw.glib.models.ShapeFactory
 
 
@@ -131,7 +131,7 @@ private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Link[InitTex
 			action.setInstrument(instrument.textSetter)
 			action.setTextSetter(instrument.textSetter)
 			action.setAbsolutePoint(instrument.getAdaptedOriginPoint(position))
-			action.setRelativePoint(ShapeFactory.factory.createPoint(position))
+			action.setRelativePoint(ShapeFactory.createPoint(position))
 		}
 	}
 

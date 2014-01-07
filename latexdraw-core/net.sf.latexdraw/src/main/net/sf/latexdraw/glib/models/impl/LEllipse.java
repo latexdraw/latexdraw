@@ -33,7 +33,7 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	 * @since 3.0
 	 */
 	protected LEllipse(final boolean isUniqueID) {
-		this(new LPoint(), new LPoint(1, 1), isUniqueID);
+		this(ShapeFactory.createPoint(), ShapeFactory.createPoint(1, 1), isUniqueID);
 	}
 
 
@@ -69,11 +69,11 @@ class LEllipse extends LRectangularShape implements IEllipse {
 //		tl.setPoint(tl.getX()+th, tl.getY()+th);
 //		br.setPoint(br.getX()-th, br.getY()-th);
 		final IPoint gc = getGravityCentre();
-		final IPoint pt = ShapeFactory.factory().createPoint(br.getX(), (br.getY()+tl.getY())/2.).rotatePoint(gc, -angle);
+		final IPoint pt = ShapeFactory.createPoint(br.getX(), (br.getY()+tl.getY())/2.).rotatePoint(gc, -angle);
 		final double a = Math.abs(tl.getX()-gc.getX());
 		final double b = Math.abs(tl.getY()-gc.getY());
 		final double dec = 100.;
-		final ILine tgt = new LLine(pt.getX(), pt.getY(), 0., 0.);
+		final ILine tgt = ShapeFactory.createLine(pt.getX(), pt.getY(), 0., 0.);
 
 		if((float)angle%(float)Math.PI<=0.01) {
 			tgt.setX2(pt.getX());

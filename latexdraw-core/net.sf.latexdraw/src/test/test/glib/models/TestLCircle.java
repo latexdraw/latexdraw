@@ -23,8 +23,8 @@ import test.glib.models.interfaces.TestICircle;
 public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.factory().createCircle(false);
-		shape2 = (T) ShapeFactory.factory().createCircle(false);
+		shape  = (T) ShapeFactory.createCircle(false);
+		shape2 = (T) ShapeFactory.createCircle(false);
 	}
 
 
@@ -45,7 +45,7 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 
 	@Test
 	public void testConstructors() {
-		ICircle circle = ShapeFactory.factory().createCircle(false);
+		ICircle circle = ShapeFactory.createCircle(false);
 
 		assertEquals(4, circle.getNbPoints());
 		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
@@ -55,7 +55,7 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 
 	@Test
 	public void testConstructors2() {
-		ICircle circle = ShapeFactory.factory().createCircle(false);
+		ICircle circle = ShapeFactory.createCircle(false);
 
 		HelperTest.assertEqualsDouble(4, circle.getNbPoints());
 		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
@@ -68,31 +68,31 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 		ICircle circle;
 
 		try {
-			circle = ShapeFactory.factory().createCircle(null, 10., true);
+			circle = ShapeFactory.createCircle(null, 10., true);
 			fail();
 		}catch(NullPointerException e) {/* */}
 
 		try {
-			circle = ShapeFactory.factory().createCircle(ShapeFactory.factory().createPoint(Double.NaN, 1), 10., true);
+			circle = ShapeFactory.createCircle(ShapeFactory.createPoint(Double.NaN, 1), 10., true);
 			fail();
 		}catch(IllegalArgumentException e) {/* */}
 
 		try {
-			circle = ShapeFactory.factory().createCircle(ShapeFactory.factory().createPoint(1, Double.NEGATIVE_INFINITY), 10., true);
+			circle = ShapeFactory.createCircle(ShapeFactory.createPoint(1, Double.NEGATIVE_INFINITY), 10., true);
 			fail();
 		}catch(IllegalArgumentException e) {/* */}
 
 		try {
-			circle = ShapeFactory.factory().createCircle(ShapeFactory.factory().createPoint(1, 1), -10., true);
+			circle = ShapeFactory.createCircle(ShapeFactory.createPoint(1, 1), -10., true);
 			fail();
 		}catch(IllegalArgumentException e) {/* */}
 
 		try {
-			circle = ShapeFactory.factory().createCircle(ShapeFactory.factory().createPoint(1, 1), 0., true);
+			circle = ShapeFactory.createCircle(ShapeFactory.createPoint(1, 1), 0., true);
 			fail();
 		}catch(IllegalArgumentException e) {/* */}
 
-		circle = ShapeFactory.factory().createCircle(ShapeFactory.factory().createPoint(1, 2), 10., true);
+		circle = ShapeFactory.createCircle(ShapeFactory.createPoint(1, 2), 10., true);
 
 		HelperTest.assertEqualsDouble(1., circle.getGravityCentre().getX());
 		HelperTest.assertEqualsDouble(2., circle.getGravityCentre().getY());

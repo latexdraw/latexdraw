@@ -2,6 +2,8 @@ package net.sf.latexdraw.glib.models.interfaces
 
 import java.awt.Point
 import java.awt.geom.Point2D
+import scala.language.implicitConversions
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * Defines an interface to implement an abstract factory.<br>
@@ -393,11 +395,4 @@ trait IShapeFactory {
 	 * @since 3.0
 	 */
 	def duplicate(shape : IShape) : IShape
-
-
-	/**
-	 * Converts a Java point into a IPoint.
-	 * @since 3.0
-	 */
-	implicit def Point2IPoint(pt : Point) = if(pt==null) null else createPoint(pt.getX, pt.getY)
 }

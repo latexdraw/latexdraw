@@ -13,7 +13,7 @@ import java.awt.geom.Rectangle2D;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.util.LNumber;
 import sun.font.FontDesignMetrics;
@@ -120,8 +120,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 			return false;
 
 		final Shape sh = getRotatedShape2D(shape.getRotationAngle(), border,
-						ShapeFactory.factory().createPoint(border.getMinX(), border.getMinY()),
-						ShapeFactory.factory().createPoint(border.getMaxX(), border.getMaxY()));
+						ShapeFactory.createPoint(border.getMinX(), border.getMinY()),
+						ShapeFactory.createPoint(border.getMaxX(), border.getMaxY()));
 		return sh.contains(rec) || sh.intersects(rec);
 	}
 
@@ -138,16 +138,16 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 		if(image!=null)
 			switch(shape.getTextPosition()) {
-				case BOT : return ShapeFactory.factory().createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY()-image.getHeight(null)/scale);
-				case TOP : return ShapeFactory.factory().createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY());
-				case BOT_LEFT : return ShapeFactory.factory().createPoint(shape.getX(), shape.getY()-image.getHeight(null)/scale);
-				case TOP_LEFT : return ShapeFactory.factory().createPoint(shape.getX(), shape.getY());
-				case BOT_RIGHT : return ShapeFactory.factory().createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY()-image.getHeight(null)/scale);
-				case TOP_RIGHT : return ShapeFactory.factory().createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY());
-				case LEFT : return ShapeFactory.factory().createPoint(shape.getX(), shape.getY()-image.getHeight(null)/scale/2.);
-				case RIGHT : return ShapeFactory.factory().createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY()-image.getHeight(null)/scale/2.);
+				case BOT : return ShapeFactory.createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY()-image.getHeight(null)/scale);
+				case TOP : return ShapeFactory.createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY());
+				case BOT_LEFT : return ShapeFactory.createPoint(shape.getX(), shape.getY()-image.getHeight(null)/scale);
+				case TOP_LEFT : return ShapeFactory.createPoint(shape.getX(), shape.getY());
+				case BOT_RIGHT : return ShapeFactory.createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY()-image.getHeight(null)/scale);
+				case TOP_RIGHT : return ShapeFactory.createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY());
+				case LEFT : return ShapeFactory.createPoint(shape.getX(), shape.getY()-image.getHeight(null)/scale/2.);
+				case RIGHT : return ShapeFactory.createPoint(shape.getX()-image.getWidth(null)/scale, shape.getY()-image.getHeight(null)/scale/2.);
 				case BASE: case BASE_LEFT: case BASE_RIGHT:
-				case CENTER : return ShapeFactory.factory().createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY()-image.getHeight(null)/scale/2.);
+				case CENTER : return ShapeFactory.createPoint(shape.getX()-image.getWidth(null)/2./scale, shape.getY()-image.getHeight(null)/scale/2.);
 			}
 
 		return null;
@@ -159,16 +159,16 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		final Rectangle2D bounds = tl.getBounds();
 
 		switch(shape.getTextPosition()) {
-			case BOT : return ShapeFactory.factory().createPoint(shape.getX()-bounds.getWidth()/2., shape.getY());
-			case TOP : return ShapeFactory.factory().createPoint(shape.getX()-bounds.getWidth()/2., shape.getY()+bounds.getHeight());
-			case BOT_LEFT : return ShapeFactory.factory().createPoint(shape.getX(), shape.getY());
-			case TOP_LEFT : return ShapeFactory.factory().createPoint(shape.getX(), shape.getY()+bounds.getHeight());
-			case BOT_RIGHT : return ShapeFactory.factory().createPoint(shape.getX()-bounds.getWidth(), shape.getY());
-			case TOP_RIGHT : return ShapeFactory.factory().createPoint(shape.getX()-bounds.getWidth(), shape.getY()+bounds.getHeight());
-			case LEFT : return ShapeFactory.factory().createPoint(shape.getX(), shape.getY()+bounds.getHeight()/2.);
-			case RIGHT : return ShapeFactory.factory().createPoint(shape.getX()-bounds.getWidth(), shape.getY()+bounds.getHeight()/2.);
+			case BOT : return ShapeFactory.createPoint(shape.getX()-bounds.getWidth()/2., shape.getY());
+			case TOP : return ShapeFactory.createPoint(shape.getX()-bounds.getWidth()/2., shape.getY()+bounds.getHeight());
+			case BOT_LEFT : return ShapeFactory.createPoint(shape.getX(), shape.getY());
+			case TOP_LEFT : return ShapeFactory.createPoint(shape.getX(), shape.getY()+bounds.getHeight());
+			case BOT_RIGHT : return ShapeFactory.createPoint(shape.getX()-bounds.getWidth(), shape.getY());
+			case TOP_RIGHT : return ShapeFactory.createPoint(shape.getX()-bounds.getWidth(), shape.getY()+bounds.getHeight());
+			case LEFT : return ShapeFactory.createPoint(shape.getX(), shape.getY()+bounds.getHeight()/2.);
+			case RIGHT : return ShapeFactory.createPoint(shape.getX()-bounds.getWidth(), shape.getY()+bounds.getHeight()/2.);
 			case BASE: case BASE_RIGHT: case BASE_LEFT:
-			case CENTER : return ShapeFactory.factory().createPoint(shape.getX()-bounds.getWidth()/2., shape.getY()+bounds.getHeight()/2.);
+			case CENTER : return ShapeFactory.createPoint(shape.getX()-bounds.getWidth()/2., shape.getY()+bounds.getHeight()/2.);
 		}
 
 		return null;
@@ -231,8 +231,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		if(LNumber.equalsDouble(angle, 0.))
 			border.setFrame(tlx, tly, widthBorder, heightBorder);
 		else {
-			IPoint tl = ShapeFactory.factory().createPoint();
-			IPoint br = ShapeFactory.factory().createPoint();
+			IPoint tl = ShapeFactory.createPoint();
+			IPoint br = ShapeFactory.createPoint();
 			getRotatedRectangle(tlx, tly, widthBorder, heightBorder, angle, shape.getGravityCentre(), tl, br);
 			// The border of the rotated rectangle is now the border of the rectangular view.
 			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());

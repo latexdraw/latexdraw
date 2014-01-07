@@ -48,7 +48,7 @@ trait PSPolygonParser extends PSTAbstractParser with PSTParamParser with PSTCoor
 	 * Creates and initialises a line.
 	 */
 	private def createPolygon(hasStar : Boolean, pts : ListBuffer[IPoint], ctx : PSTContext) : IPolygon = {
-		val pol = ShapeFactory.factory.createPolygon(true)
+		val pol = ShapeFactory.createPolygon(true)
 		pts.foreach{pt => pol.addPoint(pt)}
 
 		setShapeParameters(pol, ctx)

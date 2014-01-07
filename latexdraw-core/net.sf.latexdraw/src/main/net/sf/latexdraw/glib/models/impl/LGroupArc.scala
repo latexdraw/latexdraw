@@ -32,7 +32,7 @@ protected trait LGroupArc extends IGroup {
 	override def getArcStyle() : IArcProp.ArcStyle =
 		firstIArcProp match {
 			case Some(arc) => arc.getArcStyle
-			case _ => null
+			case _ => IArcProp.ArcStyle.ARC
 		}
 
 	override def setArcStyle(typeArc : IArcProp.ArcStyle) {

@@ -65,16 +65,16 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
 	}
 
 	protected lazy val _groupParams = {
-		val group = ShapeFactory.factory.createGroup(false)
-		group.addShape(ShapeFactory.factory.createRectangle(false))
-		group.addShape(ShapeFactory.factory.createDot(ShapeFactory.factory.createPoint, false))
-		group.addShape(ShapeFactory.factory.createGrid(false, ShapeFactory.factory.createPoint))
-		group.addShape(ShapeFactory.factory.createAxes(false, ShapeFactory.factory.createPoint))
-		group.addShape(ShapeFactory.factory.createText(false))
-		group.addShape(ShapeFactory.factory.createCircleArc(false))
-		group.addShape(ShapeFactory.factory.createPolyline(false))
-		group.addShape(ShapeFactory.factory.createBezierCurve(false))
-		group.addShape(ShapeFactory.factory.createFreeHand(false))
+		val group = ShapeFactory.createGroup(false)
+		group.addShape(ShapeFactory.createRectangle(false))
+		group.addShape(ShapeFactory.createDot(ShapeFactory.createPoint, false))
+		group.addShape(ShapeFactory.createGrid(false, ShapeFactory.createPoint))
+		group.addShape(ShapeFactory.createAxes(false, ShapeFactory.createPoint))
+		group.addShape(ShapeFactory.createText(false))
+		group.addShape(ShapeFactory.createCircleArc(false))
+		group.addShape(ShapeFactory.createPolyline(false))
+		group.addShape(ShapeFactory.createBezierCurve(false))
+		group.addShape(ShapeFactory.createFreeHand(false))
 		group
 	}
 
@@ -121,8 +121,8 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
 	def setShapeParameters(shape:IShape) = {
 		if(shape.isInstanceOf[IModifiablePointsShape] && !shape.isInstanceOf[IFreehand]) {//FIXME
 			val mod = shape.asInstanceOf[IModifiablePointsShape]
-			mod.addPoint(ShapeFactory.factory.createPoint)
-			mod.addPoint(ShapeFactory.factory.createPoint)
+			mod.addPoint(ShapeFactory.createPoint)
+			mod.addPoint(ShapeFactory.createPoint)
 		}
 
 		shape.copy(groupParams)
@@ -189,7 +189,7 @@ private sealed class MultiClic2AddShape(pencil:Pencil) extends PencilLink[MultiC
 		val shape = action.shape.get.asInstanceOf[IModifiablePointsShape]
 
 		if(shape.getNbPoints==pts.size && !interaction.isLastPointFinalPoint)
-			shape.addPoint(ShapeFactory.factory.createPoint(currPoint.getX, currPoint.getY), pts.size-1)
+			shape.addPoint(ShapeFactory.createPoint(currPoint.getX, currPoint.getY), pts.size-1)
 		else
 			shape.setPoint(currPoint.getX, currPoint.getY, -1)
 
@@ -248,7 +248,7 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 						recShape.setHeight(2.0)
 					case _ =>
 						if(ec==EditionChoice.FREE_HAND && shape.isInstanceOf[IFreehand])
-							shape.asInstanceOf[IFreehand].addPoint(ShapeFactory.factory.createPoint(pt.getX, pt.getY))
+							shape.asInstanceOf[IFreehand].addPoint(ShapeFactory.createPoint(pt.getX, pt.getY))
 						else
 							shape.translate(pt.getX, pt.getY)
 				}
@@ -366,7 +366,7 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 private sealed class Press2InsertPicture(pencil:Pencil) extends Link[InsertPicture, Press, Pencil](pencil, false, classOf[InsertPicture], classOf[Press]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
-		action.setShape(ShapeFactory.factory.createPicture(true, instrument.getAdaptedPoint(interaction.getPoint)))
+		action.setShape(ShapeFactory.createPicture(true, instrument.getAdaptedPoint(interaction.getPoint)))
 		action.setFileChooser(instrument.pictureFileChooser)
 	}
 
@@ -398,7 +398,7 @@ private sealed class Press2AddShape(pencil:Pencil) extends PencilLink[Press](pen
 private sealed class Press2AddText(pencil:Pencil) extends PencilLink[Press](pencil, false, classOf[Press]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
-		action.setShape(ShapeFactory.factory.createText(true, ShapeFactory.factory.createPoint(instrument.textSetter.relativePoint), instrument.textSetter.getTextField.getText))
+		action.setShape(ShapeFactory.createText(true, ShapeFactory.createPoint(instrument.textSetter.relativePoint), instrument.textSetter.getTextField.getText))
 	}
 
 	// The action is created only when the user uses the text setter and the text field of the text setter is not empty.
@@ -416,7 +416,7 @@ private sealed class Press2InitTextSetter(pencil:Pencil) extends Link[InitTextSe
 		action.setTextShape(null)
 		action.setInstrument(instrument.textSetter)
 		action.setTextSetter(instrument.textSetter)
-		action.setAbsolutePoint(ShapeFactory.factory.createPoint(
+		action.setAbsolutePoint(ShapeFactory.createPoint(
 				SwingUtilities.convertPoint(interaction.getTarget.asInstanceOf[Component],interaction.getPoint, instrument.layers)))
 		action.setRelativePoint(instrument.getAdaptedPoint(interaction.getPoint))
 	}

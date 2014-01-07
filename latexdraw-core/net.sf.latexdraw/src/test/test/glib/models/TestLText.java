@@ -23,8 +23,8 @@ public class TestLText<T extends IText> extends TestIText<T> {
 	public void setUp() {
 		FlyweightThumbnail.images().clear();
 		FlyweightThumbnail.setThread(false);
-		shape  = (T) ShapeFactory.factory().createText(false);
-		shape2 = (T) ShapeFactory.factory().createText(false);
+		shape  = (T) ShapeFactory.createText(false);
+		shape2 = (T) ShapeFactory.createText(false);
 	}
 
 
@@ -43,30 +43,30 @@ public class TestLText<T extends IText> extends TestIText<T> {
 
 	@Test
 	public void testConstructors() {
-		IText txt = ShapeFactory.factory().createText(false);
+		IText txt = ShapeFactory.createText(false);
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = ShapeFactory.factory().createText(true);
+		txt = ShapeFactory.createText(true);
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = ShapeFactory.factory().createText(true, ShapeFactory.factory().createPoint(), "coucou");
+		txt = ShapeFactory.createText(true, ShapeFactory.createPoint(), "coucou");
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = ShapeFactory.factory().createText(true, ShapeFactory.factory().createPoint(), "");
+		txt = ShapeFactory.createText(true, ShapeFactory.createPoint(), "");
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = ShapeFactory.factory().createText(true, ShapeFactory.factory().createPoint(), null);
+		txt = ShapeFactory.createText(true, ShapeFactory.createPoint(), null);
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
 
-		txt = ShapeFactory.factory().createText(false, null, "aa");
-		assertEquals(ShapeFactory.factory().createPoint(), txt.getPosition());
-		txt = ShapeFactory.factory().createText(false, ShapeFactory.factory().createPoint(0, Double.NEGATIVE_INFINITY), "aa");
-		assertEquals(ShapeFactory.factory().createPoint(), txt.getPosition());
+		txt = ShapeFactory.createText(false, null, "aa");
+		assertEquals(ShapeFactory.createPoint(), txt.getPosition());
+		txt = ShapeFactory.createText(false, ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY), "aa");
+		assertEquals(ShapeFactory.createPoint(), txt.getPosition());
 	}
 }

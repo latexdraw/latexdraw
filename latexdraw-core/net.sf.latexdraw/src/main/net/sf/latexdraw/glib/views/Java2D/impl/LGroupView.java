@@ -41,7 +41,7 @@ class LGroupView extends LShapeView<IGroup> {
 	 * @since 3.0
 	 */
 	protected LGroupView() {
-		this(ShapeFactory.factory().createGroup(false));
+		this(ShapeFactory.createGroup(false));
 	}
 
 

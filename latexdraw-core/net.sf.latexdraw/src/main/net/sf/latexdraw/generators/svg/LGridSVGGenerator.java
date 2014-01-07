@@ -61,7 +61,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 	 * @since 2.0.0
 	 */
 	protected LGridSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.factory().createGrid(true, ShapeFactory.factory().createPoint()));
+		this(ShapeFactory.createGrid(true, ShapeFactory.createPoint()));
 
 		if(elt==null)
 			throw new IllegalArgumentException();

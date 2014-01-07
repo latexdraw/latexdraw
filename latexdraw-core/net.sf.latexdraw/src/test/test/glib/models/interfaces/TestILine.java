@@ -93,10 +93,10 @@ public abstract class TestILine extends TestCase {
 	@Test
 	public void testGetPoint1() {
 		assertNotNull(line.getPoint1());
-		line.setP1(ShapeFactory.factory().createPoint(100, 200));
+		line.setP1(ShapeFactory.createPoint(100, 200));
 		assertEquals(100., line.getPoint1().getX());
 		assertEquals(200., line.getPoint1().getY());
-		line.setP1(ShapeFactory.factory().createPoint(-300, 400));
+		line.setP1(ShapeFactory.createPoint(-300, 400));
 		assertEquals(-300., line.getPoint1().getX());
 		assertEquals(400., line.getPoint1().getY());
 	}
@@ -105,10 +105,10 @@ public abstract class TestILine extends TestCase {
 	@Test
 	public void testGetPoint2() {
 		assertNotNull(line.getPoint1());
-		line.setP2(ShapeFactory.factory().createPoint(100, 200));
+		line.setP2(ShapeFactory.createPoint(100, 200));
 		assertEquals(100., line.getPoint2().getX());
 		assertEquals(200., line.getPoint2().getY());
-		line.setP2(ShapeFactory.factory().createPoint(-300, 400));
+		line.setP2(ShapeFactory.createPoint(-300, 400));
 		assertEquals(-300., line.getPoint2().getX());
 		assertEquals(400., line.getPoint2().getY());
 	}
@@ -156,29 +156,29 @@ public abstract class TestILine extends TestCase {
 
 	@Test
 	public void testSetP1IPoint() {
-		line.setP1(ShapeFactory.factory().createPoint(20, 30));
+		line.setP1(ShapeFactory.createPoint(20, 30));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
 		line.setP1(null);
 		assertNotNull(line.getPoint1());
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(Double.NaN, -10));
+		line.setP1(ShapeFactory.createPoint(Double.NaN, -10));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, -10));
+		line.setP1(ShapeFactory.createPoint(Double.POSITIVE_INFINITY, -10));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY, -10));
+		line.setP1(ShapeFactory.createPoint(Double.NEGATIVE_INFINITY, -10));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(-10, Double.NaN));
+		line.setP1(ShapeFactory.createPoint(-10, Double.NaN));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(-10, Double.POSITIVE_INFINITY));
+		line.setP1(ShapeFactory.createPoint(-10, Double.POSITIVE_INFINITY));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(-10, Double.NEGATIVE_INFINITY));
+		line.setP1(ShapeFactory.createPoint(-10, Double.NEGATIVE_INFINITY));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
 	}
@@ -186,29 +186,29 @@ public abstract class TestILine extends TestCase {
 
 	@Test
 	public void testSetP2IPoint() {
-		line.setP2(ShapeFactory.factory().createPoint(20, 30));
+		line.setP2(ShapeFactory.createPoint(20, 30));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
 		line.setP2(null);
 		assertNotNull(line.getPoint2());
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(Double.NaN, -20));
+		line.setP2(ShapeFactory.createPoint(Double.NaN, -20));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, -20));
+		line.setP2(ShapeFactory.createPoint(Double.POSITIVE_INFINITY, -20));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY, -20));
+		line.setP2(ShapeFactory.createPoint(Double.NEGATIVE_INFINITY, -20));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(-20, Double.NaN));
+		line.setP2(ShapeFactory.createPoint(-20, Double.NaN));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(-20, Double.POSITIVE_INFINITY));
+		line.setP2(ShapeFactory.createPoint(-20, Double.POSITIVE_INFINITY));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(-20, Double.NEGATIVE_INFINITY));
+		line.setP2(ShapeFactory.createPoint(-20, Double.NEGATIVE_INFINITY));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
 	}
@@ -216,25 +216,25 @@ public abstract class TestILine extends TestCase {
 
 	@Test
 	public void testSetP1DoubleDouble() {
-		line.setP1(ShapeFactory.factory().createPoint(20, 30));
+		line.setP1(ShapeFactory.createPoint(20, 30));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(Double.NaN, -10));
+		line.setP1(ShapeFactory.createPoint(Double.NaN, -10));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, -10));
+		line.setP1(ShapeFactory.createPoint(Double.POSITIVE_INFINITY, -10));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY, -10));
+		line.setP1(ShapeFactory.createPoint(Double.NEGATIVE_INFINITY, -10));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(-10, Double.NaN));
+		line.setP1(ShapeFactory.createPoint(-10, Double.NaN));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(-10, Double.POSITIVE_INFINITY));
+		line.setP1(ShapeFactory.createPoint(-10, Double.POSITIVE_INFINITY));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
-		line.setP1(ShapeFactory.factory().createPoint(-10, Double.NEGATIVE_INFINITY));
+		line.setP1(ShapeFactory.createPoint(-10, Double.NEGATIVE_INFINITY));
 		assertEquals(20., line.getX1());
 		assertEquals(30., line.getY1());
 	}
@@ -242,29 +242,29 @@ public abstract class TestILine extends TestCase {
 
 	@Test
 	public void testSetP2DoubleDouble() {
-		line.setP2(ShapeFactory.factory().createPoint(20, 30));
+		line.setP2(ShapeFactory.createPoint(20, 30));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
 		line.setP2(null);
 		assertNotNull(line.getPoint2());
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(Double.NaN, -20));
+		line.setP2(ShapeFactory.createPoint(Double.NaN, -20));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, -20));
+		line.setP2(ShapeFactory.createPoint(Double.POSITIVE_INFINITY, -20));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY, -20));
+		line.setP2(ShapeFactory.createPoint(Double.NEGATIVE_INFINITY, -20));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(-20, Double.NaN));
+		line.setP2(ShapeFactory.createPoint(-20, Double.NaN));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(-20, Double.POSITIVE_INFINITY));
+		line.setP2(ShapeFactory.createPoint(-20, Double.POSITIVE_INFINITY));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
-		line.setP2(ShapeFactory.factory().createPoint(-20, Double.NEGATIVE_INFINITY));
+		line.setP2(ShapeFactory.createPoint(-20, Double.NEGATIVE_INFINITY));
 		assertEquals(20., line.getX2());
 		assertEquals(30., line.getY2());
 	}
@@ -336,19 +336,19 @@ public abstract class TestILine extends TestCase {
 	public void testGetPerpendicularLineHoriz() {
 		line.setLine(-10, 0, 10, 0);
 		line.updateAandB();
-		ILine line2 = line.getPerpendicularLine(ShapeFactory.factory().createPoint());
+		ILine line2 = line.getPerpendicularLine(ShapeFactory.createPoint());
 		assertNotNull(line2);
 		assertEquals(0., line2.getX1());
 		assertEquals(0., line2.getX2());
 		line.setLine(-10, 1, 10, 1);
 		line.updateAandB();
-		line2 = line.getPerpendicularLine(ShapeFactory.factory().createPoint(1,1));
+		line2 = line.getPerpendicularLine(ShapeFactory.createPoint(1,1));
 		assertNotNull(line2);
 		assertEquals(1., line2.getX1());
 		assertEquals(1., line2.getX2());
 		line.setLine(-10, -1, 10, -1);
 		line.updateAandB();
-		line2 = line.getPerpendicularLine(ShapeFactory.factory().createPoint(-1,-1));
+		line2 = line.getPerpendicularLine(ShapeFactory.createPoint(-1,-1));
 		assertNotNull(line2);
 		assertEquals(-1., line2.getX1());
 		assertEquals(-1., line2.getX2());
@@ -359,19 +359,19 @@ public abstract class TestILine extends TestCase {
 	public void testGetPerpendicularLineVert() {
 		line.setLine(0, 10, 0, -10);
 		line.updateAandB();
-		ILine line2 = line.getPerpendicularLine(ShapeFactory.factory().createPoint());
+		ILine line2 = line.getPerpendicularLine(ShapeFactory.createPoint());
 		assertNotNull(line2);
 		assertEquals(0., line2.getY1());
 		assertEquals(0., line2.getY2());
 		line.setLine(1, 10, 1, -10);
 		line.updateAandB();
-		line2 = line.getPerpendicularLine(ShapeFactory.factory().createPoint(1,1));
+		line2 = line.getPerpendicularLine(ShapeFactory.createPoint(1,1));
 		assertNotNull(line2);
 		assertEquals(1., line2.getY1());
 		assertEquals(1., line2.getY2());
 		line.setLine(-1, 10, -1, -10);
 		line.updateAandB();
-		line2 = line.getPerpendicularLine(ShapeFactory.factory().createPoint(-1,-1));
+		line2 = line.getPerpendicularLine(ShapeFactory.createPoint(-1,-1));
 		assertNotNull(line2);
 		assertEquals(-1., line2.getY1());
 		assertEquals(-1., line2.getY2());
@@ -382,26 +382,26 @@ public abstract class TestILine extends TestCase {
 	public void testGetPerpendicularLineDiag() {
 		line.setLine(1, 1, 2, 2);
 		line.updateAandB();
-		ILine line2 = line.getPerpendicularLine(ShapeFactory.factory().createPoint());
+		ILine line2 = line.getPerpendicularLine(ShapeFactory.createPoint());
 		assertNotNull(line2);
 		assertEquals(0., line2.getB());
 		assertEquals(-1., line2.getA());
 		line.setLine(-1, 1, 1, -1);
 		line.updateAandB();
-		line2 = line.getPerpendicularLine(ShapeFactory.factory().createPoint(0,0));
+		line2 = line.getPerpendicularLine(ShapeFactory.createPoint(0,0));
 		assertNotNull(line2);
 		assertEquals(0., line2.getB());
 		assertEquals(1., line2.getA());
 
 		assertNull(line.getPerpendicularLine(null));
-		assertNull(line.getPerpendicularLine(ShapeFactory.factory().createPoint(Double.NaN, 0)));
-		assertNull(line.getPerpendicularLine(ShapeFactory.factory().createPoint(0, Double.NEGATIVE_INFINITY)));
+		assertNull(line.getPerpendicularLine(ShapeFactory.createPoint(Double.NaN, 0)));
+		assertNull(line.getPerpendicularLine(ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY)));
 	}
 
 
 	@Test
 	public void testGetIntersection() {
-		ILine line2 = ShapeFactory.factory().createLine(72, -981, 0, 0);
+		ILine line2 = ShapeFactory.createLine(72, -981, 0, 0);
 		line.setLine(-237, 17, 13, -82);
 		line.updateAandB();
 		IPoint pt = line.getIntersection(line2);
@@ -411,13 +411,13 @@ public abstract class TestILine extends TestCase {
 
 		assertNull(line.getIntersection(null));
 		assertNull(line.getIntersection(line));
-		assertNull(line.getIntersection(ShapeFactory.factory().createLine(1, 1, 1, 1)));
+		assertNull(line.getIntersection(ShapeFactory.createLine(1, 1, 1, 1)));
 	}
 
 
 	@Test
 	public void testGetIntersectionVert() {
-		ILine line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		ILine line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
 		IPoint pt = line.getIntersection(line2);
@@ -425,7 +425,7 @@ public abstract class TestILine extends TestCase {
 		assertEquals(0., pt.getX());
 		assertEquals(0., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(1, -10, 1, 10);
 		line.updateAandB();
 		pt = line.getIntersection(line2);
@@ -433,7 +433,7 @@ public abstract class TestILine extends TestCase {
 		assertEquals(1., pt.getX());
 		assertEquals(0., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(-1, -10, -1, 10);
 		line.updateAandB();
 		pt = line.getIntersection(line2);
@@ -441,7 +441,7 @@ public abstract class TestILine extends TestCase {
 		assertEquals(-1., pt.getX());
 		assertEquals(0., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(1, 2, -1, 0);
+		line2 = ShapeFactory.createLine(1, 2, -1, 0);
 		line.setLine(0., -10, 0., 10);
 		line.updateAandB();
 		pt = line.getIntersection(line2);
@@ -453,7 +453,7 @@ public abstract class TestILine extends TestCase {
 
 	@Test
 	public void testGetIntersectionHoriz() {
-		ILine line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		ILine line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
 		IPoint pt = line2.getIntersection(line);
@@ -461,7 +461,7 @@ public abstract class TestILine extends TestCase {
 		assertEquals(0., pt.getX());
 		assertEquals(0., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(1, -10, 1, 10);
 		line.updateAandB();
 		pt = line2.getIntersection(line);
@@ -469,7 +469,7 @@ public abstract class TestILine extends TestCase {
 		assertEquals(1., pt.getX());
 		assertEquals(0., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(-1, -10, -1, 10);
 		line.updateAandB();
 		pt = line2.getIntersection(line);
@@ -477,7 +477,7 @@ public abstract class TestILine extends TestCase {
 		assertEquals(-1., pt.getX());
 		assertEquals(0., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(1, 2, -1, 0);
+		line2 = ShapeFactory.createLine(1, 2, -1, 0);
 		line.setLine(0., -10, 0., 10);
 		line.updateAandB();
 		pt = line2.getIntersection(line);
@@ -535,7 +535,7 @@ public abstract class TestILine extends TestCase {
 
 	@Test
 	public void testGetIntersectionSegment() {
-		ILine line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		ILine line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(1, 1, 0, -1);
 		line.updateAandB();
 		IPoint pt = line.getIntersectionSegment(line2);
@@ -545,13 +545,13 @@ public abstract class TestILine extends TestCase {
 
 		assertNull(line.getIntersectionSegment(null));
 		assertNull(line.getIntersectionSegment(line));
-		assertNull(line.getIntersectionSegment(ShapeFactory.factory().createLine(1, 1, 1, 1)));
+		assertNull(line.getIntersectionSegment(ShapeFactory.createLine(1, 1, 1, 1)));
 	}
 
 
 	@Test
 	public void testGetIntersectionSegmentVert() {
-		ILine line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		ILine line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
 		IPoint pt = line.getIntersectionSegment(line2);
@@ -559,7 +559,7 @@ public abstract class TestILine extends TestCase {
 		assertEquals(0., pt.getX());
 		assertEquals(0., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(1, -10, 1, 10);
 		line.updateAandB();
 		pt = line.getIntersectionSegment(line2);
@@ -567,19 +567,19 @@ public abstract class TestILine extends TestCase {
 		assertEquals(1., pt.getX());
 		assertEquals(0., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(1.001, -10, 1.001, 10);
 		line.updateAandB();
 		pt = line.getIntersectionSegment(line2);
 		assertNull(pt);
 
-		line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(-0.1, -10, -0.1, 10);
 		line.updateAandB();
 		pt = line.getIntersectionSegment(line2);
 		assertNull(pt);
 
-		line2 = ShapeFactory.factory().createLine(1, 2, -1, 0);
+		line2 = ShapeFactory.createLine(1, 2, -1, 0);
 		line.setLine(0., -10, 0., 10);
 		line.updateAandB();
 		pt = line.getIntersectionSegment(line2);
@@ -587,7 +587,7 @@ public abstract class TestILine extends TestCase {
 		assertEquals(0., pt.getX());
 		assertEquals(1., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(1, 2, -1, 0);
+		line2 = ShapeFactory.createLine(1, 2, -1, 0);
 		line.setLine(0., 10, 0., 1.01);
 		line.updateAandB();
 		pt = line.getIntersectionSegment(line2);
@@ -598,7 +598,7 @@ public abstract class TestILine extends TestCase {
 
 	@Test
 	public void testGetIntersectionSegmentHoriz() {
-		ILine line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		ILine line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
 		IPoint pt = line2.getIntersectionSegment(line);
@@ -606,31 +606,31 @@ public abstract class TestILine extends TestCase {
 		assertEquals(0., pt.getX());
 		assertEquals(0., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(0.01, 0, 1, 0);
+		line2 = ShapeFactory.createLine(0.01, 0, 1, 0);
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
 		pt = line2.getIntersectionSegment(line);
 		assertNull(pt);
 
-		line2 = ShapeFactory.factory().createLine(-0.01, 0, -1, 0);
+		line2 = ShapeFactory.createLine(-0.01, 0, -1, 0);
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
 		pt = line2.getIntersectionSegment(line);
 		assertNull(pt);
 
-		line2 = ShapeFactory.factory().createLine(0, 10.01, 1, 11);
+		line2 = ShapeFactory.createLine(0, 10.01, 1, 11);
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
 		pt = line2.getIntersectionSegment(line);
 		assertNull(pt);
 
-		line2 = ShapeFactory.factory().createLine(0, -10.01, 1, -11);
+		line2 = ShapeFactory.createLine(0, -10.01, 1, -11);
 		line.setLine(0, -10, 0, 10);
 		line.updateAandB();
 		pt = line2.getIntersectionSegment(line);
 		assertNull(pt);
 
-		line2 = ShapeFactory.factory().createLine(0, 0, 1, 0);
+		line2 = ShapeFactory.createLine(0, 0, 1, 0);
 		line.setLine(1, -10, 1, 10);
 		line.updateAandB();
 		pt = line2.getIntersectionSegment(line);
@@ -638,7 +638,7 @@ public abstract class TestILine extends TestCase {
 		assertEquals(1., pt.getX());
 		assertEquals(0., pt.getY());
 
-		line2 = ShapeFactory.factory().createLine(1, 2, -1, 0);
+		line2 = ShapeFactory.createLine(1, 2, -1, 0);
 		line.setLine(0., -10, 0., 10);
 		line.updateAandB();
 		pt = line2.getIntersectionSegment(line);
@@ -695,12 +695,12 @@ public abstract class TestILine extends TestCase {
 		line.setLine(1, 1, 3, 1);
 		line.updateAandB();
 		assertNull(line.findPoints((IPoint)null, 10));
-		assertNull(line.findPoints(ShapeFactory.factory().createPoint(Double.NaN,10), 10));
-		assertNull(line.findPoints(ShapeFactory.factory().createPoint(10, Double.POSITIVE_INFINITY), 10));
-		assertNull(line.findPoints(ShapeFactory.factory().createPoint(10, 10), Double.NaN));
-		assertNull(line.findPoints(ShapeFactory.factory().createPoint(10, 10), Double.NEGATIVE_INFINITY));
+		assertNull(line.findPoints(ShapeFactory.createPoint(Double.NaN,10), 10));
+		assertNull(line.findPoints(ShapeFactory.createPoint(10, Double.POSITIVE_INFINITY), 10));
+		assertNull(line.findPoints(ShapeFactory.createPoint(10, 10), Double.NaN));
+		assertNull(line.findPoints(ShapeFactory.createPoint(10, 10), Double.NEGATIVE_INFINITY));
 
-		IPoint[] pts = line.findPoints(ShapeFactory.factory().createPoint(1, 1), 2);
+		IPoint[] pts = line.findPoints(ShapeFactory.createPoint(1, 1), 2);
 		assertNotNull(pts);
 		assertEquals(2, pts.length);
 		assertEquals(1., pts[0].getY());
@@ -717,12 +717,12 @@ public abstract class TestILine extends TestCase {
 
 		line.setLine(3, 3, 3, 3);
 		line.updateAandB();
-		pts = line.findPoints(ShapeFactory.factory().createPoint(3, 3), 1);
+		pts = line.findPoints(ShapeFactory.createPoint(3, 3), 1);
 		assertNull(pts);
 
 		line.setLine(0, 3, 3, 3);
 		line.updateAandB();
-		pts = line.findPoints(ShapeFactory.factory().createPoint(10, 10), 1);
+		pts = line.findPoints(ShapeFactory.createPoint(10, 10), 1);
 		assertNull(pts);
 	}
 

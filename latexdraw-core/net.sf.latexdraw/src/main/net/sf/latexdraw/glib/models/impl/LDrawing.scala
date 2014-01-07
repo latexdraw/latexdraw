@@ -1,12 +1,11 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
-
 import org.malai.mapping.MappingRegistry
-
 import net.sf.latexdraw.glib.models.interfaces.IDrawing
 import net.sf.latexdraw.glib.models.interfaces.IGroup
 import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * Implements the concept of drawing.<br>
@@ -28,7 +27,7 @@ import net.sf.latexdraw.glib.models.interfaces.IShape
  */
 protected class LDrawing extends IDrawing with LSetShapes {
 	/** The selected shapes of the drawing. */
-	var selection : IGroup = new LGroup(false)
+	var selection : IGroup = ShapeFactory.createGroup(false)
 
 	/** Defined if the shape has been modified. */
 	var modified : Boolean = false

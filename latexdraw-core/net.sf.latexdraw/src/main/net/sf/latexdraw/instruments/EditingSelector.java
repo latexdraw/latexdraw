@@ -585,7 +585,7 @@ class ButtonPressed2AddText extends Link<AddShape, ButtonPressed, EditingSelecto
 	@Override
 	public void initAction() {
 		action.setDrawing(instrument.pencil.canvas().getDrawing());
-		action.setShape(ShapeFactory.factory().createText(true, ShapeFactory.factory().createPoint(instrument.pencil.textSetter().relativePoint),
+		action.setShape(ShapeFactory.createText(true, ShapeFactory.createPoint(instrument.pencil.textSetter().relativePoint),
 						instrument.pencil.textSetter().getTextField().getText()));
 	}
 

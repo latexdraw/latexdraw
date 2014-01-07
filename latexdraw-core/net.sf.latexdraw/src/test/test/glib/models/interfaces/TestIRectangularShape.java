@@ -253,8 +253,8 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 	@Override
 	@Test
 	public void testMirrorHorizontal() {
-		IPoint pt2 = ShapeFactory.factory().createPoint(3,1);
-		IPoint pt4 = ShapeFactory.factory().createPoint(1,3);
+		IPoint pt2 = ShapeFactory.createPoint(3,1);
+		IPoint pt4 = ShapeFactory.createPoint(1,3);
 
 		shape.setPosition(pt4);
 		shape.setWidth(pt2.getX()-pt4.getX());
@@ -275,8 +275,8 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 	@Override
 	@Test
 	public void testMirrorVertical() {
-		IPoint pt2 = ShapeFactory.factory().createPoint(3,1);
-		IPoint pt4 = ShapeFactory.factory().createPoint(1,3);
+		IPoint pt2 = ShapeFactory.createPoint(3,1);
+		IPoint pt4 = ShapeFactory.createPoint(1,3);
 
 		shape.setPosition(pt4);
 		shape.setWidth(pt2.getX()-pt4.getX());
@@ -298,8 +298,8 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 	@Override
 	@Test
 	public void testTranslate() {
-		IPoint pt2 = ShapeFactory.factory().createPoint(3,1);
-		IPoint pt4 = ShapeFactory.factory().createPoint(1,3);
+		IPoint pt2 = ShapeFactory.createPoint(3,1);
+		IPoint pt4 = ShapeFactory.createPoint(1,3);
 
 		shape.setPosition(pt4);
 		shape.setWidth(pt2.getX()-pt4.getX());

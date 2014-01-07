@@ -3,7 +3,7 @@ package net.sf.latexdraw.glib.models.impl
 import scala.collection.JavaConversions.asScalaBuffer
 
 import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.glib.models.interfaces.ILineArcShape
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
 
 /**
  * This trait encapsulates the code of the group related to the support of line arc shapes.<br>
@@ -25,13 +25,13 @@ import net.sf.latexdraw.glib.models.interfaces.ILineArcShape
  */
 protected trait LGroupLineArc extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstLineArc = lineArcShapes.find{_.isTypeOf(classOf[ILineArcShape])}
+	private def firstLineArc = lineArcShapes.find{_.isTypeOf(classOf[ILineArcProp])}
 
-	private def lineArcShapes = getShapes.flatMap{case x:ILineArcShape => x::Nil; case _ => Nil}
+	private def lineArcShapes = getShapes.flatMap{case x:ILineArcProp => x::Nil; case _ => Nil}
 
 	override def getLineArc() : Double = {
 		firstLineArc match {
-			case Some(la) => la.asInstanceOf[ILineArcShape].getLineArc
+			case Some(la) => la.asInstanceOf[ILineArcProp].getLineArc
 			case _ => Double.NaN
 		}
 	}

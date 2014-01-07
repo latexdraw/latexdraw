@@ -19,8 +19,8 @@ import test.glib.models.interfaces.TestITriangle;
 public class TestLTriangle<T extends ITriangle> extends TestITriangle<T> {
 	@Before
 	public void setUp() {
-		shape = (T) ShapeFactory.factory().createTriangle(false);
-		shape2 = (T) ShapeFactory.factory().createTriangle(false);
+		shape = (T) ShapeFactory.createTriangle(false);
+		shape2 = (T) ShapeFactory.createTriangle(false);
 	}
 
 

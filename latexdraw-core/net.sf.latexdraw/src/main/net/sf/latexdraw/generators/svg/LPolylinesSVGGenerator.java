@@ -53,7 +53,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @param elt The SVG path.
 	 */
 	protected LPolylinesSVGGenerator(final SVGPathElement elt) {
-		super(ShapeFactory.factory().createPolyline(true));
+		super(ShapeFactory.createPolyline(true));
 
 		if(elt==null || !elt.isLines())
 			throw new IllegalArgumentException();
@@ -70,7 +70,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGPolyLineElement elt) {
-		this(ShapeFactory.factory().createPolyline(true));
+		this(ShapeFactory.createPolyline(true));
 
 		setSVGModifiablePointsParameters(elt);
 		setSVGParameters(elt);
@@ -84,7 +84,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGLineElement elt) {
-		this(ShapeFactory.factory().createPolyline(true));
+		this(ShapeFactory.createPolyline(true));
 
 		setSVGParameters(elt);
 		applyTransformations(elt);
@@ -97,7 +97,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.factory().createPolyline(true));
+		this(ShapeFactory.createPolyline(true));
 
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -109,8 +109,8 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 			setSVGModifiablePointsParameters((SVGPolyLineElement)elt2);
 		}else {
 			final SVGLineElement lineElt = (SVGLineElement)elt2;
-			shape.addPoint(ShapeFactory.factory().createPoint(lineElt.getX1(), lineElt.getY1()));
-			shape.addPoint(ShapeFactory.factory().createPoint(lineElt.getX2(), lineElt.getY2()));
+			shape.addPoint(ShapeFactory.createPoint(lineElt.getX1(), lineElt.getY1()));
+			shape.addPoint(ShapeFactory.createPoint(lineElt.getX2(), lineElt.getY2()));
 		}
 
 		setSVGParameters(elt2);

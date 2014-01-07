@@ -24,7 +24,6 @@ import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.views.AbstractView;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArrow;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
@@ -248,12 +247,11 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 				break;
 
 			case GRAD:
-				final IShapeFactory factory = ShapeFactory.factory();
 				final GeneralPath p = new GeneralPath(path);//TODO checks if useful the create an other path
 				final IPoint tl  = shape.getTopLeftPoint();
 				final IPoint br  = shape.getBottomRightPoint();
-				IPoint pt1 		 = factory.createPoint((tl.getX()+br.getX())/2., tl.getY());
-				IPoint pt2 		 = factory.createPoint((tl.getX()+br.getX())/2., br.getY());
+				IPoint pt1 		 = ShapeFactory.createPoint((tl.getX()+br.getX())/2., tl.getY());
+				IPoint pt2 		 = ShapeFactory.createPoint((tl.getX()+br.getX())/2., br.getY());
 				double angle 	 = shape.getGradAngle()%(2*Math.PI);
 				double gradMidPt = shape.getGradMidPt();
 
@@ -269,8 +267,8 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 				if(!LNumber.equalsDouble(angle, 0.)) {
 					if(LNumber.equalsDouble(angle%(Math.PI/2.), 0.)) {
-						pt1 = factory.createPoint(tl.getX(), (tl.getY()+br.getY())/2.);
-						pt2 = factory.createPoint(br.getX(), (tl.getY()+br.getY())/2.);
+						pt1 = ShapeFactory.createPoint(tl.getX(), (tl.getY()+br.getY())/2.);
+						pt2 = ShapeFactory.createPoint(br.getX(), (tl.getY()+br.getY())/2.);
 
 						if(gradMidPt<0.5)
 							pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), br.getX(),(tl.getY()+br.getY())/2.));
@@ -283,12 +281,12 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 						pt1 = pt1.rotatePoint(cg, -angle);
 						pt2 = pt2.rotatePoint(cg, -angle);
-						l = factory.createLine(pt1, pt2);
+						l = ShapeFactory.createLine(pt1, pt2);
 
 						if(angle>=0. && angle<Math.PI/2.)
 							l2 = l.getPerpendicularLine(tl);
 						else
-							l2 = l.getPerpendicularLine(factory.createPoint(tl.getX(),br.getY()));
+							l2 = l.getPerpendicularLine(ShapeFactory.createPoint(tl.getX(),br.getY()));
 
 						pt1 = l.getIntersection(l2);
 						final double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
@@ -488,7 +486,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 			final double dx;
 			final double dy;
 			final IPoint gc 		= shape.getGravityCentre();
-			final IPoint shadowgc 	= ShapeFactory.factory().createPoint(gc.getX()+shape.getShadowSize(), gc.getY());
+			final IPoint shadowgc 	= ShapeFactory.createPoint(gc.getX()+shape.getShadowSize(), gc.getY());
 
 			shadowgc.setPoint(shadowgc.rotatePoint(gc, shape.getShadowAngle()));
 			dx = shadowgc.getX() - gc.getX();
@@ -685,7 +683,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 			g.rotate(rotationAngle);
 			g.translate(c3x, c3y);
-			p = ShapeFactory.factory().createPoint(c3x, c3y);
+			p = ShapeFactory.createPoint(c3x, c3y);
 		}
 
 		return p;
@@ -724,13 +722,12 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	protected static void getRotatedRectangle(final double tlx, final double tly, final double width,
 											 final double height, final double angle, final IPoint gravityCentre,
 											 final IPoint tl, final IPoint br) {
-		final IShapeFactory factory = ShapeFactory.factory();
 		IPoint pts[] = new IPoint[4];
 		// Rotation of the four points of the rectangle.
-		pts[0] = factory.createPoint(tlx, tly).rotatePoint(gravityCentre, angle);
-		pts[1] = factory.createPoint(tlx+width, tly).rotatePoint(gravityCentre, angle);
-		pts[2] = factory.createPoint(tlx+width, tly+height).rotatePoint(gravityCentre, angle);
-		pts[3] = factory.createPoint(tlx, tly+height).rotatePoint(gravityCentre, angle);
+		pts[0] = ShapeFactory.createPoint(tlx, tly).rotatePoint(gravityCentre, angle);
+		pts[1] = ShapeFactory.createPoint(tlx+width, tly).rotatePoint(gravityCentre, angle);
+		pts[2] = ShapeFactory.createPoint(tlx+width, tly+height).rotatePoint(gravityCentre, angle);
+		pts[3] = ShapeFactory.createPoint(tlx, tly+height).rotatePoint(gravityCentre, angle);
 		tl.setPoint(Double.MAX_VALUE, Double.MAX_VALUE);
 		br.setPoint(Double.MIN_VALUE, Double.MIN_VALUE);
 

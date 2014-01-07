@@ -29,7 +29,7 @@ import net.sf.latexdraw.glib.handlers.MovePtHandler
 import net.sf.latexdraw.glib.handlers.RotationHandler
 import net.sf.latexdraw.glib.handlers.ScaleHandler
 import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.impl.LShapeFactory.Point2IPoint
+import net.sf.latexdraw.glib.models.ShapeFactory._
 import net.sf.latexdraw.glib.models.interfaces.IArc
 import net.sf.latexdraw.glib.models.interfaces.IControlPointShape
 import net.sf.latexdraw.glib.models.interfaces.IGroup
@@ -476,7 +476,7 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 	/** The current handled shape. */
 	var shape : IShape = _
 
-	var gap : IPoint = ShapeFactory.factory.createPoint
+	var gap : IPoint = ShapeFactory.createPoint
 
 
 	def initAction() {
@@ -515,7 +515,7 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 		if(isRotated)
 			pt = pt.rotatePoint(gc, -shape.getRotationAngle)
 
-		action.setValue(computeAngle(ShapeFactory.factory.createPoint(pt.getX-gap.getX, pt.getY-gap.getY)))
+		action.setValue(computeAngle(ShapeFactory.createPoint(pt.getX-gap.getX, pt.getY-gap.getY)))
 	}
 
 
@@ -575,7 +575,7 @@ private sealed class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint,
 
 		if(group.size==1 && group.getShapeAt(0).isTypeOf(classOf[IControlPointShape])) {
 			val handler = ctrlPtHandler.get
-			sourcePt = ShapeFactory.factory.createPoint(handler.getCentre)
+			sourcePt = ShapeFactory.createPoint(handler.getCentre)
 			action.setIndexPt(handler.getIndexPt)
 			action.setShape(group.getShapeAt(0).asInstanceOf[IControlPointShape])
 			action.setIsFirstCtrlPt(instrument.ctrlPt1Handlers.contains(interaction.getStartObject))
@@ -589,7 +589,7 @@ private sealed class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint,
 		val endPt 	= interaction.getEndPt
 		val x 		= sourcePt.getX + endPt.getX-startPt.getX
 		val y 		= sourcePt.getY + endPt.getY-startPt.getY
-		action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.factory.createPoint(x, y)))
+		action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.createPoint(x, y)))
 	}
 
 
@@ -626,7 +626,7 @@ private sealed class DnD2MovePoint(ins : Border) extends Link[MovePointShape, Dn
 
 		if(group.size==1 && group.getShapeAt(0).isTypeOf(classOf[IModifiablePointsShape])) {
 			val handler = movePtHandler.get
-			sourcePt = ShapeFactory.factory.createPoint(handler.getCentre)
+			sourcePt = ShapeFactory.createPoint(handler.getCentre)
 			action.setIndexPt(handler.getIndexPt)
 			action.setShape(group.getShapeAt(0).asInstanceOf[IModifiablePointsShape])
 		}
@@ -639,7 +639,7 @@ private sealed class DnD2MovePoint(ins : Border) extends Link[MovePointShape, Dn
 		val endPt 	= interaction.getEndPt
 		val x 		= sourcePt.getX + endPt.getX-startPt.getX
 		val y 		= sourcePt.getY + endPt.getY-startPt.getY
-		action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.factory.createPoint(x, y)))
+		action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.createPoint(x, y)))
 	}
 
 

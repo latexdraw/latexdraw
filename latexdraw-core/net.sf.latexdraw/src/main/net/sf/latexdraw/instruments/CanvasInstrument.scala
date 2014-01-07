@@ -18,7 +18,7 @@ abstract class CanvasInstrument(val canvas : ICanvas) extends Instrument {
 	 * @return The computed point.
 	 * @since 3.0
 	 */
-	def getAdaptedOriginPoint(pt:IPoint) = canvas.convertToOrigin(ShapeFactory.factory.createPoint(canvas.getZoomedPoint(pt.getX, pt.getY)))
+	def getAdaptedOriginPoint(pt:IPoint) = canvas.convertToOrigin(ShapeFactory.createPoint(canvas.getZoomedPoint(pt.getX, pt.getY)))
 
 	/**
 	 * Computes the point depending on the the zoom level and the magnetic grid.

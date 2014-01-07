@@ -13,7 +13,7 @@ public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(), false);
+		shape = ShapeFactory.createDot(ShapeFactory.createPoint(), false);
 	}
 
 	private void setDot(final double x, final double y, final DotStyle style, final double size,

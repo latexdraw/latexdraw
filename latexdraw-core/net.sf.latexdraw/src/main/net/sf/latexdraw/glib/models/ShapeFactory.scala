@@ -2,6 +2,10 @@ package net.sf.latexdraw.glib.models
 
 import net.sf.latexdraw.glib.models.interfaces.IShapeFactory
 import net.sf.latexdraw.glib.models.impl.LShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.IPoint
+import java.awt.geom.Point2D
+import java.awt.Point
+import scala.language.implicitConversions
 
 /**
  * This class contains the factory that must be used to create shape instances.<br>
@@ -22,6 +26,13 @@ import net.sf.latexdraw.glib.models.impl.LShapeFactory
  * @version 3.0
  * @since 3.0
  */
-object ShapeFactory {
-	val factory : IShapeFactory = new LShapeFactory()
+object ShapeFactory extends LShapeFactory {
+	/** Converts a Point to an IPoint. */
+	implicit def Point2IPoint(pt:Point) = ShapeFactory.createPoint(pt.getX, pt.getY)
+
+	/** Converts a Point2D to an IPoint. */
+	implicit def Point2D2IPoint(pt:Point2D) = ShapeFactory.createPoint(pt.getX, pt.getY)
+
+	/** Converts an IPoint to a Point2D. */
+	implicit def IPoint2Point2D(pt:IPoint) = new Point2D.Double(pt.getX, pt.getY)
 }

@@ -1,8 +1,10 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IText;
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
 
 /**
  * Defines a model of a text.<br>
@@ -37,7 +39,7 @@ class LText extends LPositionShape implements IText {
 	 * @since 3.0
 	 */
 	protected LText(final boolean isUniqueID) {
-		this(isUniqueID, new LPoint(), "text"); //$NON-NLS-1$
+		this(isUniqueID, ShapeFactory.createPoint(), "text"); //$NON-NLS-1$
 	}
 
 
@@ -80,8 +82,8 @@ class LText extends LPositionShape implements IText {
 	public void copy(final IShape s) {
 		super.copy(s);
 
-		if(s instanceof IText) {
-			IText textSh 	= (IText)s;
+		if(s instanceof ITextProp) {
+			ITextProp textSh= (ITextProp)s;
 			text 			= textSh.getText();
 			textPosition	= textSh.getTextPosition();
 		}

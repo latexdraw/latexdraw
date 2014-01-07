@@ -243,12 +243,12 @@ abstract class LShape implements IShape {
 		points.clear();
 
 		for(final IPoint pt : sh.getPoints())
-			points.add(new LPoint(pt));
+			points.add(ShapeFactory.createPoint(pt));
 
 		if(isArrowable()) {
 			arrows.clear();
 			for(final IArrow arr : sh.getArrows())
-				arrows.add(new LArrow(arr, this));
+				arrows.add(ShapeFactory.createArrow(arr, this));
 		}
 	}
 
@@ -399,7 +399,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getGravityCentre() {
-		return points.isEmpty() ? new LPoint() : getTopLeftPoint().getMiddlePoint(getBottomRightPoint());
+		return points.isEmpty() ? ShapeFactory.createPoint() : getTopLeftPoint().getMiddlePoint(getBottomRightPoint());
 	}
 
 
@@ -925,7 +925,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getBottomRightPoint() {
-		final IPoint br = new LPoint();
+		final IPoint br = ShapeFactory.createPoint();
 
 		if(points.size()>0) {
 			IPoint pt = points.get(0);
@@ -945,7 +945,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getBottomLeftPoint() {
-		final IPoint bl = new LPoint();
+		final IPoint bl = ShapeFactory.createPoint();
 
 		if(points.size()>0) {
 			IPoint pt = points.get(0);
@@ -965,7 +965,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getTopLeftPoint() {
-		final IPoint tl = new LPoint();
+		final IPoint tl = ShapeFactory.createPoint();
 
 		if(points.size()>0) {
 			IPoint pt = points.get(0);
@@ -985,7 +985,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getTopRightPoint() {
-		final IPoint tr = new LPoint();
+		final IPoint tr = ShapeFactory.createPoint();
 
 		if(points.size()>0) {
 			IPoint pt = points.get(0);
@@ -1006,7 +1006,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IShape duplicate() {
-		final IShape shape = ShapeFactory.factory().newShape(this.getClass()).get();
+		final IShape shape = ShapeFactory.newShape(this.getClass()).get();
 
 		shape.copy(this);
 		return shape;

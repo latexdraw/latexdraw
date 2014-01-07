@@ -264,15 +264,15 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void updateAction() {
 			if(isOriginSpinner())
-				action.setValue(ShapeFactory.factory().createPoint(
+				action.setValue(ShapeFactory.createPoint(
 						Double.parseDouble(instrument.xOriginS.getValue().toString()), Double.parseDouble(instrument.yOriginS.getValue().toString())));
 			else if(isLabelSizeSpinner())
 				action.setValue(Integer.parseInt(instrument.labelsSizeS.getValue().toString()));
 			else if(isStartGridSpinner())
-				action.setValue(ShapeFactory.factory().createPoint(
+				action.setValue(ShapeFactory.createPoint(
 						Double.parseDouble(instrument.xStartS.getValue().toString()), Double.parseDouble(instrument.yStartS.getValue().toString())));
 			else
-				action.setValue(ShapeFactory.factory().createPoint(
+				action.setValue(ShapeFactory.createPoint(
 						Double.parseDouble(instrument.xEndS.getValue().toString()), Double.parseDouble(instrument.yEndS.getValue().toString())));
 		}
 

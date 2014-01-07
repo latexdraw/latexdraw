@@ -5,27 +5,28 @@ import java.util.ArrayList
 import java.util.List
 import scala.collection.JavaConversions.asScalaBuffer
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle
 import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.glib.models.interfaces.ILineArcShape
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
 import net.sf.latexdraw.glib.models.interfaces.IPoint
 import net.sf.latexdraw.glib.models.interfaces.IShape
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos
 import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle
-import net.sf.latexdraw.glib.models.interfaces.IText
-import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * A Group is a group of IShape instances.<br>
@@ -61,7 +62,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 
 
 	override def duplicateDeep(duplicateShapes : Boolean) : IGroup = {
-		val dup = new LGroup(true)
+		val dup = ShapeFactory.createGroup(true)
 
 		if(duplicateShapes)
 			shapes.foreach{sh => dup.addShape(sh.duplicate)}
@@ -497,7 +498,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getGridOriginList() : List[IPoint] = {
 		val list = new ArrayList[IPoint]()
 		shapes.foreach{_ match {
-				case grid : IStdGridProp => list.add(new LPoint(grid.getOriginX, grid.getOriginY))
+				case grid : IStdGridProp => list.add(ShapeFactory.createPoint(grid.getOriginX, grid.getOriginY))
 				case _ => list.add(null)
 			}
 		}
@@ -636,7 +637,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getTextPositionList() : List[TextPosition] = {
 		val list = new ArrayList[TextPosition]()
 		shapes.foreach{_ match {
-				case txt : IText => list.add(txt.getTextPosition)
+				case txt : ITextProp => list.add(txt.getTextPosition)
 				case _ => list.add(null)
 			}
 		}
@@ -647,7 +648,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getTextList() : List[String] = {
 		val list = new ArrayList[String]()
 		shapes.foreach{_ match {
-				case txt : IText => list.add(txt.getText)
+				case txt : ITextProp => list.add(txt.getText)
 				case _ => list.add(null)
 			}
 		}
@@ -713,7 +714,7 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getLineArcList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{_ match {
-				case lineArc : ILineArcShape => list.add(lineArc.getLineArc)
+				case lineArc : ILineArcProp => list.add(lineArc.getLineArc)
 				case _ => list.add(null)
 			}
 		}
@@ -958,16 +959,16 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setTextPositionList(values : List[TextPosition]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IText])
-					shapes.get(i).asInstanceOf[IText].setTextPosition(values.get(i))
+				if(shapes.get(i).isInstanceOf[ITextProp])
+					shapes.get(i).asInstanceOf[ITextProp].setTextPosition(values.get(i))
 	}
 
 
 	override def setTextList(values : List[String]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IText])
-					shapes.get(i).asInstanceOf[IText].setText(values.get(i))
+				if(shapes.get(i).isInstanceOf[ITextProp])
+					shapes.get(i).asInstanceOf[ITextProp].setText(values.get(i))
 	}
 
 
@@ -1014,8 +1015,8 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setLineArcList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[ILineArcShape])
-					shapes.get(i).asInstanceOf[ILineArcShape].setLineArc(values.get(i))
+				if(shapes.get(i).isInstanceOf[ILineArcProp])
+					shapes.get(i).asInstanceOf[ILineArcProp].setLineArc(values.get(i))
 	}
 
 

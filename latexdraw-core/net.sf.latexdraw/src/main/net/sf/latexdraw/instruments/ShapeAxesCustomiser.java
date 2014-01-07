@@ -328,10 +328,10 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 //				action.setValue(Double.valueOf(interaction.getSpinner().getValue().toString()));
 //			else
 			if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
-				action.setValue(ShapeFactory.factory().createPoint(Double.valueOf(instrument.distLabelsX.getValue().toString()),
+				action.setValue(ShapeFactory.createPoint(Double.valueOf(instrument.distLabelsX.getValue().toString()),
 								Double.valueOf(instrument.distLabelsY.getValue().toString())));
 			else
-				action.setValue(ShapeFactory.factory().createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()),
+				action.setValue(ShapeFactory.createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()),
 							Double.valueOf(instrument.incrLabelY.getValue().toString())));
 		}
 	}

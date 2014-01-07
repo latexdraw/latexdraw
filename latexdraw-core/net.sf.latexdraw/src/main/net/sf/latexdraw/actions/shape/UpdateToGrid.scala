@@ -46,7 +46,7 @@ class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Mo
 		shape.get.getShapes.foreach{sh=>
 			list = new ListBuffer[IPoint]
 			_listPts.add(list)
-			sh.getPoints.foreach(pt=> list.add(ShapeFactory.factory.createPoint(pt)))
+			sh.getPoints.foreach(pt=> list.add(ShapeFactory.createPoint(pt)))
 		}
 		redo
 	}

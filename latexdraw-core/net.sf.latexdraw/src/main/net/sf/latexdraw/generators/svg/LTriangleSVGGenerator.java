@@ -6,7 +6,6 @@ import java.util.List;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.ITriangle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
@@ -54,7 +53,7 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	 * @since 2.0.0
 	 */
 	protected LTriangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.factory().createTriangle(true));
+		this(ShapeFactory.createTriangle(true));
 
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -96,22 +95,21 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 		if(doc==null || doc.getFirstChild().getDefs()==null)
 			return null;
 
-		final IShapeFactory factory = ShapeFactory.factory();
 		SVGElement root = new SVGGElement(doc), elt;
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_TRIANGLE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 	    double gap 		= getPositionGap()/2.;
 	    IPoint pt1 		= shape.getTopLeftPoint();
 	    IPoint pt2 		= shape.getBottomRightPoint();
-		IPoint p1 		= factory.createPoint((pt1.getX()+pt2.getX())/2., pt1.getY());
-		IPoint p2 		= factory.createPoint(pt2.getX(), pt2.getY());
-		IPoint p3 		= factory.createPoint(pt1.getX(), pt2.getY());
+		IPoint p1 		= ShapeFactory.createPoint((pt1.getX()+pt2.getX())/2., pt1.getY());
+		IPoint p2 		= ShapeFactory.createPoint(pt2.getX(), pt2.getY());
+		IPoint p3 		= ShapeFactory.createPoint(pt1.getX(), pt2.getY());
 	    final double p1x = p1.getX();
 	    final double p1y = p1.getY();
 	    final double p2x = p2.getX();
 	    final double p2y = p2.getY();
 	    final double p3x = p3.getX();
-	    double cornerGap1 = GLibUtilities.getCornerGap(factory.createPoint(p1x, p2y), p1, p2, gap);
+	    double cornerGap1 = GLibUtilities.getCornerGap(ShapeFactory.createPoint(p1x, p2y), p1, p2, gap);
 	    double cornerGap2 = GLibUtilities.getCornerGap(shape.getGravityCentre(), p2, p3, gap);
 
 	    if(p2x>p3x)

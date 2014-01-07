@@ -61,7 +61,7 @@ trait PSLineParser extends PSTAbstractParser
 	 * Creates and initialises a line.
 	 */
 	private def createLine(hasStar : Boolean, pts : ListBuffer[IPoint], arrows : Option[String], ctx : PSTContext) : IPolyline = {
-		val line = ShapeFactory.factory.createPolyline(true)
+		val line = ShapeFactory.createPolyline(true)
 		pts.foreach{pt => line.addPoint(pt)}
 
 		setShapeParameters(line, ctx)

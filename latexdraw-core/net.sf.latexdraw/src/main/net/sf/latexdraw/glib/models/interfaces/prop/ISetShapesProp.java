@@ -1,6 +1,8 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.prop;
 
 import java.util.List;
+
+import net.sf.latexdraw.glib.models.interfaces.IShape;
 
 /**
  * Defines an interface of a set of shapes.<br>
@@ -21,7 +23,7 @@ import java.util.List;
  * @version 3.0
  * @since 3.0
  */
-public interface ISetShapes {
+public interface ISetShapesProp {
 	/**
 	 * Adds a shape to the drawing.
 	 * @param s The shape to add. Does nothing if the given shape is null.

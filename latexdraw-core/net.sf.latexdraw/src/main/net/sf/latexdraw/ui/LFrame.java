@@ -319,7 +319,7 @@ public class LFrame extends UI {
 
 	@Override
 	public void initialisePresentations() {
-		final IDrawing drawing	= ShapeFactory.factory().createDrawing();
+		final IDrawing drawing	= ShapeFactory.createDrawing();
 		final LCanvas canvas	= new LCanvas(drawing);
 		presentations.add(new Presentation<>(drawing, canvas));
 		presentations.add(new Presentation<>(drawing, new LCodePanel(drawing, canvas)));

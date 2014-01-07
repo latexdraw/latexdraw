@@ -10,6 +10,6 @@ public class TestLSquareView extends TestLRectangleView {
 	@Override
 	public void setUp() {
 		super.setUp();
-		view = View2DTK.getFactory().createView(ShapeFactory.factory().createSquare(false));
+		view = View2DTK.getFactory().createView(ShapeFactory.createSquare(false));
 	}
 }

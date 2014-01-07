@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
 
 import org.junit.Before;
 
@@ -12,7 +12,7 @@ public class TestLoadSaveSVGText extends TestLoadSaveSVG<IText> {
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createText(false);
+		shape = ShapeFactory.createText(false);
 	}
 
 	@Override

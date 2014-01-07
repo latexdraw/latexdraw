@@ -12,7 +12,6 @@ import net.sf.latexdraw.glib.models.interfaces.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
@@ -58,7 +57,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 	 * @since 2.0.0
 	 */
 	protected LAxeSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.factory().createAxes(false, ShapeFactory.factory().createPoint()));
+		this(ShapeFactory.createAxes(false, ShapeFactory.createPoint()));
 
 		if(elt==null)
 			throw new IllegalArgumentException();
@@ -139,7 +138,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 				IPolyline la = new LPolylinesSVGGenerator(l1, false).shape;
 				IPolyline lb = new LPolylinesSVGGenerator(l2, false).shape;
 
-				shape.setPosition(ShapeFactory.factory().createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
+				shape.setPosition(ShapeFactory.createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
 				shape.setLineStyle(la.getLineStyle());
 				shape.getArrowAt(1).setArrowStyle(la.getArrowAt(0).getArrowStyle());
 				shape.getArrowAt(3).setArrowStyle(la.getArrowAt(1).getArrowStyle());
@@ -196,20 +195,19 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
 	private void createArrows(final SVGElement elt, final SVGDocument document) {
 		if(shape.getAxesStyle().supportsArrows() && shape.getArrows().size()==4) {
-			final IShapeFactory fac = ShapeFactory.factory();
 			final double posX = shape.getPosition().getX();
 			final double posY = shape.getPosition().getY();
 			final IArrow arr0 = shape.getArrowAt(1);
 			final IArrow arr1 = shape.getArrowAt(3);
 			final double arr0Reduction = arr0.getArrowStyle().needsLineReduction() ? arr0.getArrowShapedWidth() : 0.;
 			final double arr1Reduction = arr1.getArrowStyle().needsLineReduction() ? arr1.getArrowShapedWidth() : 0.;
-			final IPolyline xLine = fac.createPolyline(false);
-			final IPolyline yLine = fac.createPolyline(false);
+			final IPolyline xLine = ShapeFactory.createPolyline(false);
+			final IPolyline yLine = ShapeFactory.createPolyline(false);
 
-			xLine.addPoint(fac.createPoint(posX+shape.getGridStartX()*IShape.PPC + arr0Reduction, posY));
-			xLine.addPoint(fac.createPoint(posX+shape.getGridEndX()*IShape.PPC - arr1Reduction, posY));
-			yLine.addPoint(fac.createPoint(posX, posY-shape.getGridStartY()*IShape.PPC - arr0Reduction));
-			yLine.addPoint(fac.createPoint(posX, posY-shape.getGridEndY()*IShape.PPC + arr1Reduction));
+			xLine.addPoint(ShapeFactory.createPoint(posX+shape.getGridStartX()*IShape.PPC + arr0Reduction, posY));
+			xLine.addPoint(ShapeFactory.createPoint(posX+shape.getGridEndX()*IShape.PPC - arr1Reduction, posY));
+			yLine.addPoint(ShapeFactory.createPoint(posX, posY-shape.getGridStartY()*IShape.PPC - arr0Reduction));
+			yLine.addPoint(ShapeFactory.createPoint(posX, posY-shape.getGridEndY()*IShape.PPC + arr1Reduction));
 
 			xLine.getArrowAt(0).copy(arr0);
 			xLine.getArrowAt(1).copy(arr1);
@@ -233,8 +231,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 			final double positiony = shape.getPosition().getY();
 			final double xMax = positionx+gridEndx*IShape.PPC;
 			final double yMax = positiony-gridEndy*IShape.PPC;
-			final IPoint pos  = ShapeFactory.factory().createPoint(positionx, gridEndy>0 ? yMax : positiony);
-			final IRectangle r= ShapeFactory.factory().createRectangle(pos, Math.abs(pos.getX()-(gridEndx>0 ? xMax : positionx)),
+			final IPoint pos  = ShapeFactory.createPoint(positionx, gridEndy>0 ? yMax : positiony);
+			final IRectangle r= ShapeFactory.createRectangle(pos, Math.abs(pos.getX()-(gridEndx>0 ? xMax : positionx)),
 																		Math.abs(pos.getY()-positiony), false);
 
 			r.setBordersPosition(BorderPos.MID);

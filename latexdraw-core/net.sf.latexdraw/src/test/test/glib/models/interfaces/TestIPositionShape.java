@@ -52,7 +52,7 @@ public abstract class TestIPositionShape<T extends IPositionShape> extends TestI
 
 	@Test
 	public void testGetSetPosition() {
-		IPoint pt = ShapeFactory.factory().createPoint(15, 25);
+		IPoint pt = ShapeFactory.createPoint(15, 25);
 
 		shape.setPosition(pt);
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
@@ -62,22 +62,22 @@ public abstract class TestIPositionShape<T extends IPositionShape> extends TestI
 		shape.setPosition(null);
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.factory().createPoint(Double.NaN, 0));
+		shape.setPosition(ShapeFactory.createPoint(Double.NaN, 0));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.factory().createPoint(Double.NEGATIVE_INFINITY, 0));
+		shape.setPosition(ShapeFactory.createPoint(Double.NEGATIVE_INFINITY, 0));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, 0));
+		shape.setPosition(ShapeFactory.createPoint(Double.POSITIVE_INFINITY, 0));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.factory().createPoint(0, Double.NaN));
+		shape.setPosition(ShapeFactory.createPoint(0, Double.NaN));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.factory().createPoint(0, Double.NEGATIVE_INFINITY));
+		shape.setPosition(ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
-		shape.setPosition(ShapeFactory.factory().createPoint(0, Double.POSITIVE_INFINITY));
+		shape.setPosition(ShapeFactory.createPoint(0, Double.POSITIVE_INFINITY));
 		HelperTest.assertEqualsDouble(pt.getX(), shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(pt.getY(), shape.getPosition().getY());
 

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -101,14 +102,14 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	@Override
 	public IPoint getBottomRightPoint() {
 		final IPoint pos = getPosition();
-		return new LPoint(pos.getX()+getGridMaxX()*PPC, pos.getY()-getGridMinY()*PPC);
+		return ShapeFactory.createPoint(pos.getX()+getGridMaxX()*PPC, pos.getY()-getGridMinY()*PPC);
 	}
 
 
 	@Override
 	public IPoint getTopLeftPoint() {
 		final IPoint pos = getPosition();
-		return new LPoint(pos.getX()+getGridMinX()*PPC, pos.getY()-getGridMaxY()*PPC);
+		return ShapeFactory.createPoint(pos.getX()+getGridMinX()*PPC, pos.getY()-getGridMaxY()*PPC);
 	}
 
 
@@ -117,7 +118,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 		IPoint pos  = getPosition();
 		double step = getStep();
 		//FIXME strange: different from getTopLeftPoint and co. but works for scale.
-		return new LPoint(pos.getX()+step*(gridEndx-gridStartx), pos.getY()-step*(gridEndy-gridStarty));
+		return ShapeFactory.createPoint(pos.getX()+step*(gridEndx-gridStartx), pos.getY()-step*(gridEndy-gridStarty));
 	}
 
 
@@ -276,12 +277,12 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public IPoint getGridStart() {
-		return new LPoint(gridStartx, gridStarty);
+		return ShapeFactory.createPoint(gridStartx, gridStarty);
 	}
 
 
 	@Override
 	public IPoint getGridEnd() {
-		return new LPoint(gridEndx, gridEndy);
+		return ShapeFactory.createPoint(gridEndx, gridEndy);
 	}
 }

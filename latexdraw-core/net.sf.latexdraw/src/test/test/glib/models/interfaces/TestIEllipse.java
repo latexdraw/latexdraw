@@ -10,7 +10,7 @@ import test.HelperTest;
 public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularShape<T> {
 //	@Test
 //	public void testGetIntersectionHoriz1() {
-//		ILine line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(-10,0), ShapeFactory.factory().createPoint(10,0));
+//		ILine line = ShapeFactory.createLine(ShapeFactory.createPoint(-10,0), ShapeFactory.createPoint(10,0));
 //		shape.setPosition(-1,1);
 //		shape.setWidth(2);
 //		shape.setHeight(2);
@@ -33,7 +33,7 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 //
 //	@Test
 //	public void testGetIntersectionHoriz2() {
-//		ILine line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(-10,1), ShapeFactory.factory().createPoint(10,1));
+//		ILine line = ShapeFactory.createLine(ShapeFactory.createPoint(-10,1), ShapeFactory.createPoint(10,1));
 //		shape.setPosition(-1,1);
 //		shape.setWidth(2);
 //		shape.setHeight(2);
@@ -48,7 +48,7 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 //
 //	@Test
 //	public void testGetIntersectionHoriz3() {
-//		ILine line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(-10,-1), ShapeFactory.factory().createPoint(10,-1));
+//		ILine line = ShapeFactory.createLine(ShapeFactory.createPoint(-10,-1), ShapeFactory.createPoint(10,-1));
 //		shape.setPosition(-1,1);
 //		shape.setWidth(2);
 //		shape.setHeight(2);
@@ -64,7 +64,7 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 //
 //	@Test
 //	public void testGetIntersectionVert1() {
-//		ILine line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(0,10), ShapeFactory.factory().createPoint(0,-10));
+//		ILine line = ShapeFactory.createLine(ShapeFactory.createPoint(0,10), ShapeFactory.createPoint(0,-10));
 //		shape.setPosition(-1,1);
 //		shape.setWidth(2);
 //		shape.setHeight(2);
@@ -88,7 +88,7 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 //
 //	@Test
 //	public void testGetIntersectionVert2() {
-//		ILine line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(1,-10), ShapeFactory.factory().createPoint(1,10));
+//		ILine line = ShapeFactory.createLine(ShapeFactory.createPoint(1,-10), ShapeFactory.createPoint(1,10));
 //		shape.setPosition(-1,1);
 //		shape.setWidth(2);
 //		shape.setHeight(2);
@@ -103,7 +103,7 @@ public abstract class TestIEllipse<T extends IEllipse> extends TestIRectangularS
 //
 //	@Test
 //	public void testGetIntersectionVert3() {
-//		ILine line = ShapeFactory.factory().createLine(ShapeFactory.factory().createPoint(-1,-10), ShapeFactory.factory().createPoint(-1,10));
+//		ILine line = ShapeFactory.createLine(ShapeFactory.createPoint(-1,-10), ShapeFactory.createPoint(-1,10));
 //		shape.setPosition(-1,1);
 //		shape.setWidth(2);
 //		shape.setHeight(2);

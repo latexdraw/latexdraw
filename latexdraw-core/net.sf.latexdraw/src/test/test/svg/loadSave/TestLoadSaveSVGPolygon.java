@@ -9,6 +9,6 @@ public class TestLoadSaveSVGPolygon extends TestLoadSaveSVGModifiablePointsShape
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createPolygon(false);
+		shape = ShapeFactory.createPolygon(false);
 	}
 }

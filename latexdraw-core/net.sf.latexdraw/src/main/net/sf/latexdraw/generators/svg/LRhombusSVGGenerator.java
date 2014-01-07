@@ -52,7 +52,7 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 	 * @since 2.0.0
 	 */
 	protected LRhombusSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.factory().createRhombus(true));
+		this(ShapeFactory.createRhombus(true));
 
 		setNumber(elt);
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
@@ -92,9 +92,9 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 		final IPoint tl  = shape.getTopLeftPoint();
 		final IPoint br  = shape.getBottomRightPoint();
 		IPoint gc = shape.getGravityCentre();
-		IPoint p1 = ShapeFactory.factory().createPoint((tl.getX()+br.getX())/2., tl.getY());
-		IPoint p2 = ShapeFactory.factory().createPoint(br.getX(), (tl.getY()+br.getY())/2.);
-		IPoint p3 = ShapeFactory.factory().createPoint((tl.getX()+br.getX())/2., br.getY());
+		IPoint p1 = ShapeFactory.createPoint((tl.getX()+br.getX())/2., tl.getY());
+		IPoint p2 = ShapeFactory.createPoint(br.getX(), (tl.getY()+br.getY())/2.);
+		IPoint p3 = ShapeFactory.createPoint((tl.getX()+br.getX())/2., br.getY());
 		SVGElement root = new SVGGElement(doc);
 		SVGElement elt;
 	    double gap = getPositionGap()/2.;

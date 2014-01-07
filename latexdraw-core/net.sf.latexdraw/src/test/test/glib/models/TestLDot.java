@@ -20,8 +20,8 @@ import test.glib.models.interfaces.TestIDot;
 public class TestLDot<T extends IDot> extends TestIDot<T> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(), false);
-		shape2 = (T) ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(), false);
+		shape  = (T) ShapeFactory.createDot(ShapeFactory.createPoint(), false);
+		shape2 = (T) ShapeFactory.createDot(ShapeFactory.createPoint(), false);
 	}
 
 
@@ -41,7 +41,7 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 
 	@Test
 	public void testConstructor1() {
-		IDot dot1 = ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(), false);
+		IDot dot1 = ShapeFactory.createDot(ShapeFactory.createPoint(), false);
 
 		assertTrue(dot1.getRadius()>0);
 		assertNotNull(dot1.getDotStyle());
@@ -53,7 +53,7 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 
 	@Test
 	public void testConstructor3() {
-		IDot dot1 = ShapeFactory.factory().createDot(null, false);
+		IDot dot1 = ShapeFactory.createDot(null, false);
 
 		assertTrue(dot1.getRadius()>0);
 		assertNotNull(dot1.getDotStyle());
@@ -61,7 +61,7 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 		HelperTest.assertEqualsDouble(0., dot1.getPosition().getX());
 		HelperTest.assertEqualsDouble(0., dot1.getPosition().getY());
 
-		dot1 = ShapeFactory.factory().createDot(ShapeFactory.factory().createPoint(-1, 2), true);
+		dot1 = ShapeFactory.createDot(ShapeFactory.createPoint(-1, 2), true);
 		HelperTest.assertEqualsDouble(-1., dot1.getPosition().getX());
 		HelperTest.assertEqualsDouble(2., dot1.getPosition().getY());
 	}

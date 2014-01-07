@@ -18,8 +18,8 @@ import test.glib.models.interfaces.TestIPicture;
 public class TestLPicture<T extends IPicture> extends TestIPicture<T> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.factory().createPicture(false, ShapeFactory.factory().createPoint());
-		shape2 = (T) ShapeFactory.factory().createPicture(false, ShapeFactory.factory().createPoint());
+		shape  = (T) ShapeFactory.createPicture(false, ShapeFactory.createPoint());
+		shape2 = (T) ShapeFactory.createPicture(false, ShapeFactory.createPoint());
 	}
 
 

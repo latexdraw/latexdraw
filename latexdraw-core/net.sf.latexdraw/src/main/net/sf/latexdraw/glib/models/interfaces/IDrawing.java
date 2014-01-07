@@ -2,6 +2,8 @@ package net.sf.latexdraw.glib.models.interfaces;
 
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.interfaces.prop.ISetShapesProp;
+
 import org.malai.presentation.AbstractPresentation;
 
 /**
@@ -24,7 +26,7 @@ import org.malai.presentation.AbstractPresentation;
  * @version 3.0
  * @since 3.0
  */
-public interface IDrawing extends ISetShapes, AbstractPresentation {
+public interface IDrawing extends ISetShapesProp, AbstractPresentation {
 	/**
 	 * @return The group that contains the selected shape. Cannot be null.
 	 * @since 3.0

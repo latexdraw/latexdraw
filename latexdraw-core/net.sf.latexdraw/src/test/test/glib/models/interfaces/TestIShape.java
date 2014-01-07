@@ -38,7 +38,7 @@ public abstract class TestIShape<T extends IShape> {
 
 	@Test
 	public void testGetNbPoints() {
-		IPoint pt = ShapeFactory.factory().createPoint();
+		IPoint pt = ShapeFactory.createPoint();
 
 		assertEquals(shape.getPoints().size(), shape.getNbPoints());
 		shape.getPoints().add(pt);
@@ -51,8 +51,8 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetPtAt() {
 		if(shape.getPoints().isEmpty()) {
-			shape.getPoints().add(ShapeFactory.factory().createPoint());
-			shape.getPoints().add(ShapeFactory.factory().createPoint());
+			shape.getPoints().add(ShapeFactory.createPoint());
+			shape.getPoints().add(ShapeFactory.createPoint());
 		}
 
 		for(int i=0; i<shape.getNbPoints(); i++)
@@ -107,7 +107,7 @@ public abstract class TestIShape<T extends IShape> {
 			shape2.setShowPts(true);
 
 		if(shape2.isArrowable())
-			shape2.getArrows().add(ShapeFactory.factory().createArrow(shape));
+			shape2.getArrows().add(ShapeFactory.createArrow(shape));
 
 		shape2.setRotationAngle(-30);
 
@@ -666,9 +666,9 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetArrowAt() {
 		if(shape.isArrowable()) {
-			IArrow a1 = ShapeFactory.factory().createArrow(shape);
-			IArrow a2 = ShapeFactory.factory().createArrow(shape);
-			IArrow a3 = ShapeFactory.factory().createArrow(shape);
+			IArrow a1 = ShapeFactory.createArrow(shape);
+			IArrow a2 = ShapeFactory.createArrow(shape);
+			IArrow a3 = ShapeFactory.createArrow(shape);
 
 			shape.getArrows().clear();
 			shape.getArrows().add(a1);

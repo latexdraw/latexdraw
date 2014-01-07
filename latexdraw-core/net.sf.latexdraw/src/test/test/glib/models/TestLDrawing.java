@@ -12,13 +12,13 @@ public class TestLDrawing extends TestIDrawing {
 	@Override
 	@Before
 	public void setUp() {
-		drawing = ShapeFactory.factory().createDrawing();
+		drawing = ShapeFactory.createDrawing();
 	}
 
 
 	@Test
 	public void testConstructor() {
-		IDrawing d = ShapeFactory.factory().createDrawing();
+		IDrawing d = ShapeFactory.createDrawing();
 
 		assertNotNull(d.getSelection());
 		assertNotNull(d.getShapes());

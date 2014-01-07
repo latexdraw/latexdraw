@@ -2,8 +2,8 @@ package net.sf.latexdraw.generators.svg;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IText;
-import net.sf.latexdraw.glib.models.interfaces.IText.TextPosition;
-import net.sf.latexdraw.glib.models.interfaces.IText.TextSize;
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextSize;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -48,7 +48,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 	 * @since 2.0.0
 	 */
 	protected LTextSVGGenerator(final SVGTextElement elt) {
-		this(ShapeFactory.factory().createText(true));
+		this(ShapeFactory.createText(true));
 
 		if(elt==null)
 			throw new IllegalArgumentException();
@@ -70,7 +70,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 	 * @since 2.0.0
 	 */
 	protected LTextSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.factory().createText(true));
+		this(ShapeFactory.createText(true));
 
 		if(elt==null)
 			throw new IllegalArgumentException();

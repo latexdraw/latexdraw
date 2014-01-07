@@ -9,6 +9,6 @@ public class TestLoadSaveSVGRhombus extends TestLoadSaveSVGRectangularShape<IRho
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createRhombus(false);
+		shape = ShapeFactory.createRhombus(false);
 	}
 }

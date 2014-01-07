@@ -32,7 +32,7 @@ protected trait LGroupFreeHand extends IGroup {
 	override def getType() : IFreeHandProp.FreeHandType = {
 		firstIFreeHand match {
 			case Some(fh) => fh.getType
-			case _ => null
+			case _ => IFreeHandProp.FreeHandType.CURVES
 		}
 	}
 

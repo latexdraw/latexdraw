@@ -79,7 +79,7 @@ public class LCanvas extends MPanel implements ICanvas {
 	public static final int MARGINS = 2500;
 
 	/** The origin of the drawing in the whole drawing area. */
-	public static final IPoint ORIGIN = ShapeFactory.factory().createPoint(MARGINS, MARGINS);
+	public static final IPoint ORIGIN = ShapeFactory.createPoint(MARGINS, MARGINS);
 
 	/** The shapes of the canvas. */
 	protected IActiveList<IViewShape> views;
@@ -219,7 +219,7 @@ public class LCanvas extends MPanel implements ICanvas {
 		if(mustZoom)
 			g.scale(zoomValue, zoomValue);
 
-		page.paint(g, ShapeFactory.factory().createPoint());
+		page.paint(g, ShapeFactory.createPoint());
 
 		// Getting the clip must be done here to consider the scaling and translation.
 		final Rectangle clip = g.getClipBounds();
@@ -431,20 +431,20 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public IPoint getTopRightDrawingPoint() {
-		return ShapeFactory.factory().createPoint(border.getMaxX(), border.getMinY());
+		return ShapeFactory.createPoint(border.getMaxX(), border.getMinY());
 	}
 
 
 
 	@Override
 	public IPoint getBottomLeftDrawingPoint() {
-		return ShapeFactory.factory().createPoint(border.getMinX(), border.getMaxY());
+		return ShapeFactory.createPoint(border.getMinX(), border.getMaxY());
 	}
 
 
 	@Override
 	public IPoint getOriginDrawingPoint() {
-		return ShapeFactory.factory().createPoint(border.getMinX(), border.getCenterY());
+		return ShapeFactory.createPoint(border.getMinX(), border.getCenterY());
 	}
 
 
@@ -745,7 +745,7 @@ public class LCanvas extends MPanel implements ICanvas {
 		IPoint convertion;
 		if(pt==null) convertion = null;
 		else {
-			convertion = ShapeFactory.factory().createPoint(pt);
+			convertion = ShapeFactory.createPoint(pt);
 			convertion.translate(-ORIGIN.getX(), -ORIGIN.getY());
 		}
 		return convertion;

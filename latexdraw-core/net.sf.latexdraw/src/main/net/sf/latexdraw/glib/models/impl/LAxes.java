@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.util.ArrayList;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
@@ -82,13 +83,13 @@ class LAxes extends LAbstractGrid implements IAxes {
 		distLabelsX		= 1.;
 		distLabelsY		= 1.;
 		// The first arrow is for the bottom of the Y-axis.
-		arrows.add(new LArrow(this));
+		arrows.add(ShapeFactory.createArrow(this));
 		// The second arrow is for the left of the X-axis.
-		arrows.add(new LArrow(this));
+		arrows.add(ShapeFactory.createArrow(this));
 		// The third arrow is for the top of the Y-axis.
-		arrows.add(new LArrow(this));
+		arrows.add(ShapeFactory.createArrow(this));
 		// The fourth arrow is for the right of the X-axis.
-		arrows.add(new LArrow(this));
+		arrows.add(ShapeFactory.createArrow(this));
 	}
 
 
@@ -154,10 +155,10 @@ class LAxes extends LAbstractGrid implements IAxes {
 	 */
 	private ILine getArrowLineY(final boolean topY) {
 		final IPoint pos = getPosition();
-		final IPoint p2 = new LPoint(pos.getX(), pos.getY()-gridEndy*PPC);
-		final IPoint p1 = new LPoint(pos.getX(), pos.getY()-gridStarty*PPC);
+		final IPoint p2 = ShapeFactory.createPoint(pos.getX(), pos.getY()-gridEndy*PPC);
+		final IPoint p1 = ShapeFactory.createPoint(pos.getX(), pos.getY()-gridStarty*PPC);
 
-		return topY ? new LLine(p2, p1) : new LLine(p1, p2);
+		return topY ? ShapeFactory.createLine(p2, p1) : ShapeFactory.createLine(p1, p2);
 	}
 
 
@@ -166,10 +167,10 @@ class LAxes extends LAbstractGrid implements IAxes {
 	 */
 	private ILine getArrowLineX(final boolean leftX) {
 		final IPoint pos = getPosition();
-		final IPoint p2 = new LPoint(pos.getX()+gridEndx*PPC, pos.getY());
-		final IPoint p1 = new LPoint(pos.getX()+gridStartx*PPC, pos.getY());
+		final IPoint p2 = ShapeFactory.createPoint(pos.getX()+gridEndx*PPC, pos.getY());
+		final IPoint p1 = ShapeFactory.createPoint(pos.getX()+gridStartx*PPC, pos.getY());
 
-		return leftX ? new LLine(p1, p2) : new LLine(p2, p1);
+		return leftX ? ShapeFactory.createLine(p1, p2) : ShapeFactory.createLine(p2, p1);
 	}
 
 
@@ -348,7 +349,7 @@ class LAxes extends LAbstractGrid implements IAxes {
 
 	@Override
 	public IPoint getIncrement() {
-		return new LPoint(incrementX, incrementY);
+		return ShapeFactory.createPoint(incrementX, incrementY);
 	}
 
 	@Override
@@ -362,7 +363,7 @@ class LAxes extends LAbstractGrid implements IAxes {
 
 	@Override
 	public IPoint getDistLabels() {
-		return new LPoint(distLabelsX, distLabelsY);
+		return ShapeFactory.createPoint(distLabelsX, distLabelsY);
 	}
 
 

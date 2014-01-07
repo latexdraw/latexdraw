@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
@@ -32,7 +33,7 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 	protected LPositionShape(final boolean isUniqueID, final IPoint pt) {
 		super(isUniqueID);
 
-		points.add(GLibUtilities.isValidPoint(pt) ? pt : new LPoint());
+		points.add(GLibUtilities.isValidPoint(pt) ? pt : ShapeFactory.createPoint());
 	}
 
 

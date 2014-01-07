@@ -59,7 +59,7 @@ class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
 	 * @since 2.0.0
 	 */
 	protected LCircleArcSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.factory().createCircleArc(true));
+		this(ShapeFactory.createCircleArc(true));
 
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
 		IArrow arr1	= shape.getArrowAt(0);

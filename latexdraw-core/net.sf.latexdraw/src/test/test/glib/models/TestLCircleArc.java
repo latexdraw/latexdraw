@@ -21,8 +21,8 @@ import test.glib.models.interfaces.TestICircleArc;
 public class TestLCircleArc<T extends ICircleArc> extends TestICircleArc<T> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.factory().createCircleArc(false);
-		shape2 = (T) ShapeFactory.factory().createCircleArc(false);
+		shape  = (T) ShapeFactory.createCircleArc(false);
+		shape2 = (T) ShapeFactory.createCircleArc(false);
 	}
 
 

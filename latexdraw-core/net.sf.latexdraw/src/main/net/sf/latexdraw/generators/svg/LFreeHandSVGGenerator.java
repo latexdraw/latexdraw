@@ -6,10 +6,9 @@ import java.util.List;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
-import net.sf.latexdraw.glib.models.interfaces.IShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
@@ -50,9 +49,8 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 
 	protected LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.factory().createFreeHand(false));
+		this(ShapeFactory.createFreeHand(false));
 
-		final IShapeFactory factory = ShapeFactory.factory();
 		SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		setNumber(elt);
@@ -73,7 +71,7 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 			throw new IllegalArgumentException();
 
 		for(Point2D pt : pts)
-			shape.addPoint(factory.createPoint(pt.getX(), pt.getY()));
+			shape.addPoint(ShapeFactory.createPoint(pt.getX(), pt.getY()));
 
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);

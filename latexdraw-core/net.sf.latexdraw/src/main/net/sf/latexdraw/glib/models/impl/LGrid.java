@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.models.impl;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
@@ -136,14 +137,14 @@ class LGrid extends LAbstractGrid implements IGrid {
 	@Override
 	public IPoint getBottomRightPoint() {
 		final IPoint pos = getPosition();
-		return new LPoint(pos.getX()+getGridMaxX()*PPC*unit, pos.getY()-getGridMinY()*PPC);
+		return ShapeFactory.createPoint(pos.getX()+getGridMaxX()*PPC*unit, pos.getY()-getGridMinY()*PPC);
 	}
 
 
 	@Override
 	public IPoint getTopLeftPoint() {
 		final IPoint pos = getPosition();
-		return new LPoint(pos.getX()+getGridMinX()*PPC, pos.getY()-getGridMaxY()*PPC*unit);
+		return ShapeFactory.createPoint(pos.getX()+getGridMinX()*PPC, pos.getY()-getGridMaxY()*PPC*unit);
 	}
 
 

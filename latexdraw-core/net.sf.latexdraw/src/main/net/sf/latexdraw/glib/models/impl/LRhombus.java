@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IRhombus;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
@@ -29,7 +30,7 @@ class LRhombus extends LRectangularShape implements IRhombus {
 	 * @param uniqueID True: the rhombus will have a unique ID.
 	 */
 	protected LRhombus(final boolean uniqueID) {
-		this(new LPoint(), 1, 1, uniqueID);
+		this(ShapeFactory.createPoint(), 1, 1, uniqueID);
 	}
 
 
@@ -42,7 +43,7 @@ class LRhombus extends LRectangularShape implements IRhombus {
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 */
 	protected LRhombus(final IPoint pos, final double width, final double height, final boolean uniqueID) {
-		this(pos, pos==null ? null : new LPoint(pos.getX()+width, pos.getY()+height), uniqueID);
+		this(pos, pos==null ? null : ShapeFactory.createPoint(pos.getX()+width, pos.getY()+height), uniqueID);
 	}
 
 
@@ -55,8 +56,8 @@ class LRhombus extends LRectangularShape implements IRhombus {
 	protected LRhombus(final IPoint tl, final IPoint br, final boolean uniqueID) {
 		super(tl, br, uniqueID);
 	}
-	
-	
+
+
 	@Override
 	public IRhombus duplicate() {
 		final IShape sh = super.duplicate();

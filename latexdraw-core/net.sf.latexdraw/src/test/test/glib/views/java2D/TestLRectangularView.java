@@ -43,10 +43,10 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		view.update();
 
 		assertFalse(view.contains(null));
-		assertFalse(view.contains(ShapeFactory.factory().createPoint(Double.NaN, 0)));
-		assertFalse(view.contains(ShapeFactory.factory().createPoint(0, Double.NaN)));
-		assertFalse(view.contains(ShapeFactory.factory().createPoint(Double.POSITIVE_INFINITY, 0)));
-		assertFalse(view.contains(ShapeFactory.factory().createPoint(0, Double.NEGATIVE_INFINITY)));
+		assertFalse(view.contains(ShapeFactory.createPoint(Double.NaN, 0)));
+		assertFalse(view.contains(ShapeFactory.createPoint(0, Double.NaN)));
+		assertFalse(view.contains(ShapeFactory.createPoint(Double.POSITIVE_INFINITY, 0)));
+		assertFalse(view.contains(ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY)));
 	}
 
 

@@ -23,8 +23,8 @@ import test.glib.models.interfaces.TestIEllipse;
 public class TestLEllipse<T extends IEllipse> extends TestIEllipse<T> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.factory().createEllipse(false);
-		shape2 = (T) ShapeFactory.factory().createEllipse(false);
+		shape  = (T) ShapeFactory.createEllipse(false);
+		shape2 = (T) ShapeFactory.createEllipse(false);
 	}
 
 
@@ -44,7 +44,7 @@ public class TestLEllipse<T extends IEllipse> extends TestIEllipse<T> {
 
 	@Test
 	public void testConstructors2() {
-		IEllipse ell = ShapeFactory.factory().createEllipse(false);
+		IEllipse ell = ShapeFactory.createEllipse(false);
 
 		assertEquals(4, ell.getNbPoints());
 	}
@@ -54,36 +54,36 @@ public class TestLEllipse<T extends IEllipse> extends TestIEllipse<T> {
 		IEllipse ell;
 
 		try {
-			ell = ShapeFactory.factory().createEllipse(null, ShapeFactory.factory().createPoint(), true);
+			ell = ShapeFactory.createEllipse(null, ShapeFactory.createPoint(), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(), null, true);
+			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(), null, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(), ShapeFactory.factory().createPoint(), true);
+			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(), ShapeFactory.createPoint(), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(1,0), ShapeFactory.factory().createPoint(2,0), true);
+			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1,0), ShapeFactory.createPoint(2,0), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(1,Double.NaN), ShapeFactory.factory().createPoint(2,0), true);
+			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1,Double.NaN), ShapeFactory.createPoint(2,0), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(1,2), ShapeFactory.factory().createPoint(2,Double.NaN), true);
+			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1,2), ShapeFactory.createPoint(2,Double.NaN), true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
-		ell = ShapeFactory.factory().createEllipse(ShapeFactory.factory().createPoint(20, 26), ShapeFactory.factory().createPoint(30, 35), true);
+		ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(20, 26), ShapeFactory.createPoint(30, 35), true);
 		HelperTest.assertEqualsDouble(20., ell.getPosition().getX());
 		HelperTest.assertEqualsDouble(35., ell.getPosition().getY());
 		HelperTest.assertEqualsDouble(10., ell.getWidth());

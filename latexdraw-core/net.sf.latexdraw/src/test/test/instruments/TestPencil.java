@@ -37,7 +37,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 	@Before
 	@SuppressWarnings("unused")
 	public void setUp() {
-		IDrawing drawing = ShapeFactory.factory().createDrawing();
+		IDrawing drawing = ShapeFactory.createDrawing();
 		MLayeredPane layers = new MLayeredPane(false, false);
 		canvas 		= new LCanvas(drawing);
 		LMagneticGrid grid = new LMagneticGrid(canvas);

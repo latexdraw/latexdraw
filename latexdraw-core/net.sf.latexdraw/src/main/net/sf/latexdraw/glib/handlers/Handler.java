@@ -55,7 +55,7 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 		opacity	= 100;
 		size   	= DEFAULT_SIZE;
 		colour 	= new Color(0, 0, 0, opacity);
-		point  	= ShapeFactory.factory().createPoint();
+		point  	= ShapeFactory.createPoint();
 	}
 
 

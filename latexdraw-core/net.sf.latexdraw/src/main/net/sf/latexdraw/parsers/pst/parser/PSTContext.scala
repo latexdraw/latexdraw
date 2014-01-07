@@ -159,9 +159,9 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : Tuple2[IA
 			PSTricksConstants.DEFAULT_SHADOW_ANGLE, PSTricksConstants.DEFAULT_SHADOW_SIZE, PSTricksConstants.DEFAULT_SUBGRIDDOTS,
 			PSTricksConstants.DEFAULT_SUBGRIDDIV, PSTricksConstants.DEFAULT_TICKS_DISPLAYED, PSTricksConstants.DEFAULT_TICKS_STYLE,
 			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
-			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, ShapeFactory.factory.createPoint,
-			ShapeFactory.factory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0, true,
-			fontShape.normal, fontSerie.normal, fontFamily.rm, ShapeFactory.factory.createPoint)
+			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, ShapeFactory.createPoint,
+			ShapeFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0, true,
+			fontShape.normal, fontSerie.normal, fontFamily.rm, ShapeFactory.createPoint)
 	}
 
 
@@ -181,10 +181,10 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : Tuple2[IA
 			  model.labels, model.lineArc, model.lineStyle, model.ox, model.oy, model.onRadians, model.origin.dup,
 			  model.specialCoor, model.showPoints, model.showOrigin, model.subGridWidth, model.swapAxes, model.shadowCol, model.subGridCol,
 			  model.shadowAngle, model.shadowSize, model.subGridDots, model.subGridDiv, model.ticks, model.ticksStyle, model.ticksSize, model.unit,
-			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, ShapeFactory.factory.createPoint(model.pictureSWPt),
-			  ShapeFactory.factory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle, model.liftpen, psCustom,
+			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, ShapeFactory.createPoint(model.pictureSWPt),
+			  ShapeFactory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle, model.liftpen, psCustom,
 			  model.textPosition, model.rputAngle, model.parsedTxtNoTxt, model.currFontShape, model.currFontSerie, model.currFontFamily,
-			  ShapeFactory.factory.createPoint(model.psCustomLatestPt))
+			  ShapeFactory.createPoint(model.psCustomLatestPt))
 
 			  if(model.currFontShape!=fontShape.normal) textParsed += model.currFontShape.equivCmd
 			  if(model.currFontSerie!=fontSerie.normal) textParsed += model.currFontSerie.equivCmd

@@ -9,6 +9,6 @@ public class TestLoadSaveSVGEllipse extends TestLoadSaveSVGRectangularShape<IEll
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createEllipse(false);
+		shape = ShapeFactory.createEllipse(false);
 	}
 }

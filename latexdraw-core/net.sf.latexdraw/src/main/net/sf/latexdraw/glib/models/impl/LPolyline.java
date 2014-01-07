@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.util.ArrayList;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.ILine;
@@ -59,9 +60,9 @@ class LPolyline extends LPolygon implements IPolyline {
 	public void addPoint(final IPoint pt, final int position) {
 		if(GLibUtilities.isValidPoint(pt) && position>=-1 && position<=points.size())
 			if(position==-1 || position==points.size())
-				arrows.add(new LArrow(this));
+				arrows.add(ShapeFactory.createArrow(this));
 			else
-				arrows.add(position, new LArrow(this));
+				arrows.add(position, ShapeFactory.createArrow(this));
 		super.addPoint(pt, position);
 	}
 
@@ -79,8 +80,8 @@ class LPolyline extends LPolygon implements IPolyline {
 		final int index = arrows.indexOf(arrow);
 		ILine line = null;
 
-		if(index==0) line = new LLine(points.get(0), points.get(1));
-		else if(index==getNbPoints()-1) line = new LLine(points.get(points.size()-1), points.get(points.size()-2));
+		if(index==0) line = ShapeFactory.createLine(points.get(0), points.get(1));
+		else if(index==getNbPoints()-1) line = ShapeFactory.createLine(points.get(points.size()-1), points.get(points.size()-2));
 
 		return line;
 	}

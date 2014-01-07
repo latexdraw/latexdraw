@@ -22,8 +22,8 @@ import test.glib.models.interfaces.TestIRhombus;
 public class TestLRhombus<T extends IRhombus> extends TestIRhombus<T> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.factory().createRhombus(false);
-		shape2 = (T) ShapeFactory.factory().createRhombus(false);
+		shape  = (T) ShapeFactory.createRhombus(false);
+		shape2 = (T) ShapeFactory.createRhombus(false);
 	}
 
 
@@ -43,13 +43,13 @@ public class TestLRhombus<T extends IRhombus> extends TestIRhombus<T> {
 
 	@Test
 	public void testConstructors() {
-		IRhombus rho = ShapeFactory.factory().createRhombus(false);
+		IRhombus rho = ShapeFactory.createRhombus(false);
 
 		assertEquals(4, rho.getNbPoints());
 		HelperTest.assertEqualsDouble(rho.getPtAt(0).getY(), rho.getPtAt(2).getY());
 		HelperTest.assertEqualsDouble(rho.getPtAt(1).getX(), rho.getPtAt(3).getX());
 
-		rho = ShapeFactory.factory().createRhombus(ShapeFactory.factory().createPoint(), 20, 40, true);
+		rho = ShapeFactory.createRhombus(ShapeFactory.createPoint(), 20, 40, true);
 
 		HelperTest.assertEqualsDouble(4, rho.getNbPoints());
 		HelperTest.assertEqualsDouble(rho.getPtAt(0).getY(), rho.getPtAt(2).getY());
@@ -58,22 +58,22 @@ public class TestLRhombus<T extends IRhombus> extends TestIRhombus<T> {
 		HelperTest.assertEqualsDouble(40., rho.getPtAt(3).getY()-rho.getPtAt(1).getY());
 
 		try {
-			rho = ShapeFactory.factory().createRhombus(null, 10, 10, true);
+			rho = ShapeFactory.createRhombus(null, 10, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			rho = ShapeFactory.factory().createRhombus(ShapeFactory.factory().createPoint(Double.NaN, 0), 10, 10, true);
+			rho = ShapeFactory.createRhombus(ShapeFactory.createPoint(Double.NaN, 0), 10, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			rho = ShapeFactory.factory().createRhombus(ShapeFactory.factory().createPoint(1, 1), -10, 10, true);
+			rho = ShapeFactory.createRhombus(ShapeFactory.createPoint(1, 1), -10, 10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
 		try {
-			rho = ShapeFactory.factory().createRhombus(ShapeFactory.factory().createPoint(1, 1), 10, -10, true);
+			rho = ShapeFactory.createRhombus(ShapeFactory.createPoint(1, 1), 10, -10, true);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 	}

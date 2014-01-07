@@ -1,10 +1,11 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.ILineArcShape;
 import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 
 /**
  * Defines a model of a rectangle.<br>
@@ -35,7 +36,7 @@ class LRectangle extends LRectangularShape implements IRectangle {
 	 * @param uniqueID True: the rectangle will have a unique ID.
 	 */
 	protected LRectangle(final boolean uniqueID) {
-		this(new LPoint(), new LPoint(1, 1), uniqueID);
+		this(ShapeFactory.createPoint(), ShapeFactory.createPoint(1, 1), uniqueID);
 	}
 
 
@@ -48,7 +49,7 @@ class LRectangle extends LRectangularShape implements IRectangle {
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 */
 	protected LRectangle(final IPoint pos, final double width, final double height, final boolean uniqueID) {
-		this(pos, pos==null ? null : new LPoint(pos.getX()+width, pos.getY()+height), uniqueID);
+		this(pos, pos==null ? null : ShapeFactory.createPoint(pos.getX()+width, pos.getY()+height), uniqueID);
 	}
 
 
@@ -96,7 +97,7 @@ class LRectangle extends LRectangularShape implements IRectangle {
 	public void copy(final IShape sh) {
 		super.copy(sh);
 
-		if(sh instanceof ILineArcShape)
-			setLineArc(((ILineArcShape)sh).getLineArc());
+		if(sh instanceof ILineArcProp)
+			setLineArc(((ILineArcProp)sh).getLineArc());
 	}
 }

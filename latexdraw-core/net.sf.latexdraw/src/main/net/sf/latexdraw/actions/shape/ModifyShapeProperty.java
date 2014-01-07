@@ -10,6 +10,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
 
 import org.malai.undo.Undoable;
 
@@ -172,7 +173,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case DOT_FILLING_COL:
 				case DOT_STYLE:	return shapes.isTypeOf(IDotProp.class);
 				case TEXT:
-				case TEXT_POSITION:
+				case TEXT_POSITION:		return shapes.isTypeOf(ITextProp.class);
 				case COLOUR_LINE:		return true;
 				case AXES_TICKS_STYLE:
 //				case AXES_TICKS_SIZE:

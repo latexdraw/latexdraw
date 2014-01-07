@@ -63,7 +63,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	 * Method used by the balance method. Just returns the balanced control points of the given points.
 	 */
 	private IPoint[] getBalancedPoints(final IPoint pt, final IPoint prevPt, final IPoint nextPt) {
-		final LLine line = new LLine(prevPt, nextPt);
+		final ILine line = ShapeFactory.createLine(prevPt, nextPt);
 
 		if(line.isHorizontalLine())
 			line.setLine(pt.getX(), pt.getY(), pt.getX()+10, pt.getY());
@@ -87,8 +87,8 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		// For the first point, the lines are created differently.
 		int posPrev = position==0 ? 1 : position - 1;
 		int posNext = position==0 ? points.size()-1 : position==points.size()-1 ? 0 : position + 1;
-		ILine line1 = ShapeFactory.factory().createLine(getPtAt(posPrev), ctrlPts[0]);
-		ILine line2 = ShapeFactory.factory().createLine(getPtAt(posNext), ctrlPts[1]);
+		ILine line1 = ShapeFactory.createLine(getPtAt(posPrev), ctrlPts[0]);
+		ILine line2 = ShapeFactory.createLine(getPtAt(posNext), ctrlPts[1]);
 
 		if(line1.getIntersectionSegment(line2)==null) {
 			firstCtrlPts.get(position).setPoint(ctrlPts[0]);
@@ -263,7 +263,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 		// Adding the control points.
 		if(GLibUtilities.isValidPoint(pt) && position>=-1 && position<points.size()) {
-			final IPoint ctrlPt  = new LPoint(pt.getX(), pt.getY()+DEFAULT_POSITION_CTRL);
+			final IPoint ctrlPt = ShapeFactory.createPoint(pt.getX(), pt.getY()+DEFAULT_POSITION_CTRL);
 			if(position==-1) {
 				firstCtrlPts.add(ctrlPt);
 				secondCtrlPts.add(ctrlPt.centralSymmetry(pt));
@@ -285,12 +285,12 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 			firstCtrlPts.clear();
 			for(IPoint pt : pts)
-				firstCtrlPts.add(new LPoint(pt));
+				firstCtrlPts.add(ShapeFactory.createPoint(pt));
 
 			pts = cpSh.getSecondCtrlPts();
 			secondCtrlPts.clear();
 			for(IPoint pt : pts)
-				secondCtrlPts.add(new LPoint(pt));
+				secondCtrlPts.add(ShapeFactory.createPoint(pt));
 		}
 	}
 

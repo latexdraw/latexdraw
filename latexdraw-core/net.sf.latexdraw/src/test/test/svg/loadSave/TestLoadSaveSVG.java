@@ -35,7 +35,7 @@ public abstract class TestLoadSaveSVG<T extends IShape> extends TestCase {
 
 
 	public T saveLoadShape(T sh) {
-		IDrawing drawing = ShapeFactory.factory().createDrawing();
+		IDrawing drawing = ShapeFactory.createDrawing();
 		drawing.addShape(sh);
 		SVGDocument doc = toSVG(drawing);
 		return toLatexdraw(doc);
@@ -46,7 +46,7 @@ public abstract class TestLoadSaveSVG<T extends IShape> extends TestCase {
 		if(doc==null)
 			return null;
 
-		final IGroup shapes = ShapeFactory.factory().createGroup(false);
+		final IGroup shapes = ShapeFactory.createGroup(false);
 		final NodeList elts = doc.getDocumentElement().getChildNodes();
 		Node node;
 

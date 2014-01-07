@@ -9,7 +9,7 @@ public class TestLoadSaveSVGRectangle extends TestLoadSaveSVGRectangularShape<IR
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createRectangle(false);
+		shape = ShapeFactory.createRectangle(false);
 	}
 
 

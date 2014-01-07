@@ -32,7 +32,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 	 * @param isUniqueID True: the shape will have a unique ID.
 	 */
 	protected LRectangularShape(final IPoint tl, final IPoint br, final boolean isUniqueID) {
-		super(isUniqueID, new LPoint());
+		super(isUniqueID, ShapeFactory.createPoint());
 
 		if(!GLibUtilities.isValidPoint(tl) || !GLibUtilities.isValidPoint(br))
 			throw new IllegalArgumentException("Invalid point(s)."); //$NON-NLS-1$
@@ -42,9 +42,9 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 
 
 		points.get(0).setPoint(tl);// The first point already exists.
-		points.add(new LPoint(br.getX(), tl.getY()));
-		points.add(new LPoint(br));
-		points.add(new LPoint(tl.getX(), br.getY()));
+		points.add(ShapeFactory.createPoint(br.getX(), tl.getY()));
+		points.add(ShapeFactory.createPoint(br));
+		points.add(ShapeFactory.createPoint(tl.getX(), br.getY()));
 	}
 
 
@@ -52,7 +52,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 	public void mirrorHorizontal(final IPoint origin) {
 		super.mirrorHorizontal(origin);
 		if(getWidth()<0) {
-			IPoint tmp = ShapeFactory.factory().createPoint(points.get(0));
+			IPoint tmp = ShapeFactory.createPoint(points.get(0));
 			points.get(0).setPoint(points.get(1));
 			points.get(1).setPoint(tmp);
 			tmp.setPoint(points.get(2));
@@ -66,7 +66,7 @@ abstract class LRectangularShape extends LPositionShape implements IRectangularS
 	public void mirrorVertical(final IPoint origin) {
 		super.mirrorVertical(origin);
 		if(getHeight()<0) {
-			IPoint tmp = ShapeFactory.factory().createPoint(points.get(0));
+			IPoint tmp = ShapeFactory.createPoint(points.get(0));
 			points.get(0).setPoint(points.get(3));
 			points.get(3).setPoint(tmp);
 			tmp.setPoint(points.get(1));

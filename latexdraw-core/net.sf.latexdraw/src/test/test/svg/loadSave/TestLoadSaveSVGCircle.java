@@ -9,6 +9,6 @@ public class TestLoadSaveSVGCircle extends TestLoadSaveSVGRectangularShape<ICirc
 	@Before
 	@Override
 	public void setUp() {
-		shape = ShapeFactory.factory().createCircle(false);
+		shape = ShapeFactory.createCircle(false);
 	}
 }
