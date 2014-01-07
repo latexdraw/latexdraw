@@ -1,7 +1,7 @@
 package net.sf.latexdraw.generators.svg;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.ISquare;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGGElement;

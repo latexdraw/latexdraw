@@ -1,7 +1,7 @@
 package test.svg.loadSave;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
 
 import org.junit.Before;
 

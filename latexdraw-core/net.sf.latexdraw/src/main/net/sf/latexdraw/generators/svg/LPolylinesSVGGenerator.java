@@ -5,9 +5,9 @@ import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;

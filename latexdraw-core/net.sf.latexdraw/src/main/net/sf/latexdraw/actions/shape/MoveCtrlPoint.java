@@ -1,8 +1,8 @@
 package net.sf.latexdraw.actions.shape;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 
 import org.malai.undo.Undoable;
 

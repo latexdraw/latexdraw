@@ -5,8 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * The different page sizes that can be used.

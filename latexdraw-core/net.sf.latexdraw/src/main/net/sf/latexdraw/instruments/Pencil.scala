@@ -14,8 +14,8 @@ import net.sf.latexdraw.actions.shape.InsertPicture
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.filters.PictureFilter
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces._
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos
+import net.sf.latexdraw.glib.models.interfaces.shape._
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos
 import net.sf.latexdraw.glib.ui.ICanvas
 import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape

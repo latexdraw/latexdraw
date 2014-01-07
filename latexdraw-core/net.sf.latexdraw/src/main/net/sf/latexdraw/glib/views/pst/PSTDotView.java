@@ -1,8 +1,8 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.glib.models.interfaces.IDot;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;
 
 /**

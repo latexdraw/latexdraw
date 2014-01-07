@@ -1,7 +1,7 @@
 package test.glib.models.interfaces;
 
 
-import net.sf.latexdraw.glib.models.interfaces.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 
 import org.junit.Test;
 

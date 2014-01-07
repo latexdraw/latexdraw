@@ -1,7 +1,7 @@
 package test.glib.models.interfaces;
 
 import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
 
 import org.junit.Test;
 

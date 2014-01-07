@@ -3,9 +3,9 @@ package net.sf.latexdraw.glib.views.pst;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;

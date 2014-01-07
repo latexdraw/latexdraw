@@ -1,13 +1,13 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import scala.collection.mutable.ListBuffer
-import net.sf.latexdraw.glib.models.interfaces.IPoint
-import net.sf.latexdraw.glib.models.interfaces.IGrid
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IGrid
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid
+import net.sf.latexdraw.glib.models.interfaces.shape.IStandardGrid
 import net.sf.latexdraw.util.LNumber
-import net.sf.latexdraw.glib.models.interfaces.IAxes
+import net.sf.latexdraw.glib.models.interfaces.shape.IAxes
 import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**

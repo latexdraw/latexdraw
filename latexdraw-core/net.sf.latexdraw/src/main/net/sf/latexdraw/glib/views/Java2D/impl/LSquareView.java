@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.ISquare;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
 
 /**
  * Defines a view of the LSquare model.<br>

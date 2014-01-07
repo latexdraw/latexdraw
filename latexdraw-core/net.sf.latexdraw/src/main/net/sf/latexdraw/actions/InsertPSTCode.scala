@@ -4,11 +4,11 @@ import java.text.ParseException
 import org.malai.action.Action
 import org.malai.undo.Undoable
 import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.parsers.pst.parser.PSTParser
 import javax.swing.JLabel
 import net.sf.latexdraw.lang.LangTool
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.badaboom.BadaboomManager
 
 /**

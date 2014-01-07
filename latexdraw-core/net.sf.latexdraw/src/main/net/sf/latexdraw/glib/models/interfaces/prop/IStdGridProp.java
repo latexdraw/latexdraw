@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 /**
  * Defines the properties of standard grids.
  * <br>

@@ -1,6 +1,6 @@
 package net.sf.latexdraw.mapping;
 
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.ui.ICanvas;
 
 import org.malai.mapping.Object2ObjectMapping;

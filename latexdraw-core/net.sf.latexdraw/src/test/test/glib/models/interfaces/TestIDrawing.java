@@ -5,9 +5,9 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.junit.Test;
 

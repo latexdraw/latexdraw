@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 
 /**
  * Defines a view of the IPolyline model.<br>

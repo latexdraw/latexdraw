@@ -8,9 +8,9 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.glib.models.interfaces.IGrid;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines a view of the IGrid model.<br>

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 
 import org.junit.Before;
 import org.junit.Test;

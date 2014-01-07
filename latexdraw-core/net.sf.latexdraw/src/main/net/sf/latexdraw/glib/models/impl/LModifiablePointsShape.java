@@ -1,8 +1,8 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 
 /**
  * Defines a model of a shape that contains points that can be modified.<br>

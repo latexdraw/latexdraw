@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Image;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;

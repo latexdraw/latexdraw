@@ -1,6 +1,6 @@
 package net.sf.latexdraw.mapping;
 
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.instruments.Border;
 
 import org.malai.mapping.Object2ObjectMapping;

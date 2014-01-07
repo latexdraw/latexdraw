@@ -2,7 +2,7 @@ package test.glib.models.interfaces;
 
 
 import static org.junit.Assert.assertEquals;
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
+import net.sf.latexdraw.glib.models.interfaces.shape.IStandardGrid;
 
 import org.junit.Test;
 

@@ -2,7 +2,7 @@ package net.sf.latexdraw.ui;
 
 import java.awt.BorderLayout;
 
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 

@@ -6,11 +6,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
-import net.sf.latexdraw.glib.models.interfaces.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 
 import org.junit.Before;

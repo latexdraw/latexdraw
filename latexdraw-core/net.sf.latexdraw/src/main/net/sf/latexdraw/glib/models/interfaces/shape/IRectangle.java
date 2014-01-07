@@ -1,9 +1,9 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.shape;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 
 /**
- * Defines an interface that classes defining a latex grid should implement.<br>
+ * Defines an interface that classes defining a rectangle should implement.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -16,11 +16,12 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 07/03/2009<br>
+ * 07/02/2009<br>
  * @author Arnaud BLOUIN
  * @version 3.0
  * @since 3.0
  */
-public interface IGrid extends IStandardGrid, IGridProp {
-//
+public interface IRectangle extends IRectangularShape, ILineArcProp {
+	@Override
+	IRectangle duplicate();
 }

@@ -2,8 +2,8 @@ package net.sf.latexdraw.mapping;
 
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;

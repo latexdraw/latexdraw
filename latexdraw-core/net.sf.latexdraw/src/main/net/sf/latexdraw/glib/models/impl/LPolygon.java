@@ -1,8 +1,8 @@
 package net.sf.latexdraw.glib.models.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines a model of a polygon.<br>

@@ -2,8 +2,8 @@ package net.sf.latexdraw.glib.handlers;
 
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.glib.models.interfaces.IArc;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;
 
 /**

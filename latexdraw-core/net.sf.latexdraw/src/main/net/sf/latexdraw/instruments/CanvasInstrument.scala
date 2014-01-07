@@ -4,7 +4,7 @@ import net.sf.latexdraw.glib.ui.ICanvas
 import org.malai.swing.instrument.library.WidgetZoomer
 import java.awt.Point
 import org.malai.instrument.Instrument
-import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**

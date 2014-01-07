@@ -4,12 +4,12 @@ package test.glib.models;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.IGrid;
-import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
-import net.sf.latexdraw.glib.models.interfaces.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IStandardGrid;
 
 import org.junit.Before;
 import org.junit.Test;

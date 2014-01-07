@@ -1,6 +1,6 @@
 package test.glib.models.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
+import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
 
 import org.junit.Test;
 

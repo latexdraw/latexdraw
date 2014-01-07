@@ -1,9 +1,9 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.shape;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 
 /**
- * Defines an interface that classes defining a text should implement.<br>
+ * Defines an interface that classes defining latex axes should implement.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -21,6 +21,6 @@ import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
  * @version 3.0
  * @since 3.0
  */
-public interface IText extends IPositionShape, ITextProp {
+public interface IAxes extends IStandardGrid, IAxesProp {
 //
 }

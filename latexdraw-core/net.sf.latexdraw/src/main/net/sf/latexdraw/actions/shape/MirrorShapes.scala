@@ -6,7 +6,7 @@ import net.sf.latexdraw.actions.ShapesAction
 import org.malai.undo.Undoable
 import org.malai.action.Action
 import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * This action mirrors a shape.<br>

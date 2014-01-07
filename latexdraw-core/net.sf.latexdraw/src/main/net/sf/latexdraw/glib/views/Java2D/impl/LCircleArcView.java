@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
 
 /**
  * Defines a view of the LCircleArc model.<br>

@@ -10,8 +10,8 @@ import org.malai.undo.Undoable
 
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.ui.LMagneticGrid
 

@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
 
 /**
  * Defines a view of the IPolygon model.<br>

@@ -3,7 +3,6 @@ package net.sf.latexdraw.actions.shape;
 import java.util.List;
 
 import net.sf.latexdraw.actions.Modifying;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
@@ -11,6 +10,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 import org.malai.undo.Undoable;
 

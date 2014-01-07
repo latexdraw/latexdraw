@@ -6,12 +6,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
-import net.sf.latexdraw.glib.models.interfaces.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.junit.Before;
 import org.junit.Test;

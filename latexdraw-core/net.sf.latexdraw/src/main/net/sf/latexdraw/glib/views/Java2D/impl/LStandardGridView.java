@@ -12,8 +12,8 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IStandardGrid;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IStandardGrid;
 import net.sf.latexdraw.util.LNumber;
 import sun.font.FontDesignMetrics;
 

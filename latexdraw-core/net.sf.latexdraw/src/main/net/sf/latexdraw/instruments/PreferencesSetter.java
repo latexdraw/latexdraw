@@ -28,7 +28,7 @@ import javax.xml.transform.stream.StreamResult;
 import net.sf.latexdraw.actions.WritePreferences;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
 import net.sf.latexdraw.lang.LangTool;

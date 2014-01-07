@@ -1,6 +1,6 @@
 package test.glib.models.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IPicture;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPicture;
 
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.synchroniser;
 
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 
 /**
  * Defines a handler that provides information to a views synchroniser.<br>

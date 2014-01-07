@@ -3,7 +3,7 @@ package net.sf.latexdraw.glib.models.impl
 import org.malai.mapping.ActiveArrayList
 
 import net.sf.latexdraw.glib.models.interfaces.prop.ISetShapesProp
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * This trait implements the ISetShapes interface.<br>

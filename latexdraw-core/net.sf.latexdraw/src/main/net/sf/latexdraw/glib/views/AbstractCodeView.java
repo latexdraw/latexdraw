@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views;
 
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines an abstract view for code-view.<br>

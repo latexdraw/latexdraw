@@ -2,7 +2,7 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.geom.Path2D;
 
-import net.sf.latexdraw.glib.models.interfaces.IRhombus;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
 
 /**
  * Defines a view of the IRhombus model.<br>

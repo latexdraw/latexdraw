@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.lang.LangTool;
 

@@ -4,8 +4,8 @@ import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;
 
 /**

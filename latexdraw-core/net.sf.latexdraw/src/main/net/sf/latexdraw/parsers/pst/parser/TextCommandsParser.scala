@@ -2,7 +2,7 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import java.awt.Color
 
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**

@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.IEllipse;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 

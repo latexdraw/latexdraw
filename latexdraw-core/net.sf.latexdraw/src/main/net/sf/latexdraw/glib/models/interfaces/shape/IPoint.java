@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.shape;
 
 import java.awt.geom.Point2D;
 

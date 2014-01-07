@@ -3,8 +3,8 @@ package test.svg.loadSave;
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IDot;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 
 import org.junit.Before;
 import org.junit.Test;

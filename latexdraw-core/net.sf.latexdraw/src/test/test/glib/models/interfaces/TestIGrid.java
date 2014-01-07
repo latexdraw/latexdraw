@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IGrid;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.junit.Test;
 

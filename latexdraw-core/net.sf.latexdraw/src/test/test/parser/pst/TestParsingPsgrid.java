@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.IGrid;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 

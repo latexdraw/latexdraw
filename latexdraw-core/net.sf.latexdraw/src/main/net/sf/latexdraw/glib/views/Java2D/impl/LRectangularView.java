@@ -2,8 +2,8 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.geom.Path2D;
 
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
 
 /**
  * Defines a view of the IRectangularView model.<br>

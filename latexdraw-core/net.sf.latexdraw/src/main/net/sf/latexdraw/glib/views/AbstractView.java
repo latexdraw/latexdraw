@@ -2,7 +2,7 @@ package net.sf.latexdraw.glib.views;
 
 import java.util.Objects;
 
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 
 /**

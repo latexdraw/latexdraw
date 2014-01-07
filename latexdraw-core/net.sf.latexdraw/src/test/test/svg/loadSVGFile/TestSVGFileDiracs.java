@@ -5,10 +5,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 
 import org.junit.Test;
 

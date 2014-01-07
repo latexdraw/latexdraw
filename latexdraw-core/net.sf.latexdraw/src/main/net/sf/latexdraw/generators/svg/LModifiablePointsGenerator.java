@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.parsers.svg.AbstractPointsElement;
 import net.sf.latexdraw.parsers.svg.SVGPathElement;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;

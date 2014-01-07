@@ -3,9 +3,9 @@ package net.sf.latexdraw.glib.models.impl
 import java.awt.geom.Rectangle2D
 import java.awt.Color
 import scala.collection.JavaConversions.asScalaBuffer
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.glib.models.interfaces.IPoint
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**

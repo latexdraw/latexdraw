@@ -9,7 +9,7 @@ import org.malai.undo.Undoable
 
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.util.LResources

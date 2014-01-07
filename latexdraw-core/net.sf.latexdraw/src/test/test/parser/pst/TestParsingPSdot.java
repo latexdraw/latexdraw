@@ -6,10 +6,10 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Color;
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.IDot;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 

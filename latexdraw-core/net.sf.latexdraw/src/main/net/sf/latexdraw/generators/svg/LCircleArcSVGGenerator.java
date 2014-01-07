@@ -3,11 +3,11 @@ package net.sf.latexdraw.generators.svg;
 import java.awt.geom.Arc2D;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;

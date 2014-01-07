@@ -5,8 +5,8 @@ import org.malai.undo.Undoable
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapeAction
 import net.sf.latexdraw.glib.models.GLibUtilities
-import net.sf.latexdraw.glib.models.interfaces.IPoint
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.GLibUtilities
 
 /**

@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
 
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines a handler that rotates a shape.<br>

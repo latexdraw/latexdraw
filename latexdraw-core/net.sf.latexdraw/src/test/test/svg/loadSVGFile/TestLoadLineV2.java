@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Test;

@@ -2,8 +2,7 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;

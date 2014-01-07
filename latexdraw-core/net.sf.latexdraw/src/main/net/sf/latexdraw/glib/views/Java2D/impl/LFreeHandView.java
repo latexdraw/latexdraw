@@ -2,8 +2,8 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.IFreehand;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 
 /**
  * Defines a view of the IFreeHand model.<br>

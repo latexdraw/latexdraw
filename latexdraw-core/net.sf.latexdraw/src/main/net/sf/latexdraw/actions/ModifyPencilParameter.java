@@ -4,11 +4,6 @@ import java.awt.Color;
 
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
@@ -16,6 +11,11 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.instruments.Pencil;
 
 /**

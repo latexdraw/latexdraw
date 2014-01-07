@@ -3,9 +3,9 @@ package net.sf.latexdraw.glib.models.impl;
 import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines a model of a rounded arc.<br>

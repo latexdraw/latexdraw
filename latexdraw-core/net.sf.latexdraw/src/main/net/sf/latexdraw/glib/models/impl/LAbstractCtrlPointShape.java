@@ -6,10 +6,10 @@ import java.util.List;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
-import net.sf.latexdraw.glib.models.interfaces.ILine;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines a model of a abstract shape that contains control points.<br>

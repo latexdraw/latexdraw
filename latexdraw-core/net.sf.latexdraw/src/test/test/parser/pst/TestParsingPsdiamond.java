@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.IRhombus;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 

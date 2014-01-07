@@ -1,8 +1,7 @@
 package test.glib.models.interfaces;
 
 import junit.framework.TestCase;
-
-import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position;
 
 import org.junit.Test;
 

@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;

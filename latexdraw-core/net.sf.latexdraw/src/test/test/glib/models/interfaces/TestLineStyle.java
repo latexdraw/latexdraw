@@ -2,7 +2,7 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;

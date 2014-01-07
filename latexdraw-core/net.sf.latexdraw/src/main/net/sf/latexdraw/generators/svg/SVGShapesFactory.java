@@ -1,6 +1,6 @@
 package net.sf.latexdraw.generators.svg;
 
-import net.sf.latexdraw.glib.models.interfaces.*;
+import net.sf.latexdraw.glib.models.interfaces.shape.*;
 import net.sf.latexdraw.glib.views.CreateViewCmd;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;

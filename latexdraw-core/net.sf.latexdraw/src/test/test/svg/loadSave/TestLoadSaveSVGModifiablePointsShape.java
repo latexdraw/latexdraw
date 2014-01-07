@@ -1,7 +1,7 @@
 package test.svg.loadSave;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 
 public abstract class TestLoadSaveSVGModifiablePointsShape<T extends IModifiablePointsShape> extends TestLoadSaveSVG<IModifiablePointsShape> {
 

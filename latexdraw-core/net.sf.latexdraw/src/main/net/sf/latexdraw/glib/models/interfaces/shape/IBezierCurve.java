@@ -1,7 +1,7 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.shape;
 
 /**
- * Defines an interface that classes defining a square should implement.<br>
+ * Defines an interface that classes defining a Bezier curve should implement.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -19,7 +19,19 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public interface ISquare extends IRectangle {
+public interface IBezierCurve extends IControlPointShape {
+	/**
+	 * @return the isClosed.
+	 */
+	boolean isClosed();
+	
+	/**
+	 * Defines if the shape is closed.
+	 * @param isClosed True: the shape will be closed.
+	 * @since 3.0
+	 */
+	void setIsClosed(final boolean isClosed);
+	
 	@Override
-	ISquare duplicate();
+	IBezierCurve duplicate();
 }

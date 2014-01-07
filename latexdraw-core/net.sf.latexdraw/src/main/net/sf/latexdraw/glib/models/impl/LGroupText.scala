@@ -1,9 +1,9 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.glib.models.interfaces.IPoint
-import net.sf.latexdraw.glib.models.interfaces.IText
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IText
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
 
 /**

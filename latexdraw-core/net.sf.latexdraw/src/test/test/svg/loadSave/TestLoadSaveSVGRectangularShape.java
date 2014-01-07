@@ -1,7 +1,7 @@
 package test.svg.loadSave;
 
-import net.sf.latexdraw.glib.models.interfaces.IRectangularShape;
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 
 public abstract class TestLoadSaveSVGRectangularShape<T extends IRectangularShape> extends TestLoadSaveSVG<T> {
 	protected void setRectangle(final double x, final double y, final double w, final double h) {

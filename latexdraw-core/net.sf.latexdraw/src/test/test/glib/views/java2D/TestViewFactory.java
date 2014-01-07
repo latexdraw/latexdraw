@@ -3,7 +3,7 @@ package test.glib.views.java2D;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewsFactory;

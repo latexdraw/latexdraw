@@ -20,9 +20,9 @@ import net.sf.latexdraw.actions.shape.SelectShapes
 import net.sf.latexdraw.actions.shape.TranslateShapes
 import net.sf.latexdraw.actions.shape.TranslateShapes
 import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.glib.models.interfaces.IShape
-import net.sf.latexdraw.glib.models.interfaces.IText
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IText
 import net.sf.latexdraw.glib.ui.ICanvas
 import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
@@ -32,7 +32,7 @@ import org.malai.interaction.library.DnDWithKeys
 import scala.collection.mutable.Buffer
 import net.sf.latexdraw.actions.shape.UpdateToGrid
 import org.malai.swing.action.library.MoveCamera
-import net.sf.latexdraw.glib.models.interfaces.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import java.awt.Point
 import net.sf.latexdraw.glib.models.ShapeFactory._
 import net.sf.latexdraw.glib.models.ShapeFactory

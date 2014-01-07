@@ -1,6 +1,6 @@
 package net.sf.latexdraw.actions
 
-import net.sf.latexdraw.glib.models.interfaces.IDrawing
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing
 
 /**
  * This trait encapsulates a drawing attribute.<br>

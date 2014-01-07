@@ -7,8 +7,8 @@ import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.instruments.Border;

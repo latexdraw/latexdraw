@@ -2,7 +2,7 @@ package net.sf.latexdraw.instruments
 
 import org.malai.swing.instrument.WidgetInstrument
 import org.malai.swing.ui.UIComposer
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import org.malai.swing.widget.MButton
 import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.lang.LangTool
@@ -11,7 +11,7 @@ import org.malai.swing.interaction.library.ButtonPressed
 import net.sf.latexdraw.actions.shape.MirrorShapes
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.actions.shape.AlignShapes
-import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.actions.shape.AlignShapes
 import net.sf.latexdraw.actions.shape.AlignmentType
 import net.sf.latexdraw.actions.shape.DistributeShapes

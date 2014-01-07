@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * This interface defines a factory of views.<br>

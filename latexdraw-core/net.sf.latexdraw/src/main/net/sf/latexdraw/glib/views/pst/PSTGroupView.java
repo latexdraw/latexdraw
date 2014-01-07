@@ -1,8 +1,8 @@
 package net.sf.latexdraw.glib.views.pst;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 
 /**
  * Defines a PSTricks view of the LDrawing model.<br>

@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.glib.models.interfaces.*;
+import net.sf.latexdraw.glib.models.interfaces.shape.*;
 import net.sf.latexdraw.glib.views.CreateViewCmd;
 
 /**

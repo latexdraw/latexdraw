@@ -1,9 +1,7 @@
-package net.sf.latexdraw.glib.models.interfaces;
-
-import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
+package net.sf.latexdraw.glib.models.interfaces.shape;
 
 /**
- * Defines an interface that classes defining a model for latex grid should implement.<br>
+ * Defines an interface that classes defining a polyline should implement.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -21,6 +19,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
  * @version 3.0
  * @since 3.0
  */
-public interface IStandardGrid extends IPositionShape, IStdGridProp {
-//
+public interface IPolyline extends IPolygon {
+	@Override
+	IPolyline duplicate();
 }

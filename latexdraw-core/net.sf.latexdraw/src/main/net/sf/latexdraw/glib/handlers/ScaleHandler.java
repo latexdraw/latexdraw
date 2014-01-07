@@ -5,8 +5,8 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Objects;
 
-import net.sf.latexdraw.glib.models.interfaces.IShape;
-import net.sf.latexdraw.glib.models.interfaces.IShape.Position;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position;
 
 /**
  * Defines a handler that scales a shape.<br>

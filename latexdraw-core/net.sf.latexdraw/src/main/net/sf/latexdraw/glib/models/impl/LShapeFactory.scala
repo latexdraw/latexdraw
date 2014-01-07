@@ -3,7 +3,7 @@ package net.sf.latexdraw.glib.models.impl
 import java.awt.Point
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces._
+import net.sf.latexdraw.glib.models.interfaces.shape._
 import net.sf.latexdraw.badaboom.BadaboomCollector
 
 import java.awt.geom.Point2D

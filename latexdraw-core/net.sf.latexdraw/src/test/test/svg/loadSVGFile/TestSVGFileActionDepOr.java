@@ -6,12 +6,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 
 import org.junit.Test;

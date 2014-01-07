@@ -1,6 +1,6 @@
 package test.glib.models.interfaces;
 
-import net.sf.latexdraw.glib.models.interfaces.ICircleArc;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
 
 import org.junit.Test;
 

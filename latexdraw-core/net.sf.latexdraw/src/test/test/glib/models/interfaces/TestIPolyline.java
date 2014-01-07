@@ -1,7 +1,7 @@
 package test.glib.models.interfaces;
 
 import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 
 import org.junit.Test;
 

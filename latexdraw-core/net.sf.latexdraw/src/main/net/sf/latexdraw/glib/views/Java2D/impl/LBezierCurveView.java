@@ -6,9 +6,9 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
 
 /**

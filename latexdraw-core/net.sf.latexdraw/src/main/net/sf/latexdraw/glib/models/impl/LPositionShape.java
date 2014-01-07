@@ -2,8 +2,8 @@ package net.sf.latexdraw.glib.models.impl;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IPositionShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
 
 /**
  * Defines a model of a shape that has a position.<br>

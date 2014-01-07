@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.shape;
 
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 

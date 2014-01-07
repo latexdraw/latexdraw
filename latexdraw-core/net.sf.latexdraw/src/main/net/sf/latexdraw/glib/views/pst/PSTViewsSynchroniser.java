@@ -1,8 +1,8 @@
 package net.sf.latexdraw.glib.views.pst;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniser;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 

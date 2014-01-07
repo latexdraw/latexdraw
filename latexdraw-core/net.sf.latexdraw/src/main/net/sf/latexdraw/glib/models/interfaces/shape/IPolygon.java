@@ -1,7 +1,7 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.shape;
 
 /**
- * Defines an interface that classes defining a circle should implement.<br>
+ * Defines an interface that classes defining a polygon should implement.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -19,7 +19,7 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public interface ICircle extends IEllipse {
+public interface IPolygon extends IModifiablePointsShape { //, ILineArcShape {
 	@Override
-	ICircle duplicate();
+	IPolygon duplicate();
 }

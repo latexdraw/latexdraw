@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 
 /**
  * Defines a view of the ICircle model.<br>

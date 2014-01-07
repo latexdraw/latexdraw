@@ -6,8 +6,8 @@ import net.sf.latexdraw.actions.shape.JoinShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.actions.shape.SeparateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 

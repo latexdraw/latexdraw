@@ -2,7 +2,7 @@ package net.sf.latexdraw.glib.models.interfaces.prop;
 
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines an interface of a set of shapes.<br>

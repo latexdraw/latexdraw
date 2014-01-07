@@ -2,10 +2,10 @@ package net.sf.latexdraw.glib.models.impl;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IEllipse;
-import net.sf.latexdraw.glib.models.interfaces.ILine;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines a model of an ellipse.<br>

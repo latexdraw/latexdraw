@@ -32,7 +32,7 @@ import net.sf.latexdraw.filters.PDFFilter;
 import net.sf.latexdraw.filters.PNGFilter;
 import net.sf.latexdraw.filters.PSFilter;
 import net.sf.latexdraw.filters.TeXFilter;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;

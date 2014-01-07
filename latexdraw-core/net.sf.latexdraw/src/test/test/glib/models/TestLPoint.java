@@ -2,7 +2,7 @@ package test.glib.models;
 
 import junit.framework.TestCase;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 package net.sf.latexdraw.generators.svg;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.parsers.svg.*;
 import net.sf.latexdraw.util.LNamespace;
 

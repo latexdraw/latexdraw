@@ -14,14 +14,14 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.IAxes;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.util.LNumber;
 
 /**

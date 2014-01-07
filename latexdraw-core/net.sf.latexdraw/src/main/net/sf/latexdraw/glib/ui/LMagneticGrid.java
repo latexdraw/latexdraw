@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;

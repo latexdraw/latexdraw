@@ -1,7 +1,7 @@
 package net.sf.latexdraw.instruments;
 
-import net.sf.latexdraw.glib.models.interfaces.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.malai.interaction.Eventable;
 import org.malai.swing.ui.UIComposer;

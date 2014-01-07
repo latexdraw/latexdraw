@@ -5,9 +5,9 @@ import org.malai.undo.Undoable
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapesAction
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import collection.JavaConversions._
 import scala.collection.mutable.Buffer
 

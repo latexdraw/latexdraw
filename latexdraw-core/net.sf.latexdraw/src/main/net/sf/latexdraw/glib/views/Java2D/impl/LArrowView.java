@@ -9,11 +9,11 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.Path2D;
 import java.util.Objects;
 
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.ILine;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArrow;
 import net.sf.latexdraw.util.LNumber;
 

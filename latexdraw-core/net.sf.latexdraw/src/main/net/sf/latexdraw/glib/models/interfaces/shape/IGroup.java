@@ -1,9 +1,8 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.shape;
 
 import java.awt.Color;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
@@ -12,6 +11,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ISetShapesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 
 /**
  * Defines an interface that classes defining a group of shapes should implement.<br>

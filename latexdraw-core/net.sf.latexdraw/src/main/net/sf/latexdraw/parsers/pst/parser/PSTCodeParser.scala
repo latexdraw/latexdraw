@@ -5,9 +5,9 @@ import java.awt.Color
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.JavaConversions.seqAsJavaList
 
-import net.sf.latexdraw.glib.models.interfaces.IFreehand
-import net.sf.latexdraw.glib.models.interfaces.IGroup
-import net.sf.latexdraw.glib.models.interfaces.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 

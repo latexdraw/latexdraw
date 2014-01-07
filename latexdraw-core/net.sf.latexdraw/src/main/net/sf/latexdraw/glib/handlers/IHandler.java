@@ -3,8 +3,8 @@ package net.sf.latexdraw.glib.handlers;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.malai.picking.Pickable;
 

@@ -3,8 +3,8 @@ package net.sf.latexdraw.glib.views.pst;
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.util.LNumber;
 
 /**

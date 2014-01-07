@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines methods for classical PSTricks views.<br>

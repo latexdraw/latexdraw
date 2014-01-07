@@ -1,7 +1,7 @@
 package test.svg.loadSave;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IEllipse;
+import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
 
 import org.junit.Before;
 

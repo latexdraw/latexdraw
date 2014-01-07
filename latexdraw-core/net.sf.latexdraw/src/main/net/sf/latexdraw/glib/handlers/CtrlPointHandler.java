@@ -2,7 +2,7 @@ package net.sf.latexdraw.glib.handlers;
 
 import java.awt.geom.Ellipse2D;
 
-import net.sf.latexdraw.glib.models.interfaces.IControlPointShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape;
 
 /**
  * Defines a handler that moves a control point (for Bézier curves).<br>

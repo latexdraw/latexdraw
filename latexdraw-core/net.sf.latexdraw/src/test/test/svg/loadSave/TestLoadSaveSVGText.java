@@ -3,8 +3,8 @@ package test.svg.loadSave;
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 
 import org.junit.Before;
 

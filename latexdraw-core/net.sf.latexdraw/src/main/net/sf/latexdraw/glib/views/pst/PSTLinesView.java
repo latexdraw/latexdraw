@@ -1,8 +1,8 @@
 package net.sf.latexdraw.glib.views.pst;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 
 /**
  * Defines a PSTricks view of the LLines model.<br>

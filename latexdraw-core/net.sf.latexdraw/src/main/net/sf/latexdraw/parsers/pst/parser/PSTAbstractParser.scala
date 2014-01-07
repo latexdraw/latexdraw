@@ -2,8 +2,8 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import scala.collection.mutable.HashMap
 import scala.util.parsing.combinator.syntactical.TokenParsers
-import net.sf.latexdraw.glib.models.interfaces.IShape
-import net.sf.latexdraw.glib.models.interfaces.IText
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IText
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
 import scala.language.implicitConversions

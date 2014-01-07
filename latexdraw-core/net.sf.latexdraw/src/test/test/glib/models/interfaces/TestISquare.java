@@ -1,7 +1,7 @@
 package test.glib.models.interfaces;
 
 
-import net.sf.latexdraw.glib.models.interfaces.ISquare;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
 
 import org.junit.Test;
 

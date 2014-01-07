@@ -12,15 +12,15 @@ import java.lang.reflect.Field;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.*;
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.shape.*;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 
 import org.junit.Before;
 

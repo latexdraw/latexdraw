@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.shape;
 
 /**
  * Defines an interface that classes defining a rhombus should implement.<br>

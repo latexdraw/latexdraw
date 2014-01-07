@@ -2,7 +2,7 @@ package test.glib.models.interfaces;
 
 
 import static org.junit.Assert.assertNotNull;
-import net.sf.latexdraw.glib.models.interfaces.IRhombus;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
 
 import org.junit.Test;
 

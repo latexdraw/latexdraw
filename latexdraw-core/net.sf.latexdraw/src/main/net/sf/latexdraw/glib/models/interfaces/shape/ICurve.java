@@ -1,7 +1,9 @@
-package net.sf.latexdraw.glib.models.interfaces;
+package net.sf.latexdraw.glib.models.interfaces.shape;
+
+import net.sf.latexdraw.glib.models.interfaces.prop.ICurveProp;
 
 /**
- * Defines an interface that classes defining a triangle should implement.<br>
+ * Defines an interface that classes defining a latex curve should implement.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -19,7 +21,6 @@ package net.sf.latexdraw.glib.models.interfaces;
  * @version 3.0
  * @since 3.0
  */
-public interface ITriangle extends IRectangularShape {
-	@Override
-	ITriangle duplicate();
+public interface ICurve extends IModifiablePointsShape, ICurveProp {
+//
 }

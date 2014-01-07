@@ -8,7 +8,7 @@ import net.sf.latexdraw.actions.shape.CutShapes;
 import net.sf.latexdraw.actions.shape.PasteShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IDrawing;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;

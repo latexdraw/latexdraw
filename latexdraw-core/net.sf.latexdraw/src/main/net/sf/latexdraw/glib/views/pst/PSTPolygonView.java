@@ -1,8 +1,8 @@
 package net.sf.latexdraw.glib.views.pst;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.util.LNumber;
 
 /**

@@ -4,10 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.ILine;
-import net.sf.latexdraw.glib.models.interfaces.IModifiablePointsShape;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
+import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape;
 import net.sf.latexdraw.util.LNumber;
 

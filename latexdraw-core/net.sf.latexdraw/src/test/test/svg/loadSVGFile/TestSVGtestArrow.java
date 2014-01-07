@@ -1,8 +1,8 @@
 package test.svg.loadSVGFile;
 
 import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.interfaces.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
 
 import org.junit.Test;
 

@@ -5,8 +5,8 @@ import javax.swing.JSpinner;
 
 import net.sf.latexdraw.actions.shape.TranslateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.malai.instrument.Link;
 import org.malai.swing.interaction.library.SpinnerModified;

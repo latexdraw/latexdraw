@@ -3,7 +3,7 @@ package net.sf.latexdraw.mapping;
 import java.util.List;
 import java.util.Objects;
 
-import net.sf.latexdraw.glib.models.interfaces.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.instruments.Exporter;
 
 import org.malai.mapping.IMapping;

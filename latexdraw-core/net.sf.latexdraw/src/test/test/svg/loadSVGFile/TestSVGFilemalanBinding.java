@@ -6,14 +6,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 
-import net.sf.latexdraw.glib.models.interfaces.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.IBezierCurve;
-import net.sf.latexdraw.glib.models.interfaces.IPolygon;
-import net.sf.latexdraw.glib.models.interfaces.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.IShape.LineStyle;
-import net.sf.latexdraw.glib.models.interfaces.IText;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 
 import org.junit.Test;
 
