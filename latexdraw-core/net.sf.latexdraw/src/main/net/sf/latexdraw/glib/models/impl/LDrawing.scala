@@ -27,33 +27,28 @@ import net.sf.latexdraw.glib.models.ShapeFactory
  */
 protected class LDrawing extends IDrawing with LSetShapes {
 	/** The selected shapes of the drawing. */
-	var selection : IGroup = ShapeFactory.createGroup(false)
+	val selection = ShapeFactory.createGroup(false)
 
 	/** Defined if the shape has been modified. */
-	var modified : Boolean = false
+	var modified = false
 
 
 	override def getSelection() = selection
 
-
 	override def setSelection(newSelection : java.util.List[IShape]) {
 		selection.clear
-		if(newSelection!=null)
-			newSelection.foreach(sh => selection.addShape(sh))
+		newSelection.foreach(sh => selection.addShape(sh))
 	}
-
 
 	override def clear() {
 		super.clear
 		selection.clear
 	}
 
-
 	override def removeShape(sh : IShape) : Boolean = {
 		selection.removeShape(sh)
 		super.removeShape(sh)
 	}
-
 
 	override def removeShape(i : Int) : IShape = {
 		// Must be removed from the selection before removing from the main list (otherwise mapping selection2border will fail.
@@ -66,19 +61,16 @@ protected class LDrawing extends IDrawing with LSetShapes {
 		super.removeShape(i)
 	}
 
-
 	override def setModified(modified : Boolean) {
 		if(modified)
 			MappingRegistry.REGISTRY.onObjectModified(this)
 		else
-			shapes.foreach{sh => sh.setModified(false)}
+			shapes.foreach{_.setModified(false)}
 
 		this.modified = modified
 	}
 
-
-	override def isModified() = modified || shapes.exists{sh => sh.isModified}
-
+	override def isModified() = modified || shapes.exists{_.isModified}
 
 	override def reinit() = clear
 }

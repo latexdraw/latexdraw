@@ -135,9 +135,9 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createPolygon(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IPolygon = new LPolygon(point, point2, uniqueID)
 
-	override def createRectangle(uniqueID : Boolean) : IRectangle = new LRectangle(uniqueID)
+	override def createRectangle(uniqueID : Boolean) : IRectangle = createRectangle(ShapeFactory.createPoint, ShapeFactory.createPoint(1, 1), uniqueID)
 
-	override def createRectangle(pos : IPoint, width : Double, height : Double, uniqueID : Boolean) : IRectangle = new LRectangle(pos, width, height, uniqueID)
+	override def createRectangle(pos : IPoint, width : Double, height : Double, uniqueID : Boolean) : IRectangle = createRectangle(pos, ShapeFactory.createPoint(pos.getX+width, pos.getY+height), uniqueID)
 
 	override def createRectangle(tl : IPoint, br : IPoint, uniqueID : Boolean) : IRectangle = new LRectangle(tl, br, uniqueID)
 
@@ -145,7 +145,7 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createText(isUniqueID : Boolean, pt : IPoint, text : String) : IText = new LText(isUniqueID, pt, text)
 
-	override def createSquare(isUniqueID : Boolean) : ISquare = new LSquare(isUniqueID)
+	override def createSquare(isUniqueID : Boolean) : ISquare = createSquare(ShapeFactory.createPoint, 1, isUniqueID)
 
 	override def createSquare(pos : IPoint, width : Double, isUniqueID : Boolean) : ISquare = new LSquare(pos, width, isUniqueID)
 

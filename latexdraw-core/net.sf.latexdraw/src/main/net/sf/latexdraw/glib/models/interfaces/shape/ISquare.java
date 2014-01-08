@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.shape;
 
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
+
 /**
  * Defines an interface that classes defining a square should implement.<br>
  * <br>
@@ -19,7 +21,7 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  * @version 3.0
  * @since 3.0
  */
-public interface ISquare extends IRectangle {
+public interface ISquare extends ISquaredShape, ILineArcProp {
 	@Override
 	ISquare duplicate();
 }

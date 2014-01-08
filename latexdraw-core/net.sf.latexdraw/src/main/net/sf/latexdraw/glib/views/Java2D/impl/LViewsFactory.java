@@ -64,7 +64,7 @@ public class LViewsFactory implements IViewsFactory {
 		cmd = new CreateView2DCmd(cmd, ICircleArc.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleArcView((ICircleArc)shape); } };
 		cmd = new CreateView2DCmd(cmd, ICircle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleView((ICircle)shape); } };
 		cmd = new CreateView2DCmd(cmd, IText.class) 		{ @Override public IViewShape create(final IShape shape) { return new LTextView((IText)shape); } };
-		cmd = new CreateView2DCmd(cmd, IRectangle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LRectangleView<ISquare>((IRectangle)shape); } };
+		cmd = new CreateView2DCmd(cmd, IRectangle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LRectangleView((IRectangle)shape); } };
 		cmd = new CreateView2DCmd(cmd, ISquare.class) { @Override public IViewShape create(final IShape shape) { return new LSquareView((ISquare)shape); } };
 		// The last created command is the first element of the chain.
 		createCmd = new CreateView2DCmd(cmd, IGroup.class) { @Override public IViewShape create(final IShape shape) { return new LGroupView((IGroup)shape); } };

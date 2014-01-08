@@ -35,7 +35,8 @@ public interface IDrawing extends ISetShapesProp, AbstractPresentation {
 
 	/**
 	 * Selects the given shapes and unselect the already selected shapes.
-	 * @param shapes The shapes to select.
+	 * @param shapes The shapes to select. Cannot be null.
+	 * @throws NullPointerException when shapes is null.
 	 * @since 3.0
 	 */
 	void setSelection(final List<IShape> shapes);

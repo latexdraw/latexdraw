@@ -242,15 +242,11 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 
 				// For squares and circles, the centre of the shape is the reference point during the creation.
 				shape match {
-					case recShape:IRectangularShape if(ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE || ec==EditionChoice.CIRCLE_ARC) =>
-						recShape.setPosition(pt.getX-1, pt.getY-1)
-						recShape.setWidth(2.0)
-						recShape.setHeight(2.0)
-					case _ =>
-						if(ec==EditionChoice.FREE_HAND && shape.isInstanceOf[IFreehand])
-							shape.asInstanceOf[IFreehand].addPoint(ShapeFactory.createPoint(pt.getX, pt.getY))
-						else
-							shape.translate(pt.getX, pt.getY)
+					case sq:ISquaredShape =>
+							sq.setPosition(pt.getX-1, pt.getY-1)
+							sq.setWidth(2.0)
+					case fh:IFreehand => fh.addPoint(ShapeFactory.createPoint(pt.getX, pt.getY))
+					case _ => shape.translate(pt.getX, pt.getY)
 				}
 			case _ =>
 		}
@@ -271,24 +267,21 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 		val startPt = instrument.getAdaptedPoint(interaction.getStartPt)
 		val endPt   = instrument.getAdaptedPoint(interaction.getEndPt)
 
-		if((ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE  || ec==EditionChoice.CIRCLE_ARC) && shape.isInstanceOf[IRectangularShape]) {
-			updateShapeFromCentre(shape.asInstanceOf[IRectangularShape], startPt, endPt.getX)
-			shape.setModified(true)
-			action.drawing.get.setModified(true)
-		}
-		else
-			if(ec==EditionChoice.FREE_HAND && shape.isInstanceOf[IFreehand]) {
-				val fh = shape.asInstanceOf[IFreehand]
+		shape match {
+			case sq:ISquaredShape =>
+					updateShapeFromCentre(sq, startPt, endPt.getX)
+					shape.setModified(true)
+					action.drawing.get.setModified(true)
+			case fh:IFreehand =>
 				val lastPoint = fh.getPtAt(-1)
 				if(!LNumber.equalsDouble(lastPoint.getX, endPt.getX, 0.0001) && !LNumber.equalsDouble(lastPoint.getY, endPt.getY, 0.0001))
 					fh.addPoint(endPt)
-			}
-			else
-				if(shape.isInstanceOf[IRectangularShape]) {
-					updateShapeFromDiag(shape.asInstanceOf[IRectangularShape], startPt, endPt)
+			case rec:IRectangularShape =>
+					updateShapeFromDiag(rec, startPt, endPt)
 					shape.setModified(true)
 					action.drawing.get.setModified(true)
-				}
+			case _ =>
+		}
 	}
 
 
@@ -306,12 +299,11 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 	}
 
 
-	private def updateShapeFromCentre(shape:IRectangularShape, startPt:IPoint, endX:Double) {
+	private def updateShapeFromCentre(shape:ISquaredShape, startPt:IPoint, endX:Double) {
 		val sx = startPt.getX
 		val radius = Math.max(if(sx<endX) endX-sx else sx - endX, getGap(shape))
 		shape.setPosition(sx-radius, startPt.getY+radius)
 		shape.setWidth(radius*2.0)
-		shape.setHeight(radius*2.0)
 	}
 
 

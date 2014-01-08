@@ -3,7 +3,7 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 import java.awt.geom.Path2D;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines a view of the IRectangularView model.<br>
@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-abstract class LRectangularView<S extends IRectangularShape> extends LShapeView<S> {
+abstract class LRectangularView<S extends IShape> extends LShapeView<S> {
 	/**
 	 * Initialises a rectangular view.
 	 * @param model The rectangular model.

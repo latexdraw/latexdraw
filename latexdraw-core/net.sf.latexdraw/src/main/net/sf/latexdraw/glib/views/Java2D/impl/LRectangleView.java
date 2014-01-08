@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewRectangle;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LRectangleView<M extends IRectangle> extends LRectangularView<IRectangle> implements IViewRectangle {
+class LRectangleView extends LRectangularView<IRectangle> implements IViewRectangle {
 	/**
 	 * Creates an initialises the Java view of a LRect.
 	 * @param model The model to view.
@@ -42,7 +42,7 @@ class LRectangleView<M extends IRectangle> extends LRectangularView<IRectangle> 
 	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
 		final double w2 = Math.max(1., width);
 		final double h2 = Math.max(1., height);
-		
+
 		if(((ILineArcProp)shape).isRoundCorner()) {
 			final double diameter = Math.max(1., ((ILineArcProp)shape).getLineArc() * Math.min(w2, h2));
 			final double radius   = diameter/2.;

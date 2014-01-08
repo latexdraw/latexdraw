@@ -1,5 +1,8 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
+import java.awt.geom.Path2D;
+
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
 
 /**
@@ -20,13 +23,42 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LSquareView extends LRectangleView<ISquare> {
+class LSquareView extends LRectangularView<ISquare> {
         /**
 	 * Creates an initialises the Java view of a LSquare.
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
 	protected LSquareView(final ISquare model) {
-            super(model);
+        super(model);
+        update();
     }
+
+	@Override //FIXME idem que rectangle
+	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
+		final double w2 = Math.max(1., width);
+
+		if(((ILineArcProp)shape).isRoundCorner()) {
+			final double diameter = Math.max(1., ((ILineArcProp)shape).getLineArc() * w2);
+			final double radius   = diameter/2.;
+
+			path.moveTo(tlx + radius, tly);
+			path.lineTo(tlx + w2 - radius, tly);
+			LEllipseView.curveQuarter(tlx+w2-diameter, tly, diameter, diameter, path, LEllipseView.POINTS[3]);
+			path.lineTo(tlx + width, tly + height - radius);
+			LEllipseView.curveQuarter(tlx+w2-diameter, tly+height-diameter, diameter, diameter, path, LEllipseView.POINTS[0]);
+			path.lineTo(tlx + radius, tly + height);
+			LEllipseView.curveQuarter(tlx, tly+w2-diameter, diameter, diameter, path, LEllipseView.POINTS[1]);
+			path.lineTo(tlx, tly + w2 - radius);
+			path.lineTo(tlx, tly + radius);
+			LEllipseView.curveQuarter(tlx, tly, diameter, diameter, path, LEllipseView.POINTS[2]);
+			path.closePath();
+		} else {
+			path.moveTo(tlx	  , tly);
+			path.lineTo(tlx+w2, tly);
+			path.lineTo(tlx+w2, tly+w2);
+			path.lineTo(tlx	  , tly+w2);
+			path.closePath();
+		}
+	}
 }

@@ -1,6 +1,7 @@
 package test.glib.models.interfaces;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -232,7 +233,7 @@ public abstract class TestIDrawing extends TestCase {
 		assertEquals(2, drawing.getSelection().size());
 		assertEquals(sh, drawing.getSelection().getShapeAt(0));
 		assertEquals(sh2, drawing.getSelection().getShapeAt(1));
-		drawing.setSelection((List<IShape>)null);
+		drawing.setSelection(Collections.EMPTY_LIST);
 		assertNotNull(drawing.getSelection());
 		assertEquals(0, drawing.getSelection().size());
 	}
