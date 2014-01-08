@@ -1251,4 +1251,16 @@ abstract class LShape implements IShape {
 
 		return clazz.isInstance(this);
 	}
+
+
+	@Override
+	public double getHeight() {
+		return Math.abs(getBottomLeftPoint().getY()-getTopLeftPoint().getY());
+	}
+
+
+	@Override
+	public double getWidth() {
+		return Math.abs(getTopRightPoint().getX()-getTopLeftPoint().getX());
+	}
 }

@@ -47,16 +47,4 @@ public interface IPicture extends IPositionShape {
 	 * @return the image.
 	 */
 	Image getImage();
-
-	/**
-	 * @return The width of the picture.
-	 * @since 3.0
-	 */
-	int getWidth();
-
-	/**
-	 * @return The height of the picture.
-	 * @since 3.0
-	 */
-	int getHeight();
 }

@@ -21,18 +21,6 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  */
 public interface IRectangularShape extends IPositionShape {
 	/**
-	 * @return The width of the rectangle.
-	 * @since 3.0
-	 */
-	double getWidth();
-
-	/**
-	 * @return The height of the rectangle.
-	 * @since 3.0
-	 */
-	double getHeight();
-
-	/**
 	 * Sets the width of the rectangle (the reference point is the bottom-left point of the rectangle).
 	 * @param width The new width.
 	 * @since 3.0

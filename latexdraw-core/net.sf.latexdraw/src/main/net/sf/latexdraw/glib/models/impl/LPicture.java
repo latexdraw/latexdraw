@@ -176,7 +176,7 @@ class LPicture extends LPositionShape implements IPicture {
 
 
 	@Override
-	public int getHeight() {
+	public double getHeight() {
 		return image==null ? 0 : image.getHeight(null);
 	}
 
@@ -200,7 +200,7 @@ class LPicture extends LPositionShape implements IPicture {
 
 
 	@Override
-	public int getWidth() {
+	public double getWidth() {
 		return image==null ? 0 : image.getWidth(null);
 	}
 

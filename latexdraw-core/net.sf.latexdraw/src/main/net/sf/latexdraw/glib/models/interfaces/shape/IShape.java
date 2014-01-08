@@ -876,4 +876,16 @@ public interface IShape extends Modifiable, IArrowable {
 	 * @since 3.0
 	 */
 	boolean isTypeOf(final Class<?> clazz);
+
+	/**
+	 * @return The width of the rectangle.
+	 * @since 3.0
+	 */
+	double getWidth();
+
+	/**
+	 * @return The height of the rectangle.
+	 * @since 3.0
+	 */
+	double getHeight();
 }
