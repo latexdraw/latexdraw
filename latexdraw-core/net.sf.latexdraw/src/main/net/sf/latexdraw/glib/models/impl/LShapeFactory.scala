@@ -71,7 +71,7 @@ class LShapeFactory extends IShapeFactory {
 		shapeClass match {
 			case null => None
 			case _ =>
-				try { Some(shapeClass.cast(factoryMap(shapeClass))) }
+				try { Some(shapeClass.cast(factoryMap(shapeClass)())) }
 				catch { case ex: Throwable => BadaboomCollector.INSTANCE.add(ex); None }
 		}
 
