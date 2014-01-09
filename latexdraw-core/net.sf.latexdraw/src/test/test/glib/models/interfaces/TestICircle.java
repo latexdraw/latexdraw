@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import test.HelperTest;
 
-public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
+public abstract class TestICircle<T extends ICircle> extends TestISquaredShape<T> {
 //
 //	@Override
 //	@Test
@@ -111,36 +111,6 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 
 	@Override
 	@Test
-	public void testGetA() {
-		shape.setPosition(10, 5);
-		shape.setWidth(20);
-
-		HelperTest.assertEqualsDouble(10., shape.getA());
-
-		shape.setHeight(15);
-
-		HelperTest.assertEqualsDouble(7.5, shape.getA());
-	}
-
-
-
-	@Override
-	@Test
-	public void testGetB() {
-		shape.setPosition(10, 5);
-		shape.setHeight(15);
-
-		HelperTest.assertEqualsDouble(7.5, shape.getB());
-
-		shape.setWidth(10);
-
-		HelperTest.assertEqualsDouble(5., shape.getB());
-	}
-
-
-
-	@Override
-	@Test
 	public void testGetBottomLeftPoint() {
 		shape.setPosition(-5, 0);
 		shape.setWidth(10);
@@ -165,7 +135,7 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 	@Test
 	public void testGetTopLeftPoint() {
 		shape.setPosition(20, 10);
-		shape.setHeight(20);
+		shape.setWidth(20);
 
 		HelperTest.assertEqualsDouble(20., shape.getTopLeftPoint().getX());
 		HelperTest.assertEqualsDouble(-10., shape.getTopLeftPoint().getY());
@@ -184,11 +154,8 @@ public abstract class TestICircle<T extends ICircle> extends TestIEllipse<T> {
 
 
 	@Test
-	public void testSetWidthHeight() {
+	public void testSetWidth() {
 		shape.setPosition(-5, -5);
-		shape.setHeight(2);
-		HelperTest.assertEqualsDouble(2., shape.getWidth());
-		HelperTest.assertEqualsDouble(2., shape.getHeight());
 		shape.setWidth(3);
 		HelperTest.assertEqualsDouble(3., shape.getWidth());
 		HelperTest.assertEqualsDouble(3., shape.getHeight());

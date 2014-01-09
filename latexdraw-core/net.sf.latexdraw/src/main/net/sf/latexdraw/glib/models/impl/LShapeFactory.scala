@@ -111,7 +111,7 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createCircle(pt : IPoint, radius : Double, isUniqueID : Boolean) : ICircle = new LCircle(pt, radius, isUniqueID)
 
-	override def createCircle(isUniqueID : Boolean) : ICircle = new LCircle(isUniqueID)
+	override def createCircle(isUniqueID : Boolean) : ICircle = createCircle(ShapeFactory.createPoint, 10, isUniqueID)
 
 	override def createGroup(uniqueID : Boolean) : IGroup = new LGroup(uniqueID)
 

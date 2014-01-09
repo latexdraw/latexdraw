@@ -1,7 +1,10 @@
-package net.sf.latexdraw.glib.models.interfaces.shape;
+package net.sf.latexdraw.glib.models.impl
+
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircle
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 
 /**
- * Defines an interface that classes defining a circle should implement.<br>
+ * Defines a model of a circle.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -14,12 +17,16 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 07/03/2009<br>
+ * 02/13/2008<br>
  * @author Arnaud BLOUIN
  * @version 3.0
  * @since 3.0
  */
-public interface ICircle extends ISquaredShape {
-	@Override
-	ICircle duplicate();
+private class LCircle(pos:IPoint, width:Double, uniqueID:Boolean) extends LSquaredShape(pos, width, uniqueID) with ICircle {
+	override def duplicate() : ICircle = {
+		super.duplicate match {
+			case sh:ICircle => sh
+			case _ => null
+		}
+	}
 }

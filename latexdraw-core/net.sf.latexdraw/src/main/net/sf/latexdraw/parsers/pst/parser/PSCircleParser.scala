@@ -66,8 +66,9 @@ trait PSCircleParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 	 */
 	private def createCircle(hasStar : Boolean, centre : IPoint, radius : Double, ctx : PSTContext) : ICircle = {
 		val circ = ShapeFactory.createCircle(true)
-		circ.setWidth(scala.math.max(0.1, radius)*2.0)
-		circ.setCentre(centre)
+		val width = scala.math.max(0.1, radius)*2.0
+		circ.setWidth(width)
+		circ.setPosition(centre.getX-width/2.0, centre.getY+width/2.0)
 		setShapeParameters(circ, ctx)
 		if(hasStar)
 			setShapeForStar(circ)

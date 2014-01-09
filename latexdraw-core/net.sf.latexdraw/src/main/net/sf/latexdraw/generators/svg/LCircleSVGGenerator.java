@@ -30,7 +30,7 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
+class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 	/**
 	 * Creates a generator of SVG circle.
 	 * @param circle The circle shape used for the generation.
@@ -49,7 +49,6 @@ class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	 */
 	protected LCircleSVGGenerator(final SVGCircleElement elt) {
 		this(ShapeFactory.createCircle(true));
-
 		setSVGParameters(elt);
 		setCircleParameters(elt, 0.);
 		applyTransformations(elt);
@@ -90,7 +89,6 @@ class LCircleSVGGenerator extends LEllipseSVGGenerator<ICircle> {
 	 */
 	protected void setCircleParameters(final SVGCircleElement circleElt, final double gap) {
 		final double radius  = circleElt.getR()-gap/2.;
-
 		shape.setWidth(radius*2.);
 		shape.setPosition(circleElt.getCx()-radius, circleElt.getCy()+radius);
 	}

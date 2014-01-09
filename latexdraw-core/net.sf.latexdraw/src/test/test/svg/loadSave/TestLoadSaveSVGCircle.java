@@ -5,7 +5,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 
 import org.junit.Before;
 
-public class TestLoadSaveSVGCircle extends TestLoadSaveSVGRectangularShape<ICircle> {
+public class TestLoadSaveSVGCircle extends TestLoadSaveSVGSquaredShape<ICircle> {
 	@Before
 	@Override
 	public void setUp() {

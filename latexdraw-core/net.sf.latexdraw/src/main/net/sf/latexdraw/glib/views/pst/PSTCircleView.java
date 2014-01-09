@@ -23,7 +23,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class PSTCircleView extends PSTEllipseView {
+class PSTCircleView extends PSTClassicalView<ICircle> {
 	/**
 	 * Creates an SVG generator for circles.
 	 * @param circle The circle used for the conversion in SVG.
@@ -31,10 +31,8 @@ class PSTCircleView extends PSTEllipseView {
 	 */
 	protected PSTCircleView(final ICircle circle) {
 		super(circle);
-
 		update();
 	}
-
 
 
 	@Override
@@ -44,11 +42,10 @@ class PSTCircleView extends PSTEllipseView {
 
 		emptyCache();
 
-		final ICircle circle 		 = (ICircle)shape;
-		final double radius			 = circle.getWidth()/2.;
+		final double radius			 = shape.getWidth()/2.;
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
-		final double x	 			 = circle.getX()+radius - position.getX();
-		final double y	 			 = position.getY()+radius - circle.getY();
+		final double x	 			 = shape.getX()+radius - position.getX();
+		final double y	 			 = position.getY()+radius - shape.getY();
 
 		if(rotation!=null)
 			cache.append(rotation);

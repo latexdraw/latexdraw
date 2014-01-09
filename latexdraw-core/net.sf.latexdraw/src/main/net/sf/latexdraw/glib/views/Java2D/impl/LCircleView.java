@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
+import java.awt.geom.Path2D;
+
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 
 /**
@@ -20,7 +22,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LCircleView extends LEllipseView<ICircle> {
+class LCircleView extends LRectangularView<ICircle> {
 	/**
 	 * Creates an initialises the Java view of a LCircle.
 	 * @param model The model to view.
@@ -28,7 +30,6 @@ class LCircleView extends LEllipseView<ICircle> {
 	 */
 	protected LCircleView(final ICircle model) {
 		super(model);
-
 		update();
 	}
 
@@ -38,7 +39,12 @@ class LCircleView extends LEllipseView<ICircle> {
 		final double gap 	= getBorderGap();
 		final double width = shape.getWidth();
 		final double widthMin 	= Math.max(width+gap*2., shape.getThickness());
-
 		border.setFrame(shape.getX()-gap, shape.getY()-width-gap, widthMin, widthMin);
+	}
+
+
+	@Override
+	protected void setRectangularShape(Path2D path, double tlx, double tly, double width, double height) {
+		LEllipseView.setEllipsePath(path, tlx, tly, width, width);
 	}
 }
