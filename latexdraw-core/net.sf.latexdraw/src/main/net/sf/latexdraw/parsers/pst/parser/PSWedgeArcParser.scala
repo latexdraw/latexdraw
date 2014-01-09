@@ -157,10 +157,12 @@ trait PSWedgeArcParser extends PSTAbstractParser
 			None
 		else {
 			val arc = ShapeFactory.createCircleArc(true)
+			val centre = transformPointTo2DScene(pos, ctx)
+			val width = scala.math.abs(radius*IShape.PPC)*2.0
 			arc.setAngleStart(scala.math.toRadians(angle1))
 			arc.setAngleEnd(scala.math.toRadians(angle2))
-			arc.setWidth(scala.math.abs(radius*IShape.PPC)*2.0)
-			arc.setCentre(transformPointTo2DScene(pos, ctx))
+			arc.setWidth(width)
+			arc.setPosition(centre.getX-width/2.0, centre.getY+width/2.0)
 			arc.setArcStyle(arcType)
 			setArrows(arc, arrows, inverted, ctx)
 			setShapeParameters(arc, ctx)

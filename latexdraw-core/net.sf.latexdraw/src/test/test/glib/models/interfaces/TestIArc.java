@@ -8,50 +8,12 @@ import org.junit.Test;
 
 import test.HelperTest;
 
-public abstract class TestIArc<T extends IArc> extends TestIEllipse<T> {
+public abstract class TestIArc<T extends IArc> extends TestIPositionShape<T> {
 	@Test
-	public void testGetStartPoint() {
-		shape.setWidth(2.0);
-		shape.setPosition(-1, -1);
-
-		shape.setAngleStart(0);
-		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getY());
-
-		shape.setAngleStart(Math.PI/2.);
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getY());
-
-		shape.setAngleStart(Math.PI);
-		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getY());
-
-		shape.setAngleStart(1.5*Math.PI);
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getY());
-
-		shape.setAngleStart(2.*Math.PI);
-		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getY());
-
-		shape.setAngleStart(-2.*Math.PI);
-		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getY());
-
-		shape.setAngleStart(-Math.PI/2.);
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getY());
-
-		shape.setAngleStart(-Math.PI);
-		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getX());
-		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getY());
-	}
-
+	public abstract void testGetStartPoint();
 
 	@Test
-	public void testGetEndPoint() {
-		//TODO
-	}
+	public abstract void testGetEndPoint();
 
 
 	@Test

@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.models
 
 import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.ILine
 
 /**
  * Defines some utilities function for the glib library.<br>
@@ -80,5 +81,40 @@ object GLibUtilities {
 		if(!isValidPoint(a) || !isValidPoint(b) || !isValidPoint(c))
 			return 0.0
 		return gap / getAltitude(a, b, c) * a.distance(b)
+	}
+
+	/**
+	 * Creates the tangent to the ellipse at the given angle.
+	 * @param angle The position of the tangent point in radian
+	 * @param orientation Change the orientation of the tangent
+	 * @return The tangent.
+	 */
+	def getTangenteAt(tl:IPoint, br:IPoint, gc:IPoint, angle:Double, orientation:Boolean) : ILine = {
+//		final double th = (isDbleBorderable() && hasDbleBord() ? thickness*2.+ getDbleBordSep() : thickness)/2.;
+//		tl.setPoint(tl.getX()+th, tl.getY()+th);
+//		br.setPoint(br.getX()-th, br.getY()-th);
+		val pt = ShapeFactory.createPoint(br.getX, (br.getY+tl.getY)/2.0).rotatePoint(gc, -angle)
+		val a = Math.abs(tl.getX-gc.getX)
+		val b = Math.abs(tl.getY-gc.getY)
+		val dec = 100.0
+		val tgt = ShapeFactory.createLine(pt.getX, pt.getY, 0.0, 0.0)
+
+		if((angle%Math.PI.toFloat).toFloat<=0.01f) {
+			tgt.setX2(pt.getX)
+			if(orientation)
+				 tgt.setY2(pt.getY - dec)
+			else tgt.setY2(pt.getY + dec)
+		}
+		else {
+			if(orientation)
+				 tgt.setX2(pt.getX-dec)
+			else tgt.setX2(pt.getX+dec)
+
+			if((angle%(Math.PI/2f)).toFloat<=0.01f)
+				 tgt.setY2(pt.getY)
+			else tgt.setY2(-(b*(pt.getX-gc.getX)*(tgt.getX2-pt.getX))/(a*(pt.getY-gc.getY)) + pt.getY)
+		}
+		tgt.updateAandB
+		return tgt
 	}
 }

@@ -23,10 +23,10 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
  * @since 3.0
  */
 private class LCircle(pos:IPoint, width:Double, uniqueID:Boolean) extends LSquaredShape(pos, width, uniqueID) with ICircle {
-	override def duplicate() : ICircle = {
-		super.duplicate match {
-			case sh:ICircle => sh
-			case _ => null
-		}
-	}
+//	override def duplicate() : ICircle = {
+//		super.duplicate match {
+//			case sh:ICircle => sh
+//			case _ => null
+//		}
+//	}
 }

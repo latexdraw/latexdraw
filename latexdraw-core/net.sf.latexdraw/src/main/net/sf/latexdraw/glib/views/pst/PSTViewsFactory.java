@@ -62,8 +62,8 @@ public final class PSTViewsFactory {
 		cmd = new CreateViewPSTCmd(cmd, IRhombus.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTRhombusView((IRhombus)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, ITriangle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTTriangleView((ITriangle)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, IEllipse.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTEllipseView((IEllipse)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, ICircleArc.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTArcView((IArc)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, ICircle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTCircleView((ICircle)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, ICircleArc.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTArcView((IArc)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, IText.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTTextView((IText)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, IRectangle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTRectView((IRectangle)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, ISquare.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTSquareView((ISquare)shape); } };

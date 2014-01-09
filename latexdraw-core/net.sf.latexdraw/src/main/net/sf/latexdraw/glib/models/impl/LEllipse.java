@@ -3,7 +3,6 @@ package net.sf.latexdraw.glib.models.impl;
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
-import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
@@ -53,45 +52,6 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	public IEllipse duplicate() {
 		final IShape sh = super.duplicate();
 		return sh instanceof IEllipse ? (IEllipse)sh : null;
-	}
-
-
-	/**
-	 * Creates the tangent to the ellipse at the given angle.
-	 * @param angle The position of the tangent point in radian
-	 * @param orientation Change the orientation of the tangent
-	 * @return The tangent.
-	 */
-	public ILine getTangenteAt(final double angle, final boolean orientation) {
-//		final double th = (isDbleBorderable() && hasDbleBord() ? thickness*2.+ getDbleBordSep() : thickness)/2.;
-		final IPoint tl = getTopLeftPoint();
-		final IPoint br = getBottomRightPoint();
-//		tl.setPoint(tl.getX()+th, tl.getY()+th);
-//		br.setPoint(br.getX()-th, br.getY()-th);
-		final IPoint gc = getGravityCentre();
-		final IPoint pt = ShapeFactory.createPoint(br.getX(), (br.getY()+tl.getY())/2.).rotatePoint(gc, -angle);
-		final double a = Math.abs(tl.getX()-gc.getX());
-		final double b = Math.abs(tl.getY()-gc.getY());
-		final double dec = 100.;
-		final ILine tgt = ShapeFactory.createLine(pt.getX(), pt.getY(), 0., 0.);
-
-		if((float)angle%(float)Math.PI<=0.01) {
-			tgt.setX2(pt.getX());
-			if(orientation)
-				 tgt.setY2(pt.getY() - dec);
-			else tgt.setY2(pt.getY() + dec);
-		}
-		else {
-			if(orientation)
-				 tgt.setX2(pt.getX()-dec);
-			else tgt.setX2(pt.getX()+dec);
-
-			if((float)angle%((float)Math.PI/2f)<=0.01)
-				 tgt.setY2(pt.getY());
-			else tgt.setY2(-(b*(pt.getX()-gc.getX())*(tgt.getX2()-pt.getX()))/(a*(pt.getY()-gc.getY())) + pt.getY());
-		}
-		tgt.updateAandB();
-		return tgt;
 	}
 
 //

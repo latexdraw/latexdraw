@@ -30,6 +30,7 @@ class LCircleView extends LRectangularView<ICircle> {
 	 */
 	protected LCircleView(final ICircle model) {
 		super(model);
+		System.out.println("coucou");
 		update();
 	}
 

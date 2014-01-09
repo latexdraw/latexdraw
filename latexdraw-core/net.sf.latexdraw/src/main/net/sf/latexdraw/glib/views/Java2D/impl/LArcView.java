@@ -32,7 +32,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
+abstract class LArcView<M extends IArc> extends LRectangularView<IArc> implements IViewArc {
 	/**
 	 * Creates an initialises the Java view of a LArc.
 	 * @param model The model to view.
@@ -46,7 +46,7 @@ class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 
 	@Override
 	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
-		setArcPath(path, tlx, tly, width, height, shape.getAngleStart(), shape.getAngleEnd(), getJava2DArcStyle());
+		setArcPath(path, tlx, tly, width, height, shape.getAngleStart(), shape.getAngleEnd(), shape.getArcStyle().getJava2DArcStyle());
 	}
 
 
@@ -84,16 +84,6 @@ class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 	}
 
 
-	protected int getJava2DArcStyle() {
-		switch(shape.getArcStyle()) {
-			case ARC	: return Arc2D.OPEN;
-			case CHORD	: return Arc2D.CHORD;
-			case WEDGE	: return Arc2D.PIE;
-		}
-		return -1;
-	}
-
-
 	/**
 	 * Appends an arc to the given path.
 	 * @param path The path to fill.
@@ -106,31 +96,29 @@ class LArcView<M extends IArc> extends LEllipseView<IArc> implements IViewArc {
 	 * @param style The style of the arc. See Arc2D.OPEN etc.
 	 * @since 3.0
 	 */
-	public void setArcPath(final Path2D path, final double tlx, final double tly, final double width, final double height, final double startAngle,
+	protected void setArcPath(final Path2D path, final double tlx, final double tly, final double width, final double height, final double startAngle,
 									final double endAngle, final int style) {
-		if(path!=null) {
-			final double w2 = Math.max(1., width);
-			final double h2 = Math.max(1., height);
-			double sAngle = startAngle;
-			double eAngle = endAngle;
+		final double w2 = Math.max(1., width);
+		final double h2 = Math.max(1., height);
+		double sAngle = startAngle;
+		double eAngle = endAngle;
 
-			if(shape.isArrowable()) {
-				IArrow arr = shape.getArrowAt(-1);
-				if(arr.getArrowStyle().isReducingShape())
-					eAngle-=Math.atan(arr.getArrowShapeLength()/w2);
-				arr = shape.getArrowAt(0);
-				if(arr.getArrowStyle().isReducingShape())
-					sAngle+=Math.atan(arr.getArrowShapeLength()/w2);
-			}
-
-			sAngle = Math.toDegrees(sAngle%(Math.PI*2.));
-			eAngle = Math.toDegrees(eAngle%(Math.PI*2.));
-
-			if(LNumber.equalsDouble(sAngle, eAngle))
-				eAngle += 0.1;
-
-			final double end = sAngle>eAngle ? 360.-sAngle+eAngle : eAngle-sAngle;
-			path.append(new Arc2D.Double(tlx, tly, w2, h2, sAngle, end, style), false);
+		if(shape.isArrowable()) {
+			IArrow arr = shape.getArrowAt(-1);
+			if(arr.getArrowStyle().isReducingShape())
+				eAngle-=Math.atan(arr.getArrowShapeLength()/w2);
+			arr = shape.getArrowAt(0);
+			if(arr.getArrowStyle().isReducingShape())
+				sAngle+=Math.atan(arr.getArrowShapeLength()/w2);
 		}
+
+		sAngle = Math.toDegrees(sAngle%(Math.PI*2.));
+		eAngle = Math.toDegrees(eAngle%(Math.PI*2.));
+
+		if(LNumber.equalsDouble(sAngle, eAngle))
+			eAngle += 0.1;
+
+		final double end = sAngle>eAngle ? 360.-sAngle+eAngle : eAngle-sAngle;
+		path.append(new Arc2D.Double(tlx, tly, w2, h2, sAngle, end, style), false);
 	}
 }

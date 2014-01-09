@@ -31,8 +31,6 @@ class LShapeFactory extends IShapeFactory {
 	val factoryMap: Map[Class[_], () => IShape] = Map(
 			  (classOf[ICircleArc], () => createCircleArc(true)),
 			  (classOf[LCircleArc], () => createCircleArc(true)),
-			  (classOf[IArc], () => createArc(true)),
-			  (classOf[LArc], () => createArc(true)),
 			  (classOf[ICircle], () => createCircle(true)),
 			  (classOf[LCircle], () => createCircle(true)),
 			  (classOf[IEllipse], () => createEllipse(true)),
@@ -149,13 +147,9 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createSquare(pos : IPoint, width : Double, isUniqueID : Boolean) : ISquare = new LSquare(pos, width, isUniqueID)
 
-	override def createCircleArc(tl : IPoint, br : IPoint, uniqueID : Boolean) : ICircleArc = new LCircleArc(tl, br, uniqueID)
+	override def createCircleArc(pos : IPoint, width : Double, isUniqueID : Boolean) : ICircleArc = new LCircleArc(pos, width, isUniqueID)
 
-	override def createCircleArc(isUniqueID : Boolean) : ICircleArc = new LCircleArc(isUniqueID)
-
-	override def createArc(tl : IPoint, br : IPoint, uniqueID : Boolean) : IArc = new LArc(tl, br, uniqueID)
-
-	override def createArc(isUniqueID : Boolean) : IArc = new LArc(isUniqueID)
+	override def createCircleArc(isUniqueID : Boolean) : ICircleArc = createCircleArc(ShapeFactory.createPoint, 1, isUniqueID)
 
 	override def duplicate(shape : IShape) = if(shape==null) null else shape.duplicate
 }

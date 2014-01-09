@@ -40,7 +40,7 @@ import net.sf.latexdraw.util.LNamespace;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
+class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
 	/**
 	 * Creates a generator of SVG arc.
 	 * @param shape The arc shape used for the generation.
@@ -88,7 +88,6 @@ class LCircleArcSVGGenerator extends LEllipseSVGGenerator<ICircleArc> {
 		shape.setAngleEnd(angle);
 		shape.setPosition(arc.getMinX(), arc.getMaxY());
 		shape.setWidth(arc.getMaxX()-arc.getMinX());
-		shape.setHeight(arc.getMaxY()-arc.getMinY());
 
 		if(l.size()>2)
 			if(l.get(2) instanceof SVGPathSegClosePath)

@@ -54,7 +54,7 @@ public class TestLGroup<T extends IGroup> extends TestIGroup<T> {
 		assertTrue(shape.isTypeOf(IAxes.class));
 
 		assertFalse(shape.isTypeOf(IArc.class));
-		shape.addShape(ShapeFactory.createArc(false));
+		shape.addShape(ShapeFactory.createCircleArc(false));
 		assertTrue(shape.isTypeOf(IArc.class));
 		assertTrue(shape.isTypeOf(ICircle.class));
 		assertTrue(shape.isTypeOf(IBezierCurve.class));

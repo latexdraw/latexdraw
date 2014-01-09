@@ -19,7 +19,6 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  * @version 3.0
  * @since 3.0
  */
-public interface ICircleArc extends IArc {
-	@Override
-	ICircleArc duplicate();
+public interface ICircleArc extends IArc, ICircle {
+	//
 }

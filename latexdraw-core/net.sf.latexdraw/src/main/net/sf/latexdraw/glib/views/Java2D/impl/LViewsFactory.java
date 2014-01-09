@@ -60,9 +60,8 @@ public class LViewsFactory implements IViewsFactory {
 		cmd = new CreateView2DCmd(cmd, IRhombus.class) 	{ @Override public IViewShape create(final IShape shape) { return new LRhombusView((IRhombus)shape); } };
 		cmd = new CreateView2DCmd(cmd, ITriangle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LTriangleView((ITriangle)shape); } };
 		cmd = new CreateView2DCmd(cmd, IEllipse.class) 	{ @Override public IViewShape create(final IShape shape) { return new LEllipseView<>((IEllipse)shape); } };
-		cmd = new CreateView2DCmd(cmd, IArc.class) 		{ @Override public IViewShape create(final IShape shape) { return new LArcView<>((IArc)shape); } };
-		cmd = new CreateView2DCmd(cmd, ICircleArc.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleArcView((ICircleArc)shape); } };
 		cmd = new CreateView2DCmd(cmd, ICircle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleView((ICircle)shape); } };
+		cmd = new CreateView2DCmd(cmd, ICircleArc.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleArcView((ICircleArc)shape); } };
 		cmd = new CreateView2DCmd(cmd, IText.class) 		{ @Override public IViewShape create(final IShape shape) { return new LTextView((IText)shape); } };
 		cmd = new CreateView2DCmd(cmd, IRectangle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LRectangleView((IRectangle)shape); } };
 		cmd = new CreateView2DCmd(cmd, ISquare.class) { @Override public IViewShape create(final IShape shape) { return new LSquareView((ISquare)shape); } };

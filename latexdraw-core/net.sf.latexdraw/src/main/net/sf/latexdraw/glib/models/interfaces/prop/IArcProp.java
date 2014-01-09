@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
+import java.awt.geom.Arc2D;
+
 import net.sf.latexdraw.lang.LangTool;
 
 /**
@@ -24,12 +26,17 @@ public interface IArcProp {
 		WEDGE {
 			@Override public boolean supportArrow() { return false; }
 			@Override public String getLabel() { return LangTool.INSTANCE.getStringOthers("Arc.arc"); }//$NON-NLS-1$
+			@Override public int getJava2DArcStyle() { return Arc2D.PIE;}
 		}, ARC {
 			@Override public boolean supportArrow() { return true; }
 			@Override public String getLabel() { return LangTool.INSTANCE.getStringOthers("Arc.wedge"); }//$NON-NLS-1$
+			@Override public int getJava2DArcStyle() { return Arc2D.OPEN;}
+
 		}, CHORD {
 			@Override public boolean supportArrow() { return false; }
 			@Override public String getLabel() { return LangTool.INSTANCE.getStringOthers("Arc.chord"); }//$NON-NLS-1$
+			@Override public int getJava2DArcStyle() { return Arc2D.CHORD;}
+
 		};
 
 		/**
@@ -43,6 +50,12 @@ public interface IArcProp {
 		 * @since 3.0
 		 */
 		public abstract String getLabel();
+
+		/**
+		 * @return The Java value corresponding to the arc style.
+		 * @since 3.1
+		 */
+		public abstract int getJava2DArcStyle();
 	}
 
 	/**

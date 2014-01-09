@@ -350,13 +350,14 @@ trait IShapeFactory {
 
 	/**
 	 * Creates a circled arc.
-	 * @param tl The top left point of the circled arc.
-	 * @param br The bottom right point of the circled arc.
-	 * @param uniqueID True: the circled arc will have a unique ID.
+	 * @param pos The north-west point of the square.
+	 * @param width The width of the square.
+	 * @param uniqueID True: the shape will have a unique ID.
+	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created circled arc.
 	 * @since 3.0
 	 */
-	def createCircleArc(tl : IPoint, br : IPoint, uniqueID : Boolean) : ICircleArc
+	def createCircleArc(pos : IPoint, width : Double, isUniqueID : Boolean) : ICircleArc
 
 
 	/**
@@ -366,27 +367,6 @@ trait IShapeFactory {
 	 * @since 3.0
 	 */
 	def createCircleArc(isUniqueID : Boolean) : ICircleArc
-
-
-	/**
-	 * Creates an arc.
-	 * @param tl The top left point of the arc.
-	 * @param br The bottom right point of the arc.
-	 * @param uniqueID True: the arc will have a unique ID.
-	 * @return The created arc.
-	 * @since 3.0
-	 */
-	def createArc(tl : IPoint, br : IPoint, uniqueID : Boolean) : IArc
-
-
-	/**
-	 * Creates a circled arc with a 1 radius.
-	 * @param isUniqueID True: the model will have a unique ID.
-	 * @return The created arc.
-	 * @since 3.0
-	 */
-	def createArc(isUniqueID : Boolean) : IArc
-
 
 	/**
 	 * Duplicates the given shape.

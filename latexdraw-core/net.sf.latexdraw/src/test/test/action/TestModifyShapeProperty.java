@@ -1395,9 +1395,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 
 	public void testDoArcStyle() {
-		IArc arc1 = ShapeFactory.createArc(false);
+		IArc arc1 = ShapeFactory.createCircleArc(false);
 		IRectangle rec = ShapeFactory.createRectangle(false);
-		IArc arc2 = ShapeFactory.createArc(false);
+		IArc arc2 = ShapeFactory.createCircleArc(false);
 		g.addShape(arc1);
 		g.addShape(rec);
 		g.addShape(arc2);
@@ -1430,9 +1430,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 
 
 	public void testDoAngleEnd() {
-		IArc arc1 = ShapeFactory.createArc(false);
+		IArc arc1 = ShapeFactory.createCircleArc(false);
 		IRectangle rec = ShapeFactory.createRectangle(false);
-		IArc arc2 = ShapeFactory.createArc(false);
+		IArc arc2 = ShapeFactory.createCircleArc(false);
 		g.addShape(arc1);
 		g.addShape(rec);
 		g.addShape(arc2);
@@ -1464,9 +1464,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	}
 
 	public void testDoAngleStart() {
-		IArc arc1 = ShapeFactory.createArc(false);
+		IArc arc1 = ShapeFactory.createCircleArc(false);
 		IRectangle rec = ShapeFactory.createRectangle(false);
-		IArc arc2 = ShapeFactory.createArc(false);
+		IArc arc2 = ShapeFactory.createCircleArc(false);
 		g.addShape(arc1);
 		g.addShape(rec);
 		g.addShape(arc2);
@@ -1621,7 +1621,7 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		assertFalse(action.canDo());
 		action.setValue(100.);
 		assertFalse(action.canDo());
-		varTmp.addShape(ShapeFactory.createArc(false));
+		varTmp.addShape(ShapeFactory.createCircleArc(false));
 		assertTrue(action.canDo());
 		action.setGroup(null);
 		assertFalse(action.canDo());
