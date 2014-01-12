@@ -26,7 +26,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LGroupShape extends IGroup {
+private[impl] trait LGroupShape extends IGroup {
 	override def mirrorHorizontal(origin:IPoint) {
 		getShapes.foreach{_.mirrorHorizontal(origin)}
 	}

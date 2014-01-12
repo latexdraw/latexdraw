@@ -12,6 +12,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
@@ -52,6 +53,9 @@ class LAxesView extends LStandardGridView<IAxes> {
 
 	protected LAxesView(final IAxes model) {
 		super(model);
+		arrows = new ArrayList<>();
+		for(int i=0, size=shape.getNbArrows(); i<size; i++)
+			arrows.add(new LArrowView(shape.getArrowAt(i)));
 		pathTicks = new Path2D.Double();
 		update();
 	}

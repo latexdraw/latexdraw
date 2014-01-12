@@ -1,9 +1,9 @@
-package net.sf.latexdraw.glib.models.impl;
+package net.sf.latexdraw.glib.models.impl
 
-import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
+import net.sf.latexdraw.glib.models.GLibUtilities
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape
 
 /**
  * Defines a model of a rectangular shape.<br>
@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
  * @version 3.0
  * @since 3.0
  */
-private abstract class LRectangularShape(tl:IPoint, br:IPoint, uniqueID:Boolean) extends LPositionShape(uniqueID, tl) with IRectangularShape {
+private[impl] abstract class LRectangularShape(tl:IPoint, br:IPoint, uniqueID:Boolean) extends LPositionShape(uniqueID, tl) with IRectangularShape {
 
 	require(GLibUtilities.isValidPoint(tl) && GLibUtilities.isValidPoint(br) && tl.getX<br.getX && tl.getY<br.getY)
 

@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LGroupGrid extends IGroup {
+private[impl] trait LGroupGrid extends IGroup {
 	/** May return the first grid of the group. */
 	private def firstIGrid = gridShapes.find{_.isTypeOf(classOf[IGridProp])}
 

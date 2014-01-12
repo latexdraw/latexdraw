@@ -50,7 +50,7 @@ public class TestLBezierCurve<T extends IBezierCurve> extends TestIBezierCurve<T
 		assertEquals(0, curve.getPoints().size());
 		assertEquals(0, curve.getFirstCtrlPts().size());
 		assertEquals(0, curve.getSecondCtrlPts().size());
-		assertEquals(2, curve.getArrows().size());
+		assertEquals(2, curve.getNbArrows());
 	}
 
 	@Test
@@ -67,6 +67,6 @@ public class TestLBezierCurve<T extends IBezierCurve> extends TestIBezierCurve<T
 		HelperTest.assertEqualsDouble(400., curve.getPoints().get(1).getY());
 		assertEquals(2, curve.getFirstCtrlPts().size());
 		assertEquals(2, curve.getSecondCtrlPts().size());
-		assertEquals(2, curve.getArrows().size());
+		assertEquals(2, curve.getNbArrows());
 	}
 }

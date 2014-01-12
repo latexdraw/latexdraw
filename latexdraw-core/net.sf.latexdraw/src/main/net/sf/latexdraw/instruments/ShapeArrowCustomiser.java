@@ -12,6 +12,7 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
@@ -301,9 +302,10 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IShape shape) {
-		if(shape!=null && shape.isArrowable()) {
-			final IArrow arr1 = shape.getArrowAt(0);
-			final IArrow arr2 = shape.getArrowAt(-1);
+		if(shape.isTypeOf(IArrowableShape.class)) {
+			final IArrowableShape arrSh = (IArrowableShape)shape;
+			final IArrow arr1 = arrSh.getArrowAt(0);
+			final IArrow arr2 = arrSh.getArrowAt(-1);
 			final ArrowStyle arrStyle1 = arr1.getArrowStyle();
 			final ArrowStyle arrStyle2 = arr2.getArrowStyle();
 

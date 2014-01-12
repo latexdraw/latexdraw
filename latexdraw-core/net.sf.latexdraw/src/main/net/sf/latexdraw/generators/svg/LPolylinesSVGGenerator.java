@@ -153,8 +153,8 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 			try { shad.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			setSVGShadowAttributes(shad, false);
 			root.appendChild(shad);
-			setSVGArrow(shad, 0, true, doc, defs);
-			setSVGArrow(shad, 1, true, doc, defs);
+			setSVGArrow(shape, shad, 0, true, doc, defs);
+			setSVGArrow(shape, shad, 1, true, doc, defs);
 		}
 
         if(shape.hasShadow() && !shape.getLineStyle().getLatexToken().equals(PSTricksConstants.LINE_NONE_STYLE) && shape.isFilled()) {
@@ -178,8 +178,8 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		setSVGAttributes(doc, elt, false);
 		elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
-		setSVGArrow(elt, 0, false, doc, defs);
-		setSVGArrow(elt, shape.getArrows().size()-1, false, doc, defs);
+		setSVGArrow(shape, elt, 0, false, doc, defs);
+		setSVGArrow(shape, elt, shape.getNbArrows()-1, false, doc, defs);
 
 		return root;
 	}

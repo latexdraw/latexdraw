@@ -54,7 +54,7 @@ public class LViewsFactory implements IViewsFactory {
 		cmd = new CreateView2DCmd(cmd, IGrid.class)		{ @Override public IViewShape create(final IShape shape) { return new LGridView((IGrid)shape); } };
 		cmd = new CreateView2DCmd(cmd, IAxes.class)		{ @Override public IViewShape create(final IShape shape) { return new LAxesView((IAxes)shape); } };
 		cmd = new CreateView2DCmd(cmd, IBezierCurve.class){ @Override public IViewShape create(final IShape shape) { return new LBezierCurveView((IBezierCurve)shape); } };
-		cmd = new CreateView2DCmd(cmd, IPolygon.class) 	{ @Override public IViewShape create(final IShape shape) { return new LPolygonView<>((IPolygon)shape); } };
+		cmd = new CreateView2DCmd(cmd, IPolygon.class) 	{ @Override public IViewShape create(final IShape shape) { return new LPolygonView((IPolygon)shape); } };
 		// All the commands of the chain of responsibility are chained together.
 		cmd = new CreateView2DCmd(cmd, IPolyline.class) 	{ @Override public IViewShape create(final IShape shape) { return new LPolylineView((IPolyline)shape); } };
 		cmd = new CreateView2DCmd(cmd, IRhombus.class) 	{ @Override public IViewShape create(final IShape shape) { return new LRhombusView((IRhombus)shape); } };

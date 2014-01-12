@@ -1,12 +1,9 @@
-package net.sf.latexdraw.glib.models.impl;
+package net.sf.latexdraw.glib.models.impl
 
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
-import net.sf.latexdraw.glib.models.ShapeFactory
-import java.util.ArrayList
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
 
 /**
  * Defines a model of a rounded arc.<br>
@@ -27,22 +24,11 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
  * @version 3.0
  * @since 3.0
  */
-private class LCircleArc(tl:IPoint, width:Double, uniqueID:Boolean) extends LSquaredShape(tl, width, uniqueID) with LArc with ICircleArc {
-	//FIXME should be common to all arcs
-	arrows = new ArrayList[IArrow]()
-	arrows.add(ShapeFactory.createArrow(this))
-	arrows.add(ShapeFactory.createArrow(this))
-
-//	override def duplicate() =
-//		super.duplicate match {
-//			case sh:ICircleArc => sh
-//			case _ => null
-//		}
-
-	override def copy(sh:IShape) {//FIXME somewhere else
-		super.copy(sh)
-
-		sh match {
+private[impl] class LCircleArc(tl:IPoint, width:Double, uniqueID:Boolean) extends LSquaredShape(tl, width, uniqueID) with LArc with ICircleArc {
+	override def copy(sh:IShape) {
+		super[LSquaredShape].copy(sh)
+		super[LArc].copy(sh)
+		sh match {//FIXME somewhere else
 			case arc:IArcProp =>
 				startAngle 		= arc.getAngleStart
 				endAngle 		= arc.getAngleEnd;

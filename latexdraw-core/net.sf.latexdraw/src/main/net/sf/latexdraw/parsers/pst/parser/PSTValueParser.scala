@@ -2,10 +2,11 @@ package net.sf.latexdraw.parsers.pst.parser
 
 import java.awt.Color
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 
@@ -153,7 +154,7 @@ trait PSTValueParser extends PSTNumberParser {
 
 
 
-	def setArrows(sh : IShape, arrowsRaw : Option[String], invert : Boolean, ctx:PSTContext) {
+	def setArrows(sh : IArrowableShape, arrowsRaw : Option[String], invert : Boolean, ctx:PSTContext) {
 		arrowsRaw match {
 			case Some(value) =>
 				val arrows = parseValueArrows(value)

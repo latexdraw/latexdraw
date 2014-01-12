@@ -1,12 +1,33 @@
 package net.sf.latexdraw.glib.models.impl
 
-import java.awt.Point
-
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape._
-import net.sf.latexdraw.badaboom.BadaboomCollector
-
 import java.awt.geom.Point2D
+
+import net.sf.latexdraw.badaboom.BadaboomCollector
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IAxes
+import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircle
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc
+import net.sf.latexdraw.glib.models.interfaces.shape.IDot
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing
+import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse
+import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand
+import net.sf.latexdraw.glib.models.interfaces.shape.IGrid
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.ILine
+import net.sf.latexdraw.glib.models.interfaces.shape.IPicture
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle
+import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquare
+import net.sf.latexdraw.glib.models.interfaces.shape.IText
+import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle
 
 /**
  * This factory creates shapes.<br>
@@ -77,17 +98,17 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createDrawing() : IDrawing = new LDrawing()
 
-	override def createArrow(arrow : IArrow, owner : IShape) : IArrow = new LArrow(arrow, owner)
+	override def createArrow(arrow : IArrow, owner : IArrowableShape) : IArrow = new LArrow(arrow, owner)
 
-	override def createArrow(owner : IShape) : IArrow = new LArrow(owner)
+	override def createArrow(owner : IArrowableShape) : IArrow = new LArrow(owner)
 
 	override def createAxes(isUniqueID : Boolean, pt : IPoint) :IAxes = new LAxes(isUniqueID, pt)
 
 	override def createDot(pt : IPoint, isUniqueID : Boolean) : IDot = new LDot(pt, isUniqueID)
 
-	override def createBezierCurve(isUniqueID : Boolean) : IBezierCurve = new LBezierCurve(isUniqueID)
+	override def createBezierCurve(isUniqueID : Boolean) : IBezierCurve = new LBezierCurve(true, isUniqueID)
 
-	override def createBezierCurve(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IBezierCurve = new LBezierCurve(point, point2, uniqueID)
+	override def createBezierCurve(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IBezierCurve = new LBezierCurve(point, point2, true, uniqueID)
 
 	override def createEllipse(tl : IPoint, br : IPoint, isUniqueID : Boolean) : IEllipse = new LEllipse(tl, br, isUniqueID)
 

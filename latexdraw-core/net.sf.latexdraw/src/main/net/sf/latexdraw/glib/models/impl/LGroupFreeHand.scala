@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LGroupFreeHand extends IGroup {
+private[impl] trait LGroupFreeHand extends IGroup {
 	/** May return the first free hand shape of the group. */
 	private def firstIFreeHand = fhShapes.find{_.isTypeOf(classOf[IFreeHandProp])}
 

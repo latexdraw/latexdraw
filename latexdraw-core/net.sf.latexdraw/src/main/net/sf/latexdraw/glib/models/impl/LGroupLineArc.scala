@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LGroupLineArc extends IGroup {
+private[impl] trait LGroupLineArc extends IGroup {
 	/** May return the first free hand shape of the group. */
 	private def firstLineArc = lineArcShapes.find{_.isTypeOf(classOf[ILineArcProp])}
 

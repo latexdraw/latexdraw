@@ -7,6 +7,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IText
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
 import scala.language.implicitConversions
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
 
 /**
  * Defines an abstract PST parser.<br>
@@ -124,8 +125,8 @@ trait PSTAbstractParser extends TokenParsers {
 		if(sh!=null && ctx!=null) {
 			setShapeGeneralParameters(sh, ctx)
 
-			if(sh.isArrowable)
-				setShapeArrows(sh, ctx)
+			if(sh.isInstanceOf[IArrowableShape])
+				setShapeArrows(sh.asInstanceOf[IArrowableShape], ctx)
 		}
 	}
 
@@ -153,7 +154,7 @@ trait PSTAbstractParser extends TokenParsers {
 	/**
 	 * Sets the arrows' parameters.
 	 */
-	protected def setShapeArrows(sh : IShape, ctx : PSTContext) {
+	protected def setShapeArrows(sh : IArrowableShape, ctx : PSTContext) {
 		sh.setArrowStyle(ctx.arrowStyle._1, 0)
 		sh.setArrowStyle(ctx.arrowStyle._2, 1)
 		sh.setArrowSizeDim(ctx.arrowSize._1*IShape.PPC)

@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.models.impl;
 import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -61,7 +62,7 @@ class LArrow implements IArrow {
 	protected double rBracketNum;
 
 	/** The owner of the arrow. */
-	protected IShape owner;
+	protected IArrowableShape owner;
 
 
 
@@ -69,7 +70,7 @@ class LArrow implements IArrow {
 	 * Creates an arrow.
 	 * @param owner The shape that contains the arrow.
 	 */
-	protected LArrow(final IShape owner) {
+	protected LArrow(final IArrowableShape owner) {
 		super();
 		this.owner 	 = Objects.requireNonNull(owner);
 		style		 = ArrowStyle.NONE;
@@ -91,31 +92,26 @@ class LArrow implements IArrow {
 	 * @param arrow The arrow to copy.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	protected LArrow(final IArrow arrow, final IShape owner) {
+	protected LArrow(final IArrow arrow, final IArrowableShape owner) {
 		this(owner);
-
-		if(arrow==null)
-			throw new IllegalArgumentException();
-
-		copy(arrow);
+		copy(Objects.requireNonNull(arrow));
 	}
 
 
 	@Override
 	public void copy(final IArrow model) {
-		if(model!=null) {
-			arrowInset 		= model.getArrowInset();
-			arrowLength 	= model.getArrowLength();
-			arrowSizeDim 	= model.getArrowSizeDim();
-			arrowSizeNum 	= model.getArrowSizeNum();
-			bracketNum 		= model.getBracketNum();
-			dotSizeDim 		= model.getDotSizeDim();
-			dotSizeNum 		= model.getDotSizeNum();
-			rBracketNum 	= model.getRBracketNum();
-			style 			= model.getArrowStyle();
-			tBarSizeDim 	= model.getTBarSizeDim();
-			tBarSizeNum 	= model.getTBarSizeNum();
-		}
+		if(model==null) return;
+		arrowInset 		= model.getArrowInset();
+		arrowLength 	= model.getArrowLength();
+		arrowSizeDim 	= model.getArrowSizeDim();
+		arrowSizeNum 	= model.getArrowSizeNum();
+		bracketNum 		= model.getBracketNum();
+		dotSizeDim 		= model.getDotSizeDim();
+		dotSizeNum 		= model.getDotSizeNum();
+		rBracketNum 	= model.getRBracketNum();
+		style 			= model.getArrowStyle();
+		tBarSizeDim 	= model.getTBarSizeDim();
+		tBarSizeNum 	= model.getTBarSizeNum();
 	}
 
 
@@ -211,7 +207,7 @@ class LArrow implements IArrow {
 	}
 
 	@Override
-	public IShape getShape() {
+	public IArrowableShape getShape() {
 		return owner;
 	}
 
@@ -234,7 +230,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public boolean isLeftArrow() {
-		return owner.getArrows().indexOf(this)<owner.getArrows().size()/2;
+		return owner.getArrowIndex(this)<owner.getNbArrows()/2;
 	}
 
 	@Override

@@ -7,11 +7,8 @@ import java.util.List;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LNumber;
 
@@ -118,14 +115,11 @@ abstract class LShape implements IShape {
 	/** The size of the shadow in pixel. */
 	protected double shadowSize;
 
-	/** The arrow of the shape, may be null. */
-	protected List<IArrow> arrows;
-
 	/** The position of the border of the shape. */
 	protected BorderPos bordersPosition;
 
 	/** The points of the shape. */
-	protected List<IPoint> points;
+	final protected List<IPoint> points;
 
 	/** Defined if the shape has been modified. */
 	protected boolean modified;
@@ -142,7 +136,6 @@ abstract class LShape implements IShape {
 		shadowAngle 	= -Math.PI/4.;
 		gradAngle	 	= 0.;
 		hatchingsAngle	= 0.;
-		arrows			= null;
 		hasShadow   	= false;
 		hasDbleBord		= false;
 		lineStyle		= LineStyle.SOLID;
@@ -212,46 +205,15 @@ abstract class LShape implements IShape {
 		setShowPts(s.isShowPts());
 
 		copyPoints(s);
-
-		if(isArrowable() && s.isArrowable())
-			copyArrows(s);
 	}
-
-
-
-	protected void copyArrows(final IShape s) {
-		if(s==null || !isArrowable() || !s.isArrowable()) return ;
-		setArrowStyle(s.getArrowStyle(0), 0);
-		setArrowStyle(s.getArrowStyle(-1), -1);
-		setArrowInset(s.getArrowInset());
-		setArrowLength(s.getArrowLength());
-		setArrowSizeDim(s.getArrowSizeDim());
-		setArrowSizeNum(s.getArrowSizeNum());
-		setDotSizeDim(s.getDotSizeDim());
-		setDotSizeNum(s.getDotSizeNum());
-		setBracketNum(s.getBracketNum());
-		setRBracketNum(s.getRBracketNum());
-		setTBarSizeDim(s.getTBarSizeDim());
-		setTBarSizeNum(s.getTBarSizeNum());
-	}
-
-
 
 	protected void copyPoints(final IShape sh) {
 		if(sh==null || !getClass().isInstance(sh)) return ;
-
 		points.clear();
 
 		for(final IPoint pt : sh.getPoints())
 			points.add(ShapeFactory.createPoint(pt));
-
-		if(isArrowable()) {
-			arrows.clear();
-			for(final IArrow arr : sh.getArrows())
-				arrows.add(ShapeFactory.createArrow(arr, this));
-		}
 	}
-
 
 
 	@Override
@@ -263,19 +225,6 @@ abstract class LShape implements IShape {
 			final IPoint rotatedGC = gravityCentre.rotatePoint(gravCentre, angle);
 			translate(rotatedGC.getX()-gravityCentre.getX(), rotatedGC.getY()-gravityCentre.getY());
 		}
-	}
-
-
-	@Override
-	public IArrow getArrowAt(final int position) {
-		return arrows==null || arrows.isEmpty() || position>=arrows.size() || position<-1 ?
-				null : position==-1 ? arrows.get(arrows.size()-1) : arrows.get(position);
-	}
-
-
-	@Override
-	public List<IArrow> getArrows() {
-		return arrows;
 	}
 
 
@@ -1040,19 +989,6 @@ abstract class LShape implements IShape {
 		setRotationAngle(rotationAngle+angle);
 	}
 
-
-	@Override
-	public ILine getArrowLine(final IArrow arrow) {
-		return null;
-	}
-
-
-	@Override
-	public boolean isArrowable() {
-		return false;
-	}
-
-
 	@Override
 	public boolean isBordersMovable() {
 		return false;
@@ -1099,150 +1035,6 @@ abstract class LShape implements IShape {
 	public boolean isThicknessable() {
 		return false;
 	}
-
-	@Override
-	public void setDotSizeDim(final double dotSizeDim) {
-		if(isArrowable())
-			for(final IArrow arrow : arrows)
-				arrow.setDotSizeDim(dotSizeDim);
-	}
-
-	@Override
-	public void setDotSizeNum(final double dotSizeNum) {
-		if(isArrowable())
-			for(final IArrow arrow : arrows)
-				arrow.setDotSizeNum(dotSizeNum);
-	}
-
-	@Override
-	public void setTBarSizeNum(final double tbarSizeNum) {
-		if(isArrowable())
-			for(final IArrow arrow : arrows)
-				arrow.setTBarSizeNum(tbarSizeNum);
-	}
-
-	@Override
-	public void setTBarSizeDim(final double tbarSizeDim) {
-		if(isArrowable())
-			for(final IArrow arrow : arrows)
-				arrow.setTBarSizeDim(tbarSizeDim);
-	}
-
-	@Override
-	public double getTBarSizeDim() {
-		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getTBarSizeDim() : Double.NaN;
-	}
-
-	@Override
-	public double getTBarSizeNum() {
-		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getTBarSizeNum() : Double.NaN;
-	}
-
-	@Override
-	public void setRBracketNum(final double rBracketNum) {
-		if(isArrowable())
-			for(final IArrow arrow : arrows)
-				arrow.setRBracketNum(rBracketNum);
-	}
-
-	@Override
-	public void setBracketNum(final double bracketNum) {
-		if(isArrowable())
-			for(final IArrow arrow : arrows)
-				arrow.setBracketNum(bracketNum);
-	}
-
-	@Override
-	public void setArrowLength(final double lgth) {
-		if(isArrowable())
-			for(final IArrow arrow : arrows)
-				arrow.setArrowLength(lgth);
-	}
-
-	@Override
-	public void setArrowSizeDim(final double arrowSizeDim) {
-		if(isArrowable())
-			for(final IArrow arrow : arrows)
-				arrow.setArrowSizeDim(arrowSizeDim);
-	}
-
-	@Override
-	public void setArrowSizeNum(final double arrowSizeNum) {
-		if(isArrowable())
-			for(final IArrow arrow : arrows)
-				arrow.setArrowSizeNum(arrowSizeNum);
-	}
-
-	@Override
-	public void setArrowInset(final double inset) {
-		if(isArrowable())
-			for(final IArrow arrow : arrows)
-				arrow.setArrowInset(inset);
-	}
-
-	@Override
-	public double getDotSizeDim() {
-		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getDotSizeDim() : Double.NaN;
-	}
-
-	@Override
-	public double getDotSizeNum() {
-		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getDotSizeNum() : Double.NaN;
-	}
-
-	@Override
-	public double getBracketNum() {
-		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getBracketNum() : Double.NaN;
-	}
-
-	@Override
-	public double getArrowSizeNum() {
-		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getArrowSizeNum() : Double.NaN;
-	}
-
-	@Override
-	public double getArrowSizeDim() {
-		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getArrowSizeDim() : Double.NaN;
-	}
-
-	@Override
-	public double getArrowInset() {
-		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getArrowInset() : Double.NaN;
-	}
-
-	@Override
-	public double getArrowLength() {
-		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getArrowLength() : Double.NaN;
-	}
-
-	@Override
-	public double getRBracketNum() {
-		return isArrowable() && !arrows.isEmpty() ? arrows.get(0).getRBracketNum() : Double.NaN;
-	}
-
-
-	@Override
-	public void setArrowStyle(final ArrowStyle style, final int position) {
-		if(isArrowable() && style!=null) {
-			final IArrow arrow = getArrowAt(position);
-
-			if(arrow!=null)
-				arrow.setArrowStyle(style);
-		}
-	}
-
-	@Override
-	public ArrowStyle getArrowStyle(final int position) {
-		final ArrowStyle style;
-
-		if(isArrowable()) {
-			final IArrow arrow = getArrowAt(position);
-			style = arrow==null ? null : arrow.getArrowStyle();
-		} else style = null;
-
-		return style;
-	}
-
 
 	@Override
 	public boolean isTypeOf(final Class<?> clazz) {

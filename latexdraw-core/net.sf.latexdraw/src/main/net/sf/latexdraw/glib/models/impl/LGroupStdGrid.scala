@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LGroupStdGrid extends IGroup {
+private[impl] trait LGroupStdGrid extends IGroup {
 	/** May return the first stdGrid of the group. */
 	private def firstIStdGrid = gridShapes.find{_.isTypeOf(classOf[IStdGridProp])}
 

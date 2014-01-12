@@ -4,13 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
@@ -106,9 +104,6 @@ public abstract class TestIShape<T extends IShape> {
 		if(shape2.isShowPtsable())
 			shape2.setShowPts(true);
 
-		if(shape2.isArrowable())
-			shape2.getArrows().add(ShapeFactory.createArrow(shape));
-
 		shape2.setRotationAngle(-30);
 
 		shape.copy(shape2);
@@ -160,10 +155,6 @@ public abstract class TestIShape<T extends IShape> {
 
 		for(int i=0; i<shape.getPoints().size(); i++)
 			assertEquals(shape.getPtAt(i), shape2.getPtAt(i));
-
-		if(shape.isArrowable())
-			for(int i=0; i<shape.getArrows().size(); i++)
-				assertEquals(shape.getArrowAt(i), shape2.getArrowAt(i));
 	}
 
 
@@ -651,41 +642,6 @@ public abstract class TestIShape<T extends IShape> {
 			HelperTest.assertEqualsDouble(-30., shape.getShadowAngle());
 		}
 	}
-
-
-
-	@Test
-	public void testGetArrows() {
-		if(shape.isArrowable()) {
-			assertNotNull(shape.getArrows());
-		}
-	}
-
-
-
-	@Test
-	public void testGetArrowAt() {
-		if(shape.isArrowable()) {
-			IArrow a1 = ShapeFactory.createArrow(shape);
-			IArrow a2 = ShapeFactory.createArrow(shape);
-			IArrow a3 = ShapeFactory.createArrow(shape);
-
-			shape.getArrows().clear();
-			shape.getArrows().add(a1);
-			shape.getArrows().add(a2);
-			shape.getArrows().add(a3);
-
-			assertEquals(shape.getArrowAt(0), a1);
-			assertEquals(shape.getArrowAt(1), a2);
-			assertEquals(shape.getArrowAt(2), a3);
-			assertEquals(shape.getArrowAt(-1), a3);
-			assertNull(shape.getArrowAt(-2));
-			assertNull(shape.getArrowAt(3));
-			assertNull(shape.getArrowAt(Integer.MAX_VALUE));
-			assertNull(shape.getArrowAt(Integer.MIN_VALUE));
-		}
-	}
-
 
 
 	@Test

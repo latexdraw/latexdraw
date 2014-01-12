@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LGroupAxes extends IGroup {
+private[impl] trait LGroupAxes extends IGroup {
 	/** May return the first axes shape of the group. */
 	private def firstIAxes = axesShapes.find{_.isTypeOf(classOf[IAxesProp])}
 

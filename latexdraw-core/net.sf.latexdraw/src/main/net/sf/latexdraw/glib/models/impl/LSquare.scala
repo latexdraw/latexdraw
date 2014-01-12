@@ -1,15 +1,9 @@
-package net.sf.latexdraw.glib.models.impl;
+package net.sf.latexdraw.glib.models.impl
 
-import java.awt.geom.Rectangle2D
-import java.util.List
-import net.sf.latexdraw.glib.models.GLibUtilities
-import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquare
-import net.sf.latexdraw.util.LNumber
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position
-import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
 
 /**
  * Defines a model of a square.<br>
@@ -30,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
  * @version 3.0
  * @since 3.0
  */
-private class LSquare(pos:IPoint, width:Double, uniqueID:Boolean) extends LSquaredShape(pos, width, uniqueID) with ISquare with LineArcProp {
+private[impl] class LSquare(pos:IPoint, width:Double, uniqueID:Boolean) extends LSquaredShape(pos, width, uniqueID) with ISquare with LineArcProp {
 	override def duplicate() : ISquare = {
 		super.duplicate match {
 			case sq:ISquare => sq

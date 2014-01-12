@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LGroupArc extends IGroup {
+private[impl] trait LGroupArc extends IGroup {
 	/** May return the first IArcProp shape of the group. */
 	private def firstIArcProp = arcShapes.find{_.isTypeOf(classOf[IArcProp])}
 

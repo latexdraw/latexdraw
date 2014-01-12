@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LSetShapes extends ISetShapesProp {
+private[impl] trait LSetShapes extends ISetShapesProp {
 	/** The set of shapes. */
 	val shapes : java.util.List[IShape] = new ActiveArrayList[IShape]()
 

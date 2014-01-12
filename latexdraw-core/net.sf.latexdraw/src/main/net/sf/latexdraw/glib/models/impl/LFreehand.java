@@ -105,13 +105,6 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 		return sh instanceof IFreehand ? (IFreehand)sh : null;
 	}
 
-
-	@Override
-	public boolean isArrowable() {
-		return false;
-	}
-
-
 	@Override
 	public boolean isBordersMovable() {
 		return false;

@@ -194,7 +194,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
 
 	private void createArrows(final SVGElement elt, final SVGDocument document) {
-		if(shape.getAxesStyle().supportsArrows() && shape.getArrows().size()==4) {
+		if(shape.getAxesStyle().supportsArrows() && shape.getNbArrows()==4) {
 			final double posX = shape.getPosition().getX();
 			final double posY = shape.getPosition().getY();
 			final IArrow arr0 = shape.getArrowAt(1);

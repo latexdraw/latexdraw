@@ -19,19 +19,16 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  * @version 3.0
  * @since 3.0
  */
-public interface IBezierCurve extends IControlPointShape {
+public interface IBezierCurve extends IControlPointShape, IArrowableShape {
 	/**
 	 * @return the isClosed.
 	 */
 	boolean isClosed();
-	
+
 	/**
 	 * Defines if the shape is closed.
 	 * @param isClosed True: the shape will be closed.
 	 * @since 3.0
 	 */
 	void setIsClosed(final boolean isClosed);
-	
-	@Override
-	IBezierCurve duplicate();
 }

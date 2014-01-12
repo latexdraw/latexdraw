@@ -9,8 +9,6 @@ import org.malai.undo.UndoCollector
 import net.sf.latexdraw.actions.LoadDrawing
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
-import net.sf.latexdraw.glib.models.impl.LShapeFactory
-import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
 import net.sf.latexdraw.ui.LFrame
@@ -61,7 +59,6 @@ object LaTeXDraw {
 	 */
 	def main(args: Array[String]) {
     	val cmdLine = new LCommandLine()
-
     	cmdLine.parse(args) match {
     		case CmdLineState.APPLICATION => launchLatexdraw(cmdLine)
 			case CmdLineState.STOP =>

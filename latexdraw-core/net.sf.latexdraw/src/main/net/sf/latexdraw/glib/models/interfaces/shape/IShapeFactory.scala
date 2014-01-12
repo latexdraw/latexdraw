@@ -45,14 +45,14 @@ trait IShapeFactory {
 	 * @return The created arrow.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	def createArrow(arrow : IArrow, owner : IShape) : IArrow
+	def createArrow(arrow : IArrow, owner : IArrowableShape) : IArrow
 
 	/**
 	 * Creates an arrow.
 	 * @param owner The shape that contains the arrow.
 	 * @return The created arrow.
 	 */
-	def createArrow(owner : IShape) : IArrow
+	def createArrow(owner : IArrowableShape) : IArrow
 
 	/**
 	 * Creates axes with default values.

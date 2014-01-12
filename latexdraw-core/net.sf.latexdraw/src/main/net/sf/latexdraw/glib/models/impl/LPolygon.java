@@ -24,9 +24,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
  * @since 3.0
  */
 class LPolygon extends LModifiablePointsShape implements IPolygon {
-//	/** The roundness of the round corner. */
-//	protected double lineArc;
-
 
 	/**
 	 * Creates a model with no point.
@@ -34,8 +31,6 @@ class LPolygon extends LModifiablePointsShape implements IPolygon {
 	 */
 	protected LPolygon(final boolean uniqueID) {
 		super(uniqueID);
-
-//		lineArc = 0.;
 	}
 
 
@@ -60,26 +55,6 @@ class LPolygon extends LModifiablePointsShape implements IPolygon {
 		final IShape sh = super.duplicate();
 		return sh instanceof IPolygon ? (IPolygon)sh : null;
 	}
-
-
-//	@Override
-//	public double getLineArc() {
-//		return lineArc;
-//	}
-//
-//
-//	@Override
-//	public boolean isRoundCorner() {
-//		return lineArc>0;
-//	}
-//
-//
-//	@Override
-//	public void setLineArc(final double lineArc) {
-//		if(GLibUtilities.isValidCoordinate(lineArc) && lineArc>=0 && lineArc<=1)
-//			this.lineArc = lineArc;
-//	}
-
 
 	@Override
 	public boolean isDbleBorderable() {

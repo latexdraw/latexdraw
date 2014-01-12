@@ -21,7 +21,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
  * @version 3.0
  * @since 3.0
  */
-public interface IArc extends IPositionShape, IArcProp {
+public interface IArc extends IPositionShape, IArcProp, IArrowableShape {
 	/**
 	 * @return The coordinate of the start point of the arc.
 	 * @since 1.9

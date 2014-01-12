@@ -21,6 +21,6 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
  * @version 3.0
  * @since 3.0
  */
-public interface IAxes extends IStandardGrid, IAxesProp {
+public interface IAxes extends IStandardGrid, IAxesProp, IArrowableShape {
 //
 }

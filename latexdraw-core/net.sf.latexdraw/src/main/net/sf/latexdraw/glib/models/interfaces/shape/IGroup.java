@@ -32,7 +32,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends IShape, ISetShapesProp, ILineArcProp, ITextProp, IDotProp, IArcProp, IAxesProp, IGridProp, IFreeHandProp {
+public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, ITextProp, IDotProp, IArcProp, IAxesProp, IGridProp, IFreeHandProp {
 	/**
 	 * Duplicates the group of shapes.
 	 * @param duplicateShapes True: the shapes will be duplicated as well.
@@ -1011,4 +1011,134 @@ public interface IGroup extends IShape, ISetShapesProp, ILineArcProp, ITextProp,
 	 * @since 3.0
 	 */
 	void setShowPointsList(final List<Boolean> values);
+
+	/**
+	 * Sets the tbarsizedim parameters to the shapes of the group.
+	 * @param values The values to use.
+	 * @since 3.1
+	 */
+	void setTBarSizeDimList(List<Double> values);
+
+	/**
+	 * @return The tbarsizedim values of the shapes of the group.
+	 * @since 3.1
+	 */
+	List<Double> getTBarSizeDimList();
+
+	/**
+	 * Sets the tbarsizenum parameters to the shapes of the group.
+	 * @param values The values to use.
+	 * @since 3.1
+	 */
+	void setTBarSizeNumList(List<Double> values);
+
+	/**
+	 * @return The tbarsizenum values of the shapes of the group.
+	 * @since 3.1
+	 */
+	List<Double> getTBarSizeNumList();
+
+	/**
+	 * Sets the dotsizenum parameters to the shapes of the group.
+	 * @param values The values to use.
+	 * @since 3.1
+	 */
+	void setDotSizeNumList(List<Double> values);
+
+	/**
+	 * @return The dotsizenum values of the shapes of the group.
+	 * @since 3.1
+	 */
+	List<Double> getDotSizeNumList();
+
+	/**
+	 * Sets the dotsizedim parameters to the shapes of the group.
+	 * @param values The values to use.
+	 * @since 3.1
+	 */
+	void setDotSizeDimList(List<Double> values);
+
+	/**
+	 * @return The dotsizedim values of the shapes of the group.
+	 * @since 3.1
+	 */
+	List<Double> getDotSizeDimList();
+
+	/**
+	 * Sets the bracketNum parameters to the shapes of the group.
+	 * @param values The values to use.
+	 * @since 3.1
+	 */
+	void setBracketNumList(List<Double> values);
+
+	/**
+	 * @return The bracketNum values of the shapes of the group.
+	 * @since 3.1
+	 */
+	List<Double> getBracketNumList();
+
+	/**
+	 * Sets the rbracketNum parameters to the shapes of the group.
+	 * @param values The values to use.
+	 * @since 3.1
+	 */
+	void setRBracketNumList(List<Double> values);
+
+	/**
+	 * @return The rbracketNum values of the shapes of the group.
+	 * @since 3.1
+	 */
+	List<Double> getRBracketNumList();
+
+	/**
+	 * Sets the arrowsizenum parameters to the shapes of the group.
+	 * @param values The values to use.
+	 * @since 3.1
+	 */
+	void setArrowSizeNumList(List<Double> values);
+
+	/**
+	 * @return The arrowsizenum values of the shapes of the group.
+	 * @since 3.1
+	 */
+	List<Double> getArrowSizeNumList();
+
+	/**
+	 * Sets the arrowsizedim parameters to the shapes of the group.
+	 * @param values The values to use.
+	 * @since 3.1
+	 */
+	void setArrowSizeDimList(List<Double> values);
+
+	/**
+	 * @return The arrowsizedim values of the shapes of the group.
+	 * @since 3.1
+	 */
+	List<Double> getArrowSizeDimList();
+
+	/**
+	 * Sets the arrowLength parameters to the shapes of the group.
+	 * @param values The values to use.
+	 * @since 3.1
+	 */
+	void setArrowLengthList(List<Double> values);
+
+	/**
+	 * @return The arrowLength values of the shapes of the group.
+	 * @since 3.1
+	 */
+	List<Double> getArrowLengthList();
+
+	/**
+	 * Sets the arrowInset parameters to the shapes of the group.
+	 * @param values The values to use.
+	 * @since 3.1
+	 */
+	void setArrowInsetList(List<Double> values);
+
+	/**
+	 * @return The arrowInset values of the shapes of the group.
+	 * @since 3.1
+	 */
+	List<Double> getArrowInsetList();
 }

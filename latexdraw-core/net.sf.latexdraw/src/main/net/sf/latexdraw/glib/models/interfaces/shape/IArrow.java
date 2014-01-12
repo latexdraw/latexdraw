@@ -317,7 +317,7 @@ public interface IArrow extends IArrowable {
 	 * @return The shape that contains the arrow.
 	 * @since 3.0
 	 */
-	IShape getShape();
+	IArrowableShape getShape();
 
 	/**
 	 * @return The line that can be used to locate the arrow.

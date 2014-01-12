@@ -7,7 +7,7 @@ import net.sf.latexdraw.glib.models.GLibUtilities
  * Line arc properties.
  * @author Arnaud Blouin
  */
-private trait LineArcProp extends ILineArcProp {
+private[impl] trait LineArcProp extends ILineArcProp {
 		/** The radius of arcs drawn at the corners of lines. */
 	var frameArc:Double = 0.0
 

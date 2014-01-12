@@ -251,13 +251,6 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 
 	@Override
-	public IPoint replacePoint(final IPoint pt, final int position) {
-		// TODO Auto-generated method stub
-		return super.replacePoint(pt, position);
-	}
-
-
-	@Override
 	public void addPoint(final IPoint pt, final int position) {
 		super.addPoint(pt, position);
 

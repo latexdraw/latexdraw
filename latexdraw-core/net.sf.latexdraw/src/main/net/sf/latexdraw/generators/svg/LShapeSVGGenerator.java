@@ -172,7 +172,8 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 
 
-	protected void setSVGArrow(final SVGElement parent, final int arrowPos, final boolean isShadow, final SVGDocument doc, final SVGDefsElement defs) {
+	//FIXME scala trait
+	protected static void setSVGArrow(final IArrowableShape shape, final SVGElement parent, final int arrowPos, final boolean isShadow, final SVGDocument doc, final SVGDefsElement defs) {
 		final IArrow arrow = shape.getArrowAt(arrowPos);
 
 		if(arrow.getArrowStyle()!=ArrowStyle.NONE) {

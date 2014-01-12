@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape;
@@ -37,30 +35,6 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 		super(model);
 	}
 
-
-	protected double[] updatePoint4Arrows(final double x, final double y, final IArrow arr) {
-		final double[] coords = new double[]{x, y};
-
-		if(shape.isArrowable() && arr.getArrowStyle().isReducingShape()) {
-			ILine line = arr.getArrowLine();
-
-			if(line!=null) {
-				IPoint[] ps = line.findPoints(line.getPoint1(), arr.getArrowShapeLength()/2.);
-				if(ps!=null) {
-					if(line.isInSegment(ps[0])) {
-						coords[0] = ps[0].getX();
-						coords[1] = ps[0].getY();
-					}else {
-						coords[0] = ps[1].getX();
-						coords[1] = ps[1].getY();
-					}
-				}
-			}
-		}
-		return coords;
-	}
-
-
 	/**
 	 * Update the path of the multi-point shape.
 	 * @param close True: the shape will be closed.
@@ -80,9 +54,6 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 			double firstY = pt.getY();
 			double sumX	= firstX;
 			double sumY	= firstY;
-			double[] coords = updatePoint4Arrows(firstX, firstY, shape.getArrowAt(0));
-			firstX = coords[0];
-			firstY = coords[1];
 
 			path.moveTo(firstX, firstY);
 
@@ -97,8 +68,7 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 			}
 
 			pt = pts.get(pts.size()-1);
-			coords = updatePoint4Arrows(pt.getX(), pt.getY(), shape.getArrowAt(-1));
-			path.lineTo(coords[0], coords[1]);
+			path.lineTo(pt.getX(), pt.getY());
 			sumX += pt.getX();
 			sumY += pt.getY();
 

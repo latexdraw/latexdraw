@@ -25,7 +25,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LGroupDot extends IGroup {
+private[impl] trait LGroupDot extends IGroup {
 	/** May return the first grid of the group. */
 	private def firstDottable = dotShapes.find{_.isTypeOf(classOf[IDotProp])}
 

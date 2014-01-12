@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.models.impl;
+package net.sf.latexdraw.glib.models.impl
 
 import java.util.ArrayList
 import net.sf.latexdraw.glib.models.GLibUtilities
@@ -30,7 +30,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle
  * @version 3.0
  * @since 3.0
  */
-private trait LArc extends IArc {
+private[impl] trait LArc extends IArc with LArrowableShape {
 	/** The style of the arc. */
 	var style = ArcStyle.ARC
 
@@ -39,6 +39,9 @@ private trait LArc extends IArc {
 
 	/** The end angle of the arc. In radian. */
 	var endAngle = 3.0*Math.PI/2.0
+
+	arrows += ShapeFactory.createArrow(this)
+	arrows += ShapeFactory.createArrow(this)
 
 
 	override def getArrowLine(arrow:IArrow) : ILine = {
@@ -80,6 +83,4 @@ private trait LArc extends IArc {
 	override def setArcStyle(styl:ArcStyle) {
 		this.style = styl
 	}
-
-	override def isArrowable() = style.supportArrow
 }

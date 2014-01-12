@@ -19,7 +19,7 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  * @version 3.0
  * @since 3.0
  */
-public interface IPolyline extends IPolygon {
+public interface IPolyline extends IPolygon, IArrowableShape {
 	@Override
 	IPolyline duplicate();
 }

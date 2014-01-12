@@ -1346,16 +1346,16 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	public void testUndoArrowStyle1() {
 		testDoArrowStyle1();
 		action.undo();
-		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, g.getShapeAt(0).getArrowStyle(1));
-		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, g.getShapeAt(2).getArrowStyle(1));
+		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, ((IArrowableShape)g.getShapeAt(0)).getArrowStyle(1));
+		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, ((IArrowableShape)g.getShapeAt(2)).getArrowStyle(1));
 	}
 
 
 	public void testRedoArrowStyle1() {
 		testUndoArrowStyle1();
 		action.redo();
-		assertEquals(ArrowStyle.BAR_IN, g.getShapeAt(0).getArrowStyle(1));
-		assertEquals(ArrowStyle.BAR_IN, g.getShapeAt(2).getArrowStyle(1));
+		assertEquals(ArrowStyle.BAR_IN, ((IArrowableShape)g.getShapeAt(0)).getArrowStyle(1));
+		assertEquals(ArrowStyle.BAR_IN, ((IArrowableShape)g.getShapeAt(2)).getArrowStyle(1));
 	}
 
 
@@ -1381,16 +1381,16 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 	public void testUndoArrowStyle0() {
 		testDoArrowStyle0();
 		action.undo();
-		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, g.getShapeAt(0).getArrowStyle(0));
-		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, g.getShapeAt(2).getArrowStyle(0));
+		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, ((IArrowableShape)g.getShapeAt(0)).getArrowStyle(0));
+		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, ((IArrowableShape)g.getShapeAt(2)).getArrowStyle(0));
 	}
 
 
 	public void testRedoArrowStyle0() {
 		testUndoArrowStyle0();
 		action.redo();
-		assertEquals(ArrowStyle.BAR_IN, g.getShapeAt(0).getArrowStyle(0));
-		assertEquals(ArrowStyle.BAR_IN, g.getShapeAt(2).getArrowStyle(0));
+		assertEquals(ArrowStyle.BAR_IN, ((IArrowableShape)g.getShapeAt(0)).getArrowStyle(0));
+		assertEquals(ArrowStyle.BAR_IN, ((IArrowableShape)g.getShapeAt(2)).getArrowStyle(0));
 	}
 
 

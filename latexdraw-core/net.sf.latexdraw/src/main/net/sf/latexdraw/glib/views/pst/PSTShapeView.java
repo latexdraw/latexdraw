@@ -8,6 +8,7 @@ import java.util.Set;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
@@ -90,22 +91,23 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	protected StringBuilder getArrowsParametersCode() {
 		StringBuilder code = null;
 
-		if(shape.isArrowable()) {
-			final ArrowStyle style1 = shape.getArrowStyle(0);
-			final ArrowStyle style2 = shape.getArrowStyle(-1);
+		if(shape instanceof IArrowableShape) {//FIXME scala trait
+			final IArrowableShape arr = (IArrowableShape)shape;
+			final ArrowStyle style1 = arr.getArrowStyle(0);
+			final ArrowStyle style2 = arr.getArrowStyle(-1);
 
 			if(style1==ArrowStyle.NONE) {
 				if(style2!=ArrowStyle.NONE)
-					code = getArrowParametersCode(shape.getArrowAt(-1));
+					code = getArrowParametersCode(arr.getArrowAt(-1));
 			} else
 				if(style2==ArrowStyle.NONE)
-					code = getArrowParametersCode(shape.getArrowAt(0));
+					code = getArrowParametersCode(arr.getArrowAt(0));
 				else
 					if(style1.isSameKind(style2))
-						code = getArrowParametersCode(shape.getArrowAt(0));
+						code = getArrowParametersCode(arr.getArrowAt(0));
 					else {
-						code = getArrowParametersCode(shape.getArrowAt(0));
-						code.append(',').append(getArrowParametersCode(shape.getArrowAt(-1)));
+						code = getArrowParametersCode(arr.getArrowAt(0));
+						code.append(',').append(getArrowParametersCode(arr.getArrowAt(-1)));
 					}
 		}
 
@@ -151,9 +153,10 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	protected StringBuilder getArrowsStyleCode() {
 		StringBuilder code;
 
-		if(shape.isArrowable()) {
-			final ArrowStyle style1 = shape.getArrowStyle(0);
-			final ArrowStyle style2 = shape.getArrowStyle(-1);
+		if(shape instanceof IArrowableShape) {//FIXME scala trait
+			final IArrowableShape arr = (IArrowableShape)shape;
+			final ArrowStyle style1 = arr.getArrowStyle(0);
+			final ArrowStyle style2 = arr.getArrowStyle(-1);
 
 			if(style1==ArrowStyle.NONE && style2==ArrowStyle.NONE)
 				code = null;

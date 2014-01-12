@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.malai.properties.Modifiable;
@@ -29,14 +27,12 @@ import org.malai.properties.Modifiable;
  * @version 3.0
  * @since 3.0
  */
-public interface IShape extends Modifiable, IArrowable {
+public interface IShape extends Modifiable {
 	/** The number of pixels per centimetre by default. */
 	int PPC = 50;
 
-
 	/** Corresponds to the golden angle (Useful for golden diamond). */
 	double GOLDEN_ANGLE = 0.553574;
-
 
 	/** The different cardinal points. */
 	public static enum Position {
@@ -401,12 +397,6 @@ public interface IShape extends Modifiable, IArrowable {
 	boolean isShadowable();
 
 	/**
-	 * @return True if the shape can have arrows.
-	 * @since 3.0
-	 */
-	boolean isArrowable();
-
-	/**
 	 * @return The top left point of the shape. It does not take account
 	 * of the thickness, the rotation angle, the double border, nor any
 	 * parameters; only the points of the shape are used to compute the returned point.
@@ -752,40 +742,6 @@ public interface IShape extends Modifiable, IArrowable {
 	 * @return the id.
 	 */
 	int getId();
-
-	/**
-	 * @return the arrows.
-	 */
-	List<IArrow> getArrows();
-
-	/**
-	 * Sets the style of the arrow at the given position.
-	 * @param style The style to set.
-	 * @param position The position of the arrow to modify.
-	 * @since 3.0
-	 */
-	void setArrowStyle(final ArrowStyle style, final int position);
-
-	/**
-	 * @param position The position of the arrow to use.
-	 * @return The style of the arrow at the given position.
-	 * @since 3.0
-	 */
-	ArrowStyle getArrowStyle(final int position);
-
-	/**
-	 * @param arrow The arrow to analyse.
-	 * @return The line that will be used to place the arrow.
-	 * @since 3.0
-	 */
-	ILine getArrowLine(final IArrow arrow);
-
-	/**
-	 * @param position The position of the wanted arrow (-1 for the last arrow).
-	 * @return The arrow at the given position or null if the position is not valid.
-	 * @since 3.0
-	 */
-	IArrow getArrowAt(final int position);
 
 	/**
 	 * @return the isFilled.

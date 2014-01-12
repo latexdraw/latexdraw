@@ -3,30 +3,21 @@ package net.sf.latexdraw.glib.models.impl
 import java.awt.Color
 import java.util.ArrayList
 import java.util.List
+
 import scala.collection.JavaConversions.asScalaBuffer
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle
+
+import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition
-import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * A Group is a group of IShape instances.<br>
@@ -46,7 +37,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
+private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 			with LGroupArc with LGroupArrowable with LGroupAxes
 			with LGroupDot with LGroupFreeHand with LGroupLineArc
 			with LGroupGrid with LGroupShape with LGroupStdGrid
@@ -616,17 +607,6 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getArrowStyleList(i : Int) : List[ArrowStyle] = {
-		val list = new ArrayList[ArrowStyle]()
-		shapes.foreach{sh => sh.isArrowable match {
-				case true => list.add(sh.getArrowStyle(i))
-				case false => list.add(null)
-			}
-		}
-		return list
-	}
-
-
 	override def getRotationAngleList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => list.add(sh.getRotationAngle)}
@@ -938,14 +918,6 @@ protected class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IArcProp])
 					shapes.get(i).asInstanceOf[IArcProp].setArcStyle(values.get(i))
-	}
-
-
-	override def setArrowStyleList(values : List[ArrowStyle], i : Int) {
-		if(values!=null && values.size==shapes.size)
-			for(j <- 0 until values.size)
-				if(shapes.get(j).isArrowable)
-					shapes.get(j).setArrowStyle(values.get(j), i)
 	}
 
 

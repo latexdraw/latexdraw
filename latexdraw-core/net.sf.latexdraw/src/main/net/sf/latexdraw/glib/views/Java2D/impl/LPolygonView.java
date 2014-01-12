@@ -20,7 +20,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LPolygonView<M extends IPolygon> extends LModifiablePointsShapeView<IPolygon> {
+class LPolygonView extends LModifiablePointsShapeView<IPolygon> {
 	/**
 	 * Creates an initialises the Java view of a LPolygon.
 	 * @param model The model to view.

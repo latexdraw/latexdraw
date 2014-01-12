@@ -4,10 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
 
@@ -38,6 +40,9 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 	 */
 	protected LBezierCurveView(final IBezierCurve model) {
 		super(model);
+		arrows = new ArrayList<>();
+		for(int i=0, size=shape.getNbArrows(); i<size; i++)
+			arrows.add(new LArrowView(shape.getArrowAt(i)));
 		update();
 	}
 
@@ -131,6 +136,29 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 	}
 
 
+	protected static double[] updatePoint4Arrows(final double x, final double y, final IArrow arr) {
+		final double[] coords = new double[]{x, y};
+
+		if(arr.getArrowStyle().isReducingShape()) {
+			ILine line = arr.getArrowLine();
+
+			if(line!=null) {
+				IPoint[] ps = line.findPoints(line.getPoint1(), arr.getArrowShapeLength()/2.);
+				if(ps!=null) {
+					if(line.isInSegment(ps[0])) {
+						coords[0] = ps[0].getX();
+						coords[1] = ps[0].getY();
+					}else {
+						coords[0] = ps[1].getX();
+						coords[1] = ps[1].getY();
+					}
+				}
+			}
+		}
+		return coords;
+	}
+
+
 	@Override
 	protected void setPath(final boolean close) {
 		if(shape.getNbPoints()<2) return ;
@@ -171,9 +199,8 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 			path.closePath();
 		}else {
 			if(pts.size()>2) {
-				coords = updatePoint4Arrows(pts.get(size).getX(), pts.get(size).getY(), shape.getArrowAt(size));
 				ctrl1 = ctrlPts2.get(size-1);
-				path.curveTo(ctrl1.getX(), ctrl1.getY(), ctrlPts1.get(size).getX(), ctrlPts1.get(size).getY(), coords[0], coords[1]);
+				path.curveTo(ctrl1.getX(), ctrl1.getY(), ctrlPts1.get(size).getX(), ctrlPts1.get(size).getY(), pts.get(size).getX(),  pts.get(size).getY());
 			}
 		}
 	}

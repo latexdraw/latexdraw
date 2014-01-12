@@ -13,12 +13,11 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
@@ -74,15 +73,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 		path  	= new Path2D.Double();
 		border 	= new Rectangle2D.Double();
-
-		// Creation of the views of the arrows of the shape.
-		if(model.isArrowable()) {
-			arrows = new ArrayList<>();
-
-			for(final IArrow arrow : shape.getArrows())
-				arrows.add(new LArrowView(arrow));
-		}
-		else arrows = null;
+		arrows  = Collections.EMPTY_LIST;
 	}
 
 
@@ -186,9 +177,8 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	 * Updates the path of the view of the arrows.
 	 */
 	protected void updatePathArrows() {
-		if(shape.isArrowable())
-			for(final IViewArrow arrView : arrows)
-				arrView.updatePath();
+		for(final IViewArrow arrView : arrows)
+			arrView.updatePath();
 	}
 
 
@@ -412,8 +402,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		paintBorders(g);
 
 		// Painting the arrows of the shape.
-		if(shape.isArrowable())
-			paintArrows(g, false);
+		paintArrows(g, false);
 
 		// Dots of the show points option must be drawn after all.
 		if(isShowPts)
@@ -501,8 +490,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 				g.fill(path);
 
 			// Painting the arrows of the shadow.
-			if(shape.isArrowable())
-				paintArrows(g, true);
+			paintArrows(g, true);
 
 			g.translate(-dx, -dy);
 		}

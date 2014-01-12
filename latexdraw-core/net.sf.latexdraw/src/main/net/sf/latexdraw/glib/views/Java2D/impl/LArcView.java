@@ -6,6 +6,7 @@ import java.awt.Shape;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
+import java.util.ArrayList;
 
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
@@ -40,6 +41,9 @@ abstract class LArcView<M extends IArc> extends LRectangularView<IArc> implement
 	 */
 	protected LArcView(final IArc model) {
 		super(model);
+		arrows = new ArrayList<>();
+		for(int i=0, size=shape.getNbArrows(); i<size; i++)
+			arrows.add(new LArrowView(shape.getArrowAt(i)));
 		update();
 	}
 
@@ -103,7 +107,7 @@ abstract class LArcView<M extends IArc> extends LRectangularView<IArc> implement
 		double sAngle = startAngle;
 		double eAngle = endAngle;
 
-		if(shape.isArrowable()) {
+		if(shape.getArcStyle().supportArrow()) {
 			IArrow arr = shape.getArrowAt(-1);
 			if(arr.getArrowStyle().isReducingShape())
 				eAngle-=Math.atan(arr.getArrowShapeLength()/w2);

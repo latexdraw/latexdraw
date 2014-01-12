@@ -1,10 +1,16 @@
 package net.sf.latexdraw.glib.models.impl
 
+import java.util.ArrayList
+import java.util.List
+
 import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.JavaConversions.bufferAsJavaList
+
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine
-import java.util.Collections
 
 /**
  * This trait encapsulates the code of the group related to the support of arrowable shapes.<br>
@@ -24,11 +30,215 @@ import java.util.Collections
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LGroupArrowable extends IGroup {
+private[impl] trait LGroupArrowable extends IGroup {
 	/** May return the first grid of the group. */
-	private def firstIArrowable = arrowShapes.headOption
+	private def firstIArrowable = arrowShapes.find{_.isTypeOf(classOf[IArrowableShape])}
 
-	private def arrowShapes = getShapes.filter(_.isArrowable)
+	private def arrowShapes = getShapes.flatMap{case x:IArrowableShape => x::Nil; case _ => Nil}
+
+
+	override def getArrowIndex(arrow:IArrow) =
+		firstIArrowable match {
+			case Some(arr) => arr.getArrowIndex(arrow)
+			case _ => -1
+		}
+
+	override def getNbArrows() =
+		firstIArrowable match {
+			case Some(arr) => arr.getNbArrows
+			case _ => 0
+		}
+
+	override def setTBarSizeDimList(values:List[java.lang.Double]) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setTBarSizeDim(values.get(j))
+	}
+
+	override def getTBarSizeDimList() : List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		getShapes.foreach{_ match {
+				case arr:IArrowableShape => list.add(arr.getTBarSizeDim)
+				case _ => list.add(java.lang.Double.NaN)
+			}
+		}
+		return list
+	}
+
+	override def setTBarSizeNumList(values:java.util.List[java.lang.Double]) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setTBarSizeNum(values.get(j))
+	}
+
+	override def getTBarSizeNumList() : java.util.List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		getShapes.foreach{_ match {
+				case arr:IArrowableShape => list.add(arr.getTBarSizeNum)
+				case _ => list.add(java.lang.Double.NaN)
+			}
+		}
+		return list
+	}
+
+	override def setDotSizeNumList(values:java.util.List[java.lang.Double]) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setDotSizeNum(values.get(j))
+	}
+
+	override def getDotSizeNumList() : java.util.List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		getShapes.foreach{_ match {
+				case arr:IArrowableShape => list.add(arr.getDotSizeNum)
+				case _ => list.add(java.lang.Double.NaN)
+			}
+		}
+		return list
+	}
+
+	override def setDotSizeDimList(values:java.util.List[java.lang.Double]) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setDotSizeDim(values.get(j))
+	}
+
+	override def getDotSizeDimList() : java.util.List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		getShapes.foreach{_ match {
+				case arr:IArrowableShape => list.add(arr.getDotSizeDim)
+				case _ => list.add(java.lang.Double.NaN)
+			}
+		}
+		return list
+	}
+
+	override def setBracketNumList(values:java.util.List[java.lang.Double]) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setBracketNum(values.get(j))
+	}
+
+	override def getBracketNumList() : java.util.List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		getShapes.foreach{_ match {
+				case arr:IArrowableShape => list.add(arr.getBracketNum)
+				case _ => list.add(java.lang.Double.NaN)
+			}
+		}
+		return list
+	}
+
+	override def setRBracketNumList(values:java.util.List[java.lang.Double]) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setRBracketNum(values.get(j))
+	}
+
+	override def getRBracketNumList() : java.util.List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		getShapes.foreach{_ match {
+				case arr:IArrowableShape => list.add(arr.getRBracketNum)
+				case _ => list.add(java.lang.Double.NaN)
+			}
+		}
+		return list
+	}
+
+	override def setArrowSizeNumList(values:java.util.List[java.lang.Double]) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setArrowSizeNum(values.get(j))
+	}
+
+	override def getArrowSizeNumList() : java.util.List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		getShapes.foreach{_ match {
+				case arr:IArrowableShape => list.add(arr.getArrowSizeNum)
+				case _ => list.add(java.lang.Double.NaN)
+			}
+		}
+		return list
+	}
+
+	override def setArrowSizeDimList(values:java.util.List[java.lang.Double]) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setArrowSizeDim(values.get(j))
+	}
+
+	override def getArrowSizeDimList() : java.util.List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		getShapes.foreach{_ match {
+				case arr:IArrowableShape => list.add(arr.getArrowSizeDim)
+				case _ => list.add(java.lang.Double.NaN)
+			}
+		}
+		return list
+	}
+
+	override def setArrowLengthList(values:java.util.List[java.lang.Double]) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setArrowLength(values.get(j))
+	}
+
+	override def getArrowLengthList() : java.util.List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		getShapes.foreach{_ match {
+				case arr:IArrowableShape => list.add(arr.getArrowLength)
+				case _ => list.add(java.lang.Double.NaN)
+			}
+		}
+		return list
+	}
+
+	override def setArrowInsetList(values:java.util.List[java.lang.Double]) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setArrowInset(values.get(j))
+	}
+
+	override def getArrowInsetList() : List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		getShapes.foreach{_ match {
+				case arr:IArrowableShape => list.add(arr.getArrowInset)
+				case _ => list.add(java.lang.Double.NaN)
+			}
+		}
+		return list
+	}
+
+	override def getArrowStyleList(i : Int) : java.util.List[ArrowStyle] =
+		getShapes.map{_ match { case arr:IArrowableShape => arr.getArrowStyle(i); case _ => ArrowStyle.NONE}}
+
+	override def setArrowStyleList(values : java.util.List[ArrowStyle], i : Int) {
+		val shapes = getShapes
+		if(values!=null && values.size==shapes.size)
+			for(j <- 0 until values.size)
+				if(shapes.get(j).isInstanceOf[IArrowableShape])
+					shapes.get(j).asInstanceOf[IArrowableShape].setArrowStyle(values.get(j), i)
+	}
 
 	override def setArrowStyle(style : IArrow.ArrowStyle, position : Int) {
 		arrowShapes.foreach{_.setArrowStyle(style, position)}
@@ -41,8 +251,6 @@ protected trait LGroupArrowable extends IGroup {
 		}
 	}
 
-	override def isArrowable() = firstIArrowable.isDefined
-
 	override def getArrowAt(position : Int) : IArrow = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getArrowAt(position)
@@ -50,22 +258,12 @@ protected trait LGroupArrowable extends IGroup {
 		}
 	}
 
-
-	override def getArrows() : java.util.List[IArrow] = {
-		firstIArrowable match {
-			case Some(arrowable) => arrowable.getArrows
-			case _ => Collections.emptyList()
-		}
-	}
-
-
 	override def getArrowLine(arrow : IArrow) : ILine = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getArrowLine(arrow)
 			case _ => null
 		}
 	}
-
 
 	override def setDotSizeDim(dotSizeDim : Double) {
 		arrowShapes.foreach{_.setDotSizeDim(dotSizeDim)}

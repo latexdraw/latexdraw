@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-protected trait LGroupText extends IGroup {
+private[impl] trait LGroupText extends IGroup {
 	/** May return the first free hand shape of the group. */
 	private def firstIText = txtShapes.find{_.isTypeOf(classOf[IText])}
 

@@ -1,15 +1,17 @@
 package net.sf.latexdraw.glib.models.impl
 
+import java.awt.geom.Rectangle2D
+
+import scala.collection.JavaConversions.asScalaBuffer
+
+import net.sf.latexdraw.glib.models.GLibUtilities
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.GLibUtilities
-import java.awt.geom.Rectangle2D
-import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position
-import scala.collection.JavaConversions._
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape
+import net.sf.latexdraw.util.LNumber
 
-private abstract class LSquaredShape(tl:IPoint, width:Double, uniqueID:Boolean) extends LPositionShape(uniqueID, tl) with ISquaredShape {
+private[impl] abstract class LSquaredShape(tl:IPoint, width:Double, uniqueID:Boolean) extends LPositionShape(uniqueID, tl) with ISquaredShape {
 
 	require(GLibUtilities.isValidPoint(tl) && width>0)
 	points.add(ShapeFactory.createPoint)
