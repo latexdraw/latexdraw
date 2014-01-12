@@ -145,14 +145,6 @@ private[impl] class LAxes(uniqueID:Boolean, pt:IPoint) extends LAbstractGrid(uni
 		return ShapeFactory.createLine(p2, p1)
 	}
 
-
-	override def duplicate() : IAxes =
-		super.duplicate match {
-			case axes:IAxes => axes
-			case _ => null
-		}
-
-
 	override def getAxesStyle() = axesStyle
 
 	override def getDistLabelsX() = distLabelsX

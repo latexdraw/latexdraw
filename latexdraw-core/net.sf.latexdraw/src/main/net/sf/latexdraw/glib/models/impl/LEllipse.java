@@ -4,7 +4,6 @@ import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines a model of an ellipse.<br>
@@ -45,13 +44,6 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	 */
 	protected LEllipse(final IPoint tl, final IPoint br, final boolean isUniqueID) {
 		super(tl, br, isUniqueID);
-	}
-
-
-	@Override
-	public IEllipse duplicate() {
-		final IShape sh = super.duplicate();
-		return sh instanceof IEllipse ? (IEllipse)sh : null;
 	}
 
 //

@@ -100,7 +100,7 @@ class Button2MoveBackForeground extends Link<MoveBackForegroundShapes, ButtonPre
 	public void initAction() {
 		action.setIsForeground(interaction.getButton()==instrument.foregroundB);
 		action.setDrawing(instrument.pencil.canvas().getDrawing());
-		action.setShape(instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 	}
 
 	@Override

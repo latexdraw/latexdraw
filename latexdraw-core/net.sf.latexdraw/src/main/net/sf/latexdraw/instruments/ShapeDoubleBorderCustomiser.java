@@ -9,7 +9,6 @@ import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -194,7 +193,7 @@ class CheckBox2SelectionDoubleBorder extends CheckBoxForCustomiser<ModifyShapePr
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		action.setProperty(ShapeProperties.DBLE_BORDERS);
 	}
 
@@ -252,7 +251,7 @@ class ColourButton2SelectionDoubleBorder extends ColourButtonForCustomiser<Modif
 	public void initAction() {
 		super.initAction();
 		action.setProperty(ShapeProperties.COLOUR_DBLE_BORD);
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 	}
 
 	@Override
@@ -279,7 +278,7 @@ class Spinner2SelectionDoubleBorder extends SpinnerForCustomiser<ModifyShapeProp
 	@Override
 	public void initAction() {
 		action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 	}
 
 	@Override

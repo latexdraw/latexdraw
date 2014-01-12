@@ -10,7 +10,6 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -19,8 +18,8 @@ import org.malai.swing.ui.UIComposer;
 import org.malai.swing.widget.MButtonIcon;
 import org.malai.swing.widget.MColorButton;
 import org.malai.swing.widget.MSpinner;
-import org.malai.swing.widget.MToggleButton;
 import org.malai.swing.widget.MSpinner.MSpinnerNumberModel;
+import org.malai.swing.widget.MToggleButton;
 
 /**
  * This instrument modifies grids properties of shapes or the pencil.<br>
@@ -253,7 +252,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
 		@Override
@@ -363,7 +362,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
 		@Override
@@ -440,7 +439,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
 		@Override

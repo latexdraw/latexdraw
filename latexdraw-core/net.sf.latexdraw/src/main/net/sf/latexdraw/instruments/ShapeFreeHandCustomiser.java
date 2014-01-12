@@ -10,7 +10,6 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelComboBox;
@@ -193,7 +192,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
 		@Override
@@ -256,7 +255,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
 		@Override
@@ -315,7 +314,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
 		@Override

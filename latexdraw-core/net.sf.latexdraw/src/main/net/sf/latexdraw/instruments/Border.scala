@@ -29,15 +29,13 @@ import net.sf.latexdraw.glib.handlers.MovePtHandler
 import net.sf.latexdraw.glib.handlers.RotationHandler
 import net.sf.latexdraw.glib.handlers.ScaleHandler
 import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.ShapeFactory._
+import net.sf.latexdraw.glib.models.ShapeFactory.Point2IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IArc
 import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position
-import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.ui.ICanvas
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve
@@ -504,7 +502,7 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 			else
 				action.setProperty(ShapeProperties.ARC_END_ANGLE)
 
-			action.setGroup(drawing.getSelection.duplicate.asInstanceOf[IGroup])
+			action.setGroup(drawing.getSelection.duplicateDeep(false))
 		}
 	}
 
@@ -549,7 +547,7 @@ private sealed class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Bo
 		p1 = instrument.getAdaptedOriginPoint(interaction.getStartPt)
 		gc = drawing.getSelection.getGravityCentre
 		action.setGravityCentre(gc)
-		action.setShape(drawing.getSelection.duplicate)
+		action.setShape(drawing.getSelection.duplicateDeep(false))
 	}
 
 
@@ -703,7 +701,7 @@ private sealed class DnD2Scale(ins : Border) extends Link[ScaleShapes, DnD, Bord
 		setXGap(refPosition, tl, br)
 		setYGap(refPosition, tl, br)
 		action.setDrawing(drawing)
-		action.setShape(drawing.getSelection.duplicate.asInstanceOf[IGroup])
+		action.setShape(drawing.getSelection.duplicateDeep(false))
 		action.refPosition = refPosition
 	}
 

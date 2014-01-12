@@ -43,7 +43,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 			with LGroupGrid with LGroupShape with LGroupStdGrid
 			with LGroupText with LSetShapes {
 
-	override def duplicate() = duplicateDeep(false)
+	override def duplicate() = duplicateDeep(true)
 
 
 	override def setModified(modified : Boolean) = {

@@ -12,10 +12,9 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
@@ -526,7 +525,7 @@ class Spinner2SelectionArrowParam extends Spinner2ArrowParam<ModifyShapeProperty
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 	}
 }
 
@@ -587,7 +586,7 @@ class List2ShapeArrowStyle extends ListForCustomiser<ModifyShapeProperty, ShapeA
 		else
 			action.setProperty(ShapeProperties.ARROW2_STYLE);
 
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		action.setValue(ArrowStyle.getArrowStyle(getLabelText()));
 	}
 

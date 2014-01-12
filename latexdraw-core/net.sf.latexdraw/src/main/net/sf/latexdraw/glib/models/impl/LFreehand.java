@@ -98,13 +98,6 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 			this.type = type;
 	}
 
-
-	@Override
-	public IFreehand duplicate() {
-		final IShape sh = super.duplicate();
-		return sh instanceof IFreehand ? (IFreehand)sh : null;
-	}
-
 	@Override
 	public boolean isBordersMovable() {
 		return false;

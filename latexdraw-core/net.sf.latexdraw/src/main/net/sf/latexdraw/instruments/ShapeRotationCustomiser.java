@@ -175,7 +175,7 @@ class Spinner2RotateShape extends Link<RotateShapes, SpinnerModified, ShapeRotat
 
 	@Override
 	public void initAction() {
-		IShape sh = instrument.pencil.canvas().getDrawing().getSelection().duplicate();
+		IShape sh = instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false);
 		action.setShape(sh);
 		action.setGravityCentre(sh.getGravityCentre());
 	}
@@ -217,6 +217,6 @@ class ButtonPress2RotateShape extends Link<RotateShapes, ButtonPressed, ShapeRot
 
 		action.setGravityCentre(instrument.pencil.canvas().getDrawing().getSelection().getGravityCentre());
 		action.setRotationAngle(angle);
-		action.setShape(instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setShape(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 	}
 }

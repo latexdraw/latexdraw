@@ -1,21 +1,19 @@
 package net.sf.latexdraw.instruments
 
-import org.malai.swing.instrument.WidgetInstrument
-import org.malai.swing.ui.UIComposer
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import org.malai.swing.widget.MButton
-import net.sf.latexdraw.util.LResources
-import net.sf.latexdraw.lang.LangTool
 import org.malai.instrument.Link
 import org.malai.swing.interaction.library.ButtonPressed
-import net.sf.latexdraw.actions.shape.MirrorShapes
-import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.actions.shape.AlignShapes
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import org.malai.swing.ui.UIComposer
+import org.malai.swing.widget.MButton
+
 import net.sf.latexdraw.actions.shape.AlignShapes
 import net.sf.latexdraw.actions.shape.AlignmentType
 import net.sf.latexdraw.actions.shape.DistributeShapes
 import net.sf.latexdraw.actions.shape.DistributionType
+import net.sf.latexdraw.actions.shape.MirrorShapes
+import net.sf.latexdraw.badaboom.BadaboomCollector
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.lang.LangTool
+import net.sf.latexdraw.util.LResources
 
 /**
  * This instrument transforms (mirror, etc.) the selected shapes.<br>
@@ -206,7 +204,7 @@ class Button2Align(ins:ShapeTransformer) extends Link[AlignShapes, ButtonPressed
 	override def initAction() {
 		val but = interaction.getButton
 
-		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicate.asInstanceOf[IGroup])
+		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicateDeep(false))
 		if(but==instrument._alignBot) action.setAlignment(AlignmentType.bottom)
 		else if(but==instrument._alignLeft) action.setAlignment(AlignmentType.left)
 		else if(but==instrument._alignMidHoriz) action.setAlignment(AlignmentType.midHoriz)
@@ -230,7 +228,7 @@ class Button2Distribute(ins:ShapeTransformer) extends Link[DistributeShapes, But
 	override def initAction() {
 		val but = interaction.getButton
 
-		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicate.asInstanceOf[IGroup])
+		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicateDeep(false))
 		if(but==instrument._distribHorizEq) action.setDistribution(DistributionType.horizEq)
 		else if(but==instrument._distribHorizLeft) action.setDistribution(DistributionType.horizLeft)
 		else if(but==instrument._distribHorizMid) action.setDistribution(DistributionType.horizMid)
@@ -254,7 +252,7 @@ class Button2Distribute(ins:ShapeTransformer) extends Link[DistributeShapes, But
  */
 class Button2Mirror(ins:ShapeTransformer) extends Link[MirrorShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[MirrorShapes], classOf[ButtonPressed]) {
 	override def initAction() {
-		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicate)
+		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicateDeep(false))
 		action.setHorizontally(interaction.getButton==instrument._mirrorH)
 	}
 

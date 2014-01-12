@@ -12,7 +12,6 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 
@@ -263,7 +262,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
 		@Override
@@ -346,7 +345,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
 		@Override
@@ -435,7 +434,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			super.initAction();
-			action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
 		@Override

@@ -12,7 +12,6 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
@@ -286,7 +285,7 @@ class Checkbox2ShowPointsSelection extends CheckBoxForCustomiser<ModifyShapeProp
 	@Override
 	public void initAction() {
 		action.setProperty(ShapeProperties.SHOW_POINTS);
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		action.setValue(interaction.getCheckBox().isSelected());
 	}
 }
@@ -337,7 +336,7 @@ class List2SelectionBorder extends ListForCustomiser<ModifyShapeProperty, ShapeB
 	@Override
 	public void initAction() {
 		final ItemSelectable is	= interaction.getList();
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 
 		if(is==instrument.bordersPosCB) {
 			action.setProperty(ShapeProperties.BORDER_POS);
@@ -409,7 +408,7 @@ class Spinner2SelectionBorder extends SpinnerForCustomiser<ModifyShapeProperty, 
 		else
 			action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
 
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 	}
 
 	@Override
@@ -500,7 +499,7 @@ class ColourButton2SelectionBorder extends ColourButtonForCustomiser<ModifyShape
 	public void initAction() {
 		super.initAction();
 		action.setProperty(ShapeProperties.COLOUR_LINE);
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 	}
 
 	@Override

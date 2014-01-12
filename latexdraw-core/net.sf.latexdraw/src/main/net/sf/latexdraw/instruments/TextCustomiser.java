@@ -13,7 +13,6 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.util.LResources;
@@ -355,7 +354,7 @@ class ButtonPressed2ChangeTextPosition extends ButtonPressedForCustomiser<Modify
 	public void initAction() {
 		final AbstractButton ab = interaction.getButton();
 
-		action.setGroup((IGroup)instrument.hand.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.hand.canvas().getDrawing().getSelection().duplicateDeep(false));
 		action.setProperty(ShapeProperties.TEXT_POSITION);
 
 		if(instrument.bButton==ab) action.setValue(ITextProp.TextPosition.BOT);

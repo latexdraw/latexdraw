@@ -13,7 +13,6 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.lang.LangTool;
@@ -371,7 +370,7 @@ class List2SelectionFilling extends ListForCustomiser<ModifyShapeProperty, Shape
 
 	@Override
 	public void initAction() {
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		action.setProperty(ShapeProperties.FILLING_STYLE);
 		action.setValue(FillingStyle.getStyle(getLabelText()));
 	}
@@ -447,7 +446,7 @@ class ColourButton2SelectionFilling extends ColourButtonForCustomiser<ModifyShap
 		super.initAction();
 
 		final AbstractButton but = interaction.getButton();
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 
 		if(but==instrument.fillColButton)
 			action.setProperty(ShapeProperties.COLOUR_FILLING);
@@ -487,7 +486,7 @@ class Spinner2SelectionFilling extends SpinnerForCustomiser<ModifyShapeProperty,
 
 	@Override
 	public void initAction() {
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		setProperty(interaction.getSpinner(), instrument, action);
 	}
 

@@ -19,3 +19,5 @@ Version 3.1.0
   https://bugs.launchpad.net/latexdraw/+bug/1265007
 - fixed: The grid radio buttons are not linked (preferences panel)
   https://bugs.launchpad.net/latexdraw/+bug/1265051
+- fixed: Problem when copying-pasting a group of shapes containing arrows
+  https://bugs.launchpad.net/latexdraw/+bug/1268354

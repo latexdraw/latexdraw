@@ -9,7 +9,6 @@ import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -206,7 +205,7 @@ class CheckBox2SelectionShadow extends CheckBoxForCustomiser<ModifyShapeProperty
 	@Override
 	public void initAction() {
 		super.initAction();
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		action.setProperty(ShapeProperties.SHADOW);
 	}
 
@@ -234,7 +233,7 @@ class Spinner2SelectionShadow extends SpinnerForCustomiser<ModifyShapeProperty, 
 	@Override
 	public void initAction() {
 		final JSpinner spinner = interaction.getSpinner();
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 
 		if(spinner==instrument.shadowSizeField)
 			action.setProperty(ShapeProperties.SHADOW_SIZE);
@@ -346,7 +345,7 @@ class ColourButton2SelectionShadow extends ColourButtonForCustomiser<ModifyShape
 	public void initAction() {
 		super.initAction();
 		action.setProperty(ShapeProperties.COLOUR_SHADOW);
-		action.setGroup((IGroup)instrument.pencil.canvas().getDrawing().getSelection().duplicate());
+		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 	}
 
 	@Override

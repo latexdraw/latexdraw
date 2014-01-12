@@ -99,7 +99,7 @@ class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrume
 
 private sealed class CtrlU2UpdateShapes(ins:Hand) extends Link[UpdateToGrid, KeysPressure, Hand](ins, false, classOf[UpdateToGrid], classOf[KeysPressure]) {
 	override def initAction() {
-		action.setShape(instrument.canvas.getDrawing.getSelection.duplicate.asInstanceOf[IGroup])
+		action.setShape(instrument.canvas.getDrawing.getSelection.duplicateDeep(false))
 		action.setGrid(instrument.canvas.getMagneticGrid)
 	}
 
@@ -146,7 +146,7 @@ private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Link[InitTex
 private sealed class DnD2Translate(hand : Hand) extends Link[TranslateShapes, DnD, Hand](hand, true, classOf[TranslateShapes], classOf[DnD]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
-		action.setShape(instrument.canvas.getDrawing.getSelection.duplicate.asInstanceOf[IGroup])
+		action.setShape(instrument.canvas.getDrawing.getSelection.duplicateDeep(false))
 	}
 
 
