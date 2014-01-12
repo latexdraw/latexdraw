@@ -46,12 +46,6 @@ private[impl] class LPolyline(uniqueID:Boolean) extends LPolygon(uniqueID) with 
 		super[LArrowableShape].copy(sh)
 	}
 
-	override def duplicate() : IPolyline =
-		super.duplicate match {
-			case line:IPolyline => line
-			case _ => null
-		}
-
 	override def getArrowLine(arrow:IArrow) : ILine = {
 		if(getNbPoints<2) return null
 		val index = arrows.indexOf(arrow)

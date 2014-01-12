@@ -3,7 +3,6 @@ package net.sf.latexdraw.glib.models.impl;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines a model of a rhombus.<br>
@@ -56,12 +55,4 @@ class LRhombus extends LRectangularShape implements IRhombus {
 	protected LRhombus(final IPoint tl, final IPoint br, final boolean uniqueID) {
 		super(tl, br, uniqueID);
 	}
-
-
-	@Override
-	public IRhombus duplicate() {
-		final IShape sh = super.duplicate();
-		return sh instanceof IRhombus ? (IRhombus)sh : null;
-	}
 }
-

@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.impl;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
  * Defines a model of a polygon.<br>
@@ -47,13 +46,6 @@ class LPolygon extends LModifiablePointsShape implements IPolygon {
 
 		addPoint(point);
 		addPoint(point2);
-	}
-
-
-	@Override
-	public IPolygon duplicate() {
-		final IShape sh = super.duplicate();
-		return sh instanceof IPolygon ? (IPolygon)sh : null;
 	}
 
 	@Override

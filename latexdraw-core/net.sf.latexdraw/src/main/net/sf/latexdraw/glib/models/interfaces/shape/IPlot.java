@@ -22,9 +22,6 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
  * @since 3.0
  */
 public interface IPlot extends IShape, IPlotProp {
-	@Override
-	IPlot duplicate();
-
 	/**
 	 * @param x The X coordinate.
 	 * @return The corresponding Y coordinate or NaN if a problem occurs.

@@ -25,13 +25,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape
  * @since 3.0
  */
 private class LRectangle(tl:IPoint, br:IPoint, uniqueID:Boolean) extends LRectangularShape(tl, br, uniqueID) with IRectangle with LineArcProp {
-	override def duplicate() : IRectangle = {
-		super.duplicate match {
-			case rec:IRectangle => rec
-			case _ => null
-		}
-	}
-
 	override def copy(sh:IShape) {
 		super.copy(sh)
 		if(sh.isInstanceOf[ILineArcProp])//FIXME in trait

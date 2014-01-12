@@ -20,6 +20,5 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  * @since 3.0
  */
 public interface IRhombus extends IRectangularShape {
-	@Override
-	IRhombus duplicate();
+	//
 }

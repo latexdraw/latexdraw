@@ -22,6 +22,5 @@ import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
  * @since 3.0
  */
 public interface IRectangle extends IRectangularShape, ILineArcProp {
-	@Override
-	IRectangle duplicate();
+	//
 }

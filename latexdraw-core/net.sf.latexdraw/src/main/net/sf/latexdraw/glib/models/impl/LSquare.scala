@@ -25,13 +25,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ISquare
  * @since 3.0
  */
 private[impl] class LSquare(pos:IPoint, width:Double, uniqueID:Boolean) extends LSquaredShape(pos, width, uniqueID) with ISquare with LineArcProp {
-	override def duplicate() : ISquare = {
-		super.duplicate match {
-			case sq:ISquare => sq
-			case _ => null
-		}
-	}
-
 	override def copy(sh:IShape) {
 		super.copy(sh)
 		if(sh.isInstanceOf[ILineArcProp])//FIXME in trait

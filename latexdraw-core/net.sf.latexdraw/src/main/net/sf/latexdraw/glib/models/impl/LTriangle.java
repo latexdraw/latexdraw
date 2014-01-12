@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.impl;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle;
 
 /**
@@ -44,13 +43,6 @@ class LTriangle extends LRectangularShape implements ITriangle {
 	 */
 	protected LTriangle(final IPoint pos, final double width, final double height, final boolean uniqueID) {
 		super(pos, pos==null ? null : ShapeFactory.createPoint(pos.getX()+width, pos.getY()+height), uniqueID);
-	}
-
-
-	@Override
-	public ITriangle duplicate() {
-		final IShape sh = super.duplicate();
-		return sh instanceof ITriangle ? (ITriangle)sh : null;
 	}
 }
 

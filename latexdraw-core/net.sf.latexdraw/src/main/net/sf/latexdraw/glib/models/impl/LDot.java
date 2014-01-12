@@ -50,13 +50,6 @@ class LDot extends LPositionShape implements IDot {
 
 
 	@Override
-	public IDot duplicate() {
-		final IShape sh = super.duplicate();
-		return sh instanceof IDot ? (IDot)sh : null;
-	}
-
-
-	@Override
 	public Color getFillingCol() {
 		return isFillable() ? super.getFillingCol() : Color.BLACK;
 	}

@@ -23,9 +23,6 @@ import java.io.IOException;
  * @since 3.0
  */
 public interface IPicture extends IPositionShape {
-	@Override
-	IPicture duplicate();
-
 	/**
 	 * Sets the new picture.
 	 * @param pathSource the pathSource to set.
