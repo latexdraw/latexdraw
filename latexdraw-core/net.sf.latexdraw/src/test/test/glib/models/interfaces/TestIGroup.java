@@ -433,7 +433,9 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		rec1.setGradColEnd(Color.ORANGE);
 		rec2.setGradColEnd(Color.PINK);
 
-		assertNull(shape.getGradColEnd());
+		assertNotNull(shape.getGradColEnd());
+		assertNotEquals(Color.PINK, shape.getGradColEnd());
+		assertNotEquals(Color.ORANGE, shape.getGradColEnd());
 
 		rec1.setFillingStyle(FillingStyle.GRAD);
 		rec2.setFillingStyle(FillingStyle.GRAD);

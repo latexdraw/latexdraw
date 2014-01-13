@@ -170,7 +170,7 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		IGrid g2 = (IGrid)shape.duplicate();
 
 		assertEquals(g2.getGridDots(), shape.getGridDots());
-		assertEquals(g2.getSubGridDiv(), shape2.getSubGridDiv());
+		assertEquals(g2.getSubGridDiv(), shape.getSubGridDiv());
 		assertEquals(g2.getGridLabelsColour(), shape.getGridLabelsColour());
 		assertEquals(g2.getSubGridColour(), shape.getSubGridColour());
 		HelperTest.assertEqualsDouble(g2.getUnit(), shape.getUnit());
@@ -200,8 +200,8 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		shape.setGridEnd(50, 75);
 		shape.setUnit(2);
 
-		HelperTest.assertEqualsDouble(2.*IShape.PPC*250., shape.getBottomRightPoint().getX());
-		HelperTest.assertEqualsDouble(0., shape.getBottomRightPoint().getY());
+		HelperTest.assertEqualsDouble(2.*IShape.PPC*50., shape.getBottomRightPoint().getX());
+		HelperTest.assertEqualsDouble(-IShape.PPC*-100., shape.getBottomRightPoint().getY());
 	}
 
 
@@ -212,8 +212,8 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		shape.setGridEnd(50, 75);
 		shape.setUnit(2);
 
-		HelperTest.assertEqualsDouble(0., shape.getTopLeftPoint().getX());
-		HelperTest.assertEqualsDouble(-2.*IShape.PPC*175., shape.getTopLeftPoint().getY());
+		HelperTest.assertEqualsDouble(IShape.PPC*-200., shape.getTopLeftPoint().getX());
+		HelperTest.assertEqualsDouble(-2.*IShape.PPC*75., shape.getTopLeftPoint().getY());
 	}
 
 

@@ -33,15 +33,6 @@ public class TestLPolyline<T extends IPolyline> extends TestIPolyline<T> {
 	}
 
 
-	@Test public void testSyncAddPointAddArrow() {
-		assertEquals(shape.getPoints().size(), shape.getNbArrows());
-		shape.removePoint(null);
-		assertEquals(shape.getPoints().size(), shape.getNbArrows());
-		shape.removePoint(shape.getPtAt(shape.getPoints().size()-1));
-		assertEquals(shape.getPoints().size(), shape.getNbArrows());
-	}
-
-
 	@Override
 	@Test
 	public void testIsTypeOf() {

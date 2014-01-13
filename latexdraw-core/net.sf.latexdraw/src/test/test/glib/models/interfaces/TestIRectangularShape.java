@@ -27,20 +27,11 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 			assertEquals(shape.getPtAt(i), shape2.getPtAt(i));
 	}
 
-
-	@Test
-	public void testHas4Points() {
-		assertEquals(shape.getNbPoints(), 4);
-	}
-
-
 	@Test
 	public void testGetSetWidth() {
-//		shape.setRight(30);
-//		shape.setLeft(10);
+		shape.setPosition(0, 0);
+		shape.setWidth(20);
 		HelperTest.assertEqualsDouble(20., shape.getWidth());
-//		shape.setRight(40);
-		HelperTest.assertEqualsDouble(30., shape.getWidth());
 		shape.setWidth(50);
 		HelperTest.assertEqualsDouble(50., shape.getWidth());
 		shape.setWidth(-10);
@@ -58,11 +49,9 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 
 	@Test
 	public void testGetSetHeight() {
-//		shape.setBottom(30);
-//		shape.setTop(10);
+		shape.setPosition(0, 0);
+		shape.setHeight(20);
 		HelperTest.assertEqualsDouble(20., shape.getHeight());
-//		shape.setBottom(40);
-		HelperTest.assertEqualsDouble(30., shape.getHeight());
 		shape.setHeight(50);
 		HelperTest.assertEqualsDouble(50., shape.getHeight());
 		shape.setHeight(0);
@@ -253,7 +242,7 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 	@Override
 	@Test
 	public void testMirrorHorizontal() {
-		IPoint pt2 = ShapeFactory.createPoint(3,1);
+		IPoint pt2 = ShapeFactory.createPoint(4,1);
 		IPoint pt4 = ShapeFactory.createPoint(1,3);
 
 		shape.setPosition(pt4);
@@ -261,21 +250,21 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 		shape.setHeight(pt4.getY()-pt2.getY());
 
 		shape.mirrorHorizontal(shape.getGravityCentre());
-		HelperTest.assertEqualsDouble(3., shape.getPtAt(0).getX());
-		HelperTest.assertEqualsDouble(1., shape.getPtAt(1).getX());
-		HelperTest.assertEqualsDouble(1., shape.getPtAt(2).getX());
-		HelperTest.assertEqualsDouble(3., shape.getPtAt(-1).getX());
+		HelperTest.assertEqualsDouble(1., shape.getTopLeftPoint().getX());
+		HelperTest.assertEqualsDouble(4., shape.getTopRightPoint().getX());
+		HelperTest.assertEqualsDouble(1., shape.getTopLeftPoint().getY());
+		HelperTest.assertEqualsDouble(3., shape.getBottomLeftPoint().getY());
+		HelperTest.assertEqualsDouble(1., shape.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(1., shape.getPtAt(0).getY());
-		HelperTest.assertEqualsDouble(1., shape.getPtAt(1).getY());
+		HelperTest.assertEqualsDouble(4., shape.getPtAt(2).getX());
 		HelperTest.assertEqualsDouble(3., shape.getPtAt(2).getY());
-		HelperTest.assertEqualsDouble(3., shape.getPtAt(-1).getY());
 	}
 
 
 	@Override
 	@Test
 	public void testMirrorVertical() {
-		IPoint pt2 = ShapeFactory.createPoint(3,1);
+		IPoint pt2 = ShapeFactory.createPoint(4,1);
 		IPoint pt4 = ShapeFactory.createPoint(1,3);
 
 		shape.setPosition(pt4);
@@ -283,14 +272,14 @@ public abstract class TestIRectangularShape<T extends IRectangularShape> extends
 		shape.setHeight(pt4.getY()-pt2.getY());
 
 		shape.mirrorVertical(shape.getGravityCentre());
+		HelperTest.assertEqualsDouble(1., shape.getTopLeftPoint().getX());
+		HelperTest.assertEqualsDouble(4., shape.getTopRightPoint().getX());
+		HelperTest.assertEqualsDouble(1., shape.getTopLeftPoint().getY());
+		HelperTest.assertEqualsDouble(3., shape.getBottomLeftPoint().getY());
 		HelperTest.assertEqualsDouble(1., shape.getPtAt(0).getX());
-		HelperTest.assertEqualsDouble(3., shape.getPtAt(1).getX());
-		HelperTest.assertEqualsDouble(3., shape.getPtAt(2).getX());
-		HelperTest.assertEqualsDouble(1., shape.getPtAt(-1).getX());
-		HelperTest.assertEqualsDouble(3., shape.getPtAt(0).getY());
-		HelperTest.assertEqualsDouble(3., shape.getPtAt(1).getY());
-		HelperTest.assertEqualsDouble(1., shape.getPtAt(2).getY());
-		HelperTest.assertEqualsDouble(1., shape.getPtAt(-1).getY());
+		HelperTest.assertEqualsDouble(1., shape.getPtAt(0).getY());
+		HelperTest.assertEqualsDouble(4., shape.getPtAt(2).getX());
+		HelperTest.assertEqualsDouble(3., shape.getPtAt(2).getY());
 	}
 
 

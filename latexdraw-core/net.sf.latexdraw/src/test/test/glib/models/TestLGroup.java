@@ -3,6 +3,7 @@ package test.glib.models;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.*;
 
 import org.junit.Before;
@@ -56,14 +57,8 @@ public class TestLGroup<T extends IGroup> extends TestIGroup<T> {
 		assertFalse(shape.isTypeOf(IArc.class));
 		shape.addShape(ShapeFactory.createCircleArc(false));
 		assertTrue(shape.isTypeOf(IArc.class));
-		assertTrue(shape.isTypeOf(ICircle.class));
-		assertTrue(shape.isTypeOf(IBezierCurve.class));
-		assertTrue(shape.isTypeOf(IAxes.class));
-
-		assertFalse(shape.isTypeOf(ICircleArc.class));
-		shape.addShape(ShapeFactory.createCircleArc(false));
-		assertTrue(shape.isTypeOf(IArc.class));
 		assertTrue(shape.isTypeOf(ICircleArc.class));
+		assertTrue(shape.isTypeOf(IArcProp.class));
 		assertTrue(shape.isTypeOf(ICircle.class));
 		assertTrue(shape.isTypeOf(IBezierCurve.class));
 		assertTrue(shape.isTypeOf(IAxes.class));

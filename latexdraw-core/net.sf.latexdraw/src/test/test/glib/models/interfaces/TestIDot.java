@@ -112,29 +112,49 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 
 
 	@Override
+	@Test
 	public void testMirrorHorizontal() {
 		shape.setPosition(-10, -20);
-		shape.mirrorHorizontal(ShapeFactory.createPoint(100, 0));
-		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
+		shape.mirrorHorizontal(ShapeFactory.createPoint(0, 0));
+		HelperTest.assertEqualsDouble(10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
+	}
+
+
+	@Test
+	public void testMirrorHorizontal2() {
+		shape.setPosition(-10, -20);
 		shape.mirrorHorizontal(null);
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
+	}
+
+	@Test
+	public void testMirrorHorizontal3() {
+		shape.setPosition(-10, -20);
 		shape.mirrorHorizontal(ShapeFactory.createPoint(Double.NaN, Double.POSITIVE_INFINITY));
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 	}
 
-
 	@Override
+	@Test
 	public void testMirrorVertical() {
 		shape.setPosition(-10, -20);
 		shape.mirrorVertical(ShapeFactory.createPoint(100, 0));
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
-		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(20., shape.getPosition().getY());
+	}
+
+	@Test public void testMirrorVertical2() {
+		shape.setPosition(-10, -20);
 		shape.mirrorVertical(null);
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
+	}
+
+	@Test public void testMirrorVertical3() {
+		shape.setPosition(-10, -20);
 		shape.mirrorVertical(ShapeFactory.createPoint(Double.NaN, Double.POSITIVE_INFINITY));
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
