@@ -293,7 +293,8 @@ trait IShapeFactory {
 	 * @param width The width of the rectangle.
 	 * @param height The height of the rectangle.
 	 * @param uniqueID True: the rectangle will have a unique ID.
-	 * @throws IllegalArgumentException If the width or the height is not valid.
+	 * @throws IllegalArgumentException If the width, the height or the point is not valid.
+	 * @throws NullPointerException if the given point is null.
 	 * @return The created rectangle.
 	 * @since 3.0
 	 */
@@ -304,6 +305,7 @@ trait IShapeFactory {
 	 * @param tl The top left point of the rectangle.
 	 * @param br The bottom right point of the rectangle.
 	 * @param uniqueID True: the rectangle will have a unique ID.
+	 * @throws IllegalArgumentException if one of the given points is not valid.
 	 * @return The created rectangle.
 	 * @since 3.0
 	 */
