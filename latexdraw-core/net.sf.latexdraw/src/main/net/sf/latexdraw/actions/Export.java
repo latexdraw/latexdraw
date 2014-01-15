@@ -3,9 +3,7 @@ package net.sf.latexdraw.actions;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -286,14 +284,15 @@ public class Export extends Action {
 	 * @return true if the picture was well created.
 	 */
 	protected boolean exportAsPNG(final File file) {
-		final RenderedImage rendImage = createRenderedImage();
+		final BufferedImage rendImage = createRenderedImage();
+		boolean success = false;
 
 		try {
 			ImageIO.write(rendImage, "png", file);  //$NON-NLS-1$
-			return true;
-		}
-		catch(IOException e) { BadaboomCollector.INSTANCE.add(e); }
-		return false;
+			success = true;
+		}catch(IOException e) { BadaboomCollector.INSTANCE.add(e); }
+		rendImage.flush();
+		return success;
 	}
 
 
@@ -304,7 +303,8 @@ public class Export extends Action {
 	 * @return true if the picture was well created.
 	 */
 	protected boolean exportAsJPG(final File file) {
-		final RenderedImage rendImage = createRenderedImage();
+		final BufferedImage rendImage = createRenderedImage();
+		boolean success = false;
 
 		try {
 			final ImageWriteParam iwparam 	= new JPEGImageWriteParam(Locale.getDefault());
@@ -315,11 +315,11 @@ public class Export extends Action {
 				iw.setOutput(ios);
 				iw.write(null, new IIOImage(rendImage, null, null), iwparam);
 				iw.dispose();
-				return true;
+				success = true;
 			}
-	    }
-		catch(IOException e) { BadaboomCollector.INSTANCE.add(e); }
-		return false;
+	    }catch(IOException e) { BadaboomCollector.INSTANCE.add(e); }
+		rendImage.flush();
+		return success;
 	}
 
 
@@ -335,8 +335,7 @@ public class Export extends Action {
 
 		try{
 			psFile = LaTeXGenerator.createPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, pstGen);
-		}
-		catch(final Exception e) {
+		}catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
 			psFile = null;
 		}
@@ -381,8 +380,7 @@ public class Export extends Action {
 				out.println(LaTeXGenerator.getLatexDrawing(pstGen));
 				ok = true;
 			}
-		}
-		catch(final IOException e) {
+		}catch(final IOException e) {
 			BadaboomCollector.INSTANCE.add(e);
 			ok = false;
 		}
@@ -397,7 +395,8 @@ public class Export extends Action {
 	 * @return true if the picture was successfully created.
 	 */
 	protected boolean exportAsBMP(final File file){
-		final RenderedImage rendImage = createRenderedImage();
+		final BufferedImage rendImage = createRenderedImage();
+		boolean success = false;
 
 		try {
 			final ImageWriteParam iwparam	= new BMPImageWriteParam();
@@ -407,11 +406,11 @@ public class Export extends Action {
 				iw.setOutput(ios);
 				iw.write(null, new IIOImage(rendImage, null, null), iwparam);
 				iw.dispose();
-				return true;
+				success = true;
 			}
-	    }
-		catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
-		return false;
+	    }catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
+		rendImage.flush();
+		return success;
 	}
 
 
@@ -426,43 +425,23 @@ public class Export extends Action {
 		final double dec    = 5.;
 		BufferedImage bi 	= new BufferedImage((int)(tr.getX()+dec), (int)(bl.getY()+dec), BufferedImage.TYPE_INT_RGB);
 		Graphics2D graphic 	= bi.createGraphics();
-		final double height	= bl.getY()-tr.getY();
-		final double width	= tr.getX()-bl.getX();
+		final List<IViewShape> views = canvas.getViews();
 
 		graphic.setColor(Color.WHITE);
 		graphic.fillRect(0, 0, (int)(tr.getX()+dec), (int)(bl.getY()+dec));
+		graphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		graphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		graphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		graphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		graphic.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-		List<IViewShape> views = canvas.getViews();
 		synchronized(views){
 			for(IViewShape view : canvas.getViews())
 				view.paint(graphic, null);
 		}
 
-		// To delete the empty whitespace, we do a translation to
-		// the North-West point of the drawing (dec: to avoid to cut
-		// the start of some figures, we let a few white space around the drawing.
-		AffineTransform aff = new AffineTransform();
-		aff.translate(-bl.getX()+dec, -tr.getY()+dec);
-
-		BufferedImage bufferImage2 = new BufferedImage((int)(width+dec), (int)(height+dec), BufferedImage.TYPE_INT_RGB);
-		Graphics2D graphic2 = bufferImage2.createGraphics();
-		graphic2.setColor(Color.WHITE);
-		graphic2.fillRect(0, 0, (int)(width+dec), (int)(height+dec));
-
-		graphic2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		graphic2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		graphic2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-		graphic2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		graphic2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-		// We draw the new picture
-		graphic2.drawImage(bi, aff, null);
-
 		graphic.dispose();
-		graphic2.dispose();
-		bi.flush();
-
-		return bufferImage2;
+		return bi;
 	}
 
 
