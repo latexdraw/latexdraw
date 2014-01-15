@@ -22,4 +22,6 @@ Version 3.1.0
 - fixed: Problem when copying-pasting a group of shapes containing arrows
   https://bugs.launchpad.net/latexdraw/+bug/1268354
 - fixed: The quality of png/jpg/bmp files is poor
-  https://bugs.launchpad.net/latexdraw/+bug/1269458 
+  https://bugs.launchpad.net/latexdraw/+bug/1269458
+- fixed: The jpg compression is inverted
+  https://bugs.launchpad.net/latexdraw/+bug/1269457

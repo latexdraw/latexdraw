@@ -311,7 +311,7 @@ public class Export extends Action {
 			final ImageWriter iw 			= ImageIO.getImageWritersByFormatName("jpg").next();//$NON-NLS-1$
 			try(final ImageOutputStream ios = ImageIO.createImageOutputStream(file);){
 				iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-				iwparam.setCompressionQuality(dialogueBox.getCompressionRate()/100f);
+				iwparam.setCompressionQuality(1f-dialogueBox.getCompressionRate()/100f);
 				iw.setOutput(ios);
 				iw.write(null, new IIOImage(rendImage, null, null), iwparam);
 				iw.dispose();
