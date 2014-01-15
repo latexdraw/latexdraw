@@ -9,8 +9,8 @@ import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -162,17 +162,13 @@ public class LCanvas extends MPanel implements ICanvas {
 		// Adding a mapping between the views and its subset containing only tooltipable views.
 		MappingRegistry.REGISTRY.addMapping(new ViewList2TooltipableList(views, tooltipableView));
 
-		addMouseListener(new MouseListener() {
+		addMouseListener(new MouseAdapter() {
 			@Override public void mouseEntered(final MouseEvent e) {
 				// Workaround to assure that the canvas always has the focus.
 				// This fix must not be applied when the current focused component is the text setter.
 				if(!(KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner() instanceof TextAreaAutoSize))
 					LCanvas.this.requestFocusInWindow();
 			}
-			@Override public void mouseReleased(final MouseEvent e) {/**/}
-			@Override public void mousePressed(final MouseEvent e)  {/**/}
-			@Override public void mouseExited(final MouseEvent e)  {/**/}
-			@Override public void mouseClicked(final MouseEvent e) {/**/}
 		});
 
 		// Adding a kind of instrument that manages the tooltips.
