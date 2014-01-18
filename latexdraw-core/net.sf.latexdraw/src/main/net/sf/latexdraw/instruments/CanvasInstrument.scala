@@ -6,6 +6,7 @@ import java.awt.Point
 import org.malai.instrument.Instrument
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.ShapeFactory.Point2IPoint
 
 /**
  * This abstract instrument encapsulates common operations dealing with a canvas.
@@ -37,5 +38,8 @@ abstract class CanvasInstrument(val canvas : ICanvas) extends Instrument {
 	 * @return The computed point.
 	 * @since 3.0
 	 */
-	def getAdaptedPoint(pt:Point) = canvas.convertToOrigin(canvas.getMagneticGrid.getTransformedPointToGrid(canvas.getZoomedPoint(pt)))
+	def getAdaptedPoint(pt:Point) = {
+		val pt2 = canvas.convertToOrigin(canvas.getMagneticGrid.getTransformedPointToGrid(pt))
+		ShapeFactory.createPoint(canvas.getZoomedPoint(pt2.getX, pt2.getY))
+	}
 }
