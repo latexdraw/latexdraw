@@ -10,6 +10,7 @@ Version 3.1.0
   It is more convenient than using the scroll bars.
 - Better rendering performance.
 - Ukrainian translation added.
+- A menu item has been added to go to the latexdraw manual
 
 - fixed: latex thumbnails not created on windows Seven
   https://bugs.launchpad.net/latexdraw/+bug/1252030 

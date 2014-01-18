@@ -57,6 +57,8 @@ public class Helper extends WidgetInstrument {
 	/** The shortcut dialogue box. */
 	protected ShortcutsFrame shortcutFrame;
 
+	protected MMenuItem manuelItem;
+
 
 	/**
 	 * Creates the instrument.
@@ -75,7 +77,7 @@ public class Helper extends WidgetInstrument {
 		aboutFrame 		= null;
 		aboutItem = new MMenuItem(LResources.LABEL_ABOUT);
 		aboutItem.setIcon(LResources.ABOUT_ICON);
-		donateItem = new MMenuItem("Donate");
+		donateItem = new MMenuItem("Make a donation!");
 		donateItem.setIcon(LResources.ABOUT_ICON);
 		reportBugItem = new MMenuItem("Report bugs");
 		reportBugItem.setIcon(LResources.ERR_ICON);
@@ -83,7 +85,8 @@ public class Helper extends WidgetInstrument {
 		forumItem.setIcon(LResources.ABOUT_ICON);
 		shortcutItem = new MMenuItem(LangTool.INSTANCE.getString19("LaTeXDrawFrame.3"));
 		shortcutItem.setIcon(LResources.ABOUT_ICON);
-
+		manuelItem = new MMenuItem("Manual");
+		manuelItem.setIcon(LResources.ABOUT_ICON);
 	}
 
 
@@ -95,6 +98,7 @@ public class Helper extends WidgetInstrument {
 			addLink(new MenuItem2OpenWebPageLink(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523")));
 			addLink(new MenuItem2OpenWebPageLink(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums")));
 			addLink(new MenuItem2OpenWebPageLink(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
+			addLink(new MenuItem2OpenWebPageLink(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual")));
 		}catch(InstantiationException | IllegalAccessException | URISyntaxException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -115,6 +119,9 @@ public class Helper extends WidgetInstrument {
 
 	/** @return the menu that opens the latexdraw forum.  */
 	public MMenuItem getForumItem() { return forumItem; }
+
+	/** @return Open the latexdraw manual.  */
+	public MMenuItem getManuelItem() { return manuelItem; }
 
 	/** @return The created latexdraw dialogue box. */
 	protected AboutDialogueBox initialiseAboutFrame() {
