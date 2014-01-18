@@ -4,16 +4,14 @@ import java.awt.Component
 import java.awt.Point
 import java.util.List
 import java.util.Objects
-
 import javax.swing.JFileChooser
 import javax.swing.SwingUtilities
-
 import net.sf.latexdraw.actions.shape.AddShape
 import net.sf.latexdraw.actions.shape.InitTextSetter
 import net.sf.latexdraw.actions.shape.InsertPicture
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.filters.PictureFilter
-import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape._
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos
 import net.sf.latexdraw.glib.ui.ICanvas
@@ -21,7 +19,6 @@ import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
 import net.sf.latexdraw.util.LNumber
-
 import org.malai.instrument.Instrument
 import org.malai.instrument.Link
 import org.malai.interaction.Interaction
@@ -31,6 +28,8 @@ import org.malai.swing.instrument.library.WidgetZoomer
 import org.malai.swing.interaction.library.AbortableDnD
 import org.malai.swing.interaction.library.MultiClick
 import org.malai.swing.widget.MLayeredPane
+import java.awt.Cursor
+import java.awt.event.MouseEvent
 
 /**
  * This instrument allows to draw shapes.<br>
@@ -86,10 +85,12 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
 	override def interimFeedback() {
 		canvas.setTempView(null)
 		canvas.refresh
+		canvas.setCursor(Cursor.getDefaultCursor)
 	}
 
 	override protected def initialiseLinks() {
 		try{
+			addLink(new DnD2MoveViewport(canvas, this))
 			addLink(new Press2AddShape(this))
 			addLink(new Press2AddText(this))
 			addLink(new Press2InsertPicture(this))
@@ -255,8 +256,8 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 
 	override def isConditionRespected() = {
 		val ec = instrument.currentChoice
-		ec==EditionChoice.RECT || ec==EditionChoice.ELLIPSE || ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE ||
-		ec==EditionChoice.RHOMBUS || ec==EditionChoice.TRIANGLE  || ec==EditionChoice.CIRCLE_ARC || ec==EditionChoice.FREE_HAND;
+		interaction.getButton==MouseEvent.BUTTON1 && (ec==EditionChoice.RECT || ec==EditionChoice.ELLIPSE || ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE ||
+		ec==EditionChoice.RHOMBUS || ec==EditionChoice.TRIANGLE  || ec==EditionChoice.CIRCLE_ARC || ec==EditionChoice.FREE_HAND)
 	}
 
 
@@ -362,7 +363,7 @@ private sealed class Press2InsertPicture(pencil:Pencil) extends Link[InsertPictu
 		action.setFileChooser(instrument.pictureFileChooser)
 	}
 
-	override def isConditionRespected() = instrument.currentChoice==EditionChoice.PICTURE
+	override def isConditionRespected() = instrument.currentChoice==EditionChoice.PICTURE && interaction.getButton==MouseEvent.BUTTON1
 }
 
 
@@ -377,7 +378,9 @@ private sealed class Press2AddShape(pencil:Pencil) extends PencilLink[Press](pen
 		}
 	}
 
-	override def isConditionRespected() = instrument.currentChoice==EditionChoice.GRID || instrument.currentChoice==EditionChoice.DOT || instrument.currentChoice==EditionChoice.AXES;
+	override def isConditionRespected() =
+		(instrument.currentChoice==EditionChoice.GRID || instrument.currentChoice==EditionChoice.DOT || instrument.currentChoice==EditionChoice.AXES) &&
+		interaction.getButton==MouseEvent.BUTTON1
 }
 
 
@@ -413,5 +416,5 @@ private sealed class Press2InitTextSetter(pencil:Pencil) extends Link[InitTextSe
 		action.setRelativePoint(instrument.getAdaptedPoint(interaction.getPoint))
 	}
 
-	override def isConditionRespected() = instrument.currentChoice==EditionChoice.TEXT
+	override def isConditionRespected() = instrument.currentChoice==EditionChoice.TEXT && interaction.getButton==MouseEvent.BUTTON1
 }

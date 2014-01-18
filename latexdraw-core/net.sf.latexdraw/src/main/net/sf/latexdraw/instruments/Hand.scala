@@ -65,7 +65,7 @@ class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrume
 			addLink(new Press2Select(this))
 			addLink(new DnD2Select(this))
 			addLink(new DnD2Translate(this))
-			addLink(new DnD2MoveViewport(this))
+			addLink(new DnD2MoveViewport(canvas, this))
 			addLink(new DoubleClick2InitTextSetter(this))
 			addLink(new CtrlA2SelectAllShapes(this))
 			addLink(new CtrlU2UpdateShapes(this))
@@ -262,15 +262,15 @@ private sealed class DnD2Select(hand : Hand) extends Link[SelectShapes, DnDWithK
 /**
  * Moves the viewport using the hand.
  */
-private sealed class DnD2MoveViewport(hand : Hand) extends Link[MoveCamera, DnD, Hand](hand, true, classOf[MoveCamera], classOf[DnD]) {
+class DnD2MoveViewport(canvas:ICanvas, ins:Instrument) extends Link[MoveCamera, DnD, Instrument](ins, true, classOf[MoveCamera], classOf[DnD]) {
 	override def initAction() {
-		action.setScrollPane(hand.canvas.getScrollpane)
+		action.setScrollPane(canvas.getScrollpane)
 	}
 
 	override def updateAction() {
 		val startPt	= interaction.getStartPt
 		val endPt	= interaction.getEndPt
-		val pane	= hand.canvas.getScrollpane
+		val pane	= canvas.getScrollpane
 		action.setPx(pane.getHorizontalScrollBar.getValue+pane.getHorizontalScrollBar.getWidth/2+(startPt.getX - endPt.getX).toInt)
 		action.setPy(pane.getVerticalScrollBar.getValue+pane.getVerticalScrollBar.getHeight/2+(startPt.getY - endPt.getY).toInt)
 	}
@@ -279,6 +279,6 @@ private sealed class DnD2MoveViewport(hand : Hand) extends Link[MoveCamera, DnD,
 
 	override def interimFeedback() {
 		super.interimFeedback
-		instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR))
+		canvas.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR))
 	}
 }
