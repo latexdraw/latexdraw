@@ -383,8 +383,8 @@ public class LCanvas extends MPanel implements ICanvas {
 			zoom.setValue(z);
 
 			if(!LNumber.equalsDouble(-1., x) || !LNumber.equalsDouble(-1., y)) {
-				final double dx = (z-oldZoom)*x/oldZoom;
-				final double dy = (z-oldZoom)*y/oldZoom;
+				final double dx = (z-oldZoom)*(x-ORIGIN.getX())/oldZoom;
+				final double dy = (z-oldZoom)*(y-ORIGIN.getY())/oldZoom;
 				final Point pt = scrollpane.getViewport().getViewPosition();
 				pt.x += dx;
 				pt.y += dy;
