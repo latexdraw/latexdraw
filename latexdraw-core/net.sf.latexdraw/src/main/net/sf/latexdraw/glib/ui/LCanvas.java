@@ -360,7 +360,7 @@ public class LCanvas extends MPanel implements ICanvas {
 		if(pickable==null)
 			pickable = getViewAt(x2, y2);
 
-		return pickable==null ? contains((int)x2, (int)y2) ? this : null : pickable;
+		return pickable==null ? contains((int)x, (int)y) ? this : null : pickable;
 	}
 
 
