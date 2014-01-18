@@ -200,7 +200,7 @@ class ShapeTransformer(composer:UIComposer[_], hand:Hand, pencil:Pencil, val bor
 /**
  * Maps a button interaction with an action that aligns the selected shapes.
  */
-class Button2Align(ins:ShapeTransformer) extends Link[AlignShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[AlignShapes], classOf[ButtonPressed]) {
+private sealed class Button2Align(ins:ShapeTransformer) extends Link[AlignShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[AlignShapes], classOf[ButtonPressed]) {
 	override def initAction() {
 		val but = interaction.getButton
 
@@ -224,7 +224,7 @@ class Button2Align(ins:ShapeTransformer) extends Link[AlignShapes, ButtonPressed
 /**
  * Maps a button interaction with an action that distributes the selected shapes.
  */
-class Button2Distribute(ins:ShapeTransformer) extends Link[DistributeShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[DistributeShapes], classOf[ButtonPressed]) {
+private sealed class Button2Distribute(ins:ShapeTransformer) extends Link[DistributeShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[DistributeShapes], classOf[ButtonPressed]) {
 	override def initAction() {
 		val but = interaction.getButton
 
@@ -250,7 +250,7 @@ class Button2Distribute(ins:ShapeTransformer) extends Link[DistributeShapes, But
 /**
  * Maps a button interaction with an action that mirrors the selected shapes.
  */
-class Button2Mirror(ins:ShapeTransformer) extends Link[MirrorShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[MirrorShapes], classOf[ButtonPressed]) {
+private sealed class Button2Mirror(ins:ShapeTransformer) extends Link[MirrorShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[MirrorShapes], classOf[ButtonPressed]) {
 	override def initAction() {
 		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicateDeep(false))
 		action.setHorizontally(interaction.getButton==instrument._mirrorH)

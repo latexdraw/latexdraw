@@ -12,6 +12,8 @@ Version 3.1.0
 - Ukrainian translation added.
 - A menu item has been added to go to the latexdraw manual
 
+- fixed: mirroring shapes did not work
+  https://bugs.launchpad.net/bugs/1266219
 - fixed: latex thumbnails not created on windows Seven
   https://bugs.launchpad.net/latexdraw/+bug/1252030 
 - fixed: The text field used during the editing of text is not always correctly located
