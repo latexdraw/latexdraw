@@ -301,7 +301,9 @@ object FlyweightThumbnail {
 			val osw = new OutputStreamWriter(fos)
 			osw.append(doc)
 			osw.flush
+			osw.close
 			fos.flush
+			fos.close
 
 			var res = execute(Array(os.getLatexBinPath, "--halt-on-error", "--interaction=nonstopmode", "--output-directory=" + tmpDir.getAbsolutePath, pathTex)) //$NON-NLS-1$ //$NON-NLS-2$
 			var ok = res._1
@@ -363,7 +365,9 @@ object FlyweightThumbnail {
 			new File(pathPic + ".log").delete //$NON-NLS-1$
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Log:\n" + log + "\nException:\n" + sw))
 			pw.flush
+			pw.close
 			sw.flush
+			sw.close
 		}
 
 		return new Tuple3(bi, pathPic, log)
