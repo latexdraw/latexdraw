@@ -49,6 +49,8 @@ public class PreferencesFrame extends MFrame {
 	/** The instrument that modifies the preferences. */
 	protected PreferencesSetter prefSetter;
 
+	private final String FOR_NEW_DRAWINGS = "Will be used for the next new drawings";
+
 
 	/**
 	 * The constructor using a frame.
@@ -79,7 +81,7 @@ public class PreferencesFrame extends MFrame {
 		pGeneral.add(tabbedPane, BorderLayout.CENTER);
 
 		getContentPane().add(pGeneral);
-  		setSize(460, 280);
+  		setSize(460, 320);
 		setVisible(false);
 	}
 
@@ -147,13 +149,14 @@ public class PreferencesFrame extends MFrame {
 	 * @return The created JPanel.
 	 */
 	private JPanel createGridPanel() {
-		final JPanel pGrid = new JPanel(new GridLayout(5, 1));
+		final JPanel pGrid = new JPanel(new GridLayout(6, 1));
 		final JPanel panel = new JPanel();
 
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.add(prefSetter.getPersoGridGapField().getLabel());
 		panel.add(prefSetter.getPersoGridGapField());
 
+		pGrid.add(new JLabel(FOR_NEW_DRAWINGS));
   		pGrid.add(prefSetter.getDisplayGridCB());
   		pGrid.add(prefSetter.getClassicGridRB());
   		pGrid.add(prefSetter.getPersoGridRB());
@@ -176,7 +179,8 @@ public class PreferencesFrame extends MFrame {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.add(prefSetter.getUnitChoice());
 
-  		pDisplay.add(prefSetter.getDisplayXScaleCB());
+		pDisplay.add(new JLabel(FOR_NEW_DRAWINGS));
+		pDisplay.add(prefSetter.getDisplayXScaleCB());
   		pDisplay.add(prefSetter.getDisplayYScaleCB());
   		pDisplay.add(panel);
 
@@ -240,8 +244,9 @@ public class PreferencesFrame extends MFrame {
 	 * @return The created panel.
 	 */
 	private JPanel createQualityPanel() {
-  		final JPanel pQuality  = new JPanel(new GridLayout(4, 1));
+  		final JPanel pQuality  = new JPanel(new GridLayout(5, 1));
 
+  		pQuality.add(new JLabel(FOR_NEW_DRAWINGS));
   		pQuality.add(prefSetter.getAntialiasingCheckBox());
   		pQuality.add(prefSetter.getRenderingCheckBox());
   		pQuality.add(prefSetter.getColorRenderCheckBox());
