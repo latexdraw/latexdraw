@@ -99,8 +99,8 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		final Font font = packagesField.getFont();
 		packagesField.setToolTipText("Contains the LaTeX packages that will be used to compile the text.");
 		packagesField.setFont(new Font(font.getName(), font.getStyle(), Math.max(10, font.getSize()-4)));
-		packagesField.setColumns(20);
-		packagesField.setRows(5);
+		packagesField.setColumns(35);
+		packagesField.setRows(10);
 
 		blButton = new MToggleButton(LResources.TEXTPOS_BL);
 		blButton.setMargin(LResources.INSET_BUTTON);
