@@ -175,8 +175,15 @@ public class Exporter extends WidgetInstrument {
 
 		String name = root.getNodeName();
 
-		if(name.endsWith(LNamespace.XML_LATEX_INCLUDES))
-			LaTeXGenerator.setPackages(root.getTextContent());
+		if(name.endsWith(LNamespace.XML_LATEX_INCLUDES)) {
+			final String[] lines = root.getTextContent().split(LResources.EOL);
+			final String pkgs = LaTeXGenerator.getPackages();
+			final StringBuilder build = new StringBuilder(LaTeXGenerator.getPackages());
+			for(String line : lines)
+				if(!pkgs.contains(line))
+					build.append(LResources.EOL).append(line);
+			LaTeXGenerator.setPackages(build.toString());
+		}
 	}
 
 
