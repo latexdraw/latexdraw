@@ -43,6 +43,7 @@ public class TextAreaAutoSize extends MTextArea {
 
 		setRows(1);
 		setColumns(1);
+		setBorder(null);
 		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.SHIFT_MASK), "insertBreakLD"); //$NON-NLS-1$
 		getActionMap().put("insertBreakLD", new DefaultEditorKit.InsertBreakAction()); //$NON-NLS-1$
 		addKeyListener(new TextAreaKeyListener());
@@ -78,7 +79,7 @@ public class TextAreaAutoSize extends MTextArea {
 		double width 	= 0.;
 		double height 	= 0.;
 		final FontMetrics fm 	= getFontMetrics(getFont());
-		final double heightInc 	= fm.getAscent() + fm.getDescent() + fm.getLeading();
+		final double heightInc 	= fm.getHeight();
 
 		if(textSplited.length>0) // Removing the space added at the beginning of the method.
 			textSplited[textSplited.length-1] = textSplited[textSplited.length-1].substring(0, textSplited[textSplited.length-1].length()-1);

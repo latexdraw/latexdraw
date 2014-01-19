@@ -22,6 +22,8 @@ Version 3.1.0
   https://bugs.launchpad.net/latexdraw/+bug/1270559 
 - fixed: The text field used during the editing of text is not always correctly located
   https://bugs.launchpad.net/latexdraw/+bug/1264869
+- fixed: The text field used during the editing of text is not always correctly sized depending
+  on the look-and-feel
 - fixed: The grid is not correctly painted when using the inch unit
   https://bugs.launchpad.net/latexdraw/+bug/1264999
 - fixed: The rulers do not fit the grid when scroll bars are moved
