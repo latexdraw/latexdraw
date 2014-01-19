@@ -102,7 +102,10 @@ public final class SVGAttributes {
 	public static final String SVG_FONT_STYLE_ITALIC		= "italic";							//$NON-NLS-1$
 	public static final String SVG_FONT_WEIGHT_BOLD			= "bold";							//$NON-NLS-1$
 	public static final String SVG_FONT_WEIGHT_NORMAL		= "normal";							//$NON-NLS-1$
+	public static final String SVG_FILL_OPACITY				= "fill-opacity";					//$NON-NLS-1$
+	public static final String SVG_STROKE_OPACITY			= "stroke-opacity";					//$NON-NLS-1$
 
+//	public static final String SVG_OPACITY					= "opacity";						//$NON-NLS-1$
 //	public static final String SVG_TEXT_ANCHOR				= "text-anchor";					//$NON-NLS-1$
 //	public static final String SVG_TEXT_ANCHOR_VALUE_END	= "end";							//$NON-NLS-1$
 //	public static final String SVG_TEXT_ANCHOR_VALUE_START	= "start";							//$NON-NLS-1$
@@ -155,7 +158,6 @@ public final class SVGAttributes {
 //	public static final String SVG_FE_GAUSSIAN_BLUR			= "feGaussianBlur";					//$NON-NLS-1$
 //	public static final String SVG_FE_MORPHOLOGY			= "feMorphology";					//$NON-NLS-1$
 //	public static final String SVG_FE_TILE					= "feTile";							//$NON-NLS-1$
-//	public static final String SVG_FILL_OPACITY				= "fill-opacity";					//$NON-NLS-1$
 //	public static final String SVG_FILL_RULE				= "fill-rule";						//$NON-NLS-1$
 //	public static final String SVG_FILTER					= "filter";							//$NON-NLS-1$
 //	public static final String SVG_FILTER_RES				= "filterRes";						//$NON-NLS-1$
@@ -232,7 +234,6 @@ public final class SVGAttributes {
 //	public static final String SVG_ONSCROLL					= "onscroll";						//$NON-NLS-1$
 //	public static final String SVG_ONUNLOAD					= "onunload";						//$NON-NLS-1$
 //	public static final String SVG_ONZOOM					= "onzoom";							//$NON-NLS-1$
-//	public static final String SVG_OPACITY					= "opacity";						//$NON-NLS-1$
 //	public static final String SVG_OPERATOR					= "operator";						//$NON-NLS-1$
 //	public static final String SVG_ORDER					= "order";							//$NON-NLS-1$
 //	public static final String SVG_ORIENTATION				= "orientation";					//$NON-NLS-1$
@@ -272,7 +273,6 @@ public final class SVGAttributes {
 //	public static final String SVG_STITCH_TILES				= "stitchTiles";					//$NON-NLS-1$
 //	public static final String SVG_STRIKETHROUGH_POSITION	= "strikethrough-position";			//$NON-NLS-1$
 //	public static final String SVG_STRIKETHROUGH_THICKNESS	= "strikethrough-thickness";		//$NON-NLS-1$
-//	public static final String SVG_STROKE_OPACITY			= "stroke-opacity";					//$NON-NLS-1$
 //	public static final String SVG_SURFACE_SCALE			= "surfaceScale";					//$NON-NLS-1$
 //	public static final String SVG_SYSTEM_LANGUAGE			= "systemLanguage";					//$NON-NLS-1$
 //	public static final String SVG_TABLE_VALUES				= "tableValues";					//$NON-NLS-1$

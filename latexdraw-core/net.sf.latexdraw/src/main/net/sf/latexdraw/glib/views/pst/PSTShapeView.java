@@ -310,10 +310,11 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 
 		code.append("linecolor=").append(getColourName(linesColor)); //$NON-NLS-1$
 
-		if(shape.isThicknessable()) {
-			code.append(", linewidth=");//$NON-NLS-1$
-			code.append((float)LNumber.getCutNumber(shape.getThickness()/ppc));
-		}
+		if(shape.isThicknessable())
+			code.append(", linewidth=").append((float)LNumber.getCutNumber(shape.getThickness()/ppc));//$NON-NLS-1$
+
+		if(linesColor.getAlpha()<255)
+			code.append(", strokeopacity=").append(LNumber.getCutNumber(linesColor.getAlpha()/255f));
 
 		switch(shape.getLineStyle()) {
 			case DOTTED:
@@ -352,6 +353,9 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 
 		if(!interiorColor.equals(PSTricksConstants.DEFAULT_INTERIOR_COLOR))
 			code.append(",fillcolor=").append(getColourName(interiorColor)); //$NON-NLS-1$
+
+		if(interiorColor.getAlpha()<255)
+			code.append(", opacity=").append(LNumber.getCutNumber(interiorColor.getAlpha()/255f));
 
 		return code;
 	}

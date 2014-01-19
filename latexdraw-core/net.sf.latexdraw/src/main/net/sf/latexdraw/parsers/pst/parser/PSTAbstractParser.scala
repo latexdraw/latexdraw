@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
 import scala.language.implicitConversions
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
+import java.awt.Color
 
 /**
  * Defines an abstract PST parser.<br>
@@ -172,8 +173,11 @@ trait PSTAbstractParser extends TokenParsers {
 	 * Sets the common shape's parameters.
 	 */
 	protected def setShapeGeneralParameters(sh : IShape, ctx : PSTContext) {
-		sh.setLineColour(ctx.lineColor)
 		sh.setRotationAngle(ctx.rputAngle)
+
+		if(ctx.strokeopacity<1.0)
+			sh.setLineColour(new Color(ctx.lineColor.getRed, ctx.lineColor.getGreen, ctx.lineColor.getBlue, (ctx.strokeopacity*255.0).toInt))
+		else sh.setLineColour(ctx.lineColor)
 
 		if(sh.isThicknessable)
 			sh.setThickness(ctx.lineWidth*IShape.PPC)
@@ -198,7 +202,9 @@ trait PSTAbstractParser extends TokenParsers {
 		}
 
 		if(sh.isInteriorStylable) {
-			sh.setFillingCol(ctx.fillColor)
+			if(ctx.opacity<1.0)
+				sh.setFillingCol(new Color(ctx.fillColor.getRed, ctx.fillColor.getGreen, ctx.fillColor.getBlue, (ctx.opacity*255.0).toInt))
+			else sh.setFillingCol(ctx.fillColor)
 			sh.setFillingStyle(ctx.fillStyle)
 			sh.setGradAngle(scala.math.toRadians(ctx.gradAngle))
 			sh.setGradColEnd(ctx.gradEnd)

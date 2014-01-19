@@ -125,7 +125,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : Tuple2[IA
 		var pictureSWPt : IPoint, var pictureNEPt : IPoint, var tokenPosition : String, var plotStyle : String, var plotPoints : Int,
 		var addfillstyle : IShape.FillingStyle, var liftpen : Int, var isPsCustom : Boolean, var textPosition : String,
 		var rputAngle : Double, var parsedTxtNoTxt:Boolean, var currFontShape:FontShapeVal, var currFontSerie:FontSerieVal,
-		var currFontFamily:FontFamilyVal, val psCustomLatestPt : IPoint) {
+		var currFontFamily:FontFamilyVal, val psCustomLatestPt : IPoint, var opacity:Double, var strokeopacity:Double) {
 
 	/** Text text parsed in the current context. */
 	var textParsed : String = ""
@@ -161,7 +161,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : Tuple2[IA
 			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
 			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, ShapeFactory.createPoint,
 			ShapeFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0, true,
-			fontShape.normal, fontSerie.normal, fontFamily.rm, ShapeFactory.createPoint)
+			fontShape.normal, fontSerie.normal, fontFamily.rm, ShapeFactory.createPoint, 1.0, 1.0)
 	}
 
 
@@ -184,7 +184,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : Tuple2[IA
 			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, ShapeFactory.createPoint(model.pictureSWPt),
 			  ShapeFactory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle, model.liftpen, psCustom,
 			  model.textPosition, model.rputAngle, model.parsedTxtNoTxt, model.currFontShape, model.currFontSerie, model.currFontFamily,
-			  ShapeFactory.createPoint(model.psCustomLatestPt))
+			  ShapeFactory.createPoint(model.psCustomLatestPt), model.opacity, model.strokeopacity)
 
 			  if(model.currFontShape!=fontShape.normal) textParsed += model.currFontShape.equivCmd
 			  if(model.currFontSerie!=fontSerie.normal) textParsed += model.currFontSerie.equivCmd
@@ -202,6 +202,8 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : Tuple2[IA
 	def getParam(name : String) : Any = {
 		if(name!=null)
 			name match {
+				case "strokeopacity" => strokeopacity
+				case "opacity" => opacity
 				case "boxsep" => boxSep
 				case "showpoints" => showPoints
 				case "swapaxes" => swapAxes
@@ -279,6 +281,8 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : Tuple2[IA
 	def setParam(name : String, value : Any) {
 		if(name!=null)
 			name match {
+				case "strokeopacity" if(value.isInstanceOf[Double]) => strokeopacity = value.asInstanceOf[Double]
+				case "opacity" if(value.isInstanceOf[Double]) => opacity = value.asInstanceOf[Double]
 				case "boxsep" if(value.isInstanceOf[Boolean]) => boxSep = value.asInstanceOf[Boolean]
 				case "showpoints" if(value.isInstanceOf[Boolean]) => showPoints = value.asInstanceOf[Boolean]
 				case "swapaxes" if(value.isInstanceOf[Boolean]) => swapAxes = value.asInstanceOf[Boolean]

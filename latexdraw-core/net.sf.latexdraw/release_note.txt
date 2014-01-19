@@ -1,5 +1,7 @@
 *******************************************************************
 Version 3.1.0
+- Opacity and strokeopacity attributes are now supported. That permits to set the opacity of
+  colours for the line border and the filling.
 - The size of drawing area is no more limited to the size of the drawing.
   Additional boundaries are now provided around the drawing area to ease the editing.
 - In complement to the previous change, a page (US letter only for the moment) is painted.
@@ -15,7 +17,9 @@ Version 3.1.0
 - fixed: mirroring shapes did not work
   https://bugs.launchpad.net/bugs/1266219
 - fixed: latex thumbnails not created on windows Seven
-  https://bugs.launchpad.net/latexdraw/+bug/1252030 
+  https://bugs.launchpad.net/latexdraw/+bug/1252030
+- fixed: LaTeX packages declared in the preferences are not used when loading a file
+  https://bugs.launchpad.net/latexdraw/+bug/1270559 
 - fixed: The text field used during the editing of text is not always correctly located
   https://bugs.launchpad.net/latexdraw/+bug/1264869
 - fixed: The grid is not correctly painted when using the inch unit

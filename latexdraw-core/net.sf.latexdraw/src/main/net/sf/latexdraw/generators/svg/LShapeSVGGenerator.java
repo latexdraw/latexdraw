@@ -353,11 +353,16 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		shape.setLineColour(elt.getStroke());
 
+		final String opacityStr =  elt.getAttribute(SVGAttributes.SVG_STROKE_OPACITY);
+		final Color lineCol = shape.getLineColour();
+		try { shape.setLineColour(new Color(lineCol.getRed(), lineCol.getGreen(), lineCol.getBlue(), (int)(Double.valueOf(opacityStr)*255.0)));}
+		catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+
 		if(shape.isLineStylable())
 			LShapeSVGGenerator.setDashedDotted(shape, elt.getStrokeDasharray(), elt.getStrokeLinecap());
 
 		if(shape.isFillable())
-			LShapeSVGGenerator.setFill(shape, elt.getFill(), elt.getSVGRoot().getDefs());
+			LShapeSVGGenerator.setFill(shape, elt.getFill(), elt.getAttribute(SVGAttributes.SVG_FILL_OPACITY), elt.getSVGRoot().getDefs());
 
 		CSSStylesGenerator.INSTANCE.setCSSStyles(shape, elt.getStylesCSS(), elt.getSVGRoot().getDefs());
 	}
@@ -560,12 +565,17 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		if(shape.isThicknessable()) {
 			LShapeSVGGenerator.setThickness(root, shape.getThickness(), shape.hasDbleBord(), shape.getDbleBordSep());
 			root.setStroke(shape.getLineColour());
+			if(shape.getLineColour().getAlpha()<255)
+				root.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, String.valueOf(LNumber.getCutNumber(shape.getLineColour().getAlpha()/255f)));
 		}
 
 		// Setting the filling properties.
 		if(shape.isFillable())
-			if((shape.isFilled() || shape.hasShadow() && shadowFills) && !shape.hasHatchings() && !shape.hasGradient())
+			if((shape.isFilled() || shape.hasShadow() && shadowFills) && !shape.hasHatchings() && !shape.hasGradient()) {
 				root.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
+				if(shape.getFillingCol().getAlpha()<255)
+					root.setAttribute(SVGAttributes.SVG_FILL_OPACITY, String.valueOf(LNumber.getCutNumber(shape.getFillingCol().getAlpha()/255f)));
+			}
 			else
 				// Setting the filling colour.
 				if(fillStyle==FillingStyle.NONE)
@@ -868,11 +878,18 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * Sets the colour of the line of the shape with the given SVG stroke.
 	 * @param shape The shape to set.
 	 * @param stoke The stroke of the shape.
+	 * @param opacity The possible stroke-opacity of the colour. May be null.
 	 * @since 2.0.0
 	 */
-	public static void setLineColour(final IShape shape, final String stoke) {
-		if(shape!=null && stoke!=null)
-			shape.setLineColour(CSSColors.INSTANCE.getRGBColour(stoke));
+	public static void setLineColour(final IShape shape, final String stoke, final String opacity) {
+		if(shape!=null && stoke!=null) {
+			final Color col = CSSColors.INSTANCE.getRGBColour(stoke);
+			shape.setLineColour(col);
+
+			if(opacity!=null)
+				try { shape.setLineColour(new Color(col.getRed(), col.getGreen(), col.getBlue(), (int)(Double.valueOf(opacity)*255.0)));}
+				catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+		}
 	}
 
 
@@ -882,9 +899,10 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @param shape The figure to set.
 	 * @param fill The fill properties
 	 * @param defs The definition that may be useful to the the fill properties (url), may be null.
+	 * @param opacity The possible fill-opacity of the colour. May be null.
 	 * @since 2.0.0
 	 */
-	public static void setFill(final IShape shape, final String fill, final SVGDefsElement defs) {
+	public static void setFill(final IShape shape, final String fill, final String opacity, final SVGDefsElement defs) {
 		if(fill==null || shape==null || fill.equals(SVGAttributes.SVG_VALUE_NONE))
 			return ;
 
@@ -951,6 +969,9 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			if(c!=null) {
 				shape.setFillingCol(c);
 				shape.setFilled(true);
+				if(opacity!=null)
+					try { shape.setFillingCol(new Color(c.getRed(), c.getGreen(), c.getBlue(), (int)(Double.valueOf(opacity)*255.0)));}
+					catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			}
 		}
 	}

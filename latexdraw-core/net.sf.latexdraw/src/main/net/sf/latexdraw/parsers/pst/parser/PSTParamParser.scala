@@ -23,6 +23,8 @@ import scala.util.parsing.input.CharArrayReader
  */
 trait PSTParamParser extends PSTAbstractParser with PSTValueParser {
 	val paramsMap : Map[String, (String, PSTContext) => Option[Any]] = Map(
+			("opacity", (str : String, ctx : PSTContext) => parseValue01Interval(str)),
+			("strokeopacity", (str : String, ctx : PSTContext) => parseValue01Interval(str)),
 			("linecolor", (str : String, ctx : PSTContext) => parseValueColour(str, ctx)),
 			("fillcolor", (str : String, ctx : PSTContext) => parseValueColour(str, ctx)),
 			("gridcolor", (str : String, ctx : PSTContext) => parseValueColour(str, ctx)),
