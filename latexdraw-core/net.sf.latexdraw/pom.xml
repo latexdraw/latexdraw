@@ -9,6 +9,7 @@
   
   	<properties>
 		<malai.version>1.2-SNAPSHOT</malai.version>
+		<scala.version>2.10.3</scala.version>
 	</properties>
 	
 <distributionManagement>
@@ -74,7 +75,11 @@
 	        <version>2.4</version>
 	        <configuration>
 	          <archive>
-	            <manifestFile>META-INF/MANIFEST.MF</manifestFile>
+			    <manifest>
+			    	<addClasspath>true</addClasspath>
+					<mainClass>net.sf.latexdraw.LaTeXDraw</mainClass>
+					<classpathPrefix>lib/</classpathPrefix>
+			    </manifest>
 	            <addMavenDescriptor>false</addMavenDescriptor>
 	          </archive>
 	          <includes>
@@ -90,6 +95,7 @@
 				<artifactId>maven-scala-plugin</artifactId>
 				<version>2.14.1</version>
 		        <configuration>
+					<scalaVersion>${scala.version}</scalaVersion>
 		          <args>
 		            <arg>-optimise</arg>
 		          </args>
@@ -165,7 +171,7 @@
 			<dependency>
 	            <groupId>org.scala-lang</groupId>
 	            <artifactId>scala-library</artifactId>
-	            <version>2.10.3</version>
+	            <version>${scala.version}</version>
 			</dependency>
 		    <dependency>
 		      <groupId>junit</groupId>
@@ -174,11 +180,9 @@
 		      <scope>test</scope>
 		    </dependency>
 			<dependency>
-			    <groupId>org.swinglabs</groupId>
-			    <artifactId>pdfrenderer</artifactId>
-			    <version>0.9.1</version>
-			    <scope>system</scope>
-			    <systemPath>${project.basedir}/lib/PDFRenderer-0.9.1.jar</systemPath>
+				<groupId>org.swinglabs</groupId>
+				<artifactId>pdf-renderer</artifactId>
+				<version>1.0.5</version>
 			</dependency>
 			<dependency>
 			    <groupId>org.malai</groupId>
@@ -199,8 +203,6 @@
 			    <groupId>net.sf.jlibeps</groupId>
 			    <artifactId>jlibeps</artifactId>
 			    <version>0.1</version>
-			    <scope>system</scope>
-			    <systemPath>${project.basedir}/lib/jlibeps.jar</systemPath>
 			</dependency>
 	</dependencies>
 </project>

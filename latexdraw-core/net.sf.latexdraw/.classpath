@@ -6,10 +6,10 @@
 	<classpathentry kind="src" path="src/test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/PDFRenderer-0.9.1.jar"/>
-	<classpathentry kind="lib" path="lib/jlibeps.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="var" path="M2_REPO/org/malai/malai.core/1.2-SNAPSHOT/malai.core-1.2-SNAPSHOT.jar" sourcepath="/M2_REPO/org/malai/malai.core/1.2-SNAPSHOT/malai.core-1.2-SNAPSHOT-src.zip"/>
 	<classpathentry kind="var" path="M2_REPO/org/malai/malai.swing/1.2-SNAPSHOT/malai.swing-1.2-SNAPSHOT.jar" sourcepath="/M2_REPO/org/malai/malai.swing/1.2-SNAPSHOT/malai.swing-1.2-SNAPSHOT-src.zip"/>
+	<classpathentry kind="var" path="M2_REPO/org/swinglabs/pdf-renderer/1.0.5/pdf-renderer-1.0.5.jar"/>
+	<classpathentry kind="var" path="M2_REPO/net/sf/jlibeps/jlibeps/0.1/jlibeps-0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
