@@ -355,8 +355,9 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		final String opacityStr =  elt.getAttribute(SVGAttributes.SVG_STROKE_OPACITY);
 		final Color lineCol = shape.getLineColour();
-		try { shape.setLineColour(new Color(lineCol.getRed(), lineCol.getGreen(), lineCol.getBlue(), (int)(Double.valueOf(opacityStr)*255.0)));}
-		catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+		if(opacityStr!=null)
+			try { shape.setLineColour(new Color(lineCol.getRed(), lineCol.getGreen(), lineCol.getBlue(), (int)(Double.valueOf(opacityStr)*255.0)));}
+			catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		if(shape.isLineStylable())
 			LShapeSVGGenerator.setDashedDotted(shape, elt.getStrokeDasharray(), elt.getStrokeLinecap());
