@@ -59,14 +59,13 @@ object Theme {
 	 * @since 3.0
 	 */
 	def platformLnF : String = {
-		LSystem.INSTANCE.isLinux match {
-			case true => "com.sun.java.swing.plaf.gtk.GTKLookAndFeel" //$NON-NLS-1$
-			case false =>
-			   LSystem.INSTANCE.isMacOSX match {
-			     case true => "com.apple.laf.AquaLookAndFeel"
-			     case false => UIManager.getCrossPlatformLookAndFeelClassName
-			   }
-		}
+		if(LSystem.INSTANCE.isLinux)
+			return "com.sun.java.swing.plaf.gtk.GTKLookAndFeel" //$NON-NLS-1$
+		if(LSystem.INSTANCE.isMacOSX)
+		    return "com.apple.laf.AquaLookAndFeel"//$NON-NLS-1$
+	    if(LSystem.INSTANCE.isWindows)
+	    	return "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"//$NON-NLS-1$
+		return UIManager.getCrossPlatformLookAndFeelClassName
 	}
 
 
