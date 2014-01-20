@@ -6,6 +6,8 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+
 /**
  * Defines some routines that provides information about the operating system currently used.<br>
  * <br>
@@ -30,7 +32,7 @@ public final class LSystem {
 	 * The different operating systems managed.
 	 */
 	public static enum OperatingSystem {
-		VISTA, XP, SEVEN,
+		VISTA, XP, SEVEN, EIGHT,
 		MAC_OS_X {
 			@Override
 			public String getLatexBinPath() {
@@ -105,9 +107,16 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean isWindows() {
-		return isSeven() || isVista() || isXP();
+		return isSeven() || isVista() || isXP() || is8();
 	}
 
+	/**
+	 * @return True: the operating system currently used is Windows 8.
+	 * @since 3.0
+	 */
+	public boolean is8() {
+		return getSystem()==OperatingSystem.EIGHT;
+	}
 
 	/**
 	 * @return True: the operating system currently used is Vista.
@@ -181,11 +190,16 @@ public final class LSystem {
 		if(os.equalsIgnoreCase("windows vista")) //$NON-NLS-1$
 			return OperatingSystem.VISTA;
 
-		if(os.equalsIgnoreCase("windows xp") || os.contains("win")) //$NON-NLS-1$ //$NON-NLS-2$
+		if(os.equalsIgnoreCase("windows xp")) //$NON-NLS-1$
 			return OperatingSystem.XP;
 
 		if(os.equalsIgnoreCase("mac os x")) //$NON-NLS-1$
 			return OperatingSystem.MAC_OS_X;
+
+		if(os.equalsIgnoreCase("windows 8")) //$NON-NLS-1$
+			return OperatingSystem.EIGHT;
+
+		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os));
 
 		return null;
 	}

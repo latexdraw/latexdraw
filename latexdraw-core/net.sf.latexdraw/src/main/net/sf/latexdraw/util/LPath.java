@@ -71,7 +71,7 @@ public final class LPath {
 		final String home = System.getProperty("user.home");//$NON-NLS-1$
 		final String path;
 
-		if(LSystem.INSTANCE.isVista() || LSystem.INSTANCE.isSeven())
+		if(LSystem.INSTANCE.isVista() || LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8())
 			path = home + "\\AppData\\Local\\latexdraw";//$NON-NLS-1$
 		else if(LSystem.INSTANCE.isXP())
 				path = home + "\\Application Data\\latexdraw";//$NON-NLS-1$
@@ -116,7 +116,7 @@ public final class LPath {
 			return home.substring(0, 1+home.lastIndexOf('\\'))+"All Users\\Application Data\\latexdraw";//$NON-NLS-1$
 		}
 
-		if(LSystem.INSTANCE.isSeven())
+		if(LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8())
 			return home.substring(0, 1+home.lastIndexOf('\\'))+"Default\\AppData\\Local\\latexdraw";//$NON-NLS-1$
 
 		if(LSystem.INSTANCE.isXP())
@@ -133,8 +133,8 @@ public final class LPath {
 	 */
 	public void checkInstallDirectories() {
 		try {
-			(new File(PATH_SHARED)).mkdirs();
-			(new File(PATH_TEMPLATES_SHARED)).mkdirs();
+			new File(PATH_SHARED).mkdirs();
+			new File(PATH_TEMPLATES_SHARED).mkdirs();
 		}
 		catch(SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
@@ -146,10 +146,10 @@ public final class LPath {
 	 */
 	public void checkDirectories() {
 		try {
-			(new File(PATH_LOCAL_USER)).mkdirs();
-			(new File(PATH_TEMPLATES_DIR_USER)).mkdirs();
-			(new File(PATH_CACHE_DIR)).mkdirs();
-			(new File(PATH_CACHE_SHARE_DIR)).mkdirs();
+			new File(PATH_LOCAL_USER).mkdirs();
+			new File(PATH_TEMPLATES_DIR_USER).mkdirs();
+			new File(PATH_CACHE_DIR).mkdirs();
+			new File(PATH_CACHE_SHARE_DIR).mkdirs();
 		}
 		catch(SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
