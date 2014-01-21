@@ -20,7 +20,7 @@ import org.malai.interaction.Interaction;
 import org.malai.interaction.library.KeysPressure;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.MenuItemPressed;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MMenuItem;
 
 /**
@@ -65,7 +65,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 	 * @throws NullPointerException If the given drawing is null.
 	 * @since 3.0
 	 */
-	public CopierCutterPaster(final UIComposer<?> composer, final IDrawing drawing, final LMagneticGrid grid) {
+	public CopierCutterPaster(final SwingUIComposer<?> composer, final IDrawing drawing, final LMagneticGrid grid) {
 		super(composer);
 
 		this.drawing = Objects.requireNonNull(drawing);

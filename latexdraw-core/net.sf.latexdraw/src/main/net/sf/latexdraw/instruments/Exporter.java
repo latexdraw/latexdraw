@@ -23,7 +23,7 @@ import org.malai.instrument.Link;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.interaction.library.MenuItemPressed;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
 import org.malai.swing.widget.MMenu;
 import org.malai.swing.widget.MMenuItem;
@@ -128,7 +128,7 @@ public class Exporter extends WidgetInstrument {
 	 * @throws IllegalArgumentException If one of the given arguments is null.
 	 * @since 3.0
 	 */
-	public Exporter(final UIComposer<?> composer, final ICanvas canvas, final JLabel statusBar, final PSTCodeGenerator pstGen) {
+	public Exporter(final SwingUIComposer<?> composer, final ICanvas canvas, final JLabel statusBar, final PSTCodeGenerator pstGen) {
 		super(composer);
 
 		defaultPackages		= ""; //$NON-NLS-1$

@@ -10,7 +10,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.malai.instrument.Link;
 import org.malai.swing.interaction.library.SpinnerModified;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MSpinner;
 
 /**
@@ -48,7 +48,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	 * be accessed from the hand.
 	 * @since 3.0
 	 */
-	public ShapeCoordDimCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeCoordDimCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

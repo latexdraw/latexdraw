@@ -4,7 +4,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.malai.interaction.Eventable;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 
 /**
  * This meta-instrument manages the instruments that customises shape properties.<br>
@@ -88,7 +88,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public MetaShapeCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil, final Border border) {
+	public MetaShapeCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil, final Border border) {
 		super(composer, hand, pencil);
 
 		borderCustomiser 		= new ShapeBorderCustomiser(composer, hand, pencil);

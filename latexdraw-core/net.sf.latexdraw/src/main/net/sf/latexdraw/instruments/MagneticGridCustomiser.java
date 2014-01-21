@@ -18,7 +18,7 @@ import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.CheckBoxModified;
 import org.malai.swing.interaction.library.ListSelectionModified;
 import org.malai.swing.interaction.library.SpinnerModified;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MComboBox;
 import org.malai.swing.widget.MSpinner;
@@ -64,7 +64,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	 * @throws IllegalArgumentException If the given grid is null.
 	 * @since 3.0
 	 */
-	public MagneticGridCustomiser(final UIComposer<?> composer, final LMagneticGrid grid) {
+	public MagneticGridCustomiser(final SwingUIComposer<?> composer, final LMagneticGrid grid) {
 		super(composer);
 		this.grid = Objects.requireNonNull(grid);
 		initialiseWidgets();

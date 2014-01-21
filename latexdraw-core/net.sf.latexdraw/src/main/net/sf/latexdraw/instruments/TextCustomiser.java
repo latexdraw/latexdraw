@@ -19,7 +19,7 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.Link;
 import org.malai.interaction.library.KeysTyped;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MTextArea;
 import org.malai.swing.widget.MToggleButton;
 
@@ -84,7 +84,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public TextCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public TextCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

@@ -13,7 +13,7 @@ import net.sf.latexdraw.util.LResources;
 import org.malai.instrument.Link;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.interaction.library.SpinnerModified;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
 import org.malai.swing.widget.MSpinner;
 
@@ -57,7 +57,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public ShapeRotationCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeRotationCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

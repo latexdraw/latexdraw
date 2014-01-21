@@ -18,7 +18,7 @@ import org.malai.swing.interaction.library.CheckBoxModified;
 import org.malai.swing.interaction.library.ListSelectionModified;
 import org.malai.swing.interaction.library.SpinnerModified;
 import org.malai.swing.interaction.library.TextChanged;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MComboBox;
 import org.malai.swing.widget.MSpinner;
@@ -71,7 +71,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 	 * @param latexGen The LaTeX code generator.
 	 * @since 3.0
 	 */
-	public DrawingPropertiesCustomiser(final UIComposer<?> composer, final LaTeXGenerator latexGen) {
+	public DrawingPropertiesCustomiser(final SwingUIComposer<?> composer, final LaTeXGenerator latexGen) {
 		super(composer);
 
 		this.latexGen = Objects.requireNonNull(latexGen);

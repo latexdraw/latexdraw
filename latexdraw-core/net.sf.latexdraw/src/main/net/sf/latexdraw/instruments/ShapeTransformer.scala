@@ -2,9 +2,7 @@ package net.sf.latexdraw.instruments
 
 import org.malai.instrument.Link
 import org.malai.swing.interaction.library.ButtonPressed
-import org.malai.swing.ui.UIComposer
 import org.malai.swing.widget.MButton
-
 import net.sf.latexdraw.actions.shape.AlignShapes
 import net.sf.latexdraw.actions.shape.AlignmentType
 import net.sf.latexdraw.actions.shape.DistributeShapes
@@ -14,6 +12,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.util.LResources
+import org.malai.swing.ui.SwingUIComposer
 
 /**
  * This instrument transforms (mirror, etc.) the selected shapes.<br>
@@ -33,7 +32,7 @@ import net.sf.latexdraw.util.LResources
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class ShapeTransformer(composer:UIComposer[_], hand:Hand, pencil:Pencil, val border:Border) extends ShapePropertyCustomiser(composer, hand, pencil) {
+class ShapeTransformer(composer:SwingUIComposer[_], hand:Hand, pencil:Pencil, val border:Border) extends ShapePropertyCustomiser(composer, hand, pencil) {
 	/** The widget to mirror horizontally. */
 	lazy val _mirrorH = new MButton(LResources.MIRROR_H_ICON)
 

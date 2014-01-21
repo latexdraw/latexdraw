@@ -16,7 +16,7 @@ import org.malai.interaction.Interaction;
 import org.malai.interaction.library.KeyPressure;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
 
 /**
@@ -47,7 +47,7 @@ public class ShapeDeleter extends WidgetInstrument {
 	 * @param composer The composer that manages the widgets of the instrument.
 	 * @since 3.0
 	 */
-	public ShapeDeleter(final UIComposer<?> composer) {
+	public ShapeDeleter(final SwingUIComposer<?> composer) {
 		super(composer);
 		initialiseWidgets();
 	}

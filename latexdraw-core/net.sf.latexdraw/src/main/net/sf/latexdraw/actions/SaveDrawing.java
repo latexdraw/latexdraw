@@ -12,7 +12,7 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LFrame;
 
 import org.malai.swing.action.library.Save;
-import org.malai.swing.ui.UI;
+import org.malai.swing.ui.SwingUI;
 
 /**
  * This action saves the given drawing into an SVG document.
@@ -121,7 +121,7 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 	 * @return -1: cancel, 0: yes, 1: no
 	 * @since 3.0
 	 */
-	protected static int showAskModificationsDialog(final UI ui) {
+	protected static int showAskModificationsDialog(final SwingUI ui) {
 		return JOptionPane.showConfirmDialog(ui, "Do you want to save the drawing?",
 				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_CANCEL_OPTION);
 	}
@@ -131,7 +131,7 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 	 * Show the export dialog to select a path.
 	 * @since 3.0
 	 */
-	protected static File showDialog(final JFileChooser fileChooser, final boolean saveAs, final UI ui, final File file) {
+	protected static File showDialog(final JFileChooser fileChooser, final boolean saveAs, final SwingUI ui, final File file) {
 		File f;
 
 		if(saveAs || file==null && ui.isModified())

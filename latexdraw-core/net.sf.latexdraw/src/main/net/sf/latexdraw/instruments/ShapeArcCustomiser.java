@@ -13,7 +13,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MSpinner;
 import org.malai.swing.widget.MToggleButton;
 
@@ -60,7 +60,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public ShapeArcCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeArcCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

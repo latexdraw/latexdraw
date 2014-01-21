@@ -14,7 +14,7 @@ import org.malai.swing.widget.MMenu
 import org.malai.swing.instrument.WidgetInstrument
 import org.malai.swing.widget.MMenuItem
 import org.malai.swing.interaction.library.MenuItemPressed
-import org.malai.swing.ui.UIComposer
+import org.malai.swing.ui.SwingUIComposer
 
 /**
  * This instrument manages the templates.<br>
@@ -34,7 +34,7 @@ import org.malai.swing.ui.UIComposer
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class TemplateManager(composer : UIComposer[_], val ui : LFrame) extends WidgetInstrument(composer) {
+class TemplateManager(composer : SwingUIComposer[_], val ui : LFrame) extends WidgetInstrument(composer) {
 	/** The main menu that contains the template menu items. */
 	val _templateMenu : MMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.103"), true)
 

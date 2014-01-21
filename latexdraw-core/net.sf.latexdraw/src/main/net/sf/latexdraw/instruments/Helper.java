@@ -13,7 +13,7 @@ import net.sf.latexdraw.util.LResources;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.instrument.library.MenuItem2OpenWebPageLink;
 import org.malai.swing.instrument.library.MenuItem2ShowComponentLink;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MMenuItem;
 
 /**
@@ -65,7 +65,7 @@ public class Helper extends WidgetInstrument {
 	 * @param composer The composer that manages the widgets of the instrument.
 	 * @since 3.0
 	 */
-	public Helper(final UIComposer<?> composer) {
+	public Helper(final SwingUIComposer<?> composer) {
 		super(composer);
 		initialiseWidgets();
 	}

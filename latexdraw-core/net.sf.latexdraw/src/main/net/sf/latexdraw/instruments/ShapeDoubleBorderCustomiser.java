@@ -13,7 +13,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButtonIcon;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MColorButton;
@@ -57,7 +57,7 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 	 * @throws IllegalArgumentException If one of the given argument is null.
 	 * @since 3.0
 	 */
-	public ShapeDoubleBorderCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeDoubleBorderCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

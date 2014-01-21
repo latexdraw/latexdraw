@@ -20,7 +20,7 @@ import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButtonIcon;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MColorButton;
@@ -75,7 +75,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 	 * be accessed from the hand.
 	 * @since 3.0
 	 */
-	public ShapeBorderCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeBorderCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

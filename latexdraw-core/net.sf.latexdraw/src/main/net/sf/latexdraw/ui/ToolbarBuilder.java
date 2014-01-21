@@ -13,7 +13,7 @@ import net.sf.latexdraw.instruments.DrawingPropertiesCustomiser;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MProgressBar;
 import org.malai.swing.widget.MSpinner;
 import org.malai.swing.widget.MToolBar;
@@ -37,7 +37,7 @@ import org.malai.swing.widget.MToolBar;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class ToolbarBuilder extends UIComposer<MToolBar> {
+public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 	/** The main frame of the interactive system. */
 	protected LFrame frame;
 

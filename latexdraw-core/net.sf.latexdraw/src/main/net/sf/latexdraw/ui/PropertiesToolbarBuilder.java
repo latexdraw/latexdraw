@@ -17,7 +17,7 @@ import net.sf.latexdraw.instruments.*;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MPanel;
 import org.malai.swing.widget.MProgressBar;
 
@@ -39,7 +39,7 @@ import org.malai.swing.widget.MProgressBar;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class PropertiesToolbarBuilder extends UIComposer<MPanel> {
+public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 	/** The main frame of the application. */
 	protected LFrame frame;
 

@@ -15,7 +15,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MComboBox;
 import org.malai.swing.widget.MSpinner;
@@ -79,7 +79,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	 * be accessed from the hand.
 	 * @since 3.0
 	 */
-	public ShapeAxesCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeAxesCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

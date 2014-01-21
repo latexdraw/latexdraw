@@ -16,7 +16,7 @@ import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.interaction.library.CheckBoxModified;
 import org.malai.swing.interaction.library.ListSelectionModified;
 import org.malai.swing.interaction.library.SpinnerModified;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MColorButton;
 import org.malai.undo.Undoable;
 
@@ -56,7 +56,7 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public ShapePropertyCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapePropertyCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer);
 		this.hand   = Objects.requireNonNull(hand);
 		this.pencil = Objects.requireNonNull(pencil);

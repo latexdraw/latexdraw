@@ -19,7 +19,7 @@ import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButtonIcon;
 import org.malai.swing.widget.MColorButton;
 import org.malai.swing.widget.MComboBox;
@@ -62,7 +62,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public ShapeDotCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeDotCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

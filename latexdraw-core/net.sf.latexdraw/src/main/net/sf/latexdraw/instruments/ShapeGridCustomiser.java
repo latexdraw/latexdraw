@@ -14,7 +14,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButtonIcon;
 import org.malai.swing.widget.MColorButton;
 import org.malai.swing.widget.MSpinner;
@@ -77,7 +77,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	 * be accessed from the hand.
 	 * @since 3.0
 	 */
-	public ShapeGridCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeGridCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

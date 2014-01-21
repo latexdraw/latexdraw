@@ -14,7 +14,7 @@ import net.sf.latexdraw.util.LResources;
 import org.malai.action.ActionsRegistry;
 import org.malai.instrument.Link;
 import org.malai.swing.interaction.library.ButtonPressed;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
 
 /**
@@ -51,7 +51,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public ShapeGrouper(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeGrouper(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

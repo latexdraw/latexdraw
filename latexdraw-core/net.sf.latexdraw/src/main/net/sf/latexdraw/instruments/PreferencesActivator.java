@@ -14,7 +14,7 @@ import org.malai.instrument.Link;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.instrument.library.MenuItem2ShowComponentLink;
 import org.malai.swing.interaction.library.MenuItemPressed;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MMenuItem;
 
 /**
@@ -54,7 +54,7 @@ public class PreferencesActivator extends WidgetInstrument {
 	 * @throws IllegalArgumentException If the given instrument is null.
 	 * @since 3.0
 	 */
-	public PreferencesActivator(final UIComposer<?> composer, final PreferencesSetter prefSetter) {
+	public PreferencesActivator(final SwingUIComposer<?> composer, final PreferencesSetter prefSetter) {
 		super(composer);
 
 		this.prefSetter = Objects.requireNonNull(prefSetter);

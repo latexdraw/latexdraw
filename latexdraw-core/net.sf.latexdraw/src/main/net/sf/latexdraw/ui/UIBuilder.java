@@ -10,7 +10,7 @@ import javax.swing.BoxLayout;
 import net.sf.latexdraw.glib.ui.LCanvas;
 
 import org.malai.instrument.Instrument;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MComboBox;
 import org.malai.swing.widget.MPanel;
 import org.malai.swing.widget.MProgressBar;
@@ -36,7 +36,7 @@ import org.malai.swing.widget.ScrollableWidget;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class UIBuilder extends UIComposer<LFrame> {
+public class UIBuilder extends SwingUIComposer<LFrame> {
 	/** The max height of the textfield widget. */
 	protected static final int HEIGHT_TEXTFIELD = 30;
 

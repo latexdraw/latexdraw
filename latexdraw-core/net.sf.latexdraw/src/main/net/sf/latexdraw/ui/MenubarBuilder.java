@@ -4,7 +4,7 @@ import javax.swing.JMenuBar;
 
 import net.sf.latexdraw.lang.LangTool;
 
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MCheckBoxMenuItem;
 import org.malai.swing.widget.MMenu;
 import org.malai.swing.widget.MProgressBar;
@@ -28,7 +28,7 @@ import org.malai.swing.widget.MProgressBar;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class MenubarBuilder extends UIComposer<JMenuBar> {
+public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 	/** The main frame of the application. */
 	protected LFrame frame;
 

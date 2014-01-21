@@ -18,7 +18,7 @@ import org.malai.instrument.Link;
 import org.malai.swing.action.library.ActivateInactivateInstruments;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
 import org.malai.swing.widget.MToggleButton;
 
@@ -131,7 +131,7 @@ public class EditingSelector extends WidgetInstrument {
 	 * @throws IllegalArgumentException If one of the given parameter is null.
 	 * @since 3.0
 	 */
-	public EditingSelector(final UIComposer<?> composer, final Pencil pencil, final Hand hand, final MetaShapeCustomiser metaShapeCustomiser,
+	public EditingSelector(final SwingUIComposer<?> composer, final Pencil pencil, final Hand hand, final MetaShapeCustomiser metaShapeCustomiser,
 							final Border border, final ShapeDeleter deleter, final CodeInserter inserter) {
 		super(composer);
 

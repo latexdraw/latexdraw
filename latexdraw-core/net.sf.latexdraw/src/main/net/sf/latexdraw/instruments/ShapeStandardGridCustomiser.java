@@ -13,7 +13,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 
-import org.malai.swing.ui.UIComposer;
+import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MSpinner;
 
 /**
@@ -65,7 +65,7 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public ShapeStandardGridCustomiser(final UIComposer<?> composer, final Hand hand, final Pencil pencil) {
+	public ShapeStandardGridCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer, hand, pencil);
 		initialiseWidgets();
 	}

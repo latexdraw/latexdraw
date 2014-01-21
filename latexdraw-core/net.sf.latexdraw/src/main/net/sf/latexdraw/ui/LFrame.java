@@ -33,7 +33,7 @@ import org.malai.presentation.Presentation;
 import org.malai.swing.instrument.library.Scroller;
 import org.malai.swing.instrument.library.UndoRedoManager;
 import org.malai.swing.instrument.library.WidgetZoomer;
-import org.malai.swing.ui.UI;
+import org.malai.swing.ui.SwingUI;
 import org.malai.swing.ui.UIManager;
 import org.malai.swing.widget.MLayeredPane;
 import org.malai.swing.widget.MProgressBar;
@@ -62,7 +62,7 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LFrame extends UI {
+public class LFrame extends SwingUI {
 	private static final long serialVersionUID = 1L;
 
 	/** The instrument used to select, move, etc. shapes. */
