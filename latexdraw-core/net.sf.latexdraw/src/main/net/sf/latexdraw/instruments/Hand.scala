@@ -36,6 +36,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import java.awt.Point
 import net.sf.latexdraw.glib.models.ShapeFactory._
 import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.ui.LCanvas
 
 
 /**
@@ -126,11 +127,14 @@ private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Link[InitTex
 		if(o.isInstanceOf[IViewText]) {
 			val text = o.asInstanceOf[IViewText].getShape.asInstanceOf[IText]
 			val position = text.getPosition
-
+			val screen = instrument.canvas.asInstanceOf[LCanvas].getVisibleRect
+			val zoom = instrument.canvas.getZoom
+			val x = (instrument.canvas.getOrigin.getX - screen.getX + position.getX*zoom)
+			val y = (instrument.canvas.getOrigin.getY - screen.getY+ position.getY*zoom)
 			action.setTextShape(text)
 			action.setInstrument(instrument.textSetter)
 			action.setTextSetter(instrument.textSetter)
-			action.setAbsolutePoint(instrument.getAdaptedOriginPoint(position))
+			action.setAbsolutePoint(ShapeFactory.createPoint(x, y))
 			action.setRelativePoint(ShapeFactory.createPoint(position))
 		}
 	}
