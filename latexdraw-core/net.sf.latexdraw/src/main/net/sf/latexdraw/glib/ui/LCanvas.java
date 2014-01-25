@@ -520,7 +520,7 @@ public class LCanvas extends MPanel implements ICanvas {
 						antiAliasingValue = Boolean.valueOf(content);
 				} else
 					if(name.endsWith(LNamespace.XML_ZOOM))
-						setZoom(0, 0, Double.parseDouble(node.getTextContent()));
+						setZoom(Double.NaN, Double.NaN, Double.parseDouble(node.getTextContent()));
 			} // if
 		}// for
 
