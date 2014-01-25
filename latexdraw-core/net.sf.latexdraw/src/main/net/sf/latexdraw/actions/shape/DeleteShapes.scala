@@ -36,40 +36,29 @@ class DeleteShapes extends Action with ShapesAction with DrawingAction with Undo
 
 	def isRegisterable() = true
 
-
 	protected def doActionBody() = {
-		val drawingSh = _drawing.get.getShapes
-		positionShapes = for(shape <- _shapes) yield drawingSh.indexOf(shape)
-		deleteShapes
+		val dr = _drawing.get
+		val drawingSh = dr.getShapes
+		positionShapes = _shapes.map{sh =>
+			val pos = drawingSh.indexOf(sh)
+			dr.removeShape(sh)
+			pos
+		}
+		dr.setModified(true)
 	}
-
 
 	override def canDo() = _drawing.isDefined && !_shapes.isEmpty
 
-
-	/**
-	 * Delete the shapes from the drawing.
-	 * @since 3.0
-	 */
-	private def deleteShapes() {
-		val dr = _drawing.get
-		_shapes.foreach(sh => dr.removeShape(sh))
-		dr.setModified(true)
-	}
-
-
 	override def undo() {
 		val dr = _drawing.get
-		for(i <- 0 until positionShapes.length) dr.addShape(_shapes.get(i), positionShapes.get(i))
-
+		for(i <- positionShapes.length-1 to 0 by -1)
+			dr.addShape(_shapes.get(i), positionShapes(i))
 		dr.setModified(true)
 	}
 
-
 	override def redo() {
-		deleteShapes()
+		doActionBody
 	}
-
 
 	override def getUndoName() = "delete"
 }
