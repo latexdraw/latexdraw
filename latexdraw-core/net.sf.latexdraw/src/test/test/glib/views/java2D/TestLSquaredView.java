@@ -11,26 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape;
 
 import org.junit.Test;
 
-public abstract class TestLRectangularView extends TestLShapeView {
-	private IRectangularShape getShape() {
-		return (IRectangularShape) view.getShape();
+public abstract class TestLSquaredView extends TestLShapeView {
+	private ISquaredShape getShape() {
+		return (ISquaredShape) view.getShape();
 	}
 
 
 	@Override@Test
 	public void testContains1() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		final double thickness = 3.;
-		final double height = 10.;
 
 		model.setPosition(10, -20);
 		model.setWidth(100);
-		model.setHeight(height);
 		model.setThickness(thickness);
 		model.setBordersPosition(BorderPos.INTO);
 		model.setHasDbleBord(false);
@@ -46,13 +44,11 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Override@Test
 	public void testContains2() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		final double thickness = 3.;
-		final double height = 10.;
 
 		model.setPosition(10, -20);
 		model.setWidth(100);
-		model.setHeight(height);
 		model.setThickness(thickness);
 		model.setBordersPosition(BorderPos.INTO);
 		model.setHasDbleBord(false);
@@ -67,13 +63,11 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Test@Override
 	public void testIntersects() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		final double thickness = 3.;
-		final double height = 10.;
 
 		model.setPosition(10, -20);
 		model.setWidth(100);
-		model.setHeight(height);
 		model.setThickness(thickness);
 		model.setBordersPosition(BorderPos.INTO);
 		model.setHasDbleBord(false);
@@ -90,13 +84,11 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Test
 	public void testIntersectsInto() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		final double thickness = 3.;
-		final double height = 10.;
 
 		model.setPosition(10, -20);
 		model.setWidth(100);
-		model.setHeight(height);
 		model.setThickness(thickness);
 		model.setBordersPosition(BorderPos.INTO);
 		model.setHasDbleBord(false);
@@ -120,13 +112,11 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Test
 	public void testIntersectsOut() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		final double thickness = 3.;
-		final double height = 10.;
 
 		model.setPosition(10, -20);
 		model.setWidth(100);
-		model.setHeight(height);
 		model.setThickness(thickness);
 		model.setBordersPosition(BorderPos.OUT);
 		model.setHasDbleBord(false);
@@ -137,7 +127,7 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		assertFalse(view.intersects(new Rectangle2D.Double(15, -17, 10, 10)));
 		assertFalse(view.intersects(new Rectangle2D.Double(-3, -25, 10, 10)));
 
-		assertTrue(view.intersects(new Rectangle2D.Double(15, -42, 10, 10)));
+		assertTrue(view.intersects(new Rectangle2D.Double(15, -42, 100, 100)));
 		assertTrue(view.intersects(new Rectangle2D.Double(112, -25, 10, 10)));
 		assertTrue(view.intersects(new Rectangle2D.Double(15, -18, 10, 10)));
 		assertTrue(view.intersects(new Rectangle2D.Double(-2, -25, 10, 10)));
@@ -151,13 +141,11 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Test
 	public void testIntersectsMiddle() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		final double thickness = 3.;
-		final double height = 10.;
 
 		model.setPosition(10, -20);
 		model.setWidth(100);
-		model.setHeight(height);
 		model.setThickness(thickness);
 		model.setBordersPosition(BorderPos.MID);
 		model.setHasDbleBord(false);
@@ -168,7 +156,7 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		assertFalse(view.intersects(new Rectangle2D.Double(15, -18, 10, 10)));
 		assertFalse(view.intersects(new Rectangle2D.Double(-2, -25, 10, 10)));
 
-		assertTrue(view.intersects(new Rectangle2D.Double(15, -41, 10, 10)));
+		assertTrue(view.intersects(new Rectangle2D.Double(15, -41, 100, 100)));
 		assertTrue(view.intersects(new Rectangle2D.Double(111, -25, 10, 10)));
 		assertTrue(view.intersects(new Rectangle2D.Double(15, -19, 10, 10)));
 		assertTrue(view.intersects(new Rectangle2D.Double(-1, -25, 10, 10)));
@@ -203,21 +191,20 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Override@Test
 	public void testUpdateDblePathInside() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		Path2D path;
 		PathIterator pi;
 		double[] coords = new double[6];
 		final double thickness = 3.;
-		final double height = 10.;
 		final double dble = 1.;
 		List<Double> xs = new ArrayList<>();
 		List<Double> ys = new ArrayList<>();
+		double width = 100;
 
 		model.setPosition(-10, 20);
-		model.setWidth(100);
+		model.setWidth(width);
 		model.setThickness(thickness);
 		model.setDbleBordSep(dble);
-		model.setHeight(height);
 		model.setBordersPosition(BorderPos.INTO);
 		model.setHasDbleBord(true);
 		view.update();
@@ -260,7 +247,7 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		}
 
 		assertEquals(-10.+thickness+dble/2., xMin,0.0001);
-		assertEquals(20.-height+thickness+dble/2., yMin,0.0001);
+		assertEquals(20.-width+thickness+dble/2., yMin,0.0001);
 		assertEquals(90.-thickness-dble/2., xMax,0.0001);
 		assertEquals(20.-thickness-dble/2., yMax,0.0001);
 	}
@@ -268,21 +255,20 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Override@Test
 	public void testUpdateDblePathMiddle() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		Path2D path;
 		PathIterator pi;
 		double[] coords = new double[6];
 		final double thickness = 3.;
-		final double height = 10.;
 		final double dble = 1.;
 		List<Double> xs = new ArrayList<>();
 		List<Double> ys = new ArrayList<>();
+		double width = 100;
 
 		model.setPosition(-10, 20);
-		model.setWidth(100);
+		model.setWidth(width);
 		model.setThickness(thickness);
 		model.setDbleBordSep(dble);
-		model.setHeight(height);
 		model.setBordersPosition(BorderPos.MID);
 		model.setHasDbleBord(true);
 		view.update();
@@ -325,7 +311,7 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		}
 
 		assertEquals(-10., xMin,0.0001);
-		assertEquals(20.-height, yMin,0.0001);
+		assertEquals(20.-width, yMin,0.0001);
 		assertEquals(90., xMax,0.0001);
 		assertEquals(20., yMax,0.0001);
 	}
@@ -333,21 +319,20 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Override@Test
 	public void testUpdateDblePathOutside() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		Path2D path;
 		PathIterator pi;
 		double[] coords = new double[6];
 		final double thickness = 3.;
-		final double height = 10.;
 		final double dble = 1.;
 		List<Double> xs = new ArrayList<>();
 		List<Double> ys = new ArrayList<>();
+		double width = 100;
 
 		model.setPosition(-10, 20);
-		model.setWidth(100);
+		model.setWidth(width);
 		model.setThickness(thickness);
 		model.setDbleBordSep(dble);
-		model.setHeight(height);
 		model.setBordersPosition(BorderPos.OUT);
 		model.setHasDbleBord(true);
 		view.update();
@@ -390,7 +375,7 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		}
 
 		assertEquals(-10.-thickness-dble/2., xMin,0.0001);
-		assertEquals(20.-height-thickness-dble/2., yMin,0.0001);
+		assertEquals(20.-width-thickness-dble/2., yMin,0.0001);
 		assertEquals(90.+thickness+dble/2., xMax,0.0001);
 		assertEquals(20.+thickness+dble/2., yMax,0.0001);
 	}
@@ -398,19 +383,18 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Override@Test
 	public void testUpdateGeneralPathInside() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		Path2D path;
 		PathIterator pi;
 		double[] coords = new double[6];
 		final double thickness = 3.;
-		final double height = 5.;
 		List<Double> xs = new ArrayList<>();
 		List<Double> ys = new ArrayList<>();
+		double width = 100;
 
 		model.setPosition(-10, 20);
-		model.setWidth(100);
+		model.setWidth(width);
 		model.setThickness(thickness);
-		model.setHeight(height);
 		model.setBordersPosition(BorderPos.INTO);
 		view.update();
 		path = view.getPath();
@@ -452,7 +436,7 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		}
 
 		assertEquals(-10.+thickness/2., xMin,0.0001);
-		assertEquals(20.-height+thickness/2., yMin,0.0001);
+		assertEquals(20.-width+thickness/2., yMin,0.0001);
 		assertEquals(90.-thickness/2., xMax,0.0001);
 		assertEquals(20.-thickness/2., yMax,0.0001);
 	}
@@ -460,19 +444,18 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Override@Test
 	public void testUpdateGeneralPathMiddle() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		Path2D path;
 		PathIterator pi;
 		double[] coords = new double[6];
 		final double thickness = 3.;
-		final double height = 5.;
 		List<Double> xs = new ArrayList<>();
 		List<Double> ys = new ArrayList<>();
+		double width = 100;
 
 		model.setPosition(-10, 20);
-		model.setWidth(100);
+		model.setWidth(width);
 		model.setThickness(thickness);
-		model.setHeight(height);
 		model.setBordersPosition(BorderPos.MID);
 		view.update();
 		path = view.getPath();
@@ -514,7 +497,7 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		}
 
 		assertEquals(-10., xMin,0.0001);
-		assertEquals(20.-height, yMin,0.0001);
+		assertEquals(20.-width, yMin,0.0001);
 		assertEquals(90., xMax,0.0001);
 		assertEquals(20., yMax,0.0001);
 	}
@@ -522,19 +505,18 @@ public abstract class TestLRectangularView extends TestLShapeView {
 
 	@Override@Test
 	public void testUpdateGeneralPathOutside() {
-		IRectangularShape model = getShape();
+		ISquaredShape model = getShape();
 		Path2D path;
 		PathIterator pi;
 		double[] coords = new double[6];
 		final double thickness = 3.;
-		final double height = 5.;
 		List<Double> xs = new ArrayList<>();
 		List<Double> ys = new ArrayList<>();
+		double width = 100;
 
 		model.setPosition(-10, 20);
-		model.setWidth(100);
+		model.setWidth(width);
 		model.setThickness(thickness);
-		model.setHeight(height);
 		model.setBordersPosition(BorderPos.OUT);
 		view.update();
 		path = view.getPath();
@@ -576,7 +558,7 @@ public abstract class TestLRectangularView extends TestLShapeView {
 		}
 
 		assertEquals(-10.-thickness/2., xMin,0.0001);
-		assertEquals(20.-height-thickness/2., yMin,0.0001);
+		assertEquals(20.-width-thickness/2., yMin,0.0001);
 		assertEquals(90.+thickness/2., xMax,0.0001);
 		assertEquals(20.+thickness/2., yMax,0.0001);
 	}

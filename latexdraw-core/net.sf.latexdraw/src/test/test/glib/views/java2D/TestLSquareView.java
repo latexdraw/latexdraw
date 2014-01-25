@@ -5,7 +5,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 
 import org.junit.Before;
 
-public class TestLSquareView extends TestLRectangleView {
+public class TestLSquareView extends TestLSquaredView {
 	@Before
 	@Override
 	public void setUp() {
