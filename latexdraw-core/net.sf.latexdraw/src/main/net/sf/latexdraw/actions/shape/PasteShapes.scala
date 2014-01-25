@@ -9,8 +9,8 @@ import org.malai.undo.Undoable
 
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.util.LResources
 
@@ -39,6 +39,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 	/** The magnetic grid to use. */
 	var _grid : LMagneticGrid = _
 
+	var pastedShapes : List[IShape] = Nil
 
 	override def canDo() = _copy!=null && _grid!=null && _drawing.isDefined
 
@@ -55,11 +56,10 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 
 		val gapPaste = if(_grid.isMagnetic()) _grid.getGridSpacing() else 10
 		val gap = _copy.nbTimeCopied*gapPaste
-		val dups = new ArrayList[IShape]
 
 		_copy.copiedShapes.foreach{shape =>
 			val sh = ShapeFactory.duplicate(shape)
-			dups.add(sh)
+			pastedShapes = pastedShapes :+ sh
 			sh.translate(gap, gap)
 			dr.addShape(sh)
 		}
@@ -67,7 +67,6 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 		if(_copy.isInstanceOf[CutShapes])
 			_copy.nbTimeCopied+=1
 
-		dr.setSelection(dups)
 		dr.setModified(true)
 	}
 
@@ -88,11 +87,31 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 
 
 	override def redo() {
-		doActionBody()
+		val dr = _drawing.get
+		if(!(_copy.isInstanceOf[CutShapes]))
+			_copy.nbTimeCopied+=1
+
+		pastedShapes.foreach{sh => dr.addShape(sh)}
+
+		if(_copy.isInstanceOf[CutShapes])
+			_copy.nbTimeCopied+=1
+
+		dr.setModified(true)
 	}
 
 
 	override def getUndoName() = LResources.LABEL_PASTE
+
+
+	override def followingActions = {
+		val list = new ArrayList[Action]
+		val selectAction = new SelectShapes
+		selectAction.setDrawing(_drawing.get)
+		pastedShapes.foreach{sh => selectAction.addShape(sh)}
+		list.add(selectAction)
+		list
+	}
+
 
 	/**
 	 * @param copy the copy to set.

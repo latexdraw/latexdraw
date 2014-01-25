@@ -36,3 +36,5 @@ Version 3.1.0
   https://bugs.launchpad.net/latexdraw/+bug/1269458
 - fixed: The jpg compression is inverted
   https://bugs.launchpad.net/latexdraw/+bug/1269457
+- fixed: Copying-pasting-deleting removes the wrong shape
+  https://bugs.launchpad.net/latexdraw/+bug/1271762
