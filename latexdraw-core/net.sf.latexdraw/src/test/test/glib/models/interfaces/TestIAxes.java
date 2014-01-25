@@ -328,23 +328,23 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 
 	@Override
 	public void testGetBottomRightPoint() {
-		shape.setPosition(0, 0);
+		shape.setPosition(10, 10);
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 
-		HelperTest.assertEqualsDouble(IShape.PPC*250., shape.getBottomRightPoint().getX());
-		HelperTest.assertEqualsDouble(0., shape.getBottomRightPoint().getY());
+		HelperTest.assertEqualsDouble(10.+IShape.PPC*50., shape.getBottomRightPoint().getX());
+		HelperTest.assertEqualsDouble(10.-IShape.PPC*-100., shape.getBottomRightPoint().getY());
 	}
 
 
 	@Override@Test
 	public void testGetTopLeftPoint() {
-		shape.setPosition(0, 0);
+		shape.setPosition(10, 10);
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 
-		HelperTest.assertEqualsDouble(0., shape.getTopLeftPoint().getX());
-		HelperTest.assertEqualsDouble(-IShape.PPC*175., shape.getTopLeftPoint().getY());
+		HelperTest.assertEqualsDouble(10.-200.*IShape.PPC, shape.getTopLeftPoint().getX());
+		HelperTest.assertEqualsDouble(10.-75.*IShape.PPC, shape.getTopLeftPoint().getY());
 	}
 
 

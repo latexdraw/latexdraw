@@ -14,10 +14,9 @@ import net.sf.latexdraw.util.LNumber
 private[impl] abstract class LSquaredShape(tl:IPoint, width:Double, uniqueID:Boolean) extends LPositionShape(uniqueID, tl) with ISquaredShape {
 
 	require(GLibUtilities.isValidPoint(tl) && width>0)
-	points.add(ShapeFactory.createPoint)
-	points.add(ShapeFactory.createPoint)
-	points.add(ShapeFactory.createPoint)
-	setPosition(tl)
+	points.add(ShapeFactory.createPoint(tl))
+	points.add(ShapeFactory.createPoint(tl))
+	points.add(ShapeFactory.createPoint(tl))
 	setWidth(width)
 
 	override def scale(sx:Double, sy:Double, pos:Position, bound:Rectangle2D) {

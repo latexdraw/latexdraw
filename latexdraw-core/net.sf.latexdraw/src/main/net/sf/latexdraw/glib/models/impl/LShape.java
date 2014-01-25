@@ -218,12 +218,14 @@ abstract class LShape implements IShape {
 
 	@Override
 	public void addToRotationAngle(final IPoint gravCentre, final double angle) {
-		setRotationAngle(getRotationAngle()+angle);
+		if(GLibUtilities.isValidCoordinate(angle)) {
+			setRotationAngle(getRotationAngle()+angle);
 
-		if(gravCentre!=null) {
-			final IPoint gravityCentre = getGravityCentre();
-			final IPoint rotatedGC = gravityCentre.rotatePoint(gravCentre, angle);
-			translate(rotatedGC.getX()-gravityCentre.getX(), rotatedGC.getY()-gravityCentre.getY());
+			if(gravCentre!=null) {
+				final IPoint gravityCentre = getGravityCentre();
+				final IPoint rotatedGC = gravityCentre.rotatePoint(gravCentre, angle);
+				translate(rotatedGC.getX()-gravityCentre.getX(), rotatedGC.getY()-gravityCentre.getY());
+			}
 		}
 	}
 

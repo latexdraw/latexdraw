@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 
+import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -29,6 +30,15 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		assertEquals(2, shape.getShapes().size());
 		assertEquals(sh1, shape.getShapes().get(0));
 		assertEquals(sh2, shape.getShapes().get(1));
+	}
+
+
+	@Override
+	@Test
+	public void testAddToRotationAngle() {
+		shape.addShape(ShapeFactory.createRectangle(false));
+		shape.addShape(ShapeFactory.createDot(ShapeFactory.createPoint(), false));
+		super.testAddToRotationAngle();
 	}
 
 
@@ -236,7 +246,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Override
 	public void testGetBottomLeftPoint() {
-		assertEquals(ShapeFactory.createPoint(Double.NaN, Double.NaN), shape.getBottomLeftPoint());
+		assertTrue(GLibUtilities.isValidPoint(shape.getBottomLeftPoint()));
 		IRectangle rec2 = setRectangle(90, 40, 10, 21);
 
 		shape.addShape(rec2);

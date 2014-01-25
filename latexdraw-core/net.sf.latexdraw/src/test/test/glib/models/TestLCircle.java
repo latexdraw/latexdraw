@@ -10,9 +10,9 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 		assertFalse(shape.isTypeOf(ISquare.class));
 		assertTrue(shape.isTypeOf(IShape.class));
 		assertTrue(shape.isTypeOf(IPositionShape.class));
-		assertTrue(shape.isTypeOf(IRectangularShape.class));
+		assertTrue(shape.isTypeOf(ISquaredShape.class));
 		assertTrue(shape.isTypeOf(IEllipse.class));
 		assertTrue(shape.isTypeOf(ICircle.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
@@ -70,7 +70,7 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 		try {
 			circle = ShapeFactory.createCircle(null, 10., true);
 			fail();
-		}catch(NullPointerException e) {/* */}
+		}catch(IllegalArgumentException e) {/* */}
 
 		try {
 			circle = ShapeFactory.createCircle(ShapeFactory.createPoint(Double.NaN, 1), 10., true);
@@ -94,9 +94,9 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 
 		circle = ShapeFactory.createCircle(ShapeFactory.createPoint(1, 2), 10., true);
 
-		HelperTest.assertEqualsDouble(1., circle.getGravityCentre().getX());
-		HelperTest.assertEqualsDouble(2., circle.getGravityCentre().getY());
-		HelperTest.assertEqualsDouble(20., circle.getWidth());
+		HelperTest.assertEqualsDouble(6., circle.getGravityCentre().getX());
+		HelperTest.assertEqualsDouble(-3., circle.getGravityCentre().getY());
+		HelperTest.assertEqualsDouble(10., circle.getWidth());
 		assertEquals(4, circle.getNbPoints());
 		HelperTest.assertEqualsDouble(circle.getWidth(), circle.getHeight());
 	}

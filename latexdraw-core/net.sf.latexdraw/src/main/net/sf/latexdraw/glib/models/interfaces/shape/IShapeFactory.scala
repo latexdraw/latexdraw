@@ -163,7 +163,7 @@ trait IShapeFactory {
 
 	/**
 	 * Creates a circle.
-	 * @param pt The centre of the circle.
+	 * @param pt The position of the top-left point of the picture.
 	 * @param radius The radius.
 	 * @param isUniqueID True: the model will have a unique ID.
 	 * @throws IllegalArgumentException If the radius is not valid.
