@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
@@ -37,7 +36,6 @@ public class TestLCircle<T extends ICircle> extends TestICircle<T> {
 		assertTrue(shape.isTypeOf(IShape.class));
 		assertTrue(shape.isTypeOf(IPositionShape.class));
 		assertTrue(shape.isTypeOf(ISquaredShape.class));
-		assertTrue(shape.isTypeOf(IEllipse.class));
 		assertTrue(shape.isTypeOf(ICircle.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}

@@ -35,13 +35,9 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 
 	@Test
 	public void testGetSetWidth() {
-//		shape.setRight(30);
-//		shape.setLeft(10);
+		shape.setWidth(20);
 		HelperTest.assertEqualsDouble(20., shape.getWidth());
 		HelperTest.assertEqualsDouble(20., shape.getHeight());
-//		shape.setRight(40);
-		HelperTest.assertEqualsDouble(30., shape.getWidth());
-		HelperTest.assertEqualsDouble(30., shape.getHeight());
 		shape.setWidth(50);
 		HelperTest.assertEqualsDouble(50., shape.getWidth());
 		HelperTest.assertEqualsDouble(50., shape.getHeight());

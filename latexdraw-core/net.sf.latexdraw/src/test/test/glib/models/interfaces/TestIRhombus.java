@@ -1,7 +1,7 @@
 package test.glib.models.interfaces;
 
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
 
 import org.junit.Test;
@@ -143,18 +143,14 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 	@Override
 	@Test
 	public void testTranslate() {
-		shape.setPosition(0, 0);
+		shape.setPosition(5, 15);
 		shape.setWidth(20);
 		shape.setHeight(10);
 		shape.translate(100, 50);
 
-		HelperTest.assertEqualsDouble(100., shape.getPtAt(0).getX());
-		HelperTest.assertEqualsDouble(45., shape.getPtAt(0).getY());
-		HelperTest.assertEqualsDouble(110., shape.getPtAt(1).getX());
-		HelperTest.assertEqualsDouble(40., shape.getPtAt(1).getY());
-		HelperTest.assertEqualsDouble(120., shape.getPtAt(2).getX());
-		HelperTest.assertEqualsDouble(45., shape.getPtAt(2).getY());
-		HelperTest.assertEqualsDouble(110., shape.getPtAt(3).getX());
-		HelperTest.assertEqualsDouble(50., shape.getPtAt(3).getY());
+		assertEquals(105, shape.getPosition().getX(), 0.0);
+		assertEquals(65, shape.getPosition().getY(), 0.0);
+		assertEquals(20, shape.getWidth(), 0.0);
+		assertEquals(10, shape.getHeight(), 0.0);
 	}
 }

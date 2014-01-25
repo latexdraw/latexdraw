@@ -130,6 +130,7 @@ trait IShapeFactory {
 	def createRhombus(centre : IPoint, width : Double, height : Double, uniqueID : Boolean) : IRhombus
 
 	/**
+	 * Creates a rhombus at the position (0,0) with width=height=1.
 	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @return The created rhombus.
 	 */
@@ -141,6 +142,7 @@ trait IShapeFactory {
 	 * @param pt The position of the top-left point of the picture.
 	 * @return The created picture.
 	 * @throws IllegalArgumentException If the given picture path is not valid.
+	 * @throws NullPointerException If the given point is null.
 	 */
 	def createPicture(isUniqueID : Boolean, pt : IPoint) : IPicture
 

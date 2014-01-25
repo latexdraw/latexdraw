@@ -25,34 +25,25 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
  */
 class LRhombus extends LRectangularShape implements IRhombus {
 	/**
-	 * Creates a rhombus at the position (0,0).
+	 * Creates a rhombus at the bottom-left position (0,0) with width=height=1.
 	 * @param uniqueID True: the rhombus will have a unique ID.
 	 */
 	protected LRhombus(final boolean uniqueID) {
-		this(ShapeFactory.createPoint(), 1, 1, uniqueID);
+		this(ShapeFactory.createPoint(0.5, -0.5), 1, 1, uniqueID);
 	}
 
 
 	/**
 	 * Creates a rhombus.
-	 * @param pos The north-west point of the rhombus.
+	 * @param centre The centre of the rhombus.
 	 * @param width The width of the rhombus.
 	 * @param height The height of the rhombus.
 	 * @param uniqueID True: the rhombus will have a unique ID.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
+	 * @throws NullPointerException If the given point is null.
 	 */
-	protected LRhombus(final IPoint pos, final double width, final double height, final boolean uniqueID) {
-		this(pos, pos==null ? null : ShapeFactory.createPoint(pos.getX()+width, pos.getY()+height), uniqueID);
-	}
-
-
-	/**
-	 * Creates a rhombus.
-	 * @param tl The top left point of the rhombus.
-	 * @param br The bottom right point of the rhombus.
-	 * @param uniqueID True: the rhombus will have a unique ID.
-	 */
-	protected LRhombus(final IPoint tl, final IPoint br, final boolean uniqueID) {
-		super(tl, br, uniqueID);
+	protected LRhombus(final IPoint centre, final double width, final double height, final boolean uniqueID) {
+		super(ShapeFactory.createPoint(centre.getX()-width/2., centre.getY()-height/2.),
+				ShapeFactory.createPoint(centre.getX()+width/2., centre.getY()+height/2.), uniqueID);
 	}
 }

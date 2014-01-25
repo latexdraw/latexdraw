@@ -4,7 +4,6 @@ package test.glib.models;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
@@ -42,39 +41,41 @@ public class TestLRhombus<T extends IRhombus> extends TestIRhombus<T> {
 
 
 	@Test
-	public void testConstructors() {
-		IRhombus rho = ShapeFactory.createRhombus(false);
+	public void testConstructor1() {
+		assertEquals(4, shape.getNbPoints());
+		assertEquals(1.0, shape.getWidth(), 0.0);
+		assertEquals(1.0, shape.getHeight(), 0.0);
+		assertEquals(0, shape.getPosition().getX(), 0.0);
+		assertEquals(0, shape.getPosition().getY(), 0.0);
+	}
 
-		assertEquals(4, rho.getNbPoints());
-		HelperTest.assertEqualsDouble(rho.getPtAt(0).getY(), rho.getPtAt(2).getY());
-		HelperTest.assertEqualsDouble(rho.getPtAt(1).getX(), rho.getPtAt(3).getX());
-
-		rho = ShapeFactory.createRhombus(ShapeFactory.createPoint(), 20, 40, true);
-
+	@Test
+	public void testConstructor2() {
+		IRhombus rho = ShapeFactory.createRhombus(ShapeFactory.createPoint(5, 15), 20, 40, true);
 		HelperTest.assertEqualsDouble(4, rho.getNbPoints());
-		HelperTest.assertEqualsDouble(rho.getPtAt(0).getY(), rho.getPtAt(2).getY());
-		HelperTest.assertEqualsDouble(rho.getPtAt(1).getX(), rho.getPtAt(3).getX());
-		HelperTest.assertEqualsDouble(20., rho.getPtAt(2).getX()-rho.getPtAt(0).getX());
-		HelperTest.assertEqualsDouble(40., rho.getPtAt(3).getY()-rho.getPtAt(1).getY());
+		assertEquals(20.0, rho.getWidth(), 0.0);
+		assertEquals(40.0, rho.getHeight(), 0.0);
+		assertEquals(-5.0, rho.getPosition().getX(), 0.0);
+		assertEquals(35.0, rho.getPosition().getY(), 0.0);
+	}
 
-		try {
-			rho = ShapeFactory.createRhombus(null, 10, 10, true);
-			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+	@Test(expected=NullPointerException.class)
+	public void testConstructorNullPos() {
+		ShapeFactory.createRhombus(null, 10, 10, true);
+	}
 
-		try {
-			rho = ShapeFactory.createRhombus(ShapeFactory.createPoint(Double.NaN, 0), 10, 10, true);
-			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+	@Test(expected=IllegalArgumentException.class)
+	public void testConstructorInvalidPos() {
+		ShapeFactory.createRhombus(ShapeFactory.createPoint(Double.NaN, 0), 10, 10, true);
+	}
 
-		try {
-			rho = ShapeFactory.createRhombus(ShapeFactory.createPoint(1, 1), -10, 10, true);
-			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+	@Test(expected=IllegalArgumentException.class)
+	public void testConstructorInvalidWidth() {
+		ShapeFactory.createRhombus(ShapeFactory.createPoint(1, 1), -10, 10, true);
+	}
 
-		try {
-			rho = ShapeFactory.createRhombus(ShapeFactory.createPoint(1, 1), 10, -10, true);
-			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+	@Test(expected=IllegalArgumentException.class)
+	public void testConstructorInvalidHeight() {
+		ShapeFactory.createRhombus(ShapeFactory.createPoint(1, 1), 10, -10, true);
 	}
 }
