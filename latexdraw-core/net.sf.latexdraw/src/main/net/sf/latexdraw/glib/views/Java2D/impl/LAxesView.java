@@ -189,7 +189,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		for(double maxy = shape.getGridMaxY()/distY, miny = shape.getGridMinY()/distY, i=origy; i<=maxy*incry; i+=incry) {
 			inti = (int)i;
 			val = inti+origy;
-			if((!showOrig || val!=origy || xGE0) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
+			if((val!=origy || showOrig && xGE0) && isElementPaintable(noArrowBotY, noArrowTopY, miny, maxy, inti)) {
 				str	 = String.valueOf(val+origy);
 				updateText(str, (float)(posx+gap-fontMetrics.stringWidth(str)), (float)(posy+height/2.-val*gapy), font, frc);
 			}
@@ -229,7 +229,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		for(double maxx = shape.getGridMaxX()/distX, minx = shape.getGridMinX()/distX, i=origx; i<=maxx*incrx; i+=incrx) {
 			inti = (int)i;
 			val = inti+origx;
-			if((!showOrig || val!=origx || yGE0) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
+			if((val!=origx || showOrig && yGE0) && isElementPaintable(noArrowLeftX, noArrowRightX, minx, maxx, inti)) {
 				str	 = String.valueOf(val+origx);
 				updateText(str, (float)(posx+val*gapx-fontMetrics.stringWidth(str)/2.), (float)(posy+sep), font, frc);
 			}

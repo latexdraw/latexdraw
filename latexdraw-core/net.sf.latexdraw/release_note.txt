@@ -38,3 +38,5 @@ Version 3.1.0
   https://bugs.launchpad.net/latexdraw/+bug/1269457
 - fixed: Copying-pasting-deleting removes the wrong shape
   https://bugs.launchpad.net/latexdraw/+bug/1271762
+- fixed: 'Show origin' does not work for axes
+  https://bugs.launchpad.net/latexdraw/+bug/1266287 
