@@ -1,5 +1,5 @@
 *******************************************************************
-Version 3.1.0
+Version 3.1.0 -- 2014-01-27
 - Opacity and strokeopacity attributes are now supported. That permits to set the opacity of
   colours for the line border and the filling.
 - The size of drawing area is no more limited to the size of the drawing.

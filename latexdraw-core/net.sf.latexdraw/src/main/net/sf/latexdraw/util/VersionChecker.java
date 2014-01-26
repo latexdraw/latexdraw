@@ -42,10 +42,10 @@ public class VersionChecker extends Thread {
 	/** The version of the application */
 	public final static String VERSION   = "3.1.0";//$NON-NLS-1$
 
-	public final static String VERSION_STABILITY = "snapshot"; //$NON-NLS-1$
+	public final static String VERSION_STABILITY = ""; //$NON-NLS-1$
 
 	/** The identifier of the build */
-	public static final String ID_BUILD = "20131223";//$NON-NLS-1$
+	public static final String ID_BUILD = "20140126";//$NON-NLS-1$
 
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;
