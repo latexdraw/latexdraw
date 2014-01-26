@@ -82,17 +82,10 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		 * @since 3.0
 		 */
 		public static GridStyle getStylefromName(final String name) {
-			final GridStyle style;
-
-			if(CUSTOMISED.toString().equals(name))
-				style = CUSTOMISED;
-			else if(STANDARD.toString().equals(name))
-				style = STANDARD;
-			else if(NONE.toString().equals(name))
-				style = NONE;
-			else style = null;
-
-			return style;
+			for(GridStyle style : values())
+				if(style.toString().equals(name))
+					return style;
+			return null;
 		}
 
 		/**
@@ -103,17 +96,10 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		 * @since 3.0
 		 */
 		public static GridStyle getStyleFromLabel(final String label) {
-			final GridStyle style;
-
-			if(CUSTOMISED.getLabel().equals(label))
-				style = CUSTOMISED;
-			else if(STANDARD.getLabel().equals(label))
-				style = STANDARD;
-			else if(NONE.getLabel().equals(label))
-				style = NONE;
-			else style = null;
-
-			return style;
+			for(GridStyle style : values())
+				if(style.getLabel().equals(label))
+					return style;
+			return null;
 		}
 	}
 
@@ -195,12 +181,12 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 			final double minX 	  = clip.getMinX();
 			final double minY	  = clip.getMinY();
 
-    		for(double i=pixPerCm10-1+xMinclip+minX; i<xMaxclip; i+=pixPerCm10) {
+    		for(double i=pixPerCm10-1+xMinclip+minX+canvas.getOrigin().getX()%pixPerCm10; i<xMaxclip; i+=pixPerCm10) {
 				line.setLine(i, minY, i, yMaxclip);
 				graph.draw(line);
 			}
 
-    		for(double i=pixPerCm10-1+yMinclip+minY; i<yMaxclip; i+=pixPerCm10) {
+    		for(double i=pixPerCm10-1+yMinclip+minY+canvas.getOrigin().getY()%pixPerCm10; i<yMaxclip; i+=pixPerCm10) {
 				line.setLine(minX, i, xMaxclip, i);
 				graph.draw(line);
 			}
@@ -219,12 +205,12 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		final double minY	  = clip.getMinY();
 		final Line2D line 	  = new Line2D.Double();
 
-		for(double i=gap2-1+xMinclip+minX; i<xMaxclip; i+=gap2) {
+		for(double i=gap2-1+xMinclip+minX+canvas.getOrigin().getX()%gap2; i<xMaxclip; i+=gap2) {
 			line.setLine(i, minY, i, yMaxclip);
 			graph.draw(line);
 		}
 
-		for(double j=gap2-1+yMinclip+minY; j<yMaxclip; j+=gap2) {
+		for(double j=gap2-1+yMinclip+minY+canvas.getOrigin().getY()%gap2; j<yMaxclip; j+=gap2) {
 			line.setLine(minX, j, xMaxclip, j);
 			graph.draw(line);
 		}
