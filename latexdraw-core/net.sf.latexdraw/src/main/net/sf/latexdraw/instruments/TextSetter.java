@@ -15,6 +15,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 
+import org.malai.action.Action;
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Link;
 import org.malai.interaction.library.KeyTyped;
@@ -56,6 +57,8 @@ public class TextSetter extends Instrument {
 	/** The text to modify throw this instrument. If it is not set, a new text will be created. */
 	protected IText text;
 
+	protected TextCustomiser custom;
+
 
 	/**
 	 * Creates the instrument.
@@ -71,6 +74,24 @@ public class TextSetter extends Instrument {
 		textField.setVisible(false);
 		addEventable(textField);
 	}
+
+
+	@Override
+	public void onActionDone(Action action) {
+		super.onActionDone(action);
+		if(custom!=null) custom.update();
+	}
+
+
+	/**
+	 * Sets the text customiser.
+	 * @param custom The instrument.
+	 */
+	public void setTestCustomiser(final TextCustomiser custom) {
+		if(custom!=null) this.custom = custom;
+	}
+
+
 
 
 	/**

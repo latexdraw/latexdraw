@@ -13,6 +13,7 @@ Version 3.1.0
 - Better rendering performance.
 - Ukrainian translation added.
 - A menu item has been added to go to the latexdraw manual
+- A text field that contains the LaTeX compilation error log has been added to the text toolbar.
 
 - fixed: mirroring shapes did not work
   https://bugs.launchpad.net/bugs/1266219

@@ -354,10 +354,12 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 		list.addComponent(textCustomiser.getPackagesLabel());
 		list.addComponent(textCustomiser.getPackagesField().getScrollpane());
+		list.addComponent(textCustomiser.getLogField().getScrollpane());
 		list.addSeparator();
 
 		mapContainers.put(textCustomiser.getPackagesLabel(), list);
 		mapContainers.put(textCustomiser.getPackagesField().getScrollpane(), list);
+		mapContainers.put(textCustomiser.getLogField().getScrollpane(), list);
 		list.setVisible(false);
 		textCustomiser.addEventable(textCustomiser.getPackagesField());
 		return list;

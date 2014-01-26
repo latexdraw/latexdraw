@@ -67,12 +67,10 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
-		if(shape instanceof IGroup && !((IGroup)shape).isEmpty()) {
-			final IGroup selection = (IGroup)shape;
-			final boolean separate = selection.size()==1 && selection.getShapeAt(0) instanceof IGroup;
-
-			groupB.setVisible(selection.size()>1);
+	protected void update(final IGroup shape) {
+		if(!shape.isEmpty()) {
+			final boolean separate = shape.size()==1 && shape.getShapeAt(0) instanceof IGroup;
+			groupB.setVisible(shape.size()>1);
 			sepB.setVisible(separate);
 		}
 	}

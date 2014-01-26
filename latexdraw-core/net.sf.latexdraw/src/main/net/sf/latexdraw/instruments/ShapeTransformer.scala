@@ -2,17 +2,18 @@ package net.sf.latexdraw.instruments
 
 import org.malai.instrument.Link
 import org.malai.swing.interaction.library.ButtonPressed
+import org.malai.swing.ui.SwingUIComposer
 import org.malai.swing.widget.MButton
+
 import net.sf.latexdraw.actions.shape.AlignShapes
 import net.sf.latexdraw.actions.shape.AlignmentType
 import net.sf.latexdraw.actions.shape.DistributeShapes
 import net.sf.latexdraw.actions.shape.DistributionType
 import net.sf.latexdraw.actions.shape.MirrorShapes
 import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.util.LResources
-import org.malai.swing.ui.SwingUIComposer
 
 /**
  * This instrument transforms (mirror, etc.) the selected shapes.<br>
@@ -134,7 +135,7 @@ class ShapeTransformer(composer:SwingUIComposer[_], hand:Hand, pencil:Pencil, va
 	}
 
 
-	protected override def update(shape:IShape) {
+	protected override def update(shape:IGroup) {
 		// Nothing to do
 	}
 

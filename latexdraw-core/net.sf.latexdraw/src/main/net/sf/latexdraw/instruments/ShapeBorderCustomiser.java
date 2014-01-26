@@ -12,7 +12,7 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.lang.LangTool;
@@ -158,7 +158,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
+	protected void update(final IGroup shape) {
 		if(shape==null)
 			setActivated(false);
 		else {

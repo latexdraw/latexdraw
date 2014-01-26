@@ -5,8 +5,8 @@ import javax.swing.JSpinner;
 
 import net.sf.latexdraw.actions.shape.TranslateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.malai.instrument.Link;
 import org.malai.swing.interaction.library.SpinnerModified;
@@ -56,7 +56,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
+	protected void update(final IGroup shape) {
 		if(shape!=null) {
 			final IPoint tl = shape.getTopLeftPoint();
 			tlxS.setValueSafely(tl.getX());

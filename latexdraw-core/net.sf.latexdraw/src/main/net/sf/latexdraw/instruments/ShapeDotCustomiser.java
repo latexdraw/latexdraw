@@ -13,7 +13,7 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
@@ -148,15 +148,14 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	}
 
 	@Override
-	protected void update(final IShape shape) {
+	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IDotProp.class)) {
-			final IDotProp dot 	= (IDotProp)shape;
-			dotSizeField.setValueSafely(dot.getRadius());
-			dotCB.setSelectedItemSafely(dot.getDotStyle().toString());
+			dotSizeField.setValueSafely(shape.getRadius());
+			dotCB.setSelectedItemSafely(shape.getDotStyle().toString());
 			fillingB.setEnabled(shape.isFillable());
 
 			if(shape.isFillable())
-				fillingB.setColor(dot.getDotFillingCol());
+				fillingB.setColor(shape.getDotFillingCol());
 		}
 		else setActivated(false);
 	}

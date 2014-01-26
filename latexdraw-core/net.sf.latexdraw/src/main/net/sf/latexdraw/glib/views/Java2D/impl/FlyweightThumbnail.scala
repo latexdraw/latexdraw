@@ -66,6 +66,8 @@ object FlyweightThumbnail {
 
 	val _scaleImage = 2.0
 
+	val inProgressMsg = "Creation in progress"
+
 	val creationsInProgress : Set[IViewText] = Set[IViewText]()
 
 	var _canvas : ICanvas = null
@@ -94,14 +96,14 @@ object FlyweightThumbnail {
 	 * Returns the image corresponding to the given text. If the image does not already exists,
 	 * it is created and stored.
 	 */
-	def getImage(shape:IViewText) : Image = getImageInfo(shape)._1
+	def getImage(shape:IViewText) : Image = if(shape==null) null else getImageInfo(shape)._1
 
 
 	/**
 	 * Returns the log corresponding to the compilation of the given text. If the image does not already exists,
 	 * it is created and stored.
 	 */
-	def getLog(shape:IViewText) : String = getImageInfo(shape)._4
+	def getLog(shape:IViewText) : String = if(shape==null) "" else getImageInfo(shape)._4
 
 
 	/**
@@ -113,7 +115,7 @@ object FlyweightThumbnail {
 		var res : Tuple4[Image,Set[IViewText],String,String] = null
 
 		if(creationsInProgress.synchronized{creationsInProgress.contains(view)})
-			res = new Tuple4[Image,Set[IViewText],String,String](null, Set(), "", "Creation in progress")
+			res = new Tuple4[Image,Set[IViewText],String,String](null, Set(), "", inProgressMsg)
 		else {
 			val text = shape.getText
 			images.synchronized{images.get(text)} match {

@@ -10,7 +10,7 @@ import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.swing.ui.SwingUIComposer;
@@ -72,21 +72,19 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
-		if(shape.isTypeOf(IStdGridProp.class)) {
-			final IStdGridProp grid = (IStdGridProp)shape;
-
-			((MSpinner.MSpinnerNumberModel)xStartS.getModel()).setMaximumSafely(grid.getGridEndX());
-			((MSpinner.MSpinnerNumberModel)yStartS.getModel()).setMaximumSafely(grid.getGridEndY());
-			xStartS.setValueSafely(grid.getGridStartX());
-			yStartS.setValueSafely(grid.getGridStartY());
-			((MSpinner.MSpinnerNumberModel)xEndS.getModel()).setMinumunSafely(grid.getGridStartX());
-			((MSpinner.MSpinnerNumberModel)yEndS.getModel()).setMinumunSafely(grid.getGridStartY());
-			xEndS.setValueSafely(grid.getGridEndX());
-			yEndS.setValueSafely(grid.getGridEndY());
-			xOriginS.setValueSafely(grid.getOriginX());
-			yOriginS.setValueSafely(grid.getOriginY());
-			labelsSizeS.setValueSafely(grid.getLabelsSize());
+	protected void update(final IGroup gp) {
+		if(gp.isTypeOf(IStdGridProp.class)) {
+			((MSpinner.MSpinnerNumberModel)xStartS.getModel()).setMaximumSafely(gp.getGridEndX());
+			((MSpinner.MSpinnerNumberModel)yStartS.getModel()).setMaximumSafely(gp.getGridEndY());
+			xStartS.setValueSafely(gp.getGridStartX());
+			yStartS.setValueSafely(gp.getGridStartY());
+			((MSpinner.MSpinnerNumberModel)xEndS.getModel()).setMinumunSafely(gp.getGridStartX());
+			((MSpinner.MSpinnerNumberModel)yEndS.getModel()).setMinumunSafely(gp.getGridStartY());
+			xEndS.setValueSafely(gp.getGridEndX());
+			yEndS.setValueSafely(gp.getGridEndY());
+			xOriginS.setValueSafely(gp.getOriginX());
+			yOriginS.setValueSafely(gp.getOriginY());
+			labelsSizeS.setValueSafely(gp.getLabelsSize());
 		}
 		else setActivated(false);
 	}

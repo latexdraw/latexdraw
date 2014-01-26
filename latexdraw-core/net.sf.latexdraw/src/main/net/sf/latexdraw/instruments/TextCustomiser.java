@@ -4,6 +4,7 @@ import java.awt.Font;
 
 import javax.swing.AbstractButton;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 import net.sf.latexdraw.actions.ModifyLatexProperties;
 import net.sf.latexdraw.actions.ModifyLatexProperties.LatexProperties;
@@ -13,12 +14,16 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.Link;
 import org.malai.interaction.library.KeysTyped;
+import org.malai.mapping.MappingRegistry;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MTextArea;
 import org.malai.swing.widget.MToggleButton;
@@ -75,6 +80,9 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	/** This text field permits to add latex packages that will be used during compilation. */
 	protected MTextArea packagesField;
 
+	/** The error log field. */
+	protected MTextArea logField;
+
 
 	/**
 	 * Creates the instrument.
@@ -101,6 +109,12 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		packagesField.setFont(new Font(font.getName(), font.getStyle(), Math.max(10, font.getSize()-4)));
 		packagesField.setColumns(35);
 		packagesField.setRows(10);
+
+		logField = new MTextArea(true, false);
+		logField.setEditable(false);
+		logField.setFont(new Font(font.getName(), font.getStyle(), Math.max(10, font.getSize()-4)));
+		logField.setColumns(50);
+		logField.setRows(10);
 
 		blButton = new MToggleButton(LResources.TEXTPOS_BL);
 		blButton.setMargin(LResources.INSET_BUTTON);
@@ -145,13 +159,14 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(centreButton, visible);
 		composer.setWidgetVisible(packagesLabel, visible);
 		composer.setWidgetVisible(packagesField.getScrollpane(), visible);
+		composer.setWidgetVisible(logField.getScrollpane(), visible);
 	}
 
 
 	@Override
-	protected void update(final IShape shape) {
+	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(ITextProp.class)) {
-			final TextPosition tp = ((ITextProp)shape).getTextPosition();
+			final TextPosition tp = shape.getTextPosition();
 
 			bButton.setSelected(tp==TextPosition.BOT);
 			brButton.setSelected(tp==TextPosition.BOT_RIGHT);
@@ -163,6 +178,33 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 			lButton.setSelected(tp==TextPosition.LEFT);
 			rButton.setSelected(tp==TextPosition.RIGHT);
 			packagesField.setText(LaTeXGenerator.getPackages());
+
+			// Updating the log field.
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					IText txt = null;
+					for(int i=0, size=shape.size(); i<size && txt==null; i++) //TODO closure
+						if(shape.getShapeAt(i) instanceof IText)
+							txt = (IText)shape.getShapeAt(i);
+					if(txt!=null) {
+						final int max = 10;
+						final String msg = FlyweightThumbnail.inProgressMsg();
+						String log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
+						int i = 0;
+
+						while(i<max && msg.equals(log)) {
+							try{ Thread.sleep(100);}
+							catch(InterruptedException e){ BadaboomCollector.INSTANCE.add(e); }
+							log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
+							i++;
+						}
+						if(log==null) log = "";
+						logField.setText(log);
+					}
+				}
+			});
+
 		}
 		else setActivated(false);
 	}
@@ -266,6 +308,11 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 	 */
 	public MTextArea getPackagesField() {
 		return packagesField;
+	}
+
+	/** @return The text field that contains the compilation log. */
+	public MTextArea getLogField() {
+		return logField;
 	}
 }
 

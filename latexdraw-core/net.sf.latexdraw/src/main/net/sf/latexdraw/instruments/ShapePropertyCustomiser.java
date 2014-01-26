@@ -7,7 +7,8 @@ import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 import org.malai.action.Action;
 import org.malai.instrument.Link;
@@ -84,8 +85,11 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 	 * @since 3.0
 	 */
 	public void update() {
-		if(pencil.isActivated())
-			update(pencil.createShapeInstance());
+		if(pencil.isActivated()) {
+			final IGroup gp = ShapeFactory.createGroup(false);
+			gp.addShape(pencil.createShapeInstance());
+			update(gp);
+		}
 		else
 			update(hand.canvas().getDrawing().getSelection());
 	}
@@ -96,7 +100,7 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 	 * @param shape The shape used to update the widgets. If null, nothing is performed.
 	 * @since 3.0
 	 */
-	protected abstract void update(final IShape shape);
+	protected abstract void update(final IGroup shape);
 
 
 	/**

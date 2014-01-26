@@ -9,7 +9,7 @@ import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -94,7 +94,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
+	protected void update(final IGroup shape) {
 		if(shape!=null && shape.isShadowable()) {
 			final boolean hasShadow = shape.hasShadow();
 

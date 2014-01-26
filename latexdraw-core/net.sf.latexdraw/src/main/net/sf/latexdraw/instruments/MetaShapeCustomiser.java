@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instruments;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.malai.interaction.Eventable;
 import org.malai.swing.ui.SwingUIComposer;
@@ -163,7 +162,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
+	protected void update(final IGroup shape) {
 		borderCustomiser.update(shape);
 		doubleBorderCustomiser.update(shape);
 		shadowCustomiser.update(shape);

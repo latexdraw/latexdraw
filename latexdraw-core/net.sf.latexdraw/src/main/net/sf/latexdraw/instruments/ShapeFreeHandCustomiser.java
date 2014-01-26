@@ -10,7 +10,7 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
@@ -67,12 +67,11 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
+	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IFreeHandProp.class)) {
-			final IFreeHandProp fh = (IFreeHandProp)shape;
-			freeHandType.setSelectedItemSafely(fh.getType().toString());
-			gapPoints.setValueSafely(fh.getInterval());
-			open.setSelected(fh.isOpen());
+			freeHandType.setSelectedItemSafely(shape.getType().toString());
+			gapPoints.setValueSafely(shape.getInterval());
+			open.setSelected(shape.isOpen());
 		}
 		else setActivated(false);
 	}

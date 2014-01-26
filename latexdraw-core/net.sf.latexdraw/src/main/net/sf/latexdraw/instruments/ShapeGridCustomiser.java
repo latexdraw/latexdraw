@@ -10,7 +10,7 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -84,18 +84,17 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
-		if(shape.isTypeOf(IGridProp.class)) {
-			final IGridProp grid = (IGridProp)shape;
-			colourLabels.setColor(grid.getGridLabelsColour());
-			colourSubGrid.setColor(grid.getSubGridColour());
-			gridWidth.setValueSafely(grid.getGridWidth());
-			subGridWidth.setValueSafely(grid.getSubGridWidth());
-			gridDots.setValueSafely(grid.getGridDots());
-			subGridDots.setValueSafely(grid.getSubGridDots());
-			subGridDiv.setValueSafely(grid.getSubGridDiv());
-			labelsYInvertedCB.setSelected(!grid.isXLabelSouth());
-			labelsXInvertedCB.setSelected(!grid.isYLabelWest());
+	protected void update(final IGroup gp) {
+		if(gp.isTypeOf(IGridProp.class)) {
+			colourLabels.setColor(gp.getGridLabelsColour());
+			colourSubGrid.setColor(gp.getSubGridColour());
+			gridWidth.setValueSafely(gp.getGridWidth());
+			subGridWidth.setValueSafely(gp.getSubGridWidth());
+			gridDots.setValueSafely(gp.getGridDots());
+			subGridDots.setValueSafely(gp.getSubGridDots());
+			subGridDiv.setValueSafely(gp.getSubGridDiv());
+			labelsYInvertedCB.setSelected(!gp.isXLabelSouth());
+			labelsXInvertedCB.setSelected(!gp.isYLabelWest());
 		}
 		else setActivated(false);
 	}

@@ -9,7 +9,7 @@ import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -99,15 +99,14 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
+	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IArcProp.class)) {
-			final IArcProp arc = (IArcProp)shape;
-			final ArcStyle type = arc.getArcStyle();
+			final ArcStyle type = shape.getArcStyle();
 			arcB.setSelected(type==ArcStyle.ARC);
 			wedgeB.setSelected(type==ArcStyle.WEDGE);
 			chordB.setSelected(type==ArcStyle.CHORD);
-			startAngleS.setValueSafely(Math.toDegrees(arc.getAngleStart()));
-			endAngleS.setValueSafely(Math.toDegrees(arc.getAngleEnd()));
+			startAngleS.setValueSafely(Math.toDegrees(shape.getAngleStart()));
+			endAngleS.setValueSafely(Math.toDegrees(shape.getAngleEnd()));
 			setActivated(true);
 		}
 		else setActivated(false);

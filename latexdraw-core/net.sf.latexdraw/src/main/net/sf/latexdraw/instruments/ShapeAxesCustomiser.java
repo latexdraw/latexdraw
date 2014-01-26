@@ -12,7 +12,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.swing.ui.SwingUIComposer;
@@ -86,19 +86,18 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
+	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IAxesProp.class)) {
-			final IAxesProp axes = (IAxesProp)shape;
-			shapeAxes.setSelectedItemSafely(axes.getAxesStyle());
-			shapeTicks.setSelectedItemSafely(axes.getTicksStyle());
+			shapeAxes.setSelectedItemSafely(shape.getAxesStyle());
+			shapeTicks.setSelectedItemSafely(shape.getTicksStyle());
 //			ticksSizeS.setValueSafely(axes.getTicksSize());
-			showTicks.setSelectedItemSafely(axes.getTicksDisplayed());
-			incrLabelX.setValueSafely(axes.getIncrementX());
-			incrLabelY.setValueSafely(axes.getIncrementY());
-			showLabels.setSelectedItemSafely(axes.getLabelsDisplayed());
-			showOrigin.setSelected(axes.isShowOrigin());
-			distLabelsX.setValueSafely(axes.getDistLabelsX());
-			distLabelsY.setValueSafely(axes.getDistLabelsY());
+			showTicks.setSelectedItemSafely(shape.getTicksDisplayed());
+			incrLabelX.setValueSafely(shape.getIncrementX());
+			incrLabelY.setValueSafely(shape.getIncrementY());
+			showLabels.setSelectedItemSafely(shape.getLabelsDisplayed());
+			showOrigin.setSelected(shape.isShowOrigin());
+			distLabelsX.setValueSafely(shape.getDistLabelsX());
+			distLabelsY.setValueSafely(shape.getDistLabelsY());
 		}
 		else setActivated(false);
 	}

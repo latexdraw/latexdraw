@@ -6,6 +6,7 @@ import javax.swing.JSpinner;
 
 import net.sf.latexdraw.actions.shape.RotateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -92,7 +93,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void update(final IShape shape) {
+	protected void update(final IGroup shape) {
 		if(shape!=null)
 			rotationField.setValueSafely(Math.toDegrees(shape.getRotationAngle()));
 	}
