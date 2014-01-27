@@ -2,14 +2,11 @@
 This installer will install LaTeXDraw in the selected directory and create a directory for shared templates. 
 This last action can require administrator privileges.
 
-*** Windows Vista ***
+*** Windows ***
 
-For Windows Vista you must use the install_vista.vbs to install LaTeXDraw; 
-this script activates the "run as administrator" feature in order to install 
+For Windows you must use the install_windows.vbs to install LaTeXDraw.
+This script activates the "run as administrator" feature to install 
 files in protected directories such as "Program Files". It will ask you your password.
-
-However, it seems to have some problems while using the installer on Vista Ultimate. For
-the moment, a workaround is to install latexdraw manually (see at the bottom of this page).
 
 
 *** Debian/Ubuntu ***

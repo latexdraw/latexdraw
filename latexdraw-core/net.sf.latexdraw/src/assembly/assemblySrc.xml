@@ -10,22 +10,12 @@
       <directory>${project.basedir}</directory>
       <includes>
         <include>src/</include>
-        <include>compile</include>
-        <include>history</include>
         <include>install*</include>
-        <include>license.txt</include>
-        <include>release_note*</include>
-        <include>shortcutWindows.vbs</include>
-        <include>shrinkScala.pro</include>
+        <include>*.txt</include>
         <include>pom.xml</include>
-		<include>.classpath</include>
 		<include>.gitignore</include>
-		<include>.project</include>
-		<include>.settings/</include>
-		<include>META-INF/</include>
 		<include>design/</include>
 		<include>templates/</include>
-		<include>lib/</include>
       </includes>
       <useDefaultExcludes>true</useDefaultExcludes>
     </fileSet>

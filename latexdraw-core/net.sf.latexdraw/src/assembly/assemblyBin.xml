@@ -47,11 +47,8 @@
       <directory>${project.basedir}</directory>
       <outputDirectory>.</outputDirectory>
       <includes>
-        <include>license.txt</include>
-        <include>history.txt</include>
+        <include>*.txt</include>
         <include>install_*</include>
-        <include>readme.txt</include>
-        <include>release_note.txt</include>
       </includes>
       <useDefaultExcludes>true</useDefaultExcludes>
     </fileSet>

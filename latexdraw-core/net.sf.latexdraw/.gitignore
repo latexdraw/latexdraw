@@ -5,3 +5,5 @@
 /.cache
 /site
 /.scala_dependencies
+/.settings
+/.classpath
