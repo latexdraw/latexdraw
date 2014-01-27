@@ -8,7 +8,7 @@
   <version>3.1.0</version>
   
   	<properties>
-		<malai.version>1.2-SNAPSHOT</malai.version>
+		<malai.version>1.2</malai.version>
 		<scala.version>2.10.3</scala.version>
 	</properties>
 	
