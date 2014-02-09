@@ -123,6 +123,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public void initAction() {
 			action.setDrawing(instrument.pencil.canvas().getDrawing());
+			action.setShape(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
 

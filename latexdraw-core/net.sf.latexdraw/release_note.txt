@@ -1,2 +1,5 @@
 ************************************************************
 Version 3.2.0
+
+- fixed: Changing the position using the spinners does not work
+  https://bugs.launchpad.net/latexdraw/+bug/1278045
