@@ -1,6 +1,8 @@
 ************************************************************
 Version 3.2.0
 
+- fixed: Wrong bounding box when creating a bezier curve with show points
+  https://bugs.launchpad.net/latexdraw/+bug/1284310
 - fixed: Gradient shading feature is not read from SVG file
   https://bugs.launchpad.net/latexdraw/+bug/1284297 
 - fixed: Changing the position using the spinners does not work

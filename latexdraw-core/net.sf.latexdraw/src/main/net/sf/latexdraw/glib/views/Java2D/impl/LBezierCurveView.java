@@ -160,6 +160,43 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 
 
 	@Override
+	public void updateBorder() {
+		super.updateBorder();
+		if(shape.isShowPts()) {
+			final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
+			final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
+			double minX = Double.MAX_VALUE;
+			double minY = Double.MAX_VALUE;
+			double maxX = Double.MIN_VALUE;
+			double maxY = Double.MIN_VALUE;
+			IPoint pt;
+
+			for(int i=0, size=ctrlPts1.size(); i<size; i++) {
+				pt = ctrlPts1.get(i);
+				if(pt.getX()<minX) minX = pt.getX();
+				if(pt.getY()<minY) minY = pt.getY();
+				if(pt.getX()>maxX) maxX = pt.getX();
+				if(pt.getY()>maxY) maxY = pt.getY();
+			}
+
+			for(int i=1, size=ctrlPts2.size()-1; i<size; i++) {
+				pt = ctrlPts2.get(i);
+				if(pt.getX()<minX) minX = pt.getX();
+				if(pt.getY()<minY) minY = pt.getY();
+				if(pt.getX()>maxX) maxX = pt.getX();
+				if(pt.getY()>maxY) maxY = pt.getY();
+			}
+
+			minX = Math.min(minX, border.getMinX());
+			minY = Math.min(minY, border.getMinY());
+			maxX = Math.max(maxX, border.getMaxX());
+			maxY = Math.max(maxY, border.getMaxY());
+			border.setFrameFromDiagonal(minX, minY, maxX, maxY);
+		}
+	}
+
+
+	@Override
 	protected void setPath(final boolean close) {
 		if(shape.getNbPoints()<2) return ;
 
