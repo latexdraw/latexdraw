@@ -1608,8 +1608,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="371.03254"
-     inkscape:cy="658.822"
+     inkscape:cx="364.0008"
+     inkscape:cy="655.99128"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -1634,69 +1634,6 @@
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <g
-       id="g8241"
-       transform="matrix(0.6124995,0.2113712,-0.3210333,0.5074665,225.27534,53.642163)"
-       style="fill:url(#radialGradient12726);fill-opacity:1">
-      <rect
-         transform="matrix(0.999885,1.516303e-2,1.570391e-2,0.999877,0,0)"
-         y="97.778755"
-         x="152.76778"
-         height="37.317558"
-         width="59.00378"
-         id="rect8196"
-         style="fill:url(#radialGradient12728);fill-opacity:1;fill-rule:evenodd;stroke:none" />
-      <rect
-         transform="matrix(0.504494,-0.863415,1.356919e-2,0.999908,0,0)"
-         y="455.80383"
-         x="410.51163"
-         height="36.9744"
-         width="35.58707"
-         id="rect8203"
-         style="fill:url(#radialGradient12730);fill-opacity:1;fill-rule:evenodd;stroke:none" />
-      <rect
-         transform="matrix(0.999892,1.467368e-2,-0.505742,0.862685,0,0)"
-         y="77.602333"
-         x="211.15562"
-         height="34.915504"
-         width="59.271389"
-         id="rect8207"
-         style="fill:url(#radialGradient12732);fill-opacity:1;fill-rule:evenodd;stroke:none" />
-      <rect
-         style="fill:url(#radialGradient12748);fill-opacity:1;fill-rule:nonzero;stroke:none"
-         id="rect8235"
-         width="59.00378"
-         height="37.317558"
-         x="152.76778"
-         y="97.778755"
-         transform="matrix(0.999885,1.516303e-2,1.570391e-2,0.999877,0,0)" />
-      <rect
-         style="fill:url(#radialGradient12736);fill-opacity:1;fill-rule:evenodd;stroke:none"
-         id="rect8237"
-         width="35.58707"
-         height="36.9744"
-         x="410.51163"
-         y="455.80383"
-         transform="matrix(0.504494,-0.863415,1.356919e-2,0.999908,0,0)" />
-      <rect
-         style="fill:url(#radialGradient12738);fill-opacity:1;fill-rule:evenodd;stroke:none"
-         id="rect8239"
-         width="59.271389"
-         height="34.915504"
-         x="211.15562"
-         y="77.602333"
-         transform="matrix(0.999892,1.467368e-2,-0.505742,0.862685,0,0)" />
-    </g>
-    <path
-       sodipodi:type="arc"
-       style="opacity:1;fill:url(#radialGradient11786);fill-opacity:1;fill-rule:evenodd;stroke:none"
-       id="path11784"
-       sodipodi:cx="290.44644"
-       sodipodi:cy="145.48718"
-       sodipodi:rx="35.44643"
-       sodipodi:ry="22.767859"
-       d="M 325.89287 145.48718 A 35.44643 22.767859 0 1 1  255.00001,145.48718 A 35.44643 22.767859 0 1 1  325.89287 145.48718 z"
-       transform="matrix(0.919741,0,0,1.409726,28.261595,-113.2697)" />
     <rect
        style="fill:url(#linearGradient2303);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="rect1872"
@@ -1704,7 +1641,7 @@
        height="325.71429"
        x="40.892857"
        y="223.25504"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.2.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998" />
     <text
@@ -1713,14 +1650,14 @@
        x="59.598999"
        y="498.79858"
        id="text6422"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.2.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
          id="tspan6424"
          x="59.598999"
          y="498.79858"
-         style="font-size:32px;fill:#dcdcdc;fill-opacity:1;font-family:ClearlyU Alternate Glyphs">LaTeXDraw 3.1</tspan></text>
+         style="font-size:32px;fill:#dcdcdc;fill-opacity:1;font-family:ClearlyU Alternate Glyphs">LaTeXDraw 3.2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:9.7610817px;font-style:normal;font-weight:normal;fill:url(#radialGradient2385);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -1728,7 +1665,7 @@
        y="330.57983"
        id="text15419"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.2.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1743,7 +1680,7 @@
        y="403.85229"
        id="text16316"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.2.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1758,7 +1695,7 @@
        y="389.44006"
        id="text16308"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.2.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1773,7 +1710,7 @@
        y="356.10049"
        id="text16312"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.2.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1788,7 +1725,7 @@
        y="367.21365"
        id="text16324"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.2.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1803,7 +1740,7 @@
        y="378.32687"
        id="text2241"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.2.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1818,7 +1755,7 @@
        y="344.98248"
        id="text2247"
        transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.1.png"
+       inkscape:export-filename="/home/ablouin/Bureau/LaTeXDraw3.2.png"
        inkscape:export-xdpi="69.099998"
        inkscape:export-ydpi="69.099998"><tspan
          sodipodi:role="line"
@@ -1826,115 +1763,6 @@
          x="415.29501"
          y="344.98248"
          style="fill:url(#radialGradient2361);fill-opacity:1">\psaxes(0,0)(0,0)(10,10)</tspan></text>
-    <g
-       id="g11265"
-       transform="matrix(1.3196732,0,0,1.4357868,-114.51807,-91.629622)"
-       inkscape:export-filename="C:\Documents and Settings\Tristelune\Mes documents\Programmation\TexDraw\graphisme\g5303.png"
-       inkscape:export-xdpi="100"
-       inkscape:export-ydpi="100">
-      <rect
-         transform="matrix(0.5390141,0.8422968,-0.9182588,0.3959807,0,0)"
-         y="-77.129082"
-         x="150.78252"
-         height="25.247908"
-         width="36.446236"
-         id="rect5317"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none" />
-      <rect
-         transform="matrix(0.9987184,5.0612382e-2,-0.9190191,0.394213,0,0)"
-         y="268.96893"
-         x="419.25494"
-         height="25.025253"
-         width="25.438353"
-         id="rect5319"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none" />
-      <rect
-         transform="matrix(0.539461,0.8420106,-0.9986586,-5.1778209e-2,0,0)"
-         y="-118.41489"
-         x="108.80452"
-         height="24.958773"
-         width="36.615242"
-         id="rect5321"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none" />
-      <rect
-         style="fill:url(#linearGradient11273);fill-opacity:1;fill-rule:evenodd;stroke:none"
-         id="rect5323"
-         width="36.446236"
-         height="25.247908"
-         x="150.78252"
-         y="-77.129082"
-         transform="matrix(0.5390141,0.8422968,-0.9182588,0.3959807,0,0)" />
-      <rect
-         style="fill:#140a0b;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         id="rect5325"
-         width="25.438353"
-         height="25.025253"
-         x="419.25494"
-         y="268.96893"
-         transform="matrix(0.9987184,5.0612382e-2,-0.9190191,0.394213,0,0)" />
-      <rect
-         style="fill:url(#linearGradient11275);fill-opacity:1;fill-rule:evenodd;stroke:none"
-         id="rect5327"
-         width="36.615242"
-         height="24.958773"
-         x="108.80452"
-         y="-118.41489"
-         transform="matrix(0.539461,0.8420106,-0.9986586,-5.1778209e-2,0,0)" />
-    </g>
-    <g
-       id="g5303"
-       transform="matrix(1.3196732,0,0,1.4357868,3.2249976,-49.860627)"
-       inkscape:export-xdpi="100"
-       inkscape:export-ydpi="100">
-      <rect
-         transform="matrix(0.9716858,-0.2362769,0.154395,0.9880092,0,0)"
-         y="129.80977"
-         x="39.128551"
-         height="18.576864"
-         width="44.726837"
-         id="rect8251"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none" />
-      <rect
-         transform="matrix(0.516797,-0.856108,0.1511921,0.9885044,0,0)"
-         y="223.43524"
-         x="131.12589"
-         height="18.412302"
-         width="21.673613"
-         id="rect8253"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none" />
-      <rect
-         transform="matrix(0.9716098,-0.236589,-0.5180509,0.8553498,0,0)"
-         y="161.37206"
-         x="157.10782"
-         height="21.278242"
-         width="44.931553"
-         id="rect8255"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none" />
-      <rect
-         style="fill:url(#linearGradient5311);fill-opacity:1;fill-rule:evenodd;stroke:none"
-         id="rect8257"
-         width="44.726837"
-         height="18.576864"
-         x="39.128551"
-         y="129.80977"
-         transform="matrix(0.9716858,-0.2362769,0.154395,0.9880092,0,0)" />
-      <rect
-         style="fill:#181867;fill-opacity:1;fill-rule:evenodd;stroke:none"
-         id="rect8259"
-         width="21.673613"
-         height="18.412302"
-         x="131.12589"
-         y="223.43524"
-         transform="matrix(0.516797,-0.856108,0.1511921,0.9885044,0,0)" />
-      <rect
-         style="fill:url(#linearGradient5313);fill-opacity:1;fill-rule:evenodd;stroke:none"
-         id="rect8261"
-         width="44.931553"
-         height="21.278242"
-         x="157.10782"
-         y="161.37206"
-         transform="matrix(0.9716098,-0.236589,-0.5180509,0.8553498,0,0)" />
-    </g>
     <rect
        style="fill:url(#radialGradient3341);fill-opacity:1.0;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="rect11279"
@@ -2090,134 +1918,5 @@
          x="479.5835"
          y="749.50604"
          style="fill:url(#radialGradient2393);fill-opacity:1">\psaxes(0,0)(0,0)(10,10)</tspan></text>
-    <rect
-       style="fill:url(#linearGradient2406);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="rect2372"
-       width="405.90714"
-       height="264.095"
-       x="713.25476"
-       y="286.44397"
-       inkscape:export-filename="/home/arno/Desktop/LaTeXDrawtest.png"
-       inkscape:export-xdpi="42.571316"
-       inkscape:export-ydpi="42.571316" />
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#dcdcdc;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:ClearlyU Alternate Glyphs"
-       x="731.96094"
-       y="500.36819"
-       id="text2374"
-       inkscape:export-filename="/home/arno/Desktop/LaTeXDrawtest.png"
-       inkscape:export-xdpi="42.571316"
-       inkscape:export-ydpi="42.571316"><tspan
-         sodipodi:role="line"
-         id="tspan2376"
-         x="731.96094"
-         y="500.36819"
-         style="font-size:32px;fill:#dcdcdc;fill-opacity:1;font-family:ClearlyU Alternate Glyphs">LaTeXDraw</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:9.7610817px;font-style:normal;font-weight:normal;fill:url(#radialGradient2408);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="877.16809"
-       y="356.24881"
-       id="text2378"
-       transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/arno/Desktop/LaTeXDrawtest.png"
-       inkscape:export-xdpi="42.571316"
-       inkscape:export-ydpi="42.571316"><tspan
-         sodipodi:role="line"
-         id="tspan2380"
-         x="877.16809"
-         y="356.24881"
-         style="fill:url(#radialGradient2408);fill-opacity:1">\begin{pspicture}(0,0)(10,10)</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:9.76107597px;font-style:normal;font-weight:normal;fill:url(#radialGradient2412);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="877.16809"
-       y="429.52127"
-       id="text2382"
-       transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/arno/Desktop/LaTeXDrawtest.png"
-       inkscape:export-xdpi="42.571316"
-       inkscape:export-ydpi="42.571316"><tspan
-         sodipodi:role="line"
-         id="tspan2384"
-         x="877.16809"
-         y="429.52127"
-         style="fill:url(#radialGradient2412);fill-opacity:1">\end{pspicture}</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:9.76107979px;font-style:normal;font-weight:normal;fill:url(#radialGradient2416);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="884.02429"
-       y="415.10904"
-       id="text2386"
-       transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/arno/Desktop/LaTeXDrawtest.png"
-       inkscape:export-xdpi="42.571316"
-       inkscape:export-ydpi="42.571316"><tspan
-         sodipodi:role="line"
-         id="tspan2388"
-         x="884.02429"
-         y="415.10904"
-         style="fill:url(#radialGradient2416);fill-opacity:1">\psline(2,2)(0,1)(4,4)</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:9.76107407px;font-style:normal;font-weight:normal;fill:url(#radialGradient2420);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="884.02429"
-       y="381.76947"
-       id="text2390"
-       transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/arno/Desktop/LaTeXDrawtest.png"
-       inkscape:export-xdpi="42.571316"
-       inkscape:export-ydpi="42.571316"><tspan
-         sodipodi:role="line"
-         id="tspan2392"
-         x="884.02429"
-         y="381.76947"
-         style="fill:url(#radialGradient2420);fill-opacity:1">\psframe(3,1)(5,2)</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:9.76107025px;font-style:normal;font-weight:normal;fill:url(#radialGradient2422);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="884.02429"
-       y="392.88263"
-       id="text2394"
-       transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/arno/Desktop/LaTeXDrawtest.png"
-       inkscape:export-xdpi="42.571316"
-       inkscape:export-ydpi="42.571316"><tspan
-         sodipodi:role="line"
-         id="tspan2396"
-         x="884.02429"
-         y="392.88263"
-         style="fill:url(#radialGradient2422);fill-opacity:1">\psbezier(3,1)(5,2)(7,2)(1,0)</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:9.76107025px;font-style:normal;font-weight:normal;fill:url(#radialGradient2424);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="884.02429"
-       y="403.99585"
-       id="text2398"
-       transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/arno/Desktop/LaTeXDrawtest.png"
-       inkscape:export-xdpi="42.571316"
-       inkscape:export-ydpi="42.571316"><tspan
-         sodipodi:role="line"
-         id="tspan2400"
-         x="884.02429"
-         y="403.99585"
-         style="fill:url(#radialGradient2424);fill-opacity:1">\pscircle(3,5){1.5}</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:9.76107025px;font-style:normal;font-weight:normal;fill:url(#radialGradient2426);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="884.02429"
-       y="370.65146"
-       id="text2402"
-       transform="scale(1.0788462,0.9269162)"
-       inkscape:export-filename="/home/arno/Desktop/LaTeXDrawtest.png"
-       inkscape:export-xdpi="42.571316"
-       inkscape:export-ydpi="42.571316"><tspan
-         sodipodi:role="line"
-         id="tspan2404"
-         x="884.02429"
-         y="370.65146"
-         style="fill:url(#radialGradient2426);fill-opacity:1">\psaxes(0,0)(0,0)(10,10)</tspan></text>
   </g>
 </svg>
