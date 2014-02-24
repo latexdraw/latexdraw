@@ -958,7 +958,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 					shape.setGradColStart(grad.getStartColor());
 					shape.setGradColEnd(grad.getEndColor());
-					shape.setFillingStyle(FillingStyle.getStyle(PSTricksConstants.TOKEN_FILL_GRADIENT));
+					shape.setFillingStyle(FillingStyle.GRAD);
 					shape.setGradMidPt(grad.getMiddlePoint());
 					shape.setGradAngle(grad.getAngle());
 				}

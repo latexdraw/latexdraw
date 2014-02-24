@@ -1,5 +1,7 @@
 ************************************************************
 Version 3.2.0
 
+- fixed: Gradient shading feature is not read from SVG file
+  https://bugs.launchpad.net/latexdraw/+bug/1284297 
 - fixed: Changing the position using the spinners does not work
   https://bugs.launchpad.net/latexdraw/+bug/1278045

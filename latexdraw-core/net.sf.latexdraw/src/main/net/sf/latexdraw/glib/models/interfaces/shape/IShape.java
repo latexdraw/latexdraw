@@ -282,8 +282,8 @@ public interface IShape extends Modifiable {
 
 
 		/**
-		 * @param style The latex token to test.
-		 * @return The filling style that corresponds to the given latex parameter (or null).
+		 * @param style The text version of the filling style.
+		 * @return The filling style that corresponds to the given text (or null).
 		 * @since 3.0
 		 */
 		public static FillingStyle getStyle(final String style) {
