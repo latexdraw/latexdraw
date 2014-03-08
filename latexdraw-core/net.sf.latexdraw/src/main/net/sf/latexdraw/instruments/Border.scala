@@ -214,7 +214,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 		if(isArcHandlerShowable) {
 			val sh = _selection(0).getShape
 
-			if(sh.isTypeOf(classOf[IArc])) {
+			if(sh.isInstanceOf[IArc]) {
 				val arc = sh.asInstanceOf[IArc]
 				_arcHandlerStart.update(arc, canvas.getZoom)
 				_arcHandlerEnd.update(arc, canvas.getZoom)
@@ -231,7 +231,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 		if(isCtrlPtMvHandlersShowable) {
 			val sh = _selection(0).getShape
 
-			if(sh.isTypeOf(classOf[IControlPointShape]))
+			if(sh.isInstanceOf[IControlPointShape])
 				// Lazy initialisation
 				initialiseCtrlMvHandlers(sh.asInstanceOf[IControlPointShape])
 		}
@@ -244,23 +244,23 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 
 		// Adding missing handlers.
 		if(_ctrlPt1Handlers.size<nbPts)
-			for(i <- _ctrlPt1Handlers.size to nbPts-1) {
+			for(i <- _ctrlPt1Handlers.size until nbPts) {
 				_ctrlPt1Handlers += new CtrlPointHandler(i)
 				_ctrlPt2Handlers += new CtrlPointHandler(i)
 			}
 		// Removing extra handlers.
-		else if(_ctrlPt1Handlers.size>nbPts)
+		else
 			while(_ctrlPt1Handlers.size>nbPts) {
-				_ctrlPt1Handlers.remove(0)
-				_ctrlPt2Handlers.remove(0)
+				_ctrlPt1Handlers.remove(_ctrlPt1Handlers.size-1)
+				_ctrlPt2Handlers.remove(_ctrlPt2Handlers.size-1)
 			}
 
 		// Updating handlers.
-		for(i <- 0 to _ctrlPt1Handlers.size-1) {
+		for(i <- 0 until _ctrlPt1Handlers.size) {
 			val pt1 = cps.getFirstCtrlPtAt(i)
-			_ctrlPt1Handlers.apply(i).setPoint(pt1.getX*zoom, pt1.getY*zoom)
+			_ctrlPt1Handlers(i).setPoint(pt1.getX*zoom, pt1.getY*zoom)
 			val pt2 = cps.getSecondCtrlPtAt(i)
-			_ctrlPt2Handlers.apply(i).setPoint(pt2.getX*zoom, pt2.getY*zoom)
+			_ctrlPt2Handlers(i).setPoint(pt2.getX*zoom, pt2.getY*zoom)
 		}
 	}
 
@@ -274,21 +274,21 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 		if(isPtMvHandlersShowable) {
 			val sh = _selection(0).getShape
 
-			if(sh.isTypeOf(classOf[IModifiablePointsShape])) {
+			if(sh.isInstanceOf[IModifiablePointsShape]) {
 				val pts   = sh.asInstanceOf[IModifiablePointsShape]
 				val nbPts = pts.getNbPoints
 				val zoom  = canvas.getZoom
 
 				if(_mvPtHandlers.size<nbPts)
-					for(i <- _mvPtHandlers.size to nbPts-1)
+					for(i <- _mvPtHandlers.size until nbPts)
 						_mvPtHandlers += new MovePtHandler(i)
-				else if(_mvPtHandlers.size>nbPts)
-						while(_mvPtHandlers.size>nbPts)
-							_mvPtHandlers.remove(0)
+				else
+					while(_mvPtHandlers.size>nbPts)
+						_mvPtHandlers.remove(_mvPtHandlers.size-1)
 
-				for(i <- 0 to _mvPtHandlers.size-1) {
+				for(i <- 0 until _mvPtHandlers.size) {
 					val pt = pts.getPtAt(i)
-					_mvPtHandlers.apply(i).setPoint(pt.getX*zoom, pt.getY*zoom)
+					_mvPtHandlers(i).setPoint(pt.getX*zoom, pt.getY*zoom)
 				}
 			}
 		}
@@ -571,7 +571,7 @@ private sealed class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint,
 	override def initAction() {
 		val group = instrument.canvas.getDrawing.getSelection
 
-		if(group.size==1 && group.getShapeAt(0).isTypeOf(classOf[IControlPointShape])) {
+		if(group.size==1 && group.getShapeAt(0).isInstanceOf[IControlPointShape]) {
 			val handler = ctrlPtHandler.get
 			sourcePt = ShapeFactory.createPoint(handler.getCentre)
 			action.setIndexPt(handler.getIndexPt)
@@ -622,7 +622,7 @@ private sealed class DnD2MovePoint(ins : Border) extends Link[MovePointShape, Dn
 	override def initAction() {
 		val group = instrument.canvas.getDrawing.getSelection
 
-		if(group.size==1 && group.getShapeAt(0).isTypeOf(classOf[IModifiablePointsShape])) {
+		if(group.size==1 && group.getShapeAt(0).isInstanceOf[IModifiablePointsShape]) {
 			val handler = movePtHandler.get
 			sourcePt = ShapeFactory.createPoint(handler.getCentre)
 			action.setIndexPt(handler.getIndexPt)
