@@ -7,3 +7,5 @@ Version 3.2.0
   https://bugs.launchpad.net/latexdraw/+bug/1284297 
 - fixed: Changing the position using the spinners does not work
   https://bugs.launchpad.net/latexdraw/+bug/1278045
+- fixed: Should use ps2eps in the eps latex export
+  https://bugs.launchpad.net/latexdraw/+bug/711936

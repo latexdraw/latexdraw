@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.filters.EPSFilter;
 import net.sf.latexdraw.filters.PDFFilter;
-import net.sf.latexdraw.filters.PSFilter;
 import net.sf.latexdraw.filters.TeXFilter;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -483,6 +483,38 @@ public abstract class LaTeXGenerator implements Modifiable {
 	}
 
 
+	/**
+	 * Create an .eps file that corresponds to the compiled latex document containing the pstricks drawing.
+	 * @param drawing The shapes to export.
+	 * @param pathExportEPS The path of the .eps file to create (MUST ends with .eps).
+	 * @param synchronizer The object that synchronises the view and the model.
+	 * @param pstGen The PST generator to use.
+	 * @return The create file or null.
+	 * @since 3.0
+	 */
+	public static File createEPSFile(final IDrawing drawing, final String pathExportEPS, final ViewsSynchroniserHandler synchronizer, final PSTCodeGenerator pstGen){
+		final File tmpDir = LFileUtils.INSTANCE.createTempDir();
+		final File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + "tmpPSFile.ps", synchronizer, tmpDir, pstGen);
+		final String[] paramsLatex = new String[] {LSystem.INSTANCE.getSystem().getPS2EPSBinPath(), psFile.getAbsolutePath()};
+		final File finalFile = new File(pathExportEPS);
+		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", EPSFilter.EPS_EXTENSION));
+
+		String log = execute(paramsLatex, tmpDir);
+		if(!fileEPS.exists()) {
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, pstGen) + LResources.EOL + log));
+			return null;
+		}
+		LFileUtils.INSTANCE.copy(fileEPS, finalFile);
+		psFile.delete();
+		fileEPS.delete();
+		if(!finalFile.exists()) {
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException("Cannot create the EPS file at this location: " + finalFile.getAbsolutePath()));
+			return null;
+		}
+		return finalFile;
+	}
+
+
 
 	/**
 	 * Create a .ps file that corresponds to the compiled latex document containing
@@ -501,7 +533,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return null;
 
 		int lastSep			= pathExportPs.lastIndexOf(LResources.FILE_SEP)+1;
-		String name			= pathExportPs.substring(lastSep==-1 ? 0 : lastSep, pathExportPs.lastIndexOf(PSFilter.PS_EXTENSION));
+		String name			= pathExportPs.substring(lastSep==-1 ? 0 : lastSep, pathExportPs.lastIndexOf(".ps"));
 		File tmpDir2		= tmpDir==null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
 		final float scale	= (float)pstGen.getScale();
 
@@ -578,7 +610,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
-		File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PSFilter.PS_EXTENSION, synchronizer, tmpDir, pstGen);
+		File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + ".ps", synchronizer, tmpDir, pstGen);
 		String log;
 		File pdfFile;
 		final OperatingSystem os = LSystem.INSTANCE.getSystem();

@@ -25,10 +25,10 @@ import javax.swing.filechooser.FileFilter;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.BMPFilter;
+import net.sf.latexdraw.filters.EPSFilter;
 import net.sf.latexdraw.filters.JPGFilter;
 import net.sf.latexdraw.filters.PDFFilter;
 import net.sf.latexdraw.filters.PNGFilter;
-import net.sf.latexdraw.filters.PSFilter;
 import net.sf.latexdraw.filters.TeXFilter;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.ui.ICanvas;
@@ -99,12 +99,12 @@ public class Export extends Action {
 		EPS_LATEX {
 			@Override
 			public FileFilter getFilter() {
-				return new PSFilter();
+				return new EPSFilter();
 			}
 
 			@Override
 			public String getFileExtension() {
-				return PSFilter.PS_EXTENSION;
+				return EPSFilter.EPS_EXTENSION;
 			}
 		},
 		/**
@@ -253,7 +253,7 @@ public class Export extends Action {
 	protected boolean export(final File file) {
 		switch(format) {
 			case BMP: 		return exportAsBMP(file);
-			case EPS_LATEX: return exportAsPS(file);
+			case EPS_LATEX: return exportAsEPS(file);
 			case JPG: 		return exportAsJPG(file);
 			case PDF: 		return exportAsPDF(file);
 			case PDF_CROP: 	return exportAsPDF(file);
@@ -330,11 +330,11 @@ public class Export extends Action {
 	 * @return True: the file has been created.
 	 * @since 3.0
 	 */
-	protected boolean exportAsPS(final File file) {
+	protected boolean exportAsEPS(final File file) {
 		File psFile;
 
 		try{
-			psFile = LaTeXGenerator.createPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, pstGen);
+			psFile = LaTeXGenerator.createEPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, pstGen);
 		}catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
 			psFile = null;

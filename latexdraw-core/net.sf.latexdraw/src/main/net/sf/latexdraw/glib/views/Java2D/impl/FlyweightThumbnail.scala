@@ -11,13 +11,16 @@ import java.io.RandomAccessFile
 import java.io.StringWriter
 import java.nio.channels.FileChannel
 import java.util.regex.Pattern
+
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
+
 import com.sun.pdfview.PDFFile
+
+import javax.swing.SwingUtilities
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.filters.PDFFilter
-import net.sf.latexdraw.filters.PSFilter
 import net.sf.latexdraw.filters.TeXFilter
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IText
@@ -32,7 +35,6 @@ import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.util.LSystem
 import net.sf.latexdraw.util.StreamExecReader
-import javax.swing.SwingUtilities
 
 /**
  * This flyweight manages the thumbnails of the text shapes. Its goal is to limit the number
@@ -314,16 +316,17 @@ object FlyweightThumbnail {
 			new File(pathTex).delete
 			new File(pathPic + ".aux").delete //$NON-NLS-1$
 			new File(pathPic + ".log").delete //$NON-NLS-1$
+			val psExt = ".eps" //$NON-NLS-1$
 
 			if(ok) {
-				res = execute(Array(os.getDvipsBinPath, pathPic + ".dvi",  "-o", pathPic + PSFilter.PS_EXTENSION)) //$NON-NLS-1$ //$NON-NLS-2$
+				res = execute(Array(os.getDvipsBinPath, pathPic + ".dvi",  "-o", pathPic + psExt)) //$NON-NLS-1$ //$NON-NLS-2$
 				ok = res._1
 				log = log + res._2
 				new File(pathPic + ".dvi").delete //$NON-NLS-1$
 			}
 			if(ok) {
-				res = execute(Array(os.getPs2pdfBinPath, pathPic + PSFilter.PS_EXTENSION, pathPic + PDFFilter.PDF_EXTENSION)) //$NON-NLS-1$
-				new File(pathPic + PSFilter.PS_EXTENSION).delete //$NON-NLS-1$
+				res = execute(Array(os.getPs2pdfBinPath, pathPic + psExt, pathPic + PDFFilter.PDF_EXTENSION)) //$NON-NLS-1$
+				new File(pathPic + psExt).delete //$NON-NLS-1$
 				ok = res._1
 				log = log + res._2
 			}
@@ -361,7 +364,7 @@ object FlyweightThumbnail {
 		    e.printStackTrace(pw)
 			new File(pathPic + TeXFilter.TEX_EXTENSION).delete
 			new File(pathPic + PDFFilter.PDF_EXTENSION).delete
-			new File(pathPic + PSFilter.PS_EXTENSION).delete
+			new File(pathPic + ".ps").delete //$NON-NLS-1$
 			new File(pathPic + ".dvi").delete //$NON-NLS-1$
 			new File(pathPic + ".aux").delete //$NON-NLS-1$
 			new File(pathPic + ".log").delete //$NON-NLS-1$

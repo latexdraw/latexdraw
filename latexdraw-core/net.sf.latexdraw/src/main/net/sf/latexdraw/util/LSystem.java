@@ -57,6 +57,14 @@ public final class LSystem {
 		LINUX;
 
 		/**
+		 * @return The path where is the ps2eps binary.
+		 * @since 3.1
+		 */
+		public String getPS2EPSBinPath() {
+			return "ps2eps";
+		}
+
+		/**
 		 * @return The path where is the latex binary.
 		 * @since 3.0
 		 */
