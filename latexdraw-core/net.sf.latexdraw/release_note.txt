@@ -1,6 +1,8 @@
 ************************************************************
 Version 3.2.0
 
+- fixed: Freeze when continuously pressing a key
+  https://bugs.launchpad.net/latexdraw/+bug/1293804
 - fixed: Wrong selection of control points, points when interacting with shapes having a diff number of points
   https://bugs.launchpad.net/latexdraw/+bug/1287687
 - fixed: Wrong bounding box when creating a bezier curve with show points
