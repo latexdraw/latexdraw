@@ -66,6 +66,10 @@ private[impl] class LBezierCurve(var isClosed:Boolean, uniqueID:Boolean)
 	override def copy(sh:IShape) {
 		super[LAbstractCtrlPointShape].copy(sh)
 		super[LArrowableShape].copy(sh)
+		sh match {
+			case bc:IBezierCurve => setIsClosed(bc.isClosed)
+			case _ =>
+		}
 	}
 
 	override def isLineStylable() = true
