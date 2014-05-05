@@ -67,19 +67,16 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 	@Override
 	@Test
 	public void testMirrorHorizontal() {
-		shape.setPosition(0, 5);
+		shape.setPosition(15, 5);
 		shape.setWidth(10);
-		shape.setHeight(10);
+		shape.setHeight(20);
 		shape.mirrorHorizontal(shape.getGravityCentre());
 
-		HelperTest.assertEqualsDouble(10., shape.getPtAt(0).getX());
-		HelperTest.assertEqualsDouble(0., shape.getPtAt(0).getY());
-		HelperTest.assertEqualsDouble(5., shape.getPtAt(1).getX());
-		HelperTest.assertEqualsDouble(-5., shape.getPtAt(1).getY());
-		HelperTest.assertEqualsDouble(5., shape.getPtAt(3).getX());
-		HelperTest.assertEqualsDouble(5., shape.getPtAt(3).getY());
-		HelperTest.assertEqualsDouble(0., shape.getPtAt(2).getX());
-		HelperTest.assertEqualsDouble(0., shape.getPtAt(2).getY());
+		assertEquals(15., shape.getPosition().getX(), 0.001);
+		assertEquals(5., shape.getPosition().getY(), 0.001);
+		assertEquals(10., shape.getWidth(), 0.001);
+		assertEquals(20., shape.getHeight(), 0.001);
+		assertEquals(0., shape.getRotationAngle(), 0.001);
 	}
 
 
@@ -87,19 +84,16 @@ public abstract class TestIRhombus<T extends IRhombus> extends TestIPositionShap
 	@Override
 	@Test
 	public void testMirrorVertical() {
-		shape.setPosition(0, 5);
+		shape.setPosition(15, 5);
 		shape.setWidth(10);
-		shape.setHeight(10);
+		shape.setHeight(20);
 		shape.mirrorVertical(shape.getGravityCentre());
 
-		HelperTest.assertEqualsDouble(0., shape.getPtAt(0).getX());
-		HelperTest.assertEqualsDouble(0., shape.getPtAt(0).getY());
-		HelperTest.assertEqualsDouble(5., shape.getPtAt(1).getX());
-		HelperTest.assertEqualsDouble(5., shape.getPtAt(1).getY());
-		HelperTest.assertEqualsDouble(5., shape.getPtAt(3).getX());
-		HelperTest.assertEqualsDouble(-5., shape.getPtAt(3).getY());
-		HelperTest.assertEqualsDouble(10., shape.getPtAt(2).getX());
-		HelperTest.assertEqualsDouble(0., shape.getPtAt(2).getY());
+		assertEquals(15., shape.getPosition().getX(), 0.001);
+		assertEquals(5., shape.getPosition().getY(), 0.001);
+		assertEquals(10., shape.getWidth(), 0.001);
+		assertEquals(20., shape.getHeight(), 0.001);
+		assertEquals(0., shape.getRotationAngle(), 0.001);
 	}
 
 

@@ -7,10 +7,8 @@ import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
-import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.junit.Before;
@@ -78,11 +76,9 @@ public class TestLCircleArc<T extends ICircleArc> extends TestICircleArc<T> {
 	public void testIsTypeOf() {
 		assertFalse(shape.isTypeOf(null));
 		assertFalse(shape.isTypeOf(IRectangle.class));
-		assertFalse(shape.isTypeOf(ICircle.class));
+		assertTrue(shape.isTypeOf(ICircle.class));
 		assertTrue(shape.isTypeOf(IShape.class));
 		assertTrue(shape.isTypeOf(IPositionShape.class));
-		assertTrue(shape.isTypeOf(IRectangularShape.class));
-		assertTrue(shape.isTypeOf(IEllipse.class));
 		assertTrue(shape.isTypeOf(IArc.class));
 		assertTrue(shape.isTypeOf(ICircleArc.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));

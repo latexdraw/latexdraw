@@ -86,8 +86,6 @@ public class TestResources extends TestCase {
 		assertNotNull(loadImageIcon("/res/text.png"));		//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/polygon.png"));	//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/rotation.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/InFrontSelect.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/behindSelect.png"));	//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/background.png"));	//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/foreground.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/Undo.png"));//$NON-NLS-1$
@@ -108,16 +106,10 @@ public class TestResources extends TestCase {
 		assertNotNull(loadImageIcon("/res/select.png"));	//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/square.png"));	//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/triangle.png"));//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/Print.png"));//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/Object.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/AutoBorders.png"));//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/go-next.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/join.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/separate.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/bezierCurve.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/chord.png")); //$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/CopySel.png")); //$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/go-previous.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/joinedLines.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/emblem-unreadable.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/stop.png")); //$NON-NLS-1$
@@ -132,11 +124,8 @@ public class TestResources extends TestCase {
 		assertNotNull(loadImageIcon("/res/mirrorV.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/axes.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/texEditor.png")); //$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/delimitor.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/freehand/curve.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/freehand/line.png")); //$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/BezierCurves/closeCurve.png")); //$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/BezierCurves/closeLine.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/closedBezier.png")); //$NON-NLS-1$
 	}
 

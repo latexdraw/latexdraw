@@ -10,10 +10,9 @@ import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,9 +36,8 @@ public class TestLSquare<T extends ISquare> extends TestISquare<T> {
 		assertFalse(shape.isTypeOf(ICircle.class));
 		assertTrue(shape.isTypeOf(IShape.class));
 		assertTrue(shape.isTypeOf(IPositionShape.class));
-		assertTrue(shape.isTypeOf(IRectangularShape.class));
+		assertTrue(shape.isTypeOf(ISquaredShape.class));
 		assertTrue(shape.isTypeOf(ILineArcProp.class));
-		assertTrue(shape.isTypeOf(IRectangle.class));
 		assertTrue(shape.isTypeOf(ISquare.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
