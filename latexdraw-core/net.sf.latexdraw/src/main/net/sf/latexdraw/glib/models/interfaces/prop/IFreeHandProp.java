@@ -30,7 +30,7 @@ public interface IFreeHandProp {
 			for(final FreeHandType fh : values())
 				if(fh.toString().equals(type))
 					return fh;
-			return null;
+			return CURVES;
 		}
 	}
 
