@@ -9,7 +9,7 @@
   
   	<properties>
 		<malai.version>1.3-SNAPSHOT</malai.version>
-		<scala.version>2.10.3</scala.version>
+		<scala.version>2.10.4</scala.version>
 	</properties>
 	
 <repositories>
