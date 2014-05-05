@@ -81,6 +81,7 @@ private[impl] trait LArc extends IArc with LArrowableShape {
 	}
 
 	override def setArcStyle(styl:ArcStyle) {
-		this.style = styl
+		if(styl!=null)
+			this.style = styl
 	}
 }
