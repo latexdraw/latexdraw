@@ -177,7 +177,8 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 			centreButton.setSelected(tp==TextPosition.CENTER);
 			lButton.setSelected(tp==TextPosition.LEFT);
 			rButton.setSelected(tp==TextPosition.RIGHT);
-			packagesField.setText(LaTeXGenerator.getPackages());
+			if(!packagesField.hasFocus()) // Otherwise it means that this field is currently being edited and must not be updated.
+				packagesField.setText(LaTeXGenerator.getPackages());
 
 			// Updating the log field.
 			SwingUtilities.invokeLater(new Runnable() {
