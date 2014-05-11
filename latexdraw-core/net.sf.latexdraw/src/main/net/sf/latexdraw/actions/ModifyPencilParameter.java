@@ -127,7 +127,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 				pencil.groupParams().setDotFillingCol((Color)value);
 				break;
 			case DOT_SIZE:
-				pencil.groupParams().setRadius((Double) value);
+				pencil.groupParams().setDiametre((Double) value);
 				break;
 			case DOT_STYLE:
 				pencil.groupParams().setDotStyle((DotStyle) value);

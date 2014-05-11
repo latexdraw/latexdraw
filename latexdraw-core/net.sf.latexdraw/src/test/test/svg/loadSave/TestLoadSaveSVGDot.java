@@ -20,7 +20,7 @@ public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
 						final Color lineCol, final Color fillCol) {
 		shape.setPosition(x, y);
 		shape.setDotStyle(style);
-		shape.setRadius(size);
+		shape.setDiametre(size);
 		shape.setLineColour(lineCol);
 		if(fillCol!=null)
 			shape.setFillingCol(fillCol);
@@ -37,7 +37,7 @@ public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
 	protected void compareShapes(IDot d2) {
 		assertEquals(shape.getDotStyle(), d2.getDotStyle());
 		assertEquals(shape.getPosition(), d2.getPosition());
-		assertEquals(shape.getRadius(), d2.getRadius());
+		assertEquals(shape.getDiametre(), d2.getDiametre());
 		assertEquals(shape.getLineColour(), d2.getLineColour());
 		assertEquals(shape.isFillable(), shape.isFillable());
 		assertEquals(shape.isFilled(), shape.isFilled());

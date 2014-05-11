@@ -69,7 +69,7 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 		catch(IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		if(v!=null)
-			try { shape.setRadius(Double.parseDouble(v)); }
+			try { shape.setDiametre(Double.parseDouble(v)); }
 			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		v = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_POSITION);
@@ -113,7 +113,7 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 
         root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_DOT);
         root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
-		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_SIZE, String.valueOf(shape.getRadius()));
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_SIZE, String.valueOf(shape.getDiametre()));
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_DOT_SHAPE, shape.getDotStyle().getPSTToken());
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POSITION, shape.getPosition().getX() + " " + shape.getPosition().getY()); //$NON-NLS-1$
 

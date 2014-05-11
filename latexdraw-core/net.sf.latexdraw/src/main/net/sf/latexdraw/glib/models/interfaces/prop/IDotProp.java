@@ -118,17 +118,17 @@ public interface IDotProp {
 	void setDotStyle(final DotStyle style);
 
 	/**
-	 * @return the radius of the dot.
+	 * @return the diametre of the dot.
 	 * @since 3.0
 	 */
-	double getRadius();
+	double getDiametre();
 
 	/**
-	 * Defines the radius of the dot.
-	 * @param radius the radius to set. Must be greater than 0.
+	 * Defines the diametre of the dot.
+	 * @param diametre the diametre to set. Must be greater than 0.
 	 * @since 3.0
 	 */
-	void setRadius(final double radius);
+	void setDiametre(final double diametre);
 
 	/**
 	 * @return The filling colour of the dottable or null if not fillable.

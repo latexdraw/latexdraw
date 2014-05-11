@@ -440,31 +440,31 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		g.addShape(d1);
 		g.addShape(rec);
 		g.addShape(d2);
-		d1.setRadius(11.);
-		d2.setRadius(22.2);
+		d1.setDiametre(11.);
+		d2.setDiametre(22.2);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.DOT_SIZE);
 		action.setValue(33.3);
 		assertTrue(action.doIt());
 
-		assertEquals(33.3, d1.getRadius(), 0.0001);
-		assertEquals(33.3, d2.getRadius(), 0.0001);
+		assertEquals(33.3, d1.getDiametre(), 0.0001);
+		assertEquals(33.3, d2.getDiametre(), 0.0001);
 	}
 
 
 	public void testUndoDotSize() {
 		testDoDotSize();
 		action.undo();
-		assertEquals(11., ((IDot)g.getShapeAt(0)).getRadius(), 0.0001);
-		assertEquals(22.2, ((IDot)g.getShapeAt(2)).getRadius(), 0.0001);
+		assertEquals(11., ((IDot)g.getShapeAt(0)).getDiametre(), 0.0001);
+		assertEquals(22.2, ((IDot)g.getShapeAt(2)).getDiametre(), 0.0001);
 	}
 
 
 	public void testRedoDotSize() {
 		testUndoDotSize();
 		action.redo();
-		assertEquals(33.3, ((IDot)g.getShapeAt(0)).getRadius(), 0.0001);
-		assertEquals(33.3, ((IDot)g.getShapeAt(2)).getRadius(), 0.0001);
+		assertEquals(33.3, ((IDot)g.getShapeAt(0)).getDiametre(), 0.0001);
+		assertEquals(33.3, ((IDot)g.getShapeAt(2)).getDiametre(), 0.0001);
 	}
 
 

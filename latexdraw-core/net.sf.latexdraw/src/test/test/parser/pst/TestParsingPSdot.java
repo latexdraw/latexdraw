@@ -62,7 +62,7 @@ public class TestParsingPSdot extends TestParsingShape {
 	public void testDotScale2num() throws ParseException {
 		IDot dot1 =  (IDot)parser.parsePSTCode("\\"+getCommandName()+getBasicCoordinates()).get().getShapeAt(0);
 		IDot dot2 = (IDot)parser.parsePSTCode("\\"+getCommandName()+"[dotscale=2 3]"+getBasicCoordinates()).get().getShapeAt(0);
-		assertEquals(dot1.getRadius()*2., dot2.getRadius(), 0.001);
+		assertEquals(dot1.getDiametre()*2., dot2.getDiametre(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -71,7 +71,7 @@ public class TestParsingPSdot extends TestParsingShape {
 	public void testDotScale1num() throws ParseException {
 		IDot dot1 =  (IDot)parser.parsePSTCode("\\"+getCommandName()+getBasicCoordinates()).get().getShapeAt(0);
 		IDot dot2 = (IDot)parser.parsePSTCode("\\"+getCommandName()+"[dotscale=2]"+getBasicCoordinates()).get().getShapeAt(0);
-		assertEquals(dot1.getRadius()*2., dot2.getRadius(), 0.001);
+		assertEquals(dot1.getDiametre()*2., dot2.getDiametre(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -79,7 +79,7 @@ public class TestParsingPSdot extends TestParsingShape {
 	@Test
 	public void testDotsizeNoUnit() throws ParseException {
 		IDot dot =  (IDot)parser.parsePSTCode("\\"+getCommandName()+"[dotsize=1.5 2]"+getBasicCoordinates()).get().getShapeAt(0);
-		assertEquals((1.5*IShape.PPC+2.*PSTricksConstants.DEFAULT_LINE_WIDTH*IShape.PPC)/2., dot.getRadius(), 0.001);
+		assertEquals(1.5*IShape.PPC+2.*PSTricksConstants.DEFAULT_LINE_WIDTH*IShape.PPC, dot.getDiametre(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -87,7 +87,7 @@ public class TestParsingPSdot extends TestParsingShape {
 	@Test
 	public void testDotsizeNoNum() throws ParseException {
 		IDot dot =  (IDot)parser.parsePSTCode("\\"+getCommandName()+"[dotsize=1.5]"+getBasicCoordinates()).get().getShapeAt(0);
-		assertEquals(1.5*IShape.PPC/2., dot.getRadius(), 0.001);
+		assertEquals(1.5*IShape.PPC, dot.getDiametre(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -95,7 +95,7 @@ public class TestParsingPSdot extends TestParsingShape {
 	@Test
 	public void testDotsizeNoNumWithUnit() throws ParseException {
 		IDot dot =  (IDot)parser.parsePSTCode("\\"+getCommandName()+"[dotsize=15 mm]"+getBasicCoordinates()).get().getShapeAt(0);
-		assertEquals(1.5*IShape.PPC/2., dot.getRadius(), 0.001);
+		assertEquals(1.5*IShape.PPC, dot.getDiametre(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -103,7 +103,7 @@ public class TestParsingPSdot extends TestParsingShape {
 	@Test
 	public void testDotsizeNoNumWithWhitespace() throws ParseException {
 		IDot dot =  (IDot)parser.parsePSTCode("\\"+getCommandName()+"[dotsize=15 mm]"+getBasicCoordinates()).get().getShapeAt(0);
-		assertEquals(1.5*IShape.PPC/2., dot.getRadius(), 0.001);
+		assertEquals(1.5*IShape.PPC, dot.getDiametre(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -111,7 +111,7 @@ public class TestParsingPSdot extends TestParsingShape {
 	@Test
 	public void testDotsize() throws ParseException {
 		IDot dot =  (IDot)parser.parsePSTCode("\\"+getCommandName()+"[dotsize=1.5 cm 4]"+getBasicCoordinates()).get().getShapeAt(0);
-		assertEquals((1.5*IShape.PPC+4.*PSTricksConstants.DEFAULT_LINE_WIDTH*IShape.PPC)/2., dot.getRadius(), 0.001);
+		assertEquals(1.5*IShape.PPC+4.*PSTricksConstants.DEFAULT_LINE_WIDTH*IShape.PPC, dot.getDiametre(), 0.001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 

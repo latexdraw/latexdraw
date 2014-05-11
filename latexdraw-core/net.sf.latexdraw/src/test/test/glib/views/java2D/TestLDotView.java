@@ -26,7 +26,7 @@ public class TestLDotView extends TestLShapeView {
 		IDot dot = getDotShape();
 		dot.setPosition(x, y);
 		dot.setDotStyle(style);
-		dot.setRadius(size);
+		dot.setDiametre(size);
 		view.update();
 	}
 

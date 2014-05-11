@@ -150,7 +150,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IDotProp.class)) {
-			dotSizeField.setValueSafely(shape.getRadius());
+			dotSizeField.setValueSafely(shape.getDiametre());
 			dotCB.setSelectedItemSafely(shape.getDotStyle().toString());
 			fillingB.setEnabled(shape.isFillable());
 

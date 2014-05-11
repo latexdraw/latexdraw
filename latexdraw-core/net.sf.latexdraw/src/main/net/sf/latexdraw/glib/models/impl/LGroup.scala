@@ -640,7 +640,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def getDotSizeList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{_ match {
-				case dot : IDotProp => list.add(dot.getRadius)
+				case dot : IDotProp => list.add(dot.getDiametre)
 				case _ => list.add(null)
 			}
 		}
@@ -875,7 +875,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				if(shapes.get(i).isInstanceOf[IDotProp])
-					shapes.get(i).asInstanceOf[IDotProp].setRadius(values.get(i))
+					shapes.get(i).asInstanceOf[IDotProp].setDiametre(values.get(i))
 	}
 
 

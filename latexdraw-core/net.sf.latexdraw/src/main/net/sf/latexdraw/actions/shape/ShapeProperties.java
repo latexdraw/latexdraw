@@ -2041,7 +2041,7 @@ public enum ShapeProperties {
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
 			if(group!=null && isValueValid(value))
-				group.setRadius((Double)value);
+				group.setDiametre((Double)value);
 		}
 
 		@SuppressWarnings("unchecked")

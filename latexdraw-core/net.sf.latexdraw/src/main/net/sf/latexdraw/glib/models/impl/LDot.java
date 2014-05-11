@@ -71,7 +71,7 @@ class LDot extends LPositionShape implements IDot {
 
 
 	@Override
-	public double getRadius() {
+	public double getDiametre() {
 		return radius;
 	}
 
@@ -84,7 +84,7 @@ class LDot extends LPositionShape implements IDot {
 
 
 	@Override
-	public void setRadius(final double radius) {
+	public void setDiametre(final double radius) {
 		if(radius > 0. && GLibUtilities.isValidCoordinate(radius))
 			this.radius = radius;
 	}
@@ -148,7 +148,7 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
-		setRadius(radius * Math.max(x/bound.getWidth(), y/bound.getHeight()));
+		setDiametre(radius * Math.max(x/bound.getWidth(), y/bound.getHeight()));
 	}
 
 
@@ -168,7 +168,7 @@ class LDot extends LPositionShape implements IDot {
 			final IDotProp dot = (IDotProp)sh;
 
 			setDotStyle(dot.getDotStyle());
-			setRadius(dot.getRadius());
+			setDiametre(dot.getDiametre());
 			setDotFillingCol(dot.getDotFillingCol());
 		}
 	}

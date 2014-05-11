@@ -57,15 +57,15 @@ private[impl] trait LGroupDot extends IGroup {
 	}
 
 
-	override def getRadius() : Double = {
+	override def getDiametre() : Double = {
 		firstDottable match {
-			case Some(dot) => dot.getRadius
+			case Some(dot) => dot.getDiametre
 			case _ => Double.NaN
 		}
 	}
 
 
-	override def setRadius(radius : Double) {
-		dotShapes.foreach{_.setRadius(radius)}
+	override def setDiametre(dia : Double) {
+		dotShapes.foreach{_.setDiametre(dia)}
 	}
 }

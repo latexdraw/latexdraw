@@ -55,12 +55,12 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 			case DIAMOND	:
 			case ASTERISK	: stroke = new BasicStroke((float)shape.getGeneralGap(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER); break;
 			case BAR		: stroke = new BasicStroke((float)shape.getBarThickness(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER); break;
-			case DOT 		: stroke = new BasicStroke((float)(shape.getRadius()/IDot.THICKNESS_O_STYLE_FACTOR), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER); break;
+			case DOT 		: stroke = new BasicStroke((float)(shape.getDiametre()/IDot.THICKNESS_O_STYLE_FACTOR), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER); break;
 			case OPLUS		:
 			case FSQUARE	:
 			case OTIMES		:
 			case SQUARE		: stroke = new BasicStroke((float)shape.getGeneralGap(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER); break;
-			case PLUS		: stroke = new BasicStroke((float)(shape.getRadius()/IDot.PLUS_COEFF_WIDTH), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER); break;
+			case PLUS		: stroke = new BasicStroke((float)(shape.getDiametre()/IDot.PLUS_COEFF_WIDTH), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER); break;
 			case X			: stroke = new BasicStroke((float)shape.getCrossGap(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER); break;
 			default			: stroke = null;
 		}
@@ -174,7 +174,7 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 	private void setPathOLikeDot(final double dec) {
 		final IPoint tl	= shape.getLazyTopLeftPoint();
 
-		LEllipseView.setEllipsePath(path, tl.getX()+dec/2., tl.getY()+dec/2., shape.getRadius()-dec, shape.getRadius()-dec);
+		LEllipseView.setEllipsePath(path, tl.getX()+dec/2., tl.getY()+dec/2., shape.getDiametre()-dec, shape.getDiametre()-dec);
 	}
 
 
@@ -202,9 +202,9 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 
 
 	protected void setPathSquare() {
-		final double dec 	= shape.getRadius()/IDot.THICKNESS_O_STYLE_FACTOR;
+		final double dec 	= shape.getDiametre()/IDot.THICKNESS_O_STYLE_FACTOR;
 		final IPoint tl		= shape.getLazyTopLeftPoint();
-		final double width 	= shape.getRadius()-dec*3;
+		final double width 	= shape.getDiametre()-dec*3;
 		final double x 		= tl.getX()+dec+dec/2.;
 		final double y 		= tl.getY()+dec+dec/2.;
 
@@ -233,7 +233,7 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 	protected void setPathAsterisk() {
 		final IPoint br		 = shape.getLazyBottomRightPoint();
 		final IPoint tl		 = shape.getLazyTopLeftPoint();
-		final double width   = shape.getRadius();
+		final double width   = shape.getDiametre();
 		final double dec 	 = width/IDot.THICKNESS_O_STYLE_FACTOR;
 		final double xCenter = (tl.getX()+br.getX())/2.;
 		final double yCenter = (tl.getY()+br.getY())/2.;
@@ -256,7 +256,7 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 	protected void setPathDiamond() {
 		final IPoint tl		= shape.getLazyTopLeftPoint();
 		final IPoint br		= shape.getLazyBottomRightPoint();
-		final double dec 	= shape.getRadius()/IDot.THICKNESS_O_STYLE_FACTOR;
+		final double dec 	= shape.getDiametre()/IDot.THICKNESS_O_STYLE_FACTOR;
 		// This diamond is a golden diamond
 		// cf. http://mathworld.wolfram.com/GoldenRhombus.html
 		final double midY 	= (tl.getY()+br.getY())/2;
@@ -279,7 +279,7 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 	 * Creates a pentagon (one of the possibles shapes of a dot)
 	 */
 	protected void setPathPentagon() {
-		final double dec 	= shape.getRadius()/IDot.THICKNESS_O_STYLE_FACTOR;
+		final double dec 	= shape.getDiametre()/IDot.THICKNESS_O_STYLE_FACTOR;
 		final IPoint tl		= shape.getLazyTopLeftPoint();
 		final IPoint br		= shape.getLazyBottomRightPoint();
 		final double yCenter= (tl.getY()+br.getY())/2. - dec;
@@ -306,7 +306,7 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 	 */
 	protected void setPathTriangle() {
 		final IPoint tl	 = shape.getLazyTopLeftPoint();
-		final double dec = shape.getRadius()/IDot.THICKNESS_O_STYLE_FACTOR;
+		final double dec = shape.getDiametre()/IDot.THICKNESS_O_STYLE_FACTOR;
 		final IPoint br	 = shape.getLazyBottomRightPoint();
 
 		path.reset();

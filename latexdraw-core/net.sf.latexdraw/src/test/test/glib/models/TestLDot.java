@@ -43,7 +43,7 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 	public void testConstructor1() {
 		IDot dot1 = ShapeFactory.createDot(ShapeFactory.createPoint(), false);
 
-		assertTrue(dot1.getRadius()>0);
+		assertTrue(dot1.getDiametre()>0);
 		assertNotNull(dot1.getDotStyle());
 		assertNotNull(dot1.getPosition());
 		HelperTest.assertEqualsDouble(0., dot1.getPosition().getX());
@@ -55,7 +55,7 @@ public class TestLDot<T extends IDot> extends TestIDot<T> {
 	public void testConstructor3() {
 		IDot dot1 = ShapeFactory.createDot(null, false);
 
-		assertTrue(dot1.getRadius()>0);
+		assertTrue(dot1.getDiametre()>0);
 		assertNotNull(dot1.getDotStyle());
 		assertNotNull(dot1.getPosition());
 		HelperTest.assertEqualsDouble(0., dot1.getPosition().getX());

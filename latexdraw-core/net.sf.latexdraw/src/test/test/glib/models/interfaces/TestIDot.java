@@ -52,24 +52,24 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 
 	@Test
 	public void testGetSetRadius() {
-		shape.setRadius(22);
-		HelperTest.assertEqualsDouble(22., shape.getRadius());
-		shape.setRadius(1);
-		HelperTest.assertEqualsDouble(1., shape.getRadius());
-		shape.setRadius(0.001);
-		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
-		shape.setRadius(0);
-		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
-		shape.setRadius(-0.001);
-		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
-		shape.setRadius(-1);
-		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
-		shape.setRadius(Double.NaN);
-		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
-		shape.setRadius(Double.POSITIVE_INFINITY);
-		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
-		shape.setRadius(Double.NEGATIVE_INFINITY);
-		HelperTest.assertEqualsDouble(0.001, shape.getRadius());
+		shape.setDiametre(22);
+		HelperTest.assertEqualsDouble(22., shape.getDiametre());
+		shape.setDiametre(1);
+		HelperTest.assertEqualsDouble(1., shape.getDiametre());
+		shape.setDiametre(0.001);
+		HelperTest.assertEqualsDouble(0.001, shape.getDiametre());
+		shape.setDiametre(0);
+		HelperTest.assertEqualsDouble(0.001, shape.getDiametre());
+		shape.setDiametre(-0.001);
+		HelperTest.assertEqualsDouble(0.001, shape.getDiametre());
+		shape.setDiametre(-1);
+		HelperTest.assertEqualsDouble(0.001, shape.getDiametre());
+		shape.setDiametre(Double.NaN);
+		HelperTest.assertEqualsDouble(0.001, shape.getDiametre());
+		shape.setDiametre(Double.POSITIVE_INFINITY);
+		HelperTest.assertEqualsDouble(0.001, shape.getDiametre());
+		shape.setDiametre(Double.NEGATIVE_INFINITY);
+		HelperTest.assertEqualsDouble(0.001, shape.getDiametre());
 	}
 
 
@@ -80,10 +80,10 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 		super.testCopy();
 
 		shape2.setDotStyle(DotStyle.DIAMOND);
-		shape2.setRadius(31);
+		shape2.setDiametre(31);
 		shape.copy(shape2);
 		assertEquals(shape2.getDotStyle(), shape.getDotStyle());
-		HelperTest.assertEqualsDouble(shape2.getRadius(), shape.getRadius());
+		HelperTest.assertEqualsDouble(shape2.getDiametre(), shape.getDiametre());
 	}
 
 

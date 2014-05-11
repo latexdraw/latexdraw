@@ -158,7 +158,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 		instrument._groupParams().setThickness(13.);
 		instrument._groupParams().setBordersPosition(BorderPos.OUT);
 		instrument._groupParams().setDotStyle(DotStyle.BAR);
-		instrument._groupParams().setRadius(24.);
+		instrument._groupParams().setDiametre(24.);
 		instrument._groupParams().setHasDbleBord(true);
 		instrument._groupParams().setDbleBordCol(Color.CYAN);
 		instrument._groupParams().setHasShadow(true);
