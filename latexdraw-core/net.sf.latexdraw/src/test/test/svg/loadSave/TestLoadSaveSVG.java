@@ -42,6 +42,7 @@ public abstract class TestLoadSaveSVG<T extends IShape> extends TestCase {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	protected T toLatexdraw(final SVGDocument doc) {
 		if(doc==null)
 			return null;
