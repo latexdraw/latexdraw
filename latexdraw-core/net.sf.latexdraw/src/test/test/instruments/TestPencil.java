@@ -19,6 +19,8 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
+import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.instruments.EditionChoice;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.TextSetter;
@@ -37,6 +39,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 	@Before
 	@SuppressWarnings("unused")
 	public void setUp() {
+		View2DTK.setFactory(new LViewsFactory());
 		IDrawing drawing = ShapeFactory.createDrawing();
 		MLayeredPane layers = new MLayeredPane(false, false);
 		canvas 		= new LCanvas(drawing);
@@ -67,10 +70,10 @@ public class TestPencil extends TestInstrument<Pencil> {
 	@Test
 	public void testLinkDnD2AddShape_PressEventCreatesRectangle() {
 		instrument.setActivated(true);
-		double x = 100., y = 300.;
+		double x = 100.+canvas.getOrigin().getX(), y = 300.+canvas.getOrigin().getY();
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.RECT);
-		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
+		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, MouseEvent.BUTTON1));
 		Link<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
@@ -78,8 +81,8 @@ public class TestPencil extends TestInstrument<Pencil> {
 
 		IRectangle rec = (IRectangle) ((AddShape)link.getAction()).shape().get();
 		checkShape(rec);
-		HelperTest.assertEqualsDouble(rec.getTopLeftPoint().getX(), x);
-		HelperTest.assertEqualsDouble(rec.getTopLeftPoint().getY(), y);
+		HelperTest.assertEqualsDouble(100., rec.getTopLeftPoint().getX());
+		HelperTest.assertEqualsDouble(300., rec.getTopLeftPoint().getY());
 		assertTrue(rec.getWidth()>0);
 		assertTrue(rec.getHeight()>0);
 	}
@@ -89,10 +92,10 @@ public class TestPencil extends TestInstrument<Pencil> {
 	@Test
 	public void testLinkDnD2AddShape_PressEventCreatesEllipse() {
 		instrument.setActivated(true);
-		double x = 100., y = 300.;
+		double x = 100.+canvas.getOrigin().getX(), y = 300.+canvas.getOrigin().getY();
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.ELLIPSE);
-		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
+		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, MouseEvent.BUTTON1));
 		Link<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
@@ -100,8 +103,8 @@ public class TestPencil extends TestInstrument<Pencil> {
 
 		IEllipse ell = (IEllipse) ((AddShape)link.getAction()).shape().get();
 		checkShape(ell);
-		HelperTest.assertEqualsDouble(ell.getTopLeftPoint().getX(), x);
-		HelperTest.assertEqualsDouble(ell.getTopLeftPoint().getY(), y);
+		HelperTest.assertEqualsDouble(100., ell.getTopLeftPoint().getX());
+		HelperTest.assertEqualsDouble(300., ell.getTopLeftPoint().getY());
 		assertTrue(ell.getWidth()>0);
 		assertTrue(ell.getHeight()>0);
 	}
@@ -111,10 +114,10 @@ public class TestPencil extends TestInstrument<Pencil> {
 	@Test
 	public void testLinkDnD2AddShape_PressEventCreatesCircle() {
 		instrument.setActivated(true);
-		double x = 100., y = 300.;
+		double x = 100.+canvas.getOrigin().getX(), y = 300.+canvas.getOrigin().getY();
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.CIRCLE);
-		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
+		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, MouseEvent.BUTTON1));
 		Link<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
@@ -122,8 +125,8 @@ public class TestPencil extends TestInstrument<Pencil> {
 
 		ICircle circle = (ICircle) ((AddShape)link.getAction()).shape().get();
 		checkShape(circle);
-		HelperTest.assertEqualsDouble(circle.getGravityCentre().getX(), x);
-		HelperTest.assertEqualsDouble(circle.getGravityCentre().getY(), y);
+		HelperTest.assertEqualsDouble(100., circle.getGravityCentre().getX());
+		HelperTest.assertEqualsDouble(300., circle.getGravityCentre().getY());
 		assertTrue(circle.getWidth()>0);
 		assertTrue(circle.getHeight()>0);
 	}
@@ -133,10 +136,10 @@ public class TestPencil extends TestInstrument<Pencil> {
 	@Test
 	public void testLinkDnD2AddShape_PressEventCreatesSquare() {
 		instrument.setActivated(true);
-		double x = 100., y = 300.;
+		double x = 100.+canvas.getOrigin().getX(), y = 300.+canvas.getOrigin().getY();
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.SQUARE);
-		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, 0));
+		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, MouseEvent.BUTTON1));
 		Link<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
@@ -144,8 +147,8 @@ public class TestPencil extends TestInstrument<Pencil> {
 
 		ISquare square = (ISquare) ((AddShape)link.getAction()).shape().get();
 		checkShape(square);
-		HelperTest.assertEqualsDouble(square.getGravityCentre().getX(), x);
-		HelperTest.assertEqualsDouble(square.getGravityCentre().getY(), y);
+		HelperTest.assertEqualsDouble(100., square.getGravityCentre().getX());
+		HelperTest.assertEqualsDouble(300., square.getGravityCentre().getY());
 		assertTrue(square.getWidth()>0);
 		assertTrue(square.getHeight()>0);
 	}

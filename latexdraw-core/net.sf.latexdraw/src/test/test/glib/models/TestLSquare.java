@@ -79,7 +79,7 @@ public class TestLSquare extends TestISquare<ISquare> {
 
 		sq = ShapeFactory.createSquare(ShapeFactory.createPoint(20, 26), 11, true);
 		HelperTest.assertEqualsDouble(20., sq.getPosition().getX());
-		HelperTest.assertEqualsDouble(37., sq.getPosition().getY());
+		HelperTest.assertEqualsDouble(26., sq.getPosition().getY());
 		HelperTest.assertEqualsDouble(11., sq.getWidth());
 		HelperTest.assertEqualsDouble(11., sq.getHeight());
 	}

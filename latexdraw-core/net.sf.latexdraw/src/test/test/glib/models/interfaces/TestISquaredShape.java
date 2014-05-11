@@ -211,7 +211,7 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		shape.setWidth(10);
 
 		HelperTest.assertEqualsDouble(20., shape.getTopLeftPoint().getX());
-		HelperTest.assertEqualsDouble(-10., shape.getTopLeftPoint().getY());
+		HelperTest.assertEqualsDouble(0., shape.getTopLeftPoint().getY());
 	}
 
 
@@ -222,7 +222,7 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		shape.setWidth(10);
 
 		HelperTest.assertEqualsDouble(30., shape.getTopRightPoint().getX());
-		HelperTest.assertEqualsDouble(-10., shape.getTopRightPoint().getY());
+		HelperTest.assertEqualsDouble(0., shape.getTopRightPoint().getY());
 	}
 
 
