@@ -1,8 +1,11 @@
 package test.svg;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.text.ParseException;
 
-import junit.framework.TestCase;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPathParser;
 import net.sf.latexdraw.parsers.svg.path.SVGPathHandler;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
@@ -11,13 +14,13 @@ import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
 
 import org.junit.Test;
 
-public class TestSVGPathSegLinetoVertical extends TestCase implements SVGPathHandler {
+public class TestSVGPathSegLinetoVertical implements SVGPathHandler {
 	protected final SVGPathSegLinetoVertical seg = new SVGPathSegLinetoVertical(-1, false);
 	protected int cpt = 0;
 
 	@Test
 	public void testGetters() {
-		assertEquals(seg.getY(), -1.);
+		assertEquals(seg.getY(), -1., 0.0001);
 		assertFalse(seg.isRelative());
 	}
 
@@ -42,7 +45,7 @@ public class TestSVGPathSegLinetoVertical extends TestCase implements SVGPathHan
 
 		SVGPathSegLinetoVertical seg2 = (SVGPathSegLinetoVertical)pathSeg;
 
-		assertEquals(seg.getY(), seg2.getY());
+		assertEquals(seg.getY(), seg2.getY(), 0.0001);
 		assertEquals(seg.isRelative(), seg2.isRelative());
 	}
 }

@@ -7,7 +7,6 @@ import org.junit.Before;
 
 public class TestLoadSaveSVGSquare extends TestLoadSaveSVGSquaredShape<ISquare> {
 	@Before
-	@Override
 	public void setUp() {
 		shape = ShapeFactory.createSquare(false);
 	}

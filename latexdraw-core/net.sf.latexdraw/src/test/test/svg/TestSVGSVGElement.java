@@ -14,6 +14,7 @@ import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import static org.junit.Assert.*;
 
 public class TestSVGSVGElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
@@ -75,7 +76,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	public void testGetHeight() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "200");
 		SVGSVGElement e = new SVGSVGElement(node, null);
-		assertEquals(e.getHeight(), 200.);
+		assertEquals(e.getHeight(), 200., 0.0001);
 	}
 
 
@@ -104,11 +105,11 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	@Test
 	public void testGetY() throws MalformedSVGDocument {
 		SVGSVGElement e = new SVGSVGElement(node, null);
-		assertEquals(e.getY(), 0.);
+		assertEquals(e.getY(), 0., 0.0001);
 
 		node.setAttribute(SVGAttributes.SVG_Y, "-10");
 		e = new SVGSVGElement(node, null);
-		assertEquals(e.getY(), -10.);
+		assertEquals(e.getY(), -10., 0.0001);
 	}
 
 
@@ -116,11 +117,11 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	@Test
 	public void testGetX() throws MalformedSVGDocument {
 		SVGSVGElement e = new SVGSVGElement(node, null);
-		assertEquals(e.getX(), 0.);
+		assertEquals(e.getX(), 0., 0.0001);
 
 		node.setAttribute(SVGAttributes.SVG_X, "10");
 		e = new SVGSVGElement(node, null);
-		assertEquals(e.getX(), 10.);
+		assertEquals(e.getX(), 10., 0.0001);
 	}
 
 
@@ -128,7 +129,7 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 	public void testGetWidth() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "100");
 		SVGSVGElement e = new SVGSVGElement(node, null);
-		assertEquals(e.getWidth(), 100.);
+		assertEquals(e.getWidth(), 100., 0.0001);
 	}
 
 

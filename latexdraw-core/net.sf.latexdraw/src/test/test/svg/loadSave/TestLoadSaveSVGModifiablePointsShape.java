@@ -1,5 +1,6 @@
 package test.svg.loadSave;
 
+import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 
@@ -12,8 +13,8 @@ public abstract class TestLoadSaveSVGModifiablePointsShape<T extends IModifiable
 		assertEquals(shape.getNbPoints(), r2.getNbPoints());
 
 		for(int i=0, size=shape.getNbPoints(); i<size; i++) {
-			assertEquals(shape.getPtAt(i).getX(), r2.getPtAt(i).getX());
-			assertEquals(shape.getPtAt(i).getY(), r2.getPtAt(i).getY());
+			assertEquals(shape.getPtAt(i).getX(), r2.getPtAt(i).getX(), 0.0001);
+			assertEquals(shape.getPtAt(i).getY(), r2.getPtAt(i).getY(), 0.0001);
 		}
 	}
 

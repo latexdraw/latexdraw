@@ -6,6 +6,7 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGPathElement;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class TestSVGPathElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")

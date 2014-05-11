@@ -1,25 +1,35 @@
 package test.svg;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import junit.framework.TestCase;
-
-import net.sf.latexdraw.parsers.svg.*;
+import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
+import net.sf.latexdraw.parsers.svg.SVGCDATASection;
+import net.sf.latexdraw.parsers.svg.SVGComment;
+import net.sf.latexdraw.parsers.svg.SVGDocument;
+import net.sf.latexdraw.parsers.svg.SVGElement;
+import net.sf.latexdraw.parsers.svg.SVGSVGElement;
+import net.sf.latexdraw.parsers.svg.SVGText;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 
-public class TestSVGDocument extends TestCase {
+public class TestSVGDocument {
 	protected SVGDocument doc1;
 	protected SVGDocument doc2;
 
 
-	@Override
 	@Before
 	public void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
 		doc1 = new SVGDocument();

@@ -1,5 +1,6 @@
 package test.glib.models;
 
+import static org.junit.Assert.assertNotNull;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 
@@ -9,7 +10,6 @@ import org.junit.Test;
 import test.glib.models.interfaces.TestIDrawing;
 
 public class TestLDrawing extends TestIDrawing {
-	@Override
 	@Before
 	public void setUp() {
 		drawing = ShapeFactory.createDrawing();

@@ -1,12 +1,12 @@
 package test.svg;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import net.sf.latexdraw.parsers.svg.CSSStyleList;
 
 import org.junit.Test;
 
-public class TestCSSStyleList extends TestCase {
+public class TestCSSStyleList{
 	protected CSSStyleList list = new CSSStyleList();
 
 	@Test

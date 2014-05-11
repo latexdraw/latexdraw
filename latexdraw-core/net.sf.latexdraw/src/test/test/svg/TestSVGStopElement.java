@@ -9,6 +9,7 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGStopElement;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class TestSVGStopElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
@@ -56,7 +57,7 @@ public class TestSVGStopElement extends AbstractTestSVGElement {
 	public void testGetOffset() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
 		SVGStopElement e = new SVGStopElement(node, null);
-		assertEquals(e.getOffset(), 0.5);
+		assertEquals(e.getOffset(), 0.5, 0.0001);
 	}
 
 

@@ -7,7 +7,6 @@ import org.junit.Before;
 
 public class TestLoadSaveSVGTriangle extends TestLoadSaveSVGRectangularShape<ITriangle> {
 	@Before
-	@Override
 	public void setUp() {
 		shape = ShapeFactory.createTriangle(false);
 	}

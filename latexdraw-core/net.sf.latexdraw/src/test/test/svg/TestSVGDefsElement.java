@@ -7,6 +7,7 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGMarkerElement;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class TestSVGDefsElement extends AbstractTestSVGElement {
 	@Test

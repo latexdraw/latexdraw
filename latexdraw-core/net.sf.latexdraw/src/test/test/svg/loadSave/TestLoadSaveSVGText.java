@@ -1,5 +1,7 @@
 package test.svg.loadSave;
 
+import static org.junit.Assert.assertEquals;
+
 import java.awt.Color;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
@@ -10,7 +12,6 @@ import org.junit.Before;
 
 public class TestLoadSaveSVGText extends TestLoadSaveSVG<IText> {
 	@Before
-	@Override
 	public void setUp() {
 		shape = ShapeFactory.createText(false);
 	}
@@ -24,8 +25,8 @@ public class TestLoadSaveSVGText extends TestLoadSaveSVG<IText> {
 	protected void compareShapes(final IText sh2) {
 		//TODO
 //		assertTrue(shape.isParametersEquals(sh2, true));
-		assertEquals(shape.getPosition().getX(), sh2.getPosition().getX());
-		assertEquals(shape.getPosition().getY(), sh2.getPosition().getY());
+		assertEquals(shape.getPosition().getX(), sh2.getPosition().getX(), 0.0001);
+		assertEquals(shape.getPosition().getY(), sh2.getPosition().getY(), 0.0001);
 	}
 
 

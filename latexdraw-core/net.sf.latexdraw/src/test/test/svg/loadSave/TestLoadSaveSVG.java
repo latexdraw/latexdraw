@@ -1,9 +1,11 @@
 package test.svg.loadSave;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.awt.Color;
 import java.util.List;
 
-import junit.framework.TestCase;
 import net.sf.latexdraw.generators.svg.IShapeSVGFactory;
 import net.sf.latexdraw.generators.svg.SVGShapesFactory;
 import net.sf.latexdraw.glib.models.ShapeFactory;
@@ -25,7 +27,7 @@ import net.sf.latexdraw.util.LNamespace;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public abstract class TestLoadSaveSVG<T extends IShape> extends TestCase {
+public abstract class TestLoadSaveSVG<T extends IShape>{
 
 	protected T shape;
 

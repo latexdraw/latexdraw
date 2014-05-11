@@ -1,5 +1,9 @@
 package test.svg;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGElements;
@@ -91,7 +95,7 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGRectElement r = new SVGRectElement(node, null);
-		assertEquals(r.getHeight(), 20.);
+		assertEquals(r.getHeight(), 20., 0.0001);
 	}
 
 
@@ -100,7 +104,7 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGRectElement r = new SVGRectElement(node, null);
-		assertEquals(r.getWidth(), 10.);
+		assertEquals(r.getWidth(), 10., 0.0001);
 	}
 
 
@@ -109,11 +113,11 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGRectElement r = new SVGRectElement(node, null);
-		assertEquals(r.getRy(), 0.);
+		assertEquals(r.getRy(), 0., 0.0001);
 
 		node.setAttribute(SVGAttributes.SVG_RY, "1");
 		r = new SVGRectElement(node, null);
-		assertEquals(1., r.getRy());
+		assertEquals(1., r.getRy(), 0.0001);
 	}
 
 
@@ -123,11 +127,11 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGRectElement r = new SVGRectElement(node, null);
-		assertEquals(r.getRx(), 0.);
+		assertEquals(r.getRx(), 0., 0.0001);
 
 		node.setAttribute(SVGAttributes.SVG_RX, "1");
 		r = new SVGRectElement(node, null);
-		assertEquals(1., r.getRx());
+		assertEquals(1., r.getRx(), 0.0001);
 	}
 
 
@@ -137,11 +141,11 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGRectElement r = new SVGRectElement(node, null);
-		assertEquals(r.getY(), 0.);
+		assertEquals(r.getY(), 0., 0.0001);
 
 		node.setAttribute(SVGAttributes.SVG_Y, "1");
 		r = new SVGRectElement(node, null);
-		assertEquals(1., r.getY());
+		assertEquals(1., r.getY(), 0.0001);
 	}
 
 
@@ -150,11 +154,11 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGRectElement r = new SVGRectElement(node, null);
-		assertEquals(r.getX(), 0.);
+		assertEquals(r.getX(), 0., 0.0001);
 
 		node.setAttribute(SVGAttributes.SVG_X, "1");
 		r = new SVGRectElement(node, null);
-		assertEquals(1., r.getX());
+		assertEquals(1., r.getX(), 0.0001);
 	}
 
 

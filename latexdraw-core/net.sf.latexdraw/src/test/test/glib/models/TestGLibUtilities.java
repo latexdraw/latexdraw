@@ -1,13 +1,13 @@
 package test.glib.models ;
 
-import junit.framework.TestCase;
-import net.sf.latexdraw.glib.models.ShapeFactory;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.GLibUtilities;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 
 import org.junit.Test;
 
-
-public class TestGLibUtilities extends TestCase {
+public class TestGLibUtilities{
 	@Test
 	public void testIsValidPoint1() {
 		assertFalse(GLibUtilities.isValidPoint(null));

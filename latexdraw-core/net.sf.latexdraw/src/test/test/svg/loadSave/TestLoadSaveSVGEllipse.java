@@ -7,7 +7,6 @@ import org.junit.Before;
 
 public class TestLoadSaveSVGEllipse extends TestLoadSaveSVGRectangularShape<IEllipse> {
 	@Before
-	@Override
 	public void setUp() {
 		shape = ShapeFactory.createEllipse(false);
 	}

@@ -1,27 +1,30 @@
 package test.glib.models;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 
 import org.junit.Test;
 
-public class TestLPoint extends TestCase {
+public class TestLPoint {
 	@Test
 	public void testLPoint() {
 		IPoint pt = ShapeFactory.createPoint(1.,-200.);
 
 		assertEquals(ShapeFactory.createPoint(), ShapeFactory.createPoint(0.,0.));
-		assertEquals(pt.getX(), 1.);
-		assertEquals(pt.getY(), -200.);
+		assertEquals(pt.getX(), 1., 0.1);
+		assertEquals(pt.getY(), -200., 0.1);
 
 		pt = ShapeFactory.createPoint((IPoint)null);
-		assertEquals(pt.getX(), 0.);
-		assertEquals(pt.getY(), 0.);
+		assertEquals(pt.getX(), 0., 0.1);
+		assertEquals(pt.getY(), 0., 0.1);
 
 		pt = ShapeFactory.createPoint(ShapeFactory.createPoint(-1.34, Double.POSITIVE_INFINITY));
-		assertEquals(pt.getX(), -1.34);
-		assertEquals(pt.getY(), Double.POSITIVE_INFINITY);
+		assertEquals(pt.getX(), -1.34, 0.1);
+		assertEquals(pt.getY(), Double.POSITIVE_INFINITY, 0.1);
 	}
 
 
@@ -98,17 +101,17 @@ public class TestLPoint extends TestCase {
 	public void testComputeAngle() {
 		IPoint pt1 = ShapeFactory.createPoint();
 
-		assertEquals(Double.NaN, pt1.computeAngle(null));
-		assertEquals(0., pt1.computeAngle(ShapeFactory.createPoint(1,0)));
-		assertEquals(Math.PI/2., pt1.computeAngle(ShapeFactory.createPoint(0,1)));
-		assertEquals(Math.PI, pt1.computeAngle(ShapeFactory.createPoint(-1,0)));
-		assertEquals(3.*Math.PI/2., pt1.computeAngle(ShapeFactory.createPoint(0,-1)));
+		assertEquals(Double.NaN, pt1.computeAngle(null), 0.1);
+		assertEquals(0., pt1.computeAngle(ShapeFactory.createPoint(1,0)), 0.1);
+		assertEquals(Math.PI/2., pt1.computeAngle(ShapeFactory.createPoint(0,1)), 0.1);
+		assertEquals(Math.PI, pt1.computeAngle(ShapeFactory.createPoint(-1,0)), 0.1);
+		assertEquals(3.*Math.PI/2., pt1.computeAngle(ShapeFactory.createPoint(0,-1)), 0.1);
 
 		pt1.setPoint(1, 1);
-		assertEquals(0., pt1.computeAngle(ShapeFactory.createPoint(2,1)));
-		assertEquals(Math.PI/2., pt1.computeAngle(ShapeFactory.createPoint(1,2)));
-		assertEquals(Math.PI, pt1.computeAngle(ShapeFactory.createPoint(0,1)));
-		assertEquals(3.*Math.PI/2., pt1.computeAngle(ShapeFactory.createPoint(1,0)));
+		assertEquals(0., pt1.computeAngle(ShapeFactory.createPoint(2,1)), 0.1);
+		assertEquals(Math.PI/2., pt1.computeAngle(ShapeFactory.createPoint(1,2)), 0.1);
+		assertEquals(Math.PI, pt1.computeAngle(ShapeFactory.createPoint(0,1)), 0.1);
+		assertEquals(3.*Math.PI/2., pt1.computeAngle(ShapeFactory.createPoint(1,0)), 0.1);
 	}
 
 
@@ -116,30 +119,30 @@ public class TestLPoint extends TestCase {
 	public void testComputeRotationAngle() {
 		IPoint pt1 = ShapeFactory.createPoint();
 
-		assertEquals(Double.NaN, pt1.computeRotationAngle(null, null));
-		assertEquals(Double.NaN, pt1.computeRotationAngle(ShapeFactory.createPoint(), null));
-		assertEquals(Double.NaN, pt1.computeRotationAngle(null, ShapeFactory.createPoint()));
+		assertEquals(Double.NaN, pt1.computeRotationAngle(null, null), 0.1);
+		assertEquals(Double.NaN, pt1.computeRotationAngle(ShapeFactory.createPoint(), null), 0.1);
+		assertEquals(Double.NaN, pt1.computeRotationAngle(null, ShapeFactory.createPoint()), 0.1);
 
-		assertEquals(0., pt1.computeRotationAngle(ShapeFactory.createPoint(1,0), ShapeFactory.createPoint(1,0)));
-		assertEquals(0., pt1.computeRotationAngle(ShapeFactory.createPoint(0,1), ShapeFactory.createPoint(0,1)));
-		assertEquals(0., pt1.computeRotationAngle(ShapeFactory.createPoint(-1,0), ShapeFactory.createPoint(-1,0)));
-		assertEquals(0., pt1.computeRotationAngle(ShapeFactory.createPoint(0,-1), ShapeFactory.createPoint(0,-1)));
+		assertEquals(0., pt1.computeRotationAngle(ShapeFactory.createPoint(1,0), ShapeFactory.createPoint(1,0)), 0.1);
+		assertEquals(0., pt1.computeRotationAngle(ShapeFactory.createPoint(0,1), ShapeFactory.createPoint(0,1)), 0.1);
+		assertEquals(0., pt1.computeRotationAngle(ShapeFactory.createPoint(-1,0), ShapeFactory.createPoint(-1,0)), 0.1);
+		assertEquals(0., pt1.computeRotationAngle(ShapeFactory.createPoint(0,-1), ShapeFactory.createPoint(0,-1)), 0.1);
 
-		assertEquals(Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(1,0), ShapeFactory.createPoint(0,1)));
-		assertEquals(Math.PI, Math.abs(pt1.computeRotationAngle(ShapeFactory.createPoint(1,0), ShapeFactory.createPoint(-1,0))));
-		assertEquals(3.*Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(1,0), ShapeFactory.createPoint(0,-1)));
+		assertEquals(Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(1,0), ShapeFactory.createPoint(0,1)), 0.1);
+		assertEquals(Math.PI, Math.abs(pt1.computeRotationAngle(ShapeFactory.createPoint(1,0), ShapeFactory.createPoint(-1,0))), 0.1);
+		assertEquals(3.*Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(1,0), ShapeFactory.createPoint(0,-1)), 0.1);
 
-		assertEquals(Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(0,1), ShapeFactory.createPoint(-1,0)));
-		assertEquals(Math.PI, Math.abs(pt1.computeRotationAngle(ShapeFactory.createPoint(0,1), ShapeFactory.createPoint(0,-1))));
-		assertEquals(-Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(0,1), ShapeFactory.createPoint(1,0)));
+		assertEquals(Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(0,1), ShapeFactory.createPoint(-1,0)), 0.1);
+		assertEquals(Math.PI, Math.abs(pt1.computeRotationAngle(ShapeFactory.createPoint(0,1), ShapeFactory.createPoint(0,-1))), 0.1);
+		assertEquals(-Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(0,1), ShapeFactory.createPoint(1,0)), 0.1);
 
-		assertEquals(Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(-1,0), ShapeFactory.createPoint(0,-1)));
-		assertEquals(Math.PI, Math.abs(pt1.computeRotationAngle(ShapeFactory.createPoint(-1,0), ShapeFactory.createPoint(1,0))));
-		assertEquals(-Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(-1,0), ShapeFactory.createPoint(0,1)));
+		assertEquals(Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(-1,0), ShapeFactory.createPoint(0,-1)), 0.1);
+		assertEquals(Math.PI, Math.abs(pt1.computeRotationAngle(ShapeFactory.createPoint(-1,0), ShapeFactory.createPoint(1,0))), 0.1);
+		assertEquals(-Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(-1,0), ShapeFactory.createPoint(0,1)), 0.1);
 
-		assertEquals(-3.*Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(0,-1), ShapeFactory.createPoint(1,0)));
-		assertEquals(Math.PI, Math.abs(pt1.computeRotationAngle(ShapeFactory.createPoint(0,-1), ShapeFactory.createPoint(0,1))));
-		assertEquals(-Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(0,-1), ShapeFactory.createPoint(-1,0)));
+		assertEquals(-3.*Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(0,-1), ShapeFactory.createPoint(1,0)), 0.1);
+		assertEquals(Math.PI, Math.abs(pt1.computeRotationAngle(ShapeFactory.createPoint(0,-1), ShapeFactory.createPoint(0,1))), 0.1);
+		assertEquals(-Math.PI/2., pt1.computeRotationAngle(ShapeFactory.createPoint(0,-1), ShapeFactory.createPoint(-1,0)), 0.1);
 	}
 
 

@@ -1,12 +1,12 @@
 package test.util;
 
 import static net.sf.latexdraw.lang.LangTool.INSTANCE;
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.junit.Test;
 
-public class TestLLang extends TestCase {
+public class TestLLang{
 	@Test
 	public void testGetOthersString() {
 		assertEquals(INSTANCE.getStringOthers(null), LangTool.MISSING_KEY);

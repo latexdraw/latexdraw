@@ -8,10 +8,10 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
 	@Before
-	@Override
 	public void setUp() {
 		shape = ShapeFactory.createDot(ShapeFactory.createPoint(), false);
 	}
@@ -37,7 +37,7 @@ public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
 	protected void compareShapes(IDot d2) {
 		assertEquals(shape.getDotStyle(), d2.getDotStyle());
 		assertEquals(shape.getPosition(), d2.getPosition());
-		assertEquals(shape.getDiametre(), d2.getDiametre());
+		assertEquals(shape.getDiametre(), d2.getDiametre(), 0.1);
 		assertEquals(shape.getLineColour(), d2.getLineColour());
 		assertEquals(shape.isFillable(), shape.isFillable());
 		assertEquals(shape.isFilled(), shape.isFilled());

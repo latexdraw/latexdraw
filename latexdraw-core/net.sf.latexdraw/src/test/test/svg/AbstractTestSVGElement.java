@@ -1,15 +1,20 @@
 package test.svg;
 
-import junit.framework.TestCase;
-
-import net.sf.latexdraw.parsers.svg.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+import net.sf.latexdraw.parsers.svg.CSSColors;
+import net.sf.latexdraw.parsers.svg.SVGAttr;
+import net.sf.latexdraw.parsers.svg.SVGAttributes;
+import net.sf.latexdraw.parsers.svg.SVGDocument;
+import net.sf.latexdraw.parsers.svg.SVGElement;
+import net.sf.latexdraw.parsers.svg.SVGNodeList;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.DOMException;
 
-public abstract class AbstractTestSVGElement extends TestCase
-{
+public abstract class AbstractTestSVGElement{
 	protected SVGElement node;
 	protected SVGDocument doc = new SVGDocument();
 
@@ -17,7 +22,6 @@ public abstract class AbstractTestSVGElement extends TestCase
 	public abstract String getNameNode();
 
 
-	@Override
 	@Before
 	public void setUp() {
 		doc = new SVGDocument();

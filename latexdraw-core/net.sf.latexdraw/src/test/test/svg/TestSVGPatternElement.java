@@ -1,5 +1,9 @@
 package test.svg;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGElements;
@@ -25,11 +29,11 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 	@Test
 	public void testGetHeight() throws MalformedSVGDocument {
 		SVGPatternElement e = new SVGPatternElement(node, null);
-		assertEquals(e.getHeight(), 0.);
+		assertEquals(e.getHeight(), 0., 0.0001);
 
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		e = new SVGPatternElement(node, null);
-		assertEquals(e.getHeight(), 20.);
+		assertEquals(e.getHeight(), 20., 0.0001);
 	}
 
 
@@ -37,11 +41,11 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 	@Test
 	public void testGetWidth() throws MalformedSVGDocument {
 		SVGPatternElement e = new SVGPatternElement(node, null);
-		assertEquals(e.getWidth(), 0.);
+		assertEquals(e.getWidth(), 0., 0.0001);
 
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "30");
 		e = new SVGPatternElement(node, null);
-		assertEquals(e.getWidth(), 30.);
+		assertEquals(e.getWidth(), 30., 0.0001);
 	}
 
 
@@ -106,11 +110,11 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 	@Test
 	public void testGetY() throws MalformedSVGDocument {
 		SVGPatternElement e = new SVGPatternElement(node, null);
-		assertEquals(e.getY(), 0.);
+		assertEquals(e.getY(), 0., 0.0001);
 
 		node.setAttribute(SVGAttributes.SVG_Y, "1");
 		e = new SVGPatternElement(node, null);
-		assertEquals(1., e.getY());
+		assertEquals(1., e.getY(), 0.0001);
 	}
 
 
@@ -118,11 +122,11 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 	@Test
 	public void testGetX() throws MalformedSVGDocument {
 		SVGPatternElement e = new SVGPatternElement(node, null);
-		assertEquals(e.getX(), 0.);
+		assertEquals(e.getX(), 0., 0.0001);
 
 		node.setAttribute(SVGAttributes.SVG_X, "2");
 		e = new SVGPatternElement(node, null);
-		assertEquals(2., e.getX());
+		assertEquals(2., e.getX(), 0.0001);
 	}
 
 

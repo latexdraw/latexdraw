@@ -1,5 +1,6 @@
 package test.svg;
 
+import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.parsers.svg.SVGCDATASection;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 

@@ -6,6 +6,7 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGImageElement;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class TestSVGImageElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
@@ -66,7 +67,7 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGImageElement e = new SVGImageElement(node, null);
-		assertEquals(e.getHeight(), 20.);
+		assertEquals(e.getHeight(), 20., 0.0001);
 	}
 
 
@@ -75,7 +76,7 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 		SVGImageElement e = new SVGImageElement(node, null);
-		assertEquals(e.getWidth(), 10.);
+		assertEquals(e.getWidth(), 10., 0.0001);
 	}
 
 
@@ -133,11 +134,11 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 			node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 			node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 			SVGImageElement e = new SVGImageElement(node, null);
-			assertEquals(e.getY(), 0.);
+			assertEquals(e.getY(), 0., 0.0001);
 
 			node.setAttribute(SVGAttributes.SVG_Y, "1");
 			e = new SVGImageElement(node, null);
-			assertEquals(1., e.getY());
+			assertEquals(1., e.getY(), 0.0001);
 		}
 		catch(MalformedSVGDocument e) { fail(); }
 	}
@@ -149,11 +150,11 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 			node.setAttribute(SVGAttributes.SVG_WIDTH, "10");
 			node.setAttribute(SVGAttributes.SVG_HEIGHT, "20");
 			SVGImageElement e = new SVGImageElement(node, null);
-			assertEquals(e.getX(), 0.);
+			assertEquals(e.getX(), 0., 0.0001);
 
 			node.setAttribute(SVGAttributes.SVG_X, "1");
 			e = new SVGImageElement(node, null);
-			assertEquals(1., e.getX());
+			assertEquals(1., e.getX(), 0.0001);
 		}
 		catch(MalformedSVGDocument e) { fail(); }
 	}

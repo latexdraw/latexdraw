@@ -1,5 +1,6 @@
 package test.svg.loadSave;
 
+import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape;
 
@@ -18,10 +19,10 @@ public abstract class TestLoadSaveSVGSquaredShape<T extends ISquaredShape> exten
 	@Override
 	protected void compareShapes(final T r2) {
 		super.compareShapes(r2);
-		assertEquals(shape.getPosition().getX(), r2.getPosition().getX());
-		assertEquals(shape.getPosition().getY(), r2.getPosition().getY());
-		assertEquals(shape.getWidth(), r2.getWidth());
-		assertEquals(shape.getHeight(), r2.getHeight());
+		assertEquals(shape.getPosition().getX(), r2.getPosition().getX(), 0.0001);
+		assertEquals(shape.getPosition().getY(), r2.getPosition().getY(), 0.0001);
+		assertEquals(shape.getWidth(), r2.getWidth(), 0.0001);
+		assertEquals(shape.getHeight(), r2.getHeight(), 0.0001);
 	}
 
 

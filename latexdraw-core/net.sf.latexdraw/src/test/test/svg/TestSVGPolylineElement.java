@@ -10,6 +10,7 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGPolyLineElement;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class TestSVGPolylineElement extends AbstractTestSVGElement {
 	@Test

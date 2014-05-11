@@ -1,12 +1,13 @@
 package test.glib.models;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.*;
 
 import org.junit.Test;
 
-public class TestLShapeFactory extends TestCase{
+public class TestLShapeFactory{
 	@Test
 	public void testNewShape() {
 		assertFalse(ShapeFactory.newShape(IRectangle.class).isEmpty());

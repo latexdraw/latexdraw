@@ -1,7 +1,8 @@
 package test.svg;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGNodeList;
@@ -9,12 +10,11 @@ import net.sf.latexdraw.parsers.svg.SVGNodeList;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestSVGNodeList extends TestCase {
+public class TestSVGNodeList{
 	protected SVGNodeList list;
 	protected SVGDocument doc;
 
 
-	@Override
 	@Before
 	public void setUp() {
 		doc  = new SVGDocument();

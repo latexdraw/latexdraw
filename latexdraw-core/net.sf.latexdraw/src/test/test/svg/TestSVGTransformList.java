@@ -1,15 +1,18 @@
 package test.svg;
 
-import java.awt.geom.Point2D;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import junit.framework.TestCase;
+import java.awt.geom.Point2D;
 
 import net.sf.latexdraw.parsers.svg.SVGMatrix;
 import net.sf.latexdraw.parsers.svg.SVGTransformList;
 
 import org.junit.Test;
 
-public class TestSVGTransformList extends TestCase {
+public class TestSVGTransformList{
 	@Test
 	public void testContructors() {
 		SVGTransformList t = new SVGTransformList();
@@ -123,8 +126,8 @@ public class TestSVGTransformList extends TestCase {
 		pt1.setLocation(1, 0);
 
 		pt3 = t.transformPoint(pt1);
-		assertEquals(Math.rint(pt3.getX()), pt2.getX());
-		assertEquals(Math.rint(pt3.getY()), pt2.getY());
+		assertEquals(Math.rint(pt3.getX()), pt2.getX(), 0.0001);
+		assertEquals(Math.rint(pt3.getY()), pt2.getY(), 0.0001);
 	}
 
 
@@ -140,21 +143,21 @@ public class TestSVGTransformList extends TestCase {
 		t.addTransformations("scale( 2 3)");
 		m = t.getGlobalTransformationMatrix();
 
-		assertEquals(m.getA(), 2.);
-		assertEquals(m.getB(), 0.);
-		assertEquals(m.getC(), 0.);
-		assertEquals(m.getD(), 3.);
-		assertEquals(m.getE(), 0.);
-		assertEquals(m.getF(), 0.);
+		assertEquals(m.getA(), 2., 0.0001);
+		assertEquals(m.getB(), 0., 0.0001);
+		assertEquals(m.getC(), 0., 0.0001);
+		assertEquals(m.getD(), 3., 0.0001);
+		assertEquals(m.getE(), 0., 0.0001);
+		assertEquals(m.getF(), 0., 0.0001);
 
 		t.addTransformations("skewX( 0.5	\n)");
 		m = t.getGlobalTransformationMatrix();
 
-		assertEquals(m.getA(), 2.);
-		assertEquals(m.getB(), 0.);
-		assertEquals(m.getC(), 2.*Math.tan(Math.toRadians(0.5)));
-		assertEquals(m.getD(), 3.);
-		assertEquals(m.getE(), 0.);
-		assertEquals(m.getF(), 0.);
+		assertEquals(m.getA(), 2., 0.0001);
+		assertEquals(m.getB(), 0., 0.0001);
+		assertEquals(m.getC(), 2.*Math.tan(Math.toRadians(0.5)), 0.0001);
+		assertEquals(m.getD(), 3., 0.0001);
+		assertEquals(m.getE(), 0., 0.0001);
+		assertEquals(m.getF(), 0., 0.0001);
 	}
 }

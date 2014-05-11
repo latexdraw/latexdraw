@@ -7,7 +7,6 @@ import org.junit.Before;
 
 public class TestLoadSaveSVGRhombus extends TestLoadSaveSVGRectangularShape<IRhombus> {
 	@Before
-	@Override
 	public void setUp() {
 		shape = ShapeFactory.createRhombus(false);
 	}

@@ -1,11 +1,12 @@
 package test.glib.models.interfaces;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position;
 
 import org.junit.Test;
 
-public class TestPosition extends TestCase {
+public class TestPosition{
 
 	@Test
 	public void testIsSouth() {

@@ -1,10 +1,15 @@
 package test.glib.models.interfaces;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import junit.framework.TestCase;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -12,9 +17,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.junit.Test;
 
-
-
-public abstract class TestIDrawing extends TestCase {
+public abstract class TestIDrawing {
 	public IDrawing drawing;
 
 

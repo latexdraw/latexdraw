@@ -1,12 +1,13 @@
 package test.util;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.util.LNumber;
 
 import org.junit.Test;
 
-public class TestLNumber extends TestCase {
+public class TestLNumber{
 	@Test
 	public void testEqualsEqual() {
 		assertTrue(LNumber.equalsDouble(10, 0, 10));
@@ -60,17 +61,17 @@ public class TestLNumber extends TestCase {
 	public void testGetCutNumber1() {
 		double v = 0.333333333333333;
 
-		assertEquals(v, LNumber.getCutNumber(v, 0.1));
-		assertEquals(v, LNumber.getCutNumber(v, 0.2));
-		assertEquals(v, LNumber.getCutNumber(v, 0.3));
-		assertEquals(0., LNumber.getCutNumber(v, 0.34));
+		assertEquals(v, LNumber.getCutNumber(v, 0.1), 0.0001);
+		assertEquals(v, LNumber.getCutNumber(v, 0.2), 0.0001);
+		assertEquals(v, LNumber.getCutNumber(v, 0.3), 0.0001);
+		assertEquals(0., LNumber.getCutNumber(v, 0.34), 0.0001);
 
 		v = 0.000001;
-		assertEquals(v, LNumber.getCutNumber(v, 0.00000001));
-		assertEquals(0., LNumber.getCutNumber(v, 0.00001));
+		assertEquals(v, LNumber.getCutNumber(v, 0.00000001), 0.0001);
+		assertEquals(0., LNumber.getCutNumber(v, 0.00001), 0.0001);
 
 		v = 1E-10;
-		assertEquals(0., LNumber.getCutNumber(v, 0.00000001));
+		assertEquals(0., LNumber.getCutNumber(v, 0.00000001), 0.0001);
 	}
 
 
@@ -79,16 +80,16 @@ public class TestLNumber extends TestCase {
 	public void testGetCutNumber2() {
 		float v = 0.333333333333333f;
 
-		assertEquals(v, LNumber.getCutNumber(v, 0.1));
-		assertEquals(v, LNumber.getCutNumber(v, 0.2));
-		assertEquals(v, LNumber.getCutNumber(v, 0.3));
-		assertEquals(0f, LNumber.getCutNumber(v, 0.34));
+		assertEquals(v, LNumber.getCutNumber(v, 0.1), 0.0001);
+		assertEquals(v, LNumber.getCutNumber(v, 0.2), 0.0001);
+		assertEquals(v, LNumber.getCutNumber(v, 0.3), 0.0001);
+		assertEquals(0f, LNumber.getCutNumber(v, 0.34), 0.0001);
 
 		v = 0.000001f;
-		assertEquals(v, LNumber.getCutNumber(v, 0.00000001));
-		assertEquals(0f, LNumber.getCutNumber(v, 0.00001));
+		assertEquals(v, LNumber.getCutNumber(v, 0.00000001), 0.0001);
+		assertEquals(0f, LNumber.getCutNumber(v, 0.00001), 0.0001);
 
 		v = 1E-10f;
-		assertEquals(0f, LNumber.getCutNumber(v, 0.00000001));
+		assertEquals(0f, LNumber.getCutNumber(v, 0.00000001), 0.0001);
 	}
 }

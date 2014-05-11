@@ -1,14 +1,14 @@
 package test.util;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 
-public class TestResources extends TestCase {
+public class TestResources{
 	@Test
 	public void testRessources() {
 		assertNotNull(loadImageIcon("/res/LaTeXDrawIcon.png"));//$NON-NLS-1$

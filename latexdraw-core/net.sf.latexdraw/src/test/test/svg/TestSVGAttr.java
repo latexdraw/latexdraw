@@ -1,7 +1,11 @@
 package test.svg;
 
-import junit.framework.TestCase;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.SVGAttr;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
@@ -11,11 +15,10 @@ import org.junit.Test;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 
-public class TestSVGAttr extends TestCase {
+public class TestSVGAttr{
 	protected SVGElement node;
 
 
-	@Override
 	@Before
 	public void setUp() {
 		SVGDocument doc = new SVGDocument();

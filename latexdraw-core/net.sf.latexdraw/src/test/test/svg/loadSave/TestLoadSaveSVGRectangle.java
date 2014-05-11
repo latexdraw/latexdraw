@@ -7,7 +7,6 @@ import org.junit.Before;
 
 public class TestLoadSaveSVGRectangle extends TestLoadSaveSVGRectangularShape<IRectangle> {
 	@Before
-	@Override
 	public void setUp() {
 		shape = ShapeFactory.createRectangle(false);
 	}
