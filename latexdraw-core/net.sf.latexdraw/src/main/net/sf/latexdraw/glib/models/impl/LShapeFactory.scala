@@ -1,7 +1,6 @@
 package net.sf.latexdraw.glib.models.impl
 
 import java.awt.geom.Point2D
-
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
@@ -28,6 +27,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquare
 import net.sf.latexdraw.glib.models.interfaces.shape.IText
 import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
 
 /**
  * This factory creates shapes.<br>
@@ -50,6 +50,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle
 class LShapeFactory extends IShapeFactory {
 	/** The map that maps types to creation operations. */
 	val factoryMap: Map[Class[_], () => IShape] = Map(
+			  (classOf[IPlot], () => createPlot(true, createPoint, 0.0, 10.0, "x")),
 			  (classOf[ICircleArc], () => createCircleArc(true)),
 			  (classOf[LCircleArc], () => createCircleArc(true)),
 			  (classOf[ICircle], () => createCircle(true)),
@@ -93,6 +94,8 @@ class LShapeFactory extends IShapeFactory {
 				try { Some(shapeClass.cast(factoryMap(shapeClass)())) }
 				catch { case ex: Throwable => BadaboomCollector.INSTANCE.add(ex); None }
 		}
+
+	override def createPlot(isUniqueID : Boolean, pos : IPoint, minX:Double, maxX:Double, eq:String) : IPlot = new LPlot(isUniqueID, pos, minX, maxX, eq)
 
 	override def createPoint(pt:Point2D):IPoint = if(pt==null) createPoint else createPoint(pt.getX, pt.getY)
 

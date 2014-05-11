@@ -21,7 +21,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
  * @version 3.0
  * @since 3.0
  */
-public interface IPlot extends IShape, IPlotProp {
+public interface IPlot extends IPositionShape, IPlotProp {
 	/**
 	 * @param x The X coordinate.
 	 * @return The corresponding Y coordinate or NaN if a problem occurs.

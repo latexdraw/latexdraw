@@ -18,9 +18,11 @@ package net.sf.latexdraw.glib.models.interfaces.prop;
  */
 public interface IPlotProp {
 	/**
-	 * @return the interval
+	 * The different possible plotting styles.
 	 */
-	double getInterval();
+	public static enum PlotStyle {
+		CURVE, LINE, DOTS, POLYGON, ECURVE, CCURVE
+	}
 
 	/**
 	 * @return the equation.
@@ -38,12 +40,12 @@ public interface IPlotProp {
 	double getMinX();
 
 	/**
-	 * @param minX the minX to set.
+	 * @param minX the minX to set. Must be greater than maxX.
 	 */
 	void setMinX(final double minX);
 
 	/**
-	 * @return the maxX.
+	 * @return the maxX. Must be lesser than minX.
 	 */
 	double getMaxX();
 
@@ -62,23 +64,32 @@ public interface IPlotProp {
 	 */
 	void setNbPlottedPoints(final int nbPlottedPoints);
 
-	/**
-	 * @return the xScale.
-	 */
-	double getXScale();
+	//TODO later
+//	/**
+//	 * @return the xScale.
+//	 */
+//	double getXScale();
+//
+//	/**
+//	 * @param scale the xScale to set.
+//	 */
+//	void setXScale(final double scale);
+//
+//	/**
+//	 * @return the yScale.
+//	 */
+//	double getYScale();
+//
+//	/**
+//	 * @param scale the yScale to set.
+//	 */
+//	void setYScale(final double scale);
+
+	/** @return The current plot style. */
+	PlotStyle getPlotStyle();
 
 	/**
-	 * @param scale the xScale to set.
+	 * @param style The new plot style.
 	 */
-	void setXScale(final double scale);
-
-	/**
-	 * @return the yScale.
-	 */
-	double getYScale();
-
-	/**
-	 * @param scale the yScale to set.
-	 */
-	void setYScale(final double scale);
+	void setPlotStyle(final PlotStyle style);
 }

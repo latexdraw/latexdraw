@@ -95,9 +95,6 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 */
 	public void parseFunction() throws InvalidFormatPSFunctionException {
-		if(function==null)
-			return ;
-
 		int i = 0, lgth = function.length();
 		StringBuilder cmd = new StringBuilder();
 
@@ -123,7 +120,7 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 * @since 3.0
 	 */
-	public PSArithemticCommand identifyCommand(final String cmd) throws InvalidFormatPSFunctionException {
+	protected PSArithemticCommand identifyCommand(final String cmd) throws InvalidFormatPSFunctionException {
 		if(cmd==null || cmd.length()==0)
 			throw new InvalidFormatPSFunctionException();
 

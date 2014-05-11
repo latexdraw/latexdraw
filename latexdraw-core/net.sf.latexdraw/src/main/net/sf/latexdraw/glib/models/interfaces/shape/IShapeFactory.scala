@@ -373,6 +373,18 @@ trait IShapeFactory {
 	def createCircleArc(isUniqueID : Boolean) : ICircleArc
 
 	/**
+	 * Creates a plotted function.
+	 * @param pos The north-west point of the rectangle.
+	 * @param uniqueID True: the shape will have a unique ID.
+	 * @param eq The equation of the function.
+	 * @throws IllegalArgumentException If the given point is not valid or minX is greater than maxX.
+	 * @return The created function.
+	 * @since 3.2
+	 */
+	def createPlot(isUniqueID : Boolean, pos : IPoint, minX:Double, maxX:Double, eq:String) : IPlot
+
+
+	/**
 	 * Duplicates the given shape.
 	 * @param shape The shape to duplicate
 	 * @return The duplicated shape or null.
