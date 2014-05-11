@@ -17,11 +17,11 @@ import org.junit.Test;
 import test.HelperTest;
 import test.glib.models.interfaces.TestIGrid;
 
-public class TestLGrid<T extends IGrid> extends TestIGrid<T> {
+public class TestLGrid extends TestIGrid<IGrid> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createGrid(false, ShapeFactory.createPoint());
-		shape2 = (T) ShapeFactory.createGrid(false, ShapeFactory.createPoint());
+		shape  = ShapeFactory.createGrid(false, ShapeFactory.createPoint());
+		shape2 = ShapeFactory.createGrid(false, ShapeFactory.createPoint());
 	}
 
 

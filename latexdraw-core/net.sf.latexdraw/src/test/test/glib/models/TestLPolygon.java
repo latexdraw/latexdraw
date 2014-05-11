@@ -18,11 +18,11 @@ import org.junit.Test;
 
 import test.glib.models.interfaces.TestIPolygon;
 
-public class TestLPolygon<T extends IPolygon> extends TestIPolygon<T> {
+public class TestLPolygon extends TestIPolygon<IPolygon> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createPolygon(false);
-		shape2 = (T) ShapeFactory.createPolygon(false);
+		shape  = ShapeFactory.createPolygon(false);
+		shape2 = ShapeFactory.createPolygon(false);
 	}
 
 

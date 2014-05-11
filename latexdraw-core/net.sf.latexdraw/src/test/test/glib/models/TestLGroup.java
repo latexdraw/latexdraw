@@ -11,11 +11,11 @@ import org.junit.Test;
 
 import test.glib.models.interfaces.TestIGroup;
 
-public class TestLGroup<T extends IGroup> extends TestIGroup<T> {
+public class TestLGroup extends TestIGroup<IGroup> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createGroup(false);
-		shape2 = (T) ShapeFactory.createGroup(false);
+		shape  = ShapeFactory.createGroup(false);
+		shape2 = ShapeFactory.createGroup(false);
 	}
 
 

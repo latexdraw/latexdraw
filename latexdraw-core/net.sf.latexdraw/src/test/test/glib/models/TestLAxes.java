@@ -17,11 +17,11 @@ import org.junit.Test;
 import test.HelperTest;
 import test.glib.models.interfaces.TestIAxes;
 
-public class TestLAxes<T extends IAxes> extends TestIAxes<T> {
+public class TestLAxes extends TestIAxes<IAxes> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createAxes(false, ShapeFactory.createPoint());
-		shape2 = (T) ShapeFactory.createAxes(false, ShapeFactory.createPoint());
+		shape  = ShapeFactory.createAxes(false, ShapeFactory.createPoint());
+		shape2 = ShapeFactory.createAxes(false, ShapeFactory.createPoint());
 	}
 
 

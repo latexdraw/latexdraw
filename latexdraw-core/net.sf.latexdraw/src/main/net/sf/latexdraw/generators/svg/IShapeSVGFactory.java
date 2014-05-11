@@ -60,7 +60,7 @@ public final class IShapeSVGFactory {
 			if(elt instanceof SVGRectElement)
 				return new LRectangleSVGGenerator((SVGRectElement)elt).getShape();
 			else if(elt instanceof SVGEllipseElement)
-				return new LEllipseSVGGenerator<>((SVGEllipseElement)elt).getShape();
+				return new LEllipseSVGGenerator((SVGEllipseElement)elt).getShape();
 			else if(elt instanceof SVGCircleElement)
 				return new LCircleSVGGenerator((SVGCircleElement)elt).getShape();
 			else if(elt instanceof SVGPolygonElement)
@@ -103,7 +103,7 @@ public final class IShapeSVGFactory {
 					if(type.equals(LNamespace.XML_TYPE_RECT))
 						return new LRectangleSVGGenerator((SVGGElement)elt, withTransformations).getShape();
 					else if(type.equals(LNamespace.XML_TYPE_ELLIPSE))
-						return new LEllipseSVGGenerator<>((SVGGElement)elt, withTransformations).getShape();
+						return new LEllipseSVGGenerator((SVGGElement)elt, withTransformations).getShape();
 					else if(type.equals(LNamespace.XML_TYPE_CIRCLE))
 						return new LCircleSVGGenerator((SVGGElement)elt, withTransformations).getShape();
 					else if(type.equals(LNamespace.XML_TYPE_POLYGON))

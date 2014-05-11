@@ -19,11 +19,11 @@ import org.junit.Test;
 import test.HelperTest;
 import test.glib.models.interfaces.TestIBezierCurve;
 
-public class TestLBezierCurve<T extends IBezierCurve> extends TestIBezierCurve<T> {
+public class TestLBezierCurve extends TestIBezierCurve<IBezierCurve> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createBezierCurve(false);
-		shape2 = (T) ShapeFactory.createBezierCurve(false);
+		shape  = ShapeFactory.createBezierCurve(false);
+		shape2 = ShapeFactory.createBezierCurve(false);
 	}
 
 

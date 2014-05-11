@@ -20,11 +20,11 @@ import test.HelperTest;
 import test.glib.models.interfaces.TestIEllipse;
 
 
-public class TestLEllipse<T extends IEllipse> extends TestIEllipse<T> {
+public class TestLEllipse extends TestIEllipse<IEllipse> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createEllipse(false);
-		shape2 = (T) ShapeFactory.createEllipse(false);
+		shape  = ShapeFactory.createEllipse(false);
+		shape2 = ShapeFactory.createEllipse(false);
 	}
 
 

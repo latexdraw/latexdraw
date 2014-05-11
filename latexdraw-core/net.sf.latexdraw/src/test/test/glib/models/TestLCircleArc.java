@@ -17,11 +17,11 @@ import org.junit.Test;
 import test.HelperTest;
 import test.glib.models.interfaces.TestICircleArc;
 
-public class TestLCircleArc<T extends ICircleArc> extends TestICircleArc<T> {
+public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createCircleArc(false);
-		shape2 = (T) ShapeFactory.createCircleArc(false);
+		shape  = ShapeFactory.createCircleArc(false);
+		shape2 = ShapeFactory.createCircleArc(false);
 	}
 
 	@Override

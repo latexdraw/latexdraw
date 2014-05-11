@@ -18,13 +18,13 @@ import org.junit.Test;
 
 import test.glib.models.interfaces.TestIText;
 
-public class TestLText<T extends IText> extends TestIText<T> {
+public class TestLText extends TestIText<IText> {
 	@Before
 	public void setUp() {
 		FlyweightThumbnail.images().clear();
 		FlyweightThumbnail.setThread(false);
-		shape  = (T) ShapeFactory.createText(false);
-		shape2 = (T) ShapeFactory.createText(false);
+		shape  = ShapeFactory.createText(false);
+		shape2 = ShapeFactory.createText(false);
 	}
 
 

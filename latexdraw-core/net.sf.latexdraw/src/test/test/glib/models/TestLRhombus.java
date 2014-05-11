@@ -18,11 +18,11 @@ import org.junit.Test;
 import test.HelperTest;
 import test.glib.models.interfaces.TestIRhombus;
 
-public class TestLRhombus<T extends IRhombus> extends TestIRhombus<T> {
+public class TestLRhombus extends TestIRhombus<IRhombus> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createRhombus(false);
-		shape2 = (T) ShapeFactory.createRhombus(false);
+		shape  = ShapeFactory.createRhombus(false);
+		shape2 = ShapeFactory.createRhombus(false);
 	}
 
 

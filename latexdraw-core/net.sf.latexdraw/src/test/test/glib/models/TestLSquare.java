@@ -20,11 +20,11 @@ import org.junit.Test;
 import test.HelperTest;
 import test.glib.models.interfaces.TestISquare;
 
-public class TestLSquare<T extends ISquare> extends TestISquare<T> {
+public class TestLSquare extends TestISquare<ISquare> {
 	@Before
 	public void setUp() {
-		shape = (T) ShapeFactory.createSquare(false);
-		shape2 = (T) ShapeFactory.createSquare(false);
+		shape = ShapeFactory.createSquare(false);
+		shape2 = ShapeFactory.createSquare(false);
 	}
 
 

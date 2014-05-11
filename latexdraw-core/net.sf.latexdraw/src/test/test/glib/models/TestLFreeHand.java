@@ -16,11 +16,11 @@ import org.junit.Test;
 
 import test.glib.models.interfaces.TestIFreehand;
 
-public class TestLFreeHand<T extends IFreehand> extends TestIFreehand<T> {
+public class TestLFreeHand extends TestIFreehand<IFreehand> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createFreeHand(false);
-		shape2 = (T) ShapeFactory.createFreeHand(false);
+		shape  = ShapeFactory.createFreeHand(false);
+		shape2 = ShapeFactory.createFreeHand(false);
 	}
 
 

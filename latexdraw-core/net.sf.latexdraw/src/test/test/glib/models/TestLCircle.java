@@ -19,11 +19,11 @@ import org.junit.Test;
 import test.HelperTest;
 import test.glib.models.interfaces.TestICircle;
 
-public class TestLCircle<T extends ICircle> extends TestICircle<T> {
+public class TestLCircle extends TestICircle<ICircle> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createCircle(false);
-		shape2 = (T) ShapeFactory.createCircle(false);
+		shape  = ShapeFactory.createCircle(false);
+		shape2 = ShapeFactory.createCircle(false);
 	}
 
 

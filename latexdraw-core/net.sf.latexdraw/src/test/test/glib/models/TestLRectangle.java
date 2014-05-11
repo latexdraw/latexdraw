@@ -19,11 +19,11 @@ import org.junit.Test;
 import test.HelperTest;
 import test.glib.models.interfaces.TestIRectangle;
 
-public class TestLRectangle<T extends IRectangle> extends TestIRectangle<T> {
+public class TestLRectangle extends TestIRectangle<IRectangle> {
 	@Before
 	public void setUp() {
-		shape = (T) ShapeFactory.createRectangle(false);
-		shape2 = (T) ShapeFactory.createRectangle(false);
+		shape = ShapeFactory.createRectangle(false);
+		shape2 = ShapeFactory.createRectangle(false);
 	}
 
 

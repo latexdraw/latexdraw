@@ -17,11 +17,11 @@ import org.junit.Test;
 import test.HelperTest;
 import test.glib.models.interfaces.TestIDot;
 
-public class TestLDot<T extends IDot> extends TestIDot<T> {
+public class TestLDot extends TestIDot<IDot> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createDot(ShapeFactory.createPoint(), false);
-		shape2 = (T) ShapeFactory.createDot(ShapeFactory.createPoint(), false);
+		shape  = ShapeFactory.createDot(ShapeFactory.createPoint(), false);
+		shape2 = ShapeFactory.createDot(ShapeFactory.createPoint(), false);
 	}
 
 

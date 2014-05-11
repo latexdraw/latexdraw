@@ -16,11 +16,11 @@ import org.junit.Test;
 
 import test.glib.models.interfaces.TestITriangle;
 
-public class TestLTriangle<T extends ITriangle> extends TestITriangle<T> {
+public class TestLTriangle extends TestITriangle<ITriangle> {
 	@Before
 	public void setUp() {
-		shape = (T) ShapeFactory.createTriangle(false);
-		shape2 = (T) ShapeFactory.createTriangle(false);
+		shape = ShapeFactory.createTriangle(false);
+		shape2 = ShapeFactory.createTriangle(false);
 	}
 
 

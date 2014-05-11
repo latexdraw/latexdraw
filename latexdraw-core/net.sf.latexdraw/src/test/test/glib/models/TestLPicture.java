@@ -15,11 +15,11 @@ import org.junit.Test;
 
 import test.glib.models.interfaces.TestIPicture;
 
-public class TestLPicture<T extends IPicture> extends TestIPicture<T> {
+public class TestLPicture extends TestIPicture<IPicture> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createPicture(false, ShapeFactory.createPoint());
-		shape2 = (T) ShapeFactory.createPicture(false, ShapeFactory.createPoint());
+		shape  = ShapeFactory.createPicture(false, ShapeFactory.createPoint());
+		shape2 = ShapeFactory.createPicture(false, ShapeFactory.createPoint());
 	}
 
 

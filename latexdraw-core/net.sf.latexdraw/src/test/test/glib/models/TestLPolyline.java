@@ -19,11 +19,11 @@ import org.junit.Test;
 
 import test.glib.models.interfaces.TestIPolyline;
 
-public class TestLPolyline<T extends IPolyline> extends TestIPolyline<T> {
+public class TestLPolyline extends TestIPolyline<IPolyline> {
 	@Before
 	public void setUp() {
-		shape  = (T) ShapeFactory.createPolyline(false);
-		shape2 = (T) ShapeFactory.createPolyline(false);
+		shape  = ShapeFactory.createPolyline(false);
+		shape2 = ShapeFactory.createPolyline(false);
 		shape.addPoint(ShapeFactory.createPoint(1, 1));
 		shape.addPoint(ShapeFactory.createPoint(2, 2));
 		shape.addPoint(ShapeFactory.createPoint(3, 3));
