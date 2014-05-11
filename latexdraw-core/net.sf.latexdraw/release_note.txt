@@ -17,3 +17,5 @@ Version 3.2.0
   https://bugs.launchpad.net/latexdraw/+bug/1277542
 - fixed: Text cursor moves while writting LaTeX packages
   https://bugs.launchpad.net/latexdraw/+bug/1274875
+- fixed: The parameter dotangle has no effect when parsed
+  https://bugs.launchpad.net/latexdraw/+bug/1318369

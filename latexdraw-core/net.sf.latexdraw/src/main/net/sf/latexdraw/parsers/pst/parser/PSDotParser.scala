@@ -61,8 +61,8 @@ trait PSDotParser extends PSTAbstractParser with PSTParamParser with PSTCoordina
 		val dotSizeNum = if(ctx.arrowDotSize._1+ctx.arrowDotSize._2<0) scala.math.abs(ctx.arrowDotSize._2) else ctx.arrowDotSize._2
 
 		dot.setDiametre((dotSizeDim+dotSizeNum*ctx.lineWidth)*IShape.PPC*ctx.dotScale._1)
-		dot.setRotationAngle(dot.getRotationAngle+scala.math.toRadians(ctx.dotAngle))
 		setShapeParameters(dot, ctx)
+		dot.setRotationAngle(dot.getRotationAngle+scala.math.toRadians(ctx.dotAngle))
 		dot.setDotStyle(ctx.dotStyle)
 		if(hasStar)
 			setShapeForStar(dot)
