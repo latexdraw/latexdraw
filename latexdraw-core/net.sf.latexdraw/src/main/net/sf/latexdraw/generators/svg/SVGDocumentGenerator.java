@@ -54,7 +54,6 @@ import net.sf.latexdraw.util.LResources;
 import org.malai.instrument.Instrument;
 import org.malai.mapping.IMapping;
 import org.malai.mapping.MappingRegistry;
-import org.malai.presentation.AbstractPresentation;
 import org.malai.presentation.Presentation;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.ui.ISOpenSaver;
@@ -324,31 +323,15 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		@Override
 		protected Boolean doInBackground() throws Exception {
 			super.doInBackground();
-
 			try{
 				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
-				final AbstractPresentation pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
-
+				final IDrawing pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
 				// Adding loaded shapes.
-				if(pres instanceof IDrawing) {
-					final IShape shape     = toLatexdraw(svgDoc, 0);
-					final IDrawing drawing = (IDrawing)pres;
-
-					if(shape instanceof IGroup) { // If several shapes have been loaded
-						final IGroup group = (IGroup)shape;
-
-						for(final IShape sh : group.getShapes())
-							drawing.addShape(sh);
-					}else // If only a single shape has been loaded.
-						drawing.addShape(shape);
-				}
-
+				pres.addShape(toLatexdraw(svgDoc, 0));
 				// Updating the possible widgets of the instruments.
 				for(final Instrument instrument : ui.getInstruments())
 					instrument.interimFeedback();
-
 				ui.updatePresentations();
-
 				return true;
 			}catch(final Exception e){
 				BadaboomCollector.INSTANCE.add(e);
@@ -582,14 +565,9 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 			super.doInBackground();
 
 			setProgress(0);
-			final AbstractPresentation absPres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
-
-			if(!(absPres instanceof IDrawing))
-				return false;
-
+			final IDrawing drawing = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
 			// Creation of the SVG document.
 			final Instrument[] instruments 	= ui.getInstruments();
-			final IDrawing drawing			= (IDrawing)absPres;
 			final double incr				= 100./(drawing.size() + instruments.length + ui.getPresentations().size());
 			final SVGDocument doc 			= toSVG(drawing, incr);
 			final SVGMetadataElement meta	= new SVGMetadataElement(doc);
