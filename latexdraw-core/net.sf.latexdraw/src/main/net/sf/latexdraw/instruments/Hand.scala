@@ -37,6 +37,10 @@ import java.awt.Point
 import net.sf.latexdraw.glib.models.ShapeFactory._
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.ui.LCanvas
+import java.util.Arrays
+import java.util.Collections
+import scala.collection.mutable.ArrayBuffer
+import java.util.ArrayList
 
 
 /**
@@ -219,7 +223,7 @@ private sealed class DnD2Select(hand : Hand) extends Link[SelectShapes, DnDWithK
 
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
-		selectedShapes = instrument.canvas.getDrawing.getSelection.getShapes.clone
+		selectedShapes = new ArrayList(instrument.canvas.getDrawing.getSelection.getShapes)
 		selectedViews  = instrument.canvas.getBorderInstrument.selection.clone
 	}
 
