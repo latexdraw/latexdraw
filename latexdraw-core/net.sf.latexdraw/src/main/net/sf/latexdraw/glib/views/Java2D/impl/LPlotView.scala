@@ -68,8 +68,6 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 		// The algorithm follows this definition:
 		//https://stackoverflow.com/questions/15864441/how-to-make-a-line-curve-through-points
 		val scale = 0.33
-		val pFirst = ShapeFactory.createPoint(minX, model.getY(minX))
-		val pNext = ShapeFactory.createPoint(minX+step, model.getY(minX+step))
 		val shape = ShapeFactory.createBezierCurve(false)
 		if(curveView!=null) curveView.flush
 		curveView = new LBezierCurveView(shape)
