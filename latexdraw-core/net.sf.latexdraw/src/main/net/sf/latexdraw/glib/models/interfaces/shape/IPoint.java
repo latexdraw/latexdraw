@@ -85,6 +85,36 @@ public interface IPoint {
 	IPoint verticalSymmetry(final IPoint origin);
 
 	/**
+	 * Adds the given pt to the current one: this+pt
+	 * @param pt The second point of the subtraction
+	 * @return The result of the subtraction.
+	 * @since 3.2
+	 */
+	IPoint add(final IPoint pt);
+
+	/**
+	 * Subtracts the given pt to the current one: this-pt
+	 * @param pt The second point of the subtraction
+	 * @return The result of the subtraction.
+	 * @since 3.2
+	 */
+	IPoint substract(final IPoint pt);
+
+	/**
+	 * Normalizes the point (considered here as a vector).
+	 * @return The vector normalization.
+	 * @since 3.2
+	 */
+	IPoint normalise();
+
+	/**
+	 * The magnitude (length) of the point considered here as a vector.
+	 * @return The computed magnitude.
+	 * @since 3.2
+	 */
+	double magnitude();
+
+	/**
 	 * Computes the angle of the given point where the calling point is used as
 	 * the gravity centre.
 	 * @param pt The point used to compute the angle.
@@ -109,7 +139,6 @@ public interface IPoint {
 	 * @exception IllegalArgumentException When <code>gap<0</code>
 	 */
 	boolean equals(final IPoint p, final double gap);
-
 
 	/**
 	 * @param p The second point.

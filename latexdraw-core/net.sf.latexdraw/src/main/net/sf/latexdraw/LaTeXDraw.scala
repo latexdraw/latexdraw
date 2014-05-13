@@ -1,11 +1,9 @@
 package net.sf.latexdraw
 
 import java.io.File
-
 import org.malai.action.ActionsRegistry
 import org.malai.mapping.MappingRegistry
 import org.malai.undo.UndoCollector
-
 import net.sf.latexdraw.actions.LoadDrawing
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
@@ -18,6 +16,7 @@ import net.sf.latexdraw.util.LCommandLine.CmdLineState
 import net.sf.latexdraw.util.LPath
 import net.sf.latexdraw.util.Theme
 import net.sf.latexdraw.util.VersionChecker
+import net.sf.latexdraw.glib.models.ShapeFactory
 
 /**
  * The main class of the project.<br>
@@ -99,6 +98,8 @@ object LaTeXDraw {
 	    	action.doIt
 	    	action.flush
     	}
+
+		frame.getCanvas.getDrawing.addShape(ShapeFactory.createPlot(true, ShapeFactory.createPoint(100, 500), 0, 5, "x 2 exp 5 div"))
 
     	// Checking a new version if required.
     	if(VersionChecker.WITH_UPDATE && frame.getPrefSetters.isVersionCheckEnable)

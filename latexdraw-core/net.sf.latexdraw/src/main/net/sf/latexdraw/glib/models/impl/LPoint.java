@@ -243,4 +243,29 @@ class LPoint extends Point2D.Double implements IPoint {
 		if(pt!=null)
 			setPoint(pt.getX(), pt.getY());
 	}
+
+	@Override
+	public IPoint substract(final IPoint pt) {
+		if(pt==null) return null;
+		return ShapeFactory.createPoint(getX()-pt.getX(), getY()-pt.getY());
+	}
+
+	@Override
+	public IPoint normalise() {
+		final double magnitude = magnitude();
+		return ShapeFactory.createPoint(getX()/magnitude, getY()/magnitude);
+	}
+
+	@Override
+	public double magnitude() {
+		return Math.sqrt(getX()*getX()+getY()*getY());
+	}
+
+	@Override
+	public IPoint add(IPoint pt) {
+		final IPoint added = ShapeFactory.createPoint((IPoint)this);
+		if(pt!=null)
+			added.translate(pt.getX(), pt.getY());
+		return added;
+	}
 }
