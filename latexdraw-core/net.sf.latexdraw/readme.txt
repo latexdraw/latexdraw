@@ -4,9 +4,9 @@ This last action can require administrator privileges.
 
 *** Windows ***
 
-For Windows you must use the install_windows.vbs to install LaTeXDraw.
+On Windows you must use the install_windows.vbs to install LaTeXDraw.
 This script activates the "run as administrator" feature to install 
-files in protected directories such as "Program Files". It will ask you your password.
+files in dedicated directories such as "Program Files". It may ask you your password.
 
 
 *** Debian/Ubuntu ***
