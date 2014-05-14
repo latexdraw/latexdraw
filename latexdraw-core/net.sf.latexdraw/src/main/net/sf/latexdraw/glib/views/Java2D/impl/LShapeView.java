@@ -640,7 +640,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	 * the double borders and their size are took in account.
 	 * @since 3.0
 	 */
-	public double getStrokeThickness() {
+	protected double getStrokeThickness() {
 		final double thickness = shape.getThickness();
 		return  shape.hasDbleBord() ? thickness*2. + shape.getDbleBordSep() : thickness;
 	}

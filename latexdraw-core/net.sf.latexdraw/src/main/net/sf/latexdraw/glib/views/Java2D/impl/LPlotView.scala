@@ -10,6 +10,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape
 import scala.collection.JavaConversions.asScalaBuffer
+import java.awt.geom.Rectangle2D
 
 /**
  * The graphical representation of a plotted function.
@@ -57,6 +58,7 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 
 	private def updateLine(posX:Double, posY:Double, minX:Double, maxX:Double, step:Double) {
 		val shape = ShapeFactory.createPolyline(false)
+		shape.copy(model)
 		if(lineView!=null) lineView.flush
 		lineView = new LPolylineView(shape)
 		fillPoints(shape, posX, posY, minX, maxX, step)
@@ -73,6 +75,7 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 		curveView = new LBezierCurveView(shape)
 		fillPoints(shape, posX, posY, minX, maxX, step)
 		shape.setIsClosed(false)
+		shape.copy(model)
 		var i=0
 		val Last = shape.getPoints.size-1
 
@@ -108,6 +111,63 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 		curveView.update
 	}
 
+
+	override def getBorder():Rectangle2D = {
+		model.getPlotStyle match {
+			case IPlotProp.PlotStyle.CCURVE => new Rectangle2D.Double
+			case IPlotProp.PlotStyle.CURVE => curveView.getBorder
+			case IPlotProp.PlotStyle.DOTS => new Rectangle2D.Double
+			case IPlotProp.PlotStyle.ECURVE => new Rectangle2D.Double
+			case IPlotProp.PlotStyle.LINE => lineView.getBorder
+			case IPlotProp.PlotStyle.POLYGON => new Rectangle2D.Double
+			case _ => new Rectangle2D.Double
+		}
+	}
+
+	override def intersects(rec:Rectangle2D):Boolean = {
+		model.getPlotStyle match {
+			case IPlotProp.PlotStyle.CCURVE => false
+			case IPlotProp.PlotStyle.CURVE => curveView.intersects(rec)
+			case IPlotProp.PlotStyle.DOTS => false
+			case IPlotProp.PlotStyle.ECURVE => false
+			case IPlotProp.PlotStyle.LINE => lineView.intersects(rec)
+			case IPlotProp.PlotStyle.POLYGON => false
+			case _ => false
+		}
+	}
+
+
+	override def contains(px:Double, py:Double):Boolean = {
+		model.getPlotStyle match {
+			case IPlotProp.PlotStyle.CCURVE => false
+			case IPlotProp.PlotStyle.CURVE => curveView.contains(px, py)
+			case IPlotProp.PlotStyle.DOTS => false
+			case IPlotProp.PlotStyle.ECURVE => false
+			case IPlotProp.PlotStyle.LINE => lineView.contains(px, py)
+			case IPlotProp.PlotStyle.POLYGON => false
+			case _ => false
+		}
+	}
+
+
+	override def updateBorder() {
+		model.getPlotStyle match {
+			case IPlotProp.PlotStyle.CCURVE =>
+			case IPlotProp.PlotStyle.CURVE => curveView.updateBorder
+			case IPlotProp.PlotStyle.DOTS =>
+			case IPlotProp.PlotStyle.ECURVE =>
+			case IPlotProp.PlotStyle.LINE => lineView.updateBorder
+			case IPlotProp.PlotStyle.POLYGON =>
+			case _ =>
+		}
+	}
+
+
+	override def flush() {
+		super.flush
+		if(lineView!=null) lineView.flush
+		if(curveView!=null) curveView.flush
+	}
 
 	override def updateDblePathInside(){}
 	override def updateDblePathMiddle(){}
