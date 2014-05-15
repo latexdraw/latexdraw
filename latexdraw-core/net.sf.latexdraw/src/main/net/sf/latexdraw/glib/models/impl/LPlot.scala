@@ -6,6 +6,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.GLibUtilities
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
 import net.sf.latexdraw.parsers.ps.PSFunctionParser
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * Implementation of the plotted function.
@@ -29,6 +30,21 @@ private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX
 	override def setNbPlottedPoints(nbPts:Int) {
 		if(nbPts>1 && GLibUtilities.isValidCoordinate(nbPts))
 			nbPoints = nbPts
+	}
+
+
+	override def getPlottingStep() = (maxX-minX)/nbPoints
+
+	override def getTopLeftPoint() = {
+		val step = getPlottingStep
+		val pos = getPosition
+		ShapeFactory.createPoint(pos.getX, pos.getY+(minX to maxX by step).map{x=>getY(x)}.min*IShape.PPC)
+	}
+
+	override def getBottomRightPoint() = {
+		val step = getPlottingStep
+		val pos = getPosition
+		ShapeFactory.createPoint(step*IShape.PPC+pos.getX, pos.getY-(minX to maxX by step).map{x=>getY(x)}.max*IShape.PPC)
 	}
 
 	override def getNbPlottedPoints = nbPoints

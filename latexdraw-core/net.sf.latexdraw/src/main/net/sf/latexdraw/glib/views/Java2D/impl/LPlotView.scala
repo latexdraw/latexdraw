@@ -37,7 +37,7 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 	override def updatePath() {
 		val minX = model.getMinX
 		val maxX = model.getMaxX
-		val step = (maxX-minX)/model.getNbPlottedPoints
+		val step = model.getPlottingStep
 		val posX = model.getPosition.getX
 		val posY = model.getPosition.getY
 

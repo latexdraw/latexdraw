@@ -67,6 +67,7 @@ public final class PSTViewsFactory {
 		cmd = new CreateViewPSTCmd(cmd, IText.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTTextView((IText)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, IRectangle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTRectView((IRectangle)shape); } };
 		cmd = new CreateViewPSTCmd(cmd, ISquare.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTSquareView((ISquare)shape); } };
+		cmd = new CreateViewPSTCmd(cmd, IPlot.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTPlotView((IPlot)shape); } };
 		// The last created command is the first element of the chain.
 		createCmd = new CreateViewPSTCmd(cmd, IGroup.class) { @Override public PSTShapeView<?> create(final IShape shape) { return new PSTGroupView((IGroup)shape); } };
 	}

@@ -21,7 +21,22 @@ public interface IPlotProp {
 	 * The different possible plotting styles.
 	 */
 	public static enum PlotStyle {
-		CURVE, LINE, DOTS, POLYGON, ECURVE, CCURVE
+		CURVE {
+			@Override public String getPSTToken() { return "curve"; }
+		}, LINE {
+			@Override public String getPSTToken() { return "line";}
+		}, DOTS {
+			@Override public String getPSTToken() { return "dots";}
+		}, POLYGON {
+			@Override public String getPSTToken() { return "polygon";}
+		}, ECURVE {
+			@Override public String getPSTToken() { return "ecurve";}
+		}, CCURVE {
+			@Override public String getPSTToken() {return "ccurve";}
+		};
+
+		/** @return The PST token corresponding to the plot style. */
+		public abstract String getPSTToken();
 	}
 
 	/**
@@ -63,6 +78,11 @@ public interface IPlotProp {
 	 * @param nbPlottedPoints the nbPoints to set.
 	 */
 	void setNbPlottedPoints(final int nbPlottedPoints);
+
+	/**
+	 * @return The step between the points to plot.
+	 */
+	double getPlottingStep();
 
 	//TODO later
 //	/**
