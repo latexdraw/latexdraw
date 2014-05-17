@@ -23,10 +23,10 @@ import java.util.Deque;
  */
 public class PSSinCommand extends PSArithemticCommand {
 	@Override
-	public void execute(final Deque<String> stack, final double x) throws InvalidFormatPSFunctionException {
+	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
 		if(stack==null || stack.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
-		stack.push(String.valueOf(Math.sin(Math.toRadians(Double.parseDouble(stack.pop())))));
+		stack.push(Math.sin(Math.toRadians(stack.pop())));
 	}
 }

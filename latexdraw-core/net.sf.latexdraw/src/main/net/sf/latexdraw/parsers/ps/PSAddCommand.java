@@ -23,13 +23,13 @@ import java.util.Deque;
  */
 public class PSAddCommand extends PSArithemticCommand {
 	@Override
-	public void execute(final Deque<String> stack, final double x) throws InvalidFormatPSFunctionException {
+	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
 		if(stack==null || stack.size()<2)
 			throw new InvalidFormatPSFunctionException();
 
-		final double a = Double.parseDouble(stack.pop());
-		final double b = Double.parseDouble(stack.pop());
+		final double a = stack.pop();
+		final double b = stack.pop();
 
-		stack.push(String.valueOf(b+a));
+		stack.push(b+a);
 	}
 }

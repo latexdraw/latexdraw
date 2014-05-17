@@ -77,7 +77,7 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 */
 	public double getY(final double x) throws InvalidFormatPSFunctionException {
-		Deque<String> stack = new ArrayDeque<>();
+		Deque<Double> stack = new ArrayDeque<>();
 
 		for(PSArithemticCommand cmd : commands)
 			cmd.execute(stack, x);
@@ -85,7 +85,7 @@ public class PSFunctionParser {
 		if(stack.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
-		return Double.parseDouble(stack.pop());
+		return stack.pop();
 	}
 
 

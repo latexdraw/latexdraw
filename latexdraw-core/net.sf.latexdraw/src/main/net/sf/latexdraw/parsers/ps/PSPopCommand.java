@@ -23,7 +23,7 @@ import java.util.Deque;
  */
 public class PSPopCommand extends PSArithemticCommand {
 	@Override
-	public void execute(final Deque<String> stack, final double x) throws InvalidFormatPSFunctionException {
+	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
 		if(stack==null || stack.size()<1)
 			throw new InvalidFormatPSFunctionException();
 

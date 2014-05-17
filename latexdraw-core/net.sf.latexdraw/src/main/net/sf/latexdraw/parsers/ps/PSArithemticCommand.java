@@ -29,5 +29,5 @@ public abstract class PSArithemticCommand {
 	 * @throws InvalidFormatPSFunctionException If the command format is not valid.
 	 * @since 3.0
 	 */
-	public abstract void execute(final Deque<String> stack, final double x) throws InvalidFormatPSFunctionException;
+	public abstract void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException;
 }
