@@ -21,8 +21,6 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 	private var lineView:LPolylineView = _
 	private var curveView:LBezierCurveView = _
 
-	model.setNbPlottedPoints(5)
-	model.setPlotStyle(IPlotProp.PlotStyle.CURVE)
 	update
 
 
@@ -50,8 +48,7 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 
 
 	private def fillPoints(sh:IModifiablePointsShape, posX:Double, posY:Double, minX:Double, maxX:Double, step:Double) {
-		sh.addPoint(ShapeFactory.createPoint(minX*IShape.PPC+posX, -model.getY(minX)*IShape.PPC+posY))
-		for(x <- minX+step to maxX by step)
+		for(x <- minX to maxX by step)
 			sh.addPoint(ShapeFactory.createPoint(x*IShape.PPC+posX, -model.getY(x)*IShape.PPC+posY))
 	}
 
