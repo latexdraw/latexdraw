@@ -32,6 +32,7 @@ private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX
 			nbPoints = nbPts
 	}
 
+	override def isShowPtsable() = true
 
 	override def getPlottingStep() = (maxX-minX)/(nbPoints-1)
 
