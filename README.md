@@ -13,3 +13,6 @@ http://sourceforge.net/projects/latexdraw/
 
 Bugs and roadmaps are on launchpad:
 https://launchpad.net/latexdraw
+
+You can support this software by making a donation:
+http://sourceforge.net/donate/index.php?group_id=156523
