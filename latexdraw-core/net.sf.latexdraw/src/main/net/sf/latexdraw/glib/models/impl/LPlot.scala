@@ -33,7 +33,7 @@ private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX
 	}
 
 
-	override def getPlottingStep() = (maxX-minX)/nbPoints
+	override def getPlottingStep() = (maxX-minX)/(nbPoints-1)
 
 	override def getTopLeftPoint() = {
 		val step = getPlottingStep
