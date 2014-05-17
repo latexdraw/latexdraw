@@ -24,9 +24,12 @@ import java.util.Deque;
 public class PSExpCommand extends PSArithemticCommand {
 	@Override
 	public void execute(final Deque<String> stack, final double x) throws InvalidFormatPSFunctionException {
-		if(stack==null || stack.isEmpty())
+		if(stack==null || stack.size()<2)
 			throw new InvalidFormatPSFunctionException();
 
-		stack.push(String.valueOf(Math.pow(Double.parseDouble(stack.pop()), Double.parseDouble(stack.pop()))));
+		final double a = Double.parseDouble(stack.pop());
+		final double b = Double.parseDouble(stack.pop());
+
+		stack.push(String.valueOf(Math.pow(b, a)));
 	}
 }
