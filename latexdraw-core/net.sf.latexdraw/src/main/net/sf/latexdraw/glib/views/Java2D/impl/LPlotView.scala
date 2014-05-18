@@ -45,6 +45,7 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 			case IPlotProp.PlotStyle.LINE => updateLine(posX, posY, minX, maxX, step)
 			case IPlotProp.PlotStyle.CURVE => updateCurve(posX, posY, minX, maxX, step)
 			case IPlotProp.PlotStyle.ECURVE => updateCurve(posX, posY, minX+step, maxX-step, step)
+			case IPlotProp.PlotStyle.CCURVE => updateCurve(posX, posY, minX, maxX, step)
 			case _ =>
 		}
 	}
@@ -74,7 +75,9 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 		if(curveView!=null) curveView.flush
 		curveView = new LBezierCurveView(shape)
 		fillPoints(shape, posX, posY, minX, maxX, step)
-		shape.setIsClosed(false)
+		if(model.getPlotStyle==IPlotProp.PlotStyle.CCURVE)
+			shape.setIsClosed(true)
+		else shape.setIsClosed(false)
 		shape.copy(model)
 		var i=0
 		val Last = shape.getPoints.size-1
