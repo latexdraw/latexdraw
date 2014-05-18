@@ -28,6 +28,8 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 		model.getPlotStyle match {
 			case IPlotProp.PlotStyle.LINE => lineView.paint(g, clip)
 			case IPlotProp.PlotStyle.CURVE => curveView.paint(g, clip)
+			case IPlotProp.PlotStyle.ECURVE => curveView.paint(g, clip)
+			case IPlotProp.PlotStyle.CCURVE => curveView.paint(g, clip)
 			case _ =>
 		}
 	}
@@ -42,6 +44,7 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 		model.getPlotStyle match {
 			case IPlotProp.PlotStyle.LINE => updateLine(posX, posY, minX, maxX, step)
 			case IPlotProp.PlotStyle.CURVE => updateCurve(posX, posY, minX, maxX, step)
+			case IPlotProp.PlotStyle.ECURVE => updateCurve(posX, posY, minX+step, maxX-step, step)
 			case _ =>
 		}
 	}
@@ -111,10 +114,10 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 
 	override def getBorder():Rectangle2D = {
 		model.getPlotStyle match {
-			case IPlotProp.PlotStyle.CCURVE => new Rectangle2D.Double
+			case IPlotProp.PlotStyle.CCURVE => curveView.getBorder
 			case IPlotProp.PlotStyle.CURVE => curveView.getBorder
 			case IPlotProp.PlotStyle.DOTS => new Rectangle2D.Double
-			case IPlotProp.PlotStyle.ECURVE => new Rectangle2D.Double
+			case IPlotProp.PlotStyle.ECURVE => curveView.getBorder
 			case IPlotProp.PlotStyle.LINE => lineView.getBorder
 			case IPlotProp.PlotStyle.POLYGON => new Rectangle2D.Double
 			case _ => new Rectangle2D.Double
@@ -123,10 +126,10 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 
 	override def intersects(rec:Rectangle2D):Boolean = {
 		model.getPlotStyle match {
-			case IPlotProp.PlotStyle.CCURVE => false
+			case IPlotProp.PlotStyle.CCURVE => curveView.intersects(rec)
 			case IPlotProp.PlotStyle.CURVE => curveView.intersects(rec)
 			case IPlotProp.PlotStyle.DOTS => false
-			case IPlotProp.PlotStyle.ECURVE => false
+			case IPlotProp.PlotStyle.ECURVE => curveView.intersects(rec)
 			case IPlotProp.PlotStyle.LINE => lineView.intersects(rec)
 			case IPlotProp.PlotStyle.POLYGON => false
 			case _ => false
@@ -136,10 +139,10 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 
 	override def contains(px:Double, py:Double):Boolean = {
 		model.getPlotStyle match {
-			case IPlotProp.PlotStyle.CCURVE => false
+			case IPlotProp.PlotStyle.CCURVE => curveView.contains(px, py)
 			case IPlotProp.PlotStyle.CURVE => curveView.contains(px, py)
 			case IPlotProp.PlotStyle.DOTS => false
-			case IPlotProp.PlotStyle.ECURVE => false
+			case IPlotProp.PlotStyle.ECURVE => curveView.contains(px, py)
 			case IPlotProp.PlotStyle.LINE => lineView.contains(px, py)
 			case IPlotProp.PlotStyle.POLYGON => false
 			case _ => false
@@ -149,10 +152,10 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 
 	override def updateBorder() {
 		model.getPlotStyle match {
-			case IPlotProp.PlotStyle.CCURVE =>
+			case IPlotProp.PlotStyle.CCURVE => curveView.updateBorder
 			case IPlotProp.PlotStyle.CURVE => curveView.updateBorder
 			case IPlotProp.PlotStyle.DOTS =>
-			case IPlotProp.PlotStyle.ECURVE =>
+			case IPlotProp.PlotStyle.ECURVE => curveView.updateBorder
 			case IPlotProp.PlotStyle.LINE => lineView.updateBorder
 			case IPlotProp.PlotStyle.POLYGON =>
 			case _ =>
