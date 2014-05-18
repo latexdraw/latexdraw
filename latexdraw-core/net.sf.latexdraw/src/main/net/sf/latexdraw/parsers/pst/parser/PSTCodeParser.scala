@@ -54,12 +54,11 @@ trait PSTCodeParser extends PSTAbstractParser
 		case list =>
 		val group = ShapeFactory.createGroup(false)
 
-		list.foreach{_ match {
+		list.foreach{
 				case gp : List[_] => gp.foreach{sh => group.addShape(sh.asInstanceOf[IShape])}
 				case gp : IGroup => gp.getShapes.foreach{sh => group.addShape(sh)}
 				case sh : IShape => group.addShape(sh)
 				case _ =>
-			}
 		}
 
 		group

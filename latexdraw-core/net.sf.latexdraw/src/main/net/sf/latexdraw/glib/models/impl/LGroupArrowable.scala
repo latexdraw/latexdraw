@@ -59,10 +59,9 @@ private[impl] trait LGroupArrowable extends IGroup {
 
 	override def getTBarSizeDimList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
-		getShapes.foreach{_ match {
+		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getTBarSizeDim)
 				case _ => list.add(java.lang.Double.NaN)
-			}
 		}
 		return list
 	}
@@ -77,10 +76,9 @@ private[impl] trait LGroupArrowable extends IGroup {
 
 	override def getTBarSizeNumList() : java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
-		getShapes.foreach{_ match {
+		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getTBarSizeNum)
 				case _ => list.add(java.lang.Double.NaN)
-			}
 		}
 		return list
 	}
@@ -95,10 +93,9 @@ private[impl] trait LGroupArrowable extends IGroup {
 
 	override def getDotSizeNumList() : java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
-		getShapes.foreach{_ match {
+		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getDotSizeNum)
 				case _ => list.add(java.lang.Double.NaN)
-			}
 		}
 		return list
 	}
@@ -113,10 +110,9 @@ private[impl] trait LGroupArrowable extends IGroup {
 
 	override def getDotSizeDimList() : java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
-		getShapes.foreach{_ match {
+		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getDotSizeDim)
 				case _ => list.add(java.lang.Double.NaN)
-			}
 		}
 		return list
 	}
@@ -131,10 +127,9 @@ private[impl] trait LGroupArrowable extends IGroup {
 
 	override def getBracketNumList() : java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
-		getShapes.foreach{_ match {
+		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getBracketNum)
 				case _ => list.add(java.lang.Double.NaN)
-			}
 		}
 		return list
 	}
@@ -149,10 +144,9 @@ private[impl] trait LGroupArrowable extends IGroup {
 
 	override def getRBracketNumList() : java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
-		getShapes.foreach{_ match {
+		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getRBracketNum)
 				case _ => list.add(java.lang.Double.NaN)
-			}
 		}
 		return list
 	}
@@ -167,10 +161,9 @@ private[impl] trait LGroupArrowable extends IGroup {
 
 	override def getArrowSizeNumList() : java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
-		getShapes.foreach{_ match {
+		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getArrowSizeNum)
 				case _ => list.add(java.lang.Double.NaN)
-			}
 		}
 		return list
 	}
@@ -185,10 +178,9 @@ private[impl] trait LGroupArrowable extends IGroup {
 
 	override def getArrowSizeDimList() : java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
-		getShapes.foreach{_ match {
+		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getArrowSizeDim)
 				case _ => list.add(java.lang.Double.NaN)
-			}
 		}
 		return list
 	}
@@ -203,10 +195,9 @@ private[impl] trait LGroupArrowable extends IGroup {
 
 	override def getArrowLengthList() : java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
-		getShapes.foreach{_ match {
+		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getArrowLength)
 				case _ => list.add(java.lang.Double.NaN)
-			}
 		}
 		return list
 	}
@@ -221,16 +212,15 @@ private[impl] trait LGroupArrowable extends IGroup {
 
 	override def getArrowInsetList() : List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
-		getShapes.foreach{_ match {
+		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getArrowInset)
 				case _ => list.add(java.lang.Double.NaN)
-			}
 		}
 		return list
 	}
 
 	override def getArrowStyleList(i : Int) : java.util.List[ArrowStyle] =
-		getShapes.map{_ match { case arr:IArrowableShape => arr.getArrowStyle(i); case _ => ArrowStyle.NONE}}
+		getShapes.map{case arr:IArrowableShape => arr.getArrowStyle(i); case _ => ArrowStyle.NONE}
 
 	override def setArrowStyleList(values : java.util.List[ArrowStyle], i : Int) {
 		val shapes = getShapes
