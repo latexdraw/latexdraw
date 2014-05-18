@@ -20,22 +20,18 @@ class PSTPlotView(plot:IPlot) extends PSTClassicalView[IPlot](plot){
 		emptyCache
 
 		val params  = getPropertiesCode(ppc)
-		val tl  	= shape.getTopLeftPoint
-		val br  	= shape.getBottomRightPoint
-		val x1 		 = tl.getX - position.getX
-		val x2 		 = br.getX - position.getX
-		val y1 		 = position.getY - tl.getY
-		val y2 		 = position.getY - br.getY
 		val rotation = getRotationHeaderCode(ppc, position)
 
 		if(rotation!=null)
 			cache.append(rotation)
 
 		cache.append("\\rput(")//$NON-NLS-1$
-		cache.append(LNumber.getCutNumber((shape.getX+shape.getWidth/2.0-position.getX)/ppc).toFloat).append(',')
-		cache.append(LNumber.getCutNumber((position.getY-shape.getY()-shape.getHeight/2.0)/ppc).toFloat).append(')').append('{')
+		cache.append(LNumber.getCutNumber((shape.getX-position.getX)/ppc).toFloat).append(',')
+		cache.append(LNumber.getCutNumber((position.getY-shape.getY())/ppc).toFloat).append(')').append('{')
 		cache.append("\\psplot[")	//$NON-NLS-1$
-		cache.append(params).append(", plotstyle=").append(shape.getPlotStyle.getPSTToken).append(", plotpoints=").append(shape.getNbPlottedPoints)
+		cache.append(params).append(", plotstyle=").append(shape.getPlotStyle.getPSTToken).append(", plotpoints=").
+		append(shape.getNbPlottedPoints).append(", xunit=").append(shape.getXScale).append(", yunit=").append(shape.getYScale)
+		//TODO xscale and yscale should be put in a trait
 		cache.append("]{").append(shape.getMinX).append("}{").append(shape.getMaxX).append("}{").append(shape.getEquation).append('}')
 
 		if(rotation!=null)

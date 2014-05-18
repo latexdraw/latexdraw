@@ -1,16 +1,16 @@
 package net.sf.latexdraw.glib.views.Java2D.impl
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
-import java.awt.Rectangle
 import java.awt.Graphics2D
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
-import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
-import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape
-import scala.collection.JavaConversions.asScalaBuffer
+import java.awt.Rectangle
 import java.awt.geom.Rectangle2D
+
+import scala.collection.JavaConversions.asScalaBuffer
+
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
+import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * The graphical representation of a plotted function.
@@ -52,8 +52,11 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 
 
 	private def fillPoints(sh:IModifiablePointsShape, posX:Double, posY:Double, minX:Double, maxX:Double, step:Double) {
+		val xs = model.getXScale
+		val ys = model.getYScale
+
 		for(x <- minX to maxX by step)
-			sh.addPoint(ShapeFactory.createPoint(x*IShape.PPC+posX, -model.getY(x)*IShape.PPC+posY))
+			sh.addPoint(ShapeFactory.createPoint(x*IShape.PPC*xs+posX, -model.getY(x)*IShape.PPC*ys+posY))
 	}
 
 

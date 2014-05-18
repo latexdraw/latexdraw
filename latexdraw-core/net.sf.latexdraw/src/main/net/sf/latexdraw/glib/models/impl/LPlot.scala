@@ -13,7 +13,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape
  * @since 3.2
  * @author Arnaud Blouin
  */
-private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX:Double, var equation:String) extends LPositionShape(uniqueID, pt) with IPlot {
+private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX:Double, var equation:String) extends LPositionShape(uniqueID, pt) with IPlot with LScalable {
 	private var nbPoints:Int = 50
 	private var style:IPlotProp.PlotStyle = IPlotProp.PlotStyle.LINE
 	private var parser:PSFunctionParser = new PSFunctionParser(equation)
@@ -39,14 +39,28 @@ private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX
 	override def getTopLeftPoint() = {
 		val step = getPlottingStep
 		val pos = getPosition
-		ShapeFactory.createPoint(pos.getX, pos.getY+(minX to maxX by step).map{x=>getY(x)}.min*IShape.PPC)
+		ShapeFactory.createPoint(pos.getX+minX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.min*IShape.PPC*yscale)
 	}
 
 	override def getBottomRightPoint() = {
 		val step = getPlottingStep
 		val pos = getPosition
-		ShapeFactory.createPoint(step*IShape.PPC+pos.getX, pos.getY-(minX to maxX by step).map{x=>getY(x)}.max*IShape.PPC)
+		ShapeFactory.createPoint(pos.getX+maxX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.max*IShape.PPC*yscale)
 	}
+
+	override def getTopRightPoint() = {
+		val step = getPlottingStep
+		val pos = getPosition
+		ShapeFactory.createPoint(pos.getX+maxX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.min*IShape.PPC*yscale)
+	}
+
+	override def getBottomLeftPoint() = {
+		val step = getPlottingStep
+		val pos = getPosition
+		ShapeFactory.createPoint(pos.getX+minX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.max*IShape.PPC*yscale)
+	}
+
+	override def getPosition() = getPtAt(0)
 
 	override def getNbPlottedPoints = nbPoints
 
