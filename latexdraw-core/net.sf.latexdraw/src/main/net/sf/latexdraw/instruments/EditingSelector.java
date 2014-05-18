@@ -98,6 +98,9 @@ public class EditingSelector extends WidgetInstrument {
 	/** The button that allows to select the instrument Pencil to add pictures. */
 	protected MToggleButton picB;
 
+	/** The button that allows to select the instrument Pencil to add plotted curves. */
+	protected MToggleButton plotB;
+
 	/** The button that allows to insert some code (converted in shapes). */
 	protected MButton codeB;
 
@@ -170,6 +173,7 @@ public class EditingSelector extends WidgetInstrument {
 		button2EditingChoiceMap.put(squareB, EditionChoice.SQUARE);
 		button2EditingChoiceMap.put(triangleB, EditionChoice.TRIANGLE);
 		button2EditingChoiceMap.put(picB, EditionChoice.PICTURE);
+		button2EditingChoiceMap.put(plotB, EditionChoice.PLOT);
 	}
 
 
@@ -250,6 +254,10 @@ public class EditingSelector extends WidgetInstrument {
 		picB.setMargin(LResources.INSET_BUTTON);
 		picB.setToolTipText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.1")); //$NON-NLS-1$
 
+		plotB = new MToggleButton(LResources.PLOT_ICON);
+		plotB.setMargin(LResources.INSET_BUTTON);
+		plotB.setToolTipText("Plot a function.");
+
 		codeB = new MButton(LResources.TEX_EDITOR_ICON);
 		codeB.setMargin(LResources.INSET_BUTTON);
 		codeB.setToolTipText(LangTool.INSTANCE.getString16("LaTeXDrawFrame.0")); //$NON-NLS-1$
@@ -277,6 +285,7 @@ public class EditingSelector extends WidgetInstrument {
 			bezierB.setSelected(false);
 			bezierClosedB.setSelected(false);
 			picB.setSelected(false);
+			plotB.setSelected(false);
 		} else if(pencil.isActivated()){
 			EditionChoice ec = pencil.currentChoice();
 
@@ -297,6 +306,7 @@ public class EditingSelector extends WidgetInstrument {
 			textB.setSelected(ec==EditionChoice.TEXT);
 			freeHandB.setSelected(ec==EditionChoice.FREE_HAND);
 			picB.setSelected(ec==EditionChoice.PICTURE);
+			plotB.setSelected(ec==EditionChoice.PLOT);
 			handB.setSelected(false);
 		}
 	}
@@ -339,6 +349,7 @@ public class EditingSelector extends WidgetInstrument {
 		composer.setWidgetVisible(handB, activated);
 		composer.setWidgetVisible(picB, activated);
 		composer.setWidgetVisible(codeB, activated);
+		composer.setWidgetVisible(plotB, activated);
 	}
 
 
@@ -503,6 +514,9 @@ public class EditingSelector extends WidgetInstrument {
 	public MToggleButton getPicB() {
 		return picB;
 	}
+
+	/** @return The button that allows the select instrument Pencil to add pictures. */
+	public MToggleButton getPlotB() { return plotB; }
 
 	/**
 	 * @return The hand.

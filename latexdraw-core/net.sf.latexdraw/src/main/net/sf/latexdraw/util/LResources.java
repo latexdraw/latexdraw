@@ -111,7 +111,7 @@ public final class LResources {
 	public final static ImageIcon ARROW_STYLE_BAR_END_R_ICON; 	public final static ImageIcon DRAWING_PROP_ICON;
 	public final static ImageIcon ARC_ICON;					public final static ImageIcon ARROW_STYLE_BAR_IN_L_ICON;
 	public final static ImageIcon WEDGE_ICON;				public final static ImageIcon ARROW_STYLE_BAR_IN_R_ICON;
-	public final static ImageIcon ARROW_STYLE_BRACK_L_ICON;
+	public final static ImageIcon ARROW_STYLE_BRACK_L_ICON; public final static ImageIcon PLOT_ICON;
 	public final static ImageIcon ARROW_STYLE_BRACK_LR_ICON; 	public final static ImageIcon ARROW_STYLE_BRACK_RR_ICON;
 	public final static ImageIcon ARROW_STYLE_BRACK_R_ICON;
 	public final static ImageIcon ZOOM_DEFAULT_ICON;		public final static ImageIcon ARROW_STYLE_CIRCLE_END_L_ICON;
@@ -169,6 +169,7 @@ public final class LResources {
 
 
 	static {
+		PLOT_ICON			= loadImageIcon("/res/plot.png");//$NON-NLS-1$
 		RELOAD_ICON			= loadImageIcon("/res/view-refresh.png");//$NON-NLS-1$
 		GRID_LABELS			= loadImageIcon("/res/gridLabels.png");//$NON-NLS-1$
 		GRID_X_LABEL		= loadImageIcon("/res/xGridLabel.png");//$NON-NLS-1$
