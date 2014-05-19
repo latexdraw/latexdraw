@@ -1,14 +1,15 @@
 package test.parser.pst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import java.awt.Color;
 import java.text.ParseException;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;
@@ -22,24 +23,6 @@ public class TestParsingQline extends TestPSTParser {
 		assertEquals(20.*IShape.PPC*-1., line.getPtAt(0).getY(), 0.001);
 		assertEquals(11.12*IShape.PPC, line.getPtAt(1).getX(), 0.001);
 		assertEquals(-2.*IShape.PPC*-1., line.getPtAt(1).getY(), 0.001);
-		assertTrue(PSTParser.errorLogs().isEmpty());
-	}
-
-
-
-	@Test
-	public void testLineColourIsFillColour() throws ParseException {
-		IPolyline line =  (IPolyline)parser.parsePSTCode("\\psset{linecolor=green}\\"+getCommandName()+"(35cm,20cm)(11.12cm,-2cm)").get().getShapeAt(0);
-		assertEquals(Color.GREEN, line.getFillingCol());
-		assertEquals(Color.GREEN, line.getLineColour());
-		assertTrue(PSTParser.errorLogs().isEmpty());
-	}
-
-
-	@Test
-	public void testLineStylePlain() throws ParseException {
-		IPolyline line =  (IPolyline)parser.parsePSTCode("\\psset{linestyle=dotted}\\"+getCommandName()+"(35cm,20cm)(11.12cm,-2cm)").get().getShapeAt(0);
-		assertEquals(LineStyle.SOLID, line.getLineStyle());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
