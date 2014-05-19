@@ -6,6 +6,8 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline
 import scala.collection.mutable.ListBuffer
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
 import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle
 
 /**
  * A parser grouping parsers parsing lines.<br>
@@ -42,7 +44,7 @@ trait PSLineParser extends PSTAbstractParser
 		val ptList3 = new ListBuffer[IPoint]
 		ptList2.foreach{pt => ptList3 += transformPointTo2DScene(pt, ctx)}
 
-		checkTextParsed(ctx) ::: List(createLine(cmdName.endsWith("*"), ptList3, arr, ctx))
+		checkTextParsed(ctx) ::: List(createLine(cmdName.endsWith("*"), ptList3, arr, ctx, false))
 	}
 
 
@@ -53,20 +55,28 @@ trait PSLineParser extends PSTAbstractParser
 		"\\qline" ~ parseCoord(ctx) ~ parseCoord(ctx) ^^ { case _ ~ pt1 ~ pt2 =>
 
 		val ptList = ListBuffer(transformPointTo2DScene(pt1, ctx), transformPointTo2DScene(pt2, ctx))
-		checkTextParsed(ctx) ::: List(createLine(false, ptList, None, ctx))
+		checkTextParsed(ctx) ::: List(createLine(false, ptList, None, ctx, true))
 	}
 
 
 	/**
 	 * Creates and initialises a line.
 	 */
-	private def createLine(hasStar : Boolean, pts : ListBuffer[IPoint], arrows : Option[String], ctx : PSTContext) : IPolyline = {
+	private def createLine(hasStar : Boolean, pts : ListBuffer[IPoint], arrows : Option[String], ctx : PSTContext, qObject:Boolean) : IPolyline = {
 		val line = ShapeFactory.createPolyline(true)
 		pts.foreach{pt => line.addPoint(pt)}
 
 		setShapeParameters(line, ctx)
 
 		setArrows(line, arrows, false, ctx)
+
+		if(qObject) {
+			line.setHasShadow(false)
+			line.setHasDbleBord(false)
+			line.setFillingStyle(IShape.FillingStyle.NONE)
+			line.setArrowStyle(IArrow.ArrowStyle.NONE, 0)
+			line.setArrowStyle(IArrow.ArrowStyle.NONE, -1)
+		}
 
 		if(hasStar)
 			setShapeForStar(line)
