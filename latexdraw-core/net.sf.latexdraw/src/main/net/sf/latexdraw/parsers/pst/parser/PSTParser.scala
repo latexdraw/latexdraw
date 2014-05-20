@@ -32,7 +32,10 @@ class PSTParser extends PSTAbstractParser with PSTCodeParser {
 		PSTParser._errorLogs.foreach{msg => println(msg)}
 
 		result match {
-			case Success(tree, _) => Some(tree)
+			case Success(tree, _) =>
+				if(tree.size==1 && tree.getShapeAt(0).isInstanceOf[IGroup])
+					Some(tree.getShapeAt(0).asInstanceOf[IGroup])
+				else Some(tree)
 			case e: NoSuccess => throw new ParseException(result.toString, -1)
 		}
 	}
