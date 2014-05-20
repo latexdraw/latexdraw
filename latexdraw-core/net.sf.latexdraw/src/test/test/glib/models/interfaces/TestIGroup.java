@@ -1,11 +1,15 @@
 package test.glib.models.interfaces;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 
-import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -245,8 +249,41 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 
 	@Override
+	@Test
+	public void testGetFullBottomRightPoint() {
+		assertTrue(Double.isNaN(shape.getFullBottomRightPoint().getX()));
+		assertTrue(Double.isNaN(shape.getFullBottomRightPoint().getY()));
+		IRectangle rec1 = setRectangle(5, 10, 6, 20);
+		shape.addShape(rec1);
+		assertEquals(rec1.getFullBottomRightPoint(), shape.getFullBottomRightPoint());
+
+		IRectangle rec2 = setRectangle(90, 40, 100, 200);
+
+		shape.addShape(rec2);
+		assertEquals(rec2.getFullBottomRightPoint(), shape.getFullBottomRightPoint());
+	}
+
+
+	@Override
+	@Test
+	public void testGetFullTopLeftPoint() {
+		assertTrue(Double.isNaN(shape.getFullTopLeftPoint().getX()));
+		assertTrue(Double.isNaN(shape.getFullTopLeftPoint().getY()));
+		IRectangle rec2 = setRectangle(90, 40, 10, 21);
+
+		shape.addShape(rec2);
+		assertEquals(rec2.getFullTopLeftPoint(), shape.getFullTopLeftPoint());
+
+		IRectangle rec1 = setRectangle(5, 10, 6, 20);
+		shape.addShape(rec1);
+		assertEquals(rec1.getFullTopLeftPoint(), shape.getFullTopLeftPoint());
+	}
+
+
+	@Override
 	public void testGetBottomLeftPoint() {
-		assertTrue(GLibUtilities.isValidPoint(shape.getBottomLeftPoint()));
+		assertTrue(Double.isNaN(shape.getBottomLeftPoint().getX()));
+		assertTrue(Double.isNaN(shape.getBottomLeftPoint().getY()));
 		IRectangle rec2 = setRectangle(90, 40, 10, 21);
 
 		shape.addShape(rec2);
@@ -260,8 +297,8 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Override
 	public void testGetBottomRightPoint() {
-		assertEquals(ShapeFactory.createPoint(Double.NaN, Double.NaN), shape.getBottomRightPoint());
-
+		assertTrue(Double.isNaN(shape.getBottomRightPoint().getX()));
+		assertTrue(Double.isNaN(shape.getBottomRightPoint().getY()));
 		IRectangle rec1 = setRectangle(5, 10, 6, 20);
 		shape.addShape(rec1);
 		assertEquals(ShapeFactory.createPoint(11, 10), shape.getBottomRightPoint());
@@ -275,8 +312,8 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Override
 	public void testGetTopLeftPoint() {
-		assertEquals(ShapeFactory.createPoint(Double.NaN, Double.NaN), shape.getTopLeftPoint());
-
+		assertTrue(Double.isNaN(shape.getTopLeftPoint().getX()));
+		assertTrue(Double.isNaN(shape.getTopLeftPoint().getY()));
 		IRectangle rec2 = setRectangle(90, 40, 10, 21);
 
 		shape.addShape(rec2);
@@ -290,8 +327,8 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Override
 	public void testGetTopRightPoint() {
-		assertEquals(ShapeFactory.createPoint(Double.NaN, Double.NaN), shape.getTopRightPoint());
-
+		assertTrue(Double.isNaN(shape.getTopRightPoint().getX()));
+		assertTrue(Double.isNaN(shape.getTopRightPoint().getY()));
 		IRectangle rec1 = setRectangle(5, 10, 6, 20);
 		shape.addShape(rec1);
 		assertEquals(ShapeFactory.createPoint(11, -10), shape.getTopRightPoint());
