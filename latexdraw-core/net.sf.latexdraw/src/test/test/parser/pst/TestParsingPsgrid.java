@@ -130,8 +130,8 @@ public class TestParsingPsgrid extends TestPSTParser {
 	public void test0CoordDoubleValue() throws ParseException {
 		IGrid grid = (IGrid)parser.parsePSTCode("\\begin{pspicture}(2.1,2.6)(5.6,5.5)\\"+getCommandName()+"\\end{pspicture}").get().getShapeAt(0);
 
-		assertEquals(2., grid.getOriginX(), 0.0001);
-		assertEquals(3., grid.getOriginY(), 0.0001);
+		assertEquals(0., grid.getOriginX(), 0.0001);
+		assertEquals(0., grid.getOriginY(), 0.0001);
 		assertEquals(2., grid.getGridMinX(), 0.0001);
 		assertEquals(3., grid.getGridMinY(), 0.0001);
 		assertEquals(6., grid.getGridMaxX(), 0.0001);
@@ -146,8 +146,8 @@ public class TestParsingPsgrid extends TestPSTParser {
 	public void test0Coord() throws ParseException {
 		IGrid grid = (IGrid)parser.parsePSTCode("\\begin{pspicture}(2,2)(5,5)\\"+getCommandName()+"\\end{pspicture}").get().getShapeAt(0);
 
-		assertEquals(2., grid.getOriginX(), 0.0001);
-		assertEquals(2., grid.getOriginY(), 0.0001);
+		assertEquals(0., grid.getOriginX(), 0.0001);
+		assertEquals(0., grid.getOriginY(), 0.0001);
 		assertEquals(2., grid.getGridMinX(), 0.0001);
 		assertEquals(2., grid.getGridMinY(), 0.0001);
 		assertEquals(5., grid.getGridMaxX(), 0.0001);
@@ -178,8 +178,8 @@ public class TestParsingPsgrid extends TestPSTParser {
 	public void test2CoordInverted() throws ParseException {
 		IGrid grid = (IGrid)parser.parsePSTCode("\\"+getCommandName()+"(3,4)(1,2)").get().getShapeAt(0);
 
-		assertEquals(3., grid.getOriginX(), 0.0001);
-		assertEquals(4., grid.getOriginY(), 0.0001);
+		assertEquals(0., grid.getOriginX(), 0.0001);
+		assertEquals(0., grid.getOriginY(), 0.0001);
 		assertEquals(1., grid.getGridMinX(), 0.0001);
 		assertEquals(2., grid.getGridMinY(), 0.0001);
 		assertEquals(3., grid.getGridMaxX(), 0.0001);
@@ -194,8 +194,8 @@ public class TestParsingPsgrid extends TestPSTParser {
 	public void test2Coord() throws ParseException {
 		IGrid grid = (IGrid)parser.parsePSTCode("\\"+getCommandName()+"(1,2)(3,4)").get().getShapeAt(0);
 
-		assertEquals(1., grid.getOriginX(), 0.0001);
-		assertEquals(2., grid.getOriginY(), 0.0001);
+		assertEquals(0., grid.getOriginX(), 0.0001);
+		assertEquals(0., grid.getOriginY(), 0.0001);
 		assertEquals(1., grid.getGridMinX(), 0.0001);
 		assertEquals(2., grid.getGridMinY(), 0.0001);
 		assertEquals(3., grid.getGridMaxX(), 0.0001);
@@ -212,10 +212,10 @@ public class TestParsingPsgrid extends TestPSTParser {
 
 		assertEquals(0., grid.getOriginX(), 0.0001);
 		assertEquals(-1., grid.getOriginY(), 0.0001);
-		assertEquals(1., grid.getGridMinX(), 0.0001);
-		assertEquals(2., grid.getGridMinY(), 0.0001);
-		assertEquals(3., grid.getGridMaxX(), 0.0001);
-		assertEquals(4., grid.getGridMaxY(), 0.0001);
+		assertEquals(1., grid.getGridStartX(), 0.0001);
+		assertEquals(2., grid.getGridStartY(), 0.0001);
+		assertEquals(3., grid.getGridEndX(), 0.0001);
+		assertEquals(4., grid.getGridEndY(), 0.0001);
 		assertFalse(grid.isXLabelSouth());
 		assertFalse(grid.isYLabelWest());
 		assertTrue(PSTParser.errorLogs().isEmpty());
@@ -228,10 +228,10 @@ public class TestParsingPsgrid extends TestPSTParser {
 
 		assertEquals(0., grid.getOriginX(), 0.0001);
 		assertEquals(-1., grid.getOriginY(), 0.0001);
-		assertEquals(1., grid.getGridMinX(), 0.0001);
-		assertEquals(2., grid.getGridMinY(), 0.0001);
-		assertEquals(3., grid.getGridMaxX(), 0.0001);
-		assertEquals(4., grid.getGridMaxY(), 0.0001);
+		assertEquals(1., grid.getGridStartX(), 0.0001);
+		assertEquals(2., grid.getGridStartY(), 0.0001);
+		assertEquals(3., grid.getGridEndX(), 0.0001);
+		assertEquals(4., grid.getGridEndY(), 0.0001);
 		assertTrue(grid.isXLabelSouth());
 		assertTrue(grid.isYLabelWest());
 		assertTrue(PSTParser.errorLogs().isEmpty());
