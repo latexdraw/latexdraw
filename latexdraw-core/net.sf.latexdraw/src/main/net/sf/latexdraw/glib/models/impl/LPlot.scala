@@ -33,6 +33,12 @@ private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX
 	}
 
 	override def isShowPtsable() = true
+	override def isThicknessable() = true
+	override def isShadowable() = true
+	override def isLineStylable() = true
+	override def isInteriorStylable() = true
+	override def isFillable() = true
+	override def isDbleBorderable() = true
 
 	override def getPlottingStep() = (maxX-minX)/(nbPoints-1)
 
