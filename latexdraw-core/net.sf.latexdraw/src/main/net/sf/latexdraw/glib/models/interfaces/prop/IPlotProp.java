@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
+
 /**
  * Plot shapes' properties.
  * <br>
@@ -37,6 +38,18 @@ public interface IPlotProp extends IScalable{
 
 		/** @return The PST token corresponding to the plot style. */
 		public abstract String getPSTToken();
+
+		/**
+		 * @param latexToken The latex token to check.
+		 * @return The style corresponding to the PSTricks token given as parameter.
+		 * @since 3.2
+		 */
+		public static PlotStyle getPlotStyle(final String latexToken) {
+			for(final PlotStyle fh : values())
+				if(fh.getPSTToken().equals(latexToken))
+					return fh;
+			return CURVE;
+		}
 	}
 
 	/**

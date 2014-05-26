@@ -1,6 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
+import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
 
 /**
  * Parsers parsing commands of the pst-plot package.<br>
@@ -56,8 +59,17 @@ trait PSTPlotParser extends PSTAbstractParser with PSTParamParser with PSTBracke
 	 * Parses psplot commands.
 	 */
 	private def parsePsplot(ctx : PSTContext) : Parser[List[IShape]] =
-	("\\psplot*" | "\\psplot") ~ opt(parseParam(ctx)) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx) ^^
-	{ case cmdName ~ _ ~ tmin ~ tmax ~ function => PSTParser.errorLogs += "Command psplot not supported yet."; Nil }
+	("\\psplot*" | "\\psplot") ~ opt(parseParam(ctx)) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx, " ") ^^ {
+		case cmdName ~ _ ~ tmin ~ tmax ~ function =>
+		val plot = ShapeFactory.createPlot(true, ShapeFactory.createPoint, tmin.toDouble, tmax.toDouble, function)
+		setShapeParameters(plot, ctx)
+		plot.setNbPlottedPoints(ctx.plotPoints)
+		plot.setPlotStyle(IPlotProp.PlotStyle.getPlotStyle(ctx.plotStyle))
+		plot.setXScale(ctx.xUnit)
+		plot.setYScale(ctx.yUnit)
+		if(cmdName.endsWith("*")) setShapeForStar(plot)
+		checkTextParsed(ctx) ::: List(plot)
+	}
 
 
 

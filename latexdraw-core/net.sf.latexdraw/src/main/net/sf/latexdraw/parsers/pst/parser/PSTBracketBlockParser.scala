@@ -25,13 +25,13 @@ trait PSTBracketBlockParser extends PSTAbstractParser {
 	/**
 	 * Parses brackets and their contents as text.
 	 */
-	def parseBracket(ctx : PSTContext) : Parser[String] =
-		"{" ~ rep1(chrExcept('}', CharArrayReader.EofCh)) ~ "}" ^^ { case _ ~ content ~ _ => content.mkString }
+	def parseBracket(ctx : PSTContext, sep:String = "") : Parser[String] =
+		"{" ~ rep1(chrExcept('}', CharArrayReader.EofCh)) ~ "}" ^^ { case _ ~ content ~ _ => content.mkString(sep) }
 
 
 	/**
 	 * Parses squared brackets and their contents as text.
 	 */
-	def parseSquaredBracket(ctx : PSTContext) : Parser[String] =
-		"[" ~ rep1(chrExcept(']', CharArrayReader.EofCh)) ~ "]" ^^ { case _ ~ content ~ _ => content.mkString }
+	def parseSquaredBracket(ctx : PSTContext, sep:String = "") : Parser[String] =
+		"[" ~ rep1(chrExcept(']', CharArrayReader.EofCh)) ~ "]" ^^ { case _ ~ content ~ _ => content.mkString(sep) }
 }

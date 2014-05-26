@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 
+import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;
@@ -23,17 +26,78 @@ public class TestParsingPlotCommands extends TestPSTParser {
 	}
 
 
-	@Test
-	public void testPsplot() throws ParseException {
-		parser.parsePSTCode("\\psplot[plotpoints=200]{0}{720}{x sin}");
-		assertEquals(1, PSTParser.errorLogs().size());
+	@Test public void testPsplot() throws ParseException {
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(0.0, plot.getMinX(), 0.0);
+		assertEquals(720.0, plot.getMaxX(), 0.0);
+		assertEquals("x sin", plot.getEquation());
 	}
 
 
+	@Test public void testPsplotNbPoints() throws ParseException {
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotpoints=213]{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(213, plot.getNbPlottedPoints());
+	}
+
+
+	@Test public void testPsplotPlotStyleCurve() throws ParseException {
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=curve]{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(IPlotProp.PlotStyle.CURVE, plot.getPlotStyle());
+	}
+
+	@Test public void testPsplotPlotStyleCCurve() throws ParseException {
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=ccurve]{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(IPlotProp.PlotStyle.CCURVE, plot.getPlotStyle());
+	}
+
+	@Test public void testPsplotPlotStyleECurve() throws ParseException {
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=ecurve]{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(IPlotProp.PlotStyle.ECURVE, plot.getPlotStyle());
+	}
+
+	@Test public void testPsplotPlotStyleDots() throws ParseException {
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=dots]{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(IPlotProp.PlotStyle.DOTS, plot.getPlotStyle());
+	}
+
+	@Test public void testPsplotPlotStyleLine() throws ParseException {
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=line]{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(IPlotProp.PlotStyle.LINE, plot.getPlotStyle());
+	}
+
+	@Test public void testPsplotPlotStylePloygon() throws ParseException {
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=polygon]{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(IPlotProp.PlotStyle.POLYGON, plot.getPlotStyle());
+	}
+
+	@Test public void testPsplotXUnit() throws ParseException {
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[xunit=0.1]{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(0.1, plot.getXScale(), 0.0);
+	}
+
+	@Test public void testPsplotYUnit() throws ParseException {
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[yunit=0.1]{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(0.1, plot.getYScale(), 0.0);
+	}
+
 	@Test
 	public void testPsplotStar() throws ParseException {
-		parser.parsePSTCode("\\psplot*[plotpoints=200]{0}{720}{x sin}");
-		assertEquals(1, PSTParser.errorLogs().size());
+		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot*[plotpoints=200]{0}{720}{x sin}").get().getShapeAt(0);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+		assertEquals(0.0, plot.getMinX(), 0.0);
+		assertEquals(720.0, plot.getMaxX(), 0.0);
+		assertEquals("x sin", plot.getEquation());
+		assertEquals(IShape.FillingStyle.PLAIN, plot.getFillingStyle());
 	}
 
 
