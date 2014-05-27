@@ -2,6 +2,8 @@ package net.sf.latexdraw.parsers.ps;
 
 import java.util.Deque;
 
+import net.sf.latexdraw.util.LNumber;
+
 /**
  * Defines the div command.<br>
  *<br>
@@ -29,6 +31,9 @@ public class PSDivCommand extends PSArithemticCommand {
 
 		final double a = stack.pop();
 		final double b = stack.pop();
+
+		if(LNumber.equalsDouble(a, 0.0))
+			throw new ArithmeticException();
 
 		stack.push(b/a);
 	}

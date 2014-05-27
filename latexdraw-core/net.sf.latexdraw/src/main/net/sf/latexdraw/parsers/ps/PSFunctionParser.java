@@ -95,7 +95,7 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 * @throws NumberFormatException If the function is not correct.
 	 */
-	public void parseFunction() throws InvalidFormatPSFunctionException, NumberFormatException {
+	protected void parseFunction() throws InvalidFormatPSFunctionException, NumberFormatException {
 		int i = 0, lgth = function.length();
 		StringBuilder cmd = new StringBuilder();
 
@@ -169,6 +169,7 @@ public class PSFunctionParser {
 		if(cmd.equals(CMD_COS))
 			return new PSCosCommand();
 
-		return new PSValue(Double.parseDouble(cmd));
+		try {return new PSValue(Double.parseDouble(cmd));}
+		catch(NumberFormatException ex) {throw new InvalidFormatPSFunctionException();}
 	}
 }

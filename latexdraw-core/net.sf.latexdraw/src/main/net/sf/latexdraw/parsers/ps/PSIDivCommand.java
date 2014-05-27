@@ -2,6 +2,8 @@ package net.sf.latexdraw.parsers.ps;
 
 import java.util.Deque;
 
+import net.sf.latexdraw.util.LNumber;
+
 /**
  * Defines the idiv command.<br>
  *<br>
@@ -30,6 +32,9 @@ public class PSIDivCommand extends PSArithemticCommand {
 		final double a = stack.pop();
 		final double b = stack.pop();
 
-		stack.push((double)(int)(b/a));
+		if(LNumber.equalsDouble(a, 0.0))
+			throw new ArithmeticException();
+
+		stack.push(Math.floor(b/a));
 	}
 }
