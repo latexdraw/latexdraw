@@ -1,5 +1,6 @@
 package net.sf.latexdraw.ui;
 
+import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -34,6 +35,10 @@ import org.malai.swing.widget.MTextArea;
 public class TextAreaAutoSize extends MTextArea {
 	private static final long serialVersionUID = 1L;
 
+	/** States whether the text typed in the filed is valid. If not, the background of the filed is painted in red.
+	 * That feature can be used when the text typed needed to be validated.
+	 */
+	protected boolean valid;
 
 	/**
 	 * Creates the widget.
@@ -41,6 +46,7 @@ public class TextAreaAutoSize extends MTextArea {
 	public TextAreaAutoSize() {
 		super(false, true);
 
+		valid = true;
 		setRows(1);
 		setColumns(1);
 		setBorder(null);
@@ -56,8 +62,33 @@ public class TextAreaAutoSize extends MTextArea {
 	public void setVisible(final boolean visible) {
 		super.setVisible(visible);
 
-		if(visible)
+		if(visible){
 			updateDimension();
+			updateBackground();
+		}
+	}
+
+
+	/**
+	 * Defines whether the text typed in the filed is valid. If not, the background of the filed is painted in red.
+	 * That feature can be used when the text typed needed to be validated.
+	 * @param ok Valid or not.
+	 * @since 3.2
+	 */
+	public void setValid(final boolean ok) {
+		valid = ok;
+		updateBackground();
+	}
+
+
+	/**
+	 * @return Whether the text typed in the filed is valid.
+	 * @since 3.1
+	 */
+	public boolean isValidText() { return valid;}
+
+	protected void updateBackground() {
+		setBackground(valid?Color.WHITE:Color.RED);
 	}
 
 

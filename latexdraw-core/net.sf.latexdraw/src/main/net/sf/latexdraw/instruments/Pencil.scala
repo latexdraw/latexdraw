@@ -397,7 +397,7 @@ private sealed class Press2AddText(pencil:Pencil) extends PencilLink[Press](penc
 	}
 
 	// The action is created only when the user uses the text setter and the text field of the text setter is not empty.
-	override def isConditionRespected() = instrument.textSetter.isActivated && instrument.textSetter.getTextField.getText.length>0
+	override def isConditionRespected() = instrument.currentChoice==EditionChoice.TEXT && instrument.textSetter.isActivated && instrument.textSetter.getTextField.getText.length>0
 }
 
 
@@ -416,5 +416,5 @@ private sealed class Press2InitTextSetter(pencil:Pencil) extends Link[InitTextSe
 		action.setRelativePoint(instrument.getAdaptedPoint(interaction.getPoint))
 	}
 
-	override def isConditionRespected() = instrument.currentChoice==EditionChoice.TEXT && interaction.getButton==MouseEvent.BUTTON1
+	override def isConditionRespected() = (instrument.currentChoice==EditionChoice.TEXT || instrument.currentChoice==EditionChoice.PLOT) && interaction.getButton==MouseEvent.BUTTON1
 }

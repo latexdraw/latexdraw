@@ -10,9 +10,12 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
+import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 
 import org.malai.action.Action;
@@ -121,6 +124,7 @@ public class TextSetter extends Instrument {
 		try{
 			addLink(new Enter2SetText(this));
 			addLink(new Enter2AddText(this));
+			addLink(new Enter2CheckPlot(this));
 			addLink(new KeyPress2Desactivate(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
@@ -179,7 +183,7 @@ class KeyPress2Desactivate extends Link<ActivateInactivateInstruments, KeyTyped,
 		int key = interaction.getKey();
 		// It is useless to check if another key is pressed because if it is the case, the interaction
 		// is in state keyPressed.
-		return key==KeyEvent.VK_ENTER && instrument.textField.getText().length()>0 || key==KeyEvent.VK_ESCAPE;
+		return key==KeyEvent.VK_ENTER && instrument.textField.isValidText() && instrument.textField.getText().length()>0 || key==KeyEvent.VK_ESCAPE;
 	}
 }
 
@@ -233,6 +237,43 @@ class Enter2AddText extends Link<AddShape, KeyTyped, TextSetter> {
 
 	@Override
 	public boolean isConditionRespected() {
-		return instrument.text==null && instrument.textField.getText().length()>0 && interaction.getKey()==KeyEvent.VK_ENTER;
+		return instrument.pencil.currentChoice()==EditionChoice.TEXT && instrument.text==null && instrument.textField.getText().length()>0 && interaction.getKey()==KeyEvent.VK_ENTER;
+	}
+}
+
+
+class Enter2CheckPlot extends Link<AddShape, KeyTyped, TextSetter> {
+	protected Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, AddShape.class, KeyTyped.class);
+	}
+
+	@Override
+	public void initAction() {
+		instrument.textField.setValid(true);
+		final IPoint textPosition = instrument.relativePoint==null ? ShapeFactory.createPoint(instrument.textField.getX(),
+									instrument.textField.getY()+instrument.textField.getHeight()) : instrument.relativePoint;
+		final IShape sh = instrument.pencil==null ? null : instrument.pencil.createShapeInstance();
+
+		if(sh instanceof IPlot) {
+			final IPlot plot = (IPlot)sh;
+			plot.setPosition(textPosition.getX(), textPosition.getY());
+			plot.setEquation(instrument.textField.getText());
+			action.setShape(plot);
+			action.setDrawing(instrument.pencil.canvas().getDrawing());
+		}
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		boolean ok = instrument.pencil.currentChoice()==EditionChoice.PLOT && instrument.text==null && instrument.textField.getText().length()>0 && interaction.getKey()==KeyEvent.VK_ENTER;
+
+		if(ok)
+			try { new PSFunctionParser(instrument.textField.getText()).parseFunction(); }
+			catch(InvalidFormatPSFunctionException|NumberFormatException ex){
+				instrument.textField.setValid(false);
+				ok = false;
+			}
+
+		return ok;
 	}
 }
