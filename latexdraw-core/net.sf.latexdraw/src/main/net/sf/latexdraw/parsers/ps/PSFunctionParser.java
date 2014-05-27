@@ -93,8 +93,9 @@ public class PSFunctionParser {
 	/**
 	 * Parses the function.
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
+	 * @throws NumberFormatException If the function is not correct.
 	 */
-	public void parseFunction() throws InvalidFormatPSFunctionException {
+	public void parseFunction() throws InvalidFormatPSFunctionException, NumberFormatException {
 		int i = 0, lgth = function.length();
 		StringBuilder cmd = new StringBuilder();
 
@@ -118,9 +119,10 @@ public class PSFunctionParser {
 	 * @param cmd The arithmetic command to analyse.
 	 * @return The arithmetic instance corresponding to the given command.
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
+	 * @throws NumberFormatException If the function is not correct.
 	 * @since 3.0
 	 */
-	protected PSArithemticCommand identifyCommand(final String cmd) throws InvalidFormatPSFunctionException {
+	protected PSArithemticCommand identifyCommand(final String cmd) throws InvalidFormatPSFunctionException, NumberFormatException {
 		if(cmd==null || cmd.length()==0)
 			throw new InvalidFormatPSFunctionException();
 
