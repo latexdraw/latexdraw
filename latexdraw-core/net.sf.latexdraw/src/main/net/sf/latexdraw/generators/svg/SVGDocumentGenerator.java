@@ -162,7 +162,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	/**
 	 * The listener that listens the progress performed by the workers to update the progress bar.
 	 */
-	class ProgressListener implements PropertyChangeListener {
+	static class ProgressListener implements PropertyChangeListener {
 		private MProgressBar progressBar;
 
 		protected ProgressListener(final MProgressBar progressBar) {
@@ -191,7 +191,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	/**
 	 * The abstract worker that factorises the code of loading and saving workers.
 	 */
-	abstract class IOWorker extends SwingWorker<Boolean, Void> {
+	static abstract class IOWorker extends SwingWorker<Boolean, Void> {
 		protected LFrame ui;
 
 		protected String path;
@@ -278,7 +278,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 
 	/** Abstract class dedicated to the support of templates. */
-	abstract class TemplatesWorker extends LoadShapesWorker {
+	static abstract class TemplatesWorker extends LoadShapesWorker {
 		protected TemplatesWorker(final LFrame ui, final String path, final JLabel statusBar) {
 			super(ui, path, statusBar);
 		}
@@ -314,7 +314,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 
 	/** This worker inserts the given set of shapes into the drawing. */
-	class InsertWorker extends LoadShapesWorker {
+	static class InsertWorker extends LoadShapesWorker {
 		protected InsertWorker(final LFrame ui, final String path) {
 			super(ui, path, null);
 		}
@@ -342,7 +342,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 
 	/** This worker updates the templates. */
-	class UpdateTemplatesWorker extends TemplatesWorker {
+	static class UpdateTemplatesWorker extends TemplatesWorker {
 		protected MMenu templatesMenu;
 
 		protected boolean updateThumbnails;
@@ -488,7 +488,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	}
 
 
-	class SaveTemplateWorker extends SaveWorker {
+	static class SaveTemplateWorker extends SaveWorker {
 		protected MMenu templateMenu;
 
 		protected SaveTemplateWorker(final LFrame ui, final String path, final JLabel statusBar, final MMenu templateMenu) {
@@ -506,7 +506,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 
 	/** This worker saves the given document. */
-	class SaveWorker extends IOWorker {
+	static class SaveWorker extends IOWorker {
 		/** Defines if the parameters of the drawing (instruments, presentations, etc.) must be saved. */
 		protected boolean saveParameters;
 
@@ -609,7 +609,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 
 
-	abstract class LoadShapesWorker extends IOWorker {
+	static abstract class LoadShapesWorker extends IOWorker {
 		protected LoadShapesWorker(final LFrame ui, final String path, final JLabel statusBar) {
 			super(ui, path, statusBar);
 		}
@@ -644,7 +644,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	/**
 	 * The worker that loads SVG documents.
 	 */
-	class LoadWorker extends LoadShapesWorker {
+	static class LoadWorker extends LoadShapesWorker {
 		protected LoadWorker(final LFrame ui, final String path, final JLabel statusBar) {
 			super(ui, path, statusBar);
 		}

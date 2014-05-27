@@ -49,7 +49,7 @@ public class PreferencesFrame extends MFrame {
 	/** The instrument that modifies the preferences. */
 	protected PreferencesSetter prefSetter;
 
-	private final String FOR_NEW_DRAWINGS = "Will be used for the next new drawings";
+	private static final String FOR_NEW_DRAWINGS = "Will be used for the next new drawings";
 
 
 	/**
@@ -139,7 +139,7 @@ public class PreferencesFrame extends MFrame {
 		if(visible) {
 	 		Dimension dim = LSystem.INSTANCE.getScreenDimension();
 	 		Rectangle rec = getGraphicsConfiguration().getBounds();
-	 		setLocation((int)(rec.getX()+dim.width/2-getWidth()/2), (int)(rec.getY()+dim.height/2-getHeight()/2));
+	 		setLocation((int)(rec.getX()+dim.width/2.0-getWidth()/2.0), (int)(rec.getY()+dim.height/2.0-getHeight()/2.0));
 		}
 	}
 

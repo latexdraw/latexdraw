@@ -78,7 +78,7 @@ public class AboutDialogueBox extends JFrame {
  		setSize(width, height);
  		Dimension dim = LSystem.INSTANCE.getScreenDimension();
  		Rectangle rec = getGraphicsConfiguration().getBounds();
- 		setLocation((int)(rec.getX()+dim.width/2-getWidth()/2), (int)(rec.getY()+dim.height/2-getHeight()/2));
+ 		setLocation((int)(rec.getX()+dim.width/2.0-getWidth()/2.0), (int)(rec.getY()+dim.height/2.0-getHeight()/2.0));
 	}
 
 

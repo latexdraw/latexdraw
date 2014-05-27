@@ -380,10 +380,12 @@ class MenuPressed2Export extends Link<Export, MenuItemPressed, Exporter> {
 			format = ExportFormat.BMP;
 		else format = null;
 
-		action.setDialogueBox(instrument.getExportDialog(format));
-		action.setCanvas(instrument.canvas);
-		action.setFormat(format);
-		action.setPstGen(instrument.pstGen);
+		if(format!=null){
+			action.setDialogueBox(instrument.getExportDialog(format));
+			action.setCanvas(instrument.canvas);
+			action.setFormat(format);
+			action.setPstGen(instrument.pstGen);
+		}
 	}
 
 

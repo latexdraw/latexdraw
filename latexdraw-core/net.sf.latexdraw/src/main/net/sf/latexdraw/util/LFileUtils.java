@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Random;
 
 /**
  * Defines some workarounds to deal with the problem of the renameto function.
@@ -44,7 +45,7 @@ public final class LFileUtils {
 	public File createTempDir() {
 		final String pathTmp  = System.getProperty("java.io.tmpdir");	//$NON-NLS-1$
 		final String path		= pathTmp + (pathTmp.endsWith(LResources.FILE_SEP) ? "" : LResources.FILE_SEP) + "latexdraw" + LResources.FILE_SEP +
-									"latexdrawTmp" + System.currentTimeMillis() + (int)(Math.random()*100000); //$NON-NLS-1$ //$NON-NLS-2$
+									"latexdrawTmp" + System.currentTimeMillis() + new Random().nextInt(100000); //$NON-NLS-1$
 		final File tmpDir		= new File(path);
 		final boolean ok		= tmpDir.mkdirs();
 
