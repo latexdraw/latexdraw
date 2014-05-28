@@ -263,12 +263,13 @@ class Enter2CheckPlot extends Link<AddShape, KeyTyped, TextSetter> {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public boolean isConditionRespected() {
 		boolean ok = instrument.pencil.currentChoice()==EditionChoice.PLOT && instrument.text==null && instrument.textField.getText().length()>0 && interaction.getKey()==KeyEvent.VK_ENTER;
 
 		if(ok)
-			try { new PSFunctionParser(instrument.textField.getText()).parseFunction(); }
+			try { new PSFunctionParser(instrument.textField.getText());}
 			catch(InvalidFormatPSFunctionException|NumberFormatException ex){
 				instrument.textField.setValid(false);
 				ok = false;
