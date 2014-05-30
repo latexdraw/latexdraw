@@ -27,7 +27,7 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		shape.setWidth(10);
 		shape.setHeight(10);
 
-		HelperTest.assertEqualsDouble(30., shape.getBottomRightPoint().getX());
+		HelperTest.assertEqualsDouble(20., shape.getBottomRightPoint().getX());
 		HelperTest.assertEqualsDouble(20., shape.getBottomRightPoint().getY());
 	}
 
@@ -39,7 +39,7 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		shape.setHeight(10);
 
 		HelperTest.assertEqualsDouble(10., shape.getTopLeftPoint().getX());
-		HelperTest.assertEqualsDouble(0., shape.getTopLeftPoint().getY());
+		HelperTest.assertEqualsDouble(10., shape.getTopLeftPoint().getY());
 	}
 
 	@Override
@@ -49,8 +49,8 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		shape.setWidth(10);
 		shape.setHeight(10);
 
-		HelperTest.assertEqualsDouble(30., shape.getTopRightPoint().getX());
-		HelperTest.assertEqualsDouble(0., shape.getTopRightPoint().getY());
+		HelperTest.assertEqualsDouble(20., shape.getTopRightPoint().getX());
+		HelperTest.assertEqualsDouble(10., shape.getTopRightPoint().getY());
 	}
 
 
@@ -58,16 +58,14 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 	@Test
 	public void testMirrorHorizontal() {
 		shape.setPosition(10, 20);
-		shape.setWidth(10);
-		shape.setHeight(10);
+		shape.setWidth(30);
+		shape.setHeight(40);
 		shape.mirrorHorizontal(shape.getGravityCentre());
 
-		HelperTest.assertEqualsDouble(30., shape.getPtAt(0).getX());
-		HelperTest.assertEqualsDouble(20., shape.getPtAt(0).getY());
-		HelperTest.assertEqualsDouble(20., shape.getPtAt(1).getX());
-		HelperTest.assertEqualsDouble(0., shape.getPtAt(1).getY());
-		HelperTest.assertEqualsDouble(10., shape.getPtAt(2).getX());
-		HelperTest.assertEqualsDouble(20., shape.getPtAt(2).getY());
+		HelperTest.assertEqualsDouble(10., shape.getPosition().getX());
+		HelperTest.assertEqualsDouble(20., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(30., shape.getWidth());
+		HelperTest.assertEqualsDouble(40., shape.getHeight());
 	}
 
 
@@ -75,16 +73,14 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 	@Test
 	public void testMirrorVertical() {
 		shape.setPosition(10, 20);
-		shape.setWidth(10);
-		shape.setHeight(10);
+		shape.setWidth(30);
+		shape.setHeight(40);
 		shape.mirrorVertical(shape.getGravityCentre());
 
-		HelperTest.assertEqualsDouble(10., shape.getPtAt(0).getX());
-		HelperTest.assertEqualsDouble(0., shape.getPtAt(0).getY());
-		HelperTest.assertEqualsDouble(20., shape.getPtAt(1).getX());
-		HelperTest.assertEqualsDouble(20., shape.getPtAt(1).getY());
-		HelperTest.assertEqualsDouble(30., shape.getPtAt(2).getX());
-		HelperTest.assertEqualsDouble(0., shape.getPtAt(2).getY());
+		HelperTest.assertEqualsDouble(10., shape.getPosition().getX());
+		HelperTest.assertEqualsDouble(20., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(30., shape.getWidth());
+		HelperTest.assertEqualsDouble(40., shape.getHeight());
 	}
 
 //
@@ -129,17 +125,13 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 	@Test
 	public void testTranslate() {
 		shape.setPosition(0, 2);
-		shape.setWidth(2);
+		shape.setWidth(3);
 		shape.setHeight(2);
 
 		shape.translate(10, 5);
-		HelperTest.assertEqualsDouble(10., shape.getPosition().getX());
-		HelperTest.assertEqualsDouble(7., shape.getPosition().getY());
-		HelperTest.assertEqualsDouble(12., shape.getPoints().get(2).getX());
-		HelperTest.assertEqualsDouble(7., shape.getPoints().get(2).getY());
-		HelperTest.assertEqualsDouble(11., shape.getPoints().get(1).getX());
-		HelperTest.assertEqualsDouble(5., shape.getPoints().get(1).getY());
-		HelperTest.assertEqualsDouble(10., shape.getPoints().get(0).getX());
-		HelperTest.assertEqualsDouble(7., shape.getPoints().get(0).getY());
+		HelperTest.assertEqualsDouble(10.0, shape.getPosition().getX());
+		HelperTest.assertEqualsDouble(7.0, shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(3.0, shape.getWidth());
+		HelperTest.assertEqualsDouble(2.0, shape.getHeight());
 	}
 }

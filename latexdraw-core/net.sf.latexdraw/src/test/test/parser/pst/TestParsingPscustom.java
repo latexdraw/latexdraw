@@ -221,8 +221,7 @@ public class TestParsingPscustom extends TestPSTParser {
 
 	@Test
 	public void testPsCustomNothingWithNewpathCommand() throws ParseException {
-		parser.parsePSTCode("\\"+getCommandName()+"{\\newpath\n}");
-		assertEquals(1, PSTParser.errorLogs().size());
+		assertTrue(parser.parsePSTCode("\\"+getCommandName()+"{\\newpath\n}").get().isEmpty());
 	}
 
 

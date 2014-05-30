@@ -40,8 +40,8 @@ public class TestParsingPsBegin extends TestPSTParser {
 		IRectangle rec2 = (IRectangle)group.getShapeAt(2);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 
-		assertEquals(-3.*IShape.PPC, grid.getPosition().getX(), 0.001);
-		assertEquals(3.*IShape.PPC, grid.getPosition().getY(), 0.001);
+		assertEquals(0.0, grid.getPosition().getX(), 0.001);
+		assertEquals(0.0, grid.getPosition().getY(), 0.001);
 		assertEquals(0., rec1.getPosition().getX(), 0.001);
 		assertEquals(0., rec1.getPosition().getY(), 0.001);
 		assertEquals(IShape.PPC, rec2.getPosition().getX(), 0.001);
