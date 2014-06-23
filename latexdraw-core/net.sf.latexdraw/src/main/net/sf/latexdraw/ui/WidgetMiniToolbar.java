@@ -13,6 +13,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+
 import org.malai.interaction.Eventable;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
@@ -523,11 +525,14 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	    		// - the toolbar does not contain the point of the event.
 	    		// - the widget concerned by the event is not a widget of the toolbar (necessary to manage widgets
 	    		// which size is not contained into the toolbar such as ComboBoxes).
-		    	if(!new Rectangle(buttonsFrame.getLocationOnScreen(), buttonsFrame.getSize()).contains(pt) &&
-		    		!new Rectangle(WidgetMiniToolbar.this.getLocationOnScreen(), WidgetMiniToolbar.this.getSize()).contains(pt) &&
-		    		SwingUtilities.getAncestorOfClass(WindowWidgets.class, comp)!=buttonsFrame)
+	    		try{
+		    	if(buttonsFrame.isVisible() && !new Rectangle(buttonsFrame.getLocationOnScreen(), buttonsFrame.getSize()).contains(pt) &&
+	    			WidgetMiniToolbar.this.isVisible() && !new Rectangle(WidgetMiniToolbar.this.getLocationOnScreen(), WidgetMiniToolbar.this.getSize()).contains(pt) &&
+		    		SwingUtilities.getAncestorOfClass(WindowWidgets.class, comp)!=buttonsFrame) {
 		    		WidgetMiniToolbar.this.buttonsFrame.setVisible(false);
 		    	}
+	    		}catch(IllegalComponentStateException ex){ BadaboomCollector.INSTANCE.add(ex); }
+	    	}
 		}
 
 	}
