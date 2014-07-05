@@ -46,7 +46,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 	/** Used to detect if the last version of the text is different from the view. It helps to update the picture. */
 	private TextPosition lastTextPos;
 
-	public static final Font FONT = new Font("Times New Roman", Font.PLAIN, 18); //$NON-NLS-1$
+	public static final Font FONT = new Font("Dialog", Font.PLAIN, 18); //$NON-NLS-1$
 
 	public static final FontMetrics FONT_METRICS = FontDesignMetrics.getMetrics(FONT);
 

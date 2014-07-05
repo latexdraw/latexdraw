@@ -21,3 +21,5 @@ Version 3.2.0
   https://bugs.launchpad.net/latexdraw/+bug/1318369
 - fixed: An imported template is not a group of shapes
   https://bugs.launchpad.net/latexdraw/+bug/1318648
+- fixed: Unicode texts not painted correctly when not using the LaTeX thumbnail
+  https://bugs.launchpad.net/latexdraw/+bug/1338041
