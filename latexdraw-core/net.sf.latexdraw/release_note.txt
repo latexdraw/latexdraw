@@ -23,3 +23,5 @@ Version 3.2.0
   https://bugs.launchpad.net/latexdraw/+bug/1318648
 - fixed: Unicode texts not painted correctly when not using the LaTeX thumbnail
   https://bugs.launchpad.net/latexdraw/+bug/1338041
+- fixed:  URL not in the correct format when opening some files on Linux
+  https://bugs.launchpad.net/latexdraw/+bug/1340056

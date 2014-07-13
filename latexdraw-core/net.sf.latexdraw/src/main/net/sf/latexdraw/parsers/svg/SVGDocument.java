@@ -3,6 +3,7 @@ package net.sf.latexdraw.parsers.svg;
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.charset.Charset;
 
@@ -79,8 +80,12 @@ public class SVGDocument implements Document {
 	        final DocumentBuilder builder 		= factory.newDocumentBuilder();
 
 	        builder.setEntityResolver(new SVGEntityResolver());
-
-			final Document doc = builder.parse(uri.getPath());
+	        Document doc;
+	        try{
+	        	doc = builder.parse(uri.getPath());
+	        }catch(MalformedURLException ex) {
+	        	doc = builder.parse("file:"+uri.getPath());
+	        }
 			NodeList nl;
 
 			setDocumentURI(getDocumentURI());
