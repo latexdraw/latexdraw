@@ -199,10 +199,9 @@ object FlyweightThumbnail {
 		// created png picture.
 		val scale = IShape.PPC*PSTricksConstants.INCH_VAL_CM/PSTricksConstants.INCH_VAL_PT*_scaleImage
 
-		doc.append("\\documentclass[10pt]{article}\n\\usepackage[usenames,dvipsnames]{pstricks}") //$NON-NLS-1$
+		doc.append("\\documentclass{standalone}\n\\usepackage[usenames,dvipsnames]{pstricks}") //$NON-NLS-1$
 		doc.append(LaTeXGenerator.getPackages)
-		doc.append("\\usepackage[left=0cm,top=0cm,right=0cm,nohead,nofoot,paperwidth=50cm,paperheight=8cm]{geometry}\n")
-		doc.append("\\pagestyle{empty}\n\\begin{document}\n\\psscalebox{") //$NON-NLS-1$
+		doc.append("\\begin{document}\n\\psscalebox{") //$NON-NLS-1$
 		doc.append(LNumber.getCutNumber(scale).toFloat).append(' ')
 		doc.append(LNumber.getCutNumber(scale).toFloat).append('}').append('{')
 
@@ -296,6 +295,7 @@ object FlyweightThumbnail {
 		var log = "" //$NON-NLS-1$
 		val tmpDir = LFileUtils.INSTANCE.createTempDir
 		val doc	= getLaTeXDocument(shape)
+		println(doc)
 		val pathPic	= tmpDir.getAbsolutePath + LResources.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis //$NON-NLS-1$
 		val pathTex = pathPic + TeXFilter.TEX_EXTENSION
 		val os = LSystem.INSTANCE.getSystem
@@ -348,7 +348,7 @@ object FlyweightThumbnail {
 					    val img	= page.getImage(bound.getWidth.toInt, bound.getHeight.toInt, bound, null, false, true)
 
 					    if(img.isInstanceOf[BufferedImage])
-						    bi = ImageCropper.cropImage(img.asInstanceOf[BufferedImage])
+						    bi = img.asInstanceOf[BufferedImage]
 
 					    if(img!=null)
 					    	img.flush

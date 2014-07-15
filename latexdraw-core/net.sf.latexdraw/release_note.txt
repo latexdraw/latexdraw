@@ -25,3 +25,5 @@ Version 3.2.0
   https://bugs.launchpad.net/latexdraw/+bug/1338041
 - fixed:  URL not in the correct format when opening some files on Linux
   https://bugs.launchpad.net/latexdraw/+bug/1340056
+- fixed:  Crash when adding a text shape that do not compile correctly (several pages produced)
+  https://bugs.launchpad.net/latexdraw/+bug/1327181
