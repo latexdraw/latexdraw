@@ -29,7 +29,6 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
-import net.sf.latexdraw.util.ImageCropper
 import net.sf.latexdraw.util.LFileUtils
 import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.util.LResources
@@ -295,7 +294,6 @@ object FlyweightThumbnail {
 		var log = "" //$NON-NLS-1$
 		val tmpDir = LFileUtils.INSTANCE.createTempDir
 		val doc	= getLaTeXDocument(shape)
-		println(doc)
 		val pathPic	= tmpDir.getAbsolutePath + LResources.FILE_SEP + "latexdrawTmpPic" + System.currentTimeMillis //$NON-NLS-1$
 		val pathTex = pathPic + TeXFilter.TEX_EXTENSION
 		val os = LSystem.INSTANCE.getSystem
