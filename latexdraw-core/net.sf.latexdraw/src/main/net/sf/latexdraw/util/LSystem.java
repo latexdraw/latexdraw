@@ -6,8 +6,8 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.Arrays;
 
-import scala.actors.threadpool.Arrays;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
