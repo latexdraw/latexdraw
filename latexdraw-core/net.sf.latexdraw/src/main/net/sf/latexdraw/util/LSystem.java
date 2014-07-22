@@ -7,6 +7,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+import scala.actors.threadpool.Arrays;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
@@ -225,7 +226,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getLaTeXVersion() {
-		return execute(new String[]{getSystem().getLatexBinPath(), "-v"}, null);
+		return execute(new String[]{getSystem().getLatexBinPath(), "--version"}, null);
 	}
 
 	/**
@@ -233,7 +234,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getDVIPSVersion() {
-		return execute(new String[]{getSystem().getDvipsBinPath(), "-v"}, null);
+		return execute(new String[]{getSystem().getDvipsBinPath(), "--version"}, null);
 	}
 
 	/**
@@ -300,6 +301,6 @@ public final class LSystem {
 			process.waitFor();// Waiting for the end of the process.
 
 			return err.getLog() + LResources.EOL + inp.getLog();
-		}catch(Exception e) {return e.getMessage();}
+		}catch(Exception e) {return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + e.getMessage();}
 	}
 }
