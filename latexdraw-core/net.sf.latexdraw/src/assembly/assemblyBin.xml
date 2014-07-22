@@ -13,6 +13,7 @@
                <include>org.scala-lang:scala-library</include>
                <include>net.sf.jlibeps:jlibeps</include>
                <include>org.swinglabs:pdf-renderer</include>
+               <include>org.scala-lang.modules:scala-parser-combinators_2.11</include>
            </includes>
            <unpack>false</unpack>
            <outputDirectory>data/lib/</outputDirectory>
