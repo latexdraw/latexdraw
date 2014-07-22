@@ -110,6 +110,13 @@ public class AboutDialogueBox extends JFrame {
 		StringBuilder builder = new StringBuilder();
 		editorPane.setEditable(false);
 
+		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LResources.EOL);
+		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LResources.EOL);
+		builder.append("PS2PDF version:").append(LResources.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LResources.EOL);
+		builder.append("PS2EPS version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LResources.EOL);
+		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LResources.EOL);
+
+		builder.append("Java properties:").append(LResources.EOL);
 		for(final Entry<Object, Object> entry : System.getProperties().entrySet())
 			builder.append(entry.getKey().toString()).append(':').append(' ').append(entry.getValue().toString()).append(LResources.EOL);
 

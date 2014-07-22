@@ -5,6 +5,7 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
@@ -214,6 +215,47 @@ public final class LSystem {
 
 
 	/**
+	 * @return The version of the current LaTeX.
+	 * @since 3.1
+	 */
+	public String getLaTeXVersion() {
+		return execute(new String[]{getSystem().getLatexBinPath(), "-v"}, null);
+	}
+
+	/**
+	 * @return The version of the current dvips.
+	 * @since 3.1
+	 */
+	public String getDVIPSVersion() {
+		return execute(new String[]{getSystem().getDvipsBinPath(), "-v"}, null);
+	}
+
+	/**
+	 * @return The version of the current ps2pdf.
+	 * @since 3.1
+	 */
+	public String getPS2PDFVersion() {
+		return execute(new String[]{getSystem().getPs2pdfBinPath()}, null);
+	}
+
+	/**
+	 * @return The version of the current ps2eps.
+	 * @since 3.1
+	 */
+	public String getPS2EPSVersion() {
+		return execute(new String[]{getSystem().getPS2EPSBinPath(), "-v"}, null);
+	}
+
+	/**
+	 * @return The version of the current pdfcrop.
+	 * @since 3.1
+	 */
+	public String getPDFCROPVersion() {
+		return execute(new String[]{getSystem().getPdfcropBinPath(), "--version"}, null);
+	}
+
+
+	/**
 	 * @return Returns the dimension of the first available screen. If in dual screen mode,
 	 * the first screen is used. If no screen is available (Oo), the dimension (0,0) is returned.
 	 * @since 3.0
@@ -227,5 +269,31 @@ public final class LSystem {
     		return new Dimension(mode.getWidth(), mode.getHeight());
     	}
     	return new Dimension();
+	}
+
+
+	/**
+	 * Executes a command.
+	 * @param cmd The execution command
+	 * @param tmpdir The working dir
+	 * @return The log.
+	 * @since 3.1
+	 */
+	public String execute(final String[] cmd, final File tmpdir) {
+		if(cmd==null || cmd.length==0)
+			return null;
+
+		try {
+			Process process 	 = Runtime.getRuntime().exec(cmd, null, tmpdir);  // Command launched
+			StreamExecReader err = new StreamExecReader(process.getErrorStream());// Catch the error log
+			StreamExecReader inp = new StreamExecReader(process.getInputStream());// Catch the log
+
+			err.start();
+			inp.start();
+
+			process.waitFor();// Waiting for the end of the process.
+
+			return err.getLog() + LResources.EOL + inp.getLog();
+		}catch(Exception e) {return e.getMessage();}
 	}
 }
