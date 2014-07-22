@@ -8,13 +8,18 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Objects;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.lang.LangTool;
@@ -85,11 +90,33 @@ public class PreferencesFrame extends MFrame {
 		setVisible(false);
 	}
 
-
+JTextField latexDistribField = new JTextField();
 
 	private JPanel createLatexPanel() {
 		final JPanel pLatex = new JPanel();
+		JPanel pLatexDistrib = new JPanel();
 		pLatex.setLayout(new BoxLayout(pLatex, BoxLayout.Y_AXIS));
+latexDistribField.setEditable(false);
+latexDistribField.setMaximumSize(new Dimension(700, 80));
+		pLatexDistrib.setLayout(new BoxLayout(pLatexDistrib, BoxLayout.X_AXIS));
+		JButton bChooseLatex = new JButton(LResources.OPEN_ICON);
+		bChooseLatex.addActionListener(new ActionListener() {
+			@Override public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+			    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			    chooser.setMultiSelectionEnabled(false);
+			    chooser.showDialog(PreferencesFrame.this, "Select");
+			    if(chooser.getSelectedFile()!=null) {
+			    	latexDistribField.setText(chooser.getSelectedFile().getPath()+File.separatorChar);
+			    	LSystem.INSTANCE.setLatexDistribPath(chooser.getSelectedFile().getPath()+File.separatorChar);
+			    }
+			}
+		});
+		pLatexDistrib.add(latexDistribField);
+		pLatexDistrib.add(bChooseLatex);
+		pLatex.add(new JLabel("The path of the latex binaires:"));
+		pLatex.add(pLatexDistrib);
+
   		pLatex.add(new JLabel("Packages included during latex compilations:"));
   		pLatex.add(prefSetter.getLatexIncludes().getScrollpane());
 

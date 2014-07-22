@@ -62,7 +62,7 @@ public final class LSystem {
 		 * @since 3.1
 		 */
 		public String getPS2EPSBinPath() {
-			return "ps2eps";
+			return LSystem.INSTANCE.getLatexDistribPath()+"ps2eps";
 		}
 
 		/**
@@ -70,7 +70,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getLatexBinPath() {
-			return "latex";
+			return LSystem.INSTANCE.getLatexDistribPath()+"latex";
 		}
 
 		/**
@@ -78,7 +78,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getDvipsBinPath() {
-			return "dvips";
+			return LSystem.INSTANCE.getLatexDistribPath()+"dvips";
 		}
 
 		/**
@@ -86,7 +86,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getPs2pdfBinPath() {
-			return "ps2pdf";
+			return LSystem.INSTANCE.getLatexDistribPath()+"ps2pdf";
 		}
 
 		/**
@@ -94,7 +94,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getPdfcropBinPath() {
-			return "pdfcrop";
+			return LSystem.INSTANCE.getLatexDistribPath()+"pdfcrop";
 		}
 	}
 
@@ -102,13 +102,19 @@ public final class LSystem {
 	/** The singleton. */
 	public static final LSystem INSTANCE = new LSystem();
 
+	private String latexDistribPath;
 
 	/**
 	 * Creates the singleton.
 	 */
 	private LSystem() {
 		super();
+		latexDistribPath = "";
 	}
+
+	public String getLatexDistribPath() { return latexDistribPath; }
+
+	public void setLatexDistribPath(final String path) { if(path!=null) latexDistribPath = path; }
 
 
 	/**

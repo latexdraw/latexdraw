@@ -554,13 +554,13 @@ public abstract class LaTeXGenerator implements Modifiable {
 		if(texFile==null || !texFile.exists())
 			return null;
 
-		String[] paramsLatex = new String[] {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+		String[] paramsLatex = new String[] {LSystem.INSTANCE.getLatexDistribPath()+os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 				texFile.getAbsolutePath()};
 		log    = LSystem.INSTANCE.execute(paramsLatex, tmpDir2);
 		File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
 		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
 
-		String[] paramsDvi = new String[] {os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
+		String[] paramsDvi = new String[] {LSystem.INSTANCE.getLatexDistribPath()+os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
 				(tr.getX()-bl.getX())/ppc*scale+dec+"cm,"+((bl.getY()-tr.getY())/ppc*scale+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						name, "-o", pathExportPs}; //$NON-NLS-1$
 		log   += LSystem.INSTANCE.execute(paramsDvi, tmpDir2);
@@ -621,12 +621,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
 		String optionEmbed = "-dEmbedAllFonts" + (LSystem.INSTANCE.isWindows() ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-		log = LSystem.INSTANCE.execute(new String[] {os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), //$NON-NLS-1$
+		log = LSystem.INSTANCE.execute(new String[] {LSystem.INSTANCE.getLatexDistribPath()+os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), //$NON-NLS-1$
 							crop ? name + PDFFilter.PDF_EXTENSION : pathExportPdf}, tmpDir);
 
 		if(crop) {
 			pdfFile = new File(tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PDFFilter.PDF_EXTENSION);
-			log 	= LSystem.INSTANCE.execute(new String[] {os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir); //$NON-NLS-1$
+			log 	= LSystem.INSTANCE.execute(new String[] {LSystem.INSTANCE.getLatexDistribPath()+os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir); //$NON-NLS-1$
 			// JAVA7: test pdfFile.toPath().move(pathExportPdf)
 			// the renameto method is weak and fails sometimes.
 			if(!pdfFile.renameTo(new File(pathExportPdf)) && !LFileUtils.INSTANCE.copy(pdfFile, new File(pathExportPdf)))
