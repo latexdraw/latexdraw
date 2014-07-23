@@ -35,7 +35,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 
 
 	/** Contains objects that want to be aware of the manager activities. */
-	private List<BadaboomHandler> handlers;
+	private final List<BadaboomHandler> handlers;
 
 
 	/**

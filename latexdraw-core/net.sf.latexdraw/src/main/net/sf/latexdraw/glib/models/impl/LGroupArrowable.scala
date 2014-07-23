@@ -43,7 +43,7 @@ private[impl] trait LGroupArrowable extends IGroup {
 			case _ => -1
 		}
 
-	override def getNbArrows() =
+	override def getNbArrows =
 		firstIArrowable match {
 			case Some(arr) => arr.getNbArrows
 			case _ => 0
@@ -53,11 +53,13 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setTBarSizeDim(values.get(j))
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setTBarSizeDim(values.get(j))
+          case _ =>
+        }
 	}
 
-	override def getTBarSizeDimList() : List[java.lang.Double] = {
+	override def getTBarSizeDimList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getTBarSizeDim)
@@ -70,11 +72,13 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setTBarSizeNum(values.get(j))
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setTBarSizeNum(values.get(j))
+          case _ =>
+        }
 	}
 
-	override def getTBarSizeNumList() : java.util.List[java.lang.Double] = {
+	override def getTBarSizeNumList: java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getTBarSizeNum)
@@ -87,11 +91,13 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setDotSizeNum(values.get(j))
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setDotSizeNum(values.get(j))
+          case _ =>
+        }
 	}
 
-	override def getDotSizeNumList() : java.util.List[java.lang.Double] = {
+	override def getDotSizeNumList: java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getDotSizeNum)
@@ -104,11 +110,13 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setDotSizeDim(values.get(j))
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setDotSizeDim(values.get(j))
+          case _ =>
+        }
 	}
 
-	override def getDotSizeDimList() : java.util.List[java.lang.Double] = {
+	override def getDotSizeDimList: java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getDotSizeDim)
@@ -121,11 +129,13 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setBracketNum(values.get(j))
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setBracketNum(values.get(j))
+          case _ =>
+        }
 	}
 
-	override def getBracketNumList() : java.util.List[java.lang.Double] = {
+	override def getBracketNumList: java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getBracketNum)
@@ -138,11 +148,13 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setRBracketNum(values.get(j))
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setRBracketNum(values.get(j))
+          case _ =>
+        }
 	}
 
-	override def getRBracketNumList() : java.util.List[java.lang.Double] = {
+	override def getRBracketNumList: java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getRBracketNum)
@@ -155,11 +167,13 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setArrowSizeNum(values.get(j))
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setArrowSizeNum(values.get(j))
+          case _ =>
+        }
 	}
 
-	override def getArrowSizeNumList() : java.util.List[java.lang.Double] = {
+	override def getArrowSizeNumList: java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getArrowSizeNum)
@@ -172,11 +186,13 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setArrowSizeDim(values.get(j))
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setArrowSizeDim(values.get(j))
+          case _ =>
+        }
 	}
 
-	override def getArrowSizeDimList() : java.util.List[java.lang.Double] = {
+	override def getArrowSizeDimList: java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getArrowSizeDim)
@@ -189,11 +205,13 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setArrowLength(values.get(j))
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setArrowLength(values.get(j))
+          case _ =>
+        }
 	}
 
-	override def getArrowLengthList() : java.util.List[java.lang.Double] = {
+	override def getArrowLengthList: java.util.List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getArrowLength)
@@ -206,11 +224,13 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setArrowInset(values.get(j))
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setArrowInset(values.get(j))
+          case _ =>
+        }
 	}
 
-	override def getArrowInsetList() : List[java.lang.Double] = {
+	override def getArrowInsetList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		getShapes.foreach{
 				case arr:IArrowableShape => list.add(arr.getArrowInset)
@@ -226,8 +246,10 @@ private[impl] trait LGroupArrowable extends IGroup {
 		val shapes = getShapes
 		if(values!=null && values.size==shapes.size)
 			for(j <- 0 until values.size)
-				if(shapes.get(j).isInstanceOf[IArrowableShape])
-					shapes.get(j).asInstanceOf[IArrowableShape].setArrowStyle(values.get(j), i)
+				shapes.get(j) match {
+          case shape: IArrowableShape => shape.setArrowStyle(values.get(j), i)
+          case _ =>
+        }
 	}
 
 	override def setArrowStyle(style : IArrow.ArrowStyle, position : Int) {
@@ -271,14 +293,14 @@ private[impl] trait LGroupArrowable extends IGroup {
 		arrowShapes.foreach{_.setTBarSizeDim(tbarSizeDim)}
 	}
 
-	override def getTBarSizeDim() : Double = {
+	override def getTBarSizeDim: Double = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getTBarSizeDim
 			case _ => Double.NaN
 		}
 	}
 
-	override def getTBarSizeNum() : Double = {
+	override def getTBarSizeNum: Double = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getTBarSizeNum
 			case _ => Double.NaN
@@ -309,56 +331,56 @@ private[impl] trait LGroupArrowable extends IGroup {
 		arrowShapes.foreach{_.setArrowInset(inset)}
 	}
 
-	override def getDotSizeDim() : Double = {
+	override def getDotSizeDim: Double = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getDotSizeDim
 			case _ => Double.NaN
 		}
 	}
 
-	override def getDotSizeNum() : Double = {
+	override def getDotSizeNum: Double = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getDotSizeNum
 			case _ => Double.NaN
 		}
 	}
 
-	override def getBracketNum() : Double = {
+	override def getBracketNum: Double = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getBracketNum
 			case _ => Double.NaN
 		}
 	}
 
-	override def getArrowSizeNum() : Double = {
+	override def getArrowSizeNum: Double = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getArrowSizeNum
 			case _ => Double.NaN
 		}
 	}
 
-	override def getArrowSizeDim() : Double = {
+	override def getArrowSizeDim: Double = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getArrowSizeDim
 			case _ => Double.NaN
 		}
 	}
 
-	override def getArrowInset() : Double = {
+	override def getArrowInset: Double = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getArrowInset
 			case _ => Double.NaN
 		}
 	}
 
-	override def getArrowLength() : Double = {
+	override def getArrowLength: Double = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getArrowLength
 			case _ => Double.NaN
 		}
 	}
 
-	override def getRBracketNum() : Double = {
+	override def getRBracketNum: Double = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getRBracketNum
 			case _ => Double.NaN

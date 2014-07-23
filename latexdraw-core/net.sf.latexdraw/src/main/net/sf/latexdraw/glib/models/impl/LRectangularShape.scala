@@ -56,9 +56,9 @@ private[impl] abstract class LRectangularShape(tl:IPoint, br:IPoint, uniqueID:Bo
 		}
 	}
 
-	override def getHeight() = points.get(2).getY - points.get(0).getY
+	override def getHeight = points.get(2).getY - points.get(0).getY
 
-	override def getWidth() = points.get(1).getX - points.get(0).getX
+	override def getWidth = points.get(1).getX - points.get(0).getX
 
 	override def setWidth(width:Double) {
 		if(GLibUtilities.isValidCoordinate(width) && width>0) {
@@ -76,17 +76,17 @@ private[impl] abstract class LRectangularShape(tl:IPoint, br:IPoint, uniqueID:Bo
 		}
 	}
 
-	override def isBordersMovable() = true
+	override def isBordersMovable = true
 
-	override def isDbleBorderable() = true
+	override def isDbleBorderable = true
 
-	override def isFillable() = true
+	override def isFillable = true
 
-	override def isInteriorStylable() = true
+	override def isInteriorStylable = true
 
-	override def isLineStylable() = true
+	override def isLineStylable = true
 
-	override def isShadowable() = true
+	override def isShadowable = true
 
-	override def isThicknessable() = true
+	override def isThicknessable = true
 }

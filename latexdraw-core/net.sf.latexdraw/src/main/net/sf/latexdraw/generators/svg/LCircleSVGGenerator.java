@@ -106,7 +106,7 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 		final double tly = tl.getY();
 		final double brx = br.getX();
 		final double bry = br.getY();
-		SVGElement elt, shad = null, dblBord = null;
+		SVGElement elt, shad, dblBord;
 		SVGElement root = new SVGGElement(doc);
         root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_CIRCLE);
         root.setAttribute(SVGAttributes.SVG_ID, getSVGID());

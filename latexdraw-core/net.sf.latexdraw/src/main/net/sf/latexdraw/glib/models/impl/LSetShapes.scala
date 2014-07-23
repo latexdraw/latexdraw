@@ -60,10 +60,10 @@ private[impl] trait LSetShapes extends ISetShapesProp {
 			}
 
 
-	override def getShapes() = shapes
+	override def getShapes = shapes
 
 
-	override def isEmpty() = shapes.isEmpty
+	override def isEmpty = shapes.isEmpty
 
 
 	override def removeShape(sh : IShape) : Boolean =

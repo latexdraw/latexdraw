@@ -46,7 +46,7 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 		PSTParser.cleanErrors
 		try {
 			new PSTParser().parsePSTCode(_code.get) match {
-				case Some(group) if(!group.isEmpty) =>
+				case Some(group) if !group.isEmpty =>
 					val sh = if(group.size()>1) group else group.getShapeAt(0)
 					val br = sh.getBottomRightPoint
 					val tl = sh.getTopLeftPoint
@@ -87,11 +87,11 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 
 	def setCode(value:String) { _code = if(value!=null) Some(value) else None }
 
-	override def getUndoName() = "Inserting of PST code"
+	override def getUndoName = "Inserting of PST code"
 
-	override def canDo() = _code.isDefined && _drawing.isDefined
+	override def canDo = _code.isDefined && _drawing.isDefined
 
 	override def hadEffect() = isDone && _shapes.isDefined
 
-	override def isRegisterable() = hadEffect
+	override def isRegisterable = hadEffect
 }

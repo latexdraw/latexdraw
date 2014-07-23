@@ -29,7 +29,7 @@ private[impl] trait LGroupAxes extends IGroup {
 
 	private def axesShapes = getShapes.flatMap{case x:IAxesProp => x::Nil; case _ => Nil}
 
-	override def getIncrementX() : Double = {
+	override def getIncrementX: Double = {
 		firstIAxes match {
 			case Some(axe) => axe.getIncrementX
 			case _ => Double.NaN
@@ -37,7 +37,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getIncrementY() : Double = {
+	override def getIncrementY: Double = {
 		firstIAxes match {
 			case Some(axe) => axe.getIncrementY
 			case _ => Double.NaN
@@ -55,7 +55,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getDistLabelsX() : Double = {
+	override def getDistLabelsX: Double = {
 		firstIAxes match {
 			case Some(axe) => axe.getDistLabelsX
 			case _ => Double.NaN
@@ -63,7 +63,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getDistLabelsY() : Double = {
+	override def getDistLabelsY: Double = {
 		firstIAxes match {
 			case Some(axe) => axe.getDistLabelsY
 			case _ => Double.NaN
@@ -81,7 +81,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getLabelsDisplayed() : IAxesProp.PlottingStyle = {
+	override def getLabelsDisplayed: IAxesProp.PlottingStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getLabelsDisplayed
 			case _ => IAxesProp.PlottingStyle.ALL
@@ -94,7 +94,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def isShowOrigin() : Boolean = {
+	override def isShowOrigin: Boolean = {
 		firstIAxes match {
 			case Some(axe) => axe.isShowOrigin
 			case _ => false
@@ -107,7 +107,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getTicksDisplayed() : IAxesProp.PlottingStyle = {
+	override def getTicksDisplayed: IAxesProp.PlottingStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getTicksDisplayed
 			case _ => IAxesProp.PlottingStyle.ALL
@@ -120,7 +120,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getTicksStyle() : IAxesProp.TicksStyle = {
+	override def getTicksStyle: IAxesProp.TicksStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getTicksStyle
 			case _ => IAxesProp.TicksStyle.FULL
@@ -133,7 +133,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getTicksSize() : Double = {
+	override def getTicksSize: Double = {
 		firstIAxes match {
 			case Some(axe) => axe.getTicksSize
 			case _ => Double.NaN
@@ -146,7 +146,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getAxesStyle() : IAxesProp.AxesStyle = {
+	override def getAxesStyle: IAxesProp.AxesStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getAxesStyle
 			case _ => IAxesProp.AxesStyle.AXES
@@ -159,7 +159,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getIncrement() : IPoint = {
+	override def getIncrement: IPoint = {
 		firstIAxes match {
 			case Some(axe) => axe.getIncrement
 			case _ => null
@@ -172,7 +172,7 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getDistLabels() : IPoint = {
+	override def getDistLabels: IPoint = {
 		firstIAxes match {
 			case Some(axe) => axe.getDistLabels
 			case _ => null

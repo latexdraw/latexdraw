@@ -76,8 +76,8 @@ class JoinShapes extends Action with ShapesAction with DrawingAction with Undoab
 	}
 
 
-	override def getUndoName() = LangTool.INSTANCE.getStringOthers("UndoRedoManager.join")
+	override def getUndoName = LangTool.INSTANCE.getStringOthers("UndoRedoManager.join")
 
 
-	override def isRegisterable() = true
+	override def isRegisterable = true
 }

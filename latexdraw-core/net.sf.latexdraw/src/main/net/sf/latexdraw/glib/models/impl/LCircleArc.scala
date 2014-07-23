@@ -31,8 +31,8 @@ private[impl] class LCircleArc(tl:IPoint, width:Double, uniqueID:Boolean) extend
 		sh match {//FIXME somewhere else
 			case arc:IArcProp =>
 				startAngle 		= arc.getAngleStart
-				endAngle 		= arc.getAngleEnd;
-				style			= arc.getArcStyle
+				endAngle 		= arc.getAngleEnd
+        style			= arc.getArcStyle
 			case _ =>
 		}
 	}

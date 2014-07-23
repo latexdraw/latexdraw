@@ -148,14 +148,12 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 												shape.getFirstCtrlPtAt(i).getX(), shape.getFirstCtrlPtAt(i).getY(), false));
 
 		if(shape.isClosed()) {
-			if(shape.isClosed()) {
-				IPoint ctrl1b = shape.getFirstCtrlPtAt(0).centralSymmetry(shape.getPtAt(0));
-				IPoint ctrl2b = shape.getFirstCtrlPtAt(-1).centralSymmetry(shape.getPtAt(-1));
+            IPoint ctrl1b = shape.getFirstCtrlPtAt(0).centralSymmetry(shape.getPtAt(0));
+            IPoint ctrl2b = shape.getFirstCtrlPtAt(-1).centralSymmetry(shape.getPtAt(-1));
 
-				path.add(new SVGPathSegCurvetoCubic(shape.getPtAt(0).getX(), shape.getPtAt(0).getY(), ctrl2b.getX(), ctrl2b.getY(), ctrl1b.getX(), ctrl1b.getY(), false));
-			}
+            path.add(new SVGPathSegCurvetoCubic(shape.getPtAt(0).getX(), shape.getPtAt(0).getY(), ctrl2b.getX(), ctrl2b.getY(), ctrl1b.getX(), ctrl1b.getY(), false));
 
-			path.add(new SVGPathSegClosePath());
+            path.add(new SVGPathSegClosePath());
 		}
 
 		return path;
@@ -243,7 +241,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		final double doubleSep = shape.getDbleBordSep();
 		double thick = (hasDble ? shape.getDbleBordSep()+shape.getThickness()*2. : shape.getThickness())/2.;
 		double rad   = (PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM*IShape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM*thick*2.)/2.;
-		int i = 0, size = shape.getNbPoints();
+		int i, size = shape.getNbPoints();
 
 		showPts.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SHOW_PTS);
 

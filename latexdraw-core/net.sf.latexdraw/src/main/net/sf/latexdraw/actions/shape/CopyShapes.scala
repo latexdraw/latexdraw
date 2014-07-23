@@ -43,10 +43,10 @@ class CopyShapes extends Action {
 	override def cancelledBy(action : Action) = action.isInstanceOf[CopyShapes]
 
 
-	override def isRegisterable() = true
+	override def isRegisterable = true
 
 
-	override def canDo() = _selection.isDefined && !_selection.get.shapes.isEmpty
+	override def canDo = _selection.isDefined && !_selection.get.shapes.isEmpty
 
 
 	/**

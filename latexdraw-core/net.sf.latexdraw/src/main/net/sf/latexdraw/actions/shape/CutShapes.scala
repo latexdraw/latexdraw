@@ -51,7 +51,7 @@ class CutShapes extends CopyShapes with Undoable with Modifying {
 	 * Delete the shapes from the drawing.
 	 * @since 3.0
 	 */
-	private def deleteShapes {
+	private def deleteShapes() {
 		val dr = _selection.get.drawing.get
 		copiedShapes.foreach{sh => dr.removeShape(sh)}
 		dr.setModified(true)
@@ -70,5 +70,5 @@ class CutShapes extends CopyShapes with Undoable with Modifying {
 	}
 
 
-	override def getUndoName() = LResources.LABEL_CUT
+	override def getUndoName = LResources.LABEL_CUT
 }

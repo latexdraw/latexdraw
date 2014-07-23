@@ -30,7 +30,7 @@ private[impl] trait LGroupText extends IGroup {
 
 	private def txtShapes = getShapes.flatMap{case x:IText => x::Nil; case _ => Nil}
 
-	override def getTextPosition() : ITextProp.TextPosition =
+	override def getTextPosition: ITextProp.TextPosition =
 		firstIText match {
 			case Some(txt) => txt.getTextPosition
 			case _ => null
@@ -40,7 +40,7 @@ private[impl] trait LGroupText extends IGroup {
 		txtShapes.foreach{_.setTextPosition(textPosition)}
 	}
 
-	override def getText() : String =
+	override def getText: String =
 		firstIText match {
 			case Some(txt) => txt.getText
 			case _ => null

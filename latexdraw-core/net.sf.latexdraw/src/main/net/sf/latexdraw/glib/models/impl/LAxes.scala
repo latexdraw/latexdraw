@@ -145,21 +145,21 @@ private[impl] class LAxes(uniqueID:Boolean, pt:IPoint) extends LAbstractGrid(uni
 		return ShapeFactory.createLine(p2, p1)
 	}
 
-	override def getAxesStyle() = axesStyle
+	override def getAxesStyle = axesStyle
 
-	override def getDistLabelsX() = distLabelsX
+	override def getDistLabelsX = distLabelsX
 
-	override def getDistLabelsY() = distLabelsY
+	override def getDistLabelsY = distLabelsY
 
-	override def getLabelsDisplayed() = labelsDisplayed
+	override def getLabelsDisplayed = labelsDisplayed
 
-	override def getTicksDisplayed() = ticksDisplayed
+	override def getTicksDisplayed = ticksDisplayed
 
-	override def getTicksSize() = ticksSize
+	override def getTicksSize = ticksSize
 
-	override def getTicksStyle() = ticksStyle
+	override def getTicksStyle = ticksStyle
 
-	override def isShowOrigin() = showOrigin
+	override def isShowOrigin = showOrigin
 
 	override def setAxesStyle(axesStyle:AxesStyle) {
 		if(axesStyle!=null)
@@ -211,17 +211,17 @@ private[impl] class LAxes(uniqueID:Boolean, pt:IPoint) extends LAbstractGrid(uni
 			this.ticksStyle = ticksStyle
 	}
 
-	override def getStep() = IShape.PPC
+	override def getStep = IShape.PPC
 
-	override def isLineStylable() = true
+	override def isLineStylable = true
 
-	override def isThicknessable() = true
+	override def isThicknessable = true
 
-	override def getIncrementX() = incrementX
+	override def getIncrementX = incrementX
 
-	override def getIncrementY() = incrementY
+	override def getIncrementY = incrementY
 
-	override def getIncrement() = ShapeFactory.createPoint(incrementX, incrementY)
+	override def getIncrement = ShapeFactory.createPoint(incrementX, incrementY)
 
 	override def setIncrement(increment:IPoint) {
 		if(increment!=null) {
@@ -230,7 +230,7 @@ private[impl] class LAxes(uniqueID:Boolean, pt:IPoint) extends LAbstractGrid(uni
 		}
 	}
 
-	override def getDistLabels() = ShapeFactory.createPoint(distLabelsX, distLabelsY)
+	override def getDistLabels = ShapeFactory.createPoint(distLabelsX, distLabelsY)
 
 	override def setDistLabels(distLabels:IPoint) {
 		if(distLabels!=null) {

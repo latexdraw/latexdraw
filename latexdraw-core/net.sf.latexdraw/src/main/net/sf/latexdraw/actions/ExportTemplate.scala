@@ -33,7 +33,7 @@ import net.sf.latexdraw.util.LPath
  */
 class ExportTemplate extends IOAction[LFrame, JLabel] with TemplateAction {
 
-	override def canDo() = ui!=null && _templatesMenu.isDefined
+	override def canDo = ui!=null && _templatesMenu.isDefined
 
 
 	protected def doActionBody() {

@@ -82,22 +82,22 @@ public class LCanvas extends MPanel implements ICanvas {
 	public static final IPoint ORIGIN = ShapeFactory.createPoint(MARGINS, MARGINS);
 
 	/** The shapes of the canvas. */
-	protected IActiveList<IViewShape> views;
+	protected final IActiveList<IViewShape> views;
 
 	/** The temporary view that the canvas may contain. */
-	protected IUnary<IViewShape> tempView;
+	protected final IUnary<IViewShape> tempView;
 
 	/**
 	 * This list contains a subset of the list 'view'. It contains the tooltipable views of 'views'.
 	 * This attribute is used only to avoid a full exploration of the list 'views' (that can be huge).
 	 */
-	protected List<ToolTipable> tooltipableView;
+	protected final List<ToolTipable> tooltipableView;
 
 	/** The border of the drawing. */
 	protected Rectangle2D border;
 
 	/** The zoom applied on the canvas. */
-	protected IUnary<Double> zoom;
+	protected final IUnary<Double> zoom;
 
 	/** The value of the antialiasing (cf. RenderingHints.VALUE_ANTIALIAS_ON/OFF) */
 	protected Object antiAliasingValue;
@@ -474,7 +474,7 @@ public class LCanvas extends MPanel implements ICanvas {
             elt.setTextContent(String.valueOf(antiAliasingValue==RenderingHints.VALUE_ANTIALIAS_ON));
             root.appendChild(elt);
 		} else {
-			final String ns = nsURI==null || nsURI.length()==0 ? "" : nsURI + ':'; //$NON-NLS-1$
+			final String ns = nsURI==null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
 			elt = document.createElement(ns + LNamespace.XML_ZOOM);
 	        elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
 	        root.appendChild(elt);
@@ -696,7 +696,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 				if(tooltipable.isToolTipVisible(x, y)) {
 					String text = tooltipable.getToolTip();
-					setToolTipText(text==null || text.length()==0 ? null : text);
+					setToolTipText(text==null || text.isEmpty() ? null : text);
 					again = false;
 				}
 			}

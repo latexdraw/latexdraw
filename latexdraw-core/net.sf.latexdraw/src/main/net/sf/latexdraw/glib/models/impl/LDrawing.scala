@@ -33,7 +33,7 @@ private[impl] class LDrawing extends IDrawing with LSetShapes {
 	var modified = false
 
 
-	override def getSelection() = selection
+	override def getSelection = selection
 
 	override def setSelection(newSelection : java.util.List[IShape]) {
 		selection.clear
@@ -70,7 +70,7 @@ private[impl] class LDrawing extends IDrawing with LSetShapes {
 		this.modified = modified
 	}
 
-	override def isModified() = modified || shapes.exists{_.isModified}
+	override def isModified = modified || shapes.exists{_.isModified}
 
 	override def reinit() = clear
 }

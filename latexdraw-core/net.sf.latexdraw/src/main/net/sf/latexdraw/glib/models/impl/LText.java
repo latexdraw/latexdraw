@@ -53,7 +53,7 @@ class LText extends LPositionShape implements IText {
 	protected LText(final boolean isUniqueID, final IPoint pt, final String text) {
 		super(isUniqueID, pt);
 
-		this.text = text==null || text.length()==0 ? "text" : text; //$NON-NLS-1$
+		this.text = text==null || text.isEmpty() ? "text" : text; //$NON-NLS-1$
 		textPosition = TextPosition.BOT_LEFT;
 	}
 
@@ -66,7 +66,7 @@ class LText extends LPositionShape implements IText {
 
 	@Override
 	public void setText(final String text) {
-		if(text!=null && text.length()>0)
+		if(text!=null && !text.isEmpty())
 			this.text = text;
 	}
 

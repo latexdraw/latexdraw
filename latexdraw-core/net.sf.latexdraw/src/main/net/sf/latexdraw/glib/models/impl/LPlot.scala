@@ -25,65 +25,65 @@ private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX
 		if(style!=null) this.style = style
 	}
 
-	override def getPlotStyle() = style
+	override def getPlotStyle = style
 
 	override def setNbPlottedPoints(nbPts:Int) {
 		if(nbPts>1 && GLibUtilities.isValidCoordinate(nbPts))
 			nbPoints = nbPts
 	}
 
-	override def isShowPtsable() = true
-	override def isThicknessable() = true
-	override def isShadowable() = true
-	override def isLineStylable() = true
-	override def isInteriorStylable() = true
-	override def isFillable() = true
-	override def isDbleBorderable() = true
+	override def isShowPtsable = true
+	override def isThicknessable = true
+	override def isShadowable = true
+	override def isLineStylable = true
+	override def isInteriorStylable = true
+	override def isFillable = true
+	override def isDbleBorderable = true
 
-	override def getPlottingStep() = (maxX-minX)/(nbPoints-1)
+	override def getPlottingStep = (maxX-minX)/(nbPoints-1)
 
-	override def getTopLeftPoint() = {
+	override def getTopLeftPoint = {
 		val step = getPlottingStep
 		val pos = getPosition
 		ShapeFactory.createPoint(pos.getX+minX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.min*IShape.PPC*yscale)
 	}
 
-	override def getBottomRightPoint() = {
+	override def getBottomRightPoint = {
 		val step = getPlottingStep
 		val pos = getPosition
 		ShapeFactory.createPoint(pos.getX+maxX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.max*IShape.PPC*yscale)
 	}
 
-	override def getTopRightPoint() = {
+	override def getTopRightPoint = {
 		val step = getPlottingStep
 		val pos = getPosition
 		ShapeFactory.createPoint(pos.getX+maxX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.min*IShape.PPC*yscale)
 	}
 
-	override def getBottomLeftPoint() = {
+	override def getBottomLeftPoint = {
 		val step = getPlottingStep
 		val pos = getPosition
 		ShapeFactory.createPoint(pos.getX+minX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.max*IShape.PPC*yscale)
 	}
 
-	override def getPosition() = getPtAt(0)
+	override def getPosition = getPtAt(0)
 
 	override def getNbPlottedPoints = nbPoints
 
 	override def getY(x:Double) = parser.getY(x)
 
-	override def getEquation() = equation
+	override def getEquation = equation
 
 	override def setEquation(eq:String) {
 		if(eq!=null) {
-			equation = eq;
-			parser = new PSFunctionParser(equation)
+			equation = eq
+      parser = new PSFunctionParser(equation)
 		}
 	}
 
-	override def getMinX() = minX
+	override def getMinX = minX
 
-	override def getMaxX() = maxX
+	override def getMaxX = maxX
 
 	override def setMaxX(x:Double) {
 		if(GLibUtilities.isValidCoordinate(x) && x>minX)

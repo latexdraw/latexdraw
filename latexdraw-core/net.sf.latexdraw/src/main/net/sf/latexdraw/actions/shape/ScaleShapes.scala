@@ -54,11 +54,11 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 
 
 
-	override def isRegisterable() = hadEffect
+	override def isRegisterable = hadEffect
 
 	override def hadEffect = isDone && (!LNumber.equalsDouble(oldWidth, bound.getWidth) || !LNumber.equalsDouble(oldHeight, bound.getHeight))
 
-	override def canDo() = _drawing.isDefined && _shape.isDefined && _refPosition.isDefined && isValidScales
+	override def canDo = _drawing.isDefined && _shape.isDefined && _refPosition.isDefined && isValidScales
 
 
 	private def isValidScales = {
@@ -111,8 +111,8 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 
 	private def scaledHeight(y:Double) : Double = {
 		_refPosition.get match {
-			case ref if(ref.isSouth) => bound.getHeight + bound.getY - y
-			case ref if(ref.isNorth) =>  bound.getHeight + y - bound.getMaxY
+			case ref if ref.isSouth => bound.getHeight + bound.getY - y
+			case ref if ref.isNorth =>  bound.getHeight + y - bound.getMaxY
 			case _ => 0.0
 		}
 	}
@@ -120,8 +120,8 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 
 	private def scaledWidth(x:Double) : Double = {
 		_refPosition.get match {
-			case ref if(ref.isWest) => bound.getWidth + x - bound.getMaxX
-			case ref if(ref.isEast) => bound.getWidth + bound.getX - x
+			case ref if ref.isWest => bound.getWidth + x - bound.getMaxX
+			case ref if ref.isEast => bound.getWidth + bound.getX - x
 			case _ => 0.0
 		}
 	}
@@ -136,7 +136,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 	}
 
 
-	override def getUndoName() = "Resizing"
+	override def getUndoName = "Resizing"
 
 
 	def refPosition = _refPosition

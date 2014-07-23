@@ -88,12 +88,14 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setFreeHandIntervalList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IFreeHandProp])
-					shapes.get(i).asInstanceOf[IFreeHandProp].setInterval(values.get(i))
+				shapes.get(i) match {
+          case prop: IFreeHandProp => prop.setInterval(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getFreeHandIntervalList() : List[java.lang.Integer] = {
+	override def getFreeHandIntervalList: List[java.lang.Integer] = {
 		val list = new ArrayList[java.lang.Integer]()
 		shapes.foreach{
 				case fh : IFreeHandProp => list.add(fh.getInterval)
@@ -106,12 +108,14 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setFreeHandOpenList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IFreeHandProp])
-					shapes.get(i).asInstanceOf[IFreeHandProp].setOpen(values.get(i))
+				shapes.get(i) match {
+          case prop: IFreeHandProp => prop.setOpen(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getFreeHandOpenList() : List[java.lang.Boolean] = {
+	override def getFreeHandOpenList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{
 				case fh : IFreeHandProp => list.add(fh.isOpen)
@@ -124,32 +128,38 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setGridLabelsColourList(values : List[Color]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGridProp])
-					shapes.get(i).asInstanceOf[IGridProp].setGridLabelsColour(values.get(i))
+				shapes.get(i) match {
+          case prop: IGridProp => prop.setGridLabelsColour(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getGridLabelsColourList() : List[Color] = getShapes.map{case sh:IGridProp => sh.getGridLabelsColour; case _ => Color.BLACK}
+	override def getGridLabelsColourList: List[Color] = getShapes.map{case sh:IGridProp => sh.getGridLabelsColour; case _ => Color.BLACK}
 
 	override def setSubGridColourList(values : List[Color]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGridProp])
-					shapes.get(i).asInstanceOf[IGridProp].setSubGridColour(values.get(i))
+				shapes.get(i) match {
+          case prop: IGridProp => prop.setSubGridColour(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getSubGridColourList() : List[Color] = getShapes.map{case sh:IGridProp => sh.getSubGridColour; case _ => Color.BLACK}
+	override def getSubGridColourList: List[Color] = getShapes.map{case sh:IGridProp => sh.getSubGridColour; case _ => Color.BLACK}
 
 	override def setGridWidthList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGridProp])
-					shapes.get(i).asInstanceOf[IGridProp].setGridWidth(values.get(i))
+				shapes.get(i) match {
+          case prop: IGridProp => prop.setGridWidth(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getGridWidthList() : List[java.lang.Double] = {
+	override def getGridWidthList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{
 				case grid : IGridProp => list.add(grid.getGridWidth)
@@ -162,12 +172,14 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setSubGridWidthList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGridProp])
-					shapes.get(i).asInstanceOf[IGridProp].setSubGridWidth(values.get(i))
+				shapes.get(i) match {
+          case prop: IGridProp => prop.setSubGridWidth(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getSubGridWidthList() : List[java.lang.Double] = {
+	override def getSubGridWidthList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{
 				case grid : IGridProp => list.add(grid.getSubGridWidth)
@@ -180,12 +192,14 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setGridDotsList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGridProp])
-					shapes.get(i).asInstanceOf[IGridProp].setGridDots(values.get(i))
+				shapes.get(i) match {
+          case prop: IGridProp => prop.setGridDots(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getGridDotsList() : List[java.lang.Integer] = {
+	override def getGridDotsList: List[java.lang.Integer] = {
 		val list = new ArrayList[java.lang.Integer]()
 		shapes.foreach{
 				case grid : IGridProp => list.add(grid.getGridDots)
@@ -198,12 +212,14 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setSubGridDotsList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGridProp])
-					shapes.get(i).asInstanceOf[IGridProp].setSubGridDots(values.get(i))
+				shapes.get(i) match {
+          case prop: IGridProp => prop.setSubGridDots(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getSubGridDotsList() : List[java.lang.Integer] = {
+	override def getSubGridDotsList: List[java.lang.Integer] = {
 		val list = new ArrayList[java.lang.Integer]()
 		shapes.foreach{
 				case grid : IGridProp => list.add(grid.getSubGridDots)
@@ -216,12 +232,14 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setSubGridDivList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGridProp])
-					shapes.get(i).asInstanceOf[IGridProp].setSubGridDiv(values.get(i))
+				shapes.get(i) match {
+          case prop: IGridProp => prop.setSubGridDiv(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getSubGridDivList() : List[java.lang.Integer] = {
+	override def getSubGridDivList: List[java.lang.Integer] = {
 		val list = new ArrayList[java.lang.Integer]()
 		shapes.foreach{
 				case grid : IGridProp => list.add(grid.getSubGridDiv)
@@ -234,39 +252,47 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setFreeHandTypeList(values : List[FreeHandType]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IFreeHandProp])
-					shapes.get(i).asInstanceOf[IFreeHandProp].setType(values.get(i))
+				shapes.get(i) match {
+          case prop: IFreeHandProp => prop.setType(values.get(i))
+          case _ =>
+        }
 	}
 
-	override def getFreeHandTypeList() : List[FreeHandType] = getShapes.map{case sh:IFreeHandProp => sh.getType; case _ => FreeHandType.CURVES}
+	override def getFreeHandTypeList: List[FreeHandType] = getShapes.map{case sh:IFreeHandProp => sh.getType; case _ => FreeHandType.CURVES}
 
 	override def setAxesDistLabelsList(values : List[IPoint]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxesProp])
-					shapes.get(i).asInstanceOf[IAxesProp].setDistLabels(values.get(i))
+				shapes.get(i) match {
+          case prop: IAxesProp => prop.setDistLabels(values.get(i))
+          case _ =>
+        }
 	}
 
-	override def getAxesDistLabelsList() : List[IPoint] = getShapes.map{case sh:IAxesProp => sh.getDistLabels; case _ => null}
+	override def getAxesDistLabelsList: List[IPoint] = getShapes.map{case sh:IAxesProp => sh.getDistLabels; case _ => null}
 
 	override def setAxesLabelsDisplayedList(values : List[PlottingStyle]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxesProp])
-					shapes.get(i).asInstanceOf[IAxesProp].setLabelsDisplayed(values.get(i))
+				shapes.get(i) match {
+          case prop: IAxesProp => prop.setLabelsDisplayed(values.get(i))
+          case _ =>
+        }
 	}
 
-	override def getAxesLabelsDisplayedList() : List[PlottingStyle] = getShapes.map{case sh:IAxesProp => sh.getLabelsDisplayed; case _ => PlottingStyle.NONE}
+	override def getAxesLabelsDisplayedList: List[PlottingStyle] = getShapes.map{case sh:IAxesProp => sh.getLabelsDisplayed; case _ => PlottingStyle.NONE}
 
 	override def setAxesShowOriginList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxesProp])
-					shapes.get(i).asInstanceOf[IAxesProp].setShowOrigin(values.get(i))
+				shapes.get(i) match {
+          case prop: IAxesProp => prop.setShowOrigin(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getAxesShowOriginList() : List[java.lang.Boolean] = {
+	override def getAxesShowOriginList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{
 				case axes : IAxesProp => list.add(axes.isShowOrigin)
@@ -279,21 +305,25 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesTicksStyleList(values : List[TicksStyle]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxesProp])
-					shapes.get(i).asInstanceOf[IAxesProp].setTicksStyle(values.get(i))
+				shapes.get(i) match {
+          case prop: IAxesProp => prop.setTicksStyle(values.get(i))
+          case _ =>
+        }
 	}
 
-	override def getAxesTicksStyleList() : List[TicksStyle] = getShapes.map{case sh:IAxesProp => sh.getTicksStyle; case _ => TicksStyle.FULL}
+	override def getAxesTicksStyleList: List[TicksStyle] = getShapes.map{case sh:IAxesProp => sh.getTicksStyle; case _ => TicksStyle.FULL}
 
 	override def setAxesTicksSizeList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxesProp])
-					shapes.get(i).asInstanceOf[IAxesProp].setTicksSize(values.get(i))
+				shapes.get(i) match {
+          case prop: IAxesProp => prop.setTicksSize(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getAxesTicksSizeList() : List[java.lang.Double] = {
+	override def getAxesTicksSizeList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{
 				case axes : IAxesProp => list.add(axes.getTicksSize)
@@ -306,30 +336,36 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesTicksDisplayedList(values : List[PlottingStyle]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxesProp])
-					shapes.get(i).asInstanceOf[IAxesProp].setTicksDisplayed(values.get(i))
+				shapes.get(i) match {
+          case prop: IAxesProp => prop.setTicksDisplayed(values.get(i))
+          case _ =>
+        }
 	}
 
-	override def getAxesTicksDisplayedList() : List[PlottingStyle] = getShapes.map{case sh:IAxesProp => sh.getTicksDisplayed; case _ => PlottingStyle.NONE}
+	override def getAxesTicksDisplayedList: List[PlottingStyle] = getShapes.map{case sh:IAxesProp => sh.getTicksDisplayed; case _ => PlottingStyle.NONE}
 
 	override def setAxesIncrementsList(values : List[IPoint]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxesProp])
-					shapes.get(i).asInstanceOf[IAxesProp].setIncrement(values.get(i))
+				shapes.get(i) match {
+          case prop: IAxesProp => prop.setIncrement(values.get(i))
+          case _ =>
+        }
 	}
 
-	override def getAxesIncrementsList() : List[IPoint] = getShapes.map{case sh:IAxesProp => sh.getIncrement; case _ => null}
+	override def getAxesIncrementsList: List[IPoint] = getShapes.map{case sh:IAxesProp => sh.getIncrement; case _ => null}
 
 	override def setGridLabelSizeList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IStdGridProp])
-					shapes.get(i).asInstanceOf[IStdGridProp].setLabelsSize(values.get(i))
+				shapes.get(i) match {
+          case prop: IStdGridProp => prop.setLabelsSize(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getGridLabelSizeList() : List[java.lang.Integer] = {
+	override def getGridLabelSizeList: List[java.lang.Integer] = {
 		val list = new ArrayList[java.lang.Integer]()
 		shapes.foreach{
 				case axes : IStdGridProp => list.add(axes.getLabelsSize)
@@ -342,12 +378,14 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setGridXLabelSouthList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGridProp])
-					shapes.get(i).asInstanceOf[IGridProp].setXLabelSouth(values.get(i))
+				shapes.get(i) match {
+          case prop: IGridProp => prop.setXLabelSouth(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getGridXLabelSouthList() : List[java.lang.Boolean] = {
+	override def getGridXLabelSouthList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{
 				case axes : IGridProp => list.add(axes.isXLabelSouth)
@@ -360,12 +398,14 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setGridYLabelWestList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IGridProp])
-					shapes.get(i).asInstanceOf[IGridProp].setYLabelWest(values.get(i))
+				shapes.get(i) match {
+          case prop: IGridProp => prop.setYLabelWest(values.get(i))
+          case _ =>
+        }
 	}
 
 
-	override def getGridYLabelWestList() : List[java.lang.Boolean] = {
+	override def getGridYLabelWestList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{
 				case axes : IGridProp => list.add(axes.isYLabelWest)
@@ -378,11 +418,13 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAxesStyleList(values : List[AxesStyle]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IAxesProp])
-					shapes.get(i).asInstanceOf[IAxesProp].setAxesStyle(values.get(i))
+				shapes.get(i) match {
+          case prop: IAxesProp => prop.setAxesStyle(values.get(i))
+          case _ =>
+        }
 	}
 
-	override def getAxesStyleList() : List[AxesStyle] = getShapes.map{case sh:IAxesProp => sh.getAxesStyle; case _ => AxesStyle.NONE}
+	override def getAxesStyleList: List[AxesStyle] = getShapes.map{case sh:IAxesProp => sh.getAxesStyle; case _ => AxesStyle.NONE}
 
 	override def setGridOriginList(values : List[IPoint]) = {
 		var pt : IPoint = null
@@ -394,7 +436,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 			}
 	}
 
-	override def getGridOriginList() : List[IPoint] =
+	override def getGridOriginList: List[IPoint] =
 		getShapes.map{case sh:IStdGridProp => ShapeFactory.createPoint(sh.getOriginX, sh.getOriginY); case _ => null}
 
 	override def setGridEndList(values : List[IPoint]) = {
@@ -418,14 +460,14 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 			}
 	}
 
-	override def getGridStartList() : List[IPoint] = getShapes.map{case sh:IStdGridProp => sh.getGridStart; case _ => null}
+	override def getGridStartList: List[IPoint] = getShapes.map{case sh:IStdGridProp => sh.getGridStart; case _ => null}
 
-	override def getGridEndList() : List[IPoint] = getShapes.map{case sh:IStdGridProp => sh.getGridEnd; case _ => null}
+	override def getGridEndList: List[IPoint] = getShapes.map{case sh:IStdGridProp => sh.getGridEnd; case _ => null}
 
-	override def getBordersPositionList() : List[BorderPos] =
+	override def getBordersPositionList: List[BorderPos] =
 		getShapes.map{sh => sh.isBordersMovable match { case true => sh.getBordersPosition; case false => BorderPos.INTO}}
 
-	override def getLineColourList() : List[Color] = getShapes.map{_.getLineColour}
+	override def getLineColourList: List[Color] = getShapes.map{_.getLineColour}
 
 	override def setBordersPositionList(list : List[BorderPos]) = {
 		if(list!=null && list.size==shapes.size)
@@ -442,7 +484,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getAngleStartList() : List[java.lang.Double] = {
+	override def getAngleStartList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{
 				case arc : IArcProp => list.add(arc.getAngleStart)
@@ -452,7 +494,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getAngleEndList() : List[java.lang.Double] = {
+	override def getAngleEndList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{
 				case arc : IArcProp => list.add(arc.getAngleEnd)
@@ -461,19 +503,19 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		return list
 	}
 
-	override def getArcStyleList() : List[ArcStyle] = getShapes.map{case sh:IArcProp => sh.getArcStyle; case _ => ArcStyle.ARC}
+	override def getArcStyleList: List[ArcStyle] = getShapes.map{case sh:IArcProp => sh.getArcStyle; case _ => ArcStyle.ARC}
 
-	override def getRotationAngleList() : List[java.lang.Double] = {
+	override def getRotationAngleList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => list.add(sh.getRotationAngle)}
 		return list
 	}
 
-	override def getTextPositionList() : List[TextPosition] = getShapes.map{case sh:ITextProp => sh.getTextPosition; case _ => TextPosition.BOT_LEFT}
+	override def getTextPositionList: List[TextPosition] = getShapes.map{case sh:ITextProp => sh.getTextPosition; case _ => TextPosition.BOT_LEFT}
 
-	override def getTextList() : List[String] = getShapes.map{case sh:ITextProp => sh.getText; case _ => ""}
+	override def getTextList: List[String] = getShapes.map{case sh:ITextProp => sh.getText; case _ => ""}
 
-	override def getHatchingsAngleList() : List[java.lang.Double] = {
+	override def getHatchingsAngleList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => sh.isInteriorStylable match {
 				case true => list.add(sh.getHatchingsAngle)
@@ -484,7 +526,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getHatchingsWidthList() : List[java.lang.Double] = {
+	override def getHatchingsWidthList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => sh.isInteriorStylable match {
 				case true => list.add(sh.getHatchingsWidth)
@@ -495,7 +537,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getHatchingsSepList() : List[java.lang.Double] = {
+	override def getHatchingsSepList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => sh.isInteriorStylable match {
 				case true => list.add(sh.getHatchingsSep)
@@ -506,7 +548,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getGradAngleList() : List[java.lang.Double] = {
+	override def getGradAngleList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => sh.isInteriorStylable match {
 				case true => list.add(sh.getGradAngle)
@@ -517,7 +559,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getGradMidPtList(): List[java.lang.Double] = {
+	override def getGradMidPtList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => sh.isInteriorStylable match {
 				case true => list.add(sh.getGradMidPt)
@@ -528,7 +570,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getLineArcList() : List[java.lang.Double] = {
+	override def getLineArcList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{
 				case lineArc : ILineArcProp => list.add(lineArc.getLineArc)
@@ -537,11 +579,11 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		return list
 	}
 
-	override def getFillingColList() : List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getFillingCol; case false => Color.BLACK}}
+	override def getFillingColList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getFillingCol; case false => Color.BLACK}}
 
-	override def getHatchingsColList() : List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getHatchingsCol; case false => Color.BLACK}}
+	override def getHatchingsColList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getHatchingsCol; case false => Color.BLACK}}
 
-	override def hasDbleBordList() : List[java.lang.Boolean] = {
+	override def hasDbleBordList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{sh => sh.isDbleBorderable match {
 				case true => list.add(sh.hasDbleBord)
@@ -552,7 +594,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getDbleBordSepList() : List[java.lang.Double] = {
+	override def getDbleBordSepList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => sh.isDbleBorderable match {
 				case true => list.add(sh.getDbleBordSep)
@@ -562,9 +604,9 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		return list
 	}
 
-	override def getDbleBordColList() : List[Color] = getShapes.map{sh => sh.isDbleBorderable match { case true => sh.getDbleBordCol; case false => Color.BLACK}}
+	override def getDbleBordColList: List[Color] = getShapes.map{sh => sh.isDbleBorderable match { case true => sh.getDbleBordCol; case false => Color.BLACK}}
 
-	override def hasShadowList() : List[java.lang.Boolean] = {
+	override def hasShadowList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{sh => sh.isShadowable match {
 				case true => list.add(sh.hasShadow)
@@ -575,7 +617,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getShadowSizeList() : List[java.lang.Double] = {
+	override def getShadowSizeList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => sh.isShadowable match {
 				case true => list.add(sh.getShadowSize)
@@ -586,7 +628,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getShadowAngleList() : List[java.lang.Double] = {
+	override def getShadowAngleList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => sh.isShadowable match {
 				case true => list.add(sh.getShadowAngle)
@@ -596,13 +638,13 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		return list
 	}
 
-	override def getShadowColList() : List[Color] = getShapes.map{sh => sh.isShadowable match { case true => sh.getShadowCol; case false => Color.BLACK}}
+	override def getShadowColList: List[Color] = getShapes.map{sh => sh.isShadowable match { case true => sh.getShadowCol; case false => Color.BLACK}}
 
-	override def getGradColStartList() : List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getGradColStart; case false => Color.BLACK}}
+	override def getGradColStartList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getGradColStart; case false => Color.BLACK}}
 
-	override def getGradColEndList() : List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getGradColEnd; case false => Color.BLACK}}
+	override def getGradColEndList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getGradColEnd; case false => Color.BLACK}}
 
-	override def getThicknessList() : List[java.lang.Double] = {
+	override def getThicknessList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{sh => sh.isThicknessable match {
 				case true => list.add(sh.getThickness)
@@ -612,17 +654,17 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		return list
 	}
 
-	override def getFillingStyleList() : List[FillingStyle] =
+	override def getFillingStyleList: List[FillingStyle] =
 		getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getFillingStyle; case false => FillingStyle.NONE}}
 
-	override def getLineStyleList() : List[LineStyle] =
+	override def getLineStyleList: List[LineStyle] =
 		getShapes.map{sh => sh.isLineStylable match { case true => sh.getLineStyle; case false => LineStyle.SOLID}}
 
-	override def getDotFillingColList() : List[Color] = getShapes.map{case sh:IDotProp => sh.getDotFillingCol; case _ => Color.BLACK}
+	override def getDotFillingColList: List[Color] = getShapes.map{case sh:IDotProp => sh.getDotFillingCol; case _ => Color.BLACK}
 
-	override def getDotStyleList() : List[DotStyle] = getShapes.map{case sh:IDotProp => sh.getDotStyle; case _ => DotStyle.DOT}
+	override def getDotStyleList: List[DotStyle] = getShapes.map{case sh:IDotProp => sh.getDotStyle; case _ => DotStyle.DOT}
 
-	override def getDotSizeList() : List[java.lang.Double] = {
+	override def getDotSizeList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
 		shapes.foreach{
 				case dot : IDotProp => list.add(dot.getDiametre)
@@ -635,32 +677,40 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setAngleStartList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IArcProp])
-					shapes.get(i).asInstanceOf[IArcProp].setAngleStart(values.get(i))
+				shapes.get(i) match {
+          case prop: IArcProp => prop.setAngleStart(values.get(i))
+          case _ =>
+        }
 	}
 
 
 	override def setDotStyleList(values : List[DotStyle]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IDotProp])
-					shapes.get(i).asInstanceOf[IDotProp].setDotStyle(values.get(i))
+				shapes.get(i) match {
+          case prop: IDotProp => prop.setDotStyle(values.get(i))
+          case _ =>
+        }
 	}
 
 
 	override def setAngleEndList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IArcProp])
-					shapes.get(i).asInstanceOf[IArcProp].setAngleEnd(values.get(i))
+				shapes.get(i) match {
+          case prop: IArcProp => prop.setAngleEnd(values.get(i))
+          case _ =>
+        }
 	}
 
 
 	override def setArcStyleList(values : List[ArcStyle]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IArcProp])
-					shapes.get(i).asInstanceOf[IArcProp].setArcStyle(values.get(i))
+				shapes.get(i) match {
+          case prop: IArcProp => prop.setArcStyle(values.get(i))
+          case _ =>
+        }
 	}
 
 
@@ -674,16 +724,20 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setTextPositionList(values : List[TextPosition]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[ITextProp])
-					shapes.get(i).asInstanceOf[ITextProp].setTextPosition(values.get(i))
+				shapes.get(i) match {
+          case prop: ITextProp => prop.setTextPosition(values.get(i))
+          case _ =>
+        }
 	}
 
 
 	override def setTextList(values : List[String]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[ITextProp])
-					shapes.get(i).asInstanceOf[ITextProp].setText(values.get(i))
+				shapes.get(i) match {
+          case prop: ITextProp => prop.setText(values.get(i))
+          case _ =>
+        }
 	}
 
 
@@ -730,8 +784,10 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setLineArcList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[ILineArcProp])
-					shapes.get(i).asInstanceOf[ILineArcProp].setLineArc(values.get(i))
+				shapes.get(i) match {
+          case prop: ILineArcProp => prop.setLineArc(values.get(i))
+          case _ =>
+        }
 	}
 
 
@@ -850,16 +906,20 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	override def setDotFillingColList(values : List[Color]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IDotProp])
-					shapes.get(i).asInstanceOf[IDotProp].setDotFillingCol(values.get(i))
+				shapes.get(i) match {
+          case prop: IDotProp => prop.setDotFillingCol(values.get(i))
+          case _ =>
+        }
 	}
 
 
 	override def setDotSizeList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
-				if(shapes.get(i).isInstanceOf[IDotProp])
-					shapes.get(i).asInstanceOf[IDotProp].setDiametre(values.get(i))
+				shapes.get(i) match {
+          case prop: IDotProp => prop.setDiametre(values.get(i))
+          case _ =>
+        }
 	}
 
 
@@ -871,7 +931,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 	}
 
 
-	override def getShowPointsList() : List[java.lang.Boolean] = {
+	override def getShowPointsList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
 		shapes.foreach{sh => sh.isShowPtsable match {
 				case true => list.add(sh.isShowPts)

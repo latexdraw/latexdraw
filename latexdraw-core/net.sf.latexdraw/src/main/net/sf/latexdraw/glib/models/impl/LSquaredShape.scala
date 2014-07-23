@@ -57,21 +57,21 @@ private[impl] abstract class LSquaredShape(tl:IPoint, width:Double, uniqueID:Boo
 		}
 	}
 
-	override def getHeight() = getWidth
+	override def getHeight = getWidth
 
-	override def getWidth() = points.get(1).getX - points.get(0).getX
+	override def getWidth = points.get(1).getX - points.get(0).getX
 
-	override def isBordersMovable() = true
+	override def isBordersMovable = true
 
-	override def isDbleBorderable() = true
+	override def isDbleBorderable = true
 
-	override def isFillable() = true
+	override def isFillable = true
 
-	override def isInteriorStylable() = true
+	override def isInteriorStylable = true
 
-	override def isLineStylable() = true
+	override def isLineStylable = true
 
-	override def isShadowable() = true
+	override def isShadowable = true
 
-	override def isThicknessable() = true
+	override def isThicknessable = true
 }

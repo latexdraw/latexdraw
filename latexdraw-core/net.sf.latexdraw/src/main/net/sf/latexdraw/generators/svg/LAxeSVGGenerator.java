@@ -82,35 +82,35 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref+LNamespace.XML_GRID_END));
 
-		if(values!=null && values.size()>0) {
+		if(values!=null && !values.isEmpty()) {
 			shape.setGridEndX((int)values.get(0).getX());
 			shape.setGridEndY((int)values.get(0).getY());
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref+LNamespace.XML_GRID_START));
 
-		if(values!=null && values.size()>0) {
+		if(values!=null && !values.isEmpty()) {
 			shape.setGridStartX((int)values.get(0).getX());
 			shape.setGridStartY((int)values.get(0).getY());
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref+LNamespace.XML_GRID_ORIGIN));
 
-		if(values!=null && values.size()>0) {
+		if(values!=null && !values.isEmpty()) {
 			shape.setOriginX((int)values.get(0).getX());
 			shape.setOriginY((int)values.get(0).getY());
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref+LNamespace.XML_AXE_INCREMENT));
 
-		if(values!=null && values.size()>0) {
+		if(values!=null && !values.isEmpty()) {
 			shape.setIncrementX(values.get(0).getX());
 			shape.setIncrementY(values.get(0).getY());
 		}
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref+LNamespace.XML_AXE_DIST_LABELS));
 
-		if(values!=null && values.size()>0) {
+		if(values!=null && !values.isEmpty()) {
 			shape.setDistLabelsX(values.get(0).getX());
 			shape.setDistLabelsY(values.get(0).getY());
 		}

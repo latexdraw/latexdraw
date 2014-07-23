@@ -157,11 +157,8 @@ class LPoint extends Point2D.Double implements IPoint {
 
 	@Override
 	public boolean equals(final IPoint p, final double gap) {
-		if(!GLibUtilities.isValidCoordinate(gap) || !GLibUtilities.isValidPoint(p))
-			return false;
-
-		return LNumber.equalsDouble(x, p.getX(), gap) && LNumber.equalsDouble(y, p.getY(), gap);
-	}
+        return !(!GLibUtilities.isValidCoordinate(gap) || !GLibUtilities.isValidPoint(p)) && LNumber.equalsDouble(x, p.getX(), gap) && LNumber.equalsDouble(y, p.getY(), gap);
+    }
 
 
 

@@ -34,7 +34,7 @@ class DeleteShapes extends Action with ShapesAction with DrawingAction with Undo
 	var positionShapes : Buffer[Int] = _
 
 
-	def isRegisterable() = true
+	def isRegisterable = true
 
 	protected def doActionBody() = {
 		val dr = _drawing.get
@@ -47,7 +47,7 @@ class DeleteShapes extends Action with ShapesAction with DrawingAction with Undo
 		dr.setModified(true)
 	}
 
-	override def canDo() = _drawing.isDefined && !_shapes.isEmpty
+	override def canDo = _drawing.isDefined && !_shapes.isEmpty
 
 	override def undo() {
 		val dr = _drawing.get
@@ -60,5 +60,5 @@ class DeleteShapes extends Action with ShapesAction with DrawingAction with Undo
 		doActionBody
 	}
 
-	override def getUndoName() = "delete"
+	override def getUndoName = "delete"
 }

@@ -88,7 +88,7 @@ public final class IShapeSVGFactory {
 					String type 	= elt.getAttribute(ltdPref+LNamespace.XML_TYPE);
 
 					// If we have a group of shapes.
-					if(type==null || type.length()==0 || LNamespace.XML_TYPE_GROUP.equals(type)) {
+					if(type==null || type.isEmpty() || LNamespace.XML_TYPE_GROUP.equals(type)) {
 						switch(elt.getChildNodes().getLength()) {
 							case 0:
 								return null;
@@ -100,42 +100,26 @@ public final class IShapeSVGFactory {
 					}
 
 					// Otherwise, it should be a latexdraw shape saved in an SVG document.
-					if(type.equals(LNamespace.XML_TYPE_RECT))
-						return new LRectangleSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_ELLIPSE))
-						return new LEllipseSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_CIRCLE))
-						return new LCircleSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_POLYGON))
-						return new LPolygonSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_SQUARE))
-						return new LSquareSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_TRIANGLE))
-						return new LTriangleSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_RHOMBUS))
-						return new LRhombusSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_JOINED_LINES))
-						return new LPolylinesSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_FREEHAND))
-						return new LFreeHandSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_LINE))
-						return new LPolylinesSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_BEZIER_CURVE))
-						return new LBezierCurveSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_GRID))
-						return new LGridSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_AXE))
-						return new LAxeSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_TEXT))
-						return new LTextSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_GROUP))
-						return new LGroupSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_DOT))
-						return new LDotSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_ARC))
-						return new LCircleArcSVGGenerator((SVGGElement)elt, withTransformations).getShape();
-					else if(type.equals(LNamespace.XML_TYPE_PICTURE))
-						return new LPictureSVGGenerator((SVGGElement)elt, withTransformations).getShape();
+                    switch(type) {
+                        case LNamespace.XML_TYPE_RECT: return new LRectangleSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_ELLIPSE: return new LEllipseSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_CIRCLE: return new LCircleSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_POLYGON: return new LPolygonSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_SQUARE: return new LSquareSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_TRIANGLE: return new LTriangleSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_RHOMBUS: return new LRhombusSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_JOINED_LINES: return new LPolylinesSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_FREEHAND: return new LFreeHandSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_LINE: return new LPolylinesSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_BEZIER_CURVE: return new LBezierCurveSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_GRID: return new LGridSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_AXE: return new LAxeSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_TEXT: return new LTextSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_GROUP: return new LGroupSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_DOT: return new LDotSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_ARC: return new LCircleArcSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                        case LNamespace.XML_TYPE_PICTURE: return new LPictureSVGGenerator((SVGGElement) elt, withTransformations).getShape();
+                    }
 				}
 		}
 		catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }

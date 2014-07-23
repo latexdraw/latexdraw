@@ -243,7 +243,7 @@ public interface IArrow extends IArrowable {
 		 */
 		public static ArrowStyle getArrowStyle(final String token) {
 			if(token==null) return null;
-			if(token.length()==0 || NONE.toString().equals(token)) return NONE;
+			if(token.isEmpty() || NONE.toString().equals(token)) return NONE;
 			if(PSTricksConstants.LARROW_STYLE.equals(token) || LEFT_ARROW.toString().equals(token)) return LEFT_ARROW;
 			if(PSTricksConstants.RARROW_STYLE.equals(token) || RIGHT_ARROW.toString().equals(token)) return RIGHT_ARROW;
 			if(PSTricksConstants.DRARROW_STYLE.equals(token) || RIGHT_DBLE_ARROW.toString().equals(token)) return RIGHT_DBLE_ARROW;

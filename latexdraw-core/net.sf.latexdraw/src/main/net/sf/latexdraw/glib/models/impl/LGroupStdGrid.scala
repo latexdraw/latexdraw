@@ -30,31 +30,31 @@ private[impl] trait LGroupStdGrid extends IGroup {
 
 	private def gridShapes = getShapes.flatMap{case x:IStdGridProp => x::Nil; case _ => Nil}
 
-	override def getGridMinX() : Double =
+	override def getGridMinX: Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getGridMinX
 			case _ => Double.NaN
 		}
 
-	override def getGridMaxX() : Double =
+	override def getGridMaxX: Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getGridMaxX
 			case _ => Double.NaN
 		}
 
-	override def getGridMinY() : Double =
+	override def getGridMinY: Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getGridMinY
 			case _ => Double.NaN
 		}
 
-	override def getGridMaxY() =
+	override def getGridMaxY =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getGridMaxY
 			case _ => Double.NaN
 		}
 
-	override def getLabelsSize() : Int =
+	override def getLabelsSize: Int =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getLabelsSize
 			case _ => -1
@@ -72,13 +72,13 @@ private[impl] trait LGroupStdGrid extends IGroup {
 		gridShapes.foreach{_.setGridEndY(y)}
 	}
 
-	override def getGridStartX() : Double =
+	override def getGridStartX: Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getGridStartX
 			case _ => Double.NaN
 		}
 
-	override def getGridStartY() : Double =
+	override def getGridStartY: Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getGridStartY
 			case _ => Double.NaN
@@ -88,13 +88,13 @@ private[impl] trait LGroupStdGrid extends IGroup {
 		gridShapes.foreach{_.setGridStart(x, y)}
 	}
 
-	override def getGridEndX() : Double =
+	override def getGridEndX: Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getGridEndX
 			case _ => Double.NaN
 		}
 
-	override def getGridEndY() : Double =
+	override def getGridEndY: Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getGridEndY
 			case _ => Double.NaN
@@ -104,13 +104,13 @@ private[impl] trait LGroupStdGrid extends IGroup {
 		gridShapes.foreach{_.setGridEnd(x, y)}
 	}
 
-	override def getOriginX() : Double =
+	override def getOriginX: Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getOriginX
 			case _ => Double.NaN
 		}
 
-	override def getOriginY() : Double =
+	override def getOriginY: Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getOriginY
 			case _ => Double.NaN
@@ -136,19 +136,19 @@ private[impl] trait LGroupStdGrid extends IGroup {
 		gridShapes.foreach{_.setOriginY(y)}
 	}
 
-	override def getStep() : Double =
+	override def getStep: Double =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getStep
 			case _ => Double.NaN
 		}
 
-	override def getGridStart() : IPoint =
+	override def getGridStart: IPoint =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getGridStart
 			case _ => null
 		}
 
-	override def getGridEnd() : IPoint =
+	override def getGridEnd: IPoint =
 		firstIStdGrid match {
 			case Some(stdGrid) => stdGrid.getGridEnd
 			case _ => null

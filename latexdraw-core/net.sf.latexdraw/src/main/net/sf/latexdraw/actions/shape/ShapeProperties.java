@@ -51,7 +51,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Boolean> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getShowPointsList();
+			return group==null ? Collections.<Boolean>emptyList() : group.getShowPointsList();
 		}
 
 		@Override
@@ -81,7 +81,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Boolean> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getAxesShowOriginList();
+			return group==null ? Collections.<Boolean>emptyList() : group.getAxesShowOriginList();
 		}
 
 		@Override
@@ -111,7 +111,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<IPoint> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getAxesDistLabelsList();
+			return group==null ? Collections.<IPoint>emptyList() : group.getAxesDistLabelsList();
 		}
 
 		@Override
@@ -141,7 +141,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<IPoint> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getAxesIncrementsList();
+			return group==null ? Collections.<IPoint>emptyList() : group.getAxesIncrementsList();
 		}
 
 		@Override
@@ -171,7 +171,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<PlottingStyle> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getAxesLabelsDisplayedList();
+			return group==null ? Collections.<PlottingStyle>emptyList() : group.getAxesLabelsDisplayedList();
 		}
 
 		@Override
@@ -201,7 +201,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<PlottingStyle> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getAxesTicksDisplayedList();
+			return group==null ? Collections.<PlottingStyle>emptyList() : group.getAxesTicksDisplayedList();
 		}
 
 		@Override
@@ -231,7 +231,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getSubGridWidthList();
+			return group==null ? Collections.<Double>emptyList() : group.getSubGridWidthList();
 		}
 
 		@Override
@@ -261,7 +261,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Boolean> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getFreeHandOpenList();
+			return group==null ? Collections.<Boolean>emptyList() : group.getFreeHandOpenList();
 		}
 
 		@Override
@@ -291,7 +291,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Integer> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getFreeHandIntervalList();
+			return group==null ? Collections.<Integer>emptyList() : group.getFreeHandIntervalList();
 		}
 
 		@Override
@@ -321,7 +321,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Integer> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getSubGridDivList();
+			return group==null ? Collections.<Integer>emptyList() : group.getSubGridDivList();
 		}
 
 		@Override
@@ -351,7 +351,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Integer> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getSubGridDotsList();
+			return group==null ? Collections.<Integer>emptyList() : group.getSubGridDotsList();
 		}
 
 		@Override
@@ -381,7 +381,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Integer> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGridDotsList();
+			return group==null ? Collections.<Integer>emptyList() : group.getGridDotsList();
 		}
 
 		@Override
@@ -411,7 +411,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGridWidthList();
+			return group==null ? Collections.<Double>emptyList() : group.getGridWidthList();
 		}
 
 		@Override
@@ -471,7 +471,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<TicksStyle> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getAxesTicksStyleList();
+			return group==null ? Collections.<TicksStyle>emptyList() : group.getAxesTicksStyleList();
 		}
 
 		@Override
@@ -501,7 +501,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<FreeHandType> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getFreeHandTypeList();
+			return group==null ? Collections.<FreeHandType>emptyList() : group.getFreeHandTypeList();
 		}
 
 		@Override
@@ -531,7 +531,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<AxesStyle> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getAxesStyleList();
+			return group==null ? Collections.<AxesStyle>emptyList() : group.getAxesStyleList();
 		}
 
 		@Override
@@ -561,7 +561,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Boolean> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGridYLabelWestList();
+			return group==null ? Collections.<Boolean>emptyList() : group.getGridYLabelWestList();
 		}
 
 		@Override
@@ -591,7 +591,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Boolean> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGridXLabelSouthList();
+			return group==null ? Collections.<Boolean>emptyList() : group.getGridXLabelSouthList();
 		}
 
 		@Override
@@ -621,7 +621,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Integer> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGridLabelSizeList();
+			return group==null ? Collections.<Integer>emptyList() : group.getGridLabelSizeList();
 		}
 
 		@Override
@@ -654,7 +654,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getTBarSizeDimList();
+			return group==null ? Collections.<Double>emptyList() : group.getTBarSizeDimList();
 		}
 
 		@Override
@@ -684,7 +684,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getTBarSizeNumList();
+			return group==null ? Collections.<Double>emptyList() : group.getTBarSizeNumList();
 		}
 
 		@Override
@@ -714,7 +714,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getDotSizeNumList();
+			return group==null ? Collections.<Double>emptyList() : group.getDotSizeNumList();
 		}
 
 		@Override
@@ -744,7 +744,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getDotSizeDimList();
+			return group==null ? Collections.<Double>emptyList() : group.getDotSizeDimList();
 		}
 
 		@Override
@@ -774,7 +774,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getBracketNumList();
+			return group==null ? Collections.<Double>emptyList() : group.getBracketNumList();
 		}
 
 		@Override
@@ -804,7 +804,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getRBracketNumList();
+			return group==null ? Collections.<Double>emptyList() : group.getRBracketNumList();
 		}
 
 		@Override
@@ -834,7 +834,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getArrowSizeNumList();
+			return group==null ? Collections.<Double>emptyList() : group.getArrowSizeNumList();
 		}
 
 		@Override
@@ -864,7 +864,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getArrowSizeDimList();
+			return group==null ? Collections.<Double>emptyList() : group.getArrowSizeDimList();
 		}
 
 		@Override
@@ -893,7 +893,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getArrowLengthList();
+			return group==null ? Collections.<Double>emptyList() : group.getArrowLengthList();
 		}
 
 		@Override
@@ -923,7 +923,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getArrowInsetList();
+			return group==null ? Collections.<Double>emptyList() : group.getArrowInsetList();
 		}
 
 		@Override
@@ -950,7 +950,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<IPoint> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGridEndList();
+			return group==null ? Collections.<IPoint>emptyList() : group.getGridEndList();
 		}
 
 		@Override
@@ -982,7 +982,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<IPoint> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGridOriginList();
+			return group==null ? Collections.<IPoint>emptyList() : group.getGridOriginList();
 		}
 
 		@Override
@@ -1014,7 +1014,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<IPoint> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGridStartList();
+			return group==null ? Collections.<IPoint>emptyList() : group.getGridStartList();
 		}
 
 		@Override
@@ -1046,7 +1046,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getAngleStartList();
+			return group==null ? Collections.<Double>emptyList() : group.getAngleStartList();
 		}
 
 		@Override
@@ -1076,7 +1076,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getAngleEndList();
+			return group==null ? Collections.<Double>emptyList() : group.getAngleEndList();
 		}
 
 		@Override
@@ -1106,7 +1106,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<ArcStyle> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getArcStyleList();
+			return group==null ? Collections.<ArcStyle>emptyList() : group.getArcStyleList();
 		}
 
 		@Override
@@ -1136,7 +1136,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<ArrowStyle> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST :group.getArrowStyleList(-1);
+			return group==null ? Collections.<ArrowStyle>emptyList() :group.getArrowStyleList(-1);
 		}
 
 		@Override
@@ -1165,7 +1165,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<ArrowStyle> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST :group.getArrowStyleList(0);
+			return group==null ? Collections.<ArrowStyle>emptyList() :group.getArrowStyleList(0);
 		}
 
 		@Override
@@ -1195,7 +1195,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<TextPosition> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getTextPositionList();
+			return group==null ? Collections.<TextPosition>emptyList() : group.getTextPositionList();
 		}
 
 		@Override
@@ -1225,7 +1225,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<String> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getTextList();
+			return group==null ? Collections.<String>emptyList() : group.getTextList();
 		}
 
 		@Override
@@ -1255,7 +1255,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getHatchingsAngleList();
+			return group==null ? Collections.<Double>emptyList() : group.getHatchingsAngleList();
 		}
 
 		@Override
@@ -1285,7 +1285,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getHatchingsWidthList();
+			return group==null ? Collections.<Double>emptyList() : group.getHatchingsWidthList();
 		}
 
 		@Override
@@ -1315,7 +1315,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getHatchingsSepList();
+			return group==null ? Collections.<Double>emptyList() : group.getHatchingsSepList();
 		}
 
 		@Override
@@ -1345,7 +1345,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGradAngleList();
+			return group==null ? Collections.<Double>emptyList() : group.getGradAngleList();
 		}
 
 		@Override
@@ -1375,7 +1375,7 @@ public enum ShapeProperties {
 
 			@Override
 			public List<Double> getPropertyValues(final IGroup group) {
-				return group==null ? Collections.EMPTY_LIST : group.getGradMidPtList();
+				return group==null ? Collections.<Double>emptyList() : group.getGradMidPtList();
 			}
 
 			@Override
@@ -1405,7 +1405,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getLineArcList();
+			return group==null ? Collections.<Double>emptyList() : group.getLineArcList();
 		}
 
 		@Override
@@ -1435,7 +1435,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getSubGridColourList();
+			return group==null ? Collections.<Color>emptyList() : group.getSubGridColourList();
 		}
 
 		@Override
@@ -1465,7 +1465,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGridLabelsColourList();
+			return group==null ? Collections.<Color>emptyList() : group.getGridLabelsColourList();
 		}
 
 		@Override
@@ -1495,7 +1495,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getFillingColList();
+			return group==null ? Collections.<Color>emptyList() : group.getFillingColList();
 		}
 
 		@Override
@@ -1525,7 +1525,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getLineColourList();
+			return group==null ? Collections.<Color>emptyList() : group.getLineColourList();
 		}
 
 		@Override
@@ -1555,7 +1555,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getHatchingsColList();
+			return group==null ? Collections.<Color>emptyList() : group.getHatchingsColList();
 		}
 
 		@Override
@@ -1585,7 +1585,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Boolean> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.hasDbleBordList();
+			return group==null ? Collections.<Boolean>emptyList() : group.hasDbleBordList();
 		}
 
 		@Override
@@ -1615,7 +1615,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getDbleBordSepList();
+			return group==null ? Collections.<Double>emptyList() : group.getDbleBordSepList();
 		}
 
 		@Override
@@ -1645,7 +1645,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getDbleBordColList();
+			return group==null ? Collections.<Color>emptyList() : group.getDbleBordColList();
 		}
 
 		@Override
@@ -1675,7 +1675,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Boolean> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.hasShadowList();
+			return group==null ? Collections.<Boolean>emptyList() : group.hasShadowList();
 		}
 
 		@Override
@@ -1705,7 +1705,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getShadowSizeList();
+			return group==null ? Collections.<Double>emptyList() : group.getShadowSizeList();
 		}
 
 		@Override
@@ -1735,7 +1735,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getShadowAngleList();
+			return group==null ? Collections.<Double>emptyList() : group.getShadowAngleList();
 		}
 
 		@Override
@@ -1765,7 +1765,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getShadowColList();
+			return group==null ? Collections.<Color>emptyList() : group.getShadowColList();
 		}
 
 		@Override
@@ -1795,7 +1795,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGradColStartList();
+			return group==null ? Collections.<Color>emptyList() : group.getGradColStartList();
 		}
 
 		@Override
@@ -1825,7 +1825,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getGradColEndList();
+			return group==null ? Collections.<Color>emptyList() : group.getGradColEndList();
 		}
 
 		@Override
@@ -1855,7 +1855,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getThicknessList();
+			return group==null ? Collections.<Double>emptyList() : group.getThicknessList();
 		}
 
 		@Override
@@ -1885,7 +1885,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<FillingStyle> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getFillingStyleList();
+			return group==null ? Collections.<FillingStyle>emptyList() : group.getFillingStyleList();
 		}
 
 		@Override
@@ -1915,7 +1915,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<BorderPos> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getBordersPositionList();
+			return group==null ? Collections.<BorderPos>emptyList() : group.getBordersPositionList();
 		}
 
 		@Override
@@ -1945,7 +1945,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<LineStyle> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getLineStyleList();
+			return group==null ? Collections.<LineStyle>emptyList() : group.getLineStyleList();
 		}
 
 		@Override
@@ -1975,7 +1975,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Color> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getDotFillingColList();
+			return group==null ? Collections.<Color>emptyList() : group.getDotFillingColList();
 		}
 
 		@Override
@@ -2005,7 +2005,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<DotStyle> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getDotStyleList();
+			return group==null ? Collections.<DotStyle>emptyList() : group.getDotStyleList();
 		}
 
 		@Override
@@ -2035,7 +2035,7 @@ public enum ShapeProperties {
 
 		@Override
 		public List<Double> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.EMPTY_LIST : group.getDotSizeList();
+			return group==null ? Collections.<Double>emptyList() : group.getDotSizeList();
 		}
 
 		@Override

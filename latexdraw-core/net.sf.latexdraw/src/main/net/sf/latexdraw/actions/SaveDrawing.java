@@ -91,7 +91,7 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 			else quit();
 		else {
 			if(file==null)
-				file = showDialog(fileChooser, saveAs, ui, file);
+				file = showDialog(fileChooser, saveAs, ui, null);
 			if(file==null)
 				ok = false;
 			else
@@ -142,7 +142,7 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 		if(f==null)
 			return null;
 
-		if(f.getPath().toLowerCase().indexOf(SVGFilter.SVG_EXTENSION.toLowerCase()) ==-1)
+		if(!f.getPath().toLowerCase().endsWith(SVGFilter.SVG_EXTENSION.toLowerCase()))
 			f = new File(f.getPath() + SVGFilter.SVG_EXTENSION);
 
 		if(f.exists()) {

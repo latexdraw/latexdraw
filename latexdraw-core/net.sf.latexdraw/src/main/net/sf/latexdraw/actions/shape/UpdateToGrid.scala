@@ -52,7 +52,7 @@ class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Mo
 	}
 
 
-	override def canDo() = _shape!=null && _grid!=null
+	override def canDo = _shape!=null && _grid!=null
 
 	override def undo() {
 		var i = 0
@@ -84,9 +84,9 @@ class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Mo
 	}
 
 
-	override def getUndoName() = "Update to grid"
+	override def getUndoName = "Update to grid"
 
-	override def isRegisterable() = hadEffect
+	override def isRegisterable = hadEffect
 
 	/** Sets the magnetic grid to use. */
 	def setGrid(grid:LMagneticGrid) {

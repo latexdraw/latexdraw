@@ -52,7 +52,7 @@ private[impl] trait LArrowableShape extends IArrowableShape {
 
 	override def getArrowIndex(arrow:IArrow) = arrows.indexOf(arrow)
 
-	override def getNbArrows() = arrows.size
+	override def getNbArrows = arrows.size
 
 	override def setDotSizeDim(dotSizeDim:Double) {
 		arrows.foreach{_.setDotSizeDim(dotSizeDim)}
@@ -70,9 +70,9 @@ private[impl] trait LArrowableShape extends IArrowableShape {
 		arrows.foreach{_.setTBarSizeDim(tbarSizeDim)}
 	}
 
-	override def getTBarSizeDim() = if(arrows.isEmpty) Double.NaN else arrows(0).getTBarSizeDim
+	override def getTBarSizeDim = if(arrows.isEmpty) Double.NaN else arrows(0).getTBarSizeDim
 
-	override def getTBarSizeNum() = if(arrows.isEmpty) Double.NaN else arrows(0).getTBarSizeNum
+	override def getTBarSizeNum = if(arrows.isEmpty) Double.NaN else arrows(0).getTBarSizeNum
 
 	override def setRBracketNum(rBracketNum:Double) {
 		arrows.foreach{_.setRBracketNum(rBracketNum)}
@@ -98,21 +98,21 @@ private[impl] trait LArrowableShape extends IArrowableShape {
 		arrows.foreach{_.setArrowInset(inset)}
 	}
 
-	override def getDotSizeDim() = if(arrows.isEmpty) Double.NaN else arrows(0).getDotSizeDim
+	override def getDotSizeDim = if(arrows.isEmpty) Double.NaN else arrows(0).getDotSizeDim
 
-	override def getDotSizeNum() = if(arrows.isEmpty) Double.NaN else arrows(0).getDotSizeNum
+	override def getDotSizeNum = if(arrows.isEmpty) Double.NaN else arrows(0).getDotSizeNum
 
-	override def getBracketNum() = if(arrows.isEmpty) Double.NaN else arrows(0).getBracketNum
+	override def getBracketNum = if(arrows.isEmpty) Double.NaN else arrows(0).getBracketNum
 
-	override def getArrowSizeNum() = if(arrows.isEmpty) Double.NaN else arrows(0).getArrowSizeNum
+	override def getArrowSizeNum = if(arrows.isEmpty) Double.NaN else arrows(0).getArrowSizeNum
 
-	override def getArrowSizeDim() = if(arrows.isEmpty) Double.NaN else arrows(0).getArrowSizeDim
+	override def getArrowSizeDim = if(arrows.isEmpty) Double.NaN else arrows(0).getArrowSizeDim
 
-	override def getArrowInset() = if(arrows.isEmpty) Double.NaN else arrows(0).getArrowInset
+	override def getArrowInset = if(arrows.isEmpty) Double.NaN else arrows(0).getArrowInset
 
-	override def getArrowLength() = if(arrows.isEmpty) Double.NaN else arrows(0).getArrowLength
+	override def getArrowLength = if(arrows.isEmpty) Double.NaN else arrows(0).getArrowLength
 
-	override def getRBracketNum() = if(arrows.isEmpty) Double.NaN else arrows(0).getRBracketNum
+	override def getRBracketNum = if(arrows.isEmpty) Double.NaN else arrows(0).getRBracketNum
 
 	override def setArrowStyle(style:ArrowStyle, position:Int) {
 		if(style==null) return

@@ -115,9 +115,7 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 
 	@Override
 	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-		builder.append(super.toString()).append("[centre=").append(point).append(", size=").append(size).append(", colour=").append(colour).append(']');
-		return builder.toString();
+        return super.toString() + "[centre=" + point + ", size=" + size + ", colour=" + colour + ']';
 	}
 
 	@Override

@@ -29,7 +29,7 @@ private[impl] trait LGroupArc extends IGroup {
 
 	private def arcShapes = getShapes.flatMap{case x:IArcProp => x::Nil; case _ => Nil}
 
-	override def getArcStyle() : IArcProp.ArcStyle =
+	override def getArcStyle: IArcProp.ArcStyle =
 		firstIArcProp match {
 			case Some(arc) => arc.getArcStyle
 			case _ => IArcProp.ArcStyle.ARC
@@ -39,7 +39,7 @@ private[impl] trait LGroupArc extends IGroup {
 		arcShapes.foreach{_.setArcStyle(typeArc)}
 	}
 
-	override def getAngleStart() : Double =
+	override def getAngleStart: Double =
 		firstIArcProp match {
 			case Some(arc) => arc.getAngleStart
 			case _ => Double.NaN
@@ -49,7 +49,7 @@ private[impl] trait LGroupArc extends IGroup {
 		arcShapes.foreach{_.setAngleStart(angleStart)}
 	}
 
-	override def getAngleEnd() : Double =
+	override def getAngleEnd: Double =
 		firstIArcProp match {
 			case Some(arc) => arc.getAngleEnd
 			case _ => Double.NaN

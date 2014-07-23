@@ -60,10 +60,8 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 
 	@Override
 	public boolean setPoint(final IPoint p, final int position) {
-		if(p==null)
-			return false;
-		return setPoint(p.getX(), p.getY(), position);
-	}
+        return p != null && setPoint(p.getX(), p.getY(), position);
+    }
 
 
 
@@ -84,9 +82,8 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 	public boolean removePoint(final IPoint pt) {
 		if(pt==null) return false;
 		final int ind = points.indexOf(pt);
-		if(ind!=-1) return removePoint(ind)!=null;
-		return false;
-	}
+        return ind != -1 && removePoint(ind) != null;
+    }
 
 
 	@Override

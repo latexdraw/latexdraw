@@ -414,13 +414,13 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 			// We export the updated template
 			if(files!=null)
-				for(int i=0; i<files.length; i++)
-					if(filter.accept(files[i]))
-						try {
-							template = toLatexdraw(new SVGDocument(files[i].toURI()), 0);
-							thumbnail = new File(pathCache+File.separator+files[i].getName()+PNGFilter.PNG_EXTENSION);
-							createTemplateThumbnail(thumbnail, template);
-						}catch(final Exception ex){ BadaboomCollector.INSTANCE.add(ex); }
+                for(File file : files)
+                    if(filter.accept(file))
+                        try {
+                            template = toLatexdraw(new SVGDocument(file.toURI()), 0);
+                            thumbnail = new File(pathCache + File.separator + file.getName() + PNGFilter.PNG_EXTENSION);
+                            createTemplateThumbnail(thumbnail, template);
+                        }catch(final Exception ex) {BadaboomCollector.INSTANCE.add(ex);}
 		}
 
 
@@ -635,7 +635,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 				setProgress((int)Math.min(100., getProgress()+incrProgressBar));
 			}
 
-			return shapes.size() == 1 ? shapes.getShapeAt(0) : shapes.size()==0 ? null : shapes;
+			return shapes.size() == 1 ? shapes.getShapeAt(0) : shapes.isEmpty() ? null : shapes;
 		}
 	}
 

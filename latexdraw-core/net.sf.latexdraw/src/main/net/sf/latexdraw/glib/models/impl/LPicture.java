@@ -93,7 +93,6 @@ class LPicture extends LPositionShape implements IPicture {
 	/**
 	 * Creates an EPS image from the source one.
 	 * @throws IOException If a problem while reading/writing files occurs.
-	 * @throws IOException If the writing is not possible.
 	 * @since 2.0.0
 	 */
 	protected void createEPSImage() throws IOException {

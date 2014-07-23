@@ -1,7 +1,5 @@
 package net.sf.latexdraw.badaboom;
 
-import java.util.Objects;
-
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -32,19 +30,12 @@ public class BadaboomTableModel extends AbstractTableModel {
 
 	protected static final String NAME_COL3		= "Location";
 
-	/** The table data. */
-	protected BadaboomCollector collector;
-
-
 
 	/**
 	 * Creates and initialises a table model for the badaboom manager.
-	 * @param collector The exceptions collector.
-	 * @throws NullPointerException If the given collector is null.
 	 */
-	public BadaboomTableModel(final BadaboomCollector collector) {
+	public BadaboomTableModel() {
 		super();
-		this.collector = Objects.requireNonNull(collector);
 	}
 
 
@@ -67,20 +58,20 @@ public class BadaboomTableModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return collector.size();
+		return BadaboomCollector.INSTANCE.size();
 	}
 
 
 	@Override
 	public String getValueAt(final int rowIndex, final int columnIndex) {
-		if(rowIndex<0 || rowIndex>=collector.size())
+		if(rowIndex<0 || rowIndex>=BadaboomCollector.INSTANCE.size())
 			return null;
 
 		switch(columnIndex) {
-			case 0: return collector.get(rowIndex).toString();
-			case 1: return collector.get(rowIndex).getMessage();
+			case 0: return BadaboomCollector.INSTANCE.get(rowIndex).toString();
+			case 1: return BadaboomCollector.INSTANCE.get(rowIndex).getMessage();
 			case 2:
-				final StackTraceElement[] stack = collector.get(rowIndex).getStackTrace();
+				final StackTraceElement[] stack = BadaboomCollector.INSTANCE.get(rowIndex).getStackTrace();
 				return stack!=null && stack.length>0 ? stack[0].toString() : null;
 
 			default: return null;

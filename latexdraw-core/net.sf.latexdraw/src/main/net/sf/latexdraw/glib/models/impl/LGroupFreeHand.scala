@@ -29,7 +29,7 @@ private[impl] trait LGroupFreeHand extends IGroup {
 
 	private def fhShapes = getShapes.flatMap{case x:IFreeHandProp => x::Nil; case _ => Nil}
 
-	override def getType() : IFreeHandProp.FreeHandType = {
+	override def getType: IFreeHandProp.FreeHandType = {
 		firstIFreeHand match {
 			case Some(fh) => fh.getType
 			case _ => IFreeHandProp.FreeHandType.CURVES
@@ -40,7 +40,7 @@ private[impl] trait LGroupFreeHand extends IGroup {
 		fhShapes.foreach{_.setType(fhType)}
 	}
 
-	override def isOpen() : Boolean = {
+	override def isOpen: Boolean = {
 		firstIFreeHand match {
 			case Some(fh) => fh.isOpen
 			case _ => false
@@ -51,7 +51,7 @@ private[impl] trait LGroupFreeHand extends IGroup {
 		fhShapes.foreach{_.setOpen(open)}
 	}
 
-	override def getInterval() : Int = {
+	override def getInterval: Int = {
 		firstIFreeHand match {
 			case Some(fh) => fh.getInterval
 			case _ => 0

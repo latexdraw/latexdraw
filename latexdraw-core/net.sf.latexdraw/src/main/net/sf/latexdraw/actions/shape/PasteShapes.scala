@@ -41,20 +41,20 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 
 	var pastedShapes : List[IShape] = Nil
 
-	override def canDo() = _copy!=null && _grid!=null && _drawing.isDefined
+	override def canDo = _copy!=null && _grid!=null && _drawing.isDefined
 
 
-	override def isRegisterable() = true
+	override def isRegisterable = true
 
 
 	override def doActionBody() {
 		val dr = _drawing.get
 		// While pasting cut shapes, the first paste must be at the same position that the original shapes.
 		// But for pasting after just copying, a initial gap must be used.
-		if(!(_copy.isInstanceOf[CutShapes]))
+		if(!_copy.isInstanceOf[CutShapes])
 			_copy.nbTimeCopied+=1
 
-		val gapPaste = if(_grid.isMagnetic()) _grid.getGridSpacing() else 10
+		val gapPaste = if(_grid.isMagnetic) _grid.getGridSpacing else 10
 		val gap = _copy.nbTimeCopied*gapPaste
 
 		_copy.copiedShapes.foreach{shape =>
@@ -88,7 +88,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 
 	override def redo() {
 		val dr = _drawing.get
-		if(!(_copy.isInstanceOf[CutShapes]))
+		if(!_copy.isInstanceOf[CutShapes])
 			_copy.nbTimeCopied+=1
 
 		pastedShapes.foreach{sh => dr.addShape(sh)}
@@ -100,7 +100,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 	}
 
 
-	override def getUndoName() = LResources.LABEL_PASTE
+	override def getUndoName = LResources.LABEL_PASTE
 
 
 	override def followingActions = {

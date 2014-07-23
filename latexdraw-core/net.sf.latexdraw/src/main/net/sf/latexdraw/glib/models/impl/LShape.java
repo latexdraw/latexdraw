@@ -837,8 +837,7 @@ abstract class LShape implements IShape {
 	@Override
 	public void translate(final double tx, final double ty) {
 		if(GLibUtilities.isValidPoint(tx, ty))
-			for(int i=0, size=points.size(); i<size; i++)
-				points.get(i).translate(tx, ty);
+            for (IPoint point : points) point.translate(tx, ty);
 	}
 
 
@@ -878,7 +877,7 @@ abstract class LShape implements IShape {
 	public IPoint getBottomRightPoint() {
 		final IPoint br = ShapeFactory.createPoint();
 
-		if(points.size()>0) {
+		if(!points.isEmpty()) {
 			IPoint pt = points.get(0);
 			br.setPoint(pt);
 
@@ -898,7 +897,7 @@ abstract class LShape implements IShape {
 	public IPoint getBottomLeftPoint() {
 		final IPoint bl = ShapeFactory.createPoint();
 
-		if(points.size()>0) {
+		if(!points.isEmpty()) {
 			IPoint pt = points.get(0);
 			bl.setPoint(pt);
 
@@ -918,7 +917,7 @@ abstract class LShape implements IShape {
 	public IPoint getTopLeftPoint() {
 		final IPoint tl = ShapeFactory.createPoint();
 
-		if(points.size()>0) {
+		if(!points.isEmpty()) {
 			IPoint pt = points.get(0);
 			tl.setPoint(pt);
 
@@ -938,7 +937,7 @@ abstract class LShape implements IShape {
 	public IPoint getTopRightPoint() {
 		final IPoint tr = ShapeFactory.createPoint();
 
-		if(points.size()>0) {
+		if(!points.isEmpty()) {
 			IPoint pt = points.get(0);
 			tr.setPoint(pt);
 
@@ -1040,11 +1039,9 @@ abstract class LShape implements IShape {
 
 	@Override
 	public boolean isTypeOf(final Class<?> clazz) {
-		if(clazz==null)
-			return false;
+        return clazz != null && clazz.isInstance(this);
 
-		return clazz.isInstance(this);
-	}
+    }
 
 
 	@Override

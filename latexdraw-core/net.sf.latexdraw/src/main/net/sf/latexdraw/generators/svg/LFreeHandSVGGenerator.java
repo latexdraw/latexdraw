@@ -83,8 +83,6 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 			try{ shape.setRotationAngle(Double.valueOf(v)); }
 			catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-		v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE);
-
 		try{
 			FreeHandType type = FreeHandType.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE));
 			if(type==null) {

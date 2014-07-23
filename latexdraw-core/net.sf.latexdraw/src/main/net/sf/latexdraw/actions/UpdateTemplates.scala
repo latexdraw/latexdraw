@@ -27,13 +27,13 @@ class UpdateTemplates extends Action with TemplateAction{
 	var _updateThumbnails = false
 
 
-	override def isRegisterable() = false
+	override def isRegisterable = false
 
 	override def doActionBody() {
 		SVGDocumentGenerator.INSTANCE.updateTemplates(_templatesMenu.get, _updateThumbnails)
 	}
 
-	override def canDo() = _templatesMenu.isDefined
+	override def canDo = _templatesMenu.isDefined
 
 	/**
 	 * @param updateThumbnails Defines if the thumbnails must be updated.

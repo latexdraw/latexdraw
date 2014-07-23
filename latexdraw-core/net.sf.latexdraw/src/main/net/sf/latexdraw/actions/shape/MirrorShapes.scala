@@ -52,9 +52,9 @@ class MirrorShapes extends Action with ShapeAction[IShape] with Undoable with Mo
 		doActionBody()
 	}
 
-	override def getUndoName() = "mirror"
+	override def getUndoName = "mirror"
 
-	override def isRegisterable()  = true
+	override def isRegisterable = true
 
 	/**
 	 * If true, the mirroring is horizontal. Otherwise, vertical.

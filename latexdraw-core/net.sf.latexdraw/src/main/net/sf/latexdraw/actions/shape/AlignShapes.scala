@@ -268,9 +268,9 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 		_border = rec
 	}
 
-	override def getUndoName() = "align"
+	override def getUndoName = "align"
 
-	override def isRegisterable()  = true
+	override def isRegisterable = true
 
 	override def flush() {
 		super.flush

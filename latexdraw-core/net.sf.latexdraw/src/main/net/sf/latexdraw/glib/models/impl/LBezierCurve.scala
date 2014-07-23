@@ -45,7 +45,7 @@ private[impl] class LBezierCurve(var isClosed:Boolean, uniqueID:Boolean)
 	}
 
 	override def getArrowLine(arrow:IArrow) : ILine = {
-		if(getNbPoints()<2) return null
+		if(getNbPoints<2) return null
 		arrows.indexOf(arrow) match {
 			case 0 => return ShapeFactory.createLine(points.get(0), firstCtrlPts.get(0))
 			case 1 => return ShapeFactory.createLine(points.get(points.size-1), firstCtrlPts.get(points.size-1))
@@ -57,11 +57,11 @@ private[impl] class LBezierCurve(var isClosed:Boolean, uniqueID:Boolean)
 		this.isClosed = isClosed
 	}
 
-	override def isDbleBorderable() = true
+	override def isDbleBorderable = true
 
-	override def isFillable() = true
+	override def isFillable = true
 
-	override def isInteriorStylable() = true
+	override def isInteriorStylable = true
 
 	override def copy(sh:IShape) {
 		super[LAbstractCtrlPointShape].copy(sh)
@@ -72,13 +72,13 @@ private[impl] class LBezierCurve(var isClosed:Boolean, uniqueID:Boolean)
 		}
 	}
 
-	override def isLineStylable() = true
+	override def isLineStylable = true
 
-	override def isShadowable() = true
+	override def isShadowable = true
 
-	override def isThicknessable() = true
+	override def isThicknessable = true
 
 	override def shadowFillsShape() = false
 
-	override def isShowPtsable() = true
+	override def isShowPtsable = true
 }

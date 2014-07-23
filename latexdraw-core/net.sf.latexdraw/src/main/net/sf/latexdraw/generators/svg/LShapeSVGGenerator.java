@@ -266,7 +266,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				}
 				else {
 					final IPoint gravityCenter 	= shape.getGravityCentre();
-					double angle 				= Double.NaN;
+					double angle;
 					double shSize 				= shape.getShadowSize();
 
 					if(LNumber.equalsDouble(ty, 0.))
@@ -480,7 +480,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			final String rotation = SVGTransform.createRotation(toDegrees(rotationAngle), 0., 0.) + " " +//$NON-NLS-1$
 							  SVGTransform.createTranslation(-x, -y);
 
-			if(transfo!=null && transfo.length()>0)
+			if(transfo!=null && !transfo.isEmpty())
 				transfo = rotation + " " + transfo; //$NON-NLS-1$
 			else
 				transfo = rotation;
@@ -690,19 +690,21 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		final double hatchingAngle 	= shape.getHatchingsAngle();
 		final IRectangle bound 		= ShapeFactory.createRectangle(shape.getFullTopLeftPoint(), shape.getFullBottomRightPoint(), false);
 
-		if(hatchingStyle.equals(PSTricksConstants.TOKEN_FILL_VLINES) ||
-			hatchingStyle.equals(PSTricksConstants.TOKEN_FILL_VLINES_F))
-			getSVGHatchingsPath2(path, hatchingAngle, bound);
-			else
-				if(hatchingStyle.equals(PSTricksConstants.TOKEN_FILL_HLINES) ||
-				   hatchingStyle.equals(PSTricksConstants.TOKEN_FILL_HLINES_F))
-					getSVGHatchingsPath2(path, hatchingAngle>0?hatchingAngle-Math.PI/2.:hatchingAngle+Math.PI/2., bound);
-			else
-				if(hatchingStyle.equals(PSTricksConstants.TOKEN_FILL_CROSSHATCH) ||
-				   hatchingStyle.equals(PSTricksConstants.TOKEN_FILL_CROSSHATCH_F)) {
-					getSVGHatchingsPath2(path, hatchingAngle, bound);
-					getSVGHatchingsPath2(path, hatchingAngle>0?hatchingAngle-Math.PI/2.:hatchingAngle+Math.PI/2., bound);
-				}
+        switch(hatchingStyle) {
+            case PSTricksConstants.TOKEN_FILL_VLINES:
+            case PSTricksConstants.TOKEN_FILL_VLINES_F:
+                getSVGHatchingsPath2(path, hatchingAngle, bound);
+                break;
+            case PSTricksConstants.TOKEN_FILL_HLINES:
+            case PSTricksConstants.TOKEN_FILL_HLINES_F:
+                getSVGHatchingsPath2(path, hatchingAngle > 0 ? hatchingAngle - Math.PI / 2. : hatchingAngle + Math.PI / 2., bound);
+                break;
+            case PSTricksConstants.TOKEN_FILL_CROSSHATCH:
+            case PSTricksConstants.TOKEN_FILL_CROSSHATCH_F:
+                getSVGHatchingsPath2(path, hatchingAngle, bound);
+                getSVGHatchingsPath2(path, hatchingAngle > 0 ? hatchingAngle - Math.PI / 2. : hatchingAngle + Math.PI / 2., bound);
+                break;
+        }
 
 		return path;
 	}

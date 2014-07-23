@@ -30,7 +30,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	private def gridShapes = getShapes.flatMap{case x:IGridProp => x::Nil; case _ => Nil}
 
 
-	override def isXLabelSouth() : Boolean =
+	override def isXLabelSouth: Boolean =
 		firstIGrid match {
 			case Some(stdGrid) => stdGrid.isXLabelSouth
 			case _ => false
@@ -42,7 +42,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	}
 
 
-	override def isYLabelWest() : Boolean =
+	override def isYLabelWest: Boolean =
 		firstIGrid match {
 			case Some(stdGrid) => stdGrid.isYLabelWest
 			case _ => false
@@ -53,7 +53,7 @@ private[impl] trait LGroupGrid extends IGroup {
 		gridShapes.foreach{_.setYLabelWest(isYLabelWest)}
 	}
 
-	override def getGridDots() : Int = {
+	override def getGridDots: Int = {
 		firstIGrid match {
 			case Some(grid) => grid.getGridDots
 			case _ => 0
@@ -66,7 +66,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	}
 
 
-	override def getGridLabelsColour() : Color = {
+	override def getGridLabelsColour: Color = {
 		firstIGrid match {
 			case Some(grid) => grid.getGridLabelsColour
 			case _ => Color.BLACK
@@ -79,7 +79,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	}
 
 
-	override def getGridWidth() : Double = {
+	override def getGridWidth: Double = {
 		firstIGrid match {
 			case Some(grid) => grid.getGridWidth
 			case _ => Double.NaN
@@ -92,7 +92,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	}
 
 
-	override def getSubGridColour() : Color = {
+	override def getSubGridColour: Color = {
 		firstIGrid match {
 			case Some(grid) => grid.getSubGridColour
 			case _ => Color.BLACK
@@ -105,7 +105,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	}
 
 
-	override def getSubGridDiv() : Int = {
+	override def getSubGridDiv: Int = {
 		firstIGrid match {
 			case Some(grid) => grid.getSubGridDiv
 			case _ => 0
@@ -118,7 +118,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	}
 
 
-	override def getSubGridDots() : Int = {
+	override def getSubGridDots: Int = {
 		firstIGrid match {
 			case Some(grid) => grid.getSubGridDots
 			case _ => 0
@@ -131,7 +131,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	}
 
 
-	override def getSubGridWidth() : Double = {
+	override def getSubGridWidth: Double = {
 		firstIGrid match {
 			case Some(grid) => grid.getSubGridWidth
 			case _ => Double.NaN
@@ -149,7 +149,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	}
 
 
-	override def getUnit() : Double = {
+	override def getUnit: Double = {
 		firstIGrid match {
 			case Some(grid) => grid.getUnit
 			case _ => Double.NaN

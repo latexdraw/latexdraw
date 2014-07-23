@@ -31,7 +31,7 @@ private[impl] trait LGroupDot extends IGroup {
 
 	private def dotShapes = getShapes.flatMap{case x:IDotProp => x::Nil; case _ => Nil}
 
-	override def getDotFillingCol() : Color = {
+	override def getDotFillingCol: Color = {
 		firstDottable match {
 			case Some(dot) => dot.getDotFillingCol
 			case _ => Color.BLACK
@@ -44,7 +44,7 @@ private[impl] trait LGroupDot extends IGroup {
 	}
 
 
-	override def getDotStyle() : IDotProp.DotStyle = {
+	override def getDotStyle: IDotProp.DotStyle = {
 		firstDottable match {
 			case Some(dot) => dot.getDotStyle
 			case _ => IDotProp.DotStyle.DOT
@@ -57,7 +57,7 @@ private[impl] trait LGroupDot extends IGroup {
 	}
 
 
-	override def getDiametre() : Double = {
+	override def getDiametre: Double = {
 		firstDottable match {
 			case Some(dot) => dot.getDiametre
 			case _ => Double.NaN

@@ -56,7 +56,7 @@ private[impl] class LPolyline(uniqueID:Boolean) extends LPolygon(uniqueID) with 
 		}
 	}
 
-	override def isFillable() = getNbPoints>2
+	override def isFillable = getNbPoints>2
 
 	override def shadowFillsShape() = false
 }

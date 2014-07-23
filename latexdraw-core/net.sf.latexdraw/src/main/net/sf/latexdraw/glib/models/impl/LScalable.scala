@@ -27,7 +27,7 @@ trait LScalable extends IScalable {
 		setYScale(scale)
 	}
 
-	override def getXScale() = xscale
+	override def getXScale = xscale
 
-	override def getYScale() = yscale
+	override def getYScale = yscale
 }

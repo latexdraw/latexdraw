@@ -8,7 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IArc
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle
 
 /**
@@ -52,23 +52,23 @@ private[impl] trait LArc extends IArc with LArrowableShape {
 		return null
 	}
 
-	override def isShowPtsable() = true
+	override def isShowPtsable = true
 
-	override def getAngleEnd() = endAngle
+	override def getAngleEnd = endAngle
 
-	override def getAngleStart() = startAngle
+	override def getAngleStart = startAngle
 
-	override def getEndPoint() : IPoint = {
+	override def getEndPoint: IPoint = {
 		val grav = getGravityCentre
 		ShapeFactory.createPoint(grav.getX+Math.cos(endAngle)*getHeight/2.0, grav.getY-Math.sin(endAngle)*getHeight/2.0)
 	}
 
-	override def getStartPoint() : IPoint = {
+	override def getStartPoint: IPoint = {
 		val grav = getGravityCentre
 		ShapeFactory.createPoint(grav.getX+Math.cos(startAngle)*getWidth/2.0, grav.getY-Math.sin(startAngle)*getWidth/2.0)
 	}
 
-	override def getArcStyle() : ArcStyle = style
+	override def getArcStyle: ArcStyle = style
 
 	override def setAngleEnd(angleEnd:Double) {
 		if(GLibUtilities.isValidCoordinate(angleEnd))

@@ -215,9 +215,9 @@ class DistributeShapes extends Action with ShapeAction[IGroup] with Undoable wit
 		_border = rec
 	}
 
-	override def getUndoName() = "distribute"
+	override def getUndoName = "distribute"
 
-	override def isRegisterable()  = true
+	override def isRegisterable = true
 
 	override def flush() {
 		super.flush

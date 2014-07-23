@@ -55,7 +55,7 @@ class MoveBackForegroundShapes extends Action with ShapeAction[IGroup] with Draw
 		var sh : IShape = null
 		val drawing = _drawing.get
 		val drawingShapes = drawing.getShapes
-		sortedSh = _shape.get.getShapes().sortBy(drawingShapes.indexOf(_))
+		sortedSh = _shape.get.getShapes.sortBy(drawingShapes.indexOf(_))
 
 		for(i <- 0 until size) {
 			sh = sortedSh(i)
@@ -74,7 +74,7 @@ class MoveBackForegroundShapes extends Action with ShapeAction[IGroup] with Draw
 		var sh : IShape = null
 		val drawing = _drawing.get
 		val drawingShapes = drawing.getShapes
-		sortedSh = _shape.get.getShapes().sortBy(drawingShapes.indexOf(_))
+		sortedSh = _shape.get.getShapes.sortBy(drawingShapes.indexOf(_))
 
 		for(i <- size-1 to 0 by -1) {
 			sh = sortedSh(i)
@@ -86,7 +86,7 @@ class MoveBackForegroundShapes extends Action with ShapeAction[IGroup] with Draw
 	}
 
 
-	override def canDo = _shape.isDefined && !_shape.get.isEmpty() && _drawing.isDefined
+	override def canDo = _shape.isDefined && !_shape.get.isEmpty && _drawing.isDefined
 
 	override def undo() {
 		val drawing = _drawing.get
@@ -115,9 +115,9 @@ class MoveBackForegroundShapes extends Action with ShapeAction[IGroup] with Draw
 		doActionBody()
 	}
 
-	override def getUndoName() = "move back/foreground"
+	override def getUndoName = "move back/foreground"
 
-	override def isRegisterable()  = true
+	override def isRegisterable = true
 
 	/** Defines whether the shapes must be placed in the foreground. */
 	def setIsForeground(foreground:Boolean) { this.foreground = foreground }

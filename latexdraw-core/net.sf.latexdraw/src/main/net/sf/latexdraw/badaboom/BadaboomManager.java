@@ -50,7 +50,7 @@ public class BadaboomManager extends JFrame {
 		final JScrollPane scrollerDesc	= new JScrollPane();
 		final JScrollPane scrollerTable	= new JScrollPane();
 	 	final JPanel panel 				= new JPanel();
-	 	final BadaboomTableModel model	= new BadaboomTableModel(BadaboomCollector.INSTANCE);
+	 	final BadaboomTableModel model	= new BadaboomTableModel();
 		table							= new JTable(model);
 		final Dimension dim 			= Toolkit.getDefaultToolkit().getScreenSize();
 

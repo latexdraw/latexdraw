@@ -29,7 +29,7 @@ private[impl] trait LGroupLineArc extends IGroup {
 
 	private def lineArcShapes = getShapes.flatMap{case x:ILineArcProp => x::Nil; case _ => Nil}
 
-	override def getLineArc() : Double = {
+	override def getLineArc: Double = {
 		firstLineArc match {
 			case Some(la) => la.asInstanceOf[ILineArcProp].getLineArc
 			case _ => Double.NaN
@@ -40,5 +40,5 @@ private[impl] trait LGroupLineArc extends IGroup {
 		lineArcShapes.foreach{_.setLineArc(lineArc)}
 	}
 
-	override def isRoundCorner() = firstLineArc.isDefined && firstLineArc.get.isRoundCorner
+	override def isRoundCorner = firstLineArc.isDefined && firstLineArc.get.isRoundCorner
 }

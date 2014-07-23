@@ -232,7 +232,7 @@ public class Export extends Action {
 		if(response != JFileChooser.APPROVE_OPTION || f==null)
 			exported = false;
 		else {
-			if(f.getName().toLowerCase().indexOf(format.getFileExtension().toLowerCase()) == -1)
+			if(!f.getName().toLowerCase().endsWith(format.getFileExtension().toLowerCase()))
 				f = new File(f.getPath() + format.getFileExtension());
 
 			if(f.exists()) {
@@ -309,7 +309,7 @@ public class Export extends Action {
 		try {
 			final ImageWriteParam iwparam 	= new JPEGImageWriteParam(Locale.getDefault());
 			final ImageWriter iw 			= ImageIO.getImageWritersByFormatName("jpg").next();//$NON-NLS-1$
-			try(final ImageOutputStream ios = ImageIO.createImageOutputStream(file);){
+			try(final ImageOutputStream ios = ImageIO.createImageOutputStream(file)){
 				iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 				iwparam.setCompressionQuality(1f-dialogueBox.getCompressionRate()/100f);
 				iw.setOutput(ios);
@@ -376,7 +376,7 @@ public class Export extends Action {
 		try {
 			try(final FileWriter fw 	= new FileWriter(file);
 				final BufferedWriter bw = new BufferedWriter(fw);
-				final PrintWriter out 	= new PrintWriter(bw);) {
+				final PrintWriter out 	= new PrintWriter(bw)) {
 				out.println(LaTeXGenerator.getLatexDrawing(pstGen));
 				ok = true;
 			}
@@ -401,7 +401,7 @@ public class Export extends Action {
 		try {
 			final ImageWriteParam iwparam	= new BMPImageWriteParam();
 			final ImageWriter iw			= ImageIO.getImageWritersByFormatName("bmp").next();//$NON-NLS-1$
-			try(final ImageOutputStream ios	= ImageIO.createImageOutputStream(file);) {
+			try(final ImageOutputStream ios	= ImageIO.createImageOutputStream(file)) {
 				iwparam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 				iw.setOutput(ios);
 				iw.write(null, new IIOImage(rendImage, null, null), iwparam);

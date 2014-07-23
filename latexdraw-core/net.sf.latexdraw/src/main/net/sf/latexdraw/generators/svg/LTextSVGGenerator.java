@@ -55,7 +55,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 
 		final String txt = elt.getText();
 
-		if(txt==null || txt.length()==0)
+		if(txt==null || txt.isEmpty())
 			throw new IllegalArgumentException("This text is empty."); //$NON-NLS-1$
 
 		shape.setText(txt);
