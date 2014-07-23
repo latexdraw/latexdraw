@@ -64,9 +64,8 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * The constructor by default.
 	 * @since 0.1
 	 */
-	public SVGElement() {
+    protected SVGElement() {
 		super();
-
 		children 	= new SVGNodeList();
 		attributes 	= null;
 		transform	= null;
@@ -83,7 +82,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @param owner The owner document.
 	 * @since 0.1
 	 */
-	public SVGElement(final SVGDocument owner) {
+    protected SVGElement(final SVGDocument owner) {
 		this();
 		ownerDocument = Objects.requireNonNull(owner);
 	}
@@ -96,7 +95,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @throws MalformedSVGDocument If the element is not well formed.
 	 * @since 0.1
 	 */
-	public SVGElement(final Node n) throws MalformedSVGDocument {
+    protected SVGElement(final Node n) throws MalformedSVGDocument {
 		this(n, null);
 	}
 
@@ -109,7 +108,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @throws MalformedSVGDocument If the element is not well formed.
 	 * @since 0.1
 	 */
-	public SVGElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
+    protected SVGElement(final Node n, final SVGElement p) throws MalformedSVGDocument {
 		this();
 
 		if(n==null)

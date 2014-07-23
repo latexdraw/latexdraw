@@ -44,7 +44,7 @@ public abstract class Shape2D2SVG<S extends Shape, T extends SVGElement> impleme
 	 * @param document The document used to create SVG elements.
 	 * @since 3.0
 	 */
-	public Shape2D2SVG(final S shape, final SVGDocument document) {
+    protected Shape2D2SVG(final S shape, final SVGDocument document) {
 		super();
 		this.document 	= Objects.requireNonNull(document);
 		this.shape 		= Objects.requireNonNull(shape);

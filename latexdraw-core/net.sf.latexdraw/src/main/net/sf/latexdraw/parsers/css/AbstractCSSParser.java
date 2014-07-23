@@ -29,7 +29,7 @@ public abstract class AbstractCSSParser extends CodeParser {
 	 * @throws IllegalArgumentException If the given code is null.
 	 * @since 2.0.3
 	 */
-	public AbstractCSSParser(final String code) {
+    protected AbstractCSSParser(final String code) {
 		super(code);
 	}
 

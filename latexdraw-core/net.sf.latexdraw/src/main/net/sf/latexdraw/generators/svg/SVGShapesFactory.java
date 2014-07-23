@@ -88,7 +88,7 @@ public final class SVGShapesFactory {
 		 * @param classShape The type of the shape supported by the command.
 		 * @since 3.0
 		 */
-		public CreateViewSVGCmd(final CreateViewSVGCmd next, final Class<? extends IShape> classShape) {
+        protected CreateViewSVGCmd(final CreateViewSVGCmd next, final Class<? extends IShape> classShape) {
 			super(next, classShape);
 		}
 

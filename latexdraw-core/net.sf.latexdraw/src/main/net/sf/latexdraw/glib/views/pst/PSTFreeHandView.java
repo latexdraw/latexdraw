@@ -158,9 +158,6 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 			case LINES:
 				updateCacheLines(coord, origin.getX(), origin.getY(), ppc);
 				break;
-			default:
-				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
-				break;
 		}
 
 		if(rot!=null)

@@ -423,10 +423,8 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 
 	@Override
 	public void setIcon(final Icon defaultIcon) {
-		if(!getText().equals(""))//$NON-NLS-1$
-			setIcon();
-		else
-			super.setIcon(defaultIcon);
+        if (getText().equals("")) super.setIcon(defaultIcon);
+        else setIcon();
 	}
 
 

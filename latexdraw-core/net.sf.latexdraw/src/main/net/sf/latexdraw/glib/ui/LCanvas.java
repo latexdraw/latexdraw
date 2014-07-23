@@ -512,8 +512,6 @@ public class LCanvas extends MPanel implements ICanvas {
 						renderingValue = Boolean.valueOf(content);
 					else if(name.endsWith(LNamespace.XML_COLOR_RENDERING))
 						colorRenderingValue = Boolean.valueOf(content);
-					else if(name.endsWith(LNamespace.XML_COLOR_RENDERING))
-						colorRenderingValue = Boolean.valueOf(content);
 					else if(name.endsWith(LNamespace.XML_ALPHA_INTER))
 						alphaInterpolValue = Boolean.valueOf(content);
 					else if(name.endsWith(LNamespace.XML_ANTI_ALIAS))

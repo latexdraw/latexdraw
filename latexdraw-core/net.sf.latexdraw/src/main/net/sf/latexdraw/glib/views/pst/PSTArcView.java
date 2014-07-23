@@ -79,7 +79,6 @@ class PSTArcView extends PSTClassicalView<IArc> {
 			case ARC:
 				start.append("\\psarc"); //$NON-NLS-1$
 				break;
-
 			case CHORD:
 				final IPoint startPt= shape.getStartPoint();
 				final IPoint endPt 	= shape.getEndPoint();
@@ -91,13 +90,8 @@ class PSTArcView extends PSTClassicalView<IArc> {
 				end.append((float)LNumber.getCutNumber(endPt.getX()/ppc)).append(',');
 				end.append((float)LNumber.getCutNumber(endPt.getY()/ppc)).append(')');
 				break;
-
 			case WEDGE:
 				start.append("\\pswedge"); //$NON-NLS-1$
-				break;
-
-			default:
-				BadaboomCollector.INSTANCE.add(new IllegalArgumentException());
 				break;
 		}
 

@@ -28,7 +28,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 	 * Creates the shape.
 	 * @param uniqueID True: the model will have a unique ID.
 	 */
-	public LModifiablePointsShape(final boolean uniqueID) {
+    protected LModifiablePointsShape(final boolean uniqueID) {
 		super(uniqueID);
 	}
 

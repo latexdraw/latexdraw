@@ -106,12 +106,7 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 
         String points = String.valueOf(p1.getX()) + ',' + (p1.getY() - cornerGap1) + ' ' + (p2.getX() + cornerGap2) + ',' + p2.getY() + ' ' + p3.getX() + ',' + (p3.getY() + cornerGap1) + ' ' + (tl.getX() - cornerGap2) + ',' + p2.getY();
 
-        StringBuilder ltdPoints = new StringBuilder().append(tl.getX()).append(' ').append(tl.getY())
-								.append(' ').append(br.getX()).append(' ').append(tl.getY())
-								.append(' ').append(tl.getX()).append(' ').append(br.getY())
-								.append(' ').append(br.getX()).append(' ').append(br.getY());
-
-		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_RHOMBUS);
+        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_RHOMBUS);
         root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
         if(shape.hasShadow()) {
@@ -131,7 +126,8 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 		elt = new SVGPolygonElement(doc);
 		elt.setAttribute(SVGAttributes.SVG_POINTS, points);
 		root.appendChild(elt);
-		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POINTS, ltdPoints.toString());
+		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POINTS, String.valueOf(tl.getX()) + ' ' +
+                tl.getY() + ' ' + br.getX() + ' ' + tl.getY() + ' ' + tl.getX() + ' ' + br.getY() + ' ' + br.getX() + ' ' + br.getY());
 
 		if(shape.hasDbleBord()) {
 			SVGElement dblBord = new SVGPolygonElement(doc);

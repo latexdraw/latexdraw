@@ -178,7 +178,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * Initialises the abstract generator.
 	 * @since 3.0
 	 */
-	public LaTeXGenerator() {
+    protected LaTeXGenerator() {
 		super();
 
 		modified= false;

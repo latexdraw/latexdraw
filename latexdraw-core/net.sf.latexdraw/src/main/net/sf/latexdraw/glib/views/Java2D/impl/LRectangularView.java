@@ -36,22 +36,12 @@ abstract class LRectangularView<S extends IShape> extends LShapeView<S> {
 
 	protected double getBorderGap() {
 		final double thickness = shape.getThickness();
-		double gap;
-
 		switch(shape.getBordersPosition()) {
-			case MID:
-				gap = shape.hasDbleBord() ? thickness+shape.getDbleBordSep()/2. : thickness/2.;
-				break;
-			case OUT:
-				gap = shape.hasDbleBord() ? thickness*2.+shape.getDbleBordSep() : thickness;
-				break;
-			default:
-			case INTO:
-				gap = 0.;
-				break;
+			case MID: return shape.hasDbleBord() ? thickness+shape.getDbleBordSep()/2. : thickness/2.;
+			case OUT: return shape.hasDbleBord() ? thickness*2.+shape.getDbleBordSep() : thickness;
+			case INTO:return 0.0;
 		}
-
-		return gap;
+		return 0.0;
 	}
 
 

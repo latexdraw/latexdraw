@@ -30,7 +30,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
  * @author Arnaud BLOUIN
  * @version 2.0.0<br>
  */
-public abstract class PSTricksConstants {
+public final class PSTricksConstants {
     /** The size in centimetres of an inch */
     public static final double INCH_VAL_CM = 2.54;
 

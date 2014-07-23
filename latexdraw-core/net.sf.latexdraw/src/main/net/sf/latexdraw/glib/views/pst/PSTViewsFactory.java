@@ -84,7 +84,7 @@ public final class PSTViewsFactory {
 		 * @param classShape The type of the shape supported by the command.
 		 * @since 3.0
 		 */
-		public CreateViewPSTCmd(final CreateViewPSTCmd next, final Class<? extends IShape> classShape) {
+        protected CreateViewPSTCmd(final CreateViewPSTCmd next, final Class<? extends IShape> classShape) {
 			super(next, classShape);
 		}
 	}

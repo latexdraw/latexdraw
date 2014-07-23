@@ -50,7 +50,7 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 	/**
 	 * Creates the handler.
 	 */
-	public Handler() {
+    protected Handler() {
 		super();
 		opacity	= 100;
 		size   	= DEFAULT_SIZE;

@@ -825,46 +825,44 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				angle 		= angle-PI;
 			}
 
-			if(!LNumber.equalsDouble(angle, 0.)) {
-				if(LNumber.equalsDouble(angle%(PI/2.), 0.)) {
-					// The gradient is horizontal.
-					pt1 = ShapeFactory.createPoint(nwx, (nwy+sey)/2.);
-					pt2 = ShapeFactory.createPoint(sex, (nwy+sey)/2.);
+            if (LNumber.equalsDouble(angle, 0.)) {
+                // The gradient is vertical.
+                if (!ignoreMidPt && gradMidPt < 0.5)
+                    pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (nwx + sex) / 2., se.getY()));
 
-					if(!ignoreMidPt && gradMidPt<0.5)
-						pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), sex,(nwy+sey)/2.));
+                pt2.setY(nwy + (sey - nwy) * (ignoreMidPt ? 1 : gradMidPt));
+            } else {
+                if (LNumber.equalsDouble(angle % (PI / 2.), 0.)) {
+                    // The gradient is horizontal.
+                    pt1 = ShapeFactory.createPoint(nwx, (nwy + sey) / 2.);
+                    pt2 = ShapeFactory.createPoint(sex, (nwy + sey) / 2.);
 
-					pt2.setX(nwx+(sex-nwx)*(ignoreMidPt ? 1 : gradMidPt));
-				}
-				else {
-					IPoint cg = shape.getGravityCentre();
-					ILine l2, l;
+                    if (!ignoreMidPt && gradMidPt < 0.5)
+                        pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), sex, (nwy + sey) / 2.));
 
-					pt1 = pt1.rotatePoint(cg, -angle);
-					pt2 = pt2.rotatePoint(cg, -angle);
-					l 	= ShapeFactory.createLine(pt1, pt2);
+                    pt2.setX(nwx + (sex - nwx) * (ignoreMidPt ? 1 : gradMidPt));
+                } else {
+                    IPoint cg = shape.getGravityCentre();
+                    ILine l2, l;
 
-					if(LNumber.equalsDouble(angle, 0.) && angle>0. && angle<PI/2.)
-						 l2 = l.getPerpendicularLine(nw);
-					else l2 = l.getPerpendicularLine(ShapeFactory.createPoint(nwx,sey));
+                    pt1 = pt1.rotatePoint(cg, -angle);
+                    pt2 = pt2.rotatePoint(cg, -angle);
+                    l = ShapeFactory.createLine(pt1, pt2);
 
-					pt1 			= l.getIntersection(l2);
-					double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
-					l.setP1(pt1);
-					IPoint[] pts 	= l.findPoints(pt1, 2*distance*(ignoreMidPt ? 1 : gradMidPt));
-					pt2 = pts[0];
+                    if (LNumber.equalsDouble(angle, 0.) && angle > 0. && angle < PI / 2.)
+                        l2 = l.getPerpendicularLine(nw);
+                    else l2 = l.getPerpendicularLine(ShapeFactory.createPoint(nwx, sey));
 
-					if(!ignoreMidPt && gradMidPt<0.5)
-						pt1 = pt1.rotatePoint(cg, PI);
-				}
-			}//if(angle!=0)
-			else {
-				// The gradient is vertical.
-				if(!ignoreMidPt && gradMidPt<0.5)
-					pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (nwx+sex)/2.,se.getY()));
+                    pt1 = l.getIntersection(l2);
+                    double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
+                    l.setP1(pt1);
+                    IPoint[] pts = l.findPoints(pt1, 2 * distance * (ignoreMidPt ? 1 : gradMidPt));
+                    pt2 = pts[0];
 
-				pt2.setY(nwy+(sey-nwy)*(ignoreMidPt ? 1 : gradMidPt));
-			}
+                    if (!ignoreMidPt && gradMidPt < 0.5)
+                        pt1 = pt1.rotatePoint(cg, PI);
+                }
+            }//if(angle!=0)
 
 			p1.setLocation(pt1.getX(), pt1.getY());
 			p2.setLocation(pt2.getX(), pt2.getY());

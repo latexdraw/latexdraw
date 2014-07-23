@@ -1,10 +1,9 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import java.awt.geom.Path2D;
-
-import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewRectangle;
+
+import java.awt.geom.Path2D;
 
 /**
  * Defines a view of the IRectangle model.<br>

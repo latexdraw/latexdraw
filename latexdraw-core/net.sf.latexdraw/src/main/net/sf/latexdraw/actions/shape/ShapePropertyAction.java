@@ -29,7 +29,7 @@ public abstract class ShapePropertyAction extends ModifyValue {
 	 * Creates and initialises the action.
 	 * @since 3.0
 	 */
-	public ShapePropertyAction() {
+    protected ShapePropertyAction() {
 		super();
 	}
 

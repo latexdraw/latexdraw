@@ -232,24 +232,12 @@ abstract class LShape implements IShape {
 
 	@Override
 	public double getBorderGap() {
-		double gap;
-
 		switch(bordersPosition) {
-			case MID:
-				gap = hasDbleBord ? thickness+dbleBordSep/2. : thickness/2.;
-				break;
-
-			case OUT:
-				gap = hasDbleBord ? thickness*2.+dbleBordSep : thickness;
-				break;
-
-			default:
-			case INTO:
-				gap = 0;
-				break;
+			case MID:  return hasDbleBord ? thickness+dbleBordSep/2. : thickness/2.;
+			case OUT:  return hasDbleBord ? thickness*2.+dbleBordSep : thickness;
+			case INTO: return 0;
 		}
-
-        return gap;
+        return 0;
 	}
 
 

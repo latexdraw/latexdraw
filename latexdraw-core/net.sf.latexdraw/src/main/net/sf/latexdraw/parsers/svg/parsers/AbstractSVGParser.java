@@ -27,7 +27,7 @@ public abstract class AbstractSVGParser extends CodeParser {
 	 * The constructor.
 	 * @param code The path to parse.
 	 */
-	public AbstractSVGParser(final String code) {
+    protected AbstractSVGParser(final String code) {
 		super(code);
 	}
 

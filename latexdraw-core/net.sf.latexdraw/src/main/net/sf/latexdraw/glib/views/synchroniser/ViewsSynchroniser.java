@@ -45,7 +45,7 @@ public abstract class ViewsSynchroniser {
 	 * @throws IllegalArgumentException If the given views or handler is null.
 	 * @since 3.0
 	 */
-	public ViewsSynchroniser(final ViewsSynchroniserHandler h, final IDrawing drawing) {
+    protected ViewsSynchroniser(final ViewsSynchroniserHandler h, final IDrawing drawing) {
 		super();
 		handler      = Objects.requireNonNull(h);
 		this.drawing = Objects.requireNonNull(drawing);

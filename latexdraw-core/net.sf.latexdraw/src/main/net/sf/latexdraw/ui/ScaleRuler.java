@@ -117,7 +117,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	 * @param canvas The canvas that the ruler manages.
 	 * @throws IllegalArgumentException If the given canvas is null.
 	 */
-	public ScaleRuler(final ICanvas canvas) {
+    protected ScaleRuler(final ICanvas canvas) {
 		super();
 		this.canvas  = Objects.requireNonNull(canvas);
 		eventManager = new SwingEventManager();

@@ -204,19 +204,18 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 		StringBuilder code;
 		final double angle = shape.getRotationAngle();
 
-		if(!LNumber.equalsDouble(angle, 0.)) {
-			IPoint gravityCenter = shape.getGravityCentre();
-			final double cx 	= (gravityCenter.getX() - position.getX()) / ppc;
-			final double cy 	= (position.getY() - gravityCenter.getY()) / ppc;
-			double x 			= LNumber.getCutNumber(-Math.cos(-angle)*cx + Math.sin(-angle)*cy+cx);
-			double y 			= LNumber.getCutNumber(-Math.sin(-angle)*cx - Math.cos(-angle)*cy+cy);
+        if (LNumber.equalsDouble(angle, 0.)) code = null;
+        else {
+            IPoint gravityCenter = shape.getGravityCentre();
+            final double cx = (gravityCenter.getX() - position.getX()) / ppc;
+            final double cy = (position.getY() - gravityCenter.getY()) / ppc;
+            double x = LNumber.getCutNumber(-Math.cos(-angle) * cx + Math.sin(-angle) * cy + cx);
+            double y = LNumber.getCutNumber(-Math.sin(-angle) * cx - Math.cos(-angle) * cy + cy);
 
-			code = new StringBuilder();
-			code.append("\\rput{").append((float)LNumber.getCutNumber(-Math.toDegrees(shape.getRotationAngle())%360)).append('}').append('('); //$NON-NLS-1$
-			code.append((float)x).append(',').append((float)y).append(')').append('{');
-		}
-		else
-			code = null;
+            code = new StringBuilder();
+            code.append("\\rput{").append((float) LNumber.getCutNumber(-Math.toDegrees(shape.getRotationAngle()) % 360)).append('}').append('('); //$NON-NLS-1$
+            code.append((float) x).append(',').append((float) y).append(')').append('{');
+        }
 
 		return code;
 	}
@@ -335,8 +334,6 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 				break;
 			case SOLID:
 			case NONE:
-			default:
-				break;
 		}
 		return code;
 	}

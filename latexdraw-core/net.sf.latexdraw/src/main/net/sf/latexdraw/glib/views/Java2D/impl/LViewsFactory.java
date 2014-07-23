@@ -82,7 +82,7 @@ public class LViewsFactory implements IViewsFactory {
 		 * @param classShape The type of the shape supported by the command.
 		 * @since 3.0
 		 */
-		public CreateView2DCmd(final CreateView2DCmd next, final Class<? extends IShape> classShape) {
+        protected CreateView2DCmd(final CreateView2DCmd next, final Class<? extends IShape> classShape) {
 			super(next, classShape);
 		}
 	}

@@ -42,7 +42,7 @@ public abstract class MovePoint extends Action {
 	 * Creates the action.
 	 * @since 3.0
 	 */
-	public MovePoint() {
+    protected MovePoint() {
 		super();
 		tx = 0;
 		ty = 0;

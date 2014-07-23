@@ -28,7 +28,7 @@ public abstract class ShowHideAction extends Action {
 	 * Creates the action.
 	 * @since 3.0
 	 */
-	public ShowHideAction() {
+    protected ShowHideAction() {
 		super();
 	}
 

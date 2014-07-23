@@ -28,7 +28,7 @@ public abstract class SVGPathSeg {
 	 * @param isRelative True: the path segment is relative, false it is absolute.
 	 * @since 2.0
 	 */
-	public SVGPathSeg(final boolean isRelative) {
+    protected SVGPathSeg(final boolean isRelative) {
 		this.isRelative = isRelative;
 	}
 

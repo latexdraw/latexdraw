@@ -65,7 +65,7 @@ public abstract class CodeParser implements Parser {
 	 * @param code The code to parse.
 	 * @throws IllegalArgumentException If the given code is null.
 	 */
-	public CodeParser(final String code) {
+    protected CodeParser(final String code) {
 		super();
 
 		if(code==null)

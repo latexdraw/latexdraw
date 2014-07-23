@@ -41,7 +41,7 @@ public abstract class AbstractPointsElement extends SVGElement {
 	 * @throws ParseException If the points string is not well formed.
 	 * @since 2.0.3
 	 */
-	public AbstractPointsElement(final Node node, final SVGElement parent) throws MalformedSVGDocument, ParseException {
+    protected AbstractPointsElement(final Node node, final SVGElement parent) throws MalformedSVGDocument, ParseException {
 		super(node, parent);
 
 		parsePoints();
@@ -51,7 +51,7 @@ public abstract class AbstractPointsElement extends SVGElement {
 	/**
 	 * {@link SVGElement#SVGElement(SVGDocument)}
 	 */
-	public AbstractPointsElement(final SVGDocument doc) {
+    protected AbstractPointsElement(final SVGDocument doc) {
 		super(doc);
 
 		try { setPoints("0,0 1,1"); }//$NON-NLS-1$

@@ -38,7 +38,7 @@ public abstract class SelectionMapping implements IMapping {
 	 * @throws IllegalArgumentException If the given parameter is null.
 	 * @since 3.0
 	 */
-	public SelectionMapping(final List<IShape> selection) {
+	protected SelectionMapping(final List<IShape> selection) {
 		super();
 		this.selection = Objects.requireNonNull(selection);
 	}

@@ -57,7 +57,7 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 	 * @throws IllegalArgumentException If one of the given parameters is null.
 	 * @since 3.0
 	 */
-	public ShapePropertyCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
+    protected ShapePropertyCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
 		super(composer);
 		this.hand   = Objects.requireNonNull(hand);
 		this.pencil = Objects.requireNonNull(pencil);

@@ -255,46 +255,44 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 					angle = angle-Math.PI;
 				}
 
-				if(!LNumber.equalsDouble(angle, 0.)) {
-					if(LNumber.equalsDouble(angle%(Math.PI/2.), 0.)) {
-						pt1 = ShapeFactory.createPoint(tl.getX(), (tl.getY()+br.getY())/2.);
-						pt2 = ShapeFactory.createPoint(br.getX(), (tl.getY()+br.getY())/2.);
+                if (LNumber.equalsDouble(angle, 0.)) {
+                    if (gradMidPt < 0.5)
+                        pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (tl.getX() + br.getX()) / 2., br.getY()));
 
-						if(gradMidPt<0.5)
-							pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), br.getX(),(tl.getY()+br.getY())/2.));
+                    pt2.setY(tl.getY() + (br.getY() - tl.getY()) * gradMidPt);
+                } else {
+                    if (LNumber.equalsDouble(angle % (Math.PI / 2.), 0.)) {
+                        pt1 = ShapeFactory.createPoint(tl.getX(), (tl.getY() + br.getY()) / 2.);
+                        pt2 = ShapeFactory.createPoint(br.getX(), (tl.getY() + br.getY()) / 2.);
 
-						pt2.setX(tl.getX()+(br.getX()-tl.getX())*gradMidPt);
-					}
-					else {
-						final IPoint cg = shape.getGravityCentre();
-						ILine l2, l;
+                        if (gradMidPt < 0.5)
+                            pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), br.getX(), (tl.getY() + br.getY()) / 2.));
 
-						pt1 = pt1.rotatePoint(cg, -angle);
-						pt2 = pt2.rotatePoint(cg, -angle);
-						l = ShapeFactory.createLine(pt1, pt2);
+                        pt2.setX(tl.getX() + (br.getX() - tl.getX()) * gradMidPt);
+                    } else {
+                        final IPoint cg = shape.getGravityCentre();
+                        ILine l2, l;
 
-						if(angle>=0. && angle<Math.PI/2.)
-							l2 = l.getPerpendicularLine(tl);
-						else
-							l2 = l.getPerpendicularLine(ShapeFactory.createPoint(tl.getX(),br.getY()));
+                        pt1 = pt1.rotatePoint(cg, -angle);
+                        pt2 = pt2.rotatePoint(cg, -angle);
+                        l = ShapeFactory.createLine(pt1, pt2);
 
-						pt1 = l.getIntersection(l2);
-						final double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
-						l.setX1(pt1.getX());
-						l.setY1(pt1.getY());
-						final IPoint[] pts = l.findPoints(pt1, 2*distance*gradMidPt);
-						pt2 = pts[0];
+                        if (angle >= 0. && angle < Math.PI / 2.)
+                            l2 = l.getPerpendicularLine(tl);
+                        else
+                            l2 = l.getPerpendicularLine(ShapeFactory.createPoint(tl.getX(), br.getY()));
 
-						if(gradMidPt<0.5)
-							pt1 = pt1.rotatePoint(shape.getGravityCentre(), Math.PI);
-					}
-				}//if(angle!=0)
-				else {
-					if(gradMidPt<0.5)
-						pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (tl.getX()+br.getX())/2.,br.getY()));
+                        pt1 = l.getIntersection(l2);
+                        final double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
+                        l.setX1(pt1.getX());
+                        l.setY1(pt1.getY());
+                        final IPoint[] pts = l.findPoints(pt1, 2 * distance * gradMidPt);
+                        pt2 = pts[0];
 
-					pt2.setY(tl.getY()+(br.getY()-tl.getY())*gradMidPt);
-				}
+                        if (gradMidPt < 0.5)
+                            pt1 = pt1.rotatePoint(shape.getGravityCentre(), Math.PI);
+                    }
+                }//if(angle!=0)
 
 				g.setPaint(new GradientPaint(
 							(float)pt1.getX(), (float)pt1.getY(), shape.getGradColStart(),
