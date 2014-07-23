@@ -212,7 +212,7 @@ public final class LSystem {
 		if(os.equalsIgnoreCase("mac os x")) //$NON-NLS-1$
 			return OperatingSystem.MAC_OS_X;
 
-		if(os.equalsIgnoreCase("windows 8")) //$NON-NLS-1$
+		if(os.toLowerCase().contains("windows 8")) //$NON-NLS-1$
 			return OperatingSystem.EIGHT;
 
 		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os));
