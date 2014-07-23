@@ -71,7 +71,7 @@ public class PreferencesFrame extends MFrame {
   		setIconImage(LResources.PROPERTIES_ICON.getImage());
 
 	  	setTitle(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.Pref")); //$NON-NLS-1$
-  		setLocation(dim.width*1/3, dim.height*1/4);
+  		setLocation(dim.width/3, dim.height/4);
 
   		final JTabbedPane tabbedPane = new JTabbedPane();
   		final JPanel pGeneral = new JPanel(new BorderLayout());

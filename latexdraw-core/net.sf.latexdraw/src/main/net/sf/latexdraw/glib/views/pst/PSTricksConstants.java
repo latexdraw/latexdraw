@@ -468,14 +468,10 @@ public abstract class PSTricksConstants {
 	 * @return True is the style is valid.
 	 */
 	public static boolean isValidFillStyle(final String style) {
-		if(style==null)
-			return false;
-
-		return style.equals(TOKEN_FILL_NONE) || style.equals(TOKEN_FILL_HLINES)
-				|| style.equals(TOKEN_FILL_HLINES_F) || style.equals(TOKEN_FILL_CROSSHATCH)
-				|| style.equals(TOKEN_FILL_CROSSHATCH_F) || style.equals(TOKEN_FILL_VLINES)
-				|| style.equals(TOKEN_FILL_VLINES_F) || style.equals(TOKEN_FILL_GRADIENT) || style.equals(TOKEN_FILL_SOLID);
-	}
+        return style != null && (style.equals(TOKEN_FILL_NONE) || style.equals(TOKEN_FILL_HLINES) ||
+                style.equals(TOKEN_FILL_HLINES_F) || style.equals(TOKEN_FILL_CROSSHATCH) || style.equals(TOKEN_FILL_CROSSHATCH_F) ||
+                style.equals(TOKEN_FILL_VLINES) || style.equals(TOKEN_FILL_VLINES_F) || style.equals(TOKEN_FILL_GRADIENT) || style.equals(TOKEN_FILL_SOLID));
+    }
 
 
 	private PSTricksConstants() {

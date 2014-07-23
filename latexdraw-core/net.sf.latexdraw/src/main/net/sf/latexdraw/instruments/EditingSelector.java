@@ -316,7 +316,7 @@ public class EditingSelector extends WidgetInstrument {
 	@Override
 	protected void initialiseLinks() {
 		try{
-			addLink(new ButtonPressed2AddText(this, false));
+			addLink(new ButtonPressed2AddText(this));
 			addLink(new ButtonPressed2DefineStylePencil(this));
 			addLink(new ButtonPressed2ActivateIns(this));
 			addLink(new ButtonPressed2LaunchCodeInserter(this));
@@ -592,8 +592,8 @@ class ButtonPressed2DefineStylePencil extends Link<ModifyPencilStyle, ButtonPres
  * selects another kind of editing, the typed text must be added to the canvas.
  */
 class ButtonPressed2AddText extends Link<AddShape, ButtonPressed, EditingSelector> {
-	protected ButtonPressed2AddText(final EditingSelector ins, final boolean exec) throws InstantiationException, IllegalAccessException {
-		super(ins, exec, AddShape.class, ButtonPressed.class);
+	protected ButtonPressed2AddText(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, AddShape.class, ButtonPressed.class);
 	}
 
 	@Override
@@ -605,7 +605,7 @@ class ButtonPressed2AddText extends Link<AddShape, ButtonPressed, EditingSelecto
 
 	@Override
 	public boolean isConditionRespected() {
-		return instrument.pencil.textSetter().isActivated() && instrument.pencil.textSetter().getTextField().getText().length()>0 &&
+		return instrument.pencil.textSetter().isActivated() && !instrument.pencil.textSetter().getTextField().getText().isEmpty() &&
 				interaction.getButton()==instrument.textB;
 	}
 }

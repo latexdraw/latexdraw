@@ -183,7 +183,7 @@ class KeyPress2Desactivate extends Link<ActivateInactivateInstruments, KeyTyped,
 		int key = interaction.getKey();
 		// It is useless to check if another key is pressed because if it is the case, the interaction
 		// is in state keyPressed.
-		return key==KeyEvent.VK_ENTER && instrument.textField.isValidText() && instrument.textField.getText().length()>0 || key==KeyEvent.VK_ESCAPE;
+		return key==KeyEvent.VK_ENTER && instrument.textField.isValidText() && !instrument.textField.getText().isEmpty() || key==KeyEvent.VK_ESCAPE;
 	}
 }
 
@@ -204,7 +204,7 @@ class Enter2SetText extends Link<ModifyShapeProperty, KeyTyped, TextSetter> {
 
 	@Override
 	public boolean isConditionRespected() {
-		return instrument.text!=null && instrument.textField.getText().length()>0 && interaction.getKey()==KeyEvent.VK_ENTER;
+		return instrument.text!=null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
 	}
 }
 
@@ -237,7 +237,7 @@ class Enter2AddText extends Link<AddShape, KeyTyped, TextSetter> {
 
 	@Override
 	public boolean isConditionRespected() {
-		return instrument.pencil.currentChoice()==EditionChoice.TEXT && instrument.text==null && instrument.textField.getText().length()>0 && interaction.getKey()==KeyEvent.VK_ENTER;
+		return instrument.pencil.currentChoice()==EditionChoice.TEXT && instrument.text==null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
 	}
 }
 
@@ -266,7 +266,7 @@ class Enter2CheckPlot extends Link<AddShape, KeyTyped, TextSetter> {
 	@SuppressWarnings("unused")
 	@Override
 	public boolean isConditionRespected() {
-		boolean ok = instrument.pencil.currentChoice()==EditionChoice.PLOT && instrument.text==null && instrument.textField.getText().length()>0 && interaction.getKey()==KeyEvent.VK_ENTER;
+		boolean ok = instrument.pencil.currentChoice()==EditionChoice.PLOT && instrument.text==null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
 
 		if(ok)
 			try { new PSFunctionParser(instrument.textField.getText());}

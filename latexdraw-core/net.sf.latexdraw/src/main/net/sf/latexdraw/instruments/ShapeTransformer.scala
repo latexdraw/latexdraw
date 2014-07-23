@@ -214,7 +214,7 @@ private sealed class Button2Align(ins:ShapeTransformer) extends Link[AlignShapes
 		action.setBorder(instrument.border.border)
 	}
 
-	override def isConditionRespected() = {
+	override def isConditionRespected = {
 		val but = interaction.getButton
 		but==instrument._alignBot || but==instrument._alignLeft || but==instrument._alignMidHoriz || but==instrument._alignMidVert ||
 		but==instrument._alignRight || but==instrument._alignTop
@@ -240,7 +240,7 @@ private sealed class Button2Distribute(ins:ShapeTransformer) extends Link[Distri
 		action.setBorder(instrument.border.border)
 	}
 
-	override def isConditionRespected() = {
+	override def isConditionRespected = {
 		val but = interaction.getButton
 		but==instrument._distribHorizEq || but==instrument._distribHorizLeft || but==instrument._distribHorizMid || but==instrument._distribHorizRight ||
 		but==instrument._distribVertBot || but==instrument._distribVertEq || but==instrument._distribVertMid || but==instrument._distribVertTop
@@ -256,6 +256,6 @@ private sealed class Button2Mirror(ins:ShapeTransformer) extends Link[MirrorShap
 		action.setHorizontally(interaction.getButton==instrument._mirrorH)
 	}
 
-	override def isConditionRespected() = interaction.getButton==instrument._mirrorH || interaction.getButton==instrument._mirrorV
+	override def isConditionRespected = interaction.getButton==instrument._mirrorH || interaction.getButton==instrument._mirrorV
 }
 

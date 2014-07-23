@@ -74,14 +74,6 @@ public class SVGPathSegLineto extends SVGPathSeg {
 
 	@Override
 	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-
-		builder.append(isRelative() ? 'l' : 'L');
-		builder.append(' ');
-		builder.append(x);
-		builder.append(' ');
-		builder.append(y);
-
-		return builder.toString();
+        return String.valueOf(isRelative() ? 'l' : 'L') + ' ' + x + ' ' + y;
 	}
 }

@@ -120,11 +120,12 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
 	 * @since 3.0
 	 */
 	def setShapeParameters(shape:IShape) = {
-		if(shape.isInstanceOf[IModifiablePointsShape] && !shape.isInstanceOf[IFreehand]) {//FIXME
-			val mod = shape.asInstanceOf[IModifiablePointsShape]
-			mod.addPoint(ShapeFactory.createPoint)
-			mod.addPoint(ShapeFactory.createPoint)
-		}
+		shape match {
+      case mod: IModifiablePointsShape if !shape.isInstanceOf[IFreehand] =>
+        mod.addPoint(ShapeFactory.createPoint)
+        mod.addPoint(ShapeFactory.createPoint)
+      case _ =>
+    }
 
 		shape.copy(groupParams)
 		shape.setModified(true)
@@ -182,7 +183,7 @@ private sealed class MultiClic2AddShape(pencil:Pencil) extends PencilLink[MultiC
 	// To avoid the overlapping with the DnD2AddShape, the starting interaction must be
 	// aborted when the condition is not respected, i.e. when the selected shape type is
 	// not devoted to the multi-clic interaction.
-	override def isInteractionMustBeAborted() = !isConditionRespected
+	override def isInteractionMustBeAborted = !isConditionRespected
 
 	override def updateAction() {
 		val pts	= interaction.getPoints
@@ -195,8 +196,10 @@ private sealed class MultiClic2AddShape(pencil:Pencil) extends PencilLink[MultiC
 			shape.setPoint(currPoint.getX, currPoint.getY, -1)
 
 		// Curves need to be balanced.
-		if(shape.isInstanceOf[IControlPointShape])
-			shape.asInstanceOf[IControlPointShape].balance
+		shape match {
+      case shape1: IControlPointShape => shape1.balance
+      case _ =>
+    }
 
 		shape.setModified(true)
 		action.drawing.get.setModified(true)
@@ -207,15 +210,16 @@ private sealed class MultiClic2AddShape(pencil:Pencil) extends PencilLink[MultiC
 		super.initAction
 		val shape = action.shape.get
 
-		if(shape.isInstanceOf[IModifiablePointsShape]) {
-			val modShape = shape.asInstanceOf[IModifiablePointsShape]
-			val pt = instrument.getAdaptedPoint(interaction.getPoints.get(0))
-			modShape.setPoint(pt, 0)
-			modShape.setPoint(pt.getX+1, pt.getY+1, 1)
-		}
+		shape match {
+      case modShape: IModifiablePointsShape =>
+        val pt = instrument.getAdaptedPoint(interaction.getPoints.get(0))
+        modShape.setPoint(pt, 0)
+        modShape.setPoint(pt.getX + 1, pt.getY + 1, 1)
+      case _ =>
+    }
 	}
 
-	override def isConditionRespected() = instrument.currentChoice==EditionChoice.POLYGON ||
+	override def isConditionRespected = instrument.currentChoice==EditionChoice.POLYGON ||
 			instrument.currentChoice==EditionChoice.LINES || instrument.currentChoice==EditionChoice.BEZIER_CURVE ||
 			instrument.currentChoice==EditionChoice.BEZIER_CURVE_CLOSED
 
@@ -254,7 +258,7 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 	}
 
 
-	override def isConditionRespected() = {
+	override def isConditionRespected = {
 		val ec = instrument.currentChoice
 		interaction.getButton==MouseEvent.BUTTON1 && (ec==EditionChoice.RECT || ec==EditionChoice.ELLIPSE || ec==EditionChoice.SQUARE || ec==EditionChoice.CIRCLE ||
 		ec==EditionChoice.RHOMBUS || ec==EditionChoice.TRIANGLE  || ec==EditionChoice.CIRCLE_ARC || ec==EditionChoice.FREE_HAND)
@@ -294,7 +298,7 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 	private def getGap(shape:IShape) : Double = {
 		// These lines are necessary to avoid shape to disappear. It appends when the borders position is INTO. In this case, the
 		// minimum radius must be computed using the thickness and the double size.
-		if(shape.isBordersMovable && shape.getBordersPosition()==BorderPos.INTO)
+		if(shape.isBordersMovable && shape.getBordersPosition==BorderPos.INTO)
 			shape.getThickness + (if(shape.isDbleBorderable && shape.hasDbleBord) shape.getDbleBordSep else 0.0)
 		else 1.0
 	}
@@ -363,7 +367,7 @@ private sealed class Press2InsertPicture(pencil:Pencil) extends Link[InsertPictu
 		action.setFileChooser(instrument.pictureFileChooser)
 	}
 
-	override def isConditionRespected() = instrument.currentChoice==EditionChoice.PICTURE && interaction.getButton==MouseEvent.BUTTON1
+	override def isConditionRespected = instrument.currentChoice==EditionChoice.PICTURE && interaction.getButton==MouseEvent.BUTTON1
 }
 
 
@@ -372,13 +376,15 @@ private sealed class Press2AddShape(pencil:Pencil) extends PencilLink[Press](pen
 	override def initAction() {
 		super.initAction
 		val shape = action.shape.get
-		if(shape.isInstanceOf[IPositionShape]) {
-			shape.asInstanceOf[IPositionShape].setPosition(instrument.getAdaptedPoint(interaction.getPoint))
-			shape.setModified(true)
-		}
+		shape match {
+      case shape1: IPositionShape =>
+        shape1.setPosition(instrument.getAdaptedPoint(interaction.getPoint))
+        shape.setModified(true)
+      case _ =>
+    }
 	}
 
-	override def isConditionRespected() =
+	override def isConditionRespected =
 		(instrument.currentChoice==EditionChoice.GRID || instrument.currentChoice==EditionChoice.DOT || instrument.currentChoice==EditionChoice.AXES) &&
 		interaction.getButton==MouseEvent.BUTTON1
 }
@@ -397,7 +403,7 @@ private sealed class Press2AddText(pencil:Pencil) extends PencilLink[Press](penc
 	}
 
 	// The action is created only when the user uses the text setter and the text field of the text setter is not empty.
-	override def isConditionRespected() = instrument.currentChoice==EditionChoice.TEXT && instrument.textSetter.isActivated && instrument.textSetter.getTextField.getText.length>0
+	override def isConditionRespected = instrument.currentChoice==EditionChoice.TEXT && instrument.textSetter.isActivated && instrument.textSetter.getTextField.getText.length>0
 }
 
 
@@ -416,5 +422,5 @@ private sealed class Press2InitTextSetter(pencil:Pencil) extends Link[InitTextSe
 		action.setRelativePoint(instrument.getAdaptedPoint(interaction.getPoint))
 	}
 
-	override def isConditionRespected() = (instrument.currentChoice==EditionChoice.TEXT || instrument.currentChoice==EditionChoice.PLOT) && interaction.getButton==MouseEvent.BUTTON1
+	override def isConditionRespected = (instrument.currentChoice==EditionChoice.TEXT || instrument.currentChoice==EditionChoice.PLOT) && interaction.getButton==MouseEvent.BUTTON1
 }

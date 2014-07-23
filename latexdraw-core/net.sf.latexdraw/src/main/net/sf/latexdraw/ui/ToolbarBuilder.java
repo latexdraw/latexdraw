@@ -124,7 +124,7 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 
 	protected void composeDrawingPropertiesToolbar(final LCanvas canvas) {
 		final DrawingPropertiesCustomiser cust = frame.getDrawingPropCustomiser();
-		drawingB = new WidgetMiniToolbar(frame, LResources.DRAWING_PROP_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
+		drawingB = new WidgetMiniToolbar(LResources.DRAWING_PROP_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
 		drawingB.setToolTipText("Customising the drawing's properties.");
 		widget.add(drawingB);
 
@@ -196,7 +196,7 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 
 
 	protected void composeMagneticGridToolbar(final LCanvas canvas) {
-		magneticGridB = new WidgetMiniToolbar(frame, LResources.DISPLAY_GRID_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
+		magneticGridB = new WidgetMiniToolbar(LResources.DISPLAY_GRID_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
 		magneticGridB.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.12")); //$NON-NLS-1$
 		widget.add(magneticGridB);
 

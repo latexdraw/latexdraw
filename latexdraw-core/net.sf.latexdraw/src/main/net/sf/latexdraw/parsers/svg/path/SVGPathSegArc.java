@@ -210,24 +210,7 @@ public class SVGPathSegArc extends SVGPathSeg {
 
 	@Override
 	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-
-		builder.append(isRelative() ? 'a' : 'A');
-		builder.append(' ');
-		builder.append(rx);
-		builder.append(' ');
-		builder.append(ry);
-		builder.append(' ');
-		builder.append(angle);
-		builder.append(' ');
-		builder.append(largeArcFlag?'1':'0');
-		builder.append(' ');
-		builder.append(sweepFlag?'1':'0');
-		builder.append(' ');
-		builder.append(x);
-		builder.append(' ');
-		builder.append(y);
-
-		return builder.toString();
+        return String.valueOf(isRelative() ? 'a' : 'A') + ' ' + rx + ' ' + ry + ' ' + angle + ' ' +
+                (largeArcFlag ? '1' : '0') + ' ' + (sweepFlag ? '1' : '0') + ' ' + x + ' ' + y;
 	}
 }

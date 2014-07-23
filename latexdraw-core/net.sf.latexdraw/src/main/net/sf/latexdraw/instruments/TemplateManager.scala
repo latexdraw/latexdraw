@@ -83,7 +83,7 @@ class TemplateManager(composer : SwingUIComposer[_], val ui : LFrame) extends Wi
 	/**
 	 * @return The menu item that permits to update the templates.
 	 */
-	def updateTemplatesMenu = _updateTemplatesMenu
+	def updateTemplatesMenu() = _updateTemplatesMenu
 
 	/**
 	 * @return The menu item used to export the selection as templates.
@@ -99,7 +99,7 @@ private sealed class MenuItem2ExportTemplate(ins : TemplateManager) extends
 		action.templatesMenu = instrument.templateMenu
 	}
 
-	override def isConditionRespected() = interaction.getMenuItem==instrument.exportTemplateMenu
+	override def isConditionRespected = interaction.getMenuItem==instrument.exportTemplateMenu
 }
 
 
@@ -111,7 +111,7 @@ private sealed class MenuItem2LoadTemplate(ins : TemplateManager) extends
 		action.setUi(instrument.ui)
 	}
 
-	override def isConditionRespected() = interaction.getMenuItem!=instrument.updateTemplatesMenu && instrument.templateMenu.contains(interaction.getMenuItem)
+	override def isConditionRespected = interaction.getMenuItem!=instrument.updateTemplatesMenu && instrument.templateMenu.contains(interaction.getMenuItem)
 }
 
 
@@ -123,5 +123,5 @@ private sealed class MenuItem2UpdateTemplates(ins : TemplateManager) extends
 		action.templatesMenu = instrument.templateMenu
 	}
 
-	override def isConditionRespected() = interaction.getMenuItem==instrument.updateTemplatesMenu
+	override def isConditionRespected = interaction.getMenuItem==instrument.updateTemplatesMenu
 }

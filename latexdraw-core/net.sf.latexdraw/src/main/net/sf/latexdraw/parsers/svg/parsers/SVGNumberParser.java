@@ -43,10 +43,8 @@ public class SVGNumberParser extends AbstractSVGParser {
 		int c = getChar();
 
 		if(c=='0' || c=='1') {
-				boolean flag = c=='1' ? true : false;
-
 				nextChar();
-				return flag;
+				return c == '1';
 		}
 
 		throw new ParseException("Flag expected.", getPosition());		//$NON-NLS-1$
@@ -137,9 +135,9 @@ public class SVGNumberParser extends AbstractSVGParser {
 		int c = getChar();
 
 		if(unsigned)
-			return c=='.' || (c>=48 && c<=57);
+			return c=='.' || c>=48 && c<=57;
 
-		return c=='-' || c=='+' || c=='.' || (c>=48 && c<=57);
+		return c=='-' || c=='+' || c=='.' || c>=48 && c<=57;
 	}
 
 

@@ -563,7 +563,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	public String getUsablePrefix() {
 		final String prefix = getPrefix();
 
-		return prefix==null || prefix.length()==0 ? "" : prefix + ':'; //$NON-NLS-1$
+		return prefix==null || prefix.isEmpty() ? "" : prefix + ':'; //$NON-NLS-1$
 	}
 
 
@@ -1172,7 +1172,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	public String getUsablePrefix(final String uri) {
 		String pref = lookupPrefix(uri);
 
-		return pref==null || pref.length()==0 ? "" : pref+':';//$NON-NLS-1$
+		return pref==null || pref.isEmpty() ? "" : pref+':';//$NON-NLS-1$
 	}
 
 

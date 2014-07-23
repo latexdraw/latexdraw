@@ -306,7 +306,7 @@ public class Exporter extends WidgetInstrument {
 	 */
 	public void setDefaultPackages(final String defaultPackages) {
 		if(defaultPackages!=null) {
-			if(this.defaultPackages.length()==0)
+			if(this.defaultPackages.isEmpty())
 				LaTeXGenerator.setPackages(defaultPackages +LResources.EOL+LaTeXGenerator.getPackages());
 			this.defaultPackages = defaultPackages;
 		}

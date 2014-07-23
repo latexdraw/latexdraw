@@ -63,7 +63,7 @@ object FlyweightThumbnail {
 	 * /tmp/latexdraw180980 (without any extension). The last String is the log of the
 	 * compilation.
 	 */
-	val images : Map[String, Tuple4[Image,Set[IViewText],String,String]] = new HashMap[String, Tuple4[Image,Set[IViewText],String,String]]()
+	val images : Map[String, (Image, Set[IViewText], String, String)] = new HashMap[String, (Image, Set[IViewText], String, String)]()
 
 	val _scaleImage = 2.0
 
@@ -111,9 +111,9 @@ object FlyweightThumbnail {
 	 * Returns some information corresponding to the the given text. If the image does not already exists,
 	 * it is created and stored.
 	 */
-	def getImageInfo(view:IViewText) : Tuple4[Image,Set[IViewText],String,String] = {
+	def getImageInfo(view:IViewText) : (Image, Set[IViewText], String, String) = {
 		val shape = view.getShape.asInstanceOf[IText]
-		var res : Tuple4[Image,Set[IViewText],String,String] = null
+		var res : (Image, Set[IViewText], String, String) = null
 
 		if(creationsInProgress.synchronized{creationsInProgress.contains(view)})
 			res = new Tuple4[Image,Set[IViewText],String,String](null, Set(), "", inProgressMsg)
@@ -139,8 +139,8 @@ object FlyweightThumbnail {
 								_canvas.refresh
 							}
 						}
-					});
-				}
+					})
+        }
 				else {
 					val tuple = createImage(shape)
 					res = new Tuple4[Image,Set[IViewText],String,String](tuple._1, Set(view), tuple._2, tuple._3)
@@ -248,8 +248,8 @@ object FlyweightThumbnail {
 					line = matcher.group
 
 					if(line.startsWith("l.")) //$NON-NLS-1$
-						ok = false;
-					else
+						ok = false
+          else
 						errors.append(LResources.EOL).append(line).append(LResources.EOL)
 				}
 			}
@@ -265,7 +265,7 @@ object FlyweightThumbnail {
 	 * @return True if the command exit normally and the log.
 	 * @since 3.0
 	 */
-	private def execute(cmd:Array[String]) : Tuple2[Boolean,String] = {
+	private def execute(cmd:Array[String]) : (Boolean, String) = {
 		var log = ""
 		try {
 			val process = Runtime.getRuntime.exec(cmd)
@@ -289,7 +289,7 @@ object FlyweightThumbnail {
 	 * @return The LaTeX compiled picture of the text with its file path and its log, or None.
 	 * @since 3.0
 	 */
-	private def createImage(shape:IText) : Tuple3[Image,String,String] = {
+	private def createImage(shape:IText) : (Image, String, String) = {
 		var bi : Image = null
 		var log = "" //$NON-NLS-1$
 		val tmpDir = LFileUtils.INSTANCE.createTempDir
@@ -345,8 +345,10 @@ object FlyweightThumbnail {
 						val bound = page.getBBox
 					    val img	= page.getImage(bound.getWidth.toInt, bound.getHeight.toInt, bound, null, false, true)
 
-					    if(img.isInstanceOf[BufferedImage])
-						    bi = img.asInstanceOf[BufferedImage]
+					    img match {
+                case bi1: BufferedImage => bi = bi1
+                case _ =>
+              }
 
 					    if(img!=null)
 					    	img.flush

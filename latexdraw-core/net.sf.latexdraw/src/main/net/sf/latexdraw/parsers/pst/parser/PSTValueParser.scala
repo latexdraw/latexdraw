@@ -46,7 +46,7 @@ trait PSTValueParser extends PSTNumberParser {
 	 * The second value of the returned tuple (Boolean) defines if the rotation must consider the previous
 	 * rotations (the char * in the rput command).
 	 */
-	def parseValuePutRotation(value : String) : Option[Tuple2[Double,Boolean]] = {
+	def parseValuePutRotation(value : String) : Option[(Double, Boolean)] = {
 		value match {
 			case "U" => Some(Tuple2(0, true))
 			case "L" => Some(Tuple2(-scala.math.Pi/2.0, true))
@@ -56,7 +56,7 @@ trait PSTValueParser extends PSTNumberParser {
 			case "W" => Some(Tuple2(-scala.math.Pi/2.0, false))
 			case "S" => Some(Tuple2(-scala.math.Pi, false))
 			case "E" => Some(Tuple2(-3.0*scala.math.Pi/2.0, false))
-			case value =>
+			case `value` =>
 				parseValueNum(value) match {
 					case Some(num) => Some(Tuple2(-scala.math.toRadians(num), true))
 					case _ =>
@@ -75,7 +75,7 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the value of the curvature parameter.
 	 */
-	def parseValueCurvature(value : String) : Option[Tuple3[Double, Double, Double]] = {
+	def parseValueCurvature(value : String) : Option[(Double, Double, Double)] = {
 		value.split(" ") match {
 			case Array(val1, val2, val3) =>
 				try { Some(Tuple3(val1.toDouble, val2.toDouble, val3.toDouble)) }
@@ -88,7 +88,7 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses a num value that may be followed by another num value.
 	 */
-	def parseValueNumNum(value : String) : Option[Tuple2[Double, Double]] = {
+	def parseValueNumNum(value : String) : Option[(Double, Double)] = {
 		value.split(" ") match {
 			case Array(num1) =>
 				// When a single value is defined, it means that the second value equals the single one defined.
@@ -113,7 +113,7 @@ trait PSTValueParser extends PSTNumberParser {
 	 * Parses a dim value that may be followed by a num value.
 	 * Example: dotsize=2cm 4
 	 */
-	def parseValueDimNum(value : String) : Option[Tuple2[Double, Double]] = {
+	def parseValueDimNum(value : String) : Option[(Double, Double)] = {
 		value.split(" ") match {
 			case Array(dim) => parseValueOptDimNum(dim, "")
 			case Array(dim, num) =>
@@ -128,7 +128,7 @@ trait PSTValueParser extends PSTNumberParser {
 	}
 
 
-	private def parseValueOptDimNum(dim : String, num : String) : Option[Tuple2[Double, Double]] = {
+	private def parseValueOptDimNum(dim : String, num : String) : Option[(Double, Double)] = {
 		val dimOpt = parseValueDim(dim)
 		val numOpt = parseValueNum(num) match {
 			case Some(value) => value
@@ -145,7 +145,7 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses arrows.
 	 */
-	def parseValueArrows(value : String) : Option[Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]] =
+	def parseValueArrows(value : String) : Option[(IArrow.ArrowStyle, IArrow.ArrowStyle)] =
 		value.replace(" ", "") match {
 			// The arrow string must contains the separator - and at least one arrow.
 			case arrowPattern(arr1, arr2) => Some(Tuple2(IArrow.ArrowStyle.getArrowStyle(arr1), IArrow.ArrowStyle.getArrowStyle(arr2)))

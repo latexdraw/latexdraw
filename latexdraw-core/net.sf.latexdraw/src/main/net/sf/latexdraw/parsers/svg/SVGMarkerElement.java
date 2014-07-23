@@ -116,8 +116,8 @@ public class SVGMarkerElement extends SVGElement {
 	public String getMarkerUnits() {
 		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_MARKER_UNITS);
 
-		return v==null || (!SVGAttributes.SVG_UNITS_VALUE_STROKE.equals(v) &&
-						!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v)) ? SVGAttributes.SVG_UNITS_VALUE_STROKE : v;
+		return v==null || !SVGAttributes.SVG_UNITS_VALUE_STROKE.equals(v) &&
+						!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v) ? SVGAttributes.SVG_UNITS_VALUE_STROKE : v;
 	}
 
 

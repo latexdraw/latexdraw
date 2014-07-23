@@ -37,7 +37,7 @@ class CodeInserter(val canvas : ICanvas, val statusBar : JLabel) extends Instrum
 
 
 	/** Accessor for the code insertion dialogue box. */
-	def insertCodeDialog : InsertCodeDialog = _insertCodeDialog
+	def insertCodeDialog() : InsertCodeDialog = _insertCodeDialog
 
 	override def initialiseLinks() {
 		try{
@@ -65,7 +65,7 @@ class ButtonPressed2InsertCode(ins : CodeInserter)
 		action.setStatusBar(instrument.statusBar)
 	}
 
-	override def isConditionRespected() = interaction.getButton==instrument.insertCodeDialog.getOkButton
+	override def isConditionRespected = interaction.getButton==instrument.insertCodeDialog.getOkButton
 }
 
 
@@ -78,7 +78,7 @@ class ButtonPressed2InactivateIns(ins : CodeInserter)
 		action.setInstrument(getInstrument)
 	}
 
-	override def isConditionRespected() = interaction.getButton==instrument.insertCodeDialog.getOkButton ||
+	override def isConditionRespected = interaction.getButton==instrument.insertCodeDialog.getOkButton ||
 										interaction.getButton==instrument.insertCodeDialog.getCancelButton
 }
 
@@ -93,5 +93,5 @@ class CloseDialogue2InactivateIns(ins : CodeInserter)
 		action.setInstrument(getInstrument)
 	}
 
-	override def isConditionRespected() = true
+	override def isConditionRespected = true
 }

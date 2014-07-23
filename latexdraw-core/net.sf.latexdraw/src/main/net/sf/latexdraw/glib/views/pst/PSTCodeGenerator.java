@@ -112,17 +112,17 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		if(drawing.isEmpty())
 			return ;
 
-		if(withComments && comment!=null && comment.length()>0)
+		if(withComments && comment!=null && !comment.isEmpty())
 			cache.append(comment);
 
 		cache.append(PACKAGE_PSTRICKS);
 
-		if(pkg.length()>0) {
+		if(!pkg.isEmpty()) {
 			pkg = "% User Packages:" + LResources.EOL + "% " + pkg.replace(LResources.EOL, LResources.EOL + "% ");
 			cache.append(pkg).append(LResources.EOL);
 		}
 
-		if(withLatexParams && (positionVertToken!=VerticalPosition.NONE || caption.length()>0 || label.length()>0)) {
+		if(withLatexParams && (positionVertToken!=VerticalPosition.NONE || !caption.isEmpty() || !label.isEmpty())) {
 			cache.append("\\begin{figure}");
 
 			if(positionVertToken==VerticalPosition.NONE)
@@ -164,10 +164,10 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			if(positionHoriCentre)
 				cache.append("\\end{center}").append(LResources.EOL);//$NON-NLS-1$
 
-			if(label.length()>0)
+			if(!label.isEmpty())
 				cache.append("\\label{").append(label).append('}').append(LResources.EOL);//$NON-NLS-1$
 
-			if(caption.length()>0)
+			if(!caption.isEmpty())
 				cache.append("\\caption{").append(caption).append('}').append(LResources.EOL);//$NON-NLS-1$
 
 			if(hasBeginFigure)

@@ -111,8 +111,8 @@ trait PSTAbstractParser extends TokenParsers {
 					ctx.textParsed = ""
 					setShapeParameters(text, ctx)
 					text.setTextPosition(ITextProp.TextPosition.getTextPosition(ctx.textPosition))
-					text.setLineColour(ctx.textColor);
-					List(text)
+					text.setLineColour(ctx.textColor)
+          List(text)
 				}
 		}
 	}
@@ -126,8 +126,10 @@ trait PSTAbstractParser extends TokenParsers {
 		if(sh!=null && ctx!=null) {
 			setShapeGeneralParameters(sh, ctx)
 
-			if(sh.isInstanceOf[IArrowableShape])
-				setShapeArrows(sh.asInstanceOf[IArrowableShape], ctx)
+			sh match {
+        case sh1: IArrowableShape => setShapeArrows(sh1, ctx)
+        case _ =>
+      }
 		}
 	}
 

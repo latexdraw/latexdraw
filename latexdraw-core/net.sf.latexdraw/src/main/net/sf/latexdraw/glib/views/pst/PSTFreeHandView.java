@@ -47,8 +47,8 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 		int i;
 		final int size = shape.getNbPoints();
 		final int interval = shape.getInterval();
-		float prevx=0;
-		float prevy=0;
+		float prevx;
+		float prevy;
 		float curx = (float)pts.get(0).getX();
 		float cury = (float)pts.get(0).getY();
         float midx=0;
@@ -89,7 +89,7 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
             coord.append(LNumber.getCutNumber((float)((originy-midy)/ppc))).append(')').append('\n');
         }
 
-        if((i-interval+1)<size) {
+        if(i-interval+1<size) {
         	float x1 	= (midx + curx) / 2.0f;
         	float y1 	= (midy + cury) / 2.0f;
             prevx 		= curx;
@@ -131,7 +131,7 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 			coord.append(',').append(LNumber.getCutNumber((float)((originy-p.getY())/ppc))).append(')').append('\n');
 		}
 
-		if((i-interval)<size)
+		if(i-interval<size)
 			coord.append("\\lineto(").append(LNumber.getCutNumber((float)((pts.get(pts.size()-1).getX()-originx)/ppc))).append(//$NON-NLS-1$
 				',').append(LNumber.getCutNumber((float)((originy-pts.get(pts.size()-1).getY())/ppc))).append(')').append('\n');
 

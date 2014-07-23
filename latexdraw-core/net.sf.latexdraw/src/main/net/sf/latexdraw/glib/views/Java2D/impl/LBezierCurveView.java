@@ -171,13 +171,12 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 			double maxY = Double.MIN_VALUE;
 			IPoint pt;
 
-			for(int i=0, size=ctrlPts1.size(); i<size; i++) {
-				pt = ctrlPts1.get(i);
-				if(pt.getX()<minX) minX = pt.getX();
-				if(pt.getY()<minY) minY = pt.getY();
-				if(pt.getX()>maxX) maxX = pt.getX();
-				if(pt.getY()>maxY) maxY = pt.getY();
-			}
+            for(IPoint aCtrlPts1 : ctrlPts1) {
+                if (aCtrlPts1.getX() < minX) minX = aCtrlPts1.getX();
+                if (aCtrlPts1.getY() < minY) minY = aCtrlPts1.getY();
+                if (aCtrlPts1.getX() > maxX) maxX = aCtrlPts1.getX();
+                if (aCtrlPts1.getY() > maxY) maxY = aCtrlPts1.getY();
+            }
 
 			for(int i=1, size=ctrlPts2.size()-1; i<size; i++) {
 				pt = ctrlPts2.get(i);

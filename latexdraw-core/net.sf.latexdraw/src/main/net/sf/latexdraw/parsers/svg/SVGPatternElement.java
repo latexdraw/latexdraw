@@ -57,11 +57,8 @@ public class SVGPatternElement extends SVGElement {
 
 	@Override
 	public boolean enableRendering() {
-		if(LNumber.equalsDouble(getWidth(), 0.) || LNumber.equalsDouble(getHeight(), 0.))
-			return false;
-
-		return true;
-	}
+        return !(LNumber.equalsDouble(getWidth(), 0.) || LNumber.equalsDouble(getHeight(), 0.));
+    }
 
 
 	/**
@@ -134,8 +131,8 @@ public class SVGPatternElement extends SVGElement {
 	public String getPatternContentUnits() {
 		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_PATTERN_CONTENTS_UNITS);
 
-		return v==null || (!SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) &&
-				!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v)) ? SVGAttributes.SVG_UNITS_VALUE_USR : v;
+		return v==null || !SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) &&
+				!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v) ? SVGAttributes.SVG_UNITS_VALUE_USR : v;
 	}
 
 
@@ -147,8 +144,8 @@ public class SVGPatternElement extends SVGElement {
 	public String getPatternUnits() {
 		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_PATTERN_UNITS);
 
-		return v==null || (!SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) &&
-				!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v)) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
+		return v==null || !SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) &&
+				!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
 	}
 
 

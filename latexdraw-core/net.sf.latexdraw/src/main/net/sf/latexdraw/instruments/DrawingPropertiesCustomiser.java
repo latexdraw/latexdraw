@@ -117,12 +117,12 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 		if(!generalPreferences) {
 			final String ns = LPath.INSTANCE.getNormaliseNamespaceURI(nsURI);
 
-			if(latexGen.getCaption().length()>0) {
+			if(!latexGen.getCaption().isEmpty()) {
 				elt = document.createElement(ns + LNamespace.XML_CAPTION);
 				elt.appendChild(document.createCDATASection(latexGen.getCaption()));
 				root.appendChild(elt);
 			}
-			if(latexGen.getLabel().length()>0) {
+			if(!latexGen.getLabel().isEmpty()) {
 				elt = document.createElement(ns + LNamespace.XML_LABEL);
 				elt.appendChild(document.createCDATASection(latexGen.getLabel()));
 				root.appendChild(elt);

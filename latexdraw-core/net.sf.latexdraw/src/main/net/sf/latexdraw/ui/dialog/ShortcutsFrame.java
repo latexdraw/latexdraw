@@ -110,7 +110,7 @@ public class ShortcutsFrame extends JFrame {
             @Override
 			public String getColumnName(final int column) {return titles[column];}
             @Override
-			public Class<? extends Object> getColumnClass(final int c) {return getValueAt(0, c).getClass();}
+			public Class<?> getColumnClass(final int c) {return getValueAt(0, c).getClass();}
 		    @Override
 			public boolean isCellEditable(final int row, final int col) {return false;}
             @Override

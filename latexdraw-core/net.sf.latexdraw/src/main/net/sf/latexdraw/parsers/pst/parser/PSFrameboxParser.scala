@@ -36,7 +36,7 @@ trait PSFrameboxParser extends PSTAbstractParser with PSTBracketBlockParser {
 							col => DviPsColors.INSTANCE.getUsercolourCode(col) match {
 								case "" =>
 								// The colour must not be already included.
-								case str if(!ctx.textParsed.contains(str)) => ctx.textParsed += str
+								case str if !ctx.textParsed.contains(str) => ctx.textParsed += str
 								case _ =>
 							}
 						}

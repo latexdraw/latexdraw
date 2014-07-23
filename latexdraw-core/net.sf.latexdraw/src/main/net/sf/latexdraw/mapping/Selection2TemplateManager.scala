@@ -24,7 +24,7 @@ import net.sf.latexdraw.instruments.TemplateManager
  */
 class Selection2TemplateManager(selection : java.util.List[IShape], val template : TemplateManager) extends SelectionMapping(selection) {
 
-	override def getTarget() : TemplateManager = template
+	override def getTarget: TemplateManager = template
 
 
 	override def onObjectAdded(list : Object, obj : Object, index : Int) {
@@ -33,8 +33,10 @@ class Selection2TemplateManager(selection : java.util.List[IShape], val template
 
 
 	override def onObjectRemoved(list : Object, obj : Object, index : Int) {
-		if(list.isInstanceOf[java.util.List[_]])
-			template.exportTemplateMenu.setEnabled(!list.asInstanceOf[java.util.List[_]].isEmpty)
+		list match {
+      case value: java.util.List[_] => template.exportTemplateMenu.setEnabled(!value.isEmpty)
+      case _ =>
+    }
 	}
 
 

@@ -56,7 +56,7 @@ public class SplashScreen extends JFrame {
 		super();
 
 		try {
-			if(lookAndFeel==null || lookAndFeel.length()==0)
+			if(lookAndFeel==null || lookAndFeel.isEmpty())
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 			else
 				UIManager.setLookAndFeel(lookAndFeel);

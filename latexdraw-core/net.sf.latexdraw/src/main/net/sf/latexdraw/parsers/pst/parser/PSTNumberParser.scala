@@ -30,7 +30,7 @@ trait PSTNumberParser extends PSTAbstractParser {
 	/**
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
-	def parseNumber : Parser[Tuple2[Double,String]] = numeric ^^ { case num =>
+	def parseNumber : Parser[(Double, String)] = numeric ^^ { case num =>
 		parseValueDim(num) match {
 			case Some(value) => value
 			case None => Tuple2(Double.NaN,"")
@@ -44,7 +44,7 @@ trait PSTNumberParser extends PSTAbstractParser {
 	 */
 	def parseValue012(num : String) : Option[Int] = {
 		createValidNumber(num) match {
-			case Some(value) if(value==0 || value==1 || value==2) => Some(value.toInt)
+			case Some(value) if value == 0 || value == 1 || value == 2 => Some(value.toInt)
 			case _ => None
 		}
 	}
@@ -55,7 +55,7 @@ trait PSTNumberParser extends PSTAbstractParser {
 	 */
 	def parseValue01Interval(num : String) : Option[Double] = {
 		createValidNumber(num) match {
-			case Some(value) if(value>=0.0 && value<=1.0) => Some(value)
+			case Some(value) if value >= 0.0 && value <= 1.0 => Some(value)
 			case _ => None
 		}
 	}
@@ -93,9 +93,9 @@ trait PSTNumberParser extends PSTAbstractParser {
 	/**
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
-	def parseValueDimDim(str : String) : Option[Tuple2[Double,Double]] = {
-		var val1 : Option[Tuple2[Double,String]] = None
-		var val2 : Option[Tuple2[Double,String]] = None
+	def parseValueDimDim(str : String) : Option[(Double, Double)] = {
+		var val1 : Option[(Double, String)] = None
+		var val2 : Option[(Double, String)] = None
 
 		str.split(" ") match {
 			case Array(v1, u1, v2, u2) => val1 = parseValueDim(v1+u1) ; val2 = parseValueDim(v2+u2)
@@ -124,7 +124,7 @@ trait PSTNumberParser extends PSTAbstractParser {
 	/**
 	 * Parses a number: a numeric value that may be followed by a unit.
 	 */
-	def parseValueDim(str : String) : Option[Tuple2[Double,String]] = {
+	def parseValueDim(str : String) : Option[(Double, String)] = {
 		if(str.length>2) {
 			val value = str.substring(0, str.length-2)
 			str.substring(str.length-2) match {

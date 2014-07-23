@@ -77,7 +77,7 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 	}
 
 	/** Parses the accent commands having no bracket block. */
-	private def parsetextCommandWithNoBlock(ctx:PSTContext):Parser[List[IShape]] = ("\\l") ^^ {case cmd =>
+	private def parsetextCommandWithNoBlock(ctx:PSTContext):Parser[List[IShape]] = "\\l" ^^ {case cmd =>
 		ctx.textParsed +=cmd
 		ctx.parsedTxtNoTxt = false
 		Nil

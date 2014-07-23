@@ -17,6 +17,7 @@ import org.malai.swing.interaction.library.SpinnerModified;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
 import org.malai.swing.widget.MSpinner;
+import scala.Option;
 
 /**
  * This instrument modifies the rotation angle of selected shapes.<br>
@@ -169,9 +170,9 @@ class Spinner2RotateShape extends Link<RotateShapes, SpinnerModified, ShapeRotat
 
 	@Override
 	public void updateAction() {
-		Object obj  = action.shape().get();
-		if(obj instanceof IShape)
-			action.setRotationAngle(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString()))-((IShape)obj).getRotationAngle());
+		Option<IShape> obj  = action.shape();
+		if(obj.isDefined())
+			action.setRotationAngle(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString()))-obj.get().getRotationAngle());
 	}
 
 	@Override

@@ -185,7 +185,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			if(isMvble)
 				bordersPosCB.setSelectedItemSafely(shape.getBordersPosition().toString());
 			if(supportRound)
-				frameArcField.setValueSafely(((ILineArcProp)shape).getLineArc());
+				frameArcField.setValueSafely(shape.getLineArc());
 			if(showPts)
 				showPoints.setSelected(shape.isShowPts());
 		}

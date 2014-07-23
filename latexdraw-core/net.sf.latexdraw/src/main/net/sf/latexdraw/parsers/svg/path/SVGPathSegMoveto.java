@@ -30,17 +30,8 @@ public class SVGPathSegMoveto extends SVGPathSegLineto {
 		super(x, y, isRelative);
 	}
 
-
 	@Override
 	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-
-		builder.append(isRelative() ? 'm' : 'M');
-		builder.append(' ');
-		builder.append(x);
-		builder.append(' ');
-		builder.append(y);
-
-		return builder.toString();
+        return String.valueOf(isRelative() ? 'm' : 'M') + ' ' + x + ' ' + y;
 	}
 }

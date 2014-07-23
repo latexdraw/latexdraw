@@ -135,7 +135,7 @@ public class SVGPathElement extends SVGElement {
 
 	@Override
 	public boolean enableRendering() {
-		return getPathData().length()>0;
+		return !getPathData().isEmpty();
 	}
 
 

@@ -59,7 +59,7 @@ public final class LPath {
 	 * @since 3.0
 	 */
 	public String getNormaliseNamespaceURI(final String nsURI) {
-		return nsURI==null || nsURI.length()==0 ? "" : nsURI + ':'; //$NON-NLS-1$
+		return nsURI==null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
 	}
 
 

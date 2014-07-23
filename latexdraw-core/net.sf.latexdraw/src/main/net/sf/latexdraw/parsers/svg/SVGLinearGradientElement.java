@@ -72,8 +72,8 @@ public class SVGLinearGradientElement extends SVGElement {
 	public String getGradientUnits() {
 		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_GRADIENT_UNITS);
 
-		return v==null || (!SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) &&
-						!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v)) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
+		return v==null || !SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) &&
+						!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
 	}
 
 
@@ -284,7 +284,7 @@ public class SVGLinearGradientElement extends SVGElement {
 	public String getSpreadMethod() {
 		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_SPREAD_METHOD);
 
-		return v==null || (!SVGAttributes.SVG_PAD.equals(v) && !SVGAttributes.SVG_REFLECT.equals(v) &&
-				!SVGAttributes.SVG_REPEAT.equals(v)) ? SVGAttributes.SVG_PAD : v;
+		return v==null || !SVGAttributes.SVG_PAD.equals(v) && !SVGAttributes.SVG_REFLECT.equals(v) &&
+				!SVGAttributes.SVG_REPEAT.equals(v) ? SVGAttributes.SVG_PAD : v;
 	}
 }

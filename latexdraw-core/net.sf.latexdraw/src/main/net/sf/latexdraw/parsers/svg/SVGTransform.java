@@ -527,10 +527,8 @@ public class SVGTransform {
 			return cancelsScale(transform);
 		if(isXSkew())
 			return cancelsXSkew(transform);
-		if(isYSkew())
-			return cancelsYSkew(transform);
-		return false;
-	}
+        return isYSkew() && cancelsYSkew(transform);
+    }
 
 
 	/**

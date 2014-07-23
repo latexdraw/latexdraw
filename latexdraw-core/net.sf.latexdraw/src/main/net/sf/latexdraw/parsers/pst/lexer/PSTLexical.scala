@@ -1,14 +1,10 @@
 package net.sf.latexdraw.parsers.pst.lexer
 
-import scala.collection.mutable.HashSet
-import scala.util.parsing.combinator.Parsers
-import scala.util.parsing.combinator.lexical.Lexical
-import scala.util.parsing.combinator.lexical.Scanners
-import scala.util.parsing.combinator.lexical.StdLexical
-import scala.util.parsing.input.CharArrayReader.EofCh
-import scala.util.parsing.input.Position
-import scala.collection.JavaConversions._
 import java.text.ParseException
+
+import scala.collection.mutable.HashSet
+import scala.util.parsing.combinator.lexical.Lexical
+import scala.util.parsing.input.CharArrayReader.EofCh
 
 /**
  * Defines a PSTricks lexical.<br>
@@ -30,7 +26,7 @@ import java.text.ParseException
  * @version 3.0
  */
 class PSTLexical extends Lexical with PSTTokens {
-	/** This token is produced by a scanner {@see Scanner} when scanning failed. */
+	/** This token is produced by a scanner Scanner when scanning failed. */
 	override def errorToken(msg : String): PSTToken = new KError(msg)
 
 

@@ -475,7 +475,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 			boolean again = true;
 
 			while(j<count && again)
-				if(themeList.getItemAt(j).toString().equals(nodeText))
+				if(themeList.getItemAt(j).equals(nodeText))
 					again = false;
 				else
 					j++;
@@ -785,7 +785,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 				node = nl.item(i);
 				name = node.getNodeName();
 
-				if(name!=null && name.length()>0)
+				if(name!=null && !name.isEmpty())
 					prefMaps.put(name, node);
 			}
 

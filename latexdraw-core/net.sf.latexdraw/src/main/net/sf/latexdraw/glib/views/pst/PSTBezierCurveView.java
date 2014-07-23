@@ -74,7 +74,6 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 		for(i=2; i<size; i++) {
 			ctrlPt1 = fCtrlPts.get(i);
 			ctrlPt2 = sCtrlPts.get(i-1);
-			pt 		= pts.get(i-1);
 
 			coord.append('(').append(LNumber.getCutNumber((float)((ctrlPt2.getX()-originx)/ppc)));
 			coord.append(',').append(LNumber.getCutNumber((float)((originy-ctrlPt2.getY())/ppc)));
@@ -90,7 +89,6 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 		if(shape.isClosed()) {
 			ctrlPt1 = sCtrlPts.get(0);
 			ctrlPt2 = sCtrlPts.get(sCtrlPts.size()-1);
-			pt 		= pts.get(pts.size()-1);
 
 			coord.append('(').append(LNumber.getCutNumber((float)((ctrlPt2.getX()-originx)/ppc)));
 			coord.append(',').append(LNumber.getCutNumber((float)((originy-ctrlPt2.getY())/ppc)));

@@ -84,17 +84,16 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 
 	/**
 	 * The constructor using a text.
-	 * @param frame The main frame containing the ListJToggleButton.
 	 * @param txt The text of the ListJToggleButton.
 	 * @param locate The position of the mini toolbar.
 	 * @param componentFocusOnClose The component to give the focus when the toolbar is closed. Can be null.
 	 * @since 3.0
 	 */
-	public WidgetMiniToolbar(final JFrame frame, final String txt, final int locate, final Component componentFocusOnClose) {
+	public WidgetMiniToolbar(final String txt, final int locate, final Component componentFocusOnClose) {
 		super(txt);
 
 		setIcon();
-		intializing(frame, locate);
+		intializing(locate);
 		this.componentFocusOnClose = componentFocusOnClose;
 	}
 
@@ -104,13 +103,12 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	 * The constructor using an icon.
 	 * @param icon The icon of the ListJToggleButton.
 	 * @param locate The position of the mini toolbar.
-	 * @param frame The main frame containing the ListJToggleButton.
 	 * @param componentFocusOnClose The component to give the focus when the toolbar is closed. Can be null.
 	 */
-	public WidgetMiniToolbar(final JFrame frame, final Icon icon, final int locate, final Component componentFocusOnClose) {
+	public WidgetMiniToolbar(final Icon icon, final int locate, final Component componentFocusOnClose) {
 		super(icon);
 
-		intializing(frame, locate);
+		intializing(locate);
 		this.componentFocusOnClose = componentFocusOnClose;
 	}
 
@@ -118,11 +116,10 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 
 	/**
 	 * Initialises the ListJToggleButton.
-	 * @param frame The main frame containing the ListJToggleButton.
 	 * @param locate The position of the mini toolbar.
 	 * @since 1.9.1
 	 */
-	protected void intializing(final JFrame frame, final int locate) {
+	protected void intializing(final int locate) {
 		try{ setLocation(locate); }
 		catch(final IllegalArgumentException e) {location = LOCATION_SOUTH;}
 
@@ -333,9 +330,7 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 
 		if(src instanceof JToggleButton || src instanceof JButton) {
 			setButtonsFrameVisible(false);
-
 			updateSelected();
-			return ;
 		}
 	}
 

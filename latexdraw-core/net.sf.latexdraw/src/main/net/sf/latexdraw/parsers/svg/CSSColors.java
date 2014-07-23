@@ -647,7 +647,7 @@ public final class CSSColors {
 	 * @return The colour.
 	 */
 	public Color getColor(final String name) {
-		if(name==null || name.length()==0)
+		if(name==null || name.isEmpty())
 			return null;
 
 		final Color col = colourHashtable.get(name);
@@ -664,7 +664,7 @@ public final class CSSColors {
 	 * @param name The name of this colour.
 	 */
 	public void addUserColor(final Color col, final String name) {
-		if(name==null || col==null || name.length()==0)
+		if(name==null || col==null || name.isEmpty())
 			return ;
 
 		userColours.put(name, col);
@@ -823,8 +823,7 @@ public final class CSSColors {
 		String[] rgbs = s.split(",");//$NON-NLS-1$
 
 		try {
-			if(rgbs!=null && rgbs.length==3)
-			{
+			if(rgbs.length==3){
 				rgbs[0] = rgbs[0].replaceAll("[\t ]", "");//$NON-NLS-1$//$NON-NLS-2$
 				rgbs[1] = rgbs[1].replaceAll("[\t ]", "");//$NON-NLS-1$//$NON-NLS-2$
 				rgbs[2] = rgbs[2].replaceAll("[\t ]", "");//$NON-NLS-1$//$NON-NLS-2$

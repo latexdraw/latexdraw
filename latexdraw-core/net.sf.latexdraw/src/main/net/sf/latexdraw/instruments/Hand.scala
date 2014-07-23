@@ -108,8 +108,8 @@ private sealed class CtrlU2UpdateShapes(ins:Hand) extends Link[UpdateToGrid, Key
 		action.setGrid(instrument.canvas.getMagneticGrid)
 	}
 
-	override def isConditionRespected() = instrument.canvas.getMagneticGrid.isMagnetic() &&
-		interaction.getKeys().size()==2 && interaction.getKeys().contains(KeyEvent.VK_U) && interaction.getKeys().contains(KeyEvent.VK_CONTROL)
+	override def isConditionRespected = instrument.canvas.getMagneticGrid.isMagnetic &&
+		interaction.getKeys.size==2 && interaction.getKeys.contains(KeyEvent.VK_U) && interaction.getKeys.contains(KeyEvent.VK_CONTROL)
 }
 
 
@@ -119,8 +119,8 @@ private sealed class CtrlA2SelectAllShapes(ins:Hand) extends Link[SelectShapes, 
 		action.setDrawing(instrument.canvas.getDrawing)
 	}
 
-	override def isConditionRespected() =
-		interaction.getKeys().size()==2 && interaction.getKeys().contains(KeyEvent.VK_A) && interaction.getKeys().contains(KeyEvent.VK_CONTROL)
+	override def isConditionRespected =
+		interaction.getKeys.size==2 && interaction.getKeys.contains(KeyEvent.VK_A) && interaction.getKeys.contains(KeyEvent.VK_CONTROL)
 }
 
 
@@ -128,22 +128,24 @@ private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Link[InitTex
 	override def initAction() {
 		val o = interaction.getTarget
 
-		if(o.isInstanceOf[IViewText]) {
-			val text = o.asInstanceOf[IViewText].getShape.asInstanceOf[IText]
-			val position = text.getPosition
-			val screen = instrument.canvas.asInstanceOf[LCanvas].getVisibleRect
-			val zoom = instrument.canvas.getZoom
-			val x = (instrument.canvas.getOrigin.getX - screen.getX + position.getX*zoom)
-			val y = (instrument.canvas.getOrigin.getY - screen.getY+ position.getY*zoom)
-			action.setTextShape(text)
-			action.setInstrument(instrument.textSetter)
-			action.setTextSetter(instrument.textSetter)
-			action.setAbsolutePoint(ShapeFactory.createPoint(x, y))
-			action.setRelativePoint(ShapeFactory.createPoint(position))
-		}
+		o match {
+      case text1: IViewText =>
+        val text = text1.getShape.asInstanceOf[IText]
+        val position = text.getPosition
+        val screen = instrument.canvas.asInstanceOf[LCanvas].getVisibleRect
+        val zoom = instrument.canvas.getZoom
+        val x = instrument.canvas.getOrigin.getX - screen.getX + position.getX * zoom
+        val y = instrument.canvas.getOrigin.getY - screen.getY + position.getY * zoom
+        action.setTextShape(text)
+        action.setInstrument(instrument.textSetter)
+        action.setTextSetter(instrument.textSetter)
+        action.setAbsolutePoint(ShapeFactory.createPoint(x, y))
+        action.setRelativePoint(ShapeFactory.createPoint(position))
+      case _ =>
+    }
 	}
 
-	override def isConditionRespected() = interaction.getTarget.isInstanceOf[IViewText]
+	override def isConditionRespected = interaction.getTarget.isInstanceOf[IViewText]
 }
 
 
@@ -166,7 +168,7 @@ private sealed class DnD2Translate(hand : Hand) extends Link[TranslateShapes, Dn
 		action.setTy(endPt.getY - startPt.getY)
 	}
 
-	override def isConditionRespected() : Boolean = {
+	override def isConditionRespected: Boolean = {
 		val startObject = interaction.getStartObject
 		val button 		= interaction.getButton
 		return  !instrument.canvas.getDrawing.getSelection.isEmpty &&
@@ -207,7 +209,7 @@ private sealed class Press2Select(ins : Hand) extends Link[SelectShapes, PressWi
 		}
 	}
 
-	override def isConditionRespected() : Boolean = interaction.getTarget.isInstanceOf[IViewShape]
+	override def isConditionRespected: Boolean = interaction.getTarget.isInstanceOf[IViewShape]
 }
 
 
@@ -258,7 +260,7 @@ private sealed class DnD2Select(hand : Hand) extends Link[SelectShapes, DnDWithK
 		}
 	}
 
-	override def isConditionRespected() = interaction.getStartObject==instrument.canvas && interaction.getButton==MouseEvent.BUTTON1
+	override def isConditionRespected = interaction.getStartObject==instrument.canvas && interaction.getButton==MouseEvent.BUTTON1
 
 	override def interimFeedback() {
 		instrument.canvas.setTempUserSelectionBorder(selectionBorder)
@@ -283,7 +285,7 @@ class DnD2MoveViewport(canvas:ICanvas, ins:Instrument) extends Link[MoveCamera, 
 		action.setPy(pane.getVerticalScrollBar.getValue+pane.getVerticalScrollBar.getHeight/2+(startPt.getY - endPt.getY).toInt)
 	}
 
-	override def isConditionRespected() = interaction.getButton==MouseEvent.BUTTON2
+	override def isConditionRespected = interaction.getButton==MouseEvent.BUTTON2
 
 	override def interimFeedback() {
 		super.interimFeedback

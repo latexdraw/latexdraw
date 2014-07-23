@@ -43,8 +43,8 @@ class LRectangleView extends LRectangularView<IRectangle> implements IViewRectan
 		final double w2 = Math.max(1., width);
 		final double h2 = Math.max(1., height);
 
-		if(((ILineArcProp)shape).isRoundCorner()) {
-			final double diameter = Math.max(1., ((ILineArcProp)shape).getLineArc() * Math.min(w2, h2));
+		if(shape.isRoundCorner()) {
+			final double diameter = Math.max(1., shape.getLineArc() * Math.min(w2, h2));
 			final double radius   = diameter/2.;
 
 			path.moveTo(tlx + radius, tly);

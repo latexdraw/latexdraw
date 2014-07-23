@@ -433,7 +433,7 @@ public final class DviPsColors  {
 	 * @return The colour, null if the name is invalid of do not correspond at any colour.
 	 */
 	public Color getColour(final String name) {
-		if(name==null || name.length()==0) return null;
+		if(name==null || name.isEmpty()) return null;
 
 		Color c = userColourHT.get(name);
 
@@ -469,7 +469,7 @@ public final class DviPsColors  {
 	 * @param name The name of the colour.
 	 */
 	public void addUserColour(final Color colour, final String name) {
-		if(colour!=null && name!=null && name.length()>0) {
+		if(colour!=null && name!=null && !name.isEmpty()) {
 			userColourHT.put(name, colour);
 			userNameColourHT.put(colour, name);
 		}

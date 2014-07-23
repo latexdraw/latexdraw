@@ -127,12 +127,7 @@ public class SVGDocument implements Document {
 
 	@Override
 	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-
-		builder.append("SVG Document:");//$NON-NLS-1$
-		builder.append(root.toString());
-
-		return builder.toString();
+        return "SVG Document:" + root.toString();
 	}
 
 

@@ -54,19 +54,7 @@ public class SVGPathSegCurvetoQuadratic extends SVGPathSeg {
 
 	@Override
 	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-
-		builder.append(isRelative() ? 'q' : 'Q');
-		builder.append(' ');
-		builder.append(x1);
-		builder.append(' ');
-		builder.append(y1);
-		builder.append(' ');
-		builder.append(x);
-		builder.append(' ');
-		builder.append(y);
-
-		return builder.toString();
+        return String.valueOf(isRelative() ? 'q' : 'Q') + ' ' + x1 + ' ' + y1 + ' ' + x + ' ' + y;
 	}
 
 

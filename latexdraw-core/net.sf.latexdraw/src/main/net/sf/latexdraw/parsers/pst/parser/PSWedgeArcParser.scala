@@ -174,5 +174,5 @@ trait PSWedgeArcParser extends PSTAbstractParser
 
 
 	/** Inverts the arrows (the first arrow becomes the second one, etc.). */
-	private def invertArrows(arrows : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle]) : Tuple2[IArrow.ArrowStyle, IArrow.ArrowStyle] = Tuple2(arrows._2, arrows._1)
+	private def invertArrows(arrows : (IArrow.ArrowStyle, IArrow.ArrowStyle)) : (IArrow.ArrowStyle, IArrow.ArrowStyle) = Tuple2(arrows._2, arrows._1)
 }

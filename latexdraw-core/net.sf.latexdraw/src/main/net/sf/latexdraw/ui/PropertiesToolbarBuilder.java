@@ -99,7 +99,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 	// Creates the tool bar for place shapes.
 	protected WidgetMiniToolbar composeShapePositionerWidgets(final ShapePositioner ins, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.FOREGROUND_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.FOREGROUND_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.6")); //$NON-NLS-1$
 		list.addComponent(ins.getForegroundButton());
 		list.addComponent(ins.getBackgroundButton());
@@ -114,7 +114,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 	// Creates the tool bar for mirroring shapes.
 	protected WidgetMiniToolbar composeDistributeShapes(final ShapeTransformer transformer, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.DIST_VERT_EQUAL_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.DIST_VERT_EQUAL_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.8")); //$NON-NLS-1$
 		list.addComponent(transformer.distribVertEq());
 		list.addComponent(transformer.distribVertMid());
@@ -140,7 +140,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 	// Creates the tool bar for mirroring shapes.
 	protected WidgetMiniToolbar composeAlignShapes(final ShapeTransformer transformer, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.ALIGN_LEFT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.ALIGN_LEFT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.1"));//$NON-NLS-1$
 		list.addComponent(transformer.alignLeft());
 		list.addComponent(transformer.alignRight());
@@ -163,7 +163,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 	// Creates the tool bar for mirroring shapes.
 	protected WidgetMiniToolbar composeMirrorShapes(final ShapeTransformer transformer, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.MIRROR_H_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.MIRROR_H_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.6"));
 		list.addComponent(transformer.mirrorH());
 		list.addComponent(transformer.mirrorV());
@@ -186,7 +186,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 	/** Creates the toolbar containing the widgets that customises axes. */
 	protected WidgetMiniToolbar composeFreeHandPropertiesToolbar(final ShapeFreeHandCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.FREE_HAND_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.FREE_HAND_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of freehand drawings.");
 
 		UIBuilder.addCombobox(list, cust.getFreeHandType());
@@ -207,7 +207,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 	/** Creates the toolbar containing the widgets that customises grids' labels. */
 	protected WidgetMiniToolbar composeGridLabelsPropertiesToolbar(final ShapeAxesCustomiser axeCust, final ShapeGridCustomiser gridCust,
 																	final ShapeStandardGridCustomiser stdGridCust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids' labels.");
 
 		MPanel p1 = new MPanel(false, true);
@@ -255,7 +255,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 	/** Creates the toolbar containing the widgets that customises axes. */
 	protected WidgetMiniToolbar composeAxesPropertiesToolbar(final ShapeAxesCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.AXES_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.AXES_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of axes.");
 		final MPanel panel 	  = new MPanel(false, true);
 		final MPanel ticksPanel = new MPanel(false, true);
@@ -285,7 +285,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 
 	protected WidgetMiniToolbar composeGridPropertiesToolbar(final ShapeGridCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.SUBGRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.SUBGRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids.");
 
 		UIBuilder.addSpinner(list, cust.getGridWidth(), 60);
@@ -309,7 +309,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 
 	protected WidgetMiniToolbar composeStandardGridPropertiesToolbar(final ShapeStandardGridCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids and axes.");
 
 		UIBuilder.addSpinner(list, cust.getxStartS(), 50);
@@ -333,7 +333,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 
 	protected WidgetMiniToolbar composeDimPosPropertiesToolbar(final ShapeCoordDimCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.DIM_POS_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.DIM_POS_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the dimensions and the position.");
 
 		UIBuilder.addSpinner(list, cust.getTlxS(), 90);
@@ -349,7 +349,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 
 	protected WidgetMiniToolbar composeTextPropertiesToolbar(final TextCustomiser textCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.TEXT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.TEXT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of the text.");
 
 		list.addComponent(textCustomiser.getPackagesLabel());
@@ -367,7 +367,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 
 	protected WidgetMiniToolbar composeTextPositionToolbar(final TextCustomiser textCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.TEXTPOS_BL, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.TEXTPOS_BL, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the position of the text.");
 		list.addComponent(textCustomiser.getBlButton());
 		list.addComponent(textCustomiser.getBButton());
@@ -396,7 +396,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 
 	protected JComponent composeArcPropertiesWidgets(final ShapeArcCustomiser ins, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.ARC_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.ARC_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the arcs.");
 
 		list.addComponent(ins.getArcB());
@@ -419,7 +419,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 
 	protected JComponent composeDotToolbar(final ShapeDotCustomiser ins, final ShapeBorderCustomiser sbc, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.DOT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.DOT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the dots.");
 
 		list.addComponent(sbc.getShowPoints());
@@ -443,7 +443,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 	protected JComponent composeArrowToolbar(final ShapeArrowCustomiser ins, final LCanvas canvas) {
 		final int size = 70;
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.ARROW_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.ARROW_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customises the arrows.");
 
 		list.addComponent(ins.getArrowLeftCB());
@@ -482,7 +482,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 
 	protected JComponent composeRotationToolbar(final ShapeRotationCustomiser ins, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.ROTATE_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.ROTATE_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
         list.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.2")); //$NON-NLS-1$
 
         UIBuilder.addSpinner(list, ins.getRotationField(), 65);
@@ -509,7 +509,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 	 * @since 3.0
 	 */
 	protected JComponent composeFillingPanel(final ShapeFillingCustomiser fillingCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.FILLING_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.FILLING_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the filling properties.");
 		list.addComponent(fillingCustomiser.getFillStyleCB());
 		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
@@ -556,7 +556,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 	 * @since 3.0
 	 */
 	protected JComponent composeShadowPropertiesPanel(final ShapeShadowCustomiser shadowCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.SHADOW_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.SHADOW_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the shadow properties.");
 		list.addComponent(shadowCustomiser.getShadowCB());
 		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
@@ -585,7 +585,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 	 * @since 3.0
 	 */
 	protected JComponent composeDoubleBorderPropertiesPanel(final ShapeDoubleBorderCustomiser dbleBorderCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.DOUBLE_BORDER_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.DOUBLE_BORDER_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the double border properties.");
 		list.addComponent(dbleBorderCustomiser.getDbleBoundCB());
 		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
@@ -611,7 +611,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 	 * @since 3.0
 	 */
 	protected JComponent composeBorderPropertiesPanel(final ShapeBorderCustomiser borderCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(frame, LResources.BORDER_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.BORDER_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the border properties.");
 
 		UIBuilder.addSpinner(list, borderCustomiser.getThicknessField(), 65);

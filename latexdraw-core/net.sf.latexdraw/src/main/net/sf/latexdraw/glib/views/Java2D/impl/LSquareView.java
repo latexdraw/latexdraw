@@ -38,8 +38,8 @@ class LSquareView extends LRectangularView<ISquare> {
 	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
 		final double w2 = Math.max(1., width);
 
-		if(((ILineArcProp)shape).isRoundCorner()) {
-			final double diameter = Math.max(1., ((ILineArcProp)shape).getLineArc() * w2);
+		if(shape.isRoundCorner()) {
+			final double diameter = Math.max(1., shape.getLineArc() * w2);
 			final double radius   = diameter/2.;
 
 			path.moveTo(tlx + radius, tly);

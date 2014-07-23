@@ -411,8 +411,6 @@ class ColourButton2PencilFilling extends ColourButtonForCustomiser<ModifyPencilP
 			action.setProperty(ShapeProperties.COLOUR_GRADIENT_END);
 		else if(but==instrument.gradStartColButton)
 			action.setProperty(ShapeProperties.COLOUR_GRADIENT_START);
-		else if(but==instrument.gradStartColButton)
-			action.setProperty(ShapeProperties.COLOUR_GRADIENT_START);
 		else if(but==instrument.hatchColButton)
 			action.setProperty(ShapeProperties.COLOUR_HATCHINGS);
 		else action = null;
@@ -452,8 +450,6 @@ class ColourButton2SelectionFilling extends ColourButtonForCustomiser<ModifyShap
 			action.setProperty(ShapeProperties.COLOUR_FILLING);
 		else if(but==instrument.gradEndColButton)
 			action.setProperty(ShapeProperties.COLOUR_GRADIENT_END);
-		else if(but==instrument.gradStartColButton)
-			action.setProperty(ShapeProperties.COLOUR_GRADIENT_START);
 		else if(but==instrument.gradStartColButton)
 			action.setProperty(ShapeProperties.COLOUR_GRADIENT_START);
 		else if(but==instrument.hatchColButton)

@@ -58,7 +58,7 @@ public class AboutDialogueBox extends JFrame {
 	}
 
 
-	protected void initialiseDialogueBox() {
+	private void initialiseDialogueBox() {
 		final int width			= 490;
 		final int height		= 430;
 		JTabbedPane tabbedPane 	= new JTabbedPane();
@@ -105,7 +105,7 @@ public class AboutDialogueBox extends JFrame {
 	}
 
 
-	protected void createSystemPanel(final JTabbedPane tabbedPane) {
+    private void createSystemPanel(final JTabbedPane tabbedPane) {
 		JEditorPane editorPane = new JEditorPane();
 		StringBuilder builder = new StringBuilder();
 		editorPane.setEditable(false);
@@ -126,7 +126,7 @@ public class AboutDialogueBox extends JFrame {
 	}
 
 
-	protected void createLicensePanel(final JTabbedPane tabbedPane) {
+    private void createLicensePanel(final JTabbedPane tabbedPane) {
 		try {
 			JEditorPane editorPane = new JEditorPane();
 			setTextToEditorPane(editorPane, "/res/license.txt");//$NON-NLS-1$
@@ -137,7 +137,7 @@ public class AboutDialogueBox extends JFrame {
 	}
 
 
-	protected void createReleaseNotePanel(final JTabbedPane tabbedPane) {
+    private void createReleaseNotePanel(final JTabbedPane tabbedPane) {
 		try {
 			JEditorPane editorPane = new JEditorPane();
 			setTextToEditorPane(editorPane, "/res/release_note.txt");//$NON-NLS-1$
@@ -147,7 +147,7 @@ public class AboutDialogueBox extends JFrame {
 		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
-	protected void createContributorsPanel(final JTabbedPane tabbedPane) {
+    private void createContributorsPanel(final JTabbedPane tabbedPane) {
 		try {
 			JEditorPane editorPane = new JEditorPane();
 			setTextToEditorPane(editorPane, "/res/contributors.txt");//$NON-NLS-1$
@@ -158,7 +158,7 @@ public class AboutDialogueBox extends JFrame {
 	}
 
 
-	protected void createMainPanel(final JTabbedPane tabbedPane) {
+    private void createMainPanel(final JTabbedPane tabbedPane) {
 		try {
 			Image i = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("res/LaTeXDrawSmall.png"));//$NON-NLS-1$
 			MediaTracker tracker = new MediaTracker(this);
@@ -174,7 +174,7 @@ public class AboutDialogueBox extends JFrame {
 			editorPane.setBackground(tabbedPane.getBackground());
 			editorPane.setText("<html><body><div style=\"text-align: center; \"><font size=\"-1\"><br>"+ //$NON-NLS-1$
 					LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.219")+ " " + //$NON-NLS-1$ //$NON-NLS-2$
-					VersionChecker.VERSION + (VersionChecker.VERSION_STABILITY.length()==0 ? "" : " " +VersionChecker.VERSION_STABILITY) + //$NON-NLS-1$ //$NON-NLS-2$
+					VersionChecker.VERSION + (VersionChecker.VERSION_STABILITY.isEmpty() ? "" : " " +VersionChecker.VERSION_STABILITY) + //$NON-NLS-1$ //$NON-NLS-2$
 					LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.220") + " " + VersionChecker.ID_BUILD+"<br><br>"+//$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
 					LResources.LABEL_APP+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.221")+"<br>"+//$NON-NLS-1$//$NON-NLS-2$
 					"Copyright(c) 2005-2014 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>"+//$NON-NLS-1$

@@ -268,7 +268,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * @since 3.0
 	 */
 	public void setComment(final String newComments) {
-		if(newComments!=null && newComments.length()>0) {
+		if(newComments!=null && !newComments.isEmpty()) {
 			int i, j=0, lgth = newComments.length();
 			char buffer[] = new char[lgth*3];
 			boolean eol = true;

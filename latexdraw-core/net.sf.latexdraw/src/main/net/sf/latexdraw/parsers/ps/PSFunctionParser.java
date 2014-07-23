@@ -60,7 +60,7 @@ public class PSFunctionParser {
 	 * @since 3.0
 	 */
 	public PSFunctionParser(final String fct) throws InvalidFormatPSFunctionException {
-		if(fct==null || fct.length()==0)
+		if(fct==null || fct.isEmpty())
 			throw new IllegalArgumentException();
 
 		commands = new ArrayList<>();
@@ -123,7 +123,7 @@ public class PSFunctionParser {
 	 * @since 3.0
 	 */
 	protected PSArithemticCommand identifyCommand(final String cmd) throws InvalidFormatPSFunctionException, NumberFormatException {
-		if(cmd==null || cmd.length()==0)
+		if(cmd==null || cmd.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
 		if(cmd.equals(CMD_ADD))

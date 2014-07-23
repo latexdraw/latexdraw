@@ -175,10 +175,9 @@ abstract class Interaction2AbstractCopy<A extends CopyShapes, I extends Interact
 
 	@Override
 	public void initAction() {
-		Action act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-
-		if(act instanceof SelectShapes)
-			action.setSelection((SelectShapes)act);
+        final SelectShapes act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
+		if(act!=null)
+			action.setSelection(act);
 	}
 }
 
@@ -234,10 +233,8 @@ class MenuItem2CutShapes extends Interaction2AbstractCopy<CutShapes, MenuItemPre
 
 	@Override
 	public boolean isConditionRespected() {
-		Action act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-		boolean okSelection = act instanceof SelectShapes && !((SelectShapes)act).shapes().isEmpty();
-
-		return okSelection && getInteraction().getMenuItem()==getInstrument().cutMenu;
+        final SelectShapes act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
+		return act != null && !act.shapes().isEmpty() && getInteraction().getMenuItem()==getInstrument().cutMenu;
 	}
 }
 
@@ -256,9 +253,8 @@ class MenuItem2CopyShapes extends Interaction2AbstractCopy<CopyShapes, MenuItemP
 
 	@Override
 	public boolean isConditionRespected() {
-		Action act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-		boolean okSelection = act instanceof SelectShapes && !((SelectShapes)act).shapes().isEmpty();
-
+        final SelectShapes act = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
+		boolean okSelection = act != null && !act.shapes().isEmpty();
 		return okSelection && getInteraction().getMenuItem()==getInstrument().copyMenu;
 	}
 }
@@ -277,13 +273,13 @@ abstract class Interaction2PasteShapes<I extends Interaction> extends Link<Paste
 
 	@Override
 	public void initAction() {
-		Action act = ActionsRegistry.INSTANCE.getAction(CopyShapes.class);
+        CopyShapes act = ActionsRegistry.INSTANCE.getAction(CopyShapes.class);
 
 		if(act==null)
 			act = ActionsRegistry.INSTANCE.getAction(CutShapes.class);
 
-		if(act instanceof CopyShapes) {
-			action.setCopy((CopyShapes)act);
+		if(act != null) {
+			action.setCopy(act);
 			action.setDrawing(instrument.drawing);
 			action.setGrid(instrument.grid);
 		}

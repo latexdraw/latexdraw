@@ -83,9 +83,9 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 
 			final String[] trans = code.split("_");//$NON-NLS-1$
 
-			for(int i=0; i<trans.length; i++)
-				try{ add(new SVGTransform(trans[i])); }
-				catch(final IllegalArgumentException e) { /* */ }
+            for(String tran : trans)
+                try { add(new SVGTransform(tran)); }
+                catch (final IllegalArgumentException e) { /* */ }
 		}
 		catch(final PatternSyntaxException e){ /* */ }
 	}

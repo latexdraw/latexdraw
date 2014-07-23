@@ -73,7 +73,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		final Image image = FlyweightThumbnail.getImage(this);
 		final String log = FlyweightThumbnail.getLog(this);
 
-		if(image==null && log.length()==0 || !lastText.equals(shape.getText()) ||
+		if(image==null && log.isEmpty() || !lastText.equals(shape.getText()) ||
 			lastColour==null || !lastColour.equals(shape.getLineColour()) ||
 			lastTextPos==null || lastTextPos!=shape.getTextPosition()) {
 			updateImage();
@@ -87,7 +87,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 
 	@Override
-	protected void finalize() {
+	protected void finalize() throws Throwable {
+        super.finalize();
 		flush();
 	}
 
@@ -282,12 +283,12 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		String msg;
 		final String log = FlyweightThumbnail.getLog(this);
 
-		if(log==null || log.length()==0)
+		if(log==null || log.isEmpty())
 			msg = "";
 		else {
 			msg = FlyweightThumbnail.getLatexErrorMessageFromLog(shape);
 
-			if(msg.length()==0)
+			if(msg.isEmpty())
 				msg = log;
 		}
 

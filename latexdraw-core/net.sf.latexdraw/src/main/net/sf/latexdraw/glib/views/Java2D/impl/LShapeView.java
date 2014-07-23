@@ -13,7 +13,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
@@ -73,7 +73,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 		path  	= new Path2D.Double();
 		border 	= new Rectangle2D.Double();
-		arrows  = Collections.EMPTY_LIST;
+		arrows  = new ArrayList<>();
 	}
 
 
@@ -353,14 +353,14 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		final BasicStroke bc = getStroke();
 
 		// We test if the point is on the shape.
-		return bc==null ? false : bc.createStrokedShape(sh).contains(x, y);
+		return bc!=null && bc.createStrokedShape(sh).contains(x, y);
 	}
 
 
 
 	@Override
 	public boolean contains(final IPoint pt) {
-		return pt==null ? false : contains(pt.getX(), pt.getY());
+		return pt!=null && contains(pt.getX(), pt.getY());
 	}
 
 
@@ -720,16 +720,16 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		br.setPoint(Double.MIN_VALUE, Double.MIN_VALUE);
 
 		// Defining the border of the rotated rectangle.
-		for(int i=0; i<pts.length; i++) {
-			if(pts[i].getX()<tl.getX())
-				tl.setX(pts[i].getX());
-			if(pts[i].getX()>br.getX())
-				br.setX(pts[i].getX());
-			if(pts[i].getY()<tl.getY())
-				tl.setY(pts[i].getY());
-			if(pts[i].getY()>br.getY())
-				br.setY(pts[i].getY());
-		}
+        for(IPoint pt : pts) {
+            if (pt.getX() < tl.getX())
+                tl.setX(pt.getX());
+            if (pt.getX() > br.getX())
+                br.setX(pt.getX());
+            if (pt.getY() < tl.getY())
+                tl.setY(pt.getY());
+            if (pt.getY() > br.getY())
+                br.setY(pt.getY());
+        }
 	}
 
 

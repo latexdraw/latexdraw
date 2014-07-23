@@ -64,23 +64,7 @@ public class SVGPathSegCurvetoCubic extends SVGPathSeg {
 
 	@Override
 	public String toString() {
-		final StringBuilder builder = new StringBuilder();
-
-		builder.append(isRelative() ? 'c' : 'C');
-		builder.append(' ');
-		builder.append(x1);
-		builder.append(' ');
-		builder.append(y1);
-		builder.append(' ');
-		builder.append(x2);
-		builder.append(' ');
-		builder.append(y2);
-		builder.append(' ');
-		builder.append(x);
-		builder.append(' ');
-		builder.append(y);
-
-		return builder.toString();
+        return String.valueOf(isRelative() ? 'c' : 'C') + ' ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y;
 	}
 
 

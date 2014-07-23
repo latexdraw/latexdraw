@@ -243,19 +243,6 @@ public class SVGMatrix {
 
 	@Override
 	public String toString() {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(a);
-		stringBuilder.append(' ');
-		stringBuilder.append(c);
-		stringBuilder.append(' ');
-		stringBuilder.append(e);
-		stringBuilder.append(' ');
-		stringBuilder.append(b);
-		stringBuilder.append(' ');
-		stringBuilder.append(d);
-		stringBuilder.append(' ');
-		stringBuilder.append(f);
-
-		return stringBuilder.toString();
+        return String.valueOf(a) + ' ' + c + ' ' + e + ' ' + b + ' ' + d + ' ' + f;
 	}
 }

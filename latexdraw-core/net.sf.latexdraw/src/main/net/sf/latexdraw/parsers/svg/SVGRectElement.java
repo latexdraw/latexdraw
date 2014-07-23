@@ -85,22 +85,18 @@ public class SVGRectElement extends SVGElement {
 		double vrx		= getRx();
 		double vry		= getRy();
 
-		if(Double.isNaN(vWidth) || Double.isNaN(vHeight) || vWidth<0 || vHeight<0 || vrx<0 || vry<0)
-			return false;
+        return !(Double.isNaN(vWidth) || Double.isNaN(vHeight) || vWidth < 0 || vHeight < 0 || vrx < 0 || vry < 0);
 
-		return true;
-	}
+    }
 
 
 
 
 	@Override
 	public boolean enableRendering() {
-		if(getWidth()==0 || getHeight()==0)
-			return false;
+        return !(getWidth() == 0 || getHeight() == 0);
 
-		return true;
-	}
+    }
 
 
 	/**

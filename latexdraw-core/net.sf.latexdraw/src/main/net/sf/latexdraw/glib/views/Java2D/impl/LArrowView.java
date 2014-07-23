@@ -194,12 +194,11 @@ class LArrowView implements IViewArrow {
 		final double[] ys 		= new double[2];
 		final double lineWidth	= model.getShape().getFullThickness();
 		double lgth 			= model.getBracketShapedArrowLength()+model.getShape().getFullThickness()/2.;
-		double x				= xRot;
 
 		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert))
 			lgth *= -1.;
 
-		updatePathBarIn(x, yRot, pt1, pt2, xs, ys);
+		updatePathBarIn(xRot, yRot, pt1, pt2, xs, ys);
 
 		final double x3 = xs[0]+lgth;
 		final double x4 = xs[1]+lgth;
@@ -278,11 +277,10 @@ class LArrowView implements IViewArrow {
 		Shape s = new Arc2D.Double(xarc, yRot-width/2., widtharc, width, 130, 100, Arc2D.OPEN);
 
 		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert)) {
-			double cx = xRot, cy = yRot;
-			double rotX = Math.cos(Math.PI)*cx - Math.sin(Math.PI)*cy;
-			double rotY = Math.sin(Math.PI)*cx + Math.cos(Math.PI)*cy;
+			double rotX = Math.cos(Math.PI)*xRot - Math.sin(Math.PI)*yRot;
+			double rotY = Math.sin(Math.PI)*xRot + Math.cos(Math.PI)*yRot;
 
-			AffineTransform at = AffineTransform.getTranslateInstance(cx-rotX, cy-rotY);
+			AffineTransform at = AffineTransform.getTranslateInstance(xRot-rotX, yRot-rotY);
 			at.rotate(Math.PI);
 			s = at.createTransformedShape(s);
 		}

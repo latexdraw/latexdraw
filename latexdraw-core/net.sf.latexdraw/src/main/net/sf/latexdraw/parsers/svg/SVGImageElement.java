@@ -137,12 +137,8 @@ public class SVGImageElement extends SVGElement {
 	public boolean checkAttributes() {
 		double vWidth	= getWidth();
 		double vHeight	= getHeight();
-
-		if(Double.isNaN(vWidth) || Double.isNaN(vHeight) || vWidth<0 || vHeight<0)
-			return false;
-
-		return true;
-	}
+        return !(Double.isNaN(vWidth) || Double.isNaN(vHeight) || vWidth < 0 || vHeight < 0);
+    }
 
 
 

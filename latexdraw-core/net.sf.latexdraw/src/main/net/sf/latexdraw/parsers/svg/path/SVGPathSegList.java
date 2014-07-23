@@ -67,11 +67,10 @@ public class SVGPathSegList extends ArrayList<SVGPathSeg> implements SVGPathHand
 			return null;
 
 		SVGPathSegMoveto m=null;
-		int i = pos;
 
-		while(m==null && i>0)
-			if(!get(i).isRelative() && get(i) instanceof SVGPathSegMoveto)
-				m = (SVGPathSegMoveto)get(i);
+		while(m==null && pos>0)
+			if(!get(pos).isRelative() && get(pos) instanceof SVGPathSegMoveto)
+				m = (SVGPathSegMoveto)get(pos);
 
 		if(m==null)
 			return null;

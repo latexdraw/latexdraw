@@ -124,7 +124,7 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 
 	@Override
 	public boolean contains(final IPoint p) {
-		return p==null ? false : border.contains(p.getX(), p.getY());
+		return p!=null && border.contains(p.getX(), p.getY());
 	}
 
 

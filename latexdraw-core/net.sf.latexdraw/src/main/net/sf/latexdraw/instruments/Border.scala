@@ -214,11 +214,12 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 		if(isArcHandlerShowable) {
 			val sh = _selection(0).getShape
 
-			if(sh.isInstanceOf[IArc]) {
-				val arc = sh.asInstanceOf[IArc]
-				_arcHandlerStart.update(arc, canvas.getZoom)
-				_arcHandlerEnd.update(arc, canvas.getZoom)
-			}
+			sh match {
+        case arc: IArc =>
+          _arcHandlerStart.update(arc, canvas.getZoom)
+          _arcHandlerEnd.update(arc, canvas.getZoom)
+        case _ =>
+      }
 		}
 	}
 
@@ -231,9 +232,10 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 		if(isCtrlPtMvHandlersShowable) {
 			val sh = _selection(0).getShape
 
-			if(sh.isInstanceOf[IControlPointShape])
-				// Lazy initialisation
-				initialiseCtrlMvHandlers(sh.asInstanceOf[IControlPointShape])
+			sh match {
+        case cps: IControlPointShape => initialiseCtrlMvHandlers(cps)
+        case _ =>
+      }
 		}
 	}
 
@@ -274,23 +276,24 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 		if(isPtMvHandlersShowable) {
 			val sh = _selection(0).getShape
 
-			if(sh.isInstanceOf[IModifiablePointsShape]) {
-				val pts   = sh.asInstanceOf[IModifiablePointsShape]
-				val nbPts = pts.getNbPoints
-				val zoom  = canvas.getZoom
+			sh match {
+        case pts: IModifiablePointsShape =>
+          val nbPts = pts.getNbPoints
+          val zoom = canvas.getZoom
 
-				if(_mvPtHandlers.size<nbPts)
-					for(i <- _mvPtHandlers.size until nbPts)
-						_mvPtHandlers += new MovePtHandler(i)
-				else
-					while(_mvPtHandlers.size>nbPts)
-						_mvPtHandlers.remove(_mvPtHandlers.size-1)
+          if (_mvPtHandlers.size < nbPts)
+            for (i <- _mvPtHandlers.size until nbPts)
+              _mvPtHandlers += new MovePtHandler(i)
+          else
+            while (_mvPtHandlers.size > nbPts)
+              _mvPtHandlers.remove(_mvPtHandlers.size - 1)
 
-				for(i <- 0 until _mvPtHandlers.size) {
-					val pt = pts.getPtAt(i)
-					_mvPtHandlers(i).setPoint(pt.getX*zoom, pt.getY*zoom)
-				}
-			}
+          for (i <- 0 until _mvPtHandlers.size) {
+            val pt = pts.getPtAt(i)
+            _mvPtHandlers(i).setPoint(pt.getX * zoom, pt.getY * zoom)
+          }
+        case _ =>
+      }
 		}
 	}
 
@@ -336,13 +339,13 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	}
 
 	/** @return True if the control move point handlers can be painted. */
-	protected def isCtrlPtMvHandlersShowable() = _selection.size==1 && _selection(0).isInstanceOf[IViewBezierCurve]
+	protected def isCtrlPtMvHandlersShowable = _selection.size==1 && _selection(0).isInstanceOf[IViewBezierCurve]
 
 	/** @return True if the move point handlers can be painted. */
-	protected def isPtMvHandlersShowable() = _selection.size==1 && _selection(0).isInstanceOf[IViewModifiablePtsShape]
+	protected def isPtMvHandlersShowable = _selection.size==1 && _selection(0).isInstanceOf[IViewModifiablePtsShape]
 
 	/** @return True if the arc handlers can be painted. */
-	protected def isArcHandlerShowable() = _selection.size==1 && _selection(0).isInstanceOf[IViewArc]
+	protected def isArcHandlerShowable = _selection.size==1 && _selection(0).isInstanceOf[IViewArc]
 
 //	/**
 //	 * @return True if the frame arc handler can be painted.
@@ -410,7 +413,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 	 * @since 3.0
 	 */
 	def clear() {
-		if(!selection.isEmpty) {
+		if(selection.nonEmpty) {
 			selection.foreach{view =>
 				MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, classOf[IShape]),
 											classOf[Shape2BorderMapping])}
@@ -445,7 +448,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 			if(pickable.isEmpty && _arcHandlerEnd.contains(x, y))
 				pickable = Some(_arcHandlerEnd)
 
-			return pickable.getOrElse(null)
+			return pickable.orNull
 		}
 		return null
 	}
@@ -526,7 +529,7 @@ private sealed class DnD2ArcAngle(ins : Border) extends Link[ModifyShapeProperty
 	}
 
 
-	override def isConditionRespected() = interaction.getStartObject==instrument.arcHandlerEnd || interaction.getStartObject==instrument.arcHandlerStart
+	override def isConditionRespected = interaction.getStartObject==instrument.arcHandlerEnd || interaction.getStartObject==instrument.arcHandlerStart
 }
 
 
@@ -555,7 +558,7 @@ private sealed class DnD2Rotate(ins : Border) extends Link[RotateShapes, DnD, Bo
 		action.setRotationAngle(gc.computeRotationAngle(p1, instrument.getAdaptedOriginPoint(interaction.getEndPt)))
 	}
 
-	override def isConditionRespected() = interaction.getStartObject==instrument.rotHandler
+	override def isConditionRespected = interaction.getStartObject==instrument.rotHandler
 }
 
 
@@ -591,7 +594,7 @@ private sealed class DnD2MoveCtrlPoint(ins : Border) extends Link[MoveCtrlPoint,
 	}
 
 
-	override def isConditionRespected() = ctrlPtHandler.isDefined
+	override def isConditionRespected = ctrlPtHandler.isDefined
 
 
 	/**
@@ -641,7 +644,7 @@ private sealed class DnD2MovePoint(ins : Border) extends Link[MovePointShape, Dn
 	}
 
 
-	override def isConditionRespected() = movePtHandler.isDefined
+	override def isConditionRespected = movePtHandler.isDefined
 
 
 	/**
@@ -724,7 +727,7 @@ private sealed class DnD2Scale(ins : Border) extends Link[ScaleShapes, DnD, Bord
 	}
 
 
-	override def isConditionRespected() = scaleHandler.isDefined
+	override def isConditionRespected = scaleHandler.isDefined
 
 
 	override def interimFeedback() {

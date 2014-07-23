@@ -485,9 +485,9 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 			code.append("shadow=true");//$NON-NLS-1$
 
 			if(!LNumber.equalsDouble(Math.toDegrees(shape.getShadowAngle()), PSTricksConstants.DEFAULT_SHADOW_ANGLE))
-				code.append(",shadowangle="+(float)LNumber.getCutNumber(Math.toDegrees(shape.getShadowAngle())));//$NON-NLS-1$
+				code.append(",shadowangle=").append((float) LNumber.getCutNumber(Math.toDegrees(shape.getShadowAngle())));//$NON-NLS-1$
 
-			code.append(",shadowsize="+(float)LNumber.getCutNumber(shape.getShadowSize()/ppc));//$NON-NLS-1$
+			code.append(",shadowsize=").append((float) LNumber.getCutNumber(shape.getShadowSize() / ppc));//$NON-NLS-1$
 
 			if(!shadowColor.equals(PSTricksConstants.DEFAULT_SHADOW_COLOR))
 				code.append(",shadowcolor=").append(getColourName(shadowColor)); //$NON-NLS-1$

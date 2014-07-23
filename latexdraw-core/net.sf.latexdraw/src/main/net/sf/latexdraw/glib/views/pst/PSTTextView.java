@@ -64,7 +64,7 @@ class PSTTextView extends PSTShapeView<IText> {
 
 		String tokenPosition = shape.getTextPosition().getLatexToken();
 
-		if(tokenPosition==null || tokenPosition.length()==0)
+		if(tokenPosition==null || tokenPosition.isEmpty())
 			cache.append("\\rput("); //$NON-NLS-1$
 		else
 			cache.append("\\rput[").append(shape.getTextPosition().getLatexToken()).append(']').append('('); //$NON-NLS-1$
