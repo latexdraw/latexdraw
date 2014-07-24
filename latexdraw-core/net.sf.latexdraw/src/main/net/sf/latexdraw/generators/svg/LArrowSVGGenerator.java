@@ -157,7 +157,7 @@ class LArrowSVGGenerator {
 		if(list.size()==4 && seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto) {
 			final double lgth = Math.abs(m.getX()-((SVGPathSegLineto)seg).getX());
 
-            y += (m.getY() > 0. ? -0.5 : 0.5);
+            y += m.getY() > 0. ? -0.5 : 0.5;
 			arrow.setTBarSizeDim(y*lineWidth*2. - tbarNum*lineWidth);
 			arrow.setBracketNum((lgth-0.5)*lineWidth/(arrow.getTBarSizeDim()/IShape.PPC + arrow.getTBarSizeNum()*lineWidth));
 			arrow.setArrowStyle(elt.getRefX()>0.? ArrowStyle.RIGHT_SQUARE_BRACKET : ArrowStyle.LEFT_SQUARE_BRACKET);
@@ -317,8 +317,9 @@ class LArrowSVGGenerator {
 		final IShape shape			= arrow.getShape();
 		final SVGElement arrowSVG 	= new SVGPathElement(doc);
 		final double width  		= (arrow.getArrowSizeNum()*lineWidth + arrow.getArrowSizeDim())/lineWidth;
-		double length 				= arrow.getArrowLength()*width, inset = arrow.getArrowInset()*length;
-		final SVGPathSegList path 	= new SVGPathSegList();
+		double length 				= arrow.getArrowLength()*width;
+        double inset                = arrow.getArrowInset()*length;
+        final SVGPathSegList path 	= new SVGPathSegList();
 
 		if(arrow.getArrowStyle()==ArrowStyle.LEFT_ARROW) {
 			length *= -1.;
@@ -370,8 +371,9 @@ class LArrowSVGGenerator {
 		final IShape shape			= arrow.getShape();
 		final SVGElement arrowSVG 	= new SVGPathElement(doc);
 		final double width  		= (arrow.getArrowSizeNum()*lineWidth + arrow.getArrowSizeDim())/lineWidth;
-		double length 				= arrow.getArrowLength()*width, inset = arrow.getArrowInset()*length;
-		final SVGPathSegList path 	= new SVGPathSegList();
+		double length 				= arrow.getArrowLength()*width;
+        double inset                = arrow.getArrowInset()*length;
+        final SVGPathSegList path 	= new SVGPathSegList();
 
 		if(arrow.getArrowStyle()==ArrowStyle.LEFT_DBLE_ARROW) {
 			inset *= -1.;

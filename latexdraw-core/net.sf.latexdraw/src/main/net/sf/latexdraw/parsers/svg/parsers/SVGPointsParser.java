@@ -62,9 +62,10 @@ public class SVGPointsParser extends AbstractSVGParser {
 
 	@Override
 	public void parse() throws ParseException {
-		double c1, c2;
+		double c1;
+        double c2;
 
-		skipWSP();
+        skipWSP();
 
 		while(!isEOC()) {
 			c1 = readNumber();

@@ -722,9 +722,11 @@ public final class CSSColors {
 
 		try {
 			final String col = hex.substring(1);
-			String r, g, b;
+			String r;
+            String g;
+            String b;
 
-			switch(col.length()) {
+            switch(col.length()) {
 				case 6:// #112233 for instance.
 					r = col.substring(0, 2);
 					g = col.substring(2, 4);

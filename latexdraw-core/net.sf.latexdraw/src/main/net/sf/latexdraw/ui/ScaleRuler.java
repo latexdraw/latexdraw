@@ -184,9 +184,11 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
     	double ppc 				= canvas.getPPCDrawing();
     	final Graphics2D g2 	= (Graphics2D)g;
     	final double sizeZoomed = SIZE/zoom;
-    	double i, j, cpt;
+    	double i;
+        double j;
+        double cpt;
 
-    	// adjusting the ppc value according to the current unit.
+        // adjusting the ppc value according to the current unit.
 		if(getUnit()==Unit.INCH)
 			ppc*=PSTricksConstants.INCH_VAL_CM;
 

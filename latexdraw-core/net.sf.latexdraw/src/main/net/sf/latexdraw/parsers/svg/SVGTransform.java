@@ -99,9 +99,10 @@ public class SVGTransform {
         if(code.startsWith(SVGAttributes.SVG_TRANSFORM_ROTATE)) {
 			i = SVGAttributes.SVG_TRANSFORM_ROTATE.length();
 			j = code.indexOf(')');
-			int k1 = code.indexOf(' '), k2 = code.indexOf(',');
+			int k1 = code.indexOf(' ');
+            int k2 = code.indexOf(',');
 
-			if(i>=lgth || code.charAt(i)!='(' || j==-1)
+            if(i>=lgth || code.charAt(i)!='(' || j==-1)
 				throw new IllegalArgumentException();
 
 			k = k1==-1 ? k2 : k2==-1 ? k1 : Math.min(k1, k2);

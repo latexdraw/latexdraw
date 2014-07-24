@@ -502,7 +502,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final File finalFile = new File(pathExportEPS);
 		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", EPSFilter.EPS_EXTENSION));
 
-		String log = LSystem.INSTANCE.execute(paramsLatex, tmpDir);
+		final String log = LSystem.INSTANCE.execute(paramsLatex, tmpDir);
 		if(!fileEPS.exists()) {
 			BadaboomCollector.INSTANCE.add(new IllegalAccessException(getLatexDocument(drawing, synchronizer, pstGen) + LResources.EOL + log));
 			return null;
@@ -535,9 +535,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 		if(pathExportPs==null)
 			return null;
 
-		int lastSep			= pathExportPs.lastIndexOf(LResources.FILE_SEP)+1;
-		String name			= pathExportPs.substring(lastSep==-1 ? 0 : lastSep, pathExportPs.lastIndexOf(".ps"));
-		File tmpDir2		= tmpDir==null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
+		final int lastSep			= pathExportPs.lastIndexOf(LResources.FILE_SEP)+1;
+		final String name			= pathExportPs.substring(lastSep==-1 ? 0 : lastSep, pathExportPs.lastIndexOf(".ps"));
+		final File tmpDir2		= tmpDir==null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
 		final float scale	= (float)pstGen.getScale();
 
 		if(tmpDir2==null) {
@@ -545,26 +545,26 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return null;
 		}
 
-		String path		= tmpDir2.getAbsolutePath() + LResources.FILE_SEP;
-		File texFile    = createLatexFile(drawing, path + name + TeXFilter.TEX_EXTENSION, synchronizer, pstGen);
+		final String path		= tmpDir2.getAbsolutePath() + LResources.FILE_SEP;
+		final File texFile    = createLatexFile(drawing, path + name + TeXFilter.TEX_EXTENSION, synchronizer, pstGen);
 		String log;
 		File finalPS;
-		IPoint tr		= synchronizer.getTopRightDrawingPoint();
-		IPoint bl		= synchronizer.getBottomLeftDrawingPoint();
-		int ppc			= synchronizer.getPPCDrawing();
-		float dec		= 0.2f;
+		final IPoint tr		= synchronizer.getTopRightDrawingPoint();
+		final IPoint bl		= synchronizer.getBottomLeftDrawingPoint();
+		final int ppc			= synchronizer.getPPCDrawing();
+		final float dec		= 0.2f;
 		final OperatingSystem os = LSystem.INSTANCE.getSystem();
 
 		if(texFile==null || !texFile.exists())
 			return null;
 
-		String[] paramsLatex = {LSystem.INSTANCE.getLatexDistribPath()+os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+		final String[] paramsLatex = {LSystem.INSTANCE.getLatexDistribPath()+os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 				texFile.getAbsolutePath()};
 		log    = LSystem.INSTANCE.execute(paramsLatex, tmpDir2);
-		File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
-		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
+		final File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
+		final boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
 
-		String[] paramsDvi = {LSystem.INSTANCE.getLatexDistribPath()+os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
+		final String[] paramsDvi = {LSystem.INSTANCE.getLatexDistribPath()+os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
 				(tr.getX()-bl.getX())/ppc*scale+dec+"cm,"+((bl.getY()-tr.getY())/ppc*scale+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						name, "-o", pathExportPs}; //$NON-NLS-1$
 		log   += LSystem.INSTANCE.execute(paramsDvi, tmpDir2);
@@ -605,15 +605,15 @@ public abstract class LaTeXGenerator implements Modifiable {
 		if(pathExportPdf==null)
 			return null;
 
-		File tmpDir = LFileUtils.INSTANCE.createTempDir();
+		final File tmpDir = LFileUtils.INSTANCE.createTempDir();
 
 		if(tmpDir==null) {
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Cannot create a temporary folder.")); //$NON-NLS-1$
 			return null;
 		}
 
-		String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
-		File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + ".ps", synchronizer, tmpDir, pstGen);
+		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
+		final File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + ".ps", synchronizer, tmpDir, pstGen);
 		String log;
 		File pdfFile;
 		final OperatingSystem os = LSystem.INSTANCE.getSystem();
@@ -623,7 +623,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 		// On windows, an option must be defined using this format:
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
-		String optionEmbed = "-dEmbedAllFonts" + (LSystem.INSTANCE.isWindows() ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		final String optionEmbed = "-dEmbedAllFonts" + (LSystem.INSTANCE.isWindows() ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
 		log = LSystem.INSTANCE.execute(new String[] {LSystem.INSTANCE.getLatexDistribPath()+os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), //$NON-NLS-1$
 							crop ? name + PDFFilter.PDF_EXTENSION : pathExportPdf}, tmpDir);

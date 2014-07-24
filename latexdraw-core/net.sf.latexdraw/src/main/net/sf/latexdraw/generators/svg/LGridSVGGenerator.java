@@ -230,7 +230,6 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 									  final double xSubStep, final double ySubStep, final double minX, final double maxX,
 									  final double minY, final double maxY, final int subGridDots, final double subGridWidth,
 									  final double tlx, final double tly, final double brx, final double bry, final Color subGridColour) {
-		double i, j, n, m, k;
 		final double dotStep = unit*IShape.PPC/(subGridDots*subGridDiv);
 		final double nbX = (maxX-minX)*subGridDiv;
 		final double nbY = (maxY-minY)*subGridDiv;
@@ -243,9 +242,9 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		subgridDots.setAttribute(prefix+LNamespace.XML_GRID_SUB_DIV, String.valueOf(subGridDots));
 		subgridDots.setAttribute(prefix+LNamespace.XML_GRID_WIDTH, String.valueOf(subGridWidth));
 
-		for(i=0, n=tlx; i<nbX; i++, n+=xSubStep)
-			for(j=0, m=tly; j<=nbY; j++, m+=ySubStep)
-				for(k=0; k<subGridDots; k++) {
+		for(double i=0, n=tlx; i<nbX; i++, n+=xSubStep)
+			for(double j=0, m=tly; j<=nbY; j++, m+=ySubStep)
+				for(double k=0; k<subGridDots; k++) {
 					dot = new SVGCircleElement(document);
 					dot.setAttribute(SVGAttributes.SVG_CX, String.valueOf(n+k*dotStep));
 					dot.setAttribute(SVGAttributes.SVG_CY, String.valueOf(m));
@@ -253,9 +252,9 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 					subgridDots.appendChild(dot);
 				}
 
-		for(j=0, n=tly; j<nbY; j++, n+=ySubStep)
-			for(i=0, m=tlx; i<=nbX; i++, m+=xSubStep)
-				for(k=0; k<subGridDots; k++) {
+		for(double j=0, n=tly; j<nbY; j++, n+=ySubStep)
+			for(double i=0, m=tlx; i<=nbX; i++, m+=xSubStep)
+				for(double k=0; k<subGridDots; k++) {
 					dot = new SVGCircleElement(document);
 					dot.setAttribute(SVGAttributes.SVG_CX, String.valueOf(m));
 					dot.setAttribute(SVGAttributes.SVG_CY, String.valueOf(n+k*dotStep));

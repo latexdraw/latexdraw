@@ -94,18 +94,17 @@ class LGridView extends LStandardGridView<IGrid> {
 										final double tlx, final double tly, final double brx, final double bry, final double absStep) {
 		final int gridDots   = shape.getGridDots();
 		final double dotStep = unit*IShape.PPC/gridDots;
-		double k, i, l, m, n, j;
 
-		for(k=minX, i=posX; k<=maxX; i+=xStep, k++)
-			for(m=tly, n=minY; n<maxY; n++, m+=absStep)
-				for(l=0, j=m; l<gridDots; l++, j+=dotStep) {
+		for(double k=minX, i=posX; k<=maxX; i+=xStep, k++)
+			for(double m=tly, n=minY; n<maxY; n++, m+=absStep)
+				for(double l=0, j=m; l<gridDots; l++, j+=dotStep) {
 					path.moveTo(i, j);
 					path.lineTo(i, j);
 				}
 
-		for(k=minY, i=posY; k<=maxY; i-=yStep, k++)
-			for(m=tlx, n=minX; n<maxX; n++, m+=absStep)
-				for(l=0, j=m; l<gridDots; l++, j+=dotStep) {
+		for(double k=minY, i=posY; k<=maxY; i-=yStep, k++)
+			for(double m=tlx, n=minX; n<maxX; n++, m+=absStep)
+				for(double l=0, j=m; l<gridDots; l++, j+=dotStep) {
 					path.moveTo(j, i);
 					path.lineTo(j, i);
 				}

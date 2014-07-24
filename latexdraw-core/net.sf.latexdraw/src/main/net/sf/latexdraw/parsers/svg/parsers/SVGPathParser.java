@@ -150,9 +150,12 @@ public class SVGPathParser extends SVGNumberParser {
 	 * @since 0.1
 	 */
 	protected void parseShorthandCurveto(final boolean isRelative) throws ParseException {
-		double x, y, x2, y2;
+		double x;
+        double y;
+        double x2;
+        double y2;
 
-		nextChar();
+        nextChar();
 		skipWSP();
 		x2 = parseNumber(false);
 		skipWSPComma();
@@ -240,10 +243,15 @@ public class SVGPathParser extends SVGNumberParser {
 	 * @throws ParseException If a problem occurs.
 	 */
 	protected void parseEllipticalArcto(final boolean isRelative) throws ParseException {
-		double x, y, rx, ry, angle;
-		boolean laf, sf;
+		double x;
+        double y;
+        double rx;
+        double ry;
+        double angle;
+        boolean laf;
+        boolean sf;
 
-		nextChar();
+        nextChar();
 		skipWSP();
 		rx = parseNumber(true);
 		skipWSPComma();
@@ -287,9 +295,14 @@ public class SVGPathParser extends SVGNumberParser {
 	 * @throws ParseException If a problem occurs.
 	 */
 	protected void parseCurveto(final boolean isRelative) throws ParseException {
-		double x, y, x1, x2, y1, y2;
+		double x;
+        double y;
+        double x1;
+        double x2;
+        double y1;
+        double y2;
 
-		nextChar();
+        nextChar();
 		skipWSP();
 		x1 = parseNumber(false);
 		skipWSPComma();
@@ -329,9 +342,12 @@ public class SVGPathParser extends SVGNumberParser {
 	 * @throws ParseException If a problem occurs.
 	 */
 	protected void parseQuadraticBezierCurveto(final boolean isRelative) throws ParseException {
-		double x, y, x1, y1;
+		double x;
+        double y;
+        double x1;
+        double y1;
 
-		nextChar();
+        nextChar();
 		skipWSP();
 		x1 = parseNumber(false);
 		skipWSPComma();
@@ -363,9 +379,10 @@ public class SVGPathParser extends SVGNumberParser {
 	 * @throws ParseException If a problem occurs.
 	 */
 	protected void parseShorthandQuadraticBezierCurveto(final boolean isRelative) throws ParseException {
-		double x, y;
+		double x;
+        double y;
 
-		nextChar();
+        nextChar();
 		skipWSP();
 		x = parseNumber(false);
 		skipWSPComma();
@@ -389,9 +406,10 @@ public class SVGPathParser extends SVGNumberParser {
 	 * @throws ParseException If a problem occurs.
 	 */
 	protected void parseLineto(final boolean isRelative) throws ParseException {
-		double x, y;
+		double x;
+        double y;
 
-		nextChar();
+        nextChar();
 		skipWSP();
 		x = parseNumber(false);
 		skipWSPComma();
@@ -416,9 +434,10 @@ public class SVGPathParser extends SVGNumberParser {
 	 * @throws ParseException If a problem occurs.
 	 */
 	protected void parseMoveto(final boolean isRelative) throws ParseException {
-		double x, y;
+		double x;
+        double y;
 
-		nextChar();
+        nextChar();
 		skipWSP();
 		x = parseNumber(false);
 		skipWSPComma();

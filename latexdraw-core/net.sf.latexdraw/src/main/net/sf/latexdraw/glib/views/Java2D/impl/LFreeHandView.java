@@ -68,9 +68,12 @@ class LFreeHandView extends LShapeView<IFreehand> {
         double midx = (curx + prevx)/2.;
         double midy = (cury + prevy)/2.;
 		int i;
-		double x1, x2, y1, y2;
+		double x1;
+        double x2;
+        double y1;
+        double y2;
 
-    	path.moveTo(curx, cury);
+        path.moveTo(curx, cury);
 
     	// Starting the drawing of the shape with a line.
         if(size>interval) {

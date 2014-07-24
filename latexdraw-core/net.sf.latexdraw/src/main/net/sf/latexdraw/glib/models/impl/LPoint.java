@@ -126,7 +126,7 @@ class LPoint extends Point2D.Double implements IPoint {
 		if(angle<0.)
 			angle = 2.*PI + angle;
 
-        angle %= (2. * PI);
+        angle %= 2. * PI;
 
 		if(LNumber.equalsDouble(angle, 0.))
 			return (IPoint)clone();

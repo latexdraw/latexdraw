@@ -119,8 +119,9 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		final SVGNodeList nl = elt.getChildren(SVGElements.SVG_G);
 		int i=0;
         final int size = nl.getLength();
-        SVGGElement l1=null, l2=null;
-		SVGElement element;
+        SVGGElement l1=null;
+        SVGGElement l2=null;
+        SVGElement element;
 
 		while((l1==null || l2==null) && i<size) {
 			element = nl.item(i);

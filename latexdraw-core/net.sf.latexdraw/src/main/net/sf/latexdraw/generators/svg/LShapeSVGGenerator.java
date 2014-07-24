@@ -251,10 +251,12 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		final SVGTransformList tl = elt.getTransform();
 		SVGTransform t;
-		double tx, ty;
-		boolean sSize = false, sAngle = false;
+		double tx;
+        double ty;
+        boolean sSize = false;
+        boolean sAngle = false;
 
-		for(int i=0, size=tl.size(); i<size && (!sSize || !sAngle); i++ ) {
+        for(int i=0, size=tl.size(); i<size && (!sSize || !sAngle); i++ ) {
 			t = tl.get(i);
 
 			if(t.isTranslation()) {
@@ -594,9 +596,10 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        		grad.setAttribute(SVGAttributes.SVG_ID, id);
 
 		        		if(!LNumber.equalsDouble(shape.getGradAngle()%(2*PI), PI/2.)) {
-		        			final Point2D.Float p1 = new Point2D.Float(), p2 = new Point2D.Float();
+		        			final Point2D.Float p1 = new Point2D.Float();
+                            final Point2D.Float p2 = new Point2D.Float();
 
-		        			getGradientPoints(p1, p2, true);
+                            getGradientPoints(p1, p2, true);
 
 		            		grad.setAttribute(SVGAttributes.SVG_X1, String.valueOf(p1.x));
 		            		grad.setAttribute(SVGAttributes.SVG_Y1, String.valueOf(p1.y));

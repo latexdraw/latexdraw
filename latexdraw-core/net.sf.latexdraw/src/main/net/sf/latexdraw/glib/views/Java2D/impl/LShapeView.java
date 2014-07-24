@@ -662,8 +662,9 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		if(!LNumber.equalsDouble(rotationAngle%(Math.PI*2.), 0.) && g!=null) {
 			final IPoint tl = shape.getTopLeftPoint();//FIXME: should be border?
 			final IPoint br = shape.getBottomRightPoint();
-			final double cx = (tl.getX() + br.getX()) / 2., cy = (tl.getY() + br.getY()) / 2.;
-			final double c2x = Math.cos(rotationAngle) * cx - Math.sin(rotationAngle)* cy;
+			final double cx = (tl.getX() + br.getX()) / 2.;
+            final double cy = (tl.getY() + br.getY()) / 2.;
+            final double c2x = Math.cos(rotationAngle) * cx - Math.sin(rotationAngle)* cy;
 			final double c2y = Math.sin(rotationAngle) * cx + Math.cos(rotationAngle)* cy;
 			final double c3x = Math.cos(-rotationAngle) * (cx - c2x)- Math.sin(-rotationAngle) * (cy - c2y);
 			final double c3y = Math.sin(-rotationAngle) * (cx - c2x)+ Math.cos(-rotationAngle) * (cy - c2y);

@@ -153,9 +153,11 @@ class LGroupView extends LShapeView<IGroup> {
 
 	@Override
 	public void updateBorder() {
-		double xMin = Double.MAX_VALUE, yMin = Double.MAX_VALUE;
-		double xMax = Double.MIN_VALUE, yMax = Double.MIN_VALUE;
-		Rectangle2D rec;
+		double xMin = Double.MAX_VALUE;
+        double yMin = Double.MAX_VALUE;
+        double xMax = Double.MIN_VALUE;
+        double yMax = Double.MIN_VALUE;
+        Rectangle2D rec;
 
 		for(final IViewShape v : views) {
 			rec = v.getBorder();
