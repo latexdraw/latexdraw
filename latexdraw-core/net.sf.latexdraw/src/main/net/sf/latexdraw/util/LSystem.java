@@ -1,5 +1,7 @@
 package net.sf.latexdraw.util;
 
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
@@ -7,8 +9,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.Arrays;
-
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * Defines some routines that provides information about the operating system currently used.<br>
@@ -63,7 +63,7 @@ public final class LSystem {
 		 * @since 3.1
 		 */
 		public String getPS2EPSBinPath() {
-			return LSystem.INSTANCE.getLatexDistribPath()+"ps2eps";
+			return "ps2eps";
 		}
 
 		/**
@@ -71,7 +71,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getLatexBinPath() {
-			return LSystem.INSTANCE.getLatexDistribPath()+"latex";
+			return "latex";
 		}
 
 		/**
@@ -79,7 +79,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getDvipsBinPath() {
-			return LSystem.INSTANCE.getLatexDistribPath()+"dvips";
+			return "dvips";
 		}
 
 		/**
@@ -87,7 +87,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getPs2pdfBinPath() {
-			return LSystem.INSTANCE.getLatexDistribPath()+"ps2pdf";
+			return "ps2pdf";
 		}
 
 		/**
@@ -95,7 +95,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getPdfcropBinPath() {
-			return LSystem.INSTANCE.getLatexDistribPath()+"pdfcrop";
+			return "pdfcrop";
 		}
 	}
 
@@ -103,19 +103,12 @@ public final class LSystem {
 	/** The singleton. */
 	public static final LSystem INSTANCE = new LSystem();
 
-	private String latexDistribPath;
-
 	/**
 	 * Creates the singleton.
 	 */
 	private LSystem() {
 		super();
-		latexDistribPath = "";
 	}
-
-	public String getLatexDistribPath() { return latexDistribPath; }
-
-	public void setLatexDistribPath(final String path) { if(path!=null) latexDistribPath = path; }
 
 
 	/**
