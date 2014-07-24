@@ -1,23 +1,18 @@
 package net.sf.latexdraw
 
 import java.io.File
-import org.malai.action.ActionsRegistry
-import org.malai.mapping.MappingRegistry
-import org.malai.undo.UndoCollector
+
 import net.sf.latexdraw.actions.LoadDrawing
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
-import net.sf.latexdraw.ui.LFrame
-import net.sf.latexdraw.ui.SplashScreen
-import net.sf.latexdraw.util.LCommandLine
+import net.sf.latexdraw.ui.{LFrame, SplashScreen}
 import net.sf.latexdraw.util.LCommandLine.CmdLineState
-import net.sf.latexdraw.util.LPath
-import net.sf.latexdraw.util.Theme
-import net.sf.latexdraw.util.VersionChecker
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.shape.IGrid
+import net.sf.latexdraw.util.{LCommandLine, LPath, Theme, VersionChecker}
+import org.malai.action.ActionsRegistry
+import org.malai.mapping.MappingRegistry
+import org.malai.undo.UndoCollector
 
 /**
  * The main class of the project.<br>
@@ -100,8 +95,8 @@ object LaTeXDraw {
 	    	action.flush
     	}
 
-		frame.getCanvas.getDrawing.addShape(ShapeFactory.createPlot(true, ShapeFactory.createPoint(100, 500), 0, 90, "x sin dup mul"))
-		frame.getCanvas.getDrawing.addShape(ShapeFactory.createPlot(true, ShapeFactory.createPoint(100, 500), 10, 90, "x sin x 2 div 2 exp cos mul"))
+//		frame.getCanvas.getDrawing.addShape(ShapeFactory.createPlot(true, ShapeFactory.createPoint(100, 500), 0, 90, "x sin dup mul"))
+//		frame.getCanvas.getDrawing.addShape(ShapeFactory.createPlot(true, ShapeFactory.createPoint(100, 500), 10, 90, "x sin x 2 div 2 exp cos mul"))
 
     	// Checking a new version if required.
     	if(VersionChecker.WITH_UPDATE && frame.getPrefSetters.isVersionCheckEnable)
