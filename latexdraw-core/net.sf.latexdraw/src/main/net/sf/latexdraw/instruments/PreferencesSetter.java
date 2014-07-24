@@ -630,9 +630,11 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 			try(final FileOutputStream fos = new FileOutputStream(LPath.PATH_PREFERENCES_XML_FILE)) {
 				final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 				final Rectangle rec = frame.getGraphicsConfiguration().getBounds();
-		        Element root, elt, elt2;
+		        final Element root;
+                Element elt;
+                Element elt2;
 
-		        document.setXmlVersion("1.0");//$NON-NLS-1$
+                document.setXmlVersion("1.0");//$NON-NLS-1$
 		        document.setXmlStandalone(true);
 		        root = document.createElement(LNamespace.XML_ROOT_PREFERENCES);
 		        document.appendChild(root);
@@ -750,7 +752,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 				transformer.transform(new DOMSource(document), new StreamResult(fos));
 			}
-		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
+		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 

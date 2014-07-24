@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileFilter;
  */
 public class PNGFilter extends FileFilter {
     /** The name of the extension of png file */
-    public final static String PNG_EXTENSION = ".png";//$NON-NLS-1$
+    public static final String PNG_EXTENSION = ".png";//$NON-NLS-1$
 
 
 	@Override

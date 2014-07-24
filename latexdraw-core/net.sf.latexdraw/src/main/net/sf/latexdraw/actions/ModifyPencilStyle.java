@@ -31,16 +31,7 @@ public class ModifyPencilStyle extends Action {
 	protected EditionChoice editingChoice;
 
 
-	/**
-	 * Creates the action.
-	 * @since 3.0
-	 */
-	public ModifyPencilStyle() {
-		super();
-	}
-
-
-	@Override
+    @Override
 	public void flush() {
 		super.flush();
 		pencil 			= null;

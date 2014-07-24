@@ -83,12 +83,12 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 		this(ShapeFactory.createPolygon(true));
 
 		setNumber(elt);
-		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGPolygonElement))
 			throw new IllegalArgumentException();
 
-		SVGPolygonElement main = (SVGPolygonElement)elt2;
+		final SVGPolygonElement main = (SVGPolygonElement)elt2;
 		setSVGLatexdrawParameters(elt);
 		setSVGModifiablePointsParameters(main);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
@@ -112,13 +112,13 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
         root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_POLYGON);
         root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-        for(IPoint pt : shape.getPoints())
+        for(final IPoint pt : shape.getPoints())
      	   pointsBuilder.append(pt.getX()).append(',').append(pt.getY()).append(' ');
 
         final String points = pointsBuilder.toString();
 
         if(shape.hasShadow()) {
-        	SVGPolygonElement shad = new SVGPolygonElement(doc);
+        	final SVGPolygonElement shad = new SVGPolygonElement(doc);
         	try { shad.setPoints(points); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
         	setSVGShadowAttributes(shad, true);
         	root.appendChild(shad);
@@ -138,7 +138,7 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
         elt.setAttribute(LNamespace.LATEXDRAW_NAMESPACE +':'+ LNamespace.XML_ROTATION, String.valueOf(shape.getRotationAngle()));
 
         if(shape.hasDbleBord()) {
-        	SVGPolygonElement dblBord = new SVGPolygonElement(doc);
+        	final SVGPolygonElement dblBord = new SVGPolygonElement(doc);
         	try { dblBord.setPoints(points); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
         	setSVGDoubleBordersAttributes(dblBord);
         	root.appendChild(dblBord);

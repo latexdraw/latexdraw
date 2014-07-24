@@ -51,26 +51,26 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 	protected LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.createFreeHand(false));
 
-		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		setNumber(elt);
 
 		if(elt==null || elt2==null || !(elt2 instanceof SVGPathElement))
 			throw new IllegalArgumentException();
 
-		SVGPathElement main = (SVGPathElement)elt2;
+		final SVGPathElement main = (SVGPathElement)elt2;
 		String v = elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_INTERVAL);
 
 		if(v!=null)
 			try{ shape.setInterval(Double.valueOf(v).intValue()); }
-		catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+		catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-		List<Point2D> pts = SVGPointsParser.getPoints(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POINTS));
+		final List<Point2D> pts = SVGPointsParser.getPoints(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POINTS));
 
 		if(pts==null)
 			throw new IllegalArgumentException();
 
-		for(Point2D pt : pts)
+		for(final Point2D pt : pts)
 			shape.addPoint(ShapeFactory.createPoint(pt.getX(), pt.getY()));
 
 		setSVGLatexdrawParameters(elt);
@@ -81,18 +81,18 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 		if(v!=null)
 			try{ shape.setRotationAngle(Double.valueOf(v)); }
-			catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+			catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		try{
 			FreeHandType type = FreeHandType.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE));
 			if(type==null) {
-				int val = Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE)).intValue();
+				final int val = Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE)).intValue();
 				type = val==0 ? FreeHandType.LINES : FreeHandType.CURVES;
 			}
 
 			shape.setType(type);
 		}
-		catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+		catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		if(withTransformation)
 			applyTransformations(elt);
@@ -127,31 +127,31 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
         }
 
         for(i=interval*2; i<size; i+=interval)  {
-        	double x1 = (midx + curx) / 2.;
-        	double y1 = (midy + cury) / 2.;
+        	final double x1 = (midx + curx) / 2.;
+        	final double y1 = (midy + cury) / 2.;
         	prevx = curx;
         	prevy = cury;
             curx = shape.getPtAt(i).getX();
             cury = shape.getPtAt(i).getY();
             midx = (curx + prevx) / 2.;
             midy = (cury + prevy) / 2.;
-            double x2 = (prevx + midx) / 2.;
-            double y2 = (prevy + midy) / 2.;
+            final double x2 = (prevx + midx) / 2.;
+            final double y2 = (prevy + midy) / 2.;
 
             path.add(new SVGPathSegCurvetoCubic(midx, midy, x1, y1, x2, y2, false));
         }
 
         if(i-interval+1<size) {
-        	double x1 = (midx + curx) / 2.;
-        	double y1 = (midy + cury) / 2.;
+        	final double x1 = (midx + curx) / 2.;
+        	final double y1 = (midy + cury) / 2.;
             prevx = curx;
             prevy = cury;
             curx = shape.getPtAt(-1).getX();
             cury = shape.getPtAt(-1).getY();
             midx = (curx + prevx) / 2.;
             midy = (cury + prevy) / 2.;
-            double x2 = (prevx + midx) / 2.;
-            double y2 = (prevy + midy) / 2.;
+            final double x2 = (prevx + midx) / 2.;
+            final double y2 = (prevy + midy) / 2.;
 
             path.add(new SVGPathSegCurvetoCubic(shape.getPtAt(-1).getX(), shape.getPtAt(-1).getY(), x1, y1, x2, y2, false));
         }
@@ -163,7 +163,7 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 	 * @since 3.0
 	 */
 	protected void getPathLines(final SVGPathSegList path) {
-		IPoint p = shape.getPtAt(0);
+		final IPoint p = shape.getPtAt(0);
 		int i;
 		final int size = shape.getNbPoints();
 		final int interval = shape.getInterval();
@@ -208,15 +208,15 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		if(doc==null)
 			return null;
 
-		SVGElement root = new SVGGElement(doc);
+		final SVGElement root = new SVGGElement(doc);
 		SVGElement elt;
 
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_FREEHAND);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_PATH_TYPE, String.valueOf(shape.getType()));
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_INTERVAL, String.valueOf(shape.getInterval()));
-		String path = getPath().toString();
-		StringBuilder pts = new StringBuilder();
+		final String path = getPath().toString();
+		final StringBuilder pts = new StringBuilder();
 
 		for(int i = 0, size = shape.getNbPoints(); i < size; i++)
 				pts.append(shape.getPtAt(i).getX()).append(' ').append(shape.getPtAt(i).getY()).append(' ');
@@ -224,7 +224,7 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POINTS, pts.toString());
 
 		if(shape.hasShadow()) {
-			SVGElement shad = new SVGPathElement(doc);
+			final SVGElement shad = new SVGPathElement(doc);
 			shad.setAttribute(SVGAttributes.SVG_D, path);
 			setSVGShadowAttributes(shad, false);
 			root.appendChild(shad);

@@ -94,7 +94,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	}
 
 	/** The current unit of the rulers. */
-	protected final static IUnary<Unit> UNIT = new ActiveUnary<>(Unit.CM);
+    protected static final IUnary<Unit> UNIT = new ActiveUnary<>(Unit.CM);
 
 	/** The stroke of the ruler. */
 	protected static final BasicStroke STROKE = new BasicStroke(0, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER);

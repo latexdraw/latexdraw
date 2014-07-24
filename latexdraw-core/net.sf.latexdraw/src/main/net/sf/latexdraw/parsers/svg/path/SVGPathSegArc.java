@@ -82,27 +82,27 @@ public class SVGPathSegArc extends SVGPathSeg {
     	double a 	= getAngle();
     	double rx2 	= getRX();
     	double ry2 	= getRY();
-    	double x2 	= getX();
-    	double y2	= getY();
-    	boolean laf	= isLargeArcFlag();
-    	boolean sf	= isSweepFlag();
+    	final double x2 	= getX();
+    	final double y2	= getY();
+    	final boolean laf	= isLargeArcFlag();
+    	final boolean sf	= isSweepFlag();
 
-		double dx2 = (x0-x2)/2.;
-		double dy2 = (y0-y2)/2.;
+		final double dx2 = (x0-x2)/2.;
+		final double dy2 = (y0-y2)/2.;
 		a = Math.toRadians(a%360.);
 
 		// Step 1: Compute (x1', y1')
-		double x1 = Math.cos(a)*dx2 + Math.sin(a)*dy2;
-		double y1 = -Math.sin(a)*dx2 + Math.cos(a)*dy2;
+		final double x1 = Math.cos(a)*dx2 + Math.sin(a)*dy2;
+		final double y1 = -Math.sin(a)*dx2 + Math.cos(a)*dy2;
 
 		// Ensure radii are large enough
 		rx2 = Math.abs(rx2);
 		ry2 = Math.abs(ry2);
 		double prx = rx2*rx2;
 		double pry = ry2*ry2;
-		double px1 = x1*x1;
-		double py1 = y1*y1;
-		double radiiCheck = px1/prx + py1/pry;
+		final double px1 = x1*x1;
+		final double py1 = y1*y1;
+		final double radiiCheck = px1/prx + py1/pry;
 
 		if(radiiCheck>1) {
 			rx2 = Math.sqrt(radiiCheck) * rx2;
@@ -115,25 +115,25 @@ public class SVGPathSegArc extends SVGPathSeg {
 		double sign = laf == sf ? -1 : 1;
 		double sq = (prx * pry - prx * py1 - pry * px1) / (prx * py1 + pry * px1);
 		sq = sq < 0 ? 0 : sq;
-		double coef = sign * Math.sqrt(sq);
-		double cx1 = coef * (rx2 * y1 / ry2);
-		double cy1 = coef * -(ry2 * x1 / rx2);
+		final double coef = sign * Math.sqrt(sq);
+		final double cx1 = coef * (rx2 * y1 / ry2);
+		final double cy1 = coef * -(ry2 * x1 / rx2);
 
 		// Step 3: Compute (cx, cy) from (cx1, cy1)
-		double sx2 = (x0+x2)/2.;
-		double sy2 = (y0+y2)/2.;
-		double cx = sx2 + (Math.cos(a) * cx1 - Math.sin(a) * cy1);
-		double cy = sy2 + (Math.sin(a) * cx1 + Math.cos(a) * cy1);
+		final double sx2 = (x0+x2)/2.;
+		final double sy2 = (y0+y2)/2.;
+		final double cx = sx2 + (Math.cos(a) * cx1 - Math.sin(a) * cy1);
+		final double cy = sy2 + (Math.sin(a) * cx1 + Math.cos(a) * cy1);
 
 		// Step 4: Compute the angleStart (angle1) and the angleExtent (dangle)
-		double ux = (x1 - cx1) / rx2;
-		double uy = (y1 - cy1) / ry2;
-		double vx = (-x1 - cx1) / rx2;
-		double vy = (-y1 - cy1) / ry2;
+		final double ux = (x1 - cx1) / rx2;
+		final double uy = (y1 - cy1) / ry2;
+		final double vx = (-x1 - cx1) / rx2;
+		final double vy = (-y1 - cy1) / ry2;
 		double p = ux, n = Math.sqrt(ux * ux + uy * uy);
 
 		sign = uy < 0 ? -1. : 1.;
-		double angleStart = Math.toDegrees(sign * Math.acos(p / n));
+		final double angleStart = Math.toDegrees(sign * Math.acos(p / n));
 
 		// Compute the angle extent
 		n = Math.sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy));

@@ -49,7 +49,7 @@ public class PSTViewsSynchroniser extends ViewsSynchroniser {
 
 		PSTShapeView<?> pstView;
 
-		for(IShape shape : drawing.getShapes())
+		for(final IShape shape : drawing.getShapes())
 			if(getView(shape)==null) {
 				pstView = PSTViewsFactory.INSTANCE.createView(shape);
 
@@ -82,7 +82,7 @@ public class PSTViewsSynchroniser extends ViewsSynchroniser {
 	@Override
 	public boolean updateCode(final IShape view) {
 		if(view!=null && drawing.contains(view)) {
-			PSTShapeView<?> pst = getView(view);
+			final PSTShapeView<?> pst = getView(view);
 
 			if(pst==null)
 				synchronise();
@@ -104,7 +104,7 @@ public class PSTViewsSynchroniser extends ViewsSynchroniser {
 	public void updateFull() {
 		synchronise();
 
-		for(IShape shape : drawing.getShapes())
+		for(final IShape shape : drawing.getShapes())
 			updateCode(shape);
 	}
 }

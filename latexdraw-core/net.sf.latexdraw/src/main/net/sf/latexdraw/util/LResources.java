@@ -40,15 +40,15 @@ public final class LResources {
 	public static final String FILE_SEP = System.getProperty("file.separator");
 
 	/** The name of the application */
-	public final static String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
+    public static final String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
 
 	/** The label of the menu "aboutTexDraw" */
-	public final static String LABEL_ABOUT = "About LaTeXDraw";
+    public static final String LABEL_ABOUT = "About LaTeXDraw";
 
 	/** The label of the newMenu item */
-	public final static String LABEL_NEW = "New drawing";
+    public static final String LABEL_NEW = "New drawing";
 
-	public final static String LABEL_NEW_WITH_SEL =LangTool.INSTANCE.getStringLaTeXDrawFrame("LRes.0"); //$NON-NLS-1$
+	public static final String LABEL_NEW_WITH_SEL =LangTool.INSTANCE.getStringLaTeXDrawFrame("LRes.0"); //$NON-NLS-1$
 
 	/** The label of the menu copy */
 	public static final String LABEL_COPY = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.40"); //$NON-NLS-1$
@@ -66,106 +66,106 @@ public final class LResources {
 
 	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getString19("DrawPanel.0"); //$NON-NLS-1$
 
-	public final static ImageIcon DIM_POS_ICON;
-	public final static ImageIcon ARROW_ICON;
-	public final static ImageIcon TEXTPOS_L;
-	public final static ImageIcon TEXTPOS_R;
-	public final static ImageIcon TEXTPOS_T;
-	public final static ImageIcon TEXTPOS_TL;
-	public final static ImageIcon TEXTPOS_TR;
-	public final static ImageIcon TEXTPOS_B;
-	public final static ImageIcon TEXTPOS_BR;
-	public final static ImageIcon TEXTPOS_BL;
-	public final static ImageIcon TEXTPOS_CENTRE;
-	public final static ImageIcon FILLING_ICON;
-	public final static ImageIcon BORDER_ICON;
-	public final static ImageIcon DOUBLE_BORDER_ICON;
-	public final static ImageIcon SHADOW_ICON;
-    public final static ImageIcon PDF_ICON;
-	public final static ImageIcon BEZIER_CURVE_ICON;		public final static ImageIcon CHORD_ICON;
-	public final static ImageIcon NEW_ICON;					public final static ImageIcon LINE_STYLE_NONE_ICON;
-	public final static ImageIcon OPEN_ICON; 				public final static ImageIcon LINE_STYLE_DASHED_ICON;
-	public final static ImageIcon SAVE_ICON ;				public final static ImageIcon LINE_STYLE_DOTTED_ICON;
-	public final static ImageIcon SAVE_AS_ICON;				public final static ImageIcon DOT_STYLE_NONE_ICON;
-	public final static ImageIcon CIRCLE_ICON;				public final static ImageIcon DOT_STYLE_SQUARE_ICON;
-	public final static ImageIcon DEL_ICON;					public final static ImageIcon DOT_STYLE_SQUARE_F_ICON;
-	public final static ImageIcon DOT_ICON;					public final static ImageIcon DOT_STYLE_PENTAGON_ICON;
-	public final static ImageIcon ELLIPSE_ICON;				public final static ImageIcon DOT_STYLE_PENTAGON_F_ICON;
-	public final static ImageIcon EMPTY_ICON;				public final static ImageIcon DOT_STYLE_TRIANGLE_ICON;
-	public final static ImageIcon DOT_STYLE_TRIANGLE_F_ICON;
-	public final static ImageIcon RECT_ICON;				public final static ImageIcon DOT_STYLE_BAR_ICON;
-	public final static ImageIcon RHOMBUS_ICON;				public final static ImageIcon DOT_STYLE_ASTERISK_ICON;
-	public final static ImageIcon SELECT_ICON; 				public final static ImageIcon DOT_STYLE_CROSS_ICON;
-	public final static ImageIcon SQUARE_ICON; 				public final static ImageIcon DOT_STYLE_DIAMOND_ICON;
-	public final static ImageIcon TRIANGLE_ICON;			public final static ImageIcon DOT_STYLE_DIAMOND_F_ICON;
-	public final static ImageIcon PROPERTIES_ICON; 			public final static ImageIcon DOT_STYLE_O_ICON;
-	public final static ImageIcon DOT_STYLE_O_PLUS_ICON;
-	public final static ImageIcon DOT_STYLE_O_CROSS_ICON;	public final static ImageIcon UPDATE_ICON;
-	public final static ImageIcon DOT_STYLE_PLUS_ICON;
-	public final static ImageIcon ARROW_STYLE_ARC_L_ICON;
-	public final static ImageIcon ARROW_STYLE_ARC_R_ICON;
-	public final static ImageIcon ARROW_STYLE_ARC_RR_ICON;	public final static ImageIcon ARROW_STYLE_ARC_LR_ICON;
-	public final static ImageIcon ABOUT_ICON;				public final static ImageIcon ARROW_STYLE_ARROW_L_ICON;
-	public final static ImageIcon HELP_ICON;				public final static ImageIcon ARROW_STYLE_ARROW_R_ICON;
-	public final static ImageIcon PREFERENCES_ICON;			public final static ImageIcon ARROW_STYLE_BAR_END_L_ICON;
-	public final static ImageIcon ARROW_STYLE_BAR_END_R_ICON; 	public final static ImageIcon DRAWING_PROP_ICON;
-	public final static ImageIcon ARC_ICON;					public final static ImageIcon ARROW_STYLE_BAR_IN_L_ICON;
-	public final static ImageIcon WEDGE_ICON;				public final static ImageIcon ARROW_STYLE_BAR_IN_R_ICON;
-	public final static ImageIcon ARROW_STYLE_BRACK_L_ICON; public final static ImageIcon PLOT_ICON;
-	public final static ImageIcon ARROW_STYLE_BRACK_LR_ICON; 	public final static ImageIcon ARROW_STYLE_BRACK_RR_ICON;
-	public final static ImageIcon ARROW_STYLE_BRACK_R_ICON;
-	public final static ImageIcon ZOOM_DEFAULT_ICON;		public final static ImageIcon ARROW_STYLE_CIRCLE_END_L_ICON;
-	public final static ImageIcon UNDO_ICON;				public final static ImageIcon ARROW_STYLE_CIRCLE_END_R_ICON;
-	public final static ImageIcon REDO_ICON;				public final static ImageIcon ARROW_STYLE_CIRCLE_IN_L_ICON;
-	public final static ImageIcon BACKGROUND_ICON;   		public final static ImageIcon ARROW_STYLE_CIRCLE_IN_R_ICON;
-	public final static ImageIcon FOREGROUND_ICON;   		public final static ImageIcon ARROW_STYLE_DBLE_ARROW_L_ICON;
-	public final static ImageIcon ARROW_STYLE_DBLE_ARROW_R_ICON;
-	public final static ImageIcon ARROW_STYLE_DISK_END_L_ICON;
-	public final static ImageIcon ROTATE_ICON;	 			public final static ImageIcon ARROW_STYLE_DISK_END_R_ICON;
-	public final static ImageIcon POLYGON_ICON;	 			public final static ImageIcon ARROW_STYLE_DISK_IN_L_ICON;
-	public final static ImageIcon TEXT_ICON;		 		public final static ImageIcon ARROW_STYLE_DISK_IN_R_ICON;
-	public final static ImageIcon FREE_HAND_ICON; 			public final static ImageIcon ARROW_STYLE_NONE_L_ICON;
-	public final static ImageIcon ARROW_STYLE_NONE_R_ICON;	public final static ImageIcon ARROW_STYLE_R_DBLE_ARROW_L_ICON;
-	public final static ImageIcon ARROW_STYLE_R_DBLE_ARROW_R_ICON; 	public final static ImageIcon ARROW_STYLE_R_ARROW_L_ICON;
-	public final static ImageIcon ARROW_STYLE_R_ARROW_R_ICON; 		public final static ImageIcon COPY_ICON;
-	public final static ImageIcon PASTE_ICON;						public final static ImageIcon CUT_ICON;
-	public final static ImageIcon ARROW_STYLE_ROUND_IN_L_ICON;		public final static ImageIcon ARROW_STYLE_ROUND_IN_R_ICON;
-	public final static ImageIcon HATCH_NONE_ICON;			public final static ImageIcon HATCH_SOLID_ICON;
-	public final static ImageIcon HATCH_HORIZ_ICON;			public final static ImageIcon HACTH_VERT_ICON;
-	public final static ImageIcon HATCH_F_HORIZ_ICON;		public final static ImageIcon HATCH_F_VERT_ICON;
-	public final static ImageIcon HATCH_CROSS_ICON;			public final static ImageIcon HATCH_F_CROSS_ICON;
-	public final static ImageIcon GRID_ICON;				public final static ImageIcon SUBGRID_ICON;
-	public final static ImageIcon JOIN_ICON;				public final static ImageIcon SEPARATE_ICON;
-	public final static ImageIcon MIDDLE_ICON;				public final static ImageIcon INNER_ICON;
-	public final static ImageIcon OUTER_ICON;
-	public final static ImageIcon COMMENT_ICON;
-	public final static ImageIcon LINES_ICON;	 			public final static ImageIcon LATEXDRAW_ICON;
-	public final static ImageIcon ERR_ICON;
-	public final static ImageIcon STOP_ICON;
-	public final static ImageIcon INSERT_PIC_ICON; 			public final static ImageIcon INSERT_PST_ICON;
-	public final static ImageIcon THICKNESS_ICON; 			public final static ImageIcon GRADIENT_ICON;
-	public final static ImageIcon DISPLAY_GRID_ICON;		public final static ImageIcon ROTATE_270_ICON;
-	public final static ImageIcon ROTATE_180_ICON; 			public final static ImageIcon ROTATE_90_ICON;
-	public final static ImageIcon MIRROR_V_ICON;			public final static ImageIcon MIRROR_H_ICON;
-	public final static ImageIcon AXES_ICON;				public final static ImageIcon TEX_EDITOR_ICON;
-	public final static ImageIcon CURVES_FREEHAND_ICON;
-	public final static ImageIcon LINES_FREEHAND_ICON;
-	public final static ImageIcon CLOSED_BEZIER_ICON;
-	public final static ImageIcon ALIGN_BOTTOM_ICON;		public final static ImageIcon ALIGN_LEFT_ICON;
-	public final static ImageIcon ALIGN_MID_HORIZ_ICON; 	public final static ImageIcon ALIGN_MID_VERT_ICON;
-	public final static ImageIcon ALIGN_RIGHT_ICON;			public final static ImageIcon ALIGN_TOP_ICON;
-	public final static ImageIcon DIST_VERT_BOTTOM_ICON;	public final static ImageIcon DIST_HORIZ_EQUAL_ICON;
-	public final static ImageIcon DIST_VERT_MID_ICON; 		public final static ImageIcon DIST_VERT_TOP_ICON;
-	public final static ImageIcon DIST_VERT_EQUAL_ICON;		public final static ImageIcon DIST_HORIZ_MID_ICON;
-	public final static ImageIcon DIST_HORIZ_LEFT_ICON;		public final static ImageIcon DIST_HORIZ_RIGHT_ICON;
-	public final static ImageIcon ROUNDNESS_ICON;
-	public final static ImageIcon GRID_GAP_ICON;
-	public final static ImageIcon BUTTON_CLOSE_IN_ICON;
-	public final static ImageIcon BUTTON_CLOSE_OUT_ICON;
-	public final static ImageIcon GRID_X_LABEL;
-	public final static ImageIcon GRID_Y_LABEL;
-	public final static ImageIcon GRID_LABELS;
-	public final static ImageIcon RELOAD_ICON;
+	public static final ImageIcon DIM_POS_ICON;
+	public static final ImageIcon ARROW_ICON;
+	public static final ImageIcon TEXTPOS_L;
+	public static final ImageIcon TEXTPOS_R;
+	public static final ImageIcon TEXTPOS_T;
+	public static final ImageIcon TEXTPOS_TL;
+	public static final ImageIcon TEXTPOS_TR;
+	public static final ImageIcon TEXTPOS_B;
+	public static final ImageIcon TEXTPOS_BR;
+	public static final ImageIcon TEXTPOS_BL;
+	public static final ImageIcon TEXTPOS_CENTRE;
+	public static final ImageIcon FILLING_ICON;
+	public static final ImageIcon BORDER_ICON;
+	public static final ImageIcon DOUBLE_BORDER_ICON;
+	public static final ImageIcon SHADOW_ICON;
+    public static final ImageIcon PDF_ICON;
+	public static final ImageIcon BEZIER_CURVE_ICON;		public static final ImageIcon CHORD_ICON;
+	public static final ImageIcon NEW_ICON;					public static final ImageIcon LINE_STYLE_NONE_ICON;
+	public static final ImageIcon OPEN_ICON; 				public static final ImageIcon LINE_STYLE_DASHED_ICON;
+	public static final ImageIcon SAVE_ICON ;				public static final ImageIcon LINE_STYLE_DOTTED_ICON;
+	public static final ImageIcon SAVE_AS_ICON;				public static final ImageIcon DOT_STYLE_NONE_ICON;
+	public static final ImageIcon CIRCLE_ICON;				public static final ImageIcon DOT_STYLE_SQUARE_ICON;
+	public static final ImageIcon DEL_ICON;					public static final ImageIcon DOT_STYLE_SQUARE_F_ICON;
+	public static final ImageIcon DOT_ICON;					public static final ImageIcon DOT_STYLE_PENTAGON_ICON;
+	public static final ImageIcon ELLIPSE_ICON;				public static final ImageIcon DOT_STYLE_PENTAGON_F_ICON;
+	public static final ImageIcon EMPTY_ICON;				public static final ImageIcon DOT_STYLE_TRIANGLE_ICON;
+	public static final ImageIcon DOT_STYLE_TRIANGLE_F_ICON;
+	public static final ImageIcon RECT_ICON;				public static final ImageIcon DOT_STYLE_BAR_ICON;
+	public static final ImageIcon RHOMBUS_ICON;				public static final ImageIcon DOT_STYLE_ASTERISK_ICON;
+	public static final ImageIcon SELECT_ICON; 				public static final ImageIcon DOT_STYLE_CROSS_ICON;
+	public static final ImageIcon SQUARE_ICON; 				public static final ImageIcon DOT_STYLE_DIAMOND_ICON;
+	public static final ImageIcon TRIANGLE_ICON;			public static final ImageIcon DOT_STYLE_DIAMOND_F_ICON;
+	public static final ImageIcon PROPERTIES_ICON; 			public static final ImageIcon DOT_STYLE_O_ICON;
+	public static final ImageIcon DOT_STYLE_O_PLUS_ICON;
+	public static final ImageIcon DOT_STYLE_O_CROSS_ICON;	public static final ImageIcon UPDATE_ICON;
+	public static final ImageIcon DOT_STYLE_PLUS_ICON;
+	public static final ImageIcon ARROW_STYLE_ARC_L_ICON;
+	public static final ImageIcon ARROW_STYLE_ARC_R_ICON;
+	public static final ImageIcon ARROW_STYLE_ARC_RR_ICON;	public static final ImageIcon ARROW_STYLE_ARC_LR_ICON;
+	public static final ImageIcon ABOUT_ICON;				public static final ImageIcon ARROW_STYLE_ARROW_L_ICON;
+	public static final ImageIcon HELP_ICON;				public static final ImageIcon ARROW_STYLE_ARROW_R_ICON;
+	public static final ImageIcon PREFERENCES_ICON;			public static final ImageIcon ARROW_STYLE_BAR_END_L_ICON;
+	public static final ImageIcon ARROW_STYLE_BAR_END_R_ICON; 	public static final ImageIcon DRAWING_PROP_ICON;
+	public static final ImageIcon ARC_ICON;					public static final ImageIcon ARROW_STYLE_BAR_IN_L_ICON;
+	public static final ImageIcon WEDGE_ICON;				public static final ImageIcon ARROW_STYLE_BAR_IN_R_ICON;
+	public static final ImageIcon ARROW_STYLE_BRACK_L_ICON; public static final ImageIcon PLOT_ICON;
+	public static final ImageIcon ARROW_STYLE_BRACK_LR_ICON; 	public static final ImageIcon ARROW_STYLE_BRACK_RR_ICON;
+	public static final ImageIcon ARROW_STYLE_BRACK_R_ICON;
+	public static final ImageIcon ZOOM_DEFAULT_ICON;		public static final ImageIcon ARROW_STYLE_CIRCLE_END_L_ICON;
+	public static final ImageIcon UNDO_ICON;				public static final ImageIcon ARROW_STYLE_CIRCLE_END_R_ICON;
+	public static final ImageIcon REDO_ICON;				public static final ImageIcon ARROW_STYLE_CIRCLE_IN_L_ICON;
+	public static final ImageIcon BACKGROUND_ICON;   		public static final ImageIcon ARROW_STYLE_CIRCLE_IN_R_ICON;
+	public static final ImageIcon FOREGROUND_ICON;   		public static final ImageIcon ARROW_STYLE_DBLE_ARROW_L_ICON;
+	public static final ImageIcon ARROW_STYLE_DBLE_ARROW_R_ICON;
+	public static final ImageIcon ARROW_STYLE_DISK_END_L_ICON;
+	public static final ImageIcon ROTATE_ICON;	 			public static final ImageIcon ARROW_STYLE_DISK_END_R_ICON;
+	public static final ImageIcon POLYGON_ICON;	 			public static final ImageIcon ARROW_STYLE_DISK_IN_L_ICON;
+	public static final ImageIcon TEXT_ICON;		 		public static final ImageIcon ARROW_STYLE_DISK_IN_R_ICON;
+	public static final ImageIcon FREE_HAND_ICON; 			public static final ImageIcon ARROW_STYLE_NONE_L_ICON;
+	public static final ImageIcon ARROW_STYLE_NONE_R_ICON;	public static final ImageIcon ARROW_STYLE_R_DBLE_ARROW_L_ICON;
+	public static final ImageIcon ARROW_STYLE_R_DBLE_ARROW_R_ICON; 	public static final ImageIcon ARROW_STYLE_R_ARROW_L_ICON;
+	public static final ImageIcon ARROW_STYLE_R_ARROW_R_ICON; 		public static final ImageIcon COPY_ICON;
+	public static final ImageIcon PASTE_ICON;						public static final ImageIcon CUT_ICON;
+	public static final ImageIcon ARROW_STYLE_ROUND_IN_L_ICON;		public static final ImageIcon ARROW_STYLE_ROUND_IN_R_ICON;
+	public static final ImageIcon HATCH_NONE_ICON;			public static final ImageIcon HATCH_SOLID_ICON;
+	public static final ImageIcon HATCH_HORIZ_ICON;			public static final ImageIcon HACTH_VERT_ICON;
+	public static final ImageIcon HATCH_F_HORIZ_ICON;		public static final ImageIcon HATCH_F_VERT_ICON;
+	public static final ImageIcon HATCH_CROSS_ICON;			public static final ImageIcon HATCH_F_CROSS_ICON;
+	public static final ImageIcon GRID_ICON;				public static final ImageIcon SUBGRID_ICON;
+	public static final ImageIcon JOIN_ICON;				public static final ImageIcon SEPARATE_ICON;
+	public static final ImageIcon MIDDLE_ICON;				public static final ImageIcon INNER_ICON;
+	public static final ImageIcon OUTER_ICON;
+	public static final ImageIcon COMMENT_ICON;
+	public static final ImageIcon LINES_ICON;	 			public static final ImageIcon LATEXDRAW_ICON;
+	public static final ImageIcon ERR_ICON;
+	public static final ImageIcon STOP_ICON;
+	public static final ImageIcon INSERT_PIC_ICON; 			public static final ImageIcon INSERT_PST_ICON;
+	public static final ImageIcon THICKNESS_ICON; 			public static final ImageIcon GRADIENT_ICON;
+	public static final ImageIcon DISPLAY_GRID_ICON;		public static final ImageIcon ROTATE_270_ICON;
+	public static final ImageIcon ROTATE_180_ICON; 			public static final ImageIcon ROTATE_90_ICON;
+	public static final ImageIcon MIRROR_V_ICON;			public static final ImageIcon MIRROR_H_ICON;
+	public static final ImageIcon AXES_ICON;				public static final ImageIcon TEX_EDITOR_ICON;
+	public static final ImageIcon CURVES_FREEHAND_ICON;
+	public static final ImageIcon LINES_FREEHAND_ICON;
+	public static final ImageIcon CLOSED_BEZIER_ICON;
+	public static final ImageIcon ALIGN_BOTTOM_ICON;		public static final ImageIcon ALIGN_LEFT_ICON;
+	public static final ImageIcon ALIGN_MID_HORIZ_ICON; 	public static final ImageIcon ALIGN_MID_VERT_ICON;
+	public static final ImageIcon ALIGN_RIGHT_ICON;			public static final ImageIcon ALIGN_TOP_ICON;
+	public static final ImageIcon DIST_VERT_BOTTOM_ICON;	public static final ImageIcon DIST_HORIZ_EQUAL_ICON;
+	public static final ImageIcon DIST_VERT_MID_ICON; 		public static final ImageIcon DIST_VERT_TOP_ICON;
+	public static final ImageIcon DIST_VERT_EQUAL_ICON;		public static final ImageIcon DIST_HORIZ_MID_ICON;
+	public static final ImageIcon DIST_HORIZ_LEFT_ICON;		public static final ImageIcon DIST_HORIZ_RIGHT_ICON;
+	public static final ImageIcon ROUNDNESS_ICON;
+	public static final ImageIcon GRID_GAP_ICON;
+	public static final ImageIcon BUTTON_CLOSE_IN_ICON;
+	public static final ImageIcon BUTTON_CLOSE_OUT_ICON;
+	public static final ImageIcon GRID_X_LABEL;
+	public static final ImageIcon GRID_Y_LABEL;
+	public static final ImageIcon GRID_LABELS;
+	public static final ImageIcon RELOAD_ICON;
 
 
 	static {

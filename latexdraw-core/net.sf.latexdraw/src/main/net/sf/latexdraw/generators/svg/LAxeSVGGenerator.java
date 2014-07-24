@@ -66,8 +66,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		setSVGParameters(elt);
 
 		List<Point2D> values;
-		String pref = LNamespace.LATEXDRAW_NAMESPACE+':';
-		String str;
+		final String pref = LNamespace.LATEXDRAW_NAMESPACE+':';
+		final String str;
 
 		shape.setShowOrigin(Boolean.parseBoolean(elt.getAttribute(pref+LNamespace.XML_AXE_SHOW_ORIGIN)));
 		shape.setAxesStyle(AxesStyle.getStyle(elt.getAttribute(pref+LNamespace.XML_STYLE)));
@@ -78,7 +78,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
 		if(str!=null)
 			try{ shape.setTicksSize(Double.parseDouble(str)); }
-			catch(NumberFormatException e) { /* */ }
+			catch(final NumberFormatException e) { /* */ }
 
 		values = SVGPointsParser.getPoints(elt.getAttribute(pref+LNamespace.XML_GRID_END));
 
@@ -116,9 +116,10 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 		}
 
 		/* Looking for the two axe in order to get the position of the axes. */
-		SVGNodeList nl = elt.getChildren(SVGElements.SVG_G);
-		int i=0, size = nl.getLength();
-		SVGGElement l1=null, l2=null;
+		final SVGNodeList nl = elt.getChildren(SVGElements.SVG_G);
+		int i=0;
+        final int size = nl.getLength();
+        SVGGElement l1=null, l2=null;
 		SVGElement element;
 
 		while((l1==null || l2==null) && i<size) {
@@ -135,8 +136,8 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 
 		if(l1!=null && l2!=null)
 			try {
-				IPolyline la = new LPolylinesSVGGenerator(l1, false).shape;
-				IPolyline lb = new LPolylinesSVGGenerator(l2, false).shape;
+				final IPolyline la = new LPolylinesSVGGenerator(l1, false).shape;
+				final IPolyline lb = new LPolylinesSVGGenerator(l2, false).shape;
 
 				shape.setPosition(ShapeFactory.createPoint(lb.getPtAt(0).getX(), la.getPtAt(0).getY()));
 				shape.setLineStyle(la.getLineStyle());
@@ -145,7 +146,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 				shape.getArrowAt(0).setArrowStyle(lb.getArrowAt(0).getArrowStyle());
 				shape.getArrowAt(2).setArrowStyle(lb.getArrowAt(1).getArrowStyle());
 			}
-			catch(IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
+			catch(final IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		homogeniseArrows(shape.getArrowAt(0), shape.getArrowAt(1));
 		homogeniseArrows(shape.getArrowAt(1), shape.getArrowAt(2));
@@ -166,7 +167,7 @@ class LAxeSVGGenerator extends LShapeSVGGenerator<IAxes> {
 //        view.paint(graphics);
         //  graphics.getElement();
         final SVGElement root = new SVGGElement(doc);
-		String pref = LNamespace.LATEXDRAW_NAMESPACE+':';
+		final String pref = LNamespace.LATEXDRAW_NAMESPACE+':';
 		setThickness(root, shape.getThickness(), false, 0.);
 		root.setStroke(shape.getLineColour());
 

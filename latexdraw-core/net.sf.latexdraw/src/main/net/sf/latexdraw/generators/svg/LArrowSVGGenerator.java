@@ -89,17 +89,17 @@ class LArrowSVGGenerator {
 	 * @since 2.0.0
 	 */
 	protected void setArrow(final SVGCircleElement circle, final SVGMarkerElement elt, final IShape owner) {
-		double radius = circle.getR();
-		String dotSizeNumStr = circle.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_DOT_SIZE_NUM);
-		double dotSizeDim;
+		final double radius = circle.getR();
+		final String dotSizeNumStr = circle.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_DOT_SIZE_NUM);
+		final double dotSizeDim;
 		double dotSizeNum;
-		double lineWidth = owner.hasDbleBord() ? owner.getDbleBordSep() + 2.*owner.getThickness() : owner.getThickness();
+		final double lineWidth = owner.hasDbleBord() ? owner.getDbleBordSep() + 2.*owner.getThickness() : owner.getThickness();
 
 		if(dotSizeNumStr==null)
 			dotSizeNum = 1.;
 		else
 			try { dotSizeNum = Double.parseDouble(dotSizeNumStr); }
-			catch(NumberFormatException e) {
+			catch(final NumberFormatException e) {
 				BadaboomCollector.INSTANCE.add(e);
 				dotSizeNum = 1.;
 			}
@@ -125,7 +125,7 @@ class LArrowSVGGenerator {
 
 	private void setArrowBarBracket(final SVGPathElement path, final SVGPathSegMoveto m, final double lineWidth, final SVGPathSeg seg,
 									final SVGMarkerElement elt, final SVGPathSegList list, final String svgMarker) {
-		String tbarNumStr = path.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_TBAR_SIZE_NUM);
+		final String tbarNumStr = path.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_TBAR_SIZE_NUM);
 		double tbarNum;
 		double y = Math.abs(m.getY());
 		final boolean isStartArrow = SVGAttributes.SVG_MARKER_START.equals(svgMarker);
@@ -134,7 +134,7 @@ class LArrowSVGGenerator {
 			tbarNum = 1.;
 		else
 			try { tbarNum = Double.parseDouble(tbarNumStr); }
-			catch(NumberFormatException e) {
+			catch(final NumberFormatException e) {
 				BadaboomCollector.INSTANCE.add(e);
 				tbarNum = 1.;
 			}
@@ -145,8 +145,8 @@ class LArrowSVGGenerator {
 		if(seg instanceof SVGPathSegLineto && LNumber.equalsDouble(((SVGPathSegLineto)seg).getX(), m.getX()) || seg instanceof SVGPathSegLinetoVertical)
 			arrow.setArrowStyle(LNumber.equalsDouble(m.getX(),0.) ? ArrowStyle.BAR_IN : ArrowStyle.BAR_END);
 		else if(seg instanceof SVGPathSegCurvetoCubic) {
-			double width  = (arrow.getTBarSizeDim() + arrow.getTBarSizeNum()*lineWidth)/lineWidth;
-			double rBrack = (Math.abs(m.getX())-0.5)/width;
+			final double width  = (arrow.getTBarSizeDim() + arrow.getTBarSizeNum()*lineWidth)/lineWidth;
+			final double rBrack = (Math.abs(m.getX())-0.5)/width;
 
 			arrow.setArrowStyle(LNumber.equalsDouble(Math.abs(m.getX()), 0.5) ? ArrowStyle.RIGHT_ROUND_BRACKET : ArrowStyle.LEFT_ROUND_BRACKET);
 			if(!isStartArrow)
@@ -155,9 +155,9 @@ class LArrowSVGGenerator {
 		}
 		else // It may be a bracket.
 		if(list.size()==4 && seg instanceof SVGPathSegLineto && list.get(2) instanceof SVGPathSegLineto && list.get(3) instanceof SVGPathSegLineto) {
-			double lgth = Math.abs(m.getX()-((SVGPathSegLineto)seg).getX());
+			final double lgth = Math.abs(m.getX()-((SVGPathSegLineto)seg).getX());
 
-			y = y + (m.getY()>0. ? -0.5 : 0.5);
+            y += (m.getY() > 0. ? -0.5 : 0.5);
 			arrow.setTBarSizeDim(y*lineWidth*2. - tbarNum*lineWidth);
 			arrow.setBracketNum((lgth-0.5)*lineWidth/(arrow.getTBarSizeDim()/IShape.PPC + arrow.getTBarSizeNum()*lineWidth));
 			arrow.setArrowStyle(elt.getRefX()>0.? ArrowStyle.RIGHT_SQUARE_BRACKET : ArrowStyle.LEFT_SQUARE_BRACKET);
@@ -172,8 +172,9 @@ class LArrowSVGGenerator {
 				return ;
 
 			final String arrNumStr = path.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_ARROW_SIZE_NUM);
-			double arrNum, arrDim;
-			final double lgth = Math.abs(((SVGPathSegLineto)seg).getX() - m.getX());
+			double arrNum;
+        final double arrDim;
+        final double lgth = Math.abs(((SVGPathSegLineto)seg).getX() - m.getX());
 			final boolean moveIs0 = LNumber.equalsDouble(m.getX(),0.) && LNumber.equalsDouble(m.getY(),0.);
 			final boolean isStartArrow = SVGAttributes.SVG_MARKER_START.equals(svgMarker);
 
@@ -181,7 +182,7 @@ class LArrowSVGGenerator {
 				arrNum = 1.;
 			else
 				try { arrNum = Double.parseDouble(arrNumStr); }
-				catch(NumberFormatException e) {
+				catch(final NumberFormatException e) {
 					BadaboomCollector.INSTANCE.add(e);
 					arrNum = 1.;
 				}
@@ -281,10 +282,10 @@ class LArrowSVGGenerator {
 		final SVGPathSegList path 	= new SVGPathSegList();
 		final double lgth 			= arrow.getBracketNum()*(arrow.getTBarSizeDim()/IShape.PPC + arrow.getTBarSizeNum()*lineWidth)/lineWidth;
 		final boolean isInverted  	= arrow.isInverted();//FIXME shape.PPC
-		double gapPostion;
+		final double gapPostion;
 
 		if(arrow.getArrowStyle()==ArrowStyle.LEFT_SQUARE_BRACKET) {
-			double lgth2 = isInverted ? -lgth : 0.;
+			final double lgth2 = isInverted ? -lgth : 0.;
 			path.add(new SVGPathSegMoveto(lgth+lgth2+0.5, -width/(lineWidth*2)+0.5, false));
 			path.add(new SVGPathSegLineto(lgth2, -width/(lineWidth*2)+0.5, false));
 			path.add(new SVGPathSegLineto(lgth2, width/(lineWidth*2)-0.5, false));
@@ -292,7 +293,7 @@ class LArrowSVGGenerator {
 			gapPostion = isInverted ? -lineWidth/4. : -lineWidth/2.;
 		}
 		else {
-			double lgth2 = isInverted ? lgth : 0.;
+			final double lgth2 = isInverted ? lgth : 0.;
 			path.add(new SVGPathSegMoveto(-lgth+lgth2-0.5, -width/(lineWidth*2)+0.5, false));
 			path.add(new SVGPathSegLineto(lgth2, -width/(lineWidth*2)+0.5, false));
 			path.add(new SVGPathSegLineto(lgth2, width/(lineWidth*2)-0.5, false));
@@ -324,7 +325,7 @@ class LArrowSVGGenerator {
 			inset *= -1.;
 		}
 
-		double lgth2 = arrow.isInverted() ? length : 0.;
+		final double lgth2 = arrow.isInverted() ? length : 0.;
 		path.add(new SVGPathSegMoveto(lgth2, 0., false));
 		path.add(new SVGPathSegLineto(-length+lgth2, width/2., false));
 		path.add(new SVGPathSegLineto(-length+inset+lgth2, 0.,  false));
@@ -352,7 +353,7 @@ class LArrowSVGGenerator {
 			gap *= -1.;
 		}
 
-		double lgth2 = arrow.isInverted() ? lgth : 0.;
+		final double lgth2 = arrow.isInverted() ? lgth : 0.;
 		path.add(new SVGPathSegMoveto(-lgth+lgth2-gap, width/2., false));
 		path.add(new SVGPathSegCurvetoCubic(-lgth+lgth2-gap, -width/2., 0., width/2., 0., -width/2., false));
 
@@ -377,7 +378,7 @@ class LArrowSVGGenerator {
 			length *= -1.;
 		}
 
-		double lgth2 = arrow.isInverted() ? length*2 : 0.;
+		final double lgth2 = arrow.isInverted() ? length*2 : 0.;
 		path.add(new SVGPathSegMoveto(lgth2, 0., false));
 		path.add(new SVGPathSegLineto(-length+lgth2, width/2., false));
 		path.add(new SVGPathSegLineto(-length+inset+lgth2, 0., false));

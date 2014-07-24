@@ -80,7 +80,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 		setNumber(elt);
 
 		if(nl.getLength()>0) {
-			SVGTextElement text = (SVGTextElement)nl.item(0);
+			final SVGTextElement text = (SVGTextElement)nl.item(0);
 			shape.setText(text.getText());
 			shape.setPosition(text.getX(), text.getY());
 		}
@@ -89,7 +89,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 
 		TextSize textSize;
 		try { textSize = TextSize.getTextSizeFromSize(Double.valueOf(elt.getAttribute(SVGAttributes.SVG_FONT_SIZE)).intValue()); }
-		catch(Exception e) { textSize = null; }
+		catch(final Exception e) { textSize = null; }
 
 		if(textSize!=null)
 			shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}');

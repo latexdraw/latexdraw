@@ -228,8 +228,10 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * at the start of each lines. (these characters are used like comment symbol by LaTeX).
 	 */
 	public String getCommentsWithoutTag() {
-		int i=0, j=0, lgth = comment.length();
-		char buffer[] = new char[lgth];
+		int i=0;
+        int j=0;
+        final int lgth = comment.length();
+        final char[] buffer = new char[lgth];
 		boolean eol   = true;
 
 		while(i<lgth) {
@@ -246,7 +248,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			}
 		}
 
-		String str = String.valueOf(buffer, 0, j);
+		final String str = String.valueOf(buffer, 0, j);
 
 		return str.length()>1 ? str.substring(0, str.length()-LResources.EOL.length()) : str;
 	}
@@ -269,8 +271,10 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 */
 	public void setComment(final String newComments) {
 		if(newComments!=null && !newComments.isEmpty()) {
-			int i, j=0, lgth = newComments.length();
-			char buffer[] = new char[lgth*3];
+			int i;
+            int j=0;
+            final int lgth = newComments.length();
+            final char[] buffer = new char[lgth*3];
 			boolean eol = true;
 
 			for(i=0; i<newComments.length(); i++) {
@@ -494,7 +498,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	public static File createEPSFile(final IDrawing drawing, final String pathExportEPS, final ViewsSynchroniserHandler synchronizer, final PSTCodeGenerator pstGen){
 		final File tmpDir = LFileUtils.INSTANCE.createTempDir();
 		final File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + "tmpPSFile.ps", synchronizer, tmpDir, pstGen);
-		final String[] paramsLatex = new String[] {LSystem.INSTANCE.getSystem().getPS2EPSBinPath(), psFile.getAbsolutePath()};
+		final String[] paramsLatex = {LSystem.INSTANCE.getSystem().getPS2EPSBinPath(), psFile.getAbsolutePath()};
 		final File finalFile = new File(pathExportEPS);
 		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", EPSFilter.EPS_EXTENSION));
 
@@ -554,13 +558,13 @@ public abstract class LaTeXGenerator implements Modifiable {
 		if(texFile==null || !texFile.exists())
 			return null;
 
-		String[] paramsLatex = new String[] {LSystem.INSTANCE.getLatexDistribPath()+os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+		String[] paramsLatex = {LSystem.INSTANCE.getLatexDistribPath()+os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 				texFile.getAbsolutePath()};
 		log    = LSystem.INSTANCE.execute(paramsLatex, tmpDir2);
 		File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
 		boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
 
-		String[] paramsDvi = new String[] {LSystem.INSTANCE.getLatexDistribPath()+os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
+		String[] paramsDvi = {LSystem.INSTANCE.getLatexDistribPath()+os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
 				(tr.getX()-bl.getX())/ppc*scale+dec+"cm,"+((bl.getY()-tr.getY())/ppc*scale+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						name, "-o", pathExportPs}; //$NON-NLS-1$
 		log   += LSystem.INSTANCE.execute(paramsDvi, tmpDir2);

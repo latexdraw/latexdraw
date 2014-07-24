@@ -53,7 +53,7 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 
 		for(final SVGTransform transform : this)
 			builder.append(transform.toString()).append(' ');
@@ -83,7 +83,7 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 
 			final String[] trans = code.split("_");//$NON-NLS-1$
 
-            for(String tran : trans)
+            for(final String tran : trans)
                 try { add(new SVGTransform(tran)); }
                 catch (final IllegalArgumentException e) { /* */ }
 		}
@@ -121,13 +121,13 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 		if(pt==null)
 			return null;
 
-		SVGMatrix m = getGlobalTransformationMatrix();
+		final SVGMatrix m = getGlobalTransformationMatrix();
 
 		if(m==null)
 			return new Point2D.Double(pt.getX(), pt.getY());
 
-		SVGMatrix ptM = new SVGMatrix();
-		SVGMatrix out;
+		final SVGMatrix ptM = new SVGMatrix();
+		final SVGMatrix out;
 
 		ptM.e = pt.getX();
 		ptM.f = pt.getY();

@@ -76,7 +76,7 @@ class LText extends LPositionShape implements IText {
 		super.copy(s);
 
 		if(s instanceof ITextProp) {
-			ITextProp textSh= (ITextProp)s;
+			final ITextProp textSh= (ITextProp)s;
 			text 			= textSh.getText();
 			textPosition	= textSh.getTextPosition();
 		}

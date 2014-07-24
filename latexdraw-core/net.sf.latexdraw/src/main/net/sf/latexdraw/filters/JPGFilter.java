@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileFilter;
  */
 public class JPGFilter extends FileFilter {
     /** The name of the extension of jpg file */
-    public final static String JPG_EXTENSION = ".jpg";//$NON-NLS-1$
+    public static final String JPG_EXTENSION = ".jpg";//$NON-NLS-1$
 
 	@Override
 	public boolean accept(final File file) {

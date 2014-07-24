@@ -56,13 +56,13 @@ import org.w3c.dom.Element;
  */
 public class FileLoaderSaver extends WidgetInstrument {
 	/** The label of the saveMenu item */
-	public final static String LABEL_SAVE = "Save drawing";
+    public static final String LABEL_SAVE = "Save drawing";
 
 	/** The label of the saveAsMenu item */
-	public final static String LABEL_SAVE_AS = "Save drawing as";
+    public static final String LABEL_SAVE_AS = "Save drawing as";
 
 	/** The label of the openMenu item */
-	public final static String LABEL_OPEN = "Open drawing";
+    public static final String LABEL_OPEN = "Open drawing";
 
 	/** The path where documents are saved. */
 	protected String pathSave;

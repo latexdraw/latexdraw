@@ -23,14 +23,14 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PSModCommand extends PSArithemticCommand {
+public class PSModCommand implements PSArithemticCommand {
 	@Override
 	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
 		if(stack==null || stack.size()<2)
 			throw new InvalidFormatPSFunctionException();
 
-		double a = stack.pop();
-		double b = stack.pop();
+		final double a = stack.pop();
+		final double b = stack.pop();
 
 		if(LNumber.equalsDouble(a, 0.0))
 			throw new ArithmeticException();

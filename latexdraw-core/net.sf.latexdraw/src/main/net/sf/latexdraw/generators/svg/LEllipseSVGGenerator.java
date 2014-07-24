@@ -113,7 +113,7 @@ class LEllipseSVGGenerator extends LShapeSVGGenerator<IEllipse> {
 		final double brx = br.getX();
 		final double bry = br.getY();
 		SVGElement elt;
-		SVGElement root = new SVGGElement(doc);
+		final SVGElement root = new SVGGElement(doc);
         root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_ELLIPSE);
         root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
         final double gap 	= getPositionGap();

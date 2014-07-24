@@ -210,9 +210,9 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Modifies the properties of grids' labels.");
 
-		MPanel p1 = new MPanel(false, true);
-		MPanel p2 = new MPanel(false, true);
-		MPanel p3 = new MPanel(false, false);
+		final MPanel p1 = new MPanel(false, true);
+		final MPanel p2 = new MPanel(false, true);
+		final MPanel p3 = new MPanel(false, false);
 		p1.setLayout(new BoxLayout(p1, BoxLayout.X_AXIS));
 		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS));
 		p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));

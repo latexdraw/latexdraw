@@ -65,7 +65,7 @@ public abstract class AbstractPointsElement extends SVGElement {
 	 * @since 2.0.3
 	 */
 	public void parsePoints() throws ParseException {
-		SVGPointsParser parser = new SVGPointsParser(getPoints());
+		final SVGPointsParser parser = new SVGPointsParser(getPoints());
 		parser.parse();
 		points = parser.getPoints();
 	}

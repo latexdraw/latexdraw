@@ -45,8 +45,9 @@ class PSTGroupView extends PSTShapeView<IGroup> {
 
 		emptyCache();
 
-		int i, size 	= shape.size()-1;
-		PSTShapeView<?> pstView;
+		int i;
+        final int size 	= shape.size()-1;
+        PSTShapeView<?> pstView;
 
 		if(size>0) {
 			for(i=0; i<size; i++) {

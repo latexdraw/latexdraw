@@ -107,7 +107,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		final int ppc 	  		= handler.getPPCDrawing();
 		final Map<String, String> addedColours = new HashMap<>();
 		final StringBuilder shapeCode = new StringBuilder();
-		boolean hasBeginFigure;
+		final boolean hasBeginFigure;
 
 		if(drawing.isEmpty())
 			return ;
@@ -137,7 +137,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		if(withLatexParams && positionHoriCentre)
 			cache.append("\\begin{center}").append(LResources.EOL);//$NON-NLS-1$
 
-		Float scaleF = (float)LNumber.getCutNumber(getScale());
+		final Float scaleF = (float)LNumber.getCutNumber(getScale());
 		cache.append("\\psscalebox{").append(scaleF).append(' ').append(scaleF).append("} % Change this value to rescale the drawing.");//$NON-NLS-1$
 		cache.append(LResources.EOL).append('{').append(LResources.EOL);
 		cache.append("\\begin{pspicture}("); //$NON-NLS-1$
@@ -145,7 +145,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		cache.append((float)LNumber.getCutNumber((tl.getX()-origin.getX())/ppc)).append(',').append((float)LNumber.getCutNumber((origin.getY()-tl.getY())/ppc));
 		cache.append(')').append(LResources.EOL);
 
-		for(IShape shape : drawing.getShapes()) {
+		for(final IShape shape : drawing.getShapes()) {
 			pstView = synchro.getView(shape);
 
 			if(pstView!=null) {
@@ -184,7 +184,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	 */
 	private void generateColourCode(final PSTShapeView<?> pstView, final Map<String, String> addedColours) {
 		if(pstView.coloursName!=null)
-			for(String nameColour : pstView.coloursName)
+			for(final String nameColour : pstView.coloursName)
 				if(addedColours.get(nameColour)==null && DviPsColors.INSTANCE.getPredefinedColour(nameColour)==null) {
 					addedColours.put(nameColour, nameColour);
 					cache.append(DviPsColors.INSTANCE.getUsercolourCode(nameColour));

@@ -44,8 +44,8 @@ class PSTLinesView extends PSTPolygonView {
 
 		emptyCache();
 
-		StringBuilder points   		= getPointsCode(position, ppc);
-		StringBuilder arrowsStyle 	= getArrowsStyleCode();
+		final StringBuilder points   		= getPointsCode(position, ppc);
+		final StringBuilder arrowsStyle 	= getArrowsStyleCode();
 
 		cache.append("\\psline["); //$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc));

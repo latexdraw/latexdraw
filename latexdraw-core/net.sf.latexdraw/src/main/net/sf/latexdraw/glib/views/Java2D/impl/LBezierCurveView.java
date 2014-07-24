@@ -51,14 +51,14 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 	public void paintShowPointsDots(final Graphics2D g) {//FIXME to add into the path not into the graphics
 		final boolean isClosed		= shape.isClosed();
 		final IArrow arr1			= shape.getArrowAt(0);
-		boolean arrow1Drawable 		= arr1.hasStyle() && shape.getNbPoints()>1;
-		boolean arrow2Drawable 		= shape.getArrowAt(-1).hasStyle() && shape.getNbPoints()>1 && !isClosed;
+		final boolean arrow1Drawable 		= arr1.hasStyle() && shape.getNbPoints()>1;
+		final boolean arrow2Drawable 		= shape.getArrowAt(-1).hasStyle() && shape.getNbPoints()>1 && !isClosed;
 		final int size 				= shape.getNbPoints();
 		final List<IPoint> pts 		= shape.getPoints();
 		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
 		final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
 		final double width 			= arr1.getDotSizeDim() + arr1.getDotSizeNum()*shape.getThickness();
-		Ellipse2D.Double d 			= new Ellipse2D.Double(0, 0, width, width);
+		final Ellipse2D.Double d 			= new Ellipse2D.Double(0, 0, width, width);
 		int i;
 
 		g.setColor(shape.getLineColour());
@@ -105,7 +105,7 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
 		final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
 		final float thick 			= (float)(shape.hasDbleBord()? shape.getDbleBordSep()+shape.getThickness()*2. : shape.getThickness());
-		Line2D.Double line 			= new Line2D.Double();
+		final Line2D.Double line 			= new Line2D.Double();
 		int i;
 
 		g.setStroke(new BasicStroke(thick/2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
@@ -137,13 +137,13 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 
 
 	protected static double[] updatePoint4Arrows(final double x, final double y, final IArrow arr) {
-		final double[] coords = new double[]{x, y};
+		final double[] coords = {x, y};
 
 		if(arr.getArrowStyle().isReducingShape()) {
-			ILine line = arr.getArrowLine();
+			final ILine line = arr.getArrowLine();
 
 			if(line!=null) {
-				IPoint[] ps = line.findPoints(line.getPoint1(), arr.getArrowShapeLength()/2.);
+				final IPoint[] ps = line.findPoints(line.getPoint1(), arr.getArrowShapeLength()/2.);
 				if(ps!=null) {
 					if(line.isInSegment(ps[0])) {
 						coords[0] = ps[0].getX();
@@ -171,7 +171,7 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 			double maxY = Double.MIN_VALUE;
 			IPoint pt;
 
-            for(IPoint aCtrlPts1 : ctrlPts1) {
+            for(final IPoint aCtrlPts1 : ctrlPts1) {
                 if (aCtrlPts1.getX() < minX) minX = aCtrlPts1.getX();
                 if (aCtrlPts1.getY() < minY) minY = aCtrlPts1.getY();
                 if (aCtrlPts1.getX() > maxX) maxX = aCtrlPts1.getX();
@@ -203,9 +203,9 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 		final List<IPoint> ctrlPts1 = shape.getFirstCtrlPts();
 		final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
 		IPoint ctrl1;
-		int size;
-		double[] coords = updatePoint4Arrows(pts.get(0).getX(), pts.get(0).getY(), shape.getArrowAt(0));
-		double[] coords2;
+		final int size;
+		final double[] coords = updatePoint4Arrows(pts.get(0).getX(), pts.get(0).getY(), shape.getArrowAt(0));
+		final double[] coords2;
 		if(pts.size()==2)
 			// In this case the first curve contains the first and last points that must be modified.
 			coords2 = updatePoint4Arrows(pts.get(1).getX(),pts.get(1).getY(), shape.getArrowAt(-1));
@@ -229,8 +229,8 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 		}
 
 		if(shape.isClosed()) {
-			IPoint ctrl1b = ctrlPts1.get(0).centralSymmetry(pts.get(0));
-			IPoint ctrl2b = ctrlPts1.get(ctrlPts1.size()-1).centralSymmetry(pts.get(pts.size()-1));
+			final IPoint ctrl1b = ctrlPts1.get(0).centralSymmetry(pts.get(0));
+			final IPoint ctrl2b = ctrlPts1.get(ctrlPts1.size()-1).centralSymmetry(pts.get(pts.size()-1));
 			path.curveTo(ctrl2b.getX(), ctrl2b.getY(), ctrl1b.getX(), ctrl1b.getY(), pts.get(0).getX(), pts.get(0).getY());
 			path.closePath();
 		}else {

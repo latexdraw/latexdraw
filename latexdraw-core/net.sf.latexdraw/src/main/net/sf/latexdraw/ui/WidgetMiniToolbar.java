@@ -290,7 +290,7 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 
-		if(getText().equals(""))//$NON-NLS-1$
+		if(getText().isEmpty())//$NON-NLS-1$
 			paintTriangle(g, getSize().width, getSize().height);
 	}
 
@@ -423,7 +423,7 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 
 	@Override
 	public void setIcon(final Icon defaultIcon) {
-        if (getText().equals("")) super.setIcon(defaultIcon);
+        if(getText().isEmpty()) super.setIcon(defaultIcon);
         else setIcon();
 	}
 
@@ -524,7 +524,7 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 		    		SwingUtilities.getAncestorOfClass(WindowWidgets.class, comp)!=buttonsFrame) {
 		    		WidgetMiniToolbar.this.buttonsFrame.setVisible(false);
 		    	}
-	    		}catch(IllegalComponentStateException ex){ BadaboomCollector.INSTANCE.add(ex); }
+	    		}catch(final IllegalComponentStateException ex){ BadaboomCollector.INSTANCE.add(ex); }
 	    	}
 		}
 

@@ -100,7 +100,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		this(ShapeFactory.createPolyline(true));
 
 		setNumber(elt);
-		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGPolyLineElement) && !(elt2 instanceof SVGLineElement))
 			throw new IllegalArgumentException();
@@ -117,8 +117,8 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		setSVGLatexdrawParameters(elt);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));
-		IArrow arrow1 	= shape.getArrowAt(0);
-		IArrow arrow2 	= shape.getArrowAt(-1);
+		final IArrow arrow1 	= shape.getArrowAt(0);
+		final IArrow arrow2 	= shape.getArrowAt(-1);
 		setSVGArrow(arrow1, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), elt2, SVGAttributes.SVG_MARKER_START);
 		setSVGArrow(arrow2, elt2.getAttribute(elt2.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), elt2, SVGAttributes.SVG_MARKER_END);
 		homogeniseArrows(arrow1, arrow2);
@@ -143,13 +143,13 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_JOINED_LINES);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-		for(IPoint pt : pts)
+		for(final IPoint pt : pts)
 			points.append(pt.getX()).append(',').append(pt.getY()).append(' ');
 
 		final String pointsStr = points.toString();
 
 		if(shape.hasShadow()) {
-			SVGPolyLineElement shad = new SVGPolyLineElement(doc);
+			final SVGPolyLineElement shad = new SVGPolyLineElement(doc);
 			try { shad.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			setSVGShadowAttributes(shad, false);
 			root.appendChild(shad);
@@ -169,7 +169,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 		root.appendChild(elt);
 
 		if(shape.hasDbleBord()) {
-			SVGPolyLineElement dblBord = new SVGPolyLineElement(doc);
+			final SVGPolyLineElement dblBord = new SVGPolyLineElement(doc);
 			try { dblBord.setPoints(pointsStr); }catch(final ParseException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			setSVGDoubleBordersAttributes(dblBord);
 			root.appendChild(dblBord);

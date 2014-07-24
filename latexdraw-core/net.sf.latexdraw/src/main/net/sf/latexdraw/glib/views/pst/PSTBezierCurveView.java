@@ -47,16 +47,17 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 
 		emptyCache();
 
-		int i, size 			= shape.getNbPoints();
-		IPoint pt, ctrlPt1, ctrlPt2;
-		StringBuilder arrowsStyle= getArrowsStyleCode();
-		StringBuilder params 	= getPropertiesCode(ppc);
-		StringBuilder coord 	= new StringBuilder();
-		List<IPoint> pts 		= shape.getPoints();
-		List<IPoint> fCtrlPts 	= shape.getFirstCtrlPts();
-		List<IPoint> sCtrlPts 	= shape.getSecondCtrlPts();
-		double originx 			= origin.getX();
-		double originy 			= origin.getY();
+		int i;
+        final int size 			= shape.getNbPoints();
+        IPoint pt, ctrlPt1, ctrlPt2;
+		final StringBuilder arrowsStyle= getArrowsStyleCode();
+		final StringBuilder params 	= getPropertiesCode(ppc);
+		final StringBuilder coord 	= new StringBuilder();
+		final List<IPoint> pts 		= shape.getPoints();
+		final List<IPoint> fCtrlPts 	= shape.getFirstCtrlPts();
+		final List<IPoint> sCtrlPts 	= shape.getSecondCtrlPts();
+		final double originx 			= origin.getX();
+		final double originy 			= origin.getY();
 
 		if(size<2)
 			return ;

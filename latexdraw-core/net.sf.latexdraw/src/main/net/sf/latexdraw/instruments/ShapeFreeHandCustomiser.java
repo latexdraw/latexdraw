@@ -147,7 +147,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 
 
 	/** Maps a checkbox to an action. */
-	private static abstract class CheckboxForShapeFreeHandCust<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeFreeHandCustomiser> {
+    private abstract static class CheckboxForShapeFreeHandCust<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeFreeHandCustomiser> {
 		protected CheckboxForShapeFreeHandCust(final ShapeFreeHandCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(instrument, clazzAction);
 		}
@@ -202,7 +202,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 
 
 	/** Maps a spinner to an action. */
-	private static abstract class SpinnerForShapeFreeHandCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeFreeHandCustomiser> {
+    private abstract static class SpinnerForShapeFreeHandCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeFreeHandCustomiser> {
 		protected SpinnerForShapeFreeHandCust(final ShapeFreeHandCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(instrument, clazzAction);
 		}
@@ -265,7 +265,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 
 
 	/** Maps a combobox to an action that modifies freehand's parameters. */
-	private static abstract class Combobox2CustomFH<A extends ShapePropertyAction> extends ListForCustomiser<A, ShapeFreeHandCustomiser> {
+    private abstract static class Combobox2CustomFH<A extends ShapePropertyAction> extends ListForCustomiser<A, ShapeFreeHandCustomiser> {
 		protected Combobox2CustomFH(final ShapeFreeHandCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(ins, clazzAction);
 		}

@@ -26,19 +26,11 @@ public class SVGPathSegList extends ArrayList<SVGPathSeg> implements SVGPathHand
 	private static final long	serialVersionUID	= 1L;
 
 
-	/**
-	 * The constructor by default.
-	 */
-	public SVGPathSegList() {
-		super();
-	}
-
-
-	@Override
+    @Override
 	public String toString() {
 		final StringBuilder path = new StringBuilder();
 
-		for(SVGPathSeg seg : this)
+		for(final SVGPathSeg seg : this)
 			if(seg!=null) {
 				path.append(seg.toString());
 				path.append(' ');

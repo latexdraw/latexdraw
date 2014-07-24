@@ -134,7 +134,7 @@ class LLine extends Line2D.Double implements ILine {
 			return null;
 
 		if(LNumber.equalsDouble(distance, 0.)) {
-			IPoint[] sol = new LPoint[1];
+			final IPoint[] sol = new LPoint[1];
 			sol[0] 		 = ShapeFactory.createPoint(x,y);
 
 			return sol;
@@ -144,21 +144,24 @@ class LLine extends Line2D.Double implements ILine {
 			if(isHorizontalLine())// The line is a point. So no position can be computed.
 				return null;
 
-			IPoint sol[] = new LPoint[2];
+			final IPoint[] sol = new LPoint[2];
 			sol[0] = ShapeFactory.createPoint(x, y-distance);
 			sol[1] = ShapeFactory.createPoint(x, y+distance);
 
 			return sol;
 		}
 
-		double aLine = a*a+1.;
-		double bLine = -2.*(x+y*a-a*b);
-		double cLine = b*b-2.*y*b+y*y+x*x-distance*distance;
-		double delta = bLine*bLine-4.*aLine*cLine;
+		final double aLine = a*a+1.;
+		final double bLine = -2.*(x+y*a-a*b);
+		final double cLine = b*b-2.*y*b+y*y+x*x-distance*distance;
+		final double delta = bLine*bLine-4.*aLine*cLine;
 
 		if(delta>0.) {
-			double x1b, x2b, y1b, y2b;
-			IPoint sol[] = new LPoint[2];
+			final double x1b;
+            final double x2b;
+            final double y1b;
+            final double y2b;
+            final IPoint[] sol = new LPoint[2];
 
 			x1b = (-bLine+Math.sqrt(delta))/(2*aLine);
 			x2b = (-bLine-Math.sqrt(delta))/(2*aLine);
@@ -171,8 +174,9 @@ class LLine extends Line2D.Double implements ILine {
 		}
 		else
 			if(LNumber.equalsDouble(delta, 0.)) {
-				double x2b, y2b;
-				IPoint sol[] = new LPoint[1];
+				final double x2b;
+                final double y2b;
+                final IPoint[] sol = new LPoint[1];
 
 				x2b = -bLine/2*aLine;
 				y2b = a*x2b+b;
@@ -207,8 +211,8 @@ class LLine extends Line2D.Double implements ILine {
 			return LNumber.equalsDouble(pt.getX(), x1) ? ShapeFactory.createLine(pt.getY(), ShapeFactory.createPoint(pt)) : null;
 
 		if(LNumber.equalsDouble(pt.getX(), 0.)) {
-			IPoint pt3  = ShapeFactory.createPoint(getPoint2());
-			IPoint pt2  = pt3.rotatePoint(pt, Math.PI/2.);
+			final IPoint pt3  = ShapeFactory.createPoint(getPoint2());
+			final IPoint pt2  = pt3.rotatePoint(pt, Math.PI/2.);
 
 			return ShapeFactory.createLine(pt2, pt);
 		}
@@ -216,7 +220,7 @@ class LLine extends Line2D.Double implements ILine {
 		if(LNumber.equalsDouble(a, 0.))
 			return ShapeFactory.createLine(pt.getX(), pt.getY(), pt.getX(), pt.getY()-10.);
 
-		double a2 = -1./a;
+		final double a2 = -1./a;
 
 		return ShapeFactory.createLine(pt.getY()-a2*pt.getX(), pt);
 	}
@@ -241,10 +245,10 @@ class LLine extends Line2D.Double implements ILine {
 		if(l==null) return null;
 		if(LNumber.equalsDouble(a, l.getA(), 0.00000000001)) return null;
 
-		boolean verticalLine1 = isVerticalLine();
-		boolean verticalLine2 = l.isVerticalLine();
-		double x;
-		double y;
+		final boolean verticalLine1 = isVerticalLine();
+		final boolean verticalLine2 = l.isVerticalLine();
+		final double x;
+		final double y;
 
 		if(verticalLine2) {
 			if(verticalLine1)// The two lines a parallels
@@ -261,8 +265,8 @@ class LLine extends Line2D.Double implements ILine {
 				x = (y-b)/a;
 			}
 		}else {
-			double la = l.getA();
-			double lb = l.getB();
+			final double la = l.getA();
+			final double lb = l.getB();
 
 			if(verticalLine1) {
 				if(l.isHorizontalLine()) {
@@ -284,17 +288,17 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public IPoint getIntersectionSegment(final ILine l) {
-		IPoint p = getIntersection(l);
+		final IPoint p = getIntersection(l);
 
 		if(p==null)
 			return null;
 
-		double px  = p.getX();
-		double py  = p.getY();
-		IPoint tl  = getTopLeftPoint();
-		IPoint br  = getBottomRightPoint();
-		IPoint tl2 = l.getTopLeftPoint();
-		IPoint br2 = l.getBottomRightPoint();
+		final double px  = p.getX();
+		final double py  = p.getY();
+		final IPoint tl  = getTopLeftPoint();
+		final IPoint br  = getBottomRightPoint();
+		final IPoint tl2 = l.getTopLeftPoint();
+		final IPoint br2 = l.getBottomRightPoint();
 
 		if(px>=tl.getX() && px<=br.getX() && py>=tl.getY() && py<=br.getY() &&
 		   px>=tl2.getX() && px<=br2.getX() && py>=tl2.getY() && py<=br2.getY())
@@ -308,8 +312,8 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public IPoint getTopLeftPoint() {
-		IPoint pt1 = getPoint1();
-		IPoint pt2 = getPoint2();
+		final IPoint pt1 = getPoint1();
+		final IPoint pt2 = getPoint2();
 
 		return ShapeFactory.createPoint(pt1.getX()<pt2.getX() ? pt1.getX() : pt2.getX(), pt1.getY()<pt2.getY() ? pt1.getY() : pt2.getY());
 	}
@@ -318,8 +322,8 @@ class LLine extends Line2D.Double implements ILine {
 
 	@Override
 	public IPoint getBottomRightPoint() {
-		IPoint pt1 = getPoint1();
-		IPoint pt2 = getPoint2();
+		final IPoint pt1 = getPoint1();
+		final IPoint pt2 = getPoint2();
 
 		return ShapeFactory.createPoint(pt1.getX()<pt2.getX() ? pt2.getX() : pt1.getX(), pt1.getY()<pt2.getY() ? pt2.getY() : pt1.getY());
 	}

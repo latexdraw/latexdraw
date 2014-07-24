@@ -94,15 +94,15 @@ JTextField latexDistribField = new JTextField();
 
 	private JPanel createLatexPanel() {
 		final JPanel pLatex = new JPanel();
-		JPanel pLatexDistrib = new JPanel();
+		final JPanel pLatexDistrib = new JPanel();
 		pLatex.setLayout(new BoxLayout(pLatex, BoxLayout.Y_AXIS));
 latexDistribField.setEditable(false);
 latexDistribField.setMaximumSize(new Dimension(700, 80));
 		pLatexDistrib.setLayout(new BoxLayout(pLatexDistrib, BoxLayout.X_AXIS));
-		JButton bChooseLatex = new JButton(LResources.OPEN_ICON);
+		final JButton bChooseLatex = new JButton(LResources.OPEN_ICON);
 		bChooseLatex.addActionListener(new ActionListener() {
-			@Override public void actionPerformed(ActionEvent e) {
-				JFileChooser chooser = new JFileChooser();
+			@Override public void actionPerformed(final ActionEvent e) {
+				final JFileChooser chooser = new JFileChooser();
 			    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			    chooser.setMultiSelectionEnabled(false);
 			    chooser.showDialog(PreferencesFrame.this, "Select");
@@ -160,12 +160,12 @@ latexDistribField.setMaximumSize(new Dimension(700, 80));
 
 
 	@Override
-	public void setVisible(boolean visible) {
+	public void setVisible(final boolean visible) {
 		super.setVisible(visible);
 
 		if(visible) {
-	 		Dimension dim = LSystem.INSTANCE.getScreenDimension();
-	 		Rectangle rec = getGraphicsConfiguration().getBounds();
+	 		final Dimension dim = LSystem.INSTANCE.getScreenDimension();
+	 		final Rectangle rec = getGraphicsConfiguration().getBounds();
 	 		setLocation((int)(rec.getX()+dim.width/2.0-getWidth()/2.0), (int)(rec.getY()+dim.height/2.0-getHeight()/2.0));
 		}
 	}

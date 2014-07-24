@@ -50,8 +50,8 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 			IPoint pt		= pts.get(0);
 			// We must check if all the points of the shape are equals because if it
 			// is the case the shape will not be visible.
-			double firstX = pt.getX();
-			double firstY = pt.getY();
+			final double firstX = pt.getX();
+			final double firstY = pt.getY();
 			double sumX	= firstX;
 			double sumY	= firstY;
 

@@ -53,19 +53,19 @@ public class Exporter extends WidgetInstrument {
 	public static final String TITLE_DIALOG_EXPORT = "Drawing export";
 
 	/** The label of the exportAsBMPFile item */
-	public final static String LABEL_EXPORT_BMP = LangTool.INSTANCE.getString16("LaTeXDrawFrame.6"); //$NON-NLS-1$
+    public static final String LABEL_EXPORT_BMP = LangTool.INSTANCE.getString16("LaTeXDrawFrame.6"); //$NON-NLS-1$
 
 	/** The label of the exportAsPNGFile item */
-	public final static String LABEL_EXPORT_PNG = LangTool.INSTANCE.getString16("LaTeXDrawFrame.7"); //$NON-NLS-1$
+    public static final String LABEL_EXPORT_PNG = LangTool.INSTANCE.getString16("LaTeXDrawFrame.7"); //$NON-NLS-1$
 
 	/** The label of the exportCodeMenu item */
-	public final static String LABEL_EXPORT_TRICKS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.19"); //$NON-NLS-1$
+    public static final String LABEL_EXPORT_TRICKS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.19"); //$NON-NLS-1$
 
 	/** The label of the exportDrawMenu item */
-	public final static String LABEL_EXPORT_JPG = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.20"); //$NON-NLS-1$
+    public static final String LABEL_EXPORT_JPG = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.20"); //$NON-NLS-1$
 
 	/** The label of the menu export as */
-	public final static String LABEL_EXPORT_AS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.16"); //$NON-NLS-1$
+    public static final String LABEL_EXPORT_AS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.16"); //$NON-NLS-1$
 
 	/** The canvas that contains the shapes to export. The canvas is used instead of the drawing
 	 * because to export as picture, we paint the views into a graphics. */
@@ -173,13 +173,13 @@ public class Exporter extends WidgetInstrument {
 	public void load(final boolean generalPreferences, final String nsURI, final Element root) {
 		super.load(generalPreferences, nsURI, root);
 
-		String name = root.getNodeName();
+		final String name = root.getNodeName();
 
 		if(name.endsWith(LNamespace.XML_LATEX_INCLUDES)) {
 			final String[] lines = root.getTextContent().split(LResources.EOL);
 			final String pkgs = LaTeXGenerator.getPackages();
 			final StringBuilder build = new StringBuilder(LaTeXGenerator.getPackages());
-			for(String line : lines)
+			for(final String line : lines)
 				if(!pkgs.contains(line))
 					build.append(LResources.EOL).append(line);
 			LaTeXGenerator.setPackages(build.toString());
@@ -362,7 +362,7 @@ class MenuPressed2Export extends Link<Export, MenuItemPressed, Exporter> {
 	@Override
 	public void initAction() {
 		final JMenuItem item = interaction.getMenuItem();
-		ExportFormat format;
+		final ExportFormat format;
 
 		if(item==instrument.menuItemPDF)
 			format = ExportFormat.PDF;

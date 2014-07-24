@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -45,21 +44,21 @@ class PSTArcView extends PSTClassicalView<IArc> {
 
 		emptyCache();
 
-		double radiusX 		= shape.getWidth()/2.0;
-		double radiusY 		= shape.getHeight()/2.0;
-		double x 			= shape.getX()+radiusX - origin.getX();
-		double y 			= origin.getY() - shape.getY()+radiusY;
+		final double radiusX 		= shape.getWidth()/2.0;
+		final double radiusY 		= shape.getHeight()/2.0;
+		final double x 			= shape.getX()+radiusX - origin.getX();
+		final double y 			= origin.getY() - shape.getY()+radiusY;
 		double startAngle 	= shape.getAngleStart();
 		double endAngle	  	= shape.getAngleEnd();
-		double yunit 		= radiusY/radiusX;
-		StringBuilder start = new StringBuilder();
-		StringBuilder end 	= new StringBuilder();
-		StringBuilder params = getPropertiesCode(ppc);
-		StringBuilder rotation = getRotationHeaderCode(ppc, origin);
-		StringBuilder arrowsStyle = getArrowsStyleCode();
+		final double yunit 		= radiusY/radiusX;
+		final StringBuilder start = new StringBuilder();
+		final StringBuilder end 	= new StringBuilder();
+		final StringBuilder params = getPropertiesCode(ppc);
+		final StringBuilder rotation = getRotationHeaderCode(ppc, origin);
+		final StringBuilder arrowsStyle = getArrowsStyleCode();
 
 		if(startAngle>endAngle) {
-			double tmp 	= startAngle;
+			final double tmp 	= startAngle;
 			startAngle 	= endAngle;
 			endAngle 	= tmp;
 		}

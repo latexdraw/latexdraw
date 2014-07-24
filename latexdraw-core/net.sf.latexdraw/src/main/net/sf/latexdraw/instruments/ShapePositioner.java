@@ -92,7 +92,7 @@ public class ShapePositioner extends ShapePropertyCustomiser {
 
 /** This link maps a button interaction to an action that puts shapes in foreground / background. */
 class Button2MoveBackForeground extends Link<MoveBackForegroundShapes, ButtonPressed, ShapePositioner> {
-	protected Button2MoveBackForeground(ShapePositioner ins) throws InstantiationException, IllegalAccessException {
+	protected Button2MoveBackForeground(final ShapePositioner ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, MoveBackForegroundShapes.class, ButtonPressed.class);
 	}
 

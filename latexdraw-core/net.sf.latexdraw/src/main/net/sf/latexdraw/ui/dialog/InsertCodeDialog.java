@@ -54,7 +54,7 @@ public class InsertCodeDialog extends MFrame {
 	 * Creates the code dialog box.
 	 * @param parentIns The instrument managing this dialogue box.
 	 */
-	public InsertCodeDialog(Instrument parentIns) {
+	public InsertCodeDialog(final Instrument parentIns) {
 		super(LangTool.INSTANCE.getString16("InsertPSTricksCodeFrame.0"), true); //$NON-NLS-1$
 		setIconImage(LResources.INSERT_PST_ICON.getImage());
   		final MPanel pButton = new MPanel(false, true);
@@ -64,12 +64,12 @@ public class InsertCodeDialog extends MFrame {
   		editor = new JEditorPane();
 
   		// The scroller of the editor
-		JScrollPane scrollPane = new JScrollPane(editor);
+		final JScrollPane scrollPane = new JScrollPane(editor);
 		scrollPane.setMinimumSize(new Dimension(450, 250));
 		scrollPane.setPreferredSize(new Dimension(450, 250));
  		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-		JLabel label = new JLabel(LangTool.INSTANCE.getString16("LaTeXDrawFrame.16"), SwingConstants.CENTER); //$NON-NLS-1$
+		final JLabel label = new JLabel(LangTool.INSTANCE.getString16("LaTeXDrawFrame.16"), SwingConstants.CENTER); //$NON-NLS-1$
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		editor.setText("");//$NON-NLS-1$
@@ -82,8 +82,8 @@ public class InsertCodeDialog extends MFrame {
 		getContentPane().add(scrollPane);
 		getContentPane().add(pButton);
 
- 		Dimension dim = LSystem.INSTANCE.getScreenDimension();
- 		Rectangle rec = getGraphicsConfiguration().getBounds();
+ 		final Dimension dim = LSystem.INSTANCE.getScreenDimension();
+ 		final Rectangle rec = getGraphicsConfiguration().getBounds();
   		pack();
   		setLocation((int)(rec.getX()+dim.width/2.0-getWidth()/2.0), (int)(rec.getY()+dim.height/2.0-getHeight()/2.0));
 		setVisible(false);
@@ -100,7 +100,7 @@ public class InsertCodeDialog extends MFrame {
 
 
 	@Override
-	public void setVisible(boolean visible) {
+	public void setVisible(final boolean visible) {
 		if(visible)
 			editor.setText("");//$NON-NLS-1$
 		super.setVisible(visible);

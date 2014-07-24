@@ -215,7 +215,7 @@ public class LFrame extends SwingUI {
 		if(progressBar!=null)
 			progressBar.addToProgressBar(5);
 
-		try{setIconImage(LResources.LATEXDRAW_ICON.getImage());}catch(Exception ex){BadaboomCollector.INSTANCE.add(ex);}
+		try{setIconImage(LResources.LATEXDRAW_ICON.getImage());}catch(final Exception ex){BadaboomCollector.INSTANCE.add(ex);}
 		setTitle(LResources.LABEL_APP);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		UIManager.INSTANCE.registerUI(this);

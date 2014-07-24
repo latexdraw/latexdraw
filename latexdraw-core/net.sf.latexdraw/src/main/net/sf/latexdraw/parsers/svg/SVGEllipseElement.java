@@ -80,11 +80,11 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getCx() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CX);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CX);
 		double cx;
 
 		try { cx = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { cx = 0; }
+		catch(final ParseException e) { cx = 0; }
 
 		return cx;
 	}
@@ -95,11 +95,11 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getCy() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CY);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CY);
 		double cy;
 
 		try { cy = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { cy = 0; }
+		catch(final ParseException e) { cy = 0; }
 
 		return cy;
 	}
@@ -111,11 +111,11 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getRx() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RX);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RX);
 		double rx;
 
 		try { rx = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { rx = Double.NaN; }
+		catch(final ParseException e) { rx = Double.NaN; }
 
 		return rx;
 	}
@@ -127,11 +127,11 @@ public class SVGEllipseElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getRy() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RY);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RY);
 		double ry;
 
 		try { ry = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { ry = Double.NaN; }
+		catch(final ParseException e) { ry = Double.NaN; }
 
 		return ry;
 	}
@@ -140,9 +140,10 @@ public class SVGEllipseElement extends SVGElement {
 
 	@Override
 	public boolean checkAttributes() {
-		double rx = getRx(), ry = getRy();
+		final double rx = getRx();
+        final double ry = getRy();
 
-		return !Double.isNaN(rx) && !Double.isNaN(ry) && rx>=0 && ry>=0;
+        return !Double.isNaN(rx) && !Double.isNaN(ry) && rx>=0 && ry>=0;
 	}
 
 

@@ -45,7 +45,7 @@ class LPictureView extends LShapeView<IPicture> {
 
 
 	@Override
-	public boolean contains(double x, double y) {
+	public boolean contains(final double x, final double y) {
 		return border.contains(x, y);
 	}
 

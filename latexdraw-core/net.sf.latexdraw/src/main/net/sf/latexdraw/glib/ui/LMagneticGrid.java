@@ -82,7 +82,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		 * @since 3.0
 		 */
 		public static GridStyle getStylefromName(final String name) {
-			for(GridStyle style : values())
+			for(final GridStyle style : values())
 				if(style.toString().equals(name))
 					return style;
 			return null;
@@ -96,7 +96,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		 * @since 3.0
 		 */
 		public static GridStyle getStyleFromLabel(final String label) {
-			for(GridStyle style : values())
+			for(final GridStyle style : values())
 				if(style.getLabel().equals(label))
 					return style;
 			return null;
@@ -231,7 +231,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
     		double y 		= point.getY();
     		int base 		= (int)((int)(x/modulo)*modulo);
 
-    		if(x>modulo) x = x%(int)modulo;
+    		if(x>modulo) x %= (int) modulo;
 
     		double res = modulo-x;
     		x = base;
@@ -241,7 +241,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
     		point.setX((int)x);
     		base = (int)((int)(point.getY()/modulo)*modulo);
 
-    		if(y>modulo) y = y%(int)modulo;
+    		if(y>modulo) y %= (int) modulo;
 
     		res = modulo-y;
     		y = base;

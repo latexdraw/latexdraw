@@ -23,7 +23,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PSDivCommand extends PSArithemticCommand {
+public class PSDivCommand implements PSArithemticCommand {
 	@Override
 	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
 		if(stack==null || stack.size()<2)

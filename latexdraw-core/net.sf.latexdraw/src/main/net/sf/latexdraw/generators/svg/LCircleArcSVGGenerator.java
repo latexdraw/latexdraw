@@ -61,23 +61,24 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
 	protected LCircleArcSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.createCircleArc(true));
 
-		SVGElement elt2 = getLaTeXDrawElement(elt, null);
-		IArrow arr1	= shape.getArrowAt(0);
-		IArrow arr2	= shape.getArrowAt(-1);
+		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final IArrow arr1	= shape.getArrowAt(0);
+		final IArrow arr2	= shape.getArrowAt(-1);
 
 		if(elt==null || !(elt2 instanceof SVGPathElement))
 			throw new IllegalArgumentException();
 
-		SVGPathElement main = (SVGPathElement)elt2;
-		SVGPathSegList l = main.getSegList();
-		double sx, sy;
+		final SVGPathElement main = (SVGPathElement)elt2;
+		final SVGPathSegList l = main.getSegList();
+		final double sx;
+        final double sy;
 
-		if(l.size()<2 && !(l.get(0) instanceof SVGPathSegMoveto) && !(l.get(1) instanceof SVGPathSegArc))
+        if(l.size()<2 && !(l.get(0) instanceof SVGPathSegMoveto) && !(l.get(1) instanceof SVGPathSegArc))
 			throw new IllegalArgumentException();
 
 		sx = ((SVGPathSegMoveto)l.get(0)).getX();
 		sy = ((SVGPathSegMoveto)l.get(0)).getY();
-		Arc2D arc = ((SVGPathSegArc)l.get(1)).getArc2D(sx, sy);
+		final Arc2D arc = ((SVGPathSegArc)l.get(1)).getArc2D(sx, sy);
 		double angle = Math.toRadians(arc.getAngleStart())%(Math.PI*2);
 		if(angle<0.)
 			angle = 2.*Math.PI+angle;
@@ -117,17 +118,17 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
 		if(doc==null || doc.getFirstChild().getDefs()==null)
 			return null;
 
-		SVGDefsElement defs  = doc.getFirstChild().getDefs();
-		double rotationAngle = shape.getRotationAngle();
-		double startAngle    = shape.getAngleStart()%(2.*Math.PI);
-		double endAngle      = shape.getAngleEnd()%(2.*Math.PI);
-		ArcStyle type 		 = shape.getArcStyle();
-        SVGElement root 	 = new SVGGElement(doc);
-        IPoint start 		 = shape.getStartPoint();
-        IPoint end 			 = shape.getEndPoint();
-        double radius 		 = shape.getWidth()/2.0;
-        boolean largeArcFlag = Math.abs(startAngle-endAngle)>=Math.PI || startAngle>endAngle;
-        SVGPathSegList path  = new SVGPathSegList();
+		final SVGDefsElement defs  = doc.getFirstChild().getDefs();
+		final double rotationAngle = shape.getRotationAngle();
+		final double startAngle    = shape.getAngleStart()%(2.*Math.PI);
+		final double endAngle      = shape.getAngleEnd()%(2.*Math.PI);
+		final ArcStyle type 		 = shape.getArcStyle();
+        final SVGElement root 	 = new SVGGElement(doc);
+        final IPoint start 		 = shape.getStartPoint();
+        final IPoint end 			 = shape.getEndPoint();
+        final double radius 		 = shape.getWidth()/2.0;
+        final boolean largeArcFlag = Math.abs(startAngle-endAngle)>=Math.PI || startAngle>endAngle;
+        final SVGPathSegList path  = new SVGPathSegList();
         SVGElement elt;
 
         root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_ARC);
@@ -146,7 +147,7 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
         	}
 
         if(shape.hasShadow())  {
-        	SVGElement shad = new SVGPathElement(doc);
+        	final SVGElement shad = new SVGPathElement(doc);
 
         	shad.setAttribute(SVGAttributes.SVG_D, path.toString());
         	setSVGShadowAttributes(shad, true);
@@ -167,7 +168,7 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
         root.appendChild(elt);
 
         if(shape.hasDbleBord()) {
-            SVGElement dble = new SVGPathElement(doc);
+            final SVGElement dble = new SVGPathElement(doc);
             dble.setAttribute(SVGAttributes.SVG_D, path.toString());
         	setSVGDoubleBordersAttributes(dble);
         	root.appendChild(dble);
@@ -197,8 +198,8 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
 		if(!shape.isShowPts() || doc==null)
 			return null;
 
-		SVGGElement showPts = new SVGGElement(doc);
-		double thickness	= shape.getThickness()/2.;
+		final SVGGElement showPts = new SVGGElement(doc);
+		final double thickness	= shape.getThickness()/2.;
 
 		showPts.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SHOW_PTS);
 

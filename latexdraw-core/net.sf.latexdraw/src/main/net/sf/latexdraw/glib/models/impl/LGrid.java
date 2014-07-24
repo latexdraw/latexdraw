@@ -87,7 +87,7 @@ class LGrid extends LAbstractGrid implements IGrid {
 		super.copy(sh);
 
 		if(sh instanceof IGridProp) {
-			IGridProp grid = (IGridProp) sh;
+			final IGridProp grid = (IGridProp) sh;
 
 			gridDots 		= grid.getGridDots();
 			subGridColour 	= grid.getSubGridColour();

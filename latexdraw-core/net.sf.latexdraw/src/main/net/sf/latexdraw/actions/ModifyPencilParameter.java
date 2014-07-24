@@ -41,16 +41,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 	protected Pencil pencil;
 
 
-	/**
-	 * Creates and initialises the action.
-	 * @since 3.0
-	 */
-	public ModifyPencilParameter() {
-		super();
-	}
-
-
-	@Override
+    @Override
 	public void flush() {
 		super.flush();
 		pencil = null;

@@ -57,7 +57,7 @@ public class SVGDocument implements Document {
     protected String xmlEncoding;
 
 
-    public final static String ACTION_NOT_IMPLEMENTED = "Action not implemented.";//$NON-NLS-1$
+    public static final String ACTION_NOT_IMPLEMENTED = "Action not implemented.";//$NON-NLS-1$
 
 
     public static final String SVG_NAMESPACE = "http://www.w3.org/2000/svg";//$NON-NLS-1$
@@ -72,42 +72,42 @@ public class SVGDocument implements Document {
 	 * @throws IllegalArgumentException If a n argument is not valid.
 	 */
 	public SVGDocument(final URI uri) throws MalformedSVGDocument, IOException {
-		if(uri==null)
-			throw new IllegalArgumentException();
+        super();
+        if (uri == null)
+            throw new IllegalArgumentException();
 
-		try {
-			final DocumentBuilderFactory factory= DocumentBuilderFactory.newInstance();
-	        final DocumentBuilder builder 		= factory.newDocumentBuilder();
+        try {
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder builder = factory.newDocumentBuilder();
 
-	        builder.setEntityResolver(new SVGEntityResolver());
-	        Document doc;
-	        try{
-	        	doc = builder.parse(uri.getPath());
-	        }catch(MalformedURLException ex) {
-	        	doc = builder.parse("file:"+uri.getPath());
-	        }
-			NodeList nl;
+            builder.setEntityResolver(new SVGEntityResolver());
+            Document doc;
+            try {
+                doc = builder.parse(uri.getPath());
+            } catch (final MalformedURLException ex) {
+                doc = builder.parse("file:" + uri.getPath());
+            }
+            final NodeList nl;
 
-			setDocumentURI(getDocumentURI());
-			setXmlStandalone(doc.getXmlStandalone());
-			setXmlVersion(doc.getXmlVersion());
-			xmlEncoding = doc.getXmlEncoding();
-			root 		= null;
-			nl 			= doc.getChildNodes();
-			Node n;
+            setDocumentURI(getDocumentURI());
+            setXmlStandalone(doc.getXmlStandalone());
+            setXmlVersion(doc.getXmlVersion());
+            xmlEncoding = doc.getXmlEncoding();
+            root = null;
+            nl = doc.getChildNodes();
+            Node n;
 
-			for(int i=0, size = nl.getLength(); i<size && root==null; i++) {
-				n = nl.item(i);
+            for (int i = 0, size = nl.getLength(); i < size && root == null; i++) {
+                n = nl.item(i);
 
-				if(n instanceof Element && n.getNodeName().endsWith(SVGElements.SVG_SVG))
-					root = new SVGSVGElement(this, nl.item(i));
-			}
-		}
-		catch(final SAXException | ParserConfigurationException e) {
-			BadaboomCollector.INSTANCE.add(e);
-			throw new MalformedSVGDocument();
-		}
-	}
+                if (n instanceof Element && n.getNodeName().endsWith(SVGElements.SVG_SVG))
+                    root = new SVGSVGElement(this, nl.item(i));
+            }
+        } catch (final SAXException | ParserConfigurationException e) {
+            BadaboomCollector.INSTANCE.add(e);
+            throw new MalformedSVGDocument();
+        }
+    }
 
 
 
@@ -115,12 +115,13 @@ public class SVGDocument implements Document {
 	 * Creates an SVG document with an empty SVG element.
 	 */
 	public SVGDocument() {
-		setDocumentURI(null);
-		setXmlVersion("1.1");//$NON-NLS-1$
-		setXmlStandalone(false);
+        super();
+        setDocumentURI(null);
+        setXmlVersion("1.1");//$NON-NLS-1$
+        setXmlStandalone(false);
 
-		root = new SVGSVGElement(this);
-	}
+        root = new SVGSVGElement(this);
+    }
 
 
 
@@ -279,7 +280,7 @@ public class SVGDocument implements Document {
 
 	@Override
 	public boolean isEqualNode(final Node node) {
-		boolean equal;
+		final boolean equal;
 
 		if(node instanceof SVGDocument) {
 			final SVGDocument doc = (SVGDocument)node;

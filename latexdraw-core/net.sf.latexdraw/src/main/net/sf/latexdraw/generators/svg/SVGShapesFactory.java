@@ -116,7 +116,7 @@ public final class SVGShapesFactory {
 		 * @since 3.0
 		 */
 		public SVGElement execute(final IShape model, final SVGDocument doc) {
-			SVGElement view;
+			final SVGElement view;
 
 			if(clazz.isInstance(model))
 				view = create(model, doc);

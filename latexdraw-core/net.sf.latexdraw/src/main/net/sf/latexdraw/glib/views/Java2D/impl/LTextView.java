@@ -208,10 +208,10 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		final Image image = FlyweightThumbnail.getImage(this);
 		final IPoint position = image==null ? getTextPositionText() : getTextPositionImage();
 		final double angle = shape.getRotationAngle();
-		double tlx;
-		double tly;
-		double widthBorder;
-		double heightBorder;
+		final double tlx;
+		final double tly;
+		final double widthBorder;
+		final double heightBorder;
 
 		if(image==null) {
 			final TextLayout tl = new TextLayout(shape.getText(), FONT, FONT_METRICS.getFontRenderContext());
@@ -232,8 +232,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		if(LNumber.equalsDouble(angle, 0.))
 			border.setFrame(tlx, tly, widthBorder, heightBorder);
 		else {
-			IPoint tl = ShapeFactory.createPoint();
-			IPoint br = ShapeFactory.createPoint();
+			final IPoint tl = ShapeFactory.createPoint();
+			final IPoint br = ShapeFactory.createPoint();
 			getRotatedRectangle(tlx, tly, widthBorder, heightBorder, angle, shape.getGravityCentre(), tl, br);
 			// The border of the rotated rectangle is now the border of the rectangular view.
 			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());

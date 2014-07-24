@@ -60,14 +60,15 @@ public class PSFunctionParser {
 	 * @since 3.0
 	 */
 	public PSFunctionParser(final String fct) throws InvalidFormatPSFunctionException {
-		if(fct==null || fct.isEmpty())
-			throw new IllegalArgumentException();
+        super();
+        if (fct == null || fct.isEmpty())
+            throw new IllegalArgumentException();
 
-		commands = new ArrayList<>();
-		function = fct;
+        commands = new ArrayList<>();
+        function = fct;
 
-		parseFunction();
-	}
+        parseFunction();
+    }
 
 
 
@@ -77,9 +78,9 @@ public class PSFunctionParser {
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
 	 */
 	public double getY(final double x) throws InvalidFormatPSFunctionException {
-		Deque<Double> stack = new ArrayDeque<>();
+		final Deque<Double> stack = new ArrayDeque<>();
 
-		for(PSArithemticCommand cmd : commands)
+		for(final PSArithemticCommand cmd : commands)
 			cmd.execute(stack, x);
 
 		if(stack.isEmpty())
@@ -96,8 +97,9 @@ public class PSFunctionParser {
 	 * @throws NumberFormatException If the function is not correct.
 	 */
 	protected void parseFunction() throws InvalidFormatPSFunctionException, NumberFormatException {
-		int i = 0, lgth = function.length();
-		StringBuilder cmd = new StringBuilder();
+		int i = 0;
+        final int lgth = function.length();
+        final StringBuilder cmd = new StringBuilder();
 
 		while(i<lgth) {
 			cmd.delete(0, cmd.length());
@@ -170,6 +172,6 @@ public class PSFunctionParser {
 			return new PSCosCommand();
 
 		try {return new PSValue(Double.parseDouble(cmd));}
-		catch(NumberFormatException ex) {throw new InvalidFormatPSFunctionException();}
+		catch(final NumberFormatException ex) {throw new InvalidFormatPSFunctionException();}
 	}
 }

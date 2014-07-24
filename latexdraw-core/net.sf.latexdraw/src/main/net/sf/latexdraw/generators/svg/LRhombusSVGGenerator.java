@@ -55,16 +55,16 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 		this(ShapeFactory.createRhombus(true));
 
 		setNumber(elt);
-		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGPolygonElement))
 			throw new IllegalArgumentException();
 
-		SVGPolygonElement main = (SVGPolygonElement)elt2;
+		final SVGPolygonElement main = (SVGPolygonElement)elt2;
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
 
-		List<Point2D> ptsPol = SVGPointsParser.getPoints(elt.getAttribute(
+		final List<Point2D> ptsPol = SVGPointsParser.getPoints(elt.getAttribute(
 								 elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_POINTS));
 
 		if(ptsPol==null || ptsPol.size()!=4)
@@ -91,20 +91,20 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 
 		final IPoint tl  = shape.getTopLeftPoint();
 		final IPoint br  = shape.getBottomRightPoint();
-		IPoint gc = shape.getGravityCentre();
-		IPoint p1 = ShapeFactory.createPoint((tl.getX()+br.getX())/2., tl.getY());
-		IPoint p2 = ShapeFactory.createPoint(br.getX(), (tl.getY()+br.getY())/2.);
-		IPoint p3 = ShapeFactory.createPoint((tl.getX()+br.getX())/2., br.getY());
-		SVGElement root = new SVGGElement(doc);
+		final IPoint gc = shape.getGravityCentre();
+		final IPoint p1 = ShapeFactory.createPoint((tl.getX()+br.getX())/2., tl.getY());
+		final IPoint p2 = ShapeFactory.createPoint(br.getX(), (tl.getY()+br.getY())/2.);
+		final IPoint p3 = ShapeFactory.createPoint((tl.getX()+br.getX())/2., br.getY());
+		final SVGElement root = new SVGGElement(doc);
 		SVGElement elt;
-	    double gap = getPositionGap()/2.;
-	    double cornerGap1 = GLibUtilities.getCornerGap(gc, p1, p2, gap);
+	    final double gap = getPositionGap()/2.;
+	    final double cornerGap1 = GLibUtilities.getCornerGap(gc, p1, p2, gap);
 	    double cornerGap2 = GLibUtilities.getCornerGap(gc, p2, p3, gap);
 
 	    if(p2.getX()<p3.getX())
 	    	cornerGap2*=-1;
 
-        String points = String.valueOf(p1.getX()) + ',' + (p1.getY() - cornerGap1) + ' ' + (p2.getX() + cornerGap2) + ',' + p2.getY() + ' ' + p3.getX() + ',' + (p3.getY() + cornerGap1) + ' ' + (tl.getX() - cornerGap2) + ',' + p2.getY();
+        final String points = String.valueOf(p1.getX()) + ',' + (p1.getY() - cornerGap1) + ' ' + (p2.getX() + cornerGap2) + ',' + p2.getY() + ' ' + p3.getX() + ',' + (p3.getY() + cornerGap1) + ' ' + (tl.getX() - cornerGap2) + ',' + p2.getY();
 
         root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_RHOMBUS);
         root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
@@ -130,7 +130,7 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
                 tl.getY() + ' ' + br.getX() + ' ' + tl.getY() + ' ' + tl.getX() + ' ' + br.getY() + ' ' + br.getX() + ' ' + br.getY());
 
 		if(shape.hasDbleBord()) {
-			SVGElement dblBord = new SVGPolygonElement(doc);
+			final SVGElement dblBord = new SVGPolygonElement(doc);
 			dblBord.setAttribute(SVGAttributes.SVG_POINTS, points);
 			setSVGDoubleBordersAttributes(dblBord);
 			root.appendChild(dblBord);

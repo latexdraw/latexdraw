@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileFilter;
  */
 public class TeXFilter extends FileFilter {
     /** The name of the extension of TeX file*/
-    public final static String TEX_EXTENSION = ".tex"; //$NON-NLS-1$
+    public static final String TEX_EXTENSION = ".tex"; //$NON-NLS-1$
 
 
 	@Override

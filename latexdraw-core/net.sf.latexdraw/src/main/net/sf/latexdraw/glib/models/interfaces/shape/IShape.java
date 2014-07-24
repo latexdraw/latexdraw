@@ -177,7 +177,7 @@ public interface IShape extends Modifiable {
 		 */
 		public static LineStyle getStyle(final String styleName) {
 			if(styleName==null) return null;
-			for(LineStyle ls : values())
+			for(final LineStyle ls : values())
 				if(ls.toString().equals(styleName)) return ls;
 			return null;
 		}
@@ -288,7 +288,7 @@ public interface IShape extends Modifiable {
 		 */
 		public static FillingStyle getStyle(final String style) {
 			if(style==null) return null;
-			for(FillingStyle fs : values())
+			for(final FillingStyle fs : values())
 				if(fs.toString().equals(style)) return fs;
 			return null;
 		}

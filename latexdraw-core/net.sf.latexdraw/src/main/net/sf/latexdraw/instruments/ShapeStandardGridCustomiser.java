@@ -241,7 +241,7 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-	private static abstract class Spinner2ModifyGridCoords<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeStandardGridCustomiser> {
+	private abstract static class Spinner2ModifyGridCoords<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeStandardGridCustomiser> {
 		protected Spinner2ModifyGridCoords(final ShapeStandardGridCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(ins, clazzAction);
 		}

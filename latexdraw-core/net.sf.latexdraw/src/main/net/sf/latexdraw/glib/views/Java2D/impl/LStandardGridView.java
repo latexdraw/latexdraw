@@ -69,9 +69,9 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 		if(LNumber.equalsDouble(angle, 0.))
 			border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
 		else {
-			Rectangle2D rec = path.getBounds2D().createUnion(pathLabels.getBounds2D());
-			IPoint tl = ShapeFactory.createPoint();
-			IPoint br = ShapeFactory.createPoint();
+			final Rectangle2D rec = path.getBounds2D().createUnion(pathLabels.getBounds2D());
+			final IPoint tl = ShapeFactory.createPoint();
+			final IPoint br = ShapeFactory.createPoint();
 			getRotatedRectangle(rec.getMinX(), rec.getMinY(), rec.getWidth(), rec.getHeight(), angle, shape.getGravityCentre(), tl, br);
 			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
 		}
@@ -99,7 +99,7 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 			return false;
 
 		final double rotationAngle = shape.getRotationAngle();
-		boolean intersects;
+		final boolean intersects;
 
 		if(LNumber.equalsDouble(rotationAngle, 0.)) {
 			intersects = path.intersects(r) || pathLabels.intersects(r);

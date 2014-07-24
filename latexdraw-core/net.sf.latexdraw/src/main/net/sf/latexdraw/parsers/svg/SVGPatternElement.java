@@ -70,7 +70,7 @@ public class SVGPatternElement extends SVGElement {
 		double x;
 
 		try { x = v==null ? 0. : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { x = 0.; }
+		catch(final ParseException e) { x = 0.; }
 
 		return x;
 	}
@@ -86,7 +86,7 @@ public class SVGPatternElement extends SVGElement {
 		double y;
 
 		try { y = v==null ? 0. : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { y = 0.; }
+		catch(final ParseException e) { y = 0.; }
 
 		return y;
 	}
@@ -102,7 +102,7 @@ public class SVGPatternElement extends SVGElement {
 		double width;
 
 		try { width = v==null ? 0. : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { width = 0.; }
+		catch(final ParseException e) { width = 0.; }
 
 		return width;
 	}
@@ -117,7 +117,7 @@ public class SVGPatternElement extends SVGElement {
 		double height;
 
 		try { height = v==null ? 0. : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { height = 0.; }
+		catch(final ParseException e) { height = 0.; }
 
 		return height;
 	}
@@ -231,9 +231,12 @@ public class SVGPatternElement extends SVGElement {
 			return Double.NaN;
 
 		try {
-			float l1x, l2x, l1y, l2y;
+			final float l1x;
+            final float l2x;
+            final float l1y;
+            final float l2y;
 
-			l1x = Double.valueOf(coord1[1]).floatValue();
+            l1x = Double.valueOf(coord1[1]).floatValue();
 			l1y = Double.valueOf(coord1[2]).floatValue();
 			l2x = Double.valueOf(coord2[1]).floatValue();
 			l2y = Double.valueOf(coord2[2]).floatValue();
@@ -270,6 +273,6 @@ public class SVGPatternElement extends SVGElement {
 		final String code = g==null ? null : g.getAttribute(getUsablePrefix()+SVGAttributes.SVG_STROKE_WIDTH);
 
 		try { return code==null ? Double.NaN : new SVGLengthParser(code).parseLength().getValue(); }
-		catch(ParseException e){ return Double.NaN; }
+		catch(final ParseException e){ return Double.NaN; }
 	}
 }

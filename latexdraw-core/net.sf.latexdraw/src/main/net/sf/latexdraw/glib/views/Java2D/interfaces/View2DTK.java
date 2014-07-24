@@ -24,7 +24,7 @@ public final class View2DTK {
 	}
 	
 	/** The current view factory. */
-	private static IViewsFactory factory = null;
+	private static IViewsFactory factory;
 	
 	/**
 	 * Sets the view factory.

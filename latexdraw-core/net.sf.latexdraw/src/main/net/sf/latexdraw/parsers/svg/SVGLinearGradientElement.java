@@ -70,7 +70,7 @@ public class SVGLinearGradientElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public String getGradientUnits() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_GRADIENT_UNITS);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_GRADIENT_UNITS);
 
 		return v==null || !SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(v) &&
 						!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v) ? SVGAttributes.SVG_UNITS_VALUE_OBJ : v;
@@ -83,11 +83,11 @@ public class SVGLinearGradientElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getX1() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X1);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X1);
 		double x1;
 
 		try { x1 = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { x1 = 0; }
+		catch(final ParseException e) { x1 = 0; }
 
 		return x1;
 	}
@@ -99,11 +99,11 @@ public class SVGLinearGradientElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getY1() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y1);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y1);
 		double y1;
 
 		try { y1 = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { y1 = 0; }
+		catch(final ParseException e) { y1 = 0; }
 
 		return y1;
 	}
@@ -115,11 +115,11 @@ public class SVGLinearGradientElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getX2() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X2);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X2);
 		double x2;
 
 		try { x2 = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { x2 = 0; }
+		catch(final ParseException e) { x2 = 0; }
 
 		return x2;
 	}
@@ -131,11 +131,11 @@ public class SVGLinearGradientElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getY2() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y2);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y2);
 		double y2;
 
 		try { y2 = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { y2 = 0; }
+		catch(final ParseException e) { y2 = 0; }
 
 		return y2;
 	}
@@ -147,7 +147,7 @@ public class SVGLinearGradientElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public Color getStartColor() {
-		SVGNodeList nl = getChildren(SVGElements.SVG_STOP);
+		final SVGNodeList nl = getChildren(SVGElements.SVG_STOP);
 
 		if(nl.getLength()==2) {
 			if(((SVGStopElement)nl.item(0)).getOffset()<((SVGStopElement)nl.item(1)).getOffset())
@@ -157,9 +157,9 @@ public class SVGLinearGradientElement extends SVGElement {
 		}
 		else
 			if(nl.getLength()==3) {
-				SVGStopElement s1 = (SVGStopElement)nl.item(0);
-				SVGStopElement s2 = (SVGStopElement)nl.item(1);
-				SVGStopElement s3 = (SVGStopElement)nl.item(2);
+				final SVGStopElement s1 = (SVGStopElement)nl.item(0);
+				final SVGStopElement s2 = (SVGStopElement)nl.item(1);
+				final SVGStopElement s3 = (SVGStopElement)nl.item(2);
 
 				if(s1.getOffset()<s2.getOffset()) {
 					if(s1.getOffset()<s3.getOffset())
@@ -184,7 +184,7 @@ public class SVGLinearGradientElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public Color getEndColor() {
-		SVGNodeList nl = getChildren(SVGElements.SVG_STOP);
+		final SVGNodeList nl = getChildren(SVGElements.SVG_STOP);
 
 		if(nl.getLength()==2) {
 			if(((SVGStopElement)nl.item(0)).getOffset()>((SVGStopElement)nl.item(1)).getOffset())
@@ -194,9 +194,9 @@ public class SVGLinearGradientElement extends SVGElement {
 		}
 		else
 			if(nl.getLength()==3) {
-				SVGStopElement s1 = (SVGStopElement)nl.item(0);
-				SVGStopElement s2 = (SVGStopElement)nl.item(1);
-				SVGStopElement s3 = (SVGStopElement)nl.item(2);
+				final SVGStopElement s1 = (SVGStopElement)nl.item(0);
+				final SVGStopElement s2 = (SVGStopElement)nl.item(1);
+				final SVGStopElement s3 = (SVGStopElement)nl.item(2);
 
 				if(s1.getOffset()>s2.getOffset()) {
 					if(s1.getOffset()<s3.getOffset())
@@ -222,15 +222,15 @@ public class SVGLinearGradientElement extends SVGElement {
 	 */
 	public double getMiddlePoint() {
 		double midPoint = Double.NaN;
-		SVGNodeList nl = getChildren(SVGElements.SVG_STOP);
+		final SVGNodeList nl = getChildren(SVGElements.SVG_STOP);
 
 		if(nl.getLength()==2)
 			midPoint = Math.max(((SVGStopElement)nl.item(0)).getOffset(), ((SVGStopElement)nl.item(1)).getOffset());
 		else
 			if(nl.getLength()==3) {
-				SVGStopElement s1 = (SVGStopElement)nl.item(0);
-				SVGStopElement s2 = (SVGStopElement)nl.item(1);
-				SVGStopElement s3 = (SVGStopElement)nl.item(2);
+				final SVGStopElement s1 = (SVGStopElement)nl.item(0);
+				final SVGStopElement s2 = (SVGStopElement)nl.item(1);
+				final SVGStopElement s3 = (SVGStopElement)nl.item(2);
 
 				if(s1.getOffset()>s2.getOffset())
 					if(s1.getOffset()<s3.getOffset())
@@ -254,8 +254,11 @@ public class SVGLinearGradientElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getAngle() {
-		double x1 = getX1(), x2 = getX2(), y1 = getY1(), y2 = getY2();
-		double angle = Double.NaN;
+		final double x1 = getX1();
+        final double x2 = getX2();
+        final double y1 = getY1();
+        final double y2 = getY2();
+        double angle = Double.NaN;
 
 		if(LNumber.equalsDouble(x1, x2))
 			if(SVGAttributes.SVG_UNITS_VALUE_OBJ.equals(getGradientUnits()))
@@ -267,7 +270,7 @@ public class SVGLinearGradientElement extends SVGElement {
 				angle = Math.PI;
 
 		if(Double.isNaN(angle)) {
-			Point2D.Double c = new Point2D.Double((x1+x2)/2., (y1+y2)/2.);
+			final Point2D.Double c = new Point2D.Double((x1+x2)/2., (y1+y2)/2.);
 			angle = Math.asin(c.distance(x1, c.y)/c.distance(x1, y1));
 		}
 
@@ -282,7 +285,7 @@ public class SVGLinearGradientElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public String getSpreadMethod() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_SPREAD_METHOD);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_SPREAD_METHOD);
 
 		return v==null || !SVGAttributes.SVG_PAD.equals(v) && !SVGAttributes.SVG_REFLECT.equals(v) &&
 				!SVGAttributes.SVG_REPEAT.equals(v) ? SVGAttributes.SVG_PAD : v;

@@ -40,9 +40,9 @@ import org.malai.action.library.OpenWebPage;
  */
 public class VersionChecker extends Thread {
 	/** The version of the application */
-	public final static String VERSION   = "3.1.0";//$NON-NLS-1$
+    public static final String VERSION   = "3.1.0";//$NON-NLS-1$
 
-	public final static String VERSION_STABILITY = ""; //$NON-NLS-1$
+	public static final String VERSION_STABILITY = ""; //$NON-NLS-1$
 
 	/** The identifier of the build */
 	public static final String ID_BUILD = "20140126";//$NON-NLS-1$
@@ -97,13 +97,13 @@ public class VersionChecker extends Thread {
 						@Override
 						public void actionPerformed(final ActionEvent evt) {
 							try {
-								OpenWebPage action = new OpenWebPage();
+								final OpenWebPage action = new OpenWebPage();
 								action.setUri(new URI("http://latexdraw.sourceforge.net/"));
 								if(action.canDo())
 									action.doIt();
 								action.flush();
 								buttonUpdate.setVisible(false);
-							}catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
+							}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 						}
 					});
 					builder.getToolbar().add(buttonUpdate);

@@ -21,7 +21,7 @@ import java.util.Deque;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public abstract class PSArithemticCommand {
+public interface PSArithemticCommand {
 	/**
 	 * Creates n abstract postscript arithmetical command.
 	 * @param stack The current stack of commands.
@@ -30,5 +30,5 @@ public abstract class PSArithemticCommand {
 	 * @throws ArithmeticException When a division by 0 occurs for instance.
 	 * @since 3.0
 	 */
-	public abstract void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException;
+	void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException;
 }

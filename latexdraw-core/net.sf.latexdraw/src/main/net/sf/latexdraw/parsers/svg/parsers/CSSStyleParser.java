@@ -44,8 +44,8 @@ public class CSSStyleParser extends AbstractCSSParser {
 
 	@Override
 	public void parse() throws ParseException {
-		StringBuilder name  = new StringBuilder();
-		StringBuilder value = new StringBuilder();
+		final StringBuilder name  = new StringBuilder();
+		final StringBuilder value = new StringBuilder();
 
 		skipWSPComments();
 

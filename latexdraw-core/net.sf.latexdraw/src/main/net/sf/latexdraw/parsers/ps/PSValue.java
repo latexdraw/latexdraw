@@ -21,7 +21,7 @@ import java.util.Deque;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PSValue extends PSArithemticCommand {
+public class PSValue implements PSArithemticCommand {
 	/** The value. */
 	protected double value;
 

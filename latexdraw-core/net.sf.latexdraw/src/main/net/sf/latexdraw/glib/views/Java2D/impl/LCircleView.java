@@ -44,7 +44,7 @@ class LCircleView extends LRectangularView<ICircle> {
 
 
 	@Override
-	protected void setRectangularShape(Path2D path, double tlx, double tly, double width, double height) {
+	protected void setRectangularShape(final Path2D path, final double tlx, final double tly, final double width, final double height) {
 		LEllipseView.setEllipsePath(path, tlx, tly, width, width);
 	}
 }

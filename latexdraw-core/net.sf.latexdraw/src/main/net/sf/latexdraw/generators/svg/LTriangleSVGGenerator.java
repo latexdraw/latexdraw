@@ -56,16 +56,16 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 		this(ShapeFactory.createTriangle(true));
 
 		setNumber(elt);
-		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGPolygonElement))
 			throw new IllegalArgumentException();
 
-		SVGPolygonElement main = (SVGPolygonElement)elt2;
+		final SVGPolygonElement main = (SVGPolygonElement)elt2;
 		setSVGLatexdrawParameters(elt);
 		setSVGParameters(main);
 
-		List<Point2D> ptsPol = SVGPointsParser.getPoints(elt.getAttribute(
+		final List<Point2D> ptsPol = SVGPointsParser.getPoints(elt.getAttribute(
 								 elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_POINTS));
 
 		if(ptsPol==null || ptsPol.size()!=4)
@@ -95,15 +95,16 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 		if(doc==null || doc.getFirstChild().getDefs()==null)
 			return null;
 
-		SVGElement root = new SVGGElement(doc), elt;
-		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_TRIANGLE);
+		final SVGElement root = new SVGGElement(doc);
+        SVGElement elt;
+        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_TRIANGLE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
-	    double gap 		= getPositionGap()/2.;
-	    IPoint pt1 		= shape.getTopLeftPoint();
-	    IPoint pt2 		= shape.getBottomRightPoint();
-		IPoint p1 		= ShapeFactory.createPoint((pt1.getX()+pt2.getX())/2., pt1.getY());
-		IPoint p2 		= ShapeFactory.createPoint(pt2.getX(), pt2.getY());
-		IPoint p3 		= ShapeFactory.createPoint(pt1.getX(), pt2.getY());
+	    final double gap 		= getPositionGap()/2.;
+	    final IPoint pt1 		= shape.getTopLeftPoint();
+	    final IPoint pt2 		= shape.getBottomRightPoint();
+		final IPoint p1 		= ShapeFactory.createPoint((pt1.getX()+pt2.getX())/2., pt1.getY());
+		final IPoint p2 		= ShapeFactory.createPoint(pt2.getX(), pt2.getY());
+		final IPoint p3 		= ShapeFactory.createPoint(pt1.getX(), pt2.getY());
 	    final double p1x = p1.getX();
 	    final double p1y = p1.getY();
 	    final double p2x = p2.getX();
@@ -118,14 +119,14 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	    if(p1y>p2y)
 	    	cornerGap1*=-1;
 
-		String points = p1x + "," + (p1y - cornerGap1) + " " + //$NON-NLS-1$//$NON-NLS-2$
+		final String points = p1x + "," + (p1y - cornerGap1) + " " + //$NON-NLS-1$//$NON-NLS-2$
 						(p2x - cornerGap2) + "," + (p2y + (p1y<p2y ? gap : -gap)) + " " + //$NON-NLS-1$//$NON-NLS-2$
 						(p3x + cornerGap2) + "," + (p2y + (p1y<p2y ? gap : -gap));//$NON-NLS-1$
-	    String ltdPoints = pt1.getX() + " " + pt1.getY() + " " + shape.getPtAt(1).getX() + " " + shape.getPtAt(1).getY() +//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+	    final String ltdPoints = pt1.getX() + " " + pt1.getY() + " " + shape.getPtAt(1).getX() + " " + shape.getPtAt(1).getY() +//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 	    					" " + shape.getPtAt(2).getX() + " " + shape.getPtAt(2).getY() + " " + pt2.getX() + " " + pt2.getY();//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$//$NON-NLS-4$
 
 		if(shape.hasShadow()){
-			SVGElement shad = new SVGPolygonElement(doc);
+			final SVGElement shad = new SVGPolygonElement(doc);
 
 	   		shad.setAttribute(SVGAttributes.SVG_POINTS, points);
 	   		setSVGShadowAttributes(shad, true);
@@ -145,7 +146,7 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_POINTS, ltdPoints);
 
 		if(shape.hasDbleBord()){
-			SVGElement dblBord = new SVGPolygonElement(doc);
+			final SVGElement dblBord = new SVGPolygonElement(doc);
 
 			dblBord.setAttribute(SVGAttributes.SVG_POINTS, points);
 			setSVGDoubleBordersAttributes(dblBord);

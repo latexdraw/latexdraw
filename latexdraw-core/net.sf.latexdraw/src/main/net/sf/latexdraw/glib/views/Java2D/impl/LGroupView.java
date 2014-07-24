@@ -55,7 +55,7 @@ class LGroupView extends LShapeView<IGroup> {
 
 		views = new ArrayList<>();
 
-		for(IShape s : model.getShapes())
+		for(final IShape s : model.getShapes())
 			views.add(View2DTK.getFactory().createView(s));
 
 		updateBorder();
@@ -66,7 +66,7 @@ class LGroupView extends LShapeView<IGroup> {
 	public void flush() {
 		super.flush();
 
-		for(IViewShape v : views)
+		for(final IViewShape v : views)
 			v.flush();
 		views.clear();
 	}
@@ -74,7 +74,7 @@ class LGroupView extends LShapeView<IGroup> {
 
 	@Override
 	public void update() {
-		for(IViewShape view : views)
+		for(final IViewShape view : views)
 			view.update();
 
 		super.update();
@@ -87,7 +87,7 @@ class LGroupView extends LShapeView<IGroup> {
 		if(!border.contains(x, y))
 			return false;
 
-		for(IViewShape sh : views)
+		for(final IViewShape sh : views)
 			if(sh.contains(x, y))
 				return true;
 

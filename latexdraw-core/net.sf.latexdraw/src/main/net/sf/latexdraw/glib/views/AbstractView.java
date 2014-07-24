@@ -35,9 +35,10 @@ public abstract class AbstractView<S extends IShape> implements IAbstractView {
 	 * @throws IllegalArgumentException If the given model is null.
 	 * @since 3.0
 	 */
-	public AbstractView(final S model) {
-		shape = Objects.requireNonNull(model);
-	}
+    protected AbstractView(final S model) {
+        super();
+        shape = Objects.requireNonNull(model);
+    }
 
 
 	@Override

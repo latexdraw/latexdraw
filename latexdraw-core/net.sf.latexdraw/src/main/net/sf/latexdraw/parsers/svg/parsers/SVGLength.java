@@ -41,15 +41,19 @@ public class SVGLength {
      * @param valueAsString The original parsed length value (without the length token).
      */
     public SVGLength(final double value, final LengthType lengthType, final String valueAsString) {
-    	if(lengthType==null || valueAsString==null)
-    		throw new IllegalArgumentException();
+        super();
+        if (lengthType == null || valueAsString == null)
+            throw new IllegalArgumentException();
 
-    	try{ Double.valueOf(valueAsString); }
-    	catch(NumberFormatException e){ throw new IllegalArgumentException(); }
+        try {
+            Double.valueOf(valueAsString);
+        } catch (final NumberFormatException e) {
+            throw new IllegalArgumentException();
+        }
 
-    	this.value = value;
-    	this.lengthType = lengthType;
-    	this.valueAsString = valueAsString;
+        this.value = value;
+        this.lengthType = lengthType;
+        this.valueAsString = valueAsString;
     }
 
 

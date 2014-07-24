@@ -40,7 +40,7 @@ public class SVGNumberParser extends AbstractSVGParser {
 	 */
 	public boolean parseFlag() throws ParseException {
 		skipWSP();
-		int c = getChar();
+		final int c = getChar();
 
 		if(c=='0' || c=='1') {
 				nextChar();
@@ -60,9 +60,10 @@ public class SVGNumberParser extends AbstractSVGParser {
 	 */
 	public String parseNumberAsString(final boolean unsigned) throws ParseException {
 		boolean again = true;
-		int c, start;
+		int c;
+        final int start;
 
-		skipWSP();
+        skipWSP();
 		start = getPosition();
 		c = getChar();
 
@@ -105,7 +106,7 @@ public class SVGNumberParser extends AbstractSVGParser {
 		}
 
 		try {  Double.parseDouble(getCode().substring(start, getPosition())); }
-		catch(NumberFormatException e) { throw new ParseException("Invalid number.", getPosition()); }//$NON-NLS-1$
+		catch(final NumberFormatException e) { throw new ParseException("Invalid number.", getPosition()); }//$NON-NLS-1$
 
 		return getCode().substring(start, getPosition());
 	}
@@ -119,10 +120,10 @@ public class SVGNumberParser extends AbstractSVGParser {
 	 * @throws ParseException If an error occurs or if the parsed number is signed and <code>unsigned</code> is true.
 	 */
 	public double parseNumber(final boolean unsigned) throws ParseException {
-		String number = parseNumberAsString(unsigned);
+		final String number = parseNumberAsString(unsigned);
 
 		try {  return Double.parseDouble(number); }
-		catch(NumberFormatException e) { throw new ParseException("Invalid number.", getPosition()); }//$NON-NLS-1$
+		catch(final NumberFormatException e) { throw new ParseException("Invalid number.", getPosition()); }//$NON-NLS-1$
 	}
 
 
@@ -132,7 +133,7 @@ public class SVGNumberParser extends AbstractSVGParser {
 	 * @param unsigned True: the next number must not have a sign.
 	 */
 	protected boolean isNumber(final boolean unsigned) {
-		int c = getChar();
+		final int c = getChar();
 
 		if(unsigned)
 			return c=='.' || c>=48 && c<=57;

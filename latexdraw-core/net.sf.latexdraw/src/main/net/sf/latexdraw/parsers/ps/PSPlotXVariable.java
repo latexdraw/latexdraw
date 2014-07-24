@@ -21,7 +21,7 @@ import java.util.Deque;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PSPlotXVariable extends PSArithemticCommand {
+public class PSPlotXVariable implements PSArithemticCommand {
 	@Override
 	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
 		if(stack==null)

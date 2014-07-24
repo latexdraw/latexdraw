@@ -80,11 +80,11 @@ public class SVGLineElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getX1() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X1);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X1);
 		double x1;
 
 		try { x1 = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { x1 = 0; }
+		catch(final ParseException e) { x1 = 0; }
 
 		return x1;
 	}
@@ -95,11 +95,11 @@ public class SVGLineElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getY1() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y1);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y1);
 		double y1;
 
 		try { y1 = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { y1 = 0; }
+		catch(final ParseException e) { y1 = 0; }
 
 		return y1;
 	}
@@ -111,11 +111,11 @@ public class SVGLineElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getX2() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X2);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X2);
 		double x2;
 
 		try { x2 = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { x2 = 0; }
+		catch(final ParseException e) { x2 = 0; }
 
 		return x2;
 	}
@@ -126,11 +126,11 @@ public class SVGLineElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getY2() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y2);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y2);
 		double y2;
 
 		try { y2 = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { y2 = 0; }
+		catch(final ParseException e) { y2 = 0; }
 
 		return y2;
 	}

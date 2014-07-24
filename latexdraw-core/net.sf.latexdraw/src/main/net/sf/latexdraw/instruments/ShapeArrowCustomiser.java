@@ -481,7 +481,7 @@ abstract class Spinner2ArrowParam<A  extends ShapePropertyAction> extends Spinne
 	@Override
 	public void initAction() {
 		final Object obj = interaction.getSpinner();
-		ShapeProperties prop;
+		final ShapeProperties prop;
 
 		if(obj==instrument.arrowInset) prop = ShapeProperties.ARROW_INSET;
 		else if(obj==instrument.arrowLength) prop = ShapeProperties.ARROW_LENGTH;

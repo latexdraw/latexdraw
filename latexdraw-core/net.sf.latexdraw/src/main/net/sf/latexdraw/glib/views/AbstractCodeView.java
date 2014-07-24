@@ -32,7 +32,7 @@ public abstract class AbstractCodeView<S extends IShape> extends AbstractView<S>
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	public AbstractCodeView(final S model) {
+	protected AbstractCodeView(final S model) {
 		super(model);
 
 		cache = new StringBuilder();

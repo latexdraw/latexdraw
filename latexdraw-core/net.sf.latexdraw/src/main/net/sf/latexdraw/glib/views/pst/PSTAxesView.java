@@ -43,11 +43,11 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 
 		emptyCache();
 
-		StringBuilder start	  		= new StringBuilder();
-		StringBuilder end	  		= new StringBuilder();
-		StringBuilder rot	  		= getRotationHeaderCode(ppc, shape.getPosition());
-		StringBuilder coord	  		= new StringBuilder();
-		StringBuilder arrowsStyle 	= getArrowsStyleCode();
+		final StringBuilder start	  		= new StringBuilder();
+		final StringBuilder end	  		= new StringBuilder();
+		final StringBuilder rot	  		= getRotationHeaderCode(ppc, shape.getPosition());
+		final StringBuilder coord	  		= new StringBuilder();
+		final StringBuilder arrowsStyle 	= getArrowsStyleCode();
 		final double gridEndx 		= shape.getGridEndX();
 		final double gridEndy 		= shape.getGridEndY();
 		final double positionx  	= shape.getPosition().getX();
@@ -84,7 +84,7 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 
 
 	protected StringBuilder updateParams(final float ppc) {
-		StringBuilder params 		= getLineCode(ppc);
+		final StringBuilder params 		= getLineCode(ppc);
 		final double incrementx 	= shape.getIncrementX();
 		final double incrementy 	= shape.getIncrementY();
 		final double originx 		= shape.getOriginX();

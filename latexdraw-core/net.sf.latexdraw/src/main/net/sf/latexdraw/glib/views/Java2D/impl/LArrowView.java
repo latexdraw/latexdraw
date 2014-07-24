@@ -65,9 +65,12 @@ class LArrowView implements IViewArrow {
 		final IPoint pt1 		= arrowLine.getPoint1();
 		final double lineAngle	= arrowLine.getLineAngle();
 		final double lineB	  	= arrowLine.getB();
-		double c2x, c2y, c3x, c3y;
+		final double c2x;
+        final double c2y;
+        final double c3x;
+        final double c3y;
 
-		if(LNumber.equalsDouble(Math.abs(lineAngle), Math.PI/2.)) {
+        if(LNumber.equalsDouble(Math.abs(lineAngle), Math.PI/2.)) {
 			final double cx = pt1.getX();
 			final double cy = pt1.getY();
 			c2x = Math.cos(lineAngle)*cx - Math.sin(lineAngle)*cy;
@@ -277,10 +280,10 @@ class LArrowView implements IViewArrow {
 		Shape s = new Arc2D.Double(xarc, yRot-width/2., widtharc, width, 130, 100, Arc2D.OPEN);
 
 		if((!isArrowInPositiveDirection(pt1, pt2) || invert) && (isArrowInPositiveDirection(pt1, pt2) || !invert)) {
-			double rotX = Math.cos(Math.PI)*xRot - Math.sin(Math.PI)*yRot;
-			double rotY = Math.sin(Math.PI)*xRot + Math.cos(Math.PI)*yRot;
+			final double rotX = Math.cos(Math.PI)*xRot - Math.sin(Math.PI)*yRot;
+			final double rotY = Math.sin(Math.PI)*xRot + Math.cos(Math.PI)*yRot;
 
-			AffineTransform at = AffineTransform.getTranslateInstance(xRot-rotX, yRot-rotY);
+			final AffineTransform at = AffineTransform.getTranslateInstance(xRot-rotX, yRot-rotY);
 			at.rotate(Math.PI);
 			s = at.createTransformedShape(s);
 		}
@@ -343,8 +346,9 @@ class LArrowView implements IViewArrow {
 		final ILine arrowLine = model.getArrowLine();
 
 		if(model.getArrowStyle()==ArrowStyle.NONE || arrowLine==null) return;
-		double xRot, yRot;
-		final double lineAngle	= arrowLine.getLineAngle();
+		final double xRot;
+        final double yRot;
+        final double lineAngle	= arrowLine.getLineAngle();
 		final IPoint pt1 		= arrowLine.getPoint1();
 		final IPoint pt2 		= arrowLine.getPoint2();
 		final double lineB	  	= arrowLine.getB();

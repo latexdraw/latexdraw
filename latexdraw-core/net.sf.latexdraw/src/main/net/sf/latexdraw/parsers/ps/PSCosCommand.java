@@ -21,7 +21,7 @@ import java.util.Deque;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PSCosCommand extends PSArithemticCommand {
+public class PSCosCommand implements PSArithemticCommand {
 	@Override
 	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
 		if(stack==null || stack.isEmpty())

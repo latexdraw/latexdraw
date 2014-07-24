@@ -91,9 +91,12 @@ public class SVGTransform {
 		code = code.replaceAll("[ ]?[(][ ]?", "(");//$NON-NLS-1$//$NON-NLS-2$
 		code = code.replaceAll("[ ]?[)]", ")");//$NON-NLS-1$//$NON-NLS-2$
 		code = code.replaceAll("[ ]?,[ ]?", ",");//$NON-NLS-1$//$NON-NLS-2$
-		int i, lgth = code.length(), j, k;
+		int i;
+        final int lgth = code.length();
+        final int j;
+        int k;
 
-		if(code.startsWith(SVGAttributes.SVG_TRANSFORM_ROTATE)) {
+        if(code.startsWith(SVGAttributes.SVG_TRANSFORM_ROTATE)) {
 			i = SVGAttributes.SVG_TRANSFORM_ROTATE.length();
 			j = code.indexOf(')');
 			int k1 = code.indexOf(' '), k2 = code.indexOf(',');
@@ -106,9 +109,11 @@ public class SVGTransform {
 			if(k==-1)
 				setRotate(Double.parseDouble(code.substring(i+1, j)), 0., 0.);
 			else {
-				double cx2, cy2, rotAngle;
+				final double cx2;
+                final double cy2;
+                final double rotAngle;
 
-				rotAngle = Double.parseDouble(code.substring(i+1, k));
+                rotAngle = Double.parseDouble(code.substring(i+1, k));
 				i = k+1;
 
 				k1 = code.indexOf(' ', k+1);
@@ -128,16 +133,17 @@ public class SVGTransform {
 			k = code.indexOf(',');
 			i = SVGAttributes.SVG_TRANSFORM_SCALE.length();
 			j = code.indexOf(')');
-			double sx, sy;
+			final double sx;
+            final double sy;
 
-			if(i>=lgth || code.charAt(i)!='(' || j==-1)
+            if(i>=lgth || code.charAt(i)!='(' || j==-1)
 				throw new IllegalArgumentException();
 
 			if(k==-1)
 				k = code.indexOf(' ');
 
 			if(k==-1) {
-				double val = Double.parseDouble(code.substring(i+1, j));
+				final double val = Double.parseDouble(code.substring(i+1, j));
 				sx = val;
 				sy = val;
 			}
@@ -152,16 +158,17 @@ public class SVGTransform {
 			k = code.indexOf(',');
 			i = SVGAttributes.SVG_TRANSFORM_TRANSLATE.length();
 			j = code.indexOf(')');
-			double tx, ty;
+			final double tx;
+            final double ty;
 
-			if(i>=lgth || code.charAt(i)!='(' || j==-1)
+            if(i>=lgth || code.charAt(i)!='(' || j==-1)
 				throw new IllegalArgumentException();
 
 			if(k==-1)
 				k = code.indexOf(' ');
 
 			if(k==-1) {
-				double val = Double.parseDouble(code.substring(i+1, j));
+				final double val = Double.parseDouble(code.substring(i+1, j));
 				tx = val;
 				ty = val;
 			}
@@ -173,10 +180,13 @@ public class SVGTransform {
 			setTranslate(tx, ty);
 		}
 		else if(code.startsWith(SVGAttributes.SVG_TRANSFORM_MATRIX)) {
-			int nbPts = 6, l, k1, k2;
-			i = SVGAttributes.SVG_TRANSFORM_MATRIX.length();
+			final int nbPts = 6;
+            int l;
+            int k1;
+            int k2;
+            i = SVGAttributes.SVG_TRANSFORM_MATRIX.length();
 			j = code.indexOf(')');
-			double coords[] = new double[nbPts];
+			final double[] coords = new double[nbPts];
 
 			if(i>=lgth || code.charAt(i)!='(' || j==-1)
 				throw new IllegalArgumentException();
@@ -281,7 +291,7 @@ public class SVGTransform {
 	 */
 	public void setRotate(final double angle, final double cx, final double cy) {
 		SVGMatrix m1 = new SVGMatrix();
-		SVGMatrix m2 = new SVGMatrix();
+		final SVGMatrix m2 = new SVGMatrix();
 
 		type = SVG_TRANSFORM_ROTATE;
 		matrix.initMatrix();
@@ -487,7 +497,7 @@ public class SVGTransform {
 	 * @since 2.0.0
 	 */
 	public static SVGTransform createTranslation(final double x, final double y) {
-		SVGTransform t = new SVGTransform();
+		final SVGTransform t = new SVGTransform();
 		t.setTranslate(x, y);
 
 		return t;
@@ -503,7 +513,7 @@ public class SVGTransform {
 	 * @since 0.1
 	 */
 	public static SVGTransform createRotation(final double angle, final double cx, final double cy) {
-		SVGTransform r = new SVGTransform();
+		final SVGTransform r = new SVGTransform();
 		r.setRotate(angle, cx, cy);
 
 		return r;
@@ -582,8 +592,8 @@ public class SVGTransform {
 
 	@Override
 	public String toString() {
-		StringBuilder code 	= new StringBuilder();
-		SVGMatrix m 		= getMatrix();
+		final StringBuilder code 	= new StringBuilder();
+		final SVGMatrix m 		= getMatrix();
 
 		switch(getType()) {
 			case SVG_TRANSFORM_MATRIX:

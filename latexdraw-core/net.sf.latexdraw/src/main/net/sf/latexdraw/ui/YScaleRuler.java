@@ -57,7 +57,7 @@ public class YScaleRuler extends ScaleRuler {
 	}
 
 	@Override
-	protected void adaptGraphicsToViewpoint(Graphics2D g) {
+	protected void adaptGraphicsToViewpoint(final Graphics2D g) {
 		g.translate(0, (int)-getClippingGap());
 	}
 

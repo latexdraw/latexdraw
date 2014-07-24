@@ -51,21 +51,21 @@ public class ShortcutsFrame extends JFrame {
 		super(LangTool.INSTANCE.getString19("LaTeXDrawFrame.3")); //$NON-NLS-1$
 		setIconImage(LResources.LATEXDRAW_ICON.getImage());
 
-		JTable table;
+		final JTable table;
 		final String[] titles = {LangTool.INSTANCE.getString19("ShortcutsFrame.1"),  //$NON-NLS-1$
 				LangTool.INSTANCE.getString16("ParserMessagesFrame.0"),  //$NON-NLS-1$
 				LangTool.INSTANCE.getString19("ShortcutsFrame.3")};  //$NON-NLS-1$
-		String catEdit	= LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.89"); //$NON-NLS-1$
-		String catNav	= LangTool.INSTANCE.getString19("ShortcutsFrame.4"); //$NON-NLS-1$
-		String catTran	= LangTool.INSTANCE.getString19("ShortcutsFrame.5"); //$NON-NLS-1$
-		String catDraw	= LangTool.INSTANCE.getString19("ShortcutsFrame.6"); //$NON-NLS-1$
-		String catFile	= LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.88"); //$NON-NLS-1$
-		JButton okB 	= new JButton(LangTool.INSTANCE.getString18("LaTeXDrawFrame.23")); //$NON-NLS-1$
-		JPanel panel 	= new JPanel();
+		final String catEdit	= LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.89"); //$NON-NLS-1$
+		final String catNav	= LangTool.INSTANCE.getString19("ShortcutsFrame.4"); //$NON-NLS-1$
+		final String catTran	= LangTool.INSTANCE.getString19("ShortcutsFrame.5"); //$NON-NLS-1$
+		final String catDraw	= LangTool.INSTANCE.getString19("ShortcutsFrame.6"); //$NON-NLS-1$
+		final String catFile	= LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.88"); //$NON-NLS-1$
+		final JButton okB 	= new JButton(LangTool.INSTANCE.getString18("LaTeXDrawFrame.23")); //$NON-NLS-1$
+		final JPanel panel 	= new JPanel();
 
-		String ctrl = KeyEvent.getKeyModifiersText(InputEvent.CTRL_MASK);
-		String shift = KeyEvent.getKeyModifiersText(InputEvent.SHIFT_MASK);
-		String leftClick = LangTool.INSTANCE.getString19("ShortcutsFrame.8"); //$NON-NLS-1$
+		final String ctrl = KeyEvent.getKeyModifiersText(InputEvent.CTRL_MASK);
+		final String shift = KeyEvent.getKeyModifiersText(InputEvent.SHIFT_MASK);
+		final String leftClick = LangTool.INSTANCE.getString19("ShortcutsFrame.8"); //$NON-NLS-1$
 		final String st1 = LangTool.INSTANCE.getString19("ShortcutsFrame.9"); //$NON-NLS-1$
 		final String st2 = LangTool.INSTANCE.getString19("ShortcutsFrame.10"); //$NON-NLS-1$
 		final String st3 = LangTool.INSTANCE.getString19("ShortcutsFrame.11"); //$NON-NLS-1$
@@ -99,7 +99,7 @@ public class ShortcutsFrame extends JFrame {
 			{ctrl+'+'+LangTool.INSTANCE.getString19("ShortcutsFrame.29"), LangTool.INSTANCE.getString19("ShortcutsFrame.30"), catDraw} //$NON-NLS-1$ //$NON-NLS-2$
 		};
 
-        TableModel dataModel = new AbstractTableModel() {
+        final TableModel dataModel = new AbstractTableModel() {
 			private static final long serialVersionUID = 1L;
 			@Override
 			public int getColumnCount() { return titles.length; }
@@ -119,14 +119,14 @@ public class ShortcutsFrame extends JFrame {
 
 		table = new JTable(dataModel);
  		table.getTableHeader().setReorderingAllowed(false);
- 		TableColumnModel colmodel = table.getColumnModel();
+ 		final TableColumnModel colmodel = table.getColumnModel();
 
  		colmodel.getColumn(0).setPreferredWidth(100);
  		colmodel.getColumn(1).setPreferredWidth(350);
  		colmodel.getColumn(2).setPreferredWidth(80);
 
- 		JScrollPane scrollPane = new JScrollPane();
- 		JViewport vp = scrollPane.getViewport();
+ 		final JScrollPane scrollPane = new JScrollPane();
+ 		final JViewport vp = scrollPane.getViewport();
 	 	vp.add(table);
 
 		okB.addActionListener(new ActionListener() {
@@ -140,8 +140,8 @@ public class ShortcutsFrame extends JFrame {
  		getContentPane().add(scrollPane, BorderLayout.CENTER);
  		getContentPane().add(panel, BorderLayout.SOUTH);
  		setSize(700, 500);
- 		Dimension dim = LSystem.INSTANCE.getScreenDimension();
- 		Rectangle rec = getGraphicsConfiguration().getBounds();
+ 		final Dimension dim = LSystem.INSTANCE.getScreenDimension();
+ 		final Rectangle rec = getGraphicsConfiguration().getBounds();
  		setLocation((int)(rec.getX()+dim.width/2.0-getWidth()/2.0), (int)(rec.getY()+dim.height/2.0-getHeight()/2.0));
 	}
 }

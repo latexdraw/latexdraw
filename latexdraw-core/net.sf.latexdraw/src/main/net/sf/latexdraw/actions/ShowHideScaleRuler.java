@@ -26,16 +26,7 @@ public class ShowHideScaleRuler extends ShowHideAction {
 	protected ScaleRuler ruler;
 
 
-	/**
-	 * Creates the action.
-	 * @since 3.0
-	 */
-	public ShowHideScaleRuler() {
-		super();
-	}
-
-
-	@Override
+    @Override
 	public void flush() {
 		super.flush();
 		ruler = null;

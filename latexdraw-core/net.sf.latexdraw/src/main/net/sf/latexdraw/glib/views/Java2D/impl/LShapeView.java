@@ -79,7 +79,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 
 	protected static Shape getRotatedShape2D(final double angle, final Shape shape, final IPoint tlPoint, final IPoint brPoint) {
-		Shape sh;
+		final Shape sh;
 
 		if(LNumber.equalsDouble(angle, 0.))
 			sh = shape;
@@ -112,7 +112,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 	@Override
 	public void updateBorder() {
-		Shape sh;
+		final Shape sh;
 
 		if(LNumber.equalsDouble(shape.getRotationAngle(), 0.))
 			sh = path;
@@ -252,7 +252,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 				if(angle>=Math.PI) {
 					gradMidPt = 1. - gradMidPt;
-					angle = angle-Math.PI;
+                    angle -= Math.PI;
 				}
 
                 if (LNumber.equalsDouble(angle, 0.)) {
@@ -271,7 +271,8 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
                         pt2.setX(tl.getX() + (br.getX() - tl.getX()) * gradMidPt);
                     } else {
                         final IPoint cg = shape.getGravityCentre();
-                        ILine l2, l;
+                        final ILine l2;
+                        final ILine l;
 
                         pt1 = pt1.rotatePoint(cg, -angle);
                         pt2 = pt2.rotatePoint(cg, -angle);
@@ -521,25 +522,25 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 			return ;
 
 		double angle2 = angle%(Math.PI*2.);
-		float halphPI = (float)(Math.PI/2.);
+		final float halphPI = (float)(Math.PI/2.);
 
 		if(angle2>0) {
 			if((float)angle2>3f*halphPI)
-				angle2 = angle2-Math.PI*2.;
+                angle2 -= Math.PI * 2.;
 			else
 				if((float)angle2>halphPI)
-					angle2 = angle2-Math.PI;
+                    angle2 -= Math.PI;
 		}
 		else
 			if((float)angle2<-3f*halphPI)
-				angle2 = angle2+Math.PI*2.;
+                angle2 += Math.PI * 2.;
 			else
 				if((float)angle2<-halphPI)
-					angle2 = angle2+Math.PI;
+                    angle2 += Math.PI;
 
-		Line2D.Double line  = new Line2D.Double();
-		double val			= shape.getHatchingsWidth()+shape.getHatchingsSep();
-		float fAngle		= (float)angle2;
+		final Line2D.Double line  = new Line2D.Double();
+		final double val			= shape.getHatchingsWidth()+shape.getHatchingsSep();
+		final float fAngle		= (float)angle2;
 
 		g.setStroke(new BasicStroke((float)shape.getHatchingsWidth(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
 		g.setPaint(shape.getHatchingsCol());
@@ -547,7 +548,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		if(fAngle==0f) {
 			line.y1 	= clip.getMinY();
 			line.y2 	= clip.getMaxY();
-			double maxX = clip.getMaxX();
+			final double maxX = clip.getMaxX();
 
 			for(double x = clip.getMinX(); x<maxX; x+=val) {
 				line.x1 = x;
@@ -559,7 +560,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 			if(fAngle==halphPI || fAngle==-halphPI) {
 				line.x1 	= clip.getMinX();
 				line.x2 	= clip.getMaxX();
-				double maxY = clip.getMaxY();
+				final double maxY = clip.getMaxY();
 
 				for(double y = clip.getMinY(); y<maxY; y+=val) {
 					line.y1 = y;
@@ -568,9 +569,9 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 				}
 			}
 			else {
-				double incX = val/Math.cos(angle2);
-				double incY = val/Math.sin(angle2);
-				double maxX;
+				final double incX = val/Math.cos(angle2);
+				final double incY = val/Math.sin(angle2);
+				final double maxX;
 
 				if(fAngle>0f) {
 					line.y1 = clip.getMinY();
@@ -601,7 +602,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	@Override
 	public BasicStroke getStroke() {
 		final float strokeTh  = (float) getStrokeThickness();
-		BasicStroke stroke;
+		final BasicStroke stroke;
 
 		switch(shape.getLineStyle()) {
 			case SOLID:
@@ -708,7 +709,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	protected static void getRotatedRectangle(final double tlx, final double tly, final double width,
 											 final double height, final double angle, final IPoint gravityCentre,
 											 final IPoint tl, final IPoint br) {
-		IPoint pts[] = new IPoint[4];
+		final IPoint[] pts = new IPoint[4];
 		// Rotation of the four points of the rectangle.
 		pts[0] = ShapeFactory.createPoint(tlx, tly).rotatePoint(gravityCentre, angle);
 		pts[1] = ShapeFactory.createPoint(tlx+width, tly).rotatePoint(gravityCentre, angle);
@@ -718,7 +719,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		br.setPoint(Double.MIN_VALUE, Double.MIN_VALUE);
 
 		// Defining the border of the rotated rectangle.
-        for(IPoint pt : pts) {
+        for(final IPoint pt : pts) {
             if (pt.getX() < tl.getX())
                 tl.setX(pt.getX());
             if (pt.getX() > br.getX())

@@ -61,7 +61,7 @@ public class AboutDialogueBox extends JFrame {
 	private void initialiseDialogueBox() {
 		final int width			= 490;
 		final int height		= 430;
-		JTabbedPane tabbedPane 	= new JTabbedPane();
+		final JTabbedPane tabbedPane 	= new JTabbedPane();
 
 		setTitle(LResources.LABEL_ABOUT);
 
@@ -76,8 +76,8 @@ public class AboutDialogueBox extends JFrame {
  		getContentPane().add(tabbedPane);
 
  		setSize(width, height);
- 		Dimension dim = LSystem.INSTANCE.getScreenDimension();
- 		Rectangle rec = getGraphicsConfiguration().getBounds();
+ 		final Dimension dim = LSystem.INSTANCE.getScreenDimension();
+ 		final Rectangle rec = getGraphicsConfiguration().getBounds();
  		setLocation((int)(rec.getX()+dim.width/2.0-getWidth()/2.0), (int)(rec.getY()+dim.height/2.0-getHeight()/2.0));
 	}
 
@@ -106,8 +106,8 @@ public class AboutDialogueBox extends JFrame {
 
 
     private void createSystemPanel(final JTabbedPane tabbedPane) {
-		JEditorPane editorPane = new JEditorPane();
-		StringBuilder builder = new StringBuilder();
+		final JEditorPane editorPane = new JEditorPane();
+		final StringBuilder builder = new StringBuilder();
 		editorPane.setEditable(false);
 
 		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LResources.EOL);
@@ -128,46 +128,46 @@ public class AboutDialogueBox extends JFrame {
 
     private void createLicensePanel(final JTabbedPane tabbedPane) {
 		try {
-			JEditorPane editorPane = new JEditorPane();
+			final JEditorPane editorPane = new JEditorPane();
 			setTextToEditorPane(editorPane, "/res/license.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.28"), new JScrollPane(editorPane)); //$NON-NLS-1$
 			editorPane.setCaretPosition(0);
-		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
+		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
     private void createReleaseNotePanel(final JTabbedPane tabbedPane) {
 		try {
-			JEditorPane editorPane = new JEditorPane();
+			final JEditorPane editorPane = new JEditorPane();
 			setTextToEditorPane(editorPane, "/res/release_note.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add(LangTool.INSTANCE.getString18("LaTeXDrawFrame.27"), new JScrollPane(editorPane)); //$NON-NLS-1$
 			editorPane.setCaretPosition(0);
-		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
+		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
     private void createContributorsPanel(final JTabbedPane tabbedPane) {
 		try {
-			JEditorPane editorPane = new JEditorPane();
+			final JEditorPane editorPane = new JEditorPane();
 			setTextToEditorPane(editorPane, "/res/contributors.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
 			tabbedPane.add("Contributors", new JScrollPane(editorPane));
 			editorPane.setCaretPosition(0);
-		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
+		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
     private void createMainPanel(final JTabbedPane tabbedPane) {
 		try {
-			Image i = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("res/LaTeXDrawSmall.png"));//$NON-NLS-1$
-			MediaTracker tracker = new MediaTracker(this);
+			final Image i = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("res/LaTeXDrawSmall.png"));//$NON-NLS-1$
+			final MediaTracker tracker = new MediaTracker(this);
 		    tracker.addImage(i,0);
 		    try { tracker.waitForID(0); }
-		    catch(InterruptedException e) { BadaboomCollector.INSTANCE.add(e); }
+		    catch(final InterruptedException e) { BadaboomCollector.INSTANCE.add(e); }
 
-			JPanel panel 			= new JPanel();
-			JEditorPane editorPane 	= new JEditorPane();
+			final JPanel panel 			= new JPanel();
+			final JEditorPane editorPane 	= new JEditorPane();
 			initEditorPane(editorPane);
 			panel.setLayout(new BorderLayout());
 			editorPane.setContentType("text/html");//$NON-NLS-1$
@@ -183,7 +183,7 @@ public class AboutDialogueBox extends JFrame {
 			panel.add(new DisplayCanvas(i), BorderLayout.NORTH);
 			panel.add(new JScrollPane(editorPane), BorderLayout.SOUTH);
 			tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.general"), panel); //$NON-NLS-1$
-		}catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
+		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 

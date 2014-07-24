@@ -163,7 +163,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	 * The listener that listens the progress performed by the workers to update the progress bar.
 	 */
 	static class ProgressListener implements PropertyChangeListener {
-		private MProgressBar progressBar;
+		private final MProgressBar progressBar;
 
 		protected ProgressListener(final MProgressBar progressBar) {
 			super();
@@ -191,7 +191,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	/**
 	 * The abstract worker that factorises the code of loading and saving workers.
 	 */
-	static abstract class IOWorker extends SwingWorker<Boolean, Void> {
+    abstract static class IOWorker extends SwingWorker<Boolean, Void> {
 		protected LFrame ui;
 
 		protected String path;
@@ -278,7 +278,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 
 	/** Abstract class dedicated to the support of templates. */
-	static abstract class TemplatesWorker extends LoadShapesWorker {
+    abstract static class TemplatesWorker extends LoadShapesWorker {
 		protected TemplatesWorker(final LFrame ui, final String path, final JLabel statusBar) {
 			super(ui, path, statusBar);
 		}
@@ -414,7 +414,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 			// We export the updated template
 			if(files!=null)
-                for(File file : files)
+                for(final File file : files)
                     if(filter.accept(file))
                         try {
                             template = toLatexdraw(new SVGDocument(file.toURI()), 0);
@@ -551,7 +551,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		        		g.appendChild(elt);
 		        	setProgress((int)Math.min(100., getProgress()+incr));
 		        }
-			}catch(Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
+			}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 			// Setting SVG attributes to the created document.
 			root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");//$NON-NLS-1$
 			root.setAttribute(SVGAttributes.SVG_BASE_PROFILE, "full");//$NON-NLS-1$
@@ -609,7 +609,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 
 
-	static abstract class LoadShapesWorker extends IOWorker {
+	abstract static class LoadShapesWorker extends IOWorker {
 		protected LoadShapesWorker(final LFrame ui, final String path, final JLabel statusBar) {
 			super(ui, path, statusBar);
 		}
@@ -685,8 +685,8 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 				final Element meta 			 	= svgDoc.getDocumentElement().getMeta();
 				final Instrument[] instruments 	= ui.getInstruments();
 				final IDrawing drawing = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
-				Element ldMeta;
-				double incrProgressBar;
+				final Element ldMeta;
+				final double incrProgressBar;
 
 				if(meta==null)
 					ldMeta = null;

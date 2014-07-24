@@ -69,7 +69,7 @@ public abstract class AbstractCSSParser extends CodeParser {
 
 	@Override
 	public boolean isWSP() {
-		int c = getChar();
+		final int c = getChar();
 		return c=='\t' || c==' ' || c=='\r' || c=='\n' || c=='\f';
 	}
 

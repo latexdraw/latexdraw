@@ -68,7 +68,7 @@ public class SVGDefsElement extends SVGElement {
 		if(id==null)
 			return null;
 
-		NodeList nl = getChildNodes();
+		final NodeList nl = getChildNodes();
 		SVGElement e = null;
 		Node n;
 

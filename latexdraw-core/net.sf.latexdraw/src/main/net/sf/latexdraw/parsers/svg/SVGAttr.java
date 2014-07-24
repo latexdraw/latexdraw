@@ -51,10 +51,11 @@ public class SVGAttr implements Attr, Cloneable {
 	 * @since 0.1
 	 */
 	public SVGAttr(final String n, final String val, final Element parent) {
-		name 	= Objects.requireNonNull(n);
-		owner 	= Objects.requireNonNull(parent);
-		value 	= Objects.requireNonNull(val);
-	}
+        super();
+        name = Objects.requireNonNull(n);
+        owner = Objects.requireNonNull(parent);
+        value = Objects.requireNonNull(val);
+    }
 
 
 
@@ -178,7 +179,7 @@ public class SVGAttr implements Attr, Cloneable {
 		if(getNodeName()==null)
 			return null;
 
-		int index = getName().indexOf(':');
+		final int index = getName().indexOf(':');
 
 		if(index!=-1)
 			return getName().substring(0, index);

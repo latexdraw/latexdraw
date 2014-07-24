@@ -27,25 +27,17 @@ import org.malai.swing.widget.MComboBox;
 public class LabelComboBox extends MComboBox<JLabel> {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Creates the combo box.
-	 * @since 3.0
-	 */
-	public LabelComboBox() {
-		super();
-	}
-
-	/**
+    /**
 	 * Converts, or not, the given parameter as its corresponding JLabel if it is a string.
 	 * @param obj The object to analyse.
 	 * @return The object obj or the JLabel corresponding to obj if it is a String.
 	 * @since 3.0
 	 */
-	protected Object getJLabelFromString(Object obj) {
+	protected Object getJLabelFromString(final Object obj) {
 		Object objToSelect = obj;
 
 		if(obj instanceof String) {
-			String txt = (String)obj;
+			final String txt = (String)obj;
 			JLabel lab = null;
 			for(int i=0, size=dataModel.getSize(); i<size && lab==null; i++)
 				if(txt.equals(dataModel.getElementAt(i).getText()))

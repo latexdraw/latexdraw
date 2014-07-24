@@ -151,7 +151,7 @@ public class SVGMatrix {
 		if(m==null)
 			return null;
 
-		SVGMatrix out = new SVGMatrix();
+		final SVGMatrix out = new SVGMatrix();
 
 		out.a = a*m.a + c*m.b;
 		out.b = b*m.a + d*m.b;

@@ -74,7 +74,7 @@ public final class IShapeSVGFactory {
 			else if(elt instanceof SVGTextElement)
 				return new LTextSVGGenerator((SVGTextElement)elt).getShape();
 			else if(elt instanceof SVGPathElement) {
-				SVGPathElement p = (SVGPathElement)elt;
+				final SVGPathElement p = (SVGPathElement)elt;
 
 				if(p.isPolygon())
 					return new LPolygonSVGGenerator((SVGPathElement)elt).getShape();
@@ -84,8 +84,8 @@ public final class IShapeSVGFactory {
 			}
 			else
 				if(elt instanceof SVGGElement) {// If we have a group of shapes or a latexdraw shape.
-					String ltdPref 	= elt.lookupPrefixUsable(LNamespace.LATEXDRAW_NAMESPACE_URI);
-					String type 	= elt.getAttribute(ltdPref+LNamespace.XML_TYPE);
+					final String ltdPref 	= elt.lookupPrefixUsable(LNamespace.LATEXDRAW_NAMESPACE_URI);
+					final String type 	= elt.getAttribute(ltdPref+LNamespace.XML_TYPE);
 
 					// If we have a group of shapes.
 					if(type==null || type.isEmpty() || LNamespace.XML_TYPE_GROUP.equals(type)) {

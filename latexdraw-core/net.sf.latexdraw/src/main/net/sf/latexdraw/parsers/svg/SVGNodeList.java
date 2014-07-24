@@ -33,8 +33,9 @@ public class SVGNodeList implements NodeList {
 	 * The constructor by default.
 	 */
 	public SVGNodeList() {
-		nodes = new ArrayList<>();
-	}
+        super();
+        nodes = new ArrayList<>();
+    }
 
 
 
@@ -54,9 +55,9 @@ public class SVGNodeList implements NodeList {
 
 	@Override
 	public String toString() {
-		StringBuilder str = new StringBuilder().append('{');
+		final StringBuilder str = new StringBuilder().append('{');
 
-		for(SVGElement e : nodes)
+		for(final SVGElement e : nodes)
 			str.append(e.toString()).append(", ");//$NON-NLS-1$
 
 		return str.append('}').toString();

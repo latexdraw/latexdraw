@@ -32,16 +32,7 @@ public class SetUnit extends Action implements Undoable {
 	protected Unit oldUnit;
 
 
-	/**
-	 * Initialises the action.
-	 * @since 3.0
-	 */
-	public SetUnit() {
-		super();
-	}
-
-
-	@Override
+    @Override
 	public void flush() {
 		super.flush();
 		unit 	= null;

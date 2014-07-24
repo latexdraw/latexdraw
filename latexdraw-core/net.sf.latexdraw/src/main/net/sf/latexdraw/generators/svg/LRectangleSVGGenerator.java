@@ -79,7 +79,7 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	 */
 	protected void initRectangle(final SVGGElement elt, final boolean withTransformation) {
 		setNumber(elt);
-		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGRectElement))
 			throw new IllegalArgumentException();

@@ -61,12 +61,12 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 		this(ShapeFactory.createPicture(true, ShapeFactory.createPoint()));
 
 		setNumber(elt);
-		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGImageElement))
 			throw new IllegalArgumentException();
 
-		SVGImageElement main = (SVGImageElement)elt2;
+		final SVGImageElement main = (SVGImageElement)elt2;
 
 		shape.setPathSource(main.getURI());
 		shape.setPosition(main.getX(), main.getY());
@@ -82,9 +82,10 @@ class LPictureSVGGenerator extends LShapeSVGGenerator<IPicture> {
 		if(doc == null)
 			return null;
 
-		SVGElement root = new SVGGElement(doc), img;
+		final SVGElement root = new SVGGElement(doc);
+        final SVGElement img;
 
-		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_PICTURE);
+        root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_PICTURE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
 		img = new SVGImageElement(doc, shape.getPathSource());

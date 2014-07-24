@@ -135,16 +135,17 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(v!=null) {
 			stylesCSS = new CSSStyleList();
 			try { new CSSStyleParser(v, stylesCSS).parse(); }
-			catch(ParseException e) { BadaboomCollector.INSTANCE.add(e); }
+			catch(final ParseException e) { BadaboomCollector.INSTANCE.add(e); }
 		}
 
 		if(!checkAttributes())
 			throw new MalformedSVGDocument();
 
-		NodeList nl = n.getChildNodes();
-		int i, size = nl.getLength();
+		final NodeList nl = n.getChildNodes();
+		int i;
+        final int size = nl.getLength();
 
-		if(size==1 && (nl.item(0).getNodeName().equals("#text") || nl.item(0).getNodeName().equals("#cdata-section")))//$NON-NLS-1$//$NON-NLS-2$
+        if(size==1 && ("#text".equals(nl.item(0).getNodeName()) || "#cdata-section".equals(nl.item(0).getNodeName())))//$NON-NLS-1$//$NON-NLS-2$
 			setTextContent(n.getTextContent());
 
 		for(i=0; i<size; i++)
@@ -161,10 +162,11 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(n==null || n.getAttributes()==null)
 			return;
 
-		NamedNodeMap nnm = n.getAttributes();
-		int i, size = nnm.getLength();
+		final NamedNodeMap nnm = n.getAttributes();
+		int i;
+        final int size = nnm.getLength();
 
-		if(size>0) {
+        if(size>0) {
 			if(attributes==null)
 				attributes = new SVGNamedNodeMap();
 
@@ -226,10 +228,11 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	@Override
 	public String toString() {
-		StringBuilder str = new StringBuilder().append('[');
-		int i, size = children==null ? 0 : children.getLength();
+		final StringBuilder str = new StringBuilder().append('[');
+		int i;
+        final int size = children==null ? 0 : children.getLength();
 
-		str.append("name=").append(name).append(',');//$NON-NLS-1$
+        str.append("name=").append(name).append(',');//$NON-NLS-1$
 
 		if(!hasChildNodes())
 			str.append("textContent=").append(getTextContent()).append(',');//$NON-NLS-1$
@@ -276,7 +279,7 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(attributes==null || nameAttr==null)
 			return null;
 
-		Node n = attributes.getNamedItem(nameAttr);
+		final Node n = attributes.getNamedItem(nameAttr);
 
 		return n==null ? null : n.getNodeValue();
 	}
@@ -378,7 +381,7 @@ public abstract class SVGElement implements Element, Cloneable {
 		boolean ok = false;
 
 		if(children!=null && newChild!=null && refChild!=null) {
-			int pos = children.getNodes().indexOf(refChild);
+			final int pos = children.getNodes().indexOf(refChild);
 
 			if(pos!=-1 && newChild instanceof SVGElement) {
 				children.getNodes().add(pos, (SVGElement)newChild);
@@ -397,12 +400,12 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(!(node instanceof SVGElement))
 			return false;
 
-		SVGElement elt = (SVGElement)node;
-		String uri = lookupNamespaceURI(null);
-		String val = getNodeValue();
-		boolean valEq = val==null ? elt.getNodeValue()==null : val.equals(elt.getNodeValue());
-		boolean uriEq = uri==null ? elt.lookupNamespaceURI(null)==null : uri.equals(elt.lookupNamespaceURI(null));
-		boolean attrEq = attributes==null ? elt.attributes==null : attributes.equals(elt.attributes);
+		final SVGElement elt = (SVGElement)node;
+		final String uri = lookupNamespaceURI(null);
+		final String val = getNodeValue();
+		final boolean valEq = val==null ? elt.getNodeValue()==null : val.equals(elt.getNodeValue());
+		final boolean uriEq = uri==null ? elt.lookupNamespaceURI(null)==null : uri.equals(elt.lookupNamespaceURI(null));
+		final boolean attrEq = attributes==null ? elt.attributes==null : attributes.equals(elt.attributes);
 
 		return name.equals(elt.name) && getUsablePrefix().equals(elt.getUsablePrefix()) && uriEq && valEq && attrEq;
 	}
@@ -442,18 +445,20 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(namespaceURI == null)
 			return null;
 
-		String pref = null, xmlns = "xmlns";//$NON-NLS-1$
+		String pref = null;//$NON-NLS-1$
+        final String xmlns = "xmlns";
 
-		if(attributes!=null) {
-			int i=0, size = attributes.getLength();
-			boolean again = true;
+        if(attributes!=null) {
+			int i=0;
+            final int size = attributes.getLength();
+            boolean again = true;
 
 			while(i<size && again) {
-				SVGAttr attr = attributes.getAttributes().get(i);
-				String attrName = attr.getName();
+				final SVGAttr attr = attributes.getAttributes().get(i);
+				final String attrName = attr.getName();
 
 				if(attrName!=null && attrName.startsWith(xmlns) && namespaceURI.equals(attr.getValue())) {
-					int index = attrName.indexOf(':');
+					final int index = attrName.indexOf(':');
 
 					pref = index==-1 ? "" : attrName.substring(index+1); //$NON-NLS-1$
 					again = false;
@@ -498,11 +503,11 @@ public abstract class SVGElement implements Element, Cloneable {
 				int i=0;
 				final int size = attributes.getLength();
 				boolean again = true;
-				String xmlns = "xmlns";//$NON-NLS-1$
+				final String xmlns = "xmlns";//$NON-NLS-1$
 
 				while(i<size && again) {
-					SVGAttr attr = attributes.getAttributes().get(i);
-					String attrName = attr.getName();
+					final SVGAttr attr = attributes.getAttributes().get(i);
+					final String attrName = attr.getName();
 
 					if(attrName!=null && attrName.equals(xmlns)) {
 						uri = attr.getNodeValue();
@@ -513,13 +518,14 @@ public abstract class SVGElement implements Element, Cloneable {
 				}
 			}
 			else {
-				int i=0, size = attributes.getLength();
-				boolean again = true;
-				String xmlns = "xmlns:";//$NON-NLS-1$
+				int i=0;
+                final int size = attributes.getLength();
+                boolean again = true;
+				final String xmlns = "xmlns:";//$NON-NLS-1$
 
 				while(i<size && again) {
-					SVGAttr attr = attributes.getAttributes().get(i);
-					String attrName = attr.getName();
+					final SVGAttr attr = attributes.getAttributes().get(i);
+					final String attrName = attr.getName();
 
 					if(attrName!=null && attrName.startsWith(xmlns) && pref.equals(attrName.substring(xmlns.length()))) {
 						uri = attr.getNodeValue();
@@ -546,7 +552,7 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(getNodeName()==null)
 			return null;
 
-		int index = getNodeName().indexOf(':');
+		final int index = getNodeName().indexOf(':');
 
 		if(index!=-1)
 			return getNodeName().substring(0, index);
@@ -604,8 +610,8 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(parent==null)
 			return null;
 
-		SVGNodeList nl = (SVGNodeList)parent.getChildNodes();
-		int index = nl.getNodes().indexOf(this);
+		final SVGNodeList nl = (SVGNodeList)parent.getChildNodes();
+		final int index = nl.getNodes().indexOf(this);
 
 		if(index==-1)
 			return null;
@@ -621,8 +627,8 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(parent==null)
 			return null;
 
-		SVGNodeList nl = (SVGNodeList)parent.getChildNodes();
-		int index = nl.getNodes().indexOf(this);
+		final SVGNodeList nl = (SVGNodeList)parent.getChildNodes();
+		final int index = nl.getNodes().indexOf(this);
 
 		if(index==-1)
 			return null;
@@ -638,12 +644,13 @@ public abstract class SVGElement implements Element, Cloneable {
 		if("*".equals(nameElt)) //$NON-NLS-1$
 			return getChildNodes();
 
-		SVGNodeList nl = new SVGNodeList();
+		final SVGNodeList nl = new SVGNodeList();
 
 		if(nameElt!=null) {
-			NodeList nl2 = getChildNodes();
-			int i, size = nl2.getLength();
-			Node n;
+			final NodeList nl2 = getChildNodes();
+			int i;
+            final int size = nl2.getLength();
+            Node n;
 
 			for(i=0; i<size; i++) {
 				n = nl2.item(i);
@@ -661,18 +668,19 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	@Override
 	public NodeList getElementsByTagNameNS(final String namespaceURI, final String localName) {
-		String all = "*"; //$NON-NLS-1$
+		final String all = "*"; //$NON-NLS-1$
 
 		if(all.equals(namespaceURI))
 			return getElementsByTagName(localName);
 
-		SVGNodeList nl = new SVGNodeList();
+		final SVGNodeList nl = new SVGNodeList();
 
 		if(namespaceURI!=null && localName!=null) {
-			boolean getAll = all.equals(localName);
-			NodeList nl2 = getChildNodes();
-			int i, size = nl2.getLength();
-			Node n;
+			final boolean getAll = all.equals(localName);
+			final NodeList nl2 = getChildNodes();
+			int i;
+            final int size = nl2.getLength();
+            Node n;
 
 			for(i=0; i<size; i++) {
 				n = nl2.item(i);
@@ -689,8 +697,8 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	@Override
 	public String getTextContent() {
-		NodeList nl = getElementsByTagName(SVGText.TEXT_NODE_NAME);
-		StringBuilder buf = new StringBuilder();
+		final NodeList nl = getElementsByTagName(SVGText.TEXT_NODE_NAME);
+		final StringBuilder buf = new StringBuilder();
 
 		for(int i=0, size=nl.getLength(); i<size; i++)
 			buf.append(((SVGText)nl.item(i)).getData());
@@ -711,7 +719,7 @@ public abstract class SVGElement implements Element, Cloneable {
 			if(nameAttr!=null && attributes!=null)
 				attributes.removeNamedItem(nameAttr);
 		}
-		catch(DOMException e) { /* Nothing to do. */ }
+		catch(final DOMException e) { /* Nothing to do. */ }
 	}
 
 
@@ -818,7 +826,7 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(pref==null)
 			pref = "";//$NON-NLS-1$
 		else
-			pref = pref + ":";//$NON-NLS-1$
+            pref += ":";//$NON-NLS-1$
 
 		return pref;
 	}
@@ -872,7 +880,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public SVGSVGElement getSVGRoot() {
-		SVGElement e = getRootElement();
+		final SVGElement e = getRootElement();
 
 		if(e instanceof SVGSVGElement)
 			return (SVGSVGElement)e;
@@ -889,7 +897,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public SVGElement getDef(final String id) {
-		SVGSVGElement root = getSVGRoot();
+		final SVGSVGElement root = getSVGRoot();
 
 		if(root==null)
 			return null;
@@ -916,8 +924,8 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public SVGNodeList getChildren(final String nodeName) {
-		SVGNodeList nl 	= new SVGNodeList();
-		NodeList nl2 	=  getChildNodes();
+		final SVGNodeList nl 	= new SVGNodeList();
+		final NodeList nl2 	=  getChildNodes();
 
 		for(int i=0, size = nl2.getLength(); i<size; i++)
 			if(nl2.item(i).getNodeName().equals(nodeName))
@@ -1005,13 +1013,13 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public double getStrokeWidth() {
-		String swStr = getSVGAttribute(SVGAttributes.SVG_STROKE_WIDTH, getUsablePrefix());
+		final String swStr = getSVGAttribute(SVGAttributes.SVG_STROKE_WIDTH, getUsablePrefix());
 		double sw;
 
 		try {
 			sw = swStr==null ? parent==null ? 1 : parent.getStrokeWidth() :
 				new SVGLengthParser(swStr).parseLength().getValue();
-		} catch(ParseException e){ sw = 1; }
+		} catch(final ParseException e){ sw = 1; }
 
 		return sw;
 	}
@@ -1023,7 +1031,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public String getStrokeDasharray() {
-		String da = getSVGAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, getUsablePrefix());
+		final String da = getSVGAttribute(SVGAttributes.SVG_STROKE_DASHARRAY, getUsablePrefix());
 
 		return da==null ? parent==null ? SVGAttributes.SVG_VALUE_NONE : parent.getStrokeDasharray() : da;
 	}
@@ -1035,7 +1043,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 3.0
 	 */
 	public String getStrokeLinejoin() {
-		String lj = getSVGAttribute(SVGAttributes.SVG_STROKE_LINEJOIN, getUsablePrefix());
+		final String lj = getSVGAttribute(SVGAttributes.SVG_STROKE_LINEJOIN, getUsablePrefix());
 
 		return lj==null ? parent==null ? SVGAttributes.SVG_LINEJOIN_VALUE_MITER : parent.getStrokeLinejoin() : lj;
 	}
@@ -1047,7 +1055,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public String getStrokeLinecap() {
-		String linecap = getSVGAttribute(SVGAttributes.SVG_STROKE_LINECAP, getUsablePrefix());
+		final String linecap = getSVGAttribute(SVGAttributes.SVG_STROKE_LINECAP, getUsablePrefix());
 
 		return linecap==null ? parent==null ? SVGAttributes.SVG_LINECAP_VALUE_BUTT : parent.getStrokeLinecap() : linecap;
 	}
@@ -1059,12 +1067,12 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public double getStrokeMiterlimit() {
-		String linecap = getSVGAttribute(SVGAttributes.SVG_STROKE_MITERLIMIT, getUsablePrefix());
+		final String linecap = getSVGAttribute(SVGAttributes.SVG_STROKE_MITERLIMIT, getUsablePrefix());
 		double lc;
 
 		if(linecap!=null)
 			try { lc = Double.parseDouble(linecap); }
-			catch(Exception e) { lc = 4.; }
+			catch(final Exception e) { lc = 4.; }
 		else
 			lc = parent==null ? 4. : parent.getStrokeMiterlimit();
 
@@ -1076,7 +1084,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @return The font-size value in point of the element, or from one of its parents.
 	 */
 	public float getFontSize() {
-		String fs = getSVGAttribute(SVGAttributes.SVG_FONT_SIZE, getUsablePrefix());
+		final String fs = getSVGAttribute(SVGAttributes.SVG_FONT_SIZE, getUsablePrefix());
 
 		return fs==null ? parent==null ? SVGLengthParser.FontSize.MEDIUM.getPointValue() :
 					parent.getFontSize() : SVGLengthParser.fontSizetoPoint(fs);
@@ -1087,7 +1095,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @return The defined or inherited font family. Otherwise, an empty string.
 	 */
 	public String getFontFamily() {
-		String fam = getSVGAttribute(SVGAttributes.SVG_FONT_FAMILY, getUsablePrefix());
+		final String fam = getSVGAttribute(SVGAttributes.SVG_FONT_FAMILY, getUsablePrefix());
 
 		return fam==null ? parent==null ? "" : parent.getFontFamily() : fam; //$NON-NLS-1$
 	}
@@ -1097,7 +1105,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @return The defined or inherited font style. Otherwise, the default value "normal" is returned.
 	 */
 	public String getFontStyle() {
-		String style = getSVGAttribute(SVGAttributes.SVG_FONT_STYLE, getUsablePrefix());
+		final String style = getSVGAttribute(SVGAttributes.SVG_FONT_STYLE, getUsablePrefix());
 
 		return style==null ? parent==null ? SVGAttributes.SVG_FONT_STYLE_NORMAL : parent.getFontStyle() : style;
 	}
@@ -1107,7 +1115,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @return The defined or inherited font weight. Otherwise, the default value "normal" is returned.
 	 */
 	public String getFontWeight() {
-		String weight = getSVGAttribute(SVGAttributes.SVG_FONT_WEIGHT, getUsablePrefix());
+		final String weight = getSVGAttribute(SVGAttributes.SVG_FONT_WEIGHT, getUsablePrefix());
 
 		return weight==null ? parent==null ? SVGAttributes.SVG_FONT_WEIGHT_NORMAL : parent.getFontWeight() : weight;
 	}
@@ -1132,7 +1140,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public String getFill() {
-		String fill = getSVGAttribute(SVGAttributes.SVG_FILL, getUsablePrefix());
+		final String fill = getSVGAttribute(SVGAttributes.SVG_FILL, getUsablePrefix());
 
 		return fill==null ? parent==null ? CSSColors.CSS_BLACK_NAME : parent.getFill() : fill;
 	}
@@ -1156,7 +1164,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public Color getStroke() {
-		String stroke = getSVGAttribute(SVGAttributes.SVG_STROKE, getUsablePrefix());
+		final String stroke = getSVGAttribute(SVGAttributes.SVG_STROKE, getUsablePrefix());
 
 		return stroke==null ? parent==null ? null : parent.getStroke() : CSSColors.INSTANCE.getRGBColour(stroke);
 	}
@@ -1169,7 +1177,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public String getUsablePrefix(final String uri) {
-		String pref = lookupPrefix(uri);
+		final String pref = lookupPrefix(uri);
 
 		return pref==null || pref.isEmpty() ? "" : pref+':';//$NON-NLS-1$
 	}
@@ -1194,7 +1202,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @since 0.1
 	 */
 	public SVGTransformList getWholeTransform() {
-		SVGTransformList tl = new SVGTransformList(); 	// The list that will be returned.
+		final SVGTransformList tl = new SVGTransformList(); 	// The list that will be returned.
 		SVGElement p = getParent();						// A parent element.
 
 		if(getTransform()!=null)
@@ -1238,7 +1246,7 @@ public abstract class SVGElement implements Element, Cloneable {
 
 		int cpt = children.getLength();
 
-		for(SVGElement e : children.getNodes())
+		for(final SVGElement e : children.getNodes())
 			cpt += e.getNbChildren(deep-1);
 
 		return cpt;

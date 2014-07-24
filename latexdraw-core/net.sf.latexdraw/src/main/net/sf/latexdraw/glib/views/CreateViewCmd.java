@@ -42,7 +42,7 @@ public abstract class CreateViewCmd<M, V, F extends CreateViewCmd<M,V,F>> {
 	 * @param clazz The class of the model.
 	 * @since 3.0
 	 */
-	public CreateViewCmd(final F next, final Class<? extends M> clazz) {
+    protected CreateViewCmd(final F next, final Class<? extends M> clazz) {
 		super();
 		this.next = next;
 		this.clazz = clazz;
@@ -55,14 +55,9 @@ public abstract class CreateViewCmd<M, V, F extends CreateViewCmd<M,V,F>> {
 	 * @since 3.0
 	 */
 	public V execute(final M model) {
-		V view;
-
 		if(clazz.isInstance(model))
-			view = create(model);
-		else
-			view = next==null ? null : next.execute(model);
-
-		return view;
+			return create(model);
+        return next==null ? null : next.execute(model);
 	}
 
 	/**

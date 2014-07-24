@@ -64,11 +64,11 @@ public class SVGImageElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getX() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
 		double x;
 
 		try { x = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { x = 0; }
+		catch(final ParseException e) { x = 0; }
 
 		return x;
 	}
@@ -81,11 +81,11 @@ public class SVGImageElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getY() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
 		double y;
 
 		try { y = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { y = 0; }
+		catch(final ParseException e) { y = 0; }
 
 		return y;
 	}
@@ -96,11 +96,11 @@ public class SVGImageElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getWidth() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_WIDTH);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_WIDTH);
 		double width;
 
 		try { width = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { width = Double.NaN; }
+		catch(final ParseException e) { width = Double.NaN; }
 
 		return width;
 	}
@@ -112,11 +112,11 @@ public class SVGImageElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getHeight() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_HEIGHT);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_HEIGHT);
 		double height;
 
 		try { height = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { height = Double.NaN; }
+		catch(final ParseException e) { height = Double.NaN; }
 
 		return height;
 	}
@@ -135,8 +135,8 @@ public class SVGImageElement extends SVGElement {
 
 	@Override
 	public boolean checkAttributes() {
-		double vWidth	= getWidth();
-		double vHeight	= getHeight();
+		final double vWidth	= getWidth();
+		final double vHeight	= getHeight();
         return !(Double.isNaN(vWidth) || Double.isNaN(vHeight) || vWidth < 0 || vHeight < 0);
     }
 
@@ -149,13 +149,13 @@ public class SVGImageElement extends SVGElement {
 			return false;
 
 		try {
-			URI uri = new URI(getURI());
-			File f = new File(uri.getPath());
+			final URI uri = new URI(getURI());
+			final File f = new File(uri.getPath());
 
 			if(!f.exists() || !f.canRead())
 				return false;
 		}
-		catch(URISyntaxException e) { return false; }
+		catch(final URISyntaxException e) { return false; }
 
 		return true;
 	}

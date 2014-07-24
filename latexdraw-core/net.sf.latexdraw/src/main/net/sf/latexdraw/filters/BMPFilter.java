@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileFilter;
  */
 public class BMPFilter extends FileFilter {
     /** The name of the extension of bmp file*/
-    public final static String BMP_EXTENSION = ".bmp";//$NON-NLS-1$
+    public static final String BMP_EXTENSION = ".bmp";//$NON-NLS-1$
 
 
 	@Override

@@ -51,11 +51,11 @@ public class SVGMarkerElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getRefX() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_REF_X);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_REF_X);
 		double refx;
 
 		try { refx = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { refx = 0; }
+		catch(final ParseException e) { refx = 0; }
 
 		return refx;
 	}
@@ -67,11 +67,11 @@ public class SVGMarkerElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getRefY() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_REF_Y);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_REF_Y);
 		double refy;
 
 		try { refy = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { refy = 0; }
+		catch(final ParseException e) { refy = 0; }
 
 		return refy;
 	}
@@ -82,11 +82,11 @@ public class SVGMarkerElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getMarkerWidth() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_MARKER_WIDTH);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_MARKER_WIDTH);
 		double markerW;
 
 		try { markerW = v==null ? 3 : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { markerW = 3; }
+		catch(final ParseException e) { markerW = 3; }
 
 		return markerW;
 	}
@@ -98,11 +98,11 @@ public class SVGMarkerElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getMarkerHeight() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_MARKER_HEIGHT);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_MARKER_HEIGHT);
 		double markerH;
 
 		try { markerH = v==null ? 3 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { markerH = 3; }
+		catch(final ParseException e) { markerH = 3; }
 
 		return markerH;
 	}
@@ -114,7 +114,7 @@ public class SVGMarkerElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public String getMarkerUnits() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_MARKER_UNITS);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_MARKER_UNITS);
 
 		return v==null || !SVGAttributes.SVG_UNITS_VALUE_STROKE.equals(v) &&
 						!SVGAttributes.SVG_UNITS_VALUE_USR.equals(v) ? SVGAttributes.SVG_UNITS_VALUE_STROKE : v;

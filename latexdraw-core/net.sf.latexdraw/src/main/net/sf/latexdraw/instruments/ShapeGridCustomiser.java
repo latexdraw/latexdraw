@@ -217,7 +217,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-	private static abstract class CheckBox4ShapeGridCust<A extends ShapePropertyAction> extends ButtonPressedForCustomiser<A, ShapeGridCustomiser> {
+	private abstract static class CheckBox4ShapeGridCust<A extends ShapePropertyAction> extends ButtonPressedForCustomiser<A, ShapeGridCustomiser> {
 		protected CheckBox4ShapeGridCust(final ShapeGridCustomiser ins, final Class<A> actClazz) throws InstantiationException, IllegalAccessException {
 			super(ins, actClazz);
 		}
@@ -280,7 +280,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-	private static abstract class SpinnerForShapeGridCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeGridCustomiser> {
+	private abstract static class SpinnerForShapeGridCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeGridCustomiser> {
 		protected SpinnerForShapeGridCust(final ShapeGridCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(instrument, clazzAction);
 		}
@@ -372,7 +372,7 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 
 
-	private static abstract class ColourButtonForShapeGridCust<A extends ShapePropertyAction> extends ColourButtonForCustomiser<A, ShapeGridCustomiser> {
+	private abstract static class ColourButtonForShapeGridCust<A extends ShapePropertyAction> extends ColourButtonForCustomiser<A, ShapeGridCustomiser> {
 		protected ColourButtonForShapeGridCust(final ShapeGridCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(instrument, clazzAction);
 		}

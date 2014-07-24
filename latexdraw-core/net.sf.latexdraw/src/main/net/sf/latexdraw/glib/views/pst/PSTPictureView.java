@@ -47,8 +47,8 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 		emptyCache();
 
 		String path 		= shape.getPathTarget();
-		StringBuilder start = new StringBuilder();
-		StringBuilder rot 	= getRotationHeaderCode(ppc, origin);
+		final StringBuilder start = new StringBuilder();
+		final StringBuilder rot 	= getRotationHeaderCode(ppc, origin);
 
 		path = path.replaceAll("\\\\", "/");//$NON-NLS-1$ //$NON-NLS-2$
 

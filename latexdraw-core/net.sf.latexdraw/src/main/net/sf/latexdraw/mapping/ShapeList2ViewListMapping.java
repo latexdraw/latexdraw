@@ -75,7 +75,7 @@ public class ShapeList2ViewListMapping extends SynchroSymmetricList2ListMapping<
 
 	@Override
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
-		IViewShape view = index==-1 ? target.get(target.size()-1) : target.get(index);
+		final IViewShape view = index==-1 ? target.get(target.size()-1) : target.get(index);
 
 		view.flush();
 		super.onObjectRemoved(list, object, index);
@@ -92,7 +92,7 @@ public class ShapeList2ViewListMapping extends SynchroSymmetricList2ListMapping<
 	public void onListCleaned(final Object list) {
 		super.onListCleaned(list);
 
-		for(IShape shape : source)
+		for(final IShape shape : source)
 			MappingRegistry.REGISTRY.removeMappingsUsingSource(shape, Shape2ViewMapping.class);
 	}
 }

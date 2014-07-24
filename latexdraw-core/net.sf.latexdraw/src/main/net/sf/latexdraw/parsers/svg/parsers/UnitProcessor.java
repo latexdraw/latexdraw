@@ -60,7 +60,7 @@ public final class UnitProcessor {
 		if(lgthType==null)
 			throw new IllegalArgumentException();
 
-		double userValue;
+		final double userValue;
 
 		switch(lgthType) {
 			case CM:

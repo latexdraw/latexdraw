@@ -266,7 +266,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 			Rectangle2D bounds;
 			synchronized(views){
-				for(IViewShape view : views) {
+				for(final IViewShape view : views) {
 					bounds = view.getBorder();
 
 					if(bounds.getMinX()<minX)
@@ -678,12 +678,9 @@ public class LCanvas extends MPanel implements ICanvas {
 	 * This kind of instrument manages the tooltips displayed on some views.
 	 */
 	protected class TooltipDisplayer implements MouseMotionListener{
-		protected TooltipDisplayer() {
-			super();
-		}
 
-		@Override
-		public void mouseMoved(MouseEvent e) {
+        @Override
+		public void mouseMoved(final MouseEvent e) {
 			boolean again = true;
 			ToolTipable tooltipable;
 			final double x = e.getX()/getZoom();
@@ -693,7 +690,7 @@ public class LCanvas extends MPanel implements ICanvas {
 				tooltipable = tooltipableView.get(i);
 
 				if(tooltipable.isToolTipVisible(x, y)) {
-					String text = tooltipable.getToolTip();
+					final String text = tooltipable.getToolTip();
 					setToolTipText(text==null || text.isEmpty() ? null : text);
 					again = false;
 				}
@@ -703,7 +700,7 @@ public class LCanvas extends MPanel implements ICanvas {
 				setToolTipText(null);
 		}
 		@Override
-		public void mouseDragged(MouseEvent e) { /* Nothing to do. */ }
+		public void mouseDragged(final MouseEvent e) { /* Nothing to do. */ }
 	}
 
 
@@ -736,7 +733,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public IPoint convertToOrigin(final IPoint pt) {
-		IPoint convertion;
+		final IPoint convertion;
 		if(pt==null) convertion = null;
 		else {
 			convertion = ShapeFactory.createPoint(pt);

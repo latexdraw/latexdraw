@@ -77,11 +77,11 @@ public class SVGCircleElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getCx() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CX);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CX);
 		double cx;
 
 		try { cx = v==null ? 0. : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { cx = 0.; }
+		catch(final ParseException e) { cx = 0.; }
 
 		return cx;
 	}
@@ -93,11 +93,11 @@ public class SVGCircleElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getCy() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CY);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_CY);
 		double cy;
 
 		try { cy = v==null ? 0. : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { cy = 0.; }
+		catch(final ParseException e) { cy = 0.; }
 
 		return cy;
 	}
@@ -109,11 +109,11 @@ public class SVGCircleElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getR() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_R);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_R);
 		double r;
 
 		try { r = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { r = Double.NaN; }
+		catch(final ParseException e) { r = Double.NaN; }
 
 		return r;
 	}
@@ -156,7 +156,7 @@ public class SVGCircleElement extends SVGElement {
 
 	@Override
 	public boolean checkAttributes() {
-		double r = getR();
+		final double r = getR();
 
 		return !Double.isNaN(r) && r>=0.;
 	}

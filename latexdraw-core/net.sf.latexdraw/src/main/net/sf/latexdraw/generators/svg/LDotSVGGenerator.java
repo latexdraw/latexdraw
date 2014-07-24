@@ -63,18 +63,18 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 			throw new IllegalArgumentException();
 
 		String v = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_SIZE);
-		SVGElement main = getLaTeXDrawElement(elt, null);
+		final SVGElement main = getLaTeXDrawElement(elt, null);
 
 		try { shape.setDotStyle(DotStyle.getStyle(elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_DOT_SHAPE))); }
-		catch(IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
+		catch(final IllegalArgumentException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		if(v!=null)
 			try { shape.setDiametre(Double.parseDouble(v)); }
-			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
+			catch(final NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		v = elt.getAttribute(elt.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_POSITION);
 
-		List<Point2D> pos = SVGPointsParser.getPoints(v);
+		final List<Point2D> pos = SVGPointsParser.getPoints(v);
 
 		if(pos!=null && !pos.isEmpty())
 			shape.setPosition(pos.get(0).getX(), pos.get(0).getY());

@@ -56,7 +56,7 @@ public class SVGPointsParser extends AbstractSVGParser {
 			pp.parse();
 			return pp.getPoints();
 		}
-		catch(Exception e) { return null; }
+		catch(final Exception e) { return null; }
 	}
 
 
@@ -84,11 +84,11 @@ public class SVGPointsParser extends AbstractSVGParser {
 	 * @since 2.0.3
 	 */
 	public double readNumber() throws ParseException {
-		double n;
-		boolean isNegative;
+		final double n;
+		final boolean isNegative;
 		boolean isFractional = false;
 		boolean isFloating   = false;
-		StringBuilder strn   = new StringBuilder();
+		final StringBuilder strn   = new StringBuilder();
 
 		skipWSP();
 
@@ -133,7 +133,7 @@ public class SVGPointsParser extends AbstractSVGParser {
 		}
 
 		try { n = Double.parseDouble(strn.toString()); }
-		catch(Exception e)
+		catch(final Exception e)
 		{ throw new ParseException("Not able to parse to given number:" + strn.toString(), getPosition()); } //$NON-NLS-1$
 
 		return isNegative ? n*-1 : n;

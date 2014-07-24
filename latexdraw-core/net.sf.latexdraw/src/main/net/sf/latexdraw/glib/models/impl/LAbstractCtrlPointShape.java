@@ -68,7 +68,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		if(line.isHorizontalLine())
 			line.setLine(pt.getX(), pt.getY(), pt.getX()+10, pt.getY());
 		else {
-			double b = pt.getY() - line.getA()*pt.getX();
+			final double b = pt.getY() - line.getA()*pt.getX();
 			line.setLine(pt.getX(), pt.getY(), pt.getX()+10, line.getA()*(pt.getX()+10) + b);
 		}
 
@@ -85,10 +85,10 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		// If there exists an intersection point between the two lines created using control points and points,
 		// where is a loop that must be removed by inverting the control points.
 		// For the first point, the lines are created differently.
-		int posPrev = position==0 ? 1 : position - 1;
-		int posNext = position==0 ? points.size()-1 : position==points.size()-1 ? 0 : position + 1;
-		ILine line1 = ShapeFactory.createLine(getPtAt(posPrev), ctrlPts[0]);
-		ILine line2 = ShapeFactory.createLine(getPtAt(posNext), ctrlPts[1]);
+		final int posPrev = position==0 ? 1 : position - 1;
+		final int posNext = position==0 ? points.size()-1 : position==points.size()-1 ? 0 : position + 1;
+		final ILine line1 = ShapeFactory.createLine(getPtAt(posPrev), ctrlPts[0]);
+		final ILine line2 = ShapeFactory.createLine(getPtAt(posNext), ctrlPts[1]);
 
 		if(line1.getIntersectionSegment(line2)==null) {
 			firstCtrlPts.get(position).setPoint(ctrlPts[0]);
@@ -128,7 +128,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public IPoint getFirstCtrlPtAt(final int position) {
-		IPoint point;
+		final IPoint point;
 
 		if(firstCtrlPts.isEmpty() || position<-1 || position>=firstCtrlPts.size())
 			point = null;
@@ -147,7 +147,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public IPoint getSecondCtrlPtAt(final int position) {
-		IPoint point;
+		final IPoint point;
 
 		if(secondCtrlPts.isEmpty() || position<-1 || position>=secondCtrlPts.size())
 			point = null;
@@ -201,7 +201,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 	@Override
 	public boolean setPoint(final double x, final double y, final int position) {
-		IPoint pt = getPtAt(position);
+		final IPoint pt = getPtAt(position);
 
 		if(pt==null || !GLibUtilities.isValidPoint(x, y))
 			return false;
@@ -217,14 +217,14 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 
 	@Override
-	public void setRotationAngle(double rotationAngle) {
+	public void setRotationAngle(final double rotationAngle) {
 		if(GLibUtilities.isValidCoordinate(rotationAngle)) {
 			final double diff = rotationAngle-this.rotationAngle;
 			final IPoint gc = getGravityCentre();
 
 			super.setRotationAngle(rotationAngle);
 
-			for(IPoint pt : firstCtrlPts)
+			for(final IPoint pt : firstCtrlPts)
 				pt.setPoint(pt.rotatePoint(gc, diff));
 			updateSecondControlPoints();
 		}
@@ -273,16 +273,16 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 		super.copyPoints(sh);
 
 		if(sh instanceof IControlPointShape) {
-			IControlPointShape cpSh = (IControlPointShape)sh;
+			final IControlPointShape cpSh = (IControlPointShape)sh;
 			List<IPoint> pts  		= cpSh.getFirstCtrlPts();
 
 			firstCtrlPts.clear();
-			for(IPoint pt : pts)
+			for(final IPoint pt : pts)
 				firstCtrlPts.add(ShapeFactory.createPoint(pt));
 
 			pts = cpSh.getSecondCtrlPts();
 			secondCtrlPts.clear();
-			for(IPoint pt : pts)
+			for(final IPoint pt : pts)
 				secondCtrlPts.add(ShapeFactory.createPoint(pt));
 		}
 	}

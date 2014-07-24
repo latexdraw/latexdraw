@@ -170,14 +170,14 @@ class Spinner2RotateShape extends Link<RotateShapes, SpinnerModified, ShapeRotat
 
 	@Override
 	public void updateAction() {
-		Option<IShape> obj  = action.shape();
+		final Option<IShape> obj  = action.shape();
 		if(obj.isDefined())
 			action.setRotationAngle(Math.toRadians(Double.valueOf(interaction.getSpinner().getValue().toString()))-obj.get().getRotationAngle());
 	}
 
 	@Override
 	public void initAction() {
-		IShape sh = instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false);
+		final IShape sh = instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false);
 		action.setShape(sh);
 		action.setGravityCentre(sh.getGravityCentre());
 	}

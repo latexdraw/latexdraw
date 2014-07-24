@@ -44,14 +44,14 @@ class PSTRectView extends PSTClassicalView<IRectangle> {
 
 		emptyCache();
 
-		StringBuilder rotation;
-		StringBuilder params  = getPropertiesCode(ppc);
+		final StringBuilder rotation;
+		final StringBuilder params  = getPropertiesCode(ppc);
 		final IPoint tl  = shape.getTopLeftPoint();
 		final IPoint br  = shape.getBottomRightPoint();
-		double x1 		 = tl.getX() - position.getX();
-		double x2 		 = br.getX() - position.getX();
-		double y1 		 = position.getY() - tl.getY();
-		double y2 		 = position.getY() - br.getY();
+		final double x1 		 = tl.getX() - position.getX();
+		final double x2 		 = br.getX() - position.getX();
+		final double y1 		 = position.getY() - tl.getY();
+		final double y2 		 = position.getY() - br.getY();
 
 		if(shape.isRoundCorner())
 			params.append(", framearc=").append((float)LNumber.getCutNumber(shape.getLineArc())); //$NON-NLS-1$

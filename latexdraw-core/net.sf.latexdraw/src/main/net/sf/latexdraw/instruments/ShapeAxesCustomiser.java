@@ -230,7 +230,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 
 	/** Maps a checkbox to an action that modifies several axes' parameters. */
-	private static abstract class CheckBox2CustomAxes<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeAxesCustomiser> {
+    private abstract static class CheckBox2CustomAxes<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeAxesCustomiser> {
 		protected CheckBox2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(ins, clazzAction);
 		}
@@ -291,7 +291,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 
 	/** Maps a spinner to an action that modifies several axes' parameters. */
-	private static abstract class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeAxesCustomiser> {
+    private abstract static class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeAxesCustomiser> {
 		protected Spinner2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(ins, clazzAction);
 		}
@@ -375,7 +375,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 
 	/** Maps a combobox to an action that modifies the axe's style. */
-	private static abstract class Combobox2CustomAxes<A extends ShapePropertyAction> extends ListForCustomiser<A, ShapeAxesCustomiser> {
+    private abstract static class Combobox2CustomAxes<A extends ShapePropertyAction> extends ListForCustomiser<A, ShapeAxesCustomiser> {
 		protected Combobox2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
 			super(ins, clazzAction);
 		}

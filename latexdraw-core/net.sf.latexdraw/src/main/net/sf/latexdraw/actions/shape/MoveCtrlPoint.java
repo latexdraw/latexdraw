@@ -32,16 +32,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 	protected boolean isFirstCtrlPt;
 
 
-	/**
-	 * Creates the action.
-	 * @since 3.0
-	 */
-	public MoveCtrlPoint() {
-		super();
-	}
-
-
-	@Override
+    @Override
 	protected void doActionBody() {
 		final IPoint pt = getPoint();
 		tx += newCoord.getX() - pt.getX();

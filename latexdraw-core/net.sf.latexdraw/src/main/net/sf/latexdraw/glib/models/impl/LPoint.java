@@ -71,8 +71,8 @@ class LPoint extends Point2D.Double implements IPoint {
 			return java.lang.Double.NaN;
 
 		double angle;
-		double x2 = pt.getX() - x;
-		double y2 = pt.getY() - y;
+		final double x2 = pt.getX() - x;
+		final double y2 = pt.getY() - y;
 
 		if(LNumber.equalsDouble(x2, 0.)) {
 			angle = Math.PI/2.;
@@ -98,8 +98,8 @@ class LPoint extends Point2D.Double implements IPoint {
 		if(!GLibUtilities.isValidPoint(pt1) || !GLibUtilities.isValidPoint(pt2))
 			return java.lang.Double.NaN;
 
-		double thetaOld = computeAngle(pt1);
-		double thetaNew = computeAngle(pt2);
+		final double thetaOld = computeAngle(pt1);
+		final double thetaNew = computeAngle(pt2);
 
 		return thetaNew-thetaOld;
 	}
@@ -116,17 +116,17 @@ class LPoint extends Point2D.Double implements IPoint {
 		if(!GLibUtilities.isValidPoint(gravityC) || !GLibUtilities.isValidCoordinate(theta))
 			return null;
 
-		IPoint pt 		= ShapeFactory.createPoint();
-		double cosTheta;
-		double sinTheta;
+		final IPoint pt 		= ShapeFactory.createPoint();
+		final double cosTheta;
+		final double sinTheta;
 		double angle 	= theta;
-		double gx 		= gravityC.getX();
-		double gy 		= gravityC.getY();
+		final double gx 		= gravityC.getX();
+		final double gy 		= gravityC.getY();
 
 		if(angle<0.)
 			angle = 2.*PI + angle;
 
-		angle = angle%(2.*PI);
+        angle %= (2. * PI);
 
 		if(LNumber.equalsDouble(angle, 0.))
 			return (IPoint)clone();
@@ -259,7 +259,7 @@ class LPoint extends Point2D.Double implements IPoint {
 	}
 
 	@Override
-	public IPoint add(IPoint pt) {
+	public IPoint add(final IPoint pt) {
 		final IPoint added = ShapeFactory.createPoint((IPoint)this);
 		if(pt!=null)
 			added.translate(pt.getX(), pt.getY());

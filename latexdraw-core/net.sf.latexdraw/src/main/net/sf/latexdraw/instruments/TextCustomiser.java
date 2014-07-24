@@ -196,7 +196,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 						while(i<max && msg.equals(log)) {
 							try{ Thread.sleep(100);}
-							catch(InterruptedException e){ BadaboomCollector.INSTANCE.add(e); }
+							catch(final InterruptedException e){ BadaboomCollector.INSTANCE.add(e); }
 							log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
 							i++;
 						}

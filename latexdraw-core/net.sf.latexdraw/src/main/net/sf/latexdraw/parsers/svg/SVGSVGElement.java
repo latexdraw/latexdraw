@@ -120,9 +120,9 @@ public class SVGSVGElement extends SVGElement {
 
 	@Override
 	public String toString() {
-		SVGMetadataElement meta	= getMeta();
-		SVGDefsElement defs		= getDefs();
-		StringBuilder str = new StringBuilder().append('[').append("attributes=");//$NON-NLS-1$
+		final SVGMetadataElement meta	= getMeta();
+		final SVGDefsElement defs		= getDefs();
+		final StringBuilder str = new StringBuilder().append('[').append("attributes=");//$NON-NLS-1$
 
 		if(attributes!=null)
 			str.append(attributes.toString()).append('\n');
@@ -170,11 +170,11 @@ public class SVGSVGElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getX() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
 		double x;
 
 		try { x = v==null ? 0. : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { x = 0.; }
+		catch(final ParseException e) { x = 0.; }
 
 		return x;
 	}
@@ -185,11 +185,11 @@ public class SVGSVGElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getY() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
 		double y;
 
 		try { y = v==null ? 0. : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { y = 0.; }
+		catch(final ParseException e) { y = 0.; }
 
 		return y;
 	}
@@ -201,11 +201,11 @@ public class SVGSVGElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getWidth() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_WIDTH);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_WIDTH);
 		double width;
 
 		try { width = v==null ? 1. : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { width = 1.; }
+		catch(final ParseException e) { width = 1.; }
 
 		return width;//FIXME: doit retourner 100%
 	}
@@ -216,11 +216,11 @@ public class SVGSVGElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getHeight() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_HEIGHT);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_HEIGHT);
 		double height;
 
 		try { height = v==null ? 1. : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { height = 1.; }
+		catch(final ParseException e) { height = 1.; }
 
 		return height; //FIXME: doit retourner 100%
 	}

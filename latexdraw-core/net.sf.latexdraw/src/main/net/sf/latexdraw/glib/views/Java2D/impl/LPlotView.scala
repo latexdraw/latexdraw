@@ -21,9 +21,9 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
 	private var lineView:LPolylineView = _
 	private var curveView:LBezierCurveView = _
 
-	model.setXScale(0.1)
-	model.setNbPlottedPoints(100)
-	model.setPlotStyle(IPlotProp.PlotStyle.CURVE)
+//	model.setXScale(0.1)
+//	model.setNbPlottedPoints(100)
+//	model.setPlotStyle(IPlotProp.PlotStyle.CURVE)
 	update
 
 

@@ -40,16 +40,7 @@ public class LCommandLine {
 	protected String filename;
 
 
-	/**
-	 * Creates and initialises a command line parser.
-	 */
-	public LCommandLine() {
-		super();
-	}
-
-
-
-	/**
+    /**
 	 * Parses the given arguments.
 	 * @param args The arguments to parse.
 	 * @return The result of the parsing.

@@ -34,11 +34,11 @@ public final class CSSColors {
 //	/** The name of the colours defined by the user. */
 //	private List<String> usernameColours = new ArrayList<String>();
 
-	private Map<String, Color> userColours;
+	private final Map<String, Color> userColours;
 
-	private Map<String, Color> colourHashtable;
+	private final Map<String, Color> colourHashtable;
 
-	private Map<Color, String> nameColourHashtable;
+	private final Map<Color, String> nameColourHashtable;
 
 
 	public static final String CSS_LINEN_NAME	 		= "linen";//$NON-NLS-1$
@@ -190,21 +190,21 @@ public final class CSSColors {
     public static final String CSS_YELLOW_NAME  			= "yellow";//$NON-NLS-1$
 
 
-    public final static Color CSS_YELLOW_RGB_VALUE         	 	= new Color(255, 255, 0);
-    public final static Color CSS_RED_RGB_VALUE         	 	= new Color(255, 0, 0);
-    public final static Color CSS_TEAL_RGB_VALUE         	 	= new Color(0, 128, 128);
-    public final static Color CSS_PURPLE_RGB_VALUE         	 	= new Color(128, 0, 128);
-    public final static Color CSS_SILVER_RGB_VALUE         	 	= new Color(192, 192, 192);
-    public final static Color CSS_NAVY_RGB_VALUE         	 	= new Color(0, 0, 128);
-    public final static Color CSS_OLIVE_RGB_VALUE         	 	= new Color(128, 128, 0);
-    public final static Color CSS_LIME_RGB_VALUE         	 	= new Color(0, 255, 0);
-    public final static Color CSS_MAROON_RGB_VALUE         	 	= new Color(128, 0, 0);
-    public final static Color CSS_GRAY_RGB_VALUE         	 	= new Color(128, 128, 128);
-    public final static Color CSS_GREEN_RGB_VALUE         	 	= new Color(0, 128, 0);
-	public final static Color CSS_BLACK_RGB_VALUE         	 	= new Color(0, 0, 0);
-	public final static Color CSS_WHITE_RGB_VALUE          		= new Color(255,255,255);
-	public final static Color CSS_BLUE_RGB_VALUE          		= new Color(0, 0, 255);
-	public final static Color CSS_FUCHSIA_RGB_VALUE          	= new Color(255, 0, 255);
+    public static final Color CSS_YELLOW_RGB_VALUE         	 	= new Color(255, 255, 0);
+    public static final Color CSS_RED_RGB_VALUE         	 	= new Color(255, 0, 0);
+    public static final Color CSS_TEAL_RGB_VALUE         	 	= new Color(0, 128, 128);
+    public static final Color CSS_PURPLE_RGB_VALUE         	 	= new Color(128, 0, 128);
+    public static final Color CSS_SILVER_RGB_VALUE         	 	= new Color(192, 192, 192);
+    public static final Color CSS_NAVY_RGB_VALUE         	 	= new Color(0, 0, 128);
+    public static final Color CSS_OLIVE_RGB_VALUE         	 	= new Color(128, 128, 0);
+    public static final Color CSS_LIME_RGB_VALUE         	 	= new Color(0, 255, 0);
+    public static final Color CSS_MAROON_RGB_VALUE         	 	= new Color(128, 0, 0);
+    public static final Color CSS_GRAY_RGB_VALUE         	 	= new Color(128, 128, 128);
+    public static final Color CSS_GREEN_RGB_VALUE         	 	= new Color(0, 128, 0);
+	public static final Color CSS_BLACK_RGB_VALUE         	 	= new Color(0, 0, 0);
+	public static final Color CSS_WHITE_RGB_VALUE          		= new Color(255,255,255);
+	public static final Color CSS_BLUE_RGB_VALUE          		= new Color(0, 0, 255);
+	public static final Color CSS_FUCHSIA_RGB_VALUE          	= new Color(255, 0, 255);
     public static final Color CSS_ALICEBLUE_RGB_VALUE 			= new Color(240, 248, 255);
     public static final Color CSS_ANTIQUEWHITE_RGB_VALUE 		= new Color(250, 235, 215);
     public static final Color CSS_AQUA_RGB_VALUE 				= new Color(0, 255, 255);
@@ -683,7 +683,7 @@ public final class CSSColors {
 		if(col==null)
 			return null;
 
-		String name = nameColourHashtable.get(col);
+		final String name = nameColourHashtable.get(col);
 
 		if(name!=null)
 			return name;
@@ -721,7 +721,7 @@ public final class CSSColors {
 			return null;
 
 		try {
-			String col = hex.substring(1);
+			final String col = hex.substring(1);
 			String r, g, b;
 
 			switch(col.length()) {
@@ -747,7 +747,7 @@ public final class CSSColors {
 
 			return new Color(Integer.parseInt(r, 16), Integer.parseInt(g, 16), Integer.parseInt(b, 16));
 		}
-		catch(Exception e) { BadaboomCollector.INSTANCE.add(e); }
+		catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 		return null;
 	}
 
@@ -819,8 +819,8 @@ public final class CSSColors {
 			return null;
 
 		Color c = null;
-		String s = str.substring(4, str.length()-1);
-		String[] rgbs = s.split(",");//$NON-NLS-1$
+		final String s = str.substring(4, str.length()-1);
+		final String[] rgbs = s.split(",");//$NON-NLS-1$
 
 		try {
 			if(rgbs.length==3){
@@ -838,7 +838,7 @@ public final class CSSColors {
 					c = new Color(Integer.parseInt(rgbs[0]), Integer.parseInt(rgbs[1]), Integer.parseInt(rgbs[2]));
 			}
 		}
-		catch(IllegalArgumentException e) { return null; }
+		catch(final IllegalArgumentException e) { return null; }
 		return c;
 	}
 }

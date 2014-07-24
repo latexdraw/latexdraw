@@ -43,10 +43,10 @@ class PSTGridView extends PSTShapeView<IGrid> {
 	 * Returns the PST code of the parameters of the grid.
 	 */
 	private StringBuilder getParamsCode(final float ppc, final double unit) {
-		Color gridLabelsColor = shape.getGridLabelsColour();
-		Color subGridColor	  = shape.getSubGridColour();
-		Color linesColor	  = shape.getLineColour();
-		StringBuilder params  = new StringBuilder();
+		final Color gridLabelsColor = shape.getGridLabelsColour();
+		final Color subGridColor	  = shape.getSubGridColour();
+		final Color linesColor	  = shape.getLineColour();
+		final StringBuilder params  = new StringBuilder();
 
 		params.append("gridwidth=").append((float)LNumber.getCutNumber(shape.getGridWidth()/ppc)); //$NON-NLS-1$
 		params.append(", subgridwidth=").append((float)LNumber.getCutNumber(shape.getSubGridWidth()/ppc)); //$NON-NLS-1$
@@ -83,19 +83,22 @@ class PSTGridView extends PSTShapeView<IGrid> {
 
 		emptyCache();
 
-		int startX, startY, endX, endY;
-		boolean isXLabelSouth = shape.isXLabelSouth();
-		boolean isYLabelWest  = shape.isYLabelWest();
-		IPoint position		  = shape.getPosition();
-		StringBuilder start	  = new StringBuilder();
-		StringBuilder end	  = new StringBuilder();
-		StringBuilder rot	  = getRotationHeaderCode(ppc, position);
-		StringBuilder coord	  = new StringBuilder();
-		double unit			  = shape.getUnit();
-		double gridStartx 	  = shape.getGridStartX();
-		double gridStarty 	  = shape.getGridStartY();
-		double gridEndx 	  = shape.getGridEndX();
-		double gridEndy 	  = shape.getGridEndY();
+		final int startX;
+        final int startY;
+        final int endX;
+        final int endY;
+        final boolean isXLabelSouth = shape.isXLabelSouth();
+		final boolean isYLabelWest  = shape.isYLabelWest();
+		final IPoint position		  = shape.getPosition();
+		final StringBuilder start	  = new StringBuilder();
+		final StringBuilder end	  = new StringBuilder();
+		final StringBuilder rot	  = getRotationHeaderCode(ppc, position);
+		final StringBuilder coord	  = new StringBuilder();
+		final double unit			  = shape.getUnit();
+		final double gridStartx 	  = shape.getGridStartX();
+		final double gridStarty 	  = shape.getGridStartY();
+		final double gridEndx 	  = shape.getGridEndX();
+		final double gridEndy 	  = shape.getGridEndY();
 
 		if(isXLabelSouth) {
 			startY = (int)gridStarty;
@@ -124,8 +127,8 @@ class PSTGridView extends PSTShapeView<IGrid> {
 			end.append("\n\\psset{unit=").append(PSTricksConstants.DEFAULT_UNIT).append(PSTricksConstants.TOKEN_CM).append('}');//$NON-NLS-1$
 
 		if(!LNumber.equalsDouble(position.getX(), 0.) || !LNumber.equalsDouble(position.getY(), 0.)) {
-			float posX = (float)LNumber.getCutNumber((position.getX()-pt.getX())/ppc);
-			float posY = (float)LNumber.getCutNumber((pt.getY()-position.getY())/ppc);
+			final float posX = (float)LNumber.getCutNumber((position.getX()-pt.getX())/ppc);
+			final float posY = (float)LNumber.getCutNumber((pt.getY()-position.getY())/ppc);
 
 			end.append('}');
 			start.append("\\rput(").append(posX).append(',').append(posY).append(')').append('{');//$NON-NLS-1$

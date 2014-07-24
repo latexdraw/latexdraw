@@ -71,16 +71,7 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 	protected Object oldValue;
 
 
-	/**
-	 * Creates the action.
-	 * @since 3.0
-	 */
-	public ModifyMagneticGrid() {
-		super();
-	}
-
-
-	@Override
+    @Override
 	public void flush() {
 		super.flush();
 		grid 		= null;

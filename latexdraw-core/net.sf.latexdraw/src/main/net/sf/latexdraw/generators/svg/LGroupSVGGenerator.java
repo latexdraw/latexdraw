@@ -88,7 +88,7 @@ class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
 			 root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_GROUP);
 			 root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
-			 for(IShape f : shapes)
+			 for(final IShape f : shapes)
 				 root.appendChild(SVGShapesFactory.INSTANCE.createSVGElement(f, doc));
 
 			 return root;

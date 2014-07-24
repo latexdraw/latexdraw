@@ -137,11 +137,11 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		if(labelElt==null)
 			shape.setLabelsSize(0);
 		else {
-			String val = labelElt.getAttribute(labelElt.getUsablePrefix()+SVGAttributes.SVG_FONT_SIZE);
+			final String val = labelElt.getAttribute(labelElt.getUsablePrefix()+SVGAttributes.SVG_FONT_SIZE);
 
 			if(val!=null)
 				try { shape.setLabelsSize((int)Double.parseDouble(val)); }
-				catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
+				catch(final NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 			shape.setGridLabelsColour(labelElt.getStroke());
 		}
@@ -161,7 +161,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 				shape.setGridDots((int)Double.parseDouble(val));
 				isGridDotted = shape.getGridDots()>0;
 			}
-			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
+			catch(final NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		val = mainGridElt.getAttribute(prefix+LNamespace.XML_GRID_WIDTH);
 
@@ -171,14 +171,14 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 			shape.setLineColour(mainGridElt.getStroke());
 
 		if(val==null) {
-			double st = mainGridElt.getStrokeWidth();
+			final double st = mainGridElt.getStrokeWidth();
 
 			if(!Double.isNaN(st))
 				shape.setGridWidth(st);
 		}
 		else
 			try{ shape.setGridWidth(Double.parseDouble(val));  }
-			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
+			catch(final NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -195,13 +195,13 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 				shape.setSubGridDots((int)Double.parseDouble(val));
 				isGridDotted = shape.getSubGridDots()>0;
 			}
-			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
+			catch(final NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		val = subGridElt.getAttribute(prefix+LNamespace.XML_GRID_SUB_DIV);
 
 		if(val!=null)
 			try{ shape.setSubGridDiv((int)Double.parseDouble(val));  }
-			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
+			catch(final NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		val = subGridElt.getAttribute(prefix+LNamespace.XML_GRID_WIDTH);
 
@@ -211,14 +211,14 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 			shape.setSubGridColour(subGridElt.getStroke());
 
 		if(val==null) {
-			double st = subGridElt.getStrokeWidth();
+			final double st = subGridElt.getStrokeWidth();
 
 			if(!Double.isNaN(st))
 				shape.setSubGridWidth(st);
 		}
 		else
 			try{ shape.setSubGridWidth(Double.parseDouble(val));  }
-			catch(NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
+			catch(final NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -470,9 +470,9 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		final double unit 	= shape.getUnit();
 		final int subGridDiv= shape.getSubGridDiv();
 		double xStep 		= IShape.PPC*unit;
-		double xSubStep;
+		final double xSubStep;
 		double yStep 		= IShape.PPC*unit;
-		double ySubStep;
+		final double ySubStep;
 		xStep *= shape.getGridEndX()<shape.getGridStartX() ? -1 : 1 ;
 		yStep *= shape.getGridEndY()<shape.getGridStartY() ? -1 : 1 ;
 		xSubStep = xStep/subGridDiv;

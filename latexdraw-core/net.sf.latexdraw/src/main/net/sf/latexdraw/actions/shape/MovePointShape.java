@@ -28,16 +28,7 @@ public class MovePointShape extends MovePoint implements Undoable {
 	protected IModifiablePointsShape shape;
 
 
-	/**
-	 * Creates the action.
-	 * @since 3.0
-	 */
-	public MovePointShape() {
-		super();
-	}
-
-
-	@Override
+    @Override
 	protected void doActionBody() {
 		final IPoint pt = shape.getPtAt(indexPt);
 		tx += newCoord.getX() - pt.getX();
@@ -54,7 +45,7 @@ public class MovePointShape extends MovePoint implements Undoable {
 
 	@Override
 	public void undo() {
-		IPoint pt = shape.getPtAt(indexPt);
+		final IPoint pt = shape.getPtAt(indexPt);
 		shape.setPoint(pt.getX()-tx, pt.getY()-ty, indexPt);
 		shape.setModified(true);
 	}

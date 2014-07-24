@@ -41,7 +41,7 @@ public class URIReferenceParser extends AbstractSVGParser {
 	 */
 	public String getURI() {
 		skipWSP();
-		StringBuilder buf = new StringBuilder();
+		final StringBuilder buf = new StringBuilder();
 
 
 		if(getChar()=='u' && nextChar()=='r' && nextChar()=='l' && nextChar()=='(') {

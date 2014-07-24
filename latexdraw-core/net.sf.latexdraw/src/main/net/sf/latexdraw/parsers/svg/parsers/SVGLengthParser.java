@@ -153,12 +153,12 @@ public class SVGLengthParser extends SVGNumberParser {
 
 		try {
 			value = Double.valueOf(fontSize).floatValue();
-		}catch(NumberFormatException e) {
+		}catch(final NumberFormatException e) {
 			try {
-				SVGLength lgth  = new SVGLengthParser(fontSize).parseLength();
+				final SVGLength lgth  = new SVGLengthParser(fontSize).parseLength();
 				value 			= (float)UnitProcessor.INSTANCE.toPoint(lgth.getValue(), lgth.getLengthType());
 			}
-			catch(ParseException ex) {
+			catch(final ParseException ex) {
 				value = FontSize.getFontSize(fontSize);
 			}
 		}
@@ -184,11 +184,12 @@ public class SVGLengthParser extends SVGNumberParser {
 	 * @throws ParseException If a problem occurs or if not managed unit are parsed (%, em and ex).
 	 */
 	public SVGLength parseLength() throws ParseException {
-		double value = parseNumber(false);
-		LengthType lgthType;
-		String errorUnit = "Invalid unit", valueAsStr;//$NON-NLS-1$
+		final double value = parseNumber(false);
+		final LengthType lgthType;
+		final String errorUnit = "Invalid unit";//$NON-NLS-1$
+        final String valueAsStr;
 
-		setPosition(0);
+        setPosition(0);
 		valueAsStr = parseNumberAsString(false);
 		skipWSP();
 
@@ -282,9 +283,9 @@ public class SVGLengthParser extends SVGNumberParser {
 	 * @throws ParseException If a problem occurs or if a percentage is parsed.
 	 */
 	public SVGLength parseNumberOrPercent() throws ParseException {
-		double value = parseNumber(false);
-		LengthType type;
-		String valueAsStr;
+		final double value = parseNumber(false);
+		final LengthType type;
+		final String valueAsStr;
 
 		setPosition(0);
 		valueAsStr = parseNumberAsString(false);

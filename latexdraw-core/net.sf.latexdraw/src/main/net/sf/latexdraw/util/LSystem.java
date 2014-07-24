@@ -291,9 +291,9 @@ public final class LSystem {
 			return null;
 
 		try {
-			Process process 	 = Runtime.getRuntime().exec(cmd, null, tmpdir);  // Command launched
-			StreamExecReader err = new StreamExecReader(process.getErrorStream());// Catch the error log
-			StreamExecReader inp = new StreamExecReader(process.getInputStream());// Catch the log
+			final Process process 	 = Runtime.getRuntime().exec(cmd, null, tmpdir);  // Command launched
+			final StreamExecReader err = new StreamExecReader(process.getErrorStream());// Catch the error log
+			final StreamExecReader inp = new StreamExecReader(process.getInputStream());// Catch the log
 
 			err.start();
 			inp.start();
@@ -301,6 +301,6 @@ public final class LSystem {
 			process.waitFor();// Waiting for the end of the process.
 
 			return err.getLog() + LResources.EOL + inp.getLog();
-		}catch(Exception e) {return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + e.getMessage();}
+		}catch(final Exception e) {return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + e.getMessage();}
 	}
 }

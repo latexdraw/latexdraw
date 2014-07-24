@@ -29,7 +29,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 public class RotationHandler extends Handler<Path2D, IShape> {
 	public static final BasicStroke STROKE = new BasicStroke(2.5f);
 
-	private Arc2D arc;
+	private final Arc2D arc;
 
 	/**
 	 * The constructor by default.

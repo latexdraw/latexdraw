@@ -80,7 +80,7 @@ public class TextSetter extends Instrument {
 
 
 	@Override
-	public void onActionDone(Action action) {
+	public void onActionDone(final Action action) {
 		super.onActionDone(action);
 		if(custom!=null) custom.update();
 	}
@@ -180,7 +180,7 @@ class KeyPress2Desactivate extends Link<ActivateInactivateInstruments, KeyTyped,
 
 	@Override
 	public boolean isConditionRespected() {
-		int key = interaction.getKey();
+		final int key = interaction.getKey();
 		// It is useless to check if another key is pressed because if it is the case, the interaction
 		// is in state keyPressed.
 		return key==KeyEvent.VK_ENTER && instrument.textField.isValidText() && !instrument.textField.getText().isEmpty() || key==KeyEvent.VK_ESCAPE;
@@ -195,7 +195,7 @@ class Enter2SetText extends Link<ModifyShapeProperty, KeyTyped, TextSetter> {
 
 	@Override
 	public void initAction() {
-		IGroup group = ShapeFactory.createGroup(false);
+		final IGroup group = ShapeFactory.createGroup(false);
 		group.addShape(instrument.text);
 		action.setGroup(group);
 		action.setProperty(ShapeProperties.TEXT);

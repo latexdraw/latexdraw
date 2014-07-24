@@ -60,7 +60,7 @@ public class SVGPathElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public boolean isLine() {
-		SVGPathSegList segList = getSegList();
+		final SVGPathSegList segList = getSegList();
 
 		return segList.size()==2 && segList.get(0) instanceof SVGPathSegMoveto &&
 				segList.get(1) instanceof SVGPathSegLineto ;
@@ -74,15 +74,16 @@ public class SVGPathElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public boolean isLines() {
-		SVGPathSegList segList = getSegList();
+		final SVGPathSegList segList = getSegList();
 
 		if(segList.size()<3 || !(segList.get(0) instanceof SVGPathSegMoveto))
 			return false;
 
 		boolean ok = true;
-		int i, size;
+		int i;
+        final int size;
 
-		for(i=1, size=segList.size()-1; i<size && ok; i++)
+        for(i=1, size=segList.size()-1; i<size && ok; i++)
 			if(!(segList.get(i) instanceof SVGPathSegLineto))
 				ok = false;
 
@@ -96,15 +97,16 @@ public class SVGPathElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public boolean isPolygon() {
-		SVGPathSegList segList = getSegList();
+		final SVGPathSegList segList = getSegList();
 
 		if(segList.isEmpty() || !(segList.get(0) instanceof SVGPathSegMoveto))
 			return false;
 
 		boolean ok = true;
-		int i, size;
+		int i;
+        final int size;
 
-		for(i=1, size=segList.size()-1; i<size && ok; i++)
+        for(i=1, size=segList.size()-1; i<size && ok; i++)
 			if(!(segList.get(i) instanceof SVGPathSegLineto))
 				ok = false;
 
@@ -149,7 +151,7 @@ public class SVGPathElement extends SVGElement {
 		final SVGPathParser pp 		 = new SVGPathParser(path, segList);
 		
 		try{ pp.parse(); }
-		catch(ParseException e) { throw new IllegalArgumentException(e.toString() + " But : \"" + path + "\" found."); } //$NON-NLS-1$ //$NON-NLS-2$
+		catch(final ParseException e) { throw new IllegalArgumentException(e.toString() + " But : \"" + path + "\" found."); } //$NON-NLS-1$ //$NON-NLS-2$
 		
 		return segList;
 	}

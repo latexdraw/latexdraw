@@ -236,7 +236,7 @@ public class Export extends Action {
 				f = new File(f.getPath() + format.getFileExtension());
 
 			if(f.exists()) {
-				int replace = JOptionPane.showConfirmDialog(null,
+				final int replace = JOptionPane.showConfirmDialog(null,
 							LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
 							Exporter.TITLE_DIALOG_EXPORT, JOptionPane.YES_NO_OPTION);
 
@@ -290,7 +290,7 @@ public class Export extends Action {
 		try {
 			ImageIO.write(rendImage, "png", file);  //$NON-NLS-1$
 			success = true;
-		}catch(IOException e) { BadaboomCollector.INSTANCE.add(e); }
+		}catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		rendImage.flush();
 		return success;
 	}
@@ -317,7 +317,7 @@ public class Export extends Action {
 				iw.dispose();
 				success = true;
 			}
-	    }catch(IOException e) { BadaboomCollector.INSTANCE.add(e); }
+	    }catch(final IOException e) { BadaboomCollector.INSTANCE.add(e); }
 		rendImage.flush();
 		return success;
 	}
@@ -423,8 +423,8 @@ public class Export extends Action {
 		final IPoint tr 	= canvas.getTopRightDrawingPoint();
 		final IPoint bl 	= canvas.getBottomLeftDrawingPoint();
 		final double dec    = 5.;
-		BufferedImage bi 	= new BufferedImage((int)(tr.getX()+dec), (int)(bl.getY()+dec), BufferedImage.TYPE_INT_RGB);
-		Graphics2D graphic 	= bi.createGraphics();
+		final BufferedImage bi 	= new BufferedImage((int)(tr.getX()+dec), (int)(bl.getY()+dec), BufferedImage.TYPE_INT_RGB);
+		final Graphics2D graphic 	= bi.createGraphics();
 		final List<IViewShape> views = canvas.getViews();
 
 		graphic.setColor(Color.WHITE);
@@ -436,7 +436,7 @@ public class Export extends Action {
 		graphic.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 		synchronized(views){
-			for(IViewShape view : canvas.getViews())
+			for(final IViewShape view : canvas.getViews())
 				view.paint(graphic, null);
 		}
 

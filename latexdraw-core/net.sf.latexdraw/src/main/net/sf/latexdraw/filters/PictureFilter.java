@@ -26,7 +26,7 @@ import javax.swing.filechooser.FileFilter;
 public class PictureFilter extends FileFilter {
 	@Override
 	public boolean accept(final File file) {
-		boolean accept;
+		final boolean accept;
 		
 		if(file==null)
 			accept = false;

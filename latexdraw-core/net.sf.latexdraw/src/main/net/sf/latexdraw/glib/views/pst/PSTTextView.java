@@ -52,8 +52,8 @@ class PSTTextView extends PSTShapeView<IText> {
 		if(rot!=null)
 			cache.append(rot);
 
-		String colorName;
-		Color lineCol = shape.getLineColour();
+		final String colorName;
+		final Color lineCol = shape.getLineColour();
 
 		if(lineCol.equals(PSTricksConstants.DEFAULT_LINE_COLOR))
 			colorName = null;
@@ -62,7 +62,7 @@ class PSTTextView extends PSTShapeView<IText> {
 			addColour(colorName);
 		}
 
-		String tokenPosition = shape.getTextPosition().getLatexToken();
+		final String tokenPosition = shape.getTextPosition().getLatexToken();
 
 		if(tokenPosition==null || tokenPosition.isEmpty())
 			cache.append("\\rput("); //$NON-NLS-1$

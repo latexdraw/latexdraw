@@ -119,7 +119,7 @@ abstract class LShape implements IShape {
 	protected BorderPos bordersPosition;
 
 	/** The points of the shape. */
-	final protected List<IPoint> points;
+    protected final List<IPoint> points;
 
 	/** Defined if the shape has been modified. */
 	protected boolean modified;
@@ -130,40 +130,41 @@ abstract class LShape implements IShape {
 	 * @param uniqueID True: the shape will have a unique ID.
 	 */
 	protected LShape(final boolean uniqueID) {
-		modified		= false;
-		thickness		= 2.;
-		rotationAngle 	= 0.;
-		shadowAngle 	= -Math.PI/4.;
-		gradAngle	 	= 0.;
-		hatchingsAngle	= 0.;
-		hasShadow   	= false;
-		hasDbleBord		= false;
-		lineStyle		= LineStyle.SOLID;
-		lineColour		= PSTricksConstants.DEFAULT_LINE_COLOR;
-		dotSep			= PSTricksConstants.DEFAULT_DOT_STEP*PPC;
-		dashSepBlack	= PSTricksConstants.DEFAULT_DASH_BLACK*PPC;
-		dashSepWhite	= PSTricksConstants.DEFAULT_DASH_WHITE*PPC;
-		hatchingsCol	= PSTricksConstants.DEFAULT_HATCHING_COLOR;
-		hatchingsSep	= PSTricksConstants.DEFAULT_HATCH_SEP*PPC;
-		hatchingsWidth	= PSTricksConstants.DEFAULT_HATCH_WIDTH*PPC;
-		fillingStyle	= FillingStyle.NONE;
-		fillingCol		= PSTricksConstants.DEFAULT_INTERIOR_COLOR;
-		bordersPosition = BorderPos.INTO;
-		dbleBordCol		= PSTricksConstants.DEFAULT_DOUBLE_COLOR;
-		dbleBordSep		= 6.;
-		shadowCol		= PSTricksConstants.DEFAULT_SHADOW_COLOR;
-		shadowSize		= PSTricksConstants.DEFAULT_SHADOW_SIZE*PPC;
-		gradColStart	= PSTricksConstants.DEFAULT_GRADIENT_START_COLOR;
-		gradColEnd		= PSTricksConstants.DEFAULT_GRADIENT_END_COLOR;
-		gradMidPt		= PSTricksConstants.DEFAULT_GRADIENT_MID_POINT;
-		showPts			= false;
-		points			= new ArrayList<>();
+        super();
+        modified = false;
+        thickness = 2.;
+        rotationAngle = 0.;
+        shadowAngle = -Math.PI / 4.;
+        gradAngle = 0.;
+        hatchingsAngle = 0.;
+        hasShadow = false;
+        hasDbleBord = false;
+        lineStyle = LineStyle.SOLID;
+        lineColour = PSTricksConstants.DEFAULT_LINE_COLOR;
+        dotSep = PSTricksConstants.DEFAULT_DOT_STEP * PPC;
+        dashSepBlack = PSTricksConstants.DEFAULT_DASH_BLACK * PPC;
+        dashSepWhite = PSTricksConstants.DEFAULT_DASH_WHITE * PPC;
+        hatchingsCol = PSTricksConstants.DEFAULT_HATCHING_COLOR;
+        hatchingsSep = PSTricksConstants.DEFAULT_HATCH_SEP * PPC;
+        hatchingsWidth = PSTricksConstants.DEFAULT_HATCH_WIDTH * PPC;
+        fillingStyle = FillingStyle.NONE;
+        fillingCol = PSTricksConstants.DEFAULT_INTERIOR_COLOR;
+        bordersPosition = BorderPos.INTO;
+        dbleBordCol = PSTricksConstants.DEFAULT_DOUBLE_COLOR;
+        dbleBordSep = 6.;
+        shadowCol = PSTricksConstants.DEFAULT_SHADOW_COLOR;
+        shadowSize = PSTricksConstants.DEFAULT_SHADOW_SIZE * PPC;
+        gradColStart = PSTricksConstants.DEFAULT_GRADIENT_START_COLOR;
+        gradColEnd = PSTricksConstants.DEFAULT_GRADIENT_END_COLOR;
+        gradMidPt = PSTricksConstants.DEFAULT_GRADIENT_MID_POINT;
+        showPts = false;
+        points = new ArrayList<>();
 
-		if(uniqueID)
-			setNewId();
-		else
-			setId(0);
-	}
+        if (uniqueID)
+            setNewId();
+        else
+            setId(0);
+    }
 
 
 	@Override
@@ -397,7 +398,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public IPoint getPtAt(final int position) {
-		IPoint point;
+		final IPoint point;
 
 		if(points.isEmpty() || position<-1 || position>=points.size())
 			point = null;
@@ -825,7 +826,7 @@ abstract class LShape implements IShape {
 	@Override
 	public void translate(final double tx, final double ty) {
 		if(GLibUtilities.isValidPoint(tx, ty))
-            for (IPoint point : points) point.translate(tx, ty);
+            for (final IPoint point : points) point.translate(tx, ty);
 	}
 
 

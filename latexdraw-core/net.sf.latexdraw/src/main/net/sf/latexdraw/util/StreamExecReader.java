@@ -30,7 +30,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
  */
 public class StreamExecReader extends Thread {
 	/** The stream to listen. */
-	private InputStream stream;
+	private final InputStream stream;
 
 	/** The read log. */
 	private StringBuilder log;
@@ -59,7 +59,7 @@ public class StreamExecReader extends Thread {
 		            line = br.readLine();
 		        }
 			}
-        }catch(IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+        }catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
 	}
 
 

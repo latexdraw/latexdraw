@@ -51,9 +51,10 @@ public class SVGTextElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public String getText() {
-		NodeList nl = getChildNodes();
-		int i, size = nl.getLength();
-		StringBuilder buf = new StringBuilder();
+		final NodeList nl = getChildNodes();
+		int i;
+        final int size = nl.getLength();
+        final StringBuilder buf = new StringBuilder();
 
 
 		for(i=0; i<size; i++)
@@ -82,11 +83,11 @@ public class SVGTextElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getX() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
 		double x;
 
 		try { x = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { x = 0; }
+		catch(final ParseException e) { x = 0; }
 
 		return x;
 	}
@@ -98,11 +99,11 @@ public class SVGTextElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getY() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
 		double y;
 
 		try { y = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { y = 0; }
+		catch(final ParseException e) { y = 0; }
 
 		return y;
 	}
@@ -114,11 +115,11 @@ public class SVGTextElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getDX() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_DX);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_DX);
 		double dx;
 
 		try { dx = v==null ? 0 : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { dx = 0; }
+		catch(final ParseException e) { dx = 0; }
 
 		return dx;
 	}
@@ -130,11 +131,11 @@ public class SVGTextElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getDY() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_DY);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_DY);
 		double dy;
 
 		try { dy = v==null ? 0 : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { dy = 0; }
+		catch(final ParseException e) { dy = 0; }
 
 		return dy;
 	}

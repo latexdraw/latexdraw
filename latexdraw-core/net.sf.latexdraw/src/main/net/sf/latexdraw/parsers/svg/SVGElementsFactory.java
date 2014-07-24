@@ -48,19 +48,19 @@ public final class SVGElementsFactory {
 			return null;
 
 		try {
-			String name = src.getNodeName();
+			final String name = src.getNodeName();
 
 			if(name==null)
 				return null;
 
-			String pref = src.getNodeName().contains(":") ? src.getNodeName().substring(0, src.getNodeName().indexOf(':')) : null;//$NON-NLS-1$
-			NamedNodeMap nnm = src.getAttributes();
-			String ns;
+			final String pref = src.getNodeName().contains(":") ? src.getNodeName().substring(0, src.getNodeName().indexOf(':')) : null;//$NON-NLS-1$
+			final NamedNodeMap nnm = src.getAttributes();
+			final String ns;
 
 			if(nnm==null)
 				ns = parent.lookupNamespaceURI(pref);
 			else {
-				Node xmlnsNode = nnm.getNamedItem(pref==null ? "xmlns" : "xmlns:"+pref);//$NON-NLS-1$//$NON-NLS-2$
+				final Node xmlnsNode = nnm.getNamedItem(pref==null ? "xmlns" : "xmlns:"+pref);//$NON-NLS-1$//$NON-NLS-2$
 
 				if(xmlnsNode==null)
 					ns = parent.lookupNamespaceURI(pref);

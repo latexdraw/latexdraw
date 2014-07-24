@@ -235,7 +235,7 @@ public abstract class CodeParser implements Parser {
 	 */
 	public boolean isEOL() {
 		final int c = getChar();
-		boolean eol;
+		final boolean eol;
 
 		if(c=='\r') {
 			eol = true;

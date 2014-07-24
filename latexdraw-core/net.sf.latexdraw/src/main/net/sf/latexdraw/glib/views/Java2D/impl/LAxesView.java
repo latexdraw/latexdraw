@@ -398,9 +398,9 @@ class LAxesView extends LStandardGridView<IAxes> {
 			return false;
 
 		final double rotationAngle = shape.getRotationAngle();
-		boolean intersects;
+		final boolean intersects;
 
-		Path2D pa;
+		final Path2D pa;
 
 		if(shape.getAxesStyle()==AxesStyle.NONE)
 			pa = new Path2D.Double(new Rectangle2D.Double(shape.getPosition().getX(), shape.getPosition().getY(), 2, 2));
@@ -450,8 +450,8 @@ class LAxesView extends LStandardGridView<IAxes> {
 		if(LNumber.equalsDouble(angle, 0.))
 			border.setFrame(bound);
 		else {
-			IPoint tl = ShapeFactory.createPoint();
-			IPoint br = ShapeFactory.createPoint();
+			final IPoint tl = ShapeFactory.createPoint();
+			final IPoint br = ShapeFactory.createPoint();
 			getRotatedRectangle(bound.getMinX(), bound.getMinY(), bound.getWidth(), bound.getHeight(), angle, shape.getGravityCentre(), tl, br);
 			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
 		}

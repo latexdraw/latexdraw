@@ -136,7 +136,7 @@ public final class LPath {
 			new File(PATH_SHARED).mkdirs();
 			new File(PATH_TEMPLATES_SHARED).mkdirs();
 		}
-		catch(SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
+		catch(final SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -151,7 +151,7 @@ public final class LPath {
 			new File(PATH_CACHE_DIR).mkdirs();
 			new File(PATH_CACHE_SHARE_DIR).mkdirs();
 		}
-		catch(SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
+		catch(final SecurityException e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 
 
@@ -164,22 +164,23 @@ public final class LPath {
 	public String getPathJar() {
 		try {
 			String path = LPath.class.getSimpleName() + ".class";//$NON-NLS-1$
-		    URL url = LPath.class.getResource(path);
+		    final URL url = LPath.class.getResource(path);
 		    path = URLDecoder.decode(url.toString(), "UTF-8");//$NON-NLS-1$
 		    int index = path.lastIndexOf('/');
 		    path = path.substring(0, index);
-		    String jar = "jar:file:", file = "file:";//$NON-NLS-1$//$NON-NLS-2$
+		    final String jar = "jar:file:";//$NON-NLS-1$//$NON-NLS-2$
+            final String file = "file:";
 
-		    if(path.startsWith(jar))  {
+            if(path.startsWith(jar))  {
 		    	index = path.lastIndexOf('!');
 		    	path = path.substring(jar.length(), path.substring(0, index).lastIndexOf('/'));
 		    }
 		    else {
 		    	path = path.substring(file.length(), path.length());
-		    	Package pack = LPath.class.getPackage();
+		    	final Package pack = LPath.class.getPackage();
 
-		    	if(null != pack) {
-		    		String packPath = pack.getName().replace('.', '/');
+		    	if(pack != null) {
+		    		final String packPath = pack.getName().replace('.', '/');
 
 		    		if(path.endsWith(packPath))
 		    			path = path.substring(0, path.length() - packPath.length());
@@ -188,7 +189,7 @@ public final class LPath {
 
 		    return path;
 
-		}catch(Exception e) {
+		}catch(final Exception e) {
 			BadaboomCollector.INSTANCE.add(e);
 			return null;
 		}

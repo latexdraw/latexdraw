@@ -29,8 +29,9 @@ public abstract class SVGPathSeg {
 	 * @since 2.0
 	 */
     protected SVGPathSeg(final boolean isRelative) {
-		this.isRelative = isRelative;
-	}
+        super();
+        this.isRelative = isRelative;
+    }
 
 
 	/**

@@ -41,16 +41,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 	protected List<?> oldValue;
 
 
-	/**
-	 * Creates the action.
-	 * @since 3.0
-	 */
-	public ModifyShapeProperty() {
-		super();
-	}
-
-
-	@Override
+    @Override
 	public void flush() {
 		super.flush();
 

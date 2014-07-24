@@ -62,19 +62,19 @@ public class SplashScreen extends JFrame {
 				UIManager.setLookAndFeel(lookAndFeel);
 		}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 
-		try{setIconImage(LResources.LATEXDRAW_ICON.getImage());}catch(Exception ex){BadaboomCollector.INSTANCE.add(ex);}
+		try{setIconImage(LResources.LATEXDRAW_ICON.getImage());}catch(final Exception ex){BadaboomCollector.INSTANCE.add(ex);}
 		setUndecorated(true);
 		setType(Window.Type.UTILITY);
-		Dimension dim 	= LSystem.INSTANCE.getScreenDimension();
+		final Dimension dim 	= LSystem.INSTANCE.getScreenDimension();
 		final Rectangle frameBound = getGraphicsConfiguration().getBounds();
 		progressBar 	= new MProgressBar(0, 100);
-		Image img 		= Toolkit.getDefaultToolkit().getImage(
+		final Image img 		= Toolkit.getDefaultToolkit().getImage(
 						  getClass().getClassLoader().getResource("res/LaTeXDrawSmall.png"));//$NON-NLS-1$
-		MediaTracker tracker=new MediaTracker(this);
+		final MediaTracker tracker=new MediaTracker(this);
 		tracker.addImage(img,0);
 
 		try { tracker.waitForID(0); }
-		catch(InterruptedException e) { BadaboomCollector.INSTANCE.add(e); }
+		catch(final InterruptedException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		canvas = new DisplayCanvas(img);
 

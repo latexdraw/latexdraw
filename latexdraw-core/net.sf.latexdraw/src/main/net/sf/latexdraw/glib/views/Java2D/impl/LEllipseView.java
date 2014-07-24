@@ -59,10 +59,10 @@ class LEllipseView<S extends IEllipse> extends LRectangularView<S> {
 			final IPoint gc = shape.getGravityCentre();
 			final double a = shape.getA()+getBorderGap();
 			final double b = shape.getB()+getBorderGap();
-			double cosAngle = Math.cos(angle)*Math.cos(angle);
-			double sinAngle = Math.sin(angle)*Math.sin(angle);
-			double xMin = -Math.sqrt(a*a*cosAngle+b*b*sinAngle);
-			double yMin = -Math.sqrt(a*a*sinAngle+b*b*cosAngle);
+			final double cosAngle = Math.cos(angle)*Math.cos(angle);
+			final double sinAngle = Math.sin(angle)*Math.sin(angle);
+			final double xMin = -Math.sqrt(a*a*cosAngle+b*b*sinAngle);
+			final double yMin = -Math.sqrt(a*a*sinAngle+b*b*cosAngle);
 			border.setFrame(xMin+gc.getX(), yMin+gc.getY(), -xMin*2., -yMin*2.);
 		}
 	}
@@ -104,7 +104,7 @@ class LEllipseView<S extends IEllipse> extends LRectangularView<S> {
 	public static void setEllipsePath(final Path2D path, final double tlx, final double tly, final double width, final double height) {
 		if(path!=null) {
 			final double w2  = width<1. && height<1. ? 1. : width;
-			double p[] = POINTS[3];
+			final double[] p = POINTS[3];
 
 			path.moveTo(tlx + p[4]*w2, tly + p[5]*height);
 

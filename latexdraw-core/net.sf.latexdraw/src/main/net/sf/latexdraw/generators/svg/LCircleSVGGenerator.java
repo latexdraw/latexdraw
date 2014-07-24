@@ -64,7 +64,7 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 		this(ShapeFactory.createCircle(false));
 
 		setNumber(elt);
-		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGCircleElement))
 			throw new IllegalArgumentException();
@@ -106,11 +106,13 @@ class LCircleSVGGenerator extends LShapeSVGGenerator<ICircle> {
 		final double tly = tl.getY();
 		final double brx = br.getX();
 		final double bry = br.getY();
-		SVGElement elt, shad, dblBord;
-		SVGElement root = new SVGGElement(doc);
+		SVGElement elt;
+        final SVGElement shad;
+        final SVGElement dblBord;
+        final SVGElement root = new SVGGElement(doc);
         root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_CIRCLE);
         root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
-        double gap = getPositionGap();
+        final double gap = getPositionGap();
 
         if(shape.hasShadow()) {
         	shad = new SVGCircleElement((brx+tlx)/2., (bry+tly)/2., (brx-tlx+gap)/2., doc);

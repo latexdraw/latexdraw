@@ -62,11 +62,12 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @since 2.0
 	 */
 	protected LShapeSVGGenerator(final S sh) {
-		if(sh==null)
-			throw new IllegalArgumentException();
+        super();
+        if (sh == null)
+            throw new IllegalArgumentException();
 
-		shape = sh;
-	}
+        shape = sh;
+    }
 
 
 
@@ -118,7 +119,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			return ;
 
 		// The list of the transformations that are applied on the element.
-		SVGTransformList tl = elt.getWholeTransform();
+		final SVGTransformList tl = elt.getWholeTransform();
 
 		for(int i = tl.size()-1; i>=0; i--)
 			applyTransformation(tl.get(i));
@@ -177,8 +178,8 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		final IArrow arrow = shape.getArrowAt(arrowPos);
 
 		if(arrow.getArrowStyle()!=ArrowStyle.NONE) {
-			String arrowName 	= "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.getId();
-			SVGElement arrowSVG = new LArrowSVGGenerator(arrow).toSVG(doc, isShadow);
+			final String arrowName 	= "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.getId();
+			final SVGElement arrowSVG = new LArrowSVGGenerator(arrow).toSVG(doc, isShadow);
 
 			arrowSVG.setAttribute(SVGAttributes.SVG_ID, arrowName);
 			defs.appendChild(arrowSVG);
@@ -267,7 +268,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				else {
 					final IPoint gravityCenter 	= shape.getGravityCentre();
 					double angle;
-					double shSize 				= shape.getShadowSize();
+					final double shSize 				= shape.getShadowSize();
 
 					if(LNumber.equalsDouble(ty, 0.))
 						angle = tx<0. ? Math.PI : 0.;
@@ -357,7 +358,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		final Color lineCol = shape.getLineColour();
 		if(opacityStr!=null)
 			try { shape.setLineColour(new Color(lineCol.getRed(), lineCol.getGreen(), lineCol.getBlue(), (int)(Double.valueOf(opacityStr)*255.0)));}
-			catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+			catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		if(shape.isLineStylable())
 			LShapeSVGGenerator.setDashedDotted(shape, elt.getStrokeDasharray(), elt.getStrokeLinecap());
@@ -527,7 +528,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			final IPoint gravityCenter 	= shape.getGravityCentre();
 			final double gcx 			= gravityCenter.getX();
 			final double gcy 			= gravityCenter.getY();
-			IPoint pt 			 		= ShapeFactory.createPoint(
+			final IPoint pt 			 		= ShapeFactory.createPoint(
 										gcx+shape.getShadowSize(), gcy).rotatePoint(shape.getGravityCentre(), -shape.getShadowAngle());
 
 			elt.setAttribute(SVGAttributes.SVG_TRANSFORM,
@@ -655,7 +656,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 	        				// Several shapes having hatching must have their shadow filled.
 		        			if(shape.isFilled() || shape.hasShadow() && shadowFills) {
-		        				SVGRectElement fill = new SVGRectElement(doc);
+		        				final SVGRectElement fill = new SVGRectElement(doc);
 		        				fill.setAttribute(SVGAttributes.SVG_FILL,   CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
 		        				fill.setAttribute(SVGAttributes.SVG_STROKE, SVGAttributes.SVG_VALUE_NONE);
 		        				fill.setAttribute(SVGAttributes.SVG_WIDTH,  String.valueOf((int)max.getX()));
@@ -731,17 +732,17 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		// Computing the angle.
 		if(angle2>0.) {
 			if(angle2>3.*halphPI)
-				angle2 = angle2-Math.PI*2.;
+                angle2 -= Math.PI * 2.;
 			else
 				if(angle2>halphPI)
-					angle2 = angle2-Math.PI;
+                    angle2 -= Math.PI;
 		}
 		else
 			if(angle2<-3.*halphPI)
-				angle2 = angle2+Math.PI*2.;
+                angle2 += Math.PI * 2.;
 			else
 				if(angle2<-halphPI)
-					angle2 = angle2+Math.PI;
+                    angle2 += Math.PI;
 
 		final double val = hatchingWidth+hatchingSep;
 
@@ -762,10 +763,13 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				// Drawing the hatchings by rotation.
 				final double incX = val/Math.cos(angle2);
 				final double incY = val/Math.sin(angle2);
-				double maxX;
-				double y1, x2, y2, x1;
+				final double maxX;
+				double y1;
+                double x2;
+                final double y2;
+                final double x1;
 
-				if(angle2>0.) {
+                if(angle2>0.) {
 					y1 	 = nwy;
 					maxX = sex + (sey-(nwy<0?nwy:0)) * Math.tan(angle2);
 				}
@@ -822,7 +826,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 			if(angle>PI || LNumber.equalsDouble(angle, PI)) {
 				gradMidPt 	= 1 - shape.getGradMidPt();
-				angle 		= angle-PI;
+                angle -= PI;
 			}
 
             if (LNumber.equalsDouble(angle, 0.)) {
@@ -842,8 +846,9 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
                     pt2.setX(nwx + (sex - nwx) * (ignoreMidPt ? 1 : gradMidPt));
                 } else {
-                    IPoint cg = shape.getGravityCentre();
-                    ILine l2, l;
+                    final IPoint cg = shape.getGravityCentre();
+                    final ILine l2;
+                    final ILine l;
 
                     pt1 = pt1.rotatePoint(cg, -angle);
                     pt2 = pt2.rotatePoint(cg, -angle);
@@ -854,9 +859,9 @@ abstract class LShapeSVGGenerator<S extends IShape> {
                     else l2 = l.getPerpendicularLine(ShapeFactory.createPoint(nwx, sey));
 
                     pt1 = l.getIntersection(l2);
-                    double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
+                    final double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
                     l.setP1(pt1);
-                    IPoint[] pts = l.findPoints(pt1, 2 * distance * (ignoreMidPt ? 1 : gradMidPt));
+                    final IPoint[] pts = l.findPoints(pt1, 2 * distance * (ignoreMidPt ? 1 : gradMidPt));
                     pt2 = pts[0];
 
                     if (!ignoreMidPt && gradMidPt < 0.5)
@@ -889,7 +894,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 			if(opacity!=null)
 				try { shape.setLineColour(new Color(col.getRed(), col.getGreen(), col.getBlue(), (int)(Double.valueOf(opacity)*255.0)));}
-				catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+				catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 		}
 	}
 
@@ -919,8 +924,8 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				final String str 			= pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+LNamespace.XML_TYPE);
 				double angle;
 				double sep;
-				double width;
-				String attr;
+				final double width;
+				final String attr;
 
 				try { angle = Double.parseDouble(pat.getAttribute(pat.getUsablePrefix(LNamespace.LATEXDRAW_NAMESPACE_URI)+ LNamespace.XML_ROTATION));
 				}catch(final Exception e) { angle = 0.; }
@@ -972,7 +977,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				shape.setFilled(true);
 				if(opacity!=null)
 					try { shape.setFillingCol(new Color(c.getRed(), c.getGreen(), c.getBlue(), (int)(Double.valueOf(opacity)*255.0)));}
-					catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+					catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			}
 		}
 	}
@@ -1053,7 +1058,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @since 2.0.0
 	 */
 	protected double getPositionGap() {
-		double gap;
+		final double gap;
 
         if(!shape.isBordersMovable() || shape.getBordersPosition().getLatexToken().equals(PSTricksConstants.BORDERS_MIDDLE))
         	gap = 0.;

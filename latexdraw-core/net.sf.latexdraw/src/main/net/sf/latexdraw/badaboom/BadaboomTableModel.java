@@ -31,15 +31,7 @@ public class BadaboomTableModel extends AbstractTableModel {
 	protected static final String NAME_COL3		= "Location";
 
 
-	/**
-	 * Creates and initialises a table model for the badaboom manager.
-	 */
-	public BadaboomTableModel() {
-		super();
-	}
-
-
-	@Override
+    @Override
 	public String getColumnName(final int column) {
 		switch(column) {
 			case 0:  return NAME_COL1;

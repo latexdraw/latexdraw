@@ -115,7 +115,7 @@ public class TextAreaAutoSize extends MTextArea {
 		if(textSplited.length>0) // Removing the space added at the beginning of the method.
 			textSplited[textSplited.length-1] = textSplited[textSplited.length-1].substring(0, textSplited[textSplited.length-1].length()-1);
 
-		for(String str : textSplited) {
+		for(final String str : textSplited) {
 			rec = fm.getStringBounds(str, null);
 			if(rec.getWidth()>width)
 				width = rec.getWidth();

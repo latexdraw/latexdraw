@@ -52,10 +52,10 @@ public final class LCursor {
 	 * @since 1.9
 	 */
 	public Cursor getCursor(final String path, final String name) {
-        BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D graphic = (Graphics2D)bi.getGraphics();
-        URL url = LCursor.class.getClass().getResource(path);
-        ImageIcon img = new ImageIcon(url);
+        final BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+        final Graphics2D graphic = (Graphics2D)bi.getGraphics();
+        final URL url = LCursor.class.getClass().getResource(path);
+        final ImageIcon img = new ImageIcon(url);
 
         graphic.drawImage(img.getImage(), null, null);
 

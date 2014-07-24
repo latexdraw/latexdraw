@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileFilter;
  */
 public class GIFFilter extends FileFilter {
     /** The name of the extension of GIF file */
-    public final static String GIF_EXTENSION = ".gif";//$NON-NLS-1$
+    public static final String GIF_EXTENSION = ".gif";//$NON-NLS-1$
 
 
 	@Override

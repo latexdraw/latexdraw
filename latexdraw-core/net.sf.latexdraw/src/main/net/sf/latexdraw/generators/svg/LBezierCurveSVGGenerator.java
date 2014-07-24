@@ -59,12 +59,12 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 	protected LBezierCurveSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.createBezierCurve(false));
 
-		SVGElement elt2 = getLaTeXDrawElement(elt, null);
+		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGPathElement))
 			throw new IllegalArgumentException();
 
-		SVGPathElement main = (SVGPathElement)elt2;
+		final SVGPathElement main = (SVGPathElement)elt2;
 		setPath(main.getSegList());
 		setNumber(elt);
 		setSVGParameters(main);
@@ -93,11 +93,12 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		if(list==null || list.size()<2 || !(list.get(0) instanceof SVGPathSegMoveto))
 			throw new IllegalArgumentException();
 
-		SVGPathSegMoveto m 	= (SVGPathSegMoveto)list.get(0);
+		final SVGPathSegMoveto m 	= (SVGPathSegMoveto)list.get(0);
 		SVGPathSegCurvetoCubic c;
-		int i=1, size = list.size();
+		int i=1;
+        final int size = list.size();
 
-		shape.addPoint(ShapeFactory.createPoint(m.getX(), m.getY()));
+        shape.addPoint(ShapeFactory.createPoint(m.getX(), m.getY()));
 
 		if(size>1 && list.get(1) instanceof SVGPathSegCurvetoCubic) {// We set the control point of the first point.
 			c = (SVGPathSegCurvetoCubic)list.get(1);
@@ -135,8 +136,9 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		if(shape.getNbPoints()<2)
 			return null;
 
-		int size 			= shape.getNbPoints(), i;
-		SVGPathSegList path = new SVGPathSegList();
+		final int size 			= shape.getNbPoints();
+        int i;
+        final SVGPathSegList path = new SVGPathSegList();
 
 		path.add(new SVGPathSegMoveto(shape.getPtAt(0).getX(), shape.getPtAt(0).getY(), false));
 		path.add(new SVGPathSegCurvetoCubic(shape.getPtAt(1).getX(), shape.getPtAt(1).getY(), shape.getFirstCtrlPtAt(0).getX(),
@@ -148,8 +150,8 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 												shape.getFirstCtrlPtAt(i).getX(), shape.getFirstCtrlPtAt(i).getY(), false));
 
 		if(shape.isClosed()) {
-            IPoint ctrl1b = shape.getFirstCtrlPtAt(0).centralSymmetry(shape.getPtAt(0));
-            IPoint ctrl2b = shape.getFirstCtrlPtAt(-1).centralSymmetry(shape.getPtAt(-1));
+            final IPoint ctrl1b = shape.getFirstCtrlPtAt(0).centralSymmetry(shape.getPtAt(0));
+            final IPoint ctrl2b = shape.getFirstCtrlPtAt(-1).centralSymmetry(shape.getPtAt(-1));
 
             path.add(new SVGPathSegCurvetoCubic(shape.getPtAt(0).getX(), shape.getPtAt(0).getY(), ctrl2b.getX(), ctrl2b.getY(), ctrl1b.getX(), ctrl1b.getY(), false));
 
@@ -166,15 +168,16 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		if(doc==null || doc.getFirstChild().getDefs()==null)
 			return null;
 
-		SVGDefsElement defs = doc.getFirstChild().getDefs();
-		SVGElement root 	= new SVGGElement(doc), elt;
-		String path 		= getPathSegList().toString();
+		final SVGDefsElement defs = doc.getFirstChild().getDefs();
+		final SVGElement root 	= new SVGGElement(doc);
+        SVGElement elt;
+        final String path 		= getPathSegList().toString();
 
 		root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_BEZIER_CURVE);
 		root.setAttribute(SVGAttributes.SVG_ID, getSVGID());
 
        	if(shape.hasShadow()) {
-       		SVGElement shad = new SVGPathElement(doc);
+       		final SVGElement shad = new SVGPathElement(doc);
 
 			shad.setAttribute(SVGAttributes.SVG_D, path);
 			setSVGShadowAttributes(shad, false);
@@ -198,7 +201,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		root.appendChild(elt);
 
 		if(shape.hasDbleBord()) {
-			SVGElement dblBord = new SVGPathElement(doc);
+			final SVGElement dblBord = new SVGPathElement(doc);
 			dblBord.setAttribute(SVGAttributes.SVG_D, path);
 			setSVGDoubleBordersAttributes(dblBord);
 			root.appendChild(dblBord);
@@ -230,20 +233,21 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		if(!shape.isShowPts() || doc==null)
 			return null;
 
-		double blackDash  	= shape.getDashSepBlack();
-		double whiteDash  	= shape.getDashSepWhite();
-		boolean hasDble   	= shape.hasDbleBord();
-		Color col         	= shape.getLineColour();
-		boolean isClosed  	= shape.isClosed();
-		SVGGElement showPts = new SVGGElement(doc);
-		IArrow arrow1 		= shape.getArrowAt(0);
-		IArrow arrow2 		= shape.getArrowAt(-1);
+		final double blackDash  	= shape.getDashSepBlack();
+		final double whiteDash  	= shape.getDashSepWhite();
+		final boolean hasDble   	= shape.hasDbleBord();
+		final Color col         	= shape.getLineColour();
+		final boolean isClosed  	= shape.isClosed();
+		final SVGGElement showPts = new SVGGElement(doc);
+		final IArrow arrow1 		= shape.getArrowAt(0);
+		final IArrow arrow2 		= shape.getArrowAt(-1);
 		final double doubleSep = shape.getDbleBordSep();
-		double thick = (hasDble ? shape.getDbleBordSep()+shape.getThickness()*2. : shape.getThickness())/2.;
-		double rad   = (PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM*IShape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM*thick*2.)/2.;
-		int i, size = shape.getNbPoints();
+		final double thick = (hasDble ? shape.getDbleBordSep()+shape.getThickness()*2. : shape.getThickness())/2.;
+		final double rad   = (PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM*IShape.PPC + PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM*thick*2.)/2.;
+		int i;
+        final int size = shape.getNbPoints();
 
-		showPts.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SHOW_PTS);
+        showPts.setAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_TYPE, LNamespace.XML_TYPE_SHOW_PTS);
 
 		/* Plotting the lines. */
 		for(i=3; i<size; i+=2) {

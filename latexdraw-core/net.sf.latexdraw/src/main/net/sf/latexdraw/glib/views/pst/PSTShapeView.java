@@ -121,7 +121,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	 * given arrow must not be NONE.
 	 */
 	private StringBuilder getArrowParametersCode(final IArrow arrow) {
-		StringBuilder code = new StringBuilder();
+		final StringBuilder code = new StringBuilder();
 		final ArrowStyle style = arrow.getArrowStyle();
 
 		if(style.isBar() || style.isRoundBracket() || style.isSquareBracket()) {
@@ -151,7 +151,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	 * @since 3.0
 	 */
 	protected StringBuilder getArrowsStyleCode() {
-		StringBuilder code;
+		final StringBuilder code;
 
 		if(shape instanceof IArrowableShape) {//FIXME scala trait
 			final IArrowableShape arr = (IArrowableShape)shape;
@@ -178,7 +178,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	 * @since 3.0
 	 */
 	protected StringBuilder getShowPointsCode() {
-		StringBuilder code;
+		final StringBuilder code;
 
 		if(shape.isShowPts()) {
 			code = new StringBuilder();
@@ -201,16 +201,16 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 		if(ppc<1 || !GLibUtilities.isValidPoint(position))
 			return null;
 
-		StringBuilder code;
+		final StringBuilder code;
 		final double angle = shape.getRotationAngle();
 
         if (LNumber.equalsDouble(angle, 0.)) code = null;
         else {
-            IPoint gravityCenter = shape.getGravityCentre();
+            final IPoint gravityCenter = shape.getGravityCentre();
             final double cx = (gravityCenter.getX() - position.getX()) / ppc;
             final double cy = (position.getY() - gravityCenter.getY()) / ppc;
-            double x = LNumber.getCutNumber(-Math.cos(-angle) * cx + Math.sin(-angle) * cy + cx);
-            double y = LNumber.getCutNumber(-Math.sin(-angle) * cx - Math.cos(-angle) * cy + cy);
+            final double x = LNumber.getCutNumber(-Math.cos(-angle) * cx + Math.sin(-angle) * cy + cx);
+            final double y = LNumber.getCutNumber(-Math.sin(-angle) * cx - Math.cos(-angle) * cy + cy);
 
             code = new StringBuilder();
             code.append("\\rput{").append((float) LNumber.getCutNumber(-Math.toDegrees(shape.getRotationAngle()) % 360)).append('}').append('('); //$NON-NLS-1$
@@ -245,7 +245,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	 * @since 3.0
 	 */
 	protected StringBuilder getDoubleBorderCode(final float ppc) {
-		StringBuilder code;
+		final StringBuilder code;
 
 		if(shape.hasDbleBord()) {
 			final Color doubleColor = shape.getDbleBordCol();
@@ -270,7 +270,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	 * @since 3.0
 	 */
 	protected StringBuilder getBorderPositionCode() {
-		StringBuilder code;
+		final StringBuilder code;
 
 		if(shape.isBordersMovable())
 			switch(shape.getBordersPosition()) {
@@ -473,7 +473,7 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	 * @since 3.0
 	 */
 	protected StringBuilder getShadowCode(final float ppc) {
-		StringBuilder code;
+		final StringBuilder code;
 
 		if(shape.hasShadow()) {
 			final Color shadowColor = shape.getShadowCol();

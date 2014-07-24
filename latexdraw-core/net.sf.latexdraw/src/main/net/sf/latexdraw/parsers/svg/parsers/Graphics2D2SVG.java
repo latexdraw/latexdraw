@@ -273,10 +273,10 @@ public class Graphics2D2SVG extends Graphics2D {
 	protected void fillPaintShape(final Shape sh, final boolean fill, final boolean draw) {
 		if(sh==null) return ;
 		if(sh instanceof Path2D) {
-			Path2D2SVGPath parser = new Path2D2SVGPath((Path2D)sh, document);
+			final Path2D2SVGPath parser = new Path2D2SVGPath((Path2D)sh, document);
 			try{
 				parser.parse();
-				SVGPathElement shapeElt = parser.getSVGElement();
+				final SVGPathElement shapeElt = parser.getSVGElement();
 
 				if(lastPathPainted!=null && fill!=lastPathPaintedFilled && shapeElt.getPathData().equals(lastPathPainted.getPathData())) {
 					setShapeAttributes(lastPathPainted, fill, draw);
@@ -289,7 +289,7 @@ public class Graphics2D2SVG extends Graphics2D {
 					lastPathPainted = shapeElt;
 					lastPathPaintedFilled = fill;
 				}
-			}catch(ParseException exception){ BadaboomCollector.INSTANCE.add(exception); }
+			}catch(final ParseException exception){ BadaboomCollector.INSTANCE.add(exception); }
 		}
 		else throw new IllegalArgumentException();
 	}
@@ -412,7 +412,7 @@ public class Graphics2D2SVG extends Graphics2D {
 		if(currentTransforms.isEmpty())
 			currentTransforms.add(transformation);
 		else {
-			SVGTransform transformPrev = currentTransforms.get(currentTransforms.size()-1);
+			final SVGTransform transformPrev = currentTransforms.get(currentTransforms.size()-1);
 			if(transformPrev.cancels(transformation))
 				currentTransforms.remove(currentTransforms.size()-1);
 			else

@@ -279,7 +279,7 @@ public final class LangTool {
 	private static final Lang LANG_CURRENT = INSTANCE.readLang();
 
 	/** This map provides an easy access to the language items. */
-	private Map<String, Lang> mapLangs = new HashMap<>();
+	private final Map<String, Lang> mapLangs = new HashMap<>();
 
 	static {
 		final String token = LangTool.getCurrentLanguage().getToken();
@@ -460,7 +460,7 @@ public final class LangTool {
 
 			if(Files.exists(xml)) {
 	            final Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(Files.newInputStream(xml)).getFirstChild();
-	            NodeList nl;
+	            final NodeList nl;
 
 	            if(node!=null && node.getNodeName().equals(LNamespace.XML_ROOT_PREFERENCES)) {
 		            nl 				= node.getChildNodes();

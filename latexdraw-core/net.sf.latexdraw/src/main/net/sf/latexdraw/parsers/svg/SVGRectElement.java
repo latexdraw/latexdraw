@@ -80,10 +80,10 @@ public class SVGRectElement extends SVGElement {
 
 	@Override
 	public boolean checkAttributes() {
-		double vWidth	= getWidth();
-		double vHeight	= getHeight();
-		double vrx		= getRx();
-		double vry		= getRy();
+		final double vWidth	= getWidth();
+		final double vHeight	= getHeight();
+		final double vrx		= getRx();
+		final double vry		= getRy();
 
         return !(Double.isNaN(vWidth) || Double.isNaN(vHeight) || vWidth < 0 || vHeight < 0 || vrx < 0 || vry < 0);
 
@@ -105,11 +105,11 @@ public class SVGRectElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getX() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_X);
 		double x;
 
 		try { x = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { x = 0; }
+		catch(final ParseException e) { x = 0; }
 
 		return x;
 	}
@@ -121,11 +121,11 @@ public class SVGRectElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getY() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_Y);
 		double y;
 
 		try { y = v==null ? 0 : new SVGLengthParser(v).parseCoordinate().getValue(); }
-		catch(ParseException e) { y = 0; }
+		catch(final ParseException e) { y = 0; }
 
 		return y;
 	}
@@ -137,11 +137,11 @@ public class SVGRectElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getWidth() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_WIDTH);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_WIDTH);
 		double width;
 
 		try { width = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { width = Double.NaN; }
+		catch(final ParseException e) { width = Double.NaN; }
 
 		return width;
 	}
@@ -152,11 +152,11 @@ public class SVGRectElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getHeight() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_HEIGHT);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_HEIGHT);
 		double height;
 
 		try { height = v==null ? Double.NaN : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { height = Double.NaN; }
+		catch(final ParseException e) { height = Double.NaN; }
 
 		return height;
 	}
@@ -168,11 +168,11 @@ public class SVGRectElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getRx() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RX);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RX);
 		double rx;
 
 		try { rx = v==null ? 0 : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { rx = 0; }
+		catch(final ParseException e) { rx = 0; }
 
 		return rx;
 	}
@@ -184,11 +184,11 @@ public class SVGRectElement extends SVGElement {
 	 * @since 0.1
 	 */
 	public double getRy() {
-		String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RY);
+		final String v = getAttribute(getUsablePrefix()+SVGAttributes.SVG_RY);
 		double ry;
 
 		try { ry = v==null ? 0 : new SVGLengthParser(v).parseLength().getValue(); }
-		catch(ParseException e) { ry = 0; }
+		catch(final ParseException e) { ry = 0; }
 
 		return ry;
 	}

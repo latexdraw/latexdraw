@@ -115,8 +115,8 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public IPoint getTopRightPoint() {
-		IPoint pos  = getPosition();
-		double step = getStep();
+		final IPoint pos  = getPosition();
+		final double step = getStep();
 		//FIXME strange: different from getTopLeftPoint and co. but works for scale.
 		return ShapeFactory.createPoint(pos.getX()+step*(gridEndx-gridStartx), pos.getY()-step*(gridEndy-gridStarty));
 	}
@@ -127,8 +127,8 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	public void mirrorHorizontal(final IPoint origin) {
 		if(origin==null) return ;
 
-		IPoint bl = points.get(0).horizontalSymmetry(origin);
-		IPoint br = getBottomRightPoint().horizontalSymmetry(origin);
+		final IPoint bl = points.get(0).horizontalSymmetry(origin);
+		final IPoint br = getBottomRightPoint().horizontalSymmetry(origin);
 
 		points.get(0).setPoint(br.getX()<bl.getX() ? br.getX() : bl.getX(), br.getY());
 	}
@@ -138,8 +138,8 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 	public void mirrorVertical(final IPoint origin) {
 		if(origin==null) return ;
 
-		IPoint bl = points.get(0).verticalSymmetry(origin);
-		IPoint tl = getTopLeftPoint().verticalSymmetry(origin);
+		final IPoint bl = points.get(0).verticalSymmetry(origin);
+		final IPoint tl = getTopLeftPoint().verticalSymmetry(origin);
 
 		points.get(0).setPoint(bl.getX(), bl.getY()>tl.getY() ? bl.getY() : tl.getY());
 	}
@@ -262,7 +262,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 		super.copy(s);
 
 		if(s instanceof IStdGridProp) {
-			IStdGridProp grid = (IStdGridProp) s;
+			final IStdGridProp grid = (IStdGridProp) s;
 
 			gridEndx 	= grid.getGridEndX();
 			gridEndy 	= grid.getGridEndY();

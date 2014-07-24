@@ -1,12 +1,11 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import java.util.List;
-
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;
+
+import java.util.List;
 
 /**
  * Defines a PSTricks view of the LFreeHand model.<br>
@@ -70,16 +69,16 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
         }
 
         for(i=interval*2; i<size; i+=interval) {
-			float x1 	= (midx + curx) / 2.0f;
-			float y1 	= (midy + cury) / 2.0f;
+			final float x1 	= (midx + curx) / 2.0f;
+			final float y1 	= (midy + cury) / 2.0f;
 			prevx 		= curx;
 			prevy 		= cury;
 			curx 		= (float)pts.get(i).getX();
 			cury 		= (float)pts.get(i).getY();
 			midx 		= (curx + prevx) / 2.0f;
 			midy 		= (cury + prevy) / 2.0f;
-			float x2 	= (prevx + midx) / 2.0f;
-			float y2 	= (prevy + midy) / 2.0f;
+			final float x2 	= (prevx + midx) / 2.0f;
+			final float y2 	= (prevy + midy) / 2.0f;
 
             coord.append("\\curveto(").append(LNumber.getCutNumber((float)((x1-originx)/ppc)));//$NON-NLS-1$
             coord.append(',').append(LNumber.getCutNumber((float)((originy-y1)/ppc))).append(')').append('(');
@@ -90,16 +89,16 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
         }
 
         if(i-interval+1<size) {
-        	float x1 	= (midx + curx) / 2.0f;
-        	float y1 	= (midy + cury) / 2.0f;
+        	final float x1 	= (midx + curx) / 2.0f;
+        	final float y1 	= (midy + cury) / 2.0f;
             prevx 		= curx;
             prevy 		= cury;
             curx 		= (float)pts.get(pts.size()-1).getX();
             cury 		= (float)pts.get(pts.size()-1).getY();
             midx 		= (curx + prevx) / 2.0f;
             midy 		= (cury + prevy) / 2.0f;
-            float x2 	= (prevx + midx) / 2.0f;
-            float y2 	= (prevy + midy) / 2.0f;
+            final float x2 	= (prevx + midx) / 2.0f;
+            final float y2 	= (prevy + midy) / 2.0f;
 
             coord.append("\\curveto("); //$NON-NLS-1$
     		coord.append(LNumber.getCutNumber((float)((x1-originx)/ppc))).append(',');
