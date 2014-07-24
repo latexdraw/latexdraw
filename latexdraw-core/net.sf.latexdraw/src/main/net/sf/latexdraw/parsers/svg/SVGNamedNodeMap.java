@@ -148,7 +148,7 @@ public class SVGNamedNodeMap implements NamedNodeMap, Cloneable {
 		final StringBuilder str = new StringBuilder().append('{');
 
 		for(final SVGAttr e : nnm)
-			str.append(e.toString()).append(',').append(' ');
+			str.append(e).append(',').append(' ');
 
 		return str.append('}').toString();
 	}

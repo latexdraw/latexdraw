@@ -35,7 +35,7 @@ public interface IShape extends Modifiable {
 	double GOLDEN_ANGLE = 0.553574;
 
 	/** The different cardinal points. */
-	public static enum Position {
+	enum Position {
 		NORTH {
 			@Override
 			public Position getOpposite() {
@@ -119,7 +119,7 @@ public interface IShape extends Modifiable {
 
 
 	/** The different positions of the border. */
-	public static enum BorderPos {
+	enum BorderPos {
 		INTO {
 			@Override
 			public String getLatexToken() { return PSTricksConstants.BORDERS_INSIDE; }
@@ -155,7 +155,7 @@ public interface IShape extends Modifiable {
 
 
 	/** The different styles of the lines. */
-	public static enum LineStyle {
+	enum LineStyle {
 		NONE{
 			@Override
 			public String getLatexToken() { return PSTricksConstants.LINE_NONE_STYLE; }
@@ -190,7 +190,7 @@ public interface IShape extends Modifiable {
 	}
 
 	/** The different styles of filling. */
-	public static enum FillingStyle {
+	enum FillingStyle {
 		NONE {
 			@Override
 			public boolean isFilled() { return false; }

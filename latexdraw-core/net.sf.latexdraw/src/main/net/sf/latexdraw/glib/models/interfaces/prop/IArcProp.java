@@ -22,7 +22,7 @@ import net.sf.latexdraw.lang.LangTool;
  */
 public interface IArcProp {
 	/** The different styles of arc. */
-	public static enum ArcStyle {
+	enum ArcStyle {
 		WEDGE {
 			@Override public boolean supportArrow() { return false; }
 			@Override public String getLabel() { return LangTool.INSTANCE.getStringOthers("Arc.arc"); }//$NON-NLS-1$

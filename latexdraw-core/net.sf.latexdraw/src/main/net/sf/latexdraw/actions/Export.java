@@ -64,7 +64,7 @@ public class Export extends Action {
 	 * The enumeration defines the different formats managed to export drawing.
 	 * @author Arnaud Blouin
 	 */
-	public static enum ExportFormat {
+	public enum ExportFormat {
 		/**
 		 * The latex format.
 		 */

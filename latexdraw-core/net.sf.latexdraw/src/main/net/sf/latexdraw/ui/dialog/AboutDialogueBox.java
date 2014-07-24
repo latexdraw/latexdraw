@@ -113,7 +113,7 @@ public class AboutDialogueBox extends JFrame {
 
 		builder.append("Java properties:").append(LResources.EOL);
 		for(final Entry<Object, Object> entry : System.getProperties().entrySet())
-			builder.append(entry.getKey().toString()).append(':').append(' ').append(entry.getValue().toString()).append(LResources.EOL);
+			builder.append(entry.getKey()).append(':').append(' ').append(entry.getValue()).append(LResources.EOL);
 
 		editorPane.setText(builder.toString());
 		tabbedPane.add("System", new JScrollPane(editorPane));

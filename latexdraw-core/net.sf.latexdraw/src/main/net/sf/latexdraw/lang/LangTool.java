@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
  * @version 3.0
  */
 public final class LangTool {
-	public static enum Lang {
+	public enum Lang {
 		CA {
 			@Override
 			public String getName() {

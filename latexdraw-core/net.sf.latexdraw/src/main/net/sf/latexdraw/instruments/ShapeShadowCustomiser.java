@@ -170,7 +170,7 @@ class CheckBox2PencilShadow extends CheckBoxForCustomiser<ModifyPencilParameter,
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public CheckBox2PencilShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	CheckBox2PencilShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyPencilParameter.class);
 	}
 
@@ -198,7 +198,7 @@ class CheckBox2SelectionShadow extends CheckBoxForCustomiser<ModifyShapeProperty
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public CheckBox2SelectionShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	CheckBox2SelectionShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyShapeProperty.class);
 	}
 
@@ -226,7 +226,7 @@ class Spinner2SelectionShadow extends SpinnerForCustomiser<ModifyShapeProperty, 
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public Spinner2SelectionShadow(final ShapeShadowCustomiser ins) throws InstantiationException, IllegalAccessException {
+	Spinner2SelectionShadow(final ShapeShadowCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyShapeProperty.class);
 	}
 
@@ -267,7 +267,7 @@ class Spinner2PencilShadow extends SpinnerForCustomiser<ModifyPencilParameter, S
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public Spinner2PencilShadow(final ShapeShadowCustomiser ins) throws InstantiationException, IllegalAccessException {
+	Spinner2PencilShadow(final ShapeShadowCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyPencilParameter.class);
 	}
 
@@ -309,7 +309,7 @@ class ColourButton2PencilShadow extends ColourButtonForCustomiser<ModifyPencilPa
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ColourButton2PencilShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	ColourButton2PencilShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyPencilParameter.class);
 	}
 
@@ -337,7 +337,7 @@ class ColourButton2SelectionShadow extends ColourButtonForCustomiser<ModifyShape
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ColourButton2SelectionShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
+	ColourButton2SelectionShadow(final ShapeShadowCustomiser instrument) throws InstantiationException, IllegalAccessException {
 		super(instrument, ModifyShapeProperty.class);
 	}
 

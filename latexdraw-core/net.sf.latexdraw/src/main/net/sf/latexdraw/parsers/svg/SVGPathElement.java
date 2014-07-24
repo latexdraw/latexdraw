@@ -151,7 +151,7 @@ public class SVGPathElement extends SVGElement {
 		final SVGPathParser pp 		 = new SVGPathParser(path, segList);
 		
 		try{ pp.parse(); }
-		catch(final ParseException e) { throw new IllegalArgumentException(e.toString() + " But : \"" + path + "\" found."); } //$NON-NLS-1$ //$NON-NLS-2$
+		catch(final ParseException e) { throw new IllegalArgumentException(e + " But : \"" + path + "\" found."); } //$NON-NLS-1$ //$NON-NLS-2$
 		
 		return segList;
 	}

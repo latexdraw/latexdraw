@@ -443,7 +443,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		if(shape==null || strokeWidth==null)
 			return;
 
-		if(stroke==null || !stroke.equals(SVGAttributes.SVG_VALUE_NONE))
+		if(!SVGAttributes.SVG_VALUE_NONE.equals(stroke))
 			try{ shape.setThickness(new SVGLengthParser(strokeWidth).parseLength().getValue()); }
 			catch(final ParseException e){ BadaboomCollector.INSTANCE.add(e); }
 	}

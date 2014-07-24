@@ -598,7 +598,7 @@ public class SVGTransform {
 
 		switch(getType()) {
 			case SVG_TRANSFORM_MATRIX:
-				code.append(SVGAttributes.SVG_TRANSFORM_MATRIX).append('(').append(m.toString()).append(')');
+				code.append(SVGAttributes.SVG_TRANSFORM_MATRIX).append('(').append(m).append(')');
 				break;
 
 			case SVG_TRANSFORM_ROTATE:

@@ -52,7 +52,7 @@ class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
 	 * @throws IllegalArgumentException If the given SVGGElement is null or not valid.
 	 * @since 3.0
 	 */
-	public LGroupSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
+	LGroupSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
 		this(ShapeFactory.createGroup(true));
 
 		if(elt==null)

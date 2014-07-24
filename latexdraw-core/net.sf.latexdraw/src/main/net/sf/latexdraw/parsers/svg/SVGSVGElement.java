@@ -125,13 +125,13 @@ public class SVGSVGElement extends SVGElement {
 		final StringBuilder str = new StringBuilder().append('[').append("attributes=");//$NON-NLS-1$
 
 		if(attributes!=null)
-			str.append(attributes.toString()).append('\n');
+			str.append(attributes).append('\n');
 
 		if(meta!=null)
-			str.append(", meta=").append(meta.toString()).append('\n');//$NON-NLS-1$
+			str.append(", meta=").append(meta).append('\n');//$NON-NLS-1$
 
 		if(defs!=null)
-			str.append(", defs=").append(defs.toString()).append('\n');//$NON-NLS-1$
+			str.append(", defs=").append(defs).append('\n');//$NON-NLS-1$
 
 		str.append(", children={");//$NON-NLS-1$
 
@@ -140,10 +140,10 @@ public class SVGSVGElement extends SVGElement {
 			final int size = chiNodes.size();
 
 			for(int i=0; i<size-1; i++)
-				str.append(chiNodes.get(i).toString()).append(',');
+				str.append(chiNodes.get(i)).append(',');
 
 			if(size>0)
-				str.append(chiNodes.get(chiNodes.size()-1).toString());
+				str.append(chiNodes.get(chiNodes.size()-1));
 		}
 
 		return str.append('}').append(']').toString();

@@ -20,7 +20,7 @@ package net.sf.latexdraw.parsers.svg.parsers;
  * @version 3.0
  */
 public class SVGLength {
-	public static enum LengthType { UNKNOWN, NUMBER, PERCENTAGE, EM,
+	public enum LengthType { UNKNOWN, NUMBER, PERCENTAGE, EM,
 									EX, PX, CM, MM, IN, PT, PC }
 
     /** The value of the length in the user space. @since 0.1 */

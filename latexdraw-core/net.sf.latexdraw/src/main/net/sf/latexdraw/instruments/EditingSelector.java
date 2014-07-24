@@ -548,7 +548,7 @@ public class EditingSelector extends WidgetInstrument {
  * This link allows to activate the code inserter instrument.
  */
 class ButtonPressed2LaunchCodeInserter extends Link<ActivateInactivateInstruments, ButtonPressed, EditingSelector> {
-	public ButtonPressed2LaunchCodeInserter(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
+	ButtonPressed2LaunchCodeInserter(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ActivateInactivateInstruments.class, ButtonPressed.class);
 	}
 

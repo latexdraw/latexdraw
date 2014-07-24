@@ -352,7 +352,7 @@ class ButtonPressed2ChangePencil extends ButtonPressedForCustomiser<ModifyPencil
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ButtonPressed2ChangePencil(final TextCustomiser ins) throws InstantiationException, IllegalAccessException {
+	ButtonPressed2ChangePencil(final TextCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyPencilParameter.class);
 	}
 
@@ -394,7 +394,7 @@ class ButtonPressed2ChangeTextPosition extends ButtonPressedForCustomiser<Modify
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ButtonPressed2ChangeTextPosition(final TextCustomiser ins) throws InstantiationException, IllegalAccessException {
+	ButtonPressed2ChangeTextPosition(final TextCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, ModifyShapeProperty.class);
 	}
 

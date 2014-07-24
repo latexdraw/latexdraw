@@ -56,7 +56,7 @@ public class SVGTransformList extends ArrayList<SVGTransform> {
 		final StringBuilder builder = new StringBuilder();
 
 		for(final SVGTransform transform : this)
-			builder.append(transform.toString()).append(' ');
+			builder.append(transform).append(' ');
 
 		return builder.toString();
 	}

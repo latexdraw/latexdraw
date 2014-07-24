@@ -128,7 +128,7 @@ public class SVGDocument implements Document {
 
 	@Override
 	public String toString() {
-        return "SVG Document:" + root.toString();
+        return "SVG Document:" + root;
 	}
 
 

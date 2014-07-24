@@ -58,7 +58,7 @@ public class SVGNodeList implements NodeList {
 		final StringBuilder str = new StringBuilder().append('{');
 
 		for(final SVGElement e : nodes)
-			str.append(e.toString()).append(", ");//$NON-NLS-1$
+			str.append(e).append(", ");//$NON-NLS-1$
 
 		return str.append('}').toString();
 	}

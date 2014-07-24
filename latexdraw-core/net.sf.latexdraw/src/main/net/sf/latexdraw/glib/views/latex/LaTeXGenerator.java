@@ -86,7 +86,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	/**
 	 * The different vertical positions.
 	 */
-	public static enum VerticalPosition {
+	public enum VerticalPosition {
 		TOP {
 			@Override
 			public String getToken() { return "t"; }//$NON-NLS-1$

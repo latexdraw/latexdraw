@@ -33,7 +33,7 @@ public final class LSystem {
 	/**
 	 * The different operating systems managed.
 	 */
-	public static enum OperatingSystem {
+	public enum OperatingSystem {
 		VISTA, XP, SEVEN, EIGHT,
 		MAC_OS_X {
 			@Override

@@ -280,7 +280,9 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 									  final double minY, final double maxY, final int subGridDots, final double subGridWidth,
 									  final double tlx, final double tly, final double brx, final double bry, final Color subGridColour,
 									  final double posX, final double posY, final double xStep, final double yStep) {
-		double i, j, k;
+		double i;
+		double j;
+		double k;
 		final SVGElement subgrids = new SVGGElement(document);
 		SVGElement line;
 
@@ -322,7 +324,12 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 								   final double minX, final double maxX, final double minY, final double maxY, final double tlx,
 								   final double tly, final double brx, final double bry, final double unit, final double posX,
 								   final double posY, final double xStep, final double yStep, final double gridWidth, final Color linesColour) {
-		double k, i, m, n, l, j;
+		double k;
+		double i;
+		double m;
+		double n;
+		double l;
+		double j;
 		final int gridDots = shape.getGridDots();
 		final double dotStep = unit*IShape.PPC/gridDots;
 		final SVGElement gridDotsElt = new SVGGElement(document);
@@ -369,7 +376,8 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 	private void createSVGGridDiv(final SVGDocument document, final SVGElement elt, final String prefix, final double minX, final double maxX,
 								  final double minY, final double maxY, final double tlx, final double tly, final double brx, final double bry,
 								  final double posX, final double posY, final double xStep, final double yStep, final double gridWidth, final Color linesColour) {
-		double k, i;
+		double k;
+		double i;
 		final SVGElement grids = new SVGGElement(document);
 		SVGElement line;
 
@@ -417,11 +425,13 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 		final float labelWidth 		= fontMetrics.stringWidth(String.valueOf((int)maxX));
 		final double xorigin = xStep*originX;
 		final double yorigin = isXLabelSouth  ? yStep*originY+labelHeight : yStep*originY-2;
-		final double width=gridWidth/2., tmp = isXLabelSouth ? width : -width;
+		final double width=gridWidth/2.;
+		final double tmp = isXLabelSouth ? width : -width;
 		final SVGElement texts = new SVGGElement(document);
 		SVGElement text;
 		String label;
-		double i, j;
+		double i;
+		double j;
 
 		texts.setAttribute(SVGAttributes.SVG_FONT_SIZE, String.valueOf(shape.getLabelsSize()));
 		texts.setAttribute(SVGAttributes.SVG_STROKE, CSSColors.INSTANCE.getColorName(gridLabelsColor, true));

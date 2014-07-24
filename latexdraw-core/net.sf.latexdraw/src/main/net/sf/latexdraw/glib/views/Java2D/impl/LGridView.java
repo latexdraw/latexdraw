@@ -117,7 +117,8 @@ class LGridView extends LStandardGridView<IGrid> {
 	protected void updatePathMainGrid(final double unit, final double minX, final double maxX, final double minY, final double maxY,
 										final double posX, final double posY, final double xStep, final double yStep,
 										final double tlx, final double tly, final double brx, final double bry, final double absStep) {
-		double k, i;
+		double k;
+		double i;
 
 		if(shape.getGridDots()>0)
 			updatePathMainGridDots(unit, minX, maxX, minY, maxY, posX, posY, xStep, yStep, tlx, tly, brx, bry, absStep);
@@ -143,7 +144,11 @@ class LGridView extends LStandardGridView<IGrid> {
 		final double subGridDots= shape.getSubGridDots();
 		final double xSubStep  	= xStep/subGridDiv;
 		final double ySubStep  	= yStep/subGridDiv;
-		double i, j, n, m, k;
+		double i;
+		double j;
+		double n;
+		double m;
+		double k;
 
 		// We draw the sub-grid
 		if(subGridDots>0) {
@@ -204,7 +209,8 @@ class LGridView extends LStandardGridView<IGrid> {
 		final double tmp 		= isSouth ? width : -width;
 		final Font font 		= fontMetrics.getFont();
 		final FontRenderContext frc = new FontRenderContext(null, true, true);
-		double i, j;
+		double i;
+		double j;
 		String label;
 		float x;
 

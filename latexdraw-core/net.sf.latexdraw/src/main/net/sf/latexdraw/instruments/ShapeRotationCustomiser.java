@@ -159,7 +159,7 @@ class Spinner2RotateShape extends Link<RotateShapes, SpinnerModified, ShapeRotat
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public Spinner2RotateShape(final ShapeRotationCustomiser ins) throws InstantiationException, IllegalAccessException {
+	Spinner2RotateShape(final ShapeRotationCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, RotateShapes.class, SpinnerModified.class);
 	}
 
@@ -195,7 +195,7 @@ class ButtonPress2RotateShape extends Link<RotateShapes, ButtonPressed, ShapeRot
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	public ButtonPress2RotateShape(final ShapeRotationCustomiser ins) throws InstantiationException, IllegalAccessException {
+	ButtonPress2RotateShape(final ShapeRotationCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, RotateShapes.class, ButtonPressed.class);
 	}
 

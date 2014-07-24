@@ -32,7 +32,7 @@ public class SVGPathSegList extends ArrayList<SVGPathSeg> implements SVGPathHand
 
 		for(final SVGPathSeg seg : this)
 			if(seg!=null) {
-				path.append(seg.toString());
+				path.append(seg);
 				path.append(' ');
 			}
 

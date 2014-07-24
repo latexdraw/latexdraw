@@ -23,7 +23,7 @@ import java.io.File;
  */
 public class LCommandLine {
 	/** The different states of the command line. */
-	public static enum CmdLineState {
+	public enum CmdLineState {
 		/** If the command line states that latexdraw must start without a file to open. */
 		APPLICATION,
 		/** If the command line states that latexdraw must start with a file to open. */

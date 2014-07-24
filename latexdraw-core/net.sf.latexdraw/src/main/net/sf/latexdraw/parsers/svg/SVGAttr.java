@@ -100,7 +100,7 @@ public class SVGAttr implements Attr, Cloneable {
 	/** No deep allow. */
 	@Override
 	public Node cloneNode(final boolean deep) {
-		try { return (SVGAttr)super.clone(); }
+		try { return (SVGAttr) clone(); }
 		catch(final CloneNotSupportedException e) { return null; }
 	}
 

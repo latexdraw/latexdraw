@@ -18,7 +18,7 @@ package net.sf.latexdraw.glib.models.interfaces.prop;
  */
 public interface IFreeHandProp {
 	/** The different types of freehand. */
-	public enum FreeHandType {
+	enum FreeHandType {
 		CURVES, LINES;
 
 		/**

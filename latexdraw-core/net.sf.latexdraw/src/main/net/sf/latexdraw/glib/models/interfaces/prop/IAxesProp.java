@@ -22,7 +22,7 @@ import net.sf.latexdraw.lang.LangTool;
  */
 public interface IAxesProp extends IStdGridProp {
 	/** Defines the different kinds of axes. */
-	public static enum AxesStyle {
+	enum AxesStyle {
 		AXES {
 			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_AXES_STYLE_AXES;}
 			@Override public boolean supportsArrows() {return true;}
@@ -64,7 +64,7 @@ public interface IAxesProp extends IStdGridProp {
 
 
 	/** Defines the different kinds of ticks. */
-	public static enum TicksStyle {
+	enum TicksStyle {
 		FULL {
 			@Override public boolean isTop() {return true;}
 			@Override public boolean isBottom() {return true;}
@@ -116,7 +116,7 @@ public interface IAxesProp extends IStdGridProp {
 
 
 	/** Defines the different style of labels. */
-	public static enum PlottingStyle {
+	enum PlottingStyle {
 		ALL {
 			@Override public boolean isX() {return true;}
 			@Override public boolean isY() {return true;}

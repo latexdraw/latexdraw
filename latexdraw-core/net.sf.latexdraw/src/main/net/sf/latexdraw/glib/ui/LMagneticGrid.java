@@ -48,7 +48,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	 * This enumeration contains the different style
 	 * of a magnetic grid.
 	 */
-	public static enum GridStyle {
+	public enum GridStyle {
 		CUSTOMISED {
 			@Override
 			public String getLabel() {

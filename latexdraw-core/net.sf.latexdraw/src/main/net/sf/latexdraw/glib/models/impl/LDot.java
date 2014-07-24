@@ -59,7 +59,7 @@ class LDot extends LPositionShape implements IDot {
 	 * Initialises a dot using a centre point.
 	 * @param pt The centre of the dot.
 	 */
-	public LDot(final IPoint pt) {
+	LDot(final IPoint pt) {
 		this(pt, false);
 	}
 

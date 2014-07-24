@@ -51,7 +51,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	/**
 	 * Defines the different possible units used by the rulers.
 	 */
-	public static enum Unit {
+	public enum Unit {
 		/** Centimetre */
 		CM {
 			@Override

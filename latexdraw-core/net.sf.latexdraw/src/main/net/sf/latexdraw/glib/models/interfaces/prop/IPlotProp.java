@@ -21,7 +21,7 @@ public interface IPlotProp extends IScalable{
 	/**
 	 * The different possible plotting styles.
 	 */
-	public static enum PlotStyle {
+	enum PlotStyle {
 		CURVE {
 			@Override public String getPSTToken() { return "curve"; }
 		}, LINE {

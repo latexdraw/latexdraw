@@ -533,7 +533,7 @@ public final class DviPsColors  {
 	 */
 	public Color convertRGB2rgb(final double r, final double g, final double b) {
 		if(r<0 || g<0 || b<0)
-			throw new IllegalArgumentException(String.valueOf(r) + ""  + String.valueOf(g) + " " + String.valueOf(b));
+			throw new IllegalArgumentException(r + " "  + g + " " + b);
 
 		final float factor = 1f/255f;
 		return new Color((float)r*factor, (float)g*factor, (float)b*factor);

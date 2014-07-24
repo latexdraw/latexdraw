@@ -240,15 +240,15 @@ public abstract class SVGElement implements Element, Cloneable {
 		str.append("attributes=");//$NON-NLS-1$
 
 		if(attributes!=null)
-			str.append(attributes.toString());
+			str.append(attributes);
 
 		str.append(", children={");//$NON-NLS-1$
 
 		for(i=0; i<size-1; i++)
-			str.append(children.item(i).toString()).append(',');
+			str.append(children.item(i)).append(',');
 
 		if(size>0)
-			str.append(children.getNodes().get(children.getNodes().size()-1).toString());
+			str.append(children.getNodes().get(children.getNodes().size()-1));
 
 		str.append('}');
 
@@ -509,7 +509,7 @@ public abstract class SVGElement implements Element, Cloneable {
 					final SVGAttr attr = attributes.getAttributes().get(i);
 					final String attrName = attr.getName();
 
-					if(attrName!=null && attrName.equals(xmlns)) {
+					if(xmlns.equals(attrName)) {
 						uri = attr.getNodeValue();
 						again = false;
 					}

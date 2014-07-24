@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
  * @since 3.0
  */
 public interface IArrow extends IArrowable {
-	public static enum ArrowStyle {
+	enum ArrowStyle {
 		NONE {
 			@Override
 			public String getPSTToken() { return ""; }

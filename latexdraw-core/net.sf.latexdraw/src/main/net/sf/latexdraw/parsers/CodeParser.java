@@ -33,20 +33,20 @@ public abstract class CodeParser implements Parser {
 	 */
 	private static class Code {
 		/** The code to parser. */
-		protected String code;
+		private String code;
 
 		/** The current position of the character to read. */
-		protected int position;
+		private int position;
 
 		/** The current line number. */
-		protected int linePosition;
+		private int linePosition;
 
 		/**
 		 * Creates and initialises a core code.
 		 * @param c The code to parse.
 		 * @throws IllegalArgumentException If the given code is null.
 		 */
-		public Code(final String c) {
+		private Code(final String c) {
 			super();
 			code 			= Objects.requireNonNull(c);
 			position 		= 0;

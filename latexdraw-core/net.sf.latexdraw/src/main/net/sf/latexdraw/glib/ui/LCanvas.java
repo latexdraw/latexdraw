@@ -728,7 +728,7 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public Rectangle getVisibleBound() {
-		return super.getVisibleRect();
+		return getVisibleRect();
 	}
 
 	@Override

@@ -22,7 +22,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
  */
 public interface IDotProp {
 	/** The different styles of dot. */
-	public static enum DotStyle {
+	enum DotStyle {
 		ASTERISK {
 			@Override public String getPSTToken() {return PSTricksConstants.ASTERISK_STYLE;}
 		}, BAR {

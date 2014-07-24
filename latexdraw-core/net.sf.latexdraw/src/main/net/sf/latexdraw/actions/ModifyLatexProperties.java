@@ -28,7 +28,7 @@ public class ModifyLatexProperties extends Action implements Undoable, Modifying
 	/**
 	 * This enumeration defines the different LaTeX properties that can be modified.
 	 */
-	public static enum LatexProperties {
+	public enum LatexProperties {
 		/** The scale of the drawing. */
 		SCALE {
 			@Override

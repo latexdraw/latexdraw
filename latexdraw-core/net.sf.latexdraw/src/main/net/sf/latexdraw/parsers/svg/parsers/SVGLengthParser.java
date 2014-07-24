@@ -27,7 +27,7 @@ public class SVGLengthParser extends SVGNumberParser {
 	/**
 	 * Describes textual value for the font-size attribute.
 	 */
-	public static enum FontSize {
+	public enum FontSize {
 		XXSMALL {
 			@Override
 			public float getPointValue() {

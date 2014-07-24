@@ -18,7 +18,7 @@ package net.sf.latexdraw.glib.models.interfaces.prop;
  */
 public interface ITextProp {
 	/** This enumeration defines the concept of text size for latex texts. */
-	public static enum TextSize {
+	enum TextSize {
 		/** \tiny size */
 		TINY {@Override public String getLatexToken() {return "tiny";}},
 		/** \scriptsize size */
@@ -69,7 +69,7 @@ public interface ITextProp {
 	}
 
 	/** The position of the text (bottom-right, top-left, etc.). */
-	public static enum TextPosition {
+	enum TextPosition {
 		BOT_LEFT 	{@Override public String getLatexToken() {return "bl";}}, //$NON-NLS-1$
 		BOT 		{@Override public String getLatexToken() {return "b";}}, //$NON-NLS-1$
 		BOT_RIGHT 	{@Override public String getLatexToken() { return "br";}}, //$NON-NLS-1$
