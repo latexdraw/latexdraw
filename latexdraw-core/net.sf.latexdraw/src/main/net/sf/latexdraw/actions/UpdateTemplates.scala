@@ -36,7 +36,7 @@ class UpdateTemplates extends Action with TemplateAction{
 	override def canDo = _templatesMenu.isDefined
 
 	/**
-	 * @param updateThumbnails Defines if the thumbnails must be updated.
+	 * @param update Defines if the thumbnails must be updated.
 	 */
 	def updateThumbnails_=(update : Boolean) { _updateThumbnails = update }
 

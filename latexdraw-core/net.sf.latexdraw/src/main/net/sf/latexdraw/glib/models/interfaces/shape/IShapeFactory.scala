@@ -169,7 +169,7 @@ trait IShapeFactory {
 	 * @param radius The radius.
 	 * @param isUniqueID True: the model will have a unique ID.
 	 * @throws IllegalArgumentException If the radius is not valid.
-	 * @throw NullPointerException If the given point pt is null.
+	 * @throws NullPointerException If the given point pt is null.
 	 * @return The created circle.
 	 */
 	def createCircle(pt : IPoint, radius : Double, isUniqueID : Boolean) : ICircle
@@ -315,7 +315,7 @@ trait IShapeFactory {
 
 	/**
 	 * Create a text at position (0,0) which text is "text".
-	 * @param uniqueID True: the shape will have a unique ID.
+	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @return The created text.
 	 * @since 3.0
 	 */
@@ -335,7 +335,7 @@ trait IShapeFactory {
 	/**
 	 * Creates a square at position (0,0) which width equals 10.
 	 * @return The created square.
-	 * @param uniqueID True: the shape will have a unique ID.
+	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @since 3.0
 	 */
 	def createSquare(isUniqueID : Boolean) : ISquare
@@ -344,7 +344,7 @@ trait IShapeFactory {
 	 * Creates a square.
 	 * @param pos The north-west point of the square.
 	 * @param width The width of the square.
-	 * @param uniqueID True: the shape will have a unique ID.
+	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created square.
 	 * @since 3.0
@@ -356,7 +356,7 @@ trait IShapeFactory {
 	 * Creates a circled arc.
 	 * @param pos The north-west point of the square.
 	 * @param width The width of the square.
-	 * @param uniqueID True: the shape will have a unique ID.
+	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created circled arc.
 	 * @since 3.0
@@ -375,7 +375,7 @@ trait IShapeFactory {
 	/**
 	 * Creates a plotted function.
 	 * @param pos The north-west point of the rectangle.
-	 * @param uniqueID True: the shape will have a unique ID.
+	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param eq The equation of the function.
 	 * @throws IllegalArgumentException If the given point is not valid or minX is greater than maxX.
 	 * @return The created function.

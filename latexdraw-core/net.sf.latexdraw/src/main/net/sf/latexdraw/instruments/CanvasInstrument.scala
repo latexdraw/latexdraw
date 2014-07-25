@@ -15,7 +15,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory.Point2IPoint
 abstract class CanvasInstrument(val canvas : ICanvas) extends Instrument {
 	/**
 	 * Computes the point depending on the the zoom level and the origin of the canvas.
-	 * @param point The point to adapted.
+	 * @param pt The point to adapted.
 	 * @return The computed point.
 	 * @since 3.0
 	 */
@@ -26,7 +26,7 @@ abstract class CanvasInstrument(val canvas : ICanvas) extends Instrument {
 
 	/**
 	 * Computes the point depending on the the zoom level and the magnetic grid.
-	 * @param point The point to adapted.
+	 * @param pt The point to adapted.
 	 * @return The computed point.
 	 * @since 3.1
 	 */
@@ -34,7 +34,7 @@ abstract class CanvasInstrument(val canvas : ICanvas) extends Instrument {
 
 	/**
 	 * Computes the point depending on the the zoom level and the magnetic grid.
-	 * @param point The point to adapted.
+	 * @param pt The point to adapted.
 	 * @return The computed point.
 	 * @since 3.0
 	 */
