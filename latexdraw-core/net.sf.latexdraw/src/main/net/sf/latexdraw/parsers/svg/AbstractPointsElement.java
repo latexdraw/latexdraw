@@ -36,13 +36,13 @@ public abstract class AbstractPointsElement extends SVGElement {
 	/**
 	 * Creates an SVG element that can contains points.
 	 * @param node The node used to create the SVG element.
-	 * @param parent The parent SVG element.
+	 * @param parentNode The parentNode SVG element.
 	 * @throws MalformedSVGDocument If the element is not well formed.
 	 * @throws ParseException If the points string is not well formed.
 	 * @since 2.0.3
 	 */
-    protected AbstractPointsElement(final Node node, final SVGElement parent) throws MalformedSVGDocument, ParseException {
-		super(node, parent);
+    protected AbstractPointsElement(final Node node, final SVGElement parentNode) throws MalformedSVGDocument, ParseException {
+		super(node, parentNode);
 
 		parsePoints();
 	}
@@ -79,14 +79,14 @@ public abstract class AbstractPointsElement extends SVGElement {
 
 
 	/**
-	 * Parses and sets the points to the element.
-	 * @param points The string corresponding to the SVG points of this element.
-	 * @throws ParseException If the format of the points is not valid.
+	 * Parses and sets the pts to the element.
+	 * @param pts The string corresponding to the SVG pts of this element.
+	 * @throws ParseException If the format of the pts is not valid.
 	 * @since 2.0.3
 	 */
-	public void setPoints(final String points) throws ParseException {
-		if(points!=null) {
-			setAttribute(SVGAttributes.SVG_POINTS, points);
+	public void setPoints(final String pts) throws ParseException {
+		if(pts!=null) {
+			setAttribute(SVGAttributes.SVG_POINTS, pts);
 			parsePoints();
 		}
 	}

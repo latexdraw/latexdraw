@@ -38,14 +38,14 @@ public abstract class CreateViewCmd<M, V, F extends CreateViewCmd<M,V,F>> {
 
 	/**
 	 * Creates the command.
-	 * @param next The next command in the chain of responsibility. Can be null.
-	 * @param clazz The class of the model.
+	 * @param nextOne The nextOne command in the chain of responsibility. Can be null.
+	 * @param clazzModel The class of the model.
 	 * @since 3.0
 	 */
-    protected CreateViewCmd(final F next, final Class<? extends M> clazz) {
+    protected CreateViewCmd(final F nextOne, final Class<? extends M> clazzModel) {
 		super();
-		this.next = next;
-		this.clazz = clazz;
+		next = nextOne;
+		clazz = clazzModel;
 	}
 
 	/**

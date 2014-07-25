@@ -67,14 +67,14 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 	/**
 	 * Creates the instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param latexGen The LaTeX code generator.
+	 * @param composerUI The composerUI that manages the widgets of the instrument.
+	 * @param gen The LaTeX code generator.
 	 * @since 3.0
 	 */
-	public DrawingPropertiesCustomiser(final SwingUIComposer<?> composer, final LaTeXGenerator latexGen) {
-		super(composer);
+	public DrawingPropertiesCustomiser(final SwingUIComposer<?> composerUI, final LaTeXGenerator gen) {
+		super(composerUI);
 
-		this.latexGen = Objects.requireNonNull(latexGen);
+		latexGen = Objects.requireNonNull(gen);
 		initialiseWidgets();
 	}
 
@@ -180,10 +180,10 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
+	public void setActivated(final boolean isactivated) {
+		super.setActivated(isactivated);
 
-		if(activated)
+		if(isactivated)
 			updateWidgets();
 	}
 

@@ -35,7 +35,7 @@ import net.sf.latexdraw.util.LNumber;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
+public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	/** The list of name of the colours added to the generated code. Useful when generating
 	 * the code to define the colours in the latex document. */
 	protected Set<String> coloursName;

@@ -446,37 +446,37 @@ public class Export extends Action {
 
 
 	/**
-	 * @param dialogueBox The file chooser to set.
+	 * @param dialogBox The file chooser to set.
 	 * @since 3.0
 	 */
-	public void setDialogueBox(final ExportDialog dialogueBox) {
-		this.dialogueBox = dialogueBox;
+	public void setDialogueBox(final ExportDialog dialogBox) {
+		dialogueBox = dialogBox;
 	}
 
 
 	/**
-	 * @param format The format to set.
+	 * @param expFormat The expFormat to set.
 	 * @since 3.0
 	 */
-	public void setFormat(final ExportFormat format) {
-		this.format = format;
+	public void setFormat(final ExportFormat expFormat) {
+		format = expFormat;
 	}
 
 
 	/**
-	 * @param canvas The canvas to set.
+	 * @param theCanvas The theCanvas to set.
 	 * @since 3.0
 	 */
-	public void setCanvas(final ICanvas canvas) {
-		this.canvas = canvas;
+	public void setCanvas(final ICanvas theCanvas) {
+		canvas = theCanvas;
 	}
 
 
 	/**
-	 * @param pstGen The PST generator to use for latex, ps, or pdf exports.
+	 * @param gen The PST generator to use for latex, ps, or pdf exports.
 	 * @since 3.0
 	 */
-	public void setPstGen(final PSTCodeGenerator pstGen) {
-		this.pstGen = pstGen;
+	public void setPstGen(final PSTCodeGenerator gen) {
+		pstGen = gen;
 	}
 }

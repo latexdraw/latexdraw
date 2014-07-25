@@ -124,32 +124,32 @@ public class EditingSelector extends WidgetInstrument {
 
 	/**
 	 * Creates the instruments selector.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param pencil The pencil to select.
-	 * @param hand The hand to select.
-	 * @param border The instrument that manages selected shapes.
-	 * @param metaShapeCustomiser The instrument that manages instruments that customise shapes and the pencil.
-	 * @param deleter The instrument used to delete shapes.
-	 * @param inserter The instrument that converts PST code into shapes.
+	 * @param composerUI The composerUI that manages the widgets of the instrument.
+	 * @param pen The pen to select.
+	 * @param theHand The theHand to select.
+	 * @param theBorder The instrument that manages selected shapes.
+	 * @param customiser The instrument that manages instruments that customise shapes and the pen.
+	 * @param theDeleter The instrument used to delete shapes.
+	 * @param theInserter The instrument that converts PST code into shapes.
 	 * @throws IllegalArgumentException If one of the given parameter is null.
 	 * @since 3.0
 	 */
-	public EditingSelector(final SwingUIComposer<?> composer, final Pencil pencil, final Hand hand, final MetaShapeCustomiser metaShapeCustomiser,
-							final Border border, final ShapeDeleter deleter, final CodeInserter inserter) {
-		super(composer);
+	public EditingSelector(final SwingUIComposer<?> composerUI, final Pencil pen, final Hand theHand, final MetaShapeCustomiser customiser,
+							final Border theBorder, final ShapeDeleter theDeleter, final CodeInserter theInserter) {
+		super(composerUI);
 
-		this.codeInserter		= Objects.requireNonNull(inserter);
-		this.deleter			= Objects.requireNonNull(deleter);
-		this.border				= Objects.requireNonNull(border);
-		this.pencil 			= Objects.requireNonNull(pencil);
-		this.hand				= Objects.requireNonNull(hand);
-		this.metaShapeCustomiser= Objects.requireNonNull(metaShapeCustomiser);
+		codeInserter		= Objects.requireNonNull(theInserter);
+		deleter				= Objects.requireNonNull(theDeleter);
+		border				= Objects.requireNonNull(theBorder);
+		pencil 				= Objects.requireNonNull(pen);
+		hand				= Objects.requireNonNull(theHand);
+		metaShapeCustomiser	= Objects.requireNonNull(customiser);
 
 		initialiseWidgets();
 		initialiseEditingChoiceMap();
 		codeInserter.setActivated(false);
-		hand.setActivated(true);
-		pencil.setActivated(false);
+		theHand.setActivated(true);
+		pen.setActivated(false);
 	}
 
 
@@ -327,29 +327,29 @@ public class EditingSelector extends WidgetInstrument {
 
 
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
+	public void setActivated(final boolean isActivated) {
+		super.setActivated(isActivated);
 
-		composer.setWidgetVisible(arcB, activated);
-		composer.setWidgetVisible(axesB, activated);
-		composer.setWidgetVisible(bezierB, activated);
-		composer.setWidgetVisible(bezierClosedB, activated);
-		composer.setWidgetVisible(circleB, activated);
-		composer.setWidgetVisible(recB, activated);
-		composer.setWidgetVisible(squareB, activated);
-		composer.setWidgetVisible(ellipseB, activated);
-		composer.setWidgetVisible(gridB, activated);
-		composer.setWidgetVisible(polygonB, activated);
-		composer.setWidgetVisible(dotB, activated);
-		composer.setWidgetVisible(linesB, activated);
-		composer.setWidgetVisible(rhombusB, activated);
-		composer.setWidgetVisible(triangleB, activated);
-		composer.setWidgetVisible(textB, activated);
-		composer.setWidgetVisible(freeHandB, activated);
-		composer.setWidgetVisible(handB, activated);
-		composer.setWidgetVisible(picB, activated);
-		composer.setWidgetVisible(codeB, activated);
-		composer.setWidgetVisible(plotB, activated);
+		composer.setWidgetVisible(arcB, isActivated);
+		composer.setWidgetVisible(axesB, isActivated);
+		composer.setWidgetVisible(bezierB, isActivated);
+		composer.setWidgetVisible(bezierClosedB, isActivated);
+		composer.setWidgetVisible(circleB, isActivated);
+		composer.setWidgetVisible(recB, isActivated);
+		composer.setWidgetVisible(squareB, isActivated);
+		composer.setWidgetVisible(ellipseB, isActivated);
+		composer.setWidgetVisible(gridB, isActivated);
+		composer.setWidgetVisible(polygonB, isActivated);
+		composer.setWidgetVisible(dotB, isActivated);
+		composer.setWidgetVisible(linesB, isActivated);
+		composer.setWidgetVisible(rhombusB, isActivated);
+		composer.setWidgetVisible(triangleB, isActivated);
+		composer.setWidgetVisible(textB, isActivated);
+		composer.setWidgetVisible(freeHandB, isActivated);
+		composer.setWidgetVisible(handB, isActivated);
+		composer.setWidgetVisible(picB, isActivated);
+		composer.setWidgetVisible(codeB, isActivated);
+		composer.setWidgetVisible(plotB, isActivated);
 	}
 
 

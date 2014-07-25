@@ -49,7 +49,7 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	protected SwingEventManager eventManager;
 
 	/** The frame which displays the toolbar */
-	protected WindowWidgets buttonsFrame;
+	private WindowWidgets buttonsFrame;
 
 	/** The toolbar which contains the buttons */
 	protected MToolBar toolbar;

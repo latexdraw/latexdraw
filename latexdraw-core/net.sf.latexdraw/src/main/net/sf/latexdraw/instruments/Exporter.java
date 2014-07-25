@@ -121,20 +121,20 @@ public class Exporter extends WidgetInstrument {
 
 	/**
 	 * Creates the instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param canvas The canvas that contains the views to export (for pictures).
-	 * @param statusBar The status bar where messages are displayed.
-	 * @param pstGen The PST generator to use.
+	 * @param composerUI The composerUI that manages the widgets of the instrument.
+	 * @param theCanvas The theCanvas that contains the views to export (for pictures).
+	 * @param bar The status bar where messages are displayed.
+	 * @param gen The PST generator to use.
 	 * @throws IllegalArgumentException If one of the given arguments is null.
 	 * @since 3.0
 	 */
-	public Exporter(final SwingUIComposer<?> composer, final ICanvas canvas, final JLabel statusBar, final PSTCodeGenerator pstGen) {
-		super(composer);
+	public Exporter(final SwingUIComposer<?> composerUI, final ICanvas theCanvas, final JLabel bar, final PSTCodeGenerator gen) {
+		super(composerUI);
 
-		defaultPackages		= ""; //$NON-NLS-1$
-		this.statusBar		= Objects.requireNonNull(statusBar);
-		this.canvas 		= Objects.requireNonNull(canvas);
-		this.pstGen 		= Objects.requireNonNull(pstGen);
+		defaultPackages	= ""; //$NON-NLS-1$
+		statusBar		= Objects.requireNonNull(bar);
+		canvas 			= Objects.requireNonNull(theCanvas);
+		pstGen 			= Objects.requireNonNull(gen);
 
 		initialiseWidgets();
 		reinit();
@@ -216,13 +216,13 @@ public class Exporter extends WidgetInstrument {
 
 
 	@Override
-	public void setActivated(final boolean activated, final boolean hide) {
-		super.setActivated(activated);
+	public void setActivated(final boolean isActivated, final boolean hide) {
+		super.setActivated(isActivated);
 
-		exportMenu.setVisible(activated || !hide);
-		pdfButton.setVisible(activated || !hide);
-		exportMenu.setEnabled(activated);
-		pdfButton.setEnabled(activated);
+		exportMenu.setVisible(isActivated || !hide);
+		pdfButton.setVisible(isActivated || !hide);
+		exportMenu.setEnabled(isActivated);
+		pdfButton.setEnabled(isActivated);
 	}
 
 
@@ -299,16 +299,16 @@ public class Exporter extends WidgetInstrument {
 
 
 	/**
-	 * @param defaultPackages The latex packages that the interactive system saves by default.
+	 * @param defaultPkgs The latex packages that the interactive system saves by default.
 	 * These packages should by set by the user and must be general, i.e. independent of any document.
 	 * Packages for a given document should by set using {@link #setPackages(String)}.
 	 * @since 3.0
 	 */
-	public void setDefaultPackages(final String defaultPackages) {
-		if(defaultPackages!=null) {
+	public void setDefaultPackages(final String defaultPkgs) {
+		if(defaultPkgs!=null) {
 			if(this.defaultPackages.isEmpty())
-				LaTeXGenerator.setPackages(defaultPackages +LResources.EOL+LaTeXGenerator.getPackages());
-			this.defaultPackages = defaultPackages;
+				LaTeXGenerator.setPackages(defaultPkgs +LResources.EOL+LaTeXGenerator.getPackages());
+			defaultPackages = defaultPkgs;
 		}
 	}
 
@@ -336,12 +336,12 @@ public class Exporter extends WidgetInstrument {
 	}
 
 	/**
-	 * @param pathExport The path where files are exported.
+	 * @param path The path where files are exported.
 	 * @since 3.0
 	 */
-	public void setPathExport(final String pathExport) {
-		if(pathExport!=null)
-			this.pathExport = pathExport;
+	public void setPathExport(final String path) {
+		if(path!=null)
+			pathExport = path;
 	}
 }
 

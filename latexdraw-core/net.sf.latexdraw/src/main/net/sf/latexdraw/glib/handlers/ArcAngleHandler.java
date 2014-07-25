@@ -31,12 +31,12 @@ public class ArcAngleHandler extends Handler<Rectangle2D, IArc> {
 
 	/**
 	 * Creates and initialises an arc angle handler.
-	 * @param start Defines if the handled angle is the starting or the ending angle.
+	 * @param isStart Defines if the handled angle is the starting or the ending angle.
 	 * @since 3.0
 	 */
-	public ArcAngleHandler(final boolean start) {
+	public ArcAngleHandler(final boolean isStart) {
 		super();
-		this.start  = start;
+		this.start  = isStart;
 		shape 		= new Rectangle2D.Double();
 		updateShape();
 	}

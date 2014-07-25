@@ -57,7 +57,7 @@ public abstract class CodeParser implements Parser {
 
 	/** The core level of the parser that contains the code to parse,...<br>
 	 * It can be shared with others code parsers. */
-	protected Code codeCore;
+	private Code codeCore;
 
 
 	/**
@@ -275,17 +275,17 @@ public abstract class CodeParser implements Parser {
 	 * @return the code core.
 	 * @since 2.0.2
 	 */
-	public Code getCodeCore() {
+	private Code getCodeCore() {
 		return codeCore;
 	}
 
 
 
 	/**
-	 * @param codeCore the code core to set.
+	 * @param core the code core to set.
 	 * @since 2.0.2
 	 */
-	public void setCodeCore(final Code codeCore) {
-		this.codeCore = codeCore;
+	private void setCodeCore(final Code core) {
+		codeCore = core;
 	}
 }

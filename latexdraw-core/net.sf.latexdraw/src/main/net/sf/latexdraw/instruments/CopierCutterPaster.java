@@ -59,17 +59,17 @@ public class CopierCutterPaster extends WidgetInstrument {
 
 	/**
 	 * Creates the instrument.
-	 * @param drawing The drawing that contains the shapes.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param grid THe magnetic grid used when pasting shapes.
-	 * @throws NullPointerException If the given drawing is null.
+	 * @param drawg The drawg that contains the shapes.
+	 * @param composerUI The composerUI that manages the widgets of the instrument.
+	 * @param magnGrid THe magnetic magnGrid used when pasting shapes.
+	 * @throws NullPointerException If the given drawg is null.
 	 * @since 3.0
 	 */
-	public CopierCutterPaster(final SwingUIComposer<?> composer, final IDrawing drawing, final LMagneticGrid grid) {
-		super(composer);
+	public CopierCutterPaster(final SwingUIComposer<?> composerUI, final IDrawing drawg, final LMagneticGrid magnGrid) {
+		super(composerUI);
 
-		this.drawing = Objects.requireNonNull(drawing);
-		this.grid = Objects.requireNonNull(grid);
+		drawing = Objects.requireNonNull(drawg);
+		grid = Objects.requireNonNull(magnGrid);
 		initialiseWidgets();
 		ActionsRegistry.INSTANCE.addHandler(this);
 	}

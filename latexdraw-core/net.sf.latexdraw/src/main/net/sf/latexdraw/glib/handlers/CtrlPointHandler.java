@@ -30,12 +30,12 @@ public class CtrlPointHandler extends Handler<Ellipse2D, IControlPointShape> {
 
 	/**
 	 * Creates the handler.
-	 * @param indexPt The index of the point in its shape.
+	 * @param index The index of the point in its shape.
 	 */
-	public CtrlPointHandler(final int indexPt) {
+	public CtrlPointHandler(final int index) {
 		super();
 		shape = new Ellipse2D.Double();
-		this.indexPt = indexPt;
+		indexPt = index;
 		updateShape();
 	}
 

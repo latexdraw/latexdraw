@@ -69,9 +69,9 @@ public class ExceptionsManager extends Instrument implements BadaboomHandler {
 
 
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-		exceptionB.setVisible(activated);
+	public void setActivated(final boolean isActivated) {
+		super.setActivated(isActivated);
+		exceptionB.setVisible(isActivated);
 	}
 
 

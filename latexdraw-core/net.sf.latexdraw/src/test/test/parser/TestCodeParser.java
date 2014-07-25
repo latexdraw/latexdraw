@@ -166,15 +166,4 @@ public abstract class TestCodeParser {
 		parser.setLinePosition(Integer.MAX_VALUE);
 		assertEquals(Integer.MAX_VALUE, parser.getLinePosition());
 	}
-
-
-	@Test public void testGetCoreCode() {
-		assertNotNull(parser.getCodeCore());
-	}
-
-
-	@Test public void testSetCodeCore() {
-		parser2.setCodeCore(parser.getCodeCore());
-		assertEquals(parser2.getCodeCore(), parser.getCodeCore());
-	}
 }

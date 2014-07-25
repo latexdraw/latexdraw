@@ -32,12 +32,12 @@ public class CSSStyleParser extends AbstractCSSParser {
 	/**
 	 * The constructor.
 	 * @param code The code to parse (must not be null).
-	 * @param handler The CSS style handler.
-	 * @throws IllegalArgumentException If the given handler is null.
+	 * @param csshandler The CSS style csshandler.
+	 * @throws IllegalArgumentException If the given csshandler is null.
 	 */
-	public CSSStyleParser(final String code, final CSSStyleHandler handler) {
+	public CSSStyleParser(final String code, final CSSStyleHandler csshandler) {
 		super(code);
-		this.handler = Objects.requireNonNull(handler);
+		handler = Objects.requireNonNull(csshandler);
 	}
 
 
