@@ -29,3 +29,4 @@ Version 3.2.0
   https://bugs.launchpad.net/latexdraw/+bug/1327181
 - fixed: Exporting drawings as PNG documents produces files with large blank margins
   https://bugs.launchpad.net/latexdraw/+bug/1359810
+- fixed: clicking on an already selected shape, does not unselect all the other selected shapes anymore

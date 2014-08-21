@@ -209,7 +209,8 @@ private sealed class Press2Select(ins : Hand) extends Link[SelectShapes, PressWi
 		}
 	}
 
-	override def isConditionRespected: Boolean = interaction.getTarget.isInstanceOf[IViewShape]
+	override def isConditionRespected: Boolean = interaction.getTarget.isInstanceOf[IViewShape] &&
+      !instrument.canvas.getDrawing.getSelection.contains(MappingRegistry.REGISTRY.getSourceFromTarget(interaction.getTarget.asInstanceOf[IViewShape], classOf[IShape]))
 }
 
 
