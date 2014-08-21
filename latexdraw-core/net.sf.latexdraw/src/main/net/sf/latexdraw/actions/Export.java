@@ -1,28 +1,5 @@
 package net.sf.latexdraw.actions;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Locale;
-
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
-import javax.imageio.plugins.bmp.BMPImageWriteParam;
-import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
-import javax.imageio.stream.ImageOutputStream;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.filters.BMPFilter;
 import net.sf.latexdraw.filters.EPSFilter;
@@ -38,8 +15,28 @@ import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.instruments.Exporter;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.ExportDialog;
-
 import org.malai.action.Action;
+
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.plugins.bmp.BMPImageWriteParam;
+import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
+import javax.imageio.stream.ImageOutputStream;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Locale;
 
 /**
  * This action allows to export a drawing in different formats.
@@ -422,20 +419,22 @@ public class Export extends Action {
 	protected BufferedImage createRenderedImage() {
 		final IPoint tr 	= canvas.getTopRightDrawingPoint();
 		final IPoint bl 	= canvas.getBottomLeftDrawingPoint();
-		final double dec    = 5.;
-		final BufferedImage bi 	= new BufferedImage((int)(tr.getX()+dec), (int)(bl.getY()+dec), BufferedImage.TYPE_INT_RGB);
+		final int width		= (int)Math.abs(tr.getX()-bl.getX());
+		final int height 	= (int)Math.abs(bl.getY()-tr.getY());
+		final BufferedImage bi 	= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		final Graphics2D graphic 	= bi.createGraphics();
-		final List<IViewShape> views = canvas.getViews();
 
 		graphic.setColor(Color.WHITE);
-		graphic.fillRect(0, 0, (int)(tr.getX()+dec), (int)(bl.getY()+dec));
+		graphic.fillRect(0, 0, width, height);
 		graphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		graphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		graphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 		graphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		graphic.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-		synchronized(views){
+		graphic.translate(-bl.getX(), -tr.getY());
+
+		synchronized(canvas.getViews()){
 			for(final IViewShape view : canvas.getViews())
 				view.paint(graphic, null);
 		}

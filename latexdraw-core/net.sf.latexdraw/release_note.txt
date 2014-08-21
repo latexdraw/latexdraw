@@ -27,3 +27,5 @@ Version 3.2.0
   https://bugs.launchpad.net/latexdraw/+bug/1340056
 - fixed:  Crash when adding a text shape that do not compile correctly (several pages produced)
   https://bugs.launchpad.net/latexdraw/+bug/1327181
+- fixed: Exporting drawings as PNG documents produces files with large blank margins
+  https://bugs.launchpad.net/latexdraw/+bug/1359810

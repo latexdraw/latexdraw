@@ -133,13 +133,13 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	/**
 	 * Creates an initialises a canvas.
-	 * @param drawing The model of the canvas.
+	 * @param theDrawing The model of the canvas.
 	 * @since 3.0
 	 */
-	public LCanvas(final IDrawing drawing){
+	public LCanvas(final IDrawing theDrawing){
 		super(true, true);
 
-		this.drawing		= drawing;
+		drawing				= theDrawing;
 		modified			= false;
 		userSelectionBorder	= null;
 		magneticGrid 		= new LMagneticGrid(this);
@@ -415,7 +415,6 @@ public class LCanvas extends MPanel implements ICanvas {
 		tempView.setValue(view);
 	}
 
-
 	/**
 	 * @return The unary relation that contains the temporary view.
 	 * @since 3.0
@@ -424,13 +423,10 @@ public class LCanvas extends MPanel implements ICanvas {
 		return tempView;
 	}
 
-
 	@Override
 	public IPoint getTopRightDrawingPoint() {
 		return ShapeFactory.createPoint(border.getMaxX(), border.getMinY());
 	}
-
-
 
 	@Override
 	public IPoint getBottomLeftDrawingPoint() {
@@ -572,27 +568,27 @@ public class LCanvas extends MPanel implements ICanvas {
 
 
 	@Override
-	public void setAntiAliasing(final Object antiAliasingValue) {
-		if(antiAliasingValue!=null)
-			this.antiAliasingValue = antiAliasingValue;
+	public void setAntiAliasing(final Object antiAliasingVal) {
+		if(antiAliasingVal!=null)
+			antiAliasingValue = antiAliasingVal;
 	}
 
 	@Override
-	public void setRendering(final Object renderingValue) {
-		if(renderingValue!=null)
-			this.renderingValue = renderingValue;
+	public void setRendering(final Object renderingVal) {
+		if(renderingVal!=null)
+			renderingValue = renderingVal;
 	}
 
 	@Override
-	public void setColorRendering(final Object colorRenderingValue) {
-		if(colorRenderingValue!=null)
-			this.colorRenderingValue = colorRenderingValue;
+	public void setColorRendering(final Object colorRenderingVal) {
+		if(colorRenderingVal!=null)
+			colorRenderingValue = colorRenderingVal;
 	}
 
 	@Override
-	public void setAlphaInterpolation(final Object alphaInterpolValue) {
-		if(alphaInterpolValue!=null)
-			this.alphaInterpolValue = alphaInterpolValue;
+	public void setAlphaInterpolation(final Object alphaInterpolVal) {
+		if(alphaInterpolVal!=null)
+			alphaInterpolValue = alphaInterpolVal;
 	}
 
 
@@ -602,10 +598,10 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 	@Override
-	public void setModified(final boolean modified) {
-		this.modified = modified;
-		if(!modified)
-			magneticGrid.setModified(modified);
+	public void setModified(final boolean modif) {
+		modified = modif;
+		if(!modif)
+			magneticGrid.setModified(false);
 	}
 
 
