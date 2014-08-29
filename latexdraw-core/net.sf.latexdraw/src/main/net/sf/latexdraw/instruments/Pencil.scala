@@ -1,35 +1,23 @@
 package net.sf.latexdraw.instruments
 
-import java.awt.Component
-import java.awt.Point
-import java.util.List
-import java.util.Objects
-import javax.swing.JFileChooser
-import javax.swing.SwingUtilities
-import net.sf.latexdraw.actions.shape.AddShape
-import net.sf.latexdraw.actions.shape.InitTextSetter
-import net.sf.latexdraw.actions.shape.InsertPicture
+import java.awt.Cursor
+import java.awt.event.MouseEvent
+import javax.swing.{JFileChooser, SwingUtilities}
+
+import net.sf.latexdraw.actions.shape.{AddShape, InitTextSetter, InsertPicture}
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.filters.PictureFilter
 import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.shape._
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos
-import net.sf.latexdraw.glib.ui.ICanvas
-import net.sf.latexdraw.glib.ui.LMagneticGrid
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
-import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
+import net.sf.latexdraw.glib.models.interfaces.shape._
+import net.sf.latexdraw.glib.ui.{LCanvas, ICanvas}
+import net.sf.latexdraw.glib.views.Java2D.interfaces.{IViewShape, View2DTK}
 import net.sf.latexdraw.util.LNumber
-import org.malai.instrument.Instrument
 import org.malai.instrument.Link
 import org.malai.interaction.Interaction
 import org.malai.interaction.library.Press
-import org.malai.stateMachine.MustAbortStateMachineException
-import org.malai.swing.instrument.library.WidgetZoomer
-import org.malai.swing.interaction.library.AbortableDnD
-import org.malai.swing.interaction.library.MultiClick
+import org.malai.swing.interaction.library.{AbortableDnD, MultiClick}
 import org.malai.swing.widget.MLayeredPane
-import java.awt.Cursor
-import java.awt.event.MouseEvent
 
 /**
  * This instrument allows to draw shapes.<br>
@@ -169,8 +157,10 @@ private abstract sealed class PencilLink[I <: Interaction](pencil:Pencil, exec:B
 	}
 
 	override def interimFeedback() {
-		tmpShape.update
-		instrument.canvas.refresh
+    if(tmpShape!=null) {
+      tmpShape.update
+      instrument.canvas.refresh
+    }
 	}
 }
 
@@ -242,7 +232,6 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 		super.initAction
 		action.shape match {
 			case Some(shape) =>
-				val ec = instrument.currentChoice
 				val pt = instrument.getAdaptedPoint(interaction.getStartPt)
 
 				// For squares and circles, the centre of the shape is the reference point during the creation.
@@ -267,7 +256,6 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 
 	override def updateAction() {
 		val shape = action.shape.get
-		val ec = instrument.currentChoice
 		// Getting the points depending on the current zoom.
 		val startPt = instrument.getAdaptedPoint(interaction.getStartPt)
 		val endPt   = instrument.getAdaptedPoint(interaction.getEndPt)
@@ -418,7 +406,7 @@ private sealed class Press2InitTextSetter(pencil:Pencil) extends Link[InitTextSe
 		action.setInstrument(instrument.textSetter)
 		action.setTextSetter(instrument.textSetter)
 		action.setAbsolutePoint(ShapeFactory.createPoint(
-				SwingUtilities.convertPoint(interaction.getTarget.asInstanceOf[Component],interaction.getPoint, instrument.layers)))
+      SwingUtilities.convertPoint(instrument.canvas.asInstanceOf[LCanvas],interaction.getPoint, instrument.layers)))
 		action.setRelativePoint(instrument.getAdaptedPoint(interaction.getPoint))
 	}
 
