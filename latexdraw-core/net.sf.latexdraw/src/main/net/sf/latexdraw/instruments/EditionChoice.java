@@ -66,8 +66,8 @@ public enum EditionChoice {
 			return shape;
 		}},
 	TEXT {@Override public IText createShapeInstance() {return ShapeFactory.newShape(IText.class).get();}},
-	PICTURE {@Override public IPicture createShapeInstance() {return ShapeFactory.newShape(IPicture.class).get();}},
-	PLOT{@Override public IPlot createShapeInstance() {return ShapeFactory.newShape(IPlot.class).get();}};
+	PICTURE {@Override public IPicture createShapeInstance() {return ShapeFactory.newShape(IPicture.class).get();}};
+//	PLOT{@Override public IPlot createShapeInstance() {return ShapeFactory.newShape(IPlot.class).get();}};
 
 
 	/**

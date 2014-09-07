@@ -53,13 +53,13 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 
 	/**
 	 * Creates the toolbar of the interactive system.
-	 * @param frame The main frame of the interactive system.
+	 * @param lframe The main frame of the interactive system.
 	 * @throws NullPointerException If frame is null.
 	 * @since 3.0
 	 */
-	public ToolbarBuilder(final LFrame frame) {
+	public ToolbarBuilder(final LFrame lframe) {
 		super();
-		this.frame 		= frame;
+		frame 			= lframe;
 		mapContainers	= new IdentityHashMap<>();
 	}
 
@@ -109,7 +109,7 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 		composeCurveLikeToolbar();
 		composeGridLikeToolbar();
 
-		widget.add(frame.editingSelector.getPlotB());
+//		widget.add(frame.editingSelector.getPlotB());
  		widget.add(frame.editingSelector.getArcB());
 		widget.add(frame.editingSelector.getTextB());
 		widget.add(frame.editingSelector.getFreeHandB());

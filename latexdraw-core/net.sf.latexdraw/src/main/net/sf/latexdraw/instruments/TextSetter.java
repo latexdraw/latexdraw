@@ -124,7 +124,7 @@ public class TextSetter extends Instrument {
 		try{
 			addLink(new Enter2SetText(this));
 			addLink(new Enter2AddText(this));
-			addLink(new Enter2CheckPlot(this));
+//			addLink(new Enter2CheckPlot(this));
 			addLink(new KeyPress2Desactivate(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
@@ -242,39 +242,39 @@ class Enter2AddText extends Link<AddShape, KeyTyped, TextSetter> {
 }
 
 
-class Enter2CheckPlot extends Link<AddShape, KeyTyped, TextSetter> {
-	protected Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, AddShape.class, KeyTyped.class);
-	}
-
-	@Override
-	public void initAction() {
-		instrument.textField.setValid(true);
-		final IPoint textPosition = instrument.relativePoint==null ? ShapeFactory.createPoint(instrument.textField.getX(),
-									instrument.textField.getY()+instrument.textField.getHeight()) : instrument.relativePoint;
-		final IShape sh = instrument.pencil==null ? null : instrument.pencil.createShapeInstance();
-
-		if(sh instanceof IPlot) {
-			final IPlot plot = (IPlot)sh;
-			plot.setPosition(textPosition.getX(), textPosition.getY());
-			plot.setEquation(instrument.textField.getText());
-			action.setShape(plot);
-			action.setDrawing(instrument.pencil.canvas().getDrawing());
-		}
-	}
-
-	@SuppressWarnings("unused")
-	@Override
-	public boolean isConditionRespected() {
-		boolean ok = instrument.pencil.currentChoice()==EditionChoice.PLOT && instrument.text==null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
-
-		if(ok)
-			try { new PSFunctionParser(instrument.textField.getText());}
-			catch(InvalidFormatPSFunctionException|NumberFormatException ex){
-				instrument.textField.setValid(false);
-				ok = false;
-			}
-
-		return ok;
-	}
-}
+//class Enter2CheckPlot extends Link<AddShape, KeyTyped, TextSetter> {
+//	protected Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, AddShape.class, KeyTyped.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		instrument.textField.setValid(true);
+//		final IPoint textPosition = instrument.relativePoint==null ? ShapeFactory.createPoint(instrument.textField.getX(),
+//									instrument.textField.getY()+instrument.textField.getHeight()) : instrument.relativePoint;
+//		final IShape sh = instrument.pencil==null ? null : instrument.pencil.createShapeInstance();
+//
+//		if(sh instanceof IPlot) {
+//			final IPlot plot = (IPlot)sh;
+//			plot.setPosition(textPosition.getX(), textPosition.getY());
+//			plot.setEquation(instrument.textField.getText());
+//			action.setShape(plot);
+//			action.setDrawing(instrument.pencil.canvas().getDrawing());
+//		}
+//	}
+//
+//	@SuppressWarnings("unused")
+//	@Override
+//	public boolean isConditionRespected() {
+//		boolean ok = instrument.pencil.currentChoice()==EditionChoice.PLOT && instrument.text==null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
+//
+//		if(ok)
+//			try { new PSFunctionParser(instrument.textField.getText());}
+//			catch(InvalidFormatPSFunctionException|NumberFormatException ex){
+//				instrument.textField.setValid(false);
+//				ok = false;
+//			}
+//
+//		return ok;
+//	}
+//}
