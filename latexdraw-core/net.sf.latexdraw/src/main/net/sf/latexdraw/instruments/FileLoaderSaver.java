@@ -134,6 +134,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 	@Override
 	public void reinit() {
 		currentFile	= null;
+		fileChooser = null;
 	}
 
 

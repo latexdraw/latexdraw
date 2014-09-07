@@ -256,8 +256,6 @@ public class LFrame extends SwingUI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { pencil 		= new Pencil(canvas, textSetter, layeredPanel); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { exporter		= new Exporter(composer, canvas, statusBar, gen); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try {
 			metaShapeCustomiser = new MetaShapeCustomiser(composer, hand, pencil, canvas.getBorderInstrument());
 			canvas.getBorderInstrument().setMetaCustomiser(metaShapeCustomiser);
@@ -275,6 +273,8 @@ public class LFrame extends SwingUI {
 		try { prefActivator	= new PreferencesActivator(composer, prefSetters); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { fileLoader	= new FileLoaderSaver(this, statusBar, prefSetters); }
+		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
+		try { exporter		= new Exporter(composer, canvas, statusBar, gen, fileLoader); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { tabSelector	= new TabSelector(this); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }

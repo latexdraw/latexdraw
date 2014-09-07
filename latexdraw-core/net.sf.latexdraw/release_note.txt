@@ -32,3 +32,5 @@ Version 3.2.0
 - fixed: clicking on an already selected shape, does not unselect all the other selected shapes anymore
 - fixed: Crash when clicking on a text shape while editing another text shape
   https://bugs.launchpad.net/latexdraw/+bug/1362187
+- fixed: After having loaded a drawing, exporting it as a picture does not infer the file name
+  https://bugs.launchpad.net/latexdraw/+bug/1361516

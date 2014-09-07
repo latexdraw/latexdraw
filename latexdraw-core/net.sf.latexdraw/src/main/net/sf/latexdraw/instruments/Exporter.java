@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.Objects;
 
 import javax.swing.JLabel;
@@ -116,7 +117,7 @@ public class Exporter extends WidgetInstrument {
 
 	/** The field where messages are displayed. */
 	protected JLabel statusBar;
-
+protected FileLoaderSaver loader;
 
 
 	/**
@@ -128,13 +129,14 @@ public class Exporter extends WidgetInstrument {
 	 * @throws IllegalArgumentException If one of the given arguments is null.
 	 * @since 3.0
 	 */
-	public Exporter(final SwingUIComposer<?> composerUI, final ICanvas theCanvas, final JLabel bar, final PSTCodeGenerator gen) {
+	public Exporter(final SwingUIComposer<?> composerUI, final ICanvas theCanvas, final JLabel bar, final PSTCodeGenerator gen, final FileLoaderSaver fls) {
 		super(composerUI);
 
 		defaultPackages	= ""; //$NON-NLS-1$
 		statusBar		= Objects.requireNonNull(bar);
 		canvas 			= Objects.requireNonNull(theCanvas);
 		pstGen 			= Objects.requireNonNull(gen);
+		loader = fls;
 
 		initialiseWidgets();
 		reinit();
@@ -275,6 +277,13 @@ public class Exporter extends WidgetInstrument {
 		fileChooserExport.setFileFilter(fileChooserExport.getAcceptAllFileFilter());
 		fileChooserExport.setFileFilter(format.getFilter());
 		fileChooserExport.setDialogTitle(Exporter.TITLE_DIALOG_EXPORT);
+
+		if(loader.currentFile!=null && fileChooserExport.getSelectedFile()==null) {
+			String path = loader.currentFile.getPath();
+			if(path.contains(".")) path = path.substring(0, path.lastIndexOf('.'));
+			path += format.getFileExtension();
+			fileChooserExport.setSelectedFile(new File(path));
+		}
 
 		return fileChooserExport;
 	}
