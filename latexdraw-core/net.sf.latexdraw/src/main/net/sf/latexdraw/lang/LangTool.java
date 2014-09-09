@@ -73,7 +73,17 @@ public final class LangTool {
 			public String getToken() {
 				return "lang.cs";//$NON-NLS-1$
 			}
-		},SR {
+		},SI {
+			@Override
+			public String getName() {
+				return "\u0dc3\u0dd2\u0d82\u0dc4\u0dbd";//$NON-NLS-1$
+			}
+
+			@Override
+			public String getToken() {
+				return "lang.si";//$NON-NLS-1$
+			}
+		}, SR {
 			@Override
 			public String getName() {
 				return "\u0441\u0440\u043f\u0441\u043a\u0438";//$NON-NLS-1$
@@ -213,6 +223,16 @@ public final class LangTool {
 			public String getToken() {
 				return "lang.uk";//$NON-NLS-1$
 			}
+		}, zh_CN {
+			@Override
+			public String getName() {
+				return "\u4e2d\u6587";//$NON-NLS-1$
+			}
+
+			@Override
+			public String getToken() {
+				return "lang.zh_CN";//$NON-NLS-1$
+			}
 		};
 
 
@@ -318,6 +338,8 @@ public final class LangTool {
 		mapLangs.put("cs", Lang.CS);
 		mapLangs.put("ca", Lang.CA);
 		mapLangs.put("uk", Lang.UK);
+		mapLangs.put("si", Lang.SI);
+		mapLangs.put("zh-CN", Lang.zh_CN);
 
 		mapLangs.put(Lang.FR.getName(), Lang.FR);
 		mapLangs.put(Lang.EN_BR.getName(), Lang.EN_BR);
@@ -336,6 +358,8 @@ public final class LangTool {
 		mapLangs.put(Lang.CS.getName(), Lang.CS);
 		mapLangs.put(Lang.CA.getName(), Lang.CA);
 		mapLangs.put(Lang.UK.getName(), Lang.UK);
+		mapLangs.put(Lang.SI.getName(), Lang.SI);
+		mapLangs.put(Lang.zh_CN.getName(), Lang.zh_CN);
 	}
 
 

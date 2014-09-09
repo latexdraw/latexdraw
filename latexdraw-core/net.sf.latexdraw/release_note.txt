@@ -1,6 +1,7 @@
 ************************************************************
 Version 3.2.0
 
+- Translations updated, Chinese (Simplified) and Sinhalese translations added
 - fixed: Freeze when continuously pressing a key
   https://bugs.launchpad.net/latexdraw/+bug/1293804
 - fixed: Wrong selection of control points, points when interacting with shapes having a diff number of points
