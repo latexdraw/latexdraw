@@ -166,9 +166,93 @@
 <!-- 					</regexes> -->
 <!-- 				</check> -->
 <!-- 			  </configuration> -->
- 	        </plugin> 
+ 	        </plugin>
+           <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <version>2.0.1</version>
+				<executions>
+				  <execution>
+				    <id>attach-rpm</id>
+				    <goals>
+				      <goal>attached-rpm</goal>
+				    </goals>
+				  </execution>
+				</executions>
+				
+                <configuration>
+                    <needarch>noarch</needarch>
+                    <packager>Arnaud Blouin</packager>
+                    <name>LaTeXDraw</name>
+		      		<group>Applications/Programming</group>
+		      		<filemode>755</filemode>
+		      		<copyright>GPLv2</copyright>
+
+					<provides>
+					    <provide>latexdraw</provide>
+					</provides>
+
+					<requires>
+						<require>java</require>
+					</requires>
+
+					<conflicts>
+					</conflicts>
+
+					<mappings>
+						<mapping>
+							<directory>/usr/lib/latexdraw</directory>
+							<dependency/>
+							<sources>
+								<source>
+									<location>${project.build.directory}/${project.build.finalName}.jar</location>
+								</source>
+							</sources>
+						</mapping>
+						<mapping>
+							<directory>/usr/bin</directory>
+							<directoryIncluded>false</directoryIncluded>
+							<filemode>755</filemode>
+							<sources>
+								<source>
+									<location>src/scripts</location>
+								</source>
+							</sources>
+						</mapping>
+					</mappings>
+                </configuration>
+            </plugin>
+ 	        
         </plugins>
   </build>
+  
+ 	<profiles>
+		<profile>
+			<id>rpmbuild</id>
+			<activation>
+				<file>
+					<exists>/usr/bin/rpmbuild</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>rpm-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>attached-rpm</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles> 
+  
 	<dependencies>
 			<dependency>
 	            <groupId>org.scala-lang</groupId>
@@ -178,7 +262,7 @@
 			<dependency>
 				<groupId>org.scala-lang.modules</groupId>
 				<artifactId>scala-parser-combinators_2.11</artifactId>
-				<version>1.0.1</version>
+				<version>1.0.2</version>
 			</dependency>
 		    <dependency>
 		      <groupId>junit</groupId>

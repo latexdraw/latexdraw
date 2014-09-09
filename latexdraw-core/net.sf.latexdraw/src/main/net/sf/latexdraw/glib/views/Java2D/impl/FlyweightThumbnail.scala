@@ -199,7 +199,7 @@ object FlyweightThumbnail {
 		val scale = IShape.PPC*PSTricksConstants.INCH_VAL_CM/PSTricksConstants.INCH_VAL_PT*_scaleImage
 
 		doc.append("\\documentclass{standalone}\n\\usepackage[usenames,dvipsnames]{pstricks}") //$NON-NLS-1$
-		doc.append(LaTeXGenerator.getPackages)
+		doc.append(LaTeXGenerator.getPackages).append('\n')
 		doc.append("\\begin{document}\n\\psscalebox{") //$NON-NLS-1$
 		doc.append(LNumber.getCutNumber(scale).toFloat).append(' ')
 		doc.append(LNumber.getCutNumber(scale).toFloat).append('}').append('{')

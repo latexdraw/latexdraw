@@ -34,3 +34,5 @@ Version 3.2.0
   https://bugs.launchpad.net/latexdraw/+bug/1362187
 - fixed: After having loaded a drawing, exporting it as a picture does not infer the file name
   https://bugs.launchpad.net/latexdraw/+bug/1361516
+- fixed: text shapes may not compiled when user packages ended with a comment
+  https://bugs.launchpad.net/latexdraw/+bug/1361382
