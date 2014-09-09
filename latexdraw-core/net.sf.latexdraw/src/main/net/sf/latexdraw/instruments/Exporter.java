@@ -126,6 +126,7 @@ protected FileLoaderSaver loader;
 	 * @param theCanvas The theCanvas that contains the views to export (for pictures).
 	 * @param bar The status bar where messages are displayed.
 	 * @param gen The PST generator to use.
+	 * @param fls The file loader/saver instrument.
 	 * @throws IllegalArgumentException If one of the given arguments is null.
 	 * @since 3.0
 	 */

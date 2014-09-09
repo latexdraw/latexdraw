@@ -248,8 +248,8 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 
 	/** The link that maps a combo box to action that modifies the drawing's properties. */
-	private static class Spinner2CustDrawing extends Link<ModifyLatexProperties, SpinnerModified, DrawingPropertiesCustomiser> {
-		private Spinner2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
+	protected static class Spinner2CustDrawing extends Link<ModifyLatexProperties, SpinnerModified, DrawingPropertiesCustomiser> {
+		protected Spinner2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ModifyLatexProperties.class, SpinnerModified.class);
 		}
 
@@ -272,8 +272,8 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 
 	/** The link that maps a combo box to action that modifies the drawing's properties. */
-	private static class ComboBox2CustDrawing extends Link<ModifyLatexProperties, ListSelectionModified, DrawingPropertiesCustomiser> {
-		private ComboBox2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
+	protected static class ComboBox2CustDrawing extends Link<ModifyLatexProperties, ListSelectionModified, DrawingPropertiesCustomiser> {
+		protected ComboBox2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ModifyLatexProperties.class, ListSelectionModified.class);
 		}
 
@@ -292,8 +292,8 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 
 	/** The link that maps a check box to action that modifies the drawing's properties. */
-	private static class CheckBox2CustDrawing extends Link<ModifyLatexProperties, CheckBoxModified, DrawingPropertiesCustomiser> {
-		private CheckBox2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
+	protected static class CheckBox2CustDrawing extends Link<ModifyLatexProperties, CheckBoxModified, DrawingPropertiesCustomiser> {
+		protected CheckBox2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ModifyLatexProperties.class, CheckBoxModified.class);
 		}
 
@@ -313,7 +313,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 
 	/** The link that maps text fields to action that modifies the drawing's properties. */
-	private static class TextField2CustDrawing extends Link<ModifyLatexProperties, TextChanged, DrawingPropertiesCustomiser> {
+	protected static class TextField2CustDrawing extends Link<ModifyLatexProperties, TextChanged, DrawingPropertiesCustomiser> {
 		protected TextField2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ModifyLatexProperties.class, TextChanged.class);
 		}

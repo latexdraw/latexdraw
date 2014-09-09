@@ -33,6 +33,7 @@ import net.sf.latexdraw.util.LNumber;
  * <br>
  * 04/15/2008<br>
  * @author Arnaud BLOUIN
+ * @param <S> The type of the shape to generate the PST code.
  * @since 3.0
  */
 public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {

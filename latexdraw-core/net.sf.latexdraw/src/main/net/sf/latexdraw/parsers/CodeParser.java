@@ -31,22 +31,22 @@ public abstract class CodeParser implements Parser {
 	 * code parser.
 	 * @author Arnaud Blouin
 	 */
-	private static class Code {
+	protected static class Code {
 		/** The code to parser. */
-		private String code;
+		protected String code;
 
 		/** The current position of the character to read. */
-		private int position;
+		protected int position;
 
 		/** The current line number. */
-		private int linePosition;
+		protected int linePosition;
 
 		/**
 		 * Creates and initialises a core code.
 		 * @param c The code to parse.
 		 * @throws IllegalArgumentException If the given code is null.
 		 */
-		private Code(final String c) {
+		protected Code(final String c) {
 			super();
 			code 			= Objects.requireNonNull(c);
 			position 		= 0;
@@ -267,25 +267,5 @@ public abstract class CodeParser implements Parser {
 	public void setLinePosition(final int linePosition) {
 		if(linePosition>=1)
 			codeCore.linePosition = linePosition;
-	}
-
-
-
-	/**
-	 * @return the code core.
-	 * @since 2.0.2
-	 */
-	private Code getCodeCore() {
-		return codeCore;
-	}
-
-
-
-	/**
-	 * @param core the code core to set.
-	 * @since 2.0.2
-	 */
-	private void setCodeCore(final Code core) {
-		codeCore = core;
 	}
 }
