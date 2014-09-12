@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+#SYSCONFIG_FILE=/etc/sysconfig/latexdraw
+#
+#if [ -r $SYSCONFIG_FILE ] ; then
+#. $SYSCONFIG_FILE
+#fi
+
+java $JAVA_OPTS -cp '/usr/lib/latexdraw/*' net.sf.latexdraw.LaTeXDraw $*

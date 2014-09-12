@@ -8,3 +8,6 @@
 /.settings
 /.classpath
 /.project
+/.idea/
+/latexdraw.core.iml
+/net.sf.latexdraw.iml
