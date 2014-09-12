@@ -42,7 +42,7 @@ import net.sf.latexdraw.util.Theme;
 import net.sf.latexdraw.util.VersionChecker;
 
 import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.interaction.library.WindowClosed;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MComboBox;
@@ -271,9 +271,9 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new CloseFrame2SavePreferences(this));
+			addInteractor(new CloseFrame2SavePreferences(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -801,7 +801,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 /**
  * This link maps a pressure on the close button of the preferences frame to an action saving the preferences.
  */
-class CloseFrame2SavePreferences extends Link<WritePreferences, WindowClosed, PreferencesSetter> {
+class CloseFrame2SavePreferences extends Interactor<WritePreferences, WindowClosed, PreferencesSetter> {
 	/**
 	 * Creates the link.
 	 */

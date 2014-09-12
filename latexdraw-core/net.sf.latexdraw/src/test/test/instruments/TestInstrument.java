@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 
 
 public abstract class TestInstrument<T extends Instrument> {
@@ -15,9 +15,9 @@ public abstract class TestInstrument<T extends Instrument> {
 
 	@Test
 	public void testNotNoLink() {
-		assertTrue(instrument.getSizeLinks()==0);
+		assertTrue(instrument.getNbInteractors()==0);
 		instrument.setActivated(true);
-		assertTrue(instrument.getSizeLinks()>0);
+		assertTrue(instrument.getNbInteractors()>0);
 	}
 
 
@@ -30,13 +30,13 @@ public abstract class TestInstrument<T extends Instrument> {
 	}
 
 
-	public Link<?, ?, ?> getLink(final String nameClassLink) {
-		Link<?, ?, ?> link = null;
-		List<Link<?, ?, ?>> links = instrument.getLinks();
+	public Interactor<?, ?, ?> getLink(final String nameClassInteractor) {
+		Interactor<?, ?, ?> link = null;
+		List<Interactor<?, ?, ?>> interactors = instrument.getInteractors();
 
-		for(int i=0; i<links.size() && link==null; i++)
-			if(links.get(i).getClass().getName().endsWith(nameClassLink))
-				link = links.get(i);
+		for(int i=0; i<interactors.size() && link==null; i++)
+			if(interactors.get(i).getClass().getName().endsWith(nameClassInteractor))
+				link = interactors.get(i);
 
 		return link;
 	}

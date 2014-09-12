@@ -229,14 +229,14 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new List2PencilFilling(this));
-			addLink(new List2SelectionFilling(this));
-			addLink(new ColourButton2PencilFilling(this));
-			addLink(new ColourButton2SelectionFilling(this));
-			addLink(new Spinner2PencilFilling(this));
-			addLink(new Spinner2SelectionFilling(this));
+			addInteractor(new List2PencilFilling(this));
+			addInteractor(new List2SelectionFilling(this));
+			addInteractor(new ColourButton2PencilFilling(this));
+			addInteractor(new ColourButton2SelectionFilling(this));
+			addInteractor(new Spinner2PencilFilling(this));
+			addInteractor(new Spinner2SelectionFilling(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

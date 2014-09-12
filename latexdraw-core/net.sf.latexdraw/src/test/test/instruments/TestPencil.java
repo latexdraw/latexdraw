@@ -13,10 +13,10 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
@@ -27,7 +27,7 @@ import net.sf.latexdraw.instruments.TextSetter;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.instrument.library.WidgetZoomer;
 import org.malai.swing.widget.MLayeredPane;
 
@@ -74,7 +74,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.RECT);
 		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, MouseEvent.BUTTON1));
-		Link<?,?,?> link = getLink("DnD2AddShape");
+		Interactor<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
 		assertTrue(((AddShape)link.getAction()).shape().get() instanceof IRectangle);
@@ -96,7 +96,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.ELLIPSE);
 		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, MouseEvent.BUTTON1));
-		Link<?,?,?> link = getLink("DnD2AddShape");
+		Interactor<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
 		assertTrue(((AddShape)link.getAction()).shape().get() instanceof IEllipse);
@@ -118,7 +118,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.CIRCLE);
 		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, MouseEvent.BUTTON1));
-		Link<?,?,?> link = getLink("DnD2AddShape");
+		Interactor<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
 		assertTrue(((AddShape)link.getAction()).shape().get() instanceof ICircle);
@@ -140,7 +140,7 @@ public class TestPencil extends TestInstrument<Pencil> {
 		changePencilShapeAttributes();
 		instrument.setCurrentChoice(EditionChoice.SQUARE);
 		canvas.getEventManager().mousePressed(new MouseEvent(canvas, 0, 100, 0, (int)x, (int)y, 0, 0, 0, false, MouseEvent.BUTTON1));
-		Link<?,?,?> link = getLink("DnD2AddShape");
+		Interactor<?,?,?> link = getLink("DnD2AddShape");
 
 		assertTrue(link.getAction() instanceof AddShape);
 		assertTrue(((AddShape)link.getAction()).shape().get() instanceof ISquare);

@@ -11,8 +11,8 @@ import net.sf.latexdraw.ui.dialog.ShortcutsFrame;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.swing.instrument.WidgetInstrument;
-import org.malai.swing.instrument.library.MenuItem2OpenWebPageLink;
-import org.malai.swing.instrument.library.MenuItem2ShowComponentLink;
+import org.malai.swing.instrument.library.MenuItem2OpenWebPageInteractor;
+import org.malai.swing.instrument.library.MenuItem2ShowComponentInteractor;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MMenuItem;
 
@@ -91,14 +91,14 @@ public class Helper extends WidgetInstrument {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new MenuItem2AboutFrame(this, aboutFrame, aboutItem));
-			addLink(new MenuItem2ShortcutFrame(this, aboutFrame, shortcutItem));
-			addLink(new MenuItem2OpenWebPageLink(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523")));
-			addLink(new MenuItem2OpenWebPageLink(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums")));
-			addLink(new MenuItem2OpenWebPageLink(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
-			addLink(new MenuItem2OpenWebPageLink(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual")));
+			addInteractor(new MenuItem2AboutFrame(this, aboutFrame, aboutItem));
+			addInteractor(new MenuItem2ShortcutFrame(this, aboutFrame, shortcutItem));
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523")));
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums")));
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual")));
 		}catch(InstantiationException | IllegalAccessException | URISyntaxException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -140,7 +140,7 @@ public class Helper extends WidgetInstrument {
 
 
 /** The link between a menu item and the action that shows the latexdraw dialogue box. */
-class MenuItem2AboutFrame extends MenuItem2ShowComponentLink<Helper> {
+class MenuItem2AboutFrame extends MenuItem2ShowComponentInteractor<Helper> {
 	protected MenuItem2AboutFrame(final Helper ins, final Component component, final MMenuItem menuItem) throws InstantiationException, IllegalAccessException {
 		super(ins, component, menuItem);
 	}
@@ -155,7 +155,7 @@ class MenuItem2AboutFrame extends MenuItem2ShowComponentLink<Helper> {
 
 
 /** The link between a menu item and the action that shows the shortcut box. */
-class MenuItem2ShortcutFrame extends MenuItem2ShowComponentLink<Helper> {
+class MenuItem2ShortcutFrame extends MenuItem2ShowComponentInteractor<Helper> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.

@@ -2,22 +2,29 @@ package net.sf.latexdraw.instruments
 
 import java.awt.Cursor
 import java.awt.event.MouseEvent
-import javax.swing.{JFileChooser, SwingUtilities}
 
-import net.sf.latexdraw.actions.shape.{AddShape, InitTextSetter, InsertPicture}
+import org.malai.instrument.Interactor
+import org.malai.interaction.Interaction
+import org.malai.interaction.library.Press
+import org.malai.swing.interaction.library.AbortableDnD
+import org.malai.swing.interaction.library.MultiClick
+import org.malai.swing.widget.MLayeredPane
+
+import javax.swing.JFileChooser
+import javax.swing.SwingUtilities
+import net.sf.latexdraw.actions.shape.AddShape
+import net.sf.latexdraw.actions.shape.InitTextSetter
+import net.sf.latexdraw.actions.shape.InsertPicture
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.filters.PictureFilter
 import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos
 import net.sf.latexdraw.glib.models.interfaces.shape._
-import net.sf.latexdraw.glib.ui.{LCanvas, ICanvas}
-import net.sf.latexdraw.glib.views.Java2D.interfaces.{IViewShape, View2DTK}
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos
+import net.sf.latexdraw.glib.ui.ICanvas
+import net.sf.latexdraw.glib.ui.LCanvas
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
+import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
 import net.sf.latexdraw.util.LNumber
-import org.malai.instrument.Link
-import org.malai.interaction.Interaction
-import org.malai.interaction.library.Press
-import org.malai.swing.interaction.library.{AbortableDnD, MultiClick}
-import org.malai.swing.widget.MLayeredPane
 
 /**
  * This instrument allows to draw shapes.<br>
@@ -76,15 +83,15 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
 		canvas.setCursor(Cursor.getDefaultCursor)
 	}
 
-	override protected def initialiseLinks() {
+	override protected def initialiseInteractors() {
 		try{
-			addLink(new DnD2MoveViewport(canvas, this))
-			addLink(new Press2AddShape(this))
-			addLink(new Press2AddText(this))
-			addLink(new Press2InsertPicture(this))
-			addLink(new DnD2AddShape(this))
-			addLink(new MultiClic2AddShape(this))
-			addLink(new Press2InitTextSetter(this))
+			addInteractor(new DnD2MoveViewport(canvas, this))
+			addInteractor(new Press2AddShape(this))
+			addInteractor(new Press2AddText(this))
+			addInteractor(new Press2InsertPicture(this))
+			addInteractor(new DnD2AddShape(this))
+			addInteractor(new MultiClic2AddShape(this))
+			addInteractor(new Press2InitTextSetter(this))
 		}catch{ case e : Exception => BadaboomCollector.INSTANCE.add(e) }
 	}
 
@@ -144,8 +151,8 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
  * @since 3.0
  * @version 3.0
  */
-private abstract sealed class PencilLink[I <: Interaction](pencil:Pencil, exec:Boolean, clazzInteraction:Class[I])
-				extends Link[AddShape, I, Pencil](pencil, false, classOf[AddShape], clazzInteraction) {
+private abstract sealed class PencilInteractor[I <: Interaction](pencil:Pencil, exec:Boolean, clazzInteraction:Class[I])
+				extends Interactor[AddShape, I, Pencil](pencil, false, classOf[AddShape], clazzInteraction) {
 	protected var tmpShape : IViewShape = _
 
 	override def initAction() {
@@ -169,7 +176,7 @@ private abstract sealed class PencilLink[I <: Interaction](pencil:Pencil, exec:B
 /**
  * This link allows to create shapes using a multi-clic interaction.
  */
-private sealed class MultiClic2AddShape(pencil:Pencil) extends PencilLink[MultiClick](pencil, false, classOf[MultiClick]) {
+private sealed class MultiClic2AddShape(pencil:Pencil) extends PencilInteractor[MultiClick](pencil, false, classOf[MultiClick]) {
 	// To avoid the overlapping with the DnD2AddShape, the starting interaction must be
 	// aborted when the condition is not respected, i.e. when the selected shape type is
 	// not devoted to the multi-clic interaction.
@@ -227,7 +234,7 @@ private sealed class MultiClic2AddShape(pencil:Pencil) extends PencilLink[MultiC
 /**
  * This link allows to create shapes using a drag-and-drop interaction.
  */
-private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD](pencil, false, classOf[AbortableDnD]) {
+private sealed class DnD2AddShape(pencil:Pencil) extends PencilInteractor[AbortableDnD](pencil, false, classOf[AbortableDnD]) {
 	override def initAction() {
 		super.initAction
 		action.shape match {
@@ -348,7 +355,7 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilLink[AbortableDnD
 /**
  * Maps a mouse press interaction to an action that asks and adds a picture into the drawing.
  */
-private sealed class Press2InsertPicture(pencil:Pencil) extends Link[InsertPicture, Press, Pencil](pencil, false, classOf[InsertPicture], classOf[Press]) {
+private sealed class Press2InsertPicture(pencil:Pencil) extends Interactor[InsertPicture, Press, Pencil](pencil, false, classOf[InsertPicture], classOf[Press]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 		action.setShape(ShapeFactory.createPicture(true, instrument.getAdaptedPoint(interaction.getPoint)))
@@ -360,7 +367,7 @@ private sealed class Press2InsertPicture(pencil:Pencil) extends Link[InsertPictu
 
 
 
-private sealed class Press2AddShape(pencil:Pencil) extends PencilLink[Press](pencil, false, classOf[Press]) {
+private sealed class Press2AddShape(pencil:Pencil) extends PencilInteractor[Press](pencil, false, classOf[Press]) {
 	override def initAction() {
 		super.initAction
 		val shape = action.shape.get
@@ -384,7 +391,7 @@ private sealed class Press2AddShape(pencil:Pencil) extends PencilLink[Press](pen
  * in the canvas, the text typed must be added (if possible to the canvas) before starting typing
  * a new text.
  */
-private sealed class Press2AddText(pencil:Pencil) extends PencilLink[Press](pencil, false, classOf[Press]) {
+private sealed class Press2AddText(pencil:Pencil) extends PencilInteractor[Press](pencil, false, classOf[Press]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 		action.setShape(ShapeFactory.createText(true, ShapeFactory.createPoint(instrument.textSetter.relativePoint), instrument.textSetter.getTextField.getText))
@@ -399,7 +406,7 @@ private sealed class Press2AddText(pencil:Pencil) extends PencilLink[Press](penc
  * This link maps a press interaction to activate the instrument
  * that allows to add and modify some texts.
  */
-private sealed class Press2InitTextSetter(pencil:Pencil) extends Link[InitTextSetter, Press, Pencil](pencil, false, classOf[InitTextSetter], classOf[Press]) {
+private sealed class Press2InitTextSetter(pencil:Pencil) extends Interactor[InitTextSetter, Press, Pencil](pencil, false, classOf[InitTextSetter], classOf[Press]) {
 	override def initAction() {
 		action.setText("")
 		action.setTextShape(null)

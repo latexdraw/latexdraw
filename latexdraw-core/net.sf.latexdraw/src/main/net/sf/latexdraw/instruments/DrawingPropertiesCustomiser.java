@@ -12,7 +12,7 @@ import net.sf.latexdraw.glib.views.latex.LaTeXGenerator.VerticalPosition;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.CheckBoxModified;
 import org.malai.swing.interaction.library.ListSelectionModified;
@@ -235,12 +235,12 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try {
-			addLink(new TextField2CustDrawing(this));
-			addLink(new CheckBox2CustDrawing(this));
-			addLink(new ComboBox2CustDrawing(this));
-			addLink(new Spinner2CustDrawing(this));
+			addInteractor(new TextField2CustDrawing(this));
+			addInteractor(new CheckBox2CustDrawing(this));
+			addInteractor(new ComboBox2CustDrawing(this));
+			addInteractor(new Spinner2CustDrawing(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -248,7 +248,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 
 	/** The link that maps a combo box to action that modifies the drawing's properties. */
-	protected static class Spinner2CustDrawing extends Link<ModifyLatexProperties, SpinnerModified, DrawingPropertiesCustomiser> {
+	protected static class Spinner2CustDrawing extends Interactor<ModifyLatexProperties, SpinnerModified, DrawingPropertiesCustomiser> {
 		protected Spinner2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ModifyLatexProperties.class, SpinnerModified.class);
 		}
@@ -272,7 +272,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 
 	/** The link that maps a combo box to action that modifies the drawing's properties. */
-	protected static class ComboBox2CustDrawing extends Link<ModifyLatexProperties, ListSelectionModified, DrawingPropertiesCustomiser> {
+	protected static class ComboBox2CustDrawing extends Interactor<ModifyLatexProperties, ListSelectionModified, DrawingPropertiesCustomiser> {
 		protected ComboBox2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ModifyLatexProperties.class, ListSelectionModified.class);
 		}
@@ -292,7 +292,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 
 	/** The link that maps a check box to action that modifies the drawing's properties. */
-	protected static class CheckBox2CustDrawing extends Link<ModifyLatexProperties, CheckBoxModified, DrawingPropertiesCustomiser> {
+	protected static class CheckBox2CustDrawing extends Interactor<ModifyLatexProperties, CheckBoxModified, DrawingPropertiesCustomiser> {
 		protected CheckBox2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ModifyLatexProperties.class, CheckBoxModified.class);
 		}
@@ -313,7 +313,7 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 
 	/** The link that maps text fields to action that modifies the drawing's properties. */
-	protected static class TextField2CustDrawing extends Link<ModifyLatexProperties, TextChanged, DrawingPropertiesCustomiser> {
+	protected static class TextField2CustDrawing extends Interactor<ModifyLatexProperties, TextChanged, DrawingPropertiesCustomiser> {
 		protected TextField2CustDrawing(final DrawingPropertiesCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ModifyLatexProperties.class, TextChanged.class);
 		}

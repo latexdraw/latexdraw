@@ -6,7 +6,7 @@ import net.sf.latexdraw.badaboom.BadaboomManager;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.action.library.ShowWidget;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.widget.MButton;
@@ -53,9 +53,9 @@ public class ExceptionsManager extends Instrument implements BadaboomHandler {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new ButtonPress2ShowExceptionFrame(this));
+			addInteractor(new ButtonPress2ShowExceptionFrame(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -94,7 +94,7 @@ public class ExceptionsManager extends Instrument implements BadaboomHandler {
 /**
  * Links a button pressed interaction to an action that show the exceptions frame.
  */
-class ButtonPress2ShowExceptionFrame extends Link<ShowWidget, ButtonPressed, ExceptionsManager> {
+class ButtonPress2ShowExceptionFrame extends Interactor<ShowWidget, ButtonPressed, ExceptionsManager> {
 	/**
 	 * Creates the link.
 	 */

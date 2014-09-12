@@ -170,14 +170,14 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new Spinner2PencilDotSize(this));
-			addLink(new Spinner2SelectionDotSize(this));
-			addLink(new List2PencilDotStyle(this));
-			addLink(new List2SelectionDotStyle(this));
-			addLink(new FillingButton2SelectionFilling(this));
-			addLink(new FillingButton2PencilFilling(this));
+			addInteractor(new Spinner2PencilDotSize(this));
+			addInteractor(new Spinner2SelectionDotSize(this));
+			addInteractor(new List2PencilDotStyle(this));
+			addInteractor(new List2SelectionDotStyle(this));
+			addInteractor(new FillingButton2SelectionFilling(this));
+			addInteractor(new FillingButton2PencilFilling(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

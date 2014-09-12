@@ -17,7 +17,7 @@ import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.interaction.library.MenuItemPressed;
 import org.malai.swing.widget.MCheckBoxMenuItem;
 import org.malai.undo.Undoable;
@@ -131,10 +131,10 @@ public class ScaleRulersCustomiser extends Instrument {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new MenuItem2ShowHideCodeScaleRuler(this));
-			addLink(new MenuItem2SetUnit(this));
+			addInteractor(new MenuItem2ShowHideCodeScaleRuler(this));
+			addInteractor(new MenuItem2SetUnit(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -225,7 +225,7 @@ public class ScaleRulersCustomiser extends Instrument {
 /**
  * This link maps a menu item to an action that sets the unit of the rulers.
  */
-class MenuItem2SetUnit extends Link<SetUnit, MenuItemPressed, ScaleRulersCustomiser> {
+class MenuItem2SetUnit extends Interactor<SetUnit, MenuItemPressed, ScaleRulersCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @param ins The rulers activator.
@@ -250,7 +250,7 @@ class MenuItem2SetUnit extends Link<SetUnit, MenuItemPressed, ScaleRulersCustomi
 /**
  * This link maps a menu item to an action that shows/hides scale rulers.
  */
-class MenuItem2ShowHideCodeScaleRuler extends Link<ShowHideScaleRuler, MenuItemPressed, ScaleRulersCustomiser> {
+class MenuItem2ShowHideCodeScaleRuler extends Interactor<ShowHideScaleRuler, MenuItemPressed, ScaleRulersCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @param ins The rulers activator.

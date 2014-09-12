@@ -13,7 +13,7 @@ import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.CheckBoxModified;
 import org.malai.swing.interaction.library.ListSelectionModified;
@@ -135,11 +135,11 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new List2ChangeStyle(this));
-			addLink(new Spinner2GridSpacing(this));
-			addLink(new CheckBox2MagneticGrid(this));
+			addInteractor(new List2ChangeStyle(this));
+			addInteractor(new Spinner2GridSpacing(this));
+			addInteractor(new CheckBox2MagneticGrid(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -187,7 +187,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 /**
  * Links a check-box widget to an action that sets if the grid is magnetic.
  */
-class CheckBox2MagneticGrid extends Link<ModifyMagneticGrid, CheckBoxModified, MagneticGridCustomiser> {
+class CheckBox2MagneticGrid extends Interactor<ModifyMagneticGrid, CheckBoxModified, MagneticGridCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @since 3.0
@@ -214,7 +214,7 @@ class CheckBox2MagneticGrid extends Link<ModifyMagneticGrid, CheckBoxModified, M
 /**
  * Links a spinner widget to an action that modifies the spacing of the customised magnetic grid.
  */
-class Spinner2GridSpacing extends Link<ModifyMagneticGrid, SpinnerModified, MagneticGridCustomiser> {
+class Spinner2GridSpacing extends Interactor<ModifyMagneticGrid, SpinnerModified, MagneticGridCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @since 3.0
@@ -247,7 +247,7 @@ class Spinner2GridSpacing extends Link<ModifyMagneticGrid, SpinnerModified, Magn
 /**
  * Links a list widget to an action that modifies the style of the magnetic grid.
  */
-class List2ChangeStyle extends Link<ModifyMagneticGrid, ListSelectionModified, MagneticGridCustomiser> {
+class List2ChangeStyle extends Interactor<ModifyMagneticGrid, ListSelectionModified, MagneticGridCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @since 3.0

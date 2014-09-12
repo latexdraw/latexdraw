@@ -10,9 +10,9 @@ import net.sf.latexdraw.ui.dialog.PreferencesFrame;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.library.ActivateInstrument;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.instrument.WidgetInstrument;
-import org.malai.swing.instrument.library.MenuItem2ShowComponentLink;
+import org.malai.swing.instrument.library.MenuItem2ShowComponentInteractor;
 import org.malai.swing.interaction.library.MenuItemPressed;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MMenuItem;
@@ -70,10 +70,10 @@ public class PreferencesActivator extends WidgetInstrument {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new MenuItem2ActivateSetterLink(this));
-			addLink(new MenuItem2ShowPreferencesLink(this, null, showPreferencesMenu));
+			addInteractor(new MenuItem2ActivateSetterInteractor(this));
+			addInteractor(new MenuItem2ShowPreferencesInteractor(this, null, showPreferencesMenu));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -106,11 +106,11 @@ public class PreferencesActivator extends WidgetInstrument {
 /**
  * This links maps a menu item to an action that activates the preferences setter.
  */
-class MenuItem2ActivateSetterLink extends Link<ActivateInstrument, MenuItemPressed, PreferencesActivator> {
+class MenuItem2ActivateSetterInteractor extends Interactor<ActivateInstrument, MenuItemPressed, PreferencesActivator> {
 	/**
 	 * Creates the link.
 	 */
-	protected MenuItem2ActivateSetterLink(final PreferencesActivator ins) throws InstantiationException, IllegalAccessException {
+	protected MenuItem2ActivateSetterInteractor(final PreferencesActivator ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ActivateInstrument.class, MenuItemPressed.class);
 	}
 
@@ -129,11 +129,11 @@ class MenuItem2ActivateSetterLink extends Link<ActivateInstrument, MenuItemPress
 /**
  * This link maps a menu item to an action that shows the preferences frame.
  */
-class MenuItem2ShowPreferencesLink extends MenuItem2ShowComponentLink<PreferencesActivator> {
+class MenuItem2ShowPreferencesInteractor extends MenuItem2ShowComponentInteractor<PreferencesActivator> {
 	/**
 	 * Creates the link.
 	 */
-	protected MenuItem2ShowPreferencesLink(final PreferencesActivator ins, final Component component, final MMenuItem menuItem)
+	protected MenuItem2ShowPreferencesInteractor(final PreferencesActivator ins, final Component component, final MMenuItem menuItem)
 											throws InstantiationException, IllegalAccessException {
 		super(ins, component, menuItem);
 	}

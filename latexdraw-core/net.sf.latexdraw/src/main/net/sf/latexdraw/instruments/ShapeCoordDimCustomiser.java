@@ -8,7 +8,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.interaction.library.SpinnerModified;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MSpinner;
@@ -85,9 +85,9 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new Spinner2TranslateShape(this));
+			addInteractor(new Spinner2TranslateShape(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -115,7 +115,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	 * Maps spinners to translation of shapes. The X and Y spinners are used to change the position of the top-left point of the
 	 * selected shapes, i.e. to translate it.
 	 */
-	private static class Spinner2TranslateShape extends Link<TranslateShapes, SpinnerModified, ShapeCoordDimCustomiser> {
+	private static class Spinner2TranslateShape extends Interactor<TranslateShapes, SpinnerModified, ShapeCoordDimCustomiser> {
 		protected Spinner2TranslateShape(final ShapeCoordDimCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, TranslateShapes.class, SpinnerModified.class);
 		}

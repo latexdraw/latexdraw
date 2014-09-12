@@ -114,14 +114,14 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new Spinner2SelectionEndAngle(this));
-			addLink(new Spinner2SelectionStartAngle(this));
-			addLink(new Spinner2PencilStartAngle(this));
-			addLink(new Spinner2PencilEndAngle(this));
-			addLink(new Button2SelectionArcStyle(this));
-			addLink(new Button2PencilArcStyle(this));
+			addInteractor(new Spinner2SelectionEndAngle(this));
+			addInteractor(new Spinner2SelectionStartAngle(this));
+			addInteractor(new Spinner2PencilStartAngle(this));
+			addInteractor(new Spinner2PencilEndAngle(this));
+			addInteractor(new Button2SelectionArcStyle(this));
+			addInteractor(new Button2PencilArcStyle(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

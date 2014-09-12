@@ -131,14 +131,14 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new ColourButton2PencilGrid(this));
-			addLink(new ColourButton2SelectionGrid(this));
-			addLink(new Spinner2PencilGrid(this));
-			addLink(new Spinner2SelectionGrid(this));
-			addLink(new CheckBox2ModifySelectionGrid(this));
-			addLink(new CheckBox2ModifyPencilGrid(this));
+			addInteractor(new ColourButton2PencilGrid(this));
+			addInteractor(new ColourButton2SelectionGrid(this));
+			addInteractor(new Spinner2PencilGrid(this));
+			addInteractor(new Spinner2SelectionGrid(this));
+			addInteractor(new CheckBox2ModifySelectionGrid(this));
+			addInteractor(new CheckBox2ModifyPencilGrid(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

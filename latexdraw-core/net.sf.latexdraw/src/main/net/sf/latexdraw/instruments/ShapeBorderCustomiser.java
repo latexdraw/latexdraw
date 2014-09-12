@@ -254,16 +254,16 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new Spinner2PencilBorder(this));
-			addLink(new List2PencilBorder(this));
-			addLink(new List2SelectionBorder(this));
-			addLink(new Spinner2SelectionBorder(this));
-			addLink(new ColourButton2PencilBorder(this));
-			addLink(new ColourButton2SelectionBorder(this));
-			addLink(new Checkbox2ShowPointsSelection(this));
-			addLink(new Checkbox2ShowPointsPencil(this));
+			addInteractor(new Spinner2PencilBorder(this));
+			addInteractor(new List2PencilBorder(this));
+			addInteractor(new List2SelectionBorder(this));
+			addInteractor(new Spinner2SelectionBorder(this));
+			addInteractor(new ColourButton2PencilBorder(this));
+			addInteractor(new ColourButton2SelectionBorder(this));
+			addInteractor(new Checkbox2ShowPointsSelection(this));
+			addInteractor(new Checkbox2ShowPointsPencil(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

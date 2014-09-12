@@ -135,10 +135,10 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new Spinner2ModifySelectionGridCoords(this));
-			addLink(new Spinner2ModifyPencilGridCoords(this));
+			addInteractor(new Spinner2ModifySelectionGridCoords(this));
+			addInteractor(new Spinner2ModifyPencilGridCoords(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

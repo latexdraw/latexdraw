@@ -12,7 +12,7 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.ActionsRegistry;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
@@ -85,10 +85,10 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new Button2GroupShapes(this));
-			addLink(new Button2SeparateShapes(this));
+			addInteractor(new Button2GroupShapes(this));
+			addInteractor(new Button2SeparateShapes(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -113,7 +113,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 
 
 	/** This link maps a button to an action that separates the selected group. */
-	private static class Button2SeparateShapes extends Link<SeparateShapes, ButtonPressed, ShapeGrouper> {
+	private static class Button2SeparateShapes extends Interactor<SeparateShapes, ButtonPressed, ShapeGrouper> {
 		protected Button2SeparateShapes(final ShapeGrouper ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, SeparateShapes.class, ButtonPressed.class);
 		}
@@ -137,7 +137,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 
 
 	/** This link maps a button to an action that groups the selected shapes. */
-	private static class Button2GroupShapes extends Link<JoinShapes, ButtonPressed, ShapeGrouper> {
+	private static class Button2GroupShapes extends Interactor<JoinShapes, ButtonPressed, ShapeGrouper> {
 		protected Button2GroupShapes(final ShapeGrouper ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, JoinShapes.class, ButtonPressed.class);
 		}

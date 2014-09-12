@@ -21,7 +21,7 @@ import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 
 import org.malai.action.Action;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.interaction.Interaction;
 import org.malai.interaction.library.KeysPressure;
 import org.malai.swing.action.library.IOAction;
@@ -225,21 +225,21 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new ButtonClose2SaveLink(this));
-			addLink(new Shortcut2SavePrefLink(this));
-			addLink(new Button2SaveLink(this));
-			addLink(new Menu2SaveLink(this));
-			addLink(new Shortcut2SaveLink(this));
-			addLink(new Menu2SaveAsLink(this));
-			addLink(new Menu2LoadLink(this));
-			addLink(new Button2LoadLink(this));
-			addLink(new Shortcut2LoadLink(this));
-			addLink(new Menu2NewLink(this));
-			addLink(new Button2NewLink(this));
-			addLink(new Shortcut2NewLink(this));
-			addLink(new RecentMenuItem2LoadLink(this));
+			addInteractor(new ButtonClose2SaveInteractor(this));
+			addInteractor(new Shortcut2SavePrefInteractor(this));
+			addInteractor(new Button2SaveInteractor(this));
+			addInteractor(new Menu2SaveInteractor(this));
+			addInteractor(new Shortcut2SaveInteractor(this));
+			addInteractor(new Menu2SaveAsInteractor(this));
+			addInteractor(new Menu2LoadInteractor(this));
+			addInteractor(new Button2LoadInteractor(this));
+			addInteractor(new Shortcut2LoadInteractor(this));
+			addInteractor(new Menu2NewInteractor(this));
+			addInteractor(new Button2NewInteractor(this));
+			addInteractor(new Shortcut2NewInteractor(this));
+			addInteractor(new RecentMenuItem2LoadInteractor(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -421,8 +421,8 @@ public class FileLoaderSaver extends WidgetInstrument {
 }
 
 
-abstract class Interaction2NewLink<I extends Interaction> extends Link<NewDrawing, I, FileLoaderSaver> {
-	protected Interaction2NewLink(final FileLoaderSaver ins, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
+abstract class Interaction2NewInteractor<I extends Interaction> extends Interactor<NewDrawing, I, FileLoaderSaver> {
+	protected Interaction2NewInteractor(final FileLoaderSaver ins, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, NewDrawing.class, interaction);
 	}
 
@@ -437,8 +437,8 @@ abstract class Interaction2NewLink<I extends Interaction> extends Link<NewDrawin
 
 
 
-class Button2NewLink extends Interaction2NewLink<ButtonPressed> {
-	protected Button2NewLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+class Button2NewInteractor extends Interaction2NewInteractor<ButtonPressed> {
+	protected Button2NewInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, ButtonPressed.class);
 	}
 
@@ -450,8 +450,8 @@ class Button2NewLink extends Interaction2NewLink<ButtonPressed> {
 
 
 
-class Menu2NewLink extends Interaction2NewLink<MenuItemPressed> {
-	protected Menu2NewLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+class Menu2NewInteractor extends Interaction2NewInteractor<MenuItemPressed> {
+	protected Menu2NewInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, MenuItemPressed.class);
 	}
 
@@ -463,8 +463,8 @@ class Menu2NewLink extends Interaction2NewLink<MenuItemPressed> {
 
 
 
-class Shortcut2NewLink extends Interaction2NewLink<KeysPressure> {
-	protected Shortcut2NewLink(final FileLoaderSaver ins) throws InstantiationException, IllegalAccessException {
+class Shortcut2NewInteractor extends Interaction2NewInteractor<KeysPressure> {
+	protected Shortcut2NewInteractor(final FileLoaderSaver ins) throws InstantiationException, IllegalAccessException {
 		super(ins, KeysPressure.class);
 	}
 
@@ -480,13 +480,13 @@ class Shortcut2NewLink extends Interaction2NewLink<KeysPressure> {
 /**
  * This link maps a keyboard shortcut to an action that saves the preferences.
  */
-class Shortcut2SavePrefLink extends Interaction2SaveLink<KeysPressure> {
+class Shortcut2SavePrefInteractor extends Interaction2SaveInteractor<KeysPressure> {
 	/**
 	 * The constructor by default.
 	 * @param fileLoader The file loader/saver;
 	 * @since 3.0
 	 */
-	protected Shortcut2SavePrefLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+	protected Shortcut2SavePrefInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, KeysPressure.class);
 	}
 
@@ -510,13 +510,13 @@ class Shortcut2SavePrefLink extends Interaction2SaveLink<KeysPressure> {
 /**
  * This link maps the close button of the main frame to an action that saves the drawing.
  */
-class ButtonClose2SaveLink extends Interaction2SaveLink<WindowClosed> {
+class ButtonClose2SaveInteractor extends Interaction2SaveInteractor<WindowClosed> {
 	/**
 	 * The constructor by default.
 	 * @param fileLoader The file loader/saver;
 	 * @since 3.0
 	 */
-	protected ButtonClose2SaveLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+	protected ButtonClose2SaveInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, WindowClosed.class);
 	}
 
@@ -539,13 +539,13 @@ class ButtonClose2SaveLink extends Interaction2SaveLink<WindowClosed> {
 /**
  * This link maps a menu item to a save action.
  */
-class Menu2SaveAsLink extends Interaction2SaveLink<MenuItemPressed> {
+class Menu2SaveAsInteractor extends Interaction2SaveInteractor<MenuItemPressed> {
 	/**
 	 * The constructor by default.
 	 * @param fileLoader The file loader/saver;
 	 * @since 3.0
 	 */
-	protected Menu2SaveAsLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+	protected Menu2SaveAsInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, MenuItemPressed.class);
 	}
 
@@ -568,11 +568,11 @@ class Menu2SaveAsLink extends Interaction2SaveLink<MenuItemPressed> {
 /**
  * This link maps a keyboard shortcut to a save action.
  */
-class Shortcut2SaveLink extends Interaction2SaveLink<KeysPressure> {
+class Shortcut2SaveInteractor extends Interaction2SaveInteractor<KeysPressure> {
 	/**
 	 * Creates the link.
 	 */
-	protected Shortcut2SaveLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+	protected Shortcut2SaveInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, KeysPressure.class);
 	}
 
@@ -594,13 +594,13 @@ class Shortcut2SaveLink extends Interaction2SaveLink<KeysPressure> {
 /**
  * This link maps a menu item to a save action.
  */
-class Menu2SaveLink extends Interaction2SaveLink<MenuItemPressed> {
+class Menu2SaveInteractor extends Interaction2SaveInteractor<MenuItemPressed> {
 	/**
 	 * The constructor by default.
 	 * @param fileLoader The file loader/saver;
 	 * @since 3.0
 	 */
-	protected Menu2SaveLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+	protected Menu2SaveInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, MenuItemPressed.class);
 	}
 
@@ -622,13 +622,13 @@ class Menu2SaveLink extends Interaction2SaveLink<MenuItemPressed> {
 /**
  * This link maps a button to a save action.
  */
-class Button2SaveLink extends Interaction2SaveLink<ButtonPressed> {
+class Button2SaveInteractor extends Interaction2SaveInteractor<ButtonPressed> {
 	/**
 	 * The constructor by default.
 	 * @param fileLoader The file loader/saver;
 	 * @since 3.0
 	 */
-	protected Button2SaveLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+	protected Button2SaveInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, ButtonPressed.class);
 	}
 
@@ -646,8 +646,8 @@ class Button2SaveLink extends Interaction2SaveLink<ButtonPressed> {
 }
 
 
-abstract class Interaction2IOLink<A extends IOAction<LFrame, JLabel>, I extends Interaction> extends Link<A, I, FileLoaderSaver> {
-	protected Interaction2IOLink(final FileLoaderSaver fileLoader, final Class<A> action, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
+abstract class Interaction2IOInteractor<A extends IOAction<LFrame, JLabel>, I extends Interaction> extends Interactor<A, I, FileLoaderSaver> {
+	protected Interaction2IOInteractor(final FileLoaderSaver fileLoader, final Class<A> action, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, false, action, interaction);
 	}
 
@@ -664,8 +664,8 @@ abstract class Interaction2IOLink<A extends IOAction<LFrame, JLabel>, I extends 
 /**
  * This abstract link maps an interaction to a save action.
  */
-abstract class Interaction2SaveLink<I extends Interaction> extends Interaction2IOLink<SaveDrawing, I> {
-	protected Interaction2SaveLink(final FileLoaderSaver fileLoader, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
+abstract class Interaction2SaveInteractor<I extends Interaction> extends Interaction2IOInteractor<SaveDrawing, I> {
+	protected Interaction2SaveInteractor(final FileLoaderSaver fileLoader, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, SaveDrawing.class, interaction);
 	}
 
@@ -682,8 +682,8 @@ abstract class Interaction2SaveLink<I extends Interaction> extends Interaction2I
 /**
  * This abstract link maps an interaction to a load action.
  */
-abstract class Interaction2LoadLink<I extends Interaction> extends Interaction2IOLink<LoadDrawing, I> {
-	protected Interaction2LoadLink(final FileLoaderSaver fileLoader, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
+abstract class Interaction2LoadInteractor<I extends Interaction> extends Interaction2IOInteractor<LoadDrawing, I> {
+	protected Interaction2LoadInteractor(final FileLoaderSaver fileLoader, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, LoadDrawing.class, interaction);
 	}
 
@@ -697,8 +697,8 @@ abstract class Interaction2LoadLink<I extends Interaction> extends Interaction2I
 
 
 /** The link maps recent menu items to an action that loads documents. */
-class RecentMenuItem2LoadLink extends Interaction2LoadLink<MenuItemPressed> {
-	protected RecentMenuItem2LoadLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+class RecentMenuItem2LoadInteractor extends Interaction2LoadInteractor<MenuItemPressed> {
+	protected RecentMenuItem2LoadInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, MenuItemPressed.class);
 	}
 
@@ -720,11 +720,11 @@ class RecentMenuItem2LoadLink extends Interaction2LoadLink<MenuItemPressed> {
 /**
  * This link maps a keyboard shortcut to a load action.
  */
-class Shortcut2LoadLink extends Interaction2LoadLink<KeysPressure> {
+class Shortcut2LoadInteractor extends Interaction2LoadInteractor<KeysPressure> {
 	/**
 	 * Creates the link.
 	 */
-	protected Shortcut2LoadLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+	protected Shortcut2LoadInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, KeysPressure.class);
 	}
 
@@ -739,13 +739,13 @@ class Shortcut2LoadLink extends Interaction2LoadLink<KeysPressure> {
 /**
  * This link maps a button to a load action.
  */
-class Button2LoadLink extends Interaction2LoadLink<ButtonPressed> {
+class Button2LoadInteractor extends Interaction2LoadInteractor<ButtonPressed> {
 	/**
 	 * The constructor by default.
 	 * @param fileLoader The file loader/saver;
 	 * @since 3.0
 	 */
-	protected Button2LoadLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+	protected Button2LoadInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, ButtonPressed.class);
 	}
 
@@ -760,13 +760,13 @@ class Button2LoadLink extends Interaction2LoadLink<ButtonPressed> {
 /**
  * This link maps a menu item to a load action.
  */
-class Menu2LoadLink extends Interaction2LoadLink<MenuItemPressed> {
+class Menu2LoadInteractor extends Interaction2LoadInteractor<MenuItemPressed> {
 	/**
 	 * The constructor by default.
 	 * @param fileLoader The file loader/saver;
 	 * @since 3.0
 	 */
-	protected Menu2LoadLink(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
+	protected Menu2LoadInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, MenuItemPressed.class);
 	}
 

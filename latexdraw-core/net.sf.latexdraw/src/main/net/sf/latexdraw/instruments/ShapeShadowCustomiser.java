@@ -113,14 +113,14 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 	}
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new CheckBox2PencilShadow(this));
-			addLink(new CheckBox2SelectionShadow(this));
-			addLink(new Spinner2SelectionShadow(this));
-			addLink(new Spinner2PencilShadow(this));
-			addLink(new ColourButton2SelectionShadow(this));
-			addLink(new ColourButton2PencilShadow(this));
+			addInteractor(new CheckBox2PencilShadow(this));
+			addInteractor(new CheckBox2SelectionShadow(this));
+			addInteractor(new Spinner2SelectionShadow(this));
+			addInteractor(new Spinner2PencilShadow(this));
+			addInteractor(new ColourButton2SelectionShadow(this));
+			addInteractor(new ColourButton2PencilShadow(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

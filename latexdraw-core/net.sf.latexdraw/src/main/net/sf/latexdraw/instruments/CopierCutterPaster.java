@@ -15,7 +15,7 @@ import net.sf.latexdraw.util.LSystem;
 
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.interaction.Interaction;
 import org.malai.interaction.library.KeysPressure;
 import org.malai.swing.instrument.WidgetInstrument;
@@ -113,14 +113,14 @@ public class CopierCutterPaster extends WidgetInstrument {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new MenuItem2PasteShapes(this));
-			addLink(new Shortcut2PasteShapes(this));
-			addLink(new MenuItem2CopyShapes(this));
-			addLink(new Shortcut2CopyShapes(this));
-			addLink(new MenuItem2CutShapes(this));
-			addLink(new Shortcut2CutShapes(this));
+			addInteractor(new MenuItem2PasteShapes(this));
+			addInteractor(new Shortcut2PasteShapes(this));
+			addInteractor(new MenuItem2CopyShapes(this));
+			addInteractor(new Shortcut2CopyShapes(this));
+			addInteractor(new MenuItem2CutShapes(this));
+			addInteractor(new Shortcut2CutShapes(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -164,7 +164,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 /**
  * This link maps an menu item interaction to an action dedicated to a shape copy.
  */
-abstract class Interaction2AbstractCopy<A extends CopyShapes, I extends Interaction> extends Link<A, I, CopierCutterPaster> {
+abstract class Interaction2AbstractCopy<A extends CopyShapes, I extends Interaction> extends Interactor<A, I, CopierCutterPaster> {
 	/**
 	 * Creates the link.
 	 */
@@ -263,7 +263,7 @@ class MenuItem2CopyShapes extends Interaction2AbstractCopy<CopyShapes, MenuItemP
 /**
  * This abstract link maps an interaction to a paste action.
  */
-abstract class Interaction2PasteShapes<I extends Interaction> extends Link<PasteShapes, I, CopierCutterPaster> {
+abstract class Interaction2PasteShapes<I extends Interaction> extends Interactor<PasteShapes, I, CopierCutterPaster> {
 	/**
 	 * Creates the link.
 	 */

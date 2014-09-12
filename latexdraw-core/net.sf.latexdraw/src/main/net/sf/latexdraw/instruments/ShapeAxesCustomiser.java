@@ -134,14 +134,14 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try {
-			addLink(new Combobox2CustomSelectedAxes(this));
-			addLink(new Combobox2CustomPencilAxes(this));
-			addLink(new Spinner2CustomPencilAxes(this));
-			addLink(new Spinner2CustomSelectedAxes(this));
-			addLink(new CheckBox2CustomPencilAxes(this));
-			addLink(new CheckBox2CustomSelectedAxes(this));
+			addInteractor(new Combobox2CustomSelectedAxes(this));
+			addInteractor(new Combobox2CustomPencilAxes(this));
+			addInteractor(new Spinner2CustomPencilAxes(this));
+			addInteractor(new Spinner2CustomSelectedAxes(this));
+			addInteractor(new CheckBox2CustomPencilAxes(this));
+			addInteractor(new CheckBox2CustomSelectedAxes(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

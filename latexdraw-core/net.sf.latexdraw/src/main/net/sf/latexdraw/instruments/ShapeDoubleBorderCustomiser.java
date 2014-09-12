@@ -131,14 +131,14 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new CheckBox2PencilDoubleBorder(this));
-			addLink(new CheckBox2SelectionDoubleBorder(this));
-			addLink(new ColourButton2PencilDoubleBorder(this));
-			addLink(new ColourButton2SelectionDoubleBorder(this));
-			addLink(new Spinner2PencilDoubleBorder(this));
-			addLink(new Spinner2SelectionDoubleBorder(this));
+			addInteractor(new CheckBox2PencilDoubleBorder(this));
+			addInteractor(new CheckBox2SelectionDoubleBorder(this));
+			addInteractor(new ColourButton2PencilDoubleBorder(this));
+			addInteractor(new ColourButton2SelectionDoubleBorder(this));
+			addInteractor(new Spinner2PencilDoubleBorder(this));
+			addInteractor(new Spinner2SelectionDoubleBorder(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

@@ -1,10 +1,8 @@
 package net.sf.latexdraw.instruments
 
-import org.malai.instrument.Link
 import org.malai.swing.interaction.library.ButtonPressed
 import org.malai.swing.ui.SwingUIComposer
 import org.malai.swing.widget.MButton
-
 import net.sf.latexdraw.actions.shape.AlignShapes
 import net.sf.latexdraw.actions.shape.AlignmentType
 import net.sf.latexdraw.actions.shape.DistributeShapes
@@ -14,6 +12,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.util.LResources
+import org.malai.instrument.Interactor
 
 /**
  * This instrument transforms (mirror, etc.) the selected shapes.<br>
@@ -140,11 +139,11 @@ class ShapeTransformer(composer:SwingUIComposer[_], hand:Hand, pencil:Pencil, va
 	}
 
 
-	protected override def initialiseLinks() {
+	protected override def initialiseInteractors() {
 		try{
-			addLink(new Button2Mirror(this))
-			addLink(new Button2Align(this))
-			addLink(new Button2Distribute(this))
+			addInteractor(new Button2Mirror(this))
+			addInteractor(new Button2Align(this))
+			addInteractor(new Button2Distribute(this))
 		}catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
@@ -200,7 +199,7 @@ class ShapeTransformer(composer:SwingUIComposer[_], hand:Hand, pencil:Pencil, va
 /**
  * Maps a button interaction with an action that aligns the selected shapes.
  */
-private sealed class Button2Align(ins:ShapeTransformer) extends Link[AlignShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[AlignShapes], classOf[ButtonPressed]) {
+private sealed class Button2Align(ins:ShapeTransformer) extends Interactor[AlignShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[AlignShapes], classOf[ButtonPressed]) {
 	override def initAction() {
 		val but = interaction.getButton
 
@@ -224,7 +223,7 @@ private sealed class Button2Align(ins:ShapeTransformer) extends Link[AlignShapes
 /**
  * Maps a button interaction with an action that distributes the selected shapes.
  */
-private sealed class Button2Distribute(ins:ShapeTransformer) extends Link[DistributeShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[DistributeShapes], classOf[ButtonPressed]) {
+private sealed class Button2Distribute(ins:ShapeTransformer) extends Interactor[DistributeShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[DistributeShapes], classOf[ButtonPressed]) {
 	override def initAction() {
 		val but = interaction.getButton
 
@@ -250,7 +249,7 @@ private sealed class Button2Distribute(ins:ShapeTransformer) extends Link[Distri
 /**
  * Maps a button interaction with an action that mirrors the selected shapes.
  */
-private sealed class Button2Mirror(ins:ShapeTransformer) extends Link[MirrorShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[MirrorShapes], classOf[ButtonPressed]) {
+private sealed class Button2Mirror(ins:ShapeTransformer) extends Interactor[MirrorShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[MirrorShapes], classOf[ButtonPressed]) {
 	override def initAction() {
 		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicateDeep(false))
 		action.setHorizontally(interaction.getButton==instrument._mirrorH)

@@ -343,7 +343,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		// This instrument does not have any link.
 	}
 

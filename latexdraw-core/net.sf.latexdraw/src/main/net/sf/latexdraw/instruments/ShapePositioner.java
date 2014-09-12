@@ -6,7 +6,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
@@ -63,9 +63,9 @@ public class ShapePositioner extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try {
-			addLink(new Button2MoveBackForeground(this));
+			addInteractor(new Button2MoveBackForeground(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -91,7 +91,7 @@ public class ShapePositioner extends ShapePropertyCustomiser {
 }
 
 /** This link maps a button interaction to an action that puts shapes in foreground / background. */
-class Button2MoveBackForeground extends Link<MoveBackForegroundShapes, ButtonPressed, ShapePositioner> {
+class Button2MoveBackForeground extends Interactor<MoveBackForegroundShapes, ButtonPressed, ShapePositioner> {
 	protected Button2MoveBackForeground(final ShapePositioner ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, MoveBackForegroundShapes.class, ButtonPressed.class);
 	}

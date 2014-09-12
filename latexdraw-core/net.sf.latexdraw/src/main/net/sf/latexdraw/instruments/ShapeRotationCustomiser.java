@@ -11,12 +11,13 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.interaction.library.SpinnerModified;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
 import org.malai.swing.widget.MSpinner;
+
 import scala.Option;
 
 /**
@@ -101,10 +102,10 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new ButtonPress2RotateShape(this));
-			addLink(new Spinner2RotateShape(this));
+			addInteractor(new ButtonPress2RotateShape(this));
+			addInteractor(new Spinner2RotateShape(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -152,7 +153,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 /**
  * This link maps a spinner to an action that rotates the selected shapes.
  */
-class Spinner2RotateShape extends Link<RotateShapes, SpinnerModified, ShapeRotationCustomiser> {
+class Spinner2RotateShape extends Interactor<RotateShapes, SpinnerModified, ShapeRotationCustomiser> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.
@@ -188,7 +189,7 @@ class Spinner2RotateShape extends Link<RotateShapes, SpinnerModified, ShapeRotat
 /**
  * This link maps a button to an action that rotates the selected shapes.
  */
-class ButtonPress2RotateShape extends Link<RotateShapes, ButtonPressed, ShapeRotationCustomiser> {
+class ButtonPress2RotateShape extends Interactor<RotateShapes, ButtonPressed, ShapeRotationCustomiser> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.

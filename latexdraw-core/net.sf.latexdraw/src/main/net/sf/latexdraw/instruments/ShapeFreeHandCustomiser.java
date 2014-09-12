@@ -132,14 +132,14 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try {
-			addLink(new Combobox2CustomPencilFH(this));
-			addLink(new Combobox2CustomSelectedFH(this));
-			addLink(new Spinner2PencilFreeHand(this));
-			addLink(new Spinner2SelectionFreeHand(this));
-			addLink(new Checkbox2PencilFreeHand(this));
-			addLink(new Checkbox2SelectionFreeHand(this));
+			addInteractor(new Combobox2CustomPencilFH(this));
+			addInteractor(new Combobox2CustomSelectedFH(this));
+			addInteractor(new Spinner2PencilFreeHand(this));
+			addInteractor(new Spinner2SelectionFreeHand(this));
+			addInteractor(new Checkbox2PencilFreeHand(this));
+			addInteractor(new Checkbox2SelectionFreeHand(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

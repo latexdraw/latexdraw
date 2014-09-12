@@ -17,7 +17,7 @@ import net.sf.latexdraw.ui.TextAreaAutoSize;
 
 import org.malai.action.Action;
 import org.malai.instrument.Instrument;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.interaction.library.KeyTyped;
 import org.malai.swing.action.library.ActivateInactivateInstruments;
 import org.malai.swing.widget.MLayeredPane;
@@ -117,12 +117,12 @@ public class TextSetter extends Instrument {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new Enter2SetText(this));
-			addLink(new Enter2AddText(this));
-//			addLink(new Enter2CheckPlot(this));
-			addLink(new KeyPress2Desactivate(this));
+			addInteractor(new Enter2SetText(this));
+			addInteractor(new Enter2AddText(this));
+//			addInteractor(new Enter2CheckPlot(this));
+			addInteractor(new KeyPress2Desactivate(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -162,7 +162,7 @@ public class TextSetter extends Instrument {
 /**
  * This links maps a key press interaction to an action that desactivates the instrument.
  */
-class KeyPress2Desactivate extends Link<ActivateInactivateInstruments, KeyTyped, TextSetter> {
+class KeyPress2Desactivate extends Interactor<ActivateInactivateInstruments, KeyTyped, TextSetter> {
 	/**
 	 * Creates the link.
 	 */
@@ -185,7 +185,7 @@ class KeyPress2Desactivate extends Link<ActivateInactivateInstruments, KeyTyped,
 }
 
 
-class Enter2SetText extends Link<ModifyShapeProperty, KeyTyped, TextSetter> {
+class Enter2SetText extends Interactor<ModifyShapeProperty, KeyTyped, TextSetter> {
 	protected Enter2SetText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ModifyShapeProperty.class, KeyTyped.class);
 	}
@@ -209,7 +209,7 @@ class Enter2SetText extends Link<ModifyShapeProperty, KeyTyped, TextSetter> {
 /**
  * This links maps a key press interaction to an action that adds a text to the drawing.
  */
-class Enter2AddText extends Link<AddShape, KeyTyped, TextSetter> {
+class Enter2AddText extends Interactor<AddShape, KeyTyped, TextSetter> {
 	/**
 	 * Creates the link.
 	 */
@@ -239,7 +239,7 @@ class Enter2AddText extends Link<AddShape, KeyTyped, TextSetter> {
 }
 
 
-//class Enter2CheckPlot extends Link<AddShape, KeyTyped, TextSetter> {
+//class Enter2CheckPlot extends Interactor<AddShape, KeyTyped, TextSetter> {
 //	protected Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 //		super(ins, false, AddShape.class, KeyTyped.class);
 //	}

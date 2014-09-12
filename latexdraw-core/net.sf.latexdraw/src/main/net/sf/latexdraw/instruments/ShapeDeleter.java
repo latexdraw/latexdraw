@@ -11,7 +11,7 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.ActionsRegistry;
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.interaction.Interaction;
 import org.malai.interaction.library.KeyPressure;
 import org.malai.swing.instrument.WidgetInstrument;
@@ -86,10 +86,10 @@ public class ShapeDeleter extends WidgetInstrument {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new ButtonPressed2DeleteShapes(this));
-			addLink(new KeyPressed2DeleteShapes(this));
+			addInteractor(new ButtonPressed2DeleteShapes(this));
+			addInteractor(new KeyPressed2DeleteShapes(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -108,7 +108,7 @@ public class ShapeDeleter extends WidgetInstrument {
 /**
  * This abstract link maps an interaction to an action that delete shapes.
  */
-abstract class DeleteShapesLink<I extends Interaction> extends Link<DeleteShapes, I, ShapeDeleter> {
+abstract class DeleteShapesInteractor<I extends Interaction> extends Interactor<DeleteShapes, I, ShapeDeleter> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.
@@ -116,7 +116,7 @@ abstract class DeleteShapesLink<I extends Interaction> extends Link<DeleteShapes
 	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
 	 * @throws IllegalAccessException If no free-parameter constructor are provided.
 	 */
-	protected DeleteShapesLink(final ShapeDeleter ins, final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
+	protected DeleteShapesInteractor(final ShapeDeleter ins, final Class<I> clazzInteraction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, DeleteShapes.class, clazzInteraction);
 	}
 
@@ -144,7 +144,7 @@ abstract class DeleteShapesLink<I extends Interaction> extends Link<DeleteShapes
 /**
  * This link maps an key pressure interaction to an action that delete shapes.
  */
-class KeyPressed2DeleteShapes extends DeleteShapesLink<KeyPressure> {
+class KeyPressed2DeleteShapes extends DeleteShapesInteractor<KeyPressure> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.
@@ -165,7 +165,7 @@ class KeyPressed2DeleteShapes extends DeleteShapesLink<KeyPressure> {
 /**
  * This link maps an button pressure interaction to an action that delete shapes.
  */
-class ButtonPressed2DeleteShapes extends DeleteShapesLink<ButtonPressed> {
+class ButtonPressed2DeleteShapes extends DeleteShapesInteractor<ButtonPressed> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.

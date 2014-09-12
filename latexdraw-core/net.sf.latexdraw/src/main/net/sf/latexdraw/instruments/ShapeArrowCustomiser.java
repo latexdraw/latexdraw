@@ -286,12 +286,12 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new List2PencilArrowStyle(this));
-			addLink(new List2ShapeArrowStyle(this));
-			addLink(new Spinner2SelectionArrowParam(this));
-			addLink(new Spinner2PencilArrowParam(this));
+			addInteractor(new List2PencilArrowStyle(this));
+			addInteractor(new List2ShapeArrowStyle(this));
+			addInteractor(new Spinner2SelectionArrowParam(this));
+			addInteractor(new Spinner2PencilArrowParam(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

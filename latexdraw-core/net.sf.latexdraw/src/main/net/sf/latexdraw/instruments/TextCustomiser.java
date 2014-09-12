@@ -21,7 +21,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.Link;
+import org.malai.instrument.Interactor;
 import org.malai.interaction.library.KeysTyped;
 import org.malai.mapping.MappingRegistry;
 import org.malai.swing.ui.SwingUIComposer;
@@ -212,11 +212,11 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	protected void initialiseLinks() {
+	protected void initialiseInteractors() {
 		try{
-			addLink(new KeysTyped2ChangePackages(this));
-			addLink(new ButtonPressed2ChangeTextPosition(this));
-			addLink(new ButtonPressed2ChangePencil(this));
+			addInteractor(new KeysTyped2ChangePackages(this));
+			addInteractor(new ButtonPressed2ChangeTextPosition(this));
+			addInteractor(new ButtonPressed2ChangePencil(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -319,7 +319,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 
 
-class KeysTyped2ChangePackages extends Link<ModifyLatexProperties, KeysTyped, TextCustomiser> {
+class KeysTyped2ChangePackages extends Interactor<ModifyLatexProperties, KeysTyped, TextCustomiser> {
 	protected KeysTyped2ChangePackages(final TextCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ModifyLatexProperties.class, KeysTyped.class);
 	}
