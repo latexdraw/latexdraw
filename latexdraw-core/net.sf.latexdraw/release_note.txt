@@ -37,3 +37,5 @@ Version 3.2.0
   https://bugs.launchpad.net/latexdraw/+bug/1361516
 - fixed: text shapes may not compiled when user packages ended with a comment
   https://bugs.launchpad.net/latexdraw/+bug/1361382
+- fixed: Changing arcs' angles does not always work properly
+  https://bugs.launchpad.net/latexdraw/+bug/1360910

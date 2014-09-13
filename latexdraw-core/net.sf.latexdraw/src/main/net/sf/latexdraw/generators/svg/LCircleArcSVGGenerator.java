@@ -80,12 +80,8 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
 		sy = ((SVGPathSegMoveto)l.get(0)).getY();
 		final Arc2D arc = ((SVGPathSegArc)l.get(1)).getArc2D(sx, sy);
 		double angle = Math.toRadians(arc.getAngleStart())%(Math.PI*2);
-		if(angle<0.)
-			angle = 2.*Math.PI+angle;
 		shape.setAngleStart(angle);
 		angle = Math.toRadians(arc.getAngleExtent()+arc.getAngleStart())%(Math.PI*2);
-		if(angle<0.)
-			angle = 2.*Math.PI+angle;
 		shape.setAngleEnd(angle);
 		shape.setPosition(arc.getMinX(), arc.getMaxY());
 		shape.setWidth(arc.getMaxX()-arc.getMinX());
