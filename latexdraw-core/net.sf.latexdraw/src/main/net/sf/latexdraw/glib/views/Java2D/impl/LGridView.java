@@ -203,8 +203,8 @@ class LGridView extends LStandardGridView<IGrid> {
 		final double origY 		= shape.getOriginY();
 		final boolean isWest  	= shape.isYLabelWest();
 		final boolean isSouth 	= shape.isXLabelSouth();
-		final double xorig 		= posX+xStep*origX;
-		final double yorig 		= isSouth  ? posY-yStep*origY+labelHeight : posY-yStep*origY-2;
+		final double xorig 		= posX+(origX-minX)*xStep;
+		final double yorig 		= isSouth  ? posY-yStep*(origY-minY)+labelHeight : posY-yStep*(origY-minY)-2;
 		final double width 		= shape.getGridWidth()/2.;
 		final double tmp 		= isSouth ? width : -width;
 		final Font font 		= fontMetrics.getFont();
@@ -213,13 +213,16 @@ class LGridView extends LStandardGridView<IGrid> {
 		double j;
 		String label;
 		float x;
+		final float yPos = (float)(yorig+tmp);
 
 		for(i=tlx + (isWest ? width+labelsSize/4. : -width-labelWidth-labelsSize/4.), j=minX; j<=maxX; i+=absStep, j++)
-			updateText(String.valueOf((int)j), (float)i, (float)(yorig+tmp), font, frc);
+			updateText(String.valueOf((int)j), (float)i, yPos, font, frc);
+
+		final float xGapNotWest = (float)(xorig+labelsSize/4.+width);
 
 		for(i=tly + (isSouth ? -width-labelsSize/4. : width+labelHeight), j=maxY ; j>=minY; i+=absStep, j--) {
 			label = String.valueOf((int)j);
-			x	  = isWest ? (float)(xorig-fontMetrics.stringWidth(label)-labelsSize/4.-width) : (float)(xorig+labelsSize/4.+width);
+			x	  = isWest ? (float)(xorig-fontMetrics.stringWidth(label)-labelsSize/4.-width) : xGapNotWest;
 			updateText(label, x, (float)i, font, frc);
 		}
 	}

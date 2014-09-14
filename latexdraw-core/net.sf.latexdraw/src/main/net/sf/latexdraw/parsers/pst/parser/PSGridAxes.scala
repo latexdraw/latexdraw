@@ -55,7 +55,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 		(p1, p2, p3) match {
 			case (Some(pt1), Some(pt2), Some(pt3)) => checkTextParsed(ctx) ::: List(createGrid(pt1, pt2, pt3, ctx))
-			case (Some(pt1), Some(pt2), None) => checkTextParsed(ctx) ::: List(createGrid(new PointUnit(0,0,"",""), pt1, pt2, ctx))
+			case (Some(pt1), Some(pt2), None) => checkTextParsed(ctx) ::: List(createGrid(pt1.dup(), pt1, pt2, ctx))
 			case (Some(pt1), None, None) =>
 				checkTextParsed(ctx) ::: List(createGrid(new PointUnit(0,0, "", ""), new PointUnit(0,0, "", ""), pt1, ctx))
 			case _ =>

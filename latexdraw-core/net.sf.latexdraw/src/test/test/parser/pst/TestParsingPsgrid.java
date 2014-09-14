@@ -178,8 +178,8 @@ public class TestParsingPsgrid extends TestPSTParser {
 	public void test2CoordInverted() throws ParseException {
 		IGrid grid = (IGrid)parser.parsePSTCode("\\"+getCommandName()+"(3,4)(1,2)").get().getShapeAt(0);
 
-		assertEquals(0., grid.getOriginX(), 0.0001);
-		assertEquals(0., grid.getOriginY(), 0.0001);
+		assertEquals(3., grid.getOriginX(), 0.0001);
+		assertEquals(4., grid.getOriginY(), 0.0001);
 		assertEquals(1., grid.getGridMinX(), 0.0001);
 		assertEquals(2., grid.getGridMinY(), 0.0001);
 		assertEquals(3., grid.getGridMaxX(), 0.0001);
@@ -194,8 +194,8 @@ public class TestParsingPsgrid extends TestPSTParser {
 	public void test2Coord() throws ParseException {
 		IGrid grid = (IGrid)parser.parsePSTCode("\\"+getCommandName()+"(1,2)(3,4)").get().getShapeAt(0);
 
-		assertEquals(0., grid.getOriginX(), 0.0001);
-		assertEquals(0., grid.getOriginY(), 0.0001);
+		assertEquals(1., grid.getOriginX(), 0.0001);
+		assertEquals(2., grid.getOriginY(), 0.0001);
 		assertEquals(1., grid.getGridMinX(), 0.0001);
 		assertEquals(2., grid.getGridMinY(), 0.0001);
 		assertEquals(3., grid.getGridMaxX(), 0.0001);

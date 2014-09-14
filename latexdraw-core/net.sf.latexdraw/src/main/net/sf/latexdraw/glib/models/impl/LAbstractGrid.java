@@ -77,25 +77,25 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public double getGridMinX() {
-		return (gridEndx<gridStartx ? gridEndx : gridStartx)-originx;
+		return (gridEndx<gridStartx ? gridEndx : gridStartx);
 	}
 
 
 	@Override
 	public double getGridMaxX() {
-		return (gridEndx>=gridStartx ? gridEndx : gridStartx)-originx;
+		return (gridEndx>=gridStartx ? gridEndx : gridStartx);
 	}
 
 
 	@Override
 	public double getGridMinY() {
-		return (gridEndy<gridStarty ? gridEndy : gridStarty)-originy;
+		return (gridEndy<gridStarty ? gridEndy : gridStarty);
 	}
 
 
 	@Override
 	public double getGridMaxY() {
-		return (gridEndy>=gridStarty ? gridEndy : gridStarty)-originy;
+		return (gridEndy>=gridStarty ? gridEndy : gridStarty);
 	}
 
 

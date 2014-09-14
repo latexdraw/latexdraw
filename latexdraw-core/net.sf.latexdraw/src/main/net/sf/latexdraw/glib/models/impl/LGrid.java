@@ -228,59 +228,59 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 
 	@Override
-	public void setGridDots(final int gridDots) {
-		if(gridDots>=0)
-			this.gridDots = gridDots;
+	public void setGridDots(final int grDots) {
+		if(grDots>=0)
+			this.gridDots = grDots;
 	}
 
 
 	@Override
-	public void setGridLabelsColour(final Color gridLabelsColour) {
-		if(gridLabelsColour!=null)
-			this.gridLabelsColour = gridLabelsColour;
+	public void setGridLabelsColour(final Color gridLabelsCol) {
+		if(gridLabelsCol!=null)
+			this.gridLabelsColour = gridLabelsCol;
 	}
 
 
 
 	@Override
-	public void setGridWidth(final double gridWidth) {
-		if(gridWidth>0 && GLibUtilities.isValidCoordinate(gridWidth))
-			this.gridWidth = gridWidth;
+	public void setGridWidth(final double gridW) {
+		if(gridW>0 && GLibUtilities.isValidCoordinate(gridW))
+			this.gridWidth = gridW;
 	}
 
 
 	@Override
-	public void setSubGridColour(final Color subGridColour) {
-		if(subGridColour!=null)
-			this.subGridColour = subGridColour;
+	public void setSubGridColour(final Color subGridCol) {
+		if(subGridCol!=null)
+			this.subGridColour = subGridCol;
 	}
 
 
 	@Override
-	public void setSubGridDiv(final int subGridDiv) {
-		if(subGridDiv>=0)
-			this.subGridDiv = subGridDiv;
+	public void setSubGridDiv(final int subGridD) {
+		if(subGridD>=0)
+			this.subGridDiv = subGridD;
 	}
 
 
 	@Override
-	public void setSubGridDots(final int subGridDots) {
-		if(subGridDots>=0)
-			this.subGridDots = subGridDots;
+	public void setSubGridDots(final int subGridD) {
+		if(subGridD>=0)
+			this.subGridDots = subGridD;
 	}
 
 
 	@Override
-	public void setSubGridWidth(final double subGridWidth) {
-		if(subGridWidth>0 && GLibUtilities.isValidCoordinate(subGridWidth))
-			this.subGridWidth = subGridWidth;
+	public void setSubGridWidth(final double subGridW) {
+		if(subGridW>0 && GLibUtilities.isValidCoordinate(subGridW))
+			this.subGridWidth = subGridW;
 	}
 
 
 	@Override
-	public void setUnit(final double unit) {
-		if(unit>0 && GLibUtilities.isValidCoordinate(unit))//TODO unit may be lesser than 0.
-			this.unit = unit;
+	public void setUnit(final double un) {
+		if(un>0 && GLibUtilities.isValidCoordinate(un))//TODO unit may be lesser than 0.
+			this.unit = un;
 	}
 
 
