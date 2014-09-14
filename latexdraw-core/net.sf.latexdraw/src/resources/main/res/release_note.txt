@@ -1,43 +1,43 @@
-*******************************************************************
-Version 3.1.0 -- 2014-01-27
-- Opacity and strokeopacity attributes are now supported. That permits to set the opacity of
-  colours for the line border and the filling.
-- The size of drawing area is no more limited to the size of the drawing.
-  Additional boundaries are now provided around the drawing area to ease the editing.
-- In complement to the previous change, a page (US letter only for the moment) is painted.
-- When zooming using the mouse, the zoom process follows the pointer.
-  The zoom increment, min, and max values have been changed to fit this new feature.
-- Like many drawing applications, the view point of the drawing area can be move using
-  the middle button of the mouse (or both the right and left buttons in some cases).
-  It is more convenient than using the scroll bars.
-- Better rendering performance.
-- Ukrainian translation added.
-- A menu item has been added to go to the latexdraw manual
-- A text field that contains the LaTeX compilation error log has been added to the text toolbar.
+************************************************************
+Version 3.2.0 -- 2014-09-14
 
-- fixed: mirroring shapes did not work
-  https://bugs.launchpad.net/bugs/1266219
-- fixed: latex thumbnails not created on windows Seven
-  https://bugs.launchpad.net/latexdraw/+bug/1252030
-- fixed: LaTeX packages declared in the preferences are not used when loading a file
-  https://bugs.launchpad.net/latexdraw/+bug/1270559 
-- fixed: The text field used during the editing of text is not always correctly located
-  https://bugs.launchpad.net/latexdraw/+bug/1264869
-- fixed: The text field used during the editing of text is not always correctly sized depending
-  on the look-and-feel
-- fixed: The grid is not correctly painted when using the inch unit
-  https://bugs.launchpad.net/latexdraw/+bug/1264999
-- fixed: The rulers do not fit the grid when scroll bars are moved
-  https://bugs.launchpad.net/latexdraw/+bug/1265007
-- fixed: The grid radio buttons are not linked (preferences panel)
-  https://bugs.launchpad.net/latexdraw/+bug/1265051
-- fixed: Problem when copying-pasting a group of shapes containing arrows
-  https://bugs.launchpad.net/latexdraw/+bug/1268354
-- fixed: The quality of png/jpg/bmp files is poor
-  https://bugs.launchpad.net/latexdraw/+bug/1269458
-- fixed: The jpg compression is inverted
-  https://bugs.launchpad.net/latexdraw/+bug/1269457
-- fixed: Copying-pasting-deleting removes the wrong shape
-  https://bugs.launchpad.net/latexdraw/+bug/1271762
-- fixed: 'Show origin' does not work for axes
-  https://bugs.launchpad.net/latexdraw/+bug/1266287 
+- Translations updated, Chinese (Simplified) and Sinhalese translations added
+- fixed: Freeze when continuously pressing a key
+  https://bugs.launchpad.net/latexdraw/+bug/1293804
+- fixed: Wrong selection of control points, points when interacting with shapes having a diff number of points
+  https://bugs.launchpad.net/latexdraw/+bug/1287687
+- fixed: Wrong bounding box when creating a bezier curve with show points
+  https://bugs.launchpad.net/latexdraw/+bug/1284310
+- fixed: Gradient shading feature is not read from SVG file
+  https://bugs.launchpad.net/latexdraw/+bug/1284297 
+- fixed: Changing the position using the spinners does not work
+  https://bugs.launchpad.net/latexdraw/+bug/1278045
+- fixed: Should use ps2eps in the eps latex export
+  https://bugs.launchpad.net/latexdraw/+bug/711936
+- fixed:  copy-paste a Bezier curve always gives a "closed" one. 
+  https://bugs.launchpad.net/latexdraw/+bug/1277542
+- fixed: Text cursor moves while writting LaTeX packages
+  https://bugs.launchpad.net/latexdraw/+bug/1274875
+- fixed: The parameter dotangle has no effect when parsed
+  https://bugs.launchpad.net/latexdraw/+bug/1318369
+- fixed: An imported template is not a group of shapes
+  https://bugs.launchpad.net/latexdraw/+bug/1318648
+- fixed: Unicode texts not painted correctly when not using the LaTeX thumbnail
+  https://bugs.launchpad.net/latexdraw/+bug/1338041
+- fixed:  URL not in the correct format when opening some files on Linux
+  https://bugs.launchpad.net/latexdraw/+bug/1340056
+- fixed:  Crash when adding a text shape that do not compile correctly (several pages produced)
+  https://bugs.launchpad.net/latexdraw/+bug/1327181
+- fixed: Exporting drawings as PNG documents produces files with large blank margins
+  https://bugs.launchpad.net/latexdraw/+bug/1359810
+- fixed: clicking on an already selected shape, does not unselect all the other selected shapes anymore
+- fixed: Crash when clicking on a text shape while editing another text shape
+  https://bugs.launchpad.net/latexdraw/+bug/1362187
+- fixed: After having loaded a drawing, exporting it as a picture does not infer the file name
+  https://bugs.launchpad.net/latexdraw/+bug/1361516
+- fixed: text shapes may not compiled when user packages ended with a comment
+  https://bugs.launchpad.net/latexdraw/+bug/1361382
+- fixed: Changing arcs' angles does not always work properly
+  https://bugs.launchpad.net/latexdraw/+bug/1360910
+- fixed: Grids not always painted and parsed correctly
+  https://bugs.launchpad.net/latexdraw/+bug/1323268
