@@ -16,6 +16,17 @@
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
   <item>
+    <title>LaTeXDraw 3.2.0 released</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Sun, 14 sep 2014 08:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS46</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS46</link>
+    <description>This new version fixes major bugs. I did not have the time to finish the support of PSPlot functions. It will be part of the next release for sure.
+Amongst the fixed bugs, the biggest one is certainly a bug related to the PDF/PS export on Windows 8.1.
+Give an eye to the release note for more details (https://launchpad.net/latexdraw/3.x/3.2).</description>
+  </item>
+
+  <item>
     <title>LaTeXDraw 3.1.0 released</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Mon, 27 jan 2014 08:00:00 GMT</pubDate>
