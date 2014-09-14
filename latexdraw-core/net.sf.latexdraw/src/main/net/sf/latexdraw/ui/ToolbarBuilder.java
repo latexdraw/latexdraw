@@ -109,7 +109,7 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 		composeCurveLikeToolbar();
 		composeGridLikeToolbar();
 
-//		widget.add(frame.editingSelector.getPlotB());
+		widget.add(frame.editingSelector.getPlotB());
  		widget.add(frame.editingSelector.getArcB());
 		widget.add(frame.editingSelector.getTextB());
 		widget.add(frame.editingSelector.getFreeHandB());

@@ -417,7 +417,5 @@ private sealed class Press2InitTextSetter(pencil:Pencil) extends Interactor[Init
 		action.setRelativePoint(instrument.getAdaptedPoint(interaction.getPoint))
 	}
 
-	override def isConditionRespected = (instrument.currentChoice==EditionChoice.TEXT
-//    || instrument.currentChoice==EditionChoice.PLOT
-    ) && interaction.getButton==MouseEvent.BUTTON1
+	override def isConditionRespected = (instrument.currentChoice==EditionChoice.TEXT|| instrument.currentChoice==EditionChoice.PLOT) && interaction.getButton==MouseEvent.BUTTON1
 }
