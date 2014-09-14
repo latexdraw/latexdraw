@@ -55,7 +55,7 @@ public class AboutDialogueBox extends JFrame {
 	public AboutDialogueBox() {
 		super();
 		final int width			= 490;
-		final int height		= 430;
+		final int height		= 440;
 		final JTabbedPane tabbedPane 	= new JTabbedPane();
 
 		setTitle(LResources.LABEL_ABOUT);
