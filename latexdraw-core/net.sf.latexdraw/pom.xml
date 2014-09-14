@@ -5,10 +5,10 @@
   <groupId>net.sf.latexdraw</groupId>
   <artifactId>latexdraw.core</artifactId>
   <name>LaTeXDraw</name>
-  <version>3.2.0-SNAPSHOT</version>
+  <version>3.2.0</version>
   
   	<properties>
-		<malai.version>1.3-SNAPSHOT</malai.version>
+		<malai.version>1.3</malai.version>
 		<scala.version>2.11.2</scala.version>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
