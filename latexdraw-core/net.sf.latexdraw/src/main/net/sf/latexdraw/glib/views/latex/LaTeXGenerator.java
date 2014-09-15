@@ -498,9 +498,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 	public static File createEPSFile(final IDrawing drawing, final String pathExportEPS, final ViewsSynchroniserHandler synchronizer, final PSTCodeGenerator pstGen){
 		final File tmpDir = LFileUtils.INSTANCE.createTempDir();
 		final File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + "tmpPSFile.ps", synchronizer, tmpDir, pstGen);
-		final String[] paramsLatex = {LSystem.INSTANCE.getSystem().getPS2EPSBinPath(), psFile.getAbsolutePath()};
 		final File finalFile = new File(pathExportEPS);
 		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", EPSFilter.EPS_EXTENSION));
+		final String[] paramsLatex = {LSystem.INSTANCE.getSystem().getPS2EPSBinPath(), psFile.getAbsolutePath(), fileEPS.getAbsolutePath()};
 
 		final String log = LSystem.INSTANCE.execute(paramsLatex, tmpDir);
 		if(!fileEPS.exists()) {

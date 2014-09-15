@@ -37,6 +37,11 @@ public final class LSystem {
 		VISTA, XP, SEVEN, EIGHT,
 		MAC_OS_X {
 			@Override
+			public String getPS2EPSBinPath() {
+				return "/usr/local/bin/ps2epsi";
+			}
+
+			@Override
 			public String getLatexBinPath() {
 				return "/usr/texbin/latex";
 			}
@@ -63,7 +68,7 @@ public final class LSystem {
 		 * @since 3.1
 		 */
 		public String getPS2EPSBinPath() {
-			return "ps2eps";
+			return "ps2epsi";
 		}
 
 		/**
@@ -243,7 +248,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPS2EPSVersion() {
-		return execute(new String[]{getSystem().getPS2EPSBinPath(), "-v"}, null);
+		return execute(new String[]{getSystem().getPS2EPSBinPath(), "--version"}, null);
 	}
 
 	/**

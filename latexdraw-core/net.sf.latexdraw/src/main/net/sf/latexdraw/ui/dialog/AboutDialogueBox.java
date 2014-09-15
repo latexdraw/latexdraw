@@ -108,7 +108,7 @@ public class AboutDialogueBox extends JFrame {
 		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LResources.EOL);
 		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LResources.EOL);
 		builder.append("PS2PDF version:").append(LResources.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LResources.EOL);
-		builder.append("PS2EPS version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LResources.EOL);
+		builder.append("PS2EPSI version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LResources.EOL);
 		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LResources.EOL);
 
 		builder.append("Java properties:").append(LResources.EOL);

@@ -1,2 +1,5 @@
 ************************************************************
 Version 3.3.0
+
+- fixed: ps2epsi should be used instead of ps2eps
+  https://bugs.launchpad.net/latexdraw/+bug/1369416
