@@ -16,6 +16,15 @@
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
   <item>
+    <title>Exporting as EPS on Windows (precisions)</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Sun, 16 sep 2014 09:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS48</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS48</link>
+    <description>I said in my previous post that ps2eps requires Perl. In fact, the real problem on Windows is that ps2eps does not exist anymore!? I just replaced the use of ps2eps by ps2epsi. It should normally fix the problem of exporting EPS picture. You can try that by using the latest development version: https://ci.inria.fr/malai/job/latexdraw/lastBuild/net.sf.latexdraw$latexdraw.core/. Tell me whether this issue is now fixed.</description>
+  </item>
+
+  <item>
     <title>Exporting as PS/PDF on Windows</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Sun, 14 sep 2014 09:00:00 GMT</pubDate>
