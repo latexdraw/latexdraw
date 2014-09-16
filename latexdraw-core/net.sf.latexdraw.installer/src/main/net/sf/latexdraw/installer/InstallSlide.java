@@ -209,7 +209,6 @@ public class InstallSlide extends Slide implements Runnable {
 	 * @since 1.9.2
 	 */
 	private boolean copyFiles(final String from, final String into, final boolean replace) throws FileNotFoundException {
-		System.out.println("COPY->" + from + " " + into);
 		final File src  = new File(from);
 		final File here = new File(into);
 		boolean ok = true;
@@ -305,6 +304,13 @@ public class InstallSlide extends Slide implements Runnable {
 		try {
 			okCopying = okCopying && copyFiles(PATH_JAR+File.separator+DATA_DIR+File.separator+NAME_TEMPLATES_DIR, LPath.PATH_TEMPLATES_SHARED, false);
 			okCopying = okCopying && copyFiles(PATH_JAR+File.separator+DATA_DIR+File.separator+NAME_CACHE_TEMPLATES_DIR, LPath.PATH_CACHE_SHARE_DIR, false);
+			if(LSystem.INSTANCE.isLinux()){
+				new File(LPath.PATH_SHARED+"/images/app/").mkdirs();
+				okCopying = okCopying && copyFile(PATH_JAR+File.separator+DATA_DIR+File.separator+"gnome"+File.separator+"latexdraw.png", 
+						LPath.PATH_SHARED+"/images/app/", false);
+				okCopying = okCopying && copyFile(PATH_JAR+File.separator+DATA_DIR+File.separator+"gnome"+File.separator+"latexdraw.desktop", 
+						"/usr/share/applications/", false);
+			}
 
 			progressBar.setValue(progressBar.getValue()+20);
 

@@ -29,9 +29,18 @@
     </dependencySets>
   <files>
      <file>
-     <source>${project.build.directory}/${project.artifactId}-${project.version}.jar</source>
-     <outputDirectory>data/</outputDirectory>
-     <destName>LaTeXDraw.jar</destName>
+	     <source>${project.basedir}/src/resources/main/res/LaTeXDrawIcon.png</source>
+	     <outputDirectory>data/gnome/</outputDirectory>
+	     <destName>latexdraw.png</destName>
+  	</file>
+     <file>
+	     <source>${project.basedir}/src/gnome/latexdraw.desktop</source>
+	     <outputDirectory>data/gnome/</outputDirectory>
+  	</file>
+     <file>
+	     <source>${project.build.directory}/${project.artifactId}-${project.version}.jar</source>
+	     <outputDirectory>data/</outputDirectory>
+	     <destName>LaTeXDraw.jar</destName>
   	</file>
   </files>
   <fileSets>

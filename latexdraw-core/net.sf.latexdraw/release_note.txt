@@ -1,5 +1,7 @@
 ************************************************************
 Version 3.3.0
 
+- added: better integration in Linux environments (using the installer) 
+  https://bugs.launchpad.net/latexdraw/+bug/1369488
 - fixed: ps2epsi should be used instead of ps2eps
   https://bugs.launchpad.net/latexdraw/+bug/1369416

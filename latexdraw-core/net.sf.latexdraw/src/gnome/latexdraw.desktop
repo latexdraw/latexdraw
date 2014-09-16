@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Name=Latexdraw
+GenericName=Vector Graphics Editor for LaTeX
+X-GNOME-FullName=Latexdraw Vector Graphics Editor for LaTeX
+Comment=Create and edit Scalable Vector Graphics images for LaTeX
+Type=Application
+Categories=Graphics;VectorGraphics;LaTeX;
+MimeType=image/svg+xml;
+Exec=latexdraw %F
+TryExec=latexdraw
+Icon=/usr/share/latexdraw/images/app/latexdraw.png
+Terminal=false
+StartupNotify=true
+X-Desktop-File-Install-Version=3.2
