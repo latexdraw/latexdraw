@@ -137,7 +137,7 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 
 		/* Creation of the tabbed pane. */
 		widget.tabbedPanel.addTab("Drawing", drawingArea);
-		widget.tabbedPanel.addTab("PST", widget.getCodePanel());
+		widget.tabbedPanel.addTab("PST", widget.getCodePanel()); //$NON-NLS-1$
 
 		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.LINE_AXIS));
 		statusPanel.add(widget.fileLoader.getProgressBar());

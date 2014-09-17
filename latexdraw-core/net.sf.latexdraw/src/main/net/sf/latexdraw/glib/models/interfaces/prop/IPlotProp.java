@@ -23,17 +23,17 @@ public interface IPlotProp extends IScalable{
 	 */
 	enum PlotStyle {
 		CURVE {
-			@Override public String getPSTToken() { return "curve"; }
+			@Override public String getPSTToken() { return "curve"; } //$NON-NLS-1$
 		}, LINE {
-			@Override public String getPSTToken() { return "line";}
+			@Override public String getPSTToken() { return "line";} //$NON-NLS-1$
 		}, DOTS {
-			@Override public String getPSTToken() { return "dots";}
+			@Override public String getPSTToken() { return "dots";} //$NON-NLS-1$
 		}, POLYGON {
-			@Override public String getPSTToken() { return "polygon";}
+			@Override public String getPSTToken() { return "polygon";} //$NON-NLS-1$
 		}, ECURVE {
-			@Override public String getPSTToken() { return "ecurve";}
+			@Override public String getPSTToken() { return "ecurve";} //$NON-NLS-1$
 		}, CCURVE {
-			@Override public String getPSTToken() {return "ccurve";}
+			@Override public String getPSTToken() {return "ccurve";} //$NON-NLS-1$
 		};
 
 		/** @return The PST token corresponding to the plot style. */

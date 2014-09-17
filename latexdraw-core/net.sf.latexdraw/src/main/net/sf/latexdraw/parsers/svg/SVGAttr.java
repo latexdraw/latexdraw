@@ -170,7 +170,7 @@ public class SVGAttr implements Attr, Cloneable {
 
 	@Override
 	public String toString() {
-        return "[" + name + ", " + value + ']';
+        return "[" + name + ", " + value + ']'; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 

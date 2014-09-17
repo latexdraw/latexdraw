@@ -55,7 +55,7 @@ abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
 	private void addCode(final StringBuilder mainCodeBuilder, final StringBuilder codeToAdd) {
 		if(codeToAdd!=null) {
 			if(mainCodeBuilder.length()>0)
-				mainCodeBuilder.append(", ");
+				mainCodeBuilder.append(", "); //$NON-NLS-1$
 			mainCodeBuilder.append(codeToAdd);
 		}
 	}

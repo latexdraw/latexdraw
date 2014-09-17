@@ -44,7 +44,7 @@ public final class LFileUtils {
 	 */
 	public File createTempDir() {
 		final String pathTmp  = System.getProperty("java.io.tmpdir");	//$NON-NLS-1$
-		final String path		= pathTmp + (pathTmp.endsWith(LResources.FILE_SEP) ? "" : LResources.FILE_SEP) + "latexdraw" + LResources.FILE_SEP +
+		final String path		= pathTmp + (pathTmp.endsWith(LResources.FILE_SEP) ? "" : LResources.FILE_SEP) + "latexdraw" + LResources.FILE_SEP + //$NON-NLS-1$ //$NON-NLS-2$
 									"latexdrawTmp" + System.currentTimeMillis() + new Random().nextInt(100000); //$NON-NLS-1$
 		final File tmpDir		= new File(path);
 		final boolean ok		= tmpDir.mkdirs();

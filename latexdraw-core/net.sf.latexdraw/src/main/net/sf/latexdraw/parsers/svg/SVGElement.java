@@ -445,8 +445,8 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(namespaceURI == null)
 			return null;
 
-		String pref = null;//$NON-NLS-1$
-        final String xmlns = "xmlns";
+		String pref = null;
+        final String xmlns = "xmlns"; //$NON-NLS-1$
 
         if(attributes!=null) {
 			int i=0;

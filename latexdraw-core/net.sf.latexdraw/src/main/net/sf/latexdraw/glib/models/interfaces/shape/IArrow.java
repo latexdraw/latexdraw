@@ -26,7 +26,7 @@ public interface IArrow extends IArrowable {
 	enum ArrowStyle {
 		NONE {
 			@Override
-			public String getPSTToken() { return ""; }
+			public String getPSTToken() { return ""; } //$NON-NLS-1$
 
 			@Override
 			public ArrowStyle getOppositeArrowStyle() { return NONE; }

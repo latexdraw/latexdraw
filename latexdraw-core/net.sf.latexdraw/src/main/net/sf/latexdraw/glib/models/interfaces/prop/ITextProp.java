@@ -20,25 +20,25 @@ public interface ITextProp {
 	/** This enumeration defines the concept of text size for latex texts. */
 	enum TextSize {
 		/** \tiny size */
-		TINY {@Override public String getLatexToken() {return "tiny";}},
+		TINY {@Override public String getLatexToken() {return "tiny";}}, //$NON-NLS-1$
 		/** \scriptsize size */
-		SCRIPT {@Override public String getLatexToken() {return "scriptsize";}},
+		SCRIPT {@Override public String getLatexToken() {return "scriptsize";}}, //$NON-NLS-1$
 		/** \footnotesize size */
-		FOOTNOTE {@Override public String getLatexToken() {return "footnotesize";}},
+		FOOTNOTE {@Override public String getLatexToken() {return "footnotesize";}}, //$NON-NLS-1$
 		/** \small size */
-		SMALL {@Override public String getLatexToken() {return "small";}},
+		SMALL {@Override public String getLatexToken() {return "small";}}, //$NON-NLS-1$
 		/** \small size */
-		NORMAL {@Override public String getLatexToken() {return "normalsize";}},
+		NORMAL {@Override public String getLatexToken() {return "normalsize";}}, //$NON-NLS-1$
 		/** \large size */
-		LARGE1 {@Override public String getLatexToken() {return "large";}},
+		LARGE1 {@Override public String getLatexToken() {return "large";}}, //$NON-NLS-1$
 		/** \Large size */
-		LARGE2 {@Override public String getLatexToken() {return "Large";}},
+		LARGE2 {@Override public String getLatexToken() {return "Large";}}, //$NON-NLS-1$
 		/** \LARGE size */
-		LARGE3 {@Override public String getLatexToken() {return "LARGE";}},
+		LARGE3 {@Override public String getLatexToken() {return "LARGE";}}, //$NON-NLS-1$
 		/** \huge size */
-		HUGE1 {@Override public String getLatexToken() {return "huge";}},
+		HUGE1 {@Override public String getLatexToken() {return "huge";}}, //$NON-NLS-1$
 		/** \Huge size */
-		HUGE2 {@Override public String getLatexToken() {return "Huge";}};
+		HUGE2 {@Override public String getLatexToken() {return "Huge";}}; //$NON-NLS-1$
 
 		/**
 		 * @return The latex token corresponding to the text size.

@@ -18,17 +18,17 @@ public class TestBorderPos {
 	@Test
 	public void testGetStyle() {
 		assertNull(BorderPos.getStyle(null));
-		assertNull(BorderPos.getStyle(""));
-		assertNull(BorderPos.getStyle("ezpoke zae"));
-		assertNull(BorderPos.getStyle("7dsqd 4ds'"));
+		assertNull(BorderPos.getStyle("")); //$NON-NLS-1$
+		assertNull(BorderPos.getStyle("ezpoke zae")); //$NON-NLS-1$
+		assertNull(BorderPos.getStyle("7dsqd 4ds'")); //$NON-NLS-1$
 		assertEquals(BorderPos.getStyle(BorderPos.INTO.toString()), BorderPos.INTO);
 		assertEquals(BorderPos.getStyle(BorderPos.MID.toString()), BorderPos.MID);
 		assertEquals(BorderPos.getStyle(BorderPos.OUT.toString()), BorderPos.OUT);
 
 		assertNull(BorderPos.getStyle(null));
-		assertNull(BorderPos.getStyle(""));
-		assertNull(BorderPos.getStyle("dez"));
-		assertNull(BorderPos.getStyle("&ç eydfs h"));
+		assertNull(BorderPos.getStyle("")); //$NON-NLS-1$
+		assertNull(BorderPos.getStyle("dez")); //$NON-NLS-1$
+		assertNull(BorderPos.getStyle("&ç eydfs h")); //$NON-NLS-1$
 		assertEquals(BorderPos.getStyle(PSTricksConstants.BORDERS_INSIDE), BorderPos.INTO);
 		assertEquals(BorderPos.getStyle(PSTricksConstants.BORDERS_MIDDLE), BorderPos.MID);
 		assertEquals(BorderPos.getStyle(PSTricksConstants.BORDERS_OUTSIDE), BorderPos.OUT);

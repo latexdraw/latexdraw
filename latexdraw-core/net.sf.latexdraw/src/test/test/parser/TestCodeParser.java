@@ -23,7 +23,7 @@ public abstract class TestCodeParser {
 
 
 	@Test public void testGetCharAt() {
-		parser.setCode("test");
+		parser.setCode("test"); //$NON-NLS-1$
 		assertEquals(CodeParser.EOC, parser.getCharAt(-2));
 		assertEquals(CodeParser.EOC, parser.getCharAt(10));
 		assertEquals(CodeParser.EOC, parser.getCharAt(4));
@@ -35,12 +35,12 @@ public abstract class TestCodeParser {
 
 
 	@Test public void testGetCode() {
-		String code = "this is my code";
+		String code = "this is my code"; //$NON-NLS-1$
 
 		parser.setCode(code);
 		assertEquals(parser.getCode(), code);
 
-		code = "";
+		code = ""; //$NON-NLS-1$
 
 		parser.setCode(code);
 		assertEquals(parser.getCode(), code);
@@ -48,7 +48,7 @@ public abstract class TestCodeParser {
 
 
 	@Test public void testSetCode() {
-		String code = "a piece of code";
+		String code = "a piece of code"; //$NON-NLS-1$
 
 		parser.setPosition(10);
 		parser.setCode(code);
@@ -60,7 +60,7 @@ public abstract class TestCodeParser {
 
 
 	@Test public void testNextChar() {
-		parser.setCode("code");
+		parser.setCode("code"); //$NON-NLS-1$
 		assertTrue(parser.nextChar()=='o');
 		assertTrue(parser.nextChar()=='d');
 		assertTrue(parser.nextChar()=='e');
@@ -73,7 +73,7 @@ public abstract class TestCodeParser {
 
 
 	@Test public void testGetChar() {
-		parser.setCode("my code");
+		parser.setCode("my code"); //$NON-NLS-1$
 		assertTrue(parser.getChar()=='m');
 		parser.setPosition(1);
 		assertTrue(parser.getChar()=='y');
@@ -85,9 +85,9 @@ public abstract class TestCodeParser {
 
 
 	@Test public void testIsEOC() {
-		parser.setCode("");
+		parser.setCode(""); //$NON-NLS-1$
 		assertTrue(parser.isEOC());
-		parser.setCode("aa");
+		parser.setCode("aa"); //$NON-NLS-1$
 		assertFalse(parser.isEOC());
 		parser.nextChar();
 		assertFalse(parser.isEOC());
@@ -116,21 +116,21 @@ public abstract class TestCodeParser {
 
 
 	@Test public void testIsEOL() {
-		parser.setCode("");
+		parser.setCode(""); //$NON-NLS-1$
 		assertFalse(parser.isEOL());
-		parser.setCode("a");
-		assertFalse(parser.isEOL());
-		parser.nextChar();
-		assertFalse(parser.isEOL());
-		parser.setCode("a\n");
+		parser.setCode("a"); //$NON-NLS-1$
 		assertFalse(parser.isEOL());
 		parser.nextChar();
-		assertTrue(parser.isEOL());
-		parser.setCode("a\r");
+		assertFalse(parser.isEOL());
+		parser.setCode("a\n"); //$NON-NLS-1$
 		assertFalse(parser.isEOL());
 		parser.nextChar();
 		assertTrue(parser.isEOL());
-		parser.setCode("a\r\n");
+		parser.setCode("a\r"); //$NON-NLS-1$
+		assertFalse(parser.isEOL());
+		parser.nextChar();
+		assertTrue(parser.isEOL());
+		parser.setCode("a\r\n"); //$NON-NLS-1$
 		assertFalse(parser.isEOL());
 		parser.nextChar();
 		assertTrue(parser.isEOL());
@@ -139,7 +139,7 @@ public abstract class TestCodeParser {
 
 
 	@Test public void testSetPosition() {
-		parser.setCode("");
+		parser.setCode(""); //$NON-NLS-1$
 		parser.setPosition(10);
 		assertEquals(10, parser.getPosition());
 		parser.setPosition(-1);

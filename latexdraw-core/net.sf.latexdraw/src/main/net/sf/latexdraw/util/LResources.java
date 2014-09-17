@@ -34,10 +34,10 @@ public final class LResources {
 	}
 
 	/** The line separator of the current system. */
-	public static final String EOL = System.getProperty("line.separator");
+	public static final String EOL = System.getProperty("line.separator"); //$NON-NLS-1$
 
 	/** The file separator of the current system. */
-	public static final String FILE_SEP = System.getProperty("file.separator");
+	public static final String FILE_SEP = System.getProperty("file.separator"); //$NON-NLS-1$
 
 	/** The name of the application */
     public static final String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$

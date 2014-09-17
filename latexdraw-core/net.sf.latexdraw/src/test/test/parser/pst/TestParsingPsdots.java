@@ -19,7 +19,7 @@ public class TestParsingPsdots extends TestParsingPSdot {
 	@Override
 	@Test
 	public void testDotStyleo() throws ParseException {
-		IGroup group = parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=o]"+getBasicCoordinates()).get();
+		IGroup group = parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=o]"+getBasicCoordinates()).get(); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(2, group.size());
 		assertEquals(DotStyle.O, ((IDot)group.getShapeAt(0)).getDotStyle());
 		assertEquals(DotStyle.O, ((IDot)group.getShapeAt(1)).getDotStyle());
@@ -30,7 +30,7 @@ public class TestParsingPsdots extends TestParsingPSdot {
 	@Override
 	@Test
 	public void testDotStyleDot() throws ParseException {
-		IGroup group = parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=*]"+getBasicCoordinates()).get();
+		IGroup group = parser.parsePSTCode("\\"+getCommandName()+"[dotstyle=*]"+getBasicCoordinates()).get(); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(2, group.size());
 		assertEquals(DotStyle.DOT, ((IDot)group.getShapeAt(0)).getDotStyle());
 		assertEquals(DotStyle.DOT, ((IDot)group.getShapeAt(1)).getDotStyle());
@@ -41,7 +41,7 @@ public class TestParsingPsdots extends TestParsingPSdot {
 	@Override
 	@Test
 	public void testNoDotStyle() throws ParseException {
-		IGroup group = parser.parsePSTCode("\\"+getCommandName()+getBasicCoordinates()).get();
+		IGroup group = parser.parsePSTCode("\\"+getCommandName()+getBasicCoordinates()).get(); //$NON-NLS-1$
 		assertEquals(2, group.size());
 		assertEquals(DotStyle.DOT, ((IDot)group.getShapeAt(0)).getDotStyle());
 		assertEquals(DotStyle.DOT, ((IDot)group.getShapeAt(1)).getDotStyle());
@@ -53,7 +53,7 @@ public class TestParsingPsdots extends TestParsingPSdot {
 	@Test
 	public void testNoCoordinate() throws ParseException {
 		try {
-			parser.parsePSTCode("\\"+getCommandName()).get().isEmpty();
+			parser.parsePSTCode("\\"+getCommandName()).get().isEmpty(); //$NON-NLS-1$
 			fail();
 		}catch(Exception e) { /* ok */ }
 	}
@@ -62,7 +62,7 @@ public class TestParsingPsdots extends TestParsingPSdot {
 	@Override
 	@Test
 	public void test1Coordinates() throws ParseException {
-		IGroup group = parser.parsePSTCode("\\"+getCommandName()+"(5,10)").get();
+		IGroup group = parser.parsePSTCode("\\"+getCommandName()+"(5,10)").get(); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(1, group.size());
 		assertEquals(5.*IShape.PPC, group.getShapeAt(0).getPtAt(0).getX(), 0.0001);
 		assertEquals(-10.*IShape.PPC, group.getShapeAt(0).getPtAt(0).getY(), 0.0001);
@@ -73,7 +73,7 @@ public class TestParsingPsdots extends TestParsingPSdot {
 	@Override
 	@Test
 	public void testFloatSigns() throws ParseException {
-		IGroup group = parser.parsePSTCode("\\"+getCommandName()+"(+++35.5,--50.5)(+-++35.5,---50.5)").get();
+		IGroup group = parser.parsePSTCode("\\"+getCommandName()+"(+++35.5,--50.5)(+-++35.5,---50.5)").get(); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(35.5*IShape.PPC, group.getShapeAt(0).getPtAt(0).getX(), 0.0001);
 		assertEquals(-50.5*IShape.PPC, group.getShapeAt(0).getPtAt(0).getY(), 0.0001);
 		assertEquals(-35.5*IShape.PPC, group.getShapeAt(1).getPtAt(0).getX(), 0.0001);
@@ -92,7 +92,7 @@ public class TestParsingPsdots extends TestParsingPSdot {
 	@Override
 	@Test
 	public void testStarLineColourIsFillingColour() throws ParseException {
-		IGroup group = parser.parsePSTCode("\\"+getCommandName()+"*["+"linecolor=green, dotstyle=o]"+getBasicCoordinates()).get();
+		IGroup group = parser.parsePSTCode("\\"+getCommandName()+"*["+"linecolor=green, dotstyle=o]"+getBasicCoordinates()).get(); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		assertEquals(Color.GREEN, group.getShapeAt(0).getFillingCol());
 		assertEquals(Color.GREEN, group.getShapeAt(0).getLineColour());
 		assertEquals(Color.GREEN, group.getShapeAt(1).getFillingCol());
@@ -104,7 +104,7 @@ public class TestParsingPsdots extends TestParsingPSdot {
 	@Override
 	@Test
 	public void testCoordinatesFloat2() throws ParseException {
-		IDot dot =  (IDot)parser.parsePSTCode("\\"+getCommandName()+"(35.5,50.5)").get().getShapeAt(0);
+		IDot dot =  (IDot)parser.parsePSTCode("\\"+getCommandName()+"(35.5,50.5)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(35.5*IShape.PPC, dot.getPtAt(0).getX(), 0.0001);
 		assertEquals(-50.5*IShape.PPC, dot.getPtAt(0).getY(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
@@ -114,7 +114,7 @@ public class TestParsingPsdots extends TestParsingPSdot {
 
 	@Test
 	public void test2Points() throws ParseException {
-		IGroup group =  parser.parsePSTCode("\\"+getCommandName()+"(35.5,50.5)(2,2)").get();
+		IGroup group =  parser.parsePSTCode("\\"+getCommandName()+"(35.5,50.5)(2,2)").get(); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(2, group.size());
 		assertTrue(group.getShapeAt(0) instanceof IDot);
 		assertTrue(group.getShapeAt(1) instanceof IDot);
@@ -129,11 +129,11 @@ public class TestParsingPsdots extends TestParsingPSdot {
 
 	@Override
 	public String getCommandName() {
-		return "psdots";
+		return "psdots"; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getBasicCoordinates() {
-		return "(1,1)(2,2)";
+		return "(1,1)(2,2)"; //$NON-NLS-1$
 	}
 }

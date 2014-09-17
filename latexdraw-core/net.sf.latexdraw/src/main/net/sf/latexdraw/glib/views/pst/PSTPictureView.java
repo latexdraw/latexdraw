@@ -53,7 +53,7 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 		path = path.replaceAll("\\\\", "/");//$NON-NLS-1$ //$NON-NLS-2$
 
 		if(path.contains(" "))//$NON-NLS-1$
-			start.append(LangTool.INSTANCE.getString16("Picture.0")).append(LResources.EOL);
+			start.append(LangTool.INSTANCE.getString16("Picture.0")).append(LResources.EOL); //$NON-NLS-1$
 
 		if(rot!=null)
 			cache.append(rot);

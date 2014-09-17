@@ -7,12 +7,12 @@ import org.junit.Test;
 
 public class TestPlotStyle {
 	@Test public void testGetPSTToken() {
-		assertEquals("curve", PlotStyle.CURVE.getPSTToken());
-		assertEquals("ccurve", PlotStyle.CCURVE.getPSTToken());
-		assertEquals("dots", PlotStyle.DOTS.getPSTToken());
-		assertEquals("ecurve", PlotStyle.ECURVE.getPSTToken());
-		assertEquals("line", PlotStyle.LINE.getPSTToken());
-		assertEquals("polygon", PlotStyle.POLYGON.getPSTToken());
+		assertEquals("curve", PlotStyle.CURVE.getPSTToken()); //$NON-NLS-1$
+		assertEquals("ccurve", PlotStyle.CCURVE.getPSTToken()); //$NON-NLS-1$
+		assertEquals("dots", PlotStyle.DOTS.getPSTToken()); //$NON-NLS-1$
+		assertEquals("ecurve", PlotStyle.ECURVE.getPSTToken()); //$NON-NLS-1$
+		assertEquals("line", PlotStyle.LINE.getPSTToken()); //$NON-NLS-1$
+		assertEquals("polygon", PlotStyle.POLYGON.getPSTToken()); //$NON-NLS-1$
 	}
 
 	@Test public void testGetPlotStyleNULL() {
@@ -20,11 +20,11 @@ public class TestPlotStyle {
 	}
 
 	@Test public void testGetPlotStyleEmpty() {
-		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle(""));
+		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle("")); //$NON-NLS-1$
 	}
 
 	@Test public void testGetPlotStyleNotCorrect() {
-		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle("dfs@fgd"));
+		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle("dfs@fgd")); //$NON-NLS-1$
 	}
 
 	@Test public void testGetPlotStyleOK() {

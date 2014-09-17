@@ -16,7 +16,7 @@ public class TestParsingPsBegin extends TestPSTParser {
 
 	@Test
 	public void testBeginPsPictureWithGridAndShapesBasic() throws ParseException {
-		IGroup group = parser.parsePSTCode("\\begin{pspicture}(0,0)(2,2)\n\\psgrid\n\\psframe(0,0)(2,2)\n\\psframe(1,1)(3,3)\n\\end{pspicture}").get();
+		IGroup group = parser.parsePSTCode("\\begin{pspicture}(0,0)(2,2)\n\\psgrid\n\\psframe(0,0)(2,2)\n\\psframe(1,1)(3,3)\n\\end{pspicture}").get(); //$NON-NLS-1$
 		IGrid grid = (IGrid)group.getShapeAt(0);
 		IRectangle rec1 = (IRectangle)group.getShapeAt(1);
 		IRectangle rec2 = (IRectangle)group.getShapeAt(2);
@@ -34,7 +34,7 @@ public class TestParsingPsBegin extends TestPSTParser {
 
 	@Test
 	public void testBeginPsPictureWithGridAndShapesComplex() throws ParseException {
-		IGroup group = parser.parsePSTCode("\\begin{pspicture}(-3,-3)(2,2)\n\\psgrid\n\\psframe(0,0)(2,2)\n\\psframe(1,1)(3,3)\n\\end{pspicture}").get();
+		IGroup group = parser.parsePSTCode("\\begin{pspicture}(-3,-3)(2,2)\n\\psgrid\n\\psframe(0,0)(2,2)\n\\psframe(1,1)(3,3)\n\\end{pspicture}").get(); //$NON-NLS-1$
 		IGrid grid = (IGrid)group.getShapeAt(0);
 		IRectangle rec1 = (IRectangle)group.getShapeAt(1);
 		IRectangle rec2 = (IRectangle)group.getShapeAt(2);
@@ -52,7 +52,7 @@ public class TestParsingPsBegin extends TestPSTParser {
 
 	@Test
 	public void testBeginPsPictureStar2Coord() throws ParseException {
-		parser.parsePSTCode("\\begin{pspicture*}(0,0)(1,1)\n\n\\end{pspicture*}");
+		parser.parsePSTCode("\\begin{pspicture*}(0,0)(1,1)\n\n\\end{pspicture*}"); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -60,14 +60,14 @@ public class TestParsingPsBegin extends TestPSTParser {
 
 	@Test
 	public void testBeginPsPictureStar1Coord() throws ParseException {
-		parser.parsePSTCode("\\begin{pspicture*}(1,1)\n\n\\end{pspicture*}");
+		parser.parsePSTCode("\\begin{pspicture*}(1,1)\n\n\\end{pspicture*}"); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
 
 	@Test
 	public void testBeginPsPicture2Coord() throws ParseException {
-		parser.parsePSTCode("\\begin{pspicture}(0,0)(1,1)\n\n\\end{pspicture}");
+		parser.parsePSTCode("\\begin{pspicture}(0,0)(1,1)\n\n\\end{pspicture}"); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -75,7 +75,7 @@ public class TestParsingPsBegin extends TestPSTParser {
 
 	@Test
 	public void testBeginPsPicture1Coord() throws ParseException {
-		parser.parsePSTCode("\\begin{pspicture}(1,1)\n\n\\end{pspicture}");
+		parser.parsePSTCode("\\begin{pspicture}(1,1)\n\n\\end{pspicture}"); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -83,20 +83,20 @@ public class TestParsingPsBegin extends TestPSTParser {
 
 	@Test(expected=ParseException.class)
 	public void testBeginPsPictureErrorOnNoCoord() throws ParseException {
-		parser.parsePSTCode("\\begin{pspicture}\n\n\\end{pspicture}");
+		parser.parsePSTCode("\\begin{pspicture}\n\n\\end{pspicture}"); //$NON-NLS-1$
 	}
 
 
 
 	@Test(expected=ParseException.class)
 	public void testBeginPsPictureErrorOnNoEnd() throws ParseException {
-		parser.parsePSTCode("\\begin{pspicture}(1,1)");
+		parser.parsePSTCode("\\begin{pspicture}(1,1)"); //$NON-NLS-1$
 	}
 
 
 	@Test(expected=ParseException.class)
 	public void testBeginPsPictureErrorOnNoStart() throws ParseException {
-		parser.parsePSTCode("\\end{pspicture}");
+		parser.parsePSTCode("\\end{pspicture}"); //$NON-NLS-1$
 	}
 
 
@@ -104,11 +104,11 @@ public class TestParsingPsBegin extends TestPSTParser {
 
 	@Override
 	public String getCommandName() {
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getBasicCoordinates() {
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 }

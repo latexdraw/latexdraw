@@ -172,9 +172,9 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 
 		@Override
 		public void propertyChange(final PropertyChangeEvent evt) {
-            if("progress".equals(evt.getPropertyName()))
+            if("progress".equals(evt.getPropertyName())) //$NON-NLS-1$
             	progressBar.setValue((Integer)evt.getNewValue());
-            else if("state".equals(evt.getPropertyName()))
+            else if("state".equals(evt.getPropertyName())) //$NON-NLS-1$
             	switch((SwingWorker.StateValue)evt.getNewValue()){
 					case STARTED:
 						progressBar.setVisible(true);

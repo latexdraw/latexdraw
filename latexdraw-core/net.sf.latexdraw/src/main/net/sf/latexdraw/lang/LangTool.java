@@ -322,24 +322,24 @@ public final class LangTool {
 
 	private void initMap() {
 		// Recording the languages
-		mapLangs.put("fr", Lang.FR);
-		mapLangs.put("en", Lang.EN_BR);
-		mapLangs.put("es", Lang.ES);
-		mapLangs.put("de", Lang.DE);
-		mapLangs.put("it", Lang.IT);
-		mapLangs.put("pl", Lang.PL);
-		mapLangs.put("tr", Lang.TR);
-		mapLangs.put("ja", Lang.JA);
-		mapLangs.put("vi", Lang.VI);
-		mapLangs.put("hu", Lang.HU);
-		mapLangs.put("pt-BR", Lang.PT_BR);
-		mapLangs.put("sr", Lang.SR);
-		mapLangs.put("ru", Lang.RU);
-		mapLangs.put("cs", Lang.CS);
-		mapLangs.put("ca", Lang.CA);
-		mapLangs.put("uk", Lang.UK);
-		mapLangs.put("si", Lang.SI);
-		mapLangs.put("zh-CN", Lang.zh_CN);
+		mapLangs.put("fr", Lang.FR); //$NON-NLS-1$
+		mapLangs.put("en", Lang.EN_BR); //$NON-NLS-1$
+		mapLangs.put("es", Lang.ES); //$NON-NLS-1$
+		mapLangs.put("de", Lang.DE); //$NON-NLS-1$
+		mapLangs.put("it", Lang.IT); //$NON-NLS-1$
+		mapLangs.put("pl", Lang.PL); //$NON-NLS-1$
+		mapLangs.put("tr", Lang.TR); //$NON-NLS-1$
+		mapLangs.put("ja", Lang.JA); //$NON-NLS-1$
+		mapLangs.put("vi", Lang.VI); //$NON-NLS-1$
+		mapLangs.put("hu", Lang.HU); //$NON-NLS-1$
+		mapLangs.put("pt-BR", Lang.PT_BR); //$NON-NLS-1$
+		mapLangs.put("sr", Lang.SR); //$NON-NLS-1$
+		mapLangs.put("ru", Lang.RU); //$NON-NLS-1$
+		mapLangs.put("cs", Lang.CS); //$NON-NLS-1$
+		mapLangs.put("ca", Lang.CA); //$NON-NLS-1$
+		mapLangs.put("uk", Lang.UK); //$NON-NLS-1$
+		mapLangs.put("si", Lang.SI); //$NON-NLS-1$
+		mapLangs.put("zh-CN", Lang.zh_CN); //$NON-NLS-1$
 
 		mapLangs.put(Lang.FR.getName(), Lang.FR);
 		mapLangs.put(Lang.EN_BR.getName(), Lang.EN_BR);

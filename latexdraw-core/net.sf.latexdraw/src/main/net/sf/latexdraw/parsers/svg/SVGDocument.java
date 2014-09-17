@@ -85,7 +85,7 @@ public class SVGDocument implements Document {
             try {
                 doc = builder.parse(uri.getPath());
             } catch (final MalformedURLException ex) {
-                doc = builder.parse("file:" + uri.getPath());
+                doc = builder.parse("file:" + uri.getPath()); //$NON-NLS-1$
             }
             final NodeList nl;
 
@@ -128,7 +128,7 @@ public class SVGDocument implements Document {
 
 	@Override
 	public String toString() {
-        return "SVG Document:" + root;
+        return "SVG Document:" + root; //$NON-NLS-1$
 	}
 
 

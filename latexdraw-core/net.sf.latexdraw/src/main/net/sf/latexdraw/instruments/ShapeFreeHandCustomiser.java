@@ -88,7 +88,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseWidgets() {
 		freeHandType = new LabelComboBox();
-		freeHandType.setLabel(new JLabel(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.2")));
+		freeHandType.setLabel(new JLabel(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.2"))); //$NON-NLS-1$
 		freeHandType.setRenderer(new LabelListCellRenderer());
 		JLabel label = new JLabel(IFreeHandProp.FreeHandType.CURVES.toString());
 		label.setIcon(LResources.CURVES_FREEHAND_ICON);
@@ -99,9 +99,9 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser {
 		freeHandType.setPreferredSize(new Dimension(90, 30));
 		freeHandType.setMaximumSize(new Dimension(90, 30));
 
-		gapPoints = new MSpinner(new MSpinnerNumberModel(5, 1, 1000, 1), new JLabel(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.0")));
+		gapPoints = new MSpinner(new MSpinnerNumberModel(5, 1, 1000, 1), new JLabel(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.0"))); //$NON-NLS-1$
 
-		open = new MCheckBox(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.1"));
+		open = new MCheckBox(LangTool.INSTANCE.getString19("ParametersAkinPointsFrame.1")); //$NON-NLS-1$
 	}
 
 

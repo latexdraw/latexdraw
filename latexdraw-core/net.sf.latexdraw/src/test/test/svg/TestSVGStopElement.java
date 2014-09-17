@@ -28,25 +28,25 @@ public class TestSVGStopElement extends AbstractTestSVGElement {
 		catch(MalformedSVGDocument e){/**/}
 
 		try {
-			node.setAttribute(SVGAttributes.SVG_OFFSET, "dsd");
+			node.setAttribute(SVGAttributes.SVG_OFFSET, "dsd"); //$NON-NLS-1$
 			new SVGStopElement(node, null);
 			fail();
 		}
 		catch(MalformedSVGDocument e){/**/}
 
-		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
+		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5"); //$NON-NLS-1$
 		new SVGStopElement(node, null);
 	}
 
 
 	@Test
 	public void testGetStopColor() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
+		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5"); //$NON-NLS-1$
 		SVGStopElement e = new SVGStopElement(node, null);
 		assertEquals(e.getStopColor(), Color.BLACK);
 
-		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
-		node.setAttribute(SVGAttributes.SVG_STOP_COLOR, "blue");
+		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_STOP_COLOR, "blue"); //$NON-NLS-1$
 		e = new SVGStopElement(node, null);
 		assertEquals(e.getStopColor(), Color.BLUE);
 	}
@@ -55,7 +55,7 @@ public class TestSVGStopElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testGetOffset() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
+		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5"); //$NON-NLS-1$
 		SVGStopElement e = new SVGStopElement(node, null);
 		assertEquals(e.getOffset(), 0.5, 0.0001);
 	}
@@ -63,7 +63,7 @@ public class TestSVGStopElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testEnableRendering() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5");
+		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5"); //$NON-NLS-1$
 		SVGStopElement s = new SVGStopElement(node, null);
 		assertTrue(s.enableRendering());
 	}

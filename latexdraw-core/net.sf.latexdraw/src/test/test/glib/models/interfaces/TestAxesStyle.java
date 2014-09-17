@@ -44,8 +44,8 @@ public class TestAxesStyle {
 		assertEquals(AxesStyle.getStyle(PSTricksConstants.TOKEN_AXES_STYLE_NONE), AxesStyle.NONE);
 
 		assertNull(AxesStyle.getStyle(null));
-		assertNull(AxesStyle.getStyle(""));
-		assertNull(AxesStyle.getStyle("-çà( gfd"));
+		assertNull(AxesStyle.getStyle("")); //$NON-NLS-1$
+		assertNull(AxesStyle.getStyle("-çà( gfd")); //$NON-NLS-1$
 
 		assertEquals(AxesStyle.getStyle(AxesStyle.NONE.toString()), AxesStyle.NONE);
 		assertEquals(AxesStyle.getStyle(AxesStyle.AXES.toString()), AxesStyle.AXES);

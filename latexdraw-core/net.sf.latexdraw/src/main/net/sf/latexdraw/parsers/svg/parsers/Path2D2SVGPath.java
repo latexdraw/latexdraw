@@ -46,6 +46,7 @@ public class Path2D2SVGPath extends Shape2D2SVG<Path2D, SVGPathElement> {
 	}
 
 
+	@SuppressWarnings("nls")
 	@Override
 	public void parse() throws ParseException {
 		final PathIterator pi 		= shape.getPathIterator(null);

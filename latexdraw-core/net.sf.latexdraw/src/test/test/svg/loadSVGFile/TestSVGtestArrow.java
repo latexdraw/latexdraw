@@ -10,7 +10,7 @@ import org.junit.Test;
 public class TestSVGtestArrow extends TestLoadSVGFile {
 	@Override
 	public String getPathSVGFile() {
-		return "src/resources/test/res/testLoad/testArrow.svg";
+		return "src/resources/test/res/testLoad/testArrow.svg"; //$NON-NLS-1$
 	}
 
 

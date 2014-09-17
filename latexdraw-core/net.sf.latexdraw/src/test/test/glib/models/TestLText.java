@@ -51,11 +51,11 @@ public class TestLText extends TestIText<IText> {
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = ShapeFactory.createText(true, ShapeFactory.createPoint(), "coucou");
+		txt = ShapeFactory.createText(true, ShapeFactory.createPoint(), "coucou"); //$NON-NLS-1$
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = ShapeFactory.createText(true, ShapeFactory.createPoint(), "");
+		txt = ShapeFactory.createText(true, ShapeFactory.createPoint(), ""); //$NON-NLS-1$
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
@@ -64,9 +64,9 @@ public class TestLText extends TestIText<IText> {
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
 
-		txt = ShapeFactory.createText(false, null, "aa");
+		txt = ShapeFactory.createText(false, null, "aa"); //$NON-NLS-1$
 		assertEquals(ShapeFactory.createPoint(), txt.getPosition());
-		txt = ShapeFactory.createText(false, ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY), "aa");
+		txt = ShapeFactory.createText(false, ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY), "aa"); //$NON-NLS-1$
 		assertEquals(ShapeFactory.createPoint(), txt.getPosition());
 	}
 }

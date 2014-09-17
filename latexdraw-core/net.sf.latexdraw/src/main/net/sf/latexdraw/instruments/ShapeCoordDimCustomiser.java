@@ -68,10 +68,10 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		tlxS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel("x"));
+		tlxS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel("x")); //$NON-NLS-1$
 		tlxS.setEditor(new JSpinner.NumberEditor(tlxS, "0.00"));//$NON-NLS-1$
 		tlxS.setToolTipText("Sets the X-coordinate of the top-left position");
-		tlyS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel("y"));
+		tlyS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel("y")); //$NON-NLS-1$
 		tlyS.setEditor(new JSpinner.NumberEditor(tlyS, "0.00"));//$NON-NLS-1$
 		tlyS.setToolTipText("Sets the Y-coordinate of the top-left position");
 	}

@@ -126,20 +126,20 @@ public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S>
 		final ArrowStyle style = arrow.getArrowStyle();
 
 		if(style.isBar() || style.isRoundBracket() || style.isSquareBracket()) {
-			code.append("tbarsize=").append(LNumber.getCutNumber(arrow.getTBarSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
+			code.append("tbarsize=").append(LNumber.getCutNumber(arrow.getTBarSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //$NON-NLS-1$
 			append(LNumber.getCutNumber(arrow.getTBarSizeNum()));
 
 			if(style.isSquareBracket())
-				code.append(",bracketlength=").append(LNumber.getCutNumber(arrow.getBracketNum()));
+				code.append(",bracketlength=").append(LNumber.getCutNumber(arrow.getBracketNum())); //$NON-NLS-1$
 			else if(style.isRoundBracket())
-				code.append(",rbracketlength=").append(LNumber.getCutNumber(arrow.getRBracketNum()));
+				code.append(",rbracketlength=").append(LNumber.getCutNumber(arrow.getRBracketNum())); //$NON-NLS-1$
 		}
 		else if(style.isArrow())
-			code.append("arrowsize=").append(LNumber.getCutNumber(arrow.getArrowSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
-				 append(LNumber.getCutNumber(arrow.getArrowSizeNum())).append(",arrowlength=").
-				 append(LNumber.getCutNumber(arrow.getArrowLength())).append(",arrowinset=").append(LNumber.getCutNumber(arrow.getArrowInset()));
+			code.append("arrowsize=").append(LNumber.getCutNumber(arrow.getArrowSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //$NON-NLS-1$
+				 append(LNumber.getCutNumber(arrow.getArrowSizeNum())).append(",arrowlength="). //$NON-NLS-1$
+				 append(LNumber.getCutNumber(arrow.getArrowLength())).append(",arrowinset=").append(LNumber.getCutNumber(arrow.getArrowInset())); //$NON-NLS-1$
 		else
-			code.append("dotsize=").append(LNumber.getCutNumber(arrow.getDotSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' ').
+			code.append("dotsize=").append(LNumber.getCutNumber(arrow.getDotSizeDim()/IShape.PPC)).append(PSTricksConstants.TOKEN_CM).append(' '). //$NON-NLS-1$
 				 append(LNumber.getCutNumber(arrow.getDotSizeNum()));
 
 		return code;
@@ -314,7 +314,7 @@ public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S>
 			code.append(", linewidth=").append((float)LNumber.getCutNumber(shape.getThickness()/ppc));//$NON-NLS-1$
 
 		if(linesColor.getAlpha()<255)
-			code.append(", strokeopacity=").append(LNumber.getCutNumber(linesColor.getAlpha()/255f));
+			code.append(", strokeopacity=").append(LNumber.getCutNumber(linesColor.getAlpha()/255f)); //$NON-NLS-1$
 
 		switch(shape.getLineStyle()) {
 			case DOTTED:
@@ -353,7 +353,7 @@ public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S>
 			code.append(",fillcolor=").append(getColourName(interiorColor)); //$NON-NLS-1$
 
 		if(interiorColor.getAlpha()<255)
-			code.append(", opacity=").append(LNumber.getCutNumber(interiorColor.getAlpha()/255f));
+			code.append(", opacity=").append(LNumber.getCutNumber(interiorColor.getAlpha()/255f)); //$NON-NLS-1$
 
 		return code;
 	}

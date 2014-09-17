@@ -11,7 +11,7 @@ public class TestSVGCDATASection extends TestSVGText {
 	@Override
 	@Test
 	public void testGetNodeType() {
-		SVGCDATASection cdata = createSVGText("test", doc);
+		SVGCDATASection cdata = createSVGText("test", doc); //$NON-NLS-1$
 		assertEquals(Node.CDATA_SECTION_NODE, cdata.getNodeType());
 	}
 

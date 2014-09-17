@@ -118,12 +118,12 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		cache.append(PACKAGE_PSTRICKS);
 
 		if(!pkg.isEmpty()) {
-			pkg = "% User Packages:" + LResources.EOL + "% " + pkg.replace(LResources.EOL, LResources.EOL + "% ");
+			pkg = "% User Packages:" + LResources.EOL + "% " + pkg.replace(LResources.EOL, LResources.EOL + "% "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			cache.append(pkg).append(LResources.EOL);
 		}
 
 		if(withLatexParams && (positionVertToken!=VerticalPosition.NONE || !caption.isEmpty() || !label.isEmpty())) {
-			cache.append("\\begin{figure}");
+			cache.append("\\begin{figure}"); //$NON-NLS-1$
 
 			if(positionVertToken==VerticalPosition.NONE)
 				cache.append(LResources.EOL);
@@ -138,7 +138,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			cache.append("\\begin{center}").append(LResources.EOL);//$NON-NLS-1$
 
 		final Float scaleF = (float)LNumber.getCutNumber(getScale());
-		cache.append("\\psscalebox{").append(scaleF).append(' ').append(scaleF).append("} % Change this value to rescale the drawing.");//$NON-NLS-1$
+		cache.append("\\psscalebox{").append(scaleF).append(' ').append(scaleF).append("} % Change this value to rescale the drawing.");//$NON-NLS-1$ //$NON-NLS-2$
 		cache.append(LResources.EOL).append('{').append(LResources.EOL);
 		cache.append("\\begin{pspicture}("); //$NON-NLS-1$
 		cache.append(0).append(',').append((float)LNumber.getCutNumber((origin.getY()-br.getY())/ppc)).append(')').append('(');

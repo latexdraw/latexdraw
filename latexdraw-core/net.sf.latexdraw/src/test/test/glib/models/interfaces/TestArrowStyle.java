@@ -20,7 +20,7 @@ public class TestArrowStyle {
 		assertEquals(ArrowStyle.LEFT_DBLE_ARROW.getPSTToken(), PSTricksConstants.DLARROW_STYLE);
 		assertEquals(ArrowStyle.LEFT_ROUND_BRACKET.getPSTToken(), PSTricksConstants.LRBRACKET_STYLE);
 		assertEquals(ArrowStyle.LEFT_SQUARE_BRACKET.getPSTToken(), PSTricksConstants.LSBRACKET_STYLE);
-		assertEquals(ArrowStyle.NONE.getPSTToken(), "");
+		assertEquals(ArrowStyle.NONE.getPSTToken(), ""); //$NON-NLS-1$
 		assertEquals(ArrowStyle.RIGHT_ARROW.getPSTToken(), PSTricksConstants.RARROW_STYLE);
 		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW.getPSTToken(), PSTricksConstants.DRARROW_STYLE);
 		assertEquals(ArrowStyle.RIGHT_ROUND_BRACKET.getPSTToken(), PSTricksConstants.RRBRACKET_STYLE);
@@ -42,7 +42,7 @@ public class TestArrowStyle {
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.DLARROW_STYLE), ArrowStyle.LEFT_DBLE_ARROW);
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.LRBRACKET_STYLE), ArrowStyle.LEFT_ROUND_BRACKET);
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.LSBRACKET_STYLE), ArrowStyle.LEFT_SQUARE_BRACKET);
-		assertEquals(ArrowStyle.getArrowStyle(""), ArrowStyle.NONE);
+		assertEquals(ArrowStyle.getArrowStyle(""), ArrowStyle.NONE); //$NON-NLS-1$
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.RARROW_STYLE), ArrowStyle.RIGHT_ARROW);
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.DRARROW_STYLE), ArrowStyle.RIGHT_DBLE_ARROW);
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.RRBRACKET_STYLE), ArrowStyle.RIGHT_ROUND_BRACKET);
@@ -51,9 +51,9 @@ public class TestArrowStyle {
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.ROUNDIN_STYLE), ArrowStyle.ROUND_IN);
 
 		assertNull(ArrowStyle.getArrowStyle(null));
-		assertEquals(ArrowStyle.NONE, ArrowStyle.getArrowStyle(""));
-		assertNull(ArrowStyle.getArrowStyle("diqdo "));
-		assertNull(ArrowStyle.getArrowStyle("çé _é  "));
+		assertEquals(ArrowStyle.NONE, ArrowStyle.getArrowStyle("")); //$NON-NLS-1$
+		assertNull(ArrowStyle.getArrowStyle("diqdo ")); //$NON-NLS-1$
+		assertNull(ArrowStyle.getArrowStyle("çé _é  ")); //$NON-NLS-1$
 
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.BAR_END.toString()), ArrowStyle.BAR_END);
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.BAR_IN.toString()), ArrowStyle.BAR_IN);

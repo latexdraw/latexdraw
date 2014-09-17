@@ -168,8 +168,8 @@ public final class LPath {
 		    path = URLDecoder.decode(url.toString(), "UTF-8");//$NON-NLS-1$
 		    int index = path.lastIndexOf('/');
 		    path = path.substring(0, index);
-		    final String jar = "jar:file:";//$NON-NLS-1$//$NON-NLS-2$
-            final String file = "file:";
+		    final String jar = "jar:file:";//$NON-NLS-1$
+            final String file = "file:"; //$NON-NLS-1$
 
             if(path.startsWith(jar))  {
 		    	index = path.lastIndexOf('!');

@@ -83,7 +83,7 @@ public class Helper extends WidgetInstrument {
 		reportBugItem.setIcon(LResources.ERR_ICON);
 		forumItem = new MMenuItem("Go to forums");
 		forumItem.setIcon(LResources.ABOUT_ICON);
-		shortcutItem = new MMenuItem(LangTool.INSTANCE.getString19("LaTeXDrawFrame.3"));
+		shortcutItem = new MMenuItem(LangTool.INSTANCE.getString19("LaTeXDrawFrame.3")); //$NON-NLS-1$
 		shortcutItem.setIcon(LResources.ABOUT_ICON);
 		manuelItem = new MMenuItem("Manual");
 		manuelItem.setIcon(LResources.ABOUT_ICON);
@@ -95,10 +95,10 @@ public class Helper extends WidgetInstrument {
 		try{
 			addInteractor(new MenuItem2AboutFrame(this, aboutFrame, aboutItem));
 			addInteractor(new MenuItem2ShortcutFrame(this, aboutFrame, shortcutItem));
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523")));
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums")));
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523")));
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual")));
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523"))); //$NON-NLS-1$
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums"))); //$NON-NLS-1$
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523"))); //$NON-NLS-1$
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual"))); //$NON-NLS-1$
 		}catch(InstantiationException | IllegalAccessException | URISyntaxException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}

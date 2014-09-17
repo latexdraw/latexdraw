@@ -17,7 +17,7 @@ import org.junit.Test;
 public class TestParsingQdisk extends TestPSTParser {
 	@Test
 	public void testCoordinatesCm() throws ParseException {
-		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(35cm,20cm){.5cm}").get().getShapeAt(0);
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(35cm,20cm){.5cm}").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(35.*IShape.PPC-.5*IShape.PPC, cir.getPosition().getX(), 0.001);
 		assertEquals((20.*IShape.PPC-.5*IShape.PPC)*-1., cir.getPosition().getY(), 0.001);
 		assertEquals(.5*IShape.PPC*2., cir.getWidth(), 0.0000001);
@@ -29,7 +29,7 @@ public class TestParsingQdisk extends TestPSTParser {
 
 	@Test
 	public void testLineColourIsFillColour() throws ParseException {
-		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{linecolor=green}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0);
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{linecolor=green}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(Color.GREEN, cir.getFillingCol());
 		assertEquals(Color.GREEN, cir.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
@@ -38,7 +38,7 @@ public class TestParsingQdisk extends TestPSTParser {
 
 	@Test
 	public void testLineStylePlain() throws ParseException {
-		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{linestyle=dotted}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0);
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{linestyle=dotted}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(LineStyle.SOLID, cir.getLineStyle());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -46,7 +46,7 @@ public class TestParsingQdisk extends TestPSTParser {
 
 	@Test
 	public void testNoDbleBord() throws ParseException {
-		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{doubleline=true}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0);
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{doubleline=true}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertFalse(cir.hasDbleBord());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -55,7 +55,7 @@ public class TestParsingQdisk extends TestPSTParser {
 
 	@Test
 	public void testNoShadow() throws ParseException {
-		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{shadow=true}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0);
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{shadow=true}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertFalse(cir.hasShadow());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -64,7 +64,7 @@ public class TestParsingQdisk extends TestPSTParser {
 
 	@Test
 	public void testBorderMustBeInto() throws ParseException {
-		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{dimen=middle}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0);
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{dimen=middle}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(BorderPos.INTO, cir.getBordersPosition());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -72,7 +72,7 @@ public class TestParsingQdisk extends TestPSTParser {
 
 	@Test
 	public void testMustBeFilled() throws ParseException {
-		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0);
+		ICircle cir =  (ICircle)parser.parsePSTCode("\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(FillingStyle.PLAIN, cir.getFillingStyle());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
@@ -81,7 +81,7 @@ public class TestParsingQdisk extends TestPSTParser {
 	@Test
 	public void testMustNotHaveParam() {
 		try {
-			parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=gradient]"+getBasicCoordinates());
+			parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=gradient]"+getBasicCoordinates()); //$NON-NLS-1$ //$NON-NLS-2$
 			fail();
 		}catch(Exception e) { /* ok */ }
 	}
@@ -90,7 +90,7 @@ public class TestParsingQdisk extends TestPSTParser {
 	@Test
 	public void testMustNotHaveCoordinate() {
 		try {
-			parser.parsePSTCode("\\"+getCommandName()+"{1}");
+			parser.parsePSTCode("\\"+getCommandName()+"{1}"); //$NON-NLS-1$ //$NON-NLS-2$
 			fail();
 		}catch(Exception e) { /* ok */ }
 	}
@@ -98,12 +98,12 @@ public class TestParsingQdisk extends TestPSTParser {
 
 	@Override
 	public String getCommandName() {
-		return "qdisk";
+		return "qdisk"; //$NON-NLS-1$
 	}
 
 
 	@Override
 	public String getBasicCoordinates() {
-		return "(,){1}";
+		return "(,){1}"; //$NON-NLS-1$
 	}
 }

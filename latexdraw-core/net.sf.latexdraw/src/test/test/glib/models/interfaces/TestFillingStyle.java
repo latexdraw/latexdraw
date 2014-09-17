@@ -36,9 +36,9 @@ public class TestFillingStyle {
 
 	@Test public void testGetStyleFromLatex() {
 		assertNull(FillingStyle.getStyleFromLatex(null));
-		assertNull(FillingStyle.getStyleFromLatex(""));
-		assertNull(FillingStyle.getStyleFromLatex("azo"));
-		assertNull(FillingStyle.getStyleFromLatex(" ç_è è_d dpo"));
+		assertNull(FillingStyle.getStyleFromLatex("")); //$NON-NLS-1$
+		assertNull(FillingStyle.getStyleFromLatex("azo")); //$NON-NLS-1$
+		assertNull(FillingStyle.getStyleFromLatex(" ç_è è_d dpo")); //$NON-NLS-1$
 		assertEquals(FillingStyle.getStyleFromLatex(PSTricksConstants.TOKEN_FILL_CROSSHATCH), FillingStyle.CLINES);
 		assertEquals(FillingStyle.getStyleFromLatex(PSTricksConstants.TOKEN_FILL_CROSSHATCH_F), FillingStyle.CLINES_PLAIN);
 		assertEquals(FillingStyle.getStyleFromLatex(PSTricksConstants.TOKEN_FILL_GRADIENT), FillingStyle.GRAD);
@@ -52,9 +52,9 @@ public class TestFillingStyle {
 
 	@Test public void testGetStyle() {
 		assertNull(FillingStyle.getStyle(null));
-		assertNull(FillingStyle.getStyle(""));
-		assertNull(FillingStyle.getStyle("oiezuroj"));
-		assertNull(FillingStyle.getStyle("zeibvc"));
+		assertNull(FillingStyle.getStyle("")); //$NON-NLS-1$
+		assertNull(FillingStyle.getStyle("oiezuroj")); //$NON-NLS-1$
+		assertNull(FillingStyle.getStyle("zeibvc")); //$NON-NLS-1$
 		assertEquals(FillingStyle.getStyle(FillingStyle.CLINES.toString()), FillingStyle.CLINES);
 		assertEquals(FillingStyle.getStyle(FillingStyle.VLINES.toString()), FillingStyle.VLINES);
 		assertEquals(FillingStyle.getStyle(FillingStyle.HLINES.toString()), FillingStyle.HLINES);

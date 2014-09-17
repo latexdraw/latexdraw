@@ -74,15 +74,15 @@ public class ShortcutsFrame extends JFrame {
 			{ctrl+"+C", LResources.LABEL_COPY, catEdit},//$NON-NLS-1$
 			{ctrl+"+V", LResources.LABEL_PASTE, catEdit},//$NON-NLS-1$
 			{ctrl+"+X", LResources.LABEL_CUT, catEdit},//$NON-NLS-1$
-			{ctrl+"+Z", LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.23"), catEdit},//$NON-NLS-1$
-			{ctrl+"+Y", LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.22"), catEdit},//$NON-NLS-1$
+			{ctrl+"+Z", LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.23"), catEdit},//$NON-NLS-1$ //$NON-NLS-2$
+			{ctrl+"+Y", LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.22"), catEdit},//$NON-NLS-1$ //$NON-NLS-2$
 			{ctrl+"+N", LResources.LABEL_NEW, catFile},//$NON-NLS-1$
 			{ctrl+"+O", FileLoaderSaver.LABEL_OPEN, catFile},//$NON-NLS-1$
 			{ctrl+"+S", FileLoaderSaver.LABEL_SAVE, catFile},//$NON-NLS-1$
-			{ctrl+"+W", LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.18"), catFile},//$NON-NLS-1$
-			{KeyEvent.getKeyText(KeyEvent.VK_ADD), LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.57"), catNav},
-			{KeyEvent.getKeyText(KeyEvent.VK_SUBTRACT), LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.58"), catNav},
-			{KeyEvent.getKeyText(KeyEvent.VK_DELETE), LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.17"), catDraw},
+			{ctrl+"+W", LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.18"), catFile},//$NON-NLS-1$ //$NON-NLS-2$
+			{KeyEvent.getKeyText(KeyEvent.VK_ADD), LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.57"), catNav}, //$NON-NLS-1$
+			{KeyEvent.getKeyText(KeyEvent.VK_SUBTRACT), LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.58"), catNav}, //$NON-NLS-1$
+			{KeyEvent.getKeyText(KeyEvent.VK_DELETE), LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.17"), catDraw}, //$NON-NLS-1$
 			{KeyEvent.getKeyText(KeyEvent.VK_RIGHT), st1, catNav},
 			{KeyEvent.getKeyText(KeyEvent.VK_LEFT), st2, catNav},
 			{KeyEvent.getKeyText(KeyEvent.VK_UP), st3, catNav},

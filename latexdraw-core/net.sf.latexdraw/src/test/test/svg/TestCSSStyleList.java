@@ -14,13 +14,13 @@ public class TestCSSStyleList{
 		list.clear();
 		list.addCSSStyle(null, null);
 		assertEquals(0, list.size());
-		list.addCSSStyle("", null);
+		list.addCSSStyle("", null); //$NON-NLS-1$
 		assertEquals(0, list.size());
-		list.addCSSStyle(null, "");
+		list.addCSSStyle(null, ""); //$NON-NLS-1$
 		assertEquals(0, list.size());
-		list.addCSSStyle("name", "value");
+		list.addCSSStyle("name", "value"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(1, list.size());
-		assertEquals("value", list.getCSSValue("name"));
+		assertEquals("value", list.getCSSValue("name")); //$NON-NLS-1$ //$NON-NLS-2$
 		list.clear();
 	}
 
@@ -29,14 +29,14 @@ public class TestCSSStyleList{
 	public void testGetCSSValue() {
 		list.clear();
 		assertNull(list.getCSSValue(null));
-		assertNull(list.getCSSValue(""));
-		assertNull(list.getCSSValue("test"));
-		list.addCSSStyle("name", "value");
+		assertNull(list.getCSSValue("")); //$NON-NLS-1$
+		assertNull(list.getCSSValue("test")); //$NON-NLS-1$
+		list.addCSSStyle("name", "value"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(1, list.size());
-		assertEquals("value", list.getCSSValue("name"));
+		assertEquals("value", list.getCSSValue("name")); //$NON-NLS-1$ //$NON-NLS-2$
 		assertNull(list.getCSSValue(null));
-		assertNull(list.getCSSValue(""));
-		assertNull(list.getCSSValue("test"));
+		assertNull(list.getCSSValue("")); //$NON-NLS-1$
+		assertNull(list.getCSSValue("test")); //$NON-NLS-1$
 		list.clear();
 	}
 
@@ -46,13 +46,13 @@ public class TestCSSStyleList{
 		list.clear();
 		list.addCSSStyle(null, null);
 		assertEquals(0, list.size());
-		list.addCSSStyle("", null);
+		list.addCSSStyle("", null); //$NON-NLS-1$
 		assertEquals(0, list.size());
-		list.addCSSStyle(null, "");
+		list.addCSSStyle(null, ""); //$NON-NLS-1$
 		assertEquals(0, list.size());
-		list.addCSSStyle("name", "value");
+		list.addCSSStyle("name", "value"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(1, list.size());
-		assertEquals("value", list.getCSSValue("name"));
+		assertEquals("value", list.getCSSValue("name")); //$NON-NLS-1$ //$NON-NLS-2$
 		list.clear();
 	}
 }

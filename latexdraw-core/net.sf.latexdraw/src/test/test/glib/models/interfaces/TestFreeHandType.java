@@ -12,7 +12,7 @@ public class TestFreeHandType {
 		assertEquals(FreeHandType.getType(FreeHandType.CURVES.toString()), FreeHandType.CURVES);
 		assertEquals(FreeHandType.getType(FreeHandType.LINES.toString()), FreeHandType.LINES);
 		assertEquals(FreeHandType.CURVES, FreeHandType.getType(null));
-		assertEquals(FreeHandType.getType(""), FreeHandType.CURVES);
-		assertEquals(FreeHandType.getType("ds qoqs"), FreeHandType.CURVES);
+		assertEquals(FreeHandType.getType(""), FreeHandType.CURVES); //$NON-NLS-1$
+		assertEquals(FreeHandType.getType("ds qoqs"), FreeHandType.CURVES); //$NON-NLS-1$
 	}
 }

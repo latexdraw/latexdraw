@@ -37,9 +37,9 @@ public class TestPlottingStyle {
 	@Test
 	public void testGetStyle() {
 		assertNull(PlottingStyle.getStyle(null));
-		assertNull(PlottingStyle.getStyle(""));
-		assertNull(PlottingStyle.getStyle("ezpoke zae"));
-		assertNull(PlottingStyle.getStyle("7dsqd 4ds'"));
+		assertNull(PlottingStyle.getStyle("")); //$NON-NLS-1$
+		assertNull(PlottingStyle.getStyle("ezpoke zae")); //$NON-NLS-1$
+		assertNull(PlottingStyle.getStyle("7dsqd 4ds'")); //$NON-NLS-1$
 		assertEquals(PlottingStyle.getStyle(PlottingStyle.ALL.toString()), PlottingStyle.ALL);
 		assertEquals(PlottingStyle.getStyle(PlottingStyle.NONE.toString()), PlottingStyle.NONE);
 		assertEquals(PlottingStyle.getStyle(PlottingStyle.X.toString()), PlottingStyle.X);

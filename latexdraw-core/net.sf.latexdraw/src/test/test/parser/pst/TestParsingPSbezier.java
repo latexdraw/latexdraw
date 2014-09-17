@@ -14,7 +14,7 @@ import org.junit.Test;
 public class TestParsingPSbezier extends TestParsingShape {
 	@Test public void testSimpleBezierCurve() throws ParseException {
 		IBezierCurve bc = (IBezierCurve)parser.parsePSTCode(
-				"\\psbezier[linewidth=0.02](1.3918242,0.7584497)(2.0668242,0.95844966)(4.3168244,0.95844966)(4.991824,0.7584497)").get().getShapeAt(0);
+				"\\psbezier[linewidth=0.02](1.3918242,0.7584497)(2.0668242,0.95844966)(4.3168244,0.95844966)(4.991824,0.7584497)").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		assertEquals(bc.getPtAt(0).getY(), bc.getPtAt(1).getY(), 0.001);
 		assertEquals(bc.getFirstCtrlPtAt(0).getY(), bc.getFirstCtrlPtAt(1).getY(), 0.001);
@@ -23,7 +23,7 @@ public class TestParsingPSbezier extends TestParsingShape {
 
 	@Test
 	public void testParamArrowsArrowsNoneNone() throws ParseException {
-		IBezierCurve line = (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"[arrows=<->]{-}(1,2)(3,4)(5,6)(7,8)").get().getShapeAt(0);
+		IBezierCurve line = (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"[arrows=<->]{-}(1,2)(3,4)(5,6)(7,8)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(0));
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
@@ -31,7 +31,7 @@ public class TestParsingPSbezier extends TestParsingShape {
 
 	@Test
 	public void testParamBarInSqureBracket() throws ParseException {
-		IBezierCurve line = (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"{|-]}(1,2)(3,4)(5,6)(7,8)").get().getShapeAt(0);
+		IBezierCurve line = (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"{|-]}(1,2)(3,4)(5,6)(7,8)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(ArrowStyle.BAR_IN, line.getArrowStyle(0));
 		assertEquals(ArrowStyle.RIGHT_SQUARE_BRACKET, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
@@ -40,7 +40,7 @@ public class TestParsingPSbezier extends TestParsingShape {
 
 	@Test
 	public void testParamArrowsArrows() throws ParseException {
-		IBezierCurve line = (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"[arrows=<->](1,2)(3,4)(5,6)(7,8)").get().getShapeAt(0);
+		IBezierCurve line = (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"[arrows=<->](1,2)(3,4)(5,6)(7,8)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(ArrowStyle.LEFT_ARROW, line.getArrowStyle(0));
 		assertEquals(ArrowStyle.RIGHT_ARROW, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
@@ -49,7 +49,7 @@ public class TestParsingPSbezier extends TestParsingShape {
 
 	@Test
 	public void test9Coordinates() throws ParseException {
-		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)(13,14)(15,16)(17,18)").get().getShapeAt(0);
+		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)(13,14)(15,16)(17,18)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(4, bc.getNbPoints());
 		assertEquals(0., bc.getPtAt(0).getX(), 0.0001);
 		assertEquals(0., bc.getPtAt(0).getY(), 0.0001);
@@ -77,7 +77,7 @@ public class TestParsingPSbezier extends TestParsingShape {
 
 	@Test
 	public void test10Coordinates() throws ParseException {
-		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(5,10)(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)(13,14)(15,16)(17,18)").get().getShapeAt(0);
+		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(5,10)(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)(13,14)(15,16)(17,18)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(4, bc.getNbPoints());
 		assertEquals(5.*IShape.PPC, bc.getPtAt(0).getX(), 0.0001);
 		assertEquals(-10.*IShape.PPC, bc.getPtAt(0).getY(), 0.0001);
@@ -105,7 +105,7 @@ public class TestParsingPSbezier extends TestParsingShape {
 
 	@Test
 	public void test6Coordinates() throws ParseException {
-		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)").get().getShapeAt(0);
+		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(3, bc.getNbPoints());
 		assertEquals(0., bc.getPtAt(0).getX(), 0.0001);
 		assertEquals(0., bc.getPtAt(0).getY(), 0.0001);
@@ -127,7 +127,7 @@ public class TestParsingPSbezier extends TestParsingShape {
 
 	@Test
 	public void test7Coordinates() throws ParseException {
-		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(5,10)(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)").get().getShapeAt(0);
+		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(5,10)(1,2)(3,4)(5,6)(7,8)(9,10)(11,12)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(3, bc.getNbPoints());
 		assertEquals(5.*IShape.PPC, bc.getPtAt(0).getX(), 0.0001);
 		assertEquals(-10.*IShape.PPC, bc.getPtAt(0).getY(), 0.0001);
@@ -149,7 +149,7 @@ public class TestParsingPSbezier extends TestParsingShape {
 
 	@Test
 	public void test3Coordinates() throws ParseException {
-		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(1,2)(3,4)(5,6)").get().getShapeAt(0);
+		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(1,2)(3,4)(5,6)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(2, bc.getNbPoints());
 		assertEquals(0., bc.getPtAt(0).getX(), 0.0001);
 		assertEquals(0., bc.getPtAt(0).getY(), 0.0001);
@@ -166,7 +166,7 @@ public class TestParsingPSbezier extends TestParsingShape {
 
 	@Test
 	public void test4Coordinates() throws ParseException {
-		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(5,10)(1,2)(3,4)(5,6)").get().getShapeAt(0);
+		IBezierCurve bc =  (IBezierCurve)parser.parsePSTCode("\\"+getCommandName()+"(5,10)(1,2)(3,4)(5,6)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(2, bc.getNbPoints());
 		assertEquals(5.*IShape.PPC, bc.getPtAt(0).getX(), 0.0001);
 		assertEquals(-10.*IShape.PPC, bc.getPtAt(0).getY(), 0.0001);
@@ -182,11 +182,11 @@ public class TestParsingPSbezier extends TestParsingShape {
 
 	@Override
 	public String getCommandName() {
-		return "psbezier";
+		return "psbezier"; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getBasicCoordinates() {
-		return "(0,0)(1,1)(2,2)(3,3)";
+		return "(0,0)(1,1)(2,2)(3,3)"; //$NON-NLS-1$
 	}
 }

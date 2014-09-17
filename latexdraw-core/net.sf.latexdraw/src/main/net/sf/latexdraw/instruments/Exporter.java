@@ -281,7 +281,7 @@ protected FileLoaderSaver loader;
 
 		if(loader.currentFile!=null && fileChooserExport.getSelectedFile()==null) {
 			String path = loader.currentFile.getPath();
-			if(path.contains(".")) path = path.substring(0, path.lastIndexOf('.'));
+			if(path.contains(".")) path = path.substring(0, path.lastIndexOf('.')); //$NON-NLS-1$
 			path += format.getFileExtension();
 			fileChooserExport.setSelectedFile(new File(path));
 		}

@@ -60,9 +60,9 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseWidgets() {
 		groupB = new MButton(LResources.JOIN_ICON);
-		groupB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.75"));
+		groupB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.75")); //$NON-NLS-1$
 		sepB   = new MButton(LResources.SEPARATE_ICON);
-		sepB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.76"));
+		sepB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.76")); //$NON-NLS-1$
 	}
 
 

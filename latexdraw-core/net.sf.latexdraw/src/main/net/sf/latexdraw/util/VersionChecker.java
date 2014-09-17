@@ -90,15 +90,15 @@ public class VersionChecker extends Thread {
 
 				if(div!=null && div.length>3 && div[3].compareTo(VERSION)>0) {
 					buttonUpdate = new JButton(LResources.UPDATE_ICON);
-					buttonUpdate.setToolTipText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" +
-												"Version" + ' ' + div[3]+ ' ' + "available!" + "</html>");
+					buttonUpdate.setToolTipText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" + //$NON-NLS-1$
+												"Version" + ' ' + div[3]+ ' ' + "available!" + "</html>"); //$NON-NLS-3$
 					buttonUpdate.setVisible(true);
 					buttonUpdate.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(final ActionEvent evt) {
 							try {
 								final OpenWebPage action = new OpenWebPage();
-								action.setUri(new URI("http://latexdraw.sourceforge.net/"));
+								action.setUri(new URI("http://latexdraw.sourceforge.net/")); //$NON-NLS-1$
 								if(action.canDo())
 									action.doIt();
 								action.flush();

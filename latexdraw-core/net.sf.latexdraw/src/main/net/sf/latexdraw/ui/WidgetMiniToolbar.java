@@ -290,7 +290,7 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 
-		if(getText().isEmpty())//$NON-NLS-1$
+		if(getText().isEmpty())
 			paintTriangle(g, getSize().width, getSize().height);
 	}
 

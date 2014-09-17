@@ -32,7 +32,7 @@ public class TestSVGNodeList{
 	public void testGetLength() {
 		list.getNodes().clear();
 		assertEquals(0, list.getLength());
-		list.getNodes().add((SVGElement)doc.createElement("elt"));
+		list.getNodes().add((SVGElement)doc.createElement("elt")); //$NON-NLS-1$
 		assertEquals(1, list.getLength());
 		list.getNodes().clear();
 	}
@@ -40,7 +40,7 @@ public class TestSVGNodeList{
 
 	@Test
 	public void testItem() {
-		SVGElement elt = (SVGElement)doc.createElement("elt");
+		SVGElement elt = (SVGElement)doc.createElement("elt"); //$NON-NLS-1$
 
 		list.getNodes().clear();
 		assertNull(list.item(0));

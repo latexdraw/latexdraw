@@ -202,11 +202,11 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 		loadButton = new MButton(LResources.OPEN_ICON);
 		loadButton.setMargin(LResources.INSET_BUTTON);
-		loadButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.200"));
+		loadButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.200")); //$NON-NLS-1$
 
 		saveButton = new MButton(LResources.SAVE_ICON);
 		saveButton.setMargin(LResources.INSET_BUTTON);
-		saveButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"));
+		saveButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188")); //$NON-NLS-1$
 
 		loadMenu = new MMenuItem(LABEL_OPEN, KeyEvent.VK_O);
 		loadMenu.setIcon(LResources.OPEN_ICON);

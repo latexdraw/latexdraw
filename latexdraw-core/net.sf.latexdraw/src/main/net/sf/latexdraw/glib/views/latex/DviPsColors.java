@@ -533,7 +533,7 @@ public final class DviPsColors  {
 	 */
 	public Color convertRGB2rgb(final double r, final double g, final double b) {
 		if(r<0 || g<0 || b<0)
-			throw new IllegalArgumentException(r + " "  + g + " " + b);
+			throw new IllegalArgumentException(r + " "  + g + " " + b); //$NON-NLS-1$ //$NON-NLS-2$
 
 		final float factor = 1f/255f;
 		return new Color((float)r*factor, (float)g*factor, (float)b*factor);

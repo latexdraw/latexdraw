@@ -92,13 +92,13 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 		catch(final Exception e) { textSize = null; }
 
 		if(textSize!=null)
-			shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}');
+			shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 		if(SVGAttributes.SVG_FONT_WEIGHT_BOLD.equals(elt.getAttribute(SVGAttributes.SVG_FONT_WEIGHT)))
-			shape.setText("\\textbf{" + shape.getText() + '}');
+			shape.setText("\\textbf{" + shape.getText() + '}'); //$NON-NLS-1$
 
 		if(SVGAttributes.SVG_FONT_STYLE_ITALIC.equals(elt.getAttribute(SVGAttributes.SVG_FONT_STYLE)))
-			shape.setText("\\emph{" + shape.getText() + '}');
+			shape.setText("\\emph{" + shape.getText() + '}'); //$NON-NLS-1$
 
 		shape.setLineColour(CSSColors.INSTANCE.getRGBColour(elt.getFill()));
 		shape.setTextPosition(TextPosition.getTextPosition(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE + ':' + LNamespace.XML_POSITION)));

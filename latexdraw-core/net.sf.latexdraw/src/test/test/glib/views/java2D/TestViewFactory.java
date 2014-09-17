@@ -30,104 +30,104 @@ public class TestViewFactory {
 		gp.addShape(ShapeFactory.createText(false));
 		IViewShape view = viewFac.createView(gp);
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("group"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("group")); //$NON-NLS-1$
 	}
 
 
 	public void testCreateTextView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createText(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("text"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("text")); //$NON-NLS-1$
 	}
 
 
 	public void testCreateArcCircleView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createCircleArc(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("circlearc"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("circlearc")); //$NON-NLS-1$
 	}
 
 	public void testCreateRectangleView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createRectangle(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("rectangle"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("rectangle")); //$NON-NLS-1$
 	}
 
 	public void testCreateSquareView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createSquare(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("square"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("square")); //$NON-NLS-1$
 	}
 
 	public void testCreateEllipseView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createEllipse(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("ellipse"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("ellipse")); //$NON-NLS-1$
 	}
 
 	public void testCreateCircleView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createCircle(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("circle"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("circle")); //$NON-NLS-1$
 	}
 
 	public void testCreateGridView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createGrid(false, ShapeFactory.createPoint()));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("grid"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("grid")); //$NON-NLS-1$
 	}
 
 	public void testCreateAxesView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createAxes(false, ShapeFactory.createPoint()));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("axes"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("axes")); //$NON-NLS-1$
 	}
 
 	public void testCreatePolygonView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createPolygon(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("polygon"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("polygon")); //$NON-NLS-1$
 	}
 
 	public void testCreatePolylineView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createPolyline(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("polyline"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("polyline")); //$NON-NLS-1$
 	}
 
 	public void testCreateTriangleView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createTriangle(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("triangle"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("triangle")); //$NON-NLS-1$
 	}
 
 	public void testCreateRhombusView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createRhombus(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("rhombus"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("rhombus")); //$NON-NLS-1$
 	}
 
 	public void testCreateFreehandView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createFreeHand(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("freehand"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("freehand")); //$NON-NLS-1$
 	}
 
 	public void testCreatePictureView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createPicture(false, ShapeFactory.createPoint()));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("picture"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("picture")); //$NON-NLS-1$
 	}
 
 	public void testCreateDotView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createDot(ShapeFactory.createPoint(), false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("dot"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("dot")); //$NON-NLS-1$
 	}
 
 	public void testCreateBezierCurveView() {
 		IViewShape view = viewFac.createView(ShapeFactory.createBezierCurve(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("beziercurve"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("beziercurve")); //$NON-NLS-1$
 	}
 }

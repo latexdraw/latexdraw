@@ -73,7 +73,7 @@ class LPicture extends LPositionShape implements IPicture {
 		image = ImageIO.read(new File(pathSource));
 
 		if(image==null)
-			throw new IOException("Picture " + pathSource + " is not a valid picture.");
+			throw new IOException("Picture " + pathSource + " is not a valid picture."); //$NON-NLS-1$ //$NON-NLS-2$
 
 		createEPSImage();
 	}

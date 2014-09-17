@@ -11,25 +11,25 @@ import org.junit.Test;
 public class TestParsingParabola extends TestPSTParser {
 	@Test
 	public void testParseCurvature() throws ParseException {
-		parser.parsePSTCode("\\psline[curvature=1 -1 0.33](35,20)(35,20)");
+		parser.parsePSTCode("\\psline[curvature=1 -1 0.33](35,20)(35,20)"); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
 
 	@Test
 	public void testCanParse() throws ParseException {
-		assertTrue(parser.parsePSTCode("\\parabola(35,20)(35,20)").get().isEmpty());
+		assertTrue(parser.parsePSTCode("\\parabola(35,20)(35,20)").get().isEmpty()); //$NON-NLS-1$
 		assertFalse(PSTParser.errorLogs().isEmpty());
 	}
 
 
 	@Override
 	public String getCommandName() {
-		return "parabola";
+		return "parabola"; //$NON-NLS-1$
 	}
 
 	@Override
 	public String getBasicCoordinates() {
-		return "(35,20)(35,20)";
+		return "(35,20)(35,20)"; //$NON-NLS-1$
 	}
 }

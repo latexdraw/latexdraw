@@ -1261,31 +1261,31 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		g.addShape(p1);
 		g.addShape(rec);
 		g.addShape(p2);
-		p1.setText("foo1");
-		p2.setText("foo2");
+		p1.setText("foo1"); //$NON-NLS-1$
+		p2.setText("foo2"); //$NON-NLS-1$
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.TEXT);
-		action.setValue("foo3");
+		action.setValue("foo3"); //$NON-NLS-1$
 		assertTrue(action.doIt());
 
-		assertEquals("foo3", p1.getText());
-		assertEquals("foo3", p2.getText());
+		assertEquals("foo3", p1.getText()); //$NON-NLS-1$
+		assertEquals("foo3", p2.getText()); //$NON-NLS-1$
 	}
 
 
 	public void testUndoText() {
 		testDoText();
 		action.undo();
-		assertEquals("foo1", ((IText)g.getShapeAt(0)).getText());
-		assertEquals("foo2", ((IText)g.getShapeAt(2)).getText());
+		assertEquals("foo1", ((IText)g.getShapeAt(0)).getText()); //$NON-NLS-1$
+		assertEquals("foo2", ((IText)g.getShapeAt(2)).getText()); //$NON-NLS-1$
 	}
 
 
 	public void testRedoText() {
 		testUndoText();
 		action.redo();
-		assertEquals("foo3", ((IText)g.getShapeAt(0)).getText());
-		assertEquals("foo3", ((IText)g.getShapeAt(2)).getText());
+		assertEquals("foo3", ((IText)g.getShapeAt(0)).getText()); //$NON-NLS-1$
+		assertEquals("foo3", ((IText)g.getShapeAt(2)).getText()); //$NON-NLS-1$
 	}
 
 
@@ -1593,9 +1593,9 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		action.setValue(BorderPos.OUT);
 		action.doIt();
 		action.flush();
-		Field f = HelperTest.getField(ModifyShapeProperty.class, "shapes");
+		Field f = HelperTest.getField(ModifyShapeProperty.class, "shapes"); //$NON-NLS-1$
 		assertNull(f.get(action));
-		f = HelperTest.getField(ModifyShapeProperty.class, "oldValue");
+		f = HelperTest.getField(ModifyShapeProperty.class, "oldValue"); //$NON-NLS-1$
 		assertNull(f.get(action));
 		action.flush();
 	}

@@ -21,14 +21,14 @@ import org.junit.Test;
 public class TestSVGFile3State extends TestLoadSVGFile {
 	@Override
 	public String getPathSVGFile() {
-		return "src/resources/test/res/testLoad/3state.svg";
+		return "src/resources/test/res/testLoad/3state.svg"; //$NON-NLS-1$
 	}
 
 
 	@Test public void testShape10() {
 		assertTrue(group.getShapeAt(10) instanceof IText);
 		final IText txt = (IText) group.getShapeAt(10);
-		assertEquals("\\normalsize{Dragging}", txt.getText());
+		assertEquals("\\normalsize{Dragging}", txt.getText()); //$NON-NLS-1$
 		assertEquals(579., txt.getPosition().getX(),0.0001);
 		assertEquals(258., txt.getPosition().getY(),0.0001);
 		assertEquals(TextPosition.BOT_LEFT, txt.getTextPosition());
@@ -91,8 +91,8 @@ public class TestSVGFile3State extends TestLoadSVGFile {
 		assertEquals(0., circle.getRotationAngle(),0.0001);
 		assertFalse(circle.hasShadow());
 		assertFalse(circle.hasDbleBord());
-		assertEquals("\\normalsize{State}", txt1.getText());
-		assertEquals("\\normalsize{2}", txt2.getText());
+		assertEquals("\\normalsize{State}", txt1.getText()); //$NON-NLS-1$
+		assertEquals("\\normalsize{2}", txt2.getText()); //$NON-NLS-1$
 		assertEquals(Color.BLACK, txt1.getLineColour());
 		assertEquals(Color.BLACK, txt2.getLineColour());
 		assertEquals(591.7, txt1.getPosition().getX(), 0.1);

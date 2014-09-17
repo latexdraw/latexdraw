@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class TestSVGPolylineElement extends AbstractTestSVGElement {
 	@Test
 	public void testGetPoints() throws MalformedSVGDocument, ParseException {
-		String path = "10,10 20,20";
+		String path = "10,10 20,20"; //$NON-NLS-1$
 		node.setAttribute(SVGAttributes.SVG_POINTS, path);
 		SVGPolyLineElement pl = new SVGPolyLineElement(node, null);
 
@@ -26,7 +26,7 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testEnableRendering() throws MalformedSVGDocument, ParseException {
-		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
+		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20"); //$NON-NLS-1$
 		SVGPolyLineElement pl = new SVGPolyLineElement(node, null);
 		assertTrue(pl.enableRendering());
 	}
@@ -35,18 +35,18 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testSetPoints() throws MalformedSVGDocument, ParseException {
-		String path = "10,10 20,20";
-		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
+		String path = "10,10 20,20"; //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20"); //$NON-NLS-1$
 		SVGPolyLineElement pl = new SVGPolyLineElement(node, null);
 
 		assertEquals(pl.getPoints(), path);
-		pl.setPoints("10,10 20,20");
+		pl.setPoints("10,10 20,20"); //$NON-NLS-1$
 		assertEquals(2, pl.getPoints2D().size());
 		assertEquals(new Point2D.Double(10, 10), pl.getPoints2D().get(0));
 		assertEquals(new Point2D.Double(20, 20), pl.getPoints2D().get(pl.getPoints2D().size()-1));
 
 		try {
-			pl.setPoints("10,,20fdsf");
+			pl.setPoints("10,,20fdsf"); //$NON-NLS-1$
 			fail();
 		}
 		catch(ParseException e) { /* */ }
@@ -56,7 +56,7 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 
 	@Test
 	public void testGetPoints2D() throws MalformedSVGDocument, ParseException {
-		String path = "	  10\t ,\n	10 	\t 	20 \t\n\t\r,	\n20 	\r30,30	\n";
+		String path = "	  10\t ,\n	10 	\t 	20 \t\n\t\r,	\n20 	\r30,30	\n"; //$NON-NLS-1$
 
 		node.setAttribute(SVGAttributes.SVG_POINTS, path);
 		SVGPolyLineElement pl = new SVGPolyLineElement(node, null);
@@ -88,29 +88,29 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 		catch(MalformedSVGDocument e){/**/}
 		catch(ParseException e)      {/**/}
 
-		node.setAttribute(SVGAttributes.SVG_POINTS, "");
+		node.setAttribute(SVGAttributes.SVG_POINTS, ""); //$NON-NLS-1$
 		new SVGPolyLineElement(node, null);
 
 		try {
-			node.setAttribute(SVGAttributes.SVG_POINTS, "dsqdgfd");
+			node.setAttribute(SVGAttributes.SVG_POINTS, "dsqdgfd"); //$NON-NLS-1$
 			new SVGPolyLineElement(node, null);
 			fail();
 		}
 		catch(MalformedSVGDocument e){/**/}
 		catch(ParseException e)      {/**/}
 
-		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10");
+		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10"); //$NON-NLS-1$
 		new SVGPolyLineElement(node, null);
 
 		try {
-			node.setAttribute(SVGAttributes.SVG_POINTS, ",");
+			node.setAttribute(SVGAttributes.SVG_POINTS, ","); //$NON-NLS-1$
 			new SVGPolyLineElement(node, null);
 			fail();
 		}
 		catch(MalformedSVGDocument e){/**/}
 		catch(ParseException e)      {/**/}
 
-		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20");
+		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20"); //$NON-NLS-1$
 		new SVGPolyLineElement(node, null);
 	}
 

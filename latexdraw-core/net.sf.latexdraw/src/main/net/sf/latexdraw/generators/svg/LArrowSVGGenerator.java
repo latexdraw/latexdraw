@@ -402,7 +402,7 @@ class LArrowSVGGenerator {
 	private void toSVGRoundIn(final SVGDocument doc, final boolean isShadow, final SVGElement marker) {
 		final IShape shape 		= arrow.getShape();
 		final SVGElement circle = new SVGCircleElement(doc);
-		circle.setAttribute(SVGAttributes.SVG_R, "0.5");
+		circle.setAttribute(SVGAttributes.SVG_R, "0.5"); //$NON-NLS-1$
 		circle.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(isShadow ? shape.getShadowCol() : shape.getLineColour(), true));
 		marker.appendChild(circle);
 	}

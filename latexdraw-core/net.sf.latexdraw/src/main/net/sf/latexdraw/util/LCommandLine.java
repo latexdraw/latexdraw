@@ -99,10 +99,10 @@ public class LCommandLine {
 	 */
 	public void displayHelp() {
 		System.out.println(LResources.LABEL_APP + ' ' + VersionChecker.VERSION + VersionChecker.VERSION_STABILITY);
-		System.out.println("Options:");
-		System.out.println("\t"+OPTION_HELP+"\t\t\t\tDisplay the different options"); //$NON-NLS-1$
-		System.out.println("\t<filename>\t\t\tOpens the given file <filename> into latexdraw.");
-		System.out.println("If no argument is given, latexdraw will started with a new drawing.");
+		System.out.println("Options:"); //$NON-NLS-1$
+		System.out.println("\t"+OPTION_HELP+"\t\t\t\tDisplay the different options"); //$NON-NLS-1$ //$NON-NLS-2$
+		System.out.println("\t<filename>\t\t\tOpens the given file <filename> into latexdraw."); //$NON-NLS-1$
+		System.out.println("If no argument is given, latexdraw will started with a new drawing."); //$NON-NLS-1$
 	}
 
 

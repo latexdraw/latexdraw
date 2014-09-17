@@ -123,7 +123,7 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 	 */
 	protected static int showAskModificationsDialog(final SwingUI ui) {
 		return JOptionPane.showConfirmDialog(ui, "Do you want to save the drawing?",
-				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_CANCEL_OPTION);
+				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$
 	}
 
 

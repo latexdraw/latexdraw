@@ -68,8 +68,8 @@ public class TestDotStyle {
 		assertEquals(DotStyle.getStyle(DotStyle.X.toString()), DotStyle.X);
 
 		assertNull(DotStyle.getStyle(null));
-		assertNull(DotStyle.getStyle(""));
-		assertNull(DotStyle.getStyle("ezpoke zae"));
-		assertNull(DotStyle.getStyle("7dsqd 4ds'"));
+		assertNull(DotStyle.getStyle("")); //$NON-NLS-1$
+		assertNull(DotStyle.getStyle("ezpoke zae")); //$NON-NLS-1$
+		assertNull(DotStyle.getStyle("7dsqd 4ds'")); //$NON-NLS-1$
 	}
 }

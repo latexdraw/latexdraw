@@ -20,7 +20,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 
 	@Override
 	public String getPathSVGFile() {
-		return "src/resources/test/res/testLoad/action-depOr.svg";
+		return "src/resources/test/res/testLoad/action-depOr.svg"; //$NON-NLS-1$
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 		final IText txt = (IText) group.getShapeAt(3);
 		assertEquals(345.08930858, txt.getPosition().getX(), 0.0001);
 		assertEquals(198.570298, txt.getPosition().getY(), 0.0001);
-		assertEquals("\\normalsize{needs}", txt.getText());
+		assertEquals("\\normalsize{needs}", txt.getText()); //$NON-NLS-1$
 		assertEquals(Color.BLACK, txt.getLineColour());
 		assertEquals(Math.toRadians(-28.917426838501797), txt.getRotationAngle(), 0.0001);
 	}
@@ -50,7 +50,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 		assertEquals(164.45008642386978, line.getPtAt(1).getY(), 0.0001);
 		assertEquals(0., line.getRotationAngle(),0.0001);
 		assertEquals(6., line.getThickness(),0.0001);
-		assertEquals(CSSColors.INSTANCE.getRGBColour("#909090"), line.getLineColour());
+		assertEquals(CSSColors.INSTANCE.getRGBColour("#909090"), line.getLineColour()); //$NON-NLS-1$
 		assertFalse(line.isFilled());
 		assertEquals(FillingStyle.NONE, line.getFillingStyle());
 		assertFalse(line.hasShadow());
@@ -68,7 +68,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 		final IText txt = (IText) group.getShapeAt(1);
 		assertEquals(177.8671875, txt.getPosition().getX(), 0.01);
 		assertEquals(234.328125, txt.getPosition().getY(), 0.01);
-		assertEquals("\\normalsize{ActionPasteNode}", txt.getText());
+		assertEquals("\\normalsize{ActionPasteNode}", txt.getText()); //$NON-NLS-1$
 		assertEquals(Color.BLACK, txt.getLineColour());
 		assertEquals(0., txt.getRotationAngle(),0.0001);
 	}
@@ -79,7 +79,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 		final IRectangle rec = (IRectangle) group.getShapeAt(0);
 		assertEquals(160.1796875, rec.getPosition().getX(), 0.01);
 		assertEquals(280., rec.getPosition().getY(), 0.01);
-		assertEquals(CSSColors.INSTANCE.getRGBColour("#909090"), rec.getLineColour());
+		assertEquals(CSSColors.INSTANCE.getRGBColour("#909090"), rec.getLineColour()); //$NON-NLS-1$
 		assertEquals(0., rec.getRotationAngle(),0.0001);
 		assertEquals(2., rec.getThickness(),0.0001);
 		assertEquals(BorderPos.INTO, rec.getBordersPosition());

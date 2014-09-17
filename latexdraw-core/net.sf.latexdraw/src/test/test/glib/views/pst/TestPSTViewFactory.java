@@ -13,104 +13,104 @@ public class TestPSTViewFactory {
 		gp.addShape(ShapeFactory.createText(false));
 		Object view = PSTViewsFactory.INSTANCE.createView(gp);
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("group"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("group")); //$NON-NLS-1$
 	}
 
 
 	public void testCreateTextViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createText(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("text"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("text")); //$NON-NLS-1$
 	}
 
 
 	public void testCreateArcCircleViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createCircleArc(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("arc"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("arc")); //$NON-NLS-1$
 	}
 
 	public void testCreateRectangleViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createRectangle(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("rect"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("rect")); //$NON-NLS-1$
 	}
 
 	public void testCreateSquareViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createSquare(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("rect"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("rect")); //$NON-NLS-1$
 	}
 
 	public void testCreateEllipseViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createEllipse(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("ellipse"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("ellipse")); //$NON-NLS-1$
 	}
 
 	public void testCreateCircleViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createCircle(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("circle"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("circle")); //$NON-NLS-1$
 	}
 
 	public void testCreateGridViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createGrid(false, ShapeFactory.createPoint()));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("grid"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("grid")); //$NON-NLS-1$
 	}
 
 	public void testCreateAxesViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createAxes(false, ShapeFactory.createPoint()));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("axes"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("axes")); //$NON-NLS-1$
 	}
 
 	public void testCreatePolygonViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createPolygon(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("polygon"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("polygon")); //$NON-NLS-1$
 	}
 
 	public void testCreatePolylineViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createPolyline(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("lines"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("lines")); //$NON-NLS-1$
 	}
 
 	public void testCreateTriangleViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createTriangle(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("triangle"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("triangle")); //$NON-NLS-1$
 	}
 
 	public void testCreateRhombusViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createRhombus(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("rhombus"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("rhombus")); //$NON-NLS-1$
 	}
 
 	public void testCreateFreehandViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createFreeHand(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("freehand"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("freehand")); //$NON-NLS-1$
 	}
 
 	public void testCreatePictureViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createPicture(false, ShapeFactory.createPoint()));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("picture"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("picture")); //$NON-NLS-1$
 	}
 
 	public void testCreateDotViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createDot(ShapeFactory.createPoint(), false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("dot"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("dot")); //$NON-NLS-1$
 	}
 
 	public void testCreateBezierCurveViewPST() {
 		Object view = PSTViewsFactory.INSTANCE.createView(ShapeFactory.createBezierCurve(false));
 		assertNotNull(view);
-		assertTrue(view.getClass().getName().toLowerCase().contains("beziercurve"));
+		assertTrue(view.getClass().getName().toLowerCase().contains("beziercurve")); //$NON-NLS-1$
 	}
 }

@@ -178,7 +178,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		final IArrow arrow = shape.getArrowAt(arrowPos);
 
 		if(arrow.getArrowStyle()!=ArrowStyle.NONE) {
-			final String arrowName 	= "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.getId();
+			final String arrowName 	= "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.getId(); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			final SVGElement arrowSVG = new LArrowSVGGenerator(arrow).toSVG(doc, isShadow);
 
 			arrowSVG.setAttribute(SVGAttributes.SVG_ID, arrowName);

@@ -24,16 +24,16 @@ public class TestSVGPathElement extends AbstractTestSVGElement {
 		}
 		catch(MalformedSVGDocument e){ /**/ }
 
-		node.setAttribute(SVGAttributes.SVG_D, "test");
+		node.setAttribute(SVGAttributes.SVG_D, "test"); //$NON-NLS-1$
 		new SVGPathElement(node, null);
 	}
 
 
 	@Test
 	public void testGetPathData() throws MalformedSVGDocument {
-		node.setAttribute(SVGAttributes.SVG_D, "M 0 0 L 10 10");
+		node.setAttribute(SVGAttributes.SVG_D, "M 0 0 L 10 10"); //$NON-NLS-1$
 		SVGPathElement e = new SVGPathElement(node, null);
-		assertEquals(e.getPathData(), "M 0 0 L 10 10");
+		assertEquals(e.getPathData(), "M 0 0 L 10 10"); //$NON-NLS-1$
 	}
 
 

@@ -105,7 +105,7 @@ public class TextAreaAutoSize extends MTextArea {
 	public void updateDimension() {
 		// A space is added at the end of the text to consider all the \n characters.
 		final String text = getText() + ' ';
-		final String[] textSplited = text.split("\n");
+		final String[] textSplited = text.split("\n"); //$NON-NLS-1$
 		Rectangle2D rec;
 		double width 	= 0.;
 		double height 	= 0.;

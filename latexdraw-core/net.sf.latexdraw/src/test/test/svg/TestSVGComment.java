@@ -11,7 +11,7 @@ public class TestSVGComment extends TestSVGText {
 	@Override
 	@Test
 	public void testGetNodeType() {
-		SVGComment cdata = createSVGText("test", doc);
+		SVGComment cdata = createSVGText("test", doc); //$NON-NLS-1$
 		assertEquals(Node.COMMENT_NODE, cdata.getNodeType());
 	}
 

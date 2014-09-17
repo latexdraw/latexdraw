@@ -10,7 +10,7 @@ public class TestPSTricksConstants{
 	@Test
 	public void testIsValidArrowStyle() {
 		assertFalse(PSTricksConstants.isValidFillStyle(null));
-		assertFalse(PSTricksConstants.isValidFillStyle("coucou!!"));
+		assertFalse(PSTricksConstants.isValidFillStyle("coucou!!")); //$NON-NLS-1$
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_CROSSHATCH));
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_CROSSHATCH_F));
 		assertTrue(PSTricksConstants.isValidFillStyle(PSTricksConstants.TOKEN_FILL_GRADIENT));

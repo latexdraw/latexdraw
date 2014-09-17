@@ -10,15 +10,15 @@ import org.junit.Test;
 
 public class TestDviPsColors {
 	@Test public void test_convertHTML2rgb_success() {
-		assertEquals(new Color(255, 0, 100), DviPsColors.INSTANCE.convertHTML2rgb("#FF0064"));
+		assertEquals(new Color(255, 0, 100), DviPsColors.INSTANCE.convertHTML2rgb("#FF0064")); //$NON-NLS-1$
 	}
 
 	@Test(expected=IllegalArgumentException.class) public void test_convertHTML2rgb_fail_tooshort() {
-		DviPsColors.INSTANCE.convertHTML2rgb("DU87");
+		DviPsColors.INSTANCE.convertHTML2rgb("DU87"); //$NON-NLS-1$
 	}
 
 	@Test(expected=IllegalArgumentException.class) public void test_convertHTML2rgb_fail_toolong() {
-		DviPsColors.INSTANCE.convertHTML2rgb("#FF00643");
+		DviPsColors.INSTANCE.convertHTML2rgb("#FF00643"); //$NON-NLS-1$
 	}
 
 	@Test public void test_convertRGB2rgb_success() {
@@ -112,7 +112,7 @@ public class TestDviPsColors {
 
 	@Test
 	public void testGetColor() {
-		assertEquals(null, DviPsColors.INSTANCE.getColour("testColour"));
+		assertEquals(null, DviPsColors.INSTANCE.getColour("testColour")); //$NON-NLS-1$
 		assertEquals(DviPsColors.APRICOT, DviPsColors.INSTANCE.getColour(DviPsColors.N_APRICOT));
 		assertEquals(DviPsColors.AQUAMARINE, DviPsColors.INSTANCE.getColour(DviPsColors.N_AQUAMARINE));
 		assertEquals(DviPsColors.BITTERSWEET, DviPsColors.INSTANCE.getColour(DviPsColors.N_BITTERSWEET));

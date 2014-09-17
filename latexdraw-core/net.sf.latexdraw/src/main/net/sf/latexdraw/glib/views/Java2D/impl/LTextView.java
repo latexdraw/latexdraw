@@ -284,7 +284,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		final String log = FlyweightThumbnail.getLog(this);
 
 		if(log==null || log.isEmpty())
-			msg = "";
+			msg = ""; //$NON-NLS-1$
 		else {
 			msg = FlyweightThumbnail.getLatexErrorMessageFromLog(shape);
 

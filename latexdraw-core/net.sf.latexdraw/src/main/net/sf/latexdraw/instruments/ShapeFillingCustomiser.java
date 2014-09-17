@@ -144,11 +144,11 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
      	fillStyleCB.setMaximumSize(new Dimension(65,30));
 
 		// Creation of the gradient widgets.
-        gradStartColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.1"), new MButtonIcon(Color.BLACK));
+        gradStartColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.1"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
         gradStartColButton.setMargin(LResources.INSET_BUTTON);
         gradStartColButton.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.7")); //$NON-NLS-1$
 
-        gradEndColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.2"), new MButtonIcon(Color.BLACK));
+        gradEndColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.2"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
         gradEndColButton.setMargin(LResources.INSET_BUTTON);
         gradEndColButton.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.8")); //$NON-NLS-1$
 

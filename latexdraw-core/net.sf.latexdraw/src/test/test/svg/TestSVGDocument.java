@@ -33,7 +33,7 @@ public class TestSVGDocument {
 	@Before
 	public void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
 		doc1 = new SVGDocument();
-		doc2 = new SVGDocument(new URI("src/resources/test/res/test.svg"));
+		doc2 = new SVGDocument(new URI("src/resources/test/res/test.svg")); //$NON-NLS-1$
 	}
 
 
@@ -48,13 +48,13 @@ public class TestSVGDocument {
 		catch(IllegalArgumentException e){ /* ok */ }
 
 		try {
-			new SVGDocument(new URI("dfqsfg"));
+			new SVGDocument(new URI("dfqsfg")); //$NON-NLS-1$
 			fail();
 		}
 		catch(MalformedSVGDocument e){ /* ok */ }
 		catch(FileNotFoundException e){ /* ok */ }
 
-		SVGDocument doc = new SVGDocument(new URI("src/resources/test/res/test.svg"));
+		SVGDocument doc = new SVGDocument(new URI("src/resources/test/res/test.svg")); //$NON-NLS-1$
 		assertNotNull(doc.getFirstChild());
 		assertNotNull(doc.getLastChild());
 	}
@@ -82,7 +82,7 @@ public class TestSVGDocument {
 		catch(DOMException e){ /* ok */ }
 
 		try {
-			doc1.adoptNode(new SVGComment("", doc2));
+			doc1.adoptNode(new SVGComment("", doc2)); //$NON-NLS-1$
 			fail();
 		}
 		catch(DOMException e){ /* ok */ }
@@ -103,8 +103,8 @@ public class TestSVGDocument {
 	public void testSetDocumentURI() {
 		doc1.setDocumentURI(null);
 		assertNull(doc1.getDocumentURI());
-		doc1.setDocumentURI("coucou");
-		assertEquals("coucou", doc1.getDocumentURI());
+		doc1.setDocumentURI("coucou"); //$NON-NLS-1$
+		assertEquals("coucou", doc1.getDocumentURI()); //$NON-NLS-1$
 	}
 
 
@@ -121,8 +121,8 @@ public class TestSVGDocument {
 	public void testSetXmlVersion() {
 		doc1.setXmlVersion(null);
 		assertNull(doc1.getXmlVersion());
-		doc1.setXmlVersion("coucou");
-		assertEquals("coucou", doc1.getXmlVersion());
+		doc1.setXmlVersion("coucou"); //$NON-NLS-1$
+		assertEquals("coucou", doc1.getXmlVersion()); //$NON-NLS-1$
 	}
 
 
@@ -166,8 +166,8 @@ public class TestSVGDocument {
 
 	@Test
 	public void testGetNodeName() {
-		assertEquals("#document", doc1.getNodeName());
-		assertEquals("#document", doc2.getNodeName());
+		assertEquals("#document", doc1.getNodeName()); //$NON-NLS-1$
+		assertEquals("#document", doc2.getNodeName()); //$NON-NLS-1$
 	}
 
 
@@ -191,7 +191,7 @@ public class TestSVGDocument {
 		assertTrue(doc1.isEqualNode(doc));
 		assertFalse(doc1.isEqualNode(null));
 		assertFalse(doc1.isEqualNode(doc2));
-		doc = new SVGDocument(new URI("src/resources/test/res/test.svg"));
+		doc = new SVGDocument(new URI("src/resources/test/res/test.svg")); //$NON-NLS-1$
 		assertTrue(doc2.isEqualNode(doc));
 		assertFalse(doc2.isEqualNode(null));
 		assertFalse(doc2.isEqualNode(doc1));
@@ -218,8 +218,8 @@ public class TestSVGDocument {
 		}
 		catch(DOMException e) { /* ok */ }
 
-		SVGElement elt = (SVGElement)doc1.createElement("test");
-		assertEquals(elt.getNodeName(), "test");
+		SVGElement elt = (SVGElement)doc1.createElement("test"); //$NON-NLS-1$
+		assertEquals(elt.getNodeName(), "test"); //$NON-NLS-1$
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
@@ -232,8 +232,8 @@ public class TestSVGDocument {
 		}
 		catch(DOMException e) { /* ok */ }
 
-		SVGText elt = (SVGText)doc1.createTextNode("test");
-		assertEquals(elt.getData(), "test");
+		SVGText elt = (SVGText)doc1.createTextNode("test"); //$NON-NLS-1$
+		assertEquals(elt.getData(), "test"); //$NON-NLS-1$
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
@@ -246,8 +246,8 @@ public class TestSVGDocument {
 		}
 		catch(DOMException e) { /* ok */ }
 
-		SVGComment elt = (SVGComment)doc1.createComment("test");
-		assertEquals(elt.getData(), "test");
+		SVGComment elt = (SVGComment)doc1.createComment("test"); //$NON-NLS-1$
+		assertEquals(elt.getData(), "test"); //$NON-NLS-1$
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
@@ -260,8 +260,8 @@ public class TestSVGDocument {
 		}
 		catch(DOMException e) { /* ok */ }
 
-		SVGCDATASection elt = (SVGCDATASection)doc1.createCDATASection("test");
-		assertEquals(elt.getData(), "test");
+		SVGCDATASection elt = (SVGCDATASection)doc1.createCDATASection("test"); //$NON-NLS-1$
+		assertEquals(elt.getData(), "test"); //$NON-NLS-1$
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 }

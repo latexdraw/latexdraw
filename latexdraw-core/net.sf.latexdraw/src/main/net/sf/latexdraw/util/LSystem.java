@@ -38,27 +38,27 @@ public final class LSystem {
 		MAC_OS_X {
 			@Override
 			public String getPS2EPSBinPath() {
-				return "/usr/local/bin/ps2epsi";
+				return "/usr/local/bin/ps2epsi"; //$NON-NLS-1$
 			}
 
 			@Override
 			public String getLatexBinPath() {
-				return "/usr/texbin/latex";
+				return "/usr/texbin/latex"; //$NON-NLS-1$
 			}
 
 			@Override
 			public String getDvipsBinPath() {
-				return "/usr/texbin/dvips";
+				return "/usr/texbin/dvips"; //$NON-NLS-1$
 			}
 
 			@Override
 			public String getPs2pdfBinPath() {
-				return "/usr/local/bin/ps2pdf";
+				return "/usr/local/bin/ps2pdf"; //$NON-NLS-1$
 			}
 
 			@Override
 			public String getPdfcropBinPath() {
-				return "pdfcrop";
+				return "pdfcrop"; //$NON-NLS-1$
 			}
 		},
 		LINUX;
@@ -68,7 +68,7 @@ public final class LSystem {
 		 * @since 3.1
 		 */
 		public String getPS2EPSBinPath() {
-			return "ps2epsi";
+			return "ps2epsi"; //$NON-NLS-1$
 		}
 
 		/**
@@ -76,7 +76,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getLatexBinPath() {
-			return "latex";
+			return "latex"; //$NON-NLS-1$
 		}
 
 		/**
@@ -84,7 +84,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getDvipsBinPath() {
-			return "dvips";
+			return "dvips"; //$NON-NLS-1$
 		}
 
 		/**
@@ -92,7 +92,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getPs2pdfBinPath() {
-			return "ps2pdf";
+			return "ps2pdf"; //$NON-NLS-1$
 		}
 
 		/**
@@ -100,7 +100,7 @@ public final class LSystem {
 		 * @since 3.0
 		 */
 		public String getPdfcropBinPath() {
-			return "pdfcrop";
+			return "pdfcrop"; //$NON-NLS-1$
 		}
 	}
 
@@ -213,7 +213,7 @@ public final class LSystem {
 		if(os.toLowerCase().contains("windows 8")) //$NON-NLS-1$
 			return OperatingSystem.EIGHT;
 
-		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os));
+		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os)); //$NON-NLS-1$
 
 		return null;
 	}
@@ -224,7 +224,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getLaTeXVersion() {
-		return execute(new String[]{getSystem().getLatexBinPath(), "--version"}, null);
+		return execute(new String[]{getSystem().getLatexBinPath(), "--version"}, null); //$NON-NLS-1$
 	}
 
 	/**
@@ -232,7 +232,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getDVIPSVersion() {
-		return execute(new String[]{getSystem().getDvipsBinPath(), "--version"}, null);
+		return execute(new String[]{getSystem().getDvipsBinPath(), "--version"}, null); //$NON-NLS-1$
 	}
 
 	/**
@@ -248,7 +248,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPS2EPSVersion() {
-		return execute(new String[]{getSystem().getPS2EPSBinPath(), "--version"}, null);
+		return execute(new String[]{getSystem().getPS2EPSBinPath(), "--version"}, null); //$NON-NLS-1$
 	}
 
 	/**
@@ -256,7 +256,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPDFCROPVersion() {
-		return execute(new String[]{getSystem().getPdfcropBinPath(), "--version"}, null);
+		return execute(new String[]{getSystem().getPdfcropBinPath(), "--version"}, null); //$NON-NLS-1$
 	}
 
 
@@ -299,6 +299,6 @@ public final class LSystem {
 			process.waitFor();// Waiting for the end of the process.
 
 			return err.getLog() + LResources.EOL + inp.getLog();
-		}catch(final Exception e) {return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + e.getMessage();}
+		}catch(final Exception e) {return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + e.getMessage();} //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }

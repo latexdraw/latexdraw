@@ -47,17 +47,17 @@ public class TestTicksStyle {
 	@Test
 	public void testGetStyle() {
 		assertNull(TicksStyle.getStyle(null));
-		assertNull(TicksStyle.getStyle(""));
-		assertNull(TicksStyle.getStyle("ezpoke zae"));
-		assertNull(TicksStyle.getStyle("7dsqd 4ds'"));
+		assertNull(TicksStyle.getStyle("")); //$NON-NLS-1$
+		assertNull(TicksStyle.getStyle("ezpoke zae")); //$NON-NLS-1$
+		assertNull(TicksStyle.getStyle("7dsqd 4ds'")); //$NON-NLS-1$
 		assertEquals(TicksStyle.getStyle(TicksStyle.BOTTOM.toString()), TicksStyle.BOTTOM);
 		assertEquals(TicksStyle.getStyle(TicksStyle.FULL.toString()), TicksStyle.FULL);
 		assertEquals(TicksStyle.getStyle(TicksStyle.TOP.toString()), TicksStyle.TOP);
 
 		assertNull(TicksStyle.getStyle(null));
-		assertNull(TicksStyle.getStyle(""));
-		assertNull(TicksStyle.getStyle("dez"));
-		assertNull(TicksStyle.getStyle("&ç eydfs h"));
+		assertNull(TicksStyle.getStyle("")); //$NON-NLS-1$
+		assertNull(TicksStyle.getStyle("dez")); //$NON-NLS-1$
+		assertNull(TicksStyle.getStyle("&ç eydfs h")); //$NON-NLS-1$
 		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM), TicksStyle.BOTTOM);
 		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_FULL), TicksStyle.FULL);
 		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_TOP), TicksStyle.TOP);

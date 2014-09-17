@@ -162,6 +162,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 
 	// Creates the tool bar for mirroring shapes.
+	@SuppressWarnings("nls")
 	protected WidgetMiniToolbar composeMirrorShapes(final ShapeTransformer transformer, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.MIRROR_H_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.6"));

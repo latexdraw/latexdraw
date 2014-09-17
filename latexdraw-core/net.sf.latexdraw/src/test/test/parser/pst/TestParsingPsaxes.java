@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TestParsingPsaxes extends TestPSTParser {
 
 	@Test public void test3Coord() throws ParseException {
-		IAxes grid = (IAxes)parser.parsePSTCode("\\"+getCommandName()+"(0,0)(0,0)(3,4)").get().getShapeAt(0);
+		IAxes grid = (IAxes)parser.parsePSTCode("\\"+getCommandName()+"(0,0)(0,0)(3,4)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 
 		assertEquals(0., grid.getOriginX(), 0.0001);
 		assertEquals(0., grid.getOriginY(), 0.0001);
@@ -25,7 +25,7 @@ public class TestParsingPsaxes extends TestPSTParser {
 	}
 
 	@Test public void test3Coord2() throws ParseException {
-		IAxes grid = (IAxes)parser.parsePSTCode("\\"+getCommandName()+"(0,0)(1,2)(3,4)").get().getShapeAt(0);
+		IAxes grid = (IAxes)parser.parsePSTCode("\\"+getCommandName()+"(0,0)(1,2)(3,4)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 
 		assertEquals(0., grid.getOriginX(), 0.0001);
 		assertEquals(0., grid.getOriginY(), 0.0001);
@@ -36,8 +36,8 @@ public class TestParsingPsaxes extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-	@Override public String getCommandName() {return "psaxes";}
+	@Override public String getCommandName() {return "psaxes";} //$NON-NLS-1$
 
-	@Override public String getBasicCoordinates() { return "(0,0)(0,0)(1,1)"; }
+	@Override public String getBasicCoordinates() { return "(0,0)(0,0)(1,1)"; } //$NON-NLS-1$
 
 }

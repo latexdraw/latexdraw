@@ -180,7 +180,9 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		final int height = 40;
 
   		latexIncludes = new MTextArea(true, false);
-  		latexIncludes.setToolTipText("<html>Include in this list the latex packages you regularly use in your drawing, e.g. :<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>");
+  		latexIncludes.setToolTipText("<html>"+ //$NON-NLS-1$
+  				"Include in this list the latex packages you regularly use in your drawing, e.g.:"+
+  				"<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>"); //$NON-NLS-1$
 
   		checkNewVersion = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.newVers"));//$NON-NLS-1$
 		if(VersionChecker.WITH_UPDATE)
@@ -207,7 +209,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   				nameLnf = nameThemes[i];
   		}
 
-  		themeList = new MComboBox<>(nameThemes, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1")));
+  		themeList = new MComboBox<>(nameThemes, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1"))); //$NON-NLS-1$
   		themeList.setMaximumSize(new Dimension(160, height));
   		if(nameLnf!=null)
   			themeList.setSelectedItem(nameLnf);
@@ -748,8 +750,8 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		        elt.appendChild(elt2);
 
 				final Transformer transformer = TransformerFactory.newInstance().newTransformer();
-				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+				transformer.setOutputProperty(OutputKeys.INDENT, "yes"); //$NON-NLS-1$
+				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4"); //$NON-NLS-1$ //$NON-NLS-2$
 				transformer.transform(new DOMSource(document), new StreamResult(fos));
 			}
 		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }

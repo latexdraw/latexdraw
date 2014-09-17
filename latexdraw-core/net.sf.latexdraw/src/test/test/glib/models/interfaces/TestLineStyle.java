@@ -17,9 +17,9 @@ public class TestLineStyle {
 
 	@Test public void testGetStyle() {
 		assertNull(LineStyle.getStyle(null));
-		assertNull(LineStyle.getStyle(""));
-		assertNull(LineStyle.getStyle("erzter fd"));
-		assertNull(LineStyle.getStyle("ez87 fd"));
+		assertNull(LineStyle.getStyle("")); //$NON-NLS-1$
+		assertNull(LineStyle.getStyle("erzter fd")); //$NON-NLS-1$
+		assertNull(LineStyle.getStyle("ez87 fd")); //$NON-NLS-1$
 		assertEquals(LineStyle.getStyle(LineStyle.DASHED.toString()), LineStyle.DASHED);
 		assertEquals(LineStyle.getStyle(LineStyle.DOTTED.toString()), LineStyle.DOTTED);
 		assertEquals(LineStyle.getStyle(LineStyle.NONE.toString()), LineStyle.NONE);

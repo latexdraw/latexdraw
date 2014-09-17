@@ -577,7 +577,7 @@ public class SVGTransform {
 	 * @since 3.0
 	 */
 	private boolean cancelsXSkew(final SVGTransform transform) {
-		throw new IllegalArgumentException("Not yet implemented");
+		throw new IllegalArgumentException("Not yet implemented"); //$NON-NLS-1$
 	}
 
 	/**
@@ -586,7 +586,7 @@ public class SVGTransform {
 	 * @since 3.0
 	 */
 	private boolean cancelsYSkew(final SVGTransform transform) {
-		throw new IllegalArgumentException("Not yet implemented");
+		throw new IllegalArgumentException("Not yet implemented"); //$NON-NLS-1$
 	}
 
 

@@ -200,7 +200,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 							log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
 							i++;
 						}
-						if(log==null) log = "";
+						if(log==null) log = ""; //$NON-NLS-1$
 						logField.setText(log);
 					}
 				}

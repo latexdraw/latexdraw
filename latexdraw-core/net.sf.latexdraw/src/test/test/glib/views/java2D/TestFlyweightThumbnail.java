@@ -30,7 +30,7 @@ public class TestFlyweightThumbnail {
 		View2DTK.setFactory(new LViewsFactory());
 		UndoCollector.INSTANCE.setSizeMax(0);
 		FlyweightThumbnail.setThread(false);
-		viewTxt = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(false, ShapeFactory.createPoint(), "coucou"));
+		viewTxt = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(false, ShapeFactory.createPoint(), "coucou")); //$NON-NLS-1$
 	}
 
 
@@ -50,7 +50,7 @@ public class TestFlyweightThumbnail {
 	@SuppressWarnings("unused")
 	@Test
 	public void testNewTwoSameTextsNewSinglePicture() throws InterruptedException {
-		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(false, ShapeFactory.createPoint(), "coucou"));
+		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(false, ShapeFactory.createPoint(), "coucou")); //$NON-NLS-1$
 		assertEquals(1, FlyweightThumbnail.images().size());
 		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)viewTxt.getShape()).getText());
 		assertTrue(optTuple.isDefined());
@@ -61,7 +61,7 @@ public class TestFlyweightThumbnail {
 
 	@Test
 	public void testNewTwoSameTextsRemoveOneStillPicture() {
-		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(false, ShapeFactory.createPoint(), "coucou"));
+		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(false, ShapeFactory.createPoint(), "coucou")); //$NON-NLS-1$
 		FlyweightThumbnail.notifyImageFlushed(viewTxt, ((IText)viewTxt.getShape()).getText());
 		assertEquals(1, FlyweightThumbnail.images().size());
 		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)v2.getShape()).getText());
@@ -73,7 +73,7 @@ public class TestFlyweightThumbnail {
 
 	@Test
 	public void testNewTwoTextsRemoveOneOnePictureRemains() {
-		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(false, ShapeFactory.createPoint(), "aaa"));
+		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(false, ShapeFactory.createPoint(), "aaa")); //$NON-NLS-1$
 		assertEquals(2, FlyweightThumbnail.images().size());
 		FlyweightThumbnail.notifyImageFlushed(viewTxt, ((IText)viewTxt.getShape()).getText());
 		assertEquals(1, FlyweightThumbnail.images().size());

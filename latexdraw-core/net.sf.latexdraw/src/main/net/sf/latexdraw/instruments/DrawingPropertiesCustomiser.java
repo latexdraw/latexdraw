@@ -96,8 +96,8 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 	@Override
 	public void reinit() {
 		super.reinit();
-		latexGen.setCaption("");
-		latexGen.setLabel("");
+		latexGen.setCaption(""); //$NON-NLS-1$
+		latexGen.setLabel(""); //$NON-NLS-1$
 		latexGen.setPositionHoriCentre(false);
 		latexGen.setPositionVertToken(VerticalPosition.NONE);
 		updateWidgets();

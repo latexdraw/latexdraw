@@ -51,7 +51,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * The latex packages used when exporting using latex.
 	 * These packages are defined for the current document but not for all documents.
 	 */
-	protected static final IUnary<String> PACKAGES = new ActiveUnary<>("");
+	protected static final IUnary<String> PACKAGES = new ActiveUnary<>(""); //$NON-NLS-1$
 
 
 
@@ -433,7 +433,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		tr.getX()/ppc*scale).append("cm,paperheight=").append( //$NON-NLS-1$
 		bl.getY()/ppc*scale+0.2).append("cm]{geometry}").append( //$NON-NLS-1$
 		LResources.EOL).append("\\usepackage[usenames,dvipsnames]{pstricks}").append(//$NON-NLS-1$
-		LResources.EOL).append("\\usepackage{epsfig}").append(//$NON-NLS-1$//$NON-NLS-2$
+		LResources.EOL).append("\\usepackage{epsfig}").append(//$NON-NLS-1$
 		LResources.EOL).append("\\usepackage{pst-grad}").append(LResources.EOL).append("\\usepackage{pst-plot}").append(LResources.EOL).append(//$NON-NLS-1$//$NON-NLS-2$
 		"\\begin{document}").append(LResources.EOL).append( //$NON-NLS-1$
 		"\\addtolength{\\oddsidemargin}{-0.2in}").append(LResources.EOL).append("\\addtolength{\\evensidemargin}{-0.2in}").append( //$NON-NLS-1$ //$NON-NLS-2$
@@ -497,9 +497,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 */
 	public static File createEPSFile(final IDrawing drawing, final String pathExportEPS, final ViewsSynchroniserHandler synchronizer, final PSTCodeGenerator pstGen){
 		final File tmpDir = LFileUtils.INSTANCE.createTempDir();
-		final File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + "tmpPSFile.ps", synchronizer, tmpDir, pstGen);
+		final File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + "tmpPSFile.ps", synchronizer, tmpDir, pstGen); //$NON-NLS-1$
 		final File finalFile = new File(pathExportEPS);
-		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", EPSFilter.EPS_EXTENSION));
+		final File fileEPS = new File(psFile.getAbsolutePath().replace(".ps", EPSFilter.EPS_EXTENSION)); //$NON-NLS-1$
 		final String[] paramsLatex = {LSystem.INSTANCE.getSystem().getPS2EPSBinPath(), psFile.getAbsolutePath(), fileEPS.getAbsolutePath()};
 
 		final String log = LSystem.INSTANCE.execute(paramsLatex, tmpDir);
@@ -511,7 +511,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		psFile.delete();
 		fileEPS.delete();
 		if(!finalFile.exists()) {
-			BadaboomCollector.INSTANCE.add(new IllegalAccessException("Cannot create the EPS file at this location: " + finalFile.getAbsolutePath()));
+			BadaboomCollector.INSTANCE.add(new IllegalAccessException("Cannot create the EPS file at this location: " + finalFile.getAbsolutePath())); //$NON-NLS-1$
 			return null;
 		}
 		return finalFile;
@@ -536,7 +536,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 			return null;
 
 		final int lastSep			= pathExportPs.lastIndexOf(LResources.FILE_SEP)+1;
-		final String name			= pathExportPs.substring(lastSep==-1 ? 0 : lastSep, pathExportPs.lastIndexOf(".ps"));
+		final String name			= pathExportPs.substring(lastSep==-1 ? 0 : lastSep, pathExportPs.lastIndexOf(".ps")); //$NON-NLS-1$
 		final File tmpDir2		= tmpDir==null ? LFileUtils.INSTANCE.createTempDir() : tmpDir;
 		final float scale	= (float)pstGen.getScale();
 
@@ -558,14 +558,14 @@ public abstract class LaTeXGenerator implements Modifiable {
 		if(texFile==null || !texFile.exists())
 			return null;
 
-		final String[] paramsLatex = {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
+		final String[] paramsLatex = {os.getLatexBinPath(), "--interaction=nonstopmode", "--output-directory=" + tmpDir2.getAbsolutePath(),//$NON-NLS-1$//$NON-NLS-2$
 				texFile.getAbsolutePath()};
 		log    = LSystem.INSTANCE.execute(paramsLatex, tmpDir2);
 		final File dviFile = new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name + ".dvi"); //$NON-NLS-1$
 		final boolean dviRenamed = dviFile.renameTo(new File(tmpDir2.getAbsolutePath() + LResources.FILE_SEP + name));
 
 		final String[] paramsDvi = {os.getDvipsBinPath(), "-Pdownload35", "-T", //$NON-NLS-1$ //$NON-NLS-2$
-				(tr.getX()-bl.getX())/ppc*scale+dec+"cm,"+((bl.getY()-tr.getY())/ppc*scale+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				(tr.getX()-bl.getX())/ppc*scale+dec+"cm,"+((bl.getY()-tr.getY())/ppc*scale+dec)+"cm", //$NON-NLS-1$ //$NON-NLS-2$ 
 						name, "-o", pathExportPs}; //$NON-NLS-1$
 		log   += LSystem.INSTANCE.execute(paramsDvi, tmpDir2);
 
@@ -613,7 +613,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		}
 
 		final String name = pathExportPdf.substring(pathExportPdf.lastIndexOf(LResources.FILE_SEP)+1, pathExportPdf.lastIndexOf(PDFFilter.PDF_EXTENSION));
-		final File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + ".ps", synchronizer, tmpDir, pstGen);
+		final File psFile = createPSFile(drawing, tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + ".ps", synchronizer, tmpDir, pstGen); //$NON-NLS-1$
 		String log;
 		File pdfFile;
 		final OperatingSystem os = LSystem.INSTANCE.getSystem();
@@ -625,12 +625,12 @@ public abstract class LaTeXGenerator implements Modifiable {
 		// -optionName#valueOption Thus, the classical = character must be replaced by a # when latexdraw runs on Windows.
 		final String optionEmbed = "-dEmbedAllFonts" + (LSystem.INSTANCE.isWindows() ? "#" : "=") + "true"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-		log = LSystem.INSTANCE.execute(new String[] {os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), //$NON-NLS-1$
+		log = LSystem.INSTANCE.execute(new String[] {os.getPs2pdfBinPath(), optionEmbed, psFile.getAbsolutePath(), 
 							crop ? name + PDFFilter.PDF_EXTENSION : pathExportPdf}, tmpDir);
 
 		if(crop) {
 			pdfFile = new File(tmpDir.getAbsolutePath() + LResources.FILE_SEP + name + PDFFilter.PDF_EXTENSION);
-			log 	= LSystem.INSTANCE.execute(new String[] {os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir); //$NON-NLS-1$
+			log 	= LSystem.INSTANCE.execute(new String[] {os.getPdfcropBinPath(), pdfFile.getAbsolutePath(), pdfFile.getAbsolutePath()}, tmpDir); 
 			// JAVA7: test pdfFile.toPath().move(pathExportPdf)
 			// the renameto method is weak and fails sometimes.
 			if(!pdfFile.renameTo(new File(pathExportPdf)) && !LFileUtils.INSTANCE.copy(pdfFile, new File(pathExportPdf)))

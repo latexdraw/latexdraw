@@ -105,13 +105,13 @@ public class AboutDialogueBox extends JFrame {
 		final StringBuilder builder = new StringBuilder();
 		editorPane.setEditable(false);
 
-		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LResources.EOL);
-		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LResources.EOL);
-		builder.append("PS2PDF version:").append(LResources.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LResources.EOL);
-		builder.append("PS2EPSI version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LResources.EOL);
-		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LResources.EOL);
+		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LResources.EOL); //$NON-NLS-1$
+		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LResources.EOL); //$NON-NLS-1$
+		builder.append("PS2PDF version:").append(LResources.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LResources.EOL); //$NON-NLS-1$
+		builder.append("PS2EPSI version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LResources.EOL); //$NON-NLS-1$
+		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LResources.EOL); //$NON-NLS-1$
 
-		builder.append("Java properties:").append(LResources.EOL);
+		builder.append("Java properties:").append(LResources.EOL); //$NON-NLS-1$
 		for(final Entry<Object, Object> entry : System.getProperties().entrySet())
 			builder.append(entry.getKey()).append(':').append(' ').append(entry.getValue()).append(LResources.EOL);
 

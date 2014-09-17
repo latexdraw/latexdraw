@@ -36,69 +36,69 @@ public class TestSVGText{
 		}
 		catch(Exception e) { /* ok */ }
 
-		txt = createSVGText("a", null);
-		assertEquals("a", txt.getData());
+		txt = createSVGText("a", null); //$NON-NLS-1$
+		assertEquals("a", txt.getData()); //$NON-NLS-1$
 		assertNull(txt.getOwnerDocument());
 
-		txt = createSVGText("test", doc);
-		assertEquals("test", txt.getData());
+		txt = createSVGText("test", doc); //$NON-NLS-1$
+		assertEquals("test", txt.getData()); //$NON-NLS-1$
 		assertEquals(txt.getOwnerDocument(), doc);
 	}
 
 
 	@Test
 	public void testGetNodeValue() {
-		SVGText txt = createSVGText("test", doc);
-		assertEquals("test", txt.getNodeValue());
-		txt = createSVGText("", doc);
-		assertEquals("", txt.getNodeValue());
+		SVGText txt = createSVGText("test", doc); //$NON-NLS-1$
+		assertEquals("test", txt.getNodeValue()); //$NON-NLS-1$
+		txt = createSVGText("", doc); //$NON-NLS-1$
+		assertEquals("", txt.getNodeValue()); //$NON-NLS-1$
 	}
 
 
 	@Test
 	public void testAppendData() {
-		SVGText txt = createSVGText("test", doc);
+		SVGText txt = createSVGText("test", doc); //$NON-NLS-1$
 		txt.appendData(null);
-		assertEquals("test", txt.getData());
-		txt.appendData("coucou");
-		assertEquals("testcoucou", txt.getData());
-		txt.appendData("");
-		assertEquals("testcoucou", txt.getData());
+		assertEquals("test", txt.getData()); //$NON-NLS-1$
+		txt.appendData("coucou"); //$NON-NLS-1$
+		assertEquals("testcoucou", txt.getData()); //$NON-NLS-1$
+		txt.appendData(""); //$NON-NLS-1$
+		assertEquals("testcoucou", txt.getData()); //$NON-NLS-1$
 	}
 
 
 	@Test
 	public void testGetData() {
-		SVGText txt = createSVGText("test", doc);
-		assertEquals("test", txt.getData());
-		txt = createSVGText("", doc);
-		assertEquals("", txt.getData());
+		SVGText txt = createSVGText("test", doc); //$NON-NLS-1$
+		assertEquals("test", txt.getData()); //$NON-NLS-1$
+		txt = createSVGText("", doc); //$NON-NLS-1$
+		assertEquals("", txt.getData()); //$NON-NLS-1$
 	}
 
 
 	@Test
 	public void testGetLength() {
-		SVGText txt = createSVGText("test", doc);
-		assertEquals("text".length(), txt.getLength());
-		txt = createSVGText("", doc);
-		assertEquals("".length(), txt.getLength());
+		SVGText txt = createSVGText("test", doc); //$NON-NLS-1$
+		assertEquals("text".length(), txt.getLength()); //$NON-NLS-1$
+		txt = createSVGText("", doc); //$NON-NLS-1$
+		assertEquals("".length(), txt.getLength()); //$NON-NLS-1$
 	}
 
 
 	@Test
 	public void testGetNodeType() {
-		SVGText txt = createSVGText("test", doc);
+		SVGText txt = createSVGText("test", doc); //$NON-NLS-1$
 		assertEquals(Node.TEXT_NODE, txt.getNodeType());
 	}
 
 
 	@Test
 	public void testSetData() {
-		SVGText txt = createSVGText("test", doc);
-		txt.setData("");
-		assertEquals(txt.getData(), "");
-		txt.setData("coucou");
-		assertEquals(txt.getData(), "coucou");
+		SVGText txt = createSVGText("test", doc); //$NON-NLS-1$
+		txt.setData(""); //$NON-NLS-1$
+		assertEquals(txt.getData(), ""); //$NON-NLS-1$
+		txt.setData("coucou"); //$NON-NLS-1$
+		assertEquals(txt.getData(), "coucou"); //$NON-NLS-1$
 	}
 
 

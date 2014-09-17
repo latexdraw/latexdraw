@@ -16,7 +16,7 @@ public class TestSVGFileDiracs extends TestLoadSVGFile {
 
 	@Override
 	public String getPathSVGFile() {
-		return "src/resources/test/res/testLoad/Diracs.svg";
+		return "src/resources/test/res/testLoad/Diracs.svg"; //$NON-NLS-1$
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class TestSVGFileDiracs extends TestLoadSVGFile {
 	@Test public void testShape3() {
 		assertTrue(group.getShapeAt(3) instanceof IText);
 		IText txt = (IText) group.getShapeAt(3);
-		assertEquals("\\normalsize{$t$}", txt.getText());
+		assertEquals("\\normalsize{$t$}", txt.getText()); //$NON-NLS-1$
 		assertEquals(Color.BLACK, txt.getLineColour());
 		assertEquals(405., txt.getPosition().getX(), 0.000001);
 		assertEquals(160., txt.getPosition().getY(), 0.000001);
@@ -65,7 +65,7 @@ public class TestSVGFileDiracs extends TestLoadSVGFile {
 	@Test public void testShape6() {
 		assertTrue(group.getShapeAt(6) instanceof IText);
 		IText txt = (IText) group.getShapeAt(6);
-		assertEquals("\\normalsize{$t_7$}", txt.getText());
+		assertEquals("\\normalsize{$t_7$}", txt.getText()); //$NON-NLS-1$
 		assertEquals(Color.BLACK, txt.getLineColour());
 		assertEquals(365., txt.getPosition().getX(), 0.000001);
 		assertEquals(160., txt.getPosition().getY(), 0.000001);
@@ -75,7 +75,7 @@ public class TestSVGFileDiracs extends TestLoadSVGFile {
 	@Test public void testShape7() {
 		assertTrue(group.getShapeAt(7) instanceof IText);
 		IText txt = (IText) group.getShapeAt(7);
-		assertEquals("\\normalsize{$\\cdots\\cdots$}", txt.getText());
+		assertEquals("\\normalsize{$\\cdots\\cdots$}", txt.getText()); //$NON-NLS-1$
 		assertEquals(Color.BLACK, txt.getLineColour());
 		assertEquals(365., txt.getPosition().getX(), 0.000001);
 		assertEquals(125., txt.getPosition().getY(), 0.000001);

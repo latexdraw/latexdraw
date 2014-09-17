@@ -16,7 +16,7 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 
 	@Override
 	public String getPathSVGFile() {
-		return "src/resources/test/res/testLoad/testMultiLines.svg";
+		return "src/resources/test/res/testLoad/testMultiLines.svg"; //$NON-NLS-1$
 	}
 
 	@Override

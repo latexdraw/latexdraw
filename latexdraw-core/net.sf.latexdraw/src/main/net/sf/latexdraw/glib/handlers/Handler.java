@@ -115,7 +115,7 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 
 	@Override
 	public String toString() {
-        return super.toString() + "[centre=" + point + ", size=" + size + ", colour=" + colour + ']';
+        return super.toString() + "[centre=" + point + ", size=" + size + ", colour=" + colour + ']'; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 	@Override

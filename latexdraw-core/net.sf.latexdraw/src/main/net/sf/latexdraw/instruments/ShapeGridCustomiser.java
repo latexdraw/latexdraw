@@ -118,11 +118,11 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
 		colourLabels  = new MColorButton("Labels", new MButtonIcon(Color.BLACK));
 		colourSubGrid = new MColorButton("Sub-grid", new MButtonIcon(Color.BLACK));
-		gridWidth	  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.6")));
-		subGridWidth  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.7")));
-		gridDots 	  = new MSpinner(new MSpinnerNumberModel(0, 0, 10000, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.5")));
-		subGridDots	  = new MSpinner(new MSpinnerNumberModel(0, 0, 10000, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.4")));
-		subGridDiv	  = new MSpinner(new MSpinnerNumberModel(1, 1, 100, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.8")));
+		gridWidth	  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.6"))); //$NON-NLS-1$
+		subGridWidth  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.7"))); //$NON-NLS-1$
+		gridDots 	  = new MSpinner(new MSpinnerNumberModel(0, 0, 10000, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.5"))); //$NON-NLS-1$
+		subGridDots	  = new MSpinner(new MSpinnerNumberModel(0, 0, 10000, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.4"))); //$NON-NLS-1$
+		subGridDiv	  = new MSpinner(new MSpinnerNumberModel(1, 1, 100, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.8"))); //$NON-NLS-1$
      	labelsYInvertedCB = new MToggleButton(LResources.GRID_Y_LABEL);
      	labelsYInvertedCB.setToolTipText("Changes the Y-coordinates of the labels.");
      	labelsXInvertedCB = new MToggleButton(LResources.GRID_X_LABEL);
