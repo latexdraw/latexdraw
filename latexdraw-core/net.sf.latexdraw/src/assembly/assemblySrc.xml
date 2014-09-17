@@ -10,7 +10,6 @@
       <directory>${project.basedir}</directory>
       <includes>
         <include>src/</include>
-        <include>install*</include>
         <include>*.txt</include>
         <include>pom.xml</include>
 		<include>.gitignore</include>
