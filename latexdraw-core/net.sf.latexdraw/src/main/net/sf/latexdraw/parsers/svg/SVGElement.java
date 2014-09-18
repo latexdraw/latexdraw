@@ -38,10 +38,10 @@ import org.w3c.dom.UserDataHandler;
  */
 public abstract class SVGElement implements Element, Cloneable {
 	/** The attributes of the element. @since 0.1 */
-	protected SVGNamedNodeMap attributes;
+	final protected SVGNamedNodeMap attributes;
 
 	/** The children of this element. @since 0.1 */
-	protected SVGNodeList children;
+	final protected SVGNodeList children;
 
 	/** The parent SVGElement of this element. @since 0.1 */
 	protected SVGElement parent;
@@ -67,7 +67,7 @@ public abstract class SVGElement implements Element, Cloneable {
     protected SVGElement() {
 		super();
 		children 	= new SVGNodeList();
-		attributes 	= null;
+		attributes 	= new SVGNamedNodeMap();
 		transform	= null;
 		stylesCSS	= null;
 		parent 		= null;
@@ -163,16 +163,9 @@ public abstract class SVGElement implements Element, Cloneable {
 			return;
 
 		final NamedNodeMap nnm = n.getAttributes();
-		int i;
-        final int size = nnm.getLength();
 
-        if(size>0) {
-			if(attributes==null)
-				attributes = new SVGNamedNodeMap();
-
-			for(i=0; i<size; i++)
-				attributes.getAttributes().add(new SVGAttr(nnm.item(i).getNodeName(), nnm.item(i).getNodeValue(), this));
-		}
+		for(int i=0, size=nnm.getLength(); i<size; i++)
+			attributes.getAttributes().add(new SVGAttr(nnm.item(i).getNodeName(), nnm.item(i).getNodeValue(), this));
 	}
 
 
@@ -230,7 +223,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	public String toString() {
 		final StringBuilder str = new StringBuilder().append('[');
 		int i;
-        final int size = children==null ? 0 : children.getLength();
+        final int size = children.getLength();
 
         str.append("name=").append(name).append(',');//$NON-NLS-1$
 
@@ -297,7 +290,7 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	@Override
 	public String getTagName() {
-		return getNodeName();
+		return name;
 	}
 
 
@@ -327,16 +320,14 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	@Override
 	public Node getFirstChild() {
-		return children==null || children.getNodes()==null ||
-		children.getNodes().isEmpty() ? null : children.getNodes().get(0);
+		return children.getNodes()==null || children.getNodes().isEmpty() ? null : children.getNodes().get(0);
 	}
 
 
 
 	@Override
 	public Node getLastChild() {
-		return children==null || children.getNodes()==null ||
-		children.getNodes().isEmpty() ? null : children.getNodes().get(children.getNodes().size()-1);
+		return children.getNodes()==null || children.getNodes().isEmpty() ? null : children.getNodes().get(children.getNodes().size()-1);
 	}
 
 
@@ -371,7 +362,7 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	@Override
 	public boolean hasChildNodes() {
-		return children!=null && children.getNodes()!=null && !children.getNodes().isEmpty();
+		return children.getNodes()!=null && !children.getNodes().isEmpty();
 	}
 
 
@@ -380,7 +371,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	public Node insertBefore(final Node newChild, final Node refChild) {
 		boolean ok = false;
 
-		if(children!=null && newChild!=null && refChild!=null) {
+		if(newChild!=null && refChild!=null) {
 			final int pos = children.getNodes().indexOf(refChild);
 
 			if(pos!=-1 && newChild instanceof SVGElement) {
@@ -423,7 +414,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	public Node removeChild(final Node oldChild) {
 		boolean ok = false;
 
-		if(children!=null && oldChild!=null)
+		if(oldChild!=null)
 			ok = children.getNodes().remove(oldChild);
 
 		return ok ? oldChild : null;
@@ -595,9 +586,6 @@ public abstract class SVGElement implements Element, Cloneable {
 		if(value==null || name==null)
 			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid name or/and value");//$NON-NLS-1$
 
-		if(attributes==null)
-			attributes = new SVGNamedNodeMap();
-
 		attributes.setNamedItem(new SVGAttr(name, value, this));
 
 		if(SVGAttributes.SVG_TRANSFORM.equals(name))
@@ -709,7 +697,7 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	@Override
 	public String getLocalName() {
-		return name;
+		return name.replaceAll(getUsablePrefix(), ""); //$NON-NLS-1$
 	}
 
 
@@ -765,7 +753,7 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	@Override
 	public String getBaseURI()
-	{ return null; }
+	{ return ""; } //$NON-NLS-1$
 
 	@Override
 	public TypeInfo getSchemaTypeInfo()
@@ -781,7 +769,7 @@ public abstract class SVGElement implements Element, Cloneable {
 
 	@Override
 	public boolean isDefaultNamespace(final String namespaceURI)
-	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, SVGDocument.ACTION_NOT_IMPLEMENTED); }
+	{ return SVGDocument.SVG_NAMESPACE.equals(namespaceURI); }
 
 	@Override
 	public boolean isSupported(final String feature, final String version)
@@ -1241,7 +1229,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * @return The number of children of the node.
 	 */
 	public int getNbChildren(final int deep) {
-		if(children==null || deep<1)
+		if(deep<1)
 			return 0;
 
 		int cpt = children.getLength();

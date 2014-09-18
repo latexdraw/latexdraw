@@ -1,7 +1,7 @@
 package net.sf.latexdraw.parsers.svg;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -14,12 +14,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 import org.w3c.dom.*;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSOutput;
+import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
  * Defines an SVG document.<br>
@@ -204,7 +205,7 @@ public class SVGDocument implements Document {
 
 	@Override
 	public NodeList getChildNodes() {
-		return null;
+		return new SVGNodeList();
 	}
 
 
@@ -518,20 +519,19 @@ public class SVGDocument implements Document {
 			return false;
 
 		boolean ok = true;
-
-		try {
-			try(final FileOutputStream fos  = new FileOutputStream(path)){
-		        final OutputFormat of = new OutputFormat(this);
-		        final XMLSerializer xmls;
-
-		        of.setIndenting(true);
-		        xmls = new XMLSerializer(fos, of);
-
-		        try { xmls.serialize(getDocumentElement()); }
-		        catch(final IOException ex) { ok = false; }
-			}
-		}catch(final IOException e) { ok = false; }
-
+		try{
+	        DOMImplementationLS impl = (DOMImplementationLS) DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0 LS 3.0"); //$NON-NLS-1$
+	        LSSerializer serializer = impl.createLSSerializer();
+	        serializer.getDomConfig().setParameter("format-pretty-print", true); //$NON-NLS-1$
+	        serializer.getDomConfig().setParameter("namespaces", false); //$NON-NLS-1$
+	        LSOutput output = impl.createLSOutput();
+	        try(FileWriter fw = new FileWriter(path)){
+	        	output.setCharacterStream(fw);
+	        	serializer.write(getDocumentElement(), output);
+	        }
+		}catch(ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IOException ex){
+			ex.printStackTrace();
+		}
         return ok;
 	}
 

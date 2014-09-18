@@ -296,7 +296,7 @@ public class SVGAttr implements Attr, Cloneable {
 
 	@Override
 	public NodeList getChildNodes()
-	{ return null; }
+	{ return new SVGNodeList(); }
 
 	@Override
 	public Node getFirstChild()

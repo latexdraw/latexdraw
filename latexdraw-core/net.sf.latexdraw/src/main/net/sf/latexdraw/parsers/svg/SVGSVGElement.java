@@ -135,16 +135,14 @@ public class SVGSVGElement extends SVGElement {
 
 		str.append(", children={");//$NON-NLS-1$
 
-		if(children!=null) {
-			final List<SVGElement> chiNodes = children.getNodes();
-			final int size = chiNodes.size();
+		final List<SVGElement> chiNodes = children.getNodes();
+		final int size = chiNodes.size();
 
-			for(int i=0; i<size-1; i++)
-				str.append(chiNodes.get(i)).append(',');
+		for(int i=0; i<size-1; i++)
+			str.append(chiNodes.get(i)).append(',');
 
-			if(size>0)
-				str.append(chiNodes.get(chiNodes.size()-1));
-		}
+		if(size>0)
+			str.append(chiNodes.get(chiNodes.size()-1));
 
 		return str.append('}').append(']').toString();
 	}
