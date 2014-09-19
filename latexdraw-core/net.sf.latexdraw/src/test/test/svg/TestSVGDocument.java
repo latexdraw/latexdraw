@@ -129,11 +129,13 @@ public class TestSVGDocument {
 	@Test
 	public void testUselessMethods() {
 		assertNull(doc1.getAttributes());
-		assertNull(doc1.getChildNodes());
+		assertNotNull(doc1.getChildNodes());
+		assertEquals(0, doc1.getChildNodes().getLength());
 		assertNull(doc1.getNextSibling());
 		assertNull(doc1.getPreviousSibling());
 		assertNull(doc2.getAttributes());
-		assertNull(doc2.getChildNodes());
+		assertNotNull(doc2.getChildNodes());
+		assertEquals(0, doc2.getChildNodes().getLength());
 		assertNull(doc2.getNextSibling());
 		assertNull(doc2.getPreviousSibling());
 		assertNull(doc2.getNodeValue());
