@@ -9,7 +9,7 @@ public class Main {
 		final StringFinder finder = new StringFinder();
 		try {
 			finder.cacheResources();
-			System.out.println(finder.existsString("scale"));
+			System.out.println(finder.existsString("eps (latex) picture"));
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}

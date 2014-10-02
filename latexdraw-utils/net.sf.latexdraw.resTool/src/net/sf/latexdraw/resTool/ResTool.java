@@ -37,8 +37,10 @@ public abstract class ResTool {
 					System.err.println(">> Duplicated key: " + tab[0] + " in " + f);
 					System.err.println("Find: " + keys.get(tab[0]));
 				}else {
-					keys.put(tab[0], new Pair<>(tab[1], f));
-					keysInvert.put(tab[1], tab[0]);
+					if(tab.length>1) {
+						keys.put(tab[0], new Pair<>(tab[1], f));
+						keysInvert.put(tab[1], tab[0]);
+					}
 				}
 		})));
 	}
