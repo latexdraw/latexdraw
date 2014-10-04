@@ -59,5 +59,5 @@ class DeleteShapes extends Action with ShapesAction with DrawingAction with Undo
 		doActionBody
 	}
 
-	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.30")
+	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.5")
 }
