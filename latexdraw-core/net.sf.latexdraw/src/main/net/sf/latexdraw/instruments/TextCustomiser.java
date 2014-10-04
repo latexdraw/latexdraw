@@ -19,6 +19,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.Interactor;
@@ -101,11 +102,11 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		packagesLabel = new JLabel("Packages:");
+		packagesLabel = new JLabel(LangTool.INSTANCE.getStringActions("TextCust.1")); //$NON-NLS-1$
 		packagesField = new MTextArea(true, true);
 		packagesLabel.setLabelFor(packagesField);
 		final Font font = packagesField.getFont();
-		packagesField.setToolTipText("Contains the LaTeX packages that will be used to compile the text.");
+		packagesField.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.2")); //$NON-NLS-1$
 		packagesField.setFont(new Font(font.getName(), font.getStyle(), Math.max(10, font.getSize()-4)));
 		packagesField.setColumns(35);
 		packagesField.setRows(10);
@@ -118,31 +119,31 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 		blButton = new MToggleButton(LResources.TEXTPOS_BL);
 		blButton.setMargin(LResources.INSET_BUTTON);
-		blButton.setToolTipText("The position point is the bottom-left point.");
+		blButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.3")); //$NON-NLS-1$
 		bButton = new MToggleButton(LResources.TEXTPOS_B);
 		bButton.setMargin(LResources.INSET_BUTTON);
-		bButton.setToolTipText("The position point is the bottom-middle point.");
+		bButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.4")); //$NON-NLS-1$
 		brButton = new MToggleButton(LResources.TEXTPOS_BR);
 		brButton.setMargin(LResources.INSET_BUTTON);
-		brButton.setToolTipText("The position point is the bottom-right point.");
+		brButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.5")); //$NON-NLS-1$
 		tlButton = new MToggleButton(LResources.TEXTPOS_TL);
 		tlButton.setMargin(LResources.INSET_BUTTON);
-		tlButton.setToolTipText("The position point is the top-left point.");
+		tlButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.6")); //$NON-NLS-1$
 		tButton = new MToggleButton(LResources.TEXTPOS_T);
 		tButton.setMargin(LResources.INSET_BUTTON);
-		tButton.setToolTipText("The position point is the top-middle point.");
+		tButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.7")); //$NON-NLS-1$
 		trButton = new MToggleButton(LResources.TEXTPOS_TR);
 		trButton.setMargin(LResources.INSET_BUTTON);
-		trButton.setToolTipText("The position point is the top-right point.");
+		trButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.8")); //$NON-NLS-1$
 		centreButton = new MToggleButton(LResources.TEXTPOS_CENTRE);
 		centreButton.setMargin(LResources.INSET_BUTTON);
-		centreButton.setToolTipText("The position point is the centre point.");
+		centreButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.9")); //$NON-NLS-1$
 		lButton = new MToggleButton(LResources.TEXTPOS_L);
 		lButton.setMargin(LResources.INSET_BUTTON);
-		lButton.setToolTipText("The position point is the left point.");
+		lButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.10")); //$NON-NLS-1$
 		rButton = new MToggleButton(LResources.TEXTPOS_R);
 		rButton.setMargin(LResources.INSET_BUTTON);
-		rButton.setToolTipText("The position point is the right point.");
+		rButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.11")); //$NON-NLS-1$
 	}
 
 

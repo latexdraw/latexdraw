@@ -51,7 +51,7 @@ import org.w3c.dom.Element;
  */
 public class Exporter extends WidgetInstrument {
 	/** The title of the dialog box used to export drawings. */
-	public static final String TITLE_DIALOG_EXPORT = "Drawing export";
+	public static final String TITLE_DIALOG_EXPORT = LangTool.INSTANCE.getStringDialogFrame("Exporter.1"); //$NON-NLS-1$
 
 	/** The label of the exportAsBMPFile item */
     public static final String LABEL_EXPORT_BMP = LangTool.INSTANCE.getString16("LaTeXDrawFrame.6"); //$NON-NLS-1$
@@ -150,10 +150,10 @@ protected FileLoaderSaver loader;
 		pdfButton 		= new MButton(LResources.PDF_ICON);
 		exportMenu		= new MMenu(LABEL_EXPORT_AS, true);
 		menuItemBMP		= new MMenuItem(LABEL_EXPORT_BMP, KeyEvent.VK_B);
-		menuItemEPSLatex= new MMenuItem("eps (latex) picture", KeyEvent.VK_S);
+		menuItemEPSLatex= new MMenuItem(LangTool.INSTANCE.getStringDialogFrame("Exporter.2"), KeyEvent.VK_S); //$NON-NLS-1$
 		menuItemJPG		= new MMenuItem(LABEL_EXPORT_JPG, KeyEvent.VK_J);
-		menuItemPDF		= new MMenuItem("pdf (latex) picture", KeyEvent.VK_F);
-		menuItemPDFcrop	= new MMenuItem("pdf (latex+pdfcrop) picture", KeyEvent.VK_C);
+		menuItemPDF		= new MMenuItem(LangTool.INSTANCE.getStringDialogFrame("Exporter.3"), KeyEvent.VK_F); //$NON-NLS-1$
+		menuItemPDFcrop	= new MMenuItem(LangTool.INSTANCE.getStringDialogFrame("Exporter.4"), KeyEvent.VK_C); //$NON-NLS-1$
 		menuItemPNG		= new MMenuItem(LABEL_EXPORT_PNG, KeyEvent.VK_P);
 		menuItemPST		= new MMenuItem(LABEL_EXPORT_TRICKS, KeyEvent.VK_T);
 		exportMenu.add(menuItemPST);

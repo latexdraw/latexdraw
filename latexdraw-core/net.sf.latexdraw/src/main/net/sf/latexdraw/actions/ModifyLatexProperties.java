@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator.VerticalPosition;
+import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.action.Action;
 import org.malai.undo.Undoable;
@@ -156,7 +157,7 @@ public class ModifyLatexProperties extends Action implements Undoable, Modifying
 
 	@Override
 	public String getUndoName() {
-		return "Modification of a drawing's property";
+		return LangTool.INSTANCE.getStringActions("Actions.0"); //$NON-NLS-1$
 	}
 
 

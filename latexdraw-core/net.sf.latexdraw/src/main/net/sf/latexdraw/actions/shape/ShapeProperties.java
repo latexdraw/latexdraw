@@ -17,6 +17,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.lang.LangTool;
 
 /**
  * Defines shape properties.<br>
@@ -41,7 +42,7 @@ public enum ShapeProperties {
 	SHOW_POINTS {
 		@Override
 		public String getMessage() {
-			return "show points";
+			return LangTool.INSTANCE.getStringActions("Actions.12"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -71,7 +72,7 @@ public enum ShapeProperties {
 	AXES_SHOW_ORIGIN {
 		@Override
 		public String getMessage() {
-			return "axe's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.13"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -101,7 +102,7 @@ public enum ShapeProperties {
 	AXES_LABELS_DIST {
 		@Override
 		public String getMessage() {
-			return "axe's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.13"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -131,7 +132,7 @@ public enum ShapeProperties {
 	AXES_LABELS_INCR {
 		@Override
 		public String getMessage() {
-			return "axe's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.13"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -161,7 +162,7 @@ public enum ShapeProperties {
 	AXES_LABELS_SHOW {
 		@Override
 		public String getMessage() {
-			return "axe's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.13"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -191,7 +192,7 @@ public enum ShapeProperties {
 	AXES_TICKS_SHOW {
 		@Override
 		public String getMessage() {
-			return "axe's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.13"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -221,7 +222,7 @@ public enum ShapeProperties {
 	GRID_SUBGRID_WIDTH {
 		@Override
 		public String getMessage() {
-			return "grid's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -251,7 +252,7 @@ public enum ShapeProperties {
 	FREEHAND_OPEN {
 		@Override
 		public String getMessage() {
-			return "free hand's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.15"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -281,7 +282,7 @@ public enum ShapeProperties {
 	FREEHAND_INTERVAL {
 		@Override
 		public String getMessage() {
-			return "free hand's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.15"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -311,7 +312,7 @@ public enum ShapeProperties {
 	GRID_SUBGRID_DIV {
 		@Override
 		public String getMessage() {
-			return "grid's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -341,7 +342,7 @@ public enum ShapeProperties {
 	GRID_SUBGRID_DOTS {
 		@Override
 		public String getMessage() {
-			return "grid's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -371,7 +372,7 @@ public enum ShapeProperties {
 	GRID_DOTS {
 		@Override
 		public String getMessage() {
-			return "grid's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -401,7 +402,7 @@ public enum ShapeProperties {
 	GRID_WIDTH {
 		@Override
 		public String getMessage() {
-			return "grid's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -461,7 +462,7 @@ public enum ShapeProperties {
 	AXES_TICKS_STYLE {
 		@Override
 		public String getMessage() {
-			return "axe's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.13"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -491,7 +492,7 @@ public enum ShapeProperties {
 	FREEHAND_STYLE {
 		@Override
 		public String getMessage() {
-			return "free hand's parameters";
+			return LangTool.INSTANCE.getStringActions("Actions.15"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -521,7 +522,7 @@ public enum ShapeProperties {
 	AXES_STYLE {
 		@Override
 		public String getMessage() {
-			return "axe's style";
+			return LangTool.INSTANCE.getStringActions("Actions.13"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -551,7 +552,7 @@ public enum ShapeProperties {
 	GRID_LABEL_POSITION_X {
 		@Override
 		public String getMessage() {
-			return "grid's labels position";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -581,7 +582,7 @@ public enum ShapeProperties {
 	GRID_LABEL_POSITION_Y {
 		@Override
 		public String getMessage() {
-			return "grid's labels position";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -611,7 +612,7 @@ public enum ShapeProperties {
 	GRID_SIZE_LABEL {
 		@Override
 		public String getMessage() {
-			return "grid's labels size";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -659,7 +660,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return "arrow parameter";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -689,7 +690,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return "arrow parameter";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -719,7 +720,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return "arrow parameter";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -749,7 +750,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return "arrow parameter";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -779,7 +780,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return "arrow parameter";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -809,7 +810,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return "arrow parameter";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -839,7 +840,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return "arrow parameter";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -869,7 +870,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return "arrow parameter";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -898,7 +899,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return "arrow parameter";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -928,7 +929,7 @@ public enum ShapeProperties {
 
 		@Override
 		public String getMessage() {
-			return "arrow parameter";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -940,7 +941,7 @@ public enum ShapeProperties {
 	GRID_END {
 		@Override
 		public String getMessage() {
-			return "Grid's coordinates";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -972,7 +973,7 @@ public enum ShapeProperties {
 	GRID_ORIGIN {
 		@Override
 		public String getMessage() {
-			return "Grid's coordinates";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1004,7 +1005,7 @@ public enum ShapeProperties {
 	GRID_START {
 		@Override
 		public String getMessage() {
-			return "Grid's coordinates";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1036,7 +1037,7 @@ public enum ShapeProperties {
 	ARC_START_ANGLE {
 		@Override
 		public String getMessage() {
-			return "Arc angle";
+			return LangTool.INSTANCE.getStringActions("Actions.17"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1066,7 +1067,7 @@ public enum ShapeProperties {
 	ARC_END_ANGLE {
 		@Override
 		public String getMessage() {
-			return "Arc angle";
+			return LangTool.INSTANCE.getStringActions("Actions.17"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1096,7 +1097,7 @@ public enum ShapeProperties {
 	ARC_STYLE {
 		@Override
 		public String getMessage() {
-			return "Arc style";
+			return LangTool.INSTANCE.getStringActions("Actions.17"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1126,7 +1127,7 @@ public enum ShapeProperties {
 	ARROW2_STYLE {
 		@Override
 		public String getMessage() {
-			return "second arrow style";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1155,7 +1156,7 @@ public enum ShapeProperties {
 	ARROW1_STYLE {
 		@Override
 		public String getMessage() {
-			return "first arrow style";
+			return LangTool.INSTANCE.getStringActions("Actions.16"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1185,7 +1186,7 @@ public enum ShapeProperties {
 	TEXT_POSITION {
 		@Override
 		public String getMessage() {
-			return "text position";
+			return LangTool.INSTANCE.getStringActions("Actions.18"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1215,7 +1216,7 @@ public enum ShapeProperties {
 	TEXT {
 		@Override
 		public String getMessage() {
-			return "text";
+			return LangTool.INSTANCE.getStringActions("Actions.18"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1245,7 +1246,7 @@ public enum ShapeProperties {
 	HATCHINGS_ANGLE {
 		@Override
 		public String getMessage() {
-			return "hatchings angle";
+			return LangTool.INSTANCE.getStringActions("Actions.19"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1275,7 +1276,7 @@ public enum ShapeProperties {
 	HATCHINGS_WIDTH {
 		@Override
 		public String getMessage() {
-			return "hatchings width";
+			return LangTool.INSTANCE.getStringActions("Actions.19"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1305,7 +1306,7 @@ public enum ShapeProperties {
 	HATCHINGS_SEP {
 		@Override
 		public String getMessage() {
-			return "hatchings spacing";
+			return LangTool.INSTANCE.getStringActions("Actions.19"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1335,7 +1336,7 @@ public enum ShapeProperties {
 	GRAD_ANGLE {
 		@Override
 		public String getMessage() {
-			return "gradient angle";
+			return LangTool.INSTANCE.getStringActions("Actions.20"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1365,7 +1366,7 @@ public enum ShapeProperties {
 	GRAD_MID_POINT {
 			@Override
 			public String getMessage() {
-				return "gradient middle point";
+				return LangTool.INSTANCE.getStringActions("Actions.20"); //$NON-NLS-1$
 			}
 
 			@Override
@@ -1395,7 +1396,7 @@ public enum ShapeProperties {
 	ROUND_CORNER_VALUE {
 		@Override
 		public String getMessage() {
-			return "corner roundness";
+			return LangTool.INSTANCE.getStringActions("Actions.21"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1425,7 +1426,7 @@ public enum ShapeProperties {
 	GRID_SUBGRID_COLOUR {
 		@Override
 		public String getMessage() {
-			return "sub-grid' colour";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1455,7 +1456,7 @@ public enum ShapeProperties {
 	GRID_LABELS_COLOUR {
 		@Override
 		public String getMessage() {
-			return "labels' colour";
+			return LangTool.INSTANCE.getStringActions("Actions.14"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1485,7 +1486,7 @@ public enum ShapeProperties {
 	COLOUR_FILLING {
 		@Override
 		public String getMessage() {
-			return "interior colour";
+			return LangTool.INSTANCE.getStringActions("Actions.21"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1515,7 +1516,7 @@ public enum ShapeProperties {
 	COLOUR_LINE {
 		@Override
 		public String getMessage() {
-			return "lines colour";
+			return LangTool.INSTANCE.getStringActions("Actions.23"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1545,7 +1546,7 @@ public enum ShapeProperties {
 	COLOUR_HATCHINGS {
 		@Override
 		public String getMessage() {
-			return "hatchings colour";
+			return LangTool.INSTANCE.getStringActions("Actions.19"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1575,7 +1576,7 @@ public enum ShapeProperties {
 	DBLE_BORDERS {
 		@Override
 		public String getMessage() {
-			return "double border";
+			return LangTool.INSTANCE.getStringActions("Actions.24"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1605,7 +1606,7 @@ public enum ShapeProperties {
 	DBLE_BORDERS_SIZE {
 		@Override
 		public String getMessage() {
-			return "double border size";
+			return LangTool.INSTANCE.getStringActions("Actions.24"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1635,7 +1636,7 @@ public enum ShapeProperties {
 	COLOUR_DBLE_BORD {
 		@Override
 		public String getMessage() {
-			return "double border colour";
+			return LangTool.INSTANCE.getStringActions("Actions.24"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1665,7 +1666,7 @@ public enum ShapeProperties {
 	SHADOW {
 		@Override
 		public String getMessage() {
-			return "shadow";
+			return LangTool.INSTANCE.getStringActions("Actions.25"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1695,7 +1696,7 @@ public enum ShapeProperties {
 	SHADOW_SIZE {
 		@Override
 		public String getMessage() {
-			return "shadow size";
+			return LangTool.INSTANCE.getStringActions("Actions.25"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1725,7 +1726,7 @@ public enum ShapeProperties {
 	SHADOW_ANGLE {
 		@Override
 		public String getMessage() {
-			return "shadow angle";
+			return LangTool.INSTANCE.getStringActions("Actions.25"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1755,7 +1756,7 @@ public enum ShapeProperties {
 	COLOUR_SHADOW {
 		@Override
 		public String getMessage() {
-			return "shadow colour";
+			return LangTool.INSTANCE.getStringActions("Actions.25"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1785,7 +1786,7 @@ public enum ShapeProperties {
 	COLOUR_GRADIENT_START {
 		@Override
 		public String getMessage() {
-			return "gradient start colour";
+			return LangTool.INSTANCE.getStringActions("Actions.20"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1815,7 +1816,7 @@ public enum ShapeProperties {
 	COLOUR_GRADIENT_END {
 		@Override
 		public String getMessage() {
-			return "gradient end colour";
+			return LangTool.INSTANCE.getStringActions("Actions.20"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1845,7 +1846,7 @@ public enum ShapeProperties {
 	LINE_THICKNESS {
 		@Override
 		public String getMessage() {
-			return "thickness";
+			return LangTool.INSTANCE.getStringActions("Actions.26"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1875,7 +1876,7 @@ public enum ShapeProperties {
 	FILLING_STYLE {
 		@Override
 		public String getMessage() {
-			return "filling style";
+			return LangTool.INSTANCE.getStringActions("Actions.22"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1905,7 +1906,7 @@ public enum ShapeProperties {
 	BORDER_POS {
 		@Override
 		public String getMessage() {
-			return "border position";
+			return LangTool.INSTANCE.getStringActions("Actions.27"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1935,7 +1936,7 @@ public enum ShapeProperties {
 	LINE_STYLE {
 		@Override
 		public String getMessage() {
-			return "line style";
+			return LangTool.INSTANCE.getStringActions("Actions.28"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1965,7 +1966,7 @@ public enum ShapeProperties {
 	DOT_FILLING_COL {
 		@Override
 		public String getMessage() {
-			return "dot filling colour";
+			return LangTool.INSTANCE.getStringActions("Actions.29"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -1995,7 +1996,7 @@ public enum ShapeProperties {
 	DOT_STYLE {
 		@Override
 		public String getMessage() {
-			return "dot style";
+			return LangTool.INSTANCE.getStringActions("Actions.29"); //$NON-NLS-1$
 		}
 
 		@Override
@@ -2025,7 +2026,7 @@ public enum ShapeProperties {
 	DOT_SIZE {
 		@Override
 		public String getMessage() {
-			return "dot size";
+			return LangTool.INSTANCE.getStringActions("Actions.29"); //$NON-NLS-1$
 		}
 
 		@Override

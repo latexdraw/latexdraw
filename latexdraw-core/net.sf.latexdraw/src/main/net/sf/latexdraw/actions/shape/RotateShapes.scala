@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.GLibUtilities
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.GLibUtilities
+import net.sf.latexdraw.lang.LangTool
 
 /**
  * This action increments to rotation angle of shapes.<br>
@@ -71,7 +72,7 @@ class RotateShapes extends Action with ShapeAction[IShape] with Undoable with Mo
 	}
 
 
-	override def getUndoName = "rotation"
+	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.31")
 
 
 	/**

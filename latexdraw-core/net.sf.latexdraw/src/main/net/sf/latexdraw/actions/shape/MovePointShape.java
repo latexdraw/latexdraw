@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions.shape;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.undo.Undoable;
 
@@ -67,7 +68,7 @@ public class MovePointShape extends MovePoint implements Undoable {
 
 	@Override
 	public String getUndoName() {
-		return "Move Point";
+		return LangTool.INSTANCE.getStringActions("Actions.10"); //$NON-NLS-1$
 	}
 
 

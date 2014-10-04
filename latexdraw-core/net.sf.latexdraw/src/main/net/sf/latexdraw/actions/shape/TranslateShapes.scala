@@ -9,6 +9,7 @@ import net.sf.latexdraw.glib.models.GLibUtilities
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.glib.models.GLibUtilities
+import net.sf.latexdraw.lang.LangTool
 
 /**
  * This action translates shapes.<br>
@@ -77,7 +78,7 @@ class TranslateShapes extends Action with ShapeAction[IGroup] with DrawingAction
 	}
 
 
-	override def getUndoName = "Translation"
+	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.32")
 
 
 	/**

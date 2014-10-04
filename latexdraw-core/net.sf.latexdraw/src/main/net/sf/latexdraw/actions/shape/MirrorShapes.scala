@@ -7,6 +7,7 @@ import org.malai.undo.Undoable
 import org.malai.action.Action
 import net.sf.latexdraw.actions.ShapeAction
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.lang.LangTool
 
 /**
  * This action mirrors a shape.<br>
@@ -52,7 +53,7 @@ class MirrorShapes extends Action with ShapeAction[IShape] with Undoable with Mo
 		doActionBody()
 	}
 
-	override def getUndoName = "mirror"
+	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.7")
 
 	override def isRegisterable = true
 

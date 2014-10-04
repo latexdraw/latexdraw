@@ -72,14 +72,14 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 		shadowCB.setMargin(LResources.INSET_BUTTON);
 		shadowCB.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.4")); //$NON-NLS-1$
 
-		shadowColB = new MColorButton("Colour", new MButtonIcon(Color.BLACK));
+		shadowColB = new MColorButton(LangTool.INSTANCE.getStringActions("ShapeBord.1"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
 		shadowColB.setMargin(LResources.INSET_BUTTON);
 		shadowColB.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.5")); //$NON-NLS-1$
 
-		shadowSizeField = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 0.01, 1000. ,1.), new JLabel("Size:"));
+		shadowSizeField = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 0.01, 1000. ,1.), new JLabel(LangTool.INSTANCE.getStringActions("ShapeShad.1"))); //$NON-NLS-1$
 		shadowSizeField.setEditor(new JSpinner.NumberEditor(shadowSizeField, "0.00"));//$NON-NLS-1$
 
-     	shadowAngleField = new MSpinner(new MSpinner.MSpinnerNumberModel(45., -360., 360., 0.5), new JLabel("Angle:"));
+     	shadowAngleField = new MSpinner(new MSpinner.MSpinnerNumberModel(45., -360., 360., 0.5), new JLabel(LangTool.INSTANCE.getStringActions("ShapeFill.1"))); //$NON-NLS-1$
      	shadowAngleField.setEditor(new JSpinner.NumberEditor(shadowAngleField, "0.0"));//$NON-NLS-1$
 	}
 

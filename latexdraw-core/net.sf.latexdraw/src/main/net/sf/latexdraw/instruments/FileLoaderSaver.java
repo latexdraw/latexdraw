@@ -56,13 +56,13 @@ import org.w3c.dom.Element;
  */
 public class FileLoaderSaver extends WidgetInstrument {
 	/** The label of the saveMenu item */
-    public static final String LABEL_SAVE = "Save drawing";
+    public static final String LABEL_SAVE = LangTool.INSTANCE.getStringActions("FileLoaderSaver.1"); //$NON-NLS-1$
 
 	/** The label of the saveAsMenu item */
-    public static final String LABEL_SAVE_AS = "Save drawing as";
+    public static final String LABEL_SAVE_AS = LangTool.INSTANCE.getStringActions("FileLoaderSaver.2"); //$NON-NLS-1$
 
 	/** The label of the openMenu item */
-    public static final String LABEL_OPEN = "Open drawing";
+    public static final String LABEL_OPEN = LangTool.INSTANCE.getStringActions("FileLoaderSaver.3"); //$NON-NLS-1$
 
 	/** The path where documents are saved. */
 	protected String pathSave;
@@ -198,7 +198,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 		newButton = new MButton(LResources.NEW_ICON);
 		newButton.setMargin(LResources.INSET_BUTTON);
-		newButton.setToolTipText("Creation of a new drawing.");
+		newButton.setToolTipText(LangTool.INSTANCE.getStringActions("FileLoaderSaver.4")); //$NON-NLS-1$
 
 		loadButton = new MButton(LResources.OPEN_ICON);
 		loadButton.setMargin(LResources.INSET_BUTTON);

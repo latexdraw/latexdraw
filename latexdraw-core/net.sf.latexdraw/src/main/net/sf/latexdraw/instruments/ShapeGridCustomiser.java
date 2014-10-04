@@ -116,17 +116,17 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		colourLabels  = new MColorButton("Labels", new MButtonIcon(Color.BLACK));
-		colourSubGrid = new MColorButton("Sub-grid", new MButtonIcon(Color.BLACK));
+		colourLabels  = new MColorButton(LangTool.INSTANCE.getStringActions("ShapeGrid.1"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
+		colourSubGrid = new MColorButton(LangTool.INSTANCE.getStringActions("ShapeGrid.2"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
 		gridWidth	  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.6"))); //$NON-NLS-1$
 		subGridWidth  = new MSpinner(new MSpinnerNumberModel(1., 0.1, 1000., 0.5), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.7"))); //$NON-NLS-1$
 		gridDots 	  = new MSpinner(new MSpinnerNumberModel(0, 0, 10000, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.5"))); //$NON-NLS-1$
 		subGridDots	  = new MSpinner(new MSpinnerNumberModel(0, 0, 10000, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.4"))); //$NON-NLS-1$
 		subGridDiv	  = new MSpinner(new MSpinnerNumberModel(1, 1, 100, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.8"))); //$NON-NLS-1$
      	labelsYInvertedCB = new MToggleButton(LResources.GRID_Y_LABEL);
-     	labelsYInvertedCB.setToolTipText("Changes the Y-coordinates of the labels.");
+     	labelsYInvertedCB.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeGrid.3")); //$NON-NLS-1$
      	labelsXInvertedCB = new MToggleButton(LResources.GRID_X_LABEL);
-     	labelsXInvertedCB.setToolTipText("Changes the X-coordinates of the labels.");
+     	labelsXInvertedCB.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeGrid.4")); //$NON-NLS-1$
 	}
 
 

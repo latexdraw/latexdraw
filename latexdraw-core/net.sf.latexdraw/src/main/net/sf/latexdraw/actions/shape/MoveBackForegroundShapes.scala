@@ -10,6 +10,7 @@ import net.sf.latexdraw.actions.ShapeAction
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import collection.JavaConversions._
 import scala.collection.mutable.Buffer
+import net.sf.latexdraw.lang.LangTool
 
 /**
  * This action puts in background / foreground shapes.<br>
@@ -115,7 +116,7 @@ class MoveBackForegroundShapes extends Action with ShapeAction[IGroup] with Draw
 		doActionBody()
 	}
 
-	override def getUndoName = "move back/foreground"
+	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.8")
 
 	override def isRegisterable = true
 

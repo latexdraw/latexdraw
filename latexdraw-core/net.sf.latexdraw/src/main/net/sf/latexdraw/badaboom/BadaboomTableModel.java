@@ -24,11 +24,11 @@ import javax.swing.table.AbstractTableModel;
 public class BadaboomTableModel extends AbstractTableModel {
 	private static final long serialVersionUID 	= 1L;
 
-	protected static final String NAME_COL1		= "Name";
+	protected static final String NAME_COL1		= "Name"; //$NON-NLS-1$
 
-	protected static final String NAME_COL2		= "Message";
+	protected static final String NAME_COL2		= "Message"; //$NON-NLS-1$
 
-	protected static final String NAME_COL3		= "Location";
+	protected static final String NAME_COL3		= "Location"; //$NON-NLS-1$
 
 
     @Override

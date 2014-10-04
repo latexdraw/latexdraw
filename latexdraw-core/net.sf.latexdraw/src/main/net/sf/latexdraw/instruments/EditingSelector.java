@@ -248,7 +248,7 @@ public class EditingSelector extends WidgetInstrument {
 
 		linesB = new MToggleButton(LResources.LINES_ICON);
 		linesB.setMargin(LResources.INSET_BUTTON);
-		linesB.setToolTipText("Draw a single or several joined lines.");
+		linesB.setToolTipText(LangTool.INSTANCE.getStringActions("Instruments.4")); //$NON-NLS-1$
 
 		picB = new MToggleButton(LResources.INSERT_PIC_ICON);
 		picB.setMargin(LResources.INSET_BUTTON);
@@ -256,7 +256,7 @@ public class EditingSelector extends WidgetInstrument {
 
 		plotB = new MToggleButton(LResources.PLOT_ICON);
 		plotB.setMargin(LResources.INSET_BUTTON);
-		plotB.setToolTipText("Plot a function.");
+		plotB.setToolTipText(LangTool.INSTANCE.getStringActions("Instruments.5")); //$NON-NLS-1$
 
 		codeB = new MButton(LResources.TEX_EDITOR_ICON);
 		codeB.setMargin(LResources.INSET_BUTTON);

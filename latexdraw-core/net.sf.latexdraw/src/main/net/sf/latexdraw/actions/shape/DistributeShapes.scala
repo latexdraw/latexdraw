@@ -15,6 +15,8 @@ import scala.collection.mutable.ListBuffer
 import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 
+import net.sf.latexdraw.lang.LangTool
+
 /**
  * This enumeration describes the different possible alignment types.
  */
@@ -215,7 +217,7 @@ class DistributeShapes extends Action with ShapeAction[IGroup] with Undoable wit
 		_border = rec
 	}
 
-	override def getUndoName = "distribute"
+	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.6")
 
 	override def isRegisterable = true
 

@@ -4,16 +4,15 @@ import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.JavaConversions.bufferAsJavaList
 import scala.collection.mutable.Buffer
 import scala.collection.mutable.ListBuffer
-
 import org.malai.action.Action
 import org.malai.undo.Undoable
-
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapeAction
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.ui.LMagneticGrid
+import net.sf.latexdraw.lang.LangTool
 
 /**
  * This action updates the given shapes to magnetic grid if activated.<br>
@@ -84,7 +83,7 @@ class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Mo
 	}
 
 
-	override def getUndoName = "Update to grid"
+	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.33")
 
 	override def isRegisterable = hadEffect
 

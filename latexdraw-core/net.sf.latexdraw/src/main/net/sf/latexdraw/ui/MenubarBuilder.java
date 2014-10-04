@@ -74,7 +74,7 @@ public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 
 	protected void composeDrawingMenu() {
 		drawingMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.91"), true); //$NON-NLS-1$
-		unitMenu	= new MMenu("Unit", true);
+		unitMenu	= new MMenu(LangTool.INSTANCE.getStringActions("MenuBuilder.1"), true); //$NON-NLS-1$
 
 		widget.add(drawingMenu);
 		drawingMenu.add(frame.fileLoader.getNewMenu());

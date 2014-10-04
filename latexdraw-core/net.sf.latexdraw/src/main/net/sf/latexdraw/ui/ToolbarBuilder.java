@@ -125,16 +125,16 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 	protected void composeDrawingPropertiesToolbar(final LCanvas canvas) {
 		final DrawingPropertiesCustomiser cust = frame.getDrawingPropCustomiser();
 		drawingB = new WidgetMiniToolbar(LResources.DRAWING_PROP_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
-		drawingB.setToolTipText("Customising the drawing's properties.");
+		drawingB.setToolTipText(LangTool.INSTANCE.getStringActions("ToolbarBuilder.1")); //$NON-NLS-1$
 		widget.add(drawingB);
 
 		cust.getTitleField().setColumns(15);
 		cust.getLabelField().setColumns(10);
 
 		UIBuilder.addSpinner(drawingB, cust.getScaleSpinner(), 65);
-		drawingB.addComponent(new JLabel("Caption:"));
+		drawingB.addComponent(new JLabel(LangTool.INSTANCE.getStringActions("ToolbarBuilder.2"))); //$NON-NLS-1$
 		drawingB.addComponent(cust.getTitleField());
-		drawingB.addComponent(new JLabel("Label:"));
+		drawingB.addComponent(new JLabel(LangTool.INSTANCE.getStringActions("ToolbarBuilder.3"))); //$NON-NLS-1$
 		drawingB.addComponent(cust.getLabelField());
 		drawingB.addComponent(cust.getMiddleHorizPosCB());
 		drawingB.addComponent(cust.getPositionCB().getLabel());

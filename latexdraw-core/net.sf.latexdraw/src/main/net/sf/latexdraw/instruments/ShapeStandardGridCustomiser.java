@@ -106,31 +106,31 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
 		xStartS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.12")));//$NON-NLS-1$
 		xStartS.setEditor(new JSpinner.NumberEditor(xStartS, "0"));//$NON-NLS-1$
-		xStartS.setToolTipText("Sets the minimal X-coordinate of the grid.");
+		xStartS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeStdGrid.1")); //$NON-NLS-1$
 
 		yStartS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.14")));//$NON-NLS-1$
 		yStartS.setEditor(new JSpinner.NumberEditor(yStartS, "0"));//$NON-NLS-1$
-		yStartS.setToolTipText("Sets the minimal Y-coordinate of the grid.");
+		yStartS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeStdGrid.2")); //$NON-NLS-1$
 
 		xEndS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.11")));//$NON-NLS-1$
 		xEndS.setEditor(new JSpinner.NumberEditor(xEndS, "0"));//$NON-NLS-1$
-		xEndS.setToolTipText("Sets the maximal X-coordinate of the grid.");
+		xEndS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeStdGrid.3")); //$NON-NLS-1$
 
 		yEndS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.13")));//$NON-NLS-1$
 		yEndS.setEditor(new JSpinner.NumberEditor(yEndS, "0"));//$NON-NLS-1$
-		yEndS.setToolTipText("Sets the maximal Y-coordinate of the grid.");
+		yEndS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeStdGrid.4")); //$NON-NLS-1$
 
 		labelsSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(10, 1, 100, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.9")));//$NON-NLS-1$
 		labelsSizeS.setEditor(new JSpinner.NumberEditor(labelsSizeS, "0"));//$NON-NLS-1$
-		labelsSizeS.setToolTipText("Sets the size of the labels of the grid.");
+		labelsSizeS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeStdGrid.5")); //$NON-NLS-1$
 
 		xOriginS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.1")));//$NON-NLS-1$
 		xOriginS.setEditor(new JSpinner.NumberEditor(xOriginS, "0"));//$NON-NLS-1$
-		xOriginS.setToolTipText("Sets the X-coordinate of the origin of the grid.");
+		xOriginS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeStdGrid.6")); //$NON-NLS-1$
 
 		yOriginS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.0")));//$NON-NLS-1$
 		yOriginS.setEditor(new JSpinner.NumberEditor(yOriginS, "0"));//$NON-NLS-1$
-		yOriginS.setToolTipText("Sets the Y-coordinate of the origin of the grid.");
+		yOriginS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeStdGrid.7")); //$NON-NLS-1$
 	}
 
 

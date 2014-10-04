@@ -43,10 +43,10 @@ public final class LResources {
     public static final String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
 
 	/** The label of the menu "aboutTexDraw" */
-    public static final String LABEL_ABOUT = "About LaTeXDraw";
+    public static final String LABEL_ABOUT = LangTool.INSTANCE.getStringDialogFrame("Res.1"); //$NON-NLS-1$
 
 	/** The label of the newMenu item */
-    public static final String LABEL_NEW = "New drawing";
+    public static final String LABEL_NEW = LangTool.INSTANCE.getStringDialogFrame("Res.2"); //$NON-NLS-1$
 
 	public static final String LABEL_NEW_WITH_SEL =LangTool.INSTANCE.getStringLaTeXDrawFrame("LRes.0"); //$NON-NLS-1$
 
@@ -59,7 +59,7 @@ public final class LResources {
 	/** The label of the menu cut */
 	public static final String LABEL_CUT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.44"); //$NON-NLS-1$
 
-	public static final String LABEL_DISPLAY_PERSO_GRID = "Customised grid";
+	public static final String LABEL_DISPLAY_PERSO_GRID = LangTool.INSTANCE.getStringDialogFrame("Res.3"); //$NON-NLS-1$
 
 	/** The label of the menuItem displayGrid */
 	public static final String LABEL_DISPLAY_GRID = LangTool.INSTANCE.getString18("PreferencesFrame.4"); //$NON-NLS-1$

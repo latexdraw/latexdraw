@@ -165,7 +165,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
      	hatchSepField = new MSpinner(new MSpinner.MSpinnerNumberModel(2., 0.01, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("AbstractParametersFrame.0"))); //$NON-NLS-1$
      	hatchSepField.setEditor(new JSpinner.NumberEditor(hatchSepField, "0.00"));//$NON-NLS-1$
 
-     	hatchAngleField = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -1000., 1000., 1.), new JLabel("angle:"));
+     	hatchAngleField = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -1000., 1000., 1.), new JLabel(LangTool.INSTANCE.getStringActions("ShapeFill.1"))); //$NON-NLS-1$
      	hatchAngleField.setEditor(new JSpinner.NumberEditor(hatchAngleField, "0.00"));//$NON-NLS-1$
 
      	hatchColButton = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.49"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$

@@ -122,8 +122,8 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
 		shapeAxes = new MComboBox<>(AxesStyle.values(), null);
 		shapeTicks = new MComboBox<>(TicksStyle.values(), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.0"))); //$NON-NLS-1$
-		showTicks = new MComboBox<>(PlottingStyle.values(), new JLabel("Visibility:"));
-		showLabels = new MComboBox<>(PlottingStyle.values(), new JLabel("Visibility:"));
+		showTicks = new MComboBox<>(PlottingStyle.values(), new JLabel(LangTool.INSTANCE.getStringActions("AxesCust.1"))); //$NON-NLS-1$
+		showLabels = new MComboBox<>(PlottingStyle.values(), new JLabel(LangTool.INSTANCE.getStringActions("AxesCust.1"))); //$NON-NLS-1$
 //		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
 		incrLabelX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.8"))); //$NON-NLS-1$
 		incrLabelY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.9"))); //$NON-NLS-1$

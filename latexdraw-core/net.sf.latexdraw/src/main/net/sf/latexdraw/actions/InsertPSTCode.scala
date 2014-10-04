@@ -87,7 +87,7 @@ class InsertPSTCode extends Action with DrawingAction with Undoable {
 
 	def setCode(value:String) { _code = if(value!=null) Some(value) else None }
 
-	override def getUndoName = "Inserting of PST code"
+	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.4")
 
 	override def canDo = _code.isDefined && _drawing.isDefined
 

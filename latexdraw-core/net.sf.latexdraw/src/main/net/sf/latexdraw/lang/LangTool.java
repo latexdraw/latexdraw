@@ -293,6 +293,8 @@ public final class LangTool {
 
 	private static final ResourceBundle RES_BUNDLE_19;
 
+	private static final ResourceBundle RES_BUNDLE_ACTIONS;
+
 	/** The singleton to use when wanting to use language utilities. */
 	public static final LangTool INSTANCE = new LangTool();
 
@@ -311,6 +313,7 @@ public final class LangTool {
 		RES_BUNDLE_17 			 = ResourceBundle.getBundle(token+".1_7"); //$NON-NLS-1$
 		RES_BUNDLE_18 			 = ResourceBundle.getBundle(token+".1_8"); //$NON-NLS-1$
 		RES_BUNDLE_19 			 = ResourceBundle.getBundle(token+".1_9"); //$NON-NLS-1$
+		RES_BUNDLE_ACTIONS				 = ResourceBundle.getBundle(token+".actions"); //$NON-NLS-1$
 	}
 
 
@@ -451,6 +454,15 @@ public final class LangTool {
 		return getStringFromResourceBundle(key, RES_BUNDLE_DIALOG_FRAME);
 	}
 
+
+	/**
+	 * Allows to get a string related to actions.
+	 * @param key The key of the string.
+	 * @return The string.
+	 */
+	public String getStringActions(final String key) {
+		return getStringFromResourceBundle(key, RES_BUNDLE_ACTIONS);
+	}
 
 
 	/**

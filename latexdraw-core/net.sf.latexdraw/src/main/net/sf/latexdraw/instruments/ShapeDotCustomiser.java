@@ -73,10 +73,10 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
      	dotSizeField = new MSpinner(new MSpinner.MSpinnerNumberModel(6., 0.1, 1000., 1.), new JLabel(LResources.DOT_STYLE_NONE_ICON));
      	dotSizeField.setEditor(new JSpinner.NumberEditor(dotSizeField, "0.0"));//$NON-NLS-1$
-     	dotSizeField.setToolTipText("Define the size of a dot.");
+     	dotSizeField.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeDot.1")); //$NON-NLS-1$
 
      	dotCB = createDotStyleChoice();
-     	dotSizeField.setToolTipText("Select the style of the dot.");
+     	dotSizeField.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeDot.2")); //$NON-NLS-1$
 
      	fillingB = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(Color.WHITE));//$NON-NLS-1$
      	fillingB.setMargin(LResources.INSET_BUTTON);

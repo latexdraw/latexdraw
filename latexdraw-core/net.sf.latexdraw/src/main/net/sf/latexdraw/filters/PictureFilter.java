@@ -4,6 +4,8 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
+import net.sf.latexdraw.lang.LangTool;
+
 /**
  * This class defines a filter for pictures.<br>
  *<br>
@@ -27,20 +29,20 @@ public class PictureFilter extends FileFilter {
 	@Override
 	public boolean accept(final File file) {
 		final boolean accept;
-		
+
 		if(file==null)
 			accept = false;
 		else {
 			final String name = file.getName();
 			accept = file.isDirectory() || name.endsWith(PNGFilter.PNG_EXTENSION) || name.endsWith(BMPFilter.BMP_EXTENSION) || name.endsWith(GIFFilter.GIF_EXTENSION);
 		}
-		
+
 		return accept;
 	}
 
 
 	@Override
 	public String getDescription() {
-		return "Picture";
+		return LangTool.INSTANCE.getStringDialogFrame("Filter.1"); //$NON-NLS-1$
 	}
 }

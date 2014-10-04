@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
+import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.instrument.Instrument;
 import org.malai.swing.ui.SwingUIComposer;
@@ -136,7 +137,7 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
 		/* Creation of the tabbed pane. */
-		widget.tabbedPanel.addTab("Drawing", drawingArea);
+		widget.tabbedPanel.addTab(LangTool.INSTANCE.getStringActions("UIBuilder.1"), drawingArea); //$NON-NLS-1$
 		widget.tabbedPanel.addTab("PST", widget.getCodePanel()); //$NON-NLS-1$
 
 		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.LINE_AXIS));

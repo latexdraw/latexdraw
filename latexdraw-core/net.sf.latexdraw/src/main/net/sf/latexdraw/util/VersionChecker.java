@@ -13,6 +13,7 @@ import java.net.URL;
 import javax.swing.JButton;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.UIBuilder;
 
 import org.malai.action.library.OpenWebPage;
@@ -91,7 +92,7 @@ public class VersionChecker extends Thread {
 				if(div!=null && div.length>3 && div[3].compareTo(VERSION)>0) {
 					buttonUpdate = new JButton(LResources.UPDATE_ICON);
 					buttonUpdate.setToolTipText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" + //$NON-NLS-1$
-												"Version" + ' ' + div[3]+ ' ' + "available!" + "</html>"); //$NON-NLS-3$
+							LangTool.INSTANCE.getStringDialogFrame("Version.1") + ' ' + div[3]+ "</html>"); //$NON-NLS-1$ //$NON-NLS-2$
 					buttonUpdate.setVisible(true);
 					buttonUpdate.addActionListener(new ActionListener() {
 						@Override

@@ -181,7 +181,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
   		latexIncludes = new MTextArea(true, false);
   		latexIncludes.setToolTipText("<html>"+ //$NON-NLS-1$
-  				"Include in this list the latex packages you regularly use in your drawing, e.g.:"+
+  				LangTool.INSTANCE.getStringActions("PreferencesSetter.1")+ //$NON-NLS-1$
   				"<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>"); //$NON-NLS-1$
 
   		checkNewVersion = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.newVers"));//$NON-NLS-1$

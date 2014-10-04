@@ -1,5 +1,6 @@
 package net.sf.latexdraw.actions;
 
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
 
@@ -54,7 +55,7 @@ public class SetUnit extends Action implements Undoable {
 
 	@Override
 	public String getUndoName() {
-		return "Change unit";
+		return LangTool.INSTANCE.getStringActions("Actions.3"); //$NON-NLS-1$
 	}
 
 

@@ -12,6 +12,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.glib.models.GLibUtilities
+import net.sf.latexdraw.lang.LangTool
 
 /**
  * This action scales a shape.<br>
@@ -136,7 +137,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 	}
 
 
-	override def getUndoName = "Resizing"
+	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.11")
 
 
 	def refPosition = _refPosition

@@ -40,7 +40,7 @@ public class PreferencesFrame extends MFrame {
 	/** The instrument that modifies the preferences. */
 	protected PreferencesSetter prefSetter;
 
-	private static final String FOR_NEW_DRAWINGS = "Will be used for the next new drawings";
+	private static final String FOR_NEW_DRAWINGS = LangTool.INSTANCE.getStringDialogFrame("Pref.1"); //$NON-NLS-1$
 
 
 	/**
@@ -80,7 +80,7 @@ public class PreferencesFrame extends MFrame {
 	private JPanel createLatexPanel() {
 		final JPanel pLatex = new JPanel();
 		pLatex.setLayout(new BoxLayout(pLatex, BoxLayout.Y_AXIS));
-  		pLatex.add(new JLabel("Packages included during latex compilations:"));
+  		pLatex.add(new JLabel(LangTool.INSTANCE.getStringDialogFrame("Pref.2"))); //$NON-NLS-1$
   		pLatex.add(prefSetter.getLatexIncludes().getScrollpane());
 
 		return pLatex;

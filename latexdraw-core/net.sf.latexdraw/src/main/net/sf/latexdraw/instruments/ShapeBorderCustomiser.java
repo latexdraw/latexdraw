@@ -136,7 +136,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
      	thicknessField.setEditor(new JSpinner.NumberEditor(thicknessField, "0.0"));//$NON-NLS-1$
      	thicknessField.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.65")); //$NON-NLS-1$
 
-     	lineColButton = new MColorButton("Colour", new MButtonIcon(Color.BLACK));
+     	lineColButton = new MColorButton(LangTool.INSTANCE.getStringActions("ShapeBord.1"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
      	lineColButton.setMargin(LResources.INSET_BUTTON);
      	lineColButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.66")); //$NON-NLS-1$
 
@@ -152,8 +152,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 		frameArcField = new MSpinner(new MSpinner.MSpinnerNumberModel(0., 0., 1., 0.05), new JLabel(LResources.ROUNDNESS_ICON));
 		frameArcField.setEditor(new JSpinner.NumberEditor(frameArcField, "0.00"));//$NON-NLS-1$
 
-		showPoints = new MCheckBox("Show points");
-		showPoints.setToolTipText("Show as dots the (control) points of the shape.");
+		showPoints = new MCheckBox(LangTool.INSTANCE.getStringActions("ShapeBord.2")); //$NON-NLS-1$
+		showPoints.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeBord.3")); //$NON-NLS-1$
 	}
 
 

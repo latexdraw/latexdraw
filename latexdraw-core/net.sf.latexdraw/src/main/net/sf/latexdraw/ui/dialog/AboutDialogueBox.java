@@ -116,7 +116,7 @@ public class AboutDialogueBox extends JFrame {
 			builder.append(entry.getKey()).append(':').append(' ').append(entry.getValue()).append(LResources.EOL);
 
 		editorPane.setText(builder.toString());
-		tabbedPane.add("System", new JScrollPane(editorPane));
+		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("About.1"), new JScrollPane(editorPane)); //$NON-NLS-1$
 		editorPane.setCaretPosition(0);
 	}
 
@@ -147,7 +147,7 @@ public class AboutDialogueBox extends JFrame {
 			final JEditorPane editorPane = new JEditorPane();
 			setTextToEditorPane(editorPane, "/res/contributors.txt");//$NON-NLS-1$
 			initEditorPane(editorPane);
-			tabbedPane.add("Contributors", new JScrollPane(editorPane));
+			tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("About.2"), new JScrollPane(editorPane)); //$NON-NLS-1$
 			editorPane.setCaretPosition(0);
 		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}

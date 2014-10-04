@@ -2,6 +2,7 @@ package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
+import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.action.library.ModifyValue;
 import org.malai.undo.Undoable;
@@ -110,7 +111,7 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 
 	@Override
 	public String getUndoName() {
-		return "Modification of the magnetic grid";
+		return LangTool.INSTANCE.getStringActions("Actions.1"); //$NON-NLS-1$
 	}
 
 

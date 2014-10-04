@@ -9,6 +9,7 @@ import net.sf.latexdraw.actions.ModifyLatexProperties.LatexProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator.VerticalPosition;
+import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 
@@ -164,9 +165,9 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 	protected void initialiseWidgets() {
 		titleField = new MTextField();
 		labelField = new MTextField();
-		middleHorizPosCB = new MCheckBox("Centred");
-		positionCB = new MComboBox<>(VerticalPosition.values(), new JLabel("Position:"));
-		scaleField = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 0.1, 100., 0.1), new JLabel("Scale"));
+		middleHorizPosCB = new MCheckBox(LangTool.INSTANCE.getStringActions("Instruments.1")); //$NON-NLS-1$
+		positionCB = new MComboBox<>(VerticalPosition.values(), new JLabel(LangTool.INSTANCE.getStringActions("Instruments.2"))); //$NON-NLS-1$
+		scaleField = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 0.1, 100., 0.1), new JLabel(LangTool.INSTANCE.getStringActions("Instruments.3"))); //$NON-NLS-1$
 	}
 
 

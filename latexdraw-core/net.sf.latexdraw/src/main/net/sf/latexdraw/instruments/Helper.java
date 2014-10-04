@@ -77,15 +77,15 @@ public class Helper extends WidgetInstrument {
 		aboutFrame 		= null;
 		aboutItem = new MMenuItem(LResources.LABEL_ABOUT);
 		aboutItem.setIcon(LResources.ABOUT_ICON);
-		donateItem = new MMenuItem("Make a donation!");
+		donateItem = new MMenuItem(LangTool.INSTANCE.getStringActions("Helper.1")); //$NON-NLS-1$
 		donateItem.setIcon(LResources.ABOUT_ICON);
-		reportBugItem = new MMenuItem("Report bugs");
+		reportBugItem = new MMenuItem(LangTool.INSTANCE.getStringActions("Helper.2")); //$NON-NLS-1$
 		reportBugItem.setIcon(LResources.ERR_ICON);
-		forumItem = new MMenuItem("Go to forums");
+		forumItem = new MMenuItem(LangTool.INSTANCE.getStringActions("Helper.3")); //$NON-NLS-1$
 		forumItem.setIcon(LResources.ABOUT_ICON);
 		shortcutItem = new MMenuItem(LangTool.INSTANCE.getString19("LaTeXDrawFrame.3")); //$NON-NLS-1$
 		shortcutItem.setIcon(LResources.ABOUT_ICON);
-		manuelItem = new MMenuItem("Manual");
+		manuelItem = new MMenuItem(LangTool.INSTANCE.getStringActions("Helper.4")); //$NON-NLS-1$
 		manuelItem.setIcon(LResources.ABOUT_ICON);
 	}
 

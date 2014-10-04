@@ -3,13 +3,12 @@ package net.sf.latexdraw.actions.shape
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.JavaConversions.bufferAsJavaList
 import scala.collection.mutable.Buffer
-
 import org.malai.action.Action
 import org.malai.undo.Undoable
-
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapesAction
+import net.sf.latexdraw.lang.LangTool
 
 /**
  * This action removes shapes from a drawing.<br>
@@ -60,5 +59,5 @@ class DeleteShapes extends Action with ShapesAction with DrawingAction with Undo
 		doActionBody
 	}
 
-	override def getUndoName = "delete"
+	override def getUndoName = LangTool.INSTANCE.getStringActions("Actions.30")
 }

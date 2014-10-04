@@ -69,7 +69,7 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
         dbleBoundCB.setMargin(LResources.INSET_BUTTON);
         dbleBoundCB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.78")); //$NON-NLS-1$
 
-        dbleBoundColB = new MColorButton("Colour", new MButtonIcon(Color.WHITE));
+        dbleBoundColB = new MColorButton(LangTool.INSTANCE.getStringActions("ShapeBord.1"), new MButtonIcon(Color.WHITE)); //$NON-NLS-1$
         dbleBoundColB.setMargin(LResources.INSET_BUTTON);
         dbleBoundColB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.79")); //$NON-NLS-1$
 

@@ -185,7 +185,8 @@ trait PSTCodeParser extends PSTAbstractParser
 						}
 					case _ => PSTParser.errorLogs += "Unknown color type: " + colType
 				}
-			}catch{case e: Throwable => PSTParser.errorLogs += "Error during colour conversion: " + colName + " " + colType + " " + colSpec + " " + e.getStackTraceString }
+			}catch{case e: Throwable => PSTParser.errorLogs +=
+				"Error during colour conversion: " + colName + " " + colType + " " + colSpec + " " + e.getStackTrace.map(_.toString()).mkString("\n") }
 
 			if(colour!=null)
 				DviPsColors.INSTANCE.addUserColour(colour, colName)

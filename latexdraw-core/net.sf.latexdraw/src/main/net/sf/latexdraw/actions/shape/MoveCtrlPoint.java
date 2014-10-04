@@ -3,6 +3,7 @@ package net.sf.latexdraw.actions.shape;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.undo.Undoable;
 
@@ -94,7 +95,7 @@ public class MoveCtrlPoint extends MovePoint implements Undoable {
 
 	@Override
 	public String getUndoName() {
-		return "Move Control Point";
+		return LangTool.INSTANCE.getStringActions("Actions.9"); //$NON-NLS-1$
 	}
 
 

@@ -7,6 +7,7 @@ import net.sf.latexdraw.actions.shape.TranslateShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.instrument.Interactor;
 import org.malai.swing.interaction.library.SpinnerModified;
@@ -70,10 +71,10 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
 		tlxS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel("x")); //$NON-NLS-1$
 		tlxS.setEditor(new JSpinner.NumberEditor(tlxS, "0.00"));//$NON-NLS-1$
-		tlxS.setToolTipText("Sets the X-coordinate of the top-left position");
+		tlxS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeCoord.1")); //$NON-NLS-1$
 		tlyS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel("y")); //$NON-NLS-1$
 		tlyS.setEditor(new JSpinner.NumberEditor(tlyS, "0.00"));//$NON-NLS-1$
-		tlyS.setToolTipText("Sets the Y-coordinate of the top-left position");
+		tlyS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeCoord.2")); //$NON-NLS-1$
 	}
 
 
