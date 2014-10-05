@@ -32,7 +32,7 @@ class PSTPlotView(plot:IPlot) extends PSTClassicalView[IPlot](plot){
 		cache.append(params).append(", plotstyle=").append(shape.getPlotStyle.getPSTToken).append(", plotpoints=").
 		append(shape.getNbPlottedPoints).append(", xunit=").append(shape.getXScale).append(", yunit=").append(shape.getYScale)
 		//TODO xscale and yscale should be put in a trait
-		cache.append("]{").append(shape.getMinX).append("}{").append(shape.getMaxX).append("}{").append(shape.getEquation).append('}')
+		cache.append("]{").append(shape.getPlotMinX).append("}{").append(shape.getPlotMaxX).append("}{").append(shape.getPlotEquation).append('}')
 
 		if(rotation!=null)
 			cache.append('}')

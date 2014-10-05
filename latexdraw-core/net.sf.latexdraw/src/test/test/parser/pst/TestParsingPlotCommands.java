@@ -29,9 +29,9 @@ public class TestParsingPlotCommands extends TestPSTParser {
 	@Test public void testPsplot() throws ParseException {
 		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(0.0, plot.getMinX(), 0.0);
-		assertEquals(720.0, plot.getMaxX(), 0.0);
-		assertEquals("x sin", plot.getEquation()); //$NON-NLS-1$
+		assertEquals(0.0, plot.getPlotMinX(), 0.0);
+		assertEquals(720.0, plot.getPlotMaxX(), 0.0);
+		assertEquals("x sin", plot.getPlotEquation()); //$NON-NLS-1$
 	}
 
 
@@ -94,9 +94,9 @@ public class TestParsingPlotCommands extends TestPSTParser {
 	public void testPsplotStar() throws ParseException {
 		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot*[plotpoints=200]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(0.0, plot.getMinX(), 0.0);
-		assertEquals(720.0, plot.getMaxX(), 0.0);
-		assertEquals("x sin", plot.getEquation()); //$NON-NLS-1$
+		assertEquals(0.0, plot.getPlotMinX(), 0.0);
+		assertEquals(720.0, plot.getPlotMaxX(), 0.0);
+		assertEquals("x sin", plot.getPlotEquation()); //$NON-NLS-1$
 		assertEquals(IShape.FillingStyle.PLAIN, plot.getFillingStyle());
 	}
 

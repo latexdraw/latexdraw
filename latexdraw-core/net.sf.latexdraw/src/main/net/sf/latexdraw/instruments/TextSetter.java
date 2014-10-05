@@ -257,7 +257,7 @@ class Enter2CheckPlot extends Interactor<AddShape, KeyTyped, TextSetter> {
 		if(sh instanceof IPlot) {
 			final IPlot plot = (IPlot)sh;
 			plot.setPosition(textPosition.getX(), textPosition.getY());
-			plot.setEquation(instrument.textField.getText());
+			plot.setPlotEquation(instrument.textField.getText());
 			action.setShape(plot);
 			action.setDrawing(instrument.pencil.canvas().getDrawing());
 		}

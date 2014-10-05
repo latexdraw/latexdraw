@@ -27,6 +27,8 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle
+import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IScalable
 
 /**
  * A Group is a group of IShape instances.<br>
@@ -50,7 +52,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 			with LGroupArc with LGroupArrowable with LGroupAxes
 			with LGroupDot with LGroupFreeHand with LGroupLineArc
 			with LGroupGrid with LGroupShape with LGroupStdGrid
-			with LGroupText with LSetShapes {
+			with LGroupText with LSetShapes with LPlotGroup {
 
 	override def duplicate() = duplicateDeep(true)
 
@@ -84,6 +86,131 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		return shapes.exists{_.isTypeOf(clazz)}
 	}
 
+	override def setYScaleList(values : List[java.lang.Double]) = {
+		if(values!=null && values.size==shapes.size)
+			for(i <- 0 until values.size)
+				shapes.get(i) match {
+          case prop: IScalable => prop.setYScale(values.get(i))
+          case _ =>
+        }
+	}
+
+	override def getYScaleList: List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		shapes.foreach{
+				case fh : IScalable => list.add(fh.getYScale)
+				case _ => list.add(null)
+		}
+		return list
+	}
+
+	override def setXScaleList(values : List[java.lang.Double]) = {
+		if(values!=null && values.size==shapes.size)
+			for(i <- 0 until values.size)
+				shapes.get(i) match {
+          case prop: IScalable => prop.setXScale(values.get(i))
+          case _ =>
+        }
+	}
+
+	override def getXScaleList: List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		shapes.foreach{
+				case fh : IScalable => list.add(fh.getXScale)
+				case _ => list.add(null)
+		}
+		return list
+	}
+
+	override def setPlotMinXList(values : List[java.lang.Double]) = {
+		if(values!=null && values.size==shapes.size)
+			for(i <- 0 until values.size)
+				shapes.get(i) match {
+          case prop: IPlotProp => prop.setPlotMinX(values.get(i))
+          case _ =>
+        }
+	}
+
+	override def getPlotMinXList: List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		shapes.foreach{
+				case fh : IPlotProp => list.add(fh.getPlotMinX)
+				case _ => list.add(null)
+		}
+		return list
+	}
+
+	override def setPlotMaxXList(values : List[java.lang.Double]) = {
+		if(values!=null && values.size==shapes.size)
+			for(i <- 0 until values.size)
+				shapes.get(i) match {
+          case prop: IPlotProp => prop.setPlotMaxX(values.get(i))
+          case _ =>
+        }
+	}
+
+	override def getPlotMaxXList: List[java.lang.Double] = {
+		val list = new ArrayList[java.lang.Double]()
+		shapes.foreach{
+				case fh : IPlotProp => list.add(fh.getPlotMaxX)
+				case _ => list.add(null)
+		}
+		return list
+	}
+
+	override def setNbPlottedPointsList(values : List[java.lang.Integer]) = {
+		if(values!=null && values.size==shapes.size)
+			for(i <- 0 until values.size)
+				shapes.get(i) match {
+          case prop: IPlotProp => prop.setNbPlottedPoints(values.get(i))
+          case _ =>
+        }
+	}
+
+	override def getNbPlottedPointsList: List[java.lang.Integer] = {
+		val list = new ArrayList[java.lang.Integer]()
+		shapes.foreach{
+				case fh : IPlotProp => list.add(fh.getNbPlottedPoints)
+				case _ => list.add(null)
+		}
+		return list
+	}
+
+	override def setPlotStyleList(values : List[IPlotProp.PlotStyle]) = {
+		if(values!=null && values.size==shapes.size)
+			for(i <- 0 until values.size)
+				shapes.get(i) match {
+          case prop: IPlotProp => prop.setPlotStyle(values.get(i))
+          case _ =>
+        }
+	}
+
+	override def getPlotStyleList: List[IPlotProp.PlotStyle] = {
+		val list = new ArrayList[IPlotProp.PlotStyle]()
+		shapes.foreach{
+				case fh : IPlotProp => list.add(fh.getPlotStyle)
+				case _ => list.add(null)
+		}
+		return list
+	}
+
+	override def setPlotEquationList(values : List[String]) = {
+		if(values!=null && values.size==shapes.size)
+			for(i <- 0 until values.size)
+				shapes.get(i) match {
+          case prop: IPlotProp => prop.setPlotEquation(values.get(i))
+          case _ =>
+        }
+	}
+
+	override def getPlotEquationList: List[String] = {
+		val list = new ArrayList[String]()
+		shapes.foreach{
+				case fh : IPlotProp => list.add(fh.getPlotEquation)
+				case _ => list.add(null)
+		}
+		return list
+	}
 
 	override def setFreeHandIntervalList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)

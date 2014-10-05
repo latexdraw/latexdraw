@@ -55,32 +55,32 @@ public interface IPlotProp extends IScalable{
 	/**
 	 * @return the equation.
 	 */
-	String getEquation();
+	String getPlotEquation();
 
 	/**
 	 * @param equation the equation to set.
 	 */
-	void setEquation(final String equation);
+	void setPlotEquation(final String equation);
 
 	/**
 	 * @return the minX.
 	 */
-	double getMinX();
+	double getPlotMinX();
 
 	/**
 	 * @param minX the minX to set. Must be greater than maxX.
 	 */
-	void setMinX(final double minX);
+	void setPlotMinX(final double minX);
 
 	/**
 	 * @return the maxX. Must be lesser than minX.
 	 */
-	double getMaxX();
+	double getPlotMaxX();
 
 	/**
 	 * @param maxX the maxX to set.
 	 */
-	void setMaxX(final double maxX);
+	void setPlotMaxX(final double maxX);
 
 	/**
 	 * @return the nbPoints.

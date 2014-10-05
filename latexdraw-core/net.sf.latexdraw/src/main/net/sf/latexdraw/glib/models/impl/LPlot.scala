@@ -72,25 +72,25 @@ private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX
 
 	override def getY(x:Double) = parser.getY(x)
 
-	override def getEquation = equation
+	override def getPlotEquation = equation
 
-	override def setEquation(eq:String) {
+	override def setPlotEquation(eq:String) {
 		if(eq!=null) {
 			equation = eq
       parser = new PSFunctionParser(equation)
 		}
 	}
 
-	override def getMinX = minX
+	override def getPlotMinX = minX
 
-	override def getMaxX = maxX
+	override def getPlotMaxX = maxX
 
-	override def setMaxX(x:Double) {
+	override def setPlotMaxX(x:Double) {
 		if(GLibUtilities.isValidCoordinate(x) && x>minX)
 			maxX = x
 	}
 
-	override def setMinX(x:Double) {
+	override def setPlotMinX(x:Double) {
 		if(GLibUtilities.isValidCoordinate(x) && x<maxX)
 			minX = x
 	}

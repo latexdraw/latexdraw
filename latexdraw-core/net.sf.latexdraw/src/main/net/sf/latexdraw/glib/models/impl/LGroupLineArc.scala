@@ -31,7 +31,7 @@ private[impl] trait LGroupLineArc extends IGroup {
 
 	override def getLineArc: Double = {
 		firstLineArc match {
-			case Some(la) => la.asInstanceOf[ILineArcProp].getLineArc
+			case Some(la) => la.getLineArc
 			case _ => Double.NaN
 		}
 	}
