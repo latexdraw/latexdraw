@@ -76,6 +76,8 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument that places shapes. */
 	protected ShapePositioner shapePositioner;
 
+	protected ShapePlotCustomiser plotCustom;
+
 
 
 	/**
@@ -107,6 +109,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeFreeHandCustomiser	= new ShapeFreeHandCustomiser(composer, hand, pencil);
 		shapeTransformer		= new ShapeTransformer(composer, hand, pencil, border);
 		shapePositioner			= new ShapePositioner(composer, hand, pencil);
+		plotCustom				= new ShapePlotCustomiser(composer, hand, pencil);
 	}
 
 
@@ -129,6 +132,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeFreeHandCustomiser.addEventable(eventable);
 		shapeTransformer.addEventable(eventable);
 		shapePositioner.addEventable(eventable);
+		plotCustom.addEventable(eventable);
 	}
 
 
@@ -150,6 +154,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		gridCustomiser.setActivated(activated);
 		shapeAxesCustomiser.setActivated(activated);
 		shapeGridCustomiser.setActivated(activated);
+		plotCustom.setActivated(activated);
 		shapeFreeHandCustomiser.setActivated(activated);
 		dimPosCustomiser.setActivated(activated && hand.isActivated() && !selection.isEmpty());
 		shapeGrouper.setActivated(activated && hand.isActivated() && (selection.size()>1 || selection.getShapeAt(0) instanceof IGroup));
@@ -180,6 +185,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeFreeHandCustomiser.update(shape);
 		shapeTransformer.update(shape);
 		shapePositioner.update(shape);
+		plotCustom.update(shape);
 	}
 
 
@@ -202,6 +208,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeFreeHandCustomiser.clearEvents();
 		shapeTransformer.clearEvents();
 		shapePositioner.clearEvents();
+		plotCustom.clearEvents();
 	}
 
 
@@ -218,6 +225,11 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	public ShapeFreeHandCustomiser getFreeHandCustomiser() {
 		return shapeFreeHandCustomiser;
 	}
+
+	/**
+	 * @return The plot customiser.
+	 */
+	public ShapePlotCustomiser getPlotCustomiser() { return plotCustom; }
 
 	/**
 	 * @return The instrument that customises axes.

@@ -92,8 +92,21 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeAxesPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), canvas));
 		widget.add(composeGridLabelsPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), metaShapeCustomiser.getGridCustomiser(),
 					metaShapeCustomiser.getStandardGridCustomiser(), canvas));
+		widget.add(composePlotWidgets(metaShapeCustomiser.getPlotCustomiser(), canvas));
 		widget.add(composeFreeHandPropertiesToolbar(metaShapeCustomiser.getFreeHandCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
+	}
+
+
+	protected WidgetMiniToolbar composePlotWidgets(final ShapePlotCustomiser plotCustom, final LCanvas canvas) {
+		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.PLOT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
+		list.setToolTipText("Customizes plots' properties.");
+		UIBuilder.addSpinner(list, plotCustom.getnbPtsSpinner(), 70);
+		list.addSeparator();
+		mapContainers.put(plotCustom.getnbPtsSpinner(), list);
+		plotCustom.addEventable(list.getToolbar());
+		list.setVisible(false);
+		return list;
 	}
 
 
