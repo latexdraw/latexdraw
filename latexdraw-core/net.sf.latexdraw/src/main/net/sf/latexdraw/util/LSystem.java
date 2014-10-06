@@ -34,7 +34,7 @@ public final class LSystem {
 	 * The different operating systems managed.
 	 */
 	public enum OperatingSystem {
-		VISTA, XP, SEVEN, EIGHT,
+		VISTA, XP, SEVEN, EIGHT, TEN,
 		MAC_OS_X {
 			@Override
 			public String getPS2EPSBinPath() {
@@ -121,7 +121,14 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean isWindows() {
-		return isSeven() || isVista() || isXP() || is8();
+		return isSeven() || isVista() || isXP() || is8() || is10();
+	}
+
+	/**
+	 * @return True: the operating system currently used is Windows 10.
+	 */
+	public boolean is10() {
+		return getSystem()==OperatingSystem.TEN;
 	}
 
 	/**
@@ -212,6 +219,9 @@ public final class LSystem {
 
 		if(os.toLowerCase().contains("windows 8")) //$NON-NLS-1$
 			return OperatingSystem.EIGHT;
+
+		if(os.toLowerCase().contains("windows 10")) //$NON-NLS-1$
+			return OperatingSystem.TEN;
 
 		BadaboomCollector.INSTANCE.add(new IllegalArgumentException("This OS is not supported: " + os)); //$NON-NLS-1$
 

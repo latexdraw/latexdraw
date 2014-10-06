@@ -71,7 +71,7 @@ public final class LPath {
 		final String home = System.getProperty("user.home");//$NON-NLS-1$
 		final String path;
 
-		if(LSystem.INSTANCE.isVista() || LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8())
+		if(LSystem.INSTANCE.isVista() || LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8() || LSystem.INSTANCE.is10())
 			path = home + "\\AppData\\Local\\latexdraw";//$NON-NLS-1$
 		else if(LSystem.INSTANCE.isXP())
 				path = home + "\\Application Data\\latexdraw";//$NON-NLS-1$
@@ -116,7 +116,7 @@ public final class LPath {
 			return home.substring(0, 1+home.lastIndexOf('\\'))+"All Users\\Application Data\\latexdraw";//$NON-NLS-1$
 		}
 
-		if(LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8())
+		if(LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.is8() || LSystem.INSTANCE.is10())
 			return home.substring(0, 1+home.lastIndexOf('\\'))+"Default\\AppData\\Local\\latexdraw";//$NON-NLS-1$
 
 		if(LSystem.INSTANCE.isXP())
