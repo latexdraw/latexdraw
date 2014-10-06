@@ -148,7 +148,7 @@
                 <version>1.0-alpha-2</version>
                 <configuration>
                     <mainClass>net.sf.latexdraw.LaTeXDraw</mainClass>
-                  	<javaApplicationStub>${basedir}/src/osx/JavaApplicationStub</javaApplicationStub>
+                  	<javaApplicationStub>${basedir}/src/osx/universalJavaApplicationStub</javaApplicationStub>
                     <jvmVersion>1.7+</jvmVersion>
                 </configuration>
                 <executions>
