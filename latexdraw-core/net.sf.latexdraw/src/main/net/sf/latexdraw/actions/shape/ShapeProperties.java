@@ -38,6 +38,15 @@ import net.sf.latexdraw.lang.LangTool;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** The number of plotted points. **/
+	PLOT_NB_PTS {
+		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setNbPlottedPoints((Integer)value);}
+		@SuppressWarnings("unchecked")
+		@Override public void setPropertyValueList(final IGroup group, final List<?> values) { if(group!=null) group.setNbPlottedPointsList((List<Integer>)values);}
+		@Override public List<?> getPropertyValues(final IGroup group) { return group==null ? Collections.<Integer>emptyList() : group.getNbPlottedPointsList();}
+		@Override public String getMessage() { return "plot's parameters"; }
+		@Override public boolean isValueValid(final Object obj) { return obj instanceof Integer; }
+	},
 	/** Show/Hide the origin of the axes. */
 	SHOW_POINTS {
 		@Override

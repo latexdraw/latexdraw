@@ -3,6 +3,11 @@ package net.sf.latexdraw.instruments;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 
+import net.sf.latexdraw.actions.ModifyPencilParameter;
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
+import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.actions.shape.ShapePropertyAction;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
@@ -45,7 +50,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IPlotProp.class)) {
-//			nbPtsSpinner.setValueSafely(shape.getn
+			nbPtsSpinner.setValueSafely(shape.getNbPlottedPoints());
 			setActivated(true);
 		}
 		else setActivated(false);
@@ -58,15 +63,78 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseWidgets() {
-		nbPtsSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(50., 1., 10000., 10.), new JLabel("Plotted points:"));
-		nbPtsSpinner.setEditor(new JSpinner.NumberEditor(nbPtsSpinner, "0.0"));//$NON-NLS-1$
+		nbPtsSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(50, 1, 10000, 10), new JLabel("Plotted points:"));
+		nbPtsSpinner.setEditor(new JSpinner.NumberEditor(nbPtsSpinner, "0"));//$NON-NLS-1$
 	}
 
 	@Override
 	protected void initialiseInteractors() {
-		// TODO Auto-generated method stub
+		try{
+			addInteractor(new Spinner2PencilPlot(this));
+			addInteractor(new Spinner2SelectionPlot(this));
+		}catch(InstantiationException | IllegalAccessException e){
+			BadaboomCollector.INSTANCE.add(e);
+		}
 	}
 
 	/** @return The widget that permits to change the number of plotted points.	 */
 	public MSpinner getnbPtsSpinner() { return nbPtsSpinner; }
+
+
+	private abstract static class SpinnerForPlotCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapePlotCustomiser> {
+		protected SpinnerForPlotCust(final ShapePlotCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+			super(instrument, clazzAction);
+		}
+
+		@Override
+		public void initAction() {
+			final Object spinner = interaction.getSpinner();
+			if(spinner==instrument.nbPtsSpinner)
+				action.setProperty(ShapeProperties.PLOT_NB_PTS);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			final Object spinner = interaction.getSpinner();
+			return spinner==instrument.nbPtsSpinner;
+		}
+
+		@Override
+		public void updateAction() {
+			if(interaction.getSpinner()==instrument.nbPtsSpinner)
+				action.setValue(Integer.valueOf(interaction.getSpinner().getValue().toString()));
+//			else
+//				super.updateAction();
+		}
+	}
+
+
+	private static class Spinner2PencilPlot extends SpinnerForPlotCust<ModifyPencilParameter> {
+		protected Spinner2PencilPlot(final ShapePlotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setPencil(instrument.pencil);
+		}
+
+		@Override public boolean isConditionRespected() { return instrument.pencil.isActivated() && super.isConditionRespected();}
+	}
+
+
+	private static class Spinner2SelectionPlot extends SpinnerForPlotCust<ModifyShapeProperty> {
+		protected Spinner2SelectionPlot(final ShapePlotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyShapeProperty.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+		}
+
+		@Override public boolean isConditionRespected() { return instrument.hand.isActivated() && super.isConditionRespected(); }
+	}
 }

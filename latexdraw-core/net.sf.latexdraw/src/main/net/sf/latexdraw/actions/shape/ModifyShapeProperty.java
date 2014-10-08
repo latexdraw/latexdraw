@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
@@ -185,6 +186,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case FREEHAND_INTERVAL:
 				case FREEHAND_OPEN:
 				case FREEHAND_STYLE : return shapes.isTypeOf(IFreeHandProp.class);
+				case PLOT_NB_PTS: return shapes.isTypeOf(IPlotProp.class);
 			}
 
 		return false;
