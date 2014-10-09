@@ -51,6 +51,7 @@ public class PSFunctionParser {
 	public static final String CMD_CEILING = "ceiling";//$NON-NLS-1$
 	public static final String CMD_COUNT= "count";//$NON-NLS-1$
 	public static final String CMD_X 	= "x";//$NON-NLS-1$
+	public static final String CMD_LOG 	= "log";//$NON-NLS-1$
 
 
 	/**
@@ -128,48 +129,30 @@ public class PSFunctionParser {
 		if(cmd==null || cmd.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
-		if(cmd.equals(CMD_ADD))
-			return new PSAddCommand();
-		if(cmd.equals(CMD_SUB))
-			return new PSSubCommand();
-		if(cmd.equals(CMD_MUL))
-			return new PSMulCommand();
-		if(cmd.equals(CMD_DIV))
-			return new PSDivCommand();
-		if(cmd.equals(CMD_IDIV))
-			return new PSIDivCommand();
-		if(cmd.equals(CMD_MOD))
-			return new PSModCommand();
-		if(cmd.equals(CMD_NEG))
-			return new PSNegCommand();
-		if(cmd.equals(CMD_ABS))
-			return new PSAbsCommand();
-		if(cmd.equals(CMD_CEILING))
-			return new PSCeilingCommand();
-		if(cmd.equals(CMD_FLOOR))
-			return new PSFloorCommand();
-		if(cmd.equals(CMD_X))
-			return new PSPlotXVariable();
-		if(cmd.equals(CMD_EXCH))
-			return new PSExchCommand();
-		if(cmd.equals(CMD_CLEAR))
-			return new PSClearCommand();
-		if(cmd.equals(CMD_DUP))
-			return new PSDupCommand();
-		if(cmd.equals(CMD_POP))
-			return new PSPopCommand();
-//		if(cmd.equals(CMD_ROLL))
-//			return new PSPopCommand();
-//		if(cmd.equals(CMD_SQRT))
-//			return new PSPopCommand();
-		if(cmd.equals(CMD_EXP))
-			return new PSExpCommand();
-		if(cmd.equals(CMD_COUNT))
-			return new PSCountCommand();
-		if(cmd.equals(CMD_SIN))
-			return new PSSinCommand();
-		if(cmd.equals(CMD_COS))
-			return new PSCosCommand();
+		switch(cmd) {
+			case CMD_ADD: return new PSAddCommand();
+			case CMD_ABS: return new PSAbsCommand();
+			case CMD_CEILING: return new PSCeilingCommand();
+			case CMD_CLEAR: return new PSClearCommand();
+			case CMD_COS: return new PSCosCommand();
+			case CMD_COUNT: return new PSCountCommand();
+			case CMD_DIV: return new PSDivCommand();
+			case CMD_DUP: return new PSDupCommand();
+			case CMD_EXCH: return new PSExchCommand();
+			case CMD_EXP: return new PSExpCommand();
+			case CMD_FLOOR: return new PSFloorCommand();
+			case CMD_IDIV: return new PSIDivCommand();
+			case CMD_LOG: return new PSLogCommand();
+			case CMD_MOD: return new PSModCommand();
+			case CMD_MUL: return new PSMulCommand();
+			case CMD_NEG: return new PSNegCommand();
+			case CMD_POP: return new PSPopCommand();
+			case CMD_ROLL: return null;
+			case CMD_SIN: return new PSSinCommand();
+			case CMD_SQRT: return null;
+			case CMD_SUB: return new PSSubCommand();
+			case CMD_X: return new PSPlotXVariable();
+		}
 
 		try {return new PSValue(Double.parseDouble(cmd));}
 		catch(final NumberFormatException ex) {throw new InvalidFormatPSFunctionException("Cannot parse: " + cmd);} //$NON-NLS-1$
