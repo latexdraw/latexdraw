@@ -50,7 +50,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
 class LShapeFactory extends IShapeFactory {
 	/** The map that maps types to creation operations. */
 	val factoryMap: Map[Class[_], () => IShape] = Map(
-			  (classOf[IPlot], () => createPlot(true, createPoint, 0.0, 10.0, "x")),
+			  (classOf[IPlot], () => createPlot(true, createPoint, 1.0, 10.0, "x")),
 			  (classOf[ICircleArc], () => createCircleArc(true)),
 			  (classOf[LCircleArc], () => createCircleArc(true)),
 			  (classOf[ICircle], () => createCircle(true)),
