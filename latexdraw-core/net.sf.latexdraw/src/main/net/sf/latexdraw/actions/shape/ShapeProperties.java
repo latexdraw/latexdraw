@@ -38,6 +38,24 @@ import net.sf.latexdraw.lang.LangTool;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** The min-x of a plot. **/
+	PLOT_MAX_X {
+		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPlotMaxX((Double)value);}
+		@SuppressWarnings("unchecked")
+		@Override public void setPropertyValueList(final IGroup group, final List<?> values) { if(group!=null) group.setPlotMaxXList((List<Double>)values);}
+		@Override public List<?> getPropertyValues(final IGroup group) { return group==null ? Collections.<Double>emptyList() : group.getPlotMaxXList();}
+		@Override public String getMessage() { return "plot's parameters"; }
+		@Override public boolean isValueValid(final Object obj) { return obj instanceof Double; }
+	},
+	/** The min-x of a plot. **/
+	PLOT_MIN_X {
+		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPlotMinX((Double)value);}
+		@SuppressWarnings("unchecked")
+		@Override public void setPropertyValueList(final IGroup group, final List<?> values) { if(group!=null) group.setPlotMinXList((List<Double>)values);}
+		@Override public List<?> getPropertyValues(final IGroup group) { return group==null ? Collections.<Double>emptyList() : group.getPlotMinXList();}
+		@Override public String getMessage() { return "plot's parameters"; }
+		@Override public boolean isValueValid(final Object obj) { return obj instanceof Double; }
+	},
 	/** The number of plotted points. **/
 	PLOT_NB_PTS {
 		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setNbPlottedPoints((Integer)value);}

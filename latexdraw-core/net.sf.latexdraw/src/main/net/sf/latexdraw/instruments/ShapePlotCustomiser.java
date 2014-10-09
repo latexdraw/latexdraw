@@ -34,6 +34,8 @@ import org.malai.swing.widget.MSpinner;
  */
 public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 	MSpinner nbPtsSpinner;
+	MSpinner minXSpinner;
+	MSpinner maxXSpinner;
 
 	/**
 	 * Creates the instrument.
@@ -51,6 +53,8 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IPlotProp.class)) {
 			nbPtsSpinner.setValueSafely(shape.getNbPlottedPoints());
+			minXSpinner.setValueSafely(shape.getPlotMinX());
+			maxXSpinner.setValueSafely(shape.getPlotMaxX());
 			setActivated(true);
 		}
 		else setActivated(false);
@@ -59,12 +63,18 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(nbPtsSpinner, visible);
+		composer.setWidgetVisible(minXSpinner, visible);
+		composer.setWidgetVisible(maxXSpinner, visible);
 	}
 
 	@Override
 	protected void initialiseWidgets() {
 		nbPtsSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(50, 1, 10000, 10), new JLabel("Plotted points:"));
 		nbPtsSpinner.setEditor(new JSpinner.NumberEditor(nbPtsSpinner, "0"));//$NON-NLS-1$
+		minXSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0, -100000.0, 100000.0, 1.0), new JLabel("X-min:"));
+		minXSpinner.setEditor(new JSpinner.NumberEditor(minXSpinner, "0.0"));//$NON-NLS-1$
+		maxXSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(10.0, -100000.0, 100000.0, 1.0), new JLabel("X-max:"));
+		maxXSpinner.setEditor(new JSpinner.NumberEditor(maxXSpinner, "0.0"));//$NON-NLS-1$
 	}
 
 	@Override
@@ -78,7 +88,13 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 	}
 
 	/** @return The widget that permits to change the number of plotted points.	 */
-	public MSpinner getnbPtsSpinner() { return nbPtsSpinner; }
+	public MSpinner getNbPtsSpinner() { return nbPtsSpinner; }
+
+	/** @return The widget that permits to change the X-min of the plot. */
+	public MSpinner getMinXSpinner() { return minXSpinner; }
+
+	/** @return The widget that permits to change the X-max of the plot. */
+	public MSpinner getMaxXSpinner() { return maxXSpinner; }
 
 
 	private abstract static class SpinnerForPlotCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapePlotCustomiser> {
@@ -91,20 +107,24 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 			final Object spinner = interaction.getSpinner();
 			if(spinner==instrument.nbPtsSpinner)
 				action.setProperty(ShapeProperties.PLOT_NB_PTS);
+			else if(spinner==instrument.minXSpinner)
+				action.setProperty(ShapeProperties.PLOT_MIN_X);
+			else if(spinner==instrument.maxXSpinner)
+				action.setProperty(ShapeProperties.PLOT_MAX_X);
 		}
 
 		@Override
 		public boolean isConditionRespected() {
 			final Object spinner = interaction.getSpinner();
-			return spinner==instrument.nbPtsSpinner;
+			return spinner==instrument.nbPtsSpinner || spinner==instrument.maxXSpinner || spinner==instrument.minXSpinner;
 		}
 
 		@Override
 		public void updateAction() {
 			if(interaction.getSpinner()==instrument.nbPtsSpinner)
 				action.setValue(Integer.valueOf(interaction.getSpinner().getValue().toString()));
-//			else
-//				super.updateAction();
+			else
+				super.updateAction();
 		}
 	}
 
