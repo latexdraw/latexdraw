@@ -9,6 +9,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.IScalable;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
@@ -189,8 +190,8 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case PLOT_NB_PTS:
 				case PLOT_MAX_X:
 				case PLOT_MIN_X: return shapes.isTypeOf(IPlotProp.class);
-				default:
-					break;
+				case X_SCALE:
+				case Y_SCALE: return shapes.isTypeOf(IScalable.class);
 			}
 
 		return false;

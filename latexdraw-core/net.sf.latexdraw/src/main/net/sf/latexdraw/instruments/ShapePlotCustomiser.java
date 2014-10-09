@@ -36,6 +36,8 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 	MSpinner nbPtsSpinner;
 	MSpinner minXSpinner;
 	MSpinner maxXSpinner;
+	MSpinner xScaleSpinner;
+	MSpinner yScaleSpinner;
 
 	/**
 	 * Creates the instrument.
@@ -55,6 +57,8 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 			nbPtsSpinner.setValueSafely(shape.getNbPlottedPoints());
 			minXSpinner.setValueSafely(shape.getPlotMinX());
 			maxXSpinner.setValueSafely(shape.getPlotMaxX());
+			xScaleSpinner.setValueSafely(shape.getXScale());
+			yScaleSpinner.setValueSafely(shape.getYScale());
 			setActivated(true);
 		}
 		else setActivated(false);
@@ -65,6 +69,8 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(nbPtsSpinner, visible);
 		composer.setWidgetVisible(minXSpinner, visible);
 		composer.setWidgetVisible(maxXSpinner, visible);
+		composer.setWidgetVisible(xScaleSpinner, visible);
+		composer.setWidgetVisible(yScaleSpinner, visible);
 	}
 
 	@Override
@@ -75,6 +81,10 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 		minXSpinner.setEditor(new JSpinner.NumberEditor(minXSpinner, "0.0"));//$NON-NLS-1$
 		maxXSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(10.0, -100000.0, 100000.0, 1.0), new JLabel("X-max:"));
 		maxXSpinner.setEditor(new JSpinner.NumberEditor(maxXSpinner, "0.0"));//$NON-NLS-1$
+		xScaleSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(1.0, 0.0001, 10000.0, 0.1), new JLabel("X scale:"));
+		xScaleSpinner.setEditor(new JSpinner.NumberEditor(xScaleSpinner, "0.0"));//$NON-NLS-1$
+		yScaleSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(1.0, 0.0001, 10000.0, 0.1), new JLabel("Y scale:"));
+		yScaleSpinner.setEditor(new JSpinner.NumberEditor(yScaleSpinner, "0.0"));//$NON-NLS-1$
 	}
 
 	@Override
@@ -96,6 +106,11 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 	/** @return The widget that permits to change the X-max of the plot. */
 	public MSpinner getMaxXSpinner() { return maxXSpinner; }
 
+	/** @return The widget that permits to change the x scale of the plot. */
+	public MSpinner getXScaleSpinner() { return xScaleSpinner; }
+
+	/** @return The widget that permits to change the y scale of the plot. */
+	public MSpinner getYScaleSpinner() { return yScaleSpinner; }
 
 	private abstract static class SpinnerForPlotCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapePlotCustomiser> {
 		protected SpinnerForPlotCust(final ShapePlotCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
@@ -111,12 +126,17 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 				action.setProperty(ShapeProperties.PLOT_MIN_X);
 			else if(spinner==instrument.maxXSpinner)
 				action.setProperty(ShapeProperties.PLOT_MAX_X);
+			else if(spinner==instrument.xScaleSpinner)
+				action.setProperty(ShapeProperties.X_SCALE);
+			else if(spinner==instrument.yScaleSpinner)
+				action.setProperty(ShapeProperties.Y_SCALE);
 		}
 
 		@Override
 		public boolean isConditionRespected() {
 			final Object spinner = interaction.getSpinner();
-			return spinner==instrument.nbPtsSpinner || spinner==instrument.maxXSpinner || spinner==instrument.minXSpinner;
+			return spinner==instrument.nbPtsSpinner || spinner==instrument.maxXSpinner || spinner==instrument.minXSpinner ||
+					spinner==instrument.xScaleSpinner || spinner==instrument.yScaleSpinner;
 		}
 
 		@Override

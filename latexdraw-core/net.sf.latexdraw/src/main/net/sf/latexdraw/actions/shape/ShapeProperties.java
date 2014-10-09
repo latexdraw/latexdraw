@@ -38,7 +38,25 @@ import net.sf.latexdraw.lang.LangTool;
  * @since 3.0
  */
 public enum ShapeProperties {
-	/** The min-x of a plot. **/
+	/** Y-scale. **/
+	Y_SCALE {
+		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setYScale((Double)value);}
+		@SuppressWarnings("unchecked")
+		@Override public void setPropertyValueList(final IGroup group, final List<?> values) { if(group!=null) group.setYScaleList((List<Double>)values);}
+		@Override public List<?> getPropertyValues(final IGroup group) { return group==null ? Collections.<Double>emptyList() : group.getYScaleList();}
+		@Override public String getMessage() { return "shape scale"; }
+		@Override public boolean isValueValid(final Object obj) { return obj instanceof Double; }
+	},
+	/** X-scale. **/
+	X_SCALE {
+		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setXScale((Double)value);}
+		@SuppressWarnings("unchecked")
+		@Override public void setPropertyValueList(final IGroup group, final List<?> values) { if(group!=null) group.setXScaleList((List<Double>)values);}
+		@Override public List<?> getPropertyValues(final IGroup group) { return group==null ? Collections.<Double>emptyList() : group.getXScaleList();}
+		@Override public String getMessage() { return "shape scale"; }
+		@Override public boolean isValueValid(final Object obj) { return obj instanceof Double; }
+	},
+	/** The max-x of a plot. **/
 	PLOT_MAX_X {
 		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPlotMaxX((Double)value);}
 		@SuppressWarnings("unchecked")

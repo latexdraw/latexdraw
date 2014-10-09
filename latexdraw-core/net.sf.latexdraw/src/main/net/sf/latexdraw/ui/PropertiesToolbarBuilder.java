@@ -104,10 +104,14 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		UIBuilder.addSpinner(list, plotCustom.getNbPtsSpinner(), 70);
 		UIBuilder.addSpinner(list, plotCustom.getMinXSpinner(), 70);
 		UIBuilder.addSpinner(list, plotCustom.getMaxXSpinner(), 70);
+		UIBuilder.addSpinner(list, plotCustom.getXScaleSpinner(), 70);
+		UIBuilder.addSpinner(list, plotCustom.getYScaleSpinner(), 70);
 		list.addSeparator();
 		mapContainers.put(plotCustom.getNbPtsSpinner(), list);
 		mapContainers.put(plotCustom.getMinXSpinner(), list);
 		mapContainers.put(plotCustom.getMaxXSpinner(), list);
+		mapContainers.put(plotCustom.getXScaleSpinner(), list);
+		mapContainers.put(plotCustom.getYScaleSpinner(), list);
 		plotCustom.addEventable(list.getToolbar());
 		list.setVisible(false);
 		return list;
