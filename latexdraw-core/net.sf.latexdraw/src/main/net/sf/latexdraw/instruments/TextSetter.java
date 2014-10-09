@@ -270,7 +270,7 @@ class Enter2CheckPlot extends Interactor<AddShape, KeyTyped, TextSetter> {
 
 		if(ok)
 			try { new PSFunctionParser(instrument.textField.getText());}
-			catch(InvalidFormatPSFunctionException|NumberFormatException ex){
+			catch(NumberFormatException ex){
 				instrument.textField.setValid(false);
 				ok = false;
 			}

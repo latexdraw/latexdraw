@@ -172,6 +172,6 @@ public class PSFunctionParser {
 			return new PSCosCommand();
 
 		try {return new PSValue(Double.parseDouble(cmd));}
-		catch(final NumberFormatException ex) {throw new InvalidFormatPSFunctionException();}
+		catch(final NumberFormatException ex) {throw new InvalidFormatPSFunctionException("Cannot parse: " + cmd);} //$NON-NLS-1$
 	}
 }

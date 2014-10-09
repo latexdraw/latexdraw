@@ -19,6 +19,21 @@ package net.sf.latexdraw.parsers.ps;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class InvalidFormatPSFunctionException extends Exception {
+public class InvalidFormatPSFunctionException extends NumberFormatException {
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Creates the exception.
+	 */
+    public InvalidFormatPSFunctionException() {
+        super();
+    }
+
+    /**
+     * Creates the exception.
+     * @param s The detail message.
+     */
+    public InvalidFormatPSFunctionException(final String s) {
+        super (s);
+    }
 }
