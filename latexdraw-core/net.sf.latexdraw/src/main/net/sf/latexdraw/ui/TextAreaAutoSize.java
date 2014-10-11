@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
 
+import javax.swing.BorderFactory;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.text.DefaultEditorKit;
 
@@ -39,13 +41,13 @@ public class TextAreaAutoSize extends MTextArea {
 	 * That feature can be used when the text typed needed to be validated.
 	 */
 	protected boolean valid;
+	protected final JTextArea msg = new JTextArea();
 
 	/**
 	 * Creates the widget.
 	 */
 	public TextAreaAutoSize() {
 		super(false, true);
-
 		valid = true;
 		setRows(1);
 		setColumns(1);
@@ -55,6 +57,13 @@ public class TextAreaAutoSize extends MTextArea {
 		addKeyListener(new TextAreaKeyListener());
 		eventManager = new SwingEventManager();
 		eventManager.attachTo(this);
+
+		msg.setEditable(false);
+		msg.setFocusable(false);
+		msg.setBorder(null);
+		msg.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		msg.setBackground(Color.WHITE);
+		msg.setForeground(Color.GRAY);
 	}
 
 
@@ -65,7 +74,17 @@ public class TextAreaAutoSize extends MTextArea {
 		if(visible){
 			updateDimension();
 			updateBackground();
-		}
+			msg.setVisible(!msg.getText().isEmpty());
+		}else
+			msg.setVisible(false);
+	}
+
+
+	/**
+	 * @return The text field that contains a message associated to the text area.
+	 */
+	public JTextArea getMessageField() {
+		return msg;
 	}
 
 
@@ -123,6 +142,9 @@ public class TextAreaAutoSize extends MTextArea {
 		}
 
 		setBounds(getX(), getY(), (int)width+10, (int)height);
+
+		if(!msg.getText().isEmpty())
+			msg.setBounds(getX(), getY()+getHeight(), (int)fm.getStringBounds(msg.getText(), null).getWidth()+2, (int)heightInc+2);
 	}
 
 

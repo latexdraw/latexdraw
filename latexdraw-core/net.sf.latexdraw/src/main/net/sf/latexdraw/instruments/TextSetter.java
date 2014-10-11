@@ -14,7 +14,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
-import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
 import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 
@@ -74,6 +73,7 @@ public class TextSetter extends Instrument {
 		text		= null;
 		textField	= new TextAreaAutoSize();
 		overlayedPanel.add(textField, JLayeredPane.PALETTE_LAYER);
+		overlayedPanel.add(textField.getMessageField(), JLayeredPane.PALETTE_LAYER);
 		textField.setVisible(false);
 		addEventable(textField);
 	}
@@ -105,8 +105,10 @@ public class TextSetter extends Instrument {
 	public void setText(final IText text) {
 		this.text = text;
 
-		if(text!=null)
+		if(text!=null) {
 			textField.setText(text.getText());
+			setTextMessage();
+		}
 	}
 
 
@@ -132,9 +134,26 @@ public class TextSetter extends Instrument {
 	}
 
 
+	private void setTextMessage() {
+		 textField.getMessageField().setText("Write LaTeX text.");
+	}
+
+	private void setPlotMessage() {
+		final String eqEx = " 2 x add sin"; //$NON-NLS-1$
+		textField.getMessageField().setText("Write the equation, e.g.:"+eqEx);
+	}
+
+
 	@Override
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
+		if(activated && pencil.isActivated()) {
+			switch(pencil._currentChoice()) {
+				case TEXT: setTextMessage(); break;
+				case PLOT: setPlotMessage(); break;
+				default: break;
+			}
+		}
 		textField.setVisible(activated);
 		if(activated)
 			textField.requestFocusInWindow();
