@@ -95,6 +95,12 @@ class LShapeFactory extends IShapeFactory {
 				catch { case ex: Throwable => BadaboomCollector.INSTANCE.add(ex); None }
 		}
 
+	override def createGroup(sh:IShape):IGroup = {
+		val gp = createGroup(false)
+		if(sh!=null) gp.addShape(sh)
+		return gp
+	}
+
 	override def createPlot(isUniqueID : Boolean, pos : IPoint, minX:Double, maxX:Double, eq:String) : IPlot = new LPlot(isUniqueID, pos, minX, maxX, eq)
 
 	override def createPoint(pt:Point2D):IPoint = if(pt==null) createPoint else createPoint(pt.getX, pt.getY)

@@ -9,7 +9,6 @@ import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
@@ -229,9 +228,7 @@ class Enter2SetText extends Interactor<ModifyShapeProperty, KeyTyped, TextSetter
 
 	@Override
 	public void initAction() {
-		final IGroup group = ShapeFactory.createGroup(false);
-		group.addShape(instrument.text);
-		action.setGroup(group);
+		action.setGroup(ShapeFactory.createGroup(instrument.text));
 		action.setProperty(ShapeProperties.TEXT);
 		action.setValue(instrument.textField.getText());
 	}
@@ -250,9 +247,7 @@ class Enter2SetEquation extends Interactor<ModifyShapeProperty, KeyTyped, TextSe
 
 	@Override
 	public void initAction() {
-		final IGroup group = ShapeFactory.createGroup(false);
-		group.addShape(instrument.plot);
-		action.setGroup(group);
+		action.setGroup(ShapeFactory.createGroup(instrument.plot));
 		action.setProperty(ShapeProperties.PLOT_EQ);
 		action.setValue(instrument.textField.getText());
 	}

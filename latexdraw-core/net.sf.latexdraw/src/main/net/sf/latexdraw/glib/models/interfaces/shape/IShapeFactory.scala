@@ -39,6 +39,13 @@ trait IShapeFactory {
 	def createDrawing() : IDrawing
 
 	/**
+	 * Creates a group that will contains initially the given sh.
+	 * @param sh The shape to add to the group to create.
+	 * @since 3.3
+	 */
+	def createGroup(sh:IShape):IGroup
+
+	/**
 	 * Creates an arrow from an other arrow.
 	 * @param arrow The arrow to copy.
 	 * @param owner The shape that contains the arrow.

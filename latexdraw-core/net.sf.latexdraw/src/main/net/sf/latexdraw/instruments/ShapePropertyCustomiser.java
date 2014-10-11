@@ -85,11 +85,8 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 	 * @since 3.0
 	 */
 	public void update() {
-		if(pencil.isActivated()) {
-			final IGroup gp = ShapeFactory.createGroup(false);
-			gp.addShape(pencil.createShapeInstance());
-			update(gp);
-		}
+		if(pencil.isActivated())
+			update(ShapeFactory.createGroup(pencil.createShapeInstance()));
 		else
 			update(hand.canvas().getDrawing().getSelection());
 	}
