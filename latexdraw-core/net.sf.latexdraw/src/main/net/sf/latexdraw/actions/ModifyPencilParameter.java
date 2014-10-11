@@ -215,6 +215,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case PLOT_MIN_X: pencil.groupParams().setPlotMinX((Double)value); break;
 			case X_SCALE: pencil.groupParams().setXScale((Double)value); break;
 			case Y_SCALE: pencil.groupParams().setYScale((Double)value); break;
+			case PLOT_EQ: pencil.groupParams().setPlotEquation((String)value); break;
 		}
 	}
 }

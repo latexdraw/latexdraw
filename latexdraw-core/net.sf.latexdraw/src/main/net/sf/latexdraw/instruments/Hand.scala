@@ -42,6 +42,8 @@ import scala.collection.mutable.ArrayBuffer
 import java.util.ArrayList
 import sun.awt.image.ImageWatched.Link
 import org.malai.instrument.Interactor
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewPlot
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
 
 
 /**
@@ -127,26 +129,35 @@ private sealed class CtrlA2SelectAllShapes(ins:Hand) extends Interactor[SelectSh
 
 private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Interactor[InitTextSetter, DoubleClick, Hand](ins, false, classOf[InitTextSetter], classOf[DoubleClick]) {
 	override def initAction() {
-		val o = interaction.getTarget
+		var pos:Option[IPoint] = None
 
-		o match {
+		interaction.getTarget match {
       case text1: IViewText =>
         val text = text1.getShape.asInstanceOf[IText]
-        val position = text.getPosition
-        val screen = instrument.canvas.asInstanceOf[LCanvas].getVisibleRect
-        val zoom = instrument.canvas.getZoom
-        val x = instrument.canvas.getOrigin.getX - screen.getX + position.getX * zoom
-        val y = instrument.canvas.getOrigin.getY - screen.getY + position.getY * zoom
         action.setTextShape(text)
-        action.setInstrument(instrument.textSetter)
-        action.setTextSetter(instrument.textSetter)
-        action.setAbsolutePoint(ShapeFactory.createPoint(x, y))
-        action.setRelativePoint(ShapeFactory.createPoint(position))
+        pos = Some(text.getPosition)
+      case plot1:IViewPlot =>
+        val plot = plot1.getShape.asInstanceOf[IPlot]
+        action.setPlotShape(plot)
+        pos = Some(plot.getPosition)
       case _ =>
     }
+
+		pos match {
+			case Some(position) =>
+				  val screen = instrument.canvas.asInstanceOf[LCanvas].getVisibleRect
+          val zoom = instrument.canvas.getZoom
+          val x = instrument.canvas.getOrigin.getX - screen.getX + position.getX * zoom
+          val y = instrument.canvas.getOrigin.getY - screen.getY + position.getY * zoom
+          action.setInstrument(instrument.textSetter)
+          action.setTextSetter(instrument.textSetter)
+          action.setAbsolutePoint(ShapeFactory.createPoint(x, y))
+          action.setRelativePoint(ShapeFactory.createPoint(position))
+			case None =>
+		}
 	}
 
-	override def isConditionRespected = interaction.getTarget.isInstanceOf[IViewText]
+	override def isConditionRespected = interaction.getTarget.isInstanceOf[IViewText] || interaction.getTarget.isInstanceOf[IViewPlot]
 }
 
 

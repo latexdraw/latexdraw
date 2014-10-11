@@ -3,27 +3,23 @@ package net.sf.latexdraw.glib.views.Java2D.impl
 import java.awt.Graphics2D
 import java.awt.Rectangle
 import java.awt.geom.Rectangle2D
-
 import scala.collection.JavaConversions.asScalaBuffer
-
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewPlot
 
 /**
  * The graphical representation of a plotted function.
  * @since 3.2
  * @author Arnaud Blouin
  */
-class LPlotView(model:IPlot) extends LShapeView[IPlot](model) {
+class LPlotView(model:IPlot) extends LShapeView[IPlot](model) with IViewPlot {
 	private var lineView:LPolylineView = _
 	private var curveView:LBezierCurveView = _
 
-//	model.setXScale(0.1)
-//	model.setNbPlottedPoints(100)
-//	model.setPlotStyle(IPlotProp.PlotStyle.CURVE)
 	update
 
 

@@ -1,6 +1,7 @@
 package net.sf.latexdraw.actions.shape;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.instruments.TextSetter;
@@ -41,10 +42,13 @@ public class InitTextSetter extends ActivateInstrument {
 	/** The text (shape) to modify throw the setter. Can be null. */
 	protected IText textShape;
 
+	protected IPlot plotShape;
+
 
 	@Override
 	public void flush() {
 		super.flush();
+		plotShape	  = null;
 		text		  = null;
 		textShape	  = null;
 		setter 		  = null;
@@ -70,6 +74,15 @@ public class InitTextSetter extends ActivateInstrument {
 	 */
 	public void setText(final String text) {
 		this.text = text;
+	}
+
+	/**
+	 * Sets the plot to display into the text setter.
+	 * @param shape The plot to set.
+	 * @since 3.1
+	 */
+	public void setPlotShape(final IPlot shape) {
+		plotShape = shape;
 	}
 
 	/**
@@ -107,7 +120,7 @@ public class InitTextSetter extends ActivateInstrument {
 	@Override
 	public boolean canDo() {
 		return super.canDo() && GLibUtilities.isValidPoint(absolutePoint) &&
-				GLibUtilities.isValidPoint(relativePoint) && setter!=null && (text!=null || textShape!=null);
+				GLibUtilities.isValidPoint(relativePoint) && setter!=null && (text!=null || textShape!=null || plotShape!=null);
 	}
 
 
@@ -118,5 +131,6 @@ public class InitTextSetter extends ActivateInstrument {
 		setter.setRelativePoint(relativePoint);
 		setter.getTextField().setText(text);
 		setter.setText(textShape);
+		setter.setPlot(plotShape);
 	}
 }

@@ -59,6 +59,8 @@ public class TextSetter extends Instrument {
 	/** The text to modify throw this instrument. If it is not set, a new text will be created. */
 	protected IText text;
 
+	protected IPlot plot;
+
 	protected TextCustomiser custom;
 
 
@@ -70,8 +72,7 @@ public class TextSetter extends Instrument {
 	 */
 	public TextSetter(final MLayeredPane overlayedPanel) {
 		super();
-		text		= null;
-		textField	= new TextAreaAutoSize();
+		textField = new TextAreaAutoSize();
 		overlayedPanel.add(textField, JLayeredPane.PALETTE_LAYER);
 		overlayedPanel.add(textField.getMessageField(), JLayeredPane.PALETTE_LAYER);
 		textField.setVisible(false);
@@ -95,18 +96,30 @@ public class TextSetter extends Instrument {
 	}
 
 
+	/**
+	 * Sets the text to modify throw this instrument.
+	 * @param sh The plot to modify.
+	 * @since 3.1
+	 */
+	public void setPlot(final IPlot sh) {
+		plot = sh;
 
+		if(sh!=null) {
+			textField.setText(sh.getPlotEquation());
+			setPlotMessage();
+		}
+	}
 
 	/**
 	 * Sets the text to modify throw this instrument.
-	 * @param text The text to modify. Can be null (a new text will be created).
+	 * @param sh The text to modify.
 	 * @since 3.0
 	 */
-	public void setText(final IText text) {
-		this.text = text;
+	public void setText(final IText sh) {
+		text = sh;
 
-		if(text!=null) {
-			textField.setText(text.getText());
+		if(sh!=null) {
+			textField.setText(sh.getText());
 			setTextMessage();
 		}
 	}
@@ -125,6 +138,7 @@ public class TextSetter extends Instrument {
 	protected void initialiseInteractors() {
 		try{
 			addInteractor(new Enter2SetText(this));
+			addInteractor(new Enter2SetEquation(this));
 			addInteractor(new Enter2AddText(this));
 			addInteractor(new Enter2CheckPlot(this));
 			addInteractor(new KeyPress2Desactivate(this));
@@ -154,6 +168,7 @@ public class TextSetter extends Instrument {
 				default: break;
 			}
 		}
+		textField.setValid(true);
 		textField.setVisible(activated);
 		if(activated)
 			textField.requestFocusInWindow();
@@ -228,6 +243,27 @@ class Enter2SetText extends Interactor<ModifyShapeProperty, KeyTyped, TextSetter
 }
 
 
+class Enter2SetEquation extends Interactor<ModifyShapeProperty, KeyTyped, TextSetter> {
+	protected Enter2SetEquation(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, ModifyShapeProperty.class, KeyTyped.class);
+	}
+
+	@Override
+	public void initAction() {
+		final IGroup group = ShapeFactory.createGroup(false);
+		group.addShape(instrument.plot);
+		action.setGroup(group);
+		action.setProperty(ShapeProperties.PLOT_EQ);
+		action.setValue(instrument.textField.getText());
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return instrument.plot!=null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
+	}
+}
+
+
 /**
  * This links maps a key press interaction to an action that adds a text to the drawing.
  */
@@ -256,7 +292,8 @@ class Enter2AddText extends Interactor<AddShape, KeyTyped, TextSetter> {
 
 	@Override
 	public boolean isConditionRespected() {
-		return instrument.pencil.currentChoice()==EditionChoice.TEXT && instrument.text==null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
+		return instrument.pencil.currentChoice()==EditionChoice.TEXT && instrument.text==null &&
+				!instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
 	}
 }
 
@@ -282,18 +319,16 @@ class Enter2CheckPlot extends Interactor<AddShape, KeyTyped, TextSetter> {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public boolean isConditionRespected() {
-		boolean ok = instrument.pencil.currentChoice()==EditionChoice.PLOT && instrument.text==null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
+		boolean ok = instrument.pencil.currentChoice()==EditionChoice.PLOT && instrument.plot==null &&
+				!instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
 
 		if(ok)
-			try { new PSFunctionParser(instrument.textField.getText());}
-			catch(NumberFormatException ex){
+			if(!PSFunctionParser.isValidPostFixEquation(instrument.textField.getText())) {
 				instrument.textField.setValid(false);
 				ok = false;
 			}
-
 		return ok;
 	}
 }

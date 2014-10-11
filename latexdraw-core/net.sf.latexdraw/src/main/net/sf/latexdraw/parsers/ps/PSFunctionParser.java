@@ -25,10 +25,25 @@ import java.util.List;
  * @version 3.0
  */
 public class PSFunctionParser {
-	/** The postscript function. */
-	protected String function;
+	/**
+	 * Checks whether the given equation is a valid post-fixed PS equation.
+	 * @param eq The equation to check.
+	 * @return True if the given equation is a valid post-fixed PS equation.
+	 * @since 3.3
+	 */
+	@SuppressWarnings("unused")
+	public static boolean isValidPostFixEquation(final String eq) {
+		try {
+			new PSFunctionParser(eq);
+			return true;
+		}
+		catch(final NumberFormatException ex){return false;}
+	}
 
-	protected List<PSArithemticCommand> commands;
+	/** The postscript function. */
+	protected final String function;
+
+	protected final List<PSArithemticCommand> commands;
 
 	public static final String CMD_MUL 	= "mul"; //$NON-NLS-1$
 	public static final String CMD_ADD 	= "add";//$NON-NLS-1$

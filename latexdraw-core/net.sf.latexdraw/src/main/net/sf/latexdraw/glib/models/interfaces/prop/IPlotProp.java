@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
 
+
 /**
  * Plot shapes' properties.
  * <br>

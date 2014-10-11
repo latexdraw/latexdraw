@@ -38,6 +38,15 @@ import net.sf.latexdraw.lang.LangTool;
  * @since 3.0
  */
 public enum ShapeProperties {
+	/** The number of plotted points. **/
+	PLOT_EQ {
+		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPlotEquation((String)value);}
+		@SuppressWarnings("unchecked")
+		@Override public void setPropertyValueList(final IGroup group, final List<?> values) { if(group!=null) group.setPlotEquationList((List<String>)values);}
+		@Override public List<?> getPropertyValues(final IGroup group) { return group==null ? Collections.<String>emptyList() : group.getPlotEquationList();}
+		@Override public String getMessage() { return "plot's parameters"; }
+		@Override public boolean isValueValid(final Object obj) { return obj instanceof String; }
+	},
 	/** Y-scale. **/
 	Y_SCALE {
 		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setYScale((Double)value);}
