@@ -1,8 +1,10 @@
 package net.sf.latexdraw.glib.views.latex;
 
-import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+
+import javafx.scene.paint.Color;
 
 /**
  * This class Defines colours used by pstricks.<br>
@@ -24,80 +26,78 @@ import java.util.Map;
  * @version 3.0
  */
 public final class DviPsColors  {
-	public static final double MAX = 255.;
-
-	public static final Color TEAL			 = new Color(0f, 0.5f, 0.5f);
-	public static final Color LIME			 = new Color(0.75f, 1f, 0f);
-	public static final Color GREEN_YELLOW   = new Color(216,255, 79);
-	public static final Color YELLOW         = new Color(255,255,  0);
-	public static final Color GOLDEN_ROD     = new Color(255,229, 40);
-	public static final Color DANDELION      = new Color(255,181, 40);
-	public static final Color APRICOT        = new Color(255,173,122);
-	public static final Color PEACH          = new Color(216,127, 76);
-	public static final Color MELON          = new Color(255,137,127);
-	public static final Color YELLOW_ORANGE  = new Color(216,147,  0);
-	public static final Color ORANGE         = new Color(255, 99, 33);
-	public static final Color BURNT_ORANGE   = new Color(255,124,  0);
-	public static final Color BITTERSWEET    = new Color(193,  2,  0);
-	public static final Color RED_ORANGE     = new Color(255, 58, 33);
-	public static final Color MAHOGANY       = new Color(165,  0,  0);
-	public static final Color MAROON         = new Color(173,  0,  0);
-	public static final Color BRICKRED       = new Color(183,  0,  0);
-	public static final Color RED            = new Color(255,  0,  0);
-	public static final Color ORANGERED      = new Color(255,  0,127);
-	public static final Color RUBINERED      = new Color(255,  0,221);
-	public static final Color WILDSTRAWBERRY = new Color(255, 10,155);
-	public static final Color SALMON         = new Color(255,119,158);
-	public static final Color CARNATIONPINK  = new Color(255, 94,255);
-	public static final Color MAGENTA        = new Color(255,  0,255);
-	public static final Color VIOLETRED      = new Color(255, 48,255);
-	public static final Color RHODAMINE      = new Color(255, 45,255);
-	public static final Color MULBERRY       = new Color(163, 20,149);
-	public static final Color REDVIOLET      = new Color(150,  0,168);
-	public static final Color FUSHIA         = new Color(114,  2,234);
-	public static final Color LAVENDER       = new Color(255,132,255);
-	public static final Color THISTLE        = new Color(224,104,255);
-	public static final Color ORCHID         = new Color(173, 91,255);
-	public static final Color DARKORCHID     = new Color(153, 51,204);
-	public static final Color PURPLE         = new Color(140, 35,255);
-	public static final Color PLUM           = new Color(127,  0,255);
-	public static final Color VIOLET         = new Color( 53, 30,255);
-	public static final Color ROYALPURPLE    = new Color( 63, 25,255);
-	public static final Color BLUEVIOLET     = new Color( 25, 12,244);
-	public static final Color PERIWINKLE     = new Color(109,114,255);
-	public static final Color CADETBLUE      = new Color(140, 35,255);
-	public static final Color CORNFLOWERBLUE = new Color( 89,221,255);
-	public static final Color MIDNIGHTBLUE   = new Color(  0,112,145);
-	public static final Color NAVYBLUE       = new Color( 15,117,255);
-	public static final Color ROYALBLUE      = new Color(  0,127,255);
-	public static final Color BLUE           = new Color(  0,  0,255);
-	public static final Color CERULEAN       = new Color( 15,226,255);
-	public static final Color CYAN           = new Color(  0,255,255);
-	public static final Color PROCESSBLUE    = new Color( 10,255,255);
-	public static final Color SKYBLUE        = new Color( 96,255,224);
-	public static final Color TURQUOISE      = new Color( 38,255,204);
-	public static final Color TEALBLUE       = new Color( 30,249,163);
-	public static final Color AQUAMARINE     = new Color( 45,255,178);
-	public static final Color BLUEGREEN      = new Color( 38,255,170);
-	public static final Color EMERALD        = new Color(  0,255,127);
-	public static final Color JUNGLEGREEN    = new Color(  2,255,122);
-	public static final Color SEAGREEN       = new Color( 79,255,127);
-	public static final Color GREEN          = new Color(  0,255,  0);
-	public static final Color FORESTGREEN    = new Color(  0,224,  0);
-	public static final Color PINEGREEN      = new Color(  0,191, 40);
-	public static final Color LIMEGREEN      = new Color(127,255,  0);
-	public static final Color YELLOWGREEN    = new Color(142,255, 66);
-	public static final Color SPRINGGREEN    = new Color(188,255, 61);
-	public static final Color OLIVEGREEN     = new Color(  0,153,  0);
-	public static final Color RAWSIENNA      = new Color(140,  0,  0);
-	public static final Color SEPIA          = new Color( 76,  0,  0);
-	public static final Color BROWN          = new Color(102,  0,  0);
-	public static final Color TAN            = new Color(219,147,112);
-	public static final Color GRAY           = new Color(127,127,127);
-	public static final Color BLACK          = new Color(  0,  0,  0);
-	public static final Color WHITE          = new Color(255,255,255);
-	public static final Color PINK           = new Color(255,192,203);
-	public static final Color OLIVE          = new Color(0.5f, 0.5f, 0f);
+	public static final Color TEAL			 = new Color(0.0, 0.5, 0.5, 1.0);
+	public static final Color LIME			 = new Color(0.75, 1, 0, 1.0);
+	public static final Color GREEN_YELLOW   = new Color(216,255, 79, 1.0);
+	public static final Color YELLOW         = new Color(255,255,  0, 1.0);
+	public static final Color GOLDEN_ROD     = new Color(255,229, 40, 1.0);
+	public static final Color DANDELION      = new Color(255,181, 40, 1.0);
+	public static final Color APRICOT        = new Color(255,173,122, 1.0);
+	public static final Color PEACH          = new Color(216,127, 76, 1.0);
+	public static final Color MELON          = new Color(255,137,127, 1.0);
+	public static final Color YELLOW_ORANGE  = new Color(216,147,  0, 1.0);
+	public static final Color ORANGE         = new Color(255, 99, 33, 1.0);
+	public static final Color BURNT_ORANGE   = new Color(255,124,  0, 1.0);
+	public static final Color BITTERSWEET    = new Color(193,  2,  0, 1.0);
+	public static final Color RED_ORANGE     = new Color(255, 58, 33, 1.0);
+	public static final Color MAHOGANY       = new Color(165,  0,  0, 1.0);
+	public static final Color MAROON         = new Color(173,  0,  0, 1.0);
+	public static final Color BRICKRED       = new Color(183,  0,  0, 1.0);
+	public static final Color RED            = new Color(255,  0,  0, 1.0);
+	public static final Color ORANGERED      = new Color(255,  0,127, 1.0);
+	public static final Color RUBINERED      = new Color(255,  0,221, 1.0);
+	public static final Color WILDSTRAWBERRY = new Color(255, 10,155, 1.0);
+	public static final Color SALMON         = new Color(255,119,158, 1.0);
+	public static final Color CARNATIONPINK  = new Color(255, 94,255, 1.0);
+	public static final Color MAGENTA        = new Color(255,  0,255, 1.0);
+	public static final Color VIOLETRED      = new Color(255, 48,255, 1.0);
+	public static final Color RHODAMINE      = new Color(255, 45,255, 1.0);
+	public static final Color MULBERRY       = new Color(163, 20,149, 1.0);
+	public static final Color REDVIOLET      = new Color(150,  0,168, 1.0);
+	public static final Color FUSHIA         = new Color(114,  2,234, 1.0);
+	public static final Color LAVENDER       = new Color(255,132,255, 1.0);
+	public static final Color THISTLE        = new Color(224,104,255, 1.0);
+	public static final Color ORCHID         = new Color(173, 91,255, 1.0);
+	public static final Color DARKORCHID     = new Color(153, 51,204, 1.0);
+	public static final Color PURPLE         = new Color(140, 35,255, 1.0);
+	public static final Color PLUM           = new Color(127,  0,255, 1.0);
+	public static final Color VIOLET         = new Color( 53, 30,255, 1.0);
+	public static final Color ROYALPURPLE    = new Color( 63, 25,255, 1.0);
+	public static final Color BLUEVIOLET     = new Color( 25, 12,244, 1.0);
+	public static final Color PERIWINKLE     = new Color(109,114,255, 1.0);
+	public static final Color CADETBLUE      = new Color(140, 35,255, 1.0);
+	public static final Color CORNFLOWERBLUE = new Color( 89,221,255, 1.0);
+	public static final Color MIDNIGHTBLUE   = new Color(  0,112,145, 1.0);
+	public static final Color NAVYBLUE       = new Color( 15,117,255, 1.0);
+	public static final Color ROYALBLUE      = new Color(  0,127,255, 1.0);
+	public static final Color BLUE           = new Color(  0,  0,255, 1.0);
+	public static final Color CERULEAN       = new Color( 15,226,255, 1.0);
+	public static final Color CYAN           = new Color(  0,255,255, 1.0);
+	public static final Color PROCESSBLUE    = new Color( 10,255,255, 1.0);
+	public static final Color SKYBLUE        = new Color( 96,255,224, 1.0);
+	public static final Color TURQUOISE      = new Color( 38,255,204, 1.0);
+	public static final Color TEALBLUE       = new Color( 30,249,163, 1.0);
+	public static final Color AQUAMARINE     = new Color( 45,255,178, 1.0);
+	public static final Color BLUEGREEN      = new Color( 38,255,170, 1.0);
+	public static final Color EMERALD        = new Color(  0,255,127, 1.0);
+	public static final Color JUNGLEGREEN    = new Color(  2,255,122, 1.0);
+	public static final Color SEAGREEN       = new Color( 79,255,127, 1.0);
+	public static final Color GREEN          = new Color(  0,255,  0, 1.0);
+	public static final Color FORESTGREEN    = new Color(  0,224,  0, 1.0);
+	public static final Color PINEGREEN      = new Color(  0,191, 40, 1.0);
+	public static final Color LIMEGREEN      = new Color(127,255,  0, 1.0);
+	public static final Color YELLOWGREEN    = new Color(142,255, 66, 1.0);
+	public static final Color SPRINGGREEN    = new Color(188,255, 61, 1.0);
+	public static final Color OLIVEGREEN     = new Color(  0,153,  0, 1.0);
+	public static final Color RAWSIENNA      = new Color(140,  0,  0, 1.0);
+	public static final Color SEPIA          = new Color( 76,  0,  0, 1.0);
+	public static final Color BROWN          = new Color(102,  0,  0, 1.0);
+	public static final Color TAN            = new Color(219,147,112, 1.0);
+	public static final Color GRAY           = new Color(127,127,127, 1.0);
+	public static final Color BLACK          = new Color(  0,  0,  0, 1.0);
+	public static final Color WHITE          = new Color(255,255,255, 1.0);
+	public static final Color PINK           = new Color(255,192,203, 1.0);
+	public static final Color OLIVE          = new Color(0.5, 0.5, 0, 1.0);
 
 
 	public static final String N_LIME		    = "lime"; //$NON-NLS-1$
@@ -207,7 +207,6 @@ public final class DviPsColors  {
 
 	private DviPsColors() {
 		super();
-
 		createColourHashTable();
 		createNameColourHashTable();
 		ctColours = 0;
@@ -220,7 +219,6 @@ public final class DviPsColors  {
 	 * @since 1.9.2
 	 */
 	private void createColourHashTable() {
-		colourHT.clear();
 		colourHT.put(N_LIME, LIME);
 		colourHT.put(N_TEAL, TEAL);
 		colourHT.put(N_OLIVE, OLIVE);
@@ -247,8 +245,8 @@ public final class DviPsColors  {
 		colourHT.put(N_VIOLET, VIOLET);
 		colourHT.put(N_ORANGE, ORANGE);
 		colourHT.put(N_PURPLE, PURPLE);
-		colourHT.put(N_DARK_GRAY, Color.DARK_GRAY);
-		colourHT.put(N_LIGHT_GRAY, Color.LIGHT_GRAY);
+		colourHT.put(N_DARK_GRAY, Color.DARKGRAY);
+		colourHT.put(N_LIGHT_GRAY, Color.LIGHTGRAY);
 		colourHT.put(N_PINK, PINK);
 		colourHT.put(N_GREEN_YELLOW, GREEN_YELLOW);
 		colourHT.put(N_YELLOW, YELLOW);
@@ -318,7 +316,6 @@ public final class DviPsColors  {
 	 * @since 1.9.2
 	 */
 	private void createNameColourHashTable() {
-		nameColourHT.clear();
 		nameColourHT.put(LIME, N_LIME);
 		nameColourHT.put(TEAL, N_TEAL);
 		nameColourHT.put(OLIVE, N_OLIVE);
@@ -331,8 +328,8 @@ public final class DviPsColors  {
 		nameColourHT.put(VIOLET, N_VIOLET_2);
 		nameColourHT.put(ORANGE, N_ORANGE_2);
 		nameColourHT.put(PURPLE, N_PURPLE_2);
-		nameColourHT.put(Color.DARK_GRAY, N_DARK_GRAY);
-		nameColourHT.put(Color.LIGHT_GRAY, N_LIGHT_GRAY);
+		nameColourHT.put(Color.DARKGRAY, N_DARK_GRAY);
+		nameColourHT.put(Color.LIGHTGRAY, N_LIGHT_GRAY);
 		nameColourHT.put(PINK, N_PINK);
 		nameColourHT.put(GREEN_YELLOW, N_GREEN_YELLOW);
 		nameColourHT.put(YELLOW, N_YELLOW_2);
@@ -401,10 +398,10 @@ public final class DviPsColors  {
 	 * @return The corresponding predefined colour or null.
 	 * @since 3.0
 	 */
-	public Color getPredefinedColour(final String name) {
-		return colourHT.get(name);
+	public Optional<Color> getPredefinedColour(final String name) {
+		if(name==null) return Optional.empty();
+		return Optional.ofNullable(colourHT.get(name));
 	}
-
 
 
 	/**
@@ -412,19 +409,12 @@ public final class DviPsColors  {
 	 * @param colour The colour that we want the name .
 	 * @return The name of the colour : null if it can not be found.
 	 */
-	public String getColourName(final Color colour) {
-		if(colour==null)
-			return null;
-
+	public Optional<String> getColourName(final Color colour) {
+		if(colour==null) return Optional.empty();
 		String name = nameColourHT.get(colour);
-
-		if(name==null)
-			name = userNameColourHT.get(colour);
-
-		return name;
+		if(name==null) name = userNameColourHT.get(colour);
+		return Optional.ofNullable(name);
 	}
-
-
 
 
 	/**
@@ -432,18 +422,12 @@ public final class DviPsColors  {
 	 * @param name The name of the wanted colour.
 	 * @return The colour, null if the name is invalid of do not correspond at any colour.
 	 */
-	public Color getColour(final String name) {
-		if(name==null || name.isEmpty()) return null;
-
+	public Optional<Color> getColour(final String name) {
+		if(name==null) return Optional.empty();
 		Color c = userColourHT.get(name);
-
-		if(c==null)
-			c = colourHT.get(name);
-
-		return c;
+		if(c==null) c = colourHT.get(name);
+		return Optional.ofNullable(c);
 	}
-
-
 
 
 	/**
@@ -451,15 +435,11 @@ public final class DviPsColors  {
 	 * @param colour The colour to add.
 	 * @return The name of this colour.
 	 */
-	public String addUserColour(final Color colour) {
-		final String name;
-
-		if(colour!=null) {
-			name = generateColourName();
-			addUserColour(colour, name);
-		}else name = null;
-
-		return name;
+	public Optional<String> addUserColour(final Color colour) {
+		if(colour==null) return Optional.empty();
+		final String name = generateColourName();
+		addUserColour(colour, name);
+		return Optional.of(name);
 	}
 
 
@@ -480,7 +460,7 @@ public final class DviPsColors  {
 	 * @return A unique name for a user defined colour.
 	 * @since 3.0
 	 */
-	protected String generateColourName() {
+	private String generateColourName() {
 		return "colour" + ctColours++; //$NON-NLS-1$
 	}
 
@@ -491,17 +471,14 @@ public final class DviPsColors  {
 	 * @return The code of the colour or an empty string if the given colour is not valid.
 	 */
 	public String getUsercolourCode(final String colourName) {
-		final Color colour = getColour(colourName);
-		final String code;
+		final Optional<Color> colour = getColour(colourName);
 
-		if(colour==null)
-			code = ""; //$NON-NLS-1$
-		else
-			code = "\\definecolor{" + colourName + "}{rgb}{" + //$NON-NLS-1$ //$NON-NLS-2$
-					(float)(colour.getRed()/MAX) + ',' + (float)(colour.getGreen()/MAX) +
-					',' + (float)(colour.getBlue()/MAX) + "}\n"; //$NON-NLS-1$
-
-		return code;
+		if(colour.isPresent()) {
+			final Color col = colour.get();
+			return "\\definecolor{" + colourName + "}{rgb}{" + //$NON-NLS-1$ //$NON-NLS-2$
+				(float)(col.getRed()/255.) + ',' + (float)(col.getGreen()/255.) + ',' + (float)(col.getBlue()/255.) + "}\n";
+		}
+		return "";
 	}
 
 
@@ -513,12 +490,10 @@ public final class DviPsColors  {
 	 * @since 3.0
 	 */
 	public Color convertHTML2rgb(final String hexaCode) {
-		if(hexaCode==null || hexaCode.length()<7)
-			throw new IllegalArgumentException(hexaCode);
-
-		 return new Color(Integer.valueOf(hexaCode.substring(1, 3), 16),
-		            Integer.valueOf(hexaCode.substring(3, 5), 16),
-		            Integer.valueOf(hexaCode.substring(5), 16));
+		if(hexaCode==null || hexaCode.length()<7) throw new IllegalArgumentException(hexaCode);
+		 return new Color(Integer.valueOf(hexaCode.substring(1, 3), 16)/255.0,
+		            Integer.valueOf(hexaCode.substring(3, 5), 16)/255.0,
+		            Integer.valueOf(hexaCode.substring(5), 16)/255.0, 1.0);
 	}
 
 
@@ -532,11 +507,8 @@ public final class DviPsColors  {
 	 * @since 3.0
 	 */
 	public Color convertRGB2rgb(final double r, final double g, final double b) {
-		if(r<0 || g<0 || b<0)
-			throw new IllegalArgumentException(r + " "  + g + " " + b); //$NON-NLS-1$ //$NON-NLS-2$
-
-		final float factor = 1f/255f;
-		return new Color((float)r*factor, (float)g*factor, (float)b*factor);
+		if(r<0 || g<0 || b<0) throw new IllegalArgumentException(r + " "  + g + " " + b); //$NON-NLS-1$ //$NON-NLS-2$
+		return new Color(r/255.0, g/255.0, b/255.0, 1.0);
 	}
 
 
@@ -550,21 +522,12 @@ public final class DviPsColors  {
 	 * @since 2.0.0
 	 */
 	public Color convertcmyk2rgb(final double c, final double m, final double y, final double k) {
-		if(c < 0 || c > 1)
-			throw new IllegalArgumentException(String.valueOf(c));
-
-		if(m < 0 || m > 1)
-			throw new IllegalArgumentException(String.valueOf(m));
-
-		if(y < 0 || y > 1)
-			throw new IllegalArgumentException(String.valueOf(y));
-
-		if(k < 0 || k > 1)
-			throw new IllegalArgumentException(String.valueOf(k));
-
-		return new Color((float)(1 - (c * (1 - k) + k)), (float)(1-(m*(1-k)+k)), (float)(1-(y*(1-k)+k)));
+		if(c < 0 || c > 1) throw new IllegalArgumentException(String.valueOf(c));
+		if(m < 0 || m > 1) throw new IllegalArgumentException(String.valueOf(m));
+		if(y < 0 || y > 1) throw new IllegalArgumentException(String.valueOf(y));
+		if(k < 0 || k > 1) throw new IllegalArgumentException(String.valueOf(k));
+		return new Color(1.0-(c*(1.0-k)+k), 1.0-(m*(1.0-k)+k), 1.0-(y*(1.0-k)+k), 1.0);
 	}
-
 
 
 	/**
@@ -574,9 +537,7 @@ public final class DviPsColors  {
 	 * @since 2.0.0
 	 */
     public Color convertgray2rgb(final double g) {
-		if(g < 0 || g > 1)
-			throw new IllegalArgumentException(String.valueOf(g));
-
-		return new Color((float)g, (float)g, (float)g);
+		if(g < 0 || g > 1) throw new IllegalArgumentException(String.valueOf(g));
+		return new Color(g, g, g, 1.0);
 	}
 }
