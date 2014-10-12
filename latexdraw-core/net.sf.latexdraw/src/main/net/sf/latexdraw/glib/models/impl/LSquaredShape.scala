@@ -11,7 +11,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape
 import net.sf.latexdraw.util.LNumber
 
-private[impl] abstract class LSquaredShape(tl:IPoint, width:Double, uniqueID:Boolean) extends LPositionShape(uniqueID, tl) with ISquaredShape {
+private[impl] abstract class LSquaredShape(tl:IPoint, width:Double) extends LPositionShape(tl) with ISquaredShape {
 
 	require(GLibUtilities.isValidPoint(tl) && width>0 && GLibUtilities.isValidCoordinate(width))
 	points.add(ShapeFactory.createPoint(tl))

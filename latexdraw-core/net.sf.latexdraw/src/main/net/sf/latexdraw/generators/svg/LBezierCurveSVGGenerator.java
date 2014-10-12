@@ -57,7 +57,7 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 	 * @since 2.0.0
 	 */
 	protected LBezierCurveSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createBezierCurve(false));
+		this(ShapeFactory.createBezierCurve());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
@@ -66,7 +66,6 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 
 		final SVGPathElement main = (SVGPathElement)elt2;
 		setPath(main.getSegList());
-		setNumber(elt);
 		setSVGParameters(main);
 		setSVGShadowParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHADOW));
 		setSVGDbleBordersParameters(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_DBLE_BORDERS));

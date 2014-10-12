@@ -22,8 +22,8 @@ import test.glib.models.interfaces.TestIPolyline;
 public class TestLPolyline extends TestIPolyline<IPolyline> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createPolyline(false);
-		shape2 = ShapeFactory.createPolyline(false);
+		shape  = ShapeFactory.createPolyline();
+		shape2 = ShapeFactory.createPolyline();
 		shape.addPoint(ShapeFactory.createPoint(1, 1));
 		shape.addPoint(ShapeFactory.createPoint(2, 2));
 		shape.addPoint(ShapeFactory.createPoint(3, 3));
@@ -51,21 +51,21 @@ public class TestLPolyline extends TestIPolyline<IPolyline> {
 	public void testConstructor() {
 		IPoint pt1   = ShapeFactory.createPoint(1, 1);
 		IPoint pt2   = ShapeFactory.createPoint(2, 2);
-		IPolyline pol = ShapeFactory.createPolyline(pt1, pt2, true);
+		IPolyline pol = ShapeFactory.createPolyline(pt1, pt2);
 
-		pol = ShapeFactory.createPolyline(pt1, pt2, false);
+		pol = ShapeFactory.createPolyline(pt1, pt2);
 		assertEquals(pt1, pol.getPtAt(0));
 		assertEquals(pt2, pol.getPtAt(-1));
 
-		pol = ShapeFactory.createPolyline(true);
-		pol = ShapeFactory.createPolyline(false);
+		pol = ShapeFactory.createPolyline();
+		pol = ShapeFactory.createPolyline();
 
 		try {
-			pol = ShapeFactory.createPolyline(null, pt2, true);
+			pol = ShapeFactory.createPolyline(null, pt2);
 			fail();
-			pol = ShapeFactory.createPolyline(pt1, null, true);
+			pol = ShapeFactory.createPolyline(pt1, null);
 			fail();
-			pol = ShapeFactory.createPolyline(null, null, true);
+			pol = ShapeFactory.createPolyline(null, null);
 			fail();
 		}catch(IllegalArgumentException e){ /* */ }
 	}

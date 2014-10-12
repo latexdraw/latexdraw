@@ -53,7 +53,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @param elt The SVG path.
 	 */
 	protected LPolylinesSVGGenerator(final SVGPathElement elt) {
-		super(ShapeFactory.createPolyline(true));
+		super(ShapeFactory.createPolyline());
 
 		if(elt==null || !elt.isLines())
 			throw new IllegalArgumentException();
@@ -70,7 +70,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGPolyLineElement elt) {
-		this(ShapeFactory.createPolyline(true));
+		this(ShapeFactory.createPolyline());
 
 		setSVGModifiablePointsParameters(elt);
 		setSVGParameters(elt);
@@ -84,7 +84,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGLineElement elt) {
-		this(ShapeFactory.createPolyline(true));
+		this(ShapeFactory.createPolyline());
 
 		setSVGParameters(elt);
 		applyTransformations(elt);
@@ -97,9 +97,8 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	 * @since 2.0.0
 	 */
 	protected LPolylinesSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createPolyline(true));
+		this(ShapeFactory.createPolyline());
 
-		setNumber(elt);
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGPolyLineElement) && !(elt2 instanceof SVGLineElement))

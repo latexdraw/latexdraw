@@ -26,10 +26,9 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle;
 class LTriangle extends LRectangularShape implements ITriangle {
 	/**
 	 * Creates a triangle at the position (0,0).
-	 * @param uniqueID True: the triangle will have a unique ID.
 	 */
-	protected LTriangle(final boolean uniqueID) {
-		this(ShapeFactory.createPoint(), 1, 1, uniqueID);
+	protected LTriangle() {
+		this(ShapeFactory.createPoint(), 1, 1);
 	}
 
 
@@ -38,11 +37,10 @@ class LTriangle extends LRectangularShape implements ITriangle {
 	 * @param pos The north-west point of the triangle.
 	 * @param width The width of the triangle.
 	 * @param height The height of the triangle.
-	 * @param uniqueID True: the triangle will have a unique ID.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 */
-	protected LTriangle(final IPoint pos, final double width, final double height, final boolean uniqueID) {
-		super(pos, pos==null ? null : ShapeFactory.createPoint(pos.getX()+width, pos.getY()+height), uniqueID);
+	protected LTriangle(final IPoint pos, final double width, final double height) {
+		super(pos, pos==null ? null : ShapeFactory.createPoint(pos.getX()+width, pos.getY()+height));
 	}
 }
 

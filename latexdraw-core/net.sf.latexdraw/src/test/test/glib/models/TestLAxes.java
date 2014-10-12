@@ -20,8 +20,8 @@ import test.glib.models.interfaces.TestIAxes;
 public class TestLAxes extends TestIAxes<IAxes> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createAxes(false, ShapeFactory.createPoint());
-		shape2 = ShapeFactory.createAxes(false, ShapeFactory.createPoint());
+		shape  = ShapeFactory.createAxes(ShapeFactory.createPoint());
+		shape2 = ShapeFactory.createAxes(ShapeFactory.createPoint());
 	}
 
 
@@ -40,28 +40,28 @@ public class TestLAxes extends TestIAxes<IAxes> {
 
 	@Test
 	public void testConstructor3() {
-		IAxes axes = ShapeFactory.createAxes(false, ShapeFactory.createPoint(10, -20));
+		IAxes axes = ShapeFactory.createAxes(ShapeFactory.createPoint(10, -20));
 
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(10., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(-20., axes.getPtAt(0).getY());
-		axes = ShapeFactory.createAxes(false, null);
+		axes = ShapeFactory.createAxes(null);
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = ShapeFactory.createAxes(true, null);
+		axes = ShapeFactory.createAxes(null);
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = ShapeFactory.createAxes(false, ShapeFactory.createPoint(Double.NaN, 0));
+		axes = ShapeFactory.createAxes(ShapeFactory.createPoint(Double.NaN, 0));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = ShapeFactory.createAxes(true, ShapeFactory.createPoint(0, Double.NaN));
+		axes = ShapeFactory.createAxes(ShapeFactory.createPoint(0, Double.NaN));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = ShapeFactory.createAxes(false, ShapeFactory.createPoint(Double.POSITIVE_INFINITY, 0));
+		axes = ShapeFactory.createAxes(ShapeFactory.createPoint(Double.POSITIVE_INFINITY, 0));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());

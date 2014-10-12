@@ -36,12 +36,11 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 
 	/**
 	 * Creates and initialises a freehand model.
-	 * @param uniqueID True: the model will have a unique ID.
 	 * @throws IllegalArgumentException If the given point is not valid.
 	 * @since 3.0
 	 */
-	protected LFreehand(final boolean uniqueID) {
-		super(uniqueID);
+	protected LFreehand() {
+		super();
 		type 		= FreeHandType.CURVES;
 		interval 	= 5;
 		open		= true;

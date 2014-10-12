@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape
  * @version 3.0
  * @since 3.0
  */
-private[impl] abstract class LRectangularShape(tl:IPoint, br:IPoint, uniqueID:Boolean) extends LPositionShape(uniqueID, tl) with IRectangularShape {
+private[impl] abstract class LRectangularShape(tl:IPoint, br:IPoint) extends LPositionShape(tl) with IRectangularShape {
 
 	require(GLibUtilities.isValidPoint(tl) && GLibUtilities.isValidPoint(br) && tl.getX<br.getX && tl.getY<br.getY)
 

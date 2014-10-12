@@ -13,7 +13,7 @@ import org.junit.Before;
 public class TestLoadSaveSVGText extends TestLoadSaveSVG<IText> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createText(false);
+		shape = ShapeFactory.createText();
 	}
 
 	@Override

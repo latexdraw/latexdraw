@@ -38,11 +38,10 @@ class LDot extends LPositionShape implements IDot {
 
 
 	/**
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The centre of the dot.
 	 */
-	protected LDot(final IPoint pt, final boolean isUniqueID) {
-		super(isUniqueID, pt);
+	protected LDot(final IPoint pt) {
+		super(pt);
 
 		style = DotStyle.DOT;
 		radius = 20.;
@@ -52,15 +51,6 @@ class LDot extends LPositionShape implements IDot {
 	@Override
 	public Color getFillingCol() {
 		return isFillable() ? super.getFillingCol() : Color.BLACK;
-	}
-
-
-	/**
-	 * Initialises a dot using a centre point.
-	 * @param pt The centre of the dot.
-	 */
-	LDot(final IPoint pt) {
-		this(pt, false);
 	}
 
 

@@ -35,18 +35,17 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 	int DEFAULT_BALANCE_GAP = 50;
 
 	/** This vector contains the points which allows to change the angles of the curves */
-	protected List<IPoint> firstCtrlPts;
+	protected final List<IPoint> firstCtrlPts;
 
 	/** Contains the second control points of each points; useful for closed curve. */
-	protected List<IPoint> secondCtrlPts;
+	protected final List<IPoint> secondCtrlPts;
 
 
 	/**
 	 * Creates the shape.
-	 * @param uniqueID True: the model will have a unique ID.
 	 */
-    protected LAbstractCtrlPointShape(final boolean uniqueID) {
-		super(uniqueID);
+    protected LAbstractCtrlPointShape() {
+		super();
 		firstCtrlPts  = new ArrayList<>();
 		secondCtrlPts = new ArrayList<>();
 	}

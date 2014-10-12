@@ -52,9 +52,8 @@ class LRhombusSVGGenerator extends LShapeSVGGenerator<IRhombus> {
 	 * @since 2.0.0
 	 */
 	protected LRhombusSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createRhombus(true));
+		this(ShapeFactory.createRhombus());
 
-		setNumber(elt);
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGPolygonElement))

@@ -71,7 +71,7 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) with IViewPlot {
 
 
 	private def updateLine(posX:Double, posY:Double, minX:Double, maxX:Double, step:Double) {
-		val shape = ShapeFactory.createPolyline(false)
+		val shape = ShapeFactory.createPolyline()
 		shape.copy(model)
 		if(lineView!=null) lineView.flush
 		lineView = new LPolylineView(shape)
@@ -84,7 +84,7 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) with IViewPlot {
 		// The algorithm follows this definition:
 		//https://stackoverflow.com/questions/15864441/how-to-make-a-line-curve-through-points
 		val scale = 0.33
-		val shape = ShapeFactory.createBezierCurve(false)
+		val shape = ShapeFactory.createBezierCurve()
 		if(curveView!=null) curveView.flush
 		curveView = new LBezierCurveView(shape)
 		fillPoints(shape, posX, posY, minX, maxX, step)

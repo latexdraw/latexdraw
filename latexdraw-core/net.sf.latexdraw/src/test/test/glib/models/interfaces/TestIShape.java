@@ -3,7 +3,6 @@ package test.glib.models.interfaces;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
@@ -653,16 +652,6 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(false, shape.isFilled());
 		}
 	}
-
-
-	@Test
-	public void testSetNewId() {
-		int id = shape.getId();
-
-		shape.setNewId();
-		assertNotSame(id, shape.getId());
-	}
-
 
 
 	@Test

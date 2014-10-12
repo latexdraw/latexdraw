@@ -13,7 +13,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape
  * @since 3.2
  * @author Arnaud Blouin
  */
-private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX:Double, var equation:String, var polar:Boolean) extends LPositionShape(uniqueID, pt) with IPlot with LScalable {
+private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equation:String, var polar:Boolean) extends LPositionShape(pt) with IPlot with LScalable {
 	private var nbPoints:Int = 50
 	private var style:IPlotProp.PlotStyle = IPlotProp.PlotStyle.CURVE
 	private var parser:PSFunctionParser = new PSFunctionParser(equation)

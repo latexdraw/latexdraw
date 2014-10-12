@@ -599,7 +599,7 @@ class ButtonPressed2AddText extends Interactor<AddShape, ButtonPressed, EditingS
 	@Override
 	public void initAction() {
 		action.setDrawing(instrument.pencil.canvas().getDrawing());
-		action.setShape(ShapeFactory.createText(true, ShapeFactory.createPoint(instrument.pencil.textSetter().relativePoint),
+		action.setShape(ShapeFactory.createText(ShapeFactory.createPoint(instrument.pencil.textSetter().relativePoint),
 						instrument.pencil.textSetter().getTextField().getText()));
 	}
 

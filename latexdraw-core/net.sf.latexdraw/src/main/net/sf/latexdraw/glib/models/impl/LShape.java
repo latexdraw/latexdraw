@@ -34,9 +34,6 @@ import org.malai.mapping.MappingRegistry;
  * @since 3.0
  */
 abstract class LShape implements IShape {
-	/** The increment used to define the ID of the shapes. */
-	private static int number = 0;
-
 	/** The thickness of the lines of the shape in pixels. */
 	protected double thickness;
 
@@ -91,9 +88,6 @@ abstract class LShape implements IShape {
 	/** Defines if the points of the shape must be considered. */
 	protected boolean showPts;
 
-	/** The ID of the shape. */
-	protected int id;
-
 	/** Defines if the shape has double borders. */
 	protected boolean hasDbleBord;
 
@@ -127,9 +121,8 @@ abstract class LShape implements IShape {
 
 	/**
 	 * The second default constructor
-	 * @param uniqueID True: the shape will have a unique ID.
 	 */
-	protected LShape(final boolean uniqueID) {
+	protected LShape() {
         super();
         modified = false;
         thickness = 2.;
@@ -159,11 +152,6 @@ abstract class LShape implements IShape {
         gradMidPt = PSTricksConstants.DEFAULT_GRADIENT_MID_POINT;
         showPts = false;
         points = new ArrayList<>();
-
-        if (uniqueID)
-            setNewId();
-        else
-            setId(0);
     }
 
 
@@ -369,7 +357,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public int getId() {
-		return id;
+		return hashCode();
 	}
 
 
@@ -723,13 +711,6 @@ abstract class LShape implements IShape {
 
 
 	@Override
-	public void setId(final int id) {
-		this.id = id;
-	}
-
-
-
-	@Override
 	public void setLineColour(final Color lineColour) {
 		if(lineColour!=null)
 			this.lineColour = lineColour;
@@ -740,12 +721,6 @@ abstract class LShape implements IShape {
 	public void setLineStyle(final LineStyle lineStyle) {
 		if(lineStyle!=null && isLineStylable())
 			this.lineStyle = lineStyle;
-	}
-
-
-	@Override
-	public void setNewId() {
-		setId(++number);
 	}
 
 

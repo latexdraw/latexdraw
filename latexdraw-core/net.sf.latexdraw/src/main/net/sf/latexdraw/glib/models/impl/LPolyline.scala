@@ -26,16 +26,15 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape
  * @version 3.0
  * @since 3.0
  */
-private[impl] class LPolyline(uniqueID:Boolean) extends LPolygon(uniqueID) with IPolyline with LArrowableShape {
+private[impl] class LPolyline() extends LPolygon() with IPolyline with LArrowableShape {
 	arrows += ShapeFactory.createArrow(this)
 	arrows += ShapeFactory.createArrow(this)
 
 	/**
 	 * Creates a model with two points.
-	 * @param uniqueID True: the shape will have a unique ID.
 	 */
-	def this(point:IPoint, point2:IPoint, uniqueID:Boolean) = {
-		this(uniqueID)
+	def this(point:IPoint, point2:IPoint) = {
+		this()
 		require(point!=null && point2!=null)
 		addPoint(point)
 		addPoint(point2)

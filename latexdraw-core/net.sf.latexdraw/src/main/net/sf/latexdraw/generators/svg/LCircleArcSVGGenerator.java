@@ -59,7 +59,7 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
 	 * @since 2.0.0
 	 */
 	protected LCircleArcSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createCircleArc(true));
+		this(ShapeFactory.createCircleArc());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 		final IArrow arr1	= shape.getArrowAt(0);
@@ -95,7 +95,6 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
 
 		shape.setShowPts(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_SHOW_PTS)!=null);
 
-		setNumber(elt);
 		setSVGParameters(main);
 		setSVGArrow(arr1, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_START), main, SVGAttributes.SVG_MARKER_START);
 		setSVGArrow(arr2, main.getAttribute(main.getUsablePrefix()+SVGAttributes.SVG_MARKER_END), main, SVGAttributes.SVG_MARKER_END);

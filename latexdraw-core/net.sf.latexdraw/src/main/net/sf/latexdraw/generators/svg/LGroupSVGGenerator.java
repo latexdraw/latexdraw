@@ -53,7 +53,7 @@ class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
 	 * @since 3.0
 	 */
 	LGroupSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createGroup(true));
+		this(ShapeFactory.createGroup());
 
 		if(elt==null)
 			throw new IllegalArgumentException();
@@ -70,8 +70,6 @@ class LGroupSVGGenerator extends LShapeSVGGenerator<IGroup> {
 			if(sh!=null)
 				shape.addShape(sh);
 		}
-
-		setNumber(elt);
 	}
 
 

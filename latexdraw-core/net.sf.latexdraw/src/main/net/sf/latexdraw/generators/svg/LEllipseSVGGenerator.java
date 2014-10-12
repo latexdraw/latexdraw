@@ -49,7 +49,7 @@ class LEllipseSVGGenerator extends LShapeSVGGenerator<IEllipse> {
 	 * @since 2.0.0
 	 */
 	protected LEllipseSVGGenerator(final SVGEllipseElement elt) {
-		this(ShapeFactory.createEllipse(true));
+		this(ShapeFactory.createEllipse());
 
 		setSVGParameters(elt);
 		setEllipseParameters(elt, 0.);
@@ -63,9 +63,8 @@ class LEllipseSVGGenerator extends LShapeSVGGenerator<IEllipse> {
 	 * @since 2.0.0
 	 */
 	protected LEllipseSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createEllipse(false));
+		this(ShapeFactory.createEllipse());
 
-		setNumber(elt);
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGEllipseElement))

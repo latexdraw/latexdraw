@@ -51,7 +51,7 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	 * @since 2.0.0
 	 */
 	protected LRectangleSVGGenerator(final SVGRectElement elt) {
-		this(ShapeFactory.createRectangle(true));
+		this(ShapeFactory.createRectangle());
 
 		setSVGRectParameters(elt);
 		applyTransformations(elt);
@@ -65,7 +65,7 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	 * @since 2.0.0
 	 */
 	protected LRectangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createRectangle(false));
+		this(ShapeFactory.createRectangle());
 		initRectangle(elt, withTransformation);
 	}
 
@@ -78,7 +78,6 @@ class LRectangleSVGGenerator extends LShapeSVGGenerator<IRectangle> {
 	 * @since 3.0
 	 */
 	protected void initRectangle(final SVGGElement elt, final boolean withTransformation) {
-		setNumber(elt);
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGRectElement))

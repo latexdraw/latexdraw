@@ -26,10 +26,9 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 abstract class LModifiablePointsShape extends LShape implements IModifiablePointsShape {
 	/**
 	 * Creates the shape.
-	 * @param uniqueID True: the model will have a unique ID.
 	 */
-    protected LModifiablePointsShape(final boolean uniqueID) {
-		super(uniqueID);
+    protected LModifiablePointsShape() {
+		super();
 	}
 
 

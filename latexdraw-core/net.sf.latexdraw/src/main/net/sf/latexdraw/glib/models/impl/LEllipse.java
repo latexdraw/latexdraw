@@ -27,11 +27,10 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 class LEllipse extends LRectangularShape implements IEllipse {
 	/**
 	 * Creates an Ellipse.
-	 * @param isUniqueID isUniqueID True: the ellipse will have a unique ID.
 	 * @since 3.0
 	 */
-	protected LEllipse(final boolean isUniqueID) {
-		this(ShapeFactory.createPoint(), ShapeFactory.createPoint(1, 1), isUniqueID);
+	protected LEllipse() {
+		this(ShapeFactory.createPoint(), ShapeFactory.createPoint(1, 1));
 	}
 
 
@@ -39,11 +38,10 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	 * Creates an ellipse.
 	 * @param tl The top-left point of the ellipse.
 	 * @param br The bottom-right point of the ellipse.
-	 * @param isUniqueID True: the ellipse will have a unique ID.
 	 * @throws IllegalArgumentException If a or b is not valid.
 	 */
-	protected LEllipse(final IPoint tl, final IPoint br, final boolean isUniqueID) {
-		super(tl, br, isUniqueID);
+	protected LEllipse(final IPoint tl, final IPoint br) {
+		super(tl, br);
 	}
 
 //

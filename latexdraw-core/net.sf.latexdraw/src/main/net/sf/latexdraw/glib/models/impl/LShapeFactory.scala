@@ -50,41 +50,41 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
 class LShapeFactory extends IShapeFactory {
 	/** The map that maps types to creation operations. */
 	val factoryMap: Map[Class[_], () => IShape] = Map(
-			  (classOf[IPlot], () => createPlot(true, createPoint, 1.0, 10.0, "x", false)),
-			  (classOf[ICircleArc], () => createCircleArc(true)),
-			  (classOf[LCircleArc], () => createCircleArc(true)),
-			  (classOf[ICircle], () => createCircle(true)),
-			  (classOf[LCircle], () => createCircle(true)),
-			  (classOf[IEllipse], () => createEllipse(true)),
-			  (classOf[LEllipse], () => createEllipse(true)),
-			  (classOf[ISquare], () => createSquare(true)),
-			  (classOf[LSquare], () => createSquare(true)),
-			  (classOf[IRectangle], () => createRectangle(true)),
-			  (classOf[LRectangle], () => createRectangle(true)),
-			  (classOf[ITriangle], () => createTriangle(true)),
-			  (classOf[LTriangle], () => createTriangle(true)),
-			  (classOf[IRhombus], () => createRhombus(true)),
-			  (classOf[LRhombus], () => createRhombus(true)),
-			  (classOf[IPolyline], () => createPolyline(true)),
-			  (classOf[LPolyline], () => createPolyline(true)),
-			  (classOf[IPolygon], () => createPolygon(true)),
-			  (classOf[LPolygon], () => createPolygon(true)),
-			  (classOf[IAxes], () => createAxes(true, createPoint)),
-			  (classOf[LAxes], () => createAxes(true, createPoint)),
-			  (classOf[IGrid], () => createGrid(true, createPoint)),
-			  (classOf[LGrid], () => createGrid(true, createPoint)),
-			  (classOf[IBezierCurve], () => createBezierCurve(true)),
-			  (classOf[LBezierCurve], () => createBezierCurve(true)),
-			  (classOf[IDot], () => createDot(createPoint, true)),
-			  (classOf[LDot], () => createDot(createPoint, true)),
-			  (classOf[IFreehand], () => createFreeHand(true)),
-			  (classOf[LFreehand], () => createFreeHand(true)),
-			  (classOf[IGroup], () => createGroup(true)),
-			  (classOf[LGroup], () => createGroup(true)),
-			  (classOf[IPicture], () => createPicture(true, createPoint)),
-			  (classOf[LPicture], () => createPicture(true, createPoint)),
-			  (classOf[IText], () => createText(true)),
-			  (classOf[LText], () => createText(true)))
+			  (classOf[IPlot], () => createPlot(createPoint, 1.0, 10.0, "x", false)),
+			  (classOf[ICircleArc], () => createCircleArc()),
+			  (classOf[LCircleArc], () => createCircleArc()),
+			  (classOf[ICircle], () => createCircle()),
+			  (classOf[LCircle], () => createCircle()),
+			  (classOf[IEllipse], () => createEllipse()),
+			  (classOf[LEllipse], () => createEllipse()),
+			  (classOf[ISquare], () => createSquare()),
+			  (classOf[LSquare], () => createSquare()),
+			  (classOf[IRectangle], () => createRectangle()),
+			  (classOf[LRectangle], () => createRectangle()),
+			  (classOf[ITriangle], () => createTriangle()),
+			  (classOf[LTriangle], () => createTriangle()),
+			  (classOf[IRhombus], () => createRhombus()),
+			  (classOf[LRhombus], () => createRhombus()),
+			  (classOf[IPolyline], () => createPolyline()),
+			  (classOf[LPolyline], () => createPolyline()),
+			  (classOf[IPolygon], () => createPolygon()),
+			  (classOf[LPolygon], () => createPolygon()),
+			  (classOf[IAxes], () => createAxes(createPoint)),
+			  (classOf[LAxes], () => createAxes(createPoint)),
+			  (classOf[IGrid], () => createGrid(createPoint)),
+			  (classOf[LGrid], () => createGrid(createPoint)),
+			  (classOf[IBezierCurve], () => createBezierCurve()),
+			  (classOf[LBezierCurve], () => createBezierCurve()),
+			  (classOf[IDot], () => createDot(createPoint)),
+			  (classOf[LDot], () => createDot(createPoint)),
+			  (classOf[IFreehand], () => createFreeHand()),
+			  (classOf[LFreehand], () => createFreeHand()),
+			  (classOf[IGroup], () => createGroup()),
+			  (classOf[LGroup], () => createGroup()),
+			  (classOf[IPicture], () => createPicture(createPoint)),
+			  (classOf[LPicture], () => createPicture(createPoint)),
+			  (classOf[IText], () => createText()),
+			  (classOf[LText], () => createText()))
 
 
 	override def newShape[T <: IShape](shapeClass : java.lang.Class[T]) : Option[T] =
@@ -96,12 +96,12 @@ class LShapeFactory extends IShapeFactory {
 		}
 
 	override def createGroup(sh:IShape):IGroup = {
-		val gp = createGroup(false)
+		val gp = createGroup()
 		if(sh!=null) gp.addShape(sh)
 		return gp
 	}
 
-	override def createPlot(isUniqueID:Boolean, pos:IPoint, minX:Double, maxX:Double, eq:String, polar:Boolean) : IPlot = new LPlot(isUniqueID, pos, minX, maxX, eq, polar)
+	override def createPlot(pos:IPoint, minX:Double, maxX:Double, eq:String, polar:Boolean) : IPlot = new LPlot(pos, minX, maxX, eq, polar)
 
 	override def createPoint(pt:Point2D):IPoint = if(pt==null) createPoint else createPoint(pt.getX, pt.getY)
 
@@ -111,37 +111,37 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createArrow(owner : IArrowableShape) : IArrow = new LArrow(owner)
 
-	override def createAxes(isUniqueID : Boolean, pt : IPoint) :IAxes = new LAxes(isUniqueID, pt)
+	override def createAxes(pt : IPoint) :IAxes = new LAxes(pt)
 
-	override def createDot(pt : IPoint, isUniqueID : Boolean) : IDot = new LDot(pt, isUniqueID)
+	override def createDot(pt : IPoint) : IDot = new LDot(pt)
 
-	override def createBezierCurve(isUniqueID : Boolean) : IBezierCurve = new LBezierCurve(true, isUniqueID)
+	override def createBezierCurve() : IBezierCurve = new LBezierCurve(true)
 
-	override def createBezierCurve(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IBezierCurve = new LBezierCurve(point, point2, true, uniqueID)
+	override def createBezierCurve(point : IPoint, point2 : IPoint) : IBezierCurve = new LBezierCurve(point, point2, true)
 
-	override def createEllipse(tl : IPoint, br : IPoint, isUniqueID : Boolean) : IEllipse = new LEllipse(tl, br, isUniqueID)
+	override def createEllipse(tl : IPoint, br : IPoint) : IEllipse = new LEllipse(tl, br)
 
-	override def createEllipse(isUniqueID : Boolean) : IEllipse = new LEllipse(isUniqueID)
+	override def createEllipse() : IEllipse = new LEllipse()
 
-	override def createTriangle(pos : IPoint, width : Double, height : Double, uniqueID : Boolean) : ITriangle = new LTriangle(pos, width, height, uniqueID)
+	override def createTriangle(pos : IPoint, width : Double, height : Double) : ITriangle = new LTriangle(pos, width, height)
 
-	override def createTriangle(isUniqueID : Boolean) : ITriangle = new LTriangle(isUniqueID)
+	override def createTriangle() : ITriangle = new LTriangle()
 
-	override def createRhombus(centre : IPoint, width : Double, height : Double, uniqueID : Boolean) : IRhombus = new LRhombus(centre, width, height, uniqueID)
+	override def createRhombus(centre : IPoint, width : Double, height : Double) : IRhombus = new LRhombus(centre, width, height)
 
-	override def createRhombus(isUniqueID : Boolean) : IRhombus = new LRhombus(isUniqueID)
+	override def createRhombus() : IRhombus = new LRhombus()
 
-	override def createPicture(isUniqueID : Boolean, pt : IPoint) : IPicture = new LPicture(isUniqueID, pt)
+	override def createPicture(pt : IPoint) : IPicture = new LPicture(pt)
 
-	override def createGrid(isUniqueID : Boolean, pt : IPoint) : IGrid = new LGrid(isUniqueID, pt)
+	override def createGrid(pt : IPoint) : IGrid = new LGrid(pt)
 
-	override def createFreeHand(uniqueID : Boolean) : IFreehand = new LFreehand(uniqueID)
+	override def createFreeHand() : IFreehand = new LFreehand()
 
-	override def createCircle(pt : IPoint, radius : Double, isUniqueID : Boolean) : ICircle = new LCircle(pt, radius, isUniqueID)
+	override def createCircle(pt : IPoint, radius : Double) : ICircle = new LCircle(pt, radius)
 
-	override def createCircle(isUniqueID : Boolean) : ICircle = createCircle(ShapeFactory.createPoint, 10, isUniqueID)
+	override def createCircle() : ICircle = createCircle(ShapeFactory.createPoint, 10)
 
-	override def createGroup(uniqueID : Boolean) : IGroup = new LGroup(uniqueID)
+	override def createGroup() : IGroup = new LGroup()
 
 	override def createLine(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : ILine = new LLine(x1, y1, x2, y2)
 
@@ -155,31 +155,31 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createPoint(pt : IPoint) : IPoint = new LPoint(pt)
 
-	override def createPolyline(uniqueID : Boolean) : IPolyline = new LPolyline(uniqueID)
+	override def createPolyline() : IPolyline = new LPolyline()
 
-	override def createPolyline(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IPolyline = new LPolyline(point, point2, uniqueID)
+	override def createPolyline(point : IPoint, point2 : IPoint) : IPolyline = new LPolyline(point, point2)
 
-	override def createPolygon(uniqueID : Boolean) : IPolygon = new LPolygon(uniqueID)
+	override def createPolygon() : IPolygon = new LPolygon()
 
-	override def createPolygon(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IPolygon = new LPolygon(point, point2, uniqueID)
+	override def createPolygon(point : IPoint, point2 : IPoint) : IPolygon = new LPolygon(point, point2)
 
-	override def createRectangle(uniqueID : Boolean) : IRectangle = createRectangle(ShapeFactory.createPoint, ShapeFactory.createPoint(1, 1), uniqueID)
+	override def createRectangle() : IRectangle = createRectangle(ShapeFactory.createPoint, ShapeFactory.createPoint(1, 1))
 
-	override def createRectangle(pos : IPoint, width : Double, height : Double, uniqueID : Boolean) : IRectangle = createRectangle(pos, ShapeFactory.createPoint(pos.getX+width, pos.getY+height), uniqueID)
+	override def createRectangle(pos : IPoint, width : Double, height : Double) : IRectangle = createRectangle(pos, ShapeFactory.createPoint(pos.getX+width, pos.getY+height))
 
-	override def createRectangle(tl : IPoint, br : IPoint, uniqueID : Boolean) : IRectangle = new LRectangle(tl, br, uniqueID)
+	override def createRectangle(tl : IPoint, br : IPoint) : IRectangle = new LRectangle(tl, br)
 
-	override def createText(isUniqueID : Boolean) : IText = new LText(isUniqueID)
+	override def createText() : IText = new LText()
 
-	override def createText(isUniqueID : Boolean, pt : IPoint, text : String) : IText = new LText(isUniqueID, pt, text)
+	override def createText(pt : IPoint, text : String) : IText = new LText(pt, text)
 
-	override def createSquare(isUniqueID : Boolean) : ISquare = createSquare(ShapeFactory.createPoint, 1, isUniqueID)
+	override def createSquare() : ISquare = createSquare(ShapeFactory.createPoint, 1)
 
-	override def createSquare(pos : IPoint, width : Double, isUniqueID : Boolean) : ISquare = new LSquare(pos, width, isUniqueID)
+	override def createSquare(pos : IPoint, width : Double) : ISquare = new LSquare(pos, width)
 
-	override def createCircleArc(pos : IPoint, width : Double, isUniqueID : Boolean) : ICircleArc = new LCircleArc(pos, width, isUniqueID)
+	override def createCircleArc(pos : IPoint, width : Double) : ICircleArc = new LCircleArc(pos, width)
 
-	override def createCircleArc(isUniqueID : Boolean) : ICircleArc = createCircleArc(ShapeFactory.createPoint, 1, isUniqueID)
+	override def createCircleArc() : ICircleArc = createCircleArc(ShapeFactory.createPoint, 1)
 
 	override def duplicate(shape : IShape) = if(shape==null) null else shape.duplicate
 }

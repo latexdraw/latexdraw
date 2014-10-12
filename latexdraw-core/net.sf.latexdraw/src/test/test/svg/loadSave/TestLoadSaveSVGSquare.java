@@ -8,6 +8,6 @@ import org.junit.Before;
 public class TestLoadSaveSVGSquare extends TestLoadSaveSVGSquaredShape<ISquare> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createSquare(false);
+		shape = ShapeFactory.createSquare();
 	}
 }

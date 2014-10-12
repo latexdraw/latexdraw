@@ -49,11 +49,9 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 
 
 	protected LFreeHandSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createFreeHand(false));
+		this(ShapeFactory.createFreeHand());
 
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
-
-		setNumber(elt);
 
 		if(elt==null || elt2==null || !(elt2 instanceof SVGPathElement))
 			throw new IllegalArgumentException();

@@ -64,12 +64,10 @@ class LGrid extends LAbstractGrid implements IGrid {
 
 	/**
 	 * Creates a grid with a predefined point.
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The position.
 	 */
-	protected LGrid(final boolean isUniqueID, final IPoint pt) {
-		super(isUniqueID, pt);
-
+	protected LGrid(final IPoint pt) {
+		super(pt);
 		gridDots    		= PSTricksConstants.DEFAULT_GRIDDOTS;
 		gridLabelsColour 	= PSTricksConstants.DEFAULT_LABELGRIDCOLOR;
 		labelSize  			= (int)PSTricksConstants.DEFAULT_GRID_LABEL;

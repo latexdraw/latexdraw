@@ -22,6 +22,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
  * @version 3.0
  * @since 3.0
  */
-private[impl] class LCircle(pos:IPoint, width:Double, uniqueID:Boolean) extends LSquaredShape(pos, width, uniqueID) with ICircle {
+private[impl] class LCircle(pos:IPoint, width:Double) extends LSquaredShape(pos, width) with ICircle {
 //
 }

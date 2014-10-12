@@ -48,7 +48,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IScalable
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
+private[impl] class LGroup() extends LShape()
 			with LGroupArc with LGroupArrowable with LGroupAxes
 			with LGroupDot with LGroupFreeHand with LGroupLineArc
 			with LGroupGrid with LGroupShape with LGroupStdGrid
@@ -64,7 +64,7 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 
 
 	override def duplicateDeep(duplicateShapes : Boolean) : IGroup = {
-		val dup = ShapeFactory.createGroup(true)
+		val dup = ShapeFactory.createGroup()
 
 		if(duplicateShapes)
 			shapes.foreach{sh => dup.addShape(sh.duplicate)}

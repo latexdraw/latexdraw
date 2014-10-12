@@ -27,12 +27,10 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
 abstract class LPositionShape extends LShape implements IPositionShape {
 	/**
 	 * Creates a LPositionShape with a predefined point.
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The position. If pt is not valid, a point at position (0,0) is used.
 	 */
-	protected LPositionShape(final boolean isUniqueID, final IPoint pt) {
-		super(isUniqueID);
-
+	protected LPositionShape(final IPoint pt) {
+		super();
 		points.add(GLibUtilities.isValidPoint(pt) ? pt : ShapeFactory.createPoint());
 	}
 

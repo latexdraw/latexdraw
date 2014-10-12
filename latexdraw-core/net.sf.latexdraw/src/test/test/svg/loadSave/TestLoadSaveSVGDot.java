@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createDot(ShapeFactory.createPoint(), false);
+		shape = ShapeFactory.createDot(ShapeFactory.createPoint());
 	}
 
 	private void setDot(final double x, final double y, final DotStyle style, final double size,

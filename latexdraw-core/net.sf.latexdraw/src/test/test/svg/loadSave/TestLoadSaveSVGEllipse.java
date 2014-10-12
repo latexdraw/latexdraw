@@ -8,6 +8,6 @@ import org.junit.Before;
 public class TestLoadSaveSVGEllipse extends TestLoadSaveSVGRectangularShape<IEllipse> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createEllipse(false);
+		shape = ShapeFactory.createEllipse();
 	}
 }

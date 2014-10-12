@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape
  * @version 3.0
  * @since 3.0
  */
-private class LRectangle(tl:IPoint, br:IPoint, uniqueID:Boolean) extends LRectangularShape(tl, br, uniqueID) with IRectangle with LineArcProp {
+private class LRectangle(tl:IPoint, br:IPoint) extends LRectangularShape(tl, br) with IRectangle with LineArcProp {
 	override def copy(sh:IShape) {
 		super.copy(sh)
 		sh match {

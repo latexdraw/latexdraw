@@ -64,135 +64,119 @@ trait IShapeFactory {
 	/**
 	 * Creates axes with default values.
 	 * @param pt The bottom left position of the axes.
-	 * @param isUniqueID True: the model will have a unique ID.
 	 * @return The created axes.
 	 */
-	def createAxes(isUniqueID : Boolean, pt : IPoint) : IAxes
+	def createAxes(pt : IPoint) : IAxes
 
 	/**
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The centre of the dot.
 	 * @return The created dot.
 	 */
-	def createDot(pt : IPoint, isUniqueID : Boolean) : IDot
+	def createDot(pt : IPoint) : IDot
 
 	/**
 	 * Creates a model with no point.
-	 * @param isUniqueID True: the model will have a unique ID.
 	 * @return The created bezier curve.
 	 */
-	def createBezierCurve(isUniqueID : Boolean) : IBezierCurve
+	def createBezierCurve() : IBezierCurve
 
 	/**
 	 * Creates a bezier curve with two points.
 	 * @param point The first point of the curve.
 	 * @param point2 The second point of the curve.
-	 * @param uniqueID uniqueID True: the model will have a unique ID.
 	 * @return The created bezier curve.
 	 */
-	def createBezierCurve(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IBezierCurve
+	def createBezierCurve(point : IPoint, point2 : IPoint) : IBezierCurve
 
 	/**
 	 * Creates an ellipse.
 	 * @param tl The top-left point of the ellipse.
 	 * @param br The bottom-right point of the ellipse.
-	 * @param isUniqueID True: the ellipse will have a unique ID.
 	 * @throws IllegalArgumentException If a or b is not valid.
 	 * @return The created ellipse.
 	 */
-	def createEllipse(tl : IPoint, br : IPoint, isUniqueID : Boolean) : IEllipse
+	def createEllipse(tl : IPoint, br : IPoint) : IEllipse
 
 	/**
-	 * @param isUniqueID True: the ellipse will have a unique ID.
 	 * @return The created ellipse.
 	 */
-	def createEllipse(isUniqueID : Boolean) : IEllipse
+	def createEllipse() : IEllipse
 
 	/**
 	 * Creates a triangle.
 	 * @param pos The north-west point of the triangle.
 	 * @param width The width of the triangle.
 	 * @param height The height of the triangle.
-	 * @param uniqueID True: the triangle will have a unique ID.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created triangle.
 	 */
-	def createTriangle(pos : IPoint, width : Double, height : Double, uniqueID : Boolean) : ITriangle
+	def createTriangle(pos : IPoint, width : Double, height : Double) : ITriangle
 
 	/**
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @return The created triangle.
 	 */
-	def createTriangle(isUniqueID : Boolean) : ITriangle
+	def createTriangle() : ITriangle
 
 	/**
 	 * Creates a rhombus.
 	 * @param centre The centre of the rhombus.
 	 * @param width The width of the rhombus.
 	 * @param height The height of the rhombus.
-	 * @param uniqueID True: the rhombus will have a unique ID.
 	 * @throws IllegalArgumentException If the width, the height or the centre is not valid.
 	 * @return The created rhombus.
 	 */
-	def createRhombus(centre : IPoint, width : Double, height : Double, uniqueID : Boolean) : IRhombus
+	def createRhombus(centre : IPoint, width : Double, height : Double) : IRhombus
 
 	/**
 	 * Creates a rhombus at the position (0,0) with width=height=1.
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @return The created rhombus.
 	 */
-	def createRhombus(isUniqueID : Boolean) : IRhombus
+	def createRhombus() : IRhombus
 
 	/**
 	 * Creates a picture and the corresponding EPS picture.
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The position of the top-left point of the picture.
 	 * @return The created picture.
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 * @throws NullPointerException If the given point is null.
 	 */
-	def createPicture(isUniqueID : Boolean, pt : IPoint) : IPicture
+	def createPicture(pt : IPoint) : IPicture
 
 	/**
 	 * Creates a grid with a predefined point.
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The position.
 	 * @return The created grid.
 	 */
-	def createGrid(isUniqueID : Boolean, pt : IPoint) : IGrid
+	def createGrid(pt : IPoint) : IGrid
 
 	/**
 	 * Creates and initialises a freehand model.
-	 * @param uniqueID True: the model will have a unique ID.
 	 * @throws IllegalArgumentException If the given point is not valid.
 	 * @return The created freehand shape.
 	 * @since 3.0
 	 */
-	def createFreeHand(uniqueID : Boolean) : IFreehand
+	def createFreeHand() : IFreehand
 
 	/**
 	 * Creates a circle.
 	 * @param pt The position of the top-left point of the picture.
 	 * @param radius The radius.
-	 * @param isUniqueID True: the model will have a unique ID.
 	 * @throws IllegalArgumentException If the radius is not valid.
 	 * @throws NullPointerException If the given point pt is null.
 	 * @return The created circle.
 	 */
-	def createCircle(pt : IPoint, radius : Double, isUniqueID : Boolean) : ICircle
+	def createCircle(pt : IPoint, radius : Double) : ICircle
 
 	/**
-	 * @param isUniqueID True: the circle will have a unique ID.
 	 * @return The created circle.
 	 */
-	def createCircle(isUniqueID : Boolean) : ICircle
+	def createCircle() : ICircle
 
 	/**
-	 * @param uniqueID True: the model will have a unique ID.
 	 * @return The created group of shapes.
 	 * @since 3.0
 	 */
-	def createGroup(uniqueID : Boolean) : IGroup
+	def createGroup() : IGroup
 
 	/**
 	 * Constructs a line from the specified coordinates.
@@ -257,139 +241,125 @@ trait IShapeFactory {
 
 	/**
 	 * @return The created polyline
-	 * @param uniqueID True: the shape will have a unique ID.
 	 * @since 3.0
 	 */
-	def createPolyline(uniqueID : Boolean) : IPolyline
+	def createPolyline() : IPolyline
 
 	/**
 	 * Creates a model with two points.
-	 * @param uniqueID True: the shape will have a unique ID.
 	 * @param point The first point of the shape.
 	 * @param point2 The second point of the shape.
 	 * @return The created polyline.
 	 * @since 3.0
 	 */
-	def createPolyline(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IPolyline
+	def createPolyline(point : IPoint, point2 : IPoint) : IPolyline
 
 	/**
 	 * @return The created polygon
-	 * @param uniqueID True: the shape will have a unique ID.
 	 * @since 3.0
 	 */
-	def createPolygon(uniqueID : Boolean) : IPolygon
+	def createPolygon() : IPolygon
 
 	/**
 	 * Creates a polygon with two points.
-	 * @param uniqueID True: the shape will have a unique ID.
 	 * @param point The first point of the shape.
 	 * @param point2 The second point of the shape.
 	 * @return The created polygon.
 	 * @since 3.0
 	 */
-	def createPolygon(point : IPoint, point2 : IPoint, uniqueID : Boolean) : IPolygon
+	def createPolygon(point : IPoint, point2 : IPoint) : IPolygon
 
 	/**
 	 * @return The created rectangle with position (0,0) and width=10 and height=10.
-	 * @param uniqueID True: the shape will have a unique ID.
 	 * @since 3.0
 	 */
-	def createRectangle(uniqueID : Boolean) : IRectangle
+	def createRectangle() : IRectangle
 
 	/**
 	 * Creates a rectangle.
 	 * @param pos The north-west point of the rectangle.
 	 * @param width The width of the rectangle.
 	 * @param height The height of the rectangle.
-	 * @param uniqueID True: the rectangle will have a unique ID.
 	 * @throws IllegalArgumentException If the width, the height or the point is not valid.
 	 * @throws NullPointerException if the given point is null.
 	 * @return The created rectangle.
 	 * @since 3.0
 	 */
-	def createRectangle(pos : IPoint, width : Double, height : Double, uniqueID : Boolean) : IRectangle
+	def createRectangle(pos : IPoint, width : Double, height : Double) : IRectangle
 
 	/**
 	 * Creates a rectangle.
 	 * @param tl The top left point of the rectangle.
 	 * @param br The bottom right point of the rectangle.
-	 * @param uniqueID True: the rectangle will have a unique ID.
 	 * @throws IllegalArgumentException if one of the given points is not valid.
 	 * @return The created rectangle.
 	 * @since 3.0
 	 */
-	def createRectangle(tl : IPoint, br : IPoint, uniqueID : Boolean) : IRectangle
+	def createRectangle(tl : IPoint, br : IPoint) : IRectangle
 
 	/**
 	 * Create a text at position (0,0) which text is "text".
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @return The created text.
 	 * @since 3.0
 	 */
-	def createText(isUniqueID : Boolean) : IText
+	def createText() : IText
 
 	/**
 	 * Creates a text.
-	 * @param isUniqueID True: the model will have a unique ID.
 	 * @param pt The position of the text.
 	 * @param text The text.
 	 * @throws IllegalArgumentException If pt is not valid.
 	 * @return The created text.
 	 * @since 3.0
 	 */
-	def createText(isUniqueID : Boolean, pt : IPoint, text : String) : IText
+	def createText(pt : IPoint, text : String) : IText
 
 	/**
 	 * Creates a square at position (0,0) which width equals 10.
 	 * @return The created square.
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @since 3.0
 	 */
-	def createSquare(isUniqueID : Boolean) : ISquare
+	def createSquare() : ISquare
 
 	/**
 	 * Creates a square.
 	 * @param pos The north-west point of the square.
 	 * @param width The width of the square.
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created square.
 	 * @since 3.0
 	 */
-	def createSquare(pos : IPoint, width : Double, isUniqueID : Boolean) : ISquare
+	def createSquare(pos : IPoint, width : Double) : ISquare
 
 
 	/**
 	 * Creates a circled arc.
 	 * @param pos The north-west point of the square.
 	 * @param width The width of the square.
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created circled arc.
 	 * @since 3.0
 	 */
-	def createCircleArc(pos : IPoint, width : Double, isUniqueID : Boolean) : ICircleArc
+	def createCircleArc(pos : IPoint, width : Double) : ICircleArc
 
 
 	/**
 	 * Creates a circled arc with a 1 radius.
-	 * @param isUniqueID True: the model will have a unique ID.
 	 * @return The created circled arc.
 	 * @since 3.0
 	 */
-	def createCircleArc(isUniqueID : Boolean) : ICircleArc
+	def createCircleArc() : ICircleArc
 
 	/**
 	 * Creates a plotted function.
 	 * @param pos The north-west point of the rectangle.
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param eq The equation of the function.
 	 * @param polar Defines the coordinates to use (polar or cartesian).
 	 * @throws IllegalArgumentException If the given point is not valid or minX is greater than maxX.
 	 * @return The created function.
 	 * @since 3.2
 	 */
-	def createPlot(isUniqueID : Boolean, pos : IPoint, minX:Double, maxX:Double, eq:String, polar:Boolean) : IPlot
+	def createPlot(pos : IPoint, minX:Double, maxX:Double, eq:String, polar:Boolean) : IPlot
 
 
 	/**

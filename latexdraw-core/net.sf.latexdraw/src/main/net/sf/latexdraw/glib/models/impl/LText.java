@@ -35,23 +35,21 @@ class LText extends LPositionShape implements IText {
 
 	/**
 	 * The constructor by default.
-	 * @param isUniqueID True: the model will have a unique ID.
 	 * @since 3.0
 	 */
-	protected LText(final boolean isUniqueID) {
-		this(isUniqueID, ShapeFactory.createPoint(), "text"); //$NON-NLS-1$
+	protected LText() {
+		this(ShapeFactory.createPoint(), "text"); //$NON-NLS-1$
 	}
 
 
 	/**
-	 * @param isUniqueID True: the model will have a unique ID.
 	 * @param pt The position of the text.
 	 * @param text The text.
 	 * @throws IllegalArgumentException If pt is not valid.
 	 * @since 3.0
 	 */
-	protected LText(final boolean isUniqueID, final IPoint pt, final String text) {
-		super(isUniqueID, pt);
+	protected LText(final IPoint pt, final String text) {
+		super(pt);
 
 		this.text = text==null || text.isEmpty() ? "text" : text; //$NON-NLS-1$
 		textPosition = TextPosition.BOT_LEFT;

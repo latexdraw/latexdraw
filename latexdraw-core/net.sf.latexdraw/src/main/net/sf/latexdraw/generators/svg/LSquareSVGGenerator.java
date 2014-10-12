@@ -48,7 +48,7 @@ class LSquareSVGGenerator extends LShapeSVGGenerator<ISquare> {
 	 * @since 2.0.0
 	 */
 	protected LSquareSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createSquare(false));
+		this(ShapeFactory.createSquare());
 		initRectangle(elt, withTransformation);
 	}
 
@@ -60,7 +60,7 @@ class LSquareSVGGenerator extends LShapeSVGGenerator<ISquare> {
 	 * @since 2.0.0
 	 */
 	protected LSquareSVGGenerator(final SVGRectElement elt) {
-		this(ShapeFactory.createSquare(true));
+		this(ShapeFactory.createSquare());
 		setSVGRectParameters(elt);
 		applyTransformations(elt);
 	}
@@ -73,7 +73,6 @@ class LSquareSVGGenerator extends LShapeSVGGenerator<ISquare> {
 	 * @since 3.0
 	 */
 	protected void initRectangle(final SVGGElement elt, final boolean withTransformation) {
-		setNumber(elt);
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGRectElement))

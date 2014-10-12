@@ -100,7 +100,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 	 * Creates and initialises a triangle.
 	 */
 	private def createTriangle(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : ITriangle = {
-		val rh = ShapeFactory.createTriangle(true)
+		val rh = ShapeFactory.createTriangle()
 		setRectangularShape(rh, p1.getX-p2.getX/2.0, p1.getY, scala.math.abs(p2.getX), scala.math.abs(p2.getY), hasStar, ctx)
 
 		if(!LNumber.equalsDouble(ctx.gangle, 0.0)) {
@@ -123,7 +123,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 	 * Creates and initialises a rhombus.
 	 */
 	private def createDiamond(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IRhombus = {
-		val rh = ShapeFactory.createRhombus(true)
+		val rh = ShapeFactory.createRhombus()
 		setRectangularShape(rh, p1.getX-p2.getX, p1.getY-p2.getY, scala.math.abs(p2.getX*2), scala.math.abs(p2.getY*2), hasStar, ctx)
 
 		if(!LNumber.equalsDouble(ctx.gangle, 0.0))
@@ -137,7 +137,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 	 * Creates and initialises an ellipse.
 	 */
 	private def createEllipse(hasStar : Boolean, p1 : IPoint, p2 : IPoint, ctx : PSTContext) : IEllipse = {
-		val ell = ShapeFactory.createEllipse(true)
+		val ell = ShapeFactory.createEllipse()
 		setRectangularShape(ell, p1.getX-p2.getX, p1.getY-p2.getY, scala.math.abs(p2.getX*2), scala.math.abs(p2.getY*2), hasStar, ctx)
 		ell
 	}
@@ -161,7 +161,7 @@ trait PSFrameEllipseDiamondTriangleParser extends PSTAbstractParser with PSTPara
 			p2.setY(tmp)
 		}
 
-		val rec = ShapeFactory.createRectangle(true)
+		val rec = ShapeFactory.createRectangle()
 		rec.setLineArc(ctx.frameArc)
 		setRectangularShape(rec, p1.getX, p1.getY, scala.math.abs(p2.getX-p1.getX), scala.math.abs(p2.getY-p1.getY), hasStar, ctx)
 		rec

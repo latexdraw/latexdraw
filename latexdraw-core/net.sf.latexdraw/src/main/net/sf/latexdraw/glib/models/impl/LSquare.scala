@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ISquare
  * @version 3.0
  * @since 3.0
  */
-private[impl] class LSquare(pos:IPoint, width:Double, uniqueID:Boolean) extends LSquaredShape(pos, width, uniqueID) with ISquare with LineArcProp {
+private[impl] class LSquare(pos:IPoint, width:Double) extends LSquaredShape(pos, width) with ISquare with LineArcProp {
 	override def copy(sh:IShape) {
 		super.copy(sh)
 		sh match {

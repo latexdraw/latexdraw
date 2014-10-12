@@ -61,7 +61,7 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 	 * @since 2.0.0
 	 */
 	protected LGridSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createGrid(true, ShapeFactory.createPoint()));
+		this(ShapeFactory.createGrid(ShapeFactory.createPoint()));
 
 		if(elt==null)
 			throw new IllegalArgumentException();
@@ -81,7 +81,6 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 			setMainGridElement(gridElt, prefix);
 
 		setLabelGridElement(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_TEXT));
-		setNumber(elt);
 
 		if(withTransformation)
 			applyTransformations(elt);

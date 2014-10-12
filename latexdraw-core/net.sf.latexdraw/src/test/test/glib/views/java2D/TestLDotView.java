@@ -14,7 +14,7 @@ public class TestLDotView extends TestLShapeView {
 	@Before
 	public void setUp() {
 		super.setUp();
-		view = View2DTK.getFactory().createView(ShapeFactory.createDot(ShapeFactory.createPoint(), false));
+		view = View2DTK.getFactory().createView(ShapeFactory.createDot(ShapeFactory.createPoint()));
 	}
 
 

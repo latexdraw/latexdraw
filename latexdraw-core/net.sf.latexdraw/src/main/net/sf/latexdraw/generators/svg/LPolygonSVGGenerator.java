@@ -51,7 +51,7 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @since 3.0
 	 */
 	protected LPolygonSVGGenerator(final SVGPathElement elt) {
-		super(ShapeFactory.createPolygon(true));
+		super(ShapeFactory.createPolygon());
 
 		if(elt==null)
 			throw new IllegalArgumentException();
@@ -67,7 +67,7 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @since 2.0.0
 	 */
 	protected LPolygonSVGGenerator(final SVGPolygonElement elt) {
-		this(ShapeFactory.createPolygon(true));
+		this(ShapeFactory.createPolygon());
 
 		setSVGModifiablePointsParameters(elt);
 		applyTransformations(elt);
@@ -80,9 +80,8 @@ class LPolygonSVGGenerator extends LModifiablePointsGenerator<IPolygon> {
 	 * @since 2.0.0
 	 */
 	protected LPolygonSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createPolygon(true));
+		this(ShapeFactory.createPolygon());
 
-		setNumber(elt);
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGPolygonElement))

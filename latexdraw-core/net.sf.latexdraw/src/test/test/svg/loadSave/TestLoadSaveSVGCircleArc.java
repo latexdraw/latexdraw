@@ -8,7 +8,7 @@ import org.junit.Before;
 public class TestLoadSaveSVGCircleArc extends TestLoadSaveSVGSquaredShape<ICircleArc> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createCircleArc(false);
+		shape = ShapeFactory.createCircleArc();
 	}
 
 	public void testStartAngle0() {

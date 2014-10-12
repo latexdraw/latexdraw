@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape
  * @version 3.0
  * @since 3.0
  */
-private[impl] class LCircleArc(tl:IPoint, width:Double, uniqueID:Boolean) extends LSquaredShape(tl, width, uniqueID) with LArc with ICircleArc {
+private[impl] class LCircleArc(tl:IPoint, width:Double) extends LSquaredShape(tl, width) with LArc with ICircleArc {
 	override def copy(sh:IShape) {
 		super[LSquaredShape].copy(sh)
 		super[LArc].copy(sh)

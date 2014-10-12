@@ -103,7 +103,7 @@ trait PSTAbstractParser extends TokenParsers {
 				if(ctx.parsedTxtNoTxt)
 					Nil
 				else {
-					val text = ShapeFactory.createText(true)
+					val text = ShapeFactory.createText()
 					if(ctx.textParsed.endsWith(" "))
 						text.setText(ctx.textParsed.substring(0, ctx.textParsed.length()-1))
 					else

@@ -32,7 +32,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-private[impl] class LAxes(uniqueID:Boolean, pt:IPoint) extends LAbstractGrid(uniqueID, pt) with IAxes with LArrowableShape {
+private[impl] class LAxes(pt:IPoint) extends LAbstractGrid(pt) with IAxes with LArrowableShape {
 	/** The increment of X axe (Dx in PST). */
 	var incrementX : Double = PSTricksConstants.DEFAULT_DX
 

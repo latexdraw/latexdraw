@@ -80,35 +80,6 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	}
 
 
-
-	/**
-	 * Sets the ID of the figure according to the ID attribute of the SVGGElement, or an increment of meter if a problem occur.
-	 * @param g The SVGGElement.
-	 * @since 2.0.0
-	 */
-	public void setNumber(final SVGGElement g) {
-		if(g==null)
-			return;
-
-		final String nb = g.getAttribute(g.getUsablePrefix()+SVGAttributes.SVG_ID);
-		final String pref = "id"; //$NON-NLS-1$
-
-		if(nb==null)
-			shape.setNewId();
-		else
-			try{ shape.setId((int)Double.parseDouble(nb)); }
-			catch(final NumberFormatException e) {
-				if(nb.startsWith(pref))
-					try { shape.setId((int)Double.parseDouble(nb.substring(pref.length()))); }
-					catch(final NumberFormatException e2) { shape.setNewId(); }
-				else
-					shape.setNewId();
-			}
-	}
-
-
-
-
 	/**
 	 * Applies the set of transformations that concerned the given SVG element to the shape.
 	 * @param elt The element that contains the SVG transformation list.
@@ -692,7 +663,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		final String hatchingStyle 	= shape.getFillingStyle().getLatexToken();
 		final double hatchingAngle 	= shape.getHatchingsAngle();
-		final IRectangle bound 		= ShapeFactory.createRectangle(shape.getFullTopLeftPoint(), shape.getFullBottomRightPoint(), false);
+		final IRectangle bound 		= ShapeFactory.createRectangle(shape.getFullTopLeftPoint(), shape.getFullBottomRightPoint());
 
         switch(hatchingStyle) {
             case PSTricksConstants.TOKEN_FILL_VLINES:

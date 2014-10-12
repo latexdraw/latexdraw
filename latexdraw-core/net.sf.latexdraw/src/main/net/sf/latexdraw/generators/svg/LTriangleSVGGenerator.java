@@ -53,9 +53,8 @@ class LTriangleSVGGenerator extends LShapeSVGGenerator<ITriangle> {
 	 * @since 2.0.0
 	 */
 	protected LTriangleSVGGenerator(final SVGGElement elt, final boolean withTransformation) {
-		this(ShapeFactory.createTriangle(true));
+		this(ShapeFactory.createTriangle());
 
-		setNumber(elt);
 		final SVGElement elt2 = getLaTeXDrawElement(elt, null);
 
 		if(elt==null || !(elt2 instanceof SVGPolygonElement))

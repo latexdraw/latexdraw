@@ -27,7 +27,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory
  */
 private[impl] class LDrawing extends IDrawing with LSetShapes {
 	/** The selected shapes of the drawing. */
-	val selection = ShapeFactory.createGroup(false)
+	val selection = ShapeFactory.createGroup()
 
 	/** Defined if the shape has been modified. */
 	var modified = false

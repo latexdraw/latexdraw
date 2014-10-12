@@ -23,8 +23,8 @@ public class TestLText extends TestIText<IText> {
 	public void setUp() {
 		FlyweightThumbnail.images().clear();
 		FlyweightThumbnail.setThread(false);
-		shape  = ShapeFactory.createText(false);
-		shape2 = ShapeFactory.createText(false);
+		shape  = ShapeFactory.createText();
+		shape2 = ShapeFactory.createText();
 	}
 
 
@@ -43,30 +43,30 @@ public class TestLText extends TestIText<IText> {
 
 	@Test
 	public void testConstructors() {
-		IText txt = ShapeFactory.createText(false);
+		IText txt = ShapeFactory.createText();
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = ShapeFactory.createText(true);
+		txt = ShapeFactory.createText();
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = ShapeFactory.createText(true, ShapeFactory.createPoint(), "coucou"); //$NON-NLS-1$
+		txt = ShapeFactory.createText(ShapeFactory.createPoint(), "coucou"); //$NON-NLS-1$
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = ShapeFactory.createText(true, ShapeFactory.createPoint(), ""); //$NON-NLS-1$
+		txt = ShapeFactory.createText(ShapeFactory.createPoint(), ""); //$NON-NLS-1$
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
-		txt = ShapeFactory.createText(true, ShapeFactory.createPoint(), null);
+		txt = ShapeFactory.createText(ShapeFactory.createPoint(), null);
 
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length()>0);
 
-		txt = ShapeFactory.createText(false, null, "aa"); //$NON-NLS-1$
+		txt = ShapeFactory.createText(null, "aa"); //$NON-NLS-1$
 		assertEquals(ShapeFactory.createPoint(), txt.getPosition());
-		txt = ShapeFactory.createText(false, ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY), "aa"); //$NON-NLS-1$
+		txt = ShapeFactory.createText(ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY), "aa"); //$NON-NLS-1$
 		assertEquals(ShapeFactory.createPoint(), txt.getPosition());
 	}
 }

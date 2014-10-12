@@ -57,12 +57,10 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	/**
 	 * Creates an abstract grid.
-	 * @param isUniqueID True: the model will have a unique ID.
 	 * @param pt The position
 	 */
-	protected LAbstractGrid(final boolean isUniqueID, final IPoint pt) {
-		super(isUniqueID, pt);
-
+	protected LAbstractGrid(final IPoint pt) {
+		super(pt);
 		xLabelSouth 	= true;
 		yLabelWest  	= true;
 		originx        	= 0;
@@ -77,25 +75,25 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public double getGridMinX() {
-		return (gridEndx<gridStartx ? gridEndx : gridStartx);
+		return gridEndx<gridStartx ? gridEndx : gridStartx;
 	}
 
 
 	@Override
 	public double getGridMaxX() {
-		return (gridEndx>=gridStartx ? gridEndx : gridStartx);
+		return gridEndx>=gridStartx ? gridEndx : gridStartx;
 	}
 
 
 	@Override
 	public double getGridMinY() {
-		return (gridEndy<gridStarty ? gridEndy : gridStarty);
+		return gridEndy<gridStarty ? gridEndy : gridStarty;
 	}
 
 
 	@Override
 	public double getGridMaxY() {
-		return (gridEndy>=gridStarty ? gridEndy : gridStarty);
+		return gridEndy>=gridStarty ? gridEndy : gridStarty;
 	}
 
 

@@ -61,13 +61,12 @@ trait PSTPlotParser extends PSTAbstractParser with PSTParamParser with PSTBracke
 	private def parsePsplot(ctx : PSTContext) : Parser[List[IShape]] =
 	("\\psplot*" | "\\psplot") ~ opt(parseParam(ctx)) ~ parseBracket(ctx) ~ parseBracket(ctx) ~ parseBracket(ctx, " ") ^^ {
 		case cmdName ~ _ ~ tmin ~ tmax ~ function =>
-		val plot = ShapeFactory.createPlot(true, ShapeFactory.createPoint, tmin.toDouble, tmax.toDouble, function, false)//FIXME support radialplot
+		val plot = ShapeFactory.createPlot(ShapeFactory.createPoint, tmin.toDouble, tmax.toDouble, function, ctx.polarPlot)
 		setShapeParameters(plot, ctx)
 		plot.setNbPlottedPoints(ctx.plotPoints)
 		plot.setPlotStyle(IPlotProp.PlotStyle.getPlotStyle(ctx.plotStyle))
 		plot.setXScale(ctx.xUnit)
 		plot.setYScale(ctx.yUnit)
-		plot.setPolar(ctx.polarPlot)
 		if(cmdName.endsWith("*")) setShapeForStar(plot)
 		checkTextParsed(ctx) ::: List(plot)
 	}

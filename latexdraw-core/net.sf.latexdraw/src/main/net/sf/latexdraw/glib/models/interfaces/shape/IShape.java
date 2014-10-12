@@ -754,16 +754,6 @@ public interface IShape extends Modifiable {
 	void setFilled(final boolean isFilled);
 
 	/**
-	 * @param id the id to set.
-	 */
-	void setId(final int id);
-
-	/**
-	 * Defines a new unique ID to the shape.
-	 */
-	void setNewId();
-
-	/**
 	 * Adds the given angle to the current rotation angle.
 	 * @param gravCentre The gravity centre of the rotation. If null, the gravity centre of the shape will be used.
 	 * @param angle The angle to add. In radian.

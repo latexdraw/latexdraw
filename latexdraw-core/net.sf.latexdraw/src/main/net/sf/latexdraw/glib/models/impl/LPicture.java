@@ -50,12 +50,11 @@ class LPicture extends LPositionShape implements IPicture {
 
 	/**
 	 * Creates a picture and the corresponding EPS picture.
-	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param pt The position of the top-left point of the picture.
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 */
-	protected LPicture(final boolean isUniqueID, final IPoint pt) {
-		super(isUniqueID, pt);
+	protected LPicture(final IPoint pt) {
+		super(pt);
 	}
 
 

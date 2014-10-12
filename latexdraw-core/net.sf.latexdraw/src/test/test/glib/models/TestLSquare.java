@@ -23,8 +23,8 @@ import test.glib.models.interfaces.TestISquare;
 public class TestLSquare extends TestISquare<ISquare> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createSquare(false);
-		shape2 = ShapeFactory.createSquare(false);
+		shape = ShapeFactory.createSquare();
+		shape2 = ShapeFactory.createSquare();
 	}
 
 
@@ -45,39 +45,39 @@ public class TestLSquare extends TestISquare<ISquare> {
 
 	@Test
 	public void testConstructors() {
-		ISquare sq = ShapeFactory.createSquare(false);
+		ISquare sq = ShapeFactory.createSquare();
 		assertEquals(4, sq.getNbPoints());
 
 		try {
-			sq = ShapeFactory.createSquare(null, 10, true);
+			sq = ShapeFactory.createSquare(null, 10);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(Double.NaN, 0), 10, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(Double.NaN, 0), 10);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), 0, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), 0);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), -10, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), -10);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.NaN, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.NaN);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.POSITIVE_INFINITY, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.POSITIVE_INFINITY);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 		try {
-			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.NEGATIVE_INFINITY, true);
+			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.NEGATIVE_INFINITY);
 			fail();
 		}catch(IllegalArgumentException ex) { /* */ }
 
-		sq = ShapeFactory.createSquare(ShapeFactory.createPoint(20, 26), 11, true);
+		sq = ShapeFactory.createSquare(ShapeFactory.createPoint(20, 26), 11);
 		HelperTest.assertEqualsDouble(20., sq.getPosition().getX());
 		HelperTest.assertEqualsDouble(26., sq.getPosition().getY());
 		HelperTest.assertEqualsDouble(11., sq.getWidth());

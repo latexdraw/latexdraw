@@ -22,8 +22,8 @@ import org.junit.Test;
 public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Test
 	public void testAddShapeIShape() {
-		IShape sh1 = ShapeFactory.createRectangle(false);
-		IShape sh2 = ShapeFactory.createRectangle(false);
+		IShape sh1 = ShapeFactory.createRectangle();
+		IShape sh2 = ShapeFactory.createRectangle();
 
 		shape.addShape(sh1);
 		shape.addShape(sh2);
@@ -40,17 +40,17 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testAddToRotationAngle() {
-		shape.addShape(ShapeFactory.createRectangle(false));
-		shape.addShape(ShapeFactory.createDot(ShapeFactory.createPoint(), false));
+		shape.addShape(ShapeFactory.createRectangle());
+		shape.addShape(ShapeFactory.createDot(ShapeFactory.createPoint()));
 		super.testAddToRotationAngle();
 	}
 
 
 	@Test
 	public void testAddShapeIShapeInt() {
-		IShape sh1 = ShapeFactory.createRectangle(false);
-		IShape sh2 = ShapeFactory.createRectangle(false);
-		IShape sh3 = ShapeFactory.createRectangle(false);
+		IShape sh1 = ShapeFactory.createRectangle();
+		IShape sh2 = ShapeFactory.createRectangle();
+		IShape sh3 = ShapeFactory.createRectangle();
 
 		shape.addShape(sh1, 1);
 		assertEquals(0, shape.getShapes().size());
@@ -80,9 +80,9 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Test
 	public void testRemoveShapeIShape() {
-		IShape sh1 = ShapeFactory.createRectangle(false);
-		IShape sh2 = ShapeFactory.createRectangle(false);
-		IShape sh3 = ShapeFactory.createRectangle(false);
+		IShape sh1 = ShapeFactory.createRectangle();
+		IShape sh2 = ShapeFactory.createRectangle();
+		IShape sh3 = ShapeFactory.createRectangle();
 
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(sh2);
@@ -95,7 +95,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		assertEquals(2, shape.getShapes().size());
 		assertEquals(sh1, shape.getShapes().get(0));
 		assertEquals(sh3, shape.getShapes().get(1));
-		shape.removeShape(ShapeFactory.createRectangle(false));
+		shape.removeShape(ShapeFactory.createRectangle());
 		assertEquals(2, shape.getShapes().size());
 		assertEquals(sh1, shape.getShapes().get(0));
 		assertEquals(sh3, shape.getShapes().get(1));
@@ -104,9 +104,9 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Test
 	public void testRemoveShapeInt() {
-		IShape sh1 = ShapeFactory.createRectangle(false);
-		IShape sh2 = ShapeFactory.createRectangle(false);
-		IShape sh3 = ShapeFactory.createRectangle(false);
+		IShape sh1 = ShapeFactory.createRectangle();
+		IShape sh2 = ShapeFactory.createRectangle();
+		IShape sh3 = ShapeFactory.createRectangle();
 
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(sh2);
@@ -122,9 +122,9 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Test
 	public void testGetShapeAt() {
-		IShape sh1 = ShapeFactory.createRectangle(false);
-		IShape sh2 = ShapeFactory.createRectangle(false);
-		IShape sh3 = ShapeFactory.createRectangle(false);
+		IShape sh1 = ShapeFactory.createRectangle();
+		IShape sh2 = ShapeFactory.createRectangle();
+		IShape sh3 = ShapeFactory.createRectangle();
 
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(sh2);
@@ -141,9 +141,9 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Test
 	public void testSize() {
-		IShape sh1 = ShapeFactory.createRectangle(false);
-		IShape sh2 = ShapeFactory.createRectangle(false);
-		IShape sh3 = ShapeFactory.createRectangle(false);
+		IShape sh1 = ShapeFactory.createRectangle();
+		IShape sh2 = ShapeFactory.createRectangle();
+		IShape sh3 = ShapeFactory.createRectangle();
 
 		shape.getShapes().add(sh1);
 		assertEquals(1, shape.size());
@@ -158,10 +158,10 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Test
 	public void testContains() {
-		IShape sh1 = ShapeFactory.createRectangle(false);
-		IShape sh2 = ShapeFactory.createRectangle(false);
-		IShape sh3 = ShapeFactory.createRectangle(false);
-		IShape sh4 = ShapeFactory.createRectangle(false);
+		IShape sh1 = ShapeFactory.createRectangle();
+		IShape sh2 = ShapeFactory.createRectangle();
+		IShape sh3 = ShapeFactory.createRectangle();
+		IShape sh4 = ShapeFactory.createRectangle();
 
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(sh2);
@@ -177,9 +177,9 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Test
 	public void testIsEmpty() {
-		IShape sh1 = ShapeFactory.createRectangle(false);
-		IShape sh2 = ShapeFactory.createRectangle(false);
-		IShape sh3 = ShapeFactory.createRectangle(false);
+		IShape sh1 = ShapeFactory.createRectangle();
+		IShape sh2 = ShapeFactory.createRectangle();
+		IShape sh3 = ShapeFactory.createRectangle();
 
 		shape.getShapes().clear();
 		assertTrue(shape.isEmpty());
@@ -196,9 +196,9 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Test
 	public void testClear() {
-		IShape sh1 = ShapeFactory.createRectangle(false);
-		IShape sh2 = ShapeFactory.createRectangle(false);
-		IShape sh3 = ShapeFactory.createRectangle(false);
+		IShape sh1 = ShapeFactory.createRectangle();
+		IShape sh2 = ShapeFactory.createRectangle();
+		IShape sh3 = ShapeFactory.createRectangle();
 
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(sh2);
@@ -240,7 +240,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 
 	private IRectangle setRectangle(double x, double y, double w, double h) {
-		IRectangle rec = ShapeFactory.createRectangle(false);
+		IRectangle rec = ShapeFactory.createRectangle();
 		rec.setPosition(x, y);
 		rec.setWidth(w);
 		rec.setHeight(h);
@@ -376,8 +376,8 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testSetHasHatchings() {
-		IRectangle rec1 = ShapeFactory.createRectangle(false);
-		IRectangle rec2 = ShapeFactory.createRectangle(false);
+		IRectangle rec1 = ShapeFactory.createRectangle();
+		IRectangle rec2 = ShapeFactory.createRectangle();
 
 		shape.addShape(rec1);
 		shape.addShape(rec2);
@@ -402,7 +402,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Test
 	public void testHasHatchingsWithUnstylableShape() {
-		IGrid grid = ShapeFactory.createGrid(false, ShapeFactory.createPoint());
+		IGrid grid = ShapeFactory.createGrid(ShapeFactory.createPoint());
 
 		// The test is useful only if the shape is not stylable.
 		assertFalse(grid.isInteriorStylable());
@@ -413,7 +413,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		grid.setFillingStyle(FillingStyle.CLINES_PLAIN);
 		assertFalse(shape.hasHatchings());
 
-		IRectangle rec1 = ShapeFactory.createRectangle(false);
+		IRectangle rec1 = ShapeFactory.createRectangle();
 		shape.addShape(rec1);
 		assertFalse(shape.hasHatchings());
 
@@ -425,7 +425,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testSetHasGradient() {
-		IGrid grid = ShapeFactory.createGrid(false, ShapeFactory.createPoint());
+		IGrid grid = ShapeFactory.createGrid(ShapeFactory.createPoint());
 
 		// The test is useful only if the shape is not stylable.
 		assertFalse(grid.isInteriorStylable());
@@ -436,7 +436,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		grid.setFillingStyle(FillingStyle.GRAD);
 		assertFalse(shape.hasGradient());
 
-		IRectangle rec1 = ShapeFactory.createRectangle(false);
+		IRectangle rec1 = ShapeFactory.createRectangle();
 		shape.addShape(rec1);
 		assertFalse(shape.hasGradient());
 
@@ -451,8 +451,8 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testGetSetGradColEnd() {
-		IRectangle rec1 = ShapeFactory.createRectangle(false);
-		IRectangle rec2 = ShapeFactory.createRectangle(false);
+		IRectangle rec1 = ShapeFactory.createRectangle();
+		IRectangle rec2 = ShapeFactory.createRectangle();
 
 		// The test is useful only if the shape is stylable.
 		assertTrue(rec1.isInteriorStylable());
@@ -468,8 +468,8 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 
 	@Test
 	public void testGetGradColEnd() {
-		IRectangle rec1 = ShapeFactory.createRectangle(false);
-		IRectangle rec2 = ShapeFactory.createRectangle(false);
+		IRectangle rec1 = ShapeFactory.createRectangle();
+		IRectangle rec2 = ShapeFactory.createRectangle();
 
 		// The test is useful only if the shape is stylable.
 		assertTrue(rec1.isInteriorStylable());

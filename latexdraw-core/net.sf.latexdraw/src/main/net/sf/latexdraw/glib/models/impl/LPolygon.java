@@ -26,20 +26,18 @@ class LPolygon extends LModifiablePointsShape implements IPolygon {
 
 	/**
 	 * Creates a model with no point.
-	 * @param uniqueID True: the shape will have a unique ID.
 	 */
-	protected LPolygon(final boolean uniqueID) {
-		super(uniqueID);
+	protected LPolygon() {
+		super();
 	}
 
 
 	/**
 	 * Creates a model with two points.
-	 * @param uniqueID True: the shape will have a unique ID.
 	 * @throws IllegalArgumentException If one of the two points is null.
 	 */
-	protected LPolygon(final IPoint point, final IPoint point2, final boolean uniqueID) {
-		this(uniqueID);
+	protected LPolygon(final IPoint point, final IPoint point2) {
+		this();
 
 		if(point==null || point2==null)
 			throw new IllegalArgumentException();

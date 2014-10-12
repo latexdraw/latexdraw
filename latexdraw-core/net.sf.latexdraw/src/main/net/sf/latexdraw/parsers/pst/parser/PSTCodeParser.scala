@@ -52,7 +52,7 @@ trait PSTCodeParser extends PSTAbstractParser
 			consume(parseIncludeGraphics(ctx) | parsePSCustomCommands(ctx)) | consume(parsePsFrameboxCmds(ctx)) | consume(parsetextCommands(ctx)) |
 			consume(parseText(ctx))) ^^ {
 		case list =>
-		val group = ShapeFactory.createGroup(false)
+		val group = ShapeFactory.createGroup()
 
 		list.foreach{
 				case gp : List[_] => gp.foreach{sh => group.addShape(sh.asInstanceOf[IShape])}
@@ -112,7 +112,7 @@ trait PSTCodeParser extends PSTAbstractParser
 				shapes.getShapes.foreach{sh => setShapeForStar(sh)}
 
 			var fh : IFreehand = null
-			val gp = ShapeFactory.createGroup(false)
+			val gp = ShapeFactory.createGroup()
 
 			// The different created freehand shapes must be merged into a single one.
 			shapes.getShapes.foreach {

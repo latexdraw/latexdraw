@@ -8,6 +8,6 @@ import org.junit.Before;
 public class TestLoadSaveSVGTriangle extends TestLoadSaveSVGRectangularShape<ITriangle> {
 	@Before
 	public void setUp() {
-		shape = ShapeFactory.createTriangle(false);
+		shape = ShapeFactory.createTriangle();
 	}
 }

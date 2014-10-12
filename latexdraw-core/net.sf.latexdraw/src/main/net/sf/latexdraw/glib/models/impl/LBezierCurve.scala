@@ -26,8 +26,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape
  * @version 3.0
  * @since 3.0
  */
-private[impl] class LBezierCurve(var isClosed:Boolean, uniqueID:Boolean)
-	extends LAbstractCtrlPointShape(uniqueID) with IBezierCurve with LArrowableShape {
+private[impl] class LBezierCurve(var isClosed:Boolean) extends LAbstractCtrlPointShape() with IBezierCurve with LArrowableShape {
 
 	arrows += ShapeFactory.createArrow(this)
 	arrows += ShapeFactory.createArrow(this)
@@ -36,10 +35,9 @@ private[impl] class LBezierCurve(var isClosed:Boolean, uniqueID:Boolean)
 	 * Creates a bezier curve with two points.
 	 * @param point The first point of the curve.
 	 * @param point2 The second point of the curve.
-	 * @param uniqueID uniqueID True: the model will have a unique ID.
 	 */
-	def this(point:IPoint, point2:IPoint, closed:Boolean, uniqueID:Boolean) = {
-		this(closed, uniqueID)
+	def this(point:IPoint, point2:IPoint, closed:Boolean) = {
+		this(closed)
 		addPoint(point)
 		addPoint(point2)
 	}

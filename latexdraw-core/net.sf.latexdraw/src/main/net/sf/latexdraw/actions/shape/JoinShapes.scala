@@ -32,7 +32,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory
  */
 class JoinShapes extends Action with ShapesAction with DrawingAction with Undoable with Modifying {
 	/** The added group of shapes. */
-	val addedGroup = ShapeFactory.createGroup(true)
+	val addedGroup = ShapeFactory.createGroup()
 
 
 	override protected def doActionBody() {

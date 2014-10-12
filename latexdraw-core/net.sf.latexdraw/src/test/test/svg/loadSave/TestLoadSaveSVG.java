@@ -49,7 +49,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		if(doc==null)
 			return null;
 
-		final IGroup shapes = ShapeFactory.createGroup(false);
+		final IGroup shapes = ShapeFactory.createGroup();
 		final NodeList elts = doc.getDocumentElement().getChildNodes();
 		Node node;
 

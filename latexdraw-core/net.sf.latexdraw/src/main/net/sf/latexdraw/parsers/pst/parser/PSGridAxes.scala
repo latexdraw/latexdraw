@@ -69,7 +69,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 
 	private def createAxes(min : PointUnit, max : PointUnit, ctx : PSTContext) : IAxes = {
-		val axes = ShapeFactory.createAxes(true, ShapeFactory.createPoint)
+		val axes = ShapeFactory.createAxes(ShapeFactory.createPoint)
 
 		setStdGridParams(new PointUnit(ctx.ox, ctx.oy, null, null), min, max, axes, ctx)
 		setShapeGeneralParameters(axes, ctx)
@@ -92,7 +92,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 
 
 	private def createGrid(origin : PointUnit, min : PointUnit, max : PointUnit, ctx : PSTContext) : IGrid = {
-		val grid = ShapeFactory.createGrid(true, ShapeFactory.createPoint)
+		val grid = ShapeFactory.createGrid(ShapeFactory.createPoint)
 		var gridEndX = max.x
 		var gridEndY = max.y
 		var gridStartX = min.x

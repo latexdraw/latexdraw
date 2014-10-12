@@ -59,16 +59,16 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
 	}
 
 	protected lazy val _groupParams = {
-		val group = ShapeFactory.createGroup(false)
-		group.addShape(ShapeFactory.createRectangle(false))
-		group.addShape(ShapeFactory.createDot(ShapeFactory.createPoint, false))
-		group.addShape(ShapeFactory.createGrid(false, ShapeFactory.createPoint))
-		group.addShape(ShapeFactory.createAxes(false, ShapeFactory.createPoint))
-		group.addShape(ShapeFactory.createText(false))
-		group.addShape(ShapeFactory.createCircleArc(false))
-		group.addShape(ShapeFactory.createPolyline(false))
-		group.addShape(ShapeFactory.createBezierCurve(false))
-		group.addShape(ShapeFactory.createFreeHand(false))
+		val group = ShapeFactory.createGroup()
+		group.addShape(ShapeFactory.createRectangle())
+		group.addShape(ShapeFactory.createDot(ShapeFactory.createPoint))
+		group.addShape(ShapeFactory.createGrid(ShapeFactory.createPoint))
+		group.addShape(ShapeFactory.createAxes(ShapeFactory.createPoint))
+		group.addShape(ShapeFactory.createText())
+		group.addShape(ShapeFactory.createCircleArc())
+		group.addShape(ShapeFactory.createPolyline())
+		group.addShape(ShapeFactory.createBezierCurve())
+		group.addShape(ShapeFactory.createFreeHand())
 		group
 	}
 
@@ -358,7 +358,7 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilInteractor[Aborta
 private sealed class Press2InsertPicture(pencil:Pencil) extends Interactor[InsertPicture, Press, Pencil](pencil, false, classOf[InsertPicture], classOf[Press]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
-		action.setShape(ShapeFactory.createPicture(true, instrument.getAdaptedPoint(interaction.getPoint)))
+		action.setShape(ShapeFactory.createPicture(instrument.getAdaptedPoint(interaction.getPoint)))
 		action.setFileChooser(instrument.pictureFileChooser)
 	}
 
@@ -394,7 +394,7 @@ private sealed class Press2AddShape(pencil:Pencil) extends PencilInteractor[Pres
 private sealed class Press2AddText(pencil:Pencil) extends PencilInteractor[Press](pencil, false, classOf[Press]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
-		action.setShape(ShapeFactory.createText(true, ShapeFactory.createPoint(instrument.textSetter.relativePoint), instrument.textSetter.getTextField.getText))
+		action.setShape(ShapeFactory.createText(ShapeFactory.createPoint(instrument.textSetter.relativePoint), instrument.textSetter.getTextField.getText))
 	}
 
 	// The action is created only when the user uses the text setter and the text field of the text setter is not empty.

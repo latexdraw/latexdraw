@@ -26,10 +26,9 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
 class LRhombus extends LRectangularShape implements IRhombus {
 	/**
 	 * Creates a rhombus at the bottom-left position (0,0) with width=height=1.
-	 * @param uniqueID True: the rhombus will have a unique ID.
 	 */
-	protected LRhombus(final boolean uniqueID) {
-		this(ShapeFactory.createPoint(0.5, -0.5), 1, 1, uniqueID);
+	protected LRhombus() {
+		this(ShapeFactory.createPoint(0.5, -0.5), 1, 1);
 	}
 
 
@@ -38,12 +37,11 @@ class LRhombus extends LRectangularShape implements IRhombus {
 	 * @param centre The centre of the rhombus.
 	 * @param width The width of the rhombus.
 	 * @param height The height of the rhombus.
-	 * @param uniqueID True: the rhombus will have a unique ID.
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @throws NullPointerException If the given point is null.
 	 */
-	protected LRhombus(final IPoint centre, final double width, final double height, final boolean uniqueID) {
+	protected LRhombus(final IPoint centre, final double width, final double height) {
 		super(ShapeFactory.createPoint(centre.getX()-width/2., centre.getY()-height/2.),
-				ShapeFactory.createPoint(centre.getX()+width/2., centre.getY()+height/2.), uniqueID);
+				ShapeFactory.createPoint(centre.getX()+width/2., centre.getY()+height/2.));
 	}
 }
