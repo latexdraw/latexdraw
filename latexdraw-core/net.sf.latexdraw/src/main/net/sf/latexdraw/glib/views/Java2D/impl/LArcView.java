@@ -39,7 +39,7 @@ abstract class LArcView<M extends IArc> extends LRectangularView<IArc> implement
 	 * @param model The model to view.
 	 * @since 3.0
 	 */
-	protected LArcView(final IArc model) {
+	protected LArcView(final M model) {
 		super(model);
 		arrows = new ArrayList<>();
 		for(int i=0, size=shape.getNbArrows(); i<size; i++)

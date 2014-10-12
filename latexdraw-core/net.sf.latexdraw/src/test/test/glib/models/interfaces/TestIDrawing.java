@@ -236,7 +236,7 @@ public abstract class TestIDrawing {
 		assertEquals(2, drawing.getSelection().size());
 		assertEquals(sh, drawing.getSelection().getShapeAt(0));
 		assertEquals(sh2, drawing.getSelection().getShapeAt(1));
-		drawing.setSelection(Collections.EMPTY_LIST);
+		drawing.setSelection(Collections.<IShape>emptyList());
 		assertNotNull(drawing.getSelection());
 		assertEquals(0, drawing.getSelection().size());
 	}
