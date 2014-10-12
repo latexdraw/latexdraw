@@ -384,11 +384,12 @@ trait IShapeFactory {
 	 * @param pos The north-west point of the rectangle.
 	 * @param isUniqueID True: the shape will have a unique ID.
 	 * @param eq The equation of the function.
+	 * @param polar Defines the coordinates to use (polar or cartesian).
 	 * @throws IllegalArgumentException If the given point is not valid or minX is greater than maxX.
 	 * @return The created function.
 	 * @since 3.2
 	 */
-	def createPlot(isUniqueID : Boolean, pos : IPoint, minX:Double, maxX:Double, eq:String) : IPlot
+	def createPlot(isUniqueID : Boolean, pos : IPoint, minX:Double, maxX:Double, eq:String, polar:Boolean) : IPlot
 
 
 	/**

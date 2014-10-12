@@ -188,6 +188,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case FREEHAND_OPEN:
 				case FREEHAND_STYLE : return shapes.isTypeOf(IFreeHandProp.class);
 				case PLOT_EQ:
+				case PLOT_POLAR:
 				case PLOT_NB_PTS:
 				case PLOT_MAX_X:
 				case PLOT_MIN_X: return shapes.isTypeOf(IPlotProp.class);

@@ -101,6 +101,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 	protected WidgetMiniToolbar composePlotWidgets(final ShapePlotCustomiser plotCustom, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.PLOT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText("Customizes plots' properties.");
+		list.addComponent(plotCustom.getPolarCB());
 		UIBuilder.addSpinner(list, plotCustom.getNbPtsSpinner(), 70);
 		UIBuilder.addSpinner(list, plotCustom.getMinXSpinner(), 70);
 		UIBuilder.addSpinner(list, plotCustom.getMaxXSpinner(), 70);
@@ -112,6 +113,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(plotCustom.getMaxXSpinner(), list);
 		mapContainers.put(plotCustom.getXScaleSpinner(), list);
 		mapContainers.put(plotCustom.getYScaleSpinner(), list);
+		mapContainers.put(plotCustom.getPolarCB(), list);
 		plotCustom.addEventable(list.getToolbar());
 		list.setVisible(false);
 		return list;

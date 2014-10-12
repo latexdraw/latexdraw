@@ -3,7 +3,9 @@ package net.sf.latexdraw.glib.views.Java2D.impl
 import java.awt.Graphics2D
 import java.awt.Rectangle
 import java.awt.geom.Rectangle2D
+
 import scala.collection.JavaConversions.asScalaBuffer
+
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape
@@ -54,8 +56,17 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) with IViewPlot {
 		val xs = model.getXScale
 		val ys = model.getYScale
 
-		for(x <- minX to maxX by step)
-			sh.addPoint(ShapeFactory.createPoint(x*IShape.PPC*xs+posX, -model.getY(x)*IShape.PPC*ys+posY))
+		if(model.isPolar) {
+  		for(x <- minX to maxX by step) {
+  			val radius = model.getY(x)
+  			val angle = Math.toRadians(x)
+  			val x1 = Math.toDegrees(radius*Math.cos(angle))
+  			val y1 = Math.toDegrees(-radius*Math.sin(angle))
+  			sh.addPoint(ShapeFactory.createPoint(x1*xs+posX, y1*xs+posY))
+  		}
+		}else
+  		for(x <- minX to maxX by step)
+  			sh.addPoint(ShapeFactory.createPoint(x*IShape.PPC*xs+posX, -model.getY(x)*IShape.PPC*ys+posY))
 	}
 
 

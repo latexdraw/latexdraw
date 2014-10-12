@@ -35,14 +35,25 @@ private[impl] trait LPlotGroup extends IGroup {
 	  plotShapes.foreach(_.setXScale(sx))
 	}
 
-	override def getPlotStyle: PlotStyle = {
+	override def isPolar:Boolean= {
+		firstPlot match {
+			case Some(sh) => sh.isPolar
+			case _ => false
+		}
+	}
+
+	override def setPolar(polar:Boolean) {
+	  plotShapes.foreach(_.setPolar(polar))
+	}
+
+	override def getPlotStyle: IPlotProp.PlotStyle = {
 		firstPlot match {
 			case Some(la) => la.getPlotStyle
 			case _ => IPlotProp.PlotStyle.CURVE
 		}
 	}
 
-	override def setPlotStyle(style:PlotStyle) {
+	override def setPlotStyle(style:IPlotProp.PlotStyle) {
 	  plotShapes.foreach(_.setPlotStyle(style))
 	}
 

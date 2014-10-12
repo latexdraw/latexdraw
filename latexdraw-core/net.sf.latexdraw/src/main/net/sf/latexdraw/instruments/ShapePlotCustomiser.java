@@ -10,8 +10,10 @@ import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.util.LResources;
 
 import org.malai.swing.ui.SwingUIComposer;
+import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MSpinner;
 
 /**
@@ -38,6 +40,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 	MSpinner maxXSpinner;
 	MSpinner xScaleSpinner;
 	MSpinner yScaleSpinner;
+	MCheckBox polarCB;
 
 	/**
 	 * Creates the instrument.
@@ -59,6 +62,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 			maxXSpinner.setValueSafely(shape.getPlotMaxX());
 			xScaleSpinner.setValueSafely(shape.getXScale());
 			yScaleSpinner.setValueSafely(shape.getYScale());
+			polarCB.setSelected(shape.isPolar());
 			setActivated(true);
 		}
 		else setActivated(false);
@@ -71,6 +75,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(maxXSpinner, visible);
 		composer.setWidgetVisible(xScaleSpinner, visible);
 		composer.setWidgetVisible(yScaleSpinner, visible);
+		composer.setWidgetVisible(polarCB, visible);
 	}
 
 	@Override
@@ -85,6 +90,9 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 		xScaleSpinner.setEditor(new JSpinner.NumberEditor(xScaleSpinner, "0.0"));//$NON-NLS-1$
 		yScaleSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(1.0, 0.0001, 10000.0, 0.1), new JLabel("Y scale:"));
 		yScaleSpinner.setEditor(new JSpinner.NumberEditor(yScaleSpinner, "0.0"));//$NON-NLS-1$
+        polarCB = new MCheckBox("Polar");
+        polarCB.setMargin(LResources.INSET_BUTTON);
+        polarCB.setToolTipText("Polar or cartesian coordinates.");
 	}
 
 	@Override
@@ -92,6 +100,8 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 		try{
 			addInteractor(new Spinner2PencilPlot(this));
 			addInteractor(new Spinner2SelectionPlot(this));
+			addInteractor(new CheckBox2PencilPlot(this));
+			addInteractor(new CheckBox2SelectionPlot(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -111,6 +121,9 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 
 	/** @return The widget that permits to change the y scale of the plot. */
 	public MSpinner getYScaleSpinner() { return yScaleSpinner; }
+
+	/** @return The widget that permits to change kind of coordinates. */
+	public MCheckBox getPolarCB() { return polarCB; }
 
 	private abstract static class SpinnerForPlotCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapePlotCustomiser> {
 		protected SpinnerForPlotCust(final ShapePlotCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
@@ -176,5 +189,41 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 		}
 
 		@Override public boolean isConditionRespected() { return instrument.hand.isActivated() && super.isConditionRespected(); }
+	}
+
+	private static class CheckBox2PencilPlot extends CheckBoxForCustomiser<ModifyPencilParameter, ShapePlotCustomiser> {
+		CheckBox2PencilPlot(final ShapePlotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setProperty(ShapeProperties.PLOT_POLAR);
+			action.setPencil(instrument.pencil);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getCheckBox()==instrument.polarCB && instrument.pencil.isActivated();
+		}
+	}
+
+	private static class CheckBox2SelectionPlot extends CheckBoxForCustomiser<ModifyShapeProperty, ShapePlotCustomiser> {
+		CheckBox2SelectionPlot(final ShapePlotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+			super(instrument, ModifyShapeProperty.class);
+		}
+
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setProperty(ShapeProperties.PLOT_POLAR);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getCheckBox()==instrument.polarCB && instrument.hand.isActivated();
+		}
 	}
 }

@@ -44,6 +44,23 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	IGroup duplicateDeep(final boolean duplicateShapes);
 
 	/**
+	 * Sets if polar coordinates for the plots of the group.
+	 * @param values The list of values to use. Its must must equals the number of
+	 * shapes of the group. If an element of the list is null, its corresponding
+	 * shape will not be set.
+	 */
+	void setPlotPolarList(final List<java.lang.Boolean> values);
+
+
+	/**
+	 * @return The list of polar/cartesian coordinates of the plots contained by the group.
+	 * If a shape of the group does not support this property, null is added
+	 * to the list. The list cannot be null.
+	 */
+	List<java.lang.Boolean> getPlotPolarList();
+
+
+	/**
 	 * Sets the max X of the plots of the group.
 	 * @param values The list of values to use. Its must must equals the number of
 	 * shapes of the group. If an element of the list is null, its corresponding
@@ -53,10 +70,11 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 
 	/**
 	 * @return The list of max X of the plots contained by the group.
-	 * If a shape of the group does not support the border position property, null is added
+	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
 	List<java.lang.Double> getPlotMaxXList();
+
 
 	/**
 	 * Sets the min X of the plots of the group.
@@ -68,10 +86,11 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 
 	/**
 	 * @return The list of min X of the plots contained by the group.
-	 * If a shape of the group does not support the border position property, null is added
+	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
 	List<java.lang.Double> getPlotMinXList();
+
 
 	/**
 	 * Sets the number of plotted points of the shapes of the group.
@@ -81,12 +100,14 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 */
 	void setNbPlottedPointsList(final List<java.lang.Integer> values);
 
+
 	/**
 	 * @return The list of number of plotted points the shapes contained by the group.
-	 * If a shape of the group does not support the border position property, null is added
+	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
 	List<java.lang.Integer> getNbPlottedPointsList();
+
 
 	/**
 	 * Sets the plot style of the shapes of the group.
@@ -96,12 +117,14 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 */
 	void setPlotStyleList(final List<IPlotProp.PlotStyle> values);
 
+
 	/**
 	 * @return The list of the plot style of the shapes contained by the group.
-	 * If a shape of the group does not support the border position property, null is added
+	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
 	List<IPlotProp.PlotStyle> getPlotStyleList();
+
 
 	/**
 	 * Sets the Y-scale shapes of the group.
@@ -111,12 +134,14 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 */
 	void setYScaleList(final List<Double> values);
 
+
 	/**
 	 * @return The list of Y-scale of the shapes contained by the group.
-	 * If a shape of the group does not support the border position property, null is added
+	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
 	List<Double> getYScaleList();
+
 
 	/**
 	 * Sets the X-scale shapes of the group.
@@ -126,13 +151,15 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 */
 	void setXScaleList(final List<Double> values);
 
+
 	/**
 	 * @return The list of X scale of the shapes contained by the group.
-	 * If a shape of the group does not support the border position property, null is added
+	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
 	List<Double> getXScaleList();
+
 
 	/**
 	 * @return The list of plot equations of the shapes contained by the group.
@@ -142,6 +169,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 */
 	List<String> getPlotEquationList();
 
+
 	/**
 	 * @return The list of the border positions of the shapes contained by the group.
 	 * If a shape of the group does not support the border position property, null is added
@@ -150,6 +178,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 */
 	List<BorderPos> getBordersPositionList();
 
+
 	/**
 	 * @return The list of line colours of the shapes contained by the group.
 	 * If a shape of the group does not support the line colour property, null is added
@@ -157,6 +186,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * @since 3.0
 	 */
 	List<Color> getLineColourList();
+
 
 	/**
 	 * @return The list of start angle of the arc shapes contained by the group.

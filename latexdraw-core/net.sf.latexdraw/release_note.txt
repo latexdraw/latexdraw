@@ -1,6 +1,8 @@
 ************************************************************
 Version 3.3.0
 
+- psplot is now supported (and can be imported from PSTricks code).
+  The parameters plotstyle, polarplot, and plotpoints are supported
 - added: better integration in Linux environments (using the installer) 
   https://bugs.launchpad.net/latexdraw/+bug/1369488
 - fixed: ps2epsi should be used instead of ps2eps

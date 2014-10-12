@@ -54,6 +54,19 @@ public interface IPlotProp extends IScalable{
 	}
 
 	/**
+	 * @return True if the plot is defined for polar coordinates (false: for a cartesian coordinates).
+	 * @since 3.3
+	 */
+	boolean isPolar();
+
+	/**
+	 * Sets if the plot is defined for a radial or a cartesian system.
+	 * @param polar True: polar, false: cartesian
+	 * @since 3.3
+	 */
+	void setPolar(final boolean polar);
+
+	/**
 	 * @return the equation.
 	 */
 	String getPlotEquation();

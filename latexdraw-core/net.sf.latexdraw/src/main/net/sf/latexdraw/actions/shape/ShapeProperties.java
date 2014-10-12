@@ -39,6 +39,15 @@ import net.sf.latexdraw.lang.LangTool;
  */
 public enum ShapeProperties {
 	/** The number of plotted points. **/
+	PLOT_POLAR {
+		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPolar((Boolean)value);}
+		@SuppressWarnings("unchecked")
+		@Override public void setPropertyValueList(final IGroup group, final List<?> values) { if(group!=null) group.setPlotPolarList((List<Boolean>)values);}
+		@Override public List<?> getPropertyValues(final IGroup group) { return group==null ? Collections.<Boolean>emptyList() : group.getPlotPolarList();}
+		@Override public String getMessage() { return "plot's parameters"; }
+		@Override public boolean isValueValid(final Object obj) { return obj instanceof Boolean; }
+	},
+	/** The number of plotted points. **/
 	PLOT_EQ {
 		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPlotEquation((String)value);}
 		@SuppressWarnings("unchecked")

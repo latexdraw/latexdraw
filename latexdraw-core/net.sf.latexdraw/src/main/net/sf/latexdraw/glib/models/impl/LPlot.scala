@@ -13,9 +13,9 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape
  * @since 3.2
  * @author Arnaud Blouin
  */
-private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX:Double, var equation:String) extends LPositionShape(uniqueID, pt) with IPlot with LScalable {
+private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX:Double, var equation:String, var polar:Boolean) extends LPositionShape(uniqueID, pt) with IPlot with LScalable {
 	private var nbPoints:Int = 50
-	private var style:IPlotProp.PlotStyle = IPlotProp.PlotStyle.LINE
+	private var style:IPlotProp.PlotStyle = IPlotProp.PlotStyle.CURVE
 	private var parser:PSFunctionParser = new PSFunctionParser(equation)
 
 	require(GLibUtilities.isValidPoint(pt) && minX<maxX && GLibUtilities.isValidPoint(minX, maxX))
@@ -84,6 +84,12 @@ private[impl] class LPlot(uniqueID:Boolean, pt:IPoint, var minX:Double, var maxX
 	override def getPlotMinX = minX
 
 	override def getPlotMaxX = maxX
+
+	override def setPolar(pol:Boolean) {
+		polar = pol
+	}
+
+	override def isPolar = polar
 
 	override def setPlotMaxX(x:Double) {
 		if(GLibUtilities.isValidCoordinate(x) && x>minX)

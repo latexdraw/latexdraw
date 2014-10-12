@@ -50,7 +50,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
 class LShapeFactory extends IShapeFactory {
 	/** The map that maps types to creation operations. */
 	val factoryMap: Map[Class[_], () => IShape] = Map(
-			  (classOf[IPlot], () => createPlot(true, createPoint, 1.0, 10.0, "x")),
+			  (classOf[IPlot], () => createPlot(true, createPoint, 1.0, 10.0, "x", false)),
 			  (classOf[ICircleArc], () => createCircleArc(true)),
 			  (classOf[LCircleArc], () => createCircleArc(true)),
 			  (classOf[ICircle], () => createCircle(true)),
@@ -101,7 +101,7 @@ class LShapeFactory extends IShapeFactory {
 		return gp
 	}
 
-	override def createPlot(isUniqueID : Boolean, pos : IPoint, minX:Double, maxX:Double, eq:String) : IPlot = new LPlot(isUniqueID, pos, minX, maxX, eq)
+	override def createPlot(isUniqueID:Boolean, pos:IPoint, minX:Double, maxX:Double, eq:String, polar:Boolean) : IPlot = new LPlot(isUniqueID, pos, minX, maxX, eq, polar)
 
 	override def createPoint(pt:Point2D):IPoint = if(pt==null) createPoint else createPoint(pt.getX, pt.getY)
 

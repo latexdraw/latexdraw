@@ -86,6 +86,24 @@ private[impl] class LGroup(uniqueID : Boolean) extends LShape(uniqueID)
 		return shapes.exists{_.isTypeOf(clazz)}
 	}
 
+	override def setPlotPolarList(values:List[java.lang.Boolean]) = {
+		if(values!=null && values.size==shapes.size)
+			for(i <- 0 until values.size)
+				shapes.get(i) match {
+          case prop: IPlotProp => prop.setPolar(values.get(i))
+          case _ =>
+        }
+	}
+
+	override def getPlotPolarList: List[java.lang.Boolean] = {
+		val list = new ArrayList[java.lang.Boolean]()
+		shapes.foreach{
+				case sh : IPlotProp => list.add(sh.isPolar)
+				case _ => list.add(false)
+		}
+		return list
+	}
+
 	override def setYScaleList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
