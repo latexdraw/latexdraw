@@ -1,5 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 
@@ -14,6 +16,7 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MCheckBox;
+import org.malai.swing.widget.MComboBox;
 import org.malai.swing.widget.MSpinner;
 
 /**
@@ -41,6 +44,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 	MSpinner xScaleSpinner;
 	MSpinner yScaleSpinner;
 	MCheckBox polarCB;
+	MComboBox<IPlotProp.PlotStyle> plotStyleCB;
 
 	/**
 	 * Creates the instrument.
@@ -63,6 +67,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 			xScaleSpinner.setValueSafely(shape.getXScale());
 			yScaleSpinner.setValueSafely(shape.getYScale());
 			polarCB.setSelected(shape.isPolar());
+			plotStyleCB.setSelectedItemSafely(shape.getPlotStyle().toString());
 			setActivated(true);
 		}
 		else setActivated(false);
@@ -76,6 +81,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 		composer.setWidgetVisible(xScaleSpinner, visible);
 		composer.setWidgetVisible(yScaleSpinner, visible);
 		composer.setWidgetVisible(polarCB, visible);
+		composer.setWidgetVisible(plotStyleCB, visible);
 	}
 
 	@Override
@@ -93,6 +99,9 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
         polarCB = new MCheckBox("Polar");
         polarCB.setMargin(LResources.INSET_BUTTON);
         polarCB.setToolTipText("Polar or cartesian coordinates.");
+        plotStyleCB = new MComboBox<>(IPlotProp.PlotStyle.values(), null);
+		plotStyleCB.setPreferredSize(new Dimension(110, 30));
+		plotStyleCB.setMaximumSize(new Dimension(110, 30));
 	}
 
 	@Override
@@ -102,6 +111,8 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 			addInteractor(new Spinner2SelectionPlot(this));
 			addInteractor(new CheckBox2PencilPlot(this));
 			addInteractor(new CheckBox2SelectionPlot(this));
+			addInteractor(new Combobox2CustomPencilPlot(this));
+			addInteractor(new Combobox2CustomSelectionPlot(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -124,6 +135,9 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 
 	/** @return The widget that permits to change kind of coordinates. */
 	public MCheckBox getPolarCB() { return polarCB; }
+
+	/** @return The widget to set the style of the plot. */
+	public MComboBox<IPlotProp.PlotStyle> getPlotStyleCB() { return plotStyleCB; }
 
 	private abstract static class SpinnerForPlotCust<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapePlotCustomiser> {
 		protected SpinnerForPlotCust(final ShapePlotCustomiser instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
@@ -224,6 +238,42 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 		@Override
 		public boolean isConditionRespected() {
 			return interaction.getCheckBox()==instrument.polarCB && instrument.hand.isActivated();
+		}
+	}
+
+	private static class Combobox2CustomPencilPlot extends ListForCustomiser<ModifyPencilParameter, ShapePlotCustomiser> {
+		Combobox2CustomPencilPlot(final ShapePlotCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class);
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.PLOT_STYLE);
+			action.setValue(interaction.getList().getSelectedObjects()[0]);
+			action.setPencil(instrument.pencil);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated() && instrument.plotStyleCB==interaction.getList();
+		}
+	}
+
+	private static class Combobox2CustomSelectionPlot extends ListForCustomiser<ModifyShapeProperty, ShapePlotCustomiser> {
+		Combobox2CustomSelectionPlot(final ShapePlotCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class);
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.PLOT_STYLE);
+			action.setValue(interaction.getList().getSelectedObjects()[0]);
+			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated() && instrument.plotStyleCB==interaction.getList();
 		}
 	}
 }

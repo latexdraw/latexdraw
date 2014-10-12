@@ -10,6 +10,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
+import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
@@ -217,6 +218,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case Y_SCALE: pencil.groupParams().setYScale((Double)value); break;
 			case PLOT_EQ: pencil.groupParams().setPlotEquation((String)value); break;
 			case PLOT_POLAR: pencil.groupParams().setPolar((Boolean)value); break;
+			case PLOT_STYLE: pencil.groupParams().setPlotStyle((IPlotProp.PlotStyle)value); break;
 		}
 	}
 }

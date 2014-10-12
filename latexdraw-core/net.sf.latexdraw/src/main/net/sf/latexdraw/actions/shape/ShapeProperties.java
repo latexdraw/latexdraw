@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
@@ -38,7 +39,16 @@ import net.sf.latexdraw.lang.LangTool;
  * @since 3.0
  */
 public enum ShapeProperties {
-	/** The number of plotted points. **/
+	/** Plot style. **/
+	PLOT_STYLE {
+		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPlotStyle((IPlotProp.PlotStyle)value);}
+		@SuppressWarnings("unchecked")
+		@Override public void setPropertyValueList(final IGroup group, final List<?> values) { if(group!=null) group.setPlotStyleList((List<IPlotProp.PlotStyle>)values);}
+		@Override public List<?> getPropertyValues(final IGroup group) { return group==null ? Collections.<IPlotProp.PlotStyle>emptyList() : group.getPlotStyleList();}
+		@Override public String getMessage() { return "plot's parameters"; }
+		@Override public boolean isValueValid(final Object obj) { return obj instanceof IPlotProp.PlotStyle; }
+	},
+	/** Polar or cartesian coordinates. **/
 	PLOT_POLAR {
 		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPolar((Boolean)value);}
 		@SuppressWarnings("unchecked")
@@ -47,7 +57,7 @@ public enum ShapeProperties {
 		@Override public String getMessage() { return "plot's parameters"; }
 		@Override public boolean isValueValid(final Object obj) { return obj instanceof Boolean; }
 	},
-	/** The number of plotted points. **/
+	/** The equation of plots. **/
 	PLOT_EQ {
 		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPlotEquation((String)value);}
 		@SuppressWarnings("unchecked")
