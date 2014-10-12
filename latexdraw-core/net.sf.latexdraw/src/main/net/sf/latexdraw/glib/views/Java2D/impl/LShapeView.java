@@ -748,7 +748,6 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 	@Override
 	public void flush() {
-		shape = null;
 		path = null;
 		border = null;
 

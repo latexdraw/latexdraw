@@ -31,10 +31,10 @@ package net.sf.latexdraw.glib.views;
  */
 public abstract class CreateViewCmd<M, V, F extends CreateViewCmd<M,V,F>> {
 	/** The next command. */
-	protected F next;
+	protected final F next;
 
 	/** The type of the model supported by the command. */
-	protected Class<? extends M> clazz;
+	protected final Class<? extends M> clazz;
 
 	/**
 	 * Creates the command.
