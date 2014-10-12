@@ -125,7 +125,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.A
 		var pictureSWPt : IPoint, var pictureNEPt : IPoint, var tokenPosition : String, var plotStyle : String, var plotPoints : Int,
 		var addfillstyle : IShape.FillingStyle, var liftpen : Int, var isPsCustom : Boolean, var textPosition : String,
 		var rputAngle : Double, var parsedTxtNoTxt:Boolean, var currFontShape:FontShapeVal, var currFontSerie:FontSerieVal,
-		var currFontFamily:FontFamilyVal, val psCustomLatestPt : IPoint, var opacity:Double, var strokeopacity:Double) {
+		var currFontFamily:FontFamilyVal, val psCustomLatestPt : IPoint, var opacity:Double, var strokeopacity:Double, var polarPlot:Boolean) {
 
 	/** Text text parsed in the current context. */
 	var textParsed : String = ""
@@ -161,7 +161,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.A
 			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
 			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, ShapeFactory.createPoint,
 			ShapeFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0, true,
-			fontShape.normal, fontSerie.normal, fontFamily.rm, ShapeFactory.createPoint, 1.0, 1.0)
+			fontShape.normal, fontSerie.normal, fontFamily.rm, ShapeFactory.createPoint, 1.0, 1.0, false)
 	}
 
 
@@ -184,7 +184,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.A
 			  model.xUnit, model.yUnit, model.textColor, model.shadow, model.gridlabelcolor, model.isCentered, ShapeFactory.createPoint(model.pictureSWPt),
 			  ShapeFactory.createPoint(model.pictureNEPt), model.tokenPosition, model.plotStyle, model.plotPoints, model.fillStyle, model.liftpen, psCustom,
 			  model.textPosition, model.rputAngle, model.parsedTxtNoTxt, model.currFontShape, model.currFontSerie, model.currFontFamily,
-			  ShapeFactory.createPoint(model.psCustomLatestPt), model.opacity, model.strokeopacity)
+			  ShapeFactory.createPoint(model.psCustomLatestPt), model.opacity, model.strokeopacity, model.polarPlot)
 
 			  if(model.currFontShape!=fontShape.normal) textParsed += model.currFontShape.equivCmd
 			  if(model.currFontSerie!=fontSerie.normal) textParsed += model.currFontSerie.equivCmd
@@ -270,6 +270,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.A
 				case "rbracketlength" => arrowrBrLgth
 				case "arrowscale" => arrowScale
 				case "liftpen" => liftpen
+				case "polarplot" => polarPlot
 				case _ => PSTParser.errorLogs += "Parameter unknown: " + name
 			}
 	}
@@ -361,6 +362,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.A
 				case "tbarsize" if value.isInstanceOf[(_, _)] => arrowTBar = value.asInstanceOf[(Double, Double)]
 				case "dash" if value.isInstanceOf[(_, _)] => dash = value.asInstanceOf[(Double, Double)]
 				case "curvature" if value.isInstanceOf[(_, _, _)] => curvature = value.asInstanceOf[(Double, Double, Double)]
+				case "polarplot" if value.isInstanceOf[Boolean] => polarPlot = value.asInstanceOf[Boolean]
 				case _ => PSTParser.errorLogs += "[PSTContext.setParam] Parameter unknown: " + name + " " + value
 			}
 	}

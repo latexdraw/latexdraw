@@ -67,6 +67,7 @@ trait PSTPlotParser extends PSTAbstractParser with PSTParamParser with PSTBracke
 		plot.setPlotStyle(IPlotProp.PlotStyle.getPlotStyle(ctx.plotStyle))
 		plot.setXScale(ctx.xUnit)
 		plot.setYScale(ctx.yUnit)
+		plot.setPolar(ctx.polarPlot)
 		if(cmdName.endsWith("*")) setShapeForStar(plot)
 		checkTextParsed(ctx) ::: List(plot)
 	}
