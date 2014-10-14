@@ -106,9 +106,6 @@ public class PreferencesFrame extends MFrame {
   		pRecent.add(prefSetter.getNbRecentFilesField().getLabel());
   		pRecent.add(prefSetter.getNbRecentFilesField());
 
-  		pTheme.add(prefSetter.getThemeList().getLabel());
-  		pTheme.add(prefSetter.getThemeList());
-
   		pLang.add(new JLabel(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.lge"))); //$NON-NLS-1$
   		pLang.add(prefSetter.getLangList());
 

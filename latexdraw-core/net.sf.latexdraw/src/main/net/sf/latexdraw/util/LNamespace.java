@@ -87,7 +87,6 @@ public final class LNamespace {
 	public static final String XML_RECENT_FILES 		= "recentFiles";		//$NON-NLS-1$
 	public static final String XML_NB_RECENT_FILES 		= "nb";					//$NON-NLS-1$
 	public static final String XML_RECENT_FILE 			= "recentFile";			//$NON-NLS-1$
-	public static final String XML_LAF 					= "laf";				//$NON-NLS-1$
 	public static final String XML_PATH_TYPE			= "pathType";			//$NON-NLS-1$
 	public static final String XML_INTERVAL				= "interval";			//$NON-NLS-1$
 	public static final String XML_STYLE				= "style";				//$NON-NLS-1$

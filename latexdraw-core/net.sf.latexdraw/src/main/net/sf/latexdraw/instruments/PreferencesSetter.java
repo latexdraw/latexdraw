@@ -17,7 +17,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -38,7 +37,6 @@ import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LSystem;
-import net.sf.latexdraw.util.Theme;
 import net.sf.latexdraw.util.VersionChecker;
 
 import org.malai.instrument.Instrument;
@@ -119,9 +117,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	/** Allows to set the unit of length by default. */
 	protected MComboBox<String> unitChoice;
 
-	/** The list that contains the supported theme. */
-	protected MComboBox<String> themeList;
-
 	/** The list that contains the supported languages. */
 	protected MComboBox<String> langList;
 
@@ -198,21 +193,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		nbRecentFilesField.setEditor(new JSpinner.NumberEditor(nbRecentFilesField, "0"));//$NON-NLS-1$
   		nbRecentFilesField.setMaximumSize(new Dimension(60, height));
 
-  		final UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
-  		final String[] nameThemes = new String[info.length];
-  		final String lnf = Theme.lookAndFeel();
-  		String nameLnf = null;
-
-  		for(int i=0; i<info.length;i++) {
-  			nameThemes[i] = info[i].getName();
-  			if(info[i].getClassName().equals(lnf))
-  				nameLnf = nameThemes[i];
-  		}
-
-  		themeList = new MComboBox<>(nameThemes, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1"))); //$NON-NLS-1$
-  		themeList.setMaximumSize(new Dimension(160, height));
-  		if(nameLnf!=null)
-  			themeList.setSelectedItem(nameLnf);
+		//LangTool.INSTANCE.getString19("PreferencesFrame.1"))); //FIXME clean
 
   		classicGridRB  		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.4")); //$NON-NLS-1$
   		classicGridRB.setSelected(false);
@@ -390,13 +371,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	}
 
 	/**
-	 * @return The list that contains the supported theme.
-	 */
-	public MComboBox<String> getThemeList() {
-		return themeList;
-	}
-
-	/**
 	 * @return The list that contains the supported languages.
 	 */
 	public MComboBox<String> getLangList() {
@@ -468,24 +442,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		node = prefMap.get(LNamespace.XML_GRID_GAP);
 		if(node!=null) persoGridGapField.setValueSafely(Integer.valueOf(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_LAF);
-		if(node!=null) {
-			final String nodeText = node.getTextContent();
-			final int count = themeList.getItemCount();
-			int j=0;
-			boolean again = true;
-
-			while(j<count && again)
-				if(themeList.getItemAt(j).equals(nodeText))
-					again = false;
-				else
-					j++;
-
-			if(again)
-				 themeList.setSelectedItem(UIManager.getCrossPlatformLookAndFeelClassName());
-			else themeList.setSelectedIndex(j);
-		}
 
 		node = prefMap.get(LNamespace.XML_LANG);
 		if(node!=null) langList.setSelectedItemSafely(node.getTextContent());
@@ -718,10 +674,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		            elt2.setTextContent(recentFile);
 		            elt.appendChild(elt2);
 		        }
-
-		        elt = document.createElement(LNamespace.XML_LAF);
-		        elt.setTextContent(themeList.getSelectedItem().toString());
-		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_MAXIMISED);
 		        elt.setTextContent(String.valueOf(frame.getExtendedState()==Frame.MAXIMIZED_BOTH));
