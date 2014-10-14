@@ -56,7 +56,7 @@ public class RotationHandler extends Handler<Path2D, IShape> {
 
 	@Override
 	public void paint(final Graphics2D g) {
-		g.setColor(colour);
+		g.setColor(colour.toAWT());
 		g.setStroke(STROKE);
 		g.draw(shape);
 	}

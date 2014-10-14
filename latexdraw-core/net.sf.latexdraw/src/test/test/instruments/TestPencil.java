@@ -2,7 +2,6 @@ package test.instruments;
 
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 import net.sf.latexdraw.actions.shape.AddShape;
@@ -21,6 +20,7 @@ import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.glib.ui.LMagneticGrid;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.instruments.EditionChoice;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.TextSetter;
@@ -157,21 +157,21 @@ public class TestPencil extends TestInstrument<Pencil> {
 
 	public void changePencilShapeAttributes() {
 		instrument.setActivated(true);
-		instrument._groupParams().setLineColour(Color.BLUE);
+		instrument._groupParams().setLineColour(DviPsColors.BLUE);
 		instrument._groupParams().setThickness(13.);
 		instrument._groupParams().setBordersPosition(BorderPos.OUT);
 		instrument._groupParams().setDotStyle(DotStyle.BAR);
 		instrument._groupParams().setDiametre(24.);
 		instrument._groupParams().setHasDbleBord(true);
-		instrument._groupParams().setDbleBordCol(Color.CYAN);
+		instrument._groupParams().setDbleBordCol(DviPsColors.CYAN);
 		instrument._groupParams().setHasShadow(true);
-		instrument._groupParams().setFillingCol(Color.MAGENTA);
+		instrument._groupParams().setFillingCol(DviPsColors.MAGENTA);
 		instrument._groupParams().setFillingStyle(FillingStyle.GRAD);
-		instrument._groupParams().setGradColEnd(Color.RED);
-		instrument._groupParams().setGradColStart(Color.YELLOW);
-		instrument._groupParams().setHatchingsCol(Color.GRAY);
+		instrument._groupParams().setGradColEnd(DviPsColors.RED);
+		instrument._groupParams().setGradColStart(DviPsColors.YELLOW);
+		instrument._groupParams().setHatchingsCol(DviPsColors.GRAY);
 		instrument._groupParams().setLineStyle(LineStyle.DOTTED);
-		instrument._groupParams().setShadowCol(Color.GREEN);
+		instrument._groupParams().setShadowCol(DviPsColors.GREEN);
 	}
 
 

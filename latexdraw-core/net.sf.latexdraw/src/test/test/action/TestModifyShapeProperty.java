@@ -6,21 +6,29 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Color;
 import java.lang.reflect.Field;
 
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
-import net.sf.latexdraw.glib.models.interfaces.shape.*;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Before;
 
@@ -801,35 +809,35 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		g.addShape(d1);
 		g.addShape(rec);
 		g.addShape(d2);
-		d1.setDotFillingCol(Color.RED);
-		d2.setDotFillingCol(Color.GREEN);
-		rec.setFillingCol(Color.CYAN);
+		d1.setDotFillingCol(DviPsColors.RED);
+		d2.setDotFillingCol(DviPsColors.GREEN);
+		rec.setFillingCol(DviPsColors.CYAN);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.DOT_FILLING_COL);
-		action.setValue(Color.GRAY);
+		action.setValue(DviPsColors.GRAY);
 		assertTrue(action.doIt());
 
-		assertEquals(Color.GRAY, d1.getDotFillingCol());
-		assertEquals(Color.GRAY, d2.getDotFillingCol());
-		assertEquals(Color.CYAN, rec.getFillingCol());
+		assertEquals(DviPsColors.GRAY, d1.getDotFillingCol());
+		assertEquals(DviPsColors.GRAY, d2.getDotFillingCol());
+		assertEquals(DviPsColors.CYAN, rec.getFillingCol());
 	}
 
 
 	public void testUndoFillingDotCol() {
 		testDoFillingDotCol();
 		action.undo();
-		assertEquals(Color.RED, ((IDot)g.getShapeAt(0)).getDotFillingCol());
-		assertEquals(Color.CYAN, g.getShapeAt(1).getFillingCol());
-		assertEquals(Color.GREEN, ((IDot)g.getShapeAt(2)).getDotFillingCol());
+		assertEquals(DviPsColors.RED, ((IDot)g.getShapeAt(0)).getDotFillingCol());
+		assertEquals(DviPsColors.CYAN, g.getShapeAt(1).getFillingCol());
+		assertEquals(DviPsColors.GREEN, ((IDot)g.getShapeAt(2)).getDotFillingCol());
 	}
 
 
 	public void testRedoFillingDotCol() {
 		testUndoFillingDotCol();
 		action.redo();
-		assertEquals(Color.GRAY, ((IDot)g.getShapeAt(0)).getDotFillingCol());
-		assertEquals(Color.CYAN, g.getShapeAt(1).getFillingCol());
-		assertEquals(Color.GRAY, ((IDot)g.getShapeAt(2)).getDotFillingCol());
+		assertEquals(DviPsColors.GRAY, ((IDot)g.getShapeAt(0)).getDotFillingCol());
+		assertEquals(DviPsColors.CYAN, g.getShapeAt(1).getFillingCol());
+		assertEquals(DviPsColors.GRAY, ((IDot)g.getShapeAt(2)).getDotFillingCol());
 	}
 
 
@@ -840,31 +848,31 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
-		rec1.setGradColStart(Color.RED);
-		rec2.setGradColStart(Color.GREEN);
+		rec1.setGradColStart(DviPsColors.RED);
+		rec2.setGradColStart(DviPsColors.GREEN);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.COLOUR_GRADIENT_START);
-		action.setValue(Color.GRAY);
+		action.setValue(DviPsColors.GRAY);
 		assertTrue(action.doIt());
 
-		assertEquals(Color.GRAY, rec1.getGradColStart());
-		assertEquals(Color.GRAY, rec2.getGradColStart());
+		assertEquals(DviPsColors.GRAY, rec1.getGradColStart());
+		assertEquals(DviPsColors.GRAY, rec2.getGradColStart());
 	}
 
 
 	public void testUndoStartGradCol() {
 		testDoStartGradCol();
 		action.undo();
-		assertEquals(Color.RED, g.getShapeAt(0).getGradColStart());
-		assertEquals(Color.GREEN, g.getShapeAt(2).getGradColStart());
+		assertEquals(DviPsColors.RED, g.getShapeAt(0).getGradColStart());
+		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getGradColStart());
 	}
 
 
 	public void testRedoStartGradCol() {
 		testUndoStartGradCol();
 		action.redo();
-		assertEquals(Color.GRAY, g.getShapeAt(0).getGradColStart());
-		assertEquals(Color.GRAY, g.getShapeAt(2).getGradColStart());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getGradColStart());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getGradColStart());
 	}
 
 
@@ -875,31 +883,31 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
-		rec1.setGradColEnd(Color.RED);
-		rec2.setGradColEnd(Color.GREEN);
+		rec1.setGradColEnd(DviPsColors.RED);
+		rec2.setGradColEnd(DviPsColors.GREEN);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.COLOUR_GRADIENT_END);
-		action.setValue(Color.GRAY);
+		action.setValue(DviPsColors.GRAY);
 		assertTrue(action.doIt());
 
-		assertEquals(Color.GRAY, rec1.getGradColEnd());
-		assertEquals(Color.GRAY, rec2.getGradColEnd());
+		assertEquals(DviPsColors.GRAY, rec1.getGradColEnd());
+		assertEquals(DviPsColors.GRAY, rec2.getGradColEnd());
 	}
 
 
 	public void testUndoEndGradCol() {
 		testDoEndGradCol();
 		action.undo();
-		assertEquals(Color.RED, g.getShapeAt(0).getGradColEnd());
-		assertEquals(Color.GREEN, g.getShapeAt(2).getGradColEnd());
+		assertEquals(DviPsColors.RED, g.getShapeAt(0).getGradColEnd());
+		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getGradColEnd());
 	}
 
 
 	public void testRedoEndGradCol() {
 		testUndoEndGradCol();
 		action.redo();
-		assertEquals(Color.GRAY, g.getShapeAt(0).getGradColEnd());
-		assertEquals(Color.GRAY, g.getShapeAt(2).getGradColEnd());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getGradColEnd());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getGradColEnd());
 	}
 
 
@@ -910,31 +918,31 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
-		rec1.setShadowCol(Color.RED);
-		rec2.setShadowCol(Color.GREEN);
+		rec1.setShadowCol(DviPsColors.RED);
+		rec2.setShadowCol(DviPsColors.GREEN);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.COLOUR_SHADOW);
-		action.setValue(Color.GRAY);
+		action.setValue(DviPsColors.GRAY);
 		assertTrue(action.doIt());
 
-		assertEquals(Color.GRAY, rec1.getShadowCol());
-		assertEquals(Color.GRAY, rec2.getShadowCol());
+		assertEquals(DviPsColors.GRAY, rec1.getShadowCol());
+		assertEquals(DviPsColors.GRAY, rec2.getShadowCol());
 	}
 
 
 	public void testUndoShadowCol() {
 		testDoShadowCol();
 		action.undo();
-		assertEquals(Color.RED, g.getShapeAt(0).getShadowCol());
-		assertEquals(Color.GREEN, g.getShapeAt(2).getShadowCol());
+		assertEquals(DviPsColors.RED, g.getShapeAt(0).getShadowCol());
+		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getShadowCol());
 	}
 
 
 	public void testRedoShadowCol() {
 		testUndoShadowCol();
 		action.redo();
-		assertEquals(Color.GRAY, g.getShapeAt(0).getShadowCol());
-		assertEquals(Color.GRAY, g.getShapeAt(2).getShadowCol());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getShadowCol());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getShadowCol());
 	}
 
 
@@ -945,31 +953,31 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
-		rec1.setDbleBordCol(Color.RED);
-		rec2.setDbleBordCol(Color.GREEN);
+		rec1.setDbleBordCol(DviPsColors.RED);
+		rec2.setDbleBordCol(DviPsColors.GREEN);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.COLOUR_DBLE_BORD);
-		action.setValue(Color.GRAY);
+		action.setValue(DviPsColors.GRAY);
 		assertTrue(action.doIt());
 
-		assertEquals(Color.GRAY, rec1.getDbleBordCol());
-		assertEquals(Color.GRAY, rec2.getDbleBordCol());
+		assertEquals(DviPsColors.GRAY, rec1.getDbleBordCol());
+		assertEquals(DviPsColors.GRAY, rec2.getDbleBordCol());
 	}
 
 
 	public void testUndoDbleBordCol() {
 		testDoDbleBordCol();
 		action.undo();
-		assertEquals(Color.RED, g.getShapeAt(0).getDbleBordCol());
-		assertEquals(Color.GREEN, g.getShapeAt(2).getDbleBordCol());
+		assertEquals(DviPsColors.RED, g.getShapeAt(0).getDbleBordCol());
+		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getDbleBordCol());
 	}
 
 
 	public void testRedoDbleBordCol() {
 		testUndoDbleBordCol();
 		action.redo();
-		assertEquals(Color.GRAY, g.getShapeAt(0).getDbleBordCol());
-		assertEquals(Color.GRAY, g.getShapeAt(2).getDbleBordCol());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getDbleBordCol());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getDbleBordCol());
 	}
 
 
@@ -980,31 +988,31 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
-		rec1.setHatchingsCol(Color.RED);
-		rec2.setHatchingsCol(Color.GREEN);
+		rec1.setHatchingsCol(DviPsColors.RED);
+		rec2.setHatchingsCol(DviPsColors.GREEN);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.COLOUR_HATCHINGS);
-		action.setValue(Color.GRAY);
+		action.setValue(DviPsColors.GRAY);
 		assertTrue(action.doIt());
 
-		assertEquals(Color.GRAY, rec1.getHatchingsCol());
-		assertEquals(Color.GRAY, rec2.getHatchingsCol());
+		assertEquals(DviPsColors.GRAY, rec1.getHatchingsCol());
+		assertEquals(DviPsColors.GRAY, rec2.getHatchingsCol());
 	}
 
 
 	public void testUndoHatchingsCol() {
 		testDoHatchingsCol();
 		action.undo();
-		assertEquals(Color.RED, g.getShapeAt(0).getHatchingsCol());
-		assertEquals(Color.GREEN, g.getShapeAt(2).getHatchingsCol());
+		assertEquals(DviPsColors.RED, g.getShapeAt(0).getHatchingsCol());
+		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getHatchingsCol());
 	}
 
 
 	public void testRedoHatchingsCol() {
 		testUndoHatchingsCol();
 		action.redo();
-		assertEquals(Color.GRAY, g.getShapeAt(0).getHatchingsCol());
-		assertEquals(Color.GRAY, g.getShapeAt(2).getHatchingsCol());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getHatchingsCol());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getHatchingsCol());
 	}
 
 
@@ -1015,31 +1023,31 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
-		rec1.setFillingCol(Color.RED);
-		rec2.setFillingCol(Color.GREEN);
+		rec1.setFillingCol(DviPsColors.RED);
+		rec2.setFillingCol(DviPsColors.GREEN);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.COLOUR_FILLING);
-		action.setValue(Color.GRAY);
+		action.setValue(DviPsColors.GRAY);
 		assertTrue(action.doIt());
 
-		assertEquals(Color.GRAY, rec1.getFillingCol());
-		assertEquals(Color.GRAY, rec2.getFillingCol());
+		assertEquals(DviPsColors.GRAY, rec1.getFillingCol());
+		assertEquals(DviPsColors.GRAY, rec2.getFillingCol());
 	}
 
 
 	public void testUndoFillingCol() {
 		testDoFillingCol();
 		action.undo();
-		assertEquals(Color.RED, g.getShapeAt(0).getFillingCol());
-		assertEquals(Color.GREEN, g.getShapeAt(2).getFillingCol());
+		assertEquals(DviPsColors.RED, g.getShapeAt(0).getFillingCol());
+		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getFillingCol());
 	}
 
 
 	public void testRedoFillingCol() {
 		testUndoFillingCol();
 		action.redo();
-		assertEquals(Color.GRAY, g.getShapeAt(0).getFillingCol());
-		assertEquals(Color.GRAY, g.getShapeAt(2).getFillingCol());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getFillingCol());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getFillingCol());
 	}
 
 
@@ -1505,35 +1513,35 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		g.addShape(rec1);
 		g.addShape(dot);
 		g.addShape(rec2);
-		rec1.setLineColour(Color.RED);
-		rec2.setLineColour(Color.GREEN);
-		dot.setLineColour(Color.YELLOW);
+		rec1.setLineColour(DviPsColors.RED);
+		rec2.setLineColour(DviPsColors.GREEN);
+		dot.setLineColour(DviPsColors.YELLOW);
 		action.setGroup(g);
 		action.setProperty(ShapeProperties.COLOUR_LINE);
-		action.setValue(Color.GRAY);
+		action.setValue(DviPsColors.GRAY);
 		assertTrue(action.doIt());
 
-		assertEquals(Color.GRAY, rec1.getLineColour());
-		assertEquals(Color.GRAY, rec2.getLineColour());
-		assertEquals(Color.GRAY, dot.getLineColour());
+		assertEquals(DviPsColors.GRAY, rec1.getLineColour());
+		assertEquals(DviPsColors.GRAY, rec2.getLineColour());
+		assertEquals(DviPsColors.GRAY, dot.getLineColour());
 	}
 
 
 	public void testUndoLineColour() {
 		testDoLineColour();
 		action.undo();
-		assertEquals(Color.RED, g.getShapeAt(0).getLineColour());
-		assertEquals(Color.YELLOW, g.getShapeAt(1).getLineColour());
-		assertEquals(Color.GREEN, g.getShapeAt(2).getLineColour());
+		assertEquals(DviPsColors.RED, g.getShapeAt(0).getLineColour());
+		assertEquals(DviPsColors.YELLOW, g.getShapeAt(1).getLineColour());
+		assertEquals(DviPsColors.GREEN, g.getShapeAt(2).getLineColour());
 	}
 
 
 	public void testRedoLineColour() {
 		testUndoLineColour();
 		action.redo();
-		assertEquals(Color.GRAY, g.getShapeAt(0).getLineColour());
-		assertEquals(Color.GRAY, g.getShapeAt(1).getLineColour());
-		assertEquals(Color.GRAY, g.getShapeAt(2).getLineColour());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(0).getLineColour());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(1).getLineColour());
+		assertEquals(DviPsColors.GRAY, g.getShapeAt(2).getLineColour());
 	}
 
 

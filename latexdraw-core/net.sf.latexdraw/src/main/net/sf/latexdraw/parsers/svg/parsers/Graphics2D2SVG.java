@@ -1,7 +1,20 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Composite;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.Image;
+import java.awt.Paint;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.RenderingHints.Key;
+import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
@@ -17,6 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
@@ -95,7 +109,7 @@ public class Graphics2D2SVG extends Graphics2D {
 		if(draw)
 			setShapeStroke(elt);
 		if(fill)
-			elt.setFill(currentColour);
+			elt.setFill(ShapeFactory.createColorInt(currentColour.getRed(), currentColour.getGreen(), currentColour.getBlue()));
 			// TODO gradient, etc.
 		if(currentTransforms!=null && !currentTransforms.isEmpty())
 			elt.setAttribute(SVGAttributes.SVG_TRANSFORM, currentTransforms.toString());
@@ -117,7 +131,7 @@ public class Graphics2D2SVG extends Graphics2D {
 			elt.setStrokeMiterLevel(bs.getMiterLimit());
 			elt.setStrokeDashOffset(bs.getDashPhase());
 			setShapeDash(elt, bs.getDashArray());
-			elt.setStroke(currentColour);
+			elt.setStroke(ShapeFactory.createColorInt(currentColour.getRed(), currentColour.getGreen(), currentColour.getBlue()));
 		}
 	}
 

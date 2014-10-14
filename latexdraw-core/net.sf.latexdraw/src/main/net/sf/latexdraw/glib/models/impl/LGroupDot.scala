@@ -1,11 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
-import java.awt.Color
-
 import scala.collection.JavaConversions.asScalaBuffer
-
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
  * This trait encapsulates the code of the group related to the support of dot shapes.<br>
@@ -34,7 +33,7 @@ private[impl] trait LGroupDot extends IGroup {
 	override def getDotFillingCol: Color = {
 		firstDottable match {
 			case Some(dot) => dot.getDotFillingCol
-			case _ => Color.BLACK
+			case _ => DviPsColors.BLACK
 		}
 	}
 

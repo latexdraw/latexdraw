@@ -1,9 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
-import java.awt.Color
 import scala.collection.JavaConversions.asScalaBuffer
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
  * This trait encapsulates the code of the group related to the support of grids.<br>
@@ -69,7 +70,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	override def getGridLabelsColour: Color = {
 		firstIGrid match {
 			case Some(grid) => grid.getGridLabelsColour
-			case _ => Color.BLACK
+			case _ => DviPsColors.BLACK
 		}
 	}
 
@@ -95,7 +96,7 @@ private[impl] trait LGroupGrid extends IGroup {
 	override def getSubGridColour: Color = {
 		firstIGrid match {
 			case Some(grid) => grid.getSubGridColour
-			case _ => Color.BLACK
+			case _ => DviPsColors.BLACK
 		}
 	}
 

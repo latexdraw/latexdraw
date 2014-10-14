@@ -61,7 +61,7 @@ abstract class LArcView<M extends IArc> extends LRectangularView<IArc> implement
 			final IPoint p1 = shape.getStartPoint();
 			final IPoint p2 = shape.getEndPoint();
 
-			g.setColor(shape.getLineColour());
+			g.setColor(shape.getLineColour().toAWT());
 			g.setStroke(new BasicStroke((float)(shape.getThickness()/2.), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f,
 						new float[]{(float)shape.getDashSepBlack(), (float)shape.getDashSepWhite()}, 0));
 			g.draw(new Line2D.Double(p1.getX(), p1.getY(), gc.getX(), gc.getY()));

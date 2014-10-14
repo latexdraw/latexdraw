@@ -28,6 +28,8 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ISquare
 import net.sf.latexdraw.glib.models.interfaces.shape.IText
 import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import java.util.Objects
 
 /**
  * This factory creates shapes.<br>
@@ -100,6 +102,31 @@ class LShapeFactory extends IShapeFactory {
 		if(sh!=null) gp.addShape(sh)
 		return gp
 	}
+	
+	override def createColorFX(col:javafx.scene.paint.Color):Color = {
+	  require(col!=null)
+	  return createColor(col.getRed(), col.getGreen(), col.getBlue(), col.getOpacity()) 
+	}
+	
+	override def createColorAWT(col:java.awt.Color):Color = {
+	  require(col!=null)
+	  return createColorInt(col.getRed(), col.getGreen(), col.getBlue(), col.getAlpha()) 
+	}
+	
+	override def createColorInt(r:Int, g:Int, b:Int, a:Int) : Color = createColor(r/255.0, g/255.0, b/255.0, a/255.0)
+	
+	override def createColorInt(r:Int, g:Int, b:Int) : Color = createColorInt(r, g, b, 255)
+	
+	override def createColorHSB(h:Double, s:Double, b:Double):Color = {
+	  val col = javafx.scene.paint.Color.hsb(h, s, b)
+	  return createColor(col.getRed, col.getGreen, col.getBlue, col.getOpacity)
+	}
+	
+	override def createColor(r:Double, g:Double, b:Double, o:Double) : Color = new ColorImpl(r, g, b, o)
+	
+	override def createColor(r:Double, g:Double, b:Double) : Color = createColor(r,g,b,1.0)
+	
+	override def createColor(): Color = createColor(1.0,1.0,1.0,1.0)
 
 	override def createPlot(pos:IPoint, minX:Double, maxX:Double, eq:String, polar:Boolean) : IPlot = new LPlot(pos, minX, maxX, eq, polar)
 

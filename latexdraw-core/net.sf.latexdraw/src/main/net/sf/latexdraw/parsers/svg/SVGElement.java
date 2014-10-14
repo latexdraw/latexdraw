@@ -1,6 +1,6 @@
 package net.sf.latexdraw.parsers.svg;
 
-import java.awt.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.text.ParseException;
 import java.util.Objects;
 

@@ -1,7 +1,7 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -221,14 +221,14 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		switch(fStyle) {
 			case NONE:
 				if(shape.hasShadow() && shape.shadowFillsShape()) {
-					g.setColor(shape.getFillingCol());
+					g.setColor(shape.getFillingCol().toAWT());
 					g.fill(path);
 				}
 
 				break;
 
 			case PLAIN:
-				g.setColor(shape.getFillingCol());
+				g.setColor(shape.getFillingCol().toAWT());
 				if(shape.hasShadow()) {
 					g.setStroke(new BasicStroke((float)getStrokeThickness()));
 					g.draw(path);
@@ -296,8 +296,8 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
                 }//if(angle!=0)
 
 				g.setPaint(new GradientPaint(
-							(float)pt1.getX(), (float)pt1.getY(), shape.getGradColStart(),
-							(float)pt2.getX(), (float)pt2.getY(), shape.getGradColEnd(),true));
+							(float)pt1.getX(), (float)pt1.getY(), shape.getGradColStart().toAWT(),
+							(float)pt2.getX(), (float)pt2.getY(), shape.getGradColEnd().toAWT(),true));
 				g.fill(p);
 				break;
 
@@ -312,7 +312,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 				g.setClip(path);
 
 				if(shape.isFilled() || shape.hasShadow() && shape.shadowFillsShape()) {
-					g.setColor(shape.getFillingCol());
+					g.setColor(shape.getFillingCol().toAWT());
 					g.fill(bounds);
 				}
 
@@ -446,9 +446,9 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	 */
 	private void paintBordersDouble(final Graphics2D g) {
 		g.setStroke(getStroke());
-		g.setColor(shape.getLineColour());
+		g.setColor(shape.getLineColour().toAWT());
 		g.draw(path);
-		g.setColor(shape.getDbleBordCol());
+		g.setColor(shape.getDbleBordCol().toAWT());
 		g.setStroke(new BasicStroke((float) shape.getDbleBordSep()));
 		g.draw(path);
 	}
@@ -461,7 +461,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 	 * @since 3.0
 	 */
 	private void paintBordersSimple(final Graphics2D g) {
-		g.setColor(shape.getLineColour());
+		g.setColor(shape.getLineColour().toAWT());
 		g.setStroke(getStroke());
 		g.draw(path);
 	}
@@ -482,7 +482,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 			g.setStroke(new BasicStroke((float) getStrokeThickness(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
 			g.translate(dx, dy);
-			g.setColor(shape.getShadowCol());
+			g.setColor(shape.getShadowCol().toAWT());
 			g.draw(path);
 
 			if(shape.isFilled() || shape.shadowFillsShape())
@@ -543,7 +543,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		final float fAngle		= (float)angle2;
 
 		g.setStroke(new BasicStroke((float)shape.getHatchingsWidth(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
-		g.setPaint(shape.getHatchingsCol());
+		g.setPaint(shape.getHatchingsCol().toAWT());
 
 		if(fAngle==0f) {
 			line.y1 	= clip.getMinY();

@@ -182,7 +182,7 @@ abstract class ColourButtonForCustomiser<A extends ShapePropertyAction, N extend
 	@Override
 	public void initAction() {
 		final MColorButton button = (MColorButton)interaction.getButton();
-		action.setValue(JColorChooser.showDialog(button, "", button.getColor())); //$NON-NLS-1$
+		action.setValue(ShapeFactory.createColorAWT(JColorChooser.showDialog(button, "", button.getColor()))); //$NON-NLS-1$
 	}
 }
 

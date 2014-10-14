@@ -1,12 +1,10 @@
 package test.svg.loadSave;
 
 import static org.junit.Assert.assertEquals;
-
-import java.awt.Color;
-
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Before;
 
@@ -75,7 +73,7 @@ public class TestLoadSaveSVGText extends TestLoadSaveSVG<IText> {
 
 	public void testStandardText() {
 		shape.setText("coucou"); //$NON-NLS-1$
-		shape.setLineColour(Color.RED);
+		shape.setLineColour(DviPsColors.RED);
 		compareShapes(generateShape());
 	}
 

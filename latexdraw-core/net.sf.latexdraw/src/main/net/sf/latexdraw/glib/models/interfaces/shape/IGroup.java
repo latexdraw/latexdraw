@@ -1,8 +1,8 @@
 package net.sf.latexdraw.glib.models.interfaces.shape;
 
-import java.awt.Color;
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;

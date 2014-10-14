@@ -1,14 +1,15 @@
 package net.sf.latexdraw.glib.models.impl;
 
-import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 /**
  * Defines a model of a dot.<br>
@@ -50,7 +51,7 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public Color getFillingCol() {
-		return isFillable() ? super.getFillingCol() : Color.BLACK;
+		return isFillable() ? super.getFillingCol() : DviPsColors.BLACK;
 	}
 
 

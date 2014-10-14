@@ -1,9 +1,8 @@
 package test.svg.loadSVGFile;
 
-import static org.junit.Assert.*;
-
-import java.awt.Color;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
@@ -40,7 +39,7 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 	@Test public void testLine() {
 		final IPolyline line = getLine();
 		assertEquals(5, line.getThickness(), 0.01);
-		assertEquals(new Color(209, 169, 169), line.getLineColour());
+		assertEquals(ShapeFactory.createColorInt(209, 169, 169), line.getLineColour());
 		assertEquals(LineStyle.DASHED, line.getLineStyle());
 	}
 
@@ -67,7 +66,7 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 	@Test public void testDbleBorder() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasDbleBord());
-		assertEquals(new Color(224, 197, 227), line.getDbleBordCol());
+		assertEquals(ShapeFactory.createColorInt(224, 197, 227), line.getDbleBordCol());
 		assertEquals(6, line.getDbleBordSep(), 0.001);
 	}
 }

@@ -1,12 +1,13 @@
 package net.sf.latexdraw.parsers.svg;
 
-import java.awt.Color;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 
 /**
  * Defines colours used in CSS2.<br>
@@ -190,146 +191,146 @@ public final class CSSColors {
     public static final String CSS_YELLOW_NAME  			= "yellow";//$NON-NLS-1$
 
 
-    public static final Color CSS_YELLOW_RGB_VALUE         	 	= new Color(255, 255, 0);
-    public static final Color CSS_RED_RGB_VALUE         	 	= new Color(255, 0, 0);
-    public static final Color CSS_TEAL_RGB_VALUE         	 	= new Color(0, 128, 128);
-    public static final Color CSS_PURPLE_RGB_VALUE         	 	= new Color(128, 0, 128);
-    public static final Color CSS_SILVER_RGB_VALUE         	 	= new Color(192, 192, 192);
-    public static final Color CSS_NAVY_RGB_VALUE         	 	= new Color(0, 0, 128);
-    public static final Color CSS_OLIVE_RGB_VALUE         	 	= new Color(128, 128, 0);
-    public static final Color CSS_LIME_RGB_VALUE         	 	= new Color(0, 255, 0);
-    public static final Color CSS_MAROON_RGB_VALUE         	 	= new Color(128, 0, 0);
-    public static final Color CSS_GRAY_RGB_VALUE         	 	= new Color(128, 128, 128);
-    public static final Color CSS_GREEN_RGB_VALUE         	 	= new Color(0, 128, 0);
-	public static final Color CSS_BLACK_RGB_VALUE         	 	= new Color(0, 0, 0);
-	public static final Color CSS_WHITE_RGB_VALUE          		= new Color(255,255,255);
-	public static final Color CSS_BLUE_RGB_VALUE          		= new Color(0, 0, 255);
-	public static final Color CSS_FUCHSIA_RGB_VALUE          	= new Color(255, 0, 255);
-    public static final Color CSS_ALICEBLUE_RGB_VALUE 			= new Color(240, 248, 255);
-    public static final Color CSS_ANTIQUEWHITE_RGB_VALUE 		= new Color(250, 235, 215);
-    public static final Color CSS_AQUA_RGB_VALUE 				= new Color(0, 255, 255);
-    public static final Color CSS_AQUAMARINE_RGB_VALUE 			= new Color(127, 255, 212);
-    public static final Color CSS_AZURE_RGB_VALUE 				= new Color(240, 255, 255);
-    public static final Color CSS_BEIGE_RGB_VALUE 				= new Color(245, 245, 220);
-    public static final Color CSS_BISQUE_RGB_VALUE 				= new Color(255, 228, 196);
-    public static final Color CSS_BLANCHEDALMOND_RGB_VALUE		= new Color(255, 235, 205);
-    public static final Color CSS_BLUEVIOLET_RGB_VALUE 			= new Color(138, 43, 226);
-    public static final Color CSS_BROWN_RGB_VALUE 				= new Color(165, 42, 42);
-    public static final Color CSS_BURLYWOOD_RGB_VALUE 			= new Color(222, 184, 135);
-    public static final Color CSS_CADETBLUE_RGB_VALUE 			= new Color(95, 158, 160);
-    public static final Color CSS_CHARTREUSE_RGB_VALUE 			= new Color(127, 255, 0);
-    public static final Color CSS_CHOCOLATE_RGB_VALUE			= new Color(210, 105, 30);
-    public static final Color CSS_CORAL_RGB_VALUE 				= new Color(255, 127, 80);
-    public static final Color CSS_CORNFLOWERBLUE_RGB_VALUE 		= new Color(100, 149, 237);
-    public static final Color CSS_CORNSILK_RGB_VALUE 			= new Color(255, 248, 220);
-    public static final Color CSS_CRIMSON_RGB_VALUE 			= new Color(220, 20, 60);
-    public static final Color CSS_CYAN_RGB_VALUE 				= new Color(0, 255, 255);
-    public static final Color CSS_DARKBLUE_RGB_VALUE 			= new Color(0, 0, 139);
-    public static final Color CSS_DARKCYAN_RGB_VALUE 			= new Color(0, 139, 139);
-    public static final Color CSS_DARKGOLDENROD_RGB_VALUE 		= new Color(184, 134, 11);
-    public static final Color CSS_DARKGRAY_RGB_VALUE 			= new Color(169, 169, 169);
-    public static final Color CSS_DARKGREEN_RGB_VALUE 			= new Color(0, 100, 0);
-    public static final Color CSS_DARKKHAKI_RGB_VALUE 			= new Color(189, 183, 107);
-    public static final Color CSS_DARKMAGENTA_RGB_VALUE 		= new Color(139, 0, 139);
-    public static final Color CSS_DARKOLIVEGREEN_RGB_VALUE 		= new Color(85, 107, 47);
-    public static final Color CSS_DARKORANGE_RGB_VALUE 			= new Color(255, 140, 0);
-    public static final Color CSS_DARKORCHID_RGB_VALUE 			= new Color(153, 50, 204);
-    public static final Color CSS_DARKRED_RGB_VALUE 			= new Color(139, 0, 0);
-    public static final Color CSS_DARKSALMON_RGB_VALUE 			= new Color(233, 150, 122);
-    public static final Color CSS_DARKSEAGREEN_RGB_VALUE 		= new Color(143, 188, 143);
-    public static final Color CSS_DARKSLATEBLUE_RGB_VALUE 		= new Color(72, 61, 139);
-    public static final Color CSS_DARKSLATEGRAY_RGB_VALUE 		= new Color(47, 79, 79);
-    public static final Color CSS_DARKTURQUOISE_RGB_VALUE 		= new Color(0, 206, 209);
-    public static final Color CSS_DARKVIOLET_RGB_VALUE 			= new Color(148, 0, 211);
-    public static final Color CSS_DEEPPINK_RGB_VALUE 			= new Color(255, 20, 147);
-    public static final Color CSS_DEEPSKYBLUE_RGB_VALUE 		= new Color(0, 191, 255);
-    public static final Color CSS_DIMGRAY_RGB_VALUE 			= new Color(105, 105, 105);
-    public static final Color CSS_DODGERBLUE_RGB_VALUE 			= new Color(30, 144, 255);
-    public static final Color CSS_FIREBRICK_RGB_VALUE 			= new Color(178, 34, 34);
-    public static final Color CSS_FLORALWHITE_RGB_VALUE 		= new Color(255, 250, 240);
-    public static final Color CSS_FORESTGREEN_RGB_VALUE 		= new Color(34, 139, 34);
-    public static final Color CSS_GAINSBORO_RGB_VALUE			= new Color(220, 200, 200);
-    public static final Color CSS_GHOSTWHITE_RGB_VALUE 			= new Color(248, 248, 255);
-    public static final Color CSS_GOLD_RGB_VALUE 				= new Color(255, 215, 0);
-    public static final Color CSS_GOLDENROD_RGB_VALUE 			= new Color(218, 165, 32);
-    public static final Color CSS_GREENYELLOW_RGB_VALUE 		= new Color(173, 255, 47);
-    public static final Color CSS_HONEYDEW_RGB_VALUE 			= new Color(240, 255, 240);
-    public static final Color CSS_HOTPINK_RGB_VALUE 			= new Color(255, 105, 180);
-    public static final Color CSS_INDIANRED_RGB_VALUE 			= new Color(205, 92, 92);
-    public static final Color CSS_INDIGO_RGB_VALUE 				= new Color(75, 0, 130);
-    public static final Color CSS_IVORY_RGB_VALUE 				= new Color(255, 255, 240);
-    public static final Color CSS_KHAKI_RGB_VALUE 				= new Color(240, 230, 140);
-    public static final Color CSS_LAVENDER_RGB_VALUE 			= new Color(230, 230, 250);
-    public static final Color CSS_LAVENDERBLUSH_RGB_VALUE 		= new Color(255, 240, 255);
-    public static final Color CSS_LAWNGREEN_RGB_VALUE 			= new Color(124, 252, 0);
-    public static final Color CSS_LEMONCHIFFON_RGB_VALUE 		= new Color(255, 250, 205);
-    public static final Color CSS_LIGHTBLUE_RGB_VALUE 			= new Color(173, 216, 230);
-    public static final Color CSS_LIGHTCORAL_RGB_VALUE 			= new Color(240, 128, 128);
-    public static final Color CSS_LIGHTCYAN_RGB_VALUE 			= new Color(224, 255, 255);
-    public static final Color CSS_LIGHTGOLDENRODYELLOW_RGB_VALUE= new Color(250, 250, 210);
-    public static final Color CSS_LIGHTGRAY_RGB_VALUE 			= new Color(211, 211, 211);
-    public static final Color CSS_LIGHTGREEN_RGB_VALUE 			= new Color(144, 238, 144);
-    public static final Color CSS_LIGHTPINK_RGB_VALUE 			= new Color(255, 182, 193);
-    public static final Color CSS_LIGHTSALMON_RGB_VALUE 		= new Color(255, 160, 122);
-    public static final Color CSS_LIGHTSEAGREEN_RGB_VALUE 		= new Color(32, 178, 170);
-    public static final Color CSS_LIGHTSKYBLUE_RGB_VALUE 		= new Color(135, 206, 250);
-    public static final Color CSS_LIGHTSLATEGRAY_RGB_VALUE 		= new Color(119, 136, 153);
-    public static final Color CSS_LIGHTSTEELBLUE_RGB_VALUE 		= new Color(176, 196, 222);
-    public static final Color CSS_LIGHTYELLOW_RGB_VALUE 		= new Color(255, 255, 224);
-    public static final Color CSS_LIMEGREEN_RGB_VALUE 			= new Color(50, 205, 50);
-    public static final Color CSS_LINEN_RGB_VALUE 				= new Color(250, 240, 230);
-    public static final Color CSS_MAGENTA_RGB_VALUE 			= new Color(255, 0, 255);
-    public static final Color CSS_MEDIUMAQUAMARINE_RGB_VALUE 	= new Color(102, 205, 170);
-    public static final Color CSS_MEDIUMBLUE_RGB_VALUE 			= new Color(0, 0, 205);
-    public static final Color CSS_MEDIUMORCHID_RGB_VALUE 		= new Color(186, 85, 211);
-    public static final Color CSS_MEDIUMPURPLE_RGB_VALUE 		= new Color(147, 112, 219);
-    public static final Color CSS_MEDIUMSEAGREEN_RGB_VALUE 		= new Color(60, 179, 113);
-    public static final Color CSS_MEDIUMSLATEBLUE_RGB_VALUE 	= new Color(123, 104, 238);
-    public static final Color CSS_MEDIUMSPRINGGREEN_RGB_VALUE 	= new Color(0, 250, 154);
-    public static final Color CSS_MEDIUMTURQUOISE_RGB_VALUE 	= new Color(72, 209, 204);
-    public static final Color CSS_MEDIUMVIOLETRED_RGB_VALUE 	= new Color(199, 21, 133);
-    public static final Color CSS_MIDNIGHTBLUE_RGB_VALUE 		= new Color(25, 25, 112);
-    public static final Color CSS_MINTCREAM_RGB_VALUE 			= new Color(245, 255, 250);
-    public static final Color CSS_MISTYROSE_RGB_VALUE 			= new Color(255, 228, 225);
-    public static final Color CSS_MOCCASIN_RGB_VALUE 			= new Color(255, 228, 181);
-    public static final Color CSS_NAVAJOWHITE_RGB_VALUE 		= new Color(255, 222, 173);
-    public static final Color CSS_OLDLACE_RGB_VALUE 			= new Color(253, 245, 230);
-    public static final Color CSS_OLIVEDRAB_RGB_VALUE 			= new Color(107, 142, 35);
-    public static final Color CSS_ORANGE_RGB_VALUE				= new Color(255, 165, 0);
-    public static final Color CSS_ORANGERED_RGB_VALUE 			= new Color(255, 69, 0);
-    public static final Color CSS_ORCHID_RGB_VALUE 				= new Color(218, 112, 214);
-    public static final Color CSS_PALEGOLDENROD_RGB_VALUE 		= new Color(238, 232, 170);
-    public static final Color CSS_PALEGREEN_RGB_VALUE 			= new Color(152, 251, 152);
-    public static final Color CSS_PALETURQUOISE_RGB_VALUE 		= new Color(175, 238, 238);
-    public static final Color CSS_PALEVIOLETRED_RGB_VALUE 		= new Color(219, 112, 147);
-    public static final Color CSS_PAPAYAWHIP_RGB_VALUE 			= new Color(255, 239, 213);
-    public static final Color CSS_PEACHPUFF_RGB_VALUE 			= new Color(255, 218, 185);
-    public static final Color CSS_PERU_RGB_VALUE 				= new Color(205, 133, 63);
-    public static final Color CSS_PINK_RGB_VALUE 				= new Color(255, 192, 203);
-    public static final Color CSS_PLUM_RGB_VALUE 				= new Color(221, 160, 221);
-    public static final Color CSS_POWDERBLUE_RGB_VALUE 			= new Color(176, 224, 230);
-    public static final Color CSS_ROSYBROWN_RGB_VALUE 			= new Color(188, 143, 143);
-    public static final Color CSS_ROYALBLUE_RGB_VALUE 			= new Color(65, 105, 225);
-    public static final Color CSS_SADDLEBROWN_RGB_VALUE 		= new Color(139, 69, 19);
-    public static final Color CSS_SALMON_RGB_VALUE 				= new Color(250, 69, 114);
-    public static final Color CSS_SANDYBROWN_RGB_VALUE 			= new Color(244, 164, 96);
-    public static final Color CSS_SEAGREEN_RGB_VALUE 			= new Color(46, 139, 87);
-    public static final Color CSS_SEASHELL_RGB_VALUE 			= new Color(255, 245, 238);
-    public static final Color CSS_SIENNA_RGB_VALUE 				= new Color(160, 82, 45);
-    public static final Color CSS_SKYBLUE_RGB_VALUE 			= new Color(135, 206, 235);
-    public static final Color CSS_SLATEBLUE_RGB_VALUE 			= new Color(106, 90, 205);
-    public static final Color CSS_SLATEGRAY_RGB_VALUE 			= new Color(112, 128, 144);
-    public static final Color CSS_SNOW_RGB_VALUE 				= new Color(255, 250, 250);
-    public static final Color CSS_SPRINGGREEN_RGB_VALUE 		= new Color(0, 255, 127);
-    public static final Color CSS_STEELBLUE_RGB_VALUE 			= new Color(70, 130, 180);
-    public static final Color CSS_TAN_RGB_VALUE 				= new Color(210, 180, 140);
-    public static final Color CSS_THISTLE_RGB_VALUE 			= new Color(216, 91, 216);
-    public static final Color CSS_TOMATO_RGB_VALUE 				= new Color(255, 99, 71);
-    public static final Color CSS_TURQUOISE_RGB_VALUE 			= new Color(64, 224, 208);
-    public static final Color CSS_VIOLET_RGB_VALUE 				= new Color(238, 130, 238);
-    public static final Color CSS_WHEAT_RGB_VALUE 				= new Color(245, 222, 179);
-    public static final Color CSS_WHITESMOKE_RGB_VALUE 			= new Color(245, 245, 245);
-    public static final Color CSS_YELLOWGREEN_RGB_VALUE 		= new Color(154, 205, 50);
+    public static final Color CSS_YELLOW_RGB_VALUE         	 	= ShapeFactory.createColorInt(255, 255, 0);
+    public static final Color CSS_RED_RGB_VALUE         	 	= ShapeFactory.createColorInt(255, 0, 0);
+    public static final Color CSS_TEAL_RGB_VALUE         	 	= ShapeFactory.createColorInt(0, 128, 128);
+    public static final Color CSS_PURPLE_RGB_VALUE         	 	= ShapeFactory.createColorInt(128, 0, 128);
+    public static final Color CSS_SILVER_RGB_VALUE         	 	= ShapeFactory.createColorInt(192, 192, 192);
+    public static final Color CSS_NAVY_RGB_VALUE         	 	= ShapeFactory.createColorInt(0, 0, 128);
+    public static final Color CSS_OLIVE_RGB_VALUE         	 	= ShapeFactory.createColorInt(128, 128, 0);
+    public static final Color CSS_LIME_RGB_VALUE         	 	= ShapeFactory.createColorInt(0, 255, 0);
+    public static final Color CSS_MAROON_RGB_VALUE         	 	= ShapeFactory.createColorInt(128, 0, 0);
+    public static final Color CSS_GRAY_RGB_VALUE         	 	= ShapeFactory.createColorInt(128, 128, 128);
+    public static final Color CSS_GREEN_RGB_VALUE         	 	= ShapeFactory.createColorInt(0, 128, 0);
+	public static final Color CSS_BLACK_RGB_VALUE         	 	= ShapeFactory.createColorInt(0, 0, 0);
+	public static final Color CSS_WHITE_RGB_VALUE          		= ShapeFactory.createColorInt(255,255,255);
+	public static final Color CSS_BLUE_RGB_VALUE          		= ShapeFactory.createColorInt(0, 0, 255);
+	public static final Color CSS_FUCHSIA_RGB_VALUE          	= ShapeFactory.createColorInt(255, 0, 255);
+    public static final Color CSS_ALICEBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(240, 248, 255);
+    public static final Color CSS_ANTIQUEWHITE_RGB_VALUE 		= ShapeFactory.createColorInt(250, 235, 215);
+    public static final Color CSS_AQUA_RGB_VALUE 				= ShapeFactory.createColorInt(0, 255, 255);
+    public static final Color CSS_AQUAMARINE_RGB_VALUE 			= ShapeFactory.createColorInt(127, 255, 212);
+    public static final Color CSS_AZURE_RGB_VALUE 				= ShapeFactory.createColorInt(240, 255, 255);
+    public static final Color CSS_BEIGE_RGB_VALUE 				= ShapeFactory.createColorInt(245, 245, 220);
+    public static final Color CSS_BISQUE_RGB_VALUE 				= ShapeFactory.createColorInt(255, 228, 196);
+    public static final Color CSS_BLANCHEDALMOND_RGB_VALUE		= ShapeFactory.createColorInt(255, 235, 205);
+    public static final Color CSS_BLUEVIOLET_RGB_VALUE 			= ShapeFactory.createColorInt(138, 43, 226);
+    public static final Color CSS_BROWN_RGB_VALUE 				= ShapeFactory.createColorInt(165, 42, 42);
+    public static final Color CSS_BURLYWOOD_RGB_VALUE 			= ShapeFactory.createColorInt(222, 184, 135);
+    public static final Color CSS_CADETBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(95, 158, 160);
+    public static final Color CSS_CHARTREUSE_RGB_VALUE 			= ShapeFactory.createColorInt(127, 255, 0);
+    public static final Color CSS_CHOCOLATE_RGB_VALUE			= ShapeFactory.createColorInt(210, 105, 30);
+    public static final Color CSS_CORAL_RGB_VALUE 				= ShapeFactory.createColorInt(255, 127, 80);
+    public static final Color CSS_CORNFLOWERBLUE_RGB_VALUE 		= ShapeFactory.createColorInt(100, 149, 237);
+    public static final Color CSS_CORNSILK_RGB_VALUE 			= ShapeFactory.createColorInt(255, 248, 220);
+    public static final Color CSS_CRIMSON_RGB_VALUE 			= ShapeFactory.createColorInt(220, 20, 60);
+    public static final Color CSS_CYAN_RGB_VALUE 				= ShapeFactory.createColorInt(0, 255, 255);
+    public static final Color CSS_DARKBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(0, 0, 139);
+    public static final Color CSS_DARKCYAN_RGB_VALUE 			= ShapeFactory.createColorInt(0, 139, 139);
+    public static final Color CSS_DARKGOLDENROD_RGB_VALUE 		= ShapeFactory.createColorInt(184, 134, 11);
+    public static final Color CSS_DARKGRAY_RGB_VALUE 			= ShapeFactory.createColorInt(169, 169, 169);
+    public static final Color CSS_DARKGREEN_RGB_VALUE 			= ShapeFactory.createColorInt(0, 100, 0);
+    public static final Color CSS_DARKKHAKI_RGB_VALUE 			= ShapeFactory.createColorInt(189, 183, 107);
+    public static final Color CSS_DARKMAGENTA_RGB_VALUE 		= ShapeFactory.createColorInt(139, 0, 139);
+    public static final Color CSS_DARKOLIVEGREEN_RGB_VALUE 		= ShapeFactory.createColorInt(85, 107, 47);
+    public static final Color CSS_DARKORANGE_RGB_VALUE 			= ShapeFactory.createColorInt(255, 140, 0);
+    public static final Color CSS_DARKORCHID_RGB_VALUE 			= ShapeFactory.createColorInt(153, 50, 204);
+    public static final Color CSS_DARKRED_RGB_VALUE 			= ShapeFactory.createColorInt(139, 0, 0);
+    public static final Color CSS_DARKSALMON_RGB_VALUE 			= ShapeFactory.createColorInt(233, 150, 122);
+    public static final Color CSS_DARKSEAGREEN_RGB_VALUE 		= ShapeFactory.createColorInt(143, 188, 143);
+    public static final Color CSS_DARKSLATEBLUE_RGB_VALUE 		= ShapeFactory.createColorInt(72, 61, 139);
+    public static final Color CSS_DARKSLATEGRAY_RGB_VALUE 		= ShapeFactory.createColorInt(47, 79, 79);
+    public static final Color CSS_DARKTURQUOISE_RGB_VALUE 		= ShapeFactory.createColorInt(0, 206, 209);
+    public static final Color CSS_DARKVIOLET_RGB_VALUE 			= ShapeFactory.createColorInt(148, 0, 211);
+    public static final Color CSS_DEEPPINK_RGB_VALUE 			= ShapeFactory.createColorInt(255, 20, 147);
+    public static final Color CSS_DEEPSKYBLUE_RGB_VALUE 		= ShapeFactory.createColorInt(0, 191, 255);
+    public static final Color CSS_DIMGRAY_RGB_VALUE 			= ShapeFactory.createColorInt(105, 105, 105);
+    public static final Color CSS_DODGERBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(30, 144, 255);
+    public static final Color CSS_FIREBRICK_RGB_VALUE 			= ShapeFactory.createColorInt(178, 34, 34);
+    public static final Color CSS_FLORALWHITE_RGB_VALUE 		= ShapeFactory.createColorInt(255, 250, 240);
+    public static final Color CSS_FORESTGREEN_RGB_VALUE 		= ShapeFactory.createColorInt(34, 139, 34);
+    public static final Color CSS_GAINSBORO_RGB_VALUE			= ShapeFactory.createColorInt(220, 200, 200);
+    public static final Color CSS_GHOSTWHITE_RGB_VALUE 			= ShapeFactory.createColorInt(248, 248, 255);
+    public static final Color CSS_GOLD_RGB_VALUE 				= ShapeFactory.createColorInt(255, 215, 0);
+    public static final Color CSS_GOLDENROD_RGB_VALUE 			= ShapeFactory.createColorInt(218, 165, 32);
+    public static final Color CSS_GREENYELLOW_RGB_VALUE 		= ShapeFactory.createColorInt(173, 255, 47);
+    public static final Color CSS_HONEYDEW_RGB_VALUE 			= ShapeFactory.createColorInt(240, 255, 240);
+    public static final Color CSS_HOTPINK_RGB_VALUE 			= ShapeFactory.createColorInt(255, 105, 180);
+    public static final Color CSS_INDIANRED_RGB_VALUE 			= ShapeFactory.createColorInt(205, 92, 92);
+    public static final Color CSS_INDIGO_RGB_VALUE 				= ShapeFactory.createColorInt(75, 0, 130);
+    public static final Color CSS_IVORY_RGB_VALUE 				= ShapeFactory.createColorInt(255, 255, 240);
+    public static final Color CSS_KHAKI_RGB_VALUE 				= ShapeFactory.createColorInt(240, 230, 140);
+    public static final Color CSS_LAVENDER_RGB_VALUE 			= ShapeFactory.createColorInt(230, 230, 250);
+    public static final Color CSS_LAVENDERBLUSH_RGB_VALUE 		= ShapeFactory.createColorInt(255, 240, 255);
+    public static final Color CSS_LAWNGREEN_RGB_VALUE 			= ShapeFactory.createColorInt(124, 252, 0);
+    public static final Color CSS_LEMONCHIFFON_RGB_VALUE 		= ShapeFactory.createColorInt(255, 250, 205);
+    public static final Color CSS_LIGHTBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(173, 216, 230);
+    public static final Color CSS_LIGHTCORAL_RGB_VALUE 			= ShapeFactory.createColorInt(240, 128, 128);
+    public static final Color CSS_LIGHTCYAN_RGB_VALUE 			= ShapeFactory.createColorInt(224, 255, 255);
+    public static final Color CSS_LIGHTGOLDENRODYELLOW_RGB_VALUE= ShapeFactory.createColorInt(250, 250, 210);
+    public static final Color CSS_LIGHTGRAY_RGB_VALUE 			= ShapeFactory.createColorInt(211, 211, 211);
+    public static final Color CSS_LIGHTGREEN_RGB_VALUE 			= ShapeFactory.createColorInt(144, 238, 144);
+    public static final Color CSS_LIGHTPINK_RGB_VALUE 			= ShapeFactory.createColorInt(255, 182, 193);
+    public static final Color CSS_LIGHTSALMON_RGB_VALUE 		= ShapeFactory.createColorInt(255, 160, 122);
+    public static final Color CSS_LIGHTSEAGREEN_RGB_VALUE 		= ShapeFactory.createColorInt(32, 178, 170);
+    public static final Color CSS_LIGHTSKYBLUE_RGB_VALUE 		= ShapeFactory.createColorInt(135, 206, 250);
+    public static final Color CSS_LIGHTSLATEGRAY_RGB_VALUE 		= ShapeFactory.createColorInt(119, 136, 153);
+    public static final Color CSS_LIGHTSTEELBLUE_RGB_VALUE 		= ShapeFactory.createColorInt(176, 196, 222);
+    public static final Color CSS_LIGHTYELLOW_RGB_VALUE 		= ShapeFactory.createColorInt(255, 255, 224);
+    public static final Color CSS_LIMEGREEN_RGB_VALUE 			= ShapeFactory.createColorInt(50, 205, 50);
+    public static final Color CSS_LINEN_RGB_VALUE 				= ShapeFactory.createColorInt(250, 240, 230);
+    public static final Color CSS_MAGENTA_RGB_VALUE 			= ShapeFactory.createColorInt(255, 0, 255);
+    public static final Color CSS_MEDIUMAQUAMARINE_RGB_VALUE 	= ShapeFactory.createColorInt(102, 205, 170);
+    public static final Color CSS_MEDIUMBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(0, 0, 205);
+    public static final Color CSS_MEDIUMORCHID_RGB_VALUE 		= ShapeFactory.createColorInt(186, 85, 211);
+    public static final Color CSS_MEDIUMPURPLE_RGB_VALUE 		= ShapeFactory.createColorInt(147, 112, 219);
+    public static final Color CSS_MEDIUMSEAGREEN_RGB_VALUE 		= ShapeFactory.createColorInt(60, 179, 113);
+    public static final Color CSS_MEDIUMSLATEBLUE_RGB_VALUE 	= ShapeFactory.createColorInt(123, 104, 238);
+    public static final Color CSS_MEDIUMSPRINGGREEN_RGB_VALUE 	= ShapeFactory.createColorInt(0, 250, 154);
+    public static final Color CSS_MEDIUMTURQUOISE_RGB_VALUE 	= ShapeFactory.createColorInt(72, 209, 204);
+    public static final Color CSS_MEDIUMVIOLETRED_RGB_VALUE 	= ShapeFactory.createColorInt(199, 21, 133);
+    public static final Color CSS_MIDNIGHTBLUE_RGB_VALUE 		= ShapeFactory.createColorInt(25, 25, 112);
+    public static final Color CSS_MINTCREAM_RGB_VALUE 			= ShapeFactory.createColorInt(245, 255, 250);
+    public static final Color CSS_MISTYROSE_RGB_VALUE 			= ShapeFactory.createColorInt(255, 228, 225);
+    public static final Color CSS_MOCCASIN_RGB_VALUE 			= ShapeFactory.createColorInt(255, 228, 181);
+    public static final Color CSS_NAVAJOWHITE_RGB_VALUE 		= ShapeFactory.createColorInt(255, 222, 173);
+    public static final Color CSS_OLDLACE_RGB_VALUE 			= ShapeFactory.createColorInt(253, 245, 230);
+    public static final Color CSS_OLIVEDRAB_RGB_VALUE 			= ShapeFactory.createColorInt(107, 142, 35);
+    public static final Color CSS_ORANGE_RGB_VALUE				= ShapeFactory.createColorInt(255, 165, 0);
+    public static final Color CSS_ORANGERED_RGB_VALUE 			= ShapeFactory.createColorInt(255, 69, 0);
+    public static final Color CSS_ORCHID_RGB_VALUE 				= ShapeFactory.createColorInt(218, 112, 214);
+    public static final Color CSS_PALEGOLDENROD_RGB_VALUE 		= ShapeFactory.createColorInt(238, 232, 170);
+    public static final Color CSS_PALEGREEN_RGB_VALUE 			= ShapeFactory.createColorInt(152, 251, 152);
+    public static final Color CSS_PALETURQUOISE_RGB_VALUE 		= ShapeFactory.createColorInt(175, 238, 238);
+    public static final Color CSS_PALEVIOLETRED_RGB_VALUE 		= ShapeFactory.createColorInt(219, 112, 147);
+    public static final Color CSS_PAPAYAWHIP_RGB_VALUE 			= ShapeFactory.createColorInt(255, 239, 213);
+    public static final Color CSS_PEACHPUFF_RGB_VALUE 			= ShapeFactory.createColorInt(255, 218, 185);
+    public static final Color CSS_PERU_RGB_VALUE 				= ShapeFactory.createColorInt(205, 133, 63);
+    public static final Color CSS_PINK_RGB_VALUE 				= ShapeFactory.createColorInt(255, 192, 203);
+    public static final Color CSS_PLUM_RGB_VALUE 				= ShapeFactory.createColorInt(221, 160, 221);
+    public static final Color CSS_POWDERBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(176, 224, 230);
+    public static final Color CSS_ROSYBROWN_RGB_VALUE 			= ShapeFactory.createColorInt(188, 143, 143);
+    public static final Color CSS_ROYALBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(65, 105, 225);
+    public static final Color CSS_SADDLEBROWN_RGB_VALUE 		= ShapeFactory.createColorInt(139, 69, 19);
+    public static final Color CSS_SALMON_RGB_VALUE 				= ShapeFactory.createColorInt(250, 69, 114);
+    public static final Color CSS_SANDYBROWN_RGB_VALUE 			= ShapeFactory.createColorInt(244, 164, 96);
+    public static final Color CSS_SEAGREEN_RGB_VALUE 			= ShapeFactory.createColorInt(46, 139, 87);
+    public static final Color CSS_SEASHELL_RGB_VALUE 			= ShapeFactory.createColorInt(255, 245, 238);
+    public static final Color CSS_SIENNA_RGB_VALUE 				= ShapeFactory.createColorInt(160, 82, 45);
+    public static final Color CSS_SKYBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(135, 206, 235);
+    public static final Color CSS_SLATEBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(106, 90, 205);
+    public static final Color CSS_SLATEGRAY_RGB_VALUE 			= ShapeFactory.createColorInt(112, 128, 144);
+    public static final Color CSS_SNOW_RGB_VALUE 				= ShapeFactory.createColorInt(255, 250, 250);
+    public static final Color CSS_SPRINGGREEN_RGB_VALUE 		= ShapeFactory.createColorInt(0, 255, 127);
+    public static final Color CSS_STEELBLUE_RGB_VALUE 			= ShapeFactory.createColorInt(70, 130, 180);
+    public static final Color CSS_TAN_RGB_VALUE 				= ShapeFactory.createColorInt(210, 180, 140);
+    public static final Color CSS_THISTLE_RGB_VALUE 			= ShapeFactory.createColorInt(216, 91, 216);
+    public static final Color CSS_TOMATO_RGB_VALUE 				= ShapeFactory.createColorInt(255, 99, 71);
+    public static final Color CSS_TURQUOISE_RGB_VALUE 			= ShapeFactory.createColorInt(64, 224, 208);
+    public static final Color CSS_VIOLET_RGB_VALUE 				= ShapeFactory.createColorInt(238, 130, 238);
+    public static final Color CSS_WHEAT_RGB_VALUE 				= ShapeFactory.createColorInt(245, 222, 179);
+    public static final Color CSS_WHITESMOKE_RGB_VALUE 			= ShapeFactory.createColorInt(245, 245, 245);
+    public static final Color CSS_YELLOWGREEN_RGB_VALUE 		= ShapeFactory.createColorInt(154, 205, 50);
 
     /** The singleton. */
     public static final CSSColors INSTANCE = new CSSColors();
@@ -747,7 +748,7 @@ public final class CSSColors {
 					throw new IllegalArgumentException();
 			}
 
-			return new Color(Integer.parseInt(r, 16), Integer.parseInt(g, 16), Integer.parseInt(b, 16));
+			return ShapeFactory.createColorInt(Integer.parseInt(r, 16), Integer.parseInt(g, 16), Integer.parseInt(b, 16));
 		}
 		catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 		return null;
@@ -766,9 +767,9 @@ public final class CSSColors {
 		if(c==null)
 			return ""; //$NON-NLS-1$
 
-		String r = Integer.toHexString(c.getRed());
-		String g = Integer.toHexString(c.getGreen());
-		String b = Integer.toHexString(c.getBlue());
+		String r = Integer.toHexString((int) (255.0*c.getR()));
+		String g = Integer.toHexString((int) (255.0*c.getG()));
+		String b = Integer.toHexString((int) (255.0*c.getB()));
 
 		if(r.length()==1)
 			r = '0' + r;
@@ -832,12 +833,12 @@ public final class CSSColors {
 
 				if(rgbs[0].contains("%")) {//$NON-NLS-1$
 					if(rgbs[0].endsWith("%") && rgbs[1].endsWith("%") && rgbs[2].endsWith("%"))//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-						c = new Color((float)(Double.parseDouble(rgbs[0].substring(0, rgbs[0].length()-1))/100.),
-								(float)(Double.parseDouble(rgbs[1].substring(0, rgbs[1].length()-1))/100.),
-								(float)(Double.parseDouble(rgbs[2].substring(0, rgbs[2].length()-1))/100.));
+						c = ShapeFactory.createColor(Double.parseDouble(rgbs[0].substring(0, rgbs[0].length()-1))/100.,
+								Double.parseDouble(rgbs[1].substring(0, rgbs[1].length()-1))/100.,
+								Double.parseDouble(rgbs[2].substring(0, rgbs[2].length()-1))/100.);
 				}
 				else
-					c = new Color(Integer.parseInt(rgbs[0]), Integer.parseInt(rgbs[1]), Integer.parseInt(rgbs[2]));
+					c = ShapeFactory.createColorInt(Integer.parseInt(rgbs[0]), Integer.parseInt(rgbs[1]), Integer.parseInt(rgbs[2]));
 			}
 		}
 		catch(final IllegalArgumentException e) { return null; }

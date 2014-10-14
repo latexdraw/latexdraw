@@ -2,9 +2,7 @@ package test.svg.loadSVGFile;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import java.awt.Color;
-
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
@@ -31,7 +29,7 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 	@Test public void testFilling() {
 		final IPolyline line = getLine();
 		assertTrue(line.isFilled());
-		assertEquals(new Color(183, 44, 44), line.getFillingCol());
+		assertEquals(ShapeFactory.createColorInt(183, 44, 44), line.getFillingCol());
 		assertEquals(FillingStyle.PLAIN, line.getFillingStyle());
 	}
 
@@ -56,14 +54,14 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 	@Test public void testLine() {
 		final IPolyline line = getLine();
 		assertEquals(10.0, line.getThickness(), 0.01);
-		assertEquals(new Color(22, 131, 175), line.getLineColour());
+		assertEquals(ShapeFactory.createColorInt(22, 131, 175), line.getLineColour());
 		assertEquals(LineStyle.DASHED, line.getLineStyle());
 	}
 
 	@Test public void testShadow() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasShadow());
-		assertEquals(new Color(101, 224, 41), line.getShadowCol());
+		assertEquals(ShapeFactory.createColorInt(101, 224, 41), line.getShadowCol());
 		assertEquals(80.0, Math.toDegrees(line.getShadowAngle()), 0.00001);
 		assertEquals(20.0, line.getShadowSize(), 0.0001);
 	}
@@ -82,7 +80,7 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 	@Test public void testDbleBorder() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasDbleBord());
-		assertEquals(new Color(213, 240, 66), line.getDbleBordCol());
+		assertEquals(ShapeFactory.createColorInt(213, 240, 66), line.getDbleBordCol());
 		assertEquals(4, line.getDbleBordSep(), 0.001);
 	}
 }

@@ -1,15 +1,15 @@
 package test.svg;
 
-import java.awt.Color;
-
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGStopElement;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class TestSVGStopElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
@@ -43,12 +43,12 @@ public class TestSVGStopElement extends AbstractTestSVGElement {
 	public void testGetStopColor() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5"); //$NON-NLS-1$
 		SVGStopElement e = new SVGStopElement(node, null);
-		assertEquals(e.getStopColor(), Color.BLACK);
+		assertEquals(e.getStopColor(), DviPsColors.BLACK);
 
 		node.setAttribute(SVGAttributes.SVG_OFFSET, "0.5"); //$NON-NLS-1$
 		node.setAttribute(SVGAttributes.SVG_STOP_COLOR, "blue"); //$NON-NLS-1$
 		e = new SVGStopElement(node, null);
-		assertEquals(e.getStopColor(), Color.BLUE);
+		assertEquals(e.getStopColor(), DviPsColors.BLUE);
 	}
 
 

@@ -1,6 +1,6 @@
 package net.sf.latexdraw.generators.svg;
 
-import java.awt.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.geom.Point2D;

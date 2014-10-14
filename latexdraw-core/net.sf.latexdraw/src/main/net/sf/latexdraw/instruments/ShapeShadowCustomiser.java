@@ -104,7 +104,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 			shadowSizeField.setEnabled(hasShadow);
 
 			if(hasShadow) {
-				shadowColB.setColor(shape.getShadowCol());
+				shadowColB.setColor(shape.getShadowCol().toAWT());
 				shadowAngleField.setValueSafely(Math.toDegrees(shape.getShadowAngle()));
 				shadowSizeField.setValueSafely(shape.getShadowSize());
 			}

@@ -1,6 +1,5 @@
 package net.sf.latexdraw.ui;
 
-import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -61,9 +60,9 @@ public class TextAreaAutoSize extends MTextArea {
 		msg.setEditable(false);
 		msg.setFocusable(false);
 		msg.setBorder(null);
-		msg.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-		msg.setBackground(Color.WHITE);
-		msg.setForeground(Color.GRAY);
+		msg.setBorder(BorderFactory.createLineBorder(java.awt.Color.WHITE));
+		msg.setBackground(java.awt.Color.WHITE);
+		msg.setForeground(java.awt.Color.GRAY);
 	}
 
 
@@ -107,7 +106,7 @@ public class TextAreaAutoSize extends MTextArea {
 	public boolean isValidText() { return valid;}
 
 	protected void updateBackground() {
-		setBackground(valid?Color.WHITE:Color.RED);
+		setBackground(valid?java.awt.Color.WHITE:java.awt.Color.RED);
 	}
 
 

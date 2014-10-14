@@ -1,13 +1,14 @@
 package test.svg.loadSave;
 
-import java.awt.Color;
-
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
@@ -47,100 +48,100 @@ public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
 
 	@Test
 	public void testLoadSaveDotDOT() {
-		setDot(11.3, 82, DotStyle.DOT, 33, Color.RED, null);
+		setDot(11.3, 82, DotStyle.DOT, 33, DviPsColors.RED, null);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotO() {
-		setDot(11.3, 82, DotStyle.O, 22, Color.DARK_GRAY, Color.YELLOW);
+		setDot(11.3, 82, DotStyle.O, 22, DviPsColors.DARKGRAY, DviPsColors.YELLOW);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotSQUARE() {
-		setDot(11.3, 82, DotStyle.SQUARE, 22, Color.DARK_GRAY, Color.YELLOW);
+		setDot(11.3, 82, DotStyle.SQUARE, 22, DviPsColors.DARKGRAY, DviPsColors.YELLOW);
 		compareShapes(generateShape());
 	}
 
 
 	@Test
 	public void testLoadSaveDotFSQUARE() {
-		setDot(11.3, 82, DotStyle.FSQUARE, 22, Color.DARK_GRAY, null);
+		setDot(11.3, 82, DotStyle.FSQUARE, 22, DviPsColors.DARKGRAY, null);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotFPENTAGON() {
-		setDot(11.3, 82, DotStyle.FPENTAGON, 33, Color.RED, null);
+		setDot(11.3, 82, DotStyle.FPENTAGON, 33, DviPsColors.RED, null);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotPENTAGON() {
-		setDot(11.3, 82, DotStyle.PENTAGON, 33, Color.RED, Color.BLUE);
+		setDot(11.3, 82, DotStyle.PENTAGON, 33, DviPsColors.RED, DviPsColors.BLUE);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotX() {
-		setDot(11.3, 82, DotStyle.X, 23, Color.RED, null);
+		setDot(11.3, 82, DotStyle.X, 23, DviPsColors.RED, null);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotFDIAMOND() {
-		setDot(11.3, 82, DotStyle.FDIAMOND, 123, Color.CYAN, null);
+		setDot(11.3, 82, DotStyle.FDIAMOND, 123, DviPsColors.CYAN, null);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotDIAMOND() {
-		setDot(11.3, 82, DotStyle.DIAMOND, 123, Color.CYAN, Color.DARK_GRAY);
+		setDot(11.3, 82, DotStyle.DIAMOND, 123, DviPsColors.CYAN, DviPsColors.DARKGRAY);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotFTRIANGLE() {
-		setDot(1.3, 82, DotStyle.FTRIANGLE, 12, Color.CYAN, null);
+		setDot(1.3, 82, DotStyle.FTRIANGLE, 12, DviPsColors.CYAN, null);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotTRIANGLE() {
-		setDot(1.3, 82, DotStyle.TRIANGLE, 12, Color.CYAN, Color.GREEN);
+		setDot(1.3, 82, DotStyle.TRIANGLE, 12, DviPsColors.CYAN, DviPsColors.GREEN);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotOTIMES() {
-		setDot(1, 2, DotStyle.OTIMES, 54, Color.GREEN, null);
+		setDot(1, 2, DotStyle.OTIMES, 54, DviPsColors.GREEN, null);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotPLUS() {
-		setDot(145, 2, DotStyle.PLUS, 24, Color.MAGENTA, null);
+		setDot(145, 2, DotStyle.PLUS, 24, DviPsColors.MAGENTA, null);
 		compareShapes(generateShape());
 	}
 
 	@Test
 	public void testLoadSaveDotOPLUS() {
-		setDot(111, 82.12, DotStyle.OPLUS, 2, Color.GRAY, null);
+		setDot(111, 82.12, DotStyle.OPLUS, 2, DviPsColors.GRAY, null);
 		compareShapes(generateShape());
 	}
 
 
 	@Test
 	public void testLoadSaveDotASTERISK() {
-		setDot(-20, 12.12, DotStyle.ASTERISK, 22, Color.BLUE, null);
+		setDot(-20, 12.12, DotStyle.ASTERISK, 22, DviPsColors.BLUE, null);
 		compareShapes(generateShape());
 	}
 
 
 	@Test
 	public void testLoadSaveDotBAR() {
-		setDot(20, -12.12, DotStyle.BAR, 3, Color.CYAN, null);
+		setDot(20, -12.12, DotStyle.BAR, 3, DviPsColors.CYAN, null);
 		compareShapes(generateShape());
 	}
 }

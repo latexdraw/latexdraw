@@ -195,16 +195,16 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 
 			fillStyleCB.setSelectedItemSafely(style.toString());
 			if(isFillable)
-				fillColButton.setColor(shape.getFillingCol());
+				fillColButton.setColor(shape.getFillingCol().toAWT());
 			if(hatchings) {
-				hatchColButton.setColor(shape.getHatchingsCol());
+				hatchColButton.setColor(shape.getHatchingsCol().toAWT());
 				hatchAngleField.setValueSafely(Math.toDegrees(shape.getHatchingsAngle()));
 				hatchSepField.setValueSafely(shape.getHatchingsSep());
 				hatchWidthField.setValueSafely(shape.getHatchingsWidth());
 			}
 			else if(gradient){
-				gradStartColButton.setColor(shape.getGradColStart());
-				gradEndColButton.setColor(shape.getGradColEnd());
+				gradStartColButton.setColor(shape.getGradColStart().toAWT());
+				gradEndColButton.setColor(shape.getGradColEnd().toAWT());
 				gradAngleField.setValueSafely(Math.toDegrees(shape.getGradAngle()));
 				gradMidPtField.setValueSafely(shape.getGradMidPt());
 			}

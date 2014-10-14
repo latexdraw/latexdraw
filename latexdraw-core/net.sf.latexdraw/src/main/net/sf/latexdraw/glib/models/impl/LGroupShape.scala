@@ -1,12 +1,14 @@
 package net.sf.latexdraw.glib.models.impl
 
 import java.awt.geom.Rectangle2D
-import java.awt.Color
 import scala.collection.JavaConversions.asScalaBuffer
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.views.latex.DviPsColors
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 
 /**
  * This trait encapsulates the code of the group related to the support of the general shape's properties.<br>
@@ -68,7 +70,7 @@ private[impl] trait LGroupShape extends IGroup {
 	override def getLineColour: Color = {
 		getShapes.headOption match {
 			case Some(shape) => shape.getLineColour
-			case _ => Color.BLACK
+			case _ => PSTricksConstants.DEFAULT_LINE_COLOR
 		}
 	}
 
@@ -118,7 +120,7 @@ private[impl] trait LGroupShape extends IGroup {
 	override def getDbleBordCol: Color = {
 		getShapes.find{_.hasDbleBord} match {
 			case Some(sh) => sh.getDbleBordCol
-			case _ => Color.BLACK
+			case _ => PSTricksConstants.DEFAULT_DOUBLE_COLOR
 		}
 	}
 
@@ -192,7 +194,7 @@ private[impl] trait LGroupShape extends IGroup {
 	override def getShadowCol: Color = {
 		getShapes.find{shape => shape.isShadowable && shape.hasShadow} match {
 			case Some(sh) => sh.getShadowCol
-			case _ => Color.BLACK
+			case _ => PSTricksConstants.DEFAULT_SHADOW_COLOR
 		}
 	}
 
@@ -224,7 +226,7 @@ private[impl] trait LGroupShape extends IGroup {
 	override def getFillingCol: Color = {
 		getShapes.find{shape => shape.isFillable && shape.isFilled} match {
 			case Some(sh) => sh.getFillingCol
-			case _ => Color.BLACK
+			case _ => PSTricksConstants.DEFAULT_FILL_COLOR
 		}
 	}
 
@@ -237,7 +239,7 @@ private[impl] trait LGroupShape extends IGroup {
 	override def getHatchingsCol: Color = {
 		getShapes.find{shape => shape.isInteriorStylable && shape.getFillingStyle.isHatchings} match {
 			case Some(sh) => sh.getHatchingsCol
-			case _ => Color.BLACK
+			case _ => PSTricksConstants.DEFAULT_HATCHING_COLOR
 		}
 	}
 
@@ -250,7 +252,7 @@ private[impl] trait LGroupShape extends IGroup {
 	override def getGradColStart: Color = {
 		getShapes.find{shape => shape.isInteriorStylable && shape.getFillingStyle.isGradient} match {
 			case Some(sh) => sh.getGradColStart
-			case _ => Color.BLACK
+			case _ => PSTricksConstants.DEFAULT_GRADIENT_START_COLOR
 		}
 	}
 
@@ -263,7 +265,7 @@ private[impl] trait LGroupShape extends IGroup {
 	override def getGradColEnd: Color = {
 		getShapes.find{shape => shape.isInteriorStylable && shape.getFillingStyle.isGradient} match {
 			case Some(sh) => sh.getGradColEnd
-			case _ => Color.BLACK
+			case _ => PSTricksConstants.DEFAULT_GRADIENT_END_COLOR
 		}
 	}
 

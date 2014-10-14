@@ -3,18 +3,16 @@ package test.svg.loadSVGFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import java.awt.Color;
-
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Test;
 
@@ -32,7 +30,7 @@ public class TestSVGFile3State extends TestLoadSVGFile {
 		assertEquals(579., txt.getPosition().getX(),0.0001);
 		assertEquals(258., txt.getPosition().getY(),0.0001);
 		assertEquals(TextPosition.BOT_LEFT, txt.getTextPosition());
-		assertEquals(Color.BLACK, txt.getLineColour());
+		assertEquals(DviPsColors.BLACK, txt.getLineColour());
 	}
 
 
@@ -79,9 +77,9 @@ public class TestSVGFile3State extends TestLoadSVGFile {
 		final IText txt1 = (IText) gp2.getShapeAt(0);
 		final IText txt2 = (IText) gp2.getShapeAt(1);
 
-		assertEquals(Color.BLACK, circle.getLineColour());
+		assertEquals(DviPsColors.BLACK, circle.getLineColour());
 		assertTrue(circle.isFilled());
-		assertEquals(Color.WHITE, circle.getFillingCol());
+		assertEquals(DviPsColors.WHITE, circle.getFillingCol());
 		assertEquals(60., circle.getWidth(),0.0001);
 		assertEquals(580., circle.getPosition().getX(),0.0001);
 		assertEquals(180., circle.getPosition().getY(),0.0001);
@@ -93,8 +91,8 @@ public class TestSVGFile3State extends TestLoadSVGFile {
 		assertFalse(circle.hasDbleBord());
 		assertEquals("\\normalsize{State}", txt1.getText()); //$NON-NLS-1$
 		assertEquals("\\normalsize{2}", txt2.getText()); //$NON-NLS-1$
-		assertEquals(Color.BLACK, txt1.getLineColour());
-		assertEquals(Color.BLACK, txt2.getLineColour());
+		assertEquals(DviPsColors.BLACK, txt1.getLineColour());
+		assertEquals(DviPsColors.BLACK, txt2.getLineColour());
 		assertEquals(591.7, txt1.getPosition().getX(), 0.1);
 		assertEquals(146.1, txt1.getPosition().getY(), 0.1);
 		assertEquals(605.7, txt2.getPosition().getX(), 0.1);

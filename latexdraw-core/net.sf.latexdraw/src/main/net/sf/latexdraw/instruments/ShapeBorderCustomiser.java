@@ -177,7 +177,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
 			composer.setWidgetVisible(showPoints, showPts);
 
 			if(isColor)
-				lineColButton.setColor(shape.getLineColour());
+				lineColButton.setColor(shape.getLineColour().toAWT());
 			if(isTh)
 				thicknessField.setValueSafely(shape.getThickness());
 			if(isStylable)

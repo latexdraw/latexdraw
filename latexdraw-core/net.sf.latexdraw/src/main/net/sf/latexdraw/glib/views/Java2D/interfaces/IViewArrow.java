@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.Java2D.interfaces;
 
-import java.awt.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.awt.Graphics2D;
 
 /**

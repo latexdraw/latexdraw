@@ -451,13 +451,13 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 		list.addComponent(ins.getDotCB());
 		UIBuilder.addSpinner(list, ins.getDotSizeField(), 70);
-		list.addComponent(ins.getFillingB());
+//		list.addComponent(ins.getFillingB());
 		list.addSeparator();
 
 		mapContainers.put(sbc.getShowPoints(), list);
 		mapContainers.put(ins.getDotCB(), list);
 		mapContainers.put(ins.getDotSizeField(), list);
-		mapContainers.put(ins.getFillingB(), list);
+//		mapContainers.put(ins.getFillingB(), list);
 
         ins.addEventable(list.getToolbar());
         sbc.addEventable(list.getToolbar());

@@ -4,15 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import java.awt.Color;
-
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Test;
 
@@ -70,26 +68,26 @@ public abstract class TestIShape<T extends IShape> {
 			shape2.setDashSepWhite(14.);
 			shape2.setDotSep(25.);
 			shape2.setLineStyle(LineStyle.DOTTED);
-			shape2.setLineColour(Color.GREEN);
+			shape2.setLineColour(DviPsColors.GREEN);
 			shape2.setThickness(13);
 		}
 		if(shape2.isDbleBorderable()) {
-			shape2.setDbleBordCol(Color.RED);
+			shape2.setDbleBordCol(DviPsColors.RED);
 			shape2.setDbleBordSep(20.);
 			shape2.setHasDbleBord(true);
 		}
 		if(shape2.isFillable()) {
 			shape2.setFilled(true);
-			shape2.setFillingCol(Color.BLUE);
+			shape2.setFillingCol(DviPsColors.BLUE);
 			shape2.setFillingStyle(FillingStyle.GRAD);
 		}
 		if(shape2.isInteriorStylable()) {
 			shape2.setGradAngle(90);
-			shape2.setGradColEnd(Color.MAGENTA);
-			shape2.setGradColStart(Color.DARK_GRAY);
+			shape2.setGradColEnd(DviPsColors.MAGENTA);
+			shape2.setGradColStart(DviPsColors.DARKGRAY);
 			shape2.setGradMidPt(0.9);
 			shape2.setHatchingsAngle(25);
-			shape2.setHatchingsCol(Color.GRAY);
+			shape2.setHatchingsCol(DviPsColors.GRAY);
 			shape2.setHatchingsSep(30);
 			shape2.setHatchingsWidth(100);
 		}
@@ -97,7 +95,7 @@ public abstract class TestIShape<T extends IShape> {
 		if(shape2.isShadowable()) {
 			shape2.setHasShadow(true);
 			shape2.setShadowAngle(-40);
-			shape2.setShadowCol(Color.ORANGE);
+			shape2.setShadowCol(DviPsColors.ORANGE);
 			shape2.setShadowSize(17);
 		}
 		if(shape2.isShowPtsable())
@@ -376,10 +374,10 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetSetGradColEnd() {
 		if(shape.isInteriorStylable()) {
-			shape.setGradColEnd(Color.BLUE);
-			assertEquals(Color.BLUE, shape.getGradColEnd());
+			shape.setGradColEnd(DviPsColors.BLUE);
+			assertEquals(DviPsColors.BLUE, shape.getGradColEnd());
 			shape.setGradColEnd(null);
-			assertEquals(Color.BLUE, shape.getGradColEnd());
+			assertEquals(DviPsColors.BLUE, shape.getGradColEnd());
 		}
 	}
 
@@ -388,10 +386,10 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetSetGradColStart() {
 		if(shape.isInteriorStylable()) {
-			shape.setGradColStart(Color.BLUE);
-			assertEquals(Color.BLUE, shape.getGradColStart());
+			shape.setGradColStart(DviPsColors.BLUE);
+			assertEquals(DviPsColors.BLUE, shape.getGradColStart());
 			shape.setGradColStart(null);
-			assertEquals(Color.BLUE, shape.getGradColStart());
+			assertEquals(DviPsColors.BLUE, shape.getGradColStart());
 		}
 	}
 
@@ -466,12 +464,12 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetSetHatchingsCol() {
 		if(shape.isInteriorStylable()) {
-			shape.setHatchingsCol(Color.CYAN);
-			assertEquals(Color.CYAN, shape.getHatchingsCol());
-			shape.setHatchingsCol(Color.BLACK);
-			assertEquals(Color.BLACK, shape.getHatchingsCol());
+			shape.setHatchingsCol(DviPsColors.CYAN);
+			assertEquals(DviPsColors.CYAN, shape.getHatchingsCol());
+			shape.setHatchingsCol(DviPsColors.BLACK);
+			assertEquals(DviPsColors.BLACK, shape.getHatchingsCol());
 			shape.setHatchingsCol(null);
-			assertEquals(Color.BLACK, shape.getHatchingsCol());
+			assertEquals(DviPsColors.BLACK, shape.getHatchingsCol());
 		}
 	}
 
@@ -563,12 +561,12 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetSetDbleBordCol() {
 		if(shape.isDbleBorderable()) {
-			shape.setDbleBordCol(Color.CYAN);
-			assertEquals(Color.CYAN, shape.getDbleBordCol());
-			shape.setDbleBordCol(Color.BLACK);
-			assertEquals(Color.BLACK, shape.getDbleBordCol());
+			shape.setDbleBordCol(DviPsColors.CYAN);
+			assertEquals(DviPsColors.CYAN, shape.getDbleBordCol());
+			shape.setDbleBordCol(DviPsColors.BLACK);
+			assertEquals(DviPsColors.BLACK, shape.getDbleBordCol());
 			shape.setDbleBordCol(null);
-			assertEquals(Color.BLACK, shape.getDbleBordCol());
+			assertEquals(DviPsColors.BLACK, shape.getDbleBordCol());
 		}
 	}
 
@@ -611,12 +609,12 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testGetSetShadowCol() {
 		if(shape.isShadowable()) {
-			shape.setShadowCol(Color.CYAN);
-			assertEquals(Color.CYAN, shape.getShadowCol());
-			shape.setShadowCol(Color.BLACK);
-			assertEquals(Color.BLACK, shape.getShadowCol());
+			shape.setShadowCol(DviPsColors.CYAN);
+			assertEquals(DviPsColors.CYAN, shape.getShadowCol());
+			shape.setShadowCol(DviPsColors.BLACK);
+			assertEquals(DviPsColors.BLACK, shape.getShadowCol());
 			shape.setShadowCol(null);
-			assertEquals(Color.BLACK, shape.getShadowCol());
+			assertEquals(DviPsColors.BLACK, shape.getShadowCol());
 		}
 	}
 
@@ -825,14 +823,14 @@ public abstract class TestIShape<T extends IShape> {
 
 	@Test
 	public void testSetGetLineColour() {
-		shape.setLineColour(Color.CYAN);
-		assertEquals(Color.CYAN, shape.getLineColour());
+		shape.setLineColour(DviPsColors.CYAN);
+		assertEquals(DviPsColors.CYAN, shape.getLineColour());
 		shape.setLineColour(null);
-		assertEquals(Color.CYAN, shape.getLineColour());
-		shape.setLineColour(Color.RED);
-		assertEquals(Color.RED, shape.getLineColour());
-		shape.setLineColour(new Color(100,100,100));
-		assertEquals(new Color(100,100,100), shape.getLineColour());
+		assertEquals(DviPsColors.CYAN, shape.getLineColour());
+		shape.setLineColour(DviPsColors.RED);
+		assertEquals(DviPsColors.RED, shape.getLineColour());
+		shape.setLineColour(ShapeFactory.createColorInt(100,100,100));
+		assertEquals(ShapeFactory.createColorInt(100,100,100), shape.getLineColour());
 	}
 
 
@@ -919,14 +917,14 @@ public abstract class TestIShape<T extends IShape> {
 	@Test
 	public void testSetGetFillingCol() {
 		if(shape.isInteriorStylable()) {
-			shape.setFillingCol(Color.DARK_GRAY);
-			assertEquals(shape.getFillingCol(), Color.DARK_GRAY);
+			shape.setFillingCol(DviPsColors.DARKGRAY);
+			assertEquals(shape.getFillingCol(), DviPsColors.DARKGRAY);
 			shape.setFillingCol(null);
-			assertEquals(shape.getFillingCol(), Color.DARK_GRAY);
-			shape.setFillingCol(Color.BLUE);
-			assertEquals(shape.getFillingCol(), Color.BLUE);
-			shape.setFillingCol(new Color(200,100,40));
-			assertEquals(shape.getFillingCol(), new Color(200,100,40));
+			assertEquals(shape.getFillingCol(), DviPsColors.DARKGRAY);
+			shape.setFillingCol(DviPsColors.BLUE);
+			assertEquals(shape.getFillingCol(), DviPsColors.BLUE);
+			shape.setFillingCol(ShapeFactory.createColorInt(200,100,40));
+			assertEquals(shape.getFillingCol(), ShapeFactory.createColorInt(200,100,40));
 		}
 	}
 

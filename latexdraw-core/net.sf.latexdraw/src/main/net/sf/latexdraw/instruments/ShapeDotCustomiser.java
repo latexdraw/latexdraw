@@ -1,8 +1,10 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.ItemSelectable;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.ColorPicker;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -20,8 +22,6 @@ import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MButtonIcon;
-import org.malai.swing.widget.MColorButton;
 import org.malai.swing.widget.MComboBox;
 import org.malai.swing.widget.MSpinner;
 
@@ -51,7 +51,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	protected LabelComboBox dotCB;
 
 	/** Changes the colour of the filling of the dot. */
-	protected MColorButton fillingB;
+	@FXML protected ColorPicker fillingB;
 
 
 	/**
@@ -78,9 +78,9 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
      	dotCB = createDotStyleChoice();
      	dotSizeField.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeDot.2")); //$NON-NLS-1$
 
-     	fillingB = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(Color.WHITE));//$NON-NLS-1$
-     	fillingB.setMargin(LResources.INSET_BUTTON);
-     	fillingB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.68")); //$NON-NLS-1$
+//     	fillingB = new ColorPicker();
+//     	(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48") //FIXME clean
+//     	fillingB.setTooltip(new Tooltip(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.68"))); //$NON-NLS-1$
 	}
 
 	/**
@@ -152,10 +152,10 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 		if(shape.isTypeOf(IDotProp.class)) {
 			dotSizeField.setValueSafely(shape.getDiametre());
 			dotCB.setSelectedItemSafely(shape.getDotStyle().toString());
-			fillingB.setEnabled(shape.isFillable());
+			fillingB.setDisable(shape.isFillable());
 
-			if(shape.isFillable())
-				fillingB.setColor(shape.getDotFillingCol());
+//			if(shape.isFillable())
+//				fillingB.setValue(shape.getDotFillingCol());
 		}
 		else setActivated(false);
 	}
@@ -165,7 +165,6 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	protected void setWidgetsVisible(final boolean visible) {
 		composer.setWidgetVisible(dotCB, visible);
 		composer.setWidgetVisible(dotSizeField, visible);
-		composer.setWidgetVisible(fillingB, visible);
 	}
 
 
@@ -176,8 +175,8 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 			addInteractor(new Spinner2SelectionDotSize(this));
 			addInteractor(new List2PencilDotStyle(this));
 			addInteractor(new List2SelectionDotStyle(this));
-			addInteractor(new FillingButton2SelectionFilling(this));
-			addInteractor(new FillingButton2PencilFilling(this));
+//			addInteractor(new FillingButton2SelectionFilling(this));
+//			addInteractor(new FillingButton2PencilFilling(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -200,57 +199,42 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 	}
 
 
-	/**
-	 * @return the button that changes the colour of the filling of dots.
-	 * @since 3.0
-	 */
-	public MColorButton getFillingB() {
-		return fillingB;
-	}
-
-
-	/**
-	 * This link maps a colour button to the pencil.
-	 */
-	private static class FillingButton2PencilFilling extends ColourButtonForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
-		protected FillingButton2PencilFilling(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
-			super(instrument, ModifyPencilParameter.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setPencil(instrument.pencil);
-			action.setProperty(ShapeProperties.DOT_FILLING_COL);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getButton()==instrument.fillingB && instrument.pencil.isActivated();
-		}
-	}
-
-
-	/**
-	 * This link maps a colour button to the pencil.
-	 */
-	private static class FillingButton2SelectionFilling extends ColourButtonForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
-		protected FillingButton2SelectionFilling(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
-			super(instrument, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-			action.setProperty(ShapeProperties.DOT_FILLING_COL);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getButton()==instrument.fillingB && instrument.hand.isActivated();
-		}
-	}
+//	private static class FillingButton2PencilFilling extends ColourButtonForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
+//		protected FillingButton2PencilFilling(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+//			super(instrument, ModifyPencilParameter.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			super.initAction();
+//			action.setPencil(instrument.pencil);
+//			action.setProperty(ShapeProperties.DOT_FILLING_COL);
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return interaction.getButton()==instrument.fillingB && instrument.pencil.isActivated();
+//		}
+//	}
+//
+//
+//	private static class FillingButton2SelectionFilling extends ColourButtonForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
+//		protected FillingButton2SelectionFilling(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+//			super(instrument, ModifyShapeProperty.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			super.initAction();
+//			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//			action.setProperty(ShapeProperties.DOT_FILLING_COL);
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return interaction.getButton()==instrument.fillingB && instrument.hand.isActivated();
+//		}
+//	}
 
 
 	/**

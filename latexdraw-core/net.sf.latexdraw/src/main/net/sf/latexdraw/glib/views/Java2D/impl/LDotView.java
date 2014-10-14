@@ -1,7 +1,7 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
@@ -108,13 +108,13 @@ class LDotView extends LShapeView<IDot> implements IViewDot {
 		final BasicStroke stroke = getStroke();
 
 		if(toFill) {
-			g.setColor(fillCol);
+			g.setColor(fillCol.toAWT());
 			g.fill(path);
 		}
 
 		if(stroke!=null) {
 			g.setStroke(stroke);
-			g.setColor(shape.getLineColour());
+			g.setColor(shape.getLineColour().toAWT());
 			g.draw(path);
 		}
 	}

@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import java.awt.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -186,7 +186,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		final IPoint position = image==null ? getTextPositionText() : getTextPositionImage();
 
 		if(image==null) {
-			g.setColor(shape.getLineColour());
+			g.setColor(shape.getLineColour().toAWT());
 			g.setFont(FONT);
 			g.drawString(shape.getText(), (int)position.getX(), (int)position.getY());
 		}

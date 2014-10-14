@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.models.impl
 
-import java.awt.Color
 import java.util.ArrayList
 import java.util.List
 import scala.collection.JavaConversions.asScalaBuffer
@@ -29,6 +28,8 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IScalable
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
  * A Group is a group of IShape instances.<br>
@@ -280,7 +281,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def getGridLabelsColourList: List[Color] = getShapes.map{case sh:IGridProp => sh.getGridLabelsColour; case _ => Color.BLACK}
+	override def getGridLabelsColourList: List[Color] = getShapes.map{case sh:IGridProp => sh.getGridLabelsColour; case _ => DviPsColors.BLACK}
 
 	override def setSubGridColourList(values : List[Color]) = {
 		if(values!=null && values.size==shapes.size)
@@ -292,7 +293,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def getSubGridColourList: List[Color] = getShapes.map{case sh:IGridProp => sh.getSubGridColour; case _ => Color.BLACK}
+	override def getSubGridColourList: List[Color] = getShapes.map{case sh:IGridProp => sh.getSubGridColour; case _ => DviPsColors.BLACK}
 
 	override def setGridWidthList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size==shapes.size)
@@ -724,9 +725,9 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def getFillingColList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getFillingCol; case false => Color.BLACK}}
+	override def getFillingColList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getFillingCol; case false => DviPsColors.BLACK}}
 
-	override def getHatchingsColList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getHatchingsCol; case false => Color.BLACK}}
+	override def getHatchingsColList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getHatchingsCol; case false => DviPsColors.BLACK}}
 
 	override def hasDbleBordList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
@@ -749,7 +750,7 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def getDbleBordColList: List[Color] = getShapes.map{sh => sh.isDbleBorderable match { case true => sh.getDbleBordCol; case false => Color.BLACK}}
+	override def getDbleBordColList: List[Color] = getShapes.map{sh => sh.isDbleBorderable match { case true => sh.getDbleBordCol; case false => DviPsColors.BLACK}}
 
 	override def hasShadowList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
@@ -783,11 +784,11 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def getShadowColList: List[Color] = getShapes.map{sh => sh.isShadowable match { case true => sh.getShadowCol; case false => Color.BLACK}}
+	override def getShadowColList: List[Color] = getShapes.map{sh => sh.isShadowable match { case true => sh.getShadowCol; case false => DviPsColors.BLACK}}
 
-	override def getGradColStartList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getGradColStart; case false => Color.BLACK}}
+	override def getGradColStartList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getGradColStart; case false => DviPsColors.BLACK}}
 
-	override def getGradColEndList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getGradColEnd; case false => Color.BLACK}}
+	override def getGradColEndList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getGradColEnd; case false => DviPsColors.BLACK}}
 
 	override def getThicknessList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
@@ -805,7 +806,7 @@ private[impl] class LGroup() extends LShape()
 	override def getLineStyleList: List[LineStyle] =
 		getShapes.map{sh => sh.isLineStylable match { case true => sh.getLineStyle; case false => LineStyle.SOLID}}
 
-	override def getDotFillingColList: List[Color] = getShapes.map{case sh:IDotProp => sh.getDotFillingCol; case _ => Color.BLACK}
+	override def getDotFillingColList: List[Color] = getShapes.map{case sh:IDotProp => sh.getDotFillingCol; case _ => DviPsColors.BLACK}
 
 	override def getDotStyleList: List[DotStyle] = getShapes.map{case sh:IDotProp => sh.getDotStyle; case _ => DotStyle.DOT}
 

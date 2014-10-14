@@ -1,8 +1,10 @@
 package test.parser.pst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import java.awt.Color;
 import java.text.ParseException;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
@@ -10,6 +12,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;
@@ -30,8 +33,8 @@ public class TestParsingQdisk extends TestPSTParser {
 	@Test
 	public void testLineColourIsFillColour() throws ParseException {
 		ICircle cir =  (ICircle)parser.parsePSTCode("\\psset{linecolor=green}\\"+getCommandName()+"(35pt,20pt){10pt}").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(Color.GREEN, cir.getFillingCol());
-		assertEquals(Color.GREEN, cir.getLineColour());
+		assertEquals(DviPsColors.GREEN, cir.getFillingCol());
+		assertEquals(DviPsColors.GREEN, cir.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 

@@ -61,7 +61,7 @@ class LGridView extends LStandardGridView<IGrid> {
 		final IPoint vectorTrans = beginRotation(g);
 
 		// Drawing the sub grid.
-		g.setColor(shape.getSubGridColour());
+		g.setColor(shape.getSubGridColour().toAWT());
 
 		if(shape.getSubGridDots()>0)
 			g.setStroke(new BasicStroke((float)shape.getSubGridWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
@@ -71,7 +71,7 @@ class LGridView extends LStandardGridView<IGrid> {
 		g.draw(pathSubGrid);
 
 		// Drawing the main grid.
-		g.setColor(shape.getLineColour());
+		g.setColor(shape.getLineColour().toAWT());
 
 		if(shape.getGridDots()>0)
 			g.setStroke(new BasicStroke((float)shape.getGridWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
@@ -81,7 +81,7 @@ class LGridView extends LStandardGridView<IGrid> {
 		g.draw(path);
 
 		// Drawing the labels.
-		g.setColor(shape.getGridLabelsColour());
+		g.setColor(shape.getGridLabelsColour().toAWT());
 		g.fill(pathLabels);
 
 		if(vectorTrans!=null)

@@ -2,16 +2,16 @@ package net.sf.latexdraw.glib.views.pst;
 
 import static java.lang.Math.toDegrees;
 
-import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.views.AbstractCodeView;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
@@ -229,13 +229,8 @@ public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S>
 	 * @since 3.0
 	 */
 	protected String getColourName(final Color colour) {
-		String name = DviPsColors.INSTANCE.getColourName(colour);
-
-		if(name==null)
-			name = DviPsColors.INSTANCE.addUserColour(colour);
-
+		final String name = DviPsColors.INSTANCE.getColourName(colour).orElseGet(() -> DviPsColors.INSTANCE.addUserColour(colour).orElse(""));
 		addColour(name);
-
 		return name;
 	}
 
@@ -313,8 +308,8 @@ public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S>
 		if(shape.isThicknessable())
 			code.append(", linewidth=").append((float)LNumber.getCutNumber(shape.getThickness()/ppc));//$NON-NLS-1$
 
-		if(linesColor.getAlpha()<255)
-			code.append(", strokeopacity=").append(LNumber.getCutNumber(linesColor.getAlpha()/255f)); //$NON-NLS-1$
+		if(linesColor.getO()<1.0)
+			code.append(", strokeopacity=").append((float)LNumber.getCutNumber(linesColor.getO())); //$NON-NLS-1$
 
 		switch(shape.getLineStyle()) {
 			case DOTTED:
@@ -352,8 +347,8 @@ public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S>
 		if(!interiorColor.equals(PSTricksConstants.DEFAULT_INTERIOR_COLOR))
 			code.append(",fillcolor=").append(getColourName(interiorColor)); //$NON-NLS-1$
 
-		if(interiorColor.getAlpha()<255)
-			code.append(", opacity=").append(LNumber.getCutNumber(interiorColor.getAlpha()/255f)); //$NON-NLS-1$
+		if(interiorColor.getO()<1.0)
+			code.append(", opacity=").append((float)LNumber.getCutNumber(interiorColor.getO())); //$NON-NLS-1$
 
 		return code;
 	}

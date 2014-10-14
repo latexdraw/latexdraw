@@ -1,14 +1,17 @@
 package test.parser.pst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import java.awt.Color;
 import java.text.ParseException;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Ignore;
@@ -336,7 +339,7 @@ public class TestTextParsing extends TestPSTParser {
 		IText txt = (IText)parser.parsePSTCode("\\definecolor{color0}{rgb}{0.5,0.5,0.5}\\color{color0}couocu").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		assertNotNull(txt);
-		assertEquals(new Color(0.5f,0.5f,0.5f), txt.getLineColour());
+		assertEquals(ShapeFactory.createColor(0.5,0.5,0.5), txt.getLineColour());
 	}
 
 
@@ -347,7 +350,7 @@ public class TestTextParsing extends TestPSTParser {
 		assertTrue(group.getShapeAt(0) instanceof IText);
 		IText text = (IText)group.getShapeAt(0);
 		assertEquals("foobar", text.getText()); //$NON-NLS-1$
-		assertEquals(Color.BLACK, text.getLineColour());
+		assertEquals(DviPsColors.BLACK, text.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -358,7 +361,7 @@ public class TestTextParsing extends TestPSTParser {
 		assertTrue(group.getShapeAt(0) instanceof IText);
 		IText text = (IText)group.getShapeAt(0);
 		assertEquals("xyz", text.getText()); //$NON-NLS-1$
-		assertEquals(Color.BLUE, text.getLineColour());
+		assertEquals(DviPsColors.BLUE, text.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -370,7 +373,7 @@ public class TestTextParsing extends TestPSTParser {
 		assertTrue(group.getShapeAt(0) instanceof IText);
 		IText text = (IText)group.getShapeAt(0);
 		assertEquals("xyz", text.getText()); //$NON-NLS-1$
-		assertEquals(Color.BLUE, text.getLineColour());
+		assertEquals(DviPsColors.BLUE, text.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 

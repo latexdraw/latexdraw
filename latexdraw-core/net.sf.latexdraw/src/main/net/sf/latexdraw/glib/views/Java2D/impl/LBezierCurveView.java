@@ -61,7 +61,7 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 		final Ellipse2D.Double d 			= new Ellipse2D.Double(0, 0, width, width);
 		int i;
 
-		g.setColor(shape.getLineColour());
+		g.setColor(shape.getLineColour().toAWT());
 
 		if(!arrow1Drawable || isClosed)
 			fillCircle(d, pts.get(0), width, g);
@@ -110,7 +110,7 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 
 		g.setStroke(new BasicStroke(thick/2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER,
 					1.f, new float[]{(float)shape.getDashSepBlack(), (float)shape.getDashSepWhite()}, 0));
-		g.setColor(shape.getLineColour());
+		g.setColor(shape.getLineColour().toAWT());
 
 		for(i=3; i<size; i+=2) {
 			paintLine(line, pts.get(i-1), ctrlPts2.get(i-1), g);

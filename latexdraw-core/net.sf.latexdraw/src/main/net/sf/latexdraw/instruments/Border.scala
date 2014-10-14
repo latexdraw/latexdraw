@@ -1,12 +1,12 @@
 package net.sf.latexdraw.instruments
 
 import java.awt.BasicStroke
-import java.awt.Color
 import java.awt.Cursor
 import java.awt.Graphics2D
 import java.awt.geom.Rectangle2D
 import scala.collection.mutable.ListBuffer
 import org.malai.action.Action
+import org.malai.instrument.Interactor
 import org.malai.interaction.library.DnD
 import org.malai.mapping.MappingRegistry
 import org.malai.picking.Pickable
@@ -39,7 +39,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.mapping.Shape2BorderMapping
 import net.sf.latexdraw.util.LNumber
-import org.malai.instrument.Interactor
+import java.awt.Color
 
 /**
  * This instrument manages the selected views.<br>

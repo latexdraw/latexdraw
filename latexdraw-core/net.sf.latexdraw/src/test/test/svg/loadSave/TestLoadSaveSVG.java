@@ -3,7 +3,6 @@ package test.svg.loadSave;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.awt.Color;
 import java.util.List;
 
 import net.sf.latexdraw.generators.svg.IShapeSVGFactory;
@@ -16,6 +15,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -118,7 +118,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 			setDefaultDimensions();
 			shape.setHasShadow(true);
 			shape.setShadowAngle(-1);
-			shape.setShadowCol(Color.RED);
+			shape.setShadowCol(DviPsColors.RED);
 			shape.setShadowSize(11.2);
 			compareShapes(generateShape());
 		}
@@ -129,7 +129,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		if(shape.isDbleBorderable()) {
 			setDefaultDimensions();
 			shape.setHasDbleBord(true);
-			shape.setDbleBordCol(Color.GREEN);
+			shape.setDbleBordCol(DviPsColors.GREEN);
 			shape.setDbleBordSep(3.);
 			compareShapes(generateShape());
 		}
@@ -141,11 +141,11 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 			shape.setFillingStyle(FillingStyle.PLAIN);// Must fill the shape before.
 			setDefaultDimensions();
 			shape.setHasDbleBord(true);
-			shape.setDbleBordCol(Color.GREEN);
+			shape.setDbleBordCol(DviPsColors.GREEN);
 			shape.setDbleBordSep(3.);
 			shape.setHasShadow(true);
 			shape.setShadowAngle(-1);
-			shape.setShadowCol(Color.RED);
+			shape.setShadowCol(DviPsColors.RED);
 			shape.setShadowSize(11.2);
 			compareShapes(generateShape());
 		}
@@ -156,7 +156,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		if(shape.isLineStylable()) {
 			shape.setLineStyle(LineStyle.DASHED);
 			shape.setThickness(10);
-			shape.setLineColour(Color.YELLOW);
+			shape.setLineColour(DviPsColors.YELLOW);
 			setDefaultDimensions();
 			compareShapes(generateShape());
 		}
@@ -166,7 +166,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 	public void testFillingHatchingsPLAIN() {
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.PLAIN);
-			shape.setHatchingsCol(Color.GRAY);
+			shape.setHatchingsCol(DviPsColors.GRAY);
 			setDefaultDimensions();
 			compareShapes(generateShape());
 		}
@@ -177,7 +177,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.VLINES_PLAIN);
 			shape.setHatchingsAngle(1.2);
-			shape.setHatchingsCol(Color.GRAY);
+			shape.setHatchingsCol(DviPsColors.GRAY);
 			shape.setHatchingsSep(3.12);
 			shape.setHatchingsWidth(123.3);
 			setDefaultDimensions();
@@ -190,7 +190,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.VLINES);
 			shape.setHatchingsAngle(1.2);
-			shape.setHatchingsCol(Color.GRAY);
+			shape.setHatchingsCol(DviPsColors.GRAY);
 			shape.setHatchingsSep(3.12);
 			shape.setHatchingsWidth(123.3);
 			setDefaultDimensions();
@@ -203,7 +203,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.HLINES_PLAIN);
 			shape.setHatchingsAngle(1.2);
-			shape.setHatchingsCol(Color.GRAY);
+			shape.setHatchingsCol(DviPsColors.GRAY);
 			shape.setHatchingsSep(3.12);
 			shape.setHatchingsWidth(123.3);
 			setDefaultDimensions();
@@ -216,7 +216,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.HLINES);
 			shape.setHatchingsAngle(1.2);
-			shape.setHatchingsCol(Color.GRAY);
+			shape.setHatchingsCol(DviPsColors.GRAY);
 			shape.setHatchingsSep(3.12);
 			shape.setHatchingsWidth(123.3);
 			setDefaultDimensions();
@@ -229,8 +229,8 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
 			shape.setHatchingsAngle(1.2);
-			shape.setFillingCol(Color.LIGHT_GRAY);
-			shape.setHatchingsCol(Color.GRAY);
+			shape.setFillingCol(DviPsColors.LIGHTGRAY);
+			shape.setHatchingsCol(DviPsColors.GRAY);
 			shape.setHatchingsSep(3.12);
 			shape.setHatchingsWidth(123.3);
 			setDefaultDimensions();
@@ -242,7 +242,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.CLINES);
 			shape.setHatchingsAngle(1.2);
-			shape.setHatchingsCol(Color.GRAY);
+			shape.setHatchingsCol(DviPsColors.GRAY);
 			shape.setHatchingsSep(3.12);
 			shape.setHatchingsWidth(123.3);
 			setDefaultDimensions();
@@ -254,8 +254,8 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.GRAD);
 			shape.setGradAngle(0.2);// FIXME its fails because the grad angle is recomputed and thus approximated.
-			shape.setGradColEnd(Color.BLUE);
-			shape.setGradColStart(Color.CYAN);
+			shape.setGradColEnd(DviPsColors.BLUE);
+			shape.setGradColStart(DviPsColors.CYAN);
 			shape.setGradMidPt(0.1);
 			setDefaultDimensions();
 			compareShapes(generateShape());
