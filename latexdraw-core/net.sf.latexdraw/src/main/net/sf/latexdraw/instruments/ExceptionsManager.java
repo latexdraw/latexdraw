@@ -5,9 +5,9 @@ import net.sf.latexdraw.badaboom.BadaboomHandler;
 import net.sf.latexdraw.badaboom.BadaboomManager;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.action.library.ShowWidget;
+import org.malai.swing.instrument.SwingInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.widget.MButton;
 
@@ -30,7 +30,7 @@ import org.malai.swing.widget.MButton;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class ExceptionsManager extends Instrument implements BadaboomHandler {
+public class ExceptionsManager extends SwingInstrument implements BadaboomHandler {
 	/** The button used to shows the panel of exceptions. */
 	protected MButton exceptionB;
 
@@ -94,7 +94,7 @@ public class ExceptionsManager extends Instrument implements BadaboomHandler {
 /**
  * Links a button pressed interaction to an action that show the exceptions frame.
  */
-class ButtonPress2ShowExceptionFrame extends Interactor<ShowWidget, ButtonPressed, ExceptionsManager> {
+class ButtonPress2ShowExceptionFrame extends InteractorImpl<ShowWidget, ButtonPressed, ExceptionsManager> {
 	/**
 	 * Creates the link.
 	 */

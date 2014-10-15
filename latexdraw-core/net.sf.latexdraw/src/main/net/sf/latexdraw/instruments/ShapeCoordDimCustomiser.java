@@ -9,7 +9,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.lang.LangTool;
 
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.interaction.library.SpinnerModified;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MSpinner;
@@ -116,7 +116,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	 * Maps spinners to translation of shapes. The X and Y spinners are used to change the position of the top-left point of the
 	 * selected shapes, i.e. to translate it.
 	 */
-	private static class Spinner2TranslateShape extends Interactor<TranslateShapes, SpinnerModified, ShapeCoordDimCustomiser> {
+	private static class Spinner2TranslateShape extends InteractorImpl<TranslateShapes, SpinnerModified, ShapeCoordDimCustomiser> {
 		protected Spinner2TranslateShape(final ShapeCoordDimCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, TranslateShapes.class, SpinnerModified.class);
 		}

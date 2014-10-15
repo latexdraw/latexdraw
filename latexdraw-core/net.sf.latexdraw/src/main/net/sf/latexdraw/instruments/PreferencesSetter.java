@@ -39,8 +39,8 @@ import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.VersionChecker;
 
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
+import org.malai.swing.instrument.SwingInstrument;
 import org.malai.swing.interaction.library.WindowClosed;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MComboBox;
@@ -74,7 +74,7 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PreferencesSetter extends Instrument {//TODO a composer for the preferences frame and WidgetInstrument inheritance
+public class PreferencesSetter extends SwingInstrument {
 	/** The file chooser of paths selection. */
 	protected JFileChooser fileChooser;
 
@@ -755,7 +755,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 /**
  * This link maps a pressure on the close button of the preferences frame to an action saving the preferences.
  */
-class CloseFrame2SavePreferences extends Interactor<WritePreferences, WindowClosed, PreferencesSetter> {
+class CloseFrame2SavePreferences extends InteractorImpl<WritePreferences, WindowClosed, PreferencesSetter> {
 	/**
 	 * Creates the link.
 	 */

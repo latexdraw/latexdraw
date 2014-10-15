@@ -15,6 +15,7 @@ import org.malai.swing.widget.MMenuItem
 import org.malai.swing.interaction.library.MenuItemPressed
 import org.malai.swing.ui.SwingUIComposer
 import org.malai.instrument.Interactor
+import org.malai.instrument.InteractorImpl
 
 /**
  * This instrument manages the templates.<br>
@@ -93,7 +94,7 @@ class TemplateManager(composer : SwingUIComposer[_], val ui : LFrame) extends Wi
 
 
 private sealed class MenuItem2ExportTemplate(ins : TemplateManager) extends
-				Interactor[ExportTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[ExportTemplate], classOf[MenuItemPressed]) {
+				InteractorImpl[ExportTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[ExportTemplate], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.setUi(instrument.ui)
 		action.templatesMenu = instrument.templateMenu
@@ -104,7 +105,7 @@ private sealed class MenuItem2ExportTemplate(ins : TemplateManager) extends
 
 
 private sealed class MenuItem2LoadTemplate(ins : TemplateManager) extends
-				Interactor[LoadTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[LoadTemplate], classOf[MenuItemPressed]) {
+				InteractorImpl[LoadTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[LoadTemplate], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.setFile(new File(interaction.getMenuItem.getName))
 		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE)
@@ -117,7 +118,7 @@ private sealed class MenuItem2LoadTemplate(ins : TemplateManager) extends
 
 /** Maps a menu item interaction to an action that updates the templates. */
 private sealed class MenuItem2UpdateTemplates(ins : TemplateManager) extends
-				Interactor[UpdateTemplates, MenuItemPressed, TemplateManager](ins, false, classOf[UpdateTemplates], classOf[MenuItemPressed]) {
+				InteractorImpl[UpdateTemplates, MenuItemPressed, TemplateManager](ins, false, classOf[UpdateTemplates], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.updateThumbnails = true
 		action.templatesMenu = instrument.templateMenu

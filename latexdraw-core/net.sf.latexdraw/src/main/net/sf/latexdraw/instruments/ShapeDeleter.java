@@ -11,11 +11,11 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.ActionsRegistry;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.interaction.Interaction;
-import org.malai.interaction.library.KeyPressure;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.interaction.library.KeyPressure;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
 
@@ -108,7 +108,7 @@ public class ShapeDeleter extends WidgetInstrument {
 /**
  * This abstract link maps an interaction to an action that delete shapes.
  */
-abstract class DeleteShapesInteractor<I extends Interaction> extends Interactor<DeleteShapes, I, ShapeDeleter> {
+abstract class DeleteShapesInteractor<I extends Interaction> extends InteractorImpl<DeleteShapes, I, ShapeDeleter> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.

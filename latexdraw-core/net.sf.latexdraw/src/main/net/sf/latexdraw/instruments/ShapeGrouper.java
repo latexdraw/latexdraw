@@ -12,7 +12,7 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.ActionsRegistry;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButton;
@@ -113,7 +113,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 
 
 	/** This link maps a button to an action that separates the selected group. */
-	private static class Button2SeparateShapes extends Interactor<SeparateShapes, ButtonPressed, ShapeGrouper> {
+	private static class Button2SeparateShapes extends InteractorImpl<SeparateShapes, ButtonPressed, ShapeGrouper> {
 		protected Button2SeparateShapes(final ShapeGrouper ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, SeparateShapes.class, ButtonPressed.class);
 		}
@@ -137,7 +137,7 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 
 
 	/** This link maps a button to an action that groups the selected shapes. */
-	private static class Button2GroupShapes extends Interactor<JoinShapes, ButtonPressed, ShapeGrouper> {
+	private static class Button2GroupShapes extends InteractorImpl<JoinShapes, ButtonPressed, ShapeGrouper> {
 		protected Button2GroupShapes(final ShapeGrouper ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, JoinShapes.class, ButtonPressed.class);
 		}

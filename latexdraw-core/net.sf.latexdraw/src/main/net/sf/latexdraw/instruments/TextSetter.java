@@ -17,10 +17,10 @@ import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 
 import org.malai.action.Action;
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Interactor;
-import org.malai.interaction.library.KeyTyped;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.action.library.ActivateInactivateInstruments;
+import org.malai.swing.instrument.SwingInstrument;
+import org.malai.swing.interaction.library.KeyTyped;
 import org.malai.swing.widget.MLayeredPane;
 
 /**
@@ -41,7 +41,7 @@ import org.malai.swing.widget.MLayeredPane;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class TextSetter extends Instrument {
+public class TextSetter extends SwingInstrument {
 	/** The text field. */
 	protected TextAreaAutoSize textField;
 
@@ -198,7 +198,7 @@ public class TextSetter extends Instrument {
 /**
  * This links maps a key press interaction to an action that desactivates the instrument.
  */
-class KeyPress2Desactivate extends Interactor<ActivateInactivateInstruments, KeyTyped, TextSetter> {
+class KeyPress2Desactivate extends InteractorImpl<ActivateInactivateInstruments, KeyTyped, TextSetter> {
 	/**
 	 * Creates the link.
 	 */
@@ -221,7 +221,7 @@ class KeyPress2Desactivate extends Interactor<ActivateInactivateInstruments, Key
 }
 
 
-class Enter2SetText extends Interactor<ModifyShapeProperty, KeyTyped, TextSetter> {
+class Enter2SetText extends InteractorImpl<ModifyShapeProperty, KeyTyped, TextSetter> {
 	protected Enter2SetText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ModifyShapeProperty.class, KeyTyped.class);
 	}
@@ -240,7 +240,7 @@ class Enter2SetText extends Interactor<ModifyShapeProperty, KeyTyped, TextSetter
 }
 
 
-class Enter2SetEquation extends Interactor<ModifyShapeProperty, KeyTyped, TextSetter> {
+class Enter2SetEquation extends InteractorImpl<ModifyShapeProperty, KeyTyped, TextSetter> {
 	protected Enter2SetEquation(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ModifyShapeProperty.class, KeyTyped.class);
 	}
@@ -262,7 +262,7 @@ class Enter2SetEquation extends Interactor<ModifyShapeProperty, KeyTyped, TextSe
 /**
  * This links maps a key press interaction to an action that adds a text to the drawing.
  */
-class Enter2AddText extends Interactor<AddShape, KeyTyped, TextSetter> {
+class Enter2AddText extends InteractorImpl<AddShape, KeyTyped, TextSetter> {
 	/**
 	 * Creates the link.
 	 */
@@ -293,7 +293,7 @@ class Enter2AddText extends Interactor<AddShape, KeyTyped, TextSetter> {
 }
 
 
-class Enter2CheckPlot extends Interactor<AddShape, KeyTyped, TextSetter> {
+class Enter2CheckPlot extends InteractorImpl<AddShape, KeyTyped, TextSetter> {
 	protected Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, AddShape.class, KeyTyped.class);
 	}

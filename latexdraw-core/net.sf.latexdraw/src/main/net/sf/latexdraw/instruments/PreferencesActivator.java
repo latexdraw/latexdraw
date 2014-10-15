@@ -10,7 +10,7 @@ import net.sf.latexdraw.ui.dialog.PreferencesFrame;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.library.ActivateInstrument;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.instrument.library.MenuItem2ShowComponentInteractor;
 import org.malai.swing.interaction.library.MenuItemPressed;
@@ -106,7 +106,7 @@ public class PreferencesActivator extends WidgetInstrument {
 /**
  * This links maps a menu item to an action that activates the preferences setter.
  */
-class MenuItem2ActivateSetterInteractor extends Interactor<ActivateInstrument, MenuItemPressed, PreferencesActivator> {
+class MenuItem2ActivateSetterInteractor extends InteractorImpl<ActivateInstrument, MenuItemPressed, PreferencesActivator> {
 	/**
 	 * Creates the link.
 	 */

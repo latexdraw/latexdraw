@@ -20,7 +20,7 @@ import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.Action;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.interaction.library.MenuItemPressed;
@@ -359,7 +359,7 @@ protected FileLoaderSaver loader;
 /**
  * This link maps menus to an export action.
  */
-class MenuPressed2Export extends Interactor<Export, MenuItemPressed, Exporter> {
+class MenuPressed2Export extends InteractorImpl<Export, MenuItemPressed, Exporter> {
 	/**
 	 * Initialises the link.
 	 * @param ins The exporter.
@@ -414,7 +414,7 @@ class MenuPressed2Export extends Interactor<Export, MenuItemPressed, Exporter> {
 /**
  * This link maps buttons to an export action.
  */
-class ButtonPressed2Export extends Interactor<Export, ButtonPressed, Exporter> {
+class ButtonPressed2Export extends InteractorImpl<Export, ButtonPressed, Exporter> {
 	/**
 	 * Initialises the link.
 	 * @param ins The exporter.
