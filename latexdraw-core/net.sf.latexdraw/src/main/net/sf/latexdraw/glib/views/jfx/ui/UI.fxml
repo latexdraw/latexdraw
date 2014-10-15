@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" fx:controller="net.sf.latexdraw.glib.views.jfx.ui.Frame" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane prefHeight="800.0" prefWidth="1200.0" fx:controller="net.sf.latexdraw.glib.views.jfx.ui.Frame" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
    <top>
       <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
         <menus>
@@ -28,31 +28,31 @@
       </MenuBar>
    </top>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <BorderPane BorderPane.alignment="CENTER">
          <center>
-            <SplitPane fx:id="splitPane" dividerPositions="0.85" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.85" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <items>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                  <BorderPane>
                      <center>
-                        <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
                            <content>
                               <fx:include fx:id="canvas" source="Canvas.fxml" />
                            </content>
                         </ScrollPane>
                      </center>
                   </BorderPane>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                  <BorderPane minWidth="250.0" maxWidth="250.0">
                      <center>
-                        <Accordion BorderPane.alignment="CENTER">
+                        <Accordion BorderPane.alignment="CENTER" minWidth="250.0" maxWidth="250.0">
                           <panes>
                             <TitledPane animated="false" text="Templates">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane/>
                               </content>
                             </TitledPane>
                             <TitledPane animated="false" text="Shape Transformation">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane/>
                               </content>
                             </TitledPane>
                             <TitledPane animated="false" text="Line style">

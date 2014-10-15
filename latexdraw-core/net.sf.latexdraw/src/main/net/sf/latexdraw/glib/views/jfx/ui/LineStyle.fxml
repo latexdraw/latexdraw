@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <ColorPicker fx:id="lineCol" layoutX="13.0" layoutY="21.0" prefHeight="25.0" prefWidth="90.0" />
       <ComboBox fx:id="lineStyle" layoutX="13.0" layoutY="55.0" prefHeight="25.0" prefWidth="90.0" promptText="style" />
