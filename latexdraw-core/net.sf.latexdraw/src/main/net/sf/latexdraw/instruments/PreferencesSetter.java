@@ -29,7 +29,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.ui.LCanvas;
-import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
+import net.sf.latexdraw.glib.views.GridStyle;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LFrame;
 import net.sf.latexdraw.ui.ScaleRuler;

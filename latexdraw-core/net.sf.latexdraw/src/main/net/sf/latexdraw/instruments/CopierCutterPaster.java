@@ -9,7 +9,7 @@ import net.sf.latexdraw.actions.shape.PasteShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.glib.ui.LMagneticGrid;
+import net.sf.latexdraw.glib.views.MagneticGrid;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 
@@ -54,7 +54,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 	/** The drawing that contains the shapes. */
 	protected IDrawing drawing;
 
-	protected LMagneticGrid grid;
+	protected MagneticGrid grid;
 
 
 	/**
@@ -65,7 +65,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 	 * @throws NullPointerException If the given drawg is null.
 	 * @since 3.0
 	 */
-	public CopierCutterPaster(final SwingUIComposer<?> composerUI, final IDrawing drawg, final LMagneticGrid magnGrid) {
+	public CopierCutterPaster(final SwingUIComposer<?> composerUI, final IDrawing drawg, final MagneticGrid magnGrid) {
 		super(composerUI);
 
 		drawing = Objects.requireNonNull(drawg);

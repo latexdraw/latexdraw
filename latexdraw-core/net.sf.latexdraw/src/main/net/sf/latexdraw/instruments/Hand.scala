@@ -23,7 +23,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IText
 import net.sf.latexdraw.glib.ui.ICanvas
-import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
 import org.malai.swing.interaction.library.PressWithKeys
@@ -109,10 +108,10 @@ class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrume
 private sealed class CtrlU2UpdateShapes(ins:Hand) extends InteractorImpl[UpdateToGrid, KeysPressure, Hand](ins, false, classOf[UpdateToGrid], classOf[KeysPressure]) {
 	override def initAction() {
 		action.setShape(instrument.canvas.getDrawing.getSelection.duplicateDeep(false))
-		action.setGrid(instrument.canvas.getMagneticGrid)
+//		action.setGrid(instrument.canvas.getMagneticGrid)
 	}
 
-	override def isConditionRespected = instrument.canvas.getMagneticGrid.isMagnetic &&
+	override def isConditionRespected = //instrument.canvas.getMagneticGrid.isMagnetic &&
 		interaction.getKeys.size==2 && interaction.getKeys.contains(KeyEvent.VK_U) && interaction.getKeys.contains(KeyEvent.VK_CONTROL)
 }
 

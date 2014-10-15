@@ -697,7 +697,7 @@ private sealed class DnD2Scale(ins : Border) extends InteractorImpl[ScaleShapes,
 		val br = drawing.getSelection.getBottomRightPoint
 		val tl = drawing.getSelection.getTopLeftPoint
 
-		p1 = instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt))
+//		p1 = instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt))
 
 		setXGap(refPosition, tl, br)
 		setYGap(refPosition, tl, br)

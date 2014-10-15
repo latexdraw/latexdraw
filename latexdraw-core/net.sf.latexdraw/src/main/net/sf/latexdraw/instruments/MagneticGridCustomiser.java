@@ -8,8 +8,8 @@ import javax.swing.JSpinner;
 import net.sf.latexdraw.actions.ModifyMagneticGrid;
 import net.sf.latexdraw.actions.ModifyMagneticGrid.GridProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.ui.LMagneticGrid;
-import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
+import net.sf.latexdraw.glib.views.GridStyle;
+import net.sf.latexdraw.glib.views.MagneticGrid;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -45,7 +45,7 @@ import org.malai.undo.Undoable;
  */
 public class MagneticGridCustomiser extends WidgetInstrument {
 	/** The grid to customise. */
-	protected LMagneticGrid grid;
+	protected MagneticGrid grid;
 
 	/** Contains the different possible kind of grids. */
 	protected MComboBox<String> styleList;
@@ -64,7 +64,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	 * @throws IllegalArgumentException If the given grid is null.
 	 * @since 3.0
 	 */
-	public MagneticGridCustomiser(final SwingUIComposer<?> composer, final LMagneticGrid grid) {
+	public MagneticGridCustomiser(final SwingUIComposer<?> composer, final MagneticGrid grid) {
 		super(composer);
 		this.grid = Objects.requireNonNull(grid);
 		initialiseWidgets();

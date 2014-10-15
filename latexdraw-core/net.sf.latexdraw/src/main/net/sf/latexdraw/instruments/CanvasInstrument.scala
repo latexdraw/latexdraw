@@ -28,7 +28,7 @@ abstract class CanvasInstrument(val canvas : ICanvas) extends SwingInstrument {
 	 * @return The computed point.
 	 * @since 3.1
 	 */
-	def getAdaptedGridPoint(pt:IPoint) = canvas.getMagneticGrid.getTransformedPointToGrid(canvas.getZoomedPoint(pt.getX, pt.getY))
+	def getAdaptedGridPoint(pt:IPoint) = ShapeFactory.createPoint// canvas.getMagneticGrid.getTransformedPointToGrid(canvas.getZoomedPoint(pt.getX, pt.getY))
 
 	/**
 	 * Computes the point depending on the the zoom level and the magnetic grid.
@@ -37,7 +37,8 @@ abstract class CanvasInstrument(val canvas : ICanvas) extends SwingInstrument {
 	 * @since 3.0
 	 */
 	def getAdaptedPoint(pt:Point) = {
-		val pt2 = canvas.convertToOrigin(canvas.getMagneticGrid.getTransformedPointToGrid(pt))
-		ShapeFactory.createPoint(canvas.getZoomedPoint(pt2.getX, pt2.getY))
+//		val pt2 = canvas.convertToOrigin(canvas.getMagneticGrid.getTransformedPointToGrid(pt))
+//		ShapeFactory.createPoint(canvas.getZoomedPoint(pt2.getX, pt2.getY))
+		ShapeFactory.createPoint
 	}
 }

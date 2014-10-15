@@ -1,31 +1,28 @@
-package net.sf.latexdraw.glib.ui;
+package net.sf.latexdraw.glib.views.jfx;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 
+import javafx.geometry.Bounds;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.views.GridStyle;
+import net.sf.latexdraw.glib.views.MagneticGrid;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LResources;
 
-import org.malai.preferences.Preferenciable;
-import org.malai.properties.Modifiable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * This class defines a magnetic grid.<br>
+ * Implementation of a magnetic grid.<br>
  * <br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -39,73 +36,11 @@ import org.w3c.dom.NodeList;
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *  PURPOSE. See the GNU General Public License for more details.<br>
  * <br>
- * 01/21/08<br>
+ * 2014-10-15<br>
  * @author Arnaud BLOUIN
- * @version 3.0
+ * @version 4.0
  */
-public class LMagneticGrid implements Preferenciable, Modifiable {
-	/**
-	 * This enumeration contains the different style
-	 * of a magnetic grid.
-	 */
-	public enum GridStyle {
-		CUSTOMISED {
-			@Override
-			public String getLabel() {
-				return LResources.LABEL_DISPLAY_PERSO_GRID;
-			}
-		},
-		STANDARD {
-			@Override
-			public String getLabel() {
-				return LResources.LABEL_DISPLAY_GRID;
-			}
-		},
-		NONE {
-			@Override
-			public String getLabel() {
-				return "None"; //$NON-NLS-1$
-			}
-		};
-
-		/**
-		 * @return The label of the style.
-		 * @since 3.0
-		 */
-		public abstract String getLabel();
-
-
-		/**
-		 * Searches the style which label matches the given name.
-		 * @param name The name of the style to find.
-		 * @return The found style or null.
-		 * @since 3.0
-		 */
-		public static GridStyle getStylefromName(final String name) {
-			for(final GridStyle style : values())
-				if(style.toString().equals(name))
-					return style;
-			return null;
-		}
-
-		/**
-		 * Searches the style which label matches the given label. Warning,
-		 * labels change depending on the language.
-		 * @param label The label of the style to find.
-		 * @return The found style or null.
-		 * @since 3.0
-		 */
-		public static GridStyle getStyleFromLabel(final String label) {
-			for(final GridStyle style : values())
-				if(style.getLabel().equals(label))
-					return style;
-			return null;
-		}
-	}
-
-	/** The stroke of the grid. */
-	public static final BasicStroke STROKE = new BasicStroke(0, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER);
-
+class MagneticGridImpl implements MagneticGrid {
 	/** Allows to know if the grid is magnetic or not. */
 	protected boolean isMagnetic;
 
@@ -116,7 +51,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	protected GridStyle style;
 
 	/** The canvas that paints the grid. */
-	protected ICanvas canvas;
+	protected Canvas canvas;
 
 	/** Defined if the canvas has been modified. */
 	protected boolean modified;
@@ -126,9 +61,8 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	 * Creates the magnetic grid.
 	 * @param canvas The canvas in which the grid will work.
 	 * @throws NullPointerException if the given parameters are not valid.
-	 * @since 3.1
 	 */
-	public LMagneticGrid(final ICanvas canvas) {
+	protected MagneticGridImpl(final Canvas canvas) {
 		super();
 		modified = false;
 		this.canvas	= Objects.requireNonNull(canvas);
@@ -139,15 +73,14 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	/**
 	 * Paints the magnetic grid is activated.
 	 * @param graph The graphics in which the grid will be drawn.
-	 * @since 3.0
 	 */
-	public void paint(final Graphics2D graph) {
+	protected void paint(final GraphicsContext graph) {
 		if(!isGridDisplayed()) return;
-		final Rectangle clip = graph.getClipBounds();
-		if(clip==null) return;
+//		final Rectangle clip = graph.getClipBounds();
+//		if(clip==null) return;
 
-		graph.setColor(Color.BLACK);
-		graph.setStroke(STROKE);
+		graph.setStroke(Color.BLACK);
+		graph.setLineWidth(0.1);
 
 		switch(style) {
 			case STANDARD:
@@ -155,11 +88,11 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 				if(ScaleRuler.getUnit()==Unit.INCH)
 					ppc*=PSTricksConstants.INCH_VAL_CM;
 
-				paintSubLines(graph, clip);
-				paintMainLines(graph, ppc, clip);
+				paintSubLines(graph, canvas.getLayoutBounds());//FIXME clip
+				paintMainLines(graph, ppc, canvas.getLayoutBounds());
 				break;
 			case CUSTOMISED:
-				paintMainLines(graph, gridSpacing, clip);
+				paintMainLines(graph, gridSpacing, canvas.getLayoutBounds());
 				break;
 			case NONE: break;
 		}
@@ -167,13 +100,12 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 
 
 
-	protected void paintSubLines(final Graphics2D graph, final Rectangle clip) {
+	protected void paintSubLines(final GraphicsContext graph, final Bounds clip) {
 		double pixPerCm10 = canvas.getPPCDrawing()*canvas.getZoom()/10.;
 		if(ScaleRuler.getUnit()==Unit.INCH)
 			pixPerCm10*=PSTricksConstants.INCH_VAL_CM;
 
 		if(Double.compare(pixPerCm10, 4.)>0) {
-			final Line2D line = new Line2D.Double();
 			final double xMinclip = Math.floor(clip.getMinX()/pixPerCm10)*pixPerCm10-clip.getMinX();
 			final double yMinclip = Math.floor(clip.getMinY()/pixPerCm10)*pixPerCm10-clip.getMinY();
 			final double xMaxclip = clip.getMaxX();
@@ -181,21 +113,17 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 			final double minX 	  = clip.getMinX();
 			final double minY	  = clip.getMinY();
 
-    		for(double i=pixPerCm10-1+xMinclip+minX+canvas.getOrigin().getX()%pixPerCm10; i<xMaxclip; i+=pixPerCm10) {
-				line.setLine(i, minY, i, yMaxclip);
-				graph.draw(line);
-			}
+    		for(double i=pixPerCm10-1+xMinclip+minX+canvas.getOrigin().getX()%pixPerCm10; i<xMaxclip; i+=pixPerCm10)
+				graph.strokeLine(i, minY, i, yMaxclip);
 
-    		for(double i=pixPerCm10-1+yMinclip+minY+canvas.getOrigin().getY()%pixPerCm10; i<yMaxclip; i+=pixPerCm10) {
-				line.setLine(minX, i, xMaxclip, i);
-				graph.draw(line);
-			}
+    		for(double i=pixPerCm10-1+yMinclip+minY+canvas.getOrigin().getY()%pixPerCm10; i<yMaxclip; i+=pixPerCm10)
+				graph.strokeLine(minX, i, xMaxclip, i);
     	}
 	}
 
 
 
-	protected void paintMainLines(final Graphics2D graph, final double gap, final Rectangle clip) {
+	protected void paintMainLines(final GraphicsContext graph, final double gap, final Bounds clip) {
 		final double gap2 	  = gap*canvas.getZoom();
 		final double xMinclip = Math.floor(clip.getMinX()/gap2)*gap2-clip.getMinX();
 		final double yMinclip = Math.floor(clip.getMinY()/gap2)*gap2-clip.getMinY();
@@ -203,26 +131,18 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		final double yMaxclip = clip.getMaxY();
 		final double minX 	  = clip.getMinX();
 		final double minY	  = clip.getMinY();
-		final Line2D line 	  = new Line2D.Double();
 
 		for(double i=gap2-1+xMinclip+minX+canvas.getOrigin().getX()%gap2; i<xMaxclip; i+=gap2) {
-			line.setLine(i, minY, i, yMaxclip);
-			graph.draw(line);
+			graph.strokeLine(i, minY, i, yMaxclip);
 		}
 
 		for(double j=gap2-1+yMinclip+minY+canvas.getOrigin().getY()%gap2; j<yMaxclip; j+=gap2) {
-			line.setLine(minX, j, xMaxclip, j);
-			graph.draw(line);
+			graph.strokeLine(minX, j, xMaxclip, j);
 		}
 	}
 
 
-	/**
-	 * Transform a point to another "stick" to the magnetic grid.
-	 * @since 1.8
-	 * @param pt The point to transform.
-	 * @return The transformed point or if there is no magnetic grid, a clone of the given point.
-	 */
+	@Override
 	public IPoint getTransformedPointToGrid(final Point2D pt) {
 	   	if(isMagnetic() && isGridDisplayed()) {
 	   		final IPoint point  = ShapeFactory.createPoint(pt.getX(), pt.getY());
@@ -258,10 +178,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 
 
 
-	/**
-	 * @return The gap between the lines of the magnetic grid.
-	 * @since 1.9
-	 */
+	@Override
 	public double getMagneticGridGap() {
 		double gap;
 
@@ -277,10 +194,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	}
 
 
-	/**
-	 * Reinitialises the magnetic grid.
-	 * @since 3.0
-	 */
+	@Override
 	public void reinitGrid() {
 		setStyle(GridStyle.CUSTOMISED);
 		setGridSpacing(20);
@@ -288,19 +202,13 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	}
 
 
-	/**
-	 * @return True: the grid is magnetic.
-	 * @since 2.0.0
-	 */
+	@Override
 	public boolean isMagnetic() {
 		return isMagnetic;
 	}
 
 
-	/**
-	 * @param isMagnetic True: the grid will be magnetic.
-	 * @since 2.0.0
-	 */
+	@Override
 	public void setMagnetic(final boolean isMagnetic) {
 		if(this.isMagnetic!=isMagnetic) {
 			this.isMagnetic = isMagnetic;
@@ -309,19 +217,13 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	}
 
 
-	/**
-	 * @return The new spacing between lines of the personal grid.
-	 * @since 3.0
-	 */
+	@Override
 	public int getGridSpacing() {
 		return gridSpacing;
 	}
 
 
-	/**
-	 * @param gridSpacing The new spacing between lines of the personal grid.
-	 * @since 3.0
-	 */
+	@Override
 	public void setGridSpacing(final int gridSpacing) {
 		if(gridSpacing>1 && this.gridSpacing!=gridSpacing) {
 			this.gridSpacing = gridSpacing;
@@ -330,28 +232,19 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	}
 
 
-	/**
-	 * @return True: the grid is magnetic.
-	 * @since 2.0.0
-	 */
+	@Override
 	public boolean isPersonalGrid() {
 		return style==GridStyle.CUSTOMISED;
 	}
 
 
-	/**
-	 * @return The style of the magnetic grid.
-	 * @since 2.0.0
-	 */
+	@Override
 	public GridStyle getStyle() {
 		return style;
 	}
 
 
-	/**
-	 * @param style The new style of the grid. If null, nothing is performed.
-	 * @since 3.0
-	 */
+	@Override
 	public void setStyle(final GridStyle style) {
 		if(style!=null && style!=this.style) {
 			this.style = style;
@@ -360,10 +253,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 	}
 
 
-	/**
-	 * @return True: The magnetic grid must be displayed.
-	 * @since 2.0.0
-	 */
+	@Override
 	public boolean isGridDisplayed() {
 		return style!=GridStyle.NONE;
 	}
@@ -414,14 +304,7 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 				else if(name.endsWith(LNamespace.XML_MAGNETIC_GRID))
 					setMagnetic(Boolean.parseBoolean(node.getTextContent()));
 				else if(name.endsWith(LNamespace.XML_MAGNETIC_GRID_STYLE))
-					setStyle(GridStyle.getStylefromName(node.getTextContent()));
-				// To keep compatibility with latexdraw 2.0
-				//TODO to remove with these tokens in a future release (in a couple of years).
-				else if(name.endsWith(LNamespace.XML_DISPLAY_GRID)) {
-					if(!Boolean.parseBoolean(node.getTextContent()))
-						setStyle(GridStyle.NONE);
-				} else if(name.endsWith(LNamespace.XML_CLASSIC_GRID))
-					setStyle(Boolean.parseBoolean(node.getTextContent()) ? GridStyle.STANDARD : GridStyle.CUSTOMISED);
+					setStyle(GridStyle.getStylefromName(node.getTextContent()).orElse(GridStyle.STANDARD));
 			}
 		}
 	}

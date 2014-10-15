@@ -8,11 +8,12 @@ import org.malai.action.Action
 import org.malai.undo.Undoable
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapeAction
+import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.ui.LMagneticGrid
+import net.sf.latexdraw.glib.views.MagneticGrid
 import net.sf.latexdraw.lang.LangTool
+import net.sf.latexdraw.glib.views.MagneticGrid
 
 /**
  * This action updates the given shapes to magnetic grid if activated.<br>
@@ -34,7 +35,7 @@ import net.sf.latexdraw.lang.LangTool
  */
 class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Modifying {
 	/** The magnetic grid to use. */
-	var _grid : LMagneticGrid = null
+	var _grid : MagneticGrid = null
 
 	val _listPts : Buffer[Buffer[IPoint]] = new ListBuffer[Buffer[IPoint]]()
 
@@ -88,7 +89,7 @@ class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Mo
 	override def isRegisterable = hadEffect
 
 	/** Sets the magnetic grid to use. */
-	def setGrid(grid:LMagneticGrid) {
+	def setGrid(grid:MagneticGrid) {
 		_grid = grid
 	}
 }

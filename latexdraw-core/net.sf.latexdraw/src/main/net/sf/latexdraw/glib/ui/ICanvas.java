@@ -187,12 +187,6 @@ public interface ICanvas extends Zoomable, ConcretePresentation, ScrollableWidge
 	Border getBorderInstrument();
 
 	/**
-	 * @return The magnetic grid of the canvas.
-	 * @since 3.0
-	 */
-	LMagneticGrid getMagneticGrid();
-
-	/**
 	 * Requests the focus to the canvas.
 	 * @since 3.0
 	 */

@@ -113,9 +113,6 @@ public class LCanvas extends MPanel implements ICanvas {
 	/** The instrument that manages selected views. */
 	protected Border borderIns;
 
-	/** The magnetic grid of the canvas. */
-	protected LMagneticGrid magneticGrid;
-
 	/** Defined if the canvas has been modified. */
 	protected boolean modified;
 
@@ -135,7 +132,6 @@ public class LCanvas extends MPanel implements ICanvas {
 		drawing				= theDrawing;
 		modified			= false;
 		userSelectionBorder	= null;
-		magneticGrid 		= new LMagneticGrid(this);
 		borderIns			= new Border(this);
 		border				= new Rectangle2D.Double();
 		views 				= new ActiveArrayList<>();
@@ -196,10 +192,6 @@ public class LCanvas extends MPanel implements ICanvas {
 		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 	   colorRenderingValue);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 	   antiAliasingValue);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, 		   renderingValue);
-
-		// Displaying the magnetic grid.
-		if(withGrid && magneticGrid.isGridDisplayed())
-    		magneticGrid.paint(g);
 
 		g.translate(ORIGIN.getX(), ORIGIN.getY());
 
@@ -446,7 +438,7 @@ public class LCanvas extends MPanel implements ICanvas {
 	        root.appendChild(elt);
 		}
 
-		magneticGrid.save(generalPreferences, nsURI, document, root);
+//		magneticGrid.save(generalPreferences, nsURI, document, root);
 	}
 
 
@@ -488,7 +480,7 @@ public class LCanvas extends MPanel implements ICanvas {
 			} // if
 		}// for
 
-		magneticGrid.load(generalPreferences, nsURI, meta);
+//		magneticGrid.load(generalPreferences, nsURI, meta);
 	}
 
 
@@ -532,12 +524,6 @@ public class LCanvas extends MPanel implements ICanvas {
 
 
 	@Override
-	public LMagneticGrid getMagneticGrid() {
-		return magneticGrid;
-	}
-
-
-	@Override
 	public void setAntiAliasing(final Object antiAliasingVal) {
 		if(antiAliasingVal!=null)
 			antiAliasingValue = antiAliasingVal;
@@ -564,14 +550,14 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public boolean isModified() {
-		return modified || magneticGrid.isModified();
+		return modified;// || magneticGrid.isModified();
 	}
 
 	@Override
 	public void setModified(final boolean modif) {
 		modified = modif;
-		if(!modif)
-			magneticGrid.setModified(false);
+//		if(!modif)
+//			magneticGrid.setModified(false);
 	}
 
 

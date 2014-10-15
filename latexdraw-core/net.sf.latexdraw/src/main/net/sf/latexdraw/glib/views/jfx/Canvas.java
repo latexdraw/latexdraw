@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.views.jfx;
 
-
 import java.awt.geom.Rectangle2D;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -8,10 +7,12 @@ import javafx.scene.paint.Color;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.util.LNumber;
 
 import org.malai.action.Action;
 import org.malai.action.ActionHandler;
+import org.malai.action.ActionsRegistry;
 import org.malai.mapping.ActiveUnary;
 import org.malai.mapping.IUnary;
 import org.malai.undo.Undoable;
@@ -53,6 +54,9 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 	/** The border of the drawing. */
 	protected final Rectangle2D border;
 	
+	/** The magnetic grid of the canvas. */
+	protected final MagneticGridImpl magneticGrid;
+	
 	
 	/**
 	 * Creates the canvas.
@@ -60,13 +64,14 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 	public Canvas() {
 		super();
 		
-		drawing	= ShapeFactory.createDrawing();
-		zoom	= new ActiveUnary<>(1.);
-		page 	= Page.USLETTER;
-		border	= new Rectangle2D.Double();
+		drawing		 = ShapeFactory.createDrawing();
+		zoom		 = new ActiveUnary<>(1.);
+		page 		 = Page.USLETTER;
+		border		 = new Rectangle2D.Double();
+		magneticGrid = new MagneticGridImpl(this);
 		
 //		FlyweightThumbnail.setCanvas(this);
-//		ActionsRegistry.INSTANCE.addHandler(this);
+		ActionsRegistry.INSTANCE.addHandler(this);
 //		borderIns.addEventable(this);
 	}
 
@@ -75,7 +80,7 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 	 * Repaints the canvas.
 	 * @param withZoom True: zoom will be activated.
 	 */
-	public void repaint(final boolean withZoom) {
+	public void repaint(final boolean withZoom, final boolean withGrid) {
 		final GraphicsContext gc = getGraphicsContext2D();
 		final double zoomValue 	 = getZoom();
 		final boolean mustZoom 	= withZoom && !LNumber.equalsDouble(zoomValue, 1.);
@@ -84,8 +89,8 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 		gc.fillRect(0, 0, getWidth(), getHeight());
 
 		// Displaying the magnetic grid.
-//		if(withGrid && magneticGrid.isGridDisplayed())
-//    		magneticGrid.paint(g);
+		if(withGrid && magneticGrid.isGridDisplayed())
+    		magneticGrid.paint(gc);
 
 		gc.translate(ORIGIN.getX(), ORIGIN.getY());
 
@@ -113,6 +118,13 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
     	gc.translate(-ORIGIN.getX(), -ORIGIN.getY());
 	}
 	
+	public IPoint getOrigin() {
+		return ORIGIN;
+	}
+	
+	public int getPPCDrawing() {
+		return IShape.PPC;
+	}
 	
 	public void centreViewport() {
 //		SwingUtilities.invokeLater(new Runnable() {
@@ -137,7 +149,7 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 	public void update() {
 		updateBorder();
 		updatePreferredSize();
-		repaint(true);
+		repaint(true, true);
 //		revalidate();
 	}
 	
