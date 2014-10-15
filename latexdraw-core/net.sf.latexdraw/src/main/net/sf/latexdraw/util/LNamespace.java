@@ -73,10 +73,6 @@ public final class LNamespace {
 	public static final String XML_MAXIMISED 			= "maximised";			//$NON-NLS-1$
 	public static final String XML_DISPLAY_GRID 		= "displayGrid";		//$NON-NLS-1$
 	public static final String XML_ROOT_PREFERENCES 	= "preferences";		//$NON-NLS-1$
-	public static final String XML_RENDERING 			= "rendering";			//$NON-NLS-1$
-	public static final String XML_COLOR_RENDERING 		= "colorRendering";		//$NON-NLS-1$
-	public static final String XML_ALPHA_INTER 			= "alphaInter";			//$NON-NLS-1$
-	public static final String XML_ANTI_ALIAS 			= "antiAlias";			//$NON-NLS-1$
 	public static final String XML_PATH_EXPORT 			= "pathExport";			//$NON-NLS-1$
 	public static final String XML_PATH_OPEN 			= "pathOpen";			//$NON-NLS-1$
 	public static final String XML_DISPLAY_X 			= "displayXScale";		//$NON-NLS-1$

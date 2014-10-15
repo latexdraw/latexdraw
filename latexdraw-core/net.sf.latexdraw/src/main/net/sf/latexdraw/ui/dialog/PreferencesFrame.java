@@ -65,7 +65,6 @@ public class PreferencesFrame extends MFrame {
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.general"), createGeneralPanel()); //$NON-NLS-1$
   		tabbedPane.add("LaTeX", createLatexPanel()); //$NON-NLS-1$
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.folders"), createFoldersPanel()); //$NON-NLS-1$
-  		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.quality"), createQualityPanel()); //$NON-NLS-1$
   		tabbedPane.add(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.90"), createDisplayPanel()); //$NON-NLS-1$
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.grid"), createGridPanel()); //$NON-NLS-1$
 
@@ -74,6 +73,8 @@ public class PreferencesFrame extends MFrame {
 		getContentPane().add(pGeneral);
   		setSize(460, 320);
 		setVisible(false);
+		
+		// FIXME clean: LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.quality")
 	}
 
 
@@ -223,22 +224,5 @@ public class PreferencesFrame extends MFrame {
      	pFolders.add(bExport, constraint);
 
   		return pFolders;
-	}
-
-
-	/**
-	 * Creates the panel which allows the user to set preferences about the rendering.
-	 * @return The created panel.
-	 */
-	private JPanel createQualityPanel() {
-  		final JPanel pQuality  = new JPanel(new GridLayout(5, 1));
-
-  		pQuality.add(new JLabel(FOR_NEW_DRAWINGS));
-  		pQuality.add(prefSetter.getAntialiasingCheckBox());
-  		pQuality.add(prefSetter.getRenderingCheckBox());
-  		pQuality.add(prefSetter.getColorRenderCheckBox());
-  		pQuality.add(prefSetter.getAlpaInterCheckBox());
-
-  		return pQuality;
 	}
 }

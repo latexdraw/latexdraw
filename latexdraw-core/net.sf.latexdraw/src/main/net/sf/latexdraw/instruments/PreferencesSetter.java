@@ -3,7 +3,6 @@ package net.sf.latexdraw.instruments;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,7 +27,6 @@ import net.sf.latexdraw.actions.WritePreferences;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.glib.views.GridStyle;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LFrame;
@@ -78,15 +76,6 @@ public class PreferencesSetter extends SwingInstrument {
 	/** The file chooser of paths selection. */
 	protected JFileChooser fileChooser;
 
-	/** This check-box allows to set if antialiasing must be used. */
-	protected MCheckBox antialiasingCheckBox;
-
-	/** This check-box allows to set if rendering quality must be used. */
-	protected MCheckBox renderingCheckBox;
-
-	/** This check-box allows to set if colour rendering quality must be used. */
-	protected MCheckBox colorRenderCheckBox;
-
 	/** This check-box allows to set if the user wants to display the grid. */
 	protected MCheckBox displayGridCB;
 
@@ -101,9 +90,6 @@ public class PreferencesSetter extends SwingInstrument {
 
 	/** Allows the set if the program must check new version on start up. */
 	protected MCheckBox checkNewVersion;
-
-	/** This check-box allows to set if alpha-interpolation must be used. */
-	protected MCheckBox alpaInterCheckBox;
 
 	/** This textField allows to set the default directories for open/save actions. */
 	protected MTextField pathOpenField;
@@ -223,14 +209,11 @@ public class PreferencesSetter extends SwingInstrument {
   		pathExportField  	= new MTextField();
   		pathOpenField    	= new MTextField();
 
-  		antialiasingCheckBox = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.antiAl"));//$NON-NLS-1$
-  		renderingCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.rendQ"));//$NON-NLS-1$
-  		colorRenderCheckBox  = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.colRendQ"));//$NON-NLS-1$
-  		alpaInterCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.AlphaQ"));//$NON-NLS-1$
-  		antialiasingCheckBox.setSelected(true);
-  		renderingCheckBox.setSelected(true);
-  		colorRenderCheckBox.setSelected(true);
-  		alpaInterCheckBox.setSelected(true);
+  		//FIXME clean
+//  		antialiasingCheckBox = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.antiAl"));//$NON-NLS-1$
+//  		renderingCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.rendQ"));//$NON-NLS-1$
+//  		colorRenderCheckBox  = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.colRendQ"));//$NON-NLS-1$
+//  		alpaInterCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.AlphaQ"));//$NON-NLS-1$
 	}
 
 
@@ -279,27 +262,6 @@ public class PreferencesSetter extends SwingInstrument {
 
 
 	/**
-	 * @return The check-box that allows to set if antialiasing must be used.
-	 */
-	public MCheckBox getAntialiasingCheckBox() {
-		return antialiasingCheckBox;
-	}
-
-	/**
-	 * @return The check-box that allows to set if rendering quality must be used.
-	 */
-	public MCheckBox getRenderingCheckBox() {
-		return renderingCheckBox;
-	}
-
-	/**
-	 * @return The check-box that allows to set if colour rendering quality must be used.
-	 */
-	public MCheckBox getColorRenderCheckBox() {
-		return colorRenderCheckBox;
-	}
-
-	/**
 	 * @return The check-box that allows to set if the user wants to display the grid.
 	 */
 	public MCheckBox getDisplayGridCB() {
@@ -333,13 +295,6 @@ public class PreferencesSetter extends SwingInstrument {
 	 */
 	public MCheckBox getCheckNewVersion() {
 		return checkNewVersion;
-	}
-
-	/**
-	 * @return This check-box allows to set if alpha-interpolation must be used.
-	 */
-	public MCheckBox getAlpaInterCheckBox() {
-		return alpaInterCheckBox;
 	}
 
 	/**
@@ -413,12 +368,6 @@ public class PreferencesSetter extends SwingInstrument {
 		node = prefMap.get(LNamespace.XML_LATEX_INCLUDES);
 		if(node!=null) latexIncludes.setText(node.getTextContent());
 
-		node = prefMap.get(LNamespace.XML_ALPHA_INTER);
-		if(node!=null) alpaInterCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_ANTI_ALIAS);
-		if(node!=null) antialiasingCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
 		node = prefMap.get(LNamespace.XML_CHECK_VERSION);
 		if(node!=null) checkNewVersion.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
@@ -427,9 +376,6 @@ public class PreferencesSetter extends SwingInstrument {
 			classicGridRB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 			persoGridRB.setSelected(!Boolean.parseBoolean(node.getTextContent()));
 		}
-
-		node = prefMap.get(LNamespace.XML_COLOR_RENDERING);
-		if(node!=null) colorRenderCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_DISPLAY_GRID);
 		if(node!=null) displayGridCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
@@ -454,9 +400,6 @@ public class PreferencesSetter extends SwingInstrument {
 
 		node = prefMap.get(LNamespace.XML_PATH_OPEN);
 		if(node!=null) pathOpenField.setText(node.getTextContent());
-
-		node = prefMap.get(LNamespace.XML_RENDERING);
-		if(node!=null) renderingCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_UNIT);
 		if(node!=null) unitChoice.setSelectedItemSafely(node.getTextContent());
@@ -536,7 +479,6 @@ public class PreferencesSetter extends SwingInstrument {
 		final MagneticGridCustomiser gridCust 	= frame.getGridCustomiser();
 		final ScaleRulersCustomiser scaleCust 	= frame.getScaleRulersCustomiser();
 		final FileLoaderSaver saver 			= frame.getFileLoader();
-		final LCanvas canvas					= frame.getCanvas();
 		final Dimension dim 					= LSystem.INSTANCE.getScreenDimension();
 		final Rectangle rec 					= frame.getGraphicsConfiguration().getBounds();
 		final GridStyle gridStyle;
@@ -548,10 +490,6 @@ public class PreferencesSetter extends SwingInstrument {
 		gridCust.grid.setStyle(gridStyle);
 		gridCust.grid.setMagnetic(magneticGridCB.isSelected());
 		gridCust.grid.setGridSpacing(Integer.parseInt(persoGridGapField.getValue().toString()));
-		canvas.setAlphaInterpolation(alpaInterCheckBox.isSelected() ? RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY : RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
-		canvas.setAntiAliasing(antialiasingCheckBox.isSelected() ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
-		canvas.setColorRendering(colorRenderCheckBox.isSelected() ? RenderingHints.VALUE_COLOR_RENDER_QUALITY : RenderingHints.VALUE_COLOR_RENDER_SPEED);
-		canvas.setRendering(renderingCheckBox.isSelected() ? RenderingHints.VALUE_RENDER_QUALITY : RenderingHints.VALUE_RENDER_SPEED);
 		exporter.setDefaultPackages(latexIncludes.getText());
 		exporter.setPathExport(pathExportField.getText());
 		gridCust.gridSpacing.setValueSafely(persoGridGapField.getValue());
@@ -600,22 +538,6 @@ public class PreferencesSetter extends SwingInstrument {
 		        final Attr attr = document.createAttribute(LNamespace.XML_VERSION);
 		        attr.setTextContent(VersionChecker.VERSION);
 		        root.setAttributeNode(attr);
-
-		        elt = document.createElement(LNamespace.XML_RENDERING);
-		        elt.setTextContent(String.valueOf(renderingCheckBox.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_COLOR_RENDERING);
-		        elt.setTextContent(String.valueOf(colorRenderCheckBox.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_ALPHA_INTER);
-		        elt.setTextContent(String.valueOf(alpaInterCheckBox.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_ANTI_ALIAS);
-		        elt.setTextContent(String.valueOf(antialiasingCheckBox.isSelected()));
-		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_PATH_EXPORT);
 		        elt.setTextContent(pathExportField.getText());

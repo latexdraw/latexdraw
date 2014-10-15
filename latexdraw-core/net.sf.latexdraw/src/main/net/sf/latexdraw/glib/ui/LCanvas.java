@@ -27,7 +27,6 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.ToolTipable;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.mapping.ViewList2TooltipableList;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
-import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
 
 import org.malai.action.Action;
@@ -43,8 +42,6 @@ import org.malai.swing.widget.MPanel;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Defines a canvas that draw the drawing and manages the selected shapes.<br>
@@ -410,33 +407,33 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
-		if(document==null || root==null)
-			return ;
-
-		Element elt;
-
-		if(generalPreferences) {
-            elt = document.createElement(LNamespace.XML_RENDERING);
-            elt.setTextContent(String.valueOf(renderingValue==RenderingHints.VALUE_RENDER_QUALITY));
-            root.appendChild(elt);
-
-            elt = document.createElement(LNamespace.XML_COLOR_RENDERING);
-            elt.setTextContent(String.valueOf(colorRenderingValue==RenderingHints.VALUE_COLOR_RENDER_QUALITY));
-            root.appendChild(elt);
-
-            elt = document.createElement(LNamespace.XML_ALPHA_INTER);
-            elt.setTextContent(String.valueOf(alphaInterpolValue==RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY));
-            root.appendChild(elt);
-
-            elt = document.createElement(LNamespace.XML_ANTI_ALIAS);
-            elt.setTextContent(String.valueOf(antiAliasingValue==RenderingHints.VALUE_ANTIALIAS_ON));
-            root.appendChild(elt);
-		} else {
-			final String ns = nsURI==null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
-			elt = document.createElement(ns + LNamespace.XML_ZOOM);
-	        elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
-	        root.appendChild(elt);
-		}
+//		if(document==null || root==null)
+//			return ;
+//
+//		Element elt;
+//
+//		if(generalPreferences) {
+//            elt = document.createElement(LNamespace.XML_RENDERING);
+//            elt.setTextContent(String.valueOf(renderingValue==RenderingHints.VALUE_RENDER_QUALITY));
+//            root.appendChild(elt);
+//
+//            elt = document.createElement(LNamespace.XML_COLOR_RENDERING);
+//            elt.setTextContent(String.valueOf(colorRenderingValue==RenderingHints.VALUE_COLOR_RENDER_QUALITY));
+//            root.appendChild(elt);
+//
+//            elt = document.createElement(LNamespace.XML_ALPHA_INTER);
+//            elt.setTextContent(String.valueOf(alphaInterpolValue==RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY));
+//            root.appendChild(elt);
+//
+//            elt = document.createElement(LNamespace.XML_ANTI_ALIAS);
+//            elt.setTextContent(String.valueOf(antiAliasingValue==RenderingHints.VALUE_ANTIALIAS_ON));
+//            root.appendChild(elt);
+//		} else {
+//			final String ns = nsURI==null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
+//			elt = document.createElement(ns + LNamespace.XML_ZOOM);
+//	        elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
+//	        root.appendChild(elt);
+//		}
 
 //		magneticGrid.save(generalPreferences, nsURI, document, root);
 	}
@@ -445,41 +442,41 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public void load(final boolean generalPreferences, final String nsURI, final Element meta) {
-		if(meta==null)
-			return ;
-		// Getting the list of meta information tags.
-		final NodeList nl = meta.getChildNodes();
-		Node node;
-		int i;
-		final int size = nl.getLength();
-		final String uri = nsURI==null ? "" : nsURI; //$NON-NLS-1$
-		String name;
-		String content;
-
-		// For each meta information tag.
-		for(i=0; i<size; i++) {
-			node 	= nl.item(i);
-
-			// Must be a latexdraw tag.
-			if(node!=null && uri.equals(node.getNamespaceURI())) {
-				name 	= node.getNodeName();
-				content = node.getTextContent();
-
-				if(generalPreferences) {
-					if(name.endsWith(LNamespace.XML_RENDERING))
-						renderingValue = Boolean.valueOf(content);
-					else if(name.endsWith(LNamespace.XML_COLOR_RENDERING))
-						colorRenderingValue = Boolean.valueOf(content);
-					else if(name.endsWith(LNamespace.XML_ALPHA_INTER))
-						alphaInterpolValue = Boolean.valueOf(content);
-					else if(name.endsWith(LNamespace.XML_ANTI_ALIAS))
-						antiAliasingValue = Boolean.valueOf(content);
-				} else
-					if(name.endsWith(LNamespace.XML_ZOOM))
-						setZoom(Double.NaN, Double.NaN, Double.parseDouble(node.getTextContent()));
-			} // if
-		}// for
-
+//		if(meta==null)
+//			return ;
+//		// Getting the list of meta information tags.
+//		final NodeList nl = meta.getChildNodes();
+//		Node node;
+//		int i;
+//		final int size = nl.getLength();
+//		final String uri = nsURI==null ? "" : nsURI; //$NON-NLS-1$
+//		String name;
+//		String content;
+//
+//		// For each meta information tag.
+//		for(i=0; i<size; i++) {
+//			node 	= nl.item(i);
+//
+//			// Must be a latexdraw tag.
+//			if(node!=null && uri.equals(node.getNamespaceURI())) {
+//				name 	= node.getNodeName();
+//				content = node.getTextContent();
+//
+//				if(generalPreferences) {
+//					if(name.endsWith(LNamespace.XML_RENDERING))
+//						renderingValue = Boolean.valueOf(content);
+//					else if(name.endsWith(LNamespace.XML_COLOR_RENDERING))
+//						colorRenderingValue = Boolean.valueOf(content);
+//					else if(name.endsWith(LNamespace.XML_ALPHA_INTER))
+//						alphaInterpolValue = Boolean.valueOf(content);
+//					else if(name.endsWith(LNamespace.XML_ANTI_ALIAS))
+//						antiAliasingValue = Boolean.valueOf(content);
+//				} else
+//					if(name.endsWith(LNamespace.XML_ZOOM))
+//						setZoom(Double.NaN, Double.NaN, Double.parseDouble(node.getTextContent()));
+//			} // if
+//		}// for
+//
 //		magneticGrid.load(generalPreferences, nsURI, meta);
 	}
 

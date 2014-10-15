@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.jfx;
 
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -8,6 +10,8 @@ import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
+import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
 
 import org.malai.action.Action;
@@ -15,7 +19,13 @@ import org.malai.action.ActionHandler;
 import org.malai.action.ActionsRegistry;
 import org.malai.mapping.ActiveUnary;
 import org.malai.mapping.IUnary;
+import org.malai.presentation.ConcretePresentation;
+import org.malai.properties.Zoomable;
 import org.malai.undo.Undoable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Defines a canvas that draw the drawing and manages the selected shapes.<br>
@@ -35,7 +45,7 @@ import org.malai.undo.Undoable;
  * @author Arnaud BLOUIN
  * @since 4.0
  */
-public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler {
+public class Canvas extends javafx.scene.canvas.Canvas implements ConcretePresentation, ActionHandler, Zoomable, ViewsSynchroniserHandler {
 	/** The margin used to surround the drawing. */
 	public static final int MARGINS = 2500;
 
@@ -57,6 +67,9 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 	/** The magnetic grid of the canvas. */
 	protected final MagneticGridImpl magneticGrid;
 	
+	/** Defined whether the canvas has been modified. */
+	protected boolean modified;
+	
 	
 	/**
 	 * Creates the canvas.
@@ -64,6 +77,7 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 	public Canvas() {
 		super();
 		
+		modified	 = false;
 		drawing		 = ShapeFactory.createDrawing();
 		zoom		 = new ActiveUnary<>(1.);
 		page 		 = Page.USLETTER;
@@ -122,6 +136,7 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 		return ORIGIN;
 	}
 	
+	@Override
 	public int getPPCDrawing() {
 		return IShape.PPC;
 	}
@@ -143,9 +158,7 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 
 	
 	
-	/**
-	 * Updates the size, the border of the canvas and repaints it.
-	 */
+	@Override
 	public void update() {
 		updateBorder();
 		updatePreferredSize();
@@ -216,9 +229,7 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 	}
 	
 
-	/**
-	 * @return The zoom level of the canvas.
-	 */
+	@Override
 	public double getZoom() {
 		return zoom.getValue();
 	}
@@ -236,4 +247,140 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ActionHandler 
 	@Override public void onActionAdded(final Action a) {/* Nothing to do. */ }
 	@Override public void onActionCancelled(final Action a) {/* Nothing to do. */ }
 	@Override public void onActionDone(final Action a) {/* Nothing to do. */ }
+
+
+	@Override
+	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
+		if(document==null || root==null) return ;
+
+		Element elt;
+
+		if(!generalPreferences) {
+			final String ns = nsURI==null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
+			elt = document.createElement(ns + LNamespace.XML_ZOOM);
+	        elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
+	        root.appendChild(elt);
+		}
+
+		magneticGrid.save(generalPreferences, nsURI, document, root);
+	}
+
+
+	@Override
+	public void load(final boolean generalPreferences, final String nsURI, final Element meta) {
+		if(meta==null) return ;
+		// Getting the list of meta information tags.
+		final NodeList nl = meta.getChildNodes();
+		Node node;
+		int i;
+		final int size = nl.getLength();
+		final String uri = nsURI==null ? "" : nsURI; //$NON-NLS-1$
+		String name;
+
+		// For each meta information tag.
+		for(i=0; i<size; i++) {
+			node = nl.item(i);
+
+			// Must be a latexdraw tag.
+			if(node!=null && uri.equals(node.getNamespaceURI())) {
+				name = node.getNodeName();
+
+				if(!generalPreferences && name.endsWith(LNamespace.XML_ZOOM))
+					setZoom(Double.NaN, Double.NaN, Double.parseDouble(node.getTextContent()));
+			} // if
+		}// for
+
+		magneticGrid.load(generalPreferences, nsURI, meta);
+	}
+
+
+	@Override
+	public boolean isModified() {
+		return modified || magneticGrid.isModified();
+	}
+
+
+	@Override
+	public void setModified(final boolean modif) {
+		modified = modif;
+		if(!modif)
+			magneticGrid.setModified(false);
+	}
+
+
+	@Override
+	public void reinit() {
+//		synchronized(views){views.clear();}
+		zoom.setValue(1.);
+		update();		
+	}
+
+	@Override
+	public IPoint getTopRightDrawingPoint() {
+		return ShapeFactory.createPoint(border.getMaxX(), border.getMinY());
+	}
+
+	@Override
+	public IPoint getBottomLeftDrawingPoint() {
+		return ShapeFactory.createPoint(border.getMinX(), border.getMaxY());
+	}
+
+
+	@Override
+	public IPoint getOriginDrawingPoint() {
+		return ShapeFactory.createPoint(border.getMinX(), border.getCenterY());
+	}
+
+
+	@Override
+	public double getZoomIncrement() {
+		return 0.05;
+	}
+
+
+	@Override
+	public double getMaxZoom() {
+		return 4.5;
+	}
+
+
+	@Override
+	public double getMinZoom() {
+		return 0.1;
+	}
+
+
+	@Override
+	public Point2D getZoomedPoint(final double x, final double y) {
+		final double zoomValue = zoom.getValue();
+		return new Point2D.Double(x/zoomValue, y/zoomValue);
+	}
+
+
+	@Override
+	public Point2D getZoomedPoint(final Point pt) {
+		return pt==null ? new Point2D.Double() : getZoomedPoint(pt.x, pt.y);
+	}
+
+
+	@Override
+	public void setZoom(final double x, final double y, final double z) {
+		if(z<=getMaxZoom() && z>=getMinZoom() && !LNumber.equalsDouble(z,zoom.getValue())) {
+//			final double oldZoom = zoom.getValue();
+			zoom.setValue(z);
+
+//			if(GLibUtilities.isValidCoordinate(x) && GLibUtilities.isValidCoordinate(y)) {
+//				final double dx = (z-oldZoom)*(x-ORIGIN.getX())/oldZoom;
+//				final double dy = (z-oldZoom)*(y-ORIGIN.getY())/oldZoom;
+//				final Point pt = scrollpane.getViewport().getViewPosition();
+//				pt.x += dx;
+//				pt.y += dy;
+//				getScrollpane().getViewport().setViewPosition(pt);
+//			}
+//
+//			borderIns.update();
+			update();
+			setModified(true);
+		}
+	}
 }
