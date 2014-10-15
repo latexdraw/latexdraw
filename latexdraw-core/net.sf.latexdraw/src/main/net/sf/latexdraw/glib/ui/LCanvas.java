@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.ui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
@@ -16,8 +15,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.SwingUtilities;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
@@ -42,7 +39,6 @@ import org.malai.mapping.IUnary;
 import org.malai.mapping.MappingRegistry;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-import org.malai.swing.action.library.MoveCamera;
 import org.malai.swing.widget.MPanel;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
@@ -126,9 +122,6 @@ public class LCanvas extends MPanel implements ICanvas {
 	/** The model of the view. */
 	protected IDrawing drawing;
 
-	/** The current page of the canvas. */
-	protected Page page;
-
 
 
 	/**
@@ -149,7 +142,6 @@ public class LCanvas extends MPanel implements ICanvas {
 		tooltipableView		= new ArrayList<>();
 		tempView			= new ActiveUnary<>();
 		zoom				= new ActiveUnary<>(1.);
-		page 				= Page.USLETTER;
 
 		FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
@@ -182,7 +174,6 @@ public class LCanvas extends MPanel implements ICanvas {
 	public void reinit() {
 		synchronized(views){views.clear();}
 		zoom.setValue(1.);
-		centreViewport();
 		update();
 	}
 
@@ -214,8 +205,6 @@ public class LCanvas extends MPanel implements ICanvas {
 
 		if(mustZoom)
 			g.scale(zoomValue, zoomValue);
-
-		page.paint(g, ShapeFactory.createPoint());
 
 		// Getting the clip must be done here to consider the scaling and translation.
 		final Rectangle clip = g.getClipBounds();
@@ -304,28 +293,9 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 
-	public void centreViewport() {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				final MoveCamera action = new MoveCamera();
-				action.setScrollPane(getScrollpane());
-				action.setPx(ORIGIN.getX()+page.getWidth()*IShape.PPC/2.);
-				action.setPy(ORIGIN.getY()+getVisibleBound().getHeight()/2.-IShape.PPC);
-				if(action.canDo())
-					action.doIt();
-				action.flush();
-			}
-		});
-	}
-
-
 	@Override
 	public void updatePreferredSize() {
-		final double zoomValue = getZoom();
-		setPreferredSize(new Dimension(
-				(int)(Math.max(border.getWidth(), page.getWidth())*zoomValue)+MARGINS*2,
-				(int)(Math.max(border.getHeight(), page.getHeight())*zoomValue)+MARGINS*2));
+		//
 	}
 
 

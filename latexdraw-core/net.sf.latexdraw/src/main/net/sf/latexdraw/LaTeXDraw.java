@@ -60,7 +60,7 @@ public class LaTeXDraw extends Application {
 	
 	@Override
     public void start(final Stage stage) throws IOException {
-		final Parent root = FXMLLoader.load(getClass().getResource("ui/UI.fxml"));
+		final Parent root = FXMLLoader.load(getClass().getResource("glib/views/jfx/ui/UI.fxml"));
         final Scene scene = new Scene(root);
         stage.setTitle("LaTeXDraw");
         stage.setScene(scene);
