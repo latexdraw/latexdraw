@@ -6,7 +6,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.util.LPath;
@@ -58,34 +65,43 @@ public class LaTeXDraw extends Application {
 	}
 	
 	
+	private Stage showSplashScreen() {
+		final Pane splash = new VBox();
+		final Image img = new Image("res/LaTeXDrawSmall.png");
+		final ImageView iv = new ImageView(img);
+		final ProgressBar progressBar = new ProgressBar();
+//		while(img.getProgress()<1.0){}
+		progressBar.setPrefWidth(img.getWidth());
+		splash.getChildren().addAll(iv, progressBar);
+		final Scene splashScene = new Scene(splash);
+		final Stage splashStage = new Stage(StageStyle.UNDECORATED);
+		splashStage.setScene(splashScene);
+		splashStage.centerOnScreen();
+		splashStage.show();
+		splashStage.toFront();
+		return splashStage;
+	}
+	
+	
 	@Override
     public void start(final Stage stage) throws IOException {
+		final Stage splashStage = showSplashScreen();
 		final Parent root = FXMLLoader.load(getClass().getResource("glib/views/jfx/ui/UI.fxml"));
         final Scene scene = new Scene(root);
         stage.setTitle("LaTeXDraw");
         stage.setScene(scene);
+        splashStage.hide();
         stage.show();
         
-//    	// Creation of the splash screen.
-//		val splashScreen = new SplashScreen(Theme.lookAndFeel)
-//		splashScreen.setVisible(true)
-//		// Creation of the main frame.
-//    	val frame = new LFrame(splashScreen.getProgressBar)
-//    	// Composing the user interface.
-//    	frame.getComposer.compose(splashScreen.getProgressBar)
 //		frame.getPrefSetters.readXMLPreferences
 //
-//    	// Removing the splash screen.
-//    	splashScreen.setVisible(false)
 //    	// Showing the user interface.
 //    	MappingRegistry.REGISTRY.initMappings
 //    	frame.setVisible(true)
 //    	frame.setModified(false)
 //    	frame.getCanvas.requestFocusInWindow
 //    	frame.getCanvas.centreViewport
-//    	// Flushes the resources.
-//    	splashScreen.flush
-//    	Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE)
+    	Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE);
 //
 //    	if(cmdLine.getFilename!=null) {
 //	    	val action = new LoadDrawing()
