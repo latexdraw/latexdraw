@@ -3,9 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" fx:controller="net.sf.latexdraw.glib.views.jfx.ui.Frame" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.sf.latexdraw.glib.views.jfx.ui.Frame">
    <top>
       <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
         <menus>
@@ -28,45 +27,58 @@
       </MenuBar>
    </top>
    <center>
-      <BorderPane BorderPane.alignment="CENTER">
-         <center>
-            <SplitPane dividerPositions="0.85" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <items>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab closable="false" text="Drawing">
+               <content>
                   <BorderPane>
                      <center>
-                        <ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
-                           <content>
-                              <fx:include fx:id="canvas" source="Canvas.fxml" />
-                           </content>
-                        </ScrollPane>
+                        <SplitPane dividerPositions="0.85" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <items>
+                              <BorderPane>
+                                 <center>
+                                    <ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
+                                       <content>
+                                          <fx:include fx:id="canvas" source="Canvas.fxml" />
+                                       </content>
+                                    </ScrollPane>
+                                 </center>
+                              </BorderPane>
+                              <BorderPane maxWidth="250.0" minWidth="250.0">
+                                 <center>
+                                    <Accordion maxWidth="250.0" minWidth="250.0" BorderPane.alignment="CENTER">
+                                      <panes>
+                                        <TitledPane animated="false" text="Templates">
+                                          <content>
+                                            <AnchorPane />
+                                          </content>
+                                        </TitledPane>
+                                        <TitledPane animated="false" text="Shape Transformation">
+                                          <content>
+                                            <AnchorPane />
+                                          </content>
+                                        </TitledPane>
+                                        <TitledPane animated="false" text="Line style">
+                                          <content>
+            								<fx:include source="LineStyle.fxml" />
+                                          </content>
+                                        </TitledPane>
+                                      </panes>
+                                    </Accordion>
+                                 </center>
+                              </BorderPane>
+                           </items>
+                        </SplitPane>
                      </center>
                   </BorderPane>
-                  <BorderPane minWidth="250.0" maxWidth="250.0">
-                     <center>
-                        <Accordion BorderPane.alignment="CENTER" minWidth="250.0" maxWidth="250.0">
-                          <panes>
-                            <TitledPane animated="false" text="Templates">
-                              <content>
-                                <AnchorPane/>
-                              </content>
-                            </TitledPane>
-                            <TitledPane animated="false" text="Shape Transformation">
-                              <content>
-                                <AnchorPane/>
-                              </content>
-                            </TitledPane>
-                            <TitledPane animated="false" text="Line style">
-                              <content>
-								<fx:include source="LineStyle.fxml" />
-                              </content>
-                            </TitledPane>
-                          </panes>
-                        </Accordion>
-                     </center>
-                  </BorderPane>
-               </items>
-            </SplitPane>
-         </center>
-      </BorderPane>
+               </content>
+          </Tab>
+          <Tab closable="false" text="PST">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </center>
 </BorderPane>
