@@ -17,6 +17,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.util.LPath;
+import net.sf.latexdraw.util.LangTool;
 
 import org.malai.action.ActionsRegistry;
 import org.malai.undo.UndoCollector;
@@ -81,12 +82,12 @@ public class LaTeXDraw extends Application {
 		splashStage.toFront();
 		return splashStage;
 	}
-	
-	
+
+
 	@Override
     public void start(final Stage stage) throws IOException {
 		final Stage splashStage = showSplashScreen();
-		final Parent root = FXMLLoader.load(getClass().getResource("glib/views/jfx/ui/UI.fxml"));
+		final Parent root = FXMLLoader.load(getClass().getResource("glib/views/jfx/ui/UI.fxml"), LangTool.INSTANCE.getBundle());
         final Scene scene = new Scene(root);
         stage.setTitle("LaTeXDraw");
         stage.setScene(scene);

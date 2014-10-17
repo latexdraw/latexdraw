@@ -20,6 +20,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+//FIXME to remove whe no more used
+//FIXME remove resources
+//FIXME updated template on launchpad
 /**
  * This class defines the localisation.<br>
  *<br>

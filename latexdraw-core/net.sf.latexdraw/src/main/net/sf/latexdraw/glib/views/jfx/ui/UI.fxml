@@ -8,7 +8,7 @@
    <top>
       <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="%LaTeXDrawFrame.91">
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
