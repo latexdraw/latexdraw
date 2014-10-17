@@ -3,24 +3,92 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
 
 <BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.sf.latexdraw.glib.views.jfx.ui.Frame">
    <top>
-      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+      <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="%LaTeXDrawFrame.91">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem id="newMenu" mnemonicParsing="false" text="%Res.2">
+					<graphic><ImageView><image><Image url="@/res/New.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <MenuItem id="loadMenu" mnemonicParsing="false" text="%FileLoaderSaver.3">
+					<graphic><ImageView><image><Image url="@/res/document-open.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <MenuItem id="saveMenu" mnemonicParsing="false" text="%FileLoaderSaver.1">
+					<graphic><ImageView><image><Image url="@/res/document-save.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <MenuItem id="saveAsMenu" mnemonicParsing="false" text="%FileLoaderSaver.2">
+					<graphic><ImageView><image><Image url="@/res/document-save-as.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <Menu id="exportMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.0b" />
+                  <Menu mnemonicParsing="false" text="%LaTeXDrawFrame.16b">
+                    <items>
+                        <MenuItem id="menuItemPST" mnemonicParsing="false" text="%LaTeXDrawFrame.19" />
+                        <MenuItem id="menuItemJPG" mnemonicParsing="false" text="%LaTeXDrawFrame.20" />
+                        <MenuItem id="menuItemPNG" mnemonicParsing="false" text="%LaTeXDrawFrame.7" />
+                        <MenuItem id="menuItemBMP" mnemonicParsing="false" text="%LaTeXDrawFrame.6" />
+                        <MenuItem id="menuItemPDF" mnemonicParsing="false" text="%Exporter.3" />
+                        <MenuItem id="menuItemPDFcrop" mnemonicParsing="false" text="%Exporter.4" />
+                        <MenuItem id="menuItemEPSLatex" mnemonicParsing="false" text="%Exporter.2" />
+                        <MenuItem id="exportTemplateMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.103" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu mnemonicParsing="false" text="%MenuBuilder.1">
+                     <items>
+                        <RadioMenuItem id="unitCmItem" mnemonicParsing="false" text="%XScale.cm" />
+                        <RadioMenuItem id="unitInchItem" mnemonicParsing="false" text="%XScale.inch" />
+                     </items>
+                  </Menu>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+            <Menu mnemonicParsing="false" text="%LaTeXDrawFrame.89">
+              <items>
+                  <MenuItem id="cutMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.44">
+					<graphic><ImageView><image><Image url="@/res/Copy.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <MenuItem id="pasteMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.43">
+					<graphic><ImageView><image><Image url="@/res/Cut.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <MenuItem id="copyMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.40">
+					<graphic><ImageView><image><Image url="@/res/Paste.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem id="showPreferencesMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.56">
+					<graphic><ImageView><image><Image url="@/res/preferences-system.png" /></image></ImageView></graphic>
+                  </MenuItem>
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="%LaTeXDrawFrame.90">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+                  <RadioMenuItem id="xRulerItem" mnemonicParsing="false" text="%LaTeXDrawFrame.38" />
+                  <RadioMenuItem id="yRulerItem" mnemonicParsing="false" text="%LaTeXDrawFrame.39" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="%LaTeXDrawFrame.93">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem id="shortcutItem" mnemonicParsing="false" text="%LaTeXDrawFrame.3c">
+					<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+                  </MenuItem>
+              	  <MenuItem id="donateItem" mnemonicParsing="false" text="%Helper.1">
+					<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <MenuItem id="manuelItem" mnemonicParsing="false" text="%Helper.4">
+					<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <MenuItem id="reportBugItem" mnemonicParsing="false" text="%Helper.2">
+					<graphic><ImageView><image><Image url="@/res/emblem-unreadable.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <MenuItem id="forumItem" mnemonicParsing="false" text="%Helper.3">
+					<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem id="aboutItem" mnemonicParsing="false" text="%Res.1">
+					<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+                  </MenuItem>
             </items>
           </Menu>
         </menus>
@@ -29,7 +97,7 @@
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab closable="false" text="Drawing">
+          <Tab closable="false" text="%UIBuilder.1">
                <content>
                   <BorderPane>
                      <center>
@@ -48,7 +116,7 @@
                                  <center>
                                     <Accordion maxWidth="250.0" minWidth="250.0" BorderPane.alignment="CENTER">
                                       <panes>
-                                        <TitledPane animated="false" text="Templates">
+                                        <TitledPane animated="false" text="%LaTeXDrawFrame.103">
                                           <content>
                                             <AnchorPane />
                                           </content>
