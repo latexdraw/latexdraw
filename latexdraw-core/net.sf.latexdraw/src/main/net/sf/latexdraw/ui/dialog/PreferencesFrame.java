@@ -65,7 +65,6 @@ public class PreferencesFrame extends MFrame {
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.general"), createGeneralPanel()); //$NON-NLS-1$
   		tabbedPane.add("LaTeX", createLatexPanel()); //$NON-NLS-1$
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.folders"), createFoldersPanel()); //$NON-NLS-1$
-  		tabbedPane.add(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.90"), createDisplayPanel()); //$NON-NLS-1$
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.grid"), createGridPanel()); //$NON-NLS-1$
 
 		pGeneral.add(tabbedPane, BorderLayout.CENTER);
@@ -152,27 +151,6 @@ public class PreferencesFrame extends MFrame {
   		pGrid.add(panel);
 
 		return pGrid;
-	}
-
-
-
-	/**
-	 * Creates the panel which allows the user to set the preferences about displayable elements.
-	 * @return The created panel.
-	 */
-	private JPanel createDisplayPanel() {
-  		final JPanel pDisplay = new JPanel(new GridLayout(5, 1));
-		final JPanel panel = new JPanel();
-
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.add(prefSetter.getUnitChoice());
-
-		pDisplay.add(new JLabel(FOR_NEW_DRAWINGS));
-		pDisplay.add(prefSetter.getDisplayXScaleCB());
-  		pDisplay.add(prefSetter.getDisplayYScaleCB());
-  		pDisplay.add(panel);
-
-  		return pDisplay;
 	}
 
 

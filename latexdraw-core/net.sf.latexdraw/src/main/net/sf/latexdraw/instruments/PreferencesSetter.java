@@ -82,12 +82,6 @@ public class PreferencesSetter extends SwingInstrument {
 	/** The widget that defines if the grid is magnetic. */
 	protected MCheckBox magneticGridCB;
 
-	/** This check-box allows to set if the user wants to display the X-scale. */
-	protected MCheckBox displayXScaleCB;
-
-	/** This check-box allows to set if the user wants to display the Y-scale. */
-	protected MCheckBox displayYScaleCB;
-
 	/** Allows the set if the program must check new version on start up. */
 	protected MCheckBox checkNewVersion;
 
@@ -196,10 +190,6 @@ public class PreferencesSetter extends SwingInstrument {
      	persoGridGapField.setEditor(new JSpinner.NumberEditor(persoGridGapField, "0"));//$NON-NLS-1$
      	persoGridGapField.setMaximumSize(new Dimension(60, height));
 
-  		displayXScaleCB    	= new MCheckBox(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.38"));//$NON-NLS-1$
-  		displayXScaleCB.setSelected(true);
-  		displayYScaleCB    	= new MCheckBox(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.39"));//$NON-NLS-1$
-  		displayYScaleCB.setSelected(true);
   		unitChoice 		   	= new MComboBox<>();
   		unitChoice.addItem(Unit.CM.getLabel());
   		unitChoice.addItem(Unit.INCH.getLabel());
@@ -273,20 +263,6 @@ public class PreferencesSetter extends SwingInstrument {
 	 */
 	public MCheckBox getMagneticGridCB() {
 		return magneticGridCB;
-	}
-
-	/**
-	 * @return This check-box allows to set if the user wants to display the X-scale.
-	 */
-	public MCheckBox getDisplayXScaleCB() {
-		return displayXScaleCB;
-	}
-
-	/**
-	 * @return This check-box allows to set if the user wants to display the Y-scale.
-	 */
-	public MCheckBox getDisplayYScaleCB() {
-		return displayYScaleCB;
 	}
 
 
@@ -379,12 +355,6 @@ public class PreferencesSetter extends SwingInstrument {
 
 		node = prefMap.get(LNamespace.XML_DISPLAY_GRID);
 		if(node!=null) displayGridCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_DISPLAY_X);
-		if(node!=null) displayXScaleCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_DISPLAY_Y);
-		if(node!=null) displayYScaleCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_GRID_GAP);
 		if(node!=null) persoGridGapField.setValueSafely(Integer.valueOf(node.getTextContent()));
@@ -495,10 +465,6 @@ public class PreferencesSetter extends SwingInstrument {
 		gridCust.gridSpacing.setValueSafely(persoGridGapField.getValue());
 		gridCust.magneticCB.setSelected(magneticGridCB.isSelected());
 		gridCust.styleList.setSelectedItemSafely(gridStyle.getLabel());
-		scaleCust.xRuler.setVisible(displayXScaleCB.isSelected());
-		scaleCust.yRuler.setVisible(displayYScaleCB.isSelected());
-		scaleCust.xRulerItem.setSelected(displayXScaleCB.isSelected());
-		scaleCust.yRulerItem.setSelected(displayYScaleCB.isSelected());
 		scaleCust.unitCmItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.CM.getLabel()));
 		scaleCust.unitInchItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.INCH.getLabel()));
 		saver.setPathSave(pathOpenField.getText());
@@ -549,14 +515,6 @@ public class PreferencesSetter extends SwingInstrument {
 
 		        elt = document.createElement(LNamespace.XML_DISPLAY_GRID);
 		        elt.setTextContent(String.valueOf(displayGridCB.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_DISPLAY_X);
-		        elt.setTextContent(String.valueOf(displayXScaleCB.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_DISPLAY_Y);
-		        elt.setTextContent(String.valueOf(displayYScaleCB.isSelected()));
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_UNIT);

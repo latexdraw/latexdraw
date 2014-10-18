@@ -75,8 +75,6 @@ public final class LNamespace {
 	public static final String XML_ROOT_PREFERENCES 	= "preferences";		//$NON-NLS-1$
 	public static final String XML_PATH_EXPORT 			= "pathExport";			//$NON-NLS-1$
 	public static final String XML_PATH_OPEN 			= "pathOpen";			//$NON-NLS-1$
-	public static final String XML_DISPLAY_X 			= "displayXScale";		//$NON-NLS-1$
-	public static final String XML_DISPLAY_Y 			= "displayYScale";		//$NON-NLS-1$
 	public static final String XML_CHECK_VERSION 		= "checkVersion";		//$NON-NLS-1$
 	public static final String XML_LANG 				= "lang";				//$NON-NLS-1$
 	public static final String XML_LATEX_INCLUDES		= "latexIncludes";		//$NON-NLS-1$

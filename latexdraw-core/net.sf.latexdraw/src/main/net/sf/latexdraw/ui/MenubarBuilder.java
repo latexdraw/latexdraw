@@ -5,7 +5,6 @@ import javax.swing.JMenuBar;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MCheckBoxMenuItem;
 import org.malai.swing.widget.MMenu;
 import org.malai.swing.widget.MProgressBar;
 
@@ -31,9 +30,6 @@ import org.malai.swing.widget.MProgressBar;
 public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 	/** The main frame of the application. */
 	protected LFrame frame;
-
-	/** This menu contains the menu items related to the visibility of components. */
-	protected MMenu displayMenu;
 
 	/** This menu contains menu items related with drawings. */
 	protected MMenu drawingMenu;
@@ -66,7 +62,6 @@ public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 		composeDrawingMenu();
 		composeEditMenu();
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-		composeDisplayMenu();
 		composeHelpMenu();
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
@@ -115,25 +110,5 @@ public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 		helpMenu.addSeparator();
 		helpMenu.add(frame.helper.getAboutItem());
 		widget.add(helpMenu);
-	}
-
-
-	/**
-	 * Initialises the menu "Display"
-	 * @since 3.0
-	 */
-	protected void composeDisplayMenu() {
-		displayMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.90"), true); //$NON-NLS-1$
-
-		widget.add(displayMenu);
-
-		MCheckBoxMenuItem menuCBItem = frame.scaleRulersCustomiser.getxRulerItem();
-		menuCBItem.setSelected(true);
-        displayMenu.add(menuCBItem);
-        menuCBItem = frame.scaleRulersCustomiser.getyRulerItem();
-        menuCBItem.setSelected(true);
-        displayMenu.add(menuCBItem);
-        displayMenu.addSeparator();
-        displayMenu.add(menuCBItem);
 	}
 }
