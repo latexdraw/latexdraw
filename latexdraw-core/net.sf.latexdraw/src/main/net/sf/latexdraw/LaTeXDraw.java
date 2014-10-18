@@ -118,4 +118,5 @@ public class LaTeXDraw extends Application {
 //    	if(VersionChecker.WITH_UPDATE && frame.getPrefSetters.isVersionCheckEnable)
 //    		new VersionChecker(frame.getComposer).run
 	}
+	//FIXME clean strings(?):  %LaTeXDrawFrame.38, %LaTeXDrawFrame.39 %LaTeXDrawFrame.90
 }
