@@ -129,68 +129,87 @@
 					<graphic><ImageView><image><Image url="@/res/del.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="textB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.60" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/text.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="plotB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4">
+					<tooltip><Tooltip text="%Instruments.5" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/plot.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="gridB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.133" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/grid.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="axesB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.17" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/axes.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="linesB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%Instruments.4" /></tooltip>
 					<graphic><ImageView><image><Image  url="@/res/joinedLines.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="recB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.119" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/rectangle.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="squareB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.120" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/square.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="ellipseB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.125" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/ellipse.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="circleB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.127" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/circle.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="polygonB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.121" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/polygon.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="rhombusB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.123" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/rhombus.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="triangleB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.124" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/triangle.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="bezierClosedB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.11" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/closedBezier.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="bezierB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.132" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/bezierCurve.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="arcB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.128" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/Arc.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="freeHandB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.7" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/Draw.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="dotB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.117" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/dot.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="picB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.1" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/image-x-generic.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<ToggleButton id="codeB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.0" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/texEditor.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<Button id="exceptionB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.117" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/emblem-unreadable.png" /></image></ImageView></graphic>
 				</Button>
 				<MenuButton mnemonicParsing="false">
 					<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
-					<tooltip><Tooltip text="%LaTeXDrawFrame.93" /></tooltip>
 					<items>
 						<MenuItem id="shortcutItem" mnemonicParsing="false" text="%LaTeXDrawFrame.3c">
 							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
