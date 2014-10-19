@@ -26,9 +26,9 @@
 											<center>
 												<Accordion maxWidth="250.0" minWidth="250.0" BorderPane.alignment="CENTER">
 													<panes>
-														<TitledPane animated="false" text="%LaTeXDrawFrame.103">
+														<TitledPane animated="false" text="Line style">
 															<content>
-																<AnchorPane />
+																<fx:include source="LineStyle.fxml" />
 															</content>
 														</TitledPane>
 														<TitledPane animated="false" text="Shape Transformation">
@@ -36,9 +36,9 @@
 																<AnchorPane />
 															</content>
 														</TitledPane>
-														<TitledPane animated="false" text="Line style">
+														<TitledPane animated="false" text="%LaTeXDrawFrame.103">
 															<content>
-																<fx:include source="LineStyle.fxml" />
+																<AnchorPane />
 															</content>
 														</TitledPane>
 													</panes>
