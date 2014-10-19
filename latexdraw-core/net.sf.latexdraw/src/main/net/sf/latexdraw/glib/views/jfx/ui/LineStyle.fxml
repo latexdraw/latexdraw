@@ -6,26 +6,26 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.sf.latexdraw.instruments.ShapeBorderCustomiser">
    <children>
-      <TextField id="thicknessField" layoutX="43.0" layoutY="4.0" prefHeight="25.0" prefWidth="90.0">
+      <TextField fx:id="thicknessField" layoutX="43.0" layoutY="4.0" prefHeight="25.0" prefWidth="90.0">
       	<tooltip><Tooltip text="%LaTeXDrawFrame.65" /></tooltip>
       </TextField>
-      <ChoiceBox id="lineCB" layoutX="13.0" layoutY="104.0" prefHeight="25.0" prefWidth="90.0" >
+      <ComboBox fx:id="lineCB" layoutX="13.0" layoutY="104.0" prefHeight="25.0" prefWidth="90.0" editable="false" >
       	<tooltip><Tooltip text="Set the style of the lines." /></tooltip>
-      </ChoiceBox>
+      </ComboBox>
       <ColorPicker fx:id="lineColButton" layoutX="13.0" layoutY="37.0" prefHeight="25.0" prefWidth="90.0" >
      	<tooltip><Tooltip text="%LaTeXDrawFrame.66" /></tooltip>
       </ColorPicker>
-      <ImageView id="thicknessPic" layoutX="14.0" layoutY="6.0"><image><Image url="@/res/thickness.png" /></image></ImageView>
-      <ChoiceBox id="bordersPosCB" layoutX="110.0" layoutY="104.0" prefHeight="25.0" prefWidth="90.0" >
+      <ImageView fx:id="thicknessPic" layoutX="14.0" layoutY="6.0"><image><Image url="@/res/thickness.png" /></image></ImageView>
+      <ComboBox fx:id="bordersPosCB" layoutX="110.0" layoutY="104.0" prefHeight="25.0" prefWidth="90.0" editable="false" >
       	<tooltip><Tooltip text="%LaTeXDrawFrame.77" /></tooltip>
-      </ChoiceBox>
-      <TextField id="frameArcField" layoutX="43.0" layoutY="70.0" prefHeight="25.0" prefWidth="90.0" >
+      </ComboBox>
+      <TextField fx:id="frameArcField" layoutX="43.0" layoutY="70.0" prefHeight="25.0" prefWidth="90.0" >
       	<tooltip><Tooltip text="Set the roundness of line angles." /></tooltip>
       </TextField>
-      <ImageView id="frameArcPic" layoutX="14.0" layoutY="72.0" ><image><Image url="@/res/roundness.png" /></image></ImageView>
-      <CheckBox id="showPoints" layoutX="14.0" layoutY="138.0" text="%ShapeBord.2" >
+      <ImageView fx:id="frameArcPic" layoutX="14.0" layoutY="72.0" ><image><Image url="@/res/roundness.png" /></image></ImageView>
+      <CheckBox fx:id="showPoints" layoutX="14.0" layoutY="138.0" text="%ShapeBord.2" >
       	<tooltip><Tooltip text="%ShapeBord.3" /></tooltip>
       </CheckBox>
    </children>

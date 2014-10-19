@@ -27,9 +27,8 @@
 												<Accordion maxWidth="250.0" minWidth="250.0" BorderPane.alignment="CENTER">
 													<panes>
 														<TitledPane animated="false" text="Line style">
-															<content>
-																<fx:include source="LineStyle.fxml" />
-															</content>
+													      	<tooltip><Tooltip text="%PropBuilder.15" /></tooltip>
+															<content><fx:include source="LineStyle.fxml" /></content>
 														</TitledPane>
 														<TitledPane animated="false" text="Shape Transformation">
 															<content>

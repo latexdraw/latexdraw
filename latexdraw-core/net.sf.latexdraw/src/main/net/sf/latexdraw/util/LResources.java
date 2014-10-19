@@ -83,9 +83,9 @@ public final class LResources {
 	public static final ImageIcon SHADOW_ICON;
     public static final ImageIcon PDF_ICON;
 	public static final ImageIcon BEZIER_CURVE_ICON;		public static final ImageIcon CHORD_ICON;
-	public static final ImageIcon NEW_ICON;					public static final ImageIcon LINE_STYLE_NONE_ICON;
-	public static final ImageIcon OPEN_ICON; 				public static final ImageIcon LINE_STYLE_DASHED_ICON;
-	public static final ImageIcon SAVE_ICON ;				public static final ImageIcon LINE_STYLE_DOTTED_ICON;
+	public static final ImageIcon NEW_ICON;
+	public static final ImageIcon OPEN_ICON;
+	public static final ImageIcon SAVE_ICON ;
 	public static final ImageIcon SAVE_AS_ICON;				public static final ImageIcon DOT_STYLE_NONE_ICON;
 	public static final ImageIcon CIRCLE_ICON;				public static final ImageIcon DOT_STYLE_SQUARE_ICON;
 	public static final ImageIcon DEL_ICON;					public static final ImageIcon DOT_STYLE_SQUARE_F_ICON;
@@ -136,8 +136,6 @@ public final class LResources {
 	public static final ImageIcon HATCH_CROSS_ICON;			public static final ImageIcon HATCH_F_CROSS_ICON;
 	public static final ImageIcon GRID_ICON;				public static final ImageIcon SUBGRID_ICON;
 	public static final ImageIcon JOIN_ICON;				public static final ImageIcon SEPARATE_ICON;
-	public static final ImageIcon MIDDLE_ICON;				public static final ImageIcon INNER_ICON;
-	public static final ImageIcon OUTER_ICON;
 	public static final ImageIcon COMMENT_ICON;
 	public static final ImageIcon LINES_ICON;	 			public static final ImageIcon LATEXDRAW_ICON;
 	public static final ImageIcon ERR_ICON;
@@ -252,14 +250,6 @@ public final class LResources {
 		DOT_STYLE_SQUARE_F_ICON = loadImageIcon("/res/dotStyles/dot.squareF.png");//$NON-NLS-1$
 		DOT_STYLE_TRIANGLE_ICON = loadImageIcon("/res/dotStyles/dot.triangle.png");//$NON-NLS-1$
 		DOT_STYLE_TRIANGLE_F_ICON = loadImageIcon("/res/dotStyles/dot.triangleF.png");//$NON-NLS-1$
-
-		LINE_STYLE_NONE_ICON 	= loadImageIcon("/res/lineStyles/lineStyle.none.png");//$NON-NLS-1$
-		LINE_STYLE_DASHED_ICON = loadImageIcon("/res/lineStyles/lineStyle.dashed.png");//$NON-NLS-1$
-		LINE_STYLE_DOTTED_ICON = loadImageIcon("/res/lineStyles/lineStyle.dotted.png");//$NON-NLS-1$
-
-		MIDDLE_ICON = loadImageIcon("/res/doubleBoundary/double.boundary.middle.png");//$NON-NLS-1$
-		INNER_ICON  = loadImageIcon("/res/doubleBoundary/double.boundary.into.png");//$NON-NLS-1$
-		OUTER_ICON  = loadImageIcon("/res/doubleBoundary/double.boundary.out.png");//$NON-NLS-1$
 
 		GRID_ICON		= loadImageIcon("/res/grid.png");//$NON-NLS-1$
 		SUBGRID_ICON	= loadImageIcon("/res/subgrid.png");//$NON-NLS-1$

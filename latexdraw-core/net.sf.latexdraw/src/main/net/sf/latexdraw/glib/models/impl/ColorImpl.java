@@ -37,6 +37,12 @@ class ColorImpl implements Color {
 
 	
 	@Override
+	public javafx.scene.paint.Color toJFX() {
+		return new javafx.scene.paint.Color(r, g, b, o);
+	}
+	
+	
+	@Override
 	public java.awt.Color toAWT() {
 		return new java.awt.Color((float)r, (float)g, (float)b, (float)o);
 	}

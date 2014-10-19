@@ -13,7 +13,25 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
-import net.sf.latexdraw.instruments.*;
+import net.sf.latexdraw.instruments.MetaShapeCustomiser;
+import net.sf.latexdraw.instruments.ShapeArcCustomiser;
+import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
+import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
+import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
+import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
+import net.sf.latexdraw.instruments.ShapeDotCustomiser;
+import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
+import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
+import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
+import net.sf.latexdraw.instruments.ShapeGridCustomiser;
+import net.sf.latexdraw.instruments.ShapeGrouper;
+import net.sf.latexdraw.instruments.ShapePlotCustomiser;
+import net.sf.latexdraw.instruments.ShapePositioner;
+import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
+import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
+import net.sf.latexdraw.instruments.ShapeStandardGridCustomiser;
+import net.sf.latexdraw.instruments.ShapeTransformer;
+import net.sf.latexdraw.instruments.TextCustomiser;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -76,7 +94,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeAlignShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
-		widget.add(composeBorderPropertiesPanel(metaShapeCustomiser.getBorderCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 		widget.add(composeDoubleBorderPropertiesPanel(metaShapeCustomiser.getDoubleBorderCustomiser(), canvas));
 		widget.add(composeShadowPropertiesPanel(metaShapeCustomiser.getShadowCustomiser(), canvas));
@@ -447,14 +464,11 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.DOT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.10")); //$NON-NLS-1$
 
-		list.addComponent(sbc.getShowPoints());
-
 		list.addComponent(ins.getDotCB());
 		UIBuilder.addSpinner(list, ins.getDotSizeField(), 70);
 //		list.addComponent(ins.getFillingB());
 		list.addSeparator();
 
-		mapContainers.put(sbc.getShowPoints(), list);
 		mapContainers.put(ins.getDotCB(), list);
 		mapContainers.put(ins.getDotSizeField(), list);
 //		mapContainers.put(ins.getFillingB(), list);
@@ -624,39 +638,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(dbleBorderCustomiser.getDbleSepField(), list);
 
 		dbleBorderCustomiser.addEventable(list.getToolbar());
-		list.setVisible(false);
-		return list;
-	}
-
-
-	/**
-	 * Creates the widget that contains the widgets dedicated to the modification of shapes border properties.
-	 * @param borderCustomiser The instrument that contains the widgets.
-	 * @return The created widget. Cannot be null.
-	 * @since 3.0
-	 */
-	protected JComponent composeBorderPropertiesPanel(final ShapeBorderCustomiser borderCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.BORDER_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.15")); //$NON-NLS-1$
-
-		UIBuilder.addSpinner(list, borderCustomiser.getThicknessField(), 65);
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		list.addComponent(borderCustomiser.getLineColButton());
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		list.addComponent(borderCustomiser.getLineCB());
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		list.addComponent(borderCustomiser.getBordersPosCB());
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		UIBuilder.addSpinner(list, borderCustomiser.getFrameArcField(), 65);
-		list.addSeparator();
-
-		mapContainers.put(borderCustomiser.getThicknessField(), list);
-		mapContainers.put(borderCustomiser.getLineColButton(), list);
-		mapContainers.put(borderCustomiser.getLineCB(), list);
-		mapContainers.put(borderCustomiser.getBordersPosCB(), list);
-		mapContainers.put(borderCustomiser.getFrameArcField(), list);
-
-		borderCustomiser.addEventable(list.getToolbar());
 		list.setVisible(false);
 		return list;
 	}

@@ -21,10 +21,11 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  * @since 4.0
  */
 public interface Color {
-	/**
-	 * @return The AWT color.
-	 */
+	/** @return The AWT color. */
 	java.awt.Color toAWT();
+	
+	/** @return The JavaFX color. */
+	javafx.scene.paint.Color toJFX();
 	
 	/**
 	 * @return The red.
