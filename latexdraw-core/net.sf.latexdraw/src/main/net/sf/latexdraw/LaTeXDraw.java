@@ -119,4 +119,5 @@ public class LaTeXDraw extends Application {
 //    		new VersionChecker(frame.getComposer).run
 	}
 	//FIXME clean strings(?):  %LaTeXDrawFrame.38, %LaTeXDrawFrame.39 %LaTeXDrawFrame.90 FileLoaderSaver.4 LaTeXDrawFrame.200 LaTeXDrawFrame.188
+	// ShapeBord.1
 }

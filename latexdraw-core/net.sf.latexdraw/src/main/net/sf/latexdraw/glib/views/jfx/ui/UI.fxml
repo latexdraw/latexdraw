@@ -30,6 +30,10 @@
 													      	<tooltip><Tooltip text="%PropBuilder.15" /></tooltip>
 															<content><fx:include source="LineStyle.fxml" /></content>
 														</TitledPane>
+														<TitledPane animated="false" text="Double line style">
+													      	<tooltip><Tooltip text="%PropBuilder.14" /></tooltip>
+															<content><fx:include source="DoubleLineStyle.fxml" /></content>
+														</TitledPane>
 														<TitledPane animated="false" text="Shape Transformation">
 															<content>
 																<AnchorPane />
