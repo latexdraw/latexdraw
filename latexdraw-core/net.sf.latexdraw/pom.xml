@@ -311,6 +311,16 @@
 			    <version>${malai.version}</version>
 			</dependency>
 			<dependency>
+			    <groupId>org.controlsfx</groupId>
+			    <artifactId>controlsfx</artifactId>
+			    <version>8.20.7</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.malai</groupId>
+			    <artifactId>malai.javafx</artifactId>
+			    <version>${malai.version}</version>
+			</dependency>
+			<dependency>
 			    <groupId>net.sf.latexdraw</groupId>
 			    <artifactId>latexdraw.installer</artifactId>
 			    <version>${project.version}</version>
