@@ -2,7 +2,6 @@ package net.sf.latexdraw.instruments;
 
 import java.util.Objects;
 
-import javax.swing.JLabel;
 import javax.swing.JSpinner;
 
 import net.sf.latexdraw.actions.ModifyMagneticGrid;
@@ -11,7 +10,6 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.views.GridStyle;
 import net.sf.latexdraw.glib.views.MagneticGrid;
 import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.util.LResources;
 
 import org.malai.instrument.InteractorImpl;
 import org.malai.swing.instrument.WidgetInstrument;
@@ -74,7 +72,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	@Override
 	protected void initialiseWidgets() {
 		styleList				= createStyleList();
-     	gridSpacing 			= new MSpinner(new MSpinner.MSpinnerNumberModel(10, 2, 100000, 1), new JLabel(LResources.GRID_GAP_ICON));
+//     	gridSpacing 			= new MSpinner(new MSpinner.MSpinnerNumberModel(10, 2, 100000, 1), new JLabel(LResources.GRID_GAP_ICON));
      	gridSpacing.setEditor(new JSpinner.NumberEditor(gridSpacing, "0"));//$NON-NLS-1$
      	gridSpacing.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.15")); //$NON-NLS-1$
  		magneticCB 				= new MCheckBox(LangTool.INSTANCE.getString18("LaTeXDrawFrame.13")); //$NON-NLS-1$

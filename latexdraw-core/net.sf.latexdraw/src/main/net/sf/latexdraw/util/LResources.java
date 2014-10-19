@@ -157,7 +157,6 @@ public final class LResources {
 	public static final ImageIcon DIST_VERT_EQUAL_ICON;		public static final ImageIcon DIST_HORIZ_MID_ICON;
 	public static final ImageIcon DIST_HORIZ_LEFT_ICON;		public static final ImageIcon DIST_HORIZ_RIGHT_ICON;
 	public static final ImageIcon ROUNDNESS_ICON;
-	public static final ImageIcon GRID_GAP_ICON;
 	public static final ImageIcon BUTTON_CLOSE_IN_ICON;
 	public static final ImageIcon BUTTON_CLOSE_OUT_ICON;
 	public static final ImageIcon GRID_X_LABEL;
@@ -189,7 +188,6 @@ public final class LResources {
 		DOUBLE_BORDER_ICON	= loadImageIcon("/res/doubleBorder.png");//$NON-NLS-1$
 		SHADOW_ICON			= loadImageIcon("/res/shadow.png");//$NON-NLS-1$
 		ROUNDNESS_ICON 		= loadImageIcon("/res/roundness.png");//$NON-NLS-1$
-		GRID_GAP_ICON  		= loadImageIcon("/res/gridGap.png");//$NON-NLS-1$
 
 		HATCH_NONE_ICON  = loadImageIcon("/res/hatch/hatch.none.png");//$NON-NLS-1$
 		HACTH_VERT_ICON  = loadImageIcon("/res/hatch/hatch.vert.png");//$NON-NLS-1$
