@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -68,6 +69,7 @@ public class ShapeFillingCustomiser extends JfxInstrument implements Initializab
 	@FXML protected AnchorPane fillPane;
 	@FXML protected AnchorPane hatchingsPane;
 	@FXML protected AnchorPane gradientPane;
+	@FXML protected TitledPane mainPane;
 
 
 	/**
@@ -128,18 +130,9 @@ public class ShapeFillingCustomiser extends JfxInstrument implements Initializab
 
 
 //	@Override
-//	protected void setWidgetsVisible(final boolean visible) {
-//		composer.setWidgetVisible(fillColButton, visible);
-//		composer.setWidgetVisible(hatchColButton, visible);
-//		composer.setWidgetVisible(gradStartColButton, visible);
-//		composer.setWidgetVisible(gradEndColButton, visible);
-//		composer.setWidgetVisible(fillStyleCB, visible);
-//		composer.setWidgetVisible(gradMidPtField, visible);
-//		composer.setWidgetVisible(gradAngleField, visible);
-//		composer.setWidgetVisible(hatchSepField, visible);
-//		composer.setWidgetVisible(hatchAngleField, visible);
-//		composer.setWidgetVisible(hatchWidthField, visible);
-//	}
+	protected void setWidgetsVisible(final boolean visible) {
+		mainPane.setVisible(visible);
+	}
 
 
 	@Override

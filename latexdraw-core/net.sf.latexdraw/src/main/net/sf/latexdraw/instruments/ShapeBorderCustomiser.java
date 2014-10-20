@@ -10,6 +10,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -58,6 +59,7 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 	
 	@FXML protected ImageView thicknessPic;
 	@FXML protected ImageView frameArcPic;
+	@FXML protected TitledPane linePane;
 	
 
 	/**
@@ -129,12 +131,7 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 
 //	@Override
 	protected void setWidgetsVisible(final boolean visible) {
-		thicknessField.setVisible(visible);
-		lineCB.setVisible(visible);
-		bordersPosCB.setVisible(visible);
-		frameArcField.setVisible(visible);
-		lineColButton.setVisible(visible);
-		showPoints.setVisible(visible);
+		linePane.setVisible(visible);
 	}
 
 

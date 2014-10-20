@@ -1,14 +1,10 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 import org.malai.javafx.instrument.JfxInstrument;
@@ -31,7 +27,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeDoubleBorderCustomiser extends JfxInstrument implements Initializable { //extends ShapePropertyCustomiser {
+public class ShapeDoubleBorderCustomiser extends JfxInstrument { //extends ShapePropertyCustomiser {
 	/** Sets if the shape has double borders or not. */
 	@FXML protected CheckBox dbleBoundCB;
 
@@ -41,7 +37,7 @@ public class ShapeDoubleBorderCustomiser extends JfxInstrument implements Initia
 	/** This field modifies the double separation of the double line. */
 	@FXML protected TextField dbleSepField;
 
-	@FXML protected ImageView dbleSepPic;
+	@FXML protected TitledPane mainPane;	
 	
 
 	/**
@@ -49,12 +45,6 @@ public class ShapeDoubleBorderCustomiser extends JfxInstrument implements Initia
 	 */
 	public ShapeDoubleBorderCustomiser() {
 		super();
-	}
-
-	
-	@Override
-	public void initialize(final URL location, final ResourceBundle resources) {
-		dbleSepPic.visibleProperty().bind(dbleSepField.visibleProperty());
 	}
 
 	
@@ -78,9 +68,7 @@ public class ShapeDoubleBorderCustomiser extends JfxInstrument implements Initia
 
 //	@Override
 	protected void setWidgetsVisible(final boolean visible) {
-		dbleBoundCB.setVisible(visible);
-		dbleBoundColB.setVisible(visible);
-		dbleSepField.setVisible(visible);
+		mainPane.setVisible(visible);
 	}
 
 

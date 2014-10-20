@@ -4,21 +4,27 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.sf.latexdraw.instruments.ShapeShadowCustomiser">
-   <children>
-      <CheckBox fx:id="shadowCB" layoutX="14.0" layoutY="4.0" text="%LaTeXDrawFrame.shad">
-      	<tooltip><Tooltip text="%LaTeXDrawFrame.4" /></tooltip>
-      </CheckBox>
-      <ColorPicker fx:id="shadowColB" layoutX="13.0" layoutY="31.0" prefHeight="25.0" prefWidth="132.0">
-		<tooltip><Tooltip text="%LaTeXDrawFrame.5" /></tooltip>      
-      </ColorPicker>
-      <TextField fx:id="shadowSizeField" layoutX="57.0" layoutY="63.0" prefHeight="25.0" prefWidth="88.0">
-      	<tooltip><Tooltip text="Set the size of the shadow." /></tooltip>
-      </TextField>
-      <TextField fx:id="shadowAngleField" layoutX="57.0" layoutY="96.0" prefHeight="25.0" prefWidth="88.0">
-      	<tooltip><Tooltip text="Set the angle of the shadow." /></tooltip>
-      </TextField>
-      <Label fx:id="shadowSizeLabel" layoutX="14.0" layoutY="68.0" text="%ShapeShad.1" />
-      <Label fx:id="shadowAngleLabel" layoutX="14.0" layoutY="101.0" text="%ShapeFill.1" />
-   </children>
-</AnchorPane>
+<TitledPane fx:id="mainPane" animated="true" text="Shadow" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+			fx:controller="net.sf.latexdraw.instruments.ShapeShadowCustomiser">
+   	<tooltip><Tooltip text="%PropBuilder.13" /></tooltip>
+	<content>
+		<AnchorPane>
+		   <children>
+		      <CheckBox fx:id="shadowCB" layoutX="14.0" layoutY="4.0" text="%LaTeXDrawFrame.shad">
+		      	<tooltip><Tooltip text="%LaTeXDrawFrame.4" /></tooltip>
+		      </CheckBox>
+		      <ColorPicker fx:id="shadowColB" layoutX="13.0" layoutY="31.0" prefHeight="25.0" prefWidth="132.0">
+				<tooltip><Tooltip text="%LaTeXDrawFrame.5" /></tooltip>      
+		      </ColorPicker>
+		      <TextField fx:id="shadowSizeField" layoutX="57.0" layoutY="63.0" prefHeight="25.0" prefWidth="88.0">
+		      	<tooltip><Tooltip text="Set the size of the shadow." /></tooltip>
+		      </TextField>
+		      <Label layoutX="14.0" layoutY="68.0" text="%ShapeShad.1" />
+		      <TextField fx:id="shadowAngleField" layoutX="57.0" layoutY="96.0" prefHeight="25.0" prefWidth="88.0">
+		      	<tooltip><Tooltip text="Set the angle of the shadow." /></tooltip>
+		      </TextField>
+		      <Label layoutX="14.0" layoutY="101.0" text="%ShapeFill.1" />
+		   </children>
+		</AnchorPane>
+	</content>
+</TitledPane>

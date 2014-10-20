@@ -1,14 +1,10 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 import org.malai.javafx.instrument.JfxInstrument;
@@ -31,7 +27,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeShadowCustomiser extends JfxInstrument implements Initializable { // extends ShapePropertyCustomiser {
+public class ShapeShadowCustomiser extends JfxInstrument { // extends ShapePropertyCustomiser {
 	/** Sets if the a shape has a shadow or not. */
 	@FXML protected CheckBox shadowCB;
 
@@ -44,8 +40,7 @@ public class ShapeShadowCustomiser extends JfxInstrument implements Initializabl
 	/** Changes the angle of the shadow. */
 	@FXML protected TextField shadowAngleField;
 	
-	@FXML protected Label shadowSizeLabel;
-	@FXML protected Label shadowAngleLabel;
+	@FXML protected TitledPane mainPane;
 
 
 	/**
@@ -56,19 +51,9 @@ public class ShapeShadowCustomiser extends JfxInstrument implements Initializabl
 	}
 
 
-	@Override
-	public void initialize(final URL location, final ResourceBundle resources) {
-		shadowSizeLabel.visibleProperty().bind(shadowSizeField.visibleProperty());
-		shadowAngleLabel.visibleProperty().bind(shadowAngleField.visibleProperty());
-	}
-	
-
 //	@Override
 	protected void setWidgetsVisible(final boolean visible) {
-		shadowCB.setVisible(visible);
-		shadowColB.setVisible(visible);
-		shadowSizeField.setVisible(visible);
-		shadowAngleLabel.setVisible(visible);
+		mainPane.setVisible(visible);
 	}
 
 
