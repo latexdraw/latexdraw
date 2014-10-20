@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="5">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="5" fx:controller="net.sf.latexdraw.instruments.ShapeFillingCustomiser">
    <children>
       <ComboBox fx:id="fillStyleCB" editable="false" prefHeight="25.0" prefWidth="90.0">
       	<tooltip><Tooltip text="Set how the shape is filled." /></tooltip>

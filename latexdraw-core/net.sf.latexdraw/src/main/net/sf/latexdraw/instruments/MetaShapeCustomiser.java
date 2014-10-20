@@ -92,7 +92,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	public MetaShapeCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil, final Border border) {
 		super(composer, hand, pencil);
 
-		fillingCustomiser		= new ShapeFillingCustomiser(composer, hand, pencil);
 		textCustomiser			= new TextCustomiser(composer, hand, pencil);
 		rotationCustomiser		= new ShapeRotationCustomiser(composer, hand, pencil);
 		arrowCustomiser			= new ShapeArrowCustomiser(composer, hand, pencil);

@@ -10,12 +10,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
 
 import org.malai.javafx.instrument.JfxInstrument;
 
@@ -68,13 +68,6 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 	}
 
 	
-	private static ImageView createItem(final Object userData, final String pic) {
-		final ImageView iv = new ImageView(new Image(pic));
-		iv.setUserData(userData);
-		return iv;
-	}
-	
-	
 	private static Optional<ImageView> getItem(final ComboBox<ImageView> cb, final Object userData) {
 		return cb.getItems().stream().filter(it -> it.getUserData()==userData).findFirst();
 	}
@@ -86,15 +79,15 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 		frameArcPic.visibleProperty().bind(frameArcField.visibleProperty());
 		
 		bordersPosCB.getItems().addAll(
-				createItem(BorderPos.INTO, "/res/doubleBoundary/double.boundary.into.png"),
-				createItem(BorderPos.OUT, "/res/doubleBoundary/double.boundary.out.png"),
-				createItem(BorderPos.MID, "/res/doubleBoundary/double.boundary.middle.png")
+				JFXUtil.INSTANCE.createItem(BorderPos.INTO, "/res/doubleBoundary/double.boundary.into.png"),
+				JFXUtil.INSTANCE.createItem(BorderPos.OUT, "/res/doubleBoundary/double.boundary.out.png"),
+				JFXUtil.INSTANCE.createItem(BorderPos.MID, "/res/doubleBoundary/double.boundary.middle.png")
 		);
 		
 		lineCB.getItems().addAll(
-				createItem(LineStyle.SOLID.toString(), "/res/lineStyles/lineStyle.none.png"),
-				createItem(LineStyle.DASHED.toString(), "/res/lineStyles/lineStyle.dashed.png"),
-				createItem(LineStyle.DOTTED.toString(), "/res/lineStyles/lineStyle.dotted.png")
+				JFXUtil.INSTANCE.createItem(LineStyle.SOLID.toString(), "/res/lineStyles/lineStyle.none.png"),
+				JFXUtil.INSTANCE.createItem(LineStyle.DASHED.toString(), "/res/lineStyles/lineStyle.dashed.png"),
+				JFXUtil.INSTANCE.createItem(LineStyle.DOTTED.toString(), "/res/lineStyles/lineStyle.dotted.png")
 		);
 	}
 

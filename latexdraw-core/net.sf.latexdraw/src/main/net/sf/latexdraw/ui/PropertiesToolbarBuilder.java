@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.border.CompoundBorder;
@@ -20,7 +19,6 @@ import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeDotCustomiser;
-import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
 import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
 import net.sf.latexdraw.instruments.ShapeGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeGrouper;
@@ -92,8 +90,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeAlignShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
-		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composeFillingPanel(metaShapeCustomiser.getFillingCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 		widget.add(composeArrowToolbar(metaShapeCustomiser.getArrowCustomiser(), canvas));
 		widget.add(composeDotToolbar(metaShapeCustomiser.getDotCustomiser(), metaShapeCustomiser.getBorderCustomiser(), canvas));
@@ -533,53 +529,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
         ins.addEventable(list.getToolbar());
         list.setVisible(false);
-		return list;
-	}
-
-
-	/**
-	 * Creates the widget that contains the widgets dedicated to the modification of shapes filling properties.
-	 * @param fillingCustomiser The instrument that contains the widgets.
-	 * @return The created widget. Cannot be null.
-	 * @since 3.0
-	 */
-	protected JComponent composeFillingPanel(final ShapeFillingCustomiser fillingCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.FILLING_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.12")); //$NON-NLS-1$
-		list.addComponent(fillingCustomiser.getFillStyleCB());
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		list.addComponent(fillingCustomiser.getFillColButton());
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		list.addComponent(fillingCustomiser.getHatchColButton());
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		UIBuilder.addSpinner(list, fillingCustomiser.getHatchAngleField(), 65);
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		UIBuilder.addSpinner(list, fillingCustomiser.getHatchWidthField(), 60);
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		UIBuilder.addSpinner(list, fillingCustomiser.getHatchSepField(), 65);
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		list.addComponent(fillingCustomiser.getGradStartColButton());
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		list.addComponent(fillingCustomiser.getGradEndColButton());
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		UIBuilder.addSpinner(list, fillingCustomiser.getGradAngleField(), 60);
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		UIBuilder.addSpinner(list, fillingCustomiser.getGradMidPtField(), 70);
-		list.addSeparator();
-
-		mapContainers.put(fillingCustomiser.getFillStyleCB(), list);
-		mapContainers.put(fillingCustomiser.getFillColButton(), list);
-		mapContainers.put(fillingCustomiser.getHatchColButton(), list);
-		mapContainers.put(fillingCustomiser.getHatchAngleField(), list);
-		mapContainers.put(fillingCustomiser.getHatchWidthField(), list);
-		mapContainers.put(fillingCustomiser.getHatchSepField(), list);
-		mapContainers.put(fillingCustomiser.getGradStartColButton(), list);
-		mapContainers.put(fillingCustomiser.getGradEndColButton(), list);
-		mapContainers.put(fillingCustomiser.getGradAngleField(), list);
-		mapContainers.put(fillingCustomiser.getGradMidPtField(), list);
-
-		fillingCustomiser.addEventable(list.getToolbar());
-		list.setVisible(false);
 		return list;
 	}
 }

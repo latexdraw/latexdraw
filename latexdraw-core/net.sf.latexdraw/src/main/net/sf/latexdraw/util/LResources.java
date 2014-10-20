@@ -130,10 +130,6 @@ public final class LResources {
 	public static final ImageIcon ARROW_STYLE_R_ARROW_R_ICON; 		public static final ImageIcon COPY_ICON;
 	public static final ImageIcon PASTE_ICON;						public static final ImageIcon CUT_ICON;
 	public static final ImageIcon ARROW_STYLE_ROUND_IN_L_ICON;		public static final ImageIcon ARROW_STYLE_ROUND_IN_R_ICON;
-	public static final ImageIcon HATCH_NONE_ICON;			public static final ImageIcon HATCH_SOLID_ICON;
-	public static final ImageIcon HATCH_HORIZ_ICON;			public static final ImageIcon HACTH_VERT_ICON;
-	public static final ImageIcon HATCH_F_HORIZ_ICON;		public static final ImageIcon HATCH_F_VERT_ICON;
-	public static final ImageIcon HATCH_CROSS_ICON;			public static final ImageIcon HATCH_F_CROSS_ICON;
 	public static final ImageIcon GRID_ICON;				public static final ImageIcon SUBGRID_ICON;
 	public static final ImageIcon JOIN_ICON;				public static final ImageIcon SEPARATE_ICON;
 	public static final ImageIcon COMMENT_ICON;
@@ -141,7 +137,7 @@ public final class LResources {
 	public static final ImageIcon ERR_ICON;
 	public static final ImageIcon STOP_ICON;
 	public static final ImageIcon INSERT_PIC_ICON; 			public static final ImageIcon INSERT_PST_ICON;
-	public static final ImageIcon THICKNESS_ICON; 			public static final ImageIcon GRADIENT_ICON;
+	public static final ImageIcon THICKNESS_ICON;
 	public static final ImageIcon DISPLAY_GRID_ICON;		public static final ImageIcon ROTATE_270_ICON;
 	public static final ImageIcon ROTATE_180_ICON; 			public static final ImageIcon ROTATE_90_ICON;
 	public static final ImageIcon MIRROR_V_ICON;			public static final ImageIcon MIRROR_H_ICON;
@@ -188,15 +184,6 @@ public final class LResources {
 		DOUBLE_BORDER_ICON	= loadImageIcon("/res/doubleBorder.png");//$NON-NLS-1$
 		SHADOW_ICON			= loadImageIcon("/res/shadow.png");//$NON-NLS-1$
 		ROUNDNESS_ICON 		= loadImageIcon("/res/roundness.png");//$NON-NLS-1$
-
-		HATCH_NONE_ICON  = loadImageIcon("/res/hatch/hatch.none.png");//$NON-NLS-1$
-		HACTH_VERT_ICON  = loadImageIcon("/res/hatch/hatch.vert.png");//$NON-NLS-1$
-		HATCH_HORIZ_ICON = loadImageIcon("/res/hatch/hatch.horiz.png");//$NON-NLS-1$
-		HATCH_CROSS_ICON = loadImageIcon("/res/hatch/hatch.cross.png");//$NON-NLS-1$
-		HATCH_SOLID_ICON = loadImageIcon("/res/hatch/hatch.solid.png");//$NON-NLS-1$
-		HATCH_F_VERT_ICON = loadImageIcon("/res/hatch/hatchf.vert.png");//$NON-NLS-1$
-		HATCH_F_HORIZ_ICON= loadImageIcon("/res/hatch/hatchf.horiz.png");//$NON-NLS-1$
-		HATCH_F_CROSS_ICON= loadImageIcon("/res/hatch/hatchf.cross.png");//$NON-NLS-1$
 
 		ARROW_ICON				= loadImageIcon("/res/arrowStyles/arrowIcon.png");//$NON-NLS-1$
 		ARROW_STYLE_ARC_L_ICON = loadImageIcon("/res/arrowStyles/line.arc.left.png");//$NON-NLS-1$
@@ -294,7 +281,6 @@ public final class LResources {
 		INSERT_PIC_ICON 	= loadImageIcon("/res/image-x-generic.png"); //$NON-NLS-1$
 		INSERT_PST_ICON = loadImageIcon("/res/text-x-generic.png"); //$NON-NLS-1$
 		THICKNESS_ICON 	= loadImageIcon("/res/thickness.png"); //$NON-NLS-1$
-		GRADIENT_ICON 	= loadImageIcon("/res/hatch/gradient.png"); //$NON-NLS-1$
 		DISPLAY_GRID_ICON = loadImageIcon("/res/displayGrid.png"); //$NON-NLS-1$
 		ROTATE_180_ICON 	= loadImageIcon("/res/rotation180.png"); //$NON-NLS-1$
 		ROTATE_90_ICON 	= loadImageIcon("/res/rotation90.png"); //$NON-NLS-1$
