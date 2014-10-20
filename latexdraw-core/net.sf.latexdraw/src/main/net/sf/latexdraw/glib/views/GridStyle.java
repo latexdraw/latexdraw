@@ -10,8 +10,11 @@ import net.sf.latexdraw.util.LResources;
  * of a magnetic grid.
  */
 public enum GridStyle {
+	/** A grid customised by users. */
 	CUSTOMISED {@Override public String getLabel() {return LResources.LABEL_DISPLAY_PERSO_GRID;}},
+	/** The standard grid. */
 	STANDARD {@Override public String getLabel() {return LResources.LABEL_DISPLAY_GRID;}},
+	/** No grid. */
 	NONE {@Override public String getLabel() { return "None";}}; //$NON-NLS-1$
 
 	/**

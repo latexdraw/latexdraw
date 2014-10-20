@@ -51,10 +51,10 @@ public enum Page {
 
 	/**
 	 * Paints the page into the given graphics.
-	 * @param g The graphics to use.
+	 * @param gc The graphics to use.
 	 * @param origin The position in the graphics corresponding to the origin.
 	 * @throws NullPointerException If the given graphics or point is null.
-	 * @since 3.1
+	 * @since 4.0
 	 */
 	public void paint(final GraphicsContext gc, final IPoint origin) {
 		final Rectangle page = new Rectangle(origin.getX(), origin.getY(),getWidth()*IShape.PPC, getHeight()*IShape.PPC);

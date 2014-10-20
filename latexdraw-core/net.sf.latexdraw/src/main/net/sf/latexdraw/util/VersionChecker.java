@@ -43,6 +43,7 @@ public class VersionChecker extends Thread {
 	/** The version of the application */
     public static final String VERSION   = "3.3.0";//$NON-NLS-1$
 
+    /** The stability of the build. */
 	public static final String VERSION_STABILITY = ""; //$NON-NLS-1$
 
 	/** The identifier of the build */

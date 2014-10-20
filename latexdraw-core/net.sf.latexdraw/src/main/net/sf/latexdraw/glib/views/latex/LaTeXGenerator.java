@@ -87,22 +87,33 @@ public abstract class LaTeXGenerator implements Modifiable {
 	 * The different vertical positions.
 	 */
 	public enum VerticalPosition {
+		/** The LaTeX t position. */
 		TOP {
 			@Override
 			public String getToken() { return "t"; }//$NON-NLS-1$
-		}, BOTTOM {
+		}, 
+		/** The LaTeX b position. */
+		BOTTOM {
 			@Override
 			public String getToken() { return "b"; }//$NON-NLS-1$
-		}, FLOATS_PAGE {
+		}, 
+		/** The LaTeX f position. */
+		FLOATS_PAGE {
 			@Override
 			public String getToken() { return "p"; }//$NON-NLS-1$
-		}, HERE {
+		},
+		/** The LaTeX h position. */
+		HERE {
 			@Override
 			public String getToken() { return "h"; }//$NON-NLS-1$
-		}, HERE_HERE {
+		},
+		/** The LaTeX H position. */
+		HERE_HERE {
 			@Override
 			public String getToken() { return "H"; }//$NON-NLS-1$
-		}, NONE {
+		},
+		/** No position specified. */
+		NONE {
 			@Override
 			public String getToken() { return ""; }//$NON-NLS-1$
 		};

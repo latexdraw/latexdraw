@@ -93,6 +93,7 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ConcretePresen
 	/**
 	 * Repaints the canvas.
 	 * @param withZoom True: zoom will be activated.
+	 * @param withGrid True: the grid will be painted.
 	 */
 	public void repaint(final boolean withZoom, final boolean withGrid) {
 		final GraphicsContext gc = getGraphicsContext2D();

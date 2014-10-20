@@ -49,25 +49,25 @@ public interface Color {
 	
 	/**
 	 * Sets the red.
-	 * @param r the red to set
+	 * @param red the red to set
 	 */
 	void setR(final double red);
 	
 	/**
 	 * Sets the green.
-	 * @param g the green to set
+	 * @param green the green to set
 	 */
 	void setG(final double green);
 	
 	/**
 	 * Sets the blue.
-	 * @param b the blue to set
+	 * @param blue the blue to set
 	 */
 	void setB(final double blue);
 	
 	/**
 	 * Sets the opacity.
-	 * @param o the opacity to set
+	 * @param opacity the opacity to set
 	 */
 	void setO(final double opacity);
 }
