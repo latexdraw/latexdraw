@@ -46,11 +46,6 @@ public class ShapeDoubleBorderCustomiser extends JfxInstrument implements Initia
 
 	/**
 	 * Creates the instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param hand The Hand instrument.
-	 * @param pencil The Pencil instrument.
-	 * @throws IllegalArgumentException If one of the given argument is null.
-	 * @since 3.0
 	 */
 	public ShapeDoubleBorderCustomiser() {
 		super();

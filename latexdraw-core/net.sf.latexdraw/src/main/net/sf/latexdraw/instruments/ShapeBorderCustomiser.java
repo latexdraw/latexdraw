@@ -62,12 +62,6 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 
 	/**
 	 * Creates the instrument.
-	 * @param hand The Hand instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param pencil The Pencil instrument.
-	 * @throws IllegalArgumentException If one of the given argument is null or if the drawing cannot
-	 * be accessed from the hand.
-	 * @since 3.0
 	 */
 	public ShapeBorderCustomiser() {
 		super();

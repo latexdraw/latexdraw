@@ -27,7 +27,6 @@ import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.instruments.ShapePlotCustomiser;
 import net.sf.latexdraw.instruments.ShapePositioner;
 import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
-import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
 import net.sf.latexdraw.instruments.ShapeStandardGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeTransformer;
 import net.sf.latexdraw.instruments.TextCustomiser;
@@ -94,7 +93,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composeShadowPropertiesPanel(metaShapeCustomiser.getShadowCustomiser(), canvas));
 		widget.add(composeFillingPanel(metaShapeCustomiser.getFillingCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 		widget.add(composeArrowToolbar(metaShapeCustomiser.getArrowCustomiser(), canvas));
@@ -581,35 +579,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(fillingCustomiser.getGradMidPtField(), list);
 
 		fillingCustomiser.addEventable(list.getToolbar());
-		list.setVisible(false);
-		return list;
-	}
-
-
-	/**
-	 * Creates the widget that contains the widgets dedicated to the modification of shapes double border properties.
-	 * @param shadowCustomiser The instrument that contains the widgets.
-	 * @return The created widget. Cannot be null.
-	 * @since 3.0
-	 */
-	protected JComponent composeShadowPropertiesPanel(final ShapeShadowCustomiser shadowCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.SHADOW_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.13")); //$NON-NLS-1$
-		list.addComponent(shadowCustomiser.getShadowCB());
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		list.addComponent(shadowCustomiser.getShadowColB());
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		UIBuilder.addSpinner(list, shadowCustomiser.getShadowSizeField(), 75);
-		list.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		UIBuilder.addSpinner(list, shadowCustomiser.getShadowAngleField(), 75);
-		list.addSeparator();
-
-		mapContainers.put(shadowCustomiser.getShadowCB(), list);
-		mapContainers.put(shadowCustomiser.getShadowColB(), list);
-		mapContainers.put(shadowCustomiser.getShadowSizeField(), list);
-		mapContainers.put(shadowCustomiser.getShadowAngleField(), list);
-
-		shadowCustomiser.addEventable(list.getToolbar());
 		list.setVisible(false);
 		return list;
 	}

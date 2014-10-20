@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.sf.latexdraw.instruments.ShapeShadowCustomiser">
    <children>
       <CheckBox fx:id="shadowCB" layoutX="14.0" layoutY="4.0" text="%LaTeXDrawFrame.shad">
       	<tooltip><Tooltip text="%LaTeXDrawFrame.4" /></tooltip>
