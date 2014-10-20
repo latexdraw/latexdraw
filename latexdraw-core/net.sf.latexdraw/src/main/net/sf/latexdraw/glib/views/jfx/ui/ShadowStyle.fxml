@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 
-<TitledPane fx:id="mainPane" animated="true" text="Shadow" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+<TitledPane fx:id="mainPane" animated="true" text="%LaTeXDrawFrame.shad" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
 			fx:controller="net.sf.latexdraw.instruments.ShapeShadowCustomiser">
    	<tooltip><Tooltip text="%PropBuilder.13" /></tooltip>
 	<content>

@@ -30,6 +30,7 @@
 														<fx:include source="FillingStyle.fxml" />
 														<fx:include source="ShadowStyle.fxml" />
 														<fx:include source="DoubleLineStyle.fxml" />
+														<fx:include source="ArrowStyle.fxml" />
 														<TitledPane animated="true" text="Shape Transformation">
 															<content>
 																<AnchorPane />
