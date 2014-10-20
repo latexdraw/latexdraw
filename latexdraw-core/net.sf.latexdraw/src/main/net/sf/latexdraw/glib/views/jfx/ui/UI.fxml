@@ -26,20 +26,24 @@
 											<center>
 												<Accordion maxWidth="250.0" minWidth="250.0" BorderPane.alignment="CENTER">
 													<panes>
-														<TitledPane animated="false" text="Line style">
+														<TitledPane animated="true" text="Line">
 													      	<tooltip><Tooltip text="%PropBuilder.15" /></tooltip>
 															<content><fx:include source="LineStyle.fxml" /></content>
 														</TitledPane>
-														<TitledPane animated="false" text="Double line style">
+														<TitledPane animated="true" text="Double line">
 													      	<tooltip><Tooltip text="%PropBuilder.14" /></tooltip>
 															<content><fx:include source="DoubleLineStyle.fxml" /></content>
 														</TitledPane>
-														<TitledPane animated="false" text="Shape Transformation">
+														<TitledPane animated="true" text="Shadow">
+													      	<tooltip><Tooltip text="%PropBuilder.13" /></tooltip>
+															<content><fx:include source="ShadowStyle.fxml" /></content>
+														</TitledPane>
+														<TitledPane animated="true" text="Shape Transformation">
 															<content>
 																<AnchorPane />
 															</content>
 														</TitledPane>
-														<TitledPane animated="false" text="%LaTeXDrawFrame.103">
+														<TitledPane animated="true" text="%LaTeXDrawFrame.103">
 															<content>
 																<AnchorPane />
 															</content>
