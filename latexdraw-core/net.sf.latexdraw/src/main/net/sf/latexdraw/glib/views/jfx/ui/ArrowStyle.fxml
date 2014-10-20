@@ -3,7 +3,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<TitledPane fx:id="mainPane" animated="true" text="Arrow" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<TitledPane fx:id="mainPane" animated="true" text="Arrow" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="net.sf.latexdraw.instruments.ShapeArrowCustomiser">
 	<content>
 		<VBox spacing="5">
 			<children>

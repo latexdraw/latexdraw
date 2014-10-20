@@ -14,7 +14,6 @@ import javax.swing.border.TitledBorder;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.ShapeArcCustomiser;
-import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
 import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
@@ -91,7 +90,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composeArrowToolbar(metaShapeCustomiser.getArrowCustomiser(), canvas));
 		widget.add(composeDotToolbar(metaShapeCustomiser.getDotCustomiser(), metaShapeCustomiser.getBorderCustomiser(), canvas));
 		widget.add(composeTextPositionToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeTextPropertiesToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
@@ -470,46 +468,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
         list.setVisible(false);
 		return list;
 	}
-
-
-	protected JComponent composeArrowToolbar(final ShapeArrowCustomiser ins, final LCanvas canvas) {
-		final int size = 70;
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.ARROW_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.11")); //$NON-NLS-1$
-
-		list.addComponent(ins.getArrowLeftCB());
-		list.addComponent(ins.getArrowRightCB());
-		UIBuilder.addSpinner(list, ins.getArrowInset(), size);
-		UIBuilder.addSpinner(list, ins.getArrowLength(), size);
-		UIBuilder.addSpinner(list, ins.getArrowSizeNum(), size);
-		UIBuilder.addSpinner(list, ins.getArrowSizeDim(), size);
-		UIBuilder.addSpinner(list, ins.getBracketNum(), size);
-		UIBuilder.addSpinner(list, ins.getTbarsizeNum(), size);
-		UIBuilder.addSpinner(list, ins.getTbarsizeDim(), size);
-		UIBuilder.addSpinner(list, ins.getDotSizeNum(), size);
-		UIBuilder.addSpinner(list, ins.getDotSizeDim(), size);
-		UIBuilder.addSpinner(list, ins.getRbracketNum(), size);
-
-		list.addSeparator();
-
-		mapContainers.put(ins.getArrowLeftCB(), list);
-		mapContainers.put(ins.getArrowRightCB(), list);
-		mapContainers.put(ins.getArrowInset(), list);
-		mapContainers.put(ins.getArrowLength(), list);
-		mapContainers.put(ins.getArrowSizeNum(), list);
-		mapContainers.put(ins.getArrowSizeDim(), list);
-		mapContainers.put(ins.getTbarsizeNum(), list);
-		mapContainers.put(ins.getTbarsizeDim(), list);
-		mapContainers.put(ins.getBracketNum(), list);
-		mapContainers.put(ins.getRbracketNum(), list);
-		mapContainers.put(ins.getDotSizeNum(), list);
-		mapContainers.put(ins.getDotSizeDim(), list);
-
-        ins.addEventable(list.getToolbar());
-        list.setVisible(false);
-		return list;
-	}
-
 
 
 	protected JComponent composeRotationToolbar(final ShapeRotationCustomiser ins, final LCanvas canvas) {

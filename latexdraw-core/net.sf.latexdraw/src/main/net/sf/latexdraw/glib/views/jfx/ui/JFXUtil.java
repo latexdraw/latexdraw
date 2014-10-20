@@ -1,5 +1,8 @@
 package net.sf.latexdraw.glib.views.jfx.ui;
 
+import java.util.Optional;
+
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -42,5 +45,16 @@ public final class JFXUtil {
 		final ImageView iv = new ImageView(new Image(pic));
 		iv.setUserData(userData);
 		return iv;
+	}
+	
+	
+	/**
+	 * Search for an image view having the given object as user data.
+	 * @param cb The combo box to analyse.
+	 * @param userData The object to look for. 
+	 * @return The image view or empty.
+	 */
+	public Optional<ImageView> getItem(final ComboBox<ImageView> cb, final Object userData) {
+		return cb.getItems().stream().filter(it -> it.getUserData()==userData).findFirst();
 	}
 }

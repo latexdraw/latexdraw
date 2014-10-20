@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -70,11 +69,6 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 	}
 
 	
-	private static Optional<ImageView> getItem(final ComboBox<ImageView> cb, final Object userData) {
-		return cb.getItems().stream().filter(it -> it.getUserData()==userData).findFirst();
-	}
-	
-	
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		thicknessPic.visibleProperty().bind(thicknessField.visibleProperty());
@@ -118,9 +112,9 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 //			if(isTh)
 //				thicknessField.setValueSafely(shape.getThickness());
 			if(isStylable)
-				lineCB.getSelectionModel().select(getItem(lineCB, shape.getLineStyle()).orElseThrow(() -> new IllegalArgumentException()));
+				lineCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(lineCB, shape.getLineStyle()).orElseThrow(() -> new IllegalArgumentException()));
 			if(isMvble)
-				bordersPosCB.getSelectionModel().select(getItem(bordersPosCB, shape.getBordersPosition()).orElseThrow(() -> new IllegalArgumentException()));
+				bordersPosCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(bordersPosCB, shape.getBordersPosition()).orElseThrow(() -> new IllegalArgumentException()));
 //			if(supportRound)
 //				frameArcField.setValueSafely(shape.getLineArc());
 			if(showPts)
