@@ -112,10 +112,6 @@
 						<MenuItem id="copyMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.40">
 							<graphic><ImageView><image><Image url="@/res/Paste.png" /></image></ImageView></graphic>
 						</MenuItem>
-						<SeparatorMenuItem mnemonicParsing="false" />
-						<MenuItem id="showPreferencesMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.56">
-							<graphic><ImageView><image><Image url="@/res/preferences-system.png" /></image></ImageView></graphic>
-						</MenuItem>
 					</items>
 				</MenuButton>
 				<MenuButton id="exportMenu" mnemonicParsing="false">
@@ -214,6 +210,10 @@
 				<ToggleButton id="codeB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
 					<tooltip><Tooltip text="%LaTeXDrawFrame.0" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/texEditor.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="prefB" mnemonicParsing="false" >
+					<tooltip><Tooltip text="%LaTeXDrawFrame.56" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/preferences-system.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<Button id="exceptionB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
 					<tooltip><Tooltip text="%LaTeXDrawFrame.117" /></tooltip>
