@@ -30,13 +30,17 @@
 													      	<tooltip><Tooltip text="%PropBuilder.15" /></tooltip>
 															<content><fx:include source="LineStyle.fxml" /></content>
 														</TitledPane>
-														<TitledPane animated="true" text="Double line">
-													      	<tooltip><Tooltip text="%PropBuilder.14" /></tooltip>
-															<content><fx:include source="DoubleLineStyle.fxml" /></content>
+														<TitledPane animated="true" text="Filling">
+													      	<tooltip><Tooltip text="%PropBuilder.12" /></tooltip>
+															<content><fx:include source="FillingStyle.fxml" /></content>
 														</TitledPane>
 														<TitledPane animated="true" text="Shadow">
 													      	<tooltip><Tooltip text="%PropBuilder.13" /></tooltip>
 															<content><fx:include source="ShadowStyle.fxml" /></content>
+														</TitledPane>
+														<TitledPane animated="true" text="Double line">
+													      	<tooltip><Tooltip text="%PropBuilder.14" /></tooltip>
+															<content><fx:include source="DoubleLineStyle.fxml" /></content>
 														</TitledPane>
 														<TitledPane animated="true" text="Shape Transformation">
 															<content>

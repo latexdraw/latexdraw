@@ -55,6 +55,10 @@ public class LaTeXDraw extends Application {
 	}
 	
 	
+	/**
+	 * The entry point of the program.
+	 * @param args The parameters.
+	 */
 	public static void main(String[] args) {
 //		val cmdLine = new LCommandLine()
 //    	cmdLine.parse(args) match {
@@ -118,6 +122,6 @@ public class LaTeXDraw extends Application {
 //    	if(VersionChecker.WITH_UPDATE && frame.getPrefSetters.isVersionCheckEnable)
 //    		new VersionChecker(frame.getComposer).run
 	}
-	//FIXME clean strings(?):  %LaTeXDrawFrame.38, %LaTeXDrawFrame.39 %LaTeXDrawFrame.90 FileLoaderSaver.4 LaTeXDrawFrame.200 LaTeXDrawFrame.188
-	// ShapeBord.1
+	//FIXME clean strings(?):  LaTeXDrawFrame.38, LaTeXDrawFrame.39 LaTeXDrawFrame.90 FileLoaderSaver.4 LaTeXDrawFrame.200 LaTeXDrawFrame.188
+	// ShapeBord.1, AbstractParametersFrame.3
 }
