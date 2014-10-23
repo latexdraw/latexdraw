@@ -12,6 +12,7 @@ import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.swing.ui.SwingUIComposer;
@@ -202,7 +203,13 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
 		}
 
-		@Override public boolean isConditionRespected() { return instrument.hand.isActivated() && super.isConditionRespected(); }
+		@Override public boolean isConditionRespected() { 
+			return instrument.hand.isActivated() && super.isConditionRespected() &&
+					PSFunctionParser.isValidPostFixEquation(instrument.pencil.canvas().getDrawing().getSelection().getPlotEquation(), 
+							Double.valueOf(instrument.getMinXSpinner().getValue().toString()), 
+							Double.valueOf(instrument.getMaxXSpinner().getValue().toString()), 
+							Double.valueOf(instrument.getNbPtsSpinner().getValue().toString()));
+		}
 	}
 
 	private static class CheckBox2PencilPlot extends CheckBoxForCustomiser<ModifyPencilParameter, ShapePlotCustomiser> {

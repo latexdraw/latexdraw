@@ -1,6 +1,6 @@
 package test.parser.ps;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
 import net.sf.latexdraw.parsers.ps.PSDivCommand;
 
@@ -9,18 +9,20 @@ import org.junit.Test;
 public class TestPSDivCommand extends TestPSCommand<PSDivCommand> {
 	@Override protected PSDivCommand createCmd() { return new PSDivCommand(); }
 
-	@Override @Test(expected=ArithmeticException.class)
+	@Override @Test
 	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(0.0);
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
+		assertTrue(Double.isNaN(dequeue.pop()));
 	}
 
-	@Test(expected=ArithmeticException.class)
+	@Test
 	public void testExecuteVal01() throws InvalidFormatPSFunctionException {
 		dequeue.push(10.0);
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
+		assertTrue(Double.isNaN(dequeue.pop()));
 	}
 
 	@Override @Test

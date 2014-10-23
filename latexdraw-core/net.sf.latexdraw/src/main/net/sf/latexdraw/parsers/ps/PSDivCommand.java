@@ -34,7 +34,6 @@ public class PSDivCommand implements PSArithemticCommand {
 
 		if(LNumber.equalsDouble(a, 0.0))
 			throw new ArithmeticException();
-
 		stack.push(b/a);
 	}
 }

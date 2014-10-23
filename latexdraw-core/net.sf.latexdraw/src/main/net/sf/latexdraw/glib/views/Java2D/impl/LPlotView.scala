@@ -66,7 +66,7 @@ class LPlotView(model:IPlot) extends LShapeView[IPlot](model) with IViewPlot {
   		}
 		}else
   		for(x <- minX to maxX by step)
-  			sh.addPoint(ShapeFactory.createPoint(x*IShape.PPC*xs+posX, -model.getY(x)*IShape.PPC*ys+posY))
+  				sh.addPoint(ShapeFactory.createPoint(x*IShape.PPC*xs+posX, -model.getY(x)*IShape.PPC*ys+posY))
 	}
 
 

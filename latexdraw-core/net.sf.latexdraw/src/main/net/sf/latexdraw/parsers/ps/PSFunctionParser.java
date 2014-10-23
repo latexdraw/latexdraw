@@ -28,16 +28,23 @@ public class PSFunctionParser {
 	/**
 	 * Checks whether the given equation is a valid post-fixed PS equation.
 	 * @param eq The equation to check.
+	 * @param min The X-min of the plotting.
+	 * @param max The X-max of the plotting.
+	 * @param nbPts The number of points to plot.
 	 * @return True if the given equation is a valid post-fixed PS equation.
 	 * @since 3.3
 	 */
-	@SuppressWarnings("unused")
-	public static boolean isValidPostFixEquation(final String eq) {
+	public static boolean isValidPostFixEquation(final String eq, final double min, final double max, final double nbPts) {
 		try {
-			new PSFunctionParser(eq);
+			final PSFunctionParser fct = new PSFunctionParser(eq);
+			final double gap = (max-min)/(nbPts-1);
+			
+			for(double x = min; x<max; x+=gap)
+				fct.getY(x);
+			
 			return true;
 		}
-		catch(final NumberFormatException ex){return false;}
+		catch(final NumberFormatException | ArithmeticException ex){return false;}
 	}
 
 	/** The postscript function. */
@@ -89,9 +96,10 @@ public class PSFunctionParser {
 
 
 	/**
-	 * @param x The X-coordinate used to computre the Y using the function.
-	 * @return The y value corresponding to the given X value.
+	 * @param x The X-coordinate used to compute the Y using the function.
+	 * @return The y value corresponding to the given X value. Or Double.NaN is an arithmetic error occurs.
 	 * @throws InvalidFormatPSFunctionException If the function is not correct.
+	 * @throws ArithmeticException If an error occurs during the computation of the points (e.g. division by 0).
 	 */
 	public double getY(final double x) throws InvalidFormatPSFunctionException {
 		final Deque<Double> stack = new ArrayDeque<>();

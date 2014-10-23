@@ -61,6 +61,8 @@ public class TextSetter extends Instrument {
 	protected IPlot plot;
 
 	protected TextCustomiser custom;
+	
+	protected ShapePlotCustomiser plotCustom;
 
 
 	/**
@@ -92,6 +94,11 @@ public class TextSetter extends Instrument {
 	 */
 	public void setTestCustomiser(final TextCustomiser custom) {
 		if(custom!=null) this.custom = custom;
+	}
+	
+	
+	public void setPlotCustomiser(final ShapePlotCustomiser ins) {
+		if(ins!=null) plotCustom = ins;
 	}
 
 
@@ -320,7 +327,10 @@ class Enter2CheckPlot extends Interactor<AddShape, KeyTyped, TextSetter> {
 				!instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
 
 		if(ok)
-			if(!PSFunctionParser.isValidPostFixEquation(instrument.textField.getText())) {
+			if(!PSFunctionParser.isValidPostFixEquation(instrument.textField.getText(), 
+					Double.valueOf(instrument.plotCustom.getMinXSpinner().getValue().toString()),
+					Double.valueOf(instrument.plotCustom.getMaxXSpinner().getValue().toString()),
+					Double.valueOf(instrument.plotCustom.getNbPtsSpinner().getValue().toString()))) {
 				instrument.textField.setValid(false);
 				ok = false;
 			}
