@@ -7,3 +7,5 @@ Version 3.3.0
   https://bugs.launchpad.net/latexdraw/+bug/1369488
 - fixed: ps2epsi should be used instead of ps2eps
   https://bugs.launchpad.net/latexdraw/+bug/1369416
+- fixed: can hide grid's labels
+  https://bugs.launchpad.net/latexdraw/+bug/1279086

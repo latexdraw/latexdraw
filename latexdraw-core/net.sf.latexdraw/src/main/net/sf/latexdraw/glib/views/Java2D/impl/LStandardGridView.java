@@ -65,11 +65,14 @@ abstract class LStandardGridView<S extends IStandardGrid> extends LShapeView<S> 
 	@Override
 	public void updateBorder() {
 		final double angle = shape.getRotationAngle();
-
+		Rectangle2D rec = path.getBounds2D();
+		
+		if(shape.getLabelsSize()>0)
+			rec = rec.createUnion(pathLabels.getBounds2D());
+		
 		if(LNumber.equalsDouble(angle, 0.))
-			border.setFrame(path.getBounds2D().createUnion(pathLabels.getBounds2D()));
+			border.setFrame(rec);
 		else {
-			final Rectangle2D rec = path.getBounds2D().createUnion(pathLabels.getBounds2D());
 			final IPoint tl = ShapeFactory.createPoint();
 			final IPoint br = ShapeFactory.createPoint();
 			getRotatedRectangle(rec.getMinX(), rec.getMinY(), rec.getWidth(), rec.getHeight(), angle, shape.getGravityCentre(), tl, br);

@@ -63,6 +63,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 				val gridStart = new PointUnit(getApproxCoord(ctx.pictureSWPt.getX), getApproxCoord(ctx.pictureSWPt.getY), "", "")
 				val grid = createGrid(new PointUnit(0,0,"",""), gridStart, gridEnd, ctx)
 				grid.setPosition(0,0)
+				grid.setLabelsSize(0)
 				checkTextParsed(ctx) ::: List(grid)
 		}
 	}

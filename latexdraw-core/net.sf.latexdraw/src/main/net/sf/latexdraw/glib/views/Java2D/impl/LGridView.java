@@ -81,8 +81,10 @@ class LGridView extends LStandardGridView<IGrid> {
 		g.draw(path);
 
 		// Drawing the labels.
-		g.setColor(shape.getGridLabelsColour());
-		g.fill(pathLabels);
+		if(shape.getLabelsSize()>0) {
+			g.setColor(shape.getGridLabelsColour());
+			g.fill(pathLabels);
+		}
 
 		if(vectorTrans!=null)
 			endRotation(g, vectorTrans);

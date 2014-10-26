@@ -146,7 +146,7 @@ abstract class LAbstractGrid extends LPositionShape implements IStandardGrid {
 
 	@Override
 	public void setLabelsSize(final int labelsSize) {
-		if(labelsSize>0)
+		if(labelsSize>=0)
 			labelSize = labelsSize;
 	}
 

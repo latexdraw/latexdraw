@@ -120,7 +120,7 @@ public class ShapeStandardGridCustomiser extends ShapePropertyCustomiser {
 		yEndS.setEditor(new JSpinner.NumberEditor(yEndS, "0"));//$NON-NLS-1$
 		yEndS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeStdGrid.4")); //$NON-NLS-1$
 
-		labelsSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(10, 1, 100, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.9")));//$NON-NLS-1$
+		labelsSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(10, 0, 100, 1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersGridFrame.9")));//$NON-NLS-1$
 		labelsSizeS.setEditor(new JSpinner.NumberEditor(labelsSizeS, "0"));//$NON-NLS-1$
 		labelsSizeS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeStdGrid.5")); //$NON-NLS-1$
 
