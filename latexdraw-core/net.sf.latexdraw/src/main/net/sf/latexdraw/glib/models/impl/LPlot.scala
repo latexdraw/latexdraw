@@ -18,7 +18,7 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 	private var style:IPlotProp.PlotStyle = IPlotProp.PlotStyle.CURVE
 	private var parser:PSFunctionParser = new PSFunctionParser(equation)
 
-	require(GLibUtilities.isValidPoint(pt) && minX<maxX && GLibUtilities.isValidPoint(minX, maxX))
+	require(GLibUtilities.isValidPoint(pt) && minX<maxX && GLibUtilities.isValidPoint(minX, maxX), "Parameter not valid: " + minX + " " + maxX + " " +GLibUtilities.isValidPoint(pt))
 
 
 	override def setPlotStyle(style:IPlotProp.PlotStyle) {
