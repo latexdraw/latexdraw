@@ -280,7 +280,7 @@ object FlyweightThumbnail {
 
 			log = outReader.getLog + LResources.EOL + errReader.getLog
 		}catch{ case ex: Throwable => log += ex.getMessage }
-		return new Tuple2(true, log)
+		return new Tuple2(false, log)
 	}
 
 
