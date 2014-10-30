@@ -16,9 +16,9 @@ public abstract class TestIStandardGrid<T extends IStandardGrid> extends TestIPo
 		shape.setLabelsSize(30);
 		assertEquals(30, shape.getLabelsSize());
 		shape.setLabelsSize(0);
-		assertEquals(30, shape.getLabelsSize());
+		assertEquals(0, shape.getLabelsSize());
 		shape.setLabelsSize(-1);
-		assertEquals(30, shape.getLabelsSize());
+		assertEquals(0, shape.getLabelsSize());
 	}
 
 

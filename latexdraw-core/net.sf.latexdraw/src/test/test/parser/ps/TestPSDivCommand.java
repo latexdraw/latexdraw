@@ -9,20 +9,18 @@ import org.junit.Test;
 public class TestPSDivCommand extends TestPSCommand<PSDivCommand> {
 	@Override protected PSDivCommand createCmd() { return new PSDivCommand(); }
 
-	@Override @Test
+	@Override @Test(expected=ArithmeticException.class)
 	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(0.0);
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
-		assertTrue(Double.isNaN(dequeue.pop()));
 	}
 
-	@Test
+	@Test(expected=ArithmeticException.class)
 	public void testExecuteVal01() throws InvalidFormatPSFunctionException {
 		dequeue.push(10.0);
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
-		assertTrue(Double.isNaN(dequeue.pop()));
 	}
 
 	@Override @Test
