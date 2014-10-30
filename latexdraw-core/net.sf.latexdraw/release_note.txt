@@ -11,3 +11,4 @@ Version 3.3.0
   https://bugs.launchpad.net/latexdraw/+bug/1279086
 - fixed: Text shapes disappear when typing an invalid LaTeX text
   https://bugs.launchpad.net/latexdraw/+bug/1382037 
+- The error message of the LaTeX compilation was no more displayed on mouse over a text shape that does not compile.

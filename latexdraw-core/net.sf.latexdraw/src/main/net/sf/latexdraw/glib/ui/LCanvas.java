@@ -679,8 +679,10 @@ public class LCanvas extends MPanel implements ICanvas {
 		public void mouseMoved(final MouseEvent e) {
 			boolean again = true;
 			ToolTipable tooltipable;
-			final double x = e.getX()/getZoom();
-			final double y = e.getY()/getZoom();
+			final IPoint pt = LCanvas.this.convertToOrigin(ShapeFactory.createPoint(e.getX(), e.getY()));
+			final Point2D pos = LCanvas.this.getZoomedPoint(pt.getX(), pt.getY());
+			final double x = pos.getX();
+			final double y = pos.getY();
 
 			for(int i=0, size=tooltipableView.size(); i<size && again; i++) {
 				tooltipable = tooltipableView.get(i);
