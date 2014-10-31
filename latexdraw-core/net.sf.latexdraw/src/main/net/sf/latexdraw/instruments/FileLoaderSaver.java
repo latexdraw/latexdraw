@@ -223,6 +223,15 @@ public class FileLoaderSaver extends WidgetInstrument {
         progressBar.setVisible(false);
 	}
 
+	
+
+	@Override
+	public void onActionExecuted(final Action action) {
+		if(action instanceof LoadDrawing) {
+			currentFile = ((LoadDrawing)action).getFile();
+		}
+	}
+
 
 	@Override
 	protected void initialiseInteractors() {
@@ -273,17 +282,6 @@ public class FileLoaderSaver extends WidgetInstrument {
 	 */
 	public File getCurrentFile() {
 		return currentFile;
-	}
-
-
-	/**
-	 * Sets the current file loaded or saved.
-	 * @param currentFile The current file loaded or saved.
-	 * @since 3.0
-	 */
-	public void setCurrentFile(final File currentFile) {
-		if(currentFile!=null)
-			this.currentFile = currentFile;
 	}
 
 
