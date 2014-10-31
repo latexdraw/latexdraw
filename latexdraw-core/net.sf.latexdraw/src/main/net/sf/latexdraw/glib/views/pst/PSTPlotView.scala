@@ -30,7 +30,8 @@ class PSTPlotView(plot:IPlot) extends PSTClassicalView[IPlot](plot){
 		cache.append(LNumber.getCutNumber((position.getY-shape.getY())/ppc).toFloat).append(')').append('{')
 		cache.append("\\psplot[")	//$NON-NLS-1$
 		cache.append(params).append(", plotstyle=").append(shape.getPlotStyle.getPSTToken).append(", plotpoints=").
-		append(shape.getNbPlottedPoints).append(", xunit=").append(shape.getXScale).append(", yunit=").append(shape.getYScale)
+		append(shape.getNbPlottedPoints).append(", xunit=").append(shape.getXScale).append(", yunit=").
+		append(shape.getYScale).append(", polarplot=").append(shape.isPolar())
 		//TODO xscale and yscale should be put in a trait
 		cache.append("]{").append(shape.getPlotMinX).append("}{").append(shape.getPlotMaxX).append("}{").append(shape.getPlotEquation).append('}')
 
