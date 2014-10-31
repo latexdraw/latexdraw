@@ -5,13 +5,22 @@ import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;
 
 public class TestParsingPsaxes extends TestPSTParser {
+	@Test public void testArrows() throws ParseException {
+		final IAxes grid = (IAxes)parser.parsePSTCode("\\"+getCommandName()+"{|->}(0,0)(0,0)(3,4)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 
+		assertEquals(grid.getArrowAt(0).getArrowStyle(), IArrow.ArrowStyle.BAR_IN);
+		assertEquals(grid.getArrowAt(2).getArrowStyle(), IArrow.ArrowStyle.RIGHT_ARROW);
+		assertTrue(PSTParser.errorLogs().isEmpty());
+	}
+	
+	
 	@Test public void test3Coord() throws ParseException {
 		IAxes grid = (IAxes)parser.parsePSTCode("\\"+getCommandName()+"(0,0)(0,0)(3,4)").get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 
