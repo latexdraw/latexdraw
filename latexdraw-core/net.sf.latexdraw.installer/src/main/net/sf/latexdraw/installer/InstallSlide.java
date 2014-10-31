@@ -26,6 +26,8 @@ public class InstallSlide extends Slide implements Runnable {
 
 	private static final String DATA_DIR = "data";//$NON-NLS-1$
 	
+	public static final String EOL = System.getProperty("line.separator"); //$NON-NLS-1$
+	
 	/** The path where the jar file is placed. */
 	private static String PATH_JAR = LPath.INSTANCE.getPathJar();
 	
@@ -96,7 +98,7 @@ public class InstallSlide extends Slide implements Runnable {
 	 * @return true if the creation succeeded.
 	 * @since 1.9.2
 	 */
-	private boolean createProgramLauncher() {
+	private boolean createProgramLauncher(final String path) {
 		boolean ok;
 
 		try {
@@ -121,6 +123,40 @@ public class InstallSlide extends Slide implements Runnable {
 					f.setExecutable(true, false);
 				}
 				else ok = true;
+			}
+			else if(LSystem.INSTANCE.isWindows()) {
+				final File f = new File(PATH_JAR+File.separator+"createShortcut.vbs");
+				final FileOutputStream fos 	= new FileOutputStream(f);
+				final Writer osw 			= new OutputStreamWriter(fos);
+				
+				try {
+					osw.write("Set shell = WScript.CreateObject(\"WScript.Shell\")");
+					osw.write(EOL);
+					osw.write("strProg = shell.SpecialFolders(\"Programs\")");
+					osw.write(EOL);
+					osw.write("Set link= shell.CreateShortcut(strProg+\"\\LaTeXDraw.LNK\")");
+					osw.write(EOL);
+					osw.write("link.TargetPath = \"");
+					osw.write(path);
+					osw.write("\\LaTeXDraw.jar\"");
+					osw.write(EOL);
+					osw.write("link.Save");
+					osw.write(EOL);
+					ok = true;
+				}catch(final IOException ex) { ok = false; }
+				try { osw.flush(); } catch(final IOException ex) { ok = false; }
+				try { fos.flush(); } catch(final IOException ex) { ok = false; }
+				try { osw.close(); } catch(final IOException ex) { ok = false; }
+				try { fos.close(); } catch(final IOException ex) { ok = false; }
+
+				f.setReadable(true);
+				f.setExecutable(true, false);
+				ok = true;
+				try {
+					Runtime.getRuntime().exec(new String[]{"wscript", f.getPath()});
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
 			}
 			else ok = true;
 		}
@@ -338,7 +374,7 @@ public class InstallSlide extends Slide implements Runnable {
 			if(!isContinueInstall())
 				return ;
 
-			createProgramLauncher();
+			createProgramLauncher(path);
 			progressBar.setValue(progressBar.getValue()+20);
 
 			if(!isContinueInstall())

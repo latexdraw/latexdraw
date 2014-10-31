@@ -82,7 +82,7 @@ public class ChooseDirSlide extends Slide {
 		if(LSystem.INSTANCE.isLinux())
 			pathInstall.setText("/opt");//$NON-NLS-1$
 		else
-			if(LSystem.INSTANCE.isSeven() || LSystem.INSTANCE.isVista() || LSystem.INSTANCE.isXP()) {
+			if(LSystem.INSTANCE.isWindows()) {
 				File dir = new File("C:\\Program Files\\");//$NON-NLS-1$
 				int cpt = 0;
 				final int max = 10;

@@ -24,14 +24,13 @@ public final class LSystem {
 	/**
 	 * The different operating systems managed.
 	 */
-	public static enum OperatingSystem {
-		VISTA, XP, SEVEN, EIGHT, MAC_OS_X, LINUX;
+	public enum OperatingSystem {
+		VISTA, XP, SEVEN, EIGHT, TEN, MAC_OS_X, LINUX;
 	}
 
 
 	/** The singleton. */
 	public static final LSystem INSTANCE = new LSystem();
-
 
 	/**
 	 * Creates the singleton.
@@ -46,7 +45,14 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean isWindows() {
-		return isSeven() || isVista() || isXP() || is8();
+		return isSeven() || isVista() || isXP() || is8() || is10();
+	}
+
+	/**
+	 * @return True: the operating system currently used is Windows 10.
+	 */
+	public boolean is10() {
+		return getSystem()==OperatingSystem.TEN;
 	}
 
 	/**
@@ -125,8 +131,11 @@ public final class LSystem {
 		if(os.equalsIgnoreCase("mac os x")) //$NON-NLS-1$
 			return OperatingSystem.MAC_OS_X;
 
-		if(os.equalsIgnoreCase("windows 8")) //$NON-NLS-1$
+		if(os.toLowerCase().contains("windows 8")) //$NON-NLS-1$
 			return OperatingSystem.EIGHT;
+
+		if(os.toLowerCase().contains("windows 10")) //$NON-NLS-1$
+			return OperatingSystem.TEN;
 
 		return null;
 	}
