@@ -35,8 +35,14 @@ public class TestFlyweightThumbnail {
 
 
 	@Test
-	public void testNewTextNewPicture() {
+	public void testNewTextNewPicture() throws InterruptedException {
 		Image img = viewTxt.getImage();
+		int cpt=0;
+		while(img==null && cpt<10) {
+			Thread.sleep(1000);
+			cpt++;
+			img = viewTxt.getImage();
+		}
 		assertNotNull(img);
 		assertEquals(1, FlyweightThumbnail.images().size());
 		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)viewTxt.getShape()).getLineColour()+((IText)viewTxt.getShape()).getText());
