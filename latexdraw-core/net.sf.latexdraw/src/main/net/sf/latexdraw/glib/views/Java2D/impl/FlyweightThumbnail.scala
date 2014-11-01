@@ -11,13 +11,10 @@ import java.io.RandomAccessFile
 import java.io.StringWriter
 import java.nio.channels.FileChannel
 import java.util.regex.Pattern
-
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
-
 import com.sun.pdfview.PDFFile
-
 import javax.swing.SwingUtilities
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.filters.PDFFilter
@@ -34,6 +31,7 @@ import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.util.LSystem
 import net.sf.latexdraw.util.StreamExecReader
+import java.awt.Color
 
 /**
  * This flyweight manages the thumbnails of the text shapes. Its goal is to limit the number
@@ -63,13 +61,13 @@ object FlyweightThumbnail {
 	 * /tmp/latexdraw180980 (without any extension). The last String is the log of the
 	 * compilation.
 	 */
-	val images : Map[String, (Image, Set[IViewText], String, String)] = new HashMap[String, (Image, Set[IViewText], String, String)]()
+	val images : Map[String, (Image, Set[IViewText], String, String)] = new HashMap()
 
 	val _scaleImage = 2.0
 
 	val inProgressMsg = "Creation in progress"
 
-	val creationsInProgress : Set[IViewText] = Set[IViewText]()
+	val creationsInProgress = Set[IViewText]()
 
 	var _canvas : ICanvas = null
 
@@ -116,22 +114,22 @@ object FlyweightThumbnail {
 		var res : (Image, Set[IViewText], String, String) = null
 
 		if(creationsInProgress.synchronized{creationsInProgress.contains(view)})
-			res = new Tuple4[Image,Set[IViewText],String,String](null, Set(), "", inProgressMsg)
+			res = (null, Set(), "", inProgressMsg)
 		else {
-			val text = shape.getText
+			val text = shape.getLineColour.toString()+shape.getText
 			images.synchronized{images.get(text)} match {
 			case Some(tuple) =>
 				tuple._2.synchronized { tuple._2+=view }
-				res = new Tuple4[Image,Set[IViewText],String,String](tuple._1, tuple._2, tuple._3, tuple._4)
+				res = (tuple._1, tuple._2, tuple._3, tuple._4)
 				images.synchronized{images+=(text -> res)}
 			case _ =>
 				if(_thread) {
 					creationsInProgress.synchronized{creationsInProgress+=view}
-					res = new Tuple4[Image,Set[IViewText],String,String](null, Set(), "", "Creation in progress")
+					res = (null, Set(), "", "Creation in progress")
 					SwingUtilities.invokeLater(new Thread() {
 						override def run() {
 							val tuple = createImage(shape)
-							images.synchronized{images+=(text -> new Tuple4[Image,Set[IViewText],String,String](tuple._1, Set(view), tuple._2, tuple._3))}
+							images.synchronized{images+=(text -> (tuple._1, Set(view), tuple._2, tuple._3))}
 							creationsInProgress.synchronized{creationsInProgress-=view}
 							view.updateBorder
 							if(_canvas!=null) {
@@ -143,7 +141,7 @@ object FlyweightThumbnail {
         }
 				else {
 					val tuple = createImage(shape)
-					res = new Tuple4[Image,Set[IViewText],String,String](tuple._1, Set(view), tuple._2, tuple._3)
+					res = (tuple._1, Set(view), tuple._2, tuple._3)
 					images+=(text -> res)
 				}
 			}
@@ -156,16 +154,16 @@ object FlyweightThumbnail {
 	 * When a text picture is flushed, it must notified this flyweight that it has to check if the
 	 * corresponding image must be flushed as well.
 	 */
-	def notifyImageFlushed(view:IViewText, text:String) {
+	def notifyImageFlushed(view:IViewText, text:String, col:Color) {
 		if(!creationsInProgress.synchronized{creationsInProgress.contains(view)}) {
-			images.synchronized{images.get(text)} match {
+			images.synchronized{images.get(col.toString+text)} match {
 				case Some(tuple) =>
 					tuple._2.synchronized{ tuple._2-=view }
 					if(tuple._2.isEmpty) { // No more used, so flushed.
-						images.synchronized{images.remove(text)}
+						images.synchronized{images.remove(col.toString+text)}
 						flushImage(tuple._1, tuple._3)
 					}else // Decreasing the number of objets using this image.
-						images.synchronized{images+=(text -> new Tuple4[Image,Set[IViewText],String,String](tuple._1, tuple._2, tuple._3, tuple._4))}
+						images.synchronized{images+=(col.toString+text -> (tuple._1, tuple._2, tuple._3, tuple._4))}
 				case _ =>
 			}
 		}
@@ -276,11 +274,11 @@ object FlyweightThumbnail {
 			outReader.start
 
 			if(process.waitFor==0)
-				return new Tuple2(true, log)
+				return (true, log)
 
 			log = outReader.getLog + LResources.EOL + errReader.getLog
 		}catch{ case ex: Throwable => log += ex.getMessage }
-		return new Tuple2(false, log)
+		return (false, log)
 	}
 
 
@@ -375,6 +373,6 @@ object FlyweightThumbnail {
 			sw.close
 		}
 
-		return new Tuple3(bi, pathPic, log)
+		return (bi, pathPic, log)
 	}
 }

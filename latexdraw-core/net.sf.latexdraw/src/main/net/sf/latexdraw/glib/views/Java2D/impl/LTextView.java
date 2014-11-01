@@ -62,8 +62,8 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		super(model);
 
 		lastText 	= ""; //$NON-NLS-1$
-		lastColour 	= null;
-		lastTextPos	= null;
+		lastColour 	= model.getLineColour();
+		lastTextPos	= model.getTextPosition();
 		update();
 	}
 
@@ -74,8 +74,7 @@ class LTextView extends LShapeView<IText> implements IViewText {
 		final String log = FlyweightThumbnail.getLog(this);
 
 		if(image==null && log.isEmpty() || !lastText.equals(shape.getText()) ||
-			lastColour==null || !lastColour.equals(shape.getLineColour()) ||
-			lastTextPos==null || lastTextPos!=shape.getTextPosition()) {
+			!lastColour.equals(shape.getLineColour()) || lastTextPos!=shape.getTextPosition()) {
 			updateImage();
 			lastText 	= shape.getText();
 			lastColour 	= shape.getLineColour();
@@ -96,15 +95,15 @@ class LTextView extends LShapeView<IText> implements IViewText {
 
 	@Override
 	public void flush() {
-		FlyweightThumbnail.notifyImageFlushed(this, lastText);
-		FlyweightThumbnail.notifyImageFlushed(this, shape.getText());
+		FlyweightThumbnail.notifyImageFlushed(this, lastText, lastColour);
+		FlyweightThumbnail.notifyImageFlushed(this, shape.getText(), shape.getLineColour());
 		super.flush();
 	}
 
 
 	@Override
 	public void updateImage() {
-		FlyweightThumbnail.notifyImageFlushed(this, lastText);
+		FlyweightThumbnail.notifyImageFlushed(this, lastText, lastColour);
 	}
 
 

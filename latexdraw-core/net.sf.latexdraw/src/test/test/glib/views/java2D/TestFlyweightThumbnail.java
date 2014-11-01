@@ -39,7 +39,7 @@ public class TestFlyweightThumbnail {
 		Image img = viewTxt.getImage();
 		assertNotNull(img);
 		assertEquals(1, FlyweightThumbnail.images().size());
-		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)viewTxt.getShape()).getText());
+		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)viewTxt.getShape()).getLineColour()+((IText)viewTxt.getShape()).getText());
 		assertTrue(optTuple.isDefined());
 		assertEquals(img, optTuple.get()._1());
 		assertEquals(1, optTuple.get()._2().size());
@@ -52,7 +52,7 @@ public class TestFlyweightThumbnail {
 	public void testNewTwoSameTextsNewSinglePicture() throws InterruptedException {
 		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(ShapeFactory.createPoint(), "coucou")); //$NON-NLS-1$
 		assertEquals(1, FlyweightThumbnail.images().size());
-		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)viewTxt.getShape()).getText());
+		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)viewTxt.getShape()).getLineColour()+((IText)viewTxt.getShape()).getText());
 		assertTrue(optTuple.isDefined());
 		assertEquals(2, optTuple.get()._2().size());
 	}
@@ -62,9 +62,9 @@ public class TestFlyweightThumbnail {
 	@Test
 	public void testNewTwoSameTextsRemoveOneStillPicture() {
 		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(ShapeFactory.createPoint(), "coucou")); //$NON-NLS-1$
-		FlyweightThumbnail.notifyImageFlushed(viewTxt, ((IText)viewTxt.getShape()).getText());
+		FlyweightThumbnail.notifyImageFlushed(viewTxt, ((IText)viewTxt.getShape()).getText(), ((IText)viewTxt.getShape()).getLineColour());
 		assertEquals(1, FlyweightThumbnail.images().size());
-		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)v2.getShape()).getText());
+		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)v2.getShape()).getLineColour()+((IText)v2.getShape()).getText());
 		assertTrue(optTuple.isDefined());
 		assertEquals(1, optTuple.get()._2().size());
 		assertEquals(v2, optTuple.get()._2().last());
@@ -75,9 +75,9 @@ public class TestFlyweightThumbnail {
 	public void testNewTwoTextsRemoveOneOnePictureRemains() {
 		IViewText v2 = (IViewText)View2DTK.getFactory().createView(ShapeFactory.createText(ShapeFactory.createPoint(), "aaa")); //$NON-NLS-1$
 		assertEquals(2, FlyweightThumbnail.images().size());
-		FlyweightThumbnail.notifyImageFlushed(viewTxt, ((IText)viewTxt.getShape()).getText());
+		FlyweightThumbnail.notifyImageFlushed(viewTxt, ((IText)viewTxt.getShape()).getText(), ((IText)viewTxt.getShape()).getLineColour());
 		assertEquals(1, FlyweightThumbnail.images().size());
-		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)v2.getShape()).getText());
+		Option<Tuple4<Image,Set<IViewText>,String,String>> optTuple = FlyweightThumbnail.images().get(((IText)v2.getShape()).getLineColour()+((IText)v2.getShape()).getText());
 		assertTrue(optTuple.isDefined());
 		assertEquals(1, optTuple.get()._2().size());
 		assertEquals(v2, optTuple.get()._2().last());
