@@ -68,7 +68,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 			xScaleSpinner.setValueSafely(shape.getXScale());
 			yScaleSpinner.setValueSafely(shape.getYScale());
 			polarCB.setSelected(shape.isPolar());
-			plotStyleCB.setSelectedItemSafely(shape.getPlotStyle().toString());
+			plotStyleCB.setSelectedItemSafely(shape.getPlotStyle());
 			setActivated(true);
 		}
 		else setActivated(false);
