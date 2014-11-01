@@ -16,6 +16,15 @@
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
   <item>
+    <title>PSPlot -- Plotting functions with LaTeXDraw</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Sat, 01 nov 2014 09:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS49</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS49</link>
+    <description>The no-more-far 3.3 release will bring an exciting new feature: the support of psplot! The command psplot permits to plot functions as depicted in the following figure. As you can see, you can type your function following the postscript formalism. You can also customise some parameters such as the number of plotted points, whether the function has to be plotted following polar coordinates, etc. I know there is a feature to type functions in a more natural way (e.g. sin(x) instead of x sin) but this is not supported yet. You can also import PSPlot code into LaTeXDraw. You can try that by using the latest development version</description>
+  </item>
+
+  <item>
     <title>Exporting as EPS on Windows (precisions)</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Sun, 16 sep 2014 09:00:00 GMT</pubDate>
