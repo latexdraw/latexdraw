@@ -41,10 +41,10 @@ import org.malai.swing.widget.MProgressBar;
  */
 public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 	/** The main frame of the application. */
-	protected LFrame frame;
+	protected final LFrame frame;
 
 	/** The hash map used to map a widget to its container. */
-	protected Map<Component, WidgetMiniToolbar> mapContainers;
+	protected final Map<Component, WidgetMiniToolbar> mapContainers;
 
 
 	/**

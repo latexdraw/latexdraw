@@ -1,6 +1,18 @@
 package net.sf.latexdraw.ui;
 
-import java.awt.*;
+import java.awt.AWTEvent;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.IllegalComponentStateException;
+import java.awt.Insets;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,9 +21,20 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
+import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
@@ -42,7 +65,7 @@ import org.malai.swing.widget.SwingWidgetUtilities;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class WidgetMiniToolbar extends JToggleButton implements ActionListener, ChangeListener, WindowFocusListener, Picker, Eventable {
+public class WidgetMiniToolbar extends JButton implements ActionListener, WindowFocusListener, Picker, Eventable {
 	private static final long serialVersionUID = 1L;
 
 	/** The event manager that listens events produced by the list of toogle buttons. May be null. */
@@ -191,14 +214,6 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 	}
 
 
-
-	@Override
-	public void setSelected(final boolean sel) {
-		updateSelected();
-	}
-
-
-
 	/**
 	 * Adds a separator to the toolbar.
 	 */
@@ -223,7 +238,6 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 		if(comp instanceof AbstractButton) {
 			final AbstractButton ab = (AbstractButton) comp;
 			ab.addActionListener(this);
-			ab.addChangeListener(this);
 		}
 
 		attachAddedComponent(comp);
@@ -314,7 +328,6 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 		if(src instanceof WidgetMiniToolbar) {
 			final boolean visible = !buttonsFrame.isVisible();
 
-			updateSelected();
 			defineToolbarLocation();
 			setButtonsFrameVisible(visible);
 			return ;
@@ -330,7 +343,6 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 
 		if(src instanceof JToggleButton || src instanceof JButton) {
 			setButtonsFrameVisible(false);
-			updateSelected();
 		}
 	}
 
@@ -355,43 +367,11 @@ public class WidgetMiniToolbar extends JToggleButton implements ActionListener, 
 
 
 
-	@Override
-	public void stateChanged(final ChangeEvent e) {
-		final Object src = e.getSource();
-
-		if(src instanceof JToggleButton && !(src instanceof JCheckBox || src instanceof JRadioButton))
-			setSelected(((JToggleButton)src).isSelected());
-	}
-
-
-
 	/**
 	 * @return The location of the panel of buttons.
 	 */
 	public int getLocationButtonPanel() {
 		return location;
-	}
-
-
-
-	/**
-	 * Sets the main button to selected or not following if a button is selected or not.
-	 */
-	public void updateSelected() {
-		int i;
-		final int size = toolbar.getComponentCount();
-		boolean selected = false;
-		Component src;
-
-		for(i=0; i<size && !selected; i++) {
-			src = toolbar.getComponent(i);
-
-			if(src instanceof JToggleButton && !(src instanceof JCheckBox || src instanceof JRadioButton) &&
-				((JToggleButton)toolbar.getComponent(i)).isSelected())
-				selected = true;
-		}
-
-		super.setSelected(selected);
 	}
 
 
