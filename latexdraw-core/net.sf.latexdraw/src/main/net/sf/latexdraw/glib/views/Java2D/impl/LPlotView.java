@@ -84,7 +84,7 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 		final double ys = shape.getYScale();
 
 		if(shape.isPolar()) {
-			for(double x=minX; x<maxX; x+=step) {
+			for(double x=minX; x<=maxX; x+=step) {
 	  			final double radius = shape.getY(x);
 	  			final double angle = Math.toRadians(x);
 	  			final double x1 = radius*Math.cos(angle);
@@ -92,7 +92,7 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 	  			sh.addPoint(ShapeFactory.createPoint(x1*IShape.PPC*xs+posX, y1*IShape.PPC*xs+posY));
 	  		}
 		}else
-			for(double x=minX; x<maxX; x+=step)
+			for(double x=minX; x<=maxX; x+=step)
   				sh.addPoint(ShapeFactory.createPoint(x*IShape.PPC*xs+posX, -shape.getY(x)*IShape.PPC*ys+posY));
 	}
 
