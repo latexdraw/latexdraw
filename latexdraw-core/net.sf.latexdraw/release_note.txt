@@ -17,3 +17,5 @@ Version 3.3.0
   https://bugs.launchpad.net/latexdraw/+bug/1369490  
 - fixed: Cannot parse psaxes with arrows
   https://bugs.launchpad.net/latexdraw/+bug/1388145
+- The commands pspicture and endpspicture are now supported.
+- Support of begin{pspicture} without any coordinate.

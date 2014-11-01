@@ -224,7 +224,14 @@ trait PSTCodeParser extends PSTAbstractParser
 	override def parsePspictureBlock(ctx : PSTContext) : Parser[IGroup] = {
 		val ctx2 = new PSTContext(ctx, false)
 		(parseBeginPspicture(ctx2, false) ~> parsePSTCode(ctx2) <~ "\\end" <~ "{" <~ "pspicture" <~ "}") |
-		(parseBeginPspicture(ctx2, true) ~> parsePSTCode(ctx2) <~ "\\end" <~ "{" <~ "pspicture*" <~ "}")
+		(parseBeginPspicture(ctx2, true) ~> parsePSTCode(ctx2) <~ "\\end" <~ "{" <~ "pspicture*" <~ "}") |
+		(parsePspicture(ctx2) ~> parsePSTCode(ctx2) <~ "\\endpspicture")
+	}
+
+
+	private def parsePspicture(ctx : PSTContext) : Parser[Any] =
+		"\\pspicture" ~ opt(parseCoord(ctx)) ~ opt(parseCoord(ctx)) ^^ {
+		case _ ~ p1 ~ p2 => setPspicturePoints(p1, p2, ctx)
 	}
 
 
@@ -232,15 +239,22 @@ trait PSTCodeParser extends PSTAbstractParser
 	 * Parses begin{pspicture} commands.
 	 */
 	private def parseBeginPspicture(ctx : PSTContext, star : Boolean) : Parser[Any] =
-		"\\begin" ~> "{" ~> (if(star) "pspicture*" else "pspicture") ~> "}" ~> parseCoord(ctx) ~ opt(parseCoord(ctx)) ^^ {
-		case p1 ~ p2 =>
-		p2 match {
-			case Some(value) =>
-				ctx.pictureSWPt = ShapeFactory.createPoint(p1.x, p1.y)
-				ctx.pictureNEPt = ShapeFactory.createPoint(value.x, value.y)
+		"\\begin" ~> "{" ~> (if(star) "pspicture*" else "pspicture") ~> "}" ~> opt(parseCoord(ctx)) ~ opt(parseCoord(ctx)) ^^ {
+		case p1 ~ p2 => setPspicturePoints(p1, p2, ctx)
+	}
+
+
+	private def setPspicturePoints(p1: Option[PointUnit], p2: Option[PointUnit], ctx : PSTContext) {
+		(p1,p2) match {
+			case (Some(val1), None) =>
+				ctx.pictureSWPt = ShapeFactory.createPoint
+				ctx.pictureNEPt = ShapeFactory.createPoint(val1.x, val1.x)
+			case (Some(val1),Some(val2)) =>
+				ctx.pictureSWPt = ShapeFactory.createPoint(val1.x, val1.y)
+				ctx.pictureNEPt = ShapeFactory.createPoint(val2.x, val2.y)
 			case _ =>
 				ctx.pictureSWPt = ShapeFactory.createPoint
-				ctx.pictureNEPt = ShapeFactory.createPoint(p1.x, p1.y)
+				ctx.pictureNEPt = ShapeFactory.createPoint(10, 10)
 		}
 	}
 }
