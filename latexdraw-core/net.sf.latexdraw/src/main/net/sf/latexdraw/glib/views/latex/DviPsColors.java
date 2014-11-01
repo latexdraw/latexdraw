@@ -499,7 +499,7 @@ public final class DviPsColors  {
 		else
 			code = "\\definecolor{" + colourName + "}{rgb}{" + //$NON-NLS-1$ //$NON-NLS-2$
 					(float)(colour.getRed()/MAX) + ',' + (float)(colour.getGreen()/MAX) +
-					',' + (float)(colour.getBlue()/MAX) + "}\n"; //$NON-NLS-1$
+					',' + (float)(colour.getBlue()/MAX) + "}"; //$NON-NLS-1$
 
 		return code;
 	}

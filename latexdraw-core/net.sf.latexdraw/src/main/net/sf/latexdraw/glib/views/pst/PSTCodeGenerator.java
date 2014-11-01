@@ -187,7 +187,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 			for(final String nameColour : pstView.coloursName)
 				if(addedColours.get(nameColour)==null && DviPsColors.INSTANCE.getPredefinedColour(nameColour)==null) {
 					addedColours.put(nameColour, nameColour);
-					cache.append(DviPsColors.INSTANCE.getUsercolourCode(nameColour));
+					cache.append(DviPsColors.INSTANCE.getUsercolourCode(nameColour)).append(LResources.EOL);
 				}
 	}
 
