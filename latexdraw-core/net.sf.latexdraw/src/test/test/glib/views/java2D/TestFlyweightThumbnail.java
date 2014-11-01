@@ -14,6 +14,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.malai.undo.UndoCollector;
 
@@ -35,6 +36,7 @@ public class TestFlyweightThumbnail {
 
 
 	@Test
+	@Ignore
 	public void testNewTextNewPicture() throws InterruptedException {
 		Image img = viewTxt.getImage();
 		int cpt=0;
