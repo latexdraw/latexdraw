@@ -261,8 +261,8 @@ public class LCanvas extends MPanel implements ICanvas {
 		else {
 			double minX = Double.MAX_VALUE;
 			double minY = Double.MAX_VALUE;
-			double maxX = Double.MIN_VALUE;
-			double maxY = Double.MIN_VALUE;
+			double maxX = -Double.MAX_VALUE;
+			double maxY = -Double.MAX_VALUE;
 
 			Rectangle2D bounds;
 			synchronized(views){

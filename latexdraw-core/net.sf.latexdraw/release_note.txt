@@ -20,5 +20,6 @@ Version 3.3.0
 - fixed: text thumbnails might be the same for text shapes having the same text with a different colour. 
 - fixed: the position of thumbnails of coloured text shapes might not be correct.
 - fixed: dots may not be coloured as expected when exported as a PDF document.
+- fixed: the size of the generated PDF/PS documents might not be correct (might have several pages or large margins).
 - The commands pspicture and endpspicture are now supported.
 - Support of begin{pspicture} without any coordinate.

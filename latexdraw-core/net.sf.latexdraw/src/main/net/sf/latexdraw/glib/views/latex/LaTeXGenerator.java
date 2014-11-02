@@ -426,6 +426,11 @@ public abstract class LaTeXGenerator implements Modifiable {
 		final IPoint tr			= synchronizer.getTopRightDrawingPoint();
 		final float ppc			= synchronizer.getPPCDrawing();
 		final float scale		= (float)pstGen.getScale();
+		
+		if(tr.getY()<0) {
+			bl.setY(bl.getY()-tr.getY());
+			tr.setY(0.0);
+		}
 
 		pstGen.updateFull();
 		doc.append("\\documentclass{article}").append(LResources.EOL).append("\\pagestyle{empty}").append(LResources.EOL).append(getPackages()).append(LResources.EOL).append( //$NON-NLS-1$ //$NON-NLS-2$
