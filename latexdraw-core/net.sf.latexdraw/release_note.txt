@@ -1,25 +1,29 @@
 ************************************************************
 Version 3.3.0
 
+New features:
 - psplot is now supported (and can be imported from PSTricks code).
   The parameters plotstyle, polarplot, and plotpoints are supported
-- On Windows, a shorcut is now created in the start menu during the installation.
-- added: better integration in Linux environments (using the installer) 
+- On Windows, a shortcut is now created in the start menu during the installation.
+- Better integration in Linux environments (using the installer) 
   https://bugs.launchpad.net/latexdraw/+bug/1369488
-- fixed: ps2epsi should be used instead of ps2eps
+- The commands pspicture and endpspicture are now supported when importing PSTricks code.
+- Support of begin{pspicture} without any coordinate when importing PSTricks code.
+
+Bugs fixed:
+- ps2epsi should be used instead of ps2eps
   https://bugs.launchpad.net/latexdraw/+bug/1369416
-- fixed: can hide grid's labels
+- Can hide grid's labels
   https://bugs.launchpad.net/latexdraw/+bug/1279086
-- fixed: Text shapes disappear when typing an invalid LaTeX text
+- Text shapes disappear when typing an invalid LaTeX text
   https://bugs.launchpad.net/latexdraw/+bug/1382037 
-- fixed: the error message of the LaTeX compilation was no more displayed on mouse over a text shape that does not compile.
-- fixed: Still have problem with the file name while saving a drawing.
+- The error message of the LaTeX compilation was no more displayed on mouse over a text shape that does not compile.
+- Still have problem with the file name while saving a drawing.
   https://bugs.launchpad.net/latexdraw/+bug/1369490  
-- fixed: Cannot parse psaxes with arrows
+- Cannot parse psaxes with arrows
   https://bugs.launchpad.net/latexdraw/+bug/1388145
-- fixed: text thumbnails might be the same for text shapes having the same text with a different colour. 
-- fixed: the position of thumbnails of coloured text shapes might not be correct.
-- fixed: dots may not be coloured as expected when exported as a PDF document.
-- fixed: the size of the generated PDF/PS documents might not be correct (might have several pages or large margins).
-- The commands pspicture and endpspicture are now supported.
-- Support of begin{pspicture} without any coordinate.
+- Text thumbnails might be the same for text shapes having the same text with a different colour. 
+- The position of thumbnails of coloured text shapes might not be correct.
+- Dots may not be coloured as expected when exported as a PDF document.
+- The size of the generated PDF/PS documents might not be correct (might have several pages or large margins).
+- Axes were not correctly located when parsed.

@@ -75,7 +75,6 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 		setArrows(axes, arrows, false, ctx)
 		setStdGridParams(new PointUnit(ctx.ox, ctx.oy, null, null), min, max, axes, ctx)
 		setShapeGeneralParameters(axes, ctx)
-		axes.setPosition(ShapeFactory.createPoint(ctx.pictureSWPt.getX*IShape.PPC, (ctx.pictureSWPt.getY+ctx.pictureNEPt.getY)/2.0*IShape.PPC*(-1.0)))
 		axes.setAxesStyle(ctx.axesStyle)
 		axes.setTicksDisplayed(ctx.ticks)
 		axes.setLabelsDisplayed(ctx.labels)
@@ -89,6 +88,7 @@ trait PSGridAxes extends PSTAbstractParser with PSTParamParser with PSTCoordinat
 		axes.setGridEndY(max.y)
 		axes.setGridStartX(min.x)
 		axes.setGridStartY(min.y)
+		axes.setPosition(ShapeFactory.createPoint(0.0, 0.0))
 		axes
 	}
 
