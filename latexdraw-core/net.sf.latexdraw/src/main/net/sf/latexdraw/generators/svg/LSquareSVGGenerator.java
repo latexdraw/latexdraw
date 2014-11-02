@@ -54,19 +54,6 @@ class LSquareSVGGenerator extends LShapeSVGGenerator<ISquare> {
 
 
 	/**
-	 * Creates a square from an SVG rect element.
-	 * @param elt The source element.
-	 * @throws IllegalArgumentException If the given element is null.
-	 * @since 2.0.0
-	 */
-	protected LSquareSVGGenerator(final SVGRectElement elt) {
-		this(ShapeFactory.createSquare());
-		setSVGRectParameters(elt);
-		applyTransformations(elt);
-	}
-
-
-	/**
 	 * Initialises the rectangle using an SVGGElement provided by a latexdraw SVG document.
 	 * @param elt The source element.
 	 * @throws IllegalArgumentException If the given element is null or not valid.
