@@ -142,7 +142,7 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 		if(f==null)
 			return null;
 
-		if(!f.getPath().toLowerCase().endsWith(SVGFilter.SVG_EXTENSION.toLowerCase()))
+		if(!f.getPath().toLowerCase().endsWith(SVGFilter.SVG_EXTENSION))
 			f = new File(f.getPath() + SVGFilter.SVG_EXTENSION);
 
 		if(f.exists()) {
