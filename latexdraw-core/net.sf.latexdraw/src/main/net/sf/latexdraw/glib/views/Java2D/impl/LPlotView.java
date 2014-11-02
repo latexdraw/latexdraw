@@ -135,10 +135,10 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 	
 	private void updateLine(final double posX, final double posY, final double minX, final double maxX, final double step) {
 		final IPolyline pl = ShapeFactory.createPolyline();
-		pl.copy(shape);
 		if(lineView!=null) lineView.flush();
-		lineView = new LPolylineView(pl);
 		fillPoints(pl, posX, posY, minX, maxX, step);
+		pl.copy(shape);
+		lineView = new LPolylineView(pl);
 		lineView.update();
 	}
 
