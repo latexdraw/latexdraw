@@ -13,6 +13,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewPlot;
@@ -37,6 +38,7 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewPlot;
  */
 public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 	protected LPolylineView lineView;
+	protected LPolygonView polygonView;
 	protected LBezierCurveView curveView;
 	protected List<LDotView> dotsView;
 
@@ -59,7 +61,7 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			case ECURVE: curveView.paint(g, clip); break;
 			case CCURVE: curveView.paint(g, clip); break;
 			case DOTS: for(LDotView v:dotsView) v.paint(g, clip); break;
-			case POLYGON: break;
+			case POLYGON: polygonView.paint(g, clip); break;
 		}
 	}
 
@@ -77,7 +79,7 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			case ECURVE: updateCurve(posX, posY, minX+step, maxX-step, step); break;
 			case CCURVE: updateCurve(posX, posY, minX, maxX, step); break;
 			case DOTS: updatePoints(posX, posY, minX, maxX, step); break;
-			case POLYGON: break;
+			case POLYGON: updatePolygon(posX, posY, minX, maxX, step); break;
 		}
 	}
 
@@ -118,6 +120,16 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			dotsView.add(v);
 			v.update();
 		}
+	}
+
+	
+	private void updatePolygon(final double posX, final double posY, final double minX, final double maxX, final double step) {
+		final IPolygon pg = ShapeFactory.createPolygon();
+		pg.copy(shape);
+		if(polygonView!=null) polygonView.flush();
+		polygonView = new LPolygonView(pg);
+		fillPoints(pg, posX, posY, minX, maxX, step);
+		polygonView.update();
 	}
 	
 	
@@ -185,7 +197,7 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			case CURVE: return curveView.getBorder();
 			case ECURVE: return curveView.getBorder();
 			case LINE: return lineView.getBorder();
-			case POLYGON: return new Rectangle2D.Double();
+			case POLYGON: return polygonView.getBorder();
 			case DOTS:
 				Rectangle2D rec = dotsView.get(0).getBorder();
 				
@@ -208,7 +220,7 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 				return false;
 			case ECURVE: return curveView.intersects(rec);
 			case LINE: return lineView.intersects(rec);
-			case POLYGON: return false;
+			case POLYGON: return polygonView.intersects(rec);
 			default: return false;
 		}
 	}
@@ -222,7 +234,7 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			case DOTS: return getBorder().contains(px, py);
 			case ECURVE: return curveView.contains(px, py);
 			case LINE: return lineView.contains(px, py);
-			case POLYGON: return false;
+			case POLYGON: return polygonView.contains(px, py);
 			default: return false;
 		}
 	}
@@ -235,7 +247,7 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			case CURVE: curveView.updateBorder(); break;
 			case ECURVE: curveView.updateBorder(); break;
 			case LINE: lineView.updateBorder(); break;
-			case POLYGON: break;
+			case POLYGON: polygonView.updateBorder(); break;
 			case DOTS: for(LDotView v:dotsView) v.updateBorder(); break;
 		}
 	}
@@ -250,6 +262,7 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			for(LDotView v:dotsView) v.flush();
 			dotsView.clear();
 		}
+		if(polygonView!=null) polygonView.flush();
 	}
 
 	@Override
