@@ -84,7 +84,9 @@ class LShapeFactory extends IShapeFactory {
 			  (classOf[IPicture], () => createPicture(createPoint)),
 			  (classOf[LPicture], () => createPicture(createPoint)),
 			  (classOf[IText], () => createText()),
-			  (classOf[LText], () => createText()))
+			  (classOf[LText], () => createText()),
+			  (classOf[IPlot], () => createPlot(createPoint, 1, 10, "x", false)),
+			  (classOf[LPlot], () => createPlot(createPoint, 1, 10, "x", false)))
 
 
 	override def newShape[T <: IShape](shapeClass : java.lang.Class[T]) : Option[T] =
