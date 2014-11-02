@@ -68,9 +68,6 @@ import org.malai.swing.widget.SwingWidgetUtilities;
 public class WidgetMiniToolbar extends JButton implements ActionListener, WindowFocusListener, Picker, Eventable {
 	private static final long serialVersionUID = 1L;
 
-	/** The event manager that listens events produced by the list of toogle buttons. May be null. */
-	protected SwingEventManager eventManager;
-
 	/** The frame which displays the toolbar */
 	protected WindowWidgets buttonsFrame;
 
@@ -239,8 +236,6 @@ public class WidgetMiniToolbar extends JButton implements ActionListener, Window
 			final AbstractButton ab = (AbstractButton) comp;
 			ab.addActionListener(this);
 		}
-
-		attachAddedComponent(comp);
 	}
 
 
@@ -428,27 +423,15 @@ public class WidgetMiniToolbar extends JButton implements ActionListener, Window
 	}
 
 
-	/**
-	 * Attaches the given component to the event manager of the panel if it exists.
-	 * @param comp
-	 * @since 3.0
-	 */
-	private void attachAddedComponent(final Component comp) {
-		if(comp!=null && eventManager!=null)
-			eventManager.attachTo(comp);
-	}
-
-
-
 	@Override
 	public boolean hasEventManager() {
-		return eventManager!=null;
+		return false;
 	}
 
 
 	@Override
 	public SwingEventManager getEventManager() {
-		return eventManager;
+		return null;
 	}
 
 
