@@ -38,7 +38,7 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 			nbPoints = nbPts
 	}
 
-	override def isShowPtsable = true
+	override def isShowPtsable = false
 	override def isThicknessable = true
 	override def isShadowable = true
 	override def isLineStylable = true
