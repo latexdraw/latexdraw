@@ -202,19 +202,19 @@ public final class LSystem {
 	public OperatingSystem getSystem() {
 		final String os = System.getProperty("os.name"); //$NON-NLS-1$
 
-		if(os.equalsIgnoreCase("linux")) //$NON-NLS-1$
+		if("linux".equalsIgnoreCase(os)) //$NON-NLS-1$
 			return OperatingSystem.LINUX;
 
-		if(os.equalsIgnoreCase("windows 7")) //$NON-NLS-1$
+		if("windows 7".equalsIgnoreCase(os)) //$NON-NLS-1$
 			return OperatingSystem.SEVEN;
 
-		if(os.equalsIgnoreCase("windows vista")) //$NON-NLS-1$
+		if("windows vista".equalsIgnoreCase(os)) //$NON-NLS-1$
 			return OperatingSystem.VISTA;
 
-		if(os.equalsIgnoreCase("windows xp")) //$NON-NLS-1$
+		if("windows xp".equalsIgnoreCase(os)) //$NON-NLS-1$
 			return OperatingSystem.XP;
 
-		if(os.equalsIgnoreCase("mac os x")) //$NON-NLS-1$
+		if("mac os x".equalsIgnoreCase(os)) //$NON-NLS-1$
 			return OperatingSystem.MAC_OS_X;
 
 		if(os.toLowerCase().contains("windows 8")) //$NON-NLS-1$
