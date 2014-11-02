@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
@@ -48,35 +49,21 @@ abstract class LModifiablePointsShapeView<S extends IModifiablePointsShape> exte
 		if(pts.size()>1) {
 			final int size 	= pts.size();
 			IPoint pt		= pts.get(0);
-			// We must check if all the points of the shape are equals because if it
-			// is the case the shape will not be visible.
 			final double firstX = pt.getX();
 			final double firstY = pt.getY();
-			double sumX	= firstX;
-			double sumY	= firstY;
 
 			path.moveTo(firstX, firstY);
 
 			for(int i=1; i<size-1; i++) {
 				pt = pts.get(i);
 				path.lineTo(pt.getX(), pt.getY());
-				// To check the points position, all the X coordinates are added together
-				// and at then end we compare if the first X coordinate equals to the average of the X
-				// coordinate (idem from Y coordinates). If it is the case, all the point are equals.
-				sumX += pt.getX();
-				sumY += pt.getY();
 			}
 
 			pt = pts.get(pts.size()-1);
 			path.lineTo(pt.getX(), pt.getY());
-			sumX += pt.getX();
-			sumY += pt.getY();
 
-			// Checking the equality between points of the shape.
-			if(LNumber.equalsDouble(firstX, sumX/size) && LNumber.equalsDouble(firstY, sumY/size)) {
-				// If they are all equals, we draw a tiny but visible line.
-				path.reset();
-				path.moveTo(firstX, firstY);
+			final Rectangle2D bound = path.getBounds2D();
+			if(LNumber.equalsDouble(bound.getWidth(), 0.001) && LNumber.equalsDouble(bound.getHeight(), 0.001)) {
 				path.lineTo(firstX+1, firstY);
 			}
 			else
