@@ -113,7 +113,7 @@ class LArrowSVGGenerator {
 			dotSizeDim = (radius*lineWidth+lineWidth/2.)*2.-dotSizeNum*lineWidth;
 		}
 
-		if(dotSizeDim==0)
+		if(LNumber.equalsDouble(dotSizeDim,0.0))
 			arrow.setArrowStyle(ArrowStyle.ROUND_IN);
 		else {
 			arrow.setDotSizeDim(dotSizeDim);

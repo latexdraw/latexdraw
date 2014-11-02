@@ -3,6 +3,7 @@ package net.sf.latexdraw.parsers.svg;
 import java.text.ParseException;
 
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
+import net.sf.latexdraw.util.LNumber;
 
 import org.w3c.dom.Node;
 
@@ -165,7 +166,6 @@ public class SVGCircleElement extends SVGElement {
 
 	@Override
 	public boolean enableRendering() {
-		final double r = getR();
-		return r>0. || r<0. ;
+		return !LNumber.equalsDouble(getR(), 0.0);
 	}
 }

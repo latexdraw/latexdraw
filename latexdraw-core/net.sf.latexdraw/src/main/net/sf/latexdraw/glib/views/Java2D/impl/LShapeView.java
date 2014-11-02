@@ -540,12 +540,11 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 		final Line2D.Double line  = new Line2D.Double();
 		final double val			= shape.getHatchingsWidth()+shape.getHatchingsSep();
-		final float fAngle		= (float)angle2;
 
 		g.setStroke(new BasicStroke((float)shape.getHatchingsWidth(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
 		g.setPaint(shape.getHatchingsCol());
 
-		if(fAngle==0f) {
+		if(LNumber.equalsDouble(angle2,0.0)) {
 			line.y1 	= clip.getMinY();
 			line.y2 	= clip.getMaxY();
 			final double maxX = clip.getMaxX();
@@ -557,7 +556,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 			}
 		}
 		else
-			if(fAngle==halphPI || fAngle==-halphPI) {
+			if(LNumber.equalsDouble(angle2,halphPI) || LNumber.equalsDouble(angle2,-halphPI)) {
 				line.x1 	= clip.getMinX();
 				line.x2 	= clip.getMaxX();
 				final double maxY = clip.getMaxY();
@@ -573,7 +572,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 				final double incY = val/Math.sin(angle2);
 				final double maxX;
 
-				if(fAngle>0f) {
+				if(angle2>0) {
 					line.y1 = clip.getMinY();
 					maxX 	= clip.getMaxX() + (clip.getMaxY()-(clip.getMinY()<0?clip.getMinY():0)) * Math.tan(angle2);
 				}
