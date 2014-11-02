@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
@@ -33,7 +32,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
  * @version 3.0
  * @since 3.0
  */
-public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, ITextProp, IDotProp,
+public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, ITextProp,
 	IArcProp, IAxesProp, IGridProp, IFreeHandProp, IPlotProp {
 	/**
 	 * Duplicates the group of shapes.

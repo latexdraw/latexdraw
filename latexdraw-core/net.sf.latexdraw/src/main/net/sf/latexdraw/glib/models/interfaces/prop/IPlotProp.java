@@ -18,7 +18,7 @@ package net.sf.latexdraw.glib.models.interfaces.prop;
  *  PURPOSE. See the GNU General Public License for more details.<br>
  *<br>
  */
-public interface IPlotProp extends IScalable{
+public interface IPlotProp extends IScalable, IDotProp{
 	/**
 	 * The different possible plotting styles.
 	 */

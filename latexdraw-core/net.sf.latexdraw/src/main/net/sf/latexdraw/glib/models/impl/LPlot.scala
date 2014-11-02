@@ -7,6 +7,9 @@ import net.sf.latexdraw.glib.models.GLibUtilities
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
 import net.sf.latexdraw.parsers.ps.PSFunctionParser
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants
+import java.awt.Color
 
 /**
  * Implementation of the plotted function.
@@ -17,6 +20,9 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 	private var nbPoints:Int = 50
 	private var style:IPlotProp.PlotStyle = IPlotProp.PlotStyle.CURVE
 	private var parser:PSFunctionParser = new PSFunctionParser(equation)
+	
+	private var dotStyle = IDotProp.DotStyle.DOT
+	private var dotDiametre = PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM*IShape.PPC+PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM
 
 	require(GLibUtilities.isValidPoint(pt) && minX<maxX && GLibUtilities.isValidPoint(minX, maxX), "Parameter not valid: " + minX + " " + maxX + " " +GLibUtilities.isValidPoint(pt))
 
@@ -100,4 +106,23 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 		if(GLibUtilities.isValidCoordinate(x) && x<maxX)
 			minX = x
 	}
+	
+	
+	def getDiametre(): Double = dotDiametre
+
+  def getDotFillingCol(): Color = if(isFillable) super.getFillingCol else Color.BLACK
+
+  def getDotStyle(): IDotProp.DotStyle = dotStyle
+
+  def setDiametre(diam: Double) {
+  	if(diam>0.0) dotDiametre = diam
+  }
+
+  def setDotFillingCol(col: Color) {
+  	setFillingCol(col)
+  }
+
+  def setDotStyle(dotst: IDotProp.DotStyle) {
+  	if(dotStyle!=null) dotStyle = dotst
+  }
 }

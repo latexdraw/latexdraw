@@ -64,11 +64,16 @@ trait PSTPlotParser extends PSTAbstractParser with PSTParamParser with PSTBracke
 		val v1 = tmin.toDouble
 		val v2 = tmax.toDouble
 		val plot = ShapeFactory.createPlot(ShapeFactory.createPoint, if(v1<v2) v1 else v2, if(v1<v2) v2 else v1, function, ctx.polarPlot)
+		val dotSizeDim = if(ctx.arrowDotSize._1+ctx.arrowDotSize._2<0) scala.math.abs(ctx.arrowDotSize._1) else ctx.arrowDotSize._1
+		val dotSizeNum = if(ctx.arrowDotSize._1+ctx.arrowDotSize._2<0) scala.math.abs(ctx.arrowDotSize._2) else ctx.arrowDotSize._2
+		
 		setShapeParameters(plot, ctx)
 		plot.setNbPlottedPoints(ctx.plotPoints)
 		plot.setPlotStyle(IPlotProp.PlotStyle.getPlotStyle(ctx.plotStyle))
 		plot.setXScale(ctx.xUnit)
 		plot.setYScale(ctx.yUnit)
+		plot.setDiametre((dotSizeDim+dotSizeNum*ctx.lineWidth)*IShape.PPC*ctx.dotScale._1)
+		plot.setDotStyle(ctx.dotStyle)
 		if(cmdName.endsWith("*")) setShapeForStar(plot)
 		checkTextParsed(ctx) ::: List(plot)
 	}
