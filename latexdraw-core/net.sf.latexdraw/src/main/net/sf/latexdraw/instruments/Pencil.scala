@@ -69,6 +69,7 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
 		group.addShape(ShapeFactory.createPolyline())
 		group.addShape(ShapeFactory.createBezierCurve())
 		group.addShape(ShapeFactory.createFreeHand())
+		group.addShape(ShapeFactory.createPlot(ShapeFactory.createPoint, 1, 10, "x", false))
 		group
 	}
 

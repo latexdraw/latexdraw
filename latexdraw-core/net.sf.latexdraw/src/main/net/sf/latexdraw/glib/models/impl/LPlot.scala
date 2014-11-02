@@ -26,6 +26,24 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 
 	require(GLibUtilities.isValidPoint(pt) && minX<maxX && GLibUtilities.isValidPoint(minX, maxX), "Parameter not valid: " + minX + " " + maxX + " " +GLibUtilities.isValidPoint(pt))
 
+	
+	override def copy(sh:IShape) {
+		super.copy(sh)
+
+		sh match {
+			case plot:IPlotProp =>
+				style = plot.getPlotStyle
+				nbPoints = plot.getNbPlottedPoints
+				polar = plot.isPolar
+				dotStyle = plot.getDotStyle
+				dotDiametre = plot.getDiametre
+				minX = plot.getPlotMinX
+				maxX = plot.getPlotMaxX
+				xscale = plot.getXScale
+				yscale = plot.getYScale
+			case _ =>
+		}
+	}
 
 	override def setPlotStyle(style:IPlotProp.PlotStyle) {
 		if(style!=null) this.style = style

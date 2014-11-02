@@ -58,7 +58,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape!=null) {
+		if(isActivated() && shape!=null) {
 			final IPoint tl = shape.getTopLeftPoint();
 			tlxS.setValueSafely(tl.getX());
 			tlyS.setValueSafely(tl.getY());
