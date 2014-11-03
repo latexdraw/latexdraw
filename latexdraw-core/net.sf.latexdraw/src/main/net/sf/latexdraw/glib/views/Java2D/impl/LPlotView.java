@@ -95,7 +95,7 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 	  			final double angle = Math.toRadians(x);
 	  			final double x1 = radius*Math.cos(angle);
 	  			final double y1 = -radius*Math.sin(angle);
-	  			sh.addPoint(ShapeFactory.createPoint(x1*IShape.PPC*xs+posX, y1*IShape.PPC*xs+posY));
+	  			sh.addPoint(ShapeFactory.createPoint(x1*IShape.PPC*xs+posX, y1*IShape.PPC*ys+posY));
 	  		}
 		}else
 			for(double x=minX; x<=maxX; x+=step)
