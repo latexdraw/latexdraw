@@ -1,7 +1,5 @@
 package net.sf.latexdraw.util;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -95,18 +93,15 @@ public class VersionChecker extends Thread {
 					buttonUpdate.setToolTipText("<html><span style=\"color: rgb(204, 0, 0); font-weight: bold;\">" + //$NON-NLS-1$
 							LangTool.INSTANCE.getStringDialogFrame("Version.1") + ' ' + div[3]+ "</html>"); //$NON-NLS-1$ //$NON-NLS-2$
 					buttonUpdate.setVisible(true);
-					buttonUpdate.addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(final ActionEvent evt) {
-							try {
-								final OpenWebPage action = new OpenWebPage();
-								action.setUri(new URI("http://latexdraw.sourceforge.net/")); //$NON-NLS-1$
-								if(action.canDo())
-									action.doIt();
-								action.flush();
-								buttonUpdate.setVisible(false);
-							}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
-						}
+					buttonUpdate.addActionListener(evt -> {
+						try {
+							final OpenWebPage action = new OpenWebPage();
+							action.setUri(new URI("http://latexdraw.sourceforge.net/")); //$NON-NLS-1$
+							if(action.canDo())
+								action.doIt();
+							action.flush();
+							buttonUpdate.setVisible(false);
+						}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 					});
 					builder.getToolbar().add(buttonUpdate);
 				}

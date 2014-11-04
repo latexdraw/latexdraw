@@ -182,28 +182,25 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 				packagesField.setText(LaTeXGenerator.getPackages());
 
 			// Updating the log field.
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					IText txt = null;
-					for(int i=0, size=shape.size(); i<size && txt==null; i++) //TODO closure
-						if(shape.getShapeAt(i) instanceof IText)
-							txt = (IText)shape.getShapeAt(i);
-					if(txt!=null) {
-						final int max = 10;
-						final String msg = FlyweightThumbnail.inProgressMsg();
-						String log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
-						int i = 0;
+			SwingUtilities.invokeLater(() -> {
+				IText txt = null;
+				for(int i=0, size=shape.size(); i<size && txt==null; i++) //TODO closure
+					if(shape.getShapeAt(i) instanceof IText)
+						txt = (IText)shape.getShapeAt(i);
+				if(txt!=null) {
+					final int max = 10;
+					final String msg = FlyweightThumbnail.inProgressMsg();
+					String log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
+					int i = 0;
 
-						while(i<max && msg.equals(log)) {
-							try{ Thread.sleep(100);}
-							catch(final InterruptedException e){ BadaboomCollector.INSTANCE.add(e); }
-							log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
-							i++;
-						}
-						if(log==null) log = ""; //$NON-NLS-1$
-						logField.setText(log);
+					while(i<max && msg.equals(log)) {
+						try{ Thread.sleep(100);}
+						catch(final InterruptedException e){ BadaboomCollector.INSTANCE.add(e); }
+						log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
+						i++;
 					}
+					if(log==null) log = ""; //$NON-NLS-1$
+					logField.setText(log);
 				}
 			});
 

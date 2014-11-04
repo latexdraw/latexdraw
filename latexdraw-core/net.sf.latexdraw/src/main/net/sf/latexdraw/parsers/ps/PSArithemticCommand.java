@@ -21,6 +21,7 @@ import java.util.Deque;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
+@FunctionalInterface
 public interface PSArithemticCommand {
 	/**
 	 * Creates n abstract postscript arithmetical command.
