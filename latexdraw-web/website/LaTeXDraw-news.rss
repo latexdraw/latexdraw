@@ -16,6 +16,18 @@
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
   <item>
+    <title>LaTeXDraw 3.3 -- PSPlot</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Mon, 03 nov 2014 09:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS50</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS50</link>
+    <description>This new version brings an exciting new feature: the support of psplot!  
+As explained in my previous post, psplot permits to plot functions following the postscript formalism (e.g. 2 x mul cos).
+Polar coordinates can be used and various parameters are available. Besides, many bugs have been fixed.
+Give an eye to the release note for more details.</description>
+  </item>
+
+  <item>
     <title>PSPlot -- Plotting functions with LaTeXDraw</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Sat, 01 nov 2014 09:00:00 GMT</pubDate>
