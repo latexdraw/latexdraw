@@ -20,12 +20,10 @@ import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.Action;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.instrument.WidgetInstrument;
-import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.interaction.library.MenuItemPressed;
 import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MButton;
 import org.malai.swing.widget.MMenu;
 import org.malai.swing.widget.MMenuItem;
 import org.w3c.dom.Document;
@@ -74,9 +72,6 @@ public class Exporter extends WidgetInstrument {
 
 	/** The PST generator. */
 	protected PSTCodeGenerator pstGen;
-
-	/** The button used to export the drawing as a pdf document. */
-	protected MButton pdfButton;
 
 	/** The export menu that contains all the export menu item. */
 	protected MMenu exportMenu;
@@ -147,7 +142,6 @@ protected FileLoaderSaver loader;
 	@Override
 	protected void initialiseWidgets() {
 		// Widgets initialisation
-		pdfButton 		= new MButton(LResources.PDF_ICON);
 		exportMenu		= new MMenu(LABEL_EXPORT_AS, true);
 		menuItemBMP		= new MMenuItem(LABEL_EXPORT_BMP, KeyEvent.VK_B);
 		menuItemEPSLatex= new MMenuItem(LangTool.INSTANCE.getStringDialogFrame("Exporter.2"), KeyEvent.VK_S); //$NON-NLS-1$
@@ -223,9 +217,7 @@ protected FileLoaderSaver loader;
 		super.setActivated(isActivated);
 
 		exportMenu.setVisible(isActivated || !hide);
-		pdfButton.setVisible(isActivated || !hide);
 		exportMenu.setEnabled(isActivated);
-		pdfButton.setEnabled(isActivated);
 	}
 
 
@@ -238,20 +230,10 @@ protected FileLoaderSaver loader;
 	@Override
 	protected void initialiseInteractors() {
 		try{
-			addInteractor(new ButtonPressed2Export(this));
 			addInteractor(new MenuPressed2Export(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
 		}
-	}
-
-
-	/**
-	 * @return The button used to export the drawing as a pdf document.
-	 * @since 3.0
-	 */
-	public MButton getPdfButton() {
-		return pdfButton;
 	}
 
 
@@ -359,7 +341,7 @@ protected FileLoaderSaver loader;
 /**
  * This link maps menus to an export action.
  */
-class MenuPressed2Export extends Interactor<Export, MenuItemPressed, Exporter> {
+class MenuPressed2Export extends InteractorImpl<Export, MenuItemPressed, Exporter> {
 	/**
 	 * Initialises the link.
 	 * @param ins The exporter.
@@ -406,35 +388,5 @@ class MenuPressed2Export extends Interactor<Export, MenuItemPressed, Exporter> {
 		return item==instrument.menuItemPDF || item==instrument.menuItemPDFcrop || item==instrument.menuItemEPSLatex ||
 			item==instrument.menuItemJPG || item==instrument.menuItemPNG ||
 			item==instrument.menuItemPST || item==instrument.menuItemBMP;
-	}
-}
-
-
-
-/**
- * This link maps buttons to an export action.
- */
-class ButtonPressed2Export extends Interactor<Export, ButtonPressed, Exporter> {
-	/**
-	 * Initialises the link.
-	 * @param ins The exporter.
-	 */
-	protected ButtonPressed2Export(final Exporter ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, Export.class, ButtonPressed.class);
-	}
-
-
-	@Override
-	public void initAction() {
-		action.setDialogueBox(instrument.getExportDialog(ExportFormat.PDF));
-		action.setCanvas(instrument.canvas);
-		action.setFormat(ExportFormat.PDF);
-		action.setPstGen(instrument.pstGen);
-	}
-
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getButton()==instrument.pdfButton;
 	}
 }

@@ -2,14 +2,11 @@ package net.sf.latexdraw.instruments
 
 import java.awt.Cursor
 import java.awt.event.MouseEvent
-
 import org.malai.instrument.Interactor
 import org.malai.interaction.Interaction
-import org.malai.interaction.library.Press
 import org.malai.swing.interaction.library.AbortableDnD
 import org.malai.swing.interaction.library.MultiClick
 import org.malai.swing.widget.MLayeredPane
-
 import javax.swing.JFileChooser
 import javax.swing.SwingUtilities
 import net.sf.latexdraw.actions.shape.AddShape
@@ -25,6 +22,8 @@ import net.sf.latexdraw.glib.ui.LCanvas
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
 import net.sf.latexdraw.util.LNumber
+import org.malai.swing.interaction.library.Press
+import org.malai.instrument.InteractorImpl
 
 /**
  * This instrument allows to draw shapes.<br>
@@ -153,7 +152,7 @@ class Pencil(canvas : ICanvas, val textSetter:TextSetter, val layers:MLayeredPan
  * @version 3.0
  */
 private abstract sealed class PencilInteractor[I <: Interaction](pencil:Pencil, exec:Boolean, clazzInteraction:Class[I])
-				extends Interactor[AddShape, I, Pencil](pencil, false, classOf[AddShape], clazzInteraction) {
+				extends InteractorImpl[AddShape, I, Pencil](pencil, false, classOf[AddShape], clazzInteraction) {
 	protected var tmpShape : IViewShape = _
 
 	override def initAction() {
@@ -356,7 +355,7 @@ private sealed class DnD2AddShape(pencil:Pencil) extends PencilInteractor[Aborta
 /**
  * Maps a mouse press interaction to an action that asks and adds a picture into the drawing.
  */
-private sealed class Press2InsertPicture(pencil:Pencil) extends Interactor[InsertPicture, Press, Pencil](pencil, false, classOf[InsertPicture], classOf[Press]) {
+private sealed class Press2InsertPicture(pencil:Pencil) extends InteractorImpl[InsertPicture, Press, Pencil](pencil, false, classOf[InsertPicture], classOf[Press]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 		action.setShape(ShapeFactory.createPicture(instrument.getAdaptedPoint(interaction.getPoint)))
@@ -407,7 +406,7 @@ private sealed class Press2AddText(pencil:Pencil) extends PencilInteractor[Press
  * This link maps a press interaction to activate the instrument
  * that allows to add and modify some texts.
  */
-private sealed class Press2InitTextSetter(pencil:Pencil) extends Interactor[InitTextSetter, Press, Pencil](pencil, false, classOf[InitTextSetter], classOf[Press]) {
+private sealed class Press2InitTextSetter(pencil:Pencil) extends InteractorImpl[InitTextSetter, Press, Pencil](pencil, false, classOf[InitTextSetter], classOf[Press]) {
 	override def initAction() {
 		action.setText("")
 		action.setTextShape(null)

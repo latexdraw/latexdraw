@@ -3,17 +3,16 @@ package test.svg.loadSVGFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import java.awt.Color;
-
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Test;
 
@@ -29,7 +28,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertTrue(group.getShapeAt(26) instanceof IBezierCurve);
 		IBezierCurve pol = (IBezierCurve) group.getShapeAt(26);
 
-		assertEquals(Color.BLACK, pol.getLineColour());
+		assertEquals(DviPsColors.BLACK, pol.getLineColour());
 		assertEquals(2, pol.getNbPoints());
 		assertFalse(pol.hasDbleBord());
 		assertEquals(2., pol.getThickness(),0.0001);
@@ -58,7 +57,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertTrue(group.getShapeAt(4) instanceof IPolyline);
 		IPolyline pol = (IPolyline) group.getShapeAt(4);
 
-		assertEquals(new Color(177, 177, 177), pol.getLineColour());
+		assertEquals(ShapeFactory.createColorInt(177, 177, 177), pol.getLineColour());
 		assertEquals(2, pol.getNbPoints());
 		assertFalse(pol.hasDbleBord());
 		assertEquals(4., pol.getThickness(),0.0001);
@@ -76,7 +75,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 	@Test public void testShape3() {
 		assertTrue(group.getShapeAt(3) instanceof IText);
 		IText txt = (IText) group.getShapeAt(3);
-		assertEquals(Color.BLACK, txt.getLineColour());
+		assertEquals(DviPsColors.BLACK, txt.getLineColour());
 		assertEquals("\\emph{\\textbf{\\scriptsize{Correspondance de schémas}}}", txt.getText()); //$NON-NLS-1$
 		assertEquals(210.585929, txt.getPosition().getX(), 0.00001);
 		assertEquals(61.859375, txt.getPosition().getY(), 0.00001);
@@ -88,7 +87,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertTrue(group.getShapeAt(1) instanceof IPolygon);
 		IPolygon pol = (IPolygon) group.getShapeAt(1);
 
-		assertEquals(Color.BLACK, pol.getLineColour());
+		assertEquals(DviPsColors.BLACK, pol.getLineColour());
 		assertEquals(5, pol.getNbPoints());
 		assertFalse(pol.hasDbleBord());
 		assertEquals(1., pol.getThickness(),0.0001);
@@ -106,7 +105,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertEquals(LineStyle.SOLID, pol.getLineStyle());
 		assertFalse(pol.hasShadow());
 		assertEquals(FillingStyle.PLAIN, pol.getFillingStyle());
-		assertEquals(new Color(210, 230, 254), pol.getFillingCol());
+		assertEquals(ShapeFactory.createColorInt(210, 230, 254), pol.getFillingCol());
 	}
 
 
@@ -114,7 +113,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertTrue(group.getShapeAt(0) instanceof IPolyline);
 		IPolyline pol = (IPolyline) group.getShapeAt(0);
 
-		assertEquals(Color.BLACK, pol.getLineColour());
+		assertEquals(DviPsColors.BLACK, pol.getLineColour());
 		assertEquals(2, pol.getNbPoints());
 		assertTrue(pol.hasDbleBord());
 		assertEquals(1., pol.getThickness(),0.0001);
@@ -125,7 +124,7 @@ public class TestSVGFilemalanBinding extends TestLoadSVGFile {
 		assertEquals(0., pol.getRotationAngle(),0.0001);
 		assertEquals(LineStyle.SOLID, pol.getLineStyle());
 		assertEquals(6., pol.getDbleBordSep(),0.0001);
-		assertEquals(Color.WHITE, pol.getDbleBordCol());
+		assertEquals(DviPsColors.WHITE, pol.getDbleBordCol());
 		assertFalse(pol.hasShadow());
 		assertEquals(ArrowStyle.NONE, pol.getArrowAt(0).getArrowStyle());
 		assertEquals(ArrowStyle.RIGHT_ARROW, pol.getArrowAt(1).getArrowStyle());

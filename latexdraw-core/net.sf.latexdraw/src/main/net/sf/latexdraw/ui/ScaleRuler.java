@@ -1,7 +1,6 @@
 package net.sf.latexdraw.ui;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -201,7 +200,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
     	g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g2.setStroke(STROKE);
-    	g2.setColor(Color.BLACK);
+    	g2.setColor(java.awt.Color.BLACK);
 
 		// If the ppc is not to small sub-lines are drawn.
     	if(ppc>MIN_PCC_SUBLINES/zoom) {

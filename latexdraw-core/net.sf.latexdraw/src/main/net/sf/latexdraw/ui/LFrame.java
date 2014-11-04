@@ -236,7 +236,7 @@ public class LFrame extends SwingUI {
 
 		exceptionsManager	= new ExceptionsManager();
 		helper				= new Helper(composer);
-		try { gridCustomiser= new MagneticGridCustomiser(composer, canvas.getMagneticGrid()); }
+		try { gridCustomiser= new MagneticGridCustomiser(composer, null); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, gen); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
@@ -268,7 +268,7 @@ public class LFrame extends SwingUI {
 		try { editingSelector = new EditingSelector(composer, pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter, codeInserter); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager(composer);
-		try { paster		= new CopierCutterPaster(composer, drawing, canvas.getMagneticGrid()); }
+		try { paster		= new CopierCutterPaster(composer, drawing, null); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		prefSetters			= new PreferencesSetter(this);
 		try { prefActivator	= new PreferencesActivator(composer, prefSetters); }

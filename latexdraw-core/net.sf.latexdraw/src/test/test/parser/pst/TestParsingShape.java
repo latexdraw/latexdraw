@@ -4,13 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Color;
 import java.text.ParseException;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
@@ -286,8 +286,8 @@ public abstract class TestParsingShape extends TestPSTParser {
 	@Test
 	public void testStarLineColourIsFillingColour() throws ParseException {
 		IShape sh = parser.parsePSTCode("\\"+getCommandName()+"*["+"linecolor=green]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		assertEquals(Color.GREEN, sh.getFillingCol());
-		assertEquals(Color.GREEN, sh.getLineColour());
+		assertEquals(DviPsColors.GREEN, sh.getFillingCol());
+		assertEquals(DviPsColors.GREEN, sh.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -393,13 +393,13 @@ public abstract class TestParsingShape extends TestPSTParser {
 	@Test
 	public void testParamLinecolor() throws ParseException {
 		IShape sh = parser.parsePSTCode("\\"+getCommandName()+"[linecolor =blue]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(Color.BLUE, sh.getLineColour());
+		assertEquals(DviPsColors.BLUE, sh.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		sh = parser.parsePSTCode("\\"+getCommandName()+"[linecolor=\\psfillcolor]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(Color.WHITE, sh.getLineColour());
+		assertEquals(DviPsColors.WHITE, sh.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 		sh = parser.parsePSTCode("\\"+getCommandName()+"[linecolor=\\psfillcolor,linecolor=red]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(Color.RED, sh.getLineColour());
+		assertEquals(DviPsColors.RED, sh.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -424,13 +424,13 @@ public abstract class TestParsingShape extends TestPSTParser {
 	public void testParamshadowcolor() throws ParseException {
 		IShape sh = parser.parsePSTCode("\\"+getCommandName()+"[shadow=true, shadowcolor =blue]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		if(sh.isShadowable()) {
-			assertEquals(Color.BLUE, sh.getShadowCol());
+			assertEquals(DviPsColors.BLUE, sh.getShadowCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[shadow=true, shadowcolor=\\psfillcolor]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.WHITE, sh.getShadowCol());
+			assertEquals(DviPsColors.WHITE, sh.getShadowCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[shadow=true, shadowcolor=\\psfillcolor,shadowcolor=red]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.RED, sh.getShadowCol());
+			assertEquals(DviPsColors.RED, sh.getShadowCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 		}
 	}
@@ -440,13 +440,13 @@ public abstract class TestParsingShape extends TestPSTParser {
 	public void testParamDoublecolor() throws ParseException {
 		IShape sh = parser.parsePSTCode("\\"+getCommandName()+"[doubleline=true, doublecolor =blue]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		if(sh.isDbleBorderable()) {
-			assertEquals(Color.BLUE, sh.getDbleBordCol());
+			assertEquals(DviPsColors.BLUE, sh.getDbleBordCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[doubleline=true, doublecolor=\\psfillcolor]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.WHITE, sh.getDbleBordCol());
+			assertEquals(DviPsColors.WHITE, sh.getDbleBordCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[doubleline=true, doublecolor=\\psfillcolor,doublecolor=red]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.RED, sh.getDbleBordCol());
+			assertEquals(DviPsColors.RED, sh.getDbleBordCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 		}
 	}
@@ -457,13 +457,13 @@ public abstract class TestParsingShape extends TestPSTParser {
 	public void testParamFillingcolor() throws ParseException {
 		IShape sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=solid, fillcolor =blue]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		if(sh.isFillable()) {
-			assertEquals(Color.BLUE, sh.getFillingCol());
+			assertEquals(DviPsColors.BLUE, sh.getFillingCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=solid, fillcolor=\\psfillcolor]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.WHITE, sh.getFillingCol());
+			assertEquals(DviPsColors.WHITE, sh.getFillingCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=solid, fillcolor=\\psfillcolor,fillcolor=red]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.RED, sh.getFillingCol());
+			assertEquals(DviPsColors.RED, sh.getFillingCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 		}
 	}
@@ -474,13 +474,13 @@ public abstract class TestParsingShape extends TestPSTParser {
 	public void testParamGradbegin() throws ParseException {
 		IShape sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=gradient, gradbegin =blue]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		if(sh.isInteriorStylable()) {
-			assertEquals(Color.BLUE, sh.getGradColStart());
+			assertEquals(DviPsColors.BLUE, sh.getGradColStart());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=gradient, gradbegin=\\psfillcolor]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.WHITE, sh.getGradColStart());
+			assertEquals(DviPsColors.WHITE, sh.getGradColStart());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=gradient, gradbegin=\\psfillcolor,gradbegin=red]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.RED, sh.getGradColStart());
+			assertEquals(DviPsColors.RED, sh.getGradColStart());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 		}
 	}
@@ -491,13 +491,13 @@ public abstract class TestParsingShape extends TestPSTParser {
 	public void testParamGradend() throws ParseException {
 		IShape sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=gradient, gradend =blue]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		if(sh.isInteriorStylable()) {
-			assertEquals(Color.BLUE, sh.getGradColEnd());
+			assertEquals(DviPsColors.BLUE, sh.getGradColEnd());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=gradient, gradend=\\psfillcolor]"+getBasicCoordinates()).get().getShapeAt(0);  //$NON-NLS-1$//$NON-NLS-2$
-			assertEquals(Color.WHITE, sh.getGradColEnd());
+			assertEquals(DviPsColors.WHITE, sh.getGradColEnd());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=gradient, gradend=\\psfillcolor,gradend=red]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.RED, sh.getGradColEnd());
+			assertEquals(DviPsColors.RED, sh.getGradColEnd());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 		}
 	}
@@ -507,13 +507,13 @@ public abstract class TestParsingShape extends TestPSTParser {
 	public void testParamHatchcolor() throws ParseException {
 		IShape sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=clines, hatchcolor =blue]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
 		if(sh.isInteriorStylable()) {
-			assertEquals(Color.BLUE, sh.getHatchingsCol());
+			assertEquals(DviPsColors.BLUE, sh.getHatchingsCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=clines, hatchcolor=\\psfillcolor]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.WHITE, sh.getHatchingsCol());
+			assertEquals(DviPsColors.WHITE, sh.getHatchingsCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 			sh = parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=clines, hatchcolor=\\psfillcolor,hatchcolor=red]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-			assertEquals(Color.RED, sh.getHatchingsCol());
+			assertEquals(DviPsColors.RED, sh.getHatchingsCol());
 			assertTrue(PSTParser.errorLogs().isEmpty());
 		}
 	}

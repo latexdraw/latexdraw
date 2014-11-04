@@ -86,8 +86,8 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void update(final IGroup gp) {
 		if(gp.isTypeOf(IGridProp.class)) {
-			colourLabels.setColor(gp.getGridLabelsColour());
-			colourSubGrid.setColor(gp.getSubGridColour());
+			colourLabels.setColor(gp.getGridLabelsColour().toAWT());
+			colourSubGrid.setColor(gp.getSubGridColour().toAWT());
 			gridWidth.setValueSafely(gp.getGridWidth());
 			subGridWidth.setValueSafely(gp.getSubGridWidth());
 			gridDots.setValueSafely(gp.getGridDots());

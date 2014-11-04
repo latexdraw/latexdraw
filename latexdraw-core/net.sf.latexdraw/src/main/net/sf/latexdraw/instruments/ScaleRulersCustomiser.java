@@ -5,7 +5,6 @@ import java.util.Objects;
 import javax.swing.JMenuItem;
 
 import net.sf.latexdraw.actions.SetUnit;
-import net.sf.latexdraw.actions.ShowHideScaleRuler;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.ScaleRuler;
@@ -14,10 +13,9 @@ import net.sf.latexdraw.ui.XScaleRuler;
 import net.sf.latexdraw.ui.YScaleRuler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
+import org.malai.swing.instrument.SwingInstrument;
 import org.malai.swing.interaction.library.MenuItemPressed;
 import org.malai.swing.widget.MCheckBoxMenuItem;
 import org.malai.undo.Undoable;
@@ -43,7 +41,7 @@ import org.w3c.dom.Element;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class ScaleRulersCustomiser extends Instrument {
+public class ScaleRulersCustomiser extends SwingInstrument {
 	/** The label of the centimetre menu */
 	public static final String LABEL_CM = LangTool.INSTANCE.getStringOthers("XScale.cm"); //$NON-NLS-1$
 
@@ -55,12 +53,6 @@ public class ScaleRulersCustomiser extends Instrument {
 
 	/** The Y ruler of the system. */
 	protected YScaleRuler yRuler;
-
-	/** The menu item that (des-)activate the x-scale ruler. */
-	protected MCheckBoxMenuItem xRulerItem;
-
-	/** The menu item that (des-)activate the y-scale ruler. */
-	protected MCheckBoxMenuItem yRulerItem;
 
 	/** The menu for the centimetre unit. */
 	protected MCheckBoxMenuItem unitCmItem;
@@ -82,9 +74,6 @@ public class ScaleRulersCustomiser extends Instrument {
 		this.xRuler = Objects.requireNonNull(xRuler);
 		this.yRuler = Objects.requireNonNull(yRuler);
 
-		xRulerItem = new MCheckBoxMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.38"), LResources.EMPTY_ICON); //$NON-NLS-1$
-		yRulerItem = new MCheckBoxMenuItem(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.39"), LResources.EMPTY_ICON); //$NON-NLS-1$
-
 		unitCmItem		= new MCheckBoxMenuItem(LABEL_CM);
 		unitInchItem	= new MCheckBoxMenuItem(LABEL_INCH);
 
@@ -99,8 +88,6 @@ public class ScaleRulersCustomiser extends Instrument {
 		super.setActivated(activated);
 		unitCmItem.setEnabled(activated);
 		unitInchItem.setEnabled(activated);
-		xRulerItem.setEnabled(activated);
-		yRulerItem.setEnabled(activated);
 	}
 
 
@@ -133,7 +120,6 @@ public class ScaleRulersCustomiser extends Instrument {
 	@Override
 	protected void initialiseInteractors() {
 		try{
-			addInteractor(new MenuItem2ShowHideCodeScaleRuler(this));
 			addInteractor(new MenuItem2SetUnit(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
@@ -147,13 +133,7 @@ public class ScaleRulersCustomiser extends Instrument {
 
 		final String name = root.getNodeName();
 
-		if(name.endsWith(LNamespace.XML_DISPLAY_X)) {
-			xRuler.setVisible(Boolean.parseBoolean(root.getTextContent()));
-			xRulerItem.setSelected(xRuler.isVisible());
-		} else if(name.endsWith(LNamespace.XML_DISPLAY_Y)) {
-			yRuler.setVisible(Boolean.parseBoolean(root.getTextContent()));
-			yRulerItem.setSelected(yRuler.isVisible());
-		} else if(name.endsWith(LNamespace.XML_UNIT)) {
+		if(name.endsWith(LNamespace.XML_UNIT)) {
 			final String unit = root.getTextContent();
 			final boolean isCm = Unit.CM.toString().equals(unit) || unitCmItem.getText().equals(unit);
 			unitCmItem.setSelected(isCm);
@@ -172,33 +152,9 @@ public class ScaleRulersCustomiser extends Instrument {
 
 		Element elt;
 		final String ns = generalPreferences ? "" : LPath.INSTANCE.getNormaliseNamespaceURI(nsURI); //$NON-NLS-1$
-		elt = document.createElement(ns + LNamespace.XML_DISPLAY_X);
-        elt.setTextContent(String.valueOf(xRuler.isVisible()));
-        root.appendChild(elt);
-        elt = document.createElement(ns + LNamespace.XML_DISPLAY_Y);
-        elt.setTextContent(String.valueOf(yRuler.isVisible()));
-        root.appendChild(elt);
 		elt = document.createElement(ns + LNamespace.XML_UNIT);
         elt.setTextContent(String.valueOf(unitCmItem.isSelected() ? Unit.CM : Unit.INCH));
         root.appendChild(elt);
-	}
-
-
-	/**
-	 * @return The menu item that (des-)activate the x-scale ruler.
-	 * @since 3.0
-	 */
-	public MCheckBoxMenuItem getxRulerItem() {
-		return xRulerItem;
-	}
-
-
-	/**
-	 * @return The menu item that (des-)activate the y-scale ruler.
-	 * @since 3.0
-	 */
-	public MCheckBoxMenuItem getyRulerItem() {
-		return yRulerItem;
 	}
 
 
@@ -225,7 +181,7 @@ public class ScaleRulersCustomiser extends Instrument {
 /**
  * This link maps a menu item to an action that sets the unit of the rulers.
  */
-class MenuItem2SetUnit extends Interactor<SetUnit, MenuItemPressed, ScaleRulersCustomiser> {
+class MenuItem2SetUnit extends InteractorImpl<SetUnit, MenuItemPressed, ScaleRulersCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @param ins The rulers activator.
@@ -243,32 +199,5 @@ class MenuItem2SetUnit extends Interactor<SetUnit, MenuItemPressed, ScaleRulersC
 	public boolean isConditionRespected() {
 		final JMenuItem item = interaction.getMenuItem();
 		return item==instrument.unitCmItem || item==instrument.unitInchItem;
-	}
-}
-
-
-/**
- * This link maps a menu item to an action that shows/hides scale rulers.
- */
-class MenuItem2ShowHideCodeScaleRuler extends Interactor<ShowHideScaleRuler, MenuItemPressed, ScaleRulersCustomiser> {
-	/**
-	 * Initialises the link.
-	 * @param ins The rulers activator.
-	 */
-	protected MenuItem2ShowHideCodeScaleRuler(final ScaleRulersCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, ShowHideScaleRuler.class, MenuItemPressed.class);
-	}
-
-	@Override
-	public void initAction() {
-		final JMenuItem item = interaction.getMenuItem();
-		action.setRuler(item==instrument.xRulerItem ? instrument.xRuler : instrument.yRuler);
-		action.setVisible(item.isSelected());
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		final JMenuItem item = interaction.getMenuItem();
-		return item==instrument.xRulerItem || item==instrument.yRulerItem;
 	}
 }

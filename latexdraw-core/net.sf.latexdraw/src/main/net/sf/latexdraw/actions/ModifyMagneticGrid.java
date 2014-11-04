@@ -1,7 +1,7 @@
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.glib.ui.LMagneticGrid;
-import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
+import net.sf.latexdraw.glib.views.GridStyle;
+import net.sf.latexdraw.glib.views.MagneticGrid;
 import net.sf.latexdraw.lang.LangTool;
 
 import org.malai.action.library.ModifyValue;
@@ -63,7 +63,7 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 
 
 	/** The magnetic grid to modify. */
-	protected LMagneticGrid grid;
+	protected MagneticGrid grid;
 
 	/** The property to modify. */
 	protected GridProperties property;
@@ -157,7 +157,7 @@ public class ModifyMagneticGrid extends ModifyValue implements Undoable {
 	 * @param grid The grid to modify.
 	 * @since 3.0
 	 */
-	public void setGrid(final LMagneticGrid grid) {
+	public void setGrid(final MagneticGrid grid) {
 		this.grid = grid;
 	}
 

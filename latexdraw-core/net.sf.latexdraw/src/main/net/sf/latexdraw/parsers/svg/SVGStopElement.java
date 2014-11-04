@@ -1,8 +1,9 @@
 package net.sf.latexdraw.parsers.svg;
 
-import java.awt.Color;
 import java.text.ParseException;
 
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
 
 import org.w3c.dom.Node;
@@ -87,6 +88,6 @@ public class SVGStopElement extends SVGElement {
 	public Color getStopColor() {
 		final Color c = CSSColors.INSTANCE.getRGBColour(getAttribute(getUsablePrefix()+SVGAttributes.SVG_STOP_COLOR));
 
-		return c==null ? Color.BLACK : c;
+		return c==null ? DviPsColors.BLACK : c;
 	}
 }

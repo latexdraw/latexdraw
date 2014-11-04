@@ -3,7 +3,7 @@ package net.sf.latexdraw.generators.svg;
 import static java.lang.Math.PI;
 import static java.lang.Math.toDegrees;
 
-import java.awt.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.awt.geom.Point2D;
 import java.text.ParseException;
 
@@ -330,7 +330,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		final String opacityStr =  elt.getAttribute(SVGAttributes.SVG_STROKE_OPACITY);
 		final Color lineCol = shape.getLineColour();
 		if(opacityStr!=null)
-			try { shape.setLineColour(new Color(lineCol.getRed(), lineCol.getGreen(), lineCol.getBlue(), (int)(Double.valueOf(opacityStr)*255.0)));}
+			try { shape.setLineColour(ShapeFactory.createColor(lineCol.getR(), lineCol.getG(), lineCol.getB(), Double.valueOf(opacityStr)));}
 			catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		if(shape.isLineStylable())
@@ -540,16 +540,16 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		if(shape.isThicknessable()) {
 			LShapeSVGGenerator.setThickness(root, shape.getThickness(), shape.hasDbleBord(), shape.getDbleBordSep());
 			root.setStroke(shape.getLineColour());
-			if(shape.getLineColour().getAlpha()<255)
-				root.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, String.valueOf(LNumber.getCutNumber(shape.getLineColour().getAlpha()/255f)));
+			if(shape.getLineColour().getO()<1.0)
+				root.setAttribute(SVGAttributes.SVG_STROKE_OPACITY, String.valueOf((float)LNumber.getCutNumber(shape.getLineColour().getO())));
 		}
 
 		// Setting the filling properties.
 		if(shape.isFillable())
 			if((shape.isFilled() || shape.hasShadow() && shadowFills) && !shape.hasHatchings() && !shape.hasGradient()) {
 				root.setAttribute(SVGAttributes.SVG_FILL, CSSColors.INSTANCE.getColorName(shape.getFillingCol(), true));
-				if(shape.getFillingCol().getAlpha()<255)
-					root.setAttribute(SVGAttributes.SVG_FILL_OPACITY, String.valueOf(LNumber.getCutNumber(shape.getFillingCol().getAlpha()/255f)));
+				if(shape.getFillingCol().getO()<1.0)
+					root.setAttribute(SVGAttributes.SVG_FILL_OPACITY, String.valueOf((float)LNumber.getCutNumber(shape.getFillingCol().getO())));
 			}
 			else
 				// Setting the filling colour.
@@ -867,7 +867,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			shape.setLineColour(col);
 
 			if(opacity!=null)
-				try { shape.setLineColour(new Color(col.getRed(), col.getGreen(), col.getBlue(), (int)(Double.valueOf(opacity)*255.0)));}
+				try { shape.setLineColour(ShapeFactory.createColor(col.getR(), col.getG(), col.getB(), Double.valueOf(opacity)));}
 				catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 		}
 	}
@@ -950,7 +950,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 				shape.setFillingCol(c);
 				shape.setFilled(true);
 				if(opacity!=null)
-					try { shape.setFillingCol(new Color(c.getRed(), c.getGreen(), c.getBlue(), (int)(Double.valueOf(opacity)*255.0)));}
+					try { shape.setFillingCol(ShapeFactory.createColor(c.getR(), c.getG(), c.getB(), Double.valueOf(opacity)));}
 					catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 			}
 		}

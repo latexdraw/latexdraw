@@ -11,7 +11,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 import org.malai.action.Action;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.interaction.library.CheckBoxModified;
@@ -138,7 +138,7 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 /**
  * This link maps a list widget to an object.
  */
-abstract class ListForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends Interactor<A, ListSelectionModified, N> {
+abstract class ListForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, ListSelectionModified, N> {
 	/**
 	 * Creates the link.
 	 * @param instrument The instrument that contains the link.
@@ -167,7 +167,7 @@ abstract class ListForCustomiser<A extends ShapePropertyAction, N extends ShapeP
 /**
  * This link maps a colour button to an object.
  */
-abstract class ColourButtonForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends Interactor<A, ButtonPressed, N> {
+abstract class ColourButtonForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, ButtonPressed, N> {
 	/**
 	 * Creates the link.
 	 * @param instrument The instrument that contains the link.
@@ -182,7 +182,7 @@ abstract class ColourButtonForCustomiser<A extends ShapePropertyAction, N extend
 	@Override
 	public void initAction() {
 		final MColorButton button = (MColorButton)interaction.getButton();
-		action.setValue(JColorChooser.showDialog(button, "", button.getColor())); //$NON-NLS-1$
+		action.setValue(ShapeFactory.createColorAWT(JColorChooser.showDialog(button, "", button.getColor()))); //$NON-NLS-1$
 	}
 }
 
@@ -192,7 +192,7 @@ abstract class ColourButtonForCustomiser<A extends ShapePropertyAction, N extend
 /**
  * This link maps a checkbox to an object.
  */
-abstract class CheckBoxForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends Interactor<A, CheckBoxModified, N> {
+abstract class CheckBoxForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, CheckBoxModified, N> {
 	/**
 	 * Creates the link.
 	 * @param instrument The instrument that contains the link.
@@ -214,7 +214,7 @@ abstract class CheckBoxForCustomiser<A extends ShapePropertyAction, N extends Sh
 /**
  * This link maps a button to an object.
  */
-abstract class ButtonPressedForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends Interactor<A, ButtonPressed, N> {
+abstract class ButtonPressedForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, ButtonPressed, N> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.
@@ -232,7 +232,7 @@ abstract class ButtonPressedForCustomiser<A extends ShapePropertyAction, N exten
 /**
  * This link maps a spinner to an object.
  */
-abstract class SpinnerForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends Interactor<A, SpinnerModified, N> {
+abstract class SpinnerForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, SpinnerModified, N> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.

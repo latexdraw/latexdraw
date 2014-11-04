@@ -1,9 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import java.awt.Color
-
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.views.latex.DviPsColors
+import java.util.Optional
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
 
 /**
  * A parser grouping parsers parsing text commands.<br>
@@ -120,8 +120,8 @@ trait TextCommandsParser extends PSTAbstractParser with PSTBracketBlockParser wi
 		parseBracket(ctx) ^^ {
 			case colourTxt =>
 				DviPsColors.INSTANCE.getColour(colourTxt) match {
-				case c:Color => ctx.textColor = c
-				case _ =>
+  				case c:Optional[Color] => ctx.textColor = c.get
+  				case _ =>
 				}
 		}
 	}

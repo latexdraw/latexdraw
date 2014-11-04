@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
  */
 public abstract class AbstractCodeView<S extends IShape> extends AbstractView<S> {
 	/** The cache of the code. */
-	protected StringBuilder cache;
+	protected final StringBuilder cache;
 
 
 	/**
@@ -34,10 +34,8 @@ public abstract class AbstractCodeView<S extends IShape> extends AbstractView<S>
 	 */
 	protected AbstractCodeView(final S model) {
 		super(model);
-
 		cache = new StringBuilder();
 	}
-
 
 
 	/**
@@ -45,10 +43,8 @@ public abstract class AbstractCodeView<S extends IShape> extends AbstractView<S>
 	 * @since 3.0
 	 */
 	protected void emptyCache() {
-		if(cache!=null)
-			cache.delete(0, cache.length());
+		cache.delete(0, cache.length());
 	}
-
 
 
 	/**

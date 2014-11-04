@@ -3,9 +3,7 @@ package test.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-
-import java.awt.Color;
-
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 
 import org.junit.Test;
@@ -170,8 +168,8 @@ public class TestCssColor {
 	@Test
 	public void testGetColorName() {
 		assertNull(CSSColors.INSTANCE.getColorName(null, true));
-		assertNull(CSSColors.INSTANCE.getColorName(new Color(3, 2, 1), false));
-		assertNotNull(CSSColors.INSTANCE.getColorName(new Color(4, 2, 1), true));
+		assertNull(CSSColors.INSTANCE.getColorName(ShapeFactory.createColorInt(3, 2, 1), false));
+		assertNotNull(CSSColors.INSTANCE.getColorName(ShapeFactory.createColorInt(4, 2, 1), true));
 
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_ALICEBLUE_RGB_VALUE, false), CSSColors.CSS_ALICEBLUE_NAME);
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_ANTIQUEWHITE_RGB_VALUE, false), CSSColors.CSS_ANTIQUEWHITE_NAME);
@@ -308,7 +306,7 @@ public class TestCssColor {
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_WHEAT_RGB_VALUE, false), CSSColors.CSS_WHEAT_NAME);
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_WHITESMOKE_RGB_VALUE, false), CSSColors.CSS_WHITESMOKE_NAME);
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_WHITE_RGB_VALUE, false), CSSColors.CSS_WHITE_NAME);
-		assertEquals(CSSColors.INSTANCE.getColorName(new Color(255,255,255), false), CSSColors.CSS_WHITE_NAME);
+		assertEquals(CSSColors.INSTANCE.getColorName(ShapeFactory.createColorInt(255,255,255), false), CSSColors.CSS_WHITE_NAME);
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_YELLOWGREEN_RGB_VALUE, false), CSSColors.CSS_YELLOWGREEN_NAME);
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_YELLOW_RGB_VALUE, false), CSSColors.CSS_YELLOW_NAME);
 	}
@@ -322,7 +320,7 @@ public class TestCssColor {
 		assertNull(CSSColors.INSTANCE.getRGBColour("dsqdqsdgfhfdsfs")); //$NON-NLS-1$
 		assertNull(CSSColors.INSTANCE.getRGBColour("#12")); //$NON-NLS-1$
 		assertNull(CSSColors.INSTANCE.getRGBColour("#DHS78EZ7DS")); //$NON-NLS-1$
-		assertEquals(CSSColors.INSTANCE.getRGBColour("#580"), new Color(85, 136, 0)); //$NON-NLS-1$
+		assertEquals(CSSColors.INSTANCE.getRGBColour("#580"), ShapeFactory.createColorInt(85, 136, 0)); //$NON-NLS-1$
 		assertEquals(CSSColors.INSTANCE.getRGBColour("#ff1493"), CSSColors.CSS_DEEPPINK_RGB_VALUE); //$NON-NLS-1$
 		assertEquals(CSSColors.INSTANCE.getRGBColour("blue"), CSSColors.CSS_BLUE_RGB_VALUE); //$NON-NLS-1$
 		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(	  0% ,	0%    ,  100%  )")); //$NON-NLS-1$

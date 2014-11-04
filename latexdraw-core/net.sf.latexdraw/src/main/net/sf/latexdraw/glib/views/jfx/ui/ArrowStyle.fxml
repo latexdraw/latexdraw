@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<TitledPane fx:id="mainPane" animated="true" text="Arrow" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="net.sf.latexdraw.instruments.ShapeArrowCustomiser">
+	<content>
+		<VBox spacing="5">
+			<children>
+				<AnchorPane>
+			      <ComboBox fx:id="arrowLeftCB" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="22.0" layoutY="0.0">
+			      	<tooltip><Tooltip text="Set the left arrow." /></tooltip>
+			      </ComboBox>
+			      <ComboBox fx:id="arrowRightCB" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="117.0" layoutY="0.0">
+			      	<tooltip><Tooltip text="Set the right arrow." /></tooltip>
+			      </ComboBox>
+				</AnchorPane>
+				<AnchorPane fx:id="dotPane">
+			      <TextField fx:id="dotSizeNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0">
+			      	<tooltip><Tooltip text="Set the 'dotsize num' PSTricks parameter." /></tooltip>
+			      </TextField>
+			      <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.20" />
+			      <TextField fx:id="dotSizeDim" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="88.0">
+			      	<tooltip><Tooltip text="Set the 'dotsize dim' PSTricks parameter." /></tooltip>
+			      </TextField>
+			      <Label layoutX="0.0" layoutY="40.0" text="%AbstractParametersFrame.24" />
+				</AnchorPane>
+				<AnchorPane fx:id="arrowPane">
+			      <TextField fx:id="arrowInset" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0">
+			      	<tooltip><Tooltip text="Set the inset of the arrow." /></tooltip>
+			      </TextField>
+			      <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.27" />
+			      <TextField fx:id="arrowLength" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="88.0">
+			      	<tooltip><Tooltip text="Set the length of the arrow." /></tooltip>
+			      </TextField>
+			      <Label layoutX="0.0" layoutY="40.0" text="%AbstractParametersFrame.26" />
+			      <TextField fx:id="arrowSizeNum" layoutX="140.0" layoutY="70.0" prefHeight="25.0" prefWidth="88.0">
+			      	<tooltip><Tooltip text="Set the 'arrowsize dim' PSTricks parameter." /></tooltip>
+			      </TextField>
+			      <Label layoutX="0.0" layoutY="75.0" text="%AbstractParametersFrame.28" />
+			      <TextField fx:id="arrowSizeDim" layoutX="140.0" layoutY="105.0" prefHeight="25.0" prefWidth="88.0">
+			      	<tooltip><Tooltip text="Set the 'arrowsize num' PSTricks parameter." /></tooltip>
+			      </TextField>
+			      <Label layoutX="0.0" layoutY="110.0" text="%AbstractParametersFrame.24" />
+				</AnchorPane>
+				<AnchorPane fx:id="barPane">
+			      <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.21" />
+			      <TextField fx:id="tbarsizeNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0">
+			      	<tooltip><Tooltip text="Set the 'tbarsize num' PSTricks parameter." /></tooltip>
+			      </TextField>
+			      <Label layoutX="0.0" layoutY="35.0" text="%AbstractParametersFrame.24" />
+			      <TextField fx:id="tbarsizeDim" layoutX="140.0" layoutY="40.0" prefHeight="25.0" prefWidth="88.0">
+			      	<tooltip><Tooltip text="Set the 'tbarsize dim' PSTricks parameter." /></tooltip>
+			      </TextField>
+			    </AnchorPane>
+			    <AnchorPane fx:id="bracketPane">
+			      <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.22" />
+			      <TextField fx:id="bracketNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0">
+			      	<tooltip><Tooltip text="Set the length of the bracket." /></tooltip>
+			      </TextField>
+			    </AnchorPane>
+			    <AnchorPane fx:id="rbracketPane">
+			      <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.23" />
+			      <TextField fx:id="rbracketNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0">
+			      	<tooltip><Tooltip text="Set the length of the rounded bracket." /></tooltip>
+			      </TextField>
+				</AnchorPane>
+			</children>
+		</VBox>	
+	</content>
+</TitledPane>

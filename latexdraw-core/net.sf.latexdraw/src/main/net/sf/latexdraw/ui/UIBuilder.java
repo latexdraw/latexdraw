@@ -178,7 +178,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 		widget.pencil.addEventable(canvas);
 		widget.exporter.addEventable(toolbar);
 		widget.exporter.addEventable(widget.exporter.getExportMenu());
-		widget.scaleRulersCustomiser.addEventable(menubarBuilder.displayMenu);
 		widget.scaleRulersCustomiser.addEventable(menubarBuilder.unitMenu);
 		widget.fileLoader.addEventable(widget.fileLoader.getRecentFilesMenu());
 		widget.gridCustomiser.addEventable(toolbarBuilder.magneticGridB.getToolbar());
@@ -203,7 +202,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 			instrument.addEventable(canvas);
 			instrument.addEventable(widget.getTabbedPanel());
 			instrument.addEventable(widget.getCodePanel());
-			instrument.addEventable(menubarBuilder.displayMenu);
 			instrument.addEventable(menubarBuilder.drawingMenu);
 			instrument.addEventable(menubarBuilder.editMenu);
 			instrument.addEventable(menubarBuilder.helpMenu);

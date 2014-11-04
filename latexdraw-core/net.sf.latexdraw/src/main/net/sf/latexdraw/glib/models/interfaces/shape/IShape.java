@@ -1,9 +1,9 @@
 package net.sf.latexdraw.glib.models.interfaces.shape;
 
-import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.malai.properties.Modifiable;

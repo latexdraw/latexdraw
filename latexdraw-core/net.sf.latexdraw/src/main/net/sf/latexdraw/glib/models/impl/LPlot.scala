@@ -9,7 +9,8 @@ import net.sf.latexdraw.parsers.ps.PSFunctionParser
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
-import java.awt.Color
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
  * Implementation of the plotted function.
@@ -128,7 +129,7 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 	
 	def getDiametre(): Double = dotDiametre
 
-  def getDotFillingCol(): Color = if(isFillable) super.getFillingCol else Color.BLACK
+  def getDotFillingCol(): Color = if(isFillable) super.getFillingCol else DviPsColors.BLACK
 
   def getDotStyle(): IDotProp.DotStyle = dotStyle
 

@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.ui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.KeyboardFocusManager;
@@ -17,8 +16,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
-
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
@@ -30,7 +27,6 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.ToolTipable;
 import net.sf.latexdraw.instruments.Border;
 import net.sf.latexdraw.mapping.ViewList2TooltipableList;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
-import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
 
 import org.malai.action.Action;
@@ -42,13 +38,10 @@ import org.malai.mapping.IUnary;
 import org.malai.mapping.MappingRegistry;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-import org.malai.swing.action.library.MoveCamera;
 import org.malai.swing.widget.MPanel;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Defines a canvas that draw the drawing and manages the selected shapes.<br>
@@ -117,17 +110,11 @@ public class LCanvas extends MPanel implements ICanvas {
 	/** The instrument that manages selected views. */
 	protected Border borderIns;
 
-	/** The magnetic grid of the canvas. */
-	protected LMagneticGrid magneticGrid;
-
 	/** Defined if the canvas has been modified. */
 	protected boolean modified;
 
 	/** The model of the view. */
 	protected IDrawing drawing;
-
-	/** The current page of the canvas. */
-	protected Page page;
 
 
 
@@ -142,14 +129,12 @@ public class LCanvas extends MPanel implements ICanvas {
 		drawing				= theDrawing;
 		modified			= false;
 		userSelectionBorder	= null;
-		magneticGrid 		= new LMagneticGrid(this);
 		borderIns			= new Border(this);
 		border				= new Rectangle2D.Double();
 		views 				= new ActiveArrayList<>();
 		tooltipableView		= new ArrayList<>();
 		tempView			= new ActiveUnary<>();
 		zoom				= new ActiveUnary<>(1.);
-		page 				= Page.USLETTER;
 
 		FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
@@ -182,7 +167,6 @@ public class LCanvas extends MPanel implements ICanvas {
 	public void reinit() {
 		synchronized(views){views.clear();}
 		zoom.setValue(1.);
-		centreViewport();
 		update();
 	}
 
@@ -206,16 +190,10 @@ public class LCanvas extends MPanel implements ICanvas {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 	   antiAliasingValue);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, 		   renderingValue);
 
-		// Displaying the magnetic grid.
-		if(withGrid && magneticGrid.isGridDisplayed())
-    		magneticGrid.paint(g);
-
 		g.translate(ORIGIN.getX(), ORIGIN.getY());
 
 		if(mustZoom)
 			g.scale(zoomValue, zoomValue);
-
-		page.paint(g, ShapeFactory.createPoint());
 
 		// Getting the clip must be done here to consider the scaling and translation.
 		final Rectangle clip = g.getClipBounds();
@@ -304,28 +282,9 @@ public class LCanvas extends MPanel implements ICanvas {
 	}
 
 
-	public void centreViewport() {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				final MoveCamera action = new MoveCamera();
-				action.setScrollPane(getScrollpane());
-				action.setPx(ORIGIN.getX()+page.getWidth()*IShape.PPC/2.);
-				action.setPy(ORIGIN.getY()+getVisibleBound().getHeight()/2.-IShape.PPC);
-				if(action.canDo())
-					action.doIt();
-				action.flush();
-			}
-		});
-	}
-
-
 	@Override
 	public void updatePreferredSize() {
-		final double zoomValue = getZoom();
-		setPreferredSize(new Dimension(
-				(int)(Math.max(border.getWidth(), page.getWidth())*zoomValue)+MARGINS*2,
-				(int)(Math.max(border.getHeight(), page.getHeight())*zoomValue)+MARGINS*2));
+		//
 	}
 
 
@@ -448,77 +407,77 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public void save(final boolean generalPreferences, final String nsURI, final Document document, final Element root) {
-		if(document==null || root==null)
-			return ;
+//		if(document==null || root==null)
+//			return ;
+//
+//		Element elt;
+//
+//		if(generalPreferences) {
+//            elt = document.createElement(LNamespace.XML_RENDERING);
+//            elt.setTextContent(String.valueOf(renderingValue==RenderingHints.VALUE_RENDER_QUALITY));
+//            root.appendChild(elt);
+//
+//            elt = document.createElement(LNamespace.XML_COLOR_RENDERING);
+//            elt.setTextContent(String.valueOf(colorRenderingValue==RenderingHints.VALUE_COLOR_RENDER_QUALITY));
+//            root.appendChild(elt);
+//
+//            elt = document.createElement(LNamespace.XML_ALPHA_INTER);
+//            elt.setTextContent(String.valueOf(alphaInterpolValue==RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY));
+//            root.appendChild(elt);
+//
+//            elt = document.createElement(LNamespace.XML_ANTI_ALIAS);
+//            elt.setTextContent(String.valueOf(antiAliasingValue==RenderingHints.VALUE_ANTIALIAS_ON));
+//            root.appendChild(elt);
+//		} else {
+//			final String ns = nsURI==null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
+//			elt = document.createElement(ns + LNamespace.XML_ZOOM);
+//	        elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
+//	        root.appendChild(elt);
+//		}
 
-		Element elt;
-
-		if(generalPreferences) {
-            elt = document.createElement(LNamespace.XML_RENDERING);
-            elt.setTextContent(String.valueOf(renderingValue==RenderingHints.VALUE_RENDER_QUALITY));
-            root.appendChild(elt);
-
-            elt = document.createElement(LNamespace.XML_COLOR_RENDERING);
-            elt.setTextContent(String.valueOf(colorRenderingValue==RenderingHints.VALUE_COLOR_RENDER_QUALITY));
-            root.appendChild(elt);
-
-            elt = document.createElement(LNamespace.XML_ALPHA_INTER);
-            elt.setTextContent(String.valueOf(alphaInterpolValue==RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY));
-            root.appendChild(elt);
-
-            elt = document.createElement(LNamespace.XML_ANTI_ALIAS);
-            elt.setTextContent(String.valueOf(antiAliasingValue==RenderingHints.VALUE_ANTIALIAS_ON));
-            root.appendChild(elt);
-		} else {
-			final String ns = nsURI==null || nsURI.isEmpty() ? "" : nsURI + ':'; //$NON-NLS-1$
-			elt = document.createElement(ns + LNamespace.XML_ZOOM);
-	        elt.appendChild(document.createTextNode(String.valueOf(getZoom())));
-	        root.appendChild(elt);
-		}
-
-		magneticGrid.save(generalPreferences, nsURI, document, root);
+//		magneticGrid.save(generalPreferences, nsURI, document, root);
 	}
 
 
 
 	@Override
 	public void load(final boolean generalPreferences, final String nsURI, final Element meta) {
-		if(meta==null)
-			return ;
-		// Getting the list of meta information tags.
-		final NodeList nl = meta.getChildNodes();
-		Node node;
-		int i;
-		final int size = nl.getLength();
-		final String uri = nsURI==null ? "" : nsURI; //$NON-NLS-1$
-		String name;
-		String content;
-
-		// For each meta information tag.
-		for(i=0; i<size; i++) {
-			node 	= nl.item(i);
-
-			// Must be a latexdraw tag.
-			if(node!=null && uri.equals(node.getNamespaceURI())) {
-				name 	= node.getNodeName();
-				content = node.getTextContent();
-
-				if(generalPreferences) {
-					if(name.endsWith(LNamespace.XML_RENDERING))
-						renderingValue = Boolean.valueOf(content);
-					else if(name.endsWith(LNamespace.XML_COLOR_RENDERING))
-						colorRenderingValue = Boolean.valueOf(content);
-					else if(name.endsWith(LNamespace.XML_ALPHA_INTER))
-						alphaInterpolValue = Boolean.valueOf(content);
-					else if(name.endsWith(LNamespace.XML_ANTI_ALIAS))
-						antiAliasingValue = Boolean.valueOf(content);
-				} else
-					if(name.endsWith(LNamespace.XML_ZOOM))
-						setZoom(Double.NaN, Double.NaN, Double.parseDouble(node.getTextContent()));
-			} // if
-		}// for
-
-		magneticGrid.load(generalPreferences, nsURI, meta);
+//		if(meta==null)
+//			return ;
+//		// Getting the list of meta information tags.
+//		final NodeList nl = meta.getChildNodes();
+//		Node node;
+//		int i;
+//		final int size = nl.getLength();
+//		final String uri = nsURI==null ? "" : nsURI; //$NON-NLS-1$
+//		String name;
+//		String content;
+//
+//		// For each meta information tag.
+//		for(i=0; i<size; i++) {
+//			node 	= nl.item(i);
+//
+//			// Must be a latexdraw tag.
+//			if(node!=null && uri.equals(node.getNamespaceURI())) {
+//				name 	= node.getNodeName();
+//				content = node.getTextContent();
+//
+//				if(generalPreferences) {
+//					if(name.endsWith(LNamespace.XML_RENDERING))
+//						renderingValue = Boolean.valueOf(content);
+//					else if(name.endsWith(LNamespace.XML_COLOR_RENDERING))
+//						colorRenderingValue = Boolean.valueOf(content);
+//					else if(name.endsWith(LNamespace.XML_ALPHA_INTER))
+//						alphaInterpolValue = Boolean.valueOf(content);
+//					else if(name.endsWith(LNamespace.XML_ANTI_ALIAS))
+//						antiAliasingValue = Boolean.valueOf(content);
+//				} else
+//					if(name.endsWith(LNamespace.XML_ZOOM))
+//						setZoom(Double.NaN, Double.NaN, Double.parseDouble(node.getTextContent()));
+//			} // if
+//		}// for
+//
+//		magneticGrid.load(generalPreferences, nsURI, meta);
 	}
 
 
@@ -562,12 +521,6 @@ public class LCanvas extends MPanel implements ICanvas {
 
 
 	@Override
-	public LMagneticGrid getMagneticGrid() {
-		return magneticGrid;
-	}
-
-
-	@Override
 	public void setAntiAliasing(final Object antiAliasingVal) {
 		if(antiAliasingVal!=null)
 			antiAliasingValue = antiAliasingVal;
@@ -594,14 +547,14 @@ public class LCanvas extends MPanel implements ICanvas {
 
 	@Override
 	public boolean isModified() {
-		return modified || magneticGrid.isModified();
+		return modified;// || magneticGrid.isModified();
 	}
 
 	@Override
 	public void setModified(final boolean modif) {
 		modified = modif;
-		if(!modif)
-			magneticGrid.setModified(false);
+//		if(!modif)
+//			magneticGrid.setModified(false);
 	}
 
 

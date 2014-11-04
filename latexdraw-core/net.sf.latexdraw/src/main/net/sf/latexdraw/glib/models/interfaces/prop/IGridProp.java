@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
-import java.awt.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 
 /**
  * Groups properties of grids.
@@ -30,7 +30,7 @@ public interface IGridProp extends IStdGridProp {
 	void setGridDots(final int gridDots);
 
 	/**
-	 * @return Returns the gridLabelsColor.
+	 * @return Returns the gridLabelsDviPsColors.
 	 */
 	Color getGridLabelsColour();
 
@@ -70,7 +70,7 @@ public interface IGridProp extends IStdGridProp {
 	void setGridWidth(final double gridWidth);
 
 	/**
-	 * @return Returns the subGridColor.
+	 * @return Returns the subGridDviPsColors.
 	 */
 	Color getSubGridColour();
 

@@ -34,7 +34,17 @@ public final class LSystem {
 	 * The different operating systems managed.
 	 */
 	public enum OperatingSystem {
-		VISTA, XP, SEVEN, EIGHT, TEN,
+		/** Vista */
+		VISTA, 
+		/** XP */
+		XP,
+		/** Windows 7 */
+		SEVEN, 
+		/** Windows 8 */
+		EIGHT, 
+		/** Windows 10 */
+		TEN,
+		/** Mac OS X */
 		MAC_OS_X {
 			@Override
 			public String getPS2EPSBinPath() {
@@ -61,6 +71,7 @@ public final class LSystem {
 				return "pdfcrop"; //$NON-NLS-1$
 			}
 		},
+		/** Linux */
 		LINUX;
 
 		/**

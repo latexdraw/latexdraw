@@ -3,15 +3,13 @@ package test.svg.loadSVGFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import java.awt.Color;
-
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 
 import org.junit.Test;
@@ -35,7 +33,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 		assertEquals(345.08930858, txt.getPosition().getX(), 0.0001);
 		assertEquals(198.570298, txt.getPosition().getY(), 0.0001);
 		assertEquals("\\normalsize{needs}", txt.getText()); //$NON-NLS-1$
-		assertEquals(Color.BLACK, txt.getLineColour());
+		assertEquals(DviPsColors.BLACK, txt.getLineColour());
 		assertEquals(Math.toRadians(-28.917426838501797), txt.getRotationAngle(), 0.0001);
 	}
 
@@ -69,7 +67,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 		assertEquals(177.8671875, txt.getPosition().getX(), 0.01);
 		assertEquals(234.328125, txt.getPosition().getY(), 0.01);
 		assertEquals("\\normalsize{ActionPasteNode}", txt.getText()); //$NON-NLS-1$
-		assertEquals(Color.BLACK, txt.getLineColour());
+		assertEquals(DviPsColors.BLACK, txt.getLineColour());
 		assertEquals(0., txt.getRotationAngle(),0.0001);
 	}
 
@@ -86,7 +84,7 @@ public class TestSVGFileActionDepOr extends TestLoadSVGFile {
 		assertFalse(rec.hasShadow());
 		assertFalse(rec.hasDbleBord());
 		assertTrue(rec.isFilled());
-		assertEquals(Color.WHITE, rec.getFillingCol());
+		assertEquals(DviPsColors.WHITE, rec.getFillingCol());
 		assertEquals(160., rec.getWidth(),0.0001);
 		assertEquals(100., rec.getHeight(),0.0001);
 	}

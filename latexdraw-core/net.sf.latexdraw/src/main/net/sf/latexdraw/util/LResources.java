@@ -67,7 +67,6 @@ public final class LResources {
 	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getString19("DrawPanel.0"); //$NON-NLS-1$
 
 	public static final ImageIcon DIM_POS_ICON;
-	public static final ImageIcon ARROW_ICON;
 	public static final ImageIcon TEXTPOS_L;
 	public static final ImageIcon TEXTPOS_R;
 	public static final ImageIcon TEXTPOS_T;
@@ -83,9 +82,9 @@ public final class LResources {
 	public static final ImageIcon SHADOW_ICON;
     public static final ImageIcon PDF_ICON;
 	public static final ImageIcon BEZIER_CURVE_ICON;		public static final ImageIcon CHORD_ICON;
-	public static final ImageIcon NEW_ICON;					public static final ImageIcon LINE_STYLE_NONE_ICON;
-	public static final ImageIcon OPEN_ICON; 				public static final ImageIcon LINE_STYLE_DASHED_ICON;
-	public static final ImageIcon SAVE_ICON ;				public static final ImageIcon LINE_STYLE_DOTTED_ICON;
+	public static final ImageIcon NEW_ICON;
+	public static final ImageIcon OPEN_ICON;
+	public static final ImageIcon SAVE_ICON ;
 	public static final ImageIcon SAVE_AS_ICON;				public static final ImageIcon DOT_STYLE_NONE_ICON;
 	public static final ImageIcon CIRCLE_ICON;				public static final ImageIcon DOT_STYLE_SQUARE_ICON;
 	public static final ImageIcon DEL_ICON;					public static final ImageIcon DOT_STYLE_SQUARE_F_ICON;
@@ -102,48 +101,32 @@ public final class LResources {
 	public static final ImageIcon DOT_STYLE_O_PLUS_ICON;
 	public static final ImageIcon DOT_STYLE_O_CROSS_ICON;	public static final ImageIcon UPDATE_ICON;
 	public static final ImageIcon DOT_STYLE_PLUS_ICON;
-	public static final ImageIcon ARROW_STYLE_ARC_L_ICON;
-	public static final ImageIcon ARROW_STYLE_ARC_R_ICON;
-	public static final ImageIcon ARROW_STYLE_ARC_RR_ICON;	public static final ImageIcon ARROW_STYLE_ARC_LR_ICON;
-	public static final ImageIcon ABOUT_ICON;				public static final ImageIcon ARROW_STYLE_ARROW_L_ICON;
-	public static final ImageIcon HELP_ICON;				public static final ImageIcon ARROW_STYLE_ARROW_R_ICON;
-	public static final ImageIcon PREFERENCES_ICON;			public static final ImageIcon ARROW_STYLE_BAR_END_L_ICON;
-	public static final ImageIcon ARROW_STYLE_BAR_END_R_ICON; 	public static final ImageIcon DRAWING_PROP_ICON;
-	public static final ImageIcon ARC_ICON;					public static final ImageIcon ARROW_STYLE_BAR_IN_L_ICON;
-	public static final ImageIcon WEDGE_ICON;				public static final ImageIcon ARROW_STYLE_BAR_IN_R_ICON;
-	public static final ImageIcon ARROW_STYLE_BRACK_L_ICON; public static final ImageIcon PLOT_ICON;
-	public static final ImageIcon ARROW_STYLE_BRACK_LR_ICON; 	public static final ImageIcon ARROW_STYLE_BRACK_RR_ICON;
-	public static final ImageIcon ARROW_STYLE_BRACK_R_ICON;
-	public static final ImageIcon ZOOM_DEFAULT_ICON;		public static final ImageIcon ARROW_STYLE_CIRCLE_END_L_ICON;
-	public static final ImageIcon UNDO_ICON;				public static final ImageIcon ARROW_STYLE_CIRCLE_END_R_ICON;
-	public static final ImageIcon REDO_ICON;				public static final ImageIcon ARROW_STYLE_CIRCLE_IN_L_ICON;
-	public static final ImageIcon BACKGROUND_ICON;   		public static final ImageIcon ARROW_STYLE_CIRCLE_IN_R_ICON;
-	public static final ImageIcon FOREGROUND_ICON;   		public static final ImageIcon ARROW_STYLE_DBLE_ARROW_L_ICON;
-	public static final ImageIcon ARROW_STYLE_DBLE_ARROW_R_ICON;
-	public static final ImageIcon ARROW_STYLE_DISK_END_L_ICON;
-	public static final ImageIcon ROTATE_ICON;	 			public static final ImageIcon ARROW_STYLE_DISK_END_R_ICON;
-	public static final ImageIcon POLYGON_ICON;	 			public static final ImageIcon ARROW_STYLE_DISK_IN_L_ICON;
-	public static final ImageIcon TEXT_ICON;		 		public static final ImageIcon ARROW_STYLE_DISK_IN_R_ICON;
-	public static final ImageIcon FREE_HAND_ICON; 			public static final ImageIcon ARROW_STYLE_NONE_L_ICON;
-	public static final ImageIcon ARROW_STYLE_NONE_R_ICON;	public static final ImageIcon ARROW_STYLE_R_DBLE_ARROW_L_ICON;
-	public static final ImageIcon ARROW_STYLE_R_DBLE_ARROW_R_ICON; 	public static final ImageIcon ARROW_STYLE_R_ARROW_L_ICON;
-	public static final ImageIcon ARROW_STYLE_R_ARROW_R_ICON; 		public static final ImageIcon COPY_ICON;
+	public static final ImageIcon ABOUT_ICON;
+	public static final ImageIcon HELP_ICON;
+	public static final ImageIcon PREFERENCES_ICON;
+	public static final ImageIcon DRAWING_PROP_ICON;
+	public static final ImageIcon ARC_ICON;
+	public static final ImageIcon WEDGE_ICON;
+	public static final ImageIcon PLOT_ICON;
+	public static final ImageIcon ZOOM_DEFAULT_ICON;
+	public static final ImageIcon UNDO_ICON;
+	public static final ImageIcon REDO_ICON;
+	public static final ImageIcon BACKGROUND_ICON;
+	public static final ImageIcon FOREGROUND_ICON;
+	public static final ImageIcon ROTATE_ICON;
+	public static final ImageIcon POLYGON_ICON;
+	public static final ImageIcon TEXT_ICON;
+	public static final ImageIcon FREE_HAND_ICON;
+	public static final ImageIcon COPY_ICON;
 	public static final ImageIcon PASTE_ICON;						public static final ImageIcon CUT_ICON;
-	public static final ImageIcon ARROW_STYLE_ROUND_IN_L_ICON;		public static final ImageIcon ARROW_STYLE_ROUND_IN_R_ICON;
-	public static final ImageIcon HATCH_NONE_ICON;			public static final ImageIcon HATCH_SOLID_ICON;
-	public static final ImageIcon HATCH_HORIZ_ICON;			public static final ImageIcon HACTH_VERT_ICON;
-	public static final ImageIcon HATCH_F_HORIZ_ICON;		public static final ImageIcon HATCH_F_VERT_ICON;
-	public static final ImageIcon HATCH_CROSS_ICON;			public static final ImageIcon HATCH_F_CROSS_ICON;
 	public static final ImageIcon GRID_ICON;				public static final ImageIcon SUBGRID_ICON;
 	public static final ImageIcon JOIN_ICON;				public static final ImageIcon SEPARATE_ICON;
-	public static final ImageIcon MIDDLE_ICON;				public static final ImageIcon INNER_ICON;
-	public static final ImageIcon OUTER_ICON;
 	public static final ImageIcon COMMENT_ICON;
 	public static final ImageIcon LINES_ICON;	 			public static final ImageIcon LATEXDRAW_ICON;
 	public static final ImageIcon ERR_ICON;
 	public static final ImageIcon STOP_ICON;
 	public static final ImageIcon INSERT_PIC_ICON; 			public static final ImageIcon INSERT_PST_ICON;
-	public static final ImageIcon THICKNESS_ICON; 			public static final ImageIcon GRADIENT_ICON;
+	public static final ImageIcon THICKNESS_ICON;
 	public static final ImageIcon DISPLAY_GRID_ICON;		public static final ImageIcon ROTATE_270_ICON;
 	public static final ImageIcon ROTATE_180_ICON; 			public static final ImageIcon ROTATE_90_ICON;
 	public static final ImageIcon MIRROR_V_ICON;			public static final ImageIcon MIRROR_H_ICON;
@@ -159,7 +142,6 @@ public final class LResources {
 	public static final ImageIcon DIST_VERT_EQUAL_ICON;		public static final ImageIcon DIST_HORIZ_MID_ICON;
 	public static final ImageIcon DIST_HORIZ_LEFT_ICON;		public static final ImageIcon DIST_HORIZ_RIGHT_ICON;
 	public static final ImageIcon ROUNDNESS_ICON;
-	public static final ImageIcon GRID_GAP_ICON;
 	public static final ImageIcon BUTTON_CLOSE_IN_ICON;
 	public static final ImageIcon BUTTON_CLOSE_OUT_ICON;
 	public static final ImageIcon GRID_X_LABEL;
@@ -191,51 +173,6 @@ public final class LResources {
 		DOUBLE_BORDER_ICON	= loadImageIcon("/res/doubleBorder.png");//$NON-NLS-1$
 		SHADOW_ICON			= loadImageIcon("/res/shadow.png");//$NON-NLS-1$
 		ROUNDNESS_ICON 		= loadImageIcon("/res/roundness.png");//$NON-NLS-1$
-		GRID_GAP_ICON  		= loadImageIcon("/res/gridGap.png");//$NON-NLS-1$
-
-		HATCH_NONE_ICON  = loadImageIcon("/res/hatch/hatch.none.png");//$NON-NLS-1$
-		HACTH_VERT_ICON  = loadImageIcon("/res/hatch/hatch.vert.png");//$NON-NLS-1$
-		HATCH_HORIZ_ICON = loadImageIcon("/res/hatch/hatch.horiz.png");//$NON-NLS-1$
-		HATCH_CROSS_ICON = loadImageIcon("/res/hatch/hatch.cross.png");//$NON-NLS-1$
-		HATCH_SOLID_ICON = loadImageIcon("/res/hatch/hatch.solid.png");//$NON-NLS-1$
-		HATCH_F_VERT_ICON = loadImageIcon("/res/hatch/hatchf.vert.png");//$NON-NLS-1$
-		HATCH_F_HORIZ_ICON= loadImageIcon("/res/hatch/hatchf.horiz.png");//$NON-NLS-1$
-		HATCH_F_CROSS_ICON= loadImageIcon("/res/hatch/hatchf.cross.png");//$NON-NLS-1$
-
-		ARROW_ICON				= loadImageIcon("/res/arrowStyles/arrowIcon.png");//$NON-NLS-1$
-		ARROW_STYLE_ARC_L_ICON = loadImageIcon("/res/arrowStyles/line.arc.left.png");//$NON-NLS-1$
-		ARROW_STYLE_ARC_R_ICON = loadImageIcon("/res/arrowStyles/line.arc.right.png");//$NON-NLS-1$
-		ARROW_STYLE_ARC_LR_ICON = loadImageIcon("/res/arrowStyles/line.arc.r.left.png");//$NON-NLS-1$
-		ARROW_STYLE_ARC_RR_ICON = loadImageIcon("/res/arrowStyles/line.arc.r.right.png");//$NON-NLS-1$
-		ARROW_STYLE_ARROW_L_ICON = loadImageIcon("/res/arrowStyles/line.arrow.left.png");//$NON-NLS-1$
-		ARROW_STYLE_ARROW_R_ICON = loadImageIcon("/res/arrowStyles/line.arrow.right.png");//$NON-NLS-1$
-		ARROW_STYLE_BAR_END_L_ICON = loadImageIcon("/res/arrowStyles/line.barEnd.left.png");//$NON-NLS-1$
-		ARROW_STYLE_BAR_END_R_ICON = loadImageIcon("/res/arrowStyles/line.barEnd.right.png");//$NON-NLS-1$
-		ARROW_STYLE_BAR_IN_L_ICON = loadImageIcon("/res/arrowStyles/line.barIn.left.png");//$NON-NLS-1$
-		ARROW_STYLE_BAR_IN_R_ICON = loadImageIcon("/res/arrowStyles/line.barIn.right.png");//$NON-NLS-1$
-		ARROW_STYLE_BRACK_L_ICON = loadImageIcon("/res/arrowStyles/line.bracket.left.png");//$NON-NLS-1$
-		ARROW_STYLE_BRACK_R_ICON = loadImageIcon("/res/arrowStyles/line.bracket.right.png");//$NON-NLS-1$
-		ARROW_STYLE_BRACK_LR_ICON = loadImageIcon("/res/arrowStyles/line.bracket.r.left.png");//$NON-NLS-1$
-		ARROW_STYLE_BRACK_RR_ICON = loadImageIcon("/res/arrowStyles/line.bracket.r.right.png");//$NON-NLS-1$
-		ARROW_STYLE_CIRCLE_END_L_ICON = loadImageIcon("/res/arrowStyles/line.circle.end.left.png");//$NON-NLS-1$
-		ARROW_STYLE_CIRCLE_END_R_ICON = loadImageIcon("/res/arrowStyles/line.circle.end.right.png");//$NON-NLS-1$
-		ARROW_STYLE_CIRCLE_IN_L_ICON = loadImageIcon("/res/arrowStyles/line.circle.in.left.png");//$NON-NLS-1$
-		ARROW_STYLE_CIRCLE_IN_R_ICON = loadImageIcon("/res/arrowStyles/line.circle.in.right.png");//$NON-NLS-1$
-		ARROW_STYLE_DBLE_ARROW_L_ICON = loadImageIcon("/res/arrowStyles/line.dbleArrow.left.png");//$NON-NLS-1$
-		ARROW_STYLE_DBLE_ARROW_R_ICON = loadImageIcon("/res/arrowStyles/line.dbleArrow.right.png");//$NON-NLS-1$
-		ARROW_STYLE_DISK_END_L_ICON = loadImageIcon("/res/arrowStyles/line.disk.end.left.png");//$NON-NLS-1$
-		ARROW_STYLE_DISK_END_R_ICON = loadImageIcon("/res/arrowStyles/line.disk.end.right.png");//$NON-NLS-1$
-		ARROW_STYLE_DISK_IN_L_ICON = loadImageIcon("/res/arrowStyles/line.disk.in.left.png");//$NON-NLS-1$
-		ARROW_STYLE_DISK_IN_R_ICON = loadImageIcon("/res/arrowStyles/line.disk.in.right.png");//$NON-NLS-1$
-		ARROW_STYLE_NONE_L_ICON = loadImageIcon("/res/arrowStyles/line.none.left.png");//$NON-NLS-1$
-		ARROW_STYLE_NONE_R_ICON = loadImageIcon("/res/arrowStyles/line.none.right.png");//$NON-NLS-1$
-		ARROW_STYLE_R_ARROW_L_ICON = loadImageIcon("/res/arrowStyles/line.rarrow.left.png");//$NON-NLS-1$
-		ARROW_STYLE_R_ARROW_R_ICON = loadImageIcon("/res/arrowStyles/line.rarrow.right.png");//$NON-NLS-1$
-		ARROW_STYLE_R_DBLE_ARROW_L_ICON = loadImageIcon("/res/arrowStyles/line.rdbleArrow.left.png");//$NON-NLS-1$
-		ARROW_STYLE_R_DBLE_ARROW_R_ICON = loadImageIcon("/res/arrowStyles/line.rdbleArrow.right.png");//$NON-NLS-1$
-		ARROW_STYLE_ROUND_IN_L_ICON = loadImageIcon("/res/arrowStyles/line.roundIn.left.png");//$NON-NLS-1$
-		ARROW_STYLE_ROUND_IN_R_ICON = loadImageIcon("/res/arrowStyles/line.roundIn.right.png");//$NON-NLS-1$
-
 		DOT_STYLE_ASTERISK_ICON = loadImageIcon("/res/dotStyles/dot.asterisk.png");//$NON-NLS-1$
 		DOT_STYLE_NONE_ICON = loadImageIcon("/res/dotStyles/dot.none.png");//$NON-NLS-1$
 		DOT_STYLE_BAR_ICON = loadImageIcon("/res/dotStyles/dot.bar.png");//$NON-NLS-1$
@@ -252,14 +189,6 @@ public final class LResources {
 		DOT_STYLE_SQUARE_F_ICON = loadImageIcon("/res/dotStyles/dot.squareF.png");//$NON-NLS-1$
 		DOT_STYLE_TRIANGLE_ICON = loadImageIcon("/res/dotStyles/dot.triangle.png");//$NON-NLS-1$
 		DOT_STYLE_TRIANGLE_F_ICON = loadImageIcon("/res/dotStyles/dot.triangleF.png");//$NON-NLS-1$
-
-		LINE_STYLE_NONE_ICON 	= loadImageIcon("/res/lineStyles/lineStyle.none.png");//$NON-NLS-1$
-		LINE_STYLE_DASHED_ICON = loadImageIcon("/res/lineStyles/lineStyle.dashed.png");//$NON-NLS-1$
-		LINE_STYLE_DOTTED_ICON = loadImageIcon("/res/lineStyles/lineStyle.dotted.png");//$NON-NLS-1$
-
-		MIDDLE_ICON = loadImageIcon("/res/doubleBoundary/double.boundary.middle.png");//$NON-NLS-1$
-		INNER_ICON  = loadImageIcon("/res/doubleBoundary/double.boundary.into.png");//$NON-NLS-1$
-		OUTER_ICON  = loadImageIcon("/res/doubleBoundary/double.boundary.out.png");//$NON-NLS-1$
 
 		GRID_ICON		= loadImageIcon("/res/grid.png");//$NON-NLS-1$
 		SUBGRID_ICON	= loadImageIcon("/res/subgrid.png");//$NON-NLS-1$
@@ -306,7 +235,6 @@ public final class LResources {
 		INSERT_PIC_ICON 	= loadImageIcon("/res/image-x-generic.png"); //$NON-NLS-1$
 		INSERT_PST_ICON = loadImageIcon("/res/text-x-generic.png"); //$NON-NLS-1$
 		THICKNESS_ICON 	= loadImageIcon("/res/thickness.png"); //$NON-NLS-1$
-		GRADIENT_ICON 	= loadImageIcon("/res/hatch/gradient.png"); //$NON-NLS-1$
 		DISPLAY_GRID_ICON = loadImageIcon("/res/displayGrid.png"); //$NON-NLS-1$
 		ROTATE_180_ICON 	= loadImageIcon("/res/rotation180.png"); //$NON-NLS-1$
 		ROTATE_90_ICON 	= loadImageIcon("/res/rotation90.png"); //$NON-NLS-1$

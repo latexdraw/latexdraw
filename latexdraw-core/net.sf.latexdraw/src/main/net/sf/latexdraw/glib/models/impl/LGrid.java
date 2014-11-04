@@ -1,8 +1,8 @@
 package net.sf.latexdraw.glib.models.impl;
 
-import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;

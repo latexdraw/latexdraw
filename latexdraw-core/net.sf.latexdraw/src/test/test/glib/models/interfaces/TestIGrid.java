@@ -1,12 +1,12 @@
 package test.glib.models.interfaces;
 
-import static org.junit.Assert.*;
-
-import java.awt.Color;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Test;
 
@@ -55,12 +55,12 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 
 	@Test
 	public void testGetSetGridLabelsColor() {
-		shape.setGridLabelsColour(Color.BLUE);
-		assertEquals(Color.BLUE, shape.getGridLabelsColour());
-		shape.setGridLabelsColour(Color.RED);
-		assertEquals(Color.RED, shape.getGridLabelsColour());
+		shape.setGridLabelsColour(DviPsColors.BLUE);
+		assertEquals(DviPsColors.BLUE, shape.getGridLabelsColour());
+		shape.setGridLabelsColour(DviPsColors.RED);
+		assertEquals(DviPsColors.RED, shape.getGridLabelsColour());
 		shape.setGridLabelsColour(null);
-		assertEquals(Color.RED, shape.getGridLabelsColour());
+		assertEquals(DviPsColors.RED, shape.getGridLabelsColour());
 	}
 
 	@Test
@@ -83,12 +83,12 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 
 	@Test
 	public void testGetSetSubGridColor() {
-		shape.setSubGridColour(Color.BLUE);
-		assertEquals(Color.BLUE, shape.getSubGridColour());
-		shape.setSubGridColour(Color.RED);
-		assertEquals(Color.RED, shape.getSubGridColour());
+		shape.setSubGridColour(DviPsColors.BLUE);
+		assertEquals(DviPsColors.BLUE, shape.getSubGridColour());
+		shape.setSubGridColour(DviPsColors.RED);
+		assertEquals(DviPsColors.RED, shape.getSubGridColour());
 		shape.setSubGridColour(null);
-		assertEquals(Color.RED, shape.getSubGridColour());
+		assertEquals(DviPsColors.RED, shape.getSubGridColour());
 	}
 
 	@Test
@@ -158,8 +158,8 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 
 		shape.setGridDots(45);
 		shape.setSubGridDots(55);
-		shape.setGridLabelsColour(Color.CYAN);
-		shape.setSubGridColour(Color.GREEN);
+		shape.setGridLabelsColour(DviPsColors.CYAN);
+		shape.setSubGridColour(DviPsColors.GREEN);
 		shape.setUnit(0.6);
 		shape.setGridWidth(12);
 		shape.setSubGridWidth(24);
@@ -387,8 +387,8 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 
 		shape2.setGridDots(45);
 		shape2.setSubGridDots(55);
-		shape2.setGridLabelsColour(Color.CYAN);
-		shape2.setSubGridColour(Color.GREEN);
+		shape2.setGridLabelsColour(DviPsColors.CYAN);
+		shape2.setSubGridColour(DviPsColors.GREEN);
 		shape2.setUnit(0.6);
 		shape2.setGridWidth(12);
 		shape2.setSubGridWidth(24);

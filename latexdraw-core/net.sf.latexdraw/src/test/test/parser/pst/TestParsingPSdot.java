@@ -3,13 +3,13 @@ package test.parser.pst;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Color;
 import java.text.ParseException;
 
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
@@ -384,8 +384,8 @@ public class TestParsingPSdot extends TestParsingShape {
 	@Test
 	public void testStarLineColourIsFillingColour() throws ParseException {
 		IDot sh = (IDot)parser.parsePSTCode("\\"+getCommandName()+"*["+"linecolor=green, dotstyle=o]"+getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		assertEquals(Color.GREEN, sh.getFillingCol());
-		assertEquals(Color.GREEN, sh.getLineColour());
+		assertEquals(DviPsColors.GREEN, sh.getFillingCol());
+		assertEquals(DviPsColors.GREEN, sh.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 

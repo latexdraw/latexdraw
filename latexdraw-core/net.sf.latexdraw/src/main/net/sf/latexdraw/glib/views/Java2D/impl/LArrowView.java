@@ -1,7 +1,7 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -100,15 +100,15 @@ class LArrowView implements IViewArrow {
 
 
 	protected void paintCircle(final Graphics2D g, final Color fillColour, final Color lineColour) {
-		g.setColor(fillColour);
+		g.setColor(fillColour.toAWT());
 		g.fill(path);
-		g.setColor(lineColour);
+		g.setColor(lineColour.toAWT());
 		g.draw(path);
 	}
 
 
 	protected void paintDisk(final Graphics2D g, final Color lineColour) {
-		g.setColor(lineColour);
+		g.setColor(lineColour.toAWT());
 		g.setStroke(new BasicStroke((float)model.getShape().getThickness(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 		g.fill(path);
 		g.draw(path);
@@ -116,7 +116,7 @@ class LArrowView implements IViewArrow {
 
 
 	protected void paintRoundBracket(final Graphics2D g, final Color lineColor) {
-		g.setColor(lineColor);
+		g.setColor(lineColor.toAWT());
 		g.setStroke(new BasicStroke((float)model.getShape().getThickness(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 		g.draw(path);
 	}
@@ -124,13 +124,13 @@ class LArrowView implements IViewArrow {
 
 	protected void paintBarBracket(final Graphics2D g, final Color lineColor) {
 		g.setStroke(new BasicStroke((float)model.getShape().getFullThickness(), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
-		g.setColor(lineColor);
+		g.setColor(lineColor.toAWT());
 		g.draw(path);
 	}
 
 
 	protected void paintArrow(final Graphics2D g, final Color lineColor) {
-		g.setColor(lineColor);
+		g.setColor(lineColor.toAWT());
 		g.fill(path);
 	}
 
@@ -156,12 +156,12 @@ class LArrowView implements IViewArrow {
 			case RIGHT_SQUARE_BRACKET	: paintBarBracket(g, lineColor); break;
 			case ROUND_IN				:
 			case ROUND_END				:
-				g.setColor(lineColor);
+				g.setColor(lineColor.toAWT());
 				g.setStroke(new BasicStroke((float)model.getShape().getFullThickness(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 				g.draw(path);
 				break;
 			case SQUARE_END				:
-				g.setColor(lineColor);
+				g.setColor(lineColor.toAWT());
 				g.setStroke(new BasicStroke((float)model.getShape().getFullThickness(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
 				g.draw(path);
 				break;

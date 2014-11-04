@@ -7,15 +7,13 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
-import java.awt.Color;
-
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Test;
 
@@ -460,9 +458,9 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.addShape(rec1);
 		shape.addShape(rec2);
 
-		shape.setGradColEnd(Color.CYAN);
-		assertEquals(Color.CYAN, rec1.getGradColEnd());
-		assertEquals(Color.CYAN, rec2.getGradColEnd());
+		shape.setGradColEnd(DviPsColors.CYAN);
+		assertEquals(DviPsColors.CYAN, rec1.getGradColEnd());
+		assertEquals(DviPsColors.CYAN, rec2.getGradColEnd());
 	}
 
 
@@ -477,17 +475,17 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.addShape(rec1);
 		shape.addShape(rec2);
 
-		rec1.setGradColEnd(Color.ORANGE);
-		rec2.setGradColEnd(Color.PINK);
+		rec1.setGradColEnd(DviPsColors.ORANGE);
+		rec2.setGradColEnd(DviPsColors.PINK);
 
 		assertNotNull(shape.getGradColEnd());
-		assertNotEquals(Color.PINK, shape.getGradColEnd());
-		assertNotEquals(Color.ORANGE, shape.getGradColEnd());
+		assertNotEquals(DviPsColors.PINK, shape.getGradColEnd());
+		assertNotEquals(DviPsColors.ORANGE, shape.getGradColEnd());
 
 		rec1.setFillingStyle(FillingStyle.GRAD);
 		rec2.setFillingStyle(FillingStyle.GRAD);
 
-		assertEquals(Color.ORANGE, shape.getGradColEnd());
+		assertEquals(DviPsColors.ORANGE, shape.getGradColEnd());
 	}
 
 

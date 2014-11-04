@@ -14,7 +14,7 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
 import org.malai.action.Action;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.action.library.ActivateInactivateInstruments;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
@@ -547,7 +547,7 @@ public class EditingSelector extends WidgetInstrument {
 /**
  * This link allows to activate the code inserter instrument.
  */
-class ButtonPressed2LaunchCodeInserter extends Interactor<ActivateInactivateInstruments, ButtonPressed, EditingSelector> {
+class ButtonPressed2LaunchCodeInserter extends InteractorImpl<ActivateInactivateInstruments, ButtonPressed, EditingSelector> {
 	ButtonPressed2LaunchCodeInserter(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ActivateInactivateInstruments.class, ButtonPressed.class);
 	}
@@ -568,7 +568,7 @@ class ButtonPressed2LaunchCodeInserter extends Interactor<ActivateInactivateInst
 /**
  * This link allows the modify the link of shape the pencil will create using a ButtonPressed interaction.
  */
-class ButtonPressed2DefineStylePencil extends Interactor<ModifyPencilStyle, ButtonPressed, EditingSelector> {
+class ButtonPressed2DefineStylePencil extends InteractorImpl<ModifyPencilStyle, ButtonPressed, EditingSelector> {
 	protected ButtonPressed2DefineStylePencil(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ModifyPencilStyle.class, ButtonPressed.class);
 	}
@@ -591,7 +591,7 @@ class ButtonPressed2DefineStylePencil extends Interactor<ModifyPencilStyle, Butt
  * When the user types a text using the text field (instrument text setter) and then he
  * selects another kind of editing, the typed text must be added to the canvas.
  */
-class ButtonPressed2AddText extends Interactor<AddShape, ButtonPressed, EditingSelector> {
+class ButtonPressed2AddText extends InteractorImpl<AddShape, ButtonPressed, EditingSelector> {
 	protected ButtonPressed2AddText(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, AddShape.class, ButtonPressed.class);
 	}
@@ -615,7 +615,7 @@ class ButtonPressed2AddText extends Interactor<AddShape, ButtonPressed, EditingS
 /**
  * This link maps a ButtonPressed interaction to an action that activates/desactivates instruments.
  */
-class ButtonPressed2ActivateIns extends Interactor<ActivateInactivateInstruments, ButtonPressed, EditingSelector> {
+class ButtonPressed2ActivateIns extends InteractorImpl<ActivateInactivateInstruments, ButtonPressed, EditingSelector> {
 	protected ButtonPressed2ActivateIns(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ActivateInactivateInstruments.class, ButtonPressed.class);
 	}

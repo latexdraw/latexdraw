@@ -9,16 +9,16 @@ import net.sf.latexdraw.actions.shape.PasteShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.glib.ui.LMagneticGrid;
+import net.sf.latexdraw.glib.views.MagneticGrid;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.interaction.Interaction;
-import org.malai.interaction.library.KeysPressure;
 import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.swing.interaction.library.KeysPressure;
 import org.malai.swing.interaction.library.MenuItemPressed;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MMenuItem;
@@ -54,7 +54,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 	/** The drawing that contains the shapes. */
 	protected IDrawing drawing;
 
-	protected LMagneticGrid grid;
+	protected MagneticGrid grid;
 
 
 	/**
@@ -65,7 +65,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 	 * @throws NullPointerException If the given drawg is null.
 	 * @since 3.0
 	 */
-	public CopierCutterPaster(final SwingUIComposer<?> composerUI, final IDrawing drawg, final LMagneticGrid magnGrid) {
+	public CopierCutterPaster(final SwingUIComposer<?> composerUI, final IDrawing drawg, final MagneticGrid magnGrid) {
 		super(composerUI);
 
 		drawing = Objects.requireNonNull(drawg);
@@ -164,7 +164,7 @@ public class CopierCutterPaster extends WidgetInstrument {
 /**
  * This link maps an menu item interaction to an action dedicated to a shape copy.
  */
-abstract class Interaction2AbstractCopy<A extends CopyShapes, I extends Interaction> extends Interactor<A, I, CopierCutterPaster> {
+abstract class Interaction2AbstractCopy<A extends CopyShapes, I extends Interaction> extends InteractorImpl<A, I, CopierCutterPaster> {
 	/**
 	 * Creates the link.
 	 */
@@ -263,7 +263,7 @@ class MenuItem2CopyShapes extends Interaction2AbstractCopy<CopyShapes, MenuItemP
 /**
  * This abstract link maps an interaction to a paste action.
  */
-abstract class Interaction2PasteShapes<I extends Interaction> extends Interactor<PasteShapes, I, CopierCutterPaster> {
+abstract class Interaction2PasteShapes<I extends Interaction> extends InteractorImpl<PasteShapes, I, CopierCutterPaster> {
 	/**
 	 * Creates the link.
 	 */

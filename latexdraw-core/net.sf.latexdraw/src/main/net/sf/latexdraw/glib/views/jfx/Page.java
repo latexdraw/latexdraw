@@ -1,10 +1,8 @@
-package net.sf.latexdraw.glib.ui;
+package net.sf.latexdraw.glib.views.jfx;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
@@ -22,8 +20,10 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
  *  LaTeXDraw is distributed without any warranty; without even the
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *  PURPOSE. See the GNU General Public License for more details.<br>
- *  @since 3.1
+ *  @since 4.0
  *<br>
+ *@author Arnaud Blouin
+ *@date 2014-10-15
  */
 public enum Page {
 	USLETTER {
@@ -43,9 +43,6 @@ public enum Page {
 	 */
 	public abstract double getHeight();
 
-	/** The stroke used for painting the page. */
-	private static final BasicStroke STROKE_PAGE = new BasicStroke(1f);
-
 	/** The gap between the page and its shadow. */
 	private static final int GAP_SHADOW = 3;
 
@@ -54,18 +51,18 @@ public enum Page {
 
 	/**
 	 * Paints the page into the given graphics.
-	 * @param g The graphics to use.
+	 * @param gc The graphics to use.
 	 * @param origin The position in the graphics corresponding to the origin.
 	 * @throws NullPointerException If the given graphics or point is null.
-	 * @since 3.1
+	 * @since 4.0
 	 */
-	public void paint(final Graphics2D g, final IPoint origin) {
-		final Rectangle2D page = new Rectangle2D.Double(origin.getX(), origin.getY(),getWidth()*IShape.PPC, getHeight()*IShape.PPC);
-		g.setStroke(STROKE_PAGE);
-		g.setColor(Color.GRAY);
-		g.fill(new Rectangle2D.Double(page.getMaxX(), page.getMinY()+GAP_SHADOW, SIZE_SHADOW, page.getHeight()));
-		g.fill(new Rectangle2D.Double(page.getMinX()+GAP_SHADOW, page.getMaxY(), page.getWidth(), SIZE_SHADOW));
-		g.setColor(Color.BLACK);
-		g.draw(page);
+	public void paint(final GraphicsContext gc, final IPoint origin) {
+		final Rectangle page = new Rectangle(origin.getX(), origin.getY(),getWidth()*IShape.PPC, getHeight()*IShape.PPC);
+		gc.setLineWidth(1.0);
+		gc.setStroke(Color.GRAY);
+		gc.fillRect(page.getX()+page.getWidth(), page.getY()+GAP_SHADOW, SIZE_SHADOW, page.getHeight());
+		gc.fillRect(page.getX()+GAP_SHADOW, page.getY()+page.getHeight(), page.getWidth(), SIZE_SHADOW);
+		gc.setStroke(Color.BLACK);
+		gc.strokeRect(page.getX(), page.getY(), page.getWidth(), page.getHeight());
 	}
 }

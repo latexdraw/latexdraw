@@ -7,8 +7,8 @@ import java.awt.geom.Rectangle2D
 import scala.collection.JavaConversions.asScalaBuffer
 import org.malai.action.Action
 import org.malai.instrument.Instrument
-import org.malai.interaction.library.DnD
-import org.malai.interaction.library.KeysPressure
+import org.malai.swing.interaction.library.DnD
+import org.malai.swing.interaction.library.KeysPressure
 import org.malai.mapping.MappingRegistry
 import org.malai.swing.instrument.library.WidgetZoomer
 import org.malai.swing.interaction.library.DoubleClick
@@ -23,11 +23,10 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IText
 import net.sf.latexdraw.glib.ui.ICanvas
-import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
-import org.malai.interaction.library.PressWithKeys
-import org.malai.interaction.library.DnDWithKeys
+import org.malai.swing.interaction.library.PressWithKeys
+import org.malai.swing.interaction.library.DnDWithKeys
 import scala.collection.mutable.Buffer
 import net.sf.latexdraw.actions.shape.UpdateToGrid
 import org.malai.swing.action.library.MoveCamera
@@ -44,6 +43,7 @@ import sun.awt.image.ImageWatched.Link
 import org.malai.instrument.Interactor
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewPlot
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
+import org.malai.instrument.InteractorImpl
 
 
 /**
@@ -105,18 +105,18 @@ class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrume
 }
 
 
-private sealed class CtrlU2UpdateShapes(ins:Hand) extends Interactor[UpdateToGrid, KeysPressure, Hand](ins, false, classOf[UpdateToGrid], classOf[KeysPressure]) {
+private sealed class CtrlU2UpdateShapes(ins:Hand) extends InteractorImpl[UpdateToGrid, KeysPressure, Hand](ins, false, classOf[UpdateToGrid], classOf[KeysPressure]) {
 	override def initAction() {
 		action.setShape(instrument.canvas.getDrawing.getSelection.duplicateDeep(false))
-		action.setGrid(instrument.canvas.getMagneticGrid)
+//		action.setGrid(instrument.canvas.getMagneticGrid)
 	}
 
-	override def isConditionRespected = instrument.canvas.getMagneticGrid.isMagnetic &&
+	override def isConditionRespected = //instrument.canvas.getMagneticGrid.isMagnetic &&
 		interaction.getKeys.size==2 && interaction.getKeys.contains(KeyEvent.VK_U) && interaction.getKeys.contains(KeyEvent.VK_CONTROL)
 }
 
 
-private sealed class CtrlA2SelectAllShapes(ins:Hand) extends Interactor[SelectShapes, KeysPressure, Hand](ins, false, classOf[SelectShapes], classOf[KeysPressure]) {
+private sealed class CtrlA2SelectAllShapes(ins:Hand) extends InteractorImpl[SelectShapes, KeysPressure, Hand](ins, false, classOf[SelectShapes], classOf[KeysPressure]) {
 	override def initAction() {
 		instrument.canvas.getDrawing.getShapes.foreach{sh => action.addShape(sh)}
 		action.setDrawing(instrument.canvas.getDrawing)
@@ -127,7 +127,7 @@ private sealed class CtrlA2SelectAllShapes(ins:Hand) extends Interactor[SelectSh
 }
 
 
-private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Interactor[InitTextSetter, DoubleClick, Hand](ins, false, classOf[InitTextSetter], classOf[DoubleClick]) {
+private sealed class DoubleClick2InitTextSetter(ins : Hand) extends InteractorImpl[InitTextSetter, DoubleClick, Hand](ins, false, classOf[InitTextSetter], classOf[DoubleClick]) {
 	override def initAction() {
 		var pos:Option[IPoint] = None
 
@@ -165,7 +165,7 @@ private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Interactor[I
 /**
  * This link allows to translate the selected shapes.
  */
-private sealed class DnD2Translate(hand : Hand) extends Interactor[TranslateShapes, DnD, Hand](hand, true, classOf[TranslateShapes], classOf[DnD]) {
+private sealed class DnD2Translate(hand : Hand) extends InteractorImpl[TranslateShapes, DnD, Hand](hand, true, classOf[TranslateShapes], classOf[DnD]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 		action.setShape(instrument.canvas.getDrawing.getSelection.duplicateDeep(false))
@@ -197,7 +197,7 @@ private sealed class DnD2Translate(hand : Hand) extends Interactor[TranslateShap
 
 
 
-private sealed class Press2Select(ins : Hand) extends Interactor[SelectShapes, PressWithKeys, Hand](ins, false, classOf[SelectShapes], classOf[PressWithKeys]) {
+private sealed class Press2Select(ins : Hand) extends InteractorImpl[SelectShapes, PressWithKeys, Hand](ins, false, classOf[SelectShapes], classOf[PressWithKeys]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 	}
@@ -230,7 +230,7 @@ private sealed class Press2Select(ins : Hand) extends Interactor[SelectShapes, P
 /**
  * This link allows to select several shapes.
  */
-private sealed class DnD2Select(hand : Hand) extends Interactor[SelectShapes, DnDWithKeys, Hand](hand, true, classOf[SelectShapes], classOf[DnDWithKeys]) {
+private sealed class DnD2Select(hand : Hand) extends InteractorImpl[SelectShapes, DnDWithKeys, Hand](hand, true, classOf[SelectShapes], classOf[DnDWithKeys]) {
 	/** The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
 	val selectionBorder : Rectangle2D = new Rectangle2D.Double()
 	var selectedShapes : Buffer[IShape] = _
@@ -285,7 +285,7 @@ private sealed class DnD2Select(hand : Hand) extends Interactor[SelectShapes, Dn
 /**
  * Moves the viewport using the hand.
  */
-class DnD2MoveViewport(canvas:ICanvas, ins:Instrument) extends Interactor[MoveCamera, DnD, Instrument](ins, true, classOf[MoveCamera], classOf[DnD]) {
+class DnD2MoveViewport(canvas:ICanvas, ins:Instrument) extends InteractorImpl[MoveCamera, DnD, Instrument](ins, true, classOf[MoveCamera], classOf[DnD]) {
 	override def initAction() {
 		action.setScrollPane(canvas.getScrollpane)
 	}

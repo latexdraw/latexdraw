@@ -65,8 +65,6 @@ public class PreferencesFrame extends MFrame {
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.general"), createGeneralPanel()); //$NON-NLS-1$
   		tabbedPane.add("LaTeX", createLatexPanel()); //$NON-NLS-1$
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.folders"), createFoldersPanel()); //$NON-NLS-1$
-  		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.quality"), createQualityPanel()); //$NON-NLS-1$
-  		tabbedPane.add(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.90"), createDisplayPanel()); //$NON-NLS-1$
   		tabbedPane.add(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.grid"), createGridPanel()); //$NON-NLS-1$
 
 		pGeneral.add(tabbedPane, BorderLayout.CENTER);
@@ -74,6 +72,8 @@ public class PreferencesFrame extends MFrame {
 		getContentPane().add(pGeneral);
   		setSize(460, 320);
 		setVisible(false);
+		
+		// FIXME clean: LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.quality")
 	}
 
 
@@ -105,9 +105,6 @@ public class PreferencesFrame extends MFrame {
 
   		pRecent.add(prefSetter.getNbRecentFilesField().getLabel());
   		pRecent.add(prefSetter.getNbRecentFilesField());
-
-  		pTheme.add(prefSetter.getThemeList().getLabel());
-  		pTheme.add(prefSetter.getThemeList());
 
   		pLang.add(new JLabel(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.lge"))); //$NON-NLS-1$
   		pLang.add(prefSetter.getLangList());
@@ -159,27 +156,6 @@ public class PreferencesFrame extends MFrame {
 
 
 	/**
-	 * Creates the panel which allows the user to set the preferences about displayable elements.
-	 * @return The created panel.
-	 */
-	private JPanel createDisplayPanel() {
-  		final JPanel pDisplay = new JPanel(new GridLayout(5, 1));
-		final JPanel panel = new JPanel();
-
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.add(prefSetter.getUnitChoice());
-
-		pDisplay.add(new JLabel(FOR_NEW_DRAWINGS));
-		pDisplay.add(prefSetter.getDisplayXScaleCB());
-  		pDisplay.add(prefSetter.getDisplayYScaleCB());
-  		pDisplay.add(panel);
-
-  		return pDisplay;
-	}
-
-
-
-	/**
 	 * Creates the panel which allows the user to set preferences about paths.
 	 * @return The created panel.
 	 */
@@ -226,22 +202,5 @@ public class PreferencesFrame extends MFrame {
      	pFolders.add(bExport, constraint);
 
   		return pFolders;
-	}
-
-
-	/**
-	 * Creates the panel which allows the user to set preferences about the rendering.
-	 * @return The created panel.
-	 */
-	private JPanel createQualityPanel() {
-  		final JPanel pQuality  = new JPanel(new GridLayout(5, 1));
-
-  		pQuality.add(new JLabel(FOR_NEW_DRAWINGS));
-  		pQuality.add(prefSetter.getAntialiasingCheckBox());
-  		pQuality.add(prefSetter.getRenderingCheckBox());
-  		pQuality.add(prefSetter.getColorRenderCheckBox());
-  		pQuality.add(prefSetter.getAlpaInterCheckBox());
-
-  		return pQuality;
 	}
 }

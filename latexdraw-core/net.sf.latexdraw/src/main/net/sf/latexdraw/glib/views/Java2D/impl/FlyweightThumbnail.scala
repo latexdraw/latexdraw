@@ -31,7 +31,7 @@ import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.util.LSystem
 import net.sf.latexdraw.util.StreamExecReader
-import java.awt.Color
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
 
 /**
  * This flyweight manages the thumbnails of the text shapes. Its goal is to limit the number
@@ -206,10 +206,11 @@ object FlyweightThumbnail {
 			var name = DviPsColors.INSTANCE.getColourName(textColour)
 			coloured = true
 
-			if(name==null)
+			if(!name.isPresent)
 				name = DviPsColors.INSTANCE.addUserColour(textColour)
 
-			doc.append(DviPsColors.INSTANCE.getUsercolourCode(name)).append("\\textcolor{").append(name).append('}').append('{') //$NON-NLS-1$
+			val str = name.orElse("colorNotFound")
+			doc.append(DviPsColors.INSTANCE.getUsercolourCode(str)).append("\\textcolor{").append(str).append('}').append('{') //$NON-NLS-1$
 		}
 
 		doc.append(code)

@@ -2,18 +2,16 @@ package net.sf.latexdraw.instruments;
 
 import java.util.Objects;
 
-import javax.swing.JLabel;
 import javax.swing.JSpinner;
 
 import net.sf.latexdraw.actions.ModifyMagneticGrid;
 import net.sf.latexdraw.actions.ModifyMagneticGrid.GridProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.ui.LMagneticGrid;
-import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
+import net.sf.latexdraw.glib.views.GridStyle;
+import net.sf.latexdraw.glib.views.MagneticGrid;
 import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.CheckBoxModified;
 import org.malai.swing.interaction.library.ListSelectionModified;
@@ -45,7 +43,7 @@ import org.malai.undo.Undoable;
  */
 public class MagneticGridCustomiser extends WidgetInstrument {
 	/** The grid to customise. */
-	protected LMagneticGrid grid;
+	protected MagneticGrid grid;
 
 	/** Contains the different possible kind of grids. */
 	protected MComboBox<String> styleList;
@@ -64,7 +62,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	 * @throws IllegalArgumentException If the given grid is null.
 	 * @since 3.0
 	 */
-	public MagneticGridCustomiser(final SwingUIComposer<?> composer, final LMagneticGrid grid) {
+	public MagneticGridCustomiser(final SwingUIComposer<?> composer, final MagneticGrid grid) {
 		super(composer);
 		this.grid = Objects.requireNonNull(grid);
 		initialiseWidgets();
@@ -74,7 +72,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 	@Override
 	protected void initialiseWidgets() {
 		styleList				= createStyleList();
-     	gridSpacing 			= new MSpinner(new MSpinner.MSpinnerNumberModel(10, 2, 100000, 1), new JLabel(LResources.GRID_GAP_ICON));
+//     	gridSpacing 			= new MSpinner(new MSpinner.MSpinnerNumberModel(10, 2, 100000, 1), new JLabel(LResources.GRID_GAP_ICON));
      	gridSpacing.setEditor(new JSpinner.NumberEditor(gridSpacing, "0"));//$NON-NLS-1$
      	gridSpacing.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.15")); //$NON-NLS-1$
  		magneticCB 				= new MCheckBox(LangTool.INSTANCE.getString18("LaTeXDrawFrame.13")); //$NON-NLS-1$
@@ -187,7 +185,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 /**
  * Links a check-box widget to an action that sets if the grid is magnetic.
  */
-class CheckBox2MagneticGrid extends Interactor<ModifyMagneticGrid, CheckBoxModified, MagneticGridCustomiser> {
+class CheckBox2MagneticGrid extends InteractorImpl<ModifyMagneticGrid, CheckBoxModified, MagneticGridCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @since 3.0
@@ -214,7 +212,7 @@ class CheckBox2MagneticGrid extends Interactor<ModifyMagneticGrid, CheckBoxModif
 /**
  * Links a spinner widget to an action that modifies the spacing of the customised magnetic grid.
  */
-class Spinner2GridSpacing extends Interactor<ModifyMagneticGrid, SpinnerModified, MagneticGridCustomiser> {
+class Spinner2GridSpacing extends InteractorImpl<ModifyMagneticGrid, SpinnerModified, MagneticGridCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @since 3.0
@@ -247,7 +245,7 @@ class Spinner2GridSpacing extends Interactor<ModifyMagneticGrid, SpinnerModified
 /**
  * Links a list widget to an action that modifies the style of the magnetic grid.
  */
-class List2ChangeStyle extends Interactor<ModifyMagneticGrid, ListSelectionModified, MagneticGridCustomiser> {
+class List2ChangeStyle extends InteractorImpl<ModifyMagneticGrid, ListSelectionModified, MagneticGridCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @since 3.0

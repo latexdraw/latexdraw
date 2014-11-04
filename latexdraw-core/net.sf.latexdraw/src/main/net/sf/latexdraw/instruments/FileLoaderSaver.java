@@ -21,15 +21,13 @@ import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 
 import org.malai.action.Action;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.interaction.Interaction;
-import org.malai.interaction.library.KeysPressure;
 import org.malai.swing.action.library.IOAction;
 import org.malai.swing.instrument.WidgetInstrument;
-import org.malai.swing.interaction.library.ButtonPressed;
+import org.malai.swing.interaction.library.KeysPressure;
 import org.malai.swing.interaction.library.MenuItemPressed;
 import org.malai.swing.interaction.library.WindowClosed;
-import org.malai.swing.widget.MButton;
 import org.malai.swing.widget.MMenu;
 import org.malai.swing.widget.MMenuItem;
 import org.malai.swing.widget.MProgressBar;
@@ -69,15 +67,6 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 	/** The current file loaded or saved. */
 	protected File currentFile;
-
-	/** The button used to save documents. */
-	protected MButton saveButton;
-
-	/** The button used to load documents. */
-	protected MButton loadButton;
-
-	/** The button used to create a new document. */
-	protected MButton newButton;
 
 	/** The menu item used to save as a document. */
 	protected MMenuItem saveAsMenu;
@@ -166,20 +155,14 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 		final boolean showButtons = activated || !hide;
 		newMenu.setVisible(showButtons);
-		newButton.setVisible(showButtons);
 		saveAsMenu.setVisible(showButtons);
-		saveButton.setVisible(showButtons);
 		saveMenu.setVisible(showButtons);
-		loadButton.setVisible(showButtons);
 		loadMenu.setVisible(showButtons);
 
 		if(showButtons) {
 			newMenu.setEnabled(activated);
-			newButton.setEnabled(activated);
 			saveAsMenu.setEnabled(activated);
-			saveButton.setEnabled(activated);
 			saveMenu.setEnabled(activated);
-			loadButton.setEnabled(activated);
 			loadMenu.setEnabled(activated);
 		}
 	}
@@ -195,18 +178,6 @@ public class FileLoaderSaver extends WidgetInstrument {
 	protected void initialiseWidgets() {
 		newMenu	= new MMenuItem(LResources.LABEL_NEW, KeyEvent.VK_N);
 		newMenu.setIcon(LResources.NEW_ICON);
-
-		newButton = new MButton(LResources.NEW_ICON);
-		newButton.setMargin(LResources.INSET_BUTTON);
-		newButton.setToolTipText(LangTool.INSTANCE.getStringActions("FileLoaderSaver.4")); //$NON-NLS-1$
-
-		loadButton = new MButton(LResources.OPEN_ICON);
-		loadButton.setMargin(LResources.INSET_BUTTON);
-		loadButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.200")); //$NON-NLS-1$
-
-		saveButton = new MButton(LResources.SAVE_ICON);
-		saveButton.setMargin(LResources.INSET_BUTTON);
-		saveButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188")); //$NON-NLS-1$
 
 		loadMenu = new MMenuItem(LABEL_OPEN, KeyEvent.VK_O);
 		loadMenu.setIcon(LResources.OPEN_ICON);
@@ -238,15 +209,12 @@ public class FileLoaderSaver extends WidgetInstrument {
 		try{
 			addInteractor(new ButtonClose2SaveInteractor(this));
 			addInteractor(new Shortcut2SavePrefInteractor(this));
-			addInteractor(new Button2SaveInteractor(this));
 			addInteractor(new Menu2SaveInteractor(this));
 			addInteractor(new Shortcut2SaveInteractor(this));
 			addInteractor(new Menu2SaveAsInteractor(this));
 			addInteractor(new Menu2LoadInteractor(this));
-			addInteractor(new Button2LoadInteractor(this));
 			addInteractor(new Shortcut2LoadInteractor(this));
 			addInteractor(new Menu2NewInteractor(this));
-			addInteractor(new Button2NewInteractor(this));
 			addInteractor(new Shortcut2NewInteractor(this));
 			addInteractor(new RecentMenuItem2LoadInteractor(this));
 		}catch(InstantiationException | IllegalAccessException e){
@@ -286,20 +254,13 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 
 	/**
-	 * @return The button used to save documents.
+	 * Sets the current file loaded or saved.
+	 * @param currentFile The current file loaded or saved.
 	 * @since 3.0
 	 */
-	public MButton getSaveButton() {
-		return saveButton;
-	}
-
-
-	/**
-	 * @return The button used to load documents.
-	 * @since 3.0
-	 */
-	public MButton getLoadButton() {
-		return loadButton;
+	public void setCurrentFile(final File currentFile) {
+		if(currentFile!=null)
+			this.currentFile = currentFile;
 	}
 
 
@@ -404,13 +365,6 @@ public class FileLoaderSaver extends WidgetInstrument {
 	}
 
 	/**
-	 * @return The button used to create a new document.
-	 */
-	public MButton getNewButton() {
-		return newButton;
-	}
-
-	/**
 	 * @return The menu used to create a new document.
 	 */
 	public MMenuItem getNewMenu() {
@@ -419,7 +373,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 }
 
 
-abstract class Interaction2NewInteractor<I extends Interaction> extends Interactor<NewDrawing, I, FileLoaderSaver> {
+abstract class Interaction2NewInteractor<I extends Interaction> extends InteractorImpl<NewDrawing, I, FileLoaderSaver> {
 	protected Interaction2NewInteractor(final FileLoaderSaver ins, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, NewDrawing.class, interaction);
 	}
@@ -432,20 +386,6 @@ abstract class Interaction2NewInteractor<I extends Interaction> extends Interact
 		action.setFileChooser(instrument.getDialog(false));
 	}
 }
-
-
-
-class Button2NewInteractor extends Interaction2NewInteractor<ButtonPressed> {
-	protected Button2NewInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
-		super(fileLoader, ButtonPressed.class);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return getInteraction().getButton()==instrument.newButton;
-	}
-}
-
 
 
 class Menu2NewInteractor extends Interaction2NewInteractor<MenuItemPressed> {
@@ -616,35 +556,7 @@ class Menu2SaveInteractor extends Interaction2SaveInteractor<MenuItemPressed> {
 }
 
 
-
-/**
- * This link maps a button to a save action.
- */
-class Button2SaveInteractor extends Interaction2SaveInteractor<ButtonPressed> {
-	/**
-	 * The constructor by default.
-	 * @param fileLoader The file loader/saver;
-	 * @since 3.0
-	 */
-	protected Button2SaveInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
-		super(fileLoader, ButtonPressed.class);
-	}
-
-	@Override
-	public void initAction() {
-		super.initAction();
-		action.setSaveOnClose(false);
-		action.setSaveAs(false);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getButton()==instrument.saveButton;
-	}
-}
-
-
-abstract class Interaction2IOInteractor<A extends IOAction<LFrame, JLabel>, I extends Interaction> extends Interactor<A, I, FileLoaderSaver> {
+abstract class Interaction2IOInteractor<A extends IOAction<LFrame, JLabel>, I extends Interaction> extends InteractorImpl<A, I, FileLoaderSaver> {
 	protected Interaction2IOInteractor(final FileLoaderSaver fileLoader, final Class<A> action, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, false, action, interaction);
 	}
@@ -732,27 +644,6 @@ class Shortcut2LoadInteractor extends Interaction2LoadInteractor<KeysPressure> {
 		return keys.size()==2 && keys.contains(KeyEvent.VK_O) && keys.contains(KeyEvent.VK_CONTROL);
 	}
 }
-
-
-/**
- * This link maps a button to a load action.
- */
-class Button2LoadInteractor extends Interaction2LoadInteractor<ButtonPressed> {
-	/**
-	 * The constructor by default.
-	 * @param fileLoader The file loader/saver;
-	 * @since 3.0
-	 */
-	protected Button2LoadInteractor(final FileLoaderSaver fileLoader) throws InstantiationException, IllegalAccessException {
-		super(fileLoader, ButtonPressed.class);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getButton()==instrument.loadButton;
-	}
-}
-
 
 
 /**

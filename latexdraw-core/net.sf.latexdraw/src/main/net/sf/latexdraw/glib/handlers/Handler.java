@@ -1,11 +1,11 @@
 package net.sf.latexdraw.glib.handlers;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
@@ -38,7 +38,7 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 	protected double size;
 
 	/** The opacity of the delimiters. Can be changed. */
-	protected int opacity;
+	protected double opacity;
 
 	/** The colour of the handler. */
 	protected Color colour;
@@ -52,9 +52,9 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 	 */
     protected Handler() {
 		super();
-		opacity	= 100;
+		opacity	= 0.4;
 		size   	= DEFAULT_SIZE;
-		colour 	= new Color(0, 0, 0, opacity);
+		colour 	= ShapeFactory.createColor(0, 0, 0, opacity);
 		point  	= ShapeFactory.createPoint();
 	}
 
@@ -89,7 +89,7 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 	public void paint(final Graphics2D g) {
 		if(g==null) return ;
 
-		g.setColor(colour);
+		g.setColor(colour.toAWT());
 		g.fill(shape);
 	}
 
@@ -99,9 +99,7 @@ abstract class Handler<T extends Shape, S extends IShape> implements IHandler<S>
 	 */
 	@Override
 	public void update(final S model, final double zoom) {
-		if(opacity!=colour.getTransparency())
-			colour = new Color(colour.getRed(), colour.getGreen(),colour.getBlue(), opacity);
-
+		colour.setO(opacity);
 		updateShape();
 	}
 

@@ -1,15 +1,17 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import java.awt.Color;
 import java.awt.geom.Point2D;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 /**
  * This class contains several constants of pstricks<br>
@@ -103,10 +105,10 @@ public final class PSTricksConstants {
 	public static final PlottingStyle DEFAULT_TICKS_DISPLAYED = PlottingStyle.ALL;
 
 	/** The first colour of a gradient by default. */
-	public static final Color DEFAULT_GRADIENT_START_COLOR = new Color(0, (int)(.1*255), (int)(.95*255));
+	public static final Color DEFAULT_GRADIENT_START_COLOR = ShapeFactory.createColor(0.0, 0.1, 0.95, 1.0);
 
 	/** The second color of a gradient by default. */
-	public static final Color DEFAULT_GRADIENT_END_COLOR   = new Color(0, 255, 255);
+	public static final Color DEFAULT_GRADIENT_END_COLOR   = ShapeFactory.createColor(0.0, 1.0, 1.0, 1.0);
 
 	/** The position of the midpoint, as a fraction of the distance from
 		top to bottom. Should be between 0 and 1. */
@@ -287,7 +289,7 @@ public final class PSTricksConstants {
 	public static final double DEFAULT_SUB_GRID_WIDTH = 0.4/CM_VAL_PT;
 
 	/** The colour of the sub grid by default */
-	public static final Color DEFAULT_SUB_GRID_COLOR = Color.GRAY;
+	public static final Color DEFAULT_SUB_GRID_COLOR = DviPsColors.GRAY;
 
 	/** The dimensions of the figure are with reference to the inner boundary. */
 	public static final String BORDERS_INSIDE = "outer"; //$NON-NLS-1$
@@ -302,22 +304,22 @@ public final class PSTricksConstants {
 	public static final BorderPos DEFAULT_BORDERS_POS = BorderPos.INTO;
 
 	/** The colour of the double boundary of the figure by default */
-	public static final Color DEFAULT_DOUBLE_COLOR = Color.WHITE;
+	public static final Color DEFAULT_DOUBLE_COLOR = DviPsColors.WHITE;
 
 	/** The colour of the hatching of the figure by default */
-	public static final Color DEFAULT_HATCHING_COLOR = Color.BLACK;
+	public static final Color DEFAULT_HATCHING_COLOR = DviPsColors.BLACK;
 
 	/** The colour of the interior of the figure by default */
-	public static final Color DEFAULT_INTERIOR_COLOR = Color.WHITE;
+	public static final Color DEFAULT_INTERIOR_COLOR = DviPsColors.WHITE;
 
 	/** The colour of the borders of the figure by default */
-	public static final Color DEFAULT_LINE_COLOR = Color.BLACK;
+	public static final Color DEFAULT_LINE_COLOR = DviPsColors.BLACK;
 
 	/** The colour of the labels by default */
-	public static final Color DEFAULT_LABELGRIDCOLOR = Color.BLACK;
+	public static final Color DEFAULT_LABELGRIDCOLOR = DviPsColors.BLACK;
 
 	/** The colour of the grid by default */
-	public static final Color DEFAULT_GRIDCOLOR = Color.BLACK;
+	public static final Color DEFAULT_GRIDCOLOR = DviPsColors.BLACK;
 
 	/** The number of division in a sub-grid by default */
 	public static final int DEFAULT_SUBGRIDDIV = 5;
@@ -365,7 +367,7 @@ public final class PSTricksConstants {
 	public static final double DEFAULT_BORDER = 0.;
 
 	/** The colour by default of the border */
-	public static final Color DEFAULT_BORDER_COLOR = Color.WHITE;
+	public static final Color DEFAULT_BORDER_COLOR = DviPsColors.WHITE;
 
 	/** Is a double line by default */
 	public static final boolean DEFAULT_DOUBLE_LINE = false;
@@ -383,13 +385,13 @@ public final class PSTricksConstants {
 	public static final double DEFAULT_SHADOW_ANGLE = -45;
 
 	/** The colour of the shadow by default */
-	public static final Color DEFAULT_SHADOW_COLOR = Color.DARK_GRAY;
+	public static final Color DEFAULT_SHADOW_COLOR = DviPsColors.DARKGRAY;
 
 	/** The type of the fill by default */
 	public static final FillingStyle DEFAULT_FILL_STYLE = FillingStyle.NONE;
 
 	/** The colour of the filling */
-	public static final Color DEFAULT_FILL_COLOR = Color.WHITE;
+	public static final Color DEFAULT_FILL_COLOR = DviPsColors.WHITE;
 
 	/** The width of the hatching in cm */
 	public static final double DEFAULT_HATCH_WIDTH = 0.8/CM_VAL_PT;

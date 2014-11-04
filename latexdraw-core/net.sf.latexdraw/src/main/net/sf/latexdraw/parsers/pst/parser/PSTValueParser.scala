@@ -1,7 +1,5 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import java.awt.Color
-
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
@@ -9,6 +7,8 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import java.util.Optional
 
 
 /**
@@ -313,7 +313,7 @@ trait PSTValueParser extends PSTNumberParser {
 					}
 				case identPattern(_) =>
 					DviPsColors.INSTANCE.getColour(value) match {
-						case col : Color => Some(col)
+						case col:Optional[Color] => Some(col.get)
 						case _ => PSTParser.errorLogs += "The following colour is unknown: " + value; None
 					}
 				case _ => None

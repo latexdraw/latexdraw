@@ -1,7 +1,6 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
-import java.awt.Color;
-
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 /**

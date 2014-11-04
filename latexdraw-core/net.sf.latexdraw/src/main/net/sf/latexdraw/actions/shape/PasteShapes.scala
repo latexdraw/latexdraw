@@ -1,18 +1,15 @@
 package net.sf.latexdraw.actions.shape
 
 import java.util.ArrayList
-
 import scala.collection.JavaConversions.asScalaBuffer
-
 import org.malai.action.Action
 import org.malai.undo.Undoable
-
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.ui.LMagneticGrid
 import net.sf.latexdraw.util.LResources
+import net.sf.latexdraw.glib.views.MagneticGrid
 
 /**
  * This action pastes the copied or cut shapes.<br>
@@ -37,7 +34,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 	var _copy : CopyShapes = _
 
 	/** The magnetic grid to use. */
-	var _grid : LMagneticGrid = _
+	var _grid : MagneticGrid = _
 
 	var pastedShapes : List[IShape] = Nil
 
@@ -123,7 +120,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 	def copy = _copy
 
 	/** Sets the magnetic grisd to use. */
-	def setGrid(grid:LMagneticGrid) {
+	def setGrid(grid:MagneticGrid) {
 		_grid = grid
 	}
 }

@@ -32,6 +32,49 @@ trait IShapeFactory {
 	 */
 	def newShape[T <: IShape](shapeClass : java.lang.Class[T]) : Option[T]
 
+	
+	/**
+	 * Creates a color from an JavaFX color.
+	 */
+	def createColorFX(col:javafx.scene.paint.Color):Color
+	
+	/**
+	 * Creates a color from an AWT color.
+	 */
+	def createColorAWT(col:java.awt.Color):Color
+	
+	/**
+	 * Creates a color following the HSB format.
+	 */
+	def createColorHSB(h:Double, s:Double, b:Double):Color
+	
+	
+	def createColorInt(r:Int, g:Int, b:Int, a:Int) : Color
+	
+	def createColorInt(r:Int, g:Int, b:Int) : Color
+	
+	/**
+	 * Creates a colour.
+	 * @param r Red
+	 * @param g Green
+	 * @param b Blue
+	 * @param o Opacity
+	 */	
+	def createColor(r:Double, g:Double, b:Double, o:Double) : Color
+	
+	/**
+	 * Creates a colour.
+	 * @param r Red
+	 * @param g Green
+	 * @param b Blue 
+	 */
+	def createColor(r:Double, g:Double, b:Double) : Color
+	
+	/**
+	 * Creates a colour (1,1,1,1) 
+	 */
+	def createColor(): Color
+	
 	/**
 	 * @return The created drawing.
 	 * @since 3.0

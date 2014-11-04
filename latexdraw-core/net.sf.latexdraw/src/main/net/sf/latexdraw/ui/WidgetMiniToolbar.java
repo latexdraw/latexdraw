@@ -287,9 +287,9 @@ public class WidgetMiniToolbar extends JButton implements ActionListener, Window
 			ys[2] = TRIANGLE_GAP;
 		}
 
-		g.setColor(Color.red);
+		g.setColor(Color.RED);
 		g.fillPolygon(xs, ys, TRIANGLE_NB_POINT);
-		g.setColor(Color.black);
+		g.setColor(Color.BLACK);
 		g.drawPolygon(xs, ys, TRIANGLE_NB_POINT);
 	}
 

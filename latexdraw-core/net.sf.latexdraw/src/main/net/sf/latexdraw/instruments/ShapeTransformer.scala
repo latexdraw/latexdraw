@@ -13,6 +13,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.util.LResources
 import org.malai.instrument.Interactor
+import org.malai.instrument.InteractorImpl
 
 /**
  * This instrument transforms (mirror, etc.) the selected shapes.<br>
@@ -199,7 +200,7 @@ class ShapeTransformer(composer:SwingUIComposer[_], hand:Hand, pencil:Pencil, va
 /**
  * Maps a button interaction with an action that aligns the selected shapes.
  */
-private sealed class Button2Align(ins:ShapeTransformer) extends Interactor[AlignShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[AlignShapes], classOf[ButtonPressed]) {
+private sealed class Button2Align(ins:ShapeTransformer) extends InteractorImpl[AlignShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[AlignShapes], classOf[ButtonPressed]) {
 	override def initAction() {
 		val but = interaction.getButton
 
@@ -223,7 +224,7 @@ private sealed class Button2Align(ins:ShapeTransformer) extends Interactor[Align
 /**
  * Maps a button interaction with an action that distributes the selected shapes.
  */
-private sealed class Button2Distribute(ins:ShapeTransformer) extends Interactor[DistributeShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[DistributeShapes], classOf[ButtonPressed]) {
+private sealed class Button2Distribute(ins:ShapeTransformer) extends InteractorImpl[DistributeShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[DistributeShapes], classOf[ButtonPressed]) {
 	override def initAction() {
 		val but = interaction.getButton
 
@@ -249,7 +250,7 @@ private sealed class Button2Distribute(ins:ShapeTransformer) extends Interactor[
 /**
  * Maps a button interaction with an action that mirrors the selected shapes.
  */
-private sealed class Button2Mirror(ins:ShapeTransformer) extends Interactor[MirrorShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[MirrorShapes], classOf[ButtonPressed]) {
+private sealed class Button2Mirror(ins:ShapeTransformer) extends InteractorImpl[MirrorShapes, ButtonPressed, ShapeTransformer](ins, false, classOf[MirrorShapes], classOf[ButtonPressed]) {
 	override def initAction() {
 		action.setShape(instrument.pencil.canvas.getDrawing.getSelection.duplicateDeep(false))
 		action.setHorizontally(interaction.getButton==instrument._mirrorH)

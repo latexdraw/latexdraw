@@ -31,7 +31,7 @@ import net.sf.latexdraw.util.LResources;
  * @since 3.0
  */
 public class PSTCodeGenerator extends LaTeXGenerator {
-	public static final String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + LResources.EOL +//$NON-NLS-1$
+	static final String PACKAGE_PSTRICKS = "% \\usepackage[usenames,dvipsnames]{pstricks}" + LResources.EOL +//$NON-NLS-1$
 										"% \\usepackage{epsfig}" + LResources.EOL + "% \\usepackage{pst-grad} % For gradients" +//$NON-NLS-1$//$NON-NLS-2$
 										LResources.EOL + "% \\usepackage{pst-plot} % For axes" + LResources.EOL; //$NON-NLS-1$
 
@@ -185,7 +185,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	private void generateColourCode(final PSTShapeView<?> pstView, final Map<String, String> addedColours) {
 		if(pstView.coloursName!=null)
 			for(final String nameColour : pstView.coloursName)
-				if(addedColours.get(nameColour)==null && DviPsColors.INSTANCE.getPredefinedColour(nameColour)==null) {
+				if(addedColours.get(nameColour)==null && !DviPsColors.INSTANCE.getPredefinedColour(nameColour).isPresent()) {
 					addedColours.put(nameColour, nameColour);
 					cache.append(DviPsColors.INSTANCE.getUsercolourCode(nameColour)).append(LResources.EOL);
 				}

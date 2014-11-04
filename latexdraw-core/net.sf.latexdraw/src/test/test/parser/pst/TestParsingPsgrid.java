@@ -1,12 +1,14 @@
 package test.parser.pst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import java.awt.Color;
 import java.text.ParseException;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
@@ -96,7 +98,7 @@ public class TestParsingPsgrid extends TestPSTParser {
 	@Test
 	public void testSubGridLabelColor() throws ParseException {
 		IGrid grid = (IGrid)parser.parsePSTCode("\\"+getCommandName()+"[subgridcolor=green]" +getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(Color.GREEN, grid.getSubGridColour());
+		assertEquals(DviPsColors.GREEN, grid.getSubGridColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -104,7 +106,7 @@ public class TestParsingPsgrid extends TestPSTParser {
 	@Test
 	public void testGridLabelColor() throws ParseException {
 		IGrid grid = (IGrid)parser.parsePSTCode("\\"+getCommandName()+"[gridlabelcolor=green]" +getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(Color.GREEN, grid.getGridLabelsColour());
+		assertEquals(DviPsColors.GREEN, grid.getGridLabelsColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
@@ -112,7 +114,7 @@ public class TestParsingPsgrid extends TestPSTParser {
 	@Test
 	public void testGridColor() throws ParseException {
 		IGrid grid = (IGrid)parser.parsePSTCode("\\"+getCommandName()+"[gridcolor=green]" +getBasicCoordinates()).get().getShapeAt(0); //$NON-NLS-1$ //$NON-NLS-2$
-		assertEquals(Color.GREEN, grid.getLineColour());
+		assertEquals(DviPsColors.GREEN, grid.getLineColour());
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 

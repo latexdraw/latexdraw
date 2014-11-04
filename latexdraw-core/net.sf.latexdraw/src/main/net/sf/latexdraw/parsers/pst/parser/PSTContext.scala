@@ -1,7 +1,7 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import java.awt.geom.Point2D
-import java.awt.Color
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot
@@ -12,6 +12,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import scala.collection.mutable.MutableList
 import net.sf.latexdraw.glib.models.ShapeFactory
 
+import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
  * The different kinds of font shapes.
@@ -158,7 +159,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.A
 			PSTricksConstants.DEFAULT_SWAP_AXES, PSTricksConstants.DEFAULT_SHADOW_COLOR, PSTricksConstants.DEFAULT_SUB_GRID_COLOR,
 			PSTricksConstants.DEFAULT_SHADOW_ANGLE, PSTricksConstants.DEFAULT_SHADOW_SIZE, PSTricksConstants.DEFAULT_SUBGRIDDOTS,
 			PSTricksConstants.DEFAULT_SUBGRIDDIV, PSTricksConstants.DEFAULT_TICKS_DISPLAYED, PSTricksConstants.DEFAULT_TICKS_STYLE,
-			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, Color.BLACK,
+			PSTricksConstants.DEFAULT_TICKS_SIZE, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, PSTricksConstants.DEFAULT_UNIT, DviPsColors.BLACK,
 			PSTricksConstants.DEFAULT_SHADOW, PSTricksConstants.DEFAULT_LABELGRIDCOLOR, false, ShapeFactory.createPoint,
 			ShapeFactory.createPoint, "", "line", 50, PSTricksConstants.DEFAULT_FILL_STYLE, 0, psCustom, "", 0, true,
 			fontShape.normal, fontSerie.normal, fontFamily.rm, ShapeFactory.createPoint, 1.0, 1.0, false)

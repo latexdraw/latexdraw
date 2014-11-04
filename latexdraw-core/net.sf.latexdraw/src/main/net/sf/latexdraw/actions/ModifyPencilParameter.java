@@ -1,6 +1,6 @@
 package net.sf.latexdraw.actions;
 
-import java.awt.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.sf.latexdraw.glib.views.jfx.ui.Frame">
+	<center>
+		<TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+			<tabs>
+				<Tab closable="false" text="%UIBuilder.1">
+					<content>
+						<BorderPane>
+							<center>
+								<SplitPane dividerPositions="0.85" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+									<items>
+										<BorderPane>
+											<center>
+												<ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
+													<content><fx:include fx:id="canvas" source="Canvas.fxml" /></content>
+												</ScrollPane>
+											</center>
+										</BorderPane>
+										<BorderPane maxWidth="250.0" minWidth="250.0">
+											<center>
+												<Accordion maxWidth="250.0" minWidth="250.0" BorderPane.alignment="CENTER">
+													<panes>
+														<fx:include source="LineStyle.fxml" />
+														<fx:include source="FillingStyle.fxml" />
+														<fx:include source="ShadowStyle.fxml" />
+														<fx:include source="DoubleLineStyle.fxml" />
+														<fx:include source="ArrowStyle.fxml" />
+														<TitledPane animated="true" text="Shape Transformation">
+															<content>
+																<AnchorPane />
+															</content>
+														</TitledPane>
+														<TitledPane animated="true" text="%LaTeXDrawFrame.103">
+															<content>
+																<AnchorPane />
+															</content>
+														</TitledPane>
+													</panes>
+												</Accordion>
+											</center>
+										</BorderPane>
+									</items>
+								</SplitPane>
+							</center>
+						</BorderPane>
+					</content>
+				</Tab>
+				<Tab closable="false" text="PST">
+					<content>
+						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+					</content>
+				</Tab>
+			</tabs>
+		</TabPane>
+	</center>
+	<top>
+		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+			<items>
+				<MenuButton mnemonicParsing="false" style="-fx-padding: 0 0 0 0">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.91" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/New.png" /></image></ImageView></graphic>
+					<items>
+						<MenuItem id="newMenu" mnemonicParsing="false" text="%Res.2">
+							<graphic><ImageView><image><Image url="@/res/New.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<MenuItem id="loadMenu" mnemonicParsing="false" text="%FileLoaderSaver.3">
+							<graphic><ImageView><image><Image url="@/res/document-open.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<MenuItem id="saveMenu" mnemonicParsing="false" text="%FileLoaderSaver.1">
+							<graphic><ImageView><image><Image url="@/res/document-save.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<MenuItem id="saveAsMenu" mnemonicParsing="false" text="%FileLoaderSaver.2">
+							<graphic><ImageView><image><Image url="@/res/document-save-as.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<Menu id="recentFilesMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.0b" />
+						<SeparatorMenuItem mnemonicParsing="false" />
+						<Menu mnemonicParsing="false" text="%MenuBuilder.1">
+							<items>
+								<RadioMenuItem id="unitCmItem" mnemonicParsing="false" text="%XScale.cm" />
+								<RadioMenuItem id="unitInchItem" mnemonicParsing="false" text="%XScale.inch" />
+							</items>
+						</Menu>
+					</items>
+				</MenuButton>
+				<MenuButton mnemonicParsing="false">
+					<graphic><ImageView><image><Image url="@/res/Cut.png" /></image></ImageView></graphic>
+					<tooltip><Tooltip text="%LaTeXDrawFrame.89" /></tooltip>
+					<items>
+						<MenuItem id="cutMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.44">
+							<graphic><ImageView><image><Image url="@/res/Copy.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<MenuItem id="pasteMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.43">
+							<graphic><ImageView><image><Image url="@/res/Cut.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<MenuItem id="copyMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.40">
+							<graphic><ImageView><image><Image url="@/res/Paste.png" /></image></ImageView></graphic>
+						</MenuItem>
+					</items>
+				</MenuButton>
+				<MenuButton id="exportMenu" mnemonicParsing="false">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.16b" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/pdf.png" /></image></ImageView></graphic>
+					<items>
+						<MenuItem id="menuItemPDF" mnemonicParsing="false" text="%Exporter.3" />
+						<MenuItem id="menuItemPDFcrop" mnemonicParsing="false" text="%Exporter.4" />
+						<MenuItem id="menuItemEPSLatex" mnemonicParsing="false" text="%Exporter.2" />
+						<MenuItem id="menuItemPST" mnemonicParsing="false" text="%LaTeXDrawFrame.19" />
+						<MenuItem id="menuItemJPG" mnemonicParsing="false" text="%LaTeXDrawFrame.20" />
+						<MenuItem id="menuItemPNG" mnemonicParsing="false" text="%LaTeXDrawFrame.7" />
+						<MenuItem id="menuItemBMP" mnemonicParsing="false" text="%LaTeXDrawFrame.6" />
+						<MenuItem id="exportTemplateMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.103" />
+					</items>
+				</MenuButton>
+				<TextField prefHeight="25.0" prefWidth="60.0" />
+				<ToggleButton id="handB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4">
+					<graphic><ImageView><image><Image url="@/res/select.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="deleteB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<graphic><ImageView><image><Image url="@/res/del.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="textB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.60" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/text.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="plotB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4">
+					<tooltip><Tooltip text="%Instruments.5" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/plot.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="gridB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.133" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/grid.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="axesB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.17" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/axes.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="linesB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%Instruments.4" /></tooltip>
+					<graphic><ImageView><image><Image  url="@/res/joinedLines.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="recB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.119" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/rectangle.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="squareB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.120" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/square.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="ellipseB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.125" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/ellipse.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="circleB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.127" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/circle.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="polygonB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.121" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/polygon.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="rhombusB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.123" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/rhombus.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="triangleB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.124" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/triangle.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="bezierClosedB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.11" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/closedBezier.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="bezierB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.132" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/bezierCurve.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="arcB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.128" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/Arc.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="freeHandB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.7" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/Draw.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="dotB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.117" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/dot.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="picB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.1" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/image-x-generic.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="codeB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.0" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/texEditor.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<ToggleButton id="prefB" mnemonicParsing="false" >
+					<tooltip><Tooltip text="%LaTeXDrawFrame.56" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/preferences-system.png" /></image></ImageView></graphic>
+				</ToggleButton>
+				<Button id="exceptionB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+					<tooltip><Tooltip text="%LaTeXDrawFrame.117" /></tooltip>
+					<graphic><ImageView><image><Image url="@/res/emblem-unreadable.png" /></image></ImageView></graphic>
+				</Button>
+				<MenuButton mnemonicParsing="false">
+					<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+					<items>
+						<MenuItem id="shortcutItem" mnemonicParsing="false" text="%LaTeXDrawFrame.3c">
+							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<MenuItem id="donateItem" mnemonicParsing="false" text="%Helper.1">
+							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<MenuItem id="manuelItem" mnemonicParsing="false" text="%Helper.4">
+							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<MenuItem id="reportBugItem" mnemonicParsing="false" text="%Helper.2">
+							<graphic><ImageView><image><Image url="@/res/emblem-unreadable.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<MenuItem id="forumItem" mnemonicParsing="false" text="%Helper.3">
+							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+						</MenuItem>
+						<SeparatorMenuItem mnemonicParsing="false" />
+						<MenuItem id="aboutItem" mnemonicParsing="false" text="%Res.1">
+							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
+						</MenuItem>
+					</items>
+				</MenuButton>
+			</items>
+		</ToolBar>
+	</top>
+</BorderPane>

@@ -3,7 +3,6 @@ package net.sf.latexdraw.instruments;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +16,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -29,8 +27,7 @@ import net.sf.latexdraw.actions.WritePreferences;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.ui.LCanvas;
-import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
+import net.sf.latexdraw.glib.views.GridStyle;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LFrame;
 import net.sf.latexdraw.ui.ScaleRuler;
@@ -38,11 +35,10 @@ import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LSystem;
-import net.sf.latexdraw.util.Theme;
 import net.sf.latexdraw.util.VersionChecker;
 
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
+import org.malai.swing.instrument.SwingInstrument;
 import org.malai.swing.interaction.library.WindowClosed;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MComboBox;
@@ -76,18 +72,9 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PreferencesSetter extends Instrument {//TODO a composer for the preferences frame and WidgetInstrument inheritance
+public class PreferencesSetter extends SwingInstrument {
 	/** The file chooser of paths selection. */
 	protected JFileChooser fileChooser;
-
-	/** This check-box allows to set if antialiasing must be used. */
-	protected MCheckBox antialiasingCheckBox;
-
-	/** This check-box allows to set if rendering quality must be used. */
-	protected MCheckBox renderingCheckBox;
-
-	/** This check-box allows to set if colour rendering quality must be used. */
-	protected MCheckBox colorRenderCheckBox;
 
 	/** This check-box allows to set if the user wants to display the grid. */
 	protected MCheckBox displayGridCB;
@@ -95,17 +82,8 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	/** The widget that defines if the grid is magnetic. */
 	protected MCheckBox magneticGridCB;
 
-	/** This check-box allows to set if the user wants to display the X-scale. */
-	protected MCheckBox displayXScaleCB;
-
-	/** This check-box allows to set if the user wants to display the Y-scale. */
-	protected MCheckBox displayYScaleCB;
-
 	/** Allows the set if the program must check new version on start up. */
 	protected MCheckBox checkNewVersion;
-
-	/** This check-box allows to set if alpha-interpolation must be used. */
-	protected MCheckBox alpaInterCheckBox;
 
 	/** This textField allows to set the default directories for open/save actions. */
 	protected MTextField pathOpenField;
@@ -118,9 +96,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 	/** Allows to set the unit of length by default. */
 	protected MComboBox<String> unitChoice;
-
-	/** The list that contains the supported theme. */
-	protected MComboBox<String> themeList;
 
 	/** The list that contains the supported languages. */
 	protected MComboBox<String> langList;
@@ -198,21 +173,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		nbRecentFilesField.setEditor(new JSpinner.NumberEditor(nbRecentFilesField, "0"));//$NON-NLS-1$
   		nbRecentFilesField.setMaximumSize(new Dimension(60, height));
 
-  		final UIManager.LookAndFeelInfo[] info = UIManager.getInstalledLookAndFeels();
-  		final String[] nameThemes = new String[info.length];
-  		final String lnf = Theme.lookAndFeel();
-  		String nameLnf = null;
-
-  		for(int i=0; i<info.length;i++) {
-  			nameThemes[i] = info[i].getName();
-  			if(info[i].getClassName().equals(lnf))
-  				nameLnf = nameThemes[i];
-  		}
-
-  		themeList = new MComboBox<>(nameThemes, new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.1"))); //$NON-NLS-1$
-  		themeList.setMaximumSize(new Dimension(160, height));
-  		if(nameLnf!=null)
-  			themeList.setSelectedItem(nameLnf);
+		//LangTool.INSTANCE.getString19("PreferencesFrame.1"))); //FIXME clean
 
   		classicGridRB  		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.4")); //$NON-NLS-1$
   		classicGridRB.setSelected(false);
@@ -229,10 +190,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
      	persoGridGapField.setEditor(new JSpinner.NumberEditor(persoGridGapField, "0"));//$NON-NLS-1$
      	persoGridGapField.setMaximumSize(new Dimension(60, height));
 
-  		displayXScaleCB    	= new MCheckBox(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.38"));//$NON-NLS-1$
-  		displayXScaleCB.setSelected(true);
-  		displayYScaleCB    	= new MCheckBox(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.39"));//$NON-NLS-1$
-  		displayYScaleCB.setSelected(true);
   		unitChoice 		   	= new MComboBox<>();
   		unitChoice.addItem(Unit.CM.getLabel());
   		unitChoice.addItem(Unit.INCH.getLabel());
@@ -242,14 +199,11 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		pathExportField  	= new MTextField();
   		pathOpenField    	= new MTextField();
 
-  		antialiasingCheckBox = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.antiAl"));//$NON-NLS-1$
-  		renderingCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.rendQ"));//$NON-NLS-1$
-  		colorRenderCheckBox  = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.colRendQ"));//$NON-NLS-1$
-  		alpaInterCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.AlphaQ"));//$NON-NLS-1$
-  		antialiasingCheckBox.setSelected(true);
-  		renderingCheckBox.setSelected(true);
-  		colorRenderCheckBox.setSelected(true);
-  		alpaInterCheckBox.setSelected(true);
+  		//FIXME clean
+//  		antialiasingCheckBox = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.antiAl"));//$NON-NLS-1$
+//  		renderingCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.rendQ"));//$NON-NLS-1$
+//  		colorRenderCheckBox  = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.colRendQ"));//$NON-NLS-1$
+//  		alpaInterCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.AlphaQ"));//$NON-NLS-1$
 	}
 
 
@@ -298,27 +252,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 
 	/**
-	 * @return The check-box that allows to set if antialiasing must be used.
-	 */
-	public MCheckBox getAntialiasingCheckBox() {
-		return antialiasingCheckBox;
-	}
-
-	/**
-	 * @return The check-box that allows to set if rendering quality must be used.
-	 */
-	public MCheckBox getRenderingCheckBox() {
-		return renderingCheckBox;
-	}
-
-	/**
-	 * @return The check-box that allows to set if colour rendering quality must be used.
-	 */
-	public MCheckBox getColorRenderCheckBox() {
-		return colorRenderCheckBox;
-	}
-
-	/**
 	 * @return The check-box that allows to set if the user wants to display the grid.
 	 */
 	public MCheckBox getDisplayGridCB() {
@@ -332,33 +265,12 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		return magneticGridCB;
 	}
 
-	/**
-	 * @return This check-box allows to set if the user wants to display the X-scale.
-	 */
-	public MCheckBox getDisplayXScaleCB() {
-		return displayXScaleCB;
-	}
-
-	/**
-	 * @return This check-box allows to set if the user wants to display the Y-scale.
-	 */
-	public MCheckBox getDisplayYScaleCB() {
-		return displayYScaleCB;
-	}
-
 
 	/**
 	 * @return The widget used to set if the program must check new version on start up.
 	 */
 	public MCheckBox getCheckNewVersion() {
 		return checkNewVersion;
-	}
-
-	/**
-	 * @return This check-box allows to set if alpha-interpolation must be used.
-	 */
-	public MCheckBox getAlpaInterCheckBox() {
-		return alpaInterCheckBox;
 	}
 
 	/**
@@ -387,13 +299,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	 */
 	public MComboBox<String> getUnitChoice() {
 		return unitChoice;
-	}
-
-	/**
-	 * @return The list that contains the supported theme.
-	 */
-	public MComboBox<String> getThemeList() {
-		return themeList;
 	}
 
 	/**
@@ -439,12 +344,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		node = prefMap.get(LNamespace.XML_LATEX_INCLUDES);
 		if(node!=null) latexIncludes.setText(node.getTextContent());
 
-		node = prefMap.get(LNamespace.XML_ALPHA_INTER);
-		if(node!=null) alpaInterCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_ANTI_ALIAS);
-		if(node!=null) antialiasingCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
 		node = prefMap.get(LNamespace.XML_CHECK_VERSION);
 		if(node!=null) checkNewVersion.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
@@ -454,38 +353,11 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 			persoGridRB.setSelected(!Boolean.parseBoolean(node.getTextContent()));
 		}
 
-		node = prefMap.get(LNamespace.XML_COLOR_RENDERING);
-		if(node!=null) colorRenderCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
 		node = prefMap.get(LNamespace.XML_DISPLAY_GRID);
 		if(node!=null) displayGridCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
-		node = prefMap.get(LNamespace.XML_DISPLAY_X);
-		if(node!=null) displayXScaleCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_DISPLAY_Y);
-		if(node!=null) displayYScaleCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
-
 		node = prefMap.get(LNamespace.XML_GRID_GAP);
 		if(node!=null) persoGridGapField.setValueSafely(Integer.valueOf(node.getTextContent()));
-
-		node = prefMap.get(LNamespace.XML_LAF);
-		if(node!=null) {
-			final String nodeText = node.getTextContent();
-			final int count = themeList.getItemCount();
-			int j=0;
-			boolean again = true;
-
-			while(j<count && again)
-				if(themeList.getItemAt(j).equals(nodeText))
-					again = false;
-				else
-					j++;
-
-			if(again)
-				 themeList.setSelectedItem(UIManager.getCrossPlatformLookAndFeelClassName());
-			else themeList.setSelectedIndex(j);
-		}
 
 		node = prefMap.get(LNamespace.XML_LANG);
 		if(node!=null) langList.setSelectedItemSafely(node.getTextContent());
@@ -498,9 +370,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		node = prefMap.get(LNamespace.XML_PATH_OPEN);
 		if(node!=null) pathOpenField.setText(node.getTextContent());
-
-		node = prefMap.get(LNamespace.XML_RENDERING);
-		if(node!=null) renderingCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_UNIT);
 		if(node!=null) unitChoice.setSelectedItemSafely(node.getTextContent());
@@ -580,7 +449,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		final MagneticGridCustomiser gridCust 	= frame.getGridCustomiser();
 		final ScaleRulersCustomiser scaleCust 	= frame.getScaleRulersCustomiser();
 		final FileLoaderSaver saver 			= frame.getFileLoader();
-		final LCanvas canvas					= frame.getCanvas();
 		final Dimension dim 					= LSystem.INSTANCE.getScreenDimension();
 		final Rectangle rec 					= frame.getGraphicsConfiguration().getBounds();
 		final GridStyle gridStyle;
@@ -592,19 +460,11 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		gridCust.grid.setStyle(gridStyle);
 		gridCust.grid.setMagnetic(magneticGridCB.isSelected());
 		gridCust.grid.setGridSpacing(Integer.parseInt(persoGridGapField.getValue().toString()));
-		canvas.setAlphaInterpolation(alpaInterCheckBox.isSelected() ? RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY : RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
-		canvas.setAntiAliasing(antialiasingCheckBox.isSelected() ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
-		canvas.setColorRendering(colorRenderCheckBox.isSelected() ? RenderingHints.VALUE_COLOR_RENDER_QUALITY : RenderingHints.VALUE_COLOR_RENDER_SPEED);
-		canvas.setRendering(renderingCheckBox.isSelected() ? RenderingHints.VALUE_RENDER_QUALITY : RenderingHints.VALUE_RENDER_SPEED);
 		exporter.setDefaultPackages(latexIncludes.getText());
 		exporter.setPathExport(pathExportField.getText());
 		gridCust.gridSpacing.setValueSafely(persoGridGapField.getValue());
 		gridCust.magneticCB.setSelected(magneticGridCB.isSelected());
 		gridCust.styleList.setSelectedItemSafely(gridStyle.getLabel());
-		scaleCust.xRuler.setVisible(displayXScaleCB.isSelected());
-		scaleCust.yRuler.setVisible(displayYScaleCB.isSelected());
-		scaleCust.xRulerItem.setSelected(displayXScaleCB.isSelected());
-		scaleCust.yRulerItem.setSelected(displayYScaleCB.isSelected());
 		scaleCust.unitCmItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.CM.getLabel()));
 		scaleCust.unitInchItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.INCH.getLabel()));
 		saver.setPathSave(pathOpenField.getText());
@@ -645,22 +505,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		        attr.setTextContent(VersionChecker.VERSION);
 		        root.setAttributeNode(attr);
 
-		        elt = document.createElement(LNamespace.XML_RENDERING);
-		        elt.setTextContent(String.valueOf(renderingCheckBox.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_COLOR_RENDERING);
-		        elt.setTextContent(String.valueOf(colorRenderCheckBox.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_ALPHA_INTER);
-		        elt.setTextContent(String.valueOf(alpaInterCheckBox.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_ANTI_ALIAS);
-		        elt.setTextContent(String.valueOf(antialiasingCheckBox.isSelected()));
-		        root.appendChild(elt);
-
 		        elt = document.createElement(LNamespace.XML_PATH_EXPORT);
 		        elt.setTextContent(pathExportField.getText());
 		        root.appendChild(elt);
@@ -671,14 +515,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 
 		        elt = document.createElement(LNamespace.XML_DISPLAY_GRID);
 		        elt.setTextContent(String.valueOf(displayGridCB.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_DISPLAY_X);
-		        elt.setTextContent(String.valueOf(displayXScaleCB.isSelected()));
-		        root.appendChild(elt);
-
-		        elt = document.createElement(LNamespace.XML_DISPLAY_Y);
-		        elt.setTextContent(String.valueOf(displayYScaleCB.isSelected()));
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_UNIT);
@@ -718,10 +554,6 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		            elt2.setTextContent(recentFile);
 		            elt.appendChild(elt2);
 		        }
-
-		        elt = document.createElement(LNamespace.XML_LAF);
-		        elt.setTextContent(themeList.getSelectedItem().toString());
-		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_MAXIMISED);
 		        elt.setTextContent(String.valueOf(frame.getExtendedState()==Frame.MAXIMIZED_BOTH));
@@ -803,7 +635,7 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 /**
  * This link maps a pressure on the close button of the preferences frame to an action saving the preferences.
  */
-class CloseFrame2SavePreferences extends Interactor<WritePreferences, WindowClosed, PreferencesSetter> {
+class CloseFrame2SavePreferences extends InteractorImpl<WritePreferences, WindowClosed, PreferencesSetter> {
 	/**
 	 * Creates the link.
 	 */

@@ -4,7 +4,6 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -18,11 +17,12 @@ import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.util.LNumber;
 
 /**
@@ -354,7 +354,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 		final IPoint vectorTrans = beginRotation(g);
 
 		g.setStroke(getStroke());
-		g.setColor(shape.getLineColour());
+		g.setColor(shape.getLineColour().toAWT());
 		g.draw(path);
 		g.setStroke(new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
 		g.draw(pathTicks);
@@ -363,7 +363,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 			paintArrows(g, false);
 
 		if(shape.getLabelsDisplayed()!=PlottingStyle.NONE) {
-			g.setColor(Color.BLACK);
+			g.setColor(java.awt.Color.BLACK);
 			g.fill(pathLabels);
 		}
 
