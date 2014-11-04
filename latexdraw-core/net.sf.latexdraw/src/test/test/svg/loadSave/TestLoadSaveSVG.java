@@ -46,9 +46,6 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 
 	@SuppressWarnings("unchecked")
 	protected T toLatexdraw(final SVGDocument doc) {
-		if(doc==null)
-			return null;
-
 		final IGroup shapes = ShapeFactory.createGroup();
 		final NodeList elts = doc.getDocumentElement().getChildNodes();
 		Node node;
@@ -65,9 +62,6 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 
 
 	protected SVGDocument toSVG(final IDrawing drawing) {
-		if(drawing==null)
-			return null;
-
 		// Creation of the SVG document.
 		final List<IShape> shapes	= drawing.getShapes();
 		final SVGDocument doc 		= new SVGDocument();

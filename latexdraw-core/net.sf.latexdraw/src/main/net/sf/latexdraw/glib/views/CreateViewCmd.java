@@ -57,7 +57,7 @@ public abstract class CreateViewCmd<M, V, F extends CreateViewCmd<M,V,F>> {
 	public V execute(final M model) {
 		if(clazz.isInstance(model))
 			return create(model);
-        return next==null ? null : next.execute(model);
+        return next.execute(model);
 	}
 
 	/**

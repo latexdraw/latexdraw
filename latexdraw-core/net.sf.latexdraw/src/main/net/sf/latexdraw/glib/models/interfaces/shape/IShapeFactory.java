@@ -1,12 +1,10 @@
-package net.sf.latexdraw.glib.models.interfaces.shape
+package net.sf.latexdraw.glib.models.interfaces.shape;
 
-import java.awt.Point
-import java.awt.geom.Point2D
-import scala.language.implicitConversions
-import net.sf.latexdraw.glib.models.ShapeFactory
+import java.awt.geom.Point2D;
+import java.util.Optional;
 
 /**
- * Defines an interface to implement an abstract factory.<br>
+ * Defines the concept of a shape factory.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -19,39 +17,58 @@ import net.sf.latexdraw.glib.models.ShapeFactory
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
- * 2012-04-19<br>
+ * 2014-11-04<br>
  * @author Arnaud BLOUIN
- * @version 3.0
- * @since 3.0
  */
-trait IShapeFactory {
+public interface IShapeFactory {
 	/**
 	 * @param shapeClass The class of the shape to instantiated.
 	 * @return A new instance of the class given as argument or null.
 	 * @since 3.0
 	 */
-	def newShape[T <: IShape](shapeClass : java.lang.Class[T]) : Option[T]
+	<T extends IShape> Optional<T> newShape(java.lang.Class<T> shapeClass);
 
-	
 	/**
 	 * Creates a color from an JavaFX color.
+	 * @param col The colour to convert.
+	 * @return The converted colour. Cannot be null.
 	 */
-	def createColorFX(col:javafx.scene.paint.Color):Color
-	
+	Color createColorFX(javafx.scene.paint.Color col);
+	 
 	/**
 	 * Creates a color from an AWT color.
+	 * @param col The colour to convert. 
+	 * @return The converted colour. Cannot be null.
 	 */
-	def createColorAWT(col:java.awt.Color):Color
+	Color createColorAWT(java.awt.Color col);
 	
 	/**
 	 * Creates a color following the HSB format.
+	 * @param h The H
+	 * @param s The S
+	 * @param b The B
+	 * @return The converted colour. Cannot be null.
 	 */
-	def createColorHSB(h:Double, s:Double, b:Double):Color
+	Color createColorHSB(double h, double s, double b);
 	
+	/**
+	 * Creates a colour following the RGBA format.
+	 * @param r The R.
+	 * @param g The G.
+	 * @param b The B.
+	 * @param a The A.
+	 * @return The converted colour. Cannot be null.
+	 */
+	Color createColorInt(int r, int g, int b, int a); 
 	
-	def createColorInt(r:Int, g:Int, b:Int, a:Int) : Color
-	
-	def createColorInt(r:Int, g:Int, b:Int) : Color
+	/**
+	 * Creates a colour following the RGB format.
+	 * @param r The R.
+	 * @param g The G.
+	 * @param b The B.
+	 * @return The converted colour. Cannot be null.
+	 */
+	Color createColorInt(int r, int g, int b); 
 	
 	/**
 	 * Creates a colour.
@@ -59,34 +76,38 @@ trait IShapeFactory {
 	 * @param g Green
 	 * @param b Blue
 	 * @param o Opacity
+	 * @return The converted colour. Cannot be null.
 	 */	
-	def createColor(r:Double, g:Double, b:Double, o:Double) : Color
+	Color createColor(double r, double g, double b, double o); 
 	
 	/**
 	 * Creates a colour.
 	 * @param r Red
 	 * @param g Green
 	 * @param b Blue 
+	 * @return The converted colour. Cannot be null.
 	 */
-	def createColor(r:Double, g:Double, b:Double) : Color
+	Color createColor(double r, double g, double b); 
 	
 	/**
-	 * Creates a colour (1,1,1,1) 
+	 * Creates a colour (1,1,1,1)
+	 * @return The converted colour. Cannot be null.
 	 */
-	def createColor(): Color
+	Color createColor(); 
 	
 	/**
 	 * @return The created drawing.
 	 * @since 3.0
 	 */
-	def createDrawing() : IDrawing
+	IDrawing createDrawing(); 
 
 	/**
 	 * Creates a group that will contains initially the given sh.
 	 * @param sh The shape to add to the group to create.
+	 * @return Created groupe. Cannot be null.
 	 * @since 3.3
 	 */
-	def createGroup(sh:IShape):IGroup
+	IGroup createGroup(IShape sh);
 
 	/**
 	 * Creates an arrow from an other arrow.
@@ -95,33 +116,33 @@ trait IShapeFactory {
 	 * @return The created arrow.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	def createArrow(arrow : IArrow, owner : IArrowableShape) : IArrow
+	IArrow createArrow(IArrow arrow, IArrowableShape owner); 
 
 	/**
 	 * Creates an arrow.
 	 * @param owner The shape that contains the arrow.
 	 * @return The created arrow.
 	 */
-	def createArrow(owner : IArrowableShape) : IArrow
+	IArrow createArrow(IArrowableShape owner); 
 
 	/**
 	 * Creates axes with default values.
 	 * @param pt The bottom left position of the axes.
 	 * @return The created axes.
 	 */
-	def createAxes(pt : IPoint) : IAxes
+	IAxes createAxes(IPoint pt); 
 
 	/**
 	 * @param pt The centre of the dot.
 	 * @return The created dot.
 	 */
-	def createDot(pt : IPoint) : IDot
+	IDot createDot(IPoint pt); 
 
 	/**
 	 * Creates a model with no point.
 	 * @return The created bezier curve.
 	 */
-	def createBezierCurve() : IBezierCurve
+	IBezierCurve createBezierCurve(); 
 
 	/**
 	 * Creates a bezier curve with two points.
@@ -129,7 +150,7 @@ trait IShapeFactory {
 	 * @param point2 The second point of the curve.
 	 * @return The created bezier curve.
 	 */
-	def createBezierCurve(point : IPoint, point2 : IPoint) : IBezierCurve
+	IBezierCurve createBezierCurve(IPoint point, IPoint point2); 
 
 	/**
 	 * Creates an ellipse.
@@ -138,12 +159,12 @@ trait IShapeFactory {
 	 * @throws IllegalArgumentException If a or b is not valid.
 	 * @return The created ellipse.
 	 */
-	def createEllipse(tl : IPoint, br : IPoint) : IEllipse
+	IEllipse createEllipse(IPoint tl, IPoint br); 
 
 	/**
 	 * @return The created ellipse.
 	 */
-	def createEllipse() : IEllipse
+	IEllipse createEllipse(); 
 
 	/**
 	 * Creates a triangle.
@@ -153,12 +174,12 @@ trait IShapeFactory {
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created triangle.
 	 */
-	def createTriangle(pos : IPoint, width : Double, height : Double) : ITriangle
+	ITriangle createTriangle(IPoint pos, double width, double height); 
 
 	/**
 	 * @return The created triangle.
 	 */
-	def createTriangle() : ITriangle
+	ITriangle createTriangle(); 
 
 	/**
 	 * Creates a rhombus.
@@ -168,13 +189,13 @@ trait IShapeFactory {
 	 * @throws IllegalArgumentException If the width, the height or the centre is not valid.
 	 * @return The created rhombus.
 	 */
-	def createRhombus(centre : IPoint, width : Double, height : Double) : IRhombus
+	IRhombus createRhombus(IPoint centre, double width, double height); 
 
 	/**
 	 * Creates a rhombus at the position (0,0) with width=height=1.
 	 * @return The created rhombus.
 	 */
-	def createRhombus() : IRhombus
+	IRhombus createRhombus(); 
 
 	/**
 	 * Creates a picture and the corresponding EPS picture.
@@ -183,14 +204,14 @@ trait IShapeFactory {
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 * @throws NullPointerException If the given point is null.
 	 */
-	def createPicture(pt : IPoint) : IPicture
+	IPicture createPicture(IPoint pt); 
 
 	/**
 	 * Creates a grid with a predefined point.
 	 * @param pt The position.
 	 * @return The created grid.
 	 */
-	def createGrid(pt : IPoint) : IGrid
+	IGrid createGrid(IPoint pt); 
 
 	/**
 	 * Creates and initialises a freehand model.
@@ -198,7 +219,7 @@ trait IShapeFactory {
 	 * @return The created freehand shape.
 	 * @since 3.0
 	 */
-	def createFreeHand() : IFreehand
+	IFreehand createFreeHand(); 
 
 	/**
 	 * Creates a circle.
@@ -208,18 +229,18 @@ trait IShapeFactory {
 	 * @throws NullPointerException If the given point pt is null.
 	 * @return The created circle.
 	 */
-	def createCircle(pt : IPoint, radius : Double) : ICircle
+	ICircle createCircle(IPoint pt, double radius); 
 
 	/**
 	 * @return The created circle.
 	 */
-	def createCircle() : ICircle
+	ICircle createCircle(); 
 
 	/**
 	 * @return The created group of shapes.
 	 * @since 3.0
 	 */
-	def createGroup() : IGroup
+	IGroup createGroup(); 
 
 	/**
 	 * Constructs a line from the specified coordinates.
@@ -230,16 +251,16 @@ trait IShapeFactory {
 	 * @throws IllegalArgumentException If one of the given coordinate is not valid.
 	 * @return The created line.
 	 */
-	def createLine(x1 : Double, y1 : Double, x2 : Double, y2 : Double) : ILine
+	ILine createLine(double x1, double y1, double x2, double y2); 
 
 	/**
-	 * Creates a line by creating a second point with:
+	 * Creates a line by creating a second point with 
 	 * @param b y = ax+ b
 	 * @param p1 The first point.
 	 * @throws IllegalArgumentException If one of the given parameter is not valid.
 	 * @return The created line.
 	 */
-	def createLine(b : Double, p1 : IPoint) : ILine
+	ILine createLine(double b, IPoint p1); 
 
 	/**
 	 * Constructs a line from the specified <code>Point2D</code> objects.
@@ -248,22 +269,21 @@ trait IShapeFactory {
 	 * @throws IllegalArgumentException If one of the given points is not valid.
 	 * @return The created line.
 	 */
-	def createLine(p1 : IPoint, p2 : IPoint) : ILine
-
+	ILine createLine(IPoint p1, IPoint p2); 
 
 	/**
 	 * @return The created point with coordinates (0, 0).
 	 * @since 3.0
 	 */
-	def createPoint() : IPoint
-
+	IPoint createPoint(); 
 
 	/**
 	 * Duplicates a java 2D point into a IPoint.
 	 * If the given point pt is null, a point (0,0) is created.
+	 * @param pt The point to convert.
+	 * @return The created point. Cannot be null.
 	 */
-	def createPoint(pt:Point2D):IPoint
-
+	IPoint createPoint(Point2D pt);
 
 	/**
 	 * Creates a Point2D with the specified coordinates.
@@ -272,7 +292,7 @@ trait IShapeFactory {
 	 * @return The created point.
 	 * @since 3.0
 	 */
-	def createPoint(x : Double, y : Double) : IPoint
+	IPoint createPoint(double x, double y); 
 
 	/**
 	 * Creates a Point2D with the specified coordinates.
@@ -280,13 +300,13 @@ trait IShapeFactory {
 	 * @return The created point.
 	 * @since 3.0
 	 */
-	def createPoint(pt : IPoint) : IPoint
+	IPoint createPoint(IPoint pt   ); 
 
 	/**
 	 * @return The created polyline
 	 * @since 3.0
 	 */
-	def createPolyline() : IPolyline
+	IPolyline createPolyline(); 
 
 	/**
 	 * Creates a model with two points.
@@ -295,13 +315,13 @@ trait IShapeFactory {
 	 * @return The created polyline.
 	 * @since 3.0
 	 */
-	def createPolyline(point : IPoint, point2 : IPoint) : IPolyline
+	IPolyline createPolyline(IPoint point, IPoint point2); 
 
 	/**
 	 * @return The created polygon
 	 * @since 3.0
 	 */
-	def createPolygon() : IPolygon
+	IPolygon createPolygon(); 
 
 	/**
 	 * Creates a polygon with two points.
@@ -310,13 +330,13 @@ trait IShapeFactory {
 	 * @return The created polygon.
 	 * @since 3.0
 	 */
-	def createPolygon(point : IPoint, point2 : IPoint) : IPolygon
+	IPolygon createPolygon(IPoint point, IPoint point2); 
 
 	/**
 	 * @return The created rectangle with position (0,0) and width=10 and height=10.
 	 * @since 3.0
 	 */
-	def createRectangle() : IRectangle
+	IRectangle createRectangle(); 
 
 	/**
 	 * Creates a rectangle.
@@ -328,7 +348,7 @@ trait IShapeFactory {
 	 * @return The created rectangle.
 	 * @since 3.0
 	 */
-	def createRectangle(pos : IPoint, width : Double, height : Double) : IRectangle
+	IRectangle createRectangle(IPoint pos, double width, double height); 
 
 	/**
 	 * Creates a rectangle.
@@ -338,14 +358,14 @@ trait IShapeFactory {
 	 * @return The created rectangle.
 	 * @since 3.0
 	 */
-	def createRectangle(tl : IPoint, br : IPoint) : IRectangle
+	IRectangle createRectangle(IPoint tl, IPoint br); 
 
 	/**
 	 * Create a text at position (0,0) which text is "text".
 	 * @return The created text.
 	 * @since 3.0
 	 */
-	def createText() : IText
+	IText createText(); 
 
 	/**
 	 * Creates a text.
@@ -355,14 +375,14 @@ trait IShapeFactory {
 	 * @return The created text.
 	 * @since 3.0
 	 */
-	def createText(pt : IPoint, text : String) : IText
+	IText createText(IPoint pt, String text); 
 
 	/**
 	 * Creates a square at position (0,0) which width equals 10.
 	 * @return The created square.
 	 * @since 3.0
 	 */
-	def createSquare() : ISquare
+	ISquare createSquare(); 
 
 	/**
 	 * Creates a square.
@@ -372,7 +392,7 @@ trait IShapeFactory {
 	 * @return The created square.
 	 * @since 3.0
 	 */
-	def createSquare(pos : IPoint, width : Double) : ISquare
+	ISquare createSquare(IPoint pos, double width); 
 
 
 	/**
@@ -383,7 +403,7 @@ trait IShapeFactory {
 	 * @return The created circled arc.
 	 * @since 3.0
 	 */
-	def createCircleArc(pos : IPoint, width : Double) : ICircleArc
+	ICircleArc createCircleArc(IPoint pos, double width); 
 
 
 	/**
@@ -391,18 +411,20 @@ trait IShapeFactory {
 	 * @return The created circled arc.
 	 * @since 3.0
 	 */
-	def createCircleArc() : ICircleArc
+	ICircleArc createCircleArc(); 
 
 	/**
 	 * Creates a plotted function.
 	 * @param pos The north-west point of the rectangle.
+	 * @param minX The min position of the function.
+	 * @param maxX The max position of the function.
 	 * @param eq The equation of the function.
 	 * @param polar Defines the coordinates to use (polar or cartesian).
 	 * @throws IllegalArgumentException If the given point is not valid or minX is greater than maxX.
 	 * @return The created function.
 	 * @since 3.2
 	 */
-	def createPlot(pos : IPoint, minX:Double, maxX:Double, eq:String, polar:Boolean) : IPlot
+	IPlot createPlot(IPoint pos, double minX, double maxX, String eq, boolean polar); 
 
 
 	/**
@@ -411,5 +433,5 @@ trait IShapeFactory {
 	 * @return The duplicated shape or null.
 	 * @since 3.0
 	 */
-	def duplicate(shape : IShape) : IShape
+	IShape duplicate(IShape shape); 
 }

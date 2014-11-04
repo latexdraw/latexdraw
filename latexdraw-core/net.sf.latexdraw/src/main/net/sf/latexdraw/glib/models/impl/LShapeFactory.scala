@@ -30,6 +30,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
 import net.sf.latexdraw.glib.models.interfaces.shape.Color
 import java.util.Objects
+import java.util.Optional
 
 /**
  * This factory creates shapes.<br>
@@ -91,12 +92,12 @@ class LShapeFactory extends IShapeFactory {
 			  (classOf[LPlot], () => createPlot(createPoint, 1, 10, "x", false)))
 
 
-	override def newShape[T <: IShape](shapeClass : java.lang.Class[T]) : Option[T] =
+	override def newShape[T <: IShape](shapeClass : java.lang.Class[T]) : Optional[T] =
 		shapeClass match {
-			case null => None
+			case null => Optional.empty()
 			case _ =>
-				try { Some(shapeClass.cast(factoryMap(shapeClass)())) }
-				catch { case ex: Throwable => BadaboomCollector.INSTANCE.add(ex); None }
+				try { Optional.of(shapeClass.cast(factoryMap(shapeClass)())) }
+				catch { case ex: Throwable => BadaboomCollector.INSTANCE.add(ex); Optional.empty() }
 		}
 
 	override def createGroup(sh:IShape):IGroup = {
