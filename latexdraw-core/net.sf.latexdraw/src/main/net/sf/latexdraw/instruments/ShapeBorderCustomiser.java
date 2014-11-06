@@ -51,7 +51,7 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 	@FXML protected ComboBox<ImageView> bordersPosCB;
 
 	/** Allows to change the angle of the round corner. */
-	@FXML protected  TextField frameArcField;
+	@FXML protected TextField frameArcField;
 
 	/** Defines if the points of the shape must be painted. */
 	@FXML protected CheckBox showPoints;

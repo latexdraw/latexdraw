@@ -15,9 +15,7 @@ import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.ShapeArcCustomiser;
 import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
-import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
-import net.sf.latexdraw.instruments.ShapeDotCustomiser;
 import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
 import net.sf.latexdraw.instruments.ShapeGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeGrouper;
@@ -90,7 +88,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composeDotToolbar(metaShapeCustomiser.getDotCustomiser(), metaShapeCustomiser.getBorderCustomiser(), canvas));
 		widget.add(composeTextPositionToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeTextPropertiesToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
@@ -445,26 +442,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(ins.getEndAngleS(), list);
 
         ins.addEventable(list.getToolbar());
-        list.setVisible(false);
-		return list;
-	}
-
-
-	protected JComponent composeDotToolbar(final ShapeDotCustomiser ins, final ShapeBorderCustomiser sbc, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.DOT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.10")); //$NON-NLS-1$
-
-		list.addComponent(ins.getDotCB());
-		UIBuilder.addSpinner(list, ins.getDotSizeField(), 70);
-//		list.addComponent(ins.getFillingB());
-		list.addSeparator();
-
-		mapContainers.put(ins.getDotCB(), list);
-		mapContainers.put(ins.getDotSizeField(), list);
-//		mapContainers.put(ins.getFillingB(), list);
-
-        ins.addEventable(list.getToolbar());
-        sbc.addEventable(list.getToolbar());
         list.setVisible(false);
 		return list;
 	}

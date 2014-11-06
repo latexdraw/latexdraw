@@ -85,22 +85,19 @@ public final class LResources {
 	public static final ImageIcon NEW_ICON;
 	public static final ImageIcon OPEN_ICON;
 	public static final ImageIcon SAVE_ICON ;
-	public static final ImageIcon SAVE_AS_ICON;				public static final ImageIcon DOT_STYLE_NONE_ICON;
-	public static final ImageIcon CIRCLE_ICON;				public static final ImageIcon DOT_STYLE_SQUARE_ICON;
-	public static final ImageIcon DEL_ICON;					public static final ImageIcon DOT_STYLE_SQUARE_F_ICON;
-	public static final ImageIcon DOT_ICON;					public static final ImageIcon DOT_STYLE_PENTAGON_ICON;
-	public static final ImageIcon ELLIPSE_ICON;				public static final ImageIcon DOT_STYLE_PENTAGON_F_ICON;
-	public static final ImageIcon EMPTY_ICON;				public static final ImageIcon DOT_STYLE_TRIANGLE_ICON;
-	public static final ImageIcon DOT_STYLE_TRIANGLE_F_ICON;
-	public static final ImageIcon RECT_ICON;				public static final ImageIcon DOT_STYLE_BAR_ICON;
-	public static final ImageIcon RHOMBUS_ICON;				public static final ImageIcon DOT_STYLE_ASTERISK_ICON;
-	public static final ImageIcon SELECT_ICON; 				public static final ImageIcon DOT_STYLE_CROSS_ICON;
-	public static final ImageIcon SQUARE_ICON; 				public static final ImageIcon DOT_STYLE_DIAMOND_ICON;
-	public static final ImageIcon TRIANGLE_ICON;			public static final ImageIcon DOT_STYLE_DIAMOND_F_ICON;
-	public static final ImageIcon PROPERTIES_ICON; 			public static final ImageIcon DOT_STYLE_O_ICON;
-	public static final ImageIcon DOT_STYLE_O_PLUS_ICON;
-	public static final ImageIcon DOT_STYLE_O_CROSS_ICON;	public static final ImageIcon UPDATE_ICON;
-	public static final ImageIcon DOT_STYLE_PLUS_ICON;
+	public static final ImageIcon SAVE_AS_ICON;
+	public static final ImageIcon CIRCLE_ICON;
+	public static final ImageIcon DEL_ICON;
+	public static final ImageIcon DOT_ICON;
+	public static final ImageIcon ELLIPSE_ICON;
+	public static final ImageIcon EMPTY_ICON;
+	public static final ImageIcon RECT_ICON;
+	public static final ImageIcon RHOMBUS_ICON;
+	public static final ImageIcon SELECT_ICON;
+	public static final ImageIcon SQUARE_ICON;
+	public static final ImageIcon TRIANGLE_ICON;
+	public static final ImageIcon PROPERTIES_ICON;
+	public static final ImageIcon UPDATE_ICON;
 	public static final ImageIcon ABOUT_ICON;
 	public static final ImageIcon HELP_ICON;
 	public static final ImageIcon PREFERENCES_ICON;
@@ -173,23 +170,6 @@ public final class LResources {
 		DOUBLE_BORDER_ICON	= loadImageIcon("/res/doubleBorder.png");//$NON-NLS-1$
 		SHADOW_ICON			= loadImageIcon("/res/shadow.png");//$NON-NLS-1$
 		ROUNDNESS_ICON 		= loadImageIcon("/res/roundness.png");//$NON-NLS-1$
-		DOT_STYLE_ASTERISK_ICON = loadImageIcon("/res/dotStyles/dot.asterisk.png");//$NON-NLS-1$
-		DOT_STYLE_NONE_ICON = loadImageIcon("/res/dotStyles/dot.none.png");//$NON-NLS-1$
-		DOT_STYLE_BAR_ICON = loadImageIcon("/res/dotStyles/dot.bar.png");//$NON-NLS-1$
-		DOT_STYLE_O_ICON = loadImageIcon("/res/dotStyles/dot.o.png");//$NON-NLS-1$
-		DOT_STYLE_CROSS_ICON = loadImageIcon("/res/dotStyles/dot.cross.png");//$NON-NLS-1$
-		DOT_STYLE_DIAMOND_ICON = loadImageIcon("/res/dotStyles/dot.diamond.png");//$NON-NLS-1$
-		DOT_STYLE_DIAMOND_F_ICON = loadImageIcon("/res/dotStyles/dot.diamondF.png");//$NON-NLS-1$
-		DOT_STYLE_O_CROSS_ICON = loadImageIcon("/res/dotStyles/dot.ocross.png");//$NON-NLS-1$
-		DOT_STYLE_O_PLUS_ICON = loadImageIcon("/res/dotStyles/dot.oplus.png");//$NON-NLS-1$
-		DOT_STYLE_PENTAGON_ICON = loadImageIcon("/res/dotStyles/dot.pentagon.png");//$NON-NLS-1$
-		DOT_STYLE_PENTAGON_F_ICON = loadImageIcon("/res/dotStyles/dot.pentagonF.png");//$NON-NLS-1$
-		DOT_STYLE_PLUS_ICON = loadImageIcon("/res/dotStyles/dot.plus.png");//$NON-NLS-1$
-		DOT_STYLE_SQUARE_ICON = loadImageIcon("/res/dotStyles/dot.square.png");//$NON-NLS-1$
-		DOT_STYLE_SQUARE_F_ICON = loadImageIcon("/res/dotStyles/dot.squareF.png");//$NON-NLS-1$
-		DOT_STYLE_TRIANGLE_ICON = loadImageIcon("/res/dotStyles/dot.triangle.png");//$NON-NLS-1$
-		DOT_STYLE_TRIANGLE_F_ICON = loadImageIcon("/res/dotStyles/dot.triangleF.png");//$NON-NLS-1$
-
 		GRID_ICON		= loadImageIcon("/res/grid.png");//$NON-NLS-1$
 		SUBGRID_ICON	= loadImageIcon("/res/subgrid.png");//$NON-NLS-1$
 		COPY_ICON  		= loadImageIcon("/res/Copy.png");//$NON-NLS-1$

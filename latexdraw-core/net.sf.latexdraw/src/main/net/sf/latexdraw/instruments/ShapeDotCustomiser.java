@@ -1,29 +1,21 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Dimension;
-import java.awt.ItemSelectable;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
-
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.ImageView;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.ui.LabelComboBox;
-import net.sf.latexdraw.ui.LabelListCellRenderer;
-import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
 
-import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MComboBox;
-import org.malai.swing.widget.MSpinner;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument modifies dot parameters.<br>
@@ -43,160 +35,84 @@ import org.malai.swing.widget.MSpinner;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeDotCustomiser extends ShapePropertyCustomiser {
+public class ShapeDotCustomiser extends JfxInstrument implements Initializable {//extends ShapePropertyCustomiser {
 	/** Allows to define the size of a dot. */
-	protected MSpinner dotSizeField;
+	@FXML protected TextField dotSizeField;
 
 	/** Allows the selection of a dot shape. */
-	protected LabelComboBox dotCB;
+	@FXML protected ComboBox<ImageView> dotCB;
 
 	/** Changes the colour of the filling of the dot. */
 	@FXML protected ColorPicker fillingB;
+	
+	@FXML protected TitledPane mainPane;
 
 
 	/**
 	 * Creates the instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param hand The Hand instrument.
-	 * @param pencil The Pencil instrument.
-	 * @throws IllegalArgumentException If one of the given parameters is null.
-	 * @since 3.0
 	 */
-	public ShapeDotCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
-		super(composer, hand, pencil);
-		initialiseWidgets();
+	public ShapeDotCustomiser() {
+		super();
 	}
-
 
 
 	@Override
-	protected void initialiseWidgets() {
-     	dotSizeField = new MSpinner(new MSpinner.MSpinnerNumberModel(6., 0.1, 1000., 1.), new JLabel(LResources.DOT_STYLE_NONE_ICON));
-     	dotSizeField.setEditor(new JSpinner.NumberEditor(dotSizeField, "0.0"));//$NON-NLS-1$
-     	dotSizeField.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeDot.1")); //$NON-NLS-1$
-
-     	dotCB = createDotStyleChoice();
-     	dotSizeField.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeDot.2")); //$NON-NLS-1$
-
-//     	fillingB = new ColorPicker();
-//     	(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48") //FIXME clean
-//     	fillingB.setTooltip(new Tooltip(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.68"))); //$NON-NLS-1$
+	public void initialize(final URL location, final ResourceBundle resources) {
+		dotCB.getItems().addAll(
+				JFXUtil.INSTANCE.createItem(DotStyle.DOT, "/res/dotStyles/dot.none.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.ASTERISK, "/res/dotStyles/dot.asterisk.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.BAR, "/res/dotStyles/dot.bar.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.DIAMOND, "/res/dotStyles/dot.diamond.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.FDIAMOND, "/res/dotStyles/dot.diamondF.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.O, "/res/dotStyles/dot.o.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.OPLUS, "/res/dotStyles/dot.oplus.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.OTIMES, "/res/dotStyles/dot.ocross.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.PLUS, "/res/dotStyles/dot.plus.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.X, "/res/dotStyles/dot.cross.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.TRIANGLE, "/res/dotStyles/dot.triangle.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.FTRIANGLE, "/res/dotStyles/dot.triangleF.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.PENTAGON, "/res/dotStyles/dot.pentagon.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.FPENTAGON, "/res/dotStyles/dot.pentagonF.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.SQUARE, "/res/dotStyles/dot.square.png"),
+				JFXUtil.INSTANCE.createItem(DotStyle.FSQUARE, "/res/dotStyles/dot.squareF.png")
+		);
 	}
 
-	/**
-	 * Creates a list of the different styles of the dot.
-	 * @return The created list.
-	 */
-	public static LabelComboBox createDotStyleChoice() {
-		final LabelComboBox dotChoice = new LabelComboBox();
-
-		dotChoice.setRenderer(new LabelListCellRenderer());
-		JLabel label = new JLabel(DotStyle.DOT.toString());
-		label.setIcon(LResources.DOT_STYLE_NONE_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.ASTERISK.toString());
-     	label.setIcon(LResources.DOT_STYLE_ASTERISK_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.BAR.toString());
-     	label.setIcon(LResources.DOT_STYLE_BAR_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.DIAMOND.toString());
-     	label.setIcon(LResources.DOT_STYLE_DIAMOND_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.FDIAMOND.toString());
-     	label.setIcon(LResources.DOT_STYLE_DIAMOND_F_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.O.toString());
-     	label.setIcon(LResources.DOT_STYLE_O_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.OPLUS.toString());
-     	label.setIcon(LResources.DOT_STYLE_O_PLUS_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.OTIMES.toString());
-     	label.setIcon(LResources.DOT_STYLE_O_CROSS_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.PLUS.toString());
-     	label.setIcon(LResources.DOT_STYLE_PLUS_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.X.toString());
-     	label.setIcon(LResources.DOT_STYLE_CROSS_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.TRIANGLE.toString());
-     	label.setIcon(LResources.DOT_STYLE_TRIANGLE_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.FTRIANGLE.toString());
-     	label.setIcon(LResources.DOT_STYLE_TRIANGLE_F_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.PENTAGON.toString());
-     	label.setIcon(LResources.DOT_STYLE_PENTAGON_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.FPENTAGON.toString());
-     	label.setIcon(LResources.DOT_STYLE_PENTAGON_F_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.SQUARE.toString());
-     	label.setIcon(LResources.DOT_STYLE_SQUARE_ICON);
-     	dotChoice.addItem(label);
-     	label = new JLabel(DotStyle.FSQUARE.toString());
-     	label.setName(DotStyle.FSQUARE.toString());
-     	label.setIcon(LResources.DOT_STYLE_SQUARE_F_ICON);
-     	dotChoice.addItem(label);
-
-     	dotChoice.setPreferredSize(new Dimension(55,30));
-     	dotChoice.setMaximumSize(new Dimension(55,30));
-
-     	return dotChoice;
-	}
-
-	@Override
+	
+//	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IDotProp.class)) {
-			dotSizeField.setValueSafely(shape.getDiametre());
-			dotCB.setSelectedItemSafely(shape.getDotStyle().toString());
+//			dotSizeField.setValueSafely(shape.getDiametre());
+			dotCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(dotCB, shape.getDotStyle()).orElseThrow(() -> new IllegalArgumentException()));
 			fillingB.setDisable(shape.isFillable());
 
-//			if(shape.isFillable())
-//				fillingB.setValue(shape.getDotFillingCol());
+			if(shape.isFillable())
+				fillingB.setValue(shape.getDotFillingCol().toJFX());
 		}
 		else setActivated(false);
 	}
 
 
-	@Override
+//	@Override
 	protected void setWidgetsVisible(final boolean visible) {
-		composer.setWidgetVisible(dotCB, visible);
-		composer.setWidgetVisible(dotSizeField, visible);
+		mainPane.setVisible(visible);
 	}
 
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
-			addInteractor(new Spinner2PencilDotSize(this));
-			addInteractor(new Spinner2SelectionDotSize(this));
-			addInteractor(new List2PencilDotStyle(this));
-			addInteractor(new List2SelectionDotStyle(this));
+//		try{
+//			addInteractor(new Spinner2PencilDotSize(this));
+//			addInteractor(new Spinner2SelectionDotSize(this));
+//			addInteractor(new List2PencilDotStyle(this));
+//			addInteractor(new List2SelectionDotStyle(this));
 //			addInteractor(new FillingButton2SelectionFilling(this));
 //			addInteractor(new FillingButton2PencilFilling(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
-
-	/**
-	 * @return The dot size field.
-	 * @since 3.0
-	 */
-	public MSpinner getDotSizeField() {
-		return dotSizeField;
-	}
-
-	/**
-	 * @return The dot style combo box.
-	 * @since 3.0
-	 */
-	public MComboBox<JLabel> getDotCB() {
-		return dotCB;
-	}
+}
 
 
 //	private static class FillingButton2PencilFilling extends ColourButtonForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
@@ -237,90 +153,78 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
 //	}
 
 
-	/**
-	 * This link maps a list to a ModifyPencil action.
-	 */
-		private static class List2PencilDotStyle extends ListForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
-		protected List2PencilDotStyle(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
-			super(instrument, ModifyPencilParameter.class);
-		}
-
-		@Override
-		public void initAction() {
-			action.setPencil(instrument.pencil);
-			action.setProperty(ShapeProperties.DOT_STYLE);
-			action.setValue(DotStyle.getStyle(getLabelText()));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final ItemSelectable is = interaction.getList();
-			return is==instrument.dotCB && instrument.pencil.isActivated();
-		}
-	}
-
-
-	/**
-	 * This link maps a list to a ModifyShape action.
-	 */
-	private static class List2SelectionDotStyle extends ListForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
-		protected List2SelectionDotStyle(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
-			super(instrument, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-			action.setProperty(ShapeProperties.DOT_STYLE);
-			action.setValue(DotStyle.getStyle(getLabelText()));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final ItemSelectable is	= interaction.getList();
-			return is==instrument.dotCB && instrument.hand.isActivated();
-		}
-	}
-
-
-	/**
-	 * This link maps a spinner to a ModifyPencil action.
-	 */
-	private static class Spinner2SelectionDotSize extends SpinnerForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
-		protected Spinner2SelectionDotSize(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.DOT_SIZE);
-			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getSpinner()==instrument.dotSizeField && instrument.hand.isActivated();
-		}
-	}
-
-
-	/**
-	 * This link maps a spinner to a ModifyPencil action.
-	 */
-	private static class Spinner2PencilDotSize extends SpinnerForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
-		protected Spinner2PencilDotSize(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class);
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.DOT_SIZE);
-			action.setPencil(instrument.pencil);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getSpinner()==instrument.dotSizeField && instrument.pencil.isActivated();
-		}
-	}
-}
+//		private static class List2PencilDotStyle extends ListForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
+//		protected List2PencilDotStyle(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+//			super(instrument, ModifyPencilParameter.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			action.setPencil(instrument.pencil);
+//			action.setProperty(ShapeProperties.DOT_STYLE);
+//			action.setValue(DotStyle.getStyle(getLabelText()));
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			final ItemSelectable is = interaction.getList();
+//			return is==instrument.dotCB && instrument.pencil.isActivated();
+//		}
+//	}
+//
+//
+//	private static class List2SelectionDotStyle extends ListForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
+//		protected List2SelectionDotStyle(final ShapeDotCustomiser instrument) throws InstantiationException, IllegalAccessException {
+//			super(instrument, ModifyShapeProperty.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//			action.setProperty(ShapeProperties.DOT_STYLE);
+//			action.setValue(DotStyle.getStyle(getLabelText()));
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			final ItemSelectable is	= interaction.getList();
+//			return is==instrument.dotCB && instrument.hand.isActivated();
+//		}
+//	}
+//
+//
+//	private static class Spinner2SelectionDotSize extends SpinnerForCustomiser<ModifyShapeProperty, ShapeDotCustomiser> {
+//		protected Spinner2SelectionDotSize(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, ModifyShapeProperty.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			action.setProperty(ShapeProperties.DOT_SIZE);
+//			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return interaction.getSpinner()==instrument.dotSizeField && instrument.hand.isActivated();
+//		}
+//	}
+//
+//
+//	private static class Spinner2PencilDotSize extends SpinnerForCustomiser<ModifyPencilParameter, ShapeDotCustomiser> {
+//		protected Spinner2PencilDotSize(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, ModifyPencilParameter.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			action.setProperty(ShapeProperties.DOT_SIZE);
+//			action.setPencil(instrument.pencil);
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return interaction.getSpinner()==instrument.dotSizeField && instrument.pencil.isActivated();
+//		}
+//	}
+//}

@@ -158,7 +158,6 @@ public class ShapeArrowCustomiser extends JfxInstrument implements Initializable
 			final ArrowStyle arrStyle1 = arr1.getArrowStyle();
 			final ArrowStyle arrStyle2 = arr2.getArrowStyle();
 
-			//TODO this code suppose that if arrowable, there are 2 arrows.
 			arrowLeftCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(arrowLeftCB, arrStyle1).orElseThrow(() -> new IllegalArgumentException()));
 			arrowRightCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(arrowRightCB, arrStyle2).orElseThrow(() -> new IllegalArgumentException()));
 
