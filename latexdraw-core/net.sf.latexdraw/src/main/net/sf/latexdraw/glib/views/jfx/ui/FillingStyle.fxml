@@ -40,7 +40,7 @@
 			      <ColorPicker layoutX="87.0" layoutY="0.0" prefHeight="25.0" prefWidth="100.0">
 			     	<tooltip><Tooltip text="%LaTeXDrawFrame.grad1" /></tooltip>
 			      </ColorPicker>
-			      <Label fx:id="gradStartColLabel" layoutX="0.0" layoutY="5.0" text="%LaTeXDrawFrame.1b" />
+			      <Label layoutX="0.0" layoutY="5.0" text="%LaTeXDrawFrame.1b" />
 			      <ColorPicker fx:id="gradEndColButton" layoutX="87.0" layoutY="30.0" prefHeight="25.0" prefWidth="100.0">
 			     	<tooltip><Tooltip text="%LaTeXDrawFrame.8b" /></tooltip>
 			      </ColorPicker>

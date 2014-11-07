@@ -67,15 +67,6 @@ public final class LResources {
 	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getString19("DrawPanel.0"); //$NON-NLS-1$
 
 	public static final ImageIcon DIM_POS_ICON;
-	public static final ImageIcon TEXTPOS_L;
-	public static final ImageIcon TEXTPOS_R;
-	public static final ImageIcon TEXTPOS_T;
-	public static final ImageIcon TEXTPOS_TL;
-	public static final ImageIcon TEXTPOS_TR;
-	public static final ImageIcon TEXTPOS_B;
-	public static final ImageIcon TEXTPOS_BR;
-	public static final ImageIcon TEXTPOS_BL;
-	public static final ImageIcon TEXTPOS_CENTRE;
 	public static final ImageIcon FILLING_ICON;
 	public static final ImageIcon BORDER_ICON;
 	public static final ImageIcon DOUBLE_BORDER_ICON;
@@ -153,18 +144,7 @@ public final class LResources {
 		GRID_LABELS			= loadImageIcon("/res/gridLabels.png");//$NON-NLS-1$
 		GRID_X_LABEL		= loadImageIcon("/res/xGridLabel.png");//$NON-NLS-1$
 		GRID_Y_LABEL		= loadImageIcon("/res/yGridLabel.png");//$NON-NLS-1$
-
 		DIM_POS_ICON		= loadImageIcon("/res/dimPos.png");//$NON-NLS-1$
-
-		TEXTPOS_L			= loadImageIcon("/res/textPosLeft.png");//$NON-NLS-1$
-		TEXTPOS_R			= loadImageIcon("/res/textPosRight.png");//$NON-NLS-1$
-		TEXTPOS_BL			= loadImageIcon("/res/textPosBL.png");//$NON-NLS-1$
-		TEXTPOS_B			= loadImageIcon("/res/textPosB.png");//$NON-NLS-1$
-		TEXTPOS_BR			= loadImageIcon("/res/textPosBR.png");//$NON-NLS-1$
-		TEXTPOS_TL			= loadImageIcon("/res/textPosTL.png");//$NON-NLS-1$
-		TEXTPOS_T			= loadImageIcon("/res/textPosT.png");//$NON-NLS-1$
-		TEXTPOS_TR			= loadImageIcon("/res/textPosTR.png");//$NON-NLS-1$
-		TEXTPOS_CENTRE		= loadImageIcon("/res/textPosCentre.png");//$NON-NLS-1$
 		FILLING_ICON		= loadImageIcon("/res/filling.png");//$NON-NLS-1$
 		BORDER_ICON			= loadImageIcon("/res/border.png");//$NON-NLS-1$
 		DOUBLE_BORDER_ICON	= loadImageIcon("/res/doubleBorder.png");//$NON-NLS-1$

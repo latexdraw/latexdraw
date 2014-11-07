@@ -24,7 +24,6 @@ import net.sf.latexdraw.instruments.ShapePositioner;
 import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
 import net.sf.latexdraw.instruments.ShapeStandardGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeTransformer;
-import net.sf.latexdraw.instruments.TextCustomiser;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -88,8 +87,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composeTextPositionToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
-		widget.add(composeTextPropertiesToolbar(metaShapeCustomiser.getTextCustomiser(), canvas));
 		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
 		widget.add(composeStandardGridPropertiesToolbar(metaShapeCustomiser.getStandardGridCustomiser(), canvas));
 		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getGridCustomiser(), canvas));
@@ -373,53 +370,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(cust.getTlyS(), list);
 		list.setVisible(false);
 		cust.addEventable(list.getToolbar());
-		return list;
-	}
-
-
-	protected WidgetMiniToolbar composeTextPropertiesToolbar(final TextCustomiser textCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.TEXT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.7")); //$NON-NLS-1$
-
-		list.addComponent(textCustomiser.getPackagesLabel());
-		list.addComponent(textCustomiser.getPackagesField().getScrollpane());
-		list.addComponent(textCustomiser.getLogField().getScrollpane());
-		list.addSeparator();
-
-		mapContainers.put(textCustomiser.getPackagesLabel(), list);
-		mapContainers.put(textCustomiser.getPackagesField().getScrollpane(), list);
-		mapContainers.put(textCustomiser.getLogField().getScrollpane(), list);
-		list.setVisible(false);
-		textCustomiser.addEventable(textCustomiser.getPackagesField());
-		return list;
-	}
-
-
-	protected WidgetMiniToolbar composeTextPositionToolbar(final TextCustomiser textCustomiser, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.TEXTPOS_BL, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.8")); //$NON-NLS-1$
-		list.addComponent(textCustomiser.getBlButton());
-		list.addComponent(textCustomiser.getBButton());
-		list.addComponent(textCustomiser.getBrButton());
-		list.addComponent(textCustomiser.getTlButton());
-		list.addComponent(textCustomiser.getTButton());
-		list.addComponent(textCustomiser.getTrButton());
-		list.addComponent(textCustomiser.getCentreButton());
-		list.addComponent(textCustomiser.getLButton());
-		list.addComponent(textCustomiser.getRButton());
-
-		mapContainers.put(textCustomiser.getBlButton(), list);
-		mapContainers.put(textCustomiser.getBButton(), list);
-		mapContainers.put(textCustomiser.getBrButton(), list);
-		mapContainers.put(textCustomiser.getTlButton(), list);
-		mapContainers.put(textCustomiser.getTButton(), list);
-		mapContainers.put(textCustomiser.getTrButton(), list);
-		mapContainers.put(textCustomiser.getCentreButton(), list);
-		mapContainers.put(textCustomiser.getLButton(), list);
-		mapContainers.put(textCustomiser.getRButton(), list);
-		list.addSeparator();
-		list.setVisible(false);
-		textCustomiser.addEventable(list.getToolbar());
 		return list;
 	}
 

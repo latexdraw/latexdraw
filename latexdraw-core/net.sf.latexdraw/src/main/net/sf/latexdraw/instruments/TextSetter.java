@@ -60,7 +60,7 @@ public class TextSetter extends SwingInstrument {
 
 	protected IPlot plot;
 
-	protected TextCustomiser custom;
+	protected ShapeTextCustomiser custom;
 	
 	protected ShapePlotCustomiser plotCustom;
 
@@ -84,7 +84,7 @@ public class TextSetter extends SwingInstrument {
 	@Override
 	public void onActionDone(final Action action) {
 		super.onActionDone(action);
-		if(custom!=null) custom.update();
+//		if(custom!=null) custom.update();
 	}
 
 
@@ -92,7 +92,7 @@ public class TextSetter extends SwingInstrument {
 	 * Sets the text customiser.
 	 * @param custom The instrument.
 	 */
-	public void setTestCustomiser(final TextCustomiser custom) {
+	public void setTestCustomiser(final ShapeTextCustomiser custom) {
 		if(custom!=null) this.custom = custom;
 	}
 	

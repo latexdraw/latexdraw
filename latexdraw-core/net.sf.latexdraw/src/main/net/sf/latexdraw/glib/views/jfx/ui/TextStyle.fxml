@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ToggleButton?>
+
+<TitledPane fx:id="mainPane" animated="true" text="Text" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="net.sf.latexdraw.instruments.ShapeTextCustomiser">
+   	<tooltip><Tooltip text="%PropBuilder.8" /></tooltip>
+	<content>
+		<AnchorPane>
+         <children>
+            <ToggleButton fx:id="blButton" layoutX="5.0" layoutY="4.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/textPosBL.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%TextCust.3" /></tooltip>
+            </ToggleButton>
+            <ToggleButton fx:id="bButton" layoutX="50.0" layoutY="4.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/textPosB.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%TextCust.4" /></tooltip>
+            </ToggleButton>
+            <ToggleButton fx:id="brButton" layoutX="95.0" layoutY="4.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/textPosBR.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%TextCust.5" /></tooltip>
+            </ToggleButton>
+            <ToggleButton fx:id="tlButton" layoutX="140.0" layoutY="4.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/textPosTL.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%TextCust.6" /></tooltip>
+            </ToggleButton>
+            <ToggleButton fx:id="tButton" layoutX="185.0" layoutY="4.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/textPosT.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%TextCust.7" /></tooltip>
+            </ToggleButton>
+            <ToggleButton fx:id="trButton" layoutX="5.0" layoutY="44.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/textPosTR.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%TextCust.8" /></tooltip>
+            </ToggleButton>
+            <ToggleButton fx:id="centreButton" layoutX="50.0" layoutY="44.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/textPosCentre.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%TextCust.9" /></tooltip>
+            </ToggleButton>
+            <ToggleButton fx:id="lButton" layoutX="95.0" layoutY="44.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/textPosLeft.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%TextCust.10" /></tooltip>
+            </ToggleButton>
+            <ToggleButton fx:id="rButton" layoutX="140.0" layoutY="44.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/textPosRight.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%TextCust.11" /></tooltip>
+            </ToggleButton>
+            <Label layoutX="5.0" layoutY="84.0" text="%TextCust.1" />
+            <TextArea fx:id="packagesField" layoutX="5.0" layoutY="104.0" prefHeight="100.0" prefWidth="225.0" />
+            <Label layoutX="5.0" layoutY="209.0" text="Compilation log:" />
+            <TextArea fx:id="logField" layoutX="5.0" layoutY="230.0" prefHeight="120.0" prefWidth="225.0" editable="false">
+            	<tooltip><Tooltip text="%TextCust.2" /></tooltip>
+            </TextArea>
+         </children>
+		</AnchorPane>
+	</content>
+</TitledPane>

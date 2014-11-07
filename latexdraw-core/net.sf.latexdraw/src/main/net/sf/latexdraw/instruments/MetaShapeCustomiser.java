@@ -38,7 +38,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	protected ShapeFillingCustomiser fillingCustomiser;
 
 	/** This instrument customises the texts. */
-	protected TextCustomiser textCustomiser;
+	protected ShapeTextCustomiser shapeTextCustomiser;
 
 	/** This instrument customises the rotation angle. */
 	protected ShapeRotationCustomiser rotationCustomiser;
@@ -92,7 +92,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	public MetaShapeCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil, final Border border) {
 		super(composer, hand, pencil);
 
-		textCustomiser			= new TextCustomiser(composer, hand, pencil);
 		rotationCustomiser		= new ShapeRotationCustomiser(composer, hand, pencil);
 		arcCustomiser			= new ShapeArcCustomiser(composer, hand, pencil);
 		dimPosCustomiser		= new ShapeCoordDimCustomiser(composer, hand, pencil);
@@ -113,7 +112,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		doubleBorderCustomiser.addEventable(eventable);
 		shadowCustomiser.addEventable(eventable);
 		fillingCustomiser.addEventable(eventable);
-		textCustomiser.addEventable(eventable);
+		shapeTextCustomiser.addEventable(eventable);
 		rotationCustomiser.addEventable(eventable);
 		arrowCustomiser.addEventable(eventable);
 		dotCustomiser.addEventable(eventable);
@@ -140,7 +139,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		doubleBorderCustomiser.setActivated(activated);
 		shadowCustomiser.setActivated(activated);
 		fillingCustomiser.setActivated(activated);
-		textCustomiser.setActivated(activated);
+		shapeTextCustomiser.setActivated(activated);
 		rotationCustomiser.setActivated(activated && hand.isActivated());
 		arrowCustomiser.setActivated(activated);
 		dotCustomiser.setActivated(activated);
@@ -166,7 +165,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		doubleBorderCustomiser.update(shape);
 		shadowCustomiser.update(shape);
 		fillingCustomiser.update(shape);
-		textCustomiser.update(shape);
+		shapeTextCustomiser.update(shape);
 		rotationCustomiser.update(shape);
 		arrowCustomiser.update(shape);
 		dotCustomiser.update(shape);
@@ -189,7 +188,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		doubleBorderCustomiser.clearEvents();
 		shadowCustomiser.clearEvents();
 		fillingCustomiser.clearEvents();
-		textCustomiser.clearEvents();
+		shapeTextCustomiser.clearEvents();
 		rotationCustomiser.clearEvents();
 		arrowCustomiser.clearEvents();
 		dotCustomiser.clearEvents();
@@ -291,8 +290,8 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	 * @return The instrument that customises the texts.
 	 * @since 3.0
 	 */
-	public TextCustomiser getTextCustomiser() {
-		return textCustomiser;
+	public ShapeTextCustomiser getTextCustomiser() {
+		return shapeTextCustomiser;
 	}
 
 
