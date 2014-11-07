@@ -230,10 +230,6 @@ public class EditingSelector extends WidgetInstrument {
 		bezierClosedB.setMargin(LResources.INSET_BUTTON);
  		bezierClosedB.setToolTipText(LangTool.INSTANCE.getString19("LaTeXDrawFrame.11")); //$NON-NLS-1$
 
-		arcB = new MToggleButton(LResources.ARC_ICON);
-		arcB.setMargin(LResources.INSET_BUTTON);
- 		arcB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
-
 		triangleB = new MToggleButton(LResources.TRIANGLE_ICON);
 		triangleB.setMargin(LResources.INSET_BUTTON);
  		triangleB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.124")); //$NON-NLS-1$

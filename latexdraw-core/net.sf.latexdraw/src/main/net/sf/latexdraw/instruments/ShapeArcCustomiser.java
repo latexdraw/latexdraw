@@ -1,21 +1,14 @@
 package net.sf.latexdraw.instruments;
 
-import javax.swing.JLabel;
-
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.util.LResources;
 
-import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MSpinner;
-import org.malai.swing.widget.MToggleButton;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument modifies arc parameters.<br>
@@ -35,78 +28,48 @@ import org.malai.swing.widget.MToggleButton;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeArcCustomiser extends ShapePropertyCustomiser {
+public class ShapeArcCustomiser extends JfxInstrument{// extends ShapePropertyCustomiser {
 	/** The toggle button that selects the arc style. */
-	protected MToggleButton arcB;
+	@FXML protected ToggleButton arcB;
 
 	/** The toggle button that selects the wedge style. */
-	protected MToggleButton wedgeB;
+	@FXML protected ToggleButton wedgeB;
 
 	/** The toggle button that selects the chord style. */
-	protected MToggleButton chordB;
+	@FXML protected ToggleButton chordB;
 
 	/** The spinner that sets the start angle. */
-	protected MSpinner startAngleS;
+	@FXML protected TextField startAngleS;
 
 	/** The spinner that sets the end angle. */
-	protected MSpinner endAngleS;
+	@FXML protected TextField endAngleS;
 
+	@FXML protected TitledPane mainPane;
+	
 
 	/**
 	 * Creates the instrument.
-	 * @param hand The Hand instrument.
-	 * @param pencil The Pencil instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @throws IllegalArgumentException If one of the given argument is null.
-	 * @since 3.0
 	 */
-	public ShapeArcCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
-		super(composer, hand, pencil);
-		initialiseWidgets();
+	public ShapeArcCustomiser() {
+		super();
 	}
 
 
-	@Override
-	protected void initialiseWidgets() {
-		arcB = new MToggleButton(LResources.ARC_ICON);
-		arcB.setMargin(LResources.INSET_BUTTON);
-		arcB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
-
- 		wedgeB = new MToggleButton(LResources.WEDGE_ICON);
- 		wedgeB.setMargin(LResources.INSET_BUTTON);
- 		wedgeB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.130")); //$NON-NLS-1$
-
- 		chordB = new MToggleButton(LResources.CHORD_ICON);
- 		chordB.setMargin(LResources.INSET_BUTTON);
- 		chordB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.131")); //$NON-NLS-1$
-
-     	startAngleS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -360., 360., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersArcFrame.0"))); //$NON-NLS-1$
-     	startAngleS.setEditor(new MSpinner.NumberEditor(startAngleS, "0.0"));//$NON-NLS-1$
-
-     	endAngleS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -360., 360., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersArcFrame.1"))); //$NON-NLS-1$
-     	endAngleS.setEditor(new MSpinner.NumberEditor(endAngleS, "0.0"));//$NON-NLS-1$
-	}
-
-
-	@Override
+//	@Override
 	protected void setWidgetsVisible(final boolean visible) {
-		composer.setWidgetVisible(arcB, visible);
-		composer.setWidgetVisible(wedgeB, visible);
-		composer.setWidgetVisible(chordB, visible);
-		composer.setWidgetVisible(startAngleS, visible);
-		composer.setWidgetVisible(endAngleS, visible);
+		mainPane.setVisible(visible);
 	}
 
 
-	@Override
+//	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IArcProp.class)) {
 			final ArcStyle type = shape.getArcStyle();
 			arcB.setSelected(type==ArcStyle.ARC);
 			wedgeB.setSelected(type==ArcStyle.WEDGE);
 			chordB.setSelected(type==ArcStyle.CHORD);
-			startAngleS.setValueSafely(Math.toDegrees(shape.getAngleStart()));
-			endAngleS.setValueSafely(Math.toDegrees(shape.getAngleEnd()));
+//			startAngleS.setValueSafely(Math.toDegrees(shape.getAngleStart()));
+//			endAngleS.setValueSafely(Math.toDegrees(shape.getAngleEnd()));
 			setActivated(true);
 		}
 		else setActivated(false);
@@ -115,192 +78,176 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
-			addInteractor(new Spinner2SelectionEndAngle(this));
-			addInteractor(new Spinner2SelectionStartAngle(this));
-			addInteractor(new Spinner2PencilStartAngle(this));
-			addInteractor(new Spinner2PencilEndAngle(this));
-			addInteractor(new Button2SelectionArcStyle(this));
-			addInteractor(new Button2PencilArcStyle(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
-	}
-
-
-	/** @return The toggle button that selects the arc style. */
-	public MToggleButton getArcB() { return arcB; }
-
-	/** @return The toggle button that selects the wedge style. */
-	public MToggleButton getWedgeB() { return wedgeB; }
-
-	/**  @return The toggle button that selects the chord style. */
-	public MToggleButton getChordB() { return chordB; }
-
-	/** @return The spinner that sets the start angle. */
-	public MSpinner getStartAngleS() { return startAngleS; }
-
-	/**  @return The spinner that sets the end angle. */
-	public MSpinner getEndAngleS() { return endAngleS; }
-}
-
-
-abstract class Button2ArcStyle<T extends ShapePropertyAction> extends ButtonPressedForCustomiser<T, ShapeArcCustomiser> {
-	protected Button2ArcStyle(final ShapeArcCustomiser ins, final Class<T> action) throws InstantiationException, IllegalAccessException {
-		super(ins, action);
-	}
-
-	@Override
-	public void initAction() {
-		final Object button = interaction.getButton();
-		final ArcStyle style;
-
-		if(button==instrument.arcB)
-			 style = ArcStyle.ARC;
-		else if(button==instrument.chordB)
-			 style=ArcStyle.CHORD;
-		else style=ArcStyle.WEDGE;
-
-		action.setProperty(ShapeProperties.ARC_STYLE);
-		action.setValue(style);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		final Object button = interaction.getButton();
-		return button==instrument.arcB || button==instrument.chordB || button==instrument.wedgeB;
+//		try{
+//			addInteractor(new Spinner2SelectionEndAngle(this));
+//			addInteractor(new Spinner2SelectionStartAngle(this));
+//			addInteractor(new Spinner2PencilStartAngle(this));
+//			addInteractor(new Spinner2PencilEndAngle(this));
+//			addInteractor(new Button2SelectionArcStyle(this));
+//			addInteractor(new Button2PencilArcStyle(this));
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
 }
 
 
-
-class Button2PencilArcStyle extends Button2ArcStyle<ModifyPencilParameter> {
-	protected Button2PencilArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, ModifyPencilParameter.class);
-	}
-
-	@Override
-	public void initAction() {
-		super.initAction();
-		action.setPencil(instrument.pencil);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return super.isConditionRespected() && instrument.pencil.isActivated();
-	}
-}
-
-
-
-class Button2SelectionArcStyle extends Button2ArcStyle<ModifyShapeProperty> {
-	protected Button2SelectionArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, ModifyShapeProperty.class);
-	}
-
-	@Override
-	public void initAction() {
-		super.initAction();
-		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return super.isConditionRespected() && instrument.hand.isActivated();
-	}
-}
-
-
-
-class Spinner2PencilStartAngle extends SpinnerForCustomiser<ModifyPencilParameter, ShapeArcCustomiser> {
-	protected Spinner2PencilStartAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, ModifyPencilParameter.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setProperty(ShapeProperties.ARC_START_ANGLE);
-		action.setPencil(instrument.pencil);
-	}
-
-	@Override
-	public void updateAction() {
-		action.setValue(Math.toRadians(Double.valueOf(instrument.startAngleS.getValue().toString())));
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getSpinner()==instrument.startAngleS && instrument.pencil.isActivated();
-	}
-}
-
-
-
-class Spinner2SelectionStartAngle extends SpinnerForCustomiser<ModifyShapeProperty, ShapeArcCustomiser> {
-	protected Spinner2SelectionStartAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, ModifyShapeProperty.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setProperty(ShapeProperties.ARC_START_ANGLE);
-		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-	}
-
-	@Override
-	public void updateAction() {
-		action.setValue(Math.toRadians(Double.valueOf(instrument.startAngleS.getValue().toString())));
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getSpinner()==instrument.startAngleS && instrument.hand.isActivated();
-	}
-}
-
-
-
-class Spinner2PencilEndAngle extends SpinnerForCustomiser<ModifyPencilParameter, ShapeArcCustomiser> {
-	protected Spinner2PencilEndAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, ModifyPencilParameter.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setProperty(ShapeProperties.ARC_END_ANGLE);
-		action.setPencil(instrument.pencil);
-	}
-
-	@Override
-	public void updateAction() {
-		action.setValue(Math.toRadians(Double.valueOf(instrument.endAngleS.getValue().toString())));
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getSpinner()==instrument.endAngleS && instrument.pencil.isActivated();
-	}
-}
-
-
-class Spinner2SelectionEndAngle extends SpinnerForCustomiser<ModifyShapeProperty, ShapeArcCustomiser> {
-	protected Spinner2SelectionEndAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, ModifyShapeProperty.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setProperty(ShapeProperties.ARC_END_ANGLE);
-		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-	}
-
-	@Override
-	public void updateAction() {
-		action.setValue(Math.toRadians(Double.valueOf(instrument.endAngleS.getValue().toString())));
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getSpinner()==instrument.endAngleS && instrument.hand.isActivated();
-	}
-}
+//abstract class Button2ArcStyle<T extends ShapePropertyAction> extends ButtonPressedForCustomiser<T, ShapeArcCustomiser> {
+//	protected Button2ArcStyle(final ShapeArcCustomiser ins, final Class<T> action) throws InstantiationException, IllegalAccessException {
+//		super(ins, action);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		final Object button = interaction.getButton();
+//		final ArcStyle style;
+//
+//		if(button==instrument.arcB)
+//			 style = ArcStyle.ARC;
+//		else if(button==instrument.chordB)
+//			 style=ArcStyle.CHORD;
+//		else style=ArcStyle.WEDGE;
+//
+//		action.setProperty(ShapeProperties.ARC_STYLE);
+//		action.setValue(style);
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		final Object button = interaction.getButton();
+//		return button==instrument.arcB || button==instrument.chordB || button==instrument.wedgeB;
+//	}
+//}
+//
+//
+//
+//class Button2PencilArcStyle extends Button2ArcStyle<ModifyPencilParameter> {
+//	protected Button2PencilArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, ModifyPencilParameter.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		super.initAction();
+//		action.setPencil(instrument.pencil);
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return super.isConditionRespected() && instrument.pencil.isActivated();
+//	}
+//}
+//
+//
+//
+//class Button2SelectionArcStyle extends Button2ArcStyle<ModifyShapeProperty> {
+//	protected Button2SelectionArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, ModifyShapeProperty.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		super.initAction();
+//		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return super.isConditionRespected() && instrument.hand.isActivated();
+//	}
+//}
+//
+//
+//
+//class Spinner2PencilStartAngle extends SpinnerForCustomiser<ModifyPencilParameter, ShapeArcCustomiser> {
+//	protected Spinner2PencilStartAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, ModifyPencilParameter.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setProperty(ShapeProperties.ARC_START_ANGLE);
+//		action.setPencil(instrument.pencil);
+//	}
+//
+//	@Override
+//	public void updateAction() {
+//		action.setValue(Math.toRadians(Double.valueOf(instrument.startAngleS.getValue().toString())));
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return interaction.getSpinner()==instrument.startAngleS && instrument.pencil.isActivated();
+//	}
+//}
+//
+//
+//
+//class Spinner2SelectionStartAngle extends SpinnerForCustomiser<ModifyShapeProperty, ShapeArcCustomiser> {
+//	protected Spinner2SelectionStartAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, ModifyShapeProperty.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setProperty(ShapeProperties.ARC_START_ANGLE);
+//		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//	}
+//
+//	@Override
+//	public void updateAction() {
+//		action.setValue(Math.toRadians(Double.valueOf(instrument.startAngleS.getValue().toString())));
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return interaction.getSpinner()==instrument.startAngleS && instrument.hand.isActivated();
+//	}
+//}
+//
+//
+//
+//class Spinner2PencilEndAngle extends SpinnerForCustomiser<ModifyPencilParameter, ShapeArcCustomiser> {
+//	protected Spinner2PencilEndAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, ModifyPencilParameter.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setProperty(ShapeProperties.ARC_END_ANGLE);
+//		action.setPencil(instrument.pencil);
+//	}
+//
+//	@Override
+//	public void updateAction() {
+//		action.setValue(Math.toRadians(Double.valueOf(instrument.endAngleS.getValue().toString())));
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return interaction.getSpinner()==instrument.endAngleS && instrument.pencil.isActivated();
+//	}
+//}
+//
+//
+//class Spinner2SelectionEndAngle extends SpinnerForCustomiser<ModifyShapeProperty, ShapeArcCustomiser> {
+//	protected Spinner2SelectionEndAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, ModifyShapeProperty.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setProperty(ShapeProperties.ARC_END_ANGLE);
+//		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//	}
+//
+//	@Override
+//	public void updateAction() {
+//		action.setValue(Math.toRadians(Double.valueOf(instrument.endAngleS.getValue().toString())));
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return interaction.getSpinner()==instrument.endAngleS && instrument.hand.isActivated();
+//	}
+//}

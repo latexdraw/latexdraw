@@ -13,7 +13,6 @@ import javax.swing.border.TitledBorder;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
-import net.sf.latexdraw.instruments.ShapeArcCustomiser;
 import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
@@ -87,7 +86,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composeArcPropertiesWidgets(metaShapeCustomiser.getArcCustomiser(), canvas));
 		widget.add(composeStandardGridPropertiesToolbar(metaShapeCustomiser.getStandardGridCustomiser(), canvas));
 		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getGridCustomiser(), canvas));
 		widget.add(composeAxesPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), canvas));
@@ -370,29 +368,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(cust.getTlyS(), list);
 		list.setVisible(false);
 		cust.addEventable(list.getToolbar());
-		return list;
-	}
-
-
-	protected JComponent composeArcPropertiesWidgets(final ShapeArcCustomiser ins, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.ARC_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.9")); //$NON-NLS-1$
-
-		list.addComponent(ins.getArcB());
-		list.addComponent(ins.getChordB());
-		list.addComponent(ins.getWedgeB());
-		UIBuilder.addSpinner(list, ins.getStartAngleS(), 70);
-		UIBuilder.addSpinner(list, ins.getEndAngleS(), 70);
-		list.addSeparator();
-
-		mapContainers.put(ins.getArcB(), list);
-		mapContainers.put(ins.getChordB(), list);
-		mapContainers.put(ins.getWedgeB(), list);
-		mapContainers.put(ins.getStartAngleS(), list);
-		mapContainers.put(ins.getEndAngleS(), list);
-
-        ins.addEventable(list.getToolbar());
-        list.setVisible(false);
 		return list;
 	}
 

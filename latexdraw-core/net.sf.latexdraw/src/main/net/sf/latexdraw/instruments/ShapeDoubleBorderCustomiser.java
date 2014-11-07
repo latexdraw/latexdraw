@@ -37,7 +37,7 @@ public class ShapeDoubleBorderCustomiser extends JfxInstrument { //extends Shape
 	/** This field modifies the double separation of the double line. */
 	@FXML protected TextField dbleSepField;
 
-	@FXML protected TitledPane mainPane;	
+	@FXML protected TitledPane mainPane;
 	
 
 	/**

@@ -72,7 +72,7 @@ public final class LResources {
 	public static final ImageIcon DOUBLE_BORDER_ICON;
 	public static final ImageIcon SHADOW_ICON;
     public static final ImageIcon PDF_ICON;
-	public static final ImageIcon BEZIER_CURVE_ICON;		public static final ImageIcon CHORD_ICON;
+	public static final ImageIcon BEZIER_CURVE_ICON;
 	public static final ImageIcon NEW_ICON;
 	public static final ImageIcon OPEN_ICON;
 	public static final ImageIcon SAVE_ICON ;
@@ -93,8 +93,6 @@ public final class LResources {
 	public static final ImageIcon HELP_ICON;
 	public static final ImageIcon PREFERENCES_ICON;
 	public static final ImageIcon DRAWING_PROP_ICON;
-	public static final ImageIcon ARC_ICON;
-	public static final ImageIcon WEDGE_ICON;
 	public static final ImageIcon PLOT_ICON;
 	public static final ImageIcon ZOOM_DEFAULT_ICON;
 	public static final ImageIcon UNDO_ICON;
@@ -164,8 +162,6 @@ public final class LResources {
 		UNDO_ICON 		= loadImageIcon("/res/Undo.png");//$NON-NLS-1$
 		REDO_ICON 		= loadImageIcon("/res/Redo.png");	//$NON-NLS-1$
 		ZOOM_DEFAULT_ICON = loadImageIcon("/res/Magnify.png");	//$NON-NLS-1$
-		WEDGE_ICON 		= loadImageIcon("/res/wedge.png");//$NON-NLS-1$
-		ARC_ICON 		= loadImageIcon("/res/Arc.png");	//$NON-NLS-1$
 		PREFERENCES_ICON = loadImageIcon("/res/preferences-system.png");	//$NON-NLS-1$
 		NEW_ICON 		= loadImageIcon("/res/New.png");	//$NON-NLS-1$
 		OPEN_ICON 		= loadImageIcon("/res/document-open.png");	//$NON-NLS-1$
@@ -187,7 +183,6 @@ public final class LResources {
 		JOIN_ICON 		= loadImageIcon("/res/join.png");//$NON-NLS-1$
 		SEPARATE_ICON 	= loadImageIcon("/res/separate.png");//$NON-NLS-1$
 		BEZIER_CURVE_ICON = loadImageIcon("/res/bezierCurve.png");//$NON-NLS-1$
-		CHORD_ICON 		= loadImageIcon("/res/chord.png"); //$NON-NLS-1$
 		COMMENT_ICON 	= loadImageIcon("/res/comment.png"); //$NON-NLS-1$
 		LINES_ICON = loadImageIcon("/res/joinedLines.png"); //$NON-NLS-1$
 		ERR_ICON 		= loadImageIcon("/res/emblem-unreadable.png"); //$NON-NLS-1$

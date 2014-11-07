@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ToggleButton?>
+
+<TitledPane fx:id="mainPane" animated="true" text="Arc" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="net.sf.latexdraw.instruments.ShapeArcCustomiser">
+   	<tooltip><Tooltip text="%PropBuilder.9" /></tooltip>
+	<content>
+		<AnchorPane>
+         <children>
+            <ToggleButton fx:id="arcB" layoutX="5.0" layoutY="4.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/Arc.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%LaTeXDrawFrame.128" /></tooltip>
+            </ToggleButton>
+            <ToggleButton fx:id="wedgeB" layoutX="50.0" layoutY="4.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/wedge.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%LaTeXDrawFrame.130" /></tooltip>
+            </ToggleButton>
+            <ToggleButton fx:id="chordB" layoutX="95.0" layoutY="4.0" mnemonicParsing="false">
+            	<graphic><ImageView><image><Image url="@/res/chord.png" /></image></ImageView></graphic>
+            	<tooltip><Tooltip text="%LaTeXDrawFrame.131" /></tooltip>
+            </ToggleButton>
+            <Label layoutX="5.0" layoutY="46.0" text="%ParametersArcFrame.0" />
+		    <TextField fx:id="startAngleS" layoutX="130.0" layoutY="44.0" prefHeight="25.0" prefWidth="88.0" />
+		    <Label layoutX="5.0" layoutY="90.0" text="%ParametersArcFrame.1" />
+		    <TextField fx:id="endAngleS" layoutX="130.0" layoutY="84.0" prefHeight="25.0" prefWidth="88.0" />
+         </children>
+		</AnchorPane>
+	</content>
+</TitledPane>
