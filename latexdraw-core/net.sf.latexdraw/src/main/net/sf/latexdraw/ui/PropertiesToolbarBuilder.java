@@ -86,7 +86,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getGridCustomiser(), canvas));
 		widget.add(composeAxesPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), canvas));
 		widget.add(composeGridLabelsPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), metaShapeCustomiser.getGridCustomiser(),
 					metaShapeCustomiser.getStandardGridCustomiser(), canvas));
@@ -240,10 +239,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS));
 		p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));
 		UIBuilder.addCombobox(p1, axeCust.getShowLabels());
-		p1.add(gridCust.getColourLabels());
 		p1.add(axeCust.getShowOrigin());
-		p1.add(gridCust.getLabelsXInvertedCB());
-		p1.add(gridCust.getLabelsYInvertedCB());
 		UIBuilder.addSpinner(p2, axeCust.getIncrLabelX(), 50);
 		UIBuilder.addSpinner(p2, axeCust.getIncrLabelY(), 50);
 		UIBuilder.addSpinner(p2, axeCust.getDistLabelsX(), 60);
@@ -254,14 +250,11 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		list.addSeparator();
 
 		mapContainers.put(axeCust.getShowLabels(), list);
-		mapContainers.put(gridCust.getColourLabels(), list);
 		mapContainers.put(axeCust.getShowOrigin(), list);
 		mapContainers.put(axeCust.getIncrLabelX(), list);
 		mapContainers.put(axeCust.getIncrLabelY(), list);
 		mapContainers.put(axeCust.getDistLabelsX(), list);
 		mapContainers.put(axeCust.getDistLabelsY(), list);
-		mapContainers.put(gridCust.getLabelsXInvertedCB(), list);
-		mapContainers.put(gridCust.getLabelsYInvertedCB(), list);
 
 		axeCust.addEventable(p1);
 		stdGridCust.addEventable(p1);
@@ -301,30 +294,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		list.setVisible(false);
 		cust.addEventable(panel);
 		cust.addEventable(ticksPanel);
-		return list;
-	}
-
-
-	protected WidgetMiniToolbar composeGridPropertiesToolbar(final ShapeGridCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.SUBGRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.4")); //$NON-NLS-1$
-
-		UIBuilder.addSpinner(list, cust.getGridWidth(), 60);
-		UIBuilder.addSpinner(list, cust.getSubGridWidth(), 60);
-		list.addComponent(cust.getColourSubGrid());
-		UIBuilder.addSpinner(list, cust.getGridDots(), 50);
-		UIBuilder.addSpinner(list, cust.getSubGridDots(), 50);
-		UIBuilder.addSpinner(list, cust.getSubGridDiv(), 50);
-		list.addSeparator();
-
-		mapContainers.put(cust.getColourSubGrid(), list);
-		mapContainers.put(cust.getGridWidth(), list);
-		mapContainers.put(cust.getSubGridWidth(), list);
-		mapContainers.put(cust.getGridDots(), list);
-		mapContainers.put(cust.getSubGridDots(), list);
-		mapContainers.put(cust.getSubGridDiv(), list);
-		cust.addEventable(list.getToolbar());
-		list.setVisible(false);
 		return list;
 	}
 

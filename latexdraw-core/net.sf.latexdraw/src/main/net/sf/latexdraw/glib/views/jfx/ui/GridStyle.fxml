@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+		fx:controller="net.sf.latexdraw.instruments.ShapeGridCustomiser">
+	<AnchorPane minWidth="250" maxWidth="250" layoutY="4"
+		style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+      <ColorPicker fx:id="colourLabels" layoutX="0.0" layoutY="2.0" prefHeight="25.0" prefWidth="110.0">
+		<tooltip><Tooltip text="%ShapeGrid.1" /></tooltip>      
+      </ColorPicker>
+      <ToggleButton fx:id="labelsYInvertedCB" layoutX="113.0" layoutY="0.0" mnemonicParsing="false">
+      	<graphic><ImageView><image><Image url="@/res/yGridLabel.png" /></image></ImageView></graphic>
+      	<tooltip><Tooltip text="%ShapeGrid.3" /></tooltip>
+      </ToggleButton>
+      <ToggleButton fx:id="labelsYInvertedCB" layoutX="153.0" layoutY="0.0" mnemonicParsing="false">
+      	<graphic><ImageView><image><Image url="@/res/xGridLabel.png" /></image></ImageView></graphic>
+      	<tooltip><Tooltip text="%ShapeGrid.4" /></tooltip>
+      </ToggleButton>
+	</AnchorPane>
+	
+	<AnchorPane minWidth="250" maxWidth="250" layoutY="43"
+		style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+      <ColorPicker fx:id="colourLabels" layoutX="0.0" layoutY="0.0" prefHeight="25.0" prefWidth="110.0">
+		<tooltip><Tooltip text="%ShapeGrid.2" /></tooltip>      
+      </ColorPicker>
+      <Label layoutX="0.0" layoutY="30.0" text="%ParametersGridFrame.8" />
+      <TextField fx:id="subGridDiv" layoutX="130.0" layoutY="28.0" prefHeight="25.0" prefWidth="60.0" />
+      <Label layoutX="0.0" layoutY="60.0" text="%ParametersGridFrame.7" />
+      <TextField fx:id="subGridWidth" layoutX="130.0" layoutY="58.0" prefHeight="25.0" prefWidth="60.0" />
+      <Label layoutX="0.0" layoutY="90.0" text="%ParametersGridFrame.4" />
+      <TextField fx:id="subGridDots" layoutX="130.0" layoutY="88.0" prefHeight="25.0" prefWidth="60.0" />
+	</AnchorPane>
+	
+	<AnchorPane minWidth="250" maxWidth="250" layoutY="165"
+		style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+      <Label layoutX="0.0" layoutY="2.0" text="%ParametersGridFrame.6" />
+      <TextField fx:id="gridWidth" layoutX="130.0" layoutY="0.0" prefHeight="25.0" prefWidth="60.0" />
+      <Label layoutX="0.0" layoutY="32.0" text="%ParametersGridFrame.5" />
+      <TextField fx:id="gridDots" layoutX="130.0" layoutY="30.0" prefHeight="25.0" prefWidth="60.0" />
+	</AnchorPane>
+</AnchorPane>

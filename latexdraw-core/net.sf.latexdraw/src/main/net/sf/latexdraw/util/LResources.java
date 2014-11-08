@@ -130,8 +130,6 @@ public final class LResources {
 	public static final ImageIcon ROUNDNESS_ICON;
 	public static final ImageIcon BUTTON_CLOSE_IN_ICON;
 	public static final ImageIcon BUTTON_CLOSE_OUT_ICON;
-	public static final ImageIcon GRID_X_LABEL;
-	public static final ImageIcon GRID_Y_LABEL;
 	public static final ImageIcon GRID_LABELS;
 	public static final ImageIcon RELOAD_ICON;
 
@@ -140,8 +138,6 @@ public final class LResources {
 		PLOT_ICON			= loadImageIcon("/res/plot.png");//$NON-NLS-1$
 		RELOAD_ICON			= loadImageIcon("/res/view-refresh.png");//$NON-NLS-1$
 		GRID_LABELS			= loadImageIcon("/res/gridLabels.png");//$NON-NLS-1$
-		GRID_X_LABEL		= loadImageIcon("/res/xGridLabel.png");//$NON-NLS-1$
-		GRID_Y_LABEL		= loadImageIcon("/res/yGridLabel.png");//$NON-NLS-1$
 		DIM_POS_ICON		= loadImageIcon("/res/dimPos.png");//$NON-NLS-1$
 		FILLING_ICON		= loadImageIcon("/res/filling.png");//$NON-NLS-1$
 		BORDER_ICON			= loadImageIcon("/res/border.png");//$NON-NLS-1$

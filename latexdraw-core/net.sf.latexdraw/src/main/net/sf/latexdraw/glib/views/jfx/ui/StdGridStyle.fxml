@@ -8,7 +8,8 @@
 	<content>
 		<VBox spacing="5">
 			<children>
-				<AnchorPane>
+				<AnchorPane minWidth="250" maxWidth="250" style=" -fx-border-color:lightgray; -fx-border-width: 1; 
+					-fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
 			      <Label layoutX="0.0" layoutY="4.0" text="%ParametersGridFrame.12" />
 			      <TextField fx:id="xStartS" layoutX="70.0" layoutY="0.0" prefHeight="25.0" prefWidth="50.0">
 			      	<tooltip><Tooltip text="%ShapeStdGrid.1" /></tooltip>
@@ -38,6 +39,7 @@
 			      	<tooltip><Tooltip text="%ShapeStdGrid.5" /></tooltip>
 			      </TextField>
 				</AnchorPane>
+				<fx:include source="GridStyle.fxml" />
 			</children>
 		</VBox>	
 	</content>

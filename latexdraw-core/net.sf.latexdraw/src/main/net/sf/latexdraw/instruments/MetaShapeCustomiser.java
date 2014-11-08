@@ -96,7 +96,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		dimPosCustomiser		= new ShapeCoordDimCustomiser(composer, hand, pencil);
 		shapeGrouper			= new ShapeGrouper(composer, hand, pencil);
 		shapeAxesCustomiser		= new ShapeAxesCustomiser(composer, hand, pencil);
-		shapeGridCustomiser		= new ShapeGridCustomiser(composer, hand, pencil);
 		shapeFreeHandCustomiser	= new ShapeFreeHandCustomiser(composer, hand, pencil);
 		shapeTransformer		= new ShapeTransformer(composer, hand, pencil, border);
 		shapePositioner			= new ShapePositioner(composer, hand, pencil);
