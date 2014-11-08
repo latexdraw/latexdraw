@@ -13,7 +13,7 @@
 					<content>
 						<BorderPane>
 							<center>
-								<SplitPane dividerPositions="0.85" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+								<SplitPane dividerPositions="0.85" prefHeight="160.0" prefWidth="220.0" BorderPane.alignment="CENTER">
 									<items>
 										<BorderPane>
 											<center>
@@ -22,9 +22,9 @@
 												</ScrollPane>
 											</center>
 										</BorderPane>
-										<BorderPane maxWidth="250.0" minWidth="250.0">
+										<BorderPane maxWidth="270.0" minWidth="270.0">
 											<center>
-												<Accordion maxWidth="250.0" minWidth="250.0" BorderPane.alignment="CENTER">
+												<Accordion maxWidth="270.0" minWidth="270.0" BorderPane.alignment="CENTER">
 													<panes>
 														<fx:include source="LineStyle.fxml" />
 														<fx:include source="FillingStyle.fxml" />
@@ -32,6 +32,7 @@
 														<fx:include source="DoubleLineStyle.fxml" />
 														<fx:include source="ArrowStyle.fxml" />
 														<fx:include source="TextStyle.fxml" />
+														<fx:include source="StdGridStyle.fxml" />
 														<fx:include source="DotStyle.fxml" />
 														<fx:include source="ArcStyle.fxml" />
 														<TitledPane animated="true" text="Shape Transformation">

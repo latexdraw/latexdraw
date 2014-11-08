@@ -56,7 +56,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	protected ShapeCoordDimCustomiser dimPosCustomiser;
 
 	/** This instrument customises grids and axes. */
-	protected ShapeStandardGridCustomiser gridCustomiser;
+	protected ShapeStdGridCustomiser gridCustomiser;
 
 	/** This instrument groups shapes. */
 	protected ShapeGrouper shapeGrouper;
@@ -94,7 +94,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 		rotationCustomiser		= new ShapeRotationCustomiser(composer, hand, pencil);
 		dimPosCustomiser		= new ShapeCoordDimCustomiser(composer, hand, pencil);
-		gridCustomiser			= new ShapeStandardGridCustomiser(composer, hand, pencil);
 		shapeGrouper			= new ShapeGrouper(composer, hand, pencil);
 		shapeAxesCustomiser		= new ShapeAxesCustomiser(composer, hand, pencil);
 		shapeGridCustomiser		= new ShapeGridCustomiser(composer, hand, pencil);
@@ -244,7 +243,7 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	 * @return The instrument that customises grids and axes.
 	 * @since 3.0
 	 */
-	public ShapeStandardGridCustomiser getStandardGridCustomiser() {
+	public ShapeStdGridCustomiser getStandardGridCustomiser() {
 		return gridCustomiser;
 	}
 

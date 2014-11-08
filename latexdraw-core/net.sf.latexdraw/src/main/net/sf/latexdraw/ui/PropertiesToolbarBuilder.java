@@ -21,7 +21,7 @@ import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.instruments.ShapePlotCustomiser;
 import net.sf.latexdraw.instruments.ShapePositioner;
 import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
-import net.sf.latexdraw.instruments.ShapeStandardGridCustomiser;
+import net.sf.latexdraw.instruments.ShapeStdGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeTransformer;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -86,7 +86,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composeStandardGridPropertiesToolbar(metaShapeCustomiser.getStandardGridCustomiser(), canvas));
 		widget.add(composeGridPropertiesToolbar(metaShapeCustomiser.getGridCustomiser(), canvas));
 		widget.add(composeAxesPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), canvas));
 		widget.add(composeGridLabelsPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), metaShapeCustomiser.getGridCustomiser(),
@@ -230,7 +229,7 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 	/** Creates the toolbar containing the widgets that customises grids' labels. */
 	protected WidgetMiniToolbar composeGridLabelsPropertiesToolbar(final ShapeAxesCustomiser axeCust, final ShapeGridCustomiser gridCust,
-																	final ShapeStandardGridCustomiser stdGridCust, final LCanvas canvas) {
+																	final ShapeStdGridCustomiser stdGridCust, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
 		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.2")); //$NON-NLS-1$
 
@@ -240,7 +239,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		p1.setLayout(new BoxLayout(p1, BoxLayout.X_AXIS));
 		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS));
 		p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));
-		UIBuilder.addSpinner(p1, stdGridCust.getLabelsSizeS(), 50);
 		UIBuilder.addCombobox(p1, axeCust.getShowLabels());
 		p1.add(gridCust.getColourLabels());
 		p1.add(axeCust.getShowOrigin());
@@ -262,7 +260,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(axeCust.getIncrLabelY(), list);
 		mapContainers.put(axeCust.getDistLabelsX(), list);
 		mapContainers.put(axeCust.getDistLabelsY(), list);
-		mapContainers.put(stdGridCust.getLabelsSizeS(), list);
 		mapContainers.put(gridCust.getLabelsXInvertedCB(), list);
 		mapContainers.put(gridCust.getLabelsYInvertedCB(), list);
 
@@ -328,30 +325,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(cust.getSubGridDiv(), list);
 		cust.addEventable(list.getToolbar());
 		list.setVisible(false);
-		return list;
-	}
-
-
-	protected WidgetMiniToolbar composeStandardGridPropertiesToolbar(final ShapeStandardGridCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.GRID_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.5")); //$NON-NLS-1$
-
-		UIBuilder.addSpinner(list, cust.getxStartS(), 50);
-		UIBuilder.addSpinner(list, cust.getyStartS(), 50);
-		UIBuilder.addSpinner(list, cust.getxEndS(), 50);
-		UIBuilder.addSpinner(list, cust.getyEndS(), 50);
-		UIBuilder.addSpinner(list, cust.getxOriginS(), 50);
-		UIBuilder.addSpinner(list, cust.getyOriginS(), 50);
-		list.addSeparator();
-
-		mapContainers.put(cust.getxStartS(), list);
-		mapContainers.put(cust.getyStartS(), list);
-		mapContainers.put(cust.getxEndS(), list);
-		mapContainers.put(cust.getyEndS(), list);
-		mapContainers.put(cust.getxOriginS(), list);
-		mapContainers.put(cust.getyOriginS(), list);
-		list.setVisible(false);
-		cust.addEventable(list.getToolbar());
 		return list;
 	}
 

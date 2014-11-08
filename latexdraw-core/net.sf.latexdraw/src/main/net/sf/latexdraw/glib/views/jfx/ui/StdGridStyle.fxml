@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<TitledPane fx:id="mainPane" animated="true" text="Grid/Axe" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="net.sf.latexdraw.instruments.ShapeStdGridCustomiser">
+	<content>
+		<VBox spacing="5">
+			<children>
+				<AnchorPane>
+			      <Label layoutX="0.0" layoutY="4.0" text="%ParametersGridFrame.12" />
+			      <TextField fx:id="xStartS" layoutX="70.0" layoutY="0.0" prefHeight="25.0" prefWidth="50.0">
+			      	<tooltip><Tooltip text="%ShapeStdGrid.1" /></tooltip>
+			      </TextField>
+			      <Label layoutX="125.0" layoutY="4.0" text="%ParametersGridFrame.14" />
+			      <TextField fx:id="yStartS" layoutX="195.0" layoutY="0.0" prefHeight="25.0" prefWidth="50.0">
+			      	<tooltip><Tooltip text="%ShapeStdGrid.2" /></tooltip>
+			      </TextField>
+			      <Label layoutX="0.0" layoutY="37.0" text="%ParametersGridFrame.11" />
+			      <TextField fx:id="xEndS" layoutX="70.0" layoutY="32.0" prefHeight="25.0" prefWidth="50.0">
+			      	<tooltip><Tooltip text="%ShapeStdGrid.3" /></tooltip>
+			      </TextField>
+   			      <Label layoutX="125.0" layoutY="37.0" text="%ParametersGridFrame.13" />
+			      <TextField fx:id="yEndS" layoutX="195.0" layoutY="32.0" prefHeight="25.0" prefWidth="50.0">
+			      	<tooltip><Tooltip text="%ShapeStdGrid.4" /></tooltip>
+			      </TextField>
+			      <Label layoutX="0.0" layoutY="70.0" text="%ParametersGridFrame.1" />
+			      <TextField fx:id="xOriginS" layoutX="70.0" layoutY="65.0" prefHeight="25.0" prefWidth="50.0">
+			      	<tooltip><Tooltip text="%ShapeStdGrid.6" /></tooltip>
+			      </TextField>
+   			      <Label layoutX="125.0" layoutY="70.0" text="%ParametersGridFrame.0" />
+			      <TextField fx:id="yOriginS" layoutX="195.0" layoutY="65.0" prefHeight="25.0" prefWidth="50.0">
+			      	<tooltip><Tooltip text="%ShapeStdGrid.7" /></tooltip>
+			      </TextField>
+   			      <Label layoutX="0.0" layoutY="103.0" text="%ParametersGridFrame.9" />
+			      <TextField fx:id="labelsSizeS" layoutX="110.0" layoutY="98.0" prefHeight="25.0" prefWidth="60.0">
+			      	<tooltip><Tooltip text="%ShapeStdGrid.5" /></tooltip>
+			      </TextField>
+				</AnchorPane>
+			</children>
+		</VBox>	
+	</content>
+</TitledPane>
