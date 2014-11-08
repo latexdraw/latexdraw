@@ -13,7 +13,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
-import net.sf.latexdraw.parsers.ps.PSFunctionParser;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 
 import org.malai.action.Action;
@@ -146,7 +145,7 @@ public class TextSetter extends SwingInstrument {
 			addInteractor(new Enter2SetText(this));
 			addInteractor(new Enter2SetEquation(this));
 			addInteractor(new Enter2AddText(this));
-			addInteractor(new Enter2CheckPlot(this));
+//			addInteractor(new Enter2CheckPlot(this));
 			addInteractor(new KeyPress2Desactivate(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
@@ -300,40 +299,40 @@ class Enter2AddText extends InteractorImpl<AddShape, KeyTyped, TextSetter> {
 }
 
 
-class Enter2CheckPlot extends InteractorImpl<AddShape, KeyTyped, TextSetter> {
-	protected Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, AddShape.class, KeyTyped.class);
-	}
-
-	@Override
-	public void initAction() {
-		instrument.textField.setValid(true);
-		final IPoint textPosition = instrument.relativePoint==null ? ShapeFactory.createPoint(instrument.textField.getX(),
-									instrument.textField.getY()+instrument.textField.getHeight()) : instrument.relativePoint;
-		final IShape sh = instrument.pencil==null ? null : instrument.pencil.createShapeInstance();
-
-		if(sh instanceof IPlot) {
-			final IPlot plot = (IPlot)sh;
-			plot.setPosition(textPosition.getX(), textPosition.getY());
-			plot.setPlotEquation(instrument.textField.getText());
-			action.setShape(plot);
-			action.setDrawing(instrument.pencil.canvas().getDrawing());
-		}
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		boolean ok = instrument.pencil.currentChoice()==EditionChoice.PLOT && instrument.plot==null &&
-				!instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
-
-		if(ok)
-			if(!PSFunctionParser.isValidPostFixEquation(instrument.textField.getText(), 
-					Double.valueOf(instrument.plotCustom.getMinXSpinner().getValue().toString()),
-					Double.valueOf(instrument.plotCustom.getMaxXSpinner().getValue().toString()),
-					Double.valueOf(instrument.plotCustom.getNbPtsSpinner().getValue().toString()))) {
-				instrument.textField.setValid(false);
-				ok = false;
-			}
-		return ok;
-	}
-}
+//class Enter2CheckPlot extends InteractorImpl<AddShape, KeyTyped, TextSetter> {
+//	protected Enter2CheckPlot(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, AddShape.class, KeyTyped.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		instrument.textField.setValid(true);
+//		final IPoint textPosition = instrument.relativePoint==null ? ShapeFactory.createPoint(instrument.textField.getX(),
+//									instrument.textField.getY()+instrument.textField.getHeight()) : instrument.relativePoint;
+//		final IShape sh = instrument.pencil==null ? null : instrument.pencil.createShapeInstance();
+//
+//		if(sh instanceof IPlot) {
+//			final IPlot plot = (IPlot)sh;
+//			plot.setPosition(textPosition.getX(), textPosition.getY());
+//			plot.setPlotEquation(instrument.textField.getText());
+//			action.setShape(plot);
+//			action.setDrawing(instrument.pencil.canvas().getDrawing());
+//		}
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		boolean ok = instrument.pencil.currentChoice()==EditionChoice.PLOT && instrument.plot==null &&
+//				!instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
+//
+//		if(ok)
+//			if(!PSFunctionParser.isValidPostFixEquation(instrument.textField.getText(), 
+//					Double.valueOf(instrument.plotCustom.getMinXSpinner().getValue().toString()),
+//					Double.valueOf(instrument.plotCustom.getMaxXSpinner().getValue().toString()),
+//					Double.valueOf(instrument.plotCustom.getNbPtsSpinner().getValue().toString()))) {
+//				instrument.textField.setValid(false);
+//				ok = false;
+//			}
+//		return ok;
+//	}
+//}

@@ -12,7 +12,6 @@ import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
 import net.sf.latexdraw.instruments.ShapeGrouper;
-import net.sf.latexdraw.instruments.ShapePlotCustomiser;
 import net.sf.latexdraw.instruments.ShapePositioner;
 import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
 import net.sf.latexdraw.instruments.ShapeTransformer;
@@ -79,33 +78,8 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composePlotWidgets(metaShapeCustomiser.getPlotCustomiser(), canvas));
 		widget.add(composeFreeHandPropertiesToolbar(metaShapeCustomiser.getFreeHandCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-	}
-
-
-	protected WidgetMiniToolbar composePlotWidgets(final ShapePlotCustomiser plotCustom, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.PLOT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText("Customizes plots' properties.");
-		list.addComponent(plotCustom.getPolarCB());
-		list.addComponent(plotCustom.getPlotStyleCB());
-		UIBuilder.addSpinner(list, plotCustom.getNbPtsSpinner(), 70);
-		UIBuilder.addSpinner(list, plotCustom.getMinXSpinner(), 70);
-		UIBuilder.addSpinner(list, plotCustom.getMaxXSpinner(), 70);
-		UIBuilder.addSpinner(list, plotCustom.getXScaleSpinner(), 70);
-		UIBuilder.addSpinner(list, plotCustom.getYScaleSpinner(), 70);
-		list.addSeparator();
-		mapContainers.put(plotCustom.getNbPtsSpinner(), list);
-		mapContainers.put(plotCustom.getMinXSpinner(), list);
-		mapContainers.put(plotCustom.getMaxXSpinner(), list);
-		mapContainers.put(plotCustom.getXScaleSpinner(), list);
-		mapContainers.put(plotCustom.getYScaleSpinner(), list);
-		mapContainers.put(plotCustom.getPolarCB(), list);
-		mapContainers.put(plotCustom.getPlotStyleCB(), list);
-		plotCustom.addEventable(list.getToolbar());
-		list.setVisible(false);
-		return list;
 	}
 
 

@@ -98,7 +98,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeFreeHandCustomiser	= new ShapeFreeHandCustomiser(composer, hand, pencil);
 		shapeTransformer		= new ShapeTransformer(composer, hand, pencil, border);
 		shapePositioner			= new ShapePositioner(composer, hand, pencil);
-		plotCustom				= new ShapePlotCustomiser(composer, hand, pencil);
 	}
 
 
