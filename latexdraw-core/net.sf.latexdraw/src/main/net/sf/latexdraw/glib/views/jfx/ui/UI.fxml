@@ -30,9 +30,9 @@
 														<fx:include source="FillingStyle.fxml" />
 														<fx:include source="ShadowStyle.fxml" />
 														<fx:include source="DoubleLineStyle.fxml" />
+														<fx:include source="StdGridStyle.fxml" />
 														<fx:include source="ArrowStyle.fxml" />
 														<fx:include source="TextStyle.fxml" />
-														<fx:include source="StdGridStyle.fxml" />
 														<fx:include source="DotStyle.fxml" />
 														<fx:include source="ArcStyle.fxml" />
 														<TitledPane animated="true" text="Shape Transformation">

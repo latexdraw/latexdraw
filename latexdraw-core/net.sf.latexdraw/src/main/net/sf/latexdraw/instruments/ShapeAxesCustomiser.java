@@ -1,24 +1,21 @@
 package net.sf.latexdraw.instruments;
 
-import javax.swing.JLabel;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.ShapeFactory;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.lang.LangTool;
 
-import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MCheckBox;
-import org.malai.swing.widget.MComboBox;
-import org.malai.swing.widget.MSpinner;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument modifies axes properties of shapes or the pencil.<br>
@@ -38,407 +35,292 @@ import org.malai.swing.widget.MSpinner;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeAxesCustomiser extends ShapePropertyCustomiser {
+public class ShapeAxesCustomiser extends JfxInstrument implements Initializable { // extends ShapePropertyCustomiser {
 	/** The widget that permits to select the style of the axes. */
-	protected MComboBox<AxesStyle> shapeAxes;
+	@FXML protected ComboBox<AxesStyle> shapeAxes;
 
 	/** The widget that permits to select the style of the ticks. */
-	protected MComboBox<TicksStyle> shapeTicks;
-
-//	/** The widget that permits to set the size of the ticks. */
-//	protected MSpinner ticksSizeS;
+	@FXML protected ComboBox<TicksStyle> shapeTicks;
 
 	/** The widget that permits to show/hide the ticks of the axes. */
-	protected MComboBox<PlottingStyle> showTicks;
+	@FXML protected ComboBox<PlottingStyle> showTicks;
 
 	/** The widget that permits to set the increment of X-labels. */
-	protected MSpinner incrLabelX;
+	@FXML protected TextField incrLabelX;
 
 	/** The widget that permits to set the increment of Y-labels. */
-	protected MSpinner incrLabelY;
+	@FXML protected TextField incrLabelY;
 
 	/** The widget that permits to set the visibility of the labels. */
-	protected MComboBox<PlottingStyle> showLabels;
+	@FXML protected ComboBox<PlottingStyle> showLabels;
 
 	/** The widget that permits to set the visibility of the origin point. */
-	protected MCheckBox showOrigin;
+	@FXML protected CheckBox showOrigin;
 
 	/** The distance between the X-labels. */
-	protected MSpinner distLabelsX;
+	@FXML protected TextField distLabelsX;
 
 	/** The distance between the Y-labels. */
-	protected MSpinner distLabelsY;
+	@FXML protected TextField distLabelsY;
+	
+	@FXML protected AnchorPane mainPane;
 
 
 	/**
 	 * Creates the instrument.
-	 * @param hand The Hand instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param pencil The Pencil instrument.
-	 * @throws IllegalArgumentException If one of the given argument is null or if the drawing cannot
-	 * be accessed from the hand.
-	 * @since 3.0
 	 */
-	public ShapeAxesCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
-		super(composer, hand, pencil);
-		initialiseWidgets();
+	public ShapeAxesCustomiser() {
+		super();
 	}
 
-
 	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		shapeAxes.getItems().addAll(IAxesProp.AxesStyle.values());
+		shapeTicks.getItems().addAll(IAxesProp.TicksStyle.values());
+		showTicks.getItems().addAll(IAxesProp.PlottingStyle.values());
+		showLabels.getItems().addAll(IAxesProp.PlottingStyle.values());
+	}
+
+//	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IAxesProp.class)) {
-			shapeAxes.setSelectedItemSafely(shape.getAxesStyle());
-			shapeTicks.setSelectedItemSafely(shape.getTicksStyle());
-//			ticksSizeS.setValueSafely(axes.getTicksSize());
-			showTicks.setSelectedItemSafely(shape.getTicksDisplayed());
-			incrLabelX.setValueSafely(shape.getIncrementX());
-			incrLabelY.setValueSafely(shape.getIncrementY());
-			showLabels.setSelectedItemSafely(shape.getLabelsDisplayed());
+			shapeAxes.getSelectionModel().select(shape.getAxesStyle());
+			shapeTicks.getSelectionModel().select(shape.getTicksStyle());
+			showTicks.getSelectionModel().select(shape.getTicksDisplayed());
+//			incrLabelX.setValueSafely(shape.getIncrementX());
+//			incrLabelY.setValueSafely(shape.getIncrementY());
+			showLabels.getSelectionModel().select(shape.getLabelsDisplayed());
 			showOrigin.setSelected(shape.isShowOrigin());
-			distLabelsX.setValueSafely(shape.getDistLabelsX());
-			distLabelsY.setValueSafely(shape.getDistLabelsY());
+//			distLabelsX.setValueSafely(shape.getDistLabelsX());
+//			distLabelsY.setValueSafely(shape.getDistLabelsY());
 		}
 		else setActivated(false);
 	}
 
 
-	@Override
+//	@Override
 	protected void setWidgetsVisible(final boolean visible) {
-		composer.setWidgetVisible(shapeAxes, activated);
-		composer.setWidgetVisible(shapeTicks, activated);
-//		composer.setWidgetVisible(ticksSizeS, activated);
-		composer.setWidgetVisible(showTicks, activated);
-		composer.setWidgetVisible(incrLabelX, activated);
-		composer.setWidgetVisible(incrLabelY, activated);
-		composer.setWidgetVisible(showLabels, activated);
-		composer.setWidgetVisible(showOrigin, activated);
-		composer.setWidgetVisible(distLabelsX, activated);
-		composer.setWidgetVisible(distLabelsY, activated);
-	}
-
-
-	@Override
-	protected void initialiseWidgets() {
-		shapeAxes = new MComboBox<>(AxesStyle.values(), null);
-		shapeTicks = new MComboBox<>(TicksStyle.values(), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.0"))); //$NON-NLS-1$
-		showTicks = new MComboBox<>(PlottingStyle.values(), new JLabel(LangTool.INSTANCE.getStringActions("AxesCust.1"))); //$NON-NLS-1$
-		showLabels = new MComboBox<>(PlottingStyle.values(), new JLabel(LangTool.INSTANCE.getStringActions("AxesCust.1"))); //$NON-NLS-1$
-//		ticksSizeS = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 1., 1000., 0.5), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.13")));
-		incrLabelX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.8"))); //$NON-NLS-1$
-		incrLabelY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.0001, 0.0001, 1000., 1.), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.9"))); //$NON-NLS-1$
-		distLabelsX = new MSpinner(new MSpinner.MSpinnerNumberModel(0.01, 0.01, 1000., 0.05), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.6"))); //$NON-NLS-1$
-		distLabelsY = new MSpinner(new MSpinner.MSpinnerNumberModel(0.01, 0.01, 1000., 0.05), new JLabel(LangTool.INSTANCE.getString18("ParametersAxeFrame.7"))); //$NON-NLS-1$
-		showOrigin = new MCheckBox(LangTool.INSTANCE.getString18("ParametersAxeFrame.1"), true); //$NON-NLS-1$
+		mainPane.setVisible(visible);
 	}
 
 
 	@Override
 	protected void initialiseInteractors() {
-		try {
-			addInteractor(new Combobox2CustomSelectedAxes(this));
-			addInteractor(new Combobox2CustomPencilAxes(this));
-			addInteractor(new Spinner2CustomPencilAxes(this));
-			addInteractor(new Spinner2CustomSelectedAxes(this));
-			addInteractor(new CheckBox2CustomPencilAxes(this));
-			addInteractor(new CheckBox2CustomSelectedAxes(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		try {
+//			addInteractor(new Combobox2CustomSelectedAxes(this));
+//			addInteractor(new Combobox2CustomPencilAxes(this));
+//			addInteractor(new Spinner2CustomPencilAxes(this));
+//			addInteractor(new Spinner2CustomSelectedAxes(this));
+//			addInteractor(new CheckBox2CustomPencilAxes(this));
+//			addInteractor(new CheckBox2CustomSelectedAxes(this));
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
 
 
-	/**
-	 * @return The widget that permits to select the style of the axes.
-	 * @since 3.0
-	 */
-	public MComboBox<AxesStyle> getShapeAxes() {
-		return shapeAxes;
-	}
-
-	/**
-	 * @return The widget that permits to select the style of the ticks.
-	 * @since 3.0
-	 */
-	public MComboBox<TicksStyle> getShapeTicks() {
-		return shapeTicks;
-	}
-
-//	/**
-//	 * @return The widget that permits to set the size of the ticks.
-//	 * @since 3.0
-//	 */
-//	public MSpinner getTicksSizeS() {
-//		return ticksSizeS;
+//	/** Maps a checkbox to an action that modifies several axes' parameters. */
+//    private abstract static class CheckBox2CustomAxes<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeAxesCustomiser> {
+//		protected CheckBox2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+//			super(ins, clazzAction);
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return instrument.showOrigin==interaction.getCheckBox();
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			action.setProperty(ShapeProperties.AXES_SHOW_ORIGIN);
+//		}
+//
+//		@Override
+//		public void updateAction() {
+//			action.setValue(interaction.getCheckBox().isSelected());
+//		}
 //	}
-
-	/**
-	 * @return The widget that permits to show/hide the ticks of the axes.
-	 * @since 3.0
-	 */
-	public MComboBox<PlottingStyle> getShowTicks() {
-		return showTicks;
-	}
-
-	/**
-	 * @return The widget that permits to show/hide the labels of the axes.
-	 * @since 3.0
-	 */
-	public MComboBox<PlottingStyle> getShowLabels() {
-		return showLabels;
-	}
-
-	/**
-	 * @return The widget that permits to set the increment of X-labels.
-	 * @since 3.0
-	 */
-	public MSpinner getIncrLabelX() {
-		return incrLabelX;
-	}
-
-	/**
-	 * @return The widget that permits to set the increment of Y-labels.
-	 * @since 3.0
-	 */
-	public MSpinner getIncrLabelY() {
-		return incrLabelY;
-	}
-
-	/**
-	 * @return The widget that permits to set the visibility of the origin point.
-	 * @since 3.0
-	 */
-	public MCheckBox getShowOrigin() {
-		return showOrigin;
-	}
-
-	/**
-	 * @return The distance between the X-labels.
-	 * @since 3.0
-	 */
-	public MSpinner getDistLabelsX() {
-		return distLabelsX;
-	}
-
-	/**
-	 * @return The distance between the Y-labels.
-	 * @since 3.0
-	 */
-	public MSpinner getDistLabelsY() {
-		return distLabelsY;
-	}
-
-
-	/** Maps a checkbox to an action that modifies several axes' parameters. */
-    private abstract static class CheckBox2CustomAxes<A extends ShapePropertyAction> extends CheckBoxForCustomiser<A, ShapeAxesCustomiser> {
-		protected CheckBox2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-			super(ins, clazzAction);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.showOrigin==interaction.getCheckBox();
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.AXES_SHOW_ORIGIN);
-		}
-
-		@Override
-		public void updateAction() {
-			action.setValue(interaction.getCheckBox().isSelected());
-		}
-	}
-
-
-	/** Maps a spinner to an action that modifies the ticks size of the selected shapes. */
-	private static class CheckBox2CustomSelectedAxes extends CheckBox2CustomAxes<ModifyShapeProperty> {
-		protected CheckBox2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated() && super.isConditionRespected();
-		}
-	}
-
-
-	/** Maps a spinner to an action that modifies the ticks size of the pencil. */
-	private static class CheckBox2CustomPencilAxes extends CheckBox2CustomAxes<ModifyPencilParameter> {
-		protected CheckBox2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setPencil(instrument.pencil);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated() && super.isConditionRespected();
-		}
-	}
-
-
-	/** Maps a spinner to an action that modifies several axes' parameters. */
-    private abstract static class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeAxesCustomiser> {
-		protected Spinner2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-			super(ins, clazzAction);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final Object spinner = interaction.getSpinner();
-			return
-//					instrument.ticksSizeS==spinner ||
-					instrument.incrLabelX==spinner || instrument.incrLabelY==spinner ||
-				   instrument.distLabelsX==spinner || instrument.distLabelsY==spinner;
-		}
-
-		@Override
-		public void initAction() {
-			final Object spinner = interaction.getSpinner();
-
-//			if(spinner==instrument.ticksSizeS)
-//				action.setProperty(ShapeProperties.AXES_TICKS_SIZE);
+//
+//
+//	/** Maps a spinner to an action that modifies the ticks size of the selected shapes. */
+//	private static class CheckBox2CustomSelectedAxes extends CheckBox2CustomAxes<ModifyShapeProperty> {
+//		protected CheckBox2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, ModifyShapeProperty.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			super.initAction();
+//			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return instrument.hand.isActivated() && super.isConditionRespected();
+//		}
+//	}
+//
+//
+//	/** Maps a spinner to an action that modifies the ticks size of the pencil. */
+//	private static class CheckBox2CustomPencilAxes extends CheckBox2CustomAxes<ModifyPencilParameter> {
+//		protected CheckBox2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, ModifyPencilParameter.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			super.initAction();
+//			action.setPencil(instrument.pencil);
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return instrument.pencil.isActivated() && super.isConditionRespected();
+//		}
+//	}
+//
+//
+//	/** Maps a spinner to an action that modifies several axes' parameters. */
+//    private abstract static class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerForCustomiser<A, ShapeAxesCustomiser> {
+//		protected Spinner2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+//			super(ins, clazzAction);
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			final Object spinner = interaction.getSpinner();
+//			return instrument.incrLabelX==spinner || instrument.incrLabelY==spinner ||
+//				   instrument.distLabelsX==spinner || instrument.distLabelsY==spinner;
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			final Object spinner = interaction.getSpinner();
+//
+//			if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
+//				action.setProperty(ShapeProperties.AXES_LABELS_DIST);
 //			else
-			if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
-				action.setProperty(ShapeProperties.AXES_LABELS_DIST);
-			else
-				action.setProperty(ShapeProperties.AXES_LABELS_INCR);
-		}
-
-		@Override
-		public void updateAction() {
-			final Object spinner = interaction.getSpinner();
-
-//			if(spinner==instrument.ticksSizeS)
-//				action.setValue(Double.valueOf(interaction.getSpinner().getValue().toString()));
+//				action.setProperty(ShapeProperties.AXES_LABELS_INCR);
+//		}
+//
+//		@Override
+//		public void updateAction() {
+//			final Object spinner = interaction.getSpinner();
+//
+//			if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
+//				action.setValue(ShapeFactory.createPoint(Double.valueOf(instrument.distLabelsX.getValue().toString()),
+//								Double.valueOf(instrument.distLabelsY.getValue().toString())));
 //			else
-			if(spinner==instrument.distLabelsX || spinner==instrument.distLabelsY)
-				action.setValue(ShapeFactory.createPoint(Double.valueOf(instrument.distLabelsX.getValue().toString()),
-								Double.valueOf(instrument.distLabelsY.getValue().toString())));
-			else
-				action.setValue(ShapeFactory.createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()),
-							Double.valueOf(instrument.incrLabelY.getValue().toString())));
-		}
-	}
-
-
-	/** Maps a spinner to an action that modifies the ticks size of the selected shapes. */
-	private static class Spinner2CustomSelectedAxes extends Spinner2CustomAxes<ModifyShapeProperty> {
-		protected Spinner2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated() && super.isConditionRespected();
-		}
-	}
-
-
-	/** Maps a spinner to an action that modifies the ticks size of the pencil. */
-	private static class Spinner2CustomPencilAxes extends Spinner2CustomAxes<ModifyPencilParameter> {
-		protected Spinner2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setPencil(instrument.pencil);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated() && super.isConditionRespected();
-		}
-	}
-
-
-
-	/** Maps a combobox to an action that modifies the axe's style. */
-    private abstract static class Combobox2CustomAxes<A extends ShapePropertyAction> extends ListForCustomiser<A, ShapeAxesCustomiser> {
-		protected Combobox2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-			super(ins, clazzAction);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final Object list = interaction.getList();
-			return instrument.shapeAxes==list || instrument.shapeTicks==list || instrument.showTicks==list || instrument.showLabels==list;
-		}
-
-		@Override
-		public void initAction() {
-			final Object list = interaction.getList();
-
-			if(instrument.shapeAxes==list)
-				action.setProperty(ShapeProperties.AXES_STYLE);
-			else
-				if(instrument.showTicks==list)
-					action.setProperty(ShapeProperties.AXES_TICKS_SHOW);
-				else
-					if(instrument.showLabels==list)
-						action.setProperty(ShapeProperties.AXES_LABELS_SHOW);
-					else
-						action.setProperty(ShapeProperties.AXES_TICKS_STYLE);
-
-			action.setValue(interaction.getList().getSelectedObjects()[0]);
-		}
-	}
-
-
-	/** Maps a combobox to an action that modifies the axe's style of the pencil. */
-	private static class Combobox2CustomPencilAxes extends Combobox2CustomAxes<ModifyPencilParameter> {
-		protected Combobox2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setPencil(instrument.pencil);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated() && super.isConditionRespected();
-		}
-	}
-
-	/** Maps a combobox to an action that modifies the axe's style of the selection. */
-	private static class Combobox2CustomSelectedAxes extends Combobox2CustomAxes<ModifyShapeProperty> {
-		protected Combobox2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated() && super.isConditionRespected();
-		}
-	}
+//				action.setValue(ShapeFactory.createPoint(Double.valueOf(instrument.incrLabelX.getValue().toString()),
+//							Double.valueOf(instrument.incrLabelY.getValue().toString())));
+//		}
+//	}
+//
+//
+//	/** Maps a spinner to an action that modifies the ticks size of the selected shapes. */
+//	private static class Spinner2CustomSelectedAxes extends Spinner2CustomAxes<ModifyShapeProperty> {
+//		protected Spinner2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, ModifyShapeProperty.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			super.initAction();
+//			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return instrument.hand.isActivated() && super.isConditionRespected();
+//		}
+//	}
+//
+//
+//	/** Maps a spinner to an action that modifies the ticks size of the pencil. */
+//	private static class Spinner2CustomPencilAxes extends Spinner2CustomAxes<ModifyPencilParameter> {
+//		protected Spinner2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, ModifyPencilParameter.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			super.initAction();
+//			action.setPencil(instrument.pencil);
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return instrument.pencil.isActivated() && super.isConditionRespected();
+//		}
+//	}
+//
+//
+//
+//	/** Maps a combobox to an action that modifies the axe's style. */
+//    private abstract static class Combobox2CustomAxes<A extends ShapePropertyAction> extends ListForCustomiser<A, ShapeAxesCustomiser> {
+//		protected Combobox2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+//			super(ins, clazzAction);
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			final Object list = interaction.getList();
+//			return instrument.shapeAxes==list || instrument.shapeTicks==list || instrument.showTicks==list || instrument.showLabels==list;
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			final Object list = interaction.getList();
+//
+//			if(instrument.shapeAxes==list)
+//				action.setProperty(ShapeProperties.AXES_STYLE);
+//			else
+//				if(instrument.showTicks==list)
+//					action.setProperty(ShapeProperties.AXES_TICKS_SHOW);
+//				else
+//					if(instrument.showLabels==list)
+//						action.setProperty(ShapeProperties.AXES_LABELS_SHOW);
+//					else
+//						action.setProperty(ShapeProperties.AXES_TICKS_STYLE);
+//
+//			action.setValue(interaction.getList().getSelectedObjects()[0]);
+//		}
+//	}
+//
+//
+//	/** Maps a combobox to an action that modifies the axe's style of the pencil. */
+//	private static class Combobox2CustomPencilAxes extends Combobox2CustomAxes<ModifyPencilParameter> {
+//		protected Combobox2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, ModifyPencilParameter.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			super.initAction();
+//			action.setPencil(instrument.pencil);
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return instrument.pencil.isActivated() && super.isConditionRespected();
+//		}
+//	}
+//
+//	/** Maps a combobox to an action that modifies the axe's style of the selection. */
+//	private static class Combobox2CustomSelectedAxes extends Combobox2CustomAxes<ModifyShapeProperty> {
+//		protected Combobox2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, ModifyShapeProperty.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			super.initAction();
+//			action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return instrument.hand.isActivated() && super.isConditionRespected();
+//		}
+//	}
 }

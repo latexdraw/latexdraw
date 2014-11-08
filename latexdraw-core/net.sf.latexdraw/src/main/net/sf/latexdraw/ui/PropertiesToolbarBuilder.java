@@ -5,23 +5,16 @@ import java.awt.FlowLayout;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-import javax.swing.BoxLayout;
 import javax.swing.JComponent;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
-import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
-import net.sf.latexdraw.instruments.ShapeGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.instruments.ShapePlotCustomiser;
 import net.sf.latexdraw.instruments.ShapePositioner;
 import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
-import net.sf.latexdraw.instruments.ShapeStdGridCustomiser;
 import net.sf.latexdraw.instruments.ShapeTransformer;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -86,9 +79,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composeAxesPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), canvas));
-		widget.add(composeGridLabelsPropertiesToolbar(metaShapeCustomiser.getAxesCustomiser(), metaShapeCustomiser.getGridCustomiser(),
-					metaShapeCustomiser.getStandardGridCustomiser(), canvas));
 		widget.add(composePlotWidgets(metaShapeCustomiser.getPlotCustomiser(), canvas));
 		widget.add(composeFreeHandPropertiesToolbar(metaShapeCustomiser.getFreeHandCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
@@ -222,78 +212,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 		cust.addEventable(list.getToolbar());
 		list.setVisible(false);
-		return list;
-	}
-
-
-	/** Creates the toolbar containing the widgets that customises grids' labels. */
-	protected WidgetMiniToolbar composeGridLabelsPropertiesToolbar(final ShapeAxesCustomiser axeCust, final ShapeGridCustomiser gridCust,
-																	final ShapeStdGridCustomiser stdGridCust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.GRID_LABELS, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.2")); //$NON-NLS-1$
-
-		final MPanel p1 = new MPanel(false, true);
-		final MPanel p2 = new MPanel(false, true);
-		final MPanel p3 = new MPanel(false, false);
-		p1.setLayout(new BoxLayout(p1, BoxLayout.X_AXIS));
-		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS));
-		p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));
-		UIBuilder.addCombobox(p1, axeCust.getShowLabels());
-		p1.add(axeCust.getShowOrigin());
-		UIBuilder.addSpinner(p2, axeCust.getIncrLabelX(), 50);
-		UIBuilder.addSpinner(p2, axeCust.getIncrLabelY(), 50);
-		UIBuilder.addSpinner(p2, axeCust.getDistLabelsX(), 60);
-		UIBuilder.addSpinner(p2, axeCust.getDistLabelsY(), 60);
-		p3.add(p1);
-		p3.add(p2);
-		list.addComponent(p3);
-		list.addSeparator();
-
-		mapContainers.put(axeCust.getShowLabels(), list);
-		mapContainers.put(axeCust.getShowOrigin(), list);
-		mapContainers.put(axeCust.getIncrLabelX(), list);
-		mapContainers.put(axeCust.getIncrLabelY(), list);
-		mapContainers.put(axeCust.getDistLabelsX(), list);
-		mapContainers.put(axeCust.getDistLabelsY(), list);
-
-		axeCust.addEventable(p1);
-		stdGridCust.addEventable(p1);
-		gridCust.addEventable(p1);
-		axeCust.addEventable(p2);
-		stdGridCust.addEventable(p2);
-		gridCust.addEventable(p2);
-		list.setVisible(false);
-		return list;
-	}
-
-
-	/** Creates the toolbar containing the widgets that customises axes. */
-	protected WidgetMiniToolbar composeAxesPropertiesToolbar(final ShapeAxesCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.AXES_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.3")); //$NON-NLS-1$
-		final MPanel panel 	  = new MPanel(false, true);
-		final MPanel ticksPanel = new MPanel(false, true);
-
-		ticksPanel.setBorder(new CompoundBorder(new TitledBorder(null, LangTool.INSTANCE.getString18("ParametersAxeFrame.17"), //$NON-NLS-1$
-				  TitledBorder.LEFT, TitledBorder.TOP), new EmptyBorder(0,0,0,0)));
-
-		panel.add(cust.getShapeAxes());
-
-		UIBuilder.addCombobox(ticksPanel, cust.getShapeTicks());
-//		UIBuilder.addSpinner(ticksPanel, cust.getTicksSizeS(), 70);
-		UIBuilder.addCombobox(ticksPanel, cust.getShowTicks());
-
-		list.addComponent(panel);
-		list.addComponent(ticksPanel);
-		list.addSeparator();
-
-		mapContainers.put(cust.getShapeAxes(), list);
-		mapContainers.put(cust.getShapeTicks(), list);
-//		mapContainers.put(cust.getTicksSizeS(), list);
-		mapContainers.put(cust.getShowTicks(), list);
-		list.setVisible(false);
-		cust.addEventable(panel);
-		cust.addEventable(ticksPanel);
 		return list;
 	}
 
