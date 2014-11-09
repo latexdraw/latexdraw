@@ -37,9 +37,6 @@ public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 	/** This menu contains menu items related with the editing of shapes. */
 	protected MMenu editMenu;
 
-	/** This menu contains menu items to change the unit of the drawing. */
-	protected MMenu unitMenu;
-
 	/** This menu contains menu items related with the help. */
 	protected MMenu helpMenu;
 
@@ -69,7 +66,6 @@ public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 
 	protected void composeDrawingMenu() {
 		drawingMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.91"), true); //$NON-NLS-1$
-		unitMenu	= new MMenu(LangTool.INSTANCE.getStringActions("MenuBuilder.1"), true); //$NON-NLS-1$
 
 		widget.add(drawingMenu);
 		drawingMenu.add(frame.fileLoader.getNewMenu());
@@ -81,9 +77,6 @@ public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 		drawingMenu.add(frame.exporter.getExportMenu());
 		drawingMenu.addSeparator();
 		drawingMenu.add(frame.templateManager.templateMenu());
-		drawingMenu.add(unitMenu);
-		unitMenu.add(frame.scaleRulersCustomiser.getUnitCmItem());
-		unitMenu.add(frame.scaleRulersCustomiser.getUnitInchItem());
 
 		frame.exporter.getExportMenu().add(frame.templateManager.exportTemplateMenu());
 	}

@@ -240,8 +240,6 @@ public class LFrame extends SwingUI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, gen); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { scaleRulersCustomiser = new ScaleRulersCustomiser(xScaleRuler, yScaleRuler); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scroller		= new Scroller(canvas); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { zoomer		= new WidgetZoomer(canvas, true, true,

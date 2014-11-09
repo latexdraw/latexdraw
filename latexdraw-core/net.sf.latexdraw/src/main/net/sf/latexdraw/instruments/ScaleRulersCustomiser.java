@@ -1,12 +1,7 @@
 package net.sf.latexdraw.instruments;
 
-import java.util.Objects;
-
-import javax.swing.JMenuItem;
-
-import net.sf.latexdraw.actions.SetUnit;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.lang.LangTool;
+import javafx.fxml.FXML;
+import javafx.scene.control.RadioMenuItem;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.ui.XScaleRuler;
@@ -14,10 +9,7 @@ import net.sf.latexdraw.ui.YScaleRuler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 
-import org.malai.instrument.InteractorImpl;
-import org.malai.swing.instrument.SwingInstrument;
-import org.malai.swing.interaction.library.MenuItemPressed;
-import org.malai.swing.widget.MCheckBoxMenuItem;
+import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -41,13 +33,7 @@ import org.w3c.dom.Element;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class ScaleRulersCustomiser extends SwingInstrument {
-	/** The label of the centimetre menu */
-	public static final String LABEL_CM = LangTool.INSTANCE.getStringOthers("XScale.cm"); //$NON-NLS-1$
-
-	/** The label of the inch menu */
-	public static final String LABEL_INCH = LangTool.INSTANCE.getStringOthers("XScale.inch"); //$NON-NLS-1$
-
+public class ScaleRulersCustomiser extends JfxInstrument {
 	/** The x ruler of the system. */
 	protected XScaleRuler xRuler;
 
@@ -55,39 +41,36 @@ public class ScaleRulersCustomiser extends SwingInstrument {
 	protected YScaleRuler yRuler;
 
 	/** The menu for the centimetre unit. */
-	protected MCheckBoxMenuItem unitCmItem;
+	@FXML protected RadioMenuItem unitCmItem;
 
 	/** The menu for the inch unit. */
-	protected MCheckBoxMenuItem unitInchItem;
+	@FXML protected RadioMenuItem unitInchItem;
 
 
-	/**
-	 * Creates the instrument.
-	 * @param xRuler The x ruler of the system.
-	 * @param yRuler The Y ruler of the system.
-	 * @throws IllegalArgumentException If one of the given rulers is null.
-	 * @since 3.0
-	 */
-	public ScaleRulersCustomiser(final XScaleRuler xRuler, final YScaleRuler yRuler) {
-		super();
-
-		this.xRuler = Objects.requireNonNull(xRuler);
-		this.yRuler = Objects.requireNonNull(yRuler);
-
-		unitCmItem		= new MCheckBoxMenuItem(LABEL_CM);
-		unitInchItem	= new MCheckBoxMenuItem(LABEL_INCH);
-
-		// Mapping the instrument to the widgets that produce interactions that concerns its links.
-		addEventable(this.xRuler);
-		addEventable(this.yRuler);
-	}
+//	/**
+//	 * Creates the instrument.
+//	 * @param xRuler The x ruler of the system.
+//	 * @param yRuler The Y ruler of the system.
+//	 * @throws IllegalArgumentException If one of the given rulers is null.
+//	 * @since 3.0
+//	 */
+//	public ScaleRulersCustomiser(final XScaleRuler xRuler, final YScaleRuler yRuler) {
+//		super();
+//
+//		this.xRuler = Objects.requireNonNull(xRuler);
+//		this.yRuler = Objects.requireNonNull(yRuler);
+//
+//		// Mapping the instrument to the widgets that produce interactions that concerns its links.
+//		addEventable(this.xRuler);
+//		addEventable(this.yRuler);
+//	}
 
 
 	@Override
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
-		unitCmItem.setEnabled(activated);
-		unitInchItem.setEnabled(activated);
+		unitCmItem.setDisable(!activated);
+		unitInchItem.setDisable(!activated);
 	}
 
 
@@ -119,11 +102,11 @@ public class ScaleRulersCustomiser extends SwingInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
-			addInteractor(new MenuItem2SetUnit(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		try{
+//			addInteractor(new MenuItem2SetUnit(this));
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
 
 
@@ -156,48 +139,30 @@ public class ScaleRulersCustomiser extends SwingInstrument {
         elt.setTextContent(String.valueOf(unitCmItem.isSelected() ? Unit.CM : Unit.INCH));
         root.appendChild(elt);
 	}
-
-
-	/**
-	 * @return The menu for the centimetre unit.
-	 * @since 3.0
-	 */
-	public MCheckBoxMenuItem getUnitCmItem() {
-		return unitCmItem;
-	}
-
-
-	/**
-	 * @return The menu for the inch unit.
-	 * @since 3.0
-	 */
-	public MCheckBoxMenuItem getUnitInchItem() {
-		return unitInchItem;
-	}
 }
 
 
 
-/**
- * This link maps a menu item to an action that sets the unit of the rulers.
- */
-class MenuItem2SetUnit extends InteractorImpl<SetUnit, MenuItemPressed, ScaleRulersCustomiser> {
-	/**
-	 * Initialises the link.
-	 * @param ins The rulers activator.
-	 */
-	protected MenuItem2SetUnit(final ScaleRulersCustomiser ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, SetUnit.class, MenuItemPressed.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setUnit(interaction.getMenuItem()==instrument.unitCmItem ? Unit.CM : Unit.INCH);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		final JMenuItem item = interaction.getMenuItem();
-		return item==instrument.unitCmItem || item==instrument.unitInchItem;
-	}
-}
+///**
+// * This link maps a menu item to an action that sets the unit of the rulers.
+// */
+//class MenuItem2SetUnit extends InteractorImpl<SetUnit, MenuItemPressed, ScaleRulersCustomiser> {
+//	/**
+//	 * Initialises the link.
+//	 * @param ins The rulers activator.
+//	 */
+//	protected MenuItem2SetUnit(final ScaleRulersCustomiser ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, SetUnit.class, MenuItemPressed.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setUnit(interaction.getMenuItem()==instrument.unitCmItem ? Unit.CM : Unit.INCH);
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		final JMenuItem item = interaction.getMenuItem();
+//		return item==instrument.unitCmItem || item==instrument.unitInchItem;
+//	}
+//}

@@ -85,12 +85,7 @@
 						</MenuItem>
 						<Menu id="recentFilesMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.0b" />
 						<SeparatorMenuItem mnemonicParsing="false" />
-						<Menu mnemonicParsing="false" text="%MenuBuilder.1">
-							<items>
-								<RadioMenuItem id="unitCmItem" mnemonicParsing="false" text="%XScale.cm" />
-								<RadioMenuItem id="unitInchItem" mnemonicParsing="false" text="%XScale.inch" />
-							</items>
-						</Menu>
+						<fx:include source="UnitMenu.fxml" />
 					</items>
 				</MenuButton>
 				<MenuButton mnemonicParsing="false">
