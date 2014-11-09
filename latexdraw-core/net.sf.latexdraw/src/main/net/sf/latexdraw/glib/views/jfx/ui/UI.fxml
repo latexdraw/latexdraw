@@ -38,7 +38,7 @@
 														<fx:include source="ArcStyle.fxml" />
 														<TitledPane animated="true" text="Shape Transformation">
 															<content>
-																<AnchorPane />
+																<fx:include source="Rotation.fxml" />
 															</content>
 														</TitledPane>
 														<TitledPane animated="true" text="%LaTeXDrawFrame.103">

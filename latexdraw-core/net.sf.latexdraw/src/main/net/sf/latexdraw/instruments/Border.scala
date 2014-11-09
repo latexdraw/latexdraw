@@ -140,7 +140,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 
 	override def onActionDone(action:Action) {
 		action match {
-			case _:RotateShapes => _metaCustomiser.rotationCustomiser.update()
+//			case _:RotateShapes => _metaCustomiser.rotationCustomiser.update()
 //			case _:ModifyShapeProperty => _metaCustomiser.arcCustomiser.update()
 			case _:MoveCtrlPoint => _metaCustomiser.dimPosCustomiser.update()
 			case _:MovePointShape => _metaCustomiser.dimPosCustomiser.update()

@@ -113,8 +113,7 @@ public final class LResources {
 	public static final ImageIcon STOP_ICON;
 	public static final ImageIcon INSERT_PIC_ICON; 			public static final ImageIcon INSERT_PST_ICON;
 	public static final ImageIcon THICKNESS_ICON;
-	public static final ImageIcon DISPLAY_GRID_ICON;		public static final ImageIcon ROTATE_270_ICON;
-	public static final ImageIcon ROTATE_180_ICON; 			public static final ImageIcon ROTATE_90_ICON;
+	public static final ImageIcon DISPLAY_GRID_ICON;
 	public static final ImageIcon MIRROR_V_ICON;			public static final ImageIcon MIRROR_H_ICON;
 	public static final ImageIcon AXES_ICON;				public static final ImageIcon TEX_EDITOR_ICON;
 	public static final ImageIcon CURVES_FREEHAND_ICON;
@@ -187,9 +186,6 @@ public final class LResources {
 		INSERT_PST_ICON = loadImageIcon("/res/text-x-generic.png"); //$NON-NLS-1$
 		THICKNESS_ICON 	= loadImageIcon("/res/thickness.png"); //$NON-NLS-1$
 		DISPLAY_GRID_ICON = loadImageIcon("/res/displayGrid.png"); //$NON-NLS-1$
-		ROTATE_180_ICON 	= loadImageIcon("/res/rotation180.png"); //$NON-NLS-1$
-		ROTATE_90_ICON 	= loadImageIcon("/res/rotation90.png"); //$NON-NLS-1$
-		ROTATE_270_ICON 	= loadImageIcon("/res/rotation270.png"); //$NON-NLS-1$
 		MIRROR_H_ICON 	= loadImageIcon("/res/mirrorH.png"); //$NON-NLS-1$
 		MIRROR_V_ICON 	= loadImageIcon("/res/mirrorV.png"); //$NON-NLS-1$
 		AXES_ICON		= loadImageIcon("/res/axes.png"); //$NON-NLS-1$

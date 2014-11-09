@@ -5,15 +5,12 @@ import java.awt.FlowLayout;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-import javax.swing.JComponent;
-
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
 import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.instruments.ShapePositioner;
-import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
 import net.sf.latexdraw.instruments.ShapeTransformer;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -71,7 +68,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 		// Creation of the widgets layout of the shape properties instruments.
 		composeJoinShapesWidgets(metaShapeCustomiser.getShapeGrouper());
-		widget.add(composeRotationToolbar(metaShapeCustomiser.getRotationCustomiser(), canvas));
 		widget.add(composeShapePositionerWidgets(metaShapeCustomiser.getShapePositioner(), canvas));
 		widget.add(composeMirrorShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeAlignShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
@@ -202,27 +198,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(cust.getTlyS(), list);
 		list.setVisible(false);
 		cust.addEventable(list.getToolbar());
-		return list;
-	}
-
-
-	protected JComponent composeRotationToolbar(final ShapeRotationCustomiser ins, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.ROTATE_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-        list.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.2")); //$NON-NLS-1$
-
-        UIBuilder.addSpinner(list, ins.getRotationField(), 65);
-        list.addComponent(ins.getRotate90Button());
-        list.addComponent(ins.getRotate180Button());
-        list.addComponent(ins.getRotate270Button());
-        list.addSeparator();
-
-        mapContainers.put(ins.getRotationField(), list);
-        mapContainers.put(ins.getRotate90Button(), list);
-        mapContainers.put(ins.getRotate180Button(), list);
-        mapContainers.put(ins.getRotate270Button(), list);
-
-        ins.addEventable(list.getToolbar());
-        list.setVisible(false);
 		return list;
 	}
 }
