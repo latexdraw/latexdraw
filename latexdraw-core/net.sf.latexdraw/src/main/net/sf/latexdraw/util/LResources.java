@@ -114,18 +114,10 @@ public final class LResources {
 	public static final ImageIcon INSERT_PIC_ICON; 			public static final ImageIcon INSERT_PST_ICON;
 	public static final ImageIcon THICKNESS_ICON;
 	public static final ImageIcon DISPLAY_GRID_ICON;
-	public static final ImageIcon MIRROR_V_ICON;			public static final ImageIcon MIRROR_H_ICON;
 	public static final ImageIcon AXES_ICON;				public static final ImageIcon TEX_EDITOR_ICON;
 	public static final ImageIcon CURVES_FREEHAND_ICON;
 	public static final ImageIcon LINES_FREEHAND_ICON;
 	public static final ImageIcon CLOSED_BEZIER_ICON;
-	public static final ImageIcon ALIGN_BOTTOM_ICON;		public static final ImageIcon ALIGN_LEFT_ICON;
-	public static final ImageIcon ALIGN_MID_HORIZ_ICON; 	public static final ImageIcon ALIGN_MID_VERT_ICON;
-	public static final ImageIcon ALIGN_RIGHT_ICON;			public static final ImageIcon ALIGN_TOP_ICON;
-	public static final ImageIcon DIST_VERT_BOTTOM_ICON;	public static final ImageIcon DIST_HORIZ_EQUAL_ICON;
-	public static final ImageIcon DIST_VERT_MID_ICON; 		public static final ImageIcon DIST_VERT_TOP_ICON;
-	public static final ImageIcon DIST_VERT_EQUAL_ICON;		public static final ImageIcon DIST_HORIZ_MID_ICON;
-	public static final ImageIcon DIST_HORIZ_LEFT_ICON;		public static final ImageIcon DIST_HORIZ_RIGHT_ICON;
 	public static final ImageIcon ROUNDNESS_ICON;
 	public static final ImageIcon BUTTON_CLOSE_IN_ICON;
 	public static final ImageIcon BUTTON_CLOSE_OUT_ICON;
@@ -186,8 +178,6 @@ public final class LResources {
 		INSERT_PST_ICON = loadImageIcon("/res/text-x-generic.png"); //$NON-NLS-1$
 		THICKNESS_ICON 	= loadImageIcon("/res/thickness.png"); //$NON-NLS-1$
 		DISPLAY_GRID_ICON = loadImageIcon("/res/displayGrid.png"); //$NON-NLS-1$
-		MIRROR_H_ICON 	= loadImageIcon("/res/mirrorH.png"); //$NON-NLS-1$
-		MIRROR_V_ICON 	= loadImageIcon("/res/mirrorV.png"); //$NON-NLS-1$
 		AXES_ICON		= loadImageIcon("/res/axes.png"); //$NON-NLS-1$
 		TEX_EDITOR_ICON	= loadImageIcon("/res/texEditor.png"); //$NON-NLS-1$
 		CURVES_FREEHAND_ICON	= loadImageIcon("/res/freehand/curve.png"); //$NON-NLS-1$
@@ -197,25 +187,8 @@ public final class LResources {
 		DRAWING_PROP_ICON		= loadImageIcon("/res/document-properties.png"); //$NON-NLS-1$
 		LATEXDRAW_ICON		= loadImageIcon("/res/LaTeXDrawIcon.png"); //$NON-NLS-1$
 		PDF_ICON				= loadImageIcon("/res/pdf.png"); //$NON-NLS-1$
-
 		BUTTON_CLOSE_OUT_ICON = loadImageIcon("/res/closeOut.png"); //$NON-NLS-1$
 		BUTTON_CLOSE_IN_ICON = loadImageIcon("/res/closeIn.png"); //$NON-NLS-1$
-
-		ALIGN_BOTTOM_ICON		= loadImageIcon("/res/align/alignBottom.png"); //$NON-NLS-1$
-		ALIGN_LEFT_ICON		= loadImageIcon("/res/align/alignLeft.png"); //$NON-NLS-1$
-		ALIGN_MID_HORIZ_ICON= loadImageIcon("/res/align/alignMiddleHoriz.png"); //$NON-NLS-1$
-		ALIGN_MID_VERT_ICON	= loadImageIcon("/res/align/alignMiddleVert.png"); //$NON-NLS-1$
-		ALIGN_RIGHT_ICON		= loadImageIcon("/res/align/alignRight.png"); //$NON-NLS-1$
-		ALIGN_TOP_ICON		= loadImageIcon("/res/align/alignTop.png"); //$NON-NLS-1$
-
-		DIST_VERT_BOTTOM_ICON	= loadImageIcon("/res/distrib/distVertBottom.png"); //$NON-NLS-1$
-		DIST_VERT_EQUAL_ICON	= loadImageIcon("/res/distrib/distVertEqual.png"); //$NON-NLS-1$
-		DIST_VERT_MID_ICON	= loadImageIcon("/res/distrib/distVertMiddle.png"); //$NON-NLS-1$
-		DIST_VERT_TOP_ICON		= loadImageIcon("/res/distrib/distVertTop.png"); //$NON-NLS-1$
-		DIST_HORIZ_EQUAL_ICON	= loadImageIcon("/res/distrib/distHorizEqual.png"); //$NON-NLS-1$
-		DIST_HORIZ_MID_ICON	= loadImageIcon("/res/distrib/distHorizMiddle.png"); //$NON-NLS-1$
-		DIST_HORIZ_RIGHT_ICON	= loadImageIcon("/res/distrib/distHorizRight.png"); //$NON-NLS-1$
-		DIST_HORIZ_LEFT_ICON	= loadImageIcon("/res/distrib/distHorizLeft.png"); //$NON-NLS-1$
 	}
 
 

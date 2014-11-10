@@ -11,7 +11,6 @@ import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
 import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.instruments.ShapePositioner;
-import net.sf.latexdraw.instruments.ShapeTransformer;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
@@ -69,9 +68,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		// Creation of the widgets layout of the shape properties instruments.
 		composeJoinShapesWidgets(metaShapeCustomiser.getShapeGrouper());
 		widget.add(composeShapePositionerWidgets(metaShapeCustomiser.getShapePositioner(), canvas));
-		widget.add(composeMirrorShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
-		widget.add(composeAlignShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
-		widget.add(composeDistributeShapes(metaShapeCustomiser.getShapeTransformer(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 		widget.add(composeFreeHandPropertiesToolbar(metaShapeCustomiser.getFreeHandCustomiser(), canvas));
@@ -89,70 +85,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(ins.getForegroundButton(), list);
 		mapContainers.put(ins.getBackgroundButton(), list);
 		ins.addEventable(list.getToolbar());
-		list.setVisible(false);
-		return list;
-	}
-
-
-	// Creates the tool bar for mirroring shapes.
-	protected WidgetMiniToolbar composeDistributeShapes(final ShapeTransformer transformer, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.DIST_VERT_EQUAL_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.8")); //$NON-NLS-1$
-		list.addComponent(transformer.distribVertEq());
-		list.addComponent(transformer.distribVertMid());
-		list.addComponent(transformer.distribVertTop());
-		list.addComponent(transformer.distribVertBot());
-		list.addComponent(transformer.distribHorizEq());
-		list.addComponent(transformer.distribHorizMid());
-		list.addComponent(transformer.distribHorizLeft());
-		list.addComponent(transformer.distribHorizRight());
-		list.addSeparator();
-		mapContainers.put(transformer.distribHorizEq(), list);
-		mapContainers.put(transformer.distribHorizLeft(), list);
-		mapContainers.put(transformer.distribHorizRight(), list);
-		mapContainers.put(transformer.distribHorizMid(), list);
-		mapContainers.put(transformer.distribVertEq(), list);
-		mapContainers.put(transformer.distribVertTop(), list);
-		mapContainers.put(transformer.distribVertBot(), list);
-		mapContainers.put(transformer.distribVertMid(), list);
-		transformer.addEventable(list.getToolbar());
-		list.setVisible(false);
-		return list;
-	}
-
-	// Creates the tool bar for mirroring shapes.
-	protected WidgetMiniToolbar composeAlignShapes(final ShapeTransformer transformer, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.ALIGN_LEFT_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.1"));//$NON-NLS-1$
-		list.addComponent(transformer.alignLeft());
-		list.addComponent(transformer.alignRight());
-		list.addComponent(transformer.alignBot());
-		list.addComponent(transformer.alignTop());
-		list.addComponent(transformer.alignMidHoriz());
-		list.addComponent(transformer.alignMidVert());
-		list.addSeparator();
-		mapContainers.put(transformer.alignLeft(), list);
-		mapContainers.put(transformer.alignRight(), list);
-		mapContainers.put(transformer.alignBot(), list);
-		mapContainers.put(transformer.alignTop(), list);
-		mapContainers.put(transformer.alignMidHoriz(), list);
-		mapContainers.put(transformer.alignMidVert(), list);
-		transformer.addEventable(list.getToolbar());
-		list.setVisible(false);
-		return list;
-	}
-
-
-	// Creates the tool bar for mirroring shapes.
-	protected WidgetMiniToolbar composeMirrorShapes(final ShapeTransformer transformer, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.MIRROR_H_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.6")); //$NON-NLS-1$
-		list.addComponent(transformer.mirrorH());
-		list.addComponent(transformer.mirrorV());
-		list.addSeparator();
-		mapContainers.put(transformer.mirrorH(), list);
-		mapContainers.put(transformer.mirrorV(), list);
-		transformer.addEventable(list.getToolbar());
 		list.setVisible(false);
 		return list;
 	}
