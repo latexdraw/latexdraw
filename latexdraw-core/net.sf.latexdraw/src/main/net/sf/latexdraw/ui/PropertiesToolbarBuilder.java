@@ -8,7 +8,6 @@ import java.util.Map;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
-import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.instruments.ShapePositioner;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -65,7 +64,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		// Creation of the widgets layout of the shape properties instruments.
-		composeJoinShapesWidgets(metaShapeCustomiser.getShapeGrouper());
 		widget.add(composeShapePositionerWidgets(metaShapeCustomiser.getShapePositioner(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 	}
@@ -84,15 +82,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		list.setVisible(false);
 		return list;
 	}
-
-
-	// Composition of the widgets that joins/separates shapes.
-	protected void composeJoinShapesWidgets(final ShapeGrouper grouper) {
-		widget.add(grouper.getGroupB());
-		widget.add(grouper.getSepB());
-		grouper.addEventable(widget);
-	}
-
 
 	protected WidgetMiniToolbar composeDimPosPropertiesToolbar(final ShapeCoordDimCustomiser cust, final LCanvas canvas) {
 		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.DIM_POS_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);

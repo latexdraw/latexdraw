@@ -106,7 +106,6 @@ public final class LResources {
 	public static final ImageIcon COPY_ICON;
 	public static final ImageIcon PASTE_ICON;						public static final ImageIcon CUT_ICON;
 	public static final ImageIcon GRID_ICON;				public static final ImageIcon SUBGRID_ICON;
-	public static final ImageIcon JOIN_ICON;				public static final ImageIcon SEPARATE_ICON;
 	public static final ImageIcon COMMENT_ICON;
 	public static final ImageIcon LINES_ICON;	 			public static final ImageIcon LATEXDRAW_ICON;
 	public static final ImageIcon ERR_ICON;
@@ -164,8 +163,6 @@ public final class LResources {
 		PROPERTIES_ICON 	= loadImageIcon("/res/preferences-desktop-theme.png");	//$NON-NLS-1$
 		HELP_ICON 		= loadImageIcon("/res/help-browser.png");	//$NON-NLS-1$
 		ABOUT_ICON 		= loadImageIcon("/res/emblem-important.png");	//$NON-NLS-1$
-		JOIN_ICON 		= loadImageIcon("/res/join.png");//$NON-NLS-1$
-		SEPARATE_ICON 	= loadImageIcon("/res/separate.png");//$NON-NLS-1$
 		BEZIER_CURVE_ICON = loadImageIcon("/res/bezierCurve.png");//$NON-NLS-1$
 		COMMENT_ICON 	= loadImageIcon("/res/comment.png"); //$NON-NLS-1$
 		LINES_ICON = loadImageIcon("/res/joinedLines.png"); //$NON-NLS-1$

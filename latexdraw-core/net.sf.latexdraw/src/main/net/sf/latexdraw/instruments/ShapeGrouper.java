@@ -1,21 +1,11 @@
 package net.sf.latexdraw.instruments;
 
-import java.util.List;
-
-import net.sf.latexdraw.actions.shape.JoinShapes;
-import net.sf.latexdraw.actions.shape.SelectShapes;
-import net.sf.latexdraw.actions.shape.SeparateShapes;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.util.LResources;
 
-import org.malai.action.ActionsRegistry;
-import org.malai.instrument.InteractorImpl;
-import org.malai.swing.interaction.library.ButtonPressed;
-import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MButton;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument groups and separates shapes.<br>
@@ -35,48 +25,34 @@ import org.malai.swing.widget.MButton;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeGrouper extends ShapePropertyCustomiser {
+public class ShapeGrouper extends JfxInstrument { // extends ShapePropertyCustomiser {
 	/** The widget to group shapes. */
-	protected MButton groupB;
+	protected @FXML Button groupB;
 
 	/** The widget to separate shapes. */
-	protected MButton sepB;
+	protected @FXML Button sepB;
+	
+	protected @FXML TitledPane mainPane;
 
 
 	/**
 	 * Creates the instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param hand The Hand instrument.
-	 * @param pencil The Pencil instrument.
-	 * @throws IllegalArgumentException If one of the given parameters is null.
-	 * @since 3.0
 	 */
-	public ShapeGrouper(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
-		super(composer, hand, pencil);
-		initialiseWidgets();
+	public ShapeGrouper() {
+		super();
 	}
 
 
-	@Override
-	protected void initialiseWidgets() {
-		groupB = new MButton(LResources.JOIN_ICON);
-		groupB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.75")); //$NON-NLS-1$
-		sepB   = new MButton(LResources.SEPARATE_ICON);
-		sepB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.76")); //$NON-NLS-1$
-	}
-
-
-	@Override
+//	@Override
 	protected void update(final IGroup shape) {
 		if(isActivated() && !shape.isEmpty()) {
-			final boolean separate = shape.size()==1 && shape.getShapeAt(0) instanceof IGroup;
-			groupB.setVisible(shape.size()>1);
-			sepB.setVisible(separate);
+			groupB.setDisable(shape.isEmpty());
+			sepB.setDisable(shape.size()==1 && shape.getShapeAt(0) instanceof IGroup);
 		}
 	}
 
 
-	@Override
+//	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		groupB.setVisible(visible);
 		sepB.setVisible(visible);
@@ -86,76 +62,59 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
-			addInteractor(new Button2GroupShapes(this));
-			addInteractor(new Button2SeparateShapes(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		try{
+//			addInteractor(new Button2GroupShapes(this));
+//			addInteractor(new Button2SeparateShapes(this));
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
 
 
-	/**
-	 * @return The widget to group shapes.
-	 * @since 3.0
-	 */
-	public MButton getGroupB() {
-		return groupB;
-	}
-
-	/**
-	 * @return The widget to separate shapes.
-	 * @since 3.0
-	 */
-	public MButton getSepB() {
-		return sepB;
-	}
-
-
-	/** This link maps a button to an action that separates the selected group. */
-	private static class Button2SeparateShapes extends InteractorImpl<SeparateShapes, ButtonPressed, ShapeGrouper> {
-		protected Button2SeparateShapes(final ShapeGrouper ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, SeparateShapes.class, ButtonPressed.class);
-		}
-
-		@Override
-		public void initAction() {
-			final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-			final List<IShape> shapes 	 = selection.shapes();
-
-			if(shapes.size()==1 && shapes.get(0) instanceof IGroup)
-				action.setShape(shapes.get(0));
-
-			action.setDrawing(instrument.pencil.canvas().getDrawing());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getButton()==instrument.getSepB();
-		}
-	}
-
-
-	/** This link maps a button to an action that groups the selected shapes. */
-	private static class Button2GroupShapes extends InteractorImpl<JoinShapes, ButtonPressed, ShapeGrouper> {
-		protected Button2GroupShapes(final ShapeGrouper ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, JoinShapes.class, ButtonPressed.class);
-		}
-
-		@Override
-		public void initAction() {
-			final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
-			final List<IShape> shapes 	 = selection.shapes();
-
-			for(final IShape sh : shapes)
-				action.addShape(sh);
-
-			action.setDrawing(instrument.pencil.canvas().getDrawing());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return interaction.getButton()==instrument.getGroupB();
-		}
-	}
+//	/** This link maps a button to an action that separates the selected group. */
+//	private static class Button2SeparateShapes extends InteractorImpl<SeparateShapes, ButtonPressed, ShapeGrouper> {
+//		protected Button2SeparateShapes(final ShapeGrouper ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, false, SeparateShapes.class, ButtonPressed.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
+//			final List<IShape> shapes 	 = selection.shapes();
+//
+//			if(shapes.size()==1 && shapes.get(0) instanceof IGroup)
+//				action.setShape(shapes.get(0));
+//
+//			action.setDrawing(instrument.pencil.canvas().getDrawing());
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return interaction.getButton()==instrument.getSepB();
+//		}
+//	}
+//
+//
+//	/** This link maps a button to an action that groups the selected shapes. */
+//	private static class Button2GroupShapes extends InteractorImpl<JoinShapes, ButtonPressed, ShapeGrouper> {
+//		protected Button2GroupShapes(final ShapeGrouper ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, false, JoinShapes.class, ButtonPressed.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			final SelectShapes selection = ActionsRegistry.INSTANCE.getAction(SelectShapes.class);
+//			final List<IShape> shapes 	 = selection.shapes();
+//
+//			for(final IShape sh : shapes)
+//				action.addShape(sh);
+//
+//			action.setDrawing(instrument.pencil.canvas().getDrawing());
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			return interaction.getButton()==instrument.getGroupB();
+//		}
+//	}
 }
