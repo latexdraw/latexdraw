@@ -114,8 +114,6 @@ public final class LResources {
 	public static final ImageIcon INSERT_PIC_ICON; 			public static final ImageIcon INSERT_PST_ICON;
 	public static final ImageIcon THICKNESS_ICON;
 	public static final ImageIcon AXES_ICON;				public static final ImageIcon TEX_EDITOR_ICON;
-	public static final ImageIcon CURVES_FREEHAND_ICON;
-	public static final ImageIcon LINES_FREEHAND_ICON;
 	public static final ImageIcon CLOSED_BEZIER_ICON;
 	public static final ImageIcon ROUNDNESS_ICON;
 	public static final ImageIcon BUTTON_CLOSE_IN_ICON;
@@ -178,8 +176,6 @@ public final class LResources {
 		THICKNESS_ICON 	= loadImageIcon("/res/thickness.png"); //$NON-NLS-1$
 		AXES_ICON		= loadImageIcon("/res/axes.png"); //$NON-NLS-1$
 		TEX_EDITOR_ICON	= loadImageIcon("/res/texEditor.png"); //$NON-NLS-1$
-		CURVES_FREEHAND_ICON	= loadImageIcon("/res/freehand/curve.png"); //$NON-NLS-1$
-		LINES_FREEHAND_ICON	= loadImageIcon("/res/freehand/line.png"); //$NON-NLS-1$
 		CLOSED_BEZIER_ICON	= loadImageIcon("/res/closedBezier.png"); //$NON-NLS-1$
 		UPDATE_ICON			= loadImageIcon("/res/system-software-update.png"); //$NON-NLS-1$
 		DRAWING_PROP_ICON		= loadImageIcon("/res/document-properties.png"); //$NON-NLS-1$

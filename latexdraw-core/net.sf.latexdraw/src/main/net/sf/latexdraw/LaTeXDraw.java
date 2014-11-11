@@ -125,4 +125,5 @@ public class LaTeXDraw extends Application {
 	}
 	//FIXME clean strings(?):  LaTeXDrawFrame.38, LaTeXDrawFrame.39 LaTeXDrawFrame.90 FileLoaderSaver.4 LaTeXDrawFrame.200 LaTeXDrawFrame.188
 	// ShapeBord.1, AbstractParametersFrame.3, AbstractParametersFrame.0b, PropBuilder.13, PropBuilder.11 LaTeXDrawFrame.48
+	// ParametersAkinPointsFrame.2
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TitledPane fx:id="mainPane" animated="true" text="Free hand" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+			fx:controller="net.sf.latexdraw.instruments.ShapeFreeHandCustomiser">
+   	<tooltip><Tooltip text="%PropBuilder.1" /></tooltip>
+	<content>
+		<AnchorPane>
+		   <children>
+		      <ComboBox fx:id="freeHandType" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="4.0" layoutY="4.0" />
+		      <Label layoutX="4.0" layoutY="39.0" text="%ParametersAkinPointsFrame.0" />
+		      <Spinner fx:id="gapPoints" layoutX="120.0" layoutY="36.0" prefHeight="25.0" prefWidth="75.0"
+		      			min="1" max="1000" initialValue="5" amountToStepBy="1" />
+		      <CheckBox fx:id="open" layoutX="4.0" layoutY="70.0" text="%ParametersAkinPointsFrame.1" />
+		   </children>
+		</AnchorPane>
+	</content>
+</TitledPane>
+

@@ -8,7 +8,6 @@ import java.util.Map;
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
-import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
 import net.sf.latexdraw.instruments.ShapeGrouper;
 import net.sf.latexdraw.instruments.ShapePositioner;
 import net.sf.latexdraw.lang.LangTool;
@@ -69,9 +68,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		composeJoinShapesWidgets(metaShapeCustomiser.getShapeGrouper());
 		widget.add(composeShapePositionerWidgets(metaShapeCustomiser.getShapePositioner(), canvas));
 		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
-		if(progressBar!=null) progressBar.addToProgressBar(5);
-		widget.add(composeFreeHandPropertiesToolbar(metaShapeCustomiser.getFreeHandCustomiser(), canvas));
-		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
 
 
@@ -95,26 +91,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		widget.add(grouper.getGroupB());
 		widget.add(grouper.getSepB());
 		grouper.addEventable(widget);
-	}
-
-
-	/** Creates the toolbar containing the widgets that customises axes. */
-	protected WidgetMiniToolbar composeFreeHandPropertiesToolbar(final ShapeFreeHandCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.FREE_HAND_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.1")); //$NON-NLS-1$
-
-		UIBuilder.addCombobox(list, cust.getFreeHandType());
-		UIBuilder.addSpinner(list, cust.getGapPoints(), 50);
-		list.addComponent(cust.getOpen());
-		list.addSeparator();
-
-		mapContainers.put(cust.getFreeHandType(), list);
-		mapContainers.put(cust.getGapPoints(), list);
-		mapContainers.put(cust.getOpen(), list);
-
-		cust.addEventable(list.getToolbar());
-		list.setVisible(false);
-		return list;
 	}
 
 

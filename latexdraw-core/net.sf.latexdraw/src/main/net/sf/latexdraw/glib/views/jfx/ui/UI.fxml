@@ -36,6 +36,7 @@
 														<fx:include source="TextStyle.fxml" />
 														<fx:include source="DotStyle.fxml" />
 														<fx:include source="ArcStyle.fxml" />
+														<fx:include source="FreehandStyle.fxml" />
 														<TitledPane animated="true" text="Shape Transformation">
 															<content>
 																<AnchorPane>
