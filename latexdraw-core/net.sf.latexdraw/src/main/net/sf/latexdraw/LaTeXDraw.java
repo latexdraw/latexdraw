@@ -93,6 +93,7 @@ public class LaTeXDraw extends Application {
 		final Stage splashStage = showSplashScreen();
 		final Parent root = FXMLLoader.load(getClass().getResource("glib/views/jfx/ui/UI.fxml"), LangTool.INSTANCE.getBundle());
         final Scene scene = new Scene(root);
+        scene.getStylesheets().add("net/sf/latexdraw/glib/views/jfx/ui/style.css");
         stage.setTitle("LaTeXDraw");
         stage.setScene(scene);
         splashStage.hide();
