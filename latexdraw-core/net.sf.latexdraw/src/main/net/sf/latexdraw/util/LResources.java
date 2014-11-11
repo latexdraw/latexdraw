@@ -113,7 +113,6 @@ public final class LResources {
 	public static final ImageIcon STOP_ICON;
 	public static final ImageIcon INSERT_PIC_ICON; 			public static final ImageIcon INSERT_PST_ICON;
 	public static final ImageIcon THICKNESS_ICON;
-	public static final ImageIcon DISPLAY_GRID_ICON;
 	public static final ImageIcon AXES_ICON;				public static final ImageIcon TEX_EDITOR_ICON;
 	public static final ImageIcon CURVES_FREEHAND_ICON;
 	public static final ImageIcon LINES_FREEHAND_ICON;
@@ -177,7 +176,6 @@ public final class LResources {
 		INSERT_PIC_ICON 	= loadImageIcon("/res/image-x-generic.png"); //$NON-NLS-1$
 		INSERT_PST_ICON = loadImageIcon("/res/text-x-generic.png"); //$NON-NLS-1$
 		THICKNESS_ICON 	= loadImageIcon("/res/thickness.png"); //$NON-NLS-1$
-		DISPLAY_GRID_ICON = loadImageIcon("/res/displayGrid.png"); //$NON-NLS-1$
 		AXES_ICON		= loadImageIcon("/res/axes.png"); //$NON-NLS-1$
 		TEX_EDITOR_ICON	= loadImageIcon("/res/texEditor.png"); //$NON-NLS-1$
 		CURVES_FREEHAND_ICON	= loadImageIcon("/res/freehand/curve.png"); //$NON-NLS-1$

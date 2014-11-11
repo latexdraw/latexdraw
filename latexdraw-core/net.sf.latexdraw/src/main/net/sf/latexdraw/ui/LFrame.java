@@ -236,8 +236,6 @@ public class LFrame extends SwingUI {
 
 		exceptionsManager	= new ExceptionsManager();
 		helper				= new Helper(composer);
-		try { gridCustomiser= new MagneticGridCustomiser(composer, null); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, gen); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scroller		= new Scroller(canvas); }

@@ -1,11 +1,9 @@
 package net.sf.latexdraw.ui;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-import javax.swing.Box;
 import javax.swing.JLabel;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
@@ -15,7 +13,6 @@ import net.sf.latexdraw.util.LResources;
 
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MProgressBar;
-import org.malai.swing.widget.MSpinner;
 import org.malai.swing.widget.MToolBar;
 
 /**
@@ -76,7 +73,6 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
-		composeMagneticGridToolbar(canvas);
 		composeDrawingPropertiesToolbar(canvas);
 
 		// Adding the undo/redo buttons.
@@ -91,16 +87,6 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 
  		//Adding a widget to create lines.
 		widget.add(frame.editingSelector.getLinesB());
-
-		composeRectangleLikeToolbar();
-		composeEllipseLikeToolbar();
-		composePolygonLikeToolbar();
-
-		if(progressBar!=null) progressBar.addToProgressBar(5);
-
-		composeCurveLikeToolbar();
-		composeGridLikeToolbar();
-
 		widget.add(frame.editingSelector.getPlotB());
  		widget.add(frame.editingSelector.getArcB());
 		widget.add(frame.editingSelector.getTextB());
@@ -132,79 +118,6 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 		drawingB.addComponent(cust.getPositionCB().getLabel());
 		drawingB.addComponent(cust.getPositionCB());
 		drawingB.addSeparator();
-	}
-
-
-	/**
-	 * Adds widgets to select the type of shape to create. Here rectangle/square shape.
-	 * @since 3.0
-	 */
-	protected void composeRectangleLikeToolbar() {
- 		widget.add(frame.editingSelector.getRecB());
- 		widget.add(frame.editingSelector.getSquareB());
-	}
-
-
-	/**
-	 * Adds a widgets to create ellipse/circle shapes.
-	 * @since 3.0
-	 */
-	protected void composeEllipseLikeToolbar() {
- 		widget.add(frame.editingSelector.getEllipseB());
- 		widget.add(frame.editingSelector.getCircleB());
-	}
-
-
-
-	/**
-	 * Adds a widgets to create polygon/rhombus/triangle shapes.
-	 * @since 3.0
-	 */
-	protected void composePolygonLikeToolbar() {
- 		widget.add(frame.editingSelector.getPolygonB());
- 		widget.add(frame.editingSelector.getRhombusB());
- 		widget.add(frame.editingSelector.getTriangleB());
-	}
-
-
-	/**
-	 * Adds a widgets to create bezier curve shapes.
-	 * @since 3.0
-	 */
-	protected void composeCurveLikeToolbar() {
- 		widget.add(frame.editingSelector.getBezierClosedB());
- 		widget.add(frame.editingSelector.getBezierB());
-	}
-
-
-	/**
-	 * Adds a widgets to create grid/axes shapes.
-	 * @since 3.0
-	 */
-	protected void composeGridLikeToolbar() {
- 		widget.add(frame.editingSelector.getGridB());
- 		widget.add(frame.editingSelector.getAxesB());
-	}
-
-
-	protected void composeMagneticGridToolbar(final LCanvas canvas) {
-		magneticGridB = new WidgetMiniToolbar(LResources.DISPLAY_GRID_ICON, WidgetMiniToolbar.LOCATION_SOUTH, canvas);
-		magneticGridB.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.12")); //$NON-NLS-1$
-		widget.add(magneticGridB);
-
-		magneticGridB.addComponent(frame.gridCustomiser.getStyleList());
-		mapContainers.put(frame.gridCustomiser.getStyleList(), magneticGridB);
-		magneticGridB.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		magneticGridB.addComponent(frame.gridCustomiser.getMagneticCB());
-		mapContainers.put(frame.gridCustomiser.getMagneticCB(), magneticGridB);
-		magneticGridB.addComponent(Box.createHorizontalStrut(UIBuilder.SEPARATION_WIDTH));
-		final MSpinner spinner = frame.gridCustomiser.getGridSpacing();
-		spinner.setPreferredSize(new Dimension(65, UIBuilder.HEIGHT_TEXTFIELD));
-		if(spinner.getLabel()!=null)
-			magneticGridB.addComponent(spinner.getLabel());
-		magneticGridB.addComponent(spinner);
-		mapContainers.put(spinner, magneticGridB);
-		magneticGridB.addSeparator();
 	}
 }
 

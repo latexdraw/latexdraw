@@ -43,4 +43,9 @@ public enum GridStyle {
 	public static Optional<GridStyle> getStyleFromLabel(final String label) {
 		return Arrays.asList(values()).stream().filter(v -> v.getLabel().equals(label)).findFirst();
 	}
+	
+	@Override
+	public String toString() {
+		return getLabel();
+	}
 }

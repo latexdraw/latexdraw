@@ -462,9 +462,11 @@ public class PreferencesSetter extends SwingInstrument {
 		gridCust.grid.setGridSpacing(Integer.parseInt(persoGridGapField.getValue().toString()));
 		exporter.setDefaultPackages(latexIncludes.getText());
 		exporter.setPathExport(pathExportField.getText());
-		gridCust.gridSpacing.setValueSafely(persoGridGapField.getValue());
+		try{
+			gridCust.gridSpacing.getValueFactory().setValue(Integer.valueOf(persoGridGapField.getValue().toString()));
+		}catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 		gridCust.magneticCB.setSelected(magneticGridCB.isSelected());
-		gridCust.styleList.setSelectedItemSafely(gridStyle.getLabel());
+		gridCust.styleList.getSelectionModel().select(gridStyle);
 		scaleCust.unitCmItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.CM.getLabel()));
 		scaleCust.unitInchItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.INCH.getLabel()));
 		saver.setPathSave(pathOpenField.getText());
