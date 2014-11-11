@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -33,11 +33,11 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @since 3.1
  */
 public class ShapePlotCustomiser extends JfxInstrument implements Initializable {// extends ShapePropertyCustomiser {
-	@FXML TextField nbPtsSpinner;
-	@FXML TextField minXSpinner;
-	@FXML TextField maxXSpinner;
-	@FXML TextField xScaleSpinner;
-	@FXML TextField yScaleSpinner;
+	@FXML Spinner<Integer> nbPtsSpinner;
+	@FXML Spinner<Double> minXSpinner;
+	@FXML Spinner<Double> maxXSpinner;
+	@FXML Spinner<Double> xScaleSpinner;
+	@FXML Spinner<Double> yScaleSpinner;
 	@FXML CheckBox polarCB;
 	@FXML ComboBox<IPlotProp.PlotStyle> plotStyleCB;
 	@FXML TitledPane mainPane;
@@ -60,11 +60,11 @@ public class ShapePlotCustomiser extends JfxInstrument implements Initializable 
 //	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IPlotProp.class)) {
-//			nbPtsSpinner.setValueSafely(shape.getNbPlottedPoints());
-//			minXSpinner.setValueSafely(shape.getPlotMinX());
-//			maxXSpinner.setValueSafely(shape.getPlotMaxX());
-//			xScaleSpinner.setValueSafely(shape.getXScale());
-//			yScaleSpinner.setValueSafely(shape.getYScale());
+			nbPtsSpinner.getValueFactory().setValue(shape.getNbPlottedPoints());
+			minXSpinner.getValueFactory().setValue(shape.getPlotMinX());
+			maxXSpinner.getValueFactory().setValue(shape.getPlotMaxX());
+			xScaleSpinner.getValueFactory().setValue(shape.getXScale());
+			yScaleSpinner.getValueFactory().setValue(shape.getYScale());
 			polarCB.setSelected(shape.isPolar());
 			plotStyleCB.getSelectionModel().select(shape.getPlotStyle());
 			setActivated(true);

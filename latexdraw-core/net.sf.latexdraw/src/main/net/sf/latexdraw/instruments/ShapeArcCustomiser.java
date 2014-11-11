@@ -1,7 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
@@ -39,10 +39,10 @@ public class ShapeArcCustomiser extends JfxInstrument{// extends ShapePropertyCu
 	@FXML protected ToggleButton chordB;
 
 	/** The spinner that sets the start angle. */
-	@FXML protected TextField startAngleS;
+	@FXML protected Spinner<Double> startAngleS;
 
 	/** The spinner that sets the end angle. */
-	@FXML protected TextField endAngleS;
+	@FXML protected Spinner<Double> endAngleS;
 
 	@FXML protected TitledPane mainPane;
 	
@@ -68,8 +68,8 @@ public class ShapeArcCustomiser extends JfxInstrument{// extends ShapePropertyCu
 			arcB.setSelected(type==ArcStyle.ARC);
 			wedgeB.setSelected(type==ArcStyle.WEDGE);
 			chordB.setSelected(type==ArcStyle.CHORD);
-//			startAngleS.setValueSafely(Math.toDegrees(shape.getAngleStart()));
-//			endAngleS.setValueSafely(Math.toDegrees(shape.getAngleEnd()));
+			startAngleS.getValueFactory().setValue(Math.toDegrees(shape.getAngleStart()));
+			endAngleS.getValueFactory().setValue(Math.toDegrees(shape.getAngleEnd()));
 			setActivated(true);
 		}
 		else setActivated(false);

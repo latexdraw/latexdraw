@@ -2,7 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
@@ -37,7 +37,7 @@ public class ShapeRotationCustomiser extends JfxInstrument {// extends ShapeProp
 	@FXML protected Button rotate270Button;
 
 	/** The field that modifies the rotation angle. */
-	@FXML protected TextField rotationField;
+	@FXML protected Spinner<Double> rotationField;
 
 	@FXML protected AnchorPane mainPane;
 	
@@ -58,8 +58,8 @@ public class ShapeRotationCustomiser extends JfxInstrument {// extends ShapeProp
 
 //	@Override
 	protected void update(final IGroup shape) {
-//		if(isActivated() && shape!=null)
-//			rotationField.setValueSafely(Math.toDegrees(shape.getRotationAngle()));
+		if(isActivated() && shape!=null)
+			rotationField.getValueFactory().setValue(Math.toDegrees(shape.getRotationAngle()));
 	}
 
 

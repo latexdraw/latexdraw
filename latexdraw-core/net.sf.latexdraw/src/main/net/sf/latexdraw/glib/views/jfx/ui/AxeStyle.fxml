@@ -23,12 +23,16 @@
 	  <Label layoutX="0.0" layoutY="3.0" text="%AxesCust.1" />
       <ComboBox fx:id="showLabels" editable="false" prefHeight="25.0" prefWidth="100.0" layoutX="80.0" layoutY="0.0" />
       <Label layoutX="0.0" layoutY="34.0" text="%ParametersAxeFrame.8" />
-      <TextField fx:id="incrLabelX" layoutX="125.0" layoutY="30.0" prefHeight="25.0" prefWidth="70.0" />
+      <Spinner fx:id="incrLabelX" layoutX="125.0" layoutY="30.0" prefHeight="25.0" prefWidth="70.0" 
+      			min="0.0001" max="1000" initialValue="1" amountToStepBy="1"/>
       <Label layoutX="0.0" layoutY="64.0" text="%ParametersAxeFrame.9" />
-      <TextField fx:id="incrLabelY" layoutX="125.0" layoutY="60.0" prefHeight="25.0" prefWidth="70.0" />
+      <Spinner fx:id="incrLabelY" layoutX="125.0" layoutY="60.0" prefHeight="25.0" prefWidth="70.0" 
+      			min="0.0001" max="1000" initialValue="1" amountToStepBy="1"/>
       <Label layoutX="0.0" layoutY="94.0" text="%ParametersAxeFrame.6" />
-      <TextField fx:id="distLabelsX" layoutX="125.0" layoutY="90.0" prefHeight="25.0" prefWidth="70.0" />
+      <Spinner fx:id="distLabelsX" layoutX="125.0" layoutY="90.0" prefHeight="25.0" prefWidth="70.0" 
+      			min="0.01" max="1000" initialValue="1" amountToStepBy="0.05"/>
       <Label layoutX="0.0" layoutY="124.0" text="%ParametersAxeFrame.7" />
-      <TextField fx:id="distLabelsY" layoutX="125.0" layoutY="120.0" prefHeight="25.0" prefWidth="70.0" />
+      <Spinner fx:id="distLabelsY" layoutX="125.0" layoutY="120.0" prefHeight="25.0" prefWidth="70.0" 
+      			min="0.01" max="1000" initialValue="1" amountToStepBy="0.05"/>
 	</AnchorPane>
 </AnchorPane>

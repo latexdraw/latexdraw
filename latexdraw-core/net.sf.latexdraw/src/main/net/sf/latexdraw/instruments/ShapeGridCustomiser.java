@@ -2,7 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
@@ -36,19 +36,19 @@ public class ShapeGridCustomiser extends JfxInstrument {// extends ShapeProperty
 	@FXML protected ColorPicker colourSubGrid;
 
 	/** Changes the width of the main grid. */
-	@FXML protected TextField gridWidth;
+	@FXML protected Spinner<Double> gridWidth;
 
 	/** Changes the width of the sub-grid. */
-	@FXML protected TextField subGridWidth;
+	@FXML protected Spinner<Double> subGridWidth;
 
 	/** Changes the number of dots composing the main grid. */
-	@FXML protected TextField gridDots;
+	@FXML protected Spinner<Integer> gridDots;
 
 	/** Changes the number of dots composing the sub-grid. */
-	@FXML protected TextField subGridDots;
+	@FXML protected Spinner<Integer> subGridDots;
 
 	/** Changes the division of the sub-grid. */
-	@FXML protected TextField subGridDiv;
+	@FXML protected Spinner<Integer> subGridDiv;
 
 	/** The field that defines the Y-coordinates of the labels. */
 	@FXML protected ToggleButton labelsYInvertedCB;
@@ -71,11 +71,11 @@ public class ShapeGridCustomiser extends JfxInstrument {// extends ShapeProperty
 		if(gp.isTypeOf(IGridProp.class)) {
 			colourLabels.setValue(gp.getGridLabelsColour().toJFX());
 			colourSubGrid.setValue(gp.getSubGridColour().toJFX());
-//			gridWidth.setValueSafely(gp.getGridWidth());
-//			subGridWidth.setValueSafely(gp.getSubGridWidth());
-//			gridDots.setValueSafely(gp.getGridDots());
-//			subGridDots.setValueSafely(gp.getSubGridDots());
-//			subGridDiv.setValueSafely(gp.getSubGridDiv());
+			gridWidth.getValueFactory().setValue(gp.getGridWidth());
+			subGridWidth.getValueFactory().setValue(gp.getSubGridWidth());
+			gridDots.getValueFactory().setValue(gp.getGridDots());
+			subGridDots.getValueFactory().setValue(gp.getSubGridDots());
+			subGridDiv.getValueFactory().setValue(gp.getSubGridDiv());
 			labelsYInvertedCB.setSelected(!gp.isXLabelSouth());
 			labelsXInvertedCB.setSelected(!gp.isYLabelWest());
 		}

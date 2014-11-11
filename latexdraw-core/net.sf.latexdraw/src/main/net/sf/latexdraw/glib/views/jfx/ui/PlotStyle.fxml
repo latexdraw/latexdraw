@@ -11,15 +11,20 @@
 		<AnchorPane>
 		   <children>
 	   	      <Label layoutX="4.0" layoutY="3.0" text="Plotted points:" />
-		      <TextField fx:id="nbPtsSpinner" layoutX="94.0" layoutY="0.0" prefHeight="25.0" prefWidth="70.0" />
+		      <Spinner fx:id="nbPtsSpinner" layoutX="94.0" layoutY="0.0" prefHeight="25.0" prefWidth="70.0" 
+		      			min="1" max="10000" initialValue="50" amountToStepBy="10"/>
 	   	      <Label layoutX="4.0" layoutY="33.0" text="X-min:" />
-		      <TextField fx:id="minXSpinner" layoutX="57.0" layoutY="30.0" prefHeight="25.0" prefWidth="60.0" />
+		      <Spinner fx:id="minXSpinner" layoutX="57.0" layoutY="30.0" prefHeight="25.0" prefWidth="60.0" 
+		      			min="-100000" max="100000" initialValue="0" amountToStepBy="1"/>
 	   	      <Label layoutX="120.0" layoutY="33.0" text="X-max:" />
-		      <TextField fx:id="maxXSpinner" layoutX="174.0" layoutY="30.0" prefHeight="25.0" prefWidth="60.0" />
+		      <Spinner fx:id="maxXSpinner" layoutX="174.0" layoutY="30.0" prefHeight="25.0" prefWidth="60.0" 
+		      			min="-100000" max="100000" initialValue="10" amountToStepBy="1"/>
    	     	  <Label layoutX="4.0" layoutY="63.0" text="X scale:" />
-		      <TextField fx:id="xScaleSpinner" layoutX="58.0" layoutY="60.0" prefHeight="25.0" prefWidth="60.0" />
+		      <Spinner fx:id="xScaleSpinner" layoutX="58.0" layoutY="60.0" prefHeight="25.0" prefWidth="60.0" 
+		      			min="0.0001" max="10000" initialValue="1" amountToStepBy="0.1"/>
 	   	      <Label layoutX="120.0" layoutY="63.0" text="Y scale:" />
-		      <TextField fx:id="yScaleSpinner" layoutX="174.0" layoutY="60.0" prefHeight="25.0" prefWidth="60.0" />
+		      <Spinner fx:id="yScaleSpinner" layoutX="174.0" layoutY="60.0" prefHeight="25.0" prefWidth="60.0" 
+		      			min="0.0001" max="10000" initialValue="1" amountToStepBy="0.1"/>
 		      <CheckBox fx:id="polarCB" layoutX="4.0" layoutY="90.0" text="Polar" />
 		      <ComboBox fx:id="plotStyleCB" layoutX="4.0" layoutY="115.0" editable="false" prefHeight="25.0" prefWidth="90.0" />
 		   </children>

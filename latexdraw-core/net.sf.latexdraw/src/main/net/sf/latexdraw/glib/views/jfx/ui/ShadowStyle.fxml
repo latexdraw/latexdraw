@@ -16,13 +16,15 @@
 		      <ColorPicker fx:id="shadowColB" layoutX="13.0" layoutY="31.0" prefHeight="25.0" prefWidth="132.0">
 				<tooltip><Tooltip text="%LaTeXDrawFrame.5" /></tooltip>      
 		      </ColorPicker>
-		      <TextField fx:id="shadowSizeField" layoutX="57.0" layoutY="63.0" prefHeight="25.0" prefWidth="88.0">
+		      <Spinner fx:id="shadowSizeField" layoutX="57.0" layoutY="63.0" prefHeight="25.0" prefWidth="88.0"
+		      			min="0.01" max="1000" initialValue="1" amountToStepBy="1">
 		      	<tooltip><Tooltip text="Set the size of the shadow." /></tooltip>
-		      </TextField>
+		      </Spinner>
 		      <Label layoutX="14.0" layoutY="68.0" text="%ShapeShad.1" />
-		      <TextField fx:id="shadowAngleField" layoutX="57.0" layoutY="96.0" prefHeight="25.0" prefWidth="88.0">
+		      <Spinner fx:id="shadowAngleField" layoutX="57.0" layoutY="96.0" prefHeight="25.0" prefWidth="88.0"
+		      			min="-360" max="360" initialValue="0" amountToStepBy="1">
 		      	<tooltip><Tooltip text="Set the angle of the shadow." /></tooltip>
-		      </TextField>
+		      </Spinner>
 		      <Label layoutX="14.0" layoutY="101.0" text="%ShapeFill.1" />
 		   </children>
 		</AnchorPane>

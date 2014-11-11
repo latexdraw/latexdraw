@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -52,19 +52,19 @@ public class ShapeFillingCustomiser extends JfxInstrument implements Initializab
 	@FXML protected ComboBox<ImageView> fillStyleCB;
 
 	/** Changes the mid point of the gradient. */
-	@FXML protected TextField gradMidPtField;
+	@FXML protected Spinner<Double> gradMidPtField;
 
 	/** Changes the angle of the gradient. */
-	@FXML protected TextField gradAngleField;
+	@FXML protected Spinner<Double> gradAngleField;
 
 	/** Changes the separation of the hatchings. */
-	@FXML protected TextField hatchSepField;
+	@FXML protected Spinner<Double> hatchSepField;
 
 	/** Changes the angle of the hatchings. */
-	@FXML protected TextField hatchAngleField;
+	@FXML protected Spinner<Double> hatchAngleField;
 
 	/** Changes the width of the hatchings. */
-	@FXML protected TextField hatchWidthField;
+	@FXML protected Spinner<Double> hatchWidthField;
 	
 	@FXML protected AnchorPane fillPane;
 	@FXML protected AnchorPane hatchingsPane;
@@ -109,20 +109,20 @@ public class ShapeFillingCustomiser extends JfxInstrument implements Initializab
 			hatchingsPane.setVisible(hatchings);
 			fillPane.setVisible(isFillable);
 
-//			fillStyleCB.setSelectedItemSafely(style.toString());
+			fillStyleCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(fillStyleCB, style).orElseThrow(() -> new IllegalArgumentException()));
 			if(isFillable)
 				fillColButton.setValue(shape.getFillingCol().toJFX());
 			if(hatchings) {
 				hatchColButton.setValue(shape.getHatchingsCol().toJFX());
-//				hatchAngleField.setValueSafely(Math.toDegrees(shape.getHatchingsAngle()));
-//				hatchSepField.setValueSafely(shape.getHatchingsSep());
-//				hatchWidthField.setValueSafely(shape.getHatchingsWidth());
+				hatchAngleField.getValueFactory().setValue(Math.toDegrees(shape.getHatchingsAngle()));
+				hatchSepField.getValueFactory().setValue(shape.getHatchingsSep());
+				hatchWidthField.getValueFactory().setValue(shape.getHatchingsWidth());
 			}
 			else if(gradient){
 				gradStartColButton.setValue(shape.getGradColStart().toJFX());
 				gradEndColButton.setValue(shape.getGradColEnd().toJFX());
-//				gradAngleField.setValueSafely(Math.toDegrees(shape.getGradAngle()));
-//				gradMidPtField.setValueSafely(shape.getGradMidPt());
+				gradAngleField.getValueFactory().setValue(Math.toDegrees(shape.getGradAngle()));
+				gradMidPtField.getValueFactory().setValue(shape.getGradMidPt());
 			}
 		}
 		else setActivated(false);

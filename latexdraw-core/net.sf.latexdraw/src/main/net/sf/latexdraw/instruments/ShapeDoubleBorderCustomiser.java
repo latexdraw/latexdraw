@@ -3,7 +3,7 @@ package net.sf.latexdraw.instruments;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
@@ -35,7 +35,7 @@ public class ShapeDoubleBorderCustomiser extends JfxInstrument { //extends Shape
 	@FXML protected ColorPicker dbleBoundColB;
 
 	/** This field modifies the double separation of the double line. */
-	@FXML protected TextField dbleSepField;
+	@FXML protected Spinner<Double> dbleSepField;
 
 	@FXML protected TitledPane mainPane;
 	
@@ -59,7 +59,7 @@ public class ShapeDoubleBorderCustomiser extends JfxInstrument { //extends Shape
 
 			if(dble) {
 				dbleBoundColB.setValue(shape.getDbleBordCol().toJFX());
-//				dbleSepField.setValueSafely(shape.getDbleBordSep());
+				dbleSepField.getValueFactory().setValue(shape.getDbleBordSep());
 			}
 		}
 		else setActivated(false);

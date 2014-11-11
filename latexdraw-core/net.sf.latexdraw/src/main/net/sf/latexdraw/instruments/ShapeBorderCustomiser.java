@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
@@ -39,7 +39,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  */
 public class ShapeBorderCustomiser extends JfxInstrument implements Initializable {
 	/** The field which allows to change shapes thickness. */
-	@FXML protected TextField thicknessField;
+	@FXML protected Spinner<Double> thicknessField;
 
 	/** Allows to set the colour of the borders of shapes. */
 	@FXML protected ColorPicker lineColButton;
@@ -51,7 +51,7 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 	@FXML protected ComboBox<ImageView> bordersPosCB;
 
 	/** Allows to change the angle of the round corner. */
-	@FXML protected TextField frameArcField;
+	@FXML protected Spinner<Double> frameArcField;
 
 	/** Defines if the points of the shape must be painted. */
 	@FXML protected CheckBox showPoints;
@@ -109,14 +109,14 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 
 			if(isColor)
 				lineColButton.setValue(shape.getLineColour().toJFX());
-//			if(isTh)
-//				thicknessField.setValueSafely(shape.getThickness());
+			if(isTh)
+				thicknessField.getValueFactory().setValue(shape.getThickness());
 			if(isStylable)
 				lineCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(lineCB, shape.getLineStyle()).orElseThrow(() -> new IllegalArgumentException()));
 			if(isMvble)
 				bordersPosCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(bordersPosCB, shape.getBordersPosition()).orElseThrow(() -> new IllegalArgumentException()));
-//			if(supportRound)
-//				frameArcField.setValueSafely(shape.getLineArc());
+			if(supportRound)
+				frameArcField.getValueFactory().setValue(shape.getLineArc());
 			if(showPts)
 				showPoints.setSelected(shape.isShowPts());
 		}

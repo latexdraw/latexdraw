@@ -1,7 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -28,25 +28,25 @@ import org.malai.javafx.instrument.JfxInstrument;
  */
 public class ShapeStdGridCustomiser extends JfxInstrument {// extends ShapePropertyCustomiser {
 	/** The field that sets the X-coordinate of the starting point of the grid. */
-	@FXML protected TextField xStartS;
+	@FXML protected Spinner<Double> xStartS;
 
 	/** The field that sets the Y-coordinate of the starting point of the grid. */
-	@FXML protected TextField yStartS;
+	@FXML protected Spinner<Double> yStartS;
 
 	/** The field that sets the X-coordinate of the ending point of the grid. */
-	@FXML protected TextField xEndS;
+	@FXML protected Spinner<Double> xEndS;
 
 	/** The field that sets the Y-coordinate of the ending point of the grid. */
-	@FXML protected TextField yEndS;
+	@FXML protected Spinner<Double> yEndS;
 
 	/** The field that sets the size of the labels of the grid. */
-	@FXML protected TextField labelsSizeS;
+	@FXML protected Spinner<Integer> labelsSizeS;
 
 	/** The field that sets the X-coordinate of the origin point of the grid. */
-	@FXML protected TextField xOriginS;
+	@FXML protected Spinner<Double> xOriginS;
 
 	/** The field that sets the Y-coordinate of the origin point of the grid. */
-	@FXML protected TextField yOriginS;
+	@FXML protected Spinner<Double> yOriginS;
 
 	@FXML protected TitledPane mainPane;
 
@@ -63,15 +63,15 @@ public class ShapeStdGridCustomiser extends JfxInstrument {// extends ShapePrope
 		if(gp.isTypeOf(IStdGridProp.class)) {
 //			((MSpinner.MSpinnerNumberModel)xStartS.getModel()).setMaximumSafely(gp.getGridEndX());
 //			((MSpinner.MSpinnerNumberModel)yStartS.getModel()).setMaximumSafely(gp.getGridEndY());
-//			xStartS.setValueSafely(gp.getGridStartX());
-//			yStartS.setValueSafely(gp.getGridStartY());
+			xStartS.getValueFactory().setValue(gp.getGridStartX());
+			yStartS.getValueFactory().setValue(gp.getGridStartY());
 //			((MSpinner.MSpinnerNumberModel)xEndS.getModel()).setMinumunSafely(gp.getGridStartX());
 //			((MSpinner.MSpinnerNumberModel)yEndS.getModel()).setMinumunSafely(gp.getGridStartY());
-//			xEndS.setValueSafely(gp.getGridEndX());
-//			yEndS.setValueSafely(gp.getGridEndY());
-//			xOriginS.setValueSafely(gp.getOriginX());
-//			yOriginS.setValueSafely(gp.getOriginY());
-//			labelsSizeS.setValueSafely(gp.getLabelsSize());
+			xEndS.getValueFactory().setValue(gp.getGridEndX());
+			yEndS.getValueFactory().setValue(gp.getGridEndY());
+			xOriginS.getValueFactory().setValue(gp.getOriginX());
+			yOriginS.getValueFactory().setValue(gp.getOriginY());
+			labelsSizeS.getValueFactory().setValue(gp.getLabelsSize());
 		}
 		else setActivated(false);
 	}

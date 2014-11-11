@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -44,34 +44,34 @@ public class ShapeArrowCustomiser extends JfxInstrument implements Initializable
 	@FXML protected ComboBox<ImageView> arrowRightCB;
 
 	/** The field to set the dot size num parameter of arrows. */
-	@FXML protected TextField dotSizeNum;
+	@FXML protected Spinner<Double> dotSizeNum;
 
 	/** The field to set the dot size dim parameter of arrows. */
-	@FXML protected TextField dotSizeDim;
+	@FXML protected Spinner<Double> dotSizeDim;
 
 	/** The field to set the bracket num parameter of arrows. */
-	@FXML protected TextField bracketNum;
+	@FXML protected Spinner<Double> bracketNum;
 
 	/** The field to set the rounded bracket num parameter of arrows. */
-	@FXML protected TextField rbracketNum;
+	@FXML protected Spinner<Double> rbracketNum;
 
 	/** The field to set the t bar size num parameter of arrows. */
-	@FXML protected TextField tbarsizeNum;
+	@FXML protected Spinner<Double> tbarsizeNum;
 
 	/** The field to set the t bar size dim parameter of arrows. */
-	@FXML protected TextField tbarsizeDim;
+	@FXML protected Spinner<Double> tbarsizeDim;
 
 	/** The field to set the arrows size dim parameter of arrows. */
-	@FXML protected TextField arrowSizeDim;
+	@FXML protected Spinner<Double> arrowSizeDim;
 
 	/** The field to set the arrow size num parameter of arrows. */
-	@FXML protected TextField arrowSizeNum;
+	@FXML protected Spinner<Double> arrowSizeNum;
 
 	/** The field to set the arrow length parameter of arrows. */
-	@FXML protected TextField arrowLength;
+	@FXML protected Spinner<Double> arrowLength;
 
 	/** The field to set the arrow inset parameter of arrows. */
-	@FXML protected TextField arrowInset;
+	@FXML protected Spinner<Double> arrowInset;
 
 	@FXML protected AnchorPane dotPane;
 	@FXML protected AnchorPane arrowPane;
@@ -176,27 +176,27 @@ public class ShapeArrowCustomiser extends JfxInstrument implements Initializable
 
 			// Updating the value of the widgets.
 			if(isArrow) {
-//				arrowInset.setValueSafely(arr1.getArrowInset());
-//				arrowLength.setValueSafely(arr1.getArrowLength());
-//				arrowSizeDim.setValueSafely(arr1.getArrowSizeDim());
-//				arrowSizeNum.setValueSafely(arr1.getArrowSizeNum());
+				arrowInset.getValueFactory().setValue(arr1.getArrowInset());
+				arrowLength.getValueFactory().setValue(arr1.getArrowLength());
+				arrowSizeDim.getValueFactory().setValue(arr1.getArrowSizeDim());
+				arrowSizeNum.getValueFactory().setValue(arr1.getArrowSizeNum());
 			}
 
 			if(isDot) {
-//				dotSizeNum.setValueSafely(arr1.getDotSizeNum());
-//				dotSizeDim.setValueSafely(arr1.getDotSizeDim());
+				dotSizeNum.getValueFactory().setValue(arr1.getDotSizeNum());
+				dotSizeDim.getValueFactory().setValue(arr1.getDotSizeDim());
 			}
 
 			if(isBar || isSBracket || isRBracket) {
-//				tbarsizeDim.setValueSafely(arr1.getTBarSizeDim());
-//				tbarsizeNum.setValueSafely(arr1.getTBarSizeNum());
+				tbarsizeDim.getValueFactory().setValue(arr1.getTBarSizeDim());
+				tbarsizeNum.getValueFactory().setValue(arr1.getTBarSizeNum());
 			}
 
-//			if(isSBracket)
-//				bracketNum.setValueSafely(arr1.getBracketNum());
+			if(isSBracket)
+				bracketNum.getValueFactory().setValue(arr1.getBracketNum());
 
-//			if(isRBracket)
-//				rbracketNum.setValueSafely(arr1.getRBracketNum());
+			if(isRBracket)
+				rbracketNum.getValueFactory().setValue(arr1.getRBracketNum());
 		}
 		else setActivated(false);
 	}

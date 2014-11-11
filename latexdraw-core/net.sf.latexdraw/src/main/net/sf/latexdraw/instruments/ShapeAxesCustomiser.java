@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
@@ -46,10 +46,10 @@ public class ShapeAxesCustomiser extends JfxInstrument implements Initializable 
 	@FXML protected ComboBox<PlottingStyle> showTicks;
 
 	/** The widget that permits to set the increment of X-labels. */
-	@FXML protected TextField incrLabelX;
+	@FXML protected Spinner<Double> incrLabelX;
 
 	/** The widget that permits to set the increment of Y-labels. */
-	@FXML protected TextField incrLabelY;
+	@FXML protected Spinner<Double> incrLabelY;
 
 	/** The widget that permits to set the visibility of the labels. */
 	@FXML protected ComboBox<PlottingStyle> showLabels;
@@ -58,10 +58,10 @@ public class ShapeAxesCustomiser extends JfxInstrument implements Initializable 
 	@FXML protected CheckBox showOrigin;
 
 	/** The distance between the X-labels. */
-	@FXML protected TextField distLabelsX;
+	@FXML protected Spinner<Double> distLabelsX;
 
 	/** The distance between the Y-labels. */
-	@FXML protected TextField distLabelsY;
+	@FXML protected Spinner<Double> distLabelsY;
 	
 	@FXML protected AnchorPane mainPane;
 
@@ -87,12 +87,12 @@ public class ShapeAxesCustomiser extends JfxInstrument implements Initializable 
 			shapeAxes.getSelectionModel().select(shape.getAxesStyle());
 			shapeTicks.getSelectionModel().select(shape.getTicksStyle());
 			showTicks.getSelectionModel().select(shape.getTicksDisplayed());
-//			incrLabelX.setValueSafely(shape.getIncrementX());
-//			incrLabelY.setValueSafely(shape.getIncrementY());
+			incrLabelX.getValueFactory().setValue(shape.getIncrementX());
+			incrLabelY.getValueFactory().setValue(shape.getIncrementY());
 			showLabels.getSelectionModel().select(shape.getLabelsDisplayed());
 			showOrigin.setSelected(shape.isShowOrigin());
-//			distLabelsX.setValueSafely(shape.getDistLabelsX());
-//			distLabelsY.setValueSafely(shape.getDistLabelsY());
+			distLabelsX.getValueFactory().setValue(shape.getDistLabelsX());
+			distLabelsY.getValueFactory().setValue(shape.getDistLabelsY());
 		}
 		else setActivated(false);
 	}

@@ -3,7 +3,7 @@ package net.sf.latexdraw.instruments;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
@@ -35,10 +35,10 @@ public class ShapeShadowCustomiser extends JfxInstrument { // extends ShapePrope
 	@FXML protected ColorPicker shadowColB;
 
 	/** Changes the size of the shadow. */
-	@FXML protected TextField shadowSizeField;
+	@FXML protected Spinner<Double> shadowSizeField;
 
 	/** Changes the angle of the shadow. */
-	@FXML protected TextField shadowAngleField;
+	@FXML protected Spinner<Double> shadowAngleField;
 	
 	@FXML protected TitledPane mainPane;
 
@@ -69,8 +69,8 @@ public class ShapeShadowCustomiser extends JfxInstrument { // extends ShapePrope
 
 			if(hasShadow) {
 				shadowColB.setValue(shape.getShadowCol().toJFX());
-//				shadowAngleField.setValueSafely(Math.toDegrees(shape.getShadowAngle()));
-//				shadowSizeField.setValueSafely(shape.getShadowSize());
+				shadowAngleField.getValueFactory().setValue(Math.toDegrees(shape.getShadowAngle()));
+				shadowSizeField.getValueFactory().setValue(shape.getShadowSize());
 			}
 		}
 		else setActivated(false);

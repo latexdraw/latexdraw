@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
@@ -37,7 +37,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  */
 public class ShapeDotCustomiser extends JfxInstrument implements Initializable {//extends ShapePropertyCustomiser {
 	/** Allows to define the size of a dot. */
-	@FXML protected TextField dotSizeField;
+	@FXML protected Spinner<Double> dotSizeField;
 
 	/** Allows the selection of a dot shape. */
 	@FXML protected ComboBox<ImageView> dotCB;
@@ -82,7 +82,7 @@ public class ShapeDotCustomiser extends JfxInstrument implements Initializable {
 //	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IDotProp.class)) {
-//			dotSizeField.setValueSafely(shape.getDiametre());
+			dotSizeField.getValueFactory().setValue(shape.getDiametre());
 			dotCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(dotCB, shape.getDotStyle()).orElseThrow(() -> new IllegalArgumentException()));
 			fillingB.setDisable(shape.isFillable());
 
