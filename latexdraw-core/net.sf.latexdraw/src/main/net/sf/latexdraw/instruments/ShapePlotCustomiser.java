@@ -9,6 +9,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
@@ -54,6 +55,8 @@ public class ShapePlotCustomiser extends JfxInstrument implements Initializable 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		plotStyleCB.getItems().addAll(IPlotProp.PlotStyle.values());
+		((DoubleSpinnerValueFactory)minXSpinner.getValueFactory()).maxProperty().bind(maxXSpinner.valueProperty());
+		((DoubleSpinnerValueFactory)maxXSpinner.getValueFactory()).minProperty().bind(minXSpinner.valueProperty());
 	}
 	
 	

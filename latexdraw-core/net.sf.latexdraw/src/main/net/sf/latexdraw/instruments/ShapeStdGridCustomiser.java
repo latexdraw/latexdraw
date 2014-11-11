@@ -1,7 +1,12 @@
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -26,7 +31,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeStdGridCustomiser extends JfxInstrument {// extends ShapePropertyCustomiser {
+public class ShapeStdGridCustomiser extends JfxInstrument implements Initializable {// extends ShapePropertyCustomiser {
 	/** The field that sets the X-coordinate of the starting point of the grid. */
 	@FXML protected Spinner<Double> xStartS;
 
@@ -56,17 +61,22 @@ public class ShapeStdGridCustomiser extends JfxInstrument {// extends ShapePrope
 	public ShapeStdGridCustomiser() {
 		super();
 	}
+	
+	
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		((DoubleSpinnerValueFactory)xStartS.getValueFactory()).maxProperty().bind(xEndS.valueProperty());
+		((DoubleSpinnerValueFactory)yStartS.getValueFactory()).maxProperty().bind(yEndS.valueProperty());
+		((DoubleSpinnerValueFactory)xEndS.getValueFactory()).minProperty().bind(xStartS.valueProperty());
+		((DoubleSpinnerValueFactory)yEndS.getValueFactory()).minProperty().bind(yStartS.valueProperty());
+	}
 
 
 //	@Override
 	protected void update(final IGroup gp) {
 		if(gp.isTypeOf(IStdGridProp.class)) {
-//			((MSpinner.MSpinnerNumberModel)xStartS.getModel()).setMaximumSafely(gp.getGridEndX());
-//			((MSpinner.MSpinnerNumberModel)yStartS.getModel()).setMaximumSafely(gp.getGridEndY());
 			xStartS.getValueFactory().setValue(gp.getGridStartX());
 			yStartS.getValueFactory().setValue(gp.getGridStartY());
-//			((MSpinner.MSpinnerNumberModel)xEndS.getModel()).setMinumunSafely(gp.getGridStartX());
-//			((MSpinner.MSpinnerNumberModel)yEndS.getModel()).setMinumunSafely(gp.getGridStartY());
 			xEndS.getValueFactory().setValue(gp.getGridEndX());
 			yEndS.getValueFactory().setValue(gp.getGridEndY());
 			xOriginS.getValueFactory().setValue(gp.getOriginX());
