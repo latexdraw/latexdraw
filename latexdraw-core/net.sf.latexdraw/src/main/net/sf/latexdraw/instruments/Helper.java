@@ -8,7 +8,6 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.ui.dialog.ShortcutsFrame;
 import net.sf.latexdraw.util.LangTool;
 
 import org.malai.javafx.instrument.JfxInstrument;
@@ -49,10 +48,10 @@ public class Helper extends JfxInstrument {
 	@FXML protected MenuItem forumItem;
 
 	/** The dialogue box that gives information on latexdraw. */
-	protected Stage aboutFrame;
+	private Stage aboutFrame;
 
 	/** The shortcut dialogue box. */
-	protected ShortcutsFrame shortcutFrame;
+	private Stage shortcutFrame;
 
 	@FXML protected MenuItem manuelItem;
 
@@ -97,9 +96,19 @@ public class Helper extends JfxInstrument {
 	}
 
 	/** @return The created shortcut dialogue box. */
-	protected ShortcutsFrame initialiseShortcutsFrame() {
-		if(shortcutFrame==null)
-			shortcutFrame = new ShortcutsFrame();
+	protected Stage getShortcutsFrame() {
+		if(shortcutFrame==null) {
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("../glib/views/jfx/ui/Shortcuts.fxml"), LangTool.INSTANCE.getBundle());
+		        final Scene scene = new Scene(root);
+		        shortcutFrame = new Stage(StageStyle.UTILITY);
+		        shortcutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.3c"));
+		        shortcutFrame.setScene(scene);
+		        shortcutFrame.centerOnScreen();
+			}catch(final Exception e) {
+				BadaboomCollector.INSTANCE.add(e);
+			}
+		}
 		return shortcutFrame;
 	}
 }

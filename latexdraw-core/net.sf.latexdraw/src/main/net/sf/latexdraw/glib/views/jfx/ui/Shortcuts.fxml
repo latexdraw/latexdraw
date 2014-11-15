@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.TableView?>
+
+<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml"
+			fx:controller="net.sf.latexdraw.instruments.ShortcutsController">
+	<center>
+		<TableView fx:id="table" editable="false">
+		     <columns>
+		          <TableColumn text="%ShortcutsFrame.1" />
+		          <TableColumn text="%ParserMessagesFrame.0" />
+		          <TableColumn text="%ShortcutsFrame.3" />
+		     </columns>
+		</TableView>
+	</center>
+</BorderPane>
