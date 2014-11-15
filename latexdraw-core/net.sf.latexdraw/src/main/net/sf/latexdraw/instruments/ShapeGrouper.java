@@ -2,7 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TitledPane;
+import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 import org.malai.javafx.instrument.JfxInstrument;
@@ -32,7 +32,7 @@ public class ShapeGrouper extends JfxInstrument { // extends ShapePropertyCustom
 	/** The widget to separate shapes. */
 	protected @FXML Button sepB;
 	
-	protected @FXML TitledPane mainPane;
+	protected @FXML AnchorPane mainPane;
 
 
 	/**
