@@ -116,7 +116,6 @@ public class TestResources{
 		assertNotNull(loadImageIcon("/res/image-x-generic.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/thickness.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/hatch/gradient.png")); //$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/displayGrid.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/rotation180.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/rotation90.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/rotation270.png")); //$NON-NLS-1$

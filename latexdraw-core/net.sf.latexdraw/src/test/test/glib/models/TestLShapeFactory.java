@@ -1,5 +1,6 @@
 package test.glib.models;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
@@ -63,6 +64,6 @@ public class TestLShapeFactory{
 		assertTrue(ShapeFactory.newShape(IGroup.class).isPresent());
 		assertTrue(ShapeFactory.newShape(IText.class).isPresent());
 		assertTrue(ShapeFactory.newShape(ISquare.class).isPresent());
-		assertTrue(ShapeFactory.newShape(null).isPresent());
+		assertFalse(ShapeFactory.newShape(null).isPresent());
 	}
 }
