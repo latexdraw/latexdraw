@@ -1,20 +1,11 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Component;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.lang.LangTool;
+import javafx.fxml.FXML;
+import javafx.scene.control.MenuItem;
 import net.sf.latexdraw.ui.dialog.AboutDialogueBox;
 import net.sf.latexdraw.ui.dialog.ShortcutsFrame;
-import net.sf.latexdraw.util.LResources;
 
-import org.malai.swing.instrument.WidgetInstrument;
-import org.malai.swing.instrument.library.MenuItem2OpenWebPageInteractor;
-import org.malai.swing.instrument.library.MenuItem2ShowComponentInteractor;
-import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MMenuItem;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument manages help features.<br>
@@ -35,21 +26,21 @@ import org.malai.swing.widget.MMenuItem;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class Helper extends WidgetInstrument {
+public class Helper extends JfxInstrument {
 	/** This menu item shows the shortcut panel. */
-	protected MMenuItem shortcutItem;
+	@FXML protected MenuItem shortcutItem;
 
 	/** This menu item shows the "About latexdraw" panel. */
-	protected MMenuItem aboutItem;
+	@FXML protected MenuItem aboutItem;
 
 	/** This menu opens the web page used to report bugs. */
-	protected MMenuItem reportBugItem;
+	@FXML protected MenuItem reportBugItem;
 
 	/** This menu opens the web page used to donate to the latexdraw project. */
-	protected MMenuItem donateItem;
+	@FXML protected MenuItem donateItem;
 
 	/** This menu opens the latexdraw forum. */
-	protected MMenuItem forumItem;
+	@FXML protected MenuItem forumItem;
 
 	/** The dialogue box that gives information on latexdraw. */
 	protected AboutDialogueBox aboutFrame;
@@ -57,71 +48,30 @@ public class Helper extends WidgetInstrument {
 	/** The shortcut dialogue box. */
 	protected ShortcutsFrame shortcutFrame;
 
-	protected MMenuItem manuelItem;
+	@FXML protected MenuItem manuelItem;
 
 
 	/**
 	 * Creates the instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
 	 * @since 3.0
 	 */
-	public Helper(final SwingUIComposer<?> composer) {
-		super(composer);
-		initialiseWidgets();
+	public Helper() {
+		super();
 	}
-
-
-	@Override
-	protected void initialiseWidgets() {
-		shortcutFrame 	= null;
-		aboutFrame 		= null;
-		aboutItem = new MMenuItem(LResources.LABEL_ABOUT);
-		aboutItem.setIcon(LResources.ABOUT_ICON);
-		donateItem = new MMenuItem(LangTool.INSTANCE.getStringActions("Helper.1")); //$NON-NLS-1$
-		donateItem.setIcon(LResources.ABOUT_ICON);
-		reportBugItem = new MMenuItem(LangTool.INSTANCE.getStringActions("Helper.2")); //$NON-NLS-1$
-		reportBugItem.setIcon(LResources.ERR_ICON);
-		forumItem = new MMenuItem(LangTool.INSTANCE.getStringActions("Helper.3")); //$NON-NLS-1$
-		forumItem.setIcon(LResources.ABOUT_ICON);
-		shortcutItem = new MMenuItem(LangTool.INSTANCE.getString19("LaTeXDrawFrame.3")); //$NON-NLS-1$
-		shortcutItem.setIcon(LResources.ABOUT_ICON);
-		manuelItem = new MMenuItem(LangTool.INSTANCE.getStringActions("Helper.4")); //$NON-NLS-1$
-		manuelItem.setIcon(LResources.ABOUT_ICON);
-	}
-
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
-			addInteractor(new MenuItem2AboutFrame(this, aboutFrame, aboutItem));
-			addInteractor(new MenuItem2ShortcutFrame(this, aboutFrame, shortcutItem));
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523"))); //$NON-NLS-1$
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums"))); //$NON-NLS-1$
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523"))); //$NON-NLS-1$
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual"))); //$NON-NLS-1$
-		}catch(InstantiationException | IllegalAccessException | URISyntaxException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		try{
+//			addInteractor(new MenuItem2AboutFrame(this, aboutFrame, aboutItem));
+//			addInteractor(new MenuItem2ShortcutFrame(this, aboutFrame, shortcutItem));
+//			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523"))); //$NON-NLS-1$
+//			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums"))); //$NON-NLS-1$
+//			addInteractor(new MenuItem2OpenWebPageInteractor(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523"))); //$NON-NLS-1$
+//			addInteractor(new MenuItem2OpenWebPageInteractor(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual"))); //$NON-NLS-1$
+//		}catch(InstantiationException | IllegalAccessException | URISyntaxException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
-
-
-	/** @return The menu item that shows the shortcut panel. */
-	public MMenuItem getShortcutItem() { return shortcutItem; }
-
-	/** @return The menu item that shows the "About latexdraw" panel. */
-	public MMenuItem getAboutItem() { return aboutItem; }
-
-	/** @return The menu that opens the web page used to report bugs. */
-	public MMenuItem getReportBugItem() { return reportBugItem; }
-
-	/** @return The menu that opens the web page used to donate to the latexdraw project. */
-	public MMenuItem getDonateItem() { return donateItem; }
-
-	/** @return the menu that opens the latexdraw forum.  */
-	public MMenuItem getForumItem() { return forumItem; }
-
-	/** @return Open the latexdraw manual.  */
-	public MMenuItem getManuelItem() { return manuelItem; }
 
 	/** @return The created latexdraw dialogue box. */
 	protected AboutDialogueBox initialiseAboutFrame() {
@@ -139,38 +89,38 @@ public class Helper extends WidgetInstrument {
 }
 
 
-/** The link between a menu item and the action that shows the latexdraw dialogue box. */
-class MenuItem2AboutFrame extends MenuItem2ShowComponentInteractor<Helper> {
-	protected MenuItem2AboutFrame(final Helper ins, final Component component, final MMenuItem menuItem) throws InstantiationException, IllegalAccessException {
-		super(ins, component, menuItem);
-	}
-
-	@Override
-	public void initAction() {
-		if(component==null)
-			component = instrument.initialiseAboutFrame();
-		super.initAction();
-	}
-}
-
-
-/** The link between a menu item and the action that shows the shortcut box. */
-class MenuItem2ShortcutFrame extends MenuItem2ShowComponentInteractor<Helper> {
-	/**
-	 * Creates the link.
-	 * @param ins The instrument that contains the link.
-	 * @param component The component to show/hide.
-	 * @param menuItem The menu item used to show/hide to component.
-	 * @since 3.0
-	 */
-	protected MenuItem2ShortcutFrame(final Helper ins, final Component component, final MMenuItem menuItem) throws InstantiationException, IllegalAccessException {
-		super(ins, component, menuItem);
-	}
-
-	@Override
-	public void initAction() {
-		if(component==null)
-			component = instrument.initialiseShortcutsFrame();
-		super.initAction();
-	}
-}
+///** The link between a menu item and the action that shows the latexdraw dialogue box. */
+//class MenuItem2AboutFrame extends MenuItem2ShowComponentInteractor<Helper> {
+//	protected MenuItem2AboutFrame(final Helper ins, final Component component, final MMenuItem menuItem) throws InstantiationException, IllegalAccessException {
+//		super(ins, component, menuItem);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		if(component==null)
+//			component = instrument.initialiseAboutFrame();
+//		super.initAction();
+//	}
+//}
+//
+//
+///** The link between a menu item and the action that shows the shortcut box. */
+//class MenuItem2ShortcutFrame extends MenuItem2ShowComponentInteractor<Helper> {
+//	/**
+//	 * Creates the link.
+//	 * @param ins The instrument that contains the link.
+//	 * @param component The component to show/hide.
+//	 * @param menuItem The menu item used to show/hide to component.
+//	 * @since 3.0
+//	 */
+//	protected MenuItem2ShortcutFrame(final Helper ins, final Component component, final MMenuItem menuItem) throws InstantiationException, IllegalAccessException {
+//		super(ins, component, menuItem);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		if(component==null)
+//			component = instrument.initialiseShortcutsFrame();
+//		super.initAction();
+//	}
+//}

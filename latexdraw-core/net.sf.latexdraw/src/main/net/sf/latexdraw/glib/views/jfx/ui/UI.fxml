@@ -214,30 +214,7 @@
 					<tooltip><Tooltip text="%LaTeXDrawFrame.117" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/emblem-unreadable.png" /></image></ImageView></graphic>
 				</Button>
-				<MenuButton mnemonicParsing="false">
-					<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
-					<items>
-						<MenuItem id="shortcutItem" mnemonicParsing="false" text="%LaTeXDrawFrame.3c">
-							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<MenuItem id="donateItem" mnemonicParsing="false" text="%Helper.1">
-							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<MenuItem id="manuelItem" mnemonicParsing="false" text="%Helper.4">
-							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<MenuItem id="reportBugItem" mnemonicParsing="false" text="%Helper.2">
-							<graphic><ImageView><image><Image url="@/res/emblem-unreadable.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<MenuItem id="forumItem" mnemonicParsing="false" text="%Helper.3">
-							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<SeparatorMenuItem mnemonicParsing="false" />
-						<MenuItem id="aboutItem" mnemonicParsing="false" text="%Res.1">
-							<graphic><ImageView><image><Image url="@/res/emblem-important.png" /></image></ImageView></graphic>
-						</MenuItem>
-					</items>
-				</MenuButton>
+				<fx:include source="Help.fxml" />
 			</items>
 		</ToolBar>
 	</top>

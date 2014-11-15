@@ -235,7 +235,6 @@ public class LFrame extends SwingUI {
 		final PSTCodeGenerator gen = getCodePanel().getPstGenerator();
 
 		exceptionsManager	= new ExceptionsManager();
-		helper				= new Helper(composer);
 		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, gen); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scroller		= new Scroller(canvas); }

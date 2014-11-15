@@ -58,9 +58,6 @@ public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 		widget = new JMenuBar();
 		composeDrawingMenu();
 		composeEditMenu();
-		if(progressBar!=null) progressBar.addToProgressBar(5);
-		composeHelpMenu();
-		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
 
 
@@ -90,18 +87,5 @@ public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 		editMenu.addSeparator();
 		editMenu.add(frame.prefActivator.getShowPreferencesMenu());
 		widget.add(editMenu);
-	}
-
-
-	protected void composeHelpMenu() {
-		helpMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.93"), true); //$NON-NLS-1$
-		helpMenu.add(frame.helper.getShortcutItem());
-		helpMenu.add(frame.helper.getDonateItem());
-		helpMenu.add(frame.helper.getManuelItem());
-		helpMenu.add(frame.helper.getReportBugItem());
-		helpMenu.add(frame.helper.getForumItem());
-		helpMenu.addSeparator();
-		helpMenu.add(frame.helper.getAboutItem());
-		widget.add(helpMenu);
 	}
 }
