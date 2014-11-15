@@ -1,9 +1,15 @@
 package net.sf.latexdraw.instruments;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
-import net.sf.latexdraw.ui.dialog.AboutDialogueBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.ui.dialog.ShortcutsFrame;
+import net.sf.latexdraw.util.LangTool;
 
 import org.malai.javafx.instrument.JfxInstrument;
 
@@ -43,7 +49,7 @@ public class Helper extends JfxInstrument {
 	@FXML protected MenuItem forumItem;
 
 	/** The dialogue box that gives information on latexdraw. */
-	protected AboutDialogueBox aboutFrame;
+	protected Stage aboutFrame;
 
 	/** The shortcut dialogue box. */
 	protected ShortcutsFrame shortcutFrame;
@@ -74,9 +80,19 @@ public class Helper extends JfxInstrument {
 	}
 
 	/** @return The created latexdraw dialogue box. */
-	protected AboutDialogueBox initialiseAboutFrame() {
-		if(aboutFrame==null)
-			aboutFrame = new AboutDialogueBox();
+	protected Stage getAboutFrame() {
+		if(aboutFrame==null){
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("../glib/views/jfx/ui/About.fxml"), LangTool.INSTANCE.getBundle());
+		        final Scene scene = new Scene(root);
+		        aboutFrame = new Stage(StageStyle.UTILITY);
+		        aboutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("Res.1"));
+		        aboutFrame.setScene(scene);
+		        aboutFrame.centerOnScreen();
+			}catch(final Exception e) {
+				BadaboomCollector.INSTANCE.add(e);
+			}
+		}
 		return aboutFrame;
 	}
 

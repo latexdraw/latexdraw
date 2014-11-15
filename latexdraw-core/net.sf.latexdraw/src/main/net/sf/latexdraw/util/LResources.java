@@ -42,9 +42,6 @@ public final class LResources {
 	/** The name of the application */
     public static final String LABEL_APP = "LaTeXDraw";//$NON-NLS-1$
 
-	/** The label of the menu "aboutTexDraw" */
-    public static final String LABEL_ABOUT = LangTool.INSTANCE.getStringDialogFrame("Res.1"); //$NON-NLS-1$
-
 	/** The label of the newMenu item */
     public static final String LABEL_NEW = LangTool.INSTANCE.getStringDialogFrame("Res.2"); //$NON-NLS-1$
 

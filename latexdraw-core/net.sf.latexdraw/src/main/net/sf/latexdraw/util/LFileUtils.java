@@ -2,10 +2,17 @@ package net.sf.latexdraw.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Random;
+
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * Defines some workarounds to deal with the problem of the renameto function.
@@ -37,6 +44,28 @@ public final class LFileUtils {
 	}
 
 
+	/**
+	 * Reads the given file and returns its text.
+	 * @param path The path of the file to read.
+	 * @return The content of the text file to read. Cannot be null.
+	 */
+	public String readTextFile(final String path) {
+		final StringBuilder txt = new StringBuilder();
+		
+		try(final InputStream is = getClass().getResourceAsStream(path);
+		final Reader reader = new InputStreamReader(is, "UTF-8");//$NON-NLS-1$
+		final BufferedReader br = new BufferedReader(reader)){
+	        String line = br.readLine();
+
+	        while(line != null) {
+	        	txt.append(line).append(LResources.EOL);
+	            line = br.readLine();
+	        }
+		}catch(final IOException ex) { BadaboomCollector.INSTANCE.add(ex); }
+		return txt.toString();
+	}
+	
+	
 	/**
 	 * Creates a temporary directory that will be used to contains temporary latex files.
 	 * The created folder will have restricted access: only the user can access the folder.

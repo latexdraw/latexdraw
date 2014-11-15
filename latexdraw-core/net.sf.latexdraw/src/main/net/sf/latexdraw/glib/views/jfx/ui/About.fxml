@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.WebView?>
+
+<BorderPane prefHeight="440.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="net.sf.latexdraw.instruments.AboutController">
+	<center>
+		<TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+			<tabs>
+				<Tab closable="false" text="%PreferencesFrame.general">
+					<content>
+						<BorderPane>
+							<center>
+								<ImageView layoutX="0.0" layoutY="0.0"><image><Image url="@/res/LaTeXDrawSmall.png" /></image></ImageView>
+							</center>
+							<bottom>
+								<WebView fx:id="aboutText" />
+							</bottom>
+						</BorderPane>
+					</content>
+				</Tab>
+				<Tab closable="false" text="%LaTeXDrawFrame.27">
+					<content>
+						<TextArea fx:id="noteText" editable="false" />
+					</content>
+				</Tab>
+				<Tab closable="false" text="%About.2">
+					<content>
+						<TextArea fx:id="contribText" editable="false" />
+					</content>
+				</Tab>
+				<Tab closable="false" text="%About.1">
+					<content>
+						<TextArea fx:id="sysText" editable="false" />
+					</content>
+				</Tab>
+				<Tab closable="false" text="%LaTeXDrawFrame.28">
+					<content>
+						<TextArea fx:id="licenseText" editable="false" />
+					</content>
+				</Tab>
+			</tabs>
+		</TabPane>
+	</center>
+</BorderPane>
