@@ -88,7 +88,6 @@ public final class LResources {
 	public static final ImageIcon UPDATE_ICON;
 	public static final ImageIcon ABOUT_ICON;
 	public static final ImageIcon HELP_ICON;
-	public static final ImageIcon PREFERENCES_ICON;
 	public static final ImageIcon DRAWING_PROP_ICON;
 	public static final ImageIcon PLOT_ICON;
 	public static final ImageIcon ZOOM_DEFAULT_ICON;
@@ -142,7 +141,6 @@ public final class LResources {
 		UNDO_ICON 		= loadImageIcon("/res/Undo.png");//$NON-NLS-1$
 		REDO_ICON 		= loadImageIcon("/res/Redo.png");	//$NON-NLS-1$
 		ZOOM_DEFAULT_ICON = loadImageIcon("/res/Magnify.png");	//$NON-NLS-1$
-		PREFERENCES_ICON = loadImageIcon("/res/preferences-system.png");	//$NON-NLS-1$
 		NEW_ICON 		= loadImageIcon("/res/New.png");	//$NON-NLS-1$
 		OPEN_ICON 		= loadImageIcon("/res/document-open.png");	//$NON-NLS-1$
 		SAVE_ICON 		= loadImageIcon("/res/document-save.png");	//$NON-NLS-1$

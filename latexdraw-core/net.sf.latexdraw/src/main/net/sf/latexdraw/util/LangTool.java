@@ -1,10 +1,15 @@
 package net.sf.latexdraw.util;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -78,6 +83,24 @@ public final class LangTool {
 		return getDefaultLanguage();
 	}
 
+	
+	private Locale getLocaleFromFileName(final String fileName) {
+		return Locale.forLanguageTag(LFileUtils.INSTANCE.getFileNameNoExtension(fileName).replaceAll("bundle_", "").replaceAll("_", "-"));
+	}
+	
+	
+	public List<Locale> getSupportedLocales() {
+		try {
+			return Files.list(Paths.get(getClass().getResource("/lang").toURI())).filter(f -> !Files.isDirectory(f) && Files.isReadable(f)).
+								map(f -> getLocaleFromFileName(f.getFileName().toString())).collect(Collectors.toList());
+		}catch(final IOException | URISyntaxException e) {
+			e.printStackTrace();
+			BadaboomCollector.INSTANCE.add(e); 
+		}
+		return Collections.emptyList();
+	}
+	
+	
 	/** @return The language used by default. */
 	private ResourceBundle getDefaultLanguage() {
 		return loadResourceBundle(Locale.getDefault());

@@ -170,7 +170,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 		final LCanvas canvas 	= widget.getCanvas();
 		final MToolBar toolbar 	= toolbarBuilder.getWidget();
 
-		widget.prefActivator.addEventable(menubarBuilder.editMenu);
 		widget.exceptionsManager.addEventable(toolbar);
 		widget.scroller.addEventable(canvas);
 		widget.editingSelector.addEventable(toolbar);
@@ -209,7 +208,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 
 
 	protected void initialiseInstrumentsActivation() {
-		widget.prefActivator.setActivated(true);
 		widget.helper.setActivated(true);
 		widget.gridCustomiser.setActivated(true);
 		widget.scroller.setActivated(true);

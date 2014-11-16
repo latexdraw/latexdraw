@@ -84,8 +84,6 @@ public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 		editMenu.add(frame.paster.getCutMenu());
 		editMenu.add(frame.paster.getCopyMenu());
 		editMenu.add(frame.paster.getPasteMenu());
-		editMenu.addSeparator();
-		editMenu.add(frame.prefActivator.getShowPreferencesMenu());
 		widget.add(editMenu);
 	}
 }

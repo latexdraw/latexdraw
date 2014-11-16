@@ -1,21 +1,30 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.stage.FileChooser;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -23,29 +32,15 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import net.sf.latexdraw.actions.WritePreferences;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.GridStyle;
-import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.ui.LFrame;
-import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LSystem;
+import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.util.VersionChecker;
 
-import org.malai.instrument.InteractorImpl;
-import org.malai.swing.instrument.SwingInstrument;
-import org.malai.swing.interaction.library.WindowClosed;
-import org.malai.swing.widget.MCheckBox;
-import org.malai.swing.widget.MComboBox;
-import org.malai.swing.widget.MRadioButton;
-import org.malai.swing.widget.MSpinner;
-import org.malai.swing.widget.MTextArea;
-import org.malai.swing.widget.MTextField;
+import org.malai.javafx.instrument.JfxInstrument;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -70,140 +65,67 @@ import org.w3c.dom.NodeList;
  * <br>
  * 01/18/11<br>
  * @author Arnaud BLOUIN
- * @version 3.0
+ * @version 4.0
  */
-public class PreferencesSetter extends SwingInstrument {
-	/** The file chooser of paths selection. */
-	protected JFileChooser fileChooser;
-
-	/** This check-box allows to set if the user wants to display the grid. */
-	protected MCheckBox displayGridCB;
-
-	/** The widget that defines if the grid is magnetic. */
-	protected MCheckBox magneticGridCB;
+public class PreferencesSetter extends JfxInstrument implements Initializable {
+	/** Sets if the grid is magnetic. */
+	@FXML protected CheckBox magneticCB;
 
 	/** Allows the set if the program must check new version on start up. */
-	protected MCheckBox checkNewVersion;
+	@FXML protected CheckBox checkNewVersion;
 
 	/** This textField allows to set the default directories for open/save actions. */
-	protected MTextField pathOpenField;
+	@FXML protected TextField pathOpenField;
 
 	/** This textField allows to set the default directories for exporting actions. */
-	protected MTextField pathExportField;
+	@FXML protected TextField pathExportField;
 
 	/** The text field used to defines the latex packages to use. */
-	protected MTextArea latexIncludes;
+	@FXML protected TextArea latexIncludes;
 
 	/** Allows to set the unit of length by default. */
-	protected MComboBox<String> unitChoice;
+	@FXML protected ComboBox<String> unitChoice;
 
 	/** The list that contains the supported languages. */
-	protected MComboBox<String> langList;
-
-	/** The widget used to display the standard grid. */
-	protected MRadioButton classicGridRB;
-
-	/** The widget used to display a customised grid. */
-	protected MRadioButton persoGridRB;
+	@FXML protected ComboBox<String> langList;
 
 	/** The field used to modifies the gap of the customised grid. */
-	protected MSpinner persoGridGapField;
+	@FXML protected Spinner<Integer> persoGridGapField;
 
 	/** The widget used to defines the number of recent file to keep in memory. */
-	protected MSpinner nbRecentFilesField;
+	@FXML protected Spinner<Integer> nbRecentFilesField;
+	
+	/** Contains the different possible kind of grids. */
+	@FXML protected ComboBox<GridStyle> styleList;
+	
+	@FXML protected Button buttonOpen;
+	@FXML protected Button buttonExport;
 
 	/** The recent files. */
 	protected List<String> recentFilesName;
 
-	/** Defines if the main frame is maximised or not. */
-	protected boolean isFrameMaximized;
-
-	/** Defines the size of the main frame. */
-	protected Dimension frameSize;
-
-	/** Defines the position of the main frame. */
-	protected IPoint framePosition;
-
-	/** The main frame. */
-	protected LFrame frame;
-
+	/** The file chooser of paths selection. */
+	protected FileChooser fileChooser;
+	
 
 	/**
 	 * Creates the instrument.
-	 * @param frame The frame that will be set while setting parameters.
-	 * @since 3.0
 	 */
-	public PreferencesSetter(final LFrame frame) {
+	public PreferencesSetter() {
 		super();
-
-		this.frame		 	= Objects.requireNonNull(frame);
-		framePosition	 	= ShapeFactory.createPoint();
-		frameSize 			= new Dimension();
-		frameSize.height 	= 3*Toolkit.getDefaultToolkit().getScreenSize().height/2;
-		frameSize.width 	= 3*Toolkit.getDefaultToolkit().getScreenSize().width/2;
-		recentFilesName  	= new ArrayList<>();
-		isFrameMaximized 	= false;
-		initialiseWidgets();
+		recentFilesName = new ArrayList<>();
 	}
 
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		latexIncludes.setTooltip(new Tooltip("<html>"+ //$NON-NLS-1$
+  				LangTool.INSTANCE.getBundle().getString("PreferencesSetter.1")+ //$NON-NLS-1$
+  				"<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>"//$NON-NLS-1$
+		));
 
-	/**
-	 * Initialises the widgets of the instrument.
-	 * @since 3.0
-	 */
-	protected void initialiseWidgets() {
-		final int height = 40;
-
-  		latexIncludes = new MTextArea(true, false);
-  		latexIncludes.setToolTipText("<html>"+ //$NON-NLS-1$
-  				LangTool.INSTANCE.getStringActions("PreferencesSetter.1")+ //$NON-NLS-1$
-  				"<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>"); //$NON-NLS-1$
-
-  		checkNewVersion = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.newVers"));//$NON-NLS-1$
-		if(VersionChecker.WITH_UPDATE)
-			checkNewVersion.setSelected(true);
-
-  		langList = new MComboBox<>();
-  		for(final LangTool.Lang lang : LangTool.Lang.values())
-  			langList.addItem(lang.getName());
-  		langList.setMaximumSize(new Dimension(250, height));
-  		langList.setSelectedItemSafely(LangTool.getCurrentLanguage().getName());
-
-  		nbRecentFilesField = new MSpinner(new MSpinner.MSpinnerNumberModel(5, 0, 20, 1), new JLabel(LangTool.INSTANCE.getString19("PreferencesFrame.0")));//$NON-NLS-1$
-  		nbRecentFilesField.setEditor(new JSpinner.NumberEditor(nbRecentFilesField, "0"));//$NON-NLS-1$
-  		nbRecentFilesField.setMaximumSize(new Dimension(60, height));
-
-		//LangTool.INSTANCE.getString19("PreferencesFrame.1"))); //FIXME clean
-
-  		classicGridRB  		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.4")); //$NON-NLS-1$
-  		classicGridRB.setSelected(false);
-  		persoGridRB    		= new MRadioButton(LangTool.INSTANCE.getString18("PreferencesFrame.5")); //$NON-NLS-1$
-  		persoGridRB.setSelected(true);
-  		final ButtonGroup group = new ButtonGroup();
-  		group.add(classicGridRB);
-  		group.add(persoGridRB);
-  		displayGridCB      	= new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.grid"));//$NON-NLS-1$
-  		displayGridCB.setSelected(true);
-  		magneticGridCB	   	= new MCheckBox(LangTool.INSTANCE.getString18("PreferencesFrame.6")); //$NON-NLS-1$
-  		magneticGridCB.setSelected(true);
-     	persoGridGapField  	= new MSpinner(new MSpinner.MSpinnerNumberModel(20, 2, 10000, 1), new JLabel(LangTool.INSTANCE.getString18("PreferencesFrame.7")));//$NON-NLS-1$
-     	persoGridGapField.setEditor(new JSpinner.NumberEditor(persoGridGapField, "0"));//$NON-NLS-1$
-     	persoGridGapField.setMaximumSize(new Dimension(60, height));
-
-  		unitChoice 		   	= new MComboBox<>();
-  		unitChoice.addItem(Unit.CM.getLabel());
-  		unitChoice.addItem(Unit.INCH.getLabel());
-  		unitChoice.setMaximumSize(new Dimension(160, height));
-  		unitChoice.setSelectedItem(Unit.CM.getLabel());
-
-  		pathExportField  	= new MTextField();
-  		pathOpenField    	= new MTextField();
-
-  		//FIXME clean
-//  		antialiasingCheckBox = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.antiAl"));//$NON-NLS-1$
-//  		renderingCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.rendQ"));//$NON-NLS-1$
-//  		colorRenderCheckBox  = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.colRendQ"));//$NON-NLS-1$
-//  		alpaInterCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.AlphaQ"));//$NON-NLS-1$
+		langList.getItems().addAll(LangTool.INSTANCE.getSupportedLocales().stream().map(l -> l.getDisplayLanguage()).collect(Collectors.toList()));
+		unitChoice.getItems().addAll(Arrays.asList(Unit.values()).stream().map(Unit::getLabel).collect(Collectors.toList()));
+		styleList.getItems().addAll(GridStyle.values());
 	}
 
 
@@ -228,11 +150,11 @@ public class PreferencesSetter extends SwingInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
-			addInteractor(new CloseFrame2SavePreferences(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		try{
+//			addInteractor(new CloseFrame2SavePreferences(this));
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
 
 
@@ -240,106 +162,19 @@ public class PreferencesSetter extends SwingInstrument {
 	 * @return The file chooser used to selected folders.
 	 * @since 3.0
 	 */
-	public JFileChooser getFileChooser() {
+	public FileChooser getFileChooser() {
 		if(fileChooser==null) {
-			fileChooser = new JFileChooser();
-			fileChooser.setApproveButtonText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.171"));	//$NON-NLS-1$
-			fileChooser.setDialogTitle(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.selectFolder"));	//$NON-NLS-1$
-			fileChooser.setMultiSelectionEnabled(false);
+			fileChooser = new FileChooser();
+			fileChooser.setTitle(LangTool.INSTANCE.getBundle().getString("PreferencesFrame.selectFolder"));	//$NON-NLS-1$
 		}
 		return fileChooser;
-	}
-
-
-	/**
-	 * @return The check-box that allows to set if the user wants to display the grid.
-	 */
-	public MCheckBox getDisplayGridCB() {
-		return displayGridCB;
-	}
-
-	/**
-	 * @return The widget that defines if the grid is magnetic.
-	 */
-	public MCheckBox getMagneticGridCB() {
-		return magneticGridCB;
-	}
-
-
-	/**
-	 * @return The widget used to set if the program must check new version on start up.
-	 */
-	public MCheckBox getCheckNewVersion() {
-		return checkNewVersion;
-	}
-
-	/**
-	 * @return This textField allows to set the default directories for open/save actions.
-	 */
-	public MTextField getPathOpenField() {
-		return pathOpenField;
-	}
-
-	/**
-	 * @return This textField allows to set the default directories for exporting actions.
-	 */
-	public MTextField getPathExportField() {
-		return pathExportField;
-	}
-
-	/**
-	 * @return The text field used to defines the latex packages to use.
-	 */
-	public MTextArea getLatexIncludes() {
-		return latexIncludes;
-	}
-
-	/**
-	 * @return Allows to set the unit of length by default.
-	 */
-	public MComboBox<String> getUnitChoice() {
-		return unitChoice;
-	}
-
-	/**
-	 * @return The list that contains the supported languages.
-	 */
-	public MComboBox<String> getLangList() {
-		return langList;
-	}
-
-	/**
-	 * @return The widget used to display the standard grid.
-	 */
-	public MRadioButton getClassicGridRB() {
-		return classicGridRB;
-	}
-
-	/**
-	 * @return The widget used to display a customised grid.
-	 */
-	public MRadioButton getPersoGridRB() {
-		return persoGridRB;
-	}
-
-	/**
-	 * @return The field used to modifies the gap of the customised grid.
-	 */
-	public MSpinner getPersoGridGapField() {
-		return persoGridGapField;
-	}
-
-	/**
-	 * @return The widget used to defines the number of recent file to keep in memory.
-	 */
-	public MSpinner getNbRecentFilesField() {
-		return nbRecentFilesField;
 	}
 
 
 	private void processXMLDataPreference(final Map<String, Node> prefMap) {
 		Node n2;
 		Node node;
+		final Stage frame = (Stage)pathExportField.getScene().getWindow();
 
 		node = prefMap.get(LNamespace.XML_LATEX_INCLUDES);
 		if(node!=null) latexIncludes.setText(node.getTextContent());
@@ -348,22 +183,25 @@ public class PreferencesSetter extends SwingInstrument {
 		if(node!=null) checkNewVersion.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_CLASSIC_GRID);
-		if(node!=null) {
-			classicGridRB.setSelected(Boolean.parseBoolean(node.getTextContent()));
-			persoGridRB.setSelected(!Boolean.parseBoolean(node.getTextContent()));
-		}
+		if(node!=null)
+			if(Boolean.parseBoolean(node.getTextContent()))
+				 styleList.getSelectionModel().select(GridStyle.STANDARD);
+			else styleList.getSelectionModel().select(GridStyle.CUSTOMISED);
 
 		node = prefMap.get(LNamespace.XML_DISPLAY_GRID);
-		if(node!=null) displayGridCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
+		if(node!=null) 
+			if(!Boolean.parseBoolean(node.getTextContent()))
+				 styleList.getSelectionModel().select(GridStyle.NONE);
+		
 
 		node = prefMap.get(LNamespace.XML_GRID_GAP);
-		if(node!=null) persoGridGapField.setValueSafely(Integer.valueOf(node.getTextContent()));
+		if(node!=null) persoGridGapField.getValueFactory().setValue(Integer.valueOf(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_LANG);
-		if(node!=null) langList.setSelectedItemSafely(node.getTextContent());
+		if(node!=null) langList.getSelectionModel().select(node.getTextContent());
 
 		node = prefMap.get(LNamespace.XML_MAGNETIC_GRID);
-		if(node!=null) magneticGridCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
+		if(node!=null) magneticCB.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_PATH_EXPORT);
 		if(node!=null) pathExportField.setText(node.getTextContent());
@@ -372,7 +210,7 @@ public class PreferencesSetter extends SwingInstrument {
 		if(node!=null) pathOpenField.setText(node.getTextContent());
 
 		node = prefMap.get(LNamespace.XML_UNIT);
-		if(node!=null) unitChoice.setSelectedItemSafely(node.getTextContent());
+		if(node!=null) unitChoice.getSelectionModel().select(node.getTextContent());
 
 		node = prefMap.get(LNamespace.XML_RECENT_FILES);
 		if(node!=null) {
@@ -384,7 +222,7 @@ public class PreferencesSetter extends SwingInstrument {
 				final Node attr = nnm.getNamedItem(LNamespace.XML_NB_RECENT_FILES);
 
 				if(attr!=null)
-					nbRecentFilesField.setValueSafely(Integer.valueOf(attr.getTextContent()));
+					nbRecentFilesField.getValueFactory().setValue(Integer.valueOf(attr.getTextContent()));
 			}
 
 			for(int j=0, size2=nl2.getLength(); j<size2; j++) {
@@ -396,21 +234,20 @@ public class PreferencesSetter extends SwingInstrument {
 		}
 
 		node = prefMap.get(LNamespace.XML_MAXIMISED);
-		if(node!=null) isFrameMaximized = Boolean.parseBoolean(node.getTextContent());
+		if(node!=null) frame.setFullScreen(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_SIZE);
 		if(node!=null) {
 			final NodeList nl2 = node.getChildNodes();
-			frameSize = new Dimension();
 
 			for(int j=0, size2=nl2.getLength(); j<size2; j++) {
 				n2 = nl2.item(j);
 
 				if(n2.getNodeName().equals(LNamespace.XML_WIDTH))
-					frameSize.width = Integer.parseInt(n2.getTextContent());
+					frame.setWidth(Integer.parseInt(n2.getTextContent()));
 				else
 					if(n2.getNodeName().equals(LNamespace.XML_HEIGHT))
-						frameSize.height = Integer.parseInt(n2.getTextContent());
+						frame.setHeight(Integer.parseInt(n2.getTextContent()));
 			}
 		}
 
@@ -422,10 +259,10 @@ public class PreferencesSetter extends SwingInstrument {
 				n2 = nl2.item(j);
 
 				if(n2.getNodeName().equals(LNamespace.XML_POSITION_X))
-					framePosition.setX(Math.max(0, Integer.parseInt(n2.getTextContent())));
+					frame.setX(Math.max(0, Integer.parseInt(n2.getTextContent())));
 				else
 					if(n2.getNodeName().equals(LNamespace.XML_POSITION_Y))
-						framePosition.setY(Math.max(0, Integer.parseInt(n2.getTextContent())));
+						frame.setY(Math.max(0, Integer.parseInt(n2.getTextContent())));
 			}
 		}
 	}
@@ -445,42 +282,41 @@ public class PreferencesSetter extends SwingInstrument {
 	 * @since 3.0
 	 */
 	private void applyValues() {
-		final Exporter exporter 				= frame.getExporter();
-		final MagneticGridCustomiser gridCust 	= frame.getGridCustomiser();
-		final ScaleRulersCustomiser scaleCust 	= frame.getScaleRulersCustomiser();
-		final FileLoaderSaver saver 			= frame.getFileLoader();
-		final Dimension dim 					= LSystem.INSTANCE.getScreenDimension();
-		final Rectangle rec 					= frame.getGraphicsConfiguration().getBounds();
-		final GridStyle gridStyle;
-
-		if(displayGridCB.isSelected())
-			 gridStyle = classicGridRB.isSelected() ? GridStyle.STANDARD : GridStyle.CUSTOMISED;
-		else gridStyle = GridStyle.NONE;
-
-		gridCust.grid.setStyle(gridStyle);
-		gridCust.grid.setMagnetic(magneticGridCB.isSelected());
-		gridCust.grid.setGridSpacing(Integer.parseInt(persoGridGapField.getValue().toString()));
-		exporter.setDefaultPackages(latexIncludes.getText());
-		exporter.setPathExport(pathExportField.getText());
-		try{
-			gridCust.gridSpacing.getValueFactory().setValue(Integer.valueOf(persoGridGapField.getValue().toString()));
-		}catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
-		gridCust.magneticCB.setSelected(magneticGridCB.isSelected());
-		gridCust.styleList.getSelectionModel().select(gridStyle);
-		scaleCust.unitCmItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.CM.getLabel()));
-		scaleCust.unitInchItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.INCH.getLabel()));
-		saver.setPathSave(pathOpenField.getText());
-		saver.updateRecentMenuItems(recentFilesName);
-		ScaleRuler.setUnit(Unit.getUnit(unitChoice.getSelectedItem().toString()));
-		frame.setLocation((int)(rec.getX()+(framePosition.getX()>dim.getWidth()?0:framePosition.getX())),
-						(int)(rec.getY()+(framePosition.getY()>dim.getHeight()?0:framePosition.getY())));
-
-		if(frameSize.width>0 && frameSize.height>0)
-			frame.setSize((int)Math.min(frameSize.width, dim.getWidth()), (int)Math.min(frameSize.height, dim.getHeight()));
-
-		if(isFrameMaximized || frameSize.width==0 || frameSize.height==0)
-			frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		// TODO drawBorders, PathtexEditor
+//		final Exporter exporter 				= frame.getExporter();
+//		final MagneticGridCustomiser gridCust 	= frame.getGridCustomiser();
+//		final ScaleRulersCustomiser scaleCust 	= frame.getScaleRulersCustomiser();
+//		final FileLoaderSaver saver 			= frame.getFileLoader();
+//		final Dimension dim 					= LSystem.INSTANCE.getScreenDimension();
+//		final Rectangle rec 					= frame.getGraphicsConfiguration().getBounds();
+//		final GridStyle gridStyle;
+//
+//		if(displayGridCB.isSelected())
+//			 gridStyle = classicGridRB.isSelected() ? GridStyle.STANDARD : GridStyle.CUSTOMISED;
+//		else gridStyle = GridStyle.NONE;
+//
+//		gridCust.grid.setStyle(gridStyle);
+//		gridCust.grid.setMagnetic(magneticGridCB.isSelected());
+//		gridCust.grid.setGridSpacing(Integer.parseInt(persoGridGapField.getValue().toString()));
+//		exporter.setDefaultPackages(latexIncludes.getText());
+//		exporter.setPathExport(pathExportField.getText());
+//		try{
+//			gridCust.gridSpacing.getValueFactory().setValue(Integer.valueOf(persoGridGapField.getValue().toString()));
+//		}catch(NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
+//		gridCust.magneticCB.setSelected(magneticGridCB.isSelected());
+//		gridCust.styleList.getSelectionModel().select(gridStyle);
+//		scaleCust.unitCmItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.CM.getLabel()));
+//		scaleCust.unitInchItem.setSelected(unitChoice.getSelectedItem().toString().equals(Unit.INCH.getLabel()));
+//		saver.setPathSave(pathOpenField.getText());
+//		saver.updateRecentMenuItems(recentFilesName);
+//		ScaleRuler.setUnit(Unit.getUnit(unitChoice.getSelectedItem().toString()));
+//		frame.setLocation((int)(rec.getX()+(framePosition.getX()>dim.getWidth()?0:framePosition.getX())),
+//						(int)(rec.getY()+(framePosition.getY()>dim.getHeight()?0:framePosition.getY())));
+//
+//		if(frameSize.width>0 && frameSize.height>0)
+//			frame.setSize((int)Math.min(frameSize.width, dim.getWidth()), (int)Math.min(frameSize.height, dim.getHeight()));
+//
+//		if(isFrameMaximized || frameSize.width==0 || frameSize.height==0)
+//			frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 	}
 
 
@@ -493,7 +329,8 @@ public class PreferencesSetter extends SwingInstrument {
 		try{
 			try(final FileOutputStream fos = new FileOutputStream(LPath.PATH_PREFERENCES_XML_FILE)) {
 				final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-				final Rectangle rec = frame.getGraphicsConfiguration().getBounds();
+				Stage frame = (Stage)pathExportField.getScene().getWindow();
+				Rectangle2D rec = Screen.getPrimary().getBounds();
 		        final Element root;
                 Element elt;
                 Element elt2;
@@ -516,11 +353,11 @@ public class PreferencesSetter extends SwingInstrument {
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_DISPLAY_GRID);
-		        elt.setTextContent(String.valueOf(displayGridCB.isSelected()));
+		        elt.setTextContent(String.valueOf(styleList.getSelectionModel().getSelectedItem()!=GridStyle.NONE));
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_UNIT);
-		        elt.setTextContent(unitChoice.getSelectedItem().toString());
+		        elt.setTextContent(unitChoice.getSelectionModel().getSelectedItem().toString());
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_CHECK_VERSION);
@@ -528,15 +365,17 @@ public class PreferencesSetter extends SwingInstrument {
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_LANG);
-		        elt.setTextContent(langList.getSelectedItem().toString());
+		        elt.setTextContent(langList.getSelectionModel().getSelectedItem().toString());
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_MAGNETIC_GRID);
-		        elt.setTextContent(String.valueOf(magneticGridCB.isSelected()));
+		        elt.setTextContent(String.valueOf(magneticCB.isSelected()));
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_CLASSIC_GRID);
-		        elt.setTextContent(String.valueOf(classicGridRB.isSelected()));
+		        if(styleList.getSelectionModel().getSelectedItem()==GridStyle.STANDARD)
+		        	elt.setTextContent(Boolean.TRUE.toString());
+		        else elt.setTextContent(Boolean.FALSE.toString());
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_GRID_GAP);
@@ -558,7 +397,7 @@ public class PreferencesSetter extends SwingInstrument {
 		        }
 
 		        elt = document.createElement(LNamespace.XML_MAXIMISED);
-		        elt.setTextContent(String.valueOf(frame.getExtendedState()==Frame.MAXIMIZED_BOTH));
+		        elt.setTextContent(String.valueOf(frame.isMaximized()));
 		        root.appendChild(elt);
 
 		        elt = document.createElement(LNamespace.XML_SIZE);
@@ -576,11 +415,11 @@ public class PreferencesSetter extends SwingInstrument {
 		        root.appendChild(elt);
 
 		        elt2 = document.createElement(LNamespace.XML_POSITION_X);
-		        elt2.setTextContent(String.valueOf((int)(frame.getLocation().x-rec.getX())));
+		        elt2.setTextContent(String.valueOf((int)(frame.getX()-rec.getMinX())));
 		        elt.appendChild(elt2);
 
 		        elt2 = document.createElement(LNamespace.XML_POSITION_Y);
-		        elt2.setTextContent(String.valueOf((int)(frame.getLocation().y-rec.getY())));
+		        elt2.setTextContent(String.valueOf((int)(frame.getY()-rec.getMinY())));
 		        elt.appendChild(elt2);
 
 				final Transformer transformer = TransformerFactory.newInstance().newTransformer();
@@ -634,25 +473,25 @@ public class PreferencesSetter extends SwingInstrument {
 }
 
 
-/**
- * This link maps a pressure on the close button of the preferences frame to an action saving the preferences.
- */
-class CloseFrame2SavePreferences extends InteractorImpl<WritePreferences, WindowClosed, PreferencesSetter> {
-	/**
-	 * Creates the link.
-	 */
-	protected CloseFrame2SavePreferences(final PreferencesSetter ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, WritePreferences.class, WindowClosed.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setSetter(getInstrument());
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return true;
-	}
-}
+///**
+// * This link maps a pressure on the close button of the preferences frame to an action saving the preferences.
+// */
+//class CloseFrame2SavePreferences extends InteractorImpl<WritePreferences, WindowClosed, PreferencesSetter> {
+//	/**
+//	 * Creates the link.
+//	 */
+//	protected CloseFrame2SavePreferences(final PreferencesSetter ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, WritePreferences.class, WindowClosed.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setSetter(getInstrument());
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return true;
+//	}
+//}
 

@@ -43,6 +43,19 @@ public final class LFileUtils {
 		super();
 	}
 
+	
+	/**
+	 * Returns the file name without its potential extension.
+	 * @param fileNameExt The file name.
+	 * @return The file name without its potential extension. An empty string is the parameter is null.
+	 */
+	public String getFileNameNoExtension(final String fileNameExt) {
+		if(fileNameExt==null) return "";
+		final int pos = fileNameExt.lastIndexOf(".");
+        if (pos == -1) return fileNameExt;
+        return fileNameExt.substring(0, pos);
+	}
+	
 
 	/**
 	 * Reads the given file and returns its text.

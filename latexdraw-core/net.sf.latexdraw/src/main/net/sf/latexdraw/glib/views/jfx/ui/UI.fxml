@@ -67,6 +67,11 @@
 						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
 					</content>
 				</Tab>
+				<Tab closable="false" text="%PreferencesFrame.Pref2">
+					<content>
+						<fx:include source="Preferences.fxml" />
+					</content>
+				</Tab>
 			</tabs>
 		</TabPane>
 	</center>
@@ -205,10 +210,6 @@
 				<ToggleButton id="codeB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
 					<tooltip><Tooltip text="%LaTeXDrawFrame.0" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/texEditor.png" /></image></ImageView></graphic>
-				</ToggleButton>
-				<ToggleButton id="prefB" mnemonicParsing="false" >
-					<tooltip><Tooltip text="%LaTeXDrawFrame.56" /></tooltip>
-					<graphic><ImageView><image><Image url="@/res/preferences-system.png" /></image></ImageView></graphic>
 				</ToggleButton>
 				<Button id="exceptionB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
 					<tooltip><Tooltip text="%LaTeXDrawFrame.117" /></tooltip>
