@@ -51,7 +51,6 @@
 																<AnchorPane />
 															</content>
 														</TitledPane>
-														<fx:include source="Magnetic.fxml" />
 													</panes>
 												</Accordion>
 											</center>

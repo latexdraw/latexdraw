@@ -21,7 +21,6 @@ import net.sf.latexdraw.instruments.Exporter;
 import net.sf.latexdraw.instruments.FileLoaderSaver;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Helper;
-import net.sf.latexdraw.instruments.MagneticGridCustomiser;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.PreferencesSetter;
@@ -135,9 +134,6 @@ public class LFrame extends SwingUI {
 
 	/** The ruler used to display X-dimensions. */
 	protected YScaleRuler yScaleRuler;
-
-	/** The instrument that customises the magnetic grid. */
-	protected MagneticGridCustomiser gridCustomiser;
 
 	/** The instrument that customises the properties of the drawing. */
 	protected DrawingPropertiesCustomiser drawingPropCustomiser;
@@ -425,7 +421,7 @@ public class LFrame extends SwingUI {
 	@Override
 	public Instrument[] getInstruments() {
 		return new Instrument[]{editingSelector, exporter, fileLoader, hand, pencil, metaShapeCustomiser, undoManager,
-								zoomer, scaleRulersCustomiser, scroller, gridCustomiser, helper, textSetter, exceptionsManager,
+								zoomer, scaleRulersCustomiser, scroller, helper, textSetter, exceptionsManager,
 								deleter, prefSetters, paster, getCanvas().getBorderInstrument(), tabSelector,
 								drawingPropCustomiser, templateManager};
 	}
@@ -446,14 +442,6 @@ public class LFrame extends SwingUI {
 	 */
 	public Exporter getExporter() {
 		return exporter;
-	}
-
-	/**
-	 * @return The instrument that customises the magnetic grid.
-	 * @since 3.0
-	 */
-	public MagneticGridCustomiser getGridCustomiser() {
-		return gridCustomiser;
 	}
 
 	/**

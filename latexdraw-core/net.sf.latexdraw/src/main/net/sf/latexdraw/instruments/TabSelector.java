@@ -79,7 +79,6 @@ public class TabSelector extends SwingInstrument {
 
 		protected void initActionOnDrawingPanel() {
 			action.addInstrumentToActivate(instrument.frame.getEditingSelector());
-			action.addInstrumentToActivate(instrument.frame.getGridCustomiser());
 			action.addInstrumentToActivate(instrument.frame.getPaster());
 			action.addInstrumentToActivate(instrument.frame.getScaleRulersCustomiser());
 			action.addInstrumentToActivate(instrument.frame.getUndoManager());
@@ -89,7 +88,6 @@ public class TabSelector extends SwingInstrument {
 
 		protected void initActionOnPSTCodePanel() {
 			action.addInstrumentToInactivate(instrument.frame.getEditingSelector());
-			action.addInstrumentToInactivate(instrument.frame.getGridCustomiser());
 			action.addInstrumentToInactivate(instrument.frame.getPaster());
 			action.addInstrumentToInactivate(instrument.frame.getScaleRulersCustomiser());
 			action.addInstrumentToInactivate(instrument.frame.getUndoManager());

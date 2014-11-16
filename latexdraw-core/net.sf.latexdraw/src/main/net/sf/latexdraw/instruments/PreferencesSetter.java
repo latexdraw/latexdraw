@@ -148,10 +148,29 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	}
 
 
+//	protected void update() {
+//		final GridStyle style = grid.getStyle();
+//
+//		gridSpacing.setDisable(style!=GridStyle.CUSTOMISED);
+//		magneticCB.setDisable(style==GridStyle.NONE);
+//		styleList.getSelectionModel().select(style);
+//
+//		if(style!=GridStyle.NONE) {
+//			if(style==GridStyle.CUSTOMISED)
+//				gridSpacing.getValueFactory().setValue(grid.getGridSpacing());
+//			magneticCB.setSelected(grid.isMagnetic());
+//		}
+//	}
+	
+	
+	
 	@Override
 	protected void initialiseInteractors() {
 //		try{
 //			addInteractor(new CloseFrame2SavePreferences(this));
+	//		addInteractor(new List2ChangeStyle(this));
+	//		addInteractor(new Spinner2GridSpacing(this));
+	//		addInteractor(new CheckBox2MagneticGrid(this));
 //		}catch(InstantiationException | IllegalAccessException e){
 //			BadaboomCollector.INSTANCE.add(e);
 //		}
@@ -492,6 +511,91 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 //	@Override
 //	public boolean isConditionRespected() {
 //		return true;
+//	}
+//}
+
+///**
+//* Links a check-box widget to an action that sets if the grid is magnetic.
+//*/
+//class CheckBox2MagneticGrid extends InteractorImpl<ModifyMagneticGrid, CheckBoxModified, MagneticGridCustomiser> {
+//	/**
+//	 * Initialises the link.
+//	 * @since 3.0
+//	 */
+//	protected CheckBox2MagneticGrid(final MagneticGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, ModifyMagneticGrid.class, CheckBoxModified.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setProperty(GridProperties.MAGNETIC);
+//		action.setGrid(instrument.grid);
+//		action.setValue(interaction.getCheckBox().isSelected());
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return interaction.getCheckBox()==instrument.magneticCB;
+//	}
+//}
+//
+//
+//
+///**
+//* Links a spinner widget to an action that modifies the spacing of the customised magnetic grid.
+//*/
+//class Spinner2GridSpacing extends InteractorImpl<ModifyMagneticGrid, SpinnerModified, MagneticGridCustomiser> {
+//	/**
+//	 * Initialises the link.
+//	 * @since 3.0
+//	 */
+//	protected Spinner2GridSpacing(final MagneticGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, ModifyMagneticGrid.class, SpinnerModified.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setProperty(GridProperties.GRID_SPACING);
+//		action.setGrid(instrument.grid);
+//	}
+//
+//
+//	@Override
+//	public void updateAction() {
+//		action.setValue(Integer.valueOf(interaction.getSpinner().getValue().toString()));
+//	}
+//
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return interaction.getSpinner()==instrument.gridSpacing;
+//	}
+//}
+//
+//
+//
+///**
+//* Links a list widget to an action that modifies the style of the magnetic grid.
+//*/
+//class List2ChangeStyle extends InteractorImpl<ModifyMagneticGrid, ListSelectionModified, MagneticGridCustomiser> {
+//	/**
+//	 * Initialises the link.
+//	 * @since 3.0
+//	 */
+//	protected List2ChangeStyle(final MagneticGridCustomiser ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, ModifyMagneticGrid.class, ListSelectionModified.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setValue(GridStyle.getStyleFromLabel(interaction.getList().getSelectedObjects()[0].toString()));
+//		action.setGrid(instrument.grid);
+//		action.setProperty(GridProperties.STYLE);
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return interaction.getList()==instrument.styleList;
 //	}
 //}
 

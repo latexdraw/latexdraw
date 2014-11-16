@@ -178,7 +178,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 		widget.exporter.addEventable(toolbar);
 		widget.exporter.addEventable(widget.exporter.getExportMenu());
 		widget.fileLoader.addEventable(widget.fileLoader.getRecentFilesMenu());
-		widget.gridCustomiser.addEventable(toolbarBuilder.magneticGridB.getToolbar());
 		widget.helper.addEventable(menubarBuilder.helpMenu);
 		setGlobalShortcutEventable(widget.undoManager, canvas);
 		setGlobalShortcutEventable(widget.zoomer, canvas);
@@ -209,7 +208,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 
 	protected void initialiseInstrumentsActivation() {
 		widget.helper.setActivated(true);
-		widget.gridCustomiser.setActivated(true);
 		widget.scroller.setActivated(true);
 		widget.exporter.setActivated(false);
 		widget.editingSelector.setActivated(true);
