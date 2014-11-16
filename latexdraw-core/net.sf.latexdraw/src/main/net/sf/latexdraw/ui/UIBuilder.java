@@ -217,7 +217,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 		widget.undoManager.setActivated(true);
 		widget.zoomer.setActivated(true);
 		widget.fileLoader.setActivated(true);
-		widget.scaleRulersCustomiser.setActivated(true);
 		widget.paster.setActivated(true);
 		widget.tabSelector.setActivated(true);
 		widget.drawingPropCustomiser.setActivated(true);

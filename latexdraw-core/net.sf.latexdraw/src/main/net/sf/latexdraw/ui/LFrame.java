@@ -24,7 +24,6 @@ import net.sf.latexdraw.instruments.Helper;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.PreferencesSetter;
-import net.sf.latexdraw.instruments.ScaleRulersCustomiser;
 import net.sf.latexdraw.instruments.ShapeDeleter;
 import net.sf.latexdraw.instruments.TabSelector;
 import net.sf.latexdraw.instruments.TemplateManager;
@@ -107,9 +106,6 @@ public class LFrame extends SwingUI {
 
 	/** The instrument that saves and loads SVG documents. */
 	protected FileLoaderSaver fileLoader;
-
-	/** The instrument that (des-)activates the scale rulers. */
-	protected ScaleRulersCustomiser scaleRulersCustomiser;
 
 	/** The instrument that manages help features. */
 	protected Helper helper;
@@ -421,7 +417,7 @@ public class LFrame extends SwingUI {
 	@Override
 	public Instrument[] getInstruments() {
 		return new Instrument[]{editingSelector, exporter, fileLoader, hand, pencil, metaShapeCustomiser, undoManager,
-								zoomer, scaleRulersCustomiser, scroller, helper, textSetter, exceptionsManager,
+								zoomer, scroller, helper, textSetter, exceptionsManager,
 								deleter, prefSetters, paster, getCanvas().getBorderInstrument(), tabSelector,
 								drawingPropCustomiser, templateManager};
 	}
@@ -442,14 +438,6 @@ public class LFrame extends SwingUI {
 	 */
 	public Exporter getExporter() {
 		return exporter;
-	}
-
-	/**
-	 * @return The instrument that (des-)activates the scale rulers.
-	 * @since 3.0
-	 */
-	public ScaleRulersCustomiser getScaleRulersCustomiser() {
-		return scaleRulersCustomiser;
 	}
 
 	/**

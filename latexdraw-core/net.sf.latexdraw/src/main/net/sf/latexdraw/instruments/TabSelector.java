@@ -80,7 +80,6 @@ public class TabSelector extends SwingInstrument {
 		protected void initActionOnDrawingPanel() {
 			action.addInstrumentToActivate(instrument.frame.getEditingSelector());
 			action.addInstrumentToActivate(instrument.frame.getPaster());
-			action.addInstrumentToActivate(instrument.frame.getScaleRulersCustomiser());
 			action.addInstrumentToActivate(instrument.frame.getUndoManager());
 			action.addInstrumentToActivate(instrument.frame.getZoomer());
 		}
@@ -89,7 +88,6 @@ public class TabSelector extends SwingInstrument {
 		protected void initActionOnPSTCodePanel() {
 			action.addInstrumentToInactivate(instrument.frame.getEditingSelector());
 			action.addInstrumentToInactivate(instrument.frame.getPaster());
-			action.addInstrumentToInactivate(instrument.frame.getScaleRulersCustomiser());
 			action.addInstrumentToInactivate(instrument.frame.getUndoManager());
 			action.addInstrumentToInactivate(instrument.frame.getZoomer());
 			// The deleter must be added to use the hideWidgets parameter of the action.

@@ -35,6 +35,8 @@ import javax.xml.transform.stream.StreamResult;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.views.GridStyle;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
+import net.sf.latexdraw.ui.XScaleRuler;
+import net.sf.latexdraw.ui.YScaleRuler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LangTool;
@@ -101,6 +103,12 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	@FXML protected Button buttonOpen;
 	@FXML protected Button buttonExport;
 
+	/** The x ruler of the system. */
+	protected XScaleRuler xRuler;
+
+	/** The Y ruler of the system. */
+	protected YScaleRuler yRuler;
+	
 	/** The recent files. */
 	protected List<String> recentFilesName;
 
@@ -160,6 +168,8 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 //				gridSpacing.getValueFactory().setValue(grid.getGridSpacing());
 //			magneticCB.setSelected(grid.isMagnetic());
 //		}
+//	unitCmItem.setSelected(ScaleRuler.getUnit()==Unit.CM);
+//	unitInchItem.setSelected(!unitCmItem.isSelected());
 //	}
 	
 	

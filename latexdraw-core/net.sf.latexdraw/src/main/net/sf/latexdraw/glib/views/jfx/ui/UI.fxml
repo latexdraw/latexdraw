@@ -94,8 +94,6 @@
 							<graphic><ImageView><image><Image url="@/res/document-save-as.png" /></image></ImageView></graphic>
 						</MenuItem>
 						<Menu id="recentFilesMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.0b" />
-						<SeparatorMenuItem mnemonicParsing="false" />
-						<fx:include source="UnitMenu.fxml" />
 					</items>
 				</MenuButton>
 				<MenuButton mnemonicParsing="false">
