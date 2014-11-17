@@ -104,7 +104,6 @@ public final class LResources {
 	public static final ImageIcon GRID_ICON;				public static final ImageIcon SUBGRID_ICON;
 	public static final ImageIcon COMMENT_ICON;
 	public static final ImageIcon LINES_ICON;	 			public static final ImageIcon LATEXDRAW_ICON;
-	public static final ImageIcon ERR_ICON;
 	public static final ImageIcon STOP_ICON;
 	public static final ImageIcon INSERT_PIC_ICON; 			public static final ImageIcon INSERT_PST_ICON;
 	public static final ImageIcon THICKNESS_ICON;
@@ -161,7 +160,6 @@ public final class LResources {
 		BEZIER_CURVE_ICON = loadImageIcon("/res/bezierCurve.png");//$NON-NLS-1$
 		COMMENT_ICON 	= loadImageIcon("/res/comment.png"); //$NON-NLS-1$
 		LINES_ICON = loadImageIcon("/res/joinedLines.png"); //$NON-NLS-1$
-		ERR_ICON 		= loadImageIcon("/res/emblem-unreadable.png"); //$NON-NLS-1$
 		STOP_ICON 		= loadImageIcon("/res/stop.png"); //$NON-NLS-1$
 		INSERT_PIC_ICON 	= loadImageIcon("/res/image-x-generic.png"); //$NON-NLS-1$
 		INSERT_PST_ICON = loadImageIcon("/res/text-x-generic.png"); //$NON-NLS-1$

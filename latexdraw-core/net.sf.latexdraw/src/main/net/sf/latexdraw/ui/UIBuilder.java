@@ -170,7 +170,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 		final LCanvas canvas 	= widget.getCanvas();
 		final MToolBar toolbar 	= toolbarBuilder.getWidget();
 
-		widget.exceptionsManager.addEventable(toolbar);
 		widget.scroller.addEventable(canvas);
 		widget.editingSelector.addEventable(toolbar);
 		widget.hand.addEventable(canvas);

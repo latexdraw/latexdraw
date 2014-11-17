@@ -208,10 +208,7 @@
 					<tooltip><Tooltip text="%LaTeXDrawFrame.0" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/texEditor.png" /></image></ImageView></graphic>
 				</ToggleButton>
-				<Button id="exceptionB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
-					<tooltip><Tooltip text="%LaTeXDrawFrame.117" /></tooltip>
-					<graphic><ImageView><image><Image url="@/res/emblem-unreadable.png" /></image></ImageView></graphic>
-				</Button>
+				<fx:include source="Error.fxml" />
 				<fx:include source="Help.fxml" />
 			</items>
 		</ToolBar>

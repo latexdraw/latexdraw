@@ -1,15 +1,16 @@
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
 import net.sf.latexdraw.badaboom.BadaboomManager;
-import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.InteractorImpl;
-import org.malai.swing.action.library.ShowWidget;
-import org.malai.swing.instrument.SwingInstrument;
-import org.malai.swing.interaction.library.ButtonPressed;
-import org.malai.swing.widget.MButton;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument allows to see exceptions launched during the execution of the program.<br>
@@ -30,12 +31,12 @@ import org.malai.swing.widget.MButton;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class ExceptionsManager extends SwingInstrument implements BadaboomHandler {
+public class ExceptionsManager extends JfxInstrument implements BadaboomHandler, Initializable {
 	/** The button used to shows the panel of exceptions. */
-	protected MButton exceptionB;
+	@FXML protected Button exceptionB;
 
 	/** The frame to show when exceptions occur. */
-	protected BadaboomManager frame;
+	private BadaboomManager frame;
 
 
 	/**
@@ -44,21 +45,30 @@ public class ExceptionsManager extends SwingInstrument implements BadaboomHandle
 	 */
 	public ExceptionsManager() {
 		super();
-
-		frame		= new BadaboomManager();
-		exceptionB 	= new MButton(LResources.ERR_ICON);
-		setActivated(false);
 		BadaboomCollector.INSTANCE.addHandler(this);
 	}
+	
+	/**
+	 * @return The frame showing the exceptions. Cannot be null.
+	 */
+	public BadaboomManager getFrame() {
+		if(frame==null) frame = new BadaboomManager();
+		return frame;
+	}
+	
 
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		setActivated(false);
+	}
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
-			addInteractor(new ButtonPress2ShowExceptionFrame(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		try{
+//			addInteractor(new ButtonPress2ShowExceptionFrame(this));
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
 
 
@@ -74,42 +84,32 @@ public class ExceptionsManager extends SwingInstrument implements BadaboomHandle
 		exceptionB.setVisible(isActivated);
 	}
 
-
-	/**
-	 * @return The button used to shows the panel of exceptions.
-	 * @since 3.0
-	 */
-	public MButton getExceptionB() {
-		return exceptionB;
-	}
-
-
 	@Override
 	public void notifyEvents() {
 		setActivated(true);
 	}
 }
 
-
-/**
- * Links a button pressed interaction to an action that show the exceptions frame.
- */
-class ButtonPress2ShowExceptionFrame extends InteractorImpl<ShowWidget, ButtonPressed, ExceptionsManager> {
-	/**
-	 * Creates the link.
-	 */
-	protected ButtonPress2ShowExceptionFrame(final ExceptionsManager ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, ShowWidget.class, ButtonPressed.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setComponent(instrument.frame);
-		action.setVisible(true);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getButton()==instrument.exceptionB;
-	}
-}
+//
+///**
+// * Links a button pressed interaction to an action that show the exceptions frame.
+// */
+//class ButtonPress2ShowExceptionFrame extends InteractorImpl<ShowWidget, ButtonPressed, ExceptionsManager> {
+//	/**
+//	 * Creates the link.
+//	 */
+//	protected ButtonPress2ShowExceptionFrame(final ExceptionsManager ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, ShowWidget.class, ButtonPressed.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setComponent(instrument.frame);
+//		action.setVisible(true);
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return interaction.getButton()==instrument.exceptionB;
+//	}
+//}

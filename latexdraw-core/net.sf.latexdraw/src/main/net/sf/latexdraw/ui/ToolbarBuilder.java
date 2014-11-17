@@ -94,7 +94,6 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 		widget.add(frame.editingSelector.getDotB());
 		widget.add(frame.editingSelector.getPicB());
 		widget.add(frame.editingSelector.getCodeB());
-		widget.add(frame.exceptionsManager.getExceptionB());
 
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}

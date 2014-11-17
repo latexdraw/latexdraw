@@ -16,7 +16,6 @@ import net.sf.latexdraw.instruments.CodeInserter;
 import net.sf.latexdraw.instruments.CopierCutterPaster;
 import net.sf.latexdraw.instruments.DrawingPropertiesCustomiser;
 import net.sf.latexdraw.instruments.EditingSelector;
-import net.sf.latexdraw.instruments.ExceptionsManager;
 import net.sf.latexdraw.instruments.Exporter;
 import net.sf.latexdraw.instruments.FileLoaderSaver;
 import net.sf.latexdraw.instruments.Hand;
@@ -112,9 +111,6 @@ public class LFrame extends SwingUI {
 
 	/** The instrument that exports drawings as picture or code. */
 	protected Exporter exporter;
-
-	/** The instrument allows to see exceptions. */
-	protected ExceptionsManager exceptionsManager;
 
 	/** The instrument that sets the preferences. */
 	protected PreferencesSetter prefSetters;
@@ -240,7 +236,6 @@ public class LFrame extends SwingUI {
 	private void instantiateInstruments(final LCanvas canvas, final IDrawing drawing) {
 		final PSTCodeGenerator gen = getCodePanel().getPstGenerator();
 
-		exceptionsManager	= new ExceptionsManager();
 		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, gen); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scroller		= new Scroller(canvas); }
@@ -417,7 +412,7 @@ public class LFrame extends SwingUI {
 	@Override
 	public Instrument[] getInstruments() {
 		return new Instrument[]{editingSelector, exporter, fileLoader, hand, pencil, metaShapeCustomiser, undoManager,
-								zoomer, scroller, helper, textSetter, exceptionsManager,
+								zoomer, scroller, helper, textSetter,
 								deleter, prefSetters, paster, getCanvas().getBorderInstrument(), tabSelector,
 								drawingPropCustomiser, templateManager};
 	}
