@@ -59,6 +59,7 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		exceptionB.managedProperty().bind(exceptionB.visibleProperty());
 		setActivated(false);
 	}
 
