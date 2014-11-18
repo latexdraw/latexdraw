@@ -1,7 +1,25 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.*;
-import net.sf.latexdraw.glib.views.CreateViewCmd;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
+import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
+import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle;
 
 /**
  * Defines a generator that generates PSTricks views from given models.<br>
@@ -27,12 +45,8 @@ public final class PSTViewsFactory {
 	/** The singleton. */
 	public static final PSTViewsFactory INSTANCE = new PSTViewsFactory();
 
-	/** The chain of responsibility used to reduce the complexity of the factory. */
-	private CreateViewPSTCmd createCmd;
-
 	private PSTViewsFactory() {
 		super();
-		initCommands();
 	}
 
 	/**
@@ -42,50 +56,24 @@ public final class PSTViewsFactory {
 	 * @since 3.0
 	 */
 	public PSTShapeView<?> createView(final IShape shape) {
-		return shape==null ? null : createCmd.execute(shape);
-	}
-
-
-	/**
-	 * Initialises the chain of responsibility.
-	 */
-	private void initCommands() {
-		CreateViewPSTCmd cmd = new CreateViewPSTCmd(null, IPicture.class) { @Override public PSTShapeView<?> create(final IShape shape) { return new PSTPictureView((IPicture)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IFreehand.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTFreeHandView((IFreehand)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IDot.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTDotView((IDot)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IGrid.class)		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTGridView((IGrid)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IAxes.class)		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTAxesView((IAxes)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IBezierCurve.class){ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTBezierCurveView((IBezierCurve)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IPolygon.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTPolygonView((IPolygon)shape); } };
-		// All the commands of the chain of responsibility are chained together.
-		cmd = new CreateViewPSTCmd(cmd, IPolyline.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTLinesView((IPolyline)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IRhombus.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTRhombusView((IRhombus)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, ITriangle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTTriangleView((ITriangle)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IEllipse.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTEllipseView((IEllipse)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, ICircle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTCircleView((ICircle)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, ICircleArc.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTArcView((IArc)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IText.class) 		{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTTextView((IText)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IRectangle.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTRectView((IRectangle)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, ISquare.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTSquareView((ISquare)shape); } };
-		cmd = new CreateViewPSTCmd(cmd, IPlot.class) 	{ @Override public PSTShapeView<?> create(final IShape shape) { return new PSTPlotView((IPlot)shape); } };
-		// The last created command is the first element of the chain.
-		createCmd = new CreateViewPSTCmd(cmd, IGroup.class) { @Override public PSTShapeView<?> create(final IShape shape) { return new PSTGroupView((IGroup)shape); } };
-	}
-
-
-	/**
-	 * This class is a mix of the design patterns Command and Chain of responsibility.
-	 * The goal is to find the command which can create the PST view of the given shape.
-	 */
-	private abstract class CreateViewPSTCmd extends CreateViewCmd<IShape, PSTShapeView<?>, CreateViewPSTCmd> {
-		/**
-		 * Creates the command.
-		 * @param next The next command in the chain of responsibility. Can be null.
-		 * @param classShape The type of the shape supported by the command.
-		 * @since 3.0
-		 */
-        protected CreateViewPSTCmd(final CreateViewPSTCmd next, final Class<? extends IShape> classShape) {
-			super(next, classShape);
-		}
+		if(shape instanceof IGroup) return new PSTGroupView((IGroup)shape);
+		if(shape instanceof IPlot) return new PSTPlotView((IPlot)shape);
+		if(shape instanceof ISquare) return new PSTSquareView((ISquare)shape);
+		if(shape instanceof IRectangle) return new PSTRectView((IRectangle)shape);
+		if(shape instanceof IText) return new PSTTextView((IText)shape);
+		if(shape instanceof ICircleArc) return new PSTArcView((IArc)shape);
+		if(shape instanceof ICircle) return new PSTCircleView((ICircle)shape);
+		if(shape instanceof IEllipse) return new PSTEllipseView((IEllipse)shape);
+		if(shape instanceof ITriangle) return new PSTTriangleView((ITriangle)shape);
+		if(shape instanceof IRhombus) return new PSTRhombusView((IRhombus)shape);
+		if(shape instanceof IPolyline) return new PSTLinesView((IPolyline)shape);
+		if(shape instanceof IPolygon) return new PSTPolygonView((IPolygon)shape);
+		if(shape instanceof IBezierCurve) return new PSTBezierCurveView((IBezierCurve)shape);
+		if(shape instanceof IAxes) return new PSTAxesView((IAxes)shape);
+		if(shape instanceof IGrid) return new PSTGridView((IGrid)shape);
+		if(shape instanceof IDot) return new PSTDotView((IDot)shape);
+		if(shape instanceof IPicture) return new PSTPictureView((IPicture)shape);
+		if(shape instanceof IFreehand) return new PSTFreeHandView((IFreehand)shape);
+		return null;
 	}
 }

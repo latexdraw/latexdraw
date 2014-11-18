@@ -1,7 +1,24 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.*;
-import net.sf.latexdraw.glib.views.CreateViewCmd;
+import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
+import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
+import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
+import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewsFactory;
 
@@ -26,64 +43,35 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewsFactory;
  * @version 3.0
  */
 public class LViewsFactory implements IViewsFactory {
-	/** The chain of responsibility used to reduce the complexity of the factory. */
-	private CreateView2DCmd createCmd;
 
 	/**
 	 * Creates the factory.
 	 */
 	public LViewsFactory() {
 		super();
-		initCommands();
 	}
 
 
 	@Override
 	public IViewShape createView(final IShape shape) {
-		return shape==null ? null : createCmd.execute(shape);
-	}
-
-
-	/**
-	 * Initialises the chain of responsibility.
-	 */
-	private void initCommands() {
-		CreateView2DCmd cmd = new CreateView2DCmd(null, IPicture.class) { @Override public IViewShape create(final IShape shape) { return new LPictureView((IPicture)shape); } };
-		cmd = new CreateView2DCmd(cmd, IFreehand.class) 	{ @Override public IViewShape create(final IShape shape) { return new LFreeHandView((IFreehand)shape); } };
-		cmd = new CreateView2DCmd(cmd, IDot.class) 		{ @Override public IViewShape create(final IShape shape) { return new LDotView((IDot)shape); } };
-		cmd = new CreateView2DCmd(cmd, IGrid.class)		{ @Override public IViewShape create(final IShape shape) { return new LGridView((IGrid)shape); } };
-		cmd = new CreateView2DCmd(cmd, IAxes.class)		{ @Override public IViewShape create(final IShape shape) { return new LAxesView((IAxes)shape); } };
-		cmd = new CreateView2DCmd(cmd, IBezierCurve.class){ @Override public IViewShape create(final IShape shape) { return new LBezierCurveView((IBezierCurve)shape); } };
-		cmd = new CreateView2DCmd(cmd, IPolygon.class) 	{ @Override public IViewShape create(final IShape shape) { return new LPolygonView((IPolygon)shape); } };
-		// All the commands of the chain of responsibility are chained together.
-		cmd = new CreateView2DCmd(cmd, IPolyline.class) 	{ @Override public IViewShape create(final IShape shape) { return new LPolylineView((IPolyline)shape); } };
-		cmd = new CreateView2DCmd(cmd, IRhombus.class) 	{ @Override public IViewShape create(final IShape shape) { return new LRhombusView((IRhombus)shape); } };
-		cmd = new CreateView2DCmd(cmd, ITriangle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LTriangleView((ITriangle)shape); } };
-		cmd = new CreateView2DCmd(cmd, IEllipse.class) 	{ @Override public IViewShape create(final IShape shape) { return new LEllipseView<>((IEllipse)shape); } };
-		cmd = new CreateView2DCmd(cmd, ICircle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleView((ICircle)shape); } };
-		cmd = new CreateView2DCmd(cmd, ICircleArc.class) 	{ @Override public IViewShape create(final IShape shape) { return new LCircleArcView((ICircleArc)shape); } };
-		cmd = new CreateView2DCmd(cmd, IText.class) 		{ @Override public IViewShape create(final IShape shape) { return new LTextView((IText)shape); } };
-		cmd = new CreateView2DCmd(cmd, IRectangle.class) 	{ @Override public IViewShape create(final IShape shape) { return new LRectangleView((IRectangle)shape); } };
-		cmd = new CreateView2DCmd(cmd, ISquare.class) { @Override public IViewShape create(final IShape shape) { return new LSquareView((ISquare)shape); } };
-		cmd = new CreateView2DCmd(cmd, IPlot.class) { @Override public IViewShape create(final IShape shape) { return new LPlotView((IPlot)shape); } };
-		// The last created command is the first element of the chain.
-		createCmd = new CreateView2DCmd(cmd, IGroup.class) { @Override public IViewShape create(final IShape shape) { return new LGroupView((IGroup)shape); } };
-	}
-
-
-	/**
-	 * This class is a mix of the design patterns Command and Chain of responsibility.
-	 * The goal is to find the command which can create the view of the given shape.
-	 */
-	private abstract class CreateView2DCmd extends CreateViewCmd<IShape, IViewShape, CreateView2DCmd> {
-		/**
-		 * Creates the command.
-		 * @param next The next command in the chain of responsibility. Can be null.
-		 * @param classShape The type of the shape supported by the command.
-		 * @since 3.0
-		 */
-        protected CreateView2DCmd(final CreateView2DCmd next, final Class<? extends IShape> classShape) {
-			super(next, classShape);
-		}
+		if(shape instanceof IGroup) return new LGroupView((IGroup)shape);
+		if(shape instanceof IPlot) return new LPlotView((IPlot)shape);
+		if(shape instanceof ISquare) return new LSquareView((ISquare)shape);
+		if(shape instanceof IRectangle) return new LRectangleView((IRectangle)shape);
+		if(shape instanceof IText) return new LTextView((IText)shape);
+		if(shape instanceof ICircleArc) return new LCircleArcView((ICircleArc)shape);
+		if(shape instanceof ICircle) return new LCircleView((ICircle)shape);
+		if(shape instanceof IEllipse) return new LEllipseView<>((IEllipse)shape);
+		if(shape instanceof ITriangle) return new LTriangleView((ITriangle)shape);
+		if(shape instanceof IRhombus) return new LRhombusView((IRhombus)shape);
+		if(shape instanceof IPolyline) return new LPolylineView((IPolyline)shape);
+		if(shape instanceof IPolygon) return new LPolygonView((IPolygon)shape);
+		if(shape instanceof IBezierCurve) return new LBezierCurveView((IBezierCurve)shape);
+		if(shape instanceof IAxes) return new LAxesView((IAxes)shape);
+		if(shape instanceof IGrid) return new LGridView((IGrid)shape);
+		if(shape instanceof IDot) return new LDotView((IDot)shape);
+		if(shape instanceof IPicture) return new LPictureView((IPicture)shape);
+		if(shape instanceof IFreehand) return new LFreeHandView((IFreehand)shape);
+		return null;
 	}
 }
