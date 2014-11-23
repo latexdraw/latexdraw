@@ -1,5 +1,6 @@
 package net.sf.latexdraw.glib.models.impl;
 
+import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 
 /**
@@ -70,7 +71,7 @@ class ColorImpl implements Color {
 	
 	
 	private void checkChannel(final double val) {
-		if(val<0.0 || val>1.0) throw new IllegalArgumentException();
+		if(val<0.0 || val>1.0 || !GLibUtilities.isValidCoordinate(val)) throw new IllegalArgumentException();
 	}
 	
 	@Override
