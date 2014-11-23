@@ -312,24 +312,6 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 	}
 
 
-	@Override
-	@Test
-	public void testGetGravityCentre() {
-		shape.setPlotEquation("x");
-		shape.setPlotMaxX(20.0);
-		shape.setPlotMinX(10.0);
-		shape.setXScale(1.0);
-		shape.setYScale(1.0);
-		shape.setNbPlottedPoints(30);
-		shape.setPosition(10.0, 20.0);
-		
-		final IPoint gc = shape.getGravityCentre();
-		assertTrue(GLibUtilities.isValidPoint(gc));
-		assertEquals((shape.getTopLeftPoint().getX()+shape.getTopRightPoint().getX())/2., gc.getX(), 0.0001);
-		assertEquals((shape.getTopLeftPoint().getY()+shape.getBottomLeftPoint().getY())/2., gc.getY(), 0.0001);
-	}
-	
-	
 	@Test
 	public void testInvalidMirrorHorizontal() {
 		shape.setPosition(100, 200);

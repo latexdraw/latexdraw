@@ -17,7 +17,6 @@ public class TestResources{
 		assertNotNull(loadImageIcon("/res/help-browser.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/comment.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/preferences-desktop-theme.png"));//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/preferences-system.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/New.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/hatch/hatch.none.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/hatch/hatch.vert.png"));//$NON-NLS-1$

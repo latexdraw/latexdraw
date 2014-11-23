@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
@@ -157,7 +158,10 @@ public abstract class TestIShape<T extends IShape> {
 
 	@Test
 	public void testGetGravityCentre() {
-		assertNotNull(shape.getGravityCentre());
+		final IPoint gc = shape.getGravityCentre();
+		assertTrue(GLibUtilities.isValidPoint(gc));
+		assertEquals((shape.getTopLeftPoint().getX()+shape.getTopRightPoint().getX())/2., gc.getX(), 0.0001);
+		assertEquals((shape.getTopLeftPoint().getY()+shape.getBottomLeftPoint().getY())/2., gc.getY(), 0.0001);
 	}
 
 
