@@ -316,7 +316,7 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 
 
 	@Override
-	public void testGetBottomLeftPoint() {
+	@Test public void testGetBottomLeftPoint() {
 		shape.setPosition(10, 20);
 		HelperTest.assertEqualsDouble(10., shape.getBottomLeftPoint().getX());
 		HelperTest.assertEqualsDouble(20., shape.getBottomLeftPoint().getY());
@@ -327,7 +327,7 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 
 
 	@Override
-	public void testGetBottomRightPoint() {
+	@Test public void testGetBottomRightPoint() {
 		shape.setPosition(10, 10);
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);

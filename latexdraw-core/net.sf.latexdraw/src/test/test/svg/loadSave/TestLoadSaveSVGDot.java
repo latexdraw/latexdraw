@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TestLoadSaveSVGDot extends TestLoadSaveSVG<IDot> {
+public class TestLoadSaveSVGDot extends TestLoadSaveSVGPositionShape<IDot> {
 	@Before
 	public void setUp() {
 		shape = ShapeFactory.createDot(ShapeFactory.createPoint());

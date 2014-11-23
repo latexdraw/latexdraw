@@ -4,12 +4,9 @@ import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 
-@SuppressWarnings("unused")
-public abstract class TestLoadSaveSVGModifiablePointsShape<T extends IModifiablePointsShape> extends TestLoadSaveSVG<IModifiablePointsShape> {
-
-
+public abstract class TestLoadSaveSVGModifiablePointsShape<T extends IModifiablePointsShape> extends TestLoadSaveSVG<T> {
 	@Override
-	protected void compareShapes(final IModifiablePointsShape r2) {
+	protected void compareShapes(final T r2) {
 		super.compareShapes(r2);
 		assertEquals(shape.getNbPoints(), r2.getNbPoints());
 

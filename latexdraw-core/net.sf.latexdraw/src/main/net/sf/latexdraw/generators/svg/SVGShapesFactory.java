@@ -10,6 +10,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPicture;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
@@ -60,7 +61,7 @@ public final class SVGShapesFactory {
 	 */
 	public SVGElement createSVGElement(final IShape shape, final SVGDocument doc) {
 		if(shape instanceof IGroup) return new LGroupSVGGenerator((IGroup)shape).toSVG(doc);
-//		if(shape instanceof IPlot) return new LPlotSVGGenerator((IPlot)shape).toSVG(doc);
+		if(shape instanceof IPlot) return new LPlotSVGGenerator((IPlot)shape).toSVG(doc);
 		if(shape instanceof ISquare) return new LSquareSVGGenerator((ISquare)shape).toSVG(doc);
 		if(shape instanceof IRectangle) return new LRectangleSVGGenerator((IRectangle)shape).toSVG(doc);
 		if(shape instanceof IText) return new LTextSVGGenerator((IText)shape).toSVG(doc);

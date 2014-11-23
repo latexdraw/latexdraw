@@ -487,7 +487,7 @@ public class TestSVGTransform{
 	}
 
 
-	public void testSetMatrix() {
+	@Test public void testSetMatrix() {
 		SVGTransform t = new SVGTransform();
 		SVGMatrix m = t.getMatrix();
 

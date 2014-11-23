@@ -16,6 +16,17 @@
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
   <item>
+    <title>LaTeXDraw 3.3.1 -- Bugs fixed</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Sun, 23 nov 2014 09:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS51</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS51</link>
+    <description>This new version fixes major bugs introduced in the previous release.
+Give an eye to the release note for more details.</description>
+  </item>
+
+
+  <item>
     <title>LaTeXDraw 3.3 -- PSPlot</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Mon, 03 nov 2014 09:00:00 GMT</pubDate>

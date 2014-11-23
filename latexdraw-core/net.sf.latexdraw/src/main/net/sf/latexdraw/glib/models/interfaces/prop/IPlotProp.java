@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
+import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
+
 /**
  * Plot shapes' properties.
  * <br>
@@ -65,32 +67,36 @@ public interface IPlotProp extends IScalable, IDotProp{
 	void setPolar(final boolean polar);
 
 	/**
-	 * @return the equation.
+	 * @return The equation.
 	 */
 	String getPlotEquation();
 
 	/**
-	 * @param equation the equation to set.
+	 * Sets the equation.
+	 * @param equation The equation to set. Nothing done if null or empty.
+	 * @throws InvalidFormatPSFunctionException When the given equation is not valid.
 	 */
-	void setPlotEquation(final String equation);
+	void setPlotEquation(final String equation) throws InvalidFormatPSFunctionException;
 
 	/**
-	 * @return the minX.
+	 * @return Returns the X-min value of the plotted function.
 	 */
 	double getPlotMinX();
 
 	/**
-	 * @param minX the minX to set. Must be greater than maxX.
+	 * Sets the X-min value of the plotted function.
+	 * @param minX The X-min value of the plotted function. Must be lower than X-max.
 	 */
 	void setPlotMinX(final double minX);
 
 	/**
-	 * @return the maxX. Must be lesser than minX.
+	 * @return Returns the X-max value of the plotted function. 
 	 */
 	double getPlotMaxX();
 
 	/**
-	 * @param maxX the maxX to set.
+	 * Sets the X-max value of the plotted function.
+	 * @param maxX The X-max value of the plotted function. Must be greater than X-min.
 	 */
 	void setPlotMaxX(final double maxX);
 
@@ -100,7 +106,8 @@ public interface IPlotProp extends IScalable, IDotProp{
 	int getNbPlottedPoints();
 
 	/**
-	 * @param nbPlottedPoints the nbPoints to set.
+	 * Sets the number of points to plot.
+	 * @param nbPlottedPoints The number of points to plot. Must be greater than 1.
 	 */
 	void setNbPlottedPoints(final int nbPlottedPoints);
 
@@ -109,32 +116,12 @@ public interface IPlotProp extends IScalable, IDotProp{
 	 */
 	double getPlottingStep();
 
-	//TODO later
-//	/**
-//	 * @return the xScale.
-//	 */
-//	double getXScale();
-//
-//	/**
-//	 * @param scale the xScale to set.
-//	 */
-//	void setXScale(final double scale);
-//
-//	/**
-//	 * @return the yScale.
-//	 */
-//	double getYScale();
-//
-//	/**
-//	 * @param scale the yScale to set.
-//	 */
-//	void setYScale(final double scale);
-
 	/** @return The current plot style. */
 	PlotStyle getPlotStyle();
 
 	/**
-	 * @param style The new plot style.
+	 * Sets the plot style.
+	 * @param style The new plot style. Nothing done if null.
 	 */
 	void setPlotStyle(final PlotStyle style);
 }

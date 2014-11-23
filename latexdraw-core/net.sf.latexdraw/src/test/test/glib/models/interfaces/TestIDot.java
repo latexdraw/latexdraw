@@ -88,25 +88,25 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 
 
 	@Override
-	public void testGetBottomLeftPoint() {
+	@Test public void testGetBottomLeftPoint() {
 		//TODO
 	}
 
 
 	@Override
-	public void testGetBottomRightPoint() {
+	@Test public void testGetBottomRightPoint() {
 		//TODO
 	}
 
 
 	@Override
-	public void testGetTopLeftPoint() {
+	@Test public void testGetTopLeftPoint() {
 		//TODO
 	}
 
 
 	@Override
-	public void testGetTopRightPoint() {
+	@Test public void testGetTopRightPoint() {
 		//TODO
 	}
 

@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 
 import org.junit.Before;
+import org.junit.Test;
 
 public class TestLDotView extends TestLShapeView {
 	@Override
@@ -31,135 +32,135 @@ public class TestLDotView extends TestLShapeView {
 	}
 
 	@Override
-	public void testContains1() {
+	@Test public void testContains1() {
 		setDot(100, 200, DotStyle.DOT, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsASTERISK() {
+	@Test public void testContainsASTERISK() {
 		setDot(100, 200, DotStyle.ASTERISK, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsBAR() {
+	@Test public void testContainsBAR() {
 		setDot(100, 200, DotStyle.BAR, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsOPLUS() {
+	@Test public void testContainsOPLUS() {
 		setDot(100, 200, DotStyle.OPLUS, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsOTIMES() {
+	@Test public void testContainsOTIMES() {
 		setDot(100, 200, DotStyle.OTIMES, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsPLUS() {
+	@Test public void testContainsPLUS() {
 		setDot(100, 200, DotStyle.PLUS, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsX() {
+	@Test public void testContainsX() {
 		setDot(100, 200, DotStyle.X, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsFDIAMOND() {
+	@Test public void testContainsFDIAMOND() {
 		setDot(100, 200, DotStyle.FDIAMOND, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsFTRIANGLE() {
+	@Test public void testContainsFTRIANGLE() {
 		setDot(100, 200, DotStyle.FTRIANGLE, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsFPENTAGON() {
+	@Test public void testContainsFPENTAGON() {
 		setDot(100, 200, DotStyle.FPENTAGON, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsDIAMOND() {
+	@Test public void testContainsDIAMOND() {
 		setDot(100, 200, DotStyle.DIAMOND, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsO() {
+	@Test public void testContainsO() {
 		setDot(100, 200, DotStyle.O, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsTRIANGLE() {
+	@Test public void testContainsTRIANGLE() {
 		setDot(100, 200, DotStyle.TRIANGLE, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsPENTAGON() {
+	@Test public void testContainsPENTAGON() {
 		setDot(100, 200, DotStyle.PENTAGON, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
-	public void testContainsSQUARE() {
+	@Test public void testContainsSQUARE() {
 		setDot(100, 200, DotStyle.SQUARE, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
 	@Override
-	public void testContains2() {
+	@Test public void testContains2() {
 		setDot(100, 200, DotStyle.FSQUARE, 10);
 		assertTrue(view.contains(100, 200));
 		assertFalse(view.contains(0, 0));
 	}
 
 	@Override
-	public void testUpdateDblePathOutside() {
+	@Test public void testUpdateDblePathOutside() {
 		//TODO
 	}
 
 	@Override
-	public void testUpdateDblePathInside() {
+	@Test public void testUpdateDblePathInside() {
 		//TODO
 	}
 
 	@Override
-	public void testUpdateDblePathMiddle() {
+	@Test public void testUpdateDblePathMiddle() {
 		//TODO
 	}
 
 	@Override
-	public void testUpdateGeneralPathInside() {
+	@Test public void testUpdateGeneralPathInside() {
 		//TODO
 	}
 
 	@Override
-	public void testUpdateGeneralPathMiddle() {
+	@Test public void testUpdateGeneralPathMiddle() {
 		//TODO
 	}
 
 	@Override
-	public void testUpdateGeneralPathOutside() {
+	@Test public void testUpdateGeneralPathOutside() {
 		//TODO
 	}
 
 	@Override
-	public void testIntersects() {
+	@Test public void testIntersects() {
 		//TODO
 	}
 

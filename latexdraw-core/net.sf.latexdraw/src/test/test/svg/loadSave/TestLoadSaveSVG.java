@@ -24,6 +24,7 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
 
+import org.junit.Test;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -100,16 +101,71 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 	}
 
 
-	protected void compareShapes(@SuppressWarnings("unused") T sh2) {
-//		assertTrue(shape.isParametersEquals(sh2, true));
-		//TODO
+	protected void compareShapes(final T sh2) {
+		if(shape.isShowPtsable()) {
+			assertEquals(shape.isShowPts(), sh2.isShowPts());
+		}
+		if(shape.isThicknessable()) {
+			assertEquals(shape.getThickness(), sh2.getThickness(), 0.0001);
+		}
+		if(shape.isLineStylable()) {
+			assertEquals(shape.getLineStyle(), sh2.getLineStyle());
+			assertEquals(shape.getLineColour(), sh2.getLineColour());
+			switch(shape.getLineStyle()) {
+				case DASHED:
+					assertEquals(shape.getDashSepBlack(), sh2.getDashSepBlack(), 0.0001);
+					assertEquals(shape.getDashSepWhite(), sh2.getDashSepWhite(), 0.0001);
+					break;
+				case DOTTED:
+					assertEquals(shape.getDotSep(), sh2.getDotSep(), 0.0001);
+					break;
+				default:
+			}
+		}
+		if(shape.isShadowable()) {
+			assertEquals(shape.hasShadow(), sh2.hasShadow());
+			assertEquals(shape.getShadowAngle(), sh2.getShadowAngle(), 0.0001);
+			assertEquals(shape.getShadowCol(), sh2.getShadowCol());
+			assertEquals(shape.getShadowSize(), sh2.getShadowSize(), 0.0001);
+		}
+		if(shape.isDbleBorderable()) {
+			assertEquals(shape.hasDbleBord(), sh2.hasDbleBord());
+			assertEquals(shape.getDbleBordCol(), sh2.getDbleBordCol());
+			assertEquals(shape.getDbleBordSep(), sh2.getDbleBordSep(), 0.0001);
+		}
+		if(shape.isInteriorStylable()) {
+			assertEquals(shape.getFillingStyle(), sh2.getFillingStyle());
+			assertEquals(shape.isFilled(), sh2.isFilled());
+			assertEquals(shape.getFillingCol(), sh2.getFillingCol());
+			if(shape.getFillingStyle().isHatchings()) {
+				assertEquals(shape.getHatchingsAngle(), sh2.getHatchingsAngle(), 0.0001);
+				assertEquals(shape.getHatchingsCol(), sh2.getHatchingsCol());
+				assertEquals(shape.getHatchingsSep(), sh2.getHatchingsSep(), 0.0001);
+				assertEquals(shape.getHatchingsWidth(), sh2.getHatchingsWidth(), 0.0001);
+			}else if(shape.getFillingStyle().isGradient()) {
+				assertEquals(shape.getGradAngle(), sh2.getGradAngle(), 0.0001);
+				assertEquals(shape.getGradMidPt(), sh2.getGradMidPt(), 0.0001);
+				assertEquals(shape.getGradColEnd(), sh2.getGradColEnd());
+				assertEquals(shape.getGradColStart(), sh2.getGradColStart());
+			}
+		}
 	}
 
-
+	
+	@Test
+	public void testShowPoints() {
+		if(shape.isShowPtsable()) {
+			setDefaultDimensions();
+			shape.setShowPts(true);
+			compareShapes(generateShape());
+		}
+	}
+	
+	@Test
 	public void testShadow() {
 		if(shape.isShadowable()) {
-			shape.setFillingStyle(FillingStyle.PLAIN);// Must fill the shape before.
 			setDefaultDimensions();
+			shape.setFillingStyle(FillingStyle.PLAIN);// Must fill the shape before.
 			shape.setHasShadow(true);
 			shape.setShadowAngle(-1);
 			shape.setShadowCol(DviPsColors.RED);
@@ -118,7 +174,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-
+	@Test
 	public void testDoubleBorders() {
 		if(shape.isDbleBorderable()) {
 			setDefaultDimensions();
@@ -129,11 +185,11 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-
+	@Test
 	public void testDoubleBordersWithShadow() {
 		if(shape.isShadowable() && shape.isDbleBorderable()) {
-			shape.setFillingStyle(FillingStyle.PLAIN);// Must fill the shape before.
 			setDefaultDimensions();
+			shape.setFillingStyle(FillingStyle.PLAIN);// Must fill the shape before.
 			shape.setHasDbleBord(true);
 			shape.setDbleBordCol(DviPsColors.GREEN);
 			shape.setDbleBordSep(3.);
@@ -145,7 +201,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-
+	@Test
 	public void testBorderStyle() {
 		if(shape.isLineStylable()) {
 			shape.setLineStyle(LineStyle.DASHED);
@@ -156,7 +212,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-
+	@Test
 	public void testFillingHatchingsPLAIN() {
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.PLAIN);
@@ -166,7 +222,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-
+	@Test
 	public void testFillingHatchingsVLINESPLAIN() {
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.VLINES_PLAIN);
@@ -179,7 +235,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-
+	@Test
 	public void testFillingHatchingsVLINES() {
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.VLINES);
@@ -192,7 +248,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-
+	@Test
 	public void testFillingHatchingsHLINESPLAIN() {
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.HLINES_PLAIN);
@@ -205,7 +261,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-
+	@Test
 	public void testFillingHatchingsHLINES() {
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.HLINES);
@@ -218,7 +274,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-
+	@Test
 	public void testFillingHatchingsCLINESPLAIN() {
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
@@ -231,7 +287,8 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 			compareShapes(generateShape());
 		}
 	}
-
+	
+	@Test
 	public void testFillingHatchingsCLINES() {
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.CLINES);
@@ -244,10 +301,10 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-	public void testFillingGradient() {
+	@Test public void testFillingGradient() {
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.GRAD);
-			shape.setGradAngle(0.2);// FIXME its fails because the grad angle is recomputed and thus approximated.
+			shape.setGradAngle(0.2);
 			shape.setGradColEnd(DviPsColors.BLUE);
 			shape.setGradColStart(DviPsColors.CYAN);
 			shape.setGradMidPt(0.1);

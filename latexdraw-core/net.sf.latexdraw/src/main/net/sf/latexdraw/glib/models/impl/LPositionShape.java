@@ -57,7 +57,7 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 		if(GLibUtilities.isValidCoordinate(x)) {
 			final IPoint pos = getPosition();
 
-			translate(x - pos.getX(), pos.getY());
+			translate(x - pos.getX(), 0);
 		}
 	}
 
@@ -67,7 +67,7 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 		if(GLibUtilities.isValidCoordinate(y)) {
 			final IPoint pos = getPosition();
 
-			translate(pos.getX(), y - pos.getY());
+			translate(0, y - pos.getY());
 		}
 	}
 

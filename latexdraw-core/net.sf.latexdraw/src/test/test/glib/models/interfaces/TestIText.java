@@ -10,32 +10,32 @@ import org.junit.Test;
 public abstract class TestIText<T extends IText> extends TestIPositionShape<T> {
 
 	@Override
-	public void testGetBottomLeftPoint() {
+	@Test public void testGetBottomLeftPoint() {
 		assertEquals(shape.getBottomLeftPoint(), ((IPositionShape)shape).getPosition());
 	}
 
 	@Override
-	public void testGetBottomRightPoint() {
+	@Test public void testGetBottomRightPoint() {
 		//TODO
 	}
 
 	@Override
-	public void testGetTopLeftPoint() {
+	@Test public void testGetTopLeftPoint() {
 		//TODO
 	}
 
 	@Override
-	public void testGetTopRightPoint() {
+	@Test public void testGetTopRightPoint() {
 		//TODO
 	}
 
 	@Override
-	public void testMirrorHorizontal() {
+	@Test public void testMirrorHorizontal() {
 		//TODO
 	}
 
 	@Override
-	public void testMirrorVertical() {
+	@Test public void testMirrorVertical() {
 		//TODO
 	}
 

@@ -7,8 +7,9 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Before;
+import org.junit.Test;
 
-public class TestLoadSaveSVGText extends TestLoadSaveSVG<IText> {
+public class TestLoadSaveSVGText extends TestLoadSaveSVGPositionShape<IText> {
 	@Before
 	public void setUp() {
 		shape = ShapeFactory.createText();
@@ -21,49 +22,47 @@ public class TestLoadSaveSVGText extends TestLoadSaveSVG<IText> {
 
 	@Override
 	protected void compareShapes(final IText sh2) {
-		//TODO
-//		assertTrue(shape.isParametersEquals(sh2, true));
 		assertEquals(shape.getPosition().getX(), sh2.getPosition().getX(), 0.0001);
 		assertEquals(shape.getPosition().getY(), sh2.getPosition().getY(), 0.0001);
 	}
 
 
-	public void testTextPositionTOP() {
+	@Test public void testTextPositionTOP() {
 		shape.setText("coucou"); //$NON-NLS-1$
 		shape.setPosition(11., 12.);
 		shape.setTextPosition(TextPosition.TOP);
 		compareShapes(generateShape());
 	}
 
-	public void testTextPositionBOT() {
+	@Test public void testTextPositionBOT() {
 		shape.setText("coucou"); //$NON-NLS-1$
 		shape.setPosition(-11., -12.);
 		shape.setTextPosition(TextPosition.BOT);
 		compareShapes(generateShape());
 	}
 
-	public void testTextPositionTOP_LEFT() {
+	@Test public void testTextPositionTOP_LEFT() {
 		shape.setText("coucou"); //$NON-NLS-1$
 		shape.setPosition(101., 1.);
 		shape.setTextPosition(TextPosition.TOP_LEFT);
 		compareShapes(generateShape());
 	}
 
-	public void testTextPositionTOP_RIGHT() {
+	@Test public void testTextPositionTOP_RIGHT() {
 		shape.setText("coucou"); //$NON-NLS-1$
 		shape.setPosition(11., 12.);
 		shape.setTextPosition(TextPosition.TOP_RIGHT);
 		compareShapes(generateShape());
 	}
 
-	public void testTextPositionBOT_RIGHT() {
+	@Test public void testTextPositionBOT_RIGHT() {
 		shape.setText("coucou"); //$NON-NLS-1$
 		shape.setPosition(1., 0.);
 		shape.setTextPosition(TextPosition.BOT_RIGHT);
 		compareShapes(generateShape());
 	}
 
-	public void testTextPositionBOT_LEFT() {
+	@Test public void testTextPositionBOT_LEFT() {
 		shape.setText("coucou"); //$NON-NLS-1$
 		shape.setPosition(111., 123.);
 		shape.setTextPosition(TextPosition.BOT_LEFT);
@@ -71,23 +70,23 @@ public class TestLoadSaveSVGText extends TestLoadSaveSVG<IText> {
 	}
 
 
-	public void testStandardText() {
+	@Test public void testStandardText() {
 		shape.setText("coucou"); //$NON-NLS-1$
 		shape.setLineColour(DviPsColors.RED);
 		compareShapes(generateShape());
 	}
 
-	public void testMathLaTeXText() {
+	@Test public void testMathLaTeXText() {
 		shape.setText("$fd_{er}$"); //$NON-NLS-1$
 		compareShapes(generateShape());
 	}
 
-	public void testInvalidLaTeXText() {
+	@Test public void testInvalidLaTeXText() {
 		shape.setText("$fd_{er"); //$NON-NLS-1$
 		compareShapes(generateShape());
 	}
 
-	public void testMultilineText() {
+	@Test public void testMultilineText() {
 		shape.setText("$fd_{er}$\n\n\\emph{coucou}"); //$NON-NLS-1$
 		compareShapes(generateShape());
 	}
