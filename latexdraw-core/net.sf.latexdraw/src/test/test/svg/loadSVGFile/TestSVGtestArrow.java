@@ -23,6 +23,6 @@ public class TestSVGtestArrow extends TestLoadSVGFile {
 
 	@Override
 	public int getNbShapesExpected() {
-		return 1;
+		return 2;
 	}
 }

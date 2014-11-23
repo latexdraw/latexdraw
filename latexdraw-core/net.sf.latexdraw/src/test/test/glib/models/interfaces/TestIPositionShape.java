@@ -11,7 +11,7 @@ import test.HelperTest;
 
 public abstract class TestIPositionShape<T extends IPositionShape> extends TestIShape<T> {
 	@Override
-	public void testTranslate() {
+	@Test public void testTranslate() {
 		shape.setPosition(0, 0);
 		shape.translate(100, 50);
 		HelperTest.assertEqualsDouble(100., shape.getPosition().getX());
@@ -47,7 +47,39 @@ public abstract class TestIPositionShape<T extends IPositionShape> extends TestI
 		shape.setY(Double.NEGATIVE_INFINITY);
 		HelperTest.assertEqualsDouble(-20., shape.getY());
 	}
+	
+	
+	
+	@Test
+	public void testSetXThenSetY() {
+		shape.setX(40.);
+		HelperTest.assertEqualsDouble(40., shape.getX());
+		shape.setX(-30.);
+		HelperTest.assertEqualsDouble(-30., shape.getX());
+		
+		shape.setY(10.);
+		HelperTest.assertEqualsDouble(10., shape.getY());
+		HelperTest.assertEqualsDouble(-30., shape.getX());
+		shape.setY(-20.);
+		HelperTest.assertEqualsDouble(-20., shape.getY());
+		HelperTest.assertEqualsDouble(-30., shape.getX());
+	}
 
+	
+	@Test
+	public void testSetYThenSetX() {
+		shape.setY(10.);
+		HelperTest.assertEqualsDouble(10., shape.getY());
+		shape.setY(-20.);
+		HelperTest.assertEqualsDouble(-20., shape.getY());
+		
+		shape.setX(40.);
+		HelperTest.assertEqualsDouble(40., shape.getX());
+		HelperTest.assertEqualsDouble(-20., shape.getY());
+		shape.setX(-30.);
+		HelperTest.assertEqualsDouble(-30., shape.getX());
+		HelperTest.assertEqualsDouble(-20., shape.getY());
+	}
 
 
 	@Test

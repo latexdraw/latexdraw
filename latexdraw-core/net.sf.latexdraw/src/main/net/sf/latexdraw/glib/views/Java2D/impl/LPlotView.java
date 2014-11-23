@@ -6,17 +6,13 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
-import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.views.PlotViewHelper;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewPlot;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
+import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a view for ps plot figures.<br>
@@ -37,10 +33,10 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewPlot;
  * @since 3.3
  */
 public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
-	protected LPolylineView lineView;
-	protected LPolygonView polygonView;
-	protected LBezierCurveView curveView;
-	protected List<LDotView> dotsView;
+	private LPolylineView lineView;
+	private LPolygonView polygonView;
+	private LBezierCurveView curveView;
+	private List<LDotView> dotsView;
 
 	/**
 	 * Creates a view of the given model and initialises the Java2D view.
@@ -60,7 +56,12 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			case CURVE: curveView.paint(g, clip); break;
 			case ECURVE: curveView.paint(g, clip); break;
 			case CCURVE: curveView.paint(g, clip); break;
-			case DOTS: for(LDotView v:dotsView) v.paint(g, clip); break;
+			case DOTS:
+				final IPoint vectorTrans = beginRotation(g);
+				for(LDotView v:dotsView) v.paint(g, clip); 
+				if(vectorTrans!=null)
+					endRotation(g, vectorTrans);
+				break;
 			case POLYGON: polygonView.paint(g, clip); break;
 		}
 	}
@@ -82,110 +83,38 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			case POLYGON: updatePolygon(posX, posY, minX, maxX, step); break;
 		}
 	}
-
-
-	private void fillPoints(final IModifiablePointsShape sh, final double posX, final double posY, 
-							final double minX, final double maxX, final double step) {
-		final double xs = shape.getXScale();
-		final double ys = shape.getYScale();
-
-		if(shape.isPolar()) {
-			for(double x=minX; x<=maxX; x+=step) {
-	  			final double radius = shape.getY(x);
-	  			final double angle = Math.toRadians(x);
-	  			final double x1 = radius*Math.cos(angle);
-	  			final double y1 = -radius*Math.sin(angle);
-	  			sh.addPoint(ShapeFactory.createPoint(x1*IShape.PPC*xs+posX, y1*IShape.PPC*ys+posY));
-	  		}
-		}else
-			for(double x=minX; x<=maxX; x+=step)
-  				sh.addPoint(ShapeFactory.createPoint(x*IShape.PPC*xs+posX, -shape.getY(x)*IShape.PPC*ys+posY));
-	}
-
-
+	
 	private void updatePoints(final double posX, final double posY, final double minX, final double maxX, final double step) {
-		final IPolyline pl = ShapeFactory.createPolyline();
-		fillPoints(pl, posX, posY, minX, maxX, step);
-		
 		if(dotsView==null) dotsView = new ArrayList<>();
 		else {
 			for(LDotView v:dotsView) v.flush();
 			dotsView.clear();
 		}
 		
-		for(IPoint pt : pl.getPoints()) {
-			IDot dot = ShapeFactory.createDot(pt);
-			dot.copy(shape);
+		final List<IDot> dots = PlotViewHelper.INSTANCE.updatePoints(shape, posX, posY, minX, maxX, step);
+		
+		for(IDot dot : dots) {
 			LDotView v = new LDotView(dot);
 			dotsView.add(v);
 			v.update();
 		}
 	}
-
+	
 	
 	private void updatePolygon(final double posX, final double posY, final double minX, final double maxX, final double step) {
-		final IPolygon pg = ShapeFactory.createPolygon();
-		pg.copy(shape);
-		if(polygonView!=null) polygonView.flush();
-		polygonView = new LPolygonView(pg);
-		fillPoints(pg, posX, posY, minX, maxX, step);
+		polygonView = new LPolygonView(PlotViewHelper.INSTANCE.updatePolygon(shape, posX, posY, minX, maxX, step));
 		polygonView.update();
 	}
 	
 	
 	private void updateLine(final double posX, final double posY, final double minX, final double maxX, final double step) {
-		final IPolyline pl = ShapeFactory.createPolyline();
-		if(lineView!=null) lineView.flush();
-		fillPoints(pl, posX, posY, minX, maxX, step);
-		pl.copy(shape);
-		lineView = new LPolylineView(pl);
+		lineView = new LPolylineView(PlotViewHelper.INSTANCE.updateLine(shape, posX, posY, minX, maxX, step));
 		lineView.update();
 	}
-
-
+	
+	
 	private void updateCurve(final double posX, final double posY, final double minX, final double maxX, final double step) {
-		// The algorithm follows this definition:
-		//https://stackoverflow.com/questions/15864441/how-to-make-a-line-curve-through-points
-		final double scale = 0.33;
-		final IBezierCurve bc = ShapeFactory.createBezierCurve();
-		if(curveView!=null) curveView.flush();
-		curveView = new LBezierCurveView(bc);
-		fillPoints(bc, posX, posY, minX, maxX, step);
-		if(shape.getPlotStyle()==IPlotProp.PlotStyle.CCURVE)
-			bc.setIsClosed(true);
-		else bc.setIsClosed(false);
-		bc.copy(shape);
-		int i=0;
-		final int last = bc.getPoints().size()-1;
-
-		for(IPoint pt : bc.getPoints()) {
-			final IPoint p1 = pt;
-			if(i==0) {
-				final IPoint p2 = bc.getPtAt(i+1);
-				final IPoint tangent = p2.substract(p1);
-				final IPoint q1 =  p1.add(tangent.zoom(scale));
-				bc.setXFirstCtrlPt(q1.getX(), i);
-				bc.setYFirstCtrlPt(q1.getY(), i);
-			}else if(i==last) {
-				final IPoint p0 = bc.getPtAt(i-1);
-				final IPoint tangent = p1.substract(p0);
-				final IPoint q0 =  p1.substract(tangent.zoom(scale));
-				bc.setXFirstCtrlPt(q0.getX(), i);
-				bc.setYFirstCtrlPt(q0.getY(), i);
-			}else {
-				final IPoint p0 = bc.getPtAt(i-1);
-				final IPoint p2 = bc.getPtAt(i+1);
-				final IPoint tangent = p2.substract(p0).normalise();
-				final IPoint q0 = p1.substract(tangent.zoom(scale*p1.substract(p0).magnitude()));
-//				val q1 = p1.substract(tangent.zoom(scale*p2.substract(p1).magnitude))
-				bc.setXFirstCtrlPt(q0.getX(), i);
-				bc.setYFirstCtrlPt(q0.getY(), i);
-//				shape.setXSecondCtrlPt(q1.getX, i)
-//				shape.setYSecondCtrlPt(q1.getY, i)
-			}
-			i++;
-		}
-		bc.updateSecondControlPoints();
+		curveView = new LBezierCurveView(PlotViewHelper.INSTANCE.updateCurve(shape, posX, posY, minX, maxX, step));
 		curveView.update();
 	}
 
@@ -199,14 +128,24 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			case LINE: return lineView.getBorder();
 			case POLYGON: return polygonView.getBorder();
 			case DOTS:
+				final double rota = shape.getRotationAngle();
 				Rectangle2D rec = dotsView.get(0).getBorder();
 				
-				for(int i=1, size=dotsView.size(); i<size; i++)
-					rec = rec.createUnion(dotsView.get(i).getBorder());
+				if(LNumber.equalsDouble(rota, 0.)) {
+					for(int i=1, size=dotsView.size(); i<size; i++)
+						rec = rec.createUnion(dotsView.get(i).getBorder());
+				}else {
+					final IPoint tl = shape.getTopLeftPoint();
+					final IPoint br = shape.getBottomRightPoint();
+					rec = getRotatedShape2D(rota, rec, tl, br).getBounds2D();
+					
+					for(int i=1, size=dotsView.size(); i<size; i++)
+						rec = rec.createUnion(getRotatedShape2D(rota, dotsView.get(i).getBorder(), tl, br).getBounds2D());
+				}
 				
 				return rec;
-			default: return new Rectangle2D.Double();
 		}
+		return new Rectangle2D.Double();
 	}
 
 
@@ -216,13 +155,23 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 			case CCURVE: return curveView.intersects(rec);
 			case CURVE: return curveView.intersects(rec);
 			case DOTS:
-				for(LDotView v:dotsView) if(v.intersects(rec)) return true;
+				final double rota = shape.getRotationAngle();
+				if(LNumber.equalsDouble(rota, 0.)) {
+					for(LDotView v:dotsView) if(v.intersects(rec)) return true;
+				}
+				else {
+					final IPoint tl = shape.getTopLeftPoint();
+					final IPoint br = shape.getBottomRightPoint();
+					for(int i=0, size=dotsView.size(); i<size; i++)
+						if(getRotatedShape2D(rota, dotsView.get(i).getBorder(), tl, br).intersects(rec))
+							return true;
+				}
 				return false;
 			case ECURVE: return curveView.intersects(rec);
 			case LINE: return lineView.intersects(rec);
 			case POLYGON: return polygonView.intersects(rec);
-			default: return false;
 		}
+		return false;
 	}
 
 
@@ -231,12 +180,24 @@ public class LPlotView extends LShapeView<IPlot> implements IViewPlot {
 		switch(shape.getPlotStyle()) {
 			case CCURVE: return curveView.contains(px, py);
 			case CURVE: return curveView.contains(px, py);
-			case DOTS: return getBorder().contains(px, py);
+			case DOTS: 
+				final double rota = shape.getRotationAngle();
+				if(LNumber.equalsDouble(rota, 0.)) {
+					for(IViewShape v : dotsView) if(v.contains(px, py)) return true;
+				}
+				else {
+					final IPoint tl = shape.getTopLeftPoint();
+					final IPoint br = shape.getBottomRightPoint();
+					for(int i=0, size=dotsView.size(); i<size; i++)
+						if(getRotatedShape2D(rota, dotsView.get(i).getBorder(), tl, br).contains(px, py))
+							return true;
+				}
+				return false;
 			case ECURVE: return curveView.contains(px, py);
 			case LINE: return lineView.contains(px, py);
 			case POLYGON: return polygonView.contains(px, py);
-			default: return false;
 		}
+		return false;
 	}
 
 

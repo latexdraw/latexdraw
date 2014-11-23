@@ -101,6 +101,7 @@ public final class IShapeSVGFactory {
 
 					// Otherwise, it should be a latexdraw shape saved in an SVG document.
                     switch(type) {
+                    	case LPlotSVGGenerator.XML_TYPE_PLOT: return new LPlotSVGGenerator((SVGGElement) elt, withTransformations).getShape();
                         case LNamespace.XML_TYPE_RECT: return new LRectangleSVGGenerator((SVGGElement) elt, withTransformations).getShape();
                         case LNamespace.XML_TYPE_ELLIPSE: return new LEllipseSVGGenerator((SVGGElement) elt, withTransformations).getShape();
                         case LNamespace.XML_TYPE_CIRCLE: return new LCircleSVGGenerator((SVGGElement) elt, withTransformations).getShape();

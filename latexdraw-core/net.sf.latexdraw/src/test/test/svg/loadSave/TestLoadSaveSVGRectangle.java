@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 
 import org.junit.Before;
+import org.junit.Test;
 
 public class TestLoadSaveSVGRectangle extends TestLoadSaveSVGRectangularShape<IRectangle> {
 	@Before
@@ -12,7 +13,7 @@ public class TestLoadSaveSVGRectangle extends TestLoadSaveSVGRectangularShape<IR
 	}
 
 
-	public void testFrameArc() {
+	@Test public void testFrameArc() {
 		shape.setThickness(10);
 		shape.setLineArc(0.3);
 		setDefaultDimensions();

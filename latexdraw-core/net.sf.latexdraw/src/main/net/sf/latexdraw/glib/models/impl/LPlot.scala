@@ -41,9 +41,26 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 				maxX = plot.getPlotMaxX
 				xscale = plot.getXScale
 				yscale = plot.getYScale
+      case dot:IDotProp =>
+        dotStyle = dot.getDotStyle
+        dotDiametre = dot.getDiametre
 			case _ =>
 		}
 	}
+  
+  
+  override def mirrorVertical(origin:IPoint) {
+    val gc = getGravityCentre
+    if(GLibUtilities.isValidPoint(origin) && !origin.equals(gc, 0.0001))
+      translate(0, gc.verticalSymmetry(origin).getY-gc.getY)
+  }
+  
+  override def mirrorHorizontal(origin:IPoint) {
+    val gc = getGravityCentre
+    if(GLibUtilities.isValidPoint(origin) && !origin.equals(gc, 0.0001))
+      translate(gc.horizontalSymmetry(origin).getX-gc.getX, 0)
+  }
+  
 
 	override def setPlotStyle(style:IPlotProp.PlotStyle) {
 		if(style!=null) this.style = style
@@ -52,42 +69,42 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 	override def getPlotStyle = style
 
 	override def setNbPlottedPoints(nbPts:Int) {
-		if(nbPts>1 && GLibUtilities.isValidCoordinate(nbPts))
+		if(nbPts>1)
 			nbPoints = nbPts
 	}
 
 	override def isShowPtsable = false
-	override def isThicknessable = true
-	override def isShadowable = true
-	override def isLineStylable = true
-	override def isInteriorStylable = true
-	override def isFillable = true
-	override def isDbleBorderable = true
+	override def isThicknessable = style!=IPlotProp.PlotStyle.DOTS
+	override def isShadowable = style!=IPlotProp.PlotStyle.DOTS
+	override def isLineStylable = style!=IPlotProp.PlotStyle.DOTS
+	override def isInteriorStylable = style!=IPlotProp.PlotStyle.DOTS
+	override def isFillable = style!=IPlotProp.PlotStyle.DOTS || dotStyle.isFillable
+	override def isDbleBorderable = style!=IPlotProp.PlotStyle.DOTS
 
 	override def getPlottingStep = (maxX-minX)/(nbPoints-1)
 
 	override def getTopLeftPoint = {
 		val step = getPlottingStep
 		val pos = getPosition
-		ShapeFactory.createPoint(pos.getX+minX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.min*IShape.PPC*yscale)
+		ShapeFactory.createPoint(pos.getX+minX*IShape.PPC*xscale, pos.getY-(0 until nbPoints).map{x=>getY(minX+x*step)}.max*IShape.PPC*yscale)
 	}
 
 	override def getBottomRightPoint = {
 		val step = getPlottingStep
 		val pos = getPosition
-		ShapeFactory.createPoint(pos.getX+maxX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.max*IShape.PPC*yscale)
+		ShapeFactory.createPoint(pos.getX+maxX*IShape.PPC*xscale, pos.getY-getY(minX)*IShape.PPC*xscale)
 	}
 
 	override def getTopRightPoint = {
 		val step = getPlottingStep
 		val pos = getPosition
-		ShapeFactory.createPoint(pos.getX+maxX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.min*IShape.PPC*yscale)
+		ShapeFactory.createPoint(pos.getX+maxX*IShape.PPC*xscale, pos.getY-(0 until nbPoints).map{x=>getY(minX+x*step)}.max*IShape.PPC*yscale)
 	}
 
 	override def getBottomLeftPoint = {
 		val step = getPlottingStep
 		val pos = getPosition
-		ShapeFactory.createPoint(pos.getX+minX*IShape.PPC*xscale, pos.getY+(minX to maxX by step).map{x=>getY(x)}.max*IShape.PPC*yscale)
+		ShapeFactory.createPoint(pos.getX+minX*IShape.PPC*xscale, pos.getY-getY(minX)*IShape.PPC*xscale)
 	}
 
 	override def getPosition = getPtAt(0)
@@ -99,7 +116,7 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 	override def getPlotEquation = equation
 
 	override def setPlotEquation(eq:String) {
-		if(eq!=null) {
+		if(eq!=null && !eq.isEmpty) {
 			equation = eq
       parser = new PSFunctionParser(equation)
 		}
@@ -128,12 +145,12 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 	
 	def getDiametre(): Double = dotDiametre
 
-  def getDotFillingCol(): Color = if(isFillable) super.getFillingCol else Color.BLACK
+  def getDotFillingCol(): Color = super.getFillingCol
 
   def getDotStyle(): IDotProp.DotStyle = dotStyle
 
   def setDiametre(diam: Double) {
-  	if(diam>0.0) dotDiametre = diam
+  	if(diam>0.0 && GLibUtilities.isValidCoordinate(diam)) dotDiametre = diam
   }
 
   def setDotFillingCol(col: Color) {
@@ -141,6 +158,6 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
   }
 
   def setDotStyle(dotst: IDotProp.DotStyle) {
-  	if(dotStyle!=null) dotStyle = dotst
+  	if(dotst!=null) dotStyle = dotst
   }
 }

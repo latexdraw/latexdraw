@@ -15,6 +15,7 @@ import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -53,7 +54,7 @@ public abstract class TestLoadSVGFile {
 	public abstract int getNbShapesExpected();
 
 
-	public void testNbShapesInDrawing() {
+	@Test public void testNbShapesInDrawing() {
 		assertEquals(getNbShapesExpected(), group.size());
 	}
 }

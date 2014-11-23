@@ -71,6 +71,7 @@ public final class SVGShapesFactory {
 		cmd = new CreateViewSVGCmd(cmd, IEllipse.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LEllipseSVGGenerator((IEllipse)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, ICircle.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LCircleSVGGenerator((ICircle)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, ICircleArc.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LCircleArcSVGGenerator((ICircleArc)shape).toSVG(doc); } };
+		cmd = new CreateViewSVGCmd(cmd, IPlot.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LPlotSVGGenerator((IPlot)shape).toSVG(doc); } };
 		cmd = new CreateViewSVGCmd(cmd, IRectangle.class) 	{ @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LRectangleSVGGenerator((IRectangle)shape).toSVG(doc); } };
 		// The last created command is the first element of the chain.
 		createCmd = new CreateViewSVGCmd(cmd, ISquare.class) { @Override public SVGElement create(final IShape shape, final SVGDocument doc) { return new LSquareSVGGenerator((ISquare)shape).toSVG(doc); } };

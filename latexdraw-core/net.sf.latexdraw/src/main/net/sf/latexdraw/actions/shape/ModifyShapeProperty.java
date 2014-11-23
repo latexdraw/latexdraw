@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
+import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IScalable;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
@@ -162,7 +163,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case ARC_END_ANGLE:
 				case ARC_START_ANGLE:
 				case ARC_STYLE: return shapes.isTypeOf(IArcProp.class);
-				case ROUND_CORNER_VALUE:
+				case ROUND_CORNER_VALUE: return shapes.isTypeOf(ILineArcProp.class);
 				case DOT_SIZE:
 				case DOT_FILLING_COL:
 				case DOT_STYLE:	return shapes.isTypeOf(IDotProp.class);

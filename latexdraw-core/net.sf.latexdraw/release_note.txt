@@ -1,6 +1,15 @@
 ************************************************************
 Version 3.3.1
 
+Bugs fixed:
+- Plot figures not saved as SVG
+  https://bugs.launchpad.net/latexdraw/+bug/1393692
+- Rotating plot figures does not work properly
+  https://bugs.launchpad.net/latexdraw/+bug/1393694
+- Mirroring plot figures does not work properly
+  https://bugs.launchpad.net/latexdraw/+bug/1393695
+- Cannot change the roundness of the rectangles' corners
+  https://bugs.launchpad.net/latexdraw/+bug/1395469
 
 
 ************************************************************
