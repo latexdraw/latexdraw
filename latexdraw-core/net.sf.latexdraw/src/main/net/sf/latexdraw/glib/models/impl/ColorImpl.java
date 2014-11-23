@@ -65,7 +65,7 @@ class ColorImpl implements Color {
 
 	@Override
 	public double getO() {
-		return b;
+		return o;
 	}
 	
 	
