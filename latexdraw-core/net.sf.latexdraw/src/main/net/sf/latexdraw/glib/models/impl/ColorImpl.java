@@ -113,10 +113,6 @@ class ColorImpl implements Color {
     }
 
     @Override public String toString() {
-        int rs = (int)Math.round(r*255.0);
-        int gs = (int)Math.round(g*255.0);
-        int bs = (int)Math.round(b*255.0);
-        int os = (int)Math.round(o*255.0);
-        return String.format("0x%02x%02x%02x%02x" , rs, gs, bs, os);
+        return String.format("[%d,%d,%d,%d]" , (int)Math.round(r*255.0), (int)Math.round(g*255.0), (int)Math.round(b*255.0), (int)Math.round(o*255.0));
     }
 }
