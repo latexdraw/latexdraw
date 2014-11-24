@@ -47,29 +47,23 @@ public class TestParsingPswedge extends TestParsingShape {
 
 
 	@Test
-	public void testBadAngle2() {
-		try {
-			assertTrue(parser.parsePSTCode("\\"+getCommandName()+"{2}{10}{foo}").get().isEmpty()); //$NON-NLS-1$ //$NON-NLS-2$
-			assertFalse(PSTParser.errorLogs().isEmpty());
-		}catch(Exception e) { /* ok */ }
+	public void testBadAngle2() throws ParseException {
+		assertTrue(parser.parsePSTCode("\\"+getCommandName()+"{2}{10}{foo}").get().isEmpty()); //$NON-NLS-1$ //$NON-NLS-2$
+		assertFalse(PSTParser.errorLogs().isEmpty());
 	}
 
 
 	@Test
-	public void testBadAngle1() {
-		try {
-			assertTrue(parser.parsePSTCode("\\"+getCommandName()+"{2}{foo}{20}").get().isEmpty()); //$NON-NLS-1$ //$NON-NLS-2$
-			assertFalse(PSTParser.errorLogs().isEmpty());
-		}catch(Exception e) { /* ok */ }
+	public void testBadAngle1() throws ParseException {
+		assertTrue(parser.parsePSTCode("\\"+getCommandName()+"{2}{foo}{20}").get().isEmpty()); //$NON-NLS-1$ //$NON-NLS-2$
+		assertFalse(PSTParser.errorLogs().isEmpty());
 	}
 
 
 	@Test
-	public void testBadRadius() {
-		try {
-			assertTrue(parser.parsePSTCode("\\"+getCommandName()+"{foo}{10}{20}").get().isEmpty()); //$NON-NLS-1$ //$NON-NLS-2$
-			assertFalse(PSTParser.errorLogs().isEmpty());
-		}catch(Exception e) { /* ok */ }
+	public void testBadRadius() throws ParseException {
+		assertTrue(parser.parsePSTCode("\\"+getCommandName()+"{foo}{10}{20}").get().isEmpty()); //$NON-NLS-1$ //$NON-NLS-2$
+		assertFalse(PSTParser.errorLogs().isEmpty());
 	}
 
 
@@ -171,39 +165,27 @@ public class TestParsingPswedge extends TestParsingShape {
 	}
 
 
-	@Test
-	public void testCoordinatesMissing() {
-		try {
-			parser.parsePSTCode("\\"+getCommandName()+"(,){1}").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}catch(Exception e) { /* ok */ }
+	@Test(expected=ParseException.class)
+	public void testCoordinatesMissing() throws Exception {
+		parser.parsePSTCode("\\"+getCommandName()+"(,){1}").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 
-	@Test
+	@Test(expected=ParseException.class)
 	public void testErrorOnNoAngle2() throws Exception {
-		try {
-			parser.parsePSTCode("\\"+getCommandName()+"(,){1}{30}{}").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}catch(Exception e) { /* ok */ }
+		parser.parsePSTCode("\\"+getCommandName()+"(,){1}{30}{}").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 
-	@Test
-	public void testErrorOnNoAngle1() {
-		try {
-			parser.parsePSTCode("\\"+getCommandName()+"(,){1}{}{30}").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}catch(Exception e) { /* ok */ }
+	@Test(expected=ParseException.class)
+	public void testErrorOnNoAngle1() throws Exception {
+		parser.parsePSTCode("\\"+getCommandName()+"(,){1}{}{30}").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 
-	@Test
-	public void testErrorOnNoRadius() {
-		try {
-			parser.parsePSTCode("\\"+getCommandName()+"(,){}{10}{30}").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}catch(Exception e) { /* ok */ }
+	@Test(expected=ParseException.class)
+	public void testErrorOnNoRadius() throws ParseException {
+		parser.parsePSTCode("\\"+getCommandName()+"(,){}{10}{30}").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 

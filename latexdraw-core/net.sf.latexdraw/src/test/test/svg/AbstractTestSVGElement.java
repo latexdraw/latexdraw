@@ -2,7 +2,6 @@ package test.svg;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 import net.sf.latexdraw.parsers.svg.SVGAttr;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
@@ -98,23 +97,19 @@ public abstract class AbstractTestSVGElement{
 		assertEquals(node.getNodeName(), node.getTagName());
 	}
 
+	@Test(expected=DOMException.class)
+	public void testAppendChildNull() {
+		node.appendChild(null);
+	}
+	
+	@Test(expected=DOMException.class)
+	public void testAppendChildEmpty() {
+		node.appendChild(new SVGAttr("", "", node)); //$NON-NLS-1$ //$NON-NLS-2$
+	}
 
 
 	@Test
 	public void testAppendChild() {
-		try {
-			node.appendChild(null);
-			fail();
-		}
-		catch(DOMException e) { /* ok */ }
-
-		try {
-			node.appendChild(new SVGAttr("", "", node)); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}
-		catch(DOMException e) { /* ok */ }
-
-
 		SVGElement elt = (SVGElement)doc.createElement("eltAppendChild"); //$NON-NLS-1$
 		assertEquals(node.appendChild(elt), elt);
 		assertEquals(node.getChildren("eltAppendChild").getLength(), 1); //$NON-NLS-1$

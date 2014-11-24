@@ -96,67 +96,58 @@ public class TestSVGImageElement extends AbstractTestSVGElement {
 
 
 	@Test
-	public void testEnableRendering() {
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
-			node.setAttribute(SVGAttributes.SVG_HEIGHT, "20"); //$NON-NLS-1$
-			SVGImageElement e = new SVGImageElement(node, null);
-			assertFalse(e.enableRendering());
+	public void testEnableRendering() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20"); //$NON-NLS-1$
+		SVGImageElement e = new SVGImageElement(node, null);
+		assertFalse(e.enableRendering());
 
-			node.setAttribute("xlink:href", "/rerzerojcsf/dsqdsdfgdre"); //$NON-NLS-1$ //$NON-NLS-2$
-			e = new SVGImageElement(node, null);
-			assertFalse(e.enableRendering());
+		node.setAttribute("xlink:href", "/rerzerojcsf/dsqdsdfgdre"); //$NON-NLS-1$ //$NON-NLS-2$
+		e = new SVGImageElement(node, null);
+		assertFalse(e.enableRendering());
 
-			node.setAttribute("xlink:href", "build.xml"); //$NON-NLS-1$ //$NON-NLS-2$
-			e = new SVGImageElement(node, null);
-			assertFalse(e.enableRendering());
+		node.setAttribute("xlink:href", "build.xml"); //$NON-NLS-1$ //$NON-NLS-2$
+		e = new SVGImageElement(node, null);
+		assertFalse(e.enableRendering());
 
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "0"); //$NON-NLS-1$
-			e = new SVGImageElement(node, null);
-			assertFalse(e.enableRendering());
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "0"); //$NON-NLS-1$
+		e = new SVGImageElement(node, null);
+		assertFalse(e.enableRendering());
 
-			node.setAttribute(SVGAttributes.SVG_HEIGHT, "0"); //$NON-NLS-1$
-			e = new SVGImageElement(node, null);
-			assertFalse(e.enableRendering());
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "0"); //$NON-NLS-1$
+		e = new SVGImageElement(node, null);
+		assertFalse(e.enableRendering());
 
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "20"); //$NON-NLS-1$
-			e = new SVGImageElement(node, null);
-			assertFalse(e.enableRendering());
-		}
-		catch(MalformedSVGDocument e) { fail(); }
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "20"); //$NON-NLS-1$
+		e = new SVGImageElement(node, null);
+		assertFalse(e.enableRendering());
 	}
 
 
 
 	@Test
-	public void testGetY() {
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
-			node.setAttribute(SVGAttributes.SVG_HEIGHT, "20"); //$NON-NLS-1$
-			SVGImageElement e = new SVGImageElement(node, null);
-			assertEquals(e.getY(), 0., 0.0001);
+	public void testGetY() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20"); //$NON-NLS-1$
+		SVGImageElement e = new SVGImageElement(node, null);
+		assertEquals(e.getY(), 0., 0.0001);
 
-			node.setAttribute(SVGAttributes.SVG_Y, "1"); //$NON-NLS-1$
-			e = new SVGImageElement(node, null);
-			assertEquals(1., e.getY(), 0.0001);
-		}
-		catch(MalformedSVGDocument e) { fail(); }
+		node.setAttribute(SVGAttributes.SVG_Y, "1"); //$NON-NLS-1$
+		e = new SVGImageElement(node, null);
+		assertEquals(1., e.getY(), 0.0001);
 	}
 
 
 	@Test
-	public void testGetX() {
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
-			node.setAttribute(SVGAttributes.SVG_HEIGHT, "20"); //$NON-NLS-1$
-			SVGImageElement e = new SVGImageElement(node, null);
-			assertEquals(e.getX(), 0., 0.0001);
+	public void testGetX() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20"); //$NON-NLS-1$
+		SVGImageElement e = new SVGImageElement(node, null);
+		assertEquals(e.getX(), 0., 0.0001);
 
-			node.setAttribute(SVGAttributes.SVG_X, "1"); //$NON-NLS-1$
-			e = new SVGImageElement(node, null);
-			assertEquals(1., e.getX(), 0.0001);
-		}
-		catch(MalformedSVGDocument e) { fail(); }
+		node.setAttribute(SVGAttributes.SVG_X, "1"); //$NON-NLS-1$
+		e = new SVGImageElement(node, null);
+		assertEquals(1., e.getX(), 0.0001);
 	}
 
 

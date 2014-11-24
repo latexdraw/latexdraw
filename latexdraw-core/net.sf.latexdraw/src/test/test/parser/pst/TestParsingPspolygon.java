@@ -113,22 +113,15 @@ public class TestParsingPspolygon extends TestParsingShape {
 
 
 
-
-	@Test
-	public void testErrorOnNoPoint() {
-		try {
-			parser.parsePSTCode("\\"+getCommandName()+"").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}catch(Exception e) { /* ok */ }
+	@Test(expected=ParseException.class)
+	public void testErrorOnNoPoint() throws ParseException {
+		parser.parsePSTCode("\\"+getCommandName()+"").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 
-	@Test
-	public void testErrorOnOnePoint() {
-		try {
-			parser.parsePSTCode("\\"+getCommandName()+"(1,1)").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}catch(Exception e) { /* ok */ }
+	@Test(expected=ParseException.class)
+	public void testErrorOnOnePoint() throws ParseException {
+		parser.parsePSTCode("\\"+getCommandName()+"(1,1)").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 

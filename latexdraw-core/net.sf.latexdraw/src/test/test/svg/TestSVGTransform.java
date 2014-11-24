@@ -4,178 +4,229 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.SVGMatrix;
 import net.sf.latexdraw.parsers.svg.SVGTransform;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestSVGTransform{
-	@SuppressWarnings("unused")
+	SVGTransform t;
+	SVGMatrix m;
+	
+	@Before
+	public void setUp() {
+		t = new SVGTransform();
+		m = t.getMatrix();
+	}
+	
 	@Test
 	public void testConstructors() {
-		SVGTransform t = new SVGTransform();
-
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_UNKNOWN);
 		assertNotNull(t.getMatrix());
-
-		try {
-			new SVGTransform(null);
-			fail();
-		}
-		catch(IllegalArgumentException e){ /* */ }
-
-		try {
-			new SVGTransform(""); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /* */ }
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=IllegalArgumentException.class) 
+	public void testConstructorNull() {
+		new SVGTransform(null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=IllegalArgumentException.class) 
+	public void testConstructorEmpty() {
+		new SVGTransform("");
 	}
 
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationNull() {
+		t.setTransformation(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationEmpty() {
+		t.setTransformation("");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid() {
+		t.setTransformation("iueozi");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid1() {
+		t.setTransformation("\n \t translate");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid2() {
+		t.setTransformation("\n \t translate(");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid3() {
+		t.setTransformation("\n \t translate(ds");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid4() {
+		t.setTransformation("\n \t translate(2 ");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid5() {
+		t.setTransformation("\n \t translate(2 ,");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid6() {
+		t.setTransformation("\n \t translate(2 , ds");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid7() {
+		t.setTransformation("\n \t translate(2 , 2");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid8() {
+		t.setTransformation("\n \t scale");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid9() {
+		t.setTransformation("\n \t scale(");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid10() {
+		t.setTransformation("\n \t scale(ds");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid11() {
+		t.setTransformation("\n \t scale(2 ");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid12() {
+		t.setTransformation("\n \t scale(2 ,");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid13() {
+		t.setTransformation("\n \t scale(2 , ds");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid14() {
+		t.setTransformation("\n \t scale(2 , 2");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid15() {
+		t.setTransformation("\n \t matrix");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid16() {
+		t.setTransformation("\n \t matrix(");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid17() {
+		t.setTransformation("\n \t matrix(ds");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid18() {
+		t.setTransformation("\n \t matrix(2 ");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid19() {
+		t.setTransformation("\n \t matrix(2 ,");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid20() {
+		t.setTransformation("\n \t matrix(2 , ds");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid21() {
+		t.setTransformation("\n \t skewX(");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid22() {
+		t.setTransformation("\n \t skewX");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid23() {
+		t.setTransformation("\n \t skewY(");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid24() {
+		t.setTransformation("\n \t skewY");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid25() {
+		t.setTransformation("\n \t rotate");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void testSetTransformationInvalid26() {
+		t.setTransformation("\n \t rotate(");
+	}
 
-	@Test
-	public void testSetTransformation() {
-		SVGTransform t = new SVGTransform();
-		SVGMatrix m;
-
-		try {
-			t.setTransformation(null);
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation(""); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("iueozi"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
+	@Test public void testSetTransformation() {
 		t.setTransformation("\n \t translate (		2\n \n\t	 4     )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_TRANSLATE);
 		assertTrue(t.isTranslation());
 		assertEquals(t.getTX(), 2., 0.0001);
 		assertEquals(t.getTY(), 4., 0.0001);
-
+	}
+	@Test public void testSetTransformation2() {
 		t.setTransformation("\n \t translate (		2\n \n\t ,	 4     )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_TRANSLATE);
 		assertTrue(t.isTranslation());
 		assertEquals(t.getTX(), 2., 0.0001);
 		assertEquals(t.getTY(), 4., 0.0001);
-
+	}
+	@Test public void testSetTransformation3() {
 		t.setTransformation("\n \t translate (		2\n \n\t )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_TRANSLATE);
 		assertTrue(t.isTranslation());
 		assertEquals(t.getTX(), 2., 0.0001);
 		assertEquals(t.getTY(), 2., 0.0001);
-
-		try {
-			t.setTransformation("\n \t translate"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t translate("); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t translate(ds"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t translate(2 "); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t translate(2 ,"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t translate(2 , ds"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t translate(2 , 2"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
+	}
+	@Test public void testSetTransformation4() {
 		t.setTransformation("\n \t scale (		2\n \n\t	 4     )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SCALE);
 		assertTrue(t.isScale());
 		assertEquals(t.getXScaleFactor(), 2., 0.0001);
 		assertEquals(t.getYScaleFactor(), 4., 0.0001);
-
+	}
+	@Test public void testSetTransformation5() {
 		t.setTransformation("\n \t scale (		2\n \n\t ,	 4     )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SCALE);
 		assertTrue(t.isScale());
 		assertEquals(t.getXScaleFactor(), 2., 0.0001);
 		assertEquals(t.getYScaleFactor(), 4., 0.0001);
-
+	}
+	@Test public void testSetTransformation6() {
 		t.setTransformation("\n \t scale (		2\n \n\t )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SCALE);
 		assertTrue(t.isScale());
 		assertEquals(t.getXScaleFactor(), 2., 0.0001);
 		assertEquals(t.getYScaleFactor(), 2., 0.0001);
-
-		try {
-			t.setTransformation("\n \t scale"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t scale("); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t scale(ds"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t scale(2 "); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t scale(2 ,"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t scale(2 , ds"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t scale(2 , 2"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
+	}
+	@Test public void testSetTransformation7() {
 		t.setTransformation("\n \t matrix (	2\n \n\t	 4  \t 5 \n 6 	7 	8    )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_MATRIX);
 		m = t.getMatrix();
@@ -185,7 +236,8 @@ public class TestSVGTransform{
 		assertEquals(m.getD(), 6., 0.0001);
 		assertEquals(m.getE(), 7., 0.0001);
 		assertEquals(m.getF(), 8., 0.0001);
-
+	}
+	@Test public void testSetTransformation8() {
 		t.setTransformation("\n \t matrix (	2 ,\n \n\t	 4   \t 5 ,\n 6  	7 ,	8     )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_MATRIX);
 		m = t.getMatrix();
@@ -195,179 +247,35 @@ public class TestSVGTransform{
 		assertEquals(m.getD(), 6., 0.0001);
 		assertEquals(m.getE(), 7., 0.0001);
 		assertEquals(m.getF(), 8., 0.0001);
-
-		try {
-			t.setTransformation("\n \t matrix"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t matrix("); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t matrix(ds"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t matrix(2 "); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t matrix(2 ,"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t matrix(2 , ds"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t matrix(2 , 2"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t matrix(2 , 2 3"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t matrix(2 , 2 3 5"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t matrix(2 , 2 3  , 5  7"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t matrix(2 , 2 3 5  7 9"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
+	}
+	@Test public void testSetTransformation9() {
 		t.setTransformation("\n \t skewX (		2\n \n\t  )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SKEWX);
 		assertTrue(t.isXSkew());
 		assertEquals(t.getXSkewAngle(), 2., 0.0001);
-
-		try {
-			t.setTransformation("\n \t skewX"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t skewX("); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t skewX(ds"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t skewX(2 "); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
+	}
+	@Test public void testSetTransformation10() {
 		t.setTransformation("\n \t skewY (		3\n \n\t  )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_SKEWY);
 		assertTrue(t.isYSkew());
 		assertEquals(t.getYSkewAngle(), 3., 0.0001);
-
-		try {
-			t.setTransformation("\n \t skewY"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t skewY("); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t skewY(ds"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t skewY(2 "); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
+	}
+	@Test public void testSetTransformation11() {
 		t.setTransformation("\n \t rotate (		3\n \n\t  )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_ROTATE);
 		assertTrue(t.isRotation());
 		assertEquals(t.getRotationAngle(), 3., 0.0001);
-
+	}
+	@Test public void testSetTransformation12() {
 		t.setTransformation("\n \t rotate (		1\n \n\t , 4 	\n 6 \n \t )   \n"); //$NON-NLS-1$
 		assertEquals(t.getType(), SVGTransform.SVG_TRANSFORM_ROTATE);
 		assertTrue(t.isRotation());
 		assertEquals(t.getRotationAngle(), 1., 0.0001);
-		m = t.getMatrix();
-
-		try {
-			t.setTransformation("\n \t rotate"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t rotate("); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t rotate(ds"); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t rotate(2 "); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
-
-		try {
-			t.setTransformation("\n \t rotate(2 4 "); //$NON-NLS-1$
-			fail();
-		}
-		catch(IllegalArgumentException e){ /**/ }
 	}
 
 
 	@Test
 	public void testSetTranslate() {
-		SVGTransform t = new SVGTransform();
-		SVGMatrix m = t.getMatrix();
-
 		t.setTranslate(1, 2);
 		assertEquals(m.getE(), 1., 0.0001);
 		assertEquals(m.getF(), 2., 0.0001);
@@ -389,9 +297,6 @@ public class TestSVGTransform{
 
 	@Test
 	public void testSetScale() {
-		SVGTransform t = new SVGTransform();
-		SVGMatrix m = t.getMatrix();
-
 		t.setScale(3, 4);
 		assertEquals(m.getA(), 3., 0.0001);
 		assertEquals(m.getD(), 4., 0.0001);
@@ -413,9 +318,6 @@ public class TestSVGTransform{
 
 	@Test
 	public void testSetXSkew() {
-		SVGTransform t = new SVGTransform();
-		SVGMatrix m = t.getMatrix();
-
 		t.setSkewX(30);
 		assertEquals(m.getC(), Math.tan(Math.toRadians(30)), 0.0001);
 		assertEquals(t.getXSkewAngle(), 30., 0.0001);
@@ -436,9 +338,6 @@ public class TestSVGTransform{
 
 	@Test
 	public void testSetYSkew() {
-		SVGTransform t = new SVGTransform();
-		SVGMatrix m = t.getMatrix();
-
 		t.setSkewY(30);
 		assertEquals(m.getB(), Math.tan(Math.toRadians(30)), 0.0001);
 		assertEquals(t.getYSkewAngle(), 30., 0.0001);
@@ -459,9 +358,6 @@ public class TestSVGTransform{
 
 	@Test
 	public void testSetRotate() {
-		SVGTransform t = new SVGTransform();
-		SVGMatrix m;
-
 		t.setRotate(2, 0, 0);
 		assertTrue(t.isRotation());
 		assertFalse(t.isScale());
@@ -488,9 +384,6 @@ public class TestSVGTransform{
 
 
 	@Test public void testSetMatrix() {
-		SVGTransform t = new SVGTransform();
-		SVGMatrix m = t.getMatrix();
-
 		t.setMatrix(2, 3, 4, 5, 6, 7);
 		assertEquals(m.getA(), 2., 0.0001);
 		assertEquals(m.getB(), 3., 0.0001);

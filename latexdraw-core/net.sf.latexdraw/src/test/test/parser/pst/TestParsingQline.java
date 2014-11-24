@@ -3,7 +3,6 @@ package test.parser.pst;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 
@@ -52,21 +51,15 @@ public class TestParsingQline extends TestPSTParser {
 	}
 
 
-	@Test
-	public void testMustNotHaveParam() {
-		try {
-			parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=gradient]"+getBasicCoordinates()); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}catch(Exception e) { /* ok */ }
+	@Test(expected=ParseException.class)
+	public void testMustNotHaveParam() throws ParseException {
+		parser.parsePSTCode("\\"+getCommandName()+"[fillstyle=gradient]"+getBasicCoordinates()); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 
-	@Test
-	public void testMustHaveTwoCoordinate() {
-		try {
-			parser.parsePSTCode("\\"+getCommandName()+"(35cm,20cm)"); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}catch(Exception e) { /* ok */ }
+	@Test(expected=ParseException.class)
+	public void testMustHaveTwoCoordinate() throws ParseException {
+		parser.parsePSTCode("\\"+getCommandName()+"(35cm,20cm)"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 

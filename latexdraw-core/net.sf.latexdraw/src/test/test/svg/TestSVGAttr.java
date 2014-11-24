@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.SVGAttr;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
@@ -28,32 +27,33 @@ public class TestSVGAttr{
 
 
 	@SuppressWarnings("unused")
-	@Test
-	public void testConstructor() {
-		try {
+	@Test(expected=NullPointerException.class)
+	public void testConstructorFail1() {
 			new SVGAttr(null, null, null);
-			fail();
-		}
-		catch(Exception e) { /* ok */ }
-
-		try {
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=NullPointerException.class)
+	public void testConstructorFail2() {
 			new SVGAttr("", "", null); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}
-		catch(Exception e) { /* ok */ }
-
-		try {
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=NullPointerException.class)
+	public void testConstructorFail3() {
 			new SVGAttr(null, "", node); //$NON-NLS-1$
-			fail();
-		}
-		catch(Exception e) { /* ok */ }
-
-		try {
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=NullPointerException.class)
+	public void testConstructorFail4() {
 			new SVGAttr("", null, node); //$NON-NLS-1$
-			fail();
-		}
-		catch(Exception e) { /* ok */ }
 
+	}
+	
+	@SuppressWarnings("unused")
+	@Test
+	public void testConstructorOK() {
 		new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -89,17 +89,15 @@ public class TestSVGAttr{
 		assertFalse(attr.isId());
 	}
 
+	@Test(expected=DOMException.class)
+	public void testSetValueFail() {
+		SVGAttr attr = new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
+		attr.setValue(null);
+	}
 
 	@Test
 	public void testSetValue() {
 		SVGAttr attr = new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
-
-		try {
-			attr.setValue(null);
-			fail();
-		}
-		catch(DOMException e) { /* Ok */ }
-
 		attr.setValue("val"); //$NON-NLS-1$
 		assertEquals("val", attr.getValue()); //$NON-NLS-1$
 	}
@@ -183,16 +181,15 @@ public class TestSVGAttr{
 		assertFalse(attr.isSameNode(attr2));
 	}
 
+	@Test(expected=DOMException.class)
+	public void testSetNodeValueFail() {
+		SVGAttr attr = new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
+		attr.setNodeValue(null);
+	}
 
 	@Test
 	public void testSetNodeValue() {
 		SVGAttr attr = new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
-
-		try {
-			attr.setNodeValue(null);
-			fail();
-		}
-		catch(DOMException e) { /* Ok */ }
 
 		attr.setNodeValue("val"); //$NON-NLS-1$
 		assertEquals("val", attr.getValue()); //$NON-NLS-1$

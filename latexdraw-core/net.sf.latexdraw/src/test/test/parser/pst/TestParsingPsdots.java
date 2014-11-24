@@ -2,7 +2,6 @@ package test.parser.pst;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 
@@ -50,12 +49,9 @@ public class TestParsingPsdots extends TestParsingPSdot {
 
 
 	@Override
-	@Test
+	@Test(expected=ParseException.class)
 	public void testNoCoordinate() throws ParseException {
-		try {
-			parser.parsePSTCode("\\"+getCommandName()).get().isEmpty(); //$NON-NLS-1$
-			fail();
-		}catch(Exception e) { /* ok */ }
+		parser.parsePSTCode("\\"+getCommandName()).get().isEmpty(); //$NON-NLS-1$
 	}
 
 

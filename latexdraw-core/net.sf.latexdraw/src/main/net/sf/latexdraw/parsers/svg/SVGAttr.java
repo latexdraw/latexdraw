@@ -47,8 +47,7 @@ public class SVGAttr implements Attr, Cloneable {
 	 * @param n The name of the node.
 	 * @param val The value of the node.
 	 * @param parent The parent of the node.
-	 * @throws IllegalArgumentException If one of the given parameters is null.
-	 * @since 0.1
+	 * @throws NullPointerException If one of the given parameters is null.
 	 */
 	public SVGAttr(final String n, final String val, final Element parent) {
         super();

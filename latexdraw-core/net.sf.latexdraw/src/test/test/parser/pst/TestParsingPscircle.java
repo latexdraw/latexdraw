@@ -2,7 +2,6 @@ package test.parser.pst;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 
@@ -133,11 +132,8 @@ public class TestParsingPscircle extends TestParsingShape {
 	}
 
 
-	@Test
-	public void testErrorOnNoRadius() {
-		try {
-			parser.parsePSTCode("\\"+getCommandName()+"(,){}").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
-			fail();
-		}catch(Exception e) { /* ok */ }
+	@Test(expected=ParseException.class)
+	public void testErrorOnNoRadius() throws ParseException {
+		parser.parsePSTCode("\\"+getCommandName()+"(,){}").get().isEmpty(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 }
