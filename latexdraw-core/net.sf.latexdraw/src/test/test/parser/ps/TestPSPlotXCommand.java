@@ -30,7 +30,7 @@ public class TestPSPlotXCommand extends TestPSCommand<PSPlotXVariable> {
 		assertEquals(1, dequeue.size());
 	}
 
-	@Override
+	@Override @Test
 	public void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
 		// Nothing to do.
 	}

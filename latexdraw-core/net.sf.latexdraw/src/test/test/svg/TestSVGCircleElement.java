@@ -3,7 +3,6 @@ package test.svg;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGCircleElement;
@@ -27,34 +26,34 @@ public class TestSVGCircleElement extends AbstractTestSVGElement {
 
 
 	@SuppressWarnings("unused")
+	@Test(expected=IllegalArgumentException.class)
+	public void testContructorFail1() throws MalformedSVGDocument {
+		new SVGCircleElement(null, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=MalformedSVGDocument.class)
+	public void testContructorFail2() throws MalformedSVGDocument {
+		new SVGCircleElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=MalformedSVGDocument.class)
+	public void testContructorFail3() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_R, "dsd"); //$NON-NLS-1$
+		new SVGCircleElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=MalformedSVGDocument.class)
+	public void testContructorFail4() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_R, "-1"); //$NON-NLS-1$
+		new SVGCircleElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
 	@Test
-	public void testContructor() throws MalformedSVGDocument {
-		try {
-			new SVGCircleElement(null, null);
-			fail();
-		}
-		catch(Exception e){/**/}
-
-		try {
-			new SVGCircleElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_R, "dsd"); //$NON-NLS-1$
-			new SVGCircleElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_R, "-1"); //$NON-NLS-1$
-			new SVGCircleElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-
+	public void testContructorOK() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10"); //$NON-NLS-1$
 		new SVGCircleElement(node, null);
 	}

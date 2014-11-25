@@ -3,7 +3,6 @@ package test.svg;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGElements;
@@ -13,14 +12,14 @@ import org.junit.Test;
 
 public class TestSVGPatternElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
-	@Test
-	public void testContructor() throws MalformedSVGDocument {
-		try {
-			new SVGPatternElement(null, null);
-			fail();
-		}
-		catch(Exception e){/**/}
+	@Test(expected=IllegalArgumentException.class)
+	public void testContructorFail() throws MalformedSVGDocument {
+		new SVGPatternElement(null, null);
+	}
 
+	@SuppressWarnings("unused")
+	@Test
+	public void testContructorOK() throws MalformedSVGDocument {
 		new SVGPatternElement(node, null);
 	}
 

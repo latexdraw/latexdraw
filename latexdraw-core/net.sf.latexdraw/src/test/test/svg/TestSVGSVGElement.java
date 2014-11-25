@@ -4,7 +4,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -14,18 +13,19 @@ import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
 import static org.junit.Assert.*;
 
 public class TestSVGSVGElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
-	@Test
-	public void testContructor() throws MalformedSVGDocument {
-		try {
+	@Test(expected=IllegalArgumentException.class)
+	public void testContructorFail() throws MalformedSVGDocument {
 			new SVGSVGElement(null);
-			fail();
-		}
-		catch(Exception e){/**/}
+	}
 
+	@SuppressWarnings("unused")
+	@Test
+	public void testContructorOK() throws MalformedSVGDocument {	
 		new SVGSVGElement(node, null);
 	}
 

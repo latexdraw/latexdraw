@@ -33,7 +33,7 @@ public class TestPSValueCommand extends TestPSCommand<PSValue> {
 		assertEquals(1, dequeue.size());
 	}
 
-	@Override
+	@Override @Test
 	public void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
 		// Nothing to do.
 	}

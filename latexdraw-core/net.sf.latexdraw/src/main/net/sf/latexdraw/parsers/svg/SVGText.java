@@ -37,6 +37,7 @@ public class SVGText extends SVGElement implements Text {
 	 * Creates a text node.
 	 * @param text The content of the node.
 	 * @param owner The owner document.
+	 * @throws NullPointerException When text is null.
 	 */
 	public SVGText(final String text, final SVGDocument owner) {
 		super();

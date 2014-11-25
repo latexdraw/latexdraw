@@ -278,7 +278,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	}
 
 
-	@Override
+	@Override @Test
 	public void testGetBottomLeftPoint() {
 		assertTrue(Double.isNaN(shape.getBottomLeftPoint().getX()));
 		assertTrue(Double.isNaN(shape.getBottomLeftPoint().getY()));
@@ -293,7 +293,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	}
 
 
-	@Override
+	@Override @Test
 	public void testGetBottomRightPoint() {
 		assertTrue(Double.isNaN(shape.getBottomRightPoint().getX()));
 		assertTrue(Double.isNaN(shape.getBottomRightPoint().getY()));
@@ -308,7 +308,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	}
 
 
-	@Override
+	@Override @Test
 	public void testGetTopLeftPoint() {
 		assertTrue(Double.isNaN(shape.getTopLeftPoint().getX()));
 		assertTrue(Double.isNaN(shape.getTopLeftPoint().getY()));
@@ -323,7 +323,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	}
 
 
-	@Override
+	@Override @Test
 	public void testGetTopRightPoint() {
 		assertTrue(Double.isNaN(shape.getTopRightPoint().getX()));
 		assertTrue(Double.isNaN(shape.getTopRightPoint().getY()));
@@ -338,19 +338,19 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	}
 
 
-	@Override
+	@Override @Test
 	public void testMirrorHorizontal() {
 		//TODO
 	}
 
 
-	@Override
+	@Override @Test
 	public void testMirrorVertical() {
 		//TODO
 	}
 
 
-	@Override
+	@Override @Test
 	public void testTranslate() {
 		//TODO
 	}

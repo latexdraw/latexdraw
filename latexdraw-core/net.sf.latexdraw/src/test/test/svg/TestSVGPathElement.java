@@ -10,20 +10,20 @@ import static org.junit.Assert.*;
 
 public class TestSVGPathElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
+	@Test(expected=IllegalArgumentException.class)
+	public void testContructorFail1() throws MalformedSVGDocument {
+		new SVGPathElement(null, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=MalformedSVGDocument.class)
+	public void testContructorFail2() throws MalformedSVGDocument {
+		new SVGPathElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
 	@Test
-	public void testContructor() throws MalformedSVGDocument {
-		try {
-			new SVGPathElement(null, null);
-			fail();
-		}
-		catch(Exception e){/**/}
-
-		try {
-			new SVGPathElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){ /**/ }
-
+	public void testContructorOK() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_D, "test"); //$NON-NLS-1$
 		new SVGPathElement(node, null);
 	}

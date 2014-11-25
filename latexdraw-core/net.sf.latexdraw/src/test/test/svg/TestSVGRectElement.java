@@ -3,7 +3,6 @@ package test.svg;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGElements;
@@ -13,51 +12,51 @@ import org.junit.Test;
 
 public class TestSVGRectElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
+	@Test(expected=IllegalArgumentException.class)
+	public void testContructorFail1() throws MalformedSVGDocument {
+		new SVGRectElement(null, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=MalformedSVGDocument.class)
+	public void testContructorFail2() throws MalformedSVGDocument {
+		new SVGRectElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=MalformedSVGDocument.class)
+	public void testContructorFail3() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "dsd"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "dsd"); //$NON-NLS-1$
+		new SVGRectElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=MalformedSVGDocument.class)
+	public void testContructorFail4() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "1"); //$NON-NLS-1$
+		new SVGRectElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=MalformedSVGDocument.class)
+	public void testContructorFail5() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "-1"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "10"); //$NON-NLS-1$
+		new SVGRectElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=MalformedSVGDocument.class)
+	public void testContructorFail6() throws MalformedSVGDocument {
+		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
+		node.setAttribute(SVGAttributes.SVG_HEIGHT, "-1"); //$NON-NLS-1$
+		new SVGRectElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
 	@Test
 	public void testContructor() throws MalformedSVGDocument {
-		try {
-			new SVGRectElement(null, null);
-			fail();
-		}
-		catch(Exception e){/**/}
-
-		try {
-			new SVGRectElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "dsd"); //$NON-NLS-1$
-			node.setAttribute(SVGAttributes.SVG_HEIGHT, "dsd"); //$NON-NLS-1$
-			new SVGRectElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "1"); //$NON-NLS-1$
-			new SVGRectElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "-1"); //$NON-NLS-1$
-			node.setAttribute(SVGAttributes.SVG_HEIGHT, "10"); //$NON-NLS-1$
-			new SVGRectElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
-			node.setAttribute(SVGAttributes.SVG_HEIGHT, "-1"); //$NON-NLS-1$
-			new SVGRectElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20"); //$NON-NLS-1$
 		new SVGRectElement(node, null);

@@ -1,5 +1,9 @@
 package test.svg;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.awt.geom.Point2D;
 import java.text.ParseException;
 import java.util.List;
@@ -10,7 +14,6 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGPolyLineElement;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class TestSVGPolylineElement extends AbstractTestSVGElement {
 	@Test
@@ -18,10 +21,8 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 		String path = "10,10 20,20"; //$NON-NLS-1$
 		node.setAttribute(SVGAttributes.SVG_POINTS, path);
 		SVGPolyLineElement pl = new SVGPolyLineElement(node, null);
-
 		assertEquals(pl.getPoints(), path);
 	}
-
 
 
 	@Test
@@ -30,7 +31,6 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 		SVGPolyLineElement pl = new SVGPolyLineElement(node, null);
 		assertTrue(pl.enableRendering());
 	}
-
 
 
 	@Test
@@ -44,14 +44,14 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 		assertEquals(2, pl.getPoints2D().size());
 		assertEquals(new Point2D.Double(10, 10), pl.getPoints2D().get(0));
 		assertEquals(new Point2D.Double(20, 20), pl.getPoints2D().get(pl.getPoints2D().size()-1));
-
-		try {
-			pl.setPoints("10,,20fdsf"); //$NON-NLS-1$
-			fail();
-		}
-		catch(ParseException e) { /* */ }
 	}
 
+	
+	@Test(expected=MalformedSVGDocument.class)
+	public void testSetPointsFail() throws MalformedSVGDocument, ParseException {
+		SVGPolyLineElement pl = new SVGPolyLineElement(node, null);
+		pl.setPoints("10,,20fdsf"); //$NON-NLS-1$
+	}
 
 
 	@Test
@@ -73,43 +73,48 @@ public class TestSVGPolylineElement extends AbstractTestSVGElement {
 
 
 	@SuppressWarnings("unused")
+	@Test(expected=IllegalArgumentException.class)
+	public void testContructorFail1() throws MalformedSVGDocument, ParseException {
+		new SVGPolyLineElement(null, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=MalformedSVGDocument.class)
+	public void testContructorFail2() throws MalformedSVGDocument, ParseException {
+		new SVGPolyLineElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
 	@Test
-	public void testContructor() throws MalformedSVGDocument, ParseException {
-		try {
-			new SVGPolyLineElement(null, null);
-			fail();
-		}
-		catch(Exception e){/**/}
-
-		try {
-			new SVGPolyLineElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-		catch(ParseException e)      {/**/}
-
+	public void testContructorFail3() throws MalformedSVGDocument, ParseException {
 		node.setAttribute(SVGAttributes.SVG_POINTS, ""); //$NON-NLS-1$
 		new SVGPolyLineElement(node, null);
-
-		try {
-			node.setAttribute(SVGAttributes.SVG_POINTS, "dsqdgfd"); //$NON-NLS-1$
-			new SVGPolyLineElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-		catch(ParseException e)      {/**/}
-
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=ParseException.class)
+	public void testContructorFail4() throws MalformedSVGDocument, ParseException {
+		node.setAttribute(SVGAttributes.SVG_POINTS, "dsqdgfd"); //$NON-NLS-1$
+		new SVGPolyLineElement(node, null);
+	}
+	
+	@SuppressWarnings("unused")
+	@Test
+	public void testContructorOK1() throws MalformedSVGDocument, ParseException {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10"); //$NON-NLS-1$
 		new SVGPolyLineElement(node, null);
-
-		try {
+	}
+	
+	@SuppressWarnings("unused")
+	@Test(expected=ParseException.class)
+	public void testContructorOK2() throws MalformedSVGDocument, ParseException {
 			node.setAttribute(SVGAttributes.SVG_POINTS, ","); //$NON-NLS-1$
 			new SVGPolyLineElement(node, null);
-			fail();
-		}
-		catch(MalformedSVGDocument e){/**/}
-		catch(ParseException e)      {/**/}
-
+	}
+	
+	@SuppressWarnings("unused")
+	@Test
+	public void testContructorOK3() throws MalformedSVGDocument, ParseException {
 		node.setAttribute(SVGAttributes.SVG_POINTS, "10,10 20,20"); //$NON-NLS-1$
 		new SVGPolyLineElement(node, null);
 	}

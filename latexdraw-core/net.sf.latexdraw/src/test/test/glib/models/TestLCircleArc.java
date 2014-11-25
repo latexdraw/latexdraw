@@ -93,42 +93,42 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 	}
 
 
-	@Override @Ignore
+	@Override @Ignore @Test
 	public void testGetTopLeftPoint() {
 		// TODO Auto-generated method stub
 
 	}
 
 
-	@Override @Ignore
+	@Override @Ignore @Test
 	public void testGetTopRightPoint() {
 		// TODO Auto-generated method stub
 
 	}
 
 
-	@Override @Ignore
+	@Override @Ignore @Test
 	public void testGetBottomRightPoint() {
 		// TODO Auto-generated method stub
 
 	}
 
 
-	@Override @Ignore
+	@Override @Ignore @Test
 	public void testGetBottomLeftPoint() {
 		// TODO Auto-generated method stub
 
 	}
 
 
-	@Override @Ignore
+	@Override @Ignore @Test
 	public void testMirrorHorizontal() {
 		// TODO Auto-generated method stub
 
 	}
 
 
-	@Override @Ignore
+	@Override @Ignore @Test
 	public void testMirrorVertical() {
 		// TODO Auto-generated method stub
 
