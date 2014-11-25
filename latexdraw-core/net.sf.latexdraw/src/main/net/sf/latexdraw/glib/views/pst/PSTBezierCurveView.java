@@ -2,6 +2,8 @@ package net.sf.latexdraw.glib.views.pst;
 
 import java.util.List;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -32,7 +34,7 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTBezierCurveView(final IBezierCurve model) {
+	protected PSTBezierCurveView(@NonNull final IBezierCurve model) {
 		super(model);
 
 		update();

@@ -1,7 +1,9 @@
 package net.sf.latexdraw.badaboom;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 /**
- * Defines a 'Bordel !' handler. A object that wants to be aware of the
+ * Defines a badaboom handler. A object that wants to be aware of the
  * Activities of a 'bordel' manager must implement this interface.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
@@ -26,7 +28,7 @@ public interface BadaboomHandler {
 	 * @param e The received exception.
 	 * @since 3.0
 	 */
-	void notifyEvent(final Throwable e);
+	void notifyEvent(@NonNull final Throwable e);
 
 	/**
 	 * Actions to do when exceptions are received by the manager.

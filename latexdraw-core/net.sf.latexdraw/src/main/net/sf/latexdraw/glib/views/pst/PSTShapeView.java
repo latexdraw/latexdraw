@@ -5,6 +5,8 @@ import static java.lang.Math.toDegrees;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
@@ -36,7 +38,7 @@ import net.sf.latexdraw.util.LNumber;
  * @param <S> The type of the shape to generate the PST code.
  * @since 3.0
  */
-public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
+abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 	/** The list of name of the colours added to the generated code. Useful when generating
 	 * the code to define the colours in the latex document. */
 	protected Set<String> coloursName;
@@ -48,7 +50,7 @@ public abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S>
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTShapeView(final S model) {
+	protected PSTShapeView(@NonNull final S model) {
 		super(model);
 	}
 

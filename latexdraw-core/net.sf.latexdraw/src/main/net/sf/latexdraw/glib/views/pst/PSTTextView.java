@@ -1,7 +1,8 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
+import org.eclipse.jdt.annotation.NonNull;
 
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
@@ -32,7 +33,7 @@ class PSTTextView extends PSTShapeView<IText> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTTextView(final IText model) {
+	protected PSTTextView(@NonNull final IText model) {
 		super(model);
 
 		update();

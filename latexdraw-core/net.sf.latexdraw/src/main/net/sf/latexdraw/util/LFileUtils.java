@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Random;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
@@ -112,10 +114,7 @@ public final class LFileUtils {
 	 * @return  <code>true</code> if and only if the renaming succeeded;
 	 *          <code>false</code> otherwise
 	 */
-	public boolean copy(final File fromFile, final File toFile) {
-		if(fromFile==null || toFile==null)
-			return false;
-
+	public boolean copy(@NonNull final File fromFile, @NonNull final File toFile) {
 		boolean ok = true;
 
 		try {

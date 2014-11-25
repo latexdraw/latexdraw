@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
@@ -30,7 +32,7 @@ class PSTPolygonView extends PSTClassicalView<IPolygon> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTPolygonView(final IPolygon model) {
+	protected PSTPolygonView(@NonNull final IPolygon model) {
 		super(model);
 		update();
 	}

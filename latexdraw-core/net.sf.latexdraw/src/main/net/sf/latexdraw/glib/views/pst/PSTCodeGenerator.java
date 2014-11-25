@@ -3,6 +3,8 @@ package net.sf.latexdraw.glib.views.pst;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
@@ -36,10 +38,10 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 										LResources.EOL + "% \\usepackage{pst-plot} % For axes" + LResources.EOL; //$NON-NLS-1$
 
 	/** The PSTricks views. */
-	protected PSTViewsSynchroniser synchro;
+	@NonNull protected final PSTViewsSynchroniser synchro;
 
 	/** The code cache. */
-	protected StringBuilder cache;
+	@NonNull protected final StringBuilder cache;
 
 	/** Defines if the latex parameters (position, caption, etc.) must be generated. */
 	protected boolean withLatexParams;
@@ -76,7 +78,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	 * @return the synchroniser.
 	 * @since 3.0
 	 */
-	public PSTViewsSynchroniser getSynchro() {
+	@NonNull public PSTViewsSynchroniser getSynchro() {
 		return synchro;
 	}
 
@@ -86,7 +88,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	 * @return the cache.
 	 * @since 3.0
 	 */
-	public StringBuilder getCache() {
+	@NonNull public StringBuilder getCache() {
 		return cache;
 	}
 
@@ -182,7 +184,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	 * @param addedColours The PST colours already generated.
 	 * @since 3.0
 	 */
-	private void generateColourCode(final PSTShapeView<?> pstView, final Map<String, String> addedColours) {
+	private void generateColourCode(@NonNull final PSTShapeView<?> pstView, @NonNull final Map<String, String> addedColours) {
 		if(pstView.coloursName!=null)
 			for(final String nameColour : pstView.coloursName)
 				if(addedColours.get(nameColour)==null && !DviPsColors.INSTANCE.getPredefinedColour(nameColour).isPresent()) {
@@ -198,8 +200,7 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 	 * @since 3.0
 	 */
 	protected void emptyCache() {
-		if(cache!=null)
-			cache.delete(0, cache.length());
+		cache.delete(0, cache.length());
 	}
 
 

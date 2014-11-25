@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -29,7 +31,7 @@ class PSTCircleView extends PSTClassicalView<ICircle> {
 	 * @param circle The circle used for the conversion in SVG.
 	 * @since 3.0
 	 */
-	protected PSTCircleView(final ICircle circle) {
+	protected PSTCircleView(@NonNull final ICircle circle) {
 		super(circle);
 		update();
 	}

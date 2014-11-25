@@ -24,7 +24,7 @@ import java.util.Deque;
 public class PSCosCommand implements PSArithemticCommand {
 	@Override
 	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
-		if(stack==null || stack.isEmpty())
+		if(stack.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
 		stack.push(Math.cos(Math.toRadians(stack.pop())));

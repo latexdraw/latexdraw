@@ -24,7 +24,7 @@ import java.util.Deque;
 public class PSPopCommand implements PSArithemticCommand {
 	@Override
 	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
-		if(stack==null || stack.size()<1)
+		if(stack.size()<1)
 			throw new InvalidFormatPSFunctionException();
 
 		stack.pop();

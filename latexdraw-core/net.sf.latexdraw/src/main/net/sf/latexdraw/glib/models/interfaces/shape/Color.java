@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.shape;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 
 /**
  * Defines the concept of colour.<br>
@@ -22,10 +24,10 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  */
 public interface Color {
 	/** @return The AWT color. */
-	java.awt.Color toAWT();
+	java.awt.@NonNull Color toAWT();
 	
 	/** @return The JavaFX color. */
-	javafx.scene.paint.Color toJFX();
+	javafx.scene.paint.@NonNull Color toJFX();
 	
 	/**
 	 * @return The red channel.

@@ -2,6 +2,8 @@ package net.sf.latexdraw.parsers.svg.path;
 
 import java.awt.geom.Point2D;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 /**
  * Defines the SVGPath lineto segment.<br>
  *<br>
@@ -67,7 +69,7 @@ public class SVGPathSegLineto extends SVGPathSeg {
 	 * @return The position of the segment.
 	 * @since 2.0
 	 */
-	public Point2D getPoint() {
+	@NonNull public Point2D getPoint() {
 		return new Point2D.Double(x, y);
 	}
 

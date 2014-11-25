@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -29,7 +31,7 @@ class PSTGroupView extends PSTShapeView<IGroup> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTGroupView(final IGroup model) {
+	protected PSTGroupView(@NonNull final IGroup model) {
 		super(model);
 
 		update();

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -32,7 +34,7 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTPictureView(final IPicture model) {
+	protected PSTPictureView(@NonNull final IPicture model) {
 		super(model);
 		update();
 	}

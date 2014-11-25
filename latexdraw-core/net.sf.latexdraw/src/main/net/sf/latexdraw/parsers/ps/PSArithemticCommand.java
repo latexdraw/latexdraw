@@ -2,6 +2,8 @@ package net.sf.latexdraw.parsers.ps;
 
 import java.util.Deque;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 /**
  * Defines an abstract arithmetic command.<br>
  *<br>
@@ -31,5 +33,5 @@ public interface PSArithemticCommand {
 	 * @throws ArithmeticException When a division by 0 occurs for instance.
 	 * @since 3.0
 	 */
-	void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException;
+	void execute(@NonNull final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException;
 }

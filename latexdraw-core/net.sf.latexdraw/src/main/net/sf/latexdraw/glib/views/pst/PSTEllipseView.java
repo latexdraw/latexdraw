@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -30,7 +32,7 @@ class PSTEllipseView extends PSTClassicalView<IEllipse> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTEllipseView(final IEllipse model) {
+	protected PSTEllipseView(@NonNull final IEllipse model) {
 		super(model);
 
 		update();

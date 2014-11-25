@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -31,7 +33,7 @@ class PSTArcView extends PSTClassicalView<IArc> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTArcView(final IArc model) {
+	protected PSTArcView(@NonNull final IArc model) {
 		super(model);
 		update();
 	}

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
@@ -30,7 +32,7 @@ class PSTRhombusView extends PSTClassicalView<IRhombus> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTRhombusView(final IRhombus model) {
+	protected PSTRhombusView(@NonNull final IRhombus model) {
 		super(model);
 		update();
 	}

@@ -24,9 +24,6 @@ import java.util.Deque;
 public class PSPlotXVariable implements PSArithemticCommand {
 	@Override
 	public void execute(final Deque<Double> stack, final double x) throws InvalidFormatPSFunctionException {
-		if(stack==null)
-			throw new InvalidFormatPSFunctionException();
-
 		stack.push(x);
 	}
 }

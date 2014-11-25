@@ -6,12 +6,13 @@ import java.util.Deque;
 import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
 import net.sf.latexdraw.parsers.ps.PSArithemticCommand;
 
+import org.eclipse.jdt.annotation.NonNull;
 import org.junit.Before;
 import org.junit.Test;
 
 public abstract class TestPSCommand<T extends PSArithemticCommand> {
 	T cmd;
-	Deque<Double> dequeue;
+	@NonNull Deque<Double> dequeue = new ArrayDeque<>();
 
 	@Before public void setUp() throws Exception {
 		cmd = createCmd();
@@ -21,11 +22,6 @@ public abstract class TestPSCommand<T extends PSArithemticCommand> {
 
 
 	protected abstract T createCmd();
-
-	@Test(expected=InvalidFormatPSFunctionException.class)
-	public void testExecuteNullDequeue() throws InvalidFormatPSFunctionException {
-		cmd.execute(null, 0.0);
-	}
 
 	@Test public abstract void testExecuteVal0() throws InvalidFormatPSFunctionException;
 

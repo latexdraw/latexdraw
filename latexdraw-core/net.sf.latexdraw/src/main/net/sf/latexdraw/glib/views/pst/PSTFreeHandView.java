@@ -7,6 +7,8 @@ import net.sf.latexdraw.util.LNumber;
 
 import java.util.List;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 /**
  * Defines a PSTricks view of the LFreeHand model.<br>
  * <br>
@@ -32,7 +34,7 @@ class PSTFreeHandView extends PSTClassicalView<IFreehand> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTFreeHandView(final IFreehand model) {
+	protected PSTFreeHandView(@NonNull final IFreehand model) {
 		super(model);
 		update();
 	}

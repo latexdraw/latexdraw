@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
@@ -30,7 +32,7 @@ class PSTRectView extends PSTClassicalView<IRectangle> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTRectView(final IRectangle model) {
+	protected PSTRectView(@NonNull final IRectangle model) {
 		super(model);
 
 		update();

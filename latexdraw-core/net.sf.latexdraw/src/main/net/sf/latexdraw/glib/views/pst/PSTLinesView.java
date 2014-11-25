@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
@@ -29,7 +31,7 @@ class PSTLinesView extends PSTPolygonView {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTLinesView(final IPolyline model) {
+	protected PSTLinesView(@NonNull final IPolyline model) {
 		super(model);
 
 		update();

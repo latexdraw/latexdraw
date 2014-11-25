@@ -1,7 +1,8 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
+import org.eclipse.jdt.annotation.NonNull;
 
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -32,7 +33,7 @@ class PSTGridView extends PSTShapeView<IGrid> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTGridView(final IGrid model) {
+	protected PSTGridView(@NonNull final IGrid model) {
 		super(model);
 
 		update();

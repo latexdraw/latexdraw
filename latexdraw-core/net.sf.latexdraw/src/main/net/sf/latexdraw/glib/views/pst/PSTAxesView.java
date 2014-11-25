@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -30,7 +32,7 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTAxesView(final IAxes model) {
+	protected PSTAxesView(@NonNull final IAxes model) {
 		super(model);
 		update();
 	}

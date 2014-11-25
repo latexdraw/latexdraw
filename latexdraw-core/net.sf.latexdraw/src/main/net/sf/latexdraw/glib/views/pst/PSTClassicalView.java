@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.views.pst;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
@@ -27,7 +29,7 @@ abstract class PSTClassicalView<S extends IShape> extends PSTShapeView<S> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTClassicalView(final S model) {
+	protected PSTClassicalView(@NonNull final S model) {
 		super(model);
 	}
 

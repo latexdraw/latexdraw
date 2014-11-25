@@ -1,6 +1,5 @@
 package net.sf.latexdraw.parsers.svg.path;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
@@ -43,30 +42,6 @@ public class SVGPathSegList extends ArrayList<SVGPathSeg> implements SVGPathHand
 
 	@Override
 	public void onPathSeg(final SVGPathSeg pathSeg) {
-		if(pathSeg!=null)
-			add(pathSeg);
-	}
-
-
-	/**
-	 * Returns the initial point of the path containing the element at the position i.
-	 * @param pos The position the begin the research.
-	 * @return The initial point of the path.
-	 * @since 0.1
-	 */
-	public Point2D getInitialPoint(final int pos) {
-		if(pos<0 || pos>=size())
-			return null;
-
-		SVGPathSegMoveto m=null;
-
-		while(m==null && pos>0)
-			if(!get(pos).isRelative() && get(pos) instanceof SVGPathSegMoveto)
-				m = (SVGPathSegMoveto)get(pos);
-
-		if(m==null)
-			return null;
-
-		return new Point2D.Double(m.getX(), m.getY());
+		add(pathSeg);
 	}
 }
