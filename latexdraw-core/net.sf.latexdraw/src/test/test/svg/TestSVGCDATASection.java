@@ -17,7 +17,7 @@ public class TestSVGCDATASection extends TestSVGText {
 
 
 	@Override
-	protected SVGCDATASection createSVGText(String txt, SVGDocument document) throws IllegalArgumentException {
-		return new SVGCDATASection(txt, document);
+	protected SVGCDATASection createSVGText(String str, SVGDocument document) throws IllegalArgumentException {
+		return new SVGCDATASection(str, document);
 	}
 }
