@@ -26,6 +26,11 @@
         <name>http://maven.inria.fr-releases</name>
         <url>http://maven.inria.fr/artifactory/malai-public-release</url>
     </repository>
+	<repository>
+		<id>testfx</id>
+		<name>testfx</name>
+		<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+	</repository>
 </repositories>
   
   <build>
@@ -335,6 +340,11 @@
 				<artifactId>org.eclipse.jdt.annotation</artifactId>
 				<version>2.0.0</version>
 				<scope>compile</scope>
-			</dependency>  
+			</dependency>
+			<dependency>
+				<groupId>org.testfx</groupId>
+				<artifactId>testfx-core</artifactId>
+				<version>4.0.0-SNAPSHOT</version> 
+			</dependency>
 	</dependencies>
 </project>
