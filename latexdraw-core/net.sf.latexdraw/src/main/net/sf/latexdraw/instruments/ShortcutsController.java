@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LangTool;
@@ -58,7 +59,8 @@ public class ShortcutsController implements Initializable {
 		
 	    for (int i=0, size=table.getColumns().size(); i<size ; i++) {
 	        final int colIndex = i ;
-	        table.getColumns().get(i).setCellValueFactory(cellData -> {return new ReadOnlyStringWrapper(cellData.getValue().get(colIndex));});
+	        TableColumn<ObservableList<String>, String> col = (TableColumn<ObservableList<String>, String>)table.getColumns().get(i);
+	        col.setCellValueFactory(cellData -> {return new ReadOnlyStringWrapper(cellData.getValue().get(colIndex));});
 	    }
 	   
 	    table.getColumns().stream().forEach(col -> col.prefWidthProperty().bind(table.widthProperty().divide(3)));
