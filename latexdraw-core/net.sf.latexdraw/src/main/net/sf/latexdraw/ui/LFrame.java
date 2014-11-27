@@ -217,7 +217,6 @@ public class LFrame extends SwingUI {
 		if(progressBar!=null)
 			progressBar.addToProgressBar(5);
 
-		try{setIconImage(LResources.LATEXDRAW_ICON.getImage());}catch(final Exception ex){BadaboomCollector.INSTANCE.add(ex);}
 		setTitle(LResources.LABEL_APP);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		UIManager.INSTANCE.registerUI(this);
@@ -259,10 +258,6 @@ public class LFrame extends SwingUI {
 			textSetter.setTestCustomiser(metaShapeCustomiser.getTextCustomiser());
 			textSetter.setPlotCustomiser(metaShapeCustomiser.getPlotCustomiser());
 		} catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { codeInserter = new CodeInserter(canvas, getStatusBar()); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { editingSelector = new EditingSelector(composer, pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter, codeInserter); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager(composer);
 		try { paster		= new CopierCutterPaster(composer, drawing, null); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }

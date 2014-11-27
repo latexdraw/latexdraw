@@ -3,7 +3,7 @@ package net.sf.latexdraw.glib.views;
 import java.util.Arrays;
 import java.util.Optional;
 
-import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.lang.LangTool;
 
 /**
  * This enumeration contains the different style
@@ -11,9 +11,9 @@ import net.sf.latexdraw.util.LResources;
  */
 public enum GridStyle {
 	/** A grid customised by users. */
-	CUSTOMISED {@Override public String getLabel() {return LResources.LABEL_DISPLAY_PERSO_GRID;}},
+	CUSTOMISED {@Override public String getLabel() {return LangTool.INSTANCE.getStringDialogFrame("Res.3");}},
 	/** The standard grid. */
-	STANDARD {@Override public String getLabel() {return LResources.LABEL_DISPLAY_GRID;}},
+	STANDARD {@Override public String getLabel() {return LangTool.INSTANCE.getString18("PreferencesFrame.4");}},
 	/** No grid. */
 	NONE {@Override public String getLabel() { return "None";}}; //$NON-NLS-1$
 

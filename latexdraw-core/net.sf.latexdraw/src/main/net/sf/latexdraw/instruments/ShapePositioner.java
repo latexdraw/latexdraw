@@ -53,11 +53,9 @@ public class ShapePositioner extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseWidgets() {
         foregroundB = new MButton(LResources.FOREGROUND_ICON);
-        foregroundB.setMargin(LResources.INSET_BUTTON);
         foregroundB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.70")); //$NON-NLS-1$
 
         backgroundB = new MButton(LResources.BACKGROUND_ICON);
-        backgroundB.setMargin(LResources.INSET_BUTTON);
         backgroundB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.71")); //$NON-NLS-1$
 	}
 

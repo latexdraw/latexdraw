@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+
+<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+	fx:controller="net.sf.latexdraw.instruments.CodeInserter">
+   <top>
+      <WebView fx:id="label" prefHeight="52.0" prefWidth="630.0" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <TextArea prefHeight="391.0" prefWidth="700.0" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom >
+   	<ButtonBar >
+   		<buttons>
+ 		   	<Button BorderPane.alignment="CENTER" text="%AbstractParametersFrame.4b" ButtonBar.buttonData="OK_DONE" />
+   			<Button BorderPane.alignment="CENTER" text="%AbstractParametersFrame.6" cancelButton="true" ButtonBar.buttonData="CANCEL_CLOSE" />
+   		</buttons>
+   	</ButtonBar>
+   </bottom>
+</BorderPane>

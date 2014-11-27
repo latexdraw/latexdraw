@@ -79,23 +79,7 @@ public class ToolbarBuilder extends SwingUIComposer<MToolBar> {
 		widget.add(frame.undoManager.getUndoB());
 		widget.add(frame.undoManager.getRedoB());
 
- 		//Adding a widget to select shape.
-		widget.add(frame.editingSelector.getHandB());
 		widget.add(frame.deleter.getDeleteB());
-
-		if(progressBar!=null) progressBar.addToProgressBar(5);
-
- 		//Adding a widget to create lines.
-		widget.add(frame.editingSelector.getLinesB());
-		widget.add(frame.editingSelector.getPlotB());
- 		widget.add(frame.editingSelector.getArcB());
-		widget.add(frame.editingSelector.getTextB());
-		widget.add(frame.editingSelector.getFreeHandB());
-		widget.add(frame.editingSelector.getDotB());
-		widget.add(frame.editingSelector.getPicB());
-		widget.add(frame.editingSelector.getCodeB());
-
-		if(progressBar!=null) progressBar.addToProgressBar(5);
 	}
 
 

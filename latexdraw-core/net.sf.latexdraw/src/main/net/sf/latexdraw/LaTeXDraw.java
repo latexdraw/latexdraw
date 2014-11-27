@@ -174,5 +174,5 @@ public class LaTeXDraw extends Application {
 	// PropBuilder.13, PropBuilder.11 LaTeXDrawFrame.48
 	// ParametersAkinPointsFrame.2 PreferencesFrame.quality Pref.1
 	// PreferencesFrame.antiAl PreferencesFrame.rendQ PreferencesFrame.colRendQ PreferencesFrame.AlphaQ
-	// PreferencesFrame.1
+	// PreferencesFrame.1 LaTeXDrawFrame.137 LaTeXDrawFrame.138
 }

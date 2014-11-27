@@ -84,7 +84,6 @@ public class TestResources{
 		assertNotNull(loadImageIcon("/res/Draw.png"));	//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/text.png"));		//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/polygon.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/rotation.png"));	//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/background.png"));	//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/foreground.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/Undo.png"));//$NON-NLS-1$

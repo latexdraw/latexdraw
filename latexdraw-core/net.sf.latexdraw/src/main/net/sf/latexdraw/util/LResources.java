@@ -1,6 +1,5 @@
 package net.sf.latexdraw.util;
 
-import java.awt.Insets;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -56,85 +55,42 @@ public final class LResources {
 	/** The label of the menu cut */
 	public static final String LABEL_CUT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.44"); //$NON-NLS-1$
 
-	public static final String LABEL_DISPLAY_PERSO_GRID = LangTool.INSTANCE.getStringDialogFrame("Res.3"); //$NON-NLS-1$
-
-	/** The label of the menuItem displayGrid */
-	public static final String LABEL_DISPLAY_GRID = LangTool.INSTANCE.getString18("PreferencesFrame.4"); //$NON-NLS-1$
-
 	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getString19("DrawPanel.0"); //$NON-NLS-1$
 
 	public static final ImageIcon DIM_POS_ICON;
-	public static final ImageIcon FILLING_ICON;
-	public static final ImageIcon BORDER_ICON;
-	public static final ImageIcon DOUBLE_BORDER_ICON;
-	public static final ImageIcon SHADOW_ICON;
-    public static final ImageIcon PDF_ICON;
-	public static final ImageIcon BEZIER_CURVE_ICON;
 	public static final ImageIcon NEW_ICON;
 	public static final ImageIcon OPEN_ICON;
 	public static final ImageIcon SAVE_ICON ;
 	public static final ImageIcon SAVE_AS_ICON;
-	public static final ImageIcon CIRCLE_ICON;
 	public static final ImageIcon DEL_ICON;
-	public static final ImageIcon DOT_ICON;
-	public static final ImageIcon ELLIPSE_ICON;
 	public static final ImageIcon EMPTY_ICON;
-	public static final ImageIcon RECT_ICON;
-	public static final ImageIcon RHOMBUS_ICON;
-	public static final ImageIcon SELECT_ICON;
-	public static final ImageIcon SQUARE_ICON;
-	public static final ImageIcon TRIANGLE_ICON;
 	public static final ImageIcon PROPERTIES_ICON;
 	public static final ImageIcon UPDATE_ICON;
 	public static final ImageIcon ABOUT_ICON;
 	public static final ImageIcon HELP_ICON;
 	public static final ImageIcon DRAWING_PROP_ICON;
-	public static final ImageIcon PLOT_ICON;
 	public static final ImageIcon ZOOM_DEFAULT_ICON;
 	public static final ImageIcon UNDO_ICON;
 	public static final ImageIcon REDO_ICON;
 	public static final ImageIcon BACKGROUND_ICON;
 	public static final ImageIcon FOREGROUND_ICON;
-	public static final ImageIcon ROTATE_ICON;
-	public static final ImageIcon POLYGON_ICON;
-	public static final ImageIcon TEXT_ICON;
-	public static final ImageIcon FREE_HAND_ICON;
 	public static final ImageIcon COPY_ICON;
-	public static final ImageIcon PASTE_ICON;						public static final ImageIcon CUT_ICON;
-	public static final ImageIcon GRID_ICON;				public static final ImageIcon SUBGRID_ICON;
+	public static final ImageIcon PASTE_ICON;
+	public static final ImageIcon CUT_ICON;
 	public static final ImageIcon COMMENT_ICON;
-	public static final ImageIcon LINES_ICON;	 			public static final ImageIcon LATEXDRAW_ICON;
 	public static final ImageIcon STOP_ICON;
-	public static final ImageIcon INSERT_PIC_ICON; 			public static final ImageIcon INSERT_PST_ICON;
-	public static final ImageIcon THICKNESS_ICON;
-	public static final ImageIcon AXES_ICON;				public static final ImageIcon TEX_EDITOR_ICON;
-	public static final ImageIcon CLOSED_BEZIER_ICON;
-	public static final ImageIcon ROUNDNESS_ICON;
+	public static final ImageIcon INSERT_PST_ICON;
 	public static final ImageIcon BUTTON_CLOSE_IN_ICON;
 	public static final ImageIcon BUTTON_CLOSE_OUT_ICON;
-	public static final ImageIcon GRID_LABELS;
 	public static final ImageIcon RELOAD_ICON;
 
 
 	static {
-		PLOT_ICON			= loadImageIcon("/res/plot.png");//$NON-NLS-1$
 		RELOAD_ICON			= loadImageIcon("/res/view-refresh.png");//$NON-NLS-1$
-		GRID_LABELS			= loadImageIcon("/res/gridLabels.png");//$NON-NLS-1$
 		DIM_POS_ICON		= loadImageIcon("/res/dimPos.png");//$NON-NLS-1$
-		FILLING_ICON		= loadImageIcon("/res/filling.png");//$NON-NLS-1$
-		BORDER_ICON			= loadImageIcon("/res/border.png");//$NON-NLS-1$
-		DOUBLE_BORDER_ICON	= loadImageIcon("/res/doubleBorder.png");//$NON-NLS-1$
-		SHADOW_ICON			= loadImageIcon("/res/shadow.png");//$NON-NLS-1$
-		ROUNDNESS_ICON 		= loadImageIcon("/res/roundness.png");//$NON-NLS-1$
-		GRID_ICON		= loadImageIcon("/res/grid.png");//$NON-NLS-1$
-		SUBGRID_ICON	= loadImageIcon("/res/subgrid.png");//$NON-NLS-1$
 		COPY_ICON  		= loadImageIcon("/res/Copy.png");//$NON-NLS-1$
 		PASTE_ICON 		= loadImageIcon("/res/Paste.png");//$NON-NLS-1$
 		CUT_ICON   		= loadImageIcon("/res/Cut.png");//$NON-NLS-1$
-		FREE_HAND_ICON 	= loadImageIcon("/res/Draw.png");	//$NON-NLS-1$
-		TEXT_ICON 		= loadImageIcon("/res/text.png");		//$NON-NLS-1$
-		POLYGON_ICON 	= loadImageIcon("/res/polygon.png");	//$NON-NLS-1$
-		ROTATE_ICON 		= loadImageIcon("/res/rotation.png");	//$NON-NLS-1$
 		BACKGROUND_ICON 	= loadImageIcon("/res/background.png");	//$NON-NLS-1$
 		FOREGROUND_ICON 	= loadImageIcon("/res/foreground.png");//$NON-NLS-1$
 		UNDO_ICON 		= loadImageIcon("/res/Undo.png");//$NON-NLS-1$
@@ -144,33 +100,16 @@ public final class LResources {
 		OPEN_ICON 		= loadImageIcon("/res/document-open.png");	//$NON-NLS-1$
 		SAVE_ICON 		= loadImageIcon("/res/document-save.png");	//$NON-NLS-1$
 		SAVE_AS_ICON 		= loadImageIcon("/res/document-save-as.png");//$NON-NLS-1$
-		CIRCLE_ICON 		= loadImageIcon("/res/circle.png");	//$NON-NLS-1$
 		DEL_ICON 		= loadImageIcon("/res/del.png");		//$NON-NLS-1$
-		DOT_ICON 		= loadImageIcon("/res/dot.png");	//$NON-NLS-1$
-		ELLIPSE_ICON 	= loadImageIcon("/res/ellipse.png");//$NON-NLS-1$
 		EMPTY_ICON 		= loadImageIcon("/res/empty.png");	//$NON-NLS-1$
-		RECT_ICON 		= loadImageIcon("/res/rectangle.png");	//$NON-NLS-1$
-		RHOMBUS_ICON 	= loadImageIcon("/res/rhombus.png");//$NON-NLS-1$
-		SELECT_ICON 		= loadImageIcon("/res/select.png");	//$NON-NLS-1$
-		SQUARE_ICON 		= loadImageIcon("/res/square.png");	//$NON-NLS-1$
-		TRIANGLE_ICON 	= loadImageIcon("/res/triangle.png");//$NON-NLS-1$
 		PROPERTIES_ICON 	= loadImageIcon("/res/preferences-desktop-theme.png");	//$NON-NLS-1$
 		HELP_ICON 		= loadImageIcon("/res/help-browser.png");	//$NON-NLS-1$
 		ABOUT_ICON 		= loadImageIcon("/res/emblem-important.png");	//$NON-NLS-1$
-		BEZIER_CURVE_ICON = loadImageIcon("/res/bezierCurve.png");//$NON-NLS-1$
 		COMMENT_ICON 	= loadImageIcon("/res/comment.png"); //$NON-NLS-1$
-		LINES_ICON = loadImageIcon("/res/joinedLines.png"); //$NON-NLS-1$
 		STOP_ICON 		= loadImageIcon("/res/stop.png"); //$NON-NLS-1$
-		INSERT_PIC_ICON 	= loadImageIcon("/res/image-x-generic.png"); //$NON-NLS-1$
 		INSERT_PST_ICON = loadImageIcon("/res/text-x-generic.png"); //$NON-NLS-1$
-		THICKNESS_ICON 	= loadImageIcon("/res/thickness.png"); //$NON-NLS-1$
-		AXES_ICON		= loadImageIcon("/res/axes.png"); //$NON-NLS-1$
-		TEX_EDITOR_ICON	= loadImageIcon("/res/texEditor.png"); //$NON-NLS-1$
-		CLOSED_BEZIER_ICON	= loadImageIcon("/res/closedBezier.png"); //$NON-NLS-1$
 		UPDATE_ICON			= loadImageIcon("/res/system-software-update.png"); //$NON-NLS-1$
 		DRAWING_PROP_ICON		= loadImageIcon("/res/document-properties.png"); //$NON-NLS-1$
-		LATEXDRAW_ICON		= loadImageIcon("/res/LaTeXDrawIcon.png"); //$NON-NLS-1$
-		PDF_ICON				= loadImageIcon("/res/pdf.png"); //$NON-NLS-1$
 		BUTTON_CLOSE_OUT_ICON = loadImageIcon("/res/closeOut.png"); //$NON-NLS-1$
 		BUTTON_CLOSE_IN_ICON = loadImageIcon("/res/closeIn.png"); //$NON-NLS-1$
 	}
@@ -197,12 +136,4 @@ public final class LResources {
 			return null;
 		}
 	}
-
-
-
-	public static final Insets INSET_BUTTON = new Insets(1,1,1,1);
-
-	public static final String LABEL_CANCEL = LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.6"); //$NON-NLS-1$
-
-	public static final String LABEL_OK = LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.4"); //$NON-NLS-1$
 }

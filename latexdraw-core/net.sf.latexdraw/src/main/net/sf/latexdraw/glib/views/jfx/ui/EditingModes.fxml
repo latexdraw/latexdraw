@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" spacing="2"
+		fx:controller="net.sf.latexdraw.instruments.EditingSelector">
+    <fx:define>
+        <ToggleGroup fx:id="groupEditing"/>
+    </fx:define>
+    <children>
+		<ToggleButton fx:id="handB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4" toggleGroup="$groupEditing">
+			<graphic><ImageView><image><Image url="@/res/select.png" /></image></ImageView></graphic>
+			<tooltip><Tooltip text="%LaTeXDrawFrame.136" /></tooltip>
+		</ToggleButton>
+		<ToggleButton fx:id="textB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.60" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/text.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="plotB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%Instruments.5" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/plot.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="gridB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.133" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/grid.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="axesB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.17" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/axes.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="linesB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%Instruments.4" /></tooltip>
+			<graphic><ImageView><image><Image  url="@/res/joinedLines.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="recB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.119" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/rectangle.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="squareB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.120" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/square.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="ellipseB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.125" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/ellipse.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="circleB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.127" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/circle.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="polygonB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.121" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/polygon.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="rhombusB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.123" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/rhombus.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="triangleB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.124" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/triangle.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="bezierClosedB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.11" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/closedBezier.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="bezierB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.132" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/bezierCurve.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="arcB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.128" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/Arc.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="freeHandB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.7" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/Draw.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="dotB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.117" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/dot.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<ToggleButton fx:id="picB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4" toggleGroup="$groupEditing">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.1" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/image-x-generic.png" /></image></ImageView></graphic>
+		</ToggleButton>
+		<Button fx:id="codeB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5">
+			<tooltip><Tooltip text="%LaTeXDrawFrame.0" /></tooltip>
+			<graphic><ImageView><image><Image url="@/res/texEditor.png" /></image></ImageView></graphic>
+		</Button>
+    </children>
+</HBox>
+
