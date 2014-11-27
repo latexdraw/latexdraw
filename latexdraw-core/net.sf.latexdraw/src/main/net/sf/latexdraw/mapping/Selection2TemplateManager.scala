@@ -28,19 +28,19 @@ class Selection2TemplateManager(selection : java.util.List[IShape], val template
 
 
 	override def onObjectAdded(list : Object, obj : Object, index : Int) {
-		template.exportTemplateMenu.setEnabled(true)
+//		template.exportTemplateMenu.setEnabled(true)
 	}
 
 
 	override def onObjectRemoved(list : Object, obj : Object, index : Int) {
 		list match {
-      case value: java.util.List[_] => template.exportTemplateMenu.setEnabled(!value.isEmpty)
+      case value: java.util.List[_] => //template.exportTemplateMenu.setEnabled(!value.isEmpty)
       case _ =>
     }
 	}
 
 
 	override def onListCleaned(list : Object) {
-		template.exportTemplateMenu.setEnabled(false)
+//		template.exportTemplateMenu.setEnabled(false)
 	}
 }

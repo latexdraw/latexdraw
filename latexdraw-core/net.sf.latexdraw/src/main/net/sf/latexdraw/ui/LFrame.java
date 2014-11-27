@@ -267,8 +267,6 @@ public class LFrame extends SwingUI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { tabSelector	= new TabSelector(this); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { templateManager = new TemplateManager(composer, this); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 	}
 
 

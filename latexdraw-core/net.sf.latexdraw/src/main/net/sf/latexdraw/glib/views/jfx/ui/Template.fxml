@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+
+<TitledPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" animated="true" text="%LaTeXDrawFrame.103"
+			fx:controller="net.sf.latexdraw.instruments.TemplateManager">
+	<content>
+		<AnchorPane>
+			<Button fx:id="updateTemplates">
+				<graphic><ImageView><image><Image url="@/res/view-refresh.png" /></image></ImageView></graphic>
+				<tooltip><Tooltip text="%LaTeXDrawFrame.41" /></tooltip>
+			</Button>
+		</AnchorPane>
+	</content>
+</TitledPane>
+

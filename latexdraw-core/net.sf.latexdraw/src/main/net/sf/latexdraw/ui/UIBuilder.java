@@ -186,7 +186,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 		widget.fileLoader.addEventable(widget);
 		widget.tabSelector.addEventable(widget.tabbedPanel);
 		widget.drawingPropCustomiser.addEventable(toolbarBuilder.drawingB.getToolbar());
-		widget.templateManager.addEventable(widget.templateManager.templateMenu());
 		widget.templateManager.addEventable(widget.exporter.getExportMenu());
 	}
 

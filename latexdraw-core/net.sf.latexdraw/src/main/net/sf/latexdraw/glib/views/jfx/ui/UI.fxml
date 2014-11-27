@@ -47,11 +47,7 @@
 																</AnchorPane>
 															</content>
 														</TitledPane>
-														<TitledPane animated="true" text="%LaTeXDrawFrame.103">
-															<content>
-																<AnchorPane />
-															</content>
-														</TitledPane>
+														<fx:include source="Template.fxml" />
 													</panes>
 												</Accordion>
 											</center>
@@ -123,7 +119,7 @@
 						<MenuItem id="menuItemJPG" mnemonicParsing="false" text="%LaTeXDrawFrame.20" />
 						<MenuItem id="menuItemPNG" mnemonicParsing="false" text="%LaTeXDrawFrame.7" />
 						<MenuItem id="menuItemBMP" mnemonicParsing="false" text="%LaTeXDrawFrame.6" />
-						<MenuItem id="exportTemplateMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.103" />
+						<MenuItem id="exportTemplateMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.42" />
 					</items>
 				</MenuButton>
 				<Spinner min="10" max="450" initialValue="100" amountToStepBy="5" prefHeight="25.0" prefWidth="75.0" />

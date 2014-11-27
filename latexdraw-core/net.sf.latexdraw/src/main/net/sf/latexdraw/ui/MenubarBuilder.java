@@ -73,9 +73,6 @@ public class MenubarBuilder extends SwingUIComposer<JMenuBar> {
 		drawingMenu.addSeparator();
 		drawingMenu.add(frame.exporter.getExportMenu());
 		drawingMenu.addSeparator();
-		drawingMenu.add(frame.templateManager.templateMenu());
-
-		frame.exporter.getExportMenu().add(frame.templateManager.exportTemplateMenu());
 	}
 
 

@@ -82,11 +82,9 @@ public final class LResources {
 	public static final ImageIcon INSERT_PST_ICON;
 	public static final ImageIcon BUTTON_CLOSE_IN_ICON;
 	public static final ImageIcon BUTTON_CLOSE_OUT_ICON;
-	public static final ImageIcon RELOAD_ICON;
 
 
 	static {
-		RELOAD_ICON			= loadImageIcon("/res/view-refresh.png");//$NON-NLS-1$
 		DIM_POS_ICON		= loadImageIcon("/res/dimPos.png");//$NON-NLS-1$
 		COPY_ICON  		= loadImageIcon("/res/Copy.png");//$NON-NLS-1$
 		PASTE_ICON 		= loadImageIcon("/res/Paste.png");//$NON-NLS-1$
