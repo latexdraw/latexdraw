@@ -44,8 +44,7 @@ public class CSSStyleList extends HashMap<String, String> implements CSSStyleHan
 	 * @param styleName The name of the style.
 	 * @return The value of the given CSS style name or null.
 	 */
-	public String getCSSValue(final String styleName)
-	{
+	public String getCSSValue(final String styleName) {
 		return get(styleName);
 	}
 

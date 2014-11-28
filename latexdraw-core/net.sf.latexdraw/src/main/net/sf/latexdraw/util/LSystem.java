@@ -1,14 +1,10 @@
 package net.sf.latexdraw.util;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-
-import java.awt.Dimension;
-import java.awt.DisplayMode;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.Arrays;
+
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * Defines some routines that provides information about the operating system currently used.<br>
@@ -278,23 +274,6 @@ public final class LSystem {
 	 */
 	public String getPDFCROPVersion() {
 		return execute(new String[]{getSystem().getPdfcropBinPath(), "--version"}, null); //$NON-NLS-1$
-	}
-
-
-	/**
-	 * @return Returns the dimension of the first available screen. If in dual screen mode,
-	 * the first screen is used. If no screen is available (Oo), the dimension (0,0) is returned.
-	 * @since 3.0
-	 */
-	public Dimension getScreenDimension() {
-     	final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    	final GraphicsDevice[] gs = ge.getScreenDevices();
-
-    	if(gs.length>0) {
-    		final DisplayMode mode = gs[0].getDisplayMode();
-    		return new Dimension(mode.getWidth(), mode.getHeight());
-    	}
-    	return new Dimension();
 	}
 
 

@@ -1,9 +1,9 @@
 package net.sf.latexdraw.parsers.svg;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
@@ -648,12 +648,8 @@ public final class CSSColors {
 	 * @return The colour.
 	 */
 	public Color getColor(final String name) {
-		if(name==null || name.isEmpty())
-			return null;
-
-		final Color col = colourHashtable.get(name);
-
-		return col==null ? userColours.get(name) : col;
+		if(name==null || name.isEmpty()) return null;
+		return colourHashtable.getOrDefault(name, userColours.get(name));
 	}
 
 
@@ -689,17 +685,10 @@ public final class CSSColors {
 		if(name!=null)
 			return name;
 
-		final Iterator<Entry<String, Color>> itCols = userColours.entrySet().iterator();
-		Entry<String, Color> entry = null;
+		Optional<Entry<String, Color>> opt = userColours.entrySet().stream().filter(v -> v.getValue().equals(col)).findFirst();
 
-		while(itCols.hasNext() && entry==null) {
-			entry = itCols.next();
-			if(!entry.getValue().equals(col))
-				entry = null;
-		}
-
-		if(entry!=null)
-			return entry.getKey();
+		if(opt.isPresent())
+			return opt.get().getKey();
 
 		if(create) {
 			addUserColor(col, rgbToHex(col));
