@@ -44,9 +44,7 @@ abstract class LModifiablePointsShape extends LShape implements IModifiablePoint
 			final IPoint gc2 = gc==null ? getGravityCentre() : gc;
 
 			super.setRotationAngle(rotationAngle);
-
-			for(final IPoint pt : points)
-				pt.setPoint(pt.rotatePoint(gc2, diff));
+			points.forEach(pt -> pt.setPoint(pt.rotatePoint(gc2, diff)));
 		}
 	}
 

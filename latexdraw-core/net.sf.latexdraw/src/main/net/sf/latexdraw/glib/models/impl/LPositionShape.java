@@ -37,7 +37,7 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 
 	@Override
 	public void setPosition(final IPoint pt) {
-		if(pt!=null)
+		if(GLibUtilities.isValidPoint(pt))
 			setPosition(pt.getX(), pt.getY());
 	}
 
@@ -46,7 +46,6 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 	public void setPosition(final double x, final double y) {
 		if(GLibUtilities.isValidPoint(x, y)) {
 			final IPoint pos = getPosition();
-
 			translate(x - pos.getX(), y - pos.getY());
 		}
 	}
@@ -54,21 +53,15 @@ abstract class LPositionShape extends LShape implements IPositionShape {
 
 	@Override
 	public void setX(final double x) {
-		if(GLibUtilities.isValidCoordinate(x)) {
-			final IPoint pos = getPosition();
-
-			translate(x - pos.getX(), 0);
-		}
+		if(GLibUtilities.isValidCoordinate(x))
+			translate(x - getPosition().getX(), 0);
 	}
 
 
 	@Override
 	public void setY(final double y) {
-		if(GLibUtilities.isValidCoordinate(y)) {
-			final IPoint pos = getPosition();
-
-			translate(0, y - pos.getY());
-		}
+		if(GLibUtilities.isValidCoordinate(y))
+			translate(0, y - getPosition().getY());
 	}
 
 

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
+import java.util.Arrays;
+
 import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
 
 /**
@@ -46,10 +48,7 @@ public interface IPlotProp extends IScalable, IDotProp{
 		 * @since 3.2
 		 */
 		public static PlotStyle getPlotStyle(final String latexToken) {
-			for(final PlotStyle fh : values())
-				if(fh.getPSTToken().equals(latexToken))
-					return fh;
-			return CURVE;
+			return Arrays.asList(values()).stream().filter(it -> it.getPSTToken().equals(latexToken)).findFirst().orElse(CURVE);
 		}
 	}
 

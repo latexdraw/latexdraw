@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
+import java.util.Arrays;
+
 /**
  * Text shape properties.
  * <br>
@@ -95,14 +97,7 @@ public interface ITextProp {
 		 * @since 3.0
 		 */
 		public static TextPosition getTextPosition(final String latexToken) {
-			TextPosition textPos = null;
-			final TextPosition[] textPosList = values();
-
-			for(int i=0; i<textPosList.length && textPos==null; i++)
-				if(textPosList[i].getLatexToken().equals(latexToken))
-					textPos = textPosList[i];
-
-			return textPos;
+			return Arrays.asList(values()).stream().filter(it -> it.getLatexToken().equals(latexToken)).findFirst().orElse(null);
 		}
 	}
 

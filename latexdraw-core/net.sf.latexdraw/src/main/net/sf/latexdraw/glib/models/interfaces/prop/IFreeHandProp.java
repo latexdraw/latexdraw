@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
+import java.util.Arrays;
+
 /**
  * Defines properties of freehand shapes.
  * <br>
@@ -27,10 +29,7 @@ public interface IFreeHandProp {
 		 * @since 3.0
 		 */
 		public static FreeHandType getType(final String type) {
-			for(final FreeHandType fh : values())
-				if(fh.toString().equals(type))
-					return fh;
-			return CURVES;
+			return Arrays.asList(values()).stream().filter(style -> style.toString().equals(type)).findFirst().orElse(CURVES);
 		}
 	}
 

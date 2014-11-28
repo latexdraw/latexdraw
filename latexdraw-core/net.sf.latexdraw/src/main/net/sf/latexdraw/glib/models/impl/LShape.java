@@ -199,9 +199,7 @@ abstract class LShape implements IShape {
 	protected void copyPoints(final IShape sh) {
 		if(sh==null || !getClass().isInstance(sh)) return ;
 		points.clear();
-
-		for(final IPoint pt : sh.getPoints())
-			points.add(ShapeFactory.createPoint(pt));
+		sh.getPoints().forEach(pt -> points.add(ShapeFactory.createPoint(pt)));
 	}
 
 
@@ -739,12 +737,12 @@ abstract class LShape implements IShape {
 		final double refX = pos.isWest() ? bound.getX() : bound.getMaxX();
 		final double refY = pos.isNorth() ? bound.getY() : bound.getMaxY();
 
-		for(final IPoint pt : pts) {
+		pts.forEach(pt -> {
 			if(xScale && !LNumber.equalsDouble(pt.getX(), refX))
 				pt.setX(refX+(pt.getX()-refX)*sx);
 			if(yScale && !LNumber.equalsDouble(pt.getY(), refY))
 				pt.setY(refY+(pt.getY()-refY)*sy);
-		}
+		});
 	}
 
 
@@ -801,119 +799,49 @@ abstract class LShape implements IShape {
 	@Override
 	public void translate(final double tx, final double ty) {
 		if(GLibUtilities.isValidPoint(tx, ty))
-            for (final IPoint point : points) point.translate(tx, ty);
+			points.forEach(pt -> pt.translate(tx, ty));
 	}
 
 
 	@Override
 	public void mirrorHorizontal(final IPoint origin) {
-		if(!GLibUtilities.isValidPoint(origin))
-			return ;
-
-		IPoint pt1;
-
-		for(final IPoint pt : points) {
-			pt1 = pt.horizontalSymmetry(origin);
-
-			if(pt1!=null)
-				pt.setPoint(pt1);
-		}
+		if(GLibUtilities.isValidPoint(origin))
+			points.forEach(pt -> pt.setPoint(pt.horizontalSymmetry(origin)));
 	}
 
 
 	@Override
 	public void mirrorVertical(final IPoint origin) {
-		if(!GLibUtilities.isValidPoint(origin))
-			return ;
-
-		IPoint pt1;
-
-		for(final IPoint pt : points) {
-			pt1 = pt.verticalSymmetry(origin);
-
-			if(pt1!=null)
-				pt.setPoint(pt1);
-		}
+		if(GLibUtilities.isValidPoint(origin))
+			points.forEach(pt -> pt.setPoint(pt.verticalSymmetry(origin)));
 	}
 
 
 	@Override
 	public IPoint getBottomRightPoint() {
-		final IPoint br = ShapeFactory.createPoint();
-
-		if(!points.isEmpty()) {
-			IPoint pt = points.get(0);
-			br.setPoint(pt);
-
-			for(int i=1, size=points.size(); i<size; i++) {
-				pt = points.get(i);
-
-				if(pt.getX()>br.getX()) br.setX(pt.getX());
-				if(pt.getY()>br.getY()) br.setY(pt.getY());
-			}
-		}
-
-		return br;
+		return points.stream().reduce((p1,p2) -> 
+			ShapeFactory.createPoint(Math.max(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.createPoint());
 	}
 
 
 	@Override
 	public IPoint getBottomLeftPoint() {
-		final IPoint bl = ShapeFactory.createPoint();
-
-		if(!points.isEmpty()) {
-			IPoint pt = points.get(0);
-			bl.setPoint(pt);
-
-			for(int i=1, size=points.size(); i<size; i++) {
-				pt = points.get(i);
-
-				if(pt.getX()<bl.getX()) bl.setX(pt.getX());
-				if(pt.getY()>bl.getY()) bl.setY(pt.getY());
-			}
-		}
-
-		return bl;
+		return points.stream().reduce((p1,p2) -> 
+			ShapeFactory.createPoint(Math.min(p1.getX(), p2.getX()), Math.max(p1.getY(), p2.getY()))).orElse(ShapeFactory.createPoint());
 	}
 
 
 	@Override
 	public IPoint getTopLeftPoint() {
-		final IPoint tl = ShapeFactory.createPoint();
-
-		if(!points.isEmpty()) {
-			IPoint pt = points.get(0);
-			tl.setPoint(pt);
-
-			for(int i=1, size=points.size(); i<size; i++) {
-				pt = points.get(i);
-
-				if(pt.getX()<tl.getX()) tl.setX(pt.getX());
-				if(pt.getY()<tl.getY()) tl.setY(pt.getY());
-			}
-		}
-
-		return tl;
+		return points.stream().reduce((p1,p2) -> 
+			ShapeFactory.createPoint(Math.min(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.createPoint());
 	}
 
 
 	@Override
 	public IPoint getTopRightPoint() {
-		final IPoint tr = ShapeFactory.createPoint();
-
-		if(!points.isEmpty()) {
-			IPoint pt = points.get(0);
-			tr.setPoint(pt);
-
-			for(int i=1, size=points.size(); i<size; i++) {
-				pt = points.get(i);
-
-				if(pt.getX()>tr.getX()) tr.setX(pt.getX());
-				if(pt.getY()<tr.getY()) tr.setY(pt.getY());
-			}
-		}
-
-		return tr;
+		return points.stream().reduce((p1,p2) -> 
+			ShapeFactory.createPoint(Math.max(p1.getX(), p2.getX()), Math.min(p1.getY(), p2.getY()))).orElse(ShapeFactory.createPoint());
 	}
 
 
@@ -921,7 +849,6 @@ abstract class LShape implements IShape {
 	@Override
 	public IShape duplicate() {
 		final IShape shape = ShapeFactory.newShape(this.getClass()).get();
-
 		shape.copy(this);
 		return shape;
 	}

@@ -1,9 +1,9 @@
 package net.sf.latexdraw.glib.models.interfaces.shape;
 
 import java.awt.geom.Rectangle2D;
+import java.util.Arrays;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.malai.properties.Modifiable;
@@ -133,16 +133,12 @@ public interface IShape extends Modifiable {
 
 
 		/**
-		 * @param styleName The style to get.
+		 * @param style The style to get.
 		 * @return The style which name is the given name style.
 		 * @since 3.0
 		 */
-		public static BorderPos getStyle(final String styleName) {
-			if(styleName==null) return null;
-			if(PSTricksConstants.BORDERS_INSIDE.equals(styleName) || INTO.toString().equals(styleName)) 	return INTO;
-			if(PSTricksConstants.BORDERS_MIDDLE.equals(styleName) || MID.toString().equals(styleName))  	return MID;
-			if(PSTricksConstants.BORDERS_OUTSIDE.equals(styleName) || OUT.toString().equals(styleName)) 	return OUT;
-			return null;
+		public static BorderPos getStyle(final String style) {
+			return Arrays.asList(values()).stream().filter(it -> it.toString().equals(style) || it.getLatexToken().equals(style)).findFirst().orElse(null);
 		}
 
 
@@ -171,15 +167,12 @@ public interface IShape extends Modifiable {
 		};
 
 		/**
-		 * @param styleName The style to get.
+		 * @param style The style to get.
 		 * @return The style which name is the given name style.
 		 * @since 3.0
 		 */
-		public static LineStyle getStyle(final String styleName) {
-			if(styleName==null) return null;
-			for(final LineStyle ls : values())
-				if(ls.toString().equals(styleName)) return ls;
-			return null;
+		public static LineStyle getStyle(final String style) {
+			return Arrays.asList(values()).stream().filter(it -> it.toString().equals(style)).findFirst().orElse(null);
 		}
 
 		/**
@@ -267,17 +260,7 @@ public interface IShape extends Modifiable {
 		 * @since 3.0
 		 */
 		public static FillingStyle getStyleFromLatex(final String token) {
-			if(token==null) return null;
-			if(PSTricksConstants.TOKEN_FILL_NONE.equals(token)) 			return NONE;
-			if(PSTricksConstants.TOKEN_FILL_HLINES.equals(token)) 			return HLINES;
-			if(PSTricksConstants.TOKEN_FILL_HLINES_F.equals(token)) 		return HLINES_PLAIN;
-			if(PSTricksConstants.TOKEN_FILL_VLINES.equals(token)) 			return VLINES;
-			if(PSTricksConstants.TOKEN_FILL_VLINES_F.equals(token)) 		return VLINES_PLAIN;
-			if(PSTricksConstants.TOKEN_FILL_CROSSHATCH.equals(token)) 		return CLINES;
-			if(PSTricksConstants.TOKEN_FILL_CROSSHATCH_F.equals(token)) 	return CLINES_PLAIN;
-			if(PSTricksConstants.TOKEN_FILL_GRADIENT.equals(token)) 		return GRAD;
-			if(PSTricksConstants.TOKEN_FILL_SOLID.equals(token)) 			return PLAIN;
-			return null;
+			return Arrays.asList(values()).stream().filter(style -> style.getLatexToken().equals(token)).findFirst().orElse(null);
 		}
 
 
@@ -287,10 +270,7 @@ public interface IShape extends Modifiable {
 		 * @since 3.0
 		 */
 		public static FillingStyle getStyle(final String style) {
-			if(style==null) return null;
-			for(final FillingStyle fs : values())
-				if(fs.toString().equals(style)) return fs;
-			return null;
+			return Arrays.asList(values()).stream().filter(item -> item.toString().equals(style)).findFirst().orElse(null);
 		}
 
 

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.shape;
 
+import java.util.Arrays;
+
 import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
@@ -242,26 +244,7 @@ public interface IArrow extends IArrowable {
 		 * @since 3.0
 		 */
 		public static ArrowStyle getArrowStyle(final String token) {
-			if(token==null) return null;
-			if(token.isEmpty() || NONE.toString().equals(token)) return NONE;
-			if(PSTricksConstants.LARROW_STYLE.equals(token) || LEFT_ARROW.toString().equals(token)) return LEFT_ARROW;
-			if(PSTricksConstants.RARROW_STYLE.equals(token) || RIGHT_ARROW.toString().equals(token)) return RIGHT_ARROW;
-			if(PSTricksConstants.DRARROW_STYLE.equals(token) || RIGHT_DBLE_ARROW.toString().equals(token)) return RIGHT_DBLE_ARROW;
-			if(PSTricksConstants.DLARROW_STYLE.equals(token) || LEFT_DBLE_ARROW.toString().equals(token)) return LEFT_DBLE_ARROW;
-			if(PSTricksConstants.BARIN_STYLE.equals(token) || BAR_IN.toString().equals(token)) return BAR_IN;
-			if(PSTricksConstants.BAREND_STYLE.equals(token) || BAR_END.toString().equals(token)) return BAR_END;
-			if(PSTricksConstants.RSBRACKET_STYLE.equals(token) || RIGHT_SQUARE_BRACKET.toString().equals(token)) return RIGHT_SQUARE_BRACKET;
-			if(PSTricksConstants.LSBRACKET_STYLE.equals(token) || LEFT_SQUARE_BRACKET.toString().equals(token)) return LEFT_SQUARE_BRACKET;
-			if(PSTricksConstants.LRBRACKET_STYLE.equals(token) || LEFT_ROUND_BRACKET.toString().equals(token)) return LEFT_ROUND_BRACKET;
-			if(PSTricksConstants.RRBRACKET_STYLE.equals(token) || RIGHT_ROUND_BRACKET.toString().equals(token)) return RIGHT_ROUND_BRACKET;
-			if(PSTricksConstants.CIRCLEIN_STYLE.equals(token) || CIRCLE_IN.toString().equals(token)) return CIRCLE_IN;
-			if(PSTricksConstants.CIRCLEEND_STYLE.equals(token) || CIRCLE_END.toString().equals(token)) return CIRCLE_END;
-			if(PSTricksConstants.DISKIN_STYLE.equals(token) || DISK_IN.toString().equals(token)) return DISK_IN;
-			if(PSTricksConstants.DISKEND_STYLE.equals(token) || DISK_END.toString().equals(token)) return DISK_END;
-			if(PSTricksConstants.SQUAREEND_STYLE.equals(token) || SQUARE_END.toString().equals(token)) return SQUARE_END;
-			if(PSTricksConstants.ROUNDEND_STYLE.equals(token) || ROUND_END.toString().equals(token)) return ROUND_END;
-			if(PSTricksConstants.ROUNDIN_STYLE.equals(token) || ROUND_IN.toString().equals(token)) return ROUND_IN;
-			return null;
+			return Arrays.asList(values()).stream().filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findFirst().orElse(null);
 		}
 	}
 

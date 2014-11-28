@@ -100,12 +100,10 @@ class LEllipse extends LRectangularShape implements IEllipse {
 
 	@Override
 	public void setCentre(final IPoint centre) {
-		if(!GLibUtilities.isValidPoint(centre))
-			return ;
-
-		final IPoint gc = getGravityCentre();
-
-		translate(centre.getX()-gc.getX(), centre.getY()-gc.getY());
+		if(GLibUtilities.isValidPoint(centre)) {
+			final IPoint gc = getGravityCentre();
+			translate(centre.getX()-gc.getX(), centre.getY()-gc.getY());
+		}
 	}
 
 
@@ -113,7 +111,6 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	public double getA() {
 		final double rx = getWidth()/2.;
 		final double ry = getHeight()/2.;
-
 		return rx<ry ? ry : rx;
 	}
 
@@ -122,7 +119,6 @@ class LEllipse extends LRectangularShape implements IEllipse {
 	public double getB() {
 		final double rx = getWidth()/2.;
 		final double ry = getHeight()/2.;
-
 		return rx>ry ? ry : rx;
 	}
 }

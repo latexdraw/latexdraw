@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
+import java.util.Arrays;
+
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
@@ -80,26 +82,7 @@ public interface IDotProp {
 		 * @since 3.0
 		 */
 		public static DotStyle getStyle(final String styleName) {
-			if(styleName==null)
-				return null;
-
-			if(FSQUARE.name().equals(styleName) || PSTricksConstants.FSQUARE_STYLE.equals(styleName)) 		return FSQUARE;
-			if(SQUARE.name().equals(styleName) || PSTricksConstants.SQUARE_STYLE.equals(styleName))  		return SQUARE;
-			if(PENTAGON.name().equals(styleName) || PSTricksConstants.PENTAGON_STYLE.equals(styleName)) 	return PENTAGON;
-			if(TRIANGLE.name().equals(styleName) || PSTricksConstants.TRIANGLE_STYLE.equals(styleName)) 	return TRIANGLE;
-			if(O.name().equals(styleName) || PSTricksConstants.O_STYLE.equals(styleName)) 					return O;
-			if(DIAMOND.name().equals(styleName) || PSTricksConstants.DIAMOND_STYLE.equals(styleName)) 		return DIAMOND;
-			if(FPENTAGON.name().equals(styleName) || PSTricksConstants.FPENTAGON_STYLE.equals(styleName)) 	return FPENTAGON;
-			if(FTRIANGLE.name().equals(styleName) || PSTricksConstants.FTRIANGLE_STYLE.equals(styleName)) 	return FTRIANGLE;
-			if(FDIAMOND.name().equals(styleName) || PSTricksConstants.FDIAMOND_STYLE.equals(styleName)) 	return FDIAMOND;
-			if(X.name().equals(styleName) || PSTricksConstants.X_STYLE.equals(styleName)) 					return X;
-			if(DOT.name().equals(styleName) || PSTricksConstants.DOT_STYLE.equals(styleName)) 				return DOT;
-			if(PLUS.name().equals(styleName) || PSTricksConstants.PLUS_STYLE.equals(styleName)) 			return PLUS;
-			if(OTIMES.name().equals(styleName) || PSTricksConstants.OTIMES_STYLE.equals(styleName)) 		return OTIMES;
-			if(OPLUS.name().equals(styleName) || PSTricksConstants.OPLUS_STYLE.equals(styleName)) 			return OPLUS;
-			if(BAR.name().equals(styleName) || PSTricksConstants.BAR_STYLE.equals(styleName)) 				return BAR;
-			if(ASTERISK.name().equals(styleName) || PSTricksConstants.ASTERISK_STYLE.equals(styleName)) 	return ASTERISK;
-			return null;
+			return Arrays.asList(values()).stream().filter(style -> style.name().equals(styleName) || style.getPSTToken().equals(styleName)).findFirst().orElse(null);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
+import java.util.Arrays;
+
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.lang.LangTool;
@@ -55,10 +57,7 @@ public interface IAxesProp extends IStdGridProp {
 		 * @since 3.0
 		 */
 		public static AxesStyle getStyle(final String style) {
-			return style==null ? null :
-					style.equals(PSTricksConstants.TOKEN_AXES_STYLE_AXES) || style.equals(AXES.toString()) ? AXES :
-					style.equals(PSTricksConstants.TOKEN_AXES_STYLE_FRAME) || style.equals(FRAME.toString()) ? FRAME :
-					style.equals(PSTricksConstants.TOKEN_AXES_STYLE_NONE) || style.equals(NONE.toString()) ? NONE : null;
+			return Arrays.asList(values()).stream().filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(null);
 		}
 	}
 
@@ -106,11 +105,7 @@ public interface IAxesProp extends IStdGridProp {
 		 * @since 3.0
 		 */
 		public static TicksStyle getStyle(final String style) {
-			if(style==null) return null;
-			if(PSTricksConstants.TOKEN_TICKS_STYLE_FULL.equals(style) || FULL.toString().equals(style)) return FULL;
-			if(PSTricksConstants.TOKEN_TICKS_STYLE_TOP.equals(style) || TOP.toString().equals(style)) return TOP;
-			if(PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM.equals(style) || BOTTOM.toString().equals(style)) return BOTTOM;
-			return null;
+			return Arrays.asList(values()).stream().filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(null);
 		}
 	}
 
@@ -169,12 +164,7 @@ public interface IAxesProp extends IStdGridProp {
 		 * @since 3.0
 		 */
 		public static PlottingStyle getStyle(final String style) {
-			if(style==null) return null;
-			if(style.equals(ALL.toString())) return ALL;
-			if(style.equals(Y.toString())) return Y;
-			if(style.equals(X.toString())) return X;
-			if(style.equals(NONE.toString())) return NONE;
-			return null;
+			return Arrays.asList(values()).stream().filter(it -> it.toString().equals(style)).findFirst().orElse(null);
 		}
 	}
 

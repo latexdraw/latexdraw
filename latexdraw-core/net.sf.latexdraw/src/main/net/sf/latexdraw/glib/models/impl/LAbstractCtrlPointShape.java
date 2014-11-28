@@ -222,9 +222,7 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 			final IPoint gc = getGravityCentre();
 
 			super.setRotationAngle(rotationAngle);
-
-			for(final IPoint pt : firstCtrlPts)
-				pt.setPoint(pt.rotatePoint(gc, diff));
+			firstCtrlPts.forEach(pt -> pt.setPoint(pt.rotatePoint(gc, diff)));
 			updateSecondControlPoints();
 		}
 	}
@@ -276,13 +274,10 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 			List<IPoint> pts  		= cpSh.getFirstCtrlPts();
 
 			firstCtrlPts.clear();
-			for(final IPoint pt : pts)
-				firstCtrlPts.add(ShapeFactory.createPoint(pt));
-
+			pts.forEach(pt -> firstCtrlPts.add(ShapeFactory.createPoint(pt)));
 			pts = cpSh.getSecondCtrlPts();
 			secondCtrlPts.clear();
-			for(final IPoint pt : pts)
-				secondCtrlPts.add(ShapeFactory.createPoint(pt));
+			pts.forEach(pt -> secondCtrlPts.add(ShapeFactory.createPoint(pt)));
 		}
 	}
 
@@ -293,10 +288,8 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 		// Translating control points.
 		if(GLibUtilities.isValidPoint(tx, ty)) {
-			for(final IPoint pt : firstCtrlPts)
-				pt.translate(tx, ty);
-			for(final IPoint pt : secondCtrlPts)
-				pt.translate(tx, ty);
+			firstCtrlPts.forEach(pt -> pt.translate(tx, ty));
+			secondCtrlPts.forEach(pt -> pt.translate(tx, ty));
 		}
 	}
 }

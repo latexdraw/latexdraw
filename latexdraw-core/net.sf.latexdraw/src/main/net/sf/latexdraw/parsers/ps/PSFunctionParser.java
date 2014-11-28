@@ -3,7 +3,9 @@ package net.sf.latexdraw.parsers.ps;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Defines a postscript function parser.<br>
@@ -52,28 +54,7 @@ public class PSFunctionParser {
 
 	protected final List<PSArithemticCommand> commands;
 
-	public static final String CMD_MUL 	= "mul"; //$NON-NLS-1$
-	public static final String CMD_ADD 	= "add";//$NON-NLS-1$
-	public static final String CMD_SUB 	= "sub";//$NON-NLS-1$
-	public static final String CMD_SIN 	= "sin";//$NON-NLS-1$
-	public static final String CMD_COS 	= "cos";//$NON-NLS-1$
-	public static final String CMD_DIV 	= "div";//$NON-NLS-1$
-	public static final String CMD_IDIV = "idiv";//$NON-NLS-1$
-	public static final String CMD_MOD 	= "mod";//$NON-NLS-1$
-	public static final String CMD_NEG 	= "neg";//$NON-NLS-1$
-	public static final String CMD_EXCH = "exch";//$NON-NLS-1$
-	public static final String CMD_CLEAR= "clear";//$NON-NLS-1$
-	public static final String CMD_DUP 	= "dup";//$NON-NLS-1$
-	public static final String CMD_POP	= "pop";//$NON-NLS-1$
-	public static final String CMD_ROLL	= "roll";//$NON-NLS-1$
-	public static final String CMD_SQRT	= "sqrt";//$NON-NLS-1$
-	public static final String CMD_EXP	= "exp";//$NON-NLS-1$
-	public static final String CMD_ABS	= "abs";//$NON-NLS-1$
-	public static final String CMD_FLOOR= "floor";//$NON-NLS-1$
-	public static final String CMD_CEILING = "ceiling";//$NON-NLS-1$
-	public static final String CMD_COUNT= "count";//$NON-NLS-1$
-	public static final String CMD_X 	= "x";//$NON-NLS-1$
-	public static final String CMD_LOG 	= "log";//$NON-NLS-1$
+	private final Map<String, PSCmd> factoryMap;
 
 
 	/**
@@ -87,13 +68,40 @@ public class PSFunctionParser {
         if (fct == null || fct.isEmpty())
             throw new IllegalArgumentException();
 
+        factoryMap = new HashMap<>();
         commands = new ArrayList<>();
         function = fct;
 
+        initFactoryMap();
         parseFunction();
     }
 
-
+	
+	private void initFactoryMap() {
+		factoryMap.put("add", () -> new PSAddCommand());
+		factoryMap.put("mul", () -> new PSMulCommand());
+		factoryMap.put("sub", () -> new PSSubCommand());
+		factoryMap.put("sin", () -> new PSSinCommand());
+		factoryMap.put("cos", () -> new PSCosCommand());
+		factoryMap.put("div", () -> new PSDivCommand());
+		factoryMap.put("idiv", () -> new PSIDivCommand());
+		factoryMap.put("mod", () -> new PSModCommand());
+		factoryMap.put("neg", () -> new PSNegCommand());
+		factoryMap.put("exch", () -> new PSExchCommand());
+		factoryMap.put("clear", () -> new PSClearCommand());
+		factoryMap.put("dup", () -> new PSDupCommand());
+		factoryMap.put("pop", () -> new PSPopCommand());
+		factoryMap.put("roll", () -> null);
+		factoryMap.put("sqrt", () -> null);
+		factoryMap.put("exp", () -> new PSExpCommand());
+		factoryMap.put("abs", () -> new PSAbsCommand());
+		factoryMap.put("floor", () -> new PSFloorCommand());
+		factoryMap.put("ceiling", () -> new PSCeilingCommand());
+		factoryMap.put("count", () -> new PSCountCommand());
+		factoryMap.put("x", () -> new PSPlotXVariable());
+		factoryMap.put("log", () -> new PSLogCommand());
+	}
+	
 
 	/**
 	 * @param x The X-coordinate used to compute the Y using the function.
@@ -104,8 +112,7 @@ public class PSFunctionParser {
 	public double getY(final double x) throws InvalidFormatPSFunctionException {
 		final Deque<Double> stack = new ArrayDeque<>();
 
-		for(final PSArithemticCommand cmd : commands)
-			cmd.execute(stack, x);
+		commands.forEach(cmd -> cmd.execute(stack, x));
 
 		if(stack.isEmpty())
 			throw new InvalidFormatPSFunctionException();
@@ -152,32 +159,14 @@ public class PSFunctionParser {
 		if(cmd==null || cmd.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
-		switch(cmd) {
-			case CMD_ADD: return new PSAddCommand();
-			case CMD_ABS: return new PSAbsCommand();
-			case CMD_CEILING: return new PSCeilingCommand();
-			case CMD_CLEAR: return new PSClearCommand();
-			case CMD_COS: return new PSCosCommand();
-			case CMD_COUNT: return new PSCountCommand();
-			case CMD_DIV: return new PSDivCommand();
-			case CMD_DUP: return new PSDupCommand();
-			case CMD_EXCH: return new PSExchCommand();
-			case CMD_EXP: return new PSExpCommand();
-			case CMD_FLOOR: return new PSFloorCommand();
-			case CMD_IDIV: return new PSIDivCommand();
-			case CMD_LOG: return new PSLogCommand();
-			case CMD_MOD: return new PSModCommand();
-			case CMD_MUL: return new PSMulCommand();
-			case CMD_NEG: return new PSNegCommand();
-			case CMD_POP: return new PSPopCommand();
-			case CMD_ROLL: return null;
-			case CMD_SIN: return new PSSinCommand();
-			case CMD_SQRT: return null;
-			case CMD_SUB: return new PSSubCommand();
-			case CMD_X: return new PSPlotXVariable();
-		}
+		try {
+			return factoryMap.getOrDefault(cmd, () -> new PSValue(Double.parseDouble(cmd))).create();
+		}catch(final NumberFormatException ex) {throw new InvalidFormatPSFunctionException("Cannot parse: " + cmd);} //$NON-NLS-1$
+	}
 
-		try {return new PSValue(Double.parseDouble(cmd));}
-		catch(final NumberFormatException ex) {throw new InvalidFormatPSFunctionException("Cannot parse: " + cmd);} //$NON-NLS-1$
+
+	@FunctionalInterface
+	private interface PSCmd {
+		PSArithemticCommand create();
 	}
 }
