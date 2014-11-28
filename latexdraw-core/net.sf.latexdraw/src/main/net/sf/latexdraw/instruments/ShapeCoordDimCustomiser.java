@@ -1,18 +1,11 @@
 package net.sf.latexdraw.instruments;
 
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-
-import net.sf.latexdraw.actions.shape.TranslateShapes;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
+import javafx.fxml.FXML;
+import javafx.scene.control.Spinner;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.lang.LangTool;
 
-import org.malai.instrument.InteractorImpl;
-import org.malai.swing.interaction.library.SpinnerModified;
-import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MSpinner;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument modifies arc dimensions and coordinates of shapes or pencil parameters.<br>
@@ -32,119 +25,76 @@ import org.malai.swing.widget.MSpinner;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
+public class ShapeCoordDimCustomiser extends JfxInstrument { // extends ShapePropertyCustomiser {
 	/** Sets the X-coordinate of the top-left position. */
-	protected MSpinner tlxS;
+	@FXML protected Spinner<Double> tlxS;
 
 	/** Sets the Y-coordinate of the top-left position. */
-	protected MSpinner tlyS;
+	@FXML protected Spinner<Double> tlyS;
 
 
 	/**
 	 * Creates the instrument.
-	 * @param hand The Hand instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param pencil The Pencil instrument.
-	 * @throws IllegalArgumentException If one of the given argument is null or if the drawing cannot
-	 * be accessed from the hand.
-	 * @since 3.0
 	 */
-	public ShapeCoordDimCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
-		super(composer, hand, pencil);
-		initialiseWidgets();
+	public ShapeCoordDimCustomiser() {
+		super();
 	}
 
 
 
-	@Override
+//	@Override
 	protected void update(final IGroup shape) {
 		if(isActivated() && shape!=null) {
 			final IPoint tl = shape.getTopLeftPoint();
-			tlxS.setValueSafely(tl.getX());
-			tlyS.setValueSafely(tl.getY());
+			tlxS.getValueFactory().setValue(tl.getX());
+			tlyS.getValueFactory().setValue(tl.getY());
 		}
-	}
-
-
-
-	@Override
-	protected void initialiseWidgets() {
-		tlxS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel("x")); //$NON-NLS-1$
-		tlxS.setEditor(new JSpinner.NumberEditor(tlxS, "0.00"));//$NON-NLS-1$
-		tlxS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeCoord.1")); //$NON-NLS-1$
-		tlyS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., (double)Integer.MIN_VALUE, (double)Integer.MAX_VALUE, 1.), new JLabel("y")); //$NON-NLS-1$
-		tlyS.setEditor(new JSpinner.NumberEditor(tlyS, "0.00"));//$NON-NLS-1$
-		tlyS.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeCoord.2")); //$NON-NLS-1$
-	}
-
-
-	@Override
-	protected void setWidgetsVisible(final boolean visible) {
-		composer.setWidgetVisible(tlxS, activated);
-		composer.setWidgetVisible(tlyS, activated);
 	}
 
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
-			addInteractor(new Spinner2TranslateShape(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		try{
+//			addInteractor(new Spinner2TranslateShape(this));
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
 
-
-	/**
-	 * @return The spinner that sets the X-coordinate of the top-left position.
-	 * @since 3.0
-	 */
-	public MSpinner getTlxS() {
-		return tlxS;
-	}
-
-	/**
-	 * @return The spinner that sets the Y-coordinate of the top-left position.
-	 * @since 3.0
-	 */
-	public MSpinner getTlyS() {
-		return tlyS;
-	}
-
-
-	/**
-	 * Maps spinners to translation of shapes. The X and Y spinners are used to change the position of the top-left point of the
-	 * selected shapes, i.e. to translate it.
-	 */
-	private static class Spinner2TranslateShape extends InteractorImpl<TranslateShapes, SpinnerModified, ShapeCoordDimCustomiser> {
-		protected Spinner2TranslateShape(final ShapeCoordDimCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, TranslateShapes.class, SpinnerModified.class);
-		}
-
-		@Override
-		public void initAction() {
-			action.setDrawing(instrument.pencil.canvas().getDrawing());
-			action.setShape(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-		}
-
-
-		@Override
-		public void updateAction() {
-			super.updateAction();
-
-			final IPoint tl = action.drawing().get().getSelection().getTopLeftPoint();
-			final double value = Double.parseDouble(interaction.getSpinner().getValue().toString());
-
-			if(interaction.getSpinner()==instrument.tlxS)
-				action.setTx(value-tl.getX());
-			else
-				action.setTy(value-tl.getY());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			final JSpinner obj = interaction.getSpinner();
-			return obj==instrument.tlxS || obj==instrument.tlyS;
-		}
-	}
+//
+//	/**
+//	 * Maps spinners to translation of shapes. The X and Y spinners are used to change the position of the top-left point of the
+//	 * selected shapes, i.e. to translate it.
+//	 */
+//	private static class Spinner2TranslateShape extends InteractorImpl<TranslateShapes, SpinnerModified, ShapeCoordDimCustomiser> {
+//		protected Spinner2TranslateShape(final ShapeCoordDimCustomiser ins) throws InstantiationException, IllegalAccessException {
+//			super(ins, false, TranslateShapes.class, SpinnerModified.class);
+//		}
+//
+//		@Override
+//		public void initAction() {
+//			action.setDrawing(instrument.pencil.canvas().getDrawing());
+//			action.setShape(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//		}
+//
+//
+//		@Override
+//		public void updateAction() {
+//			super.updateAction();
+//
+//			final IPoint tl = action.drawing().get().getSelection().getTopLeftPoint();
+//			final double value = Double.parseDouble(interaction.getSpinner().getValue().toString());
+//
+//			if(interaction.getSpinner()==instrument.tlxS)
+//				action.setTx(value-tl.getX());
+//			else
+//				action.setTy(value-tl.getY());
+//		}
+//
+//		@Override
+//		public boolean isConditionRespected() {
+//			final JSpinner obj = interaction.getSpinner();
+//			return obj==instrument.tlxS || obj==instrument.tlyS;
+//		}
+//	}
 }

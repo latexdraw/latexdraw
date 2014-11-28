@@ -7,7 +7,6 @@ import java.util.Map;
 
 import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.instruments.MetaShapeCustomiser;
-import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
 import net.sf.latexdraw.instruments.ShapePositioner;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
@@ -65,7 +64,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 
 		// Creation of the widgets layout of the shape properties instruments.
 		widget.add(composeShapePositionerWidgets(metaShapeCustomiser.getShapePositioner(), canvas));
-		widget.add(composeDimPosPropertiesToolbar(metaShapeCustomiser.getDimPosCustomiser(), canvas));
 	}
 
 
@@ -80,21 +78,6 @@ public class PropertiesToolbarBuilder extends SwingUIComposer<MPanel> {
 		mapContainers.put(ins.getBackgroundButton(), list);
 		ins.addEventable(list.getToolbar());
 		list.setVisible(false);
-		return list;
-	}
-
-	protected WidgetMiniToolbar composeDimPosPropertiesToolbar(final ShapeCoordDimCustomiser cust, final LCanvas canvas) {
-		final WidgetMiniToolbar list = new WidgetMiniToolbar(LResources.DIM_POS_ICON, WidgetMiniToolbar.LOCATION_NORTH, canvas);
-		list.setToolTipText(LangTool.INSTANCE.getStringActions("PropBuilder.6")); //$NON-NLS-1$
-
-		UIBuilder.addSpinner(list, cust.getTlxS(), 90);
-		UIBuilder.addSpinner(list, cust.getTlyS(), 90);
-		list.addSeparator();
-
-		mapContainers.put(cust.getTlxS(), list);
-		mapContainers.put(cust.getTlyS(), list);
-		list.setVisible(false);
-		cust.addEventable(list.getToolbar());
 		return list;
 	}
 }

@@ -47,6 +47,7 @@
 																</AnchorPane>
 															</content>
 														</TitledPane>
+														<fx:include source="Dimension.fxml" />
 														<fx:include source="Template.fxml" />
 													</panes>
 												</Accordion>
