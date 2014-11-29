@@ -157,7 +157,6 @@ public class LFrame extends SwingUI {
 	 */
 	public LFrame(final MProgressBar progressBar) {
 		super();
-		composer = new UIBuilder(this);
 		buildFrame(progressBar);
 	}
 
@@ -226,17 +225,9 @@ public class LFrame extends SwingUI {
 	}
 
 
-	@Override
-	public UIBuilder getComposer() {
-		return (UIBuilder)composer;
-	}
-
-
 	private void instantiateInstruments(final LCanvas canvas, final IDrawing drawing) {
 		final PSTCodeGenerator gen = getCodePanel().getPstGenerator();
 
-		try { drawingPropCustomiser= new DrawingPropertiesCustomiser(composer, gen); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { scroller		= new Scroller(canvas); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { zoomer		= new WidgetZoomer(canvas, true, true,

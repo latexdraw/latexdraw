@@ -12,7 +12,6 @@ import javax.swing.JButton;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.ui.UIBuilder;
 
 import org.malai.action.library.OpenWebPage;
 
@@ -56,17 +55,12 @@ public class VersionChecker extends Thread {
     /** The field where messages will be displayed. */
     protected JButton buttonUpdate;
 
-    /** The composer of the application. */
-    protected UIBuilder builder;
-
 
 	/**
 	 * Creates the version checker.
-	 * @param builder The composer of the application.
 	 */
-	public VersionChecker(final UIBuilder builder) {
+	public VersionChecker() {
 		super();
-		this.builder = builder;
 	}
 
 
@@ -103,7 +97,7 @@ public class VersionChecker extends Thread {
 							buttonUpdate.setVisible(false);
 						}catch(final Exception ex) { BadaboomCollector.INSTANCE.add(ex); }
 					});
-					builder.getToolbar().add(buttonUpdate);
+//					builder.getToolbar().add(buttonUpdate);
 				}
 			}
 		}catch(final IOException e) { /* Nothing to do. */ }

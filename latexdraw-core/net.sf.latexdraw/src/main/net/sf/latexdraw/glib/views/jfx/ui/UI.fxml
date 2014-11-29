@@ -50,6 +50,7 @@
 														</TitledPane>
 														<fx:include source="Dimension.fxml" />
 														<fx:include source="Template.fxml" />
+														<fx:include source="DrawingProps.fxml" />
 													</panes>
 												</Accordion>
 											</center>
