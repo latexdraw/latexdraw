@@ -77,25 +77,7 @@
 	<top>
 		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 			<items>
-				<MenuButton mnemonicParsing="false" style="-fx-padding: 0 0 0 0">
-					<tooltip><Tooltip text="%LaTeXDrawFrame.91" /></tooltip>
-					<graphic><ImageView><image><Image url="@/res/New.png" /></image></ImageView></graphic>
-					<items>
-						<MenuItem id="newMenu" mnemonicParsing="false" text="%Res.2">
-							<graphic><ImageView><image><Image url="@/res/New.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<MenuItem id="loadMenu" mnemonicParsing="false" text="%FileLoaderSaver.3">
-							<graphic><ImageView><image><Image url="@/res/document-open.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<MenuItem id="saveMenu" mnemonicParsing="false" text="%FileLoaderSaver.1">
-							<graphic><ImageView><image><Image url="@/res/document-save.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<MenuItem id="saveAsMenu" mnemonicParsing="false" text="%FileLoaderSaver.2">
-							<graphic><ImageView><image><Image url="@/res/document-save-as.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<Menu id="recentFilesMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.0b" />
-					</items>
-				</MenuButton>
+				<fx:include source="OpenSave.fxml" />
 				<fx:include source="CopyPaste.fxml" />
 				<fx:include source="Export.fxml" />
 				<Spinner min="10" max="450" initialValue="100" amountToStepBy="5" prefHeight="25.0" prefWidth="75.0" />
