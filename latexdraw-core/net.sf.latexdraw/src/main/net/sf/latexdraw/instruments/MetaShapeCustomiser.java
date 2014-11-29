@@ -2,7 +2,6 @@ package net.sf.latexdraw.instruments;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.interaction.Eventable;
 import org.malai.swing.ui.SwingUIComposer;
 
 /**
@@ -95,29 +94,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 
 	@Override
-	public void addEventable(final Eventable eventable) {
-		borderCustomiser.addEventable(eventable);
-		doubleBorderCustomiser.addEventable(eventable);
-		shadowCustomiser.addEventable(eventable);
-		fillingCustomiser.addEventable(eventable);
-		shapeTextCustomiser.addEventable(eventable);
-		rotationCustomiser.addEventable(eventable);
-		arrowCustomiser.addEventable(eventable);
-		dotCustomiser.addEventable(eventable);
-		arcCustomiser.addEventable(eventable);
-		dimPosCustomiser.addEventable(eventable);
-		gridCustomiser.addEventable(eventable);
-		shapeGrouper.addEventable(eventable);
-		shapeAxesCustomiser.addEventable(eventable);
-		shapeGridCustomiser.addEventable(eventable);
-		shapeFreeHandCustomiser.addEventable(eventable);
-		shapeTransformer.addEventable(eventable);
-		shapePositioner.addEventable(eventable);
-		plotCustom.addEventable(eventable);
-	}
-
-
-	@Override
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
 
@@ -190,148 +166,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeTransformer.clearEvents();
 		shapePositioner.clearEvents();
 		plotCustom.clearEvents();
-	}
-
-
-	/** @return The instrument that places shapes. */
-	public ShapePositioner getShapePositioner() { return shapePositioner; }
-
-	/** @return The instrument that transforms shapes. */
-	public ShapeTransformer getShapeTransformer() { return shapeTransformer; }
-
-	/**
-	 * @return The instrument that customises freehands.
-	 * @since 3.0
-	 */
-	public ShapeFreeHandCustomiser getFreeHandCustomiser() {
-		return shapeFreeHandCustomiser;
-	}
-
-	/**
-	 * @return The plot customiser.
-	 */
-	public ShapePlotCustomiser getPlotCustomiser() { return plotCustom; }
-
-	/**
-	 * @return The instrument that customises axes.
-	 * @since 3.0
-	 */
-	public ShapeAxesCustomiser getAxesCustomiser() {
-		return shapeAxesCustomiser;
-	}
-
-	/**
-	 * @return The instrument that customises grids.
-	 * @since 3.0
-	 */
-	public ShapeGridCustomiser getGridCustomiser() {
-		return shapeGridCustomiser;
-	}
-
-
-	/**
-	 * @return The instrument that customises grids and axes.
-	 * @since 3.0
-	 */
-	public ShapeStdGridCustomiser getStandardGridCustomiser() {
-		return gridCustomiser;
-	}
-
-
-	/**
-	 * @return The instrument that customises the line properties of shapes.
-	 * @since 3.0
-	 */
-	public ShapeBorderCustomiser getBorderCustomiser() {
-		return borderCustomiser;
-	}
-
-
-	/**
-	 * @return The instrument that customises the double line properties of shapes.
-	 * @since 3.0
-	 */
-	public ShapeDoubleBorderCustomiser getDoubleBorderCustomiser() {
-		return doubleBorderCustomiser;
-	}
-
-
-	/**
-	 * @return The instrument that customises the shadow properties of shapes.
-	 * @since 3.0
-	 */
-	public ShapeShadowCustomiser getShadowCustomiser() {
-		return shadowCustomiser;
-	}
-
-
-	/**
-	 * @return The instrument that customises the filling properties of shapes.
-	 * @since 3.0
-	 */
-	public ShapeFillingCustomiser getFillingCustomiser() {
-		return fillingCustomiser;
-	}
-
-
-	/**
-	 * @return The instrument that customises the texts.
-	 * @since 3.0
-	 */
-	public ShapeTextCustomiser getTextCustomiser() {
-		return shapeTextCustomiser;
-	}
-
-
-	/**
-	 * @return The instrument that customises the rotation angle.
-	 * @since 3.0
-	 */
-	public ShapeRotationCustomiser getRotationCustomiser() {
-		return rotationCustomiser;
-	}
-
-
-	/**
-	 * @return The instrument that customises the arrows.
-	 * @since 3.0
-	 */
-	public ShapeArrowCustomiser getArrowCustomiser() {
-		return arrowCustomiser;
-	}
-
-
-	/**
-	 * @return The instrument that customises the dots.
-	 * @since 3.0
-	 */
-	public ShapeDotCustomiser getDotCustomiser() {
-		return dotCustomiser;
-	}
-
-
-	/**
-	 * @return This instrument customises the arc parameters.
-	 * @since 3.0
-	 */
-	public ShapeArcCustomiser getArcCustomiser() {
-		return arcCustomiser;
-	}
-
-	/**
-	 * @return This instrument customises the dimensions and the position.
-	 * @since 3.0
-	 */
-	public ShapeCoordDimCustomiser getDimPosCustomiser() {
-		return dimPosCustomiser;
-	}
-
-	/**
-	 * @return the shapeGrouper.
-	 * @since 3.0
-	 */
-	public ShapeGrouper getShapeGrouper() {
-		return shapeGrouper;
 	}
 
 

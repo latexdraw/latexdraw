@@ -44,6 +44,7 @@ import org.malai.undo.UndoCollector;
  * General Public License for more details.<br>
  * <br>
  * 2014-10-14<br>
+ * 
  * @author Arnaud BLOUIN
  * @version 4.0
  */
@@ -61,7 +62,9 @@ public class LaTeXDraw extends Application {
 
 	/**
 	 * The entry point of the program.
-	 * @param args The parameters.
+	 * 
+	 * @param args
+	 *            The parameters.
 	 */
 	public static void main(String[] args) {
 		// val cmdLine = new LCommandLine()
@@ -73,9 +76,9 @@ public class LaTeXDraw extends Application {
 		launch(args);
 	}
 
-	Pane  splashLayout;
-	Stage mainStage;
-	ProgressBar loadProgress;
+	Pane		splashLayout;
+	Stage		mainStage;
+	ProgressBar	loadProgress;
 
 	@Override
 	public void init() {
@@ -90,7 +93,7 @@ public class LaTeXDraw extends Application {
 
 	private void showSplash(final Stage initStage, Task<Void> task) {
 		loadProgress.progressProperty().bind(task.progressProperty());
-		 
+
 		task.stateProperty().addListener((observableValue, oldState, newState) -> {
 			if(newState == Worker.State.SUCCEEDED) {
 				loadProgress.progressProperty().unbind();
@@ -106,7 +109,7 @@ public class LaTeXDraw extends Application {
 				fadeSplash.play();
 			}
 		});
-		
+
 		final Scene splashScene = new Scene(splashLayout);
 		initStage.initStyle(StageStyle.UNDECORATED);
 		initStage.setScene(splashScene);
@@ -122,13 +125,13 @@ public class LaTeXDraw extends Application {
 			protected Void call() throws InterruptedException {
 				updateProgress(0.1, 1.0);
 				try {
-					 final Parent root = FXMLLoader.load(getClass().getResource("glib/views/jfx/ui/UI.fxml"), LangTool.INSTANCE.getBundle());
-					 updateProgress(0.6, 1.0);
-					 final Scene scene = new Scene(root);
-					 updateProgress(0.7, 1.0);
-					 scene.getStylesheets().add("net/sf/latexdraw/glib/views/jfx/ui/style.css");
-					 updateProgress(0.8, 1.0);
-					 Platform.runLater(() -> {
+					final Parent root = FXMLLoader.load(getClass().getResource("glib/views/jfx/ui/UI.fxml"), LangTool.INSTANCE.getBundle());
+					updateProgress(0.6, 1.0);
+					final Scene scene = new Scene(root);
+					updateProgress(0.7, 1.0);
+					scene.getStylesheets().add("net/sf/latexdraw/glib/views/jfx/ui/style.css");
+					updateProgress(0.8, 1.0);
+					Platform.runLater(() -> {
 						mainStage = new Stage(StageStyle.DECORATED);
 						mainStage.setIconified(true);
 						mainStage.setTitle("LaTeXDraw");
@@ -136,14 +139,16 @@ public class LaTeXDraw extends Application {
 						updateProgress(0.9, 1.0);
 						mainStage.show();
 						mainStage.centerOnScreen();
-					 });
-				}catch(final IOException ex) { ex.printStackTrace(); }
+					});
+				}catch(final IOException ex) {
+					ex.printStackTrace();
+				}
 				return null;
 			}
 		};
 
-		 showSplash(stage, task);
-		 new Thread(task).start();
+		showSplash(stage, task);
+		new Thread(task).start();
 
 		// frame.getPrefSetters.readXMLPreferences
 		//
@@ -173,6 +178,7 @@ public class LaTeXDraw extends Application {
 	// ShapeBord.1, AbstractParametersFrame.3, AbstractParametersFrame.0b,
 	// PropBuilder.13, PropBuilder.11 LaTeXDrawFrame.48
 	// ParametersAkinPointsFrame.2 PreferencesFrame.quality Pref.1
-	// PreferencesFrame.antiAl PreferencesFrame.rendQ PreferencesFrame.colRendQ PreferencesFrame.AlphaQ
+	// PreferencesFrame.antiAl PreferencesFrame.rendQ PreferencesFrame.colRendQ
+	// PreferencesFrame.AlphaQ
 	// PreferencesFrame.1 LaTeXDrawFrame.137 LaTeXDrawFrame.138
 }

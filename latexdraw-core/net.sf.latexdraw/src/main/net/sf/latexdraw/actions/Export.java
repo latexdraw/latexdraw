@@ -34,7 +34,6 @@ import net.sf.latexdraw.glib.ui.ICanvas;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
-import net.sf.latexdraw.instruments.Exporter;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.ExportDialog;
 
@@ -237,7 +236,7 @@ public class Export extends Action {
 			if(f.exists()) {
 				final int replace = JOptionPane.showConfirmDialog(null,
 							LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
-							Exporter.TITLE_DIALOG_EXPORT, JOptionPane.YES_NO_OPTION);
+							LangTool.INSTANCE.getStringDialogFrame("Exporter.1"), JOptionPane.YES_NO_OPTION);
 
 				if(replace == JOptionPane.NO_OPTION)
 					exported = false; // The user doesn't want to replace the file

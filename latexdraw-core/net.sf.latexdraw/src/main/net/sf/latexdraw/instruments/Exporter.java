@@ -1,31 +1,23 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.event.KeyEvent;
 import java.io.File;
-import java.util.Objects;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-
-import net.sf.latexdraw.actions.Export;
+import javafx.fxml.FXML;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.stage.FileChooser;
 import net.sf.latexdraw.actions.Export.ExportFormat;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.ui.ICanvas;
+import net.sf.latexdraw.glib.views.jfx.Canvas;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
-import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.ui.dialog.ExportDialog;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.LangTool;
 
-import org.malai.action.Action;
-import org.malai.instrument.InteractorImpl;
-import org.malai.swing.instrument.WidgetInstrument;
-import org.malai.swing.interaction.library.MenuItemPressed;
-import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MMenu;
-import org.malai.swing.widget.MMenuItem;
+import org.malai.javafx.instrument.JfxInstrument;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -47,58 +39,42 @@ import org.w3c.dom.Element;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class Exporter extends WidgetInstrument {
-	/** The title of the dialog box used to export drawings. */
-	public static final String TITLE_DIALOG_EXPORT = LangTool.INSTANCE.getStringDialogFrame("Exporter.1"); //$NON-NLS-1$
+public class Exporter extends JfxInstrument {
+	/** The export menu that contains all the export menu item. */
+	@FXML protected MenuButton exportMenu;
 
-	/** The label of the exportAsBMPFile item */
-    public static final String LABEL_EXPORT_BMP = LangTool.INSTANCE.getString16("LaTeXDrawFrame.6"); //$NON-NLS-1$
+	/** The menu item that export as PST code. */
+	@FXML protected MenuItem menuItemPST;
 
-	/** The label of the exportAsPNGFile item */
-    public static final String LABEL_EXPORT_PNG = LangTool.INSTANCE.getString16("LaTeXDrawFrame.7"); //$NON-NLS-1$
+	/** The menu item that export as JPG picture. */
+	@FXML protected MenuItem menuItemJPG;
 
-	/** The label of the exportCodeMenu item */
-    public static final String LABEL_EXPORT_TRICKS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.19"); //$NON-NLS-1$
+	/** The menu item that export as PNG picture. */
+	@FXML protected MenuItem menuItemPNG;
 
-	/** The label of the exportDrawMenu item */
-    public static final String LABEL_EXPORT_JPG = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.20"); //$NON-NLS-1$
+	/** The menu item that export as BMP picture. */
+	@FXML protected MenuItem menuItemBMP;
 
-	/** The label of the menu export as */
-    public static final String LABEL_EXPORT_AS = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.16"); //$NON-NLS-1$
+	/** The menu item that export as PDF document. */
+	@FXML protected MenuItem menuItemPDF;
 
+	/** The menu item that export as PS (using latex) document. */
+	@FXML protected MenuItem menuItemEPSLatex;
+
+	/** The menu item that export as PDF (using pdfcrop) document. */
+	@FXML protected MenuItem menuItemPDFcrop;
+	
+	@FXML protected MenuItem exportTemplateMenu;
+	
 	/** The canvas that contains the shapes to export. The canvas is used instead of the drawing
 	 * because to export as picture, we paint the views into a graphics. */
-	protected ICanvas canvas;
+	protected Canvas canvas;
 
 	/** The PST generator. */
 	protected PSTCodeGenerator pstGen;
 
-	/** The export menu that contains all the export menu item. */
-	protected MMenu exportMenu;
-
-	/** The menu item that export as PST code. */
-	protected MMenuItem menuItemPST;
-
-	/** The menu item that export as JPG picture. */
-	protected MMenuItem menuItemJPG;
-
-	/** The menu item that export as PNG picture. */
-	protected MMenuItem menuItemPNG;
-
-	/** The menu item that export as BMP picture. */
-	protected MMenuItem menuItemBMP;
-
-	/** The menu item that export as PDF document. */
-	protected MMenuItem menuItemPDF;
-
-	/** The menu item that export as PS (using latex) document. */
-	protected MMenuItem menuItemEPSLatex;
-
-	/** The menu item that export as PDF (using pdfcrop) document. */
-	protected MMenuItem menuItemPDFcrop;
-
 	/** The dialog box that allows to define where the drawing must be exported. */
-	protected ExportDialog fileChooserExport;
+	private FileChooser fileChooserExport;
 
 	/** The default location of the exports. */
 	protected String pathExport;
@@ -110,53 +86,19 @@ public class Exporter extends WidgetInstrument {
 	 */
 	protected String defaultPackages;
 
-	/** The field where messages are displayed. */
-	protected JLabel statusBar;
-protected FileLoaderSaver loader;
+//	/** The field where messages are displayed. */
+//	protected JLabel statusBar;
+	
+	protected FileLoaderSaver loader;
 
 
 	/**
 	 * Creates the instrument.
-	 * @param composerUI The composerUI that manages the widgets of the instrument.
-	 * @param theCanvas The theCanvas that contains the views to export (for pictures).
-	 * @param bar The status bar where messages are displayed.
-	 * @param gen The PST generator to use.
-	 * @param fls The file loader/saver instrument.
-	 * @throws IllegalArgumentException If one of the given arguments is null.
-	 * @since 3.0
 	 */
-	public Exporter(final SwingUIComposer<?> composerUI, final ICanvas theCanvas, final JLabel bar, final PSTCodeGenerator gen, final FileLoaderSaver fls) {
-		super(composerUI);
-
+	public Exporter() {
+		super();
 		defaultPackages	= ""; //$NON-NLS-1$
-		statusBar		= Objects.requireNonNull(bar);
-		canvas 			= Objects.requireNonNull(theCanvas);
-		pstGen 			= Objects.requireNonNull(gen);
-		loader = fls;
-
-		initialiseWidgets();
 		reinit();
-	}
-
-
-	@Override
-	protected void initialiseWidgets() {
-		// Widgets initialisation
-		exportMenu		= new MMenu(LABEL_EXPORT_AS, true);
-		menuItemBMP		= new MMenuItem(LABEL_EXPORT_BMP, KeyEvent.VK_B);
-		menuItemEPSLatex= new MMenuItem(LangTool.INSTANCE.getStringDialogFrame("Exporter.2"), KeyEvent.VK_S); //$NON-NLS-1$
-		menuItemJPG		= new MMenuItem(LABEL_EXPORT_JPG, KeyEvent.VK_J);
-		menuItemPDF		= new MMenuItem(LangTool.INSTANCE.getStringDialogFrame("Exporter.3"), KeyEvent.VK_F); //$NON-NLS-1$
-		menuItemPDFcrop	= new MMenuItem(LangTool.INSTANCE.getStringDialogFrame("Exporter.4"), KeyEvent.VK_C); //$NON-NLS-1$
-		menuItemPNG		= new MMenuItem(LABEL_EXPORT_PNG, KeyEvent.VK_P);
-		menuItemPST		= new MMenuItem(LABEL_EXPORT_TRICKS, KeyEvent.VK_T);
-		exportMenu.add(menuItemPST);
-		exportMenu.add(menuItemJPG);
-		exportMenu.add(menuItemPNG);
-		exportMenu.add(menuItemBMP);
-		exportMenu.add(menuItemPDF);
-		exportMenu.add(menuItemEPSLatex);
-		exportMenu.add(menuItemPDFcrop);
 	}
 
 
@@ -176,9 +118,7 @@ protected FileLoaderSaver loader;
 			final String[] lines = root.getTextContent().split(LResources.EOL);
 			final String pkgs = LaTeXGenerator.getPackages();
 			final StringBuilder build = new StringBuilder(LaTeXGenerator.getPackages());
-			for(final String line : lines)
-				if(!pkgs.contains(line))
-					build.append(LResources.EOL).append(line);
+			build.append(Arrays.asList(lines).stream().filter(line -> !pkgs.contains(line)).collect(Collectors.joining(LResources.EOL, LResources.EOL, "")));
 			LaTeXGenerator.setPackages(build.toString());
 		}
 	}
@@ -191,10 +131,8 @@ protected FileLoaderSaver loader;
 		if(document==null || root==null)
 			return ;
 
-		Element elt;
-
 		if(generalPreferences) {
-            elt = document.createElement(LNamespace.XML_PATH_EXPORT);
+			Element elt = document.createElement(LNamespace.XML_PATH_EXPORT);
             elt.setTextContent(pathExport);
             root.appendChild(elt);
 
@@ -203,8 +141,7 @@ protected FileLoaderSaver loader;
             root.appendChild(elt);
 		}else {
 			final String ns = LPath.INSTANCE.getNormaliseNamespaceURI(nsURI);
-
-			elt = document.createElement(ns + LNamespace.XML_LATEX_INCLUDES);
+			Element elt = document.createElement(ns + LNamespace.XML_LATEX_INCLUDES);
 			elt.appendChild(document.createCDATASection(LaTeXGenerator.getPackages()));
 			root.appendChild(elt);
 		}
@@ -212,38 +149,30 @@ protected FileLoaderSaver loader;
 
 
 
-	@Override
-	public void setActivated(final boolean isActivated, final boolean hide) {
-		super.setActivated(isActivated);
+//	@Override
+//	public void setActivated(final boolean isActivated, final boolean hide) {
+//		super.setActivated(isActivated);
 
-		exportMenu.setVisible(isActivated || !hide);
-		exportMenu.setEnabled(isActivated);
-	}
+//		exportMenu.setVisible(isActivated || !hide);
+//		exportMenu.setDisable(!isActivated);
+//	}
 
 
-	@Override
-	public void setActivated(final boolean activated) {
-		setActivated(activated, false);
-	}
+//	@Override
+//	public void setActivated(final boolean activated) {
+//		setActivated(activated, false);
+//	}
 
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
-			addInteractor(new MenuPressed2Export(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		try{
+//			addInteractor(new MenuPressed2Export(this));
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
 
-
-	/**
-	 * @return The export menu that contains all the export menu item.
-	 * @since 3.0
-	 */
-	public MMenu getExportMenu() {
-		return exportMenu;
-	}
 
 
 	/**
@@ -251,32 +180,34 @@ protected FileLoaderSaver loader;
 	 * @return The export dialog to select a path.
 	 * @since 3.0
 	 */
-	protected ExportDialog getExportDialog(final ExportFormat format) {
-		if(fileChooserExport==null)
-			fileChooserExport = new ExportDialog(pathExport);// currentFile==null ? pathExport : currentFile.getPath());
+	protected FileChooser getExportDialog(final ExportFormat format) {
+		if(fileChooserExport==null) {
+			fileChooserExport = new FileChooser();
+//			fileChooserExport.removeChoosableFileFilter(fileChooserExport.getFileFilter());
+//			fileChooserExport.setFileFilter(fileChooserExport.getAcceptAllFileFilter());
+//			fileChooserExport.setFileFilter(format.getFilter());
+			fileChooserExport.setTitle(LangTool.INSTANCE.getBundle().getString("Exporter.1"));
 
-		// Setting the dialog.
-		fileChooserExport.removeChoosableFileFilter(fileChooserExport.getFileFilter());
-		fileChooserExport.setFileFilter(fileChooserExport.getAcceptAllFileFilter());
-		fileChooserExport.setFileFilter(format.getFilter());
-		fileChooserExport.setDialogTitle(Exporter.TITLE_DIALOG_EXPORT);
-
-		if(loader.currentFile!=null && fileChooserExport.getSelectedFile()==null) {
-			String path = loader.currentFile.getPath();
-			if(path.contains(".")) path = path.substring(0, path.lastIndexOf('.')); //$NON-NLS-1$
-			path += format.getFileExtension();
-			fileChooserExport.setSelectedFile(new File(path));
 		}
+
+		fileChooserExport.setInitialDirectory(new File(pathExport));
+//
+//		if(loader.currentFile!=null && fileChooserExport.getSelectedFile()==null) {
+//			String path = loader.currentFile.getPath();
+//			if(path.contains(".")) path = path.substring(0, path.lastIndexOf('.')); //$NON-NLS-1$
+//			path += format.getFileExtension();
+//			fileChooserExport.setSelectedFile(new File(path));
+//		}
 
 		return fileChooserExport;
 	}
 
 
 
-	@Override
-	public void onActionExecuted(final Action action) {
-		statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.184")); //$NON-NLS-1$
-	}
+//	@Override
+//	public void onActionExecuted(final Action action) {
+//		statusBar.setText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.184")); //$NON-NLS-1$
+//	}
 
 
 
@@ -339,54 +270,54 @@ protected FileLoaderSaver loader;
 
 
 /**
- * This link maps menus to an export action.
- */
-class MenuPressed2Export extends InteractorImpl<Export, MenuItemPressed, Exporter> {
-	/**
-	 * Initialises the link.
-	 * @param ins The exporter.
-	 */
-	protected MenuPressed2Export(final Exporter ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, Export.class, MenuItemPressed.class);
-	}
-
-
-	@Override
-	public void initAction() {
-		final JMenuItem item = interaction.getMenuItem();
-		final ExportFormat format;
-
-		if(item==instrument.menuItemPDF)
-			format = ExportFormat.PDF;
-		else if(item==instrument.menuItemPDFcrop)
-			format = ExportFormat.PDF_CROP;
-		else if(item==instrument.menuItemEPSLatex)
-			format = ExportFormat.EPS_LATEX;
-		else if(item==instrument.menuItemJPG)
-			format = ExportFormat.JPG;
-		else if(item==instrument.menuItemPST)
-			format = ExportFormat.TEX;
-		else if(item==instrument.menuItemPNG)
-			format = ExportFormat.PNG;
-		else if(item==instrument.menuItemBMP)
-			format = ExportFormat.BMP;
-		else format = null;
-
-		if(format!=null){
-			action.setDialogueBox(instrument.getExportDialog(format));
-			action.setCanvas(instrument.canvas);
-			action.setFormat(format);
-			action.setPstGen(instrument.pstGen);
-		}
-	}
-
-
-	@Override
-	public boolean isConditionRespected() {
-		final JMenuItem item = interaction.getMenuItem();
-
-		return item==instrument.menuItemPDF || item==instrument.menuItemPDFcrop || item==instrument.menuItemEPSLatex ||
-			item==instrument.menuItemJPG || item==instrument.menuItemPNG ||
-			item==instrument.menuItemPST || item==instrument.menuItemBMP;
-	}
-}
+// * This link maps menus to an export action.
+// */
+//class MenuPressed2Export extends InteractorImpl<Export, MenuItemPressed, Exporter> {
+//	/**
+//	 * Initialises the link.
+//	 * @param ins The exporter.
+//	 */
+//	protected MenuPressed2Export(final Exporter ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, Export.class, MenuItemPressed.class);
+//	}
+//
+//
+//	@Override
+//	public void initAction() {
+//		final JMenuItem item = interaction.getMenuItem();
+//		final ExportFormat format;
+//
+//		if(item==instrument.menuItemPDF)
+//			format = ExportFormat.PDF;
+//		else if(item==instrument.menuItemPDFcrop)
+//			format = ExportFormat.PDF_CROP;
+//		else if(item==instrument.menuItemEPSLatex)
+//			format = ExportFormat.EPS_LATEX;
+//		else if(item==instrument.menuItemJPG)
+//			format = ExportFormat.JPG;
+//		else if(item==instrument.menuItemPST)
+//			format = ExportFormat.TEX;
+//		else if(item==instrument.menuItemPNG)
+//			format = ExportFormat.PNG;
+//		else if(item==instrument.menuItemBMP)
+//			format = ExportFormat.BMP;
+//		else format = null;
+//
+//		if(format!=null){
+//			action.setDialogueBox(instrument.getExportDialog(format));
+//			action.setCanvas(instrument.canvas);
+//			action.setFormat(format);
+//			action.setPstGen(instrument.pstGen);
+//		}
+//	}
+//
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		final JMenuItem item = interaction.getMenuItem();
+//
+//		return item==instrument.menuItemPDF || item==instrument.menuItemPDFcrop || item==instrument.menuItemEPSLatex ||
+//			item==instrument.menuItemJPG || item==instrument.menuItemPNG ||
+//			item==instrument.menuItemPST || item==instrument.menuItemBMP;
+//	}
+//}

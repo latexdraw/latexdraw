@@ -11,7 +11,6 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.ui.LCanvas;
-import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.instruments.CodeInserter;
 import net.sf.latexdraw.instruments.CopierCutterPaster;
 import net.sf.latexdraw.instruments.DrawingPropertiesCustomiser;
@@ -225,8 +224,6 @@ public class LFrame extends SwingUI {
 
 
 	private void instantiateInstruments(final LCanvas canvas) {
-		final PSTCodeGenerator gen = getCodePanel().getPstGenerator();
-
 		try { scroller		= new Scroller(canvas); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { zoomer		= new WidgetZoomer(canvas, true, true,
@@ -245,13 +242,9 @@ public class LFrame extends SwingUI {
 			metaShapeCustomiser = new MetaShapeCustomiser(composer, hand, pencil, canvas.getBorderInstrument());
 			canvas.getBorderInstrument().setMetaCustomiser(metaShapeCustomiser);
 			hand.setMetaCustomiser(metaShapeCustomiser);
-			textSetter.setTestCustomiser(metaShapeCustomiser.getTextCustomiser());
-			textSetter.setPlotCustomiser(metaShapeCustomiser.getPlotCustomiser());
 		} catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager(composer);
 		try { fileLoader	= new FileLoaderSaver(this, statusBar, prefSetters); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { exporter		= new Exporter(composer, canvas, statusBar, gen, fileLoader); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { tabSelector	= new TabSelector(this); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
