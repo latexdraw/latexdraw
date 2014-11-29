@@ -66,9 +66,9 @@ public class ShortcutsController implements Initializable {
 	    table.getColumns().stream().forEach(col -> col.prefWidthProperty().bind(table.widthProperty().divide(3)));
 	    
 	    table.getItems().addAll(
-	    		FXCollections.observableArrayList(ctrl+"+C", LResources.LABEL_COPY, catEdit),
-					FXCollections.observableArrayList(ctrl+"+V", LResources.LABEL_PASTE, catEdit),//$NON-NLS-1$
-					FXCollections.observableArrayList(ctrl+"+X", LResources.LABEL_CUT, catEdit),//$NON-NLS-1$
+	    		FXCollections.observableArrayList(ctrl+"+C", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.40"), catEdit),
+					FXCollections.observableArrayList(ctrl+"+V", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.43"), catEdit),//$NON-NLS-1$
+					FXCollections.observableArrayList(ctrl+"+X", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.44"), catEdit),//$NON-NLS-1$
 					FXCollections.observableArrayList(ctrl+"+Z", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.23"), catEdit),//$NON-NLS-1$ //$NON-NLS-2$
 					FXCollections.observableArrayList(ctrl+"+Y", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.22"), catEdit),//$NON-NLS-1$ //$NON-NLS-2$
 					FXCollections.observableArrayList(ctrl+"+N", LResources.LABEL_NEW, catFile),//$NON-NLS-1$

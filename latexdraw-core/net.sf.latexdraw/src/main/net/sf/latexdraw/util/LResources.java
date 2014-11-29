@@ -46,15 +46,6 @@ public final class LResources {
 
 	public static final String LABEL_NEW_WITH_SEL =LangTool.INSTANCE.getStringLaTeXDrawFrame("LRes.0"); //$NON-NLS-1$
 
-	/** The label of the menu copy */
-	public static final String LABEL_COPY = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.40"); //$NON-NLS-1$
-
-	/** The label of the menu paste */
-	public static final String LABEL_PASTE = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.43"); //$NON-NLS-1$
-
-	/** The label of the menu cut */
-	public static final String LABEL_CUT = LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.44"); //$NON-NLS-1$
-
 	public static final String LABEL_UPDATE_TO_GRID = LangTool.INSTANCE.getString19("DrawPanel.0"); //$NON-NLS-1$
 
 	public static final ImageIcon DIM_POS_ICON;
@@ -72,9 +63,6 @@ public final class LResources {
 	public static final ImageIcon ZOOM_DEFAULT_ICON;
 	public static final ImageIcon UNDO_ICON;
 	public static final ImageIcon REDO_ICON;
-	public static final ImageIcon COPY_ICON;
-	public static final ImageIcon PASTE_ICON;
-	public static final ImageIcon CUT_ICON;
 	public static final ImageIcon COMMENT_ICON;
 	public static final ImageIcon STOP_ICON;
 	public static final ImageIcon INSERT_PST_ICON;
@@ -84,9 +72,6 @@ public final class LResources {
 
 	static {
 		DIM_POS_ICON		= loadImageIcon("/res/dimPos.png");//$NON-NLS-1$
-		COPY_ICON  		= loadImageIcon("/res/Copy.png");//$NON-NLS-1$
-		PASTE_ICON 		= loadImageIcon("/res/Paste.png");//$NON-NLS-1$
-		CUT_ICON   		= loadImageIcon("/res/Cut.png");//$NON-NLS-1$
 		UNDO_ICON 		= loadImageIcon("/res/Undo.png");//$NON-NLS-1$
 		REDO_ICON 		= loadImageIcon("/res/Redo.png");	//$NON-NLS-1$
 		ZOOM_DEFAULT_ICON = loadImageIcon("/res/Magnify.png");	//$NON-NLS-1$

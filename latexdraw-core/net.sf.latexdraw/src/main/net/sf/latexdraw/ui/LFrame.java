@@ -201,8 +201,7 @@ public class LFrame extends SwingUI {
 		statusBar = new JLabel("");//$NON-NLS-1$
 //		statusBar.setEditable(false);
 
-		/* Creation of the instruments. */
-		instantiateInstruments(canvas, drawing);
+		instantiateInstruments(canvas);
 
 		if(progressBar!=null)
 			progressBar.addToProgressBar(15);
@@ -225,7 +224,7 @@ public class LFrame extends SwingUI {
 	}
 
 
-	private void instantiateInstruments(final LCanvas canvas, final IDrawing drawing) {
+	private void instantiateInstruments(final LCanvas canvas) {
 		final PSTCodeGenerator gen = getCodePanel().getPstGenerator();
 
 		try { scroller		= new Scroller(canvas); }
@@ -250,8 +249,6 @@ public class LFrame extends SwingUI {
 			textSetter.setPlotCustomiser(metaShapeCustomiser.getPlotCustomiser());
 		} catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager(composer);
-		try { paster		= new CopierCutterPaster(composer, drawing, null); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { fileLoader	= new FileLoaderSaver(this, statusBar, prefSetters); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { exporter		= new Exporter(composer, canvas, statusBar, gen, fileLoader); }

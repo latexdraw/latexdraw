@@ -96,21 +96,7 @@
 						<Menu id="recentFilesMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.0b" />
 					</items>
 				</MenuButton>
-				<MenuButton mnemonicParsing="false">
-					<graphic><ImageView><image><Image url="@/res/Cut.png" /></image></ImageView></graphic>
-					<tooltip><Tooltip text="%LaTeXDrawFrame.89" /></tooltip>
-					<items>
-						<MenuItem id="cutMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.44">
-							<graphic><ImageView><image><Image url="@/res/Copy.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<MenuItem id="pasteMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.43">
-							<graphic><ImageView><image><Image url="@/res/Cut.png" /></image></ImageView></graphic>
-						</MenuItem>
-						<MenuItem id="copyMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.40">
-							<graphic><ImageView><image><Image url="@/res/Paste.png" /></image></ImageView></graphic>
-						</MenuItem>
-					</items>
-				</MenuButton>
+				<fx:include source="CopyPaste.fxml" />
 				<MenuButton id="exportMenu" mnemonicParsing="false">
 					<tooltip><Tooltip text="%LaTeXDrawFrame.16b" /></tooltip>
 					<graphic><ImageView><image><Image url="@/res/pdf.png" /></image></ImageView></graphic>
