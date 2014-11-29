@@ -91,8 +91,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	 */
 	public MetaShapeCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil, final Border border) {
 		super(composer, hand, pencil);
-
-		shapePositioner			= new ShapePositioner(composer, hand, pencil);
 	}
 
 
@@ -166,8 +164,8 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeAxesCustomiser.update(shape);
 		shapeGridCustomiser.update(shape);
 		shapeFreeHandCustomiser.update(shape);
-		shapeTransformer.update(shape);
-		shapePositioner.update(shape);
+//		shapeTransformer.update(shape);
+//		shapePositioner.update(shape);
 		plotCustom.update(shape);
 	}
 

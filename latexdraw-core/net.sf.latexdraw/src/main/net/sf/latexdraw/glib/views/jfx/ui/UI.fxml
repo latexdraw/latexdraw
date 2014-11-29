@@ -43,6 +43,7 @@
 																<AnchorPane>
 																	<fx:include source="Rotation.fxml" />
 																	<fx:include source="Transformation.fxml" />
+																	<fx:include source="PositionZ.fxml" />
 																	<fx:include source="Group.fxml" />
 																</AnchorPane>
 															</content>

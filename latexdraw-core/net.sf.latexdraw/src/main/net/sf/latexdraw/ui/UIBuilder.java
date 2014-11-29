@@ -50,9 +50,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 	/** The tool bar composer. */
 	protected ToolbarBuilder toolbarBuilder;
 
-	/** The properties tool bar composer. */
-	protected PropertiesToolbarBuilder propToolbarBuilder;
-
 
 	/**
 	 * Creates the composer of the latexdraw user interface.
@@ -64,7 +61,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 		widget = frame;
 		menubarBuilder 		= new MenubarBuilder(widget);
 		toolbarBuilder 		= new ToolbarBuilder(widget);
-		propToolbarBuilder 	= new PropertiesToolbarBuilder(widget);
 	}
 
 
@@ -108,9 +104,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 
 		WidgetMiniToolbar list = toolbarBuilder.mapContainers.get(comp);
 
-		if(list==null)
-			list = propToolbarBuilder.mapContainers.get(comp);
-
 		if(list!=null) {
 			list.setVisible(visible || list.isContentVisible());
 			if(list.isVisible() && list.getWindowToolBar().isVisible())
@@ -125,7 +118,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 
 		menubarBuilder.compose(progressBar);
 		toolbarBuilder.compose(progressBar);
-		propToolbarBuilder.compose(progressBar);
 
 		/* Creation of the drawing area composed of the canvas, the scales, etc. */
 		final MPanel drawingArea = new MPanel(false, false);
@@ -133,7 +125,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 		drawingArea.add(widget.xScaleRuler, BorderLayout.NORTH);
 		drawingArea.add(widget.yScaleRuler, BorderLayout.WEST);
 		drawingArea.add(widget.layeredPanel, BorderLayout.CENTER);
-		drawingArea.add(propToolbarBuilder.getWidget(), BorderLayout.SOUTH);
 		if(progressBar!=null) progressBar.addToProgressBar(5);
 
 		/* Creation of the tabbed pane. */
@@ -193,7 +184,6 @@ public class UIBuilder extends SwingUIComposer<LFrame> {
 	protected void setGlobalShortcutEventable(final Instrument instrument, final LCanvas canvas) {
 		if(instrument!=null) {
 			instrument.addEventable(toolbarBuilder.getWidget());
-			instrument.addEventable(propToolbarBuilder.getWidget());
 			instrument.addEventable(canvas);
 			instrument.addEventable(widget.getTabbedPanel());
 			instrument.addEventable(widget.getCodePanel());

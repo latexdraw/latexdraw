@@ -72,8 +72,6 @@ public final class LResources {
 	public static final ImageIcon ZOOM_DEFAULT_ICON;
 	public static final ImageIcon UNDO_ICON;
 	public static final ImageIcon REDO_ICON;
-	public static final ImageIcon BACKGROUND_ICON;
-	public static final ImageIcon FOREGROUND_ICON;
 	public static final ImageIcon COPY_ICON;
 	public static final ImageIcon PASTE_ICON;
 	public static final ImageIcon CUT_ICON;
@@ -89,8 +87,6 @@ public final class LResources {
 		COPY_ICON  		= loadImageIcon("/res/Copy.png");//$NON-NLS-1$
 		PASTE_ICON 		= loadImageIcon("/res/Paste.png");//$NON-NLS-1$
 		CUT_ICON   		= loadImageIcon("/res/Cut.png");//$NON-NLS-1$
-		BACKGROUND_ICON 	= loadImageIcon("/res/background.png");	//$NON-NLS-1$
-		FOREGROUND_ICON 	= loadImageIcon("/res/foreground.png");//$NON-NLS-1$
 		UNDO_ICON 		= loadImageIcon("/res/Undo.png");//$NON-NLS-1$
 		REDO_ICON 		= loadImageIcon("/res/Redo.png");	//$NON-NLS-1$
 		ZOOM_DEFAULT_ICON = loadImageIcon("/res/Magnify.png");	//$NON-NLS-1$

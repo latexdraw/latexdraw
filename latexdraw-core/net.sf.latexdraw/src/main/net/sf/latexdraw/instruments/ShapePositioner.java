@@ -1,15 +1,9 @@
 package net.sf.latexdraw.instruments;
 
-import net.sf.latexdraw.actions.shape.MoveBackForegroundShapes;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.util.LResources;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
-import org.malai.instrument.InteractorImpl;
-import org.malai.swing.interaction.library.ButtonPressed;
-import org.malai.swing.ui.SwingUIComposer;
-import org.malai.swing.widget.MButton;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * Puts shapes in background / foreground.<br>
@@ -29,80 +23,53 @@ import org.malai.swing.widget.MButton;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapePositioner extends ShapePropertyCustomiser {
+public class ShapePositioner extends JfxInstrument {// extends ShapePropertyCustomiser {
 	/** The foreground button. */
-	protected MButton foregroundB;
+	@FXML protected Button foregroundB;
 
 	/** The background button. */
-	protected MButton backgroundB;
+	@FXML protected Button backgroundB;
 
 	/**
 	 * Creates the instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param hand The Hand instrument.
-	 * @param pencil The Pencil instrument.
-	 * @throws IllegalArgumentException If one of the given parameters is null.
-	 * @since 3.0
 	 */
-	public ShapePositioner(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
-		super(composer, hand, pencil);
-		initialiseWidgets();
-	}
-
-
-	@Override
-	protected void initialiseWidgets() {
-        foregroundB = new MButton(LResources.FOREGROUND_ICON);
-        foregroundB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.70")); //$NON-NLS-1$
-
-        backgroundB = new MButton(LResources.BACKGROUND_ICON);
-        backgroundB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.71")); //$NON-NLS-1$
+	public ShapePositioner() {
+		super();
 	}
 
 
 	@Override
 	protected void initialiseInteractors() {
-		try {
-			addInteractor(new Button2MoveBackForeground(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		try {
+//			addInteractor(new Button2MoveBackForeground(this));
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
 
-	/** @return The foreground button. */
-	public MButton getForegroundButton() { return foregroundB; }
 
-	/**  @return The background button. */
-	public MButton getBackgroundButton() { return backgroundB; }
-
-
-	@Override
-	protected void update(final IGroup shape) {
-		// Nothing to do.
-	}
-
-	@Override
-	protected void setWidgetsVisible(final boolean visible) {
-		composer.setWidgetVisible(foregroundB, visible);
-		composer.setWidgetVisible(backgroundB, visible);
-	}
+//	@Override
+//	protected void setWidgetsVisible(final boolean visible) {
+//		composer.setWidgetVisible(foregroundB, visible);
+//		composer.setWidgetVisible(backgroundB, visible);
+//	}
 }
 
-/** This link maps a button interaction to an action that puts shapes in foreground / background. */
-class Button2MoveBackForeground extends InteractorImpl<MoveBackForegroundShapes, ButtonPressed, ShapePositioner> {
-	protected Button2MoveBackForeground(final ShapePositioner ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, MoveBackForegroundShapes.class, ButtonPressed.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setIsForeground(interaction.getButton()==instrument.foregroundB);
-		action.setDrawing(instrument.pencil.canvas().getDrawing());
-		action.setShape(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return interaction.getButton()==instrument.backgroundB || interaction.getButton()==instrument.foregroundB;
-	}
-}
+///** This link maps a button interaction to an action that puts shapes in foreground / background. */
+//class Button2MoveBackForeground extends InteractorImpl<MoveBackForegroundShapes, ButtonPressed, ShapePositioner> {
+//	protected Button2MoveBackForeground(final ShapePositioner ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, MoveBackForegroundShapes.class, ButtonPressed.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setIsForeground(interaction.getButton()==instrument.foregroundB);
+//		action.setDrawing(instrument.pencil.canvas().getDrawing());
+//		action.setShape(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return interaction.getButton()==instrument.backgroundB || interaction.getButton()==instrument.foregroundB;
+//	}
+//}
