@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.awt.ItemSelectable;
-import java.util.Objects;
 
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
@@ -12,12 +11,11 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 import org.malai.action.Action;
 import org.malai.instrument.InteractorImpl;
-import org.malai.swing.instrument.WidgetInstrument;
+import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.interaction.library.CheckBoxModified;
 import org.malai.swing.interaction.library.ListSelectionModified;
 import org.malai.swing.interaction.library.SpinnerModified;
-import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MColorButton;
 import org.malai.undo.Undoable;
 
@@ -41,7 +39,7 @@ import org.malai.undo.Undoable;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public abstract class ShapePropertyCustomiser extends WidgetInstrument {
+public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	/** The Hand instrument. */
 	protected Hand hand;
 
@@ -51,16 +49,9 @@ public abstract class ShapePropertyCustomiser extends WidgetInstrument {
 
 	/**
 	 * Creates the instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param hand The Hand instrument.
-	 * @param pencil The Pencil instrument.
-	 * @throws IllegalArgumentException If one of the given parameters is null.
-	 * @since 3.0
 	 */
-    protected ShapePropertyCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil) {
-		super(composer);
-		this.hand   = Objects.requireNonNull(hand);
-		this.pencil = Objects.requireNonNull(pencil);
+    protected ShapePropertyCustomiser() {
+		super();
 	}
 
 

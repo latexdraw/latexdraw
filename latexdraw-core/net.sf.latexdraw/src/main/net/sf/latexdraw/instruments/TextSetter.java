@@ -1,26 +1,12 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.event.KeyEvent;
-
-import javax.swing.JLayeredPane;
-
-import net.sf.latexdraw.actions.shape.AddShape;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
-import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 
 import org.malai.action.Action;
-import org.malai.instrument.InteractorImpl;
-import org.malai.swing.action.library.ActivateInactivateInstruments;
-import org.malai.swing.instrument.SwingInstrument;
-import org.malai.swing.interaction.library.KeyTyped;
-import org.malai.swing.widget.MLayeredPane;
+import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument allows to add and modify texts to the drawing.<br>
@@ -40,7 +26,7 @@ import org.malai.swing.widget.MLayeredPane;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class TextSetter extends SwingInstrument {
+public class TextSetter extends JfxInstrument {
 	/** The text field. */
 	protected TextAreaAutoSize textField;
 
@@ -66,15 +52,12 @@ public class TextSetter extends SwingInstrument {
 
 	/**
 	 * Creates the instrument.
-	 * @param overlayedPanel The pane where the text field must be added.
-	 * @throws NullPointerException If the given MLayeredPane is null.
-	 * @since 3.0
 	 */
-	public TextSetter(final MLayeredPane overlayedPanel) {
+	public TextSetter() {
 		super();
 		textField = new TextAreaAutoSize();
-		overlayedPanel.add(textField, JLayeredPane.PALETTE_LAYER);
-		overlayedPanel.add(textField.getMessageField(), JLayeredPane.PALETTE_LAYER);
+//		overlayedPanel.add(textField, JLayeredPane.PALETTE_LAYER);
+//		overlayedPanel.add(textField.getMessageField(), JLayeredPane.PALETTE_LAYER);
 		textField.setVisible(false);
 		addEventable(textField);
 	}
@@ -84,20 +67,6 @@ public class TextSetter extends SwingInstrument {
 	public void onActionDone(final Action action) {
 		super.onActionDone(action);
 //		if(custom!=null) custom.update();
-	}
-
-
-	/**
-	 * Sets the text customiser.
-	 * @param custom The instrument.
-	 */
-	public void setTestCustomiser(final ShapeTextCustomiser custom) {
-		if(custom!=null) this.custom = custom;
-	}
-	
-	
-	public void setPlotCustomiser(final ShapePlotCustomiser ins) {
-		if(ins!=null) plotCustom = ins;
 	}
 
 
@@ -141,15 +110,15 @@ public class TextSetter extends SwingInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
-			addInteractor(new Enter2SetText(this));
-			addInteractor(new Enter2SetEquation(this));
-			addInteractor(new Enter2AddText(this));
-//			addInteractor(new Enter2CheckPlot(this));
-			addInteractor(new KeyPress2Desactivate(this));
-		}catch(InstantiationException | IllegalAccessException e){
-			BadaboomCollector.INSTANCE.add(e);
-		}
+//		try{
+//			addInteractor(new Enter2SetText(this));
+//			addInteractor(new Enter2SetEquation(this));
+//			addInteractor(new Enter2AddText(this));
+////			addInteractor(new Enter2CheckPlot(this));
+//			addInteractor(new KeyPress2Desactivate(this));
+//		}catch(InstantiationException | IllegalAccessException e){
+//			BadaboomCollector.INSTANCE.add(e);
+//		}
 	}
 
 
@@ -202,101 +171,101 @@ public class TextSetter extends SwingInstrument {
 
 
 /**
- * This links maps a key press interaction to an action that desactivates the instrument.
- */
-class KeyPress2Desactivate extends InteractorImpl<ActivateInactivateInstruments, KeyTyped, TextSetter> {
-	/**
-	 * Creates the link.
-	 */
-	protected KeyPress2Desactivate(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, ActivateInactivateInstruments.class, KeyTyped.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.addInstrumentToInactivate(instrument);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		final int key = interaction.getKey();
-		// It is useless to check if another key is pressed because if it is the case, the interaction
-		// is in state keyPressed.
-		return key==KeyEvent.VK_ENTER && instrument.textField.isValidText() && !instrument.textField.getText().isEmpty() || key==KeyEvent.VK_ESCAPE;
-	}
-}
-
-
-class Enter2SetText extends InteractorImpl<ModifyShapeProperty, KeyTyped, TextSetter> {
-	protected Enter2SetText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, ModifyShapeProperty.class, KeyTyped.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setGroup(ShapeFactory.createGroup(instrument.text));
-		action.setProperty(ShapeProperties.TEXT);
-		action.setValue(instrument.textField.getText());
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return instrument.text!=null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
-	}
-}
-
-
-class Enter2SetEquation extends InteractorImpl<ModifyShapeProperty, KeyTyped, TextSetter> {
-	protected Enter2SetEquation(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, ModifyShapeProperty.class, KeyTyped.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setGroup(ShapeFactory.createGroup(instrument.plot));
-		action.setProperty(ShapeProperties.PLOT_EQ);
-		action.setValue(instrument.textField.getText());
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return instrument.plot!=null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
-	}
-}
-
-
-/**
- * This links maps a key press interaction to an action that adds a text to the drawing.
- */
-class Enter2AddText extends InteractorImpl<AddShape, KeyTyped, TextSetter> {
-	/**
-	 * Creates the link.
-	 */
-	protected Enter2AddText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, AddShape.class, KeyTyped.class);
-	}
-
-	@Override
-	public void initAction() {
-		final IPoint textPosition = instrument.relativePoint==null ? ShapeFactory.createPoint(instrument.textField.getX(),
-									instrument.textField.getY()+instrument.textField.getHeight()) : instrument.relativePoint;
-		final IShape sh = instrument.pencil==null ? null : instrument.pencil.createShapeInstance();
-
-		if(sh instanceof IText) {
-			final IText text = (IText)sh;
-			text.setPosition(textPosition.getX(), textPosition.getY());
-			text.setText(instrument.textField.getText());
-			action.setShape(text);
-			action.setDrawing(instrument.pencil.getCanvas().getDrawing());
-		}
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return instrument.pencil.getCurrentChoice()==EditionChoice.TEXT && instrument.text==null &&
-				!instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
-	}
-}
+// * This links maps a key press interaction to an action that desactivates the instrument.
+// */
+//class KeyPress2Desactivate extends InteractorImpl<ActivateInactivateInstruments, KeyTyped, TextSetter> {
+//	/**
+//	 * Creates the link.
+//	 */
+//	protected KeyPress2Desactivate(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, ActivateInactivateInstruments.class, KeyTyped.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.addInstrumentToInactivate(instrument);
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		final int key = interaction.getKey();
+//		// It is useless to check if another key is pressed because if it is the case, the interaction
+//		// is in state keyPressed.
+//		return key==KeyEvent.VK_ENTER && instrument.textField.isValidText() && !instrument.textField.getText().isEmpty() || key==KeyEvent.VK_ESCAPE;
+//	}
+//}
+//
+//
+//class Enter2SetText extends InteractorImpl<ModifyShapeProperty, KeyTyped, TextSetter> {
+//	protected Enter2SetText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, ModifyShapeProperty.class, KeyTyped.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setGroup(ShapeFactory.createGroup(instrument.text));
+//		action.setProperty(ShapeProperties.TEXT);
+//		action.setValue(instrument.textField.getText());
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return instrument.text!=null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
+//	}
+//}
+//
+//
+//class Enter2SetEquation extends InteractorImpl<ModifyShapeProperty, KeyTyped, TextSetter> {
+//	protected Enter2SetEquation(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, ModifyShapeProperty.class, KeyTyped.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		action.setGroup(ShapeFactory.createGroup(instrument.plot));
+//		action.setProperty(ShapeProperties.PLOT_EQ);
+//		action.setValue(instrument.textField.getText());
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return instrument.plot!=null && !instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
+//	}
+//}
+//
+//
+///**
+// * This links maps a key press interaction to an action that adds a text to the drawing.
+// */
+//class Enter2AddText extends InteractorImpl<AddShape, KeyTyped, TextSetter> {
+//	/**
+//	 * Creates the link.
+//	 */
+//	protected Enter2AddText(final TextSetter ins) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, AddShape.class, KeyTyped.class);
+//	}
+//
+//	@Override
+//	public void initAction() {
+//		final IPoint textPosition = instrument.relativePoint==null ? ShapeFactory.createPoint(instrument.textField.getX(),
+//									instrument.textField.getY()+instrument.textField.getHeight()) : instrument.relativePoint;
+//		final IShape sh = instrument.pencil==null ? null : instrument.pencil.createShapeInstance();
+//
+//		if(sh instanceof IText) {
+//			final IText text = (IText)sh;
+//			text.setPosition(textPosition.getX(), textPosition.getY());
+//			text.setText(instrument.textField.getText());
+//			action.setShape(text);
+//			action.setDrawing(instrument.pencil.getCanvas().getDrawing());
+//		}
+//	}
+//
+//	@Override
+//	public boolean isConditionRespected() {
+//		return instrument.pencil.getCurrentChoice()==EditionChoice.TEXT && instrument.text==null &&
+//				!instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
+//	}
+//}
 
 
 //class Enter2CheckPlot extends InteractorImpl<AddShape, KeyTyped, TextSetter> {

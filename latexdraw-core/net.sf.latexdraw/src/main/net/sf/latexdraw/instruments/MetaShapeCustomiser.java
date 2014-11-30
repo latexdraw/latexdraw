@@ -2,8 +2,6 @@ package net.sf.latexdraw.instruments;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.swing.ui.SwingUIComposer;
-
 /**
  * This meta-instrument manages the instruments that customises shape properties.<br>
  * <br>
@@ -81,15 +79,9 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 	/**
 	 * Creates the instrument.
-	 * @param hand The Hand instrument.
-	 * @param pencil The Pencil instrument.
-	 * @param composer The composer that manages the widgets of the instrument.
-	 * @param border The instrument Border
-	 * @throws IllegalArgumentException If one of the given parameters is null.
-	 * @since 3.0
 	 */
-	public MetaShapeCustomiser(final SwingUIComposer<?> composer, final Hand hand, final Pencil pencil, final Border border) {
-		super(composer, hand, pencil);
+	public MetaShapeCustomiser() {
+		super();
 	}
 
 
@@ -172,12 +164,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseInteractors() {
 		// This instrument does not have any link.
-	}
-
-
-	@Override
-	protected void initialiseWidgets() {
-		// This instrument does not have any widget.
 	}
 
 
