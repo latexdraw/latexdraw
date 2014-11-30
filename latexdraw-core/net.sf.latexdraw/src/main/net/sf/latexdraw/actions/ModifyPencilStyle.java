@@ -48,7 +48,7 @@ public class ModifyPencilStyle extends Action {
 
 	@Override
 	public boolean canDo() {
-		return pencil!=null && editingChoice!=null && pencil.currentChoice()!=editingChoice;
+		return pencil!=null && editingChoice!=null && pencil.getCurrentChoice()!=editingChoice;
 	}
 
 

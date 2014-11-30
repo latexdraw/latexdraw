@@ -167,7 +167,7 @@ public class TextSetter extends SwingInstrument {
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
 		if(activated && pencil.isActivated()) {
-			switch(pencil._currentChoice()) {
+			switch(pencil.getCurrentChoice()) {
 				case TEXT: setTextMessage(); break;
 				case PLOT: setPlotMessage(); break;
 				default: break;
@@ -287,13 +287,13 @@ class Enter2AddText extends InteractorImpl<AddShape, KeyTyped, TextSetter> {
 			text.setPosition(textPosition.getX(), textPosition.getY());
 			text.setText(instrument.textField.getText());
 			action.setShape(text);
-			action.setDrawing(instrument.pencil.canvas().getDrawing());
+			action.setDrawing(instrument.pencil.getCanvas().getDrawing());
 		}
 	}
 
 	@Override
 	public boolean isConditionRespected() {
-		return instrument.pencil.currentChoice()==EditionChoice.TEXT && instrument.text==null &&
+		return instrument.pencil.getCurrentChoice()==EditionChoice.TEXT && instrument.text==null &&
 				!instrument.textField.getText().isEmpty() && interaction.getKey()==KeyEvent.VK_ENTER;
 	}
 }

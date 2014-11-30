@@ -129,7 +129,6 @@ public class LCanvas extends MPanel implements ICanvas {
 		drawing				= theDrawing;
 		modified			= false;
 		userSelectionBorder	= null;
-		borderIns			= new Border(this);
 		border				= new Rectangle2D.Double();
 		views 				= new ActiveArrayList<>();
 		tooltipableView		= new ArrayList<>();
