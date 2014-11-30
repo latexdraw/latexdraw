@@ -232,8 +232,6 @@ public class LFrame extends SwingUI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { textSetter	= new TextSetter(layeredPanel); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { deleter		= new ShapeDeleter(composer); }
-		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try {
 			metaShapeCustomiser = new MetaShapeCustomiser(composer, hand, pencil, canvas.getBorderInstrument());
 		} catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+
+<Button fx:id="deleteB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5"
+		xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+		fx:controller="net.sf.latexdraw.instruments.ShapeDeleter">
+	<graphic><ImageView><image><Image url="@/res/del.png" /></image></ImageView></graphic>
+	<tooltip><Tooltip text="%LaTeXDrawFrame.139" /></tooltip>
+</Button>
