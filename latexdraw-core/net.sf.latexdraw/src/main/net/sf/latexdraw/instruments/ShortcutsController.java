@@ -60,10 +60,10 @@ public class ShortcutsController implements Initializable {
 	    for (int i=0, size=table.getColumns().size(); i<size ; i++) {
 	        final int colIndex = i ;
 	        TableColumn<ObservableList<String>, String> col = (TableColumn<ObservableList<String>, String>)table.getColumns().get(i);
-	        col.setCellValueFactory(cellData -> {return new ReadOnlyStringWrapper(cellData.getValue().get(colIndex));});
+	        col.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().get(colIndex)));
 	    }
 	   
-	    table.getColumns().stream().forEach(col -> col.prefWidthProperty().bind(table.widthProperty().divide(3)));
+	    table.getColumns().forEach(col -> col.prefWidthProperty().bind(table.widthProperty().divide(3)));
 	    
 	    table.getItems().addAll(
 	    		FXCollections.observableArrayList(ctrl+"+C", LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.40"), catEdit),

@@ -1,20 +1,4 @@
-package net.sf.latexdraw.instruments;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.badaboom.BadaboomHandler;
-import net.sf.latexdraw.badaboom.BadaboomManager;
-
-import org.malai.javafx.instrument.JfxInstrument;
-
-/**
- * This instrument allows to see exceptions launched during the execution of the program.<br>
- * <br>
+/*
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
  * <br>
@@ -27,6 +11,28 @@ import org.malai.javafx.instrument.JfxInstrument;
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  *  PURPOSE. See the GNU General Public License for more details.<br>
  * <br>
+ */
+package net.sf.latexdraw.instruments;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.badaboom.BadaboomHandler;
+import net.sf.latexdraw.util.LangTool;
+
+import org.malai.javafx.instrument.JfxInstrument;
+
+/**
+ * This instrument allows to see exceptions launched during the execution of the program.<br>
  * 01/05/11<br>
  * @author Arnaud BLOUIN
  * @version 3.0
@@ -36,7 +42,7 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	@FXML protected Button exceptionB;
 
 	/** The frame to show when exceptions occur. */
-	private BadaboomManager frame;
+	private Stage frame;
 
 
 	/**
@@ -51,17 +57,36 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	/**
 	 * @return The frame showing the exceptions. Cannot be null.
 	 */
-	public BadaboomManager getFrame() {
-		if(frame==null) frame = new BadaboomManager();
+	public Stage getFrame() {
+		if(frame==null){
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("../glib/views/jfx/ui/Badaboom.fxml"), LangTool.INSTANCE.getBundle());
+		        final Scene scene = new Scene(root);
+		        frame = new Stage(StageStyle.UTILITY);
+		        frame.setScene(scene);
+		        frame.centerOnScreen();
+			}catch(final Exception e) {
+				BadaboomCollector.INSTANCE.add(e);
+			}
+		}
 		return frame;
 	}
 	
-
+public Object foo = null;
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		exceptionB.managedProperty().bind(exceptionB.visibleProperty());
-		setActivated(false);
+//		exceptionB.managedProperty().bind(exceptionB.visibleProperty());
+//		setActivated(false);
+		exceptionB.setOnAction(evt -> {
+			try {
+				foo.toString();
+			}catch(Exception ex) {
+				BadaboomCollector.INSTANCE.add(ex);
+			}
+			getFrame().show();
+		});
 	}
+	
 
 	@Override
 	protected void initialiseInteractors() {
