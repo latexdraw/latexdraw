@@ -72,19 +72,11 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 		return frame;
 	}
 	
-public Object foo = null;
+
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-//		exceptionB.managedProperty().bind(exceptionB.visibleProperty());
-//		setActivated(false);
-		exceptionB.setOnAction(evt -> {
-			try {
-				foo.toString();
-			}catch(Exception ex) {
-				BadaboomCollector.INSTANCE.add(ex);
-			}
-			getFrame().show();
-		});
+		exceptionB.managedProperty().bind(exceptionB.visibleProperty());
+		setActivated(false);
 	}
 	
 
