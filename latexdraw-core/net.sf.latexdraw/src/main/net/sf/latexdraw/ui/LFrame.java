@@ -236,7 +236,6 @@ public class LFrame extends SwingUI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try {
 			metaShapeCustomiser = new MetaShapeCustomiser(composer, hand, pencil, canvas.getBorderInstrument());
-			hand.setMetaCustomiser(metaShapeCustomiser);
 		} catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		undoManager			= new UndoRedoManager(composer);
 		try { tabSelector	= new TabSelector(this); }

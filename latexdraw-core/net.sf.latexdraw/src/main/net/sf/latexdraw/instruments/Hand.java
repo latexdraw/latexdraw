@@ -17,7 +17,6 @@ package net.sf.latexdraw.instruments;
 
 import javafx.scene.Cursor;
 
-
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
  * 2012-04-20<br>
@@ -25,7 +24,7 @@ import javafx.scene.Cursor;
  * @version 3.0
  */
 public class Hand extends CanvasInstrument {
-	protected MetaShapeCustomiser _metaCustomiser;
+	protected MetaShapeCustomiser metaCustomiser;
 	protected TextSetter textSetter;
 	
 	public Hand() {
@@ -60,10 +59,6 @@ public class Hand extends CanvasInstrument {
 		canvas.setCursor(Cursor.DEFAULT);
 	}
 
-	
-	public void setMetaCustomiser(final MetaShapeCustomiser metaCustomiser) { 
-		_metaCustomiser = metaCustomiser;
-	}
 
 //	@Override
 //	public void onActionDone(final Action action) {
