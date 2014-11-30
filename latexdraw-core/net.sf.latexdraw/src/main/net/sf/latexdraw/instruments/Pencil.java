@@ -1,6 +1,6 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Cursor;
+import javafx.scene.Cursor;
 
 import javax.swing.JFileChooser;
 
@@ -86,8 +86,8 @@ public class Pencil extends CanvasInstrument {
 	@Override
 	public void interimFeedback() {
 		canvas.setTempView(null);
-		canvas.refresh();
-		canvas.setCursor(Cursor.getDefaultCursor());
+//		canvas.refresh();
+		canvas.getScene().setCursor(Cursor.DEFAULT);
 	}
 
 	@Override

@@ -15,7 +15,8 @@
 
 package net.sf.latexdraw.instruments;
 
-import java.awt.Cursor;
+import javafx.scene.Cursor;
+
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -55,8 +56,8 @@ public class Hand extends CanvasInstrument {
 	@Override
 	public void interimFeedback() {
 		// The rectangle used for the interim feedback of the selection is removed.
-		canvas.setTempUserSelectionBorder(null);
-		canvas.setCursor(Cursor.getDefaultCursor());
+//		canvas.setTempUserSelectionBorder(null);
+		canvas.setCursor(Cursor.DEFAULT);
 	}
 
 	

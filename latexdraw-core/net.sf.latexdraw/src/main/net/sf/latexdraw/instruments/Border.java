@@ -16,13 +16,13 @@ package net.sf.latexdraw.instruments;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.scene.Cursor;
 import net.sf.latexdraw.glib.handlers.ArcAngleHandler;
 import net.sf.latexdraw.glib.handlers.CtrlPointHandler;
 import net.sf.latexdraw.glib.handlers.IHandler;
@@ -133,7 +133,7 @@ public class Border extends CanvasInstrument { // implements Picker {
 
 	@Override
 	public void interimFeedback() {
-		canvas.setCursor(Cursor.getDefaultCursor());
+		canvas.setCursor(Cursor.DEFAULT);
 	}
 
 

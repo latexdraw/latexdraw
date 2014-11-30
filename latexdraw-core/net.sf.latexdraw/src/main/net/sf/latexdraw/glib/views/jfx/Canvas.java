@@ -10,6 +10,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
@@ -70,6 +71,9 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ConcretePresen
 	/** Defined whether the canvas has been modified. */
 	protected boolean modified;
 	
+	/** The temporary view that the canvas may contain. */
+	protected final IUnary<IViewShape> tempView;
+	
 	
 	/**
 	 * Creates the canvas.
@@ -80,6 +84,7 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ConcretePresen
 		modified	 = false;
 		drawing		 = ShapeFactory.createDrawing();
 		zoom		 = new ActiveUnary<>(1.);
+		tempView	 = new ActiveUnary<>();
 		page 		 = Page.USLETTER;
 		border		 = new Rectangle2D.Double();
 		magneticGrid = new MagneticGridImpl(this);
@@ -383,5 +388,39 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ConcretePresen
 			update();
 			setModified(true);
 		}
+	}
+	
+	
+	/**
+	 * Converts the given point in the coordinate system based on the canvas' origin.
+	 * The given point must be in the coordinate system of a container widget (the top-left point is the origin).
+	 * @param pt The point to convert.
+	 * @return The converted point or null if the given point is null.
+	 */
+	public IPoint convertToOrigin(final IPoint pt) {
+		final IPoint convertion;
+		if(pt==null) convertion = null;
+		else {
+			convertion = ShapeFactory.createPoint(pt);
+			convertion.translate(-ORIGIN.getX(), -ORIGIN.getY());
+		}
+		return convertion;
+	}
+	
+	
+	/**
+	 * @return The model of the canvas.
+	 */
+	public IDrawing getDrawing() {
+		return drawing;
+	}
+	
+	
+	/**
+	 * Sets the temporary view.
+	 * @param view The new temporary view.
+	 */
+	public void setTempView(final IViewShape view) {
+		tempView.setValue(view);
 	}
 }
