@@ -114,10 +114,9 @@ public class Helper extends JfxInstrument {
 }
 
 
-///** The link between a menu item and the action that shows the latexdraw dialogue box. */
-//class MenuItem2AboutFrame extends MenuItem2ShowComponentInteractor<Helper> {
-//	protected MenuItem2AboutFrame(final Helper ins, final Component component, final MMenuItem menuItem) throws InstantiationException, IllegalAccessException {
-//		super(ins, component, menuItem);
+//class MenuItem2AboutFrame extends JfxInteractor<ShowStage,ButtonPressed,Helper> {
+//	protected MenuItem2AboutFrame(final Helper ins, final MenuButton menuItem) throws InstantiationException, IllegalAccessException {
+//		super(ins, false, ShowStage.class, ButtonPressed.class, Arrays.asList(ins.aboutItem));
 //	}
 //
 //	@Override

@@ -7,18 +7,15 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 
 import net.sf.latexdraw.actions.LoadDrawing;
 import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.ui.LFrame;
 import net.sf.latexdraw.util.LNamespace;
 
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.swing.action.library.IOAction;
-import org.malai.swing.widget.MProgressBar;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -65,17 +62,17 @@ public class FileLoaderSaver extends JfxInstrument {
     /** The fileChooser used to save drawings. */
     protected JFileChooser fileChooser;
 
-    /** The UI to save/open. */
-    protected LFrame ui;
+//    /** The UI to save/open. */
+//    protected LFrame ui;
 
-	/** The field where messages are displayed. */
-	protected JLabel statusBar;
+//	/** The field where messages are displayed. */
+//	protected JLabel statusBar;
 
 	/** The instrument used to manage preferences. */
 	protected PreferencesSetter prefSetter;
 
-	/** The progress bar used to show the progress of loading and saving operations. */
-	protected MProgressBar progressBar;
+//	/** The progress bar used to show the progress of loading and saving operations. */
+//	protected MProgressBar progressBar;
 
 
 	/**

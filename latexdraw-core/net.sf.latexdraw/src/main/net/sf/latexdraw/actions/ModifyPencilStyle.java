@@ -1,13 +1,4 @@
-package net.sf.latexdraw.actions;
-
-import net.sf.latexdraw.instruments.EditionChoice;
-import net.sf.latexdraw.instruments.Pencil;
-
-import org.malai.action.Action;
-
-/**
- * This action allows to set the kind of shape that the pencil must draw.<br>
- * <br>
+/*
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
  * <br>
@@ -18,7 +9,16 @@ import org.malai.action.Action;
  * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
- * <br>
+ */
+package net.sf.latexdraw.actions;
+
+import net.sf.latexdraw.instruments.EditionChoice;
+import net.sf.latexdraw.instruments.Pencil;
+
+import org.malai.action.Action;
+
+/**
+ * This action allows to set the kind of shape that the pencil must draw.<br>
  * 05/14/2010<br>
  * @author Arnaud BLOUIN
  * @since 3.0
@@ -31,19 +31,10 @@ public class ModifyPencilStyle extends Action {
 	protected EditionChoice editingChoice;
 
 
-    @Override
-	public void flush() {
-		super.flush();
-		pencil 			= null;
-		editingChoice 	= null;
-	}
-
-
 	@Override
 	protected void doActionBody() {
 		pencil.setCurrentChoice(editingChoice);
 	}
-
 
 
 	@Override
@@ -52,22 +43,10 @@ public class ModifyPencilStyle extends Action {
 	}
 
 
-
 	@Override
 	public boolean isRegisterable() {
 		return false;
 	}
-
-
-
-	/**
-	 * @return The pencil to parameterise.
-	 * @since 3.0
-	 */
-	public Pencil getPencil() {
-		return pencil;
-	}
-
 
 
 	/**
@@ -77,16 +56,6 @@ public class ModifyPencilStyle extends Action {
 	 */
 	public void setPencil(final Pencil pencil) {
 		this.pencil = pencil;
-	}
-
-
-
-	/**
-	 * @return The editing choice to set.
-	 * @since 3.0
-	 */
-	public EditionChoice getEditingChoice() {
-		return editingChoice;
 	}
 
 

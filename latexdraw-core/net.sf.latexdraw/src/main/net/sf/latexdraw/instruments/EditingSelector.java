@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -14,11 +15,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.sf.latexdraw.actions.ModifyPencilStyle;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.LangTool;
 
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
+import org.malai.javafx.instrument.library.ToggleButtonInteractor;
 
 /**
  * This instrument selects the pencil or the hand.<br>
@@ -104,8 +107,8 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 //	/** The instrument Hand. */
 //	protected Hand hand;
 //
-//	/** The instrument Pencil. */
-//	protected Pencil pencil;
+	/** The instrument Pencil. */
+	protected Pencil pencil;
 //
 //	/** The instrument that manages instruments that customise shapes and the pencil. */
 //	protected MetaShapeCustomiser metaShapeCustomiser;
@@ -149,6 +152,8 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		button2EditingChoiceMap.put(triangleB, EditionChoice.TRIANGLE);
 		button2EditingChoiceMap.put(picB, EditionChoice.PICTURE);
 		button2EditingChoiceMap.put(plotB, EditionChoice.PLOT);
+		setActivated(true);
+		handB.setSelected(true);
 //		codeInserter.setActivated(false);
 //		theHand.setActivated(true);
 //		pen.setActivated(false);
@@ -175,14 +180,14 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void initialiseInteractors() {
-//		try{
+		try{
 //			addInteractor(new ButtonPressed2AddText(this));
-//			addInteractor(new ButtonPressed2DefineStylePencil(this));
+			addInteractor(new ButtonPressed2DefineStylePencil(this));
 //			addInteractor(new ButtonPressed2ActivateIns(this));
 //			addInteractor(new ButtonPressed2LaunchCodeInserter(this));
-//		}catch(InstantiationException | IllegalAccessException e){
-//			BadaboomCollector.INSTANCE.add(e);
-//		}
+		}catch(InstantiationException | IllegalAccessException e){
+			BadaboomCollector.INSTANCE.add(e);
+		}
 	}
 
 
@@ -233,31 +238,31 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 //		return interaction.getButton()==instrument.codeB;
 //	}
 //}
-//
-//
-//
-///**
-// * This link allows the modify the link of shape the pencil will create using a ButtonPressed interaction.
-// */
-//class ButtonPressed2DefineStylePencil extends InteractorImpl<ModifyPencilStyle, ButtonPressed, EditingSelector> {
-//	protected ButtonPressed2DefineStylePencil(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, false, ModifyPencilStyle.class, ButtonPressed.class);
-//	}
-//
-//
-//	@Override
-//	public void initAction() {
-//		action.setEditingChoice(instrument.button2EditingChoiceMap.get(interaction.getButton()));
-//		action.setPencil(instrument.pencil);
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return instrument.button2EditingChoiceMap.get(interaction.getButton())!=null;
-//	}
-//}
-//
-//
+
+
+
+/**
+ * Sets the kind of shapes to create.
+ */
+class ButtonPressed2DefineStylePencil extends ToggleButtonInteractor<ModifyPencilStyle, EditingSelector> {
+	protected ButtonPressed2DefineStylePencil(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
+		super(ins, false, ModifyPencilStyle.class, new ArrayList<>(ins.button2EditingChoiceMap.keySet()));
+	}
+
+
+	@Override
+	public void initAction() {
+		action.setEditingChoice(instrument.button2EditingChoiceMap.get(interaction.getWidget()));
+		action.setPencil(instrument.pencil);
+	}
+
+	@Override
+	public boolean isConditionRespected() {
+		return instrument.button2EditingChoiceMap.get(interaction.getWidget())!=null;
+	}
+}
+
+
 ///**
 // * When the user types a text using the text field (instrument text setter) and then he
 // * selects another kind of editing, the typed text must be added to the canvas.
