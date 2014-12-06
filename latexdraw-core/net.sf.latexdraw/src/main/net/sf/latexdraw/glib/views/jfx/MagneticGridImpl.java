@@ -1,7 +1,6 @@
 package net.sf.latexdraw.glib.views.jfx;
 
 import java.awt.geom.Point2D;
-import java.util.Objects;
 
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,6 +15,7 @@ import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 
+import org.eclipse.jdt.annotation.NonNull;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -51,7 +51,7 @@ class MagneticGridImpl implements MagneticGrid {
 	protected GridStyle style;
 
 	/** The canvas that paints the grid. */
-	protected Canvas canvas;
+	@NonNull protected final Canvas canvas;
 
 	/** Defined if the canvas has been modified. */
 	protected boolean modified;
@@ -62,10 +62,10 @@ class MagneticGridImpl implements MagneticGrid {
 	 * @param canvas The canvas in which the grid will work.
 	 * @throws NullPointerException if the given parameters are not valid.
 	 */
-	protected MagneticGridImpl(final Canvas canvas) {
+	protected MagneticGridImpl(@NonNull final Canvas canvas) {
 		super();
 		modified = false;
-		this.canvas	= Objects.requireNonNull(canvas);
+		this.canvas	= canvas;
 		reinitGrid();
 	}
 
