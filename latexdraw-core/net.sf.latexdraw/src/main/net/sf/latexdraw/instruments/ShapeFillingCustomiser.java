@@ -15,8 +15,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies filling properties of shapes or the pencil.<br>
  * <br>
@@ -35,7 +33,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeFillingCustomiser extends JfxInstrument implements Initializable {// extends ShapePropertyCustomiser {
+public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** Sets the colour of the interior of a shape. */
 	@FXML protected ColorPicker fillColButton;
 
@@ -96,7 +94,7 @@ public class ShapeFillingCustomiser extends JfxInstrument implements Initializab
 	}
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isInteriorStylable()) {
 			final FillingStyle style	= shape.getFillingStyle();
@@ -129,7 +127,7 @@ public class ShapeFillingCustomiser extends JfxInstrument implements Initializab
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}

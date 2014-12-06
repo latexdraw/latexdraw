@@ -2,6 +2,8 @@ package net.sf.latexdraw.instruments;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
+import com.google.inject.Inject;
+
 /**
  * This meta-instrument manages the instruments that customises shape properties.<br>
  * <br>
@@ -23,58 +25,57 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
  */
 public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument customises the line properties of shapes and the pencil. */
-	protected ShapeBorderCustomiser borderCustomiser;
+	protected @Inject ShapeBorderCustomiser borderCustomiser;
 
 	/** This instrument customises the double line properties of shapes and the pencil. */
-	protected ShapeDoubleBorderCustomiser doubleBorderCustomiser;
+	protected @Inject ShapeDoubleBorderCustomiser doubleBorderCustomiser;
 
 	/** This instrument customises the shadow properties of shapes and the pencil. */
-	protected ShapeShadowCustomiser shadowCustomiser;
+	protected @Inject ShapeShadowCustomiser shadowCustomiser;
 
 	/** This instrument customises the filling properties of shapes and the pencil. */
-	protected ShapeFillingCustomiser fillingCustomiser;
+	protected @Inject ShapeFillingCustomiser fillingCustomiser;
 
 	/** This instrument customises the texts. */
-	protected ShapeTextCustomiser shapeTextCustomiser;
+	protected @Inject ShapeTextCustomiser shapeTextCustomiser;
 
 	/** This instrument customises the rotation angle. */
-	protected ShapeRotationCustomiser rotationCustomiser;
+	protected @Inject ShapeRotationCustomiser rotationCustomiser;
 
 	/** This instrument customises the arrows. */
-	protected ShapeArrowCustomiser arrowCustomiser;
+	protected @Inject ShapeArrowCustomiser arrowCustomiser;
 
 	/** This instrument customises the dot parameters. */
-	protected ShapeDotCustomiser dotCustomiser;
+	protected @Inject ShapeDotCustomiser dotCustomiser;
 
 	/** This instrument customises the arc parameters. */
-	protected ShapeArcCustomiser arcCustomiser;
+	protected @Inject ShapeArcCustomiser arcCustomiser;
 
 	/** This instrument customises the dimensions and the position. */
-	protected ShapeCoordDimCustomiser dimPosCustomiser;
+	protected @Inject ShapeCoordDimCustomiser dimPosCustomiser;
 
 	/** This instrument customises grids and axes. */
-	protected ShapeStdGridCustomiser gridCustomiser;
+	protected @Inject ShapeStdGridCustomiser gridCustomiser;
 
 	/** This instrument groups shapes. */
-	protected ShapeGrouper shapeGrouper;
+	protected @Inject ShapeGrouper shapeGrouper;
 
 	/** This instrument that customises axes. */
-	protected ShapeAxesCustomiser shapeAxesCustomiser;
+	protected @Inject ShapeAxesCustomiser shapeAxesCustomiser;
 
 	/** This instrument that customises grids. */
-	protected ShapeGridCustomiser shapeGridCustomiser;
+	protected @Inject ShapeGridCustomiser shapeGridCustomiser;
 
 	/** This instrument that customises freehands. */
-	protected ShapeFreeHandCustomiser shapeFreeHandCustomiser;
+	protected @Inject ShapeFreeHandCustomiser shapeFreeHandCustomiser;
 
 	/** This instrument that transforms shapes. */
-	protected ShapeTransformer shapeTransformer;
+	protected @Inject ShapeTransformer shapeTransformer;
 
 	/** This instrument that places shapes. */
-	protected ShapePositioner shapePositioner;
+	protected @Inject ShapePositioner shapePositioner;
 
-	protected ShapePlotCustomiser plotCustom;
-
+	protected @Inject ShapePlotCustomiser plotCustom;
 
 
 	/**

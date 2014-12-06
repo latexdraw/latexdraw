@@ -15,8 +15,6 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies dot parameters.<br>
  * <br>
@@ -35,7 +33,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeDotCustomiser extends JfxInstrument implements Initializable {//extends ShapePropertyCustomiser {
+public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** Allows to define the size of a dot. */
 	@FXML protected Spinner<Double> dotSizeField;
 
@@ -79,7 +77,7 @@ public class ShapeDotCustomiser extends JfxInstrument implements Initializable {
 	}
 
 	
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IDotProp.class)) {
 			dotSizeField.getValueFactory().setValue(shape.getDiametre());
@@ -93,7 +91,7 @@ public class ShapeDotCustomiser extends JfxInstrument implements Initializable {
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}

@@ -5,8 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument groups and separates shapes.<br>
  * <br>
@@ -25,7 +23,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeGrouper extends JfxInstrument { // extends ShapePropertyCustomiser {
+public class ShapeGrouper extends ShapePropertyCustomiser {
 	/** The widget to group shapes. */
 	protected @FXML Button groupB;
 
@@ -43,7 +41,7 @@ public class ShapeGrouper extends JfxInstrument { // extends ShapePropertyCustom
 	}
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(isActivated() && !shape.isEmpty()) {
 			groupB.setDisable(shape.isEmpty());
@@ -52,7 +50,7 @@ public class ShapeGrouper extends JfxInstrument { // extends ShapePropertyCustom
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		groupB.setVisible(visible);
 		sepB.setVisible(visible);

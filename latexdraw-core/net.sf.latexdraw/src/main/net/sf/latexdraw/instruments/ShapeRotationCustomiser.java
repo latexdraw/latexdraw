@@ -6,8 +6,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies the rotation angle of selected shapes.<br>
  * <br>
@@ -26,7 +24,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeRotationCustomiser extends JfxInstrument {// extends ShapePropertyCustomiser {
+public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 	/** The rotation button to perform 90 degree rotation. */
 	@FXML protected Button rotate90Button;
 
@@ -50,13 +48,13 @@ public class ShapeRotationCustomiser extends JfxInstrument {// extends ShapeProp
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(isActivated() && shape!=null)
 			rotationField.getValueFactory().setValue(Math.toDegrees(shape.getRotationAngle()));

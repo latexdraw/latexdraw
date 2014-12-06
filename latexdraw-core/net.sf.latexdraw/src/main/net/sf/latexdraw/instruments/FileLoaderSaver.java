@@ -19,6 +19,8 @@ import org.malai.swing.action.library.IOAction;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.google.inject.Inject;
+
 /**
  * This instrument saves and loads documents.<br>
  * <br>
@@ -69,7 +71,7 @@ public class FileLoaderSaver extends JfxInstrument {
 //	protected JLabel statusBar;
 
 	/** The instrument used to manage preferences. */
-	protected PreferencesSetter prefSetter;
+	@Inject protected PreferencesSetter prefSetter;
 
 //	/** The progress bar used to show the progress of loading and saving operations. */
 //	protected MProgressBar progressBar;

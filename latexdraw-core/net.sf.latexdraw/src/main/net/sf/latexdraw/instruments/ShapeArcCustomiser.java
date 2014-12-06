@@ -8,8 +8,6 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies arc parameters.<br>
  * <br>
@@ -28,7 +26,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeArcCustomiser extends JfxInstrument{// extends ShapePropertyCustomiser {
+public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	/** The toggle button that selects the arc style. */
 	@FXML protected ToggleButton arcB;
 
@@ -55,13 +53,13 @@ public class ShapeArcCustomiser extends JfxInstrument{// extends ShapePropertyCu
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IArcProp.class)) {
 			final ArcStyle type = shape.getArcStyle();

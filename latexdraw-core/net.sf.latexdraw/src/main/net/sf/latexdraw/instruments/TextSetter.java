@@ -8,6 +8,8 @@ import net.sf.latexdraw.ui.TextAreaAutoSize;
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
 
+import com.google.inject.Inject;
+
 /**
  * This instrument allows to add and modify texts to the drawing.<br>
  * <br>
@@ -28,10 +30,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  */
 public class TextSetter extends JfxInstrument {
 	/** The text field. */
-	protected TextAreaAutoSize textField;
-
-	/** The pencil used to create shapes. */
-	protected Pencil pencil;
+	protected final TextAreaAutoSize textField;
 
 	/**
 	 * The point where texts are added. It may not corresponds with the location
@@ -45,9 +44,12 @@ public class TextSetter extends JfxInstrument {
 
 	protected IPlot plot;
 
-	protected ShapeTextCustomiser custom;
+	/** The pencil used to create shapes. */
+	protected @Inject Pencil pencil;
 	
-	protected ShapePlotCustomiser plotCustom;
+	protected @Inject ShapeTextCustomiser custom;
+	
+	protected @Inject ShapePlotCustomiser plotCustom;
 
 
 	/**
@@ -66,7 +68,7 @@ public class TextSetter extends JfxInstrument {
 	@Override
 	public void onActionDone(final Action action) {
 		super.onActionDone(action);
-//		if(custom!=null) custom.update();
+		custom.update();
 	}
 
 

@@ -174,16 +174,6 @@ public class LFrame extends SwingUI {
 		layeredPanel.add(canvas.getScrollpane(), JLayeredPane.DEFAULT_LAYER);
 		layeredPanel.addComponentsToResize(canvas.getScrollpane());
 
-		if(progressBar!=null)
-			progressBar.addToProgressBar(5);
-
-		/* Creation of the rulers. */
-		yScaleRuler = new YScaleRuler(canvas);
-		xScaleRuler = new XScaleRuler(canvas, yScaleRuler);
-
-		if(progressBar!=null)
-			progressBar.addToProgressBar(5);
-
 		/* Initialisation of the mapping between the model and the canvas. */
 		MappingRegistry.REGISTRY.addMapping(new ShapeList2ViewListMapping(drawing.getShapes(), canvas.getViews(), canvas.getBorderInstrument()));
 		MappingRegistry.REGISTRY.addMapping(new Drawing2CanvasMapping(drawing, canvas));

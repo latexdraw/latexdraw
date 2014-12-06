@@ -15,8 +15,6 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies axes properties of shapes or the pencil.<br>
  * <br>
@@ -35,7 +33,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeAxesCustomiser extends JfxInstrument implements Initializable { // extends ShapePropertyCustomiser {
+public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The widget that permits to select the style of the axes. */
 	@FXML protected ComboBox<AxesStyle> shapeAxes;
 
@@ -81,7 +79,7 @@ public class ShapeAxesCustomiser extends JfxInstrument implements Initializable 
 		showLabels.getItems().addAll(IAxesProp.PlottingStyle.values());
 	}
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IAxesProp.class)) {
 			shapeAxes.getSelectionModel().select(shape.getAxesStyle());
@@ -98,7 +96,7 @@ public class ShapeAxesCustomiser extends JfxInstrument implements Initializable 
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}

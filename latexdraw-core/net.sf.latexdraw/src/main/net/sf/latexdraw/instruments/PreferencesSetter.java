@@ -50,6 +50,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.google.inject.Inject;
+
 /**
  * This instrument modifies the preferences.<br>
  * <br>
@@ -104,10 +106,10 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	@FXML protected Button buttonExport;
 
 	/** The x ruler of the system. */
-	protected XScaleRuler xRuler;
+	@Inject protected XScaleRuler xRuler;
 
 	/** The Y ruler of the system. */
-	protected YScaleRuler yRuler;
+	@Inject protected YScaleRuler yRuler;
 	
 	/** The recent files. */
 	protected List<String> recentFilesName;

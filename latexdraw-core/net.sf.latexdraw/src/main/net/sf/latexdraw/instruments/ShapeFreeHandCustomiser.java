@@ -14,8 +14,6 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies free hand properties of shapes or the pencil.<br>
  * <br>
@@ -34,15 +32,15 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeFreeHandCustomiser extends JfxInstrument implements Initializable { // extends ShapePropertyCustomiser {
+public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The type of the freehand. */
-	protected @FXML ComboBox<ImageView> freeHandType;
+	@FXML protected ComboBox<ImageView> freeHandType;
 
 	/** The gap to consider between the points. */
-	protected @FXML Spinner<Integer> gapPoints;
+	@FXML protected Spinner<Integer> gapPoints;
 
 	/** Defines if the shape is open. */
-	protected @FXML CheckBox open;
+	@FXML protected CheckBox open;
 
 	@FXML protected TitledPane mainPane;
 	
@@ -62,7 +60,7 @@ public class ShapeFreeHandCustomiser extends JfxInstrument implements Initializa
 	}
 	
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IFreeHandProp.class)) {
 			freeHandType.getSelectionModel().select(JFXUtil.INSTANCE.getItem(freeHandType, shape.getType()).orElseThrow(() -> new IllegalArgumentException()));
@@ -73,7 +71,7 @@ public class ShapeFreeHandCustomiser extends JfxInstrument implements Initializa
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}

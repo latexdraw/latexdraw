@@ -2,8 +2,7 @@ package net.sf.latexdraw.instruments;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
-import org.malai.javafx.instrument.JfxInstrument;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 /**
  * Puts shapes in background / foreground.<br>
@@ -23,7 +22,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapePositioner extends JfxInstrument {// extends ShapePropertyCustomiser {
+public class ShapePositioner extends ShapePropertyCustomiser {
 	/** The foreground button. */
 	@FXML protected Button foregroundB;
 
@@ -48,11 +47,17 @@ public class ShapePositioner extends JfxInstrument {// extends ShapePropertyCust
 	}
 
 
-//	@Override
-//	protected void setWidgetsVisible(final boolean visible) {
+	@Override
+	protected void setWidgetsVisible(final boolean visible) {
 //		composer.setWidgetVisible(foregroundB, visible);
 //		composer.setWidgetVisible(backgroundB, visible);
-//	}
+	}
+
+
+	@Override
+	protected void update(final IGroup shape) {
+		//
+	}
 }
 
 ///** This link maps a button interaction to an action that puts shapes in foreground / background. */

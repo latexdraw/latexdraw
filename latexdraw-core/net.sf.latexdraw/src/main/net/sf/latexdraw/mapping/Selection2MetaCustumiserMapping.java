@@ -58,15 +58,15 @@ public class Selection2MetaCustumiserMapping extends SelectionMapping {
 
 	@Override
 	public void onObjectRemoved(final Object list, final Object object, final int index) {
-		if(shapeCustomiser.getHand().isActivated())
-			shapeCustomiser.setActivated(!selection.isEmpty());
+//		if(shapeCustomiser.getHand().isActivated())
+//			shapeCustomiser.setActivated(!selection.isEmpty());
 	}
 
 
 	@Override
 	public void onListCleaned(final Object list) {
-		if(shapeCustomiser.getHand().isActivated())
-			shapeCustomiser.setActivated(false);
+//		if(shapeCustomiser.getHand().isActivated())
+//			shapeCustomiser.setActivated(false);
 	}
 
 

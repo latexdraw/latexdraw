@@ -13,6 +13,8 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 import org.malai.swing.widget.MLayeredPane;
 
+import com.google.inject.Inject;
+
 /**
  * This instrument allows to draw shapes.<br>
  * <br>
@@ -36,7 +38,7 @@ public class Pencil extends CanvasInstrument {
 	/** The current editing choice (rectangle, ellipse, etc.) of the instrument. */
 	protected EditionChoice currentChoice;
 	
-	protected TextSetter textSetter;
+	protected @Inject TextSetter textSetter;
 	
 	protected MLayeredPane layers;
 	
@@ -45,10 +47,12 @@ public class Pencil extends CanvasInstrument {
 	private IGroup groupParams;
 	
 	
+	@Inject
 	public Pencil() {
 		super();
 		currentChoice = EditionChoice.RECT;
 	}
+
 
 	public JFileChooser getPictureFileChooser() {
 		if(pictureFileChooser==null) {

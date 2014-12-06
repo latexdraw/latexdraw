@@ -5,12 +5,9 @@ import javafx.scene.control.MenuItem;
 import net.sf.latexdraw.actions.shape.CopyShapes;
 import net.sf.latexdraw.actions.shape.CutShapes;
 import net.sf.latexdraw.actions.shape.SelectShapes;
-import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.glib.views.MagneticGrid;
 
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
-import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument permits to copy, cut and paste the selected shapes.<br>
@@ -30,7 +27,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN, Jan-Cornelius MOLNAR
  * @since 3.0
  */
-public class CopierCutterPaster extends JfxInstrument {
+public class CopierCutterPaster extends CanvasInstrument {
 	/** The menu item to copy the shapes. */
 	@FXML protected MenuItem copyMenu;
 
@@ -39,11 +36,6 @@ public class CopierCutterPaster extends JfxInstrument {
 
 	/** The menu item to cut the shapes. */
 	@FXML protected MenuItem cutMenu;
-
-	/** The drawing that contains the shapes. */
-	protected IDrawing drawing;
-
-	protected MagneticGrid grid;
 
 
 	/**

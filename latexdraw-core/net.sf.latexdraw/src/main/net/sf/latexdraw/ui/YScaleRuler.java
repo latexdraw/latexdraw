@@ -4,7 +4,9 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
-import net.sf.latexdraw.glib.ui.ICanvas;
+import net.sf.latexdraw.glib.views.jfx.Canvas;
+
+import com.google.inject.Inject;
 
 /**
  * This class defines an Y-scale ruler.<br>
@@ -26,7 +28,6 @@ import net.sf.latexdraw.glib.ui.ICanvas;
  * @version 3.0
  */
 public class YScaleRuler extends ScaleRuler {
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Defines a y-scale ruler.
@@ -34,9 +35,9 @@ public class YScaleRuler extends ScaleRuler {
 	 * @throws IllegalArgumentException if the given canvas is null.
 	 * @since 3.0
 	 */
-	public YScaleRuler(final ICanvas canvas) {
+	@Inject
+	public YScaleRuler(final Canvas canvas) {
 		super(canvas);
-
 		setPreferredSize(new Dimension(SIZE, 500));
 	}
 
@@ -63,6 +64,6 @@ public class YScaleRuler extends ScaleRuler {
 
 	@Override
 	protected double getClippingGap() {
-		return canvas.getVisibleBound().getMinY();
+		return 0.0;// canvas.getVisibleBound().getMinY();
 	}
 }

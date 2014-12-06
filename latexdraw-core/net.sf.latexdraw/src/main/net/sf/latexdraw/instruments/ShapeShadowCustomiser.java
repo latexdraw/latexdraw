@@ -7,8 +7,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies shadow properties of shapes or the pencil.<br>
  * <br>
@@ -27,7 +25,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeShadowCustomiser extends JfxInstrument { // extends ShapePropertyCustomiser {
+public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 	/** Sets if the a shape has a shadow or not. */
 	@FXML protected CheckBox shadowCB;
 
@@ -51,13 +49,13 @@ public class ShapeShadowCustomiser extends JfxInstrument { // extends ShapePrope
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape!=null && shape.isShadowable()) {
 			final boolean hasShadow = shape.hasShadow();

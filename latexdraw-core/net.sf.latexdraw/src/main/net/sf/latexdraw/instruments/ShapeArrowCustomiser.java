@@ -16,8 +16,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument customises the arrows of shapes or of the pencil.<br>
  * <br>
@@ -36,7 +34,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeArrowCustomiser extends JfxInstrument implements Initializable {// extends ShapePropertyCustomiser {
+public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** Allows to change the style of the left-end of the shape. */
 	@FXML protected ComboBox<ImageView> arrowLeftCB;
 
@@ -130,7 +128,7 @@ public class ShapeArrowCustomiser extends JfxInstrument implements Initializable
 	}
 	
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}
@@ -150,7 +148,7 @@ public class ShapeArrowCustomiser extends JfxInstrument implements Initializable
 
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IArrowableShape.class)) {
 			final IArrow arr1 = shape.getArrowAt(0);

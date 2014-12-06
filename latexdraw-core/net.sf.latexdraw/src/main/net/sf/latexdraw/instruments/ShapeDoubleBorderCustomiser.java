@@ -7,8 +7,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies double border properties of shapes or the pencil.<br>
  * <br>
@@ -27,7 +25,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeDoubleBorderCustomiser extends JfxInstrument { //extends ShapePropertyCustomiser {
+public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 	/** Sets if the shape has double borders or not. */
 	@FXML protected CheckBox dbleBoundCB;
 
@@ -48,7 +46,7 @@ public class ShapeDoubleBorderCustomiser extends JfxInstrument { //extends Shape
 	}
 
 	
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape!=null && shape.isDbleBorderable()) {
 			final boolean dble = shape.hasDbleBord();
@@ -66,7 +64,7 @@ public class ShapeDoubleBorderCustomiser extends JfxInstrument { //extends Shape
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}

@@ -3,8 +3,7 @@ package net.sf.latexdraw.instruments;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-
-import org.malai.javafx.instrument.JfxInstrument;
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 
 /**
@@ -25,7 +24,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeTransformer extends JfxInstrument {// extends ShapePropertyCustomiser {
+public class ShapeTransformer extends ShapePropertyCustomiser {
 	/** The widget to mirror horizontally. */
 	@FXML protected Button mirrorH;
 
@@ -85,14 +84,16 @@ public class ShapeTransformer extends JfxInstrument {// extends ShapePropertyCus
 	}
 
 
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}
 
 
-//	protected void update(final IGroup shape) {
-//		// Nothing to do
-//	}
+	@Override
+	protected void update(final IGroup shape) {
+		// Nothing to do
+	}
 
 
 	@Override

@@ -21,6 +21,8 @@ import org.malai.javafx.instrument.JfxInstrument;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.google.inject.Inject;
+
 /**
  * This instrument exports a drawing in different formats.<br>
  * <br>
@@ -66,10 +68,6 @@ public class Exporter extends JfxInstrument {
 	
 	@FXML protected MenuItem exportTemplateMenu;
 	
-	/** The canvas that contains the shapes to export. The canvas is used instead of the drawing
-	 * because to export as picture, we paint the views into a graphics. */
-	protected Canvas canvas;
-
 	/** The PST generator. */
 	protected PSTCodeGenerator pstGen;
 
@@ -89,7 +87,11 @@ public class Exporter extends JfxInstrument {
 //	/** The field where messages are displayed. */
 //	protected JLabel statusBar;
 	
-	protected FileLoaderSaver loader;
+	@Inject protected FileLoaderSaver loader;
+	
+	/** The canvas that contains the shapes to export. The canvas is used instead of the drawing
+	 * because to export as picture, we paint the views into a graphics. */
+	@Inject protected Canvas canvas;
 
 
 	/**

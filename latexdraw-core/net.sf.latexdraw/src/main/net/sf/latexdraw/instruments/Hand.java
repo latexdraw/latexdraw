@@ -17,6 +17,8 @@ package net.sf.latexdraw.instruments;
 
 import javafx.scene.Cursor;
 
+import com.google.inject.Inject;
+
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
  * 2012-04-20<br>
@@ -24,8 +26,8 @@ import javafx.scene.Cursor;
  * @version 3.0
  */
 public class Hand extends CanvasInstrument {
-	protected MetaShapeCustomiser metaCustomiser;
-	protected TextSetter textSetter;
+	protected @Inject MetaShapeCustomiser metaCustomiser;
+	protected @Inject TextSetter textSetter;
 	
 	public Hand() {
 		super();

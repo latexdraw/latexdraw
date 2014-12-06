@@ -19,6 +19,8 @@ import org.malai.swing.interaction.library.SpinnerModified;
 import org.malai.swing.widget.MColorButton;
 import org.malai.undo.Undoable;
 
+import com.google.inject.Inject;
+
 /**
  * This abstract instrument defines the base definition of instruments that customise
  * shape properties.<br>
@@ -41,10 +43,10 @@ import org.malai.undo.Undoable;
  */
 public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	/** The Hand instrument. */
-	protected Hand hand;
+	protected @Inject Hand hand;
 
 	/** The Pencil instrument. */
-	protected Pencil pencil;
+	protected @Inject Pencil pencil;
 
 
 	/**

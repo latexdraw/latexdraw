@@ -4,6 +4,9 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
+
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.error.ErrorCatcher;
 import org.malai.error.ErrorNotifier;
@@ -28,7 +31,7 @@ import org.malai.error.ErrorNotifier;
  * @version 3.0
  * @since 3.0
  */
-public final class BadaboomCollector extends ArrayList<Throwable> implements UncaughtExceptionHandler, ErrorNotifier {
+public final class BadaboomCollector extends ArrayList<Throwable> implements UncaughtExceptionHandler, ErrorNotifier, EventHandler<WorkerStateEvent> {
 	private static final long serialVersionUID = 1L;
 
 	/** The singleton. */
@@ -132,5 +135,12 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	@Override
 	public void onMalaiException(final Exception exception) {
 		add(exception);
+	}
+
+
+	@Override
+	public void handle(final WorkerStateEvent evt) {
+		System.out.println(evt.getSource().getException());
+		add(evt.getSource().getException());
 	}
 }

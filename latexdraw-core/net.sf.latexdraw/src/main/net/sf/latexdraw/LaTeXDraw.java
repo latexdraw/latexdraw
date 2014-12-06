@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
@@ -18,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
@@ -27,6 +29,9 @@ import net.sf.latexdraw.util.LangTool;
 
 import org.malai.action.ActionsRegistry;
 import org.malai.undo.UndoCollector;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 /**
  * The main class of the project.<br>
@@ -125,7 +130,10 @@ public class LaTeXDraw extends Application {
 			protected Void call() throws InterruptedException {
 				updateProgress(0.1, 1.0);
 				try {
-					final Parent root = FXMLLoader.load(getClass().getResource("glib/views/jfx/ui/UI.fxml"), LangTool.INSTANCE.getBundle());
+					final Injector injector = Guice.createInjector(new LatexdrawModule());
+					final Callback<Class<?>, Object> guiceControllerFactory = clazz -> injector.getInstance(clazz);
+					final Parent root = FXMLLoader.load(getClass().getResource("glib/views/jfx/ui/UI.fxml"), 
+										LangTool.INSTANCE.getBundle(), new JavaFXBuilderFactory(), guiceControllerFactory);
 					updateProgress(0.6, 1.0);
 					final Scene scene = new Scene(root);
 					updateProgress(0.7, 1.0);
@@ -147,6 +155,7 @@ public class LaTeXDraw extends Application {
 			}
 		};
 
+		task.setOnFailed(BadaboomCollector.INSTANCE);
 		showSplash(stage, task);
 		new Thread(task).start();
 

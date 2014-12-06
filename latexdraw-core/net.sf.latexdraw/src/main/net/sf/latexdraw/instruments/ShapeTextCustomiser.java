@@ -16,7 +16,6 @@ import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 
-import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.mapping.MappingRegistry;
 
 /**
@@ -37,7 +36,7 @@ import org.malai.mapping.MappingRegistry;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeTextCustomiser extends JfxInstrument { //extends ShapePropertyCustomiser {
+public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 	/** The button that selects the bottom-left text position. */
 	@FXML protected ToggleButton blButton;
 
@@ -82,13 +81,13 @@ public class ShapeTextCustomiser extends JfxInstrument { //extends ShapeProperty
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(ITextProp.class)) {
 			final TextPosition tp = shape.getTextPosition();

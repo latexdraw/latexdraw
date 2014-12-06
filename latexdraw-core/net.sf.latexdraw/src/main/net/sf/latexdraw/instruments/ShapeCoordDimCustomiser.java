@@ -5,8 +5,6 @@ import javafx.scene.control.Spinner;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies arc dimensions and coordinates of shapes or pencil parameters.<br>
  * <br>
@@ -25,7 +23,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeCoordDimCustomiser extends JfxInstrument { // extends ShapePropertyCustomiser {
+public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	/** Sets the X-coordinate of the top-left position. */
 	@FXML protected Spinner<Double> tlxS;
 
@@ -42,7 +40,7 @@ public class ShapeCoordDimCustomiser extends JfxInstrument { // extends ShapePro
 
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(isActivated() && shape!=null) {
 			final IPoint tl = shape.getTopLeftPoint();
@@ -59,6 +57,13 @@ public class ShapeCoordDimCustomiser extends JfxInstrument { // extends ShapePro
 //		}catch(InstantiationException | IllegalAccessException e){
 //			BadaboomCollector.INSTANCE.add(e);
 //		}
+	}
+
+
+
+	@Override
+	protected void setWidgetsVisible(final boolean visible) {
+		//
 	}
 
 //

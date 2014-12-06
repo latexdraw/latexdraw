@@ -23,6 +23,8 @@ import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.ToggleButtonInteractor;
 
+import com.google.inject.Inject;
+
 /**
  * This instrument selects the pencil or the hand.<br>
  * <br>
@@ -104,20 +106,20 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	
 	private Stage codeInserterDialogue;
 
-//	/** The instrument Hand. */
-//	protected Hand hand;
-//
+	/** The instrument Hand. */
+	@Inject protected Hand hand;
+
 	/** The instrument Pencil. */
-	protected Pencil pencil;
-//
-//	/** The instrument that manages instruments that customise shapes and the pencil. */
-//	protected MetaShapeCustomiser metaShapeCustomiser;
-//
-//	/** The instrument that manages selected shapes. */
-//	protected Border border;
-//
-//	/** The instrument used to delete shapes. */
-//	protected ShapeDeleter deleter;
+	@Inject protected Pencil pencil;
+
+	/** The instrument that manages instruments that customise shapes and the pencil. */
+	@Inject protected MetaShapeCustomiser metaShapeCustomiser;
+
+	/** The instrument that manages selected shapes. */
+	@Inject protected Border border;
+
+	/** The instrument used to delete shapes. */
+	@Inject protected ShapeDeleter deleter;
 
 	protected final Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
 
@@ -155,8 +157,8 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		setActivated(true);
 		handB.setSelected(true);
 //		codeInserter.setActivated(false);
-//		theHand.setActivated(true);
-//		pen.setActivated(false);
+		hand.setActivated(true);
+		pencil.setActivated(false);
 	}
 	
 	/** @return The created latexdraw dialogue box. */
@@ -214,7 +216,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	@Override
 	public void onActionDone(final Action action) {
 		super.onActionDone(action);
-//		hand.canvas().requestFocus();
+		hand.getCanvas().requestFocus();
 	}
 }
 

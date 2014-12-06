@@ -6,12 +6,14 @@ import net.sf.latexdraw.glib.views.jfx.Canvas;
 
 import org.malai.javafx.instrument.JfxInstrument;
 
+import com.google.inject.Inject;
+
 /**
  * This abstract instrument encapsulates common operations dealing with a canvas.
  * @since 3.1
  */
 abstract class CanvasInstrument extends JfxInstrument {
-	protected Canvas canvas;
+	protected @Inject Canvas canvas;
 	
 	CanvasInstrument() {
 		super();

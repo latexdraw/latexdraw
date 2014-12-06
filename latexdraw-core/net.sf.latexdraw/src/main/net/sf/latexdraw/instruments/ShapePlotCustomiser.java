@@ -8,12 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TitledPane;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
+import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-
-import org.malai.javafx.instrument.JfxInstrument;
 
 /**
  * This instrument modifies plot parameters.<br>
@@ -33,7 +31,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.1
  */
-public class ShapePlotCustomiser extends JfxInstrument implements Initializable {// extends ShapePropertyCustomiser {
+public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Initializable {
 	@FXML Spinner<Integer> nbPtsSpinner;
 	@FXML Spinner<Double> minXSpinner;
 	@FXML Spinner<Double> maxXSpinner;
@@ -60,7 +58,7 @@ public class ShapePlotCustomiser extends JfxInstrument implements Initializable 
 	}
 	
 	
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IPlotProp.class)) {
 			nbPtsSpinner.getValueFactory().setValue(shape.getNbPlottedPoints());
@@ -75,7 +73,7 @@ public class ShapePlotCustomiser extends JfxInstrument implements Initializable 
 		else setActivated(false);
 	}
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}

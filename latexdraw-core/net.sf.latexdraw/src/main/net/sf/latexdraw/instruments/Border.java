@@ -43,6 +43,8 @@ import net.sf.latexdraw.mapping.Shape2BorderMapping;
 import org.malai.mapping.MappingRegistry;
 import org.malai.picking.Pickable;
 
+import com.google.inject.Inject;
+
 /**
  * This instrument manages the selected views.<br>
  * 2012-04-20<br>
@@ -83,9 +85,10 @@ public class Border extends CanvasInstrument { // implements Picker {
 	/** The handler that rotates shapes. */
 	protected final RotationHandler rotHandler;
 
-	protected MetaShapeCustomiser metaCustomiser;
+	protected @Inject MetaShapeCustomiser metaCustomiser;
 
 
+	@Inject
 	public Border() {
 		super();
 		selection = new ArrayList<>();

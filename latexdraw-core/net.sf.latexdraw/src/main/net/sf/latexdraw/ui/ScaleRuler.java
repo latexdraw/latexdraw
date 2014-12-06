@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.util.Arrays;
 import java.util.Objects;
 
 import javax.accessibility.Accessible;
@@ -13,7 +14,7 @@ import javax.accessibility.AccessibleContext;
 import javax.accessibility.AccessibleRole;
 import javax.swing.JComponent;
 
-import net.sf.latexdraw.glib.ui.ICanvas;
+import net.sf.latexdraw.glib.views.jfx.Canvas;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.lang.LangTool;
 
@@ -24,6 +25,8 @@ import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.swing.interaction.SwingEventManager;
 import org.malai.swing.widget.SwingWidgetUtilities;
+
+import com.google.inject.Inject;
 
 /**
  * This class defines an abstract scale ruler.<br>
@@ -45,8 +48,6 @@ import org.malai.swing.widget.SwingWidgetUtilities;
  * @version 3.0
  */
 public abstract class ScaleRuler extends JComponent implements Pickable, Eventable, Accessible, AdjustmentListener {
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Defines the different possible units used by the rulers.
 	 */
@@ -78,17 +79,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 		 * @since 3.0
 		 */
 		public static Unit getUnit(final String label) {
-			final Unit unit;
-
-			if(label==null)
-				unit = null;
-			else if(label.equals(CM.getLabel()))
-				unit = CM;
-			else if(label.equals(INCH.getLabel()))
-					unit = INCH;
-			else unit = null;
-
-			return unit;
+			return Arrays.asList(Unit.values()).stream().filter(it -> it.getLabel().equals(label)).findFirst().orElse(null);
 		}
 	}
 
@@ -102,10 +93,10 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	protected static final double MIN_PCC_SUBLINES = 20.;
 
 	/** The canvas that the ruler manages. */
-	protected ICanvas canvas;
+	final protected Canvas canvas;
 
 	/** The event manager that listens events produced by the panel. */
-	protected SwingEventManager eventManager;
+	final protected SwingEventManager eventManager;
 
 	/** The size of the lines in axes */
 	public static final int SIZE = 10;
@@ -116,15 +107,16 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	 * @param canvas The canvas that the ruler manages.
 	 * @throws IllegalArgumentException If the given canvas is null.
 	 */
-    protected ScaleRuler(final ICanvas canvas) {
+	@Inject
+    protected ScaleRuler(final Canvas canvas) {
 		super();
 		this.canvas  = Objects.requireNonNull(canvas);
 		eventManager = new SwingEventManager();
 		eventManager.attachTo(this);
 		setDoubleBuffered(true);
 
-		canvas.getScrollpane().getVerticalScrollBar().addAdjustmentListener(this);
-		canvas.getScrollpane().getHorizontalScrollBar().addAdjustmentListener(this);
+//		canvas.getScrollpane().getVerticalScrollBar().addAdjustmentListener(this);
+//		canvas.getScrollpane().getHorizontalScrollBar().addAdjustmentListener(this);
 	}
 
 

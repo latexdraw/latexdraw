@@ -17,8 +17,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies border properties of shapes or the pencil.<br>
  * <br>
@@ -37,7 +35,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeBorderCustomiser extends JfxInstrument implements Initializable {
+public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The field which allows to change shapes thickness. */
 	@FXML protected Spinner<Double> thicknessField;
 
@@ -88,7 +86,7 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 	}
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape==null)
 			setActivated(false);
@@ -123,7 +121,7 @@ public class ShapeBorderCustomiser extends JfxInstrument implements Initializabl
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		linePane.setVisible(visible);
 	}

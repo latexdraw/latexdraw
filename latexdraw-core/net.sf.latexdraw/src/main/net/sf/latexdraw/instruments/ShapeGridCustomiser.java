@@ -8,8 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies grids properties of shapes or the pencil.<br>
  * <br>
@@ -28,7 +26,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeGridCustomiser extends JfxInstrument {// extends ShapePropertyCustomiser {
+public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	/** Changes the colour of the labels. */
 	@FXML protected ColorPicker colourLabels;
 
@@ -66,7 +64,7 @@ public class ShapeGridCustomiser extends JfxInstrument {// extends ShapeProperty
 	}
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup gp) {
 		if(gp.isTypeOf(IGridProp.class)) {
 			colourLabels.setValue(gp.getGridLabelsColour().toJFX());
@@ -83,7 +81,7 @@ public class ShapeGridCustomiser extends JfxInstrument {// extends ShapeProperty
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}

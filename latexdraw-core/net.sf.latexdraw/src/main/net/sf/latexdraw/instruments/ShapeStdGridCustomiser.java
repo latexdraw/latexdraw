@@ -11,8 +11,6 @@ import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.javafx.instrument.JfxInstrument;
-
 /**
  * This instrument modifies the parameters of grids and axes.<br>
  * <br>
@@ -31,7 +29,7 @@ import org.malai.javafx.instrument.JfxInstrument;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeStdGridCustomiser extends JfxInstrument implements Initializable {// extends ShapePropertyCustomiser {
+public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The field that sets the X-coordinate of the starting point of the grid. */
 	@FXML protected Spinner<Double> xStartS;
 
@@ -72,7 +70,7 @@ public class ShapeStdGridCustomiser extends JfxInstrument implements Initializab
 	}
 
 
-//	@Override
+	@Override
 	protected void update(final IGroup gp) {
 		if(gp.isTypeOf(IStdGridProp.class)) {
 			xStartS.getValueFactory().setValue(gp.getGridStartX());
@@ -87,7 +85,7 @@ public class ShapeStdGridCustomiser extends JfxInstrument implements Initializab
 	}
 
 
-//	@Override
+	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}
