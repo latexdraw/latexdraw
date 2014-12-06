@@ -1,3 +1,15 @@
+/*
+ * This file is part of LaTeXDraw.<br>
+ * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
+ * <br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.<br>
+ */
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
@@ -20,6 +32,7 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.LangTool;
 
 import org.malai.action.Action;
+import org.malai.javafx.action.library.ActivateInactivateInstruments;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.ToggleButtonInteractor;
 
@@ -28,100 +41,88 @@ import com.google.inject.Inject;
 /**
  * This instrument selects the pencil or the hand.<br>
  * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 05/09/2010<br>
  * @author Arnaud BLOUIN
  * @since 3.0
  */
 public class EditingSelector extends JfxInstrument implements Initializable {
 	/** The button that allows to select the instrument Hand. */
-	@FXML protected ToggleButton handB;
+	@FXML ToggleButton handB;
 
 	/** The button that allows to select the instrument Pencil to draw dots. */
-	@FXML protected ToggleButton dotB;
+	@FXML ToggleButton dotB;
 
 	/** The button that allows to select the instrument Pencil to draw free hand shapes. */
-	@FXML protected ToggleButton freeHandB;
+	@FXML ToggleButton freeHandB;
 
 	/** The button that allows to select the instrument Pencil to add texts. */
-	@FXML protected ToggleButton textB;
+	@FXML ToggleButton textB;
 
 	/** The button that allows to select the instrument Pencil to add rectangles. */
-	@FXML protected ToggleButton recB;
+	@FXML ToggleButton recB;
 
 	/** The button that allows to select the instrument Pencil to add squares. */
-	@FXML protected ToggleButton squareB;
+	@FXML ToggleButton squareB;
 
 	/** The button that allows to select the instrument Pencil to add ellipses. */
-	@FXML protected ToggleButton ellipseB;
+	@FXML ToggleButton ellipseB;
 
 	/** The button that allows to select the instrument Pencil to add circles. */
-	@FXML protected ToggleButton circleB;
+	@FXML ToggleButton circleB;
 
 	/** The button that allows to select the instrument Pencil to add lines. */
-	@FXML protected ToggleButton linesB;
+	@FXML ToggleButton linesB;
 
 	/** The button that allows to select the instrument Pencil to add polygons. */
-	@FXML protected ToggleButton polygonB;
+	@FXML ToggleButton polygonB;
 
 	/** The button that allows to select the instrument Pencil to add bezier curves. */
-	@FXML protected ToggleButton bezierB;
+	@FXML ToggleButton bezierB;
 
 	/** The button that allows to select the instrument Pencil to add closed bezier curves. */
-	@FXML protected ToggleButton bezierClosedB;
+	@FXML ToggleButton bezierClosedB;
 
 	/** The button that allows to select the instrument Pencil to add grids. */
-	@FXML protected ToggleButton gridB;
+	@FXML ToggleButton gridB;
 
 	/** The button that allows to select the instrument Pencil to add axes. */
-	@FXML protected ToggleButton axesB;
+	@FXML ToggleButton axesB;
 
 	/** The button that allows to select the instrument Pencil to add rhombuses. */
-	@FXML protected ToggleButton rhombusB;
+	@FXML ToggleButton rhombusB;
 
 	/** The button that allows to select the instrument Pencil to add triangles. */
-	@FXML protected ToggleButton triangleB;
+	@FXML ToggleButton triangleB;
 
 	/** The button that allows to select the instrument Pencil to add arcs. */
-	@FXML protected ToggleButton arcB;
+	@FXML ToggleButton arcB;
 
 	/** The button that allows to select the instrument Pencil to add pictures. */
-	@FXML protected ToggleButton picB;
+	@FXML ToggleButton picB;
 
 	/** The button that allows to select the instrument Pencil to add plotted curves. */
-	@FXML protected ToggleButton plotB;
+	@FXML ToggleButton plotB;
 
 	/** The button that allows to insert some code (converted in shapes). */
-	@FXML protected Button codeB;
+	@FXML Button codeB;
 	
-	private Stage codeInserterDialogue;
-
 	/** The instrument Hand. */
-	@Inject protected Hand hand;
+	@Inject Hand hand;
 
 	/** The instrument Pencil. */
-	@Inject protected Pencil pencil;
+	@Inject Pencil pencil;
 
 	/** The instrument that manages instruments that customise shapes and the pencil. */
-	@Inject protected MetaShapeCustomiser metaShapeCustomiser;
+	@Inject MetaShapeCustomiser metaShapeCustomiser;
 
 	/** The instrument that manages selected shapes. */
-	@Inject protected Border border;
+	@Inject Border border;
 
 	/** The instrument used to delete shapes. */
-	@Inject protected ShapeDeleter deleter;
+	@Inject ShapeDeleter deleter;
 
-	protected final Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
+	final Map<ToggleButton, EditionChoice> button2EditingChoiceMap;
+	
+	private Stage codeInserterDialogue;
 
 
 	/**
@@ -185,7 +186,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		try{
 //			addInteractor(new ButtonPressed2AddText(this));
 			addInteractor(new ButtonPressed2DefineStylePencil(this));
-//			addInteractor(new ButtonPressed2ActivateIns(this));
+			addInteractor(new ButtonPressed2ActivateIns(this));
 //			addInteractor(new ButtonPressed2LaunchCodeInserter(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
@@ -218,13 +219,65 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 		super.onActionDone(action);
 		hand.getCanvas().requestFocus();
 	}
+	
+	
+	private static class ButtonPressed2DefineStylePencil extends ToggleButtonInteractor<ModifyPencilStyle, EditingSelector> {
+		ButtonPressed2DefineStylePencil(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
+			super(ins, false, ModifyPencilStyle.class, new ArrayList<>(ins.button2EditingChoiceMap.keySet()));
+		}
+
+		@Override
+		public void initAction() {
+			action.setEditingChoice(instrument.button2EditingChoiceMap.get(interaction.getWidget()));
+			action.setPencil(instrument.pencil);
+		}
+	}
+	
+	
+	private static class ButtonPressed2ActivateIns extends ToggleButtonInteractor<ActivateInactivateInstruments, EditingSelector> {
+		ButtonPressed2ActivateIns(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
+			super(ins, false, ActivateInactivateInstruments.class, new ArrayList<>(ins.button2EditingChoiceMap.keySet()));
+		}
+
+		@Override
+		public void initAction() {
+			final ToggleButton button = interaction.getWidget();
+
+			action.setActivateFirst(false);
+
+			if(button!=instrument.textB)
+				action.addInstrumentToInactivate(instrument.pencil.textSetter);
+
+			/* Selection of the instruments to activate/desactivate. */
+			if(button==instrument.handB) {
+				final boolean noSelection = instrument.hand.canvas.getDrawing().getSelection().isEmpty();
+				action.addInstrumentToActivate(instrument.hand);
+
+				if(!noSelection)
+					action.addInstrumentToActivate(instrument.deleter);
+
+				action.addInstrumentToInactivate(instrument.pencil);
+
+				if(noSelection) {
+					action.addInstrumentToInactivate(instrument.metaShapeCustomiser);
+					action.addInstrumentToInactivate(instrument.border);
+				}
+				else {
+					action.addInstrumentToActivate(instrument.metaShapeCustomiser);
+					action.addInstrumentToActivate(instrument.border);
+				}
+			} else {
+				action.addInstrumentToInactivate(instrument.hand);
+				action.addInstrumentToInactivate(instrument.border);
+				action.addInstrumentToInactivate(instrument.deleter);
+				action.addInstrumentToActivate(instrument.pencil);
+				action.addInstrumentToActivate(instrument.metaShapeCustomiser);
+			}
+		}
+	}
 }
 
 
-//
-///**
-// * This link allows to activate the code inserter instrument.
-// */
 //class ButtonPressed2LaunchCodeInserter extends InteractorImpl<ActivateInactivateInstruments, ButtonPressed, EditingSelector> {
 //	ButtonPressed2LaunchCodeInserter(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
 //		super(ins, false, ActivateInactivateInstruments.class, ButtonPressed.class);
@@ -243,32 +296,6 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 
 
 
-/**
- * Sets the kind of shapes to create.
- */
-class ButtonPressed2DefineStylePencil extends ToggleButtonInteractor<ModifyPencilStyle, EditingSelector> {
-	protected ButtonPressed2DefineStylePencil(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
-		super(ins, false, ModifyPencilStyle.class, new ArrayList<>(ins.button2EditingChoiceMap.keySet()));
-	}
-
-
-	@Override
-	public void initAction() {
-		action.setEditingChoice(instrument.button2EditingChoiceMap.get(interaction.getWidget()));
-		action.setPencil(instrument.pencil);
-	}
-
-	@Override
-	public boolean isConditionRespected() {
-		return instrument.button2EditingChoiceMap.get(interaction.getWidget())!=null;
-	}
-}
-
-
-///**
-// * When the user types a text using the text field (instrument text setter) and then he
-// * selects another kind of editing, the typed text must be added to the canvas.
-// */
 //class ButtonPressed2AddText extends InteractorImpl<AddShape, ButtonPressed, EditingSelector> {
 //	protected ButtonPressed2AddText(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
 //		super(ins, false, AddShape.class, ButtonPressed.class);
@@ -285,60 +312,5 @@ class ButtonPressed2DefineStylePencil extends ToggleButtonInteractor<ModifyPenci
 //	public boolean isConditionRespected() {
 //		return instrument.pencil.textSetter().isActivated() && !instrument.pencil.textSetter().getTextField().getText().isEmpty() &&
 //				interaction.getButton()==instrument.textB;
-//	}
-//}
-//
-//
-//
-///**
-// * This link maps a ButtonPressed interaction to an action that activates/desactivates instruments.
-// */
-//class ButtonPressed2ActivateIns extends InteractorImpl<ActivateInactivateInstruments, ButtonPressed, EditingSelector> {
-//	protected ButtonPressed2ActivateIns(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, false, ActivateInactivateInstruments.class, ButtonPressed.class);
-//	}
-//
-//
-//	@Override
-//	public void initAction() {
-//		final AbstractButton ab = interaction.getButton();
-//
-//		action.setActivateFirst(false);
-//
-//		if(ab!=instrument.textB)
-//			action.addInstrumentToInactivate(instrument.pencil.textSetter());
-//
-//		/* Selection of the instruments to activate/desactivate. */
-//		if(ab==instrument.handB) {
-//			final boolean noSelection = instrument.hand.canvas().getDrawing().getSelection().isEmpty();
-//			action.addInstrumentToActivate(instrument.hand);
-//
-//			if(!noSelection)
-//				action.addInstrumentToActivate(instrument.deleter);
-//
-//			action.addInstrumentToInactivate(instrument.pencil);
-//
-//			if(noSelection) {
-//				action.addInstrumentToInactivate(instrument.metaShapeCustomiser);
-//				action.addInstrumentToInactivate(instrument.border);
-//			}
-//			else {
-//				action.addInstrumentToActivate(instrument.metaShapeCustomiser);
-//				action.addInstrumentToActivate(instrument.border);
-//			}
-//		} else {
-//			action.addInstrumentToInactivate(instrument.hand);
-//			action.addInstrumentToInactivate(instrument.border);
-//			action.addInstrumentToInactivate(instrument.deleter);
-//			action.addInstrumentToActivate(instrument.pencil);
-//			action.addInstrumentToActivate(instrument.metaShapeCustomiser);
-//		}
-//	}
-//
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		/* The pressed button must be a button of the instrument. */
-//		return instrument.codeB!=interaction.getButton() && instrument.isWidget(interaction.getButton());
 //	}
 //}

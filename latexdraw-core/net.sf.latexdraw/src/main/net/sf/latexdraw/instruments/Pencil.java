@@ -47,7 +47,6 @@ public class Pencil extends CanvasInstrument {
 	private IGroup groupParams;
 	
 	
-	@Inject
 	public Pencil() {
 		super();
 		currentChoice = EditionChoice.RECT;
