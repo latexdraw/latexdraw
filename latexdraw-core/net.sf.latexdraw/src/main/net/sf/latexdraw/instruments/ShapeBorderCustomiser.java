@@ -79,9 +79,9 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		);
 		
 		lineCB.getItems().addAll(
-			createItem(LineStyle.SOLID.toString(), "/res/lineStyles/lineStyle.none.png"),
-			createItem(LineStyle.DASHED.toString(), "/res/lineStyles/lineStyle.dashed.png"),
-			createItem(LineStyle.DOTTED.toString(), "/res/lineStyles/lineStyle.dotted.png")
+			createItem(LineStyle.SOLID, "/res/lineStyles/lineStyle.none.png"),
+			createItem(LineStyle.DASHED, "/res/lineStyles/lineStyle.dashed.png"),
+			createItem(LineStyle.DOTTED, "/res/lineStyles/lineStyle.dotted.png")
 		);
 	}
 
