@@ -15,7 +15,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
-import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
+import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
 
 /**
  * This instrument modifies border properties of shapes or the pencil.<br>
@@ -35,7 +35,7 @@ import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** The field which allows to change shapes thickness. */
 	@FXML protected Spinner<Double> thicknessField;
 
@@ -73,15 +73,15 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		frameArcPic.visibleProperty().bind(frameArcField.visibleProperty());
 		
 		bordersPosCB.getItems().addAll(
-				JFXUtil.INSTANCE.createItem(BorderPos.INTO, "/res/doubleBoundary/double.boundary.into.png"),
-				JFXUtil.INSTANCE.createItem(BorderPos.OUT, "/res/doubleBoundary/double.boundary.out.png"),
-				JFXUtil.INSTANCE.createItem(BorderPos.MID, "/res/doubleBoundary/double.boundary.middle.png")
+			createItem(BorderPos.INTO, "/res/doubleBoundary/double.boundary.into.png"),
+			createItem(BorderPos.OUT, "/res/doubleBoundary/double.boundary.out.png"),
+			createItem(BorderPos.MID, "/res/doubleBoundary/double.boundary.middle.png")
 		);
 		
 		lineCB.getItems().addAll(
-				JFXUtil.INSTANCE.createItem(LineStyle.SOLID.toString(), "/res/lineStyles/lineStyle.none.png"),
-				JFXUtil.INSTANCE.createItem(LineStyle.DASHED.toString(), "/res/lineStyles/lineStyle.dashed.png"),
-				JFXUtil.INSTANCE.createItem(LineStyle.DOTTED.toString(), "/res/lineStyles/lineStyle.dotted.png")
+			createItem(LineStyle.SOLID.toString(), "/res/lineStyles/lineStyle.none.png"),
+			createItem(LineStyle.DASHED.toString(), "/res/lineStyles/lineStyle.dashed.png"),
+			createItem(LineStyle.DOTTED.toString(), "/res/lineStyles/lineStyle.dotted.png")
 		);
 	}
 
@@ -110,9 +110,9 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			if(isTh)
 				thicknessField.getValueFactory().setValue(shape.getThickness());
 			if(isStylable)
-				lineCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(lineCB, shape.getLineStyle()).orElseThrow(() -> new IllegalArgumentException()));
+				lineCB.getSelectionModel().select(getItem(lineCB, shape.getLineStyle()).orElseThrow(() -> new IllegalArgumentException()));
 			if(isMvble)
-				bordersPosCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(bordersPosCB, shape.getBordersPosition()).orElseThrow(() -> new IllegalArgumentException()));
+				bordersPosCB.getSelectionModel().select(getItem(bordersPosCB, shape.getBordersPosition()).orElseThrow(() -> new IllegalArgumentException()));
 			if(supportRound)
 				frameArcField.getValueFactory().setValue(shape.getLineArc());
 			if(showPts)

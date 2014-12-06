@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
+import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
 
 /**
  * This instrument modifies dot parameters.<br>
@@ -33,7 +33,7 @@ import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** Allows to define the size of a dot. */
 	@FXML protected Spinner<Double> dotSizeField;
 
@@ -57,22 +57,22 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		dotCB.getItems().addAll(
-				JFXUtil.INSTANCE.createItem(DotStyle.DOT, "/res/dotStyles/dot.none.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.ASTERISK, "/res/dotStyles/dot.asterisk.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.BAR, "/res/dotStyles/dot.bar.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.DIAMOND, "/res/dotStyles/dot.diamond.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.FDIAMOND, "/res/dotStyles/dot.diamondF.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.O, "/res/dotStyles/dot.o.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.OPLUS, "/res/dotStyles/dot.oplus.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.OTIMES, "/res/dotStyles/dot.ocross.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.PLUS, "/res/dotStyles/dot.plus.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.X, "/res/dotStyles/dot.cross.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.TRIANGLE, "/res/dotStyles/dot.triangle.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.FTRIANGLE, "/res/dotStyles/dot.triangleF.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.PENTAGON, "/res/dotStyles/dot.pentagon.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.FPENTAGON, "/res/dotStyles/dot.pentagonF.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.SQUARE, "/res/dotStyles/dot.square.png"),
-				JFXUtil.INSTANCE.createItem(DotStyle.FSQUARE, "/res/dotStyles/dot.squareF.png")
+			createItem(DotStyle.DOT, "/res/dotStyles/dot.none.png"),
+			createItem(DotStyle.ASTERISK, "/res/dotStyles/dot.asterisk.png"),
+			createItem(DotStyle.BAR, "/res/dotStyles/dot.bar.png"),
+			createItem(DotStyle.DIAMOND, "/res/dotStyles/dot.diamond.png"),
+			createItem(DotStyle.FDIAMOND, "/res/dotStyles/dot.diamondF.png"),
+			createItem(DotStyle.O, "/res/dotStyles/dot.o.png"),
+			createItem(DotStyle.OPLUS, "/res/dotStyles/dot.oplus.png"),
+			createItem(DotStyle.OTIMES, "/res/dotStyles/dot.ocross.png"),
+			createItem(DotStyle.PLUS, "/res/dotStyles/dot.plus.png"),
+			createItem(DotStyle.X, "/res/dotStyles/dot.cross.png"),
+			createItem(DotStyle.TRIANGLE, "/res/dotStyles/dot.triangle.png"),
+			createItem(DotStyle.FTRIANGLE, "/res/dotStyles/dot.triangleF.png"),
+			createItem(DotStyle.PENTAGON, "/res/dotStyles/dot.pentagon.png"),
+			createItem(DotStyle.FPENTAGON, "/res/dotStyles/dot.pentagonF.png"),
+			createItem(DotStyle.SQUARE, "/res/dotStyles/dot.square.png"),
+			createItem(DotStyle.FSQUARE, "/res/dotStyles/dot.squareF.png")
 		);
 	}
 
@@ -81,7 +81,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IDotProp.class)) {
 			dotSizeField.getValueFactory().setValue(shape.getDiametre());
-			dotCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(dotCB, shape.getDotStyle()).orElseThrow(() -> new IllegalArgumentException()));
+			dotCB.getSelectionModel().select(getItem(dotCB, shape.getDotStyle()).orElseThrow(() -> new IllegalArgumentException()));
 			fillingB.setDisable(shape.isFillable());
 
 			if(shape.isFillable())

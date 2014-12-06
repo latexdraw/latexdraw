@@ -12,7 +12,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
+import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
 
 /**
  * This instrument modifies free hand properties of shapes or the pencil.<br>
@@ -32,7 +32,7 @@ import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** The type of the freehand. */
 	@FXML protected ComboBox<ImageView> freeHandType;
 
@@ -55,15 +55,15 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 	
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		freeHandType.getItems().addAll(JFXUtil.INSTANCE.createItem(IFreeHandProp.FreeHandType.LINES, "/res/freehand/line.png"),
-				JFXUtil.INSTANCE.createItem(IFreeHandProp.FreeHandType.CURVES, "/res/freehand/curve.png"));
+		freeHandType.getItems().addAll(createItem(IFreeHandProp.FreeHandType.LINES, "/res/freehand/line.png"),
+				createItem(IFreeHandProp.FreeHandType.CURVES, "/res/freehand/curve.png"));
 	}
 	
 
 	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IFreeHandProp.class)) {
-			freeHandType.getSelectionModel().select(JFXUtil.INSTANCE.getItem(freeHandType, shape.getType()).orElseThrow(() -> new IllegalArgumentException()));
+			freeHandType.getSelectionModel().select(getItem(freeHandType, shape.getType()).orElseThrow(() -> new IllegalArgumentException()));
 			gapPoints.getValueFactory().setValue(shape.getInterval());
 			open.setSelected(shape.isOpen());
 		}

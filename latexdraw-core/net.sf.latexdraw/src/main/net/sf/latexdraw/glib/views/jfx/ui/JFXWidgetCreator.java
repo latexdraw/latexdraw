@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * A JFX helper.<br>
+ * A trait for creating items.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
@@ -24,15 +24,7 @@ import javafx.scene.image.ImageView;
  * @author Arnaud BLOUIN
  * @since 4.0
  */
-public final class JFXUtil {
-	/** The singleton. */
-	public static final JFXUtil INSTANCE = new JFXUtil();
-	
-	private JFXUtil() {
-		super();
-	}
-
-	
+public interface JFXWidgetCreator {
 	/**
 	 * Creates an image view from the given picture. The given object is associated to the image view as the user data.
 	 * @param userData The object to map with the picture.
@@ -41,7 +33,7 @@ public final class JFXUtil {
 	 * @throws NullPointerException If the given path is null.
 	 * @throws IllegalArgumentException If the given path is not valid.
 	 */
-	public ImageView createItem(final Object userData, final String pic) {
+	default ImageView createItem(final Object userData, final String pic) {
 		final ImageView iv = new ImageView(new Image(pic));
 		iv.setUserData(userData);
 		return iv;
@@ -54,7 +46,7 @@ public final class JFXUtil {
 	 * @param userData The object to look for. 
 	 * @return The image view or empty.
 	 */
-	public Optional<ImageView> getItem(final ComboBox<ImageView> cb, final Object userData) {
+	default Optional<ImageView> getItem(final ComboBox<ImageView> cb, final Object userData) {
 		return cb.getItems().stream().filter(it -> it.getUserData()==userData).findFirst();
 	}
 }

@@ -14,7 +14,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
+import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
 
 /**
  * This instrument customises the arrows of shapes or of the pencil.<br>
@@ -34,7 +34,7 @@ import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** Allows to change the style of the left-end of the shape. */
 	@FXML protected ComboBox<ImageView> arrowLeftCB;
 
@@ -89,41 +89,41 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		arrowLeftCB.getItems().addAll(
-				JFXUtil.INSTANCE.createItem(ArrowStyle.NONE, "/res/arrowStyles/line.none.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.BAR_END, "/res/arrowStyles/line.barEnd.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.BAR_IN, "/res/arrowStyles/line.barIn.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.CIRCLE_END, "/res/arrowStyles/line.circle.end.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.CIRCLE_IN, "/res/arrowStyles/line.circle.in.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.DISK_END, "/res/arrowStyles/line.disk.end.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.DISK_IN, "/res/arrowStyles/line.disk.in.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.LEFT_ARROW, "/res/arrowStyles/line.arrow.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.RIGHT_ARROW, "/res/arrowStyles/line.rarrow.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.LEFT_ROUND_BRACKET, "/res/arrowStyles/line.arc.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.RIGHT_ROUND_BRACKET, "/res/arrowStyles/line.arc.r.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.LEFT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.RIGHT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.r.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.LEFT_DBLE_ARROW, "/res/arrowStyles/line.dbleArrow.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.RIGHT_DBLE_ARROW, "/res/arrowStyles/line.rdbleArrow.left.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.ROUND_IN, "/res/arrowStyles/line.roundIn.left.png")
+			createItem(ArrowStyle.NONE, "/res/arrowStyles/line.none.left.png"),
+			createItem(ArrowStyle.BAR_END, "/res/arrowStyles/line.barEnd.left.png"),
+			createItem(ArrowStyle.BAR_IN, "/res/arrowStyles/line.barIn.left.png"),
+			createItem(ArrowStyle.CIRCLE_END, "/res/arrowStyles/line.circle.end.left.png"),
+			createItem(ArrowStyle.CIRCLE_IN, "/res/arrowStyles/line.circle.in.left.png"),
+			createItem(ArrowStyle.DISK_END, "/res/arrowStyles/line.disk.end.left.png"),
+			createItem(ArrowStyle.DISK_IN, "/res/arrowStyles/line.disk.in.left.png"),
+			createItem(ArrowStyle.LEFT_ARROW, "/res/arrowStyles/line.arrow.left.png"),
+			createItem(ArrowStyle.RIGHT_ARROW, "/res/arrowStyles/line.rarrow.left.png"),
+			createItem(ArrowStyle.LEFT_ROUND_BRACKET, "/res/arrowStyles/line.arc.left.png"),
+			createItem(ArrowStyle.RIGHT_ROUND_BRACKET, "/res/arrowStyles/line.arc.r.left.png"),
+			createItem(ArrowStyle.LEFT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.left.png"),
+			createItem(ArrowStyle.RIGHT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.r.left.png"),
+			createItem(ArrowStyle.LEFT_DBLE_ARROW, "/res/arrowStyles/line.dbleArrow.left.png"),
+			createItem(ArrowStyle.RIGHT_DBLE_ARROW, "/res/arrowStyles/line.rdbleArrow.left.png"),
+			createItem(ArrowStyle.ROUND_IN, "/res/arrowStyles/line.roundIn.left.png")
 		);
 		
 		arrowRightCB.getItems().addAll(
-				JFXUtil.INSTANCE.createItem(ArrowStyle.NONE, "/res/arrowStyles/line.none.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.BAR_END, "/res/arrowStyles/line.barEnd.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.BAR_IN, "/res/arrowStyles/line.barIn.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.CIRCLE_END, "/res/arrowStyles/line.circle.end.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.CIRCLE_IN, "/res/arrowStyles/line.circle.in.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.DISK_END, "/res/arrowStyles/line.disk.end.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.DISK_IN, "/res/arrowStyles/line.disk.in.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.RIGHT_ARROW, "/res/arrowStyles/line.arrow.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.LEFT_ARROW, "/res/arrowStyles/line.rarrow.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.RIGHT_ROUND_BRACKET, "/res/arrowStyles/line.arc.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.LEFT_ROUND_BRACKET, "/res/arrowStyles/line.arc.r.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.RIGHT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.LEFT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.r.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.RIGHT_DBLE_ARROW, "/res/arrowStyles/line.dbleArrow.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.LEFT_DBLE_ARROW, "/res/arrowStyles/line.rdbleArrow.right.png"),
-				JFXUtil.INSTANCE.createItem(ArrowStyle.ROUND_IN, "/res/arrowStyles/line.roundIn.right.png")
+			createItem(ArrowStyle.NONE, "/res/arrowStyles/line.none.right.png"),
+			createItem(ArrowStyle.BAR_END, "/res/arrowStyles/line.barEnd.right.png"),
+			createItem(ArrowStyle.BAR_IN, "/res/arrowStyles/line.barIn.right.png"),
+			createItem(ArrowStyle.CIRCLE_END, "/res/arrowStyles/line.circle.end.right.png"),
+			createItem(ArrowStyle.CIRCLE_IN, "/res/arrowStyles/line.circle.in.right.png"),
+			createItem(ArrowStyle.DISK_END, "/res/arrowStyles/line.disk.end.right.png"),
+			createItem(ArrowStyle.DISK_IN, "/res/arrowStyles/line.disk.in.right.png"),
+			createItem(ArrowStyle.RIGHT_ARROW, "/res/arrowStyles/line.arrow.right.png"),
+			createItem(ArrowStyle.LEFT_ARROW, "/res/arrowStyles/line.rarrow.right.png"),
+			createItem(ArrowStyle.RIGHT_ROUND_BRACKET, "/res/arrowStyles/line.arc.right.png"),
+			createItem(ArrowStyle.LEFT_ROUND_BRACKET, "/res/arrowStyles/line.arc.r.right.png"),
+			createItem(ArrowStyle.RIGHT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.right.png"),
+			createItem(ArrowStyle.LEFT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.r.right.png"),
+			createItem(ArrowStyle.RIGHT_DBLE_ARROW, "/res/arrowStyles/line.dbleArrow.right.png"),
+			createItem(ArrowStyle.LEFT_DBLE_ARROW, "/res/arrowStyles/line.rdbleArrow.right.png"),
+			createItem(ArrowStyle.ROUND_IN, "/res/arrowStyles/line.roundIn.right.png")
 		);		
 	}
 	
@@ -156,8 +156,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 			final ArrowStyle arrStyle1 = arr1.getArrowStyle();
 			final ArrowStyle arrStyle2 = arr2.getArrowStyle();
 
-			arrowLeftCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(arrowLeftCB, arrStyle1).orElseThrow(() -> new IllegalArgumentException()));
-			arrowRightCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(arrowRightCB, arrStyle2).orElseThrow(() -> new IllegalArgumentException()));
+			arrowLeftCB.getSelectionModel().select(getItem(arrowLeftCB, arrStyle1).orElseThrow(() -> new IllegalArgumentException()));
+			arrowRightCB.getSelectionModel().select(getItem(arrowRightCB, arrStyle2).orElseThrow(() -> new IllegalArgumentException()));
 
 			final boolean isArrow = arrStyle1.isArrow() || arrStyle2.isArrow();
 			final boolean isDot = arrStyle1.isCircleDisk() || arrStyle2.isCircleDisk();

@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
-import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
+import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
 
 /**
  * This instrument modifies filling properties of shapes or the pencil.<br>
@@ -33,7 +33,7 @@ import net.sf.latexdraw.glib.views.jfx.ui.JFXUtil;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements Initializable {
+public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** Sets the colour of the interior of a shape. */
 	@FXML protected ColorPicker fillColButton;
 
@@ -81,15 +81,15 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		fillStyleCB.getItems().addAll(
-				JFXUtil.INSTANCE.createItem(FillingStyle.NONE, "/res/hatch/hatch.none.png"),
-				JFXUtil.INSTANCE.createItem(FillingStyle.PLAIN, "/res/hatch/hatch.solid.png"),
-				JFXUtil.INSTANCE.createItem(FillingStyle.CLINES, "/res/hatch/hatch.cross.png"),
-				JFXUtil.INSTANCE.createItem(FillingStyle.CLINES_PLAIN, "/res/hatch/hatchf.cross.png"),
-				JFXUtil.INSTANCE.createItem(FillingStyle.HLINES, "/res/hatch/hatch.horiz.png"),
-				JFXUtil.INSTANCE.createItem(FillingStyle.HLINES_PLAIN, "/res/hatch/hatchf.horiz.png"),
-				JFXUtil.INSTANCE.createItem(FillingStyle.VLINES, "/res/hatch/hatch.vert.png"),
-				JFXUtil.INSTANCE.createItem(FillingStyle.VLINES_PLAIN, "/res/hatch/hatchf.vert.png"),
-				JFXUtil.INSTANCE.createItem(FillingStyle.GRAD, "/res/hatch/gradient.png")
+			createItem(FillingStyle.NONE, "/res/hatch/hatch.none.png"),
+			createItem(FillingStyle.PLAIN, "/res/hatch/hatch.solid.png"),
+			createItem(FillingStyle.CLINES, "/res/hatch/hatch.cross.png"),
+			createItem(FillingStyle.CLINES_PLAIN, "/res/hatch/hatchf.cross.png"),
+			createItem(FillingStyle.HLINES, "/res/hatch/hatch.horiz.png"),
+			createItem(FillingStyle.HLINES_PLAIN, "/res/hatch/hatchf.horiz.png"),
+			createItem(FillingStyle.VLINES, "/res/hatch/hatch.vert.png"),
+			createItem(FillingStyle.VLINES_PLAIN, "/res/hatch/hatchf.vert.png"),
+			createItem(FillingStyle.GRAD, "/res/hatch/gradient.png")
 		);
 	}
 
@@ -107,7 +107,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 			hatchingsPane.setVisible(hatchings);
 			fillPane.setVisible(isFillable);
 
-			fillStyleCB.getSelectionModel().select(JFXUtil.INSTANCE.getItem(fillStyleCB, style).orElseThrow(() -> new IllegalArgumentException()));
+			fillStyleCB.getSelectionModel().select(getItem(fillStyleCB, style).orElseThrow(() -> new IllegalArgumentException()));
 			if(isFillable)
 				fillColButton.setValue(shape.getFillingCol().toJFX());
 			if(hatchings) {
