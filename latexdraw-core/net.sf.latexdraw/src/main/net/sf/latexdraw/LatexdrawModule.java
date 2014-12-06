@@ -7,7 +7,7 @@ import net.sf.latexdraw.ui.YScaleRuler;
 
 import com.google.inject.AbstractModule;
 
-public class LatexdrawModule extends AbstractModule {
+class LatexdrawModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(Canvas.class).asEagerSingleton();

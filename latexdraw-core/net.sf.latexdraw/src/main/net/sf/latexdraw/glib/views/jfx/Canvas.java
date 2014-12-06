@@ -80,7 +80,9 @@ public class Canvas extends javafx.scene.canvas.Canvas implements ConcretePresen
 	 */
 	public Canvas() {
 		super();
-		
+		System.out.println(this);
+		setWidth(986.0);
+		setHeight(765.0);
 		modified	 = false;
 		drawing		 = ShapeFactory.createDrawing();
 		zoom		 = new ActiveUnary<>(1.);

@@ -8,7 +8,6 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
@@ -131,9 +130,9 @@ public class LaTeXDraw extends Application {
 				updateProgress(0.1, 1.0);
 				try {
 					final Injector injector = Guice.createInjector(new LatexdrawModule());
-					final Callback<Class<?>, Object> guiceControllerFactory = clazz -> injector.getInstance(clazz);
+					final Callback<Class<?>, Object> guiceFactory = clazz -> injector.getInstance(clazz);
 					final Parent root = FXMLLoader.load(getClass().getResource("glib/views/jfx/ui/UI.fxml"), 
-										LangTool.INSTANCE.getBundle(), new JavaFXBuilderFactory(), guiceControllerFactory);
+										LangTool.INSTANCE.getBundle(), new LatexdrawBuilderFactory(injector), guiceFactory);
 					updateProgress(0.6, 1.0);
 					final Scene scene = new Scene(root);
 					updateProgress(0.7, 1.0);
