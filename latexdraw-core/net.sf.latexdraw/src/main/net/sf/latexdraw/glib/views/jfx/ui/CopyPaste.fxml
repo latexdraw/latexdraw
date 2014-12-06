@@ -9,13 +9,13 @@
 	<tooltip><Tooltip text="%LaTeXDrawFrame.89" /></tooltip>
 	<items>
 		<MenuItem id="copyMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.40">
-			<graphic><ImageView><image><Image url="@/res/Paste.png" /></image></ImageView></graphic>
-		</MenuItem>
-		<MenuItem id="cutMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.44">
 			<graphic><ImageView><image><Image url="@/res/Copy.png" /></image></ImageView></graphic>
 		</MenuItem>
-		<MenuItem id="pasteMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.43">
+		<MenuItem id="cutMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.44">
 			<graphic><ImageView><image><Image url="@/res/Cut.png" /></image></ImageView></graphic>
+		</MenuItem>
+		<MenuItem id="pasteMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.43">
+			<graphic><ImageView><image><Image url="@/res/Paste.png" /></image></ImageView></graphic>
 		</MenuItem>
 	</items>
 </MenuButton>

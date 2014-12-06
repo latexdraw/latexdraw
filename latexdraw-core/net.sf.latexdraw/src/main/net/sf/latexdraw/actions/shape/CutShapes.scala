@@ -3,11 +3,10 @@ package net.sf.latexdraw.actions.shape
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.JavaConversions.bufferAsJavaList
 import scala.collection.mutable.Buffer
-
 import org.malai.undo.Undoable
-
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.util.LResources
+import net.sf.latexdraw.util.LangTool
 
 /**
  * This action cuts the selected shapes.<br>
@@ -70,5 +69,5 @@ class CutShapes extends CopyShapes with Undoable with Modifying {
 	}
 
 
-	override def getUndoName = LResources.LABEL_CUT
+	override def getUndoName = LangTool.INSTANCE.getBundle.getString("LaTeXDrawFrame.44")
 }

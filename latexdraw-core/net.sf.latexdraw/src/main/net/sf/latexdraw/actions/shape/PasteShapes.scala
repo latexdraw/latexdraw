@@ -8,8 +8,9 @@ import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.glib.views.MagneticGrid
+import net.sf.latexdraw.util.LResources
+import net.sf.latexdraw.util.LangTool
 
 /**
  * This action pastes the copied or cut shapes.<br>
@@ -97,7 +98,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 	}
 
 
-	override def getUndoName = LResources.LABEL_PASTE
+	override def getUndoName = LangTool.INSTANCE.getBundle.getString("LaTeXDrawFrame.43")
 
 
 	override def followingActions = {
