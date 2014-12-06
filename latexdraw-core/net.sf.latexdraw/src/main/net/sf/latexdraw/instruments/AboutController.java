@@ -66,9 +66,8 @@ public class AboutController implements Initializable {
 		builder.append("PS2PDF version:").append(LResources.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LResources.EOL); //$NON-NLS-1$
 		builder.append("PS2EPSI version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LResources.EOL); //$NON-NLS-1$
 		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LResources.EOL); //$NON-NLS-1$
-
 		builder.append("Java properties:").append(LResources.EOL); //$NON-NLS-1$
-		System.getProperties().entrySet().stream().forEach(entry -> builder.append(entry.getKey()).append(':').append(' ').append(entry.getValue()).append(LResources.EOL));
+		System.getProperties().entrySet().forEach(entry -> builder.append(entry.getKey()).append(':').append(' ').append(entry.getValue()).append(LResources.EOL));
 		sysText.setText(builder.toString());
 	}
 }
