@@ -9,7 +9,6 @@ import net.sf.latexdraw.parsers.pst.parser.PSTParser
 import javax.swing.JLabel
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.badaboom.BadaboomManager
 
 /**
  * This action converts PST code into shapes and add them to the drawing.
