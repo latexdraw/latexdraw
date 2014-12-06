@@ -15,6 +15,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -29,7 +30,9 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
 import net.sf.latexdraw.util.LangTool;
 
+import org.malai.javafx.action.library.ShowStage;
 import org.malai.javafx.instrument.JfxInstrument;
+import org.malai.javafx.instrument.library.ButtonInteractor;
 
 /**
  * This instrument allows to see exceptions launched during the execution of the program.<br>
@@ -39,10 +42,10 @@ import org.malai.javafx.instrument.JfxInstrument;
  */
 public class ExceptionsManager extends JfxInstrument implements BadaboomHandler, Initializable {
 	/** The button used to shows the panel of exceptions. */
-	@FXML protected Button exceptionB;
+	@FXML Button exceptionB;
 
 	/** The frame to show when exceptions occur. */
-	private Stage frame;
+	private Stage stageEx;
 
 
 	/**
@@ -57,19 +60,19 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	/**
 	 * @return The frame showing the exceptions. Cannot be null.
 	 */
-	public Stage getFrame() {
-		if(frame==null){
+	public Stage getStageEx() {
+		if(stageEx==null){
 			try {
 				Parent root = FXMLLoader.load(getClass().getResource("../glib/views/jfx/ui/Badaboom.fxml"), LangTool.INSTANCE.getBundle());
 		        final Scene scene = new Scene(root);
-		        frame = new Stage(StageStyle.UTILITY);
-		        frame.setScene(scene);
-		        frame.centerOnScreen();
+		        stageEx = new Stage(StageStyle.UTILITY);
+		        stageEx.setScene(scene);
+		        stageEx.centerOnScreen();
 			}catch(final Exception e) {
 				BadaboomCollector.INSTANCE.add(e);
 			}
 		}
-		return frame;
+		return stageEx;
 	}
 	
 
@@ -82,11 +85,11 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 
 	@Override
 	protected void initialiseInteractors() {
-//		try{
-//			addInteractor(new ButtonPress2ShowExceptionFrame(this));
-//		}catch(InstantiationException | IllegalAccessException e){
-//			BadaboomCollector.INSTANCE.add(e);
-//		}
+		try{
+			addInteractor(new ButtonPress2ShowExceptionFrame(this));
+		}catch(InstantiationException | IllegalAccessException e){
+			BadaboomCollector.INSTANCE.add(e);
+		}
 	}
 
 
@@ -106,28 +109,17 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	public void notifyEvents() {
 		setActivated(true);
 	}
-}
+	
 
-//
-///**
-// * Links a button pressed interaction to an action that show the exceptions frame.
-// */
-//class ButtonPress2ShowExceptionFrame extends InteractorImpl<ShowWidget, ButtonPressed, ExceptionsManager> {
-//	/**
-//	 * Creates the link.
-//	 */
-//	protected ButtonPress2ShowExceptionFrame(final ExceptionsManager ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, false, ShowWidget.class, ButtonPressed.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		action.setComponent(instrument.frame);
-//		action.setVisible(true);
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return interaction.getButton()==instrument.exceptionB;
-//	}
-//}
+	private static class ButtonPress2ShowExceptionFrame extends ButtonInteractor<ShowStage, ExceptionsManager> {
+		ButtonPress2ShowExceptionFrame(final ExceptionsManager ins) throws InstantiationException, IllegalAccessException {
+			super(ins, false, ShowStage.class, Collections.singletonList(ins.exceptionB));
+		}
+
+		@Override
+		public void initAction() {
+			action.setWidget(instrument.getStageEx());
+			action.setVisible(true);
+		}
+	}
+}
