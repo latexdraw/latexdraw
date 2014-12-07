@@ -80,6 +80,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 			xOriginS.getValueFactory().setValue(gp.getOriginX());
 			yOriginS.getValueFactory().setValue(gp.getOriginY());
 			labelsSizeS.getValueFactory().setValue(gp.getLabelsSize());
+			setActivated(true);
 		}
 		else setActivated(false);
 	}

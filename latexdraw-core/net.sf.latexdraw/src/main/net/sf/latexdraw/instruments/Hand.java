@@ -47,11 +47,11 @@ public class Hand extends CanvasInstrument {
 	}
 
 
-	@Override
-	public void setActivated(final boolean activated) {
-		if(this.activated!=activated)
-			super.setActivated(activated);
-	}
+//	@Override
+//	public void setActivated(final boolean activated) {
+//		if(this.activated!=activated)
+//			super.setActivated(activated);
+//	}
 
 
 	@Override

@@ -92,7 +92,7 @@ public class ShapeTransformer extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IGroup shape) {
-		// Nothing to do
+		setActivated(!shape.isEmpty());
 	}
 
 

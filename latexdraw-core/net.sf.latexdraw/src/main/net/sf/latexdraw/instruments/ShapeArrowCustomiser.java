@@ -10,9 +10,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
 
@@ -150,7 +150,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape.isTypeOf(IArrowableShape.class)) {
+		if(shape.isTypeOf(IArrowable.class)) {
+			setActivated(true);
 			final IArrow arr1 = shape.getArrowAt(0);
 			final IArrow arr2 = shape.getArrowAt(-1);
 			final ArrowStyle arrStyle1 = arr1.getArrowStyle();

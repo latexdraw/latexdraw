@@ -90,29 +90,28 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	public void setActivated(final boolean activated) {
 		super.setActivated(activated);
 
-		final IGroup selection = pencil.getCanvas().getDrawing().getSelection();
-
-		borderCustomiser.setActivated(activated);
-		doubleBorderCustomiser.setActivated(activated);
-		shadowCustomiser.setActivated(activated);
-		fillingCustomiser.setActivated(activated);
-		shapeTextCustomiser.setActivated(activated);
-		rotationCustomiser.setActivated(activated && hand.isActivated());
-		arrowCustomiser.setActivated(activated);
-		dotCustomiser.setActivated(activated);
-		arcCustomiser.setActivated(activated);
-		gridCustomiser.setActivated(activated);
-		shapeAxesCustomiser.setActivated(activated);
-		shapeGridCustomiser.setActivated(activated);
-		plotCustom.setActivated(activated);
-		shapeFreeHandCustomiser.setActivated(activated);
-		dimPosCustomiser.setActivated(activated && hand.isActivated() && !selection.isEmpty());
-		shapeGrouper.setActivated(activated && hand.isActivated() && (selection.size()>1 || selection.getShapeAt(0) instanceof IGroup));
-		shapeTransformer.setActivated(activated && hand.isActivated() && !selection.isEmpty());
-		shapePositioner.setActivated(activated && hand.isActivated() && !selection.isEmpty());
-
 		if(activated)
 			update();
+		else {
+			borderCustomiser.setActivated(false);
+			doubleBorderCustomiser.setActivated(false);
+			shadowCustomiser.setActivated(false);
+			fillingCustomiser.setActivated(false);
+			shapeTextCustomiser.setActivated(false);
+			rotationCustomiser.setActivated(false);
+			arrowCustomiser.setActivated(false);
+			dotCustomiser.setActivated(false);
+			arcCustomiser.setActivated(false);
+			gridCustomiser.setActivated(false);
+			shapeAxesCustomiser.setActivated(false);
+			shapeGridCustomiser.setActivated(false);
+			plotCustom.setActivated(false);
+			shapeFreeHandCustomiser.setActivated(false);
+			dimPosCustomiser.setActivated(false);
+			shapeGrouper.setActivated(false);
+			shapeTransformer.setActivated(false);
+			shapePositioner.setActivated(false);
+		}
 	}
 
 
@@ -133,8 +132,8 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapeAxesCustomiser.update(shape);
 		shapeGridCustomiser.update(shape);
 		shapeFreeHandCustomiser.update(shape);
-//		shapeTransformer.update(shape);
-//		shapePositioner.update(shape);
+		shapeTransformer.update(shape);
+		shapePositioner.update(shape);
 		plotCustom.update(shape);
 	}
 
@@ -161,12 +160,10 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		plotCustom.clearEvents();
 	}
 
-
 	@Override
 	protected void initialiseInteractors() {
 		// This instrument does not have any link.
 	}
-
 
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {

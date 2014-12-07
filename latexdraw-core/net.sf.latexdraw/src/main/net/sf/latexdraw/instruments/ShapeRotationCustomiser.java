@@ -56,8 +56,12 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(isActivated() && shape!=null)
+		if(shape.isEmpty())
+			setActivated(false);
+		else {
 			rotationField.getValueFactory().setValue(Math.toDegrees(shape.getRotationAngle()));
+			setActivated(true);
+		}
 	}
 
 

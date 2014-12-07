@@ -88,9 +88,10 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape==null)
+		if(shape.isEmpty())
 			setActivated(false);
 		else {
+			setActivated(true);
 			final boolean isTh	 	 = shape.isThicknessable();
 			final boolean isStylable = shape.isLineStylable();
 			final boolean isMvble	 = shape.isBordersMovable();

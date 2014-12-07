@@ -15,12 +15,14 @@ package net.sf.latexdraw.instruments;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -160,6 +162,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 //		codeInserter.setActivated(false);
 		hand.setActivated(true);
 		pencil.setActivated(false);
+		metaShapeCustomiser.update();
 	}
 	
 	/** @return The created latexdraw dialogue box. */
@@ -184,9 +187,11 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	@Override
 	protected void initialiseInteractors() {
 		try{
+			final List<Node> nodes = new ArrayList<>(button2EditingChoiceMap.keySet());
+			nodes.add(handB);
 //			addInteractor(new ButtonPressed2AddText(this));
 			addInteractor(new ButtonPressed2DefineStylePencil(this));
-			addInteractor(new ButtonPressed2ActivateIns(this));
+			addInteractor(new ButtonPressed2ActivateIns(this, nodes));
 //			addInteractor(new ButtonPressed2LaunchCodeInserter(this));
 		}catch(InstantiationException | IllegalAccessException e){
 			BadaboomCollector.INSTANCE.add(e);
@@ -235,8 +240,8 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	
 	
 	private static class ButtonPressed2ActivateIns extends ToggleButtonInteractor<ActivateInactivateInstruments, EditingSelector> {
-		ButtonPressed2ActivateIns(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, ActivateInactivateInstruments.class, new ArrayList<>(ins.button2EditingChoiceMap.keySet()));
+		ButtonPressed2ActivateIns(final EditingSelector ins, final List<Node> nodes) throws InstantiationException, IllegalAccessException {
+			super(ins, false, ActivateInactivateInstruments.class, nodes);
 		}
 
 		@Override

@@ -42,7 +42,10 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(isActivated() && shape!=null) {
+		if(shape.isEmpty())
+			setActivated(false);
+		else {
+			setActivated(true);
 			final IPoint tl = shape.getTopLeftPoint();
 			tlxS.getValueFactory().setValue(tl.getX());
 			tlyS.getValueFactory().setValue(tl.getY());

@@ -97,6 +97,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isInteriorStylable()) {
+			setActivated(true);
 			final FillingStyle style	= shape.getFillingStyle();
 			final boolean isFillable	= style.isFilled();
 			final boolean hatchings		= style.isHatchings();

@@ -48,7 +48,8 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 	
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape!=null && shape.isDbleBorderable()) {
+		if(shape.isDbleBorderable()) {
+			setActivated(true);
 			final boolean dble = shape.hasDbleBord();
 
 			dbleBoundCB.setSelected(dble);

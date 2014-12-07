@@ -91,6 +91,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 			showOrigin.setSelected(shape.isShowOrigin());
 			distLabelsX.getValueFactory().setValue(shape.getDistLabelsX());
 			distLabelsY.getValueFactory().setValue(shape.getDistLabelsY());
+			setActivated(true);
 		}
 		else setActivated(false);
 	}

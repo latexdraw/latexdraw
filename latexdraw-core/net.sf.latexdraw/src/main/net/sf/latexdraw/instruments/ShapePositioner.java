@@ -49,14 +49,14 @@ public class ShapePositioner extends ShapePropertyCustomiser {
 
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
-//		composer.setWidgetVisible(foregroundB, visible);
-//		composer.setWidgetVisible(backgroundB, visible);
+		foregroundB.setVisible(visible);
+		backgroundB.setVisible(visible);
 	}
 
 
 	@Override
 	protected void update(final IGroup shape) {
-		//
+		setActivated(!shape.isEmpty());
 	}
 }
 

@@ -63,6 +63,7 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IFreeHandProp.class)) {
+			setActivated(true);
 			freeHandType.getSelectionModel().select(getItem(freeHandType, shape.getType()).orElseThrow(() -> new IllegalArgumentException()));
 			gapPoints.getValueFactory().setValue(shape.getInterval());
 			open.setSelected(shape.isOpen());

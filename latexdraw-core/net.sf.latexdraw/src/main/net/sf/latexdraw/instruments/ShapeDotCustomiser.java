@@ -80,6 +80,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IDotProp.class)) {
+			setActivated(true);
 			dotSizeField.getValueFactory().setValue(shape.getDiametre());
 			dotCB.getSelectionModel().select(getItem(dotCB, shape.getDotStyle()).orElseThrow(() -> new IllegalArgumentException()));
 			fillingB.setDisable(shape.isFillable());

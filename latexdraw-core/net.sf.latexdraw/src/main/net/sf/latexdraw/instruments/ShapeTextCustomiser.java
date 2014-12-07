@@ -90,6 +90,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(ITextProp.class)) {
+			setActivated(true);
 			final TextPosition tp = shape.getTextPosition();
 
 			bButton.setSelected(tp==TextPosition.BOT);

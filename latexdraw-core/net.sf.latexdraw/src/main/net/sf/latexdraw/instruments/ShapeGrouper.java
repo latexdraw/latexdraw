@@ -43,10 +43,12 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(isActivated() && !shape.isEmpty()) {
+		if(shape.isEmpty()) {
+			setActivated(true);
 			groupB.setDisable(shape.isEmpty());
 			sepB.setDisable(shape.size()==1 && shape.getShapeAt(0) instanceof IGroup);
 		}
+		else setActivated(false);
 	}
 
 

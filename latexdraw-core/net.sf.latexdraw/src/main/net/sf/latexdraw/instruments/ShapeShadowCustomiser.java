@@ -57,7 +57,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape!=null && shape.isShadowable()) {
+		if(shape.isShadowable()) {
 			final boolean hasShadow = shape.hasShadow();
 
 			shadowCB.setSelected(hasShadow);
@@ -70,6 +70,7 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 				shadowAngleField.getValueFactory().setValue(Math.toDegrees(shape.getShadowAngle()));
 				shadowSizeField.getValueFactory().setValue(shape.getShadowSize());
 			}
+			setActivated(true);
 		}
 		else setActivated(false);
 	}

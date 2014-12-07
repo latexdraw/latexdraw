@@ -1,8 +1,13 @@
 package net.sf.latexdraw.glib.models.impl
 
 import java.awt.geom.Point2D
+import java.util.Optional
+
+import org.eclipse.jdt.annotation.NonNull
+
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IAxes
@@ -17,6 +22,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGrid
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine
 import net.sf.latexdraw.glib.models.interfaces.shape.IPicture
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline
@@ -27,10 +33,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquare
 import net.sf.latexdraw.glib.models.interfaces.shape.IText
 import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
-import net.sf.latexdraw.glib.models.interfaces.shape.Color
-import java.util.Objects
-import java.util.Optional
 
 /**
  * This factory creates shapes.<br>
@@ -199,7 +201,7 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createRectangle(tl : IPoint, br : IPoint) : IRectangle = new LRectangle(tl, br)
 
-	override def createText() : IText = new LText()
+	@NonNull override def createText() : IText = new LText()
 
 	override def createText(pt : IPoint, text : String) : IText = new LText(pt, text)
 
