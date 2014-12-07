@@ -27,14 +27,20 @@
 		<tooltip><Tooltip text="%ShapeGrid.2" /></tooltip>      
       </ColorPicker>
       <Label layoutX="0.0" layoutY="30.0" text="%ParametersGridFrame.8" />
-      <Spinner fx:id="subGridDiv" layoutX="130.0" layoutY="28.0" prefHeight="25.0" prefWidth="60.0" 
-      			min="1" max="100" initialValue="1" amountToStepBy="1"/>
+      <Spinner fx:id="subGridDiv" layoutX="130.0" layoutY="28.0" prefHeight="25.0" prefWidth="60.0">
+		<valueFactory>
+			<SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="100" initialValue="1" amountToStepBy="1"/>
+		</valueFactory>
+	  </Spinner>
       <Label layoutX="0.0" layoutY="60.0" text="%ParametersGridFrame.7" />
       <Spinner fx:id="subGridWidth" layoutX="130.0" layoutY="58.0" prefHeight="25.0" prefWidth="60.0" 
       			min="0.1" max="1000" initialValue="1" amountToStepBy="0.5"/>
       <Label layoutX="0.0" layoutY="90.0" text="%ParametersGridFrame.4" />
-      <Spinner fx:id="subGridDots" layoutX="130.0" layoutY="88.0" prefHeight="25.0" prefWidth="60.0" 
-      			min="0" max="10000" initialValue="0" amountToStepBy="1"/>
+      <Spinner fx:id="subGridDots" layoutX="130.0" layoutY="88.0" prefHeight="25.0" prefWidth="60.0">
+		<valueFactory>
+			<SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10000" initialValue="0" amountToStepBy="1" />
+		</valueFactory>
+	  </Spinner>
 	</AnchorPane>
 	
 	<AnchorPane minWidth="250" maxWidth="250" layoutY="165"
@@ -43,7 +49,10 @@
       <Spinner fx:id="gridWidth" layoutX="130.0" layoutY="0.0" prefHeight="25.0" prefWidth="60.0" 
       			min="0.1" max="1000" initialValue="1" amountToStepBy="0.5"/>
       <Label layoutX="0.0" layoutY="32.0" text="%ParametersGridFrame.5" />
-      <Spinner fx:id="gridDots" layoutX="130.0" layoutY="30.0" prefHeight="25.0" prefWidth="60.0" 
-      			min="0" max="10000" initialValue="0" amountToStepBy="1"/>
+      <Spinner fx:id="gridDots" layoutX="130.0" layoutY="30.0" prefHeight="25.0" prefWidth="60.0" >
+		<valueFactory>
+			<SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10000" initialValue="0" amountToStepBy="1" />
+		</valueFactory>
+	  </Spinner>
 	</AnchorPane>
 </AnchorPane>

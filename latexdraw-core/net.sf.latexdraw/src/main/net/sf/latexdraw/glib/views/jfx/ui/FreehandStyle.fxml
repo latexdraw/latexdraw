@@ -12,8 +12,11 @@
 		   <children>
 		      <ComboBox fx:id="freeHandType" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="4.0" layoutY="4.0" />
 		      <Label layoutX="4.0" layoutY="39.0" text="%ParametersAkinPointsFrame.0" />
-		      <Spinner fx:id="gapPoints" layoutX="120.0" layoutY="36.0" prefHeight="25.0" prefWidth="75.0"
-		      			min="1" max="1000" initialValue="5" amountToStepBy="1" />
+		      <Spinner fx:id="gapPoints" layoutX="120.0" layoutY="36.0" prefHeight="25.0" prefWidth="75.0">
+				<valueFactory>
+					<SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="1000" initialValue="5" amountToStepBy="1" />
+				</valueFactory>
+			  </Spinner>
 		      <CheckBox fx:id="open" layoutX="4.0" layoutY="70.0" text="%ParametersAkinPointsFrame.1" />
 		   </children>
 		</AnchorPane>

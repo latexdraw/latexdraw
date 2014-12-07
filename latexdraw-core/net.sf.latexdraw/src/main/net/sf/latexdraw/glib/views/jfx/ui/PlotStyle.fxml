@@ -11,8 +11,11 @@
 		<AnchorPane>
 		   <children>
 	   	      <Label layoutX="4.0" layoutY="3.0" text="Plotted points:" />
-		      <Spinner fx:id="nbPtsSpinner" layoutX="94.0" layoutY="0.0" prefHeight="25.0" prefWidth="70.0" 
-		      			min="1" max="10000" initialValue="50" amountToStepBy="10"/>
+		      <Spinner fx:id="nbPtsSpinner" layoutX="94.0" layoutY="0.0" prefHeight="25.0" prefWidth="70.0">
+      			<valueFactory>
+	      			<SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="10000" initialValue="50" amountToStepBy="10"/>
+      			</valueFactory>
+      		  </Spinner>
 	   	      <Label layoutX="4.0" layoutY="33.0" text="X-min:" />
 		      <Spinner fx:id="minXSpinner" layoutX="57.0" layoutY="30.0" prefHeight="25.0" prefWidth="60.0" 
 		      			min="-100000" max="100000" initialValue="0" amountToStepBy="1"/>

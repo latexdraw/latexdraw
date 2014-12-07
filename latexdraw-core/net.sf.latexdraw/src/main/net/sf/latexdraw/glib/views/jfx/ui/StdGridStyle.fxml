@@ -41,10 +41,12 @@
 			      	<tooltip><Tooltip text="%ShapeStdGrid.7" /></tooltip>
 			      </Spinner>
    			      <Label layoutX="0.0" layoutY="103.0" text="%ParametersGridFrame.9" />
-			      <Spinner fx:id="labelsSizeS" layoutX="110.0" layoutY="98.0" prefHeight="25.0" prefWidth="60.0"
-			      			min="0" max="100" initialValue="10" amountToStepBy="1">
+			      <Spinner fx:id="labelsSizeS" layoutX="110.0" layoutY="98.0" prefHeight="25.0" prefWidth="60.0">
 			      	<tooltip><Tooltip text="%ShapeStdGrid.5" /></tooltip>
-			      </Spinner>
+					<valueFactory>
+						<SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="100" initialValue="10" amountToStepBy="1" />
+					</valueFactory>
+				  </Spinner>
 				</AnchorPane>
 				<fx:include source="GridStyle.fxml" />
 				<fx:include source="AxeStyle.fxml" />
