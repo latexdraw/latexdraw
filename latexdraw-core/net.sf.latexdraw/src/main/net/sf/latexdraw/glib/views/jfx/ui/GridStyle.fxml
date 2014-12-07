@@ -15,7 +15,7 @@
       	<graphic><ImageView><image><Image url="@/res/yGridLabel.png" /></image></ImageView></graphic>
       	<tooltip><Tooltip text="%ShapeGrid.3" /></tooltip>
       </ToggleButton>
-      <ToggleButton fx:id="labelsYInvertedCB" layoutX="153.0" layoutY="0.0" mnemonicParsing="false">
+      <ToggleButton fx:id="labelsXInvertedCB" layoutX="153.0" layoutY="0.0" mnemonicParsing="false">
       	<graphic><ImageView><image><Image url="@/res/xGridLabel.png" /></image></ImageView></graphic>
       	<tooltip><Tooltip text="%ShapeGrid.4" /></tooltip>
       </ToggleButton>
@@ -23,7 +23,7 @@
 	
 	<AnchorPane minWidth="250" maxWidth="250" layoutY="43"
 		style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
-      <ColorPicker fx:id="colourLabels" layoutX="0.0" layoutY="0.0" prefHeight="25.0" prefWidth="110.0">
+      <ColorPicker fx:id="colourSubGrid" layoutX="0.0" layoutY="0.0" prefHeight="25.0" prefWidth="110.0">
 		<tooltip><Tooltip text="%ShapeGrid.2" /></tooltip>      
       </ColorPicker>
       <Label layoutX="0.0" layoutY="30.0" text="%ParametersGridFrame.8" />
