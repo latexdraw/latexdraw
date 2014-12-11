@@ -1,6 +1,10 @@
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
@@ -24,7 +28,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
+public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The rotation button to perform 90 degree rotation. */
 	@FXML protected Button rotate90Button;
 
@@ -51,6 +55,12 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
+	}
+
+	
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 
 

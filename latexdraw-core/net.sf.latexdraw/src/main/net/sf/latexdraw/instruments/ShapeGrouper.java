@@ -1,6 +1,10 @@
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -23,7 +27,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeGrouper extends ShapePropertyCustomiser {
+public class ShapeGrouper extends ShapePropertyCustomiser implements Initializable {
 	/** The widget to group shapes. */
 	protected @FXML Button groupB;
 
@@ -43,19 +47,25 @@ public class ShapeGrouper extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape.isEmpty()) {
+		if(shape.isEmpty())
+			setActivated(false);
+		else {
 			setActivated(true);
-			groupB.setDisable(shape.isEmpty());
-			sepB.setDisable(shape.size()==1 && shape.getShapeAt(0) instanceof IGroup);
+//			groupB.setDisable(shape.isEmpty());
+//			sepB.setDisable(shape.size()==1 && shape.getShapeAt(0) instanceof IGroup);
 		}
-		else setActivated(false);
+	}
+
+	
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 
 
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
-		groupB.setVisible(visible);
-		sepB.setVisible(visible);
+		mainPane.setVisible(visible);
 	}
 
 

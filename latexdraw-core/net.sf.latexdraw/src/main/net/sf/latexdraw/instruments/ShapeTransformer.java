@@ -1,8 +1,12 @@
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 
@@ -24,7 +28,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeTransformer extends ShapePropertyCustomiser {
+public class ShapeTransformer extends ShapePropertyCustomiser implements Initializable {
 	/** The widget to mirror horizontally. */
 	@FXML protected Button mirrorH;
 
@@ -73,7 +77,7 @@ public class ShapeTransformer extends ShapePropertyCustomiser {
 	/** The widget to right-horizontally distribute the shapes. */
 	@FXML protected Button distribHorizRight;
 
-	@FXML AnchorPane mainPane;
+	@FXML VBox mainPane;
 	
 
 	/**
@@ -81,6 +85,12 @@ public class ShapeTransformer extends ShapePropertyCustomiser {
 	 */
 	public ShapeTransformer() {
 		super();
+	}
+
+
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 
 

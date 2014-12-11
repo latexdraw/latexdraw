@@ -208,14 +208,14 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	}
 
 
-	/**
-	 * @param ab The widget to test.
-	 * @return True if the given widget is a widget of the instrument.
-	 * @since 3.0
-	 */
-	public boolean isWidget(final Object ab) {
-		return ab!=null && (button2EditingChoiceMap.get(ab)!=null || ab==handB || ab==codeB);
-	}
+//	/**
+//	 * @param ab The widget to test.
+//	 * @return True if the given widget is a widget of the instrument.
+//	 * @since 3.0
+//	 */
+//	public boolean isWidget(final Object ab) {
+//		return ab!=null && (button2EditingChoiceMap.get(ab)!=null || ab==handB || ab==codeB);
+//	}
 
 
 

@@ -1,7 +1,12 @@
 package net.sf.latexdraw.instruments;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 /**
@@ -22,12 +27,15 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapePositioner extends ShapePropertyCustomiser {
+public class ShapePositioner extends ShapePropertyCustomiser implements Initializable {
 	/** The foreground button. */
 	@FXML protected Button foregroundB;
 
 	/** The background button. */
 	@FXML protected Button backgroundB;
+	
+	@FXML protected AnchorPane mainPane;
+	
 
 	/**
 	 * Creates the instrument.
@@ -46,11 +54,15 @@ public class ShapePositioner extends ShapePropertyCustomiser {
 //		}
 	}
 
+	
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
+	}
 
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
-		foregroundB.setVisible(visible);
-		backgroundB.setVisible(visible);
+		mainPane.setVisible(visible);
 	}
 
 

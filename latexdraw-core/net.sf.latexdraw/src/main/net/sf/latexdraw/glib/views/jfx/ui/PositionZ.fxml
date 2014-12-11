@@ -4,10 +4,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 
- <AnchorPane minWidth="250" maxWidth="250" layoutX="10.0" layoutY="229.0"
+ <AnchorPane minWidth="250" maxWidth="250" layoutX="10.0"
  		xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
- 		fx:controller="net.sf.latexdraw.instruments.ShapePositioner"
-		style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+ 		fx:controller="net.sf.latexdraw.instruments.ShapePositioner" fx:id="mainPane"
+		style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
     <Button fx:id="foregroundB" layoutX="0.0" layoutY="0.0">
        	<graphic><ImageView><image><Image url="@/res/foreground.png" /></image></ImageView></graphic>
    		<tooltip><Tooltip text="%LaTeXDrawFrame.70" /></tooltip>

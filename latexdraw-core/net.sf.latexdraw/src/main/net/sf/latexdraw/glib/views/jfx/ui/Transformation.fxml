@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 
-<AnchorPane
-		fx:id="mainPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-		fx:controller="net.sf.latexdraw.instruments.ShapeTransformer">
-	<AnchorPane minWidth="250" maxWidth="250" layoutX="10.0" layoutY="80.0"
-			style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
+<VBox fx:id="mainPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" spacing="10"
+			fx:controller="net.sf.latexdraw.instruments.ShapeTransformer" layoutX="10.0">
+	<AnchorPane minWidth="250" maxWidth="250"
+			style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
 	    <Button fx:id="mirrorH" layoutX="0.0" layoutY="0.0">
 	       	<graphic><ImageView><image><Image url="@/res/mirrorH.png" /></image></ImageView></graphic>
 	   		<tooltip><Tooltip text="%LaTeXDrawFrame.7" /></tooltip>
@@ -19,7 +18,7 @@
 	    </Button>
   </AnchorPane>
   
-  <AnchorPane minWidth="250" maxWidth="250" layoutX="10.0" layoutY="119.0"
+  <AnchorPane minWidth="250" maxWidth="250"
 			style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
 	    <Button fx:id="alignBot" layoutX="0.0" layoutY="0.0">
 	       	<graphic><ImageView><image><Image url="@/res/align/alignBottom.png" /></image></ImageView></graphic>
@@ -47,7 +46,7 @@
 	    </Button>
   </AnchorPane>
   
-  <AnchorPane minWidth="250" maxWidth="250" layoutX="10.0" layoutY="157.0"
+  <AnchorPane minWidth="250" maxWidth="250"
 			style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
 	    <Button fx:id="distribVertBot" layoutX="0.0" layoutY="0.0">
 	       	<graphic><ImageView><image><Image url="@/res/distrib/distVertBottom.png" /></image></ImageView></graphic>
@@ -82,4 +81,4 @@
 	   		<tooltip><Tooltip text="%LFrame2.14" /></tooltip>
 	    </Button>
   </AnchorPane>
-</AnchorPane>
+</VBox>

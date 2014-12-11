@@ -69,6 +69,8 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 	
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		linePane.managedProperty().bind(linePane.visibleProperty());
+		
 		thicknessPic.visibleProperty().bind(thicknessField.visibleProperty());
 		frameArcPic.visibleProperty().bind(frameArcField.visibleProperty());
 		
