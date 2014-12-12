@@ -52,6 +52,7 @@ private[impl] trait LGroupShape extends IGroup {
 		}
 	}
 
+  override def isColourable = getShapes.exists{_.isColourable}
 
 	override def isThicknessable = getShapes.exists{_.isThicknessable}
 
