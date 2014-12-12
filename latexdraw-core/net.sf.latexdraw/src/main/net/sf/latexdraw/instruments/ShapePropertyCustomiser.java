@@ -1,22 +1,10 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.ItemSelectable;
-
-import javax.swing.JColorChooser;
-import javax.swing.JLabel;
-
-import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 import org.malai.action.Action;
-import org.malai.instrument.InteractorImpl;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.swing.interaction.library.ButtonPressed;
-import org.malai.swing.interaction.library.CheckBoxModified;
-import org.malai.swing.interaction.library.ListSelectionModified;
-import org.malai.swing.interaction.library.SpinnerModified;
-import org.malai.swing.widget.MColorButton;
 import org.malai.undo.Undoable;
 
 import com.google.inject.Inject;
@@ -127,118 +115,31 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 }
 
 
+//
+///**
+// * This link maps a list widget to an object.
+// */
+//abstract class ListForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, ListSelectionModified, N> {
+//	/**
+//	 * Creates the link.
+//	 * @param instrument The instrument that contains the link.
+//	 * @param clazzAction The class of the action to create.
+//	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
+//	 * @throws IllegalAccessException If no free-parameter constructor are provided.
+//	 */
+//	protected ListForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
+//		super(instrument, false, clazzAction, ListSelectionModified.class);
+//	}
+//
+//	/**
+//	 * @return The selected text. Can be null.
+//	 * @since 3.0
+//	 */
+//	protected String getLabelText() {
+//		final ItemSelectable is	 = interaction.getList();
+//		final Object[] selection = is.getSelectedObjects();
+//
+//		return selection.length!=1 && ! (selection[0] instanceof JLabel) ? null : ((JLabel)selection[0]).getText();
+//	}
+//}
 
-/**
- * This link maps a list widget to an object.
- */
-abstract class ListForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, ListSelectionModified, N> {
-	/**
-	 * Creates the link.
-	 * @param instrument The instrument that contains the link.
-	 * @param clazzAction The class of the action to create.
-	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-	 */
-	protected ListForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-		super(instrument, false, clazzAction, ListSelectionModified.class);
-	}
-
-	/**
-	 * @return The selected text. Can be null.
-	 * @since 3.0
-	 */
-	protected String getLabelText() {
-		final ItemSelectable is	 = interaction.getList();
-		final Object[] selection = is.getSelectedObjects();
-
-		return selection.length!=1 && ! (selection[0] instanceof JLabel) ? null : ((JLabel)selection[0]).getText();
-	}
-}
-
-
-
-/**
- * This link maps a colour button to an object.
- */
-abstract class ColourButtonForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, ButtonPressed, N> {
-	/**
-	 * Creates the link.
-	 * @param instrument The instrument that contains the link.
-	 * @param clazzAction The class of the action to create.
-	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-	 */
-	protected ColourButtonForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-		super(instrument, false, clazzAction, ButtonPressed.class);
-	}
-
-	@Override
-	public void initAction() {
-		final MColorButton button = (MColorButton)interaction.getButton();
-		action.setValue(ShapeFactory.createColorAWT(JColorChooser.showDialog(button, "", button.getColor()))); //$NON-NLS-1$
-	}
-}
-
-
-
-
-/**
- * This link maps a checkbox to an object.
- */
-abstract class CheckBoxForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, CheckBoxModified, N> {
-	/**
-	 * Creates the link.
-	 * @param instrument The instrument that contains the link.
-	 * @param clazzAction The class of the action to create.
-	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-	 */
-	protected CheckBoxForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-		super(instrument, false, clazzAction, CheckBoxModified.class);
-	}
-
-	@Override
-	public void initAction() {
-		action.setValue(interaction.getCheckBox().isSelected());
-	}
-}
-
-
-/**
- * This link maps a button to an object.
- */
-abstract class ButtonPressedForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, ButtonPressed, N> {
-	/**
-	 * Creates the link.
-	 * @param ins The instrument that contains the link.
-	 * @param clazzAction The class of the action to create.
-	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-	 */
-	protected ButtonPressedForCustomiser(final N ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-		super(ins, false, clazzAction, ButtonPressed.class);
-	}
-}
-
-
-
-/**
- * This link maps a spinner to an object.
- */
-abstract class SpinnerForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, SpinnerModified, N> {
-	/**
-	 * Creates the link.
-	 * @param ins The instrument that contains the link.
-	 * @param clazzAction The class of the action to create.
-	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-	 */
-	protected SpinnerForCustomiser(final N ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-		super(ins, false, clazzAction, SpinnerModified.class);
-	}
-
-	@Override
-	public void updateAction() {
-		action.setValue(Double.valueOf(interaction.getSpinner().getValue().toString()));
-	}
-}
