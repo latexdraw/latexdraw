@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.util.Callback;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.LangTool;
@@ -14,25 +15,42 @@ import org.junit.Before;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 public abstract class TestLatexdrawGUI extends GuiTest {
+	Callback<Class<?>, Object>	guiceFactory;
+
 	@Before
 	public void setUp() {
 		BadaboomCollector.INSTANCE.clear();
 	}
-	
+
 	@Override
 	public Parent getRootNode() {
 		try {
-			return FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), LangTool.INSTANCE.getBundle());
+			final Injector injector = Guice.createInjector(createModule());
+			guiceFactory = clazz -> injector.getInstance(clazz);
+			return FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), 
+					LangTool.INSTANCE.getBundle(), new LatexdrawBuilderFactory(injector), guiceFactory);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	public abstract String getFXMLPathFromLatexdraw();
 
-	
+	protected abstract String getFXMLPathFromLatexdraw();
+
+	protected AbstractModule createModule() {
+		return new AbstractModule() {
+			@Override
+			protected void configure() {
+				//
+			}
+		};
+	}
+
 	@Test
 	public void testLaunchNoCrash() {
 		assertTrue(BadaboomCollector.INSTANCE.isEmpty());
