@@ -113,7 +113,7 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 
 	private static class ButtonPress2ShowExceptionFrame extends ButtonInteractor<ShowStage, ExceptionsManager> {
 		ButtonPress2ShowExceptionFrame(final ExceptionsManager ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, ShowStage.class, Collections.singletonList(ins.exceptionB));
+			super(ins, ShowStage.class, Collections.singletonList(ins.exceptionB));
 		}
 
 		@Override

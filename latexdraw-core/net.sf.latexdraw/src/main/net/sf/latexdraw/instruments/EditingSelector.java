@@ -228,7 +228,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	
 	private static class ButtonPressed2DefineStylePencil extends ToggleButtonInteractor<ModifyPencilStyle, EditingSelector> {
 		ButtonPressed2DefineStylePencil(final EditingSelector ins) throws InstantiationException, IllegalAccessException {
-			super(ins, false, ModifyPencilStyle.class, new ArrayList<>(ins.button2EditingChoiceMap.keySet()));
+			super(ins, ModifyPencilStyle.class, new ArrayList<>(ins.button2EditingChoiceMap.keySet()));
 		}
 
 		@Override
@@ -241,7 +241,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	
 	private static class ButtonPressed2ActivateIns extends ToggleButtonInteractor<ActivateInactivateInstruments, EditingSelector> {
 		ButtonPressed2ActivateIns(final EditingSelector ins, final List<Node> nodes) throws InstantiationException, IllegalAccessException {
-			super(ins, false, ActivateInactivateInstruments.class, nodes);
+			super(ins, ActivateInactivateInstruments.class, nodes);
 		}
 
 		@Override
