@@ -6,19 +6,22 @@
 
 <TitledPane fx:id="mainPane" animated="true" text="Arc" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="net.sf.latexdraw.instruments.ShapeArcCustomiser">
+    <fx:define>
+       <ToggleGroup fx:id="arcStyle"/>
+    </fx:define>
    	<tooltip><Tooltip text="%PropBuilder.9" /></tooltip>
 	<content>
 		<AnchorPane>
          <children>
-            <ToggleButton fx:id="arcB" layoutX="5.0" layoutY="4.0" mnemonicParsing="false">
+            <ToggleButton fx:id="arcB" layoutX="5.0" layoutY="4.0" mnemonicParsing="false" toggleGroup="$arcStyle">
             	<graphic><ImageView><image><Image url="@/res/Arc.png" /></image></ImageView></graphic>
             	<tooltip><Tooltip text="%LaTeXDrawFrame.128" /></tooltip>
             </ToggleButton>
-            <ToggleButton fx:id="wedgeB" layoutX="50.0" layoutY="4.0" mnemonicParsing="false">
+            <ToggleButton fx:id="wedgeB" layoutX="50.0" layoutY="4.0" mnemonicParsing="false" toggleGroup="$arcStyle">
             	<graphic><ImageView><image><Image url="@/res/wedge.png" /></image></ImageView></graphic>
             	<tooltip><Tooltip text="%LaTeXDrawFrame.130" /></tooltip>
             </ToggleButton>
-            <ToggleButton fx:id="chordB" layoutX="95.0" layoutY="4.0" mnemonicParsing="false">
+            <ToggleButton fx:id="chordB" layoutX="95.0" layoutY="4.0" mnemonicParsing="false" toggleGroup="$arcStyle">
             	<graphic><ImageView><image><Image url="@/res/chord.png" /></image></ImageView></graphic>
             	<tooltip><Tooltip text="%LaTeXDrawFrame.131" /></tooltip>
             </ToggleButton>
