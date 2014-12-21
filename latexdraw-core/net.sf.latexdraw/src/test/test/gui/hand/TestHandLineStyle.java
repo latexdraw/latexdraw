@@ -1,8 +1,14 @@
 package test.gui.hand;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import javafx.scene.paint.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
@@ -56,7 +62,52 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		assertFalse(frameArcField.isDisabled());
 		assertFalse(showPoints.isVisible());
 	}
+
 	
+	@Test
+	public void testChangeFrameArcPencil() {
+		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		double val = frameArcField.getValue();
+		incrementFrameArc.execute();
+		double newVal = frameArcField.getValue();
+		assertEquals(newVal, ((IRectangle)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getLineArc(), 0.001);
+		assertEquals(newVal, ((IRectangle)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getLineArc(), 0.001);
+		assertNotEquals(val, newVal);
+	}
+	
+	
+	@Test
+	public void testChangeThicknessPencil() {
+		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		double val = thicknessField.getValue();
+		incrementThickness.execute();
+		double newVal = thicknessField.getValue();
+		assertEquals(newVal, hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getThickness(), 0.001);
+		assertEquals(newVal, hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getThickness(), 0.001);
+		assertNotEquals(val, newVal);
+	}
+	
+	@Test
+	public void testSelectBorderPosPencil() {
+		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		BorderPos style = (BorderPos)bordersPosCB.getSelectionModel().getSelectedItem().getUserData();
+		selectBorderPos.execute();
+		BorderPos newStyle = (BorderPos)bordersPosCB.getSelectionModel().getSelectedItem().getUserData();
+		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getBordersPosition());
+		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getBordersPosition());
+		assertNotEquals(style, newStyle);
+	}
+	
+	@Test
+	public void testSelectLineStylePencil() {
+		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		LineStyle style = (LineStyle)lineCB.getSelectionModel().getSelectedItem().getUserData();
+		selectLineStyle.execute();
+		LineStyle newStyle = (LineStyle)lineCB.getSelectionModel().getSelectedItem().getUserData();
+		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getLineStyle());
+		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getLineStyle());
+		assertNotEquals(style, newStyle);
+	}
 	
 	@Test
 	public void testCheckShowPointSelection() {

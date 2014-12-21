@@ -25,6 +25,8 @@ import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
 
 import org.malai.javafx.instrument.library.CheckboxInteractor;
 import org.malai.javafx.instrument.library.ColorPickerInteractor;
+import org.malai.javafx.instrument.library.ComboBoxInteractor;
+import org.malai.javafx.instrument.library.SpinnerInteractor;
 
 /**
  * This instrument modifies border properties of shapes or the pencil.<br>
@@ -142,10 +144,10 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 	@Override
 	protected void initialiseInteractors() {
 		try{
-//			addInteractor(new Spinner2PencilBorder(this));
-//			addInteractor(new List2PencilBorder(this));
-//			addInteractor(new List2SelectionBorder(this));
-//			addInteractor(new Spinner2SelectionBorder(this));
+			addInteractor(new Spinner2PencilBorder(this));
+			addInteractor(new Spinner2SelectionBorder(this));
+			addInteractor(new List2PencilBorder(this));
+			addInteractor(new List2SelectionBorder(this));
 			addInteractor(new ColourButton2PencilBorder(this));
 			addInteractor(new ColourButton2SelectionBorder(this));
 			addInteractor(new Checkbox2ShowPointsSelection(this));
@@ -229,140 +231,101 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			action.setValue(interaction.getWidget().isSelected());
 		}
 	}
+	
+
+
+	private static class List2PencilBorder extends ComboBoxInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
+		List2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.bordersPosCB, ins.lineCB));
+		}
+	
+		@SuppressWarnings("unchecked")
+		@Override
+		public void initAction() {
+			final ComboBox<ImageView> combo = (ComboBox<ImageView>)interaction.getWidget();
+			action.setPencil(instrument.pencil);
+			action.setValue(combo.getSelectionModel().getSelectedItem().getUserData());
+			
+			if(combo==instrument.bordersPosCB)
+				action.setProperty(ShapeProperties.BORDER_POS);
+			else
+				action.setProperty(ShapeProperties.LINE_STYLE);
+		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+
+
+	private static class List2SelectionBorder extends ComboBoxInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
+		List2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.bordersPosCB, ins.lineCB));
+		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
+	
+		@SuppressWarnings("unchecked")
+		@Override
+		public void initAction() {
+			final ComboBox<ImageView> combo = (ComboBox<ImageView>)interaction.getWidget();
+			action.setValue(combo.getSelectionModel().getSelectedItem().getUserData());
+			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+	
+			if(combo==instrument.bordersPosCB)
+				action.setProperty(ShapeProperties.BORDER_POS);
+			else
+				action.setProperty(ShapeProperties.LINE_STYLE);
+		}
+	}
+	
+	private static class Spinner2PencilBorder extends SpinnerInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
+		Spinner2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.thicknessField, ins.frameArcField));
+		}
+	
+		@Override
+		public void initAction() {
+			action.setPencil(instrument.pencil);
+			action.setValue(interaction.getWidget().getValue());
+			
+			if(interaction.getWidget()==instrument.thicknessField)
+				action.setProperty(ShapeProperties.LINE_THICKNESS);
+			else
+				action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
+		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+	
+
+	private static class Spinner2SelectionBorder extends SpinnerInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
+		Spinner2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.thicknessField, ins.frameArcField));
+		}
+	
+	
+		@Override
+		public void initAction() {
+			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setValue(interaction.getWidget().getValue());
+			
+			if(interaction.getWidget()==instrument.thicknessField)
+				action.setProperty(ShapeProperties.LINE_THICKNESS);
+			else
+				action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
+		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
+	}
 }
-
-
-//class List2SelectionBorder extends ListForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
-//	/**
-//	 * Creates the link.
-//	 * @param instrument The instrument that contains the link.
-//	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-//	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-//	 */
-//	protected List2SelectionBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
-//		super(instrument, ModifyShapeProperty.class);
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		final ItemSelectable is = interaction.getList();
-//		return (is==instrument.bordersPosCB || is==instrument.lineCB) && instrument.hand.isActivated();
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		final ItemSelectable is	= interaction.getList();
-//		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-//
-//		if(is==instrument.bordersPosCB) {
-//			action.setProperty(ShapeProperties.BORDER_POS);
-//			action.setValue(BorderPos.getStyle(getLabelText()));
-//		}else {
-//			action.setProperty(ShapeProperties.LINE_STYLE);
-//			action.setValue(LineStyle.getStyle(getLabelText()));
-//		}
-//	}
-//}
-//
-//
-//
-///**
-// * This link maps a list to a ModifyPencil action.
-// */
-//class List2PencilBorder extends ListForCustomiser<ModifyPencilParameter, ShapeBorderCustomiser> {
-//	/**
-//	 * Creates the link.
-//	 * @param instrument The instrument that contains the link.
-//	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-//	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-//	 */
-//	protected List2PencilBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
-//		super(instrument, ModifyPencilParameter.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		final ItemSelectable is	= interaction.getList();
-//		action.setPencil(instrument.pencil);
-//
-//		if(is==instrument.bordersPosCB) {
-//			action.setProperty(ShapeProperties.BORDER_POS);
-//			action.setValue(BorderPos.getStyle(getLabelText()));
-//		} else {
-//			action.setProperty(ShapeProperties.LINE_STYLE);
-//			action.setValue(LineStyle.getStyle(getLabelText()));
-//		}
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		final ItemSelectable is	= interaction.getList();
-//		return (is==instrument.bordersPosCB || is==instrument.lineCB) && instrument.pencil.isActivated();
-//	}
-//}
-//
-//
-///**
-// * This link maps a spinner to a ModifyPencil action.
-// */
-//class Spinner2SelectionBorder extends SpinnerForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
-//	/**
-//	 * Creates the link.
-//	 * @param borderCustom The instrument that contains the link.
-//	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-//	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-//	 */
-//	protected Spinner2SelectionBorder(final ShapeBorderCustomiser borderCustom) throws InstantiationException, IllegalAccessException {
-//		super(borderCustom, ModifyShapeProperty.class);
-//	}
-//
-//
-//	@Override
-//	public void initAction() {
-//		if(interaction.getSpinner()==instrument.thicknessField)
-//			action.setProperty(ShapeProperties.LINE_THICKNESS);
-//		else
-//			action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
-//
-//		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		final JSpinner spinner = interaction.getSpinner();
-//		return (spinner==instrument.thicknessField || spinner==instrument.frameArcField) && instrument.hand.isActivated();
-//	}
-//}
-//
-//
-///**
-// * This link maps a spinner to a ModifyPencil action.
-// */
-//class Spinner2PencilBorder extends SpinnerForCustomiser<ModifyPencilParameter, ShapeBorderCustomiser> {
-//	/**
-//	 * Creates the link.
-//	 * @param borderCustom The instrument that contains the link.
-//	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-//	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-//	 */
-//	protected Spinner2PencilBorder(final ShapeBorderCustomiser borderCustom) throws InstantiationException, IllegalAccessException {
-//		super(borderCustom, ModifyPencilParameter.class);
-//	}
-//
-//
-//	@Override
-//	public void initAction() {
-//		if(interaction.getSpinner()==instrument.thicknessField)
-//			action.setProperty(ShapeProperties.LINE_THICKNESS);
-//		else
-//			action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
-//
-//		action.setPencil(instrument.pencil);
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		final JSpinner spinner = interaction.getSpinner();
-//		return (spinner==instrument.thicknessField || spinner==instrument.frameArcField) && instrument.pencil.isActivated();
-//	}
-//}

@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import javafx.scene.paint.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
@@ -40,6 +43,43 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
 		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns, checkInsActivated).execute();
+	}
+
+	
+	@Test
+	public void testIncrementFrameArcPencil() {
+		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		double val = frameArcField.getValue();
+		incrementFrameArc.execute();
+		assertEquals(frameArcField.getValue(), ((IRectangle)pencil.createShapeInstance()).getLineArc(), 0.0001);
+		assertNotEquals(val, frameArcField.getValue(), 0.0001);
+	}
+	
+	@Test
+	public void testIncrementThicknessPencil() {
+		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		double val = thicknessField.getValue();
+		incrementThickness.execute();
+		assertEquals(thicknessField.getValue(), pencil.createShapeInstance().getThickness(), 0.0001);
+		assertNotEquals(val, thicknessField.getValue(), 0.0001);
+	}
+	
+	@Test
+	public void testSelectBorderPosPencil() {
+		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		IShape.BorderPos style = (IShape.BorderPos)bordersPosCB.getSelectionModel().getSelectedItem().getUserData();
+		selectBorderPos.execute();
+		assertEquals(bordersPosCB.getSelectionModel().getSelectedItem().getUserData(), pencil.createShapeInstance().getBordersPosition());
+		assertNotEquals(style, bordersPosCB.getSelectionModel().getSelectedItem().getUserData());
+	}
+	
+	@Test
+	public void testSelectLineStylePencil() {
+		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		LineStyle style = (LineStyle)lineCB.getSelectionModel().getSelectedItem().getUserData();
+		selectLineStyle.execute();
+		assertEquals(lineCB.getSelectionModel().getSelectedItem().getUserData(), pencil.createShapeInstance().getLineStyle());
+		assertNotEquals(style, lineCB.getSelectionModel().getSelectedItem().getUserData());
 	}
 	
 	@Test

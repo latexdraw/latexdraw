@@ -43,7 +43,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
     protected ShapePropertyCustomiser() {
 		super();
 	}
-
+ 
 
 	@Override
 	public void onActionDone(final Action action) {
@@ -113,33 +113,3 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 		return pencil;
 	}
 }
-
-
-//
-///**
-// * This link maps a list widget to an object.
-// */
-//abstract class ListForCustomiser<A extends ShapePropertyAction, N extends ShapePropertyCustomiser> extends InteractorImpl<A, ListSelectionModified, N> {
-//	/**
-//	 * Creates the link.
-//	 * @param instrument The instrument that contains the link.
-//	 * @param clazzAction The class of the action to create.
-//	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-//	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-//	 */
-//	protected ListForCustomiser(final N instrument, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-//		super(instrument, false, clazzAction, ListSelectionModified.class);
-//	}
-//
-//	/**
-//	 * @return The selected text. Can be null.
-//	 * @since 3.0
-//	 */
-//	protected String getLabelText() {
-//		final ItemSelectable is	 = interaction.getList();
-//		final Object[] selection = is.getSelectedObjects();
-//
-//		return selection.length!=1 && ! (selection[0] instanceof JLabel) ? null : ((JLabel)selection[0]).getText();
-//	}
-//}
-
