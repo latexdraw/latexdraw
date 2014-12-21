@@ -14,23 +14,27 @@ import net.sf.latexdraw.util.LangTool;
 import org.junit.Before;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
+import org.testfx.util.WaitForAsyncUtils;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public abstract class TestLatexdrawGUI extends GuiTest {
-	Callback<Class<?>, Object>	guiceFactory;
+	protected Callback<Class<?>, Object> guiceFactory;
 
+	final protected GUICommand waitFXEvents = () -> WaitForAsyncUtils.waitForFxEvents();
+	
 	@Before
 	public void setUp() {
 		BadaboomCollector.INSTANCE.clear();
 	}
-
+	
+	
 	@Override
 	public Parent getRootNode() {
 		try {
-			final Injector injector = Guice.createInjector(createModule());
+			Injector injector = Guice.createInjector(createModule());
 			guiceFactory = clazz -> injector.getInstance(clazz);
 			return FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), 
 					LangTool.INSTANCE.getBundle(), new LatexdrawBuilderFactory(injector), guiceFactory);
@@ -39,7 +43,7 @@ public abstract class TestLatexdrawGUI extends GuiTest {
 		}
 		return null;
 	}
-
+	
 	protected abstract String getFXMLPathFromLatexdraw();
 
 	protected AbstractModule createModule() {

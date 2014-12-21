@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -11,11 +12,19 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
+import net.sf.latexdraw.actions.ModifyPencilParameter;
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
+import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
+
+import org.malai.javafx.instrument.library.CheckboxInteractor;
+import org.malai.javafx.instrument.library.ColorPickerInteractor;
 
 /**
  * This instrument modifies border properties of shapes or the pencil.<br>
@@ -132,67 +141,97 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	@Override
 	protected void initialiseInteractors() {
-//		try{
+		try{
 //			addInteractor(new Spinner2PencilBorder(this));
 //			addInteractor(new List2PencilBorder(this));
 //			addInteractor(new List2SelectionBorder(this));
 //			addInteractor(new Spinner2SelectionBorder(this));
-//			addInteractor(new ColourButton2PencilBorder(this));
-//			addInteractor(new ColourButton2SelectionBorder(this));
-//			addInteractor(new Checkbox2ShowPointsSelection(this));
-//			addInteractor(new Checkbox2ShowPointsPencil(this));
-//		}catch(InstantiationException | IllegalAccessException e){
-//			BadaboomCollector.INSTANCE.add(e);
-//		}
+			addInteractor(new ColourButton2PencilBorder(this));
+			addInteractor(new ColourButton2SelectionBorder(this));
+			addInteractor(new Checkbox2ShowPointsSelection(this));
+			addInteractor(new Checkbox2ShowPointsPencil(this));
+		}catch(InstantiationException | IllegalAccessException e){
+			BadaboomCollector.INSTANCE.add(e);
+		}
+	}
+	
+	
+	private static class ColourButton2PencilBorder extends ColorPickerInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
+		ColourButton2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.lineColButton));
+		}
+
+		@Override
+		public void initAction() {
+			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
+			action.setProperty(ShapeProperties.COLOUR_LINE);
+			action.setPencil(instrument.pencil);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+	
+	
+	private static class ColourButton2SelectionBorder extends ColorPickerInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
+		ColourButton2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.lineColButton));
+		}
+	
+		@Override
+		public void initAction() {
+			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
+			action.setProperty(ShapeProperties.COLOUR_LINE);
+			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
+	}
+	
+	private class Checkbox2ShowPointsPencil extends CheckboxInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
+		Checkbox2ShowPointsPencil(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.showPoints));
+		}
+	
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.SHOW_POINTS);
+			action.setPencil(instrument.pencil);
+			action.setValue(interaction.getWidget().isSelected());
+		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+	
+	
+	private class Checkbox2ShowPointsSelection extends CheckboxInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
+		Checkbox2ShowPointsSelection(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.showPoints));
+		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
+	
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.SHOW_POINTS);
+			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setValue(interaction.getWidget().isSelected());
+		}
 	}
 }
-//
-//
-///** Maps a checkbox to an action that show/hide the selected shapes' points. */
-//class Checkbox2ShowPointsSelection extends CheckBoxForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
-//	protected Checkbox2ShowPointsSelection(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
-//		super(instrument, ModifyShapeProperty.class);
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return instrument.hand.isActivated() && instrument.showPoints==interaction.getCheckBox();
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		action.setProperty(ShapeProperties.SHOW_POINTS);
-//		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-//		action.setValue(interaction.getCheckBox().isSelected());
-//	}
-//}
-//
-//
-//
-///** Maps a checkbox to an action that show/hide the shapes' points created by the pencil. */
-//class Checkbox2ShowPointsPencil extends CheckBoxForCustomiser<ModifyPencilParameter, ShapeBorderCustomiser> {
-//	protected Checkbox2ShowPointsPencil(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
-//		super(instrument, ModifyPencilParameter.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		action.setProperty(ShapeProperties.SHOW_POINTS);
-//		action.setPencil(instrument.pencil);
-//		action.setValue(interaction.getCheckBox().isSelected());
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return instrument.pencil.isActivated() && instrument.showPoints==interaction.getCheckBox();
-//	}
-//}
-//
-//
-//
-///**
-// * This link maps a list to an action that modifies shapes properties.
-// */
+
+
 //class List2SelectionBorder extends ListForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
 //	/**
 //	 * Creates the link.
@@ -325,62 +364,5 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 //	public boolean isConditionRespected() {
 //		final JSpinner spinner = interaction.getSpinner();
 //		return (spinner==instrument.thicknessField || spinner==instrument.frameArcField) && instrument.pencil.isActivated();
-//	}
-//}
-//
-//
-///**
-// * This link maps a colour button to the pencil.
-// */
-//class ColourButton2PencilBorder extends ColourButtonForCustomiser<ModifyPencilParameter, ShapeBorderCustomiser> {
-//	/**
-//	 * Creates the link.
-//	 * @param instrument The instrument that contains the link.
-//	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-//	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-//	 */
-//	protected ColourButton2PencilBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
-//		super(instrument, ModifyPencilParameter.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		super.initAction();
-//		action.setProperty(ShapeProperties.COLOUR_LINE);
-//		action.setPencil(instrument.pencil);
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return interaction.getButton()==instrument.lineColButton && instrument.pencil.isActivated();
-//	}
-//}
-//
-//
-//
-///**
-// * This link maps a colour button to the selected shapes.
-// */
-//class ColourButton2SelectionBorder extends ColourButtonForCustomiser<ModifyShapeProperty, ShapeBorderCustomiser> {
-//	/**
-//	 * Creates the link.
-//	 * @param instrument The instrument that contains the link.
-//	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-//	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-//	 */
-//	protected ColourButton2SelectionBorder(final ShapeBorderCustomiser instrument) throws InstantiationException, IllegalAccessException {
-//		super(instrument, ModifyShapeProperty.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		super.initAction();
-//		action.setProperty(ShapeProperties.COLOUR_LINE);
-//		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return interaction.getButton()==instrument.lineColButton && instrument.hand.isActivated();
 //	}
 //}

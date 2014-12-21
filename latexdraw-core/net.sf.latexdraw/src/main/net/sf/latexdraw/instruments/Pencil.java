@@ -90,7 +90,8 @@ public class Pencil extends CanvasInstrument {
 	public void interimFeedback() {
 		canvas.setTempView(null);
 //		canvas.refresh();
-		canvas.getScene().setCursor(Cursor.DEFAULT);
+		if(canvas.getScene()!=null)
+			canvas.getScene().setCursor(Cursor.DEFAULT);
 	}
 
 	@Override
