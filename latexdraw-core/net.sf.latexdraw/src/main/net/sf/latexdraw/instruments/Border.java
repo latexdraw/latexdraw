@@ -48,12 +48,13 @@ import com.google.inject.Inject;
 /**
  * This instrument manages the selected views.<br>
  * 2012-04-20<br>
+ * 
  * @author Arnaud BLOUIN
  * @version 3.0
  */
 public class Border extends CanvasInstrument { // implements Picker {
 	/** The stroke uses by the border to display its bounding rectangle. */
-	protected final BasicStroke stroke = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f, new float[]{7, 7}, 0);
+	protected final BasicStroke stroke = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f, new float[] { 7, 7 }, 0);
 
 	/** The selected views. */
 	protected final List<IViewShape> selection;
@@ -73,8 +74,9 @@ public class Border extends CanvasInstrument { // implements Picker {
 	/** The handlers that move second control points. */
 	protected final List<CtrlPointHandler> ctrlPt2Handlers;
 
-//	/** The handler that sets the arc frame. */
-//	protected lazy val frameArcHandler : FrameArcHandler = new FrameArcHandler()
+	// /** The handler that sets the arc frame. */
+	// protected lazy val frameArcHandler : FrameArcHandler = new
+	// FrameArcHandler()
 
 	/** The handler that sets the start angle of an arc. */
 	protected final ArcAngleHandler arcHandlerStart;
@@ -86,7 +88,6 @@ public class Border extends CanvasInstrument { // implements Picker {
 	protected final RotationHandler rotHandler;
 
 	protected @Inject MetaShapeCustomiser metaCustomiser;
-
 
 	@Inject
 	public Border() {
@@ -110,38 +111,36 @@ public class Border extends CanvasInstrument { // implements Picker {
 		scaleHandlers.add(new ScaleHandler(IShape.Position.SE));
 	}
 
-
 	@Override
 	public void reinit() {
 		selection.clear();
 		border.setFrame(0, 0, 1, 1);
 	}
 
-
 	@Override
 	public void interimFeedback() {
 		canvas.setCursor(Cursor.DEFAULT);
 	}
 
-
-//	public void onActionDone(final Action action) {
-//		if(action instanceof MoveCtrlPoint || action instanceof MovePointShape ||
-//			action instanceof ScaleShapes) {
-//			 _metaCustomiser.dimPosCustomiser.update();
-//		}
-//	}
-
+	// public void onActionDone(final Action action) {
+	// if(action instanceof MoveCtrlPoint || action instanceof MovePointShape ||
+	// action instanceof ScaleShapes) {
+	// _metaCustomiser.dimPosCustomiser.update();
+	// }
+	// }
 
 	/**
 	 * Updates the bounding rectangle using the selected views.
+	 * 
 	 * @since 3.0
 	 */
 	public void update() {
-		if(!isActivated()) return;
+		if(!isActivated())
+			return;
 		if(selection.isEmpty())
 			border.setFrame(0, 0, 1, 1);
 		else {
-			selection.stream().map(IViewShape::getBorder).reduce((r1,r2) -> r1.createUnion(r2)).ifPresent(rec -> {
+			selection.stream().map(IViewShape::getBorder).reduce((r1, r2) -> r1.createUnion(r2)).ifPresent(rec -> {
 				final double zoomLevel = canvas.getZoom();
 				border.setFrame(rec.getMinX()*zoomLevel, rec.getMinY()*zoomLevel, rec.getWidth()*zoomLevel, rec.getHeight()*zoomLevel);
 				updateHandlersPosition();
@@ -149,31 +148,28 @@ public class Border extends CanvasInstrument { // implements Picker {
 		}
 	}
 
-
 	private void updateHandlersPosition() {
 		scaleHandlers.forEach(h -> h.updateFromShape(border));
 		rotHandler.setPoint(border.getMaxX(), border.getMinY());
 
-//		if(isFrameArcHandlerShowable())
-//			frameArcHandler.updateFromLineArcShape((ILineArcShape)selection.get(0).getShape())
+		// if(isFrameArcHandlerShowable())
+		// frameArcHandler.updateFromLineArcShape((ILineArcShape)selection.get(0).getShape())
 
 		updateArcHandlers();
 		updateMvHandlers();
 		updateCtrlMvHandlers();
 	}
 
-
 	private void updateArcHandlers() {
 		if(isArcHandlerShowable()) {
 			IShape sh = selection.get(0).getShape();
 			if(sh instanceof IArc) {
 				IArc arc = (IArc)sh;
-	          arcHandlerStart.update(arc, canvas.getZoom());
-	          arcHandlerEnd.update(arc, canvas.getZoom());
+				arcHandlerStart.update(arc, canvas.getZoom());
+				arcHandlerEnd.update(arc, canvas.getZoom());
 			}
 		}
 	}
-
 
 	private void updateCtrlMvHandlers() {
 		if(isCtrlPtMvHandlersShowable()) {
@@ -184,14 +180,13 @@ public class Border extends CanvasInstrument { // implements Picker {
 		}
 	}
 
-
 	private void initialiseCtrlMvHandlers(final IControlPointShape cps) {
-		final double zoom  = canvas.getZoom();
+		final double zoom = canvas.getZoom();
 		final int nbPts = cps.getNbPoints();
 
 		// Adding missing handlers.
 		if(ctrlPt1Handlers.size()<nbPts) {
-			for(int i=ctrlPt1Handlers.size(); i<nbPts; i++) {
+			for(int i = ctrlPt1Handlers.size(); i<nbPts; i++) {
 				ctrlPt1Handlers.add(new CtrlPointHandler(i));
 				ctrlPt2Handlers.add(new CtrlPointHandler(i));
 			}
@@ -205,7 +200,7 @@ public class Border extends CanvasInstrument { // implements Picker {
 		}
 
 		// Updating handlers.
-		for(int i=0, size=ctrlPt1Handlers.size(); i<size; i++) {
+		for(int i = 0, size = ctrlPt1Handlers.size(); i<size; i++) {
 			IPoint pt1 = cps.getFirstCtrlPtAt(i);
 			ctrlPt1Handlers.get(i).setPoint(pt1.getX()*zoom, pt1.getY()*zoom);
 			IPoint pt2 = cps.getSecondCtrlPtAt(i);
@@ -213,38 +208,37 @@ public class Border extends CanvasInstrument { // implements Picker {
 		}
 	}
 
-
 	private void updateMvHandlers() {
 		if(isPtMvHandlersShowable()) {
 			IShape sh = selection.get(0).getShape();
 
 			if(sh instanceof IModifiablePointsShape) {
 				IModifiablePointsShape pts = (IModifiablePointsShape)sh;
-		          final int nbPts = pts.getNbPoints();
-                  final double zoom = canvas.getZoom();
+				final int nbPts = pts.getNbPoints();
+				final double zoom = canvas.getZoom();
 
-                  if(mvPtHandlers.size() < nbPts) {
-                	  for(int i=mvPtHandlers.size(); i<nbPts; i++)
-                		  mvPtHandlers.add(new MovePtHandler(i));
-                  }
-                  else {
-                    while(mvPtHandlers.size() > nbPts)
-                      mvPtHandlers.remove(mvPtHandlers.size() - 1);
-                  }
+				if(mvPtHandlers.size()<nbPts) {
+					for(int i = mvPtHandlers.size(); i<nbPts; i++)
+						mvPtHandlers.add(new MovePtHandler(i));
+				}else {
+					while(mvPtHandlers.size()>nbPts)
+						mvPtHandlers.remove(mvPtHandlers.size()-1);
+				}
 
-                  for(int i=0, size=mvPtHandlers.size(); i<size; i++) {
-                    IPoint pt = pts.getPtAt(i);
-                    mvPtHandlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
-                  }
+				for(int i = 0, size = mvPtHandlers.size(); i<size; i++) {
+					IPoint pt = pts.getPtAt(i);
+					mvPtHandlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
+				}
 			}
-			
+
 		}
 	}
 
-
 	/**
 	 * Paints the border if activated.
-	 * @param g The graphics in which the border is painted.
+	 * 
+	 * @param g
+	 *            The graphics in which the border is painted.
 	 * @since 3.0
 	 */
 	public void paint(final Graphics2D g) {
@@ -256,7 +250,6 @@ public class Border extends CanvasInstrument { // implements Picker {
 		}
 	}
 
-
 	/**
 	 * Paints the required handlers.
 	 */
@@ -264,8 +257,8 @@ public class Border extends CanvasInstrument { // implements Picker {
 		scaleHandlers.forEach(h -> h.paint(g));
 		rotHandler.paint(g);
 
-//		if(isFrameArcHandlerShowable())
-//			frameArcHandler.paint(g)
+		// if(isFrameArcHandlerShowable())
+		// frameArcHandler.paint(g)
 
 		if(isArcHandlerShowable()) {
 			arcHandlerStart.paint(g);
@@ -283,29 +276,32 @@ public class Border extends CanvasInstrument { // implements Picker {
 	}
 
 	protected boolean isCtrlPtMvHandlersShowable() {
-		return selection.size()==1 && selection.get(0) instanceof IViewBezierCurve;
+		return selection.size()==1&&selection.get(0) instanceof IViewBezierCurve;
 	}
 
 	protected boolean isPtMvHandlersShowable() {
-		return selection.size()==1 && selection.get(0) instanceof IViewModifiablePtsShape;
+		return selection.size()==1&&selection.get(0) instanceof IViewModifiablePtsShape;
 	}
 
 	/** @return True if the arc handlers can be painted. */
 	protected boolean isArcHandlerShowable() {
-		return selection.size()==1 && selection.get(0) instanceof IViewArc;
+		return selection.size()==1&&selection.get(0) instanceof IViewArc;
 	}
 
-//	/**
-//	 * @return True if the frame arc handler can be painted.
-//	 */
-//	protected boolean isFrameArcHandlerShowable() {
-//		return selection.size()==1 && selection.get(0).getShape() instanceof ILineArcShape
-//	}
+	// /**
+	// * @return True if the frame arc handler can be painted.
+	// */
+	// protected boolean isFrameArcHandlerShowable() {
+	// return selection.size()==1 && selection.get(0).getShape() instanceof
+	// ILineArcShape
+	// }
 
 	/**
-	 * Adds the given shape to the selection. If the instrument is
-	 * activated and the addition is performed, the instrument is updated.
-	 * @param view The view to add. If null, nothing is done.
+	 * Adds the given shape to the selection. If the instrument is activated and
+	 * the addition is performed, the instrument is updated.
+	 * 
+	 * @param view
+	 *            The view to add. If null, nothing is done.
 	 * @since 3.0
 	 */
 	public void add(final IViewShape view) {
@@ -320,12 +316,13 @@ public class Border extends CanvasInstrument { // implements Picker {
 		}
 	}
 
-
 	/**
-	 * Removes the given view from the selection. If the instrument is
-	 * activated and the removal is performed, the instrument is updated.
-	 * @param view The view to remove. If null or it is not
-	 * already in the selection, nothing is performed.
+	 * Removes the given view from the selection. If the instrument is activated
+	 * and the removal is performed, the instrument is updated.
+	 * 
+	 * @param view
+	 *            The view to remove. If null or it is not already in the
+	 *            selection, nothing is performed.
 	 * @since 3.0
 	 */
 	public void remove(final IViewShape view) {
@@ -336,38 +333,35 @@ public class Border extends CanvasInstrument { // implements Picker {
 		}
 	}
 
-
 	@Override
 	protected void initialiseInteractors() {
-//		try{
-//			addInteractor(new DnD2Scale(this))
-//			addInteractor(new DnD2MovePoint(this))
-//			addInteractor(new DnD2MoveCtrlPoint(this))
-//			addInteractor(new DnD2Rotate(this))
-//			addInteractor(new DnD2ArcAngle(this))
-//		}catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
+		// try{
+		// addInteractor(new DnD2Scale(this))
+		// addInteractor(new DnD2MovePoint(this))
+		// addInteractor(new DnD2MoveCtrlPoint(this))
+		// addInteractor(new DnD2Rotate(this))
+		// addInteractor(new DnD2ArcAngle(this))
+		// }catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
-
 
 	/**
 	 * Removes all the selected views.
+	 * 
 	 * @since 3.0
 	 */
 	public void clear() {
 		if(!selection.isEmpty()) {
-			selection.forEach(view -> 
-				MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class));
+			selection.forEach(view -> MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class));
 			selection.clear();
 			setActivated(false);
 		}
 	}
 
-
 	public Pickable getPickableAt(final double x, final double y) {
 		if(activated) {
 			Optional<Pickable> pickable = getHandlerAt(x, y, scaleHandlers);
 
-			if(!pickable.isPresent() && rotHandler.contains(x, y))
+			if(!pickable.isPresent()&&rotHandler.contains(x, y))
 				pickable = Optional.of(rotHandler);
 
 			if(!pickable.isPresent())
@@ -379,13 +373,14 @@ public class Border extends CanvasInstrument { // implements Picker {
 			if(!pickable.isPresent())
 				pickable = getHandlerAt(x, y, ctrlPt2Handlers);
 
-//			if(!pickable.isPresent() && _frameArcHandler!=null && _frameArcHandler.contains(x2, y2))
-//				pickable = Some(_frameArcHandler);
+			// if(!pickable.isPresent() && _frameArcHandler!=null &&
+			// _frameArcHandler.contains(x2, y2))
+			// pickable = Some(_frameArcHandler);
 
-			if(!pickable.isPresent() && arcHandlerStart.contains(x, y))
+			if(!pickable.isPresent()&&arcHandlerStart.contains(x, y))
 				pickable = Optional.of(arcHandlerStart);
 
-			if(!pickable.isPresent() && arcHandlerEnd.contains(x, y))
+			if(!pickable.isPresent()&&arcHandlerEnd.contains(x, y))
 				pickable = Optional.of(arcHandlerEnd);
 
 			return pickable.orElse(null);
@@ -393,309 +388,342 @@ public class Border extends CanvasInstrument { // implements Picker {
 		return null;
 	}
 
-
 	@SuppressWarnings("unchecked")
 	private <T extends IHandler<?>> Optional<Pickable> getHandlerAt(final double x, final double y, final List<T> handlers) {
 		return (Optional<Pickable>)handlers.stream().filter(handler -> handler.contains(x, y)).findFirst();
 	}
 
-//	public Picker getPickerAt(final double x, final double y) {
-//		return null;
-//	}
-
+	// public Picker getPickerAt(final double x, final double y) {
+	// return null;
+	// }
 
 	// Supposing that there is no handler outside the border.
-	public boolean contains(final Object obj){
+	public boolean contains(final Object obj) {
 		return obj instanceof IHandler;
 	}
 }
 
-
-///** Maps a DnD interaction to an action that changes the arc angles. */
-//private sealed class DnD2ArcAngle(ins : Border) extends InteractorImpl[ModifyShapeProperty, DnD, Border](ins, true, classOf[ModifyShapeProperty], classOf[DnD]) {
-//	/** The gravity centre used for the rotation. */
-//	var gc : IPoint = _
+// /** Maps a DnD interaction to an action that changes the arc angles. */
+// private sealed class DnD2ArcAngle(ins : Border) extends
+// InteractorImpl[ModifyShapeProperty, DnD, Border](ins, true,
+// classOf[ModifyShapeProperty], classOf[DnD]) {
+// /** The gravity centre used for the rotation. */
+// var gc : IPoint = _
 //
-//	/** Defines whether the current handled shape is rotated. */
-//	var isRotated = false
+// /** Defines whether the current handled shape is rotated. */
+// var isRotated = false
 //
-//	/** The current handled shape. */
-//	var shape : IShape = _
+// /** The current handled shape. */
+// var shape : IShape = _
 //
-//	var gap : IPoint = ShapeFactory.createPoint
-//
-//
-//	def initAction() {
-//		val drawing = instrument.canvas.getDrawing
-//
-//		if(drawing.getSelection.size==1) {
-//			shape = drawing.getSelection.getShapeAt(0)
-//			val rotAngle = shape.getRotationAngle
-//			var pCentre = interaction.getStartObject.asInstanceOf[IHandler[_]].getCentre
-//			var pt : IPoint = interaction.getStartPt
-//			gc = instrument.getAdaptedOriginPoint(shape.getGravityCentre)
-//
-//			if(LNumber.equalsDouble(rotAngle, 0.0))
-//				isRotated = false
-//			else {
-//				pt = pt.rotatePoint(gc, -rotAngle)
-//				pCentre = pCentre.rotatePoint(gc, -rotAngle)
-//				isRotated = true
-//			}
-//
-//			gap.setPoint(pt.getX-pCentre.getX, pt.getY-pCentre.getY)
-//
-//			if(interaction.getStartObject==instrument.arcHandlerStart)
-//				action.setProperty(ShapeProperties.ARC_START_ANGLE)
-//			else
-//				action.setProperty(ShapeProperties.ARC_END_ANGLE)
-//
-//			action.setGroup(drawing.getSelection.duplicateDeep(false))
-//		}
-//	}
+// var gap : IPoint = ShapeFactory.createPoint
 //
 //
-//	override def updateAction() {
-//		var pt : IPoint = instrument.getAdaptedOriginPoint(interaction.getEndPt)
+// def initAction() {
+// val drawing = instrument.canvas.getDrawing
 //
-//		if(isRotated)
-//			pt = pt.rotatePoint(gc, -shape.getRotationAngle)
+// if(drawing.getSelection.size==1) {
+// shape = drawing.getSelection.getShapeAt(0)
+// val rotAngle = shape.getRotationAngle
+// var pCentre = interaction.getStartObject.asInstanceOf[IHandler[_]].getCentre
+// var pt : IPoint = interaction.getStartPt
+// gc = instrument.getAdaptedOriginPoint(shape.getGravityCentre)
 //
-//		action.setValue(computeAngle(ShapeFactory.createPoint(pt.getX-gap.getX, pt.getY-gap.getY)))
-//	}
+// if(LNumber.equalsDouble(rotAngle, 0.0))
+// isRotated = false
+// else {
+// pt = pt.rotatePoint(gc, -rotAngle)
+// pCentre = pCentre.rotatePoint(gc, -rotAngle)
+// isRotated = true
+// }
+//
+// gap.setPoint(pt.getX-pCentre.getX, pt.getY-pCentre.getY)
+//
+// if(interaction.getStartObject==instrument.arcHandlerStart)
+// action.setProperty(ShapeProperties.ARC_START_ANGLE)
+// else
+// action.setProperty(ShapeProperties.ARC_END_ANGLE)
+//
+// action.setGroup(drawing.getSelection.duplicateDeep(false))
+// }
+// }
 //
 //
-//	private def computeAngle(position : IPoint) : Double = {
-//		val angle = math.acos((position.getX-gc.getX)/position.distance(gc))
+// override def updateAction() {
+// var pt : IPoint = instrument.getAdaptedOriginPoint(interaction.getEndPt)
 //
-//		if(position.getY>gc.getY)
-//			 2*math.Pi - angle
-//		else angle
-//	}
+// if(isRotated)
+// pt = pt.rotatePoint(gc, -shape.getRotationAngle)
 //
-//
-//	override def isConditionRespected = interaction.getStartObject==instrument.arcHandlerEnd || interaction.getStartObject==instrument.arcHandlerStart
-//}
+// action.setValue(computeAngle(ShapeFactory.createPoint(pt.getX-gap.getX,
+// pt.getY-gap.getY)))
+// }
 //
 //
+// private def computeAngle(position : IPoint) : Double = {
+// val angle = math.acos((position.getX-gc.getX)/position.distance(gc))
 //
-///**
-// * This link maps a DnD interaction on a rotation handler to an action that rotates the selected shapes.
+// if(position.getY>gc.getY)
+// 2*math.Pi - angle
+// else angle
+// }
+//
+//
+// override def isConditionRespected =
+// interaction.getStartObject==instrument.arcHandlerEnd ||
+// interaction.getStartObject==instrument.arcHandlerStart
+// }
+//
+//
+//
+// /**
+// * This link maps a DnD interaction on a rotation handler to an action that
+// rotates the selected shapes.
 // */
-//private sealed class DnD2Rotate(ins : Border) extends InteractorImpl[RotateShapes, DnD, Border](ins, true, classOf[RotateShapes], classOf[DnD]) {
-//	/** The point corresponding to the 'press' position. */
-//	var p1 : IPoint = _
+// private sealed class DnD2Rotate(ins : Border) extends
+// InteractorImpl[RotateShapes, DnD, Border](ins, true, classOf[RotateShapes],
+// classOf[DnD]) {
+// /** The point corresponding to the 'press' position. */
+// var p1 : IPoint = _
 //
-//	/** The gravity centre used for the rotation. */
-//	var gc : IPoint = _
-//
-//
-//	def initAction() {
-//		val drawing = instrument.canvas.getDrawing
-//		p1 = instrument.getAdaptedOriginPoint(interaction.getStartPt)
-//		gc = drawing.getSelection.getGravityCentre
-//		action.setGravityCentre(gc)
-//		action.setShape(drawing.getSelection.duplicateDeep(false))
-//	}
+// /** The gravity centre used for the rotation. */
+// var gc : IPoint = _
 //
 //
-//	override def updateAction() {
-//		action.setRotationAngle(gc.computeRotationAngle(p1, instrument.getAdaptedOriginPoint(interaction.getEndPt)))
-//	}
+// def initAction() {
+// val drawing = instrument.canvas.getDrawing
+// p1 = instrument.getAdaptedOriginPoint(interaction.getStartPt)
+// gc = drawing.getSelection.getGravityCentre
+// action.setGravityCentre(gc)
+// action.setShape(drawing.getSelection.duplicateDeep(false))
+// }
 //
-//	override def isConditionRespected = interaction.getStartObject==instrument.rotHandler
-//}
+//
+// override def updateAction() {
+// action.setRotationAngle(gc.computeRotationAngle(p1,
+// instrument.getAdaptedOriginPoint(interaction.getEndPt)))
+// }
+//
+// override def isConditionRespected =
+// interaction.getStartObject==instrument.rotHandler
+// }
 //
 //
 //
-///**
-// * This link maps a DnD interaction on a move control point handler to an action that moves the selected control point.
+// /**
+// * This link maps a DnD interaction on a move control point handler to an
+// action that moves the selected control point.
 // */
-//private sealed class DnD2MoveCtrlPoint(ins : Border) extends InteractorImpl[MoveCtrlPoint, DnD, Border](ins, true, classOf[MoveCtrlPoint], classOf[DnD]) {
-//	/** The original coordinates of the moved point. */
-//	var sourcePt : IPoint = _
+// private sealed class DnD2MoveCtrlPoint(ins : Border) extends
+// InteractorImpl[MoveCtrlPoint, DnD, Border](ins, true, classOf[MoveCtrlPoint],
+// classOf[DnD]) {
+// /** The original coordinates of the moved point. */
+// var sourcePt : IPoint = _
 //
 //
-//	override def initAction() {
-//		val group = instrument.canvas.getDrawing.getSelection
+// override def initAction() {
+// val group = instrument.canvas.getDrawing.getSelection
 //
-//		if(group.size==1 && group.getShapeAt(0).isInstanceOf[IControlPointShape]) {
-//			val handler = ctrlPtHandler.get
-//			sourcePt = ShapeFactory.createPoint(handler.getCentre)
-//			action.setIndexPt(handler.getIndexPt)
-//			action.setShape(group.getShapeAt(0).asInstanceOf[IControlPointShape])
-//			action.setIsFirstCtrlPt(instrument.ctrlPt1Handlers.contains(interaction.getStartObject))
-//		}
-//	}
-//
-//
-//	override def updateAction() {
-//		super.updateAction
-//		val startPt = interaction.getStartPt
-//		val endPt 	= interaction.getEndPt
-//		val x 		= sourcePt.getX + endPt.getX-startPt.getX
-//		val y 		= sourcePt.getY + endPt.getY-startPt.getY
-//		action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.createPoint(x, y)))
-//	}
+// if(group.size==1 && group.getShapeAt(0).isInstanceOf[IControlPointShape]) {
+// val handler = ctrlPtHandler.get
+// sourcePt = ShapeFactory.createPoint(handler.getCentre)
+// action.setIndexPt(handler.getIndexPt)
+// action.setShape(group.getShapeAt(0).asInstanceOf[IControlPointShape])
+// action.setIsFirstCtrlPt(instrument.ctrlPt1Handlers.contains(interaction.getStartObject))
+// }
+// }
 //
 //
-//	override def isConditionRespected = ctrlPtHandler.isDefined
+// override def updateAction() {
+// super.updateAction
+// val startPt = interaction.getStartPt
+// val endPt = interaction.getEndPt
+// val x = sourcePt.getX + endPt.getX-startPt.getX
+// val y = sourcePt.getY + endPt.getY-startPt.getY
+// action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.createPoint(x,
+// y)))
+// }
 //
 //
-//	/**
-//	 * @return The selected move control point handler or null.
-//	 * @since 3.0
-//	 */
-//	private def ctrlPtHandler : Option[CtrlPointHandler] = {
-//		val obj = interaction.getStartObject
-//
-//		obj.isInstanceOf[CtrlPointHandler] &&
-//		(instrument.ctrlPt1Handlers.contains(obj) || instrument.ctrlPt2Handlers.contains(obj)) match {
-//			case true => Some(obj.asInstanceOf[CtrlPointHandler])
-//			case false => None
-//		}
-//	}
-//}
+// override def isConditionRespected = ctrlPtHandler.isDefined
 //
 //
-//
-///**
-// * This link maps a DnD interaction on a move point handler to an action that moves the selected point.
+// /**
+// * @return The selected move control point handler or null.
+// * @since 3.0
 // */
-//private sealed class DnD2MovePoint(ins : Border) extends InteractorImpl[MovePointShape, DnD, Border](ins, true, classOf[MovePointShape], classOf[DnD]) {
-//	/** The original coordinates of the moved point. */
-//	var sourcePt : IPoint = _
+// private def ctrlPtHandler : Option[CtrlPointHandler] = {
+// val obj = interaction.getStartObject
 //
-//
-//	override def initAction() {
-//		val group = instrument.canvas.getDrawing.getSelection
-//
-//		if(group.size==1 && group.getShapeAt(0).isInstanceOf[IModifiablePointsShape]) {
-//			val handler = movePtHandler.get
-//			sourcePt = ShapeFactory.createPoint(handler.getCentre)
-//			action.setIndexPt(handler.getIndexPt)
-//			action.setShape(group.getShapeAt(0).asInstanceOf[IModifiablePointsShape])
-//		}
-//	}
-//
-//
-//	override def updateAction() {
-//		super.updateAction
-//		val startPt = interaction.getStartPt
-//		val endPt 	= interaction.getEndPt
-//		val x 		= sourcePt.getX + endPt.getX-startPt.getX
-//		val y 		= sourcePt.getY + endPt.getY-startPt.getY
-//		action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.createPoint(x, y)))
-//	}
-//
-//
-//	override def isConditionRespected = movePtHandler.isDefined
-//
-//
-//	/**
-//	 * @return The selected move point handler or null.
-//	 * @since 3.0
-//	 */
-//	private def movePtHandler : Option[MovePtHandler] = {
-//		val obj = interaction.getStartObject
-//		obj.isInstanceOf[MovePtHandler] && instrument.mvPtHandlers.contains(obj) match {
-//			case true => Some(obj.asInstanceOf[MovePtHandler])
-//			case false => None
-//		}
-//	}
-//}
+// obj.isInstanceOf[CtrlPointHandler] &&
+// (instrument.ctrlPt1Handlers.contains(obj) ||
+// instrument.ctrlPt2Handlers.contains(obj)) match {
+// case true => Some(obj.asInstanceOf[CtrlPointHandler])
+// case false => None
+// }
+// }
+// }
 //
 //
 //
-///**
-// * This link maps a DnD interaction on a scale handler to an action that scales the selection.
+// /**
+// * This link maps a DnD interaction on a move point handler to an action that
+// moves the selected point.
 // */
-//private sealed class DnD2Scale(ins : Border) extends InteractorImpl[ScaleShapes, DnD, Border](ins, true, classOf[ScaleShapes], classOf[DnD]) {
-//	/** The point corresponding to the 'press' position. */
-//	var p1 : IPoint = _
-//
-//	/** The x gap (gap between the pressed position and the targeted position) of the X-scaling. */
-//	var xGap : Double = _
-//
-//	/** The y gap (gap between the pressed position and the targeted position) of the Y-scaling. */
-//	var yGap : Double = _
+// private sealed class DnD2MovePoint(ins : Border) extends
+// InteractorImpl[MovePointShape, DnD, Border](ins, true,
+// classOf[MovePointShape], classOf[DnD]) {
+// /** The original coordinates of the moved point. */
+// var sourcePt : IPoint = _
 //
 //
-//	private def setXGap(refPosition : Position, tl : IPoint, br : IPoint) {
-//		refPosition match {
-//			case Position.NW | Position.SW | Position.WEST => xGap = p1.getX - br.getX
-//			case Position.NE | Position.SE | Position.EAST => xGap = tl.getX - p1.getX
-//			case _ => xGap = 0.0
-//		}
-//	}
+// override def initAction() {
+// val group = instrument.canvas.getDrawing.getSelection
 //
-//	private def setYGap(refPosition : Position, tl : IPoint, br : IPoint) {
-//		refPosition match {
-//			case Position.NW | Position.NE | Position.NORTH => yGap = p1.getY - br.getY
-//			case Position.SW | Position.SE | Position.SOUTH => yGap = tl.getY - p1.getY
-//			case _ => yGap = 0.0
-//		}
-//	}
+// if(group.size==1 && group.getShapeAt(0).isInstanceOf[IModifiablePointsShape])
+// {
+// val handler = movePtHandler.get
+// sourcePt = ShapeFactory.createPoint(handler.getCentre)
+// action.setIndexPt(handler.getIndexPt)
+// action.setShape(group.getShapeAt(0).asInstanceOf[IModifiablePointsShape])
+// }
+// }
 //
 //
-//	override def initAction() {
-//		val drawing = instrument.canvas.getDrawing
-//		val refPosition = scaleHandler.get.getPosition.getOpposite
-//		val br = drawing.getSelection.getBottomRightPoint
-//		val tl = drawing.getSelection.getTopLeftPoint
-//
-////		p1 = instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt))
-//
-//		setXGap(refPosition, tl, br)
-//		setYGap(refPosition, tl, br)
-//		action.setDrawing(drawing)
-//		action.setShape(drawing.getSelection.duplicateDeep(false))
-//		action.refPosition = refPosition
-//	}
+// override def updateAction() {
+// super.updateAction
+// val startPt = interaction.getStartPt
+// val endPt = interaction.getEndPt
+// val x = sourcePt.getX + endPt.getX-startPt.getX
+// val y = sourcePt.getY + endPt.getY-startPt.getY
+// action.setNewCoord(instrument.getAdaptedGridPoint(ShapeFactory.createPoint(x,
+// y)))
+// }
 //
 //
-//	override def updateAction() {
-//		super.updateAction
-//
-//		val pt = instrument.getAdaptedGridPoint(interaction.getEndPt)
-//		val refPosition = action.refPosition.get
-//
-//		if(refPosition.isSouth)
-//			action.newY = pt.getY + yGap
-//		else if(refPosition.isNorth)
-//			action.newY = pt.getY - yGap
-//
-//		if(refPosition.isWest)
-//			action.newX = pt.getX - xGap
-//		else if(refPosition.isEast)
-//			action.newX = pt.getX + xGap
-//	}
+// override def isConditionRespected = movePtHandler.isDefined
 //
 //
-//	override def isConditionRespected = scaleHandler.isDefined
+// /**
+// * @return The selected move point handler or null.
+// * @since 3.0
+// */
+// private def movePtHandler : Option[MovePtHandler] = {
+// val obj = interaction.getStartObject
+// obj.isInstanceOf[MovePtHandler] && instrument.mvPtHandlers.contains(obj)
+// match {
+// case true => Some(obj.asInstanceOf[MovePtHandler])
+// case false => None
+// }
+// }
+// }
 //
 //
-//	override def interimFeedback() {
-//		super.interimFeedback
-//		action.refPosition.get match {
-//			case Position.EAST => instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR))
-//			case Position.NE => instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR))
-//			case Position.NORTH => instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR))
-//			case Position.NW => instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR))
-//			case Position.SE => instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR))
-//			case Position.SOUTH => instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR))
-//			case Position.SW => instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR))
-//			case Position.WEST => instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR))
-//		}
-//	}
+//
+// /**
+// * This link maps a DnD interaction on a scale handler to an action that
+// scales the selection.
+// */
+// private sealed class DnD2Scale(ins : Border) extends
+// InteractorImpl[ScaleShapes, DnD, Border](ins, true, classOf[ScaleShapes],
+// classOf[DnD]) {
+// /** The point corresponding to the 'press' position. */
+// var p1 : IPoint = _
+//
+// /** The x gap (gap between the pressed position and the targeted position) of
+// the X-scaling. */
+// var xGap : Double = _
+//
+// /** The y gap (gap between the pressed position and the targeted position) of
+// the Y-scaling. */
+// var yGap : Double = _
 //
 //
-//	private def scaleHandler : Option[ScaleHandler] = {
-//		val obj = interaction.getStartObject
+// private def setXGap(refPosition : Position, tl : IPoint, br : IPoint) {
+// refPosition match {
+// case Position.NW | Position.SW | Position.WEST => xGap = p1.getX - br.getX
+// case Position.NE | Position.SE | Position.EAST => xGap = tl.getX - p1.getX
+// case _ => xGap = 0.0
+// }
+// }
 //
-//		obj.isInstanceOf[ScaleHandler] && instrument.scaleHandlers.contains(obj) match {
-//			case true => Some(obj.asInstanceOf[ScaleHandler])
-//			case false => None
-//		}
-//	}
-//}
+// private def setYGap(refPosition : Position, tl : IPoint, br : IPoint) {
+// refPosition match {
+// case Position.NW | Position.NE | Position.NORTH => yGap = p1.getY - br.getY
+// case Position.SW | Position.SE | Position.SOUTH => yGap = tl.getY - p1.getY
+// case _ => yGap = 0.0
+// }
+// }
+//
+//
+// override def initAction() {
+// val drawing = instrument.canvas.getDrawing
+// val refPosition = scaleHandler.get.getPosition.getOpposite
+// val br = drawing.getSelection.getBottomRightPoint
+// val tl = drawing.getSelection.getTopLeftPoint
+//
+// // p1 =
+// instrument.canvas.getMagneticGrid.getTransformedPointToGrid(instrument.canvas.getZoomedPoint(interaction.getStartPt))
+//
+// setXGap(refPosition, tl, br)
+// setYGap(refPosition, tl, br)
+// action.setDrawing(drawing)
+// action.setShape(drawing.getSelection.duplicateDeep(false))
+// action.refPosition = refPosition
+// }
+//
+//
+// override def updateAction() {
+// super.updateAction
+//
+// val pt = instrument.getAdaptedGridPoint(interaction.getEndPt)
+// val refPosition = action.refPosition.get
+//
+// if(refPosition.isSouth)
+// action.newY = pt.getY + yGap
+// else if(refPosition.isNorth)
+// action.newY = pt.getY - yGap
+//
+// if(refPosition.isWest)
+// action.newX = pt.getX - xGap
+// else if(refPosition.isEast)
+// action.newX = pt.getX + xGap
+// }
+//
+//
+// override def isConditionRespected = scaleHandler.isDefined
+//
+//
+// override def interimFeedback() {
+// super.interimFeedback
+// action.refPosition.get match {
+// case Position.EAST =>
+// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR))
+// case Position.NE =>
+// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR))
+// case Position.NORTH =>
+// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR))
+// case Position.NW =>
+// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR))
+// case Position.SE =>
+// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR))
+// case Position.SOUTH =>
+// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR))
+// case Position.SW =>
+// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR))
+// case Position.WEST =>
+// instrument.canvas.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR))
+// }
+// }
+//
+//
+// private def scaleHandler : Option[ScaleHandler] = {
+// val obj = interaction.getStartObject
+//
+// obj.isInstanceOf[ScaleHandler] && instrument.scaleHandlers.contains(obj)
+// match {
+// case true => Some(obj.asInstanceOf[ScaleHandler])
+// case false => None
+// }
+// }
+// }

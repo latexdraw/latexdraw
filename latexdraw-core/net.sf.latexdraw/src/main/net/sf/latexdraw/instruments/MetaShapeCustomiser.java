@@ -5,21 +5,23 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import com.google.inject.Inject;
 
 /**
- * This meta-instrument manages the instruments that customises shape properties.<br>
+ * This meta-instrument manages the instruments that customises shape
+ * properties.<br>
  * <br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
  * <br>
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.<br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.<br>
  * <br>
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.<br>
  * <br>
  * 10/31/10<br>
+ * 
  * @author Arnaud BLOUIN
  * @version 3.0
  */
@@ -27,13 +29,22 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument customises the line properties of shapes and the pencil. */
 	protected @Inject ShapeBorderCustomiser borderCustomiser;
 
-	/** This instrument customises the double line properties of shapes and the pencil. */
+	/**
+	 * This instrument customises the double line properties of shapes and the
+	 * pencil.
+	 */
 	protected @Inject ShapeDoubleBorderCustomiser doubleBorderCustomiser;
 
-	/** This instrument customises the shadow properties of shapes and the pencil. */
+	/**
+	 * This instrument customises the shadow properties of shapes and the
+	 * pencil.
+	 */
 	protected @Inject ShapeShadowCustomiser shadowCustomiser;
 
-	/** This instrument customises the filling properties of shapes and the pencil. */
+	/**
+	 * This instrument customises the filling properties of shapes and the
+	 * pencil.
+	 */
 	protected @Inject ShapeFillingCustomiser fillingCustomiser;
 
 	/** This instrument customises the texts. */
@@ -77,14 +88,12 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 
 	protected @Inject ShapePlotCustomiser plotCustom;
 
-
 	/**
 	 * Creates the instrument.
 	 */
 	public MetaShapeCustomiser() {
 		super();
 	}
-
 
 	@Override
 	public void setActivated(final boolean activated) {
@@ -114,7 +123,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		}
 	}
 
-
 	@Override
 	protected void update(final IGroup shape) {
 		borderCustomiser.update(shape);
@@ -136,7 +144,6 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 		shapePositioner.update(shape);
 		plotCustom.update(shape);
 	}
-
 
 	@Override
 	public void clearEvents() {

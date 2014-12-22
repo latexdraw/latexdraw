@@ -26,13 +26,14 @@ import org.malai.javafx.instrument.library.ToggleButtonInteractor;
  * <br>
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version. <br>
  * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
  * 08/21/2011<br>
+ * 
  * @author Arnaud BLOUIN
  * @since 3.0
  */
@@ -53,7 +54,6 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	@FXML protected Spinner<Double> endAngleS;
 
 	@FXML protected TitledPane mainPane;
-	
 
 	/**
 	 * Creates the instrument.
@@ -62,12 +62,10 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 		super();
 	}
 
-
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}
-
 
 	@Override
 	protected void update(final IGroup shape) {
@@ -79,84 +77,83 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 			startAngleS.getValueFactory().setValue(Math.toDegrees(shape.getAngleStart()));
 			endAngleS.getValueFactory().setValue(Math.toDegrees(shape.getAngleEnd()));
 			setActivated(true);
-		}
-		else setActivated(false);
+		}else
+			setActivated(false);
 	}
-
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
+		try {
 			addInteractor(new Spinner2SelectionAngle(this));
 			addInteractor(new Spinner2PencilAngle(this));
 			addInteractor(new Button2SelectionArcStyle(this));
 			addInteractor(new Button2PencilArcStyle(this));
-		}catch(InstantiationException | IllegalAccessException e){
+		}catch(InstantiationException|IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
-	
+
 	private static abstract class Button2ArcStyle<T extends ShapePropertyAction> extends ToggleButtonInteractor<T, ShapeArcCustomiser> {
 		Button2ArcStyle(final ShapeArcCustomiser ins, final Class<T> action) throws InstantiationException, IllegalAccessException {
 			super(ins, action, Arrays.asList(ins.arcB, ins.chordB, ins.wedgeB));
 		}
-	
+
 		@Override
 		public void initAction() {
 			final ToggleButton button = interaction.getWidget();
 			final ArcStyle style;
-	
+
 			if(button==instrument.arcB)
-				 style = ArcStyle.ARC;
+				style = ArcStyle.ARC;
 			else if(button==instrument.chordB)
-				 style=ArcStyle.CHORD;
-			else style=ArcStyle.WEDGE;
-	
+				style = ArcStyle.CHORD;
+			else
+				style = ArcStyle.WEDGE;
+
 			action.setProperty(ShapeProperties.ARC_STYLE);
 			action.setValue(style);
 		}
 	}
 
-
 	private static class Button2PencilArcStyle extends Button2ArcStyle<ModifyPencilParameter> {
 		Button2PencilArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class);
 		}
-	
+
 		@Override
 		public void initAction() {
 			super.initAction();
 			action.setPencil(instrument.pencil);
 		}
-	
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.pencil.isActivated();
 		}
 	}
-	
+
 	private static class Button2SelectionArcStyle extends Button2ArcStyle<ModifyShapeProperty> {
 		Button2SelectionArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class);
 		}
-	
+
 		@Override
 		public void initAction() {
 			super.initAction();
 			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
 		}
-	
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.hand.isActivated();
 		}
 	}
-	
+
 	private static class Spinner2PencilAngle extends SpinnerInteractor<ModifyPencilParameter, ShapeArcCustomiser> {
 		Spinner2PencilAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.startAngleS, ins.endAngleS));
 		}
-	
+
 		@Override
 		public void initAction() {
 			if(interaction.getWidget()==instrument.startAngleS)
@@ -167,23 +164,24 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 			action.setPencil(instrument.pencil);
 			action.setValue(Math.toRadians((double)interaction.getWidget().getValue()));
 		}
-	//TODO see whether spinner actions can be grouped as before.
-//		@Override
-//		public void updateAction() {
-//			action.setValue(Math.toRadians((double)interaction.getWidget().getValue()));
-//		}
-	
+
+		// TODO see whether spinner actions can be grouped as before.
+		// @Override
+		// public void updateAction() {
+		// action.setValue(Math.toRadians((double)interaction.getWidget().getValue()));
+		// }
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.pencil.isActivated();
 		}
 	}
-	
+
 	private static class Spinner2SelectionAngle extends SpinnerInteractor<ModifyShapeProperty, ShapeArcCustomiser> {
 		Spinner2SelectionAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.startAngleS, ins.endAngleS));
 		}
-	
+
 		@Override
 		public void initAction() {
 			if(interaction.getWidget()==instrument.startAngleS)
@@ -193,7 +191,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
 			action.setValue(Math.toRadians((double)interaction.getWidget().getValue()));
 		}
-	
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.hand.isActivated();

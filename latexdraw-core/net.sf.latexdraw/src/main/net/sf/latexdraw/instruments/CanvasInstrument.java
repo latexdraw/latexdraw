@@ -9,20 +9,24 @@ import org.malai.javafx.instrument.JfxInstrument;
 import com.google.inject.Inject;
 
 /**
- * This abstract instrument encapsulates common operations dealing with a canvas.
+ * This abstract instrument encapsulates common operations dealing with a
+ * canvas.
+ * 
  * @since 3.1
  */
 abstract class CanvasInstrument extends JfxInstrument {
 	protected @Inject Canvas canvas;
-	
+
 	CanvasInstrument() {
 		super();
 	}
-	
-	
+
 	/**
-	 * Computes the point depending on the the zoom level and the origin of the canvas.
-	 * @param pt The point to adapted.
+	 * Computes the point depending on the the zoom level and the origin of the
+	 * canvas.
+	 * 
+	 * @param pt
+	 *            The point to adapted.
 	 * @return The computed point.
 	 * @since 3.0
 	 */
@@ -30,9 +34,8 @@ abstract class CanvasInstrument extends JfxInstrument {
 		final IPoint pt2 = canvas.convertToOrigin(pt);
 		return ShapeFactory.createPoint(canvas.getZoomedPoint(pt2.getX(), pt2.getY()));
 	}
-	
-	
-	public Canvas getCanvas() {//FIXME to remove
+
+	public Canvas getCanvas() {// FIXME to remove
 		return canvas;
 	}
 }

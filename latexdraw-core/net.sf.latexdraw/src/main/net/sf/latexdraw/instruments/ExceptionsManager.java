@@ -35,8 +35,10 @@ import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.ButtonInteractor;
 
 /**
- * This instrument allows to see exceptions launched during the execution of the program.<br>
+ * This instrument allows to see exceptions launched during the execution of the
+ * program.<br>
  * 01/05/11<br>
+ * 
  * @author Arnaud BLOUIN
  * @version 3.0
  */
@@ -47,57 +49,53 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	/** The frame to show when exceptions occur. */
 	private Stage stageEx;
 
-
 	/**
 	 * Creates the instrument.
+	 * 
 	 * @since 3.0
 	 */
 	public ExceptionsManager() {
 		super();
 		BadaboomCollector.INSTANCE.addHandler(this);
 	}
-	
+
 	/**
 	 * @return The frame showing the exceptions. Cannot be null.
 	 */
 	public Stage getStageEx() {
-		if(stageEx==null){
+		if(stageEx==null) {
 			try {
 				Parent root = FXMLLoader.load(getClass().getResource("../glib/views/jfx/ui/Badaboom.fxml"), LangTool.INSTANCE.getBundle());
-		        final Scene scene = new Scene(root);
-		        stageEx = new Stage(StageStyle.UTILITY);
-		        stageEx.setScene(scene);
-		        stageEx.centerOnScreen();
+				final Scene scene = new Scene(root);
+				stageEx = new Stage(StageStyle.UTILITY);
+				stageEx.setScene(scene);
+				stageEx.centerOnScreen();
 			}catch(final Exception e) {
 				BadaboomCollector.INSTANCE.add(e);
 			}
 		}
 		return stageEx;
 	}
-	
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		exceptionB.managedProperty().bind(exceptionB.visibleProperty());
 		setActivated(false);
 	}
-	
 
 	@Override
 	protected void initialiseInteractors() {
-		try{
+		try {
 			addInteractor(new ButtonPress2ShowExceptionFrame(this));
-		}catch(InstantiationException | IllegalAccessException e){
+		}catch(InstantiationException|IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
-
 
 	@Override
 	public void notifyEvent(final Throwable ex) {
 		setActivated(true);
 	}
-
 
 	@Override
 	public void setActivated(final boolean isActivated) {
@@ -109,7 +107,6 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	public void notifyEvents() {
 		setActivated(true);
 	}
-	
 
 	private static class ButtonPress2ShowExceptionFrame extends ButtonInteractor<ShowStage, ExceptionsManager> {
 		ButtonPress2ShowExceptionFrame(final ExceptionsManager ins) throws InstantiationException, IllegalAccessException {

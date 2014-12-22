@@ -36,13 +36,14 @@ import org.malai.javafx.instrument.library.SpinnerInteractor;
  * <br>
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version. <br>
  * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
  * 10/31/2010<br>
+ * 
  * @author Arnaud BLOUIN
  * @since 3.0
  */
@@ -64,11 +65,10 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	/** Defines if the points of the shape must be painted. */
 	@FXML protected CheckBox showPoints;
-	
+
 	@FXML protected ImageView thicknessPic;
 	@FXML protected ImageView frameArcPic;
 	@FXML protected TitledPane linePane;
-	
 
 	/**
 	 * Creates the instrument.
@@ -77,27 +77,19 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		super();
 	}
 
-	
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		linePane.managedProperty().bind(linePane.visibleProperty());
-		
+
 		thicknessPic.visibleProperty().bind(thicknessField.visibleProperty());
 		frameArcPic.visibleProperty().bind(frameArcField.visibleProperty());
-		
-		bordersPosCB.getItems().addAll(
-			createItem(BorderPos.INTO, "/res/doubleBoundary/double.boundary.into.png"),
-			createItem(BorderPos.OUT, "/res/doubleBoundary/double.boundary.out.png"),
-			createItem(BorderPos.MID, "/res/doubleBoundary/double.boundary.middle.png")
-		);
-		
-		lineCB.getItems().addAll(
-			createItem(LineStyle.SOLID, "/res/lineStyles/lineStyle.none.png"),
-			createItem(LineStyle.DASHED, "/res/lineStyles/lineStyle.dashed.png"),
-			createItem(LineStyle.DOTTED, "/res/lineStyles/lineStyle.dotted.png")
-		);
-	}
 
+		bordersPosCB.getItems().addAll(createItem(BorderPos.INTO, "/res/doubleBoundary/double.boundary.into.png"), createItem(BorderPos.OUT, "/res/doubleBoundary/double.boundary.out.png"),
+				createItem(BorderPos.MID, "/res/doubleBoundary/double.boundary.middle.png"));
+
+		lineCB.getItems().addAll(createItem(LineStyle.SOLID, "/res/lineStyles/lineStyle.none.png"), createItem(LineStyle.DASHED, "/res/lineStyles/lineStyle.dashed.png"),
+				createItem(LineStyle.DOTTED, "/res/lineStyles/lineStyle.dotted.png"));
+	}
 
 	@Override
 	protected void update(final IGroup shape) {
@@ -105,12 +97,12 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			setActivated(false);
 		else {
 			setActivated(true);
-			final boolean isTh	 	 = shape.isThicknessable();
+			final boolean isTh = shape.isThicknessable();
 			final boolean isStylable = shape.isLineStylable();
-			final boolean isMvble	 = shape.isBordersMovable();
-			final boolean isColor	 = shape.isColourable();
+			final boolean isMvble = shape.isBordersMovable();
+			final boolean isColor = shape.isColourable();
 			final boolean supportRound = shape.isTypeOf(ILineArcProp.class);
-			final boolean showPts	 = shape.isShowPtsable();
+			final boolean showPts = shape.isShowPtsable();
 
 			thicknessField.setVisible(isTh);
 			lineCB.setVisible(isStylable);
@@ -134,16 +126,14 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		}
 	}
 
-
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		linePane.setVisible(visible);
 	}
 
-
 	@Override
 	protected void initialiseInteractors() {
-		try{
+		try {
 			addInteractor(new Spinner2PencilBorder(this));
 			addInteractor(new Spinner2SelectionBorder(this));
 			addInteractor(new List2PencilBorder(this));
@@ -152,12 +142,11 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			addInteractor(new ColourButton2SelectionBorder(this));
 			addInteractor(new Checkbox2ShowPointsSelection(this));
 			addInteractor(new Checkbox2ShowPointsPencil(this));
-		}catch(InstantiationException | IllegalAccessException e){
+		}catch(InstantiationException|IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
-	
-	
+
 	private static class ColourButton2PencilBorder extends ColorPickerInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
 		ColourButton2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.lineColButton));
@@ -175,55 +164,53 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			return instrument.pencil.isActivated();
 		}
 	}
-	
-	
+
 	private static class ColourButton2SelectionBorder extends ColorPickerInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
 		ColourButton2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.lineColButton));
 		}
-	
+
 		@Override
 		public void initAction() {
 			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
 			action.setProperty(ShapeProperties.COLOUR_LINE);
 			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
 		}
-	
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.hand.isActivated();
 		}
 	}
-	
+
 	private class Checkbox2ShowPointsPencil extends CheckboxInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
 		Checkbox2ShowPointsPencil(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.showPoints));
 		}
-	
+
 		@Override
 		public void initAction() {
 			action.setProperty(ShapeProperties.SHOW_POINTS);
 			action.setPencil(instrument.pencil);
 			action.setValue(interaction.getWidget().isSelected());
 		}
-	
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.pencil.isActivated();
 		}
 	}
-	
-	
+
 	private class Checkbox2ShowPointsSelection extends CheckboxInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
 		Checkbox2ShowPointsSelection(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.showPoints));
 		}
-	
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.hand.isActivated();
 		}
-	
+
 		@Override
 		public void initAction() {
 			action.setProperty(ShapeProperties.SHOW_POINTS);
@@ -231,98 +218,93 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			action.setValue(interaction.getWidget().isSelected());
 		}
 	}
-	
-
 
 	private static class List2PencilBorder extends ComboBoxInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
 		List2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.bordersPosCB, ins.lineCB));
 		}
-	
+
 		@SuppressWarnings("unchecked")
 		@Override
 		public void initAction() {
 			final ComboBox<ImageView> combo = (ComboBox<ImageView>)interaction.getWidget();
 			action.setPencil(instrument.pencil);
 			action.setValue(combo.getSelectionModel().getSelectedItem().getUserData());
-			
+
 			if(combo==instrument.bordersPosCB)
 				action.setProperty(ShapeProperties.BORDER_POS);
 			else
 				action.setProperty(ShapeProperties.LINE_STYLE);
 		}
-	
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.pencil.isActivated();
 		}
 	}
-
 
 	private static class List2SelectionBorder extends ComboBoxInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
 		List2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.bordersPosCB, ins.lineCB));
 		}
-	
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.hand.isActivated();
 		}
-	
+
 		@SuppressWarnings("unchecked")
 		@Override
 		public void initAction() {
 			final ComboBox<ImageView> combo = (ComboBox<ImageView>)interaction.getWidget();
 			action.setValue(combo.getSelectionModel().getSelectedItem().getUserData());
 			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-	
+
 			if(combo==instrument.bordersPosCB)
 				action.setProperty(ShapeProperties.BORDER_POS);
 			else
 				action.setProperty(ShapeProperties.LINE_STYLE);
 		}
 	}
-	
+
 	private static class Spinner2PencilBorder extends SpinnerInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
 		Spinner2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.thicknessField, ins.frameArcField));
 		}
-	
+
 		@Override
 		public void initAction() {
 			action.setPencil(instrument.pencil);
 			action.setValue(interaction.getWidget().getValue());
-			
+
 			if(interaction.getWidget()==instrument.thicknessField)
 				action.setProperty(ShapeProperties.LINE_THICKNESS);
 			else
 				action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
 		}
-	
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.pencil.isActivated();
 		}
 	}
-	
 
 	private static class Spinner2SelectionBorder extends SpinnerInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
 		Spinner2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.thicknessField, ins.frameArcField));
 		}
-	
-	
+
 		@Override
 		public void initAction() {
 			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
 			action.setValue(interaction.getWidget().getValue());
-			
+
 			if(interaction.getWidget()==instrument.thicknessField)
 				action.setProperty(ShapeProperties.LINE_THICKNESS);
 			else
 				action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
 		}
-	
+
 		@Override
 		public boolean isConditionRespected() {
 			return instrument.hand.isActivated();

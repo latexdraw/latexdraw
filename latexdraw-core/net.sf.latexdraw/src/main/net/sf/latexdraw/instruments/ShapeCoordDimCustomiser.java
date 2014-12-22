@@ -39,9 +39,8 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 	/** Sets the Y-coordinate of the top-left position. */
 	@FXML Spinner<Double> tlyS;
-	
-	@FXML TitledPane mainPane;
 
+	@FXML TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.
@@ -52,7 +51,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape.isEmpty() || !hand.isActivated())
+		if(shape.isEmpty()||!hand.isActivated())
 			setActivated(false);
 		else {
 			setActivated(true);
@@ -66,7 +65,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseInteractors() {
 		try {
 			addInteractor(new Spinner2TranslateShape(this));
-		}catch(InstantiationException | IllegalAccessException e) {
+		}catch(InstantiationException|IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -90,10 +89,10 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 			action.setDrawing(drawing);
 			action.setShape(drawing.getSelection().duplicateDeep(false));
 
-			if(interaction.getWidget() == instrument.tlxS)
-				action.setTx(value - tl.getX());
+			if(interaction.getWidget()==instrument.tlxS)
+				action.setTx(value-tl.getX());
 			else
-				action.setTy(value - tl.getY());
+				action.setTy(value-tl.getY());
 		}
 	}
 }

@@ -121,7 +121,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 			addInteractor(new Spinner2CustomSelectedAxes(this));
 			addInteractor(new CheckBox2CustomPencilAxes(this));
 			addInteractor(new CheckBox2CustomSelectedAxes(this));
-		}catch(InstantiationException | IllegalAccessException e) {
+		}catch(InstantiationException|IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -135,11 +135,11 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 		public void initAction() {
 			final ComboBox<?> list = interaction.getWidget();
 
-			if(instrument.shapeAxes == list)
+			if(instrument.shapeAxes==list)
 				action.setProperty(ShapeProperties.AXES_STYLE);
-			else if(instrument.showTicks == list)
+			else if(instrument.showTicks==list)
 				action.setProperty(ShapeProperties.AXES_TICKS_SHOW);
-			else if(instrument.showLabels == list)
+			else if(instrument.showLabels==list)
 				action.setProperty(ShapeProperties.AXES_LABELS_SHOW);
 			else
 				action.setProperty(ShapeProperties.AXES_TICKS_STYLE);
@@ -191,7 +191,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 		public void initAction() {
 			final Spinner<?> spinner = interaction.getWidget();
 
-			if(spinner == instrument.distLabelsX || spinner == instrument.distLabelsY) {
+			if(spinner==instrument.distLabelsX||spinner==instrument.distLabelsY) {
 				action.setProperty(ShapeProperties.AXES_LABELS_DIST);
 				action.setValue(ShapeFactory.createPoint(instrument.distLabelsX.getValue(), instrument.distLabelsY.getValue()));
 			}else {

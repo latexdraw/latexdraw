@@ -26,13 +26,14 @@ import org.malai.mapping.MappingRegistry;
  * <br>
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version. <br>
  * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.<br>
  * <br>
  * 12/27/2010<br>
+ * 
  * @author Arnaud BLOUIN
  * @since 3.0
  */
@@ -64,14 +65,16 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 	/** The button that selects the centre text position. */
 	@FXML protected ToggleButton centreButton;
 
-	/** This text field permits to add latex packages that will be used during compilation. */
+	/**
+	 * This text field permits to add latex packages that will be used during
+	 * compilation.
+	 */
 	@FXML protected TextArea packagesField;
 
 	/** The error log field. */
 	@FXML protected TextArea logField;
-	
-	@FXML protected TitledPane mainPane;
 
+	@FXML protected TitledPane mainPane;
 
 	/**
 	 * Creates the instrument.
@@ -80,12 +83,10 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 		super();
 	}
 
-
 	@Override
 	protected void setWidgetsVisible(final boolean visible) {
 		mainPane.setVisible(visible);
 	}
-
 
 	@Override
 	protected void update(final IGroup shape) {
@@ -102,7 +103,9 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 			centreButton.setSelected(tp==TextPosition.CENTER);
 			lButton.setSelected(tp==TextPosition.LEFT);
 			rButton.setSelected(tp==TextPosition.RIGHT);
-			if(!packagesField.isFocused()) // Otherwise it means that this field is currently being edited and must not be updated.
+			if(!packagesField.isFocused()) // Otherwise it means that this field
+											// is currently being edited and
+											// must not be updated.
 				packagesField.setText(LaTeXGenerator.getPackages());
 
 			// Updating the log field.
@@ -113,137 +116,161 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 					String log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
 					int i = 0;
 
-					while(i<max && msg.equals(log)) {
-						try{ Thread.sleep(100);}
-						catch(final InterruptedException e){ BadaboomCollector.INSTANCE.add(e); }
+					while(i<max&&msg.equals(log)) {
+						try {
+							Thread.sleep(100);
+						}catch(final InterruptedException e) {
+							BadaboomCollector.INSTANCE.add(e);
+						}
 						log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
 						i++;
 					}
-					if(log==null) log = ""; //$NON-NLS-1$
+					if(log==null)
+						log = ""; //$NON-NLS-1$
 					logField.setText(log);
 				});
 			});
-		}
-		else setActivated(false);
+		}else
+			setActivated(false);
 	}
-
 
 	@Override
 	protected void initialiseInteractors() {
-//		try{
-//			addInteractor(new KeysTyped2ChangePackages(this));
-//			addInteractor(new ButtonPressed2ChangeTextPosition(this));
-//			addInteractor(new ButtonPressed2ChangePencil(this));
-//		}catch(InstantiationException | IllegalAccessException e){
-//			BadaboomCollector.INSTANCE.add(e);
-//		}
+		// try{
+		// addInteractor(new KeysTyped2ChangePackages(this));
+		// addInteractor(new ButtonPressed2ChangeTextPosition(this));
+		// addInteractor(new ButtonPressed2ChangePencil(this));
+		// }catch(InstantiationException | IllegalAccessException e){
+		// BadaboomCollector.INSTANCE.add(e);
+		// }
 	}
 }
 
-
-
-//class KeysTyped2ChangePackages extends InteractorImpl<ModifyLatexProperties, KeysTyped, ShapeTextCustomiser> {
-//	protected KeysTyped2ChangePackages(final ShapeTextCustomiser ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, false, ModifyLatexProperties.class, KeysTyped.class);
-//	}
+// class KeysTyped2ChangePackages extends InteractorImpl<ModifyLatexProperties,
+// KeysTyped, ShapeTextCustomiser> {
+// protected KeysTyped2ChangePackages(final ShapeTextCustomiser ins) throws
+// InstantiationException, IllegalAccessException {
+// super(ins, false, ModifyLatexProperties.class, KeysTyped.class);
+// }
 //
-//	@Override
-//	public void initAction() {
-//		action.setProperty(LatexProperties.PACKAGES);
-//	}
+// @Override
+// public void initAction() {
+// action.setProperty(LatexProperties.PACKAGES);
+// }
 //
-//	@Override
-//	public void updateAction() {
-//		action.setValue(instrument.getPackagesField().getText());
-//	}
+// @Override
+// public void updateAction() {
+// action.setValue(instrument.getPackagesField().getText());
+// }
 //
-//	@Override
-//	public boolean isConditionRespected() {
-//		return interaction.getObject()==instrument.packagesField;
-//	}
-//}
+// @Override
+// public boolean isConditionRespected() {
+// return interaction.getObject()==instrument.packagesField;
+// }
+// }
 //
 //
 //
-///**
+// /**
 // * Links a button interaction to an action that modifies the pencil.
 // */
-//class ButtonPressed2ChangePencil extends ButtonPressedForCustomiser<ModifyPencilParameter, ShapeTextCustomiser> {
-//	/**
-//	 * Creates the link.
-//	 * @param ins The instrument that contains the link.
-//	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-//	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-//	 */
-//	ButtonPressed2ChangePencil(final ShapeTextCustomiser ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, ModifyPencilParameter.class);
-//	}
+// class ButtonPressed2ChangePencil extends
+// ButtonPressedForCustomiser<ModifyPencilParameter, ShapeTextCustomiser> {
+// /**
+// * Creates the link.
+// * @param ins The instrument that contains the link.
+// * @throws InstantiationException If an error of instantiation (interaction,
+// action) occurs.
+// * @throws IllegalAccessException If no free-parameter constructor are
+// provided.
+// */
+// ButtonPressed2ChangePencil(final ShapeTextCustomiser ins) throws
+// InstantiationException, IllegalAccessException {
+// super(ins, ModifyPencilParameter.class);
+// }
 //
-//	@Override
-//	public void initAction() {
-//		final AbstractButton ab = interaction.getButton();
+// @Override
+// public void initAction() {
+// final AbstractButton ab = interaction.getButton();
 //
-//		action.setProperty(ShapeProperties.TEXT_POSITION);
-//		action.setPencil(instrument.pencil);
+// action.setProperty(ShapeProperties.TEXT_POSITION);
+// action.setPencil(instrument.pencil);
 //
-//		if(instrument.blButton==ab) action.setValue(ITextProp.TextPosition.BOT_LEFT);
-//		else if(instrument.brButton==ab) action.setValue(ITextProp.TextPosition.BOT_RIGHT);
-//		else if(instrument.tButton==ab) action.setValue(ITextProp.TextPosition.TOP);
-//		else if(instrument.bButton==ab) action.setValue(ITextProp.TextPosition.BOT);
-//		else if(instrument.tlButton==ab) action.setValue(ITextProp.TextPosition.TOP_LEFT);
-//		else if(instrument.centreButton==ab) action.setValue(ITextProp.TextPosition.CENTER);
-//		else if(instrument.lButton==ab) action.setValue(ITextProp.TextPosition.LEFT);
-//		else if(instrument.rButton==ab) action.setValue(ITextProp.TextPosition.RIGHT);
-//		else action.setValue(ITextProp.TextPosition.TOP_RIGHT);
-//	}
+// if(instrument.blButton==ab) action.setValue(ITextProp.TextPosition.BOT_LEFT);
+// else if(instrument.brButton==ab)
+// action.setValue(ITextProp.TextPosition.BOT_RIGHT);
+// else if(instrument.tButton==ab) action.setValue(ITextProp.TextPosition.TOP);
+// else if(instrument.bButton==ab) action.setValue(ITextProp.TextPosition.BOT);
+// else if(instrument.tlButton==ab)
+// action.setValue(ITextProp.TextPosition.TOP_LEFT);
+// else if(instrument.centreButton==ab)
+// action.setValue(ITextProp.TextPosition.CENTER);
+// else if(instrument.lButton==ab) action.setValue(ITextProp.TextPosition.LEFT);
+// else if(instrument.rButton==ab)
+// action.setValue(ITextProp.TextPosition.RIGHT);
+// else action.setValue(ITextProp.TextPosition.TOP_RIGHT);
+// }
 //
-//	@Override
-//	public boolean isConditionRespected() {
-//		final AbstractButton ab = interaction.getButton();
-//		return instrument.pencil.isActivated() && (instrument.tButton==ab || instrument.tlButton==ab || instrument.centreButton==ab ||
-//				instrument.trButton==ab || instrument.bButton==ab || instrument.blButton==ab || instrument.brButton==ab ||
-//				instrument.lButton==ab || instrument.rButton==ab);
-//	}
-//}
+// @Override
+// public boolean isConditionRespected() {
+// final AbstractButton ab = interaction.getButton();
+// return instrument.pencil.isActivated() && (instrument.tButton==ab ||
+// instrument.tlButton==ab || instrument.centreButton==ab ||
+// instrument.trButton==ab || instrument.bButton==ab || instrument.blButton==ab
+// || instrument.brButton==ab ||
+// instrument.lButton==ab || instrument.rButton==ab);
+// }
+// }
 //
 //
-///**
+// /**
 // * Links a button interaction to an action that modifies the selected shapes.
 // */
-//class ButtonPressed2ChangeTextPosition extends ButtonPressedForCustomiser<ModifyShapeProperty, ShapeTextCustomiser> {
-//	/**
-//	 * Creates the link.
-//	 * @param ins The instrument that contains the link.
-//	 * @throws InstantiationException If an error of instantiation (interaction, action) occurs.
-//	 * @throws IllegalAccessException If no free-parameter constructor are provided.
-//	 */
-//	ButtonPressed2ChangeTextPosition(final ShapeTextCustomiser ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, ModifyShapeProperty.class);
-//	}
+// class ButtonPressed2ChangeTextPosition extends
+// ButtonPressedForCustomiser<ModifyShapeProperty, ShapeTextCustomiser> {
+// /**
+// * Creates the link.
+// * @param ins The instrument that contains the link.
+// * @throws InstantiationException If an error of instantiation (interaction,
+// action) occurs.
+// * @throws IllegalAccessException If no free-parameter constructor are
+// provided.
+// */
+// ButtonPressed2ChangeTextPosition(final ShapeTextCustomiser ins) throws
+// InstantiationException, IllegalAccessException {
+// super(ins, ModifyShapeProperty.class);
+// }
 //
-//	@Override
-//	public void initAction() {
-//		final AbstractButton ab = interaction.getButton();
+// @Override
+// public void initAction() {
+// final AbstractButton ab = interaction.getButton();
 //
-//		action.setGroup(instrument.hand.canvas().getDrawing().getSelection().duplicateDeep(false));
-//		action.setProperty(ShapeProperties.TEXT_POSITION);
+// action.setGroup(instrument.hand.canvas().getDrawing().getSelection().duplicateDeep(false));
+// action.setProperty(ShapeProperties.TEXT_POSITION);
 //
-//		if(instrument.bButton==ab) action.setValue(ITextProp.TextPosition.BOT);
-//		else if(instrument.blButton==ab) action.setValue(ITextProp.TextPosition.BOT_LEFT);
-//		else if(instrument.brButton==ab) action.setValue(ITextProp.TextPosition.BOT_RIGHT);
-//		else if(instrument.tButton==ab) action.setValue(ITextProp.TextPosition.TOP);
-//		else if(instrument.tlButton==ab) action.setValue(ITextProp.TextPosition.TOP_LEFT);
-//		else if(instrument.centreButton==ab) action.setValue(ITextProp.TextPosition.CENTER);
-//		else if(instrument.lButton==ab) action.setValue(ITextProp.TextPosition.LEFT);
-//		else if(instrument.rButton==ab) action.setValue(ITextProp.TextPosition.RIGHT);
-//		else action.setValue(ITextProp.TextPosition.TOP_RIGHT);
-//	}
+// if(instrument.bButton==ab) action.setValue(ITextProp.TextPosition.BOT);
+// else if(instrument.blButton==ab)
+// action.setValue(ITextProp.TextPosition.BOT_LEFT);
+// else if(instrument.brButton==ab)
+// action.setValue(ITextProp.TextPosition.BOT_RIGHT);
+// else if(instrument.tButton==ab) action.setValue(ITextProp.TextPosition.TOP);
+// else if(instrument.tlButton==ab)
+// action.setValue(ITextProp.TextPosition.TOP_LEFT);
+// else if(instrument.centreButton==ab)
+// action.setValue(ITextProp.TextPosition.CENTER);
+// else if(instrument.lButton==ab) action.setValue(ITextProp.TextPosition.LEFT);
+// else if(instrument.rButton==ab)
+// action.setValue(ITextProp.TextPosition.RIGHT);
+// else action.setValue(ITextProp.TextPosition.TOP_RIGHT);
+// }
 //
-//	@Override
-//	public boolean isConditionRespected() {
-//		final AbstractButton ab = interaction.getButton();
-//		return instrument.hand.isActivated() && ( instrument.bButton==ab || instrument.blButton==ab || instrument.centreButton==ab ||
-//				instrument.brButton==ab || instrument.tButton==ab || instrument.tlButton==ab || instrument.trButton==ab ||
-//				instrument.lButton==ab || instrument.rButton==ab);
-//	}
-//}
+// @Override
+// public boolean isConditionRespected() {
+// final AbstractButton ab = interaction.getButton();
+// return instrument.hand.isActivated() && ( instrument.bButton==ab ||
+// instrument.blButton==ab || instrument.centreButton==ab ||
+// instrument.brButton==ab || instrument.tButton==ab || instrument.tlButton==ab
+// || instrument.trButton==ab ||
+// instrument.lButton==ab || instrument.rButton==ab);
+// }
+// }

@@ -9,30 +9,36 @@ import java.util.Map;
 
 /**
  * Defines a postscript function parser.<br>
- *<br>
+ * <br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
- *<br>
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.<br>
- *<br>
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- *<br>
+ * <br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.<br>
+ * <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.<br>
+ * <br>
  * 03/11/08<br>
+ * 
  * @author Arnaud BLOUIN
  * @version 3.0
  */
 public class PSFunctionParser {
 	/**
 	 * Checks whether the given equation is a valid post-fixed PS equation.
-	 * @param eq The equation to check.
-	 * @param min The X-min of the plotting.
-	 * @param max The X-max of the plotting.
-	 * @param nbPts The number of points to plot.
+	 * 
+	 * @param eq
+	 *            The equation to check.
+	 * @param min
+	 *            The X-min of the plotting.
+	 * @param max
+	 *            The X-max of the plotting.
+	 * @param nbPts
+	 *            The number of points to plot.
 	 * @return True if the given equation is a valid post-fixed PS equation.
 	 * @since 3.3
 	 */
@@ -40,13 +46,14 @@ public class PSFunctionParser {
 		try {
 			final PSFunctionParser fct = new PSFunctionParser(eq);
 			final double gap = (max-min)/(nbPts-1);
-			
-			for(double x = min; x<max; x+=gap)
+
+			for(double x = min; x<max; x += gap)
 				fct.getY(x);
-			
+
 			return true;
+		}catch(final NumberFormatException|ArithmeticException ex) {
+			return false;
 		}
-		catch(final NumberFormatException | ArithmeticException ex){return false;}
 	}
 
 	/** The postscript function. */
@@ -56,27 +63,28 @@ public class PSFunctionParser {
 
 	private final Map<String, PSCmd> factoryMap;
 
-
 	/**
 	 * Creates and parser from postscript functions.
-	 * @param fct The function to parse.
-	 * @throws InvalidFormatPSFunctionException If the function format is not valid.
+	 * 
+	 * @param fct
+	 *            The function to parse.
+	 * @throws InvalidFormatPSFunctionException
+	 *             If the function format is not valid.
 	 * @since 3.0
 	 */
 	public PSFunctionParser(final String fct) throws InvalidFormatPSFunctionException {
-        super();
-        if (fct == null || fct.isEmpty())
-            throw new IllegalArgumentException();
+		super();
+		if(fct==null||fct.isEmpty())
+			throw new IllegalArgumentException();
 
-        factoryMap = new HashMap<>();
-        commands = new ArrayList<>();
-        function = fct;
+		factoryMap = new HashMap<>();
+		commands = new ArrayList<>();
+		function = fct;
 
-        initFactoryMap();
-        parseFunction();
-    }
+		initFactoryMap();
+		parseFunction();
+	}
 
-	
 	private void initFactoryMap() {
 		factoryMap.put("add", () -> new PSAddCommand());
 		factoryMap.put("mul", () -> new PSMulCommand());
@@ -101,13 +109,17 @@ public class PSFunctionParser {
 		factoryMap.put("x", () -> new PSPlotXVariable());
 		factoryMap.put("log", () -> new PSLogCommand());
 	}
-	
 
 	/**
-	 * @param x The X-coordinate used to compute the Y using the function.
-	 * @return The y value corresponding to the given X value. Or Double.NaN is an arithmetic error occurs.
-	 * @throws InvalidFormatPSFunctionException If the function is not correct.
-	 * @throws ArithmeticException If an error occurs during the computation of the points (e.g. division by 0).
+	 * @param x
+	 *            The X-coordinate used to compute the Y using the function.
+	 * @return The y value corresponding to the given X value. Or Double.NaN is
+	 *         an arithmetic error occurs.
+	 * @throws InvalidFormatPSFunctionException
+	 *             If the function is not correct.
+	 * @throws ArithmeticException
+	 *             If an error occurs during the computation of the points (e.g.
+	 *             division by 0).
 	 */
 	public double getY(final double x) throws InvalidFormatPSFunctionException {
 		final Deque<Double> stack = new ArrayDeque<>();
@@ -120,25 +132,26 @@ public class PSFunctionParser {
 		return stack.pop();
 	}
 
-
-
 	/**
 	 * Parses the function.
-	 * @throws InvalidFormatPSFunctionException If the function is not correct.
-	 * @throws NumberFormatException If the function is not correct.
+	 * 
+	 * @throws InvalidFormatPSFunctionException
+	 *             If the function is not correct.
+	 * @throws NumberFormatException
+	 *             If the function is not correct.
 	 */
 	protected void parseFunction() throws InvalidFormatPSFunctionException, NumberFormatException {
 		int i = 0;
-        final int lgth = function.length();
-        final StringBuilder cmd = new StringBuilder();
+		final int lgth = function.length();
+		final StringBuilder cmd = new StringBuilder();
 
 		while(i<lgth) {
 			cmd.delete(0, cmd.length());
 
-			while(i<lgth && function.charAt(i)==' ')
+			while(i<lgth&&function.charAt(i)==' ')
 				i++;
 
-			while(i<lgth && function.charAt(i)!=' ')
+			while(i<lgth&&function.charAt(i)!=' ')
 				cmd.append(function.charAt(i++));
 
 			if(cmd.length()>0)
@@ -146,24 +159,25 @@ public class PSFunctionParser {
 		}
 	}
 
-
-
 	/**
-	 * @param cmd The arithmetic command to analyse.
+	 * @param cmd
+	 *            The arithmetic command to analyse.
 	 * @return The arithmetic instance corresponding to the given command.
-	 * @throws InvalidFormatPSFunctionException If the function is not correct.
-	 * @throws NumberFormatException If the function is not correct.
+	 * @throws InvalidFormatPSFunctionException
+	 *             If the function is not correct.
+	 * @throws NumberFormatException
+	 *             If the function is not correct.
 	 * @since 3.0
 	 */
 	protected PSArithemticCommand identifyCommand(final String cmd) throws InvalidFormatPSFunctionException, NumberFormatException {
-		if(cmd==null || cmd.isEmpty())
+		if(cmd==null||cmd.isEmpty())
 			throw new InvalidFormatPSFunctionException();
 
 		try {
 			return factoryMap.getOrDefault(cmd, () -> new PSValue(Double.parseDouble(cmd))).create();
-		}catch(final NumberFormatException ex) {throw new InvalidFormatPSFunctionException("Cannot parse: " + cmd);} //$NON-NLS-1$
+		}catch(final NumberFormatException ex) {
+			throw new InvalidFormatPSFunctionException("Cannot parse: "+cmd);} //$NON-NLS-1$
 	}
-
 
 	@FunctionalInterface
 	private interface PSCmd {

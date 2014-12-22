@@ -4,20 +4,21 @@ import java.util.Deque;
 
 /**
  * Defines the exch command.<br>
- *<br>
+ * <br>
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
- *<br>
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.<br>
- *<br>
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- *<br>
+ * <br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later
+ * version.<br>
+ * <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.<br>
+ * <br>
  * 03/11/08<br>
+ * 
  * @author Arnaud BLOUIN
  * @version 3.0
  */
@@ -27,10 +28,10 @@ public class PSExchCommand implements PSArithemticCommand {
 		if(stack.size()<2)
 			throw new InvalidFormatPSFunctionException();
 
-			final Double a = stack.pop();
-			final Double b = stack.pop();
+		final Double a = stack.pop();
+		final Double b = stack.pop();
 
-			stack.push(a);
-			stack.push(b);
+		stack.push(a);
+		stack.push(b);
 	}
 }
