@@ -65,7 +65,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 
 	
 	@Test
-	public void testChangeFrameArcPencil() {
+	public void testChangeFrameArcSelection() {
 		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		double val = frameArcField.getValue();
 		incrementFrameArc.execute();
@@ -77,7 +77,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	
 	
 	@Test
-	public void testChangeThicknessPencil() {
+	public void testChangeThicknessSelection() {
 		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		double val = thicknessField.getValue();
 		incrementThickness.execute();
@@ -88,7 +88,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	}
 	
 	@Test
-	public void testSelectBorderPosPencil() {
+	public void testSelectBorderPosSelection() {
 		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		BorderPos style = (BorderPos)bordersPosCB.getSelectionModel().getSelectedItem().getUserData();
 		selectBorderPos.execute();
@@ -99,7 +99,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	}
 	
 	@Test
-	public void testSelectLineStylePencil() {
+	public void testSelectLineStyleSelection() {
 		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		LineStyle style = (LineStyle)lineCB.getSelectionModel().getSelectedItem().getUserData();
 		selectLineStyle.execute();

@@ -11,6 +11,6 @@ import org.testfx.api.FxRobotInterface;
  */
 public interface FxRobotSpinner extends FxRobotInterface {
 	default <T>void incrementSpinner(final Spinner<T> combo) {
-		clickOn(combo).type(KeyCode.UP).type(KeyCode.ENTER);
+		clickOn(combo).type(KeyCode.UP);
 	}
 }

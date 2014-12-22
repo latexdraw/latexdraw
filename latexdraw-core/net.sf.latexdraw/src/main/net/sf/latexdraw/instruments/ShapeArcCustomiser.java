@@ -1,12 +1,22 @@
 package net.sf.latexdraw.instruments;
 
+import java.util.Arrays;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
+import net.sf.latexdraw.actions.ModifyPencilParameter;
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
+import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.actions.shape.ShapePropertyAction;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+
+import org.malai.javafx.instrument.library.SpinnerInteractor;
+import org.malai.javafx.instrument.library.ToggleButtonInteractor;
 
 /**
  * This instrument modifies arc parameters.<br>
@@ -76,176 +86,117 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseInteractors() {
-//		try{
-//			addInteractor(new Spinner2SelectionEndAngle(this));
-//			addInteractor(new Spinner2SelectionStartAngle(this));
-//			addInteractor(new Spinner2PencilStartAngle(this));
-//			addInteractor(new Spinner2PencilEndAngle(this));
-//			addInteractor(new Button2SelectionArcStyle(this));
-//			addInteractor(new Button2PencilArcStyle(this));
-//		}catch(InstantiationException | IllegalAccessException e){
-//			BadaboomCollector.INSTANCE.add(e);
+		try{
+			addInteractor(new Spinner2SelectionAngle(this));
+			addInteractor(new Spinner2PencilAngle(this));
+			addInteractor(new Button2SelectionArcStyle(this));
+			addInteractor(new Button2PencilArcStyle(this));
+		}catch(InstantiationException | IllegalAccessException e){
+			BadaboomCollector.INSTANCE.add(e);
+		}
+	}
+	
+	private static abstract class Button2ArcStyle<T extends ShapePropertyAction> extends ToggleButtonInteractor<T, ShapeArcCustomiser> {
+		Button2ArcStyle(final ShapeArcCustomiser ins, final Class<T> action) throws InstantiationException, IllegalAccessException {
+			super(ins, action, Arrays.asList(ins.arcB, ins.chordB, ins.wedgeB));
+		}
+	
+		@Override
+		public void initAction() {
+			final ToggleButton button = interaction.getWidget();
+			final ArcStyle style;
+	
+			if(button==instrument.arcB)
+				 style = ArcStyle.ARC;
+			else if(button==instrument.chordB)
+				 style=ArcStyle.CHORD;
+			else style=ArcStyle.WEDGE;
+	
+			action.setProperty(ShapeProperties.ARC_STYLE);
+			action.setValue(style);
+		}
+	}
+
+
+	private static class Button2PencilArcStyle extends Button2ArcStyle<ModifyPencilParameter> {
+		Button2PencilArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class);
+		}
+	
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setPencil(instrument.pencil);
+		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+	
+	private static class Button2SelectionArcStyle extends Button2ArcStyle<ModifyShapeProperty> {
+		Button2SelectionArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class);
+		}
+	
+		@Override
+		public void initAction() {
+			super.initAction();
+			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
+	}
+	
+	private static class Spinner2PencilAngle extends SpinnerInteractor<ModifyPencilParameter, ShapeArcCustomiser> {
+		Spinner2PencilAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.startAngleS, ins.endAngleS));
+		}
+	
+		@Override
+		public void initAction() {
+			if(interaction.getWidget()==instrument.startAngleS)
+				action.setProperty(ShapeProperties.ARC_START_ANGLE);
+			else
+				action.setProperty(ShapeProperties.ARC_END_ANGLE);
+
+			action.setPencil(instrument.pencil);
+			action.setValue(Math.toRadians((double)interaction.getWidget().getValue()));
+		}
+	//TODO see whether spinner actions can be grouped as before.
+//		@Override
+//		public void updateAction() {
+//			action.setValue(Math.toRadians((double)interaction.getWidget().getValue()));
 //		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+	
+	private static class Spinner2SelectionAngle extends SpinnerInteractor<ModifyShapeProperty, ShapeArcCustomiser> {
+		Spinner2SelectionAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.startAngleS, ins.endAngleS));
+		}
+	
+		@Override
+		public void initAction() {
+			if(interaction.getWidget()==instrument.startAngleS)
+				action.setProperty(ShapeProperties.ARC_START_ANGLE);
+			else
+				action.setProperty(ShapeProperties.ARC_END_ANGLE);
+			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setValue(Math.toRadians((double)interaction.getWidget().getValue()));
+		}
+	
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
 	}
 }
-
-
-//abstract class Button2ArcStyle<T extends ShapePropertyAction> extends ButtonPressedForCustomiser<T, ShapeArcCustomiser> {
-//	protected Button2ArcStyle(final ShapeArcCustomiser ins, final Class<T> action) throws InstantiationException, IllegalAccessException {
-//		super(ins, action);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		final Object button = interaction.getButton();
-//		final ArcStyle style;
-//
-//		if(button==instrument.arcB)
-//			 style = ArcStyle.ARC;
-//		else if(button==instrument.chordB)
-//			 style=ArcStyle.CHORD;
-//		else style=ArcStyle.WEDGE;
-//
-//		action.setProperty(ShapeProperties.ARC_STYLE);
-//		action.setValue(style);
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		final Object button = interaction.getButton();
-//		return button==instrument.arcB || button==instrument.chordB || button==instrument.wedgeB;
-//	}
-//}
-//
-//
-//
-//class Button2PencilArcStyle extends Button2ArcStyle<ModifyPencilParameter> {
-//	protected Button2PencilArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, ModifyPencilParameter.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		super.initAction();
-//		action.setPencil(instrument.pencil);
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return super.isConditionRespected() && instrument.pencil.isActivated();
-//	}
-//}
-//
-//
-//
-//class Button2SelectionArcStyle extends Button2ArcStyle<ModifyShapeProperty> {
-//	protected Button2SelectionArcStyle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, ModifyShapeProperty.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		super.initAction();
-//		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return super.isConditionRespected() && instrument.hand.isActivated();
-//	}
-//}
-//
-//
-//
-//class Spinner2PencilStartAngle extends SpinnerForCustomiser<ModifyPencilParameter, ShapeArcCustomiser> {
-//	protected Spinner2PencilStartAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, ModifyPencilParameter.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		action.setProperty(ShapeProperties.ARC_START_ANGLE);
-//		action.setPencil(instrument.pencil);
-//	}
-//
-//	@Override
-//	public void updateAction() {
-//		action.setValue(Math.toRadians(Double.valueOf(instrument.startAngleS.getValue().toString())));
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return interaction.getSpinner()==instrument.startAngleS && instrument.pencil.isActivated();
-//	}
-//}
-//
-//
-//
-//class Spinner2SelectionStartAngle extends SpinnerForCustomiser<ModifyShapeProperty, ShapeArcCustomiser> {
-//	protected Spinner2SelectionStartAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, ModifyShapeProperty.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		action.setProperty(ShapeProperties.ARC_START_ANGLE);
-//		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-//	}
-//
-//	@Override
-//	public void updateAction() {
-//		action.setValue(Math.toRadians(Double.valueOf(instrument.startAngleS.getValue().toString())));
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return interaction.getSpinner()==instrument.startAngleS && instrument.hand.isActivated();
-//	}
-//}
-//
-//
-//
-//class Spinner2PencilEndAngle extends SpinnerForCustomiser<ModifyPencilParameter, ShapeArcCustomiser> {
-//	protected Spinner2PencilEndAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, ModifyPencilParameter.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		action.setProperty(ShapeProperties.ARC_END_ANGLE);
-//		action.setPencil(instrument.pencil);
-//	}
-//
-//	@Override
-//	public void updateAction() {
-//		action.setValue(Math.toRadians(Double.valueOf(instrument.endAngleS.getValue().toString())));
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return interaction.getSpinner()==instrument.endAngleS && instrument.pencil.isActivated();
-//	}
-//}
-//
-//
-//class Spinner2SelectionEndAngle extends SpinnerForCustomiser<ModifyShapeProperty, ShapeArcCustomiser> {
-//	protected Spinner2SelectionEndAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-//		super(ins, ModifyShapeProperty.class);
-//	}
-//
-//	@Override
-//	public void initAction() {
-//		action.setProperty(ShapeProperties.ARC_END_ANGLE);
-//		action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-//	}
-//
-//	@Override
-//	public void updateAction() {
-//		action.setValue(Math.toRadians(Double.valueOf(instrument.endAngleS.getValue().toString())));
-//	}
-//
-//	@Override
-//	public boolean isConditionRespected() {
-//		return interaction.getSpinner()==instrument.endAngleS && instrument.hand.isActivated();
-//	}
-//}
