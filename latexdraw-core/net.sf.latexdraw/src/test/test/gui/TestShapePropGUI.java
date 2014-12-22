@@ -32,6 +32,7 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	final protected GUICommand pencilCreatesText = () -> pencil.setCurrentChoice(EditionChoice.TEXT);
 	final protected GUICommand pencilCreatesPic = () -> pencil.setCurrentChoice(EditionChoice.PICTURE);
 	final protected GUICommand pencilCreatesArc = () -> pencil.setCurrentChoice(EditionChoice.CIRCLE_ARC);
+	final protected GUICommand pencilCreatesAxes = () -> pencil.setCurrentChoice(EditionChoice.AXES);
 
 	final protected GUICommand updateIns = () -> {
 		Platform.runLater(() ->  ins.update());
@@ -75,6 +76,12 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	
 	final protected GUICommand selectionAddArc = () -> {
 		IShape sh = ShapeFactory.createCircleArc();
+		hand.getCanvas().getDrawing().addShape(sh);
+		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+	};
+	
+	final protected GUICommand selectionAddAxes = () -> {
+		IShape sh = ShapeFactory.createAxes(ShapeFactory.createPoint());
 		hand.getCanvas().getDrawing().addShape(sh);
 		hand.getCanvas().getDrawing().getSelection().addShape(sh);
 	};

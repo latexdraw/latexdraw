@@ -38,14 +38,12 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 			}
 		};
 	}
-	
-	
+
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
 		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns, checkInsActivated).execute();
 	}
 
-	
 	@Test
 	public void testIncrementFrameArcPencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
@@ -54,7 +52,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		assertEquals(frameArcField.getValue(), ((IRectangle)pencil.createShapeInstance()).getLineArc(), 0.0001);
 		assertNotEquals(val, frameArcField.getValue(), 0.0001);
 	}
-	
+
 	@Test
 	public void testIncrementThicknessPencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
@@ -63,7 +61,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		assertEquals(thicknessField.getValue(), pencil.createShapeInstance().getThickness(), 0.0001);
 		assertNotEquals(val, thicknessField.getValue(), 0.0001);
 	}
-	
+
 	@Test
 	public void testSelectBorderPosPencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
@@ -72,7 +70,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		assertEquals(bordersPosCB.getSelectionModel().getSelectedItem().getUserData(), pencil.createShapeInstance().getBordersPosition());
 		assertNotEquals(style, bordersPosCB.getSelectionModel().getSelectedItem().getUserData());
 	}
-	
+
 	@Test
 	public void testSelectLineStylePencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
@@ -81,7 +79,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		assertEquals(lineCB.getSelectionModel().getSelectedItem().getUserData(), pencil.createShapeInstance().getLineStyle());
 		assertNotEquals(style, lineCB.getSelectionModel().getSelectedItem().getUserData());
 	}
-	
+
 	@Test
 	public void testPickLineColourPencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
@@ -90,7 +88,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		assertEquals(lineColButton.getValue(), pencil.createShapeInstance().getLineColour().toJFX());
 		assertNotEquals(col, lineColButton.getValue());
 	}
-	
+
 	@Test
 	public void testCheckShowPointPencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesBezier, updateIns).execute();
@@ -98,7 +96,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		checkShowPts.execute();
 		assertEquals(!sel, pencil.createShapeInstance().isShowPts());
 	}
-	
+
 	@Test
 	public void testWidgetsGoodStateWhenNotShowPointPencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
@@ -114,7 +112,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		assertFalse(frameArcField.isDisabled());
 		assertFalse(showPoints.isVisible());
 	}
-	
+
 	@Test
 	public void testWidgetsGoodStateWhenNotBorderMovableShowPointablePencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesBezier, updateIns).execute();
@@ -129,7 +127,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		assertTrue(showPoints.isVisible());
 		assertFalse(showPoints.isDisabled());
 	}
-	
+
 	@Test
 	public void testWidgetsGoodStateWhenNotFrameArcPencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesCircle, updateIns).execute();
@@ -144,7 +142,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		assertFalse(frameArcField.isVisible());
 		assertFalse(showPoints.isVisible());
 	}
-	
+
 	@Test
 	public void testWidgetsGoodStateWhenNotThicknessablePencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesText, updateIns).execute();
@@ -156,7 +154,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 		assertFalse(frameArcField.isVisible());
 		assertFalse(showPoints.isVisible());
 	}
-	
+
 	@Test
 	public void testWidgetsGoodStateWhenNotColourablePencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesPic, updateIns).execute();
