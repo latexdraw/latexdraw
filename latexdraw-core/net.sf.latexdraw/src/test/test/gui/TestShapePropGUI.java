@@ -26,28 +26,28 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	protected Hand hand;
 	protected T ins;
 	
-	final protected GUICommand pencilCreatesRec = () -> pencil.setCurrentChoice(EditionChoice.RECT);
-	final protected GUICommand pencilCreatesBezier = () -> pencil.setCurrentChoice(EditionChoice.BEZIER_CURVE); 
-	final protected GUICommand pencilCreatesCircle = () -> pencil.setCurrentChoice(EditionChoice.CIRCLE);
-	final protected GUICommand pencilCreatesText = () -> pencil.setCurrentChoice(EditionChoice.TEXT);
-	final protected GUICommand pencilCreatesPic = () -> pencil.setCurrentChoice(EditionChoice.PICTURE);
-	final protected GUICommand pencilCreatesArc = () -> pencil.setCurrentChoice(EditionChoice.CIRCLE_ARC);
-	final protected GUICommand pencilCreatesAxes = () -> pencil.setCurrentChoice(EditionChoice.AXES);
+	final protected GUIVoidCommand pencilCreatesRec = () -> pencil.setCurrentChoice(EditionChoice.RECT);
+	final protected GUIVoidCommand pencilCreatesBezier = () -> pencil.setCurrentChoice(EditionChoice.BEZIER_CURVE); 
+	final protected GUIVoidCommand pencilCreatesCircle = () -> pencil.setCurrentChoice(EditionChoice.CIRCLE);
+	final protected GUIVoidCommand pencilCreatesText = () -> pencil.setCurrentChoice(EditionChoice.TEXT);
+	final protected GUIVoidCommand pencilCreatesPic = () -> pencil.setCurrentChoice(EditionChoice.PICTURE);
+	final protected GUIVoidCommand pencilCreatesArc = () -> pencil.setCurrentChoice(EditionChoice.CIRCLE_ARC);
+	final protected GUIVoidCommand pencilCreatesAxes = () -> pencil.setCurrentChoice(EditionChoice.AXES);
 
-	final protected GUICommand updateIns = () -> {
+	final protected GUIVoidCommand updateIns = () -> {
 		Platform.runLater(() ->  ins.update());
 		WaitForAsyncUtils.waitForFxEvents();
 	};
-	final protected GUICommand checkInsActivated = () -> assertTrue(ins.isActivated());
-	final protected GUICommand checkInsDeactivated = () -> assertFalse(ins.isActivated());
+	final protected GUIVoidCommand checkInsActivated = () -> assertTrue(ins.isActivated());
+	final protected GUIVoidCommand checkInsDeactivated = () -> assertFalse(ins.isActivated());
 	
-	final protected GUICommand activatePencil = () -> {
+	final protected GUIVoidCommand activatePencil = () -> {
 		//when(pencil.isActivated()).thenReturn(true);
 		pencil.setActivated(true);
 		when(hand.isActivated()).thenReturn(false);
 	};
 	
-	final protected GUICommand activateHand = () -> {
+	final protected GUIVoidCommand activateHand = () -> {
 		when(pencil.isActivated()).thenReturn(false);
 //		when(hand.isActivated()).thenReturn(true);
 		hand.setActivated(true);
@@ -68,25 +68,25 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 //		when(pencil.getGroupParams()).thenReturn(g);
 //	};
 	
-	final protected GUICommand selectionAddRec = () -> {
+	final protected GUIVoidCommand selectionAddRec = () -> {
 		IShape sh = ShapeFactory.createRectangle();
 		hand.getCanvas().getDrawing().addShape(sh);
 		hand.getCanvas().getDrawing().getSelection().addShape(sh);
 	};
 	
-	final protected GUICommand selectionAddArc = () -> {
+	final protected GUIVoidCommand selectionAddArc = () -> {
 		IShape sh = ShapeFactory.createCircleArc();
 		hand.getCanvas().getDrawing().addShape(sh);
 		hand.getCanvas().getDrawing().getSelection().addShape(sh);
 	};
 	
-	final protected GUICommand selectionAddAxes = () -> {
+	final protected GUIVoidCommand selectionAddAxes = () -> {
 		IShape sh = ShapeFactory.createAxes(ShapeFactory.createPoint());
 		hand.getCanvas().getDrawing().addShape(sh);
 		hand.getCanvas().getDrawing().getSelection().addShape(sh);
 	};
 	
-	final protected GUICommand selectionAddBezier = () -> {
+	final protected GUIVoidCommand selectionAddBezier = () -> {
 		IShape sh = ShapeFactory.createBezierCurve();
 		hand.getCanvas().getDrawing().addShape(sh);
 		hand.getCanvas().getDrawing().getSelection().addShape(sh);

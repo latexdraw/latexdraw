@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import test.gui.CompositeGUICommand;
+import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestArcStyleGUI;
 
@@ -40,55 +40,55 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUICommand(activateHand, updateIns, checkInsDeactivated).execute();
+		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 	
 	
 	@Test
 	public void testControllerActivatedWhenSelectionArc() {
-		new CompositeGUICommand(selectionAddArc, activateHand, updateIns).execute();
+		new CompositeGUIVoidCommand(selectionAddArc, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(mainPane.isVisible());
 	}
 	
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotArc() {
-		new CompositeGUICommand(selectionAddRec, activateHand, updateIns).execute();
+		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(mainPane.isVisible());
 	}
 	
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
-		new CompositeGUICommand(activateHand, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(mainPane.isVisible());
 	}
 	
 	@Test
 	public void testArcTypeChordSelection() {
-		new CompositeGUICommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectWedge, selectChord).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectWedge, selectChord).execute();
 		assertEquals(IArcProp.ArcStyle.CHORD, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
 		assertEquals(IArcProp.ArcStyle.CHORD, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
 	}
 	
 	@Test
 	public void testArcTypeArcSelection() {
-		new CompositeGUICommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectArc).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectArc).execute();
 		assertEquals(IArcProp.ArcStyle.ARC, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
 		assertEquals(IArcProp.ArcStyle.ARC, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
 	}
 	
 	@Test
 	public void testArcTypeWedgeSelection() {
-		new CompositeGUICommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectWedge).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectWedge).execute();
 		assertEquals(IArcProp.ArcStyle.WEDGE, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
 		assertEquals(IArcProp.ArcStyle.WEDGE, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
 	}
 	
 	@Test
 	public void testArcEndAngleSelection() {
-		new CompositeGUICommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns).execute();
 		double angle = endAngleS.getValue();
 		incrementEndAngle.execute();
 		assertEquals(endAngleS.getValue(), Math.toDegrees(((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getAngleEnd()), 0.0001);
@@ -98,7 +98,7 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 	
 	@Test
 	public void testArcStartAngleSelection() {
-		new CompositeGUICommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns).execute();
 		double angle = startAngleS.getValue();
 		incrementStartAngle.execute();
 		assertEquals(startAngleS.getValue(), Math.toDegrees(((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getAngleStart()), 0.0001);

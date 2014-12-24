@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import test.gui.CompositeGUICommand;
+import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestAxesStyleGUI;
 
@@ -38,33 +38,33 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUICommand(activateHand, updateIns, checkInsDeactivated).execute();
+		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelectionAxes() {
-		new CompositeGUICommand(selectionAddAxes, activateHand, updateIns).execute();
+		new CompositeGUIVoidCommand(selectionAddAxes, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(mainPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionNotAxes() {
-		new CompositeGUICommand(selectionAddRec, activateHand, updateIns).execute();
+		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
 	public void testControllerDeactivatedWhenSelectionEmpty() {
-		new CompositeGUICommand(activateHand, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, updateIns).execute();
 		assertFalse(ins.isActivated());
 		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
 	public void testCheckShowOriginSelection() {
-		new CompositeGUICommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		boolean sel = showOrigin.isSelected();
 		selectShowOrigin.execute();
 		assertEquals(!sel, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).isShowOrigin());
@@ -73,7 +73,7 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementDistYSelection() {
-		new CompositeGUICommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		double val = distLabelsY.getValue();
 		incrementDistLabelY.execute();
 		assertEquals(distLabelsY.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getDistLabelsY(), 0.0001);
@@ -83,7 +83,7 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementDistXSelection() {
-		new CompositeGUICommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		double val = distLabelsX.getValue();
 		incrementDistLabelX.execute();
 		assertEquals(distLabelsX.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getDistLabelsX(), 0.0001);
@@ -93,7 +93,7 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementLabelYSelection() {
-		new CompositeGUICommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		double val = incrLabelY.getValue();
 		incrementLabelY.execute();
 		assertEquals(incrLabelY.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getIncrementY(), 0.0001);
@@ -103,7 +103,7 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementLabelXSelection() {
-		new CompositeGUICommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		double val = incrLabelX.getValue();
 		incrementLabelX.execute();
 		assertEquals(incrLabelX.getValue(), ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getIncrementX(), 0.0001);
@@ -113,7 +113,7 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testSelectShowLabelsSelection() {
-		new CompositeGUICommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		IAxesProp.PlottingStyle style = showLabels.getSelectionModel().getSelectedItem();
 		selectPlotLabel.execute();
 		IAxesProp.PlottingStyle newStyle = showLabels.getSelectionModel().getSelectedItem();
@@ -124,7 +124,7 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testSelectShowTicksSelection() {
-		new CompositeGUICommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		IAxesProp.PlottingStyle style = showTicks.getSelectionModel().getSelectedItem();
 		selectPlotTicks.execute();
 		IAxesProp.PlottingStyle newStyle = showTicks.getSelectionModel().getSelectedItem();
@@ -135,7 +135,7 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testSelectTicksStyleSelection() {
-		new CompositeGUICommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		IAxesProp.TicksStyle style = shapeTicks.getSelectionModel().getSelectedItem();
 		selectTicksStyle.execute();
 		IAxesProp.TicksStyle newStyle = shapeTicks.getSelectionModel().getSelectedItem();
@@ -146,7 +146,7 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testSelectLineStyleSelection() {
-		new CompositeGUICommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
 		IAxesProp.AxesStyle style = shapeAxes.getSelectionModel().getSelectedItem();
 		selectAxeStyle.execute();
 		IAxesProp.AxesStyle newStyle = shapeAxes.getSelectionModel().getSelectedItem();

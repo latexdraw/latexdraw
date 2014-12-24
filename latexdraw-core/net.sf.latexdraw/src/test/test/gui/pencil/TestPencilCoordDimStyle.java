@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import test.gui.CompositeGUICommand;
+import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestCoordDimShapeGUI;
 
@@ -34,12 +34,12 @@ public class TestPencilCoordDimStyle extends TestCoordDimShapeGUI {
 	
 	@Test
 	public void testControllerNotActivatedWithPencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
 	}
 	
 	@Test
 	public void testControllerNotVisibleWithPencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertFalse(mainPane.isVisible());
 	}
 }

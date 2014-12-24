@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import test.gui.CompositeGUICommand;
+import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestCoordDimShapeGUI;
 
@@ -36,12 +36,12 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUICommand(activateHand, updateIns, checkInsDeactivated).execute();
+		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testControllerActivatedWhenSelection() {
-		new CompositeGUICommand(selectionAddArc, activateHand, updateIns).execute();
+		new CompositeGUIVoidCommand(selectionAddArc, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(tlxS.isVisible());
 		assertTrue(tlyS.isVisible());
@@ -49,7 +49,7 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 
 	@Test
 	public void testSetYSelection() {
-		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		double angle = tlyS.getValue();
 		incrementY.execute();
 		assertEquals(tlyS.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getTopLeftPoint().getY(), 0.0001);
@@ -59,7 +59,7 @@ public class TestHandCoordDimStyle extends TestCoordDimShapeGUI {
 
 	@Test
 	public void testSetXSelection() {
-		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		double angle = tlxS.getValue();
 		incrementX.execute();
 		assertEquals(tlxS.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getTopLeftPoint().getX(), 0.0001);

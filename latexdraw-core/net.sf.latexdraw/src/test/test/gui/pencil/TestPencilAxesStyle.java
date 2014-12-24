@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import test.gui.CompositeGUICommand;
+import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestAxesStyleGUI;
 
@@ -38,29 +38,29 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns, checkInsActivated).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns, checkInsActivated).execute();
 	}
 
 	@Test
 	public void testControllerNotActivatedWhenBadPencilUsed() {
-		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		assertTrue(mainPane.isVisible());
 	}
 
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
-		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertFalse(mainPane.isVisible());
 	}
 
 	@Test
 	public void testCheckShowOriginPencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		boolean sel = showOrigin.isSelected();
 		selectShowOrigin.execute();
 		assertEquals(!sel, ((IAxesProp)pencil.createShapeInstance()).isShowOrigin());
@@ -68,7 +68,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementDistYPencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		double val = distLabelsY.getValue();
 		incrementDistLabelY.execute();
 		assertEquals(distLabelsY.getValue(), ((IAxesProp)pencil.createShapeInstance()).getDistLabelsY(), 0.0001);
@@ -77,7 +77,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementDistXPencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		double val = distLabelsX.getValue();
 		incrementDistLabelX.execute();
 		assertEquals(distLabelsX.getValue(), ((IAxesProp)pencil.createShapeInstance()).getDistLabelsX(), 0.0001);
@@ -86,7 +86,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementLabelYPencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		double val = incrLabelY.getValue();
 		incrementLabelY.execute();
 		assertEquals(incrLabelY.getValue(), ((IAxesProp)pencil.createShapeInstance()).getIncrementY(), 0.0001);
@@ -95,7 +95,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testIncrementLabelXPencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		double val = incrLabelX.getValue();
 		incrementLabelX.execute();
 		assertEquals(incrLabelX.getValue(), ((IAxesProp)pencil.createShapeInstance()).getIncrementX(), 0.0001);
@@ -104,7 +104,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testSelectShowLabelsPencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		IAxesProp.PlottingStyle style = showLabels.getSelectionModel().getSelectedItem();
 		selectPlotLabel.execute();
 		IAxesProp.PlottingStyle newStyle = showLabels.getSelectionModel().getSelectedItem();
@@ -114,7 +114,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testSelectShowTicksPencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		IAxesProp.PlottingStyle style = showTicks.getSelectionModel().getSelectedItem();
 		selectPlotTicks.execute();
 		IAxesProp.PlottingStyle newStyle = showTicks.getSelectionModel().getSelectedItem();
@@ -124,7 +124,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testSelectTicksStylePencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		IAxesProp.TicksStyle style = shapeTicks.getSelectionModel().getSelectedItem();
 		selectTicksStyle.execute();
 		IAxesProp.TicksStyle newStyle = shapeTicks.getSelectionModel().getSelectedItem();
@@ -134,7 +134,7 @@ public class TestPencilAxesStyle extends TestAxesStyleGUI {
 
 	@Test
 	public void testSelectLineStylePencil() {
-		new CompositeGUICommand(activatePencil, pencilCreatesAxes, updateIns).execute();
+		new CompositeGUIVoidCommand(activatePencil, pencilCreatesAxes, updateIns).execute();
 		IAxesProp.AxesStyle style = shapeAxes.getSelectionModel().getSelectedItem();
 		selectAxeStyle.execute();
 		IAxesProp.AxesStyle newStyle = shapeAxes.getSelectionModel().getSelectedItem();

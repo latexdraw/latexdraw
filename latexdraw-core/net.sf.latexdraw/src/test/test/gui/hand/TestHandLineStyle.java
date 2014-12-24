@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import test.gui.CompositeGUICommand;
+import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
 import test.gui.TestLineStyleGUI;
 
@@ -42,13 +42,13 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
-		new CompositeGUICommand(activateHand, updateIns, checkInsDeactivated).execute();
+		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
 	}
 	
 	
 	@Test
 	public void testControllerActivatedWhenSelectionNotEmpty() {
-		new CompositeGUICommand(selectionAddRec, activateHand, updateIns).execute();
+		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
 		assertTrue(ins.isActivated());
 		assertTrue(thicknessField.isVisible());
 		assertFalse(thicknessField.isDisabled());
@@ -66,7 +66,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	
 	@Test
 	public void testChangeFrameArcSelection() {
-		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		double val = frameArcField.getValue();
 		incrementFrameArc.execute();
 		double newVal = frameArcField.getValue();
@@ -78,7 +78,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	
 	@Test
 	public void testChangeThicknessSelection() {
-		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		double val = thicknessField.getValue();
 		incrementThickness.execute();
 		double newVal = thicknessField.getValue();
@@ -89,7 +89,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	
 	@Test
 	public void testSelectBorderPosSelection() {
-		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
 		selectBorderPos.execute();
 		BorderPos newStyle = bordersPosCB.getSelectionModel().getSelectedItem();
@@ -100,7 +100,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	
 	@Test
 	public void testSelectLineStyleSelection() {
-		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
 		LineStyle style = lineCB.getSelectionModel().getSelectedItem();
 		selectLineStyle.execute();
 		LineStyle newStyle = lineCB.getSelectionModel().getSelectedItem();
@@ -111,7 +111,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	
 	@Test
 	public void testCheckShowPointSelection() {
-		new CompositeGUICommand(activateHand, selectionAddBezier, selectionAddBezier, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddBezier, updateIns).execute();
 		boolean sel = showPoints.isSelected();
 		checkShowPts.execute();
 		assertEquals(!sel, hand.getCanvas().getDrawing().getSelection().getShapeAt(0).isShowPts());
@@ -121,7 +121,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	
 	@Test
 	public void testPickLineColourSelection() {
-		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddBezier, updateIns).execute();
+		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddBezier, updateIns).execute();
 		Color col = lineColButton.getValue();
 		pickLineCol.execute();
 		assertEquals(lineColButton.getValue(), hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getLineColour().toJFX());

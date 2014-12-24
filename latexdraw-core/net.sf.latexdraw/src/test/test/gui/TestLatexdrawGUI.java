@@ -23,7 +23,7 @@ import com.google.inject.Injector;
 public abstract class TestLatexdrawGUI extends GuiTest {
 	protected Callback<Class<?>, Object> guiceFactory;
 
-	final protected GUICommand waitFXEvents = () -> WaitForAsyncUtils.waitForFxEvents();
+	final protected GUIVoidCommand waitFXEvents = () -> WaitForAsyncUtils.waitForFxEvents();
 	
 	@Before
 	public void setUp() {

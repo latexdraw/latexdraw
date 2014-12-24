@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CompositeGUICommand implements GUICommand {
-	protected final List<GUICommand> cmds;
+public class CompositeGUIVoidCommand implements GUIVoidCommand {
+	protected final List<GUIVoidCommand> cmds;
 	
-	public CompositeGUICommand(final GUICommand... commands) {
+	public CompositeGUIVoidCommand(final GUIVoidCommand... commands) {
 		super();
 		cmds = new ArrayList<>();
 		cmds.addAll(Arrays.asList(commands));
@@ -15,6 +15,6 @@ public class CompositeGUICommand implements GUICommand {
 
 	@Override
 	public void execute() {
-		cmds.forEach(GUICommand::execute);
+		cmds.forEach(GUIVoidCommand::execute);
 	}
 }
