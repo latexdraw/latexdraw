@@ -1,6 +1,8 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -9,7 +11,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -39,7 +41,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	@FXML protected Spinner<Double> dotSizeField;
 
 	/** Allows the selection of a dot shape. */
-	@FXML protected ComboBox<ImageView> dotCB;
+	@FXML protected ComboBox<DotStyle> dotCB;
 
 	/** Changes the colour of the filling of the dot. */
 	@FXML protected ColorPicker fillingB;
@@ -55,13 +57,24 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		dotCB.getItems().addAll(createItem(DotStyle.DOT, "/res/dotStyles/dot.none.png"), createItem(DotStyle.ASTERISK, "/res/dotStyles/dot.asterisk.png"),
-				createItem(DotStyle.BAR, "/res/dotStyles/dot.bar.png"), createItem(DotStyle.DIAMOND, "/res/dotStyles/dot.diamond.png"),
-				createItem(DotStyle.FDIAMOND, "/res/dotStyles/dot.diamondF.png"), createItem(DotStyle.O, "/res/dotStyles/dot.o.png"), createItem(DotStyle.OPLUS, "/res/dotStyles/dot.oplus.png"),
-				createItem(DotStyle.OTIMES, "/res/dotStyles/dot.ocross.png"), createItem(DotStyle.PLUS, "/res/dotStyles/dot.plus.png"), createItem(DotStyle.X, "/res/dotStyles/dot.cross.png"),
-				createItem(DotStyle.TRIANGLE, "/res/dotStyles/dot.triangle.png"), createItem(DotStyle.FTRIANGLE, "/res/dotStyles/dot.triangleF.png"),
-				createItem(DotStyle.PENTAGON, "/res/dotStyles/dot.pentagon.png"), createItem(DotStyle.FPENTAGON, "/res/dotStyles/dot.pentagonF.png"),
-				createItem(DotStyle.SQUARE, "/res/dotStyles/dot.square.png"), createItem(DotStyle.FSQUARE, "/res/dotStyles/dot.squareF.png"));
+		Map<DotStyle,Image> cache = new HashMap<>();
+		cache.put(DotStyle.DOT, new Image("/res/dotStyles/dot.none.png"));
+		cache.put(DotStyle.ASTERISK, new Image("/res/dotStyles/dot.asterisk.png"));
+		cache.put(DotStyle.BAR, new Image("/res/dotStyles/dot.bar.png"));
+		cache.put(DotStyle.DIAMOND, new Image("/res/dotStyles/dot.diamond.png"));
+		cache.put(DotStyle.FDIAMOND, new Image("/res/dotStyles/dot.diamondF.png"));
+		cache.put(DotStyle.O, new Image("/res/dotStyles/dot.o.png"));
+		cache.put(DotStyle.OPLUS, new Image("/res/dotStyles/dot.oplus.png"));
+		cache.put(DotStyle.OTIMES, new Image("/res/dotStyles/dot.ocross.png"));
+		cache.put(DotStyle.PLUS, new Image("/res/dotStyles/dot.plus.png"));
+		cache.put(DotStyle.X, new Image("/res/dotStyles/dot.cross.png"));
+		cache.put(DotStyle.TRIANGLE, new Image("/res/dotStyles/dot.triangle.png"));
+		cache.put(DotStyle.FTRIANGLE, new Image("/res/dotStyles/dot.triangleF.png"));
+		cache.put(DotStyle.PENTAGON, new Image("/res/dotStyles/dot.pentagon.png"));
+		cache.put(DotStyle.FPENTAGON, new Image("/res/dotStyles/dot.pentagonF.png"));
+		cache.put(DotStyle.SQUARE, new Image("/res/dotStyles/dot.square.png"));
+		cache.put(DotStyle.FSQUARE, new Image("/res/dotStyles/dot.squareF.png"));
+		initComboBox(dotCB, cache, DotStyle.values());
 	}
 
 	@Override
@@ -69,7 +82,7 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 		if(shape.isTypeOf(IDotProp.class)) {
 			setActivated(true);
 			dotSizeField.getValueFactory().setValue(shape.getDiametre());
-			dotCB.getSelectionModel().select(getItem(dotCB, shape.getDotStyle()).orElseThrow(() -> new IllegalArgumentException()));
+			dotCB.getSelectionModel().select(shape.getDotStyle());
 			fillingB.setDisable(shape.isFillable());
 
 			if(shape.isFillable())

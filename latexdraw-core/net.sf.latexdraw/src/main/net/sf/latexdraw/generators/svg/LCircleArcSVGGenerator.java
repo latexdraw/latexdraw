@@ -7,7 +7,6 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -152,7 +151,7 @@ class LCircleArcSVGGenerator extends LShapeSVGGenerator<ICircleArc> {
         }
 
         // The background of the borders must be filled is there is a shadow.
-        if(shape.hasShadow() && shape.getLineStyle()!=LineStyle.NONE) {
+        if(shape.hasShadow()){// && shape.getLineStyle()!=LineStyle.NONE) {
             elt = new SVGPathElement(doc);
             elt.setAttribute(SVGAttributes.SVG_D, path.toString());
             setSVGBorderBackground(elt, root);

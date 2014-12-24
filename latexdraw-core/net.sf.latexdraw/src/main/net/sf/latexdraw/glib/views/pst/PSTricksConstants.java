@@ -416,9 +416,9 @@ public final class PSTricksConstants {
 	public static final String CIRCLEIN_STYLE  = "oo";//$NON-NLS-1$
 	public static final String DISKEND_STYLE   = "*";//$NON-NLS-1$
 	public static final String DISKIN_STYLE    = "**";//$NON-NLS-1$
-	public static final String ROUNDEND_STYLE  = "c";//$NON-NLS-1$
+//	public static final String ROUNDEND_STYLE  = "c";//$NON-NLS-1$
 	public static final String ROUNDIN_STYLE   = "cc";//$NON-NLS-1$
-	public static final String SQUAREEND_STYLE = "C";//$NON-NLS-1$
+//	public static final String SQUAREEND_STYLE = "C";//$NON-NLS-1$
 
 	/** Width of arrowheads, in cm */
 	public static final double DEFAULT_ARROW_SIZE_DIM = 1.5/CM_VAL_PT;

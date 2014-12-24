@@ -1,6 +1,8 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -8,7 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
@@ -37,10 +39,10 @@ import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
  */
 public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** Allows to change the style of the left-end of the shape. */
-	@FXML protected ComboBox<ImageView> arrowLeftCB;
+	@FXML protected ComboBox<ArrowStyle> arrowLeftCB;
 
 	/** Allows to change the style of the right-end of the shape. */
-	@FXML protected ComboBox<ImageView> arrowRightCB;
+	@FXML protected ComboBox<ArrowStyle> arrowRightCB;
 
 	/** The field to set the dot size num parameter of arrows. */
 	@FXML protected Spinner<Double> dotSizeNum;
@@ -88,23 +90,43 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		arrowLeftCB.getItems().addAll(createItem(ArrowStyle.NONE, "/res/arrowStyles/line.none.left.png"), createItem(ArrowStyle.BAR_END, "/res/arrowStyles/line.barEnd.left.png"),
-				createItem(ArrowStyle.BAR_IN, "/res/arrowStyles/line.barIn.left.png"), createItem(ArrowStyle.CIRCLE_END, "/res/arrowStyles/line.circle.end.left.png"),
-				createItem(ArrowStyle.CIRCLE_IN, "/res/arrowStyles/line.circle.in.left.png"), createItem(ArrowStyle.DISK_END, "/res/arrowStyles/line.disk.end.left.png"),
-				createItem(ArrowStyle.DISK_IN, "/res/arrowStyles/line.disk.in.left.png"), createItem(ArrowStyle.LEFT_ARROW, "/res/arrowStyles/line.arrow.left.png"),
-				createItem(ArrowStyle.RIGHT_ARROW, "/res/arrowStyles/line.rarrow.left.png"), createItem(ArrowStyle.LEFT_ROUND_BRACKET, "/res/arrowStyles/line.arc.left.png"),
-				createItem(ArrowStyle.RIGHT_ROUND_BRACKET, "/res/arrowStyles/line.arc.r.left.png"), createItem(ArrowStyle.LEFT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.left.png"),
-				createItem(ArrowStyle.RIGHT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.r.left.png"), createItem(ArrowStyle.LEFT_DBLE_ARROW, "/res/arrowStyles/line.dbleArrow.left.png"),
-				createItem(ArrowStyle.RIGHT_DBLE_ARROW, "/res/arrowStyles/line.rdbleArrow.left.png"), createItem(ArrowStyle.ROUND_IN, "/res/arrowStyles/line.roundIn.left.png"));
-
-		arrowRightCB.getItems().addAll(createItem(ArrowStyle.NONE, "/res/arrowStyles/line.none.right.png"), createItem(ArrowStyle.BAR_END, "/res/arrowStyles/line.barEnd.right.png"),
-				createItem(ArrowStyle.BAR_IN, "/res/arrowStyles/line.barIn.right.png"), createItem(ArrowStyle.CIRCLE_END, "/res/arrowStyles/line.circle.end.right.png"),
-				createItem(ArrowStyle.CIRCLE_IN, "/res/arrowStyles/line.circle.in.right.png"), createItem(ArrowStyle.DISK_END, "/res/arrowStyles/line.disk.end.right.png"),
-				createItem(ArrowStyle.DISK_IN, "/res/arrowStyles/line.disk.in.right.png"), createItem(ArrowStyle.RIGHT_ARROW, "/res/arrowStyles/line.arrow.right.png"),
-				createItem(ArrowStyle.LEFT_ARROW, "/res/arrowStyles/line.rarrow.right.png"), createItem(ArrowStyle.RIGHT_ROUND_BRACKET, "/res/arrowStyles/line.arc.right.png"),
-				createItem(ArrowStyle.LEFT_ROUND_BRACKET, "/res/arrowStyles/line.arc.r.right.png"), createItem(ArrowStyle.RIGHT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.right.png"),
-				createItem(ArrowStyle.LEFT_SQUARE_BRACKET, "/res/arrowStyles/line.bracket.r.right.png"), createItem(ArrowStyle.RIGHT_DBLE_ARROW, "/res/arrowStyles/line.dbleArrow.right.png"),
-				createItem(ArrowStyle.LEFT_DBLE_ARROW, "/res/arrowStyles/line.rdbleArrow.right.png"), createItem(ArrowStyle.ROUND_IN, "/res/arrowStyles/line.roundIn.right.png"));
+		Map<ArrowStyle,Image> cacheLeft = new HashMap<>();
+		cacheLeft.put(ArrowStyle.NONE, new Image("/res/arrowStyles/line.none.left.png"));
+		cacheLeft.put(ArrowStyle.BAR_END, new Image("/res/arrowStyles/line.barEnd.left.png"));
+		cacheLeft.put(ArrowStyle.BAR_IN, new Image("/res/arrowStyles/line.barIn.left.png"));
+		cacheLeft.put(ArrowStyle.CIRCLE_END, new Image("/res/arrowStyles/line.circle.end.left.png"));
+		cacheLeft.put(ArrowStyle.CIRCLE_IN, new Image("/res/arrowStyles/line.circle.in.left.png"));
+		cacheLeft.put(ArrowStyle.DISK_END, new Image("/res/arrowStyles/line.disk.end.left.png"));
+		cacheLeft.put(ArrowStyle.DISK_IN, new Image("/res/arrowStyles/line.disk.in.left.png"));
+		cacheLeft.put(ArrowStyle.LEFT_ARROW, new Image("/res/arrowStyles/line.arrow.left.png"));
+		cacheLeft.put(ArrowStyle.RIGHT_ARROW, new Image("/res/arrowStyles/line.rarrow.left.png"));
+		cacheLeft.put(ArrowStyle.LEFT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.left.png"));
+		cacheLeft.put(ArrowStyle.RIGHT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.r.left.png"));
+		cacheLeft.put(ArrowStyle.LEFT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.left.png"));
+		cacheLeft.put(ArrowStyle.RIGHT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.r.left.png"));
+		cacheLeft.put(ArrowStyle.LEFT_DBLE_ARROW, new Image("/res/arrowStyles/line.dbleArrow.left.png"));
+		cacheLeft.put(ArrowStyle.RIGHT_DBLE_ARROW, new Image("/res/arrowStyles/line.rdbleArrow.left.png"));
+		cacheLeft.put(ArrowStyle.ROUND_IN, new Image("/res/arrowStyles/line.roundIn.left.png"));
+		initComboBox(arrowLeftCB, cacheLeft, ArrowStyle.values());
+		
+		Map<ArrowStyle,Image> cacheRight = new HashMap<>();
+		cacheRight.put(ArrowStyle.NONE, new Image("/res/arrowStyles/line.none.right.png"));
+		cacheRight.put(ArrowStyle.BAR_END, new Image("/res/arrowStyles/line.barEnd.right.png"));
+		cacheRight.put(ArrowStyle.BAR_IN, new Image("/res/arrowStyles/line.barIn.right.png"));
+		cacheRight.put(ArrowStyle.CIRCLE_END, new Image("/res/arrowStyles/line.circle.end.right.png"));
+		cacheRight.put(ArrowStyle.CIRCLE_IN, new Image("/res/arrowStyles/line.circle.in.right.png"));
+		cacheRight.put(ArrowStyle.DISK_END, new Image("/res/arrowStyles/line.disk.end.right.png"));
+		cacheRight.put(ArrowStyle.DISK_IN, new Image("/res/arrowStyles/line.disk.in.right.png"));
+		cacheRight.put(ArrowStyle.LEFT_ARROW, new Image("/res/arrowStyles/line.arrow.right.png"));
+		cacheRight.put(ArrowStyle.RIGHT_ARROW, new Image("/res/arrowStyles/line.rarrow.right.png"));
+		cacheRight.put(ArrowStyle.LEFT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.right.png"));
+		cacheRight.put(ArrowStyle.RIGHT_ROUND_BRACKET, new Image("/res/arrowStyles/line.arc.r.right.png"));
+		cacheRight.put(ArrowStyle.LEFT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.right.png"));
+		cacheRight.put(ArrowStyle.RIGHT_SQUARE_BRACKET, new Image("/res/arrowStyles/line.bracket.r.right.png"));
+		cacheRight.put(ArrowStyle.LEFT_DBLE_ARROW, new Image("/res/arrowStyles/line.dbleArrow.right.png"));
+		cacheRight.put(ArrowStyle.RIGHT_DBLE_ARROW, new Image("/res/arrowStyles/line.rdbleArrow.right.png"));
+		cacheRight.put(ArrowStyle.ROUND_IN, new Image("/res/arrowStyles/line.roundIn.right.png"));
+		initComboBox(arrowRightCB, cacheRight, ArrowStyle.values());
 	}
 
 	@Override
@@ -133,8 +155,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 			final ArrowStyle arrStyle1 = arr1.getArrowStyle();
 			final ArrowStyle arrStyle2 = arr2.getArrowStyle();
 
-			arrowLeftCB.getSelectionModel().select(getItem(arrowLeftCB, arrStyle1).orElseThrow(() -> new IllegalArgumentException()));
-			arrowRightCB.getSelectionModel().select(getItem(arrowRightCB, arrStyle2).orElseThrow(() -> new IllegalArgumentException()));
+			arrowLeftCB.getSelectionModel().select(arrStyle1);
+			arrowRightCB.getSelectionModel().select(arrStyle2);
 
 			final boolean isArrow = arrStyle1.isArrow()||arrStyle2.isArrow();
 			final boolean isDot = arrStyle1.isCircleDisk()||arrStyle2.isCircleDisk();

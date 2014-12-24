@@ -1,6 +1,8 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -9,7 +11,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
@@ -35,7 +37,7 @@ import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
  */
 public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** The type of the freehand. */
-	@FXML protected ComboBox<ImageView> freeHandType;
+	@FXML protected ComboBox<IFreeHandProp.FreeHandType> freeHandType;
 
 	/** The gap to consider between the points. */
 	@FXML protected Spinner<Integer> gapPoints;
@@ -54,14 +56,17 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		freeHandType.getItems().addAll(createItem(IFreeHandProp.FreeHandType.LINES, "/res/freehand/line.png"), createItem(IFreeHandProp.FreeHandType.CURVES, "/res/freehand/curve.png"));
+		final Map<IFreeHandProp.FreeHandType,Image> cache = new HashMap<>();
+		cache.put(IFreeHandProp.FreeHandType.LINES, new Image("/res/freehand/line.png"));
+		cache.put(IFreeHandProp.FreeHandType.CURVES, new Image("/res/freehand/curve.png"));
+		initComboBox(freeHandType, cache, IFreeHandProp.FreeHandType.values());
 	}
 
 	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IFreeHandProp.class)) {
 			setActivated(true);
-			freeHandType.getSelectionModel().select(getItem(freeHandType, shape.getType()).orElseThrow(() -> new IllegalArgumentException()));
+			freeHandType.getSelectionModel().select(shape.getType());
 			gapPoints.getValueFactory().setValue(shape.getInterval());
 			open.setSelected(shape.isOpen());
 		}else

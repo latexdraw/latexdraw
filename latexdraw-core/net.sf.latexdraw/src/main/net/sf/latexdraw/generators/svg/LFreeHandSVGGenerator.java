@@ -8,7 +8,6 @@ import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
 import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
@@ -228,7 +227,7 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 			root.appendChild(shad);
 		}
 
-        if(shape.hasShadow() && shape.getLineStyle()!=LineStyle.NONE && shape.isFilled())
+        if(shape.hasShadow() && shape.isFilled())// && shape.getLineStyle()!=LineStyle.NONE )
         {// The background of the borders must be filled is there is a shadow.
     		elt = new SVGPathElement(doc);
     		elt.setAttribute(SVGAttributes.SVG_D, path);

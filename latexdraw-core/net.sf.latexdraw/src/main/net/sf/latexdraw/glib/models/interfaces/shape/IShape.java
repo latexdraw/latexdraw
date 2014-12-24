@@ -152,10 +152,11 @@ public interface IShape extends Modifiable {
 
 	/** The different styles of the lines. */
 	enum LineStyle {
-		NONE{
-			@Override
-			public String getLatexToken() { return PSTricksConstants.LINE_NONE_STYLE; }
-		}, SOLID{
+//		NONE{
+//			@Override
+//			public String getLatexToken() { return PSTricksConstants.LINE_NONE_STYLE; }
+//		}, 
+		SOLID{
 			@Override
 			public String getLatexToken() { return PSTricksConstants.LINE_SOLID_STYLE; }
 		}, DASHED{

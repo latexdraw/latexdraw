@@ -845,8 +845,8 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(shape.getLineStyle(), LineStyle.DOTTED);
 			shape.setLineStyle(LineStyle.DASHED);
 			assertEquals(shape.getLineStyle(), LineStyle.DASHED);
-			shape.setLineStyle(LineStyle.NONE);
-			assertEquals(shape.getLineStyle(), LineStyle.NONE);
+//			shape.setLineStyle(LineStyle.NONE);
+//			assertEquals(shape.getLineStyle(), LineStyle.NONE);
 			shape.setLineStyle(LineStyle.SOLID);
 			assertEquals(shape.getLineStyle(), LineStyle.SOLID);
 			shape.setLineStyle(null);

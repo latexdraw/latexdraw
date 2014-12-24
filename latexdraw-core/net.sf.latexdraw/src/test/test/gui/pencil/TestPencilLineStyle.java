@@ -65,19 +65,19 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testSelectBorderPosPencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		IShape.BorderPos style = (IShape.BorderPos)bordersPosCB.getSelectionModel().getSelectedItem().getUserData();
+		IShape.BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
 		selectBorderPos.execute();
-		assertEquals(bordersPosCB.getSelectionModel().getSelectedItem().getUserData(), pencil.createShapeInstance().getBordersPosition());
-		assertNotEquals(style, bordersPosCB.getSelectionModel().getSelectedItem().getUserData());
+		assertEquals(bordersPosCB.getSelectionModel().getSelectedItem(), pencil.createShapeInstance().getBordersPosition());
+		assertNotEquals(style, bordersPosCB.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
 	public void testSelectLineStylePencil() {
 		new CompositeGUICommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		LineStyle style = (LineStyle)lineCB.getSelectionModel().getSelectedItem().getUserData();
+		LineStyle style = lineCB.getSelectionModel().getSelectedItem();
 		selectLineStyle.execute();
-		assertEquals(lineCB.getSelectionModel().getSelectedItem().getUserData(), pencil.createShapeInstance().getLineStyle());
-		assertNotEquals(style, lineCB.getSelectionModel().getSelectedItem().getUserData());
+		assertEquals(lineCB.getSelectionModel().getSelectedItem(), pencil.createShapeInstance().getLineStyle());
+		assertNotEquals(style, lineCB.getSelectionModel().getSelectedItem());
 	}
 
 	@Test

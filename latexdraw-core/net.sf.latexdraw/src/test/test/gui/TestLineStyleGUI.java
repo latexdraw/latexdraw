@@ -4,7 +4,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.image.ImageView;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 
 import org.junit.Before;
@@ -12,8 +12,8 @@ import org.junit.Before;
 public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCustomiser> {
 	protected Spinner<Double> thicknessField;
 	protected ColorPicker lineColButton;
-	protected ComboBox<ImageView> lineCB;
-	protected ComboBox<ImageView> bordersPosCB;
+	protected ComboBox<IShape.LineStyle> lineCB;
+	protected ComboBox<IShape.BorderPos> bordersPosCB;
 	protected Spinner<Double> frameArcField;
 	protected CheckBox showPoints;
 	

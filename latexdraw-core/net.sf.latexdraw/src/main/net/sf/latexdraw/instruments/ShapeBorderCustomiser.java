@@ -2,6 +2,8 @@ package net.sf.latexdraw.instruments;
 
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
@@ -34,13 +37,12 @@ import org.malai.javafx.instrument.library.SpinnerInteractor;
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
  * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version. <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.<br>
  * <br>
  * 10/31/2010<br>
  * 
@@ -55,10 +57,10 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 	@FXML protected ColorPicker lineColButton;
 
 	/** Allows to change the style of the borders */
-	@FXML protected ComboBox<ImageView> lineCB;
+	@FXML protected ComboBox<LineStyle> lineCB;
 
 	/** Allows to select the position of the borders of the shape. */
-	@FXML protected ComboBox<ImageView> bordersPosCB;
+	@FXML protected ComboBox<BorderPos> bordersPosCB;
 
 	/** Allows to change the angle of the round corner. */
 	@FXML protected Spinner<Double> frameArcField;
@@ -84,11 +86,17 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		thicknessPic.visibleProperty().bind(thicknessField.visibleProperty());
 		frameArcPic.visibleProperty().bind(frameArcField.visibleProperty());
 
-		bordersPosCB.getItems().addAll(createItem(BorderPos.INTO, "/res/doubleBoundary/double.boundary.into.png"), createItem(BorderPos.OUT, "/res/doubleBoundary/double.boundary.out.png"),
-				createItem(BorderPos.MID, "/res/doubleBoundary/double.boundary.middle.png"));
+		Map<BorderPos,Image> cachePos = new HashMap<>();
+		cachePos.put(BorderPos.INTO, new Image("/res/doubleBoundary/double.boundary.into.png"));
+		cachePos.put(BorderPos.MID, new Image("/res/doubleBoundary/double.boundary.middle.png"));
+		cachePos.put(BorderPos.OUT, new Image("/res/doubleBoundary/double.boundary.out.png"));
+		initComboBox(bordersPosCB, cachePos, BorderPos.values());
 
-		lineCB.getItems().addAll(createItem(LineStyle.SOLID, "/res/lineStyles/lineStyle.none.png"), createItem(LineStyle.DASHED, "/res/lineStyles/lineStyle.dashed.png"),
-				createItem(LineStyle.DOTTED, "/res/lineStyles/lineStyle.dotted.png"));
+		Map<LineStyle,Image> cacheStyle = new HashMap<>();
+		cacheStyle.put(LineStyle.SOLID, new Image("/res/lineStyles/lineStyle.none.png"));
+		cacheStyle.put(LineStyle.DASHED, new Image("/res/lineStyles/lineStyle.dashed.png"));
+		cacheStyle.put(LineStyle.DOTTED, new Image("/res/lineStyles/lineStyle.dotted.png"));
+		initComboBox(lineCB, cacheStyle, LineStyle.values());
 	}
 
 	@Override
@@ -116,9 +124,9 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			if(isTh)
 				thicknessField.getValueFactory().setValue(shape.getThickness());
 			if(isStylable)
-				lineCB.getSelectionModel().select(getItem(lineCB, shape.getLineStyle()).orElseThrow(() -> new IllegalArgumentException()));
+				lineCB.getSelectionModel().select(shape.getLineStyle());
 			if(isMvble)
-				bordersPosCB.getSelectionModel().select(getItem(bordersPosCB, shape.getBordersPosition()).orElseThrow(() -> new IllegalArgumentException()));
+				bordersPosCB.getSelectionModel().select(shape.getBordersPosition());
 			if(supportRound)
 				frameArcField.getValueFactory().setValue(shape.getLineArc());
 			if(showPts)
@@ -142,7 +150,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			addInteractor(new ColourButton2SelectionBorder(this));
 			addInteractor(new Checkbox2ShowPointsSelection(this));
 			addInteractor(new Checkbox2ShowPointsPencil(this));
-		}catch(InstantiationException|IllegalAccessException e) {
+		}catch(InstantiationException | IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -224,14 +232,13 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.bordersPosCB, ins.lineCB));
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void initAction() {
-			final ComboBox<ImageView> combo = (ComboBox<ImageView>)interaction.getWidget();
+			final ComboBox<?> combo = interaction.getWidget();
 			action.setPencil(instrument.pencil);
-			action.setValue(combo.getSelectionModel().getSelectedItem().getUserData());
+			action.setValue(combo.getSelectionModel().getSelectedItem());
 
-			if(combo==instrument.bordersPosCB)
+			if(combo == instrument.bordersPosCB)
 				action.setProperty(ShapeProperties.BORDER_POS);
 			else
 				action.setProperty(ShapeProperties.LINE_STYLE);
@@ -253,14 +260,13 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			return instrument.hand.isActivated();
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void initAction() {
-			final ComboBox<ImageView> combo = (ComboBox<ImageView>)interaction.getWidget();
-			action.setValue(combo.getSelectionModel().getSelectedItem().getUserData());
+			final ComboBox<?> combo = interaction.getWidget();
+			action.setValue(combo.getSelectionModel().getSelectedItem());
 			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
 
-			if(combo==instrument.bordersPosCB)
+			if(combo == instrument.bordersPosCB)
 				action.setProperty(ShapeProperties.BORDER_POS);
 			else
 				action.setProperty(ShapeProperties.LINE_STYLE);
@@ -277,7 +283,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			action.setPencil(instrument.pencil);
 			action.setValue(interaction.getWidget().getValue());
 
-			if(interaction.getWidget()==instrument.thicknessField)
+			if(interaction.getWidget() == instrument.thicknessField)
 				action.setProperty(ShapeProperties.LINE_THICKNESS);
 			else
 				action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
@@ -299,7 +305,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
 			action.setValue(interaction.getWidget().getValue());
 
-			if(interaction.getWidget()==instrument.thicknessField)
+			if(interaction.getWidget() == instrument.thicknessField)
 				action.setProperty(ShapeProperties.LINE_THICKNESS);
 			else
 				action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);

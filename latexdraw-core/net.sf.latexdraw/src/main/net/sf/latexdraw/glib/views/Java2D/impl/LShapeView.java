@@ -1,7 +1,6 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.BasicStroke;
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -18,11 +17,11 @@ import java.util.List;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.glib.views.AbstractView;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArrow;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
@@ -428,8 +427,8 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 	@Override
 	public void paintBorders(final Graphics2D g) {
-		if(shape.getLineStyle()==LineStyle.NONE)
-			return;
+//		if(shape.getLineStyle()==LineStyle.NONE)
+//			return;
 
 		if(shape.hasDbleBord())
 			paintBordersDouble(g);
@@ -607,12 +606,10 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 			case SOLID:
 				stroke = new BasicStroke(strokeTh, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 				break;
-
 			case DASHED:
 				stroke = new BasicStroke(strokeTh, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f,
 						 new float[] { (float)shape.getDashSepBlack(), (float)shape.getDashSepWhite() }, 0f);
 				break;
-
 			case DOTTED:
 				final float thickness = (float)shape.getThickness();
 				// The size of the dots of the stroke depends on the thickness and eventually on the double borders size.
@@ -621,8 +618,6 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 
 				stroke = new BasicStroke(strokeTh, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER, 1f, new float[] { 0f, dot }, 0f);
 				break;
-
-			case NONE:
 			default:
 				stroke = null;
 				break;

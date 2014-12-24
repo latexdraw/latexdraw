@@ -155,16 +155,16 @@ class LArrowView implements IViewArrow {
 			case LEFT_SQUARE_BRACKET	:
 			case RIGHT_SQUARE_BRACKET	: paintBarBracket(g, lineColor); break;
 			case ROUND_IN				:
-			case ROUND_END				:
+//			case ROUND_END				:
 				g.setColor(lineColor.toAWT());
 				g.setStroke(new BasicStroke((float)model.getShape().getFullThickness(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 				g.draw(path);
 				break;
-			case SQUARE_END				:
-				g.setColor(lineColor.toAWT());
-				g.setStroke(new BasicStroke((float)model.getShape().getFullThickness(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
-				g.draw(path);
-				break;
+//			case SQUARE_END				:
+//				g.setColor(lineColor.toAWT());
+//				g.setStroke(new BasicStroke((float)model.getShape().getFullThickness(), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+//				g.draw(path);
+//				break;
 			case NONE: break;
 		}
 	}
@@ -319,10 +319,10 @@ class LArrowView implements IViewArrow {
 
 
 
-	protected void updatePathSquareRoundEnd(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
-		path.lineTo(pt1.getX()<pt2.getX() ? xRot+1. : xRot-1., yRot);
-		path.moveTo(xRot, yRot);
-	}
+//	protected void updatePathSquareRoundEnd(final double xRot, final double yRot, final IPoint pt1, final IPoint pt2) {
+//		path.lineTo(pt1.getX()<pt2.getX() ? xRot+1. : xRot-1., yRot);
+//		path.moveTo(xRot, yRot);
+//	}
 
 
 
@@ -376,8 +376,8 @@ class LArrowView implements IViewArrow {
 			case LEFT_ROUND_BRACKET	: updatePathRoundLeftRightBracket(xRot, yRot, pt1, pt2); break;
 			case LEFT_SQUARE_BRACKET:
 			case RIGHT_SQUARE_BRACKET:updatePathRightLeftSquaredBracket(xRot, yRot, pt1, pt2); break;
-			case SQUARE_END			:
-			case ROUND_END			: updatePathSquareRoundEnd(xRot, yRot, pt1, pt2); break;
+//			case SQUARE_END			:
+//			case ROUND_END			: updatePathSquareRoundEnd(xRot, yRot, pt1, pt2); break;
 			case ROUND_IN			: updatePathRoundIn(xRot, yRot, pt1, pt2); break;
 			case NONE				: break;
 		}

@@ -1,6 +1,8 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -9,7 +11,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
@@ -48,7 +50,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 	@FXML protected ColorPicker gradEndColButton;
 
 	/** Changes the style of filling. */
-	@FXML protected ComboBox<ImageView> fillStyleCB;
+	@FXML protected ComboBox<FillingStyle> fillStyleCB;
 
 	/** Changes the mid point of the gradient. */
 	@FXML protected Spinner<Double> gradMidPtField;
@@ -79,11 +81,17 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		fillStyleCB.getItems().addAll(createItem(FillingStyle.NONE, "/res/hatch/hatch.none.png"), createItem(FillingStyle.PLAIN, "/res/hatch/hatch.solid.png"),
-				createItem(FillingStyle.CLINES, "/res/hatch/hatch.cross.png"), createItem(FillingStyle.CLINES_PLAIN, "/res/hatch/hatchf.cross.png"),
-				createItem(FillingStyle.HLINES, "/res/hatch/hatch.horiz.png"), createItem(FillingStyle.HLINES_PLAIN, "/res/hatch/hatchf.horiz.png"),
-				createItem(FillingStyle.VLINES, "/res/hatch/hatch.vert.png"), createItem(FillingStyle.VLINES_PLAIN, "/res/hatch/hatchf.vert.png"),
-				createItem(FillingStyle.GRAD, "/res/hatch/gradient.png"));
+		final Map<FillingStyle,Image> cache = new HashMap<>();
+		cache.put(FillingStyle.NONE, new Image("/res/hatch/hatch.none.png"));
+		cache.put(FillingStyle.PLAIN, new Image("/res/hatch/hatch.solid.png"));
+		cache.put(FillingStyle.CLINES, new Image("/res/hatch/hatch.cross.png"));
+		cache.put(FillingStyle.CLINES_PLAIN, new Image("/res/hatch/hatchf.cross.png"));
+		cache.put(FillingStyle.HLINES, new Image("/res/hatch/hatch.horiz.png"));
+		cache.put(FillingStyle.HLINES_PLAIN, new Image("/res/hatch/hatchf.horiz.png"));
+		cache.put(FillingStyle.VLINES, new Image("/res/hatch/hatch.vert.png"));
+		cache.put(FillingStyle.VLINES_PLAIN, new Image("/res/hatch/hatchf.vert.png"));
+		cache.put(FillingStyle.GRAD, new Image("/res/hatch/gradient.png"));
+		initComboBox(fillStyleCB, cache, FillingStyle.values());
 	}
 
 	@Override
@@ -100,7 +108,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 			hatchingsPane.setVisible(hatchings);
 			fillPane.setVisible(isFillable);
 
-			fillStyleCB.getSelectionModel().select(getItem(fillStyleCB, style).orElseThrow(() -> new IllegalArgumentException()));
+			fillStyleCB.getSelectionModel().select(style);
 			if(isFillable)
 				fillColButton.setValue(shape.getFillingCol().toJFX());
 			if(hatchings) {

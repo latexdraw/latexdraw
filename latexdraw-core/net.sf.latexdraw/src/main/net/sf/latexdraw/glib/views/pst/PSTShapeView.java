@@ -331,7 +331,6 @@ abstract class PSTShapeView<S extends IShape> extends AbstractCodeView<S> {
 				code.append(PSTricksConstants.TOKEN_CM);
 				break;
 			case SOLID:
-			case NONE:
 		}
 		return code;
 	}

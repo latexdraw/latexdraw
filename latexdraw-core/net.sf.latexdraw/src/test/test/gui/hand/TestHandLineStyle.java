@@ -90,9 +90,9 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testSelectBorderPosSelection() {
 		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
-		BorderPos style = (BorderPos)bordersPosCB.getSelectionModel().getSelectedItem().getUserData();
+		BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
 		selectBorderPos.execute();
-		BorderPos newStyle = (BorderPos)bordersPosCB.getSelectionModel().getSelectedItem().getUserData();
+		BorderPos newStyle = bordersPosCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getBordersPosition());
 		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getBordersPosition());
 		assertNotEquals(style, newStyle);
@@ -101,9 +101,9 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testSelectLineStyleSelection() {
 		new CompositeGUICommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
-		LineStyle style = (LineStyle)lineCB.getSelectionModel().getSelectedItem().getUserData();
+		LineStyle style = lineCB.getSelectionModel().getSelectedItem();
 		selectLineStyle.execute();
-		LineStyle newStyle = (LineStyle)lineCB.getSelectionModel().getSelectedItem().getUserData();
+		LineStyle newStyle = lineCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(0).getLineStyle());
 		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getLineStyle());
 		assertNotEquals(style, newStyle);
