@@ -14,19 +14,17 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import org.malai.javafx.instrument.library.SpinnerInteractor;
 
 /**
- * This instrument modifies arc dimensions and coordinates of shapes or pencil
- * parameters.<br>
+ * This instrument modifies arc dimensions and coordinates of shapes or pencil parameters.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
  * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version. <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.<br>
  * <br>
  * 12/17/2011<br>
  * 
@@ -51,7 +49,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void update(final IGroup shape) {
-		if(shape.isEmpty()||!hand.isActivated())
+		if(shape.isEmpty() || !hand.isActivated())
 			setActivated(false);
 		else {
 			setActivated(true);
@@ -65,7 +63,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseInteractors() {
 		try {
 			addInteractor(new Spinner2TranslateShape(this));
-		}catch(InstantiationException|IllegalAccessException e) {
+		}catch(InstantiationException | IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -89,10 +87,10 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 			action.setDrawing(drawing);
 			action.setShape(drawing.getSelection().duplicateDeep(false));
 
-			if(interaction.getWidget()==instrument.tlxS)
-				action.setTx(value-tl.getX());
+			if(interaction.getWidget() == instrument.tlxS)
+				action.setTx(value - tl.getX());
 			else
-				action.setTy(value-tl.getY());
+				action.setTy(value - tl.getY());
 		}
 	}
 }

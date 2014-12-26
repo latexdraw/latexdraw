@@ -24,13 +24,12 @@ import org.malai.javafx.instrument.library.ToggleButtonInteractor;
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
  * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version. <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.<br>
  * <br>
  * 08/21/2011<br>
  * 
@@ -71,9 +70,9 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(IArcProp.class)) {
 			final ArcStyle type = shape.getArcStyle();
-			arcB.setSelected(type==ArcStyle.ARC);
-			wedgeB.setSelected(type==ArcStyle.WEDGE);
-			chordB.setSelected(type==ArcStyle.CHORD);
+			arcB.setSelected(type == ArcStyle.ARC);
+			wedgeB.setSelected(type == ArcStyle.WEDGE);
+			chordB.setSelected(type == ArcStyle.CHORD);
 			startAngleS.getValueFactory().setValue(Math.toDegrees(shape.getAngleStart()));
 			endAngleS.getValueFactory().setValue(Math.toDegrees(shape.getAngleEnd()));
 			setActivated(true);
@@ -88,7 +87,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 			addInteractor(new Spinner2PencilAngle(this));
 			addInteractor(new Button2SelectionArcStyle(this));
 			addInteractor(new Button2PencilArcStyle(this));
-		}catch(InstantiationException|IllegalAccessException e) {
+		}catch(InstantiationException | IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -103,9 +102,9 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 			final ToggleButton button = interaction.getWidget();
 			final ArcStyle style;
 
-			if(button==instrument.arcB)
+			if(button == instrument.arcB)
 				style = ArcStyle.ARC;
-			else if(button==instrument.chordB)
+			else if(button == instrument.chordB)
 				style = ArcStyle.CHORD;
 			else
 				style = ArcStyle.WEDGE;
@@ -156,7 +155,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void initAction() {
-			if(interaction.getWidget()==instrument.startAngleS)
+			if(interaction.getWidget() == instrument.startAngleS)
 				action.setProperty(ShapeProperties.ARC_START_ANGLE);
 			else
 				action.setProperty(ShapeProperties.ARC_END_ANGLE);
@@ -184,7 +183,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 		@Override
 		public void initAction() {
-			if(interaction.getWidget()==instrument.startAngleS)
+			if(interaction.getWidget() == instrument.startAngleS)
 				action.setProperty(ShapeProperties.ARC_START_ANGLE);
 			else
 				action.setProperty(ShapeProperties.ARC_END_ANGLE);

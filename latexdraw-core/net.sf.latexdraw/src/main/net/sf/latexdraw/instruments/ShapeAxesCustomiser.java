@@ -32,13 +32,12 @@ import org.malai.javafx.instrument.library.SpinnerInteractor;
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
  * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version. <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.<br>
  * <br>
  * 2012-04-05<br>
  * 
@@ -121,7 +120,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 			addInteractor(new Spinner2CustomSelectedAxes(this));
 			addInteractor(new CheckBox2CustomPencilAxes(this));
 			addInteractor(new CheckBox2CustomSelectedAxes(this));
-		}catch(InstantiationException|IllegalAccessException e) {
+		}catch(InstantiationException | IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
@@ -135,11 +134,11 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 		public void initAction() {
 			final ComboBox<?> list = interaction.getWidget();
 
-			if(instrument.shapeAxes==list)
+			if(instrument.shapeAxes == list)
 				action.setProperty(ShapeProperties.AXES_STYLE);
-			else if(instrument.showTicks==list)
+			else if(instrument.showTicks == list)
 				action.setProperty(ShapeProperties.AXES_TICKS_SHOW);
-			else if(instrument.showLabels==list)
+			else if(instrument.showLabels == list)
 				action.setProperty(ShapeProperties.AXES_LABELS_SHOW);
 			else
 				action.setProperty(ShapeProperties.AXES_TICKS_STYLE);
@@ -191,7 +190,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 		public void initAction() {
 			final Spinner<?> spinner = interaction.getWidget();
 
-			if(spinner==instrument.distLabelsX||spinner==instrument.distLabelsY) {
+			if(spinner == instrument.distLabelsX || spinner == instrument.distLabelsY) {
 				action.setProperty(ShapeProperties.AXES_LABELS_DIST);
 				action.setValue(ShapeFactory.createPoint(instrument.distLabelsX.getValue(), instrument.distLabelsY.getValue()));
 			}else {

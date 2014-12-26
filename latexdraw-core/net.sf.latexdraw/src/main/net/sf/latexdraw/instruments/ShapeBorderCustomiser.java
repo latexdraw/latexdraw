@@ -86,13 +86,13 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		thicknessPic.visibleProperty().bind(thicknessField.visibleProperty());
 		frameArcPic.visibleProperty().bind(frameArcField.visibleProperty());
 
-		Map<BorderPos,Image> cachePos = new HashMap<>();
+		Map<BorderPos, Image> cachePos = new HashMap<>();
 		cachePos.put(BorderPos.INTO, new Image("/res/doubleBoundary/double.boundary.into.png"));
 		cachePos.put(BorderPos.MID, new Image("/res/doubleBoundary/double.boundary.middle.png"));
 		cachePos.put(BorderPos.OUT, new Image("/res/doubleBoundary/double.boundary.out.png"));
 		initComboBox(bordersPosCB, cachePos, BorderPos.values());
 
-		Map<LineStyle,Image> cacheStyle = new HashMap<>();
+		Map<LineStyle, Image> cacheStyle = new HashMap<>();
 		cacheStyle.put(LineStyle.SOLID, new Image("/res/lineStyles/lineStyle.none.png"));
 		cacheStyle.put(LineStyle.DASHED, new Image("/res/lineStyles/lineStyle.dashed.png"));
 		cacheStyle.put(LineStyle.DOTTED, new Image("/res/lineStyles/lineStyle.dotted.png"));
@@ -191,7 +191,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		}
 	}
 
-	private class Checkbox2ShowPointsPencil extends CheckboxInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
+	private static class Checkbox2ShowPointsPencil extends CheckboxInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
 		Checkbox2ShowPointsPencil(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.showPoints));
 		}
@@ -209,7 +209,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 		}
 	}
 
-	private class Checkbox2ShowPointsSelection extends CheckboxInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
+	private static class Checkbox2ShowPointsSelection extends CheckboxInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
 		Checkbox2ShowPointsSelection(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.showPoints));
 		}
