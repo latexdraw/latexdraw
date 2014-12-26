@@ -19,8 +19,8 @@ public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCusto
 	
 	final protected GUIVoidCommand pickLineCol = () -> pickColour(lineColButton);
 	final protected GUIVoidCommand checkShowPts = () -> clickOn(showPoints);
-	final protected GUIVoidCommand selectLineStyle = () -> selectComboBoxItem(lineCB);
-	final protected GUIVoidCommand selectBorderPos = () -> selectComboBoxItem(bordersPosCB);
+	final protected GUIVoidCommand selectLineStyle = () -> selectNextComboBoxItem(lineCB);
+	final protected GUIVoidCommand selectBorderPos = () -> selectNextComboBoxItem(bordersPosCB);
 	final protected GUIVoidCommand incrementThickness = () -> incrementSpinner(thicknessField);
 	final protected GUIVoidCommand incrementFrameArc = () -> incrementSpinner(frameArcField);
 

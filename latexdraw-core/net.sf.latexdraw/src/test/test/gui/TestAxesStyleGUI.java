@@ -23,10 +23,10 @@ public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomi
 	protected CheckBox showOrigin;
 	protected AnchorPane mainPane;
 
-	final protected GUIVoidCommand selectAxeStyle = () -> selectComboBoxItem(shapeAxes);
-	final protected GUIVoidCommand selectTicksStyle = () -> selectComboBoxItem(shapeTicks);
-	final protected GUIVoidCommand selectPlotTicks = () -> selectComboBoxItem(showTicks);
-	final protected GUIVoidCommand selectPlotLabel = () -> selectComboBoxItem(showLabels);
+	final protected GUIVoidCommand selectAxeStyle = () -> selectNextComboBoxItem(shapeAxes);
+	final protected GUIVoidCommand selectTicksStyle = () -> selectNextComboBoxItem(shapeTicks);
+	final protected GUIVoidCommand selectPlotTicks = () -> selectNextComboBoxItem(showTicks);
+	final protected GUIVoidCommand selectPlotLabel = () -> selectNextComboBoxItem(showLabels);
 	final protected GUIVoidCommand incrementLabelX = () -> incrementSpinner(incrLabelX);
 	final protected GUIVoidCommand incrementLabelY = () -> incrementSpinner(incrLabelY);
 	final protected GUIVoidCommand incrementDistLabelX = () -> incrementSpinner(distLabelsX);
