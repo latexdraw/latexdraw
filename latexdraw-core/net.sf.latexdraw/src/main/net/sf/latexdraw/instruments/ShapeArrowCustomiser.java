@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -208,7 +207,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 
 	private static class List2PencilArrowStyle extends ComboBoxInteractor<ModifyPencilParameter, ShapeArrowCustomiser> {
 		List2PencilArrowStyle(final ShapeArrowCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.arrowLeftCB, ins.arrowRightCB));
+			super(ins, ModifyPencilParameter.class, ins.arrowLeftCB, ins.arrowRightCB);
 		}
 
 		@Override
@@ -230,7 +229,7 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 
 	private static class List2ShapeArrowStyle extends ComboBoxInteractor<ModifyShapeProperty, ShapeArrowCustomiser> {
 		List2ShapeArrowStyle(final ShapeArrowCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.arrowLeftCB, ins.arrowRightCB));
+			super(ins, ModifyShapeProperty.class, ins.arrowLeftCB, ins.arrowRightCB);
 		}
 
 		@Override
@@ -252,8 +251,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 
 	private static abstract class Spinner2ArrowParam<A extends ShapePropertyAction> extends SpinnerInteractor<A, ShapeArrowCustomiser> {
 		Spinner2ArrowParam(final ShapeArrowCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-			super(ins, clazzAction, Arrays.asList(ins.arrowInset, ins.arrowLength, ins.arrowSizeDim, ins.arrowSizeNum, ins.bracketNum,
-					ins.dotSizeDim, ins.dotSizeNum, ins.rbracketNum, ins.tbarsizeDim, ins.tbarsizeNum));
+			super(ins, clazzAction, ins.arrowInset, ins.arrowLength, ins.arrowSizeDim, ins.arrowSizeNum, ins.bracketNum,
+					ins.dotSizeDim, ins.dotSizeNum, ins.rbracketNum, ins.tbarsizeDim, ins.tbarsizeNum);
 		}
 
 		@Override

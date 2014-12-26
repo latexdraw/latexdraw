@@ -1,7 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.util.Arrays;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
@@ -75,7 +73,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 
 	private static class Spinner2TranslateShape extends SpinnerInteractor<TranslateShapes, ShapeCoordDimCustomiser> {
 		Spinner2TranslateShape(final ShapeCoordDimCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, TranslateShapes.class, Arrays.asList(ins.tlxS, ins.tlyS));
+			super(ins, TranslateShapes.class, ins.tlxS, ins.tlyS);
 		}
 
 		@Override

@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -157,7 +156,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	private static class ColourButton2PencilBorder extends ColorPickerInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
 		ColourButton2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.lineColButton));
+			super(ins, ModifyPencilParameter.class, ins.lineColButton);
 		}
 
 		@Override
@@ -175,7 +174,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	private static class ColourButton2SelectionBorder extends ColorPickerInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
 		ColourButton2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.lineColButton));
+			super(ins, ModifyShapeProperty.class, ins.lineColButton);
 		}
 
 		@Override
@@ -193,7 +192,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	private static class Checkbox2ShowPointsPencil extends CheckboxInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
 		Checkbox2ShowPointsPencil(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.showPoints));
+			super(ins, ModifyPencilParameter.class, ins.showPoints);
 		}
 
 		@Override
@@ -211,7 +210,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	private static class Checkbox2ShowPointsSelection extends CheckboxInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
 		Checkbox2ShowPointsSelection(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.showPoints));
+			super(ins, ModifyShapeProperty.class, ins.showPoints);
 		}
 
 		@Override
@@ -229,7 +228,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	private static class List2PencilBorder extends ComboBoxInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
 		List2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.bordersPosCB, ins.lineCB));
+			super(ins, ModifyPencilParameter.class, ins.bordersPosCB, ins.lineCB);
 		}
 
 		@Override
@@ -252,7 +251,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	private static class List2SelectionBorder extends ComboBoxInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
 		List2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.bordersPosCB, ins.lineCB));
+			super(ins, ModifyShapeProperty.class, ins.bordersPosCB, ins.lineCB);
 		}
 
 		@Override
@@ -275,7 +274,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	private static class Spinner2PencilBorder extends SpinnerInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
 		Spinner2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.thicknessField, ins.frameArcField));
+			super(ins, ModifyPencilParameter.class, ins.thicknessField, ins.frameArcField);
 		}
 
 		@Override
@@ -297,7 +296,7 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 
 	private static class Spinner2SelectionBorder extends SpinnerInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
 		Spinner2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.thicknessField, ins.frameArcField));
+			super(ins, ModifyShapeProperty.class, ins.thicknessField, ins.frameArcField);
 		}
 
 		@Override

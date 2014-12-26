@@ -1,7 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.util.Arrays;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
@@ -94,7 +92,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 	private static abstract class Button2ArcStyle<T extends ShapePropertyAction> extends ToggleButtonInteractor<T, ShapeArcCustomiser> {
 		Button2ArcStyle(final ShapeArcCustomiser ins, final Class<T> action) throws InstantiationException, IllegalAccessException {
-			super(ins, action, Arrays.asList(ins.arcB, ins.chordB, ins.wedgeB));
+			super(ins, action, ins.arcB, ins.chordB, ins.wedgeB);
 		}
 
 		@Override
@@ -150,7 +148,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 	private static class Spinner2PencilAngle extends SpinnerInteractor<ModifyPencilParameter, ShapeArcCustomiser> {
 		Spinner2PencilAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.startAngleS, ins.endAngleS));
+			super(ins, ModifyPencilParameter.class, ins.startAngleS, ins.endAngleS);
 		}
 
 		@Override
@@ -178,7 +176,7 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 
 	private static class Spinner2SelectionAngle extends SpinnerInteractor<ModifyShapeProperty, ShapeArcCustomiser> {
 		Spinner2SelectionAngle(final ShapeArcCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.startAngleS, ins.endAngleS));
+			super(ins, ModifyShapeProperty.class, ins.startAngleS, ins.endAngleS);
 		}
 
 		@Override

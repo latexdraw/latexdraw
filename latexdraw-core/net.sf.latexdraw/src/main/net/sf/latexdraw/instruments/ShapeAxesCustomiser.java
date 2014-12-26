@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -127,7 +126,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 
 	private abstract static class Combobox2CustomAxes<A extends ShapePropertyAction> extends ComboBoxInteractor<A, ShapeAxesCustomiser> {
 		Combobox2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-			super(ins, clazzAction, Arrays.asList(ins.shapeAxes, ins.shapeTicks, ins.showLabels, ins.showTicks));
+			super(ins, clazzAction, ins.shapeAxes, ins.shapeTicks, ins.showLabels, ins.showTicks);
 		}
 
 		@Override
@@ -183,7 +182,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 
 	private abstract static class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerInteractor<A, ShapeAxesCustomiser> {
 		Spinner2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-			super(ins, clazzAction, Arrays.asList(ins.distLabelsX, ins.distLabelsY, ins.incrLabelX, ins.incrLabelY));
+			super(ins, clazzAction, ins.distLabelsX, ins.distLabelsY, ins.incrLabelX, ins.incrLabelY);
 		}
 
 		@Override
@@ -236,7 +235,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 
 	private static class CheckBox2CustomSelectedAxes extends CheckboxInteractor<ModifyShapeProperty, ShapeAxesCustomiser> {
 		CheckBox2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.showOrigin));
+			super(ins, ModifyShapeProperty.class, ins.showOrigin);
 		}
 
 		@Override
@@ -254,7 +253,7 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 
 	private static class CheckBox2CustomPencilAxes extends CheckboxInteractor<ModifyPencilParameter, ShapeAxesCustomiser> {
 		CheckBox2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.showOrigin));
+			super(ins, ModifyPencilParameter.class, ins.showOrigin);
 		}
 
 		@Override
