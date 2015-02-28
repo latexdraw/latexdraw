@@ -3,11 +3,7 @@
 /target
 *~
 /.cache
-/site
 /.scala_dependencies
-/.settings
-/.classpath
-/.project
 /.idea/
 /latexdraw.core.iml
 /net.sf.latexdraw.iml
