@@ -4,3 +4,5 @@ Version 3.3.2
 Bugs fixed:
 - PS/PDF export does not work when a path contains a ~ character.
   https://bugs.launchpad.net/latexdraw/+bug/1426749 
+- Including pictures should support spaces
+  https://bugs.launchpad.net/latexdraw/+bug/1396899

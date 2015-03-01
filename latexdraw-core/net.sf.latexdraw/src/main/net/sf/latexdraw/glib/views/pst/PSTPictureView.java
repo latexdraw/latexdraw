@@ -4,6 +4,7 @@ import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LResources;
 
@@ -63,7 +64,7 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 		cache.append((float)LNumber.getCutNumber((shape.getX()+shape.getWidth()/2.-origin.getX())/ppc)).append(',');
 		cache.append((float)LNumber.getCutNumber((origin.getY()-shape.getY()-shape.getHeight()/2.)/ppc)).append(')').append('{');
 		cache.append("\\includegraphics{"); //$NON-NLS-1$
-		cache.append(path);
+		cache.append(LFileUtils.INSTANCE.normalizeForLaTeX(path));
 		cache.append('}').append('}');
 
 		if(rot!=null)
