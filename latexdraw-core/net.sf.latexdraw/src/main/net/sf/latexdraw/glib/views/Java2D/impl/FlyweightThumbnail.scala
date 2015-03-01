@@ -305,7 +305,8 @@ object FlyweightThumbnail {
 			fos.flush
 			fos.close
 
-			var res = execute(Array(os.getLatexBinPath, "--halt-on-error", "--interaction=nonstopmode", "--output-directory=" + tmpDir.getAbsolutePath, pathTex)) //$NON-NLS-1$ //$NON-NLS-2$
+			var res = execute(Array(os.getLatexBinPath, "--halt-on-error", "--interaction=nonstopmode", //$NON-NLS-1$ //$NON-NLS-2$
+          "--output-directory=" + tmpDir.getAbsolutePath, LFileUtils.INSTANCE.normalizeForLaTeX(pathTex))) //$NON-NLS-1$
 			var ok = res._1
 			log = res._2
 
