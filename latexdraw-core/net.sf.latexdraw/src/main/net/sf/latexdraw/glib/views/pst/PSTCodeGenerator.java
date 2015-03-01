@@ -37,6 +37,10 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 										"% \\usepackage{epsfig}" + LResources.EOL + "% \\usepackage{pst-grad} % For gradients" +//$NON-NLS-1$//$NON-NLS-2$
 										LResources.EOL + "% \\usepackage{pst-plot} % For axes" + LResources.EOL; //$NON-NLS-1$
 
+	public static final String PACKAGE_FOR_SPACE_PICTURE = "\\usepackage[space]{grffile} % For spaces in paths" + LResources.EOL + "\\usepackage{etoolbox} % For spaces in paths"+
+										LResources.EOL + "\\makeatletter % For spaces in paths" + LResources.EOL + "\\patchcmd\\Gread@eps{\\@inputcheck#1 }{\\@inputcheck\"#1\"\\relax}{}{}" +
+										LResources.EOL + "\\makeatother" + LResources.EOL;
+	
 	/** The PSTricks views. */
 	@NonNull protected final PSTViewsSynchroniser synchro;
 
@@ -117,8 +121,8 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		if(withComments && comment!=null && !comment.isEmpty())
 			cache.append(comment);
 
-		cache.append(PACKAGE_PSTRICKS);
-
+		cache.append(PACKAGE_PSTRICKS).append("% ").append(PACKAGE_FOR_SPACE_PICTURE.replaceAll(LResources.EOL, LResources.EOL+"% "));
+		
 		if(!pkg.isEmpty()) {
 			pkg = "% User Packages:" + LResources.EOL + "% " + pkg.replace(LResources.EOL, LResources.EOL + "% "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			cache.append(pkg).append(LResources.EOL);

@@ -451,6 +451,7 @@ public abstract class LaTeXGenerator implements Modifiable {
 		LResources.EOL).append("\\usepackage[usenames,dvipsnames]{pstricks}").append(//$NON-NLS-1$
 		LResources.EOL).append("\\usepackage{epsfig}").append(//$NON-NLS-1$
 		LResources.EOL).append("\\usepackage{pst-grad}").append(LResources.EOL).append("\\usepackage{pst-plot}").append(LResources.EOL).append(//$NON-NLS-1$//$NON-NLS-2$
+		PSTCodeGenerator.PACKAGE_FOR_SPACE_PICTURE).append(
 		"\\begin{document}").append(LResources.EOL).append( //$NON-NLS-1$
 		"\\addtolength{\\oddsidemargin}{-0.2in}").append(LResources.EOL).append("\\addtolength{\\evensidemargin}{-0.2in}").append( //$NON-NLS-1$ //$NON-NLS-2$
 		LResources.EOL).append(pstGen.getCache()).append(LResources.EOL).append("\\end{document}");//$NON-NLS-1$
