@@ -6,3 +6,5 @@ Bugs fixed:
   https://bugs.launchpad.net/latexdraw/+bug/1426749 
 - Including pictures should support spaces
   https://bugs.launchpad.net/latexdraw/+bug/1396899
+- The XML charset used to save SVG documents is always UTF-8 
+  https://bugs.launchpad.net/latexdraw/+bug/1426877
