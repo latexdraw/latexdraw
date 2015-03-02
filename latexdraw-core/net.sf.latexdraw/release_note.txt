@@ -8,3 +8,5 @@ Bugs fixed:
   https://bugs.launchpad.net/latexdraw/+bug/1396899
 - The XML charset used to save SVG documents is always UTF-8 
   https://bugs.launchpad.net/latexdraw/+bug/1426877
+- The path of the opened SVG file is not saved
+  https://bugs.launchpad.net/latexdraw/+bug/1426846

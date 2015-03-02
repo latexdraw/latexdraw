@@ -92,6 +92,8 @@ object LaTeXDraw {
 	    	action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE)
 	    	action.setFileChooser(frame.getFileLoader.getDialog(false))
 	    	action.doIt
+        frame.getFileLoader.onActionExecuted(action)
+        frame.getFileLoader.onActionDone(action)
 	    	action.flush
     	}
 
