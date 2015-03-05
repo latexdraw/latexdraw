@@ -40,7 +40,7 @@
 			      <Label layoutX="0.0" layoutY="103.0" text="Width:" />
 		      </AnchorPane>
 		      <AnchorPane fx:id="gradientPane" >
-			      <ColorPicker layoutX="87.0" layoutY="0.0" prefHeight="25.0" prefWidth="100.0">
+			      <ColorPicker fx:id="gradStartColButton" layoutX="87.0" layoutY="0.0" prefHeight="25.0" prefWidth="100.0">
 			     	<tooltip><Tooltip text="%LaTeXDrawFrame.grad1" /></tooltip>
 			      </ColorPicker>
 			      <Label layoutX="0.0" layoutY="5.0" text="%LaTeXDrawFrame.1b" />
