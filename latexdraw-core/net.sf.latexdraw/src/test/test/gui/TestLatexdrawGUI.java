@@ -3,47 +3,63 @@ package test.gui;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.LangTool;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.loadui.testfx.GuiTest;
+import org.testfx.api.FxToolkit;
+import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-public abstract class TestLatexdrawGUI extends GuiTest {
+public abstract class TestLatexdrawGUI extends ApplicationTest {
 	protected Callback<Class<?>, Object> guiceFactory;
 
 	final protected GUIVoidCommand waitFXEvents = () -> WaitForAsyncUtils.waitForFxEvents();
-	
+
 	@Before
 	public void setUp() {
 		BadaboomCollector.INSTANCE.clear();
+		waitFXEvents.execute();
 	}
 	
-	
+	@After
+	public void tearDown() throws TimeoutException {
+		FxToolkit.hideStage();
+	}
+
 	@Override
-	public Parent getRootNode() {
+	public void start(Stage stage) {
 		try {
 			Injector injector = Guice.createInjector(createModule());
 			guiceFactory = clazz -> injector.getInstance(clazz);
-			return FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), 
-					LangTool.INSTANCE.getBundle(), new LatexdrawBuilderFactory(injector), guiceFactory);
+			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), LangTool.INSTANCE.getBundle(), new LatexdrawBuilderFactory(injector), guiceFactory);
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 	
+	public <T extends Node> T find(String query) {
+		return lookup(query).queryFirst();
+	}
+
 	protected abstract String getFXMLPathFromLatexdraw();
 
 	protected AbstractModule createModule() {
