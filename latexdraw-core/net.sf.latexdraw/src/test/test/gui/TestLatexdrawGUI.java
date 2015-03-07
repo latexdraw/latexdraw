@@ -56,6 +56,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
+			stage.toFront();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
