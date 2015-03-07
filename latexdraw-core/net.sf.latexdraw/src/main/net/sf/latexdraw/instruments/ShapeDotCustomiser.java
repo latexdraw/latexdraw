@@ -1,7 +1,6 @@
 package net.sf.latexdraw.instruments;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -13,19 +12,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
-
-import org.malai.javafx.instrument.library.ColorPickerInteractor;
-import org.malai.javafx.instrument.library.ComboBoxInteractor;
-import org.malai.javafx.instrument.library.SpinnerInteractor;
 
 /**
  * This instrument modifies dot parameters.<br>
@@ -108,122 +100,14 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	@Override
 	protected void initialiseInteractors() {
 		try {
-			addInteractor(new Spinner2PencilDotSize(this));
-			addInteractor(new Spinner2SelectionDotSize(this));
-			addInteractor(new List2PencilDotStyle(this));
-			addInteractor(new List2SelectionDotStyle(this));
-			addInteractor(new FillingButton2SelectionFilling(this));
-			addInteractor(new FillingButton2PencilFilling(this));
+			addInteractor(new Spinner4Pencil(this, dotSizeField, ShapeProperties.DOT_SIZE, false));
+			addInteractor(new Spinner4Selection(this, dotSizeField, ShapeProperties.DOT_SIZE, false));
+			addInteractor(new List4Pencil(this, dotCB, ShapeProperties.DOT_STYLE));
+			addInteractor(new List4Selection(this, dotCB, ShapeProperties.DOT_STYLE));
+			addInteractor(new ColourPicker4Selection(this, fillingB, ShapeProperties.DOT_FILLING_COL));
+			addInteractor(new ColourPicker4Pencil(this, fillingB, ShapeProperties.DOT_FILLING_COL));
 		}catch(InstantiationException | IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
-		}
-	}
-
-	private static class FillingButton2PencilFilling extends ColorPickerInteractor<ModifyPencilParameter, ShapeDotCustomiser> {
-		FillingButton2PencilFilling(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, ins.fillingB);
-		}
-
-		@Override
-		public void initAction() {
-			action.setPencil(instrument.pencil);
-			action.setProperty(ShapeProperties.DOT_FILLING_COL);
-			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class FillingButton2SelectionFilling extends ColorPickerInteractor<ModifyShapeProperty, ShapeDotCustomiser> {
-		FillingButton2SelectionFilling(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, ins.fillingB);
-		}
-
-		@Override
-		public void initAction() {
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-			action.setProperty(ShapeProperties.DOT_FILLING_COL);
-			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-	}
-
-	private static class List2PencilDotStyle extends ComboBoxInteractor<ModifyPencilParameter, ShapeDotCustomiser> {
-		List2PencilDotStyle(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.dotCB));
-		}
-
-		@Override
-		public void initAction() {
-			action.setPencil(instrument.pencil);
-			action.setProperty(ShapeProperties.DOT_STYLE);
-			action.setValue(interaction.getWidget().getSelectionModel().getSelectedItem());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class List2SelectionDotStyle extends ComboBoxInteractor<ModifyShapeProperty, ShapeDotCustomiser> {
-		List2SelectionDotStyle(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.dotCB));
-		}
-
-		@Override
-		public void initAction() {
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-			action.setProperty(ShapeProperties.DOT_STYLE);
-			action.setValue(interaction.getWidget().getSelectionModel().getSelectedItem());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-	}
-
-	private static class Spinner2SelectionDotSize extends SpinnerInteractor<ModifyShapeProperty, ShapeDotCustomiser> {
-		Spinner2SelectionDotSize(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, Arrays.asList(ins.dotSizeField));
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.DOT_SIZE);
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-			action.setValue(getInteraction().getWidget().getValue());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-	}
-
-	private static class Spinner2PencilDotSize extends SpinnerInteractor<ModifyPencilParameter, ShapeDotCustomiser> {
-		Spinner2PencilDotSize(final ShapeDotCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, Arrays.asList(ins.dotSizeField));
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.DOT_SIZE);
-			action.setPencil(instrument.pencil);
-			action.setValue(getInteraction().getWidget().getValue());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
 		}
 	}
 }

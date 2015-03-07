@@ -14,21 +14,13 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
-
-import org.malai.javafx.instrument.library.CheckboxInteractor;
-import org.malai.javafx.instrument.library.ColorPickerInteractor;
-import org.malai.javafx.instrument.library.ComboBoxInteractor;
-import org.malai.javafx.instrument.library.SpinnerInteractor;
 
 /**
  * This instrument modifies border properties of shapes or the pencil.<br>
@@ -141,178 +133,20 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 	@Override
 	protected void initialiseInteractors() {
 		try {
-			addInteractor(new Spinner2PencilBorder(this));
-			addInteractor(new Spinner2SelectionBorder(this));
-			addInteractor(new List2PencilBorder(this));
-			addInteractor(new List2SelectionBorder(this));
-			addInteractor(new ColourButton2PencilBorder(this));
-			addInteractor(new ColourButton2SelectionBorder(this));
-			addInteractor(new Checkbox2ShowPointsSelection(this));
-			addInteractor(new Checkbox2ShowPointsPencil(this));
+			addInteractor(new Spinner4Pencil(this, thicknessField, ShapeProperties.LINE_THICKNESS, false));
+			addInteractor(new Spinner4Selection(this, thicknessField, ShapeProperties.LINE_THICKNESS, false));
+			addInteractor(new Spinner4Pencil(this, frameArcField, ShapeProperties.ROUND_CORNER_VALUE, false));
+			addInteractor(new Spinner4Selection(this, frameArcField, ShapeProperties.ROUND_CORNER_VALUE, false));
+			addInteractor(new List4Pencil(this, bordersPosCB, ShapeProperties.BORDER_POS));
+			addInteractor(new List4Pencil(this, lineCB, ShapeProperties.LINE_STYLE));
+			addInteractor(new List4Selection(this, bordersPosCB, ShapeProperties.BORDER_POS));
+			addInteractor(new List4Selection(this, lineCB, ShapeProperties.LINE_STYLE));
+			addInteractor(new ColourPicker4Selection(this, lineColButton, ShapeProperties.COLOUR_LINE));
+			addInteractor(new ColourPicker4Pencil(this, lineColButton, ShapeProperties.COLOUR_LINE));
+			addInteractor(new Checkbox4Pencil(this, showPoints, ShapeProperties.SHOW_POINTS));
+			addInteractor(new Checkbox4Selection(this, showPoints, ShapeProperties.SHOW_POINTS));
 		}catch(InstantiationException | IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
-		}
-	}
-
-	private static class ColourButton2PencilBorder extends ColorPickerInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
-		ColourButton2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, ins.lineColButton);
-		}
-
-		@Override
-		public void initAction() {
-			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
-			action.setProperty(ShapeProperties.COLOUR_LINE);
-			action.setPencil(instrument.pencil);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class ColourButton2SelectionBorder extends ColorPickerInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
-		ColourButton2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, ins.lineColButton);
-		}
-
-		@Override
-		public void initAction() {
-			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
-			action.setProperty(ShapeProperties.COLOUR_LINE);
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-	}
-
-	private static class Checkbox2ShowPointsPencil extends CheckboxInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
-		Checkbox2ShowPointsPencil(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, ins.showPoints);
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.SHOW_POINTS);
-			action.setPencil(instrument.pencil);
-			action.setValue(interaction.getWidget().isSelected());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class Checkbox2ShowPointsSelection extends CheckboxInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
-		Checkbox2ShowPointsSelection(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, ins.showPoints);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.SHOW_POINTS);
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-			action.setValue(interaction.getWidget().isSelected());
-		}
-	}
-
-	private static class List2PencilBorder extends ComboBoxInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
-		List2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, ins.bordersPosCB, ins.lineCB);
-		}
-
-		@Override
-		public void initAction() {
-			final ComboBox<?> combo = interaction.getWidget();
-			action.setPencil(instrument.pencil);
-			action.setValue(combo.getSelectionModel().getSelectedItem());
-
-			if(combo == instrument.bordersPosCB)
-				action.setProperty(ShapeProperties.BORDER_POS);
-			else
-				action.setProperty(ShapeProperties.LINE_STYLE);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class List2SelectionBorder extends ComboBoxInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
-		List2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, ins.bordersPosCB, ins.lineCB);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-
-		@Override
-		public void initAction() {
-			final ComboBox<?> combo = interaction.getWidget();
-			action.setValue(combo.getSelectionModel().getSelectedItem());
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-
-			if(combo == instrument.bordersPosCB)
-				action.setProperty(ShapeProperties.BORDER_POS);
-			else
-				action.setProperty(ShapeProperties.LINE_STYLE);
-		}
-	}
-
-	private static class Spinner2PencilBorder extends SpinnerInteractor<ModifyPencilParameter, ShapeBorderCustomiser> {
-		Spinner2PencilBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, ins.thicknessField, ins.frameArcField);
-		}
-
-		@Override
-		public void initAction() {
-			action.setPencil(instrument.pencil);
-			action.setValue(interaction.getWidget().getValue());
-
-			if(interaction.getWidget() == instrument.thicknessField)
-				action.setProperty(ShapeProperties.LINE_THICKNESS);
-			else
-				action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class Spinner2SelectionBorder extends SpinnerInteractor<ModifyShapeProperty, ShapeBorderCustomiser> {
-		Spinner2SelectionBorder(final ShapeBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, ins.thicknessField, ins.frameArcField);
-		}
-
-		@Override
-		public void initAction() {
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-			action.setValue(interaction.getWidget().getValue());
-
-			if(interaction.getWidget() == instrument.thicknessField)
-				action.setProperty(ShapeProperties.LINE_THICKNESS);
-			else
-				action.setProperty(ShapeProperties.ROUND_CORNER_VALUE);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
 		}
 	}
 }

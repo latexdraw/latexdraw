@@ -12,19 +12,13 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
-
-import org.malai.javafx.instrument.library.ComboBoxInteractor;
-import org.malai.javafx.instrument.library.SpinnerInteractor;
 
 /**
  * This instrument customises the arrows of shapes or of the pencil.<br>
@@ -144,10 +138,30 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 	@Override
 	protected void initialiseInteractors() {
 		try {
-			addInteractor(new List2PencilArrowStyle(this));
-			addInteractor(new List2ShapeArrowStyle(this));
-			addInteractor(new Spinner2SelectionArrowParam(this));
-			addInteractor(new Spinner2PencilArrowParam(this));
+			addInteractor(new List4Pencil(this, arrowLeftCB, ShapeProperties.ARROW1_STYLE));
+			addInteractor(new List4Pencil(this, arrowRightCB, ShapeProperties.ARROW2_STYLE));
+			addInteractor(new List4Selection(this, arrowLeftCB, ShapeProperties.ARROW1_STYLE));
+			addInteractor(new List4Selection(this, arrowRightCB, ShapeProperties.ARROW2_STYLE));
+			addInteractor(new Spinner4Pencil(this, tbarsizeDim, ShapeProperties.ARROW_T_BAR_SIZE_DIM, false));
+			addInteractor(new Spinner4Pencil(this, rbracketNum, ShapeProperties.ARROW_R_BRACKET_NUM, false));
+			addInteractor(new Spinner4Pencil(this, dotSizeNum, ShapeProperties.ARROW_DOT_SIZE_NUM, false));
+			addInteractor(new Spinner4Pencil(this, dotSizeDim, ShapeProperties.ARROW_DOT_SIZE_DIM, false));
+			addInteractor(new Spinner4Pencil(this, bracketNum, ShapeProperties.ARROW_BRACKET_NUM, false));
+			addInteractor(new Spinner4Pencil(this, arrowSizeNum, ShapeProperties.ARROW_SIZE_NUM, false));
+			addInteractor(new Spinner4Pencil(this, arrowSizeDim, ShapeProperties.ARROW_SIZE_DIM, false));
+			addInteractor(new Spinner4Pencil(this, arrowInset, ShapeProperties.ARROW_INSET, false));
+			addInteractor(new Spinner4Pencil(this, arrowLength, ShapeProperties.ARROW_LENGTH, false));
+			addInteractor(new Spinner4Pencil(this, tbarsizeNum, ShapeProperties.ARROW_T_BAR_SIZE_NUM, false));
+			addInteractor(new Spinner4Selection(this, tbarsizeDim, ShapeProperties.ARROW_T_BAR_SIZE_DIM, false));
+			addInteractor(new Spinner4Selection(this, rbracketNum, ShapeProperties.ARROW_R_BRACKET_NUM, false));
+			addInteractor(new Spinner4Selection(this, dotSizeNum, ShapeProperties.ARROW_DOT_SIZE_NUM, false));
+			addInteractor(new Spinner4Selection(this, dotSizeDim, ShapeProperties.ARROW_DOT_SIZE_DIM, false));
+			addInteractor(new Spinner4Selection(this, bracketNum, ShapeProperties.ARROW_BRACKET_NUM, false));
+			addInteractor(new Spinner4Selection(this, arrowSizeNum, ShapeProperties.ARROW_SIZE_NUM, false));
+			addInteractor(new Spinner4Selection(this, arrowSizeDim, ShapeProperties.ARROW_SIZE_DIM, false));
+			addInteractor(new Spinner4Selection(this, arrowInset, ShapeProperties.ARROW_INSET, false));
+			addInteractor(new Spinner4Selection(this, arrowLength, ShapeProperties.ARROW_LENGTH, false));
+			addInteractor(new Spinner4Selection(this, tbarsizeNum, ShapeProperties.ARROW_T_BAR_SIZE_NUM, false));
 		}catch(InstantiationException | IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
@@ -203,120 +217,5 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 				rbracketNum.getValueFactory().setValue(arr1.getRBracketNum());
 		}else
 			setActivated(false);
-	}
-
-	private static class List2PencilArrowStyle extends ComboBoxInteractor<ModifyPencilParameter, ShapeArrowCustomiser> {
-		List2PencilArrowStyle(final ShapeArrowCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, ins.arrowLeftCB, ins.arrowRightCB);
-		}
-
-		@Override
-		public void initAction() {
-			if(getInteraction().getWidget() == instrument.arrowLeftCB)
-				action.setProperty(ShapeProperties.ARROW1_STYLE);
-			else
-				action.setProperty(ShapeProperties.ARROW2_STYLE);
-
-			action.setPencil(instrument.pencil);
-			action.setValue(getInteraction().getWidget().getSelectionModel().getSelectedItem());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class List2ShapeArrowStyle extends ComboBoxInteractor<ModifyShapeProperty, ShapeArrowCustomiser> {
-		List2ShapeArrowStyle(final ShapeArrowCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, ins.arrowLeftCB, ins.arrowRightCB);
-		}
-
-		@Override
-		public void initAction() {
-			if(getInteraction().getWidget() == instrument.arrowLeftCB)
-				action.setProperty(ShapeProperties.ARROW1_STYLE);
-			else
-				action.setProperty(ShapeProperties.ARROW2_STYLE);
-
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-			action.setValue(getInteraction().getWidget().getSelectionModel().getSelectedItem());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-	}
-
-	private static abstract class Spinner2ArrowParam<A extends ShapePropertyAction> extends SpinnerInteractor<A, ShapeArrowCustomiser> {
-		Spinner2ArrowParam(final ShapeArrowCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-			super(ins, clazzAction, ins.arrowInset, ins.arrowLength, ins.arrowSizeDim, ins.arrowSizeNum, ins.bracketNum,
-					ins.dotSizeDim, ins.dotSizeNum, ins.rbracketNum, ins.tbarsizeDim, ins.tbarsizeNum);
-		}
-
-		@Override
-		public void initAction() {
-			final Spinner<?> spinner = interaction.getWidget();
-			final ShapeProperties prop;
-
-			if(spinner == instrument.arrowInset)
-				prop = ShapeProperties.ARROW_INSET;
-			else if(spinner == instrument.arrowLength)
-				prop = ShapeProperties.ARROW_LENGTH;
-			else if(spinner == instrument.arrowSizeDim)
-				prop = ShapeProperties.ARROW_SIZE_DIM;
-			else if(spinner == instrument.arrowSizeNum)
-				prop = ShapeProperties.ARROW_SIZE_NUM;
-			else if(spinner == instrument.bracketNum)
-				prop = ShapeProperties.ARROW_BRACKET_NUM;
-			else if(spinner == instrument.dotSizeDim)
-				prop = ShapeProperties.ARROW_DOT_SIZE_DIM;
-			else if(spinner == instrument.dotSizeNum)
-				prop = ShapeProperties.ARROW_DOT_SIZE_NUM;
-			else if(spinner == instrument.rbracketNum)
-				prop = ShapeProperties.ARROW_R_BRACKET_NUM;
-			else if(spinner == instrument.tbarsizeDim)
-				prop = ShapeProperties.ARROW_T_BAR_SIZE_DIM;
-			else
-				prop = ShapeProperties.ARROW_T_BAR_SIZE_NUM;
-
-			action.setProperty(prop);
-			action.setValue(spinner.getValue());
-		}
-	}
-
-	private static class Spinner2PencilArrowParam extends Spinner2ArrowParam<ModifyPencilParameter> {
-		Spinner2PencilArrowParam(final ShapeArrowCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setPencil(instrument.pencil);
-		}
-		
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class Spinner2SelectionArrowParam extends Spinner2ArrowParam<ModifyShapeProperty> {
-		Spinner2SelectionArrowParam(final ShapeArrowCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
 	}
 }

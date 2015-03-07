@@ -5,16 +5,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
-import net.sf.latexdraw.actions.ModifyPencilParameter;
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-
-import org.malai.javafx.instrument.library.CheckboxInteractor;
-import org.malai.javafx.instrument.library.ColorPickerInteractor;
-import org.malai.javafx.instrument.library.SpinnerInteractor;
 
 /**
  * This instrument modifies double border properties of shapes or the pencil.<br>
@@ -79,123 +72,14 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseInteractors() {
 		try {
-			addInteractor(new CheckBox2PencilDoubleBorder(this));
-			addInteractor(new CheckBox2SelectionDoubleBorder(this));
-			addInteractor(new ColourButton2PencilDoubleBorder(this));
-			addInteractor(new ColourButton2SelectionDoubleBorder(this));
-			addInteractor(new Spinner2PencilDoubleBorder(this));
-			addInteractor(new Spinner2SelectionDoubleBorder(this));
+			addInteractor(new Checkbox4Pencil(this, dbleBoundCB, ShapeProperties.DBLE_BORDERS));
+			addInteractor(new Checkbox4Selection(this, dbleBoundCB, ShapeProperties.DBLE_BORDERS));
+			addInteractor(new ColourPicker4Selection(this, dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD));
+			addInteractor(new ColourPicker4Pencil(this, dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD));
+			addInteractor(new Spinner4Pencil(this, dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false));
+			addInteractor(new Spinner4Selection(this, dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false));
 		}catch(InstantiationException | IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
 		}
 	}
-
-	private static class CheckBox2PencilDoubleBorder extends CheckboxInteractor<ModifyPencilParameter, ShapeDoubleBorderCustomiser> {
-		CheckBox2PencilDoubleBorder(final ShapeDoubleBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, ins.dbleBoundCB);
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.DBLE_BORDERS);
-			action.setPencil(instrument.pencil);
-			action.setValue(interaction.getWidget().isSelected());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class CheckBox2SelectionDoubleBorder extends CheckboxInteractor<ModifyShapeProperty, ShapeDoubleBorderCustomiser> {
-		CheckBox2SelectionDoubleBorder(final ShapeDoubleBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, ins.dbleBoundCB);
-		}
-
-		@Override
-		public void initAction() {
-			action.setValue(interaction.getWidget().isSelected());
-			action.setGroup(instrument.pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
-			action.setProperty(ShapeProperties.DBLE_BORDERS);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-	}
-
-	private static class Spinner2PencilDoubleBorder extends SpinnerInteractor<ModifyPencilParameter, ShapeDoubleBorderCustomiser> {
-		Spinner2PencilDoubleBorder(final ShapeDoubleBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, ins.dbleSepField);
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
-			action.setPencil(instrument.pencil);
-			action.setValue(getInteraction().getWidget().getValue());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class Spinner2SelectionDoubleBorder extends SpinnerInteractor<ModifyShapeProperty, ShapeDoubleBorderCustomiser> {
-		Spinner2SelectionDoubleBorder(final ShapeDoubleBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, ins.dbleSepField);
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.DBLE_BORDERS_SIZE);
-			action.setGroup(instrument.pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
-			action.setValue(getInteraction().getWidget().getValue());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-	}
-
-	private static class ColourButton2PencilDoubleBorder extends ColorPickerInteractor<ModifyPencilParameter, ShapeDoubleBorderCustomiser> {
-		ColourButton2PencilDoubleBorder(final ShapeDoubleBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, ins.dbleBoundColB);
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.COLOUR_DBLE_BORD);
-			action.setPencil(instrument.pencil);
-			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	class ColourButton2SelectionDoubleBorder extends ColorPickerInteractor<ModifyShapeProperty, ShapeDoubleBorderCustomiser> {
-		ColourButton2SelectionDoubleBorder(final ShapeDoubleBorderCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, ins.dbleBoundColB);
-		}
-
-		@Override
-		public void initAction() {
-			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
-			action.setProperty(ShapeProperties.COLOUR_DBLE_BORD);
-			action.setGroup(instrument.pencil.canvas.getDrawing().getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-	}
-
 }

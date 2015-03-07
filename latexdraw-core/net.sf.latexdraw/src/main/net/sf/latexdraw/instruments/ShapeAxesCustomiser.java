@@ -21,8 +21,6 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
-import org.malai.javafx.instrument.library.CheckboxInteractor;
-import org.malai.javafx.instrument.library.ComboBoxInteractor;
 import org.malai.javafx.instrument.library.SpinnerInteractor;
 
 /**
@@ -113,70 +111,20 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 	@Override
 	protected void initialiseInteractors() {
 		try {
-			addInteractor(new Combobox2CustomSelectedAxes(this));
-			addInteractor(new Combobox2CustomPencilAxes(this));
+			addInteractor(new List4Selection(this, shapeAxes, ShapeProperties.AXES_STYLE));
+			addInteractor(new List4Selection(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
+			addInteractor(new List4Selection(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
+			addInteractor(new List4Selection(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
+			addInteractor(new List4Pencil(this, shapeAxes, ShapeProperties.AXES_STYLE));
+			addInteractor(new List4Pencil(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
+			addInteractor(new List4Pencil(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
+			addInteractor(new List4Pencil(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
 			addInteractor(new Spinner2CustomPencilAxes(this));
 			addInteractor(new Spinner2CustomSelectedAxes(this));
-			addInteractor(new CheckBox2CustomPencilAxes(this));
-			addInteractor(new CheckBox2CustomSelectedAxes(this));
+			addInteractor(new Checkbox4Pencil(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
+			addInteractor(new Checkbox4Selection(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
 		}catch(InstantiationException | IllegalAccessException e) {
 			BadaboomCollector.INSTANCE.add(e);
-		}
-	}
-
-	private abstract static class Combobox2CustomAxes<A extends ShapePropertyAction> extends ComboBoxInteractor<A, ShapeAxesCustomiser> {
-		Combobox2CustomAxes(final ShapeAxesCustomiser ins, final Class<A> clazzAction) throws InstantiationException, IllegalAccessException {
-			super(ins, clazzAction, ins.shapeAxes, ins.shapeTicks, ins.showLabels, ins.showTicks);
-		}
-
-		@Override
-		public void initAction() {
-			final ComboBox<?> list = interaction.getWidget();
-
-			if(instrument.shapeAxes == list)
-				action.setProperty(ShapeProperties.AXES_STYLE);
-			else if(instrument.showTicks == list)
-				action.setProperty(ShapeProperties.AXES_TICKS_SHOW);
-			else if(instrument.showLabels == list)
-				action.setProperty(ShapeProperties.AXES_LABELS_SHOW);
-			else
-				action.setProperty(ShapeProperties.AXES_TICKS_STYLE);
-
-			action.setValue(list.getSelectionModel().getSelectedItem());
-		}
-	}
-
-	private static class Combobox2CustomPencilAxes extends Combobox2CustomAxes<ModifyPencilParameter> {
-		Combobox2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setPencil(instrument.pencil);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class Combobox2CustomSelectedAxes extends Combobox2CustomAxes<ModifyShapeProperty> {
-		Combobox2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class);
-		}
-
-		@Override
-		public void initAction() {
-			super.initAction();
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
 		}
 	}
 
@@ -225,42 +173,6 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 		public void initAction() {
 			super.initAction();
 			action.setPencil(instrument.pencil);
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.pencil.isActivated();
-		}
-	}
-
-	private static class CheckBox2CustomSelectedAxes extends CheckboxInteractor<ModifyShapeProperty, ShapeAxesCustomiser> {
-		CheckBox2CustomSelectedAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyShapeProperty.class, ins.showOrigin);
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.AXES_SHOW_ORIGIN);
-			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
-			action.setValue(interaction.getWidget().isSelected());
-		}
-
-		@Override
-		public boolean isConditionRespected() {
-			return instrument.hand.isActivated();
-		}
-	}
-
-	private static class CheckBox2CustomPencilAxes extends CheckboxInteractor<ModifyPencilParameter, ShapeAxesCustomiser> {
-		CheckBox2CustomPencilAxes(final ShapeAxesCustomiser ins) throws InstantiationException, IllegalAccessException {
-			super(ins, ModifyPencilParameter.class, ins.showOrigin);
-		}
-
-		@Override
-		public void initAction() {
-			action.setProperty(ShapeProperties.AXES_SHOW_ORIGIN);
-			action.setPencil(instrument.pencil);
-			action.setValue(interaction.getWidget().isSelected());
 		}
 
 		@Override
