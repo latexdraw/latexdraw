@@ -11,6 +11,6 @@ import org.testfx.api.FxRobotInterface;
  */
 public interface FxRobotColourPicker extends FxRobotInterface {
 	default void pickColour(final ColorPicker picker) {
-		clickOn(picker).type(KeyCode.RIGHT).type(KeyCode.ENTER);
+		clickOn(picker).type(KeyCode.TAB).type(KeyCode.TAB).type(KeyCode.ENTER);
 	}
 }
