@@ -13,9 +13,18 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import net.sf.latexdraw.actions.ModifyPencilParameter;
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
+import net.sf.latexdraw.actions.shape.ShapeProperties;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
+
+import org.malai.javafx.instrument.library.ColorPickerInteractor;
+import org.malai.javafx.instrument.library.ComboBoxInteractor;
+import org.malai.javafx.instrument.library.SpinnerInteractor;
 
 /**
  * This instrument modifies filling properties of shapes or the pencil.<br>
@@ -23,13 +32,12 @@ import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
  * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version. <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.<br>
  * <br>
  * 11/11/2010<br>
  * 
@@ -81,7 +89,7 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		final Map<FillingStyle,Image> cache = new HashMap<>();
+		final Map<FillingStyle, Image> cache = new HashMap<>();
 		cache.put(FillingStyle.NONE, new Image("/res/hatch/hatch.none.png"));
 		cache.put(FillingStyle.PLAIN, new Image("/res/hatch/hatch.solid.png"));
 		cache.put(FillingStyle.CLINES, new Image("/res/hatch/hatch.cross.png"));
@@ -133,283 +141,165 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
-		// addInteractor(new List2PencilFilling(this));
-		// addInteractor(new List2SelectionFilling(this));
-		// addInteractor(new ColourButton2PencilFilling(this));
-		// addInteractor(new ColourButton2SelectionFilling(this));
-		// addInteractor(new Spinner2PencilFilling(this));
-		// addInteractor(new Spinner2SelectionFilling(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
+		try {
+			addInteractor(new List2PencilFilling(this));
+			addInteractor(new List2SelectionFilling(this));
+			addInteractor(new ColourButton2SelectionFilling(this, fillColButton, ShapeProperties.COLOUR_FILLING));
+			addInteractor(new ColourButton2SelectionFilling(this, gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START));
+			addInteractor(new ColourButton2SelectionFilling(this, gradEndColButton, ShapeProperties.COLOUR_GRADIENT_END));
+			addInteractor(new ColourButton2SelectionFilling(this, hatchColButton, ShapeProperties.COLOUR_HATCHINGS));
+			addInteractor(new ColourButton2PencilFilling(this, fillColButton, ShapeProperties.COLOUR_FILLING));
+			addInteractor(new ColourButton2PencilFilling(this, gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START));
+			addInteractor(new ColourButton2PencilFilling(this, gradEndColButton, ShapeProperties.COLOUR_GRADIENT_END));
+			addInteractor(new ColourButton2PencilFilling(this, hatchColButton, ShapeProperties.COLOUR_HATCHINGS));
+			addInteractor(new Spinner2PencilFilling(this, gradMidPtField, ShapeProperties.GRAD_MID_POINT, false));
+			addInteractor(new Spinner2PencilFilling(this, gradAngleField, ShapeProperties.GRAD_ANGLE, true));
+			addInteractor(new Spinner2PencilFilling(this, hatchAngleField, ShapeProperties.HATCHINGS_ANGLE, true));
+			addInteractor(new Spinner2PencilFilling(this, hatchWidthField, ShapeProperties.HATCHINGS_WIDTH, false));
+			addInteractor(new Spinner2PencilFilling(this, hatchSepField, ShapeProperties.HATCHINGS_SEP, false));
+			addInteractor(new Spinner2SelectionFilling(this, gradMidPtField, ShapeProperties.GRAD_MID_POINT, false));
+			addInteractor(new Spinner2SelectionFilling(this, gradAngleField, ShapeProperties.GRAD_ANGLE, true));
+			addInteractor(new Spinner2SelectionFilling(this, hatchAngleField, ShapeProperties.HATCHINGS_ANGLE, true));
+			addInteractor(new Spinner2SelectionFilling(this, hatchWidthField, ShapeProperties.HATCHINGS_WIDTH, false));
+			addInteractor(new Spinner2SelectionFilling(this, hatchSepField, ShapeProperties.HATCHINGS_SEP, false));
+		}catch(InstantiationException | IllegalAccessException e) {
+			BadaboomCollector.INSTANCE.add(e);
+		}
+	}
+
+	private static class List2PencilFilling extends ComboBoxInteractor<ModifyPencilParameter, ShapeFillingCustomiser> {
+		List2PencilFilling(final ShapeFillingCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class, ins.fillStyleCB);
+		}
+
+		@Override
+		public void initAction() {
+			action.setPencil(instrument.pencil);
+			action.setProperty(ShapeProperties.FILLING_STYLE);
+			action.setValue(interaction.getWidget().getSelectionModel().getSelectedItem());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+
+	private static class List2SelectionFilling extends ComboBoxInteractor<ModifyShapeProperty, ShapeFillingCustomiser> {
+		List2SelectionFilling(final ShapeFillingCustomiser ins) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class, ins.fillStyleCB);
+		}
+
+		@Override
+		public void initAction() {
+			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setProperty(ShapeProperties.FILLING_STYLE);
+			action.setValue(interaction.getWidget().getSelectionModel().getSelectedItem());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
+	}
+
+	private static class ColourButton2PencilFilling extends ColorPickerInteractor<ModifyPencilParameter, ShapeFillingCustomiser> {
+		ShapeProperties prop;
+
+		ColourButton2PencilFilling(final ShapeFillingCustomiser ins, ColorPicker picker, ShapeProperties property) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class, picker);
+			prop = property;
+		}
+
+		@Override
+		public void initAction() {
+			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
+			action.setPencil(instrument.pencil);
+			action.setProperty(prop);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+
+	private static class ColourButton2SelectionFilling extends ColorPickerInteractor<ModifyShapeProperty, ShapeFillingCustomiser> {
+		ShapeProperties prop;
+
+		ColourButton2SelectionFilling(final ShapeFillingCustomiser ins, ColorPicker picker, ShapeProperties property) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class, picker);
+			prop = property;
+		}
+
+		@Override
+		public void initAction() {
+			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setValue(ShapeFactory.createColorFX(interaction.getWidget().getValue()));
+			action.setProperty(prop);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
+	}
+
+	private static class Spinner2PencilFilling extends SpinnerInteractor<ModifyPencilParameter, ShapeFillingCustomiser> {
+		ShapeProperties prop;
+		boolean angle;
+
+		Spinner2PencilFilling(final ShapeFillingCustomiser ins, Spinner<Double> spinner, ShapeProperties property, boolean isAngle) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyPencilParameter.class, spinner);
+			prop = property;
+			angle = isAngle;
+		}
+
+		@Override
+		public void initAction() {
+			action.setPencil(instrument.pencil);
+			action.setProperty(prop);
+			if(angle)
+				action.setValue(Math.toRadians((Double)interaction.getWidget().getValue()));
+			else
+				action.setValue(interaction.getWidget().getValue());
+		}
+
+		// TODO reimplement the timer in the spinners.
+		// @Override
+		// public void updateAction() {
+		// Spinner2SelectionFilling.setValue(interaction.getSpinner(), instrument, action);
 		// }
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+
+	private static class Spinner2SelectionFilling extends SpinnerInteractor<ModifyShapeProperty, ShapeFillingCustomiser> {
+		ShapeProperties prop;
+		boolean angle;
+
+		Spinner2SelectionFilling(final ShapeFillingCustomiser ins, Spinner<Double> spinner, ShapeProperties property, boolean isAngle) throws InstantiationException, IllegalAccessException {
+			super(ins, ModifyShapeProperty.class, spinner);
+			prop = property;
+			angle = isAngle;
+		}
+
+		@Override
+		public void initAction() {
+			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setProperty(prop);
+			if(angle)
+				action.setValue(Math.toRadians((Double)interaction.getWidget().getValue()));
+			else
+				action.setValue(interaction.getWidget().getValue());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
 	}
 }
-
-/**
- * // * This link maps a list to a ModifyPencil action. //
- */
-// class List2PencilFilling extends ListForCustomiser<ModifyPencilParameter,
-// ShapeFillingCustomiser> {
-// /**
-// * Creates the link.
-// * @param instrument The instrument that contains the link.
-// * @throws InstantiationException If an error of instantiation (interaction,
-// action) occurs.
-// * @throws IllegalAccessException If no free-parameter constructor are
-// provided.
-// */
-// protected List2PencilFilling(final ShapeFillingCustomiser instrument) throws
-// InstantiationException, IllegalAccessException {
-// super(instrument, ModifyPencilParameter.class);
-// }
-//
-// @Override
-// public void initAction() {
-// action.setPencil(instrument.pencil);
-// action.setProperty(ShapeProperties.FILLING_STYLE);
-// action.setValue(FillingStyle.getStyle(getLabelText()));
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// final ItemSelectable is = interaction.getList();
-//
-// return is==instrument.fillStyleCB && instrument.pencil.isActivated();
-// }
-// }
-//
-//
-// /**
-// * This link maps a list to a ModifyShape action.
-// */
-// class List2SelectionFilling extends ListForCustomiser<ModifyShapeProperty,
-// ShapeFillingCustomiser> {
-// /**
-// * Creates the link.
-// * @param instrument The instrument that contains the link.
-// * @throws InstantiationException If an error of instantiation (interaction,
-// action) occurs.
-// * @throws IllegalAccessException If no free-parameter constructor are
-// provided.
-// */
-// protected List2SelectionFilling(final ShapeFillingCustomiser instrument)
-// throws InstantiationException, IllegalAccessException {
-// super(instrument, ModifyShapeProperty.class);
-// }
-//
-// @Override
-// public void initAction() {
-// action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-// action.setProperty(ShapeProperties.FILLING_STYLE);
-// action.setValue(FillingStyle.getStyle(getLabelText()));
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// final ItemSelectable is = interaction.getList();
-//
-// return is==instrument.fillStyleCB && instrument.hand.isActivated();
-// }
-// }
-//
-//
-// /**
-// * This link maps a colour button to the pencil.
-// */
-// class ColourButton2PencilFilling extends
-// ColourButtonForCustomiser<ModifyPencilParameter, ShapeFillingCustomiser> {
-// /**
-// * Creates the link.
-// * @param instrument The instrument that contains the link.
-// * @throws InstantiationException If an error of instantiation (interaction,
-// action) occurs.
-// * @throws IllegalAccessException If no free-parameter constructor are
-// provided.
-// */
-// protected ColourButton2PencilFilling(final ShapeFillingCustomiser instrument)
-// throws InstantiationException, IllegalAccessException {
-// super(instrument, ModifyPencilParameter.class);
-// }
-//
-// @Override
-// public void initAction() {
-// super.initAction();
-//
-// final AbstractButton but = interaction.getButton();
-// action.setPencil(instrument.pencil);
-//
-// if(but==instrument.fillColButton)
-// action.setProperty(ShapeProperties.COLOUR_FILLING);
-// else if(but==instrument.gradEndColButton)
-// action.setProperty(ShapeProperties.COLOUR_GRADIENT_END);
-// else if(but==instrument.gradStartColButton)
-// action.setProperty(ShapeProperties.COLOUR_GRADIENT_START);
-// else if(but==instrument.hatchColButton)
-// action.setProperty(ShapeProperties.COLOUR_HATCHINGS);
-// else action = null;
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// final AbstractButton but = interaction.getButton();
-// return (but==instrument.fillColButton || but==instrument.gradEndColButton ||
-// but==instrument.gradStartColButton ||
-// but==instrument.hatchColButton) && instrument.pencil.isActivated();
-// }
-// }
-//
-//
-// /**
-// * This link maps a colour button to the pencil.
-// */
-// class ColourButton2SelectionFilling extends
-// ColourButtonForCustomiser<ModifyShapeProperty, ShapeFillingCustomiser> {
-// /**
-// * Creates the link.
-// * @param instrument The instrument that contains the link.
-// * @throws InstantiationException If an error of instantiation (interaction,
-// action) occurs.
-// * @throws IllegalAccessException If no free-parameter constructor are
-// provided.
-// */
-// protected ColourButton2SelectionFilling(final ShapeFillingCustomiser
-// instrument) throws InstantiationException, IllegalAccessException {
-// super(instrument, ModifyShapeProperty.class);
-// }
-//
-// @Override
-// public void initAction() {
-// super.initAction();
-//
-// final AbstractButton but = interaction.getButton();
-// action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-//
-// if(but==instrument.fillColButton)
-// action.setProperty(ShapeProperties.COLOUR_FILLING);
-// else if(but==instrument.gradEndColButton)
-// action.setProperty(ShapeProperties.COLOUR_GRADIENT_END);
-// else if(but==instrument.gradStartColButton)
-// action.setProperty(ShapeProperties.COLOUR_GRADIENT_START);
-// else if(but==instrument.hatchColButton)
-// action.setProperty(ShapeProperties.COLOUR_HATCHINGS);
-// else action = null;
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// final AbstractButton but = interaction.getButton();
-// return (but==instrument.fillColButton || but==instrument.gradEndColButton ||
-// but==instrument.gradStartColButton ||
-// but==instrument.hatchColButton) && instrument.hand.isActivated();
-// }
-// }
-//
-//
-// /**
-// * This link maps a spinner to a ModifyPencil action.
-// */
-// class Spinner2SelectionFilling extends
-// SpinnerForCustomiser<ModifyShapeProperty, ShapeFillingCustomiser> {
-// /**
-// * Creates the link.
-// * @param ins The instrument that contains the link.
-// * @throws InstantiationException If an error of instantiation (interaction,
-// action) occurs.
-// * @throws IllegalAccessException If no free-parameter constructor are
-// provided.
-// */
-// protected Spinner2SelectionFilling(final ShapeFillingCustomiser ins) throws
-// InstantiationException, IllegalAccessException {
-// super(ins, ModifyShapeProperty.class);
-// }
-//
-// @Override
-// public void initAction() {
-// action.setGroup(instrument.pencil.canvas().getDrawing().getSelection().duplicateDeep(false));
-// setProperty(interaction.getSpinner(), instrument, action);
-// }
-//
-//
-// @Override
-// public void updateAction() {
-// setValue(interaction.getSpinner(), instrument, action);
-// }
-//
-//
-// @Override
-// public boolean isConditionRespected() {
-// final JSpinner spinner = getInteraction().getSpinner();
-// return instrument.hand.isActivated() && (spinner==instrument.gradAngleField
-// || spinner==instrument.gradMidPtField ||
-// spinner==instrument.hatchAngleField || spinner==instrument.hatchSepField ||
-// spinner==instrument.hatchWidthField);
-// }
-//
-// protected static void setProperty(final JSpinner spinner, final
-// ShapeFillingCustomiser sfc, final ShapePropertyAction act) {
-// if(spinner==sfc.gradAngleField)
-// act.setProperty(ShapeProperties.GRAD_ANGLE);
-// else if(spinner==sfc.gradMidPtField)
-// act.setProperty(ShapeProperties.GRAD_MID_POINT);
-// else if(spinner==sfc.hatchAngleField)
-// act.setProperty(ShapeProperties.HATCHINGS_ANGLE);
-// else if(spinner==sfc.hatchSepField)
-// act.setProperty(ShapeProperties.HATCHINGS_SEP);
-// else if(spinner==sfc.hatchWidthField)
-// act.setProperty(ShapeProperties.HATCHINGS_WIDTH);
-// else
-// act.setProperty(null);
-// }
-//
-//
-// protected static void setValue(final JSpinner spinner, final
-// ShapeFillingCustomiser sfc, final ShapePropertyAction act) {
-// if(spinner==sfc.hatchAngleField || spinner==sfc.gradAngleField)
-// act.setValue(Math.toRadians(Double.valueOf(spinner.getValue().toString())));
-// else
-// act.setValue(Double.valueOf(spinner.getValue().toString()));
-// }
-// }
-//
-//
-// /**
-// * This link maps a spinner to a ModifyPencil action.
-// */
-// class Spinner2PencilFilling extends
-// SpinnerForCustomiser<ModifyPencilParameter, ShapeFillingCustomiser> {
-// /**
-// * Creates the link.
-// * @param ins The instrument that contains the link.
-// * @throws InstantiationException If an error of instantiation (interaction,
-// action) occurs.
-// * @throws IllegalAccessException If no free-parameter constructor are
-// provided.
-// */
-// protected Spinner2PencilFilling(final ShapeFillingCustomiser ins) throws
-// InstantiationException, IllegalAccessException {
-// super(ins, ModifyPencilParameter.class);
-// }
-//
-// @Override
-// public void initAction() {
-// action.setPencil(instrument.pencil);
-// Spinner2SelectionFilling.setProperty(interaction.getSpinner(), instrument,
-// action);
-// }
-//
-// @Override
-// public void updateAction() {
-// Spinner2SelectionFilling.setValue(interaction.getSpinner(), instrument,
-// action);
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// final JSpinner spinner = interaction.getSpinner();
-// return instrument.pencil.isActivated() && (spinner==instrument.gradAngleField
-// || spinner==instrument.gradMidPtField || spinner==instrument.hatchAngleField
-// ||
-// spinner==instrument.hatchSepField || spinner==instrument.hatchWidthField);
-// }
-// }

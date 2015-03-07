@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.latexdraw.LaTeXDraw;
@@ -40,7 +42,10 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	@After
 	public void tearDown() throws TimeoutException {
 		FxToolkit.hideStage();
+	    release(new KeyCode[] {});
+	    release(new MouseButton[] {});
 	}
+	
 
 	@Override
 	public void start(Stage stage) {
