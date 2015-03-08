@@ -33,6 +33,7 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	final protected GUIVoidCommand pencilCreatesArc = () -> pencil.setCurrentChoice(EditionChoice.CIRCLE_ARC);
 	final protected GUIVoidCommand pencilCreatesAxes = () -> pencil.setCurrentChoice(EditionChoice.AXES);
 	final protected GUIVoidCommand pencilCreatesDot = () -> pencil.setCurrentChoice(EditionChoice.DOT);
+	final protected GUIVoidCommand pencilCreatesFreehand = () -> pencil.setCurrentChoice(EditionChoice.FREE_HAND);
 
 	final protected GUIVoidCommand updateIns = () -> {
 		Platform.runLater(() -> ins.update());
@@ -94,6 +95,12 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 
 	final protected GUIVoidCommand selectionAddBezier = () -> {
 		IShape sh = ShapeFactory.createBezierCurve();
+		hand.getCanvas().getDrawing().addShape(sh);
+		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+	};
+
+	final protected GUIVoidCommand selectionAddFreehand = () -> {
+		IShape sh = ShapeFactory.createFreeHand();
 		hand.getCanvas().getDrawing().addShape(sh);
 		hand.getCanvas().getDrawing().getSelection().addShape(sh);
 	};
