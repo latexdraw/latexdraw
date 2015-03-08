@@ -17,7 +17,7 @@ import net.sf.latexdraw.util.VersionChecker;
  * The controller of the "About Latexdraw" dialogue box.<br>
  * <br>
  * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
  * <br>
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -54,7 +54,7 @@ public class AboutController implements Initializable {
 				VersionChecker.VERSION+VersionChecker.VERSION_STABILITY+ //$NON-NLS-1$ //$NON-NLS-2$
 				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.220")+" "+VersionChecker.ID_BUILD+"<br><br>"+ //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
 				LResources.LABEL_APP+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.221")+"<br>"+ //$NON-NLS-1$//$NON-NLS-2$
-				"Copyright(c) 2005-2014 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>"+ //$NON-NLS-1$
+				"Copyright(c) 2005-2015 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>"+ //$NON-NLS-1$
 				"http://latexdraw.sourceforge.net/<br></div></body></html>");//$NON-NLS-1$
 		noteText.setText(LFileUtils.INSTANCE.readTextFile("/res/release_note.txt"));//$NON-NLS-1$
 		contribText.setText(LFileUtils.INSTANCE.readTextFile("/res/contributors.txt"));//$NON-NLS-1$

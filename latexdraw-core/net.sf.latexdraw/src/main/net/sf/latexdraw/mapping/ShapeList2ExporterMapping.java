@@ -13,7 +13,7 @@ import org.malai.mapping.IUnary;
  * Creates a mapping between a list of shapes and the instrument exporter.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
  * <br>
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software

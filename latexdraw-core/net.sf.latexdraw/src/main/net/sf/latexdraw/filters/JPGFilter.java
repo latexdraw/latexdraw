@@ -8,7 +8,7 @@ import javax.swing.filechooser.FileFilter;
  * This class defines a filter for jpg files (*.jpg)<br>
  *<br>
  * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
  *<br>
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
