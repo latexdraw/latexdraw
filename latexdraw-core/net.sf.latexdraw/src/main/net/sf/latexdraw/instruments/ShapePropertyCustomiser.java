@@ -1,6 +1,6 @@
 package net.sf.latexdraw.instruments;
 
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -264,7 +264,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	static class Checkbox4Pencil extends CheckboxInteractor<ModifyPencilParameter, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 		
-		Checkbox4Pencil(final ShapePropertyCustomiser ins, CheckBox widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
+		Checkbox4Pencil(final ShapePropertyCustomiser ins, ButtonBase widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyPencilParameter.class, widget);
 			prop = property;
 		}
@@ -285,7 +285,7 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	static class Checkbox4Selection extends CheckboxInteractor<ModifyShapeProperty, ShapePropertyCustomiser> {
 		ShapeProperties prop;
 		
-		Checkbox4Selection(final ShapePropertyCustomiser ins, CheckBox widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
+		Checkbox4Selection(final ShapePropertyCustomiser ins, ButtonBase widget, ShapeProperties property) throws InstantiationException, IllegalAccessException {
 			super(ins, ModifyShapeProperty.class, widget);
 			prop = property;
 		}
