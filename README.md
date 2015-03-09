@@ -16,3 +16,5 @@ https://launchpad.net/latexdraw
 
 You can support this software by making a donation:
 http://sourceforge.net/donate/index.php?group_id=156523
+
+**Continuous Integration:** [![Build Status](https://ci.inria.fr/malai/job/latexdraw/badge/icon)](https://ci.inria.fr/malai/job/latexdraw/)<br/>
