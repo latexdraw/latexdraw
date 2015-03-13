@@ -48,12 +48,13 @@ public class BadaboomController implements Initializable {
 		super();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
 		final ObservableList<TableColumn<Throwable, ?>> cols = table.getColumns();
-		cols.get(0).setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().toString()));
-		cols.get(1).setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getMessage()));
-		cols.get(2).setCellValueFactory(cell -> {
+		((TableColumn<Throwable, String>)cols.get(0)).setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().toString()));
+		((TableColumn<Throwable, String>)cols.get(1)).setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue().getMessage()));
+		((TableColumn<Throwable, String>)cols.get(2)).setCellValueFactory(cell -> {
 			final StackTraceElement[] stackTrace = cell.getValue().getStackTrace();
 			final String msg = stackTrace!=null && stackTrace.length>0 ? stackTrace[0].toString() : "";
 			return new ReadOnlyStringWrapper(msg);

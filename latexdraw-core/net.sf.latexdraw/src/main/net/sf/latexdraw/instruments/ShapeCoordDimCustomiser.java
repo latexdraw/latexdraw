@@ -80,7 +80,7 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 		public void initAction() {
 			final IDrawing drawing = instrument.pencil.getCanvas().getDrawing();
 			final IPoint tl = drawing.getSelection().getTopLeftPoint();
-			final double value = (double)interaction.getWidget().getValue();
+			final double value = (Double)interaction.getWidget().getValue();
 
 			action.setDrawing(drawing);
 			action.setShape(drawing.getSelection().duplicateDeep(false));

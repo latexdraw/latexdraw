@@ -388,9 +388,13 @@ public class Border extends CanvasInstrument { // implements Picker {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("cast")
 	private <T extends IHandler<?>> Optional<Pickable> getHandlerAt(final double x, final double y, final List<T> handlers) {
-		return (Optional<Pickable>)handlers.stream().filter(handler -> handler.contains(x, y)).findFirst();
+		return handlers.stream().filter(handler -> handler.contains(x, y)).findFirst().map(elt -> {
+			if(elt instanceof Pickable)
+				return Optional.of((Pickable)elt);
+			return Optional.<Pickable>empty();
+		}).get();
 	}
 
 	// public Picker getPickerAt(final double x, final double y) {
