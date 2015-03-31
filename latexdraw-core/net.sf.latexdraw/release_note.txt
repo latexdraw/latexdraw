@@ -10,3 +10,4 @@ Bugs fixed:
   https://bugs.launchpad.net/latexdraw/+bug/1426877
 - The path of the opened SVG file is not saved
   https://bugs.launchpad.net/latexdraw/+bug/1426846
+- Resolution of the exported rasterised pictures improved

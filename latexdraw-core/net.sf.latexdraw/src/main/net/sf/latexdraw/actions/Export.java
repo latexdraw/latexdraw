@@ -419,8 +419,9 @@ public class Export extends Action {
 	protected BufferedImage createRenderedImage() {
 		final IPoint tr 	= canvas.getTopRightDrawingPoint();
 		final IPoint bl 	= canvas.getBottomLeftDrawingPoint();
-		final int width		= (int)Math.abs(tr.getX()-bl.getX());
-		final int height 	= (int)Math.abs(bl.getY()-tr.getY());
+		final double scale	= 3.0;
+		final int width		= (int)(scale*Math.abs(tr.getX()-bl.getX()));
+		final int height 	= (int)(scale*Math.abs(bl.getY()-tr.getY()));
 		final BufferedImage bi 	= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		final Graphics2D graphic 	= bi.createGraphics();
 
@@ -432,6 +433,7 @@ public class Export extends Action {
 		graphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		graphic.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
+		graphic.scale(scale, scale);
 		graphic.translate(-bl.getX(), -tr.getY());
 
 		synchronized(canvas.getViews()){
