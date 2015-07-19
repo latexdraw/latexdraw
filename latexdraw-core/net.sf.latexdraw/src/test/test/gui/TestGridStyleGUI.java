@@ -8,7 +8,7 @@ import net.sf.latexdraw.instruments.ShapeGridCustomiser;
 
 import org.junit.Before;
 
-public abstract class TestGridHandStyleGUI extends TestShapePropGUI<ShapeGridCustomiser> {
+public abstract class TestGridStyleGUI extends TestShapePropGUI<ShapeGridCustomiser> {
 	protected ColorPicker colourLabels;
 	protected ColorPicker colourSubGrid;
 	protected Spinner<Double> gridWidth;

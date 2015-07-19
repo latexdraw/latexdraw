@@ -17,12 +17,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import test.gui.CompositeGUIVoidCommand;
 import test.gui.ShapePropModule;
-import test.gui.TestGridHandStyleGUI;
+import test.gui.TestGridStyleGUI;
 
 import com.google.inject.AbstractModule;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TestHandGridStyle extends TestGridHandStyleGUI {
+public class TestHandGridStyle extends TestGridStyleGUI {
 	@Override
 	protected AbstractModule createModule() {
 		return new ShapePropModule() {
