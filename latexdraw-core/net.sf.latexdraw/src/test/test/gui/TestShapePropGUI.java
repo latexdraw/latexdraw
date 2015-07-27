@@ -35,6 +35,7 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 	final protected GUIVoidCommand pencilCreatesDot = () -> pencil.setCurrentChoice(EditionChoice.DOT);
 	final protected GUIVoidCommand pencilCreatesFreehand = () -> pencil.setCurrentChoice(EditionChoice.FREE_HAND);
 	final protected GUIVoidCommand pencilCreatesGrid = () -> pencil.setCurrentChoice(EditionChoice.GRID);
+	final protected GUIVoidCommand pencilCreatesPlot = () -> pencil.setCurrentChoice(EditionChoice.PLOT);
 
 	final protected GUIVoidCommand updateIns = () -> {
 		Platform.runLater(() -> ins.update());
@@ -108,6 +109,12 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 
 	final protected GUIVoidCommand selectionAddGrid = () -> {
 		IShape sh = ShapeFactory.createGrid(ShapeFactory.createPoint());
+		hand.getCanvas().getDrawing().addShape(sh);
+		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+	};
+
+	final protected GUIVoidCommand selectionAddPlot = () -> {
+		IShape sh = ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 10, "x", false);
 		hand.getCanvas().getDrawing().addShape(sh);
 		hand.getCanvas().getDrawing().getSelection().addShape(sh);
 	};

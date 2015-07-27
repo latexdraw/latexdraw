@@ -13,4 +13,8 @@ public interface FxRobotSpinner extends FxRobotInterface {
 //		clickOn(combo).type(KeyCode.UP);
 		combo.getValueFactory().increment(1);
 	}
+	
+	default <T>void decrementSpinner(final Spinner<T> combo) {
+		combo.getValueFactory().decrement(1);
+	}
 }
