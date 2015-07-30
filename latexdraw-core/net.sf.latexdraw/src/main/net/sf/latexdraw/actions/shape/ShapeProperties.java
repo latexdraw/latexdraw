@@ -1826,7 +1826,7 @@ public enum ShapeProperties {
 		}
 	},
 	/** Modification of colour of the shadow of a shape. */
-	COLOUR_SHADOW {
+	SHADOW_COLOUR {
 		@Override
 		public String getMessage() {
 			return LangTool.INSTANCE.getStringActions("Actions.25"); //$NON-NLS-1$

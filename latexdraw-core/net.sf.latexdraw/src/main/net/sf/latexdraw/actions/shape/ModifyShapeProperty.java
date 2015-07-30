@@ -145,7 +145,7 @@ public class ModifyShapeProperty extends ShapePropertyAction implements Undoable
 				case COLOUR_DBLE_BORD:	return shapes.isDbleBorderable();
 				case SHADOW_ANGLE:
 				case SHADOW_SIZE:
-				case COLOUR_SHADOW:
+				case SHADOW_COLOUR:
 				case SHADOW:			return shapes.isShadowable();
 				case GRAD_ANGLE:
 				case GRAD_MID_POINT:

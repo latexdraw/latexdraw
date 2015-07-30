@@ -921,7 +921,7 @@ public class TestModifyShapeProperty extends TestAbstractAction<ModifyShapePrope
 		rec1.setShadowCol(DviPsColors.RED);
 		rec2.setShadowCol(DviPsColors.GREEN);
 		action.setGroup(g);
-		action.setProperty(ShapeProperties.COLOUR_SHADOW);
+		action.setProperty(ShapeProperties.SHADOW_COLOUR);
 		action.setValue(DviPsColors.GRAY);
 		assertTrue(action.doIt());
 

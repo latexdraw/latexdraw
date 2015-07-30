@@ -109,7 +109,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case COLOUR_LINE:
 				pencil.getGroupParams().setLineColour((Color) value);
 				break;
-			case COLOUR_SHADOW:
+			case SHADOW_COLOUR:
 				pencil.getGroupParams().setShadowCol((Color) value);
 				break;
 			case DBLE_BORDERS:
