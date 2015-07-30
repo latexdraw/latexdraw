@@ -147,7 +147,6 @@ public class FileLoaderSaver extends JfxInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new ButtonClose2SaveInteractor(this));
 		// addInteractor(new Shortcut2SavePrefInteractor(this));
 		// addInteractor(new Menu2SaveInteractor(this));
@@ -158,9 +157,6 @@ public class FileLoaderSaver extends JfxInstrument {
 		// addInteractor(new Menu2NewInteractor(this));
 		// addInteractor(new Shortcut2NewInteractor(this));
 		// addInteractor(new RecentMenuItem2LoadInteractor(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 
 	/**

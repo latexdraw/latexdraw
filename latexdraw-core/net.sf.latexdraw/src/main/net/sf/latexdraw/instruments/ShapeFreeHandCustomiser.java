@@ -13,7 +13,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
@@ -80,16 +79,12 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new List4Pencil(this, freeHandType, ShapeProperties.FREEHAND_STYLE));
-			addInteractor(new List4Selection(this, freeHandType, ShapeProperties.FREEHAND_STYLE));
-			addInteractor(new Spinner4Pencil(this, gapPoints, ShapeProperties.FREEHAND_INTERVAL, false));
-			addInteractor(new Spinner4Selection(this, gapPoints, ShapeProperties.FREEHAND_INTERVAL, false));
-			addInteractor(new Checkbox4Pencil(this, open, ShapeProperties.FREEHAND_OPEN));
-			addInteractor(new Checkbox4Selection(this, open, ShapeProperties.FREEHAND_OPEN));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new List4Pencil(this, freeHandType, ShapeProperties.FREEHAND_STYLE));
+		addInteractor(new List4Selection(this, freeHandType, ShapeProperties.FREEHAND_STYLE));
+		addInteractor(new Spinner4Pencil(this, gapPoints, ShapeProperties.FREEHAND_INTERVAL, false));
+		addInteractor(new Spinner4Selection(this, gapPoints, ShapeProperties.FREEHAND_INTERVAL, false));
+		addInteractor(new Checkbox4Pencil(this, open, ShapeProperties.FREEHAND_OPEN));
+		addInteractor(new Checkbox4Selection(this, open, ShapeProperties.FREEHAND_OPEN));
 	}
 }

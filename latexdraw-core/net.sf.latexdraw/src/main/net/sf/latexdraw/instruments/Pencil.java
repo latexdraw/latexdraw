@@ -95,7 +95,6 @@ public class Pencil extends CanvasInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new DnD2MoveViewport(canvas, this))
 		// addInteractor(new Press2AddShape(this))
 		// addInteractor(new Press2AddText(this))
@@ -103,7 +102,6 @@ public class Pencil extends CanvasInstrument {
 		// addInteractor(new DnD2AddShape(this))
 		// addInteractor(new MultiClic2AddShape(this))
 		// addInteractor(new Press2InitTextSetter(this))
-		// }catch{ case e : Exception => BadaboomCollector.INSTANCE.add(e) }
 	}
 
 	/**

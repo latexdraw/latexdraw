@@ -147,14 +147,10 @@ public class DrawingPropertiesCustomiser extends JfxInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try {
 		// addInteractor(new TextField2CustDrawing(this));
 		// addInteractor(new CheckBox2CustDrawing(this));
 		// addInteractor(new ComboBox2CustDrawing(this));
 		// addInteractor(new Spinner2CustDrawing(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 
 	// /** The link that maps a combo box to action that modifies the drawing's

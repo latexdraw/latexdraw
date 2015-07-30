@@ -164,11 +164,7 @@ public class Exporter extends JfxInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new MenuPressed2Export(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 
 	/**

@@ -62,12 +62,8 @@ public class ShapeDeleter extends JfxInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new ButtonPressed2DeleteShapes(this));
 		// addInteractor(new KeyPressed2DeleteShapes(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 }
 

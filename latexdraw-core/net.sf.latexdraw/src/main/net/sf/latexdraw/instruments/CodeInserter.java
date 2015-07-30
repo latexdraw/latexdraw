@@ -44,11 +44,9 @@ public class CodeInserter extends JfxInstrument implements Initializable {
 
 	@Override
 	public void initialiseInteractors() {
-		// try{
 		// addInteractor(new CloseDialogue2InactivateIns(this))
 		// addInteractor(new ButtonPressed2InsertCode(this))
 		// addInteractor(new ButtonPressed2InactivateIns(this))
-		// }catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
 	// @Override

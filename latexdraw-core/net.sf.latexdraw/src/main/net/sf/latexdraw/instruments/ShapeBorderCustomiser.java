@@ -15,7 +15,6 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
@@ -131,22 +130,18 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser implements In
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new Spinner4Pencil(this, thicknessField, ShapeProperties.LINE_THICKNESS, false));
-			addInteractor(new Spinner4Selection(this, thicknessField, ShapeProperties.LINE_THICKNESS, false));
-			addInteractor(new Spinner4Pencil(this, frameArcField, ShapeProperties.ROUND_CORNER_VALUE, false));
-			addInteractor(new Spinner4Selection(this, frameArcField, ShapeProperties.ROUND_CORNER_VALUE, false));
-			addInteractor(new List4Pencil(this, bordersPosCB, ShapeProperties.BORDER_POS));
-			addInteractor(new List4Pencil(this, lineCB, ShapeProperties.LINE_STYLE));
-			addInteractor(new List4Selection(this, bordersPosCB, ShapeProperties.BORDER_POS));
-			addInteractor(new List4Selection(this, lineCB, ShapeProperties.LINE_STYLE));
-			addInteractor(new ColourPicker4Selection(this, lineColButton, ShapeProperties.COLOUR_LINE));
-			addInteractor(new ColourPicker4Pencil(this, lineColButton, ShapeProperties.COLOUR_LINE));
-			addInteractor(new Checkbox4Pencil(this, showPoints, ShapeProperties.SHOW_POINTS));
-			addInteractor(new Checkbox4Selection(this, showPoints, ShapeProperties.SHOW_POINTS));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new Spinner4Pencil(this, thicknessField, ShapeProperties.LINE_THICKNESS, false));
+		addInteractor(new Spinner4Selection(this, thicknessField, ShapeProperties.LINE_THICKNESS, false));
+		addInteractor(new Spinner4Pencil(this, frameArcField, ShapeProperties.ROUND_CORNER_VALUE, false));
+		addInteractor(new Spinner4Selection(this, frameArcField, ShapeProperties.ROUND_CORNER_VALUE, false));
+		addInteractor(new List4Pencil(this, bordersPosCB, ShapeProperties.BORDER_POS));
+		addInteractor(new List4Pencil(this, lineCB, ShapeProperties.LINE_STYLE));
+		addInteractor(new List4Selection(this, bordersPosCB, ShapeProperties.BORDER_POS));
+		addInteractor(new List4Selection(this, lineCB, ShapeProperties.LINE_STYLE));
+		addInteractor(new ColourPicker4Selection(this, lineColButton, ShapeProperties.COLOUR_LINE));
+		addInteractor(new ColourPicker4Pencil(this, lineColButton, ShapeProperties.COLOUR_LINE));
+		addInteractor(new Checkbox4Pencil(this, showPoints, ShapeProperties.SHOW_POINTS));
+		addInteractor(new Checkbox4Selection(this, showPoints, ShapeProperties.SHOW_POINTS));
 	}
 }

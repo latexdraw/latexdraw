@@ -67,7 +67,6 @@ public class Helper extends JfxInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new MenuItem2AboutFrame(this, aboutFrame, aboutItem));
 		// addInteractor(new MenuItem2ShortcutFrame(this, aboutFrame,
 		// shortcutItem));
@@ -75,10 +74,6 @@ public class Helper extends JfxInstrument {
 		//			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums"))); //$NON-NLS-1$
 		//			addInteractor(new MenuItem2OpenWebPageInteractor(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523"))); //$NON-NLS-1$
 		//			addInteractor(new MenuItem2OpenWebPageInteractor(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual"))); //$NON-NLS-1$
-		// }catch(InstantiationException | IllegalAccessException |
-		// URISyntaxException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 
 	/** @return The created latexdraw dialogue box. */

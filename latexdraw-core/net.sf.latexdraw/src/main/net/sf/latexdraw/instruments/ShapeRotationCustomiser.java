@@ -73,12 +73,8 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new ButtonPress2RotateShape(this));
 		// addInteractor(new Spinner2RotateShape(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 }
 

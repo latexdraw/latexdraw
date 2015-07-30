@@ -181,14 +181,10 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new CloseFrame2SavePreferences(this));
 		// addInteractor(new List2ChangeStyle(this));
 		// addInteractor(new Spinner2GridSpacing(this));
 		// addInteractor(new CheckBox2MagneticGrid(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 
 	/**

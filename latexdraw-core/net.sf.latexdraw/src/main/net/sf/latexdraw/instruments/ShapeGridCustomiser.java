@@ -18,7 +18,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
@@ -89,28 +88,24 @@ public class ShapeGridCustomiser extends ShapePropertyCustomiser {
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new ColourPicker4Pencil(this, colourLabels, ShapeProperties.GRID_LABELS_COLOUR));
-			addInteractor(new ColourPicker4Selection(this, colourLabels, ShapeProperties.GRID_LABELS_COLOUR));
-			addInteractor(new ColourPicker4Pencil(this, colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR));
-			addInteractor(new ColourPicker4Selection(this, colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR));
-			addInteractor(new Spinner4Pencil(this, gridWidth, ShapeProperties.GRID_WIDTH, false));
-			addInteractor(new Spinner4Selection(this, gridWidth, ShapeProperties.GRID_WIDTH, false));
-			addInteractor(new Spinner4Pencil(this, subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false));
-			addInteractor(new Spinner4Selection(this, subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false));
-			addInteractor(new Spinner4Pencil(this, subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false));
-			addInteractor(new Spinner4Selection(this, subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false));
-			addInteractor(new Spinner4Pencil(this, gridDots, ShapeProperties.GRID_DOTS, false));
-			addInteractor(new Spinner4Selection(this, gridDots, ShapeProperties.GRID_DOTS, false));
-			addInteractor(new Spinner4Pencil(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
-			addInteractor(new Spinner4Selection(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
-			addInteractor(new Checkbox4Pencil(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y));
-			addInteractor(new Checkbox4Selection(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y));
-			addInteractor(new Checkbox4Pencil(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X));
-			addInteractor(new Checkbox4Selection(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new ColourPicker4Pencil(this, colourLabels, ShapeProperties.GRID_LABELS_COLOUR));
+		addInteractor(new ColourPicker4Selection(this, colourLabels, ShapeProperties.GRID_LABELS_COLOUR));
+		addInteractor(new ColourPicker4Pencil(this, colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR));
+		addInteractor(new ColourPicker4Selection(this, colourSubGrid, ShapeProperties.GRID_SUBGRID_COLOUR));
+		addInteractor(new Spinner4Pencil(this, gridWidth, ShapeProperties.GRID_WIDTH, false));
+		addInteractor(new Spinner4Selection(this, gridWidth, ShapeProperties.GRID_WIDTH, false));
+		addInteractor(new Spinner4Pencil(this, subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false));
+		addInteractor(new Spinner4Selection(this, subGridWidth, ShapeProperties.GRID_SUBGRID_WIDTH, false));
+		addInteractor(new Spinner4Pencil(this, subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false));
+		addInteractor(new Spinner4Selection(this, subGridDots, ShapeProperties.GRID_SUBGRID_DOTS, false));
+		addInteractor(new Spinner4Pencil(this, gridDots, ShapeProperties.GRID_DOTS, false));
+		addInteractor(new Spinner4Selection(this, gridDots, ShapeProperties.GRID_DOTS, false));
+		addInteractor(new Spinner4Pencil(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
+		addInteractor(new Spinner4Selection(this, subGridDiv, ShapeProperties.GRID_SUBGRID_DIV, false));
+		addInteractor(new Checkbox4Pencil(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y));
+		addInteractor(new Checkbox4Selection(this, labelsYInvertedCB, ShapeProperties.GRID_LABEL_POSITION_Y));
+		addInteractor(new Checkbox4Pencil(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X));
+		addInteractor(new Checkbox4Selection(this, labelsXInvertedCB, ShapeProperties.GRID_LABEL_POSITION_X));
 	}
 }

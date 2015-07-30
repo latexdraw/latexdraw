@@ -103,11 +103,9 @@ public class ShapeTransformer extends ShapePropertyCustomiser implements Initial
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new Button2Mirror(this))
 		// addInteractor(new Button2Align(this))
 		// addInteractor(new Button2Distribute(this))
-		// }catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 }
 

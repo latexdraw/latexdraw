@@ -13,7 +13,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -98,16 +97,12 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new Spinner4Pencil(this, dotSizeField, ShapeProperties.DOT_SIZE, false));
-			addInteractor(new Spinner4Selection(this, dotSizeField, ShapeProperties.DOT_SIZE, false));
-			addInteractor(new List4Pencil(this, dotCB, ShapeProperties.DOT_STYLE));
-			addInteractor(new List4Selection(this, dotCB, ShapeProperties.DOT_STYLE));
-			addInteractor(new ColourPicker4Selection(this, fillingB, ShapeProperties.DOT_FILLING_COL));
-			addInteractor(new ColourPicker4Pencil(this, fillingB, ShapeProperties.DOT_FILLING_COL));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new Spinner4Pencil(this, dotSizeField, ShapeProperties.DOT_SIZE, false));
+		addInteractor(new Spinner4Selection(this, dotSizeField, ShapeProperties.DOT_SIZE, false));
+		addInteractor(new List4Pencil(this, dotCB, ShapeProperties.DOT_STYLE));
+		addInteractor(new List4Selection(this, dotCB, ShapeProperties.DOT_STYLE));
+		addInteractor(new ColourPicker4Selection(this, fillingB, ShapeProperties.DOT_FILLING_COL));
+		addInteractor(new ColourPicker4Pencil(this, fillingB, ShapeProperties.DOT_FILLING_COL));
 	}
 }

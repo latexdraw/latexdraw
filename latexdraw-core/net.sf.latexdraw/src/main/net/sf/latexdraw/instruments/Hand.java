@@ -36,7 +36,6 @@ public class Hand extends CanvasInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new Press2Select(this))
 		// addInteractor(new DnD2Select(this))
 		// addInteractor(new DnD2Translate(this))
@@ -44,7 +43,6 @@ public class Hand extends CanvasInstrument {
 		// addInteractor(new DoubleClick2InitTextSetter(this))
 		// addInteractor(new CtrlA2SelectAllShapes(this))
 		// addInteractor(new CtrlU2UpdateShapes(this))
-		// }catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
 	// @Override

@@ -136,13 +136,9 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new KeysTyped2ChangePackages(this));
 		// addInteractor(new ButtonPressed2ChangeTextPosition(this));
 		// addInteractor(new ButtonPressed2ChangePencil(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 }
 

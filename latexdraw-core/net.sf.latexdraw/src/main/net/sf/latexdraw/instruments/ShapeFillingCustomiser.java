@@ -14,7 +14,6 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
@@ -133,30 +132,26 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new List4Pencil(this, fillStyleCB, ShapeProperties.FILLING_STYLE));
-			addInteractor(new List4Selection(this, fillStyleCB, ShapeProperties.FILLING_STYLE));
-			addInteractor(new ColourPicker4Selection(this, fillColButton, ShapeProperties.COLOUR_FILLING));
-			addInteractor(new ColourPicker4Selection(this, gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START));
-			addInteractor(new ColourPicker4Selection(this, gradEndColButton, ShapeProperties.COLOUR_GRADIENT_END));
-			addInteractor(new ColourPicker4Selection(this, hatchColButton, ShapeProperties.COLOUR_HATCHINGS));
-			addInteractor(new ColourPicker4Pencil(this, fillColButton, ShapeProperties.COLOUR_FILLING));
-			addInteractor(new ColourPicker4Pencil(this, gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START));
-			addInteractor(new ColourPicker4Pencil(this, gradEndColButton, ShapeProperties.COLOUR_GRADIENT_END));
-			addInteractor(new ColourPicker4Pencil(this, hatchColButton, ShapeProperties.COLOUR_HATCHINGS));
-			addInteractor(new Spinner4Pencil(this, gradMidPtField, ShapeProperties.GRAD_MID_POINT, false));
-			addInteractor(new Spinner4Pencil(this, gradAngleField, ShapeProperties.GRAD_ANGLE, true));
-			addInteractor(new Spinner4Pencil(this, hatchAngleField, ShapeProperties.HATCHINGS_ANGLE, true));
-			addInteractor(new Spinner4Pencil(this, hatchWidthField, ShapeProperties.HATCHINGS_WIDTH, false));
-			addInteractor(new Spinner4Pencil(this, hatchSepField, ShapeProperties.HATCHINGS_SEP, false));
-			addInteractor(new Spinner4Selection(this, gradMidPtField, ShapeProperties.GRAD_MID_POINT, false));
-			addInteractor(new Spinner4Selection(this, gradAngleField, ShapeProperties.GRAD_ANGLE, true));
-			addInteractor(new Spinner4Selection(this, hatchAngleField, ShapeProperties.HATCHINGS_ANGLE, true));
-			addInteractor(new Spinner4Selection(this, hatchWidthField, ShapeProperties.HATCHINGS_WIDTH, false));
-			addInteractor(new Spinner4Selection(this, hatchSepField, ShapeProperties.HATCHINGS_SEP, false));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new List4Pencil(this, fillStyleCB, ShapeProperties.FILLING_STYLE));
+		addInteractor(new List4Selection(this, fillStyleCB, ShapeProperties.FILLING_STYLE));
+		addInteractor(new ColourPicker4Selection(this, fillColButton, ShapeProperties.COLOUR_FILLING));
+		addInteractor(new ColourPicker4Selection(this, gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START));
+		addInteractor(new ColourPicker4Selection(this, gradEndColButton, ShapeProperties.COLOUR_GRADIENT_END));
+		addInteractor(new ColourPicker4Selection(this, hatchColButton, ShapeProperties.COLOUR_HATCHINGS));
+		addInteractor(new ColourPicker4Pencil(this, fillColButton, ShapeProperties.COLOUR_FILLING));
+		addInteractor(new ColourPicker4Pencil(this, gradStartColButton, ShapeProperties.COLOUR_GRADIENT_START));
+		addInteractor(new ColourPicker4Pencil(this, gradEndColButton, ShapeProperties.COLOUR_GRADIENT_END));
+		addInteractor(new ColourPicker4Pencil(this, hatchColButton, ShapeProperties.COLOUR_HATCHINGS));
+		addInteractor(new Spinner4Pencil(this, gradMidPtField, ShapeProperties.GRAD_MID_POINT, false));
+		addInteractor(new Spinner4Pencil(this, gradAngleField, ShapeProperties.GRAD_ANGLE, true));
+		addInteractor(new Spinner4Pencil(this, hatchAngleField, ShapeProperties.HATCHINGS_ANGLE, true));
+		addInteractor(new Spinner4Pencil(this, hatchWidthField, ShapeProperties.HATCHINGS_WIDTH, false));
+		addInteractor(new Spinner4Pencil(this, hatchSepField, ShapeProperties.HATCHINGS_SEP, false));
+		addInteractor(new Spinner4Selection(this, gradMidPtField, ShapeProperties.GRAD_MID_POINT, false));
+		addInteractor(new Spinner4Selection(this, gradAngleField, ShapeProperties.GRAD_ANGLE, true));
+		addInteractor(new Spinner4Selection(this, hatchAngleField, ShapeProperties.HATCHINGS_ANGLE, true));
+		addInteractor(new Spinner4Selection(this, hatchWidthField, ShapeProperties.HATCHINGS_WIDTH, false));
+		addInteractor(new Spinner4Selection(this, hatchSepField, ShapeProperties.HATCHINGS_SEP, false));
 	}
 }

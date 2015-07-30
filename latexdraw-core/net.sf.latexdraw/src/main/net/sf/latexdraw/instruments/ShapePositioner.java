@@ -46,11 +46,7 @@ public class ShapePositioner extends ShapePropertyCustomiser implements Initiali
 
 	@Override
 	protected void initialiseInteractors() {
-		// try {
 		// addInteractor(new Button2MoveBackForeground(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 
 	@Override

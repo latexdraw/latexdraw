@@ -83,12 +83,8 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new ButtonPress2ShowExceptionFrame(this));
-		}catch(InstantiationException|IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new ButtonPress2ShowExceptionFrame(this));
 	}
 
 	@Override

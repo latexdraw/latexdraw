@@ -117,15 +117,11 @@ public class TextSetter extends JfxInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new Enter2SetText(this));
 		// addInteractor(new Enter2SetEquation(this));
 		// addInteractor(new Enter2AddText(this));
 		// // addInteractor(new Enter2CheckPlot(this));
 		// addInteractor(new KeyPress2Desactivate(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 
 	private void setTextMessage() {

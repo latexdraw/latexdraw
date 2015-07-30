@@ -68,12 +68,8 @@ public class ShapeGrouper extends ShapePropertyCustomiser implements Initializab
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new Button2GroupShapes(this));
 		// addInteractor(new Button2SeparateShapes(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 
 	// /** This link maps a button to an action that separates the selected

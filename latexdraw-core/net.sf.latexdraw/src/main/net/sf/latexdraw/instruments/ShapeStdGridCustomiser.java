@@ -11,7 +11,6 @@ import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -96,25 +95,21 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new Spinner4Pencil(this, labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false));
-			addInteractor(new Spinner4Selection(this, labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false));
-			addInteractor(new Spinner4StdGridPencil(xEndS, ShapeProperties.GRID_END));
-			addInteractor(new Spinner4StdGridPencil(yEndS, ShapeProperties.GRID_END));
-			addInteractor(new Spinner4StdGridHand(xEndS, ShapeProperties.GRID_END));
-			addInteractor(new Spinner4StdGridHand(yEndS, ShapeProperties.GRID_END));
-			addInteractor(new Spinner4StdGridPencil(xStartS, ShapeProperties.GRID_START));
-			addInteractor(new Spinner4StdGridPencil(yStartS, ShapeProperties.GRID_START));
-			addInteractor(new Spinner4StdGridHand(xStartS, ShapeProperties.GRID_START));
-			addInteractor(new Spinner4StdGridHand(yStartS, ShapeProperties.GRID_START));
-			addInteractor(new Spinner4StdGridPencil(xOriginS, ShapeProperties.GRID_ORIGIN));
-			addInteractor(new Spinner4StdGridPencil(yOriginS, ShapeProperties.GRID_ORIGIN));
-			addInteractor(new Spinner4StdGridHand(xOriginS, ShapeProperties.GRID_ORIGIN));
-			addInteractor(new Spinner4StdGridHand(yOriginS, ShapeProperties.GRID_ORIGIN));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new Spinner4Pencil(this, labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false));
+		addInteractor(new Spinner4Selection(this, labelsSizeS, ShapeProperties.GRID_SIZE_LABEL, false));
+		addInteractor(new Spinner4StdGridPencil(xEndS, ShapeProperties.GRID_END));
+		addInteractor(new Spinner4StdGridPencil(yEndS, ShapeProperties.GRID_END));
+		addInteractor(new Spinner4StdGridHand(xEndS, ShapeProperties.GRID_END));
+		addInteractor(new Spinner4StdGridHand(yEndS, ShapeProperties.GRID_END));
+		addInteractor(new Spinner4StdGridPencil(xStartS, ShapeProperties.GRID_START));
+		addInteractor(new Spinner4StdGridPencil(yStartS, ShapeProperties.GRID_START));
+		addInteractor(new Spinner4StdGridHand(xStartS, ShapeProperties.GRID_START));
+		addInteractor(new Spinner4StdGridHand(yStartS, ShapeProperties.GRID_START));
+		addInteractor(new Spinner4StdGridPencil(xOriginS, ShapeProperties.GRID_ORIGIN));
+		addInteractor(new Spinner4StdGridPencil(yOriginS, ShapeProperties.GRID_ORIGIN));
+		addInteractor(new Spinner4StdGridHand(xOriginS, ShapeProperties.GRID_ORIGIN));
+		addInteractor(new Spinner4StdGridHand(yOriginS, ShapeProperties.GRID_ORIGIN));
 	}
 
 	class Spinner4StdGridPencil extends SpinnerInteractor<ModifyPencilParameter, ShapeStdGridCustomiser> {

@@ -71,16 +71,12 @@ public class CopierCutterPaster extends CanvasInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new MenuItem2PasteShapes(this));
 		// addInteractor(new Shortcut2PasteShapes(this));
 		// addInteractor(new MenuItem2CopyShapes(this));
 		// addInteractor(new Shortcut2CopyShapes(this));
 		// addInteractor(new MenuItem2CutShapes(this));
 		// addInteractor(new Shortcut2CutShapes(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 
 	@Override

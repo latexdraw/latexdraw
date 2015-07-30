@@ -201,17 +201,13 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			final List<Node> nodes = new ArrayList<>(button2EditingChoiceMap.keySet());
-			nodes.add(handB);
-			// addInteractor(new ButtonPressed2AddText(this));
-			addInteractor(new ButtonPressed2DefineStylePencil(this));
-			addInteractor(new ButtonPressed2ActivateIns(this, nodes));
-			// addInteractor(new ButtonPressed2LaunchCodeInserter(this));
-		}catch(InstantiationException|IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		final List<Node> nodes = new ArrayList<>(button2EditingChoiceMap.keySet());
+		nodes.add(handB);
+		// addInteractor(new ButtonPressed2AddText(this));
+		addInteractor(new ButtonPressed2DefineStylePencil(this));
+		addInteractor(new ButtonPressed2ActivateIns(this, nodes));
+		// addInteractor(new ButtonPressed2LaunchCodeInserter(this));
 	}
 
 	@Override

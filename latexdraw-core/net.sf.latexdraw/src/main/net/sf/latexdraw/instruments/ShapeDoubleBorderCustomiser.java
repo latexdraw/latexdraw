@@ -6,7 +6,6 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 /**
@@ -70,16 +69,12 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new Checkbox4Pencil(this, dbleBoundCB, ShapeProperties.DBLE_BORDERS));
-			addInteractor(new Checkbox4Selection(this, dbleBoundCB, ShapeProperties.DBLE_BORDERS));
-			addInteractor(new ColourPicker4Selection(this, dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD));
-			addInteractor(new ColourPicker4Pencil(this, dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD));
-			addInteractor(new Spinner4Pencil(this, dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false));
-			addInteractor(new Spinner4Selection(this, dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new Checkbox4Pencil(this, dbleBoundCB, ShapeProperties.DBLE_BORDERS));
+		addInteractor(new Checkbox4Selection(this, dbleBoundCB, ShapeProperties.DBLE_BORDERS));
+		addInteractor(new ColourPicker4Selection(this, dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD));
+		addInteractor(new ColourPicker4Pencil(this, dbleBoundColB, ShapeProperties.COLOUR_DBLE_BORD));
+		addInteractor(new Spinner4Pencil(this, dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false));
+		addInteractor(new Spinner4Selection(this, dbleSepField, ShapeProperties.DBLE_BORDERS_SIZE, false));
 	}
 }

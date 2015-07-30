@@ -335,13 +335,11 @@ public class Border extends CanvasInstrument { // implements Picker {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new DnD2Scale(this))
 		// addInteractor(new DnD2MovePoint(this))
 		// addInteractor(new DnD2MoveCtrlPoint(this))
 		// addInteractor(new DnD2Rotate(this))
 		// addInteractor(new DnD2ArcAngle(this))
-		// }catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
 	/**

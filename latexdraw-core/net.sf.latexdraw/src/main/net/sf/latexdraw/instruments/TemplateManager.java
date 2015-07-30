@@ -35,12 +35,9 @@ public class TemplateManager extends JfxInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try {
 		// addInteractor(new MenuItem2UpdateTemplates(this))
 		// addInteractor(new MenuItem2LoadTemplate(this))
 		// addInteractor(new MenuItem2ExportTemplate(this))
-		// }
-		// catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
 	// override protected def initialiseWidgets() {

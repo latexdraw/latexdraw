@@ -6,7 +6,6 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 /**
@@ -75,18 +74,14 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new Checkbox4Pencil(this, shadowCB, ShapeProperties.SHADOW));
-			addInteractor(new Checkbox4Selection(this, shadowCB, ShapeProperties.SHADOW));
-			addInteractor(new ColourPicker4Pencil(this, shadowColB, ShapeProperties.SHADOW_COLOUR));
-			addInteractor(new ColourPicker4Selection(this, shadowColB, ShapeProperties.SHADOW_COLOUR));
-			addInteractor(new Spinner4Pencil(this, shadowSizeField, ShapeProperties.SHADOW_SIZE, false));
-			addInteractor(new Spinner4Selection(this, shadowSizeField, ShapeProperties.SHADOW_SIZE, false));
-			addInteractor(new Spinner4Pencil(this, shadowAngleField, ShapeProperties.SHADOW_ANGLE, true));
-			addInteractor(new Spinner4Selection(this, shadowAngleField, ShapeProperties.SHADOW_ANGLE, true));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new Checkbox4Pencil(this, shadowCB, ShapeProperties.SHADOW));
+		addInteractor(new Checkbox4Selection(this, shadowCB, ShapeProperties.SHADOW));
+		addInteractor(new ColourPicker4Pencil(this, shadowColB, ShapeProperties.SHADOW_COLOUR));
+		addInteractor(new ColourPicker4Selection(this, shadowColB, ShapeProperties.SHADOW_COLOUR));
+		addInteractor(new Spinner4Pencil(this, shadowSizeField, ShapeProperties.SHADOW_SIZE, false));
+		addInteractor(new Spinner4Selection(this, shadowSizeField, ShapeProperties.SHADOW_SIZE, false));
+		addInteractor(new Spinner4Pencil(this, shadowAngleField, ShapeProperties.SHADOW_ANGLE, true));
+		addInteractor(new Spinner4Selection(this, shadowAngleField, ShapeProperties.SHADOW_ANGLE, true));
 	}
 }

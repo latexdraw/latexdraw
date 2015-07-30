@@ -8,7 +8,6 @@ import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
@@ -78,17 +77,13 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new Spinner4Selection(this, startAngleS, ShapeProperties.ARC_START_ANGLE, true));
-			addInteractor(new Spinner4Selection(this, endAngleS, ShapeProperties.ARC_END_ANGLE, true));
-			addInteractor(new Spinner4Pencil(this, startAngleS, ShapeProperties.ARC_START_ANGLE, true));
-			addInteractor(new Spinner4Pencil(this, endAngleS, ShapeProperties.ARC_END_ANGLE, true));
-			addInteractor(new Button2SelectionArcStyle(this));
-			addInteractor(new Button2PencilArcStyle(this));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new Spinner4Selection(this, startAngleS, ShapeProperties.ARC_START_ANGLE, true));
+		addInteractor(new Spinner4Selection(this, endAngleS, ShapeProperties.ARC_END_ANGLE, true));
+		addInteractor(new Spinner4Pencil(this, startAngleS, ShapeProperties.ARC_START_ANGLE, true));
+		addInteractor(new Spinner4Pencil(this, endAngleS, ShapeProperties.ARC_END_ANGLE, true));
+		addInteractor(new Button2SelectionArcStyle(this));
+		addInteractor(new Button2PencilArcStyle(this));
 	}
 
 	private static abstract class Button2ArcStyle<T extends ShapePropertyAction> extends ToggleButtonInteractor<T, ShapeArcCustomiser> {

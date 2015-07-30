@@ -11,7 +11,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
@@ -78,24 +77,20 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new List4Pencil(this, plotStyleCB, ShapeProperties.PLOT_STYLE));
-			addInteractor(new List4Selection(this, plotStyleCB, ShapeProperties.PLOT_STYLE));
-			addInteractor(new Spinner4Pencil(this, nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false));
-			addInteractor(new Spinner4Selection(this, nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false));
-			addInteractor(new Spinner4Pencil(this, minXSpinner, ShapeProperties.PLOT_MIN_X, false));
-			addInteractor(new Spinner4Selection(this, minXSpinner, ShapeProperties.PLOT_MIN_X, false));
-			addInteractor(new Spinner4Pencil(this, maxXSpinner, ShapeProperties.PLOT_MAX_X, false));
-			addInteractor(new Spinner4Selection(this, maxXSpinner, ShapeProperties.PLOT_MAX_X, false));
-			addInteractor(new Spinner4Pencil(this, xScaleSpinner, ShapeProperties.X_SCALE, false));
-			addInteractor(new Spinner4Selection(this, xScaleSpinner, ShapeProperties.X_SCALE, false));
-			addInteractor(new Spinner4Pencil(this, yScaleSpinner, ShapeProperties.Y_SCALE, false));
-			addInteractor(new Spinner4Selection(this, yScaleSpinner, ShapeProperties.Y_SCALE, false));
-			addInteractor(new Checkbox4Pencil(this, polarCB, ShapeProperties.PLOT_POLAR));
-			addInteractor(new Checkbox4Selection(this, polarCB, ShapeProperties.PLOT_POLAR));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new List4Pencil(this, plotStyleCB, ShapeProperties.PLOT_STYLE));
+		addInteractor(new List4Selection(this, plotStyleCB, ShapeProperties.PLOT_STYLE));
+		addInteractor(new Spinner4Pencil(this, nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false));
+		addInteractor(new Spinner4Selection(this, nbPtsSpinner, ShapeProperties.PLOT_NB_PTS, false));
+		addInteractor(new Spinner4Pencil(this, minXSpinner, ShapeProperties.PLOT_MIN_X, false));
+		addInteractor(new Spinner4Selection(this, minXSpinner, ShapeProperties.PLOT_MIN_X, false));
+		addInteractor(new Spinner4Pencil(this, maxXSpinner, ShapeProperties.PLOT_MAX_X, false));
+		addInteractor(new Spinner4Selection(this, maxXSpinner, ShapeProperties.PLOT_MAX_X, false));
+		addInteractor(new Spinner4Pencil(this, xScaleSpinner, ShapeProperties.X_SCALE, false));
+		addInteractor(new Spinner4Selection(this, xScaleSpinner, ShapeProperties.X_SCALE, false));
+		addInteractor(new Spinner4Pencil(this, yScaleSpinner, ShapeProperties.Y_SCALE, false));
+		addInteractor(new Spinner4Selection(this, yScaleSpinner, ShapeProperties.Y_SCALE, false));
+		addInteractor(new Checkbox4Pencil(this, polarCB, ShapeProperties.PLOT_POLAR));
+		addInteractor(new Checkbox4Selection(this, polarCB, ShapeProperties.PLOT_POLAR));
 	}
 }

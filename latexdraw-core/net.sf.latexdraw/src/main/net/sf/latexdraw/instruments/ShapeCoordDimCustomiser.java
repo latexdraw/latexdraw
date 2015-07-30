@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.shape.TranslateShapes;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -58,12 +57,8 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new Spinner2TranslateShape(this));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new Spinner2TranslateShape(this));
 	}
 
 	@Override

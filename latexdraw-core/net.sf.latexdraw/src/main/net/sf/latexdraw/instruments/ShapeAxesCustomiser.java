@@ -13,7 +13,6 @@ import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
@@ -109,23 +108,19 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		try {
-			addInteractor(new List4Selection(this, shapeAxes, ShapeProperties.AXES_STYLE));
-			addInteractor(new List4Selection(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
-			addInteractor(new List4Selection(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
-			addInteractor(new List4Selection(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
-			addInteractor(new List4Pencil(this, shapeAxes, ShapeProperties.AXES_STYLE));
-			addInteractor(new List4Pencil(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
-			addInteractor(new List4Pencil(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
-			addInteractor(new List4Pencil(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
-			addInteractor(new Spinner2CustomPencilAxes(this));
-			addInteractor(new Spinner2CustomSelectedAxes(this));
-			addInteractor(new Checkbox4Pencil(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
-			addInteractor(new Checkbox4Selection(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
-		}catch(InstantiationException | IllegalAccessException e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new List4Selection(this, shapeAxes, ShapeProperties.AXES_STYLE));
+		addInteractor(new List4Selection(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
+		addInteractor(new List4Selection(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
+		addInteractor(new List4Selection(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
+		addInteractor(new List4Pencil(this, shapeAxes, ShapeProperties.AXES_STYLE));
+		addInteractor(new List4Pencil(this, showTicks, ShapeProperties.AXES_TICKS_SHOW));
+		addInteractor(new List4Pencil(this, showLabels, ShapeProperties.AXES_LABELS_SHOW));
+		addInteractor(new List4Pencil(this, shapeTicks, ShapeProperties.AXES_TICKS_STYLE));
+		addInteractor(new Spinner2CustomPencilAxes(this));
+		addInteractor(new Spinner2CustomSelectedAxes(this));
+		addInteractor(new Checkbox4Pencil(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
+		addInteractor(new Checkbox4Selection(this, showOrigin, ShapeProperties.AXES_SHOW_ORIGIN));
 	}
 
 	private abstract static class Spinner2CustomAxes<A extends ShapePropertyAction> extends SpinnerInteractor<A, ShapeAxesCustomiser> {

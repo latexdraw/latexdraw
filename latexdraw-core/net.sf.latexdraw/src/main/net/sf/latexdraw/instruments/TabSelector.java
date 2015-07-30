@@ -35,11 +35,7 @@ public class TabSelector extends JfxInstrument {
 
 	@Override
 	protected void initialiseInteractors() {
-		// try{
 		// addInteractor(new TabSelected2ActivateInstruments(this));
-		// }catch(InstantiationException | IllegalAccessException e){
-		// BadaboomCollector.INSTANCE.add(e);
-		// }
 	}
 
 	// private static class TabSelected2ActivateInstruments extends
