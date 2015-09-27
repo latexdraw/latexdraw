@@ -121,7 +121,7 @@ public class Exporter extends JfxInstrument {
 			final String[] lines = root.getTextContent().split(LResources.EOL);
 			final String pkgs = LaTeXGenerator.getPackages();
 			final StringBuilder build = new StringBuilder(LaTeXGenerator.getPackages());
-			build.append(Arrays.asList(lines).stream().filter(line -> !pkgs.contains(line)).collect(Collectors.joining(LResources.EOL, LResources.EOL, "")));
+			build.append(Arrays.stream(lines).filter(line -> !pkgs.contains(line)).collect(Collectors.joining(LResources.EOL, LResources.EOL, "")));
 			LaTeXGenerator.setPackages(build.toString());
 		}
 	}

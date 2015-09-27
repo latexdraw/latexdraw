@@ -30,7 +30,7 @@ public enum GridStyle {
 	 * @since 4.0
 	 */
 	public static Optional<GridStyle> getStylefromName(final String name) {
-		 return Arrays.asList(values()).stream().filter(v -> v.name().equals(name)).findFirst();
+		 return Arrays.stream(values()).filter(v -> v.name().equals(name)).findFirst();
 	}
 
 	/**
@@ -41,7 +41,7 @@ public enum GridStyle {
 	 * @since 4.0
 	 */
 	public static Optional<GridStyle> getStyleFromLabel(final String label) {
-		return Arrays.asList(values()).stream().filter(v -> v.getLabel().equals(label)).findFirst();
+		return Arrays.stream(values()).filter(v -> v.getLabel().equals(label)).findFirst();
 	}
 	
 	@Override

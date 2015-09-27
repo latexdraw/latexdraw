@@ -29,7 +29,7 @@ public interface IFreeHandProp {
 		 * @since 3.0
 		 */
 		public static FreeHandType getType(final String type) {
-			return Arrays.asList(values()).stream().filter(style -> style.toString().equals(type)).findFirst().orElse(CURVES);
+			return Arrays.stream(values()).filter(style -> style.toString().equals(type)).findFirst().orElse(CURVES);
 		}
 	}
 

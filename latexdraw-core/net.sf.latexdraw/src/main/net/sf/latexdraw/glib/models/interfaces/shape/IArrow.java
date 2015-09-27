@@ -184,7 +184,7 @@ public interface IArrow extends IArrowable {
 		 * @since 3.0
 		 */
 		public static ArrowStyle getArrowStyle(final String token) {
-			return Arrays.asList(values()).stream().filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findFirst().orElse(null);
 		}
 	}
 

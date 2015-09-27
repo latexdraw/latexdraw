@@ -97,7 +97,7 @@ public interface ITextProp {
 		 * @since 3.0
 		 */
 		public static TextPosition getTextPosition(final String latexToken) {
-			return Arrays.asList(values()).stream().filter(it -> it.getLatexToken().equals(latexToken)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(it -> it.getLatexToken().equals(latexToken)).findFirst().orElse(null);
 		}
 	}
 

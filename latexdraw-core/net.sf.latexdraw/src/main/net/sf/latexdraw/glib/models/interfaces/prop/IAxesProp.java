@@ -57,7 +57,7 @@ public interface IAxesProp extends IStdGridProp {
 		 * @since 3.0
 		 */
 		public static AxesStyle getStyle(final String style) {
-			return Arrays.asList(values()).stream().filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(null);
 		}
 	}
 
@@ -105,7 +105,7 @@ public interface IAxesProp extends IStdGridProp {
 		 * @since 3.0
 		 */
 		public static TicksStyle getStyle(final String style) {
-			return Arrays.asList(values()).stream().filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(null);
 		}
 	}
 
@@ -164,7 +164,7 @@ public interface IAxesProp extends IStdGridProp {
 		 * @since 3.0
 		 */
 		public static PlottingStyle getStyle(final String style) {
-			return Arrays.asList(values()).stream().filter(it -> it.toString().equals(style)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(null);
 		}
 	}
 

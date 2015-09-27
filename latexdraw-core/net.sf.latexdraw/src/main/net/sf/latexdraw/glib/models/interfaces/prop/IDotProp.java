@@ -82,7 +82,7 @@ public interface IDotProp {
 		 * @since 3.0
 		 */
 		public static DotStyle getStyle(final String styleName) {
-			return Arrays.asList(values()).stream().filter(style -> style.name().equals(styleName) || style.getPSTToken().equals(styleName)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(style -> style.name().equals(styleName) || style.getPSTToken().equals(styleName)).findFirst().orElse(null);
 		}
 	}
 

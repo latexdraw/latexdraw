@@ -79,7 +79,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 		 * @since 3.0
 		 */
 		public static Unit getUnit(final String label) {
-			return Arrays.asList(Unit.values()).stream().filter(it -> it.getLabel().equals(label)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(it -> it.getLabel().equals(label)).findFirst().orElse(null);
 		}
 	}
 

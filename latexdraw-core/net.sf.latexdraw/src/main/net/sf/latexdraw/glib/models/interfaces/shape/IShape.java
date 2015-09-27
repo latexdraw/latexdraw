@@ -138,7 +138,7 @@ public interface IShape extends Modifiable {
 		 * @since 3.0
 		 */
 		public static BorderPos getStyle(final String style) {
-			return Arrays.asList(values()).stream().filter(it -> it.toString().equals(style) || it.getLatexToken().equals(style)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getLatexToken().equals(style)).findFirst().orElse(null);
 		}
 
 
@@ -173,7 +173,7 @@ public interface IShape extends Modifiable {
 		 * @since 3.0
 		 */
 		public static LineStyle getStyle(final String style) {
-			return Arrays.asList(values()).stream().filter(it -> it.toString().equals(style)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(null);
 		}
 
 		/**
@@ -261,7 +261,7 @@ public interface IShape extends Modifiable {
 		 * @since 3.0
 		 */
 		public static FillingStyle getStyleFromLatex(final String token) {
-			return Arrays.asList(values()).stream().filter(style -> style.getLatexToken().equals(token)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(style -> style.getLatexToken().equals(token)).findFirst().orElse(null);
 		}
 
 
@@ -271,7 +271,7 @@ public interface IShape extends Modifiable {
 		 * @since 3.0
 		 */
 		public static FillingStyle getStyle(final String style) {
-			return Arrays.asList(values()).stream().filter(item -> item.toString().equals(style)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(item -> item.toString().equals(style)).findFirst().orElse(null);
 		}
 
 

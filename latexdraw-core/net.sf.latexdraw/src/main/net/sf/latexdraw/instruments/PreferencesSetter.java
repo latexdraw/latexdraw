@@ -140,7 +140,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		));
 
 		langList.getItems().addAll(LangTool.INSTANCE.getSupportedLocales().stream().map(l -> l.getDisplayLanguage()).collect(Collectors.toList()));
-		unitChoice.getItems().addAll(Arrays.asList(Unit.values()).stream().map(Unit::getLabel).collect(Collectors.toList()));
+		unitChoice.getItems().addAll(Arrays.stream(Unit.values()).map(Unit::getLabel).collect(Collectors.toList()));
 		styleList.getItems().addAll(GridStyle.values());
 	}
 

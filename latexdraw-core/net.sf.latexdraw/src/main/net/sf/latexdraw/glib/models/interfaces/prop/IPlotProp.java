@@ -48,7 +48,7 @@ public interface IPlotProp extends IScalable, IDotProp{
 		 * @since 3.2
 		 */
 		public static PlotStyle getPlotStyle(final String latexToken) {
-			return Arrays.asList(values()).stream().filter(it -> it.getPSTToken().equals(latexToken)).findFirst().orElse(CURVE);
+			return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(latexToken)).findFirst().orElse(CURVE);
 		}
 	}
 
