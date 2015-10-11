@@ -18,6 +18,7 @@ import net.sf.latexdraw.glib.views.jfx.Canvas;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.lang.LangTool;
 
+import org.eclipse.jdt.annotation.NonNull;
 import org.malai.interaction.Eventable;
 import org.malai.mapping.ActiveUnary;
 import org.malai.mapping.IUnary;
@@ -75,11 +76,11 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 
 		/**
 		 * @param label The label to test.
-		 * @return The unit corresponding to the given label, or null.
+		 * @return The unit corresponding to the given label, or CM.
 		 * @since 3.0
 		 */
-		public static Unit getUnit(final String label) {
-			return Arrays.stream(values()).filter(it -> it.getLabel().equals(label)).findFirst().orElse(null);
+		public static @NonNull Unit getUnit(final String label) {
+			return Arrays.stream(values()).filter(it -> it.getLabel().equals(label)).findFirst().orElse(CM);
 		}
 	}
 
