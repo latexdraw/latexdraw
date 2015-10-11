@@ -1,11 +1,11 @@
 package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 public class TestArrowStyle {
 	@Test
@@ -50,10 +50,9 @@ public class TestArrowStyle {
 //		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.ROUNDEND_STYLE), ArrowStyle.ROUND_END);
 		assertEquals(ArrowStyle.getArrowStyle(PSTricksConstants.ROUNDIN_STYLE), ArrowStyle.ROUND_IN);
 
-		assertNull(ArrowStyle.getArrowStyle(null));
+		assertEquals(ArrowStyle.NONE, ArrowStyle.getArrowStyle(null));
 		assertEquals(ArrowStyle.NONE, ArrowStyle.getArrowStyle("")); //$NON-NLS-1$
-		assertNull(ArrowStyle.getArrowStyle("diqdo ")); //$NON-NLS-1$
-		assertNull(ArrowStyle.getArrowStyle("çé _é  ")); //$NON-NLS-1$
+		assertEquals(ArrowStyle.NONE, ArrowStyle.getArrowStyle("diqdo ")); //$NON-NLS-1$
 
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.BAR_END.toString()), ArrowStyle.BAR_END);
 		assertEquals(ArrowStyle.getArrowStyle(ArrowStyle.BAR_IN.toString()), ArrowStyle.BAR_IN);

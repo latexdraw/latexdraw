@@ -2,12 +2,12 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
+
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 public class TestDotStyle {
 	@Test
@@ -67,9 +67,7 @@ public class TestDotStyle {
 		assertEquals(DotStyle.getStyle(DotStyle.TRIANGLE.toString()), DotStyle.TRIANGLE);
 		assertEquals(DotStyle.getStyle(DotStyle.X.toString()), DotStyle.X);
 
-		assertNull(DotStyle.getStyle(null));
-		assertNull(DotStyle.getStyle("")); //$NON-NLS-1$
-		assertNull(DotStyle.getStyle("ezpoke zae")); //$NON-NLS-1$
-		assertNull(DotStyle.getStyle("7dsqd 4ds'")); //$NON-NLS-1$
+		assertEquals(DotStyle.DOT, DotStyle.getStyle(null));
+		assertEquals(DotStyle.DOT, DotStyle.getStyle("")); //$NON-NLS-1$
 	}
 }

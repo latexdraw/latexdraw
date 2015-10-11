@@ -2,12 +2,12 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 public class TestFillingStyle {
 	@Test public void testIsFillable() {
@@ -35,10 +35,8 @@ public class TestFillingStyle {
 	}
 
 	@Test public void testGetStyleFromLatex() {
-		assertNull(FillingStyle.getStyleFromLatex(null));
-		assertNull(FillingStyle.getStyleFromLatex("")); //$NON-NLS-1$
-		assertNull(FillingStyle.getStyleFromLatex("azo")); //$NON-NLS-1$
-		assertNull(FillingStyle.getStyleFromLatex(" ç_è è_d dpo")); //$NON-NLS-1$
+		assertEquals(FillingStyle.NONE, FillingStyle.getStyleFromLatex(null));
+		assertEquals(FillingStyle.NONE, FillingStyle.getStyleFromLatex("")); //$NON-NLS-1$
 		assertEquals(FillingStyle.getStyleFromLatex(PSTricksConstants.TOKEN_FILL_CROSSHATCH), FillingStyle.CLINES);
 		assertEquals(FillingStyle.getStyleFromLatex(PSTricksConstants.TOKEN_FILL_CROSSHATCH_F), FillingStyle.CLINES_PLAIN);
 		assertEquals(FillingStyle.getStyleFromLatex(PSTricksConstants.TOKEN_FILL_GRADIENT), FillingStyle.GRAD);
@@ -51,10 +49,8 @@ public class TestFillingStyle {
 	}
 
 	@Test public void testGetStyle() {
-		assertNull(FillingStyle.getStyle(null));
-		assertNull(FillingStyle.getStyle("")); //$NON-NLS-1$
-		assertNull(FillingStyle.getStyle("oiezuroj")); //$NON-NLS-1$
-		assertNull(FillingStyle.getStyle("zeibvc")); //$NON-NLS-1$
+		assertEquals(FillingStyle.NONE, FillingStyle.getStyle(null));
+		assertEquals(FillingStyle.NONE, FillingStyle.getStyle("")); //$NON-NLS-1$
 		assertEquals(FillingStyle.getStyle(FillingStyle.CLINES.toString()), FillingStyle.CLINES);
 		assertEquals(FillingStyle.getStyle(FillingStyle.VLINES.toString()), FillingStyle.VLINES);
 		assertEquals(FillingStyle.getStyle(FillingStyle.HLINES.toString()), FillingStyle.HLINES);

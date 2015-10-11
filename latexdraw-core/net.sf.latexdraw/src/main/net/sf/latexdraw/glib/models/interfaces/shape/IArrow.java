@@ -2,6 +2,8 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
 
 import java.util.Arrays;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
@@ -183,8 +185,8 @@ public interface IArrow extends IArrowable {
 		 * @param token The PST token or the name of the style to get (e.g. NONE.toString()).
 		 * @since 3.0
 		 */
-		public static ArrowStyle getArrowStyle(final String token) {
-			return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findFirst().orElse(null);
+		public static @NonNull ArrowStyle getArrowStyle(final String token) {
+			return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(token) || it.toString().equals(token)).findFirst().orElse(ArrowStyle.NONE);
 		}
 	}
 

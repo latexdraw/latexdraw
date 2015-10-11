@@ -3,12 +3,12 @@ package test.glib.models.interfaces;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
+
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 public class TestAxesStyle {
 	@Test
@@ -43,9 +43,8 @@ public class TestAxesStyle {
 		assertEquals(AxesStyle.getStyle(PSTricksConstants.TOKEN_AXES_STYLE_FRAME), AxesStyle.FRAME);
 		assertEquals(AxesStyle.getStyle(PSTricksConstants.TOKEN_AXES_STYLE_NONE), AxesStyle.NONE);
 
-		assertNull(AxesStyle.getStyle(null));
-		assertNull(AxesStyle.getStyle("")); //$NON-NLS-1$
-		assertNull(AxesStyle.getStyle("-çà( gfd")); //$NON-NLS-1$
+		assertEquals(AxesStyle.AXES, AxesStyle.getStyle(null));
+		assertEquals(AxesStyle.AXES, AxesStyle.getStyle("")); //$NON-NLS-1$
 
 		assertEquals(AxesStyle.getStyle(AxesStyle.NONE.toString()), AxesStyle.NONE);
 		assertEquals(AxesStyle.getStyle(AxesStyle.AXES.toString()), AxesStyle.AXES);

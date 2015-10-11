@@ -3,12 +3,12 @@ package test.glib.models.interfaces;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
+
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 public class TestTicksStyle {
 	@Test
@@ -46,18 +46,11 @@ public class TestTicksStyle {
 
 	@Test
 	public void testGetStyle() {
-		assertNull(TicksStyle.getStyle(null));
-		assertNull(TicksStyle.getStyle("")); //$NON-NLS-1$
-		assertNull(TicksStyle.getStyle("ezpoke zae")); //$NON-NLS-1$
-		assertNull(TicksStyle.getStyle("7dsqd 4ds'")); //$NON-NLS-1$
+		assertEquals(TicksStyle.FULL, TicksStyle.getStyle(null));
+		assertEquals(TicksStyle.FULL, TicksStyle.getStyle("")); //$NON-NLS-1$
 		assertEquals(TicksStyle.getStyle(TicksStyle.BOTTOM.toString()), TicksStyle.BOTTOM);
 		assertEquals(TicksStyle.getStyle(TicksStyle.FULL.toString()), TicksStyle.FULL);
 		assertEquals(TicksStyle.getStyle(TicksStyle.TOP.toString()), TicksStyle.TOP);
-
-		assertNull(TicksStyle.getStyle(null));
-		assertNull(TicksStyle.getStyle("")); //$NON-NLS-1$
-		assertNull(TicksStyle.getStyle("dez")); //$NON-NLS-1$
-		assertNull(TicksStyle.getStyle("&ç eydfs h")); //$NON-NLS-1$
 		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM), TicksStyle.BOTTOM);
 		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_FULL), TicksStyle.FULL);
 		assertEquals(TicksStyle.getStyle(PSTricksConstants.TOKEN_TICKS_STYLE_TOP), TicksStyle.TOP);

@@ -2,6 +2,8 @@ package net.sf.latexdraw.glib.models.interfaces.prop;
 
 import java.util.Arrays;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.lang.LangTool;
@@ -53,11 +55,11 @@ public interface IAxesProp extends IStdGridProp {
 
 		/**
 		 * @param style The PST token or the name of the style (e.g. AXES.toString()) corresponding to the style to get.
-		 * @return The corresponding style or null.
+		 * @return The corresponding style or AXES.
 		 * @since 3.0
 		 */
-		public static AxesStyle getStyle(final String style) {
-			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(null);
+		public static @NonNull AxesStyle getStyle(final String style) {
+			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(AXES);
 		}
 	}
 
@@ -101,11 +103,11 @@ public interface IAxesProp extends IStdGridProp {
 
 		/**
 		 * @param style The style to check. Can be the PST token or the name of the style (e.g. FULL.toString()).
-		 * @return The corresponding style or null.
+		 * @return The corresponding style or FULL.
 		 * @since 3.0
 		 */
-		public static TicksStyle getStyle(final String style) {
-			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(null);
+		public static @NonNull TicksStyle getStyle(final String style) {
+			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(FULL);
 		}
 	}
 
@@ -160,11 +162,11 @@ public interface IAxesProp extends IStdGridProp {
 		/**
 		 * The style that corresponds to the given string.
 		 * @param style The style to check.
-		 * @return The corresponding style or null.
+		 * @return The corresponding style or ALL.
 		 * @since 3.0
 		 */
-		public static PlottingStyle getStyle(final String style) {
-			return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(null);
+		public static @NonNull PlottingStyle getStyle(final String style) {
+			return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(ALL);
 		}
 	}
 

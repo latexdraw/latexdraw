@@ -2,12 +2,12 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
+
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 public class TestPlottingStyle {
 	@Test
@@ -36,10 +36,8 @@ public class TestPlottingStyle {
 
 	@Test
 	public void testGetStyle() {
-		assertNull(PlottingStyle.getStyle(null));
-		assertNull(PlottingStyle.getStyle("")); //$NON-NLS-1$
-		assertNull(PlottingStyle.getStyle("ezpoke zae")); //$NON-NLS-1$
-		assertNull(PlottingStyle.getStyle("7dsqd 4ds'")); //$NON-NLS-1$
+		assertEquals(PlottingStyle.ALL, PlottingStyle.getStyle(null));
+		assertEquals(PlottingStyle.ALL, PlottingStyle.getStyle("")); //$NON-NLS-1$
 		assertEquals(PlottingStyle.getStyle(PlottingStyle.ALL.toString()), PlottingStyle.ALL);
 		assertEquals(PlottingStyle.getStyle(PlottingStyle.NONE.toString()), PlottingStyle.NONE);
 		assertEquals(PlottingStyle.getStyle(PlottingStyle.X.toString()), PlottingStyle.X);

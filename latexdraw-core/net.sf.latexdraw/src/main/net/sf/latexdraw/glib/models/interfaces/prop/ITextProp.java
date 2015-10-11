@@ -2,6 +2,8 @@ package net.sf.latexdraw.glib.models.interfaces.prop;
 
 import java.util.Arrays;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 /**
  * Text shape properties.
  * <br>
@@ -96,8 +98,8 @@ public interface ITextProp {
 		 * @return The TextPosition enumeration item corresponding to the given latex token.
 		 * @since 3.0
 		 */
-		public static TextPosition getTextPosition(final String latexToken) {
-			return Arrays.stream(values()).filter(it -> it.getLatexToken().equals(latexToken)).findFirst().orElse(null);
+		public static @NonNull TextPosition getTextPosition(final String latexToken) {
+			return Arrays.stream(values()).filter(it -> it.getLatexToken().equals(latexToken)).findFirst().orElse(BOT_LEFT);
 		}
 	}
 

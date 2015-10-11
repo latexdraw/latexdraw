@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
+import org.eclipse.jdt.annotation.NonNull;
 import org.malai.properties.Modifiable;
 
 /**
@@ -138,7 +139,7 @@ public interface IShape extends Modifiable {
 		 * @since 3.0
 		 */
 		public static BorderPos getStyle(final String style) {
-			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getLatexToken().equals(style)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getLatexToken().equals(style)).findFirst().orElse(INTO);
 		}
 
 
@@ -172,8 +173,8 @@ public interface IShape extends Modifiable {
 		 * @return The style which name is the given name style.
 		 * @since 3.0
 		 */
-		public static LineStyle getStyle(final String style) {
-			return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(null);
+		public static @NonNull LineStyle getStyle(final String style) {
+			return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(SOLID);
 		}
 
 		/**
@@ -260,8 +261,8 @@ public interface IShape extends Modifiable {
 		 * @return The style which name is the given name style (or null).
 		 * @since 3.0
 		 */
-		public static FillingStyle getStyleFromLatex(final String token) {
-			return Arrays.stream(values()).filter(style -> style.getLatexToken().equals(token)).findFirst().orElse(null);
+		public static @NonNull FillingStyle getStyleFromLatex(final String token) {
+			return Arrays.stream(values()).filter(style -> style.getLatexToken().equals(token)).findFirst().orElse(NONE);
 		}
 
 
@@ -270,8 +271,8 @@ public interface IShape extends Modifiable {
 		 * @return The filling style that corresponds to the given text (or null).
 		 * @since 3.0
 		 */
-		public static FillingStyle getStyle(final String style) {
-			return Arrays.stream(values()).filter(item -> item.toString().equals(style)).findFirst().orElse(null);
+		public static @NonNull FillingStyle getStyle(final String style) {
+			return Arrays.stream(values()).filter(item -> item.toString().equals(style)).findFirst().orElse(NONE);
 		}
 
 

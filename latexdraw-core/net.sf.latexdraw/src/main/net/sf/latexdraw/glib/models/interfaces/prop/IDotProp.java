@@ -2,6 +2,8 @@ package net.sf.latexdraw.glib.models.interfaces.prop;
 
 import java.util.Arrays;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
@@ -78,11 +80,11 @@ public interface IDotProp {
 
 		/**
 		 * @param styleName The style to get (in PST or the name of the style, e.g. FSQUARE.toString())
-		 * @return The style which name is the given name style or null.
+		 * @return The style which name is the given name style or DOT.
 		 * @since 3.0
 		 */
-		public static DotStyle getStyle(final String styleName) {
-			return Arrays.stream(values()).filter(style -> style.name().equals(styleName) || style.getPSTToken().equals(styleName)).findFirst().orElse(null);
+		public static @NonNull DotStyle getStyle(final String styleName) {
+			return Arrays.stream(values()).filter(style -> style.name().equals(styleName) || style.getPSTToken().equals(styleName)).findFirst().orElse(DOT);
 		}
 	}
 
