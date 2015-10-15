@@ -8,3 +8,5 @@
 /latexdraw.core.iml
 /net.sf.latexdraw.iml
 /.tmpBin/
+/.cache-main
+/.cache-tests
