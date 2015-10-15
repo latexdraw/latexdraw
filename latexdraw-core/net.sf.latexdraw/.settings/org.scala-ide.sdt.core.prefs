@@ -1,3 +1,7 @@
+//src/main=main
+//src/resources/main=main
+//src/resources/test=main
+//src/test=tests
 P=
 Xcheckinit=false
 Xdisable-assertions=false
@@ -30,7 +34,7 @@ optimise=true
 recompileOnMacroDef=true
 relationsDebug=false
 scala.compiler.additionalParams=
-scala.compiler.installation=952761000
+scala.compiler.installation=-90922204
 scala.compiler.sourceLevel=2.11
 scala.compiler.useProjectSettings=true
 stopBuildOnError=true
