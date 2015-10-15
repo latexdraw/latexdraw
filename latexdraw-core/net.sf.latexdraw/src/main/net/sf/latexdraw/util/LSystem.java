@@ -64,7 +64,7 @@ public final class LSystem {
 
 			@Override
 			public String getPdfcropBinPath() {
-				return "pdfcrop"; //$NON-NLS-1$
+				return "/Library/TeX/texbin/pdfcrop"; //$NON-NLS-1$
 			}
 		},
 		MAC_OS_X {
