@@ -41,6 +41,32 @@ public final class LSystem {
 		/** Windows 10 */
 		TEN,
 		/** Mac OS X */
+		MAC_OS_X_CAPITAN {
+			@Override
+			public String getPS2EPSBinPath() {
+				return "/usr/local/bin/ps2epsi"; //$NON-NLS-1$
+			}
+
+			@Override
+			public String getLatexBinPath() {
+				return "/Library/TeX/texbin/latex"; //$NON-NLS-1$
+			}
+
+			@Override
+			public String getDvipsBinPath() {
+				return "/Library/TeX/texbin/dvips"; //$NON-NLS-1$
+			}
+
+			@Override
+			public String getPs2pdfBinPath() {
+				return "/usr/local/bin/ps2pdf"; //$NON-NLS-1$
+			}
+
+			@Override
+			public String getPdfcropBinPath() {
+				return "pdfcrop"; //$NON-NLS-1$
+			}
+		},
 		MAC_OS_X {
 			@Override
 			public String getPS2EPSBinPath() {
@@ -189,6 +215,22 @@ public final class LSystem {
 	public boolean isMacOSX() {
 		return getSystem()==OperatingSystem.MAC_OS_X;
 	}
+	
+	/**
+	 * @return True: the operating system currently used is Mac OS X El Capitan.
+	 * @since 3.3
+	 */
+	public boolean isMacOSXElCapitan() {
+		return getSystem()==OperatingSystem.MAC_OS_X_CAPITAN;
+	}
+	
+	/**
+	 * @return True: the operating system currently used is Mac OS.
+	 * @since 3.3
+	 */
+	public boolean IsMac() {
+		return isMacOSX() || isMacOSXElCapitan();
+	}
 
 
 	/**
@@ -196,7 +238,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public int getControlKey() {
-		if(LSystem.INSTANCE.isMacOSX())
+		if(LSystem.INSTANCE.IsMac())
 			return KeyEvent.VK_META;
 		return KeyEvent.VK_CONTROL;
 	}
@@ -221,8 +263,12 @@ public final class LSystem {
 		if("windows xp".equalsIgnoreCase(os)) //$NON-NLS-1$
 			return OperatingSystem.XP;
 
-		if("mac os x".equalsIgnoreCase(os)) //$NON-NLS-1$
-			return OperatingSystem.MAC_OS_X;
+		if("mac os x".equalsIgnoreCase(os)) { //$NON-NLS-1$
+			final String version = System.getProperty("os.version");
+			if("10.11".compareTo(version)<0) // A change since El Capitan
+				return OperatingSystem.MAC_OS_X;
+			return OperatingSystem.MAC_OS_X_CAPITAN; //$NON-NLS-1$
+		}
 
 		if(os.toLowerCase().contains("windows 8")) //$NON-NLS-1$
 			return OperatingSystem.EIGHT;
