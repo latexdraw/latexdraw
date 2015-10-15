@@ -113,6 +113,12 @@ public abstract class TestShapePropGUI<T extends ShapePropertyCustomiser> extend
 		hand.getCanvas().getDrawing().getSelection().addShape(sh);
 	};
 
+	final protected GUIVoidCommand selectionAddText = () -> {
+		IShape sh = ShapeFactory.createText();
+		hand.getCanvas().getDrawing().addShape(sh);
+		hand.getCanvas().getDrawing().getSelection().addShape(sh);
+	};
+
 	final protected GUIVoidCommand selectionAddPlot = () -> {
 		IShape sh = ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 10, "x", false);
 		hand.getCanvas().getDrawing().addShape(sh);

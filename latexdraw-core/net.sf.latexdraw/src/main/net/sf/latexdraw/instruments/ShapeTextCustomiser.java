@@ -1,12 +1,28 @@
 package net.sf.latexdraw.instruments;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToggleButton;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.swing.SwingUtilities;
 
+import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.instrument.library.ToggleButtonInteractor;
+import org.malai.javafx.interaction.library.KeysTyped;
+import org.malai.mapping.MappingRegistry;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonBase;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
+import net.sf.latexdraw.actions.ModifyLatexProperties;
+import net.sf.latexdraw.actions.ModifyLatexProperties.LatexProperties;
+import net.sf.latexdraw.actions.ModifyPencilParameter;
+import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
+import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
@@ -16,28 +32,25 @@ import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 
-import org.malai.mapping.MappingRegistry;
-
 /**
  * This instrument modifies texts.<br>
  * <br>
  * This file is part of LaTeXDraw.<br>
  * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
  * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version. <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.<br>
  * <br>
  * 12/27/2010<br>
  * 
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeTextCustomiser extends ShapePropertyCustomiser {
+public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The button that selects the bottom-left text position. */
 	@FXML protected ToggleButton blButton;
 
@@ -66,8 +79,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 	@FXML protected ToggleButton centreButton;
 
 	/**
-	 * This text field permits to add latex packages that will be used during
-	 * compilation.
+	 * This text field permits to add latex packages that will be used during compilation.
 	 */
 	@FXML protected TextArea packagesField;
 
@@ -76,11 +88,14 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 
 	@FXML protected TitledPane mainPane;
 
+	protected final Map<ButtonBase, ITextProp.TextPosition> map;
+
 	/**
 	 * Creates the instrument.
 	 */
 	public ShapeTextCustomiser() {
 		super();
+		map = new HashMap<>();
 	}
 
 	@Override
@@ -89,20 +104,33 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 	}
 
 	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		map.put(bButton, ITextProp.TextPosition.BOT);
+		map.put(blButton, ITextProp.TextPosition.BOT_LEFT);
+		map.put(brButton, ITextProp.TextPosition.BOT_RIGHT);
+		map.put(tButton, ITextProp.TextPosition.TOP);
+		map.put(tlButton, ITextProp.TextPosition.TOP_LEFT);
+		map.put(centreButton, ITextProp.TextPosition.CENTER);
+		map.put(lButton, ITextProp.TextPosition.LEFT);
+		map.put(rButton, ITextProp.TextPosition.RIGHT);
+		map.put(trButton, ITextProp.TextPosition.TOP_RIGHT);
+	}
+
+	@Override
 	protected void update(final IGroup shape) {
 		if(shape.isTypeOf(ITextProp.class)) {
 			setActivated(true);
 			final TextPosition tp = shape.getTextPosition();
 
-			bButton.setSelected(tp==TextPosition.BOT);
-			brButton.setSelected(tp==TextPosition.BOT_RIGHT);
-			blButton.setSelected(tp==TextPosition.BOT_LEFT);
-			tButton.setSelected(tp==TextPosition.TOP);
-			trButton.setSelected(tp==TextPosition.TOP_RIGHT);
-			tlButton.setSelected(tp==TextPosition.TOP_LEFT);
-			centreButton.setSelected(tp==TextPosition.CENTER);
-			lButton.setSelected(tp==TextPosition.LEFT);
-			rButton.setSelected(tp==TextPosition.RIGHT);
+			bButton.setSelected(tp == TextPosition.BOT);
+			brButton.setSelected(tp == TextPosition.BOT_RIGHT);
+			blButton.setSelected(tp == TextPosition.BOT_LEFT);
+			tButton.setSelected(tp == TextPosition.TOP);
+			trButton.setSelected(tp == TextPosition.TOP_RIGHT);
+			tlButton.setSelected(tp == TextPosition.TOP_LEFT);
+			centreButton.setSelected(tp == TextPosition.CENTER);
+			lButton.setSelected(tp == TextPosition.LEFT);
+			rButton.setSelected(tp == TextPosition.RIGHT);
 			if(!packagesField.isFocused()) // Otherwise it means that this field
 											// is currently being edited and
 											// must not be updated.
@@ -116,7 +144,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 					String log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
 					int i = 0;
 
-					while(i<max&&msg.equals(log)) {
+					while(i < max && msg.equals(log)) {
 						try {
 							Thread.sleep(100);
 						}catch(final InterruptedException e) {
@@ -125,7 +153,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 						log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
 						i++;
 					}
-					if(log==null)
+					if(log == null)
 						log = ""; //$NON-NLS-1$
 					logField.setText(log);
 				});
@@ -135,138 +163,65 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser {
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		// addInteractor(new KeysTyped2ChangePackages(this));
-		// addInteractor(new ButtonPressed2ChangeTextPosition(this));
-		// addInteractor(new ButtonPressed2ChangePencil(this));
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new ButtonPressed2ChangeTextPosPencil());
+		addInteractor(new ButtonPressed2ChangeTextPosSelection());
+		addInteractor(new KeysTyped2ChangePackages());
+	}
+
+	class ButtonPressed2ChangeTextPosPencil extends ToggleButtonInteractor<ModifyPencilParameter, ShapeTextCustomiser> {
+		ButtonPressed2ChangeTextPosPencil() throws InstantiationException, IllegalAccessException {
+			super(ShapeTextCustomiser.this, ModifyPencilParameter.class, ShapeTextCustomiser.this.bButton, ShapeTextCustomiser.this.blButton, ShapeTextCustomiser.this.brButton,
+					ShapeTextCustomiser.this.centreButton, ShapeTextCustomiser.this.lButton, ShapeTextCustomiser.this.rButton, ShapeTextCustomiser.this.tButton, ShapeTextCustomiser.this.tlButton,
+					ShapeTextCustomiser.this.trButton);
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.TEXT_POSITION);
+			action.setPencil(instrument.pencil);
+			action.setValue(map.get(interaction.getWidget()));
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.pencil.isActivated();
+		}
+	}
+
+	class ButtonPressed2ChangeTextPosSelection extends ToggleButtonInteractor<ModifyShapeProperty, ShapeTextCustomiser> {
+		ButtonPressed2ChangeTextPosSelection() throws InstantiationException, IllegalAccessException {
+			super(ShapeTextCustomiser.this, ModifyShapeProperty.class, ShapeTextCustomiser.this.bButton, ShapeTextCustomiser.this.blButton, ShapeTextCustomiser.this.brButton,
+					ShapeTextCustomiser.this.centreButton, ShapeTextCustomiser.this.lButton, ShapeTextCustomiser.this.rButton, ShapeTextCustomiser.this.tButton, ShapeTextCustomiser.this.tlButton,
+					ShapeTextCustomiser.this.trButton);
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(ShapeProperties.TEXT_POSITION);
+			action.setGroup(instrument.pencil.getCanvas().getDrawing().getSelection().duplicateDeep(false));
+			action.setValue(map.get(interaction.getWidget()));
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return instrument.hand.isActivated();
+		}
+	}
+
+	class KeysTyped2ChangePackages extends JfxInteractor<ModifyLatexProperties, KeysTyped, ShapeTextCustomiser> {
+		KeysTyped2ChangePackages() throws InstantiationException, IllegalAccessException {
+			super(ShapeTextCustomiser.this, false, ModifyLatexProperties.class, KeysTyped.class, ShapeTextCustomiser.this.packagesField);
+		}
+
+		@Override
+		public void initAction() {
+			action.setProperty(LatexProperties.PACKAGES);
+		}
+
+		@Override
+		public void updateAction() {
+			action.setValue(instrument.packagesField.getText());
+		}
 	}
 }
-
-// class KeysTyped2ChangePackages extends InteractorImpl<ModifyLatexProperties,
-// KeysTyped, ShapeTextCustomiser> {
-// protected KeysTyped2ChangePackages(final ShapeTextCustomiser ins) throws
-// InstantiationException, IllegalAccessException {
-// super(ins, false, ModifyLatexProperties.class, KeysTyped.class);
-// }
-//
-// @Override
-// public void initAction() {
-// action.setProperty(LatexProperties.PACKAGES);
-// }
-//
-// @Override
-// public void updateAction() {
-// action.setValue(instrument.getPackagesField().getText());
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// return interaction.getObject()==instrument.packagesField;
-// }
-// }
-//
-//
-//
-// /**
-// * Links a button interaction to an action that modifies the pencil.
-// */
-// class ButtonPressed2ChangePencil extends
-// ButtonPressedForCustomiser<ModifyPencilParameter, ShapeTextCustomiser> {
-// /**
-// * Creates the link.
-// * @param ins The instrument that contains the link.
-// * @throws InstantiationException If an error of instantiation (interaction,
-// action) occurs.
-// * @throws IllegalAccessException If no free-parameter constructor are
-// provided.
-// */
-// ButtonPressed2ChangePencil(final ShapeTextCustomiser ins) throws
-// InstantiationException, IllegalAccessException {
-// super(ins, ModifyPencilParameter.class);
-// }
-//
-// @Override
-// public void initAction() {
-// final AbstractButton ab = interaction.getButton();
-//
-// action.setProperty(ShapeProperties.TEXT_POSITION);
-// action.setPencil(instrument.pencil);
-//
-// if(instrument.blButton==ab) action.setValue(ITextProp.TextPosition.BOT_LEFT);
-// else if(instrument.brButton==ab)
-// action.setValue(ITextProp.TextPosition.BOT_RIGHT);
-// else if(instrument.tButton==ab) action.setValue(ITextProp.TextPosition.TOP);
-// else if(instrument.bButton==ab) action.setValue(ITextProp.TextPosition.BOT);
-// else if(instrument.tlButton==ab)
-// action.setValue(ITextProp.TextPosition.TOP_LEFT);
-// else if(instrument.centreButton==ab)
-// action.setValue(ITextProp.TextPosition.CENTER);
-// else if(instrument.lButton==ab) action.setValue(ITextProp.TextPosition.LEFT);
-// else if(instrument.rButton==ab)
-// action.setValue(ITextProp.TextPosition.RIGHT);
-// else action.setValue(ITextProp.TextPosition.TOP_RIGHT);
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// final AbstractButton ab = interaction.getButton();
-// return instrument.pencil.isActivated() && (instrument.tButton==ab ||
-// instrument.tlButton==ab || instrument.centreButton==ab ||
-// instrument.trButton==ab || instrument.bButton==ab || instrument.blButton==ab
-// || instrument.brButton==ab ||
-// instrument.lButton==ab || instrument.rButton==ab);
-// }
-// }
-//
-//
-// /**
-// * Links a button interaction to an action that modifies the selected shapes.
-// */
-// class ButtonPressed2ChangeTextPosition extends
-// ButtonPressedForCustomiser<ModifyShapeProperty, ShapeTextCustomiser> {
-// /**
-// * Creates the link.
-// * @param ins The instrument that contains the link.
-// * @throws InstantiationException If an error of instantiation (interaction,
-// action) occurs.
-// * @throws IllegalAccessException If no free-parameter constructor are
-// provided.
-// */
-// ButtonPressed2ChangeTextPosition(final ShapeTextCustomiser ins) throws
-// InstantiationException, IllegalAccessException {
-// super(ins, ModifyShapeProperty.class);
-// }
-//
-// @Override
-// public void initAction() {
-// final AbstractButton ab = interaction.getButton();
-//
-// action.setGroup(instrument.hand.canvas().getDrawing().getSelection().duplicateDeep(false));
-// action.setProperty(ShapeProperties.TEXT_POSITION);
-//
-// if(instrument.bButton==ab) action.setValue(ITextProp.TextPosition.BOT);
-// else if(instrument.blButton==ab)
-// action.setValue(ITextProp.TextPosition.BOT_LEFT);
-// else if(instrument.brButton==ab)
-// action.setValue(ITextProp.TextPosition.BOT_RIGHT);
-// else if(instrument.tButton==ab) action.setValue(ITextProp.TextPosition.TOP);
-// else if(instrument.tlButton==ab)
-// action.setValue(ITextProp.TextPosition.TOP_LEFT);
-// else if(instrument.centreButton==ab)
-// action.setValue(ITextProp.TextPosition.CENTER);
-// else if(instrument.lButton==ab) action.setValue(ITextProp.TextPosition.LEFT);
-// else if(instrument.rButton==ab)
-// action.setValue(ITextProp.TextPosition.RIGHT);
-// else action.setValue(ITextProp.TextPosition.TOP_RIGHT);
-// }
-//
-// @Override
-// public boolean isConditionRespected() {
-// final AbstractButton ab = interaction.getButton();
-// return instrument.hand.isActivated() && ( instrument.bButton==ab ||
-// instrument.blButton==ab || instrument.centreButton==ab ||
-// instrument.brButton==ab || instrument.tButton==ab || instrument.tlButton==ab
-// || instrument.trButton==ab ||
-// instrument.lButton==ab || instrument.rButton==ab);
-// }
-// }
