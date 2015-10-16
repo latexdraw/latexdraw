@@ -62,8 +62,8 @@ class PSTDotView extends PSTClassicalView<IDot> {
 		if(shape.isFillable())
 			cache.append(", fillcolor=").append(getColourName(shape.getFillingCol()));
 		cache.append(']').append('(');
-		cache.append((float)LNumber.getCutNumber(x/ppc)).append(',');
-		cache.append((float)LNumber.getCutNumber(y/ppc)).append(')');
+		cache.append(LNumber.getCutNumberFloat(x/ppc)).append(',');
+		cache.append(LNumber.getCutNumberFloat(y/ppc)).append(')');
 
 		if(rotation!=null)
 			cache.append('}');

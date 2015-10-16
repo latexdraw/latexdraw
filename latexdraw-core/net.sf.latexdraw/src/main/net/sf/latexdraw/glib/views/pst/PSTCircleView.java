@@ -55,9 +55,9 @@ class PSTCircleView extends PSTClassicalView<ICircle> {
 		cache.append("\\pscircle["); //$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc));
 		cache.append(']').append('(');
-		cache.append((float)LNumber.getCutNumber(x/ppc)).append(',');
-		cache.append((float)LNumber.getCutNumber(y/ppc)).append(')').append('{');
-		cache.append((float)LNumber.getCutNumber(radius/ppc)).append('}');
+		cache.append(LNumber.getCutNumberFloat(x/ppc)).append(',');
+		cache.append(LNumber.getCutNumberFloat(y/ppc)).append(')').append('{');
+		cache.append(LNumber.getCutNumberFloat(radius/ppc)).append('}');
 
 		if(rotation!=null)
 			cache.append('}');

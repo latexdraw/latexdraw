@@ -63,8 +63,8 @@ class PSTPictureView extends PSTShapeView<IPicture> {
 
 		cache.append(start);
 		cache.append("\\rput(");//$NON-NLS-1$
-		cache.append((float)LNumber.getCutNumber((shape.getX()+shape.getWidth()/2.-origin.getX())/ppc)).append(',');
-		cache.append((float)LNumber.getCutNumber((origin.getY()-shape.getY()-shape.getHeight()/2.)/ppc)).append(')').append('{');
+		cache.append(LNumber.getCutNumberFloat((shape.getX()+shape.getWidth()/2.-origin.getX())/ppc)).append(',');
+		cache.append(LNumber.getCutNumberFloat((origin.getY()-shape.getY()-shape.getHeight()/2.)/ppc)).append(')').append('{');
 		cache.append("\\includegraphics{"); //$NON-NLS-1$
 		cache.append(LFileUtils.INSTANCE.normalizeForLaTeX(path));
 		cache.append('}').append('}');

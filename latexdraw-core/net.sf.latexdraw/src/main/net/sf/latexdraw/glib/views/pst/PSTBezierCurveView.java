@@ -66,44 +66,44 @@ class PSTBezierCurveView extends PSTClassicalView<IBezierCurve> {
 		if(size<2)
 			return ;
 
-		coord.append('(').append((float)LNumber.getCutNumber((pts.get(0).getX()-originx)/ppc));
-		coord.append(',').append((float)LNumber.getCutNumber((originy-pts.get(0).getY())/ppc));
-		coord.append(')').append('(').append((float)LNumber.getCutNumber((fCtrlPts.get(0).getX()-originx)/ppc));
-		coord.append(',').append((float)LNumber.getCutNumber((originy-fCtrlPts.get(0).getY())/ppc));
-		coord.append(')').append('(').append((float)LNumber.getCutNumber((fCtrlPts.get(1).getX()-originx)/ppc));
-		coord.append(',').append((float)LNumber.getCutNumber((originy-fCtrlPts.get(1).getY())/ppc));
-		coord.append(')').append('(').append((float)LNumber.getCutNumber((pts.get(1).getX()-originx)/ppc));
-		coord.append(',').append((float)LNumber.getCutNumber((originy-pts.get(1).getY())/ppc));
+		coord.append('(').append(LNumber.getCutNumberFloat((pts.get(0).getX()-originx)/ppc));
+		coord.append(',').append(LNumber.getCutNumberFloat((originy-pts.get(0).getY())/ppc));
+		coord.append(')').append('(').append(LNumber.getCutNumberFloat((fCtrlPts.get(0).getX()-originx)/ppc));
+		coord.append(',').append(LNumber.getCutNumberFloat((originy-fCtrlPts.get(0).getY())/ppc));
+		coord.append(')').append('(').append(LNumber.getCutNumberFloat((fCtrlPts.get(1).getX()-originx)/ppc));
+		coord.append(',').append(LNumber.getCutNumberFloat((originy-fCtrlPts.get(1).getY())/ppc));
+		coord.append(')').append('(').append(LNumber.getCutNumberFloat((pts.get(1).getX()-originx)/ppc));
+		coord.append(',').append(LNumber.getCutNumber((originy-pts.get(1).getY())/ppc));
 		coord.append(')');
 
 		for(i=2; i<size; i++) {
 			ctrlPt1 = fCtrlPts.get(i);
 			ctrlPt2 = sCtrlPts.get(i-1);
 
-			coord.append('(').append(LNumber.getCutNumber((float)((ctrlPt2.getX()-originx)/ppc)));
-			coord.append(',').append(LNumber.getCutNumber((float)((originy-ctrlPt2.getY())/ppc)));
-			coord.append(')').append('(').append(LNumber.getCutNumber((float)((ctrlPt1.getX()-originx)/ppc)));
-			coord.append(',').append(LNumber.getCutNumber((float)((originy-ctrlPt1.getY())/ppc)));
+			coord.append('(').append(LNumber.getCutNumberFloat((ctrlPt2.getX()-originx)/ppc));
+			coord.append(',').append(LNumber.getCutNumberFloat((originy-ctrlPt2.getY())/ppc));
+			coord.append(')').append('(').append(LNumber.getCutNumberFloat((ctrlPt1.getX()-originx)/ppc));
+			coord.append(',').append(LNumber.getCutNumberFloat((originy-ctrlPt1.getY())/ppc));
 			coord.append(')').append('(');
 
 			pt = pts.get(i);
-			coord.append(LNumber.getCutNumber((float)((pt.getX()-originx)/ppc))).append(',');
-			coord.append(LNumber.getCutNumber((float)((originy-pt.getY())/ppc))).append(')');
+			coord.append(LNumber.getCutNumberFloat((pt.getX()-originx)/ppc)).append(',');
+			coord.append(LNumber.getCutNumberFloat((originy-pt.getY())/ppc)).append(')');
 		}
 
 		if(shape.isClosed()) {
 			ctrlPt1 = sCtrlPts.get(0);
 			ctrlPt2 = sCtrlPts.get(sCtrlPts.size()-1);
 
-			coord.append('(').append(LNumber.getCutNumber((float)((ctrlPt2.getX()-originx)/ppc)));
-			coord.append(',').append(LNumber.getCutNumber((float)((originy-ctrlPt2.getY())/ppc)));
-			coord.append(')').append('(').append(LNumber.getCutNumber((float)((ctrlPt1.getX()-originx)/ppc)));
-			coord.append(',').append(LNumber.getCutNumber((float)((originy-ctrlPt1.getY())/ppc)));
+			coord.append('(').append(LNumber.getCutNumberFloat((ctrlPt2.getX()-originx)/ppc));
+			coord.append(',').append(LNumber.getCutNumberFloat((originy-ctrlPt2.getY())/ppc));
+			coord.append(')').append('(').append(LNumber.getCutNumberFloat((ctrlPt1.getX()-originx)/ppc));
+			coord.append(',').append(LNumber.getCutNumberFloat((originy-ctrlPt1.getY())/ppc));
 			coord.append(')').append('(');
 
 			pt = pts.get(0);
-			coord.append(LNumber.getCutNumber((float)((pt.getX()-originx)/ppc))).append(',');
-			coord.append(LNumber.getCutNumber((float)((originy-pt.getY())/ppc))).append(')');
+			coord.append(LNumber.getCutNumberFloat((pt.getX()-originx)/ppc)).append(',');
+			coord.append(LNumber.getCutNumberFloat((originy-pt.getY())/ppc)).append(')');
 		}
 
 		cache.append("\\psbezier["); //$NON-NLS-1$

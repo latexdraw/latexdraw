@@ -55,8 +55,8 @@ class PSTPolygonView extends PSTClassicalView<IPolygon> {
 
 		for(i=0; i<size; i++) {
 			p = shape.getPtAt(i);
-			points.append('(').append((float)LNumber.getCutNumber((p.getX()-position.getX())/ppc));
-			points.append(',').append((float)LNumber.getCutNumber((position.getY()-p.getY())/ppc)).append(')');
+			points.append('(').append(LNumber.getCutNumberFloat((p.getX()-position.getX())/ppc));
+			points.append(',').append(LNumber.getCutNumberFloat((position.getY()-p.getY())/ppc)).append(')');
 		}
 
 		return points;

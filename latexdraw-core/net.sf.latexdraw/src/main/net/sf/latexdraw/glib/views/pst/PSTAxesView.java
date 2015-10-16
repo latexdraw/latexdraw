@@ -59,8 +59,8 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 
 		if(!LNumber.equalsDouble(positionx, 0.) || !LNumber.equalsDouble(positiony, 0.)) {
 			end.append('}');
-			start.append("\\rput(").append((float)LNumber.getCutNumber((positionx-origDrawing.getX())/ppc)).append(','); //$NON-NLS-1$
-			start.append((float)LNumber.getCutNumber((origDrawing.getY()-positiony)/ppc)).append(')').append('{');
+			start.append("\\rput(").append(LNumber.getCutNumberFloat((positionx-origDrawing.getX())/ppc)).append(','); //$NON-NLS-1$
+			start.append(LNumber.getCutNumberFloat((origDrawing.getY()-positiony)/ppc)).append(')').append('{');
 		}
 
 		if(rot!=null) {
@@ -102,18 +102,18 @@ class PSTAxesView extends PSTShapeView<IAxes> {
 //		params.append(", ticksize=").append((float)LNumber.getCutNumber(shape.getTicksSize()/ppc)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
 		if(!LNumber.equalsDouble(distLabelsX, 0.))
-			params.append(", dx=").append((float)LNumber.getCutNumber(distLabelsX)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
+			params.append(", dx=").append(LNumber.getCutNumberFloat(distLabelsX)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
 		if(!LNumber.equalsDouble(distLabelsY, 0.))
-			params.append(", dy=").append((float)LNumber.getCutNumber(distLabelsY)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
+			params.append(", dy=").append(LNumber.getCutNumberFloat(distLabelsY)).append(PSTricksConstants.TOKEN_CM);//$NON-NLS-1$
 
 		if(!LNumber.equalsDouble(incrementx, PSTricksConstants.DEFAULT_DX))
 			params.append(", Dx=").append(LNumber.equalsDouble(incrementx, incrementx) ? String.valueOf((int)incrementx): //$NON-NLS-1$
-											String.valueOf((float)LNumber.getCutNumber(incrementx)));
+											String.valueOf(LNumber.getCutNumberFloat(incrementx)));
 
 		if(!LNumber.equalsDouble(incrementy, PSTricksConstants.DEFAULT_DY))
 			params.append(", Dy=").append(LNumber.equalsDouble(incrementy, incrementy) ? String.valueOf((int)incrementy): //$NON-NLS-1$
-										String.valueOf((float)LNumber.getCutNumber(incrementy)));
+										String.valueOf(LNumber.getCutNumberFloat(incrementy)));
 
 		if(!LNumber.equalsDouble(originx, PSTricksConstants.DEFAULT_OX))
 			params.append(", Ox=").append((int)originx);//$NON-NLS-1$
