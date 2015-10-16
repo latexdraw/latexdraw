@@ -53,6 +53,12 @@ trait PSBezierParser extends PSTAbstractParser with PSTParamParser with PSTCoord
 		setShapeParameters(bezier, ctx)
 		setArrows(bezier, arrowRaw, false, ctx)
 		bezier.updateSecondControlPoints
+		
+		if(bezier.getNbPoints()>2 && bezier.getPtAt(0).equals(bezier.getPtAt(-1))) {
+		  bezier.removePoint(-1)
+		}
+		else
+		  bezier.setIsClosed(false)
 
 		if(cmdName.endsWith("*"))
 			setShapeForStar(bezier)
