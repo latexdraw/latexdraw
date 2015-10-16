@@ -202,6 +202,9 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 		private List<Boolean> instrumentsState;
 
 		private List<Instrument> instruments;
+		
+		/** set the ui as modified after the work? */ 
+		protected boolean setModified;
 
 
 		protected IOWorker(final LFrame ui, final String path, final JLabel statusBar) {
@@ -209,6 +212,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 			this.ui = ui;
 			this.path = path;
 			this.statusBar = statusBar;
+			setModified = false;
 		}
 
 
@@ -268,11 +272,11 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 				for(int i=0, size=instrumentsState.size(); i<size; i++)
 					instruments.get(i).setActivated(instrumentsState.get(i));
 
-				final LFrame frame = ui;
-				final IMapping mapping = new ShapeList2ExporterMapping(frame.getDrawing().getShapes(), frame.getExporter());
+				final IMapping mapping = new ShapeList2ExporterMapping(ui.getDrawing().getShapes(), ui.getExporter());
 				MappingRegistry.REGISTRY.addMapping(mapping);
 				mapping.init();
-				ui.setModified(false);
+				
+				ui.setModified(setModified);
 			}
 		}
 	}
@@ -318,6 +322,7 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	static class InsertWorker extends LoadShapesWorker {
 		protected InsertWorker(final LFrame ui, final String path) {
 			super(ui, path, null);
+			setModified = true;
 		}
 
 
