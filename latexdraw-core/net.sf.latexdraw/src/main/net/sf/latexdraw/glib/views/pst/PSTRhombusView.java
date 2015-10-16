@@ -55,15 +55,15 @@ class PSTRhombusView extends PSTClassicalView<IRhombus> {
 		final double rotationAngle  = Math.toDegrees(shape.getRotationAngle())%360;
 
 		if(!LNumber.equalsDouble(rotationAngle, 0.))
-			params.append(", gangle=").append((float)LNumber.getCutNumber(-rotationAngle));//$NON-NLS-1$
+			params.append(", gangle=").append(LNumber.getCutNumberFloat(-rotationAngle));//$NON-NLS-1$
 
 		cache.append("\\psdiamond[");//$NON-NLS-1$
 		cache.append(params);
 		cache.append(']').append('(');
-		cache.append((float)LNumber.getCutNumber(xCenter/ppc)).append(',');
-		cache.append((float)LNumber.getCutNumber(yCenter/ppc)).append(')').append('(');
-		cache.append((float)LNumber.getCutNumber((brx-tlx)/2f)/ppc).append(',');
-		cache.append((float)LNumber.getCutNumber((bry-tly)/2f)/ppc).append(')');
+		cache.append(LNumber.getCutNumberFloat(xCenter/ppc)).append(',');
+		cache.append(LNumber.getCutNumberFloat(yCenter/ppc)).append(')').append('(');
+		cache.append(LNumber.getCutNumberFloat((brx-tlx)/2f)/ppc).append(',');
+		cache.append(LNumber.getCutNumberFloat((bry-tly)/2f)/ppc).append(')');
 	}
 }
 

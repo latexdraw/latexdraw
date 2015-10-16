@@ -48,8 +48,8 @@ class PSTGridView extends PSTShapeView<IGrid> {
 		final Color linesColor	  = shape.getLineColour();
 		final StringBuilder params  = new StringBuilder();
 
-		params.append("gridwidth=").append((float)LNumber.getCutNumber(shape.getGridWidth()/ppc)); //$NON-NLS-1$
-		params.append(", subgridwidth=").append((float)LNumber.getCutNumber(shape.getSubGridWidth()/ppc)); //$NON-NLS-1$
+		params.append("gridwidth=").append(LNumber.getCutNumberFloat(shape.getGridWidth()/ppc)); //$NON-NLS-1$
+		params.append(", subgridwidth=").append(LNumber.getCutNumberFloat(shape.getSubGridWidth()/ppc)); //$NON-NLS-1$
 		params.append(", gridlabels=").append(LNumber.getCutNumber(shape.getLabelsSize()*0.6f)).append("pt"); //$NON-NLS-1$ //$NON-NLS-2$
 
 		if(shape.getSubGridDiv()!=PSTricksConstants.DEFAULT_SUBGRIDDIV)
@@ -65,7 +65,7 @@ class PSTGridView extends PSTShapeView<IGrid> {
 			params.append(", gridlabelcolor=").append(getColourName(gridLabelsColor)); //$NON-NLS-1$
 
 		if(!LNumber.equalsDouble(unit, PSTricksConstants.DEFAULT_UNIT))
-			params.append(", unit=").append(LNumber.getCutNumber((float)unit)).append(PSTricksConstants.TOKEN_CM); //$NON-NLS-1$
+			params.append(", unit=").append(LNumber.getCutNumberFloat(unit)).append(PSTricksConstants.TOKEN_CM); //$NON-NLS-1$
 
 		if(!linesColor.equals(PSTricksConstants.DEFAULT_GRIDCOLOR))
 			params.append(", gridcolor=").append(getColourName(linesColor)); //$NON-NLS-1$
@@ -127,8 +127,8 @@ class PSTGridView extends PSTShapeView<IGrid> {
 			end.append("\n\\psset{unit=").append(PSTricksConstants.DEFAULT_UNIT).append(PSTricksConstants.TOKEN_CM).append('}');//$NON-NLS-1$
 
 		if(!LNumber.equalsDouble(position.getX(), 0.) || !LNumber.equalsDouble(position.getY(), 0.)) {
-			final float posX = (float)LNumber.getCutNumber((position.getX()-pt.getX())/ppc);
-			final float posY = (float)LNumber.getCutNumber((pt.getY()-position.getY())/ppc);
+			final float posX = LNumber.getCutNumberFloat((position.getX()-pt.getX())/ppc);
+			final float posY = LNumber.getCutNumberFloat((pt.getY()-position.getY())/ppc);
 
 			end.append('}');
 			start.append("\\rput(").append(posX).append(',').append(posY).append(')').append('{');//$NON-NLS-1$

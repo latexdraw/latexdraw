@@ -26,7 +26,7 @@ class PSTSquareView(sq:ISquare) extends PSTClassicalView[ISquare](sq){
 		val y2 		 = position.getY - br.getY
 
 		if(shape.isRoundCorner)
-			params.append(", framearc=").append(LNumber.getCutNumber(shape.getLineArc).toFloat) //$NON-NLS-1$
+			params.append(", framearc=").append(LNumber.getCutNumberFloat(shape.getLineArc)) //$NON-NLS-1$
 
 		val rotation = getRotationHeaderCode(ppc, position)
 
@@ -36,10 +36,10 @@ class PSTSquareView(sq:ISquare) extends PSTClassicalView[ISquare](sq){
 		cache.append("\\psframe[")	//$NON-NLS-1$
 		cache.append(params)
 		cache.append(']').append('(')
-		cache.append(LNumber.getCutNumber(x2 / ppc).toFloat).append(',')
-		cache.append(LNumber.getCutNumber(y1 / ppc).toFloat).append(')').append('(')
-		cache.append(LNumber.getCutNumber(x1 / ppc).toFloat).append(',')
-		cache.append(LNumber.getCutNumber(y2 / ppc).toFloat).append(')')
+		cache.append(LNumber.getCutNumberFloat(x2 / ppc)).append(',')
+		cache.append(LNumber.getCutNumberFloat(y1 / ppc)).append(')').append('(')
+		cache.append(LNumber.getCutNumberFloat(x1 / ppc)).append(',')
+		cache.append(LNumber.getCutNumberFloat(y2 / ppc)).append(')')
 
 		if(rotation!=null)
 			cache.append('}')

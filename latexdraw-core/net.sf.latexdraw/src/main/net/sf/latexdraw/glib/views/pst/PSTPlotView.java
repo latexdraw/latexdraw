@@ -25,15 +25,15 @@ public class PSTPlotView extends PSTClassicalView<IPlot>{
 			cache.append(rotation);
 
 		cache.append("\\rput(");//$NON-NLS-1$
-		cache.append((float)LNumber.getCutNumber((shape.getX()-position.getX())/ppc)).append(',');
-		cache.append((float)LNumber.getCutNumber((position.getY()-shape.getY())/ppc)).append(')').append('{');
+		cache.append(LNumber.getCutNumberFloat((shape.getX()-position.getX())/ppc)).append(',');
+		cache.append(LNumber.getCutNumberFloat((position.getY()-shape.getY())/ppc)).append(')').append('{');
 		cache.append("\\psplot[");	//$NON-NLS-1$
 		cache.append(params).append(", plotstyle=").append(shape.getPlotStyle().getPSTToken()).append(", plotpoints=").
 			append(shape.getNbPlottedPoints()).append(", xunit=").append(shape.getXScale()).append(", yunit=").
 			append(shape.getYScale()).append(", polarplot=").append(shape.isPolar());
 		if(shape.getPlotStyle()==PlotStyle.DOTS) {
 			cache.append(", dotstyle=").append(shape.getDotStyle().getPSTToken()).
-				append(", dotsize=").append((float)LNumber.getCutNumber(shape.getDiametre()/ppc));
+				append(", dotsize=").append(LNumber.getCutNumberFloat(shape.getDiametre()/ppc));
 			if(shape.getDotStyle().isFillable())
 				cache.append(", fillcolor=").append(getColourName(shape.getFillingCol()));
 		}

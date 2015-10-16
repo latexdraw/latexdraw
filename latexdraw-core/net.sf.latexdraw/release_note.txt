@@ -2,6 +2,8 @@
 Version 3.3.2
 
 Bugs fixed:
+- Too long precision in arrowsize to be accepted by LaTeX
+  https://bugs.launchpad.net/latexdraw/+bug/1506727
 - Tex binaries changed in the latest MacOsX version El Capitan
   https://bugs.launchpad.net/latexdraw/+bug/1502655
 - PS/PDF export does not work when a path contains a ~ character.

@@ -69,8 +69,8 @@ class PSTTextView extends PSTShapeView<IText> {
 		else
 			cache.append("\\rput[").append(shape.getTextPosition().getLatexToken()).append(']').append('('); //$NON-NLS-1$
 
-		cache.append((float)LNumber.getCutNumber((shape.getX()-origin.getX())/ppc)).append(',');
-		cache.append((float)LNumber.getCutNumber((origin.getY()-shape.getY())/ppc)).append(')').append('{');
+		cache.append(LNumber.getCutNumberFloat((shape.getX()-origin.getX())/ppc)).append(',');
+		cache.append(LNumber.getCutNumberFloat((origin.getY()-shape.getY())/ppc)).append(')').append('{');
 
 		if(colorName!=null)
 			cache.append("\\textcolor{").append(colorName).append('}').append('{'); //$NON-NLS-1$

@@ -55,10 +55,10 @@ class PSTTriangleView extends PSTClassicalView<ITriangle> {
 
 		cache.append("\\pstriangle[");//$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc)).append(']').append('(');
-		cache.append((float)LNumber.getCutNumber(((tlx+brx)/2. - origin.getX())/ppc)).append(',');
-		cache.append((float)LNumber.getCutNumber((origin.getY()-bry)/ppc)).append(')').append('(');
-		cache.append((float)LNumber.getCutNumber((brx-tlx)/ppc)).append(',');
-		cache.append((float)LNumber.getCutNumber((bry-tl.getY())/ppc)).append(')');
+		cache.append(LNumber.getCutNumberFloat(((tlx+brx)/2. - origin.getX())/ppc)).append(',');
+		cache.append(LNumber.getCutNumberFloat((origin.getY()-bry)/ppc)).append(')').append('(');
+		cache.append(LNumber.getCutNumberFloat((brx-tlx)/ppc)).append(',');
+		cache.append(LNumber.getCutNumberFloat((bry-tl.getY())/ppc)).append(')');
 
 		if(rot!=null)
 			cache.append('}');

@@ -57,6 +57,14 @@ object LNumber {
 	 * @since 3.0
 	 */
 	def getCutNumber(value:Double) : Double = getCutNumber(value, THRESHOLD)
+	
+		/**
+	 * See getCutNumber(double value, double threshold). The threshold is by default the constant value THRESHOLD.
+	 * @param value The value to cut.
+	 * @return The cut or the intact number.
+	 * @since 3.0
+	 */
+	def getCutNumberFloat(value:Double) : Float = getCutNumber(value, THRESHOLD).toFloat
 
 	/**
 	 * This method allows to set a threshold that if a number is under it, it will be considered as valuing 0;

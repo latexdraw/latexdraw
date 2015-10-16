@@ -141,12 +141,12 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 		if(withLatexParams && positionHoriCentre)
 			cache.append("\\begin{center}").append(LResources.EOL);//$NON-NLS-1$
 
-		final Float scaleF = (float)LNumber.getCutNumber(getScale());
+		final float scaleF = LNumber.getCutNumberFloat(getScale());
 		cache.append("\\psscalebox{").append(scaleF).append(' ').append(scaleF).append("} % Change this value to rescale the drawing.");//$NON-NLS-1$ //$NON-NLS-2$
 		cache.append(LResources.EOL).append('{').append(LResources.EOL);
 		cache.append("\\begin{pspicture}("); //$NON-NLS-1$
-		cache.append(0).append(',').append((float)LNumber.getCutNumber((origin.getY()-br.getY())/ppc)).append(')').append('(');
-		cache.append((float)LNumber.getCutNumber((tl.getX()-origin.getX())/ppc)).append(',').append((float)LNumber.getCutNumber((origin.getY()-tl.getY())/ppc));
+		cache.append(0).append(',').append(LNumber.getCutNumberFloat((origin.getY()-br.getY())/ppc)).append(')').append('(');
+		cache.append(LNumber.getCutNumberFloat((tl.getX()-origin.getX())/ppc)).append(',').append(LNumber.getCutNumberFloat((origin.getY()-tl.getY())/ppc));
 		cache.append(')').append(LResources.EOL);
 
 		for(final IShape shape : drawing.getShapes()) {
