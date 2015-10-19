@@ -2,6 +2,8 @@
 Version 3.3.2
 
 Bugs fixed:
+- NPE crash when exporting shapes as a template
+  https://bugs.launchpad.net/latexdraw/+bug/1504098
 - Crash while loading an SVG document
   https://bugs.launchpad.net/latexdraw/+bug/1504437
 - When importing a template, the document is not set as modified
