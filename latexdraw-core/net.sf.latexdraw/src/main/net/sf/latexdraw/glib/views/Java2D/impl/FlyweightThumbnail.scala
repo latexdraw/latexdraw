@@ -90,6 +90,8 @@ object FlyweightThumbnail {
 			images.clear
 		}
 	}
+	
+	def hasThumbnailsInProgress = creationsInProgress.synchronized{!creationsInProgress.isEmpty}
 
 	/**
 	 * Returns the image corresponding to the given text. If the image does not already exists,
@@ -111,40 +113,42 @@ object FlyweightThumbnail {
 	 */
 	def getImageInfo(view:IViewText) : (Image, Set[IViewText], String, String) = {
 		val shape = view.getShape.asInstanceOf[IText]
-		var res : (Image, Set[IViewText], String, String) = null
 
 		if(creationsInProgress.synchronized{creationsInProgress.contains(view)})
-			res = (null, Set(), "", inProgressMsg)
-		else {
-			val text = shape.getLineColour.toString()+shape.getText
-			images.synchronized{images.get(text)} match {
-			case Some(tuple) =>
-				tuple._2.synchronized { tuple._2+=view }
-				res = (tuple._1, tuple._2, tuple._3, tuple._4)
-				images.synchronized{images+=(text -> res)}
-			case _ =>
-				if(_thread) {
-					creationsInProgress.synchronized{creationsInProgress+=view}
-					res = (null, Set(), "", "Creation in progress")
-					SwingUtilities.invokeLater(new Thread() {
-						override def run() {
-							val tuple = createImage(shape)
-							images.synchronized{images+=(text -> (tuple._1, Set(view), tuple._2, tuple._3))}
-							creationsInProgress.synchronized{creationsInProgress-=view}
-							view.updateBorder
-							if(_canvas!=null) {
-								_canvas.getBorderInstrument.update
-								_canvas.refresh
-							}
-						}
-					})
+			return (null, Set(), "", inProgressMsg)
+		  
+	  if(shape==null) return (null, null, null, null)
+
+	  var res : (Image, Set[IViewText], String, String) = null
+		val text = shape.getLineColour.toString()+shape.getText
+
+		images.synchronized{images.get(text)} match {
+  		case Some(tuple) =>
+  			tuple._2.synchronized { tuple._2+=view }
+  			res = (tuple._1, tuple._2, tuple._3, tuple._4)
+  			images.synchronized{images+=(text -> res)}
+  		case _ =>
+  			if(_thread) {
+  				creationsInProgress.synchronized{creationsInProgress+=view}
+  				res = (null, Set(), "", "Creation in progress")
+  				SwingUtilities.invokeLater(new Thread() {
+  					override def run() {
+  						val tuple = createImage(shape)
+  						images.synchronized{images+=(text -> (tuple._1, Set(view), tuple._2, tuple._3))}
+  						creationsInProgress.synchronized{creationsInProgress-=view}
+  						view.updateBorder
+  						if(_canvas!=null) {
+  							_canvas.getBorderInstrument.update
+  							_canvas.refresh
+  						}
+  					}
+  				})
         }
-				else {
-					val tuple = createImage(shape)
-					res = (tuple._1, Set(view), tuple._2, tuple._3)
-					images+=(text -> res)
-				}
-			}
+  			else {
+  				val tuple = createImage(shape)
+  				res = (tuple._1, Set(view), tuple._2, tuple._3)
+  				images+=(text -> res)
+  			}
 		}
 		res
 	}

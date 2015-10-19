@@ -34,6 +34,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.ui.LCanvas;
+import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.instruments.ExceptionsManager;
@@ -449,7 +450,9 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 			final Graphics2D graphic2 = bufferImage2.createGraphics();
 			final IViewShape view = View2DTK.getFactory().createView(selection);
 			final AffineTransform aff = new AffineTransform();
-
+			final int MAX_CPT = 100;
+			int cpt = 0;
+			
 			graphic.setColor(Color.WHITE);
 			graphic.fillRect(0, 0, (int)width, (int)height);
 			graphic.scale(scale, scale);
@@ -458,6 +461,17 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 			aff.translate(0, 0);
 
 			view.paint(graphic, null);
+			
+			// Waiting for the producing of the thumbnails before flushing them.
+			while(FlyweightThumbnail.hasThumbnailsInProgress() && cpt<MAX_CPT) {
+				try {
+					Thread.sleep(100);
+					cpt++;
+				}catch(final InterruptedException ex) {
+					BadaboomCollector.INSTANCE.add(ex);
+				}
+			}
+
 			view.flush();
 
 			graphic2.setColor(Color.WHITE);
