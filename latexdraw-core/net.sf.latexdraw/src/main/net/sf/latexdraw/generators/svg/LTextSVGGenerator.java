@@ -1,5 +1,8 @@
 package net.sf.latexdraw.generators.svg;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextSize;
@@ -12,9 +15,6 @@ import net.sf.latexdraw.parsers.svg.SVGElements;
 import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGTextElement;
 import net.sf.latexdraw.util.LNamespace;
-
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 /**
  * Defines a SVG generator for a text.<br>
@@ -122,7 +122,7 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 
 		txt.setAttribute(SVGAttributes.SVG_X, String.valueOf(shape.getX()));
 		txt.setAttribute(SVGAttributes.SVG_Y, String.valueOf(shape.getY()));
-		txt.appendChild(doc.createCDATASection(shape.getText()));
+		txt.appendChild(doc.createTextNode(shape.getText()));
 		root.appendChild(txt);
 
 		setSVGRotationAttribute(root);

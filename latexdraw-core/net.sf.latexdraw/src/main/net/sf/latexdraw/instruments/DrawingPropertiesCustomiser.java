@@ -120,12 +120,12 @@ public class DrawingPropertiesCustomiser extends WidgetInstrument {
 
 			if(!latexGen.getCaption().isEmpty()) {
 				elt = document.createElement(ns + LNamespace.XML_CAPTION);
-				elt.appendChild(document.createCDATASection(latexGen.getCaption()));
+				elt.appendChild(document.createTextNode(latexGen.getCaption()));
 				root.appendChild(elt);
 			}
 			if(!latexGen.getLabel().isEmpty()) {
 				elt = document.createElement(ns + LNamespace.XML_LABEL);
-				elt.appendChild(document.createCDATASection(latexGen.getLabel()));
+				elt.appendChild(document.createTextNode(latexGen.getLabel()));
 				root.appendChild(elt);
 			}
 			if(latexGen.isPositionHoriCentre()) {

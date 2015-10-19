@@ -2,6 +2,8 @@
 Version 3.3.2
 
 Bugs fixed:
+- Crash while loading an SVG document
+  https://bugs.launchpad.net/latexdraw/+bug/1504437
 - When importing a template, the document is not set as modified
   https://bugs.launchpad.net/latexdraw/+bug/1504096
 - Too long precision in arrowsize to be accepted by LaTeX

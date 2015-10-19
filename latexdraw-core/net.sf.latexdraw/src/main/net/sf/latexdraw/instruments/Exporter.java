@@ -211,7 +211,7 @@ protected FileLoaderSaver loader;
 			final String ns = LPath.INSTANCE.getNormaliseNamespaceURI(nsURI);
 
 			elt = document.createElement(ns + LNamespace.XML_LATEX_INCLUDES);
-			elt.appendChild(document.createCDATASection(LaTeXGenerator.getPackages()));
+			elt.appendChild(document.createTextNode(LaTeXGenerator.getPackages()));
 			root.appendChild(elt);
 		}
 	}
