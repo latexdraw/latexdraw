@@ -341,13 +341,8 @@ public class SVGDocument implements Document {
 
 
 	@Override
-	public CDATASection createCDATASection(final String data) {
-		if(data==null)
-			throw new DOMException(DOMException.INVALID_CHARACTER_ERR, "Invalid data.");//$NON-NLS-1$
-
-		return new SVGCDATASection(data, this);
-	}
-
+	public CDATASection createCDATASection(final String data)
+	{ throw new DOMException(DOMException.INVALID_ACCESS_ERR, ACTION_NOT_IMPLEMENTED); }
 
 	@Override
 	public DOMConfiguration getDomConfig()

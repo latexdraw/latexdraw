@@ -93,12 +93,12 @@ public class DrawingPropertiesCustomiser extends JfxInstrument {
 
 		if(!latexGen.getCaption().isEmpty()) {
 			Element elt = document.createElement(ns+LNamespace.XML_CAPTION);
-			elt.appendChild(document.createCDATASection(latexGen.getCaption()));
+			elt.appendChild(document.createTextNode(latexGen.getCaption()));
 			root.appendChild(elt);
 		}
 		if(!latexGen.getLabel().isEmpty()) {
 			Element elt = document.createElement(ns+LNamespace.XML_LABEL);
-			elt.appendChild(document.createCDATASection(latexGen.getLabel()));
+			elt.appendChild(document.createTextNode(latexGen.getLabel()));
 			root.appendChild(elt);
 		}
 		if(latexGen.isPositionHoriCentre()) {

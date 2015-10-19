@@ -144,7 +144,7 @@ public class Exporter extends JfxInstrument {
 		}else {
 			final String ns = LPath.INSTANCE.getNormaliseNamespaceURI(nsURI);
 			Element elt = document.createElement(ns+LNamespace.XML_LATEX_INCLUDES);
-			elt.appendChild(document.createCDATASection(LaTeXGenerator.getPackages()));
+			elt.appendChild(document.createTextNode(LaTeXGenerator.getPackages()));
 			root.appendChild(elt);
 		}
 	}

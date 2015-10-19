@@ -12,18 +12,17 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Node;
+
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGCDATASection;
 import net.sf.latexdraw.parsers.svg.SVGComment;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.parsers.svg.SVGText;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Node;
 
 public class TestSVGDocument {
 	protected SVGDocument doc1;
@@ -249,20 +248,6 @@ public class TestSVGDocument {
 		catch(DOMException e) { /* ok */ }
 
 		SVGComment elt = (SVGComment)doc1.createComment("test"); //$NON-NLS-1$
-		assertEquals(elt.getData(), "test"); //$NON-NLS-1$
-		assertEquals(doc1, elt.getOwnerDocument());
-	}
-
-
-	@Test
-	public void testCreateCDATASection() {
-		try {
-			doc1.createCDATASection(null);
-			fail();
-		}
-		catch(DOMException e) { /* ok */ }
-
-		SVGCDATASection elt = (SVGCDATASection)doc1.createCDATASection("test"); //$NON-NLS-1$
 		assertEquals(elt.getData(), "test"); //$NON-NLS-1$
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
