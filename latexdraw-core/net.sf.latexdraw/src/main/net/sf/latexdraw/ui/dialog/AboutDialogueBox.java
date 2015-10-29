@@ -105,6 +105,7 @@ public class AboutDialogueBox extends JFrame {
 		final StringBuilder builder = new StringBuilder();
 		editorPane.setEditable(false);
 
+		builder.append("LateXDraw version: ").append(VersionChecker.VERSION).append(", ").append(VersionChecker.ID_BUILD).append(LResources.EOL); //$NON-NLS-1$//$NON-NLS-2$
 		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LResources.EOL); //$NON-NLS-1$
 		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LResources.EOL); //$NON-NLS-1$
 		builder.append("PS2PDF version:").append(LResources.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LResources.EOL); //$NON-NLS-1$
