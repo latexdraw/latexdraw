@@ -264,10 +264,15 @@ public final class LSystem {
 			return OperatingSystem.XP;
 
 		if("mac os x".equalsIgnoreCase(os)) { //$NON-NLS-1$
-			final String version = System.getProperty("os.version");
-			if("10.11".compareTo(version)<0) // A change since El Capitan
-				return OperatingSystem.MAC_OS_X;
-			return OperatingSystem.MAC_OS_X_CAPITAN; //$NON-NLS-1$
+			final String[] v = System.getProperty("os.version").split("\\.");
+			final double[] d = new double[v.length];
+			
+			for(int i=0; i<v.length; i++)
+				d[i] = Double.valueOf(v[i]);
+			
+			if((d.length>=1 && d[0]>10) || (d.length>=2 && d[0]==10 && d[1]>=11)) // A change since El Capitan
+				return OperatingSystem.MAC_OS_X_CAPITAN;
+			return OperatingSystem.MAC_OS_X; //$NON-NLS-1$
 		}
 
 		if(os.toLowerCase().contains("windows 8")) //$NON-NLS-1$
