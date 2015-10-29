@@ -215,10 +215,10 @@ public class LCanvas extends MPanel implements ICanvas {
 		if(mustZoom)
 			g.scale(zoomValue, zoomValue);
 
-		page.paint(g, ShapeFactory.createPoint());
-
 		// Getting the clip must be done here to consider the scaling and translation.
 		final Rectangle clip = g.getClipBounds();
+		
+		page.paint(g, ShapeFactory.createPoint(), clip);
 
 		synchronized(views){
 			for(final IViewShape view : views)

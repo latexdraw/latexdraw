@@ -3,6 +3,7 @@ package net.sf.latexdraw.glib.ui;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
@@ -56,11 +57,15 @@ public enum Page {
 	 * Paints the page into the given graphics.
 	 * @param g The graphics to use.
 	 * @param origin The position in the graphics corresponding to the origin.
+	 * @param clip The rectangle that requires to be painted.
 	 * @throws NullPointerException If the given graphics or point is null.
 	 * @since 3.1
 	 */
-	public void paint(final Graphics2D g, final IPoint origin) {
+	public void paint(final Graphics2D g, final IPoint origin, final Rectangle clip) {
 		final Rectangle2D page = new Rectangle2D.Double(origin.getX(), origin.getY(),getWidth()*IShape.PPC, getHeight()*IShape.PPC);
+		
+		if(clip!=null && !clip.contains(page) && !clip.intersects(page)) return;
+
 		g.setStroke(STROKE_PAGE);
 		g.setColor(Color.GRAY);
 		g.fill(new Rectangle2D.Double(page.getMaxX(), page.getMinY()+GAP_SHADOW, SIZE_SHADOW, page.getHeight()));
