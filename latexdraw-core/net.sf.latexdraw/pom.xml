@@ -10,7 +10,7 @@
   
   	<properties>
 		<malai.version>1.3</malai.version>
-		<scala.version>2.11.5</scala.version>
+		<scala.version>2.11.7</scala.version>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -282,7 +282,7 @@
 			<dependency>
 				<groupId>org.scala-lang.modules</groupId>
 				<artifactId>scala-parser-combinators_2.11</artifactId>
-				<version>1.0.3</version>
+				<version>1.0.4</version>
 			</dependency>
 		    <dependency>
 		      <groupId>junit</groupId>
