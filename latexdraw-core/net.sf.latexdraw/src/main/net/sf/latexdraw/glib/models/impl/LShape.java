@@ -4,6 +4,8 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.malai.mapping.MappingRegistry;
+
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
@@ -11,8 +13,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LNumber;
-
-import org.malai.mapping.MappingRegistry;
 
 /**
  * Defines a model of a shape.<br>
@@ -723,19 +723,40 @@ abstract class LShape implements IShape {
 
 
 	@Override
-	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
+	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
 		if(bound==null || pos==null) return ;
-		scaleSetPoints(points, x, y, pos, bound);
+		scaleSetPoints(points, prevWidth, prevHeight, pos, bound);
+	}
+	
+	@Override
+	public void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+		if(bound==null || pos==null) return ;
+		scaleSetPointsWithRatio(points, prevWidth, prevHeight, pos, bound);
 	}
 
+	 
+	protected void scaleSetPointsWithRatio(final List<IPoint> pts, final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+		final double s = Math.max(prevWidth/bound.getWidth(), prevHeight/bound.getHeight());
+		final IPoint refPt = pos.getReferencePoint(bound);
+		final double refX = refPt.getX();
+		final double refY = refPt.getY();
 
-	protected void scaleSetPoints(final List<IPoint> pts, final double x, final double y, final Position pos, final Rectangle2D bound) {
-		final double sx = x/bound.getWidth();
-		final double sy = y/bound.getHeight();
+		for(final IPoint pt : pts) {
+			if(!LNumber.equalsDouble(pt.getX(), refX))
+				pt.setX(refX+(pt.getX()-refX)*s);
+			if(!LNumber.equalsDouble(pt.getY(), refY))
+				pt.setY(refY+(pt.getY()-refY)*s);
+		}
+	}
+ 
+	protected void scaleSetPoints(final List<IPoint> pts, final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+		final double sx = prevWidth/bound.getWidth();
+		final double sy = prevHeight/bound.getHeight();
 		final boolean xScale = pos.isEast() || pos.isWest();
 		final boolean yScale = pos.isNorth() || pos.isSouth();
-		final double refX = pos.isWest() ? bound.getX() : bound.getMaxX();
-		final double refY = pos.isNorth() ? bound.getY() : bound.getMaxY();
+		final IPoint refPt = pos.getReferencePoint(bound);
+		final double refX = refPt.getX();
+		final double refY = refPt.getY();
 
 		pts.forEach(pt -> {
 			if(xScale && !LNumber.equalsDouble(pt.getX(), refX))

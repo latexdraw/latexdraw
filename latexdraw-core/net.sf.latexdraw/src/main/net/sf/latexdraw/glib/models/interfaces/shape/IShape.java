@@ -9,6 +9,8 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.properties.Modifiable;
 
+import net.sf.latexdraw.glib.models.ShapeFactory;
+
 /**
  * Defines an interface that classes defining an abstract shape should implement.<br>
  * <br>
@@ -42,40 +44,80 @@ public interface IShape extends Modifiable {
 			public Position getOpposite() {
 				return SOUTH;
 			}
+
+			@Override
+			public IPoint getReferencePoint(final Rectangle2D bound) {
+				return ShapeFactory.createPoint(bound.getCenterX(), bound.getMinY());
+			}
 		}, SOUTH {
 			@Override
 			public Position getOpposite() {
 				return NORTH;
+			}
+
+			@Override
+			public IPoint getReferencePoint(final Rectangle2D bound) {
+				return ShapeFactory.createPoint(bound.getCenterX(), bound.getMaxY());
 			}
 		}, EAST {
 			@Override
 			public Position getOpposite() {
 				return WEST;
 			}
+
+			@Override
+			public IPoint getReferencePoint(final Rectangle2D bound) {
+				return ShapeFactory.createPoint(bound.getMaxX(), bound.getCenterY());
+			}
 		}, WEST {
 			@Override
 			public Position getOpposite() {
 				return EAST;
+			}
+
+			@Override
+			public IPoint getReferencePoint(final Rectangle2D bound) {
+				return ShapeFactory.createPoint(bound.getMinX(), bound.getCenterY());
 			}
 		}, NE {
 			@Override
 			public Position getOpposite() {
 				return SW;
 			}
+
+			@Override
+			public IPoint getReferencePoint(final Rectangle2D bound) {
+				return ShapeFactory.createPoint(bound.getMaxX(), bound.getMinY());
+			}
 		}, NW {
 			@Override
 			public Position getOpposite() {
 				return SE;
+			}
+
+			@Override
+			public IPoint getReferencePoint(final Rectangle2D bound) {
+				return ShapeFactory.createPoint(bound.getMinX(), bound.getMinY());
 			}
 		}, SE {
 			@Override
 			public Position getOpposite() {
 				return NW;
 			}
+
+			@Override
+			public IPoint getReferencePoint(final Rectangle2D bound) {
+				return ShapeFactory.createPoint(bound.getMaxX(), bound.getMaxY());
+			}
 		}, SW {
 			@Override
 			public Position getOpposite() {
 				return NE;
+			}
+
+			@Override
+			public IPoint getReferencePoint(final Rectangle2D bound) {
+				return ShapeFactory.createPoint(bound.getMinX(), bound.getMaxY());
 			}
 		};
 
@@ -116,6 +158,8 @@ public interface IShape extends Modifiable {
 		 * @since 3.0
 		 */
 		public abstract Position getOpposite();
+		
+		public abstract IPoint getReferencePoint(final Rectangle2D bound);
 	}
 
 
@@ -430,8 +474,8 @@ public interface IShape extends Modifiable {
 	/**
 	 * Scales the shape where the move reference point is the
 	 * bottom right point, and the fixation point the top left point.
-	 * @param sx The X scale factor, in ]0,double].
-	 * @param sy The Y scale factor, in ]0,double].
+	 * @param prevWidth The previous width of the scaled shape.
+	 * @param prevHeight The previous height of the scaled shape.
 	 * @param pos The position of the reference point: if the reference point is top-left point,
 	 * then the scale will extend or reduce the shape at the bottom-right point. If the reference
 	 * position is NORTH or SOUTH the sx parameter will not be used. If it is EAST or WEST the sy
@@ -440,7 +484,21 @@ public interface IShape extends Modifiable {
 	 * @throws IllegalArgumentException If one of the parameter is not valid.
 	 * @since 3.0
 	 */
-	void scale(final double sx, final double sy, final Position pos, final Rectangle2D bound);
+	void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound);
+	
+	/**
+	 * Scales the shape by using the same ratio between X and Y.
+	 * @param prevWidth The previous width of the scaled shape.
+	 * @param prevHeight The previous height of the scaled shape.
+	 * @param pos The position of the reference point: if the reference point is top-left point,
+	 * then the scale will extend or reduce the shape at the bottom-right point. If the reference
+	 * position is NORTH or SOUTH the sx parameter will not be used. If it is EAST or WEST the sy
+	 * parameter will not be used.
+	 * @param bound The bound (e.g. the border of the selected shapes) used to compute the scaling.
+	 * @throws IllegalArgumentException If one of the parameter is not valid.
+	 * @since 3.0
+	 */
+	void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound);
 
 	/**
 	 * Returns horizontally the shape.

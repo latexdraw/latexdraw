@@ -2,6 +2,8 @@
 Version 3.3.2
 
 Bugs fixed:
+- Issues when resizing some shapes
+  https://bugs.launchpad.net/latexdraw/+bug/1504095
 - NPE crash when exporting shapes as a template
   https://bugs.launchpad.net/latexdraw/+bug/1504098
 - Crash while loading an SVG document

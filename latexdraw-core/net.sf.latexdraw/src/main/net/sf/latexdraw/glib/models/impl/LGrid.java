@@ -137,9 +137,13 @@ class LGrid extends LAbstractGrid implements IGrid {
 		return ShapeFactory.createPoint(pos.getX()+getGridMinX()*PPC, pos.getY()-getGridMaxY()*PPC*unit);
 	}
 
-
 	@Override
 	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
+		scaleWithRatio(x, y, pos, bound);
+	}
+
+	@Override
+	public void scaleWithRatio(final double x, final double y, final Position pos, final Rectangle2D bound) {
 		if(pos==null || bound==null) return;
 
 		final double sx = x/bound.getWidth();

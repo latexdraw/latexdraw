@@ -35,7 +35,7 @@ class LDot extends LPositionShape implements IDot {
 	protected DotStyle style;
 
 	/** The radius of the dot. */
-	protected double radius;
+	protected double diametre;
 
 
 	/**
@@ -45,7 +45,7 @@ class LDot extends LPositionShape implements IDot {
 		super(pt);
 
 		style = DotStyle.DOT;
-		radius = 20.;
+		diametre = 20.;
 	}
 
 
@@ -63,7 +63,7 @@ class LDot extends LPositionShape implements IDot {
 
 	@Override
 	public double getDiametre() {
-		return radius;
+		return diametre;
 	}
 
 
@@ -75,9 +75,9 @@ class LDot extends LPositionShape implements IDot {
 
 
 	@Override
-	public void setDiametre(final double radius) {
-		if(radius > 0. && GLibUtilities.isValidCoordinate(radius))
-			this.radius = radius;
+	public void setDiametre(final double diam) {
+		if(diam > 0. && GLibUtilities.isValidCoordinate(diam))
+			this.diametre = diam;
 	}
 
 
@@ -136,10 +136,14 @@ class LDot extends LPositionShape implements IDot {
 	}
 
 
+	@Override
+	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+		scaleWithRatio(prevWidth, prevHeight, pos, bound);
+	}
 
 	@Override
-	public void scale(final double x, final double y, final Position pos, final Rectangle2D bound) {
-		setDiametre(radius * Math.max(x/bound.getWidth(), y/bound.getHeight()));
+	public void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+		setDiametre(diametre * Math.max(prevWidth/bound.getWidth(), prevHeight/bound.getHeight()));
 	}
 
 
@@ -216,31 +220,31 @@ class LDot extends LPositionShape implements IDot {
 		final IPoint centre = getPosition();
 		final double x = centre.getX();
 		final double y = centre.getY();
-		final double tlx = x - radius;
-		final double tly = y - radius;
-		final double brx = x + radius;
-		final double bry = y + radius;
-		final double dec = 2. * radius / THICKNESS_O_STYLE_FACTOR;
+		final double tlx = x - diametre;
+		final double tly = y - diametre;
+		final double brx = x + diametre;
+		final double bry = y + diametre;
+		final double dec = 2. * diametre / THICKNESS_O_STYLE_FACTOR;
 
 		// Each dot shape has a special shape computed from the parameters
 		// defined below.
 		switch(style){
 			case ASTERISK:// TODO: to check, I do not think it works.
-				final double radiusAst = tly + radius / 5. - (bry - radius / 5.) / 2. + dec;
+				final double radiusAst = tly + diametre / 5. - (bry - diametre / 5.) / 2. + dec;
 				tl.setX(Math.cos(7 * Math.PI / 6.) * radiusAst + x);
-				tl.setY(tly + radius / 5. - dec);
+				tl.setY(tly + diametre / 5. - dec);
 				br.setX(Math.cos(Math.PI / 6.) * radiusAst + x);
-				br.setY(bry - radius / 5. + dec);
+				br.setY(bry - diametre / 5. + dec);
 				break;
 			case BAR:
 				// The thickness of the bar.
-				final double barThickness = radius / 8.;
+				final double barThickness = diametre / 8.;
 				tl.setX(x - barThickness);
 				tl.setY(tly);
 				br.setX(x + barThickness);
 				// TODO: check if it is not radius*(1/1.875+1/8.): the bar
 				// thickness may be used into radius/1.875
-				br.setY(bry + radius / 1.875);
+				br.setY(bry + diametre / 1.875);
 				break;
 			case DIAMOND:
 			case FDIAMOND:
@@ -254,7 +258,7 @@ class LDot extends LPositionShape implements IDot {
 				break;
 			case FPENTAGON:
 			case PENTAGON:
-				final double dist = radius + dec;
+				final double dist = diametre + dec;
 				final double xValue = Math.sin(2. * Math.PI / 5.) * dist;
 				tl.setX(-xValue + x);
 				tl.setY(tly - dec);
@@ -285,14 +289,14 @@ class LDot extends LPositionShape implements IDot {
 				br.setY(bry);
 				break;
 			case PLUS:// TODO may be wrong, to compare with 2.0.
-				final double plusGap = radius / 80.;
+				final double plusGap = diametre / 80.;
 				tl.setX(tlx - plusGap);
 				tl.setY(tly - plusGap);
 				br.setX(brx + plusGap);
 				br.setY(bry + plusGap);
 				break;
 			case X:// TODO may be wrong, to compare with 2.0.
-				final double crossGap = radius / 5.;
+				final double crossGap = diametre / 5.;
 				tl.setX(tlx - crossGap);
 				tl.setY(tly - crossGap);
 				br.setX(brx + crossGap);
@@ -320,7 +324,7 @@ class LDot extends LPositionShape implements IDot {
 	@Override
 	public IPoint getLazyTopLeftPoint() {
 		final IPoint centre = getPosition();
-		return ShapeFactory.createPoint(centre.getX() - radius / 2., centre.getY() - radius / 2.);
+		return ShapeFactory.createPoint(centre.getX() - diametre / 2., centre.getY() - diametre / 2.);
 	}
 
 
@@ -328,42 +332,42 @@ class LDot extends LPositionShape implements IDot {
 	@Override
 	public IPoint getLazyBottomRightPoint() {
 		final IPoint centre = getPosition();
-		return ShapeFactory.createPoint(centre.getX() + radius / 2., centre.getY() + radius / 2.);
+		return ShapeFactory.createPoint(centre.getX() + diametre / 2., centre.getY() + diametre / 2.);
 	}
 
 
 
 	@Override
 	public double getPlusGap() {
-		return radius / 160.;
+		return diametre / 160.;
 	}
 
 
 
 	@Override
 	public double getCrossGap() {
-		return radius / 10.;
+		return diametre / 10.;
 	}
 
 
 
 	@Override
 	public double getBarGap() {
-		return radius / 3.75;
+		return diametre / 3.75;
 	}
 
 
 
 	@Override
 	public double getBarThickness() {
-		return radius / 8.;
+		return diametre / 8.;
 	}
 
 
 
 	@Override
 	public double getGeneralGap() {
-		return radius / IDot.THICKNESS_O_STYLE_FACTOR;
+		return diametre / IDot.THICKNESS_O_STYLE_FACTOR;
 	}
 
 
@@ -371,7 +375,7 @@ class LDot extends LPositionShape implements IDot {
 	@Override
 	public double getOGap() {
 		final double dec = style==DotStyle.O ? 3.6 : 2.6;
-		return radius * (0.1 / dec) * 2;
+		return diametre * (0.1 / dec) * 2;
 	}
 
 

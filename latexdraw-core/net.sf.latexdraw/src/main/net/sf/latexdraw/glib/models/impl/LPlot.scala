@@ -8,10 +8,12 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
 import net.sf.latexdraw.parsers.ps.PSFunctionParser
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 import net.sf.latexdraw.glib.models.interfaces.shape.Color
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
+import java.awt.geom.Rectangle2D
 
 /**
  * Implementation of the plotted function.
@@ -94,7 +96,7 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 	override def getBottomRightPoint = {
 		val step = getPlottingStep
 		val pos = getPosition
-		ShapeFactory.createPoint(pos.getX+maxX*IShape.PPC*xscale, pos.getY-getY(minX)*IShape.PPC*xscale)
+		ShapeFactory.createPoint(pos.getX+maxX*IShape.PPC*xscale, pos.getY-(0 until nbPoints).map{x=>getY(minX+x*step)}.min*IShape.PPC*yscale)
 	}
 
 	override def getTopRightPoint = {
@@ -106,7 +108,24 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 	override def getBottomLeftPoint = {
 		val step = getPlottingStep
 		val pos = getPosition
-		ShapeFactory.createPoint(pos.getX+minX*IShape.PPC*xscale, pos.getY-getY(minX)*IShape.PPC*xscale)
+		ShapeFactory.createPoint(pos.getX+minX*IShape.PPC*xscale, pos.getY-(0 until nbPoints).map{x=>getY(minX+x*step)}.min*IShape.PPC*yscale)
+	}
+	
+	protected override def scaleSetPointsWithRatio(pts:java.util.List[IPoint], prevWidth:Double, prevHeight:Double, pos:Position, bound:Rectangle2D) {
+	  scaleSetPoints(pts, prevWidth, prevHeight, pos, bound)
+	}
+	
+	protected override def scaleSetPoints(pts:java.util.List[IPoint], prevWidth:Double, prevHeight:Double, pos:Position, bound:Rectangle2D) {
+	  pos match {
+		  case Position.EAST => getPtAt(0).translate(bound.getWidth-prevWidth, 0.0) 
+		  case Position.WEST => getPtAt(0).translate(prevWidth-bound.getWidth, 0.0)
+		  case Position.SOUTH => getPtAt(0).translate(0.0, bound.getHeight-prevHeight)
+		  case Position.NORTH => getPtAt(0).translate(0.0, prevHeight-bound.getHeight)
+		  case Position.NE => getPtAt(0).translate(bound.getWidth-prevWidth, prevHeight-bound.getHeight)
+		  case Position.NW => getPtAt(0).translate(prevWidth-bound.getWidth, prevHeight-bound.getHeight)
+		  case Position.SE => getPtAt(0).translate(bound.getWidth-prevWidth, bound.getHeight-prevHeight)
+		  case Position.SW => getPtAt(0).translate(prevWidth-bound.getWidth, bound.getHeight-prevHeight) 
+		}
 	}
 
 	override def getPosition = getPtAt(0)

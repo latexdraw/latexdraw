@@ -2,8 +2,12 @@ package net.sf.latexdraw.glib.models.impl
 
 import java.awt.geom.Rectangle2D
 import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.mutable.Buffer
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IDot
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IStandardGrid
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.Color
@@ -40,11 +44,15 @@ private[impl] trait LGroupShape extends IGroup {
 	override def setThickness(thickness : Double) = getShapes.foreach{_.setThickness(thickness)}
 
 
-	override def scale(sx : Double, sy : Double, pos : IShape.Position, bound : Rectangle2D) {
-		getShapes.foreach{_.scale(sx, sy, pos, bound)}
+	override def scale(prevWidth : Double, prevHeight : Double, pos : IShape.Position, bound : Rectangle2D) {
+	  val shs:Buffer[IShape] = getShapes
+
+	  if(shs.exists{sh => sh.isInstanceOf[ISquaredShape] || sh.isInstanceOf[IStandardGrid] || sh.isInstanceOf[IDot]})
+  		shs.foreach{_.scaleWithRatio(prevWidth, prevHeight, pos, bound)}
+	  else
+  		shs.foreach{_.scale(prevWidth, prevHeight, pos, bound)}
 	}
-
-
+  
 	override def getThickness: Double = {
 		getShapes.find{_.isThicknessable} match {
 			case Some(sh) => sh.getThickness
