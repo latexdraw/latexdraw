@@ -16,6 +16,18 @@
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
   <item>
+    <title>LaTeXDraw 3.3.2 -- Bugs fixed</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Sun, 11 nov 2015 09:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS52</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS52</link>
+    <description>This new version fixes major bugs.
+In particular the problem related to the new MacOS version "El captain" seems to be fixed.
+Give an eye to the release note for more details.
+As a reminder, you can support this software by making a donation.</description>
+  </item>
+
+  <item>
     <title>LaTeXDraw 3.3.1 -- Bugs fixed</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Sun, 23 nov 2014 09:00:00 GMT</pubDate>
