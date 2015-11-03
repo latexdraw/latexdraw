@@ -173,7 +173,7 @@ public class AboutDialogueBox extends JFrame {
 					VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + //$NON-NLS-1$ //$NON-NLS-2$
 					LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.220") + " " + VersionChecker.ID_BUILD+"<br><br>"+//$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
 					LResources.LABEL_APP+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.221")+"<br>"+//$NON-NLS-1$//$NON-NLS-2$
-					"Copyright(c) 2005-2014 - Arnaud BLOUIN - arno.b.dev@gmail.com<br><br>"+//$NON-NLS-1$
+					"Copyright(c) 2005-2015 - Arnaud BLOUIN<br><br>"+//$NON-NLS-1$
 					"http://latexdraw.sourceforge.net/<br></div></body></html>");//$NON-NLS-1$
 
 			panel.add(new DisplayCanvas(i), BorderLayout.NORTH);
