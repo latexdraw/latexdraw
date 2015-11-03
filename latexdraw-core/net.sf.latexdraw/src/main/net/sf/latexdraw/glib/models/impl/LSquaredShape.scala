@@ -19,30 +19,9 @@ private[impl] abstract class LSquaredShape(tl:IPoint, width:Double) extends LPos
 	points.add(ShapeFactory.createPoint(tl))
 	setWidth(width)
 
-	override def scale(sx:Double, sy:Double, pos:Position, bound:Rectangle2D) {
-		var position = pos
-		var scale = sx
-		pos match {
-			case Position.EAST => position = Position.SE; scale = sx
-			case Position.WEST => position = Position.SW; scale = sx
-			case Position.NORTH => position = Position.NW; scale = sy
-			case Position.SOUTH => position = Position.SW; scale = sy
-			case _ =>
-		}
-		scaleSetPoints(points, scale, position, bound)
-	}
-
-	protected def scaleSetPoints(pts:java.util.List[IPoint], scale:Double, pos:Position, bound:Rectangle2D) {
-		val sx = scale/bound.getWidth
-		val refX = if(pos.isWest) bound.getX else bound.getMaxX
-		val refY = if(pos.isNorth) bound.getY else bound.getMaxY
-
-		pts.foreach{pt =>
-			if(!LNumber.equalsDouble(pt.getX, refX) || !LNumber.equalsDouble(pt.getY, refY)) {
-				pt.setX(refX+(pt.getX-refX)*sx)
-				pt.setY(refY+(pt.getY-refY)*sx)
-			}
-		}
+	override def scale(prevWidth:Double, prevHeight:Double, pos:Position, bound:Rectangle2D) {
+		if(bound==null || pos==null) return ;
+		scaleSetPointsWithRatio(points, prevWidth, prevHeight, pos, bound)
 	}
 
 	override def setWidth(width:Double) {
