@@ -354,6 +354,12 @@
 				<version>4.0.1-alpha</version>
 				<scope>test</scope>
 			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>org.jfxtras</groupId> -->
+<!-- 				<artifactId>openjfx-monocle</artifactId> -->
+<!-- 				<version>1.8.0_20</version> -->
+<!-- 				<scope>test</scope> -->
+<!-- 			</dependency> -->
 			<dependency>
 				<groupId>com.google.inject</groupId>
 				<artifactId>guice</artifactId>

@@ -1,6 +1,6 @@
 //src/main=main
 //src/resources/main=main
-//src/resources/test=main
+//src/resources/test=tests
 //src/test=tests
 P=
 Xcheckinit=false
