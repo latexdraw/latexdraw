@@ -32,7 +32,7 @@ public abstract class TestGridStyleGUI extends TestShapePropGUI<ShapeGridCustomi
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "glib/views/jfx/ui/GridStyle.fxml";
+		return "view/jfx/ui/GridStyle.fxml";
 	}
 
 	@Override

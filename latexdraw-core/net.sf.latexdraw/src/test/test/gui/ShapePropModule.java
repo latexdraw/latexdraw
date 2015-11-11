@@ -1,8 +1,8 @@
 package test.gui;
 
-import net.sf.latexdraw.glib.views.jfx.Canvas;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 import com.google.inject.AbstractModule;
 

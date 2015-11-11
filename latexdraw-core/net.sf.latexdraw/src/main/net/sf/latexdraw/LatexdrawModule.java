@@ -1,9 +1,9 @@
 package net.sf.latexdraw;
 
-import net.sf.latexdraw.glib.views.jfx.Canvas;
 import net.sf.latexdraw.instruments.*;
 import net.sf.latexdraw.ui.XScaleRuler;
 import net.sf.latexdraw.ui.YScaleRuler;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 import com.google.inject.AbstractModule;
 

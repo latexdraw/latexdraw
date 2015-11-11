@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.views.jfx;
+package net.sf.latexdraw.view.jfx;
 
 import java.awt.geom.Point2D;
 

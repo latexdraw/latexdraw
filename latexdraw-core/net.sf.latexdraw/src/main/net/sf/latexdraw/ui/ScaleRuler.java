@@ -14,9 +14,9 @@ import javax.accessibility.AccessibleContext;
 import javax.accessibility.AccessibleRole;
 import javax.swing.JComponent;
 
-import net.sf.latexdraw.glib.views.jfx.Canvas;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.interaction.Eventable;

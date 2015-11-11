@@ -49,7 +49,7 @@ public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCusto
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "glib/views/jfx/ui/ArrowStyle.fxml";
+		return "view/jfx/ui/ArrowStyle.fxml";
 	}
 
 	@Override

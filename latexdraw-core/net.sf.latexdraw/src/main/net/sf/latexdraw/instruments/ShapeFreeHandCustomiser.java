@@ -15,7 +15,7 @@ import javafx.scene.image.Image;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.views.jfx.ui.JFXWidgetCreator;
+import net.sf.latexdraw.view.jfx.ui.JFXWidgetCreator;
 
 /**
  * This instrument modifies free hand properties of shapes or the pencil.<br>

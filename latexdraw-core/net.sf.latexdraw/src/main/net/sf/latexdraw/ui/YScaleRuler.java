@@ -4,9 +4,9 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
-import net.sf.latexdraw.glib.views.jfx.Canvas;
-
 import com.google.inject.Inject;
+
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * This class defines an Y-scale ruler.<br>

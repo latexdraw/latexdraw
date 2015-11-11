@@ -26,7 +26,7 @@ public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCusto
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "glib/views/jfx/ui/LineStyle.fxml";
+		return "view/jfx/ui/LineStyle.fxml";
 	}
 	 
 	@Override

@@ -9,13 +9,13 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import net.sf.latexdraw.actions.Export.ExportFormat;
-import net.sf.latexdraw.glib.views.jfx.Canvas;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 import org.malai.javafx.instrument.JfxInstrument;
 import org.w3c.dom.Document;

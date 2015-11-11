@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import net.sf.latexdraw.glib.views.jfx.Canvas?>
+<?import net.sf.latexdraw.view.jfx.Canvas?>
 <!-- <?import javafx.scene.canvas.Canvas?> -->
 
 <Canvas xmlns:fx="http://javafx.com/fxml/1" fx:id="canvas" />

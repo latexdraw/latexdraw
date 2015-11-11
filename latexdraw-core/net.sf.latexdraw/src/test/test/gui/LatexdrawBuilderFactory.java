@@ -3,7 +3,7 @@ package test.gui;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.util.Builder;
 import javafx.util.BuilderFactory;
-import net.sf.latexdraw.glib.views.jfx.Canvas;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 import com.google.inject.Injector;
 

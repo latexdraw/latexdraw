@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.views.jfx;
+package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

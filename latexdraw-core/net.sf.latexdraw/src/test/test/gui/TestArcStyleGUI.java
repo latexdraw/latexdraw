@@ -23,7 +23,7 @@ public abstract class TestArcStyleGUI extends TestShapePropGUI<ShapeArcCustomise
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "glib/views/jfx/ui/ArcStyle.fxml";
+		return "view/jfx/ui/ArcStyle.fxml";
 	}
 	 
 	@Override

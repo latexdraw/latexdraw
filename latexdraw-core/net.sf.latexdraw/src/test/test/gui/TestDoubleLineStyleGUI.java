@@ -20,7 +20,7 @@ public abstract class TestDoubleLineStyleGUI extends TestShapePropGUI<ShapeDoubl
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "glib/views/jfx/ui/DoubleLineStyle.fxml";
+		return "view/jfx/ui/DoubleLineStyle.fxml";
 	}
 
 	@Override

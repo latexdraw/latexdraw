@@ -1,4 +1,4 @@
-package net.sf.latexdraw.glib.views.jfx.ui;
+package net.sf.latexdraw.view.jfx.ui;
 
 import java.util.HashMap;
 import java.util.Map;
