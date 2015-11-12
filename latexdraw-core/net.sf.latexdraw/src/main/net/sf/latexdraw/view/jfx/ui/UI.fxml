@@ -6,19 +6,19 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.sf.latexdraw.view.jfx.ui.Frame">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.sf.latexdraw.instruments.FrameController">
 	<center>
-		<TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+		<TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
 			<tabs>
 				<Tab closable="false" text="%UIBuilder.1">
 					<content>
 						<BorderPane>
 							<center>
-								<SplitPane dividerPositions="0.85" prefHeight="160.0" prefWidth="220.0" BorderPane.alignment="CENTER">
+								<SplitPane dividerPositions="0.85" BorderPane.alignment="CENTER">
 									<items>
 										<BorderPane>
 											<center>
-												<ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
+												<ScrollPane prefWidth="800" fx:id="scrollPane" BorderPane.alignment="CENTER">
 													<content><fx:include fx:id="canvas" source="Canvas.fxml" /></content>
 												</ScrollPane>
 											</center>

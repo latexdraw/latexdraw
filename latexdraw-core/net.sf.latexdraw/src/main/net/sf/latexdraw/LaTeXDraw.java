@@ -2,6 +2,12 @@ package net.sf.latexdraw;
 
 import java.io.IOException;
 
+import org.malai.action.ActionsRegistry;
+import org.malai.undo.UndoCollector;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -23,14 +29,9 @@ import javafx.util.Duration;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
+import net.sf.latexdraw.instruments.FrameController;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LangTool;
-
-import org.malai.action.ActionsRegistry;
-import org.malai.undo.UndoCollector;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 
 /**
  * The main class of the project.<br>
@@ -38,14 +39,13 @@ import com.google.inject.Injector;
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
  * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later
- * version.<br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.<br>
  * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.<br>
  * <br>
  * 2014-10-14<br>
  * 
@@ -67,8 +67,7 @@ public class LaTeXDraw extends Application {
 	/**
 	 * The entry point of the program.
 	 * 
-	 * @param args
-	 *            The parameters.
+	 * @param args The parameters.
 	 */
 	public static void main(String[] args) {
 		// val cmdLine = new LCommandLine()
@@ -146,6 +145,7 @@ public class LaTeXDraw extends Application {
 						updateProgress(0.9, 1.0);
 						mainStage.show();
 						mainStage.centerOnScreen();
+						injector.getInstance(FrameController.class).centreViewport();
 					});
 				}catch(final IOException ex) {
 					ex.printStackTrace();
@@ -173,8 +173,8 @@ public class LaTeXDraw extends Application {
 		// action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE)
 		// action.setFileChooser(frame.getFileLoader.getDialog(false))
 		// action.doIt
-        // frame.getFileLoader.onActionExecuted(action)
-        // frame.getFileLoader.onActionDone(action)
+		// frame.getFileLoader.onActionExecuted(action)
+		// frame.getFileLoader.onActionDone(action)
 		// action.flush
 		// }
 		//
@@ -183,6 +183,7 @@ public class LaTeXDraw extends Application {
 		// frame.getPrefSetters.isVersionCheckEnable)
 		// new VersionChecker(frame.getComposer).run
 	}
+
 	// FIXME clean strings(?): LaTeXDrawFrame.38, LaTeXDrawFrame.39
 	// LaTeXDrawFrame.90 FileLoaderSaver.4 LaTeXDrawFrame.200 LaTeXDrawFrame.188
 	// ShapeBord.1, AbstractParametersFrame.3, AbstractParametersFrame.0b,

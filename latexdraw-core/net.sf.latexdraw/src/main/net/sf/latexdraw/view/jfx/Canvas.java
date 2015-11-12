@@ -162,19 +162,11 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		return IShape.PPC;
 	}
 
-	public void centreViewport() {
-		// SwingUtilities.invokeLater(new Runnable() {
-		// @Override
-		// public void run() {
-		// final MoveCamera action = new MoveCamera();
-		// action.setScrollPane(getScrollpane());
-		// action.setPx(ORIGIN.getX()+page.getWidth()*IShape.PPC/2.);
-		// action.setPy(ORIGIN.getY()+getVisibleBound().getHeight()/2.-IShape.PPC);
-		// if(action.canDo())
-		// action.doIt();
-		// action.flush();
-		// }
-		// });
+	/**
+	 * @return The page of the drawing area. Cannot be null.
+	 */
+	public @NonNull PageView getPage() {
+		return page;
 	}
 
 	@Override
