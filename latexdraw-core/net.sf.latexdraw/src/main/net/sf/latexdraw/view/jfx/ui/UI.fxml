@@ -18,7 +18,7 @@
 									<items>
 										<BorderPane>
 											<center>
-												<ScrollPane prefWidth="800" fx:id="scrollPane" BorderPane.alignment="CENTER">
+												<ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
 													<content><fx:include fx:id="canvas" source="Canvas.fxml" /></content>
 												</ScrollPane>
 											</center>
