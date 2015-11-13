@@ -65,7 +65,10 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	protected final IUnary<Double> zoom;
 
 	/** The current page of the canvas. */
-	protected final @NonNull PageView page;
+	private final @NonNull PageView page;
+	
+	/** The views of the shape. */
+	private final @NonNull Pane shapesPane;
 
 	/** The border of the drawing. */
 	protected final Rectangle2D border;
@@ -94,10 +97,13 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		page = new PageView(PageView.Page.USLETTER, getOrigin());
 		border = new Rectangle2D.Double();
 		magneticGrid = new MagneticGridImpl(this);
-
+		shapesPane = new Pane();
+		
 		getChildren().add(page);
+		getChildren().add(shapesPane);
 
 		page.toBack();
+		shapesPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 
 		setPrefWidth(MARGINS * 2 + page.getPage().getWidth() * IShape.PPC);
 		setPrefHeight(MARGINS * 2 + page.getPage().getHeight() * IShape.PPC);
