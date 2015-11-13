@@ -2,7 +2,6 @@ package net.sf.latexdraw.view.jfx;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
@@ -21,6 +20,7 @@ import org.w3c.dom.NodeList;
 
 import com.sun.istack.internal.NotNull;
 
+import javafx.geometry.Bounds;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
@@ -70,8 +70,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/** The views of the shape. */
 	private final @NonNull Pane shapesPane;
 
-	/** The border of the drawing. */
-	protected final Rectangle2D border;
+//	/** The border of the drawing. */
+//	protected final Rectangle2D border;
 
 	/** The magnetic grid of the canvas. */
 	protected final MagneticGridImpl magneticGrid;
@@ -95,7 +95,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		zoom = new ActiveUnary<>(1.);
 		tempView = new ActiveUnary<>();
 		page = new PageView(PageView.Page.USLETTER, getOrigin());
-		border = new Rectangle2D.Double();
+//		border = new Rectangle2D.Double();
 		magneticGrid = new MagneticGridImpl(this);
 		shapesPane = new Pane();
 		
@@ -177,22 +177,22 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void update() {
-		updateBorder();
-		updatePreferredSize();
+//		updateBorder();
+//		updatePreferredSize();
 		// repaint(true, true);
 		// revalidate();
 	}
 
-	/**
-	 * Updates the size of the canvas.
-	 */
-	public void updatePreferredSize() {
-		final double zoomValue = getZoom();
-		setWidth(Math.max(border.getWidth(), page.getPage().getWidth()) * zoomValue + MARGINS * 2);
-		setHeight(Math.max(border.getHeight(), page.getPage().getHeight()) * zoomValue + MARGINS * 2);
-	}
+//	/**
+//	 * Updates the size of the canvas.
+//	 */
+//	public void updatePreferredSize() {
+//		final double zoomValue = getZoom();
+//		setWidth(Math.max(border.getWidth(), page.getPage().getWidth()) * zoomValue + MARGINS * 2);
+//		setHeight(Math.max(border.getHeight(), page.getPage().getHeight()) * zoomValue + MARGINS * 2);
+//	}
 
-	public void updateBorder() {
+//	public void updateBorder() {
 		// final IViewShape temp = getTempView();
 
 		// if(views.isEmpty() && temp==null)
@@ -240,8 +240,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		//
 		// border.setFrame(minX, minY, maxX-minX, maxY-minY);
 		// }
-		border.setFrame(0, 0, 1, 1);
-	}
+//		border.setFrame(0, 0, 1, 1);
+//	}
 
 	@Override
 	public double getZoom() {
@@ -351,17 +351,20 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public IPoint getTopRightDrawingPoint() {
+		final Bounds border = shapesPane.getBoundsInLocal();
 		return ShapeFactory.createPoint(border.getMaxX(), border.getMinY());
 	}
 
 	@Override
 	public IPoint getBottomLeftDrawingPoint() {
+		final Bounds border = shapesPane.getBoundsInLocal();
 		return ShapeFactory.createPoint(border.getMinX(), border.getMaxY());
 	}
 
 	@Override
 	public IPoint getOriginDrawingPoint() {
-		return ShapeFactory.createPoint(border.getMinX(), border.getCenterY());
+		final Bounds border = shapesPane.getBoundsInLocal();
+		return ShapeFactory.createPoint(border.getMinX(), (border.getMaxY()-border.getMinY())/2.0);
 	}
 
 	@Override
