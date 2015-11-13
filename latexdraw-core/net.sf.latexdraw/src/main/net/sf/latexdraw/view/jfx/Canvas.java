@@ -70,9 +70,6 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/** The views of the shape. */
 	private final @NonNull Pane shapesPane;
 
-//	/** The border of the drawing. */
-//	protected final Rectangle2D border;
-
 	/** The magnetic grid of the canvas. */
 	protected final MagneticGridImpl magneticGrid;
 
@@ -95,7 +92,6 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		zoom = new ActiveUnary<>(1.);
 		tempView = new ActiveUnary<>();
 		page = new PageView(PageView.Page.USLETTER, getOrigin());
-//		border = new Rectangle2D.Double();
 		magneticGrid = new MagneticGridImpl(this);
 		shapesPane = new Pane();
 		
@@ -177,71 +173,8 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void update() {
-//		updateBorder();
-//		updatePreferredSize();
-		// repaint(true, true);
-		// revalidate();
+		// Nothing to do.
 	}
-
-//	/**
-//	 * Updates the size of the canvas.
-//	 */
-//	public void updatePreferredSize() {
-//		final double zoomValue = getZoom();
-//		setWidth(Math.max(border.getWidth(), page.getPage().getWidth()) * zoomValue + MARGINS * 2);
-//		setHeight(Math.max(border.getHeight(), page.getPage().getHeight()) * zoomValue + MARGINS * 2);
-//	}
-
-//	public void updateBorder() {
-		// final IViewShape temp = getTempView();
-
-		// if(views.isEmpty() && temp==null)
-		// border.setFrame(0., 0., 0., 0.);
-		// else {
-		// double minX = Double.MAX_VALUE;
-		// double minY = Double.MAX_VALUE;
-		// double maxX = Double.MIN_VALUE;
-		// double maxY = Double.MIN_VALUE;
-		//
-		// Rectangle2D bounds;
-		// synchronized(views){
-		// for(final IViewShape view : views) {
-		// bounds = view.getBorder();
-		//
-		// if(bounds.getMinX()<minX)
-		// minX = bounds.getMinX();
-		//
-		// if(bounds.getMinY()<minY)
-		// minY = bounds.getMinY();
-		//
-		// if(bounds.getMaxX()>maxX)
-		// maxX = bounds.getMaxX();
-		//
-		// if(bounds.getMaxY()>maxY)
-		// maxY = bounds.getMaxY();
-		// }
-		// }
-		//
-		// if(temp!=null) {
-		// bounds = temp.getBorder();
-		//
-		// if(bounds.getMinX()<minX)
-		// minX = bounds.getMinX();
-		//
-		// if(bounds.getMinY()<minY)
-		// minY = bounds.getMinY();
-		//
-		// if(bounds.getMaxX()>maxX)
-		// maxX = bounds.getMaxX();
-		//
-		// if(bounds.getMaxY()>maxY)
-		// maxY = bounds.getMaxY();
-		// }
-		//
-		// border.setFrame(minX, minY, maxX-minX, maxY-minY);
-		// }
-//		border.setFrame(0, 0, 1, 1);
-//	}
 
 	@Override
 	public double getZoom() {
@@ -344,7 +277,9 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void reinit() {
-		// synchronized(views){views.clear();}
+		synchronized(shapesPane){
+			 shapesPane.getChildren().clear();
+		 }
 		zoom.setValue(1.);
 		update();
 	}
