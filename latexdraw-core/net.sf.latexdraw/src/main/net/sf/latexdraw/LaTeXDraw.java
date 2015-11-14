@@ -27,8 +27,6 @@ import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.instruments.FrameController;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LangTool;
@@ -60,8 +58,6 @@ public class LaTeXDraw extends Application {
 		ActionsRegistry.INSTANCE.setSizeMax(30);
 		// Creating the required directories.
 		LPath.INSTANCE.checkDirectories();
-		// Settings the factories.
-		View2DTK.setFactory(new LViewsFactory());
 	}
 
 	/**

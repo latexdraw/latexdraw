@@ -5,6 +5,10 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import org.junit.Test;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import net.sf.latexdraw.generators.svg.IShapeSVGFactory;
 import net.sf.latexdraw.generators.svg.SVGShapesFactory;
 import net.sf.latexdraw.glib.models.ShapeFactory;
@@ -13,8 +17,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
-import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDefsElement;
@@ -24,17 +26,9 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
 
-import org.junit.Test;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 public abstract class TestLoadSaveSVG<T extends IShape>{
 
 	protected T shape;
-
-	static {
-		View2DTK.setFactory(new LViewsFactory());
-	}
 
 
 	public T saveLoadShape(T sh) {

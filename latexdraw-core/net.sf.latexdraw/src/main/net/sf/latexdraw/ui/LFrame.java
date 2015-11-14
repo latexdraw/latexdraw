@@ -7,39 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.WindowConstants;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
-import net.sf.latexdraw.glib.ui.LCanvas;
-import net.sf.latexdraw.instruments.CodeInserter;
-import net.sf.latexdraw.instruments.CopierCutterPaster;
-import net.sf.latexdraw.instruments.DrawingPropertiesCustomiser;
-import net.sf.latexdraw.instruments.EditingSelector;
-import net.sf.latexdraw.instruments.Exporter;
-import net.sf.latexdraw.instruments.FileLoaderSaver;
-import net.sf.latexdraw.instruments.Hand;
-import net.sf.latexdraw.instruments.Helper;
-import net.sf.latexdraw.instruments.MetaShapeCustomiser;
-import net.sf.latexdraw.instruments.Pencil;
-import net.sf.latexdraw.instruments.PreferencesSetter;
-import net.sf.latexdraw.instruments.ShapeDeleter;
-import net.sf.latexdraw.instruments.TabSelector;
-import net.sf.latexdraw.instruments.TemplateManager;
-import net.sf.latexdraw.instruments.TextSetter;
-import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.mapping.Drawing2CanvasMapping;
-import net.sf.latexdraw.mapping.Selection2BorderMapping;
-import net.sf.latexdraw.mapping.Selection2DeleterMapping;
-import net.sf.latexdraw.mapping.Selection2MetaCustumiserMapping;
-import net.sf.latexdraw.mapping.Selection2TemplateManager;
-import net.sf.latexdraw.mapping.ShapeList2ExporterMapping;
-import net.sf.latexdraw.mapping.ShapeList2ViewListMapping;
-import net.sf.latexdraw.mapping.Unit2ScaleRuler;
-import net.sf.latexdraw.mapping.Zoom2ScaleRuler;
-import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LResources;
-import net.sf.latexdraw.util.VersionChecker;
-
 import org.malai.instrument.Instrument;
 import org.malai.mapping.MappingRegistry;
 import org.malai.presentation.Presentation;
@@ -55,6 +22,24 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.glib.ui.LCanvas;
+import net.sf.latexdraw.instruments.*;
+import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.mapping.Drawing2CanvasMapping;
+import net.sf.latexdraw.mapping.Selection2BorderMapping;
+import net.sf.latexdraw.mapping.Selection2DeleterMapping;
+import net.sf.latexdraw.mapping.Selection2MetaCustumiserMapping;
+import net.sf.latexdraw.mapping.Selection2TemplateManager;
+import net.sf.latexdraw.mapping.ShapeList2ExporterMapping;
+import net.sf.latexdraw.mapping.Unit2ScaleRuler;
+import net.sf.latexdraw.mapping.Zoom2ScaleRuler;
+import net.sf.latexdraw.util.LNamespace;
+import net.sf.latexdraw.util.LResources;
+import net.sf.latexdraw.util.VersionChecker;
 
 /**
  * This class contains all the elements of the graphical user interface.<br>
@@ -175,7 +160,6 @@ public class LFrame extends SwingUI {
 		layeredPanel.addComponentsToResize(canvas.getScrollpane());
 
 		/* Initialisation of the mapping between the model and the canvas. */
-		MappingRegistry.REGISTRY.addMapping(new ShapeList2ViewListMapping(drawing.getShapes(), canvas.getViews(), canvas.getBorderInstrument()));
 		MappingRegistry.REGISTRY.addMapping(new Drawing2CanvasMapping(drawing, canvas));
 		MappingRegistry.REGISTRY.addMapping(new Selection2BorderMapping(drawing.getSelection().getShapes(), canvas.getBorderInstrument()));
 		MappingRegistry.REGISTRY.addMapping(new Zoom2ScaleRuler(canvas.getZoomUnary(), xScaleRuler));

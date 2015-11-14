@@ -1,9 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
 import org.malai.mapping.ActiveArrayList
-
 import net.sf.latexdraw.glib.models.interfaces.prop.ISetShapesProp
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import javafx.collections.ObservableList
+import javafx.collections.FXCollections
 
 /**
  * This trait implements the ISetShapes interface.<br>
@@ -25,7 +26,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape
  */
 private[impl] trait LSetShapes extends ISetShapesProp {
 	/** The set of shapes. */
-	val shapes : java.util.List[IShape] = new ActiveArrayList[IShape]()
+	val shapes : ObservableList[IShape] = FXCollections.observableArrayList()
 
 
 	override def contains(sh : IShape) = if(sh==null) false else shapes.contains(sh)

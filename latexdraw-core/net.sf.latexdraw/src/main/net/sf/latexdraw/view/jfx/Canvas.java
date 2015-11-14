@@ -1,7 +1,21 @@
+/*
+ * This file is part of LaTeXDraw<br>
+ * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
+ * <br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.<br>
+ * <br>
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.<br>
+ */
 package net.sf.latexdraw.view.jfx;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
@@ -20,6 +34,8 @@ import org.w3c.dom.NodeList;
 
 import com.sun.istack.internal.NotNull;
 
+import javafx.collections.ListChangeListener.Change;
+import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -36,17 +52,6 @@ import net.sf.latexdraw.util.LNumber;
 
 /**
  * Defines a canvas that draw the drawing and manages the selected shapes.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
- * General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version. <br>
- * LaTeXDraw is distributed without any warranty; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.<br>
- * <br>
  * 2014-10-15<br>
  * @author Arnaud BLOUIN
  * @since 4.0
@@ -69,9 +74,11 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	
 	/** The views of the shape. */
 	private final @NonNull Pane shapesPane;
+	
+	private final @NonNull Map<IShape, ViewShape<?,?>> shapesToViewMap;
 
 	/** The magnetic grid of the canvas. */
-	protected final MagneticGridImpl magneticGrid;
+	protected MagneticGridImpl magneticGrid;
 
 	/** Defined whether the canvas has been modified. */
 	protected boolean modified;
@@ -94,6 +101,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		page = new PageView(PageView.Page.USLETTER, getOrigin());
 		magneticGrid = new MagneticGridImpl(this);
 		shapesPane = new Pane();
+		shapesToViewMap = new HashMap<>();
 		
 		getChildren().add(page);
 		getChildren().add(shapesPane);
@@ -103,10 +111,29 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 		setPrefWidth(MARGINS * 2 + page.getPage().getWidth() * IShape.PPC);
 		setPrefHeight(MARGINS * 2 + page.getPage().getHeight() * IShape.PPC);
+		
+		defineShapeListToViewBinding();
 
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
 		// borderIns.addEventable(this);
+	}
+
+	private void defineShapeListToViewBinding() {
+		if(drawing.getShapes() instanceof ObservableList) {
+			((ObservableList<IShape>)drawing.getShapes()).addListener((Change<? extends IShape> evt) -> {
+				while(evt.next()) {
+					if(evt.wasAdded()) {
+						evt.getAddedSubList().forEach(sh -> ViewFactory.INSTANCE.createView(sh).ifPresent(v -> {
+							shapesToViewMap.put(sh, v);
+							shapesPane.getChildren().add(v);
+						}));
+					}else if(evt.wasRemoved()) {
+						evt.getRemoved().forEach(sh -> shapesPane.getChildren().remove(shapesToViewMap.remove(sh)));
+					}
+				}
+			});
+		}
 	}
 
 	// /**

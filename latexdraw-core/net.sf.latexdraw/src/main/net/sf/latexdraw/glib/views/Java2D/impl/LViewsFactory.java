@@ -57,7 +57,6 @@ public class LViewsFactory implements IViewsFactory {
 		if(shape instanceof IGroup) return new LGroupView((IGroup)shape);
 		if(shape instanceof IPlot) return new LPlotView((IPlot)shape);
 		if(shape instanceof ISquare) return new LSquareView((ISquare)shape);
-		if(shape instanceof IRectangle) return new LRectangleView((IRectangle)shape);
 		if(shape instanceof IText) return new LTextView((IText)shape);
 		if(shape instanceof ICircleArc) return new LCircleArcView((ICircleArc)shape);
 		if(shape instanceof ICircle) return new LCircleView((ICircle)shape);
