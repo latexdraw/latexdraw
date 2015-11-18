@@ -185,7 +185,7 @@ class LShapeFactory extends IShapeFactory {
 
 	@NonNull override def createPoint(x : Double, y : Double) : IPoint = new LPoint(x, y)
 
-	override def createPoint(pt : IPoint) : IPoint = new LPoint(pt)
+	@NonNull override def createPoint(pt : IPoint) : IPoint = new LPoint(pt)
 
 	override def createPolyline() : IPolyline = new LPolyline()
 

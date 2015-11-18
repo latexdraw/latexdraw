@@ -182,15 +182,15 @@ public class TestLPoint {
 	@Test
 	public void testGetMiddlePoint() {
 		assertNull(ShapeFactory.createPoint().getMiddlePoint(null));
-		assertEquals(ShapeFactory.createPoint(10,0).getMiddlePoint(ShapeFactory.createPoint(-10,0)), ShapeFactory.createPoint(0,0));
-		assertEquals(ShapeFactory.createPoint(0,10).getMiddlePoint(ShapeFactory.createPoint(0,-10)), ShapeFactory.createPoint(0,0));
-		assertEquals(ShapeFactory.createPoint(10,10).getMiddlePoint(ShapeFactory.createPoint(-10,-10)), ShapeFactory.createPoint(0,0));
-		assertEquals(ShapeFactory.createPoint(0,0).getMiddlePoint(ShapeFactory.createPoint(5,6)), ShapeFactory.createPoint(2.5,3));
-		assertEquals(ShapeFactory.createPoint(0,0).getMiddlePoint(ShapeFactory.createPoint(-5,-6)), ShapeFactory.createPoint(-2.5,-3));
-		assertEquals(ShapeFactory.createPoint(Double.POSITIVE_INFINITY,10).getMiddlePoint(ShapeFactory.createPoint(-10,-10)), ShapeFactory.createPoint(Double.POSITIVE_INFINITY,0));
-		assertEquals(ShapeFactory.createPoint(Double.NEGATIVE_INFINITY,10).getMiddlePoint(ShapeFactory.createPoint(-10,-10)), ShapeFactory.createPoint(Double.NEGATIVE_INFINITY,0));
-		assertEquals(ShapeFactory.createPoint(10, Double.POSITIVE_INFINITY).getMiddlePoint(ShapeFactory.createPoint(-10,-10)), ShapeFactory.createPoint(0, Double.POSITIVE_INFINITY));
-		assertEquals(ShapeFactory.createPoint(10, Double.NEGATIVE_INFINITY).getMiddlePoint(ShapeFactory.createPoint(-10,-10)), ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY));
+		assertEquals(ShapeFactory.createPoint(0,0), ShapeFactory.createPoint(10,0).getMiddlePoint(ShapeFactory.createPoint(-10,0)));
+		assertEquals(ShapeFactory.createPoint(0,0), ShapeFactory.createPoint(0,10).getMiddlePoint(ShapeFactory.createPoint(0,-10)));
+		assertEquals(ShapeFactory.createPoint(0,0), ShapeFactory.createPoint(10,10).getMiddlePoint(ShapeFactory.createPoint(-10,-10)));
+		assertEquals(ShapeFactory.createPoint(2.5,3), ShapeFactory.createPoint(0,0).getMiddlePoint(ShapeFactory.createPoint(5,6)));
+		assertEquals(ShapeFactory.createPoint(-2.5,-3), ShapeFactory.createPoint(0,0).getMiddlePoint(ShapeFactory.createPoint(-5,-6)));
+		assertEquals(ShapeFactory.createPoint(Double.POSITIVE_INFINITY,0), ShapeFactory.createPoint(Double.POSITIVE_INFINITY,10).getMiddlePoint(ShapeFactory.createPoint(-10,-10)));
+		assertEquals(ShapeFactory.createPoint(Double.NEGATIVE_INFINITY,0), ShapeFactory.createPoint(Double.NEGATIVE_INFINITY,10).getMiddlePoint(ShapeFactory.createPoint(-10,-10)));
+		assertEquals(ShapeFactory.createPoint(0, Double.POSITIVE_INFINITY), ShapeFactory.createPoint(10, Double.POSITIVE_INFINITY).getMiddlePoint(ShapeFactory.createPoint(-10,-10)));
+		assertEquals(ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY), ShapeFactory.createPoint(10, Double.NEGATIVE_INFINITY).getMiddlePoint(ShapeFactory.createPoint(-10,-10)));
 	}
 
 
