@@ -243,7 +243,7 @@ public interface IShape extends Modifiable {
 	/**
 	 * @return the lineColour.
 	 */
-	Color getLineColour();
+	@NonNull Color getLineColour();
 
 	/**
 	 * @param lineColour the lineColour to set.
@@ -510,7 +510,7 @@ public interface IShape extends Modifiable {
 	/**
 	 * @return the bordersPosition.
 	 */
-	BorderPos getBordersPosition();
+	@NonNull BorderPos getBordersPosition();
 
 	/**
 	 * Sets the position of the borders.
@@ -586,4 +586,9 @@ public interface IShape extends Modifiable {
 	 * @return The property of the border position.
 	 */
 	@NonNull ObjectProperty<BorderPos> borderPosProperty();
+	
+	/**
+	 * @return The property of the line colour.
+	 */
+	@NonNull ObjectProperty<Color> lineColourProperty();
 }

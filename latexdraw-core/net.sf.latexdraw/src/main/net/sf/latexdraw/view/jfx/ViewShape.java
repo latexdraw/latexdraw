@@ -55,6 +55,8 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 			model.linestyleProperty().addListener((obj, oldVal, newVal) -> updateLineStyle(newVal));
 			updateLineStyle(model.getLineStyle());
 		}
+		
+		border.strokeProperty().bind(Bindings.createObjectBinding(()-> model.getLineColour().toJFX(), model.lineColourProperty()));
 
 		bindBorderMovable();
 		border.setFill(null);

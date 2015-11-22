@@ -46,7 +46,7 @@ abstract class LShape implements IShape {
 	@NonNull final protected DoubleProperty thickness;
 
 	/** The colour of the lines. */
-	protected Color lineColour;
+	@NonNull final protected ObjectProperty<Color> lineColour;
 
 	/** The style of the lines. */
 	@NonNull final protected ObjectProperty<LineStyle> lineStyle; // TODO add  to the generics but sbt crashes... 
@@ -140,7 +140,7 @@ abstract class LShape implements IShape {
 		hasShadow = false;
 		hasDbleBord = false;
 		lineStyle = new SimpleObjectProperty<>(LineStyle.SOLID);
-		lineColour = PSTricksConstants.DEFAULT_LINE_COLOR;
+		lineColour = new SimpleObjectProperty<>(PSTricksConstants.DEFAULT_LINE_COLOR);
 		dotSep = PSTricksConstants.DEFAULT_DOT_STEP * PPC;
 		dashSepBlack = PSTricksConstants.DEFAULT_DASH_BLACK * PPC;
 		dashSepWhite = PSTricksConstants.DEFAULT_DASH_WHITE * PPC;
@@ -235,7 +235,7 @@ abstract class LShape implements IShape {
 	}
 
 	@Override
-	public BorderPos getBordersPosition() {
+	public @NonNull BorderPos getBordersPosition() {
 		return bordersPosition.get();
 	}
 
@@ -345,12 +345,12 @@ abstract class LShape implements IShape {
 	}
 
 	@Override
-	public Color getLineColour() {
-		return lineColour;
+	public @NonNull Color getLineColour() {
+		return lineColour.get();
 	}
 
 	@Override
-	public LineStyle getLineStyle() {// TODO add  to the generics but sbt crashes... 
+	public @NonNull LineStyle getLineStyle() {// TODO add  to the generics but sbt crashes... 
 		return lineStyle.get();
 	}
 
@@ -660,7 +660,7 @@ abstract class LShape implements IShape {
 	@Override
 	public void setLineColour(final Color lineColour) {
 		if(lineColour != null)
-			this.lineColour = lineColour;
+			this.lineColour.set(lineColour);
 	}
 
 	@Override
@@ -893,5 +893,10 @@ abstract class LShape implements IShape {
 	@Override
 	public @NonNull ObjectProperty<BorderPos> borderPosProperty() {
 		return bordersPosition;
+	}
+	
+	@Override
+	public @NonNull ObjectProperty<Color> lineColourProperty() {
+		return lineColour;
 	}
 }
