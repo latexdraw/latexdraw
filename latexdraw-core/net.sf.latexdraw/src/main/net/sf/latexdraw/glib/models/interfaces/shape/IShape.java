@@ -4,13 +4,13 @@ import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
 import java.util.List;
 
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
-
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.properties.Modifiable;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 /**
  * Defines an interface that classes defining an abstract shape should implement.<br>
@@ -557,7 +557,7 @@ public interface IShape extends Modifiable {
 	/**
 	 * @return the lineStyle.
 	 */
-	LineStyle getLineStyle();
+	@NonNull LineStyle getLineStyle();
 
 	/**
 	 * @param lineStyle the lineStyle to set.
@@ -877,7 +877,12 @@ public interface IShape extends Modifiable {
 	double getHeight();
 	
 	/**
-	 * @return The property of the tickness.
+	 * @return The property of the thickness.
 	 */
 	@NonNull DoubleProperty thicknessProperty();
+	
+	/**
+	 * @return The property of the line style.
+	 */
+	@NonNull ObjectProperty<LineStyle> linestyleProperty();
 }

@@ -52,14 +52,14 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 
 	@Override
-	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+	public void scale(final double prevWidth, final double prevHeight, final IShape.Position pos, final Rectangle2D bound) {
 		super.scale(prevWidth, prevHeight, pos, bound);
 		scaleSetPoints(firstCtrlPts, prevWidth, prevHeight, pos, bound);
 		scaleSetPoints(secondCtrlPts, prevWidth, prevHeight, pos, bound);
 	}
 	
 	@Override
-	public void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
+	public void scaleWithRatio(final double prevWidth, final double prevHeight, final IShape.Position pos, final Rectangle2D bound) {
 		super.scaleWithRatio(prevWidth, prevHeight, pos, bound);
 		scaleSetPointsWithRatio(firstCtrlPts, prevWidth, prevHeight, pos, bound);
 		scaleSetPointsWithRatio(secondCtrlPts, prevWidth, prevHeight, pos, bound);

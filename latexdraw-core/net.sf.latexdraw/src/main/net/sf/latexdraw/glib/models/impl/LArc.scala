@@ -68,7 +68,7 @@ private[impl] trait LArc extends IArc with LArrowableShape {
 		ShapeFactory.createPoint(grav.getX+Math.cos(startAngle)*getWidth/2.0, grav.getY-Math.sin(startAngle)*getWidth/2.0)
 	}
 
-	override def getArcStyle: ArcStyle = style
+	override def getArcStyle: IArcProp.ArcStyle = style
 
 	override def setAngleEnd(angleEnd:Double) {
 		if(GLibUtilities.isValidCoordinate(angleEnd))
@@ -80,7 +80,7 @@ private[impl] trait LArc extends IArc with LArrowableShape {
 			this.startAngle = angleStart
 	}
 
-	override def setArcStyle(styl:ArcStyle) {
+	override def setArcStyle(styl:IArcProp.ArcStyle) {
 		if(styl!=null)
 			this.style = styl
 	}

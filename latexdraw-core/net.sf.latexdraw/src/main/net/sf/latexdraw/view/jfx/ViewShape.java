@@ -16,6 +16,8 @@ import org.eclipse.jdt.annotation.NonNull;
 
 import javafx.scene.Group;
 import javafx.scene.shape.Shape;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeLineJoin;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
@@ -40,11 +42,38 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 		model = sh;
 		border = createJFXShape();
 
+		border.setStrokeLineJoin(StrokeLineJoin.MITER);
+
 		if(model.isThicknessable()) {
 			border.strokeWidthProperty().bind(model.thicknessProperty());
 		}
 
+		if(model.isLineStylable()) {
+			model.linestyleProperty().addListener((obj, oldVal, newVal) -> updateLineStyle(newVal));
+			updateLineStyle(model.getLineStyle());
+		}
+
 		getChildren().add(border);
+	}
+	
+	protected void updateLineStyle(final IShape.LineStyle newVal) {
+		switch(newVal) {
+			case DASHED:
+				border.setStrokeLineCap(StrokeLineCap.BUTT);
+				border.setStrokeDashOffset(0.0);
+				border.getStrokeDashArray().addAll(model.getDashSepBlack(), model.getDashSepWhite());
+				break;
+			case DOTTED:
+				final double dotSep = model.getDotSep() + (model.hasDbleBord()?model.getThickness() * 2.0 + model.getDbleBordSep():model.getThickness());
+				border.setStrokeLineCap(StrokeLineCap.ROUND);
+				border.setStrokeDashOffset(0.0);
+				border.getStrokeDashArray().addAll(0.0, dotSep);
+				break;
+			case SOLID:
+				border.setStrokeLineCap(StrokeLineCap.SQUARE);
+				border.getStrokeDashArray().clear();
+				break;
+		}
 	}
 
 	protected abstract @NonNull T createJFXShape();
