@@ -14,41 +14,33 @@ package net.sf.latexdraw.view.jfx;
 
 import org.eclipse.jdt.annotation.NonNull;
 
-import javafx.scene.Group;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.Path;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
- * The base class of a JFX shape view.<br>
- * 2015-11-13<br>
+ * The JFX view for shapes that can be painted as a path.<br>
+ * 2015-11-22<br>
+ * @param <S> The type of the model.
  * @author Arnaud BLOUIN
  * @since 4.0
- * @param <S> The type of the model.
- * @param <T> The type of the JFX shape used to draw the view.
  */
-public abstract class ViewShape<S extends IShape, T extends Shape> extends Group {
-	/** The model of the view. */
-	protected final @NonNull S model;
-	protected final @NonNull T border;
-
+public abstract class ViewPathShape<S extends IShape> extends ViewShape<S, Path> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	public ViewShape(final @NonNull S sh) {
-		super();
-		model = sh;
-		border = createJFXShape();
-
-		getChildren().add(border);
+	public ViewPathShape(@NonNull final S sh) {
+		super(sh);
 	}
 
-	protected abstract @NonNull T createJFXShape();
+	@Override
+	protected @NonNull Path createJFXShape() {
+		return new Path();
+	}
 
-	/**
-	 * Flushes the view.
-	 */
+	@Override
 	public void flush() {
-		// Should be overridden to flush the bindings.
+		border.getElements().clear();
+		super.flush();
 	}
 }

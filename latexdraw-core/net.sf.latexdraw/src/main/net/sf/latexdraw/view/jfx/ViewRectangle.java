@@ -14,7 +14,10 @@ package net.sf.latexdraw.view.jfx;
 
 import org.eclipse.jdt.annotation.NonNull;
 
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.ClosePath;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 
 /**
@@ -23,17 +26,65 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
  * @author Arnaud BLOUIN
  * @since 4.0
  */
-public class ViewRectangle extends ViewShape<IRectangle, Rectangle> {
+public class ViewRectangle extends ViewPathShape<IRectangle> {
+	/** The top-left path element. */
+	final MoveTo moveTL;
+	/** The top-right path element. */
+	final LineTo lineTR;
+	/** The bottom-right path element. */
+	final LineTo lineBR;
+	/** The bottom-left path element. */
+	final LineTo lineBL;
+
 	/**
 	 * Creates the rectangle view.
 	 * @param sh The model.
 	 */
 	public ViewRectangle(final @NonNull IRectangle sh) {
 		super(sh);
+		
+		moveTL = new MoveTo();
+		lineTR = new LineTo();
+		lineBR = new LineTo();
+		lineBL = new LineTo();
+		
+		border.getElements().add(moveTL);
+		border.getElements().add(lineTR);
+		border.getElements().add(lineBR);
+		border.getElements().add(lineBL);
+		border.getElements().add(new ClosePath());
+
+		IPoint pt = sh.getPtAt(0);
+		moveTL.xProperty().bind(pt.xProperty());
+		moveTL.yProperty().bind(pt.yProperty());
+
+		pt = sh.getPtAt(1);
+		lineTR.xProperty().bind(pt.xProperty());
+		lineTR.yProperty().bind(pt.yProperty());
+
+		pt = sh.getPtAt(2);
+		lineBR.xProperty().bind(pt.xProperty());
+		lineBR.yProperty().bind(pt.yProperty());
+
+		pt = sh.getPtAt(3);
+		lineBL.xProperty().bind(pt.xProperty());
+		lineBL.yProperty().bind(pt.yProperty());
 	}
 
 	@Override
-	protected @NonNull Rectangle createJFXShape() {
-		return new Rectangle();
+	public void flush() {
+		moveTL.xProperty().unbind();
+		moveTL.yProperty().unbind();
+
+		lineTR.xProperty().unbind();
+		lineTR.yProperty().unbind();
+
+		lineBR.xProperty().unbind();
+		lineBR.yProperty().unbind();
+
+		lineBL.xProperty().unbind();
+		lineBL.yProperty().unbind();
+
+		super.flush();
 	}
 }
