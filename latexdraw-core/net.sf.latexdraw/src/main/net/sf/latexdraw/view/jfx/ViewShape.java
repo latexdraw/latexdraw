@@ -40,6 +40,10 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 		model = sh;
 		border = createJFXShape();
 
+		if(model.isThicknessable()) {
+			border.strokeWidthProperty().bind(model.thicknessProperty());
+		}
+
 		getChildren().add(border);
 	}
 

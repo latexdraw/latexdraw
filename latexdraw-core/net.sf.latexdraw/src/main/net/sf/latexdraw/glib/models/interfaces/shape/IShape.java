@@ -9,6 +9,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.properties.Modifiable;
 
+import javafx.beans.property.DoubleProperty;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 
 /**
@@ -874,4 +875,9 @@ public interface IShape extends Modifiable {
 	 * @since 3.0
 	 */
 	double getHeight();
+	
+	/**
+	 * @return The property of the tickness.
+	 */
+	@NonNull DoubleProperty thicknessProperty();
 }
