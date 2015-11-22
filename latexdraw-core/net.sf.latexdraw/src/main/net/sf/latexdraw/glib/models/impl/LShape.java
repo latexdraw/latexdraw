@@ -118,7 +118,7 @@ abstract class LShape implements IShape {
 	protected double shadowSize;
 
 	/** The position of the border of the shape. */
-	protected BorderPos bordersPosition;
+	@NonNull final protected ObjectProperty<BorderPos> bordersPosition;
 
 	/** The points of the shape. */
 	protected final List<IPoint> points;
@@ -149,7 +149,7 @@ abstract class LShape implements IShape {
 		hatchingsWidth = PSTricksConstants.DEFAULT_HATCH_WIDTH * PPC;
 		fillingStyle = FillingStyle.NONE;
 		fillingCol = PSTricksConstants.DEFAULT_INTERIOR_COLOR;
-		bordersPosition = BorderPos.INTO;
+		bordersPosition = new SimpleObjectProperty<>(BorderPos.INTO);
 		dbleBordCol = PSTricksConstants.DEFAULT_DOUBLE_COLOR;
 		dbleBordSep = 6.;
 		shadowCol = PSTricksConstants.DEFAULT_SHADOW_COLOR;
@@ -223,7 +223,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public double getBorderGap() {
-		switch(bordersPosition) {
+		switch(bordersPosition.get()) {
 			case MID:
 				return hasDbleBord?thickness.doubleValue() + dbleBordSep / 2.0:thickness.doubleValue() / 2.0;
 			case OUT:
@@ -236,7 +236,7 @@ abstract class LShape implements IShape {
 
 	@Override
 	public BorderPos getBordersPosition() {
-		return bordersPosition;
+		return bordersPosition.get();
 	}
 
 	@Override
@@ -493,7 +493,7 @@ abstract class LShape implements IShape {
 	@Override
 	public void setBordersPosition(final BorderPos position) {
 		if(position != null && isBordersMovable())
-			bordersPosition = position;
+			bordersPosition.set(position);
 	}
 
 	@Override
@@ -888,5 +888,10 @@ abstract class LShape implements IShape {
 	@Override
 	public @NonNull ObjectProperty<LineStyle> linestyleProperty() {
 		return lineStyle;
+	}
+	
+	@Override
+	public @NonNull ObjectProperty<BorderPos> borderPosProperty() {
+		return bordersPosition;
 	}
 }

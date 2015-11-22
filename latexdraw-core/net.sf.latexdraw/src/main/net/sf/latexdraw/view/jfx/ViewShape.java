@@ -14,10 +14,12 @@ package net.sf.latexdraw.view.jfx;
 
 import org.eclipse.jdt.annotation.NonNull;
 
+import javafx.beans.binding.Bindings;
 import javafx.scene.Group;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
+import javafx.scene.shape.StrokeType;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 
@@ -54,20 +56,38 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 			updateLineStyle(model.getLineStyle());
 		}
 
+		bindBorderMovable();
+		border.setFill(null);
+
 		getChildren().add(border);
 	}
-	
-	protected void updateLineStyle(final LineStyle newVal) {
+
+	private void bindBorderMovable() {
+		if(model.isBordersMovable()) {
+			border.strokeTypeProperty().bind(Bindings.createObjectBinding(() -> {
+				switch(model.getBordersPosition()) {
+					case INTO:
+						return StrokeType.INSIDE;
+					case MID:
+						return StrokeType.CENTERED;
+					case OUT:
+						return StrokeType.OUTSIDE;
+					default:
+						return StrokeType.INSIDE;
+				}
+			}, model.borderPosProperty()));
+		}
+	}
+
+	private void updateLineStyle(final LineStyle newVal) {
 		switch(newVal) {
 			case DASHED:
 				border.setStrokeLineCap(StrokeLineCap.BUTT);
-				border.setStrokeDashOffset(0.0);
 				border.getStrokeDashArray().addAll(model.getDashSepBlack(), model.getDashSepWhite());
 				break;
-			case DOTTED:
+			case DOTTED:// FIXME problem when dotted line + INTO/OUT border position.
 				final double dotSep = model.getDotSep() + (model.hasDbleBord()?model.getThickness() * 2.0 + model.getDbleBordSep():model.getThickness());
 				border.setStrokeLineCap(StrokeLineCap.ROUND);
-				border.setStrokeDashOffset(0.0);
 				border.getStrokeDashArray().addAll(0.0, dotSep);
 				break;
 			case SOLID:

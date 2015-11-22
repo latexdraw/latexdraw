@@ -581,4 +581,9 @@ public interface IShape extends Modifiable {
 	 * @return The property of the line style.
 	 */
 	@NonNull ObjectProperty<LineStyle> linestyleProperty();
+	
+	/**
+	 * @return The property of the border position.
+	 */
+	@NonNull ObjectProperty<BorderPos> borderPosProperty();
 }
