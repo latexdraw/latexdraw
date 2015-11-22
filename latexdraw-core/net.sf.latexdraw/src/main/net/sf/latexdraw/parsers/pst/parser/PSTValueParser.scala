@@ -1,14 +1,19 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
+import java.util.Optional
+
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
-import net.sf.latexdraw.glib.models.interfaces.shape.Color
-import java.util.Optional
 
 
 /**
@@ -145,10 +150,10 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses arrows.
 	 */
-	def parseValueArrows(value : String) : Option[(IArrow.ArrowStyle, IArrow.ArrowStyle)] =
+	def parseValueArrows(value : String) : Option[(ArrowStyle, ArrowStyle)] =
 		value.replace(" ", "") match {
 			// The arrow string must contains the separator - and at least one arrow.
-			case arrowPattern(arr1, arr2) => Some(Tuple2(IArrow.ArrowStyle.getArrowStyle(arr1), IArrow.ArrowStyle.getArrowStyle(arr2)))
+			case arrowPattern(arr1, arr2) => Some(Tuple2(ArrowStyle.getArrowStyle(arr1), ArrowStyle.getArrowStyle(arr2)))
 			case _ => None
 		}
 
@@ -188,24 +193,24 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the line styles.
 	 */
-	def parseValueDotStyle(value : String) : Option[IDotProp.DotStyle] =
+	def parseValueDotStyle(value : String) : Option[DotStyle] =
 		value.replace(" ", "") match {
-			case PSTricksConstants.ASTERISK_STYLE => Some(IDotProp.DotStyle.ASTERISK)
-			case PSTricksConstants.BAR_STYLE => Some(IDotProp.DotStyle.BAR)
-			case PSTricksConstants.DIAMOND_STYLE => Some(IDotProp.DotStyle.DIAMOND)
-			case PSTricksConstants.DOT_STYLE => Some(IDotProp.DotStyle.DOT)
-			case PSTricksConstants.FDIAMOND_STYLE => Some(IDotProp.DotStyle.FDIAMOND)
-			case PSTricksConstants.FPENTAGON_STYLE => Some(IDotProp.DotStyle.FPENTAGON)
-			case PSTricksConstants.FSQUARE_STYLE => Some(IDotProp.DotStyle.FSQUARE)
-			case PSTricksConstants.FTRIANGLE_STYLE => Some(IDotProp.DotStyle.FTRIANGLE)
-			case PSTricksConstants.O_STYLE => Some(IDotProp.DotStyle.O)
-			case PSTricksConstants.OPLUS_STYLE => Some(IDotProp.DotStyle.OPLUS)
-			case PSTricksConstants.OTIMES_STYLE => Some(IDotProp.DotStyle.OTIMES)
-			case PSTricksConstants.PENTAGON_STYLE => Some(IDotProp.DotStyle.PENTAGON)
-			case PSTricksConstants.PLUS_STYLE => Some(IDotProp.DotStyle.PLUS)
-			case PSTricksConstants.SQUARE_STYLE => Some(IDotProp.DotStyle.SQUARE)
-			case PSTricksConstants.TRIANGLE_STYLE => Some(IDotProp.DotStyle.TRIANGLE)
-			case PSTricksConstants.X_STYLE => Some(IDotProp.DotStyle.X)
+			case PSTricksConstants.ASTERISK_STYLE => Some(DotStyle.ASTERISK)
+			case PSTricksConstants.BAR_STYLE => Some(DotStyle.BAR)
+			case PSTricksConstants.DIAMOND_STYLE => Some(DotStyle.DIAMOND)
+			case PSTricksConstants.DOT_STYLE => Some(DotStyle.DOT)
+			case PSTricksConstants.FDIAMOND_STYLE => Some(DotStyle.FDIAMOND)
+			case PSTricksConstants.FPENTAGON_STYLE => Some(DotStyle.FPENTAGON)
+			case PSTricksConstants.FSQUARE_STYLE => Some(DotStyle.FSQUARE)
+			case PSTricksConstants.FTRIANGLE_STYLE => Some(DotStyle.FTRIANGLE)
+			case PSTricksConstants.O_STYLE => Some(DotStyle.O)
+			case PSTricksConstants.OPLUS_STYLE => Some(DotStyle.OPLUS)
+			case PSTricksConstants.OTIMES_STYLE => Some(DotStyle.OTIMES)
+			case PSTricksConstants.PENTAGON_STYLE => Some(DotStyle.PENTAGON)
+			case PSTricksConstants.PLUS_STYLE => Some(DotStyle.PLUS)
+			case PSTricksConstants.SQUARE_STYLE => Some(DotStyle.SQUARE)
+			case PSTricksConstants.TRIANGLE_STYLE => Some(DotStyle.TRIANGLE)
+			case PSTricksConstants.X_STYLE => Some(DotStyle.X)
 			case _ => PSTParser.errorLogs += "Unknown dot style: " + value.replace(" ", ""); None
 		}
 
@@ -213,12 +218,12 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the visibility styles.
 	 */
-	def parseValueLabelVisibility(value : String) : Option[IAxesProp.PlottingStyle] =
+	def parseValueLabelVisibility(value : String) : Option[PlottingStyle] =
 		value match {
-			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL => Some(IAxesProp.PlottingStyle.ALL)
-			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_NONE => Some(IAxesProp.PlottingStyle.NONE)
-			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_X  => Some(IAxesProp.PlottingStyle.X)
-			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_Y  => Some(IAxesProp.PlottingStyle.Y)
+			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL => Some(PlottingStyle.ALL)
+			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_NONE => Some(PlottingStyle.NONE)
+			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_X  => Some(PlottingStyle.X)
+			case PSTricksConstants.TOKEN_LABELS_DISPLAYED_Y  => Some(PlottingStyle.Y)
 			case _ => PSTParser.errorLogs += "Unknown tick style: " + value; None
 	}
 
@@ -226,11 +231,11 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the tick styles.
 	 */
-	def parseValueTickstyle(value : String) : Option[IAxesProp.TicksStyle] =
+	def parseValueTickstyle(value : String) : Option[TicksStyle] =
 		value match {
-			case PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM => Some(IAxesProp.TicksStyle.BOTTOM)
-			case PSTricksConstants.TOKEN_TICKS_STYLE_FULL => Some(IAxesProp.TicksStyle.FULL)
-			case PSTricksConstants.TOKEN_TICKS_STYLE_TOP => Some(IAxesProp.TicksStyle.TOP)
+			case PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM => Some(TicksStyle.BOTTOM)
+			case PSTricksConstants.TOKEN_TICKS_STYLE_FULL => Some(TicksStyle.FULL)
+			case PSTricksConstants.TOKEN_TICKS_STYLE_TOP => Some(TicksStyle.TOP)
 			case _ => PSTParser.errorLogs += "Unknown tick style: " + value; None
 	}
 
@@ -238,11 +243,11 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the axes styles.
 	 */
-	def parseValueAxestyle(value : String) : Option[IAxesProp.AxesStyle] =
+	def parseValueAxestyle(value : String) : Option[AxesStyle] =
 		value match {
-			case PSTricksConstants.TOKEN_AXES_STYLE_AXES  => Some(IAxesProp.AxesStyle.AXES)
-			case PSTricksConstants.TOKEN_AXES_STYLE_FRAME => Some(IAxesProp.AxesStyle.FRAME)
-			case PSTricksConstants.TOKEN_AXES_STYLE_NONE  => Some(IAxesProp.AxesStyle.NONE)
+			case PSTricksConstants.TOKEN_AXES_STYLE_AXES  => Some(AxesStyle.AXES)
+			case PSTricksConstants.TOKEN_AXES_STYLE_FRAME => Some(AxesStyle.FRAME)
+			case PSTricksConstants.TOKEN_AXES_STYLE_NONE  => Some(AxesStyle.NONE)
 			case _ => PSTParser.errorLogs += "Unknown axes style: " + value; None
 	}
 
@@ -250,11 +255,11 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the line styles.
 	 */
-	def parseValueDimen(value : String) : Option[IShape.BorderPos] =
+	def parseValueDimen(value : String) : Option[BorderPos] =
 		value match {
-			case PSTricksConstants.BORDERS_INSIDE => Some(IShape.BorderPos.INTO)
-			case PSTricksConstants.BORDERS_MIDDLE => Some(IShape.BorderPos.MID)
-			case PSTricksConstants.BORDERS_OUTSIDE=> Some(IShape.BorderPos.OUT)
+			case PSTricksConstants.BORDERS_INSIDE => Some(BorderPos.INTO)
+			case PSTricksConstants.BORDERS_MIDDLE => Some(BorderPos.MID)
+			case PSTricksConstants.BORDERS_OUTSIDE=> Some(BorderPos.OUT)
 			case _ => PSTParser.errorLogs += "Unknown border position: " + value; None
 		}
 
@@ -272,11 +277,11 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the line styles.
 	 */
-	def parseValueLineStyle(value : String) : Option[IShape.LineStyle] =
+	def parseValueLineStyle(value : String) : Option[LineStyle] =
 		value match {
-			case PSTricksConstants.LINE_DASHED_STYLE => Some(IShape.LineStyle.DASHED)
-			case PSTricksConstants.LINE_DOTTED_STYLE => Some(IShape.LineStyle.DOTTED)
-			case PSTricksConstants.LINE_SOLID_STYLE => Some(IShape.LineStyle.SOLID)
+			case PSTricksConstants.LINE_DASHED_STYLE => Some(LineStyle.DASHED)
+			case PSTricksConstants.LINE_DOTTED_STYLE => Some(LineStyle.DOTTED)
+			case PSTricksConstants.LINE_SOLID_STYLE => Some(LineStyle.SOLID)
 			case PSTricksConstants.LINE_NONE_STYLE =>
 				PSTParser.errorLogs += "line style '"+PSTricksConstants.LINE_NONE_STYLE+"' not supported yet"
 				None
@@ -287,17 +292,17 @@ trait PSTValueParser extends PSTNumberParser {
 	/**
 	 * Parses the filling styles.
 	 */
-	def parseValueFillingStyle(value : String) : Option[IShape.FillingStyle] =
+	def parseValueFillingStyle(value : String) : Option[FillingStyle] =
 		value match {
-			case "solid" => Some(IShape.FillingStyle.PLAIN)
-			case "none" => Some(IShape.FillingStyle.NONE)
-			case "vlines" => Some(IShape.FillingStyle.VLINES)
-			case "vlines*" => Some(IShape.FillingStyle.VLINES_PLAIN)
-			case "hlines" => Some(IShape.FillingStyle.HLINES)
-			case "hlines*" => Some(IShape.FillingStyle.HLINES_PLAIN)
-			case "clines" => Some(IShape.FillingStyle.CLINES)
-			case "clines*" => Some(IShape.FillingStyle.CLINES_PLAIN)
-			case "gradient" => Some(IShape.FillingStyle.GRAD)
+			case "solid" => Some(FillingStyle.PLAIN)
+			case "none" => Some(FillingStyle.NONE)
+			case "vlines" => Some(FillingStyle.VLINES)
+			case "vlines*" => Some(FillingStyle.VLINES_PLAIN)
+			case "hlines" => Some(FillingStyle.HLINES)
+			case "hlines*" => Some(FillingStyle.HLINES_PLAIN)
+			case "clines" => Some(FillingStyle.CLINES)
+			case "clines*" => Some(FillingStyle.CLINES_PLAIN)
+			case "gradient" => Some(FillingStyle.GRAD)
 			case _ => PSTParser.errorLogs += "Unknown filling style: " + value; None
 		}
 

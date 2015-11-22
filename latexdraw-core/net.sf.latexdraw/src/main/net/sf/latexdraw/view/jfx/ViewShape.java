@@ -19,6 +19,7 @@ import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 
 /**
  * The base class of a JFX shape view.<br>
@@ -56,7 +57,7 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 		getChildren().add(border);
 	}
 	
-	protected void updateLineStyle(final IShape.LineStyle newVal) {
+	protected void updateLineStyle(final LineStyle newVal) {
 		switch(newVal) {
 			case DASHED:
 				border.setStrokeLineCap(StrokeLineCap.BUTT);

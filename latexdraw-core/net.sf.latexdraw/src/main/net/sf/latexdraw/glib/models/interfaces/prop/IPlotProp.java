@@ -1,7 +1,6 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
-import java.util.Arrays;
-
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
 
 /**
@@ -21,37 +20,6 @@ import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
  *<br>
  */
 public interface IPlotProp extends IScalable, IDotProp{
-	/**
-	 * The different possible plotting styles.
-	 */
-	enum PlotStyle {
-		CURVE {
-			@Override public String getPSTToken() { return "curve"; } //$NON-NLS-1$
-		}, LINE {
-			@Override public String getPSTToken() { return "line";} //$NON-NLS-1$
-		}, DOTS {
-			@Override public String getPSTToken() { return "dots";} //$NON-NLS-1$
-		}, POLYGON {
-			@Override public String getPSTToken() { return "polygon";} //$NON-NLS-1$
-		}, ECURVE {
-			@Override public String getPSTToken() { return "ecurve";} //$NON-NLS-1$
-		}, CCURVE {
-			@Override public String getPSTToken() {return "ccurve";} //$NON-NLS-1$
-		};
-
-		/** @return The PST token corresponding to the plot style. */
-		public abstract String getPSTToken();
-
-		/**
-		 * @param latexToken The latex token to check.
-		 * @return The style corresponding to the PSTricks token given as parameter, or CURVE otherwise.
-		 * @since 3.2
-		 */
-		public static PlotStyle getPlotStyle(final String latexToken) {
-			return Arrays.stream(values()).filter(it -> it.getPSTToken().equals(latexToken)).findFirst().orElse(CURVE);
-		}
-	}
-
 	/**
 	 * @return True if the plot is defined for polar coordinates (false: for a cartesian coordinates).
 	 * @since 3.3

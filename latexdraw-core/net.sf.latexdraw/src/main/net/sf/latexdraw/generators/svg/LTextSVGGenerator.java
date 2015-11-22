@@ -4,9 +4,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextSize;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition;
+import net.sf.latexdraw.glib.models.interfaces.shape.TextSize;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;

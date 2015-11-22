@@ -2,9 +2,9 @@ package test.svg.loadSave;
 
 import static org.junit.Assert.*;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Before;
@@ -18,8 +18,8 @@ public class TestLoadSaveSVGPlot extends TestLoadSaveSVGPositionShape<IPlot> {
 	}
 	
 	@Test public void testPropertiesDot() {
-		shape.setPlotStyle(IPlotProp.PlotStyle.DOTS);
-		for(IDotProp.DotStyle style : IDotProp.DotStyle.values()) {
+		shape.setPlotStyle(PlotStyle.DOTS);
+		for(DotStyle style : DotStyle.values()) {
 			shape.setDotStyle(style);
 			assertEquals(style.isFillable(), shape.isFillable());
 			assertFalse(shape.isShadowable());
@@ -32,7 +32,7 @@ public class TestLoadSaveSVGPlot extends TestLoadSaveSVGPositionShape<IPlot> {
 	}
 	
 	@Test public void testPropertiesNotDot() {
-		shape.setPlotStyle(IPlotProp.PlotStyle.CURVE);
+		shape.setPlotStyle(PlotStyle.CURVE);
 		assertTrue(shape.isFillable());
 		assertTrue(shape.isShadowable());
 		assertFalse(shape.isBordersMovable());
@@ -43,34 +43,34 @@ public class TestLoadSaveSVGPlot extends TestLoadSaveSVGPositionShape<IPlot> {
 	}
 	
 	@Test public void testPlotDotsFillable() {
-		shape.setPlotStyle(IPlotProp.PlotStyle.DOTS);
+		shape.setPlotStyle(PlotStyle.DOTS);
 		shape.setDiametre(12.0);
-		shape.setDotStyle(IDotProp.DotStyle.DIAMOND);
+		shape.setDotStyle(DotStyle.DIAMOND);
 		shape.setFillingCol(DviPsColors.BLUE);
 		compareShapes(generateShape());
 	}
 	
 	@Test public void testPlotDotsNotFillable() {
-		shape.setPlotStyle(IPlotProp.PlotStyle.DOTS);
+		shape.setPlotStyle(PlotStyle.DOTS);
 		shape.setDiametre(12.0);
-		shape.setDotStyle(IDotProp.DotStyle.DOT);
+		shape.setDotStyle(DotStyle.DOT);
 		shape.setLineColour(DviPsColors.BLUE);
 		compareShapes(generateShape());
 	}
 	
 	@Test public void testPlotCurves() {
-		shape.setPlotStyle(IPlotProp.PlotStyle.CURVE);
+		shape.setPlotStyle(PlotStyle.CURVE);
 		compareShapes(generateShape());
-		shape.setPlotStyle(IPlotProp.PlotStyle.CCURVE);
+		shape.setPlotStyle(PlotStyle.CCURVE);
 		compareShapes(generateShape());
-		shape.setPlotStyle(IPlotProp.PlotStyle.ECURVE);
+		shape.setPlotStyle(PlotStyle.ECURVE);
 		compareShapes(generateShape());
 	}
 	
 	@Test public void testPlotLines() {
-		shape.setPlotStyle(IPlotProp.PlotStyle.LINE);
+		shape.setPlotStyle(PlotStyle.LINE);
 		compareShapes(generateShape());
-		shape.setPlotStyle(IPlotProp.PlotStyle.POLYGON);
+		shape.setPlotStyle(PlotStyle.POLYGON);
 		compareShapes(generateShape());
 	}
 

@@ -1,19 +1,20 @@
 package net.sf.latexdraw.glib.models.impl
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.GLibUtilities
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
-import net.sf.latexdraw.parsers.ps.PSFunctionParser
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants
-import net.sf.latexdraw.glib.models.interfaces.shape.Color
-import net.sf.latexdraw.glib.views.latex.DviPsColors
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
 import java.awt.geom.Rectangle2D
+
+import net.sf.latexdraw.glib.models.GLibUtilities
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.Position
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants
+import net.sf.latexdraw.parsers.ps.PSFunctionParser
 
 /**
  * Implementation of the plotted function.
@@ -22,10 +23,10 @@ import java.awt.geom.Rectangle2D
  */
 private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equation:String, var polar:Boolean) extends LPositionShape(pt) with IPlot with LScalable {
 	private var nbPoints:Int = 50
-	private var style:IPlotProp.PlotStyle = IPlotProp.PlotStyle.CURVE
+	private var style:PlotStyle = PlotStyle.CURVE
 	private var parser:PSFunctionParser = new PSFunctionParser(equation)
 	
-	private var dotStyle = IDotProp.DotStyle.DOT
+	private var dotStyle = DotStyle.DOT
 	private var dotDiametre = PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM*IShape.PPC+PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM
 
 	require(GLibUtilities.isValidPoint(pt) && minX<maxX && GLibUtilities.isValidPoint(minX, maxX), "Parameter not valid: " + minX + " " + maxX + " " +GLibUtilities.isValidPoint(pt))
@@ -66,7 +67,7 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
   }
   
 
-	override def setPlotStyle(style:IPlotProp.PlotStyle) {
+	override def setPlotStyle(style:PlotStyle) {
 		if(style!=null) this.style = style
 	}
 
@@ -78,12 +79,12 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 	}
 
 	override def isShowPtsable = false
-	override def isThicknessable = style!=IPlotProp.PlotStyle.DOTS
-	override def isShadowable = style!=IPlotProp.PlotStyle.DOTS
-	override def isLineStylable = style!=IPlotProp.PlotStyle.DOTS
-	override def isInteriorStylable = style!=IPlotProp.PlotStyle.DOTS
-	override def isFillable = style!=IPlotProp.PlotStyle.DOTS || dotStyle.isFillable
-	override def isDbleBorderable = style!=IPlotProp.PlotStyle.DOTS
+	override def isThicknessable = style!=PlotStyle.DOTS
+	override def isShadowable = style!=PlotStyle.DOTS
+	override def isLineStylable = style!=PlotStyle.DOTS
+	override def isInteriorStylable = style!=PlotStyle.DOTS
+	override def isFillable = style!=PlotStyle.DOTS || dotStyle.isFillable
+	override def isDbleBorderable = style!=PlotStyle.DOTS
 
 	override def getPlottingStep = (maxX-minX)/(nbPoints-1)
 
@@ -168,7 +169,7 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 
   def getDotFillingCol(): Color = super.getFillingCol
 
-  def getDotStyle(): IDotProp.DotStyle = dotStyle
+  def getDotStyle(): DotStyle = dotStyle
 
   def setDiametre(diam: Double) {
   	if(diam>0.0 && GLibUtilities.isValidCoordinate(diam)) dotDiametre = diam
@@ -178,7 +179,7 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
   	setFillingCol(col)
   }
 
-  def setDotStyle(dotst: IDotProp.DotStyle) {
+  def setDotStyle(dotst: DotStyle) {
   	if(dotst!=null) dotStyle = dotst
   }
 }

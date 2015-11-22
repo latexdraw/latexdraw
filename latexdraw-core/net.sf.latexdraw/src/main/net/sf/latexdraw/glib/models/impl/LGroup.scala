@@ -11,24 +11,25 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
+import net.sf.latexdraw.glib.models.interfaces.prop.IScalable
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
+import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
-import net.sf.latexdraw.glib.models.interfaces.prop.IScalable
-import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
@@ -195,7 +196,7 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def setPlotStyleList(values : List[IPlotProp.PlotStyle]) = {
+	override def setPlotStyleList(values : List[PlotStyle]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -204,8 +205,8 @@ private[impl] class LGroup() extends LShape()
         }
 	}
 
-	override def getPlotStyleList: List[IPlotProp.PlotStyle] = {
-		val list = new ArrayList[IPlotProp.PlotStyle]()
+	override def getPlotStyleList: List[PlotStyle] = {
+		val list = new ArrayList[PlotStyle]()
 		shapes.foreach{
 				case fh : IPlotProp => list.add(fh.getPlotStyle)
 				case _ => list.add(null)
@@ -395,7 +396,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setFreeHandTypeList(values : List[FreeHandType]) = {
+	override def setFreeHandTypeList(values : List[FreeHandStyle]) = {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -404,7 +405,7 @@ private[impl] class LGroup() extends LShape()
         }
 	}
 
-	override def getFreeHandTypeList: List[FreeHandType] = getShapes.map{case sh:IFreeHandProp => sh.getType; case _ => FreeHandType.CURVES}
+	override def getFreeHandTypeList: List[FreeHandStyle] = getShapes.map{case sh:IFreeHandProp => sh.getType; case _ => FreeHandStyle.CURVES}
 
 	override def setAxesDistLabelsList(values : List[IPoint]) = {
 		if(values!=null && values.size==shapes.size)

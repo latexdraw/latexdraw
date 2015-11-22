@@ -2,17 +2,17 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.*;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
-
 import org.junit.Test;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle;
 
 public class TestFreeHandType {
 	@Test
 	public void testGetType() {
-		assertEquals(FreeHandType.getType(FreeHandType.CURVES.toString()), FreeHandType.CURVES);
-		assertEquals(FreeHandType.getType(FreeHandType.LINES.toString()), FreeHandType.LINES);
-		assertEquals(FreeHandType.CURVES, FreeHandType.getType(null));
-		assertEquals(FreeHandType.getType(""), FreeHandType.CURVES); //$NON-NLS-1$
-		assertEquals(FreeHandType.getType("ds qoqs"), FreeHandType.CURVES); //$NON-NLS-1$
+		assertEquals(FreeHandStyle.getType(FreeHandStyle.CURVES.toString()), FreeHandStyle.CURVES);
+		assertEquals(FreeHandStyle.getType(FreeHandStyle.LINES.toString()), FreeHandStyle.LINES);
+		assertEquals(FreeHandStyle.CURVES, FreeHandStyle.getType(null));
+		assertEquals(FreeHandStyle.getType(""), FreeHandStyle.CURVES); //$NON-NLS-1$
+		assertEquals(FreeHandStyle.getType("ds qoqs"), FreeHandStyle.CURVES); //$NON-NLS-1$
 	}
 }

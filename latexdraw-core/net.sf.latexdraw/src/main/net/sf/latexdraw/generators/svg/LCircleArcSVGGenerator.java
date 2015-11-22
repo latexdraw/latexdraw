@@ -3,7 +3,7 @@ package net.sf.latexdraw.generators.svg;
 import java.awt.geom.Arc2D;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;

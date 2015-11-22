@@ -11,9 +11,9 @@ import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.util.LNumber;
 import sun.font.FontDesignMetrics;

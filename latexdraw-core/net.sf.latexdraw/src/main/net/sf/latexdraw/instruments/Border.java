@@ -34,6 +34,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.Position;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape;
@@ -101,14 +102,14 @@ public class Border extends CanvasInstrument { // implements Picker {
 		arcHandlerStart = new ArcAngleHandler(true);
 		arcHandlerEnd = new ArcAngleHandler(false);
 		rotHandler = new RotationHandler();
-		scaleHandlers.add(new ScaleHandler(IShape.Position.NW));
-		scaleHandlers.add(new ScaleHandler(IShape.Position.NORTH));
-		scaleHandlers.add(new ScaleHandler(IShape.Position.NE));
-		scaleHandlers.add(new ScaleHandler(IShape.Position.WEST));
-		scaleHandlers.add(new ScaleHandler(IShape.Position.EAST));
-		scaleHandlers.add(new ScaleHandler(IShape.Position.SW));
-		scaleHandlers.add(new ScaleHandler(IShape.Position.SOUTH));
-		scaleHandlers.add(new ScaleHandler(IShape.Position.SE));
+		scaleHandlers.add(new ScaleHandler(Position.NW));
+		scaleHandlers.add(new ScaleHandler(Position.NORTH));
+		scaleHandlers.add(new ScaleHandler(Position.NE));
+		scaleHandlers.add(new ScaleHandler(Position.WEST));
+		scaleHandlers.add(new ScaleHandler(Position.EAST));
+		scaleHandlers.add(new ScaleHandler(Position.SW));
+		scaleHandlers.add(new ScaleHandler(Position.SOUTH));
+		scaleHandlers.add(new ScaleHandler(Position.SE));
 	}
 
 	@Override

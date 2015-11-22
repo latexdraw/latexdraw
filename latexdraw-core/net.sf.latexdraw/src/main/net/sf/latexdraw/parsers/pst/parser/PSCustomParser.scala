@@ -1,10 +1,9 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
+import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * A parser grouping parsers parsing commands related to the pscustom command.<br>
@@ -268,9 +267,9 @@ trait PSCustomParser extends PSTAbstractParser with PSTCoordinateParser with PST
 		freeHand.addPoint(transformPointTo2DScene(pt, ctx))
 
 		if(isLine)
-			freeHand.setType(IFreeHandProp.FreeHandType.LINES)
+			freeHand.setType(FreeHandStyle.LINES)
 		else
-			freeHand.setType(IFreeHandProp.FreeHandType.CURVES)
+			freeHand.setType(FreeHandStyle.CURVES)
 
 		setShapeGeneralParameters(freeHand, ctx)
 		ctx.psCustomLatestPt.setPoint(transformPointTo2DScene(pt, ctx))

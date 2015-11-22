@@ -1,9 +1,11 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
+
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
@@ -43,15 +45,15 @@ private[impl] trait LGroupDot extends IGroup {
 	}
 
 
-	override def getDotStyle: IDotProp.DotStyle = {
+	override def getDotStyle: DotStyle = {
 		firstDottable match {
 			case Some(dot) => dot.getDotStyle
-			case _ => IDotProp.DotStyle.DOT
+			case _ => DotStyle.DOT
 		}
 	}
 
 
-	override def setDotStyle(style : IDotProp.DotStyle) {
+	override def setDotStyle(style : DotStyle) {
 		dotShapes.foreach{_.setDotStyle(style)}
 	}
 

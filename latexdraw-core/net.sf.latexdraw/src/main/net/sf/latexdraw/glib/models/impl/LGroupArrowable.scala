@@ -7,7 +7,7 @@ import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.JavaConversions.bufferAsJavaList
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine
@@ -252,14 +252,14 @@ private[impl] trait LGroupArrowable extends IGroup {
         }
 	}
 
-	override def setArrowStyle(style : IArrow.ArrowStyle, position : Int) {
+	override def setArrowStyle(style : ArrowStyle, position : Int) {
 		arrowShapes.foreach{_.setArrowStyle(style, position)}
 	}
 
-	override def getArrowStyle(position : Int) : IArrow.ArrowStyle = {
+	override def getArrowStyle(position : Int) : ArrowStyle = {
 		firstIArrowable match {
 			case Some(arrowable) => arrowable.getArrowStyle(position)
-			case _ => IArrow.ArrowStyle.NONE
+			case _ => ArrowStyle.NONE
 		}
 	}
 

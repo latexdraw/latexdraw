@@ -13,6 +13,14 @@ import scala.collection.mutable.MutableList
 import net.sf.latexdraw.glib.models.ShapeFactory
 
 import net.sf.latexdraw.glib.views.latex.DviPsColors
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle
 
 /**
  * The different kinds of font shapes.
@@ -105,26 +113,26 @@ import fontSerie._
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.ArrowStyle, IArrow.ArrowStyle), var arrowSize : (Double, Double),
+class PSTContext(var axesStyle : AxesStyle, var arrowStyle : (ArrowStyle, ArrowStyle), var arrowSize : (Double, Double),
 		var arrowLgth : Double, var arrowInset : Double, var arrowTBar : (Double, Double),
 		var arrowBrLgth : Double, var arrowrBrLgth : Double, var arrowDotSize : (Double, Double), var arrowScale : (Double, Double),
 		var arcSep : Double, var arcSepA : Double, var arcSepB : Double, var boxSep : Boolean,
-		var borderColor : Color, var borderPos : IShape.BorderPos, var border : Double, var curvature : (Double, Double, Double),
+		var borderColor : Color, var borderPos : BorderPos, var border : Double, var curvature : (Double, Double, Double),
 		var dxIncrement : Double, var dyIncrement : Double, var dxLabelDist : Double, var dyLabelDist : Double,
-		var dotStyle : IDotProp.DotStyle, var dotScale : (Double, Double), var dotAngle : Double, var dotSep : Double,
+		var dotStyle : DotStyle, var dotScale : (Double, Double), var dotAngle : Double, var dotSep : Double,
 		var dash : (Double, Double), var dbleLine : Boolean, var dbleSep : Double, var dbleColor : Color,
-		var degrees : Double, var frameSep : Double, var frameArc : Double, var fillStyle : IShape.FillingStyle, var fillColor : Color,
+		var degrees : Double, var frameSep : Double, var frameArc : Double, var fillStyle : FillingStyle, var fillColor : Color,
 		var gridWidth : Double, var gridLabel : Double, var gridDots : Double, var gradAngle : Double, var gridColor : Color,
 		var gradMidPoint : Double, var gradBegin : Color, var gradEnd : Color, var gradLines : Int, var gangle : Double,
 		var hatchWidth : Double, var hatchSep : Double, var hatchCol : Color, var hatchAngle : Double, var isCornerRel : Boolean, var isShadow : Boolean,
-		var lineWidth : Double, var lineColor : Color, var labels : IAxesProp.PlottingStyle, var lineArc : Double,
-		var lineStyle : IShape.LineStyle, var ox : Double, var oy : Double, var onRadians : Boolean, var origin : PointUnit, var specialCoor : Boolean,
+		var lineWidth : Double, var lineColor : Color, var labels : PlottingStyle, var lineArc : Double,
+		var lineStyle : LineStyle, var ox : Double, var oy : Double, var onRadians : Boolean, var origin : PointUnit, var specialCoor : Boolean,
 		var showPoints : Boolean, var showOrigin : Boolean, var subGridWidth : Double, var swapAxes : Boolean, var shadowCol : Color,
 		var subGridCol : Color, var shadowAngle : Double, var shadowSize : Double, var subGridDots : Double, var subGridDiv : Double,
-		var ticks : IAxesProp.PlottingStyle, var ticksStyle : IAxesProp.TicksStyle, var ticksSize : Double, var unit : Double, var xUnit : Double,
+		var ticks : PlottingStyle, var ticksStyle : TicksStyle, var ticksSize : Double, var unit : Double, var xUnit : Double,
 		var yUnit : Double, var textColor : Color, var shadow : Boolean, var gridlabelcolor : Color, var isCentered : Boolean,
 		var pictureSWPt : IPoint, var pictureNEPt : IPoint, var tokenPosition : String, var plotStyle : String, var plotPoints : Int,
-		var addfillstyle : IShape.FillingStyle, var liftpen : Int, var isPsCustom : Boolean, var textPosition : String,
+		var addfillstyle : FillingStyle, var liftpen : Int, var isPsCustom : Boolean, var textPosition : String,
 		var rputAngle : Double, var parsedTxtNoTxt:Boolean, var currFontShape:FontShapeVal, var currFontSerie:FontSerieVal,
 		var currFontFamily:FontFamilyVal, val psCustomLatestPt : IPoint, var opacity:Double, var strokeopacity:Double, var polarPlot:Boolean) {
 
@@ -132,7 +140,7 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.A
 	var textParsed : String = ""
 
 	def this(psCustom : Boolean) {
-		this(PSTricksConstants.DEFAULT_AXES_STYLE, Tuple2(IArrow.ArrowStyle.NONE, IArrow.ArrowStyle.NONE), Tuple2(PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
+		this(PSTricksConstants.DEFAULT_AXES_STYLE, Tuple2(ArrowStyle.NONE, ArrowStyle.NONE), Tuple2(PSTricksConstants.DEFAULT_ARROW_SIZE_DIM,
 			PSTricksConstants.DEFAULT_ARROW_SIZE_NUM), PSTricksConstants.DEFAULT_ARROW_LENGTH, PSTricksConstants.DEFAULT_ARROW_INSET,
 			Tuple2(PSTricksConstants.DEFAULT_ARROW_TBARSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_TBARSIZE_NUM), PSTricksConstants.DEFAULT_ARROW_BRACKET_LGTH,
 			PSTricksConstants.DEFAULT_ARROW_RBRACKET_LGTH, Tuple2(PSTricksConstants.DEFAULT_ARROW_DOTSIZE_DIM, PSTricksConstants.DEFAULT_ARROW_DOTSIZE_NUM),
@@ -302,10 +310,10 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.A
 				case "hatchcolor" if value.isInstanceOf[Color] => hatchCol = value.asInstanceOf[Color]
 				case "gradend" if value.isInstanceOf[Color] => gradEnd = value.asInstanceOf[Color]
 				case "gradbegin" if value.isInstanceOf[Color] => gradBegin = value.asInstanceOf[Color]
-				case "fillstyle" if value.isInstanceOf[IShape.FillingStyle] => fillStyle = value.asInstanceOf[IShape.FillingStyle]
-				case "addfillstyle" if value.isInstanceOf[IShape.FillingStyle] => addfillstyle = value.asInstanceOf[IShape.FillingStyle]
-				case "linestyle" if value.isInstanceOf[IShape.LineStyle] => lineStyle = value.asInstanceOf[IShape.LineStyle]
-				case "dimen" if value.isInstanceOf[IShape.BorderPos] => borderPos = value.asInstanceOf[IShape.BorderPos]
+				case "fillstyle" if value.isInstanceOf[FillingStyle] => fillStyle = value.asInstanceOf[FillingStyle]
+				case "addfillstyle" if value.isInstanceOf[FillingStyle] => addfillstyle = value.asInstanceOf[FillingStyle]
+				case "linestyle" if value.isInstanceOf[LineStyle] => lineStyle = value.asInstanceOf[LineStyle]
+				case "dimen" if value.isInstanceOf[BorderPos] => borderPos = value.asInstanceOf[BorderPos]
 				case "linewidth" if value.isInstanceOf[Double] => lineWidth = value.asInstanceOf[Double]
 				case "shadowsize" if value.isInstanceOf[Double] => shadowSize = value.asInstanceOf[Double]
 				case "doublesep" if value.isInstanceOf[Double] => dbleSep = value.asInstanceOf[Double]
@@ -331,10 +339,10 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.A
 				case "subgriddiv" if value.isInstanceOf[Double] => subGridDiv = value.asInstanceOf[Double]
 				case "subgridwidth" if value.isInstanceOf[Double] => subGridWidth = value.asInstanceOf[Double]
 				case "subgriddots" if value.isInstanceOf[Double] => subGridDots = value.asInstanceOf[Double]
-				case "tickstyle" if value.isInstanceOf[IAxesProp.TicksStyle] => ticksStyle = value.asInstanceOf[IAxesProp.TicksStyle]
-				case "axesstyle" if value.isInstanceOf[IAxesProp.AxesStyle] => axesStyle = value.asInstanceOf[IAxesProp.AxesStyle]
-				case "labels" if value.isInstanceOf[IAxesProp.PlottingStyle] => labels = value.asInstanceOf[IAxesProp.PlottingStyle]
-				case "ticks" if value.isInstanceOf[IAxesProp.PlottingStyle] => ticks = value.asInstanceOf[IAxesProp.PlottingStyle]
+				case "tickstyle" if value.isInstanceOf[TicksStyle] => ticksStyle = value.asInstanceOf[TicksStyle]
+				case "axesstyle" if value.isInstanceOf[AxesStyle] => axesStyle = value.asInstanceOf[AxesStyle]
+				case "labels" if value.isInstanceOf[PlottingStyle] => labels = value.asInstanceOf[PlottingStyle]
+				case "ticks" if value.isInstanceOf[PlottingStyle] => ticks = value.asInstanceOf[PlottingStyle]
 				case "dx" if value.isInstanceOf[Double] => dxLabelDist = value.asInstanceOf[Double]
 				case "dy" if value.isInstanceOf[Double] => dyLabelDist = value.asInstanceOf[Double]
 				case "Dx" if value.isInstanceOf[Double] => dxIncrement = value.asInstanceOf[Double]
@@ -351,11 +359,11 @@ class PSTContext(var axesStyle : IAxesProp.AxesStyle, var arrowStyle : (IArrow.A
 				case "arrowinset" if value.isInstanceOf[Double] => arrowInset = value.asInstanceOf[Double]
 				case "plotpoints" if value.isInstanceOf[Int] => plotPoints = value.asInstanceOf[Int]
 				case "plotstyle" if value.isInstanceOf[String] => plotStyle = value.asInstanceOf[String]
-				case "dotstyle" if value.isInstanceOf[IDotProp.DotStyle] => dotStyle = value.asInstanceOf[IDotProp.DotStyle]
+				case "dotstyle" if value.isInstanceOf[DotStyle] => dotStyle = value.asInstanceOf[DotStyle]
 				case "cornersize" if value.isInstanceOf[Boolean] => isCornerRel = value.asInstanceOf[Boolean]
 				case "origin" if value.isInstanceOf[PointUnit] => origin = value.asInstanceOf[PointUnit]
 				case "liftpen" if value.isInstanceOf[Int] => liftpen = value.asInstanceOf[Int]
-				case "arrows" if value.isInstanceOf[(_, _)] => arrowStyle = value.asInstanceOf[(IArrow.ArrowStyle, IArrow.ArrowStyle)]
+				case "arrows" if value.isInstanceOf[(_, _)] => arrowStyle = value.asInstanceOf[(ArrowStyle, ArrowStyle)]
 				case "dotscale" if value.isInstanceOf[(_, _)] => dotScale = value.asInstanceOf[(Double, Double)]
 				case "arrowscale" if value.isInstanceOf[(_, _)] => arrowScale = value.asInstanceOf[(Double, Double)]
 				case "dotsize" if value.isInstanceOf[(_, _)] => arrowDotSize = value.asInstanceOf[(Double, Double)]

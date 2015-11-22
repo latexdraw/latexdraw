@@ -1,12 +1,9 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
-import java.util.Arrays;
-
-import org.eclipse.jdt.annotation.NonNull;
-
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle;
 
 /**
  * Groups axes' properties.
@@ -25,151 +22,6 @@ import net.sf.latexdraw.lang.LangTool;
  *<br>
  */
 public interface IAxesProp extends IStdGridProp {
-	/** Defines the different kinds of axes. */
-	enum AxesStyle {
-		AXES {
-			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_AXES_STYLE_AXES;}
-			@Override public boolean supportsArrows() {return true;}
-			@Override public String toString() {return LangTool.INSTANCE.getString18("Axe.1");}//$NON-NLS-1$
-		}, FRAME {
-			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_AXES_STYLE_FRAME;}
-			@Override public boolean supportsArrows() {return false;}
-			@Override public String toString() {return LangTool.INSTANCE.getString18("Axe.2");}//$NON-NLS-1$
-		}, NONE {
-			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_AXES_STYLE_NONE;}
-			@Override public boolean supportsArrows() {return false;}
-			@Override public String toString() {return "None";}//$NON-NLS-1$
-		};
-
-		/**
-		 * @return True if the axe style supports arrows.
-		 * @since 3.0
-		 */
-		public abstract boolean supportsArrows();
-
-		/**
-		 * @return The PST token corresponding to the axe style.
-		 * @since 3.0
-		 */
-		public abstract String getPSTToken();
-
-		/**
-		 * @param style The PST token or the name of the style (e.g. AXES.toString()) corresponding to the style to get.
-		 * @return The corresponding style or AXES.
-		 * @since 3.0
-		 */
-		public static @NonNull AxesStyle getStyle(final String style) {
-			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(AXES);
-		}
-	}
-
-
-	/** Defines the different kinds of ticks. */
-	enum TicksStyle {
-		FULL {
-			@Override public boolean isTop() {return true;}
-			@Override public boolean isBottom() {return true;}
-			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_TICKS_STYLE_FULL;}
-			@Override public String toString() {return LangTool.INSTANCE.getString18("Axe.3");}//$NON-NLS-1$
-		}, TOP {
-			@Override public boolean isTop() {return true;}
-			@Override public boolean isBottom() {return false;}
-			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_TICKS_STYLE_TOP;}
-			@Override public String toString() {return LangTool.INSTANCE.getString18("Axe.4");}//$NON-NLS-1$
-		}, BOTTOM {
-			@Override public boolean isTop() {return false;}
-			@Override public boolean isBottom() {return true;}
-			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_TICKS_STYLE_BOTTOM;}
-			@Override public String toString() {return LangTool.INSTANCE.getString18("Axe.5");}//$NON-NLS-1$
-		};
-
-		/**
-		 * @return The PST token corresponding to the tick style.
-		 * @since 3.0
-		 */
-		public abstract String getPSTToken();
-
-		/**
-		 * @return True if the current tick style considers the top ticks.
-		 * @since 3.0
-		 */
-		public abstract boolean isTop();
-
-		/**
-		 * @return True if the current tick style considers the bottom ticks.
-		 * @since 3.0
-		 */
-		public abstract boolean isBottom();
-
-		/**
-		 * @param style The style to check. Can be the PST token or the name of the style (e.g. FULL.toString()).
-		 * @return The corresponding style or FULL.
-		 * @since 3.0
-		 */
-		public static @NonNull TicksStyle getStyle(final String style) {
-			return Arrays.stream(values()).filter(it -> it.toString().equals(style) || it.getPSTToken().equals(style)).findFirst().orElse(FULL);
-		}
-	}
-
-
-	/** Defines the different style of labels. */
-	enum PlottingStyle {
-		ALL {
-			@Override public boolean isX() {return true;}
-			@Override public boolean isY() {return true;}
-			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_LABELS_DISPLAYED_ALL;}
-		},
-		X {
-			@Override public boolean isX() {return true;}
-			@Override public boolean isY() {return false;}
-			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_LABELS_DISPLAYED_X;}
-		},
-		Y {
-			@Override public boolean isX() {return false;}
-			@Override public boolean isY() {return true;}
-			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_LABELS_DISPLAYED_Y;}
-		},
-		NONE {
-			@Override public boolean isX() {return false;}
-			@Override public boolean isY() {return false;}
-			@Override public String getPSTToken() {return PSTricksConstants.TOKEN_LABELS_DISPLAYED_NONE;}
-		};
-
-		@Override
-		public String toString() {
-			return getPSTToken();
-		}
-
-		/**
-		 * @return The PST token corresponding to the labels style.
-		 * @since 3.0
-		 */
-		public abstract String getPSTToken();
-
-
-		/**
-		 * @return True if the current style supports the X-axis.
-		 * @since 3.0
-		 */
-		public abstract boolean isX();
-
-		/**
-		 * @return True if the current style supports the Y-axis.
-		 * @since 3.0
-		 */
-		public abstract boolean isY();
-
-		/**
-		 * The style that corresponds to the given string.
-		 * @param style The style to check.
-		 * @return The corresponding style or ALL.
-		 * @since 3.0
-		 */
-		public static @NonNull PlottingStyle getStyle(final String style) {
-			return Arrays.stream(values()).filter(it -> it.toString().equals(style)).findFirst().orElse(ALL);
-		}
-	}
-
 	/**
 	 * @return The X increment of the axes.
 	 * @since 3.0

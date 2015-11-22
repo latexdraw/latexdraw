@@ -11,9 +11,9 @@ import net.sf.latexdraw.glib.views.GridStyle;
 import net.sf.latexdraw.glib.views.MagneticGrid;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.ui.ScaleRuler;
-import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
+import net.sf.latexdraw.util.Unit;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.w3c.dom.Document;

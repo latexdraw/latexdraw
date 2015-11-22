@@ -9,7 +9,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle
 
 /**
  * Defines a model of an arc.<br>
@@ -68,7 +68,7 @@ private[impl] trait LArc extends IArc with LArrowableShape {
 		ShapeFactory.createPoint(grav.getX+Math.cos(startAngle)*getWidth/2.0, grav.getY-Math.sin(startAngle)*getWidth/2.0)
 	}
 
-	override def getArcStyle: IArcProp.ArcStyle = style
+	override def getArcStyle: ArcStyle = style
 
 	override def setAngleEnd(angleEnd:Double) {
 		if(GLibUtilities.isValidCoordinate(angleEnd))
@@ -80,7 +80,7 @@ private[impl] trait LArc extends IArc with LArrowableShape {
 			this.startAngle = angleStart
 	}
 
-	override def setArcStyle(styl:IArcProp.ArcStyle) {
+	override def setArcStyle(styl:ArcStyle) {
 		if(styl!=null)
 			this.style = styl
 	}

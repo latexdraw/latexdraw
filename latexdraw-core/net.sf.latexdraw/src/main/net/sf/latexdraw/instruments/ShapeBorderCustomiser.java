@@ -16,9 +16,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.view.jfx.ui.JFXWidgetCreator;
 
 /**

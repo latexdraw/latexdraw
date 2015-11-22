@@ -4,9 +4,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
 
 import org.junit.Before;

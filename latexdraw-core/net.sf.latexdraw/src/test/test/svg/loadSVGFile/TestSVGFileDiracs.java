@@ -2,7 +2,8 @@ package test.svg.loadSVGFile;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 public class TestFillingStyle {

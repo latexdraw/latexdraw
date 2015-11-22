@@ -8,13 +8,13 @@ import java.util.Arrays;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
 
@@ -28,10 +28,10 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		shape.setPlotEquation("2 x mul");
 		shape.setPolar(true);
 		shape.setNbPlottedPoints(73);
-		shape.setPlotStyle(IPlotProp.PlotStyle.ECURVE);
+		shape.setPlotStyle(PlotStyle.ECURVE);
 		shape.setPlotMinX(-234.0);
 		shape.setPlotMaxX(123.0);
-		shape.setDotStyle(IDotProp.DotStyle.BAR);
+		shape.setDotStyle(DotStyle.BAR);
 		shape.setDiametre(23.0);
 		shape.setDotFillingCol(DviPsColors.YELLOW);
 		shape.setPlotEquation("x");
@@ -42,10 +42,10 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertTrue(plot.isPolar());
 		assertEquals(DviPsColors.YELLOW, plot.getDotFillingCol());
 		assertEquals(23.0, plot.getDiametre(), 0.0001);
-		assertEquals(IDotProp.DotStyle.BAR, plot.getDotStyle());
+		assertEquals(DotStyle.BAR, plot.getDotStyle());
 		assertEquals(123.0, plot.getPlotMaxX(), 0.0001);
 		assertEquals(-234.0, plot.getPlotMinX(), 0.0001);
-		assertEquals(IPlotProp.PlotStyle.ECURVE, plot.getPlotStyle());
+		assertEquals(PlotStyle.ECURVE, plot.getPlotStyle());
 		assertEquals(73, plot.getNbPlottedPoints());
 	}
 	
@@ -169,36 +169,36 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 	
 	
 	@Test public void testValidPlotStyle() {
-		for(IPlotProp.PlotStyle style : Arrays.asList(IPlotProp.PlotStyle.values())) {
+		for(PlotStyle style : Arrays.asList(PlotStyle.values())) {
 			shape.setPlotStyle(style);
 			assertEquals(style, shape.getPlotStyle());
 		}
 	}
 	
 	@Test public void testNotValidPlotStyle() {
-		shape.setPlotStyle(IPlotProp.PlotStyle.ECURVE);
+		shape.setPlotStyle(PlotStyle.ECURVE);
 		shape.setPlotStyle(null);
-		assertEquals(IPlotProp.PlotStyle.ECURVE, shape.getPlotStyle());
+		assertEquals(PlotStyle.ECURVE, shape.getPlotStyle());
 	}
 	
 	
 	@Test public void testValidDotStyle() {
-		shape.setPlotStyle(IPlotProp.PlotStyle.DOTS);
-		for(IDotProp.DotStyle style : Arrays.asList(IDotProp.DotStyle.values())) {
+		shape.setPlotStyle(PlotStyle.DOTS);
+		for(DotStyle style : Arrays.asList(DotStyle.values())) {
 			shape.setDotStyle(style);
 			assertEquals(style, shape.getDotStyle());
 		}
 	}
 	
 	@Test public void testNotValidDotStyle() {
-		shape.setDotStyle(IDotProp.DotStyle.BAR);
+		shape.setDotStyle(DotStyle.BAR);
 		shape.setDotStyle(null);
-		assertEquals(IDotProp.DotStyle.BAR, shape.getDotStyle());
+		assertEquals(DotStyle.BAR, shape.getDotStyle());
 	}
 	
 	
 	@Test public void testValidDotSize() {
-		shape.setPlotStyle(IPlotProp.PlotStyle.DOTS);
+		shape.setPlotStyle(PlotStyle.DOTS);
 		shape.setDiametre(23.0);
 		assertEquals(23.0, shape.getDiametre(), 0.00001);
 		shape.setDiametre(1.0);
@@ -206,7 +206,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 	}
 	
 	@Test public void testNotValidDotSize() {
-		shape.setPlotStyle(IPlotProp.PlotStyle.DOTS);
+		shape.setPlotStyle(PlotStyle.DOTS);
 		shape.setDiametre(23.0);
 		shape.setDiametre(0.0);
 		assertEquals(23.0, shape.getDiametre(), 0.00001);
@@ -384,7 +384,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 	
 	@Test public void testCopyFromDot() {
 		IDot dot = ShapeFactory.createDot(ShapeFactory.createPoint());
-		dot.setDotStyle(IDotProp.DotStyle.DIAMOND);
+		dot.setDotStyle(DotStyle.DIAMOND);
 		dot.setDotFillingCol(DviPsColors.BLUE);
 		dot.setDiametre(3.0);
 		
@@ -392,7 +392,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		
 		assertEquals(DviPsColors.BLUE, shape.getDotFillingCol());
 		assertEquals(3.0, shape.getDiametre(), 0.0001);
-		assertEquals(IDotProp.DotStyle.DIAMOND, shape.getDotStyle());
+		assertEquals(DotStyle.DIAMOND, shape.getDotStyle());
 	}
 	
 
@@ -403,10 +403,10 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		shape2.setPlotEquation("2 x mul");
 		shape2.setPolar(true);
 		shape2.setNbPlottedPoints(73);
-		shape2.setPlotStyle(IPlotProp.PlotStyle.ECURVE);
+		shape2.setPlotStyle(PlotStyle.ECURVE);
 		shape2.setPlotMinX(-234.0);
 		shape2.setPlotMaxX(123.0);
-		shape2.setDotStyle(IDotProp.DotStyle.BAR);
+		shape2.setDotStyle(DotStyle.BAR);
 		shape2.setDiametre(23.0);
 		shape2.setDotFillingCol(DviPsColors.YELLOW);
 		
@@ -417,10 +417,10 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		assertTrue(shape.isPolar());
 		assertEquals(DviPsColors.YELLOW, shape.getDotFillingCol());
 		assertEquals(23.0, shape.getDiametre(), 0.0001);
-		assertEquals(IDotProp.DotStyle.BAR, shape.getDotStyle());
+		assertEquals(DotStyle.BAR, shape.getDotStyle());
 		assertEquals(123.0, shape.getPlotMaxX(), 0.0001);
 		assertEquals(-234.0, shape.getPlotMinX(), 0.0001);
-		assertEquals(IPlotProp.PlotStyle.ECURVE, shape.getPlotStyle());
+		assertEquals(PlotStyle.ECURVE, shape.getPlotStyle());
 		assertEquals(73, shape.getNbPlottedPoints());
 	}
 }

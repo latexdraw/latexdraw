@@ -1,8 +1,9 @@
 package test.svg.loadSave;
 
 import static org.junit.Assert.assertEquals;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
 
 import org.junit.Test;
 

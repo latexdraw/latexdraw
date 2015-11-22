@@ -1,8 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle
 
 private[impl] trait LPlotGroup extends IGroup {
   private def firstPlot = plotShapes.find{_.isTypeOf(classOf[IPlotProp])}
@@ -46,14 +48,14 @@ private[impl] trait LPlotGroup extends IGroup {
 	  plotShapes.foreach(_.setPolar(polar))
 	}
 
-	override def getPlotStyle: IPlotProp.PlotStyle = {
+	override def getPlotStyle: PlotStyle = {
 		firstPlot match {
 			case Some(la) => la.getPlotStyle
-			case _ => IPlotProp.PlotStyle.CURVE
+			case _ => PlotStyle.CURVE
 		}
 	}
 
-	override def setPlotStyle(style:IPlotProp.PlotStyle) {
+	override def setPlotStyle(style:PlotStyle) {
 	  plotShapes.foreach(_.setPlotStyle(style))
 	}
 

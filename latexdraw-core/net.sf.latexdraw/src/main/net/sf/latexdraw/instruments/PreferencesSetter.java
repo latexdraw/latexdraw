@@ -34,12 +34,12 @@ import javax.xml.transform.stream.StreamResult;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.views.GridStyle;
-import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.ui.XScaleRuler;
 import net.sf.latexdraw.ui.YScaleRuler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LangTool;
+import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.util.VersionChecker;
 
 import org.malai.javafx.instrument.JfxInstrument;

@@ -1,9 +1,13 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
+
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle
 
 /**
  * This trait encapsulates the code of the group related to the support of axes.<br>
@@ -81,15 +85,15 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getLabelsDisplayed: IAxesProp.PlottingStyle = {
+	override def getLabelsDisplayed: PlottingStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getLabelsDisplayed
-			case _ => IAxesProp.PlottingStyle.ALL
+			case _ => PlottingStyle.ALL
 		}
 	}
 
 
-	override def setLabelsDisplayed(labelsDisplayed : IAxesProp.PlottingStyle) {
+	override def setLabelsDisplayed(labelsDisplayed : PlottingStyle) {
 		axesShapes.foreach{_.setLabelsDisplayed(labelsDisplayed)}
 	}
 
@@ -107,28 +111,28 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getTicksDisplayed: IAxesProp.PlottingStyle = {
+	override def getTicksDisplayed: PlottingStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getTicksDisplayed
-			case _ => IAxesProp.PlottingStyle.ALL
+			case _ => PlottingStyle.ALL
 		}
 	}
 
 
-	override def setTicksDisplayed(ticksDisplayed : IAxesProp.PlottingStyle) {
+	override def setTicksDisplayed(ticksDisplayed : PlottingStyle) {
 		axesShapes.foreach{_.setTicksDisplayed(ticksDisplayed)}
 	}
 
 
-	override def getTicksStyle: IAxesProp.TicksStyle = {
+	override def getTicksStyle: TicksStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getTicksStyle
-			case _ => IAxesProp.TicksStyle.FULL
+			case _ => TicksStyle.FULL
 		}
 	}
 
 
-	override def setTicksStyle(ticksStyle : IAxesProp.TicksStyle) {
+	override def setTicksStyle(ticksStyle : TicksStyle) {
 		axesShapes.foreach{_.setTicksStyle(ticksStyle)}
 	}
 
@@ -146,15 +150,15 @@ private[impl] trait LGroupAxes extends IGroup {
 	}
 
 
-	override def getAxesStyle: IAxesProp.AxesStyle = {
+	override def getAxesStyle: AxesStyle = {
 		firstIAxes match {
 			case Some(axe) => axe.getAxesStyle
-			case _ => IAxesProp.AxesStyle.AXES
+			case _ => AxesStyle.AXES
 		}
 	}
 
 
-	override def setAxesStyle(axesStyle : IAxesProp.AxesStyle) {
+	override def setAxesStyle(axesStyle : AxesStyle) {
 		axesShapes.foreach{_.setAxesStyle(axesStyle)}
 	}
 

@@ -5,7 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
@@ -62,10 +63,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleLEFT_ARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.LEFT_ARROW);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.LEFT_ARROW, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.LEFT_ARROW);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.LEFT_ARROW, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
@@ -78,10 +79,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleBAR_ENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.BAR_END);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.BAR_END, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.BAR_END);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.BAR_END, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -94,10 +95,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleBAR_INPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.BAR_IN);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.BAR_IN, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.BAR_IN);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.BAR_IN, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -110,10 +111,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleCIRCLE_ENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.CIRCLE_END);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.CIRCLE_END, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.CIRCLE_END);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.CIRCLE_END, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -126,10 +127,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleCIRCLE_INPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.CIRCLE_IN);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.CIRCLE_IN, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.CIRCLE_IN);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.CIRCLE_IN, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -142,10 +143,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleDISK_ENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.DISK_END);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.DISK_END, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.DISK_END);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.DISK_END, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -158,10 +159,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleDISK_INPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.DISK_IN);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.DISK_IN, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.DISK_IN);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.DISK_IN, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -174,10 +175,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleLEFT_DBLE_ARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.LEFT_DBLE_ARROW);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.LEFT_DBLE_ARROW, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.LEFT_DBLE_ARROW);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
@@ -190,10 +191,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleLEFT_ROUND_BRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.LEFT_ROUND_BRACKET);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.LEFT_ROUND_BRACKET, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.LEFT_ROUND_BRACKET);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.LEFT_ROUND_BRACKET, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -206,10 +207,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleLEFT_SQUARE_BRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.LEFT_SQUARE_BRACKET);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.LEFT_SQUARE_BRACKET, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.LEFT_SQUARE_BRACKET);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.LEFT_SQUARE_BRACKET, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -222,9 +223,9 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleNONEPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.NONE);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.NONE, newStyle);
+		selectArrowLeftCB.execute(ArrowStyle.NONE);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.NONE, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -236,10 +237,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleRIGHT_ARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.RIGHT_ARROW);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.RIGHT_ARROW, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.RIGHT_ARROW);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.RIGHT_ARROW, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
@@ -252,10 +253,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleRIGHT_DBLE_ARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.RIGHT_DBLE_ARROW);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.RIGHT_DBLE_ARROW, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.RIGHT_DBLE_ARROW);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
@@ -268,10 +269,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleRIGHT_ROUND_BRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.RIGHT_ROUND_BRACKET);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.RIGHT_ROUND_BRACKET, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.RIGHT_ROUND_BRACKET);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.RIGHT_ROUND_BRACKET, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -284,10 +285,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleRIGHT_SQUARE_BRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.RIGHT_SQUARE_BRACKET);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.RIGHT_SQUARE_BRACKET, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.RIGHT_SQUARE_BRACKET);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.RIGHT_SQUARE_BRACKET, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -300,10 +301,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleROUND_INPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.ROUND_IN);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.ROUND_IN, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.ROUND_IN);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.ROUND_IN, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -316,10 +317,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleLEFT_ARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.LEFT_ARROW);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.LEFT_ARROW, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.LEFT_ARROW);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.LEFT_ARROW, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
@@ -332,10 +333,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleBAR_ENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.BAR_END);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.BAR_END, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.BAR_END);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.BAR_END, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -348,10 +349,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleBAR_INPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.BAR_IN);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.BAR_IN, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.BAR_IN);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.BAR_IN, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -364,10 +365,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleCIRCLE_ENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.CIRCLE_END);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.CIRCLE_END, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.CIRCLE_END);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.CIRCLE_END, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -380,10 +381,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleCIRCLE_INPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.CIRCLE_IN);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.CIRCLE_IN, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.CIRCLE_IN);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.CIRCLE_IN, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -396,10 +397,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleDISK_ENDPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.DISK_END);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.DISK_END, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.DISK_END);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.DISK_END, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -412,10 +413,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleDISK_INPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.DISK_IN);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.DISK_IN, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.DISK_IN);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.DISK_IN, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -428,10 +429,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleLEFT_DBLE_ARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.LEFT_DBLE_ARROW);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.LEFT_DBLE_ARROW, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.LEFT_DBLE_ARROW);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.LEFT_DBLE_ARROW, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
@@ -444,10 +445,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleLEFT_ROUND_BRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.LEFT_ROUND_BRACKET);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.LEFT_ROUND_BRACKET, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.LEFT_ROUND_BRACKET);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.LEFT_ROUND_BRACKET, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -460,10 +461,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleLEFT_SQUARE_BRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.LEFT_SQUARE_BRACKET);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.LEFT_SQUARE_BRACKET, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.LEFT_SQUARE_BRACKET);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.LEFT_SQUARE_BRACKET, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -476,9 +477,9 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleNONEPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.NONE);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.NONE, newStyle);
+		selectArrowRightCB.execute(ArrowStyle.NONE);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.NONE, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertFalse(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
@@ -490,10 +491,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleRIGHT_ARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.RIGHT_ARROW);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.RIGHT_ARROW, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.RIGHT_ARROW);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.RIGHT_ARROW, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
@@ -506,10 +507,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleRIGHT_DBLE_ARROWPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.RIGHT_DBLE_ARROW);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.RIGHT_DBLE_ARROW, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.RIGHT_DBLE_ARROW);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.RIGHT_DBLE_ARROW, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertTrue(arrowPane.isVisible());
@@ -522,10 +523,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleRIGHT_ROUND_BRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.RIGHT_ROUND_BRACKET);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.RIGHT_ROUND_BRACKET, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.RIGHT_ROUND_BRACKET);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.RIGHT_ROUND_BRACKET, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -538,10 +539,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleRIGHT_SQUARE_BRACKETPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.RIGHT_SQUARE_BRACKET);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.RIGHT_SQUARE_BRACKET, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.RIGHT_SQUARE_BRACKET);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.RIGHT_SQUARE_BRACKET, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -554,10 +555,10 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleROUND_INPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.ROUND_IN);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.ROUND_IN, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.ROUND_IN);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.ROUND_IN, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)pencil.createShapeInstance()).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);
 		assertFalse(arrowPane.isVisible());
@@ -570,8 +571,8 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectArrowStyleArrowBarPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.LEFT_ARROW);
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.BAR_END);
+		selectArrowRightCB.execute(ArrowStyle.LEFT_ARROW);
+		selectArrowLeftCB.execute(ArrowStyle.BAR_END);
 		assertTrue(arrowPane.isVisible());
 		assertFalse(dotPane.isVisible());
 		assertTrue(barPane.isVisible());
@@ -582,8 +583,8 @@ public class TestPencilArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectArrowStyleDiskRBracketPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesBezier, updateIns).execute();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.DISK_END);
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.LEFT_ROUND_BRACKET);
+		selectArrowRightCB.execute(ArrowStyle.DISK_END);
+		selectArrowLeftCB.execute(ArrowStyle.LEFT_ROUND_BRACKET);
 		assertFalse(arrowPane.isVisible());
 		assertTrue(dotPane.isVisible());
 		assertTrue(barPane.isVisible());

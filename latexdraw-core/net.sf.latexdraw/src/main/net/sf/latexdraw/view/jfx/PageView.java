@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.Page;
 
 /**
  * The different page sizes that can be used. <br>
@@ -25,36 +26,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
  * @date 2014-10-15
  */
 public class PageView extends Group {
-	/**
-	 * The different page formats.
-	 */
-	public static enum Page {
-		/** The US letter format. */
-		USLETTER {
-			@Override
-			public double getWidth() {
-				return 21.6;
-			}
-
-			@Override
-			public double getHeight() {
-				return 27.9;
-			}
-		};
-
-		/**
-		 * @return The width of the page in CM.
-		 * @since 3.1
-		 */
-		public abstract double getWidth();
-
-		/**
-		 * @return The height of the page in CM.
-		 * @since 3.1
-		 */
-		public abstract double getHeight();
-	}
-
 	/** The gap between the page and its shadow. */
 	private static final int GAP_SHADOW = 3;
 

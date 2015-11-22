@@ -1,9 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
+import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 
 /**
  * This trait encapsulates the code of the group related to the support of free hand shapes.<br>
@@ -29,14 +30,14 @@ private[impl] trait LGroupFreeHand extends IGroup {
 
 	private def fhShapes = getShapes.flatMap{case x:IFreeHandProp => x::Nil; case _ => Nil}
 
-	override def getType: IFreeHandProp.FreeHandType = {
+	override def getType: FreeHandStyle = {
 		firstIFreeHand match {
 			case Some(fh) => fh.getType
-			case _ => IFreeHandProp.FreeHandType.CURVES
+			case _ => FreeHandStyle.CURVES
 		}
 	}
 
-	override def setType(fhType : IFreeHandProp.FreeHandType) {
+	override def setType(fhType : FreeHandStyle) {
 		fhShapes.foreach{_.setType(fhType)}
 	}
 

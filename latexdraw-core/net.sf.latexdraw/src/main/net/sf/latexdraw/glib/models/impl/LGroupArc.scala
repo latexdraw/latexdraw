@@ -1,9 +1,9 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
-
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
+import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle
 
 /**
  * This trait encapsulates the code of the group related to the support of IArcProp shapes.<br>
@@ -29,13 +29,13 @@ private[impl] trait LGroupArc extends IGroup {
 
 	private def arcShapes = getShapes.flatMap{case x:IArcProp => x::Nil; case _ => Nil}
 
-	override def getArcStyle: IArcProp.ArcStyle =
+	override def getArcStyle: ArcStyle =
 		firstIArcProp match {
 			case Some(arc) => arc.getArcStyle
-			case _ => IArcProp.ArcStyle.ARC
+			case _ => ArcStyle.ARC
 		}
 
-	override def setArcStyle(typeArc : IArcProp.ArcStyle) {
+	override def setArcStyle(typeArc : ArcStyle) {
 		arcShapes.foreach{_.setArcStyle(typeArc)}
 	}
 

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;

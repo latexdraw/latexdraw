@@ -12,132 +12,19 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
  * This file is part of LaTeXDraw<br>
  * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
  * <br>
- *  LaTeXDraw is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.<br>
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.<br>
  * <br>
- *  LaTeXDraw is distributed without any warranty; without even the
- *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
+ * LaTeXDraw is distributed without any warranty; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.<br>
  * <br>
  * 05/14/10<br>
  * @author Arnaud BLOUIN, Jan-Cornelius MOLNAR
  * @version 3.0
  */
 public final class LSystem {
-	/**
-	 * The different operating systems managed.
-	 */
-	public enum OperatingSystem {
-		/** Vista */
-		VISTA, 
-		/** XP */
-		XP,
-		/** Windows 7 */
-		SEVEN, 
-		/** Windows 8 */
-		EIGHT, 
-		/** Windows 10 */
-		TEN,
-		/** Mac OS X */
-		MAC_OS_X_CAPITAN {
-			@Override
-			public String getPS2EPSBinPath() {
-				return "/usr/local/bin/ps2epsi"; //$NON-NLS-1$
-			}
-
-			@Override
-			public String getLatexBinPath() {
-				return "/Library/TeX/texbin/latex"; //$NON-NLS-1$
-			}
-
-			@Override
-			public String getDvipsBinPath() {
-				return "/Library/TeX/texbin/dvips"; //$NON-NLS-1$
-			}
-
-			@Override
-			public String getPs2pdfBinPath() {
-				return "/usr/local/bin/ps2pdf"; //$NON-NLS-1$
-			}
-
-			@Override
-			public String getPdfcropBinPath() {
-				return "/Library/TeX/texbin/pdfcrop"; //$NON-NLS-1$
-			}
-		},
-		MAC_OS_X {
-			@Override
-			public String getPS2EPSBinPath() {
-				return "/usr/local/bin/ps2epsi"; //$NON-NLS-1$
-			}
-
-			@Override
-			public String getLatexBinPath() {
-				return "/usr/texbin/latex"; //$NON-NLS-1$
-			}
-
-			@Override
-			public String getDvipsBinPath() {
-				return "/usr/texbin/dvips"; //$NON-NLS-1$
-			}
-
-			@Override
-			public String getPs2pdfBinPath() {
-				return "/usr/local/bin/ps2pdf"; //$NON-NLS-1$
-			}
-
-			@Override
-			public String getPdfcropBinPath() {
-				return "pdfcrop"; //$NON-NLS-1$
-			}
-		},
-		/** Linux */
-		LINUX;
-
-		/**
-		 * @return The path where is the ps2eps binary.
-		 * @since 3.1
-		 */
-		public String getPS2EPSBinPath() {
-			return "ps2epsi"; //$NON-NLS-1$
-		}
-
-		/**
-		 * @return The path where is the latex binary.
-		 * @since 3.0
-		 */
-		public String getLatexBinPath() {
-			return "latex"; //$NON-NLS-1$
-		}
-
-		/**
-		 * @return The path where is the dvips binary.
-		 * @since 3.0
-		 */
-		public String getDvipsBinPath() {
-			return "dvips"; //$NON-NLS-1$
-		}
-
-		/**
-		 * @return The path where is the ps2pdf binary.
-		 * @since 3.0
-		 */
-		public String getPs2pdfBinPath() {
-			return "ps2pdf"; //$NON-NLS-1$
-		}
-
-		/**
-		 * @return The path where is the pdfcrop binary.
-		 * @since 3.0
-		 */
-		public String getPdfcropBinPath() {
-			return "pdfcrop"; //$NON-NLS-1$
-		}
-	}
-
-
 	/** The singleton. */
 	public static final LSystem INSTANCE = new LSystem();
 
@@ -147,7 +34,6 @@ public final class LSystem {
 	private LSystem() {
 		super();
 	}
-
 
 	/**
 	 * @return True: the operating system currently used is Windows.
@@ -161,7 +47,7 @@ public final class LSystem {
 	 * @return True: the operating system currently used is Windows 10.
 	 */
 	public boolean is10() {
-		return getSystem()==OperatingSystem.TEN;
+		return getSystem() == OperatingSystem.TEN;
 	}
 
 	/**
@@ -169,7 +55,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean is8() {
-		return getSystem()==OperatingSystem.EIGHT;
+		return getSystem() == OperatingSystem.EIGHT;
 	}
 
 	/**
@@ -177,53 +63,49 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public boolean isVista() {
-		return getSystem()==OperatingSystem.VISTA;
+		return getSystem() == OperatingSystem.VISTA;
 	}
-
 
 	/**
 	 * @return True: the operating system currently used is XP.
 	 * @since 3.0
 	 */
 	public boolean isXP() {
-		return getSystem()==OperatingSystem.XP;
+		return getSystem() == OperatingSystem.XP;
 	}
-
 
 	/**
 	 * @return True: the operating system currently used is Seven.
 	 * @since 3.0
 	 */
 	public boolean isSeven() {
-		return getSystem()==OperatingSystem.SEVEN;
+		return getSystem() == OperatingSystem.SEVEN;
 	}
-
 
 	/**
 	 * @return True: the operating system currently used is Linux.
 	 * @since 3.0
 	 */
 	public boolean isLinux() {
-		return getSystem()==OperatingSystem.LINUX;
+		return getSystem() == OperatingSystem.LINUX;
 	}
-
 
 	/**
 	 * @return True: the operating system currently used is Mac OS X.
 	 * @since 3.0
 	 */
 	public boolean isMacOSX() {
-		return getSystem()==OperatingSystem.MAC_OS_X;
+		return getSystem() == OperatingSystem.MAC_OS_X;
 	}
-	
+
 	/**
 	 * @return True: the operating system currently used is Mac OS X El Capitan.
 	 * @since 3.3
 	 */
 	public boolean isMacOSXElCapitan() {
-		return getSystem()==OperatingSystem.MAC_OS_X_CAPITAN;
+		return getSystem() == OperatingSystem.MAC_OS_X_CAPITAN;
 	}
-	
+
 	/**
 	 * @return True: the operating system currently used is Mac OS.
 	 * @since 3.3
@@ -231,7 +113,6 @@ public final class LSystem {
 	public boolean IsMac() {
 		return isMacOSX() || isMacOSXElCapitan();
 	}
-
 
 	/**
 	 * @return The control modifier used by the currently used operating system.
@@ -242,7 +123,6 @@ public final class LSystem {
 			return KeyEvent.VK_META;
 		return KeyEvent.VK_CONTROL;
 	}
-
 
 	/**
 	 * @return The name of the operating system currently used.
@@ -266,13 +146,14 @@ public final class LSystem {
 		if("mac os x".equalsIgnoreCase(os)) { //$NON-NLS-1$
 			final String[] v = System.getProperty("os.version").split("\\.");
 			final double[] d = new double[v.length];
-			
-			for(int i=0; i<v.length; i++)
+
+			for(int i = 0; i < v.length; i++)
 				d[i] = Double.valueOf(v[i]);
-			
-			if((d.length>=1 && d[0]>10) || (d.length>=2 && d[0]==10 && d[1]>=11)) // A change since El Capitan
+
+			// A change since El Capitan
+			if((d.length >= 1 && d[0] > 10) || (d.length >= 2 && d[0] == 10 && d[1] >= 11))
 				return OperatingSystem.MAC_OS_X_CAPITAN;
-			return OperatingSystem.MAC_OS_X; //$NON-NLS-1$
+			return OperatingSystem.MAC_OS_X; // $NON-NLS-1$
 		}
 
 		if(os.toLowerCase().contains("windows 8")) //$NON-NLS-1$
@@ -286,13 +167,12 @@ public final class LSystem {
 		return null;
 	}
 
-
 	/**
 	 * @return The version of the current LaTeX.
 	 * @since 3.1
 	 */
 	public String getLaTeXVersion() {
-		return execute(new String[]{getSystem().getLatexBinPath(), "--version"}, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().getLatexBinPath(), "--version" }, null); //$NON-NLS-1$
 	}
 
 	/**
@@ -300,7 +180,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getDVIPSVersion() {
-		return execute(new String[]{getSystem().getDvipsBinPath(), "--version"}, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().getDvipsBinPath(), "--version" }, null); //$NON-NLS-1$
 	}
 
 	/**
@@ -308,7 +188,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPS2PDFVersion() {
-		return execute(new String[]{getSystem().getPs2pdfBinPath()}, null);
+		return execute(new String[] { getSystem().getPs2pdfBinPath() }, null);
 	}
 
 	/**
@@ -316,7 +196,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPS2EPSVersion() {
-		return execute(new String[]{getSystem().getPS2EPSBinPath(), "--version"}, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().getPS2EPSBinPath(), "--version" }, null); //$NON-NLS-1$
 	}
 
 	/**
@@ -324,9 +204,8 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String getPDFCROPVersion() {
-		return execute(new String[]{getSystem().getPdfcropBinPath(), "--version"}, null); //$NON-NLS-1$
+		return execute(new String[] { getSystem().getPdfcropBinPath(), "--version" }, null); //$NON-NLS-1$
 	}
-
 
 	/**
 	 * Executes a command.
@@ -336,7 +215,7 @@ public final class LSystem {
 	 * @since 3.1
 	 */
 	public String execute(final String[] cmd, final File tmpdir) {
-		if(cmd==null || cmd.length==0)
+		if(cmd == null || cmd.length == 0)
 			return null;
 
 		try {
@@ -350,6 +229,8 @@ public final class LSystem {
 			process.waitFor();// Waiting for the end of the process.
 
 			return err.getLog() + LResources.EOL + inp.getLog();
-		}catch(final Exception e) {return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + e.getMessage();} //$NON-NLS-1$ //$NON-NLS-2$
+		}catch(final Exception e) {
+			return "ERR while execute the command : " + Arrays.toString(cmd) + ": " + e.getMessage(); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 	}
 }

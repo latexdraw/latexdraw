@@ -1,9 +1,8 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle
 
 /**
  * Parsers parsing commands of the pst-plot package.<br>
@@ -69,7 +68,7 @@ trait PSTPlotParser extends PSTAbstractParser with PSTParamParser with PSTBracke
 		
 		setShapeParameters(plot, ctx)
 		plot.setNbPlottedPoints(ctx.plotPoints)
-		plot.setPlotStyle(IPlotProp.PlotStyle.getPlotStyle(ctx.plotStyle))
+		plot.setPlotStyle(PlotStyle.getPlotStyle(ctx.plotStyle))
 		plot.setXScale(ctx.xUnit)
 		plot.setYScale(ctx.yUnit)
 		plot.setDiametre((dotSizeDim+dotSizeNum*ctx.lineWidth)*IShape.PPC*ctx.dotScale._1)

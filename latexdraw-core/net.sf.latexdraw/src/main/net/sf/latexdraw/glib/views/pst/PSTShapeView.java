@@ -8,13 +8,13 @@ import java.util.Set;
 import org.eclipse.jdt.annotation.NonNull;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.views.AbstractCodeView;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.util.LNumber;

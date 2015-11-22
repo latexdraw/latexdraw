@@ -8,6 +8,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPointCombo_t_br() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[t](0,0){\\rput[br](2,2){coucou}}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.BOT_RIGHT, txt.getTextPosition());
+		assertEquals(TextPosition.BOT_RIGHT, txt.getTextPosition());
 	}
 
 
@@ -25,7 +26,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_None() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput(10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.CENTER, txt.getTextPosition());
+		assertEquals(TextPosition.CENTER, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -34,7 +35,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_B() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[B](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.BASE, txt.getTextPosition());
+		assertEquals(TextPosition.BASE, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -43,7 +44,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_Br() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[Br](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.BASE_RIGHT, txt.getTextPosition());
+		assertEquals(TextPosition.BASE_RIGHT, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -53,7 +54,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_Bl() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[Bl](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.BASE_LEFT, txt.getTextPosition());
+		assertEquals(TextPosition.BASE_LEFT, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -63,7 +64,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_r() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[r](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.RIGHT, txt.getTextPosition());
+		assertEquals(TextPosition.RIGHT, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -73,7 +74,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_l() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[l](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.LEFT, txt.getTextPosition());
+		assertEquals(TextPosition.LEFT, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -83,7 +84,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_tr() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[tr](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.TOP_RIGHT, txt.getTextPosition());
+		assertEquals(TextPosition.TOP_RIGHT, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -93,7 +94,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_b() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[b](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.BOT, txt.getTextPosition());
+		assertEquals(TextPosition.BOT, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -103,7 +104,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_t() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[t](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.TOP, txt.getTextPosition());
+		assertEquals(TextPosition.TOP, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -113,7 +114,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_tl() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[tl](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.TOP_LEFT, txt.getTextPosition());
+		assertEquals(TextPosition.TOP_LEFT, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -123,7 +124,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_bl() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[bl](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.BOT_LEFT, txt.getTextPosition());
+		assertEquals(TextPosition.BOT_LEFT, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}
@@ -133,7 +134,7 @@ public class TestParsingRPut extends TestPSTParser {
 	public void testRefPoint_br() throws ParseException {
 		IText txt = (IText)parser.parsePSTCode("\\rput[br](10,20){coucou}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IText.TextPosition.BOT_RIGHT, txt.getTextPosition());
+		assertEquals(TextPosition.BOT_RIGHT, txt.getTextPosition());
 		assertEquals(10.*IShape.PPC, txt.getPosition().getX(), 0.001);
 		assertEquals(-20.*IShape.PPC, txt.getPosition().getY(), 0.001);
 	}

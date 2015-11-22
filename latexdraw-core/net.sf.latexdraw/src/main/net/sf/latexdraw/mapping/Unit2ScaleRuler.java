@@ -1,7 +1,7 @@
 package net.sf.latexdraw.mapping;
 
 import net.sf.latexdraw.ui.ScaleRuler;
-import net.sf.latexdraw.ui.ScaleRuler.Unit;
+import net.sf.latexdraw.util.Unit;
 
 import org.malai.mapping.IUnary;
 import org.malai.mapping.Object2ObjectMapping;

@@ -5,7 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
@@ -79,7 +80,7 @@ public class TestHandFreeHandStyle extends TestFreeHandStyleGUI {
 		selectLineStyle.execute();
 		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getType());
 		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getType());
-		assertEquals(IFreeHandProp.FreeHandType.LINES, freeHandType.getSelectionModel().getSelectedItem());
+		assertEquals(FreeHandStyle.LINES, freeHandType.getSelectionModel().getSelectedItem());
 	}
 
 	@Test
@@ -88,7 +89,7 @@ public class TestHandFreeHandStyle extends TestFreeHandStyleGUI {
 		selectCurveStyle.execute();
 		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getType());
 		assertEquals(freeHandType.getSelectionModel().getSelectedItem(), ((IFreehand)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getType());
-		assertEquals(IFreeHandProp.FreeHandType.CURVES, freeHandType.getSelectionModel().getSelectedItem());
+		assertEquals(FreeHandStyle.CURVES, freeHandType.getSelectionModel().getSelectedItem());
 	}
 
 	@Test

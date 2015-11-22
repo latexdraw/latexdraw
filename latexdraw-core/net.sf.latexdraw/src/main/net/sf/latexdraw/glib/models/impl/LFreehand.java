@@ -1,6 +1,7 @@
 package net.sf.latexdraw.glib.models.impl;
 
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
@@ -25,7 +26,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
  */
 class LFreehand extends LModifiablePointsShape implements IFreehand {
 	/** The type of the curves of the shape. */
-	protected FreeHandType type;
+	protected FreeHandStyle type;
 
 	/** The interval to consider while painting the shape. */
 	protected int interval;
@@ -41,7 +42,7 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 	 */
 	protected LFreehand() {
 		super();
-		type 		= FreeHandType.CURVES;
+		type 		= FreeHandStyle.CURVES;
 		interval 	= 5;
 		open		= true;
 	}
@@ -67,7 +68,7 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 
 
 	@Override
-	public FreeHandType getType() {
+	public FreeHandStyle getType() {
 		return type;
 	}
 
@@ -92,7 +93,7 @@ class LFreehand extends LModifiablePointsShape implements IFreehand {
 
 
 	@Override
-	public void setType(final FreeHandType type) {
+	public void setType(final FreeHandStyle type) {
 		if(type!=null)
 			this.type = type;
 	}

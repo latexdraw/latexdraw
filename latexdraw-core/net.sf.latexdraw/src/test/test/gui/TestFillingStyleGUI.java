@@ -4,8 +4,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
 
 import org.junit.Before;
@@ -32,10 +31,10 @@ public abstract class TestFillingStyleGUI extends TestShapePropGUI<ShapeFillingC
 	final protected GUIVoidCommand incrementhatchSep = () -> incrementSpinner(hatchSepField);
 	final protected GUIVoidCommand incrementhatchAngle = () -> incrementSpinner(hatchAngleField);
 	final protected GUIVoidCommand incrementhatchWidth = () -> incrementSpinner(hatchWidthField);
-	final protected GUIVoidCommand selectPlainStyle = () -> selectGivenComboBoxItem(fillStyleCB, IShape.FillingStyle.PLAIN);
-	final protected GUIVoidCommand selectHatchingsStyle = () -> selectGivenComboBoxItem(fillStyleCB, IShape.FillingStyle.HLINES_PLAIN);
-	final protected GUIVoidCommand selectGradStyle = () -> selectGivenComboBoxItem(fillStyleCB, IShape.FillingStyle.GRAD);
-	final protected GUICommand<IShape.FillingStyle> selectStyle = (IShape.FillingStyle style) -> selectGivenComboBoxItem(fillStyleCB, style);
+	final protected GUIVoidCommand selectPlainStyle = () -> selectGivenComboBoxItem(fillStyleCB, FillingStyle.PLAIN);
+	final protected GUIVoidCommand selectHatchingsStyle = () -> selectGivenComboBoxItem(fillStyleCB, FillingStyle.HLINES_PLAIN);
+	final protected GUIVoidCommand selectGradStyle = () -> selectGivenComboBoxItem(fillStyleCB, FillingStyle.GRAD);
+	final protected GUICommand<FillingStyle> selectStyle = (FillingStyle style) -> selectGivenComboBoxItem(fillStyleCB, style);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

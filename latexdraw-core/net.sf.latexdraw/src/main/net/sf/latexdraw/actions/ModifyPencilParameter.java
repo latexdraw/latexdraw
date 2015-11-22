@@ -1,22 +1,8 @@
 package net.sf.latexdraw.actions;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
-
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.*;
 import net.sf.latexdraw.instruments.Pencil;
 
 /**
@@ -207,7 +193,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case GRID_DOTS: pencil.getGroupParams().setGridDots((Integer)value); break;
 			case GRID_SUBGRID_DOTS: pencil.getGroupParams().setSubGridDots((Integer)value); break;
 			case GRID_SUBGRID_DIV: pencil.getGroupParams().setSubGridDiv((Integer)value); break;
-			case FREEHAND_STYLE: pencil.getGroupParams().setType((FreeHandType)value); break;
+			case FREEHAND_STYLE: pencil.getGroupParams().setType((FreeHandStyle)value); break;
 			case FREEHAND_INTERVAL: pencil.getGroupParams().setInterval((Integer)value); break;
 			case FREEHAND_OPEN: pencil.getGroupParams().setOpen((Boolean)value); break;
 			case SHOW_POINTS: pencil.getGroupParams().setShowPts((Boolean)value); break;
@@ -218,7 +204,7 @@ public class ModifyPencilParameter extends ShapePropertyAction {
 			case Y_SCALE: pencil.getGroupParams().setYScale((Double)value); break;
 			case PLOT_EQ: pencil.getGroupParams().setPlotEquation((String)value); break;
 			case PLOT_POLAR: pencil.getGroupParams().setPolar((Boolean)value); break;
-			case PLOT_STYLE: pencil.getGroupParams().setPlotStyle((IPlotProp.PlotStyle)value); break;
+			case PLOT_STYLE: pencil.getGroupParams().setPlotStyle((PlotStyle)value); break;
 		}
 	}
 }

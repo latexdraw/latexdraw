@@ -2,10 +2,10 @@ package net.sf.latexdraw.generators.svg;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp.PlotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.glib.views.PlotViewHelper;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;

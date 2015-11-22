@@ -3,14 +3,14 @@ package net.sf.latexdraw.glib.views.pst;
 import java.awt.geom.Point2D;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 /**

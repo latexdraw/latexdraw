@@ -2,9 +2,10 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position;
 
 import org.junit.Test;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.Position;
 
 public class TestPosition{
 

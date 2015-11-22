@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.util.Arrays;
 import java.util.Objects;
 
 import javax.accessibility.Accessible;
@@ -15,10 +14,9 @@ import javax.accessibility.AccessibleRole;
 import javax.swing.JComponent;
 
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
-import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.util.Unit;
 import net.sf.latexdraw.view.jfx.Canvas;
 
-import org.eclipse.jdt.annotation.NonNull;
 import org.malai.interaction.Eventable;
 import org.malai.mapping.ActiveUnary;
 import org.malai.mapping.IUnary;
@@ -49,41 +47,6 @@ import com.google.inject.Inject;
  * @version 3.0
  */
 public abstract class ScaleRuler extends JComponent implements Pickable, Eventable, Accessible, AdjustmentListener {
-	/**
-	 * Defines the different possible units used by the rulers.
-	 */
-	public enum Unit {
-		/** Centimetre */
-		CM {
-			@Override
-			public String getLabel() {
-				return LangTool.INSTANCE.getStringOthers("XScale.cm"); //$NON-NLS-1$
-			}
-		},
-		/** Inch */
-		INCH {
-			@Override
-			public String getLabel() {
-				return LangTool.INSTANCE.getStringOthers("XScale.inch"); //$NON-NLS-1$
-			}
-		};
-
-		/**
-		 * @return The label of the unit.
-		 * @since 3.0
-		 */
-		public abstract String getLabel();
-
-		/**
-		 * @param label The label to test.
-		 * @return The unit corresponding to the given label, or CM.
-		 * @since 3.0
-		 */
-		public static @NonNull Unit getUnit(final String label) {
-			return Arrays.stream(values()).filter(it -> it.getLabel().equals(label)).findFirst().orElse(CM);
-		}
-	}
-
 	/** The current unit of the rulers. */
     protected static final IUnary<Unit> UNIT = new ActiveUnary<>(Unit.CM);
 

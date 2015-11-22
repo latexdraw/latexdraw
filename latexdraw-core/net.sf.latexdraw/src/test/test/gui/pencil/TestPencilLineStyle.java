@@ -6,9 +6,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import javafx.scene.paint.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
@@ -65,7 +65,7 @@ public class TestPencilLineStyle extends TestLineStyleGUI {
 	@Test
 	public void testSelectBorderPosPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
-		IShape.BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
+		BorderPos style = bordersPosCB.getSelectionModel().getSelectedItem();
 		selectBorderPos.execute();
 		assertEquals(bordersPosCB.getSelectionModel().getSelectedItem(), pencil.createShapeInstance().getBordersPosition());
 		assertNotEquals(style, bordersPosCB.getSelectionModel().getSelectedItem());

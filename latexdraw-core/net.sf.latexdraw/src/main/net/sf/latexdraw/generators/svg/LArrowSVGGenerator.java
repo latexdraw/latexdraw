@@ -3,9 +3,9 @@ package net.sf.latexdraw.generators.svg;
 import java.util.Objects;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGCircleElement;

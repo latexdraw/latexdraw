@@ -6,7 +6,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.instruments.ShapePlotCustomiser;
 
 public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomiser> {
@@ -16,10 +16,10 @@ public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomi
 	protected Spinner<Double> xScaleSpinner;
 	protected Spinner<Double> yScaleSpinner;
 	protected CheckBox polarCB;
-	protected ComboBox<IPlotProp.PlotStyle> plotStyleCB;
+	protected ComboBox<PlotStyle> plotStyleCB;
 	protected TitledPane mainPane;
 
-	final protected GUICommand<IPlotProp.PlotStyle> selectplotStyleCB = (style) -> selectGivenComboBoxItem(plotStyleCB, style);
+	final protected GUICommand<PlotStyle> selectplotStyleCB = (style) -> selectGivenComboBoxItem(plotStyleCB, style);
 	final protected GUIVoidCommand incrementnbPtsSpinner = () -> incrementSpinner(nbPtsSpinner);
 	final protected GUIVoidCommand incrementminXSpinner = () -> incrementSpinner(minXSpinner);
 	final protected GUIVoidCommand incrementmaxXSpinner = () -> incrementSpinner(maxXSpinner);

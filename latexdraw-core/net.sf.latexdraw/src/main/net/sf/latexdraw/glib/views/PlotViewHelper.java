@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
@@ -13,6 +12,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
 
 public class PlotViewHelper {
 	public static final PlotViewHelper INSTANCE = new PlotViewHelper();
@@ -86,7 +86,7 @@ public class PlotViewHelper {
 		final IBezierCurve bc = ShapeFactory.createBezierCurve();
 
 		fillPoints(shape, bc, posX, posY, minX, maxX, step);
-		if(shape.getPlotStyle() == IPlotProp.PlotStyle.CCURVE)
+		if(shape.getPlotStyle() == PlotStyle.CCURVE)
 			bc.setIsClosed(true);
 		else
 			bc.setIsClosed(false);

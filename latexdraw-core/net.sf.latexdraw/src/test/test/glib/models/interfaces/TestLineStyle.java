@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 public class TestLineStyle {

@@ -1,10 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
 import scala.collection.JavaConversions.asScalaBuffer
+
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IText
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
+import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition
 
 /**
  * This trait encapsulates the code of the group related to the support of texts.<br>
@@ -30,13 +30,13 @@ private[impl] trait LGroupText extends IGroup {
 
 	private def txtShapes = getShapes.flatMap{case x:IText => x::Nil; case _ => Nil}
 
-	override def getTextPosition: ITextProp.TextPosition =
+	override def getTextPosition: TextPosition =
 		firstIText match {
 			case Some(txt) => txt.getTextPosition
 			case _ => null
 		}
 
-	override def setTextPosition(textPosition : ITextProp.TextPosition) {
+	override def setTextPosition(textPosition : TextPosition) {
 		txtShapes.foreach{_.setTextPosition(textPosition)}
 	}
 

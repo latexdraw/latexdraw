@@ -1,6 +1,8 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
 import java.awt.BasicStroke;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -13,7 +15,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArrow;
 import net.sf.latexdraw.util.LNumber;
 

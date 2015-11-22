@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
+import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
@@ -81,10 +81,10 @@ class LFreeHandSVGGenerator extends LShapeSVGGenerator<IFreehand> {
 			catch(final NumberFormatException ex) { BadaboomCollector.INSTANCE.add(ex); }
 
 		try{
-			FreeHandType type = FreeHandType.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE));
+			FreeHandStyle type = FreeHandStyle.getType(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE));
 			if(type==null) {
 				final int val = Double.valueOf(elt.getAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_PATH_TYPE)).intValue();
-				type = val==0 ? FreeHandType.LINES : FreeHandType.CURVES;
+				type = val==0 ? FreeHandStyle.LINES : FreeHandStyle.CURVES;
 			}
 
 			shape.setType(type);

@@ -8,7 +8,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;

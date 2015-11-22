@@ -2,7 +2,7 @@ package net.sf.latexdraw.actions;
 
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.ScaleRuler;
-import net.sf.latexdraw.ui.ScaleRuler.Unit;
+import net.sf.latexdraw.util.Unit;
 
 import org.malai.action.Action;
 import org.malai.undo.Undoable;

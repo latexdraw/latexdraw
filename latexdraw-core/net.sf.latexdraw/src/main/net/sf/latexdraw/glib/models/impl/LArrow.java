@@ -2,6 +2,7 @@ package net.sf.latexdraw.glib.models.impl;
 
 import java.util.Objects;
 
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine;

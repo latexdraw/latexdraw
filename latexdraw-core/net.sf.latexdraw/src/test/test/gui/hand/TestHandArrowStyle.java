@@ -5,7 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
@@ -66,10 +67,10 @@ public class TestHandArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectLeftArrowStyleHand() {
 		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns).execute();
-		IArrow.ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
-		selectArrowLeftCB.execute(IArrow.ArrowStyle.BAR_IN);
-		IArrow.ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.BAR_IN, newStyle);
+		ArrowStyle style = arrowLeftCB.getSelectionModel().getSelectedItem();
+		selectArrowLeftCB.execute(ArrowStyle.BAR_IN);
+		ArrowStyle newStyle = arrowLeftCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.BAR_IN, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArrowAt(0).getArrowStyle());
 		assertEquals(newStyle, ((IArrowableShape)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getArrowAt(0).getArrowStyle());
 		assertNotEquals(style, newStyle);
@@ -78,10 +79,10 @@ public class TestHandArrowStyle extends TestArrowStyleGUI {
 	@Test
 	public void testSelectRightArrowStyleHand() {
 		new CompositeGUIVoidCommand(selectionAddBezier, selectionAddBezier, activateHand, updateIns).execute();
-		IArrow.ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
-		selectArrowRightCB.execute(IArrow.ArrowStyle.ROUND_IN);
-		IArrow.ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
-		assertEquals(IArrow.ArrowStyle.ROUND_IN, newStyle);
+		ArrowStyle style = arrowRightCB.getSelectionModel().getSelectedItem();
+		selectArrowRightCB.execute(ArrowStyle.ROUND_IN);
+		ArrowStyle newStyle = arrowRightCB.getSelectionModel().getSelectedItem();
+		assertEquals(ArrowStyle.ROUND_IN, newStyle);
 		assertEquals(newStyle, ((IArrowableShape)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArrowAt(-1).getArrowStyle());
 		assertEquals(newStyle, ((IArrowableShape)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getArrowAt(-1).getArrowStyle());
 		assertNotEquals(style, newStyle);

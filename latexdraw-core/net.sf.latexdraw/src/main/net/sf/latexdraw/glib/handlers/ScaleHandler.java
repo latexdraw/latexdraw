@@ -6,7 +6,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.Objects;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position;
+import net.sf.latexdraw.glib.models.interfaces.shape.Position;
 
 /**
  * Defines a handler that scales a shape.<br>

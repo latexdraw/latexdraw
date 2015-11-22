@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import javafx.scene.paint.Color;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
@@ -85,9 +85,9 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 	@Test
 	public void testSelectFillingPlainHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddDot, selectionAddRec, selectionAddBezier, updateIns).execute();
-		IShape.FillingStyle style = fillStyleCB.getSelectionModel().getSelectedItem();
-		selectStyle.execute(IShape.FillingStyle.PLAIN);
-		IShape.FillingStyle newStyle = fillStyleCB.getSelectionModel().getSelectedItem();
+		FillingStyle style = fillStyleCB.getSelectionModel().getSelectedItem();
+		selectStyle.execute(FillingStyle.PLAIN);
+		FillingStyle newStyle = fillStyleCB.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getFillingStyle());
 		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(2).getFillingStyle());
 		assertNotEquals(style, newStyle);

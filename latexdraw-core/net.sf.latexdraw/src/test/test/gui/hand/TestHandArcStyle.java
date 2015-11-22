@@ -5,7 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
@@ -68,22 +69,22 @@ public class TestHandArcStyle extends TestArcStyleGUI {
 	@Test
 	public void testArcTypeChordSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectWedge, selectChord).execute();
-		assertEquals(IArcProp.ArcStyle.CHORD, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
-		assertEquals(IArcProp.ArcStyle.CHORD, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
+		assertEquals(ArcStyle.CHORD, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
+		assertEquals(ArcStyle.CHORD, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
 	}
 	
 	@Test
 	public void testArcTypeArcSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectArc).execute();
-		assertEquals(IArcProp.ArcStyle.ARC, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
-		assertEquals(IArcProp.ArcStyle.ARC, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
+		assertEquals(ArcStyle.ARC, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
+		assertEquals(ArcStyle.ARC, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
 	}
 	
 	@Test
 	public void testArcTypeWedgeSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddArc, selectionAddRec, selectionAddArc, updateIns, selectChord, selectWedge).execute();
-		assertEquals(IArcProp.ArcStyle.WEDGE, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
-		assertEquals(IArcProp.ArcStyle.WEDGE, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
+		assertEquals(ArcStyle.WEDGE, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getArcStyle());
+		assertEquals(ArcStyle.WEDGE, ((IArc)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getArcStyle());
 	}
 	
 	@Test

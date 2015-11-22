@@ -1,7 +1,6 @@
 package net.sf.latexdraw.glib.models.interfaces.shape;
 
 import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 
 /**
  * Shapes that can have arrows.

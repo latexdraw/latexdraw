@@ -8,11 +8,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Test;

@@ -18,16 +18,16 @@ import javafx.scene.control.ButtonBase;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
+import net.sf.latexdraw.actions.LatexProperties;
 import net.sf.latexdraw.actions.ModifyLatexProperties;
-import net.sf.latexdraw.actions.ModifyLatexProperties.LatexProperties;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
@@ -88,7 +88,7 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 
 	@FXML protected TitledPane mainPane;
 
-	protected final Map<ButtonBase, ITextProp.TextPosition> map;
+	protected final Map<ButtonBase, TextPosition> map;
 
 	/**
 	 * Creates the instrument.
@@ -105,15 +105,15 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		map.put(bButton, ITextProp.TextPosition.BOT);
-		map.put(blButton, ITextProp.TextPosition.BOT_LEFT);
-		map.put(brButton, ITextProp.TextPosition.BOT_RIGHT);
-		map.put(tButton, ITextProp.TextPosition.TOP);
-		map.put(tlButton, ITextProp.TextPosition.TOP_LEFT);
-		map.put(centreButton, ITextProp.TextPosition.CENTER);
-		map.put(lButton, ITextProp.TextPosition.LEFT);
-		map.put(rButton, ITextProp.TextPosition.RIGHT);
-		map.put(trButton, ITextProp.TextPosition.TOP_RIGHT);
+		map.put(bButton, TextPosition.BOT);
+		map.put(blButton, TextPosition.BOT_LEFT);
+		map.put(brButton, TextPosition.BOT_RIGHT);
+		map.put(tButton, TextPosition.TOP);
+		map.put(tlButton, TextPosition.TOP_LEFT);
+		map.put(centreButton, TextPosition.CENTER);
+		map.put(lButton, TextPosition.LEFT);
+		map.put(rButton, TextPosition.RIGHT);
+		map.put(trButton, TextPosition.TOP_RIGHT);
 	}
 
 	@Override

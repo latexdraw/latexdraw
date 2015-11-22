@@ -13,7 +13,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPicture;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolygon;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRhombus;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;

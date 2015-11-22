@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;
@@ -45,37 +45,37 @@ public class TestParsingPlotCommands extends TestPSTParser {
 	@Test public void testPsplotPlotStyleCurve() throws ParseException {
 		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=curve]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IPlotProp.PlotStyle.CURVE, plot.getPlotStyle());
+		assertEquals(PlotStyle.CURVE, plot.getPlotStyle());
 	}
 
 	@Test public void testPsplotPlotStyleCCurve() throws ParseException {
 		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=ccurve]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IPlotProp.PlotStyle.CCURVE, plot.getPlotStyle());
+		assertEquals(PlotStyle.CCURVE, plot.getPlotStyle());
 	}
 
 	@Test public void testPsplotPlotStyleECurve() throws ParseException {
 		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=ecurve]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IPlotProp.PlotStyle.ECURVE, plot.getPlotStyle());
+		assertEquals(PlotStyle.ECURVE, plot.getPlotStyle());
 	}
 
 	@Test public void testPsplotPlotStyleDots() throws ParseException {
 		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=dots]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IPlotProp.PlotStyle.DOTS, plot.getPlotStyle());
+		assertEquals(PlotStyle.DOTS, plot.getPlotStyle());
 	}
 
 	@Test public void testPsplotPlotStyleLine() throws ParseException {
 		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=line]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IPlotProp.PlotStyle.LINE, plot.getPlotStyle());
+		assertEquals(PlotStyle.LINE, plot.getPlotStyle());
 	}
 
 	@Test public void testPsplotPlotStylePloygon() throws ParseException {
 		final IPlot plot = (IPlot)parser.parsePSTCode("\\psplot[plotstyle=polygon]{0}{720}{x sin}").get().getShapeAt(0); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
-		assertEquals(IPlotProp.PlotStyle.POLYGON, plot.getPlotStyle());
+		assertEquals(PlotStyle.POLYGON, plot.getPlotStyle());
 	}
 
 	@Test public void testPsplotXUnit() throws ParseException {
@@ -97,7 +97,7 @@ public class TestParsingPlotCommands extends TestPSTParser {
 		assertEquals(0.0, plot.getPlotMinX(), 0.0);
 		assertEquals(720.0, plot.getPlotMaxX(), 0.0);
 		assertEquals("x sin", plot.getPlotEquation()); //$NON-NLS-1$
-		assertEquals(IShape.FillingStyle.PLAIN, plot.getFillingStyle());
+		assertEquals(FillingStyle.PLAIN, plot.getFillingStyle());
 	}
 
 

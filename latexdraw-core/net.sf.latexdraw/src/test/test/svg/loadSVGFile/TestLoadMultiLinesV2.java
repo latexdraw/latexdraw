@@ -3,10 +3,10 @@ package test.svg.loadSVGFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 
 import org.junit.Test;
 
@@ -68,8 +68,8 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 
 	@Test public void testArrows() {
 		final IPolyline line = getLine();
-		assertEquals(IArrow.ArrowStyle.LEFT_SQUARE_BRACKET, line.getArrowStyle(0));
-		assertEquals(IArrow.ArrowStyle.CIRCLE_END, line.getArrowStyle(-1));
+		assertEquals(ArrowStyle.LEFT_SQUARE_BRACKET, line.getArrowStyle(0));
+		assertEquals(ArrowStyle.CIRCLE_END, line.getArrowStyle(-1));
 		assertEquals(2.2, line.getDotSizeNum(), 0.0001);
 		assertEquals(5.0, line.getDotSizeDim(), 0.0001);
 		assertEquals(0.25, line.getBracketNum(), 0.0001);

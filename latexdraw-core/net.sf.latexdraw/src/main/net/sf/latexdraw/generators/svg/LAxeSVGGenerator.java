@@ -5,16 +5,7 @@ import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
+import net.sf.latexdraw.glib.models.interfaces.shape.*;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;

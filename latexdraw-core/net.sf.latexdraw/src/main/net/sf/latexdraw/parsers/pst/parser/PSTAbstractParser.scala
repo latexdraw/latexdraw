@@ -1,14 +1,16 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import scala.collection.mutable.HashMap
-import scala.util.parsing.combinator.syntactical.TokenParsers
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IText
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp
 import scala.language.implicitConversions
+import scala.util.parsing.combinator.syntactical.TokenParsers
+
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrowableShape
-import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition
 
 /**
  * Defines an abstract PST parser.<br>
@@ -110,7 +112,7 @@ trait PSTAbstractParser extends TokenParsers {
 						text.setText(ctx.textParsed)
 					ctx.textParsed = ""
 					setShapeParameters(text, ctx)
-					text.setTextPosition(ITextProp.TextPosition.getTextPosition(ctx.textPosition))
+					text.setTextPosition(TextPosition.getTextPosition(ctx.textPosition))
 					text.setLineColour(ctx.textColor)
           List(text)
 				}
@@ -145,10 +147,10 @@ trait PSTAbstractParser extends TokenParsers {
 	 * Configures the given shape to fit stared command (e.g. psellipse*).
 	 */
 	protected def setShapeForStar(sh : IShape) {
-		sh.setFillingStyle(IShape.FillingStyle.PLAIN)
+		sh.setFillingStyle(FillingStyle.PLAIN)
 		sh.setFillingCol(sh.getLineColour)
-		sh.setBordersPosition(IShape.BorderPos.INTO)
-		sh.setLineStyle(IShape.LineStyle.SOLID)
+		sh.setBordersPosition(BorderPos.INTO)
+		sh.setLineStyle(LineStyle.SOLID)
 		sh.setHasShadow(false)
 		sh.setHasDbleBord(false)
 	}

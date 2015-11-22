@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import javafx.scene.paint.Color;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;

@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.models.interfaces.prop;
 
-import java.util.Arrays;
+import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle;
 
 /**
  * Defines properties of freehand shapes.
@@ -19,31 +19,17 @@ import java.util.Arrays;
  *<br>
  */
 public interface IFreeHandProp {
-	/** The different types of freehand. */
-	enum FreeHandType {
-		CURVES, LINES;
-
-		/**
-		 * @param type The type to check.
-		 * @return The corresponding type. Returns CURVES by default.
-		 * @since 3.0
-		 */
-		public static FreeHandType getType(final String type) {
-			return Arrays.stream(values()).filter(style -> style.toString().equals(type)).findFirst().orElse(CURVES);
-		}
-	}
-
 	/**
 	 * @return the type.
 	 * @since 3.0
 	 */
-	FreeHandType getType();
+	FreeHandStyle getType();
 
 	/**
 	 * @param type the type to set.
 	 * @since 3.0
 	 */
-	void setType(final FreeHandType type);
+	void setType(final FreeHandStyle type);
 
 	/**
 	 * @return the open.

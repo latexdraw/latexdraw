@@ -3,7 +3,7 @@ package test.glib.models.interfaces;
 
 import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 
 import org.junit.Test;

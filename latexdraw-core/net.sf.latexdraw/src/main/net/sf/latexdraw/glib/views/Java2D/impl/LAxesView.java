@@ -14,15 +14,15 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.util.LNumber;
 
 /**

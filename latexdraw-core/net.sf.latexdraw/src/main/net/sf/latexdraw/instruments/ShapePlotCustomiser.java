@@ -13,6 +13,7 @@ import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
 
 /**
  * This instrument modifies plot parameters.<br>
@@ -39,7 +40,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 	@FXML Spinner<Double> xScaleSpinner;
 	@FXML Spinner<Double> yScaleSpinner;
 	@FXML CheckBox polarCB;
-	@FXML ComboBox<IPlotProp.PlotStyle> plotStyleCB;
+	@FXML ComboBox<PlotStyle> plotStyleCB;
 	@FXML TitledPane mainPane;
 
 	/**
@@ -51,7 +52,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		plotStyleCB.getItems().addAll(IPlotProp.PlotStyle.values());
+		plotStyleCB.getItems().addAll(PlotStyle.values());
 		((DoubleSpinnerValueFactory)minXSpinner.getValueFactory()).maxProperty().bind(maxXSpinner.valueProperty());
 		((DoubleSpinnerValueFactory)maxXSpinner.getValueFactory()).minProperty().bind(minXSpinner.valueProperty());
 	}

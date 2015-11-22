@@ -13,6 +13,10 @@ import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.Color
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
+import net.sf.latexdraw.glib.models.interfaces.shape.Position
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle
 
 /**
  * This trait encapsulates the code of the group related to the support of the general shape's properties.<br>
@@ -44,7 +48,7 @@ private[impl] trait LGroupShape extends IGroup {
 	override def setThickness(thickness : Double) = getShapes.foreach{_.setThickness(thickness)}
 
 
-	override def scale(prevWidth : Double, prevHeight : Double, pos : IShape.Position, bound : Rectangle2D) {
+	override def scale(prevWidth : Double, prevHeight : Double, pos : Position, bound : Rectangle2D) {
 	  val shs:Buffer[IShape] = getShapes
 
 	  if(shs.exists{sh => sh.isInstanceOf[ISquaredShape] || sh.isInstanceOf[IStandardGrid] || sh.isInstanceOf[IDot]})
@@ -87,15 +91,15 @@ private[impl] trait LGroupShape extends IGroup {
 	override def isLineStylable = getShapes.exists{_.isLineStylable}
 
 
-	override def getLineStyle: IShape.LineStyle = {
+	override def getLineStyle: LineStyle = {
 		getShapes.find{_.isLineStylable} match {
 			case Some(sh) => sh.getLineStyle
-			case _ => IShape.LineStyle.SOLID
+			case _ => LineStyle.SOLID
 		}
 	}
 
 
-	override def setLineStyle(style : IShape.LineStyle) {
+	override def setLineStyle(style : LineStyle) {
 		getShapes.filter{_.isLineStylable}.foreach{_.setLineStyle(style)}
 	}
 
@@ -103,15 +107,15 @@ private[impl] trait LGroupShape extends IGroup {
 	override def isBordersMovable = getShapes.exists{_.isBordersMovable}
 
 
-	override def getBordersPosition: IShape.BorderPos = {
+	override def getBordersPosition: BorderPos = {
 		getShapes.find{_.isBordersMovable} match {
 			case Some(sh) => sh.getBordersPosition
-			case _ => IShape.BorderPos.INTO
+			case _ => BorderPos.INTO
 		}
 	}
 
 
-	override def setBordersPosition(position : IShape.BorderPos) {
+	override def setBordersPosition(position : BorderPos) {
 		getShapes.filter{_.isBordersMovable}.foreach{_.setBordersPosition(position)}
 	}
 
@@ -208,15 +212,15 @@ private[impl] trait LGroupShape extends IGroup {
 	}
 
 
-	override def getFillingStyle: IShape.FillingStyle = {
+	override def getFillingStyle: FillingStyle = {
 		getShapes.find{_.isInteriorStylable} match {
 			case Some(sh) => sh.getFillingStyle
-			case _ => IShape.FillingStyle.NONE
+			case _ => FillingStyle.NONE
 		}
 	}
 
 
-	override def setFillingStyle(style : IShape.FillingStyle) {
+	override def setFillingStyle(style : FillingStyle) {
 		getShapes.filter{_.isInteriorStylable}.foreach{_.setFillingStyle(style)}
 	}
 

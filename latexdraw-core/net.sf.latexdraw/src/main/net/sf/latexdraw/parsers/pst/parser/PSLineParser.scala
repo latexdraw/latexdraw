@@ -1,13 +1,13 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import scala.collection.mutable.ListBuffer
+
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline
-import scala.collection.mutable.ListBuffer
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * A parser grouping parsers parsing lines.<br>
@@ -73,9 +73,9 @@ trait PSLineParser extends PSTAbstractParser
 		if(qObject) {
 			line.setHasShadow(false)
 			line.setHasDbleBord(false)
-			line.setFillingStyle(IShape.FillingStyle.NONE)
-			line.setArrowStyle(IArrow.ArrowStyle.NONE, 0)
-			line.setArrowStyle(IArrow.ArrowStyle.NONE, -1)
+			line.setFillingStyle(FillingStyle.NONE)
+			line.setArrowStyle(ArrowStyle.NONE, 0)
+			line.setArrowStyle(ArrowStyle.NONE, -1)
 		}
 
 		if(hasStar)

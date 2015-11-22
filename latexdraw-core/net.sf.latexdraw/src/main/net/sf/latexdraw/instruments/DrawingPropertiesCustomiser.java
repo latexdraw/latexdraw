@@ -6,7 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
-import net.sf.latexdraw.glib.views.latex.LaTeXGenerator.VerticalPosition;
+import net.sf.latexdraw.glib.views.latex.VerticalPosition;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 

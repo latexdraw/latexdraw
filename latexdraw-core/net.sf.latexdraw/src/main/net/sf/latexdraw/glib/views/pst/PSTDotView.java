@@ -2,7 +2,7 @@ package net.sf.latexdraw.glib.views.pst;
 
 import org.eclipse.jdt.annotation.NonNull;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;

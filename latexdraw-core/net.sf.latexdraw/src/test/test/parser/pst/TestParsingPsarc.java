@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircleArc;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Test;

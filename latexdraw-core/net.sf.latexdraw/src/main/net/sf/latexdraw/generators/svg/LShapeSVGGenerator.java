@@ -3,17 +3,12 @@ package net.sf.latexdraw.generators.svg;
 import static java.lang.Math.PI;
 import static java.lang.Math.toDegrees;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.awt.geom.Point2D;
 import java.text.ParseException;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.*;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.parsers.svg.*;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;

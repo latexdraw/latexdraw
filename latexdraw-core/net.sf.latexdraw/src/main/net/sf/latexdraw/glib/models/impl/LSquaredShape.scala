@@ -7,7 +7,7 @@ import scala.collection.JavaConversions.asScalaBuffer
 import net.sf.latexdraw.glib.models.GLibUtilities
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position
+import net.sf.latexdraw.glib.models.interfaces.shape.Position
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape
 import net.sf.latexdraw.util.LNumber
 

@@ -3,9 +3,9 @@ package net.sf.latexdraw.glib.views.pst;
 import org.eclipse.jdt.annotation.NonNull;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp.PlotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
 import net.sf.latexdraw.util.LNumber;
 
 class PSTPlotView extends PSTClassicalView<IPlot>{

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
+import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
@@ -13,18 +13,18 @@ import org.junit.Test;
 public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiablePointsShape<T> {
 	@Test
 	public void testGetType() {
-		assertEquals(FreeHandType.CURVES, shape.getType());
+		assertEquals(FreeHandStyle.CURVES, shape.getType());
 	}
 
 
 	@Test
 	public void testSetType() {
-		shape.setType(FreeHandType.LINES);
-		assertEquals(FreeHandType.LINES, shape.getType());
-		shape.setType(FreeHandType.CURVES);
-		assertEquals(FreeHandType.CURVES, shape.getType());
+		shape.setType(FreeHandStyle.LINES);
+		assertEquals(FreeHandStyle.LINES, shape.getType());
+		shape.setType(FreeHandStyle.CURVES);
+		assertEquals(FreeHandStyle.CURVES, shape.getType());
 		shape.setType(null);
-		assertEquals(FreeHandType.CURVES, shape.getType());
+		assertEquals(FreeHandStyle.CURVES, shape.getType());
 	}
 
 
@@ -72,11 +72,11 @@ public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiable
 	public void testCopy() {
 		shape2.setOpen(false);
 		shape2.setInterval(10);
-		shape2.setType(FreeHandType.LINES);
+		shape2.setType(FreeHandStyle.LINES);
 		shape.copy(shape2);
 		assertFalse(shape.isOpen());
 		assertEquals(10, shape.getInterval());
-		assertEquals(FreeHandType.LINES, shape.getType());
+		assertEquals(FreeHandStyle.LINES, shape.getType());
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiable
 	public void testDuplicate() {
 		shape.setOpen(false);
 		shape.setInterval(10);
-		shape.setType(FreeHandType.LINES);
+		shape.setType(FreeHandStyle.LINES);
 //		final IFreehand dup = (IFreehand)shape.duplicate();
 //		assertTrue(shape.isParametersEquals(dup, false));
 //		assertTrue(shape.isParametersEquals(dup, true));

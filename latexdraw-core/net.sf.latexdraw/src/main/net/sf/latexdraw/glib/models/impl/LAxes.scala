@@ -3,15 +3,15 @@ package net.sf.latexdraw.glib.models.impl
 import net.sf.latexdraw.glib.models.GLibUtilities
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IAxes
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 
 /**

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 public class TestPlottingStyle {

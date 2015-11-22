@@ -4,8 +4,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
 
 import org.junit.Before;
@@ -30,8 +29,8 @@ public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCusto
 	protected AnchorPane rbracketPane;
 	protected TitledPane mainPane;
 
-	final protected GUICommand<IArrow.ArrowStyle> selectArrowLeftCB = (style) -> selectGivenComboBoxItem(arrowLeftCB, style);
-	final protected GUICommand<IArrow.ArrowStyle> selectArrowRightCB = (style) -> selectGivenComboBoxItem(arrowRightCB, style);
+	final protected GUICommand<ArrowStyle> selectArrowLeftCB = (style) -> selectGivenComboBoxItem(arrowLeftCB, style);
+	final protected GUICommand<ArrowStyle> selectArrowRightCB = (style) -> selectGivenComboBoxItem(arrowRightCB, style);
 	final protected GUIVoidCommand incrementdotSizeNum = () -> incrementSpinner(dotSizeNum);
 	final protected GUIVoidCommand incrementdotSizeDim = () -> incrementSpinner(dotSizeDim);
 	final protected GUIVoidCommand incrementbracketNum = () -> incrementSpinner(bracketNum);
@@ -42,10 +41,10 @@ public abstract class TestArrowStyleGUI extends TestShapePropGUI<ShapeArrowCusto
 	final protected GUIVoidCommand incrementarrowSizeNum = () -> incrementSpinner(arrowSizeNum);
 	final protected GUIVoidCommand incrementarrowLength = () -> incrementSpinner(arrowLength);
 	final protected GUIVoidCommand incrementarrowInset = () -> incrementSpinner(arrowInset);
-	final protected GUIVoidCommand selectArrowStyleArrow = () -> selectGivenComboBoxItem(arrowRightCB, IArrow.ArrowStyle.LEFT_ARROW);
-	final protected GUIVoidCommand selectArrowStyleRBrack = () -> selectGivenComboBoxItem(arrowRightCB, IArrow.ArrowStyle.LEFT_ROUND_BRACKET);
-	final protected GUIVoidCommand selectArrowStyleSBrack = () -> selectGivenComboBoxItem(arrowRightCB, IArrow.ArrowStyle.LEFT_SQUARE_BRACKET);
-	final protected GUIVoidCommand selectArrowStyleDot = () -> selectGivenComboBoxItem(arrowRightCB, IArrow.ArrowStyle.DISK_END);
+	final protected GUIVoidCommand selectArrowStyleArrow = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.LEFT_ARROW);
+	final protected GUIVoidCommand selectArrowStyleRBrack = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.LEFT_ROUND_BRACKET);
+	final protected GUIVoidCommand selectArrowStyleSBrack = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.LEFT_SQUARE_BRACKET);
+	final protected GUIVoidCommand selectArrowStyleDot = () -> selectGivenComboBoxItem(arrowRightCB, ArrowStyle.DISK_END);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

@@ -5,7 +5,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle;
 import net.sf.latexdraw.instruments.Hand;
 import net.sf.latexdraw.instruments.Pencil;
 import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
@@ -114,9 +118,9 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 	@Test
 	public void testSelectShowLabelsSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		IAxesProp.PlottingStyle style = showLabels.getSelectionModel().getSelectedItem();
+		PlottingStyle style = showLabels.getSelectionModel().getSelectedItem();
 		selectPlotLabel.execute();
-		IAxesProp.PlottingStyle newStyle = showLabels.getSelectionModel().getSelectedItem();
+		PlottingStyle newStyle = showLabels.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getLabelsDisplayed());
 		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getLabelsDisplayed());
 		assertNotEquals(style, newStyle);
@@ -125,9 +129,9 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 	@Test
 	public void testSelectShowTicksSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		IAxesProp.PlottingStyle style = showTicks.getSelectionModel().getSelectedItem();
+		PlottingStyle style = showTicks.getSelectionModel().getSelectedItem();
 		selectPlotTicks.execute();
-		IAxesProp.PlottingStyle newStyle = showTicks.getSelectionModel().getSelectedItem();
+		PlottingStyle newStyle = showTicks.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getTicksDisplayed());
 		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getTicksDisplayed());
 		assertNotEquals(style, newStyle);
@@ -136,9 +140,9 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 	@Test
 	public void testSelectTicksStyleSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		IAxesProp.TicksStyle style = shapeTicks.getSelectionModel().getSelectedItem();
+		TicksStyle style = shapeTicks.getSelectionModel().getSelectedItem();
 		selectTicksStyle.execute();
-		IAxesProp.TicksStyle newStyle = shapeTicks.getSelectionModel().getSelectedItem();
+		TicksStyle newStyle = shapeTicks.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getTicksStyle());
 		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getTicksStyle());
 		assertNotEquals(style, newStyle);
@@ -147,9 +151,9 @@ public class TestHandAxeStyle extends TestAxesStyleGUI {
 	@Test
 	public void testSelectLineStyleSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddAxes, selectionAddRec, selectionAddAxes, updateIns).execute();
-		IAxesProp.AxesStyle style = shapeAxes.getSelectionModel().getSelectedItem();
+		AxesStyle style = shapeAxes.getSelectionModel().getSelectedItem();
 		selectAxeStyle.execute();
-		IAxesProp.AxesStyle newStyle = shapeAxes.getSelectionModel().getSelectedItem();
+		AxesStyle newStyle = shapeAxes.getSelectionModel().getSelectedItem();
 		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(0)).getAxesStyle());
 		assertEquals(newStyle, ((IAxesProp)hand.getCanvas().getDrawing().getSelection().getShapeAt(2)).getAxesStyle());
 		assertNotEquals(style, newStyle);

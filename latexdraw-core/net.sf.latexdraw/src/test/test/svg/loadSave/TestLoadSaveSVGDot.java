@@ -1,8 +1,8 @@
 package test.svg.loadSave;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 

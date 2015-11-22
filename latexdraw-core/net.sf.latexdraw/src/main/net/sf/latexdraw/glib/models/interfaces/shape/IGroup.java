@@ -2,16 +2,8 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
 
 import java.util.List;
 
+import net.sf.latexdraw.glib.models.interfaces.prop.*;
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.ISetShapesProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
 
 /**
  * Defines an interface that classes defining a group of shapes should implement.<br>
@@ -114,7 +106,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shapes of the group. If an element of the list is null, its corresponding
 	 * shape will not be set.
 	 */
-	void setPlotStyleList(final List<IPlotProp.PlotStyle> values);
+	void setPlotStyleList(final List<PlotStyle> values);
 
 
 	/**
@@ -122,7 +114,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * If a shape of the group does not support this property, null is added
 	 * to the list. The list cannot be null.
 	 */
-	List<IPlotProp.PlotStyle> getPlotStyleList();
+	List<PlotStyle> getPlotStyleList();
 
 
 	/**
@@ -1089,7 +1081,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * shape will not be set.
 	 * @since 3.0
 	 */
-	void setFreeHandTypeList(final List<FreeHandType> values);
+	void setFreeHandTypeList(final List<FreeHandStyle> values);
 
 	/**
 	 * @return The types of the freehand shapes contained in the group.
@@ -1097,7 +1089,7 @@ public interface IGroup extends IArrowableShape, ISetShapesProp, ILineArcProp, I
 	 * to the list. The list cannot be null.
 	 * @since 3.0
 	 */
-	List<FreeHandType> getFreeHandTypeList();
+	List<FreeHandStyle> getFreeHandTypeList();
 
 	/**
 	 * Sets the interval of the freehand shapes contained in the group.

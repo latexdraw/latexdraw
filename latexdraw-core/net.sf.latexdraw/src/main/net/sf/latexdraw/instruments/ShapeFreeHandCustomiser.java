@@ -14,6 +14,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
+import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.view.jfx.ui.JFXWidgetCreator;
 
@@ -37,7 +38,7 @@ import net.sf.latexdraw.view.jfx.ui.JFXWidgetCreator;
  */
 public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements Initializable, JFXWidgetCreator {
 	/** The type of the freehand. */
-	@FXML protected ComboBox<IFreeHandProp.FreeHandType> freeHandType;
+	@FXML protected ComboBox<FreeHandStyle> freeHandType;
 
 	/** The gap to consider between the points. */
 	@FXML protected Spinner<Integer> gapPoints;
@@ -56,10 +57,10 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		final Map<IFreeHandProp.FreeHandType, Image> cache = new HashMap<>();
-		cache.put(IFreeHandProp.FreeHandType.LINES, new Image("/res/freehand/line.png"));
-		cache.put(IFreeHandProp.FreeHandType.CURVES, new Image("/res/freehand/curve.png"));
-		initComboBox(freeHandType, cache, IFreeHandProp.FreeHandType.values());
+		final Map<FreeHandStyle, Image> cache = new HashMap<>();
+		cache.put(FreeHandStyle.LINES, new Image("/res/freehand/line.png"));
+		cache.put(FreeHandStyle.CURVES, new Image("/res/freehand/curve.png"));
+		initComboBox(freeHandType, cache, FreeHandStyle.values());
 	}
 
 	@Override

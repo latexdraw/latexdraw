@@ -44,11 +44,14 @@ import javafx.scene.paint.Color;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
+import net.sf.latexdraw.util.Page;
 
 /**
  * Defines a canvas that draw the drawing and manages the selected shapes.<br>
@@ -98,7 +101,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		drawing = ShapeFactory.createDrawing();
 		zoom = new ActiveUnary<>(1.);
 		tempView = new ActiveUnary<>();
-		page = new PageView(PageView.Page.USLETTER, getOrigin());
+		page = new PageView(Page.USLETTER, getOrigin());
 		magneticGrid = new MagneticGridImpl(this);
 		shapesPane = new Pane();
 		shapesToViewMap = new HashMap<>();
@@ -114,6 +117,12 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		
 		defineShapeListToViewBinding();
 
+		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(150,  120), 100, 30);
+		rec.setThickness(10.0);
+		rec.setLineStyle(LineStyle.DOTTED);
+		
+		getDrawing().addShape(rec);
+		
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
 		// borderIns.addEventable(this);

@@ -1,23 +1,9 @@
 package net.sf.latexdraw.actions.shape;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import java.util.Collections;
 import java.util.List;
 
-import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp.FreeHandType;
-import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp.TextPosition;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.FillingStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.*;
 import net.sf.latexdraw.lang.LangTool;
 
 /**
@@ -41,12 +27,12 @@ import net.sf.latexdraw.lang.LangTool;
 public enum ShapeProperties {
 	/** Plot style. **/
 	PLOT_STYLE {
-		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPlotStyle((IPlotProp.PlotStyle)value);}
+		@Override public void setPropertyValue(final IGroup group, final Object value) { if(group!=null && isValueValid(value)) group.setPlotStyle((PlotStyle)value);}
 		@SuppressWarnings("unchecked")
-		@Override public void setPropertyValueList(final IGroup group, final List<?> values) { if(group!=null) group.setPlotStyleList((List<IPlotProp.PlotStyle>)values);}
-		@Override public List<?> getPropertyValues(final IGroup group) { return group==null ? Collections.<IPlotProp.PlotStyle>emptyList() : group.getPlotStyleList();}
+		@Override public void setPropertyValueList(final IGroup group, final List<?> values) { if(group!=null) group.setPlotStyleList((List<PlotStyle>)values);}
+		@Override public List<?> getPropertyValues(final IGroup group) { return group==null ? Collections.<PlotStyle>emptyList() : group.getPlotStyleList();}
 		@Override public String getMessage() { return "plot's parameters"; }
-		@Override public boolean isValueValid(final Object obj) { return obj instanceof IPlotProp.PlotStyle; }
+		@Override public boolean isValueValid(final Object obj) { return obj instanceof PlotStyle; }
 	},
 	/** Polar or cartesian coordinates. **/
 	PLOT_POLAR {
@@ -570,25 +556,25 @@ public enum ShapeProperties {
 
 		@Override
 		public boolean isValueValid(final Object obj) {
-			return obj instanceof FreeHandType;
+			return obj instanceof FreeHandStyle;
 		}
 
 		@Override
-		public List<FreeHandType> getPropertyValues(final IGroup group) {
-			return group==null ? Collections.<FreeHandType>emptyList() : group.getFreeHandTypeList();
+		public List<FreeHandStyle> getPropertyValues(final IGroup group) {
+			return group==null ? Collections.<FreeHandStyle>emptyList() : group.getFreeHandTypeList();
 		}
 
 		@Override
 		public void setPropertyValue(final IGroup group, final Object value) {
 			if(group!=null && isValueValid(value))
-				group.setType((FreeHandType)value);
+				group.setType((FreeHandStyle)value);
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
 		public void setPropertyValueList(final IGroup group, final List<?> values) {
 			if(group!=null)
-				group.setFreeHandTypeList((List<FreeHandType>)values);
+				group.setFreeHandTypeList((List<FreeHandStyle>)values);
 		}
 	},
 	/** The style of axes. */

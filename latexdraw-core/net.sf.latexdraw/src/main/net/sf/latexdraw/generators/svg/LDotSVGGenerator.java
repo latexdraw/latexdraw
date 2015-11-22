@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp.DotStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewDot;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;

@@ -13,9 +13,13 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.Position;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LNumber;
 
@@ -45,7 +49,7 @@ abstract class LShape implements IShape {
 	protected Color lineColour;
 
 	/** The style of the lines. */
-	@NonNull final protected ObjectProperty<IShape.LineStyle> lineStyle; // TODO add  to the generics but sbt crashes... 
+	@NonNull final protected ObjectProperty<LineStyle> lineStyle; // TODO add  to the generics but sbt crashes... 
 
 	/** The white dash separator for dashed lines in pixel. */
 	protected double dashSepWhite;
@@ -60,7 +64,7 @@ abstract class LShape implements IShape {
 	protected Color fillingCol;
 
 	/** The style of the interior of the shape. */
-	protected IShape.FillingStyle fillingStyle;
+	protected FillingStyle fillingStyle;
 
 	/** The start colour of the gradient. */
 	protected Color gradColStart;
@@ -114,7 +118,7 @@ abstract class LShape implements IShape {
 	protected double shadowSize;
 
 	/** The position of the border of the shape. */
-	protected IShape.BorderPos bordersPosition;
+	protected BorderPos bordersPosition;
 
 	/** The points of the shape. */
 	protected final List<IPoint> points;
@@ -231,7 +235,7 @@ abstract class LShape implements IShape {
 	}
 
 	@Override
-	public IShape.BorderPos getBordersPosition() {
+	public BorderPos getBordersPosition() {
 		return bordersPosition;
 	}
 
@@ -266,7 +270,7 @@ abstract class LShape implements IShape {
 	}
 
 	@Override
-	public IShape.FillingStyle getFillingStyle() {
+	public FillingStyle getFillingStyle() {
 		return fillingStyle;
 	}
 
@@ -346,7 +350,7 @@ abstract class LShape implements IShape {
 	}
 
 	@Override
-	public IShape.LineStyle getLineStyle() {// TODO add  to the generics but sbt crashes... 
+	public LineStyle getLineStyle() {// TODO add  to the generics but sbt crashes... 
 		return lineStyle.get();
 	}
 
@@ -487,7 +491,7 @@ abstract class LShape implements IShape {
 	// }
 
 	@Override
-	public void setBordersPosition(final IShape.BorderPos position) {
+	public void setBordersPosition(final BorderPos position) {
 		if(position != null && isBordersMovable())
 			bordersPosition = position;
 	}
@@ -588,7 +592,7 @@ abstract class LShape implements IShape {
 	}
 
 	@Override
-	public void setFillingStyle(final IShape.FillingStyle fillingStyle) {
+	public void setFillingStyle(final FillingStyle fillingStyle) {
 		if(fillingStyle != null && isFillable())
 			this.fillingStyle = fillingStyle;
 	}
@@ -660,26 +664,26 @@ abstract class LShape implements IShape {
 	}
 
 	@Override
-	public void setLineStyle(final IShape.LineStyle style) {
+	public void setLineStyle(final LineStyle style) {
 		if(style != null && isLineStylable())
 			lineStyle.setValue(style);
 	}
 
 	@Override
-	public void scale(final double prevWidth, final double prevHeight, final IShape.Position pos, final Rectangle2D bound) {
+	public void scale(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
 		if(bound == null || pos == null)
 			return;
 		scaleSetPoints(points, prevWidth, prevHeight, pos, bound);
 	}
 
 	@Override
-	public void scaleWithRatio(final double prevWidth, final double prevHeight, final IShape.Position pos, final Rectangle2D bound) {
+	public void scaleWithRatio(final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
 		if(bound == null || pos == null)
 			return;
 		scaleSetPointsWithRatio(points, prevWidth, prevHeight, pos, bound);
 	}
 
-	protected void scaleSetPointsWithRatio(final List<IPoint> pts, final double prevWidth, final double prevHeight, final IShape.Position pos, final Rectangle2D bound) {
+	protected void scaleSetPointsWithRatio(final List<IPoint> pts, final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
 		final double s = Math.max(prevWidth / bound.getWidth(), prevHeight / bound.getHeight());
 		final IPoint refPt = pos.getReferencePoint(bound);
 		final double refX = refPt.getX();
@@ -693,7 +697,7 @@ abstract class LShape implements IShape {
 		}
 	}
 
-	protected void scaleSetPoints(final List<IPoint> pts, final double prevWidth, final double prevHeight, final IShape.Position pos, final Rectangle2D bound) {
+	protected void scaleSetPoints(final List<IPoint> pts, final double prevWidth, final double prevHeight, final Position pos, final Rectangle2D bound) {
 		final double sx = prevWidth / bound.getWidth();
 		final double sy = prevHeight / bound.getHeight();
 		final boolean xScale = pos.isEast() || pos.isWest();
@@ -882,7 +886,7 @@ abstract class LShape implements IShape {
 	}
 	
 	@Override
-	public @NonNull ObjectProperty<IShape.LineStyle> linestyleProperty() {
+	public @NonNull ObjectProperty<LineStyle> linestyleProperty() {
 		return lineStyle;
 	}
 }

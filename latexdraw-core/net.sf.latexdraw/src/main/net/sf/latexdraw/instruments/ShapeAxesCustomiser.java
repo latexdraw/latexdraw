@@ -15,10 +15,10 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.actions.shape.ShapePropertyAction;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.AxesStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle;
 
 import org.malai.javafx.instrument.library.SpinnerInteractor;
 
@@ -79,10 +79,10 @@ public class ShapeAxesCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
-		shapeAxes.getItems().addAll(IAxesProp.AxesStyle.values());
-		shapeTicks.getItems().addAll(IAxesProp.TicksStyle.values());
-		showTicks.getItems().addAll(IAxesProp.PlottingStyle.values());
-		showLabels.getItems().addAll(IAxesProp.PlottingStyle.values());
+		shapeAxes.getItems().addAll(AxesStyle.values());
+		shapeTicks.getItems().addAll(TicksStyle.values());
+		showTicks.getItems().addAll(PlottingStyle.values());
+		showLabels.getItems().addAll(PlottingStyle.values());
 	}
 
 	@Override

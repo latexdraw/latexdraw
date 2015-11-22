@@ -1,7 +1,8 @@
 package test.glib.models.interfaces;
 
 import static org.junit.Assert.*;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.BorderPos;
+
+import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;

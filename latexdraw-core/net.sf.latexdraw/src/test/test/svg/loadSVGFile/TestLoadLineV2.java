@@ -3,9 +3,9 @@ package test.svg.loadSVGFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape.LineStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 
 import org.junit.Test;
@@ -53,8 +53,8 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 
 	@Test public void testArrows() {
 		final IPolyline line = getLine();
-		assertEquals(IArrow.ArrowStyle.DISK_IN, line.getArrowStyle(0));
-		assertEquals(IArrow.ArrowStyle.RIGHT_ARROW, line.getArrowStyle(1));
+		assertEquals(ArrowStyle.DISK_IN, line.getArrowStyle(0));
+		assertEquals(ArrowStyle.RIGHT_ARROW, line.getArrowStyle(1));
 		assertEquals(4.0, line.getDotSizeNum(), 0.0001);
 		assertEquals(4.53, line.getDotSizeDim(), 0.0001);
 		assertEquals(2.4, line.getArrowLength(), 0.0001);
