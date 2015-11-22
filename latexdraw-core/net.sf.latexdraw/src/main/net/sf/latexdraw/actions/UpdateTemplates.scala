@@ -30,7 +30,7 @@ class UpdateTemplates extends Action with TemplateAction{
 	override def isRegisterable = false
 
 	override def doActionBody() {
-		SVGDocumentGenerator.INSTANCE.updateTemplates(_templatesMenu.get, _updateThumbnails)
+//		SVGDocumentGenerator.INSTANCE.updateTemplates(_templatesMenu.get, _updateThumbnails)
 	}
 
 	override def canDo = _templatesMenu.isDefined

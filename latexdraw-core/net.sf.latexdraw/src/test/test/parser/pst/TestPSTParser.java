@@ -1,6 +1,5 @@
 package test.parser.pst;
 
-import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.parsers.pst.parser.PSTParser;
 
 import org.junit.Before;
@@ -10,8 +9,8 @@ public abstract class TestPSTParser {
 
 	@Before
 	public void setUp() throws Exception {
-		FlyweightThumbnail.images().clear();
-		FlyweightThumbnail.setThread(false);
+//		FlyweightThumbnail.images().clear();
+//		FlyweightThumbnail.setThread(false);
 		parser = new PSTParser();
 		PSTParser.cleanErrors();
 	}

@@ -141,7 +141,7 @@ public class FileLoaderSaver extends JfxInstrument {
 	@Override
 	public void onActionExecuted(final Action action) {
 		if(action instanceof LoadDrawing) {
-			currentFile = ((LoadDrawing)action).getFile();
+//			currentFile = ((LoadDrawing)action).getFile();
 		}
 	}
 

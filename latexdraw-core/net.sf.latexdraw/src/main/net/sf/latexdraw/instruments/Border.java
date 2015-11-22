@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.malai.picking.Pickable;
+
+import com.google.inject.Inject;
+
 import javafx.scene.Cursor;
 import net.sf.latexdraw.glib.handlers.ArcAngleHandler;
 import net.sf.latexdraw.glib.handlers.CtrlPointHandler;
@@ -29,22 +33,9 @@ import net.sf.latexdraw.glib.handlers.IHandler;
 import net.sf.latexdraw.glib.handlers.MovePtHandler;
 import net.sf.latexdraw.glib.handlers.RotationHandler;
 import net.sf.latexdraw.glib.handlers.ScaleHandler;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArc;
 import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.Position;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
-import net.sf.latexdraw.mapping.Shape2BorderMapping;
-
-import org.malai.mapping.MappingRegistry;
-import org.malai.picking.Pickable;
-
-import com.google.inject.Inject;
 
 /**
  * This instrument manages the selected views.<br>
@@ -57,8 +48,8 @@ public class Border extends CanvasInstrument { // implements Picker {
 	/** The stroke uses by the border to display its bounding rectangle. */
 	protected final BasicStroke stroke = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1f, new float[] { 7, 7 }, 0);
 
-	/** The selected views. */
-	protected final List<IViewShape> selection;
+//	/** The selected views. */
+//	protected final List<IViewShape> selection;
 
 	/** The rectangle uses to show the selection. */
 	protected final Rectangle2D border;
@@ -93,7 +84,7 @@ public class Border extends CanvasInstrument { // implements Picker {
 	@Inject
 	public Border() {
 		super();
-		selection = new ArrayList<>();
+//		selection = new ArrayList<>();
 		border = new Rectangle2D.Double();
 		scaleHandlers = new ArrayList<>();
 		mvPtHandlers = new ArrayList<>();
@@ -114,7 +105,7 @@ public class Border extends CanvasInstrument { // implements Picker {
 
 	@Override
 	public void reinit() {
-		selection.clear();
+//		selection.clear();
 		border.setFrame(0, 0, 1, 1);
 	}
 
@@ -138,23 +129,20 @@ public class Border extends CanvasInstrument { // implements Picker {
 	public void update() {
 		if(!isActivated())
 			return;
-		if(selection.isEmpty())
-			border.setFrame(0, 0, 1, 1);
-		else {
-			selection.stream().map(IViewShape::getBorder).reduce((r1, r2) -> r1.createUnion(r2)).ifPresent(rec -> {
-				final double zoomLevel = canvas.getZoom();
-				border.setFrame(rec.getMinX()*zoomLevel, rec.getMinY()*zoomLevel, rec.getWidth()*zoomLevel, rec.getHeight()*zoomLevel);
-				updateHandlersPosition();
-			});
-		}
+//		if(selection.isEmpty())
+//			border.setFrame(0, 0, 1, 1);
+//		else {
+//			selection.stream().map(IViewShape::getBorder).reduce((r1, r2) -> r1.createUnion(r2)).ifPresent(rec -> {
+//				final double zoomLevel = canvas.getZoom();
+//				border.setFrame(rec.getMinX()*zoomLevel, rec.getMinY()*zoomLevel, rec.getWidth()*zoomLevel, rec.getHeight()*zoomLevel);
+//				updateHandlersPosition();
+//			});
+//		}
 	}
 
 	private void updateHandlersPosition() {
 		scaleHandlers.forEach(h -> h.updateFromShape(border));
 		rotHandler.setPoint(border.getMaxX(), border.getMinY());
-
-		// if(isFrameArcHandlerShowable())
-		// frameArcHandler.updateFromLineArcShape((ILineArcShape)selection.get(0).getShape())
 
 		updateArcHandlers();
 		updateMvHandlers();
@@ -162,23 +150,23 @@ public class Border extends CanvasInstrument { // implements Picker {
 	}
 
 	private void updateArcHandlers() {
-		if(isArcHandlerShowable()) {
-			IShape sh = selection.get(0).getShape();
-			if(sh instanceof IArc) {
-				IArc arc = (IArc)sh;
-				arcHandlerStart.update(arc, canvas.getZoom());
-				arcHandlerEnd.update(arc, canvas.getZoom());
-			}
-		}
+//		if(isArcHandlerShowable()) {
+//			IShape sh = selection.get(0).getShape();
+//			if(sh instanceof IArc) {
+//				IArc arc = (IArc)sh;
+//				arcHandlerStart.update(arc, canvas.getZoom());
+//				arcHandlerEnd.update(arc, canvas.getZoom());
+//			}
+//		}
 	}
 
 	private void updateCtrlMvHandlers() {
-		if(isCtrlPtMvHandlersShowable()) {
-			IShape sh = selection.get(0).getShape();
-			if(sh instanceof IControlPointShape) {
-				initialiseCtrlMvHandlers((IControlPointShape)sh);
-			}
-		}
+//		if(isCtrlPtMvHandlersShowable()) {
+//			IShape sh = selection.get(0).getShape();
+//			if(sh instanceof IControlPointShape) {
+//				initialiseCtrlMvHandlers((IControlPointShape)sh);
+//			}
+//		}
 	}
 
 	private void initialiseCtrlMvHandlers(final IControlPointShape cps) {
@@ -210,29 +198,28 @@ public class Border extends CanvasInstrument { // implements Picker {
 	}
 
 	private void updateMvHandlers() {
-		if(isPtMvHandlersShowable()) {
-			IShape sh = selection.get(0).getShape();
-
-			if(sh instanceof IModifiablePointsShape) {
-				IModifiablePointsShape pts = (IModifiablePointsShape)sh;
-				final int nbPts = pts.getNbPoints();
-				final double zoom = canvas.getZoom();
-
-				if(mvPtHandlers.size()<nbPts) {
-					for(int i = mvPtHandlers.size(); i<nbPts; i++)
-						mvPtHandlers.add(new MovePtHandler(i));
-				}else {
-					while(mvPtHandlers.size()>nbPts)
-						mvPtHandlers.remove(mvPtHandlers.size()-1);
-				}
-
-				for(int i = 0, size = mvPtHandlers.size(); i<size; i++) {
-					IPoint pt = pts.getPtAt(i);
-					mvPtHandlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
-				}
-			}
-
-		}
+//		if(isPtMvHandlersShowable()) {
+//			IShape sh = selection.get(0).getShape();
+//
+//			if(sh instanceof IModifiablePointsShape) {
+//				IModifiablePointsShape pts = (IModifiablePointsShape)sh;
+//				final int nbPts = pts.getNbPoints();
+//				final double zoom = canvas.getZoom();
+//
+//				if(mvPtHandlers.size()<nbPts) {
+//					for(int i = mvPtHandlers.size(); i<nbPts; i++)
+//						mvPtHandlers.add(new MovePtHandler(i));
+//				}else {
+//					while(mvPtHandlers.size()>nbPts)
+//						mvPtHandlers.remove(mvPtHandlers.size()-1);
+//				}
+//
+//				for(int i = 0, size = mvPtHandlers.size(); i<size; i++) {
+//					IPoint pt = pts.getPtAt(i);
+//					mvPtHandlers.get(i).setPoint(pt.getX()*zoom, pt.getY()*zoom);
+//				}
+//			}
+//		}
 	}
 
 	/**
@@ -258,81 +245,70 @@ public class Border extends CanvasInstrument { // implements Picker {
 		scaleHandlers.forEach(h -> h.paint(g));
 		rotHandler.paint(g);
 
-		// if(isFrameArcHandlerShowable())
-		// frameArcHandler.paint(g)
-
-		if(isArcHandlerShowable()) {
-			arcHandlerStart.paint(g);
-			arcHandlerEnd.paint(g);
-		}
-
-		if(isPtMvHandlersShowable()) {
-			mvPtHandlers.forEach(h -> h.paint(g));
-
-			if(isCtrlPtMvHandlersShowable()) {
-				ctrlPt1Handlers.forEach(h -> h.paint(g));
-				ctrlPt2Handlers.forEach(h -> h.paint(g));
-			}
-		}
+//		if(isArcHandlerShowable()) {
+//			arcHandlerStart.paint(g);
+//			arcHandlerEnd.paint(g);
+//		}
+//
+//		if(isPtMvHandlersShowable()) {
+//			mvPtHandlers.forEach(h -> h.paint(g));
+//
+//			if(isCtrlPtMvHandlersShowable()) {
+//				ctrlPt1Handlers.forEach(h -> h.paint(g));
+//				ctrlPt2Handlers.forEach(h -> h.paint(g));
+//			}
+//		}
 	}
 
-	protected boolean isCtrlPtMvHandlersShowable() {
-		return selection.size()==1&&selection.get(0) instanceof IViewBezierCurve;
-	}
+//	protected boolean isCtrlPtMvHandlersShowable() {
+//		return selection.size()==1&&selection.get(0) instanceof IViewBezierCurve;
+//	}
+//
+//	protected boolean isPtMvHandlersShowable() {
+//		return selection.size()==1&&selection.get(0) instanceof IViewModifiablePtsShape;
+//	}
+//
+//	/** @return True if the arc handlers can be painted. */
+//	protected boolean isArcHandlerShowable() {
+//		return selection.size()==1&&selection.get(0) instanceof IViewArc;
+//	}
 
-	protected boolean isPtMvHandlersShowable() {
-		return selection.size()==1&&selection.get(0) instanceof IViewModifiablePtsShape;
-	}
-
-	/** @return True if the arc handlers can be painted. */
-	protected boolean isArcHandlerShowable() {
-		return selection.size()==1&&selection.get(0) instanceof IViewArc;
-	}
-
-	// /**
-	// * @return True if the frame arc handler can be painted.
-	// */
-	// protected boolean isFrameArcHandlerShowable() {
-	// return selection.size()==1 && selection.get(0).getShape() instanceof
-	// ILineArcShape
-	// }
-
-	/**
-	 * Adds the given shape to the selection. If the instrument is activated and
-	 * the addition is performed, the instrument is updated.
-	 * 
-	 * @param view
-	 *            The view to add. If null, nothing is done.
-	 * @since 3.0
-	 */
-	public void add(final IViewShape view) {
-		if(view!=null) {
-			selection.add(view);
-			if(isActivated()) {
-				// The border is updated only if the view has been added and
-				// the border is activated.
-				update();
-				MappingRegistry.REGISTRY.addMapping(new Shape2BorderMapping(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), this));
-			}
-		}
-	}
-
-	/**
-	 * Removes the given view from the selection. If the instrument is activated
-	 * and the removal is performed, the instrument is updated.
-	 * 
-	 * @param view
-	 *            The view to remove. If null or it is not already in the
-	 *            selection, nothing is performed.
-	 * @since 3.0
-	 */
-	public void remove(final IViewShape view) {
-		if(view!=null) {
-			selection.remove(view);
-			MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class);
-			update();
-		}
-	}
+//	/**
+//	 * Adds the given shape to the selection. If the instrument is activated and
+//	 * the addition is performed, the instrument is updated.
+//	 * 
+//	 * @param view
+//	 *            The view to add. If null, nothing is done.
+//	 * @since 3.0
+//	 */
+//	public void add(final IViewShape view) {
+//		if(view!=null) {
+//			selection.add(view);
+//			if(isActivated()) {
+//				// The border is updated only if the view has been added and
+//				// the border is activated.
+//				update();
+//				MappingRegistry.REGISTRY.addMapping(new Shape2BorderMapping(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), this));
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * Removes the given view from the selection. If the instrument is activated
+//	 * and the removal is performed, the instrument is updated.
+//	 * 
+//	 * @param view
+//	 *            The view to remove. If null or it is not already in the
+//	 *            selection, nothing is performed.
+//	 * @since 3.0
+//	 */
+//	public void remove(final IViewShape view) {
+//		if(view!=null) {
+//			selection.remove(view);
+//			MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class);
+//			update();
+//		}
+//	}
 
 	@Override
 	protected void initialiseInteractors() {
@@ -349,11 +325,11 @@ public class Border extends CanvasInstrument { // implements Picker {
 	 * @since 3.0
 	 */
 	public void clear() {
-		if(!selection.isEmpty()) {
-			selection.forEach(view -> MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class));
-			selection.clear();
-			setActivated(false);
-		}
+//		if(!selection.isEmpty()) {
+//			selection.forEach(view -> MappingRegistry.REGISTRY.removeMappingsUsingSource(MappingRegistry.REGISTRY.getSourceFromTarget(view, IShape.class), Shape2BorderMapping.class));
+//			selection.clear();
+//			setActivated(false);
+//		}
 	}
 
 	public Pickable getPickableAt(final double x, final double y) {

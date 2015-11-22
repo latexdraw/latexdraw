@@ -3,16 +3,14 @@ package net.sf.latexdraw.actions;
 import java.io.File;
 
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import org.malai.action.Action;
+import org.malai.swing.ui.SwingUI;
 
 import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.ui.LFrame;
-
-import org.malai.swing.action.library.Save;
-import org.malai.swing.ui.SwingUI;
 
 /**
  * This action saves the given drawing into an SVG document.
@@ -33,7 +31,7 @@ import org.malai.swing.ui.SwingUI;
  * @date 06/09/2011
  * @since 3.0
  */
-public class SaveDrawing extends Save<LFrame, JLabel> {
+public class SaveDrawing extends Action { //  Save<LFrame, JLabel>
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
 
@@ -60,53 +58,54 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 
 	@Override
 	public boolean canDo() {
-		return ui!=null && openSaveManager!=null && fileChooser!=null;
+//		return ui!=null && openSaveManager!=null && fileChooser!=null;
+		return false;
 	}
 
 
 	@Override
 	protected void doActionBody() {
-		if(saveOnClose)
-			if(ui.isModified()) {
-				saveAs = true;
-				switch(showAskModificationsDialog(ui)) {
-					case JOptionPane.NO_OPTION: // exit
-						quit();
-						break;
-					case JOptionPane.YES_OPTION: // save + exit
-						final File f = showDialog(fileChooser, saveAs, ui, file);
-						if(f!=null) {
-							file = f;
-							super.doActionBody();
-							quit();
-						}
-						break;
-					case JOptionPane.CANCEL_OPTION:
-						ok = false;
-						break;
-					default:
-						break;
-				}
-			}
-			else quit();
-		else {
-			if(file==null)
-				file = showDialog(fileChooser, saveAs, ui, null);
-			if(file==null)
-				ok = false;
-			else
-				super.doActionBody();
-		}
+//		if(saveOnClose)
+//			if(ui.isModified()) {
+//				saveAs = true;
+//				switch(showAskModificationsDialog(ui)) {
+//					case JOptionPane.NO_OPTION: // exit
+//						quit();
+//						break;
+//					case JOptionPane.YES_OPTION: // save + exit
+//						final File f = showDialog(fileChooser, saveAs, ui, file);
+//						if(f!=null) {
+//							file = f;
+//							super.doActionBody();
+//							quit();
+//						}
+//						break;
+//					case JOptionPane.CANCEL_OPTION:
+//						ok = false;
+//						break;
+//					default:
+//						break;
+//				}
+//			}
+//			else quit();
+//		else {
+//			if(file==null)
+//				file = showDialog(fileChooser, saveAs, ui, null);
+//			if(file==null)
+//				ok = false;
+//			else
+//				super.doActionBody();
+//		}
 		done();
 	}
 
 
-	private void quit() {
-		// Saving the preferences.
-		if(prefSetter!=null)
-			prefSetter.writeXMLPreferences();
-		System.exit(1);
-	}
+//	private void quit() {
+//		// Saving the preferences.
+//		if(prefSetter!=null)
+//			prefSetter.writeXMLPreferences();
+//		System.exit(1);
+//	}
 
 
 	@Override
@@ -188,5 +187,12 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 	 */
 	public void setSaveOnClose(final boolean saveOnClose) {
 		this.saveOnClose = saveOnClose;
+	}
+
+
+	//FIXME to remove
+	@Override
+	public boolean isRegisterable() {
+		return false;
 	}
 }

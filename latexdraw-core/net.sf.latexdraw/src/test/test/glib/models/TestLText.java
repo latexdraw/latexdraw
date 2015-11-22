@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -11,7 +10,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IText;
-import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +19,8 @@ import test.glib.models.interfaces.TestIText;
 public class TestLText extends TestIText<IText> {
 	@Before
 	public void setUp() {
-		FlyweightThumbnail.images().clear();
-		FlyweightThumbnail.setThread(false);
+//		FlyweightThumbnail.images().clear();
+//		FlyweightThumbnail.setThread(false);
 		shape  = ShapeFactory.createText();
 		shape2 = ShapeFactory.createText();
 	}

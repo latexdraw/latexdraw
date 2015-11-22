@@ -7,7 +7,6 @@ import net.sf.latexdraw.actions.ShapeAction
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import java.awt.geom.Rectangle2D
 import org.malai.mapping.MappingRegistry
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import scala.collection.JavaConversions._
 import scala.collection.mutable.MutableList
@@ -52,7 +51,7 @@ class DistributeShapes extends Action with ShapeAction[IGroup] with Undoable wit
 	var _border : Rectangle2D = _
 
 	/** The views corresponding to the shapes to align. */
-	val _views = new ListBuffer[IViewShape]()
+//	val _views = new ListBuffer[IViewShape]()
 
 	/** The alignment to perform. */
 	var _distribution : DistributionType = _
@@ -62,14 +61,14 @@ class DistributeShapes extends Action with ShapeAction[IGroup] with Undoable wit
 
 
 	override protected def doActionBody() {
-		var v : IViewShape = null
-		shape.get.getShapes.foreach{sh=>
-			// Because the views have already computed the border of their shape, we get the corresponding views.
-			_views += MappingRegistry.REGISTRY.getTargetFromSource(sh, classOf[IViewShape])
-			// Saving the old position of the shape for undoing.
-			_oldPositions += sh.getTopLeftPoint
-		}
-		redo
+//		var v : IViewShape = null
+//		shape.get.getShapes.foreach{sh=>
+//			// Because the views have already computed the border of their shape, we get the corresponding views.
+//			_views += MappingRegistry.REGISTRY.getTargetFromSource(sh, classOf[IViewShape])
+//			// Saving the old position of the shape for undoing.
+//			_oldPositions += sh.getTopLeftPoint
+//		}
+//		redo
 	}
 
 
@@ -97,56 +96,56 @@ class DistributeShapes extends Action with ShapeAction[IGroup] with Undoable wit
 	 * Distributes at equal distance between the shapes.
 	 */
 	protected def distributeEq() {
-		var sortedSh= new ListBuffer[IViewShape]()
-		var mins	= new ListBuffer[Double]()
-		var maxs	= new ListBuffer[Double]()
-		var i : Int = 0
-		val shapes = shape.get.getShapes
-
-		_views.foreach{view =>
-			val coord = _distribution match {
-				case DistributionType.horizEq => view.getBorder.getMinX
-				case DistributionType.vertEq => view.getBorder.getMinY
-			}
-
-			i = mins.indexWhere{value=> coord<value}
-
-			if(i == -1) {
-				sortedSh+=view
-				mins+=coord
-				if(_distribution==DistributionType.horizEq)
-					 maxs+=view.getBorder.getMaxX
-				else maxs+=view.getBorder.getMaxY
-			}else {
-				sortedSh.insert(i, view)
-				mins.insert(i, coord)
-				if(_distribution==DistributionType.horizEq)
-					 maxs.insert(i, view.getBorder.getMaxX)
-				else maxs.insert(i, view.getBorder.getMaxY)
-			}
-		}
-
-		var gap = mins.last - maxs.head
-
-		for(i <- 1 until sortedSh.size-1)
-			gap -= maxs(i) - mins(i)
-
-		gap/=(sortedSh.size-1)
-
-		if(DistributionType.isVertical(_distribution))
-			for(i <- 1 until sortedSh.size-1) {
-				sortedSh(i).getShape.translate(0, (sortedSh(i-1).getBorder.getMaxY + gap) - mins(i))
-				sortedSh(i).updateBorder
-			}
-		else
-			for(i <- 1 until sortedSh.size-1) {
-				sortedSh(i).getShape.translate((sortedSh(i-1).getBorder.getMaxX + gap) - mins(i), 0)
-				sortedSh(i).updateBorder
-			}
-
-		sortedSh.clear
-		mins.clear
-		maxs.clear
+//		var sortedSh= new ListBuffer[IViewShape]()
+//		var mins	= new ListBuffer[Double]()
+//		var maxs	= new ListBuffer[Double]()
+//		var i : Int = 0
+//		val shapes = shape.get.getShapes
+//
+//		_views.foreach{view =>
+//			val coord = _distribution match {
+//				case DistributionType.horizEq => view.getBorder.getMinX
+//				case DistributionType.vertEq => view.getBorder.getMinY
+//			}
+//
+//			i = mins.indexWhere{value=> coord<value}
+//
+//			if(i == -1) {
+//				sortedSh+=view
+//				mins+=coord
+//				if(_distribution==DistributionType.horizEq)
+//					 maxs+=view.getBorder.getMaxX
+//				else maxs+=view.getBorder.getMaxY
+//			}else {
+//				sortedSh.insert(i, view)
+//				mins.insert(i, coord)
+//				if(_distribution==DistributionType.horizEq)
+//					 maxs.insert(i, view.getBorder.getMaxX)
+//				else maxs.insert(i, view.getBorder.getMaxY)
+//			}
+//		}
+//
+//		var gap = mins.last - maxs.head
+//
+//		for(i <- 1 until sortedSh.size-1)
+//			gap -= maxs(i) - mins(i)
+//
+//		gap/=(sortedSh.size-1)
+//
+//		if(DistributionType.isVertical(_distribution))
+//			for(i <- 1 until sortedSh.size-1) {
+//				sortedSh(i).getShape.translate(0, (sortedSh(i-1).getBorder.getMaxY + gap) - mins(i))
+//				sortedSh(i).updateBorder
+//			}
+//		else
+//			for(i <- 1 until sortedSh.size-1) {
+//				sortedSh(i).getShape.translate((sortedSh(i-1).getBorder.getMaxX + gap) - mins(i), 0)
+//				sortedSh(i).updateBorder
+//			}
+//
+//		sortedSh.clear
+//		mins.clear
+//		maxs.clear
 	}
 
 
@@ -154,43 +153,43 @@ class DistributeShapes extends Action with ShapeAction[IGroup] with Undoable wit
 	 * Distributes using bottom/top/left/right reference.
 	 */
 	protected def distributeNotEq() {
-		var sortedSh= new ListBuffer[IViewShape]()
-		var centres	= new ListBuffer[Double]()
-		var i : Int = 0
-		val shapes = shape.get.getShapes
-
-		_views.foreach{view =>
-			val x = _distribution match {
-				case DistributionType.horizLeft => view.getBorder.getMinX
-				case DistributionType.horizMid => view.getBorder.getCenterX
-				case DistributionType.horizRight => view.getBorder.getMaxX
-				case DistributionType.vertBot => view.getBorder.getMaxY
-				case DistributionType.vertMid => view.getBorder.getCenterY
-				case DistributionType.vertTop => view.getBorder.getMinY
-			}
-
-			i = centres.indexWhere{value=> x<value}
-
-			if(i == -1) {
-				sortedSh+=view
-				centres+=x
-			}else {
-				sortedSh.insert(i, view)
-				centres.insert(i, x)
-			}
-		}
-
-		val gap = (centres.last - centres.head)/(_views.size-1)
-
-		if(DistributionType.isVertical(_distribution))
-			for(i <- 1 until sortedSh.size-1)
-				sortedSh(i).getShape.translate(0, (centres.head+i*gap)-centres(i))
-		else
-			for(i <- 1 until sortedSh.size-1)
-				sortedSh(i).getShape.translate((centres.head+i*gap)-centres(i), 0)
-
-		sortedSh.clear
-		centres.clear
+//		var sortedSh= new ListBuffer[IViewShape]()
+//		var centres	= new ListBuffer[Double]()
+//		var i : Int = 0
+//		val shapes = shape.get.getShapes
+//
+//		_views.foreach{view =>
+//			val x = _distribution match {
+//				case DistributionType.horizLeft => view.getBorder.getMinX
+//				case DistributionType.horizMid => view.getBorder.getCenterX
+//				case DistributionType.horizRight => view.getBorder.getMaxX
+//				case DistributionType.vertBot => view.getBorder.getMaxY
+//				case DistributionType.vertMid => view.getBorder.getCenterY
+//				case DistributionType.vertTop => view.getBorder.getMinY
+//			}
+//
+//			i = centres.indexWhere{value=> x<value}
+//
+//			if(i == -1) {
+//				sortedSh+=view
+//				centres+=x
+//			}else {
+//				sortedSh.insert(i, view)
+//				centres.insert(i, x)
+//			}
+//		}
+//
+//		val gap = (centres.last - centres.head)/(_views.size-1)
+//
+//		if(DistributionType.isVertical(_distribution))
+//			for(i <- 1 until sortedSh.size-1)
+//				sortedSh(i).getShape.translate(0, (centres.head+i*gap)-centres(i))
+//		else
+//			for(i <- 1 until sortedSh.size-1)
+//				sortedSh(i).getShape.translate((centres.head+i*gap)-centres(i), 0)
+//
+//		sortedSh.clear
+//		centres.clear
 	}
 
 
@@ -223,7 +222,7 @@ class DistributeShapes extends Action with ShapeAction[IGroup] with Undoable wit
 
 	override def flush() {
 		super.flush
-		_views.clear
+//		_views.clear
 		_oldPositions.clear
 	}
 }

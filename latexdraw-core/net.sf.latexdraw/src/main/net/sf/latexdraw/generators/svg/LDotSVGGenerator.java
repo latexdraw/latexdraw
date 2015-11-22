@@ -7,9 +7,6 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewDot;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
 import net.sf.latexdraw.parsers.svg.CSSColors;
 import net.sf.latexdraw.parsers.svg.SVGAttributes;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
@@ -18,8 +15,6 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.parsers.Graphics2D2SVG;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
-
-import org.malai.mapping.MappingRegistry;
 
 /**
  * Defines a SVG generator for a dot.<br>
@@ -97,17 +92,18 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 
 		final Graphics2D2SVG graphics = new Graphics2D2SVG(doc);
         final SVGElement root;
-        final boolean viewCreated;
+//        final boolean viewCreated;
         // Instead of creating a view, its is gathered from the Java view of the application.
-		IViewShape view = MappingRegistry.REGISTRY.getTargetFromSource(shape, IViewDot.class);
-
-		if(view==null) {
-			view =  View2DTK.getFactory().createView(shape);
-			viewCreated = true;
-		}
-		else viewCreated = false;
-
-        view.paint(graphics, null);
+        //FIXME
+//		IViewShape view = MappingRegistry.REGISTRY.getTargetFromSource(shape, IViewDot.class);
+//
+//		if(view==null) {
+//			view =  View2DTK.getFactory().createView(shape);
+//			viewCreated = true;
+//		}
+//		else viewCreated = false;
+//
+//        view.paint(graphics, null);
         root = graphics.getElement();
 
         root.setAttribute(LNamespace.LATEXDRAW_NAMESPACE+':'+LNamespace.XML_TYPE, LNamespace.XML_TYPE_DOT);
@@ -118,8 +114,8 @@ class LDotSVGGenerator extends LShapeSVGGenerator<IDot> {
 
 		graphics.dispose();
 
-		if(viewCreated)
-			view.flush();
+//		if(viewCreated)
+//			view.flush();
 
 		return root;
 	}

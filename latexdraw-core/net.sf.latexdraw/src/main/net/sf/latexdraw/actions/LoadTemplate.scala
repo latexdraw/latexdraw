@@ -2,8 +2,8 @@ package net.sf.latexdraw.actions
 
 import javax.swing.JLabel
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
-import net.sf.latexdraw.ui.LFrame
 import org.malai.swing.action.library.IOAction
+import org.malai.action.Action
 
 /**
  * This action loads a given template.<br>
@@ -23,8 +23,13 @@ import org.malai.swing.action.library.IOAction
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LoadTemplate extends IOAction[LFrame, JLabel] {
+class LoadTemplate extends Action { //IOAction[LFrame, JLabel] {
 	protected def doActionBody() {
-		SVGDocumentGenerator.INSTANCE.insert(file.getPath, ui)
+//		SVGDocumentGenerator.INSTANCE.insert(file.getPath, ui)
 	}
+	
+	
+	//FIXME to remove
+	def canDo(): Boolean = false
+  def isRegisterable(): Boolean = false
 }

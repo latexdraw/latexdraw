@@ -1,8 +1,5 @@
 package net.sf.latexdraw.actions;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,16 +18,13 @@ import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import org.malai.action.Action;
+
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.ui.ICanvas;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.ExportDialog;
-
-import org.malai.action.Action;
 
 /**
  * This action allows to export a drawing in different formats.
@@ -54,8 +48,8 @@ public class Export extends Action {
 	/** The format with which the drawing must be exported. */
 	protected ExportFormat format;
 
-	/** The canvas that contains views. */
-	protected ICanvas canvas;
+//	/** The canvas that contains views. */
+//	protected ICanvas canvas;
 
 	/** Defines if the shapes have been successfully exported. */
 	protected boolean exported;
@@ -81,7 +75,7 @@ public class Export extends Action {
 	@Override
 	public void flush() {
 		super.flush();
-		canvas 			= null;
+//		canvas 			= null;
 		format 			= null;
 		dialogueBox		= null;
 	}
@@ -139,8 +133,9 @@ public class Export extends Action {
 
 	@Override
 	public boolean canDo() {
-		return canvas!=null && format!=null && dialogueBox!=null &&
-				(format==ExportFormat.BMP || format==ExportFormat.JPG || format==ExportFormat.PNG || pstGen!=null);
+		return false;
+//		return canvas!=null && format!=null && dialogueBox!=null &&
+//				(format==ExportFormat.BMP || format==ExportFormat.JPG || format==ExportFormat.PNG || pstGen!=null);
 	}
 
 
@@ -204,16 +199,17 @@ public class Export extends Action {
 	 * @since 3.0
 	 */
 	protected boolean exportAsEPS(final File file) {
-		File psFile;
-
-		try{
-			psFile = LaTeXGenerator.createEPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, pstGen);
-		}catch(final Exception e) {
-			BadaboomCollector.INSTANCE.add(e);
-			psFile = null;
-		}
-
-		return psFile!=null && psFile.exists();
+//		File psFile;
+//
+//		try{
+//			psFile = LaTeXGenerator.createEPSFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, pstGen);
+//		}catch(final Exception e) {
+//			BadaboomCollector.INSTANCE.add(e);
+//			psFile = null;
+//		}
+//
+//		return psFile!=null && psFile.exists();
+		return false;
 	}
 
 
@@ -225,16 +221,17 @@ public class Export extends Action {
 	 * @since 3.0
 	 */
 	protected boolean exportAsPDF(final File file) {
-		File pdfFile;
-
-		try{
-			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, format==ExportFormat.PDF_CROP, pstGen);
-		} catch(final Exception e) {
-			BadaboomCollector.INSTANCE.add(e);
-			pdfFile = null;
-		}
-
-		return pdfFile!=null && pdfFile.exists();
+//		File pdfFile;
+//
+//		try{
+//			pdfFile = LaTeXGenerator.createPDFFile(canvas.getDrawing(), file.getAbsolutePath(), canvas, format==ExportFormat.PDF_CROP, pstGen);
+//		} catch(final Exception e) {
+//			BadaboomCollector.INSTANCE.add(e);
+//			pdfFile = null;
+//		}
+//
+//		return pdfFile!=null && pdfFile.exists();
+		return false;
 	}
 
 
@@ -293,30 +290,31 @@ public class Export extends Action {
 	 * @since 3.0
 	 */
 	protected BufferedImage createRenderedImage() {
-		final IPoint tr 	= canvas.getTopRightDrawingPoint();
-		final IPoint bl 	= canvas.getBottomLeftDrawingPoint();
-		final int width		= (int)Math.abs(tr.getX()-bl.getX());
-		final int height 	= (int)Math.abs(bl.getY()-tr.getY());
-		final BufferedImage bi 	= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		final Graphics2D graphic 	= bi.createGraphics();
-
-		graphic.setColor(Color.WHITE);
-		graphic.fillRect(0, 0, width, height);
-		graphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		graphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		graphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-		graphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-		graphic.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-		graphic.translate(-bl.getX(), -tr.getY());
-
-		synchronized(canvas.getViews()){
-			for(final IViewShape view : canvas.getViews())
-				view.paint(graphic, null);
-		}
-
-		graphic.dispose();
-		return bi;
+//		final IPoint tr 	= canvas.getTopRightDrawingPoint();
+//		final IPoint bl 	= canvas.getBottomLeftDrawingPoint();
+//		final int width		= (int)Math.abs(tr.getX()-bl.getX());
+//		final int height 	= (int)Math.abs(bl.getY()-tr.getY());
+//		final BufferedImage bi 	= new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+//		final Graphics2D graphic 	= bi.createGraphics();
+//
+//		graphic.setColor(Color.WHITE);
+//		graphic.fillRect(0, 0, width, height);
+//		graphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//		graphic.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+//		graphic.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+//		graphic.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+//		graphic.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+//
+//		graphic.translate(-bl.getX(), -tr.getY());
+//
+//		synchronized(canvas.getViews()){
+//			for(final IViewShape view : canvas.getViews())
+//				view.paint(graphic, null);
+//		}
+//
+//		graphic.dispose();
+//		return bi;
+		return null;
 	}
 
 
@@ -338,13 +336,13 @@ public class Export extends Action {
 	}
 
 
-	/**
-	 * @param theCanvas The theCanvas to set.
-	 * @since 3.0
-	 */
-	public void setCanvas(final ICanvas theCanvas) {
-		canvas = theCanvas;
-	}
+//	/**
+//	 * @param theCanvas The theCanvas to set.
+//	 * @since 3.0
+//	 */
+//	public void setCanvas(final ICanvas theCanvas) {
+//		canvas = theCanvas;
+//	}
 
 
 	/**

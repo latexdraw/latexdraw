@@ -1,20 +1,18 @@
 package net.sf.latexdraw.actions.shape
 
+import java.awt.geom.Rectangle2D
+
+import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.mutable.ListBuffer
+
 import org.malai.action.Action
 import org.malai.undo.Undoable
+
+import AlignmentType.AlignmentType
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import java.awt.geom.Rectangle2D
-import org.malai.mapping.MappingRegistry
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import scala.collection.JavaConversions._
-import scala.collection.mutable.MutableList
-import scala.collection.mutable.ListBuffer
-import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-
 import net.sf.latexdraw.lang.LangTool
 
 /**
@@ -24,8 +22,6 @@ object AlignmentType extends Enumeration {
 	type AlignmentType = Value
 	val left, right, top, bottom, midHoriz, midVert = Value
 }
-
-import AlignmentType._
 
 /**
  * This action aligns the provided shapes.<br>
@@ -50,7 +46,7 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 	var _border : Rectangle2D = null
 
 	/** The views corresponding to the shapes to align. */
-	val _views = new ListBuffer[IViewShape]()
+//	val _views = new ListBuffer[IViewShape]()
 
 	/** The alignment to perform. */
 	var _alignment : AlignmentType = null
@@ -60,41 +56,41 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 
 
 	override protected def doActionBody() {
-		var v : IViewShape = null
-		shape.get.getShapes.foreach{sh=>
-			// Because the views have already computed the border of their shape, we get the corresponding views.
-			_views += MappingRegistry.REGISTRY.getTargetFromSource(sh, classOf[IViewShape])
-			// Saving the old position of the shape for undoing.
-			_oldPositions += sh.getTopLeftPoint
-		}
-		redo
+//		var v : IViewShape = null
+//		shape.get.getShapes.foreach{sh=>
+//			// Because the views have already computed the border of their shape, we get the corresponding views.
+//			_views += MappingRegistry.REGISTRY.getTargetFromSource(sh, classOf[IViewShape])
+//			// Saving the old position of the shape for undoing.
+//			_oldPositions += sh.getTopLeftPoint
+//		}
+//		redo
 	}
 
 	/**
 	 * Middle-horizontal aligning the provided shapes.
 	 */
 	protected def alignMidHoriz() {
-		var theMaxY = Double.MinValue
-		var theMinY = Double.MaxValue
-		var middles = new ListBuffer[Double]()
-		var i = 0
-
-		_views.foreach{view=>
-			val maxY = view.getBorder.getMaxY
-			val minY = view.getBorder.getMinY
-			if(maxY>theMaxY) theMaxY = maxY
-			if(minY<theMinY) theMinY = minY
-			middles+=(minY+maxY)/2
-		}
-
-		val middle = (theMaxY+theMinY)/2
-
-		shape.get.getShapes.foreach{sh=>
-			val middle2 = middles(i)
-			if(!LNumber.equalsDouble(middle2, middle))
-				sh.translate(0, middle-middle2)
-			i+=1
-		}
+//		var theMaxY = Double.MinValue
+//		var theMinY = Double.MaxValue
+//		var middles = new ListBuffer[Double]()
+//		var i = 0
+//
+//		_views.foreach{view=>
+//			val maxY = view.getBorder.getMaxY
+//			val minY = view.getBorder.getMinY
+//			if(maxY>theMaxY) theMaxY = maxY
+//			if(minY<theMinY) theMinY = minY
+//			middles+=(minY+maxY)/2
+//		}
+//
+//		val middle = (theMaxY+theMinY)/2
+//
+//		shape.get.getShapes.foreach{sh=>
+//			val middle2 = middles(i)
+//			if(!LNumber.equalsDouble(middle2, middle))
+//				sh.translate(0, middle-middle2)
+//			i+=1
+//		}
 	}
 
 
@@ -102,27 +98,27 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 	 * Middle-vertical aligning the provided shapes.
 	 */
 	protected def alignMidVert() {
-		var theMaxX = Double.MinValue
-		var theMinX = Double.MaxValue
-		var middles = new ListBuffer[Double]()
-		var i = 0
-
-		_views.foreach{view=>
-			val maxX = view.getBorder.getMaxX
-			val minX = view.getBorder.getMinX
-			if(maxX>theMaxX) theMaxX = maxX
-			if(minX<theMinX) theMinX = minX
-			middles+=(minX+maxX)/2
-		}
-
-		val middle = (theMaxX+theMinX)/2
-
-		shape.get.getShapes.foreach{sh=>
-			val middle2 = middles(i)
-			if(!LNumber.equalsDouble(middle2, middle))
-				sh.translate(middle-middle2, 0)
-			i+=1
-		}
+//		var theMaxX = Double.MinValue
+//		var theMinX = Double.MaxValue
+//		var middles = new ListBuffer[Double]()
+//		var i = 0
+//
+//		_views.foreach{view=>
+//			val maxX = view.getBorder.getMaxX
+//			val minX = view.getBorder.getMinX
+//			if(maxX>theMaxX) theMaxX = maxX
+//			if(minX<theMinX) theMinX = minX
+//			middles+=(minX+maxX)/2
+//		}
+//
+//		val middle = (theMaxX+theMinX)/2
+//
+//		shape.get.getShapes.foreach{sh=>
+//			val middle2 = middles(i)
+//			if(!LNumber.equalsDouble(middle2, middle))
+//				sh.translate(middle-middle2, 0)
+//			i+=1
+//		}
 	}
 
 
@@ -131,23 +127,23 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 	 * Bottom aligning the provided shapes.
 	 */
 	protected def alignBottom() {
-		var theMaxY = Double.MinValue
-		var ys = new ListBuffer[Double]()
-		var i = 0
-
-		_views.foreach{view=>
-			val maxY = view.getBorder.getMaxY
-			if(maxY>theMaxY)
-				theMaxY = maxY
-				ys+=maxY
-		}
-
-		shape.get.getShapes.foreach{sh=>
-		val y = ys(i)
-		if(!LNumber.equalsDouble(y, theMaxY))
-			sh.translate(0, theMaxY-y)
-			i+=1
-		}
+//		var theMaxY = Double.MinValue
+//		var ys = new ListBuffer[Double]()
+//		var i = 0
+//
+//		_views.foreach{view=>
+//			val maxY = view.getBorder.getMaxY
+//			if(maxY>theMaxY)
+//				theMaxY = maxY
+//				ys+=maxY
+//		}
+//
+//		shape.get.getShapes.foreach{sh=>
+//		val y = ys(i)
+//		if(!LNumber.equalsDouble(y, theMaxY))
+//			sh.translate(0, theMaxY-y)
+//			i+=1
+//		}
 	}
 
 
@@ -155,23 +151,23 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 	 * Top aligning the provided shapes.
 	 */
 	protected def alignTop() {
-		var theMinY = Double.MaxValue
-		var ys = new ListBuffer[Double]()
-		var i = 0
-
-		_views.foreach{view=>
-			val minY = view.getBorder.getMinY
-			if(minY<theMinY)
-				theMinY = minY
-			ys+=minY
-		}
-
-		shape.get.getShapes.foreach{sh=>
-			val y = ys(i)
-			if(!LNumber.equalsDouble(y, theMinY))
-				sh.translate(0, theMinY-y)
-			i+=1
-		}
+//		var theMinY = Double.MaxValue
+//		var ys = new ListBuffer[Double]()
+//		var i = 0
+//
+//		_views.foreach{view=>
+//			val minY = view.getBorder.getMinY
+//			if(minY<theMinY)
+//				theMinY = minY
+//			ys+=minY
+//		}
+//
+//		shape.get.getShapes.foreach{sh=>
+//			val y = ys(i)
+//			if(!LNumber.equalsDouble(y, theMinY))
+//				sh.translate(0, theMinY-y)
+//			i+=1
+//		}
 	}
 
 
@@ -179,23 +175,23 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 	 * Right aligning the provided shapes.
 	 */
 	protected def alignRight() {
-		var theMaxX = Double.MinValue
-		var xs = new ListBuffer[Double]()
-		var i = 0
-
-		_views.foreach{view=>
-			val maxX = view.getBorder.getMaxX
-			if(maxX>theMaxX)
-				theMaxX = maxX
-			xs+=maxX
-		}
-
-		shape.get.getShapes.foreach{sh=>
-			val x = xs(i)
-			if(!LNumber.equalsDouble(x, theMaxX))
-				sh.translate(theMaxX-x, 0)
-			i+=1
-		}
+//		var theMaxX = Double.MinValue
+//		var xs = new ListBuffer[Double]()
+//		var i = 0
+//
+//		_views.foreach{view=>
+//			val maxX = view.getBorder.getMaxX
+//			if(maxX>theMaxX)
+//				theMaxX = maxX
+//			xs+=maxX
+//		}
+//
+//		shape.get.getShapes.foreach{sh=>
+//			val x = xs(i)
+//			if(!LNumber.equalsDouble(x, theMaxX))
+//				sh.translate(theMaxX-x, 0)
+//			i+=1
+//		}
 	}
 
 
@@ -203,23 +199,23 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 	 * Left aligning the provided shapes.
 	 */
 	protected def alignLeft() {
-		var theMinX = Double.MaxValue
-		var xs = new ListBuffer[Double]()
-		var i = 0
-
-		_views.foreach{view=>
-			val minX = view.getBorder.getMinX
-			if(minX<theMinX)
-				theMinX = minX
-			xs+=minX
-		}
-
-		shape.get.getShapes.foreach{sh=>
-			val x = xs(i)
-			if(!LNumber.equalsDouble(x, theMinX))
-				sh.translate(theMinX-x, 0)
-			i+=1
-		}
+//		var theMinX = Double.MaxValue
+//		var xs = new ListBuffer[Double]()
+//		var i = 0
+//
+//		_views.foreach{view=>
+//			val minX = view.getBorder.getMinX
+//			if(minX<theMinX)
+//				theMinX = minX
+//			xs+=minX
+//		}
+//
+//		shape.get.getShapes.foreach{sh=>
+//			val x = xs(i)
+//			if(!LNumber.equalsDouble(x, theMinX))
+//				sh.translate(theMinX-x, 0)
+//			i+=1
+//		}
 	}
 
 
@@ -276,7 +272,7 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 
 	override def flush() {
 		super.flush
-		_views.clear
+//		_views.clear
 		_oldPositions.clear
 	}
 }

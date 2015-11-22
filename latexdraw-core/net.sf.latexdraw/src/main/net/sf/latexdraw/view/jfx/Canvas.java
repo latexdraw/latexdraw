@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
 import org.malai.action.Action;
 import org.malai.action.ActionHandler;
 import org.malai.action.ActionsRegistry;
@@ -47,7 +46,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
@@ -87,7 +85,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	protected boolean modified;
 
 	/** The temporary view that the canvas may contain. */
-	protected final IUnary<IViewShape> tempView;
+//	protected final IUnary<IViewShape> tempView;
 
 	/**
 	 * Creates the canvas.
@@ -100,7 +98,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		modified = false;
 		drawing = ShapeFactory.createDrawing();
 		zoom = new ActiveUnary<>(1.);
-		tempView = new ActiveUnary<>();
+//		tempView = new ActiveUnary<>();
 		page = new PageView(Page.USLETTER, getOrigin());
 		magneticGrid = new MagneticGridImpl(this);
 		shapesPane = new Pane();
@@ -410,11 +408,11 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		return drawing;
 	}
 
-	/**
-	 * Sets the temporary view.
-	 * @param view The new temporary view.
-	 */
-	public void setTempView(final @Nullable IViewShape view) {
-		tempView.setValue(view);
-	}
+//	/**
+//	 * Sets the temporary view.
+//	 * @param view The new temporary view.
+//	 */
+//	public void setTempView(final @Nullable IViewShape view) {
+//		tempView.setValue(view);
+//	}
 }

@@ -1,16 +1,14 @@
 package net.sf.latexdraw.actions
 
 import java.io.File
-
 import org.malai.swing.action.library.IOAction
-
 import javax.swing.JLabel
 import javax.swing.JOptionPane
 import net.sf.latexdraw.filters.SVGFilter
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
 import net.sf.latexdraw.lang.LangTool
-import net.sf.latexdraw.ui.LFrame
 import net.sf.latexdraw.util.LPath
+import org.malai.action.Action
 
 /**
  * This action exports a set of shapes as a template.
@@ -31,33 +29,36 @@ import net.sf.latexdraw.util.LPath
  * @author Arnaud Blouin
  * @since 3.0
  */
-class ExportTemplate extends IOAction[LFrame, JLabel] with TemplateAction {
+class ExportTemplate extends Action with TemplateAction { //extends IOAction[Void, JLabel]
 
-	override def canDo = ui!=null && _templatesMenu.isDefined
+	override def canDo = false //ui!=null && _templatesMenu.isDefined
 
 
 	protected def doActionBody() {
-		var path = ""
-		var ok = true
-		var cancelled = false
-
-		do {
-			val templateName = JOptionPane.showInputDialog(this, LangTool.INSTANCE.getStringOthers("DrawContainer.nameTemplate"))  //$NON-NLS-1$
-			path = LPath.PATH_TEMPLATES_DIR_USER + File.separator + templateName + SVGFilter.SVG_EXTENSION
-
-			if(templateName==null)
-				cancelled = true
-			else
-				if(new File(path).exists)
-					ok = JOptionPane.showConfirmDialog(ui, LangTool.INSTANCE.getStringOthers("DrawContainer.overwriteTemplate"), //$NON-NLS-1$
-							LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.42"), JOptionPane.YES_NO_OPTION) match { //$NON-NLS-1$
-						case JOptionPane.YES_OPTION => true
-						case _ => false
-					}
-				else ok = templateName.length>0
-		}while(!ok && !cancelled)
-
-		if(!cancelled)
-			SVGDocumentGenerator.INSTANCE.saveTemplate(path, ui, progressBar, statusWidget, _templatesMenu.get)
+//		var path = ""
+//		var ok = true
+//		var cancelled = false
+//
+//		do {
+//			val templateName = JOptionPane.showInputDialog(this, LangTool.INSTANCE.getStringOthers("DrawContainer.nameTemplate"))  //$NON-NLS-1$
+//			path = LPath.PATH_TEMPLATES_DIR_USER + File.separator + templateName + SVGFilter.SVG_EXTENSION
+//
+//			if(templateName==null)
+//				cancelled = true
+//			else
+//				if(new File(path).exists)
+//					ok = JOptionPane.showConfirmDialog(ui, LangTool.INSTANCE.getStringOthers("DrawContainer.overwriteTemplate"), //$NON-NLS-1$
+//							LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.42"), JOptionPane.YES_NO_OPTION) match { //$NON-NLS-1$
+//						case JOptionPane.YES_OPTION => true
+//						case _ => false
+//					}
+//				else ok = templateName.length>0
+//		}while(!ok && !cancelled)
+//
+//		if(!cancelled)
+//			SVGDocumentGenerator.INSTANCE.saveTemplate(path, ui, progressBar, statusWidget, _templatesMenu.get)
 	}
+	
+		//FIXME to remove
+  def isRegisterable(): Boolean = false
 }

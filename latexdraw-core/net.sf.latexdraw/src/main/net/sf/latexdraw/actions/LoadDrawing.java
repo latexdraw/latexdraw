@@ -1,14 +1,8 @@
 package net.sf.latexdraw.actions;
 
-import java.io.File;
-
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
-import net.sf.latexdraw.ui.LFrame;
-
-import org.malai.swing.action.library.Load;
+import org.malai.action.Action;
 
 /**
  * This action loads an SVG document into the app.
@@ -29,32 +23,32 @@ import org.malai.swing.action.library.Load;
  * @date 06/09/2011
  * @since 3.0
  */
-public class LoadDrawing extends Load<LFrame, JLabel> implements Modifying {
+public class LoadDrawing extends Action implements Modifying { //  extends Load<LFrame, JLabel>
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
 
 	@Override
 	protected void doActionBody() {
-		if(ui.isModified())
-			switch(SaveDrawing.showAskModificationsDialog(ui)) {
-				case JOptionPane.NO_OPTION: //load
-					load();
-					break;
-				case JOptionPane.YES_OPTION: // save + load
-					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
-					if(f!=null) {
-						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
-						ui.setModified(false);
-						load();
-					}
-					break;
-				case JOptionPane.CANCEL_OPTION: // nothing
-					break;
-				default:
-					break;
-			}
-		else load();
-		done();
+//		if(ui.isModified())
+//			switch(SaveDrawing.showAskModificationsDialog(ui)) {
+//				case JOptionPane.NO_OPTION: //load
+//					load();
+//					break;
+//				case JOptionPane.YES_OPTION: // save + load
+//					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
+//					if(f!=null) {
+//						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
+//						ui.setModified(false);
+//						load();
+//					}
+//					break;
+//				case JOptionPane.CANCEL_OPTION: // nothing
+//					break;
+//				default:
+//					break;
+//			}
+//		else load();
+//		done();
 	}
 
 
@@ -66,20 +60,21 @@ public class LoadDrawing extends Load<LFrame, JLabel> implements Modifying {
 
 	@Override
 	public boolean canDo() {
-		return ui!=null && openSaveManager!=null && fileChooser!=null;
+//		return ui!=null && openSaveManager!=null && fileChooser!=null;
+		return false;
 	}
 
 
 	protected void load() {
-		if(file==null)
-			file = fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
-		else
-			fileChooser.setSelectedFile(file);
-
-		if(file!=null && file.canRead())
-			super.doActionBody();
-		else
-			ok = false;
+//		if(file==null)
+//			file = fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
+//		else
+//			fileChooser.setSelectedFile(file);
+//
+//		if(file!=null && file.canRead())
+//			super.doActionBody();
+//		else
+//			ok = false;
 	}
 
 
@@ -89,6 +84,14 @@ public class LoadDrawing extends Load<LFrame, JLabel> implements Modifying {
 	 */
 	public void setFileChooser(final JFileChooser fileChooser) {
 		this.fileChooser = fileChooser;
+	}
+
+
+	
+	//FIXME to remove
+	@Override
+	public boolean isRegisterable() {
+		return false;
 	}
 }
 

@@ -1,19 +1,10 @@
 package net.sf.latexdraw.actions;
 
-import java.io.File;
-
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
+import org.malai.action.Action;
+
 import net.sf.latexdraw.instruments.PreferencesSetter;
-import net.sf.latexdraw.ui.LFrame;
-
-import org.malai.action.ActionsRegistry;
-import org.malai.swing.action.library.IOAction;
-import org.malai.undo.UndoCollector;
 
 /**
  * This action permits to create a new drawing and initialises the application as required.<br>
@@ -33,7 +24,7 @@ import org.malai.undo.UndoCollector;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class NewDrawing extends IOAction<LFrame, JLabel> implements Modifying {
+public class NewDrawing extends Action implements Modifying {// IOAction<LFrame, JLabel>
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
 
@@ -43,41 +34,42 @@ public class NewDrawing extends IOAction<LFrame, JLabel> implements Modifying {
 
 	@Override
 	protected void doActionBody() {
-		if(ui.isModified())
-			switch(SaveDrawing.showAskModificationsDialog(ui)) {
-				case JOptionPane.NO_OPTION: //new
-					newDrawing();
-					break;
-				case JOptionPane.YES_OPTION: // save + load
-					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
-					if(f!=null) {
-						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
-						ui.setModified(false);
-						newDrawing();
-					}
-					break;
-				case JOptionPane.CANCEL_OPTION: // nothing
-					break;
-				default:
-					break;
-			}
-		else newDrawing();
+//		if(ui.isModified())
+//			switch(SaveDrawing.showAskModificationsDialog(ui)) {
+//				case JOptionPane.NO_OPTION: //new
+//					newDrawing();
+//					break;
+//				case JOptionPane.YES_OPTION: // save + load
+//					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
+//					if(f!=null) {
+//						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
+//						ui.setModified(false);
+//						newDrawing();
+//					}
+//					break;
+//				case JOptionPane.CANCEL_OPTION: // nothing
+//					break;
+//				default:
+//					break;
+//			}
+//		else newDrawing();
 	}
 
 
 	protected void newDrawing() {
-		ui.reinit();
-		UndoCollector.INSTANCE.clear();
-		ActionsRegistry.INSTANCE.clear();
-		FlyweightThumbnail.clear();
-		try{ prefSetter.readXMLPreferences(); }
-		catch(final Exception exception){ BadaboomCollector.INSTANCE.add(exception); }
+//		ui.reinit();
+//		UndoCollector.INSTANCE.clear();
+//		ActionsRegistry.INSTANCE.clear();
+//		FlyweightThumbnail.clear();
+//		try{ prefSetter.readXMLPreferences(); }
+//		catch(final Exception exception){ BadaboomCollector.INSTANCE.add(exception); }
 	}
 
 
 	@Override
 	public boolean canDo() {
-		return fileChooser!=null && ui!=null && openSaveManager!=null && prefSetter!=null;
+//		return fileChooser!=null && ui!=null && openSaveManager!=null && prefSetter!=null;
+		return false;
 	}
 
 
@@ -103,5 +95,12 @@ public class NewDrawing extends IOAction<LFrame, JLabel> implements Modifying {
 	 */
 	public void setPrefSetter(final PreferencesSetter prefSetter) {
 		this.prefSetter = prefSetter;
+	}
+
+	
+	//FIXME to remove
+	@Override
+	public boolean isRegisterable() {
+		return false;
 	}
 }

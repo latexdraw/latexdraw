@@ -5,12 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javax.swing.SwingUtilities;
-
 import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.instrument.library.ToggleButtonInteractor;
 import org.malai.javafx.interaction.library.KeysTyped;
-import org.malai.mapping.MappingRegistry;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,13 +20,9 @@ import net.sf.latexdraw.actions.ModifyLatexProperties;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
 import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition;
-import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 
 /**
@@ -137,27 +130,28 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 				packagesField.setText(LaTeXGenerator.getPackages());
 
 			// Updating the log field.
-			SwingUtilities.invokeLater(() -> {
-				shape.getShapes().stream().filter(sh -> sh instanceof IText).findFirst().ifPresent(txt -> {
-					final int max = 10;
-					final String msg = FlyweightThumbnail.inProgressMsg();
-					String log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
-					int i = 0;
-
-					while(i < max && msg.equals(log)) {
-						try {
-							Thread.sleep(100);
-						}catch(final InterruptedException e) {
-							BadaboomCollector.INSTANCE.add(e);
-						}
-						log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
-						i++;
-					}
-					if(log == null)
-						log = ""; //$NON-NLS-1$
-					logField.setText(log);
-				});
-			});
+			//FIXME
+//			SwingUtilities.invokeLater(() -> {
+//				shape.getShapes().stream().filter(sh -> sh instanceof IText).findFirst().ifPresent(txt -> {
+//					final int max = 10;
+//					final String msg = FlyweightThumbnail.inProgressMsg();
+//					String log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
+//					int i = 0;
+//
+//					while(i < max && msg.equals(log)) {
+//						try {
+//							Thread.sleep(100);
+//						}catch(final InterruptedException e) {
+//							BadaboomCollector.INSTANCE.add(e);
+//						}
+//						log = FlyweightThumbnail.getLog(MappingRegistry.REGISTRY.getTargetFromSource(txt, IViewText.class));
+//						i++;
+//					}
+//					if(log == null)
+//						log = ""; //$NON-NLS-1$
+//					logField.setText(log);
+//				});
+//			});
 		}else
 			setActivated(false);
 	}

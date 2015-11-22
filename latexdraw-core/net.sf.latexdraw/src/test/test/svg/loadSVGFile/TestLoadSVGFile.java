@@ -9,7 +9,6 @@ import java.net.URISyntaxException;
 import net.sf.latexdraw.generators.svg.IShapeSVGFactory;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.parsers.svg.MalformedSVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGDocument;
 import net.sf.latexdraw.parsers.svg.SVGElement;
@@ -24,8 +23,8 @@ public abstract class TestLoadSVGFile {
 
 	@Before
 	public void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
-		FlyweightThumbnail.images().clear();
-		FlyweightThumbnail.setThread(false);
+//		FlyweightThumbnail.images().clear();
+//		FlyweightThumbnail.setThread(false);
 		final SVGDocument doc = new SVGDocument(new URI(getPathSVGFile()));
 		group = toLatexdraw(doc);
 	}
