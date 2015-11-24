@@ -54,12 +54,6 @@ public interface IShape extends Modifiable {
 	IPoint getPtAt(final int position);
 
 	/**
-	 * @return The full thickness of the shape. It means that the potential double boundary can be considered.
-	 * @since 3.0
-	 */
-	double getFullThickness();
-
-	/**
 	 * Copies a shape using another.
 	 * @param s The shape to copy.
 	 */

@@ -30,6 +30,11 @@ public interface IArrow extends IArrowable {
 	 */
 	void copy(final IArrow model);
 
+	/**
+	 * @return The full thickness of the line shape that has the arrow.
+	 * @since 3.0
+	 */
+	double getLineThickness();
 
 	/**
 	 * @return True if the current arrow has a style.

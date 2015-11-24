@@ -422,7 +422,7 @@ class LArrowSVGGenerator {
 
 		final ArrowStyle arrowStyle = arrow.getArrowStyle();
 		final SVGElement marker 	= new SVGMarkerElement(doc);
-		final double lineWidth  	= arrow.getShape().getFullThickness();
+		final double lineWidth  	= arrow.getLineThickness();
 		double gapPostion 			= 0.;
 
 		if(arrowStyle==ArrowStyle.CIRCLE_END || arrowStyle==ArrowStyle.CIRCLE_IN)

@@ -33,8 +33,6 @@ import net.sf.latexdraw.glib.handlers.IHandler;
 import net.sf.latexdraw.glib.handlers.MovePtHandler;
 import net.sf.latexdraw.glib.handlers.RotationHandler;
 import net.sf.latexdraw.glib.handlers.ScaleHandler;
-import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.Position;
 
 /**
@@ -140,16 +138,16 @@ public class Border extends CanvasInstrument { // implements Picker {
 //		}
 	}
 
-	private void updateHandlersPosition() {
-		scaleHandlers.forEach(h -> h.updateFromShape(border));
-		rotHandler.setPoint(border.getMaxX(), border.getMinY());
+//	private void updateHandlersPosition() {
+//		scaleHandlers.forEach(h -> h.updateFromShape(border));
+//		rotHandler.setPoint(border.getMaxX(), border.getMinY());
+//
+//		updateArcHandlers();
+//		updateMvHandlers();
+//		updateCtrlMvHandlers();
+//	}
 
-		updateArcHandlers();
-		updateMvHandlers();
-		updateCtrlMvHandlers();
-	}
-
-	private void updateArcHandlers() {
+//	private void updateArcHandlers() {
 //		if(isArcHandlerShowable()) {
 //			IShape sh = selection.get(0).getShape();
 //			if(sh instanceof IArc) {
@@ -158,46 +156,46 @@ public class Border extends CanvasInstrument { // implements Picker {
 //				arcHandlerEnd.update(arc, canvas.getZoom());
 //			}
 //		}
-	}
+//	}
 
-	private void updateCtrlMvHandlers() {
+//	private void updateCtrlMvHandlers() {
 //		if(isCtrlPtMvHandlersShowable()) {
 //			IShape sh = selection.get(0).getShape();
 //			if(sh instanceof IControlPointShape) {
 //				initialiseCtrlMvHandlers((IControlPointShape)sh);
 //			}
 //		}
-	}
+//	}
 
-	private void initialiseCtrlMvHandlers(final IControlPointShape cps) {
-		final double zoom = canvas.getZoom();
-		final int nbPts = cps.getNbPoints();
+//	private void initialiseCtrlMvHandlers(final IControlPointShape cps) {
+//		final double zoom = canvas.getZoom();
+//		final int nbPts = cps.getNbPoints();
+//
+//		// Adding missing handlers.
+//		if(ctrlPt1Handlers.size()<nbPts) {
+//			for(int i = ctrlPt1Handlers.size(); i<nbPts; i++) {
+//				ctrlPt1Handlers.add(new CtrlPointHandler(i));
+//				ctrlPt2Handlers.add(new CtrlPointHandler(i));
+//			}
+//		}
+//		// Removing extra handlers.
+//		else {
+//			while(ctrlPt1Handlers.size()>nbPts) {
+//				ctrlPt1Handlers.remove(ctrlPt1Handlers.size()-1);
+//				ctrlPt2Handlers.remove(ctrlPt2Handlers.size()-1);
+//			}
+//		}
+//
+//		// Updating handlers.
+//		for(int i = 0, size = ctrlPt1Handlers.size(); i<size; i++) {
+//			IPoint pt1 = cps.getFirstCtrlPtAt(i);
+//			ctrlPt1Handlers.get(i).setPoint(pt1.getX()*zoom, pt1.getY()*zoom);
+//			IPoint pt2 = cps.getSecondCtrlPtAt(i);
+//			ctrlPt2Handlers.get(i).setPoint(pt2.getX()*zoom, pt2.getY()*zoom);
+//		}
+//	}
 
-		// Adding missing handlers.
-		if(ctrlPt1Handlers.size()<nbPts) {
-			for(int i = ctrlPt1Handlers.size(); i<nbPts; i++) {
-				ctrlPt1Handlers.add(new CtrlPointHandler(i));
-				ctrlPt2Handlers.add(new CtrlPointHandler(i));
-			}
-		}
-		// Removing extra handlers.
-		else {
-			while(ctrlPt1Handlers.size()>nbPts) {
-				ctrlPt1Handlers.remove(ctrlPt1Handlers.size()-1);
-				ctrlPt2Handlers.remove(ctrlPt2Handlers.size()-1);
-			}
-		}
-
-		// Updating handlers.
-		for(int i = 0, size = ctrlPt1Handlers.size(); i<size; i++) {
-			IPoint pt1 = cps.getFirstCtrlPtAt(i);
-			ctrlPt1Handlers.get(i).setPoint(pt1.getX()*zoom, pt1.getY()*zoom);
-			IPoint pt2 = cps.getSecondCtrlPtAt(i);
-			ctrlPt2Handlers.get(i).setPoint(pt2.getX()*zoom, pt2.getY()*zoom);
-		}
-	}
-
-	private void updateMvHandlers() {
+//	private void updateMvHandlers() {
 //		if(isPtMvHandlersShowable()) {
 //			IShape sh = selection.get(0).getShape();
 //
@@ -220,7 +218,7 @@ public class Border extends CanvasInstrument { // implements Picker {
 //				}
 //			}
 //		}
-	}
+//	}
 
 	/**
 	 * Paints the border if activated.

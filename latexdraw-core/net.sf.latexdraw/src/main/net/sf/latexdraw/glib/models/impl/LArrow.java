@@ -115,16 +115,20 @@ class LArrow implements IArrow {
 		tBarSizeNum 	= model.getTBarSizeNum();
 	}
 
+	@Override
+	public double getLineThickness() {
+		return owner.isDbleBorderable() && owner.hasDbleBord()?owner.getThickness() * 2.0 + owner.getDbleBordSep():owner.getThickness();
+	}
 
 	@Override
 	public double getRoundShapedArrowRadius() {
-		return (dotSizeDim+dotSizeNum*owner.getFullThickness())/2.;
+		return (dotSizeDim+dotSizeNum*getLineThickness())/2.;
 	}
 
 
 	@Override
 	public double getBarShapedArrowWidth() {
-		return tBarSizeDim + tBarSizeNum*owner.getFullThickness();
+		return tBarSizeDim + tBarSizeNum*getLineThickness();
 	}
 
 
@@ -141,7 +145,7 @@ class LArrow implements IArrow {
 			case RIGHT_ARROW:
 			case LEFT_DBLE_ARROW:
 			case RIGHT_DBLE_ARROW: return getArrowShapedWidth()*arrowLength;
-			case ROUND_IN: return (getDotSizeDim()+getDotSizeNum()*owner.getFullThickness())/2.;
+			case ROUND_IN: return (getDotSizeDim()+getDotSizeNum()*getLineThickness())/2.;
 			case LEFT_SQUARE_BRACKET:
 			case RIGHT_SQUARE_BRACKET: return bracketNum*getBarShapedArrowWidth();
 			case CIRCLE_IN:
@@ -153,7 +157,7 @@ class LArrow implements IArrow {
 
 	@Override
 	public double getArrowShapedWidth() {
-		return arrowSizeNum*owner.getFullThickness()+arrowSizeDim;
+		return arrowSizeNum*getLineThickness()+arrowSizeDim;
 	}
 
 
