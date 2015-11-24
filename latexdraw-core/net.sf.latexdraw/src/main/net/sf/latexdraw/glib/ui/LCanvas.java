@@ -218,7 +218,7 @@ public class LCanvas extends MPanel implements ICanvas {
 		// Getting the clip must be done here to consider the scaling and translation.
 		final Rectangle clip = g.getClipBounds();
 		
-		page.paint(g, ShapeFactory.createPoint(), clip);
+		page.paint(g, clip);
 
 		synchronized(views){
 			for(final IViewShape view : views)

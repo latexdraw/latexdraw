@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
 /**
@@ -53,24 +52,25 @@ public enum Page {
 	/** The size of the shadow of the page. */
 	private static final int SIZE_SHADOW = 4;
 
+	private final Rectangle2D pageRec = new Rectangle2D.Double(0.0, 0.0, getWidth()*IShape.PPC, getHeight()*IShape.PPC);
+	private final Rectangle2D shadowRec1 = new Rectangle2D.Double(pageRec.getMaxX(), pageRec.getMinY()+GAP_SHADOW, SIZE_SHADOW, pageRec.getHeight()); 
+	private final Rectangle2D shadowRec2 = new Rectangle2D.Double(pageRec.getMinX()+GAP_SHADOW, pageRec.getMaxY(), pageRec.getWidth(), SIZE_SHADOW); 
+	
 	/**
 	 * Paints the page into the given graphics.
 	 * @param g The graphics to use.
-	 * @param origin The position in the graphics corresponding to the origin.
 	 * @param clip The rectangle that requires to be painted.
 	 * @throws NullPointerException If the given graphics or point is null.
 	 * @since 3.1
 	 */
-	public void paint(final Graphics2D g, final IPoint origin, final Rectangle clip) {
-		final Rectangle2D page = new Rectangle2D.Double(origin.getX(), origin.getY(),getWidth()*IShape.PPC, getHeight()*IShape.PPC);
-		
-		if(clip!=null && !clip.contains(page) && !clip.intersects(page)) return;
+	public void paint(final Graphics2D g, final Rectangle clip) {
+		if(clip!=null && !clip.contains(pageRec) && !clip.intersects(pageRec)) return;
 
 		g.setStroke(STROKE_PAGE);
 		g.setColor(Color.GRAY);
-		g.fill(new Rectangle2D.Double(page.getMaxX(), page.getMinY()+GAP_SHADOW, SIZE_SHADOW, page.getHeight()));
-		g.fill(new Rectangle2D.Double(page.getMinX()+GAP_SHADOW, page.getMaxY(), page.getWidth(), SIZE_SHADOW));
+		g.fill(shadowRec1);
+		g.fill(shadowRec2);
 		g.setColor(Color.BLACK);
-		g.draw(page);
+		g.draw(pageRec);
 	}
 }
