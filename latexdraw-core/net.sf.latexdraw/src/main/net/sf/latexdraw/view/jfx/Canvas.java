@@ -31,8 +31,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.sun.istack.internal.NotNull;
-
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
@@ -65,7 +63,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	public static @NonNull final IPoint ORIGIN = ShapeFactory.createPoint(MARGINS, MARGINS);
 
 	/** The model of the view. */
-	protected final @NotNull IDrawing drawing;
+	protected final @NonNull IDrawing drawing;
 
 	/** The zoom applied on the canvas. */
 	protected final IUnary<Double> zoom;
@@ -404,7 +402,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	/**
 	 * @return The model of the canvas.
 	 */
-	public @NotNull IDrawing getDrawing() {
+	public @NonNull IDrawing getDrawing() {
 		return drawing;
 	}
 
