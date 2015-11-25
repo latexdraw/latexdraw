@@ -1,22 +1,23 @@
 package net.sf.latexdraw.glib.models.impl
 
 import java.awt.geom.Rectangle2D
+
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.mutable.Buffer
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import net.sf.latexdraw.glib.models.interfaces.shape.IDot
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.IStandardGrid
-import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+
 import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.shape.Color
-import net.sf.latexdraw.glib.views.latex.DviPsColors
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants
-import net.sf.latexdraw.glib.models.interfaces.shape.Position
 import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos
-import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.Color
 import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.IDot
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape
+import net.sf.latexdraw.glib.models.interfaces.shape.IStandardGrid
+import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.Position
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants
 
 /**
  * This trait encapsulates the code of the group related to the support of the general shape's properties.<br>
@@ -93,7 +94,7 @@ private[impl] trait LGroupShape extends IGroup {
 
 	override def getLineStyle: LineStyle = {
 		getShapes.find{_.isLineStylable} match {
-			case Some(sh) => sh.getLineStyle
+			case Some(sh) => sh.getLineStyle()
 			case _ => LineStyle.SOLID
 		}
 	}
@@ -109,7 +110,7 @@ private[impl] trait LGroupShape extends IGroup {
 
 	override def getBordersPosition: BorderPos = {
 		getShapes.find{_.isBordersMovable} match {
-			case Some(sh) => sh.getBordersPosition
+			case Some(sh) => sh.getBordersPosition()
 			case _ => BorderPos.INTO
 		}
 	}

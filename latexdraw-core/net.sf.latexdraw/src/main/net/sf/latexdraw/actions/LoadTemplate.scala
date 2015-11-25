@@ -1,8 +1,5 @@
 package net.sf.latexdraw.actions
 
-import javax.swing.JLabel
-import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
-import org.malai.swing.action.library.IOAction
 import org.malai.action.Action
 
 /**

@@ -50,7 +50,7 @@ private[impl] trait LPlotGroup extends IGroup {
 
 	override def getPlotStyle: PlotStyle = {
 		firstPlot match {
-			case Some(la) => la.getPlotStyle
+			case Some(la) => la.getPlotStyle()
 			case _ => PlotStyle.CURVE
 		}
 	}

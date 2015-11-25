@@ -37,17 +37,17 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 
 		sh match {
 			case plot:IPlotProp =>
-				style = plot.getPlotStyle
+				style = plot.getPlotStyle()
 				nbPoints = plot.getNbPlottedPoints
 				polar = plot.isPolar
-				dotStyle = plot.getDotStyle
+				dotStyle = plot.getDotStyle()
 				dotDiametre = plot.getDiametre
 				minX = plot.getPlotMinX
 				maxX = plot.getPlotMaxX
 				xscale = plot.getXScale
 				yscale = plot.getYScale
       case dot:IDotProp =>
-        dotStyle = dot.getDotStyle
+        dotStyle = dot.getDotStyle()
         dotDiametre = dot.getDiametre
 			case _ =>
 		}

@@ -1,7 +1,5 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import java.awt.geom.Point2D
-
 /**
  * A point which each coordinate may have a unit.<br>
  *<br>

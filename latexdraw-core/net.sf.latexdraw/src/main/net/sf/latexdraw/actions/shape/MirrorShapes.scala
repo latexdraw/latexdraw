@@ -1,8 +1,6 @@
 package net.sf.latexdraw.actions.shape
 
 import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.actions.DrawingAction
-import net.sf.latexdraw.actions.ShapesAction
 import org.malai.undo.Undoable
 import org.malai.action.Action
 import net.sf.latexdraw.actions.ShapeAction

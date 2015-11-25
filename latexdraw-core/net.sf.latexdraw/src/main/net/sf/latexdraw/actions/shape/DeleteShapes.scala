@@ -1,7 +1,6 @@
 package net.sf.latexdraw.actions.shape
 
 import scala.collection.JavaConversions.asScalaBuffer
-import scala.collection.JavaConversions.bufferAsJavaList
 import scala.collection.mutable.Buffer
 import org.malai.action.Action
 import org.malai.undo.Undoable

@@ -7,7 +7,6 @@ import scala.language.implicitConversions
 
 import net.sf.latexdraw.glib.models.impl.LShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.IShapeFactory
 
 /**
  * This class contains the factory that must be used to create shape instances.<br>

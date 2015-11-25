@@ -1,6 +1,5 @@
 package net.sf.latexdraw.parsers.pst.parser
 
-import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.JavaConversions.seqAsJavaList
 import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
@@ -34,27 +33,27 @@ trait PSTCodeParser extends PSTAbstractParser
 	with TextCommandsParser with PSFrameboxParser with IPSTCodeParser {
 
 	override def parsePSTCode(ctx : PSTContext) : Parser[IGroup] =
-		rep(consume(parsePSTBlock(ctx, ctx.isPsCustom)) | consume(parsePspictureBlock(ctx)) | consume(parseCenterBlock(ctx)) | consume(parsePsset(ctx)) |
-			consume(parsePsellipse(new PSTContext(ctx))) | consume(parsePsframe(new PSTContext(ctx))) |
-			consume(parsePsdiamond(new PSTContext(ctx))) | consume(parsePstriangle(new PSTContext(ctx))) |
-			consume(parsePsline(new PSTContext(ctx))) | consume(parserQline(new PSTContext(ctx))) |
-			consume(parsePscircle(new PSTContext(ctx))) | consume(parseQdisk(new PSTContext(ctx))) |
-			consume(parsePspolygon(new PSTContext(ctx))) | consume(parsePsbezier(new PSTContext(ctx))) |
-			consume(parsePsdot(new PSTContext(ctx))) | consume(parsePsdots(new PSTContext(ctx))) | consume(parsePsaxes(new PSTContext(ctx))) |
-			consume(parsePsgrid(new PSTContext(ctx))) | consume(parseRput(ctx)) | consume(parseScalebox(ctx)) | consume(parsePsscalebox(ctx)) |
-			consume(parsePswedge(new PSTContext(ctx))) | consume(parsePsarc(new PSTContext(ctx))) | consume(parsePsarcn(new PSTContext(ctx))) |
-			consume(parsePsellipticarc(new PSTContext(ctx))) | consume(parsePsellipticarcn(new PSTContext(ctx))) |
-			consume(parseParabola(new PSTContext(ctx))) | consume(parsePscurve(new PSTContext(ctx))) | consume(parsePsecurve(new PSTContext(ctx))) |
-			consume(parsePsccurve(new PSTContext(ctx))) | consume(parsePSTPlotCommands(new PSTContext(ctx))) | consume(parseNewpsobject(ctx)) |
-			consume(parseNewpsstyle(ctx)) | consume(parsePscustom(new PSTContext(ctx))) | consume(parseDefineColor(ctx)) |
-			consume(parseIncludeGraphics(ctx) | parsePSCustomCommands(ctx)) | consume(parsePsFrameboxCmds(ctx)) | consume(parsetextCommands(ctx)) |
-			consume(parseText(ctx))) ^^ {
+		rep(consume(parsePSTBlock(ctx, ctx.isPsCustom))() | consume(parsePspictureBlock(ctx))() | consume(parseCenterBlock(ctx))() | consume(parsePsset(ctx))() |
+			consume(parsePsellipse(new PSTContext(ctx)))() | consume(parsePsframe(new PSTContext(ctx)))() |
+			consume(parsePsdiamond(new PSTContext(ctx)))() | consume(parsePstriangle(new PSTContext(ctx)))() |
+			consume(parsePsline(new PSTContext(ctx)))() | consume(parserQline(new PSTContext(ctx)))() |
+			consume(parsePscircle(new PSTContext(ctx)))() | consume(parseQdisk(new PSTContext(ctx)))() |
+			consume(parsePspolygon(new PSTContext(ctx)))() | consume(parsePsbezier(new PSTContext(ctx)))() |
+			consume(parsePsdot(new PSTContext(ctx)))() | consume(parsePsdots(new PSTContext(ctx)))() | consume(parsePsaxes(new PSTContext(ctx)))() |
+			consume(parsePsgrid(new PSTContext(ctx)))() | consume(parseRput(ctx))() | consume(parseScalebox(ctx))() | consume(parsePsscalebox(ctx))() |
+			consume(parsePswedge(new PSTContext(ctx)))() | consume(parsePsarc(new PSTContext(ctx)))() | consume(parsePsarcn(new PSTContext(ctx)))() |
+			consume(parsePsellipticarc(new PSTContext(ctx)))() | consume(parsePsellipticarcn(new PSTContext(ctx)))() |
+			consume(parseParabola(new PSTContext(ctx)))() | consume(parsePscurve(new PSTContext(ctx)))() | consume(parsePsecurve(new PSTContext(ctx)))() |
+			consume(parsePsccurve(new PSTContext(ctx)))() | consume(parsePSTPlotCommands(new PSTContext(ctx)))() | consume(parseNewpsobject(ctx))() |
+			consume(parseNewpsstyle(ctx))() | consume(parsePscustom(new PSTContext(ctx)))() | consume(parseDefineColor(ctx))() |
+			consume(parseIncludeGraphics(ctx))() | consume(parsePSCustomCommands(ctx))() | consume(parsePsFrameboxCmds(ctx))() | consume(parsetextCommands(ctx))() |
+			consume(parseText(ctx))()) ^^ {
 		case list =>
 		val group = ShapeFactory.createGroup()
 
 		list.foreach{
 				case gp : List[_] => gp.foreach{sh => group.addShape(sh.asInstanceOf[IShape])}
-				case gp : IGroup => gp.getShapes.foreach{sh => group.addShape(sh)}
+				case gp : IGroup => gp.getShapes.forEach{sh => group.addShape(sh)}
 				case sh : IShape => group.addShape(sh)
 				case _ =>
 		}
@@ -107,13 +106,13 @@ trait PSTCodeParser extends PSTAbstractParser
 	override def parsePscustom(ctx : PSTContext) : Parser[IGroup] = ("\\pscustom*" | "\\pscustom") ~ opt(parseParam(ctx)) ~ parsePSTBlock(ctx, true) ^^ {
 		case cmdName ~ _ ~ shapes =>
 			if(cmdName.endsWith("*"))
-				shapes.getShapes.foreach{sh => setShapeForStar(sh)}
+				shapes.getShapes.forEach{sh => setShapeForStar(sh)}
 
 			var fh : IFreehand = null
 			val gp = ShapeFactory.createGroup()
 
 			// The different created freehand shapes must be merged into a single one.
-			shapes.getShapes.foreach {
+			shapes.getShapes.forEach {
         case ifh: IFreehand =>
           fh match {
             case null => gp.addShape(ifh); fh = ifh; fh.setInterval(1) // This shape is now the reference shape used for the merge.
@@ -195,7 +194,7 @@ trait PSTCodeParser extends PSTAbstractParser
 		val ctx2 = new PSTContext(ctx)// Must create an other context not to modify the current one.
 		("\\rput*" | "\\rput") ~ opt(parseRputTextPosition(ctx2)) ~ opt(parseRputRotationAngle(ctx2)) ~
 		parseCoord(ctx2) ~ parsePSTBlock(ctx2, false) ^^ { case _ ~ _ ~ rot ~ coord ~ figs =>
-			figs.getShapes.foreach(_.translate(coord.x * IShape.PPC, -coord.y * IShape.PPC))
+			figs.getShapes.forEach(_.translate(coord.x * IShape.PPC, -coord.y * IShape.PPC))
 			figs
 		}
 	}

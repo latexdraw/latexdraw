@@ -2,14 +2,11 @@ package net.sf.latexdraw.glib.models.impl
 
 import java.awt.geom.Rectangle2D
 
-import scala.collection.JavaConversions.asScalaBuffer
-
 import net.sf.latexdraw.glib.models.GLibUtilities
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.shape.Position
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape
-import net.sf.latexdraw.util.LNumber
 
 private[impl] abstract class LSquaredShape(tl:IPoint, width:Double) extends LPositionShape(tl) with ISquaredShape {
 

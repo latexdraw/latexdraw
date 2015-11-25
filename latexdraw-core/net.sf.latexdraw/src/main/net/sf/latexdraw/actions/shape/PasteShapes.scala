@@ -9,7 +9,6 @@ import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.views.MagneticGrid
-import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.util.LangTool
 
 /**

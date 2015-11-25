@@ -4,14 +4,10 @@ import org.malai.action.Action
 import org.malai.undo.Undoable
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import java.awt.geom.Rectangle2D
-import org.malai.mapping.MappingRegistry
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import scala.collection.JavaConversions._
-import scala.collection.mutable.MutableList
 import scala.collection.mutable.ListBuffer
-import net.sf.latexdraw.util.LNumber
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 
 import net.sf.latexdraw.lang.LangTool

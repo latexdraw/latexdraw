@@ -2,8 +2,6 @@ package net.sf.latexdraw.actions
 
 import org.malai.action.Action
 
-import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
-
 /**
  * This action updates the templates.<br>
  * <br>

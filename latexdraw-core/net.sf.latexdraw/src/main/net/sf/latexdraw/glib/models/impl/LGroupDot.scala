@@ -47,7 +47,7 @@ private[impl] trait LGroupDot extends IGroup {
 
 	override def getDotStyle: DotStyle = {
 		firstDottable match {
-			case Some(dot) => dot.getDotStyle
+			case Some(dot) => dot.getDotStyle()
 			case _ => DotStyle.DOT
 		}
 	}

@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.models.impl
 
-import org.malai.mapping.ActiveArrayList
 import net.sf.latexdraw.glib.models.interfaces.prop.ISetShapesProp
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import javafx.collections.ObservableList

@@ -1,7 +1,6 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 
 /**
  * A parser that parses numbers.<br>

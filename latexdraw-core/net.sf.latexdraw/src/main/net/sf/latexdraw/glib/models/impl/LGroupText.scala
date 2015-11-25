@@ -32,7 +32,7 @@ private[impl] trait LGroupText extends IGroup {
 
 	override def getTextPosition: TextPosition =
 		firstIText match {
-			case Some(txt) => txt.getTextPosition
+			case Some(txt) => txt.getTextPosition()
 			case _ => null
 		}
 

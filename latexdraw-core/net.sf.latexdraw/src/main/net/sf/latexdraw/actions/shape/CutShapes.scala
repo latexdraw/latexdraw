@@ -5,7 +5,6 @@ import scala.collection.JavaConversions.bufferAsJavaList
 import scala.collection.mutable.Buffer
 import org.malai.undo.Undoable
 import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.util.LResources
 import net.sf.latexdraw.util.LangTool
 
 /**
@@ -52,7 +51,7 @@ class CutShapes extends CopyShapes with Undoable with Modifying {
 	 */
 	private def deleteShapes() {
 		val dr = _selection.get.drawing.get
-		copiedShapes.foreach{sh => dr.removeShape(sh)}
+		copiedShapes.forEach{sh => dr.removeShape(sh)}
 		dr.setModified(true)
 	}
 

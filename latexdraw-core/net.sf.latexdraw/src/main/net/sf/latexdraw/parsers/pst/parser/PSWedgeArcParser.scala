@@ -1,10 +1,8 @@
 package net.sf.latexdraw.parsers.pst.parser
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IArc
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
 import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle
 
