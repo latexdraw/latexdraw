@@ -10,7 +10,7 @@
   
   	<properties>
 		<malai.version>2.0-SNAPSHOT</malai.version>
-		<scala.version>2.11.7</scala.version>
+		<scala.version>2.12.0-M3</scala.version>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -106,6 +106,7 @@
 					<scalaVersion>${scala.version}</scalaVersion>
 		          <args>
 		            <arg>-optimise</arg>
+		            <arg>-Xexperimental</arg>
 		          </args>
 		        </configuration>
 				<executions>
@@ -286,7 +287,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.scala-lang.modules</groupId>
-				<artifactId>scala-parser-combinators_2.11</artifactId>
+				<artifactId>scala-parser-combinators_2.12.0-M3</artifactId>
 				<version>1.0.4</version>
 			</dependency>
 		    <dependency>
