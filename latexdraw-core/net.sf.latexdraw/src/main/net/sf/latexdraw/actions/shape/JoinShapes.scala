@@ -62,7 +62,7 @@ class JoinShapes extends Action with ShapesAction with DrawingAction with Undoab
 		val map = _shapes.map{sh => (sh, drawingSh.indexOf(sh))}.toMap
 
 		dr.removeShape(addedGroup)
-		addedGroup.getShapes.foreach{sh => dr.addShape(sh, map.get(sh).get)}
+		addedGroup.getShapes.forEach{sh => dr.addShape(sh, map.get(sh).get)}
 		addedGroup.clear
 		dr.setModified(true)
 	}

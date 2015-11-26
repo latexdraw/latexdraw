@@ -1,9 +1,11 @@
 package net.sf.latexdraw.glib.models.impl
 
-import scala.collection.JavaConversions.asScalaBuffer
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import java.util.stream.Collectors
+
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
 import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * This trait encapsulates the code of the group related to the support of IArcProp shapes.<br>
@@ -25,37 +27,25 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle
  */
 private[impl] trait LGroupArc extends IGroup {
 	/** May return the first IArcProp shape of the group. */
-	private def firstIArcProp = arcShapes.find{_.isTypeOf(classOf[IArcProp])}
+	private def firstIArcProp = arcShapes.stream.filter{_.isTypeOf(classOf[IArcProp])}.findFirst
 
-	private def arcShapes = getShapes.flatMap{case x:IArcProp => x::Nil; case _ => Nil}
+	private def arcShapes = getShapes.stream.filter{_.isInstanceOf[IArcProp]}.map[IShape with IArcProp]{_.asInstanceOf[IShape with IArcProp]}.collect(Collectors.toList())
 
-	override def getArcStyle: ArcStyle =
-		firstIArcProp match {
-			case Some(arc) => arc.getArcStyle
-			case _ => ArcStyle.ARC
-		}
+	override def getArcStyle = if(firstIArcProp.isPresent) firstIArcProp.get.getArcStyle else ArcStyle.ARC
 
 	override def setArcStyle(typeArc : ArcStyle) {
-		arcShapes.foreach{_.setArcStyle(typeArc)}
+		arcShapes.forEach{_.setArcStyle(typeArc)}
 	}
 
-	override def getAngleStart: Double =
-		firstIArcProp match {
-			case Some(arc) => arc.getAngleStart
-			case _ => Double.NaN
-		}
+	override def getAngleStart = if(firstIArcProp.isPresent) firstIArcProp.get.getAngleStart else Double.NaN
 
 	override def setAngleStart(angleStart : Double) {
-		arcShapes.foreach{_.setAngleStart(angleStart)}
+		arcShapes.forEach{_.setAngleStart(angleStart)}
 	}
 
-	override def getAngleEnd: Double =
-		firstIArcProp match {
-			case Some(arc) => arc.getAngleEnd
-			case _ => Double.NaN
-		}
+	override def getAngleEnd = if(firstIArcProp.isPresent) firstIArcProp.get.getAngleEnd else Double.NaN
 
 	override def setAngleEnd(angleEnd : Double) {
-		arcShapes.foreach{_.setAngleEnd(angleEnd)}
+		arcShapes.forEach{_.setAngleEnd(angleEnd)}
 	}
 }

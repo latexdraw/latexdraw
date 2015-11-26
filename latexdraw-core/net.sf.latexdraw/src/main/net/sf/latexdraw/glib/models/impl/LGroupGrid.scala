@@ -1,9 +1,11 @@
 package net.sf.latexdraw.glib.models.impl
 
-import scala.collection.JavaConversions.asScalaBuffer
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import java.util.stream.Collectors
+
 import net.sf.latexdraw.glib.models.interfaces.prop.IGridProp
 import net.sf.latexdraw.glib.models.interfaces.shape.Color
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
@@ -26,134 +28,68 @@ import net.sf.latexdraw.glib.views.latex.DviPsColors
  */
 private[impl] trait LGroupGrid extends IGroup {
 	/** May return the first grid of the group. */
-	private def firstIGrid = gridShapes.find{_.isTypeOf(classOf[IGridProp])}
+	private def firstIGrid = gridShapes.stream.filter{_.isTypeOf(classOf[IGridProp])}.findFirst
 
-	private def gridShapes = getShapes.flatMap{case x:IGridProp => x::Nil; case _ => Nil}
+	private def gridShapes =
+      getShapes.stream.filter{_.isInstanceOf[IGridProp]}.map[IShape with IGridProp]{_.asInstanceOf[IShape with IGridProp]}.collect(Collectors.toList())
 
-
-	override def isXLabelSouth: Boolean =
-		firstIGrid match {
-			case Some(stdGrid) => stdGrid.isXLabelSouth
-			case _ => false
-		}
-
+	override def isXLabelSouth = if(firstIGrid.isPresent) firstIGrid.get.isXLabelSouth else false
 
 	override def setXLabelSouth(isXLabelSouth : Boolean) {
-		gridShapes.foreach{_.setXLabelSouth(isXLabelSouth)}
+		gridShapes.forEach{_.setXLabelSouth(isXLabelSouth)}
 	}
 
-
-	override def isYLabelWest: Boolean =
-		firstIGrid match {
-			case Some(stdGrid) => stdGrid.isYLabelWest
-			case _ => false
-		}
-
+	override def isYLabelWest = if(firstIGrid.isPresent) firstIGrid.get.isYLabelWest else false
 
 	override def setYLabelWest(isYLabelWest : Boolean) {
-		gridShapes.foreach{_.setYLabelWest(isYLabelWest)}
+		gridShapes.forEach{_.setYLabelWest(isYLabelWest)}
 	}
 
-	override def getGridDots: Int = {
-		firstIGrid match {
-			case Some(grid) => grid.getGridDots
-			case _ => 0
-		}
-	}
-
+	override def getGridDots = if(firstIGrid.isPresent) firstIGrid.get.getGridDots else 0
 
 	override def setGridDots(gridDots : Int) {
-		gridShapes.foreach{_.setGridDots(gridDots)}
+		gridShapes.forEach{_.setGridDots(gridDots)}
 	}
 
-
-	override def getGridLabelsColour: Color = {
-		firstIGrid match {
-			case Some(grid) => grid.getGridLabelsColour
-			case _ => DviPsColors.BLACK
-		}
-	}
-
+	override def getGridLabelsColour = if(firstIGrid.isPresent) firstIGrid.get.getGridLabelsColour else DviPsColors.BLACK
 
 	override def setGridLabelsColour(gridLabelsColour : Color) {
-		gridShapes.foreach{_.setGridLabelsColour(gridLabelsColour)}
+		gridShapes.forEach{_.setGridLabelsColour(gridLabelsColour)}
 	}
 
-
-	override def getGridWidth: Double = {
-		firstIGrid match {
-			case Some(grid) => grid.getGridWidth
-			case _ => Double.NaN
-		}
-	}
-
+	override def getGridWidth = if(firstIGrid.isPresent) firstIGrid.get.getGridWidth else Double.NaN
 
 	override def setGridWidth(gridWidth : Double) {
-		gridShapes.foreach{_.setGridWidth(gridWidth)}
+		gridShapes.forEach{_.setGridWidth(gridWidth)}
 	}
 
-
-	override def getSubGridColour: Color = {
-		firstIGrid match {
-			case Some(grid) => grid.getSubGridColour
-			case _ => DviPsColors.BLACK
-		}
-	}
-
+	override def getSubGridColour = if(firstIGrid.isPresent) firstIGrid.get.getSubGridColour else DviPsColors.BLACK
 
 	override def setSubGridColour(subGridColour : Color) {
-		gridShapes.foreach{_.setSubGridColour(subGridColour)}
+		gridShapes.forEach{_.setSubGridColour(subGridColour)}
 	}
 
-
-	override def getSubGridDiv: Int = {
-		firstIGrid match {
-			case Some(grid) => grid.getSubGridDiv
-			case _ => 0
-		}
-	}
-
+	override def getSubGridDiv = if(firstIGrid.isPresent) firstIGrid.get.getSubGridDiv else 0
 
 	override def setSubGridDiv(subGridDiv : Int) {
-		gridShapes.foreach{_.setSubGridDiv(subGridDiv)}
+		gridShapes.forEach{_.setSubGridDiv(subGridDiv)}
 	}
 
-
-	override def getSubGridDots: Int = {
-		firstIGrid match {
-			case Some(grid) => grid.getSubGridDots
-			case _ => 0
-		}
-	}
-
+	override def getSubGridDots = if(firstIGrid.isPresent) firstIGrid.get.getSubGridDots else 0
 
 	override def setSubGridDots(subGridDots : Int) {
-		gridShapes.foreach{_.setSubGridDots(subGridDots)}
+		gridShapes.forEach{_.setSubGridDots(subGridDots)}
 	}
 
-
-	override def getSubGridWidth: Double = {
-		firstIGrid match {
-			case Some(grid) => grid.getSubGridWidth
-			case _ => Double.NaN
-		}
-	}
-
+	override def getSubGridWidth = if(firstIGrid.isPresent) firstIGrid.get.getSubGridWidth else Double.NaN
 
 	override def setSubGridWidth(subGridWidth : Double) {
-		gridShapes.foreach{_.setSubGridWidth(subGridWidth)}
+		gridShapes.forEach{_.setSubGridWidth(subGridWidth)}
 	}
-
 
 	override def setUnit(unit : Double) {
-		gridShapes.foreach{_.setUnit(unit)}
+		gridShapes.forEach{_.setUnit(unit)}
 	}
 
-
-	override def getUnit: Double = {
-		firstIGrid match {
-			case Some(grid) => grid.getUnit
-			case _ => Double.NaN
-		}
-	}
+	override def getUnit = if(firstIGrid.isPresent) firstIGrid.get.getUnit else Double.NaN
 }

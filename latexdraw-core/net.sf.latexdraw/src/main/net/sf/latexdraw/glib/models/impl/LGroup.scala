@@ -2,8 +2,6 @@ package net.sf.latexdraw.glib.models.impl
 
 import java.util.ArrayList
 import java.util.List
-import scala.collection.JavaConversions.asScalaBuffer
-import scala.collection.JavaConversions.bufferAsJavaList
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp
 import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp
@@ -31,6 +29,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.PlottingStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition
 import net.sf.latexdraw.glib.models.interfaces.shape.TicksStyle
 import net.sf.latexdraw.glib.views.latex.DviPsColors
+import java.util.stream.Collectors
 
 /**
  * A Group is a group of IShape instances.<br>
@@ -207,7 +206,7 @@ private[impl] class LGroup() extends LShape()
 
 	override def getPlotStyleList: List[PlotStyle] = {
 		val list = new ArrayList[PlotStyle]()
-		shapes.foreach{
+		shapes.forEach{
 				case fh : IPlotProp => list.add(fh.getPlotStyle())
 				case _ => list.add(null)
 		}
@@ -282,7 +281,8 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def getGridLabelsColourList: List[Color] = getShapes.map{case sh:IGridProp => sh.getGridLabelsColour; case _ => DviPsColors.BLACK}
+	override def getGridLabelsColourList: List[Color] = 
+	  getShapes.stream.map[Color]{case sh:IGridProp => sh.getGridLabelsColour; case _ => DviPsColors.BLACK}.collect(Collectors.toList())
 
 	override def setSubGridColourList(values : List[Color]) = {
 		if(values!=null && values.size==shapes.size)
@@ -294,7 +294,8 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def getSubGridColourList: List[Color] = getShapes.map{case sh:IGridProp => sh.getSubGridColour; case _ => DviPsColors.BLACK}
+	override def getSubGridColourList: List[Color] = 
+	  getShapes.stream.map[Color]{case sh:IGridProp => sh.getSubGridColour; case _ => DviPsColors.BLACK}.collect(Collectors.toList())
 
 	override def setGridWidthList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size==shapes.size)
@@ -405,7 +406,8 @@ private[impl] class LGroup() extends LShape()
         }
 	}
 
-	override def getFreeHandTypeList: List[FreeHandStyle] = getShapes.map{case sh:IFreeHandProp => sh.getType; case _ => FreeHandStyle.CURVES}
+	override def getFreeHandTypeList: List[FreeHandStyle] = 
+	  getShapes.stream.map[FreeHandStyle]{case sh:IFreeHandProp => sh.getType; case _ => FreeHandStyle.CURVES}.collect(Collectors.toList())
 
 	override def setAxesDistLabelsList(values : List[IPoint]) = {
 		if(values!=null && values.size==shapes.size)
@@ -416,7 +418,8 @@ private[impl] class LGroup() extends LShape()
         }
 	}
 
-	override def getAxesDistLabelsList: List[IPoint] = getShapes.map{case sh:IAxesProp => sh.getDistLabels; case _ => null}
+	override def getAxesDistLabelsList: List[IPoint] = 
+	  getShapes.stream.map[IPoint]{case sh:IAxesProp => sh.getDistLabels; case _ => null}.collect(Collectors.toList())
 
 	override def setAxesLabelsDisplayedList(values : List[PlottingStyle]) = {
 		if(values!=null && values.size==shapes.size)
@@ -427,7 +430,8 @@ private[impl] class LGroup() extends LShape()
         }
 	}
 
-	override def getAxesLabelsDisplayedList: List[PlottingStyle] = getShapes.map{case sh:IAxesProp => sh.getLabelsDisplayed; case _ => PlottingStyle.NONE}
+	override def getAxesLabelsDisplayedList: List[PlottingStyle] = 
+	  getShapes.stream.map[PlottingStyle]{case sh:IAxesProp => sh.getLabelsDisplayed; case _ => PlottingStyle.NONE}.collect(Collectors.toList())
 
 	override def setAxesShowOriginList(values : List[java.lang.Boolean]) = {
 		if(values!=null && values.size==shapes.size)
@@ -458,7 +462,8 @@ private[impl] class LGroup() extends LShape()
         }
 	}
 
-	override def getAxesTicksStyleList: List[TicksStyle] = getShapes.map{case sh:IAxesProp => sh.getTicksStyle; case _ => TicksStyle.FULL}
+	override def getAxesTicksStyleList: List[TicksStyle] = 
+	  getShapes.stream.map[TicksStyle]{case sh:IAxesProp => sh.getTicksStyle; case _ => TicksStyle.FULL}.collect(Collectors.toList())
 
 	override def setAxesTicksSizeList(values : List[java.lang.Double]) = {
 		if(values!=null && values.size==shapes.size)
@@ -489,7 +494,8 @@ private[impl] class LGroup() extends LShape()
         }
 	}
 
-	override def getAxesTicksDisplayedList: List[PlottingStyle] = getShapes.map{case sh:IAxesProp => sh.getTicksDisplayed; case _ => PlottingStyle.NONE}
+	override def getAxesTicksDisplayedList: List[PlottingStyle] = 
+	  getShapes.stream.map[PlottingStyle]{case sh:IAxesProp => sh.getTicksDisplayed; case _ => PlottingStyle.NONE}.collect(Collectors.toList())
 
 	override def setAxesIncrementsList(values : List[IPoint]) = {
 		if(values!=null && values.size==shapes.size)
@@ -500,7 +506,8 @@ private[impl] class LGroup() extends LShape()
         }
 	}
 
-	override def getAxesIncrementsList: List[IPoint] = getShapes.map{case sh:IAxesProp => sh.getIncrement; case _ => null}
+	override def getAxesIncrementsList: List[IPoint] = 
+	  getShapes.stream.map[IPoint]{case sh:IAxesProp => sh.getIncrement; case _ => null}.collect(Collectors.toList())
 
 	override def setGridLabelSizeList(values : List[java.lang.Integer]) = {
 		if(values!=null && values.size==shapes.size)
@@ -571,7 +578,8 @@ private[impl] class LGroup() extends LShape()
         }
 	}
 
-	override def getAxesStyleList: List[AxesStyle] = getShapes.map{case sh:IAxesProp => sh.getAxesStyle; case _ => AxesStyle.NONE}
+	override def getAxesStyleList: List[AxesStyle] = 
+	  getShapes.stream.map[AxesStyle]{case sh:IAxesProp => sh.getAxesStyle; case _ => AxesStyle.NONE}.collect(Collectors.toList())
 
 	override def setGridOriginList(values : List[IPoint]) = {
 		var pt : IPoint = null
@@ -584,7 +592,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 	override def getGridOriginList: List[IPoint] =
-		getShapes.map{case sh:IStdGridProp => ShapeFactory.createPoint(sh.getOriginX, sh.getOriginY); case _ => null}
+		getShapes.stream.map[IPoint]{case sh:IStdGridProp => ShapeFactory.createPoint(sh.getOriginX, sh.getOriginY); case _ => null}.collect(Collectors.toList())
 
 	override def setGridEndList(values : List[IPoint]) = {
 		var pt : IPoint = null
@@ -607,14 +615,14 @@ private[impl] class LGroup() extends LShape()
 			}
 	}
 
-	override def getGridStartList: List[IPoint] = getShapes.map{case sh:IStdGridProp => sh.getGridStart; case _ => null}
+	override def getGridStartList: List[IPoint] = getShapes.stream.map[IPoint]{case sh:IStdGridProp => sh.getGridStart; case _ => null}.collect(Collectors.toList())
 
-	override def getGridEndList: List[IPoint] = getShapes.map{case sh:IStdGridProp => sh.getGridEnd; case _ => null}
+	override def getGridEndList: List[IPoint] = getShapes.stream.map[IPoint]{case sh:IStdGridProp => sh.getGridEnd; case _ => null}.collect(Collectors.toList())
 
 	override def getBordersPositionList: List[BorderPos] =
-		getShapes.map{sh => sh.isBordersMovable match { case true => sh.getBordersPosition; case false => BorderPos.INTO}}
+		getShapes.stream.map[BorderPos]{sh => sh.isBordersMovable() match { case true => sh.getBordersPosition(); case false => BorderPos.INTO}}.collect(Collectors.toList())
 
-	override def getLineColourList: List[Color] = getShapes.map{_.getLineColour}
+	override def getLineColourList: List[Color] = getShapes.stream.map[Color]{_.getLineColour}.collect(Collectors.toList())
 
 	override def setBordersPositionList(list : List[BorderPos]) = {
 		if(list!=null && list.size==shapes.size)
@@ -650,7 +658,8 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def getArcStyleList: List[ArcStyle] = getShapes.map{case sh:IArcProp => sh.getArcStyle; case _ => ArcStyle.ARC}
+	override def getArcStyleList: List[ArcStyle] = 
+	  getShapes.stream.map[ArcStyle]{case sh:IArcProp => sh.getArcStyle; case _ => ArcStyle.ARC}.collect(Collectors.toList())
 
 	override def getRotationAngleList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
@@ -658,9 +667,11 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def getTextPositionList: List[TextPosition] = getShapes.map{case sh:ITextProp => sh.getTextPosition; case _ => TextPosition.BOT_LEFT}
+	override def getTextPositionList: List[TextPosition] = 
+	  getShapes.stream.map[TextPosition]{case sh:ITextProp => sh.getTextPosition(); case _ => TextPosition.BOT_LEFT}.collect(Collectors.toList())
 
-	override def getTextList: List[String] = getShapes.map{case sh:ITextProp => sh.getText; case _ => ""}
+	override def getTextList: List[String] = 
+	  getShapes.stream.map[String]{case sh:ITextProp => sh.getText; case _ => ""}.collect(Collectors.toList())
 
 	override def getHatchingsAngleList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
@@ -726,9 +737,11 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def getFillingColList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getFillingCol; case false => DviPsColors.BLACK}}
+	override def getFillingColList: List[Color] = 
+	  getShapes.stream.map[Color]{sh => sh.isInteriorStylable match { case true => sh.getFillingCol; case false => DviPsColors.BLACK}}.collect(Collectors.toList())
 
-	override def getHatchingsColList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getHatchingsCol; case false => DviPsColors.BLACK}}
+	override def getHatchingsColList: List[Color] = 
+	  getShapes.stream.map[Color]{sh => sh.isInteriorStylable match { case true => sh.getHatchingsCol; case false => DviPsColors.BLACK}}.collect(Collectors.toList())
 
 	override def hasDbleBordList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
@@ -751,7 +764,8 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def getDbleBordColList: List[Color] = getShapes.map{sh => sh.isDbleBorderable match { case true => sh.getDbleBordCol; case false => DviPsColors.BLACK}}
+	override def getDbleBordColList: List[Color] = 
+	  getShapes.stream.map[Color]{sh => sh.isDbleBorderable match { case true => sh.getDbleBordCol; case false => DviPsColors.BLACK}}.collect(Collectors.toList())
 
 	override def hasShadowList: List[java.lang.Boolean] = {
 		val list = new ArrayList[java.lang.Boolean]()
@@ -785,11 +799,14 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def getShadowColList: List[Color] = getShapes.map{sh => sh.isShadowable match { case true => sh.getShadowCol; case false => DviPsColors.BLACK}}
+	override def getShadowColList: List[Color] = 
+	  getShapes.stream.map[Color]{sh => sh.isShadowable match { case true => sh.getShadowCol; case false => DviPsColors.BLACK}}.collect(Collectors.toList())
 
-	override def getGradColStartList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getGradColStart; case false => DviPsColors.BLACK}}
+	override def getGradColStartList: List[Color] = 
+	  getShapes.stream.map[Color]{sh => sh.isInteriorStylable match { case true => sh.getGradColStart; case false => DviPsColors.BLACK}}.collect(Collectors.toList())
 
-	override def getGradColEndList: List[Color] = getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getGradColEnd; case false => DviPsColors.BLACK}}
+	override def getGradColEndList: List[Color] = 
+	  getShapes.stream.map[Color]{sh => sh.isInteriorStylable match { case true => sh.getGradColEnd; case false => DviPsColors.BLACK}}.collect(Collectors.toList())
 
 	override def getThicknessList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()
@@ -802,14 +819,16 @@ private[impl] class LGroup() extends LShape()
 	}
 
 	override def getFillingStyleList: List[FillingStyle] =
-		getShapes.map{sh => sh.isInteriorStylable match { case true => sh.getFillingStyle; case false => FillingStyle.NONE}}
+		getShapes.stream.map[FillingStyle]{sh => sh.isInteriorStylable match { case true => sh.getFillingStyle(); case false => FillingStyle.NONE}}.collect(Collectors.toList())
 
 	override def getLineStyleList: List[LineStyle] =
-		getShapes.map{sh => sh.isLineStylable match { case true => sh.getLineStyle; case false => LineStyle.SOLID}}
+		getShapes.stream.map[LineStyle]{sh => sh.isLineStylable match { case true => sh.getLineStyle(); case false => LineStyle.SOLID}}.collect(Collectors.toList())
 
-	override def getDotFillingColList: List[Color] = getShapes.map{case sh:IDotProp => sh.getDotFillingCol; case _ => DviPsColors.BLACK}
+	override def getDotFillingColList: List[Color] = 
+	  getShapes.stream.map[Color]{case sh:IDotProp => sh.getDotFillingCol(); case _ => DviPsColors.BLACK}.collect(Collectors.toList())
 
-	override def getDotStyleList: List[DotStyle] = getShapes.map{case sh:IDotProp => sh.getDotStyle; case _ => DotStyle.DOT}
+	override def getDotStyleList: List[DotStyle] = 
+	  getShapes.stream.map[DotStyle]{case sh:IDotProp => sh.getDotStyle(); case _ => DotStyle.DOT}.collect(Collectors.toList())
 
 	override def getDotSizeList: List[java.lang.Double] = {
 		val list = new ArrayList[java.lang.Double]()

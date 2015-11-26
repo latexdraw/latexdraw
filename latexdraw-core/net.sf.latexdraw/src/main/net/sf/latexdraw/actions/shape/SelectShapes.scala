@@ -1,7 +1,5 @@
 package net.sf.latexdraw.actions.shape
 
-import scala.collection.JavaConversions.asScalaBuffer
-
 import org.malai.action.Action
 
 import net.sf.latexdraw.actions.DrawingAction
@@ -40,9 +38,10 @@ class SelectShapes extends Action with ShapesAction with DrawingAction with Modi
 				if(!_shapes.contains(selection.getShapeAt(i)))
 					selection.removeShape(i)
 
-			for(sh <- _shapes)
+			_shapes.forEach{sh =>
 				if(!selection.contains(sh))
 					selection.addShape(sh)
+			}
 		}
 	}
 

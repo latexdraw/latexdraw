@@ -1,9 +1,5 @@
 package net.sf.latexdraw.actions.shape
 
-import scala.collection.JavaConversions.asScalaBuffer
-import scala.collection.JavaConversions.bufferAsJavaList
-import scala.collection.mutable.Buffer
-import scala.collection.mutable.ListBuffer
 import org.malai.action.Action
 import org.malai.undo.Undoable
 import net.sf.latexdraw.actions.Modifying
@@ -14,6 +10,8 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.views.MagneticGrid
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.glib.views.MagneticGrid
+import java.util.List
+import java.util.ArrayList
 
 /**
  * This action updates the given shapes to magnetic grid if activated.<br>
@@ -37,16 +35,16 @@ class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Mo
 	/** The magnetic grid to use. */
 	var _grid : MagneticGrid = null
 
-	val _listPts : Buffer[Buffer[IPoint]] = new ListBuffer[Buffer[IPoint]]()
+	val _listPts : List[List[IPoint]] = new ArrayList[List[IPoint]]()
 
 
 	protected def doActionBody() {
-		var list : Buffer[IPoint] = null
+		var list : List[IPoint] = null
 
-		shape.get.getShapes.foreach{sh=>
-			list = new ListBuffer[IPoint]
+		shape.get.getShapes.forEach{sh =>
+			list = new ArrayList[IPoint]
 			_listPts.add(list)
-			sh.getPoints.foreach(pt=> list.add(ShapeFactory.createPoint(pt)))
+			sh.getPoints.forEach(pt => list.add(ShapeFactory.createPoint(pt)))
 		}
 		redo
 	}
@@ -57,9 +55,9 @@ class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Mo
 	override def undo() {
 		var i = 0
 		var j = 0
-		shape.get.getShapes.foreach{sh=>
+		shape.get.getShapes.forEach{sh =>
 			j=0
-			sh.getPoints.foreach{pt=> pt.setPoint(_listPts.get(i).get(j).getX, _listPts.get(i).get(j).getY); j=j+1}
+			sh.getPoints.forEach{pt => pt.setPoint(_listPts.get(i).get(j).getX, _listPts.get(i).get(j).getY); j=j+1}
 			i=i+1
 			sh.setModified(true)
 		}
@@ -69,9 +67,9 @@ class UpdateToGrid extends Action with ShapeAction[IGroup] with Undoable with Mo
 	override def redo() {
 		var i = 0
 		var j = 0
-		shape.get.getShapes.foreach{sh=>
+		shape.get.getShapes.forEach{sh =>
 			j=0
-			sh.getPoints.foreach{pt=> pt.setPoint(_grid.getTransformedPointToGrid(pt.toPoint2D)); j=j+1}
+			sh.getPoints.forEach{pt => pt.setPoint(_grid.getTransformedPointToGrid(pt.toPoint2D)); j=j+1}
 			i=i+1
 			sh.setModified(true)
 		}

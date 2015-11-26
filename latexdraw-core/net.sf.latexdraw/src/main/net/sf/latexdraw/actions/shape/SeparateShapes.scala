@@ -1,7 +1,5 @@
 package net.sf.latexdraw.actions.shape
 
-import scala.collection.JavaConversions.asScalaBuffer
-
 import org.malai.action.Action
 import org.malai.undo.Undoable
 
@@ -40,7 +38,7 @@ class SeparateShapes extends Action with ShapeAction[IGroup] with DrawingAction 
 		val insertPos = if(position>=(dr.size-1))  -1 else position
 
 		dr.removeShape(position)
-		_shape.get.getShapes.foreach{sh => dr.addShape(sh, insertPos)}
+		_shape.get.getShapes.forEach{sh => dr.addShape(sh, insertPos)}
 		dr.setModified(true)
 	}
 
@@ -50,7 +48,7 @@ class SeparateShapes extends Action with ShapeAction[IGroup] with DrawingAction 
 		val position = dr.getShapes.indexOf(_shape.get.getShapeAt(0))
 		val addPosition = if(position>=dr.size) -1 else position
 
-		_shape.get.getShapes.foreach{_ => dr.removeShape(position)}
+		_shape.get.getShapes.forEach{_ => dr.removeShape(position)}
 
 		dr.addShape(_shape.get, addPosition)
 		dr.setModified(true)

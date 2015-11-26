@@ -1,6 +1,5 @@
 package net.sf.latexdraw.glib.models.impl
 
-import scala.collection.JavaConversions.asScalaBuffer
 import org.malai.mapping.MappingRegistry
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
@@ -36,7 +35,7 @@ private[impl] class LDrawing extends IDrawing with LSetShapes {
 
 	override def setSelection(newSelection : java.util.List[IShape]) {
 		selection.clear
-		newSelection.foreach(sh => selection.addShape(sh))
+		newSelection.forEach(sh => selection.addShape(sh))
 	}
 
 	override def clear() {
@@ -64,12 +63,12 @@ private[impl] class LDrawing extends IDrawing with LSetShapes {
 		if(modified)
 			MappingRegistry.REGISTRY.onObjectModified(this)
 		else
-			shapes.foreach{_.setModified(false)}
+			shapes.forEach{_.setModified(false)}
 
 		this.modified = modified
 	}
 
-	override def isModified = modified || shapes.exists{_.isModified}
+	override def isModified = modified || shapes.stream.filter{_.isModified}.findAny.isPresent
 
 	override def reinit() = clear
 }

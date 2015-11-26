@@ -1,11 +1,12 @@
 package net.sf.latexdraw.glib.models.impl
 
-import scala.collection.JavaConversions.asScalaBuffer
+import java.util.stream.Collectors
 
 import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp
 import net.sf.latexdraw.glib.models.interfaces.shape.Color
 import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.views.latex.DviPsColors
 
 /**
@@ -28,45 +29,26 @@ import net.sf.latexdraw.glib.views.latex.DviPsColors
  */
 private[impl] trait LGroupDot extends IGroup {
 	/** May return the first grid of the group. */
-	private def firstDottable = dotShapes.find{_.isTypeOf(classOf[IDotProp])}
+	private def firstDottable = dotShapes.stream.filter{_.isTypeOf(classOf[IDotProp])}.findFirst
 
-	private def dotShapes = getShapes.flatMap{case x:IDotProp => x::Nil; case _ => Nil}
+	private def dotShapes =
+	  getShapes.stream.filter{_.isInstanceOf[IDotProp]}.map[IShape with IDotProp]{_.asInstanceOf[IShape with IDotProp]}.collect(Collectors.toList())
 
-	override def getDotFillingCol: Color = {
-		firstDottable match {
-			case Some(dot) => dot.getDotFillingCol
-			case _ => DviPsColors.BLACK
-		}
-	}
-
+	override def getDotFillingCol = if(firstDottable.isPresent) firstDottable.get.getDotFillingCol else DviPsColors.BLACK
 
 	override def setDotFillingCol(fillingCol : Color) {
-		dotShapes.foreach{_.setDotFillingCol(fillingCol)}
+		dotShapes.forEach{_.setDotFillingCol(fillingCol)}
 	}
 
-
-	override def getDotStyle: DotStyle = {
-		firstDottable match {
-			case Some(dot) => dot.getDotStyle()
-			case _ => DotStyle.DOT
-		}
-	}
-
+	override def getDotStyle = if(firstDottable.isPresent) firstDottable.get.getDotStyle() else DotStyle.DOT
 
 	override def setDotStyle(style : DotStyle) {
-		dotShapes.foreach{_.setDotStyle(style)}
+		dotShapes.forEach{_.setDotStyle(style)}
 	}
 
-
-	override def getDiametre: Double = {
-		firstDottable match {
-			case Some(dot) => dot.getDiametre
-			case _ => Double.NaN
-		}
-	}
-
+	override def getDiametre = if(firstDottable.isPresent) firstDottable.get.getDiametre else Double.NaN
 
 	override def setDiametre(dia : Double) {
-		dotShapes.foreach{_.setDiametre(dia)}
+		dotShapes.forEach{_.setDiametre(dia)}
 	}
 }

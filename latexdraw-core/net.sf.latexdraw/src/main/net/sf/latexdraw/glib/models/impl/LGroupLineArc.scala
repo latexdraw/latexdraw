@@ -1,9 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
-import scala.collection.JavaConversions.asScalaBuffer
+import java.util.stream.Collectors
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * This trait encapsulates the code of the group related to the support of line arc shapes.<br>
@@ -25,20 +26,16 @@ import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp
  */
 private[impl] trait LGroupLineArc extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstLineArc = lineArcShapes.find{_.isTypeOf(classOf[ILineArcProp])}
+	private def firstLineArc = lineArcShapes.stream.filter{_.isTypeOf(classOf[ILineArcProp])}.findFirst
 
-	private def lineArcShapes = getShapes.flatMap{case x:ILineArcProp => x::Nil; case _ => Nil}
+	private def lineArcShapes = 
+	  getShapes.stream.filter{_.isInstanceOf[ILineArcProp]}.map[IShape with ILineArcProp]{_.asInstanceOf[IShape with ILineArcProp]}.collect(Collectors.toList())
 
-	override def getLineArc: Double = {
-		firstLineArc match {
-			case Some(la) => la.getLineArc
-			case _ => Double.NaN
-		}
-	}
+	override def getLineArc = if(firstLineArc.isPresent) firstLineArc.get.getLineArc else Double.NaN
 
 	override def setLineArc(lineArc : Double) {
-		lineArcShapes.foreach{_.setLineArc(lineArc)}
+		lineArcShapes.forEach{_.setLineArc(lineArc)}
 	}
 
-	override def isRoundCorner = firstLineArc.isDefined && firstLineArc.get.isRoundCorner
+	override def isRoundCorner = firstLineArc.isPresent && firstLineArc.get.isRoundCorner
 }

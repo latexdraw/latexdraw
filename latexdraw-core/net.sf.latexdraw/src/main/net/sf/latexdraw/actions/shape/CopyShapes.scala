@@ -1,7 +1,6 @@
 package net.sf.latexdraw.actions.shape
 
 import java.util.ArrayList
-import scala.collection.JavaConversions.asScalaBuffer
 import org.malai.action.Action
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import net.sf.latexdraw.glib.models.ShapeFactory
@@ -36,7 +35,7 @@ class CopyShapes extends Action {
 
 
 	override protected def doActionBody() {
-		_selection.get.shapes.foreach{shape => copiedShapes.add(ShapeFactory.duplicate(shape))}
+		_selection.get.shapes.forEach{shape => copiedShapes.add(ShapeFactory.duplicate(shape))}
 	}
 
 

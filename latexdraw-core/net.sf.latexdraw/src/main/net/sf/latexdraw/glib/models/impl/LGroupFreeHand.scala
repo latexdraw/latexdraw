@@ -1,10 +1,11 @@
 package net.sf.latexdraw.glib.models.impl
 
-import scala.collection.JavaConversions.asScalaBuffer
+import java.util.stream.Collectors
 
 import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp
 import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * This trait encapsulates the code of the group related to the support of free hand shapes.<br>
@@ -26,40 +27,26 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
  */
 private[impl] trait LGroupFreeHand extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstIFreeHand = fhShapes.find{_.isTypeOf(classOf[IFreeHandProp])}
+	private def firstIFreeHand = fhShapes.stream.filter{_.isTypeOf(classOf[IFreeHandProp])}.findFirst
 
-	private def fhShapes = getShapes.flatMap{case x:IFreeHandProp => x::Nil; case _ => Nil}
+	private def fhShapes =
+	    getShapes.stream.filter{_.isInstanceOf[IFreeHandProp]}.map[IShape with IFreeHandProp]{_.asInstanceOf[IShape with IFreeHandProp]}.collect(Collectors.toList())
 
-	override def getType: FreeHandStyle = {
-		firstIFreeHand match {
-			case Some(fh) => fh.getType
-			case _ => FreeHandStyle.CURVES
-		}
-	}
+	override def getType = if(firstIFreeHand.isPresent) firstIFreeHand.get.getType() else FreeHandStyle.CURVES
 
 	override def setType(fhType : FreeHandStyle) {
-		fhShapes.foreach{_.setType(fhType)}
+		fhShapes.forEach{_.setType(fhType)}
 	}
 
-	override def isOpen: Boolean = {
-		firstIFreeHand match {
-			case Some(fh) => fh.isOpen
-			case _ => false
-		}
-	}
+	override def isOpen = if(firstIFreeHand.isPresent) firstIFreeHand.get.isOpen else false
 
 	override def setOpen(open : Boolean) {
-		fhShapes.foreach{_.setOpen(open)}
+		fhShapes.forEach{_.setOpen(open)}
 	}
 
-	override def getInterval: Int = {
-		firstIFreeHand match {
-			case Some(fh) => fh.getInterval
-			case _ => 0
-		}
-	}
+	override def getInterval = if(firstIFreeHand.isPresent) firstIFreeHand.get.getInterval else 0
 
 	override def setInterval(interval : Int) {
-		fhShapes.foreach{_.setInterval(interval)}
+		fhShapes.forEach{_.setInterval(interval)}
 	}
 }

@@ -1,11 +1,9 @@
 package net.sf.latexdraw.actions.shape
 
-import scala.collection.JavaConversions.asScalaBuffer
-import scala.collection.JavaConversions.bufferAsJavaList
-import scala.collection.mutable.Buffer
 import org.malai.undo.Undoable
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.util.LangTool
+import java.util.stream.Collectors
 
 /**
  * This action cuts the selected shapes.<br>
@@ -27,18 +25,17 @@ import net.sf.latexdraw.util.LangTool
  */
 class CutShapes extends CopyShapes with Undoable with Modifying {
 	/** The index of the cut shapes. */
-	var _positionShapes : Buffer[Int] = _
+	var _positionShapes : java.util.List[Int] = _
 
 
 	override def doActionBody() {
 		// Removing the shapes.
-		val selectedShapes 	= selection.get.shapes
-		val drawingSh		= selection.get.drawing.get.getShapes
+		val drawingSh	= selection.get.drawing.get.getShapes
 
-		_positionShapes = selectedShapes.map{sh =>
+		_positionShapes = selection.get.shapes.stream.map[Int]{sh =>
 			copiedShapes.add(sh)
 			drawingSh.indexOf(sh)
-		}
+		}.collect(Collectors.toList())
 
 		deleteShapes
 		selection.get.shapes.clear
@@ -63,7 +60,7 @@ class CutShapes extends CopyShapes with Undoable with Modifying {
 
 	override def undo() {
 		val dr = _selection.get.drawing.get
-		for(i <- 0 to _positionShapes.length-1) dr.addShape(copiedShapes.get(i), _positionShapes.get(i))
+		for(i <- 0 to _positionShapes.size-1) dr.addShape(copiedShapes.get(i), _positionShapes.get(i))
 		dr.setModified(true)
 	}
 

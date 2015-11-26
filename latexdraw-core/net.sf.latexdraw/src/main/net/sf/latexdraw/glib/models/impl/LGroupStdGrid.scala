@@ -1,10 +1,10 @@
 package net.sf.latexdraw.glib.models.impl
 
-import scala.collection.JavaConversions.asScalaBuffer
+import java.util.stream.Collectors
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
+import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 /**
  * This trait encapsulates the code of the group related to the support of standard grids.<br>
@@ -26,131 +26,76 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp
  */
 private[impl] trait LGroupStdGrid extends IGroup {
 	/** May return the first stdGrid of the group. */
-	private def firstIStdGrid = gridShapes.find{_.isTypeOf(classOf[IStdGridProp])}
+	private def firstIStdGrid = gridShapes.stream.filter{_.isTypeOf(classOf[IStdGridProp])}.findFirst
 
-	private def gridShapes = getShapes.flatMap{case x:IStdGridProp => x::Nil; case _ => Nil}
+	private def gridShapes =
+	  getShapes.stream.filter{_.isInstanceOf[IStdGridProp]}.map[IShape with IStdGridProp]{_.asInstanceOf[IShape with IStdGridProp]}.collect(Collectors.toList())
 
-	override def getGridMinX: Double =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getGridMinX
-			case _ => Double.NaN
-		}
+	override def getGridMinX = if(firstIStdGrid.isPresent) firstIStdGrid.get.getGridMinX else Double.NaN
 
-	override def getGridMaxX: Double =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getGridMaxX
-			case _ => Double.NaN
-		}
+	override def getGridMaxX = if(firstIStdGrid.isPresent) firstIStdGrid.get.getGridMaxX else Double.NaN
 
-	override def getGridMinY: Double =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getGridMinY
-			case _ => Double.NaN
-		}
+	override def getGridMinY = if(firstIStdGrid.isPresent) firstIStdGrid.get.getGridMinY else Double.NaN
 
-	override def getGridMaxY =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getGridMaxY
-			case _ => Double.NaN
-		}
+	override def getGridMaxY = if(firstIStdGrid.isPresent) firstIStdGrid.get.getGridMaxY else Double.NaN
 
-	override def getLabelsSize: Int =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getLabelsSize
-			case _ => -1
-		}
+	override def getLabelsSize = if(firstIStdGrid.isPresent) firstIStdGrid.get.getLabelsSize else -1
 
 	override def setLabelsSize(labelsSize : Int) {
-		gridShapes.foreach{_.setLabelsSize(labelsSize)}
+		gridShapes.forEach{_.setLabelsSize(labelsSize)}
 	}
 
 	override def setGridEndX(x : Double) {
-		gridShapes.foreach{_.setGridEndX(x)}
+		gridShapes.forEach{_.setGridEndX(x)}
 	}
 
 	override def setGridEndY(y : Double) {
-		gridShapes.foreach{_.setGridEndY(y)}
+		gridShapes.forEach{_.setGridEndY(y)}
 	}
 
-	override def getGridStartX: Double =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getGridStartX
-			case _ => Double.NaN
-		}
+	override def getGridStartX = if(firstIStdGrid.isPresent) firstIStdGrid.get.getGridStartX else Double.NaN
 
-	override def getGridStartY: Double =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getGridStartY
-			case _ => Double.NaN
-		}
+	override def getGridStartY = if(firstIStdGrid.isPresent) firstIStdGrid.get.getGridStartY else Double.NaN
 
 	override def setGridStart(x : Double, y : Double) {
-		gridShapes.foreach{_.setGridStart(x, y)}
+		gridShapes.forEach{_.setGridStart(x, y)}
 	}
 
-	override def getGridEndX: Double =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getGridEndX
-			case _ => Double.NaN
-		}
+	override def getGridEndX = if(firstIStdGrid.isPresent) firstIStdGrid.get.getGridEndX else Double.NaN
 
-	override def getGridEndY: Double =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getGridEndY
-			case _ => Double.NaN
-		}
+	override def getGridEndY = if(firstIStdGrid.isPresent) firstIStdGrid.get.getGridEndY else Double.NaN
 
 	override def setGridEnd(x : Double, y : Double) {
-		gridShapes.foreach{_.setGridEnd(x, y)}
+		gridShapes.forEach{_.setGridEnd(x, y)}
 	}
 
-	override def getOriginX: Double =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getOriginX
-			case _ => Double.NaN
-		}
+	override def getOriginX = if(firstIStdGrid.isPresent) firstIStdGrid.get.getOriginX else Double.NaN
 
-	override def getOriginY: Double =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getOriginY
-			case _ => Double.NaN
-		}
+	override def getOriginY = if(firstIStdGrid.isPresent) firstIStdGrid.get.getOriginY else Double.NaN
 
 	override def setOrigin(x : Double, y : Double) {
-		gridShapes.foreach{_.setOrigin(x, y)}
+		gridShapes.forEach{_.setOrigin(x, y)}
 	}
 
 	override def setGridStartY(y : Double) {
-		gridShapes.foreach{_.setGridStartY(y)}
+		gridShapes.forEach{_.setGridStartY(y)}
 	}
 
 	override def setGridStartX(x : Double) {
-		gridShapes.foreach{_.setGridStartX(x)}
+		gridShapes.forEach{_.setGridStartX(x)}
 	}
 
 	override def setOriginX(x : Double) {
-		gridShapes.foreach{_.setOriginX(x)}
+		gridShapes.forEach{_.setOriginX(x)}
 	}
 
 	override def setOriginY(y : Double) {
-		gridShapes.foreach{_.setOriginY(y)}
+		gridShapes.forEach{_.setOriginY(y)}
 	}
 
-	override def getStep: Double =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getStep
-			case _ => Double.NaN
-		}
+	override def getStep = if(firstIStdGrid.isPresent) firstIStdGrid.get.getStep else Double.NaN
 
-	override def getGridStart: IPoint =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getGridStart
-			case _ => null
-		}
+	override def getGridStart = if(firstIStdGrid.isPresent) firstIStdGrid.get.getGridStart else null
 
-	override def getGridEnd: IPoint =
-		firstIStdGrid match {
-			case Some(stdGrid) => stdGrid.getGridEnd
-			case _ => null
-		}
+	override def getGridEnd = if(firstIStdGrid.isPresent) firstIStdGrid.get.getGridEnd else null
 }

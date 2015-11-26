@@ -2,7 +2,6 @@ package net.sf.latexdraw.actions.shape
 
 import java.awt.geom.Rectangle2D
 
-import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.mutable.ListBuffer
 
 import org.malai.action.Action
@@ -227,7 +226,7 @@ class AlignShapes extends Action with ShapeAction[IGroup] with Undoable with Mod
 		var pos : Int = 0
 		var oldPt : IPoint = null
 
-		shape.get.getShapes.foreach{sh=>
+		shape.get.getShapes.forEach{sh=>
 			// Reusing the old position.
 			pt = sh.getTopLeftPoint
 			oldPt = _oldPositions(pos)

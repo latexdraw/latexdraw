@@ -1,9 +1,7 @@
 package net.sf.latexdraw.glib.models.impl
 
 import java.awt.geom.Rectangle2D
-
-import scala.collection.JavaConversions.asScalaBuffer
-import scala.collection.mutable.Buffer
+import java.util.Optional
 
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos
@@ -39,346 +37,264 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
  */
 private[impl] trait LGroupShape extends IGroup {
 	override def mirrorHorizontal(origin:IPoint) {
-		getShapes.foreach{_.mirrorHorizontal(origin)}
+		getShapes.forEach{_.mirrorHorizontal(origin)}
 	}
 
 	override def mirrorVertical(origin:IPoint) {
-		getShapes.foreach{_.mirrorVertical(origin)}
+		getShapes.forEach{_.mirrorVertical(origin)}
 	}
 
-	override def setThickness(thickness : Double) = getShapes.foreach{_.setThickness(thickness)}
-
+	override def setThickness(thickness : Double) {
+	  getShapes.forEach{_.setThickness(thickness)}
+	}
 
 	override def scale(prevWidth : Double, prevHeight : Double, pos : Position, bound : Rectangle2D) {
-	  val shs:Buffer[IShape] = getShapes
-
-	  if(shs.exists{sh => sh.isInstanceOf[ISquaredShape] || sh.isInstanceOf[IStandardGrid] || sh.isInstanceOf[IDot]})
-  		shs.foreach{_.scaleWithRatio(prevWidth, prevHeight, pos, bound)}
+	  if(getShapes.stream.filter{sh => sh.isInstanceOf[ISquaredShape] || sh.isInstanceOf[IStandardGrid] || sh.isInstanceOf[IDot]}.findAny().isPresent())
+  		getShapes.forEach{_.scaleWithRatio(prevWidth, prevHeight, pos, bound)}
 	  else
-  		shs.foreach{_.scale(prevWidth, prevHeight, pos, bound)}
+  		getShapes.forEach{_.scale(prevWidth, prevHeight, pos, bound)}
 	}
   
 	override def getThickness: Double = {
-		getShapes.find{_.isThicknessable} match {
-			case Some(sh) => sh.getThickness
+		getShapes.stream.filter{_.isThicknessable}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getThickness
 			case _ => Double.NaN
 		}
 	}
 
-  override def isColourable = getShapes.exists{_.isColourable}
+  override def isColourable = getShapes.stream.filter{_.isColourable}.findAny.isPresent
 
-	override def isThicknessable = getShapes.exists{_.isThicknessable}
+	override def isThicknessable = getShapes.stream.filter{_.isThicknessable}.findAny.isPresent
 
+	override def isShowPtsable = getShapes.stream.filter{_.isShowPtsable}.findAny.isPresent
 
-	override def isShowPtsable = getShapes.exists{_.isShowPtsable}
-
-
-	override def isShowPts = getShapes.exists{shape => shape.isShowPtsable && shape.isShowPts}
-
+	override def isShowPts = getShapes.stream.filter{shape => shape.isShowPtsable && shape.isShowPts}.findAny.isPresent
 
 	override def setShowPts(show : Boolean) {
-		getShapes.filter{_.isShowPtsable}.foreach{_.setShowPts(show)}
+		getShapes.stream.filter{_.isShowPtsable}.forEach{_.setShowPts(show)}
 	}
 
+	override def getLineColour = if(size>0) getShapes.get(0).getLineColour else PSTricksConstants.DEFAULT_LINE_COLOR
 
-	override def getLineColour: Color = {
-		getShapes.headOption match {
-			case Some(shape) => shape.getLineColour
-			case _ => PSTricksConstants.DEFAULT_LINE_COLOR
-		}
-	}
+	override def isLineStylable = getShapes.stream.filter{_.isLineStylable}.findAny.isPresent
 
-
-	override def isLineStylable = getShapes.exists{_.isLineStylable}
-
-
-	override def getLineStyle: LineStyle = {
-		getShapes.find{_.isLineStylable} match {
-			case Some(sh) => sh.getLineStyle()
+	override def getLineStyle = 
+		getShapes.stream.filter{_.isLineStylable}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getLineStyle()
 			case _ => LineStyle.SOLID
 		}
-	}
-
 
 	override def setLineStyle(style : LineStyle) {
-		getShapes.filter{_.isLineStylable}.foreach{_.setLineStyle(style)}
+		getShapes.stream.filter{_.isLineStylable}.forEach{_.setLineStyle(style)}
 	}
 
+	override def isBordersMovable = getShapes.stream.filter{_.isBordersMovable}.findAny.isPresent
 
-	override def isBordersMovable = getShapes.exists{_.isBordersMovable}
-
-
-	override def getBordersPosition: BorderPos = {
-		getShapes.find{_.isBordersMovable} match {
-			case Some(sh) => sh.getBordersPosition()
+	override def getBordersPosition =
+		getShapes.stream.filter{_.isBordersMovable}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getBordersPosition()
 			case _ => BorderPos.INTO
 		}
-	}
-
 
 	override def setBordersPosition(position : BorderPos) {
-		getShapes.filter{_.isBordersMovable}.foreach{_.setBordersPosition(position)}
+		getShapes.stream.filter{_.isBordersMovable}.forEach{_.setBordersPosition(position)}
 	}
-
 
 	override def setLineColour(lineColour : Color) {
-		getShapes.foreach{_.setLineColour(lineColour)}
+		getShapes.forEach{_.setLineColour(lineColour)}
 	}
-
 
 	override def setDbleBordCol(colour : Color) {
-		getShapes.filter{_.isDbleBorderable}.foreach{_.setDbleBordCol(colour)}
+		getShapes.stream.filter{_.isDbleBorderable}.forEach{_.setDbleBordCol(colour)}
 	}
 
-
-	override def getDbleBordCol: Color = {
-		getShapes.find{_.hasDbleBord} match {
-			case Some(sh) => sh.getDbleBordCol
+	override def getDbleBordCol =
+		getShapes.stream.filter{_.hasDbleBord}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getDbleBordCol
 			case _ => PSTricksConstants.DEFAULT_DOUBLE_COLOR
 		}
-	}
 
-
-	override def hasDbleBord = getShapes.exists{shape => shape.hasDbleBord && shape.isDbleBorderable }
-
+	override def hasDbleBord = getShapes.stream.filter{shape => shape.hasDbleBord && shape.isDbleBorderable }.findAny.isPresent
 
 	override def setHasDbleBord(dbleBorders : Boolean) {
-		getShapes.filter{_.isDbleBorderable}.foreach{_.setHasDbleBord(dbleBorders)}
+		getShapes.stream.filter{_.isDbleBorderable}.forEach{_.setHasDbleBord(dbleBorders)}
 	}
 
-
-	override def isDbleBorderable = getShapes.exists{_.isDbleBorderable}
-
+	override def isDbleBorderable = getShapes.stream.filter{_.isDbleBorderable}.findAny.isPresent
 
 	override def setDbleBordSep(dbleBorderSep : Double) {
-		getShapes.filter{_.isDbleBorderable}.foreach{_.setDbleBordSep(dbleBorderSep)}
+		getShapes.stream.filter{_.isDbleBorderable}.forEach{_.setDbleBordSep(dbleBorderSep)}
 	}
 
-
-	override def getDbleBordSep: Double = {
-		getShapes.find{shape => shape.isDbleBorderable && shape.hasDbleBord} match {
-			case Some(sh) => sh.getDbleBordSep
+	override def getDbleBordSep = 
+		getShapes.stream.filter{shape => shape.isDbleBorderable && shape.hasDbleBord}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getDbleBordSep
 			case _ => Double.NaN
 		}
-	}
 
+	override def isShadowable = getShapes.stream.filter{_.isShadowable }.findAny.isPresent
 
-	override def isShadowable = getShapes.exists{_.isShadowable }
-
-
-	override def hasShadow = getShapes.exists{shape => shape.isShadowable && shape.hasShadow }
-
+	override def hasShadow = getShapes.stream.filter{shape => shape.isShadowable && shape.hasShadow }.findAny.isPresent
 
 	override def setHasShadow(shadow : Boolean) {
-		getShapes.filter{_.isShadowable}.foreach{_.setHasShadow(shadow)}
+		getShapes.stream.filter{_.isShadowable}.forEach{_.setHasShadow(shadow)}
 	}
-
 
 	override def setShadowSize(shadSize : Double) {
-		getShapes.filter{_.isShadowable}.foreach{_.setShadowSize(shadSize)}
+		getShapes.stream.filter{_.isShadowable}.forEach{_.setShadowSize(shadSize)}
 	}
 
-
-	override def getShadowSize: Double = {
-		getShapes.find{shape => shape.isShadowable && shape.hasShadow} match {
-			case Some(sh) => sh.getShadowSize
+	override def getShadowSize = 
+		getShapes.stream.filter{shape => shape.isShadowable && shape.hasShadow}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getShadowSize
 			case _ => Double.NaN
 		}
-	}
-
 
 	override def setShadowAngle(shadAngle : Double) {
-		getShapes.filter{_.isShadowable}.foreach{_.setShadowAngle(shadAngle)}
+		getShapes.stream.filter{_.isShadowable}.forEach{_.setShadowAngle(shadAngle)}
 	}
 
-
-	override def getShadowAngle: Double = {
-		getShapes.find{shape => shape.isShadowable && shape.hasShadow} match {
-			case Some(sh) => sh.getShadowAngle
+	override def getShadowAngle = 
+		getShapes.stream.filter{shape => shape.isShadowable && shape.hasShadow}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getShadowAngle
 			case _ => Double.NaN
 		}
-	}
-
 
 	override def setShadowCol(colour : Color) {
-		getShapes.filter{_.isShadowable}.foreach{_.setShadowCol(colour)}
+		getShapes.stream.filter{_.isShadowable}.forEach{_.setShadowCol(colour)}
 	}
 
-
-	override def getShadowCol: Color = {
-		getShapes.find{shape => shape.isShadowable && shape.hasShadow} match {
-			case Some(sh) => sh.getShadowCol
+	override def getShadowCol = 
+		getShapes.stream.filter{shape => shape.isShadowable && shape.hasShadow}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getShadowCol
 			case _ => PSTricksConstants.DEFAULT_SHADOW_COLOR
 		}
-	}
 
-
-	override def getFillingStyle: FillingStyle = {
-		getShapes.find{_.isInteriorStylable} match {
-			case Some(sh) => sh.getFillingStyle
+	override def getFillingStyle =
+		getShapes.stream.filter{_.isInteriorStylable}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getFillingStyle
 			case _ => FillingStyle.NONE
 		}
-	}
-
 
 	override def setFillingStyle(style : FillingStyle) {
-		getShapes.filter{_.isInteriorStylable}.foreach{_.setFillingStyle(style)}
+		getShapes.stream.filter{_.isInteriorStylable}.forEach{_.setFillingStyle(style)}
 	}
 
+	override def isFillable = getShapes.stream.filter{_.isFillable }.findAny.isPresent
 
-	override def isFillable = getShapes.exists{_.isFillable }
+	override def isInteriorStylable = getShapes.stream.filter{_.isInteriorStylable }.findAny.isPresent
 
-
-	override def isInteriorStylable = getShapes.exists{_.isInteriorStylable }
-
-
-	override def setFillingCol(colour : Color) = {
-		getShapes.filter{_.isFillable}.foreach{_.setFillingCol(colour)}
+	override def setFillingCol(colour : Color) {
+		getShapes.stream.filter{_.isFillable}.forEach{_.setFillingCol(colour)}
 	}
 
-
-	override def getFillingCol: Color = {
-		getShapes.find{shape => shape.isFillable && shape.isFilled} match {
-			case Some(sh) => sh.getFillingCol
+	override def getFillingCol =
+		getShapes.stream.filter{shape => shape.isFillable && shape.isFilled}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getFillingCol
 			case _ => PSTricksConstants.DEFAULT_FILL_COLOR
 		}
-	}
-
 
 	override def setHatchingsCol(colour : Color) {
-		getShapes.filter{_.isInteriorStylable}.foreach{_.setHatchingsCol(colour)}
+		getShapes.stream.filter{_.isInteriorStylable}.forEach{_.setHatchingsCol(colour)}
 	}
 
-
-	override def getHatchingsCol: Color = {
-		getShapes.find{shape => shape.isInteriorStylable && shape.getFillingStyle.isHatchings} match {
-			case Some(sh) => sh.getHatchingsCol
+	override def getHatchingsCol =
+		getShapes.stream.filter{shape => shape.isInteriorStylable && shape.getFillingStyle.isHatchings}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getHatchingsCol
 			case _ => PSTricksConstants.DEFAULT_HATCHING_COLOR
 		}
-	}
-
 
 	override def setGradColStart(colour : Color) {
-		getShapes.filter{_.isInteriorStylable}.foreach{_.setGradColStart(colour)}
+		getShapes.stream.filter{_.isInteriorStylable}.forEach{_.setGradColStart(colour)}
 	}
 
-
-	override def getGradColStart: Color = {
-		getShapes.find{shape => shape.isInteriorStylable && shape.getFillingStyle.isGradient} match {
-			case Some(sh) => sh.getGradColStart
+	override def getGradColStart =
+		getShapes.stream.filter{shape => shape.isInteriorStylable && shape.getFillingStyle.isGradient}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getGradColStart
 			case _ => PSTricksConstants.DEFAULT_GRADIENT_START_COLOR
 		}
-	}
-
 
 	override def setGradColEnd(colour : Color) {
-		getShapes.filter{_.isInteriorStylable}.foreach{_.setGradColEnd(colour)}
+		getShapes.stream.filter{_.isInteriorStylable}.forEach{_.setGradColEnd(colour)}
 	}
 
-
-	override def getGradColEnd: Color = {
-		getShapes.find{shape => shape.isInteriorStylable && shape.getFillingStyle.isGradient} match {
-			case Some(sh) => sh.getGradColEnd
+	override def getGradColEnd =
+		getShapes.stream.filter{shape => shape.isInteriorStylable && shape.getFillingStyle.isGradient}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getGradColEnd
 			case _ => PSTricksConstants.DEFAULT_GRADIENT_END_COLOR
 		}
-	}
-
 
 	override def setGradAngle(gradAngle : Double) {
-		getShapes.filter{_.isInteriorStylable}.foreach{_.setGradAngle(gradAngle)}
+		getShapes.stream.filter{_.isInteriorStylable}.forEach{_.setGradAngle(gradAngle)}
 	}
 
-
-	override def getGradAngle: Double = {
-		getShapes.find{shape => shape.isInteriorStylable && shape.getFillingStyle.isGradient} match {
-			case Some(sh) => sh.getGradAngle
+	override def getGradAngle =
+		getShapes.stream.filter{shape => shape.isInteriorStylable && shape.getFillingStyle.isGradient}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getGradAngle
 			case _ => Double.NaN
 		}
+
+	override def setGradMidPt(gradMidPoint : Double) {
+		getShapes.stream.filter{_.isInteriorStylable}.forEach{_.setGradMidPt(gradMidPoint)}
 	}
-
-
-	override def setGradMidPt(gradMidPoint : Double) = {
-		getShapes.filter{_.isInteriorStylable}.foreach{_.setGradMidPt(gradMidPoint)}
-	}
-
 
 	override def getGradMidPt: Double = {
-		getShapes.find{shape => shape.isInteriorStylable && shape.getFillingStyle.isGradient} match {
-			case Some(sh) => sh.getGradMidPt
+		getShapes.stream.filter{shape => shape.isInteriorStylable && shape.getFillingStyle.isGradient}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getGradMidPt
 			case _ => Double.NaN
 		}
 	}
 
-
-	override def getHatchingsAngle: Double = {
-		getShapes.find{shape => shape.isInteriorStylable} match {
-			case Some(sh) => sh.getHatchingsAngle
+	override def getHatchingsAngle =
+		getShapes.stream.filter{shape => shape.isInteriorStylable}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getHatchingsAngle
 			case _ => Double.NaN
 		}
-	}
 
-
-	override def getHatchingsSep: Double = {
-		getShapes.find{shape => shape.isInteriorStylable} match {
-			case Some(sh) => sh.getHatchingsSep
+	override def getHatchingsSep =
+		getShapes.stream.filter{shape => shape.isInteriorStylable}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getHatchingsSep
 			case _ => Double.NaN
 		}
-	}
 
-
-	override def getHatchingsWidth: Double = {
-		getShapes.find{shape => shape.isInteriorStylable} match {
-			case Some(sh) => sh.getHatchingsWidth
+	override def getHatchingsWidth =
+		getShapes.stream.filter{shape => shape.isInteriorStylable}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getHatchingsWidth
 			case _ => Double.NaN
 		}
-	}
-
 
 	override def setHatchingsAngle(hatchingsAngle : Double) {
-		getShapes.filter{_.isInteriorStylable}.foreach{_.setHatchingsAngle(hatchingsAngle)}
+		getShapes.stream.filter{_.isInteriorStylable}.forEach{_.setHatchingsAngle(hatchingsAngle)}
 	}
 
-
-	override def setHatchingsSep(hatchingsSep : Double) = {
-		getShapes.filter{_.isInteriorStylable}.foreach{_.setHatchingsSep(hatchingsSep)}
+	override def setHatchingsSep(hatchingsSep : Double) {
+		getShapes.stream.filter{_.isInteriorStylable}.forEach{_.setHatchingsSep(hatchingsSep)}
 	}
 
-
-	override def setHatchingsWidth(hatchingsWidth : Double) = {
-		getShapes.filter{_.isInteriorStylable}.foreach{_.setHatchingsWidth(hatchingsWidth)}
+	override def setHatchingsWidth(hatchingsWidth : Double) {
+		getShapes.stream.filter{_.isInteriorStylable}.forEach{_.setHatchingsWidth(hatchingsWidth)}
 	}
 
+	override def translate(tx : Double, ty : Double) {
+	  getShapes.forEach{_.translate(tx, ty)}
+	}
 
-	override def translate(tx : Double, ty : Double) = getShapes.foreach{_.translate(tx, ty)}
-
-
-	override def addToRotationAngle(gravCentre : IPoint, angle : Double) = {
+	override def addToRotationAngle(gravCentre : IPoint, angle : Double) {
 		val gc : IPoint = if(gravCentre==null) getGravityCentre else gravCentre
-		getShapes.foreach{_.addToRotationAngle(gc, angle)}
+		getShapes.forEach{_.addToRotationAngle(gc, angle)}
 	}
 
-
-	override def setRotationAngle(rotationAngle : Double) = getShapes.foreach{_.setRotationAngle(rotationAngle)}
-
-
-	override def rotate(point : IPoint, angle : Double) = getShapes.foreach{_.rotate(point, angle)}
-
-
-	override def getRotationAngle: Double = {
-		getShapes.headOption match {
-			case Some(sh) => sh.getRotationAngle
-			case _ => 0.0
-		}
+	override def setRotationAngle(rotationAngle : Double) {
+	  getShapes.forEach{_.setRotationAngle(rotationAngle)}
 	}
 
-
-	override def getGravityCentre: IPoint = {
-		size match {
-			case 0 => ShapeFactory.createPoint
-			case _ => getTopLeftPoint.getMiddlePoint(getBottomRightPoint)
-		}
+	override def rotate(point : IPoint, angle : Double) {
+	  getShapes.forEach{_.rotate(point, angle)}
 	}
 
+	override def getRotationAngle = if(size>0) getShapes.get(0).getRotationAngle else 0.0
+
+	override def getGravityCentre = if(size==0) ShapeFactory.createPoint else getTopLeftPoint.getMiddlePoint(getBottomRightPoint)
 
 	override def getBottomRightPoint: IPoint = {
 		var x : Double = Double.NaN
@@ -389,7 +305,7 @@ private[impl] trait LGroupShape extends IGroup {
 			x = Double.MinValue
 			y = Double.MinValue
 
-			getShapes.foreach{shape =>
+			getShapes.forEach{shape =>
 				br = shape.getBottomRightPoint
 				if(br.getX>x)
 					x = br.getX
@@ -400,7 +316,6 @@ private[impl] trait LGroupShape extends IGroup {
 		return ShapeFactory.createPoint(x, y)
 	}
 
-
 	override def getBottomLeftPoint: IPoint = {
 		var x : Double = Double.NaN
 		var y : Double = Double.NaN
@@ -410,7 +325,7 @@ private[impl] trait LGroupShape extends IGroup {
 			x = Double.MaxValue
 			y = Double.MinValue
 
-			getShapes.foreach{shape =>
+			getShapes.forEach{shape =>
 				bl = shape.getBottomLeftPoint
 				if(bl.getX<x)
 					x = bl.getX
@@ -421,7 +336,6 @@ private[impl] trait LGroupShape extends IGroup {
 		return ShapeFactory.createPoint(x, y)
 	}
 
-
 	override def getTopLeftPoint: IPoint = {
 		var x : Double = Double.NaN
 		var y : Double = Double.NaN
@@ -431,7 +345,7 @@ private[impl] trait LGroupShape extends IGroup {
 			x = Double.MaxValue
 			y = Double.MaxValue
 
-			getShapes.foreach{shape =>
+			getShapes.forEach{shape =>
 				tl = shape.getTopLeftPoint
 				if(tl.getX<x)
 					x = tl.getX
@@ -442,7 +356,6 @@ private[impl] trait LGroupShape extends IGroup {
 		return ShapeFactory.createPoint(x, y)
 	}
 
-
 	override def getTopRightPoint: IPoint = {
 		var x : Double = Double.NaN
 		var y : Double = Double.NaN
@@ -452,7 +365,7 @@ private[impl] trait LGroupShape extends IGroup {
 			x = Double.MinValue
 			y = Double.MaxValue
 
-			getShapes.foreach{shape =>
+			getShapes.forEach{shape =>
 				tr = shape.getTopRightPoint
 				if(tr.getX>x)
 					x = tr.getX
@@ -464,9 +377,7 @@ private[impl] trait LGroupShape extends IGroup {
 		return ShapeFactory.createPoint(x, y)
 	}
 
+	override def hasHatchings = getShapes.stream.filter{_.hasHatchings}.findAny.isPresent
 
-	override def hasHatchings = getShapes.exists{_.hasHatchings}
-
-
-	override def hasGradient = getShapes.exists{_.hasGradient}
+	override def hasGradient = getShapes.stream.filter{_.hasGradient}.findAny.isPresent
 }

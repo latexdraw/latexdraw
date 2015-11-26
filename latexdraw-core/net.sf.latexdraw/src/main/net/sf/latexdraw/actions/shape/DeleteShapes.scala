@@ -1,13 +1,12 @@
 package net.sf.latexdraw.actions.shape
 
-import scala.collection.JavaConversions.asScalaBuffer
-import scala.collection.mutable.Buffer
 import org.malai.action.Action
 import org.malai.undo.Undoable
 import net.sf.latexdraw.actions.DrawingAction
 import net.sf.latexdraw.actions.Modifying
 import net.sf.latexdraw.actions.ShapesAction
 import net.sf.latexdraw.lang.LangTool
+import java.util.stream.Collectors
 
 /**
  * This action removes shapes from a drawing.<br>
@@ -29,7 +28,7 @@ import net.sf.latexdraw.lang.LangTool
  */
 class DeleteShapes extends Action with ShapesAction with DrawingAction with Undoable with Modifying {
 	/** The index of the deleted shapes into the original list. */
-	var positionShapes : Buffer[Int] = _
+	var positionShapes : java.util.List[Int] = _
 
 
 	def isRegisterable = true
@@ -37,11 +36,11 @@ class DeleteShapes extends Action with ShapesAction with DrawingAction with Undo
 	protected def doActionBody() = {
 		val dr = _drawing.get
 		val drawingSh = dr.getShapes
-		positionShapes = _shapes.map{sh =>
+		positionShapes = _shapes.stream.map[Int]{sh =>
 			val pos = drawingSh.indexOf(sh)
 			dr.removeShape(sh)
 			pos
-		}
+		}.collect(Collectors.toList())
 		dr.setModified(true)
 	}
 
@@ -49,8 +48,8 @@ class DeleteShapes extends Action with ShapesAction with DrawingAction with Undo
 
 	override def undo() {
 		val dr = _drawing.get
-		for(i <- positionShapes.length-1 to 0 by -1)
-			dr.addShape(_shapes.get(i), positionShapes(i))
+		for(i <- positionShapes.size-1 to 0 by -1)
+			dr.addShape(_shapes.get(i), positionShapes.get(i))
 		dr.setModified(true)
 	}
 

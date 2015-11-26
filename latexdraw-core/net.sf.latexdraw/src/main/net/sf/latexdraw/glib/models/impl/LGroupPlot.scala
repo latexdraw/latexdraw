@@ -1,112 +1,68 @@
 package net.sf.latexdraw.glib.models.impl
 
-import scala.collection.JavaConversions.asScalaBuffer
-
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle
+import java.util.stream.Collectors
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 
 private[impl] trait LPlotGroup extends IGroup {
-  private def firstPlot = plotShapes.find{_.isTypeOf(classOf[IPlotProp])}
+  private def firstPlot = plotShapes.stream.filter{_.isTypeOf(classOf[IPlotProp])}.findFirst
 
-  private def plotShapes = getShapes.flatMap{case x:IPlotProp => x::Nil; case _ => Nil}
+  private def plotShapes =
+  	  getShapes.stream.filter{_.isInstanceOf[IPlotProp]}.map[IShape with IPlotProp]{_.asInstanceOf[IShape with IPlotProp]}.collect(Collectors.toList())
 
-	override def getYScale: Double = {
-		firstPlot match {
-			case Some(la) => la.getYScale
-			case _ => Double.NaN
-		}
-	}
+	override def getYScale = if(firstPlot.isPresent) firstPlot.get.getYScale else Double.NaN
 
 	override def setScale(s:Double) {
-	  plotShapes.foreach(_.setScale(s))
+	  plotShapes.forEach(_.setScale(s))
 	}
 
 	override def setYScale(sy:Double) {
-	  plotShapes.foreach(_.setYScale(sy))
+	  plotShapes.forEach(_.setYScale(sy))
 	}
 
-	override def getXScale: Double = {
-		firstPlot match {
-			case Some(la) => la.getXScale
-			case _ => Double.NaN
-		}
-	}
+	override def getXScale = if(firstPlot.isPresent) firstPlot.get.getXScale else Double.NaN
 
 	override def setXScale(sx:Double) {
-	  plotShapes.foreach(_.setXScale(sx))
+	  plotShapes.forEach(_.setXScale(sx))
 	}
 
-	override def isPolar:Boolean= {
-		firstPlot match {
-			case Some(sh) => sh.isPolar
-			case _ => false
-		}
-	}
+	override def isPolar = if(firstPlot.isPresent) firstPlot.get.isPolar else false
 
 	override def setPolar(polar:Boolean) {
-	  plotShapes.foreach(_.setPolar(polar))
+	  plotShapes.forEach(_.setPolar(polar))
 	}
 
-	override def getPlotStyle: PlotStyle = {
-		firstPlot match {
-			case Some(la) => la.getPlotStyle()
-			case _ => PlotStyle.CURVE
-		}
-	}
+	override def getPlotStyle = if(firstPlot.isPresent) firstPlot.get.getPlotStyle() else PlotStyle.CURVE
 
 	override def setPlotStyle(style:PlotStyle) {
-	  plotShapes.foreach(_.setPlotStyle(style))
+	  plotShapes.forEach(_.setPlotStyle(style))
 	}
 
-	override def getPlotEquation: String = {
-		firstPlot match {
-			case Some(la) => la.getPlotEquation
-			case _ => ""
-		}
-	}
+	override def getPlotEquation = if(firstPlot.isPresent) firstPlot.get.getPlotEquation else ""
 
 	override def setPlotEquation(eq:String) {
-	  plotShapes.foreach(_.setPlotEquation(eq))
+	  plotShapes.forEach(_.setPlotEquation(eq))
 	}
 
-	override def getNbPlottedPoints: Int = {
-		firstPlot match {
-			case Some(la) => la.getNbPlottedPoints
-			case _ => 0
-		}
-	}
+	override def getNbPlottedPoints = if(firstPlot.isPresent) firstPlot.get.getNbPlottedPoints else 0
 
 	override def setNbPlottedPoints(nb:Int) {
-	  plotShapes.foreach(_.setNbPlottedPoints(nb))
+	  plotShapes.forEach(_.setNbPlottedPoints(nb))
 	}
 
-	override def getPlotMinX: Double = {
-		firstPlot match {
-			case Some(la) => la.getPlotMinX()
-			case _ => java.lang.Double.NaN
-		}
-	}
+	override def getPlotMinX = if(firstPlot.isPresent) firstPlot.get.getPlotMinX else Double.NaN
 
 	override def setPlotMinX(minX:Double) {
-	  plotShapes.foreach(_.setPlotMinX(minX))
+	  plotShapes.forEach(_.setPlotMinX(minX))
 	}
 
-	override def getPlotMaxX: Double = {
-		firstPlot match {
-			case Some(la) => la.getPlotMaxX()
-			case _ => java.lang.Double.NaN
-		}
-	}
+	override def getPlotMaxX = if(firstPlot.isPresent) firstPlot.get.getPlotMaxX else Double.NaN
 
 	override def setPlotMaxX(maxX:Double) {
-	  plotShapes.foreach(_.setPlotMaxX(maxX))
+	  plotShapes.forEach(_.setPlotMaxX(maxX))
 	}
 
-	override def getPlottingStep: Double = {
-		firstPlot match {
-			case Some(la) => la.getPlottingStep()
-			case _ => 0
-		}
-	}
+	override def getPlottingStep = if(firstPlot.isPresent) firstPlot.get.getPlottingStep else 0
 }

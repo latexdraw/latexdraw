@@ -1,6 +1,6 @@
 package net.sf.latexdraw.glib.models.impl
 
-import scala.collection.JavaConversions.asScalaBuffer
+import java.util.stream.Collectors
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
 import net.sf.latexdraw.glib.models.interfaces.shape.IText
@@ -26,27 +26,20 @@ import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition
  */
 private[impl] trait LGroupText extends IGroup {
 	/** May return the first free hand shape of the group. */
-	private def firstIText = txtShapes.find{_.isTypeOf(classOf[IText])}
+	private def firstIText = txtShapes.stream.filter{_.isTypeOf(classOf[IText])}.findFirst
 
-	private def txtShapes = getShapes.flatMap{case x:IText => x::Nil; case _ => Nil}
+	private def txtShapes =
+	  getShapes.stream.filter{_.isInstanceOf[IText]}.map[IText]{_.asInstanceOf[IText]}.collect(Collectors.toList())
 
-	override def getTextPosition: TextPosition =
-		firstIText match {
-			case Some(txt) => txt.getTextPosition()
-			case _ => null
-		}
+	override def getTextPosition = if(firstIText.isPresent) firstIText.get.getTextPosition() else null
 
 	override def setTextPosition(textPosition : TextPosition) {
-		txtShapes.foreach{_.setTextPosition(textPosition)}
+		txtShapes.forEach{_.setTextPosition(textPosition)}
 	}
 
-	override def getText: String =
-		firstIText match {
-			case Some(txt) => txt.getText
-			case _ => null
-		}
+	override def getText = if(firstIText.isPresent) firstIText.get.getText else null
 
 	override def setText(text : String) {
-		txtShapes.foreach{_.setText(text)}
+		txtShapes.forEach{_.setText(text)}
 	}
 }

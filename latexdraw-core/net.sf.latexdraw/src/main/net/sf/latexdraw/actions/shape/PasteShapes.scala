@@ -1,7 +1,6 @@
 package net.sf.latexdraw.actions.shape
 
 import java.util.ArrayList
-import scala.collection.JavaConversions.asScalaBuffer
 import org.malai.action.Action
 import org.malai.undo.Undoable
 import net.sf.latexdraw.actions.DrawingAction
@@ -54,7 +53,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 		val gapPaste = if(_grid.isMagnetic) _grid.getGridSpacing else 10
 		val gap = _copy.nbTimeCopied*gapPaste
 
-		_copy.copiedShapes.foreach{shape =>
+		_copy.copiedShapes.forEach{shape =>
 			val sh = ShapeFactory.duplicate(shape)
 			pastedShapes = pastedShapes :+ sh
 			sh.translate(gap, gap)
