@@ -179,7 +179,13 @@ private[impl] trait LGroupShape extends IGroup {
 	override def setFillingStyle(style : FillingStyle) {
 		getShapes.stream.filter{_.isInteriorStylable}.forEach{_.setFillingStyle(style)}
 	}
+	
+	override def setFilled(filled:Boolean) {
+	  getShapes.stream.filter{_.isFillable}.forEach{_.setFilled(filled)}
+	}
 
+	override def isFilled = getShapes.stream.filter{sh => sh.isFillable && sh.isFilled}.findAny.isPresent
+	
 	override def isFillable = getShapes.stream.filter{_.isFillable }.findAny.isPresent
 
 	override def isInteriorStylable = getShapes.stream.filter{_.isInteriorStylable }.findAny.isPresent
