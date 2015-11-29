@@ -11,8 +11,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
-import org.malai.swing.widget.MLayeredPane;
-
 import com.google.inject.Inject;
 
 /**
@@ -41,7 +39,7 @@ public class Pencil extends CanvasInstrument {
 
 	protected @Inject TextSetter textSetter;
 
-	protected MLayeredPane layers;
+//	protected MLayeredPane layers;
 
 	private JFileChooser pictureFileChooser;
 

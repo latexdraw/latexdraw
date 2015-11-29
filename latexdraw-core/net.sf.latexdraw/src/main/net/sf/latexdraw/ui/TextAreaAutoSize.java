@@ -1,18 +1,10 @@
 package net.sf.latexdraw.ui;
 
-import java.awt.FontMetrics;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Rectangle2D;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
-import javax.swing.text.DefaultEditorKit;
-
-import org.malai.swing.interaction.SwingEventManager;
-import org.malai.swing.widget.MTextArea;
 
 /**
  * This widgets is a text area which automatically resizes is width and height
@@ -33,9 +25,7 @@ import org.malai.swing.widget.MTextArea;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class TextAreaAutoSize extends MTextArea {
-	private static final long serialVersionUID = 1L;
-
+public class TextAreaAutoSize {// extends MTextArea {
 	/** States whether the text typed in the filed is valid. If not, the background of the filed is painted in red.
 	 * That feature can be used when the text typed needed to be validated.
 	 */
@@ -46,16 +36,16 @@ public class TextAreaAutoSize extends MTextArea {
 	 * Creates the widget.
 	 */
 	public TextAreaAutoSize() {
-		super(false, true);
+//		super(false, true);
 		valid = true;
-		setRows(1);
-		setColumns(1);
-		setBorder(null);
-		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.SHIFT_MASK), "insertBreakLD"); //$NON-NLS-1$
-		getActionMap().put("insertBreakLD", new DefaultEditorKit.InsertBreakAction()); //$NON-NLS-1$
-		addKeyListener(new TextAreaKeyListener());
-		eventManager = new SwingEventManager();
-		eventManager.attachTo(this);
+//		setRows(1);
+//		setColumns(1);
+//		setBorder(null);
+//		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, InputEvent.SHIFT_MASK), "insertBreakLD"); //$NON-NLS-1$
+//		getActionMap().put("insertBreakLD", new DefaultEditorKit.InsertBreakAction()); //$NON-NLS-1$
+//		addKeyListener(new TextAreaKeyListener());
+//		eventManager = new SwingEventManager();
+//		eventManager.attachTo(this);
 
 		msg.setEditable(false);
 		msg.setFocusable(false);
@@ -66,16 +56,16 @@ public class TextAreaAutoSize extends MTextArea {
 	}
 
 
-	@Override
+//	@Override
 	public void setVisible(final boolean visible) {
-		super.setVisible(visible);
-
-		if(visible){
-			updateDimension();
-			updateBackground();
-			msg.setVisible(!msg.getText().isEmpty());
-		}else
-			msg.setVisible(false);
+//		super.setVisible(visible);
+//
+//		if(visible){
+//			updateDimension();
+//			updateBackground();
+//			msg.setVisible(!msg.getText().isEmpty());
+//		}else
+//			msg.setVisible(false);
 	}
 
 
@@ -106,14 +96,14 @@ public class TextAreaAutoSize extends MTextArea {
 	public boolean isValidText() { return valid;}
 
 	protected void updateBackground() {
-		setBackground(valid?java.awt.Color.WHITE:java.awt.Color.RED);
+//		setBackground(valid?java.awt.Color.WHITE:java.awt.Color.RED);
 	}
 
 
-	@Override
+//	@Override
 	public void setText(final String text) {
-		super.setText(text);
-		updateDimension();
+//		super.setText(text);
+//		updateDimension();
 	}
 
 
@@ -121,29 +111,29 @@ public class TextAreaAutoSize extends MTextArea {
 	 * Updates the size of the widget according to its text.
 	 */
 	public void updateDimension() {
-		// A space is added at the end of the text to consider all the \n characters.
-		final String text = getText() + ' ';
-		final String[] textSplited = text.split("\n"); //$NON-NLS-1$
-		Rectangle2D rec;
-		double width 	= 0.;
-		double height 	= 0.;
-		final FontMetrics fm 	= getFontMetrics(getFont());
-		final double heightInc 	= fm.getHeight();
-
-		if(textSplited.length>0) // Removing the space added at the beginning of the method.
-			textSplited[textSplited.length-1] = textSplited[textSplited.length-1].substring(0, textSplited[textSplited.length-1].length()-1);
-
-		for(final String str : textSplited) {
-			rec = fm.getStringBounds(str, null);
-			if(rec.getWidth()>width)
-				width = rec.getWidth();
-			height += heightInc;
-		}
-
-		setBounds(getX(), getY(), (int)width+10, (int)height);
-
-		if(!msg.getText().isEmpty())
-			msg.setBounds(getX(), getY()+getHeight(), (int)fm.getStringBounds(msg.getText(), null).getWidth()+2, (int)heightInc+2);
+//		// A space is added at the end of the text to consider all the \n characters.
+//		final String text = getText() + ' ';
+//		final String[] textSplited = text.split("\n"); //$NON-NLS-1$
+//		Rectangle2D rec;
+//		double width 	= 0.;
+//		double height 	= 0.;
+//		final FontMetrics fm 	= getFontMetrics(getFont());
+//		final double heightInc 	= fm.getHeight();
+//
+//		if(textSplited.length>0) // Removing the space added at the beginning of the method.
+//			textSplited[textSplited.length-1] = textSplited[textSplited.length-1].substring(0, textSplited[textSplited.length-1].length()-1);
+//
+//		for(final String str : textSplited) {
+//			rec = fm.getStringBounds(str, null);
+//			if(rec.getWidth()>width)
+//				width = rec.getWidth();
+//			height += heightInc;
+//		}
+//
+//		setBounds(getX(), getY(), (int)width+10, (int)height);
+//
+//		if(!msg.getText().isEmpty())
+//			msg.setBounds(getX(), getY()+getHeight(), (int)fm.getStringBounds(msg.getText(), null).getWidth()+2, (int)heightInc+2);
 	}
 
 

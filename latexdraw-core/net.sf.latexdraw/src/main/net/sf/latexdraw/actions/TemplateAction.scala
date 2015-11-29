@@ -1,6 +1,7 @@
 package net.sf.latexdraw.actions
 
-import org.malai.swing.widget.MMenu
+import javafx.scene.control.MenuButton
+
 
 /**
  * This trait encapsulates the template menu.<br>
@@ -22,12 +23,12 @@ import org.malai.swing.widget.MMenu
  */
 trait TemplateAction {
 	/** The menu that contains the template menu items. */
-	var _templatesMenu : Option[MMenu] = None
+	var _templatesMenu : Option[MenuButton] = None
 
 	/**
 	 * @param menu The menu that contains the template menu items.
 	 */
-	def templatesMenu_=(menu : MMenu) {
+	def templatesMenu_=(menu : MenuButton) {
 		_templatesMenu = Some(menu)
 	}
 

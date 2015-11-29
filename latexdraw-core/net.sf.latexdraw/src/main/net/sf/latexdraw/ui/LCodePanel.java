@@ -1,16 +1,12 @@
 package net.sf.latexdraw.ui;
 
-import java.awt.BorderLayout;
+import org.malai.presentation.ConcretePresentation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
-
-import org.malai.presentation.ConcretePresentation;
-import org.malai.swing.widget.MEditorPane;
-import org.malai.swing.widget.MPanel;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  * Defines the panel which contains the code generated from the drawing.<br>
@@ -31,11 +27,9 @@ import org.w3c.dom.Element;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class LCodePanel extends MPanel implements ConcretePresentation {
-	private static final long serialVersionUID = 1L;
-
-	/** The editor that contains the code. */
-	protected MEditorPane editorPane;
+public class LCodePanel implements ConcretePresentation {
+//	/** The editor that contains the code. */
+//	protected MEditorPane editorPane;
 
 	/** The PSTricks generator. */
 	protected PSTCodeGenerator pstGenerator;
@@ -49,29 +43,29 @@ public class LCodePanel extends MPanel implements ConcretePresentation {
 	 * @since 3.0
 	 */
 	public LCodePanel(final IDrawing drawing, final ViewsSynchroniserHandler viewsHandler) {
-		super(false, true);
+//		super(false, true);
 
 		if(drawing==null)
 			throw new IllegalArgumentException();
 
-		editorPane = new MEditorPane(true, false);
-		editorPane.setEditable(false);
-		editorPane.setDragEnabled(true);
-
-		setLayout(new BorderLayout());
-		add(editorPane.getScrollpane(), BorderLayout.CENTER);
+//		editorPane = new MEditorPane(true, false);
+//		editorPane.setEditable(false);
+//		editorPane.setDragEnabled(true);
+//
+//		setLayout(new BorderLayout());
+//		add(editorPane.getScrollpane(), BorderLayout.CENTER);
 
 		pstGenerator = new PSTCodeGenerator(drawing, viewsHandler, true, true);
 	}
 
 
 
-	@Override
+//	@Override
 	public void setVisible(final boolean show) {
-		super.setVisible(show);
-
-		if(show)
-			update();
+//		super.setVisible(show);
+//
+//		if(show)
+//			update();
 	}
 
 
@@ -100,10 +94,10 @@ public class LCodePanel extends MPanel implements ConcretePresentation {
 
 	@Override
 	public void update() {
-		if(isVisible()) {
-			pstGenerator.updateFull();
-			editorPane.setText(pstGenerator.getCache().toString());
-		}
+//		if(isVisible()) {
+//			pstGenerator.updateFull();
+//			editorPane.setText(pstGenerator.getCache().toString());
+//		}
 	}
 
 

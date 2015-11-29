@@ -65,7 +65,7 @@ public class TextSetter extends JfxInstrument {
 		// overlayedPanel.add(textField.getMessageField(),
 		// JLayeredPane.PALETTE_LAYER);
 		textField.setVisible(false);
-		addEventable(textField);
+//		addEventable(textField);
 	}
 
 	@Override
@@ -150,8 +150,8 @@ public class TextSetter extends JfxInstrument {
 		}
 		textField.setValid(true);
 		textField.setVisible(activated);
-		if(activated)
-			textField.requestFocusInWindow();
+//		if(activated)
+//			textField.requestFocusInWindow();
 	}
 
 	/**

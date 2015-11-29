@@ -312,11 +312,6 @@
 			    <artifactId>malai.core</artifactId>
 			    <version>${malai.version}</version>
 			</dependency>
-			<dependency>
-			    <groupId>org.malai</groupId>
-			    <artifactId>malai.swing</artifactId>
-			    <version>${malai.version}</version>
-			</dependency>
 <!-- 			<dependency> -->
 <!-- 			    <groupId>org.controlsfx</groupId> -->
 <!-- 			    <artifactId>controlsfx</artifactId> -->

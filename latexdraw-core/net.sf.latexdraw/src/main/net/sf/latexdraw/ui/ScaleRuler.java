@@ -13,19 +13,16 @@ import javax.accessibility.AccessibleContext;
 import javax.accessibility.AccessibleRole;
 import javax.swing.JComponent;
 
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
-import net.sf.latexdraw.util.Unit;
-import net.sf.latexdraw.view.jfx.Canvas;
-
-import org.malai.interaction.Eventable;
 import org.malai.mapping.ActiveUnary;
 import org.malai.mapping.IUnary;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
-import org.malai.swing.interaction.SwingEventManager;
-import org.malai.swing.widget.SwingWidgetUtilities;
 
 import com.google.inject.Inject;
+
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.util.Unit;
+import net.sf.latexdraw.view.jfx.Canvas;
 
 /**
  * This class defines an abstract scale ruler.<br>
@@ -46,7 +43,7 @@ import com.google.inject.Inject;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public abstract class ScaleRuler extends JComponent implements Pickable, Eventable, Accessible, AdjustmentListener {
+public abstract class ScaleRuler extends JComponent implements Pickable, Accessible, AdjustmentListener {
 	/** The current unit of the rulers. */
     protected static final IUnary<Unit> UNIT = new ActiveUnary<>(Unit.CM);
 
@@ -59,8 +56,8 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	/** The canvas that the ruler manages. */
 	final protected Canvas canvas;
 
-	/** The event manager that listens events produced by the panel. */
-	final protected SwingEventManager eventManager;
+//	/** The event manager that listens events produced by the panel. */
+//	final protected SwingEventManager eventManager;
 
 	/** The size of the lines in axes */
 	public static final int SIZE = 10;
@@ -75,8 +72,8 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
     protected ScaleRuler(final Canvas canvas) {
 		super();
 		this.canvas  = Objects.requireNonNull(canvas);
-		eventManager = new SwingEventManager();
-		eventManager.attachTo(this);
+//		eventManager = new SwingEventManager();
+//		eventManager.attachTo(this);
 		setDoubleBuffered(true);
 
 //		canvas.getScrollpane().getVerticalScrollBar().addAdjustmentListener(this);
@@ -182,13 +179,7 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 
 	@Override
 	public Picker getPicker() {
-		return SwingWidgetUtilities.INSTANCE.getPicker(this);
-	}
-
-
-	@Override
-	public boolean hasEventManager() {
-		return eventManager!=null;
+		return null;// SwingWidgetUtilities.INSTANCE.getPicker(this);
 	}
 
 
@@ -217,12 +208,6 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Eventab
 	 */
 	public static IUnary<Unit> getUnitSingleton() {
 		return ScaleRuler.UNIT;
-	}
-
-
-	@Override
-	public SwingEventManager getEventManager() {
-		return eventManager;
 	}
 
 

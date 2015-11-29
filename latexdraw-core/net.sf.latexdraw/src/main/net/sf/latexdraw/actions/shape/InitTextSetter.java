@@ -127,7 +127,7 @@ public class InitTextSetter extends ActivateInstrument {
 	@Override
 	protected void doActionBody() {
 		super.doActionBody();
-		setter.getTextField().setLocation((int)absolutePoint.getX(), (int)absolutePoint.getY()-setter.getTextField().getHeight());
+//		setter.getTextField().setLocation((int)absolutePoint.getX(), (int)absolutePoint.getY()-setter.getTextField().getHeight());
 		setter.setRelativePoint(relativePoint);
 		setter.getTextField().setText(text);
 		setter.setText(textShape);

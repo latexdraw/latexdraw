@@ -15,7 +15,6 @@ import net.sf.latexdraw.util.LNamespace;
 
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
-import org.malai.swing.action.library.IOAction;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -107,11 +106,11 @@ public class FileLoaderSaver extends JfxInstrument {
 					currentFile = new File(currentFile.getPath()+SVGFilter.SVG_EXTENSION);
 			}
 
-			// Updating the recent files on I/O actions.
-			if(action instanceof IOAction) {
-				prefSetter.addRecentFile(((IOAction<?, ?>)action).getFile().getPath());
+//			// Updating the recent files on I/O actions.
+//			if(action instanceof IOAction) {
+//				prefSetter.addRecentFile(((IOAction<?, ?>)action).getFile().getPath());
 				// updateRecentMenuItems(prefSetter.recentFilesName);
-			}
+//			}
 		}
 	}
 

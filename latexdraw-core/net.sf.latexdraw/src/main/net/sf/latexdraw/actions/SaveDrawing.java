@@ -1,16 +1,10 @@
 package net.sf.latexdraw.actions;
 
-import java.io.File;
-
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 import org.malai.action.Action;
-import org.malai.swing.ui.SwingUI;
 
-import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.instruments.PreferencesSetter;
-import net.sf.latexdraw.lang.LangTool;
 
 /**
  * This action saves the given drawing into an SVG document.
@@ -116,44 +110,44 @@ public class SaveDrawing extends Action { //  Save<LFrame, JLabel>
 	}
 
 
-	/**
-	 * @return -1: cancel, 0: yes, 1: no
-	 * @since 3.0
-	 */
-	protected static int showAskModificationsDialog(final SwingUI ui) {
-		return JOptionPane.showConfirmDialog(ui, LangTool.INSTANCE.getStringActions("Actions.2"), //$NON-NLS-1$
-				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$
-	}
+//	/**
+//	 * @return -1: cancel, 0: yes, 1: no
+//	 * @since 3.0
+//	 */
+//	protected static int showAskModificationsDialog(final SwingUI ui) {
+//		return JOptionPane.showConfirmDialog(ui, LangTool.INSTANCE.getStringActions("Actions.2"), //$NON-NLS-1$
+//				LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$
+//	}
 
 
-	/**
-	 * Show the export dialog to select a path.
-	 * @since 3.0
-	 */
-	protected static File showDialog(final JFileChooser fileChooser, final boolean saveAs, final SwingUI ui, final File file) {
-		File f;
-
-		if(saveAs || file==null && ui.isModified())
-			f = fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
-		else
-			f = file;
-
-		if(f==null)
-			return null;
-
-		if(!f.getPath().toLowerCase().endsWith(SVGFilter.SVG_EXTENSION))
-			f = new File(f.getPath() + SVGFilter.SVG_EXTENSION);
-
-		if(f.exists()) {
-			final int replace = JOptionPane.showConfirmDialog(null, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
-														LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$
-
-			if(replace == JOptionPane.NO_OPTION || replace == JOptionPane.CLOSED_OPTION)
-				return null;
-		}
-
-		return f;
-	}
+//	/**
+//	 * Show the export dialog to select a path.
+//	 * @since 3.0
+//	 */
+//	protected static File showDialog(final JFileChooser fileChooser, final boolean saveAs, final SwingUI ui, final File file) {
+//		File f;
+//
+//		if(saveAs || file==null && ui.isModified())
+//			f = fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
+//		else
+//			f = file;
+//
+//		if(f==null)
+//			return null;
+//
+//		if(!f.getPath().toLowerCase().endsWith(SVGFilter.SVG_EXTENSION))
+//			f = new File(f.getPath() + SVGFilter.SVG_EXTENSION);
+//
+//		if(f.exists()) {
+//			final int replace = JOptionPane.showConfirmDialog(null, LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.173"), //$NON-NLS-1$
+//														LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.188"), JOptionPane.YES_NO_OPTION); //$NON-NLS-1$
+//
+//			if(replace == JOptionPane.NO_OPTION || replace == JOptionPane.CLOSED_OPTION)
+//				return null;
+//		}
+//
+//		return f;
+//	}
 
 
 	/**
