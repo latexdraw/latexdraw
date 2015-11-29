@@ -18,6 +18,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.Color;
 import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.Position;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -41,7 +42,7 @@ import net.sf.latexdraw.util.LNumber;
  * @version 3.0
  * @since 3.0
  */
-abstract class LShape implements IShape {
+abstract class LShape implements IShape, ISingleShape {
 	/** The thickness of the lines of the shape in pixels. */
 	@NonNull final protected DoubleProperty thickness;
 

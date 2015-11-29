@@ -84,14 +84,6 @@ private[impl] trait LGroupShape extends IGroup {
   
   override def getWidth() = if(getShapes.isEmpty) 0.0 else getShapes.get(0).getWidth
   
-  override def lineColourProperty() = null
-  
-  override def linestyleProperty() = null
-  
-  override def borderPosProperty() = null
-
-  override def thicknessProperty() = null
-  
   override def scaleWithRatio(x: Double,x$2: Double,x$3: net.sf.latexdraw.glib.models.interfaces.shape.Position,x$4: java.awt.geom.Rectangle2D): Unit = ???
   
   override def setDashSepBlack(dash: Double) {

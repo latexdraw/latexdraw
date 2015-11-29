@@ -19,7 +19,7 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  * @version 3.0
  * @since 3.0
  */
-public interface IModifiablePointsShape extends IShape {
+public interface IModifiablePointsShape extends ISingleShape {
 	/**
 	 * Adds a point to the shape model.
 	 * @param pt The point to add. Must be valid.

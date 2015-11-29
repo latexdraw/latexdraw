@@ -19,7 +19,7 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
  * @version 3.0
  * @since 3.0
  */
-public interface IPositionShape extends IShape {
+public interface IPositionShape extends ISingleShape {
 	/**
 	 * @return The X coordinate of the shape (of the bottom-left point of the shape).
 	 * @since 3.0

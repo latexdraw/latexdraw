@@ -6,9 +6,6 @@ import java.util.List;
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.properties.Modifiable;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-
 /**
  * Defines an interface that classes defining an abstract shape should implement.<br>
  * <br>
@@ -560,24 +557,4 @@ public interface IShape extends Modifiable {
 	 * @since 3.0
 	 */
 	double getHeight();
-	
-	/**
-	 * @return The property of the thickness.
-	 */
-	@NonNull DoubleProperty thicknessProperty();
-	
-	/**
-	 * @return The property of the line style.
-	 */
-	@NonNull ObjectProperty<LineStyle> linestyleProperty();
-	
-	/**
-	 * @return The property of the border position.
-	 */
-	@NonNull ObjectProperty<BorderPos> borderPosProperty();
-	
-	/**
-	 * @return The property of the line colour.
-	 */
-	@NonNull ObjectProperty<Color> lineColourProperty();
 }

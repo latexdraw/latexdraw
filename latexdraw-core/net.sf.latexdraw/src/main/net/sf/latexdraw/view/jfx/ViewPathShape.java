@@ -15,7 +15,7 @@ package net.sf.latexdraw.view.jfx;
 import org.eclipse.jdt.annotation.NonNull;
 
 import javafx.scene.shape.Path;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISingleShape;
 
 /**
  * The JFX view for shapes that can be painted as a path.<br>
@@ -24,7 +24,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
  * @author Arnaud BLOUIN
  * @since 4.0
  */
-public abstract class ViewPathShape<S extends IShape> extends ViewShape<S, Path> {
+public abstract class ViewPathShape<S extends ISingleShape> extends ViewSingleShape<S, Path> {
 	/**
 	 * Creates the view.
 	 * @param sh The model.
