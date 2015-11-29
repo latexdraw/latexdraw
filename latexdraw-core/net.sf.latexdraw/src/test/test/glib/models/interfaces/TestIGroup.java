@@ -763,19 +763,31 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testGetSetGradAngle() {
-		// TODO
+		init4setFill();
+		shape.setFillingStyle(FillingStyle.GRAD);
+		shape.setGradAngle(1d);
+		assertEquals(1d, shape.getGradAngle(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(1d, sh.getGradAngle(), 0d));
 	}
 
 	@Override
 	@Test
 	public void testGetSetGradMidPt() {
-		// TODO
+		init4setFill();
+		shape.setFillingStyle(FillingStyle.GRAD);
+		shape.setGradMidPt(1d);
+		assertEquals(1d, shape.getGradMidPt(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(1d, sh.getGradMidPt(), 0d));
 	}
 
 	@Override
 	@Test
 	public void testGetSetHatchingsSep() {
-		// TODO
+		init4setFill();
+		shape.setFillingStyle(FillingStyle.CLINES_PLAIN);
+		shape.setHatchingsSep(1d);
+		assertEquals(1d, shape.getHatchingsSep(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(1d, sh.getHatchingsSep(), 0d));
 	}
 
 	@Override
@@ -818,13 +830,20 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testIsSetShowPts() {
-		// TODO
+		init4setFill();
+		shape.addShape(ShapeFactory.createBezierCurve());
+		shape.setShowPts(true);
+		assertTrue(shape.isShowPts());
+		shape.getShapes().stream().filter(sh -> sh.isShowPtsable()).forEach(sh -> assertTrue(sh.isShowPts()));
 	}
 
 	@Override
 	@Test
 	public void testhasSetDbleBord() {
-		// TODO
+		init4setFill();
+		shape.setHasDbleBord(true);
+		assertTrue(shape.hasDbleBord());
+		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertTrue(sh.hasDbleBord()));
 	}
 
 	@Override
@@ -862,7 +881,10 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testHasSetShadow() {
-		// TODO
+		init4setFill();
+		shape.setHasShadow(true);
+		assertTrue(shape.hasShadow());
+		shape.getShapes().stream().filter(sh -> sh.isShadowable()).forEach(sh -> assertTrue(sh.hasShadow()));
 	}
 
 	@Override
@@ -907,7 +929,10 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testGetSetBorderPosition() {
-		// TODO
+		init4setFill();
+		shape.setBordersPosition(BorderPos.MID);
+		assertEquals(BorderPos.MID, shape.getBordersPosition());
+		shape.getShapes().stream().filter(sh -> sh.isBordersMovable()).forEach(sh -> assertEquals(BorderPos.MID, sh.getBordersPosition()));
 	}
 
 	@Override
@@ -931,7 +956,10 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testSetGetLineStyle() {
-		// TODO
+		init4setFill();
+		shape.setLineStyle(LineStyle.DASHED);
+		assertEquals(LineStyle.DASHED, shape.getLineStyle());
+		shape.getShapes().stream().filter(sh -> sh.isBordersMovable()).forEach(sh -> assertEquals(LineStyle.DASHED, sh.getLineStyle()));
 	}
 
 	@Override
@@ -974,6 +1002,9 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testSetGetFillingStyle() {
-		// TODO
+		init4setFill();
+		shape.setFillingStyle(FillingStyle.GRAD);
+		assertEquals(FillingStyle.GRAD, shape.getFillingStyle());
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(FillingStyle.GRAD, sh.getFillingStyle()));
 	}
 }
