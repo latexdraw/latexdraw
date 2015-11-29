@@ -15,7 +15,6 @@ public class TestLDrawing extends TestIDrawing {
 		drawing = ShapeFactory.createDrawing();
 	}
 
-
 	@Test
 	public void testConstructor() {
 		IDrawing d = ShapeFactory.createDrawing();

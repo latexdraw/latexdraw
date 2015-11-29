@@ -164,7 +164,6 @@ public class TestCssColor {
 		assertNull(CSSColors.INSTANCE.getColor("fjdsfijsdofijdsofijertngf")); //$NON-NLS-1$
 	}
 
-
 	@Test
 	public void testGetColorName() {
 		assertNull(CSSColors.INSTANCE.getColorName(null, true));
@@ -306,12 +305,10 @@ public class TestCssColor {
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_WHEAT_RGB_VALUE, false), CSSColors.CSS_WHEAT_NAME);
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_WHITESMOKE_RGB_VALUE, false), CSSColors.CSS_WHITESMOKE_NAME);
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_WHITE_RGB_VALUE, false), CSSColors.CSS_WHITE_NAME);
-		assertEquals(CSSColors.INSTANCE.getColorName(ShapeFactory.createColorInt(255,255,255), false), CSSColors.CSS_WHITE_NAME);
+		assertEquals(CSSColors.INSTANCE.getColorName(ShapeFactory.createColorInt(255, 255, 255), false), CSSColors.CSS_WHITE_NAME);
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_YELLOWGREEN_RGB_VALUE, false), CSSColors.CSS_YELLOWGREEN_NAME);
 		assertEquals(CSSColors.INSTANCE.getColorName(CSSColors.CSS_YELLOW_RGB_VALUE, false), CSSColors.CSS_YELLOW_NAME);
 	}
-
-
 
 	@Test
 	public void testGetRGBColour() {
@@ -326,8 +323,6 @@ public class TestCssColor {
 		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(	  0% ,	0%    ,  100%  )")); //$NON-NLS-1$
 		assertEquals(CSSColors.CSS_BLUE_RGB_VALUE, CSSColors.INSTANCE.getRGBColour("rgb(	  0 ,	0    ,  255  )")); //$NON-NLS-1$
 	}
-
-
 
 	@Test
 	public void testSVGRGBtoRGB() {

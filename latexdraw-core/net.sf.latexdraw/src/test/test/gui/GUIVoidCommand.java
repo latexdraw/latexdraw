@@ -6,6 +6,6 @@ public interface GUIVoidCommand extends GUICommand<Void> {
 	default void execute(Void param) {
 		execute();
 	}
-	
+
 	void execute();
 }

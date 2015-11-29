@@ -12,8 +12,8 @@ public class TestLoadSaveSVGRectangle extends TestLoadSaveSVGRectangularShape<IR
 		shape = ShapeFactory.createRectangle();
 	}
 
-
-	@Test public void testFrameArc() {
+	@Test
+	public void testFrameArc() {
 		shape.setThickness(10);
 		shape.setLineArc(0.3);
 		setDefaultDimensions();

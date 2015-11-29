@@ -14,18 +14,17 @@ import test.glib.models.interfaces.TestIGroup;
 public class TestLGroup extends TestIGroup<IGroup> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createGroup();
+		shape = ShapeFactory.createGroup();
 		shape2 = ShapeFactory.createGroup();
 	}
 
-
-	@Test public void testCannotAddShapeWhichIsEmptyGroup() {
+	@Test
+	public void testCannotAddShapeWhichIsEmptyGroup() {
 		shape.addShape(ShapeFactory.createGroup());
 		assertTrue(shape.isEmpty());
 		shape.addShape(ShapeFactory.createGroup(), -1);
 		assertTrue(shape.isEmpty());
 	}
-
 
 	@Override
 	@Test

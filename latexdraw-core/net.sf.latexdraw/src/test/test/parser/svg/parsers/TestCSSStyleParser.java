@@ -18,13 +18,11 @@ public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandle
 
 	protected String value;
 
-
 	@Before
 	public void setUp() {
-		parser  = new CSSStyleParser("", this); //$NON-NLS-1$
+		parser = new CSSStyleParser("", this); //$NON-NLS-1$
 		parser2 = new CSSStyleParser("", this); //$NON-NLS-1$
 	}
-
 
 	@Test
 	@Override
@@ -50,8 +48,6 @@ public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandle
 		assertEquals(name, "stroke-width"); //$NON-NLS-1$
 		assertEquals(value, "2cm"); //$NON-NLS-1$
 	}
-
-
 
 	@Test
 	@Override
@@ -82,7 +78,6 @@ public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandle
 		assertEquals(value, "blue"); //$NON-NLS-1$
 	}
 
-
 	@Test
 	@Override
 	public void testSkipWSP() throws ParseException {
@@ -95,7 +90,6 @@ public class TestCSSStyleParser extends TestCodeParser implements CSSStyleHandle
 		assertEquals(name, "fill"); //$NON-NLS-1$
 		assertEquals(value, "green"); //$NON-NLS-1$
 	}
-
 
 	@Override
 	public void onCSSStyle(String n, String v) {

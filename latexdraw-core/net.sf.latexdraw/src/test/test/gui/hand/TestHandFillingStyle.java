@@ -36,13 +36,12 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 			}
 		};
 	}
-	
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
 		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
 	}
-	
+
 	@Test
 	public void testControllerActivatedWhenSelection() {
 		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
@@ -69,13 +68,13 @@ public class TestHandFillingStyle extends TestFillingStyleGUI {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectGradStyle, updateIns).execute();
 		assertFalse(fillColButton.getParent().isVisible());
 	}
-	
+
 	@Test
 	public void testNotGradWidgetsNotEnabledHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectHatchingsStyle, updateIns).execute();
 		assertFalse(gradAngleField.getParent().isVisible());
 	}
-	
+
 	@Test
 	public void testNotHatchWidgetsNotEnabledHand() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectGradStyle, updateIns).execute();

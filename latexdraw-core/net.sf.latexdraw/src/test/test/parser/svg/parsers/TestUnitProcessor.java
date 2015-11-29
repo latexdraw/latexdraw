@@ -13,8 +13,8 @@ public class TestUnitProcessor {
 		try {
 			UnitProcessor.INSTANCE.toUserUnit(1, null);
 			fail();
-		}
-		catch(IllegalArgumentException e){ /* */ }
+		}catch(IllegalArgumentException e) {
+			/* */ }
 
 		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1., SVGLength.LengthType.CM), 35.43307, 0.001);
 		assertEquals(UnitProcessor.INSTANCE.toUserUnit(1., SVGLength.LengthType.MM), 3.543307, 0.001);

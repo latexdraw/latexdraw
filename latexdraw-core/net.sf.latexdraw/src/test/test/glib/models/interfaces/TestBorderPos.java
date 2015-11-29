@@ -15,7 +15,6 @@ public class TestBorderPos {
 		assertEquals(BorderPos.OUT.getLatexToken(), PSTricksConstants.BORDERS_OUTSIDE);
 	}
 
-
 	@Test
 	public void testGetStyle() {
 		assertEquals(BorderPos.INTO, BorderPos.getStyle(null));

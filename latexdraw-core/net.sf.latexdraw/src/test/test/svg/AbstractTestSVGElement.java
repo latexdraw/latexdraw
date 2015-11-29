@@ -13,21 +13,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.DOMException;
 
-public abstract class AbstractTestSVGElement{
+public abstract class AbstractTestSVGElement {
 	protected SVGElement node;
 	protected SVGDocument doc = new SVGDocument();
 
-
 	public abstract String getNameNode();
-
 
 	@Before
 	public void setUp() {
 		doc = new SVGDocument();
-        node = (SVGElement)doc.createElement(getNameNode());
+		node = (SVGElement)doc.createElement(getNameNode());
 	}
-
-
 
 	@Test
 	public void testGetStroke() {
@@ -40,14 +36,10 @@ public abstract class AbstractTestSVGElement{
 		assertEquals(node.getStroke(), null);
 	}
 
-
-
-
 	@Test
 	public void testGetNodeName() {
 		assertEquals(getNameNode(), node.getNodeName());
 	}
-
 
 	@Test
 	public void testSetNodeName() {
@@ -56,7 +48,6 @@ public abstract class AbstractTestSVGElement{
 		node.setNodeName(getNameNode());
 		assertEquals(getNameNode(), node.getNodeName());
 	}
-
 
 	@Test
 	public void testSetParent() {
@@ -73,7 +64,6 @@ public abstract class AbstractTestSVGElement{
 		assertEquals(0, list.getLength());
 	}
 
-
 	@Test
 	public void testGetAttribute() {
 		assertNull(node.getAttribute(null));
@@ -81,7 +71,6 @@ public abstract class AbstractTestSVGElement{
 		node.setAttribute("testAttr", "valAttr"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(node.getAttribute("testAttr"), "valAttr"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-
 
 	@Test
 	public void testGetAttributeNode() {
@@ -91,22 +80,20 @@ public abstract class AbstractTestSVGElement{
 		assertEquals(node.getAttributeNode("testAttr2").getNodeValue(), "valAttr2"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-
 	@Test
 	public void testGetTagName() {
 		assertEquals(node.getNodeName(), node.getTagName());
 	}
 
-	@Test(expected=DOMException.class)
+	@Test(expected = DOMException.class)
 	public void testAppendChildNull() {
 		node.appendChild(null);
 	}
-	
-	@Test(expected=DOMException.class)
+
+	@Test(expected = DOMException.class)
 	public void testAppendChildEmpty() {
 		node.appendChild(new SVGAttr("", "", node)); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-
 
 	@Test
 	public void testAppendChild() {

@@ -20,8 +20,6 @@ import org.junit.Test;
 public abstract class TestIDrawing {
 	public IDrawing drawing;
 
-
-
 	@Test
 	public void testAddShapeIShape() {
 		IShape sh1 = ShapeFactory.createRectangle();
@@ -37,7 +35,6 @@ public abstract class TestIDrawing {
 		assertEquals(sh1, drawing.getShapes().get(0));
 		assertEquals(sh2, drawing.getShapes().get(1));
 	}
-
 
 	@Test
 	public void testAddShapeIShapeInt() {
@@ -70,7 +67,6 @@ public abstract class TestIDrawing {
 		assertEquals(sh3, drawing.getShapes().get(1));
 	}
 
-
 	@Test
 	public void testRemoveShapeIShape() {
 		IShape sh1 = ShapeFactory.createRectangle();
@@ -94,7 +90,6 @@ public abstract class TestIDrawing {
 		assertEquals(sh3, drawing.getShapes().get(1));
 	}
 
-
 	@Test
 	public void testRemoveShapeInt() {
 		IShape sh1 = ShapeFactory.createRectangle();
@@ -111,7 +106,6 @@ public abstract class TestIDrawing {
 		assertEquals(sh1, drawing.removeShape(0));
 		assertEquals(sh3, drawing.removeShape(-1));
 	}
-
 
 	@Test
 	public void testGetShapeAt() {
@@ -131,7 +125,6 @@ public abstract class TestIDrawing {
 		assertNull(drawing.getShapeAt(3));
 	}
 
-
 	@Test
 	public void testSize() {
 		IShape sh1 = ShapeFactory.createRectangle();
@@ -147,7 +140,6 @@ public abstract class TestIDrawing {
 		drawing.getShapes().clear();
 		assertEquals(0, drawing.size());
 	}
-
 
 	@Test
 	public void testContains() {
@@ -167,7 +159,6 @@ public abstract class TestIDrawing {
 		assertTrue(drawing.contains(sh3));
 	}
 
-
 	@Test
 	public void testIsEmpty() {
 		IShape sh1 = ShapeFactory.createRectangle();
@@ -186,7 +177,6 @@ public abstract class TestIDrawing {
 		assertTrue(drawing.isEmpty());
 	}
 
-
 	@Test
 	public void testClear() {
 		IShape sh1 = ShapeFactory.createRectangle();
@@ -200,23 +190,20 @@ public abstract class TestIDrawing {
 		assertEquals(0, drawing.getShapes().size());
 	}
 
-
 	@Test
 	public void testGetShapes() {
 		assertNotNull(drawing.getShapes());
 	}
-
 
 	@Test
 	public void testGetSelection() {
 		assertNotNull(drawing.getSelection());
 	}
 
-
 	@Test
 	public void testSetSelectionList() {
 		List<IShape> list = new ArrayList<>();
-		IGroup selection  = drawing.getSelection();
+		IGroup selection = drawing.getSelection();
 		IShape sh = ShapeFactory.createRectangle();
 		IShape sh2;
 
@@ -227,8 +214,8 @@ public abstract class TestIDrawing {
 		assertEquals(sh, drawing.getSelection().getShapeAt(0));
 
 		list = new ArrayList<>();
-		sh   = ShapeFactory.createRectangle();
-		sh2  = ShapeFactory.createRectangle();
+		sh = ShapeFactory.createRectangle();
+		sh2 = ShapeFactory.createRectangle();
 		list.add(sh);
 		list.add(sh2);
 		drawing.setSelection(list);
@@ -236,7 +223,7 @@ public abstract class TestIDrawing {
 		assertEquals(2, drawing.getSelection().size());
 		assertEquals(sh, drawing.getSelection().getShapeAt(0));
 		assertEquals(sh2, drawing.getSelection().getShapeAt(1));
-		drawing.setSelection(Collections.<IShape>emptyList());
+		drawing.setSelection(Collections.<IShape> emptyList());
 		assertNotNull(drawing.getSelection());
 		assertEquals(0, drawing.getSelection().size());
 	}

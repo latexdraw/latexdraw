@@ -11,14 +11,13 @@ import org.junit.Test;
 public class TestParsingPSellipticarc extends TestPSTParser {
 	@Test
 	public void testCanParsePsellipticarcn() throws ParseException {
-		assertTrue(parser.parsePSTCode("\\psellipticarcn[]{<->}"+getBasicCoordinates()).get().isEmpty()); //$NON-NLS-1$
+		assertTrue(parser.parsePSTCode("\\psellipticarcn[]{<->}" + getBasicCoordinates()).get().isEmpty()); //$NON-NLS-1$
 		assertFalse(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testCanParsePsellipticarc() throws ParseException {
-		assertTrue(parser.parsePSTCode("\\psellipticarc[]{<->}"+getBasicCoordinates()).get().isEmpty()); //$NON-NLS-1$
+		assertTrue(parser.parsePSTCode("\\psellipticarc[]{<->}" + getBasicCoordinates()).get().isEmpty()); //$NON-NLS-1$
 		assertFalse(PSTParser.errorLogs().isEmpty());
 	}
 

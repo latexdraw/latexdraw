@@ -1,6 +1,5 @@
 package test.glib.models.interfaces;
 
-
 import static org.junit.Assert.assertEquals;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
@@ -49,7 +48,6 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 		assertEquals(DotStyle.X, shape.getDotStyle());
 	}
 
-
 	@Test
 	public void testGetSetRadius() {
 		shape.setDiametre(22);
@@ -72,8 +70,6 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 		HelperTest.assertEqualsDouble(0.001, shape.getDiametre());
 	}
 
-
-
 	@Override
 	@Test
 	public void testCopy() {
@@ -86,30 +82,29 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 		HelperTest.assertEqualsDouble(shape2.getDiametre(), shape.getDiametre());
 	}
 
-
 	@Override
-	@Test public void testGetBottomLeftPoint() {
-		//TODO
+	@Test
+	public void testGetBottomLeftPoint() {
+		// TODO
 	}
 
-
 	@Override
-	@Test public void testGetBottomRightPoint() {
-		//TODO
+	@Test
+	public void testGetBottomRightPoint() {
+		// TODO
 	}
 
-
 	@Override
-	@Test public void testGetTopLeftPoint() {
-		//TODO
+	@Test
+	public void testGetTopLeftPoint() {
+		// TODO
 	}
 
-
 	@Override
-	@Test public void testGetTopRightPoint() {
-		//TODO
+	@Test
+	public void testGetTopRightPoint() {
+		// TODO
 	}
-
 
 	@Override
 	@Test
@@ -119,7 +114,6 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 		HelperTest.assertEqualsDouble(10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 	}
-
 
 	@Test
 	public void testMirrorHorizontal2() {
@@ -146,131 +140,132 @@ public abstract class TestIDot<T extends IDot> extends TestIPositionShape<T> {
 		HelperTest.assertEqualsDouble(20., shape.getPosition().getY());
 	}
 
-	@Test public void testMirrorVertical2() {
+	@Test
+	public void testMirrorVertical2() {
 		shape.setPosition(-10, -20);
 		shape.mirrorVertical(null);
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 	}
 
-	@Test public void testMirrorVertical3() {
+	@Test
+	public void testMirrorVertical3() {
 		shape.setPosition(-10, -20);
 		shape.mirrorVertical(ShapeFactory.createPoint(Double.NaN, Double.POSITIVE_INFINITY));
 		HelperTest.assertEqualsDouble(-10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(-20., shape.getPosition().getY());
 	}
 
-
-//	@Override
-//	public void testScale() {
-//		shape.setPosition(50, 100);
-//		shape.setRadius(10);
-//		shape.scale(0, 10, Position.EAST);
-//		assertEquals(10., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//		shape.scale(-10, 10, Position.EAST);
-//		assertEquals(10., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//		shape.scale(10, 10, null);
-//		assertEquals(10., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//		shape.scale(10, 0, Position.WEST);
-//		assertEquals(10., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//		shape.scale(10, -10, Position.WEST);
-//		assertEquals(10., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//		shape.scale(10, 0, null);
-//		assertEquals(10., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//	}
-//
-//
-//	public void testScaleEast() {
-//		shape.setPosition(50, 100);
-//		shape.setRadius(10);
-//		shape.scale(2, 3, Position.EAST);
-//		assertEquals(20., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//	}
-//
-//
-//	public void testScaleWest() {
-//		shape.setPosition(50, 100);
-//		shape.setRadius(10);
-//		shape.scale(2, 3, Position.WEST);
-//		assertEquals(20., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//	}
-//
-//
-//	public void testScaleNW() {
-//		shape.setPosition(50, 100);
-//		shape.setRadius(10);
-//		shape.scale(2, 3, Position.NW);
-//		assertEquals(20., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//	}
-//
-//
-//	public void testScaleSW() {
-//		shape.setPosition(50, 100);
-//		shape.setRadius(10);
-//		shape.scale(2, 3, Position.SW);
-//		assertEquals(20., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//	}
-//
-//
-//
-//	public void testScaleNE() {
-//		shape.setPosition(50, 100);
-//		shape.setRadius(10);
-//		shape.scale(2, 3, Position.NE);
-//		assertEquals(20., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//	}
-//
-//
-//	public void testScaleSE() {
-//		shape.setPosition(50, 100);
-//		shape.setRadius(10);
-//		shape.scale(2, 3, Position.SE);
-//		assertEquals(20., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//	}
-//
-//
-//
-//	public void testScaleNorth() {
-//		shape.setPosition(50, 100);
-//		shape.setRadius(10);
-//		shape.scale(2, 3, Position.NORTH);
-//		assertEquals(30., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//	}
-//
-//
-//
-//	public void testScaleSouth() {
-//		shape.setPosition(50, 100);
-//		shape.setRadius(10);
-//		shape.scale(2, 3, Position.SOUTH);
-//		assertEquals(30., shape.getRadius());
-//		assertEquals(50., shape.getPosition().getX());
-//		assertEquals(100., shape.getPosition().getY());
-//	}
+	// @Override
+	// public void testScale() {
+	// shape.setPosition(50, 100);
+	// shape.setRadius(10);
+	// shape.scale(0, 10, Position.EAST);
+	// assertEquals(10., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// shape.scale(-10, 10, Position.EAST);
+	// assertEquals(10., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// shape.scale(10, 10, null);
+	// assertEquals(10., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// shape.scale(10, 0, Position.WEST);
+	// assertEquals(10., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// shape.scale(10, -10, Position.WEST);
+	// assertEquals(10., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// shape.scale(10, 0, null);
+	// assertEquals(10., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// }
+	//
+	//
+	// public void testScaleEast() {
+	// shape.setPosition(50, 100);
+	// shape.setRadius(10);
+	// shape.scale(2, 3, Position.EAST);
+	// assertEquals(20., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// }
+	//
+	//
+	// public void testScaleWest() {
+	// shape.setPosition(50, 100);
+	// shape.setRadius(10);
+	// shape.scale(2, 3, Position.WEST);
+	// assertEquals(20., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// }
+	//
+	//
+	// public void testScaleNW() {
+	// shape.setPosition(50, 100);
+	// shape.setRadius(10);
+	// shape.scale(2, 3, Position.NW);
+	// assertEquals(20., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// }
+	//
+	//
+	// public void testScaleSW() {
+	// shape.setPosition(50, 100);
+	// shape.setRadius(10);
+	// shape.scale(2, 3, Position.SW);
+	// assertEquals(20., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// }
+	//
+	//
+	//
+	// public void testScaleNE() {
+	// shape.setPosition(50, 100);
+	// shape.setRadius(10);
+	// shape.scale(2, 3, Position.NE);
+	// assertEquals(20., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// }
+	//
+	//
+	// public void testScaleSE() {
+	// shape.setPosition(50, 100);
+	// shape.setRadius(10);
+	// shape.scale(2, 3, Position.SE);
+	// assertEquals(20., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// }
+	//
+	//
+	//
+	// public void testScaleNorth() {
+	// shape.setPosition(50, 100);
+	// shape.setRadius(10);
+	// shape.scale(2, 3, Position.NORTH);
+	// assertEquals(30., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// }
+	//
+	//
+	//
+	// public void testScaleSouth() {
+	// shape.setPosition(50, 100);
+	// shape.setRadius(10);
+	// shape.scale(2, 3, Position.SOUTH);
+	// assertEquals(30., shape.getRadius());
+	// assertEquals(50., shape.getPosition().getX());
+	// assertEquals(100., shape.getPosition().getY());
+	// }
 }

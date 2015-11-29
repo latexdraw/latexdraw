@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -19,10 +18,9 @@ import test.glib.models.interfaces.TestIFreehand;
 public class TestLFreeHand extends TestIFreehand<IFreehand> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createFreeHand();
+		shape = ShapeFactory.createFreeHand();
 		shape2 = ShapeFactory.createFreeHand();
 	}
-
 
 	@Override
 	@Test
@@ -35,7 +33,6 @@ public class TestLFreeHand extends TestIFreehand<IFreehand> {
 		assertTrue(shape.isTypeOf(IFreehand.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
-
 
 	@Test
 	public void testConstructors() {

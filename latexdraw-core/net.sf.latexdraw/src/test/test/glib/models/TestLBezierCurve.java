@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -22,11 +21,9 @@ import test.glib.models.interfaces.TestIBezierCurve;
 public class TestLBezierCurve extends TestIBezierCurve<IBezierCurve> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createBezierCurve();
+		shape = ShapeFactory.createBezierCurve();
 		shape2 = ShapeFactory.createBezierCurve();
 	}
-
-
 
 	@Override
 	@Test
@@ -41,7 +38,6 @@ public class TestLBezierCurve extends TestIBezierCurve<IBezierCurve> {
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 
-
 	@Test
 	public void testConstructors() {
 		IBezierCurve curve = ShapeFactory.createBezierCurve();
@@ -55,9 +51,7 @@ public class TestLBezierCurve extends TestIBezierCurve<IBezierCurve> {
 
 	@Test
 	public void testConstructors2() {
-		IBezierCurve curve = ShapeFactory.createBezierCurve(
-				ShapeFactory.createPoint(100, 200),
-				ShapeFactory.createPoint(300, 400));
+		IBezierCurve curve = ShapeFactory.createBezierCurve(ShapeFactory.createPoint(100, 200), ShapeFactory.createPoint(300, 400));
 
 		assertNotNull(curve);
 		assertEquals(2, curve.getPoints().size());

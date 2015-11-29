@@ -12,16 +12,14 @@ import org.junit.Test;
 
 import test.HelperTest;
 
-
 public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 	@Test
 	public void testGetStep() {
 		shape.setUnit(1);
 		HelperTest.assertEqualsDouble(IShape.PPC, shape.getStep());
 		shape.setUnit(2);
-		HelperTest.assertEqualsDouble(2.*IShape.PPC, shape.getStep());
+		HelperTest.assertEqualsDouble(2. * IShape.PPC, shape.getStep());
 	}
-
 
 	@Test
 	public void testIsSetXLabelSouth() {
@@ -31,7 +29,6 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		assertFalse(shape.isXLabelSouth());
 	}
 
-
 	@Test
 	public void testIsSetYLabelWest() {
 		shape.setYLabelWest(true);
@@ -39,7 +36,6 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		shape.setYLabelWest(false);
 		assertFalse(shape.isYLabelWest());
 	}
-
 
 	@Test
 	public void testGetSetGridDots() {
@@ -151,8 +147,8 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(50., shape.getUnit());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testDuplicate() {
 		super.testDuplicate();
 
@@ -181,8 +177,8 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		assertFalse(g2.isYLabelWest());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testGetBottomLeftPoint() {
 		shape.setPosition(10, 20);
 		HelperTest.assertEqualsDouble(10., shape.getBottomLeftPoint().getX());
@@ -192,193 +188,191 @@ public abstract class TestIGrid<T extends IGrid> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(-20., shape.getBottomLeftPoint().getY());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testGetBottomRightPoint() {
 		shape.setPosition(0, 0);
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 		shape.setUnit(2);
 
-		HelperTest.assertEqualsDouble(2.*IShape.PPC*50., shape.getBottomRightPoint().getX());
-		HelperTest.assertEqualsDouble(-IShape.PPC*-100., shape.getBottomRightPoint().getY());
+		HelperTest.assertEqualsDouble(2. * IShape.PPC * 50., shape.getBottomRightPoint().getX());
+		HelperTest.assertEqualsDouble(-IShape.PPC * -100., shape.getBottomRightPoint().getY());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testGetTopLeftPoint() {
 		shape.setPosition(0, 0);
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 		shape.setUnit(2);
 
-		HelperTest.assertEqualsDouble(IShape.PPC*-200., shape.getTopLeftPoint().getX());
-		HelperTest.assertEqualsDouble(-2.*IShape.PPC*75., shape.getTopLeftPoint().getY());
+		HelperTest.assertEqualsDouble(IShape.PPC * -200., shape.getTopLeftPoint().getX());
+		HelperTest.assertEqualsDouble(-2. * IShape.PPC * 75., shape.getTopLeftPoint().getY());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testGetTopRightPoint() {
 		shape.setPosition(0, 0);
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 		shape.setUnit(2);
 
-		HelperTest.assertEqualsDouble(2.*IShape.PPC*250., shape.getTopRightPoint().getX());
-		HelperTest.assertEqualsDouble(-2.*IShape.PPC*175., shape.getTopRightPoint().getY());
+		HelperTest.assertEqualsDouble(2. * IShape.PPC * 250., shape.getTopRightPoint().getX());
+		HelperTest.assertEqualsDouble(-2. * IShape.PPC * 175., shape.getTopRightPoint().getY());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testMirrorHorizontal() {
 		shape.setPosition(0, 0);
 		shape.setGridStart(0, 0);
 		shape.setGridEnd(10, 10);
 		shape.setUnit(1);
 
-		shape.mirrorHorizontal(ShapeFactory.createPoint(IShape.PPC*10., 0.));
-		HelperTest.assertEqualsDouble(IShape.PPC*10., shape.getPosition().getX());
+		shape.mirrorHorizontal(ShapeFactory.createPoint(IShape.PPC * 10., 0.));
+		HelperTest.assertEqualsDouble(IShape.PPC * 10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(0., shape.getPosition().getY());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testMirrorVertical() {
 		shape.setPosition(0, 0);
 		shape.setGridStart(0, 0);
 		shape.setGridEnd(10, 10);
 		shape.setUnit(1);
 
-		shape.mirrorVertical(ShapeFactory.createPoint(0., -IShape.PPC*10.));
+		shape.mirrorVertical(ShapeFactory.createPoint(0., -IShape.PPC * 10.));
 		HelperTest.assertEqualsDouble(0., shape.getPosition().getX());
-		HelperTest.assertEqualsDouble(-IShape.PPC*10., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(-IShape.PPC * 10., shape.getPosition().getY());
 	}
 
-
-//	@Override@Test
-//	public void testScale() {
-//		shape.setPosition(0, 0);
-//		shape.setGridStart(0, 0);
-//		shape.setGridEnd(10, 10);
-//		shape.setUnit(1);
-//
-//		IPoint pos = shape.getPosition();
-//
-//		shape.scale(3., 1., Position.EAST);
-//		assertEquals(pos.getX(), shape.getPosition().getX());
-//		assertEquals(pos.getY(), shape.getPosition().getY());
-//		assertEquals(3., shape.getUnit());
-//	}
-//
-//	@Test
-//	public void testScaleNE() {
-//		shape.setPosition(0, 0);
-//		shape.setGridStart(0, 0);
-//		shape.setGridEnd(10, 10);
-//		shape.setUnit(1);
-//
-//		IPoint pos = shape.getPosition();
-//
-//		shape.scale(3., 1., Position.NE);
-//		assertEquals(pos.getX(), shape.getPosition().getX());
-//		assertEquals(pos.getY(), shape.getPosition().getY());
-//		assertEquals(3., shape.getUnit());
-//	}
-//
-//	@Test
-//	public void testScaleSE() {
-//		shape.setPosition(0, 0);
-//		shape.setGridStart(0, 0);
-//		shape.setGridEnd(10, 10);
-//		shape.setUnit(1);
-//
-//		IPoint pos = shape.getPosition();
-//
-//		shape.scale(2., 1., Position.SE);
-//		assertEquals(pos.getX(), shape.getPosition().getX());
-//		assertEquals(pos.getY()+IShape.PPC*10., shape.getPosition().getY());
-//		assertEquals(2., shape.getUnit());
-//	}
-//
-//	@Test
-//	public void testScaleNorth() {
-//		shape.setPosition(0, 0);
-//		shape.setGridStart(0, 0);
-//		shape.setGridEnd(10, 10);
-//		shape.setUnit(1);
-//
-//		IPoint pos = shape.getPosition();
-//
-//		shape.scale(3., 2., Position.NORTH);
-//		assertEquals(pos.getX(), shape.getPosition().getX());
-//		assertEquals(pos.getY(), shape.getPosition().getY());
-//		assertEquals(2., shape.getUnit());
-//	}
-//
-//
-//	@Test
-//	public void testScaleSouth() {
-//		shape.setPosition(0, 0);
-//		shape.setGridStart(0, 0);
-//		shape.setGridEnd(10, 10);
-//		shape.setUnit(1);
-//
-//		IPoint pos = shape.getPosition();
-//
-//		shape.scale(3., 2., Position.SOUTH);
-//		assertEquals(pos.getX(), shape.getPosition().getX());
-//		assertEquals(pos.getY()+IShape.PPC*10., shape.getPosition().getY());
-//		assertEquals(2., shape.getUnit());
-//	}
-//
-//
-//	@Test
-//	public void testScaleSW() {
-//		shape.setPosition(0, 0);
-//		shape.setGridStart(0, 0);
-//		shape.setGridEnd(10, 10);
-//		shape.setUnit(1);
-//
-//		IPoint pos = shape.getPosition();
-//
-//		shape.scale(2., 3., Position.SW);
-//		assertEquals(pos.getX()-IShape.PPC*10., shape.getPosition().getX());
-//		assertEquals(pos.getY()+IShape.PPC*10., shape.getPosition().getY());
-//		assertEquals(2., shape.getUnit());
-//	}
-//
-//
-//	@Test
-//	public void testScaleWest() {
-//		shape.setPosition(0, 0);
-//		shape.setGridStart(0, 0);
-//		shape.setGridEnd(10, 10);
-//		shape.setUnit(1);
-//
-//		IPoint pos = shape.getPosition();
-//
-//		shape.scale(2., 3., Position.WEST);
-//		assertEquals(pos.getX()-IShape.PPC*10., shape.getPosition().getX());
-//		assertEquals(pos.getY(), shape.getPosition().getY());
-//		assertEquals(2., shape.getUnit());
-//	}
-//
-//
-//	@Test
-//	public void testScaleNW() {
-//		shape.setPosition(0, 0);
-//		shape.setGridStart(0, 0);
-//		shape.setGridEnd(10, 10);
-//		shape.setUnit(1);
-//
-//		IPoint pos = shape.getPosition();
-//
-//		shape.scale(2., 3., Position.NW);
-//		assertEquals(pos.getX()-IShape.PPC*10., shape.getPosition().getX());
-//		assertEquals(pos.getY(), shape.getPosition().getY());
-//		assertEquals(2., shape.getUnit());
-//	}
-
+	// @Override@Test
+	// public void testScale() {
+	// shape.setPosition(0, 0);
+	// shape.setGridStart(0, 0);
+	// shape.setGridEnd(10, 10);
+	// shape.setUnit(1);
+	//
+	// IPoint pos = shape.getPosition();
+	//
+	// shape.scale(3., 1., Position.EAST);
+	// assertEquals(pos.getX(), shape.getPosition().getX());
+	// assertEquals(pos.getY(), shape.getPosition().getY());
+	// assertEquals(3., shape.getUnit());
+	// }
+	//
+	// @Test
+	// public void testScaleNE() {
+	// shape.setPosition(0, 0);
+	// shape.setGridStart(0, 0);
+	// shape.setGridEnd(10, 10);
+	// shape.setUnit(1);
+	//
+	// IPoint pos = shape.getPosition();
+	//
+	// shape.scale(3., 1., Position.NE);
+	// assertEquals(pos.getX(), shape.getPosition().getX());
+	// assertEquals(pos.getY(), shape.getPosition().getY());
+	// assertEquals(3., shape.getUnit());
+	// }
+	//
+	// @Test
+	// public void testScaleSE() {
+	// shape.setPosition(0, 0);
+	// shape.setGridStart(0, 0);
+	// shape.setGridEnd(10, 10);
+	// shape.setUnit(1);
+	//
+	// IPoint pos = shape.getPosition();
+	//
+	// shape.scale(2., 1., Position.SE);
+	// assertEquals(pos.getX(), shape.getPosition().getX());
+	// assertEquals(pos.getY()+IShape.PPC*10., shape.getPosition().getY());
+	// assertEquals(2., shape.getUnit());
+	// }
+	//
+	// @Test
+	// public void testScaleNorth() {
+	// shape.setPosition(0, 0);
+	// shape.setGridStart(0, 0);
+	// shape.setGridEnd(10, 10);
+	// shape.setUnit(1);
+	//
+	// IPoint pos = shape.getPosition();
+	//
+	// shape.scale(3., 2., Position.NORTH);
+	// assertEquals(pos.getX(), shape.getPosition().getX());
+	// assertEquals(pos.getY(), shape.getPosition().getY());
+	// assertEquals(2., shape.getUnit());
+	// }
+	//
+	//
+	// @Test
+	// public void testScaleSouth() {
+	// shape.setPosition(0, 0);
+	// shape.setGridStart(0, 0);
+	// shape.setGridEnd(10, 10);
+	// shape.setUnit(1);
+	//
+	// IPoint pos = shape.getPosition();
+	//
+	// shape.scale(3., 2., Position.SOUTH);
+	// assertEquals(pos.getX(), shape.getPosition().getX());
+	// assertEquals(pos.getY()+IShape.PPC*10., shape.getPosition().getY());
+	// assertEquals(2., shape.getUnit());
+	// }
+	//
+	//
+	// @Test
+	// public void testScaleSW() {
+	// shape.setPosition(0, 0);
+	// shape.setGridStart(0, 0);
+	// shape.setGridEnd(10, 10);
+	// shape.setUnit(1);
+	//
+	// IPoint pos = shape.getPosition();
+	//
+	// shape.scale(2., 3., Position.SW);
+	// assertEquals(pos.getX()-IShape.PPC*10., shape.getPosition().getX());
+	// assertEquals(pos.getY()+IShape.PPC*10., shape.getPosition().getY());
+	// assertEquals(2., shape.getUnit());
+	// }
+	//
+	//
+	// @Test
+	// public void testScaleWest() {
+	// shape.setPosition(0, 0);
+	// shape.setGridStart(0, 0);
+	// shape.setGridEnd(10, 10);
+	// shape.setUnit(1);
+	//
+	// IPoint pos = shape.getPosition();
+	//
+	// shape.scale(2., 3., Position.WEST);
+	// assertEquals(pos.getX()-IShape.PPC*10., shape.getPosition().getX());
+	// assertEquals(pos.getY(), shape.getPosition().getY());
+	// assertEquals(2., shape.getUnit());
+	// }
+	//
+	//
+	// @Test
+	// public void testScaleNW() {
+	// shape.setPosition(0, 0);
+	// shape.setGridStart(0, 0);
+	// shape.setGridEnd(10, 10);
+	// shape.setUnit(1);
+	//
+	// IPoint pos = shape.getPosition();
+	//
+	// shape.scale(2., 3., Position.NW);
+	// assertEquals(pos.getX()-IShape.PPC*10., shape.getPosition().getX());
+	// assertEquals(pos.getY(), shape.getPosition().getY());
+	// assertEquals(2., shape.getUnit());
+	// }
 
 	@Override
 	@Test

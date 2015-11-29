@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.DOMException;
 
-public class TestSVGNamedNodeMap{
+public class TestSVGNamedNodeMap {
 	protected SVGNamedNodeMap map;
 	protected SVGDocument doc;
 
@@ -23,12 +23,10 @@ public class TestSVGNamedNodeMap{
 		map = new SVGNamedNodeMap();
 	}
 
-
 	@Test
 	public void testSVGNamedNodeMap() {
 		assertNotNull(map.getAttributes());
 	}
-
 
 	@Test
 	public void testGetLength() {
@@ -38,7 +36,6 @@ public class TestSVGNamedNodeMap{
 		assertEquals(1, map.getLength());
 		map.getAttributes().clear();
 	}
-
 
 	@Test
 	public void testGetNamedItem() {
@@ -52,7 +49,6 @@ public class TestSVGNamedNodeMap{
 		assertNotNull(map.getNamedItem("test")); //$NON-NLS-1$
 		map.getAttributes().clear();
 	}
-
 
 	@Test
 	public void testItem() {
@@ -69,7 +65,6 @@ public class TestSVGNamedNodeMap{
 		map.getAttributes().clear();
 	}
 
-
 	@Test
 	public void testRemoveNamedItem() {
 		SVGAttr attr = new SVGAttr("test", "", doc.createElement("elt")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -79,20 +74,20 @@ public class TestSVGNamedNodeMap{
 		try {
 			map.removeNamedItem(null);
 			fail();
-		}
-		catch(DOMException e) { /* ok */ }
+		}catch(DOMException e) {
+			/* ok */ }
 
 		try {
 			map.removeNamedItem(""); //$NON-NLS-1$
 			fail();
-		}
-		catch(DOMException e) { /* ok */ }
+		}catch(DOMException e) {
+			/* ok */ }
 
 		try {
 			map.removeNamedItem("test"); //$NON-NLS-1$
 			fail();
-		}
-		catch(DOMException e) { /* ok */ }
+		}catch(DOMException e) {
+			/* ok */ }
 
 		map.getAttributes().add(attr);
 		assertEquals(attr, map.removeNamedItem("test")); //$NON-NLS-1$
@@ -100,12 +95,11 @@ public class TestSVGNamedNodeMap{
 		try {
 			map.removeNamedItem("test"); //$NON-NLS-1$
 			fail();
-		}
-		catch(DOMException e) { /* ok */ }
+		}catch(DOMException e) {
+			/* ok */ }
 
 		map.getAttributes().clear();
 	}
-
 
 	@Test
 	public void testSetNamedItem() {
@@ -126,7 +120,6 @@ public class TestSVGNamedNodeMap{
 		map.getAttributes().clear();
 	}
 
-
 	@Test
 	public void testClone() {
 		SVGAttr attr1 = new SVGAttr("test1", "v1", doc.createElement("elt1")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -142,7 +135,6 @@ public class TestSVGNamedNodeMap{
 		assertTrue(map.getNamedItem("test2").isEqualNode(map2.getNamedItem("test2"))); //$NON-NLS-1$ //$NON-NLS-2$
 		map.getAttributes().clear();
 	}
-
 
 	@Test
 	public void testGetAttributes() {

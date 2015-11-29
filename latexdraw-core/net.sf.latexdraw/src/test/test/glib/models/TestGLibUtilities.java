@@ -1,4 +1,4 @@
-package test.glib.models ;
+package test.glib.models;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -7,7 +7,7 @@ import net.sf.latexdraw.glib.models.ShapeFactory;
 
 import org.junit.Test;
 
-public class TestGLibUtilities{
+public class TestGLibUtilities {
 	@Test
 	public void testIsValidPoint1() {
 		assertFalse(GLibUtilities.isValidPoint(null));
@@ -31,8 +31,6 @@ public class TestGLibUtilities{
 		assertTrue(GLibUtilities.isValidPoint(ShapeFactory.createPoint(-1000000, -1000000)));
 	}
 
-
-
 	@Test
 	public void testIsValidPoint2() {
 		assertFalse(GLibUtilities.isValidPoint(Double.NaN, 0));
@@ -54,8 +52,6 @@ public class TestGLibUtilities{
 		assertTrue(GLibUtilities.isValidPoint(1000000, 1000000));
 		assertTrue(GLibUtilities.isValidPoint(-1000000, -1000000));
 	}
-
-
 
 	@Test
 	public void testIsValidCoordinate() {

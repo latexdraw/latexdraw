@@ -16,7 +16,6 @@ public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiable
 		assertEquals(FreeHandStyle.CURVES, shape.getType());
 	}
 
-
 	@Test
 	public void testSetType() {
 		shape.setType(FreeHandStyle.LINES);
@@ -27,12 +26,10 @@ public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiable
 		assertEquals(FreeHandStyle.CURVES, shape.getType());
 	}
 
-
 	@Test
 	public void testIsOpen() {
 		assertTrue(shape.isOpen());
 	}
-
 
 	@Test
 	public void testSetOpen() {
@@ -42,13 +39,11 @@ public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiable
 		assertTrue(shape.isOpen());
 	}
 
-
 	@Test
 	public void testGetInterval() {
 		shape.setInterval(22);
 		assertEquals(22, shape.getInterval());
 	}
-
 
 	@Test
 	public void testSetInterval() {
@@ -66,7 +61,6 @@ public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiable
 		assertEquals(Integer.MAX_VALUE, shape.getInterval());
 	}
 
-
 	@Override
 	@Test
 	public void testCopy() {
@@ -83,11 +77,10 @@ public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiable
 	public void testCopyWhenNotFreeHand() {
 		IShape sh = ShapeFactory.createCircleArc();
 		shape.copy(sh);
-//		assertTrue(shape.isParametersEquals(sh, false));
-//		assertTrue(shape.isParametersEquals(sh, true));
-		//TODO
+		// assertTrue(shape.isParametersEquals(sh, false));
+		// assertTrue(shape.isParametersEquals(sh, true));
+		// TODO
 	}
-
 
 	@Override
 	@Test
@@ -95,9 +88,9 @@ public abstract class TestIFreehand<T extends IFreehand> extends TestIModifiable
 		shape.setOpen(false);
 		shape.setInterval(10);
 		shape.setType(FreeHandStyle.LINES);
-//		final IFreehand dup = (IFreehand)shape.duplicate();
-//		assertTrue(shape.isParametersEquals(dup, false));
-//		assertTrue(shape.isParametersEquals(dup, true));
-		//TODO
+		// final IFreehand dup = (IFreehand)shape.duplicate();
+		// assertTrue(shape.isParametersEquals(dup, false));
+		// assertTrue(shape.isParametersEquals(dup, true));
+		// TODO
 	}
 }

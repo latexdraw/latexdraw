@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,14 +18,12 @@ import org.junit.Test;
 import test.HelperTest;
 import test.glib.models.interfaces.TestIEllipse;
 
-
 public class TestLEllipse extends TestIEllipse<IEllipse> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createEllipse();
+		shape = ShapeFactory.createEllipse();
 		shape2 = ShapeFactory.createEllipse();
 	}
-
 
 	@Override
 	@Test
@@ -40,7 +37,6 @@ public class TestLEllipse extends TestIEllipse<IEllipse> {
 		assertTrue(shape.isTypeOf(IEllipse.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
-
 
 	@Test
 	public void testConstructors2() {
@@ -56,32 +52,38 @@ public class TestLEllipse extends TestIEllipse<IEllipse> {
 		try {
 			ell = ShapeFactory.createEllipse(null, ShapeFactory.createPoint());
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 
 		try {
 			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(), null);
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 
 		try {
 			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(), ShapeFactory.createPoint());
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 
 		try {
-			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1,0), ShapeFactory.createPoint(2,0));
+			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1, 0), ShapeFactory.createPoint(2, 0));
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 
 		try {
-			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1,Double.NaN), ShapeFactory.createPoint(2,0));
+			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1, Double.NaN), ShapeFactory.createPoint(2, 0));
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 
 		try {
-			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1,2), ShapeFactory.createPoint(2,Double.NaN));
+			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1, 2), ShapeFactory.createPoint(2, Double.NaN));
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 
 		ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(20, 26), ShapeFactory.createPoint(30, 35));
 		HelperTest.assertEqualsDouble(20., ell.getPosition().getX());

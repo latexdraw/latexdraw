@@ -5,7 +5,7 @@ import net.sf.latexdraw.parsers.svg.SVGMatrix;
 
 import org.junit.Test;
 
-public class TestSVGMatrix{
+public class TestSVGMatrix {
 	@Test
 	public void testConstructor() {
 		SVGMatrix m = new SVGMatrix();
@@ -17,7 +17,6 @@ public class TestSVGMatrix{
 		assertEquals(m.getC(), 0., 0.0001);
 		assertEquals(m.getF(), 0., 0.0001);
 	}
-
 
 	@Test
 	public void testInitMatrix() {
@@ -31,7 +30,6 @@ public class TestSVGMatrix{
 		assertEquals(m.getC(), 0., 0.0001);
 		assertEquals(m.getF(), 0., 0.0001);
 	}
-
 
 	@Test
 	public void testRotate() {
@@ -47,7 +45,6 @@ public class TestSVGMatrix{
 		assertEquals(m.getF(), 0., 0.0001);
 	}
 
-
 	@Test
 	public void testTranslate() {
 		SVGMatrix m = new SVGMatrix();
@@ -61,7 +58,6 @@ public class TestSVGMatrix{
 		assertEquals(m.getE(), tx, 0.0001);
 		assertEquals(m.getF(), ty, 0.0001);
 	}
-
 
 	@Test
 	public void testScaleNonUniform() {
@@ -77,7 +73,6 @@ public class TestSVGMatrix{
 		assertEquals(m.getF(), 0., 0.0001);
 	}
 
-
 	@Test
 	public void testScale() {
 		SVGMatrix m = new SVGMatrix();
@@ -91,7 +86,6 @@ public class TestSVGMatrix{
 		assertEquals(m.getE(), 0., 0.0001);
 		assertEquals(m.getF(), 0., 0.0001);
 	}
-
 
 	@Test
 	public void testSkewX() {
@@ -107,7 +101,6 @@ public class TestSVGMatrix{
 		assertEquals(m.getF(), 0., 0.0001);
 	}
 
-
 	@Test
 	public void testSkewY() {
 		SVGMatrix m = new SVGMatrix();
@@ -122,7 +115,6 @@ public class TestSVGMatrix{
 		assertEquals(m.getF(), 0., 0.0001);
 	}
 
-
 	@Test
 	public void testSetMatrix() {
 		SVGMatrix m = new SVGMatrix();
@@ -135,7 +127,6 @@ public class TestSVGMatrix{
 		assertEquals(m.getE(), 6., 0.0001);
 		assertEquals(m.getF(), 7., 0.0001);
 	}
-
 
 	@Test
 	public void testMultiply() {

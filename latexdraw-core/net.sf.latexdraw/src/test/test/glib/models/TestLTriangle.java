@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
@@ -22,7 +21,6 @@ public class TestLTriangle extends TestITriangle<ITriangle> {
 		shape = ShapeFactory.createTriangle();
 		shape2 = ShapeFactory.createTriangle();
 	}
-
 
 	@Override
 	@Test

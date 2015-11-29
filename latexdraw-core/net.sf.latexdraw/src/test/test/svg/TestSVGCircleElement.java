@@ -20,44 +20,41 @@ public class TestSVGCircleElement extends AbstractTestSVGElement {
 	@Before
 	public void setUp() {
 		doc = new SVGDocument();
-        node = (SVGElement)doc.createElement(SVGElements.SVG_CIRCLE);
+		node = (SVGElement)doc.createElement(SVGElements.SVG_CIRCLE);
 	}
 
-
-
 	@SuppressWarnings("unused")
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testContructorFail1() throws MalformedSVGDocument {
 		new SVGCircleElement(null, null);
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=MalformedSVGDocument.class)
+	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail2() throws MalformedSVGDocument {
 		new SVGCircleElement(node, null);
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=MalformedSVGDocument.class)
+	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail3() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "dsd"); //$NON-NLS-1$
 		new SVGCircleElement(node, null);
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=MalformedSVGDocument.class)
+	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail4() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "-1"); //$NON-NLS-1$
 		new SVGCircleElement(node, null);
 	}
-	
+
 	@SuppressWarnings("unused")
 	@Test
 	public void testContructorOK() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10"); //$NON-NLS-1$
 		new SVGCircleElement(node, null);
 	}
-
 
 	@Test
 	public void testGetCy() throws MalformedSVGDocument {
@@ -78,7 +75,6 @@ public class TestSVGCircleElement extends AbstractTestSVGElement {
 		assertEquals(e.getCy(), UnitProcessor.INSTANCE.toUserUnit(40, SVGLength.LengthType.CM), 0.0001);
 	}
 
-
 	@Test
 	public void testGetCx() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "10"); //$NON-NLS-1$
@@ -98,8 +94,6 @@ public class TestSVGCircleElement extends AbstractTestSVGElement {
 		assertEquals(e.getCx(), UnitProcessor.INSTANCE.toUserUnit(30.5, SVGLength.LengthType.MM), 0.0001);
 	}
 
-
-
 	@Test
 	public void testEnableRendering() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "0"); //$NON-NLS-1$
@@ -111,8 +105,6 @@ public class TestSVGCircleElement extends AbstractTestSVGElement {
 		assertTrue(e.enableRendering());
 	}
 
-
-
 	@Test
 	public void testGetR() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_R, "20"); //$NON-NLS-1$
@@ -122,7 +114,6 @@ public class TestSVGCircleElement extends AbstractTestSVGElement {
 		e = new SVGCircleElement(node, null);
 		assertEquals(e.getR(), UnitProcessor.INSTANCE.toUserUnit(20, SVGLength.LengthType.PT), 0.0001);
 	}
-
 
 	@Override
 	public String getNameNode() {

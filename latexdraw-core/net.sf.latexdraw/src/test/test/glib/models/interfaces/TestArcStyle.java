@@ -16,14 +16,13 @@ public class TestArcStyle {
 		assertTrue(ArcStyle.ARC.supportArrow());
 	}
 
-
 	@Test
 	public void testGetLabel() {
 		assertNotNull(ArcStyle.ARC.getLabel());
-		assertTrue(ArcStyle.ARC.getLabel().length()>0);
+		assertTrue(ArcStyle.ARC.getLabel().length() > 0);
 		assertNotNull(ArcStyle.CHORD.getLabel());
-		assertTrue(ArcStyle.CHORD.getLabel().length()>0);
+		assertTrue(ArcStyle.CHORD.getLabel().length() > 0);
 		assertNotNull(ArcStyle.WEDGE.getLabel());
-		assertTrue(ArcStyle.WEDGE.getLabel().length()>0);
+		assertTrue(ArcStyle.WEDGE.getLabel().length() > 0);
 	}
 }

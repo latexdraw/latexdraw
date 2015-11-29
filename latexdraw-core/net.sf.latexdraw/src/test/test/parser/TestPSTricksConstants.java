@@ -6,7 +6,7 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 import org.junit.Test;
 
-public class TestPSTricksConstants{
+public class TestPSTricksConstants {
 	@Test
 	public void testIsValidArrowStyle() {
 		assertFalse(PSTricksConstants.isValidFillStyle(null));

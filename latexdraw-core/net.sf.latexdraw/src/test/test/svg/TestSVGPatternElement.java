@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class TestSVGPatternElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testContructorFail() throws MalformedSVGDocument {
 		new SVGPatternElement(null, null);
 	}
@@ -22,8 +22,6 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 	public void testContructorOK() throws MalformedSVGDocument {
 		new SVGPatternElement(node, null);
 	}
-
-
 
 	@Test
 	public void testGetHeight() throws MalformedSVGDocument {
@@ -35,8 +33,6 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 		assertEquals(e.getHeight(), 20., 0.0001);
 	}
 
-
-
 	@Test
 	public void testGetWidth() throws MalformedSVGDocument {
 		SVGPatternElement e = new SVGPatternElement(node, null);
@@ -46,8 +42,6 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 		e = new SVGPatternElement(node, null);
 		assertEquals(e.getWidth(), 30., 0.0001);
 	}
-
-
 
 	@Test
 	public void testGetPatternUnits() throws MalformedSVGDocument {
@@ -63,8 +57,6 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 		assertEquals(e.getPatternUnits(), SVGAttributes.SVG_UNITS_VALUE_OBJ);
 	}
 
-
-
 	@Test
 	public void testGetPatternContentUnits() throws MalformedSVGDocument {
 		SVGPatternElement e = new SVGPatternElement(node, null);
@@ -78,8 +70,6 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 		e = new SVGPatternElement(node, null);
 		assertEquals(e.getPatternContentUnits(), SVGAttributes.SVG_UNITS_VALUE_OBJ);
 	}
-
-
 
 	@Test
 	public void testEnableRendering() throws MalformedSVGDocument {
@@ -104,8 +94,6 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 		assertTrue(e.enableRendering());
 	}
 
-
-
 	@Test
 	public void testGetY() throws MalformedSVGDocument {
 		SVGPatternElement e = new SVGPatternElement(node, null);
@@ -116,8 +104,6 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 		assertEquals(1., e.getY(), 0.0001);
 	}
 
-
-
 	@Test
 	public void testGetX() throws MalformedSVGDocument {
 		SVGPatternElement e = new SVGPatternElement(node, null);
@@ -127,7 +113,6 @@ public class TestSVGPatternElement extends AbstractTestSVGElement {
 		e = new SVGPatternElement(node, null);
 		assertEquals(2., e.getX(), 0.0001);
 	}
-
 
 	@Override
 	public String getNameNode() {

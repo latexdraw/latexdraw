@@ -1,6 +1,5 @@
 package test.glib.models.interfaces;
 
-
 import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle;
 
 import org.junit.Test;
@@ -53,7 +52,6 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		HelperTest.assertEqualsDouble(10., shape.getTopRightPoint().getY());
 	}
 
-
 	@Override
 	@Test
 	public void testMirrorHorizontal() {
@@ -67,7 +65,6 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		HelperTest.assertEqualsDouble(30., shape.getWidth());
 		HelperTest.assertEqualsDouble(40., shape.getHeight());
 	}
-
 
 	@Override
 	@Test
@@ -83,43 +80,42 @@ public abstract class TestITriangle<T extends ITriangle> extends TestIPositionSh
 		HelperTest.assertEqualsDouble(40., shape.getHeight());
 	}
 
-//
-//
-//	@Override
-//	@Test
-//	public void testScale() {
-//		shape.setPosition(0, 2);
-//		shape.setRight(2);
-//		shape.setTop(0);
-//
-//		IPoint tl1 = shape.getTopLeftPoint();
-//		IPoint br1 = shape.getBottomRightPoint();
-//
-//		shape.scale(1.5, 1, Position.EAST);
-//		IPoint tl2 = shape.getTopLeftPoint();
-//		IPoint br2 = shape.getBottomRightPoint();
-//
-//		assertEquals((br1.getX()-tl1.getX())*1.5, br2.getX()-tl2.getX());
-//		shape.scale(1, 1.5, Position.SOUTH);
-//		tl2 = shape.getTopLeftPoint();
-//		br2 = shape.getBottomRightPoint();
-//		assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
-//
-//		tl1 = shape.getTopLeftPoint();
-//		br1 = shape.getBottomRightPoint();
-//		shape.scale(1.5, 1, Position.WEST);
-//		tl2 = shape.getTopLeftPoint();
-//		br2 = shape.getBottomRightPoint();
-//		assertEquals((br1.getX()-tl1.getX())*1.5, br2.getX()-tl2.getX());
-//
-//		tl1 = shape.getTopLeftPoint();
-//		br1 = shape.getBottomRightPoint();
-//		shape.scale(1, 1.5, Position.NORTH);
-//		tl2 = shape.getTopLeftPoint();
-//		br2 = shape.getBottomRightPoint();
-//		assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
-//	}
-
+	//
+	//
+	// @Override
+	// @Test
+	// public void testScale() {
+	// shape.setPosition(0, 2);
+	// shape.setRight(2);
+	// shape.setTop(0);
+	//
+	// IPoint tl1 = shape.getTopLeftPoint();
+	// IPoint br1 = shape.getBottomRightPoint();
+	//
+	// shape.scale(1.5, 1, Position.EAST);
+	// IPoint tl2 = shape.getTopLeftPoint();
+	// IPoint br2 = shape.getBottomRightPoint();
+	//
+	// assertEquals((br1.getX()-tl1.getX())*1.5, br2.getX()-tl2.getX());
+	// shape.scale(1, 1.5, Position.SOUTH);
+	// tl2 = shape.getTopLeftPoint();
+	// br2 = shape.getBottomRightPoint();
+	// assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
+	//
+	// tl1 = shape.getTopLeftPoint();
+	// br1 = shape.getBottomRightPoint();
+	// shape.scale(1.5, 1, Position.WEST);
+	// tl2 = shape.getTopLeftPoint();
+	// br2 = shape.getBottomRightPoint();
+	// assertEquals((br1.getX()-tl1.getX())*1.5, br2.getX()-tl2.getX());
+	//
+	// tl1 = shape.getTopLeftPoint();
+	// br1 = shape.getBottomRightPoint();
+	// shape.scale(1, 1.5, Position.NORTH);
+	// tl2 = shape.getTopLeftPoint();
+	// br2 = shape.getBottomRightPoint();
+	// assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
+	// }
 
 	@Override
 	@Test

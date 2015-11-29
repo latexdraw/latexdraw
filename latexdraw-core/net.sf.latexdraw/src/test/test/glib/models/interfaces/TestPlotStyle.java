@@ -7,7 +7,8 @@ import org.junit.Test;
 import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
 
 public class TestPlotStyle {
-	@Test public void testGetPSTToken() {
+	@Test
+	public void testGetPSTToken() {
 		assertEquals("curve", PlotStyle.CURVE.getPSTToken()); //$NON-NLS-1$
 		assertEquals("ccurve", PlotStyle.CCURVE.getPSTToken()); //$NON-NLS-1$
 		assertEquals("dots", PlotStyle.DOTS.getPSTToken()); //$NON-NLS-1$
@@ -16,19 +17,23 @@ public class TestPlotStyle {
 		assertEquals("polygon", PlotStyle.POLYGON.getPSTToken()); //$NON-NLS-1$
 	}
 
-	@Test public void testGetPlotStyleNULL() {
+	@Test
+	public void testGetPlotStyleNULL() {
 		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle(null));
 	}
 
-	@Test public void testGetPlotStyleEmpty() {
+	@Test
+	public void testGetPlotStyleEmpty() {
 		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle("")); //$NON-NLS-1$
 	}
 
-	@Test public void testGetPlotStyleNotCorrect() {
+	@Test
+	public void testGetPlotStyleNotCorrect() {
 		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle("dfs@fgd")); //$NON-NLS-1$
 	}
 
-	@Test public void testGetPlotStyleOK() {
+	@Test
+	public void testGetPlotStyleOK() {
 		assertEquals(PlotStyle.CURVE, PlotStyle.getPlotStyle(PlotStyle.CURVE.getPSTToken()));
 		assertEquals(PlotStyle.CCURVE, PlotStyle.getPlotStyle(PlotStyle.CCURVE.getPSTToken()));
 		assertEquals(PlotStyle.DOTS, PlotStyle.getPlotStyle(PlotStyle.DOTS.getPSTToken()));

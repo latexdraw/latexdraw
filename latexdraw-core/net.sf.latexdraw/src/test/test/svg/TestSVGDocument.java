@@ -28,14 +28,11 @@ public class TestSVGDocument {
 	protected SVGDocument doc1;
 	protected SVGDocument doc2;
 
-
 	@Before
 	public void setUp() throws MalformedSVGDocument, URISyntaxException, IOException {
 		doc1 = new SVGDocument();
 		doc2 = new SVGDocument(new URI("src/resources/test/res/test.svg")); //$NON-NLS-1$
 	}
-
-
 
 	@SuppressWarnings("unused")
 	@Test
@@ -43,21 +40,20 @@ public class TestSVGDocument {
 		try {
 			new SVGDocument(null);
 			fail();
-		}
-		catch(IllegalArgumentException e){ /* ok */ }
+		}catch(IllegalArgumentException e) {
+			/* ok */ }
 
 		try {
 			new SVGDocument(new URI("dfqsfg")); //$NON-NLS-1$
 			fail();
-		}
-		catch(MalformedSVGDocument e){ /* ok */ }
-		catch(FileNotFoundException e){ /* ok */ }
+		}catch(MalformedSVGDocument e) {
+			/* ok */ }catch(FileNotFoundException e) {
+			/* ok */ }
 
 		SVGDocument doc = new SVGDocument(new URI("src/resources/test/res/test.svg")); //$NON-NLS-1$
 		assertNotNull(doc.getFirstChild());
 		assertNotNull(doc.getLastChild());
 	}
-
 
 	@Test
 	public void testSVGDocument2() {
@@ -68,8 +64,6 @@ public class TestSVGDocument {
 		assertNull(doc.getDocumentURI());
 	}
 
-
-
 	@Test
 	public void testAdoptNode() {
 		SVGSVGElement elt = new SVGSVGElement(doc2);
@@ -77,26 +71,24 @@ public class TestSVGDocument {
 		try {
 			doc1.adoptNode(null);
 			fail();
-		}
-		catch(DOMException e){ /* ok */ }
+		}catch(DOMException e) {
+			/* ok */ }
 
 		try {
 			doc1.adoptNode(new SVGComment("", doc2)); //$NON-NLS-1$
 			fail();
-		}
-		catch(DOMException e){ /* ok */ }
+		}catch(DOMException e) {
+			/* ok */ }
 
 		doc1.adoptNode(elt);
 		assertEquals(doc1, elt.getOwnerDocument());
 		assertEquals(doc1.getFirstChild(), elt);
 	}
 
-
 	@Test
 	public void testGetDocumentElement() {
 		assertNotNull(doc1.getDocumentElement());
 	}
-
 
 	@Test
 	public void testSetDocumentURI() {
@@ -106,7 +98,6 @@ public class TestSVGDocument {
 		assertEquals("coucou", doc1.getDocumentURI()); //$NON-NLS-1$
 	}
 
-
 	@Test
 	public void testSetXmlStandalone() {
 		doc1.setXmlStandalone(false);
@@ -115,7 +106,6 @@ public class TestSVGDocument {
 		assertTrue(doc1.getXmlStandalone());
 	}
 
-
 	@Test
 	public void testSetXmlVersion() {
 		doc1.setXmlVersion(null);
@@ -123,7 +113,6 @@ public class TestSVGDocument {
 		doc1.setXmlVersion("coucou"); //$NON-NLS-1$
 		assertEquals("coucou", doc1.getXmlVersion()); //$NON-NLS-1$
 	}
-
 
 	@Test
 	public void testUselessMethods() {
@@ -148,13 +137,11 @@ public class TestSVGDocument {
 		assertNull(doc1.getDoctype());
 	}
 
-
 	@Test
 	public void testGetFirstChild() {
 		assertNotNull(doc1.getFirstChild());
 		assertNotNull(doc2.getFirstChild());
 	}
-
 
 	@Test
 	public void testGetLastChild() {
@@ -164,13 +151,11 @@ public class TestSVGDocument {
 		assertEquals(doc2.getLastChild(), doc2.getFirstChild());
 	}
 
-
 	@Test
 	public void testGetNodeName() {
 		assertEquals("#document", doc1.getNodeName()); //$NON-NLS-1$
 		assertEquals("#document", doc2.getNodeName()); //$NON-NLS-1$
 	}
-
 
 	@Test
 	public void testGetNodeType() {
@@ -178,13 +163,11 @@ public class TestSVGDocument {
 		assertEquals(Node.DOCUMENT_NODE, doc2.getNodeType());
 	}
 
-
 	@Test
 	public void testHasChildNode() {
 		assertTrue(doc1.hasChildNodes());
 		assertTrue(doc2.hasChildNodes());
 	}
-
 
 	@Test
 	public void testIsEqualNode() throws MalformedSVGDocument, URISyntaxException, IOException {
@@ -198,8 +181,6 @@ public class TestSVGDocument {
 		assertFalse(doc2.isEqualNode(doc1));
 	}
 
-
-
 	@Test
 	public void testIsSameNode() {
 		assertTrue(doc1.isEqualNode(doc1));
@@ -210,42 +191,39 @@ public class TestSVGDocument {
 		assertFalse(doc2.isEqualNode(doc1));
 	}
 
-
 	@Test
 	public void testCreateElement() {
 		try {
 			doc1.createElement(null);
 			fail();
-		}
-		catch(DOMException e) { /* ok */ }
+		}catch(DOMException e) {
+			/* ok */ }
 
 		SVGElement elt = (SVGElement)doc1.createElement("test"); //$NON-NLS-1$
 		assertEquals(elt.getNodeName(), "test"); //$NON-NLS-1$
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
-
 	@Test
 	public void testCreateTextNode() {
 		try {
 			doc1.createTextNode(null);
 			fail();
-		}
-		catch(DOMException e) { /* ok */ }
+		}catch(DOMException e) {
+			/* ok */ }
 
 		SVGText elt = (SVGText)doc1.createTextNode("test"); //$NON-NLS-1$
 		assertEquals(elt.getData(), "test"); //$NON-NLS-1$
 		assertEquals(doc1, elt.getOwnerDocument());
 	}
 
-
 	@Test
 	public void testCreateComment() {
 		try {
 			doc1.createComment(null);
 			fail();
-		}
-		catch(DOMException e) { /* ok */ }
+		}catch(DOMException e) {
+			/* ok */ }
 
 		SVGComment elt = (SVGComment)doc1.createComment("test"); //$NON-NLS-1$
 		assertEquals(elt.getData(), "test"); //$NON-NLS-1$

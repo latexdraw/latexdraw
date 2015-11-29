@@ -16,7 +16,6 @@ public class TestSVGDefsElement extends AbstractTestSVGElement {
 		assertFalse(defs.enableRendering());
 	}
 
-
 	@Test
 	public void testGetDef() throws MalformedSVGDocument {
 		SVGDefsElement defs = new SVGDefsElement(node, null);
@@ -31,19 +30,17 @@ public class TestSVGDefsElement extends AbstractTestSVGElement {
 		assertEquals(mark, defs.getDef("id")); //$NON-NLS-1$
 	}
 
-
 	@SuppressWarnings("unused")
 	@Test
 	public void testContructor() throws MalformedSVGDocument {
 		try {
 			new SVGDefsElement(null, null);
 			fail();
-		}
-		catch(Exception e){/**/}
+		}catch(Exception e) {
+			/**/}
 
 		new SVGDefsElement(node, null);
 	}
-
 
 	@Override
 	public String getNameNode() {

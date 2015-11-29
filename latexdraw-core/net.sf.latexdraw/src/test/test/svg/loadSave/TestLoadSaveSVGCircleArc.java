@@ -12,53 +12,61 @@ public class TestLoadSaveSVGCircleArc extends TestLoadSaveSVGSquaredShape<ICircl
 		shape = ShapeFactory.createCircleArc();
 	}
 
-	@Test public void testStartAngle0() {
+	@Test
+	public void testStartAngle0() {
 		setDefaultDimensions();
 		shape.setAngleStart(0);
 		compareShapes(generateShape());
 	}
 
-	@Test public void testStartAngle90() {
+	@Test
+	public void testStartAngle90() {
 		setDefaultDimensions();
-		shape.setAngleStart(Math.PI/2.);
+		shape.setAngleStart(Math.PI / 2.);
 		compareShapes(generateShape());
 	}
 
-	@Test public void testStartAngle180() {
+	@Test
+	public void testStartAngle180() {
 		setDefaultDimensions();
 		shape.setAngleStart(Math.PI);
 		compareShapes(generateShape());
 	}
 
-	@Test public void testStartAngle270EndAngle180() {
+	@Test
+	public void testStartAngle270EndAngle180() {
 		setDefaultDimensions();
 		shape.setAngleEnd(-Math.PI);
-		shape.setAngleStart(-Math.PI/2.);
+		shape.setAngleStart(-Math.PI / 2.);
 		compareShapes(generateShape());
 	}
 
-	@Test public void testEndAngle0() {
+	@Test
+	public void testEndAngle0() {
 		setDefaultDimensions();
 		shape.setAngleStart(-Math.PI);
 		shape.setAngleEnd(0);
 		compareShapes(generateShape());
 	}
 
-	@Test public void testEndAngle90() {
+	@Test
+	public void testEndAngle90() {
 		setDefaultDimensions();
-		shape.setAngleEnd(Math.PI/2.);
+		shape.setAngleEnd(Math.PI / 2.);
 		compareShapes(generateShape());
 	}
 
-	@Test public void testEndAngle180() {
+	@Test
+	public void testEndAngle180() {
 		setDefaultDimensions();
 		shape.setAngleEnd(Math.PI);
 		compareShapes(generateShape());
 	}
 
-	@Test public void testEndAngle270() {
+	@Test
+	public void testEndAngle270() {
 		setDefaultDimensions();
-		shape.setAngleEnd(3*Math.PI/2.);
+		shape.setAngleEnd(3 * Math.PI / 2.);
 		compareShapes(generateShape());
 	}
 }

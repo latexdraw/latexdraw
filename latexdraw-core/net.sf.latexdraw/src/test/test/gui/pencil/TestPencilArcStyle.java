@@ -37,30 +37,29 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 			}
 		};
 	}
-	
-	
+
 	@Test
 	public void testControllerActivatedWhenGoodPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, checkInsActivated).execute();
 	}
-	
+
 	@Test
 	public void testControllerNotActivatedWhenBadPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
 	}
-	
+
 	@Test
 	public void testWidgetsGoodStateWhenGoodPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns).execute();
 		assertTrue(mainPane.isVisible());
 	}
-	
+
 	@Test
 	public void testWidgetsGoodStateWhenBadPencilUsed() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();
 		assertFalse(mainPane.isVisible());
 	}
-	
+
 	@Test
 	public void testClickChordUnselectOthersPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectWedge, selectChord).execute();
@@ -68,7 +67,7 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 		assertFalse(wedgeB.isSelected());
 		assertTrue(chordB.isSelected());
 	}
-	
+
 	@Test
 	public void testClickWedgeUnselectOthersPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectWedge).execute();
@@ -76,7 +75,7 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 		assertTrue(wedgeB.isSelected());
 		assertFalse(chordB.isSelected());
 	}
-	
+
 	@Test
 	public void testClickArcUnselectOthersPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectArc).execute();
@@ -84,7 +83,7 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 		assertFalse(wedgeB.isSelected());
 		assertFalse(chordB.isSelected());
 	}
-	
+
 	@Test
 	public void testArcEndAnglePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns).execute();
@@ -93,7 +92,7 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 		assertEquals(endAngleS.getValue(), Math.toDegrees(((IArc)pencil.createShapeInstance()).getAngleEnd()), 0.0001);
 		assertNotEquals(angle, ((IArc)pencil.createShapeInstance()).getAngleEnd(), 0.0001);
 	}
-	
+
 	@Test
 	public void testArcStartAnglePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns).execute();
@@ -102,19 +101,19 @@ public class TestPencilArcStyle extends TestArcStyleGUI {
 		assertEquals(startAngleS.getValue(), Math.toDegrees(((IArc)pencil.createShapeInstance()).getAngleStart()), 0.0001);
 		assertNotEquals(angle, ((IArc)pencil.createShapeInstance()).getAngleStart(), 0.0001);
 	}
-	
+
 	@Test
 	public void testArcTypeWedgePencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectWedge).execute();
 		assertEquals(ArcStyle.WEDGE, ((IArc)pencil.createShapeInstance()).getArcStyle());
 	}
-	
+
 	@Test
 	public void testArcTypeArcPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectChord, selectArc).execute();
 		assertEquals(ArcStyle.ARC, ((IArc)pencil.createShapeInstance()).getArcStyle());
 	}
-	
+
 	@Test
 	public void testArcTypeChordPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesArc, updateIns, selectArc, selectChord).execute();

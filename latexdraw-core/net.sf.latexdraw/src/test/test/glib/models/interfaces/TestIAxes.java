@@ -1,6 +1,5 @@
 package test.glib.models.interfaces;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -20,54 +19,52 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 
 	@Override
 	@Test
-	public void testGetSetLabelsSize() {//FIXME
-//		shape.setLabelsSize(TestSize.FOOTNOTE.getSize());
-//		assertEquals(TestSize.FOOTNOTE.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(TestSize.HUGE1.getSize());
-//		assertEquals(TestSize.HUGE1.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(TestSize.HUGE2.getSize());
-//		assertEquals(TestSize.HUGE2.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(TestSize.LARGE1.getSize());
-//		assertEquals(TestSize.LARGE1.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(TestSize.LARGE2.getSize());
-//		assertEquals(TestSize.LARGE2.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(TestSize.LARGE3.getSize());
-//		assertEquals(TestSize.LARGE3.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(TestSize.NORMAL.getSize());
-//		assertEquals(TestSize.NORMAL.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(TestSize.SCRIPT.getSize());
-//		assertEquals(TestSize.SCRIPT.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(TestSize.SMALL.getSize());
-//		assertEquals(TestSize.SMALL.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(TestSize.TINY.getSize());
-//		assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
-//
-//		shape.setLabelsSize(-1);
-//		assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(100);
-//		assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(1);
-//		assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(2);
-//		assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(0);
-//		assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(-100);
-//		assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(3);
-//		assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(4);
-//		assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
-//		shape.setLabelsSize(5);
-//		assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
+	public void testGetSetLabelsSize() {// FIXME
+		// shape.setLabelsSize(TestSize.FOOTNOTE.getSize());
+		// assertEquals(TestSize.FOOTNOTE.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(TestSize.HUGE1.getSize());
+		// assertEquals(TestSize.HUGE1.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(TestSize.HUGE2.getSize());
+		// assertEquals(TestSize.HUGE2.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(TestSize.LARGE1.getSize());
+		// assertEquals(TestSize.LARGE1.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(TestSize.LARGE2.getSize());
+		// assertEquals(TestSize.LARGE2.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(TestSize.LARGE3.getSize());
+		// assertEquals(TestSize.LARGE3.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(TestSize.NORMAL.getSize());
+		// assertEquals(TestSize.NORMAL.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(TestSize.SCRIPT.getSize());
+		// assertEquals(TestSize.SCRIPT.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(TestSize.SMALL.getSize());
+		// assertEquals(TestSize.SMALL.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(TestSize.TINY.getSize());
+		// assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
+		//
+		// shape.setLabelsSize(-1);
+		// assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(100);
+		// assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(1);
+		// assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(2);
+		// assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(0);
+		// assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(-100);
+		// assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(3);
+		// assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(4);
+		// assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
+		// shape.setLabelsSize(5);
+		// assertEquals(TestSize.TINY.getSize(), shape.getLabelsSize());
 	}
-
 
 	@Test
 	public void testGetStep() {
 		HelperTest.assertEqualsDouble(IShape.PPC, shape.getStep());
 	}
-
 
 	@Test
 	public void testGetSetIncrementX() {
@@ -89,7 +86,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(100.5, shape.getIncrementX());
 	}
 
-
 	@Test
 	public void testGetSetIncrementY() {
 		shape.setIncrementY(10);
@@ -109,7 +105,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		shape.setIncrementY(Double.NEGATIVE_INFINITY);
 		HelperTest.assertEqualsDouble(100.5, shape.getIncrementY());
 	}
-
 
 	@Test
 	public void testGetSetDistLabelsX() {
@@ -131,7 +126,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsX());
 	}
 
-
 	@Test
 	public void testGetSetDistLabelsY() {
 		shape.setDistLabelsY(10);
@@ -152,8 +146,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(100.5, shape.getDistLabelsY());
 	}
 
-
-
 	@Test
 	public void testGetSetLabelsDisplayed() {
 		shape.setLabelsDisplayed(PlottingStyle.ALL);
@@ -170,8 +162,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		assertEquals(PlottingStyle.ALL, shape.getLabelsDisplayed());
 	}
 
-
-
 	@Test
 	public void testIsSetShowOrigin() {
 		shape.setShowOrigin(true);
@@ -181,8 +171,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		shape.setShowOrigin(true);
 		assertTrue(shape.isShowOrigin());
 	}
-
-
 
 	@Test
 	public void testGetSetTicksDisplayed() {
@@ -200,8 +188,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		assertEquals(PlottingStyle.ALL, shape.getTicksDisplayed());
 	}
 
-
-
 	@Test
 	public void testGetSetTicksStyle() {
 		shape.setTicksStyle(TicksStyle.BOTTOM);
@@ -215,7 +201,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		shape.setTicksStyle(TicksStyle.BOTTOM);
 		assertEquals(TicksStyle.BOTTOM, shape.getTicksStyle());
 	}
-
 
 	@Test
 	public void testGetSetTicksSize() {
@@ -237,8 +222,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(100.5, shape.getTicksSize());
 	}
 
-
-
 	@Test
 	public void testGetSetAxesStyle() {
 		shape.setAxesStyle(AxesStyle.AXES);
@@ -252,8 +235,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		shape.setAxesStyle(AxesStyle.AXES);
 		assertEquals(AxesStyle.AXES, shape.getAxesStyle());
 	}
-
-
 
 	@Override
 	@Test
@@ -282,7 +263,6 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(shape2.getDistLabelsY(), shape.getDistLabelsY());
 		assertEquals(shape2.isShowOrigin(), shape.isShowOrigin());
 	}
-
 
 	@Override
 	@Test
@@ -313,10 +293,9 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		assertEquals(s2.isShowOrigin(), shape.isShowOrigin());
 	}
 
-
-
 	@Override
-	@Test public void testGetBottomLeftPoint() {
+	@Test
+	public void testGetBottomLeftPoint() {
 		shape.setPosition(10, 20);
 		HelperTest.assertEqualsDouble(10., shape.getBottomLeftPoint().getX());
 		HelperTest.assertEqualsDouble(20., shape.getBottomLeftPoint().getY());
@@ -325,60 +304,60 @@ public abstract class TestIAxes<T extends IAxes> extends TestIStandardGrid<T> {
 		HelperTest.assertEqualsDouble(-20., shape.getBottomLeftPoint().getY());
 	}
 
-
 	@Override
-	@Test public void testGetBottomRightPoint() {
+	@Test
+	public void testGetBottomRightPoint() {
 		shape.setPosition(10, 10);
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 
-		HelperTest.assertEqualsDouble(10.+IShape.PPC*50., shape.getBottomRightPoint().getX());
-		HelperTest.assertEqualsDouble(10.-IShape.PPC*-100., shape.getBottomRightPoint().getY());
+		HelperTest.assertEqualsDouble(10. + IShape.PPC * 50., shape.getBottomRightPoint().getX());
+		HelperTest.assertEqualsDouble(10. - IShape.PPC * -100., shape.getBottomRightPoint().getY());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testGetTopLeftPoint() {
 		shape.setPosition(10, 10);
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 
-		HelperTest.assertEqualsDouble(10.-200.*IShape.PPC, shape.getTopLeftPoint().getX());
-		HelperTest.assertEqualsDouble(10.-75.*IShape.PPC, shape.getTopLeftPoint().getY());
+		HelperTest.assertEqualsDouble(10. - 200. * IShape.PPC, shape.getTopLeftPoint().getX());
+		HelperTest.assertEqualsDouble(10. - 75. * IShape.PPC, shape.getTopLeftPoint().getY());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testGetTopRightPoint() {
 		shape.setPosition(0, 0);
 		shape.setGridStart(-200, -100);
 		shape.setGridEnd(50, 75);
 
-		HelperTest.assertEqualsDouble(IShape.PPC*250., shape.getTopRightPoint().getX());
-		HelperTest.assertEqualsDouble(-IShape.PPC*175., shape.getTopRightPoint().getY());
+		HelperTest.assertEqualsDouble(IShape.PPC * 250., shape.getTopRightPoint().getX());
+		HelperTest.assertEqualsDouble(-IShape.PPC * 175., shape.getTopRightPoint().getY());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testMirrorHorizontal() {
 		shape.setPosition(0, 0);
 		shape.setGridStart(0, 0);
 		shape.setGridEnd(10, 10);
 
-		shape.mirrorHorizontal(ShapeFactory.createPoint(IShape.PPC*10., 0.));
-		HelperTest.assertEqualsDouble(IShape.PPC*10., shape.getPosition().getX());
+		shape.mirrorHorizontal(ShapeFactory.createPoint(IShape.PPC * 10., 0.));
+		HelperTest.assertEqualsDouble(IShape.PPC * 10., shape.getPosition().getX());
 		HelperTest.assertEqualsDouble(0., shape.getPosition().getY());
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testMirrorVertical() {
 		shape.setPosition(0, 0);
 		shape.setGridStart(0, 0);
 		shape.setGridEnd(10, 10);
 
-		shape.mirrorVertical(ShapeFactory.createPoint(0., -IShape.PPC*10.));
+		shape.mirrorVertical(ShapeFactory.createPoint(0., -IShape.PPC * 10.));
 		HelperTest.assertEqualsDouble(0., shape.getPosition().getX());
-		HelperTest.assertEqualsDouble(-IShape.PPC*10., shape.getPosition().getY());
+		HelperTest.assertEqualsDouble(-IShape.PPC * 10., shape.getPosition().getY());
 	}
 }

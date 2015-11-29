@@ -7,6 +7,6 @@ import test.glib.models.interfaces.TestIArrow;
 public class TestLArrow extends TestIArrow {
 	@Test
 	public void testConstructors() {
-		//TODO
+		// TODO
 	}
 }

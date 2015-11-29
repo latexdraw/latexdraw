@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
@@ -18,10 +17,9 @@ import test.glib.models.interfaces.TestIPicture;
 public class TestLPicture extends TestIPicture<IPicture> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createPicture(ShapeFactory.createPoint());
+		shape = ShapeFactory.createPicture(ShapeFactory.createPoint());
 		shape2 = ShapeFactory.createPicture(ShapeFactory.createPoint());
 	}
-
 
 	@Override
 	@Test

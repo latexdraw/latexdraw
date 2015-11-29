@@ -26,10 +26,9 @@ import net.sf.latexdraw.parsers.svg.SVGGElement;
 import net.sf.latexdraw.parsers.svg.SVGSVGElement;
 import net.sf.latexdraw.util.LNamespace;
 
-public abstract class TestLoadSaveSVG<T extends IShape>{
+public abstract class TestLoadSaveSVG<T extends IShape> {
 
 	protected T shape;
-
 
 	public T saveLoadShape(T sh) {
 		IDrawing drawing = ShapeFactory.createDrawing();
@@ -38,45 +37,43 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		return toLatexdraw(doc);
 	}
 
-
 	@SuppressWarnings("unchecked")
 	protected T toLatexdraw(final SVGDocument doc) {
 		final IGroup shapes = ShapeFactory.createGroup();
 		final NodeList elts = doc.getDocumentElement().getChildNodes();
 		Node node;
 
-		for(int i=0, size=elts.getLength(); i<size; i++) {
+		for(int i = 0, size = elts.getLength(); i < size; i++) {
 			node = elts.item(i);
 
 			if(node instanceof SVGElement)
 				shapes.addShape(IShapeSVGFactory.INSTANCE.createShape((SVGElement)node));
 		}
 
-		return (T) (shapes.size() == 1 ? shapes.getShapeAt(0) : shapes.size()==0 ? null : shapes);
+		return (T)(shapes.size() == 1?shapes.getShapeAt(0):shapes.size() == 0?null:shapes);
 	}
-
 
 	protected SVGDocument toSVG(final IDrawing drawing) {
 		// Creation of the SVG document.
-		final List<IShape> shapes	= drawing.getShapes();
-		final SVGDocument doc 		= new SVGDocument();
-		final SVGSVGElement root 	= doc.getFirstChild();
-		final SVGGElement g 		= new SVGGElement(doc);
-		final SVGDefsElement defs	= new SVGDefsElement(doc);
+		final List<IShape> shapes = drawing.getShapes();
+		final SVGDocument doc = new SVGDocument();
+		final SVGSVGElement root = doc.getFirstChild();
+		final SVGGElement g = new SVGGElement(doc);
+		final SVGDefsElement defs = new SVGDefsElement(doc);
 		SVGElement elt;
 
 		root.appendChild(defs);
 		root.appendChild(g);
-		root.setAttribute("xmlns:"+LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);//$NON-NLS-1$
+		root.setAttribute("xmlns:" + LNamespace.LATEXDRAW_NAMESPACE, LNamespace.LATEXDRAW_NAMESPACE_URI);//$NON-NLS-1$
 
-        for(final IShape sh : shapes)
-        	if(sh!=null) {
-        		// For each shape an SVG element is created.
-        		elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
+		for(final IShape sh : shapes)
+			if(sh != null) {
+				// For each shape an SVG element is created.
+				elt = SVGShapesFactory.INSTANCE.createSVGElement(sh, doc);
 
-	        	if(elt!=null)
-	        		g.appendChild(elt);
-	        }
+				if(elt != null)
+					g.appendChild(elt);
+			}
 
 		// Setting SVG attributes to the created document.
 		root.setAttribute(SVGAttributes.SVG_VERSION, "1.1");//$NON-NLS-1$
@@ -85,15 +82,12 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		return doc;
 	}
 
-
-
 	protected T generateShape() {
 		final T sh = saveLoadShape(shape);
 		assertNotNull(sh);
 		assertEquals(sh.getClass(), shape.getClass());
 		return sh;
 	}
-
 
 	protected void compareShapes(final T sh2) {
 		if(shape.isShowPtsable()) {
@@ -145,7 +139,6 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-	
 	@Test
 	public void testShowPoints() {
 		if(shape.isShowPtsable()) {
@@ -154,7 +147,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 			compareShapes(generateShape());
 		}
 	}
-	
+
 	@Test
 	public void testShadow() {
 		if(shape.isShadowable()) {
@@ -281,7 +274,7 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 			compareShapes(generateShape());
 		}
 	}
-	
+
 	@Test
 	public void testFillingHatchingsCLINES() {
 		if(shape.isInteriorStylable()) {
@@ -295,7 +288,8 @@ public abstract class TestLoadSaveSVG<T extends IShape>{
 		}
 	}
 
-	@Test public void testFillingGradient() {
+	@Test
+	public void testFillingGradient() {
 		if(shape.isInteriorStylable()) {
 			shape.setFillingStyle(FillingStyle.GRAD);
 			shape.setGradAngle(0.2);

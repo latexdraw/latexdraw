@@ -11,10 +11,9 @@ import org.junit.Test;
 public class TestParsingNewpsstyle extends TestPSTParser {
 	@Test
 	public void testParseCommandExample() throws ParseException {
-		parser.parsePSTCode("\\"+getCommandName()+getBasicCoordinates()); //$NON-NLS-1$
+		parser.parsePSTCode("\\" + getCommandName() + getBasicCoordinates()); //$NON-NLS-1$
 		assertEquals(1, PSTParser.errorLogs().size());
 	}
-
 
 	@Override
 	public String getCommandName() {

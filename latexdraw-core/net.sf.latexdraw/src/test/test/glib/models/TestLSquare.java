@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -27,7 +26,6 @@ public class TestLSquare extends TestISquare<ISquare> {
 		shape2 = ShapeFactory.createSquare();
 	}
 
-
 	@Override
 	@Test
 	public void testIsTypeOf() {
@@ -42,7 +40,6 @@ public class TestLSquare extends TestISquare<ISquare> {
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 
-
 	@Test
 	public void testConstructors() {
 		ISquare sq = ShapeFactory.createSquare();
@@ -51,31 +48,38 @@ public class TestLSquare extends TestISquare<ISquare> {
 		try {
 			sq = ShapeFactory.createSquare(null, 10);
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 		try {
 			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(Double.NaN, 0), 10);
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 		try {
 			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), 0);
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 		try {
 			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), -10);
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 		try {
 			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.NaN);
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 		try {
 			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.POSITIVE_INFINITY);
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 		try {
 			sq = ShapeFactory.createSquare(ShapeFactory.createPoint(), Double.NEGATIVE_INFINITY);
 			fail();
-		}catch(IllegalArgumentException ex) { /* */ }
+		}catch(IllegalArgumentException ex) {
+			/* */ }
 
 		sq = ShapeFactory.createSquare(ShapeFactory.createPoint(20, 26), 11);
 		HelperTest.assertEqualsDouble(20., sq.getPosition().getX());

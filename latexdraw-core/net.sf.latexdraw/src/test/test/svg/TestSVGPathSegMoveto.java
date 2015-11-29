@@ -23,14 +23,12 @@ public class TestSVGPathSegMoveto implements SVGPathHandler {
 		assertFalse(seg.isRelative());
 	}
 
-
 	@Test
 	public void testToString() throws ParseException {
 		SVGPathParser parser = new SVGPathParser(seg.toString(), this);
 
 		parser.parse();
 	}
-
 
 	@Override
 	public void onPathSeg(SVGPathSeg pathSeg) {

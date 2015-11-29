@@ -1,6 +1,5 @@
 package test;
 
-
 import java.awt.GraphicsEnvironment;
 import java.lang.reflect.Field;
 import static org.junit.Assert.*;
@@ -12,11 +11,9 @@ public abstract class HelperTest {
 		return field;
 	}
 
-
 	public static boolean isX11Set() {
 		return !GraphicsEnvironment.getLocalGraphicsEnvironment().isHeadlessInstance();
 	}
-
 
 	public static void assertEqualsDouble(double v1, double v2) {
 		assertEquals(v1, v2, 0.0000001);

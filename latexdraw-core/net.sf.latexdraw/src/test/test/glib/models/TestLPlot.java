@@ -18,11 +18,10 @@ import test.glib.models.interfaces.TestIPlot;
 public class TestLPlot extends TestIPlot<IPlot> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 10, "x", false);
+		shape = ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 10, "x", false);
 		shape2 = ShapeFactory.createPlot(ShapeFactory.createPoint(), 1, 10, "x", false);
 	}
 
-	
 	@Override
 	@Test
 	public void testIsTypeOf() {

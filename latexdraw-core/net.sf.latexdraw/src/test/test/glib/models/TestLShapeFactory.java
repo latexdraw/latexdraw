@@ -23,7 +23,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle;
 
 import org.junit.Test;
 
-public class TestLShapeFactory{
+public class TestLShapeFactory {
 	@Test
 	public void testNewShape() {
 		assertTrue(ShapeFactory.newShape(IRectangle.class).isPresent());

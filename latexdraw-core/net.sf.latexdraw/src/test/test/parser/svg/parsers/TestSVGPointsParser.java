@@ -18,7 +18,7 @@ import test.parser.TestCodeParser;
 public class TestSVGPointsParser extends TestCodeParser {
 	@Before
 	public void setUp() {
-		parser  = new SVGPointsParser(""); //$NON-NLS-1$
+		parser = new SVGPointsParser(""); //$NON-NLS-1$
 		parser2 = new SVGPointsParser(""); //$NON-NLS-1$
 	}
 
@@ -29,43 +29,51 @@ public class TestSVGPointsParser extends TestCodeParser {
 		parser.parse();
 		assertNotNull(((SVGPointsParser)parser).getPoints());
 		assertEquals(((SVGPointsParser)parser).getPoints().get(0), new Point2D.Double(1., 2.));
-		assertEquals(((SVGPointsParser)parser).getPoints().get(1),   new Point2D.Double(3., 4.));
-		assertEquals(((SVGPointsParser)parser).getPoints().get(((SVGPointsParser)parser).getPoints().size()-1),  new Point2D.Double(5., 6.));
+		assertEquals(((SVGPointsParser)parser).getPoints().get(1), new Point2D.Double(3., 4.));
+		assertEquals(((SVGPointsParser)parser).getPoints().get(((SVGPointsParser)parser).getPoints().size() - 1), new Point2D.Double(5., 6.));
 
 		try {
 			parser.setCode("dsf"); //$NON-NLS-1$
 			parser.parse();
-		}catch(ParseException e) { /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			parser.setCode("10 10 10"); //$NON-NLS-1$
 			parser.parse();
-		}catch(ParseException e) { /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			parser.setCode("10,, 10 10 10"); //$NON-NLS-1$
 			parser.parse();
-		}catch(ParseException e) { /* */ }
+		}catch(ParseException e) {
+			/* */ }
 		try {
 			parser.setCode(",10 10 10 10"); //$NON-NLS-1$
 			parser.parse();
-		}catch(ParseException e) { /* */ }
+		}catch(ParseException e) {
+			/* */ }
 		try {
 			parser.setCode("10 10 10,"); //$NON-NLS-1$
 			parser.parse();
-		}catch(ParseException e) { /* */ }
+		}catch(ParseException e) {
+			/* */ }
 		try {
 			parser.setCode("10 10 aa 10"); //$NON-NLS-1$
 			parser.parse();
-		}catch(ParseException e) { /* */ }
+		}catch(ParseException e) {
+			/* */ }
 		try {
 			parser.setCode("10 10 10e 10"); //$NON-NLS-1$
 			parser.parse();
-		}catch(ParseException e) { /* */ }
+		}catch(ParseException e) {
+			/* */ }
 		try {
 			parser.setCode("10 10E 10 10"); //$NON-NLS-1$
 			parser.parse();
-		}catch(ParseException e) { /* */ }
+		}catch(ParseException e) {
+			/* */ }
 	}
 
 	@Test
@@ -98,8 +106,8 @@ public class TestSVGPointsParser extends TestCodeParser {
 		assertFalse(parser.isWSP());
 	}
 
-
-	@Test public void testSkipWSPComma() {
+	@Test
+	public void testSkipWSPComma() {
 		parser.setCode(" \r , \t \n 10 10"); //$NON-NLS-1$
 		((SVGPointsParser)parser).skipWSPComma();
 		assertEquals(parser.getChar(), '1');
@@ -108,8 +116,8 @@ public class TestSVGPointsParser extends TestCodeParser {
 		assertEquals(parser.getChar(), ',');
 	}
 
-
-	@Test public void testReadNumber() throws ParseException {
+	@Test
+	public void testReadNumber() throws ParseException {
 		SVGPointsParser p = (SVGPointsParser)parser;
 
 		p.setCode("10"); //$NON-NLS-1$
@@ -140,44 +148,52 @@ public class TestSVGPointsParser extends TestCodeParser {
 		try {
 			p.setCode(".E+2"); //$NON-NLS-1$
 			assertEquals(p.readNumber(), 0., 0.0001);
-		} catch(ParseException e) { /* */}
+		}catch(ParseException e) {
+			/* */}
 		try {
 			p.setCode(".Efd+2"); //$NON-NLS-1$
 			assertEquals(p.readNumber(), 0., 0.0001);
-		} catch(ParseException e) { /* */}
+		}catch(ParseException e) {
+			/* */}
 		try {
 			p.setCode(""); //$NON-NLS-1$
 			assertEquals(p.readNumber(), 0., 0.0001);
-		} catch(ParseException e) { /* */}
+		}catch(ParseException e) {
+			/* */}
 		try {
 			p.setCode(" \t"); //$NON-NLS-1$
 			assertEquals(p.readNumber(), 0., 0.0001);
-		} catch(ParseException e) { /* */}
+		}catch(ParseException e) {
+			/* */}
 		try {
 			p.setCode("aa"); //$NON-NLS-1$
 			assertEquals(p.readNumber(), 0., 0.0001);
-		} catch(ParseException e) { /* */}
+		}catch(ParseException e) {
+			/* */}
 		try {
 			p.setCode("."); //$NON-NLS-1$
 			assertEquals(p.readNumber(), 0., 0.0001);
-		} catch(ParseException e) { /* */}
+		}catch(ParseException e) {
+			/* */}
 		try {
 			p.setCode("--10"); //$NON-NLS-1$
 			assertEquals(p.readNumber(), 0., 0.0001);
-		} catch(ParseException e) { /* */}
+		}catch(ParseException e) {
+			/* */}
 		try {
 			p.setCode("+-10"); //$NON-NLS-1$
 			assertEquals(p.readNumber(), 0., 0.0001);
-		} catch(ParseException e) { /* */}
+		}catch(ParseException e) {
+			/* */}
 	}
 
-
-	@Test public void testGetPoints() throws ParseException {
+	@Test
+	public void testGetPoints() throws ParseException {
 		parser.setCode(" 1, 2,3 4 5,6"); //$NON-NLS-1$
 		parser.parse();
 		assertNotNull(((SVGPointsParser)parser).getPoints());
 		assertEquals(((SVGPointsParser)parser).getPoints().get(0), new Point2D.Double(1., 2.));
-		assertEquals(((SVGPointsParser)parser).getPoints().get(1),   new Point2D.Double(3., 4.));
-		assertEquals(((SVGPointsParser)parser).getPoints().get(((SVGPointsParser)parser).getPoints().size()-1),  new Point2D.Double(5., 6.));
+		assertEquals(((SVGPointsParser)parser).getPoints().get(1), new Point2D.Double(3., 4.));
+		assertEquals(((SVGPointsParser)parser).getPoints().get(((SVGPointsParser)parser).getPoints().size() - 1), new Point2D.Double(5., 6.));
 	}
 }

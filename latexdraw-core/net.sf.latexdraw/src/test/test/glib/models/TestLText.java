@@ -19,12 +19,11 @@ import test.glib.models.interfaces.TestIText;
 public class TestLText extends TestIText<IText> {
 	@Before
 	public void setUp() {
-//		FlyweightThumbnail.images().clear();
-//		FlyweightThumbnail.setThread(false);
-		shape  = ShapeFactory.createText();
+		// FlyweightThumbnail.images().clear();
+		// FlyweightThumbnail.setThread(false);
+		shape = ShapeFactory.createText();
 		shape2 = ShapeFactory.createText();
 	}
-
 
 	@Override
 	@Test
@@ -38,29 +37,28 @@ public class TestLText extends TestIText<IText> {
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 
-
 	@Test
 	public void testConstructors() {
 		IText txt = ShapeFactory.createText();
 
 		assertNotNull(txt.getText());
-		assertTrue(txt.getText().length()>0);
+		assertTrue(txt.getText().length() > 0);
 		txt = ShapeFactory.createText();
 
 		assertNotNull(txt.getText());
-		assertTrue(txt.getText().length()>0);
+		assertTrue(txt.getText().length() > 0);
 		txt = ShapeFactory.createText(ShapeFactory.createPoint(), "coucou"); //$NON-NLS-1$
 
 		assertNotNull(txt.getText());
-		assertTrue(txt.getText().length()>0);
+		assertTrue(txt.getText().length() > 0);
 		txt = ShapeFactory.createText(ShapeFactory.createPoint(), ""); //$NON-NLS-1$
 
 		assertNotNull(txt.getText());
-		assertTrue(txt.getText().length()>0);
+		assertTrue(txt.getText().length() > 0);
 		txt = ShapeFactory.createText(ShapeFactory.createPoint(), null);
 
 		assertNotNull(txt.getText());
-		assertTrue(txt.getText().length()>0);
+		assertTrue(txt.getText().length() > 0);
 
 		txt = ShapeFactory.createText(null, "aa"); //$NON-NLS-1$
 		assertEquals(ShapeFactory.createPoint(), txt.getPosition());

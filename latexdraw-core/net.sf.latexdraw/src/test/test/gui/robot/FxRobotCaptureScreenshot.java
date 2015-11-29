@@ -17,42 +17,42 @@ import javax.imageio.ImageIO;
 import org.testfx.api.FxRobotInterface;
 
 /**
- * TestFX does not provide all the required routines to test GUIs.
- * This trait defines routines for taking screen shots.
+ * TestFX does not provide all the required routines to test GUIs. This trait defines routines for
+ * taking screen shots.
  */
 public interface FxRobotCaptureScreenshot extends FxRobotInterface {
 	static Path createScreenshotFolder(final String folderName, final boolean withDate) {
 		try {
-    		if(withDate)
-    			return Files.createDirectory(Paths.get(folderName + System.currentTimeMillis()));
-    		return Files.createDirectory(Paths.get(folderName));
+			if(withDate)
+				return Files.createDirectory(Paths.get(folderName + System.currentTimeMillis()));
+			return Files.createDirectory(Paths.get(folderName));
 		}catch(IOException ex) {
 			ex.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	static Path createScreenshotFolder() {
 		return createScreenshotFolder("screenshots-", true);
 	}
-	
+
 	/**
 	 * Takes a screenshot using a file name.
-	 * @param dir 
-	 * @param name 
-	 * @param node 
+	 * @param dir
+	 * @param name
+	 * @param node
 	 * @return The screenshot
 	 */
 	default File captureScreenshot(final Path dir, final String name, final Node node) {
-        File captureFile = new File(dir + File.separator + name + new Date().getTime() + ".png");
-        Platform.runLater(() -> {
-            WritableImage img = node.snapshot(null, null);
-            try {
+		File captureFile = new File(dir + File.separator + name + new Date().getTime() + ".png");
+		Platform.runLater(() -> {
+			WritableImage img = node.snapshot(null, null);
+			try {
 				ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", captureFile);
-			} catch (Exception e) {
+			}catch(Exception e) {
 				e.printStackTrace();
 			}
-        });
-        return captureFile;
+		});
+		return captureFile;
 	}
 }

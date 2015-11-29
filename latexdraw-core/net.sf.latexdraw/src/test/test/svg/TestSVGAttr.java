@@ -14,49 +14,45 @@ import org.junit.Test;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 
-public class TestSVGAttr{
+public class TestSVGAttr {
 	protected SVGElement node;
-
 
 	@Before
 	public void setUp() {
 		SVGDocument doc = new SVGDocument();
-        node = (SVGElement)doc.createElement("tag1"); //$NON-NLS-1$
+		node = (SVGElement)doc.createElement("tag1"); //$NON-NLS-1$
 	}
 
-
-
 	@SuppressWarnings("unused")
-	@Test(expected=NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void testConstructorFail1() {
-			new SVGAttr(null, null, null);
+		new SVGAttr(null, null, null);
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void testConstructorFail2() {
-			new SVGAttr("", "", null); //$NON-NLS-1$ //$NON-NLS-2$
+		new SVGAttr("", "", null); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void testConstructorFail3() {
-			new SVGAttr(null, "", node); //$NON-NLS-1$
+		new SVGAttr(null, "", node); //$NON-NLS-1$
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void testConstructorFail4() {
-			new SVGAttr("", null, node); //$NON-NLS-1$
+		new SVGAttr("", null, node); //$NON-NLS-1$
 
 	}
-	
+
 	@SuppressWarnings("unused")
 	@Test
 	public void testConstructorOK() {
 		new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-
 
 	@Test
 	public void testGetName() {
@@ -64,21 +60,17 @@ public class TestSVGAttr{
 		assertEquals("attrName", attr.getName()); //$NON-NLS-1$
 	}
 
-
 	@Test
 	public void testGetElementOwner() {
 		SVGAttr attr = new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(node, attr.getOwnerElement());
 	}
 
-
-
 	@Test
 	public void testGetValue() {
 		SVGAttr attr = new SVGAttr("", "attrValue", node); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals("attrValue", attr.getValue()); //$NON-NLS-1$
 	}
-
 
 	@Test
 	public void testIsId() {
@@ -89,7 +81,7 @@ public class TestSVGAttr{
 		assertFalse(attr.isId());
 	}
 
-	@Test(expected=DOMException.class)
+	@Test(expected = DOMException.class)
 	public void testSetValueFail() {
 		SVGAttr attr = new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 		attr.setValue(null);
@@ -102,7 +94,6 @@ public class TestSVGAttr{
 		assertEquals("val", attr.getValue()); //$NON-NLS-1$
 	}
 
-
 	@Test
 	public void testCloneNode() {
 		SVGAttr attr = new SVGAttr("n", "v", node); //$NON-NLS-1$ //$NON-NLS-2$
@@ -114,13 +105,11 @@ public class TestSVGAttr{
 		assertEquals(attr.getOwnerElement(), attr2.getOwnerElement());
 	}
 
-
 	@Test
 	public void testGetNodeName() {
 		SVGAttr attr = new SVGAttr("attrNodeName", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals("attrNodeName", attr.getNodeName()); //$NON-NLS-1$
 	}
-
 
 	@Test
 	public void testGetNodeType() {
@@ -128,13 +117,11 @@ public class TestSVGAttr{
 		assertEquals(Node.ATTRIBUTE_NODE, attr.getNodeType());
 	}
 
-
 	@Test
 	public void testGetNodeValue() {
 		SVGAttr attr = new SVGAttr("", "attrValue", node); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals("attrValue", attr.getNodeValue()); //$NON-NLS-1$
 	}
-
 
 	@Test
 	public void testGetParentNode() {
@@ -142,20 +129,17 @@ public class TestSVGAttr{
 		assertEquals(node, attr.getParentNode());
 	}
 
-
 	@Test
 	public void testHasAttribute() {
 		SVGAttr attr = new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 		assertFalse(attr.hasAttributes());
 	}
 
-
 	@Test
 	public void testChildNodes() {
 		SVGAttr attr = new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 		assertFalse(attr.hasChildNodes());
 	}
-
 
 	@Test
 	public void testIsEqualNode() {
@@ -170,7 +154,6 @@ public class TestSVGAttr{
 		assertFalse(attr.isEqualNode(null));
 	}
 
-
 	@Test
 	public void testIsSameNode() {
 		SVGAttr attr = new SVGAttr("n", "v", node); //$NON-NLS-1$ //$NON-NLS-2$
@@ -181,7 +164,7 @@ public class TestSVGAttr{
 		assertFalse(attr.isSameNode(attr2));
 	}
 
-	@Test(expected=DOMException.class)
+	@Test(expected = DOMException.class)
 	public void testSetNodeValueFail() {
 		SVGAttr attr = new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 		attr.setNodeValue(null);
@@ -196,7 +179,6 @@ public class TestSVGAttr{
 		assertEquals("val", attr.getNodeValue()); //$NON-NLS-1$
 	}
 
-
 	@Test
 	public void testGetPrefix() {
 		SVGAttr attr = new SVGAttr("", "", node); //$NON-NLS-1$ //$NON-NLS-2$
@@ -208,10 +190,9 @@ public class TestSVGAttr{
 		assertEquals("", attr.getPrefix()); //$NON-NLS-1$
 	}
 
-
 	@Test
 	public void testGetNamespaceURI() {
-		SVGAttr attr   = new SVGAttr("pref:n", "", node); //$NON-NLS-1$ //$NON-NLS-2$
+		SVGAttr attr = new SVGAttr("pref:n", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 		SVGElement elt = (SVGElement)node.getOwnerDocument().createElement("tag2"); //$NON-NLS-1$
 
 		assertNull(attr.getNamespaceURI());
@@ -219,11 +200,10 @@ public class TestSVGAttr{
 		elt.appendChild(node);
 		assertEquals(attr.getNamespaceURI(), "namespace"); //$NON-NLS-1$
 	}
-
 
 	@Test
 	public void testLookupNamespaceURI() {
-		SVGAttr attr   = new SVGAttr("pref:n", "", node); //$NON-NLS-1$ //$NON-NLS-2$
+		SVGAttr attr = new SVGAttr("pref:n", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 		SVGElement elt = (SVGElement)node.getOwnerDocument().createElement("tag2"); //$NON-NLS-1$
 
 		assertNull(attr.getNamespaceURI());
@@ -231,14 +211,12 @@ public class TestSVGAttr{
 		elt.appendChild(node);
 		assertEquals(attr.getNamespaceURI(), "namespace"); //$NON-NLS-1$
 	}
-
 
 	@Test
 	public void testGetLocalName() {
 		SVGAttr attr = new SVGAttr("attrNodeName", "", node); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals("attrNodeName", attr.getLocalName()); //$NON-NLS-1$
 	}
-
 
 	@Test
 	public void testUselessMethods() {

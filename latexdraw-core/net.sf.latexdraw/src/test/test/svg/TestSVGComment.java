@@ -15,7 +15,6 @@ public class TestSVGComment extends TestSVGText {
 		assertEquals(Node.COMMENT_NODE, cdata.getNodeType());
 	}
 
-
 	@Override
 	protected SVGComment createSVGText(String str, SVGDocument document) throws IllegalArgumentException {
 		return new SVGComment(str, document);

@@ -7,109 +7,100 @@ import org.junit.Test;
 public abstract class TestIControlPointShape<T extends IControlPointShape> extends TestIShape<T> {
 	@Test
 	public void testGetFirstCtrlPtAt() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetSecondCtrlPtAt() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testUpdateSecondControlPoints() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetXFirstCtrlPt() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetYFirstCtrlPt() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetXSecondCtrlPt() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetYSecondCtrlPt() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetFirstCtrlPts() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetSecondCtrlPts() {
-		//TODO
+		// TODO
 	}
 
 	@Override
 	@Test
 	public void testCopy() {
-		//TODO
+		// TODO
 	}
-
 
 	@Override
 	@Test
 	public void testDuplicate() {
-		//TODO
+		// TODO
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testGetBottomLeftPoint() {
-		//TODO
+		// TODO
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testGetBottomRightPoint() {
-		//TODO
+		// TODO
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testGetTopLeftPoint() {
-		//TODO
+		// TODO
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testGetTopRightPoint() {
-		//TODO
+		// TODO
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testMirrorHorizontal() {
-		//TODO
+		// TODO
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testMirrorVertical() {
-		//TODO
+		// TODO
 	}
 
-
-	@Override@Test
+	@Override
+	@Test
 	public void testTranslate() {
-		//TODO
+		// TODO
 	}
 }

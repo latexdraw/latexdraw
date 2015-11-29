@@ -7,23 +7,28 @@ import net.sf.latexdraw.parsers.ps.PSExpCommand;
 import org.junit.Test;
 
 public class TestPSExpCommand extends TestPSCommand<PSExpCommand> {
-	@Override protected PSExpCommand createCmd() { return new PSExpCommand(); }
+	@Override
+	protected PSExpCommand createCmd() {
+		return new PSExpCommand();
+	}
 
-	@Override @Test
+	@Override
+	@Test
 	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(0.0);
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(1.0,dequeue.peek(),0.0);
+		assertEquals(1.0, dequeue.peek(), 0.0);
 		assertEquals(1, dequeue.size());
 	}
 
-	@Override @Test
+	@Override
+	@Test
 	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(-10.0);
 		dequeue.push(3.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(-1000.0,dequeue.peek(),0.0);
+		assertEquals(-1000.0, dequeue.peek(), 0.0);
 		assertEquals(1, dequeue.size());
 	}
 
@@ -32,25 +37,27 @@ public class TestPSExpCommand extends TestPSCommand<PSExpCommand> {
 		dequeue.push(10.0);
 		dequeue.push(-3.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(0.001,dequeue.peek(),0.00001);
+		assertEquals(0.001, dequeue.peek(), 0.00001);
 		assertEquals(1, dequeue.size());
 	}
 
-	@Override @Test
+	@Override
+	@Test
 	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(10.0);
 		dequeue.push(2.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(100.0,dequeue.peek(),0.0);
+		assertEquals(100.0, dequeue.peek(), 0.0);
 		assertEquals(1, dequeue.size());
 	}
 
-	@Override @Test(expected=InvalidFormatPSFunctionException.class)
+	@Override
+	@Test(expected = InvalidFormatPSFunctionException.class)
 	public void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
 		cmd.execute(dequeue, 0.0);
 	}
 
-	@Test(expected=InvalidFormatPSFunctionException.class)
+	@Test(expected = InvalidFormatPSFunctionException.class)
 	public void testExecuteInvalidDequeueSize1() throws InvalidFormatPSFunctionException {
 		dequeue.push(10.0);
 		cmd.execute(dequeue, 0.0);

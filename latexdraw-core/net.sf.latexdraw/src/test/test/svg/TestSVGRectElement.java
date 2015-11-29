@@ -12,48 +12,48 @@ import org.junit.Test;
 
 public class TestSVGRectElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testContructorFail1() throws MalformedSVGDocument {
 		new SVGRectElement(null, null);
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=MalformedSVGDocument.class)
+	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail2() throws MalformedSVGDocument {
 		new SVGRectElement(node, null);
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=MalformedSVGDocument.class)
+	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail3() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "dsd"); //$NON-NLS-1$
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "dsd"); //$NON-NLS-1$
 		new SVGRectElement(node, null);
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=MalformedSVGDocument.class)
+	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail4() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "1"); //$NON-NLS-1$
 		new SVGRectElement(node, null);
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=MalformedSVGDocument.class)
+	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail5() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "-1"); //$NON-NLS-1$
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "10"); //$NON-NLS-1$
 		new SVGRectElement(node, null);
 	}
-	
+
 	@SuppressWarnings("unused")
-	@Test(expected=MalformedSVGDocument.class)
+	@Test(expected = MalformedSVGDocument.class)
 	public void testContructorFail6() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "-1"); //$NON-NLS-1$
 		new SVGRectElement(node, null);
 	}
-	
+
 	@SuppressWarnings("unused")
 	@Test
 	public void testContructor() throws MalformedSVGDocument {
@@ -61,8 +61,6 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "20"); //$NON-NLS-1$
 		new SVGRectElement(node, null);
 	}
-
-
 
 	@Test
 	public void testEnableRendering() throws MalformedSVGDocument {
@@ -87,8 +85,6 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		assertTrue(e.enableRendering());
 	}
 
-
-
 	@Test
 	public void testGetHeight() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
@@ -97,7 +93,6 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		assertEquals(r.getHeight(), 20., 0.0001);
 	}
 
-
 	@Test
 	public void testGetWidth() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
@@ -105,7 +100,6 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		SVGRectElement r = new SVGRectElement(node, null);
 		assertEquals(r.getWidth(), 10., 0.0001);
 	}
-
 
 	@Test
 	public void testGetRy() throws MalformedSVGDocument {
@@ -119,8 +113,6 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		assertEquals(1., r.getRy(), 0.0001);
 	}
 
-
-
 	@Test
 	public void testGetRx() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
@@ -132,8 +124,6 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		r = new SVGRectElement(node, null);
 		assertEquals(1., r.getRx(), 0.0001);
 	}
-
-
 
 	@Test
 	public void testGetY() throws MalformedSVGDocument {
@@ -147,7 +137,6 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		assertEquals(1., r.getY(), 0.0001);
 	}
 
-
 	@Test
 	public void testGetX() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "10"); //$NON-NLS-1$
@@ -159,7 +148,6 @@ public class TestSVGRectElement extends AbstractTestSVGElement {
 		r = new SVGRectElement(node, null);
 		assertEquals(1., r.getX(), 0.0001);
 	}
-
 
 	@Override
 	public String getNameNode() {

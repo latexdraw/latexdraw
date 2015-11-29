@@ -14,7 +14,7 @@ public abstract class TestArcStyleGUI extends TestShapePropGUI<ShapeArcCustomise
 	protected Spinner<Double> startAngleS;
 	protected Spinner<Double> endAngleS;
 	protected TitledPane mainPane;
-	
+
 	final protected GUIVoidCommand selectArc = () -> clickOn(arcB);
 	final protected GUIVoidCommand selectWedge = () -> clickOn(wedgeB);
 	final protected GUIVoidCommand selectChord = () -> clickOn(chordB);
@@ -25,18 +25,18 @@ public abstract class TestArcStyleGUI extends TestShapePropGUI<ShapeArcCustomise
 	public String getFXMLPathFromLatexdraw() {
 		return "view/jfx/ui/ArcStyle.fxml";
 	}
-	 
+
 	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
-		mainPane	= find("#mainPane");
-		arcB 		= find("#arcB");
-		wedgeB 		= find("#wedgeB");
-		chordB 		= find("#chordB");
-		endAngleS 	= find("#endAngleS");
+		mainPane = find("#mainPane");
+		arcB = find("#arcB");
+		wedgeB = find("#wedgeB");
+		chordB = find("#chordB");
+		endAngleS = find("#endAngleS");
 		startAngleS = find("#startAngleS");
-		ins			= (ShapeArcCustomiser)guiceFactory.call(ShapeArcCustomiser.class);
+		ins = (ShapeArcCustomiser)guiceFactory.call(ShapeArcCustomiser.class);
 		ins.setActivated(true);
 	}
 }

@@ -18,26 +18,24 @@ import static org.junit.Assert.*;
 
 public class TestSVGSVGElement extends AbstractTestSVGElement {
 	@SuppressWarnings("unused")
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testContructorFail() throws MalformedSVGDocument {
-			new SVGSVGElement(null);
+		new SVGSVGElement(null);
 	}
 
 	@SuppressWarnings("unused")
 	@Test
-	public void testContructorOK() throws MalformedSVGDocument {	
+	public void testContructorOK() throws MalformedSVGDocument {
 		new SVGSVGElement(node, null);
 	}
-
-
 
 	@Test
 	public void testGetDefs() throws MalformedSVGDocument, ParserConfigurationException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.newDocument();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.newDocument();
 		Element elt, n;
-        SVGSVGElement e = new SVGSVGElement(node, null);
+		SVGSVGElement e = new SVGSVGElement(node, null);
 
 		assertNull(e.getMeta());
 
@@ -49,15 +47,13 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		assertNotNull(e.getDefs());
 	}
 
-
-
 	@Test
 	public void testGetMeta() throws MalformedSVGDocument, ParserConfigurationException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.newDocument();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.newDocument();
 		Element elt, n;
-        SVGSVGElement e = new SVGSVGElement(node, null);
+		SVGSVGElement e = new SVGSVGElement(node, null);
 
 		assertNull(e.getMeta());
 
@@ -69,17 +65,12 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		assertNotNull(e.getMeta());
 	}
 
-
-
-
 	@Test
 	public void testGetHeight() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_HEIGHT, "200"); //$NON-NLS-1$
 		SVGSVGElement e = new SVGSVGElement(node, null);
 		assertEquals(e.getHeight(), 200., 0.0001);
 	}
-
-
 
 	@Test
 	public void testEnableRendering() throws MalformedSVGDocument {
@@ -101,7 +92,6 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		assertTrue(e.enableRendering());
 	}
 
-
 	@Test
 	public void testGetY() throws MalformedSVGDocument {
 		SVGSVGElement e = new SVGSVGElement(node, null);
@@ -111,8 +101,6 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		e = new SVGSVGElement(node, null);
 		assertEquals(e.getY(), -10., 0.0001);
 	}
-
-
 
 	@Test
 	public void testGetX() throws MalformedSVGDocument {
@@ -124,7 +112,6 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		assertEquals(e.getX(), 10., 0.0001);
 	}
 
-
 	@Test
 	public void testGetWidth() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_WIDTH, "100"); //$NON-NLS-1$
@@ -132,14 +119,12 @@ public class TestSVGSVGElement extends AbstractTestSVGElement {
 		assertEquals(e.getWidth(), 100., 0.0001);
 	}
 
-
 	@Test
 	public void testVersion() throws MalformedSVGDocument {
 		node.setAttribute(SVGAttributes.SVG_VERSION, "1.1"); //$NON-NLS-1$
 		SVGSVGElement e = new SVGSVGElement(node, null);
 		assertEquals(e.getVersion(), "1.1"); //$NON-NLS-1$
 	}
-
 
 	@Override
 	public String getNameNode() {

@@ -8,44 +8,39 @@ public abstract class TestIBezierCurve<T extends IBezierCurve> extends TestICont
 
 	@Test
 	public void testMovePointAt() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testIsClosed() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetClosed() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetBalanceGap() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetBalanceGap() {
-		//TODO
+		// TODO
 	}
 
 	@Override
 	@Test
 	public void testCopy() {
-		//TODO
+		// TODO
 	}
-
 
 	@Override
 	@Test
 	public void testDuplicate() {
-		//TODO
+		// TODO
 	}
 
 }

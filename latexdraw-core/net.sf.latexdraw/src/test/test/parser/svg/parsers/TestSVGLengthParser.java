@@ -21,57 +21,57 @@ public class TestSVGLengthParser {
 		try {
 			new SVGLengthParser(null);
 			fail();
-		}
-		catch(IllegalArgumentException e){ /* */ }
+		}catch(IllegalArgumentException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser(""); //$NON-NLS-1$
 			l = p.parseLength();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("1m"); //$NON-NLS-1$
 			l = p.parseLength();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("m"); //$NON-NLS-1$
 			l = p.parseLength();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("1p"); //$NON-NLS-1$
 			l = p.parseLength();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("1e1i"); //$NON-NLS-1$
 			l = p.parseLength();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("1ci"); //$NON-NLS-1$
 			l = p.parseLength();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("1 c "); //$NON-NLS-1$
 			l = p.parseLength();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		p = new SVGLengthParser("1mm"); //$NON-NLS-1$
 		l = p.parseLength();
@@ -123,8 +123,6 @@ public class TestSVGLengthParser {
 		assertEquals(UnitProcessor.INSTANCE.toUserUnit(-1., SVGLength.LengthType.NUMBER), l.getValue(), 0.001);
 	}
 
-
-
 	@Test
 	public void testParseNumberOrPercent() throws ParseException {
 		SVGLengthParser p;
@@ -145,8 +143,6 @@ public class TestSVGLengthParser {
 		assertEquals(UnitProcessor.INSTANCE.toUserUnit(0.876, SVGLength.LengthType.NUMBER), l.getValue(), 0.001);
 	}
 
-
-
 	@Test
 	public void testParseCoordinate() throws ParseException {
 		SVGLengthParser p;
@@ -156,50 +152,50 @@ public class TestSVGLengthParser {
 			p = new SVGLengthParser(""); //$NON-NLS-1$
 			l = p.parseCoordinate();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("1m"); //$NON-NLS-1$
 			l = p.parseCoordinate();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("m"); //$NON-NLS-1$
 			l = p.parseCoordinate();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("1p"); //$NON-NLS-1$
 			l = p.parseCoordinate();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("1e1i"); //$NON-NLS-1$
 			l = p.parseCoordinate();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("1ci"); //$NON-NLS-1$
 			l = p.parseCoordinate();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		try {
 			p = new SVGLengthParser("1 c "); //$NON-NLS-1$
 			l = p.parseCoordinate();
 			fail();
-		}
-		catch(ParseException e){ /* */ }
+		}catch(ParseException e) {
+			/* */ }
 
 		p = new SVGLengthParser("1mm"); //$NON-NLS-1$
 		l = p.parseCoordinate();

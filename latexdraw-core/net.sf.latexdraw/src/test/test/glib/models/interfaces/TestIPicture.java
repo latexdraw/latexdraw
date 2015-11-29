@@ -8,105 +8,85 @@ public abstract class TestIPicture<T extends IPicture> extends TestIPositionShap
 	@Override
 	@Test
 	public void testDuplicate() {
-		//super.testDuplicate();
+		// super.testDuplicate();
 
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testTheCreationOfTheEPSPicture() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testLocationOfTheCreatedEPSPicture() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetHeight() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetSetImage() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetSetPathSource() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetSetPathTarget() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetWidth() {
-		//TODO
+		// TODO
 	}
-
-
 
 	@Override
 	@Test
 	public void testGetBottomLeftPoint() {
-		//TODO
+		// TODO
 	}
-
-
 
 	@Override
 	@Test
 	public void testGetBottomRightPoint() {
-		//TODO
+		// TODO
 	}
-
-
 
 	@Override
 	@Test
 	public void testGetTopLeftPoint() {
-		//TODO
+		// TODO
 	}
-
-
 
 	@Override
 	@Test
 	public void testGetTopRightPoint() {
-		//TODO
+		// TODO
 	}
-
-
 
 	@Override
 	@Test
 	public void testMirrorHorizontal() {
-		//TODO
+		// TODO
 	}
-
-
 
 	@Override
 	@Test
 	public void testMirrorVertical() {
-		//TODO
+		// TODO
 	}
-
 
 	@Override
 	@Test
 	public void testCopy() {
-		//TODO
+		// TODO
 	}
 }

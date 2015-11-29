@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 
 import org.junit.Test;
 
-public class TestResources{
+public class TestResources {
 	@Test
 	public void testRessources() {
 		assertNotNull(loadImageIcon("/res/LaTeXDrawIcon.png"));//$NON-NLS-1$
@@ -81,28 +81,28 @@ public class TestResources{
 		assertNotNull(loadImageIcon("/res/Copy.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/Paste.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/Cut.png"));//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/Draw.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/text.png"));		//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/polygon.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/background.png"));	//$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/Draw.png")); //$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/text.png")); //$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/polygon.png")); //$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/background.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/foreground.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/Undo.png"));//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/Redo.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/Magnify.png"));	//$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/Redo.png")); //$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/Magnify.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/wedge.png"));//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/Arc.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/document-open.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/document-save.png"));	//$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/Arc.png")); //$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/document-open.png")); //$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/document-save.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/document-save-as.png"));//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/circle.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/del.png"));		//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/dot.png"));	//$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/circle.png")); //$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/del.png")); //$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/dot.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/ellipse.png"));//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/empty.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/rectangle.png"));	//$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/empty.png")); //$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/rectangle.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/rhombus.png"));//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/select.png"));	//$NON-NLS-1$
-		assertNotNull(loadImageIcon("/res/square.png"));	//$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/select.png")); //$NON-NLS-1$
+		assertNotNull(loadImageIcon("/res/square.png")); //$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/triangle.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/join.png"));//$NON-NLS-1$
 		assertNotNull(loadImageIcon("/res/separate.png"));//$NON-NLS-1$
@@ -126,20 +126,19 @@ public class TestResources{
 		assertNotNull(loadImageIcon("/res/closedBezier.png")); //$NON-NLS-1$
 	}
 
-
 	public ImageIcon loadImageIcon(String path) {
 		URL url;
 
-		try
-		{
+		try {
 			url = getClass().getResource(path);
 
-			if(url==null)
+			if(url == null)
 				return null;
 
 			return new ImageIcon(url);
 
-		}catch(Exception e) { return null; }
+		}catch(Exception e) {
+			return null;
+		}
 	}
 }
-

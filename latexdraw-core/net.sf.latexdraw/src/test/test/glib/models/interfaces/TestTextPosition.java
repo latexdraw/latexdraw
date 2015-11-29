@@ -23,7 +23,6 @@ public class TestTextPosition {
 		assertEquals(TextPosition.RIGHT, TextPosition.getTextPosition("r")); //$NON-NLS-1$
 	}
 
-
 	@Test
 	public void testGetLatexToken() {
 		assertEquals("B", TextPosition.BASE.getLatexToken()); //$NON-NLS-1$

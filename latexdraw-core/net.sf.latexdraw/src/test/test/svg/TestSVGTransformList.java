@@ -12,7 +12,7 @@ import net.sf.latexdraw.parsers.svg.SVGTransformList;
 
 import org.junit.Test;
 
-public class TestSVGTransformList{
+public class TestSVGTransformList {
 	@Test
 	public void testContructors() {
 		SVGTransformList t = new SVGTransformList();
@@ -27,7 +27,6 @@ public class TestSVGTransformList{
 		t = new SVGTransformList("translate(2,2)"); //$NON-NLS-1$
 		assertFalse(t.isEmpty());
 	}
-
 
 	@Test
 	public void testAddTransformations() {
@@ -109,12 +108,11 @@ public class TestSVGTransformList{
 		assertEquals(4, t.size());
 	}
 
-
 	@Test
 	public void testTransformPoint() {
 		SVGTransformList t = new SVGTransformList();
-		Point2D pt1 = new Point2D.Double(1,1);
-		Point2D pt2 = new Point2D.Double(3,4);
+		Point2D pt1 = new Point2D.Double(1, 1);
+		Point2D pt2 = new Point2D.Double(3, 4);
 		Point2D pt3;
 
 		t.addTransformations("translate( 2 3)"); //$NON-NLS-1$
@@ -129,8 +127,6 @@ public class TestSVGTransformList{
 		assertEquals(Math.rint(pt3.getX()), pt2.getX(), 0.0001);
 		assertEquals(Math.rint(pt3.getY()), pt2.getY(), 0.0001);
 	}
-
-
 
 	@Test
 	public void testGetGlobalTransformation() {
@@ -155,7 +151,7 @@ public class TestSVGTransformList{
 
 		assertEquals(m.getA(), 2., 0.0001);
 		assertEquals(m.getB(), 0., 0.0001);
-		assertEquals(m.getC(), 2.*Math.tan(Math.toRadians(0.5)), 0.0001);
+		assertEquals(m.getC(), 2. * Math.tan(Math.toRadians(0.5)), 0.0001);
 		assertEquals(m.getD(), 3., 0.0001);
 		assertEquals(m.getE(), 0., 0.0001);
 		assertEquals(m.getF(), 0., 0.0001);

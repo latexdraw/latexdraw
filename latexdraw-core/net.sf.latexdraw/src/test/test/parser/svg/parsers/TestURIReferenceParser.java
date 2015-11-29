@@ -13,12 +13,11 @@ public class TestURIReferenceParser {
 		try {
 			new URIReferenceParser(null);
 			fail();
-		}
-		catch(IllegalArgumentException e) { /* */ }
+		}catch(IllegalArgumentException e) {
+			/* */ }
 
 		new URIReferenceParser("test"); //$NON-NLS-1$
 	}
-
 
 	@Test
 	public void testGetURI() {

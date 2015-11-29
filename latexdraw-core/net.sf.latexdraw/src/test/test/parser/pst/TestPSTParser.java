@@ -9,15 +9,13 @@ public abstract class TestPSTParser {
 
 	@Before
 	public void setUp() throws Exception {
-//		FlyweightThumbnail.images().clear();
-//		FlyweightThumbnail.setThread(false);
+		// FlyweightThumbnail.images().clear();
+		// FlyweightThumbnail.setThread(false);
 		parser = new PSTParser();
 		PSTParser.cleanErrors();
 	}
 
-
 	public abstract String getCommandName();
-
 
 	public abstract String getBasicCoordinates();
 }

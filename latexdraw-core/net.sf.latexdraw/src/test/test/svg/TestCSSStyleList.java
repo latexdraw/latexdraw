@@ -6,7 +6,7 @@ import net.sf.latexdraw.parsers.svg.CSSStyleList;
 
 import org.junit.Test;
 
-public class TestCSSStyleList{
+public class TestCSSStyleList {
 	protected CSSStyleList list = new CSSStyleList();
 
 	@Test
@@ -24,7 +24,6 @@ public class TestCSSStyleList{
 		list.clear();
 	}
 
-
 	@Test
 	public void testGetCSSValue() {
 		list.clear();
@@ -39,7 +38,6 @@ public class TestCSSStyleList{
 		assertNull(list.getCSSValue("test")); //$NON-NLS-1$
 		list.clear();
 	}
-
 
 	@Test
 	public void testOnCSSStyle() {

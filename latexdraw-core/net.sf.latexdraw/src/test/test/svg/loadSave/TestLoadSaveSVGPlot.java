@@ -16,8 +16,9 @@ public class TestLoadSaveSVGPlot extends TestLoadSaveSVGPositionShape<IPlot> {
 		shape = ShapeFactory.createPlot(ShapeFactory.createPoint(), -338.0, 124.0, "2 x mul", true);
 		shape.setNbPlottedPoints(331);
 	}
-	
-	@Test public void testPropertiesDot() {
+
+	@Test
+	public void testPropertiesDot() {
 		shape.setPlotStyle(PlotStyle.DOTS);
 		for(DotStyle style : DotStyle.values()) {
 			shape.setDotStyle(style);
@@ -30,8 +31,9 @@ public class TestLoadSaveSVGPlot extends TestLoadSaveSVGPositionShape<IPlot> {
 			assertFalse(shape.isThicknessable());
 		}
 	}
-	
-	@Test public void testPropertiesNotDot() {
+
+	@Test
+	public void testPropertiesNotDot() {
 		shape.setPlotStyle(PlotStyle.CURVE);
 		assertTrue(shape.isFillable());
 		assertTrue(shape.isShadowable());
@@ -41,24 +43,27 @@ public class TestLoadSaveSVGPlot extends TestLoadSaveSVGPositionShape<IPlot> {
 		assertFalse(shape.isShowPtsable());
 		assertTrue(shape.isThicknessable());
 	}
-	
-	@Test public void testPlotDotsFillable() {
+
+	@Test
+	public void testPlotDotsFillable() {
 		shape.setPlotStyle(PlotStyle.DOTS);
 		shape.setDiametre(12.0);
 		shape.setDotStyle(DotStyle.DIAMOND);
 		shape.setFillingCol(DviPsColors.BLUE);
 		compareShapes(generateShape());
 	}
-	
-	@Test public void testPlotDotsNotFillable() {
+
+	@Test
+	public void testPlotDotsNotFillable() {
 		shape.setPlotStyle(PlotStyle.DOTS);
 		shape.setDiametre(12.0);
 		shape.setDotStyle(DotStyle.DOT);
 		shape.setLineColour(DviPsColors.BLUE);
 		compareShapes(generateShape());
 	}
-	
-	@Test public void testPlotCurves() {
+
+	@Test
+	public void testPlotCurves() {
 		shape.setPlotStyle(PlotStyle.CURVE);
 		compareShapes(generateShape());
 		shape.setPlotStyle(PlotStyle.CCURVE);
@@ -66,8 +71,9 @@ public class TestLoadSaveSVGPlot extends TestLoadSaveSVGPositionShape<IPlot> {
 		shape.setPlotStyle(PlotStyle.ECURVE);
 		compareShapes(generateShape());
 	}
-	
-	@Test public void testPlotLines() {
+
+	@Test
+	public void testPlotLines() {
 		shape.setPlotStyle(PlotStyle.LINE);
 		compareShapes(generateShape());
 		shape.setPlotStyle(PlotStyle.POLYGON);

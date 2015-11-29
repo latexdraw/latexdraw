@@ -11,7 +11,6 @@ public abstract class TestLoadSaveSVGPositionShape<T extends IPositionShape> ext
 		assertEquals(sh2.getPosition().getY(), shape.getPosition().getY(), 0.00001);
 	}
 
-
 	@Override
 	protected void setDefaultDimensions() {
 		shape.setPosition(200.0, 300.0);

@@ -11,38 +11,44 @@ import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import org.junit.Test;
 
 public class TestDviPsColors {
-	@Test public void test_convertHTML2rgb_success() {
-		assertEquals(ShapeFactory.createColor(1.0, 0, 100.0/255., 1.0), DviPsColors.INSTANCE.convertHTML2rgb("#FF0064")); //$NON-NLS-1$
+	@Test
+	public void test_convertHTML2rgb_success() {
+		assertEquals(ShapeFactory.createColor(1.0, 0, 100.0 / 255., 1.0), DviPsColors.INSTANCE.convertHTML2rgb("#FF0064")); //$NON-NLS-1$
 	}
 
-	@Test(expected=IllegalArgumentException.class) public void test_convertHTML2rgb_fail_tooshort() {
+	@Test(expected = IllegalArgumentException.class)
+	public void test_convertHTML2rgb_fail_tooshort() {
 		DviPsColors.INSTANCE.convertHTML2rgb("DU87"); //$NON-NLS-1$
 	}
 
-	@Test(expected=IllegalArgumentException.class) public void test_convertHTML2rgb_fail_toolong() {
+	@Test(expected = IllegalArgumentException.class)
+	public void test_convertHTML2rgb_fail_toolong() {
 		DviPsColors.INSTANCE.convertHTML2rgb("#FF00643"); //$NON-NLS-1$
 	}
 
-	@Test public void test_convertRGB2rgb_success() {
-		assertEquals(ShapeFactory.createColor(0.0, 0.5, 1.0, 1.0), DviPsColors.INSTANCE.convertRGB2rgb(0, 255./2., 255.));
+	@Test
+	public void test_convertRGB2rgb_success() {
+		assertEquals(ShapeFactory.createColor(0.0, 0.5, 1.0, 1.0), DviPsColors.INSTANCE.convertRGB2rgb(0, 255. / 2., 255.));
 	}
 
-	@Test(expected=IllegalArgumentException.class) public void test_convertRGB2rgb_fail() {
-		DviPsColors.INSTANCE.convertRGB2rgb(-1, -255./2., -255.);
+	@Test(expected = IllegalArgumentException.class)
+	public void test_convertRGB2rgb_fail() {
+		DviPsColors.INSTANCE.convertRGB2rgb(-1, -255. / 2., -255.);
 	}
 
-	@Test public void test_convertcmyk2rgb_success() {
-		assertEquals(ShapeFactory.createColor(1.0, 0.0, 100.0/255.0, 1.0), DviPsColors.INSTANCE.convertcmyk2rgb(0, 1, 0.608, 0));
+	@Test
+	public void test_convertcmyk2rgb_success() {
+		assertEquals(ShapeFactory.createColor(1.0, 0.0, 100.0 / 255.0, 1.0), DviPsColors.INSTANCE.convertcmyk2rgb(0, 1, 0.608, 0));
 	}
 
-	@Test(expected=IllegalArgumentException.class) public void test_convertcmyk2rgb_fail() {
+	@Test(expected = IllegalArgumentException.class)
+	public void test_convertcmyk2rgb_fail() {
 		DviPsColors.INSTANCE.convertcmyk2rgb(-1, -2, 1, 3);
 	}
 
-
 	@Test
 	public void testGetColorName() {
-		Color c2 = ShapeFactory.createColor(218./255., 29./255., 78/255., 1.0);
+		Color c2 = ShapeFactory.createColor(218. / 255., 29. / 255., 78 / 255., 1.0);
 
 		assertEquals(Optional.empty(), DviPsColors.INSTANCE.getColourName(null));
 		Optional<String> nameColour = DviPsColors.INSTANCE.addUserColour(c2);
@@ -108,10 +114,6 @@ public class TestDviPsColors {
 		assertEquals(DviPsColors.N_YELLOWGREEN, DviPsColors.INSTANCE.getColourName(DviPsColors.YELLOWGREEN).get());
 	}
 
-
-
-
-
 	@Test
 	public void testGetColor() {
 		assertEquals(Optional.empty(), DviPsColors.INSTANCE.getColour("testColour")); //$NON-NLS-1$
@@ -175,83 +177,87 @@ public class TestDviPsColors {
 		assertEquals(DviPsColors.YELLOWGREEN, DviPsColors.INSTANCE.getColour(DviPsColors.N_YELLOWGREEN).get());
 	}
 
-
 	@Test
 	public void testAddUserColor() {
-		Color c2 = ShapeFactory.createColor(18./255., 29./255., 78./255., 1.0);
+		Color c2 = ShapeFactory.createColor(18. / 255., 29. / 255., 78. / 255., 1.0);
 		Optional<String> nameColour = DviPsColors.INSTANCE.addUserColour(c2);
 		assertEquals(nameColour.get(), DviPsColors.INSTANCE.getColourName(c2).get());
 	}
 
-
-
 	@Test
 	public void testGetUserColorsCode() {
-		Color c = ShapeFactory.createColor(230./255., 65./255., 78./255., 1.0);
+		Color c = ShapeFactory.createColor(230. / 255., 65. / 255., 78. / 255., 1.0);
 		Optional<String> nameColour = DviPsColors.INSTANCE.addUserColour(c);
 		assertNotNull(DviPsColors.INSTANCE.getUsercolourCode(null));
 		assertNotNull(DviPsColors.INSTANCE.getUsercolourCode(nameColour.get()));
 	}
-
-
 
 	@Test
 	public void testCMYK2RGB() {
 		try {
 			DviPsColors.INSTANCE.convertcmyk2rgb(-1, 0.5, 0.5, 0.5);
 			fail();
-		}catch(IllegalArgumentException e) { /* Good. */ }
+		}catch(IllegalArgumentException e) {
+			/* Good. */ }
 
 		try {
 			DviPsColors.INSTANCE.convertcmyk2rgb(2, 0.5, 0.5, 0.5);
 			fail();
-		}catch(IllegalArgumentException e) { /* Good. */ }
+		}catch(IllegalArgumentException e) {
+			/* Good. */ }
 
 		try {
 			DviPsColors.INSTANCE.convertcmyk2rgb(0.5, -1, 0.5, 0.5);
 			fail();
-		}catch(IllegalArgumentException e) { /* Good. */ }
+		}catch(IllegalArgumentException e) {
+			/* Good. */ }
 
 		try {
 			DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 2, 0.5, 0.5);
 			fail();
-		}catch(IllegalArgumentException e) { /* Good. */ }
+		}catch(IllegalArgumentException e) {
+			/* Good. */ }
 
 		try {
 			DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 0.5, -1, 0.5);
 			fail();
-		}catch(IllegalArgumentException e) { /* Good. */ }
+		}catch(IllegalArgumentException e) {
+			/* Good. */ }
 
 		try {
 			DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 0.5, 2, 0.5);
 			fail();
-		}catch(IllegalArgumentException e) { /* Good. */ }
+		}catch(IllegalArgumentException e) {
+			/* Good. */ }
 
 		try {
 			DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 0.5, 0.5, -1);
 			fail();
-		}catch(IllegalArgumentException e) { /* Good. */ }
+		}catch(IllegalArgumentException e) {
+			/* Good. */ }
 
 		try {
 			DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 0.5, 0.5, 2);
 			fail();
-		}catch(IllegalArgumentException e) { /* Good. */ }
+		}catch(IllegalArgumentException e) {
+			/* Good. */ }
 
-		assertEquals(ShapeFactory.createColor(51./255., 92./255., 71./255., 1.0), DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 0.1, 0.3, 0.6));
+		assertEquals(ShapeFactory.createColor(51. / 255., 92. / 255., 71. / 255., 1.0), DviPsColors.INSTANCE.convertcmyk2rgb(0.5, 0.1, 0.3, 0.6));
 	}
-
 
 	@Test
 	public void testGray2RBG() {
 		try {
 			DviPsColors.INSTANCE.convertgray2rgb(-10);
 			fail();
-		}catch(IllegalArgumentException e) { /* Good. */ }
+		}catch(IllegalArgumentException e) {
+			/* Good. */ }
 
 		try {
 			DviPsColors.INSTANCE.convertgray2rgb(300);
 			fail();
-		}catch(IllegalArgumentException e) { /* Good. */ }
+		}catch(IllegalArgumentException e) {
+			/* Good. */ }
 
 		assertEquals(ShapeFactory.createColor(1.0, 1.0, 1.0, 1.0), DviPsColors.INSTANCE.convertgray2rgb(1));
 	}

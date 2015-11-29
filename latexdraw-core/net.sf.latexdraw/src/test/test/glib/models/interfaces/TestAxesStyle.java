@@ -18,7 +18,6 @@ public class TestAxesStyle {
 		assertFalse(AxesStyle.NONE.supportsArrows());
 	}
 
-
 	@Test
 	public void testGetPSTToken() {
 		assertEquals(PSTricksConstants.TOKEN_AXES_STYLE_AXES, AxesStyle.AXES.getPSTToken());
@@ -31,11 +30,10 @@ public class TestAxesStyle {
 		assertNotNull(AxesStyle.AXES.toString());
 		assertNotNull(AxesStyle.FRAME.toString());
 		assertNotNull(AxesStyle.NONE.toString());
-		assertTrue(AxesStyle.AXES.toString().length()>0);
-		assertTrue(AxesStyle.FRAME.toString().length()>0);
-		assertTrue(AxesStyle.NONE.toString().length()>0);
+		assertTrue(AxesStyle.AXES.toString().length() > 0);
+		assertTrue(AxesStyle.FRAME.toString().length() > 0);
+		assertTrue(AxesStyle.NONE.toString().length() > 0);
 	}
-
 
 	@Test
 	public void testGetStyle() {

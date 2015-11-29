@@ -9,7 +9,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ISquaredShape;
 
 public abstract class TestLoadSaveSVGSquaredShape<T extends ISquaredShape> extends TestLoadSaveSVGPositionShape<T> {
 	protected void setSquare(final double x, final double y, final double w) {
-		shape.setPosition(x, y+w);
+		shape.setPosition(x, y + w);
 		shape.setWidth(w);
 	}
 
@@ -17,7 +17,6 @@ public abstract class TestLoadSaveSVGSquaredShape<T extends ISquaredShape> exten
 	protected void setDefaultDimensions() {
 		setSquare(2, 30, 20);
 	}
-
 
 	@Override
 	protected void compareShapes(final T r2) {
@@ -28,25 +27,26 @@ public abstract class TestLoadSaveSVGSquaredShape<T extends ISquaredShape> exten
 		assertEquals(shape.getHeight(), r2.getHeight(), 0.0001);
 	}
 
-
-	@Test public void testDimensionOkWith00Position() {
+	@Test
+	public void testDimensionOkWith00Position() {
 		setSquare(0, 0, 10);
 		compareShapes(generateShape());
 	}
 
-
-	@Test public void testDimensionOkWithPositivePosition() {
+	@Test
+	public void testDimensionOkWithPositivePosition() {
 		setSquare(5, 5, 10);
 		compareShapes(generateShape());
 	}
 
-
-	@Test public void testDimensionOkWithNegPosition() {
+	@Test
+	public void testDimensionOkWithNegPosition() {
 		setSquare(-21, -829, 923);
 		compareShapes(generateShape());
 	}
 
-	@Test public void testDimensionOkWith00PositionAndMiddleBord() {
+	@Test
+	public void testDimensionOkWith00PositionAndMiddleBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.MID);
 			setSquare(0, 0, 10);
@@ -54,8 +54,8 @@ public abstract class TestLoadSaveSVGSquaredShape<T extends ISquaredShape> exten
 		}
 	}
 
-
-	@Test public void testDimensionOkWithPositivePositionAndMiddleBord() {
+	@Test
+	public void testDimensionOkWithPositivePositionAndMiddleBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.MID);
 			setSquare(5, 5, 10);
@@ -63,8 +63,8 @@ public abstract class TestLoadSaveSVGSquaredShape<T extends ISquaredShape> exten
 		}
 	}
 
-
-	@Test public void testDimensionOkWithNegPositionAndMiddleBord() {
+	@Test
+	public void testDimensionOkWithNegPositionAndMiddleBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.MID);
 			setSquare(-21, -829, 923);
@@ -72,7 +72,8 @@ public abstract class TestLoadSaveSVGSquaredShape<T extends ISquaredShape> exten
 		}
 	}
 
-	@Test public void testDimensionOkWith00PositionAndOutBord() {
+	@Test
+	public void testDimensionOkWith00PositionAndOutBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.OUT);
 			setSquare(0, 0, 10);
@@ -80,8 +81,8 @@ public abstract class TestLoadSaveSVGSquaredShape<T extends ISquaredShape> exten
 		}
 	}
 
-
-	@Test public void testDimensionOkWithPositivePositionAndOutBord() {
+	@Test
+	public void testDimensionOkWithPositivePositionAndOutBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.OUT);
 			setSquare(5, 5, 10);
@@ -89,8 +90,8 @@ public abstract class TestLoadSaveSVGSquaredShape<T extends ISquaredShape> exten
 		}
 	}
 
-
-	@Test public void testDimensionOkWithNegPositionAndOutBord() {
+	@Test
+	public void testDimensionOkWithNegPositionAndOutBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.OUT);
 			setSquare(-21, -829, 923);

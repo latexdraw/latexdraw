@@ -10,7 +10,8 @@ import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 
 public class TestFillingStyle {
-	@Test public void testIsFillable() {
+	@Test
+	public void testIsFillable() {
 		assertFalse(FillingStyle.GRAD.isFilled());
 		assertFalse(FillingStyle.CLINES.isFilled());
 		assertFalse(FillingStyle.VLINES.isFilled());
@@ -22,7 +23,8 @@ public class TestFillingStyle {
 		assertTrue(FillingStyle.PLAIN.isFilled());
 	}
 
-	@Test public void testGetLatexToken() {
+	@Test
+	public void testGetLatexToken() {
 		assertEquals(FillingStyle.CLINES.getLatexToken(), PSTricksConstants.TOKEN_FILL_CROSSHATCH);
 		assertEquals(FillingStyle.CLINES_PLAIN.getLatexToken(), PSTricksConstants.TOKEN_FILL_CROSSHATCH_F);
 		assertEquals(FillingStyle.GRAD.getLatexToken(), PSTricksConstants.TOKEN_FILL_GRADIENT);
@@ -34,7 +36,8 @@ public class TestFillingStyle {
 		assertEquals(FillingStyle.VLINES_PLAIN.getLatexToken(), PSTricksConstants.TOKEN_FILL_VLINES_F);
 	}
 
-	@Test public void testGetStyleFromLatex() {
+	@Test
+	public void testGetStyleFromLatex() {
 		assertEquals(FillingStyle.NONE, FillingStyle.getStyleFromLatex(null));
 		assertEquals(FillingStyle.NONE, FillingStyle.getStyleFromLatex("")); //$NON-NLS-1$
 		assertEquals(FillingStyle.getStyleFromLatex(PSTricksConstants.TOKEN_FILL_CROSSHATCH), FillingStyle.CLINES);
@@ -48,7 +51,8 @@ public class TestFillingStyle {
 		assertEquals(FillingStyle.getStyleFromLatex(PSTricksConstants.TOKEN_FILL_VLINES_F), FillingStyle.VLINES_PLAIN);
 	}
 
-	@Test public void testGetStyle() {
+	@Test
+	public void testGetStyle() {
 		assertEquals(FillingStyle.NONE, FillingStyle.getStyle(null));
 		assertEquals(FillingStyle.NONE, FillingStyle.getStyle("")); //$NON-NLS-1$
 		assertEquals(FillingStyle.getStyle(FillingStyle.CLINES.toString()), FillingStyle.CLINES);
@@ -62,7 +66,8 @@ public class TestFillingStyle {
 		assertEquals(FillingStyle.getStyle(FillingStyle.PLAIN.toString()), FillingStyle.PLAIN);
 	}
 
-	@Test public void testIsHatchings() {
+	@Test
+	public void testIsHatchings() {
 		assertFalse(FillingStyle.GRAD.isHatchings());
 		assertFalse(FillingStyle.NONE.isHatchings());
 		assertFalse(FillingStyle.PLAIN.isHatchings());

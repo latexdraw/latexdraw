@@ -7,32 +7,38 @@ import net.sf.latexdraw.parsers.ps.PSAddCommand;
 import org.junit.Test;
 
 public class TestPSAddCommand extends TestPSCommand<PSAddCommand> {
-	@Override protected PSAddCommand createCmd() { return new PSAddCommand(); }
+	@Override
+	protected PSAddCommand createCmd() {
+		return new PSAddCommand();
+	}
 
-	@Override @Test
+	@Override
+	@Test
 	public void testExecuteVal0() throws InvalidFormatPSFunctionException {
 		dequeue.push(12.1);
 		dequeue.push(0.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(12.1,dequeue.peek(),0.000000000001);
+		assertEquals(12.1, dequeue.peek(), 0.000000000001);
 		assertEquals(1, dequeue.size());
 	}
 
-	@Override @Test
+	@Override
+	@Test
 	public void testExecuteValNeg() throws InvalidFormatPSFunctionException {
 		dequeue.push(-12.1);
 		dequeue.push(-10.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(-22.1,dequeue.peek(),0.000000000001);
+		assertEquals(-22.1, dequeue.peek(), 0.000000000001);
 		assertEquals(1, dequeue.size());
 	}
 
-	@Override @Test
+	@Override
+	@Test
 	public void testExecuteValPos() throws InvalidFormatPSFunctionException {
 		dequeue.push(12.1);
 		dequeue.push(10.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(22.1,dequeue.peek(),0.000000000001);
+		assertEquals(22.1, dequeue.peek(), 0.000000000001);
 		assertEquals(1, dequeue.size());
 	}
 
@@ -41,16 +47,17 @@ public class TestPSAddCommand extends TestPSCommand<PSAddCommand> {
 		dequeue.push(12.1);
 		dequeue.push(-10.0);
 		cmd.execute(dequeue, 0.0);
-		assertEquals(2.1,dequeue.peek(),0.000000000001);
+		assertEquals(2.1, dequeue.peek(), 0.000000000001);
 		assertEquals(1, dequeue.size());
 	}
 
-	@Override @Test(expected=InvalidFormatPSFunctionException.class)
+	@Override
+	@Test(expected = InvalidFormatPSFunctionException.class)
 	public void testExecuteInvalidDequeueSize() throws InvalidFormatPSFunctionException {
 		cmd.execute(dequeue, 0.0);
 	}
 
-	@Test(expected=InvalidFormatPSFunctionException.class)
+	@Test(expected = InvalidFormatPSFunctionException.class)
 	public void testExecuteInvalidDequeueSize1() throws InvalidFormatPSFunctionException {
 		dequeue.push(12.1);
 		cmd.execute(dequeue, 0.0);

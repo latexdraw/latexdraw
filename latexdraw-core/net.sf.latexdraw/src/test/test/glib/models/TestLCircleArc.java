@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.ShapeFactory;
@@ -21,13 +20,13 @@ import test.glib.models.interfaces.TestICircleArc;
 public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createCircleArc();
+		shape = ShapeFactory.createCircleArc();
 		shape2 = ShapeFactory.createCircleArc();
 	}
 
 	@Override
 	@Test
-	public void testGetStartPoint(){
+	public void testGetStartPoint() {
 		shape.setWidth(2.0);
 		shape.setPosition(-1, -1);
 
@@ -35,7 +34,7 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
 		HelperTest.assertEqualsDouble(-2, shape.getStartPoint().getY());
 
-		shape.setAngleStart(Math.PI/2.);
+		shape.setAngleStart(Math.PI / 2.);
 		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
 		HelperTest.assertEqualsDouble(-3, shape.getStartPoint().getY());
 
@@ -43,19 +42,19 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getX());
 		HelperTest.assertEqualsDouble(-2, shape.getStartPoint().getY());
 
-		shape.setAngleStart(1.5*Math.PI);
+		shape.setAngleStart(1.5 * Math.PI);
 		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
 		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getY());
 
-		shape.setAngleStart(2.*Math.PI);
+		shape.setAngleStart(2. * Math.PI);
 		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
 		HelperTest.assertEqualsDouble(-2, shape.getStartPoint().getY());
 
-		shape.setAngleStart(-2.*Math.PI);
+		shape.setAngleStart(-2. * Math.PI);
 		HelperTest.assertEqualsDouble(1, shape.getStartPoint().getX());
 		HelperTest.assertEqualsDouble(-2, shape.getStartPoint().getY());
 
-		shape.setAngleStart(-Math.PI/2.);
+		shape.setAngleStart(-Math.PI / 2.);
 		HelperTest.assertEqualsDouble(0, shape.getStartPoint().getX());
 		HelperTest.assertEqualsDouble(-1, shape.getStartPoint().getY());
 
@@ -64,14 +63,12 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		HelperTest.assertEqualsDouble(-2, shape.getStartPoint().getY());
 	}
 
-
 	@Override
 	@Test
 	@Ignore
 	public void testGetEndPoint() {
-		//TODO
+		// TODO
 	}
-
 
 	@Override
 	@Test
@@ -86,49 +83,55 @@ public class TestLCircleArc extends TestICircleArc<ICircleArc> {
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 
-
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void testConstructors() {
-		//TODO
+		// TODO
 	}
 
-
-	@Override @Ignore @Test
+	@Override
+	@Ignore
+	@Test
 	public void testGetTopLeftPoint() {
 		// TODO Auto-generated method stub
 
 	}
 
-
-	@Override @Ignore @Test
+	@Override
+	@Ignore
+	@Test
 	public void testGetTopRightPoint() {
 		// TODO Auto-generated method stub
 
 	}
 
-
-	@Override @Ignore @Test
+	@Override
+	@Ignore
+	@Test
 	public void testGetBottomRightPoint() {
 		// TODO Auto-generated method stub
 
 	}
 
-
-	@Override @Ignore @Test
+	@Override
+	@Ignore
+	@Test
 	public void testGetBottomLeftPoint() {
 		// TODO Auto-generated method stub
 
 	}
 
-
-	@Override @Ignore @Test
+	@Override
+	@Ignore
+	@Test
 	public void testMirrorHorizontal() {
 		// TODO Auto-generated method stub
 
 	}
 
-
-	@Override @Ignore @Test
+	@Override
+	@Ignore
+	@Test
 	public void testMirrorVertical() {
 		// TODO Auto-generated method stub
 

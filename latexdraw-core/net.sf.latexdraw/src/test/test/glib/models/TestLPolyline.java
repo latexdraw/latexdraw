@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -22,7 +21,7 @@ import test.glib.models.interfaces.TestIPolyline;
 public class TestLPolyline extends TestIPolyline<IPolyline> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createPolyline();
+		shape = ShapeFactory.createPolyline();
 		shape2 = ShapeFactory.createPolyline();
 		shape.addPoint(ShapeFactory.createPoint(1, 1));
 		shape.addPoint(ShapeFactory.createPoint(2, 2));
@@ -31,7 +30,6 @@ public class TestLPolyline extends TestIPolyline<IPolyline> {
 		shape2.addPoint(ShapeFactory.createPoint(2, 2));
 		shape2.addPoint(ShapeFactory.createPoint(3, 3));
 	}
-
 
 	@Override
 	@Test
@@ -46,11 +44,10 @@ public class TestLPolyline extends TestIPolyline<IPolyline> {
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 
-
 	@Test
 	public void testConstructor() {
-		IPoint pt1   = ShapeFactory.createPoint(1, 1);
-		IPoint pt2   = ShapeFactory.createPoint(2, 2);
+		IPoint pt1 = ShapeFactory.createPoint(1, 1);
+		IPoint pt2 = ShapeFactory.createPoint(2, 2);
 		IPolyline pol = ShapeFactory.createPolyline(pt1, pt2);
 
 		pol = ShapeFactory.createPolyline(pt1, pt2);
@@ -67,6 +64,7 @@ public class TestLPolyline extends TestIPolyline<IPolyline> {
 			fail();
 			pol = ShapeFactory.createPolyline(null, null);
 			fail();
-		}catch(IllegalArgumentException e){ /* */ }
+		}catch(IllegalArgumentException e) {
+			/* */ }
 	}
 }

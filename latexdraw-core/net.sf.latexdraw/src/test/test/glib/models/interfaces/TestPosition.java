@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.Position;
 
-public class TestPosition{
+public class TestPosition {
 
 	@Test
 	public void testIsSouth() {

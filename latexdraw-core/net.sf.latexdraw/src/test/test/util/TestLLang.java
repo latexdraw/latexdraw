@@ -6,7 +6,7 @@ import net.sf.latexdraw.lang.LangTool;
 
 import org.junit.Test;
 
-public class TestLLang{
+public class TestLLang {
 	@Test
 	public void testGetOthersString() {
 		assertEquals(INSTANCE.getStringOthers(null), LangTool.MISSING_KEY);
@@ -55,7 +55,6 @@ public class TestLLang{
 		assertEquals(INSTANCE.getStringDialogFrame("thisisnotavalidkey;)"), "!thisisnotavalidkey;)!"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(INSTANCE.getStringDialogFrame(""), "!!"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-
 
 	@Test
 	public void testLang() {

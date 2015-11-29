@@ -15,13 +15,11 @@ public class TestParsingParabola extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testCanParse() throws ParseException {
 		assertTrue(parser.parsePSTCode("\\parabola(35,20)(35,20)").get().isEmpty()); //$NON-NLS-1$
 		assertFalse(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Override
 	public String getCommandName() {

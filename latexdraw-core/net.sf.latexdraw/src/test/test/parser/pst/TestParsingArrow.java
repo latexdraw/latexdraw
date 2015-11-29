@@ -19,13 +19,11 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testParamArrowScaleDim() throws ParseException {
 		parser.parsePSTCode("\\psline[arrows=<->, arrowscale=2.55](1,1)"); //$NON-NLS-1$
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testParamArrowtBracketLength() throws ParseException {
@@ -34,14 +32,12 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testParamArrowBracketLength() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline[arrows=<->, bracketlength=2.55](1,1)").get().getShapeAt(0); //$NON-NLS-1$
 		assertEquals(2.55, line.getBracketNum(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testParamArrowInset() throws ParseException {
@@ -50,7 +46,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testParamArrowlength() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline[arrows=<->, arrowlength=1.5](1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -58,42 +53,37 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testParamArrowtbarDimNum() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline[arrows=<->, tbarsize=1.5cm 3](1,1)").get().getShapeAt(0); //$NON-NLS-1$
-		assertEquals(1.5*IShape.PPC, line.getTBarSizeDim(), 0.0001);
+		assertEquals(1.5 * IShape.PPC, line.getTBarSizeDim(), 0.0001);
 		assertEquals(3., line.getTBarSizeNum(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testParamtbarsizeDim() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline[arrows=<->, tbarsize=2cm](1,1)").get().getShapeAt(0); //$NON-NLS-1$
-		assertEquals(2.*IShape.PPC, line.getTBarSizeDim(), 0.0001);
+		assertEquals(2. * IShape.PPC, line.getTBarSizeDim(), 0.0001);
 		assertEquals(0., line.getTBarSizeNum(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testParamArrowsizeDimNum() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline[arrows=<->, arrowsize=1.5cm 3](1,1)").get().getShapeAt(0); //$NON-NLS-1$
-		assertEquals(1.5*IShape.PPC, line.getArrowSizeDim(), 0.0001);
+		assertEquals(1.5 * IShape.PPC, line.getArrowSizeDim(), 0.0001);
 		assertEquals(3., line.getArrowSizeNum(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testParamArrowsizeDim() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline[arrows=<->, arrowsize=2cm](1,1)").get().getShapeAt(0); //$NON-NLS-1$
-		assertEquals(2.*IShape.PPC, line.getArrowSizeDim(), 0.0001);
+		assertEquals(2. * IShape.PPC, line.getArrowSizeDim(), 0.0001);
 		assertEquals(0., line.getArrowSizeNum(), 0.0001);
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testParamArrowsArrows() throws ParseException {
@@ -103,7 +93,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testParamArrowsRRBracker() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline[arrows=)-](1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -111,7 +100,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testParamArrowsBarEnd() throws ParseException {
@@ -121,7 +109,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testParamArrowsRLBracker() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline[arrows=(-](1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -129,7 +116,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testParamArrowsSLBracket() throws ParseException {
@@ -139,7 +125,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testParamArrows() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline[arrows=<->](1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -148,24 +133,23 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void testNoneC() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{-C}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(0));
-//		assertEquals(ArrowStyle.SQUARE_END, line.getArrowStyle(1));
+		// assertEquals(ArrowStyle.SQUARE_END, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void testCNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{C-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
-//		assertEquals(ArrowStyle.SQUARE_END, line.getArrowStyle(0));
+		// assertEquals(ArrowStyle.SQUARE_END, line.getArrowStyle(0));
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNonecc() throws ParseException {
@@ -175,7 +159,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testccNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{cc-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -184,24 +167,23 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void testNonec() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{-c}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(0));
-//		assertEquals(ArrowStyle.ROUND_END, line.getArrowStyle(1));
+		// assertEquals(ArrowStyle.ROUND_END, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void testcNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{c-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
-//		assertEquals(ArrowStyle.ROUND_END, line.getArrowStyle(0));
+		// assertEquals(ArrowStyle.ROUND_END, line.getArrowStyle(0));
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneDiskIn() throws ParseException {
@@ -211,7 +193,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testDiskInNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{**-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -219,7 +200,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneCircleIn() throws ParseException {
@@ -229,7 +209,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testCircleInNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{oo-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -237,7 +216,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneDiskEnd() throws ParseException {
@@ -247,7 +225,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testDiskEndNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{*-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -255,7 +232,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneCircleEnd() throws ParseException {
@@ -265,7 +241,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testCircleEndNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{o-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -273,7 +248,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneRightRoundBracket() throws ParseException {
@@ -283,7 +257,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testLeftRoundBracketNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{)-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -291,7 +264,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneLeftRoundBracket() throws ParseException {
@@ -301,7 +273,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testRoundRightBracketNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{(-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -309,7 +280,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneRightSquareBracket() throws ParseException {
@@ -319,7 +289,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testSquareLeftBracketNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{]-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -327,7 +296,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneLeftSquareBracket() throws ParseException {
@@ -337,7 +305,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testSquareRightBracketTbarEnd() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{[-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -345,7 +312,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneTbarEnd() throws ParseException {
@@ -355,7 +321,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testTbarEndNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{|*-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -363,7 +328,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneTbar() throws ParseException {
@@ -373,7 +337,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testTbarNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{|-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -381,7 +344,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testDbleArrowLeftDbleArrowRight() throws ParseException {
@@ -391,7 +353,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testNoneNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -399,7 +360,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testArrowheadRightArrowheadLeft() throws ParseException {
@@ -409,7 +369,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testNoneArrowheadRight() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{->}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -417,7 +376,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(0));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Test
 	public void testNoneArrowheadLeft() throws ParseException {
@@ -427,7 +385,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testArrowheadRightNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{>-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -436,7 +393,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
 
-
 	@Test
 	public void testArrowheadLeftNone() throws ParseException {
 		IPolyline line = (IPolyline)parser.parsePSTCode("\\psline{<-}(1,1)").get().getShapeAt(0); //$NON-NLS-1$
@@ -444,7 +400,6 @@ public class TestParsingArrow extends TestPSTParser {
 		assertEquals(ArrowStyle.NONE, line.getArrowStyle(1));
 		assertTrue(PSTParser.errorLogs().isEmpty());
 	}
-
 
 	@Override
 	public String getCommandName() {

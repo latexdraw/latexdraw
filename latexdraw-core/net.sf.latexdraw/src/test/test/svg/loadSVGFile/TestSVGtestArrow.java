@@ -14,13 +14,12 @@ public class TestSVGtestArrow extends TestLoadSVGFile {
 		return "src/resources/test/res/testLoad/testArrow.svg"; //$NON-NLS-1$
 	}
 
-
-	@Test public void testArrow() {
+	@Test
+	public void testArrow() {
 		assertTrue(group.getShapeAt(0) instanceof IPolyline);
-		final IPolyline pol = (IPolyline) group.getShapeAt(0);
+		final IPolyline pol = (IPolyline)group.getShapeAt(0);
 		assertEquals(ArrowStyle.RIGHT_ARROW, pol.getArrowAt(1).getArrowStyle());
 	}
-
 
 	@Override
 	public int getNbShapesExpected() {

@@ -14,15 +14,15 @@ public abstract class TestCodeParser {
 	protected CodeParser parser;
 	protected CodeParser parser2;
 
-
-	@Test public void testInitialise() {
+	@Test
+	public void testInitialise() {
 		parser.setPosition(10);
 		parser.initialise();
-		assertTrue(parser.getPosition()==0);
+		assertTrue(parser.getPosition() == 0);
 	}
 
-
-	@Test public void testGetCharAt() {
+	@Test
+	public void testGetCharAt() {
 		parser.setCode("test"); //$NON-NLS-1$
 		assertEquals(CodeParser.EOC, parser.getCharAt(-2));
 		assertEquals(CodeParser.EOC, parser.getCharAt(10));
@@ -33,8 +33,8 @@ public abstract class TestCodeParser {
 		assertEquals('t', parser.getCharAt(3));
 	}
 
-
-	@Test public void testGetCode() {
+	@Test
+	public void testGetCode() {
 		String code = "this is my code"; //$NON-NLS-1$
 
 		parser.setCode(code);
@@ -46,45 +46,44 @@ public abstract class TestCodeParser {
 		assertEquals(parser.getCode(), code);
 	}
 
-
-	@Test public void testSetCode() {
+	@Test
+	public void testSetCode() {
 		String code = "a piece of code"; //$NON-NLS-1$
 
 		parser.setPosition(10);
 		parser.setCode(code);
-		assertTrue(parser.getPosition()==0);
+		assertTrue(parser.getPosition() == 0);
 		parser.setCode(null);
 		assertEquals(parser.getCode(), code);
 	}
 
-
-
-	@Test public void testNextChar() {
+	@Test
+	public void testNextChar() {
 		parser.setCode("code"); //$NON-NLS-1$
-		assertTrue(parser.nextChar()=='o');
-		assertTrue(parser.nextChar()=='d');
-		assertTrue(parser.nextChar()=='e');
-		assertTrue(parser.nextChar()==CodeParser.EOC);
-		assertTrue(parser.nextChar()==CodeParser.EOC);
-		assertTrue(parser.nextChar()==CodeParser.EOC);
+		assertTrue(parser.nextChar() == 'o');
+		assertTrue(parser.nextChar() == 'd');
+		assertTrue(parser.nextChar() == 'e');
+		assertTrue(parser.nextChar() == CodeParser.EOC);
+		assertTrue(parser.nextChar() == CodeParser.EOC);
+		assertTrue(parser.nextChar() == CodeParser.EOC);
 		parser.setPosition(20);
-		assertTrue(parser.nextChar()==CodeParser.EOC);
+		assertTrue(parser.nextChar() == CodeParser.EOC);
 	}
 
-
-	@Test public void testGetChar() {
+	@Test
+	public void testGetChar() {
 		parser.setCode("my code"); //$NON-NLS-1$
-		assertTrue(parser.getChar()=='m');
+		assertTrue(parser.getChar() == 'm');
 		parser.setPosition(1);
-		assertTrue(parser.getChar()=='y');
+		assertTrue(parser.getChar() == 'y');
 		parser.setPosition(2);
-		assertTrue(parser.getChar()==' ');
+		assertTrue(parser.getChar() == ' ');
 		parser.setPosition(10);
-		assertTrue(parser.getChar()==CodeParser.EOC);
+		assertTrue(parser.getChar() == CodeParser.EOC);
 	}
 
-
-	@Test public void testIsEOC() {
+	@Test
+	public void testIsEOC() {
 		parser.setCode(""); //$NON-NLS-1$
 		assertTrue(parser.isEOC());
 		parser.setCode("aa"); //$NON-NLS-1$
@@ -97,25 +96,27 @@ public abstract class TestCodeParser {
 		assertTrue(parser.isEOC());
 	}
 
-
-	@Test public void testGetPosition() {
+	@Test
+	public void testGetPosition() {
 		parser.initialise();
-		assertTrue(parser.getPosition()==0);
+		assertTrue(parser.getPosition() == 0);
 		parser.setPosition(10);
-		assertTrue(parser.getPosition()==10);
+		assertTrue(parser.getPosition() == 10);
 		parser.setPosition(100);
-		assertTrue(parser.getPosition()==100);
+		assertTrue(parser.getPosition() == 100);
 	}
 
+	@Test
+	public abstract void testSkipComment() throws ParseException;
 
-	@Test public abstract void testSkipComment() throws ParseException;
+	@Test
+	public abstract void testSkipWSP() throws ParseException;
 
-	@Test public abstract void testSkipWSP() throws ParseException;
+	@Test
+	public abstract void testParse() throws ParseException;
 
-	@Test public abstract void testParse() throws ParseException;
-
-
-	@Test public void testIsEOL() {
+	@Test
+	public void testIsEOL() {
 		parser.setCode(""); //$NON-NLS-1$
 		assertFalse(parser.isEOL());
 		parser.setCode("a"); //$NON-NLS-1$
@@ -134,11 +135,11 @@ public abstract class TestCodeParser {
 		assertFalse(parser.isEOL());
 		parser.nextChar();
 		assertTrue(parser.isEOL());
-		assertTrue(parser.getPosition()==2);
+		assertTrue(parser.getPosition() == 2);
 	}
 
-
-	@Test public void testSetPosition() {
+	@Test
+	public void testSetPosition() {
 		parser.setCode(""); //$NON-NLS-1$
 		parser.setPosition(10);
 		assertEquals(10, parser.getPosition());
@@ -150,8 +151,8 @@ public abstract class TestCodeParser {
 		assertEquals(Integer.MAX_VALUE, parser.getPosition());
 	}
 
-
-	@Test public void testSetLinePosition() {
+	@Test
+	public void testSetLinePosition() {
 		parser.setLinePosition(10);
 		assertEquals(10, parser.getLinePosition());
 		parser.setLinePosition(0);

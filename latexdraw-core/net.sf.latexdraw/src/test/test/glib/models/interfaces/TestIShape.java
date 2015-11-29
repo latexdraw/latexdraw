@@ -30,8 +30,6 @@ public abstract class TestIShape<T extends IShape> {
 		assertNotNull(shape.getPoints());
 	}
 
-
-
 	@Test
 	public void testGetNbPoints() {
 		IPoint pt = ShapeFactory.createPoint();
@@ -43,7 +41,6 @@ public abstract class TestIShape<T extends IShape> {
 		assertEquals(shape.getPoints().size(), shape.getNbPoints());
 	}
 
-
 	@Test
 	public void testGetPtAt() {
 		if(shape.getPoints().isEmpty()) {
@@ -51,14 +48,9 @@ public abstract class TestIShape<T extends IShape> {
 			shape.getPoints().add(ShapeFactory.createPoint());
 		}
 
-		for(int i=0; i<shape.getNbPoints(); i++)
+		for(int i = 0; i < shape.getNbPoints(); i++)
 			assertEquals(shape.getPoints().get(i), shape.getPtAt(i));
 	}
-
-
-
-
-
 
 	@Test
 	public void testCopy() {
@@ -151,37 +143,29 @@ public abstract class TestIShape<T extends IShape> {
 
 		assertEquals(shape.getPoints().size(), shape2.getPoints().size());
 
-		for(int i=0; i<shape.getPoints().size(); i++)
+		for(int i = 0; i < shape.getPoints().size(); i++)
 			assertEquals(shape.getPtAt(i), shape2.getPtAt(i));
 	}
-
 
 	@Test
 	public void testGetGravityCentre() {
 		final IPoint gc = shape.getGravityCentre();
 		assertTrue(GLibUtilities.isValidPoint(gc));
-		assertEquals((shape.getTopLeftPoint().getX()+shape.getTopRightPoint().getX())/2., gc.getX(), 0.0001);
-		assertEquals((shape.getTopLeftPoint().getY()+shape.getBottomLeftPoint().getY())/2., gc.getY(), 0.0001);
+		assertEquals((shape.getTopLeftPoint().getX() + shape.getTopRightPoint().getX()) / 2., gc.getX(), 0.0001);
+		assertEquals((shape.getTopLeftPoint().getY() + shape.getBottomLeftPoint().getY()) / 2., gc.getY(), 0.0001);
 	}
-
-
 
 	@Test
 	public abstract void testGetTopLeftPoint();
 
-
 	@Test
 	public abstract void testGetTopRightPoint();
-
 
 	@Test
 	public abstract void testGetBottomRightPoint();
 
-
 	@Test
 	public abstract void testGetBottomLeftPoint();
-
-
 
 	@Test
 	public void testGetFullBottomRightPoint() {
@@ -191,7 +175,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(10.);
 		shape.setHasDbleBord(false);
 		shape.setBordersPosition(BorderPos.INTO);
-		pt  = shape.getBottomRightPoint();
+		pt = shape.getBottomRightPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(gap, gap);
@@ -200,7 +184,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(20.);
 		shape.setHasDbleBord(false);
 		shape.setBordersPosition(BorderPos.MID);
-		pt  = shape.getBottomRightPoint();
+		pt = shape.getBottomRightPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(gap, gap);
@@ -209,7 +193,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(30.);
 		shape.setHasDbleBord(false);
 		shape.setBordersPosition(BorderPos.OUT);
-		pt  = shape.getBottomRightPoint();
+		pt = shape.getBottomRightPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(gap, gap);
@@ -218,7 +202,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(10.);
 		shape.setHasDbleBord(true);
 		shape.setBordersPosition(BorderPos.INTO);
-		pt  = shape.getBottomRightPoint();
+		pt = shape.getBottomRightPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(gap, gap);
@@ -227,7 +211,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(20.);
 		shape.setHasDbleBord(true);
 		shape.setBordersPosition(BorderPos.MID);
-		pt  = shape.getBottomRightPoint();
+		pt = shape.getBottomRightPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(gap, gap);
@@ -236,14 +220,12 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(30.);
 		shape.setHasDbleBord(true);
 		shape.setBordersPosition(BorderPos.OUT);
-		pt  = shape.getBottomRightPoint();
+		pt = shape.getBottomRightPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(gap, gap);
 		assertEquals(pt, shape.getFullBottomRightPoint());
 	}
-
-
 
 	@Test
 	public void testGetFullTopLeftPoint() {
@@ -253,7 +235,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(10.);
 		shape.setHasDbleBord(false);
 		shape.setBordersPosition(BorderPos.INTO);
-		pt  = shape.getTopLeftPoint();
+		pt = shape.getTopLeftPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(-gap, -gap);
@@ -262,7 +244,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(20.);
 		shape.setHasDbleBord(false);
 		shape.setBordersPosition(BorderPos.MID);
-		pt  = shape.getTopLeftPoint();
+		pt = shape.getTopLeftPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(-gap, -gap);
@@ -271,7 +253,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(30.);
 		shape.setHasDbleBord(false);
 		shape.setBordersPosition(BorderPos.OUT);
-		pt  = shape.getTopLeftPoint();
+		pt = shape.getTopLeftPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(-gap, -gap);
@@ -280,7 +262,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(10.);
 		shape.setHasDbleBord(true);
 		shape.setBordersPosition(BorderPos.INTO);
-		pt  = shape.getTopLeftPoint();
+		pt = shape.getTopLeftPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(-gap, -gap);
@@ -289,7 +271,7 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(20.);
 		shape.setHasDbleBord(true);
 		shape.setBordersPosition(BorderPos.MID);
-		pt  = shape.getTopLeftPoint();
+		pt = shape.getTopLeftPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(-gap, -gap);
@@ -298,31 +280,24 @@ public abstract class TestIShape<T extends IShape> {
 		shape.setThickness(30.);
 		shape.setHasDbleBord(true);
 		shape.setBordersPosition(BorderPos.OUT);
-		pt  = shape.getTopLeftPoint();
+		pt = shape.getTopLeftPoint();
 		gap = shape.getBorderGap();
 
 		pt.translate(-gap, -gap);
 		assertEquals(pt, shape.getFullTopLeftPoint());
 	}
 
-
-
-//	@Test
-//	public abstract void testScale();
-
+	// @Test
+	// public abstract void testScale();
 
 	@Test
 	public abstract void testMirrorHorizontal();
 
-
 	@Test
 	public abstract void testMirrorVertical();
 
-
-
 	@Test
 	public abstract void testTranslate();
-
 
 	@Test
 	public void testSetHasHatchings() {
@@ -348,7 +323,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
 	@Test
 	public void testSetHasGradient() {
 		if(shape.isInteriorStylable()) {
@@ -373,8 +347,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
-
 	@Test
 	public void testGetSetGradColEnd() {
 		if(shape.isInteriorStylable()) {
@@ -385,8 +357,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
-
 	@Test
 	public void testGetSetGradColStart() {
 		if(shape.isInteriorStylable()) {
@@ -396,8 +366,6 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(DviPsColors.BLUE, shape.getGradColStart());
 		}
 	}
-
-
 
 	@Test
 	public void testGetSetGradAngle() {
@@ -414,8 +382,6 @@ public abstract class TestIShape<T extends IShape> {
 			HelperTest.assertEqualsDouble(20., shape.getGradAngle());
 		}
 	}
-
-
 
 	@Test
 	public void testGetSetGradMidPt() {
@@ -441,9 +407,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
-
-
 	@Test
 	public void testGetSetHatchingsSep() {
 		if(shape.isInteriorStylable()) {
@@ -464,7 +427,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
 	@Test
 	public void testGetSetHatchingsCol() {
 		if(shape.isInteriorStylable()) {
@@ -476,8 +438,6 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(DviPsColors.BLACK, shape.getHatchingsCol());
 		}
 	}
-
-
 
 	@Test
 	public void testGetSetHatchingsAngle() {
@@ -499,7 +459,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
 	@Test
 	public void testGetSetHatchingsWidth() {
 		if(shape.isInteriorStylable()) {
@@ -520,7 +479,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
 	@Test
 	public void testGetSetRotationAngle() {
 		shape.setRotationAngle(30.);
@@ -539,7 +497,6 @@ public abstract class TestIShape<T extends IShape> {
 		HelperTest.assertEqualsDouble(-30., shape.getRotationAngle());
 	}
 
-
 	@Test
 	public void testIsSetShowPts() {
 		if(shape.isShowPtsable()) {
@@ -550,7 +507,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
 	@Test
 	public void testhasSetDbleBord() {
 		if(shape.isDbleBorderable()) {
@@ -560,7 +516,6 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(false, shape.hasDbleBord());
 		}
 	}
-
 
 	@Test
 	public void testGetSetDbleBordCol() {
@@ -573,8 +528,6 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(DviPsColors.BLACK, shape.getDbleBordCol());
 		}
 	}
-
-
 
 	@Test
 	public void testGetSetDbleBordSep() {
@@ -596,8 +549,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
-
 	@Test
 	public void testHasSetShadow() {
 		if(shape.isShadowable()) {
@@ -607,8 +558,6 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(false, shape.hasShadow());
 		}
 	}
-
-
 
 	@Test
 	public void testGetSetShadowCol() {
@@ -621,8 +570,6 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(DviPsColors.BLACK, shape.getShadowCol());
 		}
 	}
-
-
 
 	@Test
 	public void testGetSetShadowAngle() {
@@ -644,7 +591,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
 	@Test
 	public void testIsSetFilled() {
 		if(shape.isFillable()) {
@@ -654,7 +600,6 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(false, shape.isFilled());
 		}
 	}
-
 
 	@Test
 	public void testAddToRotationAngle() {
@@ -672,8 +617,6 @@ public abstract class TestIShape<T extends IShape> {
 		shape.addToRotationAngle(null, 10.5);
 		HelperTest.assertEqualsDouble(0., shape.getRotationAngle());
 	}
-
-
 
 	@Test
 	public void testGetSetShadowSize() {
@@ -695,8 +638,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
-
 	@Test
 	public void testGetSetBorderPosition() {
 		if(shape.isBordersMovable()) {
@@ -712,7 +653,6 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(BorderPos.INTO, shape.getBordersPosition());
 		}
 	}
-
 
 	@Test
 	public void testGetBorderGap() {
@@ -738,7 +678,7 @@ public abstract class TestIShape<T extends IShape> {
 		gap = 0.;
 
 		if(!shape.isBordersMovable())
-			return ;
+			return;
 
 		shape.setBordersPosition(BorderPos.MID);
 
@@ -760,7 +700,7 @@ public abstract class TestIShape<T extends IShape> {
 		if(shape.isDbleBorderable()) {
 			shape.setHasDbleBord(true);
 			shape.setDbleBordSep(20.);
-			gap += shape.getThickness()/2. + 10.;
+			gap += shape.getThickness() / 2. + 10.;
 		}
 
 		HelperTest.assertEqualsDouble(gap, shape.getBorderGap());
@@ -793,18 +733,15 @@ public abstract class TestIShape<T extends IShape> {
 		gap = 0.;
 	}
 
-
-
 	@Test
 	public void testDuplicate() {
 		IShape sh = shape.duplicate();
 
 		assertNotNull(sh);
 		assertEquals(sh.getClass(), shape.getClass());
-//		assertTrue(shape.isParametersEquals(sh, true));
-		//TODO
+		// assertTrue(shape.isParametersEquals(sh, true));
+		// TODO
 	}
-
 
 	@Test
 	public void testSetGetThickness() {
@@ -824,7 +761,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
 	@Test
 	public void testSetGetLineColour() {
 		shape.setLineColour(DviPsColors.CYAN);
@@ -833,10 +769,9 @@ public abstract class TestIShape<T extends IShape> {
 		assertEquals(DviPsColors.CYAN, shape.getLineColour());
 		shape.setLineColour(DviPsColors.RED);
 		assertEquals(DviPsColors.RED, shape.getLineColour());
-		shape.setLineColour(ShapeFactory.createColorInt(100,100,100));
-		assertEquals(ShapeFactory.createColorInt(100,100,100), shape.getLineColour());
+		shape.setLineColour(ShapeFactory.createColorInt(100, 100, 100));
+		assertEquals(ShapeFactory.createColorInt(100, 100, 100), shape.getLineColour());
 	}
-
 
 	@Test
 	public void testSetGetLineStyle() {
@@ -845,15 +780,14 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(shape.getLineStyle(), LineStyle.DOTTED);
 			shape.setLineStyle(LineStyle.DASHED);
 			assertEquals(shape.getLineStyle(), LineStyle.DASHED);
-//			shape.setLineStyle(LineStyle.NONE);
-//			assertEquals(shape.getLineStyle(), LineStyle.NONE);
+			// shape.setLineStyle(LineStyle.NONE);
+			// assertEquals(shape.getLineStyle(), LineStyle.NONE);
 			shape.setLineStyle(LineStyle.SOLID);
 			assertEquals(shape.getLineStyle(), LineStyle.SOLID);
 			shape.setLineStyle(null);
 			assertEquals(shape.getLineStyle(), LineStyle.SOLID);
 		}
 	}
-
 
 	@Test
 	public void testSetGetDashSepWhite() {
@@ -875,7 +809,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
 	@Test
 	public void testSetGetDashSepBlack() {
 		if(shape.isLineStylable()) {
@@ -895,7 +828,6 @@ public abstract class TestIShape<T extends IShape> {
 			HelperTest.assertEqualsDouble(shape.getDashSepBlack(), 5.);
 		}
 	}
-
 
 	@Test
 	public void testSetGetDotSep() {
@@ -917,7 +849,6 @@ public abstract class TestIShape<T extends IShape> {
 		}
 	}
 
-
 	@Test
 	public void testSetGetFillingCol() {
 		if(shape.isInteriorStylable()) {
@@ -927,12 +858,10 @@ public abstract class TestIShape<T extends IShape> {
 			assertEquals(shape.getFillingCol(), DviPsColors.DARKGRAY);
 			shape.setFillingCol(DviPsColors.BLUE);
 			assertEquals(shape.getFillingCol(), DviPsColors.BLUE);
-			shape.setFillingCol(ShapeFactory.createColorInt(200,100,40));
-			assertEquals(shape.getFillingCol(), ShapeFactory.createColorInt(200,100,40));
+			shape.setFillingCol(ShapeFactory.createColorInt(200, 100, 40));
+			assertEquals(shape.getFillingCol(), ShapeFactory.createColorInt(200, 100, 40));
 		}
 	}
-
-
 
 	@Test
 	public void testSetGetFillingStyle() {

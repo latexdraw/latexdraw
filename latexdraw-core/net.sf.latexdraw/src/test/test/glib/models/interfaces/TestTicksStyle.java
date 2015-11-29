@@ -25,7 +25,6 @@ public class TestTicksStyle {
 		assertTrue(TicksStyle.BOTTOM.isBottom());
 	}
 
-
 	@Test
 	public void testIsTop() {
 		assertTrue(TicksStyle.FULL.isTop());
@@ -36,13 +35,12 @@ public class TestTicksStyle {
 	@Test
 	public void testToString() {
 		assertNotNull(TicksStyle.BOTTOM.toString());
-		assertTrue(TicksStyle.BOTTOM.toString().length()>0);
+		assertTrue(TicksStyle.BOTTOM.toString().length() > 0);
 		assertNotNull(TicksStyle.FULL.toString());
-		assertTrue(TicksStyle.FULL.toString().length()>0);
+		assertTrue(TicksStyle.FULL.toString().length() > 0);
 		assertNotNull(TicksStyle.TOP.toString());
-		assertTrue(TicksStyle.TOP.toString().length()>0);
+		assertTrue(TicksStyle.TOP.toString().length() > 0);
 	}
-
 
 	@Test
 	public void testGetStyle() {

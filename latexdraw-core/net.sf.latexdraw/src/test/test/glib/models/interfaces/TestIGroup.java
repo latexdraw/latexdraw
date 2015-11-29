@@ -749,7 +749,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		shape.getShapes().add(sh1);
 		shape.getShapes().add(sh1b);
 	}
-	
+
 	@Override
 	@Test
 	public void testGetSetGradColStart() {
@@ -836,13 +836,13 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		assertEquals(java.awt.Color.RED, shape.getDbleBordCol().toAWT());
 		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getDbleBordCol().toAWT()));
 	}
-	
+
 	@Override
 	@Test
 	public void testGetPtAt() {
 		assertNull(shape.getPtAt(0));
 	}
-	
+
 	@Override
 	@Test
 	public void testGetNbPoints() {

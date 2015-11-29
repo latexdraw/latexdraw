@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CompositeGUIVoidCommand implements GUIVoidCommand {
 	protected final List<GUIVoidCommand> cmds;
-	
+
 	public CompositeGUIVoidCommand(final GUIVoidCommand... commands) {
 		super();
 		cmds = new ArrayList<>();

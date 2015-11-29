@@ -17,7 +17,7 @@ public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCusto
 	protected ComboBox<BorderPos> bordersPosCB;
 	protected Spinner<Double> frameArcField;
 	protected CheckBox showPoints;
-	
+
 	final protected GUIVoidCommand pickLineCol = () -> pickColour(lineColButton);
 	final protected GUIVoidCommand checkShowPts = () -> clickOn(showPoints);
 	final protected GUIVoidCommand selectLineStyle = () -> selectNextComboBoxItem(lineCB);
@@ -29,18 +29,18 @@ public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCusto
 	public String getFXMLPathFromLatexdraw() {
 		return "view/jfx/ui/LineStyle.fxml";
 	}
-	 
+
 	@Override
 	@Before
 	public void setUp() {
 		super.setUp();
-		thicknessField 	= find("#thicknessField");
-		lineColButton 	= find("#lineColButton");
-		lineCB 			= find("#lineCB");
-		bordersPosCB 	= find("#bordersPosCB");
-		frameArcField 	= find("#frameArcField");
-		showPoints 		= find("#showPoints");
-		ins				= (ShapeBorderCustomiser)guiceFactory.call(ShapeBorderCustomiser.class);
+		thicknessField = find("#thicknessField");
+		lineColButton = find("#lineColButton");
+		lineCB = find("#lineCB");
+		bordersPosCB = find("#bordersPosCB");
+		frameArcField = find("#frameArcField");
+		showPoints = find("#showPoints");
+		ins = (ShapeBorderCustomiser)guiceFactory.call(ShapeBorderCustomiser.class);
 		ins.setActivated(true);
 	}
 }

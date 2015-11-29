@@ -10,23 +10,20 @@ import net.sf.latexdraw.parsers.svg.SVGNodeList;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestSVGNodeList{
+public class TestSVGNodeList {
 	protected SVGNodeList list;
 	protected SVGDocument doc;
 
-
 	@Before
 	public void setUp() {
-		doc  = new SVGDocument();
+		doc = new SVGDocument();
 		list = new SVGNodeList();
 	}
-
 
 	@Test
 	public void testSVGNodeList() {
 		assertNotNull(list.getNodes());
 	}
-
 
 	@Test
 	public void testGetLength() {
@@ -36,7 +33,6 @@ public class TestSVGNodeList{
 		assertEquals(1, list.getLength());
 		list.getNodes().clear();
 	}
-
 
 	@Test
 	public void testItem() {
@@ -51,7 +47,6 @@ public class TestSVGNodeList{
 		assertNull(list.item(1));
 		assertEquals(list.item(0), elt);
 	}
-
 
 	@Test
 	public void testGetNodes() {

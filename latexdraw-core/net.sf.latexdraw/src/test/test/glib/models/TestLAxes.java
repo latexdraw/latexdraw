@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -20,10 +19,9 @@ import test.glib.models.interfaces.TestIAxes;
 public class TestLAxes extends TestIAxes<IAxes> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createAxes(ShapeFactory.createPoint());
+		shape = ShapeFactory.createAxes(ShapeFactory.createPoint());
 		shape2 = ShapeFactory.createAxes(ShapeFactory.createPoint());
 	}
-
 
 	@Override
 	@Test
@@ -36,7 +34,6 @@ public class TestLAxes extends TestIAxes<IAxes> {
 		assertTrue(shape.isTypeOf(IAxes.class));
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
-
 
 	@Test
 	public void testConstructor3() {

@@ -25,7 +25,6 @@ public class TestSVGPathSegCurvetoQuadraticSmooth implements SVGPathHandler {
 		assertFalse(seg.isRelative());
 	}
 
-
 	@Test
 	public void testToString() throws ParseException {
 		SVGPathSegMoveto m = new SVGPathSegMoveto(0, 0, false);
@@ -34,13 +33,11 @@ public class TestSVGPathSegCurvetoQuadraticSmooth implements SVGPathHandler {
 		parser.parse();
 	}
 
-
-
 	@Override
 	public void onPathSeg(SVGPathSeg pathSeg) {
-		if(pathSeg instanceof SVGPathSegMoveto && cpt==0) {
+		if(pathSeg instanceof SVGPathSegMoveto && cpt == 0) {
 			cpt++;
-			return ;
+			return;
 		}
 
 		assertTrue(pathSeg instanceof SVGPathSegCurvetoQuadraticSmooth);

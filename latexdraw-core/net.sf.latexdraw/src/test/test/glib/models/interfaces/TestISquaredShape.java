@@ -1,6 +1,5 @@
 package test.glib.models.interfaces;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -22,16 +21,14 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		shape2.setWidth(385.);
 		shape.copy(shape2);
 
-		for(int i=0; i<shape.getPoints().size(); i++)
+		for(int i = 0; i < shape.getPoints().size(); i++)
 			assertEquals(shape.getPtAt(i), shape2.getPtAt(i));
 	}
-
 
 	@Test
 	public void testHas4Points() {
 		assertEquals(shape.getNbPoints(), 4);
 	}
-
 
 	@Test
 	public void testGetSetWidth() {
@@ -58,13 +55,11 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		HelperTest.assertEqualsDouble(50., shape.getHeight());
 	}
 
-
 	@Override
 	@Test
 	public void testGetNbPoints() {
 		assertEquals(4, shape.getNbPoints());
 	}
-
 
 	@Override
 	@Test
@@ -78,109 +73,107 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		assertNull(shape.getPtAt(-2));
 	}
 
-
-//
-//
-//	@Override
-//	@Test
-//	public void testScale() {
-//		shape.setPosition(0, 2);
-//		shape.setWidth(2);
-//		shape.setHeight(2);
-//		IPoint tl1 = shape.getTopLeftPoint();
-//		IPoint br1 = shape.getBottomRightPoint();
-//
-//		shape.scale(1.5, 1, Position.WEST);
-//		IPoint tl2 = shape.getTopLeftPoint();
-//		IPoint br2 = shape.getBottomRightPoint();
-//
-//		assertEquals((br1.getX()-tl1.getX())*1.5, br2.getX()-tl2.getX());
-//		shape.scale(1, 1.5, Position.NORTH);
-//		tl2 = shape.getTopLeftPoint();
-//		br2 = shape.getBottomRightPoint();
-//		assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
-//
-//		tl1 = shape.getTopLeftPoint();
-//		br1 = shape.getBottomRightPoint();
-//		shape.scale(1.5, 1, Position.EAST);
-//		tl2 = shape.getTopLeftPoint();
-//		br2 = shape.getBottomRightPoint();
-//		assertEquals((br1.getX()-tl1.getX())*1.5, br2.getX()-tl2.getX());
-//
-//		tl1 = shape.getTopLeftPoint();
-//		br1 = shape.getBottomRightPoint();
-//		shape.scale(1, 1.5, Position.SOUTH);
-//		tl2 = shape.getTopLeftPoint();
-//		br2 = shape.getBottomRightPoint();
-//		assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
-//	}
-//
-//
-//
-//
-//	@Test
-//	public void testScaleNE() {
-//		shape.setPosition(0, 2);
-//		shape.setWidth(2);
-//		shape.setHeight(4);
-//		IPoint tl1 = shape.getTopLeftPoint();
-//		IPoint br1 = shape.getBottomRightPoint();
-//
-//		shape.scale(2, 1.5, Position.NE);
-//		IPoint tl2 = shape.getTopLeftPoint();
-//		IPoint br2 = shape.getBottomRightPoint();
-//		assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
-//		assertEquals((br1.getX()-tl1.getX())*2., br2.getX()-tl2.getX());
-//	}
-//
-//
-//
-//	@Test
-//	public void testScaleSE() {
-//		shape.setPosition(0, 2);
-//		shape.setWidth(2);
-//		shape.setHeight(4);
-//		IPoint tl1 = shape.getTopLeftPoint();
-//		IPoint br1 = shape.getBottomRightPoint();
-//
-//		shape.scale(2, 1.5, Position.SE);
-//		IPoint tl2 = shape.getTopLeftPoint();
-//		IPoint br2 = shape.getBottomRightPoint();
-//		assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
-//		assertEquals((br1.getX()-tl1.getX())*2., br2.getX()-tl2.getX());
-//	}
-//
-//
-//	@Test
-//	public void testScaleSW() {
-//		shape.setPosition(0, 2);
-//		shape.setWidth(2);
-//		shape.setWidth(4);
-//		IPoint tl1 = shape.getTopLeftPoint();
-//		IPoint br1 = shape.getBottomRightPoint();
-//
-//		shape.scale(2, 1.5, Position.SW);
-//		IPoint tl2 = shape.getTopLeftPoint();
-//		IPoint br2 = shape.getBottomRightPoint();
-//		assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
-//		assertEquals((br1.getX()-tl1.getX())*2., br2.getX()-tl2.getX());
-//	}
-//
-//
-//	@Test
-//	public void testScaleNW() {
-//		shape.setPosition(0, 2);
-//		shape.setWidth(2);
-//		IPoint tl1 = shape.getTopLeftPoint();
-//		IPoint br1 = shape.getBottomRightPoint();
-//
-//		shape.scale(2, 1.5, Position.NW);
-//		IPoint tl2 = shape.getTopLeftPoint();
-//		IPoint br2 = shape.getBottomRightPoint();
-//		assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
-//		assertEquals((br1.getX()-tl1.getX())*2., br2.getX()-tl2.getX());
-//	}
-
+	//
+	//
+	// @Override
+	// @Test
+	// public void testScale() {
+	// shape.setPosition(0, 2);
+	// shape.setWidth(2);
+	// shape.setHeight(2);
+	// IPoint tl1 = shape.getTopLeftPoint();
+	// IPoint br1 = shape.getBottomRightPoint();
+	//
+	// shape.scale(1.5, 1, Position.WEST);
+	// IPoint tl2 = shape.getTopLeftPoint();
+	// IPoint br2 = shape.getBottomRightPoint();
+	//
+	// assertEquals((br1.getX()-tl1.getX())*1.5, br2.getX()-tl2.getX());
+	// shape.scale(1, 1.5, Position.NORTH);
+	// tl2 = shape.getTopLeftPoint();
+	// br2 = shape.getBottomRightPoint();
+	// assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
+	//
+	// tl1 = shape.getTopLeftPoint();
+	// br1 = shape.getBottomRightPoint();
+	// shape.scale(1.5, 1, Position.EAST);
+	// tl2 = shape.getTopLeftPoint();
+	// br2 = shape.getBottomRightPoint();
+	// assertEquals((br1.getX()-tl1.getX())*1.5, br2.getX()-tl2.getX());
+	//
+	// tl1 = shape.getTopLeftPoint();
+	// br1 = shape.getBottomRightPoint();
+	// shape.scale(1, 1.5, Position.SOUTH);
+	// tl2 = shape.getTopLeftPoint();
+	// br2 = shape.getBottomRightPoint();
+	// assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
+	// }
+	//
+	//
+	//
+	//
+	// @Test
+	// public void testScaleNE() {
+	// shape.setPosition(0, 2);
+	// shape.setWidth(2);
+	// shape.setHeight(4);
+	// IPoint tl1 = shape.getTopLeftPoint();
+	// IPoint br1 = shape.getBottomRightPoint();
+	//
+	// shape.scale(2, 1.5, Position.NE);
+	// IPoint tl2 = shape.getTopLeftPoint();
+	// IPoint br2 = shape.getBottomRightPoint();
+	// assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
+	// assertEquals((br1.getX()-tl1.getX())*2., br2.getX()-tl2.getX());
+	// }
+	//
+	//
+	//
+	// @Test
+	// public void testScaleSE() {
+	// shape.setPosition(0, 2);
+	// shape.setWidth(2);
+	// shape.setHeight(4);
+	// IPoint tl1 = shape.getTopLeftPoint();
+	// IPoint br1 = shape.getBottomRightPoint();
+	//
+	// shape.scale(2, 1.5, Position.SE);
+	// IPoint tl2 = shape.getTopLeftPoint();
+	// IPoint br2 = shape.getBottomRightPoint();
+	// assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
+	// assertEquals((br1.getX()-tl1.getX())*2., br2.getX()-tl2.getX());
+	// }
+	//
+	//
+	// @Test
+	// public void testScaleSW() {
+	// shape.setPosition(0, 2);
+	// shape.setWidth(2);
+	// shape.setWidth(4);
+	// IPoint tl1 = shape.getTopLeftPoint();
+	// IPoint br1 = shape.getBottomRightPoint();
+	//
+	// shape.scale(2, 1.5, Position.SW);
+	// IPoint tl2 = shape.getTopLeftPoint();
+	// IPoint br2 = shape.getBottomRightPoint();
+	// assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
+	// assertEquals((br1.getX()-tl1.getX())*2., br2.getX()-tl2.getX());
+	// }
+	//
+	//
+	// @Test
+	// public void testScaleNW() {
+	// shape.setPosition(0, 2);
+	// shape.setWidth(2);
+	// IPoint tl1 = shape.getTopLeftPoint();
+	// IPoint br1 = shape.getBottomRightPoint();
+	//
+	// shape.scale(2, 1.5, Position.NW);
+	// IPoint tl2 = shape.getTopLeftPoint();
+	// IPoint br2 = shape.getBottomRightPoint();
+	// assertEquals((br1.getY()-tl1.getY())*1.5, br2.getY()-tl2.getY());
+	// assertEquals((br1.getX()-tl1.getX())*2., br2.getX()-tl2.getX());
+	// }
 
 	@Override
 	@Test
@@ -192,7 +185,6 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		HelperTest.assertEqualsDouble(0., shape.getBottomLeftPoint().getY());
 	}
 
-
 	@Override
 	@Test
 	public void testGetBottomRightPoint() {
@@ -202,7 +194,6 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		HelperTest.assertEqualsDouble(-5., shape.getBottomRightPoint().getX());
 		HelperTest.assertEqualsDouble(100., shape.getBottomRightPoint().getY());
 	}
-
 
 	@Override
 	@Test
@@ -214,7 +205,6 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		HelperTest.assertEqualsDouble(0., shape.getTopLeftPoint().getY());
 	}
 
-
 	@Override
 	@Test
 	public void testGetTopRightPoint() {
@@ -225,15 +215,14 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		HelperTest.assertEqualsDouble(0., shape.getTopRightPoint().getY());
 	}
 
-
 	@Override
 	@Test
 	public void testMirrorHorizontal() {
-		IPoint pt2 = ShapeFactory.createPoint(3,1);
-		IPoint pt4 = ShapeFactory.createPoint(1,3);
+		IPoint pt2 = ShapeFactory.createPoint(3, 1);
+		IPoint pt4 = ShapeFactory.createPoint(1, 3);
 
 		shape.setPosition(pt4);
-		shape.setWidth(pt2.getX()-pt4.getX());
+		shape.setWidth(pt2.getX() - pt4.getX());
 
 		shape.mirrorHorizontal(shape.getGravityCentre());
 		HelperTest.assertEqualsDouble(3., shape.getPtAt(0).getX());
@@ -246,15 +235,14 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		HelperTest.assertEqualsDouble(3., shape.getPtAt(-1).getY());
 	}
 
-
 	@Override
 	@Test
 	public void testMirrorVertical() {
-		IPoint pt2 = ShapeFactory.createPoint(3,1);
-		IPoint pt4 = ShapeFactory.createPoint(1,3);
+		IPoint pt2 = ShapeFactory.createPoint(3, 1);
+		IPoint pt4 = ShapeFactory.createPoint(1, 3);
 
 		shape.setPosition(pt4);
-		shape.setWidth(pt2.getX()-pt4.getX());
+		shape.setWidth(pt2.getX() - pt4.getX());
 
 		shape.mirrorVertical(shape.getGravityCentre());
 		HelperTest.assertEqualsDouble(1., shape.getPtAt(0).getX());
@@ -267,16 +255,14 @@ public abstract class TestISquaredShape<T extends ISquaredShape> extends TestIPo
 		HelperTest.assertEqualsDouble(1., shape.getPtAt(-1).getY());
 	}
 
-
-
 	@Override
 	@Test
 	public void testTranslate() {
-		IPoint pt2 = ShapeFactory.createPoint(3,1);
-		IPoint pt4 = ShapeFactory.createPoint(1,3);
+		IPoint pt2 = ShapeFactory.createPoint(3, 1);
+		IPoint pt4 = ShapeFactory.createPoint(1, 3);
 
 		shape.setPosition(pt4);
-		shape.setWidth(pt2.getX()-pt4.getX());
+		shape.setWidth(pt2.getX() - pt4.getX());
 
 		shape.translate(10, 0);
 		HelperTest.assertEqualsDouble(11., shape.getPtAt(0).getX());

@@ -10,12 +10,11 @@ public abstract class TestLoadSaveSVGModifiablePointsShape<T extends IModifiable
 		super.compareShapes(r2);
 		assertEquals(shape.getNbPoints(), r2.getNbPoints());
 
-		for(int i=0, size=shape.getNbPoints(); i<size; i++) {
+		for(int i = 0, size = shape.getNbPoints(); i < size; i++) {
 			assertEquals(shape.getPtAt(i).getX(), r2.getPtAt(i).getX(), 0.0001);
 			assertEquals(shape.getPtAt(i).getY(), r2.getPtAt(i).getY(), 0.0001);
 		}
 	}
-
 
 	@Override
 	protected void setDefaultDimensions() {

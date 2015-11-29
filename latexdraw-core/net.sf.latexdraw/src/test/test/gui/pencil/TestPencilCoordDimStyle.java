@@ -31,12 +31,12 @@ public class TestPencilCoordDimStyle extends TestCoordDimShapeGUI {
 			}
 		};
 	}
-	
+
 	@Test
 	public void testControllerNotActivatedWithPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns, checkInsDeactivated).execute();
 	}
-	
+
 	@Test
 	public void testControllerNotVisibleWithPencil() {
 		new CompositeGUIVoidCommand(activatePencil, pencilCreatesRec, updateIns).execute();

@@ -22,18 +22,20 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 		return 1;
 	}
 
+	public IPolyline getLine() {
+		return (IPolyline)group.getShapeAt(0);
+	}
 
-	public IPolyline getLine() { return (IPolyline)group.getShapeAt(0); }
-
-
-	@Test public void testFilling() {
+	@Test
+	public void testFilling() {
 		final IPolyline line = getLine();
 		assertTrue(line.isFilled());
 		assertEquals(ShapeFactory.createColorInt(183, 44, 44), line.getFillingCol());
 		assertEquals(FillingStyle.PLAIN, line.getFillingStyle());
 	}
 
-	@Test public void testPoints() {
+	@Test
+	public void testPoints() {
 		final IPolyline line = getLine();
 		assertEquals(6, line.getNbPoints());
 		assertEquals(260.0, line.getPtAt(0).getX(), 0.001);
@@ -50,15 +52,16 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 		assertEquals(120.0, line.getPtAt(5).getY(), 0.001);
 	}
 
-
-	@Test public void testLine() {
+	@Test
+	public void testLine() {
 		final IPolyline line = getLine();
 		assertEquals(10.0, line.getThickness(), 0.01);
 		assertEquals(ShapeFactory.createColorInt(22, 131, 175), line.getLineColour());
 		assertEquals(LineStyle.DASHED, line.getLineStyle());
 	}
 
-	@Test public void testShadow() {
+	@Test
+	public void testShadow() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasShadow());
 		assertEquals(ShapeFactory.createColorInt(101, 224, 41), line.getShadowCol());
@@ -66,7 +69,8 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 		assertEquals(20.0, line.getShadowSize(), 0.0001);
 	}
 
-	@Test public void testArrows() {
+	@Test
+	public void testArrows() {
 		final IPolyline line = getLine();
 		assertEquals(ArrowStyle.LEFT_SQUARE_BRACKET, line.getArrowStyle(0));
 		assertEquals(ArrowStyle.CIRCLE_END, line.getArrowStyle(-1));
@@ -77,7 +81,8 @@ public class TestLoadMultiLinesV2 extends TestLoadSVGFile {
 		assertEquals(10.0, line.getTBarSizeNum(), 0.0001);
 	}
 
-	@Test public void testDbleBorder() {
+	@Test
+	public void testDbleBorder() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasDbleBord());
 		assertEquals(ShapeFactory.createColorInt(213, 240, 66), line.getDbleBordCol());

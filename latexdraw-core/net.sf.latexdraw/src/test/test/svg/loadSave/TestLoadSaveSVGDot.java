@@ -17,22 +17,19 @@ public class TestLoadSaveSVGDot extends TestLoadSaveSVGPositionShape<IDot> {
 		shape = ShapeFactory.createDot(ShapeFactory.createPoint());
 	}
 
-	private void setDot(final double x, final double y, final DotStyle style, final double size,
-						final Color lineCol, final Color fillCol) {
+	private void setDot(final double x, final double y, final DotStyle style, final double size, final Color lineCol, final Color fillCol) {
 		shape.setPosition(x, y);
 		shape.setDotStyle(style);
 		shape.setDiametre(size);
 		shape.setLineColour(lineCol);
-		if(fillCol!=null)
+		if(fillCol != null)
 			shape.setFillingCol(fillCol);
 	}
-
 
 	@Override
 	protected void setDefaultDimensions() {
 		//
 	}
-
 
 	@Override
 	protected void compareShapes(IDot d2) {
@@ -63,7 +60,6 @@ public class TestLoadSaveSVGDot extends TestLoadSaveSVGPositionShape<IDot> {
 		setDot(11.3, 82, DotStyle.SQUARE, 22, DviPsColors.DARKGRAY, DviPsColors.YELLOW);
 		compareShapes(generateShape());
 	}
-
 
 	@Test
 	public void testLoadSaveDotFSQUARE() {
@@ -131,13 +127,11 @@ public class TestLoadSaveSVGDot extends TestLoadSaveSVGPositionShape<IDot> {
 		compareShapes(generateShape());
 	}
 
-
 	@Test
 	public void testLoadSaveDotASTERISK() {
 		setDot(-20, 12.12, DotStyle.ASTERISK, 22, DviPsColors.BLUE, null);
 		compareShapes(generateShape());
 	}
-
 
 	@Test
 	public void testLoadSaveDotBAR() {

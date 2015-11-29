@@ -22,11 +22,12 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 		return 1;
 	}
 
+	public IPolyline getLine() {
+		return (IPolyline)group.getShapeAt(0);
+	}
 
-	public IPolyline getLine() { return (IPolyline)group.getShapeAt(0); }
-
-
-	@Test public void testPoints() {
+	@Test
+	public void testPoints() {
 		final IPolyline line = getLine();
 		assertEquals(2, line.getNbPoints());
 		assertEquals(140.0, line.getPtAt(0).getX(), 0.001);
@@ -35,15 +36,16 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 		assertEquals(40.0, line.getPtAt(1).getY(), 0.001);
 	}
 
-
-	@Test public void testLine() {
+	@Test
+	public void testLine() {
 		final IPolyline line = getLine();
 		assertEquals(5, line.getThickness(), 0.01);
 		assertEquals(ShapeFactory.createColorInt(209, 169, 169), line.getLineColour());
 		assertEquals(LineStyle.DASHED, line.getLineStyle());
 	}
 
-	@Test public void testShadow() {
+	@Test
+	public void testShadow() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasShadow());
 		assertEquals(DviPsColors.INSTANCE.convertHTML2rgb("#e9e937"), line.getShadowCol()); //$NON-NLS-1$
@@ -51,7 +53,8 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 		assertEquals(10.0, line.getShadowSize(), 0.0001);
 	}
 
-	@Test public void testArrows() {
+	@Test
+	public void testArrows() {
 		final IPolyline line = getLine();
 		assertEquals(ArrowStyle.DISK_IN, line.getArrowStyle(0));
 		assertEquals(ArrowStyle.RIGHT_ARROW, line.getArrowStyle(1));
@@ -63,7 +66,8 @@ public class TestLoadLineV2 extends TestLoadSVGFile {
 		assertEquals(2.65, line.getArrowSizeDim(), 0.01);
 	}
 
-	@Test public void testDbleBorder() {
+	@Test
+	public void testDbleBorder() {
 		final IPolyline line = getLine();
 		assertTrue(line.hasDbleBord());
 		assertEquals(ShapeFactory.createColorInt(224, 197, 227), line.getDbleBordCol());

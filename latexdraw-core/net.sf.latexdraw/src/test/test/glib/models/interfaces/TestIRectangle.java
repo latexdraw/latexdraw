@@ -1,6 +1,5 @@
 package test.glib.models.interfaces;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
@@ -8,7 +7,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import org.junit.Test;
 
 import test.HelperTest;
-
 
 public abstract class TestIRectangle<T extends IRectangle> extends TestIRectangularShape<T> {
 	@Override
@@ -21,8 +19,6 @@ public abstract class TestIRectangle<T extends IRectangle> extends TestIRectangu
 		HelperTest.assertEqualsDouble(0.55, shape.getLineArc());
 		assertTrue(shape.isRoundCorner());
 	}
-
-
 
 	@Test
 	public void testGetSetLineArc() {
@@ -43,8 +39,6 @@ public abstract class TestIRectangle<T extends IRectangle> extends TestIRectangu
 		shape.setLineArc(Double.POSITIVE_INFINITY);
 		HelperTest.assertEqualsDouble(0., shape.getLineArc());
 	}
-
-
 
 	@Test
 	public void testIsSetRound() {

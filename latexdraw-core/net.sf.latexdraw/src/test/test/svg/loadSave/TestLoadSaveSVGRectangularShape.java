@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public abstract class TestLoadSaveSVGRectangularShape<T extends IRectangularShape> extends TestLoadSaveSVGPositionShape<T> {
 	protected void setRectangle(final double x, final double y, final double w, final double h) {
-		shape.setPosition(x, y+h);
+		shape.setPosition(x, y + h);
 		shape.setWidth(w);
 		shape.setHeight(h);
 	}
@@ -18,7 +18,6 @@ public abstract class TestLoadSaveSVGRectangularShape<T extends IRectangularShap
 	protected void setDefaultDimensions() {
 		setRectangle(2, 30, 20, 12);
 	}
-
 
 	@Override
 	protected void compareShapes(final T r2) {
@@ -29,25 +28,26 @@ public abstract class TestLoadSaveSVGRectangularShape<T extends IRectangularShap
 		assertEquals(shape.getHeight(), r2.getHeight(), 0.0001);
 	}
 
-
-	@Test public void testDimensionOkWith00Position() {
+	@Test
+	public void testDimensionOkWith00Position() {
 		setRectangle(0, 0, 10, 10);
 		compareShapes(generateShape());
 	}
 
-
-	@Test public void testDimensionOkWithPositivePosition() {
+	@Test
+	public void testDimensionOkWithPositivePosition() {
 		setRectangle(5, 5, 10, 10);
 		compareShapes(generateShape());
 	}
 
-
-	@Test public void testDimensionOkWithNegPosition() {
+	@Test
+	public void testDimensionOkWithNegPosition() {
 		setRectangle(-21, -829, 923, 5);
 		compareShapes(generateShape());
 	}
 
-	@Test public void testDimensionOkWith00PositionAndMiddleBord() {
+	@Test
+	public void testDimensionOkWith00PositionAndMiddleBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.MID);
 			setRectangle(0, 0, 10, 10);
@@ -55,8 +55,8 @@ public abstract class TestLoadSaveSVGRectangularShape<T extends IRectangularShap
 		}
 	}
 
-
-	@Test public void testDimensionOkWithPositivePositionAndMiddleBord() {
+	@Test
+	public void testDimensionOkWithPositivePositionAndMiddleBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.MID);
 			setRectangle(5, 5, 10, 10);
@@ -64,8 +64,8 @@ public abstract class TestLoadSaveSVGRectangularShape<T extends IRectangularShap
 		}
 	}
 
-
-	@Test public void testDimensionOkWithNegPositionAndMiddleBord() {
+	@Test
+	public void testDimensionOkWithNegPositionAndMiddleBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.MID);
 			setRectangle(-21, -829, 923, 5);
@@ -73,7 +73,8 @@ public abstract class TestLoadSaveSVGRectangularShape<T extends IRectangularShap
 		}
 	}
 
-	@Test public void testDimensionOkWith00PositionAndOutBord() {
+	@Test
+	public void testDimensionOkWith00PositionAndOutBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.OUT);
 			setRectangle(0, 0, 10, 10);
@@ -81,8 +82,8 @@ public abstract class TestLoadSaveSVGRectangularShape<T extends IRectangularShap
 		}
 	}
 
-
-	@Test public void testDimensionOkWithPositivePositionAndOutBord() {
+	@Test
+	public void testDimensionOkWithPositivePositionAndOutBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.OUT);
 			setRectangle(5, 5, 10, 10);
@@ -90,8 +91,8 @@ public abstract class TestLoadSaveSVGRectangularShape<T extends IRectangularShap
 		}
 	}
 
-
-	@Test public void testDimensionOkWithNegPositionAndOutBord() {
+	@Test
+	public void testDimensionOkWithNegPositionAndOutBord() {
 		if(shape.isBordersMovable()) {
 			shape.setBordersPosition(BorderPos.OUT);
 			setRectangle(-21, -829, 923, 5);

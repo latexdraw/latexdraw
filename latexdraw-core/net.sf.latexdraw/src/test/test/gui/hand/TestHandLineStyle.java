@@ -38,14 +38,12 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 			}
 		};
 	}
-	
 
 	@Test
 	public void testControllerNotActivatedWhenSelectionEmpty() {
 		new CompositeGUIVoidCommand(activateHand, updateIns, checkInsDeactivated).execute();
 	}
-	
-	
+
 	@Test
 	public void testControllerActivatedWhenSelectionNotEmpty() {
 		new CompositeGUIVoidCommand(selectionAddRec, activateHand, updateIns).execute();
@@ -63,7 +61,6 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		assertFalse(showPoints.isVisible());
 	}
 
-	
 	@Test
 	public void testChangeFrameArcSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
@@ -74,8 +71,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		assertEquals(newVal, ((IRectangle)hand.getCanvas().getDrawing().getSelection().getShapeAt(1)).getLineArc(), 0.001);
 		assertNotEquals(val, newVal);
 	}
-	
-	
+
 	@Test
 	public void testChangeThicknessSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
@@ -86,7 +82,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		assertEquals(newVal, hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getThickness(), 0.001);
 		assertNotEquals(val, newVal);
 	}
-	
+
 	@Test
 	public void testSelectBorderPosSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
@@ -97,7 +93,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getBordersPosition());
 		assertNotEquals(style, newStyle);
 	}
-	
+
 	@Test
 	public void testSelectLineStyleSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddRec, updateIns).execute();
@@ -108,7 +104,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		assertEquals(newStyle, hand.getCanvas().getDrawing().getSelection().getShapeAt(1).getLineStyle());
 		assertNotEquals(style, newStyle);
 	}
-	
+
 	@Test
 	public void testCheckShowPointSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddBezier, selectionAddBezier, updateIns).execute();
@@ -117,8 +113,7 @@ public class TestHandLineStyle extends TestLineStyleGUI {
 		assertEquals(!sel, hand.getCanvas().getDrawing().getSelection().getShapeAt(0).isShowPts());
 		assertEquals(!sel, hand.getCanvas().getDrawing().getSelection().getShapeAt(1).isShowPts());
 	}
-	
-	
+
 	@Test
 	public void testPickLineColourSelection() {
 		new CompositeGUIVoidCommand(activateHand, selectionAddRec, selectionAddBezier, updateIns).execute();

@@ -5,174 +5,146 @@ import org.junit.Test;
 public abstract class TestIArrow {
 	@Test
 	public void testIsWithoutStyle() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetArrowStyleString() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetArrowStyleArrowStyle() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetDotSizeDim() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetDotSizeNum() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetPosition() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetTBarSizeNum() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetTBarSizeDim() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetTBarSizeDim() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetTBarSizeNum() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetRBracketNum() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetBracketNum() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetArrowLength() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetArrowSizeDim() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetArrowSizeNum() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetArrowInset() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetArrowStyle() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetDotSizeDim() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetDotSizeNum() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testIsLeftArrow() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetBracketNum() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testIsInverted() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetArrowSizeNum() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetArrowSizeDim() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetArrowInset() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetArrowLength() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetRBracketNum() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testGetShape() {
-		//TODO
+		// TODO
 	}
-
 
 	@Test
 	public void testSetShape() {
-		//TODO
+		// TODO
 	}
 }

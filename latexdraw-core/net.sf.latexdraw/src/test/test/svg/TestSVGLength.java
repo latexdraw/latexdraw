@@ -14,16 +14,15 @@ public class TestSVGLength {
 		try {
 			new SVGLength(1, null, "1"); //$NON-NLS-1$
 			fail();
-		}
-		catch(IllegalArgumentException e){ /* */ }
+		}catch(IllegalArgumentException e) {
+			/* */ }
 
 		try {
 			new SVGLength(1, LengthType.CM, null);
 			fail();
-		}
-		catch(IllegalArgumentException e){ /* */ }
+		}catch(IllegalArgumentException e) {
+			/* */ }
 	}
-
 
 	@Test
 	public void testGetters() {

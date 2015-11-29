@@ -38,14 +38,13 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 		BadaboomCollector.INSTANCE.clear();
 		waitFXEvents.execute();
 	}
-	
+
 	@After
 	public void tearDown() throws TimeoutException {
 		FxToolkit.hideStage();
-	    release(new KeyCode[] {});
-	    release(new MouseButton[] {});
+		release(new KeyCode[] {});
+		release(new MouseButton[] {});
 	}
-	
 
 	@Override
 	public void start(Stage stage) {
@@ -61,7 +60,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public <T extends Node> T find(String query) {
 		return lookup(query).queryFirst();
 	}

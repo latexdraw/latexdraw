@@ -30,7 +30,6 @@ public class TestDotStyle {
 		assertTrue(DotStyle.TRIANGLE.isFillable());
 	}
 
-
 	@Test
 	public void testGetStyle() {
 		assertEquals(DotStyle.getStyle(PSTricksConstants.ASTERISK_STYLE), DotStyle.ASTERISK);

@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -26,7 +25,6 @@ public class TestLRectangle extends TestIRectangle<IRectangle> {
 		shape2 = ShapeFactory.createRectangle();
 	}
 
-
 	@Override
 	@Test
 	public void testIsTypeOf() {
@@ -41,78 +39,77 @@ public class TestLRectangle extends TestIRectangle<IRectangle> {
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 
-
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNullPoint1() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(), null);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNullPoint2() {
 		ShapeFactory.createRectangle(null, ShapeFactory.createPoint());
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNullPoint3() {
 		ShapeFactory.createRectangle(null, null);
 	}
 
-	@Test(expected=NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void testConstructorNullPoint4() {
 		ShapeFactory.createRectangle(null, 10, 10);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid1() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(Double.NaN, 0), 10, 10);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid2() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), -10, 10);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid3() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), Double.NaN, 10);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid4() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), Double.POSITIVE_INFINITY, 10);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid5() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), Double.NEGATIVE_INFINITY, 10);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid6() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 0, 10);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid7() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 10, 0);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid8() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 10, -10);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid9() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 10, Double.NaN);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid10() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 10, Double.NEGATIVE_INFINITY);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid11() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(0, 0), 10, Double.POSITIVE_INFINITY);
 	}

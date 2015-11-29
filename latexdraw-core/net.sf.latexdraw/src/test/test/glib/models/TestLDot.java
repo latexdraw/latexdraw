@@ -1,6 +1,5 @@
 package test.glib.models;
 
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -20,10 +19,9 @@ import test.glib.models.interfaces.TestIDot;
 public class TestLDot extends TestIDot<IDot> {
 	@Before
 	public void setUp() {
-		shape  = ShapeFactory.createDot(ShapeFactory.createPoint());
+		shape = ShapeFactory.createDot(ShapeFactory.createPoint());
 		shape2 = ShapeFactory.createDot(ShapeFactory.createPoint());
 	}
-
 
 	@Override
 	@Test
@@ -38,24 +36,22 @@ public class TestLDot extends TestIDot<IDot> {
 		assertTrue(shape.isTypeOf(shape.getClass()));
 	}
 
-
 	@Test
 	public void testConstructor1() {
 		IDot dot1 = ShapeFactory.createDot(ShapeFactory.createPoint());
 
-		assertTrue(dot1.getDiametre()>0);
+		assertTrue(dot1.getDiametre() > 0);
 		assertNotNull(dot1.getDotStyle());
 		assertNotNull(dot1.getPosition());
 		HelperTest.assertEqualsDouble(0., dot1.getPosition().getX());
 		HelperTest.assertEqualsDouble(0., dot1.getPosition().getY());
 	}
 
-
 	@Test
 	public void testConstructor3() {
 		IDot dot1 = ShapeFactory.createDot(null);
 
-		assertTrue(dot1.getDiametre()>0);
+		assertTrue(dot1.getDiametre() > 0);
 		assertNotNull(dot1.getDotStyle());
 		assertNotNull(dot1.getPosition());
 		HelperTest.assertEqualsDouble(0., dot1.getPosition().getX());
