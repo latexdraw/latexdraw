@@ -49,7 +49,7 @@ import java.util.stream.Collectors
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-private[impl] class LGroup() extends LShape()
+private[impl] class LGroup() extends IShape
 			with LGroupArc with LGroupArrowable with LGroupAxes
 			with LGroupDot with LGroupFreeHand with LGroupLineArc
 			with LGroupGrid with LGroupShape with LGroupStdGrid
@@ -57,12 +57,11 @@ private[impl] class LGroup() extends LShape()
 
 	override def duplicate() = duplicateDeep(true)
 
-
-	override def setModified(modified : Boolean) = {
-		getShapes.forEach{sh => sh.setModified(modified)}
-		super.setModified(modified)
+	override def setModified(modified : Boolean) {
+		getShapes.forEach{_.setModified(modified)}
 	}
 
+	override def isModified() = getShapes.stream.filter{_.isModified}.findAny.isPresent
 
 	override def duplicateDeep(duplicateShapes : Boolean) : IGroup = {
 		val dup = ShapeFactory.createGroup()
@@ -87,7 +86,7 @@ private[impl] class LGroup() extends LShape()
 		return shapes.stream().filter{_.isTypeOf(clazz)}.findAny.isPresent
 	}
 
-	override def setPlotPolarList(values:List[java.lang.Boolean]) = {
+	override def setPlotPolarList(values:List[java.lang.Boolean]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -105,7 +104,7 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def setYScaleList(values : List[java.lang.Double]) = {
+	override def setYScaleList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -123,7 +122,7 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def setXScaleList(values : List[java.lang.Double]) = {
+	override def setXScaleList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -141,7 +140,7 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def setPlotMinXList(values : List[java.lang.Double]) = {
+	override def setPlotMinXList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -159,7 +158,7 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def setPlotMaxXList(values : List[java.lang.Double]) = {
+	override def setPlotMaxXList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -177,7 +176,7 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def setNbPlottedPointsList(values : List[java.lang.Integer]) = {
+	override def setNbPlottedPointsList(values : List[java.lang.Integer]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -195,7 +194,7 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def setPlotStyleList(values : List[PlotStyle]) = {
+	override def setPlotStyleList(values : List[PlotStyle]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -213,7 +212,7 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def setPlotEquationList(values : List[String]) = {
+	override def setPlotEquationList(values : List[String]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -231,7 +230,7 @@ private[impl] class LGroup() extends LShape()
 		return list
 	}
 
-	override def setFreeHandIntervalList(values : List[java.lang.Integer]) = {
+	override def setFreeHandIntervalList(values : List[java.lang.Integer]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -251,7 +250,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setFreeHandOpenList(values : List[java.lang.Boolean]) = {
+	override def setFreeHandOpenList(values : List[java.lang.Boolean]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -271,7 +270,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setGridLabelsColourList(values : List[Color]) = {
+	override def setGridLabelsColourList(values : List[Color]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -284,7 +283,7 @@ private[impl] class LGroup() extends LShape()
 	override def getGridLabelsColourList: List[Color] = 
 	  getShapes.stream.map[Color]{case sh:IGridProp => sh.getGridLabelsColour; case _ => DviPsColors.BLACK}.collect(Collectors.toList())
 
-	override def setSubGridColourList(values : List[Color]) = {
+	override def setSubGridColourList(values : List[Color]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -297,7 +296,7 @@ private[impl] class LGroup() extends LShape()
 	override def getSubGridColourList: List[Color] = 
 	  getShapes.stream.map[Color]{case sh:IGridProp => sh.getSubGridColour; case _ => DviPsColors.BLACK}.collect(Collectors.toList())
 
-	override def setGridWidthList(values : List[java.lang.Double]) = {
+	override def setGridWidthList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -317,7 +316,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setSubGridWidthList(values : List[java.lang.Double]) = {
+	override def setSubGridWidthList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -337,7 +336,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setGridDotsList(values : List[java.lang.Integer]) = {
+	override def setGridDotsList(values : List[java.lang.Integer]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -357,7 +356,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setSubGridDotsList(values : List[java.lang.Integer]) = {
+	override def setSubGridDotsList(values : List[java.lang.Integer]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -377,7 +376,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setSubGridDivList(values : List[java.lang.Integer]) = {
+	override def setSubGridDivList(values : List[java.lang.Integer]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -397,7 +396,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setFreeHandTypeList(values : List[FreeHandStyle]) = {
+	override def setFreeHandTypeList(values : List[FreeHandStyle]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -433,7 +432,7 @@ private[impl] class LGroup() extends LShape()
 	override def getAxesLabelsDisplayedList: List[PlottingStyle] = 
 	  getShapes.stream.map[PlottingStyle]{case sh:IAxesProp => sh.getLabelsDisplayed; case _ => PlottingStyle.NONE}.collect(Collectors.toList())
 
-	override def setAxesShowOriginList(values : List[java.lang.Boolean]) = {
+	override def setAxesShowOriginList(values : List[java.lang.Boolean]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -453,7 +452,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setAxesTicksStyleList(values : List[TicksStyle]) = {
+	override def setAxesTicksStyleList(values : List[TicksStyle]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -465,7 +464,7 @@ private[impl] class LGroup() extends LShape()
 	override def getAxesTicksStyleList: List[TicksStyle] = 
 	  getShapes.stream.map[TicksStyle]{case sh:IAxesProp => sh.getTicksStyle; case _ => TicksStyle.FULL}.collect(Collectors.toList())
 
-	override def setAxesTicksSizeList(values : List[java.lang.Double]) = {
+	override def setAxesTicksSizeList(values : List[java.lang.Double]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -485,7 +484,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setAxesTicksDisplayedList(values : List[PlottingStyle]) = {
+	override def setAxesTicksDisplayedList(values : List[PlottingStyle]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -529,7 +528,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setGridXLabelSouthList(values : List[java.lang.Boolean]) = {
+	override def setGridXLabelSouthList(values : List[java.lang.Boolean]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -549,7 +548,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setGridYLabelWestList(values : List[java.lang.Boolean]) = {
+	override def setGridYLabelWestList(values : List[java.lang.Boolean]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -569,7 +568,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setAxesStyleList(values : List[AxesStyle]) = {
+	override def setAxesStyleList(values : List[AxesStyle]) {
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size)
 				shapes.get(i) match {
@@ -581,7 +580,7 @@ private[impl] class LGroup() extends LShape()
 	override def getAxesStyleList: List[AxesStyle] = 
 	  getShapes.stream.map[AxesStyle]{case sh:IAxesProp => sh.getAxesStyle; case _ => AxesStyle.NONE}.collect(Collectors.toList())
 
-	override def setGridOriginList(values : List[IPoint]) = {
+	override def setGridOriginList(values : List[IPoint]) {
 		var pt : IPoint = null
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size) {
@@ -594,7 +593,7 @@ private[impl] class LGroup() extends LShape()
 	override def getGridOriginList: List[IPoint] =
 		getShapes.stream.map[IPoint]{case sh:IStdGridProp => ShapeFactory.createPoint(sh.getOriginX, sh.getOriginY); case _ => null}.collect(Collectors.toList())
 
-	override def setGridEndList(values : List[IPoint]) = {
+	override def setGridEndList(values : List[IPoint]) {
 		var pt : IPoint = null
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size) {
@@ -605,7 +604,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setGridStartList(values : List[IPoint]) = {
+	override def setGridStartList(values : List[IPoint]) {
 		var pt : IPoint = null
 		if(values!=null && values.size==shapes.size)
 			for(i <- 0 until values.size) {
@@ -624,7 +623,7 @@ private[impl] class LGroup() extends LShape()
 
 	override def getLineColourList: List[Color] = getShapes.stream.map[Color]{_.getLineColour}.collect(Collectors.toList())
 
-	override def setBordersPositionList(list : List[BorderPos]) = {
+	override def setBordersPositionList(list : List[BorderPos]) {
 		if(list!=null && list.size==shapes.size)
 			for(i <- 0 until list.size)
 				if(shapes.get(i).isBordersMovable)
@@ -632,7 +631,7 @@ private[impl] class LGroup() extends LShape()
 	}
 
 
-	override def setLineColourList(list : List[Color]) = {
+	override def setLineColourList(list : List[Color]) {
 		if(list!=null && list.size==shapes.size)
 			for(i <- 0 until list.size)
 				shapes.get(i).setLineColour(list.get(i))

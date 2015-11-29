@@ -2,7 +2,6 @@ package net.sf.latexdraw.glib.models.impl
 
 import java.awt.geom.Rectangle2D
 import java.util.Optional
-
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos
 import net.sf.latexdraw.glib.models.interfaces.shape.Color
@@ -16,6 +15,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IStandardGrid
 import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle
 import net.sf.latexdraw.glib.models.interfaces.shape.Position
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants
+import java.util.Collections
 
 /**
  * This trait encapsulates the code of the group related to the support of the general shape's properties.<br>
@@ -36,6 +36,80 @@ import net.sf.latexdraw.glib.views.pst.PSTricksConstants
  * @since 3.0
  */
 private[impl] trait LGroupShape extends IGroup {
+  override def copy(sh: IShape) {
+    //TODO
+  }
+  
+  override def getBorderGap() = if(getShapes.isEmpty) 0.0 else getShapes.get(0).getBorderGap
+  
+  override def getDashSepBlack() =
+		getShapes.stream.filter{_.isLineStylable}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getDashSepBlack()
+			case _ => Double.NaN
+		}
+		
+  override def getDashSepWhite() = 
+		getShapes.stream.filter{_.isLineStylable}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getDashSepWhite()
+			case _ => Double.NaN
+		}
+		
+  override def getDotSep() = 
+		getShapes.stream.filter{_.isLineStylable}.findFirst match {
+			case opt:Optional[IShape] if(opt.isPresent) => opt.get.getDotSep()
+			case _ => Double.NaN
+		}
+
+	override def getFullBottomRightPoint() = {
+		val gap = getBorderGap
+		val br = getBottomRightPoint
+		br.translate(gap, gap)
+		br
+	}
+
+	override def getFullTopLeftPoint() = {
+		val gap = getBorderGap
+		val tl = getTopLeftPoint
+		tl.translate(-gap, -gap)
+		tl
+	}
+  
+  override def getHeight() = if(getShapes.isEmpty) 0.0 else getShapes.get(0).getHeight
+  
+  override def getId() = hashCode
+  
+  override def getNbPoints() = 0
+  
+  override def getPoints() = Collections.emptyList()
+  
+  override def getPtAt(x$1: Int) = null
+  
+  override def getWidth() = if(getShapes.isEmpty) 0.0 else getShapes.get(0).getWidth
+  
+  override def lineColourProperty() = null
+  
+  override def linestyleProperty() = null
+  
+  override def borderPosProperty() = null
+
+  override def thicknessProperty() = null
+  
+  override def scaleWithRatio(x: Double,x$2: Double,x$3: net.sf.latexdraw.glib.models.interfaces.shape.Position,x$4: java.awt.geom.Rectangle2D): Unit = ???
+  
+  override def setDashSepBlack(dash: Double) {
+    getShapes.stream.filter{_.isLineStylable}.forEach{_.setDashSepBlack(dash)}
+  }
+  
+  override def setDashSepWhite(dash: Double) {
+    getShapes.stream.filter{_.isLineStylable}.forEach{_.setDashSepWhite(dash)}
+  }
+  
+  override def setDotSep(dot: Double) {
+    getShapes.stream.filter{_.isLineStylable}.forEach{_.setDotSep(dot)}
+  }
+  
+  override def shadowFillsShape() = getShapes.stream.filter{_.shadowFillsShape}.findAny.isPresent
+  
 	override def mirrorHorizontal(origin:IPoint) {
 		getShapes.forEach{_.mirrorHorizontal(origin)}
 	}

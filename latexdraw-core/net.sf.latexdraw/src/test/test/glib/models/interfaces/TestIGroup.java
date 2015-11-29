@@ -791,19 +791,28 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testGetSetHatchingsAngle() {
-		// TODO
+		init4setFill();
+		shape.setHatchingsAngle(15d);
+		assertEquals(15d, shape.getHatchingsAngle(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(15d, sh.getHatchingsAngle(), 0d));
 	}
 
 	@Override
 	@Test
 	public void testGetSetHatchingsWidth() {
-		// TODO
+		init4setFill();
+		shape.setHatchingsWidth(15d);
+		assertEquals(15d, shape.getHatchingsWidth(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isInteriorStylable()).forEach(sh -> assertEquals(15d, sh.getHatchingsWidth(), 0d));
 	}
 
 	@Override
 	@Test
 	public void testGetSetRotationAngle() {
-		// TODO
+		init4setFill();
+		shape.setRotationAngle(1);
+		assertEquals(1d, shape.getRotationAngle(), 0d);
+		shape.getShapes().stream().forEach(sh -> assertEquals(1d, sh.getRotationAngle(), 0d));
 	}
 
 	@Override
@@ -827,11 +836,27 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 		assertEquals(java.awt.Color.RED, shape.getDbleBordCol().toAWT());
 		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getDbleBordCol().toAWT()));
 	}
+	
+	@Override
+	@Test
+	public void testGetPtAt() {
+		assertNull(shape.getPtAt(0));
+	}
+	
+	@Override
+	@Test
+	public void testGetNbPoints() {
+		assertEquals(0, shape.getNbPoints());
+	}
 
 	@Override
 	@Test
 	public void testGetSetDbleBordSep() {
-		// TODO
+		init4setFill();
+		shape.setHasDbleBord(true);
+		shape.setDbleBordSep(15d);
+		assertEquals(15d, shape.getDbleBordSep(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertEquals(15d, sh.getDbleBordSep(), 0d));
 	}
 
 	@Override
@@ -853,7 +878,11 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testGetSetShadowAngle() {
-		// TODO
+		init4setFill();
+		shape.setHasShadow(true);
+		shape.setShadowAngle(1d);
+		assertEquals(1d, shape.getShadowAngle(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(1d, sh.getShadowAngle(), 0d));
 	}
 
 	@Override
@@ -868,7 +897,11 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testGetSetShadowSize() {
-		// TODO
+		init4setFill();
+		shape.setHasShadow(true);
+		shape.setShadowSize(1d);
+		assertEquals(1d, shape.getShadowSize(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(1d, sh.getShadowSize(), 0d));
 	}
 
 	@Override
@@ -880,7 +913,10 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testSetGetThickness() {
-		// TODO
+		init4setFill();
+		shape.setThickness(10d);
+		assertEquals(10d, shape.getThickness(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isThicknessable()).forEach(sh -> assertEquals(10d, sh.getThickness(), 0d));
 	}
 
 	@Override
@@ -901,19 +937,28 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Override
 	@Test
 	public void testSetGetDashSepWhite() {
-		// TODO
+		init4setFill();
+		shape.setDashSepWhite(15d);
+		assertEquals(15d, shape.getDashSepWhite(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> assertEquals(15d, sh.getDashSepWhite(), 0d));
 	}
 
 	@Override
 	@Test
 	public void testSetGetDashSepBlack() {
-		// TODO
+		init4setFill();
+		shape.setDashSepBlack(15d);
+		assertEquals(15d, shape.getDashSepBlack(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> assertEquals(15d, sh.getDashSepBlack(), 0d));
 	}
 
 	@Override
 	@Test
 	public void testSetGetDotSep() {
-		// TODO
+		init4setFill();
+		shape.setDotSep(15d);
+		assertEquals(15d, shape.getDotSep(), 0d);
+		shape.getShapes().stream().filter(sh -> sh.isLineStylable()).forEach(sh -> assertEquals(15d, sh.getDotSep(), 0d));
 	}
 
 	@Override
