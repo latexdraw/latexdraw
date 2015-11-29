@@ -470,11 +470,6 @@ public interface IShape extends Modifiable {
 	IPoint getGravityCentre();
 
 	/**
-	 * @return the id.
-	 */
-	int getId();
-
-	/**
 	 * @return the isFilled.
 	 */
 	boolean isFilled();

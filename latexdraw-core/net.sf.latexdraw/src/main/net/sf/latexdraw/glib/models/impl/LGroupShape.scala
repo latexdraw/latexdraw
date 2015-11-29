@@ -76,8 +76,6 @@ private[impl] trait LGroupShape extends IGroup {
   
   override def getHeight() = if(getShapes.isEmpty) 0.0 else getShapes.get(0).getHeight
   
-  override def getId() = hashCode
-  
   override def getNbPoints() = 0
   
   override def getPoints() = Collections.emptyList()

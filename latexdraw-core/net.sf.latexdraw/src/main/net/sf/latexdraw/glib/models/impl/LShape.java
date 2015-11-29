@@ -335,11 +335,6 @@ abstract class LShape implements IShape {
 	}
 
 	@Override
-	public int getId() {
-		return hashCode();
-	}
-
-	@Override
 	public @NonNull Color getLineColour() {
 		return lineColour.get();
 	}

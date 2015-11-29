@@ -71,7 +71,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 	 * @since 2.0.0
 	 */
 	public String getSVGID() {
-		return "id" + shape.getId(); //$NON-NLS-1$
+		return "id" + shape.hashCode(); //$NON-NLS-1$
 	}
 
 
@@ -144,7 +144,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		final IArrow arrow = shape.getArrowAt(arrowPos);
 
 		if(arrow.getArrowStyle()!=ArrowStyle.NONE) {
-			final String arrowName 	= "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.getId(); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			final String arrowName 	= "arrow" + arrowPos + (isShadow ? "Shad-" : "-") + shape.hashCode(); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			final SVGElement arrowSVG = new LArrowSVGGenerator(arrow).toSVG(doc, isShadow);
 
 			arrowSVG.setAttribute(SVGAttributes.SVG_ID, arrowName);
@@ -555,7 +555,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        	if(fillStyle==FillingStyle.GRAD) {
 		        		final SVGElement grad	= new SVGLinearGradientElement(doc);
 		        		SVGStopElement stop;
-		        		final String id 		= SVGElements.SVG_LINEAR_GRADIENT + shape.getId();
+		        		final String id 		= SVGElements.SVG_LINEAR_GRADIENT + shape.hashCode();
 		        		final double gradMidPt 	= shape.getGradAngle()>PI || shape.getGradMidPt()<0 && shape.getGradMidPt()>-PI?
 		        								1-shape.getGradMidPt() : shape.getGradMidPt();
 
@@ -600,7 +600,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 		        	else {
 		        		// Setting the hatchings.
 		        		if(shape.hasHatchings()) {
-		        			final String id 		= SVGElements.SVG_PATTERN + shape.getId();
+		        			final String id 		= SVGElements.SVG_PATTERN + shape.hashCode();
 		        			final SVGPatternElement hatch = new SVGPatternElement(doc);
 		        			final SVGGElement gPath = new SVGGElement(doc);
 		        			final IPoint max 		= shape.getFullBottomRightPoint();
