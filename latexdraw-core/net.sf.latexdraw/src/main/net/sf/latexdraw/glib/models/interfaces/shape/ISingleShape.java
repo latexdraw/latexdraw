@@ -25,4 +25,9 @@ public interface ISingleShape extends IShape {
 	 * @return The property of the line colour.
 	 */
 	@NonNull ObjectProperty<Color> lineColourProperty();
+	
+	/**
+	 * @return The property of the filling.
+	 */
+	@NonNull ObjectProperty<FillingStyle> fillingProperty();
 }

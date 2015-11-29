@@ -42,7 +42,7 @@ import net.sf.latexdraw.util.LNumber;
  * @version 3.0
  * @since 3.0
  */
-abstract class LShape implements IShape, ISingleShape {
+abstract class LShape implements ISingleShape {
 	/** The thickness of the lines of the shape in pixels. */
 	@NonNull final protected DoubleProperty thickness;
 
@@ -51,6 +51,9 @@ abstract class LShape implements IShape, ISingleShape {
 
 	/** The style of the lines. */
 	@NonNull final protected ObjectProperty<LineStyle> lineStyle; // TODO add  to the generics but sbt crashes... 
+	
+	/** The style of the interior of the shape. */
+	@NonNull final protected ObjectProperty<FillingStyle> fillingStyle;
 
 	/** The white dash separator for dashed lines in pixel. */
 	protected double dashSepWhite;
@@ -62,10 +65,7 @@ abstract class LShape implements IShape, ISingleShape {
 	protected double dotSep;
 
 	/** The colour of the interior of the shape. */
-	protected Color fillingCol;
-
-	/** The style of the interior of the shape. */
-	protected FillingStyle fillingStyle;
+	@NonNull protected Color fillingCol;
 
 	/** The start colour of the gradient. */
 	protected Color gradColStart;
@@ -148,7 +148,7 @@ abstract class LShape implements IShape, ISingleShape {
 		hatchingsCol = PSTricksConstants.DEFAULT_HATCHING_COLOR;
 		hatchingsSep = PSTricksConstants.DEFAULT_HATCH_SEP * PPC;
 		hatchingsWidth = PSTricksConstants.DEFAULT_HATCH_WIDTH * PPC;
-		fillingStyle = FillingStyle.NONE;
+		fillingStyle = new SimpleObjectProperty<>(FillingStyle.NONE);
 		fillingCol = PSTricksConstants.DEFAULT_INTERIOR_COLOR;
 		bordersPosition = new SimpleObjectProperty<>(BorderPos.INTO);
 		dbleBordCol = PSTricksConstants.DEFAULT_DOUBLE_COLOR;
@@ -266,8 +266,8 @@ abstract class LShape implements IShape, ISingleShape {
 	}
 
 	@Override
-	public FillingStyle getFillingStyle() {
-		return fillingStyle;
+	public @NonNull FillingStyle getFillingStyle() {
+		return fillingStyle.get();
 	}
 
 	@Override
@@ -399,12 +399,12 @@ abstract class LShape implements IShape, ISingleShape {
 
 	@Override
 	public boolean hasGradient() {
-		return isInteriorStylable() && fillingStyle == FillingStyle.GRAD;
+		return isInteriorStylable() && fillingStyle.get() == FillingStyle.GRAD;
 	}
 
 	@Override
 	public boolean hasHatchings() {
-		return isInteriorStylable() && fillingStyle.isHatchings();
+		return isInteriorStylable() && fillingStyle.get().isHatchings();
 	}
 
 	@Override
@@ -414,7 +414,7 @@ abstract class LShape implements IShape, ISingleShape {
 
 	@Override
 	public boolean isFilled() {
-		return fillingStyle.isFilled();
+		return fillingStyle.get().isFilled();
 	}
 
 	@Override
@@ -523,21 +523,21 @@ abstract class LShape implements IShape, ISingleShape {
 			return;
 
 		if(isFilled)
-			switch(fillingStyle) {
+			switch(fillingStyle.get()) {
 				case CLINES:
-					fillingStyle = FillingStyle.CLINES_PLAIN;
+					fillingStyle.set(FillingStyle.CLINES_PLAIN);
 					break;
 
 				case VLINES:
-					fillingStyle = FillingStyle.VLINES_PLAIN;
+					fillingStyle.set(FillingStyle.VLINES_PLAIN);
 					break;
 
 				case HLINES:
-					fillingStyle = FillingStyle.HLINES_PLAIN;
+					fillingStyle.set(FillingStyle.HLINES_PLAIN);
 					break;
 
 				case NONE:
-					fillingStyle = FillingStyle.PLAIN;
+					fillingStyle.set(FillingStyle.PLAIN);
 					break;
 
 				case PLAIN:
@@ -549,21 +549,21 @@ abstract class LShape implements IShape, ISingleShape {
 					break;
 			}
 		else
-			switch(fillingStyle) {
+			switch(fillingStyle.get()) {
 				case CLINES_PLAIN:
-					fillingStyle = FillingStyle.CLINES;
+					fillingStyle.set(FillingStyle.CLINES);
 					break;
 
 				case VLINES_PLAIN:
-					fillingStyle = FillingStyle.VLINES;
+					fillingStyle.set(FillingStyle.VLINES);
 					break;
 
 				case HLINES_PLAIN:
-					fillingStyle = FillingStyle.HLINES;
+					fillingStyle.set(FillingStyle.HLINES);
 					break;
 
 				case PLAIN:
-					fillingStyle = FillingStyle.NONE;
+					fillingStyle.set(FillingStyle.NONE);
 					break;
 
 				case NONE:
@@ -585,7 +585,7 @@ abstract class LShape implements IShape, ISingleShape {
 	@Override
 	public void setFillingStyle(final FillingStyle fillingStyle) {
 		if(fillingStyle != null && isFillable())
-			this.fillingStyle = fillingStyle;
+			this.fillingStyle.set(fillingStyle);
 	}
 
 	@Override
@@ -889,5 +889,10 @@ abstract class LShape implements IShape, ISingleShape {
 	@Override
 	public @NonNull ObjectProperty<Color> lineColourProperty() {
 		return lineColour;
+	}
+	
+	@Override
+	public @NonNull ObjectProperty<FillingStyle> fillingProperty() {
+		return fillingStyle;
 	}
 }

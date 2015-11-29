@@ -12,15 +12,26 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import java.awt.geom.Point2D;
+
 import org.eclipse.jdt.annotation.NonNull;
 
 import javafx.beans.binding.Bindings;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
+import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.util.LNumber;
 
 /**
  * The base class of a JFX single shape view.<br>
@@ -31,12 +42,17 @@ import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
  * @param <T> The type of the JFX shape used to draw the view.
  */
 public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> extends ViewShape<S, T> {
+	protected final @NonNull T border;
+
 	/**
 	 * Creates the view.
 	 * @param sh The model.
 	 */
 	public ViewSingleShape(final @NonNull S sh) {
 		super(sh);
+
+		border = createJFXShape();
+		getChildren().add(border);
 
 		border.setStrokeLineJoin(StrokeLineJoin.MITER);
 
@@ -49,10 +65,98 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 			updateLineStyle(model.getLineStyle());
 		}
 
+		if(model.isFillable()) {
+			model.fillingProperty().addListener((obs, oldVal, newVal) -> border.setFill(getFillingPaint(newVal)));
+			border.setFill(getFillingPaint(model.getFillingStyle()));
+		}
+
 		border.strokeProperty().bind(Bindings.createObjectBinding(() -> model.getLineColour().toJFX(), model.lineColourProperty()));
 
 		bindBorderMovable();
-		border.setFill(null);
+	}
+
+	protected abstract @NonNull T createJFXShape();
+
+	private Paint getFillingPaint(final FillingStyle style) {
+		switch(style) {
+			case NONE:
+				if(model.hasShadow() && model.shadowFillsShape())
+					return model.getFillingCol().toJFX();
+				return null;
+			case PLAIN:
+				return model.getFillingCol().toJFX();
+			case GRAD:
+				return computeGradient();
+			case CLINES_PLAIN:
+			case HLINES_PLAIN:
+			case VLINES_PLAIN:
+			case CLINES:
+			case VLINES:
+			case HLINES:
+				return null;
+			default:
+				return null;
+		}
+	}
+
+	private LinearGradient computeGradient() {
+		final IPoint tl = model.getTopLeftPoint();
+		final IPoint br = model.getBottomRightPoint();
+		IPoint pt1 = ShapeFactory.createPoint((tl.getX() + br.getX()) / 2d, tl.getY());
+		IPoint pt2 = ShapeFactory.createPoint((tl.getX() + br.getX()) / 2d, br.getY());
+		double angle = model.getGradAngle() % (2d * Math.PI);
+		double gradMidPt = model.getGradMidPt();
+
+		if(angle < 0d)
+			angle = 2d * Math.PI + angle;
+
+		if(angle >= Math.PI) {
+			gradMidPt = 1d - gradMidPt;
+			angle -= Math.PI;
+		}
+
+		if(LNumber.equalsDouble(angle, 0d)) {
+			if(gradMidPt < 0.5)
+				pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (tl.getX() + br.getX()) / 2d, br.getY()));
+
+			pt2.setY(tl.getY() + (br.getY() - tl.getY()) * gradMidPt);
+		}else {
+			if(LNumber.equalsDouble(angle % (Math.PI / 2d), 0d)) {
+				pt1 = ShapeFactory.createPoint(tl.getX(), (tl.getY() + br.getY()) / 2d);
+				pt2 = ShapeFactory.createPoint(br.getX(), (tl.getY() + br.getY()) / 2d);
+
+				if(gradMidPt < 0.5)
+					pt1.setX(pt2.getX() - Point2D.distance(pt2.getX(), pt2.getY(), br.getX(), (tl.getY() + br.getY()) / 2d));
+
+				pt2.setX(tl.getX() + (br.getX() - tl.getX()) * gradMidPt);
+			}else {
+				final IPoint cg = model.getGravityCentre();
+				final ILine l2;
+				final ILine l;
+
+				pt1 = pt1.rotatePoint(cg, -angle);
+				pt2 = pt2.rotatePoint(cg, -angle);
+				l = ShapeFactory.createLine(pt1, pt2);
+
+				if(angle >= 0d && angle < Math.PI / 2d)
+					l2 = l.getPerpendicularLine(tl);
+				else
+					l2 = l.getPerpendicularLine(ShapeFactory.createPoint(tl.getX(), br.getY()));
+
+				pt1 = l.getIntersection(l2);
+				final double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
+				l.setX1(pt1.getX());
+				l.setY1(pt1.getY());
+				final IPoint[] pts = l.findPoints(pt1, 2d * distance * gradMidPt);
+				pt2 = pts[0];
+
+				if(gradMidPt < 0.5)
+					pt1 = pt1.rotatePoint(model.getGravityCentre(), Math.PI);
+			}
+		}
+
+		return new LinearGradient(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY(), false, CycleMethod.NO_CYCLE,
+				new Stop[] { new Stop(0, model.getGradColStart().toJFX()), new Stop(1, model.getGradColEnd().toJFX()) });
 	}
 
 	private void bindBorderMovable() {

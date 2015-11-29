@@ -284,7 +284,7 @@ public interface IShape extends Modifiable {
 	/**
 	 * @return the fillingCol.
 	 */
-	Color getFillingCol();
+	@NonNull Color getFillingCol();
 
 	/**
 	 * @param fillingCol the fillingCol to set.
@@ -294,7 +294,7 @@ public interface IShape extends Modifiable {
 	/**
 	 * @return the fillingStyle.
 	 */
-	FillingStyle getFillingStyle();
+	@NonNull FillingStyle getFillingStyle();
 
 	/**
 	 * @param fillingStyle the fillingStyle to set.

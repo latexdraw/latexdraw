@@ -29,7 +29,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 public abstract class ViewShape<S extends IShape, T extends Shape> extends Group {
 	/** The model of the view. */
 	protected final @NonNull S model;
-	protected final @NonNull T border;
 
 	/**
 	 * Creates the view.
@@ -38,12 +37,7 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 	public ViewShape(final @NonNull S sh) {
 		super();
 		model = sh;
-		border = createJFXShape();
-
-		getChildren().add(border);
 	}
-
-	protected abstract @NonNull T createJFXShape();
 
 	/**
 	 * Flushes the view.
