@@ -25,9 +25,6 @@ public interface IDot extends IPositionShape, IDotProp {
 	/** Useful to calculate the thickness of dot with the o style. */
 	double THICKNESS_O_STYLE_FACTOR = 16.;
 
-	/** The thickness of the plus shape is computed with that coefficient. */
-	double PLUS_COEFF_WIDTH = 6.5;
-
 	/**
 	 * While getTopLeftPoint takes care about the current shape of the dot to compute the top left point,
 	 * this function computes the top left point only using the centre and the width of the dot which are

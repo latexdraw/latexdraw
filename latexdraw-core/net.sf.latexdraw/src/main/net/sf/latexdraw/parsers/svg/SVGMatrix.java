@@ -21,10 +21,6 @@ package net.sf.latexdraw.parsers.svg;
  * @since 0.1<br>
  */
 public class SVGMatrix {
-	public static final int WIDTH	= 3;
-
-	public static final int HEIGHT	= 3;
-
 	/** [a, c, e, b, d, f, 0, 0, 1] An element of the matrix. */
 	protected double a;
 
