@@ -3,7 +3,10 @@ package test.glib.models;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
@@ -11,10 +14,6 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPositionShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangularShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import test.HelperTest;
 import test.glib.models.interfaces.TestIEllipse;
 
@@ -45,47 +44,30 @@ public class TestLEllipse extends TestIEllipse<IEllipse> {
 		assertEquals(4, ell.getNbPoints());
 	}
 
-	@Test
+	@Test(expected=IllegalArgumentException.class)
+	public void testConstructors3NotOKSamePoints() {
+		ShapeFactory.createEllipse(ShapeFactory.createPoint(), ShapeFactory.createPoint());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testConstructors3NotOKIncorrectPoints() {
+		ShapeFactory.createEllipse(ShapeFactory.createPoint(1, 0), ShapeFactory.createPoint(2, 0));
+	}
+	
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testConstructors3NotOKNAN() {
+		ShapeFactory.createEllipse(ShapeFactory.createPoint(1, Double.NaN), ShapeFactory.createPoint(2, 0));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
 	public void testConstructors3() {
-		IEllipse ell;
-
-		try {
-			ell = ShapeFactory.createEllipse(null, ShapeFactory.createPoint());
-			fail();
-		}catch(IllegalArgumentException ex) {
-			/* */ }
-
-		try {
-			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(), null);
-			fail();
-		}catch(IllegalArgumentException ex) {
-			/* */ }
-
-		try {
-			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(), ShapeFactory.createPoint());
-			fail();
-		}catch(IllegalArgumentException ex) {
-			/* */ }
-
-		try {
-			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1, 0), ShapeFactory.createPoint(2, 0));
-			fail();
-		}catch(IllegalArgumentException ex) {
-			/* */ }
-
-		try {
-			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1, Double.NaN), ShapeFactory.createPoint(2, 0));
-			fail();
-		}catch(IllegalArgumentException ex) {
-			/* */ }
-
-		try {
-			ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(1, 2), ShapeFactory.createPoint(2, Double.NaN));
-			fail();
-		}catch(IllegalArgumentException ex) {
-			/* */ }
-
-		ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(20, 26), ShapeFactory.createPoint(30, 35));
+		ShapeFactory.createEllipse(ShapeFactory.createPoint(1, 2), ShapeFactory.createPoint(2, Double.NaN));
+	}
+	
+	@Test
+	public void testConstructors3OK() {
+		IEllipse ell = ShapeFactory.createEllipse(ShapeFactory.createPoint(20, 26), ShapeFactory.createPoint(30, 35));
 		HelperTest.assertEqualsDouble(20., ell.getPosition().getX());
 		HelperTest.assertEqualsDouble(35., ell.getPosition().getY());
 		HelperTest.assertEqualsDouble(10., ell.getWidth());

@@ -40,26 +40,6 @@ public class TestLRectangle extends TestIRectangle<IRectangle> {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructorNullPoint1() {
-		ShapeFactory.createRectangle(ShapeFactory.createPoint(), null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testConstructorNullPoint2() {
-		ShapeFactory.createRectangle(null, ShapeFactory.createPoint());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testConstructorNullPoint3() {
-		ShapeFactory.createRectangle(null, null);
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void testConstructorNullPoint4() {
-		ShapeFactory.createRectangle(null, 10, 10);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNotValid1() {
 		ShapeFactory.createRectangle(ShapeFactory.createPoint(Double.NaN, 0), 10, 10);
 	}

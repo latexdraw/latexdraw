@@ -11,20 +11,12 @@ import org.junit.Test;
 
 public class TestLPoint {
 	@Test
-	public void testLPoint() {
+	public void testLPointOK() {
 		IPoint pt = ShapeFactory.createPoint(1., -200.);
 
 		assertEquals(ShapeFactory.createPoint(), ShapeFactory.createPoint(0., 0.));
 		assertEquals(pt.getX(), 1., 0.1);
 		assertEquals(pt.getY(), -200., 0.1);
-
-		pt = ShapeFactory.createPoint((IPoint)null);
-		assertEquals(pt.getX(), 0., 0.1);
-		assertEquals(pt.getY(), 0., 0.1);
-
-		pt = ShapeFactory.createPoint(ShapeFactory.createPoint(-1.34, Double.POSITIVE_INFINITY));
-		assertEquals(pt.getX(), -1.34, 0.1);
-		assertEquals(pt.getY(), Double.POSITIVE_INFINITY, 0.1);
 	}
 
 	@Test

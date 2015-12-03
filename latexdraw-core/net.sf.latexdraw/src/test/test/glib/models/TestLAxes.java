@@ -36,29 +36,33 @@ public class TestLAxes extends TestIAxes<IAxes> {
 	}
 
 	@Test
-	public void testConstructor3() {
+	public void testConstructor3OK() {
 		IAxes axes = ShapeFactory.createAxes(ShapeFactory.createPoint(10, -20));
 
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(10., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(-20., axes.getPtAt(0).getY());
-		axes = ShapeFactory.createAxes(null);
+	}
+	
+	@Test
+	public void testConstructor3NotOKNAN0() {
+		IAxes axes = ShapeFactory.createAxes(ShapeFactory.createPoint(Double.NaN, 0));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = ShapeFactory.createAxes(null);
+	}
+	
+	@Test
+	public void testConstructor3NotOK0NAN() {
+	IAxes axes = ShapeFactory.createAxes(ShapeFactory.createPoint(0, Double.NaN));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = ShapeFactory.createAxes(ShapeFactory.createPoint(Double.NaN, 0));
-		assertNotNull(axes.getPtAt(0));
-		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
-		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = ShapeFactory.createAxes(ShapeFactory.createPoint(0, Double.NaN));
-		assertNotNull(axes.getPtAt(0));
-		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
-		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());
-		axes = ShapeFactory.createAxes(ShapeFactory.createPoint(Double.POSITIVE_INFINITY, 0));
+	}
+	
+	@Test
+	public void testConstructor3NotOKINF0() {
+		IAxes axes = ShapeFactory.createAxes(ShapeFactory.createPoint(Double.POSITIVE_INFINITY, 0));
 		assertNotNull(axes.getPtAt(0));
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getX());
 		HelperTest.assertEqualsDouble(0., axes.getPtAt(0).getY());

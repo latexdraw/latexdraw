@@ -3,7 +3,7 @@ package net.sf.latexdraw.glib.models.impl
 import java.awt.geom.Point2D
 import java.util.Optional
 
-import org.eclipse.jdt.annotation.NonNull
+import org.eclipse.jdt.annotation.NonNullByDefault
 
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.glib.models.ShapeFactory
@@ -52,6 +52,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ITriangle
  * @author Arnaud BLOUIN
  * @since 3.0
  */
+@NonNullByDefault
 class LShapeFactory extends IShapeFactory {
 	/** The map that maps types to creation operations. */
 	val factoryMap: Map[Class[_], () => IShape] = Map(
@@ -181,11 +182,11 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createLine(p1 : IPoint, p2 : IPoint) : ILine = new LLine(p1, p2)
 
-	@NonNull override def createPoint() : IPoint = new LPoint()
+	override def createPoint() : IPoint = new LPoint()
 
-	@NonNull override def createPoint(x : Double, y : Double) : IPoint = new LPoint(x, y)
+	override def createPoint(x : Double, y : Double) : IPoint = new LPoint(x, y)
 
-	@NonNull override def createPoint(pt : IPoint) : IPoint = new LPoint(pt)
+	override def createPoint(pt : IPoint) : IPoint = new LPoint(pt)
 
 	override def createPolyline() : IPolyline = new LPolyline()
 
@@ -201,7 +202,7 @@ class LShapeFactory extends IShapeFactory {
 
 	override def createRectangle(tl : IPoint, br : IPoint) : IRectangle = new LRectangle(tl, br)
 
-	@NonNull override def createText() : IText = new LText()
+	override def createText() : IText = new LText()
 
 	override def createText(pt : IPoint, text : String) : IText = new LText(pt, text)
 

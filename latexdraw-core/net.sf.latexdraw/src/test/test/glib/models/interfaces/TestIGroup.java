@@ -755,8 +755,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	public void testGetSetGradColStart() {
 		init4setFill();
 		shape.setFillingStyle(FillingStyle.GRAD);
-		shape.setGradColStart(ShapeFactory.createColorAWT(java.awt.Color.RED));
-		assertEquals(java.awt.Color.RED, shape.getGradColStart().toAWT());
+		shape.setGradColStart(DviPsColors.RED);		assertEquals(java.awt.Color.RED, shape.getGradColStart().toAWT());
 		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getGradColStart().toAWT()));
 	}
 
@@ -795,7 +794,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	public void testGetSetHatchingsCol() {
 		init4setFill();
 		shape.setFillingStyle(FillingStyle.HLINES);
-		shape.setHatchingsCol(ShapeFactory.createColorAWT(java.awt.Color.RED));
+		shape.setHatchingsCol(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getHatchingsCol().toAWT());
 		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getHatchingsCol().toAWT()));
 	}
@@ -851,7 +850,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	public void testGetSetDbleBordCol() {
 		init4setFill();
 		shape.setHasDbleBord(true);
-		shape.setDbleBordCol(ShapeFactory.createColorAWT(java.awt.Color.RED));
+		shape.setDbleBordCol(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getDbleBordCol().toAWT());
 		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getDbleBordCol().toAWT()));
 	}
@@ -892,7 +891,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	public void testGetSetShadowCol() {
 		init4setFill();
 		shape.setHasShadow(true);
-		shape.setShadowCol(ShapeFactory.createColorAWT(java.awt.Color.RED));
+		shape.setShadowCol(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getShadowCol().toAWT());
 		shape.getShapes().stream().filter(sh -> sh.isDbleBorderable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getShadowCol().toAWT()));
 	}
@@ -948,7 +947,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	@Test
 	public void testSetGetLineColour() {
 		init4setFill();
-		shape.setLineColour(ShapeFactory.createColorAWT(java.awt.Color.RED));
+		shape.setLineColour(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getLineColour().toAWT());
 		shape.getShapes().stream().forEach(sh -> assertEquals(java.awt.Color.RED, sh.getLineColour().toAWT()));
 	}
@@ -994,7 +993,7 @@ public abstract class TestIGroup<T extends IGroup> extends TestIShape<T> {
 	public void testSetGetFillingCol() {
 		init4setFill();
 		shape.setFilled(true);
-		shape.setFillingCol(ShapeFactory.createColorAWT(java.awt.Color.RED));
+		shape.setFillingCol(DviPsColors.RED);
 		assertEquals(java.awt.Color.RED, shape.getFillingCol().toAWT());
 		shape.getShapes().stream().filter(sh -> sh.isFillable()).forEach(sh -> assertEquals(java.awt.Color.RED, sh.getFillingCol().toAWT()));
 	}

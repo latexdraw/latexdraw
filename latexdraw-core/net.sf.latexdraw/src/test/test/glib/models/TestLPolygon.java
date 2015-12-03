@@ -3,7 +3,6 @@ package test.glib.models;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
@@ -70,23 +69,7 @@ public class TestLPolygon extends TestIPolygon<IPolygon> {
 		IPoint pt1 = ShapeFactory.createPoint(1, 1);
 		IPoint pt2 = ShapeFactory.createPoint(2, 2);
 		IPolygon pol = ShapeFactory.createPolygon(pt1, pt2);
-
-		pol = ShapeFactory.createPolygon(pt1, pt2);
 		assertEquals(pt1, pol.getPtAt(0));
 		assertEquals(pt2, pol.getPtAt(-1));
-
-		pol = ShapeFactory.createPolygon();
-		pol = ShapeFactory.createPolygon();
-		pol = ShapeFactory.createPolygon();
-
-		try {
-			pol = ShapeFactory.createPolygon(null, pt2);
-			fail();
-			pol = ShapeFactory.createPolygon(pt1, null);
-			fail();
-			pol = ShapeFactory.createPolygon(null, null);
-			fail();
-		}catch(IllegalArgumentException e) {
-			/* */ }
 	}
 }

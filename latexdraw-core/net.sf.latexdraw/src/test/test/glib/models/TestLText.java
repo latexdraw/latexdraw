@@ -38,31 +38,29 @@ public class TestLText extends TestIText<IText> {
 	}
 
 	@Test
-	public void testConstructors() {
+	public void testConstructorsOK1() {
 		IText txt = ShapeFactory.createText();
-
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length() > 0);
-		txt = ShapeFactory.createText();
-
+	}
+	
+	@Test
+	public void testConstructorsOK2() {
+		IText txt = ShapeFactory.createText(ShapeFactory.createPoint(), "coucou"); //$NON-NLS-1$
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length() > 0);
-		txt = ShapeFactory.createText(ShapeFactory.createPoint(), "coucou"); //$NON-NLS-1$
-
+	}
+	
+	@Test
+	public void testConstructorsOK3() {
+		IText txt = ShapeFactory.createText(ShapeFactory.createPoint(), ""); //$NON-NLS-1$
 		assertNotNull(txt.getText());
 		assertTrue(txt.getText().length() > 0);
-		txt = ShapeFactory.createText(ShapeFactory.createPoint(), ""); //$NON-NLS-1$
-
-		assertNotNull(txt.getText());
-		assertTrue(txt.getText().length() > 0);
-		txt = ShapeFactory.createText(ShapeFactory.createPoint(), null);
-
-		assertNotNull(txt.getText());
-		assertTrue(txt.getText().length() > 0);
-
-		txt = ShapeFactory.createText(null, "aa"); //$NON-NLS-1$
-		assertEquals(ShapeFactory.createPoint(), txt.getPosition());
-		txt = ShapeFactory.createText(ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY), "aa"); //$NON-NLS-1$
+	}
+	
+	@Test
+	public void testConstructorsOK4() {
+		IText txt = ShapeFactory.createText(ShapeFactory.createPoint(0, Double.NEGATIVE_INFINITY), "aa"); //$NON-NLS-1$
 		assertEquals(ShapeFactory.createPoint(), txt.getPosition());
 	}
 }

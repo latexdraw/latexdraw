@@ -56,11 +56,6 @@ public class TestLRhombus extends TestIRhombus<IRhombus> {
 		assertEquals(35.0, rho.getPosition().getY(), 0.0);
 	}
 
-	@Test(expected = NullPointerException.class)
-	public void testConstructorNullPos() {
-		ShapeFactory.createRhombus(null, 10, 10);
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorInvalidPos() {
 		ShapeFactory.createRhombus(ShapeFactory.createPoint(Double.NaN, 0), 10, 10);

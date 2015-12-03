@@ -3,7 +3,6 @@ package test.glib.models;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
@@ -50,21 +49,7 @@ public class TestLPolyline extends TestIPolyline<IPolyline> {
 		IPoint pt2 = ShapeFactory.createPoint(2, 2);
 		IPolyline pol = ShapeFactory.createPolyline(pt1, pt2);
 
-		pol = ShapeFactory.createPolyline(pt1, pt2);
 		assertEquals(pt1, pol.getPtAt(0));
 		assertEquals(pt2, pol.getPtAt(-1));
-
-		pol = ShapeFactory.createPolyline();
-		pol = ShapeFactory.createPolyline();
-
-		try {
-			pol = ShapeFactory.createPolyline(null, pt2);
-			fail();
-			pol = ShapeFactory.createPolyline(pt1, null);
-			fail();
-			pol = ShapeFactory.createPolyline(null, null);
-			fail();
-		}catch(IllegalArgumentException e) {
-			/* */ }
 	}
 }

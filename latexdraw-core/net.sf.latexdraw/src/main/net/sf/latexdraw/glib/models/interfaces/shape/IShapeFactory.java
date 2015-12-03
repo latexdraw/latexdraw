@@ -15,13 +15,15 @@ package net.sf.latexdraw.glib.models.interfaces.shape;
 import java.awt.geom.Point2D;
 import java.util.Optional;
 
-import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * Defines the concept of a shape factory.<br>
  * 2014-11-04<br>
  * @author Arnaud BLOUIN
  */
+@NonNullByDefault
 public interface IShapeFactory {
 	/**
 	 * @param shapeClass The class of the shape to instantiated.
@@ -35,7 +37,7 @@ public interface IShapeFactory {
 	 * @param col The colour to convert.
 	 * @return The converted colour. Cannot be null.
 	 */
-	Color createColorFX(javafx.scene.paint.Color col);
+	Color createColorFX(javafx.scene.paint.Color col);//FIXME add @Nullable when sbt will not crash anymore...
 
 	/**
 	 * Creates a color from an AWT color.
@@ -51,7 +53,7 @@ public interface IShapeFactory {
 	 * @param b The B
 	 * @return The converted colour. Cannot be null.
 	 */
-	@NonNull Color createColorHSB(double h, double s, double b);
+	Color createColorHSB(double h, double s, double b);
 
 	/**
 	 * Creates a colour following the RGBA format.
@@ -61,7 +63,7 @@ public interface IShapeFactory {
 	 * @param a The A.
 	 * @return The converted colour. Cannot be null.
 	 */
-	@NonNull Color createColorInt(int r, int g, int b, int a);
+	Color createColorInt(int r, int g, int b, int a);
 
 	/**
 	 * Creates a colour following the RGB format.
@@ -70,7 +72,7 @@ public interface IShapeFactory {
 	 * @param b The B.
 	 * @return The converted colour. Cannot be null.
 	 */
-	@NonNull Color createColorInt(int r, int g, int b);
+	Color createColorInt(int r, int g, int b);
 
 	/**
 	 * Creates a colour.
@@ -80,7 +82,7 @@ public interface IShapeFactory {
 	 * @param o Opacity
 	 * @return The converted colour. Cannot be null.
 	 */
-	@NonNull Color createColor(double r, double g, double b, double o);
+	Color createColor(double r, double g, double b, double o);
 
 	/**
 	 * Creates a colour.
@@ -89,19 +91,19 @@ public interface IShapeFactory {
 	 * @param b Blue
 	 * @return The converted colour. Cannot be null.
 	 */
-	@NonNull Color createColor(double r, double g, double b);
+	Color createColor(double r, double g, double b);
 
 	/**
 	 * Creates a colour (1,1,1,1)
 	 * @return The converted colour. Cannot be null.
 	 */
-	@NonNull Color createColor();
+	Color createColor();
 
 	/**
 	 * @return The created drawing.
 	 * @since 3.0
 	 */
-	@NonNull IDrawing createDrawing();
+	IDrawing createDrawing();
 
 	/**
 	 * Creates a group that will contains initially the given sh.
@@ -109,7 +111,7 @@ public interface IShapeFactory {
 	 * @return Created groupe. Cannot be null.
 	 * @since 3.3
 	 */
-	@NonNull IGroup createGroup(IShape sh);
+	IGroup createGroup(IShape sh);
 
 	/**
 	 * Creates an arrow from an other arrow.
@@ -118,33 +120,33 @@ public interface IShapeFactory {
 	 * @return The created arrow.
 	 * @throws IllegalArgumentException If the given arrow is null.
 	 */
-	@NonNull IArrow createArrow(IArrow arrow, IArrowableShape owner);
+	IArrow createArrow(IArrow arrow, IArrowableShape owner);
 
 	/**
 	 * Creates an arrow.
 	 * @param owner The shape that contains the arrow.
 	 * @return The created arrow.
 	 */
-	@NonNull IArrow createArrow(IArrowableShape owner);
+	IArrow createArrow(IArrowableShape owner);
 
 	/**
 	 * Creates axes with default values.
 	 * @param pt The bottom left position of the axes.
 	 * @return The created axes.
 	 */
-	@NonNull IAxes createAxes(IPoint pt);
+	IAxes createAxes(IPoint pt);
 
 	/**
 	 * @param pt The centre of the dot.
 	 * @return The created dot.
 	 */
-	@NonNull IDot createDot(IPoint pt);
+	IDot createDot(IPoint pt);
 
 	/**
 	 * Creates a model with no point.
 	 * @return The created bezier curve.
 	 */
-	@NonNull IBezierCurve createBezierCurve();
+	IBezierCurve createBezierCurve();
 
 	/**
 	 * Creates a bezier curve with two points.
@@ -152,7 +154,7 @@ public interface IShapeFactory {
 	 * @param point2 The second point of the curve.
 	 * @return The created bezier curve.
 	 */
-	@NonNull IBezierCurve createBezierCurve(IPoint point, IPoint point2);
+	IBezierCurve createBezierCurve(IPoint point, IPoint point2);
 
 	/**
 	 * Creates an ellipse.
@@ -161,12 +163,12 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If a or b is not valid.
 	 * @return The created ellipse.
 	 */
-	@NonNull IEllipse createEllipse(IPoint tl, IPoint br);
+	IEllipse createEllipse(IPoint tl, IPoint br);
 
 	/**
 	 * @return The created ellipse.
 	 */
-	@NonNull IEllipse createEllipse();
+	IEllipse createEllipse();
 
 	/**
 	 * Creates a triangle.
@@ -176,12 +178,12 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If the width or the height is not valid.
 	 * @return The created triangle.
 	 */
-	@NonNull ITriangle createTriangle(IPoint pos, double width, double height);
+	ITriangle createTriangle(IPoint pos, double width, double height);
 
 	/**
 	 * @return The created triangle.
 	 */
-	@NonNull ITriangle createTriangle();
+	ITriangle createTriangle();
 
 	/**
 	 * Creates a rhombus.
@@ -191,13 +193,13 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If the width, the height or the centre is not valid.
 	 * @return The created rhombus.
 	 */
-	@NonNull IRhombus createRhombus(IPoint centre, double width, double height);
+	IRhombus createRhombus(IPoint centre, double width, double height);
 
 	/**
 	 * Creates a rhombus at the position (0,0) with width=height=1.
 	 * @return The created rhombus.
 	 */
-	@NonNull IRhombus createRhombus();
+	IRhombus createRhombus();
 
 	/**
 	 * Creates a picture and the corresponding EPS picture.
@@ -206,14 +208,14 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If the given picture path is not valid.
 	 * @throws NullPointerException If the given point is null.
 	 */
-	@NonNull IPicture createPicture(IPoint pt);
+	IPicture createPicture(IPoint pt);
 
 	/**
 	 * Creates a grid with a predefined point.
 	 * @param pt The position.
 	 * @return The created grid.
 	 */
-	@NonNull IGrid createGrid(IPoint pt);
+	IGrid createGrid(IPoint pt);
 
 	/**
 	 * Creates and initialises a freehand model.
@@ -221,7 +223,7 @@ public interface IShapeFactory {
 	 * @return The created freehand shape.
 	 * @since 3.0
 	 */
-	@NonNull IFreehand createFreeHand();
+	IFreehand createFreeHand();
 
 	/**
 	 * Creates a circle.
@@ -231,18 +233,18 @@ public interface IShapeFactory {
 	 * @throws NullPointerException If the given point pt is null.
 	 * @return The created circle.
 	 */
-	@NonNull ICircle createCircle(IPoint pt, double radius);
+	ICircle createCircle(IPoint pt, double radius);
 
 	/**
 	 * @return The created circle.
 	 */
-	@NonNull ICircle createCircle();
+	ICircle createCircle();
 
 	/**
 	 * @return The created group of shapes.
 	 * @since 3.0
 	 */
-	@NonNull IGroup createGroup();
+	IGroup createGroup();
 
 	/**
 	 * Constructs a line from the specified coordinates.
@@ -253,7 +255,7 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If one of the given coordinate is not valid.
 	 * @return The created line.
 	 */
-	@NonNull ILine createLine(double x1, double y1, double x2, double y2);
+	ILine createLine(double x1, double y1, double x2, double y2);
 
 	/**
 	 * Creates a line by creating a second point with
@@ -262,7 +264,7 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If one of the given parameter is not valid.
 	 * @return The created line.
 	 */
-	@NonNull ILine createLine(double b, IPoint p1);
+	ILine createLine(double b, IPoint p1);
 
 	/**
 	 * Constructs a line from the specified <code>Point2D</code> objects.
@@ -271,13 +273,13 @@ public interface IShapeFactory {
 	 * @throws IllegalArgumentException If one of the given points is not valid.
 	 * @return The created line.
 	 */
-	@NonNull ILine createLine(IPoint p1, IPoint p2);
+	ILine createLine(IPoint p1, IPoint p2);
 
 	/**
 	 * @return The created point with coordinates (0, 0).
 	 * @since 3.0
 	 */
-	@NonNull IPoint createPoint();
+	IPoint createPoint();
 
 	/**
 	 * Duplicates a java 2D point into a IPoint. If the given point pt is null, a point (0,0) is
@@ -285,7 +287,7 @@ public interface IShapeFactory {
 	 * @param pt The point to convert.
 	 * @return The created point. Cannot be null.
 	 */
-	@NonNull IPoint createPoint(Point2D pt);
+	IPoint createPoint(Point2D pt);
 
 	/**
 	 * Creates a Point2D with the specified coordinates.
@@ -294,7 +296,7 @@ public interface IShapeFactory {
 	 * @return The created point.
 	 * @since 3.0
 	 */
-	@NonNull IPoint createPoint(double x, double y);
+	IPoint createPoint(double x, double y);
 
 	/**
 	 * Creates a Point2D with the specified coordinates.
@@ -302,13 +304,13 @@ public interface IShapeFactory {
 	 * @return The created point.
 	 * @since 3.0
 	 */
-	@NonNull IPoint createPoint(IPoint pt);
+	IPoint createPoint(IPoint pt);
 
 	/**
 	 * @return The created polyline
 	 * @since 3.0
 	 */
-	@NonNull IPolyline createPolyline();
+	IPolyline createPolyline();
 
 	/**
 	 * Creates a model with two points.
@@ -317,13 +319,13 @@ public interface IShapeFactory {
 	 * @return The created polyline.
 	 * @since 3.0
 	 */
-	@NonNull IPolyline createPolyline(IPoint point, IPoint point2);
+	IPolyline createPolyline(IPoint point, IPoint point2);
 
 	/**
 	 * @return The created polygon
 	 * @since 3.0
 	 */
-	@NonNull IPolygon createPolygon();
+	IPolygon createPolygon();
 
 	/**
 	 * Creates a polygon with two points.
@@ -332,13 +334,13 @@ public interface IShapeFactory {
 	 * @return The created polygon.
 	 * @since 3.0
 	 */
-	@NonNull IPolygon createPolygon(IPoint point, IPoint point2);
+	IPolygon createPolygon(IPoint point, IPoint point2);
 
 	/**
 	 * @return The created rectangle with position (0,0) and width=10 and height=10.
 	 * @since 3.0
 	 */
-	@NonNull IRectangle createRectangle();
+	IRectangle createRectangle();
 
 	/**
 	 * Creates a rectangle.
@@ -350,7 +352,7 @@ public interface IShapeFactory {
 	 * @return The created rectangle.
 	 * @since 3.0
 	 */
-	@NonNull IRectangle createRectangle(IPoint pos, double width, double height);
+	IRectangle createRectangle(IPoint pos, double width, double height);
 
 	/**
 	 * Creates a rectangle.
@@ -360,14 +362,14 @@ public interface IShapeFactory {
 	 * @return The created rectangle.
 	 * @since 3.0
 	 */
-	@NonNull IRectangle createRectangle(IPoint tl, IPoint br);
+	IRectangle createRectangle(IPoint tl, IPoint br);
 
 	/**
 	 * Create a text at position (0,0) which text is "text".
 	 * @return The created text.
 	 * @since 3.0
 	 */
-	@NonNull IText createText();
+	IText createText();
 
 	/**
 	 * Creates a text.
@@ -377,14 +379,14 @@ public interface IShapeFactory {
 	 * @return The created text.
 	 * @since 3.0
 	 */
-	@NonNull IText createText(IPoint pt, String text);
+	IText createText(IPoint pt, @Nullable String text);
 
 	/**
 	 * Creates a square at position (0,0) which width equals 10.
 	 * @return The created square.
 	 * @since 3.0
 	 */
-	@NonNull ISquare createSquare();
+	ISquare createSquare();
 
 	/**
 	 * Creates a square.
@@ -394,7 +396,7 @@ public interface IShapeFactory {
 	 * @return The created square.
 	 * @since 3.0
 	 */
-	@NonNull ISquare createSquare(IPoint pos, double width);
+	ISquare createSquare(IPoint pos, double width);
 
 	/**
 	 * Creates a circled arc.
@@ -404,14 +406,14 @@ public interface IShapeFactory {
 	 * @return The created circled arc.
 	 * @since 3.0
 	 */
-	@NonNull ICircleArc createCircleArc(IPoint pos, double width);
+	ICircleArc createCircleArc(IPoint pos, double width);
 
 	/**
 	 * Creates a circled arc with a 1 radius.
 	 * @return The created circled arc.
 	 * @since 3.0
 	 */
-	@NonNull ICircleArc createCircleArc();
+	ICircleArc createCircleArc();
 
 	/**
 	 * Creates a plotted function.
@@ -425,7 +427,7 @@ public interface IShapeFactory {
 	 * @return The created function.
 	 * @since 3.2
 	 */
-	@NonNull IPlot createPlot(IPoint pos, double minX, double maxX, String eq, boolean polar);
+	IPlot createPlot(IPoint pos, double minX, double maxX, String eq, boolean polar);
 
 	/**
 	 * Duplicates the given shape.
@@ -433,5 +435,5 @@ public interface IShapeFactory {
 	 * @return The duplicated shape or null.
 	 * @since 3.0
 	 */
-	@NonNull IShape duplicate(IShape shape);
+	IShape duplicate(IShape shape);
 }
