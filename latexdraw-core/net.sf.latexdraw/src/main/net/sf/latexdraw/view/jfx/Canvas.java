@@ -14,6 +14,7 @@ package net.sf.latexdraw.view.jfx;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +35,12 @@ import org.w3c.dom.NodeList;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
+import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeLineCap;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
@@ -69,11 +74,15 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	/** The current page of the canvas. */
 	private final @NonNull PageView page;
-	
+
 	/** The views of the shape. */
-	private final @NonNull Pane shapesPane;
-	
-	private final @NonNull Map<IShape, ViewShape<?,?>> shapesToViewMap;
+	private final @NonNull Group shapesPane;
+
+	private final @NonNull Group handlersPane;
+
+	private final @NonNull Rectangle selectionBorder;
+
+	private final @NonNull Map<IShape, ViewShape<?, ?>> shapesToViewMap;
 
 	/** The magnetic grid of the canvas. */
 	protected MagneticGridImpl magneticGrid;
@@ -82,7 +91,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	protected boolean modified;
 
 	/** The temporary view that the canvas may contain. */
-//	protected final IUnary<IViewShape> tempView;
+	// protected final IUnary<IViewShape> tempView;
 
 	/**
 	 * Creates the canvas.
@@ -90,28 +99,35 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	public Canvas() {
 		super();
 
-//		setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+		// setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
 
 		modified = false;
 		drawing = ShapeFactory.createDrawing();
 		zoom = new ActiveUnary<>(1.0);
-//		tempView = new ActiveUnary<>();
+		// tempView = new ActiveUnary<>();
 		page = new PageView(Page.USLETTER, getOrigin());
 		magneticGrid = new MagneticGridImpl(this);
-		shapesPane = new Pane();
+		handlersPane = new Group();
+		shapesPane = new Group();
 		shapesToViewMap = new HashMap<>();
-		
+		selectionBorder = new Rectangle();
+
 		getChildren().add(page);
 		getChildren().add(shapesPane);
-
+		getChildren().add(handlersPane);
+		handlersPane.getChildren().add(selectionBorder);
+		// handlersPane.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, null,
+		// null)));
+		handlersPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 		shapesPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 
 		setPrefWidth(MARGINS * 2 + page.getPage().getWidth() * IShape.PPC);
 		setPrefHeight(MARGINS * 2 + page.getPage().getHeight() * IShape.PPC);
-		
-		defineShapeListToViewBinding();
 
-		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(150,  120), 200, 60);
+		defineShapeListToViewBinding();
+		configureSelection();
+
+		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(150, 120), 200, 60);
 		rec.setThickness(10.0);
 		rec.setGradColStart(DviPsColors.APRICOT);
 		rec.setGradColEnd(DviPsColors.BLUEVIOLET);
@@ -119,12 +135,46 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		rec.setFillingCol(DviPsColors.RED);
 		getDrawing().addShape(rec);
 		
+		rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(400, 120), 200, 60);
+		rec.setFillingStyle(FillingStyle.PLAIN);
+		rec.setFillingCol(DviPsColors.RED);
+		getDrawing().addShape(rec);
+
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
 		// borderIns.addEventable(this);
-		
+
 		shapesPane.setFocusTraversable(true);
 		shapesPane.addEventHandler(MouseEvent.ANY, evt -> shapesPane.requestFocus());
+	}
+
+	private void configureSelection() {
+		selectionBorder.setMouseTransparent(true);
+		selectionBorder.setVisible(false);
+		selectionBorder.setFill(null);
+		selectionBorder.setStroke(Color.GRAY);
+		selectionBorder.setStrokeLineCap(StrokeLineCap.BUTT);
+		selectionBorder.getStrokeDashArray().addAll(7d, 7d);
+
+		final ObservableList<IShape> selection = (ObservableList<IShape>)drawing.getSelection().getShapes();
+
+		selection.addListener((Change<? extends IShape> evt) -> {
+			if(selection.isEmpty())
+				selectionBorder.setVisible(false);
+			else {
+				final double zoomLevel = getZoom();
+				final Rectangle2D rec = selection.stream().map(sh -> {
+					Bounds b = shapesToViewMap.get(sh).getBoundsInLocal();
+					return (Rectangle2D)new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
+				}).reduce((r1, r2) -> r1.createUnion(r2)).get();
+
+				selectionBorder.setLayoutX(rec.getMinX() * zoomLevel);
+				selectionBorder.setLayoutY(rec.getMinY() * zoomLevel);
+				selectionBorder.setWidth(rec.getWidth() * zoomLevel);
+				selectionBorder.setHeight(rec.getHeight() * zoomLevel);
+				selectionBorder.setVisible(true);
+			}
+		});
 	}
 
 	private void defineShapeListToViewBinding() {
@@ -312,9 +362,9 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 	@Override
 	public void reinit() {
-		synchronized(shapesPane){
-			 shapesPane.getChildren().clear();
-		 }
+		synchronized(shapesPane) {
+			shapesPane.getChildren().clear();
+		}
 		zoom.setValue(1.);
 		update();
 	}
@@ -334,7 +384,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	@Override
 	public IPoint getOriginDrawingPoint() {
 		final Bounds border = shapesPane.getBoundsInLocal();
-		return ShapeFactory.createPoint(border.getMinX(), (border.getMaxY()-border.getMinY())/2.0);
+		return ShapeFactory.createPoint(border.getMinX(), (border.getMaxY() - border.getMinY()) / 2.0);
 	}
 
 	@Override
@@ -409,11 +459,11 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		return drawing;
 	}
 
-//	/**
-//	 * Sets the temporary view.
-//	 * @param view The new temporary view.
-//	 */
-//	public void setTempView(final @Nullable IViewShape view) {
-//		tempView.setValue(view);
-//	}
+	// /**
+	// * Sets the temporary view.
+	// * @param view The new temporary view.
+	// */
+	// public void setTempView(final @Nullable IViewShape view) {
+	// tempView.setValue(view);
+	// }
 }
