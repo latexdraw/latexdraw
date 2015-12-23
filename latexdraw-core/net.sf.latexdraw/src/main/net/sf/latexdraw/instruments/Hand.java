@@ -12,12 +12,19 @@
  *  PURPOSE. See the GNU General Public License for more details.<br>
  * <br>
  */
-
 package net.sf.latexdraw.instruments;
 
-import javafx.scene.Cursor;
+import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.interaction.library.Press;
 
 import com.google.inject.Inject;
+
+import javafx.event.EventTarget;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
+import net.sf.latexdraw.actions.shape.SelectShapes;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.view.jfx.ViewShape;
 
 /**
  * This instrument allows to manipulate (e.g. move or select) shapes.<br>
@@ -35,8 +42,8 @@ public class Hand extends CanvasInstrument {
 	}
 
 	@Override
-	protected void initialiseInteractors() {
-		// addInteractor(new Press2Select(this))
+	protected void initialiseInteractors() throws InstantiationException, IllegalAccessException {
+		addInteractor(new Press2Select(this));
 		// addInteractor(new DnD2Select(this))
 		// addInteractor(new DnD2Translate(this))
 		// addInteractor(new DnD2MoveViewport(canvas, this))
@@ -45,11 +52,11 @@ public class Hand extends CanvasInstrument {
 		// addInteractor(new CtrlU2UpdateShapes(this))
 	}
 
-	// @Override
-	// public void setActivated(final boolean activated) {
-	// if(this.activated!=activated)
-	// super.setActivated(activated);
-	// }
+	@Override
+	public void setActivated(final boolean activated) {
+		if(this.activated != activated)
+			super.setActivated(activated);
+	}
 
 	@Override
 	public void interimFeedback() {
@@ -65,6 +72,36 @@ public class Hand extends CanvasInstrument {
 	// _metaCustomiser.dimPosCustomiser.update();
 	// }
 	// }
+
+	private static class Press2Select extends JfxInteractor<SelectShapes, Press, Hand> {
+		Press2Select(final Hand hand) throws InstantiationException, IllegalAccessException {
+			super(hand, false, SelectShapes.class, Press.class, hand.canvas);
+		}
+
+		@Override
+		public void initAction() {
+			action.setDrawing(instrument.canvas.getDrawing());
+		}
+
+		@Override
+		public void updateAction() {
+			final IShape targetSh = ((ViewShape<?, ?>)((Node)interaction.getTarget()).getParent()).getModel();
+
+			if(interaction.isShiftPressed())
+				instrument.canvas.getDrawing().getSelection().getShapes().stream().filter(sh -> sh != targetSh).forEach(sh -> action.addShape(sh));
+			else if(interaction.isCtrlPressed()) {
+				instrument.canvas.getDrawing().getSelection().getShapes().forEach(sh -> action.addShape(sh));
+				action.addShape(targetSh);
+			}else
+				action.setShape(targetSh);
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			final EventTarget obj = interaction.getTarget();
+			return obj instanceof Node && ((Node)obj).getParent() instanceof ViewShape<?, ?>;
+		}
+	}
 }
 
 // private sealed class CtrlU2UpdateShapes(ins:Hand) extends
@@ -171,46 +208,6 @@ public class Hand extends CanvasInstrument {
 // }
 // }
 //
-//
-//
-// private sealed class Press2Select(ins : Hand) extends
-// InteractorImpl[SelectShapes, PressWithKeys, Hand](ins, false,
-// classOf[SelectShapes], classOf[PressWithKeys]) {
-// override def initAction() {
-// action.setDrawing(instrument.canvas.getDrawing)
-// }
-//
-// override def updateAction() {
-// val target = interaction.getTarget
-//
-// if(target.isInstanceOf[IViewShape]) {
-// val keys = interaction.getKeys
-// val selection = instrument.canvas.getDrawing.getSelection.getShapes
-// val targetSh = MappingRegistry.REGISTRY.getSourceFromTarget(target,
-// classOf[IShape])
-//
-// if(keys.contains(KeyEvent.VK_SHIFT))
-// selection.filter{sh => sh!=targetSh}.foreach{sh => action.addShape(sh)}
-// else if(keys.contains(KeyEvent.VK_CONTROL)) {
-// selection.foreach{sh => action.addShape(sh)}
-// action.addShape(targetSh)
-// }
-// else
-// action.setShape(targetSh)
-// }
-// }
-//
-// override def isConditionRespected: Boolean =
-// interaction.getTarget.isInstanceOf[IViewShape] &&
-// !instrument.canvas.getDrawing.getSelection.contains(MappingRegistry.REGISTRY.getSourceFromTarget(interaction.getTarget.asInstanceOf[IViewShape],
-// classOf[IShape]))
-// }
-//
-//
-//
-// /**
-// * This link allows to select several shapes.
-// */
 // private sealed class DnD2Select(hand : Hand) extends
 // InteractorImpl[SelectShapes, DnDWithKeys, Hand](hand, true,
 // classOf[SelectShapes], classOf[DnDWithKeys]) {

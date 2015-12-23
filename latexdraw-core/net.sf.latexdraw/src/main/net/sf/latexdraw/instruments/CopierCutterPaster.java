@@ -81,7 +81,7 @@ public class CopierCutterPaster extends CanvasInstrument {
 
 	@Override
 	public void onActionAdded(final Action action) {
-		updateWidgets(action);
+//		updateWidgets(action);
 	}
 }
 

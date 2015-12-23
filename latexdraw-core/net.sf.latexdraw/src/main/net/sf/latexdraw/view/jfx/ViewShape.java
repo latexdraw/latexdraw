@@ -37,6 +37,8 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 	public ViewShape(final @NonNull S sh) {
 		super();
 		model = sh;
+		
+		setFocusTraversable(false);
 	}
 
 	/**
@@ -44,5 +46,9 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 	 */
 	public void flush() {
 		// Should be overridden to flush the bindings.
+	}
+	
+	public @NonNull S getModel() {
+		return model;
 	}
 }

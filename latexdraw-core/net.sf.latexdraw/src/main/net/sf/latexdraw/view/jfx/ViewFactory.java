@@ -14,7 +14,8 @@ package net.sf.latexdraw.view.jfx;
 
 import java.util.Optional;
 
-import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
@@ -25,9 +26,10 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
  * @author Arnaud BLOUIN
  * @since 4.0
  */
+@NonNullByDefault
 public final class ViewFactory {
 	/** The singleton. */
-	public static final @NonNull ViewFactory INSTANCE = new ViewFactory();
+	public static final ViewFactory INSTANCE = new ViewFactory();
 
 	private ViewFactory() {
 		super();
@@ -40,7 +42,7 @@ public final class ViewFactory {
 	 * @since 3.0
 	 */
 	@SuppressWarnings("null")
-	public @NonNull Optional<ViewShape<?, ?>> createView(final IShape shape) {
+	public Optional<ViewShape<?, ?>> createView(final @Nullable IShape shape) {
 		// if(shape instanceof IGroup) return new LGroupView((IGroup)shape);
 		// if(shape instanceof IPlot) return new LPlotView((IPlot)shape);
 		// if(shape instanceof ISquare) return new LSquareView((ISquare)shape);

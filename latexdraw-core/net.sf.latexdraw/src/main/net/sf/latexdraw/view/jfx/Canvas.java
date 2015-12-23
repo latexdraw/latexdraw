@@ -34,16 +34,15 @@ import org.w3c.dom.NodeList;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
@@ -91,11 +90,11 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	public Canvas() {
 		super();
 
-		setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+//		setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
 
 		modified = false;
 		drawing = ShapeFactory.createDrawing();
-		zoom = new ActiveUnary<>(1.);
+		zoom = new ActiveUnary<>(1.0);
 //		tempView = new ActiveUnary<>();
 		page = new PageView(Page.USLETTER, getOrigin());
 		magneticGrid = new MagneticGridImpl(this);
@@ -105,7 +104,6 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		getChildren().add(page);
 		getChildren().add(shapesPane);
 
-		page.toBack();
 		shapesPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 
 		setPrefWidth(MARGINS * 2 + page.getPage().getWidth() * IShape.PPC);
@@ -113,15 +111,20 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		
 		defineShapeListToViewBinding();
 
-		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(150,  120), 100, 30);
+		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(150,  120), 200, 60);
 		rec.setThickness(10.0);
-		rec.setLineStyle(LineStyle.DOTTED);
-		
+		rec.setGradColStart(DviPsColors.APRICOT);
+		rec.setGradColEnd(DviPsColors.BLUEVIOLET);
+		rec.setFillingStyle(FillingStyle.GRAD);
+		rec.setFillingCol(DviPsColors.RED);
 		getDrawing().addShape(rec);
 		
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
 		// borderIns.addEventable(this);
+		
+		shapesPane.setFocusTraversable(true);
+		shapesPane.addEventHandler(MouseEvent.ANY, evt -> shapesPane.requestFocus());
 	}
 
 	private void defineShapeListToViewBinding() {
