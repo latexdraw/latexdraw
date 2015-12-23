@@ -155,4 +155,12 @@ public class TestCanvas extends TestLatexdrawGUI {
 		assertEquals(2, canvas.getDrawing().getSelection().size());
 		assertNotSame(canvas.getDrawing().getSelection().getShapeAt(0), canvas.getDrawing().getSelection().getShapeAt(1));
 	}
+	
+	@Test
+	public void testTwoAddsAndShiftClickSelectsOneShape() {
+		new CompositeGUIVoidCommand(addRec, addRec2, waitFXEvents, clickOnAddedRec, waitFXEvents, ctrlClickOnAddedRec2, waitFXEvents,
+				shiftClickOnAddedRec, waitFXEvents).execute();
+		assertEquals(1, canvas.getDrawing().getSelection().size());
+		assertNotSame(addedRec, canvas.getDrawing().getSelection().getShapeAt(0));
+	}
 }
