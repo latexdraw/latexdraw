@@ -27,10 +27,10 @@ import org.eclipse.jdt.annotation.NonNull;
 @FunctionalInterface
 public interface PSArithemticCommand {
 	/**
-	 * Creates n abstract postscript arithmetical command.
+	 * Creates an abstract postscript arithmetical command.
 	 * 
 	 * @param stack
-	 *            The current stack of commands.
+	 *            The current stack of values.
 	 * @param x
 	 *            The x variable of the command.
 	 * @throws InvalidFormatPSFunctionException
