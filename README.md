@@ -19,7 +19,7 @@ https://launchpad.net/latexdraw
 You can support this software by making a donation:
 http://sourceforge.net/donate/index.php?group_id=156523
 
-[![Flattr LaTeXDraw](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=latexdraw&url=https://github.com/arnobl/latexdraw&title=Latexdraw&language=Java&tags=github&category=software)
+[![Flattr LaTeXDraw](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/profile/latexdraw)
 
 **Continuous Integration:** [![Build Status](https://ci.inria.fr/malai/job/latexdraw/badge/icon)](https://ci.inria.fr/malai/job/latexdraw/)<br/>
 
