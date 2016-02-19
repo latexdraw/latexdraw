@@ -15,6 +15,7 @@
 package net.sf.latexdraw.instruments;
 
 import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.interaction.library.KeysPressure;
 import org.malai.javafx.interaction.library.Press;
 
 import com.google.inject.Inject;
@@ -22,6 +23,7 @@ import com.google.inject.Inject;
 import javafx.event.EventTarget;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.actions.shape.SelectShapes;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.view.jfx.ViewShape;
@@ -48,7 +50,7 @@ public class Hand extends CanvasInstrument {
 		// addInteractor(new DnD2Translate(this))
 		// addInteractor(new DnD2MoveViewport(canvas, this))
 		// addInteractor(new DoubleClick2InitTextSetter(this))
-		// addInteractor(new CtrlA2SelectAllShapes(this))
+		addInteractor(new CtrlA2SelectAllShapes(this));
 		// addInteractor(new CtrlU2UpdateShapes(this))
 	}
 
@@ -102,6 +104,23 @@ public class Hand extends CanvasInstrument {
 			return obj instanceof Node && ((Node)obj).getParent() instanceof ViewShape<?, ?>;
 		}
 	}
+
+	private static class CtrlA2SelectAllShapes extends JfxInteractor<SelectShapes, KeysPressure, Hand> {
+		CtrlA2SelectAllShapes(final Hand hand) throws InstantiationException, IllegalAccessException {
+			super(hand, false, SelectShapes.class, KeysPressure.class, hand.canvas);
+		}
+
+		@Override
+		public void initAction() {
+			instrument.canvas.getDrawing().getShapes().forEach(sh -> action.addShape(sh));
+			action.setDrawing(instrument.canvas.getDrawing());
+		}
+
+		@Override
+		public boolean isConditionRespected() {
+			return interaction.getKeyCode().size() == 2 && interaction.getKeyCode().contains(KeyCode.A) && interaction.getKeyCode().contains(KeyCode.CONTROL);
+		}
+	}
 }
 
 // private sealed class CtrlU2UpdateShapes(ins:Hand) extends
@@ -118,19 +137,6 @@ public class Hand extends CanvasInstrument {
 // interaction.getKeys.contains(KeyEvent.VK_CONTROL)
 // }
 //
-//
-// private sealed class CtrlA2SelectAllShapes(ins:Hand) extends
-// InteractorImpl[SelectShapes, KeysPressure, Hand](ins, false,
-// classOf[SelectShapes], classOf[KeysPressure]) {
-// override def initAction() {
-// instrument.canvas.getDrawing.getShapes.foreach{sh => action.addShape(sh)}
-// action.setDrawing(instrument.canvas.getDrawing)
-// }
-//
-// override def isConditionRespected =
-// interaction.getKeys.size==2 && interaction.getKeys.contains(KeyEvent.VK_A) &&
-// interaction.getKeys.contains(KeyEvent.VK_CONTROL)
-// }
 //
 //
 // private sealed class DoubleClick2InitTextSetter(ins : Hand) extends
