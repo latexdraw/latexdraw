@@ -99,8 +99,6 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 	public Canvas() {
 		super();
 
-		// setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-
 		modified = false;
 		drawing = ShapeFactory.createDrawing();
 		zoom = new ActiveUnary<>(1.0);
@@ -116,8 +114,6 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		getChildren().add(shapesPane);
 		getChildren().add(handlersPane);
 		handlersPane.getChildren().add(selectionBorder);
-		// handlersPane.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, null,
-		// null)));
 		handlersPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 		shapesPane.relocate(ORIGIN.getX(), ORIGIN.getY());
 
@@ -142,7 +138,6 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
-		// borderIns.addEventable(this);
 
 		shapesPane.setFocusTraversable(true);
 		shapesPane.addEventHandler(MouseEvent.ANY, evt -> shapesPane.requestFocus());
