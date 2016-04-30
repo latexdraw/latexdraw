@@ -1,29 +1,19 @@
 package net.sf.latexdraw.generators.svg;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.geom.Point2D;
-import java.util.List;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGrid;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.parsers.svg.CSSColors;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGCircleElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGLineElement;
-import net.sf.latexdraw.parsers.svg.SVGTextElement;
-import net.sf.latexdraw.parsers.svg.SVGTransform;
+import net.sf.latexdraw.parsers.svg.*;
 import net.sf.latexdraw.parsers.svg.parsers.SVGPointsParser;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
 import sun.font.FontDesignMetrics;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.List;
 
 /**
  * Defines a SVG generator for a grid.<br>
@@ -79,6 +69,12 @@ class LGridSVGGenerator extends LShapeSVGGenerator<IGrid> {
 
 		if(gridElt!=null)
 			setMainGridElement(gridElt, prefix);
+
+		final String unit = elt.getAttribute(prefix+LNamespace.XML_GRID_UNIT);
+
+		if(unit!=null)
+			try { shape.setUnit(Double.parseDouble(unit)); }
+			catch(final NumberFormatException e) { BadaboomCollector.INSTANCE.add(e); }
 
 		setLabelGridElement(getLaTeXDrawElement(elt, LNamespace.XML_TYPE_TEXT));
 
