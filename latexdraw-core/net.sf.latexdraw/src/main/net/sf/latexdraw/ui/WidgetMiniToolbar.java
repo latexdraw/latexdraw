@@ -1,49 +1,17 @@
 package net.sf.latexdraw.ui;
 
-import java.awt.AWTEvent;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.IllegalComponentStateException;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.event.AWTEventListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
-import java.awt.image.BufferedImage;
-
-import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
-
 import org.malai.interaction.Eventable;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.swing.interaction.SwingEventManager;
 import org.malai.swing.widget.MToolBar;
 import org.malai.swing.widget.SwingWidgetUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 /**
  * This class defines a button which displays a frame containing
@@ -69,7 +37,7 @@ public class WidgetMiniToolbar extends JButton implements ActionListener, Window
 	private static final long serialVersionUID = 1L;
 
 	/** The frame which displays the toolbar */
-	protected WindowWidgets buttonsFrame;
+	protected JFrame buttonsFrame;
 
 	/** The toolbar which contains the buttons */
 	protected MToolBar toolbar;
@@ -494,17 +462,16 @@ public class WidgetMiniToolbar extends JButton implements ActionListener, Window
 	}
 
 
-	private class WindowWidgets extends JFrame {
-		private static final long serialVersionUID = 1L;
+	private static class WindowWidgets extends JFrame {
+		private static final long serialVersionUID=1L;
 
-		protected WindowWidgets(final JPanel buttonsPanel) {
+		protected WindowWidgets(final Container buttonsPanel) {
 			super();
+			setUndecorated(true);
 			setType(Window.Type.UTILITY);
 			setFocusable(false);
-			setUndecorated(true);
-			setVisible(false);
 			setAlwaysOnTop(true);
-			add(buttonsPanel);
+			getContentPane().add(buttonsPanel);
 			pack();
 		}
 	}

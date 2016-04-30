@@ -34,7 +34,7 @@ import org.malai.undo.UndoCollector
  * @version 3.0
  */
 object LaTeXDraw {
-  System.setProperty("sun.java2d.opengl","True");
+  System.setProperty("sun.java2d.opengl","true");
 
 	// Setting the size of the the saved actions.
 	UndoCollector.INSTANCE.setSizeMax(30)
