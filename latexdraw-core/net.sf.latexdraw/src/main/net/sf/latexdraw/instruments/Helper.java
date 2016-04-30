@@ -1,20 +1,19 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Component;
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.dialog.AboutDialogueBox;
 import net.sf.latexdraw.ui.dialog.ShortcutsFrame;
 import net.sf.latexdraw.util.LResources;
-
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.instrument.library.MenuItem2OpenWebPageInteractor;
 import org.malai.swing.instrument.library.MenuItem2ShowComponentInteractor;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MMenuItem;
+
+import java.awt.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * This instrument manages help features.<br>
@@ -95,8 +94,8 @@ public class Helper extends WidgetInstrument {
 		try{
 			addInteractor(new MenuItem2AboutFrame(this, aboutFrame, aboutItem));
 			addInteractor(new MenuItem2ShortcutFrame(this, aboutFrame, shortcutItem));
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("http://sourceforge.net/tracker/?group_id=156523"))); //$NON-NLS-1$
-			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("http://sourceforge.net/projects/latexdraw/forums"))); //$NON-NLS-1$
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, reportBugItem, new URI("https://sourceforge.net/p/latexdraw/bugs/?source=navbar"))); //$NON-NLS-1$
+			addInteractor(new MenuItem2OpenWebPageInteractor(this, forumItem, new URI("https://sourceforge.net/p/latexdraw/discussion/"))); //$NON-NLS-1$
 			addInteractor(new MenuItem2OpenWebPageInteractor(this, donateItem, new URI("http://sourceforge.net/project/project_donations.php?group_id=156523"))); //$NON-NLS-1$
 			addInteractor(new MenuItem2OpenWebPageInteractor(this, manuelItem, new URI("https://github.com/arnobl/latexdraw/wiki/Manual"))); //$NON-NLS-1$
 		}catch(InstantiationException | IllegalAccessException | URISyntaxException e){

@@ -1,25 +1,6 @@
 ************************************************************
-Version 3.3.2
+Version 3.3.3
 
 Bugs fixed:
-- Issues when resizing some shapes
-  https://bugs.launchpad.net/latexdraw/+bug/1504095
-- NPE crash when exporting shapes as a template
-  https://bugs.launchpad.net/latexdraw/+bug/1504098
-- Crash while loading an SVG document
-  https://bugs.launchpad.net/latexdraw/+bug/1504437
-- When importing a template, the document is not set as modified
-  https://bugs.launchpad.net/latexdraw/+bug/1504096
-- Too long precision in arrowsize to be accepted by LaTeX
-  https://bugs.launchpad.net/latexdraw/+bug/1506727
-- Tex binaries changed in the latest MacOsX version El Capitan
-  https://bugs.launchpad.net/latexdraw/+bug/1502655
-- PS/PDF export does not work when a path contains a ~ character.
-  https://bugs.launchpad.net/latexdraw/+bug/1426749 
-- Including pictures should support spaces
-  https://bugs.launchpad.net/latexdraw/+bug/1396899
-- The XML charset used to save SVG documents is always UTF-8 
-  https://bugs.launchpad.net/latexdraw/+bug/1426877
-- The path of the opened SVG file is not saved
-  https://bugs.launchpad.net/latexdraw/+bug/1426846
-- Resolution of the exported rasterised pictures improved
+- The links to the forums and the bug tracker system have been fixed
+  https://bugs.launchpad.net/latexdraw/+bug/1533253
