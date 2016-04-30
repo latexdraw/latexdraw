@@ -87,7 +87,9 @@ object LaTeXDraw {
 
     	if(cmdLine.getFilename!=null) {
 	    	val action = new LoadDrawing()
-	    	action.setFile(new File(cmdLine.getFilename))
+        val file = new File(cmdLine.getFilename)
+	    	action.setFile(file)
+        action.setCurrentFolder(file.getParentFile)
 	    	action.setUi(frame)
 	    	action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE)
 	    	action.setFileChooser(frame.getFileLoader.getDialog(false))

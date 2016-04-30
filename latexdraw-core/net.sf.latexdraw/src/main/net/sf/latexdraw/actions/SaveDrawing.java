@@ -1,18 +1,14 @@
 package net.sf.latexdraw.actions;
 
-import java.io.File;
-
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LFrame;
-
 import org.malai.swing.action.library.Save;
 import org.malai.swing.ui.SwingUI;
+
+import javax.swing.*;
+import java.io.File;
 
 /**
  * This action saves the given drawing into an SVG document.
@@ -46,6 +42,8 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 	/** The instrument that manages the preferences. */
 	protected PreferencesSetter prefSetter;
 
+	File currentFolder;
+
 
 	/**
 	 * Creates the action.
@@ -74,7 +72,7 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 						quit();
 						break;
 					case JOptionPane.YES_OPTION: // save + exit
-						final File f = showDialog(fileChooser, saveAs, ui, file);
+						final File f = showDialog(fileChooser, saveAs, ui, file, currentFolder);
 						if(f!=null) {
 							file = f;
 							super.doActionBody();
@@ -91,7 +89,7 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 			else quit();
 		else {
 			if(file==null)
-				file = showDialog(fileChooser, saveAs, ui, null);
+				file = showDialog(fileChooser, saveAs, ui, null, currentFolder);
 			if(file==null)
 				ok = false;
 			else
@@ -131,11 +129,14 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 	 * Show the export dialog to select a path.
 	 * @since 3.0
 	 */
-	protected static File showDialog(final JFileChooser fileChooser, final boolean saveAs, final SwingUI ui, final File file) {
+	protected static File showDialog(final JFileChooser fileChooser, final boolean saveAs, final SwingUI ui, final File file,
+									 final File currentFolder) {
 		File f;
 
-		if(saveAs || file==null && ui.isModified())
-			f = fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
+		if(saveAs || file==null && ui.isModified()) {
+			fileChooser.setCurrentDirectory(currentFolder);
+			f=fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
+		}
 		else
 			f = file;
 
@@ -188,5 +189,9 @@ public class SaveDrawing extends Save<LFrame, JLabel> {
 	 */
 	public void setSaveOnClose(final boolean saveOnClose) {
 		this.saveOnClose = saveOnClose;
+	}
+
+	public void setCurrentFolder(final File currFolder) {
+		currentFolder = currFolder;
 	}
 }

@@ -2,5 +2,7 @@
 Version 3.3.3
 
 Bugs fixed:
+- The last working folder used to load/save documents is now considered in the open/save dialogue box
+  https://bugs.launchpad.net/latexdraw/+bug/1574741
 - The links to the forums and the bug tracker system have been fixed
   https://bugs.launchpad.net/latexdraw/+bug/1533253

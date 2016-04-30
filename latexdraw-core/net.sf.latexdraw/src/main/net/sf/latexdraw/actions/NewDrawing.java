@@ -1,19 +1,15 @@
 package net.sf.latexdraw.actions;
 
-import java.io.File;
-
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.views.Java2D.impl.FlyweightThumbnail;
 import net.sf.latexdraw.instruments.PreferencesSetter;
 import net.sf.latexdraw.ui.LFrame;
-
 import org.malai.action.ActionsRegistry;
 import org.malai.swing.action.library.IOAction;
 import org.malai.undo.UndoCollector;
+
+import javax.swing.*;
+import java.io.File;
 
 /**
  * This action permits to create a new drawing and initialises the application as required.<br>
@@ -40,6 +36,8 @@ public class NewDrawing extends IOAction<LFrame, JLabel> implements Modifying {
 	/** The instrument used that manage the preferences. */
 	protected PreferencesSetter prefSetter;
 
+	File currentFolder;
+
 
 	@Override
 	protected void doActionBody() {
@@ -49,7 +47,7 @@ public class NewDrawing extends IOAction<LFrame, JLabel> implements Modifying {
 					newDrawing();
 					break;
 				case JOptionPane.YES_OPTION: // save + load
-					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
+					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file, currentFolder);
 					if(f!=null) {
 						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
 						ui.setModified(false);
@@ -103,5 +101,9 @@ public class NewDrawing extends IOAction<LFrame, JLabel> implements Modifying {
 	 */
 	public void setPrefSetter(final PreferencesSetter prefSetter) {
 		this.prefSetter = prefSetter;
+	}
+
+	public void setCurrentFolder(final File currFolder) {
+		currentFolder = currFolder;
 	}
 }

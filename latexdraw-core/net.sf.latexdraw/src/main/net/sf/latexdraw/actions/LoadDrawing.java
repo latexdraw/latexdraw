@@ -1,14 +1,10 @@
 package net.sf.latexdraw.actions;
 
-import java.io.File;
-
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import net.sf.latexdraw.ui.LFrame;
-
 import org.malai.swing.action.library.Load;
+
+import javax.swing.*;
+import java.io.File;
 
 /**
  * This action loads an SVG document into the app.
@@ -32,6 +28,7 @@ import org.malai.swing.action.library.Load;
 public class LoadDrawing extends Load<LFrame, JLabel> implements Modifying {
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
+	File currentFolder;
 
 	@Override
 	protected void doActionBody() {
@@ -41,7 +38,7 @@ public class LoadDrawing extends Load<LFrame, JLabel> implements Modifying {
 					load();
 					break;
 				case JOptionPane.YES_OPTION: // save + load
-					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
+					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file, currentFolder);
 					if(f!=null) {
 						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
 						ui.setModified(false);
@@ -71,8 +68,10 @@ public class LoadDrawing extends Load<LFrame, JLabel> implements Modifying {
 
 
 	protected void load() {
-		if(file==null)
-			file = fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
+		if(file==null) {
+			fileChooser.setCurrentDirectory(currentFolder);
+			file=fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
+		}
 		else
 			fileChooser.setSelectedFile(file);
 
@@ -89,6 +88,10 @@ public class LoadDrawing extends Load<LFrame, JLabel> implements Modifying {
 	 */
 	public void setFileChooser(final JFileChooser fileChooser) {
 		this.fileChooser = fileChooser;
+	}
+
+	public void setCurrentFolder(final File currFolder) {
+		currentFolder = currFolder;
 	}
 }
 

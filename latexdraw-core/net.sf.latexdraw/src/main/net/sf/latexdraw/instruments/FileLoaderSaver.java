@@ -1,13 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.List;
-import java.util.Objects;
-
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-
 import net.sf.latexdraw.actions.LoadDrawing;
 import net.sf.latexdraw.actions.NewDrawing;
 import net.sf.latexdraw.actions.SaveDrawing;
@@ -19,7 +11,6 @@ import net.sf.latexdraw.ui.LFrame;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
-
 import org.malai.action.Action;
 import org.malai.instrument.Interactor;
 import org.malai.interaction.Interaction;
@@ -35,6 +26,12 @@ import org.malai.swing.widget.MMenuItem;
 import org.malai.swing.widget.MProgressBar;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * This instrument saves and loads documents.<br>
@@ -69,6 +66,9 @@ public class FileLoaderSaver extends WidgetInstrument {
 
 	/** The current file loaded or saved. */
 	protected File currentFile;
+
+	/** The current working folder. */
+	protected File currentFolder;
 
 	/** The button used to save documents. */
 	protected MButton saveButton;
@@ -146,6 +146,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 			final File file = fileChooser==null ? null : fileChooser.getSelectedFile();
 
 			if(file!=null) {
+				currentFolder = file.getParentFile();
 				currentFile = file;
 				if(!currentFile.getPath().endsWith(SVGFilter.SVG_EXTENSION))
 					currentFile = new File(currentFile.getPath()+SVGFilter.SVG_EXTENSION);
@@ -229,6 +230,8 @@ public class FileLoaderSaver extends WidgetInstrument {
 	public void onActionExecuted(final Action action) {
 		if(action instanceof LoadDrawing) {
 			currentFile = ((LoadDrawing)action).getFile();
+			if(currentFile!=null)
+				currentFolder = currentFile.getParentFile();
 		}
 	}
 
@@ -430,6 +433,7 @@ abstract class Interaction2NewInteractor<I extends Interaction> extends Interact
 		action.setUi(instrument.ui);
 		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 		action.setFileChooser(instrument.getDialog(false));
+		action.setCurrentFolder(instrument.currentFolder);
 	}
 }
 
@@ -493,6 +497,7 @@ class Shortcut2SavePrefInteractor extends Interaction2SaveInteractor<KeysPressur
 		super.initAction();
 		action.setSaveAs(true);
 		action.setFileChooser(instrument.getDialog(true));
+		action.setCurrentFolder(instrument.currentFolder);
 		action.setSaveOnClose(true);
 	}
 
@@ -522,6 +527,7 @@ class ButtonClose2SaveInteractor extends Interaction2SaveInteractor<WindowClosed
 	public void initAction() {
 		super.initAction();
 		action.setFileChooser(instrument.getDialog(true));
+		action.setCurrentFolder(instrument.currentFolder);
 		action.setSaveAs(true);
 		action.setSaveOnClose(true);
 	}
@@ -551,6 +557,7 @@ class Menu2SaveAsInteractor extends Interaction2SaveInteractor<MenuItemPressed> 
 	public void initAction() {
 		super.initAction();
 		action.setFileChooser(instrument.getDialog(true));
+		action.setCurrentFolder(instrument.currentFolder);
 		action.setSaveAs(true);
 		action.setSaveOnClose(false);
 		action.setFile(null);
@@ -673,6 +680,7 @@ abstract class Interaction2SaveInteractor<I extends Interaction> extends Interac
 		action.setPrefSetter(instrument.prefSetter);
 		action.setFileChooser(instrument.getDialog(true));
 		action.setFile(instrument.currentFile);
+		action.setCurrentFolder(instrument.currentFolder);
 	}
 }
 
@@ -689,6 +697,7 @@ abstract class Interaction2LoadInteractor<I extends Interaction> extends Interac
 	public void initAction() {
 		super.initAction();
 		action.setFileChooser(instrument.getDialog(false));
+		action.setCurrentFolder(instrument.currentFolder);
 	}
 }
 
