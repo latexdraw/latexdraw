@@ -1,13 +1,5 @@
 package net.sf.latexdraw.glib.ui;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.util.Objects;
-
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
@@ -16,13 +8,16 @@ import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
-
 import org.malai.preferences.Preferenciable;
 import org.malai.properties.Modifiable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.Objects;
 
 /**
  * This class defines a magnetic grid.<br>
@@ -173,7 +168,6 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 			pixPerCm10*=PSTricksConstants.INCH_VAL_CM;
 
 		if(Double.compare(pixPerCm10, 4.)>0) {
-			final Line2D line = new Line2D.Double();
 			final double xMinclip = Math.floor(clip.getMinX()/pixPerCm10)*pixPerCm10-clip.getMinX();
 			final double yMinclip = Math.floor(clip.getMinY()/pixPerCm10)*pixPerCm10-clip.getMinY();
 			final double xMaxclip = clip.getMaxX();
@@ -182,13 +176,11 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 			final double minY	  = clip.getMinY();
 
     		for(double i=pixPerCm10-1+xMinclip+minX+canvas.getOrigin().getX()%pixPerCm10; i<xMaxclip; i+=pixPerCm10) {
-				line.setLine(i, minY, i, yMaxclip);
-				graph.draw(line);
+				graph.drawLine((int)i, (int)minY,(int) i, (int)yMaxclip);
 			}
 
     		for(double i=pixPerCm10-1+yMinclip+minY+canvas.getOrigin().getY()%pixPerCm10; i<yMaxclip; i+=pixPerCm10) {
-				line.setLine(minX, i, xMaxclip, i);
-				graph.draw(line);
+				graph.drawLine((int)minX, (int)i,(int) xMaxclip, (int)i);
 			}
     	}
 	}
@@ -203,16 +195,13 @@ public class LMagneticGrid implements Preferenciable, Modifiable {
 		final double yMaxclip = clip.getMaxY();
 		final double minX 	  = clip.getMinX();
 		final double minY	  = clip.getMinY();
-		final Line2D line 	  = new Line2D.Double();
 
 		for(double i=gap2-1+xMinclip+minX+canvas.getOrigin().getX()%gap2; i<xMaxclip; i+=gap2) {
-			line.setLine(i, minY, i, yMaxclip);
-			graph.draw(line);
+			graph.drawLine((int)i, (int)minY,(int) i, (int)yMaxclip);
 		}
 
 		for(double j=gap2-1+yMinclip+minY+canvas.getOrigin().getY()%gap2; j<yMaxclip; j+=gap2) {
-			line.setLine(minX, j, xMaxclip, j);
-			graph.draw(line);
+			graph.drawLine((int)minX, (int)j,(int) xMaxclip, (int)j);
 		}
 	}
 
