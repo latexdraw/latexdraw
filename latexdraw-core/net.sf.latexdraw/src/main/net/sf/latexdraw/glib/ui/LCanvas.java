@@ -1,24 +1,5 @@
 package net.sf.latexdraw.glib.ui;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.KeyboardFocusManager;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.SwingUtilities;
-
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
@@ -32,14 +13,9 @@ import net.sf.latexdraw.mapping.ViewList2TooltipableList;
 import net.sf.latexdraw.ui.TextAreaAutoSize;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
-
 import org.malai.action.Action;
 import org.malai.action.ActionsRegistry;
-import org.malai.mapping.ActiveArrayList;
-import org.malai.mapping.ActiveUnary;
-import org.malai.mapping.IActiveList;
-import org.malai.mapping.IUnary;
-import org.malai.mapping.MappingRegistry;
+import org.malai.mapping.*;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 import org.malai.swing.action.library.MoveCamera;
@@ -49,6 +25,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines a canvas that draw the drawing and manages the selected shapes.<br>

@@ -8,5 +8,7 @@ Bugs fixed:
   https://bugs.launchpad.net/latexdraw/+bug/1574741
 - Grids' size not saved in SVG
   https://bugs.launchpad.net/latexdraw/+bug/1574739
+- Text cropped when exported as png
+  https://bugs.launchpad.net/latexdraw/+bug/1533256
 - The links to the forums and the bug tracker system have been fixed
   https://bugs.launchpad.net/latexdraw/+bug/1533253

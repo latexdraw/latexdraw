@@ -91,7 +91,7 @@ object FlyweightThumbnail {
 		}
 	}
 	
-	def hasThumbnailsInProgress = creationsInProgress.synchronized{!creationsInProgress.isEmpty}
+	def hasThumbnailsInProgress = creationsInProgress.synchronized{creationsInProgress.nonEmpty}
 
 	/**
 	 * Returns the image corresponding to the given text. If the image does not already exists,
@@ -120,7 +120,7 @@ object FlyweightThumbnail {
 	  if(shape==null) return (null, null, null, null)
 
 	  var res : (Image, Set[IViewText], String, String) = null
-		val text = shape.getLineColour.toString()+shape.getText
+		val text = shape.getLineColour.toString+shape.getText
 
 		images.synchronized{images.get(text)} match {
   		case Some(tuple) =>
@@ -136,10 +136,11 @@ object FlyweightThumbnail {
   						val tuple = createImage(shape)
   						images.synchronized{images+=(text -> (tuple._1, Set(view), tuple._2, tuple._3))}
   						creationsInProgress.synchronized{creationsInProgress-=view}
-  						view.updateBorder
+  						view.updateBorder()
+
   						if(_canvas!=null) {
-  							_canvas.getBorderInstrument.update
-  							_canvas.refresh
+  							_canvas.getBorderInstrument.update()
+  							_canvas.update()
   						}
   					}
   				})
@@ -181,7 +182,7 @@ object FlyweightThumbnail {
 	private def flushImage(image:Image, pathPic:String) {
 		if(image!=null)
 		// Flushing the picture.
-			image.flush
+			image.flush()
 
 		// Removing the picture file.
 		val file = new File(pathPic)
@@ -274,8 +275,8 @@ object FlyweightThumbnail {
 			val errReader = new StreamExecReader(process.getErrorStream)
 			val outReader = new StreamExecReader(process.getInputStream)
 
-			errReader.start
-			outReader.start
+			errReader.start()
+			outReader.start()
 
 			if(process.waitFor==0)
 				return (true, log)
@@ -304,10 +305,10 @@ object FlyweightThumbnail {
 			val fos	= new FileOutputStream(pathTex)
 			val osw = new OutputStreamWriter(fos)
 			osw.append(doc)
-			osw.flush
-			osw.close
-			fos.flush
-			fos.close
+			osw.flush()
+			osw.close()
+			fos.flush()
+			fos.close()
 
 			var res = execute(Array(os.getLatexBinPath, "--halt-on-error", "--interaction=nonstopmode", //$NON-NLS-1$ //$NON-NLS-2$
           "--output-directory=" + tmpDir.getAbsolutePath, LFileUtils.INSTANCE.normalizeForLaTeX(pathTex))) //$NON-NLS-1$
@@ -340,8 +341,8 @@ object FlyweightThumbnail {
 					val mbb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size)
 					val pdfFile = new PDFFile(mbb)
 					mbb.clear
-					fc.close
-					raf.close
+					fc.close()
+					raf.close()
 
 					if(pdfFile.getNumPages==1) {
 						val page = pdfFile.getPage(0)
@@ -354,7 +355,7 @@ object FlyweightThumbnail {
               }
 
 					    if(img!=null)
-					    	img.flush
+					    	img.flush()
 					}
 					else BadaboomCollector.INSTANCE.add(new IllegalArgumentException("Not a single page: " + pdfFile.getNumPages))
 					file.delete
@@ -372,10 +373,10 @@ object FlyweightThumbnail {
 			new File(pathPic + ".aux").delete //$NON-NLS-1$
 			new File(pathPic + ".log").delete //$NON-NLS-1$
 			BadaboomCollector.INSTANCE.add(new FileNotFoundException("Log:\n" + log + "\nException:\n" + sw))
-			pw.flush
-			pw.close
-			sw.flush
-			sw.close
+			pw.flush()
+			pw.close()
+			sw.flush()
+			sw.close()
 		}
 
 		return (bi, pathPic, log)
