@@ -24,7 +24,8 @@ import javax.swing.UIManager.LookAndFeelInfo
  *  PURPOSE. See the GNU General Public License for more details.<br>
  * <br>
  * 2012-04-18<br>
- * @author Arnaud BLOUIN
+  *
+  * @author Arnaud BLOUIN
  * @version 3.0
  */
 object Theme {
@@ -41,7 +42,8 @@ object Theme {
 
 	/**
 	 * Sets the current look and feel.
-	 * @since 3.0
+    *
+    * @since 3.0
 	 */
 	def setTheme() = {
 		try{
@@ -72,43 +74,20 @@ object Theme {
 
 	/**
 	 * Allows to get the theme of the program.
-	 * @since 3.0
-	 * @throws IllegalArgumentException If a problem occurs.
+    *
+    * @since 3.0
 	 * @return The class of the theme.
-	 * @throws IOException If any IO errors occur.
-     * @throws SAXException If any parse errors occur.
-	 * @throws ParserConfigurationException if a DocumentBuilder cannot be created which satisfies the configuration requested.
 	 */
 	def readTheme() : String = {
-		var laf : String = null
-		val xml = new File(LPath.PATH_PREFERENCES_XML_FILE)
+    val node = Preference.readXMLPreferencesFromFile(new File(LPath.PATH_PREFERENCES_XML_FILE)).get(LNamespace.XML_LAF)
 
-		// Reading the LnF from the preferences.
-		if(xml.exists) {
-            val node = DocumentBuilderFactory.newInstance.newDocumentBuilder.parse(xml).getFirstChild
+    if(node != null) {
+      UIManager.getInstalledLookAndFeels.find { lnfInfo => lnfInfo.getName.equals(node.getTextContent) } match {
+        case Some(lnfInfo) => return lnfInfo.getClassName
+        case _ =>
+      }
+    }
 
-            if(node==null || !node.getNodeName.equals(LNamespace.XML_ROOT_PREFERENCES))
-            	throw new IllegalArgumentException()
-
-            val nl = node.getChildNodes
-            var i = 0
-            val size =  nl.getLength
-
-            while(i<size && laf==null) {
-            	if(nl.item(i).getNodeName.equals(LNamespace.XML_LAF))
-            		laf = nl.item(i).getTextContent
-            	i+=1
-            }
-
-            // Searching if the read LnF is supported by the current platform.
-    		UIManager.getInstalledLookAndFeels.find{lnfInfo => lnfInfo.getName.equals(laf)} match {
-    			case Some(lnfInfo) => laf = lnfInfo.getClassName
-    			case _ => laf = platformLnF
-    		}
-		}
-		else // Deducing the LnF from the system properties.
-			laf = platformLnF
-
-		return laf
+    return platformLnF
 	}
 }

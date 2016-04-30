@@ -1,13 +1,12 @@
 package net.sf.latexdraw.util;
 
-import java.awt.Insets;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.swing.ImageIcon;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
+
+import javax.swing.*;
+import java.awt.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Contains all the icons and the labels used by latexdraw.<br>

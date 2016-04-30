@@ -9,7 +9,7 @@ import net.sf.latexdraw.glib.views.Java2D.impl.LViewsFactory
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK
 import net.sf.latexdraw.ui.{LFrame, SplashScreen}
 import net.sf.latexdraw.util.LCommandLine.CmdLineState
-import net.sf.latexdraw.util.{LCommandLine, LPath, Theme, VersionChecker}
+import net.sf.latexdraw.util._
 import org.malai.action.ActionsRegistry
 import org.malai.mapping.MappingRegistry
 import org.malai.undo.UndoCollector
@@ -30,11 +30,21 @@ import org.malai.undo.UndoCollector
  *  PURPOSE. See the GNU General Public License for more details.<br>
  *<br>
  * 2012-04-19<br>
- * @author Arnaud BLOUIN
+  *
+  * @author Arnaud BLOUIN
  * @version 3.0
  */
 object LaTeXDraw {
-  System.setProperty("sun.java2d.opengl","true");
+  {
+    val node = Preference.readXMLPreferencesFromFile(new File(LPath.PATH_PREFERENCES_XML_FILE)).get(LNamespace.XML_OPENGL)
+
+    if(node==null || java.lang.Boolean.parseBoolean(node.getTextContent)) {
+      System.setProperty("sun.java2d.opengl", "true")
+    }
+    else {
+      System.setProperty("sun.java2d.opengl", "false")
+    }
+  }
 
 	// Setting the size of the the saved actions.
 	UndoCollector.INSTANCE.setSizeMax(30)
@@ -52,7 +62,8 @@ object LaTeXDraw {
 
 	/**
 	 * The main function.
-	 * @param args The parameters given during the call of the program.
+    *
+    * @param args The parameters given during the call of the program.
 	 */
 	def main(args: Array[String]) {
     	val cmdLine = new LCommandLine()
@@ -103,6 +114,8 @@ object LaTeXDraw {
 
 //		frame.getCanvas.getDrawing.addShape(ShapeFactory.createPlot(true, ShapeFactory.createPoint(100, 500), 0, 90, "x sin dup mul"))
 //		frame.getCanvas.getDrawing.addShape(ShapeFactory.createPlot(true, ShapeFactory.createPoint(100, 500), 10, 90, "x sin x 2 div 2 exp cos mul"))
+
+      Preference.flushPreferencesCache
 
     	// Checking a new version if required.
     	if(VersionChecker.WITH_UPDATE && frame.getPrefSetters.isVersionCheckEnable)

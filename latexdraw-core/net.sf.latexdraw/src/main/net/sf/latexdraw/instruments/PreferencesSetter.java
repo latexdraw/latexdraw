@@ -1,30 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.UIManager;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
 import net.sf.latexdraw.actions.WritePreferences;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
@@ -35,27 +10,25 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LFrame;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
-import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LSystem;
-import net.sf.latexdraw.util.Theme;
-import net.sf.latexdraw.util.VersionChecker;
-
+import net.sf.latexdraw.util.*;
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Interactor;
 import org.malai.swing.interaction.library.WindowClosed;
-import org.malai.swing.widget.MCheckBox;
-import org.malai.swing.widget.MComboBox;
-import org.malai.swing.widget.MRadioButton;
-import org.malai.swing.widget.MSpinner;
-import org.malai.swing.widget.MTextArea;
-import org.malai.swing.widget.MTextField;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.malai.swing.widget.*;
+import org.w3c.dom.*;
+
+import javax.swing.*;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.*;
+import java.util.List;
 
 /**
  * This instrument modifies the preferences.<br>
@@ -76,12 +49,14 @@ import org.w3c.dom.NodeList;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PreferencesSetter extends Instrument {//TODO a composer for the preferences frame and WidgetInstrument inheritance
+public class PreferencesSetter extends Instrument {
 	/** The file chooser of paths selection. */
 	protected JFileChooser fileChooser;
 
 	/** This check-box allows to set if antialiasing must be used. */
 	protected MCheckBox antialiasingCheckBox;
+
+	protected MCheckBox openGL;
 
 	/** This check-box allows to set if rendering quality must be used. */
 	protected MCheckBox renderingCheckBox;
@@ -242,10 +217,12 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
   		pathExportField  	= new MTextField();
   		pathOpenField    	= new MTextField();
 
+		openGL = new MCheckBox("OpenGL acceleration");
   		antialiasingCheckBox = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.antiAl"));//$NON-NLS-1$
   		renderingCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.rendQ"));//$NON-NLS-1$
   		colorRenderCheckBox  = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.colRendQ"));//$NON-NLS-1$
   		alpaInterCheckBox    = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("PreferencesFrame.AlphaQ"));//$NON-NLS-1$
+		openGL.setSelected(true);
   		antialiasingCheckBox.setSelected(true);
   		renderingCheckBox.setSelected(true);
   		colorRenderCheckBox.setSelected(true);
@@ -296,6 +273,9 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		return fileChooser;
 	}
 
+	public MCheckBox getOpenGLCheckBox() {
+		return openGL;
+	}
 
 	/**
 	 * @return The check-box that allows to set if antialiasing must be used.
@@ -432,12 +412,16 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 	}
 
 
-	private void processXMLDataPreference(final Map<String, Node> prefMap) {
+	private void processXMLDataPreference(File xml) {
+		Map<String, Node> prefMap = Preference.readXMLPreferencesFromFile(xml);
 		Node n2;
 		Node node;
 
 		node = prefMap.get(LNamespace.XML_LATEX_INCLUDES);
 		if(node!=null) latexIncludes.setText(node.getTextContent());
+
+		node = prefMap.get(LNamespace.XML_OPENGL);
+		if(node!=null) openGL.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_ALPHA_INTER);
 		if(node!=null) alpaInterCheckBox.setSelected(Boolean.parseBoolean(node.getTextContent()));
@@ -645,6 +629,10 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
 		        attr.setTextContent(VersionChecker.VERSION);
 		        root.setAttributeNode(attr);
 
+				elt = document.createElement(LNamespace.XML_OPENGL);
+				elt.setTextContent(String.valueOf(openGL.isSelected()));
+				root.appendChild(elt);
+
 		        elt = document.createElement(LNamespace.XML_RENDERING);
 		        elt.setTextContent(String.valueOf(renderingCheckBox.isSelected()));
 		        root.appendChild(elt);
@@ -767,35 +755,9 @@ public class PreferencesSetter extends Instrument {//TODO a composer for the pre
         final File xml = new File(LPath.PATH_PREFERENCES_XML_FILE);
 
         if(xml.canRead())
-        	readXMLPreferencesFromFile(xml);
+        	processXMLDataPreference(xml);
 
         applyValues();
-	}
-
-
-	private void readXMLPreferencesFromFile(final File xmlFile) {
-		try {
-			Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile).getFirstChild();
-
-			if(node==null || !node.getNodeName().equals(LNamespace.XML_ROOT_PREFERENCES))
-				throw new IllegalArgumentException();
-
-			final NodeList nl = node.getChildNodes();
-			String name;
-
-			final Map<String, Node> prefMaps = new HashMap<>();
-
-			for(int i=0, size=nl.getLength(); i<size; i++) {
-				node = nl.item(i);
-				name = node.getNodeName();
-
-				if(name!=null && !name.isEmpty())
-					prefMaps.put(name, node);
-			}
-
-			processXMLDataPreference(prefMaps);
-			prefMaps.clear();
-		}catch(final Exception e) { BadaboomCollector.INSTANCE.add(e); }
 	}
 }
 

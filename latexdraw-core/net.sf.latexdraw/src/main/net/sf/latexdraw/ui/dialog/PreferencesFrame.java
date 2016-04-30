@@ -237,6 +237,7 @@ public class PreferencesFrame extends MFrame {
   		final JPanel pQuality  = new JPanel(new GridLayout(5, 1));
 
   		pQuality.add(new JLabel(FOR_NEW_DRAWINGS));
+		pQuality.add(prefSetter.getOpenGLCheckBox());
   		pQuality.add(prefSetter.getAntialiasingCheckBox());
   		pQuality.add(prefSetter.getRenderingCheckBox());
   		pQuality.add(prefSetter.getColorRenderCheckBox());
