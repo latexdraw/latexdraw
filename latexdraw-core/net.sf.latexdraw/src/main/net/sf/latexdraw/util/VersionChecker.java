@@ -1,22 +1,16 @@
 package net.sf.latexdraw.util;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URL;
-
-import javax.swing.JButton;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.UIBuilder;
-
 import org.malai.action.library.OpenWebPage;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.URI;
+import java.net.URL;
 
 /**
  * This class allows to check if a new version of LaTeXDraw is out. This class is a child of Thread
@@ -41,12 +35,12 @@ import org.malai.action.library.OpenWebPage;
  */
 public class VersionChecker extends Thread {
 	/** The version of the application */
-    public static final String VERSION   = "3.3.2";//$NON-NLS-1$
+    public static final String VERSION   = "3.3.3";//$NON-NLS-1$
 
 	public static final String VERSION_STABILITY = ""; //$NON-NLS-1$
 
 	/** The identifier of the build */
-	public static final String ID_BUILD = "20151103";//$NON-NLS-1$
+	public static final String ID_BUILD = "20160501";//$NON-NLS-1$
 
 	/** To change if update is needed or not. */
 	public static final boolean WITH_UPDATE = true;

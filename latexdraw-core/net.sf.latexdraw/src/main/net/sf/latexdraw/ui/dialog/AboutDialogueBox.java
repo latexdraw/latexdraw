@@ -1,30 +1,16 @@
 package net.sf.latexdraw.ui.dialog;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Map.Entry;
-
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.DisplayCanvas;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.VersionChecker;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.util.Map.Entry;
 
 /**
  * Define the dialogue box describing the latexdraw information.<br>
@@ -173,7 +159,7 @@ public class AboutDialogueBox extends JFrame {
 					VersionChecker.VERSION + VersionChecker.VERSION_STABILITY + //$NON-NLS-1$ //$NON-NLS-2$
 					LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.220") + " " + VersionChecker.ID_BUILD+"<br><br>"+//$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
 					LResources.LABEL_APP+LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.221")+"<br>"+//$NON-NLS-1$//$NON-NLS-2$
-					"Copyright(c) 2005-2015 - Arnaud BLOUIN<br><br>"+//$NON-NLS-1$
+					"Copyright(c) 2005-2016 - Arnaud BLOUIN<br><br>"+//$NON-NLS-1$
 					"http://latexdraw.sourceforge.net/<br></div></body></html>");//$NON-NLS-1$
 
 			panel.add(new DisplayCanvas(i), BorderLayout.NORTH);
