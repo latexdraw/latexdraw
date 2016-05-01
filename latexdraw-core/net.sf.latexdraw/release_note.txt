@@ -16,3 +16,5 @@ Bugs fixed:
   https://bugs.launchpad.net/latexdraw/+bug/1533253
 - Wrong error message when the /opt dir does not exist
   https://bugs.launchpad.net/latexdraw/+bug/1577169
+- Confusion in file naming after several save/save as/export operations
+  https://bugs.launchpad.net/latexdraw/+bug/1577176

@@ -1,12 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.Objects;
-
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-
 import net.sf.latexdraw.actions.Export;
 import net.sf.latexdraw.actions.Export.ExportFormat;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -18,7 +11,6 @@ import net.sf.latexdraw.ui.dialog.ExportDialog;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
-
 import org.malai.action.Action;
 import org.malai.instrument.Interactor;
 import org.malai.swing.instrument.WidgetInstrument;
@@ -30,6 +22,11 @@ import org.malai.swing.widget.MMenu;
 import org.malai.swing.widget.MMenuItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.Objects;
 
 /**
  * This instrument exports a drawing in different formats.<br>
@@ -270,6 +267,7 @@ protected FileLoaderSaver loader;
 	 * @since 3.0
 	 */
 	protected ExportDialog getExportDialog(final ExportFormat format) {
+		System.out.println(loader.currentFile);
 		if(fileChooserExport==null)
 			fileChooserExport = new ExportDialog(pathExport);// currentFile==null ? pathExport : currentFile.getPath());
 
@@ -279,7 +277,7 @@ protected FileLoaderSaver loader;
 		fileChooserExport.setFileFilter(format.getFilter());
 		fileChooserExport.setDialogTitle(Exporter.TITLE_DIALOG_EXPORT);
 
-		if(loader.currentFile!=null && fileChooserExport.getSelectedFile()==null) {
+		if(loader.currentFile!=null) {
 			String path = loader.currentFile.getPath();
 			if(path.contains(".")) path = path.substring(0, path.lastIndexOf('.')); //$NON-NLS-1$
 			path += format.getFileExtension();
