@@ -1,12 +1,5 @@
 package net.sf.latexdraw.ui;
 
-import java.awt.Dimension;
-import java.awt.Point;
-
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.WindowConstants;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
@@ -14,19 +7,10 @@ import net.sf.latexdraw.glib.ui.LCanvas;
 import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
 import net.sf.latexdraw.instruments.*;
 import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.mapping.Drawing2CanvasMapping;
-import net.sf.latexdraw.mapping.Selection2BorderMapping;
-import net.sf.latexdraw.mapping.Selection2DeleterMapping;
-import net.sf.latexdraw.mapping.Selection2MetaCustumiserMapping;
-import net.sf.latexdraw.mapping.Selection2TemplateManager;
-import net.sf.latexdraw.mapping.ShapeList2ExporterMapping;
-import net.sf.latexdraw.mapping.ShapeList2ViewListMapping;
-import net.sf.latexdraw.mapping.Unit2ScaleRuler;
-import net.sf.latexdraw.mapping.Zoom2ScaleRuler;
+import net.sf.latexdraw.mapping.*;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.VersionChecker;
-
 import org.malai.instrument.Instrument;
 import org.malai.mapping.MappingRegistry;
 import org.malai.presentation.Presentation;
@@ -42,6 +26,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * This class contains all the elements of the graphical user interface.<br>
@@ -279,7 +266,7 @@ public class LFrame extends SwingUI {
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { tabSelector	= new TabSelector(this); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { templateManager = new TemplateManager(composer, this); }
+		try { templateManager = new TemplateManager(composer, this, drawing); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 	}
 

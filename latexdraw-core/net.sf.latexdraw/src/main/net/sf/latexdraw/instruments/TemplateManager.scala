@@ -1,11 +1,13 @@
 package net.sf.latexdraw.instruments
 
 import java.io.File
+
 import net.sf.latexdraw.actions.ExportTemplate
 import net.sf.latexdraw.actions.LoadTemplate
 import net.sf.latexdraw.actions.UpdateTemplates
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.ui.LFrame
 import net.sf.latexdraw.util.LResources
@@ -34,7 +36,7 @@ import org.malai.instrument.Interactor
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class TemplateManager(composer : SwingUIComposer[_], val ui : LFrame) extends WidgetInstrument(composer) {
+class TemplateManager(composer : SwingUIComposer[_], val ui : LFrame, val drawing:IDrawing) extends WidgetInstrument(composer) {
 	/** The main menu that contains the template menu items. */
 	val _templateMenu : MMenu = new MMenu(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.103"), true)
 
@@ -109,6 +111,7 @@ private sealed class MenuItem2LoadTemplate(ins : TemplateManager) extends
 		action.setFile(new File(interaction.getMenuItem.getName))
 		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE)
 		action.setUi(instrument.ui)
+    action.setDrawing(instrument.drawing)
 	}
 
 	override def isConditionRespected = interaction.getMenuItem!=instrument.updateTemplatesMenu && instrument.templateMenu.contains(interaction.getMenuItem)
