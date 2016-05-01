@@ -1,14 +1,10 @@
 package net.sf.latexdraw.installer;
 
-import java.awt.Component;
-import java.awt.Dimension;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-
 import net.sf.latexdraw.util.LSystem;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 class StartSlide extends Slide {
 	private static final long serialVersionUID = 1L;
@@ -56,13 +52,27 @@ class StartSlide extends Slide {
 			add(textArea);
 			installer.nextB.setEnabled(false);
 		} else {
-			if(LSystem.INSTANCE.isVista())
-				plus = "</li><br><li>Be careful with Vista!<br>You must have launched this installer via the script install_vista.vbs.";
-			else
-				plus = "";//$NON-NLS-1$
+			if(LSystem.INSTANCE.isLinux() && !new File("/opt").isDirectory()) {
+				final JLabel label = new JLabel();
+				final JLabel label2 = new JLabel();
+				final JTextField label3 = new JTextField();
+				label3.setEditable(false);
+				label3.setMaximumSize(new Dimension(550, 40));
+				label.setText("Cannot proceed without the /opt folder.");
+				label2.setText("You may create it using a command like:");
+				label3.setText("sudo mkdir --mode=755 /opt");
+				add(label);
+				add(label2);
+				add(label3);
+				installer.nextB.setEnabled(false);
+			}else {
+				if(LSystem.INSTANCE.isVista())
+					plus="</li><br><li>Be careful with Vista!<br>You must have launched this installer via the script install_vista.vbs.";
+				else plus="";//$NON-NLS-1$
 
-			add(new JLabel("<html><br><br><br><ul><li>"+"This installer will: create the required directories; create some provided templates;<br>place the latexdraw files in the chosen directory."+//$NON-NLS-1$
-					"</li><br><li>"+"You may need to be administrator/root to install LaTeXDraw."+ plus+"</li></ul></html>"));//$NON-NLS-1$//$NON-NLS-3$
+				add(new JLabel("<html><br><br><br><ul><li>" + "This installer will: create the required directories; create some provided templates;<br>place the latexdraw files in the chosen directory." +//$NON-NLS-1$
+						"</li><br><li>" + "You may need to be administrator/root to install LaTeXDraw." + plus + "</li></ul></html>"));//$NON-NLS-1$//$NON-NLS-3$
+			}
 		}
 	}
 }
