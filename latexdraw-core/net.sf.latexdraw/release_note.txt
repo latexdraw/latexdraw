@@ -14,3 +14,5 @@ Bugs fixed:
   https://bugs.launchpad.net/latexdraw/+bug/1533254
 - The links to the forums and the bug tracker system have been fixed
   https://bugs.launchpad.net/latexdraw/+bug/1533253
+- Wrong error message when the /opt dir does not exist
+  https://bugs.launchpad.net/latexdraw/+bug/1577169
