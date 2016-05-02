@@ -78,8 +78,18 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //	 * @param ui The UI that contains the drawing.
 //	 * @since 3.0
 //	 */
-//	public void insert(final String path, final LFrame ui) {
-//		new InsertWorker(ui, path).execute();
+//	public IShape insert(final String path, final LFrame ui) {
+//InsertWorker worker = new InsertWorker(ui, path);
+//	worker.execute();
+//
+//	try {
+//		if(worker.get()) {
+//			return worker.getInsertedShapes();
+//		}
+//	}catch(InterruptedException | ExecutionException e) {
+//		BadaboomCollector.INSTANCE.add(e);
+//	}
+//	return null;
 //	}
 //
 //
@@ -255,9 +265,12 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //
 //	/** This worker inserts the given set of shapes into the drawing. */
 //	static class InsertWorker extends LoadShapesWorker {
+//		protected IShape insertedShapes;
+//
 //		protected InsertWorker(final LFrame ui, final String path) {
 //			super(ui, path, null);
 //			setModified = true;
+//			insertedShapes = null;
 //		}
 //
 //
@@ -268,7 +281,8 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //				final SVGDocument svgDoc = new SVGDocument(new File(path).toURI());
 //				final IDrawing pres = ui.getPresentation(IDrawing.class, LCanvas.class).getAbstractPresentation();
 //				// Adding loaded shapes.
-//				pres.addShape(toLatexdraw(svgDoc, 0));
+//	insertedShapes = toLatexdraw(svgDoc, 0);
+//	pres.addShape(insertedShapes);
 //				// Updating the possible widgets of the instruments.
 //				for(final Instrument instrument : ui.getInstruments())
 //					instrument.interimFeedback();
@@ -279,6 +293,10 @@ public class SVGDocumentGenerator { //implements ISOpenSaver<LFrame, JLabel> {
 //				return false;
 //			}
 //		}
+//
+//	public IShape getInsertedShapes() {
+//		return insertedShapes;
+//	}
 //	}
 //
 //

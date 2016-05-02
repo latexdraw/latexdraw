@@ -28,6 +28,8 @@ public class TemplateManager extends JfxInstrument {
 	// /** The menu item that permits to update the templates. */
 	@FXML protected Button updateTemplates;
 
+	// protected Drawing drawing;
+
 	// override def setActivated(activated : Boolean) {
 	// super.setActivated(activated)
 	// templateMenu.setEnabled(isActivated)
@@ -69,6 +71,7 @@ public class TemplateManager extends JfxInstrument {
 // action.setFile(new File(interaction.getMenuItem.getName))
 // action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE)
 // action.setUi(instrument.ui)
+// action.setDrawing(instrument.drawing)
 // }
 //
 // override def isConditionRespected =

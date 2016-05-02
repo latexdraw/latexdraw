@@ -1,6 +1,9 @@
 package net.sf.latexdraw.actions
 
+import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import org.malai.action.Action
+import org.malai.undo.Undoable
 
 /**
  * This action loads a given template.<br>
@@ -20,13 +23,31 @@ import org.malai.action.Action
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-class LoadTemplate extends Action { //IOAction[LFrame, JLabel] {
-	protected def doActionBody() {
-//		SVGDocumentGenerator.INSTANCE.insert(file.getPath, ui)
-	}
-	
-	
-	//FIXME to remove
-	def canDo(): Boolean = false
-  def isRegisterable(): Boolean = false
+class LoadTemplate extends Action with Undoable with DrawingAction with Modifying { //IOAction[LFrame, JLabel] {
+private var insertedShapes:IShape = _
+
+  protected def doActionBody() {
+//    insertedShapes = SVGDocumentGenerator.INSTANCE.insert(file.getPath, ui)
+//    println(insertedShapes)
+//    ok = insertedShapes!=null
+  }
+
+  override def redo() {
+    _drawing.get.addShape(insertedShapes)
+  }
+
+  override def undo() {
+    _drawing.get.removeShape(insertedShapes)
+  }
+
+  override def getUndoName = "template added"
+
+  override def canDo = super.canDo && drawing.isDefined
+
+  override def isRegisterable = true
+
+  override def flush() {
+    super.flush()
+    insertedShapes = null
+  }
 }
