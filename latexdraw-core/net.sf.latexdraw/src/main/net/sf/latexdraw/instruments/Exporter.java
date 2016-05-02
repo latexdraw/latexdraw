@@ -1,9 +1,6 @@
 package net.sf.latexdraw.instruments;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
+import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -16,12 +13,13 @@ import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
-
 import org.malai.javafx.instrument.JfxInstrument;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.google.inject.Inject;
+import java.io.File;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * This instrument exports a drawing in different formats.<br>
@@ -185,8 +183,7 @@ public class Exporter extends JfxInstrument {
 
 		fileChooserExport.setInitialDirectory(new File(pathExport));
 		//
-		// if(loader.currentFile!=null &&
-		// fileChooserExport.getSelectedFile()==null) {
+		// if(loader.currentFile!=null) {
 		// String path = loader.currentFile.getPath();
 		//			if(path.contains(".")) path = path.substring(0, path.lastIndexOf('.')); //$NON-NLS-1$
 		// path += format.getFileExtension();
