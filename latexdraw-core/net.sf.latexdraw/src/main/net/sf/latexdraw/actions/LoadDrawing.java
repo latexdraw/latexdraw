@@ -1,8 +1,9 @@
 package net.sf.latexdraw.actions;
 
-import javax.swing.JFileChooser;
-
 import org.malai.action.Action;
+
+import javax.swing.*;
+import java.io.File;
 
 /**
  * This action loads an SVG document into the app.
@@ -26,6 +27,7 @@ import org.malai.action.Action;
 public class LoadDrawing extends Action implements Modifying { //  extends Load<LFrame, JLabel>
 	/** The file chooser that will be used to select the location to save. */
 	protected JFileChooser fileChooser;
+	File currentFolder;
 
 	@Override
 	protected void doActionBody() {
@@ -35,7 +37,7 @@ public class LoadDrawing extends Action implements Modifying { //  extends Load<
 //					load();
 //					break;
 //				case JOptionPane.YES_OPTION: // save + load
-//					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
+//					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file, currentFolder);
 //					if(f!=null) {
 //						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
 //						ui.setModified(false);
@@ -66,8 +68,10 @@ public class LoadDrawing extends Action implements Modifying { //  extends Load<
 
 
 	protected void load() {
-//		if(file==null)
+//		if(file==null) {
+//			fileChooser.setCurrentDirectory(currentFolder);
 //			file = fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
+//		}
 //		else
 //			fileChooser.setSelectedFile(file);
 //
@@ -86,8 +90,10 @@ public class LoadDrawing extends Action implements Modifying { //  extends Load<
 		this.fileChooser = fileChooser;
 	}
 
+	public void setCurrentFolder(final File currFolder) {
+		currentFolder = currFolder;
+	}
 
-	
 	//FIXME to remove
 	@Override
 	public boolean isRegisterable() {

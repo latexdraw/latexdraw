@@ -1,24 +1,20 @@
 package net.sf.latexdraw.instruments;
 
-import java.io.File;
-
+import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-
-import javax.swing.JFileChooser;
-
 import net.sf.latexdraw.actions.LoadDrawing;
 import net.sf.latexdraw.filters.SVGFilter;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LNamespace;
-
 import org.malai.action.Action;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.google.inject.Inject;
+import javax.swing.*;
+import java.io.File;
 
 /**
  * This instrument saves and loads documents.<br>
@@ -59,10 +55,13 @@ public class FileLoaderSaver extends JfxInstrument {
 	@FXML protected Menu recentFilesMenu;
 
 	/** The path where documents are saved. */
-	@FXML protected String pathSave;
+	protected String pathSave;
 
 	/** The current file loaded or saved. */
-	@FXML protected File currentFile;
+	protected File currentFile;
+
+	/** The current working folder. */
+	protected File currentFolder;
 
 	/** The fileChooser used to save drawings. */
 	protected JFileChooser fileChooser;
@@ -101,6 +100,7 @@ public class FileLoaderSaver extends JfxInstrument {
 			final File file = fileChooser==null?null:fileChooser.getSelectedFile();
 
 			if(file!=null) {
+				currentFolder = file.getParentFile();
 				currentFile = file;
 				if(!currentFile.getPath().endsWith(SVGFilter.SVG_EXTENSION))
 					currentFile = new File(currentFile.getPath()+SVGFilter.SVG_EXTENSION);
@@ -141,6 +141,8 @@ public class FileLoaderSaver extends JfxInstrument {
 	public void onActionExecuted(final Action action) {
 		if(action instanceof LoadDrawing) {
 //			currentFile = ((LoadDrawing)action).getFile();
+//			if(currentFile!=null)
+//				currentFolder = currentFile.getParentFile();
 		}
 	}
 
@@ -268,6 +270,7 @@ public class FileLoaderSaver extends JfxInstrument {
 // action.setUi(instrument.ui);
 // action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE);
 // action.setFileChooser(instrument.getDialog(false));
+// action.setCurrentFolder(instrument.currentFolder);
 // }
 // }
 //
@@ -323,6 +326,7 @@ public class FileLoaderSaver extends JfxInstrument {
 // super.initAction();
 // action.setSaveAs(true);
 // action.setFileChooser(instrument.getDialog(true));
+// action.setCurrentFolder(instrument.currentFolder);
 // action.setSaveOnClose(true);
 // }
 //
@@ -356,6 +360,7 @@ public class FileLoaderSaver extends JfxInstrument {
 // public void initAction() {
 // super.initAction();
 // action.setFileChooser(instrument.getDialog(true));
+// action.setCurrentFolder(instrument.currentFolder);
 // action.setSaveAs(true);
 // action.setSaveOnClose(true);
 // }
@@ -387,6 +392,7 @@ public class FileLoaderSaver extends JfxInstrument {
 // public void initAction() {
 // super.initAction();
 // action.setFileChooser(instrument.getDialog(true));
+// action.setCurrentFolder(instrument.currentFolder);
 // action.setSaveAs(true);
 // action.setSaveOnClose(false);
 // action.setFile(null);
@@ -491,6 +497,7 @@ public class FileLoaderSaver extends JfxInstrument {
 // action.setPrefSetter(instrument.prefSetter);
 // action.setFileChooser(instrument.getDialog(true));
 // action.setFile(instrument.currentFile);
+// action.setCurrentFolder(instrument.currentFolder);
 // }
 // }
 //
@@ -509,6 +516,7 @@ public class FileLoaderSaver extends JfxInstrument {
 // public void initAction() {
 // super.initAction();
 // action.setFileChooser(instrument.getDialog(false));
+// action.setCurrentFolder(instrument.currentFolder);
 // }
 // }
 //

@@ -1,10 +1,10 @@
 package net.sf.latexdraw.actions;
 
-import javax.swing.JFileChooser;
-
+import net.sf.latexdraw.instruments.PreferencesSetter;
 import org.malai.action.Action;
 
-import net.sf.latexdraw.instruments.PreferencesSetter;
+import javax.swing.*;
+import java.io.File;
 
 /**
  * This action saves the given drawing into an SVG document.
@@ -38,6 +38,8 @@ public class SaveDrawing extends Action { //  Save<LFrame, JLabel>
 	/** The instrument that manages the preferences. */
 	protected PreferencesSetter prefSetter;
 
+	File currentFolder;
+
 
 	/**
 	 * Creates the action.
@@ -67,7 +69,7 @@ public class SaveDrawing extends Action { //  Save<LFrame, JLabel>
 //						quit();
 //						break;
 //					case JOptionPane.YES_OPTION: // save + exit
-//						final File f = showDialog(fileChooser, saveAs, ui, file);
+//						final File f = showDialog(fileChooser, saveAs, ui, file, currentFolder);
 //						if(f!=null) {
 //							file = f;
 //							super.doActionBody();
@@ -84,7 +86,7 @@ public class SaveDrawing extends Action { //  Save<LFrame, JLabel>
 //			else quit();
 //		else {
 //			if(file==null)
-//				file = showDialog(fileChooser, saveAs, ui, null);
+//				file = showDialog(fileChooser, saveAs, ui, null, currentFolder);
 //			if(file==null)
 //				ok = false;
 //			else
@@ -124,11 +126,14 @@ public class SaveDrawing extends Action { //  Save<LFrame, JLabel>
 //	 * Show the export dialog to select a path.
 //	 * @since 3.0
 //	 */
-//	protected static File showDialog(final JFileChooser fileChooser, final boolean saveAs, final SwingUI ui, final File file) {
+//	protected static File showDialog(final JFileChooser fileChooser, final boolean saveAs, final SwingUI ui, final File file,
+// 									final File currentFolder) {
 //		File f;
 //
-//		if(saveAs || file==null && ui.isModified())
+//		if(saveAs || file==null && ui.isModified()) {
+//			fileChooser.setCurrentDirectory(currentFolder);
 //			f = fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION ? fileChooser.getSelectedFile() : null;
+//		}
 //		else
 //			f = file;
 //
@@ -183,6 +188,9 @@ public class SaveDrawing extends Action { //  Save<LFrame, JLabel>
 		this.saveOnClose = saveOnClose;
 	}
 
+	public void setCurrentFolder(final File currFolder) {
+		currentFolder = currFolder;
+	}
 
 	//FIXME to remove
 	@Override

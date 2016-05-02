@@ -1,13 +1,7 @@
 package net.sf.latexdraw;
 
-import java.io.IOException;
-
-import org.malai.action.ActionsRegistry;
-import org.malai.undo.UndoCollector;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -31,6 +25,10 @@ import net.sf.latexdraw.instruments.FrameController;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LangTool;
 import net.sf.latexdraw.view.jfx.Canvas;
+import org.malai.action.ActionsRegistry;
+import org.malai.undo.UndoCollector;
+
+import java.io.IOException;
 
 /**
  * The main class of the project.<br>
@@ -166,7 +164,9 @@ public class LaTeXDraw extends Application {
 		//
 		// if(cmdLine.getFilename!=null) {
 		// val action = new LoadDrawing()
-		// action.setFile(new File(cmdLine.getFilename))
+		//		val file = new File(cmdLine.getFilename)
+		//		action.setFile(file)
+		//		action.setCurrentFolder(file.getParentFile)
 		// action.setUi(frame)
 		// action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE)
 		// action.setFileChooser(frame.getFileLoader.getDialog(false))

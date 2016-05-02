@@ -1,10 +1,10 @@
 package net.sf.latexdraw.actions;
 
-import javax.swing.JFileChooser;
-
+import net.sf.latexdraw.instruments.PreferencesSetter;
 import org.malai.action.Action;
 
-import net.sf.latexdraw.instruments.PreferencesSetter;
+import javax.swing.*;
+import java.io.File;
 
 /**
  * This action permits to create a new drawing and initialises the application as required.<br>
@@ -31,6 +31,8 @@ public class NewDrawing extends Action implements Modifying {// IOAction<LFrame,
 	/** The instrument used that manage the preferences. */
 	protected PreferencesSetter prefSetter;
 
+	File currentFolder;
+
 
 	@Override
 	protected void doActionBody() {
@@ -40,7 +42,7 @@ public class NewDrawing extends Action implements Modifying {// IOAction<LFrame,
 //					newDrawing();
 //					break;
 //				case JOptionPane.YES_OPTION: // save + load
-//					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file);
+//					final File f = SaveDrawing.showDialog(fileChooser, true, ui, file, currentFolder);
 //					if(f!=null) {
 //						openSaveManager.save(f.getPath(), ui, progressBar, statusWidget);
 //						ui.setModified(false);
@@ -97,7 +99,10 @@ public class NewDrawing extends Action implements Modifying {// IOAction<LFrame,
 		this.prefSetter = prefSetter;
 	}
 
-	
+	public void setCurrentFolder(final File currFolder) {
+		currentFolder = currFolder;
+	}
+
 	//FIXME to remove
 	@Override
 	public boolean isRegisterable() {
