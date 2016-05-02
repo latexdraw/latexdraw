@@ -1,43 +1,20 @@
 ************************************************************
-Version 3.3.1
+Version 3.3.3
 
 Bugs fixed:
-- Plot figures not saved as SVG
-  https://bugs.launchpad.net/latexdraw/+bug/1393692
-- Rotating plot figures does not work properly
-  https://bugs.launchpad.net/latexdraw/+bug/1393694
-- Mirroring plot figures does not work properly
-  https://bugs.launchpad.net/latexdraw/+bug/1393695
-- Cannot change the roundness of the rectangles' corners
-  https://bugs.launchpad.net/latexdraw/+bug/1395469
-
-
-************************************************************
-Version 3.3.0
-
-New features:
-- psplot is now supported (and can be imported from PSTricks code).
-  The parameters plotstyle, polarplot, and plotpoints are supported
-- On Windows, a shortcut is now created in the start menu during the installation.
-- Better integration in Linux environments (using the installer) 
-  https://bugs.launchpad.net/latexdraw/+bug/1369488
-- The commands pspicture and endpspicture are now supported when importing PSTricks code.
-- Support of begin{pspicture} without any coordinate when importing PSTricks code.
-
-Bugs fixed:
-- ps2epsi should be used instead of ps2eps
-  https://bugs.launchpad.net/latexdraw/+bug/1369416
-- Can hide grid's labels
-  https://bugs.launchpad.net/latexdraw/+bug/1279086
-- Text shapes disappear when typing an invalid LaTeX text
-  https://bugs.launchpad.net/latexdraw/+bug/1382037 
-- The error message of the LaTeX compilation was no more displayed on mouse over a text shape that does not compile.
-- Still have problem with the file name while saving a drawing.
-  https://bugs.launchpad.net/latexdraw/+bug/1369490  
-- Cannot parse psaxes with arrows
-  https://bugs.launchpad.net/latexdraw/+bug/1388145
-- Text thumbnails might be the same for text shapes having the same text with a different colour. 
-- The position of thumbnails of coloured text shapes might not be correct.
-- Dots may not be coloured as expected when exported as a PDF document.
-- The size of the generated PDF/PS documents might not be correct (might have several pages or large margins).
-- Axes were not correctly located when parsed.
+- Performance issue (lag) when the background grid is painted
+  https://bugs.launchpad.net/latexdraw/+bug/1576964
+- The last working folder used to load/save documents is now considered in the open/save dialogue box
+  https://bugs.launchpad.net/latexdraw/+bug/1574741
+- Grids' size not saved in SVG
+  https://bugs.launchpad.net/latexdraw/+bug/1574739
+- Text cropped when exported as png
+  https://bugs.launchpad.net/latexdraw/+bug/1533256
+- Template insertion is not undoable
+  https://bugs.launchpad.net/latexdraw/+bug/1533254
+- The links to the forums and the bug tracker system have been fixed
+  https://bugs.launchpad.net/latexdraw/+bug/1533253
+- Wrong error message when the /opt dir does not exist
+  https://bugs.launchpad.net/latexdraw/+bug/1577169
+- Confusion in file naming after several save/save as/export operations
+  https://bugs.launchpad.net/latexdraw/+bug/1577176
