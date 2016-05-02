@@ -1,10 +1,8 @@
 package test.gui;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -16,7 +14,6 @@ import javafx.util.Callback;
 import net.sf.latexdraw.LaTeXDraw;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.LangTool;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,9 +21,10 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+
+import static org.junit.Assert.assertTrue;
 
 public abstract class TestLatexdrawGUI extends ApplicationTest {
 	protected Callback<Class<?>, Object> guiceFactory;
@@ -62,7 +60,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	}
 
 	public <T extends Node> T find(String query) {
-		return lookup(query).queryFirst();
+		return lookup(query).query();
 	}
 
 	protected abstract String getFXMLPathFromLatexdraw();

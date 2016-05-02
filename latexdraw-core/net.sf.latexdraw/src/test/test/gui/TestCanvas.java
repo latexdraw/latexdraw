@@ -1,17 +1,6 @@
 package test.gui;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.google.inject.AbstractModule;
-
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
@@ -25,6 +14,12 @@ import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
 import net.sf.latexdraw.view.jfx.Canvas;
 import net.sf.latexdraw.view.jfx.PageView;
 import net.sf.latexdraw.view.jfx.ViewRectangle;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TestCanvas extends TestLatexdrawGUI {
 	Pencil pencil;
@@ -92,7 +87,7 @@ public class TestCanvas extends TestLatexdrawGUI {
 		hand.setActivated(true);
 		when(pencil.isActivated()).thenReturn(false);
 
-		canvas = lookup("#canvas").queryFirst();
+		canvas = lookup("#canvas").query();
 	}
 
 	Pane getPane() {
