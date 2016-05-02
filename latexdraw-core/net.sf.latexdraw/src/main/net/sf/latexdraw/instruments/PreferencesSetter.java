@@ -1,29 +1,20 @@
 package net.sf.latexdraw.instruments;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-
+import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.views.GridStyle;
+import net.sf.latexdraw.ui.XScaleRuler;
+import net.sf.latexdraw.ui.YScaleRuler;
+import net.sf.latexdraw.util.*;
+import org.malai.javafx.instrument.JfxInstrument;
+import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -31,26 +22,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.views.GridStyle;
-import net.sf.latexdraw.ui.XScaleRuler;
-import net.sf.latexdraw.ui.YScaleRuler;
-import net.sf.latexdraw.util.LNamespace;
-import net.sf.latexdraw.util.LPath;
-import net.sf.latexdraw.util.LangTool;
-import net.sf.latexdraw.util.Unit;
-import net.sf.latexdraw.util.VersionChecker;
-
-import org.malai.javafx.instrument.JfxInstrument;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import com.google.inject.Inject;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * This instrument modifies the preferences.<br>
@@ -84,6 +60,8 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 	 * actions.
 	 */
 	@FXML protected TextField pathOpenField;
+
+	@FXML protected CheckBox openGL;
 
 	/**
 	 * This textField allows to set the default directories for exporting
@@ -199,7 +177,8 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		return fileChooser;
 	}
 
-	private void processXMLDataPreference(final Map<String, Node> prefMap) {
+	private void processXMLDataPreference(File xml) {
+		Map<String, Node> prefMap = Preference.readXMLPreferencesFromFile(xml);
 		Node n2;
 		Node node;
 		final Stage frame = (Stage)pathExportField.getScene().getWindow();
@@ -207,6 +186,9 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		node = prefMap.get(LNamespace.XML_LATEX_INCLUDES);
 		if(node!=null)
 			latexIncludes.setText(node.getTextContent());
+
+		node = prefMap.get(LNamespace.XML_OPENGL);
+		if(node!=null) openGL.setSelected(Boolean.parseBoolean(node.getTextContent()));
 
 		node = prefMap.get(LNamespace.XML_CHECK_VERSION);
 		if(node!=null)
@@ -381,6 +363,10 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				attr.setTextContent(VersionChecker.VERSION);
 				root.setAttributeNode(attr);
 
+				elt = document.createElement(LNamespace.XML_OPENGL);
+				elt.setTextContent(String.valueOf(openGL.isSelected()));
+				root.appendChild(elt);
+
 				elt = document.createElement(LNamespace.XML_PATH_EXPORT);
 				elt.setTextContent(pathExportField.getText());
 				root.appendChild(elt);
@@ -481,38 +467,12 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 		final File xml = new File(LPath.PATH_PREFERENCES_XML_FILE);
 
 		if(xml.canRead())
-			readXMLPreferencesFromFile(xml);
+			processXMLDataPreference(xml);
 
 		applyValues();
 	}
-
-	private void readXMLPreferencesFromFile(final File xmlFile) {
-		try {
-			Node node = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile).getFirstChild();
-
-			if(node==null||!node.getNodeName().equals(LNamespace.XML_ROOT_PREFERENCES))
-				throw new IllegalArgumentException();
-
-			final NodeList nl = node.getChildNodes();
-			String name;
-
-			final Map<String, Node> prefMaps = new HashMap<>();
-
-			for(int i = 0, size = nl.getLength(); i<size; i++) {
-				node = nl.item(i);
-				name = node.getNodeName();
-
-				if(name!=null&&!name.isEmpty())
-					prefMaps.put(name, node);
-			}
-
-			processXMLDataPreference(prefMaps);
-			prefMaps.clear();
-		}catch(final Exception e) {
-			BadaboomCollector.INSTANCE.add(e);
-		}
-	}
 }
+
 
 // /**
 // * This link maps a pressure on the close button of the preferences frame to

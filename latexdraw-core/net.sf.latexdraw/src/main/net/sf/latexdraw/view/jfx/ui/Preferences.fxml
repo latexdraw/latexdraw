@@ -30,6 +30,7 @@
       <Spinner fx:id="persoGridGapField" amountToStepBy="1" initialValue="10" layoutX="43.0" layoutY="470.0" max="100000" min="2" prefHeight="25.0" prefWidth="75.0">
       	<tooltip><Tooltip text="%LaTeXDrawFrame.15" /></tooltip>
       </Spinner>
+       <CheckBox fx:id="openGL" layoutX="14.0" layoutY="500.0" mnemonicParsing="false" text="OpenGL" />
       <Button fx:id="saveB" layoutX="171.0" layoutY="544.0" mnemonicParsing="false" text="Save" />
    </children>
 </AnchorPane>

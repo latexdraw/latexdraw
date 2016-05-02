@@ -52,7 +52,7 @@ import java.io.IOException;
 public class LaTeXDraw extends Application {
 	// Setting the size of the the saved actions.
 	static {
-		System.setProperty("sun.java2d.opengl","True");
+		System.setProperty("sun.java2d.opengl","true");
 
 		Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE);
 		UndoCollector.INSTANCE.setSizeMax(30);
