@@ -52,6 +52,8 @@ import java.io.IOException;
 public class LaTeXDraw extends Application {
 	// Setting the size of the the saved actions.
 	static {
+		System.setProperty("sun.java2d.opengl","True");
+
 		Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE);
 		UndoCollector.INSTANCE.setSizeMax(30);
 		ActionsRegistry.INSTANCE.setSizeMax(30);
@@ -125,7 +127,7 @@ public class LaTeXDraw extends Application {
 				try {
 					final Injector injector = Guice.createInjector(new LatexdrawModule());
 					final Callback<Class<?>, Object> guiceFactory = clazz -> injector.getInstance(clazz);
-					final Parent root = FXMLLoader.load(getClass().getResource("view/jfx/ui/UI.fxml"), 
+					final Parent root = FXMLLoader.load(getClass().getResource("view/jfx/ui/UI.fxml"),
 										LangTool.INSTANCE.getBundle(), new LatexdrawBuilderFactory(injector), guiceFactory);
 					updateProgress(0.6, 1.0);
 					final Scene scene = new Scene(root);
