@@ -38,6 +38,12 @@
      	<testSourceDirectory>src/test/</testSourceDirectory>
 
 		<resources>
+            <resource>
+                <directory>src/main</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                </includes>
+            </resource>
 	      <resource>
 	        <directory>src/resources/main/</directory>
 	      </resource>
