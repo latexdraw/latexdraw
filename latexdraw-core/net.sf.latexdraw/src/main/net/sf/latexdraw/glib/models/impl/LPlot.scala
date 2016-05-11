@@ -43,6 +43,7 @@ private[impl] class LPlot(pt:IPoint, var minX:Double, var maxX:Double, var equat
 				maxX = plot.getPlotMaxX
 				xscale = plot.getXScale
 				yscale = plot.getYScale
+				setPlotEquation(plot.getPlotEquation)
       case dot:IDotProp =>
         dotStyle = dot.getDotStyle
         dotDiametre = dot.getDiametre

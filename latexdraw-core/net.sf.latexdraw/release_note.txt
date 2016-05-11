@@ -1,3 +1,6 @@
 ************************************************************
 Version 3.3.4
 
+Bugs fixed:
+ - Copy/paste a plotted shape does not work as expected
+   https://bugs.launchpad.net/latexdraw/+bug/1580483
