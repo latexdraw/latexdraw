@@ -1,17 +1,16 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.View2DTK;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines a view of the IGroup model.<br>
@@ -155,8 +154,8 @@ class LGroupView extends LShapeView<IGroup> {
 	public void updateBorder() {
 		double xMin = Double.MAX_VALUE;
         double yMin = Double.MAX_VALUE;
-        double xMax = Double.MIN_VALUE;
-        double yMax = Double.MIN_VALUE;
+        double xMax = -Double.MAX_VALUE;
+        double yMax = -Double.MAX_VALUE;
         Rectangle2D rec;
 
 		for(final IViewShape v : views) {

@@ -4,3 +4,5 @@ Version 3.3.4
 Bugs fixed:
  - Copy/paste a plotted shape does not work as expected
    https://bugs.launchpad.net/latexdraw/+bug/1580483
+ - Boundaries of a group of shapes not correctly computed when moved outside the page
+   https://bugs.launchpad.net/latexdraw/+bug/1582559
