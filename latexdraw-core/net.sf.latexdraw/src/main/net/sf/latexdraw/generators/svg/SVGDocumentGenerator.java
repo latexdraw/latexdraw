@@ -723,21 +723,10 @@ public class SVGDocumentGenerator implements ISOpenSaver<LFrame, JLabel> {
 	            setProgress(0);
 
 				// Adding loaded shapes.
-				incrProgressBar		   = Math.max(50./(svgDoc.getDocumentElement().getChildNodes().getLength()+ui.getPresentations().size()), 1.);
-				final IShape shape     = toLatexdraw(svgDoc, incrProgressBar);
+				incrProgressBar = Math.max(50./(svgDoc.getDocumentElement().getChildNodes().getLength()+ui.getPresentations().size()), 1.);
 
-				if(shape instanceof IGroup) { // If several shapes have been loaded
-					final IGroup group = (IGroup)shape;
-					final double incr  = Math.max(50./group.size(), 1.);
-
-					for(final IShape sh : group.getShapes()) {
-						drawing.addShape(sh);
-						setProgress((int)Math.min(100., getProgress()+incr));
-					}
-				} else { // If only a single shape has been loaded.
-					drawing.addShape(shape);
-					setProgress(Math.min(100, getProgress()+50));
-				}
+				drawing.addShape(toLatexdraw(svgDoc, incrProgressBar));
+				setProgress(Math.min(100, getProgress()+50));
 
 				// Loads the presentation's data.
 				for(final Presentation<?,?> presentation : ui.getPresentations()) {

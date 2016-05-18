@@ -6,3 +6,5 @@ Bugs fixed:
    https://bugs.launchpad.net/latexdraw/+bug/1580483
  - Boundaries of a group of shapes not correctly computed when moved outside the page
    https://bugs.launchpad.net/latexdraw/+bug/1582559
+ - Groups of shapes not always correctly loaded
+   https://bugs.launchpad.net/latexdraw/+bug/1583121
