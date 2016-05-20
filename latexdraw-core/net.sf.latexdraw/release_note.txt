@@ -10,3 +10,5 @@ Bugs fixed:
    https://bugs.launchpad.net/latexdraw/+bug/1582559
  - Groups of shapes not always correctly loaded
    https://bugs.launchpad.net/latexdraw/+bug/1583121
+ - Install scripts do not work on OpenSuse
+   https://bugs.launchpad.net/latexdraw/+bug/1584037

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+su -
+java -jar installer.jar
