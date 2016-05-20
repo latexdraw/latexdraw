@@ -1,18 +1,15 @@
 package net.sf.latexdraw.actions.shape
 
 import java.awt.geom.Rectangle2D
+
+import net.sf.latexdraw.actions.{DrawingAction, Modifying, ShapeAction}
+import net.sf.latexdraw.glib.models.GLibUtilities
+import net.sf.latexdraw.glib.models.interfaces.shape.Position
+import net.sf.latexdraw.glib.models.interfaces.shape.{IGroup, IPoint}
+import net.sf.latexdraw.lang.LangTool
+import net.sf.latexdraw.util.LNumber
 import org.malai.action.Action
 import org.malai.undo.Undoable
-import net.sf.latexdraw.actions.DrawingAction
-import net.sf.latexdraw.actions.Modifying
-import net.sf.latexdraw.actions.ShapeAction
-import net.sf.latexdraw.glib.models.interfaces.shape.Position
-import net.sf.latexdraw.glib.models.GLibUtilities
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.util.LNumber
-import net.sf.latexdraw.glib.models.GLibUtilities
-import net.sf.latexdraw.lang.LangTool
 
 /**
  * This action scales a shape.<br>
@@ -64,16 +61,14 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 
 	private def isValidScales = {
 		_refPosition.get match {
-			case Position.EAST => isValidScale(_newX) && scaledWidth(_newX)>1.0
-			case Position.WEST => isValidScale(_newX) && scaledWidth(_newX)>1.0
-			case Position.NORTH => isValidScale(_newY) && scaledHeight(_newY)>1.0
-			case Position.SOUTH => isValidScale(_newY) && scaledHeight(_newY)>1.0
-			case _ => isValidScale(_newX) && isValidScale(_newY) && scaledHeight(_newY)>1.0 && scaledWidth(_newX)>1.0
+			case Position.EAST => GLibUtilities.isValidCoordinate(_newX) && scaledWidth(_newX)>1.0
+			case Position.WEST => GLibUtilities.isValidCoordinate(_newX) && scaledWidth(_newX)>1.0
+			case Position.NORTH => GLibUtilities.isValidCoordinate(_newY) && scaledHeight(_newY)>1.0
+			case Position.SOUTH => GLibUtilities.isValidCoordinate(_newY) && scaledHeight(_newY)>1.0
+			case _ => GLibUtilities.isValidCoordinate(_newX) && GLibUtilities.isValidCoordinate(_newY) &&
+				scaledHeight(_newY)>1.0 && scaledWidth(_newX)>1.0
 		}
 	}
-
-
-	private def isValidScale(scale : Double) = GLibUtilities.isValidCoordinate(scale) && scale>0
 
 
 	protected def doActionBody() {
@@ -84,7 +79,7 @@ class ScaleShapes extends Action with ShapeAction[IGroup] with DrawingAction wit
 			oldHeight = br.getY - tl.getY
 			updateBound(tl, br)
 		}
-		redo
+		redo()
 	}
 
 
