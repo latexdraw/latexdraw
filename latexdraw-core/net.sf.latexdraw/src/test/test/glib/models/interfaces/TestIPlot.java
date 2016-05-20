@@ -1,24 +1,15 @@
 package test.glib.models.interfaces;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import net.sf.latexdraw.glib.models.GLibUtilities;
+import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.shape.*;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
+import org.junit.Test;
 
 import java.util.Arrays;
 
-import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
-import net.sf.latexdraw.parsers.ps.InvalidFormatPSFunctionException;
-
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 	@Override
@@ -408,7 +399,7 @@ public abstract class TestIPlot<T extends IPlot> extends TestIPositionShape<T> {
 		shape.setPlotEquation("x");
 		shape.copy(shape2);
 
-		assertEquals("x", shape.getPlotEquation());
+		assertEquals("2 x mul", shape.getPlotEquation());
 		assertTrue(shape.isPolar());
 		assertEquals(DviPsColors.YELLOW, shape.getDotFillingCol());
 		assertEquals(23.0, shape.getDiametre(), 0.0001);
