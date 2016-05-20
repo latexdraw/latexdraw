@@ -1,6 +1,5 @@
 package net.sf.latexdraw.actions
 
-import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape
 import org.malai.action.Action
 import org.malai.undo.Undoable
@@ -42,7 +41,7 @@ private var insertedShapes:IShape = _
 
   override def getUndoName = "template added"
 
-  override def canDo = super.canDo && drawing.isDefined
+  override def canDo = drawing.isDefined
 
   override def isRegisterable = true
 
