@@ -1,21 +1,5 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Path2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
@@ -27,8 +11,12 @@ import net.sf.latexdraw.glib.views.AbstractView;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArrow;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape;
 import net.sf.latexdraw.util.LNumber;
-
 import org.malai.picking.Picker;
+
+import java.awt.*;
+import java.awt.geom.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines a view of the LShape model.<br>
@@ -716,7 +704,7 @@ abstract class LShapeView<S extends IShape> extends AbstractView<S> implements I
 		pts[2] = ShapeFactory.createPoint(tlx+width, tly+height).rotatePoint(gravityCentre, angle);
 		pts[3] = ShapeFactory.createPoint(tlx, tly+height).rotatePoint(gravityCentre, angle);
 		tl.setPoint(Double.MAX_VALUE, Double.MAX_VALUE);
-		br.setPoint(Double.MIN_VALUE, Double.MIN_VALUE);
+		br.setPoint(-Double.MAX_VALUE, -Double.MAX_VALUE);
 
 		// Defining the border of the rotated rectangle.
         for(final IPoint pt : pts) {

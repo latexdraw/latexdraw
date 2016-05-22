@@ -1,17 +1,16 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
 import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve;
+
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines a view of the model IBeziershape.<br>
@@ -167,8 +166,8 @@ class LBezierCurveView extends LModifiablePointsShapeView<IBezierCurve> implemen
 			final List<IPoint> ctrlPts2 = shape.getSecondCtrlPts();
 			double minX = Double.MAX_VALUE;
 			double minY = Double.MAX_VALUE;
-			double maxX = Double.MIN_VALUE;
-			double maxY = Double.MIN_VALUE;
+			double maxX = -Double.MAX_VALUE;
+			double maxY = -Double.MAX_VALUE;
 			IPoint pt;
 
             for(final IPoint aCtrlPts1 : ctrlPts1) {

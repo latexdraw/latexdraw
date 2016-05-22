@@ -1,29 +1,25 @@
 package net.sf.latexdraw.glib.views.Java2D.impl;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
+import net.sf.latexdraw.glib.models.ShapeFactory;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
+import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
+import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.util.LNumber;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.AxesStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.PlottingStyle;
-import net.sf.latexdraw.glib.models.interfaces.prop.IAxesProp.TicksStyle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.shape.IAxes;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow.ArrowStyle;
-import net.sf.latexdraw.util.LNumber;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 /**
  * Defines a view of the IAxes model.<br>
@@ -453,6 +449,7 @@ class LAxesView extends LStandardGridView<IAxes> {
 			final IPoint tl = ShapeFactory.createPoint();
 			final IPoint br = ShapeFactory.createPoint();
 			getRotatedRectangle(bound.getMinX(), bound.getMinY(), bound.getWidth(), bound.getHeight(), angle, shape.getGravityCentre(), tl, br);
+			System.out.println(tl + " " + br);
 			border.setFrameFromDiagonal(tl.getX(), tl.getY(), br.getX(), br.getY());
 		}
 	}

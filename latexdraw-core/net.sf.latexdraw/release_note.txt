@@ -4,6 +4,8 @@ Version 3.3.4
 Bugs fixed:
  - Scaling shapes does not work outside the page
    https://bugs.launchpad.net/latexdraw/+bug/1583116
+-  Borders of some rotated shapes not correctly updated when located outside the page
+   https://bugs.launchpad.net/latexdraw/+bug/1584487
  - Copy/paste a plotted shape does not work as expected
    https://bugs.launchpad.net/latexdraw/+bug/1580483
  - Boundaries of a group of shapes not correctly computed when moved outside the page
