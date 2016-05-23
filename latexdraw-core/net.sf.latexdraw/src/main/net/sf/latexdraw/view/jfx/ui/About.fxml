@@ -9,40 +9,28 @@
 	fx:controller="net.sf.latexdraw.instruments.AboutController">
 	<center>
 		<TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-			<tabs>
-				<Tab closable="false" text="%PreferencesFrame.general">
-					<content>
-						<BorderPane>
-							<center>
-								<ImageView layoutX="0.0" layoutY="0.0"><image><Image url="@/res/LaTeXDrawSmall.png" /></image></ImageView>
-							</center>
-							<bottom>
-								<WebView fx:id="aboutText" />
-							</bottom>
-						</BorderPane>
-					</content>
-				</Tab>
-				<Tab closable="false" text="%LaTeXDrawFrame.27">
-					<content>
-						<TextArea fx:id="noteText" editable="false" />
-					</content>
-				</Tab>
-				<Tab closable="false" text="%About.2">
-					<content>
-						<TextArea fx:id="contribText" editable="false" />
-					</content>
-				</Tab>
-				<Tab closable="false" text="%About.1">
-					<content>
-						<TextArea fx:id="sysText" editable="false" />
-					</content>
-				</Tab>
-				<Tab closable="false" text="%LaTeXDrawFrame.28">
-					<content>
-						<TextArea fx:id="licenseText" editable="false" />
-					</content>
-				</Tab>
-			</tabs>
+            <Tab closable="false" text="%PreferencesFrame.general">
+                <BorderPane>
+                    <center>
+                        <ImageView layoutX="0.0" layoutY="0.0"><Image url="@/res/LaTeXDrawSmall.png" /></ImageView>
+                    </center>
+                    <bottom>
+                        <WebView fx:id="aboutText" />
+                    </bottom>
+                </BorderPane>
+            </Tab>
+            <Tab closable="false" text="%LaTeXDrawFrame.27">
+                <TextArea fx:id="noteText" editable="false" />
+            </Tab>
+            <Tab closable="false" text="%About.2">
+                <TextArea fx:id="contribText" editable="false" />
+            </Tab>
+            <Tab closable="false" text="%About.1">
+                <TextArea fx:id="sysText" editable="false" />
+            </Tab>
+            <Tab closable="false" text="%LaTeXDrawFrame.28">
+                <TextArea fx:id="licenseText" editable="false" />
+            </Tab>
 		</TabPane>
 	</center>
 </BorderPane>

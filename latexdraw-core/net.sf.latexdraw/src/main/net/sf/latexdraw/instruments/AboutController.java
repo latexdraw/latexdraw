@@ -1,8 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -12,6 +9,9 @@ import net.sf.latexdraw.util.LFileUtils;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 import net.sf.latexdraw.util.VersionChecker;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * The controller of the "About Latexdraw" dialogue box.<br>
