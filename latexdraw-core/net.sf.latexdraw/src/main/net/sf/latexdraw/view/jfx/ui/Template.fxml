@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-
-<TitledPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" animated="true" text="%LaTeXDrawFrame.103"
-			fx:controller="net.sf.latexdraw.instruments.TemplateManager">
-	<content>
-		<AnchorPane>
-			<Button fx:id="updateTemplates">
-				<graphic><ImageView><image><Image url="@/res/view-refresh.png" /></image></ImageView></graphic>
-				<tooltip><Tooltip text="%LaTeXDrawFrame.41" /></tooltip>
-			</Button>
-		</AnchorPane>
-	</content>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" animated="true" text="%LaTeXDrawFrame.103"
+            fx:controller="net.sf.latexdraw.instruments.TemplateManager">
+    <AnchorPane>
+        <Button fx:id="updateTemplates">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/view-refresh.png"/>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="%LaTeXDrawFrame.41"/>
+            </tooltip>
+        </Button>
+    </AnchorPane>
 </TitledPane>
 

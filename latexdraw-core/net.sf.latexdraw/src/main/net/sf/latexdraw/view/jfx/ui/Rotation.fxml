@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
-
-<AnchorPane minWidth="250" maxWidth="250" layoutX="10.0" fx:id="mainPane"
-		xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
-		style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;"
-		fx:controller="net.sf.latexdraw.instruments.ShapeRotationCustomiser">
-  	<Label layoutX="0.0" layoutY="9.0" text="%AbstractParametersFrame.7" />
-    <Spinner fx:id="rotationField" prefHeight="25.0" prefWidth="80.0" layoutX="140.0" layoutY="6.0" 
-    			min="-360" max="360" initialValue="0" amountToStepBy="1" />
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" minWidth="250" maxWidth="250" layoutX="10.0"
+            fx:id="mainPane" xmlns="http://javafx.com/javafx/8"
+            style="-fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;"
+            fx:controller="net.sf.latexdraw.instruments.ShapeRotationCustomiser">
+    <Label layoutX="0.0" layoutY="9.0" text="%AbstractParametersFrame.7"/>
+    <Spinner fx:id="rotationField" prefHeight="25.0" prefWidth="80.0" layoutX="140.0" layoutY="6.0"
+             min="-360" max="360" initialValue="0" amountToStepBy="1"/>
     <Button fx:id="rotate90Button" layoutX="0.0" layoutY="36.0">
-       	<graphic><ImageView><image><Image url="@/res/rotation90.png" /></image></ImageView></graphic>
-   		<tooltip><Tooltip text="%LaTeXDrawFrame.3" /></tooltip>
+        <graphic>
+            <ImageView>
+                <Image url="@/res/rotation90.png"/>
+            </ImageView>
+        </graphic>
+        <tooltip>
+            <Tooltip text="%LaTeXDrawFrame.3"/>
+        </tooltip>
     </Button>
     <Button fx:id="rotate180Button" layoutX="40.0" layoutY="36.0">
-       	<graphic><ImageView><image><Image url="@/res/rotation180.png" /></image></ImageView></graphic>
-   		<tooltip><Tooltip text="%LaTeXDrawFrame.4" /></tooltip>
+        <graphic>
+            <ImageView>
+                <Image url="@/res/rotation180.png"/>
+            </ImageView>
+        </graphic>
+        <tooltip>
+            <Tooltip text="%LaTeXDrawFrame.4"/>
+        </tooltip>
     </Button>
     <Button fx:id="rotate270Button" layoutX="80.0" layoutY="36.0">
-       	<graphic><ImageView><image><Image url="@/res/rotation270.png" /></image></ImageView></graphic>
-   		<tooltip><Tooltip text="%LaTeXDrawFrame.5" /></tooltip>
+        <graphic>
+            <ImageView>
+                <Image url="@/res/rotation270.png"/>
+            </ImageView>
+        </graphic>
+        <tooltip>
+            <Tooltip text="%LaTeXDrawFrame.5"/>
+        </tooltip>
     </Button>
 </AnchorPane>

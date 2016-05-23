@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<TitledPane fx:id="mainPane" animated="true" text="Double line" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
-			fx:controller="net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser">
-   	<tooltip><Tooltip text="%PropBuilder.14" /></tooltip>
-	<content>
-		<AnchorPane>
-		   <children>
-		      <CheckBox fx:id="dbleBoundCB" layoutX="14.0" layoutY="4.0" text="%AbstractParametersFrame.0b">
-		      	<tooltip><Tooltip text="%LaTeXDrawFrame.78" /></tooltip>
-		      </CheckBox>
-		      <ColorPicker fx:id="dbleBoundColB" layoutX="13.0" layoutY="31.0" prefHeight="25.0" prefWidth="112.0">
-				<tooltip><Tooltip text="%LaTeXDrawFrame.79" /></tooltip>      
-		      </ColorPicker>
-		      <ImageView layoutX="14.0" layoutY="67.0"><image><Image url="@/res/gridGap.png" /></image></ImageView>
-		      <Spinner fx:id="dbleSepField" layoutX="38.0" layoutY="65.0" prefHeight="25.0" prefWidth="75.0"
-		      			min="1" max="1000" initialValue="5" amountToStepBy="1">
-		      	<tooltip><Tooltip text="Set the gap between the double lines." /></tooltip>
-		      </Spinner>
-		   </children>
-		</AnchorPane>
-	</content>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" animated="true" text="Double line" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser">
+    <tooltip>
+        <Tooltip text="%PropBuilder.14"/>
+    </tooltip>
+    <AnchorPane>
+        <CheckBox fx:id="dbleBoundCB" layoutX="14.0" layoutY="4.0" text="%AbstractParametersFrame.0b">
+            <tooltip>
+                <Tooltip text="%LaTeXDrawFrame.78"/>
+            </tooltip>
+        </CheckBox>
+        <ColorPicker fx:id="dbleBoundColB" layoutX="13.0" layoutY="31.0" prefHeight="25.0" prefWidth="112.0">
+            <tooltip>
+                <Tooltip text="%LaTeXDrawFrame.79"/>
+            </tooltip>
+        </ColorPicker>
+        <ImageView layoutX="14.0" layoutY="67.0">
+            <Image url="@/res/gridGap.png"/>
+        </ImageView>
+        <Spinner fx:id="dbleSepField" layoutX="38.0" layoutY="65.0" prefHeight="25.0" prefWidth="75.0"
+                 min="1" max="1000" initialValue="5" amountToStepBy="1">
+            <tooltip>
+                <Tooltip text="Set the gap between the double lines."/>
+            </tooltip>
+        </Spinner>
+    </AnchorPane>
 </TitledPane>

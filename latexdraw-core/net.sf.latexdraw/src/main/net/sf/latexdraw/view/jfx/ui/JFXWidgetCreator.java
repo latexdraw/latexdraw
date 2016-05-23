@@ -1,16 +1,15 @@
 package net.sf.latexdraw.view.jfx.ui;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
-
 import org.eclipse.jdt.annotation.NonNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A trait for creating items.<br>
@@ -30,7 +29,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @since 4.0
  */
 public interface JFXWidgetCreator {
-	default <T> void initComboBox(final ComboBox<T> box, @NonNull final Map<T, Image> map, T[] values) {
+	default <T> void initComboBox(final ComboBox<T> box, final @NonNull Map<T, Image> map, T[] values) {
 		ComboBoxFactoryList<T> factory = new ComboBoxFactoryList<>(map);
 		box.getItems().addAll(values);
 		box.setButtonCell(factory.call(null));
@@ -38,10 +37,10 @@ public interface JFXWidgetCreator {
 	}
 
 
-	static class ComboBoxFactoryList<T> implements Callback<ListView<T>, ListCell<T>> {
+	class ComboBoxFactoryList<T> implements Callback<ListView<T>, ListCell<T>> {
 		final Map<T, Image> cache;
 
-		public ComboBoxFactoryList(@NonNull final Map<T, Image> itemMap) {
+		public ComboBoxFactoryList(final @NonNull Map<T, Image> itemMap) {
 			super();
 			cache = new HashMap<>();
 			cache.putAll(itemMap);
@@ -54,7 +53,7 @@ public interface JFXWidgetCreator {
 				protected void updateItem(T item, boolean empty) {
 					super.updateItem(item, empty);
 					if(item != null && !empty) {
-						if(cache.get(item)==null) System.out.println(item);
+						if(cache.get(item) == null) System.out.println(item);
 						setGraphic(new ImageView(cache.get(item)));
 					}
 				}

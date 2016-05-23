@@ -2,20 +2,37 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
-
-<MenuButton mnemonicParsing="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="net.sf.latexdraw.instruments.CopierCutterPaster">
-	<graphic><ImageView><image><Image url="@/res/Cut.png" /></image></ImageView></graphic>
-	<tooltip><Tooltip text="%LaTeXDrawFrame.89" /></tooltip>
-	<items>
-		<MenuItem id="copyMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.40">
-			<graphic><ImageView><image><Image url="@/res/Copy.png" /></image></ImageView></graphic>
-		</MenuItem>
-		<MenuItem id="cutMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.44">
-			<graphic><ImageView><image><Image url="@/res/Cut.png" /></image></ImageView></graphic>
-		</MenuItem>
-		<MenuItem id="pasteMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.43">
-			<graphic><ImageView><image><Image url="@/res/Paste.png" /></image></ImageView></graphic>
-		</MenuItem>
-	</items>
+<MenuButton xmlns:fx="http://javafx.com/fxml/1" mnemonicParsing="false" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.CopierCutterPaster">
+    <graphic>
+        <ImageView>
+            <Image url="@/res/Cut.png"/>
+        </ImageView>
+    </graphic>
+    <tooltip>
+        <Tooltip text="%LaTeXDrawFrame.89"/>
+    </tooltip>
+    <items>
+        <MenuItem id="copyMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.40">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/Copy.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem id="cutMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.44">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/Cut.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+        <MenuItem id="pasteMenu" mnemonicParsing="false" text="%LaTeXDrawFrame.43">
+            <graphic>
+                <ImageView>
+                    <Image url="@/res/Paste.png"/>
+                </ImageView>
+            </graphic>
+        </MenuItem>
+    </items>
 </MenuButton>

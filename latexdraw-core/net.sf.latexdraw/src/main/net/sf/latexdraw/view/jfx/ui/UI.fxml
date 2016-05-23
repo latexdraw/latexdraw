@@ -1,92 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.HBox?>
-
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.sf.latexdraw.instruments.FrameController">
-	<center>
-		<TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-			<tabs>
-				<Tab closable="false" text="%UIBuilder.1">
-					<content>
-						<BorderPane>
-							<center>
-								<SplitPane dividerPositions="0.85" BorderPane.alignment="CENTER">
-									<items>
-										<BorderPane>
-											<center>
-												<ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
-													<content><fx:include fx:id="canvas" source="Canvas.fxml" /></content>
-												</ScrollPane>
-											</center>
-										</BorderPane>
-										<BorderPane maxWidth="270.0" minWidth="270.0">
-											<center>
-												<Accordion maxWidth="270.0" minWidth="270.0">
-													<panes>
-														<fx:include source="LineStyle.fxml" />
-														<fx:include source="FillingStyle.fxml" />
-														<fx:include source="ShadowStyle.fxml" />
-														<fx:include source="DoubleLineStyle.fxml" />
-														<fx:include source="StdGridStyle.fxml" />
-														<fx:include source="PlotStyle.fxml" />
-														<fx:include source="ArrowStyle.fxml" />
-														<fx:include source="TextStyle.fxml" />
-														<fx:include source="DotStyle.fxml" />
-														<fx:include source="ArcStyle.fxml" />
-														<fx:include source="FreehandStyle.fxml" />
-														<TitledPane animated="true" text="Shape Transformation">
-															<content>
-																<VBox spacing="10">
-																	<fx:include source="Rotation.fxml" />
-																	<fx:include source="Transformation.fxml" />
-																	<fx:include source="PositionZ.fxml" />
-																	<fx:include source="Group.fxml" />
-																</VBox>
-															</content>
-														</TitledPane>
-														<fx:include source="Dimension.fxml" />
-														<fx:include source="Template.fxml" />
-														<fx:include source="DrawingProps.fxml" />
-													</panes>
-												</Accordion>
-											</center>
-										</BorderPane>
-									</items>
-								</SplitPane>
-							</center>
-						</BorderPane>
-					</content>
-				</Tab>
-				<Tab closable="false" text="PST">
-					<content>
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-					</content>
-				</Tab>
-				<Tab closable="false" text="%PreferencesFrame.Pref2">
-					<content>
-						<fx:include source="Preferences.fxml" />
-					</content>
-				</Tab>
-			</tabs>
-		</TabPane>
-	</center>
-	<top>
-		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-			<items>
-				<fx:include source="OpenSave.fxml" />
-				<fx:include source="CopyPaste.fxml" />
-				<fx:include source="Export.fxml" />
-				<Spinner min="10" max="450" initialValue="100" amountToStepBy="5" prefHeight="25.0" prefWidth="75.0" />
-				<fx:include source="Deleter.fxml" />
-				<HBox spacing="10" />
-				<fx:include source="EditingModes.fxml" />
-				<fx:include source="Error.fxml" />
-				<fx:include source="Help.fxml" />
-			</items>
-		</ToolBar>
-	</top>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.FrameController">
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <Tab closable="false" text="%UIBuilder.1">
+                <BorderPane>
+                    <center>
+                        <SplitPane dividerPositions="0.85" BorderPane.alignment="CENTER">
+                            <BorderPane>
+                                <center>
+                                    <ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
+                                        <fx:include fx:id="canvas" source="Canvas.fxml"/>
+                                    </ScrollPane>
+                                </center>
+                            </BorderPane>
+                            <BorderPane maxWidth="270.0" minWidth="270.0">
+                                <Accordion maxWidth="270.0" minWidth="270.0">
+                                    <panes>
+                                        <fx:include source="LineStyle.fxml"/>
+                                        <fx:include source="FillingStyle.fxml"/>
+                                        <fx:include source="ShadowStyle.fxml"/>
+                                        <fx:include source="DoubleLineStyle.fxml"/>
+                                        <fx:include source="StdGridStyle.fxml"/>
+                                        <fx:include source="PlotStyle.fxml"/>
+                                        <fx:include source="ArrowStyle.fxml"/>
+                                        <fx:include source="TextStyle.fxml"/>
+                                        <fx:include source="DotStyle.fxml"/>
+                                        <fx:include source="ArcStyle.fxml"/>
+                                        <fx:include source="FreehandStyle.fxml"/>
+                                        <TitledPane animated="true" text="Shape Transformation">
+                                            <VBox spacing="10">
+                                                <fx:include source="Rotation.fxml"/>
+                                                <fx:include source="Transformation.fxml"/>
+                                                <fx:include source="PositionZ.fxml"/>
+                                                <fx:include source="Group.fxml"/>
+                                            </VBox>
+                                        </TitledPane>
+                                        <fx:include source="Dimension.fxml"/>
+                                        <fx:include source="Template.fxml"/>
+                                        <fx:include source="DrawingProps.fxml"/>
+                                    </panes>
+                                </Accordion>
+                            </BorderPane>
+                        </SplitPane>
+                    </center>
+                </BorderPane>
+            </Tab>
+            <Tab closable="false" text="PST">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+            </Tab>
+            <Tab closable="false" text="%PreferencesFrame.Pref2">
+                <fx:include source="Preferences.fxml"/>
+            </Tab>
+        </TabPane>
+    </center>
+    <top>
+        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <fx:include source="OpenSave.fxml"/>
+            <fx:include source="CopyPaste.fxml"/>
+            <fx:include source="Export.fxml"/>
+            <Spinner min="10" max="450" initialValue="100" amountToStepBy="5" prefHeight="25.0" prefWidth="75.0"/>
+            <fx:include source="Deleter.fxml"/>
+            <HBox spacing="10"/>
+            <fx:include source="EditingModes.fxml"/>
+            <fx:include source="Error.fxml"/>
+            <fx:include source="Help.fxml"/>
+        </ToolBar>
+    </top>
 </BorderPane>

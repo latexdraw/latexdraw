@@ -1,82 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-
-<TitledPane fx:id="mainPane" animated="true" text="Arrow" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-			fx:controller="net.sf.latexdraw.instruments.ShapeArrowCustomiser">
-	<content>
-		<VBox spacing="5">
-			<children>
-				<AnchorPane>
-			      <ComboBox fx:id="arrowLeftCB" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="22.0" layoutY="0.0">
-			      	<tooltip><Tooltip text="Set the left arrow." /></tooltip>
-			      </ComboBox>
-			      <ComboBox fx:id="arrowRightCB" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="117.0" layoutY="0.0">
-			      	<tooltip><Tooltip text="Set the right arrow." /></tooltip>
-			      </ComboBox>
-				</AnchorPane>
-				<AnchorPane fx:id="dotPane">
-			      <Spinner fx:id="dotSizeNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0"
-			      			min="0.1" max="100" initialValue="10" amountToStepBy="0.1">
-			      	<tooltip><Tooltip text="Set the 'dotsize num' PSTricks parameter." /></tooltip>
-			      </Spinner>
-			      <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.20" />
-			      <Spinner fx:id="dotSizeDim" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="88.0"
-			      			min="0" max="1000" initialValue="10" amountToStepBy="1">
-			      	<tooltip><Tooltip text="Set the 'dotsize dim' PSTricks parameter." /></tooltip>
-			      </Spinner>
-			      <Label layoutX="0.0" layoutY="40.0" text="%AbstractParametersFrame.24" />
-				</AnchorPane>
-				<AnchorPane fx:id="arrowPane">
-			      <Spinner fx:id="arrowInset" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0"
-			      			min="0" max="100" initialValue="0" amountToStepBy="0.01">
-			      	<tooltip><Tooltip text="Set the inset of the arrow." /></tooltip>
-			      </Spinner>
-			      <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.27" />
-			      <Spinner fx:id="arrowLength" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="88.0"
-			      			min="0" max="100" initialValue="10" amountToStepBy="0.01">
-			      	<tooltip><Tooltip text="Set the length of the arrow." /></tooltip>
-			      </Spinner>
-			      <Label layoutX="0.0" layoutY="40.0" text="%AbstractParametersFrame.26" />
-			      <Spinner fx:id="arrowSizeNum" layoutX="140.0" layoutY="70.0" prefHeight="25.0" prefWidth="88.0"
-			      			min="0.1" max="100" initialValue="10" amountToStepBy="0.1">
-			      	<tooltip><Tooltip text="Set the 'arrowsize dim' PSTricks parameter." /></tooltip>
-			      </Spinner>
-			      <Label layoutX="0.0" layoutY="75.0" text="%AbstractParametersFrame.28" />
-			      <Spinner fx:id="arrowSizeDim" layoutX="140.0" layoutY="105.0" prefHeight="25.0" prefWidth="88.0"
-			      			min="0" max="1000" initialValue="10" amountToStepBy="1">
-			      	<tooltip><Tooltip text="Set the 'arrowsize num' PSTricks parameter." /></tooltip>
-			      </Spinner>
-			      <Label layoutX="0.0" layoutY="110.0" text="%AbstractParametersFrame.24" />
-				</AnchorPane>
-				<AnchorPane fx:id="barPane">
-			      <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.21" />
-			      <Spinner fx:id="tbarsizeNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0"
-			      			min="0.1" max="100" initialValue="10" amountToStepBy="0.1">
-			      	<tooltip><Tooltip text="Set the 'tbarsize num' PSTricks parameter." /></tooltip>
-			      </Spinner>
-			      <Label layoutX="0.0" layoutY="35.0" text="%AbstractParametersFrame.24" />
-			      <Spinner fx:id="tbarsizeDim" layoutX="140.0" layoutY="40.0" prefHeight="25.0" prefWidth="88.0"
-			      			min="0" max="1000" initialValue="10" amountToStepBy="1">
-			      	<tooltip><Tooltip text="Set the 'tbarsize dim' PSTricks parameter." /></tooltip>
-			      </Spinner>
-			    </AnchorPane>
-			    <AnchorPane fx:id="bracketPane">
-			      <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.22" />
-			      <Spinner fx:id="bracketNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0"
-			      			min="0.1" max="100" initialValue="10" amountToStepBy="0.1">
-			      	<tooltip><Tooltip text="Set the length of the bracket." /></tooltip>
-			      </Spinner>
-			    </AnchorPane>
-			    <AnchorPane fx:id="rbracketPane">
-			      <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.23" />
-			      <Spinner fx:id="rbracketNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0"
-			      			min="0.1" max="100" initialValue="10" amountToStepBy="0.1">
-			      	<tooltip><Tooltip text="Set the length of the rounded bracket." /></tooltip>
-			      </Spinner>
-				</AnchorPane>
-			</children>
-		</VBox>	
-	</content>
+<?import javafx.scene.layout.*?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" animated="true" text="Arrow" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeArrowCustomiser">
+    <VBox spacing="5">
+        <AnchorPane>
+            <ComboBox fx:id="arrowLeftCB" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="22.0" layoutY="0.0">
+                <tooltip>
+                    <Tooltip text="Set the left arrow."/>
+                </tooltip>
+            </ComboBox>
+            <ComboBox fx:id="arrowRightCB" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="117.0" layoutY="0.0">
+                <tooltip>
+                    <Tooltip text="Set the right arrow."/>
+                </tooltip>
+            </ComboBox>
+        </AnchorPane>
+        <AnchorPane fx:id="dotPane">
+            <Spinner fx:id="dotSizeNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0"
+                     min="0.1" max="100" initialValue="10" amountToStepBy="0.1">
+                <tooltip>
+                    <Tooltip text="Set the 'dotsize num' PSTricks parameter."/>
+                </tooltip>
+            </Spinner>
+            <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.20"/>
+            <Spinner fx:id="dotSizeDim" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="88.0"
+                     min="0" max="1000" initialValue="10" amountToStepBy="1">
+                <tooltip>
+                    <Tooltip text="Set the 'dotsize dim' PSTricks parameter."/>
+                </tooltip>
+            </Spinner>
+            <Label layoutX="0.0" layoutY="40.0" text="%AbstractParametersFrame.24"/>
+        </AnchorPane>
+        <AnchorPane fx:id="arrowPane">
+            <Spinner fx:id="arrowInset" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0"
+                     min="0" max="100" initialValue="0" amountToStepBy="0.01">
+                <tooltip>
+                    <Tooltip text="Set the inset of the arrow."/>
+                </tooltip>
+            </Spinner>
+            <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.27"/>
+            <Spinner fx:id="arrowLength" layoutX="140.0" layoutY="35.0" prefHeight="25.0" prefWidth="88.0"
+                     min="0" max="100" initialValue="10" amountToStepBy="0.01">
+                <tooltip>
+                    <Tooltip text="Set the length of the arrow."/>
+                </tooltip>
+            </Spinner>
+            <Label layoutX="0.0" layoutY="40.0" text="%AbstractParametersFrame.26"/>
+            <Spinner fx:id="arrowSizeNum" layoutX="140.0" layoutY="70.0" prefHeight="25.0" prefWidth="88.0"
+                     min="0.1" max="100" initialValue="10" amountToStepBy="0.1">
+                <tooltip>
+                    <Tooltip text="Set the 'arrowsize dim' PSTricks parameter."/>
+                </tooltip>
+            </Spinner>
+            <Label layoutX="0.0" layoutY="75.0" text="%AbstractParametersFrame.28"/>
+            <Spinner fx:id="arrowSizeDim" layoutX="140.0" layoutY="105.0" prefHeight="25.0" prefWidth="88.0"
+                     min="0" max="1000" initialValue="10" amountToStepBy="1">
+                <tooltip>
+                    <Tooltip text="Set the 'arrowsize num' PSTricks parameter."/>
+                </tooltip>
+            </Spinner>
+            <Label layoutX="0.0" layoutY="110.0" text="%AbstractParametersFrame.24"/>
+        </AnchorPane>
+        <AnchorPane fx:id="barPane">
+            <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.21"/>
+            <Spinner fx:id="tbarsizeNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0"
+                     min="0.1" max="100" initialValue="10" amountToStepBy="0.1">
+                <tooltip>
+                    <Tooltip text="Set the 'tbarsize num' PSTricks parameter."/>
+                </tooltip>
+            </Spinner>
+            <Label layoutX="0.0" layoutY="35.0" text="%AbstractParametersFrame.24"/>
+            <Spinner fx:id="tbarsizeDim" layoutX="140.0" layoutY="40.0" prefHeight="25.0" prefWidth="88.0"
+                     min="0" max="1000" initialValue="10" amountToStepBy="1">
+                <tooltip>
+                    <Tooltip text="Set the 'tbarsize dim' PSTricks parameter."/>
+                </tooltip>
+            </Spinner>
+        </AnchorPane>
+        <AnchorPane fx:id="bracketPane">
+            <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.22"/>
+            <Spinner fx:id="bracketNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0"
+                     min="0.1" max="100" initialValue="10" amountToStepBy="0.1">
+                <tooltip>
+                    <Tooltip text="Set the length of the bracket."/>
+                </tooltip>
+            </Spinner>
+        </AnchorPane>
+        <AnchorPane fx:id="rbracketPane">
+            <Label layoutX="0.0" layoutY="5.0" text="%AbstractParametersFrame.23"/>
+            <Spinner fx:id="rbracketNum" layoutX="140.0" layoutY="0.0" prefHeight="25.0" prefWidth="88.0"
+                     min="0.1" max="100" initialValue="10" amountToStepBy="0.1">
+                <tooltip>
+                    <Tooltip text="Set the length of the rounded bracket."/>
+                </tooltip>
+            </Spinner>
+        </AnchorPane>
+    </VBox>
 </TitledPane>
