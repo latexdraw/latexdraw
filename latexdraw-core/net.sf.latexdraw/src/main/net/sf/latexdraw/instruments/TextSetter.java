@@ -85,6 +85,7 @@ public class TextSetter extends Instrument {
 	public void onActionDone(final Action action) {
 		super.onActionDone(action);
 		if(custom!=null) custom.update();
+		pencil.canvas().requestFocus();
 	}
 
 

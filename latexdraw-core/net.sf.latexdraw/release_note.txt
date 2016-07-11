@@ -1,10 +1,13 @@
 ************************************************************
 Version 3.3.4
 
+Improvements:
+- Instead of double-clicking on a text shape to change the text, you can use the F2 key (the text shape must be selected).
+
 Bugs fixed:
  - Scaling shapes does not work outside the page
    https://bugs.launchpad.net/latexdraw/+bug/1583116
--  Borders of some rotated shapes not correctly updated when located outside the page
+ -  Borders of some rotated shapes not correctly updated when located outside the page
    https://bugs.launchpad.net/latexdraw/+bug/1584487
  - Copy/paste a plotted shape does not work as expected
    https://bugs.launchpad.net/latexdraw/+bug/1580483

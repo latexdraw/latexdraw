@@ -1,69 +1,43 @@
-package net.sf.latexdraw.instruments
-
-import java.awt.Cursor
-import java.awt.event.KeyEvent
-import java.awt.event.MouseEvent
-import java.awt.geom.Rectangle2D
-import scala.collection.JavaConversions.asScalaBuffer
-import org.malai.action.Action
-import org.malai.instrument.Instrument
-import org.malai.interaction.library.DnD
-import org.malai.interaction.library.KeysPressure
-import org.malai.mapping.MappingRegistry
-import org.malai.swing.instrument.library.WidgetZoomer
-import org.malai.swing.interaction.library.DoubleClick
-import net.sf.latexdraw.actions.shape.InitTextSetter
-import net.sf.latexdraw.actions.shape.RotateShapes
-import net.sf.latexdraw.actions.shape.ScaleShapes
-import net.sf.latexdraw.actions.shape.SelectShapes
-import net.sf.latexdraw.actions.shape.TranslateShapes
-import net.sf.latexdraw.actions.shape.TranslateShapes
-import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.glib.models.interfaces.shape.IGroup
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IText
-import net.sf.latexdraw.glib.ui.ICanvas
-import net.sf.latexdraw.glib.ui.LMagneticGrid
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText
-import org.malai.interaction.library.PressWithKeys
-import org.malai.interaction.library.DnDWithKeys
-import scala.collection.mutable.Buffer
-import net.sf.latexdraw.actions.shape.UpdateToGrid
-import org.malai.swing.action.library.MoveCamera
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import java.awt.Point
-import net.sf.latexdraw.glib.models.ShapeFactory._
-import net.sf.latexdraw.glib.models.ShapeFactory
-import net.sf.latexdraw.glib.ui.LCanvas
-import java.util.Arrays
-import java.util.Collections
-import scala.collection.mutable.ArrayBuffer
-import java.util.ArrayList
-import sun.awt.image.ImageWatched.Link
-import org.malai.instrument.Interactor
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewPlot
-import net.sf.latexdraw.glib.models.interfaces.shape.IPlot
-
-
-/**
- * This instrument allows to manipulate (e.g. move or select) shapes.<br>
- * <br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2014 Arnaud BLOUIN<br>
- * <br>
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2016 Arnaud BLOUIN
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.<br>
- * <br>
+ *  (at your option) any later version.
  *  LaTeXDraw is distributed without any warranty; without even the
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- * <br>
- * 2012-04-20<br>
+ *  PURPOSE. See the GNU General Public License for more details.
+ */
+package net.sf.latexdraw.instruments
+
+import java.awt.Cursor
+import java.awt.event.{KeyEvent, MouseEvent}
+import java.awt.geom.Rectangle2D
+import java.util.ArrayList
+
+import net.sf.latexdraw.actions.shape.{InitTextSetter, SelectShapes, TranslateShapes, UpdateToGrid}
+import net.sf.latexdraw.badaboom.BadaboomCollector
+import net.sf.latexdraw.glib.models.ShapeFactory
+import net.sf.latexdraw.glib.models.ShapeFactory._
+import net.sf.latexdraw.glib.models.interfaces.shape.{IPlot, IPoint, IShape, IText}
+import net.sf.latexdraw.glib.ui.{ICanvas, LCanvas}
+import net.sf.latexdraw.glib.views.Java2D.interfaces.{IViewPlot, IViewShape, IViewText}
+import org.malai.action.Action
+import org.malai.instrument.{Instrument, Interactor}
+import org.malai.interaction.Interaction
+import org.malai.interaction.library.{DnD, DnDWithKeys, KeysPressure, PressWithKeys}
+import org.malai.mapping.MappingRegistry
+import org.malai.swing.action.library.MoveCamera
+import org.malai.swing.interaction.library.DoubleClick
+
+import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.mutable.Buffer
+
+
+/**
+ * This instrument allows to manipulate (e.g. move or select) shapes.
  * @author Arnaud BLOUIN
- * @version 3.0
  */
 class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrument(canvas) {
 	var _metaCustomiser : MetaShapeCustomiser = _
@@ -75,6 +49,7 @@ class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrume
 			addInteractor(new DnD2Translate(this))
 			addInteractor(new DnD2MoveViewport(canvas, this))
 			addInteractor(new DoubleClick2InitTextSetter(this))
+			addInteractor(new F2ToInitTextSetter(this))
 			addInteractor(new CtrlA2SelectAllShapes(this))
 			addInteractor(new CtrlU2UpdateShapes(this))
 		}catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
@@ -126,34 +101,52 @@ private sealed class CtrlA2SelectAllShapes(ins:Hand) extends Interactor[SelectSh
 		interaction.getKeys.size==2 && interaction.getKeys.contains(KeyEvent.VK_A) && interaction.getKeys.contains(KeyEvent.VK_CONTROL)
 }
 
-
-private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Interactor[InitTextSetter, DoubleClick, Hand](ins, false, classOf[InitTextSetter], classOf[DoubleClick]) {
-	override def initAction() {
+private abstract sealed class Interaction2InitTextSetter[I <: Interaction](ins:Hand, clazz:Class[I])
+							extends Interactor[InitTextSetter, I, Hand](ins, false, classOf[InitTextSetter], clazz) {
+	protected def setAction(sh:Object) {
 		var pos:Option[IPoint] = None
 
-		interaction.getTarget match {
-      case text1: IViewText =>
-        val text = text1.getShape.asInstanceOf[IText]
-        action.setTextShape(text)
-        pos = Some(text.getPosition)
-      case plot1:IViewPlot =>
-        val plot = plot1.getShape.asInstanceOf[IPlot]
-        action.setPlotShape(plot)
-        pos = Some(plot.getPosition)
-      case _ =>
-    }
+		sh match {
+			case plot:IPlot =>
+				action.setPlotShape(plot)
+				pos = Some(plot.getPosition)
+			case txt:IText =>
+				action.setTextShape(txt)
+				pos = Some(txt.getPosition)
+			case _ =>
+		}
 
 		pos match {
 			case Some(position) =>
-				  val screen = instrument.canvas.asInstanceOf[LCanvas].getVisibleRect
-          val zoom = instrument.canvas.getZoom
-          val x = instrument.canvas.getOrigin.getX - screen.getX + position.getX * zoom
-          val y = instrument.canvas.getOrigin.getY - screen.getY + position.getY * zoom
-          action.setInstrument(instrument.textSetter)
-          action.setTextSetter(instrument.textSetter)
-          action.setAbsolutePoint(ShapeFactory.createPoint(x, y))
-          action.setRelativePoint(ShapeFactory.createPoint(position))
+				val screen = instrument.canvas.asInstanceOf[LCanvas].getVisibleRect
+				val zoom = instrument.canvas.getZoom
+				val x = instrument.canvas.getOrigin.getX - screen.getX + position.getX * zoom
+				val y = instrument.canvas.getOrigin.getY - screen.getY + position.getY * zoom
+				action.setInstrument(instrument.textSetter)
+				action.setTextSetter(instrument.textSetter)
+				action.setAbsolutePoint(ShapeFactory.createPoint(x, y))
+				action.setRelativePoint(ShapeFactory.createPoint(position))
 			case None =>
+		}
+	}
+}
+
+private sealed class F2ToInitTextSetter(ins:Hand) extends Interaction2InitTextSetter[KeysPressure](ins, classOf[KeysPressure]) {
+	override def initAction() {
+		setAction(instrument.canvas.getDrawing.getSelection.getShapeAt(0))
+	}
+
+	override def isConditionRespected:Boolean = interaction.getKeys.size()==1 && interaction.getKeys.get(0)==KeyEvent.VK_F2 &&
+			instrument.canvas.getDrawing.getSelection.size()==1 &&
+			(instrument.canvas.getDrawing.getSelection.getShapeAt(0).isInstanceOf[IText] ||
+			instrument.canvas.getDrawing.getSelection.getShapeAt(0).isInstanceOf[IPlot])
+}
+
+private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Interaction2InitTextSetter[DoubleClick](ins, classOf[DoubleClick]) {
+	override def initAction() {
+		interaction.getTarget match {
+			case shape: IViewShape => setAction(shape.getShape)
+			case _ =>
 		}
 	}
 
