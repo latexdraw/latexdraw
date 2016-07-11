@@ -16,7 +16,7 @@ import java.awt.event.{KeyEvent, MouseEvent}
 import java.awt.geom.Rectangle2D
 import java.util.ArrayList
 
-import net.sf.latexdraw.actions.shape.{InitTextSetter, SelectShapes, TranslateShapes, UpdateToGrid}
+import net.sf.latexdraw.actions.shape._
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.ShapeFactory._
@@ -26,9 +26,9 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.{IViewPlot, IViewShape, IVi
 import org.malai.action.Action
 import org.malai.instrument.{Instrument, Interactor}
 import org.malai.interaction.Interaction
-import org.malai.interaction.library.{DnD, DnDWithKeys, KeysPressure, PressWithKeys}
+import org.malai.interaction.library._
 import org.malai.mapping.MappingRegistry
-import org.malai.swing.action.library.MoveCamera
+import org.malai.swing.action.library.{ActivateInactivateInstruments, MoveCamera}
 import org.malai.swing.interaction.library.DoubleClick
 
 import scala.collection.JavaConversions.asScalaBuffer
@@ -52,6 +52,8 @@ class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrume
 			addInteractor(new F2ToInitTextSetter(this))
 			addInteractor(new CtrlA2SelectAllShapes(this))
 			addInteractor(new CtrlU2UpdateShapes(this))
+			addInteractor(new Press2SetText(this))
+			addInteractor(new Press2DeactivateTextSetter(this))
 		}catch{case ex: Throwable => BadaboomCollector.INSTANCE.add(ex)}
 	}
 
@@ -74,11 +76,31 @@ class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrume
 	override def onActionDone(action:Action) {
 		action match {
 			case _:TranslateShapes => _metaCustomiser.dimPosCustomiser.update()
+			case _:ActivateInactivateInstruments => canvas.requestFocus()
 			case _ =>
 		}
 	}
 }
 
+private sealed class Press2SetText(ins:Hand) extends Interactor[ModifyShapeProperty, Press, Hand](ins, false, classOf[ModifyShapeProperty], classOf[Press]) {
+	override def initAction {
+		action.setGroup(ShapeFactory.createGroup(instrument.textSetter.text))
+		action.setProperty(ShapeProperties.TEXT)
+		action.setValue(instrument.textSetter.textField.getText())
+	}
+
+	override def isConditionRespected = instrument.textSetter.isActivated && !instrument.textSetter.getTextField.getText.isEmpty
+}
+
+private sealed class Press2DeactivateTextSetter(ins:Hand) extends Interactor[ActivateInactivateInstruments, Press, Hand](ins, false, classOf[ActivateInactivateInstruments], classOf[Press]) {
+	def initAction {
+		action.addInstrumentToInactivate(instrument.textSetter)
+	}
+
+	def isConditionRespected: Boolean = {
+		return instrument.textSetter.textField.isValidText && !instrument.textSetter.textField.getText.isEmpty
+	}
+}
 
 private sealed class CtrlU2UpdateShapes(ins:Hand) extends Interactor[UpdateToGrid, KeysPressure, Hand](ins, false, classOf[UpdateToGrid], classOf[KeysPressure]) {
 	override def initAction() {
