@@ -1,372 +1,261 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.latexdraw</groupId>
-  <artifactId>latexdraw.core</artifactId>
-  <name>LaTeXDraw</name>
-  <version>4.0.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  
-  	<properties>
-		<malai.version>2.0-SNAPSHOT</malai.version>
-		<scala.version>2.12.0-M4</scala.version>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
-	
-<repositories>
-    <repository>
-        <id>mavenInriaSnapshot</id>
-        <name>http://maven.inria.fr-snapshots</name>
-        <url>http://maven.inria.fr/artifactory/malai-public-snapshot</url>
-    </repository>
-	<repository>
-        <id>mavenInriaRelease</id>
-        <name>http://maven.inria.fr-releases</name>
-        <url>http://maven.inria.fr/artifactory/malai-public-release</url>
-    </repository>
-	<repository>
-		<id>testfx</id>
-		<name>testfx</name>
-		<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-	</repository>
-</repositories>
-  
-  <build>
-        <sourceDirectory>src/main/</sourceDirectory>
-     	<testSourceDirectory>src/test/</testSourceDirectory>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.sf.latexdraw</groupId>
+    <artifactId>latexdraw.core</artifactId>
+    <name>LaTeXDraw</name>
+    <version>4.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-		<resources>
+    <properties>
+        <malai.version>2.0-SNAPSHOT</malai.version>
+        <scala.version>2.12.0-M4</scala.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>mavenInriaSnapshot</id>
+            <name>http://maven.inria.fr-snapshots</name>
+            <url>http://maven.inria.fr/artifactory/malai-public-snapshot</url>
+        </repository>
+        <repository>
+            <id>mavenInriaRelease</id>
+            <name>http://maven.inria.fr-releases</name>
+            <url>http://maven.inria.fr/artifactory/malai-public-release</url>
+        </repository>
+        <repository>
+            <id>testfx</id>
+            <name>testfx</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <sourceDirectory>src/main/</sourceDirectory>
+        <testSourceDirectory>src/test/</testSourceDirectory>
+
+        <resources>
             <resource>
                 <directory>src/main</directory>
                 <includes>
                     <include>**/*.fxml</include>
                 </includes>
             </resource>
-	      <resource>
-	        <directory>src/resources/main/</directory>
-	      </resource>
-	      <resource>
-	        <directory>lib/</directory>
-	      </resource>
-	    </resources>
-	    <testResources>
-	      <testResource>
-	        <directory>src/resources/test/</directory>
-	      </testResource>
-	      <testResource>
-	        <directory>src/resources/main/</directory>
-	      </testResource>
-	    </testResources>
+            <resource>
+                <directory>src/resources/main/</directory>
+            </resource>
+            <resource>
+                <directory>lib/</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/resources/test/</directory>
+            </testResource>
+            <testResource>
+                <directory>src/resources/main/</directory>
+            </testResource>
+        </testResources>
 
         <plugins>
-
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <descriptors>
-            <descriptor>src/assembly/assemblySrc.xml</descriptor>
-            <descriptor>src/assembly/assemblyBin.xml</descriptor>
-          </descriptors>
-         <finalName>LaTeXDraw-${project.version}</finalName>
-        </configuration>
-                <executions>
-          <execution>
-            <id>make-assembly</id>
-            <phase>package</phase> 
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-		</plugin>
-
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-jar-plugin</artifactId>
-	        <version>2.6</version>
-	        <configuration>
-	          <archive>
-			    <manifest>
-			    	<addClasspath>true</addClasspath>
-					<mainClass>net.sf.latexdraw.LaTeXDraw</mainClass>
-					<classpathPrefix>lib/</classpathPrefix>
-			    </manifest>
-	            <addMavenDescriptor>false</addMavenDescriptor>
-	          </archive>
-	          <includes>
-	            <include>lang/</include>
-	            <include>res/</include>
-	            <include>net/</include>
-	          </includes>
-	        </configuration>
-	      </plugin>
-      
-			<plugin>
-				<groupId>org.scala-tools</groupId>
-				<artifactId>maven-scala-plugin</artifactId>
-				<version>2.14.1</version>
-		        <configuration>
-					<scalaVersion>${scala.version}</scalaVersion>
-		          <args>
-		            <arg>-optimise</arg>
-		            <arg>-Xexperimental</arg>
-		          </args>
-		        </configuration>
-				<executions>
-					<execution>
-						<id>compile</id>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-						<phase>compile</phase>
-					</execution>
-	                <execution>
-	                   <phase>process-resources</phase>
-	                   <goals>
-	                     <goal>compile</goal>
-	                   </goals>
-	                </execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
- 
- 		    <plugin>
- 		    	<groupId>org.apache.maven.plugins</groupId>
- 		    	<artifactId>maven-surefire-plugin</artifactId>
- 		    	<version>2.19.1</version>
- 		        <configuration>
- 		          <threadCount>4</threadCount>
- 		          <skipTests>true</skipTests>
-                  <testFailureIgnore>false</testFailureIgnore>
-  					<includes>
-			            <include>**/Test*.java</include>
-			          </includes>
- 		        </configuration>
- 		  	</plugin>
-
-<!--             <plugin> -->
-<!--                 <groupId>org.codehaus.mojo</groupId> -->
-<!--                 <artifactId>osxappbundle-maven-plugin</artifactId> -->
-<!--                 <version>1.0-alpha-2</version> -->
-<!--                 <configuration> -->
-<!--                     <mainClass>net.sf.latexdraw.LaTeXDraw</mainClass> -->
-<!--                   	<javaApplicationStub>${basedir}/src/osx/universalJavaApplicationStub</javaApplicationStub> -->
-<!--                     <jvmVersion>1.7+</jvmVersion> -->
-<!--                 </configuration> -->
-<!--                 <executions> -->
-<!--                     <execution> -->
-<!--                         <phase>package</phase> -->
-<!--                         <goals> -->
-<!--                             <goal>bundle</goal> -->
-<!--                         </goals> -->
-<!--                     </execution> -->
-<!--                </executions> -->
-<!--            </plugin> -->
-
-<!--  	        <plugin>  -->
-<!--  	          <groupId>org.codehaus.mojo</groupId>  -->
-<!--  	          <artifactId>cobertura-maven-plugin</artifactId>  -->
-<!--  	          <version>2.5.1</version>  -->
-<!-- 	          <configuration> -->
-<!-- 			  	<check> -->
-<!-- 					<branchRate>85</branchRate> -->
-<!-- 					<lineRate>85</lineRate> -->
-<!-- 					<haltOnFailure>true</haltOnFailure> -->
-<!-- 					<totalBranchRate>85</totalBranchRate> -->
-<!-- 					<totalLineRate>85</totalLineRate> -->
-<!-- 					<packageLineRate>85</packageLineRate> -->
-<!-- 					<packageBranchRate>85</packageBranchRate> -->
-<!-- 					<formats> -->
-<!--                         <format>xml</format> -->
-<!--                     </formats> -->
-<!-- 					<regexes> -->
-<!-- 						<regex> -->
-<!-- 							<pattern>net.sf.latexdraw.*</pattern> -->
-<!-- 							<branchRate>90</branchRate> -->
-<!-- 							<lineRate>80</lineRate> -->
-<!-- 						</regex> -->
-<!-- 					</regexes> -->
-<!-- 				</check> -->
-<!-- 			  </configuration> -->
-<!--  	        </plugin> -->
- <!--          <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>rpm-maven-plugin</artifactId>
-                <version>2.0.1</version>
-				<executions>
-				  <execution>
-				    <id>attach-rpm</id>
-				    <goals>
-				      <goal>attached-rpm</goal>
-				    </goals>
-				  </execution>
-				</executions>
-				
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
                 <configuration>
-                    <needarch>noarch</needarch>
-                    <packager>Arnaud Blouin</packager>
-                    <name>LaTeXDraw</name>
-		      		<group>Applications/Programming</group>
-		      		<filemode>755</filemode>
-		      		<copyright>GPLv2</copyright>
-
-					<provides>
-					    <provide>latexdraw</provide>
-					</provides>
-
-					<requires>
-						<require>java</require>
-					</requires>
-
-					<conflicts>
-					</conflicts>
-
-					<mappings>
-						<mapping>
-							<directory>/usr/lib/latexdraw</directory>
-							<dependency/>
-							<sources>
-								<source>
-									<location>${project.build.directory}/${project.build.finalName}.jar</location>
-								</source>
-							</sources>
-						</mapping>
-						<mapping>
-							<directory>/usr/bin</directory>
-							<directoryIncluded>false</directoryIncluded>
-							<filemode>755</filemode>
-							<sources>
-								<source>
-									<location>src/scripts</location>
-								</source>
-							</sources>
-						</mapping>
-					</mappings>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>net.sf.latexdraw.LaTeXDraw</mainClass>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                    <includes>
+                        <include>lang/</include>
+                        <include>res/</include>
+                        <include>net/</include>
+                    </includes>
                 </configuration>
-            </plugin> -->
- 	        
-        </plugins>
-  </build>
-  
- <!--	<profiles>
-		<profile>
-			<id>rpmbuild</id>
-			<activation>
-				<file>
-					<exists>/usr/bin/rpmbuild</exists>
-				</file>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>rpm-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>package</phase>
-								<goals>
-									<goal>attached-rpm</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>  -->
-  
-	<dependencies>
-			<dependency>
-	            <groupId>org.scala-lang</groupId>
-	            <artifactId>scala-library</artifactId>
-	            <version>${scala.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.scala-lang.modules</groupId>
-				<artifactId>scala-parser-combinators_2.12.0-M4</artifactId>
-				<version>1.0.4</version>
-			</dependency>
-		    <dependency>
-		      <groupId>junit</groupId>
-		      <artifactId>junit</artifactId>
-		      <version>4.12</version>
-		      <scope>test</scope>
-		    </dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<version>1.10.19</version>
-				<artifactId>mockito-all</artifactId>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.swinglabs</groupId>
-				<artifactId>pdf-renderer</artifactId>
-				<version>1.0.5</version>
-			</dependency>
-			<dependency>
-			    <groupId>org.malai</groupId>
-			    <artifactId>malai.core</artifactId>
-			    <version>${malai.version}</version>
-			</dependency>
-<!-- 			<dependency> -->
-<!-- 			    <groupId>org.controlsfx</groupId> -->
-<!-- 			    <artifactId>controlsfx</artifactId> -->
-<!-- 			    <version>8.20.7</version> -->
-<!-- 			</dependency> -->
-			<dependency>
-			    <groupId>org.malai</groupId>
-			    <artifactId>malai.javafx</artifactId>
-			    <version>${malai.version}</version>
-			</dependency>
-			<dependency>
-			    <groupId>net.sf.latexdraw</groupId>
-			    <artifactId>latexdraw.installer</artifactId>
-			    <version>${project.version}</version>
-			</dependency>
-			<dependency>
-			    <groupId>net.sf.jlibeps</groupId>
-			    <artifactId>jlibeps</artifactId>
-			    <version>0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.jdt</groupId>
-				<artifactId>org.eclipse.jdt.annotation</artifactId>
-				<version>2.0.0</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.testfx</groupId>
-				<artifactId>testfx-core</artifactId>
-				<version>4.0.4-alpha</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.testfx</groupId>
-				<artifactId>testfx-junit</artifactId>
-				<version>4.0.4-alpha</version>
-				<scope>test</scope>
-			</dependency>
-<!-- 			<dependency> -->
-<!-- 				<groupId>org.jfxtras</groupId> -->
-<!-- 				<artifactId>openjfx-monocle</artifactId> -->
-<!-- 				<version>1.8.0_20</version> -->
-<!-- 				<scope>test</scope> -->
-<!-- 			</dependency> -->
-			<dependency>
-				<groupId>com.google.inject</groupId>
-				<artifactId>guice</artifactId>
-				<version>4.0</version>
-			</dependency>
+            </plugin>
 
-	</dependencies>
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <version>2.14.1</version>
+                <configuration>
+                    <scalaVersion>${scala.version}</scalaVersion>
+                    <args>
+                        <arg>-optimise</arg>
+                        <arg>-Xexperimental</arg>
+                    </args>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <threadCount>4</threadCount>
+                    <skipTests>true</skipTests>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <includes>
+                        <include>**/Test*.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <!--             <plugin> -->
+            <!--                 <groupId>org.codehaus.mojo</groupId> -->
+            <!--                 <artifactId>osxappbundle-maven-plugin</artifactId> -->
+            <!--                 <version>1.0-alpha-2</version> -->
+            <!--                 <configuration> -->
+            <!--                     <mainClass>net.sf.latexdraw.LaTeXDraw</mainClass> -->
+            <!--                   	<javaApplicationStub>${basedir}/src/osx/universalJavaApplicationStub</javaApplicationStub> -->
+            <!--                     <jvmVersion>1.7+</jvmVersion> -->
+            <!--                 </configuration> -->
+            <!--                 <executions> -->
+            <!--                     <execution> -->
+            <!--                         <phase>package</phase> -->
+            <!--                         <goals> -->
+            <!--                             <goal>bundle</goal> -->
+            <!--                         </goals> -->
+            <!--                     </execution> -->
+            <!--                </executions> -->
+            <!--            </plugin> -->
+        </plugins>
+    </build>
+
+    <!--	<profiles>
+           <profile>
+               <id>rpmbuild</id>
+               <activation>
+                   <file>
+                       <exists>/usr/bin/rpmbuild</exists>
+                   </file>
+               </activation>
+               <build>
+                   <plugins>
+                       <plugin>
+                           <groupId>org.codehaus.mojo</groupId>
+                           <artifactId>rpm-maven-plugin</artifactId>
+                           <executions>
+                               <execution>
+                                   <phase>package</phase>
+                                   <goals>
+                                       <goal>attached-rpm</goal>
+                                   </goals>
+                               </execution>
+                           </executions>
+                       </plugin>
+                   </plugins>
+               </build>
+           </profile>
+       </profiles>  -->
+
+    <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang.modules</groupId>
+            <artifactId>scala-parser-combinators_2.12.0-M4</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <version>1.10.19</version>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>pdf-renderer</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.malai</groupId>
+            <artifactId>malai.core</artifactId>
+            <version>${malai.version}</version>
+        </dependency>
+        <!-- 			<dependency> -->
+        <!-- 			    <groupId>org.controlsfx</groupId> -->
+        <!-- 			    <artifactId>controlsfx</artifactId> -->
+        <!-- 			    <version>8.20.7</version> -->
+        <!-- 			</dependency> -->
+        <dependency>
+            <groupId>org.malai</groupId>
+            <artifactId>malai.javafx</artifactId>
+            <version>${malai.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jlibeps</groupId>
+            <artifactId>jlibeps</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.annotation</artifactId>
+            <version>2.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-core</artifactId>
+            <version>4.0.4-alpha</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-junit</artifactId>
+            <version>4.0.4-alpha</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- 			<dependency> -->
+        <!-- 				<groupId>org.jfxtras</groupId> -->
+        <!-- 				<artifactId>openjfx-monocle</artifactId> -->
+        <!-- 				<version>1.8.0_20</version> -->
+        <!-- 				<scope>test</scope> -->
+        <!-- 			</dependency> -->
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.0</version>
+        </dependency>
+    </dependencies>
 </project>

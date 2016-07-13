@@ -9,43 +9,40 @@
         <dependencySet>
            <includes>
                <include>org.malai:malai.core</include>
-               <include>org.malai:malai.swing</include>
+               <include>org.malai:malai.javafx</include>
                <include>org.scala-lang:scala-library</include>
                <include>net.sf.jlibeps:jlibeps</include>
                <include>org.swinglabs:pdf-renderer</include>
-               <include>org.scala-lang.modules:scala-parser-combinators_2.11</include>
+               <include>org.scala-lang.modules:scala-parser-combinators_2.12.0-M4</include>
            </includes>
            <unpack>false</unpack>
            <outputDirectory>data/lib/</outputDirectory>
         </dependencySet>
-        <dependencySet>
-            <outputFileNameMapping>installer.jar</outputFileNameMapping>
-           <includes>
-               <include>net.sf.latexdraw:latexdraw.installer</include>
-           </includes>
-           <unpack>false</unpack>
-           <outputDirectory>.</outputDirectory>
-        </dependencySet>
     </dependencySets>
   <files>
      <file>
-	     <source>${project.basedir}/src/resources/main/res/LaTeXDrawIcon.png</source>
+	     <source>${project.basedir}/../net.sf.latexdraw.installer/target/latexdraw.installer-${project.version}.jar</source>
+	     <outputDirectory>.</outputDirectory>
+	     <destName>installer.jar</destName>
+  	</file>
+     <file>
+	     <source>${project.basedir}/../net.sf.latexdraw/src/resources/main/res/LaTeXDrawIcon.png</source>
 	     <outputDirectory>data/gnome/</outputDirectory>
 	     <destName>latexdraw.png</destName>
   	</file>
      <file>
-	     <source>${project.basedir}/src/gnome/latexdraw.desktop</source>
+	     <source>${project.basedir}/../net.sf.latexdraw/src/gnome/latexdraw.desktop</source>
 	     <outputDirectory>data/gnome/</outputDirectory>
   	</file>
      <file>
-	     <source>${project.build.directory}/${project.artifactId}-${project.version}.jar</source>
+	     <source>${project.basedir}/../net.sf.latexdraw/target/latexdraw.core-${project.version}.jar</source>
 	     <outputDirectory>data/</outputDirectory>
 	     <destName>LaTeXDraw.jar</destName>
   	</file>
   </files>
   <fileSets>
     <fileSet>
-      <directory>${project.basedir}/templates/</directory>
+      <directory>${project.basedir}/../net.sf.latexdraw/templates/</directory>
       <outputDirectory>data/</outputDirectory>
       <includes>
         <include>.cache/</include>
@@ -54,7 +51,7 @@
       <useDefaultExcludes>true</useDefaultExcludes>
     </fileSet>
     <fileSet>
-      <directory>${project.basedir}</directory>
+      <directory>${project.basedir}/../net.sf.latexdraw/</directory>
       <outputDirectory>.</outputDirectory>
       <includes>
         <include>*.txt</include>
@@ -62,7 +59,7 @@
       <useDefaultExcludes>true</useDefaultExcludes>
     </fileSet>
     <fileSet>
-      <directory>${project.basedir}/src/scripts/</directory>
+      <directory>${project.basedir}/../net.sf.latexdraw/src/scripts/</directory>
       <outputDirectory>.</outputDirectory>
       <includes>
         <include>install_*</include>
