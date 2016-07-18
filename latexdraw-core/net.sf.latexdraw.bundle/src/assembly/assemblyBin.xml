@@ -31,7 +31,7 @@
 	     <destName>latexdraw.png</destName>
   	</file>
      <file>
-	     <source>${project.basedir}/../net.sf.latexdraw/src/gnome/latexdraw.desktop</source>
+	     <source>${project.basedir}/src/gnome/latexdraw.desktop</source>
 	     <outputDirectory>data/gnome/</outputDirectory>
   	</file>
      <file>
@@ -59,7 +59,7 @@
       <useDefaultExcludes>true</useDefaultExcludes>
     </fileSet>
     <fileSet>
-      <directory>${project.basedir}/../net.sf.latexdraw/src/scripts/</directory>
+      <directory>${project.basedir}/src/scripts/</directory>
       <outputDirectory>.</outputDirectory>
       <includes>
         <include>install_*</include>
