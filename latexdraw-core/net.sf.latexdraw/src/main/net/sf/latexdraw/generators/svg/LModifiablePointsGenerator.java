@@ -1,15 +1,16 @@
 package net.sf.latexdraw.generators.svg;
 
-import java.awt.geom.Point2D;
-import java.util.List;
-
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.parsers.svg.AbstractPointsElement;
 import net.sf.latexdraw.parsers.svg.SVGPathElement;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSeg;
+import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
+
+import java.awt.geom.Point2D;
+import java.util.List;
 
 /**
  * Defines an SVG generator for shapes composed of points.<br>
@@ -68,9 +69,9 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 	protected void initModifiablePointsShape(final SVGPathElement elt) {
 		final SVGPathSegList segs = elt.getSegList();
 		SVGPathSeg seg;
-		final int size = segs.size()-1;
+		final int size = segs.get(segs.size()-1) instanceof SVGPathSegClosePath ? segs.size()-1 : segs.size();
 		int i;
-		Point2D pt;
+		Point2D pt = new Point2D.Double(0d,0d);// Creating a point to support when the first path element is relative.
 
 		for(i=0; i<size; i++) {
 			seg = segs.get(i);
@@ -78,7 +79,7 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 			if(!(seg instanceof SVGPathSegLineto))
 				throw new IllegalArgumentException("The given SVG path element is not a polygon."); //$NON-NLS-1$
 
-			pt = ((SVGPathSegLineto)seg).getPoint();
+			pt = ((SVGPathSegLineto)seg).getPoint(pt);
 			shape.addPoint(ShapeFactory.createPoint(pt.getX(), pt.getY()));
 		}
 

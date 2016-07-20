@@ -1,8 +1,8 @@
 package net.sf.latexdraw.parsers.svg.parsers;
 
-import java.text.ParseException;
-
 import net.sf.latexdraw.parsers.svg.path.*;
+
+import java.text.ParseException;
 
 /**
  * Defines an SVGPath parser.<br>
@@ -50,7 +50,7 @@ public class SVGPathParser extends SVGNumberParser {
 		if(getChar()!='m' && getChar()!='M')// The first command must be a moveto command.
 			throw new ParseException("moveto command (m|M) expected.", getPosition());//$NON-NLS-1$
 
-		parseMoveto(false);// If a relative moveto (m) appears as the first element of the path, then it is treated as a pair of absolute coordinates.
+		parseMoveto(getChar()=='m');
 
 		while(!isEOC()) {
 			skipWSP();
