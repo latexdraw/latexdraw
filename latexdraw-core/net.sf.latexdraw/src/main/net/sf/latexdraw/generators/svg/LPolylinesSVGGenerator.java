@@ -1,23 +1,16 @@
 package net.sf.latexdraw.generators.svg;
 
-import java.text.ParseException;
-import java.util.List;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPolyline;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDefsElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGLineElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.SVGPolyLineElement;
+import net.sf.latexdraw.parsers.svg.*;
 import net.sf.latexdraw.util.LNamespace;
+
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * Defines a SVG generator for some joined lines.<br>
@@ -55,7 +48,7 @@ class LPolylinesSVGGenerator extends LModifiablePointsGenerator<IPolyline> {
 	protected LPolylinesSVGGenerator(final SVGPathElement elt) {
 		super(ShapeFactory.createPolyline());
 
-		if(elt==null || !elt.isLines())
+		if(elt==null || (!elt.isLines() && !elt.isLine()))
 			throw new IllegalArgumentException();
 
 		initModifiablePointsShape(elt);
