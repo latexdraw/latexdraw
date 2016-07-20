@@ -67,7 +67,12 @@ public class SVGPathSegLineto extends SVGPathSeg {
 	 * @return The position of the segment.
 	 * @since 2.0
 	 */
-	public Point2D getPoint() {
+	public Point2D getPoint(Point2D prevPoint) {
+		if(isRelative) {
+			if(prevPoint==null)
+				throw new IllegalArgumentException("The path is relative but the given previous point is null " + toString());
+			return new Point2D.Double(prevPoint.getX()+x, prevPoint.getY()+y);
+		}
 		return new Point2D.Double(x, y);
 	}
 
