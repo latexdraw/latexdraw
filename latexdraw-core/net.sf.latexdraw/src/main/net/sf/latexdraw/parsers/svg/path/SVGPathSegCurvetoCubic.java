@@ -1,5 +1,7 @@
 package net.sf.latexdraw.parsers.svg.path;
 
+import java.awt.geom.Point2D;
+
 /**
  * Defines the SVGPath curveto segment.<br>
  *<br>
@@ -19,13 +21,7 @@ package net.sf.latexdraw.parsers.svg.path;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class SVGPathSegCurvetoCubic extends SVGPathSeg {
-	/** The X-coordinate of the second point of the curve. @since 2.0 */
-	protected double x;
-
-	/** The Y-coordinate of the second point of the curve. @since 2.0 */
-	protected double y;
-
+public class SVGPathSegCurvetoCubic extends SVGPathPointSeg implements CtrlPointsSeg {
 	/** The x-coordinate of the first control point. @since 2.0 */
 	protected double x1;
 
@@ -50,10 +46,7 @@ public class SVGPathSegCurvetoCubic extends SVGPathSeg {
 	 * @param isRelative isRelative True: the path segment is relative, false it is absolute.
 	 */
 	public SVGPathSegCurvetoCubic(final double x, final double y, final double x1, final double y1, final double x2, final double y2, final boolean isRelative) {
-		super(isRelative);
-
-		this.x = x;
-		this.y = y;
+		super(isRelative, x, y);
 		this.x1 = x1;
 		this.x2 = x2;
 		this.y1 = y1;
@@ -61,63 +54,18 @@ public class SVGPathSegCurvetoCubic extends SVGPathSeg {
 	}
 
 
-
 	@Override
 	public String toString() {
         return String.valueOf(isRelative() ? 'c' : 'C') + ' ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y;
 	}
 
-
-	/**
-	 * @return the x.
-	 * @since 2.0
-	 */
-	public double getX() {
-		return x;
+	@Override
+	public Point2D getCtrl1(final Point2D prevPoint) {
+		return getPoint(x1, y1, prevPoint, isRelative);
 	}
 
-
-	/**
-	 * @return the y.
-	 * @since 2.0
-	 */
-	public double getY() {
-		return y;
-	}
-
-
-	/**
-	 * @return the x1.
-	 * @since 2.0
-	 */
-	public double getX1() {
-		return x1;
-	}
-
-
-	/**
-	 * @return the y1.
-	 * @since 2.0
-	 */
-	public double getY1() {
-		return y1;
-	}
-
-
-	/**
-	 * @return the x2.
-	 * @since 2.0
-	 */
-	public double getX2() {
-		return x2;
-	}
-
-
-	/**
-	 * @return the y2.
-	 * @since 2.0
-	 */
-	public double getY2() {
-		return y2;
+	@Override
+	public Point2D getCtrl2(final Point2D prevPoint) {
+		return getPoint(x2, y2, prevPoint, isRelative);
 	}
 }

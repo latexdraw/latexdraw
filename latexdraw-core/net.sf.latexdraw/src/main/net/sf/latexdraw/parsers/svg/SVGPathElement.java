@@ -1,14 +1,10 @@
 package net.sf.latexdraw.parsers.svg;
 
-import java.text.ParseException;
-
 import net.sf.latexdraw.parsers.svg.parsers.SVGPathParser;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegLineto;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
-
+import net.sf.latexdraw.parsers.svg.path.*;
 import org.w3c.dom.Node;
+
+import java.text.ParseException;
 
 /**
  * Defines the SVG tag <code>path</code>.<br>
@@ -91,6 +87,23 @@ public class SVGPathElement extends SVGElement {
 	}
 
 
+	public boolean isBezierCurve() {
+		final SVGPathSegList segList = getSegList();
+
+		if(segList.isEmpty() || !(segList.get(0) instanceof SVGPathSegMoveto))
+			return false;
+
+		final int size = segList.size()-1;
+		boolean ok = true;
+		int i;
+
+		for(i=1; i<size && ok; i++)
+			if(!(segList.get(i) instanceof SVGPathSegCurvetoCubic) && !(segList.get(i) instanceof SVGPathSegCurvetoCubicSmooth))
+				ok = false;
+
+		return ok && (segList.get(size) instanceof SVGPathSegClosePath || segList.get(size) instanceof SVGPathSegCurvetoCubic
+			|| segList.get(size) instanceof SVGPathSegCurvetoCubicSmooth);
+	}
 
 	/**
 	 * @return True if the path is composed of lines and has a 'close path' segment at the end.

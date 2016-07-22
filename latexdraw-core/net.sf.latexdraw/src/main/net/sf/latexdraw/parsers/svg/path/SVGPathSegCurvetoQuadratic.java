@@ -19,13 +19,7 @@ package net.sf.latexdraw.parsers.svg.path;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class SVGPathSegCurvetoQuadratic extends SVGPathSeg {
-	/** The X-coordinate of the second point of the curve. @since 2.0 */
-	protected double x;
-
-	/** The Y-coordinate of the second point of the curve. @since 2.0 */
-	protected double y;
-
+public class SVGPathSegCurvetoQuadratic extends SVGPathPointSeg {
 	/** The x-coordinate of the first control point. @since 2.0 */
 	protected double x1;
 
@@ -42,10 +36,8 @@ public class SVGPathSegCurvetoQuadratic extends SVGPathSeg {
 	 * @param isRelative isRelative True: the path segment is relative, false it is absolute.
 	 */
 	public SVGPathSegCurvetoQuadratic(final double x, final double y, final double x1, final double y1, final boolean isRelative) {
-		super(isRelative);
+		super(isRelative, x, y);
 
-		this.x = x;
-		this.y = y;
 		this.x1 = x1;
 		this.y1 = y1;
 	}
@@ -55,25 +47,6 @@ public class SVGPathSegCurvetoQuadratic extends SVGPathSeg {
 	@Override
 	public String toString() {
         return String.valueOf(isRelative() ? 'q' : 'Q') + ' ' + x1 + ' ' + y1 + ' ' + x + ' ' + y;
-	}
-
-
-
-	/**
-	 * @return the x.
-	 * @since 2.0
-	 */
-	public double getX() {
-		return x;
-	}
-
-
-	/**
-	 * @return the y.
-	 * @since 2.0
-	 */
-	public double getY() {
-		return y;
 	}
 
 
