@@ -178,8 +178,6 @@ public class SVGPathParser extends SVGNumberParser {
 			skipWSPComma();
 			handler.onPathSeg(new SVGPathSegCurvetoCubicSmooth(x, y, x2, y2, isRelative));
 		}
-
-		nextChar();
 	}
 
 
