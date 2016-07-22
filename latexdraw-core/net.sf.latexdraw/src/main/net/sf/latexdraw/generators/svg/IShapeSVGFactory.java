@@ -81,6 +81,10 @@ public final class IShapeSVGFactory {
 
 				if(p.isLines() || p.isLine())
 					return new LPolylinesSVGGenerator((SVGPathElement)elt).getShape();
+
+				if(p.isBezierCurve()) {
+					return new LBezierCurveSVGGenerator((SVGPathElement)elt).getShape();
+				}
 			}
 			else
 				if(elt instanceof SVGGElement) {// If we have a group of shapes or a latexdraw shape.

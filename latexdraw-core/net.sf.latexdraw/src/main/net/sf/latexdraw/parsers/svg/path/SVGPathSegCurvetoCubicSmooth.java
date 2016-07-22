@@ -1,5 +1,7 @@
 package net.sf.latexdraw.parsers.svg.path;
 
+import java.awt.geom.Point2D;
+
 /**
  * Defines the SVGPath smooth curveto segment.<br>
  *<br>
@@ -19,13 +21,7 @@ package net.sf.latexdraw.parsers.svg.path;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class SVGPathSegCurvetoCubicSmooth extends SVGPathSeg {
-	/** The X-coordinate of the second point of the curve. @since 2.0 */
-	protected double x;
-
-	/** The Y-coordinate of the second point of the curve. @since 2.0 */
-	protected double y;
-
+public class SVGPathSegCurvetoCubicSmooth extends SVGPathPointSeg implements CtrlPointsSeg {
 	/** The x-coordinate of the second control point. @since 2.0 */
 	protected double x2;
 
@@ -42,10 +38,8 @@ public class SVGPathSegCurvetoCubicSmooth extends SVGPathSeg {
 	 * @param isRelative isRelative True: the path segment is relative, false it is absolute.
 	 */
 	public SVGPathSegCurvetoCubicSmooth(final double x, final double y, final double x2, final double y2, final boolean isRelative) {
-		super(isRelative);
+		super(isRelative, x, y);
 
-		this.x = x;
-		this.y = y;
 		this.x2 = x2;
 		this.y2 = y2;
 	}
@@ -57,38 +51,13 @@ public class SVGPathSegCurvetoCubicSmooth extends SVGPathSeg {
 	}
 
 
-	/**
-	 * @return the x.
-	 * @since 2.0
-	 */
-	public double getX() {
-		return x;
+	@Override
+	public Point2D getCtrl2(final Point2D prevPoint) {
+		return getPoint(x2, y2, prevPoint, isRelative);
 	}
 
-
-	/**
-	 * @return the y.
-	 * @since 2.0
-	 */
-	public double getY() {
-		return y;
-	}
-
-
-	/**
-	 * @return the x2.
-	 * @since 2.0
-	 */
-	public double getX2() {
-		return x2;
-	}
-
-
-	/**
-	 * @return the y2.
-	 * @since 2.0
-	 */
-	public double getY2() {
-		return y2;
+	@Override
+	public Point2D getCtrl1(final Point2D prevPoint) {
+		return prevPoint;
 	}
 }

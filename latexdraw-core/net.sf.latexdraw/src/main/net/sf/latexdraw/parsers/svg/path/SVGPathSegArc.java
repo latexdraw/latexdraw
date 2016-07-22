@@ -23,13 +23,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class SVGPathSegArc extends SVGPathSeg {
-	/** The X-coordinate of the second point of the arc. @since 2.0 */
-	protected double x;
-
-	/** The Y-coordinate of the second point of the arc. @since 2.0 */
-	protected double y;
-
+public class SVGPathSegArc extends SVGPathPointSeg {
 	/** The x radius of the arc. @since 2.0 */
 	protected double rx;
 
@@ -59,10 +53,8 @@ public class SVGPathSegArc extends SVGPathSeg {
 	 */
 	public SVGPathSegArc(final double x, final double y, final double rx, final double ry, final double angle,
 						final boolean largeArcFlag, final boolean sweepFlag, final boolean isRelative) {
-		super(isRelative);
+		super(isRelative, x, y);
 
-		this.x = x;
-		this.y = y;
 		this.rx = rx;
 		this.ry = ry;
 		this.angle = angle;
@@ -152,23 +144,6 @@ public class SVGPathSegArc extends SVGPathSeg {
 				angleExtent += 360.;
 
 		return new Arc2D.Double(cx-rx2, cy-ry2, rx2*2., ry2*2., -angleStart%360., -angleExtent%360., Arc2D.OPEN);
-	}
-
-
-	/**
-	 * @return the x.
-	 * @since 2.0
-	 */
-	public double getX() {
-		return x;
-	}
-
-	/**
-	 * @return the y.
-	 * @since 2.0
-	 */
-	public double getY() {
-		return y;
 	}
 
 	/**

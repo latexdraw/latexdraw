@@ -1,30 +1,19 @@
 package net.sf.latexdraw.generators.svg;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
-
 import net.sf.latexdraw.glib.models.ShapeFactory;
-import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.glib.models.interfaces.shape.IBezierCurve;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.*;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
-import net.sf.latexdraw.parsers.svg.SVGAttributes;
-import net.sf.latexdraw.parsers.svg.SVGDefsElement;
-import net.sf.latexdraw.parsers.svg.SVGDocument;
-import net.sf.latexdraw.parsers.svg.SVGElement;
-import net.sf.latexdraw.parsers.svg.SVGGElement;
-import net.sf.latexdraw.parsers.svg.SVGPathElement;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegClosePath;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegCurvetoCubic;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
-import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
+import net.sf.latexdraw.parsers.svg.*;
+import net.sf.latexdraw.parsers.svg.path.*;
 import net.sf.latexdraw.util.LNamespace;
+
+import java.awt.geom.Point2D;
 
 /**
  * Defines a SVG generator for a Bézier curve.<br>
  *<br>
  * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2016 Arnaud BLOUIN<br>
  *<br>
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -82,6 +71,13 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 	}
 
 
+	protected LBezierCurveSVGGenerator(final SVGPathElement path) {
+		this(ShapeFactory.createBezierCurve());
+
+		setPath(path.getSegList());
+		setSVGParameters(path);
+		applyTransformations(path);
+	}
 
 	/**
 	 * Sets the shape path according to the given SVG path segments.
@@ -92,26 +88,30 @@ class LBezierCurveSVGGenerator extends LShapeSVGGenerator<IBezierCurve> {
 		if(list==null || list.size()<2 || !(list.get(0) instanceof SVGPathSegMoveto))
 			throw new IllegalArgumentException();
 
-		final SVGPathSegMoveto m 	= (SVGPathSegMoveto)list.get(0);
-		SVGPathSegCurvetoCubic c;
+		final SVGPathSegMoveto m = (SVGPathSegMoveto)list.get(0);
+		CtrlPointsSeg c;
 		int i=1;
         final int size = list.size();
+		Point2D pt = new Point2D.Double();// Creating a point to support when the first path element is relative.
 
-        shape.addPoint(ShapeFactory.createPoint(m.getX(), m.getY()));
+		pt = m.getPoint(pt);
+        shape.addPoint(ShapeFactory.createPoint(pt));
 
-		if(size>1 && list.get(1) instanceof SVGPathSegCurvetoCubic) {// We set the control point of the first point.
-			c = (SVGPathSegCurvetoCubic)list.get(1);
-			shape.getFirstCtrlPtAt(-1).setPoint(c.getX1(), c.getY1());
+		if(size>1 && list.get(1) instanceof CtrlPointsSeg) {// We set the control point of the first point.
+			c = (CtrlPointsSeg)list.get(1);
+			shape.getFirstCtrlPtAt(-1).setPoint(ShapeFactory.createPoint(c.getCtrl1(pt)));
 		}
 
-		while(i<size && list.get(i) instanceof SVGPathSegCurvetoCubic) {
-			c = (SVGPathSegCurvetoCubic)list.get(i);
-			shape.addPoint(ShapeFactory.createPoint(c.getX(), c.getY()));
-			shape.getFirstCtrlPtAt(-1).setPoint(c.getX2(), c.getY2());
+		while(i<size && list.get(i) instanceof CtrlPointsSeg) {
+			c = (CtrlPointsSeg)list.get(i);
+			Point2D currPt = c.getPoint(pt);
+			shape.addPoint(ShapeFactory.createPoint(currPt));
+			shape.getFirstCtrlPtAt(-1).setPoint(ShapeFactory.createPoint(c.getCtrl2(pt)));
+			pt = currPt;
 			i++;
 		}
 
-		if(shape.getPtAt(-1).equals(shape.getPtAt(0), 0.00001)) {// We set the shape as closed
+		if(shape.getNbPoints()>2 && shape.getPtAt(-1).equals(shape.getPtAt(0), 0.00001)) {// We set the shape as closed
 			shape.removePoint(-1);
 			shape.setIsClosed(true);
 		}

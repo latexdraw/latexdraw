@@ -71,7 +71,7 @@ abstract class LModifiablePointsGenerator<S extends IModifiablePointsShape> exte
 		SVGPathSeg seg;
 		final int size = segs.get(segs.size()-1) instanceof SVGPathSegClosePath ? segs.size()-1 : segs.size();
 		int i;
-		Point2D pt = new Point2D.Double(0d,0d);// Creating a point to support when the first path element is relative.
+		Point2D pt = new Point2D.Double();// Creating a point to support when the first path element is relative.
 
 		for(i=0; i<size; i++) {
 			seg = segs.get(i);
