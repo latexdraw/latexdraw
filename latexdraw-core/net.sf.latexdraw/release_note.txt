@@ -25,3 +25,5 @@ Bugs fixed:
    https://bugs.launchpad.net/latexdraw/+bug/1584037
  - Cannot import an SVG path where characters are stuck
    https://bugs.launchpad.net/latexdraw/+bug/1605718
+ - CSS style not considered on some SVG attributes
+   https://bugs.launchpad.net/latexdraw/+bug/1606545

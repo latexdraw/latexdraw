@@ -1,12 +1,5 @@
 package net.sf.latexdraw.generators.svg;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.toDegrees;
-
-import java.awt.Color;
-import java.awt.geom.Point2D;
-import java.text.ParseException;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.*;
@@ -23,10 +16,16 @@ import net.sf.latexdraw.parsers.svg.path.SVGPathSegList;
 import net.sf.latexdraw.parsers.svg.path.SVGPathSegMoveto;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.text.ParseException;
+
+import static java.lang.Math.PI;
+import static java.lang.Math.toDegrees;
 
 /**
  * This class allows the generation or the importation of SVG parameters to a general LaTeXDraw shape.<br>
@@ -327,7 +326,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		shape.setLineColour(elt.getStroke());
 
-		final String opacityStr =  elt.getAttribute(SVGAttributes.SVG_STROKE_OPACITY);
+		final String opacityStr =  elt.getSVGAttribute(SVGAttributes.SVG_STROKE_OPACITY, null);
 		final Color lineCol = shape.getLineColour();
 		if(opacityStr!=null)
 			try { shape.setLineColour(new Color(lineCol.getRed(), lineCol.getGreen(), lineCol.getBlue(), (int)(Double.valueOf(opacityStr)*255.0)));}
@@ -337,7 +336,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			LShapeSVGGenerator.setDashedDotted(shape, elt.getStrokeDasharray(), elt.getStrokeLinecap());
 
 		if(shape.isFillable())
-			LShapeSVGGenerator.setFill(shape, elt.getFill(), elt.getAttribute(SVGAttributes.SVG_FILL_OPACITY), elt.getSVGRoot().getDefs());
+			LShapeSVGGenerator.setFill(shape, elt.getFill(), elt.getSVGAttribute(SVGAttributes.SVG_FILL_OPACITY, null), elt.getSVGRoot().getDefs());
 
 		CSSStylesGenerator.INSTANCE.setCSSStyles(shape, elt.getStylesCSS(), elt.getSVGRoot().getDefs());
 	}

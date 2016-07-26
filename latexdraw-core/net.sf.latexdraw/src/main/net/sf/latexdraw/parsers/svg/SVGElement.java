@@ -1,21 +1,13 @@
 package net.sf.latexdraw.parsers.svg;
 
-import java.awt.Color;
-import java.text.ParseException;
-import java.util.Objects;
-
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.parsers.svg.parsers.CSSStyleParser;
 import net.sf.latexdraw.parsers.svg.parsers.SVGLengthParser;
+import org.w3c.dom.*;
 
-import org.w3c.dom.Attr;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.TypeInfo;
-import org.w3c.dom.UserDataHandler;
+import java.awt.*;
+import java.text.ParseException;
+import java.util.Objects;
 
 /**
  * Defines an SVG element.<br>
@@ -1256,7 +1248,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * An SVG attribute can be defined in: its corresponding attribute (e.g. fill="...");
 	 * the attribute style (e.g. style="fill:...;..."); a CSS stylesheet. This function
 	 * returns the value of an SVG attribute by testing: 1. Its corresponding attribute;
-	 * 2. The attribute style is 1. fails. TODO CSS stylesheet are not managed yet.
+	 * 2. The attribute style is 1. fails.
 	 * @param attrName The name of the researched attribute.
 	 * @param prefix The usable prefix.
 	 * @return The found value or null.

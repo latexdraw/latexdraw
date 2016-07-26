@@ -86,16 +86,16 @@ class LTextSVGGenerator extends LShapeSVGGenerator<IText> {
 			throw new IllegalArgumentException();
 
 		TextSize textSize;
-		try { textSize = TextSize.getTextSizeFromSize(Double.valueOf(elt.getAttribute(SVGAttributes.SVG_FONT_SIZE)).intValue()); }
+		try { textSize = TextSize.getTextSizeFromSize(Double.valueOf(elt.getSVGAttribute(SVGAttributes.SVG_FONT_SIZE, null)).intValue()); }
 		catch(final Exception e) { textSize = null; }
 
 		if(textSize!=null)
 			shape.setText("\\" + textSize.getLatexToken() + '{' + shape.getText().replace("&", "\\&") + '}'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-		if(SVGAttributes.SVG_FONT_WEIGHT_BOLD.equals(elt.getAttribute(SVGAttributes.SVG_FONT_WEIGHT)))
+		if(SVGAttributes.SVG_FONT_WEIGHT_BOLD.equals(elt.getSVGAttribute(SVGAttributes.SVG_FONT_WEIGHT, null)))
 			shape.setText("\\textbf{" + shape.getText() + '}'); //$NON-NLS-1$
 
-		if(SVGAttributes.SVG_FONT_STYLE_ITALIC.equals(elt.getAttribute(SVGAttributes.SVG_FONT_STYLE)))
+		if(SVGAttributes.SVG_FONT_STYLE_ITALIC.equals(elt.getSVGAttribute(SVGAttributes.SVG_FONT_STYLE, null)))
 			shape.setText("\\emph{" + shape.getText() + '}'); //$NON-NLS-1$
 
 		shape.setLineColour(CSSColors.INSTANCE.getRGBColour(elt.getFill()));
