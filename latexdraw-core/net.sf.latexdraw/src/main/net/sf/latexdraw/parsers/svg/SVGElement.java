@@ -21,7 +21,7 @@ import org.w3c.dom.UserDataHandler;
  * Defines an SVG element.<br>
  *<br>
  * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2016 Arnaud BLOUIN<br>
  *<br>
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -1256,7 +1256,7 @@ public abstract class SVGElement implements Element, Cloneable {
 	 * An SVG attribute can be defined in: its corresponding attribute (e.g. fill="...");
 	 * the attribute style (e.g. style="fill:...;..."); a CSS stylesheet. This function
 	 * returns the value of an SVG attribute by testing: 1. Its corresponding attribute;
-	 * 2. The attribute style is 1. fails. TODO CSS stylesheet are not managed yet.
+	 * 2. The attribute style is 1. fails.
 	 * @param attrName The name of the researched attribute.
 	 * @param prefix The usable prefix.
 	 * @return The found value or null.

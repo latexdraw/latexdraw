@@ -27,7 +27,7 @@ import org.w3c.dom.NodeList;
  * This class allows the generation or the importation of SVG parameters to a general LaTeXDraw shape.<br>
  *<br>
  * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
+ * Copyright (c) 2005-2016 Arnaud BLOUIN<br>
  *<br>
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -322,7 +322,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 
 		shape.setLineColour(elt.getStroke());
 
-		final String opacityStr =  elt.getAttribute(SVGAttributes.SVG_STROKE_OPACITY);
+		final String opacityStr =  elt.getSVGAttribute(SVGAttributes.SVG_STROKE_OPACITY, null);
 		final Color lineCol = shape.getLineColour();
 		if(opacityStr!=null)
 			try { shape.setLineColour(ShapeFactory.createColor(lineCol.getR(), lineCol.getG(), lineCol.getB(), Double.valueOf(opacityStr)));}
@@ -332,7 +332,7 @@ abstract class LShapeSVGGenerator<S extends IShape> {
 			LShapeSVGGenerator.setDashedDotted(shape, elt.getStrokeDasharray(), elt.getStrokeLinecap());
 
 		if(shape.isFillable())
-			LShapeSVGGenerator.setFill(shape, elt.getFill(), elt.getAttribute(SVGAttributes.SVG_FILL_OPACITY), elt.getSVGRoot().getDefs());
+			LShapeSVGGenerator.setFill(shape, elt.getFill(), elt.getSVGAttribute(SVGAttributes.SVG_FILL_OPACITY, null), elt.getSVGRoot().getDefs());
 
 		CSSStylesGenerator.INSTANCE.setCSSStyles(shape, elt.getStylesCSS(), elt.getSVGRoot().getDefs());
 	}
