@@ -3,6 +3,7 @@ package net.sf.latexdraw.util;
 import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.logging.Level;
 
 /**
  * This class defines paths used in LaTeXDraw.<br>
@@ -38,8 +39,6 @@ public final class LPath {
 
 	public static final String PATH_LOCAL_USER 				= INSTANCE.getPathLocalUser();
 	public static final String PATH_TEMPLATES_DIR_USER 		= PATH_LOCAL_USER + File.separator + TEMPLATE_DIR;
-	public static final String PATH_PREFERENCES_FILE_OLD   	= PATH_LOCAL_USER + File.separator + ".preferences";//$NON-NLS-1$
-	public static final String PATH_PREFERENCES_XML_FILE   	= PATH_PREFERENCES_FILE_OLD+".xml";//$NON-NLS-1$
 	public static final String PATH_CACHE_DIR      	   		= PATH_LOCAL_USER + File.separator + CACHE_DIR;
 	public static final String PATH_CACHE_SHARE_DIR	   		= PATH_LOCAL_USER + File.separator + CACHE_SHARED_DIR;
 	public static final String PATH_TEMPLATES_SHARED   		= INSTANCE.getPathTemplatesShared();
@@ -48,17 +47,6 @@ public final class LPath {
 	
 	private LPath() {
 		super();
-	}
-
-	/**
-	 * Normalises the given namespace URI: if the given namespace is null or empty, an empty
-	 * string is returned. Otherwise, the namespace followed by character ':' is returned.
-	 * @param nsURI The namespace to normalise.
-	 * @return The normalised namespace.
-	 * @since 3.0
-	 */
-	public String getNormaliseNamespaceURI(final String nsURI) {
-		return nsURI==null || nsURI.length()==0 ? "" : nsURI + ':'; //$NON-NLS-1$
 	}
 
 
@@ -132,10 +120,10 @@ public final class LPath {
 	 */
 	public void checkInstallDirectories() {
 		try {
-			(new File(PATH_SHARED)).mkdirs();
-			(new File(PATH_TEMPLATES_SHARED)).mkdirs();
+			InstallerLog.getLogger().log(Level.INFO, PATH_SHARED + " created? " + (new File(PATH_SHARED)).mkdirs());
+			InstallerLog.getLogger().log(Level.INFO, PATH_TEMPLATES_SHARED + " created? " + (new File(PATH_TEMPLATES_SHARED)).mkdirs());
 		}
-		catch(SecurityException e) { e.printStackTrace(); }
+		catch(SecurityException ex) { InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex); }
 	}
 
 
@@ -145,12 +133,12 @@ public final class LPath {
 	 */
 	public void checkDirectories() {
 		try {
-			(new File(PATH_LOCAL_USER)).mkdirs();
-			(new File(PATH_TEMPLATES_DIR_USER)).mkdirs();
-			(new File(PATH_CACHE_DIR)).mkdirs();
-			(new File(PATH_CACHE_SHARE_DIR)).mkdirs();
+			InstallerLog.getLogger().log(Level.INFO, PATH_LOCAL_USER + " created? " +(new File(PATH_LOCAL_USER)).mkdirs());
+			InstallerLog.getLogger().log(Level.INFO, PATH_TEMPLATES_DIR_USER + " created? " +(new File(PATH_TEMPLATES_DIR_USER)).mkdirs());
+			InstallerLog.getLogger().log(Level.INFO, PATH_CACHE_DIR + " created? " +(new File(PATH_CACHE_DIR)).mkdirs());
+			InstallerLog.getLogger().log(Level.INFO, PATH_CACHE_SHARE_DIR + " created? " +(new File(PATH_CACHE_SHARE_DIR)).mkdirs());
 		}
-		catch(SecurityException e) { e.printStackTrace(); }
+		catch(SecurityException ex) { InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex); }
 	}
 
 
@@ -187,8 +175,8 @@ public final class LPath {
 
 		    return path;
 
-		}catch(Exception e) {
-			e.printStackTrace();
+		}catch(Exception ex) {
+			InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
 			return null;
 		}
 	}

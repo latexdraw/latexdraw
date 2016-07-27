@@ -1,9 +1,10 @@
 package net.sf.latexdraw.installer;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import net.sf.latexdraw.util.InstallerLog;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.util.logging.Level;
 
 abstract class Slide extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -49,6 +50,8 @@ abstract class Slide extends JPanel {
 	
 	
 	protected void install() {
+		InstallerLog.getLogger().log(Level.INFO, "Slide: " + getClass().getSimpleName());
+
 		if(!init)
 			init();
 		

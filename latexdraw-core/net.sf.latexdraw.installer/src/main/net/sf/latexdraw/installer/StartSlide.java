@@ -1,10 +1,12 @@
 package net.sf.latexdraw.installer;
 
+import net.sf.latexdraw.util.InstallerLog;
 import net.sf.latexdraw.util.LSystem;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.logging.Level;
 
 class StartSlide extends Slide {
 	private static final long serialVersionUID = 1L;
@@ -21,11 +23,13 @@ class StartSlide extends Slide {
 		
 		String plus;
 		final String javaVersion = System.getProperty("java.version");
-		
+
 		setPanelDimension();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		if(javaVersion.compareTo("1.7")<0) { //$NON-NLS-1$
+		InstallerLog.getLogger().log(Level.INFO, "Java lesser than 1.7? " + (javaVersion.compareToIgnoreCase("1.7")<0));
+
+		if(javaVersion.compareToIgnoreCase("1.7")<0) { //$NON-NLS-1$
 			final JTextArea textArea 	= new JTextArea();
 			final JLabel label 			= new JLabel();
 			final JLabel label2 		= new JLabel();
@@ -52,6 +56,10 @@ class StartSlide extends Slide {
 			add(textArea);
 			installer.nextB.setEnabled(false);
 		} else {
+			if(LSystem.INSTANCE.isLinux()) {
+				InstallerLog.getLogger().log(Level.INFO, "is /opt a dir? " + new File("/opt").isDirectory());
+			}
+
 			if(LSystem.INSTANCE.isLinux() && !new File("/opt").isDirectory()) {
 				final JLabel label = new JLabel();
 				final JLabel label2 = new JLabel();
@@ -66,6 +74,8 @@ class StartSlide extends Slide {
 				add(label3);
 				installer.nextB.setEnabled(false);
 			}else {
+				InstallerLog.getLogger().log(Level.INFO, "is Vista? " + LSystem.INSTANCE.isVista());
+
 				if(LSystem.INSTANCE.isVista())
 					plus="</li><br><li>Be careful with Vista!<br>You must have launched this installer via the script install_vista.vbs.";
 				else plus="";//$NON-NLS-1$

@@ -1,55 +1,54 @@
-package net.sf.latexdraw.installer;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-
-import net.sf.latexdraw.util.LSystem;
-
-/**
- * This class defines the LaTeXDraw installer.<br>
- * <br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2012 Arnaud BLOUIN<br>
- *<br>
+/*
+ * This file is part of LaTeXDraw
+ * Copyright (c) 2005-2016 Arnaud BLOUIN
  *  LaTeXDraw is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.<br>
- *<br>
+ *  (at your option) any later version.
  *  LaTeXDraw is distributed without any warranty; without even the
  *  implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- *  PURPOSE. See the GNU General Public License for more details.<br>
- *<br>
- * 05/11/07<br>
+ *  PURPOSE. See the GNU General Public License for more details.
+ */
+package net.sf.latexdraw.installer;
+
+import net.sf.latexdraw.util.InstallerLog;
+import net.sf.latexdraw.util.LSystem;
+
+import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Map;
+import java.util.logging.Level;
+
+/**
+ * This class defines the LaTeXDraw installer.
  * @author Arnaud BLOUIN
  * @version 3.0
  */
 public final class Installer extends JFrame {
 	private static final long serialVersionUID = 1L;
 
+	private static final String ACTION_NEXT = "next";//$NON-NLS-1$
+
+	private static final String ACTION_PREVIOUS = "previous";//$NON-NLS-1$
+
+	private static final String ACTION_CANCEL = "cancel";//$NON-NLS-1$
+
+	private static final String ACTION_END = "end";//$NON-NLS-1$
+
 	/** The listener of the installer. */
 	private InstallerListener listener;
 
 	protected Slide startSlide;
-	
+
 	protected ChooseDirSlide chooseSlide;
-	
+
 	protected InstallSlide installSlide;
-	
+
 	protected Slide currentSlide;
 
 	/** The button "previous". */
@@ -60,15 +59,6 @@ public final class Installer extends JFrame {
 	
 	protected JButton endB;
 
-	protected static final String ACTION_NEXT = "next";//$NON-NLS-1$
-
-	protected static final String ACTION_PREVIOUS = "previous";//$NON-NLS-1$
-
-	protected static final String ACTION_CANCEL = "cancel";//$NON-NLS-1$
-	
-	protected static final String ACTION_END = "end";//$NON-NLS-1$
-
-
 
 	/**
 	 * The main function: it creates an installer and launch it.
@@ -76,6 +66,20 @@ public final class Installer extends JFrame {
 	 * @since 1.9.2
 	 */
 	public static void main(final String argc[]) {
+		final StringBuilder builder = new StringBuilder();
+
+		builder.append("LaTeX version:").append(LSystem.INSTANCE.getLaTeXVersion()).append(LSystem.EOL); //$NON-NLS-1$
+		builder.append("DviPS version:").append(LSystem.INSTANCE.getDVIPSVersion()).append(LSystem.EOL); //$NON-NLS-1$
+		builder.append("PS2PDF version:").append(LSystem.EOL).append(LSystem.INSTANCE.getPS2PDFVersion()).append(LSystem.EOL); //$NON-NLS-1$
+		builder.append("PS2EPSI version:").append(LSystem.INSTANCE.getPS2EPSVersion()).append(LSystem.EOL); //$NON-NLS-1$
+		builder.append("PDFcrop version:").append(LSystem.INSTANCE.getPDFCROPVersion()).append(LSystem.EOL); //$NON-NLS-1$
+
+		builder.append("Java properties:").append(LSystem.EOL); //$NON-NLS-1$
+		for(final Map.Entry<Object, Object> entry : System.getProperties().entrySet())
+			builder.append(entry.getKey()).append(':').append(' ').append(entry.getValue()).append(LSystem.EOL);
+
+		InstallerLog.getLogger().log(Level.INFO, builder.toString());
+
 		new Installer().setVisible(true);
 	}
 
@@ -88,11 +92,19 @@ public final class Installer extends JFrame {
 
 		listener = new InstallerListener();
 
-		if(LSystem.INSTANCE.isLinux() && System.getProperty("java.version").toLowerCase().compareTo("1.6")>=0)//$NON-NLS-1$//$NON-NLS-2$
-			try { UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel"); }//$NON-NLS-1$
-			catch(final Exception ex) { ex.printStackTrace(); }
+		InstallerLog.getLogger().log(Level.INFO, "Linux? " + LSystem.INSTANCE.isLinux());
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("res/LaTeXDrawIcon.png")));//$NON-NLS-1$
+		if(LSystem.INSTANCE.isLinux())
+			try { UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel"); }//$NON-NLS-1$
+			catch(final Exception ex) {
+				InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+			}
+
+		try {
+			setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("res/LaTeXDrawIcon.png")));//$NON-NLS-1$
+		}catch(Exception ex) {
+			InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+		}
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		final JPanel ctrlPanel = createControlButtonsPanel();
@@ -175,7 +187,7 @@ public final class Installer extends JFrame {
 
 
 
-	class InstallerListener implements ActionListener {
+	private class InstallerListener implements ActionListener {
 		InstallerListener() {
 			super();
 		}
@@ -207,8 +219,6 @@ public final class Installer extends JFrame {
 				
 				if(Installer.ACTION_END.equals(actionCmd))
 					System.exit(0);
-
-				return ;
 			}
 		}
 	}
