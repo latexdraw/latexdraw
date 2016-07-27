@@ -9,7 +9,7 @@
             fx:controller="net.sf.latexdraw.instruments.ShapeRotationCustomiser">
     <Label layoutX="0.0" layoutY="9.0" text="%AbstractParametersFrame.7"/>
     <Spinner fx:id="rotationField" prefHeight="25.0" prefWidth="80.0" layoutX="140.0" layoutY="6.0"
-             min="-360" max="360" initialValue="0" amountToStepBy="1"/>
+             min="-360.0" max="360.0" initialValue="0.0" amountToStepBy="1.0"/>
     <Button fx:id="rotate90Button" layoutX="0.0" layoutY="36.0">
         <graphic>
             <ImageView>
