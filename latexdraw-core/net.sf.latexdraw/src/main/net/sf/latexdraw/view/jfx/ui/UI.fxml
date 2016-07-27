@@ -18,32 +18,34 @@
                                 </center>
                             </BorderPane>
                             <BorderPane maxWidth="270.0" minWidth="270.0">
-                                <Accordion maxWidth="270.0" minWidth="270.0">
-                                    <panes>
-                                        <fx:include source="LineStyle.fxml"/>
-                                        <fx:include source="FillingStyle.fxml"/>
-                                        <fx:include source="ShadowStyle.fxml"/>
-                                        <fx:include source="DoubleLineStyle.fxml"/>
-                                        <fx:include source="StdGridStyle.fxml"/>
-                                        <fx:include source="PlotStyle.fxml"/>
-                                        <fx:include source="ArrowStyle.fxml"/>
-                                        <fx:include source="TextStyle.fxml"/>
-                                        <fx:include source="DotStyle.fxml"/>
-                                        <fx:include source="ArcStyle.fxml"/>
-                                        <fx:include source="FreehandStyle.fxml"/>
-                                        <TitledPane animated="true" text="Shape Transformation">
-                                            <VBox spacing="10">
-                                                <fx:include source="Rotation.fxml"/>
-                                                <fx:include source="Transformation.fxml"/>
-                                                <fx:include source="PositionZ.fxml"/>
-                                                <fx:include source="Group.fxml"/>
-                                            </VBox>
-                                        </TitledPane>
-                                        <fx:include source="Dimension.fxml"/>
-                                        <fx:include source="Template.fxml"/>
-                                        <fx:include source="DrawingProps.fxml"/>
-                                    </panes>
-                                </Accordion>
+                                <center>
+                                    <Accordion maxWidth="270.0" minWidth="270.0">
+                                        <panes>
+                                            <fx:include source="LineStyle.fxml"/>
+                                            <fx:include source="FillingStyle.fxml"/>
+                                            <fx:include source="ShadowStyle.fxml"/>
+                                            <fx:include source="DoubleLineStyle.fxml"/>
+                                            <fx:include source="StdGridStyle.fxml"/>
+                                            <fx:include source="PlotStyle.fxml"/>
+                                            <fx:include source="ArrowStyle.fxml"/>
+                                            <fx:include source="TextStyle.fxml"/>
+                                            <fx:include source="DotStyle.fxml"/>
+                                            <fx:include source="ArcStyle.fxml"/>
+                                            <fx:include source="FreehandStyle.fxml"/>
+                                            <TitledPane text="Shape Transformation">
+                                                <VBox spacing="10">
+                                                    <fx:include source="Rotation.fxml"/>
+                                                    <fx:include source="Transformation.fxml"/>
+                                                    <fx:include source="PositionZ.fxml"/>
+                                                    <fx:include source="Group.fxml"/>
+                                                </VBox>
+                                            </TitledPane>
+                                            <fx:include source="Dimension.fxml"/>
+                                            <fx:include source="Template.fxml"/>
+                                            <fx:include source="DrawingProps.fxml"/>
+                                        </panes>
+                                    </Accordion>
+                                </center>
                             </BorderPane>
                         </SplitPane>
                     </center>
