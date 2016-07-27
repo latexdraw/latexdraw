@@ -1,21 +1,13 @@
 package net.sf.latexdraw.installer;
 
-import java.awt.Dimension;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-
+import net.sf.latexdraw.util.InstallerLog;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LSystem;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.util.logging.Level;
 
 public class InstallSlide extends Slide implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -105,6 +97,7 @@ public class InstallSlide extends Slide implements Runnable {
 			if(LSystem.INSTANCE.isLinux()) {
 				final File f = new File("/usr/bin/latexdraw");//$NON-NLS-1$
 
+				InstallerLog.getLogger().log(Level.SEVERE, f + " exists? " + f.exists());
 				if(!f.exists()) {
 					final FileOutputStream fos 	= new FileOutputStream(f);
 					final Writer osw 			= new OutputStreamWriter(fos);
@@ -113,14 +106,33 @@ public class InstallSlide extends Slide implements Runnable {
 						osw.write("#! /bin/sh\n");//$NON-NLS-1$
 						osw.write("java -jar "+installer.chooseSlide.pathInstall.getText()+File.separator+"latexdraw"+File.separator+"LaTeXDraw.jar $@\n");//$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
 						ok = true;
-					}catch(final IOException ex) { ok = false; }
-					try { osw.flush(); } catch(final IOException ex) { ok = false; }
-					try { fos.flush(); } catch(final IOException ex) { ok = false; }
-					try { osw.close(); } catch(final IOException ex) { ok = false; }
-					try { fos.close(); } catch(final IOException ex) { ok = false; }
+					}catch(final IOException ex) {
+						ok = false;
+						InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+					}
+					try { osw.flush(); } catch(final IOException ex) {
+						ok = false;
+						InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+					}
+					try { fos.flush(); } catch(final IOException ex) {
+						ok = false;
+						InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+					}
+					try { osw.close(); } catch(final IOException ex) {
+						ok = false;
+						InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+					}
+					try { fos.close(); } catch(final IOException ex) {
+						ok = false;
+						InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+					}
 
-					f.setReadable(true);
-					f.setExecutable(true, false);
+					InstallerLog.getLogger().log(Level.INFO, "sh file created? " + ok);
+
+					if(!f.setReadable(true))
+						InstallerLog.getLogger().log(Level.SEVERE, "Failed to set sh file readable");
+					if(!f.setExecutable(true, false))
+						InstallerLog.getLogger().log(Level.SEVERE, "Failed to set sh file executable");
 				}
 				else ok = true;
 			}
@@ -128,7 +140,9 @@ public class InstallSlide extends Slide implements Runnable {
 				final File f = new File(PATH_JAR+File.separator+"createShortcut.vbs");
 				final FileOutputStream fos 	= new FileOutputStream(f);
 				final Writer osw 			= new OutputStreamWriter(fos);
-				
+
+				InstallerLog.getLogger().log(Level.SEVERE, f + " exists? " + f.exists());
+
 				try {
 					osw.write("Set shell = WScript.CreateObject(\"WScript.Shell\")");
 					osw.write(EOL);
@@ -143,25 +157,49 @@ public class InstallSlide extends Slide implements Runnable {
 					osw.write("link.Save");
 					osw.write(EOL);
 					ok = true;
-				}catch(final IOException ex) { ok = false; }
-				try { osw.flush(); } catch(final IOException ex) { ok = false; }
-				try { fos.flush(); } catch(final IOException ex) { ok = false; }
-				try { osw.close(); } catch(final IOException ex) { ok = false; }
-				try { fos.close(); } catch(final IOException ex) { ok = false; }
+				}catch(final IOException ex) {
+					ok = false;
+					InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+				}
+				try { osw.flush(); } catch(final IOException ex) {
+					ok = false;
+					InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+				}
+				try { fos.flush(); } catch(final IOException ex) {
+					ok = false;
+					InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+				}
+				try { osw.close(); } catch(final IOException ex) {
+					ok = false;
+					InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+				}
+				try { fos.close(); } catch(final IOException ex) {
+					ok = false;
+					InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+				}
 
-				f.setReadable(true);
-				f.setExecutable(true, false);
+				if(!f.setReadable(true))
+					InstallerLog.getLogger().log(Level.SEVERE, "Failed to set vbs file readable");
+				if(!f.setExecutable(true, false))
+					InstallerLog.getLogger().log(Level.SEVERE, "Failed to set vbs file executable");
 				ok = true;
 				try {
 					Runtime.getRuntime().exec(new String[]{"wscript", f.getPath()});
-				}catch(IOException e) {
-					e.printStackTrace();
+				}catch(IOException ex) {
+					ex.printStackTrace();
+					InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
 				}
 			}
 			else ok = true;
 		}
-		catch(final FileNotFoundException e) 	{ ok = false; }
-		catch(final SecurityException e) 		{ ok = false; }
+		catch(final FileNotFoundException ex) {
+			ok = false;
+			InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+		}
+		catch(final SecurityException ex) {
+			ok = false;
+			InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+		}
 
 		return ok;
 	}
@@ -227,10 +265,21 @@ public class InstallSlide extends Slide implements Runnable {
             	destinationFile.write(buffer, 0, nbLecture);
             	nbLecture = sourceFile.read(buffer);
             }
-	    }catch(final Exception ex) { ok = false; }
+	    }catch(final Exception ex) {
+	    	ok = false;
+			InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+	    }
 
-	    try { if(destinationFile!=null) destinationFile.close(); } catch(final IOException ex) { ok = false; }
-	    try { if(sourceFile!=null) sourceFile.close(); } catch(final IOException ex) { ok = false; }
+	    try { if(destinationFile!=null) destinationFile.close(); }
+	    catch(final IOException ex) {
+	    	ok = false;
+			InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+	    }
+	    try { if(sourceFile!=null) sourceFile.close(); }
+	    catch(final IOException ex) {
+	    	ok = false;
+			InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+	    }
 	    
 	    return ok;
 	}
@@ -250,7 +299,7 @@ public class InstallSlide extends Slide implements Runnable {
 		boolean ok = true;
 
 		if(!src.exists() || !src.isDirectory() || !src.canRead())
-			throw new FileNotFoundException();
+			throw new FileNotFoundException(from + " exists? " + src.exists() + " isDir? " + src.isDirectory() + " canRead? " + src.canRead());
 
 		final File[] files = src.listFiles();
 		File dest;
@@ -324,6 +373,7 @@ public class InstallSlide extends Slide implements Runnable {
 	}
 
 	
+	@Override
 	public void run() {
 		setContinueInstall(true);
 		progressBar.setValue(progressBar.getMinimum());
@@ -338,14 +388,20 @@ public class InstallSlide extends Slide implements Runnable {
 			return ;
 
 		try {
-			okCopying = okCopying && copyFiles(PATH_JAR+File.separator+DATA_DIR+File.separator+NAME_TEMPLATES_DIR, LPath.PATH_TEMPLATES_SHARED, false);
+			okCopying = copyFiles(PATH_JAR+File.separator+DATA_DIR+File.separator+NAME_TEMPLATES_DIR, LPath.PATH_TEMPLATES_SHARED, false);
+			InstallerLog.getLogger().log(Level.INFO, "Templates copied? " + okCopying);
 			okCopying = okCopying && copyFiles(PATH_JAR+File.separator+DATA_DIR+File.separator+NAME_CACHE_TEMPLATES_DIR, LPath.PATH_CACHE_SHARE_DIR, false);
+			InstallerLog.getLogger().log(Level.INFO, "Cache copied? " + okCopying);
+
 			if(LSystem.INSTANCE.isLinux()){
-				new File(LPath.PATH_SHARED+"/images/app/").mkdirs();
+				InstallerLog.getLogger().log(Level.INFO, "Installing on Linux");
+				InstallerLog.getLogger().log(Level.INFO, LPath.PATH_SHARED+"/images/app/ created? " + new File(LPath.PATH_SHARED+"/images/app/").mkdirs());
 				okCopying = okCopying && copyFile(PATH_JAR+File.separator+DATA_DIR+File.separator+"gnome"+File.separator+"latexdraw.png", 
 						LPath.PATH_SHARED+"/images/app/", false);
+				InstallerLog.getLogger().log(Level.INFO, "png file copied? " + okCopying);
 				okCopying = okCopying && copyFile(PATH_JAR+File.separator+DATA_DIR+File.separator+"gnome"+File.separator+"latexdraw.desktop", 
 						"/usr/share/applications/", false);
+				InstallerLog.getLogger().log(Level.INFO, "desktop file copied? " + okCopying);
 			}
 
 			progressBar.setValue(progressBar.getValue()+20);
@@ -353,22 +409,34 @@ public class InstallSlide extends Slide implements Runnable {
 			if(!isContinueInstall())
 				return ;
 
-			if(!isContinueInstall())
-				return ;
-
 			final String path  = installer.chooseSlide.pathInstall.getText() + File.separator + "latexdraw";//$NON-NLS-1$
 			final File mainDir = new File(path);
+			InstallerLog.getLogger().log(Level.INFO, "Installation path: " + path + ". Exists? " + mainDir.exists());
 
-			if(mainDir.exists())
+			if(mainDir.exists()) {
+				InstallerLog.getLogger().log(Level.INFO, mainDir + " already exists.");
 				okCopying = delete(mainDir);
+				InstallerLog.getLogger().log(Level.INFO, mainDir + " removed? " + okCopying);
+			}
 
 			okCopying = mainDir.mkdir();
+			InstallerLog.getLogger().log(Level.INFO, mainDir + " created? " + okCopying);
 
 			okCopying = okCopying && mainDir.exists();
+			InstallerLog.getLogger().log(Level.INFO, mainDir + " exists? " + mainDir.exists());
+
 			okCopying = okCopying && copyFile(PATH_JAR+File.separator+DATA_DIR+File.separator+"LaTeXDraw.jar", path, true);//$NON-NLS-1$
+			InstallerLog.getLogger().log(Level.INFO, mainDir + " jar file copied? " + okCopying);
+
 			okCopying = okCopying && copyFile(PATH_JAR+File.separator+"license.txt", path, true);//$NON-NLS-1$
+			InstallerLog.getLogger().log(Level.INFO, mainDir + " license file copied? " + okCopying);
+
 			okCopying = okCopying && copyFile(PATH_JAR+File.separator+"release_note.txt", path, true);//$NON-NLS-1$
+			InstallerLog.getLogger().log(Level.INFO, mainDir + " release_note file copied? " + okCopying);
+
 			okCopying = okCopying && copyFiles(PATH_JAR+File.separator+DATA_DIR+File.separator+"lib", path+File.separator+"lib", true);//$NON-NLS-1$//$NON-NLS-2$
+			InstallerLog.getLogger().log(Level.INFO, PATH_JAR+File.separator+DATA_DIR+File.separator+"lib" + " libs copied? " +
+				okCopying + " in " + path+File.separator+"lib (exists? " + (new File(path+File.separator+"lib")).exists() + ")");
 			progressBar.setValue(progressBar.getValue()+30);
 
 			if(!isContinueInstall())
@@ -382,8 +450,14 @@ public class InstallSlide extends Slide implements Runnable {
 
 			okInstall = okCopying;
 
-		}catch(final FileNotFoundException e) { okInstall = false; }
-		catch(final SecurityException e) { okInstall = false; }
+		}catch(final FileNotFoundException ex) {
+			okInstall = false;
+			InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+		}
+		catch(final SecurityException ex) {
+			okInstall = false;
+			InstallerLog.getLogger().log(Level.SEVERE, ex.toString(), ex);
+		}
 
 		if(okInstall) {
 			progressBar.setValue(progressBar.getMaximum());
