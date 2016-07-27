@@ -5,6 +5,7 @@ Improvements:
 - Instead of double-clicking on a text shape to change the text, you can use the F2 key (the text shape must be selected).
 - Can click on the canvas to change text (before, you had to press 'enter')
 - Can import cubic Bézier paths (as Bézier curves). The second control point, however, always equals the first one.
+- A log is now created during the installation.
 
 Bugs fixed:
  - SVG Paths that start with a relative element are not correctly imported
