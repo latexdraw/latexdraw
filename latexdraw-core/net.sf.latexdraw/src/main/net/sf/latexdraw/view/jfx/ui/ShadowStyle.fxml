@@ -20,14 +20,14 @@
             </tooltip>
         </ColorPicker>
         <Spinner fx:id="shadowSizeField" layoutX="57.0" layoutY="63.0" prefHeight="25.0" prefWidth="88.0"
-                 min="0.01" max="1000" initialValue="1" amountToStepBy="1">
+                 min="0.01" max="1000.0" initialValue="1.0" amountToStepBy="1.0">
             <tooltip>
                 <Tooltip text="Set the size of the shadow."/>
             </tooltip>
         </Spinner>
         <Label layoutX="14.0" layoutY="68.0" text="%ShapeShad.1"/>
         <Spinner fx:id="shadowAngleField" layoutX="57.0" layoutY="96.0" prefHeight="25.0" prefWidth="88.0"
-                 min="-360" max="360" initialValue="0" amountToStepBy="1">
+                 min="-360.0" max="360.0" initialValue="0.0" amountToStepBy="1.0">
             <tooltip>
                 <Tooltip text="Set the angle of the shadow."/>
             </tooltip>
