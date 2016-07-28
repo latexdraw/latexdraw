@@ -132,7 +132,7 @@ public class LaTeXDraw extends Application {
 					updateProgress(0.6, 1.0);
 					final Scene scene = new Scene(root);
 					updateProgress(0.7, 1.0);
-					scene.getStylesheets().add("net/sf/latexdraw/view/jfx/ui/style.css");
+					scene.getStylesheets().add("css/style.css");
 					updateProgress(0.8, 1.0);
 					Platform.runLater(() -> {
 						mainStage = new Stage(StageStyle.DECORATED);
