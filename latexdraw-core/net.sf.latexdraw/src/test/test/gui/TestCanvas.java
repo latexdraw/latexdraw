@@ -3,8 +3,8 @@ package test.gui;
 import com.google.inject.AbstractModule;
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
@@ -90,8 +90,8 @@ public class TestCanvas extends TestLatexdrawGUI {
 		canvas = lookup("#canvas").query();
 	}
 
-	Pane getPane() {
-		return (Pane)canvas.getChildren().get(1);
+	Group getPane() {
+		return (Group)canvas.getChildren().get(1);
 	}
 
 	@Test
@@ -101,28 +101,28 @@ public class TestCanvas extends TestLatexdrawGUI {
 
 	@Test
 	public void testViewsPaneExists() {
-		assertTrue(canvas.getChildren().get(1) instanceof Pane);
+		assertTrue(canvas.getChildren().get(1) instanceof Group);
 	}
 
 	@Test
 	public void testViewsPanePositionORIGIN() {
-		Pane vpane = getPane();
-		assertEquals(Canvas.ORIGIN.getX(), vpane.getLayoutX(), 0.000001);
-		assertEquals(Canvas.ORIGIN.getY(), vpane.getLayoutY(), 0.000001);
+		Group group = getPane();
+		assertEquals(Canvas.ORIGIN.getX(), group.getLayoutX(), 0.000001);
+		assertEquals(Canvas.ORIGIN.getY(), group.getLayoutY(), 0.000001);
 	}
 
 	@Test
 	public void testShapeAddedViewCreated() {
 		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
-		Pane vpane = getPane();
-		assertEquals(1, vpane.getChildren().size());
+		Group group = getPane();
+		assertEquals(1, group.getChildren().size());
 	}
 
 	@Test
 	public void testShapeAddedViewRecCreated() {
 		new CompositeGUIVoidCommand(addRec, waitFXEvents).execute();
-		Pane vpane = (Pane)canvas.getChildren().get(1);
-		assertTrue(vpane.getChildren().get(0) instanceof ViewRectangle);
+		Group group = getPane();
+		assertTrue(group.getChildren().get(0) instanceof ViewRectangle);
 	}
 
 	@Test
