@@ -50,7 +50,7 @@
         </Spinner>
         <Label layoutX="0.0" layoutY="60.0" text="%ParametersGridFrame.7"/>
         <Spinner fx:id="subGridWidth" layoutX="130.0" layoutY="58.0" prefHeight="25.0" prefWidth="60.0"
-                 min="0.1" max="1000" initialValue="1" amountToStepBy="0.5"/>
+                 min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5"/>
         <Label layoutX="0.0" layoutY="90.0" text="%ParametersGridFrame.4"/>
         <Spinner fx:id="subGridDots" layoutX="130.0" layoutY="88.0" prefHeight="25.0" prefWidth="60.0">
             <valueFactory>
@@ -63,7 +63,7 @@
                 style=" -fx-border-color:lightgray; -fx-border-width: 1; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-insets: -3;">
         <Label layoutX="0.0" layoutY="2.0" text="%ParametersGridFrame.6"/>
         <Spinner fx:id="gridWidth" layoutX="130.0" layoutY="0.0" prefHeight="25.0" prefWidth="60.0"
-                 min="0.1" max="1000" initialValue="1" amountToStepBy="0.5"/>
+                 min="0.1" max="1000.0" initialValue="1.0" amountToStepBy="0.5"/>
         <Label layoutX="0.0" layoutY="32.0" text="%ParametersGridFrame.5"/>
         <Spinner fx:id="gridDots" layoutX="130.0" layoutY="30.0" prefHeight="25.0" prefWidth="60.0">
             <valueFactory>
