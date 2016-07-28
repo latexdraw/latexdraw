@@ -11,19 +11,18 @@
  */
 package net.sf.latexdraw.glib.models.impl;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.atan;
-
-import java.awt.geom.Point2D;
-
-import org.eclipse.jdt.annotation.NonNull;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;
+import org.eclipse.jdt.annotation.NonNull;
+
+import java.awt.geom.Point2D;
+
+import static java.lang.Math.PI;
+import static java.lang.Math.atan;
 
 /**
  * Defines a model of a point. This model must be used only to define other models. It is not a
@@ -34,9 +33,9 @@ import net.sf.latexdraw.util.LNumber;
  * @since 3.0
  */
 class LPoint implements IPoint {
-	final protected @NonNull DoubleProperty x;
+	protected final @NonNull DoubleProperty x;
 
-	final protected @NonNull DoubleProperty y;
+	protected final @NonNull DoubleProperty y;
 
 	/**
 	 * Creates a Point2D with coordinates (0, 0).

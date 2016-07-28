@@ -23,15 +23,15 @@ public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomi
 	protected CheckBox showOrigin;
 	protected AnchorPane mainPane;
 
-	final protected GUIVoidCommand selectAxeStyle = () -> selectNextComboBoxItem(shapeAxes);
-	final protected GUIVoidCommand selectTicksStyle = () -> selectNextComboBoxItem(shapeTicks);
-	final protected GUIVoidCommand selectPlotTicks = () -> selectNextComboBoxItem(showTicks);
-	final protected GUIVoidCommand selectPlotLabel = () -> selectNextComboBoxItem(showLabels);
-	final protected GUIVoidCommand incrementLabelX = () -> incrementSpinner(incrLabelX);
-	final protected GUIVoidCommand incrementLabelY = () -> incrementSpinner(incrLabelY);
-	final protected GUIVoidCommand incrementDistLabelX = () -> incrementSpinner(distLabelsX);
-	final protected GUIVoidCommand incrementDistLabelY = () -> incrementSpinner(distLabelsY);
-	final protected GUIVoidCommand selectShowOrigin = () -> clickOn(showOrigin);
+	protected final GUIVoidCommand selectAxeStyle = () -> selectNextComboBoxItem(shapeAxes);
+	protected final GUIVoidCommand selectTicksStyle = () -> selectNextComboBoxItem(shapeTicks);
+	protected final GUIVoidCommand selectPlotTicks = () -> selectNextComboBoxItem(showTicks);
+	protected final GUIVoidCommand selectPlotLabel = () -> selectNextComboBoxItem(showLabels);
+	protected final GUIVoidCommand incrementLabelX = () -> incrementSpinner(incrLabelX);
+	protected final GUIVoidCommand incrementLabelY = () -> incrementSpinner(incrLabelY);
+	protected final GUIVoidCommand incrementDistLabelX = () -> incrementSpinner(distLabelsX);
+	protected final GUIVoidCommand incrementDistLabelY = () -> incrementSpinner(distLabelsY);
+	protected final GUIVoidCommand selectShowOrigin = () -> clickOn(showOrigin);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

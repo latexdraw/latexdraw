@@ -14,9 +14,9 @@ public abstract class TestDoubleLineStyleGUI extends TestShapePropGUI<ShapeDoubl
 	protected Spinner<Double> dbleSepField;
 	protected TitledPane mainPane;
 
-	final protected GUIVoidCommand pickDbleColour = () -> pickColour(dbleBoundColB);
-	final protected GUIVoidCommand incrementDbleSep = () -> incrementSpinner(dbleSepField);
-	final protected GUIVoidCommand selectdbleLine = () -> clickOn(dbleBoundCB);
+	protected final GUIVoidCommand pickDbleColour = () -> pickColour(dbleBoundColB);
+	protected final GUIVoidCommand incrementDbleSep = () -> incrementSpinner(dbleSepField);
+	protected final GUIVoidCommand selectdbleLine = () -> clickOn(dbleBoundCB);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

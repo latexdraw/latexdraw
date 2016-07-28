@@ -19,13 +19,13 @@ public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomi
 	protected ComboBox<PlotStyle> plotStyleCB;
 	protected TitledPane mainPane;
 
-	final protected GUICommand<PlotStyle> selectplotStyleCB = (style) -> selectGivenComboBoxItem(plotStyleCB, style);
-	final protected GUIVoidCommand incrementnbPtsSpinner = () -> incrementSpinner(nbPtsSpinner);
-	final protected GUIVoidCommand incrementminXSpinner = () -> incrementSpinner(minXSpinner);
-	final protected GUIVoidCommand incrementmaxXSpinner = () -> incrementSpinner(maxXSpinner);
-	final protected GUIVoidCommand incrementxScaleSpinner = () -> incrementSpinner(xScaleSpinner);
-	final protected GUIVoidCommand incrementyScaleSpinner = () -> incrementSpinner(yScaleSpinner);
-	final protected GUIVoidCommand clickpolarCB = () -> clickOn(polarCB);
+	protected final GUICommand<PlotStyle> selectplotStyleCB = (style) -> selectGivenComboBoxItem(plotStyleCB, style);
+	protected final GUIVoidCommand incrementnbPtsSpinner = () -> incrementSpinner(nbPtsSpinner);
+	protected final GUIVoidCommand incrementminXSpinner = () -> incrementSpinner(minXSpinner);
+	protected final GUIVoidCommand incrementmaxXSpinner = () -> incrementSpinner(maxXSpinner);
+	protected final GUIVoidCommand incrementxScaleSpinner = () -> incrementSpinner(xScaleSpinner);
+	protected final GUIVoidCommand incrementyScaleSpinner = () -> incrementSpinner(yScaleSpinner);
+	protected final GUIVoidCommand clickpolarCB = () -> clickOn(polarCB);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

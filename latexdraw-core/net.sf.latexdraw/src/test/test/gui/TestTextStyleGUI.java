@@ -6,11 +6,10 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.instruments.ShapeTextCustomiser;
-
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomiser> {
 	protected ToggleButton blButton;
@@ -26,15 +25,15 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 	protected TextArea logField;
 	protected TitledPane mainPane;
 
-	final protected GUIVoidCommand clickOnblButton = () -> clickOn(blButton);
-	final protected GUIVoidCommand clickOnbButton = () -> clickOn(bButton);
-	final protected GUIVoidCommand clickOnbrButton = () -> clickOn(brButton);
-	final protected GUIVoidCommand clickOntlButton = () -> clickOn(tlButton);
-	final protected GUIVoidCommand clickOntButton = () -> clickOn(tButton);
-	final protected GUIVoidCommand clickOntrButton = () -> clickOn(trButton);
-	final protected GUIVoidCommand clickOnlButton = () -> clickOn(lButton);
-	final protected GUIVoidCommand clickOnrButton = () -> clickOn(rButton);
-	final protected GUIVoidCommand clickOncentreButton = () -> clickOn(centreButton);
+	protected final GUIVoidCommand clickOnblButton = () -> clickOn(blButton);
+	protected final GUIVoidCommand clickOnbButton = () -> clickOn(bButton);
+	protected final GUIVoidCommand clickOnbrButton = () -> clickOn(brButton);
+	protected final GUIVoidCommand clickOntlButton = () -> clickOn(tlButton);
+	protected final GUIVoidCommand clickOntButton = () -> clickOn(tButton);
+	protected final GUIVoidCommand clickOntrButton = () -> clickOn(trButton);
+	protected final GUIVoidCommand clickOnlButton = () -> clickOn(lButton);
+	protected final GUIVoidCommand clickOnrButton = () -> clickOn(rButton);
+	protected final GUIVoidCommand clickOncentreButton = () -> clickOn(centreButton);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

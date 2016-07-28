@@ -38,10 +38,10 @@ import org.w3c.dom.UserDataHandler;
  */
 public abstract class SVGElement implements Element, Cloneable {
 	/** The attributes of the element. @since 0.1 */
-	final protected SVGNamedNodeMap attributes;
+	protected final SVGNamedNodeMap attributes;
 
 	/** The children of this element. @since 0.1 */
-	final protected SVGNodeList children;
+	protected final SVGNodeList children;
 
 	/** The parent SVGElement of this element. @since 0.1 */
 	protected SVGElement parent;

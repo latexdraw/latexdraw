@@ -15,11 +15,11 @@ public abstract class TestArcStyleGUI extends TestShapePropGUI<ShapeArcCustomise
 	protected Spinner<Double> endAngleS;
 	protected TitledPane mainPane;
 
-	final protected GUIVoidCommand selectArc = () -> clickOn(arcB);
-	final protected GUIVoidCommand selectWedge = () -> clickOn(wedgeB);
-	final protected GUIVoidCommand selectChord = () -> clickOn(chordB);
-	final protected GUIVoidCommand incrementStartAngle = () -> incrementSpinner(startAngleS);
-	final protected GUIVoidCommand incrementEndAngle = () -> incrementSpinner(endAngleS);
+	protected final GUIVoidCommand selectArc = () -> clickOn(arcB);
+	protected final GUIVoidCommand selectWedge = () -> clickOn(wedgeB);
+	protected final GUIVoidCommand selectChord = () -> clickOn(chordB);
+	protected final GUIVoidCommand incrementStartAngle = () -> incrementSpinner(startAngleS);
+	protected final GUIVoidCommand incrementEndAngle = () -> incrementSpinner(endAngleS);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

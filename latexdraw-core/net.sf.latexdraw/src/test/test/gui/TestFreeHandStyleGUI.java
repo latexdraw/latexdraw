@@ -15,10 +15,10 @@ public abstract class TestFreeHandStyleGUI extends TestShapePropGUI<ShapeFreeHan
 	protected CheckBox open;
 	protected TitledPane mainPane;
 
-	final protected GUIVoidCommand selectLineStyle = () -> selectGivenComboBoxItem(freeHandType, FreeHandStyle.LINES);
-	final protected GUIVoidCommand selectCurveStyle = () -> selectGivenComboBoxItem(freeHandType, FreeHandStyle.CURVES);
-	final protected GUIVoidCommand incrementgapPoints = () -> incrementSpinner(gapPoints);
-	final protected GUIVoidCommand selectOpen = () -> clickOn(open);
+	protected final GUIVoidCommand selectLineStyle = () -> selectGivenComboBoxItem(freeHandType, FreeHandStyle.LINES);
+	protected final GUIVoidCommand selectCurveStyle = () -> selectGivenComboBoxItem(freeHandType, FreeHandStyle.CURVES);
+	protected final GUIVoidCommand incrementgapPoints = () -> incrementSpinner(gapPoints);
+	protected final GUIVoidCommand selectOpen = () -> clickOn(open);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

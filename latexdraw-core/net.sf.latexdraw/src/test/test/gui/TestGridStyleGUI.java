@@ -20,15 +20,15 @@ public abstract class TestGridStyleGUI extends TestShapePropGUI<ShapeGridCustomi
 	protected ToggleButton labelsXInvertedCB;
 	protected AnchorPane mainPane;
 
-	final protected GUIVoidCommand pickcolourLabels = () -> pickColour(colourLabels);
-	final protected GUIVoidCommand pickcolourSubGrid = () -> pickColour(colourSubGrid);
-	final protected GUIVoidCommand incrementgridWidth = () -> incrementSpinner(gridWidth);
-	final protected GUIVoidCommand incrementsubGridWidth = () -> incrementSpinner(subGridWidth);
-	final protected GUIVoidCommand incrementgridDots = () -> incrementSpinner(gridDots);
-	final protected GUIVoidCommand incrementsubGridDots = () -> incrementSpinner(subGridDots);
-	final protected GUIVoidCommand incrementsubGridDiv = () -> incrementSpinner(subGridDiv);
-	final protected GUIVoidCommand clicklabelsYInvertedCB = () -> clickOn(labelsYInvertedCB);
-	final protected GUIVoidCommand clicklabelsXInvertedCB = () -> clickOn(labelsXInvertedCB);
+	protected final GUIVoidCommand pickcolourLabels = () -> pickColour(colourLabels);
+	protected final GUIVoidCommand pickcolourSubGrid = () -> pickColour(colourSubGrid);
+	protected final GUIVoidCommand incrementgridWidth = () -> incrementSpinner(gridWidth);
+	protected final GUIVoidCommand incrementsubGridWidth = () -> incrementSpinner(subGridWidth);
+	protected final GUIVoidCommand incrementgridDots = () -> incrementSpinner(gridDots);
+	protected final GUIVoidCommand incrementsubGridDots = () -> incrementSpinner(subGridDots);
+	protected final GUIVoidCommand incrementsubGridDiv = () -> incrementSpinner(subGridDiv);
+	protected final GUIVoidCommand clicklabelsYInvertedCB = () -> clickOn(labelsYInvertedCB);
+	protected final GUIVoidCommand clicklabelsXInvertedCB = () -> clickOn(labelsXInvertedCB);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

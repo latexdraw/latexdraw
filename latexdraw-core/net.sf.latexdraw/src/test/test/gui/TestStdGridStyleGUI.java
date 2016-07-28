@@ -16,13 +16,13 @@ public abstract class TestStdGridStyleGUI extends TestShapePropGUI<ShapeStdGridC
 	protected Spinner<Double> yOriginS;
 	protected TitledPane mainPane;
 
-	final protected GUIVoidCommand decrementxStartS = () -> decrementSpinner(xStartS);
-	final protected GUIVoidCommand decrementyStartS = () -> decrementSpinner(yStartS);
-	final protected GUIVoidCommand incrementxEndS = () -> incrementSpinner(xEndS);
-	final protected GUIVoidCommand incrementyEndS = () -> incrementSpinner(yEndS);
-	final protected GUIVoidCommand incrementlabelsSizeS = () -> incrementSpinner(labelsSizeS);
-	final protected GUIVoidCommand incrementxOriginS = () -> incrementSpinner(xOriginS);
-	final protected GUIVoidCommand incrementyOriginS = () -> incrementSpinner(yOriginS);
+	protected final GUIVoidCommand decrementxStartS = () -> decrementSpinner(xStartS);
+	protected final GUIVoidCommand decrementyStartS = () -> decrementSpinner(yStartS);
+	protected final GUIVoidCommand incrementxEndS = () -> incrementSpinner(xEndS);
+	protected final GUIVoidCommand incrementyEndS = () -> incrementSpinner(yEndS);
+	protected final GUIVoidCommand incrementlabelsSizeS = () -> incrementSpinner(labelsSizeS);
+	protected final GUIVoidCommand incrementxOriginS = () -> incrementSpinner(xOriginS);
+	protected final GUIVoidCommand incrementyOriginS = () -> incrementSpinner(yOriginS);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

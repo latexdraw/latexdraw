@@ -18,12 +18,12 @@ public abstract class TestLineStyleGUI extends TestShapePropGUI<ShapeBorderCusto
 	protected Spinner<Double> frameArcField;
 	protected CheckBox showPoints;
 
-	final protected GUIVoidCommand pickLineCol = () -> pickColour(lineColButton);
-	final protected GUIVoidCommand checkShowPts = () -> clickOn(showPoints);
-	final protected GUIVoidCommand selectLineStyle = () -> selectNextComboBoxItem(lineCB);
-	final protected GUIVoidCommand selectBorderPos = () -> selectNextComboBoxItem(bordersPosCB);
-	final protected GUIVoidCommand incrementThickness = () -> incrementSpinner(thicknessField);
-	final protected GUIVoidCommand incrementFrameArc = () -> incrementSpinner(frameArcField);
+	protected final GUIVoidCommand pickLineCol = () -> pickColour(lineColButton);
+	protected final GUIVoidCommand checkShowPts = () -> clickOn(showPoints);
+	protected final GUIVoidCommand selectLineStyle = () -> selectNextComboBoxItem(lineCB);
+	protected final GUIVoidCommand selectBorderPos = () -> selectNextComboBoxItem(bordersPosCB);
+	protected final GUIVoidCommand incrementThickness = () -> incrementSpinner(thicknessField);
+	protected final GUIVoidCommand incrementFrameArc = () -> incrementSpinner(frameArcField);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

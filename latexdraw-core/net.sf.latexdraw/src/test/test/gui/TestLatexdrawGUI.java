@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 public abstract class TestLatexdrawGUI extends ApplicationTest {
 	protected Callback<Class<?>, Object> guiceFactory;
 
-	final protected GUIVoidCommand waitFXEvents = () -> WaitForAsyncUtils.waitForFxEvents();
+	protected final GUIVoidCommand waitFXEvents = WaitForAsyncUtils::waitForFxEvents;
 
 	@Before
 	public void setUp() {
@@ -48,7 +48,7 @@ public abstract class TestLatexdrawGUI extends ApplicationTest {
 	public void start(Stage stage) {
 		try {
 			Injector injector = Guice.createInjector(createModule());
-			guiceFactory = clazz -> injector.getInstance(clazz);
+			guiceFactory = injector::getInstance;
 			final Parent root = FXMLLoader.load(LaTeXDraw.class.getResource(getFXMLPathFromLatexdraw()), LangTool.INSTANCE.getBundle(), new LatexdrawBuilderFactory(injector), guiceFactory);
 			Scene scene = new Scene(root);
 			stage.setScene(scene);

@@ -27,35 +27,25 @@ public class TestCanvas extends TestLatexdrawGUI {
 	Canvas canvas;
 	IRectangle addedRec;
 
-	final GUIVoidCommand addRec = () -> {
-		Platform.runLater(() -> {
-			addedRec = ShapeFactory.createRectangle(ShapeFactory.createPoint(-Canvas.ORIGIN.getX(), -Canvas.ORIGIN.getY()), 100, 100);
-			addedRec.setFilled(true);
-			addedRec.setFillingCol(DviPsColors.APRICOT);
-			canvas.getDrawing().addShape(addedRec);
-		});
-	};
+	final GUIVoidCommand addRec = () -> Platform.runLater(() -> {
+		addedRec = ShapeFactory.createRectangle(ShapeFactory.createPoint(-Canvas.ORIGIN.getX(), -Canvas.ORIGIN.getY()), 100, 100);
+		addedRec.setFilled(true);
+		addedRec.setFillingCol(DviPsColors.APRICOT);
+		canvas.getDrawing().addShape(addedRec);
+	});
 	
-	final GUIVoidCommand addRec2 = () -> {
-		Platform.runLater(() -> {
-			IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(-Canvas.ORIGIN.getX()+300, -Canvas.ORIGIN.getY()+300), 100, 100);
-			rec.setFilled(true);
-			rec.setFillingCol(DviPsColors.APRICOT);
-			canvas.getDrawing().addShape(rec);
-		});
-	};
+	final GUIVoidCommand addRec2 = () -> Platform.runLater(() -> {
+		IRectangle rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(-Canvas.ORIGIN.getX()+300, -Canvas.ORIGIN.getY()+300), 100, 100);
+		rec.setFilled(true);
+		rec.setFillingCol(DviPsColors.APRICOT);
+		canvas.getDrawing().addShape(rec);
+	});
 
-	final GUIVoidCommand clickOnAddedRec = () -> {
-		rightClickOn(new Point2D(50, 50));
-	};
+	final GUIVoidCommand clickOnAddedRec = () -> rightClickOn(new Point2D(50, 50));
 	
-	final GUIVoidCommand ctrlClickOnAddedRec2 = () -> {
-		press(KeyCode.CONTROL).rightClickOn(new Point2D(330, 350)).release(KeyCode.CONTROL);
-	};
+	final GUIVoidCommand ctrlClickOnAddedRec2 = () -> press(KeyCode.CONTROL).rightClickOn(new Point2D(330, 350)).release(KeyCode.CONTROL);
 
-	final GUIVoidCommand shiftClickOnAddedRec = () -> {
-		press(KeyCode.SHIFT).rightClickOn(new Point2D(55, 55)).release(KeyCode.SHIFT);
-	};
+	final GUIVoidCommand shiftClickOnAddedRec = () -> press(KeyCode.SHIFT).rightClickOn(new Point2D(55, 55)).release(KeyCode.SHIFT);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {

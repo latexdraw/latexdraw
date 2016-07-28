@@ -44,16 +44,16 @@ import net.sf.latexdraw.util.LNumber;
  */
 abstract class LShape implements ISingleShape {
 	/** The thickness of the lines of the shape in pixels. */
-	@NonNull final protected DoubleProperty thickness;
+	@NonNull protected final DoubleProperty thickness;
 
 	/** The colour of the lines. */
-	@NonNull final protected ObjectProperty<Color> lineColour;
+	@NonNull protected final ObjectProperty<Color> lineColour;
 
 	/** The style of the lines. */
-	@NonNull final protected ObjectProperty<LineStyle> lineStyle; // TODO add  to the generics but sbt crashes... 
+	@NonNull protected final ObjectProperty<LineStyle> lineStyle; // TODO add  to the generics but sbt crashes...
 	
 	/** The style of the interior of the shape. */
-	@NonNull final protected ObjectProperty<FillingStyle> fillingStyle;
+	@NonNull protected final ObjectProperty<FillingStyle> fillingStyle;
 
 	/** The white dash separator for dashed lines in pixel. */
 	protected double dashSepWhite;
@@ -119,7 +119,7 @@ abstract class LShape implements ISingleShape {
 	protected double shadowSize;
 
 	/** The position of the border of the shape. */
-	@NonNull final protected ObjectProperty<BorderPos> bordersPosition;
+	@NonNull protected final ObjectProperty<BorderPos> bordersPosition;
 
 	/** The points of the shape. */
 	protected final List<IPoint> points;

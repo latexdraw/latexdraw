@@ -1,28 +1,22 @@
 package net.sf.latexdraw.ui;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.util.Objects;
-
-import javax.accessibility.Accessible;
-import javax.accessibility.AccessibleContext;
-import javax.accessibility.AccessibleRole;
-import javax.swing.JComponent;
-
+import com.google.inject.Inject;
+import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
+import net.sf.latexdraw.util.Unit;
+import net.sf.latexdraw.view.jfx.Canvas;
 import org.malai.mapping.ActiveUnary;
 import org.malai.mapping.IUnary;
 import org.malai.picking.Pickable;
 import org.malai.picking.Picker;
 
-import com.google.inject.Inject;
-
-import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
-import net.sf.latexdraw.util.Unit;
-import net.sf.latexdraw.view.jfx.Canvas;
+import javax.accessibility.Accessible;
+import javax.accessibility.AccessibleContext;
+import javax.accessibility.AccessibleRole;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.util.Objects;
 
 /**
  * This class defines an abstract scale ruler.<br>
@@ -54,10 +48,10 @@ public abstract class ScaleRuler extends JComponent implements Pickable, Accessi
 	protected static final double MIN_PCC_SUBLINES = 20.;
 
 	/** The canvas that the ruler manages. */
-	final protected Canvas canvas;
+	protected final Canvas canvas;
 
 //	/** The event manager that listens events produced by the panel. */
-//	final protected SwingEventManager eventManager;
+//	protected final SwingEventManager eventManager;
 
 	/** The size of the lines in axes */
 	public static final int SIZE = 10;

@@ -15,11 +15,11 @@ public abstract class TestDotStyleGUI extends TestShapePropGUI<ShapeDotCustomise
 	protected ColorPicker fillingB;
 	protected TitledPane mainPane;
 
-	final protected GUIVoidCommand pickFillingColour = () -> pickColour(fillingB);
-	final protected GUIVoidCommand selectNextDotStyle = () -> selectNextComboBoxItem(dotCB);
-	final protected GUIVoidCommand incrementDotSize = () -> incrementSpinner(dotSizeField);
-	final protected GUIVoidCommand setDotStyleFillable = () -> selectGivenComboBoxItem(dotCB, DotStyle.DIAMOND);
-	final protected GUICommand<DotStyle> setDotStyle = (style) -> selectGivenComboBoxItem(dotCB, style);
+	protected final GUIVoidCommand pickFillingColour = () -> pickColour(fillingB);
+	protected final GUIVoidCommand selectNextDotStyle = () -> selectNextComboBoxItem(dotCB);
+	protected final GUIVoidCommand incrementDotSize = () -> incrementSpinner(dotSizeField);
+	protected final GUIVoidCommand setDotStyleFillable = () -> selectGivenComboBoxItem(dotCB, DotStyle.DIAMOND);
+	protected final GUICommand<DotStyle> setDotStyle = (style) -> selectGivenComboBoxItem(dotCB, style);
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
