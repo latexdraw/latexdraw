@@ -12,13 +12,7 @@
  */
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
-
+import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,13 +26,13 @@ import javafx.stage.StageStyle;
 import net.sf.latexdraw.actions.ModifyPencilStyle;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.util.LangTool;
-
 import org.malai.action.Action;
 import org.malai.javafx.action.library.ActivateInactivateInstruments;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.ToggleButtonInteractor;
 
-import com.google.inject.Inject;
+import java.net.URL;
+import java.util.*;
 
 /**
  * This instrument selects the pencil or the hand.<br>
@@ -54,18 +48,13 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	/** The button that allows to select the instrument Pencil to draw dots. */
 	@FXML ToggleButton dotB;
 
-	/**
-	 * The button that allows to select the instrument Pencil to draw free hand
-	 * shapes.
-	 */
+	/** The button that allows to select the instrument Pencil to draw free hand shapes. */
 	@FXML ToggleButton freeHandB;
 
 	/** The button that allows to select the instrument Pencil to add texts. */
 	@FXML ToggleButton textB;
 
-	/**
-	 * The button that allows to select the instrument Pencil to add rectangles.
-	 */
+	/** The button that allows to select the instrument Pencil to add rectangles. */
 	@FXML ToggleButton recB;
 
 	/** The button that allows to select the instrument Pencil to add squares. */
@@ -83,16 +72,10 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	/** The button that allows to select the instrument Pencil to add polygons. */
 	@FXML ToggleButton polygonB;
 
-	/**
-	 * The button that allows to select the instrument Pencil to add bezier
-	 * curves.
-	 */
+	/** The button that allows to select the instrument Pencil to add bezier curves. */
 	@FXML ToggleButton bezierB;
 
-	/**
-	 * The button that allows to select the instrument Pencil to add closed
-	 * bezier curves.
-	 */
+	/** The button that allows to select the instrument Pencil to add closed bezier curves. */
 	@FXML ToggleButton bezierClosedB;
 
 	/** The button that allows to select the instrument Pencil to add grids. */
@@ -113,10 +96,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	/** The button that allows to select the instrument Pencil to add pictures. */
 	@FXML ToggleButton picB;
 
-	/**
-	 * The button that allows to select the instrument Pencil to add plotted
-	 * curves.
-	 */
+	/** The button that allows to select the instrument Pencil to add plotted curves. */
 	@FXML ToggleButton plotB;
 
 	/** The button that allows to insert some code (converted in shapes). */
@@ -128,10 +108,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	/** The instrument Pencil. */
 	@Inject Pencil pencil;
 
-	/**
-	 * The instrument that manages instruments that customise shapes and the
-	 * pencil.
-	 */
+	/** The instrument that manages instruments that customise shapes and the pencil. */
 	@Inject MetaShapeCustomiser metaShapeCustomiser;
 
 	/** The instrument that manages selected shapes. */
