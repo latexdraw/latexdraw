@@ -38,7 +38,7 @@ public abstract class TestTextStyleGUI extends TestShapePropGUI<ShapeTextCustomi
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "view/jfx/ui/TextStyle.fxml";
+		return "/fxml/TextStyle.fxml";
 	}
 
 	@Override

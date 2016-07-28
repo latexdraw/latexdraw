@@ -35,7 +35,7 @@ public abstract class TestAxesStyleGUI extends TestShapePropGUI<ShapeAxesCustomi
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "view/jfx/ui/AxeStyle.fxml";
+		return "/fxml/AxeStyle.fxml";
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public abstract class TestFreeHandStyleGUI extends TestShapePropGUI<ShapeFreeHan
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "view/jfx/ui/FreehandStyle.fxml";
+		return "/fxml/FreehandStyle.fxml";
 	}
 
 	@Override

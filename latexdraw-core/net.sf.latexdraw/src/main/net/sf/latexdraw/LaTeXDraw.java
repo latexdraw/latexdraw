@@ -127,7 +127,7 @@ public class LaTeXDraw extends Application {
 				try {
 					final Injector injector = Guice.createInjector(new LatexdrawModule());
 					final Callback<Class<?>, Object> guiceFactory = clazz -> injector.getInstance(clazz);
-					final Parent root = FXMLLoader.load(getClass().getResource("view/jfx/ui/UI.fxml"),
+					final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"),
 										LangTool.INSTANCE.getBundle(), new LatexdrawBuilderFactory(injector), guiceFactory);
 					updateProgress(0.6, 1.0);
 					final Scene scene = new Scene(root);

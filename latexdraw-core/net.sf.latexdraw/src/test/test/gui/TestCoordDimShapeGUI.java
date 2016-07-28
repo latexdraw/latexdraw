@@ -16,7 +16,7 @@ public abstract class TestCoordDimShapeGUI extends TestShapePropGUI<ShapeCoordDi
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "view/jfx/ui/Dimension.fxml";
+		return "/fxml/Dimension.fxml";
 	}
 
 	@Override

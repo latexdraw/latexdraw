@@ -40,9 +40,6 @@
         <resources>
             <resource>
                 <directory>src/main</directory>
-                <includes>
-                    <include>**/*.fxml</include>
-                </includes>
             </resource>
             <resource>
                 <directory>src/resources/main/</directory>
@@ -129,7 +126,7 @@
                     <includes>
                         <include>**/Test*.java</include>
                     </includes>
-                    <argLine>-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k</argLine>
+                    <!--<argLine>-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k</argLine>-->
                 </configuration>
             </plugin>
 

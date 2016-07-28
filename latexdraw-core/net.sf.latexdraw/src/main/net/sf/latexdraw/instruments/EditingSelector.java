@@ -163,7 +163,7 @@ public class EditingSelector extends JfxInstrument implements Initializable {
 	protected Stage getInsertCodeDialogue() {
 		if(codeInserterDialogue==null) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("../view/jfx/ui/InsertCode.fxml"), LangTool.INSTANCE.getBundle());
+				Parent root = FXMLLoader.load(getClass().getResource("../../../../../resources/main/fxml/InsertCode.fxml"), LangTool.INSTANCE.getBundle());
 				final Scene scene = new Scene(root);
 				codeInserterDialogue = new Stage(StageStyle.UTILITY);
 				codeInserterDialogue.setTitle(LangTool.INSTANCE.getBundle().getString("InsertPSTricksCodeFrame.0"));

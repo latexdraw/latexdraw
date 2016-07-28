@@ -1,4 +1,4 @@
-package net.sf.latexdraw.view.jfx.ui;
+package net.sf.latexdraw.view.jfx;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;

@@ -29,7 +29,7 @@ public abstract class TestPlotStyleGUI extends TestShapePropGUI<ShapePlotCustomi
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "view/jfx/ui/PlotStyle.fxml";
+		return "/fxml/PlotStyle.fxml";
 	}
 
 	@Override

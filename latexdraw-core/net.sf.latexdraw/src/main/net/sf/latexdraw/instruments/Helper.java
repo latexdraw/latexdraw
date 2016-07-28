@@ -100,7 +100,7 @@ public class Helper extends JfxInstrument implements Initializable {
 	protected Stage getAboutFrame() {
 		if(aboutFrame == null) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("../view/jfx/ui/About.fxml"), LangTool.INSTANCE.getBundle());
+				Parent root = FXMLLoader.load(getClass().getResource("../../../../../resources/main/fxml/About.fxml"), LangTool.INSTANCE.getBundle());
 				final Scene scene = new Scene(root);
 				aboutFrame = new Stage(StageStyle.UTILITY);
 				aboutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("Res.1"));
@@ -117,7 +117,7 @@ public class Helper extends JfxInstrument implements Initializable {
 	protected Stage getShortcutsFrame() {
 		if(shortcutFrame == null) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("../view/jfx/ui/Shortcuts.fxml"), LangTool.INSTANCE.getBundle());
+				Parent root = FXMLLoader.load(getClass().getResource("../../../../../resources/main/fxml/Shortcuts.fxml"), LangTool.INSTANCE.getBundle());
 				final Scene scene = new Scene(root);
 				shortcutFrame = new Stage(StageStyle.UTILITY);
 				shortcutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.3c"));

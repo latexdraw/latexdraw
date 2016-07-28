@@ -59,7 +59,7 @@ public class TestCanvas extends TestLatexdrawGUI {
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "view/jfx/ui/Canvas.fxml";
+		return "/fxml/Canvas.fxml";
 	}
 
 	@Override

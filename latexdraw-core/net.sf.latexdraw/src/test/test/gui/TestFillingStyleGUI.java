@@ -38,7 +38,7 @@ public abstract class TestFillingStyleGUI extends TestShapePropGUI<ShapeFillingC
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "view/jfx/ui/FillingStyle.fxml";
+		return "/fxml/FillingStyle.fxml";
 	}
 
 	@Override

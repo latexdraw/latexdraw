@@ -23,7 +23,7 @@ public abstract class TestDotStyleGUI extends TestShapePropGUI<ShapeDotCustomise
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "view/jfx/ui/DotStyle.fxml";
+		return "/fxml/DotStyle.fxml";
 	}
 
 	@Override

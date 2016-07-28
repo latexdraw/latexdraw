@@ -22,7 +22,7 @@ public abstract class TestShadowStyleGUI extends TestShapePropGUI<ShapeShadowCus
 
 	@Override
 	public String getFXMLPathFromLatexdraw() {
-		return "view/jfx/ui/ShadowStyle.fxml";
+		return "/fxml/ShadowStyle.fxml";
 	}
 
 	@Override

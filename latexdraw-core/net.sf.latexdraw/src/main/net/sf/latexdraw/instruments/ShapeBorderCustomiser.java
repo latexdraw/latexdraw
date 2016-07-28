@@ -19,7 +19,7 @@ import net.sf.latexdraw.glib.models.interfaces.prop.ILineArcProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.BorderPos;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
-import net.sf.latexdraw.view.jfx.ui.JFXWidgetCreator;
+import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 
 /**
  * This instrument modifies border properties of shapes or the pencil.<br>

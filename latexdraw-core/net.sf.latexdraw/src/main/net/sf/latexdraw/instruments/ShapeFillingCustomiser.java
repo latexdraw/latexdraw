@@ -16,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-import net.sf.latexdraw.view.jfx.ui.JFXWidgetCreator;
+import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 
 /**
  * This instrument modifies filling properties of shapes or the pencil.<br>
