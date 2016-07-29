@@ -6,8 +6,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" animated="true" text="%LaTeXDrawFrame.103"
-            fx:controller="net.sf.latexdraw.instruments.TemplateManager">
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" text="%LaTeXDrawFrame.103" expanded="false"
+            fx:controller="net.sf.latexdraw.instruments.TemplateManager" alignment="TOP_LEFT">
     <AnchorPane>
         <Button fx:id="updateTemplates">
             <graphic>

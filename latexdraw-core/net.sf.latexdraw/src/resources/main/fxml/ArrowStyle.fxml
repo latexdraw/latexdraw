@@ -2,16 +2,16 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" animated="true" text="Arrow" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.ShapeArrowCustomiser">
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Arrow" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeArrowCustomiser" alignment="TOP_LEFT" expanded="false">
     <VBox spacing="5">
         <AnchorPane>
-            <ComboBox fx:id="arrowLeftCB" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="22.0" layoutY="0.0">
+            <ComboBox fx:id="arrowLeftCB" prefHeight="25.0" prefWidth="90.0" layoutX="22.0" layoutY="0.0">
                 <tooltip>
                     <Tooltip text="Set the left arrow."/>
                 </tooltip>
             </ComboBox>
-            <ComboBox fx:id="arrowRightCB" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="117.0" layoutY="0.0">
+            <ComboBox fx:id="arrowRightCB" prefHeight="25.0" prefWidth="90.0" layoutX="117.0" layoutY="0.0">
                 <tooltip>
                     <Tooltip text="Set the right arrow."/>
                 </tooltip>

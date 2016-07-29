@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
@@ -13,6 +14,9 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 
 import org.malai.javafx.instrument.library.ToggleButtonInteractor;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * This instrument modifies arc parameters.<br>
@@ -32,7 +36,7 @@ import org.malai.javafx.instrument.library.ToggleButtonInteractor;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeArcCustomiser extends ShapePropertyCustomiser {
+public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** The toggle button that selects the arc style. */
 	@FXML protected ToggleButton arcB;
 
@@ -55,6 +59,11 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	 */
 	public ShapeArcCustomiser() {
 		super();
+	}
+
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 
 	@Override

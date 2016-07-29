@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" animated="true" text="Drawing properties" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.DrawingPropertiesCustomiser">
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" text="Drawing properties" xmlns="http://javafx.com/javafx/8" expanded="false"
+            fx:controller="net.sf.latexdraw.instruments.DrawingPropertiesCustomiser" alignment="TOP_LEFT">
     <tooltip>
         <Tooltip text="%ToolbarBuilder.1"/>
     </tooltip>
@@ -17,7 +17,7 @@
         <TextField fx:id="labelField" layoutX="80.0" layoutY="64.0"/>
         <CheckBox fx:id="middleHorizPosCB" layoutX="2.0" layoutY="95.0" text="%Instruments.1"/>
         <Label layoutX="2.0" layoutY="124.0" text="%Instruments.2"/>
-        <ComboBox fx:id="positionCB" layoutX="60.0" layoutY="120.0" prefHeight="25.0" prefWidth="60.0" editable="false"/>
+        <ComboBox fx:id="positionCB" layoutX="60.0" layoutY="120.0" prefHeight="25.0" prefWidth="60.0"/>
     </AnchorPane>
 </TitledPane>
 

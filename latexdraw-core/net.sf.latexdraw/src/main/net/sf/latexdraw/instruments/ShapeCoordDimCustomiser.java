@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TitledPane;
 import net.sf.latexdraw.actions.shape.TranslateShapes;
@@ -9,6 +10,9 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 
 import org.malai.javafx.instrument.library.SpinnerInteractor;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * This instrument modifies arc dimensions and coordinates of shapes or pencil parameters.<br>
@@ -28,7 +32,7 @@ import org.malai.javafx.instrument.library.SpinnerInteractor;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
+public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser implements Initializable {
 	/** Sets the X-coordinate of the top-left position. */
 	@FXML Spinner<Double> tlxS;
 
@@ -54,6 +58,11 @@ public class ShapeCoordDimCustomiser extends ShapePropertyCustomiser {
 			tlxS.getValueFactory().setValue(tl.getX());
 			tlyS.getValueFactory().setValue(tl.getY());
 		}
+	}
+
+	@Override
+	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
 	}
 
 	@Override

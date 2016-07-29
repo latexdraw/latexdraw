@@ -1,8 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Spinner;
@@ -14,8 +11,10 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.prop.IStdGridProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
-
 import org.malai.javafx.instrument.library.SpinnerInteractor;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * This instrument modifies the parameters of grids and axes.<br>
@@ -68,6 +67,7 @@ public class ShapeStdGridCustomiser extends ShapePropertyCustomiser implements I
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
 		((DoubleSpinnerValueFactory)xStartS.getValueFactory()).maxProperty().bind(xEndS.valueProperty());
 		((DoubleSpinnerValueFactory)yStartS.getValueFactory()).maxProperty().bind(yEndS.valueProperty());
 		((DoubleSpinnerValueFactory)xEndS.getValueFactory()).minProperty().bind(xStartS.valueProperty());

@@ -1,10 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -17,6 +12,11 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IFreeHandProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.FreeHandStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * This instrument modifies free hand properties of shapes or the pencil.<br>
@@ -57,6 +57,8 @@ public class ShapeFreeHandCustomiser extends ShapePropertyCustomiser implements 
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
+
 		final Map<FreeHandStyle, Image> cache = new HashMap<>();
 		cache.put(FreeHandStyle.LINES, new Image("/res/freehand/line.png"));
 		cache.put(FreeHandStyle.CURVES, new Image("/res/freehand/curve.png"));

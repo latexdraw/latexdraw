@@ -1,14 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import org.malai.javafx.instrument.JfxInteractor;
-import org.malai.javafx.instrument.library.ToggleButtonInteractor;
-import org.malai.javafx.interaction.library.KeysTyped;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonBase;
@@ -24,6 +15,14 @@ import net.sf.latexdraw.glib.models.interfaces.prop.ITextProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.TextPosition;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
+import org.malai.javafx.instrument.JfxInteractor;
+import org.malai.javafx.instrument.library.ToggleButtonInteractor;
+import org.malai.javafx.interaction.library.KeysTyped;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * This instrument modifies texts.<br>
@@ -97,7 +96,8 @@ public class ShapeTextCustomiser extends ShapePropertyCustomiser implements Init
 	}
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL url, ResourceBundle bundle) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
 		map.put(bButton, TextPosition.BOT);
 		map.put(blButton, TextPosition.BOT_LEFT);
 		map.put(brButton, TextPosition.BOT_RIGHT);

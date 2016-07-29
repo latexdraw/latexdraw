@@ -1,10 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
@@ -17,6 +12,11 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IDotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * This instrument modifies dot parameters.<br>
@@ -57,6 +57,8 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser implements Initi
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
+
 		Map<DotStyle, Image> cache = new HashMap<>();
 		cache.put(DotStyle.DOT, new Image("/res/dotStyles/dot.none.png"));
 		cache.put(DotStyle.ASTERISK, new Image("/res/dotStyles/dot.asterisk.png"));

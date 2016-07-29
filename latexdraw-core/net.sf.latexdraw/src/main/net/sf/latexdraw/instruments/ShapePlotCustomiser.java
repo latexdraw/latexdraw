@@ -1,8 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -14,6 +11,9 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.PlotStyle;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * This instrument modifies plot parameters.<br>
@@ -52,6 +52,7 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser implements Init
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
 		plotStyleCB.getItems().addAll(PlotStyle.values());
 		((DoubleSpinnerValueFactory)minXSpinner.getValueFactory()).maxProperty().bind(maxXSpinner.valueProperty());
 		((DoubleSpinnerValueFactory)maxXSpinner.getValueFactory()).minProperty().bind(minXSpinner.valueProperty());

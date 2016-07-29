@@ -1,10 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
@@ -17,6 +12,11 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.interfaces.shape.FillingStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * This instrument modifies filling properties of shapes or the pencil.<br>
@@ -81,6 +81,8 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser implements I
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
+
 		final Map<FillingStyle, Image> cache = new HashMap<>();
 		cache.put(FillingStyle.NONE, new Image("/res/hatch/hatch.none.png"));
 		cache.put(FillingStyle.PLAIN, new Image("/res/hatch/hatch.solid.png"));

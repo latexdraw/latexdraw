@@ -4,8 +4,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="linePane" animated="true" text="Line" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.ShapeBorderCustomiser">
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="linePane" text="Line" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeBorderCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
         <Tooltip text="%PropBuilder.15"/>
     </tooltip>
@@ -16,7 +16,7 @@
                 <Tooltip text="%LaTeXDrawFrame.65"/>
             </tooltip>
         </Spinner>
-        <ComboBox fx:id="lineCB" layoutX="13.0" layoutY="104.0" prefHeight="25.0" prefWidth="90.0" editable="false">
+        <ComboBox fx:id="lineCB" layoutX="13.0" layoutY="104.0" prefHeight="25.0" prefWidth="90.0">
             <tooltip>
                 <Tooltip text="Set the style of the lines."/>
             </tooltip>
@@ -29,7 +29,7 @@
         <ImageView fx:id="thicknessPic" layoutX="14.0" layoutY="6.0">
             <Image url="@/res/thickness.png"/>
         </ImageView>
-        <ComboBox fx:id="bordersPosCB" layoutX="110.0" layoutY="104.0" prefHeight="25.0" prefWidth="90.0" editable="false">
+        <ComboBox fx:id="bordersPosCB" layoutX="110.0" layoutY="104.0" prefHeight="25.0" prefWidth="90.0">
             <tooltip>
                 <Tooltip text="%LaTeXDrawFrame.77"/>
             </tooltip>

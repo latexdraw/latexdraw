@@ -1,10 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -16,8 +11,13 @@ import net.sf.latexdraw.actions.shape.ShapeProperties;
 import net.sf.latexdraw.glib.models.interfaces.prop.IArrowable;
 import net.sf.latexdraw.glib.models.interfaces.shape.ArrowStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IArrow;
-import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+import net.sf.latexdraw.view.jfx.JFXWidgetCreator;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * This instrument customises the arrows of shapes or of the pencil.<br>
@@ -90,6 +90,8 @@ public class ShapeArrowCustomiser extends ShapePropertyCustomiser implements Ini
 
 	@Override
 	public void initialize(final URL location, final ResourceBundle resources) {
+		mainPane.managedProperty().bind(mainPane.visibleProperty());
+
 		Map<ArrowStyle, Image> cacheLeft = new HashMap<>();
 		cacheLeft.put(ArrowStyle.NONE, new Image("/res/arrowStyles/line.none.left.png"));
 		cacheLeft.put(ArrowStyle.BAR_END, new Image("/res/arrowStyles/line.barEnd.left.png"));

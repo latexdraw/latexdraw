@@ -2,13 +2,13 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" animated="true" text="Free hand" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.ShapeFreeHandCustomiser">
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Free hand" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeFreeHandCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
         <Tooltip text="%PropBuilder.1"/>
     </tooltip>
     <AnchorPane>
-        <ComboBox fx:id="freeHandType" editable="false" prefHeight="25.0" prefWidth="90.0" layoutX="4.0" layoutY="4.0"/>
+        <ComboBox fx:id="freeHandType" prefHeight="25.0" prefWidth="90.0" layoutX="4.0" layoutY="4.0"/>
         <Label layoutX="4.0" layoutY="39.0" text="%ParametersAkinPointsFrame.0"/>
         <Spinner fx:id="gapPoints" layoutX="120.0" layoutY="36.0" prefHeight="25.0" prefWidth="75.0">
             <valueFactory>

@@ -4,8 +4,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" animated="true" text="Dot" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.ShapeDotCustomiser">
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Dot" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapeDotCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
         <Tooltip text="%PropBuilder.10"/>
     </tooltip>
@@ -19,7 +19,7 @@
                 <Tooltip text="%ShapeDot.1"/>
             </tooltip>
         </Spinner>
-        <ComboBox fx:id="dotCB" editable="false" prefHeight="40.0" prefWidth="90.0" layoutX="13.0" layoutY="34.0">
+        <ComboBox fx:id="dotCB" prefHeight="40.0" prefWidth="90.0" layoutX="13.0" layoutY="34.0">
             <tooltip>
                 <Tooltip text="%ShapeDot.2"/>
             </tooltip>

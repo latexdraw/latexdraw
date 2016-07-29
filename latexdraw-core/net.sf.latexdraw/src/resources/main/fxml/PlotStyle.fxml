@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" animated="true" text="Plot" xmlns="http://javafx.com/javafx/8"
-            fx:controller="net.sf.latexdraw.instruments.ShapePlotCustomiser">
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" text="Plot" xmlns="http://javafx.com/javafx/8"
+            fx:controller="net.sf.latexdraw.instruments.ShapePlotCustomiser" alignment="TOP_LEFT" expanded="false">
     <tooltip>
         <Tooltip text="Customizes plots' properties."/>
     </tooltip>
@@ -27,6 +27,6 @@
         <Spinner fx:id="yScaleSpinner" layoutX="174.0" layoutY="60.0" prefHeight="25.0" prefWidth="60.0"
                  min="0.0001" max="10000.0" initialValue="1.0" amountToStepBy="0.1"/>
         <CheckBox fx:id="polarCB" layoutX="4.0" layoutY="90.0" text="Polar"/>
-        <ComboBox fx:id="plotStyleCB" layoutX="4.0" layoutY="115.0" editable="false" prefHeight="25.0" prefWidth="90.0"/>
+        <ComboBox fx:id="plotStyleCB" layoutX="4.0" layoutY="115.0" prefHeight="25.0" prefWidth="90.0"/>
     </AnchorPane>
 </TitledPane>
