@@ -121,7 +121,6 @@ public class WidgetMiniToolbar extends JButton implements ActionListener, Window
 		buttonsFrame = new WindowWidgets(buttonsPanel);
 
 		addActionListener(this);
-		setMargin(new Insets(1,1,1,1));
 		addComponent(new CloseButton());
 
 		// The mini-toolbar must disappear when a click or a press occurs somewhere else.
