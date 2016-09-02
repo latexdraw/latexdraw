@@ -221,7 +221,7 @@ public final class LSystem {
 	 * @return True: the operating system currently used is Mac OS.
 	 * @since 3.3
 	 */
-	public boolean IsMac() {
+	public boolean isMac() {
 		return isMacOSX() || isMacOSXElCapitan();
 	}
 
@@ -231,7 +231,7 @@ public final class LSystem {
 	 * @since 3.0
 	 */
 	public int getControlKey() {
-		if(LSystem.INSTANCE.IsMac())
+		if(LSystem.INSTANCE.isMac())
 			return KeyEvent.VK_META;
 		return KeyEvent.VK_CONTROL;
 	}

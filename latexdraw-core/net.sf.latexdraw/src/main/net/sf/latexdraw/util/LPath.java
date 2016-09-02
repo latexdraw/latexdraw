@@ -75,7 +75,7 @@ public final class LPath {
 			path = home + "\\AppData\\Local\\latexdraw";//$NON-NLS-1$
 		else if(LSystem.INSTANCE.isXP())
 				path = home + "\\Application Data\\latexdraw";//$NON-NLS-1$
-		else if(LSystem.INSTANCE.isMacOSX())
+		else if(LSystem.INSTANCE.isMac())
 				path = home + "/Library/Preferences/latexdraw";//$NON-NLS-1$
 		else path = home + "/.latexdraw";//$NON-NLS-1$
 
@@ -99,7 +99,7 @@ public final class LPath {
 	private String getPathShared() {
 		final String home = System.getProperty("user.home");//$NON-NLS-1$
 
-		if(LSystem.INSTANCE.isMacOSX())
+		if(LSystem.INSTANCE.isMac())
 			return "/Users/Shared/latexdraw";//$NON-NLS-1$
 
 		if(LSystem.INSTANCE.isVista()) {

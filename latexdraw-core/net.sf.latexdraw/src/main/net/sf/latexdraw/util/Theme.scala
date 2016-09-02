@@ -63,7 +63,7 @@ object Theme {
 	def platformLnF : String = {
 		if(LSystem.INSTANCE.isLinux)
 			return "com.sun.java.swing.plaf.gtk.GTKLookAndFeel" //$NON-NLS-1$
-		if(LSystem.INSTANCE.isMacOSX)
+		if(LSystem.INSTANCE.isMac)
 		    return "com.apple.laf.AquaLookAndFeel"//$NON-NLS-1$
 	    if(LSystem.INSTANCE.isWindows)
 	    	return "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"//$NON-NLS-1$
