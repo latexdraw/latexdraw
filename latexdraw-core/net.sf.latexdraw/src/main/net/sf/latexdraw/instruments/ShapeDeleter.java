@@ -10,6 +10,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
+import net.sf.latexdraw.util.LSystem;
 import org.malai.action.ActionsRegistry;
 import org.malai.instrument.Interactor;
 import org.malai.interaction.Interaction;
@@ -157,7 +158,9 @@ class KeyPressed2DeleteShapes extends DeleteShapesInteractor<KeyPressure> {
 
 	@Override
 	public boolean isConditionRespected() {
-		return interaction.getKey()==KeyEvent.VK_DELETE && super.isConditionRespected();
+		return (interaction.getKey()==KeyEvent.VK_DELETE ||
+				(interaction.getKey()==LSystem.KEY_DELETE_MAC && LSystem.INSTANCE.isMac())) &&
+				super.isConditionRespected();
 	}
 }
 
