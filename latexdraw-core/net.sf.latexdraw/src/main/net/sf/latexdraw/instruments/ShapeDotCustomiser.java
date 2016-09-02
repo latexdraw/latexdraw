@@ -79,7 +79,6 @@ public class ShapeDotCustomiser extends ShapePropertyCustomiser {
      	dotSizeField.setToolTipText(LangTool.INSTANCE.getStringActions("ShapeDot.2")); //$NON-NLS-1$
 
      	fillingB = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(Color.WHITE));//$NON-NLS-1$
-     	fillingB.setMargin(LResources.INSET_BUTTON);
      	fillingB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.68")); //$NON-NLS-1$
 	}
 

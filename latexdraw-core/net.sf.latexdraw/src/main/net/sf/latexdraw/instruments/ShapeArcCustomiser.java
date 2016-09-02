@@ -1,7 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import javax.swing.JLabel;
-
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
@@ -12,10 +10,11 @@ import net.sf.latexdraw.glib.models.interfaces.prop.IArcProp.ArcStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MSpinner;
 import org.malai.swing.widget.MToggleButton;
+
+import javax.swing.*;
 
 /**
  * This instrument modifies arc parameters.<br>
@@ -69,15 +68,12 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseWidgets() {
 		arcB = new MToggleButton(LResources.ARC_ICON);
-		arcB.setMargin(LResources.INSET_BUTTON);
 		arcB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.128")); //$NON-NLS-1$
 
  		wedgeB = new MToggleButton(LResources.WEDGE_ICON);
- 		wedgeB.setMargin(LResources.INSET_BUTTON);
  		wedgeB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.130")); //$NON-NLS-1$
 
  		chordB = new MToggleButton(LResources.CHORD_ICON);
- 		chordB.setMargin(LResources.INSET_BUTTON);
  		chordB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.131")); //$NON-NLS-1$
 
      	startAngleS = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -360., 360., 1.), new JLabel(LangTool.INSTANCE.getStringDialogFrame("ParametersArcFrame.0"))); //$NON-NLS-1$

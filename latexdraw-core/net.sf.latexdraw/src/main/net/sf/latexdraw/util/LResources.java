@@ -4,7 +4,6 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.lang.LangTool;
 
 import javax.swing.*;
-import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -365,9 +364,6 @@ public final class LResources {
 		}
 	}
 
-
-
-	public static final Insets INSET_BUTTON = new Insets(1,1,1,1);
 
 	public static final String LABEL_CANCEL = LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.6"); //$NON-NLS-1$
 

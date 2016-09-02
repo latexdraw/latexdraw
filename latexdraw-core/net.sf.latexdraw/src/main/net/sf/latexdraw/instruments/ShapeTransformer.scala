@@ -83,15 +83,6 @@ class ShapeTransformer(composer:SwingUIComposer[_], hand:Hand, pencil:Pencil, va
 
 
 	protected override def initialiseWidgets() {
-		_mirrorH.setMargin(LResources.INSET_BUTTON)
-		_mirrorV.setMargin(LResources.INSET_BUTTON)
-		_alignBot.setMargin(LResources.INSET_BUTTON)
-		_alignLeft.setMargin(LResources.INSET_BUTTON)
-		_alignRight.setMargin(LResources.INSET_BUTTON)
-		_alignTop.setMargin(LResources.INSET_BUTTON)
-		_alignMidHoriz.setMargin(LResources.INSET_BUTTON)
-		_alignMidVert.setMargin(LResources.INSET_BUTTON)
-
 		_mirrorH.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.7"))
 		_mirrorV.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.8"))
 		_alignBot.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LFrame2.5"))

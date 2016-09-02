@@ -1,11 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Font;
-
-import javax.swing.AbstractButton;
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-
 import net.sf.latexdraw.actions.ModifyLatexProperties;
 import net.sf.latexdraw.actions.ModifyLatexProperties.LatexProperties;
 import net.sf.latexdraw.actions.ModifyPencilParameter;
@@ -21,13 +15,15 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-
 import org.malai.instrument.Interactor;
 import org.malai.interaction.library.KeysTyped;
 import org.malai.mapping.MappingRegistry;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MTextArea;
 import org.malai.swing.widget.MToggleButton;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * This instrument modifies texts.<br>
@@ -118,31 +114,22 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 		logField.setRows(10);
 
 		blButton = new MToggleButton(LResources.TEXTPOS_BL);
-		blButton.setMargin(LResources.INSET_BUTTON);
 		blButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.3")); //$NON-NLS-1$
 		bButton = new MToggleButton(LResources.TEXTPOS_B);
-		bButton.setMargin(LResources.INSET_BUTTON);
 		bButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.4")); //$NON-NLS-1$
 		brButton = new MToggleButton(LResources.TEXTPOS_BR);
-		brButton.setMargin(LResources.INSET_BUTTON);
 		brButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.5")); //$NON-NLS-1$
 		tlButton = new MToggleButton(LResources.TEXTPOS_TL);
-		tlButton.setMargin(LResources.INSET_BUTTON);
 		tlButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.6")); //$NON-NLS-1$
 		tButton = new MToggleButton(LResources.TEXTPOS_T);
-		tButton.setMargin(LResources.INSET_BUTTON);
 		tButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.7")); //$NON-NLS-1$
 		trButton = new MToggleButton(LResources.TEXTPOS_TR);
-		trButton.setMargin(LResources.INSET_BUTTON);
 		trButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.8")); //$NON-NLS-1$
 		centreButton = new MToggleButton(LResources.TEXTPOS_CENTRE);
-		centreButton.setMargin(LResources.INSET_BUTTON);
 		centreButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.9")); //$NON-NLS-1$
 		lButton = new MToggleButton(LResources.TEXTPOS_L);
-		lButton.setMargin(LResources.INSET_BUTTON);
 		lButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.10")); //$NON-NLS-1$
 		rButton = new MToggleButton(LResources.TEXTPOS_R);
-		rButton.setMargin(LResources.INSET_BUTTON);
 		rButton.setToolTipText(LangTool.INSTANCE.getStringActions("TextCust.11")); //$NON-NLS-1$
 	}
 

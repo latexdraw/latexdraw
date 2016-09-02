@@ -1,13 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.ItemSelectable;
-
-import javax.swing.AbstractButton;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
@@ -19,12 +11,14 @@ import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.ui.LabelComboBox;
 import net.sf.latexdraw.ui.LabelListCellRenderer;
 import net.sf.latexdraw.util.LResources;
-
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButtonIcon;
 import org.malai.swing.widget.MColorButton;
 import org.malai.swing.widget.MComboBox;
 import org.malai.swing.widget.MSpinner;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * This instrument modifies filling properties of shapes or the pencil.<br>
@@ -136,7 +130,6 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 	protected void initialiseWidgets() {
 		// Creation of the filling widgets.
      	fillColButton = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.48"), new MButtonIcon(Color.WHITE));//$NON-NLS-1$
-     	fillColButton.setMargin(LResources.INSET_BUTTON);
      	fillColButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.68")); //$NON-NLS-1$
 
      	fillStyleCB = createFillingChoice();
@@ -145,11 +138,9 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
 
 		// Creation of the gradient widgets.
         gradStartColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.1"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
-        gradStartColButton.setMargin(LResources.INSET_BUTTON);
         gradStartColButton.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.7")); //$NON-NLS-1$
 
         gradEndColButton = new MColorButton(LangTool.INSTANCE.getString17("LaTeXDrawFrame.2"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
-        gradEndColButton.setMargin(LResources.INSET_BUTTON);
         gradEndColButton.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.8")); //$NON-NLS-1$
 
      	gradMidPtField = new MSpinner(new MSpinner.MSpinnerNumberModel(0.5, 0., 1., 0.01), new JLabel(LangTool.INSTANCE.getString17("AbstractParametersFrame.4"))); //$NON-NLS-1$
@@ -169,7 +160,6 @@ public class ShapeFillingCustomiser extends ShapePropertyCustomiser {
      	hatchAngleField.setEditor(new JSpinner.NumberEditor(hatchAngleField, "0.00"));//$NON-NLS-1$
 
      	hatchColButton = new MColorButton(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.49"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
-     	hatchColButton.setMargin(LResources.INSET_BUTTON);
      	hatchColButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.69")); //$NON-NLS-1$
 	}
 

@@ -1,10 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Color;
-
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
@@ -12,12 +7,14 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MButtonIcon;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MColorButton;
 import org.malai.swing.widget.MSpinner;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * This instrument modifies double border properties of shapes or the pencil.<br>
@@ -66,11 +63,9 @@ public class ShapeDoubleBorderCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseWidgets() {
         dbleBoundCB = new MCheckBox(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.0")); //$NON-NLS-1$
-        dbleBoundCB.setMargin(LResources.INSET_BUTTON);
         dbleBoundCB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.78")); //$NON-NLS-1$
 
         dbleBoundColB = new MColorButton(LangTool.INSTANCE.getStringActions("ShapeBord.1"), new MButtonIcon(Color.WHITE)); //$NON-NLS-1$
-        dbleBoundColB.setMargin(LResources.INSET_BUTTON);
         dbleBoundColB.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.79")); //$NON-NLS-1$
 
      	dbleSepField = new MSpinner(new MSpinner.MSpinnerNumberModel(5., 1., 1000., 1.), new JLabel(LResources.GRID_GAP_ICON));

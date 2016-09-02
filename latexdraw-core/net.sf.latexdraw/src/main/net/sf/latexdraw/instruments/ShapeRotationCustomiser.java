@@ -69,15 +69,12 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseWidgets() {
      	rotate90Button = new MButton(LResources.ROTATE_90_ICON);
-     	rotate90Button.setMargin(LResources.INSET_BUTTON);
      	rotate90Button.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.3")); //$NON-NLS-1$
 
      	rotate180Button = new MButton(LResources.ROTATE_180_ICON);
-     	rotate180Button.setMargin(LResources.INSET_BUTTON);
      	rotate180Button.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.4")); //$NON-NLS-1$
 
      	rotate270Button = new MButton(LResources.ROTATE_270_ICON);
-     	rotate270Button.setMargin(LResources.INSET_BUTTON);
      	rotate270Button.setToolTipText(LangTool.INSTANCE.getString18("LaTeXDrawFrame.5")); //$NON-NLS-1$
 
      	rotationField = new MSpinner(new MSpinner.MSpinnerNumberModel(0., -360., 360., 0.1), new JLabel(LangTool.INSTANCE.getStringDialogFrame("AbstractParametersFrame.7"))); //$NON-NLS-1$

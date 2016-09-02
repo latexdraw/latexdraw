@@ -69,11 +69,9 @@ public class ShapeShadowCustomiser extends ShapePropertyCustomiser {
 	@Override
 	protected void initialiseWidgets() {
 		shadowCB = new MCheckBox(LangTool.INSTANCE.getString17("LaTeXDrawFrame.0")); //$NON-NLS-1$
-		shadowCB.setMargin(LResources.INSET_BUTTON);
 		shadowCB.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.4")); //$NON-NLS-1$
 
 		shadowColB = new MColorButton(LangTool.INSTANCE.getStringActions("ShapeBord.1"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
-		shadowColB.setMargin(LResources.INSET_BUTTON);
 		shadowColB.setToolTipText(LangTool.INSTANCE.getString17("LaTeXDrawFrame.5")); //$NON-NLS-1$
 
 		shadowSizeField = new MSpinner(new MSpinner.MSpinnerNumberModel(1., 0.01, 1000. ,1.), new JLabel(LangTool.INSTANCE.getStringActions("ShapeShad.1"))); //$NON-NLS-1$

@@ -137,7 +137,6 @@ public class ShapeBorderCustomiser extends ShapePropertyCustomiser {
      	thicknessField.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.65")); //$NON-NLS-1$
 
      	lineColButton = new MColorButton(LangTool.INSTANCE.getStringActions("ShapeBord.1"), new MButtonIcon(Color.BLACK)); //$NON-NLS-1$
-     	lineColButton.setMargin(LResources.INSET_BUTTON);
      	lineColButton.setToolTipText(LangTool.INSTANCE.getStringLaTeXDrawFrame("LaTeXDrawFrame.66")); //$NON-NLS-1$
 
      	lineCB = createStyleLineChoice();

@@ -1,10 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.awt.Dimension;
-
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-
 import net.sf.latexdraw.actions.ModifyPencilParameter;
 import net.sf.latexdraw.actions.shape.ModifyShapeProperty;
 import net.sf.latexdraw.actions.shape.ShapeProperties;
@@ -13,12 +8,13 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.glib.models.interfaces.prop.IPlotProp;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.parsers.ps.PSFunctionParser;
-import net.sf.latexdraw.util.LResources;
-
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MCheckBox;
 import org.malai.swing.widget.MComboBox;
 import org.malai.swing.widget.MSpinner;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * This instrument modifies plot parameters.<br>
@@ -98,7 +94,6 @@ public class ShapePlotCustomiser extends ShapePropertyCustomiser {
 		yScaleSpinner = new MSpinner(new MSpinner.MSpinnerNumberModel(1.0, 0.0001, 10000.0, 0.1), new JLabel("Y scale:"));
 		yScaleSpinner.setEditor(new JSpinner.NumberEditor(yScaleSpinner, "0.0"));//$NON-NLS-1$
         polarCB = new MCheckBox("Polar");
-        polarCB.setMargin(LResources.INSET_BUTTON);
         polarCB.setToolTipText("Polar or cartesian coordinates.");
         plotStyleCB = new MComboBox<>(IPlotProp.PlotStyle.values(), null);
 		plotStyleCB.setPreferredSize(new Dimension(110, 30));
