@@ -8,7 +8,7 @@
     <fx:define>
         <ToggleGroup fx:id="groupEditing"/>
     </fx:define>
-    <ToggleButton fx:id="handB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4" toggleGroup="$groupEditing">
+    <ToggleButton fx:id="handB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <graphic>
             <ImageView>
                 <Image url="@/res/select.png"/>
@@ -28,7 +28,7 @@
             </ImageView>
         </graphic>
     </ToggleButton>
-    <ToggleButton fx:id="plotB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4" toggleGroup="$groupEditing">
+    <ToggleButton fx:id="plotB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
             <Tooltip text="%Instruments.5"/>
         </tooltip>
@@ -188,7 +188,7 @@
             </ImageView>
         </graphic>
     </ToggleButton>
-    <ToggleButton fx:id="picB" mnemonicParsing="false" style="-fx-padding: 4 4 4 4" toggleGroup="$groupEditing">
+    <ToggleButton fx:id="picB" mnemonicParsing="false" style="-fx-padding: 5 5 5 5" toggleGroup="$groupEditing">
         <tooltip>
             <Tooltip text="%LaTeXDrawFrame.1"/>
         </tooltip>
