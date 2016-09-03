@@ -1,16 +1,15 @@
 package net.sf.latexdraw.instruments
 
-import org.malai.action.library.InactivateInstrument
-import org.malai.instrument.Instrument
-import org.malai.instrument.Interactor
-import org.malai.swing.interaction.library.ButtonPressed
-import org.malai.swing.interaction.library.WindowClosed
-
 import javax.swing.JLabel
+
 import net.sf.latexdraw.actions.InsertPSTCode
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.glib.ui.ICanvas
 import net.sf.latexdraw.ui.dialog.InsertCodeDialog
+import org.malai.action.library.InactivateInstrument
+import org.malai.instrument.InteractorImpl
+import org.malai.swing.instrument.SwingInstrument
+import org.malai.swing.interaction.library.{ButtonPressed, WindowClosed}
 
 
 /**
@@ -32,7 +31,7 @@ import net.sf.latexdraw.ui.dialog.InsertCodeDialog
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class CodeInserter(val canvas : ICanvas, val statusBar : JLabel) extends Instrument {
+class CodeInserter(val canvas : ICanvas, val statusBar : JLabel) extends SwingInstrument {
 	/** The dialogue box used to insert code. */
 	lazy val _insertCodeDialog : InsertCodeDialog = new InsertCodeDialog(this)
 
@@ -59,7 +58,7 @@ class CodeInserter(val canvas : ICanvas, val statusBar : JLabel) extends Instrum
  * This link maps a pressure on the close button of the preferences frame to an action saving the preferences.
  */
 class ButtonPressed2InsertCode(ins : CodeInserter)
-	extends Interactor[InsertPSTCode, ButtonPressed, CodeInserter](ins, false, classOf[InsertPSTCode], classOf[ButtonPressed]){
+	extends InteractorImpl[InsertPSTCode, ButtonPressed, CodeInserter](ins, false, classOf[InsertPSTCode], classOf[ButtonPressed]){
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 		action.setCode(instrument.insertCodeDialog.getText)
@@ -74,7 +73,7 @@ class ButtonPressed2InsertCode(ins : CodeInserter)
  * This link maps a pressure on the close button of the preferences frame to an action saving the preferences.
  */
 class ButtonPressed2InactivateIns(ins : CodeInserter)
-	extends Interactor[InactivateInstrument, ButtonPressed, CodeInserter](ins, false, classOf[InactivateInstrument], classOf[ButtonPressed]){
+	extends InteractorImpl[InactivateInstrument, ButtonPressed, CodeInserter](ins, false, classOf[InactivateInstrument], classOf[ButtonPressed]){
 	override def initAction() {
 		action.setInstrument(getInstrument)
 	}
@@ -89,7 +88,7 @@ class ButtonPressed2InactivateIns(ins : CodeInserter)
  * This link maps a pressure on the close button of the preferences frame to an action saving the preferences.
  */
 class CloseDialogue2InactivateIns(ins : CodeInserter)
-	extends Interactor[InactivateInstrument, WindowClosed, CodeInserter](ins, false, classOf[InactivateInstrument], classOf[WindowClosed]){
+	extends InteractorImpl[InactivateInstrument, WindowClosed, CodeInserter](ins, false, classOf[InactivateInstrument], classOf[WindowClosed]){
 	override def initAction() {
 		action.setInstrument(getInstrument)
 	}

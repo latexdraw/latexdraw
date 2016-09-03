@@ -1,45 +1,26 @@
 package net.sf.latexdraw.instruments
 
-import java.awt.BasicStroke
-import java.awt.Color
-import java.awt.Cursor
-import java.awt.Graphics2D
+import java.awt.{BasicStroke, Color, Cursor, Graphics2D}
 import java.awt.geom.Rectangle2D
-import scala.collection.mutable.ListBuffer
-import org.malai.action.Action
-import org.malai.interaction.library.DnD
-import org.malai.mapping.MappingRegistry
-import org.malai.picking.Pickable
-import org.malai.picking.Picker
-import net.sf.latexdraw.actions.shape.ModifyShapeProperty
-import net.sf.latexdraw.actions.shape.MoveCtrlPoint
-import net.sf.latexdraw.actions.shape.MovePointShape
-import net.sf.latexdraw.actions.shape.RotateShapes
-import net.sf.latexdraw.actions.shape.ScaleShapes
-import net.sf.latexdraw.actions.shape.ShapeProperties
+
+import net.sf.latexdraw.actions.shape._
 import net.sf.latexdraw.badaboom.BadaboomCollector
-import net.sf.latexdraw.glib.handlers.ArcAngleHandler
-import net.sf.latexdraw.glib.handlers.CtrlPointHandler
-import net.sf.latexdraw.glib.handlers.IHandler
-import net.sf.latexdraw.glib.handlers.MovePtHandler
-import net.sf.latexdraw.glib.handlers.RotationHandler
-import net.sf.latexdraw.glib.handlers.ScaleHandler
+import net.sf.latexdraw.glib.handlers._
 import net.sf.latexdraw.glib.models.ShapeFactory
 import net.sf.latexdraw.glib.models.ShapeFactory.Point2IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.IArc
-import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape
+import net.sf.latexdraw.glib.models.interfaces.shape._
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape.Position
 import net.sf.latexdraw.glib.ui.ICanvas
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewArc
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewBezierCurve
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewModifiablePtsShape
-import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewShape
+import net.sf.latexdraw.glib.views.Java2D.interfaces.{IViewArc, IViewBezierCurve, IViewModifiablePtsShape, IViewShape}
 import net.sf.latexdraw.mapping.Shape2BorderMapping
 import net.sf.latexdraw.util.LNumber
-import org.malai.instrument.Interactor
+import org.malai.action.Action
+import org.malai.instrument.InteractorImpl
+import org.malai.mapping.MappingRegistry
+import org.malai.picking.{Pickable, Picker}
+import org.malai.swing.interaction.library.DnD
+
+import scala.collection.mutable.ListBuffer
 
 /**
  * This instrument manages the selected views.<br>
@@ -464,7 +445,7 @@ class Border(canvas : ICanvas) extends CanvasInstrument(canvas) with Picker {
 
 
 /** Maps a DnD interaction to an action that changes the arc angles. */
-private sealed class DnD2ArcAngle(ins : Border) extends Interactor[ModifyShapeProperty, DnD, Border](ins, true, classOf[ModifyShapeProperty], classOf[DnD]) {
+private sealed class DnD2ArcAngle(ins : Border) extends InteractorImpl[ModifyShapeProperty, DnD, Border](ins, true, classOf[ModifyShapeProperty], classOf[DnD]) {
 	/** The gravity centre used for the rotation. */
 	var gc : IPoint = _
 
@@ -534,7 +515,7 @@ private sealed class DnD2ArcAngle(ins : Border) extends Interactor[ModifyShapePr
 /**
  * This link maps a DnD interaction on a rotation handler to an action that rotates the selected shapes.
  */
-private sealed class DnD2Rotate(ins : Border) extends Interactor[RotateShapes, DnD, Border](ins, true, classOf[RotateShapes], classOf[DnD]) {
+private sealed class DnD2Rotate(ins : Border) extends InteractorImpl[RotateShapes, DnD, Border](ins, true, classOf[RotateShapes], classOf[DnD]) {
 	/** The point corresponding to the 'press' position. */
 	var p1 : IPoint = _
 
@@ -563,7 +544,7 @@ private sealed class DnD2Rotate(ins : Border) extends Interactor[RotateShapes, D
 /**
  * This link maps a DnD interaction on a move control point handler to an action that moves the selected control point.
  */
-private sealed class DnD2MoveCtrlPoint(ins : Border) extends Interactor[MoveCtrlPoint, DnD, Border](ins, true, classOf[MoveCtrlPoint], classOf[DnD]) {
+private sealed class DnD2MoveCtrlPoint(ins : Border) extends InteractorImpl[MoveCtrlPoint, DnD, Border](ins, true, classOf[MoveCtrlPoint], classOf[DnD]) {
 	/** The original coordinates of the moved point. */
 	var sourcePt : IPoint = _
 
@@ -614,7 +595,7 @@ private sealed class DnD2MoveCtrlPoint(ins : Border) extends Interactor[MoveCtrl
 /**
  * This link maps a DnD interaction on a move point handler to an action that moves the selected point.
  */
-private sealed class DnD2MovePoint(ins : Border) extends Interactor[MovePointShape, DnD, Border](ins, true, classOf[MovePointShape], classOf[DnD]) {
+private sealed class DnD2MovePoint(ins : Border) extends InteractorImpl[MovePointShape, DnD, Border](ins, true, classOf[MovePointShape], classOf[DnD]) {
 	/** The original coordinates of the moved point. */
 	var sourcePt : IPoint = _
 
@@ -662,7 +643,7 @@ private sealed class DnD2MovePoint(ins : Border) extends Interactor[MovePointSha
 /**
  * This link maps a DnD interaction on a scale handler to an action that scales the selection.
  */
-private sealed class DnD2Scale(ins : Border) extends Interactor[ScaleShapes, DnD, Border](ins, true, classOf[ScaleShapes], classOf[DnD]) {
+private sealed class DnD2Scale(ins : Border) extends InteractorImpl[ScaleShapes, DnD, Border](ins, true, classOf[ScaleShapes], classOf[DnD]) {
 	/** The point corresponding to the 'press' position. */
 	var p1 : IPoint = _
 

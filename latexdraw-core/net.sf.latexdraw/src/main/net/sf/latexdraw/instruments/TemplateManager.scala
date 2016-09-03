@@ -2,21 +2,18 @@ package net.sf.latexdraw.instruments
 
 import java.io.File
 
-import net.sf.latexdraw.actions.ExportTemplate
-import net.sf.latexdraw.actions.LoadTemplate
-import net.sf.latexdraw.actions.UpdateTemplates
+import net.sf.latexdraw.actions.{ExportTemplate, LoadTemplate, UpdateTemplates}
 import net.sf.latexdraw.badaboom.BadaboomCollector
 import net.sf.latexdraw.generators.svg.SVGDocumentGenerator
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing
 import net.sf.latexdraw.lang.LangTool
 import net.sf.latexdraw.ui.LFrame
 import net.sf.latexdraw.util.LResources
-import org.malai.swing.widget.MMenu
+import org.malai.instrument.InteractorImpl
 import org.malai.swing.instrument.WidgetInstrument
-import org.malai.swing.widget.MMenuItem
 import org.malai.swing.interaction.library.MenuItemPressed
 import org.malai.swing.ui.SwingUIComposer
-import org.malai.instrument.Interactor
+import org.malai.swing.widget.{MMenu, MMenuItem}
 
 /**
  * This instrument manages the templates.<br>
@@ -95,7 +92,7 @@ class TemplateManager(composer : SwingUIComposer[_], val ui : LFrame, val drawin
 
 
 private sealed class MenuItem2ExportTemplate(ins : TemplateManager) extends
-				Interactor[ExportTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[ExportTemplate], classOf[MenuItemPressed]) {
+				InteractorImpl[ExportTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[ExportTemplate], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.setUi(instrument.ui)
 		action.templatesMenu = instrument.templateMenu
@@ -106,7 +103,7 @@ private sealed class MenuItem2ExportTemplate(ins : TemplateManager) extends
 
 
 private sealed class MenuItem2LoadTemplate(ins : TemplateManager) extends
-				Interactor[LoadTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[LoadTemplate], classOf[MenuItemPressed]) {
+				InteractorImpl[LoadTemplate, MenuItemPressed, TemplateManager](ins, false, classOf[LoadTemplate], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.setFile(new File(interaction.getMenuItem.getName))
 		action.setOpenSaveManager(SVGDocumentGenerator.INSTANCE)
@@ -120,7 +117,7 @@ private sealed class MenuItem2LoadTemplate(ins : TemplateManager) extends
 
 /** Maps a menu item interaction to an action that updates the templates. */
 private sealed class MenuItem2UpdateTemplates(ins : TemplateManager) extends
-				Interactor[UpdateTemplates, MenuItemPressed, TemplateManager](ins, false, classOf[UpdateTemplates], classOf[MenuItemPressed]) {
+				InteractorImpl[UpdateTemplates, MenuItemPressed, TemplateManager](ins, false, classOf[UpdateTemplates], classOf[MenuItemPressed]) {
 	override def initAction() {
 		action.updateThumbnails = true
 		action.templatesMenu = instrument.templateMenu

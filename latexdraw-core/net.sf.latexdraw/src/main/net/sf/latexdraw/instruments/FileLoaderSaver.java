@@ -12,9 +12,9 @@ import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LResources;
 import net.sf.latexdraw.util.LSystem;
 import org.malai.action.Action;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.interaction.Interaction;
-import org.malai.interaction.library.KeysPressure;
+import org.malai.swing.interaction.library.KeysPressure;
 import org.malai.swing.action.library.IOAction;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.ButtonPressed;
@@ -419,7 +419,7 @@ public class FileLoaderSaver extends WidgetInstrument {
 }
 
 
-abstract class Interaction2NewInteractor<I extends Interaction> extends Interactor<NewDrawing, I, FileLoaderSaver> {
+abstract class Interaction2NewInteractor<I extends Interaction> extends InteractorImpl<NewDrawing, I, FileLoaderSaver> {
 	protected Interaction2NewInteractor(final FileLoaderSaver ins, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
 		super(ins, false, NewDrawing.class, interaction);
 	}
@@ -648,7 +648,7 @@ class Button2SaveInteractor extends Interaction2SaveInteractor<ButtonPressed> {
 }
 
 
-abstract class Interaction2IOInteractor<A extends IOAction<LFrame, JLabel>, I extends Interaction> extends Interactor<A, I, FileLoaderSaver> {
+abstract class Interaction2IOInteractor<A extends IOAction<LFrame, JLabel>, I extends Interaction> extends InteractorImpl<A, I, FileLoaderSaver> {
 	protected Interaction2IOInteractor(final FileLoaderSaver fileLoader, final Class<A> action, final Class<I> interaction) throws InstantiationException, IllegalAccessException {
 		super(fileLoader, false, action, interaction);
 	}

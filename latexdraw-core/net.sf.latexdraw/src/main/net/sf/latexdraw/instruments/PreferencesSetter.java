@@ -11,8 +11,8 @@ import net.sf.latexdraw.ui.LFrame;
 import net.sf.latexdraw.ui.ScaleRuler;
 import net.sf.latexdraw.ui.ScaleRuler.Unit;
 import net.sf.latexdraw.util.*;
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Interactor;
+import org.malai.swing.instrument.SwingInstrument;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.interaction.library.WindowClosed;
 import org.malai.swing.widget.*;
 import org.w3c.dom.*;
@@ -49,7 +49,7 @@ import java.util.List;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class PreferencesSetter extends Instrument {
+public class PreferencesSetter extends SwingInstrument {
 	/** The file chooser of paths selection. */
 	protected JFileChooser fileChooser;
 
@@ -765,7 +765,7 @@ public class PreferencesSetter extends Instrument {
 /**
  * This link maps a pressure on the close button of the preferences frame to an action saving the preferences.
  */
-class CloseFrame2SavePreferences extends Interactor<WritePreferences, WindowClosed, PreferencesSetter> {
+class CloseFrame2SavePreferences extends InteractorImpl<WritePreferences, WindowClosed, PreferencesSetter> {
 	/**
 	 * Creates the link.
 	 */

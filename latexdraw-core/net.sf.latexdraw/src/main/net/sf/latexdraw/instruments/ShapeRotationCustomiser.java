@@ -11,7 +11,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.interaction.library.ButtonPressed;
 import org.malai.swing.interaction.library.SpinnerModified;
 import org.malai.swing.ui.SwingUIComposer;
@@ -150,7 +150,7 @@ public class ShapeRotationCustomiser extends ShapePropertyCustomiser {
 /**
  * This link maps a spinner to an action that rotates the selected shapes.
  */
-class Spinner2RotateShape extends Interactor<RotateShapes, SpinnerModified, ShapeRotationCustomiser> {
+class Spinner2RotateShape extends InteractorImpl<RotateShapes, SpinnerModified, ShapeRotationCustomiser> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.
@@ -186,7 +186,7 @@ class Spinner2RotateShape extends Interactor<RotateShapes, SpinnerModified, Shap
 /**
  * This link maps a button to an action that rotates the selected shapes.
  */
-class ButtonPress2RotateShape extends Interactor<RotateShapes, ButtonPressed, ShapeRotationCustomiser> {
+class ButtonPress2RotateShape extends InteractorImpl<RotateShapes, ButtonPressed, ShapeRotationCustomiser> {
 	/**
 	 * Creates the link.
 	 * @param ins The instrument that contains the link.

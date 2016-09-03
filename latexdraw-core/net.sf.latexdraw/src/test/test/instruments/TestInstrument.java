@@ -1,13 +1,13 @@
 package test.instruments;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
 import org.junit.Test;
 import org.malai.instrument.Instrument;
 import org.malai.instrument.Interactor;
+
+import java.util.List;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 public abstract class TestInstrument<T extends Instrument> {
@@ -30,9 +30,9 @@ public abstract class TestInstrument<T extends Instrument> {
 	}
 
 
-	public Interactor<?, ?, ?> getLink(final String nameClassInteractor) {
-		Interactor<?, ?, ?> link = null;
-		List<Interactor<?, ?, ?>> interactors = instrument.getInteractors();
+	public Interactor getLink(final String nameClassInteractor) {
+		Interactor link = null;
+		List<Interactor> interactors = instrument.getInteractors();
 
 		for(int i=0; i<interactors.size() && link==null; i++)
 			if(interactors.get(i).getClass().getName().endsWith(nameClassInteractor))

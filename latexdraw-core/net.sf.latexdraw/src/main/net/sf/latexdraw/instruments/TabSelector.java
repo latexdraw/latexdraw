@@ -5,8 +5,8 @@ import java.util.Objects;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.ui.LFrame;
 
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Interactor;
+import org.malai.swing.instrument.SwingInstrument;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.action.library.ActivateInactivateInstruments;
 import org.malai.swing.interaction.library.TabSelected;
 
@@ -28,7 +28,7 @@ import org.malai.swing.interaction.library.TabSelected;
  * @author Arnaud BLOUIN
  * @since 3.0
  */
-public class TabSelector extends Instrument {
+public class TabSelector extends SwingInstrument {
 	/** The main frame of the system. */
 	protected LFrame frame;
 
@@ -56,7 +56,7 @@ public class TabSelector extends Instrument {
 	}
 
 
-	private static class TabSelected2ActivateInstruments extends Interactor<ActivateInactivateInstruments, TabSelected, TabSelector> {
+	private static class TabSelected2ActivateInstruments extends InteractorImpl<ActivateInactivateInstruments, TabSelected, TabSelector> {
 		protected TabSelected2ActivateInstruments(final TabSelector ins) throws InstantiationException, IllegalAccessException {
 			super(ins, false, ActivateInactivateInstruments.class, TabSelected.class);
 		}

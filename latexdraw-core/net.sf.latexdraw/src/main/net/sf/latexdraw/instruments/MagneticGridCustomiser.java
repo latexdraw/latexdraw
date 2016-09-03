@@ -13,7 +13,7 @@ import net.sf.latexdraw.glib.ui.LMagneticGrid.GridStyle;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
 
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
 import org.malai.swing.instrument.WidgetInstrument;
 import org.malai.swing.interaction.library.CheckBoxModified;
 import org.malai.swing.interaction.library.ListSelectionModified;
@@ -187,7 +187,7 @@ public class MagneticGridCustomiser extends WidgetInstrument {
 /**
  * Links a check-box widget to an action that sets if the grid is magnetic.
  */
-class CheckBox2MagneticGrid extends Interactor<ModifyMagneticGrid, CheckBoxModified, MagneticGridCustomiser> {
+class CheckBox2MagneticGrid extends InteractorImpl<ModifyMagneticGrid, CheckBoxModified, MagneticGridCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @since 3.0
@@ -214,7 +214,7 @@ class CheckBox2MagneticGrid extends Interactor<ModifyMagneticGrid, CheckBoxModif
 /**
  * Links a spinner widget to an action that modifies the spacing of the customised magnetic grid.
  */
-class Spinner2GridSpacing extends Interactor<ModifyMagneticGrid, SpinnerModified, MagneticGridCustomiser> {
+class Spinner2GridSpacing extends InteractorImpl<ModifyMagneticGrid, SpinnerModified, MagneticGridCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @since 3.0
@@ -247,7 +247,7 @@ class Spinner2GridSpacing extends Interactor<ModifyMagneticGrid, SpinnerModified
 /**
  * Links a list widget to an action that modifies the style of the magnetic grid.
  */
-class List2ChangeStyle extends Interactor<ModifyMagneticGrid, ListSelectionModified, MagneticGridCustomiser> {
+class List2ChangeStyle extends InteractorImpl<ModifyMagneticGrid, ListSelectionModified, MagneticGridCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @since 3.0

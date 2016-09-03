@@ -24,12 +24,11 @@ import net.sf.latexdraw.glib.models.interfaces.shape.{IPlot, IPoint, IShape, ITe
 import net.sf.latexdraw.glib.ui.{ICanvas, LCanvas}
 import net.sf.latexdraw.glib.views.Java2D.interfaces.{IViewPlot, IViewShape, IViewText}
 import org.malai.action.Action
-import org.malai.instrument.{Instrument, Interactor}
+import org.malai.instrument.{Instrument, InteractorImpl}
 import org.malai.interaction.Interaction
-import org.malai.interaction.library._
 import org.malai.mapping.MappingRegistry
 import org.malai.swing.action.library.{ActivateInactivateInstruments, MoveCamera}
-import org.malai.swing.interaction.library.DoubleClick
+import org.malai.swing.interaction.library.{DoubleClick, _}
 
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.mutable.Buffer
@@ -82,7 +81,7 @@ class Hand(canvas : ICanvas, val textSetter : TextSetter) extends CanvasInstrume
 	}
 }
 
-private sealed class Press2SetText(ins:Hand) extends Interactor[ModifyShapeProperty, Press, Hand](ins, false, classOf[ModifyShapeProperty], classOf[Press]) {
+private sealed class Press2SetText(ins:Hand) extends InteractorImpl[ModifyShapeProperty, Press, Hand](ins, false, classOf[ModifyShapeProperty], classOf[Press]) {
 	override def initAction {
 		action.setGroup(ShapeFactory.createGroup(instrument.textSetter.text))
 		action.setProperty(ShapeProperties.TEXT)
@@ -92,7 +91,7 @@ private sealed class Press2SetText(ins:Hand) extends Interactor[ModifyShapePrope
 	override def isConditionRespected = instrument.textSetter.isActivated && !instrument.textSetter.getTextField.getText.isEmpty
 }
 
-private sealed class Press2DeactivateTextSetter(ins:Hand) extends Interactor[ActivateInactivateInstruments, Press, Hand](ins, false, classOf[ActivateInactivateInstruments], classOf[Press]) {
+private sealed class Press2DeactivateTextSetter(ins:Hand) extends InteractorImpl[ActivateInactivateInstruments, Press, Hand](ins, false, classOf[ActivateInactivateInstruments], classOf[Press]) {
 	def initAction {
 		action.addInstrumentToInactivate(instrument.textSetter)
 	}
@@ -102,7 +101,7 @@ private sealed class Press2DeactivateTextSetter(ins:Hand) extends Interactor[Act
 	}
 }
 
-private sealed class CtrlU2UpdateShapes(ins:Hand) extends Interactor[UpdateToGrid, KeysPressure, Hand](ins, false, classOf[UpdateToGrid], classOf[KeysPressure]) {
+private sealed class CtrlU2UpdateShapes(ins:Hand) extends InteractorImpl[UpdateToGrid, KeysPressure, Hand](ins, false, classOf[UpdateToGrid], classOf[KeysPressure]) {
 	override def initAction() {
 		action.setShape(instrument.canvas.getDrawing.getSelection.duplicateDeep(false))
 		action.setGrid(instrument.canvas.getMagneticGrid)
@@ -113,7 +112,7 @@ private sealed class CtrlU2UpdateShapes(ins:Hand) extends Interactor[UpdateToGri
 }
 
 
-private sealed class CtrlA2SelectAllShapes(ins:Hand) extends Interactor[SelectShapes, KeysPressure, Hand](ins, false, classOf[SelectShapes], classOf[KeysPressure]) {
+private sealed class CtrlA2SelectAllShapes(ins:Hand) extends InteractorImpl[SelectShapes, KeysPressure, Hand](ins, false, classOf[SelectShapes], classOf[KeysPressure]) {
 	override def initAction() {
 		instrument.canvas.getDrawing.getShapes.foreach{sh => action.addShape(sh)}
 		action.setDrawing(instrument.canvas.getDrawing)
@@ -124,7 +123,7 @@ private sealed class CtrlA2SelectAllShapes(ins:Hand) extends Interactor[SelectSh
 }
 
 private abstract sealed class Interaction2InitTextSetter[I <: Interaction](ins:Hand, clazz:Class[I])
-							extends Interactor[InitTextSetter, I, Hand](ins, false, classOf[InitTextSetter], clazz) {
+							extends InteractorImpl[InitTextSetter, I, Hand](ins, false, classOf[InitTextSetter], clazz) {
 	protected def setAction(sh:Object) {
 		var pos:Option[IPoint] = None
 
@@ -180,7 +179,7 @@ private sealed class DoubleClick2InitTextSetter(ins : Hand) extends Interaction2
 /**
  * This link allows to translate the selected shapes.
  */
-private sealed class DnD2Translate(hand : Hand) extends Interactor[TranslateShapes, DnD, Hand](hand, true, classOf[TranslateShapes], classOf[DnD]) {
+private sealed class DnD2Translate(hand : Hand) extends InteractorImpl[TranslateShapes, DnD, Hand](hand, true, classOf[TranslateShapes], classOf[DnD]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 		action.setShape(instrument.canvas.getDrawing.getSelection.duplicateDeep(false))
@@ -212,7 +211,7 @@ private sealed class DnD2Translate(hand : Hand) extends Interactor[TranslateShap
 
 
 
-private sealed class Press2Select(ins : Hand) extends Interactor[SelectShapes, PressWithKeys, Hand](ins, false, classOf[SelectShapes], classOf[PressWithKeys]) {
+private sealed class Press2Select(ins : Hand) extends InteractorImpl[SelectShapes, PressWithKeys, Hand](ins, false, classOf[SelectShapes], classOf[PressWithKeys]) {
 	override def initAction() {
 		action.setDrawing(instrument.canvas.getDrawing)
 	}
@@ -245,7 +244,7 @@ private sealed class Press2Select(ins : Hand) extends Interactor[SelectShapes, P
 /**
  * This link allows to select several shapes.
  */
-private sealed class DnD2Select(hand : Hand) extends Interactor[SelectShapes, DnDWithKeys, Hand](hand, true, classOf[SelectShapes], classOf[DnDWithKeys]) {
+private sealed class DnD2Select(hand : Hand) extends InteractorImpl[SelectShapes, DnDWithKeys, Hand](hand, true, classOf[SelectShapes], classOf[DnDWithKeys]) {
 	/** The is rectangle is used as interim feedback to show the rectangle made by the user to select some shapes. */
 	val selectionBorder : Rectangle2D = new Rectangle2D.Double()
 	var selectedShapes : Buffer[IShape] = _
@@ -300,7 +299,7 @@ private sealed class DnD2Select(hand : Hand) extends Interactor[SelectShapes, Dn
 /**
  * Moves the viewport using the hand.
  */
-class DnD2MoveViewport(canvas:ICanvas, ins:Instrument) extends Interactor[MoveCamera, DnD, Instrument](ins, true, classOf[MoveCamera], classOf[DnD]) {
+class DnD2MoveViewport(canvas:ICanvas, ins:Instrument) extends InteractorImpl[MoveCamera, DnD, Instrument](ins, true, classOf[MoveCamera], classOf[DnD]) {
 	override def initAction() {
 		action.setScrollPane(canvas.getScrollpane)
 	}

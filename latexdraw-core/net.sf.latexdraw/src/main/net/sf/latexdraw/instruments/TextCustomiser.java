@@ -15,8 +15,8 @@ import net.sf.latexdraw.glib.views.Java2D.interfaces.IViewText;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.lang.LangTool;
 import net.sf.latexdraw.util.LResources;
-import org.malai.instrument.Interactor;
-import org.malai.interaction.library.KeysTyped;
+import org.malai.instrument.InteractorImpl;
+import org.malai.swing.interaction.library.KeysTyped;
 import org.malai.mapping.MappingRegistry;
 import org.malai.swing.ui.SwingUIComposer;
 import org.malai.swing.widget.MTextArea;
@@ -307,7 +307,7 @@ public class TextCustomiser extends ShapePropertyCustomiser {
 
 
 
-class KeysTyped2ChangePackages extends Interactor<ModifyLatexProperties, KeysTyped, TextCustomiser> {
+class KeysTyped2ChangePackages extends InteractorImpl<ModifyLatexProperties, KeysTyped, TextCustomiser> {
 	protected KeysTyped2ChangePackages(final TextCustomiser ins) throws InstantiationException, IllegalAccessException {
 		super(ins, false, ModifyLatexProperties.class, KeysTyped.class);
 	}

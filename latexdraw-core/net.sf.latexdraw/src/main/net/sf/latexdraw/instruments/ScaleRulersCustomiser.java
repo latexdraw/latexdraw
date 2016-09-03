@@ -1,9 +1,5 @@
 package net.sf.latexdraw.instruments;
 
-import java.util.Objects;
-
-import javax.swing.JMenuItem;
-
 import net.sf.latexdraw.actions.SetUnit;
 import net.sf.latexdraw.actions.ShowHideScaleRuler;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
@@ -15,14 +11,16 @@ import net.sf.latexdraw.ui.YScaleRuler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
 import net.sf.latexdraw.util.LResources;
-
-import org.malai.instrument.Instrument;
-import org.malai.instrument.Interactor;
+import org.malai.instrument.InteractorImpl;
+import org.malai.swing.instrument.SwingInstrument;
 import org.malai.swing.interaction.library.MenuItemPressed;
 import org.malai.swing.widget.MCheckBoxMenuItem;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import javax.swing.*;
+import java.util.Objects;
 
 /**
  * This instrument activates X and Y scale rulers.<br>
@@ -43,7 +41,7 @@ import org.w3c.dom.Element;
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-public class ScaleRulersCustomiser extends Instrument {
+public class ScaleRulersCustomiser extends SwingInstrument {
 	/** The label of the centimetre menu */
 	public static final String LABEL_CM = LangTool.INSTANCE.getStringOthers("XScale.cm"); //$NON-NLS-1$
 
@@ -225,7 +223,7 @@ public class ScaleRulersCustomiser extends Instrument {
 /**
  * This link maps a menu item to an action that sets the unit of the rulers.
  */
-class MenuItem2SetUnit extends Interactor<SetUnit, MenuItemPressed, ScaleRulersCustomiser> {
+class MenuItem2SetUnit extends InteractorImpl<SetUnit, MenuItemPressed, ScaleRulersCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @param ins The rulers activator.
@@ -250,7 +248,7 @@ class MenuItem2SetUnit extends Interactor<SetUnit, MenuItemPressed, ScaleRulersC
 /**
  * This link maps a menu item to an action that shows/hides scale rulers.
  */
-class MenuItem2ShowHideCodeScaleRuler extends Interactor<ShowHideScaleRuler, MenuItemPressed, ScaleRulersCustomiser> {
+class MenuItem2ShowHideCodeScaleRuler extends InteractorImpl<ShowHideScaleRuler, MenuItemPressed, ScaleRulersCustomiser> {
 	/**
 	 * Initialises the link.
 	 * @param ins The rulers activator.
