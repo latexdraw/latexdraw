@@ -158,8 +158,7 @@ class KeyPressed2DeleteShapes extends DeleteShapesInteractor<KeyPressure> {
 
 	@Override
 	public boolean isConditionRespected() {
-		return (interaction.getKey()==KeyEvent.VK_DELETE ||
-				(interaction.getKey()==LSystem.KEY_DELETE_MAC && LSystem.INSTANCE.isMac())) &&
+		return (interaction.getKey()==KeyEvent.VK_DELETE || interaction.getKey()==KeyEvent.VK_BACK_SPACE) &&
 				super.isConditionRespected();
 	}
 }

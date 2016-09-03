@@ -30,8 +30,6 @@ import net.sf.latexdraw.badaboom.BadaboomCollector;
  * @version 3.0
  */
 public final class LSystem {
-	public static final int KEY_DELETE_MAC = 0x8;
-
 	/**
 	 * The different operating systems managed.
 	 */
