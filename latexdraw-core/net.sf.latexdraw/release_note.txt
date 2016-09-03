@@ -8,13 +8,16 @@ Improvements:
 - A log is now created during the installation.
 
 Bugs fixed:
+ - The preferences were not stored correctly on MacOSX El Capitan
+ - The look&feel was not correctly loaded on MacOSX El Capitan
+ - The backspace key can now be used to remove a shape, fixing the deletion problem on MacOSX El Capitan
  - SVG Paths that start with a relative element are not correctly imported
    https://bugs.launchpad.net/latexdraw/+bug/1604992
  - Crash when loading an SVG document containing a 2-point path
    https://bugs.launchpad.net/latexdraw/+bug/1604968
  - Scaling shapes does not work outside the page
    https://bugs.launchpad.net/latexdraw/+bug/1583116
- -  Borders of some rotated shapes not correctly updated when located outside the page
+ - Borders of some rotated shapes not correctly updated when located outside the page
    https://bugs.launchpad.net/latexdraw/+bug/1584487
  - Copy/paste a plotted shape does not work as expected
    https://bugs.launchpad.net/latexdraw/+bug/1580483
@@ -28,3 +31,4 @@ Bugs fixed:
    https://bugs.launchpad.net/latexdraw/+bug/1605718
  - CSS style not considered on some SVG attributes
    https://bugs.launchpad.net/latexdraw/+bug/1606545
+ - Some icons of the toolbar did not have the same size
