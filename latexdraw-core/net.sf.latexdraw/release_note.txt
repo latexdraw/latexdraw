@@ -11,6 +11,7 @@ Bugs fixed:
  - The preferences were not stored correctly on MacOSX El Capitan
  - The look&feel was not correctly loaded on MacOSX El Capitan
  - The backspace key can now be used to remove a shape, fixing the deletion problem on MacOSX El Capitan
+ - The use of the Fn key on Mac El Capitan blocked many keyboard shortcuts
  - SVG Paths that start with a relative element are not correctly imported
    https://bugs.launchpad.net/latexdraw/+bug/1604992
  - Crash when loading an SVG document containing a 2-point path
