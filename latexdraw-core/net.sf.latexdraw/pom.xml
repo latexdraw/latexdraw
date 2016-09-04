@@ -151,6 +151,7 @@
                     <iconFile>/design/latexdraw.icns</iconFile>
                     <bundleName>LaTeXDraw</bundleName>
                     <version>${project.version}</version>
+                    <jvmVersion>1.8+</jvmVersion>
                 </configuration>
                 <executions>
                     <execution>
