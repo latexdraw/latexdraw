@@ -1,8 +1,6 @@
 package net.sf.latexdraw.ui.dialog;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Rectangle;
+import java.awt.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.JEditorPane;
@@ -17,6 +15,7 @@ import net.sf.latexdraw.util.LSystem;
 
 import org.malai.instrument.Instrument;
 import org.malai.swing.widget.MButton;
+import org.malai.swing.widget.MDialog;
 import org.malai.swing.widget.MFrame;
 import org.malai.swing.widget.MPanel;
 
@@ -39,7 +38,7 @@ import org.malai.swing.widget.MPanel;
  * @author Arnaud BLOUIN<br>
  * @version 3.0<br>
  */
-public class InsertCodeDialog extends MFrame {
+public class InsertCodeDialog extends MDialog {
 	private static final long serialVersionUID = 1L;
 
 	/** This editor containing code */
@@ -54,8 +53,8 @@ public class InsertCodeDialog extends MFrame {
 	 * Creates the code dialog box.
 	 * @param parentIns The instrument managing this dialogue box.
 	 */
-	public InsertCodeDialog(final Instrument parentIns) {
-		super(LangTool.INSTANCE.getString16("InsertPSTricksCodeFrame.0"), true); //$NON-NLS-1$
+	public InsertCodeDialog(final Frame parent, final Instrument parentIns) {
+		super(parent, LangTool.INSTANCE.getString16("InsertPSTricksCodeFrame.0"), true); //$NON-NLS-1$
 		setIconImage(LResources.INSERT_PST_ICON.getImage());
   		final MPanel pButton = new MPanel(false, true);
   		okButton = new MButton(LResources.LABEL_OK);

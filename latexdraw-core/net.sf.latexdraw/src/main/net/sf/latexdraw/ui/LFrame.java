@@ -250,7 +250,7 @@ public class LFrame extends SwingUI {
 			textSetter.setTestCustomiser(metaShapeCustomiser.getTextCustomiser());
 			textSetter.setPlotCustomiser(metaShapeCustomiser.getPlotCustomiser());
 		} catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
-		try { codeInserter = new CodeInserter(canvas, getStatusBar()); }
+		try { codeInserter = new CodeInserter(this, canvas, getStatusBar()); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }
 		try { editingSelector = new EditingSelector(composer, pencil, hand, metaShapeCustomiser, canvas.getBorderInstrument(), deleter, codeInserter); }
 		catch(final IllegalArgumentException ex) {BadaboomCollector.INSTANCE.add(ex); }

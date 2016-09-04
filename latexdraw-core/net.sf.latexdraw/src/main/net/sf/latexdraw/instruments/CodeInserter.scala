@@ -1,6 +1,7 @@
 package net.sf.latexdraw.instruments
 
-import javax.swing.JLabel
+import java.awt.Frame
+import javax.swing.{JFrame, JLabel}
 
 import net.sf.latexdraw.actions.InsertPSTCode
 import net.sf.latexdraw.badaboom.BadaboomCollector
@@ -31,9 +32,9 @@ import org.malai.swing.interaction.library.{ButtonPressed, WindowClosed}
  * @author Arnaud BLOUIN
  * @version 3.0
  */
-class CodeInserter(val canvas : ICanvas, val statusBar : JLabel) extends SwingInstrument {
+class CodeInserter(parent: Frame, val canvas : ICanvas, val statusBar : JLabel) extends SwingInstrument {
 	/** The dialogue box used to insert code. */
-	lazy val _insertCodeDialog : InsertCodeDialog = new InsertCodeDialog(this)
+	lazy val _insertCodeDialog : InsertCodeDialog = new InsertCodeDialog(parent, this)
 
 
 	/** Accessor for the code insertion dialogue box. */
