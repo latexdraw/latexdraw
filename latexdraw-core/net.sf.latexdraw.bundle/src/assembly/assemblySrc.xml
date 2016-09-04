@@ -7,14 +7,14 @@
   </formats>
   <fileSets>
     <fileSet>
-      <directory>${project.basedir}</directory>
+      <directory>${project.basedir}/../net.sf.latexdraw/</directory>
       <includes>
         <include>src/</include>
         <include>*.txt</include>
         <include>pom.xml</include>
-		<include>.gitignore</include>
-		<include>design/</include>
-		<include>templates/</include>
+				<include>.gitignore</include>
+				<include>design/</include>
+				<include>templates/</include>
       </includes>
       <useDefaultExcludes>true</useDefaultExcludes>
     </fileSet>
