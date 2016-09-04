@@ -106,6 +106,27 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/assemblyApp.xml</descriptor>
+                    </descriptors>
+                    <finalName>LaTeXDraw-${project.version}.app</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
  
  		    <plugin>
  		    	<groupId>org.apache.maven.plugins</groupId>
@@ -126,6 +147,7 @@
                 <artifactId>appbundle-maven-plugin</artifactId>
                 <version>1.1.1</version>
                 <configuration>
+                    <buildDirectory>${project.build.directory}</buildDirectory>
                     <mainClass>net.sf.latexdraw.LaTeXDraw</mainClass>
                     <iconFile>/design/latexdraw.icns</iconFile>
                     <bundleName>LaTeXDraw</bundleName>
