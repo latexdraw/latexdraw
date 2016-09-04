@@ -134,7 +134,7 @@
  		    	<version>2.19.1</version>
  		        <configuration>
  		          <threadCount>4</threadCount>
- 		          <skipTests>false</skipTests>
+ 		          <skipTests>true</skipTests>
                   <testFailureIgnore>false</testFailureIgnore>
   					<includes>
 			            <include>**/Test*.java</include>
@@ -143,13 +143,14 @@
  		  	</plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>osxappbundle-maven-plugin</artifactId>
-                <version>1.0-alpha-2</version>
+                <groupId>sh.tak.appbundler</groupId>
+                <artifactId>appbundle-maven-plugin</artifactId>
+                <version>1.1.1</version>
                 <configuration>
                     <mainClass>net.sf.latexdraw.LaTeXDraw</mainClass>
-                  	<javaApplicationStub>${basedir}/src/osx/universalJavaApplicationStub</javaApplicationStub>
-                    <jvmVersion>1.7+</jvmVersion>
+                    <iconFile>/design/latexdraw.icns</iconFile>
+                    <bundleName>LaTeXDraw</bundleName>
+                    <version>${project.version}</version>
                 </configuration>
                 <executions>
                     <execution>
@@ -158,8 +159,8 @@
                             <goal>bundle</goal>
                         </goals>
                     </execution>
-               </executions>
-           </plugin>
+                </executions>
+            </plugin>
 
  	        <plugin> 
  	          <groupId>org.codehaus.mojo</groupId> 
