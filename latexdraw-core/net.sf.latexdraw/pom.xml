@@ -296,6 +296,7 @@
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-all</artifactId>
 				<version>1.10.19</version>
+                <scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.swinglabs</groupId>
