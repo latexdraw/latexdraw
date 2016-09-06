@@ -15,6 +15,8 @@ Bugs fixed:
    https://bugs.launchpad.net/latexdraw/+bug/1618941
  - The import LaTeX text window does not work on Mac El Capitan using the Mac OS X LnF
    https://bugs.launchpad.net/latexdraw/+bug/1620059
+ - Copying PST code requires the ctrl+c shortcut instead of cmd+c on Mac
+   https://bugs.launchpad.net/latexdraw/+bug/1620328
  - SVG Paths that start with a relative element are not correctly imported
    https://bugs.launchpad.net/latexdraw/+bug/1604992
  - Crash when loading an SVG document containing a 2-point path

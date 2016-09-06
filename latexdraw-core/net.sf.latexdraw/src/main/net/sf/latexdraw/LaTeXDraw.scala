@@ -1,6 +1,10 @@
 package net.sf.latexdraw
 
+import java.awt.event.{InputEvent, KeyEvent}
 import java.io.File
+import javax.swing.text.DefaultEditorKit
+import javax.swing.{InputMap, KeyStroke}
+import javax.swing.UIManager
 
 import net.sf.latexdraw.actions.LoadDrawing
 import net.sf.latexdraw.badaboom.BadaboomCollector
@@ -36,6 +40,13 @@ import org.malai.undo.UndoCollector
  */
 object LaTeXDraw {
   {
+	  if(LSystem.INSTANCE.isMac) {
+		  val im = UIManager.get("TextField.focusInputMap").asInstanceOf[InputMap]
+		  im.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.META_DOWN_MASK), DefaultEditorKit.copyAction)
+		  im.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.META_DOWN_MASK), DefaultEditorKit.pasteAction)
+		  im.put(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.META_DOWN_MASK), DefaultEditorKit.cutAction)
+	  }
+
     val node = Preference.readXMLPreferencesFromFile(new File(LPath.PATH_PREFERENCES_XML_FILE)).get(LNamespace.XML_OPENGL)
 
     if(node==null || java.lang.Boolean.parseBoolean(node.getTextContent)) {
