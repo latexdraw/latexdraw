@@ -9,7 +9,7 @@
   <packaging>jar</packaging>
   
   	<properties>
-		<malai.version>2.0-SNAPSHOT</malai.version>
+		<malai.version>2.0</malai.version>
 		<scala.version>2.11.8</scala.version>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
