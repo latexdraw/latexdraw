@@ -16,6 +16,29 @@
   <atom:link href="http://latexdraw.sourceforge.net/LaTeXDraw-news.rss" rel="self" type="application/rss+xml" />
 
   <item>
+    <title>LaTeXDraw 3.3.4 -- Bugs fixed</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Sat, 17 sep 2016 09:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS54</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS54</link>
+    <description>This new version fixes many bugs, in particular for MacOSX.
+One new feature is that an 'app' package is now provided for MacOSX users. They just have to put it in the "Applications" folder and it should be smoothly integrated in the system.
+Java 8 is also required (instead of the old Java 7) to run the application.
+Give an eye to the release note for more details regarding the bug-fixes.</description>
+  </item>
+
+  <item>
+    <title>LaTeXDraw 3.3.3 -- Bugs fixed</title>
+    <author>arno_b@users.sourceforge.net (arno_b)</author>
+    <pubDate>Sun, 01 may 2016 09:00:00 GMT</pubDate>
+    <guid>http://latexdraw.sourceforge.net/index.html#NEWS53</guid>
+	 <link>http://latexdraw.sourceforge.net/index.html#NEWS53</link>
+    <description>This new version fixes major bugs.
+Since the 3.3 version, you may have noticed performance issues (lags) while editing, moving. I just found a fix -- using openGL to render the graphics -- but it may rise glitches or other graphical issues depending on you system and on your graphical card. For instance the mini-toolbars are not painted correctly with my Intel graphical chipset on Linux. Nevermind, the graphical performances are great now. You can still de-activate the use of openGL in the preferences.
+Give an eye to the release note for more details regarding the other bug-fixes.</description>
+  </item>
+
+  <item>
     <title>LaTeXDraw 3.3.2 -- Bugs fixed</title>
     <author>arno_b@users.sourceforge.net (arno_b)</author>
     <pubDate>Sun, 11 nov 2015 09:00:00 GMT</pubDate>

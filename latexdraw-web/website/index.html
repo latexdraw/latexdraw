@@ -43,7 +43,7 @@
       <div class="container">
         <a class="brand" href="" style="font-size:22px;">LaTeXDraw</a>
         <ul class="nav" style="font-size:18px;">
-			<li><a href="http://sourceforge.net/projects/latexdraw/files/latexdraw/3.3.2/"><i class="icon-download"></i> Download</a></li>
+			<li><a href="https://sourceforge.net/projects/latexdraw/files/latest/download"><i class="icon-download"></i> Download</a></li>
 			<li><a href="http://sourceforge.net/donate/index.php?group_id=156523"><i class="icon-heart"></i> <b>Donations!</b></a></li>
 		  <li><a href="https://github.com/arnobl/latexdraw/wiki/Manual"><i class="icon-archive"></i> Manual</a></li>
 			<li><a href="https://launchpad.net/latexdraw"><i class="icon-code-fork"></i> Roadmap/Translations</a></li>
@@ -71,9 +71,9 @@
 		   
 <h4>LaTeXDraw</h4>
 			<p>
-<b>LaTeXDraw</b> is a graphical drawing editor for LaTeX. LaTeXDraw can be used to 1) generate <a href="http://tug.org/PSTricks/main.cgi/"><b>PSTricks</b></a> code; 2) directly create PDF or PS pictures. LaTeXDraw is developped in Java and thus runs on top of Linux, Windows, and Mac OS X. You need <a href="http://java.sun.com/javase/downloads/index.jsp">Java 1.7</a> to launch LaTeXDraw. 
+<b>LaTeXDraw</b> is a graphical drawing editor for LaTeX. LaTeXDraw can be used to 1) generate <a href="http://tug.org/PSTricks/main.cgi/"><b>PSTricks</b></a> code; 2) directly create PDF or PS pictures. LaTeXDraw is developed in Java and thus runs on top of Linux, Windows, and Mac OS X. You need <a href="http://java.sun.com/javase/downloads/index.jsp">Java 1.8</a> to launch LaTeXDraw. 
 </p>
-<p><b>Latest version: <a href="https://sourceforge.net/projects/latexdraw/files/latest/download">3.3.2 <i class="icon-download"></i></a></b></p>
+<p><b>Latest version: <a href="https://sourceforge.net/projects/latexdraw/files/latest/download">3.3.4 <i class="icon-download"></i></a></b></p>
 
 <p>Nightly builds (may be unstable), <a href="https://ci.inria.fr/malai/job/latexdraw%20bundle/lastBuild/net.sf.latexdraw$latexdraw.bundle/"><i class="icon-download"></i> for Linux and Windows</a>, <a href="https://ci.inria.fr/malai/job/latexdraw/"><i class="icon-download"></i> for Mac OS X</a></p>
 
@@ -111,6 +111,29 @@
 
 <h4>News</h4>
   <ul class="listing">
+    <li>
+      <a id="NEWS54"><span>2016-09-17</span></a><a href="http://latexdraw.sourceforge.net/index.html#NEWS54">LaTeXDraw 3.3.4 -- Bugs fixed</a>
+	  <div class="entry">
+<p>
+This new version fixes many bugs, in particular for MacOSX.
+One new feature is that an 'app' package is now provided for MacOSX users. They just have to put it in the "Applications" folder and it should be smoothly integrated in the system.
+Java 8 is also required (instead of the old Java 7) to run the application.
+Give an eye to the <a href="https://launchpad.net/latexdraw/3.x/3.3.4">release note</a> for more details regarding the bug-fixes.
+</p>
+	  </div>
+    </li>
+
+
+    <li>
+      <a id="NEWS53"><span>2016-05-01</span></a><a href="http://latexdraw.sourceforge.net/index.html#NEWS53">LaTeXDraw 3.3.3 -- Bugs fixed</a>
+	  <div class="entry">
+<p>
+This new version fixes major bugs.
+Since the 3.3 version, you may have noticed performance issues (lags) while editing, moving. I just found a fix -- using openGL to render the graphics -- but it may rise glitches or other graphical issues depending on you system and on your graphical card. For instance the mini-toolbars are not painted correctly with my Intel graphical chipset on Linux. Nevermind, the graphical performances are great now. You can still de-activate the use of openGL in the preferences.
+Give an eye to the <a href="https://launchpad.net/latexdraw/3.x/3.3.3">release note</a> for more details regarding the other bug-fixes.
+</p>
+	  </div>
+    </li>
 
     <li>
       <a id="NEWS52"><span>2015-11-03</span></a><a href="http://latexdraw.sourceforge.net/index.html#NEWS52">LaTeXDraw 3.3.2 -- Bugs fixed</a>
@@ -225,7 +248,7 @@ Give an eye to the <a href="https://launchpad.net/latexdraw/3.x/3.1">release not
 <p>
 If the native LaTeX rendering works like a charm on Linux, it seems that it does not work correctly on Windows.
 I just fixed an issue that blocked that feature on Windows Seven but I do not have a Windows 8 to test that.
-So, do not hesitate to <a href="https://ci.inria.fr/malai/job/latexdraw/lastBuild/net.sf.latexdraw$latexdraw.core/">download the latest devolopment version</a> to test the LaTeX rendering on Windows (Seven, 8) and MacOSX, and send me an email or use the forum to give me feedback!
+So, do not hesitate to <a href="https://ci.inria.fr/malai/job/latexdraw/lastBuild/net.sf.latexdraw$latexdraw.core/">download the latest development version</a> to test the LaTeX rendering on Windows (Seven, 8) and MacOSX, and send me an email or use the forum to give me feedback!
 </p>
 	  </div>
     </li>
