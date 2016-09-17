@@ -1,5 +1,5 @@
 ************************************************************
-Version 3.3.4
+Version 3.3.4 -- 2016-09-17
 
 Improvements:
 - Instead of double-clicking on a text shape to change the text, you can use the F2 key (the text shape must be selected).
