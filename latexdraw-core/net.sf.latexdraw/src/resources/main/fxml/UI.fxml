@@ -51,6 +51,7 @@
         <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <fx:include source="OpenSave.fxml"/>
             <fx:include source="CopyPaste.fxml"/>
+            <fx:include source="Undo.fxml"/>
             <fx:include source="Export.fxml"/>
             <Spinner min="10" max="450" initialValue="100" amountToStepBy="5" prefHeight="25.0" prefWidth="75.0"/>
             <fx:include source="Deleter.fxml"/>

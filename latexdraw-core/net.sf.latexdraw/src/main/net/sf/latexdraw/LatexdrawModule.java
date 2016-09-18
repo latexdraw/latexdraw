@@ -51,5 +51,6 @@ class LatexdrawModule extends AbstractModule {
 		bind(XScaleRuler.class).asEagerSingleton();
 		bind(YScaleRuler.class).asEagerSingleton();
 		bind(FrameController.class).asEagerSingleton();
+		bind(UndoRedoManager.class).asEagerSingleton();
 	}
 }
