@@ -100,7 +100,7 @@ public class Helper extends JfxInstrument implements Initializable {
 	protected Stage getAboutFrame() {
 		if(aboutFrame == null) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("../../../../../resources/main/fxml/About.fxml"), LangTool.INSTANCE.getBundle());
+				Parent root = FXMLLoader.load(getClass().getResource("/fxml/About.fxml"), LangTool.INSTANCE.getBundle());
 				final Scene scene = new Scene(root);
 				aboutFrame = new Stage(StageStyle.UTILITY);
 				aboutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("Res.1"));
@@ -117,7 +117,7 @@ public class Helper extends JfxInstrument implements Initializable {
 	protected Stage getShortcutsFrame() {
 		if(shortcutFrame == null) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("../../../../../resources/main/fxml/Shortcuts.fxml"), LangTool.INSTANCE.getBundle());
+				Parent root = FXMLLoader.load(getClass().getResource("/fxml/Shortcuts.fxml"), LangTool.INSTANCE.getBundle());
 				final Scene scene = new Scene(root);
 				shortcutFrame = new Stage(StageStyle.UTILITY);
 				shortcutFrame.setTitle(LangTool.INSTANCE.getBundle().getString("LaTeXDrawFrame.3c"));
@@ -130,45 +130,3 @@ public class Helper extends JfxInstrument implements Initializable {
 		return shortcutFrame;
 	}
 }
-
-// class MenuItem2AboutFrame extends
-// JfxInteractor<ShowStage,ButtonPressed,Helper> {
-// protected MenuItem2AboutFrame(final Helper ins, final MenuButton menuItem)
-// throws InstantiationException, IllegalAccessException {
-// super(ins, false, ShowStage.class, ButtonPressed.class,
-// Arrays.asList(ins.aboutItem));
-// }
-//
-// @Override
-// public void initAction() {
-// if(component==null)
-// component = instrument.initialiseAboutFrame();
-// super.initAction();
-// }
-// }
-//
-//
-// /** The link between a menu item and the action that shows the shortcut box.
-// */
-// class MenuItem2ShortcutFrame extends MenuItem2ShowComponentInteractor<Helper>
-// {
-// /**
-// * Creates the link.
-// * @param ins The instrument that contains the link.
-// * @param component The component to show/hide.
-// * @param menuItem The menu item used to show/hide to component.
-// * @since 3.0
-// */
-// protected MenuItem2ShortcutFrame(final Helper ins, final Component component,
-// final MMenuItem menuItem) throws InstantiationException,
-// IllegalAccessException {
-// super(ins, component, menuItem);
-// }
-//
-// @Override
-// public void initAction() {
-// if(component==null)
-// component = instrument.initialiseShortcutsFrame();
-// super.initAction();
-// }
-// }

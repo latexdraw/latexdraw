@@ -1,16 +1,14 @@
 package net.sf.latexdraw.badaboom;
 
-import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
-
 import org.eclipse.jdt.annotation.NonNull;
 import org.malai.error.ErrorCatcher;
 import org.malai.error.ErrorNotifier;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines an error collector.<br>
@@ -57,7 +55,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	 * @param handler The handler to add. Must not be null.
 	 * @since 3.0
 	 */
-	public void addHandler(@NonNull final BadaboomHandler handler) {
+	public void addHandler(final @NonNull BadaboomHandler handler) {
 		synchronized(handlers){ handlers.add(handler); }
 
 		// If there is events, the hander is notified.
@@ -71,7 +69,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 	 * Notifies the handlers that an event occurred.
 	 * @since 3.0
 	 */
-	protected void notifyHandlers(@NonNull final Throwable error) {
+	protected void notifyHandlers(final @NonNull Throwable error) {
 		synchronized(handlers){
 			for(final BadaboomHandler handler : handlers)
 				handler.notifyEvent(error);
@@ -127,7 +125,6 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 
 	@Override
 	public void handle(final WorkerStateEvent evt) {
-		System.out.println(evt.getSource().getException());
 		add(evt.getSource().getException());
 	}
 }

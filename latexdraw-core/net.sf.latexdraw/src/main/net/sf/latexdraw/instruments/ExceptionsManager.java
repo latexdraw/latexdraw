@@ -14,9 +14,6 @@
  */
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,10 +25,12 @@ import javafx.stage.StageStyle;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.badaboom.BadaboomHandler;
 import net.sf.latexdraw.util.LangTool;
-
 import org.malai.javafx.action.library.ShowStage;
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.javafx.instrument.library.ButtonInteractor;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * This instrument allows to see exceptions launched during the execution of the
@@ -64,7 +63,7 @@ public class ExceptionsManager extends JfxInstrument implements BadaboomHandler,
 	public Stage getStageEx() {
 		if(stageEx==null) {
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("../../../../../resources/main/fxml/Badaboom.fxml"), LangTool.INSTANCE.getBundle());
+				Parent root = FXMLLoader.load(getClass().getResource("/fxml/Badaboom.fxml"), LangTool.INSTANCE.getBundle());
 				final Scene scene = new Scene(root);
 				stageEx = new Stage(StageStyle.UTILITY);
 				stageEx.setScene(scene);

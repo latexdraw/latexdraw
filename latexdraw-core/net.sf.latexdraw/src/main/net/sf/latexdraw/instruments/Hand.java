@@ -14,6 +14,7 @@
  */
 package net.sf.latexdraw.instruments;
 
+import net.sf.latexdraw.util.LSystem;
 import org.malai.javafx.instrument.JfxInteractor;
 import org.malai.javafx.interaction.library.KeysPressure;
 import org.malai.javafx.interaction.library.Press;
@@ -118,7 +119,8 @@ public class Hand extends CanvasInstrument {
 
 		@Override
 		public boolean isConditionRespected() {
-			return interaction.getKeyCode().size() == 2 && interaction.getKeyCode().contains(KeyCode.A) && interaction.getKeyCode().contains(KeyCode.CONTROL);
+			return interaction.getKeyCodes().size() == 2 && interaction.getKeyCodes().contains(KeyCode.A) &&
+				interaction.getKeyCodes().contains(LSystem.INSTANCE.getControlKey());
 		}
 	}
 }
