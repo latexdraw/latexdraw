@@ -1,10 +1,10 @@
 package net.sf.latexdraw.util;
 
-import java.awt.event.KeyEvent;
+import javafx.scene.input.KeyCode;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+
 import java.io.File;
 import java.util.Arrays;
-
-import net.sf.latexdraw.badaboom.BadaboomCollector;
 
 /**
  * Defines some routines that provides information about the operating system currently used.<br>
@@ -118,10 +118,10 @@ public final class LSystem {
 	 * @return The control modifier used by the currently used operating system.
 	 * @since 3.0
 	 */
-	public int getControlKey() {
+	public KeyCode getControlKey() {
 		if(LSystem.INSTANCE.IsMac())
-			return KeyEvent.VK_META;
-		return KeyEvent.VK_CONTROL;
+			return KeyCode.META;
+		return KeyCode.CONTROL;
 	}
 
 	/**

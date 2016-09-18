@@ -37,7 +37,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 
 	var pastedShapes : List[IShape] = Nil
 
-	override def canDo = _copy!=null && _grid!=null && _drawing.isDefined
+	override def canDo = _copy!=null && _drawing.isDefined //&& _grid!=null FIXME
 
 
 	override def isRegisterable = true
@@ -50,7 +50,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 		if(!_copy.isInstanceOf[CutShapes])
 			_copy.nbTimeCopied+=1
 
-		val gapPaste = if(_grid.isMagnetic) _grid.getGridSpacing else 10
+		val gapPaste = 10//if(_grid.isMagnetic) _grid.getGridSpacing else 10 // FIXME
 		val gap = _copy.nbTimeCopied*gapPaste
 
 		_copy.copiedShapes.forEach{shape =>
@@ -63,6 +63,7 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 		if(_copy.isInstanceOf[CutShapes])
 			_copy.nbTimeCopied+=1
 
+		println("paster")
 		dr.setModified(true)
 	}
 

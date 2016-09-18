@@ -15,7 +15,7 @@ import com.google.inject.Inject;
  * @since 3.1
  */
 abstract class CanvasInstrument extends JfxInstrument {
-	protected @Inject Canvas canvas;
+	@Inject protected Canvas canvas;
 
 	CanvasInstrument() {
 		super();
