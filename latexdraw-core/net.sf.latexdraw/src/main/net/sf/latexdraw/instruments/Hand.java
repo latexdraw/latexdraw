@@ -37,8 +37,8 @@ import net.sf.latexdraw.view.jfx.ViewShape;
  * @version 3.0
  */
 public class Hand extends CanvasInstrument {
-	protected @Inject MetaShapeCustomiser metaCustomiser;
-	protected @Inject TextSetter textSetter;
+	@Inject protected MetaShapeCustomiser metaCustomiser;
+	@Inject protected TextSetter textSetter;
 
 	public Hand() {
 		super();

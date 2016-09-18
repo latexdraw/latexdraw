@@ -42,10 +42,10 @@ import com.google.inject.Inject;
  */
 public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	/** The Hand instrument. */
-	protected @Inject Hand hand;
+	@Inject protected Hand hand;
 
 	/** The Pencil instrument. */
-	protected @Inject Pencil pencil;
+	@Inject protected Pencil pencil;
 
 	/**
 	 * Creates the instrument.
@@ -98,9 +98,9 @@ public abstract class ShapePropertyCustomiser extends JfxInstrument {
 	protected abstract void setWidgetsVisible(final boolean visible);
 
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-		setWidgetsVisible(activated);
+	public void setActivated(final boolean act) {
+		super.setActivated(act);
+		setWidgetsVisible(act);
 	}
 
 	/**

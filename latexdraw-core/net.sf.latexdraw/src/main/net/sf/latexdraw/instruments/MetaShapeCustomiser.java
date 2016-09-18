@@ -27,66 +27,66 @@ import com.google.inject.Inject;
  */
 public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	/** This instrument customises the line properties of shapes and the pencil. */
-	protected @Inject ShapeBorderCustomiser borderCustomiser;
+	@Inject protected ShapeBorderCustomiser borderCustomiser;
 
 	/**
 	 * This instrument customises the double line properties of shapes and the
 	 * pencil.
 	 */
-	protected @Inject ShapeDoubleBorderCustomiser doubleBorderCustomiser;
+	@Inject protected ShapeDoubleBorderCustomiser doubleBorderCustomiser;
 
 	/**
 	 * This instrument customises the shadow properties of shapes and the
 	 * pencil.
 	 */
-	protected @Inject ShapeShadowCustomiser shadowCustomiser;
+	@Inject protected ShapeShadowCustomiser shadowCustomiser;
 
 	/**
 	 * This instrument customises the filling properties of shapes and the
 	 * pencil.
 	 */
-	protected @Inject ShapeFillingCustomiser fillingCustomiser;
+	@Inject protected ShapeFillingCustomiser fillingCustomiser;
 
 	/** This instrument customises the texts. */
-	protected @Inject ShapeTextCustomiser shapeTextCustomiser;
+	@Inject protected ShapeTextCustomiser shapeTextCustomiser;
 
 	/** This instrument customises the rotation angle. */
-	protected @Inject ShapeRotationCustomiser rotationCustomiser;
+	@Inject protected ShapeRotationCustomiser rotationCustomiser;
 
 	/** This instrument customises the arrows. */
-	protected @Inject ShapeArrowCustomiser arrowCustomiser;
+	@Inject protected ShapeArrowCustomiser arrowCustomiser;
 
 	/** This instrument customises the dot parameters. */
-	protected @Inject ShapeDotCustomiser dotCustomiser;
+	@Inject protected ShapeDotCustomiser dotCustomiser;
 
 	/** This instrument customises the arc parameters. */
-	protected @Inject ShapeArcCustomiser arcCustomiser;
+	@Inject protected ShapeArcCustomiser arcCustomiser;
 
 	/** This instrument customises the dimensions and the position. */
-	protected @Inject ShapeCoordDimCustomiser dimPosCustomiser;
+	@Inject protected ShapeCoordDimCustomiser dimPosCustomiser;
 
 	/** This instrument customises grids and axes. */
-	protected @Inject ShapeStdGridCustomiser gridCustomiser;
+	@Inject protected ShapeStdGridCustomiser gridCustomiser;
 
 	/** This instrument groups shapes. */
-	protected @Inject ShapeGrouper shapeGrouper;
+	@Inject protected ShapeGrouper shapeGrouper;
 
 	/** This instrument that customises axes. */
-	protected @Inject ShapeAxesCustomiser shapeAxesCustomiser;
+	@Inject protected ShapeAxesCustomiser shapeAxesCustomiser;
 
 	/** This instrument that customises grids. */
-	protected @Inject ShapeGridCustomiser shapeGridCustomiser;
+	@Inject protected ShapeGridCustomiser shapeGridCustomiser;
 
 	/** This instrument that customises freehands. */
-	protected @Inject ShapeFreeHandCustomiser shapeFreeHandCustomiser;
+	@Inject protected ShapeFreeHandCustomiser shapeFreeHandCustomiser;
 
 	/** This instrument that transforms shapes. */
-	protected @Inject ShapeTransformer shapeTransformer;
+	@Inject protected ShapeTransformer shapeTransformer;
 
 	/** This instrument that places shapes. */
-	protected @Inject ShapePositioner shapePositioner;
+	@Inject protected ShapePositioner shapePositioner;
 
-	protected @Inject ShapePlotCustomiser plotCustom;
+	@Inject protected ShapePlotCustomiser plotCustom;
 
 	/**
 	 * Creates the instrument.
@@ -96,10 +96,10 @@ public class MetaShapeCustomiser extends ShapePropertyCustomiser {
 	}
 
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
+	public void setActivated(final boolean act) {
+		super.setActivated(act);
 
-		if(activated)
+		if(act)
 			update();
 		else {
 			borderCustomiser.setActivated(false);

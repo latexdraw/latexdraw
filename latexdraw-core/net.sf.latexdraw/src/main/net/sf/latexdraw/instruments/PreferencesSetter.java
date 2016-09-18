@@ -117,7 +117,7 @@ public class PreferencesSetter extends JfxInstrument implements Initializable {
 				"<br>\\usepackage[frenchb]{babel}<br>\\usepackage[utf8]{inputenc}</html>"//$NON-NLS-1$
 		));
 
-		langList.getItems().addAll(LangTool.INSTANCE.getSupportedLocales().stream().map(l -> l.getDisplayLanguage()).collect(Collectors.toList()));
+		langList.getItems().addAll(LangTool.INSTANCE.getSupportedLocales().stream().map(Locale::getDisplayLanguage).collect(Collectors.toList()));
 		unitChoice.getItems().addAll(Arrays.stream(Unit.values()).map(Unit::getLabel).collect(Collectors.toList()));
 		styleList.getItems().addAll(GridStyle.values());
 	}

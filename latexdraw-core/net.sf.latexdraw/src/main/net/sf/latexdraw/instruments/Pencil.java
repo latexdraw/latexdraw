@@ -1,9 +1,7 @@
 package net.sf.latexdraw.instruments;
 
+import com.google.inject.Inject;
 import javafx.scene.Cursor;
-
-import javax.swing.JFileChooser;
-
 import net.sf.latexdraw.filters.PictureFilter;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IFreehand;
@@ -11,7 +9,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IModifiablePointsShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 
-import com.google.inject.Inject;
+import javax.swing.*;
 
 /**
  * This instrument allows to draw shapes.<br>
@@ -37,7 +35,7 @@ public class Pencil extends CanvasInstrument {
 	/** The current editing choice (rectangle, ellipse, etc.) of the instrument. */
 	protected EditionChoice currentChoice;
 
-	protected @Inject TextSetter textSetter;
+	@Inject protected TextSetter textSetter;
 
 //	protected MLayeredPane layers;
 
@@ -78,9 +76,9 @@ public class Pencil extends CanvasInstrument {
 	}
 
 	@Override
-	public void setActivated(boolean activated) {
-		if(this.activated!=activated)
-			super.setActivated(activated);
+	public void setActivated(boolean act) {
+		if(this.activated!=act)
+			super.setActivated(act);
 	}
 
 	@Override

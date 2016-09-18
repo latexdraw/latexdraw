@@ -95,9 +95,9 @@ public class ShapeArcCustomiser extends ShapePropertyCustomiser implements Initi
 		addInteractor(new Button2PencilArcStyle(this));
 	}
 
-	private static abstract class Button2ArcStyle<T extends ShapePropertyAction> extends ToggleButtonInteractor<T, ShapeArcCustomiser> {
-		Button2ArcStyle(final ShapeArcCustomiser ins, final Class<T> action) throws InstantiationException, IllegalAccessException {
-			super(ins, action, ins.arcB, ins.chordB, ins.wedgeB);
+	private abstract static class Button2ArcStyle<T extends ShapePropertyAction> extends ToggleButtonInteractor<T, ShapeArcCustomiser> {
+		Button2ArcStyle(final ShapeArcCustomiser ins, final Class<T> act) throws InstantiationException, IllegalAccessException {
+			super(ins, act, ins.arcB, ins.chordB, ins.wedgeB);
 		}
 
 		@Override

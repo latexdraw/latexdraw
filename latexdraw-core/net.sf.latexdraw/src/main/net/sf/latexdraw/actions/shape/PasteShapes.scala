@@ -63,7 +63,6 @@ class PasteShapes extends Action with DrawingAction with Undoable with Modifying
 		if(_copy.isInstanceOf[CutShapes])
 			_copy.nbTimeCopied+=1
 
-		println("paster")
 		dr.setModified(true)
 	}
 

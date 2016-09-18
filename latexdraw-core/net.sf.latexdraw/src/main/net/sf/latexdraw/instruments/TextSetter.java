@@ -49,11 +49,11 @@ public class TextSetter extends JfxInstrument {
 	protected IPlot plot;
 
 	/** The pencil used to create shapes. */
-	protected @Inject Pencil pencil;
+	@Inject protected Pencil pencil;
 
-	protected @Inject ShapeTextCustomiser custom;
+	@Inject protected ShapeTextCustomiser custom;
 
-	protected @Inject ShapePlotCustomiser plotCustom;
+	@Inject protected ShapePlotCustomiser plotCustom;
 
 	/**
 	 * Creates the instrument.
@@ -107,12 +107,10 @@ public class TextSetter extends JfxInstrument {
 	}
 
 	/**
-	 * @param pencil
-	 *            The pencil to set to the text setter.
-	 * @since 3.0
+	 * @param pen The pen to set to the text setter.
 	 */
-	public void setPencil(final Pencil pencil) {
-		this.pencil = pencil;
+	public void setPencil(final Pencil pen) {
+		pencil = pen;
 	}
 
 	@Override
@@ -134,9 +132,9 @@ public class TextSetter extends JfxInstrument {
 	}
 
 	@Override
-	public void setActivated(final boolean activated) {
-		super.setActivated(activated);
-		if(activated&&pencil.isActivated()) {
+	public void setActivated(final boolean act) {
+		super.setActivated(act);
+		if(act && pencil.isActivated()) {
 			switch(pencil.getCurrentChoice()) {
 				case TEXT:
 					setTextMessage();
@@ -149,8 +147,8 @@ public class TextSetter extends JfxInstrument {
 			}
 		}
 		textField.setValid(true);
-		textField.setVisible(activated);
-//		if(activated)
+		textField.setVisible(act);
+//		if(act)
 //			textField.requestFocusInWindow();
 	}
 
@@ -163,18 +161,17 @@ public class TextSetter extends JfxInstrument {
 	}
 
 	/**
-	 * @param relativePoint
-	 *            The point where texts are added. It may not corresponds with
+	 * @param rel The point where texts are added. It may not corresponds with
 	 *            the location of the text field since the text field position
 	 *            is absolute (does not consider the zoom level).
 	 * @since 3.0
 	 */
-	public void setRelativePoint(final IPoint relativePoint) {
-		this.relativePoint = relativePoint;
+	public void setRelativePoint(final IPoint rel) {
+		relativePoint = rel;
 	}
 }
 
-/**
+/*
  * // * This links maps a key press interaction to an action that desactivates
  * the instrument. //
  */

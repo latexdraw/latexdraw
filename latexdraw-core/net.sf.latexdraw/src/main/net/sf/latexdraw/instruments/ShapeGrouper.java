@@ -1,13 +1,13 @@
 package net.sf.latexdraw.instruments;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * This instrument groups and separates shapes.<br>
@@ -30,12 +30,12 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
  */
 public class ShapeGrouper extends ShapePropertyCustomiser implements Initializable {
 	/** The widget to group shapes. */
-	protected @FXML Button groupB;
+	@FXML protected Button groupB;
 
 	/** The widget to separate shapes. */
-	protected @FXML Button sepB;
+	@FXML protected Button sepB;
 
-	protected @FXML AnchorPane mainPane;
+	@FXML protected AnchorPane mainPane;
 
 	/**
 	 * Creates the instrument.
