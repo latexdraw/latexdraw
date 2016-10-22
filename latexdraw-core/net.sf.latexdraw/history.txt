@@ -1,4 +1,46 @@
 ************************************************************
+Version 3.3.4 -- 2016-09-17
+
+Improvements:
+- Instead of double-clicking on a text shape to change the text, you can use the F2 key (the text shape must be selected).
+- Can click on the canvas to change text (before, you had to press 'enter')
+- Can import cubic Bézier paths (as Bézier curves). The second control point, however, always equals the first one.
+- A log is now created during the installation.
+
+Bugs fixed:
+ - The preferences were not stored correctly on MacOSX El Capitan
+ - The look&feel was not correctly loaded on MacOSX El Capitan
+ - The backspace key can now be used to remove a shape, fixing the deletion problem on MacOSX El Capitan
+ - The use of the Fn key on Mac El Capitan blocked many keyboard shortcuts
+   https://bugs.launchpad.net/latexdraw/+bug/1618941
+ - The import LaTeX text window does not work on Mac El Capitan using the Mac OS X LnF
+   https://bugs.launchpad.net/latexdraw/+bug/1620059
+ - Copying PST code requires the ctrl+c shortcut instead of cmd+c on Mac
+   https://bugs.launchpad.net/latexdraw/+bug/1620328
+ - SVG Paths that start with a relative element are not correctly imported
+   https://bugs.launchpad.net/latexdraw/+bug/1604992
+ - Crash when loading an SVG document containing a 2-point path
+   https://bugs.launchpad.net/latexdraw/+bug/1604968
+ - Scaling shapes does not work outside the page
+   https://bugs.launchpad.net/latexdraw/+bug/1583116
+ - Borders of some rotated shapes not correctly updated when located outside the page
+   https://bugs.launchpad.net/latexdraw/+bug/1584487
+ - Copy/paste a plotted shape does not work as expected
+   https://bugs.launchpad.net/latexdraw/+bug/1580483
+ - Boundaries of a group of shapes not correctly computed when moved outside the page
+   https://bugs.launchpad.net/latexdraw/+bug/1582559
+ - Groups of shapes not always correctly loaded
+   https://bugs.launchpad.net/latexdraw/+bug/1583121
+ - Install scripts do not work on OpenSuse
+   https://bugs.launchpad.net/latexdraw/+bug/1584037
+ - Cannot import an SVG path where characters are stuck
+   https://bugs.launchpad.net/latexdraw/+bug/1605718
+ - CSS style not considered on some SVG attributes
+   https://bugs.launchpad.net/latexdraw/+bug/1606545
+ - Some icons of the toolbar did not have the same size
+
+
+************************************************************
 Version 3.3.3 -- 2016-05-01
 
 Bugs fixed:
