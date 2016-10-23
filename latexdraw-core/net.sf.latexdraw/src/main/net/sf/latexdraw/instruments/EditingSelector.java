@@ -35,11 +35,7 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * This instrument selects the pencil or the hand.<br>
- * <br>
- * 
- * @author Arnaud BLOUIN
- * @since 3.0
+ * This instrument selects the pencil or the hand.
  */
 public class EditingSelector extends JfxInstrument implements Initializable {
 	/** The button that allows to select the instrument Hand. */

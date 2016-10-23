@@ -34,11 +34,7 @@ import java.util.ResourceBundle;
 
 /**
  * This instrument allows to see exceptions launched during the execution of the
- * program.<br>
- * 01/05/11<br>
- * 
- * @author Arnaud BLOUIN
- * @version 3.0
+ * program.
  */
 public class ExceptionsManager extends JfxInstrument implements BadaboomHandler, Initializable {
 	/** The button used to shows the panel of exceptions. */

@@ -1,5 +1,6 @@
 package net.sf.latexdraw.instruments;
 
+import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -9,7 +10,6 @@ import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.latex.VerticalPosition;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LPath;
-
 import org.malai.javafx.instrument.JfxInstrument;
 import org.malai.undo.Undoable;
 import org.w3c.dom.Document;
@@ -51,7 +51,7 @@ public class DrawingPropertiesCustomiser extends JfxInstrument {
 	@FXML protected Spinner<Double> scaleField;
 
 	/** The LaTeX code generator. */
-	protected LaTeXGenerator latexGen;
+	@Inject protected LaTeXGenerator latexGen;
 
 	/**
 	 * Creates the instrument.
