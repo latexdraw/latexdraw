@@ -48,7 +48,7 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
-import net.sf.latexdraw.glib.views.synchroniser.ViewsSynchroniserHandler;
+import net.sf.latexdraw.glib.views.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.Page;

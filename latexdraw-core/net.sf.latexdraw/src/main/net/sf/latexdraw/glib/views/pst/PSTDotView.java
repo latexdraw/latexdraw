@@ -1,29 +1,23 @@
+/*
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2015 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ */
 package net.sf.latexdraw.glib.views.pst;
-
-import org.eclipse.jdt.annotation.NonNull;
 
 import net.sf.latexdraw.glib.models.interfaces.shape.DotStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDot;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * Defines a PSTricks view of the LDot model.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 04/15/2008<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * Defines a PSTricks view of the LDot model.
  */
 class PSTDotView extends PSTClassicalView<IDot> {
 	/**
@@ -32,22 +26,19 @@ class PSTDotView extends PSTClassicalView<IDot> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTDotView(@NonNull final IDot model) {
+	protected PSTDotView(final @NonNull IDot model) {
 		super(model);
-
-		update();
 	}
 
 
 	@Override
-	public void updateCache(final IPoint origin, final float ppc) {
+	public String getCode(final IPoint origin, final float ppc) {
 		final double x 				= shape.getX() - origin.getX();
 		final double y 				= origin.getY() - shape.getY();
 		final DotStyle style 		= shape.getDotStyle();
 		final StringBuilder params  = getPropertiesCode(ppc);
 		final StringBuilder rotation= getRotationHeaderCode(ppc, origin);
-
-		emptyCache();
+		final StringBuilder code = new StringBuilder();
 
 		if(style!=DotStyle.DOT)
 			params.append(", dotstyle=").append(style.getPSTToken()); //$NON-NLS-1$
@@ -55,17 +46,19 @@ class PSTDotView extends PSTClassicalView<IDot> {
 		params.append(", dotsize=").append((float)LNumber.getCutNumber(shape.getDiametre()/ppc)); //$NON-NLS-1$
 
 		if(rotation!=null)
-			cache.append(rotation);
+			code.append(rotation);
 
-		cache.append("\\psdots["); //$NON-NLS-1$
-		cache.append(params);
+		code.append("\\psdots["); //$NON-NLS-1$
+		code.append(params);
 		if(shape.isFillable())
-			cache.append(", fillcolor=").append(getColourName(shape.getFillingCol()));
-		cache.append(']').append('(');
-		cache.append(LNumber.getCutNumberFloat(x/ppc)).append(',');
-		cache.append(LNumber.getCutNumberFloat(y/ppc)).append(')');
+			code.append(", fillcolor=").append(getColourName(shape.getFillingCol()));
+		code.append(']').append('(');
+		code.append(LNumber.getCutNumberFloat(x/ppc)).append(',');
+		code.append(LNumber.getCutNumberFloat(y/ppc)).append(')');
 
 		if(rotation!=null)
-			cache.append('}');
+			code.append('}');
+
+		return code.toString();
 	}
 }

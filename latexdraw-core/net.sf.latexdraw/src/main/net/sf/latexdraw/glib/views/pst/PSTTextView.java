@@ -1,30 +1,24 @@
-package net.sf.latexdraw.glib.views.pst;
-
-import org.eclipse.jdt.annotation.NonNull;
-
-import net.sf.latexdraw.glib.models.interfaces.shape.Color;
-import net.sf.latexdraw.glib.models.GLibUtilities;
-import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
-import net.sf.latexdraw.glib.models.interfaces.shape.IText;
-import net.sf.latexdraw.util.LNumber;
-
-/**
- * Defines a PSTricks view of the LText model.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
+/*
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2015 Arnaud BLOUIN
  * LaTeXDraw is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
  * LaTeXDraw is distributed without any warranty; without even the implied
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 05/23/2010<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * General Public License for more details.
+ */
+package net.sf.latexdraw.glib.views.pst;
+
+import net.sf.latexdraw.glib.models.GLibUtilities;
+import net.sf.latexdraw.glib.models.interfaces.shape.Color;
+import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import net.sf.latexdraw.glib.models.interfaces.shape.IText;
+import net.sf.latexdraw.util.LNumber;
+import org.eclipse.jdt.annotation.NonNull;
+
+/**
+ * Defines a PSTricks view of the LText model.<br>
  */
 class PSTTextView extends PSTShapeView<IText> {
 	/**
@@ -33,31 +27,24 @@ class PSTTextView extends PSTShapeView<IText> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTTextView(@NonNull final IText model) {
+	protected PSTTextView(final @NonNull IText model) {
 		super(model);
-
-		update();
 	}
 
 
-
 	@Override
-	public void updateCache(final IPoint origin, final float ppc) {
-		if(!GLibUtilities.isValidPoint(origin) || ppc<1)
-			return ;
+	public String getCode(final IPoint origin, final float ppc) {
+		if(!GLibUtilities.isValidPoint(origin) || ppc < 1) return "";
 
 		final StringBuilder rot = getRotationHeaderCode(ppc, origin);
+		final StringBuilder code = new StringBuilder();
 
-		emptyCache();
-
-		if(rot!=null)
-			cache.append(rot);
+		if(rot != null) code.append(rot);
 
 		final String colorName;
 		final Color lineCol = shape.getLineColour();
 
-		if(lineCol.equals(PSTricksConstants.DEFAULT_LINE_COLOR))
-			colorName = null;
+		if(lineCol.equals(PSTricksConstants.DEFAULT_LINE_COLOR)) colorName = null;
 		else {
 			colorName = getColourName(shape.getLineColour());
 			addColour(colorName);
@@ -65,23 +52,20 @@ class PSTTextView extends PSTShapeView<IText> {
 
 		final String tokenPosition = shape.getTextPosition().getLatexToken();
 
-		if(tokenPosition==null || tokenPosition.isEmpty())
-			cache.append("\\rput("); //$NON-NLS-1$
-		else
-			cache.append("\\rput[").append(shape.getTextPosition().getLatexToken()).append(']').append('('); //$NON-NLS-1$
+		if(tokenPosition == null || tokenPosition.isEmpty()) code.append("\\rput("); //$NON-NLS-1$
+		else code.append("\\rput[").append(shape.getTextPosition().getLatexToken()).append(']').append('('); //$NON-NLS-1$
 
-		cache.append(LNumber.getCutNumberFloat((shape.getX()-origin.getX())/ppc)).append(',');
-		cache.append(LNumber.getCutNumberFloat((origin.getY()-shape.getY())/ppc)).append(')').append('{');
+		code.append(LNumber.getCutNumberFloat((shape.getX() - origin.getX()) / ppc)).append(',');
+		code.append(LNumber.getCutNumberFloat((origin.getY() - shape.getY()) / ppc)).append(')').append('{');
 
-		if(colorName!=null)
-			cache.append("\\textcolor{").append(colorName).append('}').append('{'); //$NON-NLS-1$
+		if(colorName != null) code.append("\\textcolor{").append(colorName).append('}').append('{'); //$NON-NLS-1$
 
-		cache.append(shape.getText()).append('}');
+		code.append(shape.getText()).append('}');
 
-		if(colorName!=null)
-			cache.append('}');
+		if(colorName != null) code.append('}');
 
-		if(rot!=null)
-			cache.append('}');
+		if(rot != null) code.append('}');
+
+		return code.toString();
 	}
 }

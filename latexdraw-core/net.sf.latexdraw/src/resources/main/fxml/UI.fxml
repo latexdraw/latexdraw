@@ -39,9 +39,7 @@
                     </ScrollPane>
                 </SplitPane>
             </Tab>
-            <Tab closable="false" text="PST">
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
-            </Tab>
+                <fx:include source="CodePanel.fxml"/>
             <Tab closable="false" text="%PreferencesFrame.Pref2">
                 <fx:include source="Preferences.fxml"/>
             </Tab>

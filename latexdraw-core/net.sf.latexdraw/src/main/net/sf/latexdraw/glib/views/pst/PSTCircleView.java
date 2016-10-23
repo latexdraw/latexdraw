@@ -1,29 +1,23 @@
+/*
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2015 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ */
 package net.sf.latexdraw.glib.views.pst;
-
-import org.eclipse.jdt.annotation.NonNull;
 
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.ICircle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.util.LNumber;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * Defines a PSTricks view of the ICircle model.<br>
- * <br>
- * This file is part of LaTeXDraw.<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation; either version 2 of the License, or (at your option) any later version.
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.<br>
- * <br>
- * 07/25/2010<br>
- * @author Arnaud BLOUIN
- * @since 3.0
+ * Defines a PSTricks view of the ICircle model.
  */
 class PSTCircleView extends PSTClassicalView<ICircle> {
 	/**
@@ -31,35 +25,32 @@ class PSTCircleView extends PSTClassicalView<ICircle> {
 	 * @param circle The circle used for the conversion in SVG.
 	 * @since 3.0
 	 */
-	protected PSTCircleView(@NonNull final ICircle circle) {
+	protected PSTCircleView(final @NonNull ICircle circle) {
 		super(circle);
-		update();
 	}
 
 
 	@Override
-	public void updateCache(final IPoint position, final float ppc) {
-		if(!GLibUtilities.isValidPoint(position) || ppc<1)
-			return ;
+	public String getCode(final IPoint position, final float ppc) {
+		if(!GLibUtilities.isValidPoint(position) || ppc < 1) return "";
 
-		emptyCache();
-
-		final double radius			 = shape.getWidth()/2.;
+		final double radius = shape.getWidth() / 2.0;
 		final StringBuilder rotation = getRotationHeaderCode(ppc, position);
-		final double x	 			 = shape.getX()+radius - position.getX();
-		final double y	 			 = position.getY()+radius - shape.getY();
+		final double x = shape.getX() + radius - position.getX();
+		final double y = position.getY() + radius - shape.getY();
+		final StringBuilder cache = new StringBuilder();
 
-		if(rotation!=null)
-			cache.append(rotation);
+		if(rotation != null) cache.append(rotation);
 
 		cache.append("\\pscircle["); //$NON-NLS-1$
 		cache.append(getPropertiesCode(ppc));
 		cache.append(']').append('(');
-		cache.append(LNumber.getCutNumberFloat(x/ppc)).append(',');
-		cache.append(LNumber.getCutNumberFloat(y/ppc)).append(')').append('{');
-		cache.append(LNumber.getCutNumberFloat(radius/ppc)).append('}');
+		cache.append(LNumber.getCutNumberFloat(x / ppc)).append(',');
+		cache.append(LNumber.getCutNumberFloat(y / ppc)).append(')').append('{');
+		cache.append(LNumber.getCutNumberFloat(radius / ppc)).append('}');
 
-		if(rotation!=null)
-			cache.append('}');
+		if(rotation != null) cache.append('}');
+
+		return cache.toString();
 	}
 }

@@ -1,10 +1,12 @@
 package net.sf.latexdraw.glib.views.pst;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.interfaces.shape.IGroup;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
+import org.eclipse.jdt.annotation.NonNull;
+
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Defines a PSTricks view of the LDrawing model.<br>
@@ -31,36 +33,17 @@ class PSTGroupView extends PSTShapeView<IGroup> {
 	 * @throws IllegalArgumentException If the given model is not valid.
 	 * @since 3.0
 	 */
-	protected PSTGroupView(@NonNull final IGroup model) {
+	protected PSTGroupView(final @NonNull IGroup model) {
 		super(model);
-
-		update();
 	}
 
 
-
-
 	@Override
-	public void updateCache(final IPoint origin, final float ppc) {
+	public String getCode(final IPoint origin, final float ppc) {
 		if(!GLibUtilities.isValidPoint(origin) || ppc<1)
-			return ;
+			return "";
 
-		emptyCache();
-
-		int i;
-        final int size 	= shape.size()-1;
-        PSTShapeView<?> pstView;
-
-		if(size>0) {
-			for(i=0; i<size; i++) {
-				pstView = PSTViewsFactory.INSTANCE.createView(shape.getShapeAt(i));
-				pstView.updateCache(origin, ppc);
-				cache.append(pstView.getCache()).append('\n');
-			}
-
-			pstView = PSTViewsFactory.INSTANCE.createView(shape.getShapeAt(i));
-			pstView.updateCache(origin, ppc);
-			cache.append(pstView.getCache());
-		}
+		return shape.getShapes().stream().map(PSTViewsFactory.INSTANCE::createView).filter(Optional::isPresent).
+			map(v -> v.get().getCode(origin, ppc)).collect(Collectors.joining("\n"));
 	}
 }

@@ -1,5 +1,8 @@
 package net.sf.latexdraw;
 
+import com.google.inject.Provides;
+import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.instruments.*;
 import net.sf.latexdraw.ui.XScaleRuler;
 import net.sf.latexdraw.ui.YScaleRuler;
@@ -52,5 +55,13 @@ class LatexdrawModule extends AbstractModule {
 		bind(YScaleRuler.class).asEagerSingleton();
 		bind(FrameController.class).asEagerSingleton();
 		bind(UndoRedoManager.class).asEagerSingleton();
+	}
+
+	@Provides IDrawing provideDrawing(final Canvas canvas) {
+		return canvas.getDrawing();
+	}
+
+	@Provides LaTeXGenerator provideLaTeXGenerator(final CodePanelController controller) {
+		return controller.getPstGenerator();
 	}
 }

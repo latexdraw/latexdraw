@@ -1,12 +1,10 @@
 package net.sf.latexdraw.actions;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Locale;
+import net.sf.latexdraw.badaboom.BadaboomCollector;
+import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
+import net.sf.latexdraw.lang.LangTool;
+import net.sf.latexdraw.ui.dialog.ExportDialog;
+import org.malai.action.Action;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -17,14 +15,10 @@ import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
-import org.malai.action.Action;
-
-import net.sf.latexdraw.badaboom.BadaboomCollector;
-import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
-import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
-import net.sf.latexdraw.lang.LangTool;
-import net.sf.latexdraw.ui.dialog.ExportDialog;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
 
 /**
  * This action allows to export a drawing in different formats.
@@ -243,17 +237,17 @@ public class Export extends Action {
 	protected boolean exportAsPST(final File file) {
 		boolean ok;
 
-		try {
-			try(final FileWriter fw 	= new FileWriter(file);
-				final BufferedWriter bw = new BufferedWriter(fw);
-				final PrintWriter out 	= new PrintWriter(bw)) {
-				out.println(LaTeXGenerator.getLatexDrawing(pstGen));
-				ok = true;
-			}
-		}catch(final IOException e) {
-			BadaboomCollector.INSTANCE.add(e);
+//		try {
+//			try(final FileWriter fw 	= new FileWriter(file);
+//				final BufferedWriter bw = new BufferedWriter(fw);
+//				final PrintWriter out 	= new PrintWriter(bw)) {
+//				out.println(LaTeXGenerator.getLatexDrawing(pstGen));
+//				ok = true;
+//			}
+//		}catch(final IOException e) {
+//			BadaboomCollector.INSTANCE.add(e);
 			ok = false;
-		}
+//		}
 		return ok;
 	}
 
