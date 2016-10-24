@@ -10,12 +10,10 @@
  */
 package net.sf.latexdraw.glib.views.pst;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
 import net.sf.latexdraw.glib.views.latex.VerticalPosition;
-import net.sf.latexdraw.glib.views.ViewsSynchroniserHandler;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.LResources;
 import org.eclipse.jdt.annotation.NonNull;
@@ -38,15 +36,9 @@ public class PSTCodeGenerator extends LaTeXGenerator {
 
 	/**
 	 * Creates and initialises the generator.
-	 * @param theDrawing The shapes used to generate PST code.
-	 * @param theHandler The theHandler that provides information to the generator.
-	 * @param texParams Defines if the latex parameters (position, caption, etc.) must be generated.
-	 * @param comments Defines if the comments must be generated.
-	 * @since 3.0
 	 */
-	public PSTCodeGenerator(final @NonNull IDrawing theDrawing, final @NonNull ViewsSynchroniserHandler theHandler,
-							final boolean texParams, final boolean comments) {
-		super(theDrawing, theHandler, texParams, comments);
+	public PSTCodeGenerator() {
+		super();
 	}
 
 

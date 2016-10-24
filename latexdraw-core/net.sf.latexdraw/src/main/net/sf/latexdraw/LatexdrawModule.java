@@ -1,23 +1,65 @@
 package net.sf.latexdraw;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
+import net.sf.latexdraw.glib.views.ViewsSynchroniserHandler;
 import net.sf.latexdraw.glib.views.latex.LaTeXGenerator;
-import net.sf.latexdraw.instruments.*;
+import net.sf.latexdraw.glib.views.pst.PSTCodeGenerator;
+import net.sf.latexdraw.instruments.AboutController;
+import net.sf.latexdraw.instruments.Border;
+import net.sf.latexdraw.instruments.CodeInserter;
+import net.sf.latexdraw.instruments.CodePanelController;
+import net.sf.latexdraw.instruments.CopierCutterPaster;
+import net.sf.latexdraw.instruments.DrawingPropertiesCustomiser;
+import net.sf.latexdraw.instruments.EditingSelector;
+import net.sf.latexdraw.instruments.ExceptionsManager;
+import net.sf.latexdraw.instruments.Exporter;
+import net.sf.latexdraw.instruments.FileLoaderSaver;
+import net.sf.latexdraw.instruments.FrameController;
+import net.sf.latexdraw.instruments.Hand;
+import net.sf.latexdraw.instruments.Helper;
+import net.sf.latexdraw.instruments.MetaShapeCustomiser;
+import net.sf.latexdraw.instruments.Pencil;
+import net.sf.latexdraw.instruments.PreferencesSetter;
+import net.sf.latexdraw.instruments.ShapeArcCustomiser;
+import net.sf.latexdraw.instruments.ShapeArrowCustomiser;
+import net.sf.latexdraw.instruments.ShapeAxesCustomiser;
+import net.sf.latexdraw.instruments.ShapeBorderCustomiser;
+import net.sf.latexdraw.instruments.ShapeCoordDimCustomiser;
+import net.sf.latexdraw.instruments.ShapeDeleter;
+import net.sf.latexdraw.instruments.ShapeDotCustomiser;
+import net.sf.latexdraw.instruments.ShapeDoubleBorderCustomiser;
+import net.sf.latexdraw.instruments.ShapeFillingCustomiser;
+import net.sf.latexdraw.instruments.ShapeFreeHandCustomiser;
+import net.sf.latexdraw.instruments.ShapeGridCustomiser;
+import net.sf.latexdraw.instruments.ShapeGrouper;
+import net.sf.latexdraw.instruments.ShapePlotCustomiser;
+import net.sf.latexdraw.instruments.ShapePositioner;
+import net.sf.latexdraw.instruments.ShapeRotationCustomiser;
+import net.sf.latexdraw.instruments.ShapeShadowCustomiser;
+import net.sf.latexdraw.instruments.ShapeStdGridCustomiser;
+import net.sf.latexdraw.instruments.ShapeTextCustomiser;
+import net.sf.latexdraw.instruments.ShapeTransformer;
+import net.sf.latexdraw.instruments.ShortcutsController;
+import net.sf.latexdraw.instruments.TabSelector;
+import net.sf.latexdraw.instruments.TemplateManager;
+import net.sf.latexdraw.instruments.TextSetter;
+import net.sf.latexdraw.instruments.UndoRedoManager;
 import net.sf.latexdraw.ui.XScaleRuler;
 import net.sf.latexdraw.ui.YScaleRuler;
 import net.sf.latexdraw.view.jfx.Canvas;
-
-import com.google.inject.AbstractModule;
 
 class LatexdrawModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(Canvas.class).asEagerSingleton();
+		bind(PSTCodeGenerator.class).asEagerSingleton();
 		bind(AboutController.class).asEagerSingleton();
 		bind(Border.class).asEagerSingleton();
 		bind(CodeInserter.class).asEagerSingleton();
 		bind(CopierCutterPaster.class).asEagerSingleton();
+		bind(CodePanelController.class).asEagerSingleton();
 		bind(DrawingPropertiesCustomiser.class).asEagerSingleton();
 		bind(EditingSelector.class).asEagerSingleton();
 		bind(ExceptionsManager.class).asEagerSingleton();
@@ -61,7 +103,11 @@ class LatexdrawModule extends AbstractModule {
 		return canvas.getDrawing();
 	}
 
-	@Provides LaTeXGenerator provideLaTeXGenerator(final CodePanelController controller) {
-		return controller.getPstGenerator();
+	@Provides ViewsSynchroniserHandler provideViewsSynchroniserHandler(final Canvas canvas) {
+		return canvas;
+	}
+
+	@Provides LaTeXGenerator provideLaTeXGenerator(final PSTCodeGenerator gen) {
+		return gen;
 	}
 }

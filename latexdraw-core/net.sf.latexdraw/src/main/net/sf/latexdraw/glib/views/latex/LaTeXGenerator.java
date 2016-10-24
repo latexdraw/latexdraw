@@ -12,6 +12,7 @@
  */
 package net.sf.latexdraw.glib.views.latex;
 
+import com.google.inject.Inject;
 import com.sun.istack.internal.NotNull;
 import com.sun.istack.internal.Nullable;
 import javafx.beans.property.ObjectProperty;
@@ -94,9 +95,9 @@ public abstract class LaTeXGenerator implements Modifiable {
 	/** The scale of the drawing. */
 	protected double scale;
 
-	protected final @NonNull IDrawing drawing;
+	@Inject protected IDrawing drawing;
 
-	protected final @NonNull ViewsSynchroniserHandler handler;
+	@Inject protected ViewsSynchroniserHandler handler;
 
 	/** Defines if the latex parameters (position, caption, etc.) must be generated. */
 	protected boolean withLatexParams;
@@ -107,17 +108,10 @@ public abstract class LaTeXGenerator implements Modifiable {
 
 	/**
 	 * Initialises the abstract generator.
-	 * @param theDrawing The shapes used to generate PST code.
-	 * @param theHandler The theHandler that provides information to the generator.
-	 * @param texParams Defines if the latex parameters (position, caption, etc.) must be generated.
-	 * @param comments Defines if the comments must be generated.
-	 * @since 3.0
 	 */
-	protected LaTeXGenerator(final @NonNull IDrawing theDrawing, final @NonNull ViewsSynchroniserHandler theHandler, final boolean texParams, final boolean comments) {
+	protected LaTeXGenerator() {
 		super();
 
-		handler = theHandler;
-		drawing = theDrawing;
 		modified = false;
 		comment = ""; //$NON-NLS-1$
 		label = ""; //$NON-NLS-1$
@@ -125,8 +119,8 @@ public abstract class LaTeXGenerator implements Modifiable {
 		positionHoriCentre = false;
 		positionVertToken = VerticalPosition.NONE;
 		scale = 1.0;
-		withComments = comments;
-		withLatexParams = texParams;
+		withComments = true;
+		withLatexParams = true;
 	}
 
 
