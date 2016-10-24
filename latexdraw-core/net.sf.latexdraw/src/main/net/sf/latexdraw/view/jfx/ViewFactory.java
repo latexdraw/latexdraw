@@ -12,6 +12,7 @@
  */
 package net.sf.latexdraw.view.jfx;
 
+import net.sf.latexdraw.glib.models.interfaces.shape.IEllipse;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
@@ -46,7 +47,7 @@ public final class ViewFactory {
 		// if(shape instanceof IText) return new LTextView((IText)shape);
 		// if(shape instanceof ICircleArc) return new LCircleArcView((ICircleArc)shape);
 		// if(shape instanceof ICircle) return new LCircleView((ICircle)shape);
-		// if(shape instanceof IEllipse) return new LEllipseView<>((IEllipse)shape);
+		if(shape instanceof IEllipse) return Optional.of(new ViewEllipse((IEllipse) shape));
 		// if(shape instanceof ITriangle) return new LTriangleView((ITriangle)shape);
 		// if(shape instanceof IRhombus) return new LRhombusView((IRhombus)shape);
 		// if(shape instanceof IPolyline) return new LPolylineView((IPolyline)shape);
