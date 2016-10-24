@@ -31,12 +31,11 @@ public class ViewSquare extends ViewSingleShape<ISquare, Rectangle> {
 
 		final IPoint tlp = model.getPtAt(0);
 		final IPoint trp = model.getPtAt(1);
-		final IPoint blp = model.getPtAt(3);
 
 		border.xProperty().bind(tlp.xProperty());
 		border.yProperty().bind(tlp.yProperty());
 		border.widthProperty().bind(Bindings.createDoubleBinding(model::getWidth, tlp.xProperty(), trp.xProperty()));
-		border.heightProperty().bind(Bindings.createDoubleBinding(model::getWidth, tlp.yProperty(), blp.yProperty()));
+		border.heightProperty().bind(Bindings.createDoubleBinding(model::getWidth, tlp.xProperty(), trp.xProperty()));
 	}
 
 	@Override
