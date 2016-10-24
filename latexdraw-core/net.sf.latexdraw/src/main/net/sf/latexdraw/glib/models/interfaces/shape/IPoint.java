@@ -1,10 +1,9 @@
 package net.sf.latexdraw.glib.models.interfaces.shape;
 
-import java.awt.geom.Point2D;
-
+import javafx.beans.property.DoubleProperty;
 import org.eclipse.jdt.annotation.NonNull;
 
-import javafx.beans.property.DoubleProperty;
+import java.awt.geom.Point2D;
 
 /**
  * Defines an interface that classes defining a point should implement.<br>
@@ -43,7 +42,7 @@ public interface IPoint {
 	 * @param pt The new position.
 	 * @since 3.0
 	 */
-	void setPoint(IPoint pt);
+	void setPoint(final IPoint pt);
 
 	/**
 	 * Sets the X coordinate of the point.

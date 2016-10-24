@@ -1,12 +1,5 @@
 package net.sf.latexdraw.glib.models.impl;
 
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.jdt.annotation.NonNull;
-import org.malai.mapping.MappingRegistry;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -23,6 +16,12 @@ import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.glib.models.interfaces.shape.Position;
 import net.sf.latexdraw.glib.views.pst.PSTricksConstants;
 import net.sf.latexdraw.util.LNumber;
+import org.eclipse.jdt.annotation.NonNull;
+import org.malai.mapping.MappingRegistry;
+
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines a model of a shape.<br>
@@ -44,16 +43,16 @@ import net.sf.latexdraw.util.LNumber;
  */
 abstract class LShape implements ISingleShape {
 	/** The thickness of the lines of the shape in pixels. */
-	@NonNull protected final DoubleProperty thickness;
+	protected final @NonNull DoubleProperty thickness;
 
 	/** The colour of the lines. */
-	@NonNull protected final ObjectProperty<Color> lineColour;
+	protected final @NonNull ObjectProperty<Color> lineColour;
 
 	/** The style of the lines. */
-	@NonNull protected final ObjectProperty<LineStyle> lineStyle; // TODO add  to the generics but sbt crashes...
+	protected final @NonNull ObjectProperty<LineStyle> lineStyle;
 	
 	/** The style of the interior of the shape. */
-	@NonNull protected final ObjectProperty<FillingStyle> fillingStyle;
+	protected final @NonNull ObjectProperty<FillingStyle> fillingStyle;
 
 	/** The white dash separator for dashed lines in pixel. */
 	protected double dashSepWhite;
@@ -65,7 +64,7 @@ abstract class LShape implements ISingleShape {
 	protected double dotSep;
 
 	/** The colour of the interior of the shape. */
-	@NonNull protected Color fillingCol;
+	protected @NonNull Color fillingCol;
 
 	/** The start colour of the gradient. */
 	protected Color gradColStart;
@@ -119,7 +118,7 @@ abstract class LShape implements ISingleShape {
 	protected double shadowSize;
 
 	/** The position of the border of the shape. */
-	@NonNull protected final ObjectProperty<BorderPos> bordersPosition;
+	protected final @NonNull ObjectProperty<BorderPos> bordersPosition;
 
 	/** The points of the shape. */
 	protected final List<IPoint> points;
@@ -488,33 +487,33 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public void setDashSepBlack(final double dashSepBlack) {
-		if(dashSepBlack > 0 && GLibUtilities.isValidCoordinate(dashSepBlack))
-			this.dashSepBlack = dashSepBlack;
+	public void setDashSepBlack(final double dash) {
+		if(dash > 0 && GLibUtilities.isValidCoordinate(dash))
+			dashSepBlack = dash;
 	}
 
 	@Override
-	public void setDashSepWhite(final double dashSepWhite) {
-		if(dashSepWhite > 0 && GLibUtilities.isValidCoordinate(dashSepWhite))
-			this.dashSepWhite = dashSepWhite;
+	public void setDashSepWhite(final double dash) {
+		if(dash > 0 && GLibUtilities.isValidCoordinate(dash))
+			dashSepWhite = dash;
 	}
 
 	@Override
-	public void setDbleBordCol(final Color dbleBordCol) {
-		if(dbleBordCol != null && isDbleBorderable())
-			this.dbleBordCol = dbleBordCol;
+	public void setDbleBordCol(final Color col) {
+		if(col != null && isDbleBorderable())
+			dbleBordCol = col;
 	}
 
 	@Override
-	public void setDbleBordSep(final double dbleBordSep) {
-		if(dbleBordSep >= 0 && isDbleBorderable() && GLibUtilities.isValidCoordinate(dbleBordSep))
-			this.dbleBordSep = dbleBordSep;
+	public void setDbleBordSep(final double sep) {
+		if(sep >= 0 && isDbleBorderable() && GLibUtilities.isValidCoordinate(sep))
+			dbleBordSep = sep;
 	}
 
 	@Override
-	public void setDotSep(final double dotSep) {
-		if(dotSep >= 0 && GLibUtilities.isValidCoordinate(dotSep))
-			this.dotSep = dotSep;
+	public void setDotSep(final double sep) {
+		if(sep >= 0 && GLibUtilities.isValidCoordinate(sep))
+			dotSep = sep;
 	}
 
 	@Override
@@ -527,19 +526,15 @@ abstract class LShape implements ISingleShape {
 				case CLINES:
 					fillingStyle.set(FillingStyle.CLINES_PLAIN);
 					break;
-
 				case VLINES:
 					fillingStyle.set(FillingStyle.VLINES_PLAIN);
 					break;
-
 				case HLINES:
 					fillingStyle.set(FillingStyle.HLINES_PLAIN);
 					break;
-
 				case NONE:
 					fillingStyle.set(FillingStyle.PLAIN);
 					break;
-
 				case PLAIN:
 				case GRAD:
 				case CLINES_PLAIN:
@@ -553,19 +548,15 @@ abstract class LShape implements ISingleShape {
 				case CLINES_PLAIN:
 					fillingStyle.set(FillingStyle.CLINES);
 					break;
-
 				case VLINES_PLAIN:
 					fillingStyle.set(FillingStyle.VLINES);
 					break;
-
 				case HLINES_PLAIN:
 					fillingStyle.set(FillingStyle.HLINES);
 					break;
-
 				case PLAIN:
 					fillingStyle.set(FillingStyle.NONE);
 					break;
-
 				case NONE:
 				case GRAD:
 				case CLINES:
@@ -577,81 +568,81 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public void setFillingCol(final Color fillingCol) {
-		if(fillingCol != null && isFillable())
-			this.fillingCol = fillingCol;
+	public void setFillingCol(final Color col) {
+		if(col != null && isFillable())
+			fillingCol = col;
 	}
 
 	@Override
-	public void setFillingStyle(final FillingStyle fillingStyle) {
-		if(fillingStyle != null && isFillable())
-			this.fillingStyle.set(fillingStyle);
+	public void setFillingStyle(final FillingStyle style) {
+		if(style != null && isFillable())
+			fillingStyle.set(style);
 	}
 
 	@Override
-	public void setGradAngle(final double gradAngle) {
-		if(GLibUtilities.isValidCoordinate(gradAngle) && isInteriorStylable())
-			this.gradAngle = gradAngle;
+	public void setGradAngle(final double angle) {
+		if(GLibUtilities.isValidCoordinate(angle) && isInteriorStylable())
+			gradAngle = angle;
 	}
 
 	@Override
-	public void setGradColEnd(final Color gradColEnd) {
-		if(gradColEnd != null && isInteriorStylable())
-			this.gradColEnd = gradColEnd;
+	public void setGradColEnd(final Color col) {
+		if(col != null && isInteriorStylable())
+			gradColEnd = col;
 	}
 
 	@Override
-	public void setGradColStart(final Color gradColStart) {
-		if(gradColStart != null && isInteriorStylable())
-			this.gradColStart = gradColStart;
+	public void setGradColStart(final Color col) {
+		if(col != null && isInteriorStylable())
+			gradColStart = col;
 	}
 
 	@Override
-	public void setGradMidPt(final double gradMidPt) {
-		if(gradMidPt >= 0 && gradMidPt <= 1 && isInteriorStylable())
-			this.gradMidPt = gradMidPt;
+	public void setGradMidPt(final double pt) {
+		if(pt >= 0 && pt <= 1 && isInteriorStylable())
+			gradMidPt = pt;
 	}
 
 	@Override
-	public void setHasDbleBord(final boolean hasDbleBord) {
+	public void setHasDbleBord(final boolean bord) {
 		if(isDbleBorderable())
-			this.hasDbleBord = hasDbleBord;
+			hasDbleBord = bord;
 	}
 
 	@Override
-	public void setHasShadow(final boolean hasShadow) {
+	public void setHasShadow(final boolean shad) {
 		if(isShadowable())
-			this.hasShadow = hasShadow;
+			hasShadow = shad;
 	}
 
 	@Override
-	public void setHatchingsAngle(final double hatchingsAngle) {
-		if(GLibUtilities.isValidCoordinate(hatchingsAngle) && isInteriorStylable())
-			this.hatchingsAngle = hatchingsAngle;
+	public void setHatchingsAngle(final double angle) {
+		if(GLibUtilities.isValidCoordinate(angle) && isInteriorStylable())
+			hatchingsAngle = angle;
 	}
 
 	@Override
-	public void setHatchingsCol(final Color hatchingsCol) {
-		if(hatchingsCol != null && isInteriorStylable())
-			this.hatchingsCol = hatchingsCol;
+	public void setHatchingsCol(final Color col) {
+		if(col != null && isInteriorStylable())
+			hatchingsCol = col;
 	}
 
 	@Override
-	public void setHatchingsSep(final double hatchingsSep) {
-		if(GLibUtilities.isValidCoordinate(hatchingsSep) && hatchingsSep >= 0 && isInteriorStylable())
-			this.hatchingsSep = hatchingsSep;
+	public void setHatchingsSep(final double sep) {
+		if(GLibUtilities.isValidCoordinate(sep) && sep >= 0 && isInteriorStylable())
+			hatchingsSep = sep;
 	}
 
 	@Override
-	public void setHatchingsWidth(final double hatchingsWidth) {
-		if(GLibUtilities.isValidCoordinate(hatchingsWidth) && hatchingsWidth > 0 && isInteriorStylable())
-			this.hatchingsWidth = hatchingsWidth;
+	public void setHatchingsWidth(final double width) {
+		if(GLibUtilities.isValidCoordinate(width) && width > 0 && isInteriorStylable())
+			hatchingsWidth = width;
 	}
 
 	@Override
-	public void setLineColour(final Color lineColour) {
-		if(lineColour != null)
-			this.lineColour.set(lineColour);
+	public void setLineColour(final Color col) {
+		if(col != null)
+			lineColour.set(col);
 	}
 
 	@Override
@@ -706,33 +697,33 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public void setRotationAngle(final double rotationAngle) {
-		if(GLibUtilities.isValidCoordinate(rotationAngle))
-			this.rotationAngle = rotationAngle;
+	public void setRotationAngle(final double angle) {
+		if(GLibUtilities.isValidCoordinate(angle))
+			rotationAngle = angle;
 	}
 
 	@Override
-	public void setShadowAngle(final double shadowAngle) {
-		if(isShadowable() && GLibUtilities.isValidCoordinate(shadowAngle))
-			this.shadowAngle = shadowAngle;
+	public void setShadowAngle(final double angle) {
+		if(isShadowable() && GLibUtilities.isValidCoordinate(angle))
+			shadowAngle = angle;
 	}
 
 	@Override
-	public void setShadowCol(final Color shadowCol) {
-		if(shadowCol != null && isShadowable())
-			this.shadowCol = shadowCol;
+	public void setShadowCol(final Color col) {
+		if(col != null && isShadowable())
+			shadowCol = col;
 	}
 
 	@Override
-	public void setShadowSize(final double shadowSize) {
-		if(isShadowable() && shadowSize > 0 && GLibUtilities.isValidCoordinate(shadowSize))
-			this.shadowSize = shadowSize;
+	public void setShadowSize(final double size) {
+		if(isShadowable() && size > 0 && GLibUtilities.isValidCoordinate(size))
+			shadowSize = size;
 	}
 
 	@Override
-	public void setShowPts(final boolean showPts) {
+	public void setShowPts(final boolean pts) {
 		if(isShowPtsable())
-			this.showPts = showPts;
+			showPts = pts;
 	}
 
 	@Override
@@ -792,11 +783,11 @@ abstract class LShape implements ISingleShape {
 	}
 
 	@Override
-	public void setModified(final boolean modified) {
-		if(modified)
+	public void setModified(final boolean changed) {
+		if(changed)
 			MappingRegistry.REGISTRY.onObjectModified(this);
 
-		this.modified = modified;
+		modified = changed;
 	}
 
 	@Override

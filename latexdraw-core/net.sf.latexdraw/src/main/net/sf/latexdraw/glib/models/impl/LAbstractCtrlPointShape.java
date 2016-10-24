@@ -1,9 +1,5 @@
 package net.sf.latexdraw.glib.models.impl;
 
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.sf.latexdraw.glib.models.GLibUtilities;
 import net.sf.latexdraw.glib.models.ShapeFactory;
 import net.sf.latexdraw.glib.models.interfaces.shape.IControlPointShape;
@@ -11,6 +7,10 @@ import net.sf.latexdraw.glib.models.interfaces.shape.ILine;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.Position;
+
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Defines a model of a abstract shape that contains control points.<br>
@@ -224,12 +224,12 @@ abstract class LAbstractCtrlPointShape extends LModifiablePointsShape implements
 
 
 	@Override
-	public void setRotationAngle(final double rotationAngle) {
-		if(GLibUtilities.isValidCoordinate(rotationAngle)) {
-			final double diff = rotationAngle-this.rotationAngle;
+	public void setRotationAngle(final double angle) {
+		if(GLibUtilities.isValidCoordinate(angle)) {
+			final double diff = angle -this.rotationAngle;
 			final IPoint gc = getGravityCentre();
 
-			super.setRotationAngle(rotationAngle);
+			super.setRotationAngle(angle);
 			firstCtrlPts.forEach(pt -> pt.setPoint(pt.rotatePoint(gc, diff)));
 			updateSecondControlPoints();
 		}
