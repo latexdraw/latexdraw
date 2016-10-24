@@ -83,6 +83,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 			if(ex==null || !super.add(ex))
 				return false;
 		}
+		ex.printStackTrace();
 		notifyHandlers(ex);
 		return true;
 	}
@@ -95,6 +96,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 				return null;
 		}
 
+		ex.printStackTrace();
 		notifyHandlers(ex);
 		return ex;
 	}
@@ -105,6 +107,7 @@ public final class BadaboomCollector extends ArrayList<Throwable> implements Unc
 		synchronized(INSTANCE){
 			if(ex!=null) {
 				super.add(index, ex);
+				ex.printStackTrace();
 				notifyHandlers(ex);
 			}
 		}
