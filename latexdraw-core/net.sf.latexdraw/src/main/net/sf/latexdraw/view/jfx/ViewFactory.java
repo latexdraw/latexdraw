@@ -12,19 +12,16 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import java.util.Optional;
-
+import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
-import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
-import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import java.util.Optional;
 
 /**
- * The factory that creates views from given models.<br>
- * 2015-11-13<br>
- * @author Arnaud BLOUIN
- * @since 4.0
+ * The factory that creates views from given models.
  */
 @NonNullByDefault
 public final class ViewFactory {
@@ -41,12 +38,11 @@ public final class ViewFactory {
 	 * @return The created view or empty.
 	 * @since 3.0
 	 */
-	@SuppressWarnings("null")
 	public Optional<ViewShape<?, ?>> createView(final @Nullable IShape shape) {
 		// if(shape instanceof IGroup) return new LGroupView((IGroup)shape);
 		// if(shape instanceof IPlot) return new LPlotView((IPlot)shape);
-		// if(shape instanceof ISquare) return new LSquareView((ISquare)shape);
-		if(shape instanceof IRectangle) return Optional.of(new ViewRectangle((IRectangle)shape));
+		if(shape instanceof ISquare) return Optional.of(new ViewSquare((ISquare) shape));
+		if(shape instanceof IRectangle) return Optional.of(new ViewRectangle2((IRectangle) shape));
 		// if(shape instanceof IText) return new LTextView((IText)shape);
 		// if(shape instanceof ICircleArc) return new LCircleArcView((ICircleArc)shape);
 		// if(shape instanceof ICircle) return new LCircleView((ICircle)shape);

@@ -12,19 +12,15 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * The JFX shape view for rectangles.<br>
- * 2015-11-13<br>
- * @author Arnaud BLOUIN
- * @since 4.0
+ * The JFX shape view for rectangles.
  */
 public class ViewRectangle extends ViewPathShape<IRectangle> {
 	/** The top-left path element. */
@@ -42,12 +38,12 @@ public class ViewRectangle extends ViewPathShape<IRectangle> {
 	 */
 	public ViewRectangle(final @NonNull IRectangle sh) {
 		super(sh);
-		
+
 		moveTL = new MoveTo();
 		lineTR = new LineTo();
 		lineBR = new LineTo();
 		lineBL = new LineTo();
-		
+
 		border.getElements().add(moveTL);
 		border.getElements().add(lineTR);
 		border.getElements().add(lineBR);

@@ -12,10 +12,6 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import java.awt.geom.Point2D;
-
-import org.eclipse.jdt.annotation.NonNull;
-
 import javafx.beans.binding.Bindings;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -32,12 +28,12 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.ISingleShape;
 import net.sf.latexdraw.glib.models.interfaces.shape.LineStyle;
 import net.sf.latexdraw.util.LNumber;
+import org.eclipse.jdt.annotation.NonNull;
+
+import java.awt.geom.Point2D;
 
 /**
- * The base class of a JFX single shape view.<br>
- * 2015-11-29<br>
- * @author Arnaud BLOUIN
- * @since 4.0
+ * The base class of a JFX single shape view.
  * @param <S> The type of the model.
  * @param <T> The type of the JFX shape used to draw the view.
  */
@@ -48,7 +44,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	public ViewSingleShape(final @NonNull S sh) {
+	ViewSingleShape(final @NonNull S sh) {
 		super(sh);
 
 		border = createJFXShape();
@@ -80,22 +76,17 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 	private Paint getFillingPaint(final FillingStyle style) {
 		switch(style) {
 			case NONE:
-				if(model.hasShadow() && model.shadowFillsShape())
-					return model.getFillingCol().toJFX();
+				if(model.hasShadow() && model.shadowFillsShape()) return model.getFillingCol().toJFX();
 				return null;
-			case PLAIN:
-				return model.getFillingCol().toJFX();
-			case GRAD:
-				return computeGradient();
+			case PLAIN: return model.getFillingCol().toJFX();
+			case GRAD: return computeGradient();
 			case CLINES_PLAIN:
 			case HLINES_PLAIN:
 			case VLINES_PLAIN:
 			case CLINES:
 			case VLINES:
-			case HLINES:
-				return null;
-			default:
-				return null;
+			case HLINES: return null;
+			default: return null;
 		}
 	}
 
@@ -107,8 +98,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		double angle = model.getGradAngle() % (2d * Math.PI);
 		double gradMidPt = model.getGradMidPt();
 
-		if(angle < 0d)
-			angle = 2d * Math.PI + angle;
+		if(angle < 0d) angle = 2d * Math.PI + angle;
 
 		if(angle >= Math.PI) {
 			gradMidPt = 1d - gradMidPt;
@@ -116,8 +106,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 		}
 
 		if(LNumber.equalsDouble(angle, 0d)) {
-			if(gradMidPt < 0.5)
-				pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (tl.getX() + br.getX()) / 2d, br.getY()));
+			if(gradMidPt < 0.5) pt1.setY(pt2.getY() - Point2D.distance(pt2.getX(), pt2.getY(), (tl.getX() + br.getX()) / 2d, br.getY()));
 
 			pt2.setY(tl.getY() + (br.getY() - tl.getY()) * gradMidPt);
 		}else {
@@ -138,10 +127,8 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 				pt2 = pt2.rotatePoint(cg, -angle);
 				l = ShapeFactory.createLine(pt1, pt2);
 
-				if(angle >= 0d && angle < Math.PI / 2d)
-					l2 = l.getPerpendicularLine(tl);
-				else
-					l2 = l.getPerpendicularLine(ShapeFactory.createPoint(tl.getX(), br.getY()));
+				if(angle >= 0d && angle < Math.PI / 2d) l2 = l.getPerpendicularLine(tl);
+				else l2 = l.getPerpendicularLine(ShapeFactory.createPoint(tl.getX(), br.getY()));
 
 				pt1 = l.getIntersection(l2);
 				final double distance = Point2D.distance(cg.getX(), cg.getY(), pt1.getX(), pt1.getY());
@@ -150,27 +137,21 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 				final IPoint[] pts = l.findPoints(pt1, 2d * distance * gradMidPt);
 				pt2 = pts[0];
 
-				if(gradMidPt < 0.5)
-					pt1 = pt1.rotatePoint(model.getGravityCentre(), Math.PI);
+				if(gradMidPt < 0.5) pt1 = pt1.rotatePoint(model.getGravityCentre(), Math.PI);
 			}
 		}
 
-		return new LinearGradient(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY(), false, CycleMethod.NO_CYCLE,
-				new Stop[] { new Stop(0, model.getGradColStart().toJFX()), new Stop(1, model.getGradColEnd().toJFX()) });
+		return new LinearGradient(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY(), false, CycleMethod.NO_CYCLE, new Stop(0, model.getGradColStart().toJFX()), new Stop(1, model.getGradColEnd().toJFX()));
 	}
 
 	private void bindBorderMovable() {
 		if(model.isBordersMovable()) {
 			border.strokeTypeProperty().bind(Bindings.createObjectBinding(() -> {
 				switch(model.getBordersPosition()) {
-					case INTO:
-						return StrokeType.INSIDE;
-					case MID:
-						return StrokeType.CENTERED;
-					case OUT:
-						return StrokeType.OUTSIDE;
-					default:
-						return StrokeType.INSIDE;
+					case INTO: return StrokeType.INSIDE;
+					case MID: return StrokeType.CENTERED;
+					case OUT: return StrokeType.OUTSIDE;
+					default: return StrokeType.INSIDE;
 				}
 			}, model.borderPosProperty()));
 		}
@@ -183,7 +164,7 @@ public abstract class ViewSingleShape<S extends ISingleShape, T extends Shape> e
 				border.getStrokeDashArray().addAll(model.getDashSepBlack(), model.getDashSepWhite());
 				break;
 			case DOTTED:// FIXME problem when dotted line + INTO/OUT border position.
-				final double dotSep = model.getDotSep() + (model.hasDbleBord()?model.getThickness() * 2.0 + model.getDbleBordSep():model.getThickness());
+				final double dotSep = model.getDotSep() + (model.hasDbleBord() ? model.getThickness() * 2.0 + model.getDbleBordSep() : model.getThickness());
 				border.setStrokeLineCap(StrokeLineCap.ROUND);
 				border.getStrokeDashArray().addAll(0.0, dotSep);
 				break;

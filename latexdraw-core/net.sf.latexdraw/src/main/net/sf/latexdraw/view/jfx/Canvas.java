@@ -12,26 +12,6 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import java.awt.Point;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.jdt.annotation.NonNull;
-import org.malai.action.Action;
-import org.malai.action.ActionHandler;
-import org.malai.action.ActionsRegistry;
-import org.malai.mapping.ActiveUnary;
-import org.malai.mapping.IUnary;
-import org.malai.presentation.ConcretePresentation;
-import org.malai.properties.Zoomable;
-import org.malai.undo.Undoable;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
@@ -47,24 +27,41 @@ import net.sf.latexdraw.glib.models.interfaces.shape.IDrawing;
 import net.sf.latexdraw.glib.models.interfaces.shape.IPoint;
 import net.sf.latexdraw.glib.models.interfaces.shape.IRectangle;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
-import net.sf.latexdraw.glib.views.latex.DviPsColors;
+import net.sf.latexdraw.glib.models.interfaces.shape.ISquare;
 import net.sf.latexdraw.glib.views.ViewsSynchroniserHandler;
+import net.sf.latexdraw.glib.views.latex.DviPsColors;
 import net.sf.latexdraw.util.LNamespace;
 import net.sf.latexdraw.util.LNumber;
 import net.sf.latexdraw.util.Page;
+import org.eclipse.jdt.annotation.NonNull;
+import org.malai.action.Action;
+import org.malai.action.ActionHandler;
+import org.malai.action.ActionsRegistry;
+import org.malai.mapping.ActiveUnary;
+import org.malai.mapping.IUnary;
+import org.malai.presentation.ConcretePresentation;
+import org.malai.properties.Zoomable;
+import org.malai.undo.Undoable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import java.awt.Point;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Defines a canvas that draw the drawing and manages the selected shapes.<br>
- * 2014-10-15<br>
- * @author Arnaud BLOUIN
- * @since 4.0
+ * Defines a canvas that draw the drawing and manages the selected shapes.
  */
 public class Canvas extends Pane implements ConcretePresentation, ActionHandler, Zoomable, ViewsSynchroniserHandler {
 	/** The margin used to surround the drawing. */
 	public static final int MARGINS = 2500;
 
 	/** The origin of the drawing in the whole drawing area. */
-	public static @NonNull final IPoint ORIGIN = ShapeFactory.createPoint(MARGINS, MARGINS);
+	public static final @NonNull IPoint ORIGIN = ShapeFactory.createPoint(MARGINS, MARGINS);
 
 	/** The model of the view. */
 	protected final @NonNull IDrawing drawing;
@@ -130,11 +127,11 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 		rec.setFillingStyle(FillingStyle.GRAD);
 		rec.setFillingCol(DviPsColors.RED);
 		getDrawing().addShape(rec);
-		
-		rec = ShapeFactory.createRectangle(ShapeFactory.createPoint(400, 120), 200, 60);
-		rec.setFillingStyle(FillingStyle.PLAIN);
-		rec.setFillingCol(DviPsColors.RED);
-		getDrawing().addShape(rec);
+
+		ISquare sq = ShapeFactory.createSquare(ShapeFactory.createPoint(400, 300), 200);
+		sq.setFillingStyle(FillingStyle.PLAIN);
+		sq.setFillingCol(DviPsColors.RED);
+		getDrawing().addShape(sq);
 
 		// FlyweightThumbnail.setCanvas(this);
 		ActionsRegistry.INSTANCE.addHandler(this);
@@ -161,7 +158,7 @@ public class Canvas extends Pane implements ConcretePresentation, ActionHandler,
 				final Rectangle2D rec = selection.stream().map(sh -> {
 					Bounds b = shapesToViewMap.get(sh).getBoundsInLocal();
 					return (Rectangle2D)new Rectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
-				}).reduce((r1, r2) -> r1.createUnion(r2)).get();
+				}).reduce(Rectangle2D::createUnion).get();
 
 				selectionBorder.setLayoutX(rec.getMinX() * zoomLevel);
 				selectionBorder.setLayoutY(rec.getMinY() * zoomLevel);

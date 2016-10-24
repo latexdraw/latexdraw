@@ -12,17 +12,13 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 import javafx.scene.Group;
 import javafx.scene.shape.Shape;
 import net.sf.latexdraw.glib.models.interfaces.shape.IShape;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * The base class of a JFX shape view.<br>
- * 2015-11-13<br>
- * @author Arnaud BLOUIN
- * @since 4.0
+ * The base class of a JFX shape view.
  * @param <S> The type of the model.
  * @param <T> The type of the JFX shape used to draw the view.
  */
@@ -34,10 +30,10 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	public ViewShape(final @NonNull S sh) {
+	protected ViewShape(final @NonNull S sh) {
 		super();
 		model = sh;
-		
+
 		setFocusTraversable(false);
 	}
 
@@ -47,7 +43,7 @@ public abstract class ViewShape<S extends IShape, T extends Shape> extends Group
 	public void flush() {
 		// Should be overridden to flush the bindings.
 	}
-	
+
 	public @NonNull S getModel() {
 		return model;
 	}

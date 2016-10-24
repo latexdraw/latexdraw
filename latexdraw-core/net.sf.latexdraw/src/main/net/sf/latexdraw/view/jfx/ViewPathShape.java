@@ -12,10 +12,9 @@
  */
 package net.sf.latexdraw.view.jfx;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 import javafx.scene.shape.Path;
 import net.sf.latexdraw.glib.models.interfaces.shape.ISingleShape;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * The JFX view for shapes that can be painted as a path.<br>
@@ -29,7 +28,7 @@ public abstract class ViewPathShape<S extends ISingleShape> extends ViewSingleSh
 	 * Creates the view.
 	 * @param sh The model.
 	 */
-	public ViewPathShape(@NonNull final S sh) {
+	protected ViewPathShape(final @NonNull S sh) {
 		super(sh);
 	}
 
