@@ -1,3 +1,13 @@
+/*
+ * This file is part of LaTeXDraw.
+ * Copyright (c) 2005-2015 Arnaud BLOUIN
+ * LaTeXDraw is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2 of the License, or (at your option) any later version.
+ * LaTeXDraw is distributed without any warranty; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ */
 package net.sf.latexdraw;
 
 import com.google.inject.Guice;
@@ -18,7 +28,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
 import javafx.util.Duration;
 import net.sf.latexdraw.badaboom.BadaboomCollector;
 import net.sf.latexdraw.instruments.FrameController;
@@ -31,28 +40,12 @@ import org.malai.undo.UndoCollector;
 import java.io.IOException;
 
 /**
- * The main class of the project.<br>
- * <br>
- * This file is part of LaTeXDraw<br>
- * Copyright (c) 2005-2015 Arnaud BLOUIN<br>
- * <br>
- * LaTeXDraw is free software; you can redistribute it and/or modify it under the terms of the GNU
- * General Public License as published by the Free Software Foundation; either version 2 of the
- * License, or (at your option) any later version.<br>
- * <br>
- * LaTeXDraw is distributed without any warranty; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.<br>
- * <br>
- * 2014-10-14<br>
- * 
- * @author Arnaud BLOUIN
- * @version 4.0
+ * The main class of the project.
  */
 public class LaTeXDraw extends Application {
 	// Setting the size of the the saved actions.
 	static {
-		System.setProperty("sun.java2d.opengl","true");
+		System.setProperty("sun.java2d.opengl", "true");
 
 		Thread.setDefaultUncaughtExceptionHandler(BadaboomCollector.INSTANCE);
 		UndoCollector.INSTANCE.setSizeMax(30);
@@ -63,7 +56,6 @@ public class LaTeXDraw extends Application {
 
 	/**
 	 * The entry point of the program.
-	 * 
 	 * @param args The parameters.
 	 */
 	public static void main(String[] args) {
@@ -76,9 +68,9 @@ public class LaTeXDraw extends Application {
 		launch(args);
 	}
 
-	Pane		splashLayout;
-	Stage		mainStage;
-	ProgressBar	loadProgress;
+	Pane splashLayout;
+	Stage mainStage;
+	ProgressBar loadProgress;
 
 	@Override
 	public void init() {
@@ -126,9 +118,8 @@ public class LaTeXDraw extends Application {
 				updateProgress(0.1, 1.0);
 				try {
 					final Injector injector = Guice.createInjector(new LatexdrawModule());
-					final Callback<Class<?>, Object> guiceFactory = clazz -> injector.getInstance(clazz);
-					final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"),
-										LangTool.INSTANCE.getBundle(), new LatexdrawBuilderFactory(injector), guiceFactory);
+					final Parent root = FXMLLoader.load(getClass().getResource("/fxml/UI.fxml"), LangTool.INSTANCE.getBundle(),
+											new LatexdrawBuilderFactory(injector), injector::getInstance);
 					updateProgress(0.6, 1.0);
 					final Scene scene = new Scene(root);
 					updateProgress(0.7, 1.0);
